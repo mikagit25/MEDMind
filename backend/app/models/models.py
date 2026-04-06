@@ -1,0 +1,486 @@
+"""SQLAlchemy models for MedMind AI."""
+import uuid
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import (
+    Boolean, Column, DateTime, Float, ForeignKey, Index,
+    Integer, String, Text, UniqueConstraint, ARRAY, Numeric
+)
+from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.orm import relationship
+
+try:
+    from pgvector.sqlalchemy import Vector as _PgVector
+    _VECTOR_AVAILABLE = True
+except ImportError:
+    _PgVector = None
+    _VECTOR_AVAILABLE = False
+
+import os
+# Use JSONB for embeddings unless PGVECTOR_ENABLED=1 is explicitly set
+# (pgvector extension must be installed in PostgreSQL for this to work)
+_VECTOR_TYPE = _PgVector(1536) if (_VECTOR_AVAILABLE and os.getenv("PGVECTOR_ENABLED", "0") == "1") else JSONB
+
+from app.core.database import Base
+
+
+def gen_uuid():
+    return str(uuid.uuid4())
+
+
+# ============================================================
+# SPECIALTIES
+# ============================================================
+class Specialty(Base):
+    __tablename__ = "specialties"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    code = Column(String(50), unique=True, nullable=False)
+    name = Column(String(200), nullable=False)
+    name_en = Column(String(200))
+    icon = Column(String(10))
+    description = Column(Text)
+    is_veterinary = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=True)
+    module_count = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    modules = relationship("Module", back_populates="specialty")
+
+
+# ============================================================
+# MODULES
+# ============================================================
+class Module(Base):
+    __tablename__ = "modules"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    code = Column(String(50), unique=True, nullable=False)
+    specialty_id = Column(UUID(as_uuid=True), ForeignKey("specialties.id"))
+    title = Column(String(300), nullable=False)
+    title_en = Column(String(300))
+    description = Column(Text)
+    level = Column(Integer, default=1)
+    level_label = Column(String(50))
+    module_order = Column(Integer, default=0)
+    duration_hours = Column(Numeric(4, 1), default=0)
+    is_fundamental = Column(Boolean, default=False)
+    prerequisite_codes = Column(ARRAY(String))
+    prerequisites = Column(ARRAY(UUID(as_uuid=True)))
+    used_in = Column(ARRAY(UUID(as_uuid=True)))
+    embedding = Column(_VECTOR_TYPE)
+    content = Column(JSONB)
+    is_published = Column(Boolean, default=False)
+    is_veterinary = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    specialty = relationship("Specialty", back_populates="modules")
+    lessons = relationship("Lesson", back_populates="module", cascade="all, delete-orphan")
+    flashcards = relationship("Flashcard", back_populates="module", cascade="all, delete-orphan")
+    mcq_questions = relationship("MCQQuestion", back_populates="module", cascade="all, delete-orphan")
+    clinical_cases = relationship("ClinicalCase", back_populates="module", cascade="all, delete-orphan")
+
+
+# ============================================================
+# LESSONS
+# ============================================================
+class Lesson(Base):
+    __tablename__ = "lessons"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    lesson_code = Column(String(50))
+    title = Column(String(300), nullable=False)
+    lesson_order = Column(Integer, default=0)
+    content = Column(JSONB, nullable=False)
+    embedding = Column(_VECTOR_TYPE)
+    estimated_minutes = Column(Integer, default=20)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    module = relationship("Module", back_populates="lessons")
+
+
+# ============================================================
+# FLASHCARDS
+# ============================================================
+class Flashcard(Base):
+    __tablename__ = "flashcards"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    question = Column(Text, nullable=False)
+    answer = Column(Text, nullable=False)
+    difficulty = Column(String(20), default="medium")
+    category = Column(String(100))
+    tags = Column(ARRAY(String))
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    module = relationship("Module", back_populates="flashcards")
+
+
+# ============================================================
+# MCQ QUESTIONS
+# ============================================================
+class MCQQuestion(Base):
+    __tablename__ = "mcq_questions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    question = Column(Text, nullable=False)
+    options = Column(JSONB, nullable=False)
+    correct = Column(String(5), nullable=False)
+    explanation = Column(Text)
+    difficulty = Column(String(20), default="medium")
+    tags = Column(ARRAY(String))
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    module = relationship("Module", back_populates="mcq_questions")
+
+
+# ============================================================
+# CLINICAL CASES
+# ============================================================
+class ClinicalCase(Base):
+    __tablename__ = "clinical_cases"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    title = Column(String(300), nullable=False)
+    specialty = Column(String(100))
+    presentation = Column(Text, nullable=False)
+    vitals = Column(JSONB)
+    diagnosis = Column(String(300))
+    differential_diagnosis = Column(ARRAY(String))
+    management = Column(ARRAY(String))
+    teaching_points = Column(ARRAY(String))
+    content = Column(JSONB)
+    difficulty = Column(String(20), default="medium")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    module = relationship("Module", back_populates="clinical_cases")
+
+
+# ============================================================
+# USERS
+# ============================================================
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String(255), unique=True, nullable=False)
+    email_hash = Column(String(64))
+    password_hash = Column(String(255))
+    role = Column(String(50), default="student")
+    first_name = Column(String(100))
+    last_name = Column(String(100))
+    avatar_url = Column(Text)
+    subscription_tier = Column(String(50), default="free")
+    subscription_expires = Column(DateTime)
+    stripe_customer_id = Column(String(100))
+    profile_data = Column(JSONB, default=dict)
+    preferences = Column(JSONB, default=dict)
+    ai_requests_today = Column(Integer, default=0)
+    ai_requests_reset_at = Column(DateTime, default=datetime.utcnow)
+    xp = Column(Integer, default=0)
+    level = Column(Integer, default=1)
+    streak_days = Column(Integer, default=0)
+    last_active_date = Column(DateTime)
+    onboarding_completed = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)
+    oauth_provider = Column(String(50))
+    oauth_id = Column(String(200))
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
+    progress = relationship("UserProgress", back_populates="user", cascade="all, delete-orphan")
+    conversations = relationship("AIConversation", back_populates="user", cascade="all, delete-orphan")
+
+
+# ============================================================
+# USER PROGRESS
+# ============================================================
+class UserProgress(Base):
+    __tablename__ = "user_progress"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), primary_key=True)
+    lessons_completed = Column(ARRAY(UUID(as_uuid=True)), default=list)
+    flashcards_mastered = Column(ARRAY(UUID(as_uuid=True)), default=list)
+    mcq_score = Column(Numeric(5, 2), default=0)
+    mcq_attempts = Column(Integer, default=0)
+    completion_percent = Column(Numeric(5, 2), default=0)
+    next_review_at = Column(DateTime)
+    ease_factor = Column(Numeric(4, 2), default=2.5)
+    interval_days = Column(Integer, default=1)
+    started_at = Column(DateTime, default=datetime.utcnow)
+    last_activity_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="progress")
+
+
+# ============================================================
+# FLASHCARD REVIEWS (per-card SM-2)
+# ============================================================
+class FlashcardReview(Base):
+    __tablename__ = "flashcard_reviews"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    flashcard_id = Column(UUID(as_uuid=True), ForeignKey("flashcards.id", ondelete="CASCADE"), primary_key=True)
+    ease_factor = Column(Numeric(4, 2), default=2.5)
+    interval_days = Column(Integer, default=1)
+    repetitions = Column(Integer, default=0)
+    next_review_at = Column(DateTime, default=datetime.utcnow)
+    last_reviewed_at = Column(DateTime)
+    last_quality = Column(Integer)
+
+
+# ============================================================
+# AI CONVERSATIONS
+# ============================================================
+class AIConversation(Base):
+    __tablename__ = "ai_conversations"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    title = Column(String(200))
+    specialty = Column(String(100))
+    mode = Column(String(50), default="tutor")
+    model_used = Column(String(100))
+    cached_responses = Column(Integer, default=0)
+    total_tokens = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = relationship("User", back_populates="conversations")
+    messages = relationship("AIConversationMessage", back_populates="conversation", cascade="all, delete-orphan")
+
+
+# ============================================================
+# AI CONVERSATION MESSAGES
+# ============================================================
+class AIConversationMessage(Base):
+    __tablename__ = "ai_conversation_messages"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conversation_id = Column(UUID(as_uuid=True), ForeignKey("ai_conversations.id", ondelete="CASCADE"), nullable=False)
+    role = Column(String(20), nullable=False)
+    content = Column(Text, nullable=False)
+    pubmed_refs = Column(JSONB)
+    model_used = Column(String(100))
+    tokens_used = Column(Integer, default=0)
+    from_cache = Column(Boolean, default=False)
+    feedback = Column(Integer)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    conversation = relationship("AIConversation", back_populates="messages")
+
+
+# ============================================================
+# REFRESH TOKENS
+# ============================================================
+class RefreshToken(Base):
+    __tablename__ = "refresh_tokens"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    token_hash = Column(String(64), unique=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    is_revoked = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="refresh_tokens")
+
+
+# ============================================================
+# DRUGS
+# ============================================================
+class Drug(Base):
+    __tablename__ = "drugs"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(200), nullable=False)
+    generic_name = Column(String(200))
+    drug_class = Column(String(100))
+    mechanism = Column(Text)
+    indications = Column(ARRAY(String))
+    contraindications = Column(ARRAY(String))
+    dosing = Column(JSONB)
+    adverse_effects = Column(JSONB)
+    interactions = Column(ARRAY(String))
+    monitoring = Column(ARRAY(String))
+    black_box_warning = Column(Text)
+    is_high_yield = Column(Boolean, default=False)
+    is_nti = Column(Boolean, default=False)
+    is_veterinary = Column(Boolean, default=False)
+    content = Column(JSONB)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+# ============================================================
+# USER NOTES
+# ============================================================
+class UserNote(Base):
+    __tablename__ = "user_notes"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    lesson_id = Column(UUID(as_uuid=True), ForeignKey("lessons.id"))
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id"))
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+# ============================================================
+# USER BOOKMARKS
+# ============================================================
+class UserBookmark(Base):
+    __tablename__ = "user_bookmarks"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    content_type = Column(String(50), nullable=False)
+    content_id = Column(UUID(as_uuid=True), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (UniqueConstraint("user_id", "content_type", "content_id"),)
+
+
+# ============================================================
+# USER ACHIEVEMENTS
+# ============================================================
+class UserAchievement(Base):
+    __tablename__ = "user_achievements"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    achievement_code = Column(String(100), nullable=False)
+    unlocked_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (UniqueConstraint("user_id", "achievement_code"),)
+
+
+# ============================================================
+# STRIPE EVENTS
+# ============================================================
+class StripeEvent(Base):
+    __tablename__ = "stripe_events"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    stripe_event_id = Column(String(200), unique=True, nullable=False)
+    event_type = Column(String(100), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    data = Column(JSONB)
+    processed = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+# ============================================================
+# USER CONSENTS (GDPR)
+# ============================================================
+class UserConsent(Base):
+    __tablename__ = "user_consents"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    consent_type = Column(String(100), nullable=False)
+    version = Column(String(50))
+    given_at = Column(DateTime, default=datetime.utcnow)
+    ip_address = Column(String(45))
+
+    __table_args__ = (UniqueConstraint("user_id", "consent_type"),)
+
+
+# ============================================================
+# AUDIT LOG (GDPR)
+# ============================================================
+class AuditLog(Base):
+    __tablename__ = "audit_log"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    action = Column(String(100), nullable=False)
+    resource_type = Column(String(100))
+    resource_id = Column(UUID(as_uuid=True))
+    ip_address = Column(String(45))
+    user_agent = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+# ============================================================
+# COURSES  (teacher-created, assigned to students)
+# ============================================================
+class Course(Base):
+    __tablename__ = "courses"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    teacher_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    title = Column(String(300), nullable=False)
+    description = Column(Text)
+    # invite code — students join with this
+    invite_code = Column(String(16), unique=True, nullable=False, default=lambda: uuid.uuid4().hex[:8].upper())
+    is_active = Column(Boolean, default=True)
+    starts_at = Column(DateTime)
+    ends_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    teacher = relationship("User", foreign_keys=[teacher_id])
+    course_modules = relationship("CourseModule", back_populates="course", cascade="all, delete-orphan")
+    enrollments = relationship("CourseEnrollment", back_populates="course", cascade="all, delete-orphan")
+    assignments = relationship("CourseAssignment", back_populates="course", cascade="all, delete-orphan")
+
+
+class CourseModule(Base):
+    """Ordered list of modules inside a course."""
+    __tablename__ = "course_modules"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE"), nullable=False)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    module_order = Column(Integer, default=0)
+    added_at = Column(DateTime, default=datetime.utcnow)
+
+    course = relationship("Course", back_populates="course_modules")
+    module = relationship("Module")
+
+    __table_args__ = (UniqueConstraint("course_id", "module_id"),)
+
+
+class CourseEnrollment(Base):
+    """Student enrolled in a course."""
+    __tablename__ = "course_enrollments"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE"), nullable=False)
+    student_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    enrolled_at = Column(DateTime, default=datetime.utcnow)
+    status = Column(String(20), default="active")  # active | dropped | completed
+
+    course = relationship("Course", back_populates="enrollments")
+    student = relationship("User", foreign_keys=[student_id])
+
+    __table_args__ = (UniqueConstraint("course_id", "student_id"),)
+
+
+class CourseAssignment(Base):
+    """Teacher-set deadline for a module in a course."""
+    __tablename__ = "course_assignments"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE"), nullable=False)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    title = Column(String(300))
+    description = Column(Text)
+    due_date = Column(DateTime)
+    max_score = Column(Integer, default=100)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    course = relationship("Course", back_populates="assignments")
+    module = relationship("Module")

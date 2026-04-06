@@ -1,0 +1,326 @@
+"""AI tutor routes."""
+import uuid
+import json
+from datetime import datetime
+from typing import List, Optional, AsyncGenerator
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import StreamingResponse
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+
+from app.core.database import get_db
+from app.models.models import User, AIConversation, AIConversationMessage
+from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, MessageOut
+from app.api.deps import get_current_user
+from app.services.ai_router import route_ai_request, route_ai_stream
+from app.services.pubmed_service import search_pubmed, build_pubmed_context
+
+router = APIRouter(prefix="/ai", tags=["ai"])
+
+# Per-tier daily limits (from config: AI_LIMIT_FREE=5, AI_LIMIT_STUDENT=50, AI_LIMIT_PRO=999999)
+TIER_DAILY_LIMITS = {
+    "free": 5,
+    "student": 50,
+    "pro": 999999,
+    "clinic": 999999,
+    "lifetime": 999999,
+}
+
+
+async def check_ai_rate_limit(user: User, db: AsyncSession) -> None:
+    """Check if user has exceeded their daily AI request limit."""
+    from sqlalchemy import func
+    from app.models.models import AIConversationMessage
+    limit = TIER_DAILY_LIMITS.get(user.subscription_tier, 5)
+    if limit >= 999999:
+        return  # unlimited
+
+    today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    # Count user messages today (each user message = 1 AI request)
+    count_result = await db.execute(
+        select(func.count(AIConversationMessage.id))
+        .join(AIConversation, AIConversation.id == AIConversationMessage.conversation_id)
+        .where(
+            AIConversation.user_id == user.id,
+            AIConversationMessage.role == "user",
+            AIConversationMessage.created_at >= today_start,
+        )
+    )
+    count = count_result.scalar() or 0
+    if count >= limit:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Daily AI limit reached ({limit} questions/day on {user.subscription_tier} plan). Upgrade for more.",
+        )
+
+
+@router.post("/ask", response_model=AIAskResponse)
+async def ask_ai(
+    data: AIAskRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    await check_ai_rate_limit(user, db)
+    # Get or create conversation
+    conversation = None
+    if data.conversation_id:
+        result = await db.execute(
+            select(AIConversation).where(
+                AIConversation.id == data.conversation_id,
+                AIConversation.user_id == user.id,
+            )
+        )
+        conversation = result.scalar_one_or_none()
+
+    if not conversation:
+        conversation = AIConversation(
+            user_id=user.id,
+            specialty=data.specialty,
+            mode=data.mode,
+            title=data.message[:80],
+        )
+        db.add(conversation)
+        await db.flush()
+
+    # Load conversation history (last 10 messages)
+    msgs_result = await db.execute(
+        select(AIConversationMessage)
+        .where(AIConversationMessage.conversation_id == conversation.id)
+        .order_by(AIConversationMessage.created_at.desc())
+        .limit(10)
+    )
+    recent_msgs = list(reversed(msgs_result.scalars().all()))
+    history = [{"role": m.role, "content": m.content} for m in recent_msgs]
+
+    # PubMed search
+    pubmed_refs = []
+    pubmed_context = ""
+    if data.search_pubmed and user.subscription_tier != "free":
+        pubmed_refs = await search_pubmed(data.message)
+        pubmed_context = build_pubmed_context(pubmed_refs)
+
+    # AI routing
+    result = await route_ai_request(
+        user=user,
+        message=data.message,
+        conversation_history=history,
+        specialty=data.specialty,
+        mode=data.mode,
+        pubmed_context=pubmed_context,
+    )
+
+    # Save messages
+    user_msg = AIConversationMessage(
+        conversation_id=conversation.id,
+        role="user",
+        content=data.message,
+    )
+    ai_msg = AIConversationMessage(
+        conversation_id=conversation.id,
+        role="assistant",
+        content=result["reply"],
+        pubmed_refs=pubmed_refs if pubmed_refs else None,
+        model_used=result.get("model"),
+        from_cache=result.get("from_cache", False),
+        tokens_used=result.get("tokens", 0),
+    )
+    db.add(user_msg)
+    db.add(ai_msg)
+
+    # Update conversation stats
+    conversation.model_used = result.get("model")
+    if result.get("from_cache"):
+        conversation.cached_responses += 1
+
+    await db.commit()
+
+    return AIAskResponse(
+        reply=result["reply"],
+        conversation_id=conversation.id,
+        model_used=result.get("model") or "system",
+        from_cache=result.get("from_cache", False),
+        pubmed_refs=pubmed_refs if pubmed_refs else None,
+        xp_earned=2 if not result.get("error") else 0,
+    )
+
+
+@router.get("/conversations", response_model=List[ConversationOut])
+async def list_conversations(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    result = await db.execute(
+        select(AIConversation)
+        .where(AIConversation.user_id == user.id)
+        .order_by(AIConversation.updated_at.desc())
+        .limit(20)
+    )
+    return result.scalars().all()
+
+
+@router.post("/ask/stream")
+async def ask_ai_stream(
+    data: AIAskRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Server-Sent Events streaming endpoint for AI responses."""
+    await check_ai_rate_limit(user, db)
+
+    # Get or create conversation
+    conversation = None
+    if data.conversation_id:
+        result = await db.execute(
+            select(AIConversation).where(
+                AIConversation.id == data.conversation_id,
+                AIConversation.user_id == user.id,
+            )
+        )
+        conversation = result.scalar_one_or_none()
+
+    if not conversation:
+        conversation = AIConversation(
+            user_id=user.id,
+            specialty=data.specialty,
+            mode=data.mode,
+            title=data.message[:80],
+        )
+        db.add(conversation)
+        await db.flush()
+        await db.commit()
+        await db.refresh(conversation)
+
+    # Load history
+    msgs_result = await db.execute(
+        select(AIConversationMessage)
+        .where(AIConversationMessage.conversation_id == conversation.id)
+        .order_by(AIConversationMessage.created_at.desc())
+        .limit(10)
+    )
+    recent_msgs = list(reversed(msgs_result.scalars().all()))
+    history = [{"role": m.role, "content": m.content} for m in recent_msgs]
+
+    # PubMed search
+    pubmed_refs = []
+    pubmed_context = ""
+    if data.search_pubmed and user.subscription_tier != "free":
+        pubmed_refs = await search_pubmed(data.message)
+        pubmed_context = build_pubmed_context(pubmed_refs)
+
+    conv_id = str(conversation.id)
+
+    async def event_stream() -> AsyncGenerator[str, None]:
+        full_reply = ""
+        model_used = None
+
+        try:
+            # Send conversation_id first so frontend knows where to save
+            yield f"data: {json.dumps({'type': 'meta', 'conversation_id': conv_id})}\n\n"
+
+            async for chunk in route_ai_stream(
+                user=user,
+                message=data.message,
+                conversation_history=history,
+                specialty=data.specialty,
+                mode=data.mode,
+                pubmed_context=pubmed_context,
+            ):
+                if chunk.get("type") == "text":
+                    text = chunk["text"]
+                    full_reply += text
+                    yield f"data: {json.dumps({'type': 'text', 'text': text})}\n\n"
+                elif chunk.get("type") == "model":
+                    model_used = chunk["model"]
+                elif chunk.get("type") == "error":
+                    yield f"data: {json.dumps({'type': 'error', 'detail': chunk['detail']})}\n\n"
+                    return
+
+            # Save to DB after stream completes
+            import uuid as _uuid
+            ai_msg_uuid = _uuid.uuid4()
+            user_msg = AIConversationMessage(
+                conversation_id=conversation.id,
+                role="user",
+                content=data.message,
+            )
+            ai_msg = AIConversationMessage(
+                id=ai_msg_uuid,
+                conversation_id=conversation.id,
+                role="assistant",
+                content=full_reply,
+                pubmed_refs=pubmed_refs if pubmed_refs else None,
+                model_used=model_used,
+                from_cache=False,
+            )
+            db.add(user_msg)
+            db.add(ai_msg)
+            await db.commit()
+
+            yield f"data: {json.dumps({'type': 'done', 'model': model_used or 'system', 'message_id': str(ai_msg_uuid)})}\n\n"
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            yield f"data: {json.dumps({'type': 'error', 'detail': str(e)})}\n\n"
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@router.get("/conversations/{conversation_id}/messages", response_model=List[MessageOut])
+async def get_conversation_messages(
+    conversation_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    # Verify ownership
+    conv_result = await db.execute(
+        select(AIConversation).where(
+            AIConversation.id == conversation_id,
+            AIConversation.user_id == user.id,
+        )
+    )
+    if not conv_result.scalar_one_or_none():
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    result = await db.execute(
+        select(AIConversationMessage)
+        .where(AIConversationMessage.conversation_id == conversation_id)
+        .order_by(AIConversationMessage.created_at)
+    )
+    return result.scalars().all()
+
+
+@router.post("/feedback")
+async def submit_feedback(
+    message_id: UUID,
+    rating: int,  # 1 = thumbs up, -1 = thumbs down
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    if rating not in (1, -1):
+        raise HTTPException(status_code=400, detail="Rating must be 1 or -1")
+
+    result = await db.execute(
+        select(AIConversationMessage)
+        .join(AIConversation)
+        .where(
+            AIConversationMessage.id == message_id,
+            AIConversation.user_id == user.id,
+        )
+    )
+    msg = result.scalar_one_or_none()
+    if not msg:
+        raise HTTPException(status_code=404, detail="Message not found")
+
+    msg.feedback = rating
+    await db.commit()
+    return {"status": "ok"}

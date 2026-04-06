@@ -1,0 +1,47 @@
+{
+  "project": "MedMind AI",
+  "generated": "2026",
+  "base_modules": [
+    "BASE-CARDIO-ANATOMY-001",
+    "BASE-RESP-PHYSIO-002",
+    "BASE-NEURO-ANATOMY-003",
+    "BASE-PHARMA-001",
+    "BASE-LAB-DIAGNOSTICS-005",
+    "BASE-ECG-006",
+    "BASE-RADIOLOGY-007",
+    "BASE-EMERGENCY-008"
+  ],
+  "specialty_modules": {
+    "Кардиология": [
+      "CARDIO-001",
+      "CARDIO-002",
+      "CARDIO-003",
+      "CARDIO-004",
+      "CARDIO-005",
+      "CARDIO-006",
+      "CARDIO-007",
+      "CARDIO-008",
+      "CARDIO-009",
+      "CARDIO-0010"
+    ]
+  },
+  "pending_specialties": [
+    "Терапия",
+    "Неврология",
+    "Хирургия",
+    "Педиатрия",
+    "Акушерство и гинекология",
+    "Психиатрия",
+    "Анестезиология",
+    "Онкология",
+    "Дерматология",
+    "Мелкие животные",
+    "Экзотические животные",
+    "Лошади",
+    "КРС",
+    "Птицы",
+    "Зоопарковая медицина"
+  ],
+  "total_files_generated": 18,
+  "status": "IN_PROGRESS"
+}

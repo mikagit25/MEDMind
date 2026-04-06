@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-syne: 'Syne', sans-serif;
+    --font-serif: 'Source Serif 4', serif;
+  }
+
+  /* Dark mode — inverted warm palette */
+  .dark {
+    --tw-bg-opacity: 1;
+  }
+
+  .dark body {
+    background-color: #1a1814;
+    color: #f0ede8;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c8c0b4;
+    border-radius: 2px;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: #4a453e;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-ink text-white font-syne font-semibold text-sm px-4 py-2 rounded transition-colors hover:bg-red;
+  }
+
+  .dark .btn-primary {
+    @apply bg-gold text-ink hover:bg-amber-2;
+  }
+
+  .btn-secondary {
+    @apply border border-border-2 bg-surface-2 text-ink-2 font-syne font-semibold text-sm px-4 py-2 rounded transition-colors hover:border-ink hover:text-ink;
+  }
+
+  .card {
+    @apply bg-surface border border-border rounded-lg p-4;
+  }
+
+  .dark .card {
+    @apply bg-[#2a2520] border-[#3d3730];
+  }
+
+  /* Dark mode general overrides — surfaces, text, inputs */
+  .dark .bg-surface { background-color: #2a2520 !important; }
+  .dark .bg-bg      { background-color: #1e1c18 !important; }
+  .dark .bg-bg-2    { background-color: #252118 !important; }
+  .dark .bg-surface-2 { background-color: #2f2b24 !important; }
+
+  .dark .text-ink   { color: #f0ede8 !important; }
+  .dark .text-ink-2 { color: #b8b0a4 !important; }
+  .dark .text-ink-3 { color: #7a7268 !important; }
+
+  .dark .border-border  { border-color: #3d3730 !important; }
+  .dark .border-border-2 { border-color: #4a4438 !important; }
+
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: #252118;
+    color: #f0ede8;
+    border-color: #3d3730;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #5a5248;
+  }
+
+  .dark input:focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    border-color: #7a7268;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-syne font-semibold;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-2 px-3 py-2 rounded text-sm font-syne font-semibold text-white/55 transition-all hover:bg-white/10 hover:text-white cursor-pointer border-none bg-transparent w-full text-left;
+  }
+
+  .nav-item.active {
+    @apply bg-gold/15 text-gold;
+  }
+}
