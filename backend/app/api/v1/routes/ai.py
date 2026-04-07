@@ -6,6 +6,7 @@ from typing import List, Optional, AsyncGenerator
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -324,3 +325,115 @@ async def submit_feedback(
     msg.feedback = rating
     await db.commit()
     return {"status": "ok"}
+
+
+# ============================================================
+# CONCEPT EXPLANATION
+# ============================================================
+class ExplainRequest(BaseModel):
+    level: Optional[str] = "intermediate"  # beginner | intermediate | expert
+    context: Optional[str] = None           # optional module/lesson context
+
+
+@router.post("/explain/{concept}")
+async def explain_concept(
+    concept: str,
+    data: ExplainRequest = ExplainRequest(),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get a structured explanation of a medical concept."""
+    from app.prompts.tutor_prompts import explain_concept_prompt
+    await check_ai_rate_limit(user, db)
+
+    prompt = explain_concept_prompt(concept, data.level or "intermediate", data.context)
+    response = await route_ai_request(
+        message=prompt,
+        user=user,
+        db=db,
+        conversation_id=None,
+        specialty=None,
+        mode="explain",
+    )
+    return {"concept": concept, "explanation": response.get("response", ""), "model": response.get("model")}
+
+
+# ============================================================
+# QUIZ MODE
+# ============================================================
+class QuizRequest(BaseModel):
+    difficulty: Optional[str] = "medium"
+    num_questions: int = 3
+    previous_mistakes: Optional[list[str]] = None
+
+
+@router.post("/quiz/{topic}")
+async def quiz_mode(
+    topic: str,
+    data: QuizRequest = QuizRequest(),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate oral exam questions on a medical topic."""
+    from app.prompts.tutor_prompts import quiz_mode_prompt
+    await check_ai_rate_limit(user, db)
+
+    prompt = quiz_mode_prompt(topic, data.difficulty or "medium", data.previous_mistakes or [])
+    response = await route_ai_request(
+        message=prompt,
+        user=user,
+        db=db,
+        conversation_id=None,
+        specialty=topic,
+        mode="quiz",
+    )
+    return {"topic": topic, "quiz": response.get("response", ""), "model": response.get("model")}
+
+
+# ============================================================
+# CASE DISCUSSION
+# ============================================================
+class CaseDiscussRequest(BaseModel):
+    user_decision: str
+    discussion_point: Optional[str] = None
+
+
+@router.post("/case-discuss/{case_id}")
+async def discuss_case(
+    case_id: UUID,
+    data: CaseDiscussRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Discuss a clinical case with the AI tutor."""
+    from app.models.models import ClinicalCase
+    from app.prompts.tutor_prompts import case_discussion_prompt
+    await check_ai_rate_limit(user, db)
+
+    case_result = await db.execute(select(ClinicalCase).where(ClinicalCase.id == case_id))
+    case = case_result.scalar_one_or_none()
+    if not case:
+        raise HTTPException(status_code=404, detail="Clinical case not found")
+
+    case_data = {
+        "title": case.title,
+        "presentation": case.presentation,
+        "diagnosis": case.diagnosis,
+        "management": case.management,
+    }
+    prompt = case_discussion_prompt(case_data, data.user_decision, data.discussion_point)
+    response = await route_ai_request(
+        message=prompt,
+        user=user,
+        db=db,
+        conversation_id=None,
+        specialty=case.specialty,
+        mode="case",
+    )
+    return {
+        "case_id": str(case_id),
+        "discussion": response.get("response", ""),
+        "model": response.get("model"),
+    }
+
+

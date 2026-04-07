@@ -13,6 +13,7 @@ from app.core.security import (
     create_access_token, create_refresh_token,
 )
 from app.core.config import settings
+from app.core.encryption import encrypt_email, decrypt_email, email_search_hash
 from app.models.models import User, RefreshToken, UserConsent
 from pydantic import BaseModel
 from app.schemas.schemas import UserRegister, UserLogin, TokenResponse, RefreshRequest, UserOut
@@ -58,15 +59,20 @@ class UserUpdate(BaseModel):
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(data: UserRegister, request: Request, db: AsyncSession = Depends(get_db)):
     await check_auth_rate_limit(request)
-    # Check if email already exists
-    existing = await db.execute(select(User).where(User.email == data.email.lower()))
+    email_lower = data.email.lower()
+    search_hash = email_search_hash(email_lower)
+
+    # Check if email already exists (using search hash for encrypted lookup)
+    existing = await db.execute(
+        select(User).where(User.email_hash == search_hash)
+    )
     if existing.scalar_one_or_none():
         await record_failed_attempt(request)
         raise HTTPException(status_code=400, detail="Email already registered")
 
     user = User(
-        email=data.email.lower(),
-        email_hash=hash_email(data.email),
+        email=encrypt_email(email_lower),
+        email_hash=search_hash,
         password_hash=hash_password(data.password),
         first_name=data.first_name,
         last_name=data.last_name,
@@ -139,7 +145,10 @@ async def logout(
 @router.post("/login", response_model=TokenResponse)
 async def login(data: UserLogin, request: Request, db: AsyncSession = Depends(get_db)):
     await check_auth_rate_limit(request)
-    result = await db.execute(select(User).where(User.email == data.email.lower(), User.is_active == True))
+    search_hash = email_search_hash(data.email.lower())
+    result = await db.execute(
+        select(User).where(User.email_hash == search_hash, User.is_active == True)
+    )
     user = result.scalar_one_or_none()
 
     if not user or not user.password_hash or not verify_password(data.password, user.password_hash):
@@ -291,8 +300,9 @@ async def forgot_password(
     """Send password-reset link. Always returns 200 to prevent email enumeration."""
     await check_auth_rate_limit(request)
 
+    search_hash = email_search_hash(data.email.lower())
     result = await db.execute(
-        select(User).where(User.email == data.email.lower(), User.is_active == True)
+        select(User).where(User.email_hash == search_hash, User.is_active == True)
     )
     user = result.scalar_one_or_none()
 

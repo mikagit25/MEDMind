@@ -67,6 +67,17 @@ class UserOut(BaseModel):
 
     model_config = {"from_attributes": True}
 
+    @classmethod
+    def model_validate(cls, obj, **kwargs):
+        instance = super().model_validate(obj, **kwargs)
+        # Decrypt email if it was Fernet-encrypted in the DB
+        try:
+            from app.core.encryption import decrypt_email
+            instance.email = decrypt_email(instance.email)
+        except Exception:
+            pass
+        return instance
+
 
 class UserUpdate(BaseModel):
     first_name: Optional[str] = None

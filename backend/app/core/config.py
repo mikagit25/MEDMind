@@ -69,6 +69,9 @@ class Settings(BaseSettings):
     EMAIL_FROM: str = "MedMind AI <noreply@medmind.ai>"
     FRONTEND_URL: str = "http://localhost:3000"
 
+    # Email encryption (Fernet/AES-256) — generate with: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    ENCRYPTION_KEY: str = ""   # Required in production for email encryption
+
     # Modules import path
     MODULES_DIR: str = "/app/data/modules"
 

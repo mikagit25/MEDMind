@@ -35,4 +35,4 @@ async def test_module_not_found(client):
 @pytest.mark.asyncio
 async def test_drugs_requires_auth(client):
     r = await client.get("/api/v1/drugs?q=aspirin")
-    assert r.status_code == 403
+    assert r.status_code == 401

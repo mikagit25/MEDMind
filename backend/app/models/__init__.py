@@ -2,7 +2,9 @@ from app.models.models import (
     Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase,
     User, UserProgress, FlashcardReview, AIConversation,
     AIConversationMessage, RefreshToken, Drug, UserNote, UserBookmark,
-    UserAchievement, StripeEvent, UserConsent, AuditLog
+    UserAchievement, StripeEvent, UserConsent, AuditLog,
+    DrugInteraction, AnimalSpecies, VeterinaryDosing, CMECredit,
+    Course, CourseModule, CourseEnrollment, CourseAssignment,
 )
 
 __all__ = [
@@ -10,4 +12,6 @@ __all__ = [
     "User", "UserProgress", "FlashcardReview", "AIConversation",
     "AIConversationMessage", "RefreshToken", "Drug", "UserNote", "UserBookmark",
     "UserAchievement", "StripeEvent", "UserConsent", "AuditLog",
+    "DrugInteraction", "AnimalSpecies", "VeterinaryDosing", "CMECredit",
+    "Course", "CourseModule", "CourseEnrollment", "CourseAssignment",
 ]
