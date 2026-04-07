@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
-import { authApi } from "@/lib/api";
+import { authApi, api } from "@/lib/api";
 import { Suspense } from "react";
 
 function GoogleSuccessHandler() {
@@ -12,32 +12,33 @@ function GoogleSuccessHandler() {
   const { setAuth } = useAuthStore();
 
   useEffect(() => {
-    const accessToken = params.get("access_token");
-    const refreshToken = params.get("refresh_token");
-    const needsOnboarding = params.get("onboarding") === "1";
+    const code = params.get("code");
 
-    if (!accessToken || !refreshToken) {
+    if (!code) {
       router.replace("/login?error=google_failed");
       return;
     }
 
-    // Store tokens in localStorage first so the /me request works
-    localStorage.setItem("access_token", accessToken);
-    localStorage.setItem("refresh_token", refreshToken);
+    // Exchange one-time code for tokens (server-side, tokens never in URL)
+    api.post("/auth/google/exchange", null, { params: { code } })
+      .then(async (res) => {
+        const { access_token, refresh_token, onboarding } = res.data;
 
-    // Fetch user profile
-    authApi.me()
-      .then((res) => {
-        setAuth(res.data, accessToken, refreshToken);
-        if (needsOnboarding) {
+        // Store tokens
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
+
+        // Fetch user profile
+        const meRes = await authApi.me();
+        setAuth(meRes.data, access_token, refresh_token);
+
+        if (onboarding) {
           router.replace("/onboarding");
         } else {
           router.replace("/dashboard");
         }
       })
       .catch(() => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
         router.replace("/login?error=google_failed");
       });
   }, [params, router, setAuth]);

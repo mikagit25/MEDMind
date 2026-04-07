@@ -36,10 +36,10 @@ COMPLEX_KEYWORDS = [
     "contraindication", "interaction", "epidemiology", "etiology",
 ]
 
-TIER_LIMITS = {
+TIER_LIMITS: dict[str, int | None] = {
     "free": settings.AI_LIMIT_FREE,
     "student": settings.AI_LIMIT_STUDENT,
-    "pro": settings.AI_LIMIT_PRO,
+    "pro": settings.AI_LIMIT_PRO,       # None = unlimited
     "clinic": settings.AI_LIMIT_CLINIC,
     "lifetime": settings.AI_LIMIT_LIFETIME,
 }
@@ -281,18 +281,19 @@ async def route_ai_request(
     redis = await get_redis()
     limit = TIER_LIMITS.get(user.subscription_tier, 5)
     rate_key = f"ai_requests:{user.id}"
-    current = await redis.get(rate_key)
 
-    if current and int(current) >= limit:
-        return {
-            "reply": (
-                f"You've reached your daily limit of {limit} AI requests. "
-                "Upgrade your plan for more requests."
-            ),
-            "model": None,
-            "from_cache": False,
-            "error": "rate_limited",
-        }
+    if limit is not None:
+        current = await redis.get(rate_key)
+        if current and int(current) >= limit:
+            return {
+                "reply": (
+                    f"You've reached your daily limit of {limit} AI requests. "
+                    "Upgrade your plan for more requests."
+                ),
+                "model": None,
+                "from_cache": False,
+                "error": "rate_limited",
+            }
 
     # Check cache (only for simple non-conversational queries)
     cache_key = None

@@ -76,8 +76,8 @@ app = FastAPI(
     description="Medical & Veterinary Education Platform API",
     version=settings.VERSION,
     lifespan=lifespan,
-    docs_url="/docs" if settings.DEBUG else None,
-    redoc_url="/redoc" if settings.DEBUG else None,
+    docs_url="/docs" if (settings.DEBUG or settings.ENABLE_DOCS) else None,
+    redoc_url="/redoc" if (settings.DEBUG or settings.ENABLE_DOCS) else None,
 )
 
 # CORS

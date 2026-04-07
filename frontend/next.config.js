@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
   reactStrictMode: false, // disable for faster dev startup
   typescript: {
     ignoreBuildErrors: false,

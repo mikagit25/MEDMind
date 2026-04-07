@@ -23,9 +23,9 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 TIER_DAILY_LIMITS = {
     "free": 5,
     "student": 50,
-    "pro": 999999,
-    "clinic": 999999,
-    "lifetime": 999999,
+    "pro": None,      # None = unlimited
+    "clinic": None,
+    "lifetime": None,
 }
 
 
@@ -34,7 +34,7 @@ async def check_ai_rate_limit(user: User, db: AsyncSession) -> None:
     from sqlalchemy import func
     from app.models.models import AIConversationMessage
     limit = TIER_DAILY_LIMITS.get(user.subscription_tier, 5)
-    if limit >= 999999:
+    if limit is None:
         return  # unlimited
 
     today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)

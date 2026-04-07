@@ -20,34 +20,33 @@ from app.api.deps import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-# Simple in-memory rate limiting for auth endpoints (login/register)
-# Tracks failed attempts: {ip: [timestamp, ...]}
-_failed_attempts: dict = {}
-AUTH_RATE_LIMIT = 10  # max attempts per window
-AUTH_RATE_WINDOW = 300  # 5 minutes in seconds
+AUTH_RATE_LIMIT = 10   # max failed attempts
+AUTH_RATE_WINDOW = 300  # 5-minute sliding window (seconds)
 
 
-def check_auth_rate_limit(request: Request) -> None:
-    """Block IPs with too many failed auth attempts."""
+async def check_auth_rate_limit(request: Request) -> None:
+    """Block IPs with too many failed auth attempts (Redis-backed, survives restarts)."""
+    from app.core.redis_client import get_redis
     ip = request.client.host if request.client else "unknown"
-    now = datetime.utcnow().timestamp()
-    attempts = _failed_attempts.get(ip, [])
-    # Keep only attempts within the window
-    attempts = [t for t in attempts if now - t < AUTH_RATE_WINDOW]
-    if len(attempts) >= AUTH_RATE_LIMIT:
+    key = f"auth_fails:{ip}"
+    redis = await get_redis()
+    count = await redis.get(key)
+    if count and int(count) >= AUTH_RATE_LIMIT:
         raise HTTPException(
             status_code=429,
             detail="Too many attempts. Please wait 5 minutes.",
         )
-    _failed_attempts[ip] = attempts
 
 
-def record_failed_attempt(request: Request) -> None:
+async def record_failed_attempt(request: Request) -> None:
+    from app.core.redis_client import get_redis
     ip = request.client.host if request.client else "unknown"
-    now = datetime.utcnow().timestamp()
-    attempts = _failed_attempts.get(ip, [])
-    attempts.append(now)
-    _failed_attempts[ip] = attempts
+    key = f"auth_fails:{ip}"
+    redis = await get_redis()
+    pipe = redis.pipeline()
+    await pipe.incr(key)
+    await pipe.expire(key, AUTH_RATE_WINDOW)
+    await pipe.execute()
 
 
 class UserUpdate(BaseModel):
@@ -58,11 +57,11 @@ class UserUpdate(BaseModel):
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(data: UserRegister, request: Request, db: AsyncSession = Depends(get_db)):
-    check_auth_rate_limit(request)
+    await check_auth_rate_limit(request)
     # Check if email already exists
     existing = await db.execute(select(User).where(User.email == data.email.lower()))
     if existing.scalar_one_or_none():
-        record_failed_attempt(request)
+        await record_failed_attempt(request)
         raise HTTPException(status_code=400, detail="Email already registered")
 
     user = User(
@@ -105,7 +104,7 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
     # Send welcome email (non-blocking)
     from app.services.email_service import send_welcome_email
     try:
-        send_welcome_email(user.email, user.first_name or "there")
+        await send_welcome_email(user.email, user.first_name or "there")
     except Exception:
         pass  # Never fail registration due to email error
 
@@ -139,12 +138,12 @@ async def logout(
 
 @router.post("/login", response_model=TokenResponse)
 async def login(data: UserLogin, request: Request, db: AsyncSession = Depends(get_db)):
-    check_auth_rate_limit(request)
+    await check_auth_rate_limit(request)
     result = await db.execute(select(User).where(User.email == data.email.lower(), User.is_active == True))
     user = result.scalar_one_or_none()
 
     if not user or not user.password_hash or not verify_password(data.password, user.password_hash):
-        record_failed_attempt(request)
+        await record_failed_attempt(request)
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     access_token = create_access_token(str(user.id))
@@ -290,7 +289,7 @@ async def forgot_password(
     db: AsyncSession = Depends(get_db),
 ):
     """Send password-reset link. Always returns 200 to prevent email enumeration."""
-    check_auth_rate_limit(request)
+    await check_auth_rate_limit(request)
 
     result = await db.execute(
         select(User).where(User.email == data.email.lower(), User.is_active == True)
@@ -298,23 +297,17 @@ async def forgot_password(
     user = result.scalar_one_or_none()
 
     if user:
-        # Generate a secure token (valid 1 hour)
         import secrets
         raw_token = secrets.token_urlsafe(32)
         token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
-        expires = datetime.utcnow() + timedelta(hours=1)
 
-        # Store in user preferences (simple approach — no extra table needed)
-        user.preferences = {
-            **(user.preferences or {}),
-            "_reset_token_hash": token_hash,
-            "_reset_token_expires": expires.isoformat(),
-        }
-        await db.commit()
+        # Store hashed token in Redis with 1-hour TTL (keyed by hash for O(1) lookup)
+        redis = await get_redis()
+        await redis.setex(f"pwd_reset:{token_hash}", 3600, str(user.id))
 
         # Send reset email (SMTP if configured, else logs to console)
         from app.services.email_service import send_password_reset
-        send_password_reset(data.email.lower(), raw_token)
+        await send_password_reset(data.email.lower(), raw_token)
 
     return {"detail": "If this email is registered, a reset link has been sent."}
 
@@ -325,36 +318,33 @@ async def reset_password(
     db: AsyncSession = Depends(get_db),
 ):
     """Validate reset token and update password."""
+    import uuid as _uuid
     token_hash = hashlib.sha256(data.token.encode()).hexdigest()
 
-    # Find user with matching reset token
-    from sqlalchemy import cast
-    from sqlalchemy.dialects.postgresql import JSONB
-    result = await db.execute(
-        select(User).where(
-            User.is_active == True,
-            User.preferences["_reset_token_hash"].as_string() == token_hash,
-        )
-    )
+    # Look up token in Redis (one-time use — delete immediately after reading)
+    redis = await get_redis()
+    redis_key = f"pwd_reset:{token_hash}"
+    user_id_str = await redis.getdel(redis_key)
+
+    if not user_id_str:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+
+    try:
+        user_id = _uuid.UUID(user_id_str if isinstance(user_id_str, str) else user_id_str.decode())
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+
+    result = await db.execute(select(User).where(User.id == user_id, User.is_active == True))
     user = result.scalar_one_or_none()
 
     if not user:
         raise HTTPException(status_code=400, detail="Invalid or expired reset token")
-
-    prefs = user.preferences or {}
-    expires_str = prefs.get("_reset_token_expires")
-    if not expires_str or datetime.fromisoformat(expires_str) < datetime.utcnow():
-        raise HTTPException(status_code=400, detail="Reset token has expired")
 
     # Validate new password
     if len(data.new_password) < 8:
         raise HTTPException(status_code=422, detail="Password must be at least 8 characters")
 
     user.password_hash = hash_password(data.new_password)
-    # Clear reset token
-    prefs.pop("_reset_token_hash", None)
-    prefs.pop("_reset_token_expires", None)
-    user.preferences = prefs
 
     # Revoke all existing refresh tokens for security
     await db.execute(
@@ -485,15 +475,52 @@ async def google_callback(
     ))
     await db.commit()
 
-    # Redirect to frontend with tokens in query params
-    # Frontend reads them from URL and stores in localStorage
+    # Store tokens server-side under a short-lived one-time code (60 sec TTL).
+    # Only the opaque code goes in the URL — tokens never appear in browser history.
+    import secrets as _secrets
+    import json as _json
+    from app.core.redis_client import get_redis as _get_redis
     from fastapi.responses import RedirectResponse
     import urllib.parse
-    needs_onboarding = not user.onboarding_completed
+
+    one_time_code = _secrets.token_urlsafe(32)
+    redis = await _get_redis()
+    await redis.setex(
+        f"oauth_code:{one_time_code}",
+        60,  # 60 seconds TTL
+        _json.dumps({
+            "access_token": access_token,
+            "refresh_token": raw_refresh,
+            "onboarding": not user.onboarding_completed,
+        }),
+    )
+
     redirect_url = (
         f"{settings.FRONTEND_URL}/auth/google/success"
-        f"?access_token={urllib.parse.quote(access_token)}"
-        f"&refresh_token={urllib.parse.quote(raw_refresh)}"
-        f"&onboarding={'1' if needs_onboarding else '0'}"
+        f"?code={urllib.parse.quote(one_time_code)}"
     )
     return RedirectResponse(url=redirect_url)
+
+
+@router.post("/google/exchange")
+async def google_exchange_code(code: str):
+    """Exchange one-time OAuth code for JWT tokens.
+    Called by frontend immediately after redirect — code expires in 60 seconds.
+    """
+    import json as _json
+    from app.core.redis_client import get_redis as _get_redis
+
+    redis = await _get_redis()
+    raw = await redis.get(f"oauth_code:{code}")
+    if not raw:
+        raise HTTPException(status_code=400, detail="Invalid or expired OAuth code")
+
+    # Delete immediately — truly one-time use
+    await redis.delete(f"oauth_code:{code}")
+
+    data = _json.loads(raw)
+    return {
+        "access_token": data["access_token"],
+        "refresh_token": data["refresh_token"],
+        "onboarding": data["onboarding"],
+    }

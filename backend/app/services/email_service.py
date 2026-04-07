@@ -1,9 +1,11 @@
 """Email service — sends transactional emails via SMTP or logs to console in dev."""
+import asyncio
 import logging
 import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from functools import partial
 
 from app.core.config import settings
 
@@ -27,8 +29,8 @@ def _send_smtp(to: str, subject: str, html: str, text: str) -> None:
         server.sendmail(settings.EMAIL_FROM, to, msg.as_string())
 
 
-def send_password_reset(to_email: str, reset_token: str) -> None:
-    """Send password reset email."""
+async def send_password_reset(to_email: str, reset_token: str) -> None:
+    """Send password reset email (async, non-blocking)."""
     reset_url = f"{settings.FRONTEND_URL}/reset-password?token={reset_token}&email={to_email}"
 
     subject = "Reset your MedMind password"
@@ -59,7 +61,8 @@ def send_password_reset(to_email: str, reset_token: str) -> None:
 
     if settings.SMTP_USER and settings.SMTP_PASSWORD:
         try:
-            _send_smtp(to_email, subject, html, text)
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
             logger.info("Password reset email sent to %s", to_email)
         except Exception as e:
             logger.error("Failed to send reset email to %s: %s", to_email, e)
@@ -72,24 +75,24 @@ def send_password_reset(to_email: str, reset_token: str) -> None:
         logger.info("=" * 60)
 
 
-def send_welcome_email(to_email: str, first_name: str) -> None:
-    """Send welcome email after registration."""
-    subject = "Welcome to MedMind AI 🩺"
+async def send_welcome_email(to_email: str, first_name: str) -> None:
+    """Send welcome email after registration (async, non-blocking)."""
+    subject = "Welcome to MedMind AI"
     html = f"""
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body style="font-family: Georgia, serif; background: #f0ede8; margin: 0; padding: 40px 20px;">
   <div style="max-width: 480px; margin: 0 auto; background: #fff; border: 1px solid #d8d2c8; border-radius: 12px; padding: 40px;">
-    <h1 style="font-family: 'Syne', sans-serif; color: #1a1814; font-size: 22px; margin: 0 0 16px;">Welcome, {first_name}! 👋</h1>
+    <h1 style="font-family: 'Syne', sans-serif; color: #1a1814; font-size: 22px; margin: 0 0 16px;">Welcome, {first_name}!</h1>
     <p style="color: #4a453e; font-size: 15px; line-height: 1.6; margin: 0 0 16px;">
       Your MedMind AI account is ready. Start learning with AI-powered medical education.
     </p>
     <ul style="color: #4a453e; font-size: 14px; line-height: 2; padding-left: 20px;">
-      <li>📚 Access 80+ medical modules</li>
-      <li>🤖 Ask your AI tutor anything</li>
-      <li>🃏 Study with spaced-repetition flashcards</li>
-      <li>🩺 Practice clinical cases</li>
+      <li>Access 80+ medical modules</li>
+      <li>Ask your AI tutor anything</li>
+      <li>Study with spaced-repetition flashcards</li>
+      <li>Practice clinical cases</li>
     </ul>
     <a href="{settings.FRONTEND_URL}/dashboard"
        style="display: inline-block; background: #c0392b; color: #fff; text-decoration: none;
@@ -104,7 +107,8 @@ def send_welcome_email(to_email: str, first_name: str) -> None:
 
     if settings.SMTP_USER and settings.SMTP_PASSWORD:
         try:
-            _send_smtp(to_email, subject, html, text)
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
         except Exception as e:
             logger.error("Failed to send welcome email: %s", e)
     else:
