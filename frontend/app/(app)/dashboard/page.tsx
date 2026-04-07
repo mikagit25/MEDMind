@@ -7,7 +7,7 @@ import { contentApi, progressApi } from "@/lib/api";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
 
-function xpToNextLevel(xp: number, level: number): { current: number; needed: number; pct: number } {
+function xpToNextLevel(xp: number, level: number) {
   const start = LEVEL_THRESHOLDS[level - 1] ?? 0;
   const end = LEVEL_THRESHOLDS[level] ?? LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
   const current = xp - start;
@@ -15,9 +15,160 @@ function xpToNextLevel(xp: number, level: number): { current: number; needed: nu
   return { current, needed, pct: Math.min((current / needed) * 100, 100) };
 }
 
+// ── Shared stat card ──
+function StatCard({ value, label }: { value: string | number; label: string }) {
+  return (
+    <div className="card text-center py-4">
+      <div className="font-syne font-black text-2xl text-ink">{value}</div>
+      <div className="font-serif text-ink-3 text-xs mt-0.5">{label}</div>
+    </div>
+  );
+}
+
+// ── Role-specific panel: Doctor ──
+function DoctorPanel({ stats }: { stats: any }) {
+  const cmeCredits = stats?.cme_credits ?? 0;
+  const casesCompleted = stats?.cases_completed ?? 0;
+  const mcqAccuracy = stats?.mcq_accuracy ?? 0;
+  return (
+    <div className="mb-6">
+      <h2 className="font-syne font-bold text-base text-ink mb-3">Clinical Dashboard</h2>
+      <div className="grid grid-cols-3 gap-3 mb-4">
+        <StatCard value={`${cmeCredits}`} label="CME Credits" />
+        <StatCard value={casesCompleted} label="Cases solved" />
+        <StatCard value={`${Math.round(mcqAccuracy * 100)}%`} label="MCQ accuracy" />
+      </div>
+      <div className="card p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-syne font-semibold text-sm text-ink">Continue Practice</h3>
+          <Link href="/cases" className="text-xs text-ink-3 hover:text-ink font-syne">View all →</Link>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Link href="/cases" className="flex items-center gap-2 p-3 rounded bg-amber-light border border-amber/20 hover:border-amber/40 transition-colors">
+            <span className="text-xl">🩺</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-amber">Clinical Cases</div>
+              <div className="font-serif text-xs text-ink-3">Evidence-based</div>
+            </div>
+          </Link>
+          <Link href="/drugs" className="flex items-center gap-2 p-3 rounded bg-blue-light border border-blue/20 hover:border-blue/40 transition-colors">
+            <span className="text-xl">💊</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-blue">Drug Reference</div>
+              <div className="font-serif text-xs text-ink-3">Interactions & dosing</div>
+            </div>
+          </Link>
+        </div>
+        {cmeCredits >= 0 && (
+          <div className="mt-3 p-3 rounded bg-green-light border border-green/20">
+            <div className="flex items-center justify-between">
+              <span className="font-syne font-semibold text-xs text-green">CME Progress</span>
+              <span className="font-syne font-bold text-xs text-green">{cmeCredits} / 50 credits</span>
+            </div>
+            <div className="mt-1.5 h-1.5 bg-green/20 rounded-full">
+              <div className="h-full bg-green rounded-full" style={{ width: `${Math.min((cmeCredits / 50) * 100, 100)}%` }} />
+            </div>
+            <p className="font-serif text-xs text-ink-3 mt-1.5">Complete modules to earn CME/CPD credits</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Role-specific panel: Professor ──
+function ProfessorPanel({ stats }: { stats: any }) {
+  const modulesCompleted = stats?.modules_completed ?? 0;
+  const lessonsCompleted = stats?.lessons_completed ?? 0;
+  return (
+    <div className="mb-6">
+      <h2 className="font-syne font-bold text-base text-ink mb-3">Teaching Dashboard</h2>
+      <div className="grid grid-cols-3 gap-3 mb-4">
+        <StatCard value={modulesCompleted} label="Modules done" />
+        <StatCard value={lessonsCompleted} label="Lessons taught" />
+        <StatCard value={stats?.streak_days ?? 0} label="Day streak 🔥" />
+      </div>
+      <div className="card p-4 mb-3">
+        <h3 className="font-syne font-semibold text-sm text-ink mb-3">Curriculum Tools</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <Link href="/modules" className="flex items-center gap-2 p-3 rounded bg-red-light border border-red/20 hover:border-red/40 transition-colors">
+            <span className="text-xl">📚</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-red">All Modules</div>
+              <div className="font-serif text-xs text-ink-3">Browse curriculum</div>
+            </div>
+          </Link>
+          <Link href="/quiz" className="flex items-center gap-2 p-3 rounded bg-blue-light border border-blue/20 hover:border-blue/40 transition-colors">
+            <span className="text-xl">📝</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-blue">Quiz Bank</div>
+              <div className="font-serif text-xs text-ink-3">MCQ practice</div>
+            </div>
+          </Link>
+          <Link href="/ai-tutor" className="flex items-center gap-2 p-3 rounded bg-green-light border border-green/20 hover:border-green/40 transition-colors">
+            <span className="text-xl">🤖</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-green">AI Assistant</div>
+              <div className="font-serif text-xs text-ink-3">Research & explain</div>
+            </div>
+          </Link>
+          <Link href="/search" className="flex items-center gap-2 p-3 rounded border border-border bg-surface hover:border-ink-3 transition-colors">
+            <span className="text-xl">🔍</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-ink">Search</div>
+              <div className="font-serif text-xs text-ink-3">Find any content</div>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Role-specific panel: Veterinarian ──
+function VeterinarianPanel({ stats }: { stats: any }) {
+  return (
+    <div className="mb-6">
+      <h2 className="font-syne font-bold text-base text-ink mb-3">Veterinary Dashboard</h2>
+      <div className="grid grid-cols-3 gap-3 mb-4">
+        <StatCard value={stats?.lessons_completed ?? 0} label="Lessons done" />
+        <StatCard value={stats?.cards_reviewed ?? 0} label="Cards reviewed" />
+        <StatCard value={`${stats?.streak_days ?? 0}🔥`} label="Day streak" />
+      </div>
+      <div className="card p-4 mb-3">
+        <h3 className="font-syne font-semibold text-sm text-ink mb-3">Vet Tools</h3>
+        <div className="grid grid-cols-2 gap-2">
+          <Link href="/drugs?vet=true" className="flex items-center gap-2 p-3 rounded bg-amber-light border border-amber/20 hover:border-amber/40 transition-colors">
+            <span className="text-xl">🐾</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-amber">Vet Drug Reference</div>
+              <div className="font-serif text-xs text-ink-3">Species-specific dosing</div>
+            </div>
+          </Link>
+          <Link href="/cases?vet=true" className="flex items-center gap-2 p-3 rounded bg-green-light border border-green/20 hover:border-green/40 transition-colors">
+            <span className="text-xl">🩺</span>
+            <div>
+              <div className="font-syne font-semibold text-xs text-green">Vet Cases</div>
+              <div className="font-serif text-xs text-ink-3">Clinical scenarios</div>
+            </div>
+          </Link>
+        </div>
+      </div>
+      <div className="card p-3 bg-amber-light/40 border-amber/20">
+        <p className="font-syne font-semibold text-xs text-amber-dark mb-1">⚠️ Toxicity Quick Check</p>
+        <p className="font-serif text-xs text-ink-2">
+          Common dangers: paracetamol (cats), xylitol (dogs), permethrin (cats).{" "}
+          <Link href="/drugs" className="text-amber underline">Check drug safety →</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Main dashboard ──
 export default function DashboardPage() {
   const { user } = useAuthStore();
-  const [modules, setModules] = useState<any[]>([]);
+  const [specialties, setSpecialties] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +177,7 @@ export default function DashboardPage() {
       contentApi.getSpecialties().catch(() => ({ data: [] })),
       progressApi.getStats().catch(() => ({ data: null })),
     ]).then(([modRes, statsRes]) => {
-      setModules(modRes.data?.slice(0, 3) ?? []);
+      setSpecialties(modRes.data?.slice(0, 3) ?? []);
       setStats(statsRes.data);
       setLoading(false);
     });
@@ -35,6 +186,7 @@ export default function DashboardPage() {
   const level = user?.level ?? 1;
   const xp = user?.xp ?? 0;
   const xpInfo = xpToNextLevel(xp, level);
+  const role = user?.role ?? "student";
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
@@ -86,23 +238,21 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Stats row */}
-      {stats && (
+      {/* Role-specific panel */}
+      {role === "doctor" && <DoctorPanel stats={stats} />}
+      {role === "professor" && <ProfessorPanel stats={stats} />}
+      {role === "veterinarian" && <VeterinarianPanel stats={stats} />}
+
+      {/* Default stats for students (or fallback) */}
+      {(role === "student" || !["doctor", "professor", "veterinarian"].includes(role)) && stats && (
         <div className="grid grid-cols-3 gap-3 mb-6">
-          {[
-            { label: "Lessons done", value: stats.lessons_completed ?? 0 },
-            { label: "Cards reviewed", value: stats.cards_reviewed ?? 0 },
-            { label: "Day streak", value: `${stats.streak_days ?? 0}🔥` },
-          ].map((s) => (
-            <div key={s.label} className="card text-center py-4">
-              <div className="font-syne font-black text-2xl text-ink">{s.value}</div>
-              <div className="font-serif text-ink-3 text-xs mt-0.5">{s.label}</div>
-            </div>
-          ))}
+          <StatCard value={stats.lessons_completed ?? 0} label="Lessons done" />
+          <StatCard value={stats.cards_reviewed ?? 0} label="Cards reviewed" />
+          <StatCard value={`${stats.streak_days ?? 0}🔥`} label="Day streak" />
         </div>
       )}
 
-      {/* Recent Specialties */}
+      {/* Specialties */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-syne font-bold text-base text-ink">Specialties</h2>
@@ -116,20 +266,20 @@ export default function DashboardPage() {
               <div key={i} className="card h-16 animate-pulse bg-bg-2" />
             ))}
           </div>
-        ) : modules.length === 0 ? (
+        ) : specialties.length === 0 ? (
           <div className="card text-center py-8">
-            <p className="font-serif text-ink-3 text-sm">Loading modules…</p>
+            <p className="font-serif text-ink-3 text-sm">No specialties yet — import modules to get started.</p>
           </div>
         ) : (
           <div className="space-y-2">
-            {modules.map((spec: any) => (
+            {specialties.map((spec: any) => (
               <Link
                 key={spec.id}
                 href={`/modules?specialty=${spec.id}`}
                 className="card flex items-center gap-3 hover:border-ink-3 transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-ink/10 flex items-center justify-center text-lg font-bold text-ink-2">
-                  {spec.name?.[0] ?? "M"}
+                  {spec.icon ?? spec.name?.[0] ?? "M"}
                 </div>
                 <div>
                   <div className="font-syne font-bold text-sm text-ink">{spec.name}</div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
-import { authApi } from "@/lib/api";
+import { authApi, complianceApi } from "@/lib/api";
 
 const SUBSCRIPTION_INFO: Record<string, { label: string; color: string; desc: string }> = {
   free: { label: "Free", color: "bg-surface-2 text-ink-3", desc: "Access to fundamental modules only" },
@@ -198,6 +198,9 @@ export default function SettingsPage() {
         )}
       </section>
 
+      {/* GDPR / Privacy */}
+      <GDPRSection />
+
       {/* Account */}
       <section className="card p-6">
         <h2 className="font-syne font-bold text-base text-ink mb-3">Account</h2>
@@ -212,5 +215,116 @@ export default function SettingsPage() {
         </button>
       </section>
     </div>
+  );
+}
+
+function GDPRSection() {
+  const { logout } = useAuthStore();
+  const [exporting, setExporting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [exportDone, setExportDone] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleExport = async () => {
+    setExporting(true);
+    setError("");
+    try {
+      const res = await complianceApi.exportData();
+      // Trigger browser download
+      const blob = new Blob([JSON.stringify(res.data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `medmind-data-export-${new Date().toISOString().split("T")[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setExportDone(true);
+      setTimeout(() => setExportDone(false), 3000);
+    } catch {
+      setError("Export failed. Please try again.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    setError("");
+    try {
+      await complianceApi.deleteAccount();
+      logout();
+      window.location.href = "/";
+    } catch {
+      setError("Account deletion failed. Please contact support.");
+      setDeleting(false);
+    }
+  };
+
+  return (
+    <section className="card p-6 mb-5">
+      <h2 className="font-syne font-bold text-base text-ink mb-1">🔒 Privacy & Data (GDPR)</h2>
+      <p className="font-serif text-ink-3 text-sm mb-4">
+        Under GDPR you have the right to access, export, and delete your personal data.
+      </p>
+
+      {error && <p className="font-serif text-red text-xs mb-3">{error}</p>}
+
+      <div className="space-y-3">
+        {/* Export */}
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="font-syne font-semibold text-sm text-ink">Export my data</p>
+            <p className="font-serif text-ink-3 text-xs">Download all your data as JSON (Art. 20 GDPR)</p>
+          </div>
+          <button
+            onClick={handleExport}
+            disabled={exporting}
+            className="btn-secondary text-sm shrink-0 disabled:opacity-40"
+          >
+            {exporting ? "Exporting…" : exportDone ? "✓ Downloaded" : "Export →"}
+          </button>
+        </div>
+
+        <hr className="border-border" />
+
+        {/* Delete */}
+        <div>
+          <p className="font-syne font-semibold text-sm text-ink">Delete my account</p>
+          <p className="font-serif text-ink-3 text-xs mb-2">
+            Permanently anonymizes your personal data (Art. 17 GDPR). Learning progress data is retained anonymously.
+          </p>
+          {!confirmDelete ? (
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="btn-secondary text-red border-red/30 hover:bg-red-light text-sm"
+            >
+              Delete account
+            </button>
+          ) : (
+            <div className="p-3 rounded bg-red-light border border-red/30">
+              <p className="font-syne font-semibold text-sm text-red mb-2">
+                Are you sure? This cannot be undone.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={deleting}
+                  className="px-4 py-1.5 rounded bg-red text-white font-syne font-semibold text-xs hover:bg-red/90 disabled:opacity-40"
+                >
+                  {deleting ? "Deleting…" : "Yes, delete permanently"}
+                </button>
+                <button
+                  onClick={() => setConfirmDelete(false)}
+                  className="btn-secondary text-xs"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -80,7 +80,13 @@ export const contentApi = {
   searchDrugs: (q: string) => api.get(`/drugs?q=${encodeURIComponent(q)}`),
   getDrugDosing: (drug: string, species: string) =>
     api.get(`/drugs/dosing?drug=${encodeURIComponent(drug)}&species=${encodeURIComponent(species)}`),
+  checkInteractions: (drug_ids: string[]) =>
+    api.post("/drugs/check-interactions", { drug_ids }),
+  calculateDose: (data: DoseCalcData) =>
+    api.post("/drugs/calculate-dose", data),
   search: (q: string, limit = 20) => api.get(`/search?q=${encodeURIComponent(q)}&limit=${limit}`),
+  searchPubMed: (query: string, max_results = 5) =>
+    api.get(`/search/pubmed?query=${encodeURIComponent(query)}&max_results=${max_results}`),
 };
 
 export const progressApi = {
@@ -138,6 +144,12 @@ export const achievementsApi = {
   check: () => api.post("/achievements/check"),
 };
 
+export const complianceApi = {
+  exportData: () => api.get("/compliance/export-data"),
+  deleteAccount: () => api.post("/compliance/delete-account"),
+  getConsents: () => api.get("/compliance/consents"),
+};
+
 export const adminApi = {
   getStats: () => api.get("/admin/stats"),
   getUsers: (params?: { search?: string; tier?: string; page?: number; limit?: number }) =>
@@ -153,6 +165,16 @@ export const adminApi = {
 };
 
 // Types
+interface DoseCalcData {
+  drug_name: string;
+  weight_kg: number;
+  age_years?: number;
+  renal_gfr?: number;
+  dose_per_kg?: number;
+  unit?: string;
+  max_dose?: number;
+}
+
 interface RegisterData {
   email: string;
   password: string;
