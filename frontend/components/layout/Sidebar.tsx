@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuthStore, useUIStore } from "@/lib/store";
+import { NotificationBell } from "@/components/ui/NotificationBell";
 import { clsx } from "clsx";
 
 const NAV_SECTIONS = [
@@ -22,11 +23,17 @@ const NAV_SECTIONS = [
     items: [
       { icon: "💊", label: "Drug Database", href: "/drugs" },
       { icon: "📈", label: "Progress", href: "/progress" },
+      { icon: "🏆", label: "Leaderboard", href: "/leaderboard" },
+      { icon: "🎯", label: "For You", href: "/recommendations" },
     ],
   },
   {
     label: "Account",
     items: [
+      { icon: "🏅", label: "Achievements", href: "/achievements" },
+      { icon: "🔖", label: "Bookmarks", href: "/bookmarks" },
+      { icon: "🔔", label: "Notifications", href: "/notifications" },
+      { icon: "🔒", label: "Privacy", href: "/compliance" },
       { icon: "⚙️", label: "Settings", href: "/settings" },
     ],
   },
@@ -136,6 +143,7 @@ export function Sidebar() {
               {user?.subscription_tier} • {user?.role}
             </div>
           </div>
+          <NotificationBell />
           <button
             onClick={handleLogout}
             className="text-white/30 hover:text-white/70 text-xs font-syne transition-colors"

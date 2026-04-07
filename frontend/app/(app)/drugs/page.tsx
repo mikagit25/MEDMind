@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { contentApi } from "@/lib/api";
+import { api, contentApi, drugsApi } from "@/lib/api";
 
 type Drug = {
   id: string;
@@ -61,7 +61,7 @@ function DrugSearch() {
     if (!q.trim()) { setDrugs([]); return; }
     setLoading(true);
     try {
-      const res = await contentApi.searchDrugs(q);
+      const res = await drugsApi.search(q);
       setDrugs(res.data ?? []);
     } catch {
       setDrugs([]);
@@ -184,7 +184,7 @@ function InteractionChecker() {
     if (!query.trim()) { setSuggestions([]); return; }
     const t = setTimeout(async () => {
       try {
-        const res = await contentApi.searchDrugs(query);
+        const res = await drugsApi.search(query);
         setSuggestions((res.data ?? []).slice(0, 6));
         setShowSugg(true);
       } catch {
@@ -211,7 +211,7 @@ function InteractionChecker() {
     if (selected.length < 2) return;
     setChecking(true);
     try {
-      const res = await contentApi.checkInteractions(selected.map((d) => d.id));
+      const res = await drugsApi.checkInteractions(selected.map((d) => d.id));
       setInteractions(res.data?.interactions ?? []);
     } catch {
       setInteractions([]);
@@ -332,7 +332,7 @@ function DoseCalculator() {
     setError("");
     setResult(null);
     try {
-      const res = await contentApi.calculateDose({
+      const res = await api.post("/drugs/calculate-dose", {
         drug_name: form.drug_name,
         weight_kg: parseFloat(form.weight_kg),
         age_years: form.age_years ? parseFloat(form.age_years) : undefined,

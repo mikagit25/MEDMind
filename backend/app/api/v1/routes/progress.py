@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
@@ -557,3 +557,108 @@ async def get_modules_progress(
             "last_activity_at": p.last_activity_at.isoformat() if p.last_activity_at else None,
         })
     return output
+
+
+# ============================================================
+# LEADERBOARD
+# ============================================================
+
+@router.get("/leaderboard")
+async def get_leaderboard(
+    period: str = Query("week", pattern="^(week|month|all)$"),
+    limit: int = Query(50, ge=5, le=100),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Global leaderboard by XP."""
+    from datetime import timedelta
+
+    q = select(
+        User.id,
+        User.first_name,
+        User.last_name,
+        User.level,
+        User.xp,
+        User.streak_days,
+    ).where(User.is_active == True)
+
+    if period == "week":
+        since = datetime.utcnow() - timedelta(days=7)
+        q = q.where(User.last_active_date >= since)
+    elif period == "month":
+        since = datetime.utcnow() - timedelta(days=30)
+        q = q.where(User.last_active_date >= since)
+
+    q = q.order_by(User.xp.desc()).limit(limit)
+    rows = (await db.execute(q)).all()
+
+    my_rank = None
+    board = []
+    for i, row in enumerate(rows, 1):
+        entry = {
+            "rank": i,
+            "user_id": str(row.id),
+            "name": f"{row.first_name or ''} {(row.last_name or '')[:1]}.".strip(),
+            "level": row.level,
+            "xp": row.xp,
+            "streak_days": row.streak_days or 0,
+            "is_me": str(row.id) == str(user.id),
+        }
+        if entry["is_me"]:
+            my_rank = i
+        board.append(entry)
+
+    return {
+        "period": period,
+        "my_rank": my_rank,
+        "total_shown": len(board),
+        "leaderboard": board,
+    }
+
+
+@router.get("/leaderboard/specialty/{specialty_id}")
+async def get_specialty_leaderboard(
+    specialty_id: UUID,
+    limit: int = Query(50, ge=5, le=100),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Leaderboard filtered by users who have studied a given specialty."""
+    from app.models.models import Specialty
+
+    # Users who have progress in modules of this specialty
+    specialty_result = await db.execute(
+        select(Module.id).where(Module.specialty_id == specialty_id)
+    )
+    module_ids = [r[0] for r in specialty_result.all()]
+    if not module_ids:
+        return {"specialty_id": str(specialty_id), "leaderboard": []}
+
+    user_ids_result = await db.execute(
+        select(UserProgress.user_id)
+        .where(UserProgress.module_id.in_(module_ids))
+        .distinct()
+    )
+    user_ids = [r[0] for r in user_ids_result.all()]
+    if not user_ids:
+        return {"specialty_id": str(specialty_id), "leaderboard": []}
+
+    rows = (await db.execute(
+        select(User.id, User.first_name, User.last_name, User.level, User.xp)
+        .where(User.id.in_(user_ids), User.is_active == True)
+        .order_by(User.xp.desc())
+        .limit(limit)
+    )).all()
+
+    board = [
+        {
+            "rank": i,
+            "user_id": str(row.id),
+            "name": f"{row.first_name or ''} {(row.last_name or '')[:1]}.".strip(),
+            "level": row.level,
+            "xp": row.xp,
+            "is_me": str(row.id) == str(user.id),
+        }
+        for i, row in enumerate(rows, 1)
+    ]
+    return {"specialty_id": str(specialty_id), "leaderboard": board}

@@ -54,7 +54,7 @@ export default function SettingsPage() {
       const [profileRes] = await Promise.all([
         authApi.updateMe({ first_name: firstName, last_name: lastName }),
         canUseVet
-          ? authApi.updateVetSettings(vetMode, vetSpecies)
+          ? authApi.updateVetSettings({ vet_mode: vetMode, species: vetSpecies })
           : Promise.resolve(null),
       ]);
       updateUser(profileRes.data);

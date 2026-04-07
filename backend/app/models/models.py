@@ -584,3 +584,22 @@ class CMECredit(Base):
 
     user = relationship("User", foreign_keys=[user_id])
     module = relationship("Module", foreign_keys=[module_id])
+
+
+# ============================================================
+# NOTIFICATIONS
+# ============================================================
+class Notification(Base):
+    """In-app notifications for users."""
+    __tablename__ = "notifications"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    type = Column(String(50), nullable=False)  # achievement | flashcard_due | daily_goal | system
+    title = Column(String(200), nullable=False)
+    body = Column(Text)
+    data = Column(JSONB)  # extra context (achievement_code, module_id, etc.)
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])

@@ -79,6 +79,16 @@ async def award_achievement(user: User, code: str, db: AsyncSession) -> bool:
     db.add(UserAchievement(user_id=user.id, achievement_code=code))
     if meta and meta["xp"] > 0:
         user.xp = (user.xp or 0) + meta["xp"]
+
+    # Create in-app notification
+    from app.services.notification_service import notify_achievement
+    await notify_achievement(
+        db, user.id,
+        achievement_code=code,
+        achievement_name=meta["title"] if meta else code,
+        xp_bonus=meta["xp"] if meta else 0,
+    )
+
     await db.commit()
     return True
 
