@@ -38,6 +38,14 @@ export default function TabLayout() {
         name="modules"
         options={{ title: 'Library', tabBarIcon: ({ focused }) => icon('book', focused) }}
       />
+      <Tabs.Screen
+        name="leaderboard"
+        options={{ title: 'Rankings', tabBarIcon: ({ focused }) => icon('trophy', focused) }}
+      />
+      <Tabs.Screen
+        name="achievements"
+        options={{ title: 'Badges', tabBarIcon: ({ focused }) => icon('medal', focused) }}
+      />
     </Tabs>
   );
 }

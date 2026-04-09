@@ -1,10 +1,10 @@
-"""Background scheduler — daily tasks for streak updates and XP resets."""
+"""Background scheduler — daily tasks for streak updates, XP resets, and notifications."""
 import logging
-from datetime import datetime, date
+from datetime import datetime, timedelta
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from sqlalchemy import text
+from sqlalchemy import select, func, text
 
 from app.core.database import AsyncSessionLocal
 
@@ -69,6 +69,59 @@ async def _weekly_stats_snapshot():
         logger.error("Weekly stats snapshot failed: %s", e)
 
 
+async def _daily_flashcard_reminders():
+    """
+    Run daily at 09:00 UTC — notify users who have flashcards due but haven't studied today.
+    Creates one notification per qualifying user.
+    """
+    from app.models.models import User, FlashcardReview, Notification
+    from app.services.notification_service import notify_flashcards_due
+
+    try:
+        async with AsyncSessionLocal() as db:
+            now = datetime.utcnow()
+            today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+
+            # Find users with due flashcards who haven't been active today
+            rows = await db.execute(
+                select(
+                    FlashcardReview.user_id,
+                    func.count(FlashcardReview.flashcard_id).label("due_count"),
+                )
+                .join(User, User.id == FlashcardReview.user_id)
+                .where(
+                    FlashcardReview.next_review_at <= now,
+                    User.is_active == True,
+                    # Not already active today
+                    (User.last_active_date == None) | (User.last_active_date < today_start),
+                )
+                .group_by(FlashcardReview.user_id)
+                .having(func.count(FlashcardReview.flashcard_id) > 0)
+            )
+
+            notified = 0
+            for user_id, due_count in rows.all():
+                # Skip if already sent a flashcard notification today
+                existing = await db.execute(
+                    select(Notification).where(
+                        Notification.user_id == user_id,
+                        Notification.type == "flashcard_due",
+                        Notification.created_at >= today_start,
+                    )
+                )
+                if existing.scalar_one_or_none():
+                    continue
+
+                await notify_flashcards_due(db, user_id, due_count)
+                notified += 1
+
+            if notified:
+                await db.commit()
+                logger.info("Flashcard reminders sent to %d users", notified)
+    except Exception as e:
+        logger.error("Daily flashcard reminders failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -79,6 +132,15 @@ def start_scheduler():
         _daily_streak_update,
         trigger=CronTrigger(hour=0, minute=5, timezone="UTC"),
         id="daily_streak_reset",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Daily 09:00 UTC — flashcard reminders
+    scheduler.add_job(
+        _daily_flashcard_reminders,
+        trigger=CronTrigger(hour=9, minute=0, timezone="UTC"),
+        id="daily_flashcard_reminders",
         replace_existing=True,
         misfire_grace_time=3600,
     )

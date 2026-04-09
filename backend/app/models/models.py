@@ -3,12 +3,23 @@ import uuid
 from datetime import datetime
 from typing import Optional
 
+import os
+
 from sqlalchemy import (
     Boolean, Column, DateTime, Float, ForeignKey, Index,
-    Integer, String, Text, UniqueConstraint, ARRAY, Numeric
+    Integer, String, Text, UniqueConstraint, Numeric,
+    JSON as _SQLJSON,
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.dialects.postgresql import UUID, JSONB as _PGJSONB, ARRAY as _PGARRAY
 from sqlalchemy.orm import relationship
+
+_IS_SQLITE = os.getenv("DATABASE_URL", "").startswith("sqlite")
+
+# Use plain JSON for SQLite (tests/CI), JSONB for PostgreSQL (production)
+JSONB = _SQLJSON if _IS_SQLITE else _PGJSONB
+
+# SQLite doesn't support ARRAY — use JSON as a fallback (stores as JSON array)
+ARRAY = (lambda t: _SQLJSON) if _IS_SQLITE else _PGARRAY
 
 try:
     from pgvector.sqlalchemy import Vector as _PgVector
@@ -17,9 +28,7 @@ except ImportError:
     _PgVector = None
     _VECTOR_AVAILABLE = False
 
-import os
 # Use JSONB for embeddings unless PGVECTOR_ENABLED=1 is explicitly set
-# (pgvector extension must be installed in PostgreSQL for this to work)
 _VECTOR_TYPE = _PgVector(1536) if (_VECTOR_AVAILABLE and os.getenv("PGVECTOR_ENABLED", "0") == "1") else JSONB
 
 from app.core.database import Base
@@ -390,8 +399,9 @@ class UserConsent(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     consent_type = Column(String(100), nullable=False)
+    granted = Column(Boolean, default=True, nullable=False)
     version = Column(String(50))
-    given_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
     ip_address = Column(String(45))
 
     __table_args__ = (UniqueConstraint("user_id", "consent_type"),)
@@ -484,3 +494,113 @@ class CourseAssignment(Base):
 
     course = relationship("Course", back_populates="assignments")
     module = relationship("Module")
+
+
+# ============================================================
+# DRUG INTERACTIONS
+# ============================================================
+class DrugInteraction(Base):
+    """Known interactions between two drugs."""
+    __tablename__ = "drug_interactions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    drug_a_id = Column(UUID(as_uuid=True), ForeignKey("drugs.id", ondelete="CASCADE"), nullable=False)
+    drug_b_id = Column(UUID(as_uuid=True), ForeignKey("drugs.id", ondelete="CASCADE"), nullable=False)
+    severity = Column(String(20), default="moderate")  # mild | moderate | severe | contraindicated
+    mechanism = Column(Text)
+    clinical_effect = Column(Text)
+    management = Column(Text)
+    evidence_level = Column(String(10), default="C")  # A | B | C
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    drug_a = relationship("Drug", foreign_keys=[drug_a_id])
+    drug_b = relationship("Drug", foreign_keys=[drug_b_id])
+
+    __table_args__ = (UniqueConstraint("drug_a_id", "drug_b_id"),)
+
+
+# ============================================================
+# ANIMAL SPECIES (Veterinary)
+# ============================================================
+class AnimalSpecies(Base):
+    """Animal species for veterinary mode."""
+    __tablename__ = "animal_species"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(100), unique=True, nullable=False)  # e.g. "Dog", "Cat"
+    name_ru = Column(String(100))
+    scientific_name = Column(String(200))
+    category = Column(String(50))  # companion | livestock | exotic | avian
+    icon = Column(String(10))
+    notes = Column(Text)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    dosing_entries = relationship("VeterinaryDosing", back_populates="species", cascade="all, delete-orphan")
+
+
+# ============================================================
+# VETERINARY DOSING
+# ============================================================
+class VeterinaryDosing(Base):
+    """Drug dosing information specific to an animal species."""
+    __tablename__ = "veterinary_dosing"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    drug_id = Column(UUID(as_uuid=True), ForeignKey("drugs.id", ondelete="CASCADE"), nullable=False)
+    species_id = Column(UUID(as_uuid=True), ForeignKey("animal_species.id", ondelete="CASCADE"), nullable=False)
+    dose = Column(String(200))           # e.g. "5-10 mg/kg"
+    route = Column(String(50))           # oral | IV | IM | SC | topical
+    frequency = Column(String(100))      # e.g. "q12h", "once daily"
+    max_dose = Column(String(100))
+    is_toxic = Column(Boolean, default=False)   # True = CONTRAINDICATED / toxic
+    toxicity_note = Column(Text)          # e.g. "Paracetamol: fatal hepatotoxicity in cats"
+    is_approved = Column(Boolean, default=True)
+    notes = Column(Text)
+    source = Column(String(200))          # e.g. "Plumb's Veterinary Drug Handbook"
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    drug = relationship("Drug", foreign_keys=[drug_id])
+    species = relationship("AnimalSpecies", back_populates="dosing_entries")
+
+    __table_args__ = (UniqueConstraint("drug_id", "species_id", "route"),)
+
+
+# ============================================================
+# CME CREDITS
+# ============================================================
+class CMECredit(Base):
+    """Continuing Medical Education credits earned by doctors."""
+    __tablename__ = "cme_credits"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=True)
+    credit_type = Column(String(50), default="AMA_PRA_1")  # AMA_PRA_1 | AAFP | etc.
+    credits_earned = Column(Numeric(4, 1), default=1.0)
+    activity_title = Column(String(300))
+    completion_date = Column(DateTime, default=datetime.utcnow)
+    certificate_url = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])
+    module = relationship("Module", foreign_keys=[module_id])
+
+
+# ============================================================
+# NOTIFICATIONS
+# ============================================================
+class Notification(Base):
+    """In-app notifications for users."""
+    __tablename__ = "notifications"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    type = Column(String(50), nullable=False)  # achievement | flashcard_due | daily_goal | system
+    title = Column(String(200), nullable=False)
+    body = Column(Text)
+    data = Column(JSONB)  # extra context (achievement_code, module_id, etc.)
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])

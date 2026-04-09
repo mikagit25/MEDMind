@@ -268,6 +268,52 @@ async def search_drugs(
     return result.scalars().all()
 
 
+class InteractionCheckRequest(BaseModel):
+    drug_ids: list[UUID]
+
+
+@router.post("/drugs/check-interactions")
+async def check_drug_interactions(
+    data: InteractionCheckRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Check pairwise interactions for a list of drug IDs."""
+    from app.services.drug_service import check_interactions
+    if len(data.drug_ids) < 2:
+        raise HTTPException(status_code=422, detail="At least 2 drug IDs required")
+    interactions = await check_interactions(db, data.drug_ids)
+    return {"interactions": interactions, "pairs_checked": len(data.drug_ids) * (len(data.drug_ids) - 1) // 2}
+
+
+class DoseCalculateRequest(BaseModel):
+    drug_name: str
+    weight_kg: float
+    dose_per_kg: float
+    unit: str = "mg"
+    age_years: float | None = None
+    renal_gfr: float | None = None
+    max_dose: float | None = None
+
+
+@router.post("/drugs/calculate-dose")
+async def calculate_drug_dose(
+    data: DoseCalculateRequest,
+    user: User = Depends(get_current_user),
+):
+    """Calculate weight-based dose with renal adjustment."""
+    from app.services.drug_service import calculate_dose
+    return calculate_dose(
+        drug_name=data.drug_name,
+        weight_kg=data.weight_kg,
+        age_years=data.age_years,
+        renal_gfr=data.renal_gfr,
+        dose_per_kg=data.dose_per_kg,
+        unit=data.unit,
+        max_dose=data.max_dose,
+    )
+
+
 # Species dose scaling factors vs human adult (approximate)
 _SPECIES_FACTORS: dict[str, float] = {
     "canine": 1.0,
@@ -404,3 +450,117 @@ async def search(
         lessons=lessons,
         total=len(modules) + len(lessons),
     )
+
+
+# ============================================================
+# PUBMED SEARCH
+# ============================================================
+@router.get("/search/pubmed")
+async def search_pubmed(
+    q: str = Query(..., min_length=2, max_length=300),
+    limit: int = Query(10, le=20),
+    user: User = Depends(get_current_user),
+):
+    """Search PubMed via NCBI E-utilities API."""
+    from app.services.pubmed_service import PubMedService
+    service = PubMedService()
+    results = await service.search_articles(q, max_results=limit)
+    return results
+
+
+# ============================================================
+# RECOMMENDATIONS
+# ============================================================
+@router.get("/recommendations")
+async def get_recommendations(
+    limit: int = Query(5, le=20),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Recommend next modules based on user progress."""
+    from sqlalchemy import not_
+    # Modules user has started
+    started_ids_result = await db.execute(
+        select(Module.id).where(
+            Module.id.in_(
+                select(Module.id).join(
+                    __import__("app.models.models", fromlist=["UserProgress"]).UserProgress,
+                    Module.id == __import__("app.models.models", fromlist=["UserProgress"]).UserProgress.module_id,
+                ).where(
+                    __import__("app.models.models", fromlist=["UserProgress"]).UserProgress.user_id == user.id
+                )
+            )
+        )
+    )
+
+    # Simpler approach — get modules not yet started
+    from app.models.models import UserProgress as UP
+    started_result = await db.execute(
+        select(UP.module_id).where(UP.user_id == user.id)
+    )
+    started_ids = {row[0] for row in started_result.all()}
+
+    # Pick published, accessible modules not yet started
+    stmt = (
+        select(Module)
+        .where(
+            Module.is_published == True,
+            Module.id.not_in(started_ids) if started_ids else True,
+        )
+        .order_by(Module.module_order)
+        .limit(limit)
+    )
+
+    # Free users see only fundamentals
+    if user.subscription_tier == "free":
+        stmt = stmt.where(Module.is_fundamental == True)
+
+    result = await db.execute(stmt)
+    modules = result.scalars().all()
+    return {"modules": modules, "total": len(modules)}
+
+
+@router.get("/recommendations/daily")
+async def get_daily_plan(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return today's learning plan based on due flashcards and incomplete modules."""
+    from app.models.models import FlashcardReview as FR
+    from datetime import datetime, timezone
+
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+
+    # Count due flashcards
+    due_result = await db.execute(
+        select(func.count()).where(
+            FR.user_id == user.id,
+            FR.next_review_at <= now,
+        )
+    )
+    due_count = due_result.scalar() or 0
+
+    # In-progress modules
+    from app.models.models import UserProgress as UP
+    in_progress_result = await db.execute(
+        select(Module)
+        .join(UP, Module.id == UP.module_id)
+        .where(
+            UP.user_id == user.id,
+            UP.completion_percent < 100,
+            UP.completion_percent > 0,
+        )
+        .limit(3)
+    )
+    in_progress = in_progress_result.scalars().all()
+
+    goal_minutes = (user.preferences or {}).get("daily_goal_minutes", 20)
+
+    return {
+        "date": now.date().isoformat(),
+        "goal_minutes": goal_minutes,
+        "due_flashcards": due_count,
+        "in_progress_modules": in_progress,
+        "streak_days": user.streak_days,
+        "xp_today": 0,  # Would need a daily XP tracker table
+    }

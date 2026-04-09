@@ -1,4 +1,5 @@
 """FastAPI dependency injectors."""
+import uuid
 from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -24,7 +25,11 @@ async def get_current_user(
             detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    result = await db.execute(select(User).where(User.id == user_id, User.is_active == True))
+    try:
+        uid = uuid.UUID(user_id)
+    except (ValueError, AttributeError):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+    result = await db.execute(select(User).where(User.id == uid, User.is_active == True))
     user = result.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
@@ -41,7 +46,11 @@ async def get_current_user_optional(
     user_id = decode_access_token(token)
     if not user_id:
         return None
-    result = await db.execute(select(User).where(User.id == user_id, User.is_active == True))
+    try:
+        uid = uuid.UUID(user_id)
+    except (ValueError, AttributeError):
+        return None
+    result = await db.execute(select(User).where(User.id == uid, User.is_active == True))
     return result.scalar_one_or_none()
 
 

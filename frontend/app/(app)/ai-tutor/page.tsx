@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { aiApi, contentApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import PubMedPanel from "@/components/ui/PubMedPanel";
 
 const MODES = [
   { value: "tutor", label: "🎓 Tutor", desc: "Explain & teach" },
@@ -380,38 +381,7 @@ export default function AiTutorPage() {
       </div>
 
       {/* PubMed panel */}
-      {pubmedPanel.length > 0 && (
-        <div className="w-64 border-l border-border bg-surface flex-shrink-0 overflow-y-auto p-3">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider">
-              PubMed References
-            </h3>
-            <button
-              onClick={() => setPubmedPanel([])}
-              className="text-ink-3 hover:text-ink text-xs"
-            >
-              ×
-            </button>
-          </div>
-          <div className="space-y-3">
-            {pubmedPanel.map((ref: any) => (
-              <div key={ref.pmid} className="text-xs">
-                <a
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-syne font-semibold text-blue hover:text-blue-2 transition-colors leading-tight block"
-                >
-                  {ref.title}
-                </a>
-                <p className="text-ink-3 font-serif mt-0.5">
-                  {ref.authors?.[0]} et al. · {ref.journal}, {ref.year}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <PubMedPanel initialRefs={pubmedPanel} onClose={() => setPubmedPanel([])} />
     </div>
   );
 }

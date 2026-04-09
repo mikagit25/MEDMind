@@ -9,7 +9,7 @@ from sqlalchemy import text
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -76,8 +76,8 @@ app = FastAPI(
     description="Medical & Veterinary Education Platform API",
     version=settings.VERSION,
     lifespan=lifespan,
-    docs_url="/docs" if settings.DEBUG else None,
-    redoc_url="/redoc" if settings.DEBUG else None,
+    docs_url="/docs" if (settings.DEBUG or settings.ENABLE_DOCS) else None,
+    redoc_url="/redoc" if (settings.DEBUG or settings.ENABLE_DOCS) else None,
 )
 
 # CORS
@@ -101,6 +101,10 @@ app.include_router(bookmarks.router, prefix=API_PREFIX)
 app.include_router(achievements.router, prefix=API_PREFIX)
 app.include_router(admin.router, prefix=API_PREFIX)
 app.include_router(courses.router, prefix=API_PREFIX)
+app.include_router(veterinary.router, prefix=API_PREFIX)
+app.include_router(compliance.router, prefix=API_PREFIX)
+app.include_router(dashboard.router, prefix=API_PREFIX)
+app.include_router(notifications.router, prefix=API_PREFIX)
 
 
 @app.get("/health")

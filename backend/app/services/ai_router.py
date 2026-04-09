@@ -36,10 +36,10 @@ COMPLEX_KEYWORDS = [
     "contraindication", "interaction", "epidemiology", "etiology",
 ]
 
-TIER_LIMITS = {
+TIER_LIMITS: dict[str, int | None] = {
     "free": settings.AI_LIMIT_FREE,
     "student": settings.AI_LIMIT_STUDENT,
-    "pro": settings.AI_LIMIT_PRO,
+    "pro": settings.AI_LIMIT_PRO,       # None = unlimited
     "clinic": settings.AI_LIMIT_CLINIC,
     "lifetime": settings.AI_LIMIT_LIFETIME,
 }
@@ -77,7 +77,7 @@ def _select_claude_model(user: User, message: str) -> str:
     """Which Claude model to use for complex paid-tier queries."""
     if user.subscription_tier in ("pro", "clinic", "lifetime"):
         return "claude-sonnet-4-6"
-    return "claude-haiku-4-5"
+    return "claude-haiku-4-5-20251001"
 
 
 def _use_free_ai(user: User, message: str) -> bool:
@@ -281,18 +281,19 @@ async def route_ai_request(
     redis = await get_redis()
     limit = TIER_LIMITS.get(user.subscription_tier, 5)
     rate_key = f"ai_requests:{user.id}"
-    current = await redis.get(rate_key)
 
-    if current and int(current) >= limit:
-        return {
-            "reply": (
-                f"You've reached your daily limit of {limit} AI requests. "
-                "Upgrade your plan for more requests."
-            ),
-            "model": None,
-            "from_cache": False,
-            "error": "rate_limited",
-        }
+    if limit is not None:
+        current = await redis.get(rate_key)
+        if current and int(current) >= limit:
+            return {
+                "reply": (
+                    f"You've reached your daily limit of {limit} AI requests. "
+                    "Upgrade your plan for more requests."
+                ),
+                "model": None,
+                "from_cache": False,
+                "error": "rate_limited",
+            }
 
     # Check cache (only for simple non-conversational queries)
     cache_key = None
@@ -334,7 +335,7 @@ async def route_ai_request(
                     "from_cache": False,
                 }
             # Paid tier: fall back to Claude Haiku
-            model_used = "claude-haiku-4-5"
+            model_used = "claude-haiku-4-5-20251001"
     else:
         model_used = _select_claude_model(user, message)
 

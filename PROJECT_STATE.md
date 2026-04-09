@@ -35,7 +35,7 @@
 ### ENV / Keys
 - DATABASE_URL=postgresql+asyncpg://medmind:medmind_secret@localhost:5432/medmind
 - REDIS_URL=redis://localhost:6379/0
-- JWT_SECRET_KEY=5b009c8c3671c50b8805311139853654b71f584872502018e917d42ec2813aa5
+- JWT_SECRET_KEY=<generate with: openssl rand -hex 32>  ← set in backend/.env, never commit
 - ANTHROPIC_API_KEY=sk-ant-your-key-here ← ⚠️ NEEDS REAL KEY
 - ALLOWED_ORIGINS=["http://localhost:3000"]
 - MODULES_DIR=/Volumes/one/MEDMind/Modules

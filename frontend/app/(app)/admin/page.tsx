@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { api } from "@/lib/api";
+import { api, adminApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
 type Stats = {
@@ -38,7 +38,7 @@ type AdminModule = {
   cases: number;
 };
 
-type Tab = "overview" | "users" | "modules";
+type Tab = "overview" | "users" | "modules" | "generate" | "audit";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -173,16 +173,22 @@ export default function AdminPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 bg-surface border border-border rounded-lg p-1 w-fit">
-        {(["overview", "users", "modules"] as Tab[]).map((t) => (
+      <div className="flex flex-wrap gap-1 mb-6 bg-surface border border-border rounded-lg p-1 w-fit">
+        {([
+          ["overview", "📊 Overview"],
+          ["users",    "👥 Users"],
+          ["modules",  "📚 Modules"],
+          ["generate", "✨ Generate"],
+          ["audit",    "🔍 Audit Log"],
+        ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`font-syne font-semibold text-sm px-4 py-1.5 rounded capitalize transition-colors ${
+            className={`font-syne font-semibold text-sm px-4 py-1.5 rounded transition-colors ${
               tab === t ? "bg-ink text-white" : "text-ink-2 hover:text-ink"
             }`}
           >
-            {t === "overview" ? "📊 Overview" : t === "users" ? "👥 Users" : "📚 Modules"}
+            {label}
           </button>
         ))}
       </div>
@@ -457,6 +463,259 @@ export default function AdminPage() {
           <div className="text-ink-3 text-xs font-serif mt-2">
             {modules.length} modules — {modules.filter((m) => m.is_published).length} published
           </div>
+        </div>
+      )}
+
+      {/* ── Generate Module ── */}
+      {tab === "generate" && <GenerateModulePanel showToast={showToast} />}
+
+      {/* ── Audit Log ── */}
+      {tab === "audit" && <AuditLogPanel />}
+    </div>
+  );
+}
+
+// ── Generate Module Panel ─────────────────────────────────────────────────────
+
+function GenerateModulePanel({ showToast }: { showToast: (msg: string, type?: "ok" | "err") => void }) {
+  const [specialty, setSpecialty] = useState("");
+  const [topic, setTopic]         = useState("");
+  const [level, setLevel]         = useState(2);
+  const [autoPublish, setAutoPublish] = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [result, setResult]       = useState<any>(null);
+
+  // Import file
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [importing, setImporting] = useState(false);
+
+  const generate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!specialty.trim() || !topic.trim()) return;
+    setLoading(true);
+    setResult(null);
+    try {
+      const res = await adminApi.generateModule({ specialty, topic, level, auto_publish: autoPublish });
+      setResult(res);
+      showToast(`Module ${res.code} generated!`);
+    } catch (err: any) {
+      showToast(err.response?.data?.detail ?? "Generation failed", "err");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const importFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImporting(true);
+    try {
+      const res = await adminApi.importModule(file, autoPublish);
+      showToast(`Imported ${res.code} — ${res.lessons} lessons, ${res.flashcards} cards`);
+      setResult(res);
+    } catch (err: any) {
+      showToast(err.response?.data?.detail ?? "Import failed", "err");
+    } finally {
+      setImporting(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  return (
+    <div className="max-w-xl space-y-6">
+      {/* Generate via AI */}
+      <div className="card p-6">
+        <h2 className="font-syne font-bold text-base text-ink mb-4">✨ Generate Module via Claude AI</h2>
+        <form onSubmit={generate} className="space-y-4">
+          <div>
+            <label className="text-xs font-semibold text-ink-3 mb-1 block">Specialty</label>
+            <input
+              value={specialty}
+              onChange={e => setSpecialty(e.target.value)}
+              placeholder="e.g. Cardiology"
+              className="input w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-ink-3 mb-1 block">Topic</label>
+            <input
+              value={topic}
+              onChange={e => setTopic(e.target.value)}
+              placeholder="e.g. Atrial Fibrillation"
+              className="input w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-ink-3 mb-1 block">Level (1–5)</label>
+            <input
+              type="range" min={1} max={5} value={level}
+              onChange={e => setLevel(Number(e.target.value))}
+              className="w-full"
+            />
+            <div className="flex justify-between text-xs text-ink-3 mt-0.5">
+              <span>1 Beginner</span><span>3 Advanced</span><span>5 Expert</span>
+            </div>
+            <div className="text-center text-sm font-semibold text-accent mt-1">Level {level}</div>
+          </div>
+          <label className="flex items-center gap-2 text-sm text-ink cursor-pointer">
+            <input type="checkbox" checked={autoPublish} onChange={e => setAutoPublish(e.target.checked)} />
+            Auto-publish after generation
+          </label>
+          <button type="submit" disabled={loading} className="btn-primary w-full">
+            {loading ? "Generating… (may take 30s)" : "Generate Module"}
+          </button>
+        </form>
+      </div>
+
+      {/* Import JSON */}
+      <div className="card p-6">
+        <h2 className="font-syne font-bold text-base text-ink mb-2">📂 Import from JSON file</h2>
+        <p className="text-xs text-ink-3 mb-4">Upload a module_*.json file in the standard MedMind format.</p>
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".json"
+          onChange={importFile}
+          className="hidden"
+        />
+        <button
+          onClick={() => fileRef.current?.click()}
+          disabled={importing}
+          className="btn-primary w-full"
+        >
+          {importing ? "Importing…" : "Choose JSON file"}
+        </button>
+      </div>
+
+      {/* Result preview */}
+      {result && (
+        <div className="card p-4 border border-green-200 dark:border-green-800">
+          <div className="font-syne font-bold text-sm text-green-700 dark:text-green-400 mb-2">
+            ✓ {result.code} — {result.title}
+          </div>
+          <div className="grid grid-cols-4 gap-2 text-center">
+            {[
+              ["Lessons", result.lessons],
+              ["Flashcards", result.flashcards],
+              ["MCQ", result.mcq],
+              ["Cases", result.cases],
+            ].map(([label, val]) => (
+              <div key={label} className="bg-surface-2 rounded-lg p-2">
+                <div className="font-bold text-lg text-ink">{val}</div>
+                <div className="text-xs text-ink-3">{label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 text-xs text-ink-3">
+            Published: {result.is_published ? "Yes" : "No (draft)"}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Audit Log Panel ───────────────────────────────────────────────────────────
+
+type AuditEntry = {
+  id: string;
+  user_id: string | null;
+  action: string;
+  resource_type: string | null;
+  resource_id: string | null;
+  ip_address: string | null;
+  created_at: string;
+};
+
+function AuditLogPanel() {
+  const [logs, setLogs]         = useState<AuditEntry[]>([]);
+  const [total, setTotal]       = useState(0);
+  const [page, setPage]         = useState(1);
+  const [action, setAction]     = useState("");
+  const [userId, setUserId]     = useState("");
+  const [loading, setLoading]   = useState(false);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const params: Record<string, any> = { page, limit: 50 };
+      if (action) params.action = action;
+      if (userId) params.user_id = userId;
+      const res = await adminApi.getAuditLogs(params);
+      setLogs(res.logs ?? []);
+      setTotal(res.total ?? 0);
+    } catch {
+      setLogs([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, action, userId]);
+
+  useEffect(() => { load(); }, [load]);
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-3 flex-wrap">
+        <input
+          value={action}
+          onChange={e => { setAction(e.target.value); setPage(1); }}
+          placeholder="Filter by action…"
+          className="input w-48"
+        />
+        <input
+          value={userId}
+          onChange={e => { setUserId(e.target.value); setPage(1); }}
+          placeholder="Filter by user ID…"
+          className="input w-64 font-mono text-xs"
+        />
+        <button onClick={load} className="btn-primary px-4">Refresh</button>
+      </div>
+
+      <div className="text-xs text-ink-3">{total} entries</div>
+
+      {loading ? (
+        <div className="text-center py-8 text-ink-3">Loading…</div>
+      ) : (
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full text-xs">
+            <thead className="bg-surface-2">
+              <tr>
+                {["Time", "Action", "Resource", "User ID", "IP"].map(h => (
+                  <th key={h} className="text-left px-3 py-2 font-semibold text-ink-3">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {logs.map(log => (
+                <tr key={log.id} className="border-t border-border hover:bg-surface-2">
+                  <td className="px-3 py-2 text-ink-3 whitespace-nowrap">
+                    {new Date(log.created_at).toLocaleString()}
+                  </td>
+                  <td className="px-3 py-2 font-mono text-accent">{log.action}</td>
+                  <td className="px-3 py-2 text-ink-3">
+                    {log.resource_type}{log.resource_id ? ` / ${log.resource_id.slice(0, 8)}…` : ""}
+                  </td>
+                  <td className="px-3 py-2 font-mono text-ink-3">
+                    {log.user_id ? log.user_id.slice(0, 8) + "…" : "—"}
+                  </td>
+                  <td className="px-3 py-2 text-ink-3">{log.ip_address ?? "—"}</td>
+                </tr>
+              ))}
+              {logs.length === 0 && (
+                <tr><td colSpan={5} className="px-3 py-8 text-center text-ink-3">No entries</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {total > 50 && (
+        <div className="flex gap-2 justify-end">
+          <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="btn text-xs px-3">← Prev</button>
+          <span className="text-xs text-ink-3 self-center">Page {page}</span>
+          <button onClick={() => setPage(p => p + 1)} disabled={page * 50 >= total} className="btn text-xs px-3">Next →</button>
         </div>
       )}
     </div>
