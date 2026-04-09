@@ -9,10 +9,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.api.deps import get_current_user
+from app.core.audit import audit
 from app.models.models import (
     User, UserProgress, AIConversation, AIConversationMessage,
     UserNote, UserBookmark, UserAchievement, FlashcardReview,
-    RefreshToken, UserConsent, AuditLog,
+    RefreshToken, UserConsent,
 )
 
 router = APIRouter(prefix="/compliance", tags=["compliance"])
@@ -134,14 +135,7 @@ async def export_user_data(
         ],
     }
 
-    # Log the export for audit trail
-    db.add(AuditLog(
-        user_id=user.id,
-        action="gdpr_data_export",
-        resource_type="user",
-        resource_id=str(user.id),
-        details={"exported_at": datetime.utcnow().isoformat()},
-    ))
+    await audit(db, "gdpr_data_export", user_id=user.id, resource_type="user", resource_id=user.id)
     await db.commit()
 
     return JSONResponse(content=export)
@@ -181,13 +175,7 @@ async def delete_account(
     user.is_active = False
 
     # Log deletion
-    db.add(AuditLog(
-        user_id=user_id,
-        action="gdpr_account_deletion",
-        resource_type="user",
-        resource_id=str(user_id),
-        details={"deleted_at": datetime.utcnow().isoformat()},
-    ))
+    await audit(db, "gdpr_account_deletion", user_id=user_id, resource_type="user", resource_id=user_id)
 
     await db.commit()
 

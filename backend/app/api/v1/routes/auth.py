@@ -15,6 +15,7 @@ from app.core.security import (
 from app.core.config import settings
 from app.core.encryption import encrypt_email, decrypt_email, email_search_hash
 from app.models.models import User, RefreshToken, UserConsent
+from app.core.audit import audit, get_ip, get_ua
 from pydantic import BaseModel
 from app.schemas.schemas import UserRegister, UserLogin, TokenResponse, RefreshRequest, UserOut
 from app.api.deps import get_current_user
@@ -164,6 +165,7 @@ async def login(data: UserLogin, request: Request, db: AsyncSession = Depends(ge
         expires_at=datetime.utcnow() + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS),
     )
     db.add(refresh)
+    await audit(db, "user_login", user_id=user.id, ip_address=get_ip(request), user_agent=get_ua(request))
     await db.commit()
 
     return TokenResponse(

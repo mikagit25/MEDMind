@@ -399,8 +399,9 @@ class UserConsent(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     consent_type = Column(String(100), nullable=False)
+    granted = Column(Boolean, default=True, nullable=False)
     version = Column(String(50))
-    given_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
     ip_address = Column(String(45))
 
     __table_args__ = (UniqueConstraint("user_id", "consent_type"),)

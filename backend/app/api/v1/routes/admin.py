@@ -166,6 +166,12 @@ async def patch_user(
             raise HTTPException(status_code=400, detail=f"Invalid role. Valid: {VALID_ROLES}")
         target.role = data.role
 
+    db.add(AuditLog(
+        user_id=admin.id,
+        action="admin_user_patch",
+        resource_type="user",
+        resource_id=target.id,
+    ))
     await db.commit()
     await db.refresh(target)
     return {

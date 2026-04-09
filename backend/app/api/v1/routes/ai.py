@@ -16,6 +16,7 @@ from app.models.models import User, AIConversation, AIConversationMessage
 from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, MessageOut
 from app.api.deps import get_current_user
 from app.services.ai_router import route_ai_request, route_ai_stream
+from app.core.audit import audit
 from app.services.pubmed_service import search_pubmed, build_pubmed_context
 
 router = APIRouter(prefix="/ai", tags=["ai"])
@@ -135,6 +136,8 @@ async def ask_ai(
     if result.get("from_cache"):
         conversation.cached_responses += 1
 
+    await audit(db, "ai_ask", user_id=user.id,
+                resource_type="conversation", resource_id=conversation.id)
     await db.commit()
 
     return AIAskResponse(

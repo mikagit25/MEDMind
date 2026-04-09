@@ -77,7 +77,7 @@ def _select_claude_model(user: User, message: str) -> str:
     """Which Claude model to use for complex paid-tier queries."""
     if user.subscription_tier in ("pro", "clinic", "lifetime"):
         return "claude-sonnet-4-6"
-    return "claude-haiku-4-5"
+    return "claude-haiku-4-5-20251001"
 
 
 def _use_free_ai(user: User, message: str) -> bool:
@@ -335,7 +335,7 @@ async def route_ai_request(
                     "from_cache": False,
                 }
             # Paid tier: fall back to Claude Haiku
-            model_used = "claude-haiku-4-5"
+            model_used = "claude-haiku-4-5-20251001"
     else:
         model_used = _select_claude_model(user, message)
 

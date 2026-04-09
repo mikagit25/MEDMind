@@ -10,7 +10,7 @@ from sqlalchemy import select, func
 from app.core.database import get_db
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
-    Module, MCQQuestion, ClinicalCase
+    Module, MCQQuestion, ClinicalCase, CMECredit
 )
 from app.schemas.schemas import (
     LessonCompleteRequest, LessonCompleteResponse,
@@ -109,6 +109,20 @@ async def complete_lesson(
     done = len(completed)
     completion_pct = (done / total * 100) if total > 0 else 0
     progress.completion_percent = completion_pct
+
+    # CME credit for doctors — 0.5 AMA PRA Category 1 credit per lesson (idempotent)
+    if user.role in ("doctor", "resident") and lesson.id not in (progress.lessons_completed or [])[:-1]:
+        mod_result = await db.execute(select(Module).where(Module.id == lesson.module_id))
+        mod = mod_result.scalar_one_or_none()
+        cme = CMECredit(
+            user_id=user.id,
+            module_id=lesson.module_id,
+            credit_type="AMA_PRA_1",
+            credits_earned=0.5,
+            activity_title=f"{mod.title if mod else 'Module'}: {lesson.title}",
+            completion_date=datetime.utcnow(),
+        )
+        db.add(cme)
 
     await db.commit()
 
@@ -448,7 +462,7 @@ async def get_weaknesses(
         select(
             Flashcard.module_id,
             func.avg(FlashcardReview.last_quality).label("avg_quality"),
-            func.count(FlashcardReview.id).label("review_count"),
+            func.count(FlashcardReview.flashcard_id).label("review_count"),
         )
         .join(FlashcardReview, Flashcard.id == FlashcardReview.flashcard_id)
         .where(FlashcardReview.user_id == user.id)

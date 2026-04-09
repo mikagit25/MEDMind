@@ -1,7 +1,7 @@
 """Add drug_interactions, animal_species, veterinary_dosing, cme_credits tables
 
 Revision ID: 0002
-Revises: 0001
+Revises: 0001_initial_schema
 Create Date: 2026-04-07
 """
 from alembic import op
@@ -9,7 +9,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 
 revision = "0002"
-down_revision = "0001"
+down_revision = "0001_initial_schema"
 branch_labels = None
 depends_on = None
 

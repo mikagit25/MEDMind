@@ -133,9 +133,9 @@
 |---|--------|------|--------|
 | D1 | `notification_service.py` — создание уведомлений (achievement earned, flashcard due, daily goal) | `backend/app/services/notification_service.py` | DONE |
 | D2 | Интеграция notification_service в achievements.py (при выдаче достижения → уведомление) | `backend/app/api/v1/routes/achievements.py` | DONE |
-| D3 | Интеграция notification_service в scheduler.py (daily flashcard reminder) | `backend/app/services/scheduler.py` | TODO |
-| D4 | CME credits логика: при завершении урока/модуля начислять CME кредиты врачам | `backend/app/api/v1/routes/progress.py` | TODO |
-| D5 | Audit log запись при: просмотр AI ответа, экспорт данных, изменение роли, вход | Middleware или в роутах | TODO |
+| D3 | Интеграция notification_service в scheduler.py (daily flashcard reminder) | `backend/app/services/scheduler.py` | DONE |
+| D4 | CME credits логика: при завершении урока/модуля начислять CME кредиты врачам | `backend/app/api/v1/routes/progress.py` | DONE |
+| D5 | Audit log запись при: просмотр AI ответа, экспорт данных, изменение роли, вход | Middleware или в роутах | DONE |
 | D6 | `generate_full_module()` в `content_prompts.py` — промпт для генерации полного модуля | `backend/app/prompts/content_prompts.py` | DONE |
 
 ---
@@ -144,14 +144,14 @@
 
 | # | Задача | Файл | Статус |
 |---|--------|------|--------|
-| E1 | pytest config + conftest.py (test DB, fixtures) | `backend/tests/conftest.py` | TODO |
-| E2 | Тест: email шифруется в БД и дешифруется корректно | `backend/tests/test_security.py` | TODO |
-| E3 | Тест: SM-2 алгоритм — расчёт следующей даты повторения | `backend/tests/test_sm2.py` | TODO |
-| E4 | Тест: auth flow (register → login → refresh → logout → refresh rejected) | `backend/tests/test_auth.py` | TODO |
-| E5 | Тест: rate limiting (6-й AI запрос для Free tier → 429) | `backend/tests/test_rate_limiting.py` | TODO |
-| E6 | Тест: ролевой доступ (student не видит admin эндпоинты) | `backend/tests/test_permissions.py` | TODO |
-| E7 | Тест: GDPR export — возвращает все данные пользователя | `backend/tests/test_compliance.py` | TODO |
-| E8 | Тест: import_modules.py идемпотентен (повторный запуск не дублирует) | `backend/tests/test_import.py` | TODO |
+| E1 | pytest config + conftest.py (test DB, fixtures) | `backend/tests/conftest.py` | DONE |
+| E2 | Тест: email шифруется в БД и дешифруется корректно | `backend/tests/test_security.py` | DONE |
+| E3 | Тест: SM-2 алгоритм — расчёт следующей даты повторения | `backend/tests/test_sm2.py` | DONE |
+| E4 | Тест: auth flow (register → login → refresh → logout → refresh rejected) | `backend/tests/test_auth.py` | DONE |
+| E5 | Тест: rate limiting (6-й AI запрос для Free tier → 429) | `backend/tests/test_rate_limiting.py` | DONE |
+| E6 | Тест: ролевой доступ (student не видит admin эндпоинты) | `backend/tests/test_permissions.py` | DONE |
+| E7 | Тест: GDPR export — возвращает все данные пользователя | `backend/tests/test_compliance.py` | DONE |
+| E8 | Тест: import_modules.py идемпотентен (повторный запуск не дублирует) | `backend/tests/test_import.py` | DONE |
 
 ---
 
@@ -159,10 +159,10 @@
 
 | # | Задача | Файл | Статус |
 |---|--------|------|--------|
-| F1 | Push-уведомления (Expo Notifications) — напоминание о повторении флэшкарт | `mobile/src/screens/` | TODO |
-| F2 | Offline заглушка для AI (сообщение об отсутствии интернета) | `mobile/src/screens/ai-tutor.tsx` | TODO |
-| F3 | Leaderboard экран в мобильном | `mobile/src/screens/leaderboard.tsx` (новый) | TODO |
-| F4 | Achievements экран в мобильном | `mobile/src/screens/achievements.tsx` (новый) | TODO |
+| F1 | Push-уведомления (Expo Notifications) — напоминание о повторении флэшкарт | `mobile/src/lib/notifications.ts` | DONE |
+| F2 | Offline заглушка для AI (сообщение об отсутствии интернета) | `mobile/src/lib/offlineAI.ts` + `ai.tsx` | DONE |
+| F3 | Leaderboard экран в мобильном | `mobile/app/(tabs)/leaderboard.tsx` | DONE |
+| F4 | Achievements экран в мобильном | `mobile/app/(tabs)/achievements.tsx` | DONE |
 
 ---
 
@@ -170,11 +170,11 @@
 
 | # | Задача | Файл | Статус |
 |---|--------|------|--------|
-| G1 | `docker-compose.prod.yml` проверить и дополнить (nginx, ssl, healthchecks) | `docker-compose.prod.yml` | TODO |
-| G2 | `nginx.conf` — reverse proxy для FastAPI + Next.js + SSL | `nginx/nginx.conf` (новый) | TODO |
-| G3 | GitHub Actions CI pipeline (lint → test → build) | `.github/workflows/ci.yml` (новый) | TODO |
-| G4 | `.env.example` финальный — все переменные из TZ v3-02 | `backend/.env.example` | TODO |
-| G5 | `README.md` — инструкции запуска (dev + prod) | `README.md` | TODO |
+| G1 | `docker-compose.prod.yml` проверить и дополнить (nginx, ssl, healthchecks) | `docker-compose.prod.yml` | DONE |
+| G2 | `nginx.conf` — reverse proxy для FastAPI + Next.js + SSL | `nginx.conf` | DONE |
+| G3 | GitHub Actions CI pipeline (lint → test → build → deploy) | `.github/workflows/ci.yml` | DONE |
+| G4 | `.env.example` финальный — все переменные из TZ v3-02 | `backend/.env.example` | DONE |
+| G5 | `README.md` — инструкции запуска (dev + prod) | `README.md` | DONE |
 
 ---
 
@@ -195,19 +195,21 @@
 ## ТЕКУЩИЙ ПРОГРЕСС
 
 **Дата старта v2:** 2026-04-07  
-**Дата старта v2:** 2026-04-07  
-**Выполнено из TASKS_V2:** 51 / 73 задач
+**Последнее обновление:** 2026-04-08  
+**Выполнено из TASKS_V2:** 61 / 73 задач
 
 | Блок | Выполнено | Всего |
 |------|-----------|-------|
 | A — Backend эндпоинты | 16 | 16 |
 | B — Frontend | 22 | 22 |
 | C — VET контент | 0 | 12 |
-| D — Сервисы | 4 | 6 |
-| E — Тесты | 0 | 8 |
-| F — Mobile | 0 | 4 |
-| G — Деплой | 0 | 5 |
-| **ИТОГО** | **51** | **73** |
+| D — Сервисы | 6 | 6 |
+| E — Тесты | 8 | 8 |
+| F — Mobile | 4 | 4 |
+| G — Деплой | 5 | 5 |
+| **ИТОГО** | **61** | **73** |
+
+> Блок C (VET модули) отложен по решению пользователя — вернуться позже.
 
 ---
 

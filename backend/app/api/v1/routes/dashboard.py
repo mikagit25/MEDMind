@@ -30,7 +30,7 @@ async def _base_stats(user: User, db: AsyncSession) -> Dict[str, Any]:
 
     # Due flashcards
     due_count = (await db.execute(
-        select(func.count(FlashcardReview.id)).where(
+        select(func.count(FlashcardReview.flashcard_id)).where(
             FlashcardReview.user_id == user.id,
             FlashcardReview.next_review_at <= datetime.utcnow(),
         )
@@ -123,7 +123,7 @@ async def student_dashboard(
 
     # Today's plan: due flashcards + next lesson
     due_cards = (await db.execute(
-        select(func.count(FlashcardReview.id)).where(
+        select(func.count(FlashcardReview.flashcard_id)).where(
             FlashcardReview.user_id == user.id,
             FlashcardReview.next_review_at <= datetime.utcnow(),
         )

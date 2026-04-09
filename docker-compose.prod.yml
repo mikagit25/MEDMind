@@ -56,10 +56,24 @@ services:
     container_name: medmind_frontend
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     depends_on:
       - backend
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: medmind_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/medmind.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
+      - frontend
     restart: unless-stopped
 
 volumes:

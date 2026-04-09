@@ -30,11 +30,12 @@ jobs:
       - name: Lint (ruff)
         run: ruff check app/ --select E,W,F,I --ignore E501
 
-      - name: Run smoke tests
+      - name: Run tests
         env:
           DATABASE_URL: sqlite+aiosqlite:///:memory:
           REDIS_URL: redis://localhost:6379/0
           JWT_SECRET_KEY: ci-test-secret-key-for-github-actions!!
+          ENCRYPTION_KEY: ""
           ENVIRONMENT: development
         run: pytest tests/ -v --tb=short
 
@@ -65,3 +66,29 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
         run: npm run build
+
+  # ── Deploy (runs only on push to main) ─────────────────────────────────────
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host:     ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key:      ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /opt/medmind
+            git pull origin main
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d --build
+            docker compose -f docker-compose.prod.yml exec backend \
+              python -m app.scripts.import_modules
+            echo "✅ Deploy complete"

@@ -1,7 +1,8 @@
 /**
  * AI Tutor screen — streaming SSE chat with Claude
  */
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { isOffline, getOfflineAIResponse } from '@/lib/offlineAI';
 import {
   View, Text, ScrollView, TextInput, TouchableOpacity,
   StyleSheet, KeyboardAvoidingView, Platform, ActivityIndicator,
@@ -47,6 +48,18 @@ export default function AIScreen() {
     abortRef.current = () => controller.abort();
 
     try {
+      // Offline check — use canned response instead of hitting the network
+      const offline = await isOffline();
+      if (offline) {
+        const { reply } = await getOfflineAIResponse(text.trim(), 'General Medicine', 'tutor');
+        setMessages((prev) =>
+          prev.map((m) => (m.id === aiMsgId ? { ...m, content: reply } : m))
+        );
+        setStreaming(false);
+        scrollToBottom();
+        return;
+      }
+
       const token = await SecureStore.getItemAsync('medmind_access_token');
       const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000/api/v1';
 

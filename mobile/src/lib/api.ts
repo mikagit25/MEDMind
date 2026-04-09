@@ -111,6 +111,9 @@ export const progressApi = {
   getStats: () => api.get('/progress/stats'),
   getHistory: (days = 30) => api.get(`/progress/history?days=${days}`),
   getDueFlashcards: () => api.get('/progress/flashcards/due'),
+  getLeaderboard: (period: 'week' | 'month' | 'all' = 'week', limit = 50) =>
+    api.get(`/progress/leaderboard?period=${period}&limit=${limit}`),
+  getAchievements: () => api.get('/progress/achievements'),
 };
 
 // ── AI API ──────────────────────────────────────────────────────────────────
