@@ -24,12 +24,16 @@ import httpx
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.redis_client import get_redis
+from app.core.redis_client import get_redis  # used for cache
 from app.models.models import User
 
 logger = logging.getLogger(__name__)
 
-claude_client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
+claude_client = anthropic.AsyncAnthropic(
+    api_key=settings.ANTHROPIC_API_KEY,
+    timeout=30.0,   # seconds — prevents worker hang if Anthropic API stalls
+    max_retries=2,
+)
 
 # Keywords that indicate a complex medical question → use Claude
 COMPLEX_KEYWORDS = [
@@ -38,14 +42,6 @@ COMPLEX_KEYWORDS = [
     "diagnosis", "prognosis", "complications", "pharmacokinetics",
     "contraindication", "interaction", "epidemiology", "etiology",
 ]
-
-TIER_LIMITS: dict[str, int | None] = {
-    "free": settings.AI_LIMIT_FREE,
-    "student": settings.AI_LIMIT_STUDENT,
-    "pro": settings.AI_LIMIT_PRO,       # None = unlimited
-    "clinic": settings.AI_LIMIT_CLINIC,
-    "lifetime": settings.AI_LIMIT_LIFETIME,
-}
 
 SYSTEM_PROMPTS = {
     "tutor": (
@@ -282,23 +278,7 @@ async def route_ai_request(
 ) -> dict:
     """Main AI routing logic. Returns dict with reply, model, from_cache."""
 
-    # Check rate limit
     redis = await get_redis()
-    limit = TIER_LIMITS.get(user.subscription_tier, 5)
-    rate_key = f"ai_requests:{user.id}"
-
-    if limit is not None:
-        current = await redis.get(rate_key)
-        if current and int(current) >= limit:
-            return {
-                "reply": (
-                    f"You've reached your daily limit of {limit} AI requests. "
-                    "Upgrade your plan for more requests."
-                ),
-                "model": None,
-                "from_cache": False,
-                "error": "rate_limited",
-            }
 
     # Check cache (only for simple non-conversational queries)
     cache_key = None
@@ -394,13 +374,6 @@ async def route_ai_request(
                 "from_cache": False,
                 "error": str(e),
             }
-
-    # Increment rate limit counter (TTL = seconds until midnight reset)
-    from datetime import datetime
-    now = datetime.utcnow()
-    seconds_till_midnight = 86400 - (now.hour * 3600 + now.minute * 60 + now.second)
-    await redis.incr(rate_key)
-    await redis.expire(rate_key, seconds_till_midnight)
 
     # Cache single-turn responses
     if cache_key:

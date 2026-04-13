@@ -11,7 +11,7 @@ from sqlalchemy import (
     JSON as _SQLJSON,
 )
 from sqlalchemy.dialects.postgresql import UUID, JSONB as _PGJSONB, ARRAY as _PGARRAY
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 
 _IS_SQLITE = os.getenv("DATABASE_URL", "").startswith("sqlite")
 
@@ -622,8 +622,29 @@ class StudentMemory(Base):
 
     # Content
     content = Column(Text, nullable=False)
-    # Lowercased tokens for text search (populated on insert by service)
+    # Lowercased tokens for text search — auto-populated on content write
     search_tokens = Column(Text)
+
+    @validates("content")
+    def _auto_search_tokens(self, key: str, value: str) -> str:
+        """Keep search_tokens in sync with content automatically."""
+        import re
+        _stop = frozenset({
+            "a", "an", "the", "is", "in", "on", "at", "to", "of", "or", "and",
+            "for", "not", "but", "be", "as", "by", "it", "its", "if", "do",
+            "so", "up", "he", "she", "we", "my", "no", "can", "has", "had",
+            "was", "are", "did", "may", "who", "how", "our", "you", "all",
+        })
+        tokens = re.findall(r"[a-zA-Zа-яёА-ЯЁ0-9]+", value or "")
+        seen: set = set()
+        unique = []
+        for t in tokens:
+            lt = t.lower()
+            if lt not in seen and len(lt) > 2 and lt not in _stop:
+                seen.add(lt)
+                unique.append(lt)
+        self.search_tokens = " ".join(unique)
+        return value
 
     # Contextual metadata
     specialty = Column(String(100), index=True)

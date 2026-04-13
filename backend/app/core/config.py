@@ -84,6 +84,22 @@ class Settings(BaseSettings):
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
+    def __repr__(self) -> str:
+        """Never expose secrets in logs or tracebacks."""
+        _SECRET_FIELDS = {
+            "JWT_SECRET_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "GROQ_API_KEY",
+            "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET",
+            "SMTP_PASSWORD", "ENCRYPTION_KEY",
+        }
+        parts = []
+        for field in self.model_fields:
+            val = "<redacted>" if field in _SECRET_FIELDS else getattr(self, field)
+            parts.append(f"{field}={val!r}")
+        return f"Settings({', '.join(parts)})"
+
+    def __str__(self) -> str:
+        return self.__repr__()
+
     def model_post_init(self, __context) -> None:
         """Validate critical settings at startup."""
         if self.ENVIRONMENT == "production":

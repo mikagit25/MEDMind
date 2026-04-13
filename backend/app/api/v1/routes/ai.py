@@ -10,6 +10,7 @@ from pydantic import BaseModel
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.orm import load_only
 
 from app.core.database import get_db
 from app.models.models import User, AIConversation, AIConversationMessage
@@ -17,6 +18,7 @@ from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, Me
 from app.api.deps import get_current_user
 from app.services.ai_router import route_ai_request, route_ai_stream
 from app.core.audit import audit
+from app.core.redis_client import get_redis
 from app.services.pubmed_service import search_pubmed, build_pubmed_context
 
 router = APIRouter(prefix="/ai", tags=["ai"])
@@ -32,26 +34,30 @@ TIER_DAILY_LIMITS = {
 
 
 async def check_ai_rate_limit(user: User, db: AsyncSession) -> None:
-    """Check if user has exceeded their daily AI request limit."""
-    from sqlalchemy import func
-    from app.models.models import AIConversationMessage
+    """Check and atomically increment the daily AI request counter via Redis.
+
+    Uses Redis pipeline (INCR + EXPIRE) so the check and increment are atomic —
+    no race condition between concurrent requests.  The counter resets at midnight.
+    """
     limit = TIER_DAILY_LIMITS.get(user.subscription_tier, 5)
     if limit is None:
-        return  # unlimited
+        return  # unlimited tier
 
-    today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
-    # Count user messages today (each user message = 1 AI request)
-    count_result = await db.execute(
-        select(func.count(AIConversationMessage.id))
-        .join(AIConversation, AIConversation.id == AIConversationMessage.conversation_id)
-        .where(
-            AIConversation.user_id == user.id,
-            AIConversationMessage.role == "user",
-            AIConversationMessage.created_at >= today_start,
-        )
-    )
-    count = count_result.scalar() or 0
-    if count >= limit:
+    redis = await get_redis()
+    rate_key = f"ai_requests:{user.id}"
+    now = datetime.utcnow()
+    seconds_till_midnight = 86400 - (now.hour * 3600 + now.minute * 60 + now.second)
+
+    # Atomic: increment first, then check — prevents concurrent bypass
+    pipe = redis.pipeline()
+    await pipe.incr(rate_key)
+    await pipe.expire(rate_key, seconds_till_midnight)
+    results = await pipe.execute()
+    new_count = results[0]
+
+    if new_count > limit:
+        # Roll back the increment so the counter reflects actual completed requests
+        await redis.decr(rate_key)
         raise HTTPException(
             status_code=429,
             detail=f"Daily AI limit reached ({limit} questions/day on {user.subscription_tier} plan). Upgrade for more.",
@@ -86,9 +92,10 @@ async def ask_ai(
         db.add(conversation)
         await db.flush()
 
-    # Load conversation history (last 10 messages)
+    # Load conversation history (last 10 messages — only role+content, skip heavy JSONB fields)
     msgs_result = await db.execute(
         select(AIConversationMessage)
+        .options(load_only(AIConversationMessage.role, AIConversationMessage.content))
         .where(AIConversationMessage.conversation_id == conversation.id)
         .order_by(AIConversationMessage.created_at.desc())
         .limit(10)
@@ -198,9 +205,10 @@ async def ask_ai_stream(
         await db.commit()
         await db.refresh(conversation)
 
-    # Load history
+    # Load history (only role+content, skip heavy JSONB fields)
     msgs_result = await db.execute(
         select(AIConversationMessage)
+        .options(load_only(AIConversationMessage.role, AIConversationMessage.content))
         .where(AIConversationMessage.conversation_id == conversation.id)
         .order_by(AIConversationMessage.created_at.desc())
         .limit(10)
