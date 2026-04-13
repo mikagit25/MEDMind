@@ -657,6 +657,15 @@ class StudentMemory(Base):
     verified = Column(Boolean, default=False)   # verified by instructor/admin
     deprecated = Column(Boolean, default=False, index=True)  # soft-delete or outdated
 
+    # Source & validation metadata (from enhanced extraction prompt)
+    source_hint = Column(String(200))           # e.g. "WHO 2024", "Plumb's 9th ed."
+    requires_verification = Column(Boolean, default=False)  # flagged by LLM for review
+    species_applicability = Column(_SQLJSON)    # list of applicable species: ["canine", "feline"]
+    misconception_severity = Column(String(10)) # "low"|"medium"|"high" for misconception type
+
+    # Audit trail
+    prompt_version = Column(String(30))         # version of extraction prompt used
+
     # Usage tracking
     importance_score = Column(Float, default=0.5)
     access_count = Column(Integer, default=0)

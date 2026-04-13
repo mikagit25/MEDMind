@@ -36,6 +36,11 @@ class MemoryOut(BaseModel):
     verified: bool
     importance_score: float
     access_count: int
+    source_hint: Optional[str]
+    requires_verification: Optional[bool]
+    species_applicability: Optional[list]
+    misconception_severity: Optional[str]
+    prompt_version: Optional[str]
     created_at: datetime
 
     class Config:

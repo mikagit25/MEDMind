@@ -391,6 +391,7 @@ async def route_ai_request(
                     ai_reply=reply,
                     specialty=specialty,
                     conversation_id=conversation_id,
+                    species_context=species or "human",
                 )
             )
         except Exception as _e:

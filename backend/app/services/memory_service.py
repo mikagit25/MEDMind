@@ -35,32 +35,58 @@ MIN_CONFIDENCE = 0.6
 # Maximum memories to surface in one prompt
 MAX_CONTEXT_MEMORIES = 4
 
-# Extraction prompt (must return a JSON array)
+# Increment this when the prompt logic changes — stored in each memory for audit
+_PROMPT_VERSION = "v2.0"
+
+# Species-aware, source-validated extraction prompt
 _EXTRACT_PROMPT = """\
-You are a medical education assistant analysing a student–AI dialogue.
-Your task: extract important, reusable learning facts.
+You are a medical education expert specialising in {domain} ({specialty}).
+
+TASK: Analyse the dialogue below and extract ONLY facts that are reusable across future learning sessions.
 
 Dialogue:
 Student: {message}
-AI reply: {reply}
+AI Tutor: {reply}
 Specialty: {specialty}
+Species context: {species_context}
 
-Return ONLY a JSON array (no other text).  Each element:
-{{
-  "type": "fact|skill|misconception|preference|case_experience",
-  "content": "<concise 1-2 sentence fact in the SAME language as the dialogue>",
-  "competency_level": "beginner|intermediate|advanced",
-  "confidence": 0.0-1.0,
-  "species_context": "human|canine|feline|equine|bovine|avian|rabbit|other",
-  "tags": ["keyword1", "keyword2"]
-}}
+EXTRACTION RULES:
+1. Extract facts that are clinically relevant, specific, and aligned with current guidelines (2023–2026).
+2. DO NOT extract: trivial facts ("the heart pumps blood"), conversational fillers, or speculation.
+3. SPECIES RULE: Critically check whether the fact applies to the declared species.
+   - Never cross-apply human drug doses to veterinary patients (or vice versa) without explicit note.
+   - If a fact applies to multiple species, list all in species_applicability.
+   - If species is ambiguous, set species_applicability to [] and requires_verification to true.
+4. MISCONCEPTIONS: Mark incorrect student beliefs as type "misconception".
+   - Set confidence ≤ 0.4 and add severity: "low|medium|high" (high = potentially harmful if acted upon).
+5. CONFIDENCE scale:
+   - 0.9–1.0: Multiple current guidelines in agreement, consensus statement
+   - 0.7–0.89: Single authoritative source (UpToDate, Plumb's, WHO, OIE, WSAVA)
+   - 0.5–0.69: Plausible but limited evidence
+   - <0.5: Do NOT include — speculative or conflicting
+6. SOURCE HINT: Add a brief hint about the likely authoritative source. Examples:
+   - Human: "WHO 2024", "AHA/ACC guidelines 2023", "UpToDate", "Cochrane Review"
+   - Veterinary: "Plumb's 9th ed.", "WSAVA 2023", "Merck Veterinary Manual", "OIE Code"
+7. Return ONLY a JSON array. Return [] if nothing meets the criteria. Maximum 5 facts.
 
-Rules:
-- Omit trivial facts ("the heart pumps blood").
-- Mark student errors as type "misconception" with confidence ≤ 0.4.
-- For clinical cases use type "case_experience".
-- Return [] if nothing noteworthy.
-- Maximum 5 facts per call.
+OUTPUT FORMAT (strict JSON array, no other text):
+[
+  {{
+    "type": "fact|skill|misconception|preference|case_experience",
+    "content": "<concise 1-2 sentence fact in the SAME language as the dialogue>",
+    "competency_level": "beginner|intermediate|advanced",
+    "confidence": 0.0-1.0,
+    "species_context": "human|canine|feline|equine|bovine|avian|rabbit|other",
+    "species_applicability": ["human"],
+    "tags": ["keyword1", "keyword2", "keyword3"],
+    "source_hint": "Brief authoritative source hint",
+    "requires_verification": false,
+    "misconception_severity": null
+  }}
+]
+
+For misconceptions include:
+  "misconception_severity": "low|medium|high"
 """
 
 
@@ -131,21 +157,32 @@ async def extract_and_save_memories(
     ai_reply: str,
     specialty: str,
     conversation_id: UUID,
+    species_context: str = "human",
 ) -> list[StudentMemory]:
     """
     Background task: calls Claude Haiku to extract facts, saves to DB.
     Never raises — any error is logged and swallowed so the caller is unaffected.
+
+    Args:
+        species_context: detected species for this conversation (human/canine/feline/…)
     """
     try:
+        domain = (
+            "veterinary medicine" if species_context not in ("human", "unknown", "")
+            else "human medicine"
+        )
         prompt = _EXTRACT_PROMPT.format(
+            domain=domain,
             message=message[:1000],
             reply=ai_reply[:1500],
             specialty=specialty,
+            species_context=species_context or "human",
         )
         response = await _claude.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=600,
+            max_tokens=800,
             messages=[{"role": "user", "content": prompt}],
+            temperature=0.1,  # low temperature for deterministic structured output
         )
         raw = response.content[0].text if response.content else "[]"
         facts = _parse_llm_json(raw)
@@ -157,6 +194,11 @@ async def extract_and_save_memories(
         for fact in facts[:5]:
             if not isinstance(fact, dict) or not fact.get("content"):
                 continue
+            conf = float(fact.get("confidence", 0.7))
+            # Skip facts below storage threshold (LLM sometimes returns borderline items)
+            if conf < MIN_CONFIDENCE and fact.get("type") != "misconception":
+                continue
+
             mem = StudentMemory(
                 user_id=user_id,
                 memory_type=fact.get("type", "fact"),
@@ -164,17 +206,26 @@ async def extract_and_save_memories(
                 search_tokens=_make_search_tokens(fact["content"], fact.get("tags")),
                 specialty=specialty,
                 competency_level=fact.get("competency_level", "intermediate"),
-                species_context=fact.get("species_context", "human"),
+                species_context=fact.get("species_context", species_context or "human"),
                 source_conversation_id=conversation_id,
-                confidence=float(fact.get("confidence", 0.7)),
+                confidence=conf,
                 importance_score=_importance(fact),
+                # New fields from enhanced prompt
+                source_hint=fact.get("source_hint"),
+                requires_verification=bool(fact.get("requires_verification", False)),
+                species_applicability=fact.get("species_applicability") or [],
+                misconception_severity=fact.get("misconception_severity"),
+                prompt_version=_PROMPT_VERSION,
             )
             memories.append(mem)
 
         if memories:
             db.add_all(memories)
             await db.commit()
-            logger.info("Saved %d memories for user %s", len(memories), user_id)
+            logger.info(
+                "Saved %d memories for user %s (prompt=%s)",
+                len(memories), user_id, _PROMPT_VERSION,
+            )
 
         return memories
 

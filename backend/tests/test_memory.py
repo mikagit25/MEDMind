@@ -266,7 +266,11 @@ class TestExtractAndSave:
                 "competency_level": "beginner",
                 "confidence": 0.9,
                 "species_context": "human",
+                "species_applicability": ["human"],
                 "tags": ["diuretics", "cardiology"],
+                "source_hint": "Goodman & Gilman 2023",
+                "requires_verification": False,
+                "misconception_severity": None,
             }
         ]))]
 
@@ -285,6 +289,10 @@ class TestExtractAndSave:
         assert "Furosemide" in memories[0].content
         assert memories[0].memory_type == "fact"
         assert memories[0].confidence == 0.9
+        assert memories[0].source_hint == "Goodman & Gilman 2023"
+        assert memories[0].requires_verification is False
+        assert memories[0].species_applicability == ["human"]
+        assert memories[0].prompt_version is not None
 
         # Verify persisted
         saved = (await db_session.execute(
@@ -335,7 +343,11 @@ class TestExtractAndSave:
                 "competency_level": "beginner",
                 "confidence": 0.3,
                 "species_context": "human",
+                "species_applicability": ["human"],
                 "tags": [],
+                "source_hint": None,
+                "requires_verification": True,
+                "misconception_severity": "high",
             }
         ]))]
 
@@ -353,6 +365,80 @@ class TestExtractAndSave:
         assert len(memories) == 1
         assert memories[0].memory_type == "misconception"
         assert memories[0].importance_score > 0.6
+        assert memories[0].misconception_severity == "high"
+        assert memories[0].requires_verification is True
+
+    async def test_veterinary_species_context_passed(self, db_session):
+        """Species context is correctly forwarded to the extraction prompt."""
+        uid = uuid.uuid4()
+        fake_response = MagicMock()
+        fake_response.content = [MagicMock(text=json.dumps([
+            {
+                "type": "fact",
+                "content": "Ivermectin is contraindicated in Collie breeds due to MDR1 mutation",
+                "competency_level": "intermediate",
+                "confidence": 0.95,
+                "species_context": "canine",
+                "species_applicability": ["canine"],
+                "tags": ["pharmacology", "genetics"],
+                "source_hint": "Plumb's Veterinary Drug Handbook 9th ed.",
+                "requires_verification": False,
+                "misconception_severity": None,
+            }
+        ]))]
+
+        with patch("app.services.memory_service._claude") as mock_claude:
+            mock_claude.messages.create = AsyncMock(return_value=fake_response)
+            memories = await extract_and_save_memories(
+                db=db_session,
+                user_id=uid,
+                message="Can I use ivermectin in a Collie?",
+                ai_reply="No — Collies have MDR1 mutation making them sensitive.",
+                specialty="Veterinary",
+                conversation_id=uuid.uuid4(),
+                species_context="canine",
+            )
+            # Verify domain was passed in the prompt
+            call_args = mock_claude.messages.create.call_args
+            prompt_sent = call_args[1]["messages"][0]["content"]
+            assert "veterinary medicine" in prompt_sent.lower()
+
+        assert len(memories) == 1
+        assert memories[0].species_context == "canine"
+        assert memories[0].species_applicability == ["canine"]
+        assert "Plumb" in (memories[0].source_hint or "")
+
+    async def test_low_confidence_non_misconception_skipped(self, db_session):
+        """Facts with confidence < 0.6 (non-misconceptions) are not saved."""
+        uid = uuid.uuid4()
+        fake_response = MagicMock()
+        fake_response.content = [MagicMock(text=json.dumps([
+            {
+                "type": "fact",
+                "content": "Some speculative claim",
+                "competency_level": "beginner",
+                "confidence": 0.4,  # below MIN_CONFIDENCE
+                "species_context": "human",
+                "species_applicability": ["human"],
+                "tags": [],
+                "source_hint": None,
+                "requires_verification": True,
+                "misconception_severity": None,
+            }
+        ]))]
+
+        with patch("app.services.memory_service._claude") as mock_claude:
+            mock_claude.messages.create = AsyncMock(return_value=fake_response)
+            memories = await extract_and_save_memories(
+                db=db_session,
+                user_id=uid,
+                message="Some question",
+                ai_reply="Some answer",
+                specialty="General",
+                conversation_id=uuid.uuid4(),
+            )
+
+        assert memories == []
 
 
 class TestMemoryAPI:
