@@ -82,6 +82,8 @@ class Module(Base):
     content = Column(JSONB)
     is_published = Column(Boolean, default=False)
     is_veterinary = Column(Boolean, default=False)
+    # Teacher-authored modules: who created this module
+    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -106,6 +108,14 @@ class Lesson(Base):
     content = Column(JSONB, nullable=False)
     embedding = Column(_VECTOR_TYPE)
     estimated_minutes = Column(Integer, default=20)
+
+    # Teacher authoring workflow
+    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    # draft → review → published → archived
+    status = Column(String(20), default="published", nullable=False, index=True)
+    published_at = Column(DateTime)
+    review_notes = Column(Text)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

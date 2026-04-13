@@ -9,7 +9,7 @@ from sqlalchemy import text
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -92,6 +92,8 @@ app.add_middleware(
 # Include routers
 API_PREFIX = "/api/v1"
 app.include_router(auth.router, prefix=API_PREFIX)
+# lessons must be registered before content to take precedence on GET /lessons/{id}
+app.include_router(lessons.router, prefix=API_PREFIX)
 app.include_router(content.router, prefix=API_PREFIX)
 app.include_router(progress.router, prefix=API_PREFIX)
 app.include_router(ai.router, prefix=API_PREFIX)
