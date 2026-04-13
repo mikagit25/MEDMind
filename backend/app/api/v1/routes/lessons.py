@@ -212,9 +212,33 @@ class AIImproveRequest(BaseModel):
     target_level: Literal["beginner", "intermediate", "advanced"] = "intermediate"
 
 
+class AIGenerateRequest(BaseModel):
+    """Request body for generating a lesson from scratch with AI."""
+    title: str = Field(min_length=2, max_length=300)
+    specialty: str
+    key_concepts: list[str] = Field(default_factory=list, max_length=10)
+    target_level: Literal["beginner", "intermediate", "advanced"] = "intermediate"
+    estimated_minutes: int = Field(default=20, ge=5, le=90)
+    include_quiz: bool = True
+    include_clinical_case: bool = False
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Module endpoints (teacher-authored modules)
 # ─────────────────────────────────────────────────────────────────────────────
+
+@router.get("/my-modules", response_model=list[ModuleOut])
+async def list_my_modules(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """List all modules authored by the current teacher."""
+    _require_teacher(user)
+    result = await db.execute(
+        select(Module).where(Module.author_id == user.id).order_by(Module.created_at.desc())
+    )
+    return result.scalars().all()
+
 
 @router.post("/modules", response_model=ModuleOut, status_code=201)
 async def create_module(
@@ -635,3 +659,106 @@ async def ai_improve_lesson(
         raise
     except Exception as exc:
         raise HTTPException(502, f"AI service error: {exc}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AI lesson generation from scratch
+# ─────────────────────────────────────────────────────────────────────────────
+
+@router.post("/generate", response_model=LessonOut, status_code=201)
+async def generate_lesson(
+    module_id_q: UUID = Query(..., alias="module_id"),
+    body: AIGenerateRequest = ...,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate a complete lesson from scratch using AI and save it as a draft."""
+    _require_teacher(user)
+    mod = await _get_module_or_404(module_id_q, db)
+    _require_module_owner(mod, user)
+
+    if not settings.ANTHROPIC_API_KEY:
+        raise HTTPException(503, "AI service not configured")
+
+    concepts_str = ", ".join(body.key_concepts) if body.key_concepts else body.title
+
+    optional_blocks = ""
+    if body.include_quiz:
+        optional_blocks += (
+            "\n- 2–3 quiz blocks (type='quiz') with question, options (A-D), correct, explanation"
+        )
+    if body.include_clinical_case:
+        optional_blocks += (
+            "\n- 1 clinical case block (type='case') with patient presentation, questions, teaching_points"
+        )
+
+    prompt = (
+        f"You are a medical education expert. Generate a complete, evidence-based lesson.\n\n"
+        f"Title: {body.title}\n"
+        f"Specialty: {body.specialty}\n"
+        f"Key concepts to cover: {concepts_str}\n"
+        f"Target student level: {body.target_level}\n"
+        f"Estimated duration: {body.estimated_minutes} minutes\n\n"
+        f"Return ONLY valid JSON with this exact structure:\n"
+        f'{{\n'
+        f'  "title": "{body.title}",\n'
+        f'  "learning_objectives": ["...", "..."],\n'
+        f'  "estimated_minutes": {body.estimated_minutes},\n'
+        f'  "blocks": [\n'
+        f'    {{"type": "text", "order": 0, "content": {{"text": "..."}}}},\n'
+        f'    {{"type": "text", "order": 1, "content": {{"heading": "...", "text": "..."}}}}'
+        f"{optional_blocks}\n"
+        f"  ]\n"
+        f"}}\n\n"
+        f"Requirements:\n"
+        f"- Minimum 4 text blocks covering introduction, pathophysiology/mechanism, clinical relevance, management\n"
+        f"- Content must be accurate and based on current clinical guidelines\n"
+        f"- Language appropriate for {body.target_level} level\n"
+        f"- Return ONLY the JSON, no markdown, no extra text"
+    )
+
+    import re
+    try:
+        response = await _claude.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=6000,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2,
+        )
+        raw = response.content[0].text if response.content else "{}"
+        raw = re.sub(r"```(?:json)?", "", raw).strip().strip("`").strip()
+        try:
+            content_data = json.loads(raw)
+        except json.JSONDecodeError:
+            m = re.search(r"\{.*\}", raw, re.DOTALL)
+            content_data = json.loads(m.group()) if m else {}
+
+        if not isinstance(content_data, dict) or "blocks" not in content_data:
+            raise HTTPException(502, "AI returned unexpected format")
+
+        # Count existing lessons for order
+        result = await db.execute(
+            select(Lesson).where(Lesson.module_id == module_id_q).order_by(Lesson.lesson_order.desc()).limit(1)
+        )
+        last = result.scalar_one_or_none()
+        next_order = (last.lesson_order + 1) if last else 0
+
+        lesson = Lesson(
+            module_id=module_id_q,
+            title=content_data.get("title", body.title),
+            content=content_data,
+            estimated_minutes=content_data.get("estimated_minutes", body.estimated_minutes),
+            lesson_order=next_order,
+            author_id=user.id,
+            status="draft",
+        )
+        db.add(lesson)
+        await db.commit()
+        await db.refresh(lesson)
+        await audit(db, "lesson_ai_generated", user_id=user.id, resource_id=lesson.id)
+        return lesson
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(502, f"AI generation error: {exc}")

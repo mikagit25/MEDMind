@@ -40,6 +40,7 @@ const NAV_SECTIONS = [
 ];
 
 const ADMIN_NAV = { icon: "🛠️", label: "Admin Panel", href: "/admin" };
+const TEACHER_NAV = { icon: "✏️", label: "My Lessons", href: "/teacher/modules" };
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -101,6 +102,19 @@ export function Sidebar() {
             >
               <span className="text-base w-5 text-center">{ADMIN_NAV.icon}</span>
               {ADMIN_NAV.label}
+            </Link>
+          </div>
+        )}
+        {/* Teacher authoring link */}
+        {(user?.role === "teacher" || user?.role === "admin") && (
+          <div className="mb-4">
+            <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">Teaching</div>
+            <Link
+              href={TEACHER_NAV.href}
+              className={`nav-item ${pathname.startsWith(TEACHER_NAV.href) ? "active" : ""}`}
+            >
+              <span className="text-base w-5 text-center">{TEACHER_NAV.icon}</span>
+              {TEACHER_NAV.label}
             </Link>
           </div>
         )}

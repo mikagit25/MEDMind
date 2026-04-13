@@ -208,6 +208,51 @@ export const adminApi = {
     api.get("/admin/audit-logs", { params }).then(r => r.data),
 };
 
+// ============================================================
+// TEACHER AUTHORING API
+// ============================================================
+export const teacherApi = {
+  // ── Modules ──
+  listMyModules: () =>
+    api.get("/lessons/my-modules").then(r => r.data),
+  createModule: (data: { title: string; description?: string; specialty_code?: string; level_label?: string; is_veterinary?: boolean }) =>
+    api.post("/lessons/modules", data).then(r => r.data),
+  updateModule: (id: string, data: { title?: string; description?: string; level_label?: string }) =>
+    api.patch(`/lessons/modules/${id}`, data).then(r => r.data),
+  publishModule: (id: string) =>
+    api.patch(`/lessons/modules/${id}/publish`).then(r => r.data),
+  deleteModule: (id: string) =>
+    api.delete(`/lessons/modules/${id}`).then(r => r.data),
+
+  // ── Lessons ──
+  listLessons: (moduleId: string, includeDrafts = true) =>
+    api.get(`/lessons/modules/${moduleId}/lessons`, { params: { include_drafts: includeDrafts } }).then(r => r.data),
+  getLesson: (id: string) =>
+    api.get(`/lessons/${id}`).then(r => r.data),
+  createLesson: (moduleId: string, data: { title: string; content: object; estimated_minutes?: number; lesson_order?: number }) =>
+    api.post(`/lessons/modules/${moduleId}/lessons`, data).then(r => r.data),
+  updateLesson: (id: string, data: { title?: string; content?: object; estimated_minutes?: number; lesson_order?: number; review_notes?: string }) =>
+    api.patch(`/lessons/${id}`, data).then(r => r.data),
+  archiveLesson: (id: string) =>
+    api.delete(`/lessons/${id}`).then(r => r.data),
+
+  // ── Workflow ──
+  submitForReview: (id: string) =>
+    api.patch(`/lessons/${id}/submit-review`).then(r => r.data),
+  publishLesson: (id: string) =>
+    api.patch(`/lessons/${id}/publish`).then(r => r.data),
+  unpublishLesson: (id: string) =>
+    api.patch(`/lessons/${id}/unpublish`).then(r => r.data),
+  previewLesson: (id: string) =>
+    api.get(`/lessons/${id}/preview`).then(r => r.data),
+
+  // ── AI ──
+  aiImprove: (id: string, data: { task: string; specialty: string; target_level?: string }) =>
+    api.post(`/lessons/${id}/ai-improve`, data).then(r => r.data),
+  aiGenerate: (moduleId: string, data: { title: string; specialty: string; key_concepts?: string[]; target_level?: string; estimated_minutes?: number; include_quiz?: boolean; include_clinical_case?: boolean }) =>
+    api.post(`/lessons/generate?module_id=${moduleId}`, data).then(r => r.data),
+};
+
 // Types
 interface DoseCalcData {
   drug_id: string;

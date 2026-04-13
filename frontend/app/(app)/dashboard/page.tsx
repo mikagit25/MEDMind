@@ -88,6 +88,17 @@ function ProfessorPanel({ stats }: { stats: any }) {
         <StatCard value={lessonsCompleted} label="Lessons taught" />
         <StatCard value={stats?.streak_days ?? 0} label="Day streak 🔥" />
       </div>
+      {/* Teacher authoring shortcut */}
+      <Link href="/teacher/modules" className="flex items-center justify-between p-4 rounded-xl bg-ink text-white mb-3 hover:bg-ink/90 transition-colors">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">✏️</span>
+          <div>
+            <div className="font-syne font-bold text-sm">My Lessons</div>
+            <div className="font-serif text-xs text-white/70">Create and manage your modules</div>
+          </div>
+        </div>
+        <span className="text-white/60 text-lg">→</span>
+      </Link>
       <div className="card p-4 mb-3">
         <h3 className="font-syne font-semibold text-sm text-ink mb-3">Curriculum Tools</h3>
         <div className="grid grid-cols-2 gap-2">
@@ -240,11 +251,11 @@ export default function DashboardPage() {
 
       {/* Role-specific panel */}
       {role === "doctor" && <DoctorPanel stats={stats} />}
-      {role === "professor" && <ProfessorPanel stats={stats} />}
+      {(role === "professor" || role === "teacher" || role === "admin") && <ProfessorPanel stats={stats} />}
       {role === "veterinarian" && <VeterinarianPanel stats={stats} />}
 
       {/* Default stats for students (or fallback) */}
-      {(role === "student" || !["doctor", "professor", "veterinarian"].includes(role)) && stats && (
+      {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && stats && (
         <div className="grid grid-cols-3 gap-3 mb-6">
           <StatCard value={stats.lessons_completed ?? 0} label="Lessons done" />
           <StatCard value={stats.cards_reviewed ?? 0} label="Cards reviewed" />
