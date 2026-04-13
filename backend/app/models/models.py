@@ -604,3 +604,57 @@ class Notification(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", foreign_keys=[user_id])
+
+
+# ============================================================
+# STUDENT LONG-TERM MEMORY
+# ============================================================
+class StudentMemory(Base):
+    """Persistent per-student facts extracted from AI conversations."""
+    __tablename__ = "student_memories"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+
+    # Memory classification
+    memory_type = Column(String(30), nullable=False)
+    # "fact" | "skill" | "misconception" | "preference" | "case_experience"
+
+    # Content
+    content = Column(Text, nullable=False)
+    # Lowercased tokens for text search (populated on insert by service)
+    search_tokens = Column(Text)
+
+    # Contextual metadata
+    specialty = Column(String(100), index=True)
+    competency_level = Column(String(20))  # "beginner" | "intermediate" | "advanced"
+    species_context = Column(String(20))   # "human" | "canine" | "feline" | "equine" | ...
+    source_conversation_id = Column(UUID(as_uuid=True), ForeignKey("ai_conversations.id", ondelete="SET NULL"), nullable=True)
+
+    # Reliability
+    confidence = Column(Float, default=0.7)    # 0.0–1.0
+    verified = Column(Boolean, default=False)   # verified by instructor/admin
+    deprecated = Column(Boolean, default=False, index=True)  # soft-delete or outdated
+
+    # Usage tracking
+    importance_score = Column(Float, default=0.5)
+    access_count = Column(Integer, default=0)
+    last_accessed = Column(DateTime)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])
+
+
+class MemoryRelation(Base):
+    """Directed edges between memories (lightweight knowledge graph)."""
+    __tablename__ = "memory_relations"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    source_memory_id = Column(UUID(as_uuid=True), ForeignKey("student_memories.id", ondelete="CASCADE"), nullable=False, index=True)
+    target_memory_id = Column(UUID(as_uuid=True), ForeignKey("student_memories.id", ondelete="CASCADE"), nullable=False)
+    relation_type = Column(String(30), nullable=False)
+    # "prerequisite" | "contradicts" | "elaborates" | "clinical_variant" | "species_difference"
+    species_context = Column(String(20))
+    created_at = Column(DateTime, default=datetime.utcnow)

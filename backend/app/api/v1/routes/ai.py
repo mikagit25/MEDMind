@@ -103,7 +103,7 @@ async def ask_ai(
         pubmed_refs = await search_pubmed(data.message)
         pubmed_context = build_pubmed_context(pubmed_refs)
 
-    # AI routing
+    # AI routing (db + conversation_id enable long-term memory)
     result = await route_ai_request(
         user=user,
         message=data.message,
@@ -111,6 +111,8 @@ async def ask_ai(
         specialty=data.specialty,
         mode=data.mode,
         pubmed_context=pubmed_context,
+        db=db,
+        conversation_id=conversation.id,
     )
 
     # Save messages

@@ -12,13 +12,16 @@ Ollama setup (recommended — truly free, local, no API key):
   ollama pull deepseek-r1    # reasoning model
   ollama serve               # starts on http://localhost:11434
 """
+import asyncio
 import hashlib
 import json
 import logging
 from typing import Optional, AsyncGenerator
+from uuid import UUID
 
 import anthropic
 import httpx
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.redis_client import get_redis
@@ -274,6 +277,8 @@ async def route_ai_request(
     specialty: str,
     mode: str,
     pubmed_context: str = "",
+    db: Optional[AsyncSession] = None,
+    conversation_id: Optional[UUID] = None,
 ) -> dict:
     """Main AI routing logic. Returns dict with reply, model, from_cache."""
 
@@ -303,6 +308,36 @@ async def route_ai_request(
         if cached:
             return {"reply": cached, "model": "cache", "from_cache": True}
 
+    # ── Long-term memory context ──────────────────────────────────────────────
+    memory_context = ""
+    if db is not None and user.subscription_tier != "free":
+        try:
+            from app.services.memory_service import (
+                retrieve_relevant_memories,
+                format_memory_context,
+            )
+            # Detect species context from message for vet queries
+            species: Optional[str] = None
+            msg_lower = message.lower()
+            for sp in ("canine", "dog", "feline", "cat", "equine", "horse", "bovine"):
+                if sp in msg_lower:
+                    species = sp if sp not in ("dog", "cat", "horse") else {
+                        "dog": "canine", "cat": "feline", "horse": "equine"
+                    }[sp]
+                    break
+
+            memories = await retrieve_relevant_memories(
+                db=db,
+                user_id=user.id,
+                query=message,
+                specialty=specialty,
+                species_context=species,
+                limit=4,
+            )
+            memory_context = format_memory_context(memories)
+        except Exception as _e:
+            logger.warning("Memory retrieval error: %s", _e)
+
     # Build system prompt
     mode_instruction = SYSTEM_PROMPTS.get(mode, SYSTEM_PROMPTS["tutor"])
     system_prompt = (
@@ -310,6 +345,8 @@ async def route_ai_request(
         f"{mode_instruction}\n\n"
         "Format with markdown headers (###) and bullets. Keep responses educational and precise."
     )
+    if memory_context:
+        system_prompt += memory_context
     if pubmed_context:
         system_prompt += f"\n\nRecently retrieved PubMed articles for context:\n{pubmed_context}\nReference these where relevant."
 
@@ -368,6 +405,23 @@ async def route_ai_request(
     # Cache single-turn responses
     if cache_key:
         await redis.setex(cache_key, settings.AI_CACHE_TTL, reply)
+
+    # ── Background memory extraction (non-blocking) ───────────────────────────
+    if db is not None and conversation_id is not None and user.subscription_tier != "free":
+        try:
+            from app.services.memory_service import extract_and_save_memories
+            asyncio.create_task(
+                extract_and_save_memories(
+                    db=db,
+                    user_id=user.id,
+                    message=message,
+                    ai_reply=reply,
+                    specialty=specialty,
+                    conversation_id=conversation_id,
+                )
+            )
+        except Exception as _e:
+            logger.warning("Failed to schedule memory extraction: %s", _e)
 
     return {
         "reply": reply,
