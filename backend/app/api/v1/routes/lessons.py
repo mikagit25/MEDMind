@@ -35,14 +35,14 @@ import aiofiles
 import anthropic
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from pydantic import BaseModel, Field
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.core.audit import audit
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Lesson, Module, Specialty, User
+from app.models.models import Lesson, LessonCompletion, LessonVersion, Module, Specialty, User
 
 router = APIRouter(prefix="/lessons", tags=["lessons"])
 
@@ -439,6 +439,19 @@ async def update_lesson(
     if lesson.status == "archived":
         raise HTTPException(400, "Cannot edit an archived lesson")
 
+    # Save current state as a version snapshot before applying changes
+    max_ver_result = await db.execute(
+        select(func.max(LessonVersion.version_number)).where(LessonVersion.lesson_id == lesson_id)
+    )
+    next_ver = (max_ver_result.scalar() or 0) + 1
+    db.add(LessonVersion(
+        lesson_id=lesson_id,
+        version_number=next_ver,
+        title=lesson.title,
+        content=lesson.content,
+        saved_by=user.id,
+    ))
+
     data = body.model_dump(exclude_none=True)
     if "content" in data:
         # content is a LessonContent object — convert to dict for JSONB
@@ -711,6 +724,277 @@ async def upload_lesson_media(
 # ─────────────────────────────────────────────────────────────────────────────
 # AI lesson generation from scratch
 # ─────────────────────────────────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Lesson completion (student records finishing a lesson)
+# ─────────────────────────────────────────────────────────────────────────────
+
+class LessonCompleteRequest(BaseModel):
+    time_spent_seconds: int = Field(default=0, ge=0)
+    quiz_score: Optional[float] = Field(default=None, ge=0, le=100)
+    quiz_attempts: int = Field(default=0, ge=0)
+
+
+@router.post("/{lesson_id}/complete", status_code=201)
+async def complete_lesson(
+    lesson_id: UUID,
+    body: LessonCompleteRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Record that a student has completed this lesson. Idempotent — updates if already recorded."""
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    if lesson.status != "published":
+        raise HTTPException(400, "Can only complete published lessons")
+
+    existing = await db.execute(
+        select(LessonCompletion).where(
+            LessonCompletion.lesson_id == lesson_id,
+            LessonCompletion.user_id == user.id,
+        )
+    )
+    completion = existing.scalar_one_or_none()
+
+    if completion:
+        # Update with better score or more time
+        if body.quiz_score is not None and (completion.quiz_score is None or body.quiz_score > float(completion.quiz_score)):
+            completion.quiz_score = body.quiz_score
+        completion.quiz_attempts = (completion.quiz_attempts or 0) + body.quiz_attempts
+        completion.time_spent_seconds = (completion.time_spent_seconds or 0) + body.time_spent_seconds
+    else:
+        completion = LessonCompletion(
+            lesson_id=lesson_id,
+            user_id=user.id,
+            time_spent_seconds=body.time_spent_seconds,
+            quiz_score=body.quiz_score,
+            quiz_attempts=body.quiz_attempts,
+        )
+        db.add(completion)
+
+    await db.commit()
+    return {"lesson_id": str(lesson_id), "status": "completed"}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Teacher analytics — per-lesson and per-module stats
+# ─────────────────────────────────────────────────────────────────────────────
+
+@router.get("/{lesson_id}/analytics")
+async def lesson_analytics(
+    lesson_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Analytics for a single lesson: completions, avg time, quiz scores."""
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    result = await db.execute(
+        select(
+            func.count(LessonCompletion.id).label("total_completions"),
+            func.avg(LessonCompletion.time_spent_seconds).label("avg_time_seconds"),
+            func.avg(LessonCompletion.quiz_score).label("avg_quiz_score"),
+            func.min(LessonCompletion.completed_at).label("first_completion"),
+            func.max(LessonCompletion.completed_at).label("last_completion"),
+        ).where(LessonCompletion.lesson_id == lesson_id)
+    )
+    row = result.one()
+
+    # Recent completions (last 20)
+    recent_result = await db.execute(
+        select(LessonCompletion).where(LessonCompletion.lesson_id == lesson_id)
+        .order_by(LessonCompletion.completed_at.desc()).limit(20)
+    )
+    recent = recent_result.scalars().all()
+
+    return {
+        "lesson_id": str(lesson_id),
+        "title": lesson.title,
+        "status": lesson.status,
+        "total_completions": row.total_completions or 0,
+        "avg_time_seconds": round(float(row.avg_time_seconds), 1) if row.avg_time_seconds else None,
+        "avg_quiz_score": round(float(row.avg_quiz_score), 1) if row.avg_quiz_score else None,
+        "first_completion": row.first_completion.isoformat() if row.first_completion else None,
+        "last_completion": row.last_completion.isoformat() if row.last_completion else None,
+        "recent_completions": [
+            {
+                "user_id": str(c.user_id),
+                "time_spent_seconds": c.time_spent_seconds,
+                "quiz_score": float(c.quiz_score) if c.quiz_score is not None else None,
+                "quiz_attempts": c.quiz_attempts,
+                "completed_at": c.completed_at.isoformat() if c.completed_at else None,
+            }
+            for c in recent
+        ],
+    }
+
+
+@router.get("/modules/{module_id}/analytics")
+async def module_analytics(
+    module_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Analytics overview for all lessons in a module."""
+    _require_teacher(user)
+    mod = await _get_module_or_404(module_id, db)
+    _require_module_owner(mod, user)
+
+    lessons_result = await db.execute(
+        select(Lesson).where(
+            Lesson.module_id == module_id,
+            Lesson.status != "archived",
+        ).order_by(Lesson.lesson_order)
+    )
+    lessons = lessons_result.scalars().all()
+
+    lesson_ids = [l.id for l in lessons]
+    stats: dict[UUID, dict] = {}
+
+    if lesson_ids:
+        rows = await db.execute(
+            select(
+                LessonCompletion.lesson_id,
+                func.count(LessonCompletion.id).label("completions"),
+                func.avg(LessonCompletion.time_spent_seconds).label("avg_time"),
+                func.avg(LessonCompletion.quiz_score).label("avg_quiz"),
+            )
+            .where(LessonCompletion.lesson_id.in_(lesson_ids))
+            .group_by(LessonCompletion.lesson_id)
+        )
+        for r in rows:
+            stats[r.lesson_id] = {
+                "completions": r.completions,
+                "avg_time_seconds": round(float(r.avg_time), 1) if r.avg_time else None,
+                "avg_quiz_score": round(float(r.avg_quiz), 1) if r.avg_quiz else None,
+            }
+
+    return {
+        "module_id": str(module_id),
+        "title": mod.title,
+        "is_published": mod.is_published,
+        "lessons": [
+            {
+                "lesson_id": str(l.id),
+                "title": l.title,
+                "status": l.status,
+                "lesson_order": l.lesson_order,
+                "estimated_minutes": l.estimated_minutes,
+                **stats.get(l.id, {"completions": 0, "avg_time_seconds": None, "avg_quiz_score": None}),
+            }
+            for l in lessons
+        ],
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Lesson version history
+# ─────────────────────────────────────────────────────────────────────────────
+
+class VersionOut(BaseModel):
+    id: UUID
+    lesson_id: UUID
+    version_number: int
+    title: str
+    saved_at: datetime
+    note: Optional[str]
+    model_config = {"from_attributes": True}
+
+
+@router.get("/{lesson_id}/versions", response_model=list[VersionOut])
+async def list_versions(
+    lesson_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """List saved versions of a lesson (newest first)."""
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    result = await db.execute(
+        select(LessonVersion)
+        .where(LessonVersion.lesson_id == lesson_id)
+        .order_by(LessonVersion.version_number.desc())
+        .limit(50)
+    )
+    return result.scalars().all()
+
+
+@router.get("/{lesson_id}/versions/{version_number}")
+async def get_version(
+    lesson_id: UUID,
+    version_number: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get the full content of a specific version."""
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    result = await db.execute(
+        select(LessonVersion).where(
+            LessonVersion.lesson_id == lesson_id,
+            LessonVersion.version_number == version_number,
+        )
+    )
+    ver = result.scalar_one_or_none()
+    if not ver:
+        raise HTTPException(404, "Version not found")
+    return {"version_number": ver.version_number, "title": ver.title, "content": ver.content,
+            "saved_at": ver.saved_at.isoformat(), "note": ver.note}
+
+
+@router.post("/{lesson_id}/versions/{version_number}/restore", response_model=LessonOut)
+async def restore_version(
+    lesson_id: UUID,
+    version_number: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Restore a previous version as the current lesson content (saves current as a new version first)."""
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    if lesson.status == "archived":
+        raise HTTPException(400, "Cannot restore version of an archived lesson")
+
+    result = await db.execute(
+        select(LessonVersion).where(
+            LessonVersion.lesson_id == lesson_id,
+            LessonVersion.version_number == version_number,
+        )
+    )
+    ver = result.scalar_one_or_none()
+    if not ver:
+        raise HTTPException(404, "Version not found")
+
+    # Save current as a new version before restoring
+    max_ver_result = await db.execute(
+        select(func.max(LessonVersion.version_number)).where(LessonVersion.lesson_id == lesson_id)
+    )
+    next_ver = (max_ver_result.scalar() or 0) + 1
+    snapshot = LessonVersion(
+        lesson_id=lesson_id,
+        version_number=next_ver,
+        title=lesson.title,
+        content=lesson.content,
+        saved_by=user.id,
+        note=f"Auto-saved before restoring v{version_number}",
+    )
+    db.add(snapshot)
+
+    lesson.title = ver.title
+    lesson.content = ver.content
+    lesson.updated_at = datetime.utcnow()
+    await db.commit()
+    await db.refresh(lesson)
+    await audit(db, "lesson_version_restored", user_id=user.id, resource_id=lesson_id)
+    return lesson
+
 
 @router.post("/generate", response_model=LessonOut, status_code=201)
 async def generate_lesson(

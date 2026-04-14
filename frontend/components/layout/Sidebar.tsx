@@ -41,6 +41,8 @@ const NAV_SECTIONS = [
 
 const ADMIN_NAV = { icon: "🛠️", label: "Admin Panel", href: "/admin" };
 const TEACHER_NAV = { icon: "✏️", label: "My Lessons", href: "/teacher/modules" };
+const TEACHER_COURSES_NAV = { icon: "📚", label: "My Courses", href: "/teacher/courses" };
+const TEACHER_ANALYTICS_NAV = { icon: "📊", label: "Analytics", href: "/teacher/analytics" };
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -109,13 +111,16 @@ export function Sidebar() {
         {(user?.role === "teacher" || user?.role === "admin") && (
           <div className="mb-4">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">Teaching</div>
-            <Link
-              href={TEACHER_NAV.href}
-              className={`nav-item ${pathname.startsWith(TEACHER_NAV.href) ? "active" : ""}`}
-            >
-              <span className="text-base w-5 text-center">{TEACHER_NAV.icon}</span>
-              {TEACHER_NAV.label}
-            </Link>
+            {[TEACHER_NAV, TEACHER_COURSES_NAV, TEACHER_ANALYTICS_NAV].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`nav-item ${pathname.startsWith(item.href) ? "active" : ""}`}
+              >
+                <span className="text-base w-5 text-center">{item.icon}</span>
+                {item.label}
+              </Link>
+            ))}
           </div>
         )}
         {NAV_SECTIONS.map((section) => (

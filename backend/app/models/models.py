@@ -698,3 +698,40 @@ class MemoryRelation(Base):
     # "prerequisite" | "contradicts" | "elaborates" | "clinical_variant" | "species_difference"
     species_context = Column(String(20))
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+# ============================================================
+# LESSON COMPLETION — per-student lesson tracking
+# ============================================================
+class LessonCompletion(Base):
+    """Records each time a student completes a lesson."""
+    __tablename__ = "lesson_completions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    lesson_id = Column(UUID(as_uuid=True), ForeignKey("lessons.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    time_spent_seconds = Column(Integer, default=0)   # how long student was on the lesson
+    quiz_score = Column(Numeric(5, 2))                # 0.0-100.0, null if no quiz
+    quiz_attempts = Column(Integer, default=0)
+    completed_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+    __table_args__ = (
+        UniqueConstraint("lesson_id", "user_id", name="uq_lesson_completion"),
+    )
+
+
+# ============================================================
+# LESSON VERSIONS — snapshot on each save
+# ============================================================
+class LessonVersion(Base):
+    """Snapshot of lesson content saved before each update."""
+    __tablename__ = "lesson_versions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    lesson_id = Column(UUID(as_uuid=True), ForeignKey("lessons.id", ondelete="CASCADE"), nullable=False, index=True)
+    version_number = Column(Integer, nullable=False)
+    title = Column(String(300), nullable=False)
+    content = Column(JSONB, nullable=False)
+    saved_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    saved_at = Column(DateTime, default=datetime.utcnow)
+    note = Column(String(200))  # optional description of this version

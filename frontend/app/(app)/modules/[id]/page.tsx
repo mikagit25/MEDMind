@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { contentApi, progressApi, notesApi } from "@/lib/api";
@@ -13,6 +13,42 @@ type LessonContent = {
 };
 type Lesson = { id: string; title: string; content: LessonContent | string; lesson_order: number };
 type Note = { id: string; content: string; lesson_id?: string; module_id?: string };
+
+type Block = { type: string; order: number; content: Record<string, unknown> };
+
+function QuizBlock({ block, idx }: { block: Block; idx: number }) {
+  const c = block.content as { question: string; options: Record<string, string>; correct: string; explanation: string };
+  const [selected, setSelected] = useState<string | null>(null);
+  const answered = selected !== null;
+  return (
+    <div className="border border-border rounded-xl p-4 bg-surface">
+      <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-2">Question {idx + 1}</div>
+      <p className="font-serif text-sm text-ink mb-3">{c.question}</p>
+      <div className="space-y-2">
+        {Object.entries(c.options ?? {}).map(([k, v]) => {
+          const isCorrect = k === c.correct;
+          const isSelected = selected === k;
+          let cls = "border border-border rounded-lg px-3 py-2 font-serif text-sm cursor-pointer transition-colors";
+          if (answered) {
+            cls += isCorrect ? " bg-green-light border-green/40 text-green" : isSelected ? " bg-red-light border-red/30 text-red" : " text-ink-3";
+          } else {
+            cls += " hover:border-ink-3 text-ink";
+          }
+          return (
+            <div key={k} className={cls} onClick={() => !answered && setSelected(k)}>
+              <span className="font-syne font-bold mr-2">{k}.</span>{v}
+            </div>
+          );
+        })}
+      </div>
+      {answered && c.explanation && (
+        <div className="mt-3 p-3 rounded-lg bg-blue-light border border-blue/20">
+          <p className="font-serif text-xs text-ink-3">{c.explanation}</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function LessonContentRenderer({ content }: { content: LessonContent | string }) {
   // Handle plain string (legacy or HTML fallback)
@@ -27,6 +63,78 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
   if (!content || typeof content !== "object") {
     return <p className="font-serif text-ink-3 text-sm">No content available.</p>;
   }
+
+  // New block-based format from teacher editor
+  const raw = content as Record<string, unknown>;
+  if (Array.isArray(raw.blocks)) {
+    const blocks = (raw.blocks as Block[]).slice().sort((a, b) => a.order - b.order);
+    let quizIdx = 0;
+    return (
+      <div className="space-y-5">
+        {Array.isArray(raw.learning_objectives) && (raw.learning_objectives as string[]).filter(Boolean).length > 0 && (
+          <div className="bg-blue-light border border-blue/20 rounded-lg p-4">
+            <div className="font-syne font-bold text-xs text-blue uppercase tracking-wider mb-2">Learning Objectives</div>
+            <ul className="list-disc list-inside space-y-1 font-serif text-sm text-ink">
+              {(raw.learning_objectives as string[]).filter(Boolean).map((o, i) => <li key={i}>{o}</li>)}
+            </ul>
+          </div>
+        )}
+        {blocks.map((block, i) => {
+          if (block.type === "text") {
+            const c = block.content as { heading?: string; text: string };
+            return (
+              <div key={i}>
+                {c.heading && <h3 className="font-syne font-bold text-base text-ink mb-1.5">{c.heading}</h3>}
+                <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{c.text}</p>
+              </div>
+            );
+          }
+          if (block.type === "quiz") {
+            quizIdx++;
+            return <QuizBlock key={i} block={block} idx={quizIdx - 1} />;
+          }
+          if (block.type === "case") {
+            const c = block.content as { presentation: string; questions: string[]; teaching_points: string[] };
+            return (
+              <div key={i} className="border border-amber/30 rounded-xl p-4 bg-amber-light/20">
+                <div className="font-syne font-bold text-xs text-amber uppercase tracking-wider mb-2">Clinical Case</div>
+                <p className="font-serif text-sm text-ink mb-3">{c.presentation}</p>
+                {c.questions?.filter(Boolean).length > 0 && (
+                  <div className="mb-3">
+                    <div className="font-syne font-semibold text-xs text-ink-3 mb-1.5">Questions to consider:</div>
+                    <ol className="list-decimal list-inside space-y-1 font-serif text-sm text-ink">
+                      {c.questions.filter(Boolean).map((q, qi) => <li key={qi}>{q}</li>)}
+                    </ol>
+                  </div>
+                )}
+                {c.teaching_points?.filter(Boolean).length > 0 && (
+                  <div>
+                    <div className="font-syne font-semibold text-xs text-ink-3 mb-1.5">Teaching points:</div>
+                    <ul className="list-disc list-inside space-y-1 font-serif text-sm text-ink">
+                      {c.teaching_points.filter(Boolean).map((p, pi) => <li key={pi}>{p}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          }
+          if (block.type === "image") {
+            const c = block.content as { url: string; caption?: string };
+            if (!c.url) return null;
+            return (
+              <figure key={i} className="my-2">
+                <img src={c.url} alt={c.caption ?? ""} className="rounded-lg max-w-full border border-border" />
+                {c.caption && <figcaption className="font-serif text-xs text-ink-3 mt-1.5 text-center">{c.caption}</figcaption>}
+              </figure>
+            );
+          }
+          return null;
+        })}
+      </div>
+    );
+  }
+
+  // Legacy format
   const { intro, sections, clinical_pearl, key_points } = content as LessonContent;
   return (
     <div className="space-y-5 font-serif text-ink text-sm leading-relaxed">
@@ -70,6 +178,7 @@ export default function ModuleDetailPage() {
   const [lessonDone, setLessonDone] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [completing, setCompleting] = useState(false);
+  const lessonStartRef = useRef<number>(Date.now());
 
   // Notes state
   const [showNotes, setShowNotes] = useState(false);
@@ -103,15 +212,23 @@ export default function ModuleDetailPage() {
     if (showNotes && activeLesson) loadNotes();
   }, [showNotes, activeLesson, loadNotes]);
 
+  // Reset lesson timer whenever the active lesson changes
+  useEffect(() => {
+    lessonStartRef.current = Date.now();
+  }, [activeLesson?.id]);
+
   const completeLesson = async () => {
     if (!activeLesson || completing) return;
     setCompleting(true);
+    const timeSpent = Math.round((Date.now() - lessonStartRef.current) / 1000);
     try {
       await progressApi.completeLesson(activeLesson.id);
+      progressApi.recordLessonCompletion(activeLesson.id, { time_spent_seconds: timeSpent });
       setLessonDone((p) => new Set(Array.from(p).concat(activeLesson.id)));
       const idx = lessons.findIndex((l) => l.id === activeLesson.id);
       if (idx < lessons.length - 1) {
         setActiveLesson(lessons[idx + 1]);
+        lessonStartRef.current = Date.now();
       }
     } catch {/* ignore */} finally {
       setCompleting(false);

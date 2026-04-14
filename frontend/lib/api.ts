@@ -104,6 +104,8 @@ export const drugsApi = {
 export const progressApi = {
   completeLesson: (lessonId: string) =>
     api.post(`/progress/lesson/${lessonId}/complete`).then(r => r.data),
+  recordLessonCompletion: (lessonId: string, data: { time_spent_seconds?: number; quiz_score?: number; quiz_attempts?: number }) =>
+    api.post(`/lessons/${lessonId}/complete`, data).then(r => r.data).catch(() => null), // non-fatal
   reviewFlashcard: (flashcardId: string, quality: number) =>
     api.post("/progress/flashcard/review", { flashcard_id: flashcardId, quality }).then(r => r.data),
   answerMCQ: (questionId: string, selectedOption: string) =>
@@ -251,6 +253,38 @@ export const teacherApi = {
     api.post(`/lessons/${id}/ai-improve`, data).then(r => r.data),
   aiGenerate: (moduleId: string, data: { title: string; specialty: string; key_concepts?: string[]; target_level?: string; estimated_minutes?: number; include_quiz?: boolean; include_clinical_case?: boolean }) =>
     api.post(`/lessons/generate?module_id=${moduleId}`, data).then(r => r.data),
+
+  // ── Analytics ──
+  moduleAnalytics: (moduleId: string) =>
+    api.get(`/lessons/modules/${moduleId}/analytics`).then(r => r.data),
+  lessonAnalytics: (lessonId: string) =>
+    api.get(`/lessons/${lessonId}/analytics`).then(r => r.data),
+
+  // ── Version history ──
+  listVersions: (lessonId: string) =>
+    api.get(`/lessons/${lessonId}/versions`).then(r => r.data),
+  getVersion: (lessonId: string, versionNumber: number) =>
+    api.get(`/lessons/${lessonId}/versions/${versionNumber}`).then(r => r.data),
+  restoreVersion: (lessonId: string, versionNumber: number) =>
+    api.post(`/lessons/${lessonId}/versions/${versionNumber}/restore`).then(r => r.data),
+
+  // ── Courses (teacher) ──
+  listMyCourses: () =>
+    api.get("/courses/my").then(r => r.data),
+  createCourse: (data: { title: string; description?: string; specialty?: string; level?: string }) =>
+    api.post("/courses", data).then(r => r.data),
+  getCourse: (id: string) =>
+    api.get(`/courses/${id}`).then(r => r.data),
+  updateCourse: (id: string, data: object) =>
+    api.patch(`/courses/${id}`, data).then(r => r.data),
+  addModuleToCourse: (courseId: string, moduleId: string) =>
+    api.post(`/courses/${courseId}/modules`, null, { params: { module_id: moduleId } }).then(r => r.data),
+  removeModuleFromCourse: (courseId: string, moduleId: string) =>
+    api.delete(`/courses/${courseId}/modules/${moduleId}`).then(r => r.data),
+  getCourseStudents: (courseId: string) =>
+    api.get(`/courses/${courseId}/students`).then(r => r.data),
+  removeStudentFromCourse: (courseId: string, studentId: string) =>
+    api.delete(`/courses/${courseId}/students/${studentId}`).then(r => r.data),
 };
 
 // Types

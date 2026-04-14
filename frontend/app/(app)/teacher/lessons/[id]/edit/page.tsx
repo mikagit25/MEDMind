@@ -445,6 +445,13 @@ export default function LessonEditPage() {
   const [error, setError] = useState("");
   const [workflowLoading, setWorkflowLoading] = useState(false);
 
+  // Version history panel
+  const [versionsOpen, setVersionsOpen] = useState(false);
+  const [versions, setVersions] = useState<{ id: string; version_number: number; title: string; saved_at: string; note: string | null }[]>([]);
+  const [versionsLoading, setVersionsLoading] = useState(false);
+  const [previewVersion, setPreviewVersion] = useState<{ version_number: number; content: Record<string, unknown> } | null>(null);
+  const [restoringVersion, setRestoringVersion] = useState<number | null>(null);
+
   // AI Improve panel
   const [aiOpen, setAiOpen] = useState(false);
   const [aiTask, setAiTask] = useState("improve_clarity");
@@ -532,6 +539,40 @@ export default function LessonEditPage() {
       setError(e?.response?.data?.detail ?? "Action failed");
     } finally {
       setWorkflowLoading(false);
+    }
+  }
+
+  async function loadVersions() {
+    setVersionsLoading(true);
+    try {
+      const data = await teacherApi.listVersions(id);
+      setVersions(data);
+    } catch {
+      // ignore — non-critical
+    } finally {
+      setVersionsLoading(false);
+    }
+  }
+
+  async function handleRestoreVersion(versionNumber: number) {
+    if (!confirm(`Restore version ${versionNumber}? Current content will be saved as a new version first.`)) return;
+    setRestoringVersion(versionNumber);
+    try {
+      const updated = await teacherApi.restoreVersion(id, versionNumber);
+      setLesson(updated);
+      const state = lessonToEditorState(updated.content);
+      setTitle(state.title || updated.title);
+      setMinutes(state.estimated_minutes || updated.estimated_minutes);
+      setBlocks(state.blocks.length > 0 ? state.blocks : [emptyBlock("text", 0)]);
+      setObjectives(state.learning_objectives.length > 0 ? state.learning_objectives : [""]);
+      setPreviewVersion(null);
+      setSaveMsg(`Restored to version ${versionNumber}`);
+      setTimeout(() => setSaveMsg(""), 3000);
+      await loadVersions();
+    } catch {
+      setError("Failed to restore version");
+    } finally {
+      setRestoringVersion(null);
     }
   }
 
@@ -804,11 +845,86 @@ export default function LessonEditPage() {
 
       {/* ── Review notes ───────────────────────────────────────── */}
       {lesson.review_notes && (
-        <div className="card p-3 border-amber/30 bg-amber-light/40">
+        <div className="card p-3 border-amber/30 bg-amber-light/40 mb-4">
           <p className="font-syne font-semibold text-xs text-amber mb-1">Review Notes</p>
           <p className="font-serif text-sm text-ink">{lesson.review_notes}</p>
         </div>
       )}
+
+      {/* ── Version history ────────────────────────────────────── */}
+      <div className="card overflow-hidden">
+        <button
+          onClick={() => {
+            const next = !versionsOpen;
+            setVersionsOpen(next);
+            if (next && versions.length === 0) loadVersions();
+          }}
+          className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-surface/50 transition-colors"
+        >
+          <span className="font-syne font-bold text-sm text-ink">Version History</span>
+          <span className="text-ink-3 text-xs font-syne">{versionsOpen ? "Hide ▲" : "Show ▼"}</span>
+        </button>
+
+        {versionsOpen && (
+          <div className="border-t border-border">
+            {versionsLoading ? (
+              <div className="p-4 text-ink-3 font-serif text-sm">Loading versions...</div>
+            ) : versions.length === 0 ? (
+              <div className="p-4 text-ink-3 font-serif text-sm">No saved versions yet. Versions are created automatically when you save.</div>
+            ) : (
+              <div className="divide-y divide-border">
+                {versions.map((v) => (
+                  <div key={v.id} className="px-4 py-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="font-syne font-semibold text-xs text-ink">v{v.version_number}</span>
+                          <span className="font-serif text-xs text-ink-3 truncate">{v.title}</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="font-serif text-xs text-ink-3">
+                            {new Date(v.saved_at).toLocaleString()}
+                          </span>
+                          {v.note && <span className="font-serif text-xs text-ink-3 italic">— {v.note}</span>}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <button
+                          onClick={async () => {
+                            if (previewVersion?.version_number === v.version_number) {
+                              setPreviewVersion(null);
+                            } else {
+                              const data = await teacherApi.getVersion(id, v.version_number);
+                              setPreviewVersion({ version_number: v.version_number, content: data.content });
+                            }
+                          }}
+                          className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-0.5 transition-colors"
+                        >
+                          {previewVersion?.version_number === v.version_number ? "Hide" : "Preview"}
+                        </button>
+                        <button
+                          onClick={() => handleRestoreVersion(v.version_number)}
+                          disabled={restoringVersion === v.version_number}
+                          className="text-xs font-syne text-blue hover:text-blue/70 border border-blue/30 rounded px-2 py-0.5 transition-colors disabled:opacity-50"
+                        >
+                          {restoringVersion === v.version_number ? "..." : "Restore"}
+                        </button>
+                      </div>
+                    </div>
+                    {previewVersion?.version_number === v.version_number && (
+                      <div className="mt-2 rounded-lg bg-surface border border-border p-3">
+                        <pre className="font-mono text-xs text-ink overflow-auto max-h-48">
+                          {JSON.stringify(previewVersion.content, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
