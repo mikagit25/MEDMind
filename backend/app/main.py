@@ -11,7 +11,7 @@ from sqlalchemy import text
 from app.core.config import settings
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -63,6 +63,14 @@ async def lifespan(app: FastAPI):
                 ), {"id": str(_uuid.uuid4()), "code": code, "name": name})
             logger.info("Seeded %d specialties", len(specialties))
 
+    # Seed imaging library (opens its own session after tables are created)
+    try:
+        from scripts.seed_imaging import seed as seed_imaging
+        await seed_imaging()
+        logger.info("Medical imaging library seeded.")
+    except Exception as e:
+        logger.warning("Imaging seed failed (non-fatal): %s", e)
+
     await get_redis()  # Initialize Redis connection
     start_scheduler()  # registers jobs AND starts APScheduler
     logger.info("MedMind backend ready! Scheduler started.")
@@ -110,6 +118,7 @@ app.include_router(compliance.router, prefix=API_PREFIX)
 app.include_router(dashboard.router, prefix=API_PREFIX)
 app.include_router(notifications.router, prefix=API_PREFIX)
 app.include_router(memory.router, prefix=API_PREFIX)
+app.include_router(imaging.router, prefix=API_PREFIX)
 
 # Serve uploaded media files (images for lessons).
 # In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.

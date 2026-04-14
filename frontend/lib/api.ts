@@ -177,6 +177,20 @@ export const notificationsApi = {
     api.post("/notifications/read-all").then(r => r.data),
 };
 
+export const imagingApi = {
+  browse: (params?: { modality?: string; region?: string; specialty?: string; limit?: number; offset?: number }) =>
+    api.get("/imaging", { params }).then(r => r.data),
+  search: (q: string, modality?: string) =>
+    api.get("/imaging/search", { params: { q, modality } }).then(r => r.data),
+  get: (id: string) => api.get(`/imaging/${id}`).then(r => r.data),
+  modalities: () => api.get("/imaging/modalities").then(r => r.data),
+  regions: (modality?: string) => api.get("/imaging/regions", { params: modality ? { modality } : undefined }).then(r => r.data),
+  searchOpenI: (q: string, m = 1, n = 10) =>
+    api.get("/imaging/openi", { params: { q, m, n } }).then(r => r.data),
+  listViewers: (system?: string) =>
+    api.get("/imaging/anatomy/viewers", { params: system ? { system } : undefined }).then(r => r.data),
+};
+
 export const complianceApi = {
   exportData: () => api.get("/compliance/export-data").then(r => r.data),
   deleteAccount: () => api.post("/compliance/delete-account").then(r => r.data),

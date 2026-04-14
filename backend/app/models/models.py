@@ -735,3 +735,56 @@ class LessonVersion(Base):
     saved_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     saved_at = Column(DateTime, default=datetime.utcnow)
     note = Column(String(200))  # optional description of this version
+
+
+# ============================================================
+# MEDICAL IMAGES — curated imaging library
+# ============================================================
+class MedicalImage(Base):
+    """Curated medical imaging library entry (X-ray, CT, MRI, US, anatomy)."""
+    __tablename__ = "medical_images"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    title = Column(String(300), nullable=False)
+    description = Column(Text)
+    modality = Column(String(50), nullable=False, index=True)   # xray, ct, mri, ultrasound, anatomy, histology, 3d
+    anatomy_region = Column(String(100), index=True)             # brain, chest, abdomen, heart, spine, …
+    specialty = Column(String(100), index=True)                  # radiology, neurology, cardiology, …
+    image_url = Column(Text, nullable=False)                     # direct image URL
+    thumbnail_url = Column(Text)                                 # smaller version if available
+    source_name = Column(String(200), nullable=False)            # "NIH OpenI", "Wikimedia Commons", "Radiopaedia"
+    source_url = Column(Text)                                    # link to original case/page
+    license = Column(String(100))                                # "CC0", "CC-BY-SA 4.0", "Public Domain"
+    attribution = Column(Text)                                   # attribution string to display
+    tags = Column(JSONB, default=list)                           # ["pneumonia", "consolidation", "lung"]
+    is_active = Column(Boolean, default=True)
+    view_count = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_medical_images_modality_region", "modality", "anatomy_region"),
+    )
+
+
+# ============================================================
+# ANATOMY VIEWERS — 3D embed configs
+# ============================================================
+class AnatomyViewer(Base):
+    """3D anatomy viewer embed configuration (Sketchfab, BioDigital, etc.)."""
+    __tablename__ = "anatomy_viewers"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    title = Column(String(300), nullable=False)
+    description = Column(Text)
+    organ_system = Column(String(100), index=True)   # cardiovascular, nervous, respiratory, …
+    anatomy_region = Column(String(100), index=True) # brain, heart, lung, kidney, …
+    embed_type = Column(String(50), default="sketchfab")  # sketchfab | biodigital | iframe
+    embed_id = Column(String(200), nullable=False)         # Sketchfab model ID or full URL
+    embed_url = Column(Text)                               # pre-built embed URL
+    thumbnail_url = Column(Text)
+    source_name = Column(String(200))
+    source_url = Column(Text)
+    license = Column(String(100))
+    attribution = Column(Text)
+    is_active = Column(Boolean, default=True)
+    sort_order = Column(Integer, default=0)

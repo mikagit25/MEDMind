@@ -19,6 +19,13 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    label: "Visual Medicine",
+    items: [
+      { icon: "🩻", label: "Imaging Library", href: "/imaging" },
+      { icon: "🧊", label: "3D Anatomy", href: "/anatomy" },
+    ],
+  },
+  {
     label: "Tools",
     items: [
       { icon: "💊", label: "Drug Database", href: "/drugs" },

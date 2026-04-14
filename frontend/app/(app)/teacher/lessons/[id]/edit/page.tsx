@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -262,6 +263,7 @@ function ImageBlockEditor({
   const c = block.content as ImageContent;
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -279,43 +281,72 @@ function ImageBlockEditor({
   }
 
   return (
-    <div className="space-y-2">
-      {c.url ? (
-        <div className="relative">
-          <img src={c.url} alt={c.alt ?? "lesson image"} className="rounded-lg max-h-48 object-contain border border-border" />
-          <button
-            onClick={() => onChange({ ...block, content: { ...c, url: "" } })}
-            className="absolute top-1 right-1 bg-ink/70 text-white text-xs px-2 py-0.5 rounded"
-          >
-            Remove
-          </button>
-        </div>
-      ) : (
-        <div>
-          <label className={`flex flex-col items-center justify-center h-28 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-ink-3 transition-colors ${uploading ? "opacity-50" : ""}`}>
-            <span className="text-2xl mb-1">🖼️</span>
-            <span className="font-serif text-xs text-ink-3">{uploading ? "Uploading..." : "Click to upload image (JPEG, PNG, SVG · max 10 MB)"}</span>
-            <input type="file" accept="image/jpeg,image/png,image/svg+xml,image/webp" onChange={handleFile} disabled={uploading} className="hidden" />
-          </label>
-          {uploadError && <p className="text-red text-xs font-serif mt-1">{uploadError}</p>}
-          <p className="text-ink-3 text-xs font-serif mt-1">Or paste URL:</p>
-          <input
-            type="url"
-            value={c.url ?? ""}
-            onChange={(e) => onChange({ ...block, content: { ...c, url: e.target.value } })}
-            placeholder="https://..."
-            className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
-          />
-        </div>
+    <>
+      {showPicker && (
+        <MediaPickerModal
+          onSelect={(url, caption) => {
+            onChange({ ...block, content: { ...c, url, caption } });
+            setShowPicker(false);
+          }}
+          onClose={() => setShowPicker(false)}
+        />
       )}
-      <input
-        type="text"
-        value={c.caption ?? ""}
-        onChange={(e) => onChange({ ...block, content: { ...c, caption: e.target.value } })}
-        placeholder="Caption (optional)"
-        className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
-      />
-    </div>
+      <div className="space-y-2">
+        {c.url ? (
+          <div className="relative">
+            <img src={c.url} alt={c.alt ?? "lesson image"} className="rounded-lg max-h-48 object-contain border border-border" />
+            <button
+              onClick={() => onChange({ ...block, content: { ...c, url: "" } })}
+              className="absolute top-1 right-1 bg-ink/70 text-white text-xs px-2 py-0.5 rounded"
+            >
+              Remove
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {/* Browse library button */}
+            <button
+              onClick={() => setShowPicker(true)}
+              className="w-full flex items-center justify-center gap-2 h-20 border-2 border-dashed border-blue/40 rounded-lg hover:border-blue hover:bg-blue-light/30 transition-colors"
+            >
+              <span className="text-xl">🩻</span>
+              <div className="text-left">
+                <div className="font-syne font-semibold text-sm text-blue">Browse Medical Library</div>
+                <div className="font-serif text-xs text-ink-3">X-Ray, CT, MRI, Anatomy — open-access</div>
+              </div>
+            </button>
+
+            <div className="flex items-center gap-2 text-ink-3">
+              <div className="flex-1 h-px bg-border" />
+              <span className="font-serif text-xs">or</span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
+            <label className={`flex flex-col items-center justify-center h-20 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-ink-3 transition-colors ${uploading ? "opacity-50" : ""}`}>
+              <span className="text-xl mb-1">🖼️</span>
+              <span className="font-serif text-xs text-ink-3">{uploading ? "Uploading..." : "Upload your own image"}</span>
+              <input type="file" accept="image/jpeg,image/png,image/svg+xml,image/webp" onChange={handleFile} disabled={uploading} className="hidden" />
+            </label>
+            {uploadError && <p className="text-red text-xs font-serif">{uploadError}</p>}
+
+            <input
+              type="url"
+              value={c.url ?? ""}
+              onChange={(e) => onChange({ ...block, content: { ...c, url: e.target.value } })}
+              placeholder="Or paste image URL: https://..."
+              className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+            />
+          </div>
+        )}
+        <input
+          type="text"
+          value={c.caption ?? ""}
+          onChange={(e) => onChange({ ...block, content: { ...c, caption: e.target.value } })}
+          placeholder="Caption (optional)"
+          className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+        />
+      </div>
+    </>
   );
 }
 
