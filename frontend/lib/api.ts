@@ -125,6 +125,8 @@ export const progressApi = {
     api.get("/progress/leaderboard", { params: { period, limit } }).then(r => r.data),
   getSpecialtyLeaderboard: (specialtyId: string) =>
     api.get(`/progress/leaderboard/specialty/${specialtyId}`).then(r => r.data),
+  exportPDF: () =>
+    api.get("/progress/export/pdf", { responseType: "blob" }).then(r => r.data),
 };
 
 export const aiApi = {

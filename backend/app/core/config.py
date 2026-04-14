@@ -85,6 +85,10 @@ class Settings(BaseSettings):
     AI_CACHE_TTL: int = 86400       # 24 hours
     PUBMED_CACHE_TTL: int = 604800  # 7 days
 
+    # Sentry error tracking
+    SENTRY_DSN: str = ""
+    SENTRY_TRACES_SAMPLE_RATE: float = 0.1  # 10% of transactions
+
     # Docs (disable in production by default)
     ENABLE_DOCS: bool = False
 

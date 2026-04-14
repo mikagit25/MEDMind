@@ -2,8 +2,10 @@
 from datetime import datetime
 from typing import List
 from uuid import UUID
+import io
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
@@ -676,3 +678,217 @@ async def get_specialty_leaderboard(
         for i, row in enumerate(rows, 1)
     ]
     return {"specialty_id": str(specialty_id), "leaderboard": board}
+
+
+# ============================================================
+# CPD / CME PROGRESS PDF EXPORT
+# ============================================================
+
+@router.get("/export/pdf")
+async def export_progress_pdf(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Generate a PDF CPD/CME progress report for the authenticated user.
+    Suitable for submission to medical councils and licensing bodies.
+    """
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import cm
+    from reportlab.platypus import (
+        SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
+    )
+
+    # ── Collect data ──────────────────────────────────────────────────────────
+    prog_result = await db.execute(
+        select(UserProgress).where(UserProgress.user_id == user.id)
+    )
+    progressions = prog_result.scalars().all()
+
+    module_ids = [p.module_id for p in progressions]
+    modules_map: dict = {}
+    if module_ids:
+        mod_result = await db.execute(select(Module).where(Module.id.in_(module_ids)))
+        modules_map = {str(m.id): m for m in mod_result.scalars().all()}
+
+    cme_result = await db.execute(
+        select(CMECredit)
+        .where(CMECredit.user_id == user.id)
+        .order_by(CMECredit.completion_date.desc())
+    )
+    cme_credits = cme_result.scalars().all()
+    total_cme = sum(float(c.credits_earned) for c in cme_credits)
+
+    cards_result = await db.execute(
+        select(func.count()).select_from(FlashcardReview).where(FlashcardReview.user_id == user.id)
+    )
+    total_cards = cards_result.scalar() or 0
+
+    mastered_result = await db.execute(
+        select(func.count()).select_from(FlashcardReview).where(
+            FlashcardReview.user_id == user.id, FlashcardReview.last_quality >= 4
+        )
+    )
+    cards_mastered = mastered_result.scalar() or 0
+
+    lessons_completed = sum(len(p.lessons_completed or []) for p in progressions)
+    modules_completed = sum(1 for p in progressions if float(p.completion_percent or 0) >= 100)
+
+    # ── Build PDF ─────────────────────────────────────────────────────────────
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=A4,
+        rightMargin=2 * cm,
+        leftMargin=2 * cm,
+        topMargin=2 * cm,
+        bottomMargin=2 * cm,
+    )
+
+    styles = getSampleStyleSheet()
+    BLUE = colors.HexColor("#1e40af")
+    LIGHT_BLUE = colors.HexColor("#dbeafe")
+
+    title_style = ParagraphStyle("title", parent=styles["Title"], textColor=BLUE, fontSize=22)
+    h2_style = ParagraphStyle("h2", parent=styles["Heading2"], textColor=BLUE, fontSize=13, spaceBefore=14)
+    normal = styles["Normal"]
+    small = ParagraphStyle("small", parent=normal, fontSize=9, textColor=colors.grey)
+
+    full_name = f"{user.first_name or ''} {user.last_name or ''}".strip() or "Unknown"
+    now = datetime.utcnow()
+
+    story = [
+        Paragraph("MedMind AI", ParagraphStyle("brand", parent=normal, fontSize=10, textColor=BLUE)),
+        Paragraph("Continuing Professional Development Report", title_style),
+        Spacer(1, 0.3 * cm),
+        HRFlowable(width="100%", thickness=2, color=BLUE),
+        Spacer(1, 0.4 * cm),
+
+        # Learner info
+        Paragraph("<b>Learner Information</b>", h2_style),
+        Table(
+            [
+                ["Name", full_name],
+                ["Email", user.email or ""],
+                ["Role", (user.role or "").capitalize()],
+                ["Subscription", (user.subscription_tier or "free").capitalize()],
+                ["Report generated", now.strftime("%d %B %Y, %H:%M UTC")],
+            ],
+            colWidths=[4 * cm, 13 * cm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (0, -1), LIGHT_BLUE),
+                ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, -1), 10),
+                ("ROWBACKGROUNDS", (0, 0), (-1, -1), [colors.white, colors.HexColor("#f0f9ff")]),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#bfdbfe")),
+                ("PADDING", (0, 0), (-1, -1), 5),
+            ]),
+        ),
+        Spacer(1, 0.5 * cm),
+
+        # Summary statistics
+        Paragraph("<b>Learning Summary</b>", h2_style),
+        Table(
+            [
+                ["Metric", "Value"],
+                ["Modules completed", str(modules_completed)],
+                ["Lessons completed", str(lessons_completed)],
+                ["Flashcards reviewed", str(total_cards)],
+                ["Flashcards mastered (≥ 80%)", str(cards_mastered)],
+                ["XP earned", str(user.xp)],
+                ["Current level", str(user.level)],
+                ["Learning streak", f"{user.streak_days or 0} days"],
+                ["Total CME credits (AMA PRA 1)", f"{total_cme:.1f}"],
+            ],
+            colWidths=[9 * cm, 8 * cm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), BLUE),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, -1), 10),
+                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f0f9ff")]),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#bfdbfe")),
+                ("PADDING", (0, 0), (-1, -1), 5),
+            ]),
+        ),
+        Spacer(1, 0.5 * cm),
+    ]
+
+    # Module detail table
+    if progressions:
+        story.append(Paragraph("<b>Module Progress Detail</b>", h2_style))
+        rows = [["Module", "Completion %", "Lessons", "Last Activity"]]
+        for p in sorted(progressions, key=lambda x: float(x.completion_percent or 0), reverse=True):
+            mod = modules_map.get(str(p.module_id))
+            rows.append([
+                mod.title if mod else str(p.module_id)[:8],
+                f"{float(p.completion_percent or 0):.0f}%",
+                str(len(p.lessons_completed or [])),
+                p.last_activity_at.strftime("%d %b %Y") if p.last_activity_at else "—",
+            ])
+        story.append(Table(
+            rows,
+            colWidths=[8 * cm, 3 * cm, 3 * cm, 3 * cm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), BLUE),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, -1), 9),
+                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f0f9ff")]),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#bfdbfe")),
+                ("PADDING", (0, 0), (-1, -1), 4),
+                ("ALIGN", (1, 0), (-1, -1), "CENTER"),
+            ]),
+        ))
+        story.append(Spacer(1, 0.5 * cm))
+
+    # CME credits table
+    if cme_credits:
+        story.append(Paragraph("<b>CME Credits Log</b>", h2_style))
+        cme_rows = [["Activity", "Type", "Credits", "Date"]]
+        for c in cme_credits[:30]:  # cap at 30 rows to avoid giant PDFs
+            cme_rows.append([
+                c.activity_title or "",
+                c.credit_type or "",
+                f"{float(c.credits_earned):.1f}",
+                c.completion_date.strftime("%d %b %Y") if c.completion_date else "—",
+            ])
+        story.append(Table(
+            cme_rows,
+            colWidths=[9 * cm, 3 * cm, 2 * cm, 3 * cm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), BLUE),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, -1), 9),
+                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f0f9ff")]),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#bfdbfe")),
+                ("PADDING", (0, 0), (-1, -1), 4),
+                ("ALIGN", (1, 0), (-1, -1), "CENTER"),
+            ]),
+        ))
+        story.append(Spacer(1, 0.5 * cm))
+
+    # Footer
+    story += [
+        HRFlowable(width="100%", thickness=1, color=colors.HexColor("#bfdbfe")),
+        Spacer(1, 0.2 * cm),
+        Paragraph(
+            "This report was generated automatically by MedMind AI (medmind.pro). "
+            "CME credits awarded as AMA PRA Category 1 credits™ equivalent. "
+            "Please verify credit requirements with your local licensing body.",
+            small,
+        ),
+    ]
+
+    doc.build(story)
+    buf.seek(0)
+
+    filename = f"medmind_cpd_{full_name.replace(' ', '_')}_{now.strftime('%Y%m%d')}.pdf"
+    return StreamingResponse(
+        buf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )

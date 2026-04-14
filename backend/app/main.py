@@ -3,15 +3,33 @@ from contextlib import asynccontextmanager
 import logging
 from pathlib import Path
 
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from app.core.config import settings
+
+# Initialize Sentry before the app starts (no-op if DSN is empty)
+if settings.SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        environment=settings.ENVIRONMENT,
+        release=f"medmind-backend@{settings.VERSION}",
+        traces_sample_rate=settings.SENTRY_TRACES_SAMPLE_RATE,
+        integrations=[
+            FastApiIntegration(),
+            SqlalchemyIntegration(),
+        ],
+        # Don't send PII by default
+        send_default_pii=False,
+    )
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -119,6 +137,7 @@ app.include_router(dashboard.router, prefix=API_PREFIX)
 app.include_router(notifications.router, prefix=API_PREFIX)
 app.include_router(memory.router, prefix=API_PREFIX)
 app.include_router(imaging.router, prefix=API_PREFIX)
+app.include_router(user_flashcards.router, prefix=API_PREFIX)
 
 # Serve uploaded media files (images for lessons).
 # In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.
@@ -134,7 +153,46 @@ app.mount(settings.MEDIA_URL, StaticFiles(directory=str(_media_dir)), name="medi
 
 @app.get("/health")
 async def health_check():
+    """Basic liveness probe — always fast, never checks dependencies."""
     return {"status": "ok", "version": settings.VERSION, "env": settings.ENVIRONMENT}
+
+
+@app.get("/readiness")
+async def readiness_check():
+    """Readiness probe — verifies DB and Redis are reachable before accepting traffic."""
+    from fastapi.responses import JSONResponse
+    import asyncio
+
+    checks: dict[str, str] = {}
+    healthy = True
+
+    # Check PostgreSQL
+    try:
+        async with engine.connect() as conn:
+            await asyncio.wait_for(conn.execute(text("SELECT 1")), timeout=3.0)
+        checks["postgres"] = "ok"
+    except Exception as e:
+        checks["postgres"] = f"error: {e}"
+        healthy = False
+
+    # Check Redis
+    try:
+        redis = await get_redis()
+        await asyncio.wait_for(redis.ping(), timeout=3.0)
+        checks["redis"] = "ok"
+    except Exception as e:
+        checks["redis"] = f"error: {e}"
+        healthy = False
+
+    status_code = 200 if healthy else 503
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "status": "ready" if healthy else "not ready",
+            "checks": checks,
+            "version": settings.VERSION,
+        },
+    )
 
 
 @app.get("/")

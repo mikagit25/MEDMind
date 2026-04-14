@@ -15,6 +15,7 @@ const NAV_SECTIONS = [
       { icon: "📚", label: "Modules", href: "/modules" },
       { icon: "🤖", label: "AI Tutor", href: "/ai-tutor" },
       { icon: "🃏", label: "Flashcards", href: "/flashcards" },
+      { icon: "📇", label: "My Cards", href: "/my-flashcards" },
       { icon: "🩺", label: "Cases", href: "/cases" },
     ],
   },

@@ -15,6 +15,38 @@ function xpToNextLevel(xp: number, level: number) {
   return { current, needed, pct: Math.min((current / needed) * 100, 100) };
 }
 
+// ── PDF download button ──
+function DownloadPDFButton() {
+  const [loading, setLoading] = useState(false);
+
+  async function handleDownload() {
+    setLoading(true);
+    try {
+      const blob = await progressApi.exportPDF();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `medmind_cpd_${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Could not generate report. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={handleDownload}
+      disabled={loading}
+      className="mt-3 w-full py-2 px-3 rounded bg-green text-white font-syne font-semibold text-xs hover:bg-green/90 transition-colors disabled:opacity-60"
+    >
+      {loading ? "Generating…" : "⬇ Download CPD/CME Report (PDF)"}
+    </button>
+  );
+}
+
 // ── Shared stat card ──
 function StatCard({ value, label }: { value: string | number; label: string }) {
   return (
@@ -69,6 +101,7 @@ function DoctorPanel({ stats }: { stats: any }) {
               <div className="h-full bg-green rounded-full" style={{ width: `${Math.min((cmeCredits / 50) * 100, 100)}%` }} />
             </div>
             <p className="font-serif text-xs text-ink-3 mt-1.5">Complete modules to earn CME/CPD credits</p>
+            <DownloadPDFButton />
           </div>
         )}
       </div>

@@ -17,6 +17,7 @@ from app.models.models import User, AIConversation, AIConversationMessage
 from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, MessageOut
 from app.api.deps import get_current_user
 from app.services.ai_router import route_ai_request, route_ai_stream
+from app.services.prompt_guard import sanitize_ai_message
 from app.core.audit import audit
 from app.core.redis_client import get_redis
 from app.services.pubmed_service import search_pubmed, build_pubmed_context
@@ -70,6 +71,7 @@ async def ask_ai(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    data.message = sanitize_ai_message(data.message)
     await check_ai_rate_limit(user, db)
     # Get or create conversation
     conversation = None
@@ -180,6 +182,7 @@ async def ask_ai_stream(
     user: User = Depends(get_current_user),
 ):
     """Server-Sent Events streaming endpoint for AI responses."""
+    data.message = sanitize_ai_message(data.message)
     await check_ai_rate_limit(user, db)
 
     # Get or create conversation
@@ -359,6 +362,9 @@ async def explain_concept(
     from app.prompts.tutor_prompts import explain_concept_prompt
     await check_ai_rate_limit(user, db)
 
+    concept = sanitize_ai_message(concept, "concept")
+    if data.context:
+        data.context = sanitize_ai_message(data.context, "context")
     prompt = explain_concept_prompt(concept, data.level or "intermediate", data.context)
     response = await route_ai_request(
         message=prompt,
@@ -391,6 +397,7 @@ async def quiz_mode(
     from app.prompts.tutor_prompts import quiz_mode_prompt
     await check_ai_rate_limit(user, db)
 
+    topic = sanitize_ai_message(topic, "topic")
     prompt = quiz_mode_prompt(topic, data.difficulty or "medium", data.previous_mistakes or [])
     response = await route_ai_request(
         message=prompt,
@@ -422,6 +429,10 @@ async def discuss_case(
     from app.models.models import ClinicalCase
     from app.prompts.tutor_prompts import case_discussion_prompt
     await check_ai_rate_limit(user, db)
+
+    data.user_decision = sanitize_ai_message(data.user_decision, "user_decision")
+    if data.discussion_point:
+        data.discussion_point = sanitize_ai_message(data.discussion_point, "discussion_point")
 
     case_result = await db.execute(select(ClinicalCase).where(ClinicalCase.id == case_id))
     case = case_result.scalar_one_or_none()

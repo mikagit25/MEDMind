@@ -788,3 +788,36 @@ class AnatomyViewer(Base):
     attribution = Column(Text)
     is_active = Column(Boolean, default=True)
     sort_order = Column(Integer, default=0)
+
+
+# ============================================================
+# USER-GENERATED FLASHCARDS (UGC)
+# ============================================================
+class UserFlashcard(Base):
+    """Personal flashcards created by users from their own notes."""
+    __tablename__ = "user_flashcards"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    question = Column(Text, nullable=False)
+    answer = Column(Text, nullable=False)
+    # Optional link to a module lesson for context (nullable)
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="SET NULL"), nullable=True)
+    tags = Column(_PGARRAY(String), default=list)
+    difficulty = Column(String(20), default="medium")
+    is_public = Column(Boolean, default=False)  # future: share cards with community
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # SM-2 state (same fields as FlashcardReview but embedded in card for simplicity)
+    ease_factor = Column(Float, default=2.5)
+    interval_days = Column(Integer, default=1)
+    repetitions = Column(Integer, default=0)
+    last_reviewed_at = Column(DateTime, nullable=True)
+    next_review_at = Column(DateTime, nullable=True)
+    last_quality = Column(Integer, nullable=True)
+
+    __table_args__ = (
+        Index("ix_user_flashcards_user_id", "user_id"),
+        Index("ix_user_flashcards_next_review", "user_id", "next_review_at"),
+    )
