@@ -1,4 +1,15 @@
+###############################################################################
+# MedMind AI — Production docker-compose
+# Domain: medmind.pro
+# SSL:    Let's Encrypt via certbot (webroot)
+#
+# First deploy:  ./deploy.sh
+# Re-deploy:     docker compose -f docker-compose.prod.yml up -d --build
+# Renew SSL:     docker compose -f docker-compose.prod.yml run --rm certbot renew
+###############################################################################
+
 services:
+  # ── PostgreSQL ──────────────────────────────────────────────────────────────
   postgres:
     image: pgvector/pgvector:pg15
     container_name: medmind_postgres
@@ -14,7 +25,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
 
+  # ── Redis ───────────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
     container_name: medmind_redis
@@ -27,7 +41,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
 
+  # ── FastAPI Backend ──────────────────────────────────────────────────────────
   backend:
     build:
       context: ./backend
@@ -38,9 +55,8 @@ services:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-medmind}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
     volumes:
+      - media_data:/app/data/media
       - ./Modules:/app/data/modules:ro
-    ports:
-      - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,20 +64,27 @@ services:
         condition: service_healthy
     restart: unless-stopped
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
+    networks:
+      - internal
 
+  # ── Next.js Frontend ─────────────────────────────────────────────────────────
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://medmind.pro/api/v1
     container_name: medmind_frontend
     environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-    expose:
-      - "3000"
+      NEXT_PUBLIC_API_URL: https://medmind.pro/api/v1
+      NODE_ENV: production
     depends_on:
       - backend
     restart: unless-stopped
+    networks:
+      - internal
 
+  # ── Nginx reverse proxy ──────────────────────────────────────────────────────
   nginx:
     image: nginx:1.25-alpine
     container_name: medmind_nginx
@@ -70,12 +93,40 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/medmind.conf:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - letsencrypt_data:/etc/letsencrypt:ro
+      - certbot_webroot:/var/www/certbot:ro
+      - media_data:/app/data/media:ro
     depends_on:
       - backend
       - frontend
     restart: unless-stopped
+    networks:
+      - internal
+      - external
+
+  # ── Certbot (Let's Encrypt) ──────────────────────────────────────────────────
+  certbot:
+    image: certbot/certbot:latest
+    container_name: medmind_certbot
+    volumes:
+      - letsencrypt_data:/etc/letsencrypt
+      - certbot_webroot:/var/www/certbot
+    # Default command — override on first run (see deploy.sh)
+    # Renewal: docker compose -f docker-compose.prod.yml run --rm certbot renew
+    command: renew --quiet
+    networks:
+      - external
 
 volumes:
   postgres_data:
   redis_data:
+  media_data:
+  letsencrypt_data:
+  certbot_webroot:
+
+networks:
+  internal:
+    driver: bridge
+    internal: true   # no direct internet access for DB/Redis/Backend/Frontend
+  external:
+    driver: bridge   # nginx + certbot need internet access
