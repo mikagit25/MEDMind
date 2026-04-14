@@ -24,13 +24,16 @@ AI assist:
   POST   /lessons/{lesson_id}/ai-improve             AI suggestions for lesson content
 """
 import json
+import mimetypes
 import uuid as _uuid
 from datetime import datetime
+from pathlib import Path
 from typing import Literal, Optional
 from uuid import UUID
 
+import aiofiles
 import anthropic
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -659,6 +662,50 @@ async def ai_improve_lesson(
         raise
     except Exception as exc:
         raise HTTPException(502, f"AI service error: {exc}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Media upload for lesson images
+# ─────────────────────────────────────────────────────────────────────────────
+
+_ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/svg+xml", "image/webp"}
+
+@router.post("/{lesson_id}/upload-media")
+async def upload_lesson_media(
+    lesson_id: UUID,
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Upload an image for a lesson block. Returns public URL."""
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    content_type = file.content_type or ""
+    if content_type not in _ALLOWED_IMAGE_TYPES:
+        raise HTTPException(400, f"File type '{content_type}' not allowed. Accepted: JPEG, PNG, SVG, WebP.")
+
+    max_bytes = settings.MEDIA_MAX_IMAGE_MB * 1024 * 1024
+    data = await file.read()
+    if len(data) > max_bytes:
+        raise HTTPException(400, f"File exceeds {settings.MEDIA_MAX_IMAGE_MB} MB limit.")
+
+    ext = mimetypes.guess_extension(content_type) or ".bin"
+    # .jpe is the default extension for jpeg in some systems — normalise
+    if ext == ".jpe":
+        ext = ".jpg"
+    filename = f"{_uuid.uuid4().hex}{ext}"
+
+    dest_dir = Path(settings.MEDIA_ROOT) / "lessons" / str(lesson_id)
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    async with aiofiles.open(dest_dir / filename, "wb") as f:
+        await f.write(data)
+
+    url = f"{settings.MEDIA_URL}/lessons/{lesson_id}/{filename}"
+    await audit(db, "media_uploaded", user_id=user.id, resource_id=lesson_id)
+    return {"url": url, "filename": filename, "size": len(data), "content_type": content_type}
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -1,9 +1,11 @@
 """FastAPI application entry point."""
 from contextlib import asynccontextmanager
 import logging
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from app.core.config import settings
@@ -108,6 +110,17 @@ app.include_router(compliance.router, prefix=API_PREFIX)
 app.include_router(dashboard.router, prefix=API_PREFIX)
 app.include_router(notifications.router, prefix=API_PREFIX)
 app.include_router(memory.router, prefix=API_PREFIX)
+
+# Serve uploaded media files (images for lessons).
+# In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.
+_media_dir = Path(settings.MEDIA_ROOT)
+try:
+    _media_dir.mkdir(parents=True, exist_ok=True)
+except OSError:
+    # Fallback for dev/CI environments where /app is read-only
+    _media_dir = Path("./data/media")
+    _media_dir.mkdir(parents=True, exist_ok=True)
+app.mount(settings.MEDIA_URL, StaticFiles(directory=str(_media_dir)), name="media")
 
 
 @app.get("/health")

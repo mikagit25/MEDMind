@@ -20,6 +20,95 @@ const SPECIALTIES = [
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
+// ─── Lesson templates ──────────────────────────────────────────────────────
+const TEMPLATES = [
+  {
+    id: "pharmacology",
+    label: "Pharmacology",
+    icon: "💊",
+    description: "MOA → Indications → Side effects → Quiz",
+    content: {
+      title: "",
+      estimated_minutes: 20,
+      learning_objectives: [
+        "Understand the mechanism of action",
+        "List key indications and contraindications",
+        "Recognise common adverse effects",
+      ],
+      blocks: [
+        { type: "text", order: 0, content: { heading: "Mechanism of Action", text: "Describe the pharmacodynamics here..." } },
+        { type: "text", order: 1, content: { heading: "Indications & Contraindications", text: "List clinical uses and when to avoid..." } },
+        { type: "text", order: 2, content: { heading: "Side Effects & Monitoring", text: "Cover adverse effects and what to monitor..." } },
+        { type: "quiz", order: 3, content: { question: "What is the primary mechanism of action?", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } },
+      ],
+    },
+  },
+  {
+    id: "clinical_case",
+    label: "Clinical Case",
+    icon: "🩺",
+    description: "Intro → Case presentation → Discussion → Teaching points",
+    content: {
+      title: "",
+      estimated_minutes: 25,
+      learning_objectives: [
+        "Apply clinical reasoning to a real-world scenario",
+        "Identify key diagnostic features",
+        "Select appropriate management",
+      ],
+      blocks: [
+        { type: "text", order: 0, content: { heading: "Introduction", text: "Brief overview of the condition or topic..." } },
+        { type: "case", order: 1, content: { presentation: "A 45-year-old patient presents with...", questions: ["What is the most likely diagnosis?", "What investigations would you order?"], teaching_points: ["Key feature 1", "Key feature 2"] } },
+        { type: "text", order: 2, content: { heading: "Management Principles", text: "Evidence-based management approach..." } },
+        { type: "quiz", order: 3, content: { question: "Which is the first-line treatment?", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } },
+      ],
+    },
+  },
+  {
+    id: "anatomy",
+    label: "Anatomy",
+    icon: "🫀",
+    description: "Overview → Image → Structure detail → Quiz",
+    content: {
+      title: "",
+      estimated_minutes: 20,
+      learning_objectives: [
+        "Identify key anatomical structures",
+        "Describe functional relationships",
+        "Apply anatomy to clinical scenarios",
+      ],
+      blocks: [
+        { type: "text", order: 0, content: { heading: "Overview", text: "Introduce the anatomical region or system..." } },
+        { type: "image", order: 1, content: { url: "", caption: "Anatomical diagram — replace with actual image" } },
+        { type: "text", order: 2, content: { heading: "Key Structures", text: "Describe the main structures and their relationships..." } },
+        { type: "text", order: 3, content: { heading: "Clinical Relevance", text: "Explain how this anatomy applies clinically..." } },
+        { type: "quiz", order: 4, content: { question: "Which structure is most clinically significant?", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } },
+      ],
+    },
+  },
+  {
+    id: "pathophysiology",
+    label: "Pathophysiology",
+    icon: "🔬",
+    description: "Normal → Pathology → Consequences → Quiz",
+    content: {
+      title: "",
+      estimated_minutes: 25,
+      learning_objectives: [
+        "Describe normal physiology",
+        "Explain the pathophysiological mechanism",
+        "Link mechanism to clinical features",
+      ],
+      blocks: [
+        { type: "text", order: 0, content: { heading: "Normal Physiology", text: "Briefly describe how the system normally functions..." } },
+        { type: "text", order: 1, content: { heading: "Pathological Mechanism", text: "Explain the disruption and its cascade..." } },
+        { type: "text", order: 2, content: { heading: "Clinical Manifestations", text: "Describe symptoms and signs arising from the pathology..." } },
+        { type: "quiz", order: 3, content: { question: "What is the primary pathophysiological mechanism?", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } },
+      ],
+    },
+  },
+];
+
 function NewLessonInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,13 +121,7 @@ function NewLessonInner() {
 
   // Manual form
   const [manualTitle, setManualTitle] = useState("");
-  const emptyContent = {
-    title: "",
-    blocks: [{ type: "text", order: 0, content: { text: "" } }],
-    estimated_minutes: 20,
-    learning_objectives: [],
-  };
-  const [manualContent, setManualContent] = useState(JSON.stringify(emptyContent, null, 2));
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [manualMinutes, setManualMinutes] = useState(20);
 
   // AI form
@@ -56,14 +139,15 @@ function NewLessonInner() {
     setLoading(true);
     setError("");
     try {
-      let content: object;
-      try {
-        content = JSON.parse(manualContent);
-      } catch {
-        setError("Content JSON is invalid. Please check the format.");
-        setLoading(false);
-        return;
-      }
+      const tmpl = TEMPLATES.find((t) => t.id === selectedTemplate);
+      const content = tmpl
+        ? { ...tmpl.content, title: manualTitle.trim(), estimated_minutes: manualMinutes }
+        : {
+            title: manualTitle.trim(),
+            blocks: [{ type: "text", order: 0, content: { text: "" } }],
+            estimated_minutes: manualMinutes,
+            learning_objectives: [],
+          };
       const lesson = await teacherApi.createLesson(moduleId, {
         title: manualTitle.trim(),
         content,
@@ -130,44 +214,64 @@ function NewLessonInner() {
       )}
 
       {mode === "manual" ? (
-        <form onSubmit={handleManual} className="card p-5 space-y-4">
-          <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Title *</label>
-            <input
-              type="text"
-              value={manualTitle}
-              onChange={(e) => setManualTitle(e.target.value)}
-              placeholder="Lesson title"
-              required
-              minLength={2}
-              maxLength={300}
-              className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
-            />
+        <form onSubmit={handleManual} className="space-y-4">
+          <div className="card p-5 space-y-4">
+            <div>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">Title *</label>
+              <input
+                type="text"
+                value={manualTitle}
+                onChange={(e) => setManualTitle(e.target.value)}
+                placeholder="Lesson title"
+                required
+                minLength={2}
+                maxLength={300}
+                className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+              />
+            </div>
+            <div>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">Estimated minutes</label>
+              <input
+                type="number"
+                value={manualMinutes}
+                onChange={(e) => setManualMinutes(Number(e.target.value))}
+                min={5}
+                max={180}
+                className="w-24 border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+              />
+            </div>
           </div>
 
+          {/* Template picker */}
           <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Estimated minutes</label>
-            <input
-              type="number"
-              value={manualMinutes}
-              onChange={(e) => setManualMinutes(Number(e.target.value))}
-              min={5}
-              max={180}
-              className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
-            />
-          </div>
-
-          <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Content (JSON)</label>
-            <p className="font-serif text-ink-3 text-xs mb-1.5">
-              Structure: {`{ title, blocks: [{type, order, content}], estimated_minutes, learning_objectives }`}
+            <p className="font-syne font-semibold text-sm text-ink mb-2">
+              Start from template <span className="text-ink-3 font-normal">(optional)</span>
             </p>
-            <textarea
-              value={manualContent}
-              onChange={(e) => setManualContent(e.target.value)}
-              rows={12}
-              className="w-full border border-border rounded-lg px-3 py-2 font-mono text-xs text-ink bg-surface focus:outline-none focus:border-ink-3 resize-y"
-            />
+            <div className="grid grid-cols-2 gap-2">
+              {TEMPLATES.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setSelectedTemplate(selectedTemplate === t.id ? null : t.id)}
+                  className={`text-left p-3 rounded-xl border transition-colors ${
+                    selectedTemplate === t.id
+                      ? "border-ink bg-ink text-white"
+                      : "border-border bg-surface hover:border-ink-3"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-lg">{t.icon}</span>
+                    <span className="font-syne font-semibold text-sm">{t.label}</span>
+                  </div>
+                  <p className={`font-serif text-xs ${selectedTemplate === t.id ? "text-white/70" : "text-ink-3"}`}>
+                    {t.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+            {!selectedTemplate && (
+              <p className="font-serif text-xs text-ink-3 mt-2">No template — starts with a blank text block.</p>
+            )}
           </div>
 
           <button
@@ -175,7 +279,7 @@ function NewLessonInner() {
             disabled={loading || !manualTitle.trim()}
             className="w-full btn-primary py-2.5 rounded-lg font-syne font-semibold text-sm disabled:opacity-50"
           >
-            {loading ? "Saving..." : "Create Lesson"}
+            {loading ? "Creating..." : "Create & Open Editor"}
           </button>
         </form>
       ) : (

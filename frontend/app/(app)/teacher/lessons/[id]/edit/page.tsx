@@ -1,11 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
 
-type Lesson = {
+// ─────────────────────────────────────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+type BlockType = "text" | "quiz" | "case" | "image";
+
+interface TextContent { heading?: string; text: string }
+interface QuizContent { question: string; options: Record<string, string>; correct: string; explanation: string }
+interface CaseContent { presentation: string; questions: string[]; teaching_points: string[] }
+interface ImageContent { url: string; caption?: string; alt?: string }
+
+type BlockContent = TextContent | QuizContent | CaseContent | ImageContent;
+
+interface Block { type: BlockType; order: number; content: BlockContent }
+
+interface LessonContent {
+  title: string;
+  blocks: Block[];
+  estimated_minutes: number;
+  learning_objectives: string[];
+}
+
+interface Lesson {
   id: string;
   module_id: string;
   title: string;
@@ -13,6 +35,24 @@ type Lesson = {
   estimated_minutes: number;
   content: Record<string, unknown>;
   review_notes?: string;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Constants
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BLOCK_ICONS: Record<BlockType, string> = {
+  text: "📝",
+  quiz: "❓",
+  case: "🩺",
+  image: "🖼️",
+};
+
+const BLOCK_LABELS: Record<BlockType, string> = {
+  text: "Text Block",
+  quiz: "Quiz",
+  case: "Clinical Case",
+  image: "Image",
 };
 
 const AI_TASKS = [
@@ -25,8 +65,8 @@ const AI_TASKS = [
 
 const SPECIALTIES = [
   "Cardiology", "Neurology", "Surgery", "Obstetrics & Gynecology",
-  "Pediatrics", "Internal Medicine", "Pharmacology", "Laboratory Diagnostics",
-  "Respiratory Medicine", "Veterinary",
+  "Pediatrics", "Internal Medicine", "Pharmacology",
+  "Laboratory Diagnostics", "Respiratory Medicine", "Veterinary",
 ];
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
@@ -38,6 +78,358 @@ const STATUS_COLORS: Record<string, string> = {
   archived: "text-red",
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Block editors
+// ─────────────────────────────────────────────────────────────────────────────
+
+function TextBlockEditor({
+  block,
+  onChange,
+}: {
+  block: Block;
+  onChange: (b: Block) => void;
+}) {
+  const c = block.content as TextContent;
+  return (
+    <div className="space-y-2">
+      <input
+        type="text"
+        value={c.heading ?? ""}
+        onChange={(e) => onChange({ ...block, content: { ...c, heading: e.target.value } })}
+        placeholder="Heading (optional)"
+        className="w-full border border-border rounded-lg px-3 py-1.5 font-syne font-semibold text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+      />
+      <textarea
+        value={c.text}
+        onChange={(e) => onChange({ ...block, content: { ...c, text: e.target.value } })}
+        placeholder="Write the lesson text here..."
+        rows={5}
+        className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 resize-y"
+      />
+    </div>
+  );
+}
+
+function QuizBlockEditor({
+  block,
+  onChange,
+}: {
+  block: Block;
+  onChange: (b: Block) => void;
+}) {
+  const c = block.content as QuizContent;
+  const opts = c.options ?? { A: "", B: "", C: "", D: "" };
+
+  function setOption(key: string, val: string) {
+    onChange({ ...block, content: { ...c, options: { ...opts, [key]: val } } });
+  }
+
+  return (
+    <div className="space-y-2">
+      <input
+        type="text"
+        value={c.question ?? ""}
+        onChange={(e) => onChange({ ...block, content: { ...c, question: e.target.value } })}
+        placeholder="Question *"
+        className="w-full border border-border rounded-lg px-3 py-1.5 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+      />
+      <div className="grid grid-cols-2 gap-2">
+        {["A", "B", "C", "D"].map((k) => (
+          <div key={k} className="flex items-center gap-1.5">
+            <span className="font-syne font-bold text-xs text-ink-3 w-4 shrink-0">{k}:</span>
+            <input
+              type="text"
+              value={opts[k] ?? ""}
+              onChange={(e) => setOption(k, e.target.value)}
+              placeholder={`Option ${k}`}
+              className="flex-1 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="font-syne text-xs text-ink-3 shrink-0">Correct answer:</span>
+        <select
+          value={c.correct ?? "A"}
+          onChange={(e) => onChange({ ...block, content: { ...c, correct: e.target.value } })}
+          className="border border-border rounded px-2 py-1 font-syne text-xs text-ink bg-surface focus:outline-none"
+        >
+          {["A", "B", "C", "D"].map((k) => (
+            <option key={k} value={k}>{k}</option>
+          ))}
+        </select>
+      </div>
+      <textarea
+        value={c.explanation ?? ""}
+        onChange={(e) => onChange({ ...block, content: { ...c, explanation: e.target.value } })}
+        placeholder="Explanation of the correct answer..."
+        rows={2}
+        className="w-full border border-border rounded-lg px-3 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3 resize-none"
+      />
+    </div>
+  );
+}
+
+function CaseBlockEditor({
+  block,
+  onChange,
+}: {
+  block: Block;
+  onChange: (b: Block) => void;
+}) {
+  const c = block.content as CaseContent;
+  const questions = c.questions ?? [""];
+  const points = c.teaching_points ?? [""];
+
+  function updateList(key: "questions" | "teaching_points", idx: number, val: string) {
+    const arr = key === "questions" ? [...questions] : [...points];
+    arr[idx] = val;
+    onChange({ ...block, content: { ...c, [key]: arr } });
+  }
+  function addItem(key: "questions" | "teaching_points") {
+    const arr = key === "questions" ? [...questions, ""] : [...points, ""];
+    onChange({ ...block, content: { ...c, [key]: arr } });
+  }
+  function removeItem(key: "questions" | "teaching_points", idx: number) {
+    const arr = key === "questions"
+      ? questions.filter((_, i) => i !== idx)
+      : points.filter((_, i) => i !== idx);
+    onChange({ ...block, content: { ...c, [key]: arr } });
+  }
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <label className="block font-syne text-xs text-ink-3 mb-1">Patient presentation *</label>
+        <textarea
+          value={c.presentation ?? ""}
+          onChange={(e) => onChange({ ...block, content: { ...c, presentation: e.target.value } })}
+          placeholder="Describe the clinical scenario..."
+          rows={3}
+          className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 resize-none"
+        />
+      </div>
+      <div>
+        <label className="block font-syne text-xs text-ink-3 mb-1">Discussion questions</label>
+        {questions.map((q, i) => (
+          <div key={i} className="flex gap-1.5 mb-1">
+            <input
+              type="text"
+              value={q}
+              onChange={(e) => updateList("questions", i, e.target.value)}
+              placeholder={`Question ${i + 1}`}
+              className="flex-1 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+            />
+            {questions.length > 1 && (
+              <button onClick={() => removeItem("questions", i)} className="text-red text-xs px-1.5 hover:bg-red-light rounded">✕</button>
+            )}
+          </div>
+        ))}
+        <button onClick={() => addItem("questions")} className="text-xs text-ink-3 font-syne hover:text-ink">+ Add question</button>
+      </div>
+      <div>
+        <label className="block font-syne text-xs text-ink-3 mb-1">Teaching points</label>
+        {points.map((p, i) => (
+          <div key={i} className="flex gap-1.5 mb-1">
+            <input
+              type="text"
+              value={p}
+              onChange={(e) => updateList("teaching_points", i, e.target.value)}
+              placeholder={`Teaching point ${i + 1}`}
+              className="flex-1 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+            />
+            {points.length > 1 && (
+              <button onClick={() => removeItem("teaching_points", i)} className="text-red text-xs px-1.5 hover:bg-red-light rounded">✕</button>
+            )}
+          </div>
+        ))}
+        <button onClick={() => addItem("teaching_points")} className="text-xs text-ink-3 font-syne hover:text-ink">+ Add point</button>
+      </div>
+    </div>
+  );
+}
+
+function ImageBlockEditor({
+  block,
+  onChange,
+  onUpload,
+}: {
+  block: Block;
+  onChange: (b: Block) => void;
+  onUpload: (lessonId: string, file: File) => Promise<string>;
+  lessonId: string;
+}) {
+  const c = block.content as ImageContent;
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const url = await onUpload((block as any)._lessonId ?? "", file);
+      onChange({ ...block, content: { ...c, url } });
+    } catch (err: any) {
+      setUploadError(err?.response?.data?.detail ?? "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      {c.url ? (
+        <div className="relative">
+          <img src={c.url} alt={c.alt ?? "lesson image"} className="rounded-lg max-h-48 object-contain border border-border" />
+          <button
+            onClick={() => onChange({ ...block, content: { ...c, url: "" } })}
+            className="absolute top-1 right-1 bg-ink/70 text-white text-xs px-2 py-0.5 rounded"
+          >
+            Remove
+          </button>
+        </div>
+      ) : (
+        <div>
+          <label className={`flex flex-col items-center justify-center h-28 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-ink-3 transition-colors ${uploading ? "opacity-50" : ""}`}>
+            <span className="text-2xl mb-1">🖼️</span>
+            <span className="font-serif text-xs text-ink-3">{uploading ? "Uploading..." : "Click to upload image (JPEG, PNG, SVG · max 10 MB)"}</span>
+            <input type="file" accept="image/jpeg,image/png,image/svg+xml,image/webp" onChange={handleFile} disabled={uploading} className="hidden" />
+          </label>
+          {uploadError && <p className="text-red text-xs font-serif mt-1">{uploadError}</p>}
+          <p className="text-ink-3 text-xs font-serif mt-1">Or paste URL:</p>
+          <input
+            type="url"
+            value={c.url ?? ""}
+            onChange={(e) => onChange({ ...block, content: { ...c, url: e.target.value } })}
+            placeholder="https://..."
+            className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+          />
+        </div>
+      )}
+      <input
+        type="text"
+        value={c.caption ?? ""}
+        onChange={(e) => onChange({ ...block, content: { ...c, caption: e.target.value } })}
+        placeholder="Caption (optional)"
+        className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+      />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Single block card
+// ─────────────────────────────────────────────────────────────────────────────
+
+function BlockCard({
+  block,
+  index,
+  total,
+  onChange,
+  onRemove,
+  onMove,
+  onUpload,
+  lessonId,
+}: {
+  block: Block;
+  index: number;
+  total: number;
+  onChange: (b: Block) => void;
+  onRemove: () => void;
+  onMove: (dir: -1 | 1) => void;
+  onUpload: (lessonId: string, file: File) => Promise<string>;
+  lessonId: string;
+}) {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <div className="border border-border rounded-xl bg-surface">
+      {/* Block header */}
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
+        <span className="text-base">{BLOCK_ICONS[block.type]}</span>
+        <span className="font-syne font-semibold text-xs text-ink flex-1">{BLOCK_LABELS[block.type]}</span>
+        <div className="flex items-center gap-0.5">
+          <button
+            onClick={() => onMove(-1)}
+            disabled={index === 0}
+            className="text-ink-3 hover:text-ink disabled:opacity-30 px-1.5 py-0.5 text-xs"
+            title="Move up"
+          >↑</button>
+          <button
+            onClick={() => onMove(1)}
+            disabled={index === total - 1}
+            className="text-ink-3 hover:text-ink disabled:opacity-30 px-1.5 py-0.5 text-xs"
+            title="Move down"
+          >↓</button>
+          <button
+            onClick={() => setCollapsed((v) => !v)}
+            className="text-ink-3 hover:text-ink px-1.5 py-0.5 text-xs"
+            title={collapsed ? "Expand" : "Collapse"}
+          >{collapsed ? "▼" : "▲"}</button>
+          <button
+            onClick={onRemove}
+            className="text-red hover:text-red/70 px-1.5 py-0.5 text-xs"
+            title="Remove block"
+          >✕</button>
+        </div>
+      </div>
+
+      {/* Block content */}
+      {!collapsed && (
+        <div className="p-3">
+          {block.type === "text" && <TextBlockEditor block={block} onChange={onChange} />}
+          {block.type === "quiz" && <QuizBlockEditor block={block} onChange={onChange} />}
+          {block.type === "case" && <CaseBlockEditor block={block} onChange={onChange} />}
+          {block.type === "image" && (
+            <ImageBlockEditor
+              block={{ ...block, _lessonId: lessonId } as any}
+              onChange={onChange}
+              onUpload={onUpload}
+              lessonId={lessonId}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Main page
+// ─────────────────────────────────────────────────────────────────────────────
+
+function emptyBlock(type: BlockType, order: number): Block {
+  if (type === "text") return { type, order, content: { text: "" } };
+  if (type === "quiz") return { type, order, content: { question: "", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } };
+  if (type === "case") return { type, order, content: { presentation: "", questions: [""], teaching_points: [""] } };
+  return { type, order, content: { url: "", caption: "" } };
+}
+
+function lessonToEditorState(raw: Record<string, unknown>) {
+  const blocks: Block[] = Array.isArray(raw.blocks)
+    ? (raw.blocks as Block[]).map((b, i) => ({ ...b, order: i }))
+    : [];
+  return {
+    title: (raw.title as string) ?? "",
+    blocks,
+    estimated_minutes: (raw.estimated_minutes as number) ?? 20,
+    learning_objectives: Array.isArray(raw.learning_objectives)
+      ? (raw.learning_objectives as string[])
+      : [],
+  };
+}
+
+function editorStateToContent(title: string, blocks: Block[], minutes: number, objectives: string[]) {
+  return {
+    title,
+    blocks: blocks.map((b, i) => ({ ...b, order: i })),
+    estimated_minutes: minutes,
+    learning_objectives: objectives,
+  };
+}
+
 export default function LessonEditPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -45,11 +437,13 @@ export default function LessonEditPage() {
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [title, setTitle] = useState("");
   const [minutes, setMinutes] = useState(20);
-  const [contentJson, setContentJson] = useState("");
-  const [jsonError, setJsonError] = useState("");
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [objectives, setObjectives] = useState<string[]>([""]);
+
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
   const [error, setError] = useState("");
+  const [workflowLoading, setWorkflowLoading] = useState(false);
 
   // AI Improve panel
   const [aiOpen, setAiOpen] = useState(false);
@@ -60,46 +454,65 @@ export default function LessonEditPage() {
   const [aiSuggestion, setAiSuggestion] = useState<{
     suggested: Record<string, unknown>;
     review_notes?: string;
-    task: string;
   } | null>(null);
-
-  // Workflow
-  const [workflowLoading, setWorkflowLoading] = useState(false);
 
   useEffect(() => {
     teacherApi.getLesson(id)
       .then((l: Lesson) => {
         setLesson(l);
-        setTitle(l.title);
-        setMinutes(l.estimated_minutes);
-        setContentJson(JSON.stringify(l.content, null, 2));
+        const state = lessonToEditorState(l.content);
+        setTitle(state.title || l.title);
+        setMinutes(state.estimated_minutes || l.estimated_minutes);
+        setBlocks(state.blocks.length > 0 ? state.blocks : [emptyBlock("text", 0)]);
+        setObjectives(state.learning_objectives.length > 0 ? state.learning_objectives : [""]);
       })
       .catch(() => setError("Failed to load lesson"));
   }, [id]);
 
+  function updateBlock(idx: number, b: Block) {
+    setBlocks((bs) => bs.map((old, i) => (i === idx ? b : old)));
+  }
+  function removeBlock(idx: number) {
+    setBlocks((bs) => bs.filter((_, i) => i !== idx).map((b, i) => ({ ...b, order: i })));
+  }
+  function moveBlock(idx: number, dir: -1 | 1) {
+    setBlocks((bs) => {
+      const next = [...bs];
+      const swapIdx = idx + dir;
+      if (swapIdx < 0 || swapIdx >= next.length) return bs;
+      [next[idx], next[swapIdx]] = [next[swapIdx], next[idx]];
+      return next.map((b, i) => ({ ...b, order: i }));
+    });
+  }
+  function addBlock(type: BlockType) {
+    setBlocks((bs) => [...bs, emptyBlock(type, bs.length)]);
+  }
+
+  function updateObjective(idx: number, val: string) {
+    setObjectives((os) => os.map((o, i) => (i === idx ? val : o)));
+  }
+  function addObjective() { setObjectives((os) => [...os, ""]); }
+  function removeObjective(idx: number) {
+    setObjectives((os) => os.filter((_, i) => i !== idx));
+  }
+
   async function handleSave() {
     if (!lesson) return;
-    setJsonError("");
-    let parsed: object;
-    try {
-      parsed = JSON.parse(contentJson);
-    } catch {
-      setJsonError("Invalid JSON");
-      return;
-    }
     setSaving(true);
     setSaveMsg("");
+    setError("");
     try {
+      const content = editorStateToContent(title, blocks, minutes, objectives.filter(Boolean));
       const updated = await teacherApi.updateLesson(lesson.id, {
-        title: title.trim(),
-        content: parsed,
+        title: title.trim() || lesson.title,
+        content,
         estimated_minutes: minutes,
       });
       setLesson(updated);
       setSaveMsg("Saved");
-      setTimeout(() => setSaveMsg(""), 2000);
+      setTimeout(() => setSaveMsg(""), 2500);
     } catch {
-      setError("Save failed");
+      setError("Save failed. Check connection and try again.");
     } finally {
       setSaving(false);
     }
@@ -122,12 +535,26 @@ export default function LessonEditPage() {
     }
   }
 
+  async function handleUpload(lessonId: string, file: File): Promise<string> {
+    const form = new FormData();
+    form.append("file", file);
+    const { api } = await import("@/lib/api");
+    const res = await api.post(`/lessons/${lessonId}/upload-media`, form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data.url;
+  }
+
   async function handleAiImprove() {
     if (!lesson) return;
     setAiLoading(true);
     setAiSuggestion(null);
     setError("");
     try {
+      // Save first so AI sees current content
+      const content = editorStateToContent(title, blocks, minutes, objectives.filter(Boolean));
+      await teacherApi.updateLesson(lesson.id, { title: title.trim() || lesson.title, content, estimated_minutes: minutes });
+
       const result = await teacherApi.aiImprove(lesson.id, {
         task: aiTask,
         specialty: aiSpecialty,
@@ -143,11 +570,14 @@ export default function LessonEditPage() {
 
   function applyAiSuggestion() {
     if (!aiSuggestion) return;
-    setContentJson(JSON.stringify(aiSuggestion.suggested, null, 2));
+    const state = lessonToEditorState(aiSuggestion.suggested);
+    if (state.title) setTitle(state.title);
+    if (state.blocks.length > 0) setBlocks(state.blocks);
+    if (state.learning_objectives.length > 0) setObjectives(state.learning_objectives);
     setAiSuggestion(null);
     setAiOpen(false);
-    setSaveMsg("Applied — remember to save");
-    setTimeout(() => setSaveMsg(""), 3000);
+    setSaveMsg("AI suggestion applied — remember to save");
+    setTimeout(() => setSaveMsg(""), 4000);
   }
 
   if (!lesson && !error) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
@@ -157,55 +587,51 @@ export default function LessonEditPage() {
   const isArchived = lesson.status === "archived";
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div>
+    <div className="p-4 max-w-3xl mx-auto pb-20">
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <div className="flex items-center justify-between mb-4 gap-3">
+        <div className="min-w-0">
           <Link href={`/teacher/modules/${lesson.module_id}`} className="text-ink-3 text-sm font-syne hover:text-ink">
             ← Module
           </Link>
-          <h1 className="font-syne font-black text-xl text-ink mt-1">{lesson.title}</h1>
-          <span className={`font-syne text-sm font-semibold ${STATUS_COLORS[lesson.status]}`}>
+          <div className="flex items-center gap-2 mt-1">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={isArchived}
+              placeholder="Lesson title"
+              className="font-syne font-black text-xl text-ink bg-transparent border-b border-transparent focus:border-ink-3 focus:outline-none disabled:opacity-50 flex-1 min-w-0"
+            />
+          </div>
+          <span className={`font-syne text-xs font-semibold ${STATUS_COLORS[lesson.status]}`}>
             {lesson.status.toUpperCase()}
           </span>
         </div>
 
-        {/* Workflow buttons */}
         {!isArchived && (
-          <div className="flex gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0 flex-wrap justify-end">
             {lesson.status === "draft" && (
               <>
-                <button
-                  onClick={() => handleWorkflow("submit")}
-                  disabled={workflowLoading}
-                  className="text-sm border border-amber/40 text-amber rounded-lg px-3 py-1.5 font-syne font-semibold hover:bg-amber-light disabled:opacity-50"
-                >
-                  Submit for Review
+                <button onClick={() => handleWorkflow("submit")} disabled={workflowLoading}
+                  className="text-xs border border-amber/40 text-amber rounded-lg px-3 py-1.5 font-syne font-semibold hover:bg-amber-light disabled:opacity-50">
+                  For Review
                 </button>
-                <button
-                  onClick={() => handleWorkflow("publish")}
-                  disabled={workflowLoading}
-                  className="btn-primary text-sm px-3 py-1.5 rounded-lg font-syne font-semibold disabled:opacity-50"
-                >
+                <button onClick={() => handleWorkflow("publish")} disabled={workflowLoading}
+                  className="btn-primary text-xs px-3 py-1.5 rounded-lg font-syne font-semibold disabled:opacity-50">
                   Publish
                 </button>
               </>
             )}
             {lesson.status === "review" && (
-              <button
-                onClick={() => handleWorkflow("publish")}
-                disabled={workflowLoading}
-                className="btn-primary text-sm px-3 py-1.5 rounded-lg font-syne font-semibold disabled:opacity-50"
-              >
+              <button onClick={() => handleWorkflow("publish")} disabled={workflowLoading}
+                className="btn-primary text-xs px-3 py-1.5 rounded-lg font-syne font-semibold disabled:opacity-50">
                 Publish
               </button>
             )}
             {lesson.status === "published" && (
-              <button
-                onClick={() => handleWorkflow("unpublish")}
-                disabled={workflowLoading}
-                className="text-sm border border-border text-ink-3 rounded-lg px-3 py-1.5 font-syne hover:border-ink-3 disabled:opacity-50"
-              >
+              <button onClick={() => handleWorkflow("unpublish")} disabled={workflowLoading}
+                className="text-xs border border-border text-ink-3 rounded-lg px-3 py-1.5 font-syne hover:border-ink-3 disabled:opacity-50">
                 Unpublish
               </button>
             )}
@@ -213,154 +639,162 @@ export default function LessonEditPage() {
         )}
       </div>
 
+      {/* ── Notifications ──────────────────────────────────────── */}
       {error && (
-        <div className="mb-3 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+        <div className="mb-3 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif flex justify-between">
           {error}
-          <button onClick={() => setError("")} className="ml-2 underline">dismiss</button>
+          <button onClick={() => setError("")} className="underline text-xs shrink-0 ml-2">dismiss</button>
         </div>
       )}
-
       {saveMsg && (
         <div className="mb-3 p-2 rounded-lg bg-green-light border border-green/20 text-green text-sm font-syne">
           {saveMsg}
         </div>
       )}
 
-      {/* Edit form */}
-      <div className="card p-4 mb-4 space-y-4">
-        <div className="grid grid-cols-3 gap-3">
-          <div className="col-span-2">
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              disabled={isArchived}
-              className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 disabled:opacity-50"
-            />
-          </div>
-          <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Minutes</label>
-            <input
-              type="number"
-              value={minutes}
-              onChange={(e) => setMinutes(Number(e.target.value))}
-              min={5}
-              max={180}
-              disabled={isArchived}
-              className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 disabled:opacity-50"
-            />
-          </div>
-        </div>
-
-        <div>
-          <div className="flex items-center justify-between mb-1">
-            <label className="font-syne font-semibold text-sm text-ink">Content (JSON)</label>
-            {jsonError && <span className="text-red text-xs font-syne">{jsonError}</span>}
-          </div>
-          <textarea
-            value={contentJson}
-            onChange={(e) => { setContentJson(e.target.value); setJsonError(""); }}
-            rows={16}
+      {/* ── Metadata strip ─────────────────────────────────────── */}
+      <div className="card p-3 mb-4 flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-2">
+          <label className="font-syne text-xs text-ink-3 shrink-0">Duration</label>
+          <input
+            type="number"
+            value={minutes}
+            onChange={(e) => setMinutes(Number(e.target.value))}
+            min={5}
+            max={180}
             disabled={isArchived}
-            className="w-full border border-border rounded-lg px-3 py-2 font-mono text-xs text-ink bg-surface focus:outline-none focus:border-ink-3 resize-y disabled:opacity-50"
+            className="w-16 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none disabled:opacity-50"
           />
+          <span className="font-serif text-xs text-ink-3">min</span>
         </div>
-
-        {!isArchived && (
-          <div className="flex gap-3">
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="btn-primary py-2 px-5 rounded-lg font-syne font-semibold text-sm disabled:opacity-50"
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-            <button
-              onClick={() => setAiOpen((v) => !v)}
-              className="border border-border rounded-lg px-4 py-2 font-syne font-semibold text-sm text-ink hover:border-ink-3 transition-colors"
-            >
-              {aiOpen ? "Hide AI Panel" : "AI Improve"}
-            </button>
+        <div className="flex-1 min-w-0">
+          <label className="font-syne text-xs text-ink-3 block mb-1">Learning objectives</label>
+          <div className="space-y-1">
+            {objectives.map((obj, i) => (
+              <div key={i} className="flex gap-1">
+                <input
+                  type="text"
+                  value={obj}
+                  onChange={(e) => updateObjective(i, e.target.value)}
+                  disabled={isArchived}
+                  placeholder={`Objective ${i + 1}`}
+                  className="flex-1 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3 disabled:opacity-50"
+                />
+                {objectives.length > 1 && !isArchived && (
+                  <button onClick={() => removeObjective(i)} className="text-red text-xs px-1 hover:bg-red-light rounded">✕</button>
+                )}
+              </div>
+            ))}
+            {!isArchived && (
+              <button onClick={addObjective} className="text-xs text-ink-3 font-syne hover:text-ink">+ Add objective</button>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* AI Improve Panel */}
-      {aiOpen && !isArchived && (
-        <div className="card p-4 border-blue/30 bg-blue-light/30 mb-4">
-          <h3 className="font-syne font-bold text-sm text-ink mb-3">AI Improvement</h3>
+      {/* ── Blocks ─────────────────────────────────────────────── */}
+      <div className="space-y-3 mb-4">
+        {blocks.map((block, i) => (
+          <BlockCard
+            key={i}
+            block={block}
+            index={i}
+            total={blocks.length}
+            onChange={(b) => updateBlock(i, b)}
+            onRemove={() => removeBlock(i)}
+            onMove={(dir) => moveBlock(i, dir)}
+            onUpload={handleUpload}
+            lessonId={lesson.id}
+          />
+        ))}
+      </div>
 
-          <div className="grid grid-cols-3 gap-3 mb-3">
+      {/* ── Add block ──────────────────────────────────────────── */}
+      {!isArchived && (
+        <div className="card p-3 mb-4">
+          <p className="font-syne text-xs text-ink-3 mb-2">Add block</p>
+          <div className="flex gap-2 flex-wrap">
+            {(["text", "quiz", "case", "image"] as BlockType[]).map((type) => (
+              <button
+                key={type}
+                onClick={() => addBlock(type)}
+                className="flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 font-syne text-xs text-ink hover:border-ink-3 hover:bg-surface transition-colors"
+              >
+                <span>{BLOCK_ICONS[type]}</span>
+                {BLOCK_LABELS[type]}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Save + AI bar ──────────────────────────────────────── */}
+      {!isArchived && (
+        <div className="flex gap-3 mb-4">
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="btn-primary py-2.5 px-6 rounded-lg font-syne font-semibold text-sm disabled:opacity-50 flex-1"
+          >
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+          <button
+            onClick={() => setAiOpen((v) => !v)}
+            className={`border rounded-lg px-4 py-2.5 font-syne font-semibold text-sm transition-colors ${aiOpen ? "border-blue/40 bg-blue-light text-blue" : "border-border text-ink hover:border-ink-3"}`}
+          >
+            {aiOpen ? "Hide AI" : "AI Improve"}
+          </button>
+        </div>
+      )}
+
+      {/* ── AI Improve panel ───────────────────────────────────── */}
+      {aiOpen && !isArchived && (
+        <div className="card p-4 border-blue/30 mb-4" style={{ backgroundColor: "rgba(219, 234, 254, 0.2)" }}>
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">AI Content Improvement</h3>
+          <p className="font-serif text-xs text-ink-3 mb-3">
+            Lesson will be saved automatically before AI analysis.
+          </p>
+          <div className="grid grid-cols-3 gap-2 mb-3">
             <div>
               <label className="block font-syne text-xs text-ink-3 mb-1">Task</label>
-              <select
-                value={aiTask}
-                onChange={(e) => setAiTask(e.target.value)}
-                className="w-full border border-border rounded-lg px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none"
-              >
-                {AI_TASKS.map((t) => (
-                  <option key={t.value} value={t.value}>{t.label}</option>
-                ))}
+              <select value={aiTask} onChange={(e) => setAiTask(e.target.value)}
+                className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
+                {AI_TASKS.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
               </select>
             </div>
             <div>
               <label className="block font-syne text-xs text-ink-3 mb-1">Specialty</label>
-              <select
-                value={aiSpecialty}
-                onChange={(e) => setAiSpecialty(e.target.value)}
-                className="w-full border border-border rounded-lg px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none"
-              >
-                {SPECIALTIES.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
+              <select value={aiSpecialty} onChange={(e) => setAiSpecialty(e.target.value)}
+                className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
+                {SPECIALTIES.map((s) => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
               <label className="block font-syne text-xs text-ink-3 mb-1">Level</label>
-              <select
-                value={aiLevel}
-                onChange={(e) => setAiLevel(e.target.value)}
-                className="w-full border border-border rounded-lg px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none"
-              >
-                {LEVELS.map((l) => (
-                  <option key={l} value={l}>{l}</option>
-                ))}
+              <select value={aiLevel} onChange={(e) => setAiLevel(e.target.value)}
+                className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
+                {LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
           </div>
-
-          <button
-            onClick={handleAiImprove}
-            disabled={aiLoading}
-            className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold disabled:opacity-50 mb-3"
-          >
-            {aiLoading ? "Analysing with Claude..." : "Run AI Improve"}
+          <button onClick={handleAiImprove} disabled={aiLoading}
+            className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold disabled:opacity-50 mb-3">
+            {aiLoading ? "Claude is analysing..." : "Run AI Improve"}
           </button>
 
           {aiSuggestion && (
-            <div className="border border-green/30 rounded-lg p-3 bg-white/50">
+            <div className="border border-green/30 rounded-lg p-3 bg-white/60">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-syne font-semibold text-sm text-ink">Suggestion ready</span>
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => setAiSuggestion(null)}
-                    className="text-xs text-ink-3 font-syne hover:text-ink"
-                  >
-                    Discard
-                  </button>
-                  <button
-                    onClick={applyAiSuggestion}
-                    className="text-xs text-green font-syne font-semibold hover:underline"
-                  >
-                    Apply to editor
-                  </button>
+                  <button onClick={() => setAiSuggestion(null)} className="text-xs text-ink-3 font-syne hover:text-ink">Discard</button>
+                  <button onClick={applyAiSuggestion} className="text-xs text-green font-syne font-semibold hover:underline">Apply to editor</button>
                 </div>
               </div>
               {aiSuggestion.review_notes && (
-                <p className="font-serif text-xs text-ink-3 mb-2">{aiSuggestion.review_notes}</p>
+                <p className="font-serif text-xs text-ink-3 mb-2 italic">{aiSuggestion.review_notes}</p>
               )}
-              <pre className="font-mono text-xs text-ink bg-surface rounded p-2 overflow-auto max-h-48">
+              <pre className="font-mono text-xs text-ink bg-surface rounded p-2 overflow-auto max-h-40">
                 {JSON.stringify(aiSuggestion.suggested, null, 2)}
               </pre>
             </div>
@@ -368,7 +802,7 @@ export default function LessonEditPage() {
         </div>
       )}
 
-      {/* Review notes */}
+      {/* ── Review notes ───────────────────────────────────────── */}
       {lesson.review_notes && (
         <div className="card p-3 border-amber/30 bg-amber-light/40">
           <p className="font-syne font-semibold text-xs text-amber mb-1">Review Notes</p>

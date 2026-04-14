@@ -75,6 +75,12 @@ class Settings(BaseSettings):
     # Modules import path
     MODULES_DIR: str = "/app/data/modules"
 
+    # Media uploads
+    MEDIA_ROOT: str = "/app/data/media"
+    MEDIA_URL: str = "/media"
+    MEDIA_MAX_IMAGE_MB: int = 10
+    MEDIA_MAX_VIDEO_MB: int = 200
+
     # Redis TTL (seconds)
     AI_CACHE_TTL: int = 86400       # 24 hours
     PUBMED_CACHE_TTL: int = 604800  # 7 days
