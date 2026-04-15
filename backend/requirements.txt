@@ -16,6 +16,7 @@ python-dotenv==1.0.1
 pgvector==0.2.5
 stripe==9.9.0
 numpy==1.26.4
+pydicom==2.4.4
 boto3==1.34.0
 Pillow==10.3.0
 slowapi==0.1.9
