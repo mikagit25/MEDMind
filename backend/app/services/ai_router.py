@@ -383,17 +383,24 @@ async def route_ai_request(
     if db is not None and conversation_id is not None and user.subscription_tier != "free":
         try:
             from app.services.memory_service import extract_and_save_memories
-            asyncio.create_task(
-                extract_and_save_memories(
-                    db=db,
-                    user_id=user.id,
-                    message=message,
-                    ai_reply=reply,
-                    specialty=specialty,
-                    conversation_id=conversation_id,
-                    species_context=species or "human",
-                )
-            )
+            from app.core.database import AsyncSessionLocal
+
+            async def _run_memory_extraction():
+                async with AsyncSessionLocal() as bg_db:
+                    try:
+                        await extract_and_save_memories(
+                            db=bg_db,
+                            user_id=user.id,
+                            message=message,
+                            ai_reply=reply,
+                            specialty=specialty,
+                            conversation_id=conversation_id,
+                            species_context=species or "human",
+                        )
+                    except Exception as _inner:
+                        logger.warning("Memory extraction failed: %s", _inner)
+
+            asyncio.create_task(_run_memory_extraction())
         except Exception as _e:
             logger.warning("Failed to schedule memory extraction: %s", _e)
 

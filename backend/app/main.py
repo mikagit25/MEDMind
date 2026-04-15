@@ -27,6 +27,8 @@ if settings.SENTRY_DSN:
         # Don't send PII by default
         send_default_pii=False,
     )
+from app.core.logging_config import setup_logging
+from app.middleware.correlation_id import CorrelationIdMiddleware
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
 from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards
@@ -39,6 +41,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
+    setup_logging()
     logger.info("Starting MedMind AI backend...")
 
     # Auto-create tables from models (dev mode — skips alembic)
@@ -116,6 +119,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(CorrelationIdMiddleware)
 
 # Include routers
 API_PREFIX = "/api/v1"

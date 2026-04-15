@@ -177,12 +177,20 @@ export default function CourseDetailPage() {
               <p className="font-serif text-ink-3 text-sm mt-0.5">{course.description}</p>
             )}
           </div>
-          <button
-            onClick={handleArchiveCourse}
-            className="text-xs font-syne text-ink-3 hover:text-red border border-border rounded px-2 py-1 transition-colors ml-4 shrink-0"
-          >
-            Archive
-          </button>
+          <div className="flex items-center gap-2 ml-4 shrink-0">
+            <Link
+              href={`/teacher/courses/${id}/analytics`}
+              className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-1 transition-colors"
+            >
+              Analytics
+            </Link>
+            <button
+              onClick={handleArchiveCourse}
+              className="text-xs font-syne text-ink-3 hover:text-red border border-border rounded px-2 py-1 transition-colors"
+            >
+              Archive
+            </button>
+          </div>
         </div>
       </div>
 

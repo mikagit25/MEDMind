@@ -118,6 +118,7 @@ class Lesson(Base):
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    row_version = Column(Integer, default=0, nullable=False)
 
     module = relationship("Module", back_populates="lessons")
 

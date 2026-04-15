@@ -42,7 +42,7 @@ from app.api.deps import get_current_user
 from app.core.audit import audit
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Lesson, LessonCompletion, LessonVersion, Module, Specialty, User
+from app.models.models import Lesson, LessonCompletion, LessonVersion, Module, Specialty, User, UserProgress
 
 router = APIRouter(prefix="/lessons", tags=["lessons"])
 
@@ -184,6 +184,7 @@ class LessonUpdate(BaseModel):
     estimated_minutes: Optional[int] = Field(default=None, ge=5, le=180)
     lesson_order: Optional[int] = Field(default=None, ge=0)
     review_notes: Optional[str] = None
+    expected_version: Optional[int] = None   # if set, enforces optimistic locking
 
 
 class LessonOut(BaseModel):
@@ -199,6 +200,7 @@ class LessonOut(BaseModel):
     content: dict
     created_at: datetime
     updated_at: datetime
+    row_version: int = 0
 
     model_config = {"from_attributes": True}
 
@@ -436,6 +438,13 @@ async def update_lesson(
     lesson = await _get_lesson_or_404(lesson_id, db)
     _require_lesson_owner(lesson, user)
 
+    # Optimistic locking: reject if client's version is stale
+    if body.expected_version is not None and lesson.row_version != body.expected_version:
+        raise HTTPException(
+            status_code=409,
+            detail=f"Lesson was modified by another user. Current version: {lesson.row_version}. Reload and try again.",
+        )
+
     if lesson.status == "archived":
         raise HTTPException(400, "Cannot edit an archived lesson")
 
@@ -453,11 +462,14 @@ async def update_lesson(
     ))
 
     data = body.model_dump(exclude_none=True)
+    # Remove schema-only fields that don't map to model columns
+    data.pop("expected_version", None)
     if "content" in data:
         # content is a LessonContent object — convert to dict for JSONB
         data["content"] = body.content.model_dump()
     for field, value in data.items():
         setattr(lesson, field, value)
+    lesson.row_version = (lesson.row_version or 0) + 1
     lesson.updated_at = datetime.utcnow()
     await db.commit()
     await db.refresh(lesson)
@@ -831,60 +843,82 @@ async def lesson_analytics(
 
 
 @router.get("/modules/{module_id}/analytics")
-async def module_analytics(
+async def get_module_analytics(
     module_id: UUID,
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Analytics overview for all lessons in a module."""
+    """
+    Per-lesson engagement analytics for a module.
+    Returns completion rates, avg time spent, student count, drop-off points.
+    Teacher sees only their own modules; admins see all.
+    """
     _require_teacher(user)
-    mod = await _get_module_or_404(module_id, db)
-    _require_module_owner(mod, user)
 
+    # Verify ownership
+    mod_result = await db.execute(select(Module).where(Module.id == module_id))
+    mod = mod_result.scalar_one_or_none()
+    if not mod:
+        raise HTTPException(404, "Module not found")
+    if user.role != "admin" and str(mod.author_id) != str(user.id):
+        raise HTTPException(403, "Not your module")
+
+    # All lessons in this module
     lessons_result = await db.execute(
-        select(Lesson).where(
-            Lesson.module_id == module_id,
-            Lesson.status != "archived",
-        ).order_by(Lesson.lesson_order)
+        select(Lesson)
+        .where(Lesson.module_id == module_id)
+        .order_by(Lesson.lesson_order)
     )
     lessons = lessons_result.scalars().all()
 
-    lesson_ids = [l.id for l in lessons]
-    stats: dict[UUID, dict] = {}
+    # UserProgress rows for this module
+    prog_result = await db.execute(
+        select(UserProgress).where(UserProgress.module_id == module_id)
+    )
+    progressions = prog_result.scalars().all()
 
-    if lesson_ids:
-        rows = await db.execute(
-            select(
-                LessonCompletion.lesson_id,
-                func.count(LessonCompletion.id).label("completions"),
-                func.avg(LessonCompletion.time_spent_seconds).label("avg_time"),
-                func.avg(LessonCompletion.quiz_score).label("avg_quiz"),
-            )
-            .where(LessonCompletion.lesson_id.in_(lesson_ids))
-            .group_by(LessonCompletion.lesson_id)
+    total_students = len(progressions)
+
+    lesson_stats = []
+    for lesson in lessons:
+        lesson_id_str = str(lesson.id)
+
+        # Count how many students completed this lesson
+        completions = sum(
+            1 for p in progressions
+            if lesson.id in (p.lessons_completed or [])
         )
-        for r in rows:
-            stats[r.lesson_id] = {
-                "completions": r.completions,
-                "avg_time_seconds": round(float(r.avg_time), 1) if r.avg_time else None,
-                "avg_quiz_score": round(float(r.avg_quiz), 1) if r.avg_quiz else None,
-            }
+
+        completion_rate = round(completions / total_students * 100, 1) if total_students > 0 else 0.0
+
+        lesson_stats.append({
+            "lesson_id": lesson_id_str,
+            "title": lesson.title,
+            "lesson_order": lesson.lesson_order,
+            "status": lesson.status,
+            "completions": completions,
+            "completion_rate": completion_rate,
+            "estimated_minutes": lesson.estimated_minutes,
+        })
+
+    # Drop-off point: first lesson with completion_rate < 60% of previous
+    drop_off_lesson_id = None
+    for i in range(1, len(lesson_stats)):
+        prev = lesson_stats[i - 1]["completion_rate"]
+        curr = lesson_stats[i]["completion_rate"]
+        if prev > 0 and curr < prev * 0.6:  # >40% drop
+            drop_off_lesson_id = lesson_stats[i]["lesson_id"]
+            break
 
     return {
         "module_id": str(module_id),
-        "title": mod.title,
-        "is_published": mod.is_published,
-        "lessons": [
-            {
-                "lesson_id": str(l.id),
-                "title": l.title,
-                "status": l.status,
-                "lesson_order": l.lesson_order,
-                "estimated_minutes": l.estimated_minutes,
-                **stats.get(l.id, {"completions": 0, "avg_time_seconds": None, "avg_quiz_score": None}),
-            }
-            for l in lessons
-        ],
+        "module_title": mod.title,
+        "total_students": total_students,
+        "lessons": lesson_stats,
+        "drop_off_lesson_id": drop_off_lesson_id,
+        "avg_completion_rate": round(
+            sum(s["completion_rate"] for s in lesson_stats) / len(lesson_stats), 1
+        ) if lesson_stats else 0.0,
     }
 
 

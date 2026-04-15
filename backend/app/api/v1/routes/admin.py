@@ -638,3 +638,28 @@ async def get_audit_logs(
             for r in rows
         ],
     }
+
+
+# ── Feature Flags ────────────────────────────────────────────────────────────
+@router.get("/feature-flags", tags=["admin"])
+async def get_feature_flags(
+    _: User = _admin,
+):
+    """List all feature flags with current values."""
+    from app.core.feature_flags import list_flags
+    return await list_flags()
+
+
+@router.patch("/feature-flags/{flag}", tags=["admin"])
+async def set_feature_flag(
+    flag: str,
+    enabled: bool,
+    rollout: int = 100,
+    _: User = _admin,
+):
+    """Enable/disable a feature flag, optionally with % rollout."""
+    from app.core.feature_flags import set_flag, DEFAULTS
+    if flag not in DEFAULTS:
+        raise HTTPException(status_code=404, detail=f"Unknown flag: {flag}")
+    await set_flag(flag, enabled, rollout)
+    return {"flag": flag, "enabled": enabled, "rollout": rollout}
