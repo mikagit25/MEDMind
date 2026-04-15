@@ -34,7 +34,7 @@ from uuid import UUID
 import aiofiles
 import anthropic
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -121,11 +121,36 @@ def _require_lesson_owner(lesson: Lesson, user: User) -> None:
 # Content schema — Pydantic validation for lesson blocks
 # ─────────────────────────────────────────────────────────────────────────────
 
+_VALID_SPECIES = frozenset({
+    "human", "canine", "feline", "equine", "bovine",
+    "porcine", "ovine", "avian", "exotic",
+})
+
+_VALID_RISK_LEVELS = frozenset({"low", "medium", "high"})
+
+
+class GuidelineSource(BaseModel):
+    name: str = Field(min_length=2, max_length=200)
+    year: Optional[int] = Field(default=None, ge=2000, le=2030)
+    url: Optional[str] = None
+
+
 class LessonBlock(BaseModel):
-    """One content block inside a lesson."""
-    type: Literal["text", "image", "video", "quiz", "case", "flashcard", "table"]
+    """One content block inside a lesson.
+
+    ``show_if`` / ``hide_if`` support adaptive display on the frontend:
+    e.g. ``{"user_level": "intermediate+"}`` or ``{"species_context": "feline"}``
+    """
+    type: Literal["text", "image", "video", "quiz", "case", "flashcard", "table", "dosage_table", "anatomy_3d"]
     content: dict
     order: int = Field(ge=0)
+    # Optional accessibility & species metadata
+    alt_text: Optional[str] = None          # required for image blocks (accessibility)
+    species_context: Optional[list[str]] = None  # limits block visibility by species
+    clinical_warning: Optional[str] = None  # inline clinical safety warning
+    # Adaptive display conditions (evaluated by frontend)
+    show_if: Optional[dict] = None
+    hide_if: Optional[dict] = None
 
     model_config = {"extra": "allow"}
 
@@ -134,42 +159,45 @@ class LessonContent(BaseModel):
     """Validated lesson content structure stored as JSONB.
 
     Supported block types:
-    - **text** — rich Markdown body (``content`` key contains markdown string)
-    - **quiz** — MCQ with options A-D (``question``, ``options``, ``correct``, ``explanation``)
-    - **case** — clinical case scenario (``presentation``, ``diagnosis``, ``management``)
-    - **image** — medical image (``url``, ``caption``, ``attribution``)
+    - **text** — rich Markdown body
+    - **quiz** — MCQ with options A-E, correct answer, explanation
+    - **case** — clinical case (presentation, diagnosis, management)
+    - **image** — medical image (url or image_id, alt_text required)
+    - **dosage_table** — species-specific dosing table
+    - **anatomy_3d** — 3D anatomy viewer embed
 
-    Example request body for ``POST /lessons/modules/{id}/lessons``:
-
-    ```json
-    {
-      "title": "Heart Failure",
-      "estimated_minutes": 25,
-      "learning_objectives": ["Define systolic vs. diastolic HF", "List first-line treatments"],
-      "blocks": [
-        {
-          "type": "text",
-          "order": 0,
-          "content": "## Definition\\n\\nHeart failure is a clinical syndrome..."
-        },
-        {
-          "type": "quiz",
-          "order": 1,
-          "question": "First-line drug in HFrEF?",
-          "options": {"A": "Digoxin", "B": "ACEi + beta-blocker", "C": "Calcium channel blocker", "D": "Loop diuretic alone"},
-          "correct": "B",
-          "explanation": "ACE inhibitors and beta-blockers reduce mortality in HFrEF."
-        }
-      ]
-    }
-    ```
+    Medical/vet fields:
+    - ``species_applicability`` — list of species this lesson covers
+    - ``clinical_risk_level`` — low | medium | high
+    - ``guideline_sources`` — authoritative sources (name, year, url)
     """
     title: str = Field(min_length=2, max_length=300)
     blocks: list[LessonBlock] = Field(default_factory=list)
     estimated_minutes: int = Field(default=20, ge=5, le=180)
     learning_objectives: list[str] = Field(default_factory=list)
 
+    # Medical / veterinary metadata
+    species_applicability: list[str] = Field(default_factory=lambda: ["human"])
+    clinical_risk_level: str = Field(default="low")
+    guideline_sources: list[GuidelineSource] = Field(default_factory=list)
+    cross_species_comparative: bool = False  # flag for lessons mixing human+vet content
+
     model_config = {"extra": "allow"}
+
+    @field_validator("species_applicability")
+    @classmethod
+    def validate_species(cls, v: list[str]) -> list[str]:
+        invalid = set(v) - _VALID_SPECIES
+        if invalid:
+            raise ValueError(f"Unknown species: {invalid}. Valid: {sorted(_VALID_SPECIES)}")
+        return v
+
+    @field_validator("clinical_risk_level")
+    @classmethod
+    def validate_risk(cls, v: str) -> str:
+        if v not in _VALID_RISK_LEVELS:
+            raise ValueError(f"clinical_risk_level must be one of {sorted(_VALID_RISK_LEVELS)}")
+        return v
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -210,6 +238,12 @@ class LessonCreate(BaseModel):
     content: LessonContent
     estimated_minutes: int = Field(default=20, ge=5, le=180)
     lesson_order: int = Field(default=0, ge=0)
+    # Medical/vet metadata (also embedded in content, mirrored here for DB columns)
+    species_applicability: list[str] = Field(default_factory=lambda: ["human"])
+    clinical_risk_level: str = Field(default="low")
+    requires_clinical_supervision: bool = False
+    guideline_version: Optional[str] = None
+    cross_species_warning: Optional[str] = None
 
 
 class LessonUpdate(BaseModel):
@@ -219,6 +253,14 @@ class LessonUpdate(BaseModel):
     lesson_order: Optional[int] = Field(default=None, ge=0)
     review_notes: Optional[str] = None
     expected_version: Optional[int] = None   # if set, enforces optimistic locking
+    # Medical/vet metadata
+    species_applicability: Optional[list[str]] = None
+    clinical_risk_level: Optional[str] = None
+    requires_clinical_supervision: Optional[bool] = None
+    guideline_version: Optional[str] = None
+    cross_species_warning: Optional[str] = None
+    last_expert_review: Optional[datetime] = None
+    next_review_due: Optional[datetime] = None
 
 
 class LessonOut(BaseModel):
@@ -235,6 +277,17 @@ class LessonOut(BaseModel):
     created_at: datetime
     updated_at: datetime
     row_version: int = 0
+    # Medical/vet fields
+    species_applicability: list[str] = Field(default_factory=lambda: ["human"])
+    clinical_risk_level: str = "low"
+    requires_clinical_supervision: bool = False
+    guideline_version: Optional[str] = None
+    last_expert_review: Optional[datetime] = None
+    next_review_due: Optional[datetime] = None
+    cross_species_warning: Optional[str] = None
+    # Preview token (returned only to author/admin)
+    preview_token: Optional[str] = None
+    preview_expires_at: Optional[datetime] = None
 
     model_config = {"from_attributes": True}
 
@@ -410,6 +463,11 @@ async def create_lesson(
         lesson_order=body.lesson_order,
         author_id=user.id,
         status="draft",
+        species_applicability=body.species_applicability,
+        clinical_risk_level=body.clinical_risk_level,
+        requires_clinical_supervision=body.requires_clinical_supervision,
+        guideline_version=body.guideline_version,
+        cross_species_warning=body.cross_species_warning,
     )
     db.add(lesson)
     await db.commit()
@@ -568,16 +626,44 @@ async def submit_for_review(
 @router.patch("/{lesson_id}/publish", response_model=LessonOut)
 async def publish_lesson(
     lesson_id: UUID,
+    force: bool = Query(False, description="Admin-only: skip validation checks"),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Publish a lesson (from review status). Author or admin only."""
+    """Publish a lesson (from draft/review status). Author or admin only.
+
+    Runs MedVet validation before publishing — returns HTTP 422 with a list
+    of errors if the lesson fails safety/quality checks. Admins may pass
+    ``?force=true`` to bypass validation (emergency fix scenarios).
+    """
     _require_teacher(user)
     lesson = await _get_lesson_or_404(lesson_id, db)
     _require_lesson_owner(lesson, user)
 
     if lesson.status not in ("review", "draft"):
         raise HTTPException(400, f"Cannot publish lesson with status '{lesson.status}'")
+
+    # Run publication validator (skip if admin passes force=true)
+    if not (force and user.role == "admin"):
+        from app.services.lesson_validator import validate_for_publication
+        # Resolve specialty code from module
+        module = await _get_module_or_404(lesson.module_id, db)
+        specialty_code = ""
+        if module.specialty_id:
+            from app.models.models import Specialty
+            spec = await db.get(Specialty, module.specialty_id)
+            specialty_code = spec.code if spec else ""
+
+        errors = await validate_for_publication(lesson, specialty_code)
+        if errors:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "message": "Lesson failed publication checks. Fix the issues below before publishing.",
+                    "errors": errors,
+                    "hint": "Admin can use ?force=true to override.",
+                },
+            )
 
     lesson.status = "published"
     lesson.published_at = datetime.utcnow()
@@ -630,6 +716,75 @@ async def preview_lesson(
     )
     if not is_owner and lesson.status != "published":
         raise HTTPException(403, "Lesson not yet published")
+
+    return lesson
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Preview token — shareable links for draft lessons
+# ─────────────────────────────────────────────────────────────────────────────
+
+class PreviewLinkResponse(BaseModel):
+    preview_token: str
+    preview_url: str
+    expires_at: datetime
+
+
+@router.post("/{lesson_id}/preview-link", response_model=PreviewLinkResponse)
+async def create_preview_link(
+    lesson_id: UUID,
+    expires_hours: int = Query(24, ge=1, le=168, description="Link validity in hours (1–168)"),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate a time-limited shareable preview link for a draft lesson.
+
+    The link can be shared with colleagues or reviewers without requiring them
+    to log in.  Only the lesson author or an admin may generate preview links.
+    """
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+
+    is_owner = user.role == "admin" or (
+        lesson.author_id is not None and _same_uuid(lesson.author_id, user.id)
+    )
+    if not is_owner:
+        raise HTTPException(403, "Only the lesson author can create preview links")
+
+    import secrets
+    token = secrets.token_hex(32)  # 64-char hex
+    expires_at = datetime.utcnow() + __import__("datetime").timedelta(hours=expires_hours)
+
+    lesson.preview_token = token
+    lesson.preview_expires_at = expires_at
+    await db.commit()
+
+    return PreviewLinkResponse(
+        preview_token=token,
+        preview_url=f"/api/v1/lessons/preview/{token}",
+        expires_at=expires_at,
+    )
+
+
+@router.get("/preview/{token}", response_model=LessonOut)
+async def view_preview_by_token(
+    token: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Public preview endpoint accessed via a time-limited token.
+
+    No authentication required — designed for external reviewers.
+    Token is single-use per generation (teacher can regenerate to revoke).
+    """
+    lesson = (await db.execute(
+        select(Lesson).where(Lesson.preview_token == token)
+    )).scalar_one_or_none()
+
+    if not lesson:
+        raise HTTPException(404, "Preview link not found or expired")
+
+    if lesson.preview_expires_at and lesson.preview_expires_at < datetime.utcnow():
+        raise HTTPException(410, "Preview link has expired. Ask the author to generate a new one.")
 
     return lesson
 

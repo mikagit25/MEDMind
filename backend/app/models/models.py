@@ -111,10 +111,30 @@ class Lesson(Base):
 
     # Teacher authoring workflow
     author_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
-    # draft → review → published → archived
-    status = Column(String(20), default="published", nullable=False, index=True)
+    # draft → review → published → archived | deprecated
+    status = Column(String(20), default="draft", nullable=False, index=True)
     published_at = Column(DateTime)
     review_notes = Column(Text)
+
+    # ── Medical/Veterinary credibility ─────────────────────────────────────
+    # Which species this lesson applies to (["human"], ["canine","feline"], etc.)
+    species_applicability = Column(ARRAY(String), default=list, nullable=False, server_default="{human}")
+    # Warning shown when lesson spans both human and veterinary species
+    cross_species_warning = Column(Text, nullable=True)
+    # Clinical risk level: low | medium | high
+    clinical_risk_level = Column(String(20), default="low", nullable=False, server_default="low")
+    # Whether the procedure described requires clinical supervision
+    requires_clinical_supervision = Column(Boolean, default=False, nullable=False, server_default="false")
+    # Authoritative guideline this lesson follows (e.g. "WHO_2024", "OIE_2025")
+    guideline_version = Column(String(100), nullable=True)
+    # When a medical expert last reviewed this lesson for accuracy
+    last_expert_review = Column(DateTime, nullable=True)
+    # When the lesson should be re-reviewed (protocols become outdated)
+    next_review_due = Column(DateTime, nullable=True)
+
+    # ── Draft sharing via preview token ────────────────────────────────────
+    preview_token = Column(String(64), unique=True, nullable=True, index=True)
+    preview_expires_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
