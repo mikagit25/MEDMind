@@ -31,7 +31,7 @@ from app.core.logging_config import setup_logging
 from app.middleware.correlation_id import CorrelationIdMiddleware
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -152,6 +152,9 @@ app.include_router(notifications.router, prefix=API_PREFIX)
 app.include_router(memory.router, prefix=API_PREFIX)
 app.include_router(imaging.router, prefix=API_PREFIX)
 app.include_router(user_flashcards.router, prefix=API_PREFIX)
+app.include_router(simulation.router, prefix=API_PREFIX)
+app.include_router(adaptive.router, prefix=API_PREFIX)
+app.include_router(analytics.router, prefix=API_PREFIX)
 
 # Serve uploaded media files (images for lessons).
 # In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.

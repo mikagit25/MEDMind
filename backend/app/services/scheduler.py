@@ -122,6 +122,30 @@ async def _daily_flashcard_reminders():
         logger.error("Daily flashcard reminders failed: %s", e)
 
 
+async def _nightly_plan_refresh():
+    """
+    Run nightly at 03:00 UTC — invalidate cached study plans for active users
+    so their next request gets a freshly computed adaptive plan.
+    """
+    from app.core.redis_client import get_redis
+    try:
+        redis = await get_redis()
+        # Scan for all study_plan:* keys and delete them
+        cursor = 0
+        deleted = 0
+        while True:
+            cursor, keys = await redis.scan(cursor, match="study_plan:*", count=100)
+            if keys:
+                await redis.delete(*keys)
+                deleted += len(keys)
+            if cursor == 0:
+                break
+        if deleted:
+            logger.info("Nightly plan refresh: invalidated %d cached study plans", deleted)
+    except Exception as e:
+        logger.error("Nightly plan refresh failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -150,6 +174,15 @@ def start_scheduler():
         _weekly_stats_snapshot,
         trigger=CronTrigger(day_of_week="mon", hour=2, minute=0, timezone="UTC"),
         id="weekly_stats",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Nightly 03:00 UTC — invalidate study plan caches so plans refresh
+    scheduler.add_job(
+        _nightly_plan_refresh,
+        trigger=CronTrigger(hour=3, minute=0, timezone="UTC"),
+        id="nightly_plan_refresh",
         replace_existing=True,
         misfire_grace_time=3600,
     )

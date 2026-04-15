@@ -224,9 +224,37 @@ class ClinicalCase(Base):
     teaching_points = Column(ARRAY(String))
     content = Column(JSONB)
     difficulty = Column(String(20), default="medium")
+    # FSM (Finite State Machine) for branching clinical simulations
+    # steps: ordered list of case steps, each with {id, title, description, choices: [{id, text, next_step, outcome, score_delta}]}
+    steps = Column(JSONB, nullable=True)       # branching scenario steps
+    initial_step_id = Column(String(50), nullable=True)  # which step to start on
+    ideal_path = Column(JSONB, nullable=True)  # list of step_ids for optimal path
+    max_score = Column(Integer, default=100)   # max possible score
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="clinical_cases")
+
+
+class ClinicalCaseSession(Base):
+    """Tracks a student's progress through a branching clinical case FSM."""
+    __tablename__ = "clinical_case_sessions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    case_id = Column(UUID(as_uuid=True), ForeignKey("clinical_cases.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    current_step_id = Column(String(50), nullable=True)
+    # path taken: [{"step_id": ..., "choice_id": ..., "timestamp": ...}]
+    path_taken = Column(JSONB, default=list)
+    score = Column(Integer, default=0)
+    status = Column(String(20), default="in_progress")  # in_progress | completed | abandoned
+    started_at = Column(DateTime, default=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
+    debriefing = Column(JSONB, nullable=True)  # AI-generated debrief after completion
+
+    case = relationship("ClinicalCase")
+    __table_args__ = (
+        Index("ix_case_sessions_user", "user_id", "status"),
+    )
 
 
 # ============================================================

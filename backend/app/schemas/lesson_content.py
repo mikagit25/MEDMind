@@ -48,6 +48,8 @@ class _BaseBlock(BaseModel):
     hide_if: Optional[Dict[str, Any]] = None  # e.g. {"species_context": "feline"}
     # Inline clinical warning (shown prominently in the UI)
     clinical_warning: Optional[str] = None
+    evidence_level: Optional[str] = None  # "A" | "B" | "C" | "D" — evidence quality for the clinical claim in this block
+    guideline_reference: Optional[str] = None  # e.g. "AHA 2023 Heart Failure Guidelines, Class I Rec."
 
     model_config = {"extra": "allow"}
 

@@ -616,3 +616,67 @@ async def leave_course(
         raise HTTPException(status_code=404, detail="Not enrolled in this course")
     await db.delete(enr)
     await db.commit()
+
+
+@router.get("/{course_id}/leaderboard")
+async def get_course_leaderboard(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Internal course leaderboard — shows XP ranking among enrolled students.
+    Only visible to enrolled students and the course teacher.
+    """
+    # Check access (enrolled or teacher)
+    course = (await db.execute(select(Course).where(Course.id == course_id))).scalar_one_or_none()
+    if not course:
+        raise HTTPException(404, "Course not found")
+
+    is_teacher = str(course.teacher_id) == str(user.id) or user.role == "admin"
+    if not is_teacher:
+        enrollment = (await db.execute(
+            select(CourseEnrollment).where(
+                CourseEnrollment.course_id == course_id,
+                CourseEnrollment.student_id == user.id,
+                CourseEnrollment.status == "active",
+            )
+        )).scalar_one_or_none()
+        if not enrollment:
+            raise HTTPException(403, "You are not enrolled in this course")
+
+    # Get all enrolled students sorted by XP
+    rows = (await db.execute(
+        select(User, CourseEnrollment.enrolled_at)
+        .join(CourseEnrollment, CourseEnrollment.student_id == User.id)
+        .where(
+            CourseEnrollment.course_id == course_id,
+            CourseEnrollment.status == "active",
+        )
+        .order_by(User.xp.desc())
+        .limit(50)
+    )).all()
+
+    my_rank = None
+    entries = []
+    for rank, (student, enrolled_at) in enumerate(rows, 1):
+        is_me = str(student.id) == str(user.id)
+        if is_me:
+            my_rank = rank
+        entries.append({
+            "rank": rank,
+            "name": f"{student.first_name or ''} {student.last_name or ''}".strip() or "Anonymous",
+            "xp": student.xp,
+            "level": student.level,
+            "streak_days": student.streak_days or 0,
+            "is_me": is_me,
+            "enrolled_at": enrolled_at.isoformat() if enrolled_at else None,
+        })
+
+    return {
+        "course_id": str(course_id),
+        "course_title": course.title,
+        "my_rank": my_rank,
+        "total_students": len(entries),
+        "leaderboard": entries,
+    }
