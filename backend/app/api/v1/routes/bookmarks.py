@@ -1,10 +1,10 @@
 """User bookmarks — save any content item (lesson, module, case, drug, flashcard)."""
-from typing import List, Optional
+from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
@@ -34,18 +34,34 @@ class BookmarkOut(BaseModel):
         )
 
 
-@router.get("", response_model=List[BookmarkOut])
+@router.get("")
 async def list_bookmarks(
     content_type: Optional[str] = None,
+    page: int = Query(1, ge=1),
+    limit: int = Query(20, ge=1, le=100),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    stmt = select(UserBookmark).where(UserBookmark.user_id == user.id)
+    base = select(UserBookmark).where(UserBookmark.user_id == user.id)
     if content_type:
-        stmt = stmt.where(UserBookmark.content_type == content_type)
-    stmt = stmt.order_by(UserBookmark.created_at.desc())
+        if content_type not in VALID_TYPES:
+            raise HTTPException(status_code=422, detail=f"Invalid content_type. Must be one of: {', '.join(VALID_TYPES)}")
+        base = base.where(UserBookmark.content_type == content_type)
+
+    total = (await db.execute(
+        select(func.count()).select_from(base.subquery())
+    )).scalar() or 0
+
+    stmt = base.order_by(UserBookmark.created_at.desc()).offset((page - 1) * limit).limit(limit)
     result = await db.execute(stmt)
-    return [BookmarkOut.from_orm_obj(b) for b in result.scalars().all()]
+    items = [BookmarkOut.from_orm_obj(b) for b in result.scalars().all()]
+
+    return {
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "bookmarks": items,
+    }
 
 
 @router.post("/{content_type}/{content_id}", response_model=BookmarkOut, status_code=201)

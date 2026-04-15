@@ -24,45 +24,87 @@ from app.services.pubmed_service import search_pubmed, build_pubmed_context
 
 router = APIRouter(prefix="/ai", tags=["ai"])
 
-# Per-tier daily limits (from config: AI_LIMIT_FREE=5, AI_LIMIT_STUDENT=50, AI_LIMIT_PRO=999999)
-TIER_DAILY_LIMITS = {
-    "free": 5,
-    "student": 50,
-    "pro": None,      # None = unlimited
+# Daily request limits per subscription tier
+TIER_DAILY_LIMITS: dict[str, int | None] = {
+    "free": 20,        # 20 questions/day — enough for casual learning
+    "student": 100,    # 100/day — full study sessions
+    "pro": None,       # unlimited
+    "clinic": None,
+    "lifetime": None,
+}
+
+# Hourly burst limits — prevents API cost spikes from automated abuse
+TIER_HOURLY_LIMITS: dict[str, int | None] = {
+    "free": 10,        # max 10/hour burst
+    "student": 40,     # max 40/hour burst
+    "pro": None,
     "clinic": None,
     "lifetime": None,
 }
 
 
 async def check_ai_rate_limit(user: User, db: AsyncSession) -> None:
-    """Check and atomically increment the daily AI request counter via Redis.
+    """Check daily + hourly AI request limits atomically via Redis pipeline.
 
-    Uses Redis pipeline (INCR + EXPIRE) so the check and increment are atomic —
-    no race condition between concurrent requests.  The counter resets at midnight.
+    Two counters per user:
+    - ai_daily:{user_id}  — resets at midnight UTC
+    - ai_hourly:{user_id} — resets every hour
+
+    Uses INCR+EXPIRE pipeline so check+increment is atomic (no race condition).
+    On limit breach, the counter is rolled back so it reflects completed requests.
     """
-    limit = TIER_DAILY_LIMITS.get(user.subscription_tier, 5)
-    if limit is None:
-        return  # unlimited tier
+    daily_limit = TIER_DAILY_LIMITS.get(user.subscription_tier, 20)
+    hourly_limit = TIER_HOURLY_LIMITS.get(user.subscription_tier, 10)
+
+    if daily_limit is None and hourly_limit is None:
+        return  # unlimited tier — no checks needed
 
     redis = await get_redis()
-    rate_key = f"ai_requests:{user.id}"
     now = datetime.utcnow()
     seconds_till_midnight = 86400 - (now.hour * 3600 + now.minute * 60 + now.second)
+    seconds_till_next_hour = 3600 - (now.minute * 60 + now.second)
 
-    # Atomic: increment first, then check — prevents concurrent bypass
+    daily_key = f"ai_daily:{user.id}"
+    hourly_key = f"ai_hourly:{user.id}"
+
+    # One pipeline: increment both counters atomically
     pipe = redis.pipeline()
-    await pipe.incr(rate_key)
-    await pipe.expire(rate_key, seconds_till_midnight)
+    if daily_limit is not None:
+        await pipe.incr(daily_key)
+        await pipe.expire(daily_key, seconds_till_midnight)
+    if hourly_limit is not None:
+        await pipe.incr(hourly_key)
+        await pipe.expire(hourly_key, seconds_till_next_hour)
     results = await pipe.execute()
-    new_count = results[0]
 
-    if new_count > limit:
-        # Roll back the increment so the counter reflects actual completed requests
-        await redis.decr(rate_key)
-        raise HTTPException(
-            status_code=429,
-            detail=f"Daily AI limit reached ({limit} questions/day on {user.subscription_tier} plan). Upgrade for more.",
-        )
+    idx = 0
+    if daily_limit is not None:
+        daily_count = results[idx]
+        idx += 2  # INCR + EXPIRE = 2 results
+        if daily_count > daily_limit:
+            await redis.decr(daily_key)
+            raise HTTPException(
+                status_code=429,
+                detail=(
+                    f"Daily AI limit reached ({daily_limit} questions/day on "
+                    f"{user.subscription_tier} plan). Resets at midnight UTC. "
+                    "Upgrade for more access."
+                ),
+                headers={"Retry-After": str(seconds_till_midnight)},
+            )
+
+    if hourly_limit is not None:
+        hourly_count = results[idx]
+        if hourly_count > hourly_limit:
+            await redis.decr(hourly_key)
+            raise HTTPException(
+                status_code=429,
+                detail=(
+                    f"Hourly AI limit reached ({hourly_limit} requests/hour). "
+                    f"Resets in {seconds_till_next_hour // 60} minutes."
+                ),
+                headers={"Retry-After": str(seconds_till_next_hour)},
+            )
 
 
 @router.post("/ask", response_model=AIAskResponse)

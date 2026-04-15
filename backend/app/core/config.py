@@ -54,9 +54,11 @@ class Settings(BaseSettings):
     PUBMED_API_KEY: str = ""
     PUBMED_RATE_LIMIT: int = 3  # req/sec without key, 10/sec with key
 
-    # AI request limits per tier per day (None = unlimited)
-    AI_LIMIT_FREE: int = 5
-    AI_LIMIT_STUDENT: int = 50
+    # AI request limits per tier (None = unlimited)
+    AI_LIMIT_FREE_DAILY: int = 20       # free tier: 20/day
+    AI_LIMIT_FREE_HOURLY: int = 10      # free tier: 10/hour burst cap
+    AI_LIMIT_STUDENT_DAILY: int = 100   # student: 100/day
+    AI_LIMIT_STUDENT_HOURLY: int = 40   # student: 40/hour burst cap
     AI_LIMIT_PRO: Optional[int] = None
     AI_LIMIT_CLINIC: Optional[int] = None
     AI_LIMIT_LIFETIME: Optional[int] = None

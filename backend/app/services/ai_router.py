@@ -26,6 +26,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.redis_client import get_redis  # used for cache
 from app.models.models import User
+from app.prompts.tutor_prompts import SYSTEM_PROMPTS
 
 logger = logging.getLogger(__name__)
 
@@ -42,29 +43,6 @@ COMPLEX_KEYWORDS = [
     "diagnosis", "prognosis", "complications", "pharmacokinetics",
     "contraindication", "interaction", "epidemiology", "etiology",
 ]
-
-SYSTEM_PROMPTS = {
-    "tutor": (
-        "Provide clear, structured, evidence-based explanations. Use ### headers, "
-        "bullet points, and **bold** for key terms. Always include pathophysiology → "
-        "clinical presentation → diagnosis → management. End with 2-3 clinical pearls."
-    ),
-    "socratic": (
-        "Do NOT give direct answers. Guide the user with targeted questions. "
-        "When user answers correctly: validate and build on it. "
-        "When incorrect: ask a clarifying question. Never say 'wrong' — redirect gently."
-    ),
-    "case": (
-        "Present a clinical case step-by-step. Start with chief complaint, age, sex. "
-        "Wait for the user to request information. Evaluate their clinical reasoning. "
-        "At the end: provide diagnosis, management, teaching points."
-    ),
-    "exam": (
-        "Generate USMLE Step 2-style questions with 5 options (A-E). "
-        "After the user answers: explain the correct answer and why distractors are wrong. "
-        "Format: clinical vignette → question stem → options A-E."
-    ),
-}
 
 
 def _is_complex_query(message: str) -> bool:

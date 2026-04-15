@@ -1,4 +1,5 @@
 """Role-based dashboard endpoints."""
+import json
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
@@ -8,10 +9,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
+from app.core.cache import get_cached, set_cached, invalidate
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
     Module, CMECredit, CourseEnrollment, Course, UserAchievement,
 )
+
+STUDENT_DASHBOARD_TTL = 300  # 5 minutes
 
 router = APIRouter(tags=["dashboard"])
 
@@ -98,6 +102,11 @@ async def student_dashboard(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    cache_key = f"student_dashboard:{user.id}"
+    cached = await get_cached(cache_key)
+    if cached:
+        return cached
+
     stats = await _base_stats(user, db)
 
     # Modules with lowest completion (weak areas to revisit)
@@ -133,7 +142,7 @@ async def student_dashboard(
     prefs = user.preferences or {}
     daily_goal = prefs.get("daily_goal_minutes", 20)
 
-    return {
+    result = {
         "stats": stats,
         "weak_areas": weak_areas,
         "today_plan": {
@@ -142,6 +151,8 @@ async def student_dashboard(
             "suggested_action": "review_flashcards" if due_cards > 0 else "continue_module",
         },
     }
+    await set_cached(cache_key, result, ttl=STUDENT_DASHBOARD_TTL)
+    return result
 
 
 # ── Doctor dashboard ──────────────────────────────────────────────────────────

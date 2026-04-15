@@ -4,7 +4,7 @@ from typing import List, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -21,12 +21,31 @@ MAX_CARDS_PAID = 2000
 
 # ── Schemas ────────────────────────────────────────────────────────────────
 
+_VALID_DIFFICULTIES = {"easy", "medium", "hard"}
+
+
 class FlashcardCreate(BaseModel):
     question: str = Field(..., min_length=3, max_length=2000)
     answer: str = Field(..., min_length=1, max_length=5000)
     tags: Optional[List[str]] = None
-    difficulty: Optional[str] = "medium"
+    difficulty: str = "medium"
     module_id: Optional[UUID] = None
+
+    @field_validator("tags")
+    @classmethod
+    def validate_tags(cls, v: Optional[List[str]]) -> Optional[List[str]]:
+        if v is None:
+            return v
+        # Strip whitespace, remove empty/too-long tags, cap at 20 tags
+        cleaned = [t.strip()[:50] for t in v if t.strip()][:20]
+        return cleaned or None
+
+    @field_validator("difficulty")
+    @classmethod
+    def validate_difficulty(cls, v: str) -> str:
+        if v not in _VALID_DIFFICULTIES:
+            raise ValueError(f"difficulty must be one of: {', '.join(sorted(_VALID_DIFFICULTIES))}")
+        return v
 
 
 class FlashcardUpdate(BaseModel):
@@ -34,6 +53,20 @@ class FlashcardUpdate(BaseModel):
     answer: Optional[str] = Field(None, min_length=1, max_length=5000)
     tags: Optional[List[str]] = None
     difficulty: Optional[str] = None
+
+    @field_validator("tags")
+    @classmethod
+    def validate_tags(cls, v: Optional[List[str]]) -> Optional[List[str]]:
+        if v is None:
+            return v
+        return [t.strip()[:50] for t in v if t.strip()][:20] or None
+
+    @field_validator("difficulty")
+    @classmethod
+    def validate_difficulty(cls, v: Optional[str]) -> Optional[str]:
+        if v is not None and v not in _VALID_DIFFICULTIES:
+            raise ValueError(f"difficulty must be one of: {', '.join(sorted(_VALID_DIFFICULTIES))}")
+        return v
 
 
 class ReviewRequest(BaseModel):

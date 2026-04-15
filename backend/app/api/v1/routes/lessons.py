@@ -500,9 +500,11 @@ async def update_lesson(
     data = body.model_dump(exclude_none=True)
     # Remove schema-only fields that don't map to model columns
     data.pop("expected_version", None)
+    content_changed = False
     if "content" in data:
         # content is a LessonContent object — convert to dict for JSONB
         data["content"] = body.content.model_dump()
+        content_changed = True
     for field, value in data.items():
         setattr(lesson, field, value)
     lesson.row_version = (lesson.row_version or 0) + 1
@@ -510,6 +512,13 @@ async def update_lesson(
     await db.commit()
     await db.refresh(lesson)
     await invalidate(f"module:{lesson.module_id}*")
+
+    # Re-embed in background when content changes (keeps vector search accurate)
+    if content_changed and lesson.content:
+        import asyncio
+        from app.services.embedding_service import reembed_lesson as _reembed
+        asyncio.create_task(_reembed(lesson.id, lesson.content))
+
     return lesson
 
 

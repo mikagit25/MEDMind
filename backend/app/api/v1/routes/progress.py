@@ -21,6 +21,7 @@ from app.schemas.schemas import (
     CaseCompleteRequest, CaseCompleteResponse, ProgressHistoryItem,
 )
 from app.api.deps import get_current_user
+from app.core.cache import invalidate
 
 router = APIRouter(prefix="/progress", tags=["progress"])
 
@@ -127,6 +128,8 @@ async def complete_lesson(
         db.add(cme)
 
     await db.commit()
+    # Invalidate student dashboard cache so next load reflects updated progress
+    await invalidate(f"student_dashboard:{user.id}")
 
     return LessonCompleteResponse(
         xp_earned=XP_LESSON,

@@ -1,5 +1,33 @@
 """AI tutor prompt templates."""
 
+# ── Mode-specific system prompts (used by ai_router.py) ──────────────────────
+# These are the core instruction sets injected into every AI session.
+# Keep them here so A/B testing and prompt iteration require no code changes
+# in the routing logic — only edits to this file.
+SYSTEM_PROMPTS: dict[str, str] = {
+    "tutor": (
+        "Provide clear, structured, evidence-based explanations. Use ### headers, "
+        "bullet points, and **bold** for key terms. Always include pathophysiology → "
+        "clinical presentation → diagnosis → management. End with 2-3 clinical pearls."
+    ),
+    "socratic": (
+        "Do NOT give direct answers. Guide the user with targeted questions. "
+        "When user answers correctly: validate and build on it. "
+        "When incorrect: ask a clarifying question. Never say 'wrong' — redirect gently."
+    ),
+    "case": (
+        "Present a clinical case step-by-step. Start with chief complaint, age, sex. "
+        "Wait for the user to request information. Evaluate their clinical reasoning. "
+        "At the end: provide diagnosis, management, teaching points."
+    ),
+    "exam": (
+        "Generate USMLE Step 2-style questions with 5 options (A-E). "
+        "After the user answers: explain the correct answer and why distractors are wrong. "
+        "Format: clinical vignette → question stem → options A-E."
+    ),
+}
+
+
 HIPAA_DISCLAIMER = (
     "\n\n---\n"
     "⚕️ *Educational tool only. Not a diagnostic instrument. "
