@@ -11,9 +11,31 @@ os.environ.setdefault("DATABASE_URL", "sqlite+aiosqlite:///:memory:")
 os.environ.setdefault("REDIS_URL", "redis://localhost:6379/0")
 os.environ.setdefault("JWT_SECRET_KEY", "test-secret-key-for-ci-only-32chars!!")
 
-from app.main import app
-from app.core.database import Base, get_db
-from app.models import models  # noqa: F401 — register all models
+# ── SQLite compatibility: remap Postgres-only types to JSON/TEXT ──────────────
+# Must happen before any model imports so the compilers are registered first.
+from sqlalchemy.ext.compiler import compiles  # noqa: E402
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB  # noqa: E402
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID  # noqa: E402
+
+
+@compiles(ARRAY, "sqlite")
+def _compile_array_sqlite(element, compiler, **kw):
+    return "JSON"
+
+
+@compiles(JSONB, "sqlite")
+def _compile_jsonb_sqlite(element, compiler, **kw):
+    return "JSON"
+
+
+@compiles(PG_UUID, "sqlite")
+def _compile_uuid_sqlite(element, compiler, **kw):
+    return "VARCHAR(36)"
+
+
+from app.main import app  # noqa: E402
+from app.core.database import Base, get_db  # noqa: E402
+from app.models import models  # noqa: F401,E402 — register all models
 
 TEST_DB_URL = "sqlite+aiosqlite:///:memory:"
 
