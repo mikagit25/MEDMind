@@ -14,6 +14,7 @@ from app.schemas.schemas import (
     FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
 )
 from app.api.deps import get_current_user, get_current_user_optional
+from app.core.cache import get_cached, set_cached
 
 router = APIRouter(tags=["content"])
 
@@ -31,6 +32,10 @@ async def list_specialties(
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
+    cache_key = f"specialties:vet={vet}"
+    if cached := await get_cached(cache_key):
+        return cached
+
     stmt = select(Specialty).where(Specialty.is_active == True)
     if vet:
         stmt = stmt.where(Specialty.is_veterinary == True)
@@ -52,6 +57,7 @@ async def list_specialties(
         d = SpecialtyOut.model_validate(spec)
         d.module_count = module_counts.get(spec.id, 0)
         out.append(d)
+    await set_cached(cache_key, [o.model_dump() for o in out], ttl=600)
     return out
 
 
@@ -61,6 +67,10 @@ async def list_specialty_modules(
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
+    cache_key = f"specialty_modules:{specialty_id}"
+    if cached := await get_cached(cache_key):
+        return cached
+
     stmt = (
         select(Module)
         .where(Module.specialty_id == specialty_id, Module.is_published == True)
@@ -102,6 +112,7 @@ async def list_specialty_modules(
         d.flashcard_count = fc_counts.get(mod.id, 0)
         d.mcq_count = mcq_counts.get(mod.id, 0)
         out.append(d)
+    await set_cached(cache_key, [o.model_dump() for o in out], ttl=300)
     return out
 
 
@@ -114,6 +125,10 @@ async def get_module(
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
+    cache_key = f"module:{module_id}"
+    if cached := await get_cached(cache_key):
+        return cached
+
     result = await db.execute(select(Module).where(Module.id == module_id, Module.is_published == True))
     module = result.scalar_one_or_none()
     if not module:
@@ -126,6 +141,7 @@ async def get_module(
                 status_code=403,
                 detail="Upgrade to Student plan to access specialty modules"
             )
+    await set_cached(cache_key, ModuleDetail.model_validate(module).model_dump(), ttl=300)
     return module
 
 

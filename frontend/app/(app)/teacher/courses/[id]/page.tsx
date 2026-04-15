@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { teacherApi } from "@/lib/api";
+import { api, teacherApi } from "@/lib/api";
 
 type CourseModule = {
   id: string;
@@ -159,6 +159,21 @@ export default function CourseDetailPage() {
     }
   }
 
+  async function handleExportModule(moduleId: string, moduleTitle: string) {
+    try {
+      const response = await api.get(`/lessons/modules/${moduleId}/export`);
+      const blob = new Blob([JSON.stringify(response.data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `medmind_${moduleTitle.replace(/\s+/g, "_").toLowerCase()}_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Export failed");
+    }
+  }
+
   if (loading) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
   if (!course) return <div className="p-6 text-red font-serif text-sm">{error || "Course not found"}</div>;
 
@@ -300,6 +315,13 @@ export default function CourseDetailPage() {
                         <p className="font-serif text-xs text-ink-3 line-clamp-1">{mod.description}</p>
                       )}
                     </div>
+                    <button
+                      onClick={() => handleExportModule(mod.id, mod.title)}
+                      className="text-ink-3 hover:text-ink text-xs font-syne px-2 py-1 rounded transition-colors shrink-0"
+                      title="Export module as JSON"
+                    >
+                      Export
+                    </button>
                     <button
                       onClick={() => handleRemoveModule(mod.id)}
                       className="text-ink-3 hover:text-red text-xs font-syne px-2 py-1 rounded transition-colors shrink-0"

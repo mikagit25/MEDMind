@@ -75,6 +75,10 @@ async def lifespan(app: FastAPI):
                 ("lab_diagnostics", "Laboratory Diagnostics"),
                 ("respiratory", "Respiratory Medicine"),
                 ("veterinary", "Veterinary"),
+                ("psychiatry", "Psychiatry"),
+                ("anesthesiology", "Anesthesiology"),
+                ("oncology", "Oncology"),
+                ("dermatology", "Dermatology"),
             ]
             for code, name in specialties:
                 await conn.execute(text(
@@ -91,6 +95,12 @@ async def lifespan(app: FastAPI):
         logger.info("Medical imaging library seeded.")
     except Exception as e:
         logger.warning("Imaging seed failed (non-fatal): %s", e)
+
+    try:
+        from scripts.seed_new_specialties import seed as seed_new_specialties
+        await seed_new_specialties()
+    except Exception as e:
+        logger.warning("New specialty seed failed (non-fatal): %s", e)
 
     await get_redis()  # Initialize Redis connection
     start_scheduler()  # registers jobs AND starts APScheduler

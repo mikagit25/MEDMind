@@ -40,9 +40,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.core.audit import audit
+from app.core.cache import invalidate
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Lesson, LessonCompletion, LessonVersion, Module, Specialty, User, UserProgress
+from app.models.models import Flashcard, Lesson, LessonCompletion, LessonVersion, MCQQuestion, Module, Specialty, User, UserProgress
+from app.services.content_sanitizer import sanitize_for_llm_context
 
 router = APIRouter(prefix="/lessons", tags=["lessons"])
 
@@ -330,6 +332,8 @@ async def publish_module(
     await db.commit()
     await db.refresh(mod)
     await audit(db, "module_published", user_id=user.id, resource_id=mod.id)
+    await invalidate(f"specialty_modules:{mod.specialty_id}*")
+    await invalidate("specialties*")
     return mod
 
 
@@ -473,6 +477,7 @@ async def update_lesson(
     lesson.updated_at = datetime.utcnow()
     await db.commit()
     await db.refresh(lesson)
+    await invalidate(f"module:{lesson.module_id}*")
     return lesson
 
 
@@ -539,6 +544,8 @@ async def publish_lesson(
     await db.commit()
     await db.refresh(lesson)
     await audit(db, "lesson_published", user_id=user.id, resource_id=lesson_id)
+    await invalidate(f"module:{lesson.module_id}*")
+    await invalidate("specialty_modules:*")
     return lesson
 
 
@@ -642,8 +649,8 @@ async def ai_improve_lesson(
         f"Task: {task_instruction}\n\n"
         f"Specialty: {body.specialty}\n"
         f"Target student level: {body.target_level}\n\n"
-        f"Current lesson content (JSON):\n"
-        f"{json.dumps(lesson.content, ensure_ascii=False, indent=2)}\n\n"
+        f"Current lesson content:\n"
+        f"{sanitize_for_llm_context(lesson.content)}\n\n"
         f"Return ONLY the improved lesson content as valid JSON in the same structure. "
         f"Do not add explanations outside the JSON. "
         f"If you add a 'review_notes' key, put your comments there."
@@ -1127,3 +1134,184 @@ async def generate_lesson(
         raise
     except Exception as exc:
         raise HTTPException(502, f"AI generation error: {exc}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Course export / import (JSON portable format)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@router.get("/modules/{module_id}/export")
+async def export_module(
+    module_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Export a complete module (metadata + all lessons + flashcards + MCQs) as JSON.
+    Suitable for backup or importing into another MedMind instance.
+    """
+    _require_teacher(user)
+
+    mod_result = await db.execute(select(Module).where(Module.id == module_id))
+    mod = mod_result.scalar_one_or_none()
+    if not mod:
+        raise HTTPException(404, "Module not found")
+    if user.role != "admin" and str(mod.author_id) != str(user.id):
+        raise HTTPException(403, "Not your module")
+
+    lessons_result = await db.execute(
+        select(Lesson).where(Lesson.module_id == module_id).order_by(Lesson.lesson_order)
+    )
+    lessons = lessons_result.scalars().all()
+
+    fc_result = await db.execute(
+        select(Flashcard).where(Flashcard.module_id == module_id)
+    )
+    flashcards = fc_result.scalars().all()
+
+    mcq_result = await db.execute(
+        select(MCQQuestion).where(MCQQuestion.module_id == module_id)
+    )
+    mcqs = mcq_result.scalars().all()
+
+    payload = {
+        "format": "medmind_course_v1",
+        "exported_at": datetime.utcnow().isoformat(),
+        "module": {
+            "code": mod.code,
+            "title": mod.title,
+            "description": mod.description,
+            "difficulty": mod.difficulty,
+            "estimated_hours": mod.estimated_hours,
+            "is_fundamental": mod.is_fundamental,
+        },
+        "lessons": [
+            {
+                "title": l.title,
+                "lesson_order": l.lesson_order,
+                "estimated_minutes": l.estimated_minutes,
+                "content": l.content,
+            }
+            for l in lessons if l.status != "archived"
+        ],
+        "flashcards": [
+            {
+                "question": f.question,
+                "answer": f.answer,
+                "difficulty": f.difficulty,
+                "tags": f.tags or [],
+            }
+            for f in flashcards
+        ],
+        "mcq_questions": [
+            {
+                "question": q.question,
+                "options": q.options,
+                "correct": q.correct,
+                "explanation": q.explanation,
+                "difficulty": q.difficulty,
+            }
+            for q in mcqs
+        ],
+    }
+
+    from fastapi.responses import JSONResponse
+    filename = f"medmind_{mod.code or str(module_id)[:8]}_{datetime.utcnow().strftime('%Y%m%d')}.json"
+    return JSONResponse(
+        content=payload,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@router.post("/modules/import")
+async def import_module(
+    specialty_id: UUID,
+    body: dict,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Import a module from a previously exported JSON payload.
+    Creates a new module in draft status owned by the current teacher.
+    """
+    _require_teacher(user)
+
+    if body.get("format") != "medmind_course_v1":
+        raise HTTPException(400, "Invalid format. Expected medmind_course_v1")
+
+    mod_data = body.get("module", {})
+    if not mod_data.get("title"):
+        raise HTTPException(400, "Module title is required")
+
+    # Create module
+    import uuid as _uuid_mod
+    new_mod = Module(
+        id=_uuid_mod.uuid4(),
+        specialty_id=specialty_id,
+        author_id=user.id,
+        code=mod_data.get("code", f"IMPORT-{_uuid_mod.uuid4().hex[:6].upper()}"),
+        title=mod_data["title"],
+        description=mod_data.get("description", ""),
+        difficulty=mod_data.get("difficulty", "intermediate"),
+        estimated_hours=mod_data.get("estimated_hours", 1),
+        is_fundamental=mod_data.get("is_fundamental", False),
+        is_published=False,
+    )
+    db.add(new_mod)
+    await db.flush()
+
+    # Import lessons
+    lesson_count = 0
+    for l_data in body.get("lessons", []):
+        if not l_data.get("title") or not l_data.get("content"):
+            continue
+        db.add(Lesson(
+            module_id=new_mod.id,
+            author_id=user.id,
+            title=l_data["title"],
+            lesson_order=l_data.get("lesson_order", lesson_count),
+            estimated_minutes=l_data.get("estimated_minutes", 20),
+            content=l_data["content"],
+            status="draft",
+        ))
+        lesson_count += 1
+
+    # Import flashcards
+    fc_count = 0
+    for f_data in body.get("flashcards", []):
+        if not f_data.get("question") or not f_data.get("answer"):
+            continue
+        db.add(Flashcard(
+            module_id=new_mod.id,
+            question=f_data["question"],
+            answer=f_data["answer"],
+            difficulty=f_data.get("difficulty", "medium"),
+            tags=f_data.get("tags", []),
+        ))
+        fc_count += 1
+
+    # Import MCQs
+    mcq_count = 0
+    for q_data in body.get("mcq_questions", []):
+        if not q_data.get("question") or not q_data.get("options") or not q_data.get("correct"):
+            continue
+        db.add(MCQQuestion(
+            module_id=new_mod.id,
+            question=q_data["question"],
+            options=q_data["options"],
+            correct=q_data["correct"],
+            explanation=q_data.get("explanation", ""),
+            difficulty=q_data.get("difficulty", "medium"),
+        ))
+        mcq_count += 1
+
+    await db.commit()
+
+    return {
+        "module_id": str(new_mod.id),
+        "title": new_mod.title,
+        "lessons_imported": lesson_count,
+        "flashcards_imported": fc_count,
+        "mcqs_imported": mcq_count,
+        "status": "draft",
+    }
