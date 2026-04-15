@@ -77,11 +77,21 @@ class Settings(BaseSettings):
     # Modules import path
     MODULES_DIR: str = "/app/data/modules"
 
-    # Media uploads
+    # Media uploads — local storage
     MEDIA_ROOT: str = "/app/data/media"
     MEDIA_URL: str = "/media"
     MEDIA_MAX_IMAGE_MB: int = 10
     MEDIA_MAX_VIDEO_MB: int = 200
+
+    # S3 / MinIO (production CDN) — set USE_S3=true to activate
+    USE_S3: bool = False
+    AWS_STORAGE_BUCKET_NAME: str = "medmind-media"
+    AWS_S3_REGION_NAME: str = "eu-west-1"
+    AWS_ACCESS_KEY_ID: str = ""
+    AWS_SECRET_ACCESS_KEY: str = ""
+    AWS_S3_ENDPOINT_URL: str = ""   # MinIO: http://minio:9000
+    AWS_S3_CUSTOM_DOMAIN: str = ""  # CDN domain e.g. cdn.medmind.pro
+    AWS_S3_FILE_OVERWRITE: bool = False
 
     # Redis TTL (seconds)
     AI_CACHE_TTL: int = 86400       # 24 hours

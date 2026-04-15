@@ -817,6 +817,13 @@ class MedicalImage(Base):
     view_count = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    # uploaded_by: nullable — seeded/external images have no uploader
+    uploaded_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    # is_user_upload: False for seeded/NIH images, True for teacher uploads
+    is_user_upload = Column(Boolean, default=False, nullable=False, server_default="false")
+
+    annotations = relationship("ImageAnnotation", back_populates="image", cascade="all, delete-orphan")
+
     __table_args__ = (
         Index("ix_medical_images_modality_region", "modality", "anatomy_region"),
     )
@@ -844,6 +851,60 @@ class AnatomyViewer(Base):
     attribution = Column(Text)
     is_active = Column(Boolean, default=True)
     sort_order = Column(Integer, default=0)
+
+
+# ============================================================
+# IMAGE ANNOTATIONS — overlays drawn by teachers on medical images
+# ============================================================
+class ImageAnnotation(Base):
+    """Annotation layer on a MedicalImage.
+
+    Coordinates are stored as percentages (0.0–100.0) so they scale
+    correctly when images are displayed at different sizes.
+
+    Supported annotation_type values:
+      arrow, rectangle, circle, ellipse, text, polygon, freehand
+    """
+    __tablename__ = "image_annotations"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    image_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("medical_images.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+
+    # Annotation geometry
+    annotation_type = Column(String(30), nullable=False)  # arrow | rectangle | circle | text | polygon
+    # Primary coordinates (% of image width/height, 0-100)
+    x = Column(Float, nullable=True)       # left anchor
+    y = Column(Float, nullable=True)       # top anchor
+    width = Column(Float, nullable=True)   # for rectangle / ellipse
+    height = Column(Float, nullable=True)
+    # For arrows: end point
+    x2 = Column(Float, nullable=True)
+    y2 = Column(Float, nullable=True)
+    # For polygons / freehand paths: list of {x, y} dicts
+    points = Column(JSONB, nullable=True)
+
+    # Appearance
+    label = Column(String(300))            # text shown near annotation
+    color = Column(String(20), default="#FF0000")
+    stroke_width = Column(Integer, default=2)
+    font_size = Column(Integer, default=14)
+    opacity = Column(Float, default=1.0)
+
+    # Authorship
+    created_by = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    image = relationship("MedicalImage", back_populates="annotations")
 
 
 # ============================================================

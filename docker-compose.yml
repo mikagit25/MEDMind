@@ -43,6 +43,7 @@ services:
     volumes:
       - ./backend:/app
       - ./Modules:/app/data/modules:ro
+      - media_data:/app/data/media   # persistent storage for uploaded images
     ports:
       - "8000:8000"
     depends_on:
@@ -72,3 +73,4 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  media_data:   # uploaded medical images, thumbnails, DICOM exports
