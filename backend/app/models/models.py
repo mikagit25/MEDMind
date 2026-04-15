@@ -142,6 +142,32 @@ class Lesson(Base):
 
     module = relationship("Module", back_populates="lessons")
 
+    @validates("content")
+    def _validate_content_structure(self, key: str, value):
+        """Enforce block-based JSONB structure before every save.
+
+        Runs LessonContentSchema validation so malformed content never reaches
+        the database.  Seeded/legacy content that predates this schema uses
+        extra=allow, so unknown fields are preserved — only blatantly wrong
+        structures (wrong types, missing required keys in dosage rows, etc.)
+        are rejected.
+
+        Validation is skipped for non-dict values (None, strings) to avoid
+        breaking legacy imports.  The API layer re-validates via Pydantic before
+        reaching here, so double-validation is cheap.
+        """
+        if not isinstance(value, dict):
+            return value
+        try:
+            from app.schemas.lesson_content import LessonContentSchema
+            from pydantic import ValidationError
+            LessonContentSchema.model_validate(value)
+        except Exception as exc:  # ValidationError or import error
+            # Import LessonContentSchema lazily to avoid circular imports at module load.
+            # Re-raise as ValueError so SQLAlchemy surfaces it as an IntegrityError.
+            raise ValueError(f"Invalid lesson content structure: {exc}") from exc
+        return value
+
 
 # ============================================================
 # FLASHCARDS
