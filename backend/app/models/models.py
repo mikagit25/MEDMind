@@ -687,6 +687,15 @@ class StudentMemory(Base):
 
     user = relationship("User", foreign_keys=[user_id])
 
+    __table_args__ = (
+        # Composite index for the most common hybrid search: filter by user + specialty + active
+        Index("ix_student_memories_user_specialty", "user_id", "specialty", "deprecated"),
+        # Index for importance-ranked retrieval within a user
+        Index("ix_student_memories_user_importance", "user_id", "importance_score", "deprecated"),
+        # Index for memory type filtering (fact, skill, misconception…)
+        Index("ix_student_memories_user_type", "user_id", "memory_type"),
+    )
+
 
 class MemoryRelation(Base):
     """Directed edges between memories (lightweight knowledge graph)."""

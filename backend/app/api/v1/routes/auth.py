@@ -408,7 +408,7 @@ async def google_callback(
         raise HTTPException(status_code=501, detail="Google OAuth not configured")
 
     import httpx
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=10.0) as client:
         # Exchange code for access token
         token_res = await client.post(
             GOOGLE_TOKEN_URL,

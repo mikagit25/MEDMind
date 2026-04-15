@@ -131,7 +131,39 @@ class LessonBlock(BaseModel):
 
 
 class LessonContent(BaseModel):
-    """Validated lesson content structure stored as JSONB."""
+    """Validated lesson content structure stored as JSONB.
+
+    Supported block types:
+    - **text** — rich Markdown body (``content`` key contains markdown string)
+    - **quiz** — MCQ with options A-D (``question``, ``options``, ``correct``, ``explanation``)
+    - **case** — clinical case scenario (``presentation``, ``diagnosis``, ``management``)
+    - **image** — medical image (``url``, ``caption``, ``attribution``)
+
+    Example request body for ``POST /lessons/modules/{id}/lessons``:
+
+    ```json
+    {
+      "title": "Heart Failure",
+      "estimated_minutes": 25,
+      "learning_objectives": ["Define systolic vs. diastolic HF", "List first-line treatments"],
+      "blocks": [
+        {
+          "type": "text",
+          "order": 0,
+          "content": "## Definition\\n\\nHeart failure is a clinical syndrome..."
+        },
+        {
+          "type": "quiz",
+          "order": 1,
+          "question": "First-line drug in HFrEF?",
+          "options": {"A": "Digoxin", "B": "ACEi + beta-blocker", "C": "Calcium channel blocker", "D": "Loop diuretic alone"},
+          "correct": "B",
+          "explanation": "ACE inhibitors and beta-blockers reduce mortality in HFrEF."
+        }
+      ]
+    }
+    ```
+    """
     title: str = Field(min_length=2, max_length=300)
     blocks: list[LessonBlock] = Field(default_factory=list)
     estimated_minutes: int = Field(default=20, ge=5, le=180)
