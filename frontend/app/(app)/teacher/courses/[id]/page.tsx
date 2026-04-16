@@ -44,7 +44,16 @@ type StudentProgress = {
   }[];
 };
 
-type Tab = "modules" | "students";
+type Assignment = {
+  id: string;
+  module_id: string;
+  title: string;
+  due_date: string | null;
+  max_score: number;
+  created_at: string;
+};
+
+type Tab = "modules" | "students" | "assignments";
 
 function InviteCodeBadge({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
@@ -77,13 +86,22 @@ export default function CourseDetailPage() {
   const [course, setCourse] = useState<Course | null>(null);
   const [myModules, setMyModules] = useState<MyModule[]>([]);
   const [students, setStudents] = useState<StudentProgress[]>([]);
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [tab, setTab] = useState<Tab>("modules");
   const [loading, setLoading] = useState(true);
   const [studentsLoading, setStudentsLoading] = useState(false);
+  const [assignmentsLoading, setAssignmentsLoading] = useState(false);
   const [addingModule, setAddingModule] = useState(false);
   const [selectedModuleId, setSelectedModuleId] = useState("");
   const [error, setError] = useState("");
   const [actionError, setActionError] = useState("");
+
+  // Assignment form
+  const [assignModuleId, setAssignModuleId] = useState("");
+  const [assignTitle, setAssignTitle] = useState("");
+  const [assignDueDate, setAssignDueDate] = useState("");
+  const [assignMaxScore, setAssignMaxScore] = useState(100);
+  const [creatingAssignment, setCreatingAssignment] = useState(false);
 
   const loadCourse = useCallback(async () => {
     try {
@@ -109,7 +127,14 @@ export default function CourseDetailPage() {
         .catch(() => setActionError("Failed to load students"))
         .finally(() => setStudentsLoading(false));
     }
-  }, [tab, id, students.length]);
+    if (tab === "assignments" && assignments.length === 0) {
+      setAssignmentsLoading(true);
+      teacherApi.getCourseAssignments(id)
+        .then(setAssignments)
+        .catch(() => setActionError("Failed to load assignments"))
+        .finally(() => setAssignmentsLoading(false));
+    }
+  }, [tab, id, students.length, assignments.length]);
 
   async function handleAddModule() {
     if (!selectedModuleId || !course) return;
@@ -174,6 +199,40 @@ export default function CourseDetailPage() {
     }
   }
 
+  async function handleCreateAssignment() {
+    if (!assignModuleId || !assignTitle.trim()) return;
+    setCreatingAssignment(true);
+    setActionError("");
+    try {
+      const created = await teacherApi.createAssignment(id, {
+        module_id: assignModuleId,
+        title: assignTitle.trim(),
+        due_date: assignDueDate || undefined,
+        max_score: assignMaxScore,
+      });
+      setAssignments((prev) => [created, ...prev]);
+      setAssignTitle("");
+      setAssignDueDate("");
+      setAssignMaxScore(100);
+      setAssignModuleId("");
+    } catch {
+      setActionError("Failed to create assignment");
+    } finally {
+      setCreatingAssignment(false);
+    }
+  }
+
+  async function handleDeleteAssignment(assignmentId: string) {
+    if (!confirm("Delete this assignment?")) return;
+    setActionError("");
+    try {
+      await teacherApi.deleteAssignment(id, assignmentId);
+      setAssignments((prev) => prev.filter((a) => a.id !== assignmentId));
+    } catch {
+      setActionError("Failed to delete assignment");
+    }
+  }
+
   if (loading) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
   if (!course) return <div className="p-6 text-red font-serif text-sm">{error || "Course not found"}</div>;
 
@@ -192,7 +251,19 @@ export default function CourseDetailPage() {
               <p className="font-serif text-ink-3 text-sm mt-0.5">{course.description}</p>
             )}
           </div>
-          <div className="flex items-center gap-2 ml-4 shrink-0">
+          <div className="flex items-center gap-2 ml-4 shrink-0 flex-wrap justify-end">
+            <Link
+              href={`/teacher/courses/${id}/at-risk`}
+              className="text-xs font-syne text-amber hover:bg-amber-light border border-amber/30 rounded px-2 py-1 transition-colors"
+            >
+              ⚠️ At-Risk
+            </Link>
+            <Link
+              href={`/teacher/courses/${id}/insights`}
+              className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-1 transition-colors"
+            >
+              📊 Insights
+            </Link>
             <Link
               href={`/teacher/courses/${id}/analytics`}
               className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-1 transition-colors"
@@ -240,7 +311,7 @@ export default function CourseDetailPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 mb-4 border-b border-border">
-        {(["modules", "students"] as Tab[]).map((t) => (
+        {(["modules", "students", "assignments"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -250,7 +321,11 @@ export default function CourseDetailPage() {
                 : "border-transparent text-ink-3 hover:text-ink"
             }`}
           >
-            {t === "modules" ? `Modules (${course.module_count})` : `Students (${course.student_count})`}
+            {t === "modules"
+              ? `Modules (${course.module_count})`
+              : t === "students"
+              ? `Students (${course.student_count})`
+              : `Assignments (${assignments.length})`}
           </button>
         ))}
       </div>
@@ -258,7 +333,6 @@ export default function CourseDetailPage() {
       {/* Modules tab */}
       {tab === "modules" && (
         <div>
-          {/* Add module */}
           {availableModules.length > 0 && (
             <div className="card p-3 mb-4 flex items-center gap-3">
               <select
@@ -352,7 +426,6 @@ export default function CourseDetailPage() {
             </div>
           ) : (
             <div className="card overflow-hidden">
-              {/* Header */}
               <div className="grid grid-cols-12 gap-2 px-4 py-2 bg-surface text-xs font-syne text-ink-3 border-b border-border">
                 <div className="col-span-4">Student</div>
                 <div className="col-span-3">Enrolled</div>
@@ -398,6 +471,112 @@ export default function CourseDetailPage() {
                           Remove
                         </button>
                       </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Assignments tab */}
+      {tab === "assignments" && (
+        <div>
+          {/* Create form */}
+          <div className="card p-4 mb-5">
+            <h3 className="font-syne font-bold text-sm text-ink mb-3">Create Assignment</h3>
+            <div className="space-y-3">
+              <div>
+                <label className="font-syne text-xs text-ink-3 block mb-1">Module</label>
+                <select
+                  value={assignModuleId}
+                  onChange={(e) => setAssignModuleId(e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 font-syne text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+                >
+                  <option value="">Select module...</option>
+                  {course.modules.map((m) => (
+                    <option key={m.id} value={m.id}>{m.title}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="font-syne text-xs text-ink-3 block mb-1">Assignment title</label>
+                <input
+                  type="text"
+                  value={assignTitle}
+                  onChange={(e) => setAssignTitle(e.target.value)}
+                  placeholder="e.g. Complete Cardiology Module by Week 3"
+                  className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+                />
+              </div>
+              <div className="flex gap-3">
+                <div className="flex-1">
+                  <label className="font-syne text-xs text-ink-3 block mb-1">Due date (optional)</label>
+                  <input
+                    type="datetime-local"
+                    value={assignDueDate}
+                    onChange={(e) => setAssignDueDate(e.target.value)}
+                    className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </div>
+                <div>
+                  <label className="font-syne text-xs text-ink-3 block mb-1">Max score</label>
+                  <input
+                    type="number"
+                    value={assignMaxScore}
+                    onChange={(e) => setAssignMaxScore(Number(e.target.value))}
+                    min={1}
+                    max={1000}
+                    className="w-24 border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </div>
+              </div>
+              <button
+                onClick={handleCreateAssignment}
+                disabled={!assignModuleId || !assignTitle.trim() || creatingAssignment}
+                className="btn-primary text-sm px-4 py-2 disabled:opacity-50 w-full"
+              >
+                {creatingAssignment ? "Creating..." : "Create Assignment"}
+              </button>
+            </div>
+          </div>
+
+          {/* Assignments list */}
+          {assignmentsLoading ? (
+            <div className="text-ink-3 font-serif text-sm p-4">Loading assignments...</div>
+          ) : assignments.length === 0 ? (
+            <div className="card p-8 text-center">
+              <div className="text-3xl mb-2">📋</div>
+              <div className="font-syne font-semibold text-ink">No assignments yet</div>
+              <div className="font-serif text-ink-3 text-sm mt-1">
+                Create an assignment above to give students a module to complete by a deadline.
+              </div>
+            </div>
+          ) : (
+            <div className="card overflow-hidden">
+              <div className="divide-y divide-border">
+                {assignments.map((a) => {
+                  const moduleTitle = course.modules.find(m => m.id === a.module_id)?.title ?? a.module_id;
+                  const isOverdue = a.due_date && new Date(a.due_date) < new Date();
+                  return (
+                    <div key={a.id} className="px-4 py-3 flex items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-syne font-semibold text-sm text-ink">{a.title}</div>
+                        <div className="font-serif text-xs text-ink-3 mt-0.5">Module: {moduleTitle}</div>
+                        {a.due_date && (
+                          <div className={`font-serif text-xs mt-0.5 ${isOverdue ? "text-red" : "text-ink-3"}`}>
+                            Due: {new Date(a.due_date).toLocaleString()}{isOverdue ? " — Overdue" : ""}
+                          </div>
+                        )}
+                        <div className="font-serif text-xs text-ink-3 mt-0.5">Max score: {a.max_score}</div>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteAssignment(a.id)}
+                        className="text-xs font-syne text-ink-3 hover:text-red transition-colors shrink-0"
+                      >
+                        Delete
+                      </button>
                     </div>
                   );
                 })}

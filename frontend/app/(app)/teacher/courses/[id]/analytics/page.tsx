@@ -50,7 +50,19 @@ export default function ModuleAnalyticsPage() {
         ← Back to course
       </Link>
 
-      <h1 className="font-syne font-black text-2xl text-ink mb-1">{data.module_title}</h1>
+      <div className="flex items-start justify-between mb-1">
+        <h1 className="font-syne font-black text-2xl text-ink">{data.module_title}</h1>
+        <div className="flex gap-2 shrink-0">
+          <Link href={`/teacher/courses/${id}/at-risk`}
+            className="text-xs font-syne text-amber border border-amber/30 rounded px-3 py-1.5 hover:bg-amber-light transition-colors">
+            ⚠️ At-Risk
+          </Link>
+          <Link href={`/teacher/courses/${id}/insights`}
+            className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-1.5 hover:border-ink-3 transition-colors">
+            📊 Insights
+          </Link>
+        </div>
+      </div>
       <p className="font-serif text-ink-3 text-sm mb-6">Engagement Analytics</p>
 
       {/* Summary cards */}

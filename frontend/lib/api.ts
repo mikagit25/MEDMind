@@ -301,6 +301,38 @@ export const teacherApi = {
     api.get(`/courses/${courseId}/students`).then(r => r.data),
   removeStudentFromCourse: (courseId: string, studentId: string) =>
     api.delete(`/courses/${courseId}/students/${studentId}`).then(r => r.data),
+
+  // Professor dashboard
+  getProfessorDashboard: () =>
+    api.get("/professor/dashboard").then(r => r.data),
+
+  // At-risk students
+  getAtRiskStudents: (courseId: string) =>
+    api.get(`/professor/courses/${courseId}/at-risk`).then(r => r.data),
+
+  // Content insights
+  getContentInsights: (courseId: string) =>
+    api.get(`/professor/courses/${courseId}/content-insights`).then(r => r.data),
+
+  // Assignments
+  createAssignment: (courseId: string, data: { module_id: string; title: string; due_date?: string; max_score?: number }) =>
+    api.post(`/courses/${courseId}/assignments`, data).then(r => r.data),
+  deleteAssignment: (courseId: string, assignmentId: string) =>
+    api.delete(`/courses/${courseId}/assignments/${assignmentId}`).then(r => r.data),
+  getCourseAssignments: (courseId: string) =>
+    api.get(`/courses/${courseId}/assignments`).then(r => r.data),
+
+  // Preview links
+  createPreviewLink: (lessonId: string, ttlHours?: number) =>
+    api.post(`/lessons/${lessonId}/preview-link`, { ttl_hours: ttlHours ?? 24 }).then(r => r.data),
+
+  // Module reorder in course
+  reorderModules: (courseId: string, moduleIds: string[]) =>
+    api.patch(`/courses/${courseId}/modules/reorder`, { module_ids: moduleIds }).then(r => r.data),
+
+  // Leaderboard
+  getCourseLeaderboard: (courseId: string) =>
+    api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
 };
 
 // Types

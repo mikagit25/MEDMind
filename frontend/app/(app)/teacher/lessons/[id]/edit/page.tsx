@@ -483,6 +483,11 @@ export default function LessonEditPage() {
   const [previewVersion, setPreviewVersion] = useState<{ version_number: number; content: Record<string, unknown> } | null>(null);
   const [restoringVersion, setRestoringVersion] = useState<number | null>(null);
 
+  // Share Preview
+  const [previewLink, setPreviewLink] = useState<string | null>(null);
+  const [previewLinkLoading, setPreviewLinkLoading] = useState(false);
+  const [previewLinkModal, setPreviewLinkModal] = useState(false);
+
   // AI Improve panel
   const [aiOpen, setAiOpen] = useState(false);
   const [aiTask, setAiTask] = useState("improve_clarity");
@@ -570,6 +575,19 @@ export default function LessonEditPage() {
       setError(e?.response?.data?.detail ?? "Action failed");
     } finally {
       setWorkflowLoading(false);
+    }
+  }
+
+  async function handleSharePreview() {
+    setPreviewLinkLoading(true);
+    try {
+      const data = await teacherApi.createPreviewLink(id);
+      setPreviewLink(data.url ?? data.preview_url ?? data.link ?? "");
+      setPreviewLinkModal(true);
+    } catch {
+      setError("Failed to generate preview link");
+    } finally {
+      setPreviewLinkLoading(false);
     }
   }
 
@@ -811,11 +829,51 @@ export default function LessonEditPage() {
             {saving ? "Saving..." : "Save Changes"}
           </button>
           <button
+            onClick={handleSharePreview}
+            disabled={previewLinkLoading}
+            className="border border-border rounded-lg px-4 py-2.5 font-syne font-semibold text-sm text-ink hover:border-ink-3 transition-colors disabled:opacity-50"
+            title="Generate a shareable preview link"
+          >
+            {previewLinkLoading ? "..." : "🔗 Share Preview"}
+          </button>
+          <button
             onClick={() => setAiOpen((v) => !v)}
             className={`border rounded-lg px-4 py-2.5 font-syne font-semibold text-sm transition-colors ${aiOpen ? "border-blue/40 bg-blue-light text-blue" : "border-border text-ink hover:border-ink-3"}`}
           >
             {aiOpen ? "Hide AI" : "AI Improve"}
           </button>
+        </div>
+      )}
+
+      {/* ── Share Preview Modal ─────────────────────────────────── */}
+      {previewLinkModal && previewLink && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-xl p-6 max-w-md w-full mx-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-syne font-bold text-base text-ink">Preview Link</h3>
+              <button onClick={() => setPreviewLinkModal(false)} className="text-ink-3 hover:text-ink text-lg leading-none">✕</button>
+            </div>
+            <p className="font-serif text-xs text-ink-3 mb-3">
+              Share this link to let anyone preview the lesson without an account. Valid for 24 hours.
+            </p>
+            <div className="flex items-center gap-2 bg-surface border border-border rounded-lg px-3 py-2 mb-4">
+              <span className="font-mono text-xs text-ink flex-1 truncate">{previewLink}</span>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => { navigator.clipboard.writeText(previewLink); }}
+                className="btn-primary flex-1 py-2 rounded-lg font-syne font-semibold text-sm"
+              >
+                Copy Link
+              </button>
+              <button
+                onClick={() => setPreviewLinkModal(false)}
+                className="border border-border rounded-lg px-4 py-2 font-syne font-semibold text-sm text-ink hover:border-ink-3 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

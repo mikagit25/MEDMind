@@ -48,6 +48,7 @@ const NAV_SECTIONS = [
 ];
 
 const ADMIN_NAV = { icon: "🛠️", label: "Admin Panel", href: "/admin" };
+const TEACHER_DASHBOARD_NAV = { icon: "🏠", label: "Dashboard", href: "/teacher/dashboard" };
 const TEACHER_NAV = { icon: "✏️", label: "My Lessons", href: "/teacher/modules" };
 const TEACHER_COURSES_NAV = { icon: "📚", label: "My Courses", href: "/teacher/courses" };
 const TEACHER_ANALYTICS_NAV = { icon: "📊", label: "Analytics", href: "/teacher/analytics" };
@@ -119,7 +120,7 @@ export function Sidebar() {
         {(user?.role === "teacher" || user?.role === "admin") && (
           <div className="mb-4">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">Teaching</div>
-            {[TEACHER_NAV, TEACHER_COURSES_NAV, TEACHER_ANALYTICS_NAV].map((item) => (
+            {[TEACHER_DASHBOARD_NAV, TEACHER_NAV, TEACHER_COURSES_NAV, TEACHER_ANALYTICS_NAV].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
