@@ -952,7 +952,7 @@ class UserFlashcard(Base):
     answer = Column(Text, nullable=False)
     # Optional link to a module lesson for context (nullable)
     module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="SET NULL"), nullable=True)
-    tags = Column(_PGARRAY(String), default=list)
+    tags = Column(ARRAY(String), default=list)
     difficulty = Column(String(20), default="medium")
     is_public = Column(Boolean, default=False)  # future: share cards with community
     created_at = Column(DateTime, default=datetime.utcnow)

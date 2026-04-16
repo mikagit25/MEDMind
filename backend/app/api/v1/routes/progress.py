@@ -95,10 +95,13 @@ async def complete_lesson(
         db.add(progress)
         await db.flush()
 
-    # Mark lesson as completed (idempotent)
-    completed = list(progress.lessons_completed or [])
-    if lesson.id not in completed:
-        completed.append(lesson.id)
+    # Mark lesson as completed (idempotent).
+    # Normalise to str so UUID objects don't break JSON serialisation when
+    # lessons_completed is stored as JSONB/ARRAY and read back as strings.
+    completed = [str(x) for x in (progress.lessons_completed or [])]
+    lesson_id_str = str(lesson.id)
+    if lesson_id_str not in completed:
+        completed.append(lesson_id_str)
         progress.lessons_completed = completed
         progress.last_activity_at = datetime.utcnow()
 
@@ -114,7 +117,7 @@ async def complete_lesson(
     progress.completion_percent = completion_pct
 
     # CME credit for doctors — 0.5 AMA PRA Category 1 credit per lesson (idempotent)
-    if user.role in ("doctor", "resident") and lesson.id not in (progress.lessons_completed or [])[:-1]:
+    if user.role in ("doctor", "resident") and lesson_id_str not in ([str(x) for x in (progress.lessons_completed or [])[:-1]]):
         mod_result = await db.execute(select(Module).where(Module.id == lesson.module_id))
         mod = mod_result.scalar_one_or_none()
         cme = CMECredit(
