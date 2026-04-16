@@ -13,6 +13,7 @@ const NAV_SECTIONS = [
     items: [
       { icon: "🏠", label: "Dashboard", href: "/dashboard" },
       { icon: "📚", label: "Modules", href: "/modules" },
+      { icon: "🎓", label: "My Courses", href: "/my-courses" },
       { icon: "🤖", label: "AI Tutor", href: "/ai-tutor" },
       { icon: "🃏", label: "Flashcards", href: "/flashcards" },
       { icon: "📇", label: "My Cards", href: "/my-flashcards" },

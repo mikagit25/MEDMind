@@ -335,6 +335,36 @@ export const teacherApi = {
     api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
 };
 
+// ============================================================
+// STUDENT COURSES API
+// ============================================================
+export const studentCoursesApi = {
+  getEnrolled: () => api.get("/courses/enrolled").then(r => r.data),
+  join: (invite_code: string) => api.post("/courses/join", { invite_code }).then(r => r.data),
+  getProgress: (courseId: string) => api.get(`/courses/${courseId}/my-progress`).then(r => r.data),
+  getLeaderboard: (courseId: string) => api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
+  leave: (courseId: string) => api.delete(`/courses/${courseId}/leave`).then(r => r.data),
+  getCourse: (courseId: string) => api.get(`/courses/${courseId}`).then(r => r.data),
+};
+
+// ============================================================
+// MEMORY / KNOWLEDGE BANK API
+// ============================================================
+export const memoryApi = {
+  list: (params?: { specialty?: string; type?: string; limit?: number; offset?: number }) =>
+    api.get("/memory/", { params }).then(r => r.data),
+  stats: () => api.get("/memory/stats").then(r => r.data),
+  remove: (id: string) => api.delete(`/memory/${id}`).then(r => r.data),
+};
+
+// ============================================================
+// ADAPTIVE STUDY PLAN API
+// ============================================================
+export const adaptivePlanApi = {
+  generate: () => api.post("/student/plan/adapt").then(r => r.data),
+  getCurrent: () => api.get("/student/plan/current").then(r => r.data),
+};
+
 // Types
 interface DoseCalcData {
   drug_id: string;

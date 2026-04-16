@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { progressApi, achievementsApi } from "@/lib/api";
+import Link from "next/link";
+import { progressApi, achievementsApi, memoryApi, studentCoursesApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
@@ -41,6 +42,13 @@ export default function ProgressPage() {
   const [modulesProgress, setModulesProgress] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Courses & Memory
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
+  const [memoryStats, setMemoryStats] = useState<any>(null);
+  const [memoryItems, setMemoryItems] = useState<any[]>([]);
+  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [memoryLoading, setMemoryLoading] = useState(false);
+
   useEffect(() => {
     Promise.all([
       progressApi.getStats().catch(() => ({ data: null })),
@@ -48,15 +56,42 @@ export default function ProgressPage() {
       progressApi.getWeaknesses().catch(() => ({ data: { weaknesses: [] } })),
       achievementsApi.list().catch(() => ({ data: [] })),
       progressApi.getModulesProgress().catch(() => ({ data: [] })),
-    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes]) => {
+      studentCoursesApi.getEnrolled().catch(() => []),
+      memoryApi.stats().catch(() => null),
+    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats]) => {
       setStats(statsRes.data);
       setHistory(histRes.data ?? []);
       setWeaknesses(weakRes.data?.weaknesses ?? []);
       setAchievements(achRes.data ?? []);
       setModulesProgress(modProgRes.data ?? []);
+      setEnrolledCourses(Array.isArray(courses) ? courses : courses?.courses ?? []);
+      setMemoryStats(mStats);
       setLoading(false);
     });
   }, []);
+
+  async function loadMemory() {
+    if (memoryItems.length > 0) { setMemoryOpen((v) => !v); return; }
+    setMemoryOpen(true);
+    setMemoryLoading(true);
+    try {
+      const data = await memoryApi.list({ limit: 20 });
+      setMemoryItems(Array.isArray(data) ? data : data?.items ?? []);
+    } catch {
+      // non-critical
+    } finally {
+      setMemoryLoading(false);
+    }
+  }
+
+  async function handleDeleteMemory(id: string) {
+    try {
+      await memoryApi.remove(id);
+      setMemoryItems((prev) => prev.filter((m) => m.id !== id));
+    } catch {
+      // ignore
+    }
+  }
 
   if (loading) {
     return (
@@ -136,6 +171,46 @@ export default function ProgressPage() {
         </div>
       )}
 
+      {/* Enrolled Courses */}
+      {enrolledCourses.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-syne font-bold text-base text-ink">🎓 My Courses</h2>
+            <Link href="/my-courses" className="text-xs font-syne text-ink-3 hover:text-ink underline">
+              View all →
+            </Link>
+          </div>
+          <div className="space-y-2">
+            {enrolledCourses.slice(0, 4).map((c: any) => {
+              const pct = Math.round(c.overall_completion ?? 0);
+              return (
+                <Link key={c.id} href="/my-courses"
+                  className="card flex items-center gap-4 px-4 py-3 hover:border-ink-3 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-syne font-semibold text-sm text-ink truncate">{c.title}</div>
+                    {c.teacher_name && (
+                      <div className="font-serif text-xs text-ink-3 mt-0.5">by {c.teacher_name}</div>
+                    )}
+                  </div>
+                  <div className="w-28 shrink-0">
+                    <div className="flex justify-between text-[10px] font-syne text-ink-3 mb-1">
+                      <span>{pct}%</span>
+                      <span>{c.total_modules} modules</span>
+                    </div>
+                    <div className="h-1.5 bg-bg-2 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${pct >= 100 ? "bg-green" : "bg-blue/60"}`}
+                        style={{ width: `${Math.min(pct, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Weaknesses */}
       {weaknesses.length > 0 && (
         <div className="mb-8">
@@ -197,6 +272,85 @@ export default function ProgressPage() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Knowledge Bank / Memory */}
+      {memoryStats && (
+        <div className="mb-8">
+          <button
+            onClick={loadMemory}
+            className="w-full flex items-center justify-between mb-3 group"
+          >
+            <h2 className="font-syne font-bold text-base text-ink">🧠 Knowledge Bank</h2>
+            <div className="flex items-center gap-2">
+              {memoryStats.total > 0 && (
+                <span className="font-syne font-bold text-xs text-ink-3 bg-surface border border-border rounded-full px-2 py-0.5">
+                  {memoryStats.total} entries
+                </span>
+              )}
+              <span className="text-ink-3 text-xs group-hover:text-ink transition-colors">
+                {memoryOpen ? "▲" : "▼"}
+              </span>
+            </div>
+          </button>
+
+          {/* Stats row */}
+          {memoryStats.by_type && Object.keys(memoryStats.by_type).length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {Object.entries(memoryStats.by_type as Record<string, number>).map(([type, count]) => (
+                <span key={type}
+                  className="font-syne text-[10px] font-semibold bg-surface border border-border rounded-full px-2.5 py-1 text-ink-3 capitalize">
+                  {type.replace(/_/g, " ")}: {count}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {memoryOpen && (
+            <div className="space-y-2">
+              {memoryLoading ? (
+                <div className="text-center py-6 text-ink-3 font-serif text-sm animate-pulse">Loading memory…</div>
+              ) : memoryItems.length === 0 ? (
+                <div className="card p-6 text-center">
+                  <p className="font-serif text-sm text-ink-3">
+                    Your knowledge bank is empty. Study modules and review flashcards to build it up.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {memoryItems.map((m: any) => (
+                    <div key={m.id} className="card px-4 py-3 flex items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-syne font-semibold text-xs text-ink-3 uppercase tracking-wide mb-0.5 capitalize">
+                          {(m.memory_type ?? m.type ?? "note").replace(/_/g, " ")}
+                          {m.specialty && ` · ${m.specialty}`}
+                        </div>
+                        <div className="font-serif text-sm text-ink leading-relaxed line-clamp-3">
+                          {m.content ?? m.summary ?? m.text ?? "—"}
+                        </div>
+                        {m.created_at && (
+                          <div className="font-serif text-[10px] text-ink-3 mt-1">
+                            {new Date(m.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleDeleteMemory(m.id)}
+                        className="text-ink-3 hover:text-red text-xs shrink-0 mt-0.5 transition-colors"
+                        title="Remove from knowledge bank"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                  <p className="text-center font-serif text-xs text-ink-3 pt-1">
+                    Showing latest 20 entries
+                  </p>
+                </>
+              )}
+            </div>
+          )}
         </div>
       )}
 
