@@ -284,6 +284,79 @@ async def search_drugs(
     return result.scalars().all()
 
 
+@router.get("/drugs/{drug_id}", response_model=DrugOut)
+async def get_drug_detail(
+    drug_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return full drug detail by ID."""
+    if user.subscription_tier not in ["pro", "clinic", "lifetime"]:
+        raise HTTPException(status_code=403, detail="Drug database requires Pro subscription or higher")
+    result = await db.execute(select(Drug).where(Drug.id == drug_id))
+    drug = result.scalar_one_or_none()
+    if not drug:
+        raise HTTPException(status_code=404, detail="Drug not found")
+    return drug
+
+
+@router.get("/drugs/{drug_id}/alternatives")
+async def get_drug_alternatives(
+    drug_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return same-class drugs as alternatives/analogues."""
+    if user.subscription_tier not in ["pro", "clinic", "lifetime"]:
+        raise HTTPException(status_code=403, detail="Drug database requires Pro subscription or higher")
+    result = await db.execute(select(Drug).where(Drug.id == drug_id))
+    drug = result.scalar_one_or_none()
+    if not drug:
+        raise HTTPException(status_code=404, detail="Drug not found")
+
+    alternatives = []
+    if drug.drug_class:
+        alts_result = await db.execute(
+            select(Drug).where(
+                Drug.drug_class == drug.drug_class,
+                Drug.id != drug_id,
+            ).limit(8)
+        )
+        same_class = alts_result.scalars().all()
+        for alt in same_class:
+            alternatives.append({
+                "id": str(alt.id),
+                "name": alt.name,
+                "generic_name": alt.generic_name,
+                "drug_class": alt.drug_class,
+                "is_high_yield": alt.is_high_yield,
+                "reason": "Same drug class",
+            })
+
+    # Also search by first word of class (broader match) if few results
+    if len(alternatives) < 3 and drug.drug_class:
+        first_word = drug.drug_class.split()[0]
+        if first_word and len(first_word) > 3:
+            broad_result = await db.execute(
+                select(Drug).where(
+                    Drug.drug_class.ilike(f"%{first_word}%"),
+                    Drug.id != drug_id,
+                    Drug.id.notin_([UUID(a["id"]) for a in alternatives]),
+                ).limit(5)
+            )
+            for alt in broad_result.scalars().all():
+                alternatives.append({
+                    "id": str(alt.id),
+                    "name": alt.name,
+                    "generic_name": alt.generic_name,
+                    "drug_class": alt.drug_class,
+                    "is_high_yield": alt.is_high_yield,
+                    "reason": f"Related class ({alt.drug_class})",
+                })
+
+    return {"drug_id": str(drug_id), "drug_name": drug.name, "alternatives": alternatives}
+
+
 class InteractionCheckRequest(BaseModel):
     drug_ids: list[UUID]
 

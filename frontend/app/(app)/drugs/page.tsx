@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { api, contentApi, drugsApi } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { api, drugsApi } from "@/lib/api";
 
 type Drug = {
   id: string;
@@ -52,9 +53,9 @@ export default function DrugsPage() {
 // ── Drug Search ──────────────────────────────────────────────────────────────
 
 function DrugSearch() {
+  const router = useRouter();
   const [drugs, setDrugs] = useState<Drug[]>([]);
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<Drug | null>(null);
   const [loading, setLoading] = useState(false);
 
   const doSearch = async (q: string) => {
@@ -75,62 +76,6 @@ function DrugSearch() {
     return () => clearTimeout(t);
   }, [search]);
 
-  if (selected) {
-    return (
-      <div className="card p-6">
-        <div className="flex items-center justify-between mb-5">
-          <div>
-            <h2 className="font-syne font-black text-xl text-ink">{selected.name}</h2>
-            <div className="font-serif text-ink-3 text-sm">{selected.generic_name}</div>
-          </div>
-          <button onClick={() => setSelected(null)} className="text-ink-3 font-syne text-xs hover:text-ink">
-            ← Back
-          </button>
-        </div>
-        <div className="flex gap-2 mb-5 flex-wrap">
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-light text-blue font-syne font-semibold text-xs">
-            {selected.drug_class}
-          </span>
-          {selected.is_high_yield && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-light text-amber font-syne font-semibold text-xs">
-              ⭐ High Yield
-            </span>
-          )}
-          {selected.is_veterinary && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-green-light text-green font-syne font-semibold text-xs">
-              🐾 Veterinary
-            </span>
-          )}
-        </div>
-        <Section title="Mechanism of Action">{selected.mechanism}</Section>
-        {selected.dosing && Object.keys(selected.dosing).length > 0 && (
-          <Section title="Dosage">
-            {Object.entries(selected.dosing).map(([route, dose]) => (
-              <div key={route}><strong className="text-ink-2">{route}:</strong> {dose as string}</div>
-            ))}
-          </Section>
-        )}
-        {selected.indications && selected.indications.length > 0 && (
-          <ListSection title="Indications" items={selected.indications} color="text-green" />
-        )}
-        {selected.contraindications && selected.contraindications.length > 0 && (
-          <ListSection title="Contraindications" items={selected.contraindications} color="text-red" />
-        )}
-        {selected.adverse_effects && (
-          <div className="mb-4">
-            <div className="font-syne font-bold text-xs text-ink-2 uppercase mb-1.5">Adverse Effects</div>
-            {Object.entries(selected.adverse_effects).map(([category, effects]) => (
-              <div key={category} className="mb-1.5">
-                <span className="font-syne font-semibold text-xs text-amber">{category}: </span>
-                <span className="font-serif text-sm text-ink">{(effects as string[]).join(", ")}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
   return (
     <>
       <input
@@ -145,11 +90,23 @@ function DrugSearch() {
         {drugs.map((d) => (
           <div
             key={d.id}
-            onClick={() => setSelected(d)}
+            onClick={() => router.push(`/drugs/${d.id}`)}
             className="card p-4 cursor-pointer hover:border-ink transition-colors"
           >
-            <div className="font-syne font-bold text-sm text-ink">{d.name}</div>
-            <div className="font-serif text-ink-3 text-xs mt-0.5">{d.generic_name} · {d.drug_class}</div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-syne font-bold text-sm text-ink">{d.name}</div>
+                <div className="font-serif text-ink-3 text-xs mt-0.5">{d.generic_name} · {d.drug_class}</div>
+              </div>
+              <div className="flex gap-1.5 flex-shrink-0">
+                {d.is_high_yield && (
+                  <span className="inline-block px-2 py-0.5 rounded-full bg-amber-light text-amber font-syne font-semibold text-xs">⭐ HY</span>
+                )}
+                {d.is_veterinary && (
+                  <span className="inline-block px-2 py-0.5 rounded-full bg-green-light text-green font-syne font-semibold text-xs">🐾</span>
+                )}
+              </div>
+            </div>
           </div>
         ))}
         {!loading && search && drugs.length === 0 && (
@@ -496,26 +453,3 @@ function ResultRow({ label, value, highlight, warn }: { label: string; value: st
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="mb-4">
-      <div className="font-syne font-bold text-xs text-ink-2 uppercase mb-1.5">{title}</div>
-      <div className="font-serif text-ink text-sm leading-relaxed">{children}</div>
-    </div>
-  );
-}
-
-function ListSection({ title, items, color }: { title: string; items: string[]; color: string }) {
-  return (
-    <div className="mb-4">
-      <div className="font-syne font-bold text-xs text-ink-2 uppercase mb-1.5">{title}</div>
-      <ul className="space-y-1">
-        {items.map((item, i) => (
-          <li key={i} className={`font-serif text-sm ${color} flex gap-2`}>
-            <span>•</span><span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}

@@ -93,12 +93,18 @@ export const contentApi = {
 export const drugsApi = {
   search: (q: string) => api.get(`/drugs?q=${encodeURIComponent(q)}`).then(r => r.data),
   get: (id: string) => api.get(`/drugs/${id}`).then(r => r.data),
+  getAlternatives: (id: string) => api.get(`/drugs/${id}/alternatives`).then(r => r.data),
   getDosing: (drugId: string, speciesId: string) =>
     api.get(`/veterinary/drugs/${drugId}/dosing/${speciesId}`).then(r => r.data),
   checkInteractions: (drug_ids: string[]) =>
     api.post("/drugs/check-interactions", { drug_ids }).then(r => r.data),
   calculateDose: (data: DoseCalcData) =>
     api.post("/drugs/calculate-dose", data).then(r => r.data),
+  // RxImage public API proxy — fetch pill/drug images by name
+  fetchImages: (name: string) =>
+    fetch(`https://rximage.nlm.nih.gov/api/rximage/1/rxnav?name=${encodeURIComponent(name)}&resolution=600`)
+      .then(r => r.json())
+      .catch(() => ({ replyList: [] })),
 };
 
 export const progressApi = {

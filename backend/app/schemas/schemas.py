@@ -334,7 +334,22 @@ class DrugOut(BaseModel):
     contraindications: Optional[List[str]] = None
     adverse_effects: Optional[Dict[str, Any]] = None
     dosing: Optional[Dict[str, Any]] = None
+    monitoring: Optional[List[str]] = None
+    black_box_warning: Optional[str] = None
+    interactions: Optional[List[str]] = None
     is_high_yield: bool = False
+    is_nti: bool = False
     is_veterinary: bool = False
+
+    model_config = {"from_attributes": True}
+
+
+class DrugAlternative(BaseModel):
+    id: UUID
+    name: str
+    generic_name: Optional[str] = None
+    drug_class: Optional[str] = None
+    is_high_yield: bool = False
+    reason: str  # e.g. "Same class", "Alternative for allergy", "Cheaper generic"
 
     model_config = {"from_attributes": True}
