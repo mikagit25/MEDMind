@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { bookmarksApi } from "@/lib/api";
 
-type FilterType = "all" | "lesson" | "module" | "drug";
+type FilterType = "all" | "lesson" | "module" | "drug" | "case";
 
 interface Bookmark {
   id: string;
@@ -14,22 +14,25 @@ interface Bookmark {
   created_at: string;
 }
 
-const TYPE_ICONS: Record<string, string> = {
-  lesson: "📖",
-  module: "📚",
-  drug:   "💊",
+const TYPE_META: Record<string, { icon: string; label: string; color: string; href: (id: string) => string }> = {
+  lesson: { icon: "📖", label: "Lessons", color: "bg-blue-light text-blue",   href: (id) => `/modules/${id}` },
+  module: { icon: "📚", label: "Modules", color: "bg-red-light text-red",     href: (id) => `/modules/${id}` },
+  drug:   { icon: "💊", label: "Drugs",   color: "bg-amber-light text-amber", href: (id) => `/drugs/${id}` },
+  case:   { icon: "🩺", label: "Cases",   color: "bg-green-light text-green", href: (id) => `/cases?id=${id}` },
 };
 
-const TYPE_HREF: Record<string, (id: string) => string> = {
-  lesson: (id) => `/lessons/${id}`,
-  module: (id) => `/modules/${id}`,
-  drug:   (id) => `/drugs?highlight=${id}`,
+const FILTER_LABELS: Record<FilterType, string> = {
+  all: "All",
+  lesson: "Lessons",
+  module: "Modules",
+  drug: "Drugs",
+  case: "Cases",
 };
 
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-  const [filter, setFilter]       = useState<FilterType>("all");
-  const [loading, setLoading]     = useState(true);
+  const [filter, setFilter] = useState<FilterType>("all");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     bookmarksApi.list()
@@ -39,70 +42,128 @@ export default function BookmarksPage() {
   }, []);
 
   const remove = async (b: Bookmark) => {
-    await bookmarksApi.remove(b.resource_type, b.resource_id);
-    setBookmarks(prev => prev.filter(x => x.id !== b.id));
+    await bookmarksApi.remove(b.resource_type, b.resource_id).catch(() => {});
+    setBookmarks((prev) => prev.filter((x) => x.id !== b.id));
   };
+
+  const counts: Record<string, number> = { all: bookmarks.length };
+  for (const b of bookmarks) {
+    counts[b.resource_type] = (counts[b.resource_type] ?? 0) + 1;
+  }
 
   const filtered = filter === "all"
     ? bookmarks
-    : bookmarks.filter(b => b.resource_type === filter);
+    : bookmarks.filter((b) => b.resource_type === filter);
+
+  // Group by week
+  const now = Date.now();
+  const recent = filtered.filter((b) => now - new Date(b.created_at).getTime() < 7 * 86400_000);
+  const older = filtered.filter((b) => now - new Date(b.created_at).getTime() >= 7 * 86400_000);
+
+  const filters: FilterType[] = ["all", "lesson", "module", "drug", "case"];
+  const activeFilters = filters.filter((f) => f === "all" || counts[f]);
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4">
+    <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-syne font-black text-2xl text-ink">Bookmarks</h1>
-        <span className="text-ink-3 text-sm">{bookmarks.length} saved</span>
+        <div>
+          <h1 className="font-syne font-black text-2xl text-ink">Bookmarks</h1>
+          <p className="font-serif text-ink-3 text-sm mt-0.5">{bookmarks.length} saved items</p>
+        </div>
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-1 mb-6 bg-surface-2 rounded-lg p-1 w-fit">
-        {(["all", "lesson", "module", "drug"] as FilterType[]).map(t => (
+      <div className="flex gap-1.5 flex-wrap mb-6">
+        {activeFilters.map((t) => (
           <button
             key={t}
             onClick={() => setFilter(t)}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-colors ${
-              filter === t ? "bg-accent text-white" : "text-ink-3 hover:text-ink"
+            className={`px-3 py-1.5 rounded-full font-syne font-semibold text-xs transition-all border ${
+              filter === t
+                ? "bg-ink text-white border-ink"
+                : "border-border text-ink-3 hover:border-ink hover:text-ink"
             }`}
           >
-            {t === "all" ? "All" : `${TYPE_ICONS[t] || ""} ${t}s`}
+            {t !== "all" && TYPE_META[t]?.icon} {FILTER_LABELS[t]}
+            {counts[t] ? ` (${counts[t]})` : ""}
           </button>
         ))}
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-ink-3">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 text-ink-3">
+        <div className="text-center py-16">
           <div className="text-4xl mb-3">🔖</div>
-          <div>No bookmarks {filter !== "all" ? `in "${filter}"` : "yet"}</div>
+          <p className="font-syne font-bold text-sm text-ink">
+            {filter === "all" ? "No bookmarks yet" : `No ${FILTER_LABELS[filter].toLowerCase()} bookmarked`}
+          </p>
+          <p className="font-serif text-ink-3 text-xs mt-1">
+            Use the bookmark icon on any lesson, module, or drug page.
+          </p>
         </div>
       ) : (
-        <div className="space-y-2">
-          {filtered.map(b => {
-            const href = TYPE_HREF[b.resource_type]?.(b.resource_id) ?? "#";
-            return (
-              <div key={b.id} className="card flex items-center gap-4 px-4 py-3">
-                <div className="text-2xl">{TYPE_ICONS[b.resource_type] ?? "📌"}</div>
-                <div className="flex-1 min-w-0">
-                  <Link href={href} className="font-semibold text-sm text-ink hover:text-accent truncate block">
-                    {b.title || b.resource_id}
-                  </Link>
-                  <div className="text-xs text-ink-3 mt-0.5 capitalize">
-                    {b.resource_type} · {new Date(b.created_at).toLocaleDateString()}
-                  </div>
-                </div>
-                <button
-                  onClick={() => remove(b)}
-                  className="text-ink-3 hover:text-red-500 text-lg transition-colors"
-                  title="Remove bookmark"
-                >
-                  ×
-                </button>
+        <div className="space-y-6">
+          {recent.length > 0 && (
+            <section>
+              {older.length > 0 && (
+                <h2 className="font-syne font-bold text-xs text-ink-3 uppercase mb-2">This week</h2>
+              )}
+              <div className="space-y-2">
+                {recent.map((b) => <BookmarkCard key={b.id} bookmark={b} onRemove={remove} />)}
               </div>
-            );
-          })}
+            </section>
+          )}
+          {older.length > 0 && (
+            <section>
+              {recent.length > 0 && (
+                <h2 className="font-syne font-bold text-xs text-ink-3 uppercase mb-2">Older</h2>
+              )}
+              <div className="space-y-2">
+                {older.map((b) => <BookmarkCard key={b.id} bookmark={b} onRemove={remove} />)}
+              </div>
+            </section>
+          )}
         </div>
       )}
+    </div>
+  );
+}
+
+function BookmarkCard({ bookmark: b, onRemove }: { bookmark: Bookmark; onRemove: (b: Bookmark) => void }) {
+  const meta = TYPE_META[b.resource_type];
+  const href = meta?.href(b.resource_id) ?? "#";
+  const date = new Date(b.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+
+  return (
+    <div className="card flex items-center gap-3 px-4 py-3">
+      <div className={`w-9 h-9 rounded-lg ${meta?.color ?? "bg-bg-2 text-ink-3"} flex items-center justify-center text-lg flex-shrink-0`}>
+        {meta?.icon ?? "📌"}
+      </div>
+      <div className="flex-1 min-w-0">
+        <Link
+          href={href}
+          className="font-syne font-bold text-sm text-ink hover:underline truncate block"
+        >
+          {b.title || b.resource_id}
+        </Link>
+        <div className="font-serif text-xs text-ink-3 mt-0.5 capitalize">
+          {meta?.label.slice(0, -1) ?? b.resource_type} · saved {date}
+        </div>
+      </div>
+      <Link
+        href={href}
+        className="font-syne font-semibold text-xs text-ink-3 hover:text-ink flex-shrink-0"
+      >
+        Open →
+      </Link>
+      <button
+        onClick={() => onRemove(b)}
+        className="text-ink-3 hover:text-red transition-colors text-xl flex-shrink-0 leading-none"
+        title="Remove"
+      >
+        ×
+      </button>
     </div>
   );
 }

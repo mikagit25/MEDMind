@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
-import { contentApi, progressApi } from "@/lib/api";
+import { contentApi, progressApi, adaptivePlanApi } from "@/lib/api";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
 
@@ -209,6 +210,138 @@ function VeterinarianPanel({ stats }: { stats: any }) {
   );
 }
 
+// ── Streak Calendar (last 7 days) ──────────────────────────────────────────
+function StreakCalendar({ streakDays }: { streakDays: number }) {
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (6 - i));
+    return {
+      label: d.toLocaleDateString("en-US", { weekday: "short" }).slice(0, 1),
+      date: d.toISOString().slice(0, 10),
+      // Assume consecutive days going back from today
+      active: i >= 7 - Math.min(streakDays, 7),
+      isToday: i === 6,
+    };
+  });
+
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-syne font-bold text-sm text-ink">Study Streak</span>
+        <span className="font-syne font-black text-sm text-amber">{streakDays} 🔥</span>
+      </div>
+      <div className="flex gap-1.5">
+        {days.map((d, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center gap-1">
+            <div
+              className={`w-full aspect-square rounded-md transition-all ${
+                d.active
+                  ? d.isToday
+                    ? "bg-amber shadow-sm shadow-amber/30"
+                    : "bg-amber/40"
+                  : "bg-bg-2"
+              }`}
+            />
+            <span className={`font-syne text-xs ${d.isToday ? "font-bold text-ink" : "text-ink-3"}`}>
+              {d.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Today's Plan ────────────────────────────────────────────────────────────
+function TodaysPlan() {
+  const router = useRouter();
+  const [plan, setPlan] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    adaptivePlanApi.getCurrent().catch(() => null).then((data: any) => {
+      setPlan(data);
+    }).finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return null;
+
+  const upNext: any[] = plan?.up_next?.slice(0, 3) ?? [];
+  const dueReviews: any[] = plan?.due_reviews?.slice(0, 2) ?? [];
+  const weakAreas: any[] = plan?.weak_areas?.slice(0, 2) ?? [];
+
+  const tasks = [
+    ...upNext.map((t: any) => ({
+      label: t.title ?? t.topic ?? "Continue studying",
+      icon: "📚",
+      href: t.lesson_id ? `/modules/${t.module_id}` : "/modules",
+      color: "text-blue",
+      bg: "bg-blue-light",
+    })),
+    ...dueReviews.map((t: any) => ({
+      label: `Review: ${t.topic ?? t.title ?? "Flashcards"}`,
+      icon: "🃏",
+      href: "/flashcards",
+      color: "text-green",
+      bg: "bg-green-light",
+    })),
+    ...weakAreas.map((t: any) => ({
+      label: `Strengthen: ${t.topic ?? t.title ?? "Weak area"}`,
+      icon: "💪",
+      href: "/quiz",
+      color: "text-amber",
+      bg: "bg-amber-light",
+    })),
+  ].slice(0, 4);
+
+  if (tasks.length === 0) {
+    return (
+      <div className="card p-4 mb-4 flex items-center gap-3">
+        <span className="text-xl">✅</span>
+        <div>
+          <div className="font-syne font-bold text-sm text-ink">All caught up!</div>
+          <div className="font-serif text-xs text-ink-3">Generate your adaptive plan to get personalized tasks.</div>
+        </div>
+        <button
+          onClick={() => router.push("/recommendations")}
+          className="ml-auto font-syne font-semibold text-xs text-ink border border-border rounded px-2 py-1 hover:border-ink transition-colors"
+        >
+          Plan →
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-syne font-bold text-sm text-ink">Today's Plan</span>
+        <button
+          onClick={() => router.push("/recommendations")}
+          className="font-syne text-xs text-ink-3 hover:text-ink"
+        >
+          See all →
+        </button>
+      </div>
+      <div className="space-y-2">
+        {tasks.map((task, i) => (
+          <button
+            key={i}
+            onClick={() => router.push(task.href)}
+            className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-bg-2 transition-colors text-left"
+          >
+            <span className={`w-7 h-7 rounded-md ${task.bg} flex items-center justify-center text-sm flex-shrink-0`}>
+              {task.icon}
+            </span>
+            <span className={`font-serif text-sm ${task.color} truncate`}>{task.label}</span>
+            <span className="ml-auto text-ink-3 text-xs">→</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── Main dashboard ──
 export default function DashboardPage() {
   const { user } = useAuthStore();
@@ -268,7 +401,7 @@ export default function DashboardPage() {
         {[
           { href: "/ai-tutor", icon: "🤖", label: "AI Tutor", color: "bg-blue-light border-blue/20 text-blue" },
           { href: "/flashcards", icon: "🃏", label: "Flashcards", color: "bg-green-light border-green/20 text-green" },
-          { href: "/cases", icon: "🩺", label: "Cases", color: "bg-amber-light border-amber/20 text-amber" },
+          { href: "/quiz", icon: "📝", label: "Quiz", color: "bg-amber-light border-amber/20 text-amber" },
           { href: "/modules", icon: "📚", label: "Modules", color: "bg-red-light border-red/20 text-red" },
         ].map((item) => (
           <Link
@@ -288,12 +421,18 @@ export default function DashboardPage() {
       {role === "veterinarian" && <VeterinarianPanel stats={stats} />}
 
       {/* Default stats for students (or fallback) */}
-      {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && stats && (
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <StatCard value={stats.lessons_completed ?? 0} label="Lessons done" />
-          <StatCard value={stats.cards_reviewed ?? 0} label="Cards reviewed" />
-          <StatCard value={`${stats.streak_days ?? 0}🔥`} label="Day streak" />
-        </div>
+      {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && (
+        <>
+          {stats && (
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <StatCard value={stats.lessons_completed ?? 0} label="Lessons done" />
+              <StatCard value={stats.cards_reviewed ?? 0} label="Cards reviewed" />
+              <StatCard value={stats.mcqs_answered ?? 0} label="MCQs answered" />
+            </div>
+          )}
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <TodaysPlan />
+        </>
       )}
 
       {/* Specialties */}

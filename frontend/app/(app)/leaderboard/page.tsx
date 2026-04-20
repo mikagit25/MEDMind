@@ -19,79 +19,181 @@ const LEVEL_NAMES = ["", "Novice", "Learner", "Resident", "Specialist", "Expert"
 
 export default function LeaderboardPage() {
   const [period, setPeriod] = useState<Period>("week");
-  const [board, setBoard]   = useState<LeaderEntry[]>([]);
+  const [board, setBoard] = useState<LeaderEntry[]>([]);
   const [myRank, setMyRank] = useState<number | null>(null);
+  const [myEntry, setMyEntry] = useState<LeaderEntry | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     progressApi.getLeaderboard?.(period)
       .then((data: any) => {
-        setBoard(data.leaderboard ?? []);
+        const list: LeaderEntry[] = data.leaderboard ?? [];
+        setBoard(list);
         setMyRank(data.my_rank ?? null);
+        setMyEntry(list.find((e) => e.is_me) ?? null);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, [period]);
 
+  const top3 = board.slice(0, 3);
+  const rest = board.slice(3);
+
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4">
+    <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-syne font-black text-2xl text-ink">Leaderboard</h1>
-          {myRank && <p className="text-ink-3 text-sm mt-0.5">Your rank: #{myRank}</p>}
+          {myRank && (
+            <p className="font-serif text-ink-3 text-sm mt-0.5">
+              Your rank: <span className="font-syne font-bold text-ink">#{myRank}</span>
+            </p>
+          )}
         </div>
-        <div className="flex gap-1 bg-surface-2 rounded-lg p-1">
-          {(["week", "month", "all"] as Period[]).map(p => (
+        <div className="flex gap-1 bg-bg-2 p-1 rounded-lg">
+          {(["week", "month", "all"] as Period[]).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-colors ${
-                period === p ? "bg-accent text-white" : "text-ink-3 hover:text-ink"
+              className={`px-3 py-1.5 rounded font-syne font-semibold text-xs transition-all ${
+                period === p ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
               }`}
             >
-              {p === "all" ? "All time" : `This ${p}`}
+              {p === "week" ? "Week" : p === "month" ? "Month" : "All time"}
             </button>
           ))}
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-ink-3">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
       ) : board.length === 0 ? (
-        <div className="text-center py-16 text-ink-3">No data for this period yet.</div>
-      ) : (
-        <div className="space-y-2">
-          {board.map(entry => (
-            <div
-              key={entry.user_id}
-              className={`card flex items-center gap-4 px-4 py-3 ${entry.is_me ? "ring-2 ring-accent" : ""}`}
-            >
-              <div className={`w-8 text-center font-syne font-black text-lg ${
-                entry.rank === 1 ? "text-yellow-500" :
-                entry.rank === 2 ? "text-slate-400" :
-                entry.rank === 3 ? "text-orange-400" : "text-ink-3"
-              }`}>
-                {entry.rank === 1 ? "🥇" : entry.rank === 2 ? "🥈" : entry.rank === 3 ? "🥉" : `#${entry.rank}`}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-sm text-ink truncate">
-                  {entry.name || "Anonymous"}{entry.is_me ? " (you)" : ""}
-                </div>
-                <div className="text-xs text-ink-3 mt-0.5">
-                  {LEVEL_NAMES[entry.level] ?? `Level ${entry.level}`}
-                  {entry.streak_days > 0 && ` · 🔥 ${entry.streak_days}d`}
-                </div>
-              </div>
-
-              <div className="font-mono font-bold text-sm text-accent">
-                {entry.xp.toLocaleString()} XP
-              </div>
-            </div>
-          ))}
+        <div className="text-center py-16">
+          <div className="text-4xl mb-3">🏆</div>
+          <p className="font-serif text-ink-3 text-sm">No data for this period yet.</p>
+          <p className="font-serif text-ink-3 text-xs mt-1">Complete lessons and quizzes to appear here!</p>
         </div>
+      ) : (
+        <>
+          {/* Podium — top 3 */}
+          {top3.length >= 2 && (
+            <div className="flex items-end justify-center gap-3 mb-8 pt-4">
+              {/* 2nd place */}
+              {top3[1] && (
+                <PodiumSlot entry={top3[1]} height="h-20" medal="🥈" bg="bg-slate-100" />
+              )}
+              {/* 1st place */}
+              {top3[0] && (
+                <PodiumSlot entry={top3[0]} height="h-28" medal="🥇" bg="bg-amber-light" crown />
+              )}
+              {/* 3rd place */}
+              {top3[2] && (
+                <PodiumSlot entry={top3[2]} height="h-14" medal="🥉" bg="bg-orange-50" />
+              )}
+            </div>
+          )}
+
+          {/* Rest of leaderboard */}
+          {rest.length > 0 && (
+            <div className="space-y-2 mb-4">
+              {rest.map((entry) => (
+                <LeaderRow key={entry.user_id} entry={entry} />
+              ))}
+            </div>
+          )}
+
+          {/* My position if outside top list */}
+          {myEntry && myRank && myRank > board.length && (
+            <div className="mt-4 pt-4 border-t border-border">
+              <p className="font-serif text-ink-3 text-xs mb-2 text-center">Your position</p>
+              <LeaderRow entry={myEntry} />
+            </div>
+          )}
+
+          {/* XP gap to next rank */}
+          {myEntry && myRank && myRank > 1 && (
+            <XPGapWidget board={board} myEntry={myEntry} myRank={myRank} />
+          )}
+        </>
       )}
+    </div>
+  );
+}
+
+function PodiumSlot({
+  entry,
+  height,
+  medal,
+  bg,
+  crown,
+}: {
+  entry: LeaderEntry;
+  height: string;
+  medal: string;
+  bg: string;
+  crown?: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-1.5 flex-1">
+      {crown && <span className="text-lg">👑</span>}
+      <div className="text-2xl">{medal}</div>
+      <div className="font-syne font-bold text-xs text-ink text-center truncate w-full px-1">
+        {entry.name?.split(" ")[0] ?? "Anonymous"}
+        {entry.is_me && " (you)"}
+      </div>
+      <div className={`w-full ${height} ${bg} rounded-t-lg flex items-center justify-center`}>
+        <span className="font-syne font-black text-sm text-ink-2">
+          {entry.xp >= 1000 ? `${(entry.xp / 1000).toFixed(1)}k` : entry.xp} XP
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function LeaderRow({ entry }: { entry: LeaderEntry }) {
+  return (
+    <div className={`card flex items-center gap-3 px-4 py-3 ${entry.is_me ? "border-ink" : ""}`}>
+      <div className="w-8 font-syne font-bold text-sm text-ink-3 text-center flex-shrink-0">
+        #{entry.rank}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="font-syne font-semibold text-sm text-ink truncate">
+          {entry.name || "Anonymous"}{entry.is_me ? " (you)" : ""}
+        </div>
+        <div className="font-serif text-xs text-ink-3 mt-0.5">
+          {LEVEL_NAMES[entry.level] ?? `Lvl ${entry.level}`}
+          {entry.streak_days > 1 && ` · 🔥 ${entry.streak_days}d`}
+        </div>
+      </div>
+      <div className="font-syne font-bold text-sm text-ink flex-shrink-0">
+        {entry.xp.toLocaleString()} XP
+      </div>
+    </div>
+  );
+}
+
+function XPGapWidget({
+  board,
+  myEntry,
+  myRank,
+}: {
+  board: LeaderEntry[];
+  myEntry: LeaderEntry;
+  myRank: number;
+}) {
+  const above = board.find((e) => e.rank === myRank - 1);
+  if (!above) return null;
+  const gap = above.xp - myEntry.xp;
+  if (gap <= 0) return null;
+
+  return (
+    <div className="mt-3 card p-3 flex items-center gap-3">
+      <span className="text-lg">🎯</span>
+      <p className="font-serif text-sm text-ink">
+        <span className="font-syne font-bold">{gap.toLocaleString()} XP</span> to overtake{" "}
+        <span className="font-syne font-bold">{above.name?.split(" ")[0] ?? "them"}</span> (#{above.rank})
+      </p>
     </div>
   );
 }
