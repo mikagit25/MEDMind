@@ -108,9 +108,8 @@ export default function TeacherDashboardPage() {
                 ?? null;
               if (lastActivity) {
                 const name = s.name
-                  ?? [s.first_name, s.last_name].filter(Boolean).join(" ")
-                  || s.email
-                  || "Student";
+                  ?? ([s.first_name, s.last_name].filter(Boolean).join(" ") || s.email)
+                  ?? "Student";
                 activities.push({
                   studentName: name,
                   courseTitle,

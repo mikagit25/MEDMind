@@ -13,6 +13,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Anti-FOUC: apply dark class before first paint from localStorage */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            var ui = JSON.parse(localStorage.getItem('medmind-ui') || '{}');
+            if (ui.state && ui.state.darkMode) {
+              document.documentElement.classList.add('dark');
+            }
+          } catch(e) {}
+        `}} />
+      </head>
       <body className="bg-bg font-serif text-ink antialiased">
         <Providers>{children}</Providers>
         <Toaster position="top-right" />

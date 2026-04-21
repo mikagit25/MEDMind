@@ -66,11 +66,11 @@ export default function NotificationsPage() {
   };
 
   const dismiss = (id: string) => {
+    const wasUnread = notifications.find((n) => n.id === id && !n.is_read);
     setNotifications((prev) => prev.filter((n) => n.id !== id));
-    setUnreadCount((prev) => {
-      const wasUnread = notifications.find((n) => n.id === id && !n.is_read);
-      return wasUnread ? Math.max(0, prev - 1) : prev;
-    });
+    if (wasUnread) setUnreadCount((prev) => Math.max(0, prev - 1));
+    // Persist deletion on server
+    notificationsApi.delete(id).catch(() => {});
   };
 
   const groups = groupByDate(notifications);

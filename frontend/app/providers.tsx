@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
+import { DarkModeProvider } from "@/components/providers/DarkModeProvider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -19,7 +20,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AnalyticsProvider>{children}</AnalyticsProvider>
+      <AnalyticsProvider>
+        <DarkModeProvider>{children}</DarkModeProvider>
+      </AnalyticsProvider>
     </QueryClientProvider>
   );
 }

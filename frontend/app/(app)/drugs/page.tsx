@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { api, drugsApi } from "@/lib/api";
+import { api, drugsApi, veterinaryApi } from "@/lib/api";
 
 type Drug = {
   id: string;
@@ -18,7 +18,7 @@ type Drug = {
   is_veterinary?: boolean;
 };
 
-type Tab = "search" | "interactions" | "dose";
+type Tab = "search" | "interactions" | "dose" | "vet";
 
 export default function DrugsPage() {
   const [tab, setTab] = useState<Tab>("search");
@@ -29,8 +29,8 @@ export default function DrugsPage() {
       <p className="font-serif text-ink-3 text-sm mb-5">Search medications, dosages, interactions, and pharmacology</p>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg w-fit">
-        {(["search", "interactions", "dose"] as Tab[]).map((t) => (
+      <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg w-fit flex-wrap">
+        {(["search", "interactions", "dose", "vet"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -38,7 +38,7 @@ export default function DrugsPage() {
               tab === t ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
             }`}
           >
-            {t === "search" ? "🔍 Search" : t === "interactions" ? "⚡ Interactions" : "⚖️ Dose Calc"}
+            {t === "search" ? "🔍 Search" : t === "interactions" ? "⚡ Interactions" : t === "dose" ? "⚖️ Dose Calc" : "🐾 Veterinary"}
           </button>
         ))}
       </div>
@@ -46,6 +46,7 @@ export default function DrugsPage() {
       {tab === "search" && <DrugSearch />}
       {tab === "interactions" && <InteractionChecker />}
       {tab === "dose" && <DoseCalculator />}
+      {tab === "vet" && <VeterinaryDosing />}
     </div>
   );
 }
@@ -429,6 +430,225 @@ function DoseCalculator() {
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Veterinary Dosing ─────────────────────────────────────────────────────────
+
+function VeterinaryDosing() {
+  const [species, setSpecies] = useState<any[]>([]);
+  const [selectedSpecies, setSelectedSpecies] = useState<string>("");
+  const [drugQuery, setDrugQuery] = useState("");
+  const [drugResults, setDrugResults] = useState<Drug[]>([]);
+  const [selectedDrug, setSelectedDrug] = useState<Drug | null>(null);
+  const [dosing, setDosing] = useState<any[]>([]);
+  const [safety, setSafety] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [showSugg, setShowSugg] = useState(false);
+  const [zoonoses, setZoonoses] = useState<any[]>([]);
+  const [showZoonoses, setShowZoonoses] = useState(false);
+
+  useEffect(() => {
+    veterinaryApi.getSpecies().then((s: any) => setSpecies(s ?? [])).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!drugQuery.trim()) { setDrugResults([]); return; }
+    const t = setTimeout(async () => {
+      try {
+        const res = await drugsApi.search(drugQuery);
+        setDrugResults((res.data ?? []).slice(0, 6));
+        setShowSugg(true);
+      } catch { setDrugResults([]); }
+    }, 300);
+    return () => clearTimeout(t);
+  }, [drugQuery]);
+
+  const selectDrug = async (drug: Drug) => {
+    setSelectedDrug(drug);
+    setDrugQuery(drug.name);
+    setShowSugg(false);
+    setDosing([]);
+    setSafety(null);
+    if (selectedSpecies) fetchDosing(drug.id, selectedSpecies);
+  };
+
+  const fetchDosing = async (drugId: string, speciesId: string) => {
+    setLoading(true);
+    try {
+      const [dosingRes, safetyRes] = await Promise.all([
+        veterinaryApi.getDrugDosing(drugId, speciesId).catch(() => []),
+        veterinaryApi.checkSafety(drugId, speciesId).catch(() => null),
+      ]);
+      setDosing(dosingRes ?? []);
+      setSafety(safetyRes);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSpeciesChange = (id: string) => {
+    setSelectedSpecies(id);
+    setSafety(null);
+    setDosing([]);
+    if (selectedDrug && id) fetchDosing(selectedDrug.id, id);
+  };
+
+  const loadZoonoses = async () => {
+    if (zoonoses.length) { setShowZoonoses(true); return; }
+    try {
+      const data = await veterinaryApi.getZoonoses();
+      setZoonoses(data.zoonoses ?? []);
+      setShowZoonoses(true);
+    } catch {}
+  };
+
+  return (
+    <div className="space-y-5">
+      {/* Species selector */}
+      <div className="card p-5">
+        <h2 className="font-syne font-bold text-sm text-ink mb-3">Veterinary Drug Dosing</h2>
+        <div className="space-y-4">
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Select Species</label>
+            <div className="flex flex-wrap gap-2">
+              {species.map((s: any) => (
+                <button
+                  key={s.id}
+                  onClick={() => handleSpeciesChange(s.id)}
+                  className={`px-3 py-1.5 rounded-lg border font-syne font-semibold text-xs transition-all ${
+                    selectedSpecies === s.id
+                      ? "border-ink bg-ink text-white"
+                      : "border-border text-ink-2 hover:border-ink-3"
+                  }`}
+                >
+                  {s.icon && <span className="mr-1">{s.icon}</span>}{s.name}
+                </button>
+              ))}
+              {species.length === 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {["🐕 Dog", "🐈 Cat", "🐎 Horse", "🐄 Cattle"].map((s) => (
+                    <span key={s} className="px-3 py-1.5 rounded-lg border border-border font-syne font-semibold text-xs text-ink-3">
+                      {s}
+                    </span>
+                  ))}
+                  <span className="font-serif text-ink-3 text-xs self-center">(Add species data to database)</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Search Drug</label>
+            <div className="relative">
+              <input
+                type="text"
+                value={drugQuery}
+                onChange={(e) => { setDrugQuery(e.target.value); setSelectedDrug(null); }}
+                onFocus={() => setShowSugg(true)}
+                placeholder="Type drug name…"
+                className="w-full px-3 py-2 rounded border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink"
+              />
+              {showSugg && drugResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 z-10 bg-surface border border-border rounded-lg shadow-lg mt-1">
+                  {drugResults.map((d) => (
+                    <button
+                      key={d.id}
+                      onClick={() => selectDrug(d)}
+                      className="w-full text-left px-3 py-2 font-serif text-sm text-ink hover:bg-bg-2 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      <span className="font-syne font-semibold">{d.name}</span>
+                      <span className="text-ink-3 ml-2 text-xs">{d.drug_class}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Safety banner */}
+      {safety && (
+        <div className={`card p-4 border ${safety.is_toxic ? "border-red/30 bg-red-light" : "border-green/20 bg-green-light"}`}>
+          <div className="flex items-center gap-2">
+            <span className="text-xl">{safety.is_toxic ? "⚠️" : "✅"}</span>
+            <div>
+              <div className={`font-syne font-bold text-sm ${safety.is_toxic ? "text-red" : "text-green"}`}>
+                {safety.is_toxic ? "Caution: Potential toxicity" : "Generally safe for this species"}
+              </div>
+              {safety.toxicity_note && (
+                <div className="font-serif text-xs mt-0.5 text-ink-2">{safety.toxicity_note}</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dosing table */}
+      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">Loading dosing data…</div>}
+      {!loading && dosing.length > 0 && (
+        <div className="card p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">
+            Dosing: {selectedDrug?.name} in {species.find((s: any) => s.id === selectedSpecies)?.name ?? "selected species"}
+          </h3>
+          <div className="space-y-3">
+            {dosing.map((d: any, i: number) => (
+              <div key={i} className="p-3 rounded-lg bg-bg-2 space-y-1">
+                <div className="flex items-center gap-3 flex-wrap">
+                  {d.route && <span className="px-2 py-0.5 rounded bg-ink text-white font-syne font-bold text-xs">{d.route}</span>}
+                  {d.dose && <span className="font-syne font-bold text-sm text-ink">{d.dose}</span>}
+                  {d.frequency && <span className="font-serif text-ink-3 text-xs">{d.frequency}</span>}
+                </div>
+                {d.max_dose && <div className="font-serif text-xs text-ink-2">Max: {d.max_dose}</div>}
+                {d.notes && <div className="font-serif text-xs text-ink-3 italic">{d.notes}</div>}
+                {d.source && <div className="font-serif text-xs text-ink-3">Source: {d.source}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {!loading && selectedDrug && selectedSpecies && dosing.length === 0 && !loading && (
+        <div className="card p-6 text-center">
+          <p className="font-serif text-ink-3 text-sm">No dosing data available for this combination.</p>
+        </div>
+      )}
+
+      {/* Zoonoses reference */}
+      <div className="card p-4">
+        <button
+          onClick={loadZoonoses}
+          className="w-full flex items-center justify-between font-syne font-bold text-sm text-ink"
+        >
+          <span>🦠 Zoonotic Disease Reference</span>
+          <span className="text-ink-3">{showZoonoses ? "▲" : "▼"}</span>
+        </button>
+        {showZoonoses && zoonoses.length > 0 && (
+          <div className="mt-4 space-y-3">
+            {zoonoses.map((z: any, i: number) => (
+              <div key={i} className="p-3 rounded-lg bg-bg-2">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <div className="font-syne font-bold text-sm text-ink">{z.name}</div>
+                    {z.name_ru && <div className="font-serif text-ink-3 text-xs">{z.name_ru}</div>}
+                  </div>
+                  <span className="font-serif text-xs text-ink-3 shrink-0">{z.pathogen}</span>
+                </div>
+                <div className="mt-2 space-y-0.5">
+                  <div className="font-serif text-xs text-ink-2"><strong>Transmission:</strong> {z.transmission}</div>
+                  <div className="font-serif text-xs text-ink-2"><strong>Species:</strong> {z.species?.join(", ")}</div>
+                  <div className="font-serif text-xs text-ink-2"><strong>Prevention:</strong> {z.prevention}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <p className="font-serif text-ink-3 text-xs text-center">
+        🐾 For educational use only. Always consult current veterinary formularies for clinical dosing.
+      </p>
     </div>
   );
 }

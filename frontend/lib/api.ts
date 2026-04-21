@@ -107,6 +107,32 @@ export const drugsApi = {
       .catch(() => ({ replyList: [] })),
 };
 
+export const simulationApi = {
+  // Virtual patient
+  startVirtualPatient: (data: { specialty?: string; difficulty?: string; species?: string; patient_seed?: string }) =>
+    api.post("/ai/virtual-patient/start", data).then(r => r.data),
+  chatVirtualPatient: (session_token: string, message: string) =>
+    api.post("/ai/virtual-patient/chat", { session_token, message }).then(r => r.data),
+  evaluateVirtualPatient: (session_token: string, message: string) =>
+    api.post("/ai/virtual-patient/evaluate", { session_token, message }).then(r => r.data),
+  // FSM cases
+  startCase: (caseId: string) =>
+    api.post(`/cases/${caseId}/sessions`).then(r => r.data),
+  makeChoice: (sessionId: string, choice_id: string) =>
+    api.post(`/cases/sessions/${sessionId}/choose`, null, { params: { choice_id } }).then(r => r.data),
+  getSession: (sessionId: string) =>
+    api.get(`/cases/sessions/${sessionId}`).then(r => r.data),
+};
+
+export const veterinaryApi = {
+  getSpecies: () => api.get("/veterinary/species").then(r => r.data),
+  getDrugDosing: (drugId: string, speciesId: string) =>
+    api.get(`/veterinary/drugs/${drugId}/dosing/${speciesId}`).then(r => r.data),
+  checkSafety: (drug_id: string, species_id: string) =>
+    api.post("/veterinary/drugs/check-species-safety", { drug_id, species_id }).then(r => r.data),
+  getZoonoses: () => api.get("/veterinary/zoonoses").then(r => r.data),
+};
+
 export const progressApi = {
   completeLesson: (lessonId: string) =>
     api.post(`/progress/lesson/${lessonId}/complete`).then(r => r.data),
@@ -183,6 +209,8 @@ export const notificationsApi = {
     api.post(`/notifications/${id}/read`).then(r => r.data),
   markAllRead: () =>
     api.post("/notifications/read-all").then(r => r.data),
+  delete: (id: string) =>
+    api.delete(`/notifications/${id}`).then(r => r.data),
 };
 
 export const imagingApi = {

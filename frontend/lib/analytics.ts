@@ -18,7 +18,7 @@ export function initAnalytics() {
     capture_pageleave: true,
     autocapture: false,        // only track explicitly — avoids capturing PII
     persistence: "localStorage+cookie",
-    sanitize_properties: (props) => {
+    sanitize_properties: (props: Record<string, unknown>) => {
       // Strip any fields that could contain PII before sending
       delete props.$ip;
       return props;

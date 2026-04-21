@@ -31,7 +31,7 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -442,6 +442,7 @@ async def list_assignments(
 async def create_assignment(
     course_id: UUID,
     body: AssignmentCreate,
+    background_tasks: BackgroundTasks,
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
@@ -460,6 +461,28 @@ async def create_assignment(
     db.add(assignment)
     await db.commit()
     await db.refresh(assignment)
+
+    # Notify enrolled students via email (fire-and-forget)
+    enrollments = (await db.execute(
+        select(CourseEnrollment).where(CourseEnrollment.course_id == course_id)
+    )).scalars().all()
+    if enrollments:
+        student_ids = [e.student_id for e in enrollments]
+        students = (await db.execute(
+            select(User).where(User.id.in_(student_ids))
+        )).scalars().all()
+        from app.services.email_service import send_assignment_email
+        due_str = assignment.due_date.strftime("%B %d, %Y") if assignment.due_date else None
+        for student in students:
+            background_tasks.add_task(
+                send_assignment_email,
+                student.email,
+                student.first_name or "Student",
+                assignment.title,
+                course.title,
+                due_str,
+            )
+
     return AssignmentOut(
         id=assignment.id,
         module_id=assignment.module_id,

@@ -19,6 +19,7 @@ const NAV_SECTIONS = [
       { icon: "📇", label: "My Cards", href: "/my-flashcards" },
       { icon: "📝", label: "Quiz", href: "/quiz" },
       { icon: "🩺", label: "Cases", href: "/cases" },
+      { icon: "🏥", label: "Simulation", href: "/simulation" },
     ],
   },
   {

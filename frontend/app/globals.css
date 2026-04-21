@@ -8,11 +8,30 @@
   :root {
     --font-syne: 'Syne', sans-serif;
     --font-serif: 'Source Serif 4', serif;
+    /* Light mode CSS vars */
+    --color-bg: #f0ede8;
+    --color-bg-2: #e8e4de;
+    --color-surface: #ffffff;
+    --color-surface-2: #f7f4f0;
+    --color-ink: #1a1814;
+    --color-ink-2: #4a453e;
+    --color-ink-3: #8a8278;
+    --color-border: #d8d2c8;
+    --color-border-2: #c8c0b4;
   }
 
   /* Dark mode — inverted warm palette */
   .dark {
     --tw-bg-opacity: 1;
+    --color-bg: #1a1814;
+    --color-bg-2: #252118;
+    --color-surface: #2a2520;
+    --color-surface-2: #2f2b24;
+    --color-ink: #f0ede8;
+    --color-ink-2: #b8b0a4;
+    --color-ink-3: #7a7268;
+    --color-border: #3d3730;
+    --color-border-2: #4a4438;
   }
 
   .dark body {
@@ -78,24 +97,43 @@
   .dark .border-border  { border-color: #3d3730 !important; }
   .dark .border-border-2 { border-color: #4a4438 !important; }
 
+  /* Dark — page background */
+  .dark body,
+  .dark main,
+  .dark [class*="bg-bg"]:not(.dark\:bg-*) { background-color: #1a1814; }
+
+  /* Dark — inputs / textareas / selects */
   .dark input,
   .dark textarea,
   .dark select {
-    background-color: #252118;
-    color: #f0ede8;
-    border-color: #3d3730;
+    background-color: #252118 !important;
+    color: #f0ede8 !important;
+    border-color: #3d3730 !important;
   }
 
   .dark input::placeholder,
   .dark textarea::placeholder {
-    color: #5a5248;
+    color: #5a5248 !important;
   }
 
   .dark input:focus,
   .dark textarea:focus,
   .dark select:focus {
-    border-color: #7a7268;
+    border-color: #7a7268 !important;
+    outline: none;
   }
+
+  /* Dark — white backgrounds used inline (common pattern) */
+  .dark [class*="bg-white"] { background-color: #2a2520 !important; }
+
+  /* Dark — light status backgrounds */
+  .dark .bg-green-light  { background-color: #0f2e1c !important; }
+  .dark .bg-amber-light  { background-color: #2a1f00 !important; }
+  .dark .bg-red-light    { background-color: #2e1010 !important; }
+  .dark .bg-blue-light   { background-color: #0f1e2e !important; }
+
+  /* Dark — sidebar text adjustments (sidebar bg is already dark ink) */
+  .dark aside .text-white\/55 { color: rgba(240, 237, 232, 0.55) !important; }
 
   .input-field {
     @apply w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink transition-colors;
