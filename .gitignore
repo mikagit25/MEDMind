@@ -87,3 +87,4 @@ htmlcov/
 
 # Jupyter
 .ipynb_checkpoints/
+frontend/tmp/
