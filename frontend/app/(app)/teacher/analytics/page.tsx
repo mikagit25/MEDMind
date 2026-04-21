@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { teacherApi } from "@/lib/api";
 
 type ModuleStats = {
@@ -35,6 +36,9 @@ function ScoreBadge({ score }: { score: number | null }) {
 }
 
 export default function TeacherAnalyticsPage() {
+  const searchParams = useSearchParams();
+  const preselectedModule = searchParams.get("module");
+
   const [modules, setModules] = useState<MyModule[]>([]);
   const [selected, setSelected] = useState<string>("");
   const [stats, setStats] = useState<ModuleStats | null>(null);
@@ -46,11 +50,14 @@ export default function TeacherAnalyticsPage() {
     teacherApi.listMyModules()
       .then((mods: MyModule[]) => {
         setModules(mods);
-        if (mods.length > 0) setSelected(mods[0].id);
+        const first = preselectedModule && mods.find((m: MyModule) => m.id === preselectedModule)
+          ? preselectedModule
+          : mods[0]?.id ?? "";
+        setSelected(first);
       })
       .catch(() => setError("Failed to load modules"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [preselectedModule]);
 
   useEffect(() => {
     if (!selected) return;
@@ -64,11 +71,29 @@ export default function TeacherAnalyticsPage() {
 
   const totalCompletions = stats?.lessons.reduce((s, l) => s + l.completions, 0) ?? 0;
   const publishedLessons = stats?.lessons.filter(l => l.status === "published").length ?? 0;
+  const maxCompletions = Math.max(...(stats?.lessons.map((l) => l.completions) ?? [0]), 1);
   const avgQuiz = (() => {
     const scored = stats?.lessons.filter(l => l.avg_quiz_score !== null) ?? [];
     if (!scored.length) return null;
     return scored.reduce((s, l) => s + (l.avg_quiz_score ?? 0), 0) / scored.length;
   })();
+
+  function exportCSV() {
+    if (!stats) return;
+    const rows = [
+      ["#", "Title", "Status", "Completions", "Est. min", "Avg Quiz %"],
+      ...stats.lessons.map((l, i) => [
+        i + 1, l.title, l.status, l.completions, l.estimated_minutes, l.avg_quiz_score ?? "",
+      ]),
+    ];
+    const csv = rows.map((r) => r.map((v) => `"${v}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `analytics_${stats.title?.replace(/\s+/g, "_") ?? "module"}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
 
   if (loading) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
 
@@ -92,18 +117,23 @@ export default function TeacherAnalyticsPage() {
         </div>
       ) : (
         <>
-          {/* Module selector */}
-          <div className="card p-3 mb-4">
-            <label className="font-syne text-xs text-ink-3 block mb-1.5">Select module</label>
+          {/* Module selector + export */}
+          <div className="flex items-center gap-3 mb-4">
             <select
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
-              className="w-full border border-border rounded-lg px-3 py-2 font-syne text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+              className="flex-1 border border-border rounded-lg px-3 py-2 font-syne text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
             >
               {modules.map((m) => (
-                <option key={m.id} value={m.id}>{m.title}{!m.is_published ? " (unpublished)" : ""}</option>
+                <option key={m.id} value={m.id}>{m.title}{!m.is_published ? " (draft)" : ""}</option>
               ))}
             </select>
+            {stats && (
+              <button onClick={exportCSV}
+                className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-2 hover:border-ink-3 transition-colors shrink-0">
+                ⬇ CSV
+              </button>
+            )}
           </div>
 
           {loadingStats ? (
@@ -127,6 +157,43 @@ export default function TeacherAnalyticsPage() {
                   <div className="font-serif text-xs text-ink-3 mt-0.5">Avg quiz score</div>
                 </div>
               </div>
+
+              {/* Bar chart */}
+              {stats.lessons.length > 0 && (
+                <div className="card p-5 mb-4">
+                  <h2 className="font-syne font-bold text-sm text-ink mb-4">Completion by Lesson</h2>
+                  <div className="space-y-2.5">
+                    {[...stats.lessons]
+                      .sort((a, b) => a.lesson_order - b.lesson_order)
+                      .map((lesson, i) => {
+                        const barPct = (lesson.completions / maxCompletions) * 100;
+                        const barColor = lesson.completions >= maxCompletions * 0.7
+                          ? "bg-green"
+                          : lesson.completions >= maxCompletions * 0.4
+                          ? "bg-amber"
+                          : "bg-red";
+                        return (
+                          <div key={lesson.lesson_id}>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="font-syne text-xs text-ink truncate max-w-xs">
+                                {i + 1}. {lesson.title}
+                              </span>
+                              <span className="font-syne font-semibold text-xs text-ink-3 ml-2 shrink-0">
+                                {lesson.completions}
+                              </span>
+                            </div>
+                            <div className="h-1.5 bg-bg-2 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full transition-all ${barColor}`}
+                                style={{ width: `${barPct}%` }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              )}
 
               {/* Per-lesson table */}
               <div className="card overflow-hidden">
