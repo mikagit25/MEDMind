@@ -416,6 +416,28 @@ async def reorder_modules(
 
 # ── Assignments ────────────────────────────────────────────────────────────
 
+@router.get("/{course_id}/assignments")
+async def list_assignments(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """List all assignments for a course."""
+    _require_teacher(user)
+    course = await _get_course_or_404(course_id, db)
+    return [
+        AssignmentOut(
+            id=a.id,
+            module_id=a.module_id,
+            title=a.title or "",
+            description=a.description,
+            due_date=a.due_date.isoformat() if a.due_date else None,
+            max_score=a.max_score,
+        )
+        for a in sorted(course.assignments, key=lambda a: a.created_at or "")
+    ]
+
+
 @router.post("/{course_id}/assignments", response_model=AssignmentOut, status_code=201)
 async def create_assignment(
     course_id: UUID,

@@ -132,6 +132,10 @@ export default function CourseDetailPage() {
     try {
       const data = await teacherApi.getCourse(id);
       setCourse(data);
+      // Seed assignments from course detail (already eager-loaded)
+      if (data.assignments?.length > 0) {
+        setAssignments(data.assignments);
+      }
     } catch {
       setError("Failed to load course");
     }
