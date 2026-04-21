@@ -33,6 +33,7 @@ const NAV_SECTIONS = [
     label: "Tools",
     items: [
       { icon: "💊", label: "Drug Database", href: "/drugs" },
+      { icon: "🐾", label: "Veterinary", href: "/veterinary" },
       { icon: "📈", label: "Progress", href: "/progress" },
       { icon: "🏆", label: "Leaderboard", href: "/leaderboard" },
       { icon: "🎯", label: "For You", href: "/recommendations" },

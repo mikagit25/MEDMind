@@ -12,7 +12,8 @@ export function VeterinaryToggle() {
   const toggle = async () => {
     setLoading(true);
     try {
-      await authApi.updateVetSettings({ vet_mode: !vetMode });
+      const currentSpecies = (user?.preferences?.vet_species as string[]) ?? [];
+      await authApi.updateVetSettings({ vet_mode: !vetMode, species: currentSpecies });
       updateUser({ preferences: { ...(user?.preferences ?? {}), vet_mode: !vetMode } });
     } catch {
       alert("Failed to update veterinary mode.");

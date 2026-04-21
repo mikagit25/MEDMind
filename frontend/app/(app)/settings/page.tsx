@@ -37,7 +37,7 @@ export default function SettingsPage() {
 
   const sub = user?.subscription_tier ?? "free";
   const subInfo = SUBSCRIPTION_INFO[sub] ?? SUBSCRIPTION_INFO.free;
-  const canUseVet = ["pro", "clinic", "lifetime"].includes(sub);
+  const canUseVet = true; // Test mode: vet access is free for all users
 
   const toggleSpecies = (id: string) => {
     setVetSpecies((prev) =>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
           ? authApi.updateVetSettings({ vet_mode: vetMode, species: vetSpecies })
           : Promise.resolve(null),
       ]);
-      updateUser(profileRes.data);
+      updateUser(profileRes);
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } catch (err: any) {

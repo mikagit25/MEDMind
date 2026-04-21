@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { drugsApi } from "@/lib/api";
+import { drugsApi, veterinaryApi } from "@/lib/api";
+import { useAuthStore } from "@/lib/store";
 
 type Drug = {
   id: string;
@@ -31,11 +32,12 @@ type Alternative = {
   reason: string;
 };
 
-type Tab = "overview" | "dosing" | "adverse" | "alternatives";
+type Tab = "overview" | "dosing" | "adverse" | "alternatives" | "vet";
 
 export default function DrugDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const { user } = useAuthStore();
 
   const [drug, setDrug] = useState<Drug | null>(null);
   const [alternatives, setAlternatives] = useState<Alternative[]>([]);
@@ -43,6 +45,11 @@ export default function DrugDetailPage() {
   const [tab, setTab] = useState<Tab>("overview");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [allSpecies, setAllSpecies] = useState<any[]>([]);
+
+  useEffect(() => {
+    veterinaryApi.getSpecies().then((s: any) => setAllSpecies(s ?? [])).catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -99,6 +106,7 @@ export default function DrugDetailPage() {
     { key: "dosing", label: "Dosing" },
     { key: "adverse", label: "Adverse Effects" },
     { key: "alternatives", label: `Alternatives${alternatives.length ? ` (${alternatives.length})` : ""}` },
+    { key: "vet", label: "🐾 Vet Dosing" },
   ];
 
   return (
@@ -172,6 +180,7 @@ export default function DrugDetailPage() {
       {tab === "dosing" && <DosingTab drug={drug} />}
       {tab === "adverse" && <AdverseTab drug={drug} />}
       {tab === "alternatives" && <AlternativesTab alternatives={alternatives} currentId={drug.id} />}
+      {tab === "vet" && <VetDosingTab drug={drug} allSpecies={allSpecies} />}
     </div>
   );
 }
@@ -374,6 +383,195 @@ function AlternativesTab({ alternatives, currentId }: { alternatives: Alternativ
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+// ── Vet Dosing Tab ────────────────────────────────────────────────────────────
+
+const FALLBACK_SPECIES = [
+  { id: "canine",  name: "Canine",  icon: "🐕" },
+  { id: "feline",  name: "Feline",  icon: "🐈" },
+  { id: "equine",  name: "Equine",  icon: "🐎" },
+  { id: "bovine",  name: "Bovine",  icon: "🐄" },
+  { id: "porcine", name: "Porcine", icon: "🐖" },
+  { id: "avian",   name: "Avian",   icon: "🦜" },
+  { id: "rabbit",  name: "Rabbit",  icon: "🐇" },
+  { id: "exotic",  name: "Exotic",  icon: "🦎" },
+];
+
+function VetDosingTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
+  // Use DB species or fallback to static list for scaled dosing
+  const speciesList = allSpecies.length > 0 ? allSpecies : FALLBACK_SPECIES;
+
+  const [selectedSpecies, setSelectedSpecies] = useState<any | null>(null);
+  const [dbDosing, setDbDosing] = useState<any[]>([]);
+  const [safety, setSafety] = useState<any>(null);
+  const [scaledDosing, setScaledDosing] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const selectSpecies = async (sp: any) => {
+    setSelectedSpecies(sp);
+    setDbDosing([]);
+    setSafety(null);
+    setScaledDosing(null);
+    setLoading(true);
+
+    // Map display name → species factor key
+    const nameToKey: Record<string, string> = {
+      canine: "canine", feline: "feline", equine: "equine",
+      bovine: "bovine", porcine: "porcine", avian: "avian",
+      rabbit: "exotic", exotic: "exotic",
+    };
+    const speciesKey = nameToKey[sp.name?.toLowerCase()] ?? sp.name?.toLowerCase();
+
+    const promises: Promise<any>[] = [];
+
+    // DB dosing (only if we have a real UUID species id, not a short key)
+    const isUUID = sp.id && sp.id.includes("-");
+    if (isUUID) {
+      promises.push(
+        veterinaryApi.getDrugDosing(drug.id, sp.id).catch(() => []),
+        veterinaryApi.checkSafety(drug.id, sp.id).catch(() => null),
+      );
+    } else {
+      promises.push(Promise.resolve([]), Promise.resolve(null));
+    }
+
+    // Scaled dosing always available
+    if (speciesKey) {
+      promises.push(
+        veterinaryApi.getScaledDosing(drug.name, speciesKey).catch(() => null),
+      );
+    } else {
+      promises.push(Promise.resolve(null));
+    }
+
+    const [dosingRes, safetyRes, scaledRes] = await Promise.all(promises);
+    setDbDosing(dosingRes ?? []);
+    setSafety(safetyRes);
+    setScaledDosing(scaledRes);
+    setLoading(false);
+  };
+
+  return (
+    <div className="space-y-5">
+      {/* Species selector */}
+      <Section title="Select Species">
+        <div className="flex flex-wrap gap-2">
+          {speciesList.map((sp: any) => (
+            <button
+              key={sp.id}
+              onClick={() => selectSpecies(sp)}
+              className={`px-3 py-2 rounded-lg border font-syne font-semibold text-xs transition-all ${
+                selectedSpecies?.id === sp.id
+                  ? "border-ink bg-ink text-white"
+                  : "border-border text-ink-2 hover:border-ink-3"
+              }`}
+            >
+              {sp.icon && <span className="mr-1">{sp.icon}</span>}{sp.name}
+            </button>
+          ))}
+        </div>
+      </Section>
+
+      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">Loading dosing data…</div>}
+
+      {!loading && selectedSpecies && (
+        <>
+          {/* Safety Banner */}
+          {safety && (
+            <div className={`p-4 rounded-lg border flex gap-3 ${
+              safety.is_toxic ? "bg-red-light border-red/30" : "bg-green-light border-green/20"
+            }`}>
+              <span className="text-xl flex-shrink-0">{safety.is_toxic ? "⚠️" : "✅"}</span>
+              <div>
+                <div className={`font-syne font-bold text-sm ${safety.is_toxic ? "text-red" : "text-green"}`}>
+                  {safety.is_toxic ? `Caution: Risk for ${selectedSpecies.name}` : `Generally safe for ${selectedSpecies.name}`}
+                </div>
+                {safety.warnings?.map((w: string, i: number) => (
+                  <div key={i} className="font-serif text-xs text-ink-2 mt-0.5">{w}</div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* DB-specific dosing */}
+          {dbDosing.length > 0 && (
+            <Section title={`Verified Dosing — ${selectedSpecies.name}`}>
+              <div className="space-y-3">
+                {dbDosing.map((d: any, i: number) => (
+                  <div key={i} className={`p-3 rounded-lg ${d.is_toxic ? "bg-red-light border border-red/30" : "bg-bg-2"}`}>
+                    {d.is_toxic && (
+                      <div className="font-syne font-bold text-xs text-red uppercase mb-1">⚠ Contraindicated</div>
+                    )}
+                    <div className="flex items-center gap-3 flex-wrap">
+                      {d.route && <span className="px-2 py-0.5 rounded bg-ink text-white font-syne font-bold text-xs">{d.route}</span>}
+                      {d.dose && !d.is_toxic && <span className="font-syne font-bold text-sm text-ink">{d.dose}</span>}
+                      {d.frequency && !d.is_toxic && <span className="font-serif text-ink-3 text-xs">{d.frequency}</span>}
+                    </div>
+                    {d.max_dose && <div className="font-serif text-xs text-ink-2 mt-1">Max: {d.max_dose}</div>}
+                    {d.toxicity_note && <div className="font-serif text-xs text-red mt-1">{d.toxicity_note}</div>}
+                    {d.notes && <div className="font-serif text-xs text-ink-3 italic mt-1">{d.notes}</div>}
+                    {d.source && <div className="font-serif text-xs text-ink-3 mt-1">📖 {d.source}</div>}
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {/* Scaled dosing from human data */}
+          {scaledDosing && (
+            <Section title={`Scaled Dosing Estimate — ${selectedSpecies.name}`}>
+              <div className="p-3 rounded-lg bg-amber-light border border-amber/20 mb-3">
+                <p className="font-serif text-xs text-amber">
+                  ⚠ Estimated by scaling human doses. Always verify with current veterinary formulary before clinical use.
+                </p>
+              </div>
+              {scaledDosing.note && (
+                <p className="font-serif text-xs text-ink-3 mb-3">{scaledDosing.note}</p>
+              )}
+              {scaledDosing.species_dosing && Object.keys(scaledDosing.species_dosing).length > 0 ? (
+                <div className="divide-y divide-border">
+                  {Object.entries(scaledDosing.species_dosing).map(([route, info]: [string, any]) => (
+                    <div key={route} className="py-2.5 flex gap-4 items-start">
+                      <span className="font-syne font-bold text-xs text-ink-2 uppercase w-24 flex-shrink-0 pt-0.5">
+                        {route}
+                      </span>
+                      <span className="font-serif text-sm text-ink">
+                        {typeof info === "object" ? (info.dose ?? JSON.stringify(info)) : String(info)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="font-serif text-xs text-ink-3">No scaled dosing data available for this drug.</p>
+              )}
+            </Section>
+          )}
+
+          {dbDosing.length === 0 && !scaledDosing && !loading && (
+            <div className="card p-6 text-center">
+              <p className="font-serif text-ink-3 text-sm">
+                No veterinary dosing data available for {drug.name} in {selectedSpecies.name}.
+              </p>
+              <p className="font-serif text-ink-3 text-xs mt-1">
+                Consult Plumb's Veterinary Drug Handbook or a specialist.
+              </p>
+            </div>
+          )}
+        </>
+      )}
+
+      {!selectedSpecies && !loading && (
+        <div className="card p-6 text-center">
+          <p className="font-serif text-ink-3 text-sm">Select a species above to see veterinary dosing information.</p>
+        </div>
+      )}
+
+      <p className="font-serif text-ink-3 text-xs text-center">
+        🐾 For educational use only. Always consult a licensed veterinarian for clinical dosing decisions.
+      </p>
     </div>
   );
 }

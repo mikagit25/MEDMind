@@ -60,8 +60,8 @@ export const authApi = {
   updateMe: (data: { first_name?: string; last_name?: string; preferences?: Record<string, unknown> }) =>
     api.patch("/auth/me", data).then(r => r.data),
   onboarding: (data: object) => api.post("/auth/onboarding", data).then(r => r.data),
-  updateVetSettings: (data: { vet_mode?: boolean; species?: string[] }) =>
-    api.put("/veterinary/user/veterinary-settings", data).then(r => r.data),
+  updateVetSettings: (data: { vet_mode: boolean; species: string[] }) =>
+    api.put("/auth/veterinary-settings", data).then(r => r.data),
 };
 
 export const contentApi = {
@@ -131,6 +131,9 @@ export const veterinaryApi = {
   checkSafety: (drug_id: string, species_id: string) =>
     api.post("/veterinary/drugs/check-species-safety", { drug_id, species_id }).then(r => r.data),
   getZoonoses: () => api.get("/veterinary/zoonoses").then(r => r.data),
+  // Species-adjusted dose scaling (requires vet_mode or works for any user in test mode)
+  getScaledDosing: (drug: string, species: string) =>
+    api.get("/drugs/dosing", { params: { drug, species } }).then(r => r.data),
 };
 
 export const progressApi = {
