@@ -670,6 +670,12 @@ export default function LessonEditPage() {
     setTimeout(() => setSaveMsg(""), 4000);
   }
 
+  function applyAiBlock(block: Block) {
+    setBlocks((bs) => [...bs, { ...block, order: bs.length }]);
+    setSaveMsg("Block added — remember to save");
+    setTimeout(() => setSaveMsg(""), 3000);
+  }
+
   if (!lesson && !error) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
   if (error && !lesson) return <div className="p-6 text-red font-serif text-sm">{error}</div>;
   if (!lesson) return null;
@@ -913,21 +919,13 @@ export default function LessonEditPage() {
           </button>
 
           {aiSuggestion && (
-            <div className="border border-green/30 rounded-lg p-3 bg-white/60">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-syne font-semibold text-sm text-ink">Suggestion ready</span>
-                <div className="flex gap-2">
-                  <button onClick={() => setAiSuggestion(null)} className="text-xs text-ink-3 font-syne hover:text-ink">Discard</button>
-                  <button onClick={applyAiSuggestion} className="text-xs text-green font-syne font-semibold hover:underline">Apply to editor</button>
-                </div>
-              </div>
-              {aiSuggestion.review_notes && (
-                <p className="font-serif text-xs text-ink-3 mb-2 italic">{aiSuggestion.review_notes}</p>
-              )}
-              <pre className="font-mono text-xs text-ink bg-surface rounded p-2 overflow-auto max-h-40">
-                {JSON.stringify(aiSuggestion.suggested, null, 2)}
-              </pre>
-            </div>
+            <AiSuggestionPreview
+              suggestion={aiSuggestion}
+              currentBlocks={blocks}
+              onApplyAll={applyAiSuggestion}
+              onApplyBlock={applyAiBlock}
+              onDiscard={() => setAiSuggestion(null)}
+            />
           )}
         </div>
       )}
@@ -1016,4 +1014,158 @@ export default function LessonEditPage() {
       </div>
     </div>
   );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AI Suggestion Preview Component
+// ─────────────────────────────────────────────────────────────────────────────
+
+function AiSuggestionPreview({
+  suggestion,
+  currentBlocks,
+  onApplyAll,
+  onApplyBlock,
+  onDiscard,
+}: {
+  suggestion: { suggested: Record<string, unknown>; review_notes?: string };
+  currentBlocks: Block[];
+  onApplyAll: () => void;
+  onApplyBlock: (block: Block) => void;
+  onDiscard: () => void;
+}) {
+  const suggested = suggestion.suggested as Partial<LessonContent>;
+  const suggestedBlocks: Block[] = (suggested.blocks as Block[]) ?? [];
+  const suggestedTitle = suggested.title;
+  const suggestedObjectives = suggested.learning_objectives ?? [];
+
+  const existingTexts = new Set(
+    currentBlocks.map((b) => JSON.stringify(b.content))
+  );
+  const newBlocks = suggestedBlocks.filter(
+    (b) => !existingTexts.has(JSON.stringify(b.content))
+  );
+
+  return (
+    <div className="border border-green/40 rounded-lg p-3 bg-green-light/20">
+      <div className="flex items-center justify-between mb-2">
+        <span className="font-syne font-semibold text-sm text-ink">
+          AI Suggestion
+          {newBlocks.length > 0 && (
+            <span className="ml-2 text-xs font-normal text-green">
+              {newBlocks.length} new block{newBlocks.length !== 1 ? "s" : ""}
+            </span>
+          )}
+        </span>
+        <div className="flex gap-2">
+          <button onClick={onDiscard} className="text-xs text-ink-3 font-syne hover:text-ink">
+            Discard
+          </button>
+          <button onClick={onApplyAll} className="text-xs text-green font-syne font-semibold hover:underline">
+            Apply All
+          </button>
+        </div>
+      </div>
+
+      {suggestion.review_notes && (
+        <p className="font-serif text-xs text-ink-3 mb-3 italic border-b border-border pb-2">
+          {suggestion.review_notes}
+        </p>
+      )}
+
+      {suggestedTitle && (
+        <div className="mb-2 text-xs font-syne text-ink-3">
+          Title: <span className="text-ink font-semibold">{suggestedTitle}</span>
+        </div>
+      )}
+
+      {suggestedObjectives.length > 0 && (
+        <div className="mb-3">
+          <div className="font-syne text-xs font-semibold text-ink-3 mb-1">Learning objectives</div>
+          <ul className="space-y-0.5">
+            {suggestedObjectives.map((obj, i) => (
+              <li key={i} className="font-serif text-xs text-ink flex items-start gap-1">
+                <span className="text-green mt-0.5">•</span> {obj}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="space-y-2 max-h-72 overflow-y-auto">
+        {suggestedBlocks.map((block, i) => {
+          const isNew = !existingTexts.has(JSON.stringify(block.content));
+          return (
+            <div
+              key={i}
+              className={`rounded p-2 border ${isNew ? "border-green/40 bg-green-light/30" : "border-border bg-surface/60"}`}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-xs">{BLOCK_ICONS[block.type as BlockType] ?? "📄"}</span>
+                    <span className="font-syne text-xs font-semibold text-ink-3 uppercase">{block.type}</span>
+                    {isNew && <span className="text-xs text-green font-syne">New</span>}
+                  </div>
+                  <SuggestionBlockBody block={block} />
+                </div>
+                {isNew && (
+                  <button
+                    onClick={() => onApplyBlock(block)}
+                    className="text-xs text-green font-syne font-semibold hover:underline shrink-0"
+                  >
+                    + Add
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function SuggestionBlockBody({ block }: { block: Block }) {
+  if (block.type === "text") {
+    const c = block.content as TextContent;
+    return (
+      <div>
+        {c.heading && <div className="font-syne font-bold text-xs text-ink mb-0.5">{c.heading}</div>}
+        <p className="font-serif text-xs text-ink-3 line-clamp-3">{c.text}</p>
+      </div>
+    );
+  }
+  if (block.type === "quiz") {
+    const c = block.content as QuizContent;
+    return (
+      <div>
+        <p className="font-serif text-xs text-ink mb-1 line-clamp-2">{c.question}</p>
+        <div className="grid grid-cols-2 gap-1">
+          {Object.entries(c.options ?? {}).map(([k, v]) => (
+            <div key={k} className={`text-xs font-serif px-1.5 py-0.5 rounded ${k === c.correct ? "bg-green-light text-green" : "text-ink-3"}`}>
+              {k}: {v as string}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (block.type === "case") {
+    const c = block.content as CaseContent;
+    return (
+      <div>
+        <p className="font-serif text-xs text-ink line-clamp-2">{c.presentation}</p>
+        {c.teaching_points?.length > 0 && (
+          <p className="font-serif text-xs text-ink-3 mt-0.5">
+            {c.teaching_points.length} teaching point{c.teaching_points.length !== 1 ? "s" : ""}
+          </p>
+        )}
+      </div>
+    );
+  }
+  if (block.type === "image") {
+    const c = block.content as ImageContent;
+    return <p className="font-serif text-xs text-ink-3 truncate">{c.caption ?? c.url}</p>;
+  }
+  return null;
 }

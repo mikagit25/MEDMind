@@ -282,6 +282,12 @@ export const teacherApi = {
   lessonAnalytics: (lessonId: string) =>
     api.get(`/lessons/${lessonId}/analytics`).then(r => r.data),
 
+  // ── Export / Import ──
+  exportModule: (moduleId: string) =>
+    api.get(`/lessons/modules/${moduleId}/export`, { responseType: "blob" }).then(r => r.data),
+  importModule: (specialtyId: string, data: object) =>
+    api.post(`/lessons/modules/import?specialty_id=${specialtyId}`, data).then(r => r.data),
+
   // ── Version history ──
   listVersions: (lessonId: string) =>
     api.get(`/lessons/${lessonId}/versions`).then(r => r.data),
@@ -339,6 +345,12 @@ export const teacherApi = {
   // Leaderboard
   getCourseLeaderboard: (courseId: string) =>
     api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
+
+  // Grade tracking
+  getAssignmentGrades: (courseId: string, assignmentId: string) =>
+    api.get(`/courses/${courseId}/assignments/${assignmentId}/grades`).then(r => r.data),
+  upsertGrade: (courseId: string, assignmentId: string, data: { student_id: string; score: number; feedback?: string }) =>
+    api.post(`/courses/${courseId}/assignments/${assignmentId}/grades`, data).then(r => r.data),
 };
 
 // ============================================================

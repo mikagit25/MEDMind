@@ -680,3 +680,86 @@ async def get_course_leaderboard(
         "total_students": len(entries),
         "leaderboard": entries,
     }
+
+
+# ── Assignment grade tracking ───────────────────────────────────────────────
+
+class GradeIn(BaseModel):
+    student_id: UUID
+    score: float
+    feedback: Optional[str] = None
+
+
+@router.post("/{course_id}/assignments/{assignment_id}/grades", status_code=200)
+async def upsert_grade(
+    course_id: UUID,
+    assignment_id: UUID,
+    body: GradeIn,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Save or update a grade for a student on an assignment."""
+    _require_teacher(user)
+    # Verify assignment belongs to this course
+    res = await db.execute(
+        select(CourseAssignment).where(
+            CourseAssignment.id == assignment_id,
+            CourseAssignment.course_id == course_id,
+        )
+    )
+    if not res.scalar_one_or_none():
+        raise HTTPException(status_code=404, detail="Assignment not found")
+
+    from sqlalchemy import text
+    await db.execute(
+        text("""
+            INSERT INTO assignment_grades (assignment_id, student_id, score, feedback, graded_by, graded_at)
+            VALUES (:aid, :sid, :score, :feedback, :grader, NOW())
+            ON CONFLICT (assignment_id, student_id) DO UPDATE
+              SET score = EXCLUDED.score,
+                  feedback = EXCLUDED.feedback,
+                  graded_by = EXCLUDED.graded_by,
+                  graded_at = NOW()
+        """),
+        {
+            "aid": str(assignment_id),
+            "sid": str(body.student_id),
+            "score": body.score,
+            "feedback": body.feedback,
+            "grader": str(user.id),
+        },
+    )
+    await db.commit()
+    return {"status": "ok", "score": body.score}
+
+
+@router.get("/{course_id}/assignments/{assignment_id}/grades")
+async def get_grades(
+    course_id: UUID,
+    assignment_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get all grades for an assignment."""
+    _require_teacher(user)
+    from sqlalchemy import text
+    rows = await db.execute(
+        text("""
+            SELECT ag.student_id, ag.score, ag.feedback, ag.graded_at,
+                   u.first_name, u.last_name, u.email
+            FROM assignment_grades ag
+            JOIN users u ON u.id = ag.student_id
+            WHERE ag.assignment_id = :aid
+        """),
+        {"aid": str(assignment_id)},
+    )
+    grades = []
+    for r in rows:
+        grades.append({
+            "student_id": str(r.student_id),
+            "name": f"{r.first_name or ''} {r.last_name or ''}".strip() or r.email,
+            "score": float(r.score) if r.score is not None else None,
+            "feedback": r.feedback,
+            "graded_at": r.graded_at.isoformat() if r.graded_at else None,
+        })
+    return {"assignment_id": str(assignment_id), "grades": grades}

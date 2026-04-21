@@ -5,6 +5,15 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { teacherApi } from "@/lib/api";
 
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 type Module = {
   id: string;
   title: string;
@@ -38,6 +47,7 @@ export default function ModuleDetailPage() {
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
   const [publishing, setPublishing] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [error, setError] = useState("");
 
   async function load() {
@@ -58,6 +68,20 @@ export default function ModuleDetailPage() {
   }
 
   useEffect(() => { load(); }, [id]);
+
+  async function handleExport() {
+    if (!mod) return;
+    setExporting(true);
+    try {
+      const blob = await teacherApi.exportModule(mod.id);
+      const filename = `medmind_module_${mod.title.replace(/\s+/g, "_").toLowerCase()}.json`;
+      downloadBlob(blob, filename);
+    } catch {
+      setError("Export failed. Try again.");
+    } finally {
+      setExporting(false);
+    }
+  }
 
   async function handlePublish() {
     if (!mod) return;
@@ -110,18 +134,50 @@ export default function ModuleDetailPage() {
               {mod.level_label && <span className="font-serif text-ink-3 text-xs">{mod.level_label}</span>}
             </div>
           </div>
-          {!mod.is_published && (
+          <div className="flex gap-2 shrink-0">
             <button
-              onClick={handlePublish}
-              disabled={publishing || publishedCount === 0}
-              title={publishedCount === 0 ? "Publish at least one lesson first" : ""}
-              className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold shrink-0 disabled:opacity-40"
+              onClick={handleExport}
+              disabled={exporting}
+              className="text-sm border border-border text-ink-3 px-3 py-1.5 rounded-lg font-syne font-semibold hover:border-ink-3 transition-colors disabled:opacity-40"
             >
-              {publishing ? "Publishing..." : "Publish Module"}
+              {exporting ? "Exporting…" : "⬇ Export"}
             </button>
-          )}
+            <Link
+              href={`/teacher/analytics?module=${mod.id}`}
+              className="text-sm border border-border text-ink-3 px-3 py-1.5 rounded-lg font-syne font-semibold hover:border-ink-3 transition-colors"
+            >
+              📊 Analytics
+            </Link>
+            {!mod.is_published && (
+              <button
+                onClick={handlePublish}
+                disabled={publishing || publishedCount === 0}
+                title={publishedCount === 0 ? "Publish at least one lesson first" : ""}
+                className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold disabled:opacity-40"
+              >
+                {publishing ? "Publishing..." : "Publish Module"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Summary stats */}
+      {lessons.length > 0 && (
+        <div className="flex gap-6 mb-4 p-3 bg-bg-2 rounded-lg">
+          {[
+            { label: "Total lessons", value: lessons.length },
+            { label: "Published", value: publishedCount, color: publishedCount > 0 ? "text-green" : "text-ink" },
+            { label: "Drafts", value: lessons.filter(l => l.status === "draft").length },
+            { label: "Est. duration", value: `${lessons.reduce((s, l) => s + (l.estimated_minutes || 0), 0)} min` },
+          ].map(({ label, value, color }) => (
+            <div key={label}>
+              <div className={`font-syne font-bold text-sm ${color ?? "text-ink"}`}>{value}</div>
+              <div className="font-serif text-ink-3 text-xs">{label}</div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {error && (
         <div className="mb-4 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
