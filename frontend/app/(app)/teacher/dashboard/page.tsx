@@ -30,8 +30,12 @@ interface AtRiskEntry {
 
 interface StudentEntry {
   student_id: string;
-  name: string;
+  name?: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  email?: string;
   last_activity?: string | null;
+  modules_progress?: { last_activity: string | null }[];
   completion_percent?: number;
 }
 
@@ -72,8 +76,12 @@ export default function TeacherDashboardPage() {
               return {
                 courseId: c.id,
                 courseTitle: c.title,
-                atRisk: arData.status === "fulfilled" ? (arData.value?.data ?? arData.value ?? []) : [],
-                students: studData.status === "fulfilled" ? (studData.value?.data ?? studData.value ?? []) : [],
+                atRisk: arData.status === "fulfilled"
+                  ? (arData.value?.at_risk ?? arData.value?.data ?? arData.value ?? [])
+                  : [],
+                students: studData.status === "fulfilled"
+                  ? (studData.value?.data ?? studData.value ?? [])
+                  : [],
               };
             })
           );
@@ -90,12 +98,24 @@ export default function TeacherDashboardPage() {
             }
 
             for (const s of students as StudentEntry[]) {
-              if (s.last_activity) {
+              // Activity comes from most recent module progress entry
+              const lastActivity = s.last_activity
+                ?? s.modules_progress
+                    ?.map((mp) => mp.last_activity)
+                    .filter(Boolean)
+                    .sort()
+                    .pop()
+                ?? null;
+              if (lastActivity) {
+                const name = s.name
+                  ?? [s.first_name, s.last_name].filter(Boolean).join(" ")
+                  || s.email
+                  || "Student";
                 activities.push({
-                  studentName: s.name,
+                  studentName: name,
                   courseTitle,
                   courseId,
-                  lastActivity: new Date(s.last_activity),
+                  lastActivity: new Date(lastActivity),
                 });
               }
             }
