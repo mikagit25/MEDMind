@@ -249,6 +249,7 @@ async def professor_dashboard(
         .order_by(desc(Course.created_at))
     )).scalars().all()
 
+    from app.models.models import CourseModule as CM
     courses_out = []
     for course in courses:
         # Count enrolled students
@@ -259,17 +260,34 @@ async def professor_dashboard(
             )
         )).scalar() or 0
 
+        module_count_c = (await db.execute(
+            select(func.count(CM.id)).where(CM.course_id == course.id)
+        )).scalar() or 0
+
         courses_out.append({
             "id": str(course.id),
             "title": course.title,
             "invite_code": course.invite_code,
             "student_count": student_count,
+            "module_count": module_count_c,
+            "is_active": course.is_active,
             "starts_at": course.starts_at.isoformat() if course.starts_at else None,
             "ends_at": course.ends_at.isoformat() if course.ends_at else None,
         })
 
+    # Count total modules authored by this teacher
+    from app.models.models import Module as Mod
+    module_count = (await db.execute(
+        select(func.count(Mod.id)).where(Mod.author_id == user.id)
+    )).scalar() or 0
+
     return {
-        "stats": stats,
+        # Flattened stats for frontend compatibility
+        "xp": stats["xp"],
+        "level": stats["level"],
+        "streak_days": stats["streak_days"],
+        "total_achievements": stats["achievements_count"],
+        "total_modules": module_count,
         "courses": courses_out,
         "total_students": sum(c["student_count"] for c in courses_out),
     }
