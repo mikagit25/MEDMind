@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
 import { authApi, complianceApi } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 
 const SUBSCRIPTION_INFO: Record<string, { label: string; color: string; desc: string }> = {
   free: { label: "Free", color: "bg-surface-2 text-ink-3", desc: "Access to fundamental modules only" },
@@ -25,6 +26,7 @@ const ALL_SPECIES = [
 
 export default function SettingsPage() {
   const { user, updateUser, logout } = useAuthStore();
+  const { locale, setLocale } = useI18n();
   const [firstName, setFirstName] = useState(user?.first_name ?? "");
   const [lastName, setLastName] = useState(user?.last_name ?? "");
   const [vetMode, setVetMode] = useState<boolean>((user?.preferences?.vet_mode as boolean) ?? false);
@@ -109,6 +111,30 @@ export default function SettingsPage() {
             {saving ? "Saving…" : saved ? "✓ Saved" : "Save Changes"}
           </button>
         </form>
+      </section>
+
+      {/* Language */}
+      <section className="card p-6 mb-5">
+        <h2 className="font-syne font-bold text-base text-ink mb-1">🌐 Language / Язык / اللغة / Dil</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">Interface language</p>
+        <div className="flex flex-wrap gap-2">
+          {(["en", "ru", "ar", "tr"] as const).map((lang) => {
+            const labels: Record<string, string> = { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe" };
+            return (
+              <button
+                key={lang}
+                onClick={() => setLocale(lang)}
+                className={`px-4 py-1.5 rounded-full font-syne font-semibold text-sm border transition-colors ${
+                  locale === lang
+                    ? "bg-ink text-white border-ink"
+                    : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                }`}
+              >
+                {labels[lang]}
+              </button>
+            );
+          })}
+        </div>
       </section>
 
       {/* Veterinary mode */}
