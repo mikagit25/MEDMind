@@ -19,7 +19,7 @@ type LibraryImage = {
 type Modality = { modality: string; count: number };
 
 interface Props {
-  onSelect: (imageUrl: string, caption: string) => void;
+  onSelect: (imageUrl: string, caption: string, imageId?: string) => void;
   onClose: () => void;
 }
 
@@ -79,7 +79,7 @@ export function MediaPickerModal({ onSelect, onClose }: Props) {
     const caption = img.attribution
       ? `${img.title} — ${img.attribution}`
       : `${img.title} — ${img.source_name}`;
-    onSelect(img.image_url, caption);
+    onSelect(img.image_url, caption, img.id);
   }
 
   return (

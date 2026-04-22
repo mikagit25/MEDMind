@@ -23,25 +23,29 @@ PATCH  /imaging/{id}/annotations/{ann_id}   update annotation
 DELETE /imaging/{id}/annotations/{ann_id}   delete annotation
 """
 
+import base64
 import io
 import mimetypes
 import uuid as _uuid
 from typing import Any, Dict, List, Optional
 from uuid import UUID
 
+import anthropic
 import httpx
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Body, Depends, File, Form, HTTPException, Query, UploadFile
 from PIL import Image as PILImage
 from pydantic import BaseModel
 from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
+from app.core.config import settings
 from app.core.database import get_db
 from app.models.models import ImageAnnotation, MedicalImage, AnatomyViewer, User
 from app.services.storage_service import storage
 
 router = APIRouter(prefix="/imaging", tags=["imaging"])
+_claude = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY, timeout=45.0)
 
 OPENI_BASE = "https://openi.nlm.nih.gov/api/search"
 
@@ -570,3 +574,254 @@ async def list_viewers(
     q = q.order_by(AnatomyViewer.sort_order)
     result = await db.execute(q)
     return [ViewerOut.from_orm(v) for v in result.scalars().all()]
+
+
+# ── AI Image Analysis ──────────────────────────────────────────────────────
+
+# Modality-specific analysis prompts
+_MODALITY_PROMPTS: dict[str, str] = {
+    "xray": (
+        "You are a radiologist reviewing this chest/skeletal X-ray for medical education.\n"
+        "Provide: 1) Key findings (describe what you see — density, position, size, shape), "
+        "2) Interpretation (most likely diagnosis/diagnoses), "
+        "3) Differential diagnoses (3 alternatives with brief reasoning), "
+        "4) Clinical correlation (what history/symptoms would fit), "
+        "5) Teaching points (2–3 key learning messages for medical students).\n"
+        "Be precise, educational, and use proper radiological terminology."
+    ),
+    "ct": (
+        "You are a radiologist reviewing this CT scan for medical education.\n"
+        "Describe: 1) Imaging plane and contrast phase (if visible), "
+        "2) Key findings (attenuation, size, location, enhancement pattern), "
+        "3) Interpretation with confidence, "
+        "4) Differential diagnoses (3 options with reasoning), "
+        "5) Teaching points for medical students."
+    ),
+    "mri": (
+        "You are a radiologist reviewing this MRI for medical education.\n"
+        "Describe: 1) Sequence (T1/T2/FLAIR/DWI if identifiable), "
+        "2) Signal characteristics and key findings, "
+        "3) Most likely diagnosis, "
+        "4) Differential diagnoses, "
+        "5) Clinical significance and teaching points."
+    ),
+    "ultrasound": (
+        "You are a sonographer/radiologist reviewing this ultrasound image for medical education.\n"
+        "Describe: 1) Organ/region imaged, 2) Echogenicity and key findings, "
+        "3) Measurements if visible, 4) Interpretation, "
+        "5) Teaching points about ultrasound technique and diagnosis."
+    ),
+    "ecg": (
+        "You are a cardiologist reviewing this ECG/EKG for medical education.\n"
+        "Systematically analyse: 1) Rate and rhythm, 2) P waves, PR interval, "
+        "3) QRS morphology and duration, 4) ST changes, T waves, QTc, "
+        "5) Overall interpretation, 6) Clinical significance and treatment implications, "
+        "7) Key teaching points for students."
+    ),
+    "histology": (
+        "You are a pathologist reviewing this histology/microscopy slide for medical education.\n"
+        "Describe: 1) Stain type (H&E/PAS/Masson's if identifiable), "
+        "2) Tissue architecture and cell types, 3) Abnormal findings, "
+        "4) Diagnosis, 5) Teaching points about the pathological process."
+    ),
+}
+
+_DEFAULT_PROMPT = (
+    "You are a medical educator reviewing this medical image.\n"
+    "Provide: 1) Key findings and what is shown, "
+    "2) Interpretation/diagnosis if applicable, "
+    "3) Differential considerations, "
+    "4) Clinical correlation, "
+    "5) Teaching points for medical students.\n"
+    "Be educational, precise, and use appropriate medical terminology."
+)
+
+
+async def _fetch_image_as_base64(url: str) -> tuple[str, str]:
+    """
+    Fetch an image from a URL or local path and return (base64_data, media_type).
+    Handles both external URLs and local /media/ paths.
+    """
+    if url.startswith("/media/"):
+        # Local file — read from filesystem
+        import os
+        local_path = os.path.join(settings.MEDIA_ROOT, url.removeprefix("/media/").lstrip("/"))
+        if not os.path.exists(local_path):
+            raise HTTPException(404, "Image file not found locally")
+        with open(local_path, "rb") as f:
+            data = f.read()
+        mt, _ = mimetypes.guess_type(local_path)
+        return base64.standard_b64encode(data).decode(), mt or "image/jpeg"
+
+    # External URL
+    async with httpx.AsyncClient(timeout=15.0, follow_redirects=True) as client:
+        resp = await client.get(url)
+        if resp.status_code != 200:
+            raise HTTPException(502, f"Could not fetch image from URL (status {resp.status_code})")
+        mt = resp.headers.get("content-type", "image/jpeg").split(";")[0]
+        return base64.standard_b64encode(resp.content).decode(), mt
+
+
+@router.post("/analyze")
+async def analyze_image(
+    image_url: str = Body(..., embed=True),
+    modality: str = Body("", embed=True),
+    question: str = Body("", embed=True),
+    image_id: Optional[str] = Body(None, embed=True),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    AI-powered medical image analysis using Claude Vision.
+    Returns structured findings, interpretation, differential, and teaching points.
+    """
+    # If image_id provided, resolve URL from DB
+    if image_id and not image_url:
+        try:
+            uid = UUID(image_id)
+            res = await db.execute(select(MedicalImage).where(MedicalImage.id == uid))
+            img_row = res.scalar_one_or_none()
+            if img_row:
+                image_url = img_row.image_url
+                if not modality:
+                    modality = img_row.modality or ""
+        except Exception:
+            pass
+
+    if not image_url:
+        raise HTTPException(400, "image_url or image_id is required")
+
+    # Build system + user prompt
+    mod_key = modality.lower() if modality else ""
+    # Map common aliases
+    if mod_key in ("echocardiogram", "echo"):
+        mod_key = "ultrasound"
+    system_prompt = _MODALITY_PROMPTS.get(mod_key, _DEFAULT_PROMPT)
+
+    user_text = (
+        question.strip()
+        or f"Please analyse this {modality or 'medical'} image for educational purposes."
+    )
+
+    try:
+        img_b64, media_type = await _fetch_image_as_base64(image_url)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(502, f"Failed to retrieve image: {e}")
+
+    # Validate media type
+    if media_type not in ("image/jpeg", "image/png", "image/gif", "image/webp"):
+        media_type = "image/jpeg"  # safe fallback
+
+    try:
+        response = await _claude.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=900,
+            system=system_prompt,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": media_type,
+                                "data": img_b64,
+                            },
+                        },
+                        {"type": "text", "text": user_text},
+                    ],
+                }
+            ],
+        )
+        analysis_text = response.content[0].text if response.content else "No analysis generated."
+    except anthropic.BadRequestError as e:
+        raise HTTPException(422, f"Image could not be processed by AI: {e}")
+    except Exception as e:
+        raise HTTPException(502, f"AI analysis failed: {e}")
+
+    return {
+        "analysis": analysis_text,
+        "modality": modality or "general",
+        "image_url": image_url,
+        "model": "claude-sonnet-4-6",
+    }
+
+
+# ── Image Suggestion ───────────────────────────────────────────────────────
+
+@router.get("/suggest", response_model=List[ImageOut])
+async def suggest_images(
+    topic: str = Query(..., min_length=2),
+    modality: Optional[str] = Query(None),
+    limit: int = Query(4, le=10),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Suggest medical images relevant to a lesson topic.
+    Searches the local library first; falls back to NIH OpenI results.
+    """
+    term = f"%{topic.lower()}%"
+    q = (
+        select(MedicalImage)
+        .where(
+            MedicalImage.is_active == True,
+            or_(
+                func.lower(MedicalImage.title).like(term),
+                func.lower(MedicalImage.description).like(term),
+                func.lower(MedicalImage.anatomy_region).like(term),
+                func.lower(MedicalImage.specialty).like(term),
+            ),
+        )
+        .order_by(MedicalImage.view_count.desc())
+        .limit(limit)
+    )
+    if modality:
+        q = q.where(MedicalImage.modality == modality)
+
+    result = await db.execute(q)
+    images = result.scalars().all()
+
+    if images:
+        return [ImageOut.from_orm(img) for img in images]
+
+    # Fallback: proxy NIH OpenI
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                OPENI_BASE,
+                params={"query": topic, "m": 1, "n": limit, "it": "x,ct,mri,us"},
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                openi_images = data.get("list", [])
+                out = []
+                for img in openi_images[:limit]:
+                    img_url = img.get("largeImgUrl") or img.get("imgUrl") or ""
+                    if not img_url:
+                        continue
+                    out.append(ImageOut(
+                        id=img.get("uid", ""),
+                        title=img.get("title") or topic,
+                        description=img.get("abstract", "")[:300] if img.get("abstract") else None,
+                        modality=modality or "xray",
+                        anatomy_region=None,
+                        specialty=None,
+                        image_url=img_url,
+                        thumbnail_url=img.get("imgThumbUrl"),
+                        source_name="NIH OpenI",
+                        source_url=img.get("articleURL"),
+                        license="Public Domain",
+                        attribution="National Library of Medicine — OpenI",
+                        tags=[],
+                        is_active=True,
+                        view_count=0,
+                    ))
+                return out
+    except Exception:
+        pass
+
+    return []

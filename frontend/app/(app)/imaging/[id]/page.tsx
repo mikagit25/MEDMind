@@ -40,6 +40,28 @@ export default function ImageDetailPage() {
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [analysis, setAnalysis] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [question, setQuestion] = useState("");
+
+  const runAnalysis = async () => {
+    if (!img) return;
+    setAnalyzing(true);
+    setAnalysis(null);
+    try {
+      const res = await imagingApi.analyzeImage({
+        image_url: img.image_url,
+        modality: img.modality,
+        image_id: img.id,
+        question: question.trim() || undefined,
+      });
+      setAnalysis(res.analysis);
+    } catch {
+      setAnalysis("AI analysis could not be completed. The image may not be accessible or the AI service encountered an error.");
+    } finally {
+      setAnalyzing(false);
+    }
+  };
 
   useEffect(() => {
     imagingApi.get(id)
@@ -245,6 +267,63 @@ export default function ImageDetailPage() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* AI Analysis Panel */}
+        <div className="mt-6 card p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xl">🔬</span>
+            <h2 className="font-syne font-black text-base text-ink">AI Image Interpretation</h2>
+            <span className="font-syne text-xs text-ink-3 bg-blue-light text-blue px-2 py-0.5 rounded-full border border-blue/20">Claude Vision</span>
+          </div>
+          <p className="font-serif text-xs text-ink-3 mb-3">
+            Ask Claude to analyse this {MODALITY_LABELS[img.modality] ?? img.modality} image — findings, interpretation, differential diagnosis, and teaching points.
+          </p>
+
+          <div className="flex gap-2 mb-3">
+            <input
+              type="text"
+              value={question}
+              onChange={e => setQuestion(e.target.value)}
+              placeholder="Ask a specific question, or leave blank for full analysis…"
+              className="flex-1 border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+              onKeyDown={e => e.key === "Enter" && !analyzing && runAnalysis()}
+            />
+            <button
+              onClick={runAnalysis}
+              disabled={analyzing || imgError}
+              className="px-4 py-2 rounded-lg bg-blue text-white font-syne font-semibold text-sm hover:bg-blue/90 transition-colors disabled:opacity-50"
+            >
+              {analyzing ? "Analysing…" : "Analyse"}
+            </button>
+          </div>
+
+          {analyzing && (
+            <div className="p-4 rounded-xl bg-blue-light/30 border border-blue/20">
+              <div className="font-serif text-sm text-ink-3 animate-pulse">
+                Claude is analysing the image… This may take 10–20 seconds.
+              </div>
+            </div>
+          )}
+
+          {analysis && !analyzing && (
+            <div className="p-4 rounded-xl bg-blue-light/20 border border-blue/20">
+              <div className="font-syne font-bold text-xs text-blue uppercase tracking-wide mb-2">AI Analysis</div>
+              <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{analysis}</p>
+              <div className="mt-3 pt-3 border-t border-blue/10 flex items-start gap-2">
+                <span className="text-amber">⚠️</span>
+                <p className="font-serif text-xs text-ink-3">
+                  This is an AI-generated educational interpretation, not a clinical report. Always correlate with patient history and consult a qualified radiologist for diagnostic purposes.
+                </p>
+              </div>
+              <button
+                onClick={() => { setAnalysis(null); setQuestion(""); }}
+                className="mt-2 font-syne text-xs text-ink-3 hover:text-ink"
+              >
+                Clear analysis
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

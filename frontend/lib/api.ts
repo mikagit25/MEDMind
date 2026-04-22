@@ -231,6 +231,10 @@ export const imagingApi = {
     api.get("/imaging/openi", { params: { q, m, n } }).then(r => r.data),
   listViewers: (system?: string) =>
     api.get("/imaging/anatomy/viewers", { params: system ? { system } : undefined }).then(r => r.data),
+  analyzeImage: (data: { image_url: string; modality?: string; question?: string; image_id?: string }) =>
+    api.post("/imaging/analyze", data).then(r => r.data),
+  suggest: (topic: string, modality?: string, limit = 4) =>
+    api.get("/imaging/suggest", { params: { topic, modality, limit } }).then(r => r.data),
 };
 
 export const complianceApi = {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { contentApi, progressApi, notesApi } from "@/lib/api";
+import { contentApi, progressApi, notesApi, imagingApi } from "@/lib/api";
 
 type LessonContent = {
   intro?: string;
@@ -15,6 +15,88 @@ type Lesson = { id: string; title: string; content: LessonContent | string; less
 type Note = { id: string; content: string; lesson_id?: string; module_id?: string };
 
 type Block = { type: string; order: number; content: Record<string, unknown> };
+
+// ── Image Block with Lightbox + AI Analysis ────────────────────────────────
+function ImageBlockRenderer({
+  url, caption, modality, imageId,
+}: {
+  url: string; caption?: string; modality?: string; imageId?: string;
+}) {
+  const [lightbox, setLightbox] = useState(false);
+  const [analysis, setAnalysis] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [showAnalysis, setShowAnalysis] = useState(false);
+
+  const analyze = async () => {
+    if (analysis) { setShowAnalysis(true); return; }
+    setAnalyzing(true);
+    setShowAnalysis(true);
+    try {
+      const res = await imagingApi.analyzeImage({ image_url: url, modality, image_id: imageId });
+      setAnalysis(res.analysis);
+    } catch {
+      setAnalysis("AI analysis could not be completed. Please try again.");
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  return (
+    <>
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightbox(false)}
+        >
+          <button className="absolute top-4 right-4 text-white/60 hover:text-white font-syne text-sm px-3 py-1 rounded-full bg-white/10" onClick={() => setLightbox(false)}>
+            ✕ Close
+          </button>
+          <img src={url} alt={caption ?? "Medical image"} className="max-w-full max-h-[90vh] object-contain rounded-lg" onClick={e => e.stopPropagation()} />
+        </div>
+      )}
+      <figure className="my-3">
+        <div
+          className="relative group cursor-zoom-in rounded-xl overflow-hidden border border-border bg-surface"
+          onClick={() => setLightbox(true)}
+        >
+          <img
+            src={url}
+            alt={caption ?? "Medical image"}
+            className="w-full object-contain max-h-[420px] group-hover:opacity-95 transition-opacity"
+          />
+          <div className="absolute inset-0 flex items-end justify-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="bg-black/60 text-white font-syne text-[10px] px-2 py-0.5 rounded-full">Click to enlarge</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between mt-2 gap-3">
+          {caption && <figcaption className="font-serif text-xs text-ink-3 flex-1">{caption}</figcaption>}
+          <button
+            onClick={analyze}
+            className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue/30 bg-blue-light text-blue font-syne font-semibold text-xs hover:bg-blue/10 transition-colors"
+          >
+            🔬 AI Analysis
+          </button>
+        </div>
+        {showAnalysis && (
+          <div className="mt-3 rounded-xl border border-blue/20 bg-blue-light/20 p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="font-syne font-bold text-xs text-blue uppercase tracking-wide">AI Interpretation</span>
+              <button onClick={() => setShowAnalysis(false)} className="text-ink-3 text-xs hover:text-ink">✕</button>
+            </div>
+            {analyzing ? (
+              <div className="font-serif text-sm text-ink-3 animate-pulse">Analysing image with Claude Vision…</div>
+            ) : (
+              <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{analysis}</p>
+            )}
+            <p className="font-serif text-xs text-ink-3 mt-3 italic">
+              ⚠️ AI interpretation is for educational purposes only. Always verify with a qualified clinician.
+            </p>
+          </div>
+        )}
+      </figure>
+    </>
+  );
+}
 
 function QuizBlock({ block, idx }: { block: Block; idx: number }) {
   const c = block.content as { question: string; options: Record<string, string>; correct: string; explanation: string };
@@ -119,13 +201,17 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
             );
           }
           if (block.type === "image") {
-            const c = block.content as { url: string; caption?: string };
-            if (!c.url) return null;
+            const c = block.content as { url?: string; image_url?: string; caption?: string; modality?: string; image_id?: string };
+            const url = c.url || c.image_url || "";
+            if (!url) return null;
             return (
-              <figure key={i} className="my-2">
-                <img src={c.url} alt={c.caption ?? ""} className="rounded-lg max-w-full border border-border" />
-                {c.caption && <figcaption className="font-serif text-xs text-ink-3 mt-1.5 text-center">{c.caption}</figcaption>}
-              </figure>
+              <ImageBlockRenderer
+                key={i}
+                url={url}
+                caption={c.caption}
+                modality={c.modality}
+                imageId={c.image_id}
+              />
             );
           }
           return null;

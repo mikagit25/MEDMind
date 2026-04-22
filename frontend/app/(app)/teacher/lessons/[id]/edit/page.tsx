@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { teacherApi } from "@/lib/api";
+import { teacherApi, imagingApi } from "@/lib/api";
 import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -15,7 +15,7 @@ type BlockType = "text" | "quiz" | "case" | "image";
 interface TextContent { heading?: string; text: string }
 interface QuizContent { question: string; options: Record<string, string>; correct: string; explanation: string }
 interface CaseContent { presentation: string; questions: string[]; teaching_points: string[] }
-interface ImageContent { url: string; caption?: string; alt?: string }
+interface ImageContent { url: string; caption?: string; alt?: string; image_id?: string; modality?: string }
 
 type BlockContent = TextContent | QuizContent | CaseContent | ImageContent;
 
@@ -254,16 +254,20 @@ function ImageBlockEditor({
   block,
   onChange,
   onUpload,
+  lessonTitle,
 }: {
   block: Block;
   onChange: (b: Block) => void;
   onUpload: (lessonId: string, file: File) => Promise<string>;
   lessonId: string;
+  lessonTitle?: string;
 }) {
   const c = block.content as ImageContent;
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -280,12 +284,26 @@ function ImageBlockEditor({
     }
   }
 
+  async function loadSuggestions() {
+    if (!lessonTitle) return;
+    setLoadingSuggestions(true);
+    setSuggestions([]);
+    try {
+      const res = await imagingApi.suggest(lessonTitle, undefined, 6);
+      setSuggestions(res ?? []);
+    } catch {
+      setSuggestions([]);
+    } finally {
+      setLoadingSuggestions(false);
+    }
+  }
+
   return (
     <>
       {showPicker && (
         <MediaPickerModal
-          onSelect={(url, caption) => {
-            onChange({ ...block, content: { ...c, url, caption } });
+          onSelect={(url, caption, image_id) => {
+            onChange({ ...block, content: { ...c, url, caption, image_id } });
             setShowPicker(false);
           }}
           onClose={() => setShowPicker(false)}
@@ -296,7 +314,7 @@ function ImageBlockEditor({
           <div className="relative">
             <img src={c.url} alt={c.alt ?? "lesson image"} className="rounded-lg max-h-48 object-contain border border-border" />
             <button
-              onClick={() => onChange({ ...block, content: { ...c, url: "" } })}
+              onClick={() => onChange({ ...block, content: { ...c, url: "", image_id: undefined } })}
               className="absolute top-1 right-1 bg-ink/70 text-white text-xs px-2 py-0.5 rounded"
             >
               Remove
@@ -304,26 +322,74 @@ function ImageBlockEditor({
           </div>
         ) : (
           <div className="space-y-2">
-            {/* Browse library button */}
-            <button
-              onClick={() => setShowPicker(true)}
-              className="w-full flex items-center justify-center gap-2 h-20 border-2 border-dashed border-blue/40 rounded-lg hover:border-blue hover:bg-blue-light/30 transition-colors"
-            >
-              <span className="text-xl">🩻</span>
-              <div className="text-left">
-                <div className="font-syne font-semibold text-sm text-blue">Browse Medical Library</div>
-                <div className="font-serif text-xs text-ink-3">X-Ray, CT, MRI, Anatomy — open-access</div>
+            {/* Suggest + browse */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowPicker(true)}
+                className="flex-1 flex items-center justify-center gap-2 h-16 border-2 border-dashed border-blue/40 rounded-lg hover:border-blue hover:bg-blue-light/30 transition-colors"
+              >
+                <span className="text-lg">🩻</span>
+                <div className="text-left">
+                  <div className="font-syne font-semibold text-xs text-blue">Browse Library</div>
+                  <div className="font-serif text-[10px] text-ink-3">X-Ray, CT, MRI…</div>
+                </div>
+              </button>
+              {lessonTitle && (
+                <button
+                  onClick={loadSuggestions}
+                  disabled={loadingSuggestions}
+                  className="flex-1 flex items-center justify-center gap-2 h-16 border-2 border-dashed border-green/40 rounded-lg hover:border-green hover:bg-green-light/30 transition-colors disabled:opacity-50"
+                >
+                  <span className="text-lg">✨</span>
+                  <div className="text-left">
+                    <div className="font-syne font-semibold text-xs text-green">
+                      {loadingSuggestions ? "Searching…" : "Suggest Images"}
+                    </div>
+                    <div className="font-serif text-[10px] text-ink-3">Based on lesson topic</div>
+                  </div>
+                </button>
+              )}
+            </div>
+
+            {/* Suggestions grid */}
+            {suggestions.length > 0 && (
+              <div>
+                <div className="font-syne font-semibold text-xs text-ink-3 mb-1.5">Suggested for this lesson:</div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {suggestions.map((img: any) => (
+                    <button
+                      key={img.id}
+                      onClick={() => {
+                        const caption = img.attribution
+                          ? `${img.title} — ${img.attribution}`
+                          : `${img.title} — ${img.source_name}`;
+                        onChange({ ...block, content: { ...c, url: img.image_url, caption, image_id: img.id } });
+                        setSuggestions([]);
+                      }}
+                      className="rounded-lg overflow-hidden border border-border hover:border-green hover:shadow-sm transition-all text-left group"
+                      title={img.title}
+                    >
+                      <div className="aspect-[4/3] bg-surface overflow-hidden">
+                        <img src={img.thumbnail_url || img.image_url} alt={img.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                      <div className="px-1 py-0.5">
+                        <div className="font-syne text-[9px] font-semibold text-ink line-clamp-1">{img.title}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+                <button onClick={() => setSuggestions([])} className="text-xs text-ink-3 font-serif mt-1 hover:text-ink">Clear suggestions</button>
               </div>
-            </button>
+            )}
 
             <div className="flex items-center gap-2 text-ink-3">
               <div className="flex-1 h-px bg-border" />
-              <span className="font-serif text-xs">or</span>
+              <span className="font-serif text-xs">or upload / paste URL</span>
               <div className="flex-1 h-px bg-border" />
             </div>
 
-            <label className={`flex flex-col items-center justify-center h-20 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-ink-3 transition-colors ${uploading ? "opacity-50" : ""}`}>
-              <span className="text-xl mb-1">🖼️</span>
+            <label className={`flex flex-col items-center justify-center h-16 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-ink-3 transition-colors ${uploading ? "opacity-50" : ""}`}>
+              <span className="text-lg mb-0.5">🖼️</span>
               <span className="font-serif text-xs text-ink-3">{uploading ? "Uploading..." : "Upload your own image"}</span>
               <input type="file" accept="image/jpeg,image/png,image/svg+xml,image/webp" onChange={handleFile} disabled={uploading} className="hidden" />
             </label>
@@ -363,6 +429,7 @@ function BlockCard({
   onMove,
   onUpload,
   lessonId,
+  lessonTitle,
 }: {
   block: Block;
   index: number;
@@ -372,6 +439,7 @@ function BlockCard({
   onMove: (dir: -1 | 1) => void;
   onUpload: (lessonId: string, file: File) => Promise<string>;
   lessonId: string;
+  lessonTitle?: string;
 }) {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -419,6 +487,7 @@ function BlockCard({
               onChange={onChange}
               onUpload={onUpload}
               lessonId={lessonId}
+              lessonTitle={lessonTitle}
             />
           )}
         </div>
@@ -801,6 +870,7 @@ export default function LessonEditPage() {
             onMove={(dir) => moveBlock(i, dir)}
             onUpload={handleUpload}
             lessonId={lesson.id}
+            lessonTitle={title}
           />
         ))}
       </div>
