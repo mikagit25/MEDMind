@@ -262,25 +262,79 @@ async def start_virtual_patient(
     import secrets
     import json
 
+    # Species-specific physiology and role context
+    SPECIES_PHYSIOLOGY: dict[str, dict] = {
+        "canine": {
+            "normal_vitals": "HR 60-140 bpm, RR 10-30/min, temp 38.3-39.2°C, BP ~120/80 mmHg",
+            "key_diseases": "parvovirus, pyometra, Addison's, hypothyroidism, cruciate rupture, pancreatitis",
+            "narrator_role": "dog owner",
+            "narrator_intro": "I've brought my dog in today.",
+            "symptom_style": "describe symptoms as an owner: 'he's not eating', 'she's been vomiting', 'he's limping on the back leg'",
+            "breed_note": "Mention breed if relevant — e.g., Labradors prone to obesity/cruciate, Collies may have MDR1 mutation.",
+        },
+        "feline": {
+            "normal_vitals": "HR 140-220 bpm, RR 15-30/min, temp 38.1-39.2°C",
+            "key_diseases": "CKD, hyperthyroidism, FIP, HCM, feline asthma, FLUTD, diabetes",
+            "narrator_role": "cat owner",
+            "narrator_intro": "I've brought my cat in today.",
+            "symptom_style": "describe symptoms as an owner: 'she's drinking more water', 'he stopped grooming', 'she's hiding under the bed'",
+            "breed_note": "Persian/Ragdoll prone to PKD; Burmese to diabetes; all cats at risk from paracetamol/permethrin.",
+        },
+        "equine": {
+            "normal_vitals": "HR 28-44 bpm, RR 8-16/min, temp 37.5-38.5°C, gut sounds in all 4 quadrants",
+            "key_diseases": "colic (medical vs surgical), laminitis, strangles, equine influenza, PPID (Cushing's), gastric ulcers",
+            "narrator_role": "horse trainer or owner",
+            "narrator_intro": "I've called you out to see one of my horses.",
+            "symptom_style": "describe as a trainer: 'he's been pawing at the ground', 'she's off her feed', 'he's been rolling and won't get up', 'reduced gut sounds on the right'",
+            "breed_note": "Warmbloods prone to OCD; Arabians to HYPP; ponies to laminitis/metabolic disease.",
+        },
+        "bovine": {
+            "normal_vitals": "HR 40-80 bpm, RR 12-36/min, temp 38.5-39.5°C, rumen contractions 1-2/min",
+            "key_diseases": "milk fever (hypocalcaemia), ketosis, LDA, mastitis, BVD, respiratory disease, foot rot",
+            "narrator_role": "farmer",
+            "narrator_intro": "One of my cows is unwell.",
+            "symptom_style": "describe as a farmer: 'she went off her milk', 'she's down and can't get up', 'reduced rumen motility', 'the udder is hard and hot'",
+            "breed_note": "Dairy herds: watch for production diseases postpartum (milk fever, ketosis, LDA).",
+        },
+    }
+
+    physio = SPECIES_PHYSIOLOGY.get(data.species, {})
+
     # Build patient card prompt
     seed_line = f"Patient profile: {data.patient_seed}" if data.patient_seed else ""
-    species_note = "" if data.species == "human" else f"This is a {data.species} patient (veterinary case)."
+
+    if data.species == "human":
+        role_block = (
+            "You are playing the role of a human patient.\n"
+            "Use lay terms (not medical jargon). Respond as a real patient would.\n"
+        )
+        opening_cue = "Hello, I'm your doctor today. What brings you in?"
+    else:
+        role_block = (
+            f"You are playing the role of a {physio.get('narrator_role', 'animal owner')} "
+            f"presenting an animal to a veterinary student.\n"
+            f"{physio.get('narrator_intro', '')}\n"
+            f"Describe symptoms as an owner/farmer would: {physio.get('symptom_style', '')}\n"
+            f"Normal vitals for reference (know these but don't volunteer them): {physio.get('normal_vitals', '')}\n"
+            f"Relevant diseases for this species: {physio.get('key_diseases', '')}\n"
+            f"{physio.get('breed_note', '')}\n"
+        )
+        opening_cue = f"Hello, I'm the vet student on duty today. {physio.get('narrator_intro', 'What seems to be the problem?')}"
 
     system_prompt = (
-        f"You are playing the role of a medical patient in an educational simulation. {species_note}\n"
+        f"{role_block}\n"
         f"Specialty context: {data.specialty}. Difficulty: {data.difficulty}.\n"
         f"{seed_line}\n\n"
         "RULES:\n"
-        "1. Stay in character as the patient at all times.\n"
+        "1. Stay in character at all times.\n"
         "2. Only reveal information when the student asks the right questions.\n"
-        "3. Use lay terms (not medical jargon) — patients don't know medical terminology.\n"
-        "4. For beginner difficulty: give clear, direct answers.\n"
+        "3. Keep a hidden 'patient card': chief complaint, history, key findings, diagnosis.\n"
+        "4. Never reveal the diagnosis directly.\n"
+        "5. For beginner: give clear, direct answers.\n"
         "   For intermediate: occasionally mention irrelevant symptoms to test differential.\n"
-        "   For advanced: be vague, anxious, and omit key details unless specifically probed.\n"
-        "5. Keep a hidden 'patient card' in your mind with: chief complaint, history, key findings, diagnosis.\n"
-        "6. Never reveal the diagnosis directly.\n"
-        "7. If asked something the patient wouldn't know, say so naturally.\n\n"
-        "Start by greeting the student/doctor and stating your chief complaint in 1-2 sentences."
+        "   For advanced: be vague, omit key details unless specifically probed.\n"
+        "6. If asked something the owner/patient wouldn't know, say so naturally.\n\n"
+        "Start with your opening statement in 1-2 sentences."
     )
 
     try:
@@ -288,7 +342,7 @@ async def start_virtual_patient(
             model="claude-haiku-4-5-20251001",
             max_tokens=300,
             system=system_prompt,
-            messages=[{"role": "user", "content": "Hello, I'm your doctor today. What brings you in?"}],
+            messages=[{"role": "user", "content": opening_cue}],
         )
         opening = message.content[0].text
     except Exception as e:
@@ -302,7 +356,7 @@ async def start_virtual_patient(
         "difficulty": data.difficulty,
         "species": data.species,
         "history": [
-            {"role": "user", "content": "Hello, I'm your doctor today. What brings you in?"},
+            {"role": "user", "content": opening_cue},
             {"role": "assistant", "content": opening},
         ],
         "started_at": datetime.utcnow().isoformat(),

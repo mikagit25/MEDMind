@@ -308,6 +308,40 @@ async def route_ai_request(
     if pubmed_context:
         system_prompt += f"\n\nRecently retrieved PubMed articles for context:\n{pubmed_context}\nReference these where relevant."
 
+    # ── Veterinary mode context injection ────────────────────────────────────
+    prefs = user.preferences or {}
+    if prefs.get("vet_mode"):
+        vet_species_list: list[str] = prefs.get("vet_species", [])
+        species_str = ", ".join(vet_species_list) if vet_species_list else "all companion and large animal species"
+        system_prompt += (
+            f"\n\n🐾 VETERINARY MODE ACTIVE — This user is a veterinary student or practitioner. "
+            f"Preferred species: {species_str}.\n"
+            "Adjust your responses accordingly:\n"
+            "• Use veterinary terminology (owner/client instead of patient, animal names)\n"
+            "• Highlight species-specific drug metabolism differences (cats lack glucuronidation, "
+            "MDR1 mutation in Collies, allometric scaling in birds/horses)\n"
+            "• Warn explicitly when drugs are contraindicated/toxic for specific species "
+            "(paracetamol → cats, permethrin → cats, ivermectin → MDR1 dogs, NSAIDs → cats)\n"
+            "• Reference Plumb's Veterinary Drug Handbook and BSAVA formulary where relevant\n"
+            "• For drug dosing questions: always note that dosing differs from human medicine "
+            "and species-specific formulary must be consulted\n"
+        )
+        if vet_species_list:
+            # Add species-specific highlights for selected species
+            species_notes = {
+                "Cat": "Cats: glucuronidation deficiency → NSAIDs/paracetamol toxic; permethrin FATAL; q72h aspirin max.",
+                "Dog": "Dogs: check MDR1/ABCB1 mutation (Collies, Shelties, Aussies) before ivermectin/loperamide.",
+                "Horse": "Horses: oral amoxicillin <10% bioavailability — use IV/IM; normal HR 28-44 bpm.",
+                "Rabbit": "Rabbits: most antibiotics (penicillins, clindamycin) cause fatal enterotoxaemia — use enrofloxacin/TMP-SMX.",
+                "Bird": "Birds: allometric scaling — most drugs need q8-12h due to fast metabolism.",
+            }
+            selected_notes = [species_notes[s] for s in vet_species_list if s in species_notes]
+            if selected_notes:
+                system_prompt += "Key reminders for selected species:\n" + "\n".join(f"  - {n}" for n in selected_notes) + "\n"
+    elif species:
+        # Non-vet mode but message contains animal species reference
+        system_prompt += f"\n\nNote: This question involves {species} pharmacology. Include relevant species-specific considerations where applicable."
+
     messages = list(conversation_history) + [{"role": "user", "content": message}]
 
     reply = ""

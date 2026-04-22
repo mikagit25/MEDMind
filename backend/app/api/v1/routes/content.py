@@ -602,6 +602,27 @@ async def get_recommendations(
     if user.subscription_tier == "free":
         stmt = stmt.where(Module.is_fundamental == True)
 
+    # Vet mode: prefer vet modules by joining specialty
+    prefs = user.preferences or {}
+    if prefs.get("vet_mode"):
+        # Join specialty to filter/prioritise vet content
+        vet_stmt = (
+            select(Module)
+            .join(Specialty, Module.specialty_id == Specialty.id)
+            .where(
+                Module.is_published == True,
+                Specialty.is_veterinary == True,
+                Module.id.not_in(started_ids) if started_ids else True,
+            )
+            .order_by(Module.module_order)
+            .limit(limit)
+        )
+        vet_result = await db.execute(vet_stmt)
+        vet_modules = vet_result.scalars().all()
+        if vet_modules:
+            return {"modules": vet_modules, "total": len(vet_modules), "vet_filtered": True}
+        # Fallback to regular recommendations if no vet modules available
+
     result = await db.execute(stmt)
     modules = result.scalars().all()
     return {"modules": modules, "total": len(modules)}
