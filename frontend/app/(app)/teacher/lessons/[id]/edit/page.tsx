@@ -10,14 +10,15 @@ import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-type BlockType = "text" | "quiz" | "case" | "image";
+type BlockType = "text" | "quiz" | "case" | "image" | "anatomy_3d";
 
 interface TextContent { heading?: string; text: string }
 interface QuizContent { question: string; options: Record<string, string>; correct: string; explanation: string }
 interface CaseContent { presentation: string; questions: string[]; teaching_points: string[] }
 interface ImageContent { url: string; caption?: string; alt?: string; image_id?: string; modality?: string }
+interface Anatomy3DContent { viewer_id?: string; embed_url?: string; caption?: string; organ_system?: string }
 
-type BlockContent = TextContent | QuizContent | CaseContent | ImageContent;
+type BlockContent = TextContent | QuizContent | CaseContent | ImageContent | Anatomy3DContent;
 
 interface Block { type: BlockType; order: number; content: BlockContent }
 
@@ -47,6 +48,7 @@ const BLOCK_ICONS: Record<BlockType, string> = {
   quiz: "❓",
   case: "🩺",
   image: "🖼️",
+  anatomy_3d: "🧊",
 };
 
 const BLOCK_LABELS: Record<BlockType, string> = {
@@ -54,6 +56,7 @@ const BLOCK_LABELS: Record<BlockType, string> = {
   quiz: "Quiz",
   case: "Clinical Case",
   image: "Image",
+  anatomy_3d: "3D Anatomy",
 };
 
 const AI_TASKS = [
@@ -417,6 +420,159 @@ function ImageBlockEditor({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// 3D Anatomy block editor
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ORGAN_SYSTEMS = [
+  "cardiovascular", "nervous", "respiratory", "digestive",
+  "musculoskeletal", "urinary", "endocrine", "reproductive", "lymphatic",
+];
+
+function Anatomy3DBlockEditor({ block, onChange }: { block: Block; onChange: (b: Block) => void }) {
+  const c = block.content as Anatomy3DContent;
+  const [viewers, setViewers] = useState<any[]>([]);
+  const [loadingViewers, setLoadingViewers] = useState(false);
+  const [systemFilter, setSystemFilter] = useState(c.organ_system ?? "");
+
+  async function loadViewers(system?: string) {
+    setLoadingViewers(true);
+    try {
+      const data = await imagingApi.listViewers(system || undefined);
+      setViewers(data ?? []);
+    } catch {
+      setViewers([]);
+    } finally {
+      setLoadingViewers(false);
+    }
+  }
+
+  useEffect(() => { loadViewers(systemFilter); }, [systemFilter]);
+
+  function selectViewer(v: any) {
+    onChange({
+      ...block,
+      content: {
+        ...c,
+        viewer_id: v.id,
+        embed_url: v.embed_url || buildSketchfabEmbed(v.embed_type, v.embed_id),
+        caption: c.caption || v.title,
+        organ_system: v.organ_system,
+      },
+    });
+  }
+
+  function buildSketchfabEmbed(type: string, id: string): string {
+    if (type === "sketchfab") return `https://sketchfab.com/models/${id}/embed`;
+    if (type === "biodigital") return `https://human.biodigital.com/viewer/?id=${id}&ui-anatomy-descriptions=true`;
+    return id;
+  }
+
+  const embedUrl = c.embed_url || (c.viewer_id ? "" : "");
+
+  return (
+    <div className="space-y-3">
+      {/* Current embed preview */}
+      {embedUrl ? (
+        <div className="space-y-2">
+          <div className="rounded-xl overflow-hidden border border-border bg-surface" style={{ aspectRatio: "16/9" }}>
+            <iframe
+              src={embedUrl}
+              title={c.caption ?? "3D Anatomy Viewer"}
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              className="w-full h-full"
+              frameBorder="0"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <input
+              type="text"
+              value={c.caption ?? ""}
+              onChange={e => onChange({ ...block, content: { ...c, caption: e.target.value } })}
+              placeholder="Caption (optional)"
+              className="flex-1 border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3 mr-2"
+            />
+            <button
+              onClick={() => onChange({ ...block, content: { embed_url: "", viewer_id: undefined, caption: "", organ_system: "" } })}
+              className="font-syne text-xs text-red hover:text-red/70"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {/* Library picker */}
+          <div>
+            <div className="font-syne font-semibold text-xs text-ink-3 mb-1.5">Browse 3D Anatomy Library</div>
+            <div className="flex gap-1.5 overflow-x-auto pb-1 mb-2">
+              <button
+                onClick={() => setSystemFilter("")}
+                className={`shrink-0 px-2.5 py-0.5 rounded-full font-syne text-[10px] border transition-colors ${!systemFilter ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"}`}
+              >
+                All
+              </button>
+              {ORGAN_SYSTEMS.map(sys => (
+                <button
+                  key={sys}
+                  onClick={() => setSystemFilter(sys)}
+                  className={`shrink-0 px-2.5 py-0.5 rounded-full font-syne text-[10px] border capitalize transition-colors ${systemFilter === sys ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"}`}
+                >
+                  {sys}
+                </button>
+              ))}
+            </div>
+            {loadingViewers ? (
+              <div className="font-serif text-xs text-ink-3">Loading viewers…</div>
+            ) : viewers.length === 0 ? (
+              <div className="font-serif text-xs text-ink-3">No 3D viewers available{systemFilter ? ` for ${systemFilter}` : ""}.</div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-64 overflow-y-auto">
+                {viewers.map((v: any) => (
+                  <button
+                    key={v.id}
+                    onClick={() => selectViewer(v)}
+                    className="rounded-lg overflow-hidden border border-border hover:border-blue hover:shadow-sm transition-all text-left group"
+                    title={v.title}
+                  >
+                    {v.thumbnail_url ? (
+                      <div className="aspect-[4/3] bg-surface overflow-hidden">
+                        <img src={v.thumbnail_url} alt={v.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                    ) : (
+                      <div className="aspect-[4/3] bg-surface flex items-center justify-center text-3xl">🧊</div>
+                    )}
+                    <div className="p-1.5">
+                      <div className="font-syne text-[9px] font-semibold text-ink line-clamp-2">{v.title}</div>
+                      {v.organ_system && (
+                        <div className="font-serif text-[9px] text-ink-3 capitalize">{v.organ_system}</div>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Or paste embed URL directly */}
+          <div className="flex items-center gap-2 text-ink-3">
+            <div className="flex-1 h-px bg-border" />
+            <span className="font-serif text-xs">or paste embed URL</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+          <input
+            type="url"
+            value={c.embed_url ?? ""}
+            onChange={e => onChange({ ...block, content: { ...c, embed_url: e.target.value } })}
+            placeholder="https://sketchfab.com/models/.../embed"
+            className="w-full border border-border rounded px-2 py-1 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Single block card
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -490,6 +646,9 @@ function BlockCard({
               lessonTitle={lessonTitle}
             />
           )}
+          {block.type === "anatomy_3d" && (
+            <Anatomy3DBlockEditor block={block} onChange={onChange} />
+          )}
         </div>
       )}
     </div>
@@ -504,6 +663,7 @@ function emptyBlock(type: BlockType, order: number): Block {
   if (type === "text") return { type, order, content: { text: "" } };
   if (type === "quiz") return { type, order, content: { question: "", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } };
   if (type === "case") return { type, order, content: { presentation: "", questions: [""], teaching_points: [""] } };
+  if (type === "anatomy_3d") return { type, order, content: { embed_url: "", caption: "" } };
   return { type, order, content: { url: "", caption: "" } };
 }
 
@@ -880,7 +1040,7 @@ export default function LessonEditPage() {
         <div className="card p-3 mb-4">
           <p className="font-syne text-xs text-ink-3 mb-2">Add block</p>
           <div className="flex gap-2 flex-wrap">
-            {(["text", "quiz", "case", "image"] as BlockType[]).map((type) => (
+            {(["text", "quiz", "case", "image", "anatomy_3d"] as BlockType[]).map((type) => (
               <button
                 key={type}
                 onClick={() => addBlock(type)}

@@ -214,6 +214,31 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
               />
             );
           }
+          if (block.type === "anatomy_3d") {
+            const c = block.content as { embed_url?: string; caption?: string; organ_system?: string };
+            if (!c.embed_url) return null;
+            return (
+              <figure key={i} className="my-3">
+                <div className="rounded-xl overflow-hidden border border-border bg-surface" style={{ aspectRatio: "16/9" }}>
+                  <iframe
+                    src={c.embed_url}
+                    title={c.caption ?? "3D Anatomy Viewer"}
+                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                    className="w-full h-full"
+                    style={{ border: 0 }}
+                  />
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                  {c.organ_system && (
+                    <span className="font-syne text-[10px] px-2 py-0.5 rounded-full bg-surface border border-border text-ink-3 capitalize">{c.organ_system}</span>
+                  )}
+                  {c.caption && (
+                    <figcaption className="font-serif text-xs text-ink-3">{c.caption}</figcaption>
+                  )}
+                </div>
+              </figure>
+            );
+          }
           return null;
         })}
       </div>
