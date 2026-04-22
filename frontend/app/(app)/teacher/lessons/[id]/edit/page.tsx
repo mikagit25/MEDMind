@@ -10,15 +10,18 @@ import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-type BlockType = "text" | "quiz" | "case" | "image" | "anatomy_3d";
+type BlockType = "text" | "quiz" | "case" | "image" | "anatomy_3d" | "flashcard" | "dosage_table";
 
 interface TextContent { heading?: string; text: string }
 interface QuizContent { question: string; options: Record<string, string>; correct: string; explanation: string }
 interface CaseContent { presentation: string; questions: string[]; teaching_points: string[] }
 interface ImageContent { url: string; caption?: string; alt?: string; image_id?: string; modality?: string }
 interface Anatomy3DContent { viewer_id?: string; embed_url?: string; caption?: string; organ_system?: string }
+interface FlashcardContent { question: string; answer: string; difficulty: "easy" | "medium" | "hard" }
+interface DosageRow { species: string; dose: string; route: string; frequency?: string; warning?: string }
+interface DosageTableContent { drug_name: string; unit: string; rows: DosageRow[]; clinical_warning?: string }
 
-type BlockContent = TextContent | QuizContent | CaseContent | ImageContent | Anatomy3DContent;
+type BlockContent = TextContent | QuizContent | CaseContent | ImageContent | Anatomy3DContent | FlashcardContent | DosageTableContent;
 
 interface Block { type: BlockType; order: number; content: BlockContent }
 
@@ -49,6 +52,8 @@ const BLOCK_ICONS: Record<BlockType, string> = {
   case: "🩺",
   image: "🖼️",
   anatomy_3d: "🧊",
+  flashcard: "🃏",
+  dosage_table: "💊",
 };
 
 const BLOCK_LABELS: Record<BlockType, string> = {
@@ -57,6 +62,8 @@ const BLOCK_LABELS: Record<BlockType, string> = {
   case: "Clinical Case",
   image: "Image",
   anatomy_3d: "3D Anatomy",
+  flashcard: "Flashcard",
+  dosage_table: "Dosage Table",
 };
 
 const AI_TASKS = [
@@ -420,6 +427,194 @@ function ImageBlockEditor({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Flashcard block editor
+// ─────────────────────────────────────────────────────────────────────────────
+
+function FlashcardBlockEditor({ block, onChange }: { block: Block; onChange: (b: Block) => void }) {
+  const c = block.content as FlashcardContent;
+  return (
+    <div className="space-y-2">
+      <textarea
+        value={c.question}
+        onChange={e => onChange({ ...block, content: { ...c, question: e.target.value } })}
+        placeholder="Front of card — question or term *"
+        rows={2}
+        className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 resize-none"
+      />
+      <textarea
+        value={c.answer}
+        onChange={e => onChange({ ...block, content: { ...c, answer: e.target.value } })}
+        placeholder="Back of card — answer or definition *"
+        rows={3}
+        className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 resize-none"
+      />
+      <div className="flex items-center gap-2">
+        <span className="font-syne text-xs text-ink-3">Difficulty:</span>
+        {(["easy", "medium", "hard"] as const).map(d => (
+          <button
+            key={d}
+            onClick={() => onChange({ ...block, content: { ...c, difficulty: d } })}
+            className={`px-2.5 py-0.5 rounded-full font-syne text-xs border capitalize transition-colors ${
+              c.difficulty === d
+                ? d === "easy" ? "bg-green text-white border-green"
+                : d === "medium" ? "bg-amber text-white border-amber"
+                : "bg-red text-white border-red"
+                : "border-border text-ink-3 hover:border-ink-3"
+            }`}
+          >
+            {d}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dosage Table block editor
+// ─────────────────────────────────────────────────────────────────────────────
+
+const COMMON_SPECIES = ["Human", "Canine", "Feline", "Equine", "Bovine", "Porcine", "Avian"];
+const COMMON_ROUTES = ["PO", "IV", "IM", "SC", "IN", "TOP", "PR", "SL"];
+
+function DosageTableBlockEditor({ block, onChange }: { block: Block; onChange: (b: Block) => void }) {
+  const c = block.content as DosageTableContent;
+  const rows: DosageRow[] = c.rows ?? [];
+
+  function updateRow(idx: number, field: keyof DosageRow, value: string) {
+    const next = rows.map((r, i) => i === idx ? { ...r, [field]: value } : r);
+    onChange({ ...block, content: { ...c, rows: next } });
+  }
+  function addRow() {
+    onChange({ ...block, content: { ...c, rows: [...rows, { species: "", dose: "", route: "PO" }] } });
+  }
+  function removeRow(idx: number) {
+    onChange({ ...block, content: { ...c, rows: rows.filter((_, i) => i !== idx) } });
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={c.drug_name ?? ""}
+          onChange={e => onChange({ ...block, content: { ...c, drug_name: e.target.value } })}
+          placeholder="Drug name *"
+          className="flex-1 border border-border rounded px-2 py-1.5 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+        />
+        <input
+          type="text"
+          value={c.unit ?? "mg/kg"}
+          onChange={e => onChange({ ...block, content: { ...c, unit: e.target.value } })}
+          placeholder="Unit (e.g. mg/kg)"
+          className="w-28 border border-border rounded px-2 py-1.5 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
+        />
+      </div>
+
+      {/* Rows */}
+      <div className="rounded-xl border border-border overflow-hidden">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="bg-surface border-b border-border">
+              <th className="font-syne font-semibold text-ink-3 text-left px-2 py-1.5 w-[22%]">Species</th>
+              <th className="font-syne font-semibold text-ink-3 text-left px-2 py-1.5 w-[20%]">Dose</th>
+              <th className="font-syne font-semibold text-ink-3 text-left px-2 py-1.5 w-[16%]">Route</th>
+              <th className="font-syne font-semibold text-ink-3 text-left px-2 py-1.5 w-[22%]">Frequency</th>
+              <th className="font-syne font-semibold text-ink-3 text-left px-2 py-1.5">Warning</th>
+              <th className="w-6" />
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i} className="border-b border-border last:border-0">
+                <td className="px-1 py-1">
+                  <input
+                    list={`species-list-${block.order}`}
+                    value={row.species}
+                    onChange={e => updateRow(i, "species", e.target.value)}
+                    placeholder="Human"
+                    className="w-full border border-border rounded px-1.5 py-0.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    value={row.dose}
+                    onChange={e => updateRow(i, "dose", e.target.value)}
+                    placeholder="0.5–1"
+                    className="w-full border border-border rounded px-1.5 py-0.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    list={`route-list-${block.order}`}
+                    value={row.route}
+                    onChange={e => updateRow(i, "route", e.target.value)}
+                    placeholder="PO"
+                    className="w-full border border-border rounded px-1.5 py-0.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    value={row.frequency ?? ""}
+                    onChange={e => updateRow(i, "frequency", e.target.value)}
+                    placeholder="q12h"
+                    className="w-full border border-border rounded px-1.5 py-0.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </td>
+                <td className="px-1 py-1">
+                  <input
+                    value={row.warning ?? ""}
+                    onChange={e => updateRow(i, "warning", e.target.value)}
+                    placeholder="Nephrotoxic"
+                    className="w-full border border-border rounded px-1.5 py-0.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-ink-3"
+                  />
+                </td>
+                <td className="px-1 py-1 text-center">
+                  <button onClick={() => removeRow(i)} className="text-red hover:text-red/70 text-xs">✕</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {rows.length === 0 && (
+          <div className="text-center py-3 font-serif text-xs text-ink-3">No rows yet — add species below</div>
+        )}
+      </div>
+
+      <datalist id={`species-list-${block.order}`}>
+        {COMMON_SPECIES.map(s => <option key={s} value={s} />)}
+      </datalist>
+      <datalist id={`route-list-${block.order}`}>
+        {COMMON_ROUTES.map(r => <option key={r} value={r} />)}
+      </datalist>
+
+      <div className="flex gap-2">
+        <button onClick={addRow} className="font-syne text-xs text-blue hover:text-blue/80 border border-blue/30 rounded px-3 py-1">
+          + Add row
+        </button>
+        {COMMON_SPECIES.slice(0, 3).map(s => (
+          <button
+            key={s}
+            onClick={() => onChange({ ...block, content: { ...c, rows: [...rows, { species: s, dose: "", route: "PO" }] } })}
+            className="font-syne text-xs text-ink-3 hover:text-ink border border-border rounded px-2 py-1 capitalize"
+          >
+            + {s}
+          </button>
+        ))}
+      </div>
+
+      <input
+        type="text"
+        value={c.clinical_warning ?? ""}
+        onChange={e => onChange({ ...block, content: { ...c, clinical_warning: e.target.value } })}
+        placeholder="Clinical warning (optional, e.g. 'Do NOT use in cats — hepatotoxic')"
+        className="w-full border border-amber/40 rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none focus:border-amber"
+      />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 3D Anatomy block editor
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -649,6 +844,12 @@ function BlockCard({
           {block.type === "anatomy_3d" && (
             <Anatomy3DBlockEditor block={block} onChange={onChange} />
           )}
+          {block.type === "flashcard" && (
+            <FlashcardBlockEditor block={block} onChange={onChange} />
+          )}
+          {block.type === "dosage_table" && (
+            <DosageTableBlockEditor block={block} onChange={onChange} />
+          )}
         </div>
       )}
     </div>
@@ -664,6 +865,8 @@ function emptyBlock(type: BlockType, order: number): Block {
   if (type === "quiz") return { type, order, content: { question: "", options: { A: "", B: "", C: "", D: "" }, correct: "A", explanation: "" } };
   if (type === "case") return { type, order, content: { presentation: "", questions: [""], teaching_points: [""] } };
   if (type === "anatomy_3d") return { type, order, content: { embed_url: "", caption: "" } };
+  if (type === "flashcard") return { type, order, content: { question: "", answer: "", difficulty: "medium" as const } };
+  if (type === "dosage_table") return { type, order, content: { drug_name: "", unit: "mg/kg", rows: [] } };
   return { type, order, content: { url: "", caption: "" } };
 }
 
@@ -1040,7 +1243,7 @@ export default function LessonEditPage() {
         <div className="card p-3 mb-4">
           <p className="font-syne text-xs text-ink-3 mb-2">Add block</p>
           <div className="flex gap-2 flex-wrap">
-            {(["text", "quiz", "case", "image", "anatomy_3d"] as BlockType[]).map((type) => (
+            {(["text", "quiz", "case", "image", "anatomy_3d", "flashcard", "dosage_table"] as BlockType[]).map((type) => (
               <button
                 key={type}
                 onClick={() => addBlock(type)}

@@ -132,6 +132,42 @@ function QuizBlock({ block, idx }: { block: Block; idx: number }) {
   );
 }
 
+function FlashcardBlock({ block }: { block: Block }) {
+  const c = block.content as { question: string; answer: string; difficulty?: string };
+  const [flipped, setFlipped] = useState(false);
+  const diffColor = c.difficulty === "easy" ? "text-green border-green/30 bg-green-light"
+    : c.difficulty === "hard" ? "text-red border-red/30 bg-red-light"
+    : "text-amber border-amber/30 bg-amber-light";
+  return (
+    <div className="my-3">
+      <div
+        className="relative cursor-pointer rounded-xl border border-border overflow-hidden select-none"
+        style={{ minHeight: 120 }}
+        onClick={() => setFlipped(v => !v)}
+      >
+        <div className={`absolute inset-0 flex flex-col items-center justify-center p-5 transition-opacity duration-200 ${flipped ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+          <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-3">Question — tap to reveal</div>
+          <p className="font-serif text-sm text-ink text-center leading-relaxed">{c.question}</p>
+        </div>
+        <div className={`absolute inset-0 flex flex-col items-center justify-center p-5 bg-blue-light transition-opacity duration-200 ${flipped ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <div className="font-syne font-bold text-xs text-blue uppercase tracking-wider mb-3">Answer</div>
+          <p className="font-serif text-sm text-ink text-center leading-relaxed">{c.answer}</p>
+        </div>
+        {/* Spacer to set height */}
+        <div className="invisible p-5">
+          <p className="font-serif text-sm">{c.question.length > c.answer.length ? c.question : c.answer}</p>
+        </div>
+      </div>
+      <div className="flex items-center justify-between mt-1.5 px-1">
+        {c.difficulty && (
+          <span className={`font-syne text-[10px] px-2 py-0.5 rounded-full border capitalize ${diffColor}`}>{c.difficulty}</span>
+        )}
+        <button onClick={() => setFlipped(false)} className="font-syne text-[10px] text-ink-3 hover:text-ink ml-auto">Reset</button>
+      </div>
+    </div>
+  );
+}
+
 function LessonContentRenderer({ content }: { content: LessonContent | string }) {
   // Handle plain string (legacy or HTML fallback)
   if (typeof content === "string") {
@@ -237,6 +273,56 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
                   )}
                 </div>
               </figure>
+            );
+          }
+          if (block.type === "flashcard") {
+            return <FlashcardBlock key={i} block={block} />;
+          }
+          if (block.type === "dosage_table") {
+            const c = block.content as { drug_name?: string; unit?: string; rows?: { species: string; dose: string; route: string; frequency?: string; warning?: string }[]; clinical_warning?: string };
+            if (!c.rows?.length) return null;
+            return (
+              <div key={i} className="rounded-xl border border-border overflow-hidden my-3">
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-surface border-b border-border">
+                  <span className="text-base">💊</span>
+                  <span className="font-syne font-bold text-sm text-ink">{c.drug_name ?? "Dosage Table"}</span>
+                  {c.unit && <span className="font-serif text-xs text-ink-3">({c.unit})</span>}
+                </div>
+                {c.clinical_warning && (
+                  <div className="px-4 py-2 bg-amber-light/30 border-b border-amber/20 flex items-start gap-2">
+                    <span className="text-amber text-sm">⚠️</span>
+                    <p className="font-serif text-xs text-ink">{c.clinical_warning}</p>
+                  </div>
+                )}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-surface border-b border-border">
+                        <th className="font-syne font-semibold text-ink-3 text-left px-3 py-2">Species</th>
+                        <th className="font-syne font-semibold text-ink-3 text-left px-3 py-2">Dose</th>
+                        <th className="font-syne font-semibold text-ink-3 text-left px-3 py-2">Route</th>
+                        <th className="font-syne font-semibold text-ink-3 text-left px-3 py-2">Frequency</th>
+                        <th className="font-syne font-semibold text-ink-3 text-left px-3 py-2">Warning</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {c.rows.map((row, ri) => (
+                        <tr key={ri} className="border-b border-border last:border-0 hover:bg-surface/50 transition-colors">
+                          <td className="px-3 py-2 font-syne font-semibold text-ink capitalize">{row.species}</td>
+                          <td className="px-3 py-2 font-serif text-ink">{row.dose} {c.unit}</td>
+                          <td className="px-3 py-2 font-syne text-ink-3">{row.route}</td>
+                          <td className="px-3 py-2 font-serif text-ink-3">{row.frequency ?? "—"}</td>
+                          <td className="px-3 py-2">
+                            {row.warning
+                              ? <span className="font-serif text-red text-[11px]">⚠ {row.warning}</span>
+                              : <span className="text-ink-3">—</span>}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             );
           }
           return null;
