@@ -6,7 +6,7 @@ import { veterinaryApi, drugsApi, contentApi, authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
 
-type Tab = "overview" | "dosing" | "toxicity" | "zoonoses" | "modules";
+type Tab = "overview" | "dosing" | "toxicity" | "zoonoses" | "pearls" | "modules";
 
 // Static species for fallback + dose calculator mapping
 const SPECIES_LIST = [
@@ -29,6 +29,7 @@ export default function VeterinaryPage() {
     { key: "dosing",    label: "⚖️ Dose Calc" },
     { key: "toxicity",  label: "⚠️ Toxicity" },
     { key: "zoonoses",  label: "🦠 Zoonoses" },
+    { key: "pearls",    label: "💡 Clinical Pearls" },
     { key: "modules",   label: "📚 Modules" },
   ];
 
@@ -70,6 +71,7 @@ export default function VeterinaryPage() {
       {tab === "dosing"    && <DoseCalcTab />}
       {tab === "toxicity"  && <ToxicityTab />}
       {tab === "zoonoses"  && <ZoonosesTab />}
+      {tab === "pearls"    && <ClinicalPearlsTab />}
       {tab === "modules"   && <ModulesTab />}
     </div>
   );
@@ -473,6 +475,100 @@ function InfoBlock({ label, value }: { label: string; value?: string }) {
     <div>
       <div className="font-syne font-bold text-xs text-ink-3 uppercase mb-1">{label}</div>
       <div className="font-serif text-xs text-ink-2 leading-relaxed">{value ?? "—"}</div>
+    </div>
+  );
+}
+
+// ── Clinical Pearls ───────────────────────────────────────────────────────────
+
+function ClinicalPearlsTab() {
+  const [pearls, setPearls]   = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [species, setSpecies] = useState<string>("all");
+
+  useEffect(() => {
+    setLoading(true);
+    veterinaryApi.getClinicalPearls(species === "all" ? undefined : species)
+      .then((d: any) => setPearls(d.pearls ?? []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [species]);
+
+  const categoryColors: Record<string, string> = {
+    Pharmacology: "bg-blue-light border-blue/20",
+    Toxicology:   "bg-red-light border-red/20",
+    Clinical:     "bg-green-light border-green/20",
+  };
+  const categoryIcons: Record<string, string> = {
+    Pharmacology: "💊",
+    Toxicology:   "☠️",
+    Clinical:     "🩺",
+  };
+
+  const allSpecies = ["all", "Cat", "Dog", "Horse", "Rabbit", "Bird"];
+
+  const grouped = pearls.reduce<Record<string, any[]>>((acc, p) => {
+    const cat = p.category ?? "Other";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(p);
+    return acc;
+  }, {});
+
+  return (
+    <div className="space-y-4">
+      <p className="font-serif text-ink-2 text-sm">
+        Key clinical pearls for veterinary pharmacology, toxicology, and practice.
+      </p>
+
+      {/* Species filter */}
+      <div className="flex gap-2 flex-wrap">
+        {allSpecies.map((sp) => (
+          <button
+            key={sp}
+            onClick={() => setSpecies(sp)}
+            className={`px-3 py-1 rounded-full font-syne font-semibold text-xs border transition-colors ${
+              species === sp ? "bg-ink text-white border-ink" : "border-border text-ink-2 hover:border-ink-3"
+            }`}
+          >
+            {sp === "all" ? "All species" : sp}
+          </button>
+        ))}
+      </div>
+
+      {loading && <div className="text-center py-10 font-serif text-ink-3 text-sm">Loading pearls…</div>}
+
+      {!loading && pearls.length === 0 && (
+        <div className="card p-6 text-center font-serif text-ink-3 text-sm">No pearls found for this filter.</div>
+      )}
+
+      {!loading && Object.entries(grouped).map(([category, items]) => (
+        <div key={category}>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">{categoryIcons[category] ?? "📌"}</span>
+            <h2 className="font-syne font-bold text-sm text-ink uppercase">{category}</h2>
+            <span className="font-syne text-xs text-ink-3">({items.length})</span>
+          </div>
+          <div className="space-y-3">
+            {items.map((pearl: any, i: number) => (
+              <div key={i} className={`p-4 rounded-lg border ${categoryColors[category] ?? "bg-bg-2 border-border"}`}>
+                <div className="mb-2">
+                  <span className="font-syne font-bold text-xs px-2 py-0.5 rounded-full bg-white/60 border border-current">
+                    {pearl.species}
+                  </span>
+                </div>
+                <p className="font-serif text-sm leading-relaxed text-ink">{pearl.pearl}</p>
+                {pearl.source && (
+                  <p className="font-serif text-xs text-ink-3 mt-2 italic">Source: {pearl.source}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <p className="font-serif text-ink-3 text-xs text-center mt-2">
+        Educational reference only. Verify with current veterinary formulary before clinical use.
+      </p>
     </div>
   );
 }
