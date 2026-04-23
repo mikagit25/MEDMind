@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { contentApi, progressApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Specialty = { id: string; name: string; module_count: number };
 type Module = { id: string; title: string; code: string };
@@ -22,6 +23,7 @@ type CaseDetail = Case & {
 };
 
 function CasesInner() {
+  const t = useT();
   const searchParams = useSearchParams();
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
@@ -95,10 +97,8 @@ function CasesInner() {
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
-      <h1 className="font-syne font-black text-2xl text-ink mb-2">Clinical Cases</h1>
-      <p className="font-serif text-ink-3 text-sm mb-6">
-        Practice clinical reasoning with realistic patient scenarios
-      </p>
+      <h1 className="font-syne font-black text-2xl text-ink mb-2">{t("cases.title")}</h1>
+      <p className="font-serif text-ink-3 text-sm mb-6">{t("cases.subtitle")}</p>
 
       {/* Selectors */}
       <div className="flex gap-3 mb-6 flex-wrap">

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { contentApi, progressApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Card = {
   id: string;
@@ -24,6 +25,7 @@ const QUALITY_LABELS = [
 ];
 
 function FlashcardsInner() {
+  const t = useT();
   const searchParams = useSearchParams();
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [modules, setModules] = useState<any[]>([]);
@@ -119,7 +121,7 @@ function FlashcardsInner() {
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-surface flex-shrink-0">
         <h1 className="font-syne font-black text-lg text-ink mr-auto">
-          Flashcards{moduleTitle ? ` — ${moduleTitle}` : ""}
+          {t("flashcards.title")}{moduleTitle ? ` — ${moduleTitle}` : ""}
         </h1>
         {cards.length > 0 && phase === "review" && (
           <span className="font-syne text-xs text-ink-3">{index + 1} / {cards.length}</span>

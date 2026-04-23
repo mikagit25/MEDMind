@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, drugsApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type FilterType = "all" | "module" | "lesson" | "drug";
 
@@ -27,6 +28,7 @@ const TYPE_LABEL: Record<string, string> = {
 };
 
 function SearchInner() {
+  const t = useT();
   const searchParams = useSearchParams();
   const router = useRouter();
   const q = searchParams.get("q") ?? "";
@@ -117,7 +119,7 @@ function SearchInner() {
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search modules, lessons, drugs..."
+              placeholder={t("search.placeholder")}
               className="w-full bg-surface border border-border rounded-xl pl-11 pr-4 py-3 text-ink focus:outline-none focus:border-ink transition-colors font-serif text-base"
             />
             {query && (
@@ -213,20 +215,20 @@ function SearchInner() {
         {!loading && !searched && (
           <div className="text-center py-16 text-ink-3">
             <div className="text-5xl mb-4">🔍</div>
-            <div className="font-syne font-semibold text-base text-ink">Search across all content</div>
+            <div className="font-syne font-semibold text-base text-ink">{t("search.title")}</div>
             <div className="font-serif text-sm mt-2 text-ink-3">
-              Modules, lessons, drugs — all in one place
+              {t("search.placeholder")}
             </div>
             <div className="flex justify-center gap-3 mt-6">
               {[
-                { icon: "📚", label: "Modules", href: "/modules" },
-                { icon: "💊", label: "Drugs", href: "/drugs" },
-                { icon: "🩺", label: "Cases", href: "/cases" },
+                { icon: "📚", labelKey: "nav.items.modules", href: "/modules" },
+                { icon: "💊", labelKey: "nav.items.drugs", href: "/drugs" },
+                { icon: "🩺", labelKey: "cases.title", href: "/cases" },
               ].map((l) => (
                 <Link key={l.href} href={l.href}
                   className="flex items-center gap-2 bg-surface border border-border rounded-lg px-4 py-2 font-syne text-sm text-ink hover:border-ink-3 transition-colors">
                   <span>{l.icon}</span>
-                  {l.label}
+                  {t(l.labelKey as Parameters<typeof t>[0])}
                 </Link>
               ))}
             </div>

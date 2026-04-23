@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { progressApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Period = "week" | "month" | "all";
 
@@ -18,6 +19,7 @@ interface LeaderEntry {
 const LEVEL_NAMES = ["", "Novice", "Learner", "Resident", "Specialist", "Expert", "Master"];
 
 export default function LeaderboardPage() {
+  const t = useT();
   const [period, setPeriod] = useState<Period>("week");
   const [board, setBoard] = useState<LeaderEntry[]>([]);
   const [myRank, setMyRank] = useState<number | null>(null);
@@ -44,10 +46,10 @@ export default function LeaderboardPage() {
     <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Leaderboard</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("leaderboard.title")}</h1>
           {myRank && (
             <p className="font-serif text-ink-3 text-sm mt-0.5">
-              Your rank: <span className="font-syne font-bold text-ink">#{myRank}</span>
+              {t("leaderboard.your_rank")}: <span className="font-syne font-bold text-ink">#{myRank}</span>
             </p>
           )}
         </div>
@@ -60,19 +62,18 @@ export default function LeaderboardPage() {
                 period === p ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
               }`}
             >
-              {p === "week" ? "Week" : p === "month" ? "Month" : "All time"}
+              {p === "week" ? t("leaderboard.weekly") : p === "month" ? t("leaderboard.monthly") : t("leaderboard.all_time")}
             </button>
           ))}
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">{t("common.loading")}</div>
       ) : board.length === 0 ? (
         <div className="text-center py-16">
           <div className="text-4xl mb-3">🏆</div>
-          <p className="font-serif text-ink-3 text-sm">No data for this period yet.</p>
-          <p className="font-serif text-ink-3 text-xs mt-1">Complete lessons and quizzes to appear here!</p>
+          <p className="font-serif text-ink-3 text-sm">{t("leaderboard.no_data")}</p>
         </div>
       ) : (
         <>
@@ -106,7 +107,7 @@ export default function LeaderboardPage() {
           {/* My position if outside top list */}
           {myEntry && myRank && myRank > board.length && (
             <div className="mt-4 pt-4 border-t border-border">
-              <p className="font-serif text-ink-3 text-xs mb-2 text-center">Your position</p>
+              <p className="font-serif text-ink-3 text-xs mb-2 text-center">{t("leaderboard.your_rank")}</p>
               <LeaderRow entry={myEntry} />
             </div>
           )}

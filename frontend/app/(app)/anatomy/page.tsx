@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { imagingApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Viewer = {
   id: string;
@@ -137,6 +138,7 @@ function ViewerCard({
 }
 
 export default function AnatomyPage() {
+  const t = useT();
   const [viewers, setViewers] = useState<Viewer[]>([]);
   const [activeSystem, setActiveSystem] = useState<string>("");
   const [activeViewer, setActiveViewer] = useState<Viewer | null>(null);
@@ -168,12 +170,10 @@ export default function AnatomyPage() {
       {/* Header */}
       <div className="mb-5">
         <div className="flex items-center gap-3 mb-1">
-          <Link href="/imaging" className="text-ink-3 text-sm font-syne hover:text-ink">← Imaging Library</Link>
+          <Link href="/imaging" className="text-ink-3 text-sm font-syne hover:text-ink">← {t("imaging.title")}</Link>
         </div>
-        <h1 className="font-syne font-black text-2xl text-ink">3D Anatomy Atlas</h1>
-        <p className="font-serif text-ink-3 text-sm">
-          Interactive 3D models of human organ systems — rotate, zoom, explore
-        </p>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("anatomy.title")}</h1>
+        <p className="font-serif text-ink-3 text-sm">{t("anatomy.subtitle")}</p>
       </div>
 
       {/* System filter tabs */}

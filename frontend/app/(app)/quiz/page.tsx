@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { contentApi, progressApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Specialty = { id: string; name: string; module_count: number };
 type Module = { id: string; title: string; code: string; lesson_count?: number; mcq_count?: number };
@@ -15,6 +16,7 @@ type ModuleProgress = {
 };
 
 export default function QuizListPage() {
+  const t = useT();
   const router = useRouter();
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
@@ -56,8 +58,8 @@ export default function QuizListPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
-      <h1 className="font-syne font-black text-2xl text-ink mb-1">MCQ Quiz</h1>
-      <p className="font-serif text-ink-3 text-sm mb-6">Test your knowledge with multiple-choice questions</p>
+      <h1 className="font-syne font-black text-2xl text-ink mb-1">{t("quiz.title")}</h1>
+      <p className="font-serif text-ink-3 text-sm mb-6">{t("quiz.subtitle")}</p>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg w-fit">

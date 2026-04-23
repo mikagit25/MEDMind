@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { imagingApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Image = {
   id: string;
@@ -94,6 +95,7 @@ function ImageCard({ img }: { img: Image }) {
 }
 
 export default function ImagingPage() {
+  const t = useT();
   const [images, setImages] = useState<Image[]>([]);
   const [modalities, setModalities] = useState<Modality[]>([]);
   const [loading, setLoading] = useState(true);
@@ -231,7 +233,7 @@ export default function ImagingPage() {
         <div className="px-4 pt-4 pb-3 border-b border-border">
           <div className="flex items-center gap-3 mb-3">
             <div>
-              <h1 className="font-syne font-black text-xl text-ink">Medical Imaging Library</h1>
+              <h1 className="font-syne font-black text-xl text-ink">{t("imaging.title")}</h1>
               <p className="font-serif text-xs text-ink-3">X-Ray · CT · MRI · Ultrasound · Anatomy · Histology — open-access with attribution</p>
             </div>
             <Link href="/anatomy" className="ml-auto btn-ghost text-xs px-3 py-1.5 flex items-center gap-1.5 shrink-0">

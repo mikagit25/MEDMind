@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api, drugsApi, veterinaryApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Drug = {
   id: string;
@@ -21,12 +22,13 @@ type Drug = {
 type Tab = "search" | "interactions" | "dose" | "vet";
 
 export default function DrugsPage() {
+  const t = useT();
   const [tab, setTab] = useState<Tab>("search");
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
-      <h1 className="font-syne font-black text-2xl text-ink mb-1">Drug Database</h1>
-      <p className="font-serif text-ink-3 text-sm mb-5">Search medications, dosages, interactions, and pharmacology</p>
+      <h1 className="font-syne font-black text-2xl text-ink mb-1">{t("drugs.title")}</h1>
+      <p className="font-serif text-ink-3 text-sm mb-5">{t("drugs.subtitle")}</p>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg w-fit flex-wrap">

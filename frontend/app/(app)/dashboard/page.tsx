@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { contentApi, progressApi, adaptivePlanApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
 
@@ -18,6 +19,7 @@ function xpToNextLevel(xp: number, level: number) {
 
 // ── PDF download button ──
 function DownloadPDFButton() {
+  const t = useT();
   const [loading, setLoading] = useState(false);
 
   async function handleDownload() {
@@ -43,7 +45,7 @@ function DownloadPDFButton() {
       disabled={loading}
       className="mt-3 w-full py-2 px-3 rounded bg-green text-white font-syne font-semibold text-xs hover:bg-green/90 transition-colors disabled:opacity-60"
     >
-      {loading ? "Generating…" : "⬇ Download CPD/CME Report (PDF)"}
+      {loading ? t("dashboard.generating") : t("dashboard.download_cme")}
     </button>
   );
 }
@@ -60,34 +62,35 @@ function StatCard({ value, label }: { value: string | number; label: string }) {
 
 // ── Role-specific panel: Doctor ──
 function DoctorPanel({ stats }: { stats: any }) {
+  const t = useT();
   const cmeCredits = stats?.cme_credits ?? 0;
   const casesCompleted = stats?.cases_completed ?? 0;
   const mcqAccuracy = stats?.mcq_accuracy ?? 0;
   return (
     <div className="mb-6">
-      <h2 className="font-syne font-bold text-base text-ink mb-3">Clinical Dashboard</h2>
+      <h2 className="font-syne font-bold text-base text-ink mb-3">{t("dashboard.clinical_dashboard")}</h2>
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <StatCard value={`${cmeCredits}`} label="CME Credits" />
-        <StatCard value={casesCompleted} label="Cases solved" />
-        <StatCard value={`${Math.round(mcqAccuracy * 100)}%`} label="MCQ accuracy" />
+        <StatCard value={`${cmeCredits}`} label={t("dashboard.stat_cme")} />
+        <StatCard value={casesCompleted} label={t("dashboard.stat_cases")} />
+        <StatCard value={`${Math.round(mcqAccuracy * 100)}%`} label={t("dashboard.stat_accuracy")} />
       </div>
       <div className="card p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-syne font-semibold text-sm text-ink">Continue Practice</h3>
-          <Link href="/cases" className="text-xs text-ink-3 hover:text-ink font-syne">View all →</Link>
+          <h3 className="font-syne font-semibold text-sm text-ink">{t("dashboard.continue_practice")}</h3>
+          <Link href="/cases" className="text-xs text-ink-3 hover:text-ink font-syne">{t("common.view_all")} →</Link>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <Link href="/cases" className="flex items-center gap-2 p-3 rounded bg-amber-light border border-amber/20 hover:border-amber/40 transition-colors">
             <span className="text-xl">🩺</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-amber">Clinical Cases</div>
+              <div className="font-syne font-semibold text-xs text-amber">{t("dashboard.clinical_cases")}</div>
               <div className="font-serif text-xs text-ink-3">Evidence-based</div>
             </div>
           </Link>
           <Link href="/drugs" className="flex items-center gap-2 p-3 rounded bg-blue-light border border-blue/20 hover:border-blue/40 transition-colors">
             <span className="text-xl">💊</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-blue">Drug Reference</div>
+              <div className="font-syne font-semibold text-xs text-blue">{t("nav.items.drugs")}</div>
               <div className="font-serif text-xs text-ink-3">Interactions & dosing</div>
             </div>
           </Link>
@@ -344,6 +347,7 @@ function TodaysPlan() {
 
 // ── Main dashboard ──
 export default function DashboardPage() {
+  const t = useT();
   const { user } = useAuthStore();
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
@@ -370,10 +374,14 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="font-syne font-black text-2xl text-ink">
-          Good day, {user?.first_name} 👋
+          {new Date().getHours() < 12
+            ? t("dashboard.greeting_morning")
+            : new Date().getHours() < 18
+            ? t("dashboard.greeting_afternoon")
+            : t("dashboard.greeting_evening")}, {user?.first_name} 👋
         </h1>
         <p className="font-serif text-ink-3 text-sm mt-0.5">
-          {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+          {t("dashboard.subtitle")}
         </p>
       </div>
 
@@ -381,12 +389,12 @@ export default function DashboardPage() {
       <div className="card px-5 py-4 mb-6">
         <div className="flex items-center justify-between mb-2">
           <div>
-            <span className="font-syne font-bold text-sm text-ink">Level {level}</span>
+            <span className="font-syne font-bold text-sm text-ink">{t("common.level")} {level}</span>
             <span className="text-ink-3 font-serif text-xs ml-2">
-              {xpInfo.current} / {xpInfo.needed} XP to next level
+              {xpInfo.current} / {xpInfo.needed} {t("dashboard.to_next_level")} {level + 1}
             </span>
           </div>
-          <span className="font-syne font-black text-lg text-ink">{xp} XP</span>
+          <span className="font-syne font-black text-lg text-ink">{xp} {t("common.xp")}</span>
         </div>
         <div className="h-2 bg-bg-2 rounded-full overflow-hidden">
           <div
@@ -399,10 +407,10 @@ export default function DashboardPage() {
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { href: "/ai-tutor", icon: "🤖", label: "AI Tutor", color: "bg-blue-light border-blue/20 text-blue" },
-          { href: "/flashcards", icon: "🃏", label: "Flashcards", color: "bg-green-light border-green/20 text-green" },
-          { href: "/quiz", icon: "📝", label: "Quiz", color: "bg-amber-light border-amber/20 text-amber" },
-          { href: "/modules", icon: "📚", label: "Modules", color: "bg-red-light border-red/20 text-red" },
+          { href: "/ai-tutor", icon: "🤖", labelKey: "nav.items.ai_tutor", color: "bg-blue-light border-blue/20 text-blue" },
+          { href: "/flashcards", icon: "🃏", labelKey: "nav.items.flashcards", color: "bg-green-light border-green/20 text-green" },
+          { href: "/quiz", icon: "📝", labelKey: "nav.items.quiz", color: "bg-amber-light border-amber/20 text-amber" },
+          { href: "/modules", icon: "📚", labelKey: "nav.items.modules", color: "bg-red-light border-red/20 text-red" },
         ].map((item) => (
           <Link
             key={item.href}
@@ -410,7 +418,7 @@ export default function DashboardPage() {
             className={`flex flex-col items-center gap-2 p-4 rounded-lg border ${item.color} hover:shadow-sm transition-shadow`}
           >
             <span className="text-2xl">{item.icon}</span>
-            <span className="font-syne font-bold text-sm">{item.label}</span>
+            <span className="font-syne font-bold text-sm">{t(item.labelKey as Parameters<typeof t>[0])}</span>
           </Link>
         ))}
       </div>
@@ -425,9 +433,9 @@ export default function DashboardPage() {
         <>
           {stats && (
             <div className="grid grid-cols-3 gap-3 mb-4">
-              <StatCard value={stats.lessons_completed ?? 0} label="Lessons done" />
-              <StatCard value={stats.cards_reviewed ?? 0} label="Cards reviewed" />
-              <StatCard value={stats.mcqs_answered ?? 0} label="MCQs answered" />
+              <StatCard value={stats.lessons_completed ?? 0} label={t("progress.lessons_completed")} />
+              <StatCard value={stats.cards_reviewed ?? 0} label={t("flashcards.my_cards")} />
+              <StatCard value={stats.mcqs_answered ?? 0} label={t("quiz.title")} />
             </div>
           )}
           <StreakCalendar streakDays={stats?.streak_days ?? 0} />
@@ -438,9 +446,9 @@ export default function DashboardPage() {
       {/* Specialties */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-syne font-bold text-base text-ink">Specialties</h2>
+          <h2 className="font-syne font-bold text-base text-ink">{t("modules.filter_specialty")}</h2>
           <Link href="/modules" className="text-ink-3 font-syne text-xs hover:text-ink transition-colors">
-            View all →
+            {t("common.view_all")} →
           </Link>
         </div>
         {loading ? (
@@ -451,7 +459,7 @@ export default function DashboardPage() {
           </div>
         ) : specialties.length === 0 ? (
           <div className="card text-center py-8">
-            <p className="font-serif text-ink-3 text-sm">No specialties yet — import modules to get started.</p>
+            <p className="font-serif text-ink-3 text-sm">{t("modules.no_modules")}</p>
           </div>
         ) : (
           <div className="space-y-2">

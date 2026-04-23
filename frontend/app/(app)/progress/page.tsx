@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { progressApi, achievementsApi, memoryApi, studentCoursesApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useT } from "@/lib/i18n";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
 
@@ -34,6 +35,7 @@ function LevelBar({ xp, level }: { xp: number; level: number }) {
 }
 
 export default function ProgressPage() {
+  const t = useT();
   const { user } = useAuthStore();
   const [stats, setStats] = useState<any>(null);
   const [history, setHistory] = useState<any[]>([]);
@@ -96,14 +98,14 @@ export default function ProgressPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <div className="font-serif text-ink-3 text-sm animate-pulse">Loading…</div>
+        <div className="font-serif text-ink-3 text-sm animate-pulse">{t("common.loading")}</div>
       </div>
     );
   }
 
   return (
     <div className="flex-1 overflow-y-auto p-6">
-      <h1 className="font-syne font-black text-2xl text-ink mb-6">My Progress</h1>
+      <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("progress.title")}</h1>
 
       {/* XP Level bar */}
       <div className="mb-6">
@@ -113,14 +115,14 @@ export default function ProgressPage() {
       {/* Stats grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
         {[
-          { label: "Lessons completed", value: stats?.lessons_completed ?? 0, icon: "📖" },
-          { label: "Cards reviewed", value: stats?.cards_reviewed ?? 0, icon: "🃏" },
-          { label: "MCQs answered", value: stats?.mcqs_answered ?? 0, icon: "❓" },
-          { label: "Day streak", value: `${stats?.streak_days ?? 0} 🔥`, icon: "📅" },
-          { label: "Correct rate", value: `${stats?.correct_rate ?? 0}%`, icon: "✅" },
-          { label: "Modules started", value: stats?.modules_started ?? 0, icon: "📚" },
-          { label: "Modules done", value: stats?.modules_completed ?? 0, icon: "🏆" },
-          { label: "Total sessions", value: stats?.total_sessions ?? 0, icon: "⏱" },
+          { label: t("progress.lessons_completed"), value: stats?.lessons_completed ?? 0, icon: "📖" },
+          { label: t("flashcards.title"), value: stats?.cards_reviewed ?? 0, icon: "🃏" },
+          { label: t("quiz.title"), value: stats?.mcqs_answered ?? 0, icon: "❓" },
+          { label: t("progress.streak"), value: `${stats?.streak_days ?? 0} 🔥`, icon: "📅" },
+          { label: t("progress.accuracy"), value: `${stats?.correct_rate ?? 0}%`, icon: "✅" },
+          { label: t("progress.modules_completed"), value: stats?.modules_started ?? 0, icon: "📚" },
+          { label: t("progress.modules_completed"), value: stats?.modules_completed ?? 0, icon: "🏆" },
+          { label: t("progress.total_time"), value: stats?.total_sessions ?? 0, icon: "⏱" },
         ].map((s) => (
           <div key={s.label} className="card text-center py-4">
             <div className="text-2xl mb-1">{s.icon}</div>
@@ -133,7 +135,7 @@ export default function ProgressPage() {
       {/* Modules in progress */}
       {modulesProgress.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-syne font-bold text-base text-ink mb-3">📚 My Modules</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-3">📚 {t("nav.items.modules")}</h2>
           <div className="space-y-2">
             {modulesProgress.slice(0, 8).map((m: any) => {
               const pct = Math.round(m.completion_percent);
@@ -249,7 +251,7 @@ export default function ProgressPage() {
       {/* Achievements */}
       {achievements.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-syne font-bold text-base text-ink mb-3">🏆 Achievements</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-3">🏆 {t("achievements.title")}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
             {achievements.map((a: any) => (
               <div
@@ -357,7 +359,7 @@ export default function ProgressPage() {
       {/* Recent activity — day-by-day summary */}
       {history.filter((d: any) => (d.lessons > 0 || d.cards > 0)).length > 0 && (
         <div>
-          <h2 className="font-syne font-bold text-base text-ink mb-3">Recent Activity</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-3">{t("dashboard.recent_activity")}</h2>
           <div className="space-y-2">
             {history
               .filter((d: any) => d.lessons > 0 || d.cards > 0)
@@ -384,9 +386,7 @@ export default function ProgressPage() {
       {history.filter((d: any) => d.lessons > 0 || d.cards > 0).length === 0 && (
         <div className="text-center py-12">
           <div className="text-4xl mb-3">📊</div>
-          <p className="font-serif text-ink-3 text-sm">
-            No activity yet. Complete lessons and review flashcards to see your progress here.
-          </p>
+          <p className="font-serif text-ink-3 text-sm">{t("progress.no_data")}</p>
         </div>
       )}
     </div>

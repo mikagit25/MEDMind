@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { aiApi, contentApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
+import { useT } from "@/lib/i18n";
 
 const MODES = [
   { value: "tutor", label: "🎓 Tutor", desc: "Explain & teach" },
@@ -19,6 +20,7 @@ type Message = {
   feedback?: 1 | -1 | null;};
 
 export default function AiTutorPage() {
+  const t = useT();
   const { user } = useAuthStore();
   const [mode, setMode] = useState("tutor");
   const [specialty, setSpecialty] = useState("");
@@ -185,7 +187,7 @@ export default function AiTutorPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-surface flex-shrink-0">
-          <h1 className="font-syne font-black text-lg text-ink mr-auto">AI Tutor</h1>
+          <h1 className="font-syne font-black text-lg text-ink mr-auto">{t("nav.items.ai_tutor")}</h1>
 
           {/* Specialty */}
           <select
