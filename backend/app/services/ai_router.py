@@ -7,7 +7,8 @@ Routing strategy (per TZ):
 
 Ollama setup (recommended — truly free, local, no API key):
   brew install ollama
-  ollama pull qwen2.5        # 7B, excellent quality
+  ollama pull qwen3:8b       # 8B, hybrid thinking, best quality (needs ~6GB RAM)
+  ollama pull qwen3:4b       # 4B, fast on CPU/low-RAM machines
   ollama pull llama3.2       # 3B, fast on CPU
   ollama pull deepseek-r1    # reasoning model
   ollama serve               # starts on http://localhost:11434
@@ -490,7 +491,7 @@ async def route_ai_stream(
                 "text": (
                     "\u26a0\ufe0f No AI service is available right now.\n\n"
                     "**To enable free AI:** Run Ollama locally:\n"
-                    "```\nbrew install ollama && ollama pull qwen2.5 && ollama serve\n```\n\n"
+                    "```\nbrew install ollama && ollama pull qwen3:8b && ollama serve\n```\n\n"
                     "Or explore our evidence-based modules and flashcards."
                 ),
             }
