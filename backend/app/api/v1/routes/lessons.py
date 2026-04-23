@@ -292,6 +292,25 @@ class LessonOut(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class LessonTranslationOut(BaseModel):
+    lesson_id: UUID
+    locale: str
+    title: str
+    content_json: dict
+    status: str
+    reviewed: bool
+    translated_at: Optional[datetime]
+    error_message: Optional[str]
+
+    model_config = {"from_attributes": True}
+
+
+class TranslationStatusOut(BaseModel):
+    """Summary of all translations for a lesson."""
+    lesson_id: UUID
+    translations: list[dict]  # [{locale, status, reviewed, translated_at}]
+
+
 class AIImproveRequest(BaseModel):
     task: Literal[
         "improve_clarity",
@@ -419,6 +438,11 @@ async def publish_module(
     await audit(db, "module_published", user_id=user.id, resource_id=mod.id)
     await invalidate(f"specialty_modules:{mod.specialty_id}*")
     await invalidate("specialties*")
+
+    # Trigger background translation of module metadata
+    from app.services.translation_service import schedule_module_translations
+    await schedule_module_translations(mod.id, db)
+
     return mod
 
 
@@ -503,19 +527,31 @@ async def list_lessons(
 @router.get("/{lesson_id}", response_model=LessonOut)
 async def get_lesson(
     lesson_id: UUID,
+    locale: Optional[str] = Query(None, description="Return translated content (e.g. 'ru', 'de')"),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Get lesson detail. Drafts visible only to author/admin."""
+    """Get lesson detail. Drafts visible only to author/admin.
+    Pass ?locale=ru to get translated title and content blocks.
+    Falls back to English if translation is not ready.
+    """
+    from app.models.models import LessonTranslation
     lesson = await _get_lesson_or_404(lesson_id, db)
 
     if lesson.status != "published":
-        # Only author or admin can see non-published lessons
         is_owner = user.role == "admin" or (
             lesson.author_id is not None and _same_uuid(lesson.author_id, user.id)
         )
         if not is_owner:
             raise HTTPException(403, "This lesson is not yet published")
+
+    # Apply translation if requested and available
+    if locale and locale != "en":
+        tr = await db.get(LessonTranslation, (lesson_id, locale))
+        if tr and tr.status == "done" and tr.content_json:
+            # Return a synthetic object with translated content
+            lesson.title = tr.title
+            lesson.content = tr.content_json
 
     return lesson
 
@@ -673,6 +709,11 @@ async def publish_lesson(
     await audit(db, "lesson_published", user_id=user.id, resource_id=lesson_id)
     await invalidate(f"module:{lesson.module_id}*")
     await invalidate("specialty_modules:*")
+
+    # Trigger background translation into all supported locales
+    from app.services.translation_service import schedule_lesson_translations
+    await schedule_lesson_translations(lesson.id, db)
+
     return lesson
 
 
@@ -1511,3 +1552,121 @@ async def import_module(
         "mcqs_imported": mcq_count,
         "status": "draft",
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Translation management endpoints
+# ─────────────────────────────────────────────────────────────────────────────
+
+@router.get("/{lesson_id}/translations", response_model=TranslationStatusOut)
+async def get_translation_status(
+    lesson_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get translation status for all locales of a lesson.
+    Available to lesson author and admins.
+    """
+    from app.models.models import LessonTranslation
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    result = await db.execute(
+        select(LessonTranslation).where(LessonTranslation.lesson_id == lesson_id)
+    )
+    translations = result.scalars().all()
+
+    return {
+        "lesson_id": lesson_id,
+        "translations": [
+            {
+                "locale": tr.locale,
+                "status": tr.status,
+                "reviewed": tr.reviewed,
+                "translated_at": tr.translated_at.isoformat() if tr.translated_at else None,
+                "error_message": tr.error_message,
+            }
+            for tr in translations
+        ],
+    }
+
+
+@router.post("/{lesson_id}/translations/{locale}/retranslate", status_code=202)
+async def retranslate(
+    lesson_id: UUID,
+    locale: str,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Force re-translation of a specific locale. Author or admin only."""
+    from app.models.models import LessonTranslation, SUPPORTED_LOCALES
+    from app.services.translation_service import retranslate_lesson
+
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    if locale not in SUPPORTED_LOCALES:
+        raise HTTPException(400, f"Locale '{locale}' not supported. Supported: {SUPPORTED_LOCALES}")
+
+    # Kick off background retranslation
+    import asyncio
+    asyncio.create_task(retranslate_lesson(lesson_id, locale, db))
+
+    return {"message": f"Retranslation scheduled for locale '{locale}'", "lesson_id": str(lesson_id)}
+
+
+@router.patch("/{lesson_id}/translations/{locale}", response_model=LessonTranslationOut)
+async def update_translation(
+    lesson_id: UUID,
+    locale: str,
+    body: dict,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Manually edit translation (teacher review). Marks as 'reviewed'.
+    Body: {title?: str, content_json?: list}
+    """
+    from app.models.models import LessonTranslation, SUPPORTED_LOCALES
+
+    _require_teacher(user)
+    lesson = await _get_lesson_or_404(lesson_id, db)
+    _require_lesson_owner(lesson, user)
+
+    if locale not in SUPPORTED_LOCALES:
+        raise HTTPException(400, f"Locale '{locale}' not supported.")
+
+    tr = await db.get(LessonTranslation, (lesson_id, locale))
+    if not tr:
+        raise HTTPException(404, "Translation not found. Publish the lesson first.")
+
+    if "title" in body and body["title"]:
+        tr.title = body["title"]
+    if "content_json" in body and body["content_json"]:
+        tr.content_json = body["content_json"]
+
+    tr.reviewed = True
+    tr.reviewed_by = user.id
+    tr.reviewed_at = datetime.utcnow()
+    tr.status = "reviewed"
+    tr.updated_at = datetime.utcnow()
+    await db.commit()
+    await db.refresh(tr)
+    return tr
+
+
+@router.get("/{lesson_id}/translations/{locale}", response_model=LessonTranslationOut)
+async def get_translation(
+    lesson_id: UUID,
+    locale: str,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get the translation content for a specific locale."""
+    from app.models.models import LessonTranslation
+    lesson = await _get_lesson_or_404(lesson_id, db)
+
+    tr = await db.get(LessonTranslation, (lesson_id, locale))
+    if not tr:
+        raise HTTPException(404, f"No translation found for locale '{locale}'")
+    return tr

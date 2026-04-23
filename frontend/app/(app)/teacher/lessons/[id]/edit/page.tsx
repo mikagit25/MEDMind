@@ -6,6 +6,20 @@ import Link from "next/link";
 import { teacherApi, imagingApi } from "@/lib/api";
 import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
 
+const LOCALE_FLAGS: Record<string, string> = {
+  ru: "🇷🇺", ar: "🇸🇦", tr: "🇹🇷", de: "🇩🇪", fr: "🇫🇷", es: "🇪🇸",
+};
+const LOCALE_LABELS: Record<string, string> = {
+  ru: "Russian", ar: "Arabic", tr: "Turkish", de: "German", fr: "French", es: "Spanish",
+};
+const STATUS_COLORS_TR: Record<string, string> = {
+  pending: "text-ink-3",
+  translating: "text-amber",
+  done: "text-green",
+  reviewed: "text-blue",
+  failed: "text-red",
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1445,6 +1459,126 @@ export default function LessonEditPage() {
           </div>
         )}
       </div>
+
+      {/* Translation status — shown when lesson is published */}
+      {lesson.status === "published" && (
+        <TranslationPanel lessonId={lesson.id} />
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Translation Status Panel
+// ─────────────────────────────────────────────────────────────────────────────
+
+function TranslationPanel({ lessonId }: { lessonId: string }) {
+  const [open, setOpen] = useState(false);
+  const [translations, setTranslations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [retranslating, setRetranslating] = useState<string | null>(null);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const data = await teacherApi.getTranslationStatus(lessonId);
+      setTranslations(data.translations ?? []);
+    } catch {
+      // silent
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (open && translations.length === 0) load();
+  }, [open]);
+
+  const handleRetranslate = async (locale: string) => {
+    setRetranslating(locale);
+    try {
+      await teacherApi.retranslate(lessonId, locale);
+      // Poll for a few seconds then reload
+      setTimeout(() => { load(); setRetranslating(null); }, 5000);
+    } catch {
+      setRetranslating(null);
+    }
+  };
+
+  const allDone = translations.length === 6 && translations.every(t => t.status === "done" || t.status === "reviewed");
+  const doneCount = translations.filter(t => t.status === "done" || t.status === "reviewed").length;
+
+  return (
+    <div className="card mb-4 overflow-hidden">
+      <button
+        onClick={() => { setOpen(v => !v); }}
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-surface/50 transition-colors"
+      >
+        <div className="flex items-center gap-2">
+          <span className="font-syne font-bold text-sm text-ink">🌐 Translations</span>
+          {doneCount > 0 && (
+            <span className={`text-xs font-syne font-semibold px-2 py-0.5 rounded-full ${allDone ? "bg-green-light text-green" : "bg-amber-light text-amber"}`}>
+              {doneCount}/6
+            </span>
+          )}
+        </div>
+        <span className="text-ink-3 text-xs font-syne">{open ? "Hide ▲" : "Show ▼"}</span>
+      </button>
+
+      {open && (
+        <div className="border-t border-border">
+          {loading ? (
+            <div className="p-4 text-ink-3 font-serif text-sm text-center">Loading translation status…</div>
+          ) : translations.length === 0 ? (
+            <div className="p-4">
+              <p className="font-serif text-ink-3 text-sm">
+                Translations are generated automatically when the lesson is published.
+                Publish the lesson to trigger translations into 6 languages.
+              </p>
+            </div>
+          ) : (
+            <div className="divide-y divide-border">
+              {Object.keys(LOCALE_LABELS).map((locale) => {
+                const tr = translations.find(t => t.locale === locale);
+                const status = tr?.status ?? "—";
+                const isDone = status === "done" || status === "reviewed";
+                return (
+                  <div key={locale} className="flex items-center justify-between px-4 py-2.5 gap-3">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-base">{LOCALE_FLAGS[locale]}</span>
+                      <span className="font-syne font-semibold text-sm text-ink">{LOCALE_LABELS[locale]}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className={`font-syne text-xs font-semibold capitalize ${STATUS_COLORS_TR[status] ?? "text-ink-3"}`}>
+                        {status === "done" ? "✓ Done" : status === "reviewed" ? "✓ Reviewed" : status === "translating" ? "Translating…" : status === "failed" ? "✗ Failed" : status}
+                      </span>
+                      {tr?.translated_at && (
+                        <span className="font-serif text-[10px] text-ink-3 hidden sm:block">
+                          {new Date(tr.translated_at).toLocaleDateString()}
+                        </span>
+                      )}
+                      <button
+                        onClick={() => handleRetranslate(locale)}
+                        disabled={retranslating === locale || status === "translating"}
+                        className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-0.5 transition-colors disabled:opacity-40"
+                      >
+                        {retranslating === locale ? "…" : isDone ? "Re-translate" : "Translate"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          <div className="px-4 py-3 border-t border-border bg-surface/40">
+            <p className="font-serif text-[11px] text-ink-3">
+              Translations use Claude Haiku with medical terminology guidelines.
+              Review and edit via the{" "}
+              <Link href="/admin" className="underline hover:text-ink">Admin panel</Link>.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

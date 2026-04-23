@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { contentApi, progressApi, notesApi, imagingApi } from "@/lib/api";
+import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib/api";
+import { useI18n } from "@/lib/i18n";
 
 type LessonContent = {
   intro?: string;
@@ -369,6 +370,7 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
 export default function ModuleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const { locale } = useI18n();
   const [mod, setMod] = useState<any>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
@@ -399,6 +401,16 @@ export default function ModuleDetailPage() {
       setLoading(false);
     });
   }, [id]);
+
+  // Re-fetch active lesson with translation when locale changes
+  useEffect(() => {
+    if (!activeLesson || locale === "en") return;
+    teacherApi.getLesson(activeLesson.id, locale).then((data: any) => {
+      if (data?.title) {
+        setActiveLesson((prev) => prev ? { ...prev, title: data.title, content: data.content } : prev);
+      }
+    }).catch(() => {/* fallback to English silently */});
+  }, [locale, activeLesson?.id]);
 
   const loadNotes = useCallback(() => {
     if (!activeLesson) return;

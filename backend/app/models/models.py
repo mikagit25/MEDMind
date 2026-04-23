@@ -92,6 +92,7 @@ class Module(Base):
     flashcards = relationship("Flashcard", back_populates="module", cascade="all, delete-orphan")
     mcq_questions = relationship("MCQQuestion", back_populates="module", cascade="all, delete-orphan")
     clinical_cases = relationship("ClinicalCase", back_populates="module", cascade="all, delete-orphan")
+    translations = relationship("ModuleTranslation", back_populates="module", cascade="all, delete-orphan")
 
 
 # ============================================================
@@ -141,6 +142,7 @@ class Lesson(Base):
     row_version = Column(Integer, default=0, nullable=False)
 
     module = relationship("Module", back_populates="lessons")
+    translations = relationship("LessonTranslation", back_populates="lesson", cascade="all, delete-orphan")
 
     @validates("content")
     def _validate_content_structure(self, key: str, value):
@@ -969,4 +971,62 @@ class UserFlashcard(Base):
     __table_args__ = (
         Index("ix_user_flashcards_user_id", "user_id"),
         Index("ix_user_flashcards_next_review", "user_id", "next_review_at"),
+    )
+
+
+# ============================================================
+# LESSON / MODULE TRANSLATIONS
+# ============================================================
+SUPPORTED_LOCALES = ["ru", "ar", "tr", "de", "fr", "es"]
+
+
+class LessonTranslation(Base):
+    """Translated version of a lesson (title + content blocks) for one locale."""
+    __tablename__ = "lesson_translations"
+
+    lesson_id = Column(UUID(as_uuid=True), ForeignKey("lessons.id", ondelete="CASCADE"), nullable=False, primary_key=True)
+    locale = Column(String(10), nullable=False, primary_key=True)
+
+    title = Column(String(300), nullable=False)
+    content_json = Column(JSONB, nullable=False)  # translated blocks array
+
+    # pending | translating | done | failed | reviewed
+    status = Column(String(20), nullable=False, default="pending")
+    translation_quality = Column(Float, nullable=True)  # 0.0–1.0 model confidence
+
+    reviewed = Column(Boolean, nullable=False, default=False)
+    reviewed_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    reviewed_at = Column(DateTime, nullable=True)
+
+    error_message = Column(Text, nullable=True)
+    translated_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    lesson = relationship("Lesson", back_populates="translations")
+
+    __table_args__ = (
+        Index("ix_lesson_translations_lesson_id", "lesson_id"),
+        Index("ix_lesson_translations_status", "status"),
+    )
+
+
+class ModuleTranslation(Base):
+    """Translated title + description of a module for one locale."""
+    __tablename__ = "module_translations"
+
+    module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False, primary_key=True)
+    locale = Column(String(10), nullable=False, primary_key=True)
+
+    title = Column(String(300), nullable=False)
+    description = Column(Text, nullable=True)
+
+    status = Column(String(20), nullable=False, default="pending")
+    translated_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    module = relationship("Module", back_populates="translations")
+
+    __table_args__ = (
+        Index("ix_module_translations_module_id", "module_id"),
     )

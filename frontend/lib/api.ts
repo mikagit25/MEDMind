@@ -289,8 +289,8 @@ export const teacherApi = {
   // ── Lessons ──
   listLessons: (moduleId: string, includeDrafts = true) =>
     api.get(`/lessons/modules/${moduleId}/lessons`, { params: { include_drafts: includeDrafts } }).then(r => r.data),
-  getLesson: (id: string) =>
-    api.get(`/lessons/${id}`).then(r => r.data),
+  getLesson: (id: string, locale?: string) =>
+    api.get(`/lessons/${id}`, { params: locale && locale !== "en" ? { locale } : undefined }).then(r => r.data),
   createLesson: (moduleId: string, data: { title: string; content: object; estimated_minutes?: number; lesson_order?: number }) =>
     api.post(`/lessons/modules/${moduleId}/lessons`, data).then(r => r.data),
   updateLesson: (id: string, data: { title?: string; content?: object; estimated_minutes?: number; lesson_order?: number; review_notes?: string }) =>
@@ -325,6 +325,16 @@ export const teacherApi = {
     api.get(`/lessons/modules/${moduleId}/export`, { responseType: "blob" }).then(r => r.data),
   importModule: (specialtyId: string, data: object) =>
     api.post(`/lessons/modules/import?specialty_id=${specialtyId}`, data).then(r => r.data),
+
+  // ── Translations ──
+  getTranslationStatus: (lessonId: string) =>
+    api.get(`/lessons/${lessonId}/translations`).then(r => r.data),
+  getTranslation: (lessonId: string, locale: string) =>
+    api.get(`/lessons/${lessonId}/translations/${locale}`).then(r => r.data),
+  retranslate: (lessonId: string, locale: string) =>
+    api.post(`/lessons/${lessonId}/translations/${locale}/retranslate`).then(r => r.data),
+  updateTranslation: (lessonId: string, locale: string, data: { title?: string; content_json?: object }) =>
+    api.patch(`/lessons/${lessonId}/translations/${locale}`, data).then(r => r.data),
 
   // ── Version history ──
   listVersions: (lessonId: string) =>
