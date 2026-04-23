@@ -243,7 +243,7 @@ const ar: Translations = {
     manage_billing: "إدارة الفواتير ↗",
     language: "اللغة",
     language_hint: "لغة الواجهة",
-    languages: { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe" },
+    languages: { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe", de: "Deutsch", fr: "Français", es: "Español" },
     veterinary_mode: "وضع الطب البيطري",
     vet_description: "يفعّل المحتوى البيطري وجداول الجرعات",
     vet_species: "الأنواع المفضلة",

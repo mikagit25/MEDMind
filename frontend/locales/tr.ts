@@ -243,7 +243,7 @@ const tr: Translations = {
     manage_billing: "Faturalamayı Yönet ↗",
     language: "Dil",
     language_hint: "Arayüz dili",
-    languages: { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe" },
+    languages: { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe", de: "Deutsch", fr: "Français", es: "Español" },
     veterinary_mode: "Veterinerlik Modu",
     vet_description: "Veteriner içeriğini, doz tablolarını ve YZ yanıtlarını aktifleştirir",
     vet_species: "Tercih edilen türler",

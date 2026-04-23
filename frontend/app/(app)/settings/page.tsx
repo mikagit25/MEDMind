@@ -118,8 +118,8 @@ export default function SettingsPage() {
         <h2 className="font-syne font-bold text-base text-ink mb-1">🌐 Language / Язык / اللغة / Dil</h2>
         <p className="font-serif text-ink-3 text-sm mb-4">Interface language</p>
         <div className="flex flex-wrap gap-2">
-          {(["en", "ru", "ar", "tr"] as const).map((lang) => {
-            const labels: Record<string, string> = { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe" };
+          {(["en", "ru", "ar", "tr", "de", "fr", "es"] as const).map((lang) => {
+            const labels: Record<string, string> = { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe", de: "Deutsch", fr: "Français", es: "Español" };
             return (
               <button
                 key={lang}

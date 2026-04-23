@@ -7,13 +7,16 @@ import en from "@/locales/en";
 // ─────────────────────────────────────────────────────────────────────────────
 // Supported locales
 // ─────────────────────────────────────────────────────────────────────────────
-export type Locale = "en" | "ru" | "ar" | "tr";
+export type Locale = "en" | "ru" | "ar" | "tr" | "de" | "fr" | "es";
 
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
   ru: "Русский",
   ar: "العربية",
   tr: "Türkçe",
+  de: "Deutsch",
+  fr: "Français",
+  es: "Español",
 };
 
 export const RTL_LOCALES: Locale[] = ["ar"];
@@ -26,6 +29,9 @@ async function loadLocale(locale: Locale): Promise<Translations> {
     case "ru": return (await import("@/locales/ru")).default;
     case "ar": return (await import("@/locales/ar")).default;
     case "tr": return (await import("@/locales/tr")).default;
+    case "de": return (await import("@/locales/de")).default;
+    case "fr": return (await import("@/locales/fr")).default;
+    case "es": return (await import("@/locales/es")).default;
     default: return en;
   }
 }
