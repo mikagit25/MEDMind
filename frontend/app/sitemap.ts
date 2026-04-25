@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.ai";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
 // Static pages available without login (public SEO pages)
@@ -11,19 +11,8 @@ const STATIC_PAGES = [
   { path: "/register", priority: 0.6, changeFrequency: "monthly" as const },
 ];
 
-// App sections (indexed after login but still useful for Google to discover)
-const APP_SECTIONS = [
-  { path: "/dashboard", priority: 0.8 },
-  { path: "/modules", priority: 0.9 },
-  { path: "/flashcards", priority: 0.8 },
-  { path: "/quiz", priority: 0.8 },
-  { path: "/cases", priority: 0.8 },
-  { path: "/drugs", priority: 0.8 },
-  { path: "/anatomy", priority: 0.7 },
-  { path: "/imaging", priority: 0.7 },
-  { path: "/leaderboard", priority: 0.6 },
-  { path: "/progress", priority: 0.6 },
-];
+// Note: authenticated app sections (/dashboard, /modules, etc.) are intentionally
+// excluded from the sitemap — they require login and are disallowed in robots.txt.
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
@@ -43,18 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ),
       },
     });
-  }
-
-  // App sections — one entry per locale
-  for (const section of APP_SECTIONS) {
-    for (const locale of LOCALES) {
-      entries.push({
-        url: `${SITE_URL}/${locale}${section.path}`,
-        lastModified: now,
-        changeFrequency: "weekly",
-        priority: section.priority * (locale === "en" ? 1 : 0.85), // en is canonical
-      });
-    }
   }
 
   return entries;

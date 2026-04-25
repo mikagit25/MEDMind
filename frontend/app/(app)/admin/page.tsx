@@ -38,7 +38,7 @@ type AdminModule = {
   cases: number;
 };
 
-type Tab = "overview" | "users" | "modules" | "generate" | "audit";
+type Tab = "overview" | "users" | "modules" | "generate" | "translations" | "flags" | "system" | "audit";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -175,11 +175,14 @@ export default function AdminPage() {
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 mb-6 bg-surface border border-border rounded-lg p-1 w-fit">
         {([
-          ["overview", "📊 Overview"],
-          ["users",    "👥 Users"],
-          ["modules",  "📚 Modules"],
-          ["generate", "✨ Generate"],
-          ["audit",    "🔍 Audit Log"],
+          ["overview",     "📊 Overview"],
+          ["users",        "👥 Users"],
+          ["modules",      "📚 Modules"],
+          ["generate",     "✨ Generate"],
+          ["translations", "🌐 Translations"],
+          ["flags",        "🚩 Flags"],
+          ["system",       "⚙️ System"],
+          ["audit",        "🔍 Audit Log"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -469,6 +472,15 @@ export default function AdminPage() {
       {/* ── Generate Module ── */}
       {tab === "generate" && <GenerateModulePanel showToast={showToast} />}
 
+      {/* ── Translations ── */}
+      {tab === "translations" && <TranslationsPanel showToast={showToast} />}
+
+      {/* ── Feature Flags ── */}
+      {tab === "flags" && <FeatureFlagsPanel showToast={showToast} />}
+
+      {/* ── System Health ── */}
+      {tab === "system" && <SystemHealthPanel />}
+
       {/* ── Audit Log ── */}
       {tab === "audit" && <AuditLogPanel />}
     </div>
@@ -616,6 +628,364 @@ function GenerateModulePanel({ showToast }: { showToast: (msg: string, type?: "o
     </div>
   );
 }
+
+// ── Translations Panel ────────────────────────────────────────────────────────
+
+const LOCALE_LABELS: Record<string, string> = {
+  ru: "Русский", ar: "العربية", tr: "Türkçe", de: "Deutsch", fr: "Français", es: "Español",
+};
+
+function TranslationsPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "err") => void }) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [retrying, setRetrying] = useState<string | null>(null);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get("/admin/translations/stats");
+      setData(r.data);
+    } catch {
+      showToast("Failed to load translation stats", "err");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const retranslateAll = async (locale?: string) => {
+    const key = locale ?? "all";
+    setRetrying(key);
+    try {
+      const r = await api.post("/admin/translations/retranslate-failed", null, {
+        params: locale ? { locale } : {},
+      });
+      showToast(`Queued ${r.data.queued} lessons for retranslation`);
+      setTimeout(load, 1000);
+    } catch {
+      showToast("Failed to queue retranslation", "err");
+    } finally {
+      setRetrying(null);
+    }
+  };
+
+  if (loading) return <div className="text-center py-10 text-ink-3">Loading…</div>;
+  if (!data) return null;
+
+  const totalFailed = data.locales.reduce((s: number, l: any) => s + l.failed, 0);
+
+  return (
+    <div className="space-y-6 max-w-3xl">
+      {/* Summary */}
+      <div className="card p-4 flex items-center gap-4 flex-wrap">
+        <div>
+          <div className="font-syne font-black text-2xl text-ink">{data.total_published_lessons}</div>
+          <div className="text-xs text-ink-3 font-syne">Published lessons</div>
+        </div>
+        <div className="flex-1" />
+        {totalFailed > 0 && (
+          <button
+            onClick={() => retranslateAll()}
+            disabled={retrying !== null}
+            className="text-xs font-syne font-semibold border border-red/30 text-red hover:bg-red-light rounded px-3 py-1.5 transition-colors"
+          >
+            {retrying === "all" ? "Queuing…" : `Retry all failed (${totalFailed})`}
+          </button>
+        )}
+        <button onClick={load} className="btn-primary text-xs">Refresh</button>
+      </div>
+
+      {/* Per-locale table */}
+      <div className="card overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-surface-2 border-b border-border">
+            <tr>
+              {["Locale", "Done", "Pending", "In Progress", "Failed", "Coverage", ""].map(h => (
+                <th key={h} className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.locales.map((l: any) => (
+              <tr key={l.locale} className="border-b border-border last:border-0 hover:bg-surface-2">
+                <td className="px-4 py-2.5 font-syne font-semibold text-ink text-sm">
+                  {l.locale.toUpperCase()} <span className="text-ink-3 font-normal text-xs ml-1">{LOCALE_LABELS[l.locale]}</span>
+                </td>
+                <td className="px-4 py-2.5 text-green font-syne font-semibold text-sm">{l.done}</td>
+                <td className="px-4 py-2.5 text-ink-3 text-sm">{l.pending}</td>
+                <td className="px-4 py-2.5 text-amber font-syne text-sm">{l.translating}</td>
+                <td className="px-4 py-2.5">
+                  {l.failed > 0 ? (
+                    <span className="text-red font-syne font-semibold text-sm">{l.failed}</span>
+                  ) : (
+                    <span className="text-ink-3 text-sm">0</span>
+                  )}
+                </td>
+                <td className="px-4 py-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 h-1.5 bg-surface-2 border border-border rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-green rounded-full transition-all"
+                        style={{ width: `${l.coverage_pct}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-ink-3 font-syne">{l.coverage_pct}%</span>
+                  </div>
+                </td>
+                <td className="px-4 py-2.5">
+                  {l.failed > 0 && (
+                    <button
+                      onClick={() => retranslateAll(l.locale)}
+                      disabled={retrying !== null}
+                      className="text-[11px] font-syne font-semibold border border-red/30 text-red hover:bg-red-light rounded px-2 py-0.5 transition-colors"
+                    >
+                      {retrying === l.locale ? "…" : "Retry failed"}
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Recent failures */}
+      {data.recent_failures.length > 0 && (
+        <div>
+          <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">Recent Failures</h3>
+          <div className="card overflow-hidden">
+            <table className="w-full text-xs">
+              <thead className="bg-surface-2 border-b border-border">
+                <tr>
+                  {["Lesson", "Locale", "Error"].map(h => (
+                    <th key={h} className="text-left px-4 py-2 font-syne font-semibold text-ink-2 uppercase">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.recent_failures.map((f: any, i: number) => (
+                  <tr key={i} className="border-t border-border hover:bg-surface-2">
+                    <td className="px-4 py-2 text-ink font-semibold">{f.lesson_title}</td>
+                    <td className="px-4 py-2 text-ink-3">{f.locale.toUpperCase()}</td>
+                    <td className="px-4 py-2 text-red font-mono text-[10px] max-w-xs truncate">{f.error ?? "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ── Feature Flags Panel ───────────────────────────────────────────────────────
+
+const FLAG_DESCRIPTIONS: Record<string, string> = {
+  pgvector_search:   "Semantic vector search (requires pgvector extension)",
+  ai_memory:         "Long-term AI memory extraction per user",
+  pdf_export:        "CPD/CME certificate PDF export",
+  ugc_flashcards:    "User-generated flashcards",
+  posthog_analytics: "PostHog usage analytics",
+  sentry_monitoring: "Sentry error reporting",
+  imaging_library:   "Medical imaging library (X-ray, MRI, CT)",
+  anatomy_3d:        "3D anatomy viewer",
+};
+
+function FeatureFlagsPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "err") => void }) {
+  const [flags, setFlags] = useState<Record<string, { enabled: boolean; rollout: number; source: string }>>({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
+
+  const load = async () => {
+    try {
+      const r = await api.get("/admin/feature-flags");
+      setFlags(r.data);
+    } catch {
+      showToast("Failed to load feature flags", "err");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const toggle = async (flag: string, enabled: boolean) => {
+    setSaving(flag);
+    try {
+      const rollout = flags[flag]?.rollout ?? 100;
+      await api.patch(`/admin/feature-flags/${flag}`, null, {
+        params: { enabled, rollout },
+      });
+      setFlags(prev => ({ ...prev, [flag]: { ...prev[flag], enabled, source: "redis" } }));
+      showToast(`${flag} ${enabled ? "enabled" : "disabled"}`);
+    } catch {
+      showToast("Failed to update flag", "err");
+    } finally {
+      setSaving(null);
+    }
+  };
+
+  const setRollout = async (flag: string, rollout: number) => {
+    setSaving(flag);
+    try {
+      await api.patch(`/admin/feature-flags/${flag}`, null, {
+        params: { enabled: flags[flag]?.enabled ?? false, rollout },
+      });
+      setFlags(prev => ({ ...prev, [flag]: { ...prev[flag], rollout, source: "redis" } }));
+      showToast(`${flag} rollout → ${rollout}%`);
+    } catch {
+      showToast("Failed to update rollout", "err");
+    } finally {
+      setSaving(null);
+    }
+  };
+
+  if (loading) return <div className="text-center py-10 text-ink-3">Loading…</div>;
+
+  return (
+    <div className="max-w-2xl space-y-3">
+      <p className="text-xs text-ink-3 font-serif mb-4">
+        Feature flags control optional platform features in real-time without a redeploy. Values are stored in Redis.
+      </p>
+      {Object.entries(flags).map(([flag, val]) => (
+        <div key={flag} className="card p-4">
+          <div className="flex items-start gap-4">
+            <div className="flex-1">
+              <div className="font-syne font-semibold text-sm text-ink">{flag.replace(/_/g, " ")}</div>
+              <div className="text-xs text-ink-3 mt-0.5">{FLAG_DESCRIPTIONS[flag] ?? ""}</div>
+              <div className="text-[10px] text-ink-3 mt-1 font-mono">source: {val.source}</div>
+            </div>
+
+            {/* Toggle */}
+            <button
+              onClick={() => toggle(flag, !val.enabled)}
+              disabled={saving === flag}
+              className={`relative w-11 h-6 rounded-full border-2 transition-colors focus:outline-none ${
+                val.enabled
+                  ? "bg-green border-green"
+                  : "bg-surface-2 border-border"
+              }`}
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
+                  val.enabled ? "translate-x-5" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Rollout slider — only relevant when enabled */}
+          {val.enabled && (
+            <div className="mt-3 flex items-center gap-3">
+              <span className="text-xs text-ink-3 font-syne w-16">Rollout</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={val.rollout}
+                onChange={(e) => setFlags(prev => ({
+                  ...prev,
+                  [flag]: { ...prev[flag], rollout: Number(e.target.value) },
+                }))}
+                onMouseUp={(e) => setRollout(flag, Number((e.target as HTMLInputElement).value))}
+                className="flex-1"
+              />
+              <span className="text-xs font-syne font-bold text-ink w-10 text-right">{val.rollout}%</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+// ── System Health Panel ───────────────────────────────────────────────────────
+
+function SystemHealthPanel() {
+  const [health, setHealth] = useState<Record<string, any> | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get("/admin/system/health");
+      setHealth(r.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const statusColor = (val: any) => {
+    if (val === "ok" || val === "configured") return "text-green";
+    if (typeof val === "object" && val?.status === "ok") return "text-green";
+    if (val === "not configured") return "text-ink-3";
+    return "text-red";
+  };
+
+  const statusText = (val: any): string => {
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && val !== null) {
+      if (val.status === "ok") {
+        const extras = Object.entries(val)
+          .filter(([k]) => k !== "status")
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(" · ");
+        return `ok${extras ? " — " + extras : ""}`;
+      }
+      return val.status ?? JSON.stringify(val);
+    }
+    return String(val);
+  };
+
+  if (loading) return <div className="text-center py-10 text-ink-3">Loading…</div>;
+  if (!health) return null;
+
+  const AI_KEYS = ["anthropic", "gemini", "groq"];
+  const SERVICES = Object.entries(health).filter(([k]) => !AI_KEYS.includes(k));
+  const AI = Object.entries(health).filter(([k]) => AI_KEYS.includes(k));
+
+  return (
+    <div className="max-w-2xl space-y-6">
+      <div className="flex justify-end">
+        <button onClick={load} className="btn-primary text-xs">Refresh</button>
+      </div>
+
+      {/* Core services */}
+      <section>
+        <h3 className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">Core Services</h3>
+        <div className="card divide-y divide-border">
+          {SERVICES.map(([key, val]) => (
+            <div key={key} className="px-4 py-3 flex items-start gap-4">
+              <span className="font-syne font-semibold text-sm text-ink w-28 capitalize">{key.replace(/_/g, " ")}</span>
+              <span className={`font-mono text-xs flex-1 ${statusColor(val)}`}>{statusText(val)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* AI providers */}
+      <section>
+        <h3 className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">AI Providers</h3>
+        <div className="card divide-y divide-border">
+          {AI.map(([key, val]) => (
+            <div key={key} className="px-4 py-3 flex items-start gap-4">
+              <span className="font-syne font-semibold text-sm text-ink w-28 capitalize">{key}</span>
+              <span className={`font-mono text-xs ${statusColor(val)}`}>{statusText(val)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 
 // ── Audit Log Panel ───────────────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { aiApi, contentApi } from "@/lib/api";
+import { aiApi, contentApi, API_URL } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT } from "@/lib/i18n";
@@ -56,9 +56,8 @@ export default function AiTutorPage() {
 
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
-      const res = await fetch(`${apiUrl}/ai/ask/stream`, {
+      const res = await fetch(`${API_URL}/ai/ask/stream`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

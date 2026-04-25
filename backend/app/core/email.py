@@ -107,7 +107,8 @@ def _base_template(title: str, body_html: str, cta_text: Optional[str] = None, c
 </html>"""
 
 
-def email_welcome(to: str, first_name: str, app_url: str = "https://app.medmind.ai") -> None:
+def email_welcome(to: str, first_name: str, app_url: str = "") -> None:
+    app_url = app_url or settings.FRONTEND_URL
     html = _base_template(
         title=f"Welcome to MedMind AI, {first_name}!",
         body_html=f"""
@@ -129,8 +130,9 @@ def email_assignment(
     assignment_title: str,
     course_title: str,
     due_date: Optional[str],
-    app_url: str = "https://app.medmind.ai",
+    app_url: str = "",
 ) -> None:
+    app_url = app_url or settings.FRONTEND_URL
     due_str = f"<p style='color:#8a5a00;font-size:14px;margin:8px 0 0;'>Due: <strong>{due_date}</strong></p>" if due_date else ""
     html = _base_template(
         title="New Assignment",
@@ -154,9 +156,10 @@ def email_at_risk_alert(
     teacher_name: str,
     course_title: str,
     at_risk_count: int,
-    app_url: str = "https://app.medmind.ai",
+    app_url: str = "",
     course_id: Optional[str] = None,
 ) -> None:
+    app_url = app_url or settings.FRONTEND_URL
     course_url = f"{app_url}/teacher/courses/{course_id}/at-risk" if course_id else f"{app_url}/teacher/dashboard"
     html = _base_template(
         title="Students Need Attention",
@@ -192,7 +195,8 @@ def email_password_reset(to: str, reset_url: str) -> None:
     _send_smtp(to, "Reset your MedMind AI password", html)
 
 
-def email_achievement(to: str, name: str, achievement_name: str, app_url: str = "https://app.medmind.ai") -> None:
+def email_achievement(to: str, name: str, achievement_name: str, app_url: str = "") -> None:
+    app_url = app_url or settings.FRONTEND_URL
     html = _base_template(
         title=f"🏅 Achievement Unlocked: {achievement_name}",
         body_html=f"""

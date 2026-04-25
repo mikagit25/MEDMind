@@ -13,7 +13,7 @@ from app.api.deps import get_current_user, require_admin
 from app.core.database import get_db
 from app.models.models import (
     Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
-    AuditLog,
+    AuditLog, LessonTranslation, SUPPORTED_LOCALES,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -663,3 +663,166 @@ async def set_feature_flag(
         raise HTTPException(status_code=404, detail=f"Unknown flag: {flag}")
     await set_flag(flag, enabled, rollout)
     return {"flag": flag, "enabled": enabled, "rollout": rollout}
+
+
+# ── Translation stats ──────────────────────────────────────────────────────────
+
+@router.get("/translations/stats")
+async def get_translation_stats(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Per-locale translation coverage: total published lessons vs translated."""
+    total_published = (
+        await db.execute(select(func.count(Lesson.id)).where(Lesson.status == "published"))
+    ).scalar() or 0
+
+    # Per-locale counts grouped by status
+    rows = await db.execute(
+        select(
+            LessonTranslation.locale,
+            LessonTranslation.status,
+            func.count().label("cnt"),
+        ).group_by(LessonTranslation.locale, LessonTranslation.status)
+    )
+
+    # Build a dict: {locale: {status: count}}
+    per_locale: Dict[str, Dict[str, int]] = {loc: {} for loc in SUPPORTED_LOCALES}
+    for row in rows.all():
+        if row.locale in per_locale:
+            per_locale[row.locale][row.status] = row.cnt
+
+    # Recent failures (last 20)
+    failed_rows = await db.execute(
+        select(LessonTranslation, Lesson.title.label("lesson_title"))
+        .join(Lesson, Lesson.id == LessonTranslation.lesson_id)
+        .where(LessonTranslation.status == "failed")
+        .order_by(LessonTranslation.updated_at.desc())
+        .limit(20)
+    )
+    failed = [
+        {
+            "lesson_id": str(r.LessonTranslation.lesson_id),
+            "lesson_title": r.lesson_title,
+            "locale": r.LessonTranslation.locale,
+            "error": r.LessonTranslation.error_message,
+        }
+        for r in failed_rows.all()
+    ]
+
+    locales_out = []
+    for locale in SUPPORTED_LOCALES:
+        stats = per_locale.get(locale, {})
+        done = stats.get("done", 0) + stats.get("reviewed", 0)
+        locales_out.append({
+            "locale": locale,
+            "done": done,
+            "pending": stats.get("pending", 0),
+            "translating": stats.get("translating", 0),
+            "failed": stats.get("failed", 0),
+            "coverage_pct": round(done / total_published * 100, 1) if total_published else 0,
+        })
+
+    return {
+        "total_published_lessons": total_published,
+        "locales": locales_out,
+        "recent_failures": failed,
+    }
+
+
+@router.post("/translations/retranslate-failed")
+async def retranslate_all_failed(
+    locale: Optional[str] = None,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Re-queue all failed translations (optionally filtered by locale)."""
+    import asyncio
+
+    q = select(LessonTranslation.lesson_id).where(LessonTranslation.status == "failed").distinct()
+    if locale:
+        q = q.where(LessonTranslation.locale == locale)
+    lesson_ids = (await db.execute(q)).scalars().all()
+
+    if not lesson_ids:
+        return {"queued": 0}
+
+    # Reset status to pending
+    from sqlalchemy import update as sa_update
+    update_q = sa_update(LessonTranslation).where(LessonTranslation.status == "failed")
+    if locale:
+        update_q = update_q.where(LessonTranslation.locale == locale)
+    await db.execute(update_q.values(status="pending", error_message=None))
+    await db.commit()
+
+    # Fire background tasks — use internal worker directly (opens its own DB session)
+    from app.services.translation_service import _translate_lesson_all_locales
+    for lesson_id in lesson_ids:
+        asyncio.create_task(_translate_lesson_all_locales(lesson_id))
+
+    return {"queued": len(lesson_ids)}
+
+
+# ── System health ─────────────────────────────────────────────────────────────
+
+@router.get("/system/health")
+async def system_health(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Check health of all connected services."""
+    import httpx
+    from app.core.config import settings
+    from app.core.redis_client import get_redis
+
+    result: Dict[str, Any] = {}
+
+    # Database
+    try:
+        await db.execute(select(func.count(User.id)))
+        result["database"] = "ok"
+    except Exception as e:
+        result["database"] = f"error: {str(e)[:80]}"
+
+    # Redis
+    try:
+        redis = await get_redis()
+        await redis.ping()
+        info = await redis.info("memory")
+        result["redis"] = {
+            "status": "ok",
+            "used_memory": info.get("used_memory_human", "?"),
+        }
+    except Exception as e:
+        result["redis"] = {"status": f"error: {str(e)[:80]}"}
+
+    # Ollama
+    try:
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            r = await client.get(f"{settings.OLLAMA_URL}/api/tags")
+            if r.status_code == 200:
+                models = [m["name"] for m in r.json().get("models", [])]
+                result["ollama"] = {
+                    "status": "ok",
+                    "url": settings.OLLAMA_URL,
+                    "model": settings.OLLAMA_MODEL,
+                    "loaded_models": models,
+                    "model_available": settings.OLLAMA_MODEL in models,
+                }
+            else:
+                result["ollama"] = {"status": f"http {r.status_code}"}
+    except Exception as e:
+        result["ollama"] = {"status": f"unreachable: {str(e)[:80]}"}
+
+    # Anthropic
+    result["anthropic"] = "configured" if settings.ANTHROPIC_API_KEY else "not configured"
+    result["gemini"] = "configured" if settings.GEMINI_API_KEY else "not configured"
+    result["groq"] = "configured" if settings.GROQ_API_KEY else "not configured"
+
+    # Stripe
+    result["stripe"] = "configured" if settings.STRIPE_SECRET_KEY else "not configured"
+
+    # SMTP
+    result["smtp"] = "configured" if settings.SMTP_USER else "not configured"
+
+    return result

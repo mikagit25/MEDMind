@@ -28,12 +28,12 @@ PRICE_TO_TIER: dict[str, str] = {}  # built dynamically or hardcoded
 
 class CheckoutRequest(BaseModel):
     tier: str  # student | pro | clinic | lifetime
-    success_url: str = "http://localhost:3000/settings?payment=success"
-    cancel_url: str = "http://localhost:3000/settings?payment=cancelled"
+    success_url: str = ""   # defaults to settings.FRONTEND_URL at request time
+    cancel_url: str = ""
 
 
 class PortalRequest(BaseModel):
-    return_url: str = "http://localhost:3000/settings"
+    return_url: str = ""    # defaults to settings.FRONTEND_URL at request time
 
 
 def get_stripe():
@@ -74,12 +74,16 @@ async def create_checkout(
     price_id = PRICE_IDS[data.tier]
     is_lifetime = data.tier == "lifetime"
 
+    frontend = settings.FRONTEND_URL.rstrip("/")
+    success_url = (data.success_url or f"{frontend}/settings?payment=success") + "&session_id={CHECKOUT_SESSION_ID}"
+    cancel_url = data.cancel_url or f"{frontend}/settings?payment=cancelled"
+
     session_params = {
         "customer": customer_id,
         "line_items": [{"price": price_id, "quantity": 1}],
         "mode": "payment" if is_lifetime else "subscription",
-        "success_url": data.success_url + "&session_id={CHECKOUT_SESSION_ID}",
-        "cancel_url": data.cancel_url,
+        "success_url": success_url,
+        "cancel_url": cancel_url,
         "metadata": {"user_id": str(user.id), "tier": data.tier},
     }
 
@@ -98,9 +102,10 @@ async def create_portal(
         raise HTTPException(status_code=400, detail="No Stripe customer found")
 
     stripe = get_stripe()
+    return_url = data.return_url or f"{settings.FRONTEND_URL.rstrip('/')}/settings"
     session = stripe.billing_portal.Session.create(
         customer=user.stripe_customer_id,
-        return_url=data.return_url,
+        return_url=return_url,
     )
     return {"url": session.url}
 

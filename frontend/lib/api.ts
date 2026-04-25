@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+export { API_URL };
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -268,6 +269,16 @@ export const adminApi = {
   },
   getAuditLogs: (params?: { user_id?: string; action?: string; page?: number; limit?: number }) =>
     api.get("/admin/audit-logs", { params }).then(r => r.data),
+  getTranslationStats: () =>
+    api.get("/admin/translations/stats").then(r => r.data),
+  retranslateAllFailed: (locale?: string) =>
+    api.post("/admin/translations/retranslate-failed", null, { params: locale ? { locale } : {} }).then(r => r.data),
+  getFeatureFlags: () =>
+    api.get("/admin/feature-flags").then(r => r.data),
+  setFeatureFlag: (flag: string, enabled: boolean, rollout?: number) =>
+    api.patch(`/admin/feature-flags/${flag}`, null, { params: { enabled, rollout: rollout ?? 100 } }).then(r => r.data),
+  getSystemHealth: () =>
+    api.get("/admin/system/health").then(r => r.data),
 };
 
 // ============================================================
