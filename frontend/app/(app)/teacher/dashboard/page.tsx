@@ -22,6 +22,13 @@ interface DashboardData {
   total_achievements: number;
 }
 
+interface ArticleStats {
+  draft: number;
+  pending: number;
+  published: number;
+  total: number;
+}
+
 interface AtRiskEntry {
   student_id: string;
   name: string;
@@ -59,8 +66,20 @@ export default function TeacherDashboardPage() {
   const [atRiskByCourse, setAtRiskByCourse] = useState<CourseAtRisk[]>([]);
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
   const [loadingSecondary, setLoadingSecondary] = useState(false);
+  const [articleStats, setArticleStats] = useState<ArticleStats>({ draft: 0, pending: 0, published: 0, total: 0 });
 
   useEffect(() => {
+    // Load article stats in parallel with dashboard
+    teacherApi.listMyArticles().then((articles: { review_status: string }[]) => {
+      const list = Array.isArray(articles) ? articles : [];
+      setArticleStats({
+        draft:     list.filter(a => a.review_status === "draft").length,
+        pending:   list.filter(a => a.review_status === "pending_review").length,
+        published: list.filter(a => a.review_status === "published").length,
+        total:     list.length,
+      });
+    }).catch(() => {/* non-critical */});
+
     teacherApi.getProfessorDashboard()
       .then(async (d: DashboardData) => {
         setData(d);
@@ -203,12 +222,14 @@ export default function TeacherDashboardPage() {
         {/* Quick Actions */}
         <div>
           <h2 className="font-syne font-bold text-sm text-ink mb-3">Quick Actions</h2>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {[
               { href: "/teacher/modules/new", icon: "✏️", label: "New Lesson", desc: "Create content" },
-              { href: "/teacher/courses/new", icon: "📚", label: "New Course", desc: "Set up a course" },
+              { href: "/teacher/courses/new", icon: "📚", label: "New Course", desc: "Set up course" },
+              { href: "/teacher/articles/new", icon: "📰", label: "Write Article", desc: "Share expertise" },
               { href: "/teacher/modules", icon: "🗂️", label: "My Modules", desc: "Manage content" },
               { href: "/teacher/analytics", icon: "📊", label: "Analytics", desc: "View insights" },
+              { href: "/teacher/articles", icon: "🗒️", label: "My Articles", desc: "Drafts & published" },
             ].map(({ href, icon, label, desc }) => (
               <Link key={href} href={href}
                 className="card p-3 hover:border-ink-3 transition-colors">
@@ -250,6 +271,59 @@ export default function TeacherDashboardPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Articles summary widget */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-syne font-bold text-base text-ink">My Articles</h2>
+          <Link href="/teacher/articles" className="font-serif text-ink-3 text-xs hover:text-ink">
+            View all →
+          </Link>
+        </div>
+        {articleStats.total === 0 ? (
+          <div className="card p-6 flex items-center gap-4">
+            <div className="text-3xl">📰</div>
+            <div className="flex-1">
+              <div className="font-syne font-semibold text-sm text-ink">No articles yet</div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">Share your clinical knowledge with medical learners worldwide.</div>
+            </div>
+            <Link href="/teacher/articles/new"
+              className="shrink-0 bg-ink text-white font-syne font-semibold text-xs px-3 py-2 rounded-lg hover:bg-ink-2 transition-colors">
+              Write Article
+            </Link>
+          </div>
+        ) : (
+          <div className="card p-4 flex items-center gap-6 flex-wrap">
+            <div className="flex gap-6 flex-1">
+              {[
+                { label: "Drafts",    value: articleStats.draft,     color: "text-ink-3" },
+                { label: "In Review", value: articleStats.pending,   color: "text-amber" },
+                { label: "Published", value: articleStats.published, color: "text-green" },
+              ].map(({ label, value, color }) => (
+                <div key={label}>
+                  <div className={`font-syne font-black text-xl ${color}`}>{value}</div>
+                  <div className="font-serif text-ink-3 text-xs">{label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2 shrink-0">
+              {articleStats.pending > 0 && (
+                <span className="text-xs font-syne text-amber bg-amber-light border border-amber/20 rounded-full px-2.5 py-1">
+                  {articleStats.pending} awaiting review
+                </span>
+              )}
+              <Link href="/teacher/articles/new"
+                className="text-xs font-syne font-semibold border border-ink/30 text-ink rounded px-3 py-1.5 hover:bg-ink hover:text-white transition-colors">
+                + New Article
+              </Link>
+              <Link href="/teacher/articles"
+                className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-1.5 hover:border-ink hover:text-ink transition-colors">
+                Manage →
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Courses list */}

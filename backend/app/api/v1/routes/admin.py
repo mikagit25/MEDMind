@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, require_admin
 from app.core.database import get_db
 from app.models.models import (
-    Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
+    Article, Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
     AuditLog, LessonTranslation, SUPPORTED_LOCALES,
 )
 
@@ -50,6 +50,9 @@ async def get_stats(
     total_lessons = (await db.execute(select(func.count(Lesson.id)))).scalar() or 0
     total_mcq = (await db.execute(select(func.count(MCQQuestion.id)))).scalar() or 0
     total_cases = (await db.execute(select(func.count(ClinicalCase.id)))).scalar() or 0
+    total_articles = (await db.execute(select(func.count(Article.id)))).scalar() or 0
+    published_articles = (await db.execute(select(func.count(Article.id)).where(Article.is_published == True))).scalar() or 0
+    pending_articles = (await db.execute(select(func.count(Article.id)).where(Article.review_status == "pending_review"))).scalar() or 0
 
     # Users by subscription tier
     tier_rows = await db.execute(
@@ -82,6 +85,11 @@ async def get_stats(
             "flashcards": total_flashcards,
             "mcq": total_mcq,
             "cases": total_cases,
+        },
+        "articles": {
+            "total": total_articles,
+            "published": published_articles,
+            "pending_review": pending_articles,
         },
     }
 

@@ -29,7 +29,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import AsyncSessionLocal
-from app.models.models import Lesson, LessonTranslation, Module, ModuleTranslation, SUPPORTED_LOCALES
+from app.models.models import Article, ArticleTranslation, Lesson, LessonTranslation, Module, ModuleTranslation, SUPPORTED_LOCALES
 
 logger = logging.getLogger(__name__)
 
@@ -427,6 +427,175 @@ def _apply_translations(
                 elif isinstance(container[sub_idx], str):
                     container[sub_idx] = translated_val
 
+    return result
+
+
+# ── Article translation ───────────────────────────────────────────────────────
+
+async def schedule_article_translations(article_id: UUID, db: AsyncSession) -> None:
+    """Create pending translation records for all locales and kick off background tasks.
+    Called when an article is published/approved.
+    """
+    article = await db.get(Article, article_id)
+    if not article:
+        return
+
+    for locale in SUPPORTED_LOCALES:
+        existing = await db.get(ArticleTranslation, (article_id, locale))
+        if existing:
+            existing.status = "pending"
+            existing.error_message = None
+        else:
+            db.add(ArticleTranslation(
+                article_id=article_id,
+                locale=locale,
+                title=article.title,
+                excerpt=article.excerpt,
+                body=article.body or [],
+                faq=article.faq,
+                status="pending",
+            ))
+    await db.commit()
+
+    asyncio.create_task(_translate_article_all_locales(article_id))
+    logger.info("Scheduled article translations for %s → %s", article_id, SUPPORTED_LOCALES)
+
+
+async def _translate_article_all_locales(article_id: UUID) -> None:
+    async with AsyncSessionLocal() as db:
+        article = await db.get(Article, article_id)
+        if not article:
+            return
+        for locale in SUPPORTED_LOCALES:
+            await _translate_article_one(article, locale, db)
+
+
+async def _translate_article_one(article: Article, locale: str, db: AsyncSession) -> None:
+    tr = await db.get(ArticleTranslation, (article.id, locale))
+    if not tr:
+        return
+
+    tr.status = "translating"
+    await db.commit()
+
+    try:
+        texts = {
+            "title": article.title,
+            "excerpt": article.excerpt,
+        }
+        translated_meta = await _translate_text_batch(texts, locale, context="medical article")
+
+        translated_body = await _translate_article_body(article.body or [], locale)
+        translated_faq = await _translate_article_faq(article.faq or [], locale)
+
+        tr.title = translated_meta.get("title", article.title)
+        tr.excerpt = translated_meta.get("excerpt", article.excerpt)
+        tr.body = translated_body
+        tr.faq = translated_faq if translated_faq else article.faq
+        tr.status = "done"
+        tr.translated_at = datetime.utcnow()
+        tr.error_message = None
+    except Exception as exc:
+        logger.error("Article translation failed article=%s locale=%s: %s", article.id, locale, exc)
+        tr.status = "failed"
+        tr.error_message = str(exc)[:500]
+
+    await db.commit()
+
+
+async def _translate_article_body(blocks: list[dict], locale: str) -> list[dict]:
+    """Extract translatable text from article body blocks, translate in batch, re-inject."""
+    import copy
+    if not blocks:
+        return blocks
+
+    texts: dict[str, str] = {}
+    key_map: dict[str, tuple] = {}
+
+    for i, block in enumerate(blocks):
+        btype = block.get("type", "")
+        if btype in ("h2", "h3", "p", "callout"):
+            val = block.get("content", "")
+            if val and isinstance(val, str):
+                key = f"b{i}_content"
+                texts[key] = val
+                key_map[key] = (i, "content")
+        elif btype == "ul":
+            for j, item in enumerate(block.get("items", [])):
+                if item and isinstance(item, str):
+                    key = f"b{i}_item{j}"
+                    texts[key] = item
+                    key_map[key] = (i, "items", j)
+        elif btype == "table":
+            for j, h in enumerate(block.get("headers", [])):
+                if h and isinstance(h, str):
+                    key = f"b{i}_hdr{j}"
+                    texts[key] = h
+                    key_map[key] = (i, "headers", j)
+            for j, row in enumerate(block.get("rows", [])):
+                for k, cell in enumerate(row):
+                    if cell and isinstance(cell, str):
+                        key = f"b{i}_r{j}c{k}"
+                        texts[key] = cell
+                        key_map[key] = (i, "rows", j, k)
+        elif btype == "image":
+            for field in ("caption", "alt"):
+                val = block.get(field, "")
+                if val and isinstance(val, str):
+                    key = f"b{i}_{field}"
+                    texts[key] = val
+                    key_map[key] = (i, field)
+
+    if not texts:
+        return blocks
+
+    translated = await _translate_text_batch(texts, locale, context="medical article body")
+
+    result = copy.deepcopy(blocks)
+    for flat_key, path in key_map.items():
+        val = translated.get(flat_key)
+        if not val:
+            continue
+        i = path[0]
+        if i >= len(result):
+            continue
+        if len(path) == 2:
+            result[i][path[1]] = val
+        elif len(path) == 3:  # ul items
+            items = result[i].get(path[1], [])
+            if path[2] < len(items):
+                items[path[2]] = val
+        elif len(path) == 4:  # table rows
+            rows = result[i].get(path[1], [])
+            if path[2] < len(rows) and path[3] < len(rows[path[2]]):
+                rows[path[2]][path[3]] = val
+
+    return result
+
+
+async def _translate_article_faq(faq: list[dict], locale: str) -> list[dict]:
+    if not faq:
+        return faq
+
+    texts: dict[str, str] = {}
+    for i, item in enumerate(faq):
+        if item.get("question"):
+            texts[f"faq{i}_q"] = item["question"]
+        if item.get("answer"):
+            texts[f"faq{i}_a"] = item["answer"]
+
+    if not texts:
+        return faq
+
+    translated = await _translate_text_batch(texts, locale, context="medical FAQ")
+
+    import copy
+    result = copy.deepcopy(faq)
+    for i, item in enumerate(result):
+        if translated.get(f"faq{i}_q"):
+            item["question"] = translated[f"faq{i}_q"]
+        if translated.get(f"faq{i}_a"):
+            item["answer"] = translated[f"faq{i}_a"]
     return result
 
 

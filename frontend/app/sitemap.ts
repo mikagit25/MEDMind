@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
 // Static pages available without login (public SEO pages)
 const STATIC_PAGES = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
   { path: "/pricing", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/articles", priority: 0.9, changeFrequency: "daily" as const },
   { path: "/login", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/register", priority: 0.6, changeFrequency: "monthly" as const },
 ];
@@ -14,7 +16,25 @@ const STATIC_PAGES = [
 // Note: authenticated app sections (/dashboard, /modules, etc.) are intentionally
 // excluded from the sitemap — they require login and are disallowed in robots.txt.
 
-export default function sitemap(): MetadataRoute.Sitemap {
+type ArticleSitemapEntry = {
+  slug: string;
+  updated_at: string | null;
+  category: string;
+};
+
+async function fetchArticleSlugs(): Promise<ArticleSitemapEntry[]> {
+  try {
+    const res = await fetch(`${API_URL}/articles/sitemap-data`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
   const now = new Date();
 
@@ -25,12 +45,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: page.changeFrequency,
       priority: page.priority,
-      // Google's multi-language sitemap alternates
       alternates: {
         languages: Object.fromEntries(
           LOCALES.map((l) => [l, `${SITE_URL}/${l}${page.path}`])
         ),
       },
+    });
+  }
+
+  // Dynamic article pages
+  const articles = await fetchArticleSlugs();
+  for (const article of articles) {
+    const lastMod = article.updated_at ? new Date(article.updated_at) : now;
+    entries.push({
+      url: `${SITE_URL}/articles/${article.slug}`,
+      lastModified: lastMod,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+    // Category page — add once per unique category (deduplicated externally)
+  }
+
+  // Unique category pages
+  const categories = [...new Set(articles.map((a) => a.category))];
+  for (const cat of categories) {
+    entries.push({
+      url: `${SITE_URL}/articles/category/${cat}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
     });
   }
 

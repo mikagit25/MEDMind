@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         // Public pages — crawl and index
         userAgent: "*",
-        allow: ["/", "/pricing", "/login", "/register"],
+        allow: ["/", "/pricing", "/login", "/register", "/articles", "/articles/"],
         disallow: [
           "/api/",
           "/admin",

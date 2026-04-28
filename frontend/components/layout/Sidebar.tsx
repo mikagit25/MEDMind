@@ -128,6 +128,7 @@ export function Sidebar() {
               { icon: "🏠", label: t("nav.items.teacher_dashboard"), href: "/teacher/dashboard" },
               { icon: "✏️", label: t("nav.items.my_lessons"), href: "/teacher/modules" },
               { icon: "📚", label: t("nav.items.teacher_courses"), href: "/teacher/courses" },
+              { icon: "📰", label: t("nav.items.my_articles"), href: "/teacher/articles" },
               { icon: "📊", label: t("nav.items.analytics"), href: "/teacher/analytics" },
             ].map((item) => (
               <Link

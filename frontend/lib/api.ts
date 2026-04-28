@@ -405,6 +405,29 @@ export const teacherApi = {
   getCourseLeaderboard: (courseId: string) =>
     api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
 
+  // ── Teacher Articles ──
+  listMyArticles: () =>
+    api.get("/articles/my").then(r => r.data),
+  getMyArticle: (id: string) =>
+    api.get(`/articles/my/${id}`).then(r => r.data),
+  createArticle: (data: { title: string; slug: string; excerpt: string; category: string; body: object[]; author_display_name?: string; author_bio?: string; keywords?: string[]; reading_time_minutes?: number; schema_type?: string }) =>
+    api.post("/articles/my", data).then(r => r.data),
+  updateArticle: (id: string, data: { title?: string; excerpt?: string; category?: string; body?: object[]; author_display_name?: string; author_bio?: string; keywords?: string[]; reading_time_minutes?: number; schema_type?: string }) =>
+    api.patch(`/articles/my/${id}`, data).then(r => r.data),
+  deleteMyArticle: (id: string) =>
+    api.delete(`/articles/my/${id}`).then(r => r.data),
+  submitArticleForReview: (id: string) =>
+    api.post(`/articles/my/${id}/submit`).then(r => r.data),
+  withdrawArticle: (id: string) =>
+    api.post(`/articles/my/${id}/withdraw`).then(r => r.data),
+  uploadArticleImage: (id: string, file: File) => {
+    const form = new FormData();
+    form.append("file", file);
+    return api.post(`/articles/my/${id}/upload-image`, form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then(r => r.data);
+  },
+
   // Grade tracking
   getAssignmentGrades: (courseId: string, assignmentId: string) =>
     api.get(`/courses/${courseId}/assignments/${assignmentId}/grades`).then(r => r.data),
