@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback, Suspense } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { contentApi, bookmarksApi } from "@/lib/api";
+import { contentApi, bookmarksApi, api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
 function ModulesInner() {
@@ -16,6 +16,10 @@ function ModulesInner() {
   );
   const [modules, setModules] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchQ, setSearchQ] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     contentApi.getSpecialties().then((r) => {
@@ -64,7 +68,25 @@ function ModulesInner() {
     }
   }, [bookmarkedIds]);
 
+  // Debounced search across all modules
+  useEffect(() => {
+    if (searchTimer.current) clearTimeout(searchTimer.current);
+    if (!searchQ.trim()) { setSearchResults([]); return; }
+    searchTimer.current = setTimeout(async () => {
+      setSearchLoading(true);
+      try {
+        const res = await api.get("/search", { params: { q: searchQ.trim(), limit: 30 } });
+        setSearchResults(res.data?.modules ?? []);
+      } catch {
+        setSearchResults([]);
+      } finally {
+        setSearchLoading(false);
+      }
+    }, 300);
+  }, [searchQ]);
+
   const isFree = user?.subscription_tier === "free";
+  const isSearching = searchQ.trim().length >= 2;
 
   return (
     <div className="flex-1 flex overflow-hidden">
@@ -91,12 +113,67 @@ function ModulesInner() {
 
       {/* Right: Module list */}
       <div className="flex-1 overflow-y-auto p-5">
-        {!selectedSpecialty ? (
+        {/* Search bar */}
+        <div className="relative mb-5">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">🔍</span>
+          <input
+            value={searchQ}
+            onChange={(e) => setSearchQ(e.target.value)}
+            placeholder="Search all modules…"
+            className="w-full bg-surface border border-border rounded-xl pl-9 pr-9 py-2.5 text-ink text-sm font-serif focus:outline-none focus:border-ink transition-colors"
+          />
+          {searchQ && (
+            <button
+              onClick={() => setSearchQ("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink text-sm"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {isSearching ? (
+          searchLoading ? (
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => <div key={i} className="card h-20 animate-pulse bg-bg-2" />)}
+            </div>
+          ) : searchResults.length === 0 ? (
+            <div className="text-center py-16 text-ink-3 font-serif text-sm">No modules found for &ldquo;{searchQ}&rdquo;</div>
+          ) : (
+            <div className="space-y-2.5">
+              <p className="font-syne text-xs text-ink-3 mb-3">{searchResults.length} result{searchResults.length !== 1 ? "s" : ""} for &ldquo;{searchQ}&rdquo;</p>
+              {searchResults.map((mod: any) => {
+                const locked = isFree && !mod.is_fundamental;
+                return (
+                  <div key={mod.id} className={`card transition-all ${locked ? "opacity-60" : "hover:border-ink-3 hover:shadow-sm"}`}>
+                    <div className="flex items-start gap-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-syne font-bold text-sm text-ink">{mod.title}</h3>
+                          {mod.is_fundamental && <span className="badge bg-blue-light text-blue text-[10px]">Free</span>}
+                          {locked && <span className="badge bg-amber-light text-amber text-[10px]">🔒 Pro</span>}
+                        </div>
+                        {mod.description && <p className="font-serif text-ink-3 text-xs line-clamp-2">{mod.description}</p>}
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        {!locked ? (
+                          <Link href={`/modules/${mod.id}`} className="btn-primary text-xs px-3 py-1.5">Open →</Link>
+                        ) : (
+                          <Link href="/settings?tab=billing" className="btn-secondary text-xs px-3 py-1.5">Upgrade</Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )
+        ) : !selectedSpecialty ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="text-4xl mb-3">📚</div>
             <h2 className="font-syne font-bold text-xl text-ink mb-1">Select a specialty</h2>
             <p className="font-serif text-ink-3 text-sm">
-              Choose a specialty from the left to browse modules
+              Choose a specialty from the left, or search above
             </p>
           </div>
         ) : loading ? (

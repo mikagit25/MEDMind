@@ -424,9 +424,26 @@ export default function DashboardPage() {
       </div>
 
       {/* Role-specific panel */}
-      {role === "doctor" && <DoctorPanel stats={stats} />}
-      {(role === "professor" || role === "teacher" || role === "admin") && <ProfessorPanel stats={stats} />}
-      {role === "veterinarian" && <VeterinarianPanel stats={stats} />}
+      {role === "doctor" && (
+        <>
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <TodaysPlan />
+          <DoctorPanel stats={stats} />
+        </>
+      )}
+      {(role === "professor" || role === "teacher" || role === "admin") && (
+        <>
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <ProfessorPanel stats={stats} />
+        </>
+      )}
+      {role === "veterinarian" && (
+        <>
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <TodaysPlan />
+          <VeterinarianPanel stats={stats} />
+        </>
+      )}
 
       {/* Default stats for students (or fallback) */}
       {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && (

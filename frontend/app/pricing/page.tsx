@@ -131,6 +131,9 @@ export default function PricingPage() {
             Med<span className="text-red">Mind</span>
           </Link>
           <div className="flex items-center gap-3">
+            <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2">
+              Articles
+            </Link>
             {isAuthenticated ? (
               <Link href="/dashboard" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
                 Dashboard →

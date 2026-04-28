@@ -41,6 +41,7 @@ export function Sidebar() {
     {
       label: t("nav.sections.tools"),
       items: [
+        { icon: "📄", label: "Articles", href: "/articles" },
         { icon: "💊", label: t("nav.items.drugs"), href: "/drugs" },
         { icon: "🐾", label: t("nav.items.veterinary"), href: "/veterinary" },
         { icon: "📈", label: t("nav.items.progress"), href: "/progress" },

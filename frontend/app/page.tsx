@@ -32,6 +32,12 @@ export default function RootPage() {
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/articles"
+              className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2"
+            >
+              Articles
+            </Link>
+            <Link
               href="/pricing"
               className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2"
             >
@@ -252,21 +258,22 @@ export default function RootPage() {
         <p className="text-ink-3 text-center mb-12 text-sm">82+ modules covering the full medical curriculum</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {[
-            { icon: "❤️", name: "Cardiology", count: 10 },
-            { icon: "🧠", name: "Neurology", count: 10 },
-            { icon: "🔪", name: "Surgery", count: 10 },
-            { icon: "👶", name: "Pediatrics", count: 11 },
-            { icon: "🤰", name: "OB/GYN", count: 9 },
-            { icon: "💊", name: "Therapy", count: 12 },
+            { icon: "❤️", name: "Cardiology", count: 10, article: "cardiology" },
+            { icon: "🧠", name: "Neurology", count: 10, article: "neurology" },
+            { icon: "🔪", name: "Surgery", count: 10, article: "surgery" },
+            { icon: "👶", name: "Pediatrics", count: 11, article: "pediatrics" },
+            { icon: "🤰", name: "OB/GYN", count: 9, article: null },
+            { icon: "💊", name: "Therapy", count: 12, article: null },
           ].map((s) => (
-            <div
+            <Link
               key={s.name}
-              className="bg-surface border border-border rounded-lg p-4 text-center hover:border-border-2 transition-colors"
+              href={s.article ? `/articles/category/${s.article}` : "/register"}
+              className="bg-surface border border-border rounded-lg p-4 text-center hover:border-border-2 hover:shadow-sm transition-all"
             >
               <div className="text-2xl mb-2">{s.icon}</div>
               <div className="font-syne font-bold text-sm text-ink">{s.name}</div>
               <div className="text-ink-3 text-xs mt-1">{s.count} modules</div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -297,13 +304,11 @@ export default function RootPage() {
             Med<span className="text-red">Mind</span>
             <span className="font-normal text-ink-3 text-xs ml-2">AI Education Platform</span>
           </div>
-          <div className="flex gap-6">
-            <Link href="/register" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">
-              Register
-            </Link>
-            <Link href="/login" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">
-              Login
-            </Link>
+          <div className="flex gap-6 flex-wrap justify-center">
+            <Link href="/articles" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Articles</Link>
+            <Link href="/pricing" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Pricing</Link>
+            <Link href="/register" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Register</Link>
+            <Link href="/login" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Login</Link>
           </div>
           <div className="text-ink-3 text-xs font-syne">
             © 2026 MedMind AI. Evidence-based learning.
