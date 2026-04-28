@@ -32,6 +32,12 @@ export default function RootPage() {
           </div>
           <div className="flex items-center gap-3">
             <Link
+              href="/how-it-works"
+              className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2"
+            >
+              How it works
+            </Link>
+            <Link
               href="/articles"
               className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2"
             >
@@ -305,8 +311,10 @@ export default function RootPage() {
             <span className="font-normal text-ink-3 text-xs ml-2">AI Education Platform</span>
           </div>
           <div className="flex gap-6 flex-wrap justify-center">
+            <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">How it works</Link>
             <Link href="/articles" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Articles</Link>
             <Link href="/pricing" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Pricing</Link>
+            <Link href="/investors" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Investors</Link>
             <Link href="/register" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Register</Link>
             <Link href="/login" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Login</Link>
           </div>
