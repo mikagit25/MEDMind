@@ -76,10 +76,12 @@ type Article = {
 
 type CategoryStat = { category: string; count: number };
 
-async function fetchArticles(): Promise<Article[]> {
+async function fetchArticles(search?: string): Promise<Article[]> {
   try {
-    const res = await fetch(`${API_URL}/articles?limit=24`, {
-      next: { revalidate: 3600 },
+    const params = new URLSearchParams({ limit: "24" });
+    if (search) params.set("search", search);
+    const res = await fetch(`${API_URL}/articles?${params}`, {
+      next: { revalidate: search ? 60 : 3600 },
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -101,8 +103,13 @@ async function fetchCategories(): Promise<CategoryStat[]> {
   }
 }
 
-export default async function ArticlesPage() {
-  const [articles, categories] = await Promise.all([fetchArticles(), fetchCategories()]);
+export default async function ArticlesPage({
+  searchParams,
+}: {
+  searchParams?: { search?: string };
+}) {
+  const search = searchParams?.search;
+  const [articles, categories] = await Promise.all([fetchArticles(search), fetchCategories()]);
 
   return (
     <div className="min-h-screen bg-bg">
@@ -160,7 +167,16 @@ export default async function ArticlesPage() {
         {/* Article grid */}
         {articles.length > 0 ? (
           <section>
-            <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">Latest Articles</h2>
+            <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">
+              {search ? (
+                <>
+                  Results for &ldquo;{search}&rdquo;
+                  <Link href="/articles" className="ml-3 text-ink-2 font-normal normal-case text-xs hover:text-ink underline">
+                    Clear
+                  </Link>
+                </>
+              ) : "Latest Articles"}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((a) => (
                 <ArticleCard key={a.id} article={a} />

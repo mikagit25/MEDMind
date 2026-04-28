@@ -191,14 +191,32 @@ async def list_articles(
 
 @router.get("/sitemap-data")
 async def sitemap_data(db: AsyncSession = Depends(get_db)):
-    rows = await db.execute(
-        select(Article.slug, Article.updated_at, Article.category)
+    rows = (await db.execute(
+        select(Article.id, Article.slug, Article.updated_at, Article.category)
         .where(Article.is_published == True, Article.review_status == "published")
         .order_by(desc(Article.published_at))
-    )
+    )).all()
+
+    # Fetch completed translation locales for all articles in one query
+    article_ids = [r.id for r in rows]
+    trans_rows = (await db.execute(
+        select(ArticleTranslation.article_id, ArticleTranslation.locale)
+        .where(ArticleTranslation.article_id.in_(article_ids), ArticleTranslation.status == "done")
+    )).all() if article_ids else []
+
+    # Group locales by article_id
+    locales_by_id: Dict[str, List[str]] = {}
+    for tr in trans_rows:
+        locales_by_id.setdefault(str(tr.article_id), []).append(tr.locale)
+
     return [
-        {"slug": r.slug, "updated_at": r.updated_at.isoformat() if r.updated_at else None, "category": r.category}
-        for r in rows.all()
+        {
+            "slug": r.slug,
+            "updated_at": r.updated_at.isoformat() if r.updated_at else None,
+            "category": r.category,
+            "locales": locales_by_id.get(str(r.id), []),
+        }
+        for r in rows
     ]
 
 
@@ -227,6 +245,78 @@ async def articles_by_category(
     q = q.order_by(desc(Article.published_at)).offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(q)).scalars().all()
     return {"category": category, "total": total, "page": page, "limit": limit, "articles": [_list_item(a) for a in rows]}
+
+
+@router.get("/{slug}/related")
+async def article_related(
+    slug: str,
+    limit: int = Query(4, ge=1, le=8),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return related published articles from the same category (excluding self)."""
+    article = (await db.execute(
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+    )).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    # Primary: same category, ordered by recency
+    rows = (await db.execute(
+        select(Article)
+        .where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.category == article.category,
+            Article.id != article.id,
+        )
+        .order_by(desc(Article.published_at))
+        .limit(limit)
+    )).scalars().all()
+
+    return [_list_item(a) for a in rows]
+
+
+@router.get("/{slug}/nav")
+async def article_nav(slug: str, db: AsyncSession = Depends(get_db)):
+    """Return prev/next article in the same category (by published_at)."""
+    article = (await db.execute(
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+    )).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    pub = article.published_at
+
+    prev_art = (await db.execute(
+        select(Article)
+        .where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.category == article.category,
+            Article.id != article.id,
+            Article.published_at < pub,
+        )
+        .order_by(desc(Article.published_at))
+        .limit(1)
+    )).scalar_one_or_none()
+
+    next_art = (await db.execute(
+        select(Article)
+        .where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.category == article.category,
+            Article.id != article.id,
+            Article.published_at > pub,
+        )
+        .order_by(Article.published_at)
+        .limit(1)
+    )).scalar_one_or_none()
+
+    return {
+        "prev": {"slug": prev_art.slug, "title": prev_art.title} if prev_art else None,
+        "next": {"slug": next_art.slug, "title": next_art.title} if next_art else None,
+    }
 
 
 @router.get("/{slug}/available-locales")

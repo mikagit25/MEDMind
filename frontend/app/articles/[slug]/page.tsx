@@ -92,6 +92,42 @@ async function fetchAvailableLocales(slug: string): Promise<string[]> {
   }
 }
 
+type RelatedArticle = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  reading_time_minutes: number;
+};
+
+type ArticleNav = {
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
+};
+
+async function fetchRelated(slug: string): Promise<RelatedArticle[]> {
+  try {
+    const res = await fetch(`${API_URL}/articles/${slug}/related`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
+  }
+}
+
+async function fetchNav(slug: string): Promise<ArticleNav> {
+  try {
+    const res = await fetch(`${API_URL}/articles/${slug}/nav`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return { prev: null, next: null };
+    return await res.json();
+  } catch {
+    return { prev: null, next: null };
+  }
+}
+
 export async function generateMetadata({
   params,
   searchParams,
@@ -290,9 +326,11 @@ export default async function ArticlePage({
   searchParams: { lang?: string };
 }) {
   const locale = searchParams.lang ?? "en";
-  const [article, availableLocales] = await Promise.all([
+  const [article, availableLocales, related, nav] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),
+    fetchRelated(params.slug),
+    fetchNav(params.slug),
   ]);
   if (!article) notFound();
 
@@ -443,6 +481,62 @@ export default async function ArticlePage({
             This article is for educational purposes only and does not constitute medical advice.
             Always consult a qualified healthcare professional for diagnosis and treatment.
           </div>
+
+          {/* Prev / Next in category */}
+          {(nav.prev || nav.next) && (
+            <nav className="mt-10 border-t border-border pt-6 grid grid-cols-2 gap-4" aria-label="Article navigation">
+              <div>
+                {nav.prev && (
+                  <Link
+                    href={`/articles/${nav.prev.slug}`}
+                    className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
+                  >
+                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">← Previous</span>
+                    <span className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
+                      {nav.prev.title}
+                    </span>
+                  </Link>
+                )}
+              </div>
+              <div>
+                {nav.next && (
+                  <Link
+                    href={`/articles/${nav.next.slug}`}
+                    className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all text-right"
+                  >
+                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">Next →</span>
+                    <span className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
+                      {nav.next.title}
+                    </span>
+                  </Link>
+                )}
+              </div>
+            </nav>
+          )}
+
+          {/* Related articles */}
+          {related.length > 0 && (
+            <section className="mt-12 border-t border-border pt-8">
+              <h2 className="font-syne font-bold text-base text-ink mb-5 uppercase tracking-wide text-sm text-ink-2">
+                More in {CATEGORY_LABELS[article.category] ?? article.category}
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {related.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/articles/${r.slug}`}
+                    className="group flex flex-col gap-2 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
+                  >
+                    <h3 className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
+                      {r.title}
+                    </h3>
+                    <p className="font-serif text-xs text-ink-3 line-clamp-2 leading-relaxed">{r.excerpt}</p>
+                    <span className="text-[10px] font-syne text-ink-3 mt-auto">{r.reading_time_minutes} min read →</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </main>
 
         {/* Sidebar */}
@@ -475,9 +569,13 @@ export default async function ArticlePage({
               <div className="font-syne font-semibold text-xs text-ink-2 uppercase tracking-wider mb-3">Topics</div>
               <div className="flex flex-wrap gap-1.5">
                 {article.keywords.map((kw) => (
-                  <span key={kw} className="text-xs font-serif bg-surface-2 border border-border rounded-full px-2.5 py-0.5 text-ink-2">
+                  <Link
+                    key={kw}
+                    href={`/articles?search=${encodeURIComponent(kw)}`}
+                    className="text-xs font-serif bg-surface-2 border border-border rounded-full px-2.5 py-0.5 text-ink-2 hover:border-ink hover:text-ink transition-colors"
+                  >
                     {kw}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </div>

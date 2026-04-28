@@ -20,6 +20,7 @@ type ArticleSitemapEntry = {
   slug: string;
   updated_at: string | null;
   category: string;
+  locales?: string[];  // available translation locales
 };
 
 async function fetchArticleSlugs(): Promise<ArticleSitemapEntry[]> {
@@ -57,13 +58,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await fetchArticleSlugs();
   for (const article of articles) {
     const lastMod = article.updated_at ? new Date(article.updated_at) : now;
+    const baseUrl = `${SITE_URL}/articles/${article.slug}`;
+
+    // Build hreflang alternates: en is canonical, translated locales use ?lang=xx
+    const languages: Record<string, string> = {
+      "x-default": baseUrl,
+      en: baseUrl,
+    };
+    if (article.locales?.length) {
+      for (const loc of article.locales) {
+        languages[loc] = `${baseUrl}?lang=${loc}`;
+      }
+    }
+
     entries.push({
-      url: `${SITE_URL}/articles/${article.slug}`,
+      url: baseUrl,
       lastModified: lastMod,
       changeFrequency: "monthly",
       priority: 0.8,
+      alternates: { languages },
     });
-    // Category page — add once per unique category (deduplicated externally)
   }
 
   // Unique category pages

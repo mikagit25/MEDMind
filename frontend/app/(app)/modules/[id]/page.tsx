@@ -537,6 +537,16 @@ export default function ModuleDetailPage() {
           >
             🤖 Ask AI Tutor
           </Link>
+          {mod?.code && (
+            <a
+              href={`/articles?search=${encodeURIComponent(mod.title ?? "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-syne font-semibold text-ink-3 hover:text-ink transition-colors"
+            >
+              📰 Related articles ↗
+            </a>
+          )}
         </div>
       </div>
 
@@ -638,25 +648,65 @@ export default function ModuleDetailPage() {
               </div>
             )}
 
-            <div className="mt-8 flex items-center justify-between border-t border-border pt-5">
-              <div className="text-xs font-serif text-ink-3">
-                Lesson {lessons.findIndex((l) => l.id === activeLesson.id) + 1} of {lessons.length}
+            {/* Lesson navigation footer */}
+            <div className="mt-8 border-t border-border pt-5 space-y-4">
+              {/* Prev / Next lesson labels */}
+              {(() => {
+                const idx = lessons.findIndex((l) => l.id === activeLesson.id);
+                const prevL = idx > 0 ? lessons[idx - 1] : null;
+                const nextL = idx < lessons.length - 1 ? lessons[idx + 1] : null;
+                return (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      {prevL && (
+                        <button
+                          onClick={() => setActiveLesson(prevL)}
+                          className="group w-full text-left p-3 rounded-lg border border-border hover:border-ink transition-all"
+                        >
+                          <div className="text-[10px] font-syne text-ink-3 uppercase tracking-wider mb-0.5">← Previous</div>
+                          <div className="text-xs font-syne font-semibold text-ink-2 group-hover:text-ink line-clamp-2">
+                            {prevL.title}
+                          </div>
+                        </button>
+                      )}
+                    </div>
+                    <div>
+                      {nextL && (
+                        <button
+                          onClick={() => setActiveLesson(nextL)}
+                          className="group w-full text-right p-3 rounded-lg border border-border hover:border-ink transition-all"
+                        >
+                          <div className="text-[10px] font-syne text-ink-3 uppercase tracking-wider mb-0.5">Next →</div>
+                          <div className="text-xs font-syne font-semibold text-ink-2 group-hover:text-ink line-clamp-2">
+                            {nextL.title}
+                          </div>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <div className="flex items-center justify-between">
+                <div className="text-xs font-serif text-ink-3">
+                  Lesson {lessons.findIndex((l) => l.id === activeLesson.id) + 1} of {lessons.length}
+                </div>
+                <button
+                  onClick={completeLesson}
+                  disabled={completing || lessonDone.has(activeLesson.id)}
+                  className={`font-syne font-bold text-sm px-5 py-2 rounded transition-colors ${
+                    lessonDone.has(activeLesson.id)
+                      ? "bg-green-light text-green border border-green/20 cursor-default"
+                      : "btn-primary"
+                  }`}
+                >
+                  {lessonDone.has(activeLesson.id)
+                    ? "✓ Completed"
+                    : completing
+                    ? "Saving…"
+                    : "Mark complete & continue →"}
+                </button>
               </div>
-              <button
-                onClick={completeLesson}
-                disabled={completing || lessonDone.has(activeLesson.id)}
-                className={`font-syne font-bold text-sm px-5 py-2 rounded transition-colors ${
-                  lessonDone.has(activeLesson.id)
-                    ? "bg-green-light text-green border border-green/20 cursor-default"
-                    : "btn-primary"
-                }`}
-              >
-                {lessonDone.has(activeLesson.id)
-                  ? "✓ Completed"
-                  : completing
-                  ? "Saving…"
-                  : "Mark complete & continue →"}
-              </button>
             </div>
           </div>
         ) : (
