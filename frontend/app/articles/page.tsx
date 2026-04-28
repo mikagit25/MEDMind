@@ -140,6 +140,29 @@ export default async function ArticlesPage({
             Evidence-based medical content written for healthcare professionals and students.
             All articles are grounded in clinical guidelines and peer-reviewed research.
           </p>
+          {/* Search bar */}
+          <form method="GET" action="/articles" className="mt-6 flex gap-2 max-w-lg">
+            <div className="relative flex-1">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">🔍</span>
+              <input
+                name="search"
+                defaultValue={search ?? ""}
+                placeholder="Search articles by title or topic…"
+                className="w-full bg-surface border border-border rounded-xl pl-9 pr-4 py-2.5 text-ink text-sm font-serif focus:outline-none focus:border-ink transition-colors"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-ink text-white font-syne font-semibold text-sm px-5 py-2.5 rounded-xl hover:bg-ink-2 transition-colors shrink-0"
+            >
+              Search
+            </button>
+            {search && (
+              <Link href="/articles" className="flex items-center px-3 py-2.5 border border-border rounded-xl text-ink-3 text-sm hover:border-ink-3 transition-colors font-serif shrink-0">
+                ✕
+              </Link>
+            )}
+          </form>
         </div>
 
         {/* Category grid */}

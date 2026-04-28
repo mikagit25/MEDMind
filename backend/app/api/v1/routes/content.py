@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, or_
 
 from app.core.database import get_db
-from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug
+from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article
 from app.schemas.schemas import (
     SpecialtyOut, ModuleOut, ModuleDetail, LessonOut, LessonDetail,
     FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
@@ -490,9 +490,21 @@ class SearchResult(ModuleOut):
     match_type: str = "module"
 
 
+class ArticleSearchItem(BaseModel):
+    id: str
+    slug: str
+    title: str
+    excerpt: str
+    category: str
+
+    class Config:
+        from_attributes = True
+
+
 class SearchResponse(BaseModel):
     modules: List[ModuleOut]
     lessons: List[LessonOut]
+    articles: List[ArticleSearchItem]
     total: int
 
 
@@ -503,7 +515,7 @@ async def search(
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
-    """Full-text search across modules and lessons."""
+    """Full-text search across modules, lessons, and articles."""
     # Search modules by title and description
     mod_stmt = (
         select(Module)
@@ -532,10 +544,33 @@ async def search(
     lesson_result = await db.execute(lesson_stmt)
     lessons = lesson_result.scalars().all()
 
+    # Search published articles by title and excerpt (public, no auth needed)
+    art_stmt = (
+        select(Article)
+        .where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            or_(
+                Article.title.ilike(f"%{q}%"),
+                Article.excerpt.ilike(f"%{q}%"),
+            ),
+        )
+        .limit(limit)
+    )
+    art_result = await db.execute(art_stmt)
+    articles = art_result.scalars().all()
+
     return SearchResponse(
         modules=modules,
         lessons=lessons,
-        total=len(modules) + len(lessons),
+        articles=[ArticleSearchItem(
+            id=str(a.id),
+            slug=a.slug,
+            title=a.title,
+            excerpt=a.excerpt,
+            category=a.category,
+        ) for a in articles],
+        total=len(modules) + len(lessons) + len(articles),
     )
 
 

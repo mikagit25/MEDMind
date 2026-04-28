@@ -5,26 +5,29 @@ import Link from "next/link";
 import { api, drugsApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
-type FilterType = "all" | "module" | "lesson" | "drug";
+type FilterType = "all" | "module" | "lesson" | "drug" | "article";
 
 interface SearchResult {
   id: string;
-  type: "module" | "lesson" | "drug";
+  type: "module" | "lesson" | "drug" | "article";
   title: string;
   module_id?: string;   // for lessons
-  subtitle?: string;    // drug category / module code
+  subtitle?: string;    // drug category / module code / article category
+  slug?: string;        // for articles
 }
 
 const TYPE_ICON: Record<string, string> = {
   module: "📚",
   lesson: "📖",
   drug: "💊",
+  article: "📄",
 };
 
 const TYPE_LABEL: Record<string, string> = {
   module: "Module",
   lesson: "Lesson",
   drug: "Drug",
+  article: "Article",
 };
 
 function SearchInner() {
@@ -69,6 +72,13 @@ function SearchInner() {
           title: d.name ?? d.generic_name ?? d.title,
           subtitle: d.drug_class ?? d.category ?? "",
         })),
+        ...(contentRes.articles ?? []).map((a: any) => ({
+          id: a.id,
+          type: "article" as const,
+          title: a.title,
+          subtitle: a.category ?? "",
+          slug: a.slug,
+        })),
       ];
       setResults(flat);
     } catch {
@@ -96,6 +106,7 @@ function SearchInner() {
     if (r.type === "module") return `/modules/${r.id}`;
     if (r.type === "lesson") return `/modules/${r.module_id ?? ""}`;
     if (r.type === "drug") return `/drugs?highlight=${r.id}`;
+    if (r.type === "article") return `/articles/${r.slug ?? ""}`;
     return "/modules";
   };
 
@@ -106,6 +117,7 @@ function SearchInner() {
     module: results.filter((r) => r.type === "module").length,
     lesson: results.filter((r) => r.type === "lesson").length,
     drug: results.filter((r) => r.type === "drug").length,
+    article: results.filter((r) => r.type === "article").length,
   };
 
   return (
@@ -137,7 +149,7 @@ function SearchInner() {
         {/* Filter tabs — only show after search */}
         {searched && !loading && results.length > 0 && (
           <div className="flex gap-1.5 mb-5">
-            {(["all", "module", "lesson", "drug"] as FilterType[]).map((t) => (
+            {(["all", "module", "lesson", "drug", "article"] as FilterType[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setFilter(t)}
@@ -219,16 +231,17 @@ function SearchInner() {
             <div className="font-serif text-sm mt-2 text-ink-3">
               {t("search.placeholder")}
             </div>
-            <div className="flex justify-center gap-3 mt-6">
+            <div className="flex justify-center gap-3 mt-6 flex-wrap">
               {[
-                { icon: "📚", labelKey: "nav.items.modules", href: "/modules" },
-                { icon: "💊", labelKey: "nav.items.drugs", href: "/drugs" },
-                { icon: "🩺", labelKey: "cases.title", href: "/cases" },
+                { icon: "📚", label: t("nav.items.modules"), href: "/modules" },
+                { icon: "💊", label: t("nav.items.drugs"), href: "/drugs" },
+                { icon: "🩺", label: t("cases.title"), href: "/cases" },
+                { icon: "📄", label: "Articles", href: "/articles" },
               ].map((l) => (
                 <Link key={l.href} href={l.href}
                   className="flex items-center gap-2 bg-surface border border-border rounded-lg px-4 py-2 font-syne text-sm text-ink hover:border-ink-3 transition-colors">
                   <span>{l.icon}</span>
-                  {t(l.labelKey as Parameters<typeof t>[0])}
+                  {l.label}
                 </Link>
               ))}
             </div>
