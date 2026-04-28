@@ -1,0 +1,9 @@
+# MedMind — Video generation dependencies
+# Install: pip install -r requirements_video.txt
+# Also needed: brew install ffmpeg  (macOS) / apt install ffmpeg  (Linux)
+
+edge-tts>=6.1.9
+moviepy==1.0.3
+pillow>=10.0.0
+numpy>=1.24.0
+httpx>=0.24.0
