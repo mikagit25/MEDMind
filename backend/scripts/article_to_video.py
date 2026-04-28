@@ -1,30 +1,48 @@
 """
-MedMind AI — Article to Video converter.
+MedMind AI — Article to Video converter (multilingual).
 
 Converts a published article into a branded MP4 video suitable for YouTube.
+Supports all 7 platform languages via Edge TTS (free, no API key needed).
 
 Pipeline:
-  1. Fetch article from backend API
+  1. Fetch article (+ translation if --lang != en) from backend API
   2. Split into title + sections
-  3. Synthesize speech for each section via Edge TTS (free, no API key)
-  4. Render branded slide images via Pillow
-  5. Assemble audio + slides into MP4 via moviepy + ffmpeg
+  3. Synthesize speech via Edge TTS for the chosen language
+  4. Render branded 1920×1080 slides via Pillow
+  5. Assemble audio + slides → MP4 via moviepy + ffmpeg
 
 Usage:
+    # English (default)
     python -m scripts.article_to_video --slug myocardial-infarction
-    python -m scripts.article_to_video --slug diabetes-mellitus --voice en-GB-SoniaNeural
-    python -m scripts.article_to_video --slug atrial-fibrillation --output ~/Desktop/videos
+
+    # Russian
+    python -m scripts.article_to_video --slug myocardial-infarction --lang ru
+
+    # German with male voice
+    python -m scripts.article_to_video --slug diabetes-mellitus --lang de --voice de-DE-ConradNeural
+
+    # Generate ALL available language videos for one article
+    python -m scripts.article_to_video --slug atrial-fibrillation --all-langs
+
+    # Custom output directory
+    python -m scripts.article_to_video --slug pneumonia --lang es --output ~/Desktop/videos
 
 Install dependencies first:
-    pip install edge-tts moviepy==1.0.3 pillow numpy
+    pip install -r requirements_video.txt
     brew install ffmpeg          # macOS
-    # OR: apt install ffmpeg     # Linux/Ubuntu server
+    apt install ffmpeg           # Linux/Ubuntu
 
-Available voices (recommended):
-    en-US-AriaNeural   — US female, natural (default)
-    en-US-GuyNeural    — US male, deep
-    en-GB-SoniaNeural  — British female, professional
-    en-AU-NatashaNeural — Australian female
+    # For Arabic RTL text rendering (optional):
+    pip install arabic-reshaper python-bidi
+
+Supported languages and default voices:
+    en  English   en-US-AriaNeural       (US female)
+    ru  Russian   ru-RU-SvetlanaNeural   (female)
+    de  German    de-DE-KatjaNeural      (female)
+    fr  French    fr-FR-DeniseNeural     (female)
+    es  Spanish   es-ES-ElviraNeural     (female)
+    tr  Turkish   tr-TR-EmelNeural       (female)
+    ar  Arabic    ar-SA-ZariyahNeural    (female) — needs arabic-reshaper
 """
 from __future__ import annotations
 
@@ -46,6 +64,51 @@ API_BASE     = os.getenv("API_BASE",       "http://localhost:8000/api/v1")
 ADMIN_EMAIL  = os.getenv("ADMIN_EMAIL",    "admin@medmind.ai")
 ADMIN_PASS   = os.getenv("ADMIN_PASSWORD", "adminpass123")
 OUTPUT_DIR   = Path(os.getenv("VIDEO_OUTPUT", "output/videos"))
+
+# ── Language → default Edge TTS voice ─────────────────────────────────────────
+LANG_VOICE: dict[str, str] = {
+    "en": "en-US-AriaNeural",
+    "ru": "ru-RU-SvetlanaNeural",
+    "de": "de-DE-KatjaNeural",
+    "fr": "fr-FR-DeniseNeural",
+    "es": "es-ES-ElviraNeural",
+    "tr": "tr-TR-EmelNeural",
+    "ar": "ar-SA-ZariyahNeural",
+}
+
+# Male voice alternatives (use --voice to override)
+LANG_VOICE_MALE: dict[str, str] = {
+    "en": "en-US-GuyNeural",
+    "ru": "ru-RU-DmitryNeural",
+    "de": "de-DE-ConradNeural",
+    "fr": "fr-FR-HenriNeural",
+    "es": "es-ES-AlvaroNeural",
+    "tr": "tr-TR-AhmetNeural",
+    "ar": "ar-SA-HamedNeural",
+}
+
+# Right-to-left languages
+RTL_LANGS = {"ar", "he", "fa"}
+
+# Outro CTA text per language
+OUTRO_TEXT: dict[str, str] = {
+    "en": "Thank you for watching. For the full article visit MedMind AI at medmind dot pro. Like and subscribe for more evidence-based medical content.",
+    "ru": "Спасибо за просмотр. Полную статью читайте на MedMind AI — medmind точка pro. Подписывайтесь для новых медицинских материалов.",
+    "de": "Vielen Dank fürs Zuschauen. Den vollständigen Artikel finden Sie auf MedMind AI unter medmind punkt pro. Abonnieren Sie für weitere medizinische Inhalte.",
+    "fr": "Merci d'avoir regardé. Retrouvez l'article complet sur MedMind AI à medmind point pro. Abonnez-vous pour plus de contenu médical.",
+    "es": "Gracias por ver este video. Lee el artículo completo en MedMind AI en medmind punto pro. Suscríbete para más contenido médico.",
+    "tr": "İzlediğiniz için teşekkürler. Tam makaleyi MedMind AI'da okuyun: medmind nokta pro. Daha fazla tıbbi içerik için abone olun.",
+    "ar": "شكراً لمشاهدتكم. اقرأ المقال كاملاً على MedMind AI على medmind.pro. اشترك لمزيد من المحتوى الطبي.",
+}
+
+# Per-language font paths (Unicode fonts for non-Latin scripts)
+UNICODE_FONT_PATHS = [
+    "/Library/Fonts/Arial Unicode.ttf",
+    "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+    "/usr/share/fonts/noto/NotoSans-Regular.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+]
 
 # Video dimensions
 W, H = 1920, 1080
@@ -105,18 +168,41 @@ def _find_font(paths: list[str], size: int) -> ImageFont.FreeTypeFont | ImageFon
     return ImageFont.load_default()
 
 
-def fonts(size: int) -> ImageFont.FreeTypeFont:
-    return _find_font(FONT_SEARCH_PATHS, size)
+def fonts(size: int, lang: str = "en") -> ImageFont.FreeTypeFont:
+    # Non-Latin scripts need a Unicode-capable font
+    if lang in ("ar", "ru", "tr"):
+        paths = UNICODE_FONT_PATHS + FONT_SEARCH_PATHS
+    else:
+        paths = FONT_SEARCH_PATHS
+    return _find_font(paths, size)
 
 
-def fonts_bold(size: int) -> ImageFont.FreeTypeFont:
-    return _find_font(FONT_BOLD_PATHS, size)
+def fonts_bold(size: int, lang: str = "en") -> ImageFont.FreeTypeFont:
+    if lang in ("ar", "ru", "tr"):
+        paths = UNICODE_FONT_PATHS + FONT_BOLD_PATHS
+    else:
+        paths = FONT_BOLD_PATHS
+    return _find_font(paths, size)
+
+
+def prepare_text(text: str, lang: str) -> str:
+    """Apply RTL reshaping for Arabic so Pillow renders it correctly."""
+    if lang not in RTL_LANGS:
+        return text
+    try:
+        import arabic_reshaper
+        from bidi.algorithm import get_display
+        return get_display(arabic_reshaper.reshape(text))
+    except ImportError:
+        # arabic-reshaper not installed — text will render but may look garbled
+        return text
 
 
 # ── Text wrapping ─────────────────────────────────────────────────────────────
 
-def wrap_text(text: str, font: Any, max_width: int) -> list[str]:
-    """Wrap text to fit within max_width pixels."""
+def wrap_text(text: str, font: Any, max_width: int, lang: str = "en") -> list[str]:
+    """Wrap text to fit within max_width pixels. RTL languages wrap word-by-word."""
+    text = prepare_text(text, lang)
     words = text.split()
     if not words:
         return []
@@ -247,7 +333,7 @@ def _category_badge(draw: ImageDraw.ImageDraw, category: str) -> None:
     draw.text((x + 16, y + 7), label, font=f, fill=color)
 
 
-def render_title_slide(article: dict) -> np.ndarray:
+def render_title_slide(article: dict, lang: str = "en") -> np.ndarray:
     img = Image.new("RGB", (W, H), BG_COLOR)
     draw = ImageDraw.Draw(img)
     _bg(draw)
@@ -255,14 +341,22 @@ def render_title_slide(article: dict) -> np.ndarray:
     _category_badge(draw, article.get("category", ""))
     _footer(draw)
 
+    # Language badge (non-English only)
+    if lang != "en":
+        flag = {"ru": "🇷🇺", "de": "🇩🇪", "fr": "🇫🇷", "es": "🇪🇸", "tr": "🇹🇷", "ar": "🇸🇦"}.get(lang, "")
+        f_lang = fonts(22)
+        draw.text((W - 60, 44), f"{flag} {lang.upper()}", font=f_lang, fill=MUTED_COLOR, anchor="rm")
+
     # Title
-    title = article.get("title", "")
-    f_title = fonts_bold(68)
+    title = prepare_text(article.get("title", ""), lang)
+    f_title = fonts_bold(68, lang)
     max_w = W - 120
-    lines = wrap_text(title, f_title, max_w)[:3]
+    lines = wrap_text(title, f_title, max_w, lang)[:3]
     y = 200
     for line in lines:
-        draw.text((60, y), line, font=f_title, fill=TEXT_COLOR)
+        x = W - 60 if lang in RTL_LANGS else 60
+        anchor = "ra" if lang in RTL_LANGS else "la"
+        draw.text((x, y), line, font=f_title, fill=TEXT_COLOR, anchor=anchor)
         y += 84
 
     # Divider
@@ -271,36 +365,45 @@ def render_title_slide(article: dict) -> np.ndarray:
     y += 30
 
     # Excerpt
-    excerpt = article.get("excerpt", "")
-    f_exc = fonts(36)
-    exc_lines = wrap_text(excerpt, f_exc, max_w)[:4]
+    excerpt = prepare_text(article.get("excerpt", ""), lang)
+    f_exc = fonts(36, lang)
+    exc_lines = wrap_text(excerpt, f_exc, max_w, lang)[:4]
     for line in exc_lines:
-        draw.text((60, y), line, font=f_exc, fill=MUTED_COLOR)
+        x = W - 60 if lang in RTL_LANGS else 60
+        anchor = "ra" if lang in RTL_LANGS else "la"
+        draw.text((x, y), line, font=f_exc, fill=MUTED_COLOR, anchor=anchor)
         y += 50
 
     return np.array(img)
 
 
-def render_section_slide(section: dict, index: int, total: int, category: str) -> np.ndarray:
+def render_section_slide(section: dict, index: int, total: int,
+                          category: str, lang: str = "en") -> np.ndarray:
     img = Image.new("RGB", (W, H), BG_COLOR)
     draw = ImageDraw.Draw(img)
     _bg(draw)
     _logo(draw, small=True)
     _footer(draw)
 
+    is_rtl = lang in RTL_LANGS
+    x_left = W - 60 if is_rtl else 60
+    x_right = 60 if is_rtl else W - 60
+    anchor_l = "ra" if is_rtl else "la"
+    anchor_r = "la" if is_rtl else "ra"
+
     # Progress indicator
     f_prog = fonts(22)
-    draw.text((W - 60, 44), f"{index}/{total}", font=f_prog, fill=MUTED_COLOR, anchor="rm")
+    draw.text((x_right, 44), f"{index}/{total}", font=f_prog, fill=MUTED_COLOR, anchor=anchor_r)
 
     # Section heading
-    heading = section.get("heading", "")
+    heading = prepare_text(section.get("heading", ""), lang)
     color = CATEGORY_COLORS.get(category, ACCENT)
     if heading:
-        f_h = fonts_bold(56)
-        h_lines = wrap_text(heading, f_h, W - 120)[:2]
+        f_h = fonts_bold(56, lang)
+        h_lines = wrap_text(heading, f_h, W - 120, lang)[:2]
         y = 130
         for line in h_lines:
-            draw.text((60, y), line, font=f_h, fill=TEXT_COLOR)
+            draw.text((x_left, y), line, font=f_h, fill=TEXT_COLOR, anchor=anchor_l)
             y += 70
         draw.rectangle([60, y + 8, 200, y + 11], fill=color)
         y += 40
@@ -308,39 +411,41 @@ def render_section_slide(section: dict, index: int, total: int, category: str) -
         y = 130
 
     # Paragraphs
-    f_p = fonts(34)
-    para_text = " ".join(section.get("paragraphs", [])[:1])  # first paragraph
+    f_p = fonts(34, lang)
+    para_text = prepare_text(" ".join(section.get("paragraphs", [])[:1]), lang)
     if para_text:
-        p_lines = wrap_text(para_text, f_p, W - 120)[:5]
+        p_lines = wrap_text(para_text, f_p, W - 120, lang)[:5]
         for line in p_lines:
-            draw.text((60, y), line, font=f_p, fill=TEXT_COLOR)
+            draw.text((x_left, y), line, font=f_p, fill=TEXT_COLOR, anchor=anchor_l)
             y += 48
         y += 12
 
     # Bullet points
     bullets = section.get("bullets", [])
     if bullets:
-        f_b = fonts(32)
+        f_b = fonts(32, lang)
         for bullet in bullets[:5]:
-            b_lines = wrap_text(bullet, f_b, W - 120)
+            b_text = prepare_text(bullet, lang)
+            b_lines = wrap_text(b_text, f_b, W - 120, lang)
             if b_lines:
-                draw.ellipse([60, y + 12, 74, y + 26], fill=color)
-                draw.text((90, y), b_lines[0], font=f_b, fill=TEXT_COLOR)
+                dot_x = W - 74 if is_rtl else 60
+                draw.ellipse([dot_x, y + 12, dot_x + 14, y + 26], fill=color)
+                text_x = W - 90 if is_rtl else 90
+                draw.text((text_x, y), b_lines[0], font=f_b, fill=TEXT_COLOR, anchor=anchor_l)
                 for extra in b_lines[1:]:
                     y += 42
-                    draw.text((90, y), extra, font=f_b, fill=MUTED_COLOR)
+                    draw.text((text_x, y), extra, font=f_b, fill=MUTED_COLOR, anchor=anchor_l)
             y += 52
 
     return np.array(img)
 
 
-def render_outro_slide(article: dict) -> np.ndarray:
+def render_outro_slide(article: dict, lang: str = "en") -> np.ndarray:
     img = Image.new("RGB", (W, H), BG_COLOR)
     draw = ImageDraw.Draw(img)
     _bg(draw)
     _footer(draw)
 
-    # Center logo large
     cx = W // 2
     f_logo = fonts_bold(80)
     draw.text((cx, 320), "MedMind", font=f_logo, fill=TEXT_COLOR, anchor="mm")
@@ -349,20 +454,22 @@ def render_outro_slide(article: dict) -> np.ndarray:
     f_ai = fonts_bold(80)
     draw.text((cx + logo_w // 2 + 10, 320), "AI", font=f_ai, fill=ACCENT, anchor="lm")
 
-    f_sub = fonts(36)
+    f_sub = fonts(36, lang)
     draw.text((cx, 390), "AI-powered medical education", font=f_sub, fill=MUTED_COLOR, anchor="mm")
 
-    # Divider
     draw.rectangle([cx - 120, 440, cx + 120, 443], fill=ACCENT)
 
-    # CTA lines
-    f_cta = fonts(32)
-    draw.text((cx, 510), "Read the full article at:", font=f_cta, fill=MUTED_COLOR, anchor="mm")
     f_url = fonts_bold(42)
-    draw.text((cx, 570), "medmind.pro/articles", font=f_url, fill=ACCENT, anchor="mm")
+    draw.text((cx, 540), "medmind.pro/articles", font=f_url, fill=ACCENT, anchor="mm")
 
-    f_sub2 = fonts(30)
-    draw.text((cx, 660), "Like & Subscribe for more evidence-based medical content", font=f_sub2, fill=MUTED_COLOR, anchor="mm")
+    # Outro CTA in native language
+    cta = OUTRO_TEXT.get(lang, OUTRO_TEXT["en"])
+    f_cta = fonts(28, lang)
+    cta_lines = wrap_text(prepare_text(cta, lang), f_cta, W - 200, lang)[:3]
+    y = 630
+    for line in cta_lines:
+        draw.text((cx, y), line, font=f_cta, fill=MUTED_COLOR, anchor="mm")
+        y += 42
 
     return np.array(img)
 
@@ -374,6 +481,7 @@ async def build_video(
     sections: list[dict],
     voice: str,
     output_path: Path,
+    lang: str = "en",
 ) -> None:
     try:
         from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
@@ -390,7 +498,7 @@ async def build_video(
 
         # ── 1. Title slide ────────────────────────────────────────────────────
         print("  Rendering title slide…", end=" ", flush=True)
-        title_img = render_title_slide(article)
+        title_img = render_title_slide(article, lang)
         title_text = f"{article.get('title', '')}. {article.get('excerpt', '')}"
         title_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(title_text, title_audio, voice)
@@ -406,7 +514,7 @@ async def build_video(
         for i, section in enumerate(sections, 1):
             heading = section.get("heading") or f"Part {i}"
             print(f"  [{i}/{total}] {heading[:50]}…", end=" ", flush=True)
-            slide_img = render_section_slide(section, i, total, category)
+            slide_img = render_section_slide(section, i, total, category, lang)
             text = section_tts_text(section)
             audio_path = str(tmp / f"audio_{clip_index:03}.mp3")
             duration = await synthesize(text, audio_path, voice)
@@ -419,14 +527,8 @@ async def build_video(
 
         # ── 3. Outro slide ────────────────────────────────────────────────────
         print("  Rendering outro slide…", end=" ", flush=True)
-        outro_img = render_outro_slide(article)
-        outro_text = (
-            f"Thank you for watching this MedMind AI medical education video about "
-            f"{article.get('title', 'this topic')}. "
-            "For the full article and more evidence-based medical content, "
-            "visit medmind dot pro. "
-            "Like and subscribe for more."
-        )
+        outro_img = render_outro_slide(article, lang)
+        outro_text = OUTRO_TEXT.get(lang, OUTRO_TEXT["en"])
         outro_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(outro_text, outro_audio, voice)
         print(f"{duration:.1f}s")
@@ -466,8 +568,11 @@ async def get_token(client: httpx.AsyncClient) -> str:
     return r.json()["access_token"]
 
 
-async def fetch_article(slug: str, token: str, client: httpx.AsyncClient) -> dict:
-    r = await client.get(f"{API_BASE}/articles/{slug}", timeout=20)
+async def fetch_article(slug: str, token: str, client: httpx.AsyncClient,
+                        lang: str = "en") -> dict:
+    """Fetch article. If lang != en, attempts to fetch translated version."""
+    params = {} if lang == "en" else {"locale": lang}
+    r = await client.get(f"{API_BASE}/articles/{slug}", params=params, timeout=20)
     if r.status_code == 200:
         return r.json()
     # Try admin endpoint (includes drafts)
@@ -486,57 +591,98 @@ async def fetch_article(slug: str, token: str, client: httpx.AsyncClient) -> dic
     raise RuntimeError(f"Article '{slug}' not found")
 
 
+async def fetch_available_locales(slug: str, client: httpx.AsyncClient) -> list[str]:
+    """Return list of translation locales available for this article."""
+    r = await client.get(f"{API_BASE}/articles/{slug}/available-locales", timeout=10)
+    if r.status_code == 200:
+        return r.json().get("locales", [])
+    return []
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+async def make_video_for_lang(
+    slug: str, lang: str, voice: str,
+    output_dir: Path, token: str, client: httpx.AsyncClient,
+) -> None:
+    """Generate one video for a given slug + language."""
+    print(f"\n── Language: {lang.upper()} ─────────────────────────")
+    article = await fetch_article(slug, token, client, lang)
+
+    title = article.get("title", slug)
+    print(f"  Title   : {title}")
+    print(f"  Category: {article.get('category', '?')}")
+    print(f"  Voice   : {voice}")
+
+    sections = parse_sections(article)
+    print(f"  Sections: {len(sections)}")
+
+    if not sections:
+        print("  [warn] No sections found — skipping.")
+        return
+
+    safe_slug = "".join(c if c.isalnum() or c in "-_" else "_" for c in slug)
+    suffix = f"_{lang}" if lang != "en" else ""
+    output_path = output_dir / f"{safe_slug}{suffix}.mp4"
+
+    print("\nGenerating audio and rendering slides…")
+    await build_video(article, sections, voice, output_path, lang)
+
+    size_mb = output_path.stat().st_size / 1_048_576
+    print(f"\nSaved: {output_path.name} ({size_mb:.1f} MB)")
+    print("YouTube upload tips:")
+    print(f"  Title : {title} | MedMind AI")
+    kw = ", ".join((article.get("keywords") or [])[:6])
+    print(f"  Tags  : {kw}, medical education, medmind")
+    print(f"  URL   : https://medmind.pro/articles/{slug}{'?lang=' + lang if lang != 'en' else ''}")
+
+
 async def main() -> None:
-    parser = argparse.ArgumentParser(description="MedMind article → YouTube video")
-    parser.add_argument("--slug",    required=True, help="Article slug, e.g. myocardial-infarction")
-    parser.add_argument("--voice",   default="en-US-AriaNeural",
-                        help="Edge TTS voice (default: en-US-AriaNeural)")
-    parser.add_argument("--output",  default=str(OUTPUT_DIR),
+    parser = argparse.ArgumentParser(description="MedMind article → multilingual YouTube video")
+    parser.add_argument("--slug",      required=True, help="Article slug, e.g. myocardial-infarction")
+    parser.add_argument("--lang",      default="en",
+                        choices=list(LANG_VOICE.keys()),
+                        help="Language (default: en)")
+    parser.add_argument("--all-langs", action="store_true",
+                        help="Generate videos for all available translations")
+    parser.add_argument("--voice",     default="",
+                        help="Override Edge TTS voice (default: auto per language)")
+    parser.add_argument("--male",      action="store_true",
+                        help="Use male voice instead of default female")
+    parser.add_argument("--output",    default=str(OUTPUT_DIR),
                         help="Output directory (default: output/videos)")
-    parser.add_argument("--preview", action="store_true",
-                        help="Render smaller 960x540 preview (faster)")
     args = parser.parse_args()
 
     output_dir = Path(args.output)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"\nMedMind Article → Video")
-    print(f"  Slug  : {args.slug}")
-    print(f"  Voice : {args.voice}")
-    print(f"  Output: {output_dir}\n")
+    print(f"\nMedMind Article → Video (multilingual)")
+    print(f"  Slug      : {args.slug}")
+    print(f"  All langs : {args.all_langs}")
+    print(f"  Output    : {output_dir}")
 
     async with httpx.AsyncClient(timeout=30) as client:
         token = await get_token(client)
-        print(f"Fetching article '{args.slug}'…")
-        article = await fetch_article(args.slug, token, client)
 
-    title = article.get("title", args.slug)
-    print(f"  Title   : {title}")
-    print(f"  Category: {article.get('category', '?')}")
+        if args.all_langs:
+            # Fetch available translation locales
+            locales = await fetch_available_locales(args.slug, client)
+            langs_to_gen = ["en"] + [l for l in locales if l != "en"]
+            print(f"  Available : {', '.join(langs_to_gen)}\n")
+        else:
+            langs_to_gen = [args.lang]
 
-    sections = parse_sections(article)
-    print(f"  Sections: {len(sections)}\n")
+        for lang in langs_to_gen:
+            if args.voice:
+                voice = args.voice
+            elif args.male:
+                voice = LANG_VOICE_MALE.get(lang, LANG_VOICE[lang])
+            else:
+                voice = LANG_VOICE.get(lang, LANG_VOICE["en"])
 
-    if not sections:
-        print("[warn] No sections found in article body. Nothing to generate.")
-        return
+            await make_video_for_lang(args.slug, lang, voice, output_dir, token, client)
 
-    # Safe filename from title
-    safe = "".join(c if c.isalnum() or c in "-_" else "_" for c in args.slug)
-    output_path = output_dir / f"{safe}.mp4"
-
-    print("Generating audio and rendering slides…")
-    await build_video(article, sections, args.voice, output_path)
-
-    size_mb = output_path.stat().st_size / 1_048_576
-    print(f"\nDone! Video saved to: {output_path} ({size_mb:.1f} MB)")
-    print("\nYouTube upload tips:")
-    print(f"  Title      : {title} | MedMind AI")
-    kw = ", ".join((article.get("keywords") or [])[:8])
-    print(f"  Tags       : {kw}, medical education, medmind")
-    print(f"  Description: {article.get('excerpt', '')[:200]}")
-    print(f"  URL in desc: https://medmind.pro/articles/{args.slug}")
+    print(f"\nAll done! Videos saved to: {output_dir}")
 
 
 if __name__ == "__main__":
