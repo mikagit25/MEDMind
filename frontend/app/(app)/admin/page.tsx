@@ -693,7 +693,7 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
   const [topic, setTopic] = useState("");
   const [category, setCategory] = useState("diseases");
   const [schemaType, setSchemaType] = useState("MedicalCondition");
-  const [genModel, setGenModel] = useState<"haiku" | "sonnet">("haiku");
+  const [genModel, setGenModel] = useState<"haiku" | "sonnet" | "ollama">("haiku");
   const [autoPublish, setAutoPublish] = useState(false);
   const [showGenForm, setShowGenForm] = useState(false);
 
@@ -1008,7 +1008,8 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
             </div>
             <div>
               <label className="text-xs font-semibold text-ink-3 mb-1 block">Model</label>
-              <select value={genModel} onChange={e => setGenModel(e.target.value as "haiku" | "sonnet")} className="input w-full">
+              <select value={genModel} onChange={e => setGenModel(e.target.value as "haiku" | "sonnet" | "ollama")} className="input w-full">
+                <option value="ollama">Ollama / Qwen (free, local)</option>
                 <option value="haiku">Claude Haiku (fast, ~$0.01)</option>
                 <option value="sonnet">Claude Sonnet (quality, ~$0.10)</option>
               </select>

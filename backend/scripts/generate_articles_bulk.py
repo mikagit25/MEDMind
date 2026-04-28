@@ -4,7 +4,7 @@ MedMind AI — Bulk article generation script.
 Generates medical articles via the local backend API (must be running).
 
 Usage:
-    # Generate all topics (default — all categories)
+    # Generate all topics (default — all categories, Claude Haiku)
     python -m scripts.generate_articles_bulk
 
     # One specific category
@@ -13,8 +13,18 @@ Usage:
     # Limit count per run
     python -m scripts.generate_articles_bulk --limit 20
 
-    # Use Sonnet for higher quality (slower, costs more)
-    python -m scripts.generate_articles_bulk --model sonnet
+    # Use local Ollama/Qwen — free, good for general topics
+    python -m scripts.generate_articles_bulk --model ollama --category symptoms
+    python -m scripts.generate_articles_bulk --model ollama --category nutrition
+    python -m scripts.generate_articles_bulk --model ollama --category diagnostics
+
+    # Use Claude Haiku — recommended for drugs, procedures, emergency
+    python -m scripts.generate_articles_bulk --model haiku --category drugs
+    python -m scripts.generate_articles_bulk --model haiku --category procedures
+    python -m scripts.generate_articles_bulk --model haiku --category emergency
+
+    # Use Sonnet for highest quality (oncology, rare diseases)
+    python -m scripts.generate_articles_bulk --model sonnet --category oncology
 
     # Dry run — just print topics without generating
     python -m scripts.generate_articles_bulk --dry-run
@@ -22,9 +32,15 @@ Usage:
     # Skip already-existing slugs check (faster, may create duplicates)
     python -m scripts.generate_articles_bulk --no-check
 
+Model recommendations:
+    ollama  (qwen3:8b, free)  — symptoms, nutrition, diagnostics, general diseases
+    haiku   (Claude, ~$0.01/article) — drugs (dosages!), procedures, emergency protocols
+    sonnet  (Claude, ~$0.05/article) — oncology, rare conditions, highest quality
+
 Requirements:
     pip install httpx
     Backend must be running: uvicorn app.main:app --port 8000
+    For ollama: ollama serve + ollama pull qwen3:8b
 
     Set ADMIN_EMAIL and ADMIN_PASSWORD as env vars or edit defaults below.
 """
@@ -45,7 +61,8 @@ API_BASE    = os.getenv("API_BASE",      "http://localhost:8000/api/v1")
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL",   "admin@medmind.ai")
 ADMIN_PASS  = os.getenv("ADMIN_PASSWORD","adminpass123")
 
-# Delay between requests (seconds). Haiku: 3s is safe. Sonnet: 8s.
+# Delay between requests (seconds).
+DELAY_OLLAMA = 30   # Ollama is local but heavy — give it time to free memory
 DELAY_HAIKU  = 4
 DELAY_SONNET = 10
 
@@ -412,12 +429,12 @@ async def main() -> None:
     parser = argparse.ArgumentParser(description="MedMind bulk article generator")
     parser.add_argument("--category", default="all", help="Category key or 'all'")
     parser.add_argument("--limit", type=int, default=0, help="Max articles to generate (0 = unlimited)")
-    parser.add_argument("--model", default="haiku", choices=["haiku", "sonnet"])
+    parser.add_argument("--model", default="haiku", choices=["haiku", "sonnet", "ollama"])
     parser.add_argument("--dry-run", action="store_true", help="Print topics without generating")
     parser.add_argument("--no-check", action="store_true", help="Skip existing slug check")
     args = parser.parse_args()
 
-    delay = DELAY_SONNET if args.model == "sonnet" else DELAY_HAIKU
+    delay = DELAY_OLLAMA if args.model == "ollama" else (DELAY_SONNET if args.model == "sonnet" else DELAY_HAIKU)
 
     # Build work list
     if args.category == "all":

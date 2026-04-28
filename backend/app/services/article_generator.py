@@ -102,15 +102,17 @@ async def generate_medical_article(
     language: str = "en",
     model: str = "haiku",
 ) -> Dict[str, Any]:
-    """Generate a medical article via Claude API. Returns parsed dict."""
+    """Generate a medical article. model: haiku | sonnet | ollama"""
     from app.core.config import settings
 
     system = _system_prompt(schema_type, language)
     user_msg = f"Write a comprehensive medical article about: {topic}\nCategory: {category}"
 
-    raw = await _call_claude(system, user_msg, model, settings)
-    data = _parse_response(raw, topic, category, language)
-    return data
+    if model == "ollama":
+        raw = await _call_ollama(system, user_msg, settings)
+    else:
+        raw = await _call_claude(system, user_msg, model, settings)
+    return _parse_response(raw, topic, category, language)
 
 
 async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
@@ -120,7 +122,6 @@ async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
     model_id = "claude-haiku-4-5-20251001" if model == "haiku" else "claude-sonnet-4-6"
 
     if not settings.ANTHROPIC_API_KEY:
-        # Fallback to Ollama if no Anthropic key
         return await _call_ollama(system, user_msg, settings)
 
     client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
@@ -134,19 +135,22 @@ async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
 
 
 async def _call_ollama(system: str, user_msg: str, settings) -> str:
-    """Fallback: local Ollama model."""
+    """Call local Ollama via /api/chat (supports system prompt properly)."""
     import httpx
 
     payload = {
         "model": settings.OLLAMA_MODEL,
-        "prompt": f"{system}\n\nUser: {user_msg}\nAssistant:",
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user",   "content": user_msg},
+        ],
         "stream": False,
         "options": {"num_predict": 4096, "temperature": 0.3},
     }
-    async with httpx.AsyncClient(timeout=120.0) as client:
-        r = await client.post(f"{settings.OLLAMA_URL}/api/generate", json=payload)
+    async with httpx.AsyncClient(timeout=180.0) as client:
+        r = await client.post(f"{settings.OLLAMA_URL}/api/chat", json=payload)
         r.raise_for_status()
-        return r.json()["response"]
+        return r.json()["message"]["content"]
 
 
 def _parse_response(raw: str, topic: str, category: str, language: str) -> Dict[str, Any]:
