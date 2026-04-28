@@ -128,6 +128,34 @@ async function fetchNav(slug: string): Promise<ArticleNav> {
   }
 }
 
+type LinkMapEntry = { term: string; slug: string };
+
+async function fetchLinkMap(): Promise<LinkMapEntry[]> {
+  try {
+    const res = await fetch(`${API_URL}/articles/link-map`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
+  }
+}
+
+type ModuleInfo = { id: string; title: string; code: string } | null;
+
+async function fetchModuleByCode(code: string): Promise<ModuleInfo> {
+  try {
+    const res = await fetch(`${API_URL}/articles/module-by-code/${encodeURIComponent(code)}`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
 export async function generateMetadata({
   params,
   searchParams,
@@ -183,7 +211,7 @@ export async function generateMetadata({
 }
 
 // schema.org structured data
-function buildSchemaOrg(article: ArticleDetail): object {
+function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo): object[] {
   const url = `${SITE_URL}/articles/${article.slug}`;
   const base = {
     "@context": "https://schema.org",
@@ -236,7 +264,90 @@ function buildSchemaOrg(article: ArticleDetail): object {
       }
     : null;
 
-  return faqSchema ? [base, breadcrumb, faqSchema] : [base, breadcrumb];
+  // Course schema — link this article to the related MedMind learning module
+  const courseSchema = moduleInfo
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name: moduleInfo.title,
+        description: article.excerpt,
+        url: `${SITE_URL}/modules/${moduleInfo.id}`,
+        provider: {
+          "@type": "Organization",
+          name: "MedMind AI",
+          url: SITE_URL,
+        },
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "online",
+          url: `${SITE_URL}/modules/${moduleInfo.id}`,
+        },
+      }
+    : null;
+
+  const schemas: object[] = [base, breadcrumb];
+  if (faqSchema) schemas.push(faqSchema);
+  if (courseSchema) schemas.push(courseSchema);
+  return schemas;
+}
+
+// ── Internal linking ──────────────────────────────────────────────────────────
+
+/**
+ * Replace medical term occurrences in a paragraph with internal article links.
+ * Terms are matched case-insensitively. Each term is linked at most once per
+ * paragraph to avoid noise. Returns an array of React nodes.
+ */
+function linkifyText(
+  text: string,
+  linkMap: LinkMapEntry[],
+  currentSlug: string
+): React.ReactNode[] {
+  if (!linkMap.length || !text) return [text];
+
+  // Only link terms that are different from the current article
+  const candidates = linkMap.filter((e) => e.slug !== currentSlug);
+  if (!candidates.length) return [text];
+
+  // Build one regex that matches any candidate term (longest first)
+  const escaped = candidates.map((e) =>
+    e.term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  );
+  const pattern = new RegExp(`\\b(${escaped.join("|")})\\b`, "gi");
+
+  const parts: React.ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+  const linked = new Set<string>(); // link each term once per paragraph
+
+  while ((match = pattern.exec(text)) !== null) {
+    const matched = match[0];
+    const key = matched.toLowerCase();
+    if (linked.has(key)) continue;
+    linked.add(key);
+
+    const entry = candidates.find((e) => e.term.toLowerCase() === key);
+    if (!entry) continue;
+
+    if (match.index > last) {
+      parts.push(text.slice(last, match.index));
+    }
+    parts.push(
+      <a
+        key={`${key}-${match.index}`}
+        href={`/articles/${entry.slug}`}
+        className="text-accent underline underline-offset-2 hover:text-accent-2 transition-colors"
+      >
+        {matched}
+      </a>
+    );
+    last = match.index + matched.length;
+    // Advance to avoid re-matching same position
+    pattern.lastIndex = last;
+  }
+
+  if (last < text.length) parts.push(text.slice(last));
+  return parts.length ? parts : [text];
 }
 
 const CALLOUT_STYLES: Record<string, string> = {
@@ -248,14 +359,23 @@ const CALLOUT_ICONS: Record<string, string> = {
   warning: "⚠️", info: "ℹ️", tip: "💡",
 };
 
-function renderBlock(block: Block, i: number) {
+function renderBlock(
+  block: Block,
+  i: number,
+  linkMap: LinkMapEntry[] = [],
+  currentSlug = ""
+) {
   switch (block.type) {
     case "h2":
       return <h2 key={i} className="font-syne font-bold text-xl text-ink mt-8 mb-3">{block.content}</h2>;
     case "h3":
       return <h3 key={i} className="font-syne font-semibold text-base text-ink mt-6 mb-2">{block.content}</h3>;
     case "p":
-      return <p key={i} className="font-serif text-ink-2 text-base leading-relaxed mb-4">{block.content}</p>;
+      return (
+        <p key={i} className="font-serif text-ink-2 text-base leading-relaxed mb-4">
+          {linkifyText(block.content, linkMap, currentSlug)}
+        </p>
+      );
     case "ul":
       return (
         <ul key={i} className="list-disc list-inside space-y-1.5 mb-4 ml-2">
@@ -326,15 +446,21 @@ export default async function ArticlePage({
   searchParams: { lang?: string };
 }) {
   const locale = searchParams.lang ?? "en";
-  const [article, availableLocales, related, nav] = await Promise.all([
+  const [article, availableLocales, related, nav, linkMap] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),
     fetchRelated(params.slug),
     fetchNav(params.slug),
+    fetchLinkMap(),
   ]);
   if (!article) notFound();
 
-  const schema = buildSchemaOrg(article);
+  // Resolve module if article has a related module code
+  const moduleInfo = article.related_module_code
+    ? await fetchModuleByCode(article.related_module_code)
+    : null;
+
+  const schema = buildSchemaOrg(article, moduleInfo);
   const allLocales = ["en", ...availableLocales.filter((l) => l !== "en")];
 
   return (
@@ -411,7 +537,7 @@ export default async function ArticlePage({
 
           {/* Body */}
           <article className="prose-custom">
-            {article.body.map((block, i) => renderBlock(block, i))}
+            {article.body.map((block, i) => renderBlock(block, i, linkMap, article.slug))}
           </article>
 
           {/* Author bio — only for human authors */}
@@ -553,7 +679,14 @@ export default async function ArticlePage({
             >
               Start learning free →
             </Link>
-            {article.related_module_code && (
+            {moduleInfo ? (
+              <Link
+                href={`/modules/${moduleInfo.id}`}
+                className="block w-full mt-2 border border-white/20 text-white/80 font-syne text-xs text-center px-4 py-2 rounded-lg hover:border-white/40 transition-colors"
+              >
+                Open module: {moduleInfo.title} →
+              </Link>
+            ) : article.related_module_code && (
               <Link
                 href={`/register?ref=article&module=${article.related_module_code}`}
                 className="block w-full mt-2 border border-white/20 text-white/80 font-syne text-xs text-center px-4 py-2 rounded-lg hover:border-white/40 transition-colors"

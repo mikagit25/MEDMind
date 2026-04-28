@@ -80,15 +80,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  // Unique category pages
-  const categories = [...new Set(articles.map((a) => a.category))];
-  for (const cat of categories) {
+  // Category pages — page 1 gets priority, paginated pages get lower priority
+  const categoryCount: Record<string, number> = {};
+  for (const a of articles) {
+    categoryCount[a.category] = (categoryCount[a.category] ?? 0) + 1;
+  }
+  for (const [cat, count] of Object.entries(categoryCount)) {
     entries.push({
       url: `${SITE_URL}/articles/category/${cat}`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.7,
     });
+    // Add paginated pages for large categories
+    const totalPages = Math.ceil(count / 24);
+    for (let p = 2; p <= totalPages; p++) {
+      entries.push({
+        url: `${SITE_URL}/articles/category/${cat}?page=${p}`,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.5,
+      });
+    }
   }
 
   return entries;

@@ -77,36 +77,54 @@ async function fetchCategory(cat: string, page = 1): Promise<{ articles: Article
   }
 }
 
-export async function generateMetadata({ params }: { params: { cat: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: { cat: string };
+  searchParams?: { page?: string };
+}): Promise<Metadata> {
   const label = CATEGORY_LABELS[params.cat];
   if (!label) return { title: "Category not found" };
 
+  const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
   const description = CATEGORY_DESCRIPTIONS[params.cat] ??
     `Evidence-based medical articles in ${label}. Comprehensive content for healthcare professionals.`;
-  const url = `${SITE_URL}/articles/category/${params.cat}`;
+  const baseUrl = `${SITE_URL}/articles/category/${params.cat}`;
+  const canonical = page > 1 ? `${baseUrl}?page=${page}` : baseUrl;
 
   return {
-    title: `${label} — Medical Articles`,
+    title: page > 1 ? `${label} — Page ${page} — Medical Articles` : `${label} — Medical Articles`,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical },
     openGraph: {
       title: `${label} — MedMind AI Articles`,
       description,
-      url,
+      url: canonical,
       siteName: "MedMind AI",
       type: "website",
     },
   };
 }
 
-export default async function CategoryPage({ params }: { params: { cat: string } }) {
+const PAGE_SIZE = 24;
+
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: { cat: string };
+  searchParams?: { page?: string };
+}) {
   const label = CATEGORY_LABELS[params.cat];
   if (!label) notFound();
 
-  const result = await fetchCategory(params.cat);
+  const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
+  const result = await fetchCategory(params.cat, page);
   if (!result) notFound();
 
   const { articles, total } = result;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   // Breadcrumb schema
   const breadcrumbSchema = {
@@ -194,10 +212,39 @@ export default async function CategoryPage({ params }: { params: { cat: string }
           </div>
         )}
 
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <nav className="mt-12 pt-8 border-t border-border flex items-center justify-between gap-3" aria-label="Pagination">
+            <div>
+              {page > 1 && (
+                <Link
+                  href={`/articles/category/${params.cat}?page=${page - 1}`}
+                  className="inline-flex items-center gap-1.5 font-syne font-semibold text-sm text-ink-2 hover:text-ink border border-border rounded-lg px-4 py-2 hover:border-ink transition-all"
+                >
+                  ← Previous
+                </Link>
+              )}
+            </div>
+            <span className="font-serif text-xs text-ink-3">
+              Page {page} of {totalPages} &mdash; {total} articles
+            </span>
+            <div>
+              {page < totalPages && (
+                <Link
+                  href={`/articles/category/${params.cat}?page=${page + 1}`}
+                  className="inline-flex items-center gap-1.5 font-syne font-semibold text-sm text-ink-2 hover:text-ink border border-border rounded-lg px-4 py-2 hover:border-ink transition-all"
+                >
+                  Next →
+                </Link>
+              )}
+            </div>
+          </nav>
+        )}
+
         {/* Back link */}
-        <div className="mt-12 pt-8 border-t border-border">
+        <div className="mt-6 pt-4">
           <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink">
-            ← Back to all articles
+            ← All articles
           </Link>
         </div>
       </main>

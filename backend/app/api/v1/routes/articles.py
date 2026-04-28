@@ -46,7 +46,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, require_admin, require_teacher
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Article, ArticleTranslation, User
+from app.models.models import Article, ArticleTranslation, Module, User
 
 router = APIRouter(prefix="/articles", tags=["articles"])
 
@@ -229,6 +229,58 @@ async def list_categories(db: AsyncSession = Depends(get_db)):
         .order_by(desc("count"))
     )
     return [{"category": r.category, "count": r.count} for r in rows.all()]
+
+
+@router.get("/link-map")
+async def article_link_map(db: AsyncSession = Depends(get_db)):
+    """Return a flat list of {term, slug} for all published articles.
+
+    Used by the frontend to auto-link medical terms in article body text.
+    Includes article titles (primary) and individual keywords (secondary).
+    Sorted by term length descending so longer/more specific terms match first.
+    Cached for 1 hour via ISR on the consuming page.
+    """
+    rows = (await db.execute(
+        select(Article.slug, Article.title, Article.keywords)
+        .where(Article.is_published == True, Article.review_status == "published")
+    )).all()
+
+    entries: List[Dict[str, str]] = []
+    seen_terms: set = set()
+
+    for r in rows:
+        # Title → primary link
+        term = r.title.strip()
+        if term and term.lower() not in seen_terms:
+            entries.append({"term": term, "slug": r.slug})
+            seen_terms.add(term.lower())
+        # Keywords → secondary links (only if not already mapped)
+        for kw in (r.keywords or []):
+            kw = kw.strip()
+            if len(kw) >= 4 and kw.lower() not in seen_terms:
+                entries.append({"term": kw, "slug": r.slug})
+                seen_terms.add(kw.lower())
+
+    # Sort longest terms first to prevent partial-match shadowing
+    entries.sort(key=lambda e: len(e["term"]), reverse=True)
+    return entries
+
+
+@router.get("/module-by-code/{code}")
+async def module_by_code(code: str, db: AsyncSession = Depends(get_db)):
+    """Public endpoint: resolve a module code to its id + title.
+
+    Used by article pages to build a direct /modules/{id} link instead of the
+    generic /register CTA, improving internal navigation for logged-in users.
+    Returns 404 if the module does not exist or is not published.
+    """
+    mod = (await db.execute(
+        select(Module.id, Module.title)
+        .where(Module.code == code, Module.is_published == True)
+    )).first()
+    if not mod:
+        raise HTTPException(status_code=404, detail="Module not found")
+    return {"id": str(mod.id), "title": mod.title, "code": code}
 
 
 @router.get("/category/{category}")
