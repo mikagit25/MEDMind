@@ -62,7 +62,7 @@ export default function RecommendationsPage() {
       contentApi.getDailyPlan().catch(() => null),
       adaptivePlanApi.getCurrent().catch(() => null),
     ]).then(([r, d, plan]) => {
-      setRecs(Array.isArray(r) ? r : r?.recommendations ?? []);
+      setRecs(Array.isArray(r) ? r : r?.modules ?? r?.recommendations ?? []);
       setDaily(d);
       if (plan) setAdaptivePlan(plan);
     }).finally(() => setLoading(false));

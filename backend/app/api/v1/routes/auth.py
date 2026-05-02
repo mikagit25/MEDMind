@@ -442,15 +442,16 @@ async def google_callback(
     last_name = guser.get("family_name", "")
     avatar_url = guser.get("picture")
 
-    # Upsert user
-    result = await db.execute(select(User).where(User.email == email))
+    # Upsert user — always search by email_hash (works with encrypted emails too)
+    _search_hash = email_search_hash(email)
+    result = await db.execute(select(User).where(User.email_hash == _search_hash))
     user = result.scalar_one_or_none()
 
     if not user:
         # New user via Google — create account
         user = User(
-            email=email,
-            email_hash=hash_email(email),
+            email=encrypt_email(email),
+            email_hash=_search_hash,
             first_name=first_name,
             last_name=last_name,
             avatar_url=avatar_url,

@@ -414,7 +414,7 @@ export default function ModuleDetailPage() {
 
   const loadNotes = useCallback(() => {
     if (!activeLesson) return;
-    notesApi.list({ lesson_id: activeLesson.id }).then((r) => setNotes(r.data ?? []));
+    notesApi.list({ lesson_id: activeLesson.id }).then((r) => setNotes(r ?? []));
   }, [activeLesson]);
 
   useEffect(() => {
