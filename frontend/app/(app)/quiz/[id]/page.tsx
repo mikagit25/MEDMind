@@ -63,13 +63,16 @@ export default function QuizPage() {
     setSubmitting(true);
     try {
       const res = await progressApi.answerMCQ(questions[current].id, selected);
-      const ans: AnswerResult = res.data;
+      const ans: AnswerResult = res;
       setResult(ans);
       setScore((s) => ({
         correct: s.correct + (ans.correct ? 1 : 0),
         total: s.total + 1,
         xp: s.xp + (ans.xp_earned ?? 0),
       }));
+      if ((res as any)?.newly_unlocked?.length > 0) {
+        (window as any).__checkAchievements?.();
+      }
     } catch {
       /* ignore */
     } finally {

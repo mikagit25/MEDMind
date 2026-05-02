@@ -22,6 +22,7 @@ from app.schemas.schemas import (
 )
 from app.api.deps import get_current_user
 from app.core.cache import invalidate
+from app.api.v1.routes.achievements import run_achievement_check
 
 router = APIRouter(prefix="/progress", tags=["progress"])
 
@@ -138,14 +139,17 @@ async def complete_lesson(
         db.add(cme)
 
     await db.commit()
-    # Invalidate student dashboard cache so next load reflects updated progress
     await invalidate(f"student_dashboard:{user.id}")
 
+    xp_for_response = XP_LESSON if is_new_completion else 0
+    newly_unlocked = await run_achievement_check(user, db) if is_new_completion else []
+
     return LessonCompleteResponse(
-        xp_earned=XP_LESSON,
+        xp_earned=xp_for_response,
         total_xp=user.xp,
         level=user.level,
         module_completion_percent=float(completion_pct),
+        newly_unlocked=newly_unlocked,
     )
 
 
@@ -275,12 +279,15 @@ async def review_flashcard(
 
     await db.commit()
 
+    newly_unlocked = await run_achievement_check(user, db)
+
     return FlashcardReviewResponse(
         flashcard_id=data.flashcard_id,
         next_review_at=review.next_review_at,
         interval_days=new_interval,
         ease_factor=new_ef,
         xp_earned=xp_earned,
+        newly_unlocked=newly_unlocked,
     )
 
 
@@ -301,13 +308,16 @@ async def answer_mcq(
 
     if xp:
         await add_xp(user, xp, db)
-        await db.commit()
+    await db.commit()
+
+    newly_unlocked = await run_achievement_check(user, db)
 
     return MCQAnswerResponse(
         correct=is_correct,
         correct_answer=question.correct,
         explanation=question.explanation or "",
         xp_earned=xp,
+        newly_unlocked=newly_unlocked,
     )
 
 

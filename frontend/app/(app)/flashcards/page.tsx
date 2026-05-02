@@ -102,6 +102,9 @@ function FlashcardsInner() {
     try {
       const res = await progressApi.reviewFlashcard(card.id, quality);
       setSessionXp((p) => p + (res?.xp_earned ?? 0));
+      if (res?.newly_unlocked?.length > 0) {
+        (window as any).__checkAchievements?.();
+      }
     } catch {/* ignore */}
 
     setSessionDone((p) => p + 1);

@@ -173,6 +173,7 @@ class FlashcardReviewResponse(BaseModel):
     interval_days: int
     ease_factor: float
     xp_earned: int
+    newly_unlocked: List[str] = []
 
 
 # ============================================================
@@ -198,6 +199,7 @@ class MCQAnswerResponse(BaseModel):
     correct_answer: str
     explanation: str
     xp_earned: int
+    newly_unlocked: List[str] = []
 
 
 # ============================================================
@@ -234,6 +236,7 @@ class LessonCompleteResponse(BaseModel):
     total_xp: int
     level: int
     module_completion_percent: float
+    newly_unlocked: List[str] = []
 
 
 class CaseCompleteRequest(BaseModel):
@@ -244,6 +247,7 @@ class CaseCompleteResponse(BaseModel):
     correct: bool
     explanation: str
     xp_gained: int
+    newly_unlocked: List[str] = []
 
 
 class ProgressStats(BaseModel):

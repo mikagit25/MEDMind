@@ -5,6 +5,95 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { contentApi, progressApi, adaptivePlanApi } from "@/lib/api";
+
+// ── Mini Leaderboard ──────────────────────────────────────────
+const LEVEL_NAMES = ["", "Novice", "Learner", "Resident", "Specialist", "Expert", "Master"];
+
+function MiniLeaderboard() {
+  const [board, setBoard] = useState<any[]>([]);
+  const [myRank, setMyRank] = useState<number | null>(null);
+
+  useEffect(() => {
+    progressApi.getLeaderboard("week", 5).then((data: any) => {
+      setBoard(data?.leaderboard ?? []);
+      setMyRank(data?.my_rank ?? null);
+    }).catch(() => {});
+  }, []);
+
+  if (board.length === 0) return null;
+
+  const medalColor = ["text-amber-2", "text-ink-3", "text-amber"];
+
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-syne font-bold text-sm text-ink">🏆 This Week&apos;s Top</h3>
+        <Link href="/leaderboard" className="text-xs text-ink-3 font-syne hover:text-ink">
+          Full leaderboard →
+        </Link>
+      </div>
+      <div className="space-y-2">
+        {board.slice(0, 3).map((entry: any) => (
+          <div
+            key={entry.rank}
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg ${entry.is_me ? "bg-amber-light border border-amber/20" : "bg-bg-2"}`}
+          >
+            <span className={`font-syne font-black text-base w-5 text-center ${medalColor[(entry.rank - 1) % 3] ?? "text-ink-3"}`}>
+              {entry.rank === 1 ? "🥇" : entry.rank === 2 ? "🥈" : "🥉"}
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="font-syne font-semibold text-xs text-ink truncate">
+                {entry.name}{entry.is_me ? " (you)" : ""}
+              </div>
+              <div className="font-serif text-[10px] text-ink-3">{LEVEL_NAMES[entry.level] ?? "Learner"}</div>
+            </div>
+            <div className="text-right">
+              <div className="font-syne font-bold text-xs text-ink">{entry.xp} XP</div>
+              <div className="font-serif text-[10px] text-ink-3">{entry.streak_days}🔥</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {myRank && myRank > 3 && (
+        <div className="mt-2 text-center font-serif text-xs text-ink-3">
+          Your rank this week: <span className="font-syne font-bold text-ink">#{myRank}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── New User Welcome ──────────────────────────────────────────
+function NewUserWelcome({ firstName }: { firstName?: string }) {
+  const steps = [
+    { icon: "📚", label: "Browse modules by specialty", href: "/modules", color: "bg-blue-light text-blue border-blue/20" },
+    { icon: "🃏", label: "Start flashcard review", href: "/flashcards", color: "bg-green-light text-green border-green/20" },
+    { icon: "🤖", label: "Ask the AI Tutor anything", href: "/ai-tutor", color: "bg-amber-light text-amber border-amber/20" },
+    { icon: "📝", label: "Test yourself with MCQs", href: "/quiz", color: "bg-red-light text-red border-red/20" },
+  ];
+  return (
+    <div className="card p-5 mb-4 border-amber/30 bg-amber-light/20">
+      <div className="font-syne font-black text-base text-ink mb-1">
+        Welcome{firstName ? `, ${firstName}` : ""}! 🎉
+      </div>
+      <p className="font-serif text-ink-3 text-xs mb-4">
+        Start your medical learning journey. Here&apos;s how to get started:
+      </p>
+      <div className="grid grid-cols-2 gap-2">
+        {steps.map((s) => (
+          <Link
+            key={s.href}
+            href={s.href}
+            className={`flex items-center gap-2 p-3 rounded-lg border text-xs font-syne font-semibold hover:shadow-sm transition-shadow ${s.color}`}
+          >
+            <span className="text-base">{s.icon}</span>
+            <span className="leading-tight">{s.label}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 import { useT } from "@/lib/i18n";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
@@ -448,15 +537,22 @@ export default function DashboardPage() {
       {/* Default stats for students (or fallback) */}
       {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && (
         <>
-          {stats && (
-            <div className="grid grid-cols-3 gap-3 mb-4">
-              <StatCard value={stats.lessons_completed ?? 0} label={t("progress.lessons_completed")} />
-              <StatCard value={stats.cards_reviewed ?? 0} label={t("flashcards.my_cards")} />
-              <StatCard value={stats.mcqs_answered ?? 0} label={t("quiz.title")} />
-            </div>
+          {stats && (stats.lessons_completed ?? 0) === 0 ? (
+            <NewUserWelcome firstName={user?.first_name} />
+          ) : (
+            <>
+              {stats && (
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                  <StatCard value={stats.lessons_completed ?? 0} label={t("progress.lessons_completed")} />
+                  <StatCard value={stats.cards_reviewed ?? 0} label={t("flashcards.my_cards")} />
+                  <StatCard value={stats.mcqs_answered ?? 0} label={t("quiz.title")} />
+                </div>
+              )}
+              <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+              <TodaysPlan />
+              <MiniLeaderboard />
+            </>
           )}
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
-          <TodaysPlan />
         </>
       )}
 

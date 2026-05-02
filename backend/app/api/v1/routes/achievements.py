@@ -125,17 +125,11 @@ async def list_achievements(
     ]
 
 
-@router.post("/check", response_model=List[str])
-async def check_and_award(
-    db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
-):
-    """Evaluate all achievement conditions and award any newly earned ones.
-    Call this after completing a lesson, quiz, etc.
+async def run_achievement_check(user: User, db: AsyncSession) -> list[str]:
+    """Check and award achievements. Call from any route after a progress event.
     Returns list of newly awarded achievement codes."""
     newly_awarded: list[str] = []
 
-    # Aggregate progress stats
     prog_result = await db.execute(
         select(UserProgress).where(UserProgress.user_id == user.id)
     )
@@ -195,3 +189,12 @@ async def check_and_award(
                 newly_awarded.append(code)
 
     return newly_awarded
+
+
+@router.post("/check", response_model=List[str])
+async def check_and_award(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Evaluate all achievement conditions and award any newly earned ones."""
+    return await run_achievement_check(user, db)
