@@ -1,4 +1,5 @@
 """Stripe payments routes."""
+import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -11,6 +12,8 @@ from app.core.database import get_db
 from app.core.config import settings
 from app.models.models import User
 from app.api.deps import get_current_user
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/payments", tags=["payments"])
 
@@ -159,8 +162,17 @@ async def stripe_webhook(
             await _handle_subscription_change(customer_id, status, subscription, db)
 
     elif event_type == "invoice.payment_failed":
-        # Could notify user via email — left as TODO
-        pass
+        invoice = event["data"]["object"]
+        customer_id = invoice.get("customer")
+        if customer_id:
+            result = await db.execute(select(User).where(User.stripe_customer_id == customer_id))
+            user = result.scalar_one_or_none()
+            if user:
+                try:
+                    from app.services.email_service import send_payment_failed_email
+                    await send_payment_failed_email(user.email, user.first_name or "User")
+                except Exception as e:
+                    logger.error("Failed to send payment failure email to %s: %s", user.email, e)
 
     return {"received": True}
 

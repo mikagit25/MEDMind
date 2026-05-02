@@ -25,10 +25,13 @@ DELETE /imaging/{id}/annotations/{ann_id}   delete annotation
 
 import base64
 import io
+import logging
 import mimetypes
 import uuid as _uuid
 from typing import Any, Dict, List, Optional
 from uuid import UUID
+
+logger = logging.getLogger(__name__)
 
 import anthropic
 import httpx
@@ -685,8 +688,8 @@ async def analyze_image(
                 image_url = img_row.image_url
                 if not modality:
                     modality = img_row.modality or ""
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("Failed to fetch image record %s: %s", image_id, e)
 
     if not image_url:
         raise HTTPException(400, "image_url or image_id is required")
@@ -821,7 +824,7 @@ async def suggest_images(
                         view_count=0,
                     ))
                 return out
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("OpenI image fetch failed: %s", e)
 
     return []

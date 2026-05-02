@@ -358,8 +358,7 @@ def log(msg: str) -> None:
 async def get_token(client: httpx.AsyncClient) -> str:
     r = await client.post(
         f"{API_BASE}/auth/login",
-        data={"username": ADMIN_EMAIL, "password": ADMIN_PASS},
-        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        json={"email": ADMIN_EMAIL, "password": ADMIN_PASS},
     )
     if r.status_code != 200:
         raise RuntimeError(f"Login failed: {r.status_code} — {r.text}")
@@ -373,7 +372,7 @@ async def fetch_existing_slugs(client: httpx.AsyncClient, token: str) -> set[str
     """Get all existing article slugs to skip already-generated ones."""
     r = await client.get(
         f"{API_BASE}/articles/admin/list",
-        params={"limit": 1000},
+        params={"limit": 200},
         headers={"Authorization": f"Bearer {token}"},
     )
     if r.status_code != 200:
@@ -416,7 +415,7 @@ async def generate_one(
             "auto_publish": True,
         },
         headers={"Authorization": f"Bearer {token}"},
-        timeout=120.0,
+        timeout=300.0,
     )
     if r.status_code not in (200, 201):
         raise RuntimeError(f"{r.status_code} — {r.text[:200]}")

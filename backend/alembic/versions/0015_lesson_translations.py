@@ -1,7 +1,7 @@
 """lesson_translations and module_translations tables
 
 Revision ID: 0015_lesson_translations
-Revises: 0014_veterinary_curriculum
+Revises: 0014
 Create Date: 2026-04-23
 """
 from alembic import op
@@ -9,7 +9,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 revision = "0015_lesson_translations"
-down_revision = "0014_veterinary_curriculum"
+down_revision = "0014"
 branch_labels = None
 depends_on = None
 

@@ -45,11 +45,11 @@ Thumbs.db
 
 # Docs & misc
 *.md
-*.txt
+!requirements.txt
+!requirements_video.txt
 *.pdf
 *.docx
 docs/
-scripts/seed_*.py
 
 # Git
 .git/

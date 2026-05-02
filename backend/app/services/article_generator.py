@@ -127,7 +127,7 @@ async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
     client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
     message = await client.messages.create(
         model=model_id,
-        max_tokens=4096,
+        max_tokens=8192,
         system=system,
         messages=[{"role": "user", "content": user_msg}],
     )
@@ -142,10 +142,12 @@ async def _call_ollama(system: str, user_msg: str, settings) -> str:
         "model": settings.OLLAMA_MODEL,
         "messages": [
             {"role": "system", "content": system},
-            {"role": "user",   "content": user_msg},
+            # /no_think prefix disables Qwen3 chain-of-thought to keep output clean JSON
+            {"role": "user",   "content": "/no_think\n" + user_msg},
         ],
         "stream": False,
         "options": {"num_predict": 4096, "temperature": 0.3},
+        "think": False,
     }
     async with httpx.AsyncClient(timeout=180.0) as client:
         r = await client.post(f"{settings.OLLAMA_URL}/api/chat", json=payload)
@@ -155,18 +157,26 @@ async def _call_ollama(system: str, user_msg: str, settings) -> str:
 
 def _parse_response(raw: str, topic: str, category: str, language: str) -> Dict[str, Any]:
     """Extract and validate JSON from Claude response."""
-    # Strip possible markdown fences
-    raw = re.sub(r"^```(?:json)?\s*", "", raw.strip(), flags=re.MULTILINE)
-    raw = re.sub(r"\s*```$", "", raw.strip(), flags=re.MULTILINE)
+    # Strip Qwen3 thinking blocks if present
+    raw = re.sub(r"<think>[\s\S]*?</think>", "", raw, flags=re.IGNORECASE).strip()
+    # Strip markdown code fences (```json ... ``` or ``` ... ```)
+    raw = re.sub(r"^```(?:json)?\s*\n?", "", raw.strip())
+    raw = re.sub(r"\n?```\s*$", "", raw.strip())
+    raw = raw.strip()
 
     try:
         data = json.loads(raw)
     except json.JSONDecodeError:
-        # Try to find JSON object in the text
-        match = re.search(r'\{[\s\S]*\}', raw)
-        if not match:
-            raise ValueError(f"Claude did not return valid JSON for topic: {topic}")
-        data = json.loads(match.group())
+        # Find JSON object — use rfind('}') to get the largest complete JSON
+        start = raw.find('{')
+        end = raw.rfind('}')
+        if start == -1 or end == -1:
+            raise ValueError(f"No JSON found in response for topic: {topic}")
+        candidate = raw[start:end + 1]
+        try:
+            data = json.loads(candidate)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"JSON parse failed for topic '{topic}': {e}") from e
 
     # Build slug from title or topic
     slug_base = _slugify(data.get("title", topic))

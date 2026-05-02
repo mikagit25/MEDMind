@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 
 FROM python:3.11-slim
@@ -22,12 +22,10 @@ RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
 WORKDIR /app
 
-COPY --from=builder /root/.local /home/appuser/.local
+COPY --from=builder /install /usr/local
 COPY --chown=appuser:appgroup . .
 
 USER appuser
-
-ENV PATH=/home/appuser/.local/bin:$PATH
 
 EXPOSE 8000
 

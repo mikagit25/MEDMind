@@ -55,9 +55,9 @@ export default function AiTutorPage() {
     setMessages((p) => [...p, { role: "assistant", content: "" }]);
 
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+      let token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
 
-      const res = await fetch(`${API_URL}/ai/ask/stream`, {
+      const makeRequest = () => fetch(`${API_URL}/ai/ask/stream`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,6 +70,39 @@ export default function AiTutorPage() {
           conversation_id: conversationId ?? undefined,
         }),
       });
+
+      let res = await makeRequest();
+
+      if (res.status === 401) {
+        const refresh = localStorage.getItem("refresh_token");
+        if (refresh) {
+          try {
+            const refreshRes = await fetch(`${API_URL}/auth/refresh`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ refresh_token: refresh }),
+            });
+            if (refreshRes.ok) {
+              const data = await refreshRes.json();
+              localStorage.setItem("access_token", data.access_token);
+              localStorage.setItem("refresh_token", data.refresh_token);
+              token = data.access_token;
+              res = await makeRequest();
+            } else {
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("refresh_token");
+              window.location.href = "/login";
+              return;
+            }
+          } catch {
+            window.location.href = "/login";
+            return;
+          }
+        } else {
+          window.location.href = "/login";
+          return;
+        }
+      }
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({ detail: "Request failed" }));

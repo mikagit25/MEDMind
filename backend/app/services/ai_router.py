@@ -269,6 +269,7 @@ async def route_ai_request(
 
     # ── Long-term memory context ──────────────────────────────────────────────
     memory_context = ""
+    species: Optional[str] = None
     if db is not None and user.subscription_tier != "free":
         try:
             from app.services.memory_service import (

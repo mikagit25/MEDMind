@@ -65,15 +65,21 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-ink text-white font-syne font-semibold text-sm px-4 py-2 rounded transition-colors hover:bg-red;
+    @apply bg-[#1a1814] text-white font-syne font-semibold text-sm px-4 py-2 rounded transition-colors hover:bg-red;
   }
 
   .dark .btn-primary {
-    @apply bg-gold text-ink hover:bg-amber-2;
+    @apply bg-gold hover:bg-amber-2;
+    color: var(--color-ink);
   }
 
   .btn-secondary {
-    @apply border border-border-2 bg-surface-2 text-ink-2 font-syne font-semibold text-sm px-4 py-2 rounded transition-colors hover:border-ink hover:text-ink;
+    @apply border border-border-2 bg-surface-2 font-syne font-semibold text-sm px-4 py-2 rounded transition-colors;
+    color: var(--color-ink-2);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
   }
 
   .card {
@@ -84,59 +90,12 @@
     @apply bg-[#2a2520] border-[#3d3730];
   }
 
-  /* Dark mode general overrides — surfaces, text, inputs */
-  .dark .bg-surface { background-color: #2a2520 !important; }
-  .dark .bg-bg      { background-color: #1e1c18 !important; }
-  .dark .bg-bg-2    { background-color: #252118 !important; }
-  .dark .bg-surface-2 { background-color: #2f2b24 !important; }
-
-  .dark .text-ink   { color: #f0ede8 !important; }
-  .dark .text-ink-2 { color: #b8b0a4 !important; }
-  .dark .text-ink-3 { color: #7a7268 !important; }
-
-  .dark .border-border  { border-color: #3d3730 !important; }
-  .dark .border-border-2 { border-color: #4a4438 !important; }
-
-  /* Dark — page background */
-  .dark body,
-  .dark main,
-  .dark [class*="bg-bg"]:not(.dark\:bg-*) { background-color: #1a1814; }
-
-  /* Dark — inputs / textareas / selects */
-  .dark input,
-  .dark textarea,
-  .dark select {
-    background-color: #252118 !important;
-    color: #f0ede8 !important;
-    border-color: #3d3730 !important;
-  }
-
-  .dark input::placeholder,
-  .dark textarea::placeholder {
-    color: #5a5248 !important;
-  }
-
-  .dark input:focus,
-  .dark textarea:focus,
-  .dark select:focus {
-    border-color: #7a7268 !important;
-    outline: none;
-  }
-
-  /* Dark — white backgrounds used inline (common pattern) */
-  .dark [class*="bg-white"] { background-color: #2a2520 !important; }
-
-  /* Dark — light status backgrounds */
-  .dark .bg-green-light  { background-color: #0f2e1c !important; }
-  .dark .bg-amber-light  { background-color: #2a1f00 !important; }
-  .dark .bg-red-light    { background-color: #2e1010 !important; }
-  .dark .bg-blue-light   { background-color: #0f1e2e !important; }
-
-  /* Dark — sidebar text adjustments (sidebar bg is already dark ink) */
-  .dark aside .text-white\/55 { color: rgba(240, 237, 232, 0.55) !important; }
-
   .input-field {
-    @apply w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink transition-colors;
+    @apply w-full px-3 py-2 rounded border border-border bg-bg font-serif text-sm focus:outline-none transition-colors;
+    color: var(--color-ink);
+  }
+  .input-field:focus {
+    border-color: var(--color-ink);
   }
 
   .badge {
@@ -151,3 +110,28 @@
     @apply bg-gold/15 text-gold;
   }
 }
+
+/* Dark mode utility overrides — outside @layer to avoid circular deps */
+.dark .bg-surface { background-color: #2a2520 !important; }
+.dark .bg-bg      { background-color: #1e1c18 !important; }
+.dark .bg-bg-2    { background-color: #252118 !important; }
+.dark .bg-surface-2 { background-color: #2f2b24 !important; }
+.dark .text-ink   { color: #f0ede8 !important; }
+.dark .text-ink-2 { color: #b8b0a4 !important; }
+.dark .text-ink-3 { color: #7a7268 !important; }
+.dark .border-border  { border-color: #3d3730 !important; }
+.dark .border-border-2 { border-color: #4a4438 !important; }
+.dark body, .dark main { background-color: #1a1814; }
+.dark input, .dark textarea, .dark select {
+  background-color: #252118 !important;
+  color: #f0ede8 !important;
+  border-color: #3d3730 !important;
+}
+.dark input::placeholder, .dark textarea::placeholder { color: #5a5248 !important; }
+.dark input:focus, .dark textarea:focus, .dark select:focus { border-color: #7a7268 !important; outline: none; }
+.dark [class*="bg-white"] { background-color: #2a2520 !important; }
+.dark .bg-green-light  { background-color: #0f2e1c !important; }
+.dark .bg-amber-light  { background-color: #2a1f00 !important; }
+.dark .bg-red-light    { background-color: #2e1010 !important; }
+.dark .bg-blue-light   { background-color: #0f1e2e !important; }
+.dark aside .text-white\/55 { color: rgba(240, 237, 232, 0.55) !important; }

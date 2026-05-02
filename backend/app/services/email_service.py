@@ -157,3 +157,42 @@ async def send_welcome_email(to_email: str, first_name: str) -> None:
             logger.error("Failed to send welcome email: %s", e)
     else:
         logger.info("DEV MODE — Welcome email for %s (%s)", first_name, to_email)
+
+
+async def send_payment_failed_email(to_email: str, first_name: str) -> None:
+    """Notify user that their subscription payment failed."""
+    subject = "Action required: Payment failed for MedMind AI"
+    html = f"""
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: Georgia, serif; background: #f0ede8; margin: 0; padding: 40px 20px;">
+  <div style="max-width: 480px; margin: 0 auto; background: #fff; border: 1px solid #d8d2c8; border-radius: 12px; padding: 40px;">
+    <h1 style="font-family: 'Syne', sans-serif; color: #c0392b; font-size: 22px; margin: 0 0 16px;">Payment failed</h1>
+    <p style="color: #4a453e; font-size: 15px; line-height: 1.6; margin: 0 0 16px;">
+      Hi {first_name}, we were unable to process your MedMind AI subscription payment.
+      Please update your payment method to keep your access.
+    </p>
+    <a href="{settings.FRONTEND_URL}/upgrade"
+       style="display: inline-block; background: #c0392b; color: #fff; text-decoration: none;
+              font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px;
+              padding: 12px 28px; border-radius: 6px;">
+      Update Payment Method
+    </a>
+    <p style="color: #8a8278; font-size: 12px; margin: 24px 0 0;">
+      If you have questions, reply to this email.
+    </p>
+  </div>
+</body>
+</html>"""
+    text = f"Hi {first_name},\n\nWe couldn't process your MedMind AI payment.\nUpdate your payment method: {settings.FRONTEND_URL}/upgrade"
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Payment failed email sent to %s", to_email)
+        except Exception as e:
+            logger.error("Failed to send payment failed email to %s: %s", to_email, e)
+    else:
+        logger.info("DEV MODE — Payment failed email for %s (%s)", first_name, to_email)

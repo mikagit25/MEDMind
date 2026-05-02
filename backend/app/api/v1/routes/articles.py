@@ -600,17 +600,6 @@ async def upload_article_image(
 
 # ── Admin endpoints ────────────────────────────────────────────────────────────
 
-@router.get("/admin/{article_id}")
-async def admin_get_article(
-    article_id: UUID,
-    db: AsyncSession = Depends(get_db),
-    _: User = _admin,
-):
-    """Admin: fetch any article by ID regardless of published/review status."""
-    article = await _get_article_or_404(article_id, db)
-    return _detail(article) | {"is_published": article.is_published}
-
-
 @router.get("/admin/list")
 async def admin_list_articles(
     page: int = Query(1, ge=1),
@@ -649,6 +638,17 @@ async def admin_pending_articles(
         .order_by(Article.submitted_at)
     )).scalars().all()
     return [_detail(a) | {"is_published": a.is_published, "submitted_at": a.submitted_at.isoformat() if a.submitted_at else None} for a in rows]
+
+
+@router.get("/admin/{article_id}")
+async def admin_get_article(
+    article_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Admin: fetch any article by ID regardless of published/review status."""
+    article = await _get_article_or_404(article_id, db)
+    return _detail(article) | {"is_published": article.is_published}
 
 
 @router.patch("/{article_id}/approve")

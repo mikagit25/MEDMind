@@ -12,7 +12,7 @@
 set -euo pipefail
 
 DOMAIN="medmind.pro"
-EMAIL="admin@medmind.pro"      # ← set to your real email for Let's Encrypt notices
+EMAIL="33mikalai@gmail.com"
 COMPOSE="docker compose -f docker-compose.prod.yml"
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO_DIR"

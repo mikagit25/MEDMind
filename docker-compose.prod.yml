@@ -54,6 +54,9 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-medmind}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      OLLAMA_URL: http://host-gateway:11434
+    extra_hosts:
+      - "host-gateway:host-gateway"
     volumes:
       - media_data:/app/data/media
       - ./Modules:/app/data/modules:ro
@@ -66,6 +69,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
     networks:
       - internal
+      - external
 
   # ── Next.js Frontend ─────────────────────────────────────────────────────────
   frontend:
@@ -78,6 +82,7 @@ services:
     environment:
       NEXT_PUBLIC_API_URL: https://medmind.pro/api/v1
       NODE_ENV: production
+      HOSTNAME: "0.0.0.0"
     depends_on:
       - backend
     restart: unless-stopped

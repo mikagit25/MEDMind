@@ -1,7 +1,7 @@
 """Articles — SEO public medical content
 
 Revision ID: 0016
-Revises: 0015
+Revises: 0015_lesson_translations
 Create Date: 2026-04-26
 """
 from alembic import op
@@ -9,7 +9,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB, ARRAY
 
 revision = "0016"
-down_revision = "0015"
+down_revision = "0015_lesson_translations"
 branch_labels = None
 depends_on = None
 
