@@ -59,7 +59,13 @@ async def add_xp(user: User, xp: int, db: AsyncSession):
 
     # Streak: if last_active_date is yesterday or earlier today, bump streak
     today = _date.today()
-    last = user.last_active_date.date() if user.last_active_date else None
+    raw = user.last_active_date
+    if raw is None:
+        last = None
+    elif isinstance(raw, datetime):
+        last = raw.date()
+    else:
+        last = raw  # already a date object from DB
     if last is None or last < today:
         from datetime import timedelta
         if last == today - timedelta(days=1):
@@ -240,13 +246,16 @@ async def review_flashcard(
         review = FlashcardReview(
             user_id=user.id,
             flashcard_id=data.flashcard_id,
+            ease_factor=2.5,
+            interval_days=1,
+            repetitions=0,
         )
         db.add(review)
 
     # Apply SM-2
     new_ef, new_interval = calculate_sm2(
-        float(review.ease_factor),
-        review.interval_days,
+        float(review.ease_factor) if review.ease_factor is not None else 2.5,
+        review.interval_days or 1,
         data.quality,
     )
     review.ease_factor = new_ef
