@@ -45,10 +45,10 @@ export default function QuizPage() {
       contentApi.getMCQ(id),
       contentApi.getModule(id),
     ]).then(([mcqRes, modRes]) => {
-      const qs: MCQQuestion[] = mcqRes.data ?? [];
+      const qs: MCQQuestion[] = mcqRes ?? [];
       // Shuffle so every attempt is different
       setQuestions(qs.sort(() => Math.random() - 0.5));
-      setModTitle(modRes.data?.title ?? "Module");
+      setModTitle(modRes?.title ?? "Module");
       setLoading(false);
     }).catch(() => setLoading(false));
   }, [id]);

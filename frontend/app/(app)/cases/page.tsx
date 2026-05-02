@@ -37,7 +37,7 @@ function CasesInner() {
 
   useEffect(() => {
     const moduleParam = searchParams.get("module");
-    contentApi.getSpecialties().then((r) => setSpecialties(r.data ?? []));
+    contentApi.getSpecialties().then((r) => setSpecialties(r ?? []));
     if (moduleParam) {
       // Direct link from module page — load cases for that module immediately
       loadCases(moduleParam);
@@ -52,7 +52,7 @@ function CasesInner() {
     setFeedback(null);
     if (!specId) return;
     const res = await contentApi.getModules(specId);
-    setModules(res.data ?? []);
+    setModules(res ?? []);
   };
 
   const loadCases = async (mid: string) => {
@@ -61,12 +61,12 @@ function CasesInner() {
     setFeedback(null);
     if (!mid) return;
     const res = await contentApi.getCases(mid);
-    setCases(res.data ?? []);
+    setCases(res ?? []);
   };
 
   const openCase = async (caseId: string) => {
     const res = await contentApi.getCase(caseId);
-    setSelected(res.data);
+    setSelected(res);
     setAnswer("");
     setFeedback(null);
   };
@@ -76,7 +76,7 @@ function CasesInner() {
     setLoading(true);
     try {
       const res = await progressApi.completeCase(selected.id, answer);
-      setFeedback(res.data);
+      setFeedback(res);
     } catch {
       setFeedback({ correct: false, explanation: "Could not evaluate answer." });
     } finally {

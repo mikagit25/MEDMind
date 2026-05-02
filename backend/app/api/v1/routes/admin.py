@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, require_admin
 from app.core.database import get_db
+from app.core.encryption import decrypt_email
 from app.models.models import (
     Article, Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
     AuditLog, LessonTranslation, SUPPORTED_LOCALES,
@@ -131,7 +132,7 @@ async def list_users(
         "users": [
             {
                 "id": str(u.id),
-                "email": u.email,
+                "email": decrypt_email(u.email),
                 "first_name": u.first_name,
                 "last_name": u.last_name,
                 "role": u.role,
@@ -184,7 +185,7 @@ async def patch_user(
     await db.refresh(target)
     return {
         "id": str(target.id),
-        "email": target.email,
+        "email": decrypt_email(target.email),
         "role": target.role,
         "subscription_tier": target.subscription_tier,
         "is_active": target.is_active,

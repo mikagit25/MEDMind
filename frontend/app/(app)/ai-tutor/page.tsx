@@ -35,8 +35,8 @@ export default function AiTutorPage() {
 
   useEffect(() => {
     contentApi.getSpecialties().then((r) => {
-      setSpecialties(r.data);
-      if (r.data.length > 0) setSpecialty(r.data[0].code ?? "");
+      setSpecialties(r ?? []);
+      if (r?.length > 0) setSpecialty(r[0].code ?? "");
     });
   }, []);
 

@@ -393,8 +393,8 @@ export default function ModuleDetailPage() {
       contentApi.getModule(id),
       contentApi.getLessons(id),
     ]).then(([modRes, lessonRes]) => {
-      setMod(modRes.data);
-      const ls: Lesson[] = lessonRes.data ?? [];
+      setMod(modRes);
+      const ls: Lesson[] = lessonRes ?? [];
       ls.sort((a, b) => a.lesson_order - b.lesson_order);
       setLessons(ls);
       if (ls.length > 0) setActiveLesson(ls[0]);

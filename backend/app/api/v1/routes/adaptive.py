@@ -26,6 +26,11 @@ class StudyPlan(BaseModel):
     recommended_actions: List[Dict[str, Any]]
     daily_goal_minutes: int
     focus_areas: List[str]
+    # Frontend-compatible aliases
+    weak_areas: List[Dict[str, Any]] = []
+    next_modules: List[Dict[str, Any]] = []
+    due_reviews: List[Dict[str, Any]] = []
+    up_next: List[Dict[str, Any]] = []
 
 
 @router.post("/plan/adapt", response_model=StudyPlan)
@@ -133,6 +138,45 @@ async def adapt_study_plan(
 
     focus_areas = [m["title"] for m in weak_modules[:3]]
 
+    # Build frontend-compatible arrays
+    weak_areas = [
+        {
+            "module_id": m["module_id"],
+            "module_title": m["title"],
+            "title": m["title"],
+            "reason": "weak_area",
+            "priority_score": 100 - float(m["completion_percent"]),
+            "suggested_action": f"{m['completion_percent']:.0f}% complete — needs work",
+        }
+        for m in weak_modules[:5]
+    ]
+
+    next_mods = [
+        a for a in actions if a.get("type") == "continue_module"
+    ]
+    next_modules = [
+        {
+            "module_id": a["module_id"],
+            "module_title": a["label"].split("'")[1] if "'" in a["label"] else a["label"],
+            "title": a["label"],
+            "reason": "next_in_path",
+            "suggested_action": a["label"],
+        }
+        for a in next_mods[:5]
+    ]
+
+    due_reviews_list = []
+    if total_due > 0:
+        due_reviews_list = [
+            {
+                "module_id": None,
+                "module_title": f"{total_due} flashcards due",
+                "title": f"{total_due} flashcards due",
+                "reason": "due_review",
+                "suggested_action": f"{struggling_cards} struggling cards",
+            }
+        ]
+
     now = datetime.utcnow()
     plan = {
         "generated_at": now.isoformat(),
@@ -141,6 +185,10 @@ async def adapt_study_plan(
         "recommended_actions": sorted(actions, key=lambda x: x["priority"]),
         "daily_goal_minutes": daily_goal,
         "focus_areas": focus_areas,
+        "weak_areas": weak_areas,
+        "next_modules": next_modules,
+        "due_reviews": due_reviews_list,
+        "up_next": next_modules,
     }
 
     await set_cached(cache_key, plan, ttl=3600)
@@ -151,8 +199,19 @@ async def adapt_study_plan(
 async def get_current_plan(
     user: User = Depends(get_current_user),
 ):
-    """Return the cached study plan without recalculating."""
+    """Return the cached study plan without recalculating. Returns empty plan if none generated yet."""
     cached = await get_cached(f"study_plan:{user.id}")
     if not cached:
-        raise HTTPException(404, "No study plan yet. Call POST /student/plan/adapt to generate one.")
+        return {
+            "generated_at": None,
+            "valid_until": None,
+            "weak_modules": [],
+            "recommended_actions": [],
+            "daily_goal_minutes": 20,
+            "focus_areas": [],
+            "weak_areas": [],
+            "next_modules": [],
+            "due_reviews": [],
+            "up_next": [],
+        }
     return cached

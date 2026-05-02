@@ -53,19 +53,19 @@ export default function ProgressPage() {
 
   useEffect(() => {
     Promise.all([
-      progressApi.getStats().catch(() => ({ data: null })),
-      progressApi.getHistory().catch(() => ({ data: [] })),
-      progressApi.getWeaknesses().catch(() => ({ data: { weaknesses: [] } })),
-      achievementsApi.list().catch(() => ({ data: [] })),
-      progressApi.getModulesProgress().catch(() => ({ data: [] })),
+      progressApi.getStats().catch(() => null),
+      progressApi.getHistory().catch(() => []),
+      progressApi.getWeaknesses().catch(() => ({ weaknesses: [] })),
+      achievementsApi.list().catch(() => []),
+      progressApi.getModulesProgress().catch(() => []),
       studentCoursesApi.getEnrolled().catch(() => []),
       memoryApi.stats().catch(() => null),
     ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats]) => {
-      setStats(statsRes.data);
-      setHistory(histRes.data ?? []);
-      setWeaknesses(weakRes.data?.weaknesses ?? []);
-      setAchievements(achRes.data ?? []);
-      setModulesProgress(modProgRes.data ?? []);
+      setStats(statsRes);
+      setHistory(histRes ?? []);
+      setWeaknesses(weakRes?.weaknesses ?? []);
+      setAchievements(achRes ?? []);
+      setModulesProgress(modProgRes ?? []);
       setEnrolledCourses(Array.isArray(courses) ? courses : courses?.courses ?? []);
       setMemoryStats(mStats);
       setLoading(false);

@@ -41,7 +41,7 @@ function FlashcardsInner() {
 
   useEffect(() => {
     contentApi.getSpecialties().then((r) => {
-      setSpecialties(r.data ?? []);
+      setSpecialties(r ?? []);
       const moduleParam = searchParams.get("module");
       if (moduleParam) {
         // Direct link from module detail page — load cards immediately
@@ -57,7 +57,7 @@ function FlashcardsInner() {
     setPhase("loading");
     try {
       const res = await contentApi.getModules(specialtyId);
-      setModules(res.data ?? []);
+      setModules(res ?? []);
       setPhase("pick_module");
     } catch {
       setPhase("pick_specialty");
@@ -70,11 +70,11 @@ function FlashcardsInner() {
     setPhase("loading");
     try {
       const res = await contentApi.getFlashcards(mid, true);
-      const data: Card[] = res.data ?? [];
+      const data: Card[] = res ?? [];
       if (data.length === 0) {
         // No due cards — load all cards instead
         const allRes = await contentApi.getFlashcards(mid, false);
-        const allData: Card[] = allRes.data ?? [];
+        const allData: Card[] = allRes ?? [];
         if (allData.length === 0) {
           setPhase("done");
           setSessionDone(0);
@@ -101,7 +101,7 @@ function FlashcardsInner() {
     const card = cards[index];
     try {
       const res = await progressApi.reviewFlashcard(card.id, quality);
-      setSessionXp((p) => p + (res.data?.xp_earned ?? 0));
+      setSessionXp((p) => p + (res?.xp_earned ?? 0));
     } catch {/* ignore */}
 
     setSessionDone((p) => p + 1);

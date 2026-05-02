@@ -29,12 +29,12 @@ export default function QuizListPage() {
   // Load specialties + progress on mount
   useEffect(() => {
     contentApi.getSpecialties().then((data: any) => {
-      setSpecialties(data.data ?? []);
+      setSpecialties(data ?? []);
     }).catch(() => {});
 
     progressApi.getModulesProgress?.().then((data: any) => {
       const map: Record<string, ModuleProgress> = {};
-      for (const p of (data.data ?? [])) {
+      for (const p of (data ?? [])) {
         if (p.mcq_attempts > 0) map[p.module_id] = p;
       }
       setProgress(map);
@@ -46,7 +46,7 @@ export default function QuizListPage() {
     if (!selectedSpecialty) { setModules([]); return; }
     setLoadingModules(true);
     contentApi.getModules(selectedSpecialty).then((data: any) => {
-      setModules(data.data ?? []);
+      setModules(data ?? []);
     }).catch(() => setModules([])).finally(() => setLoadingModules(false));
   }, [selectedSpecialty]);
 

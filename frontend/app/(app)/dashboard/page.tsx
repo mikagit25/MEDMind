@@ -355,11 +355,11 @@ export default function DashboardPage() {
 
   useEffect(() => {
     Promise.all([
-      contentApi.getSpecialties().catch(() => ({ data: [] })),
-      progressApi.getStats().catch(() => ({ data: null })),
+      contentApi.getSpecialties().catch(() => []),
+      progressApi.getStats().catch(() => null),
     ]).then(([modRes, statsRes]) => {
-      setSpecialties(modRes.data?.slice(0, 3) ?? []);
-      setStats(statsRes.data);
+      setSpecialties(modRes?.slice(0, 3) ?? []);
+      setStats(statsRes);
       setLoading(false);
     });
   }, []);
