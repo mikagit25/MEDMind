@@ -228,7 +228,7 @@ export default function TeacherModulesPage() {
       {modules.length === 0 ? (
         <div className="card p-8 text-center">
           <div className="text-4xl mb-3">📚</div>
-          <div className="font-syne font-semibold text-ink mb-1">No modules yet</div>
+          <div className="font-syne font-semibold text-ink mb-1">{t("teacher.modules.no_modules")}</div>
           <div className="font-serif text-ink-3 text-sm mb-4">Create your first teaching module to get started.</div>
           <Link href="/teacher/modules/new" className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold">
             Create Module

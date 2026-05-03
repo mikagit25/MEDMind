@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
+import { useT } from "@/lib/i18n";
 
 export default function RootPage() {
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
+  const t = useT();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -69,7 +71,7 @@ export default function RootPage() {
       <section className="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-8">
           <span className="w-2 h-2 rounded-full bg-green-2 animate-pulse inline-block"></span>
-          Powered by Claude AI + live PubMed search
+          {t("landing.hero_badge")}
         </div>
         <h1 className="font-syne font-extrabold text-5xl md:text-6xl text-ink leading-tight tracking-tight mb-6">
           Medical education<br />
@@ -94,7 +96,7 @@ export default function RootPage() {
           </Link>
         </div>
         <p className="text-ink-3 text-xs mt-4 font-syne">
-          Free forever • No credit card required • 82 modules included
+          {t("landing.hero_note")}
         </p>
       </section>
 
@@ -120,7 +122,7 @@ export default function RootPage() {
         <h2 className="font-syne font-bold text-3xl text-ink text-center mb-3">
           Everything you need to excel
         </h2>
-        <p className="text-ink-3 text-center mb-12 text-sm">Built by clinicians, for clinicians</p>
+        <p className="text-ink-3 text-center mb-12 text-sm">{t("landing.features_subtitle")}</p>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -311,7 +313,7 @@ export default function RootPage() {
             <span className="font-normal text-ink-3 text-xs ml-2">AI Education Platform</span>
           </div>
           <div className="flex gap-6 flex-wrap justify-center">
-            <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">How it works</Link>
+            <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.how_it_works")}</Link>
             <Link href="/articles" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Articles</Link>
             <Link href="/pricing" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Pricing</Link>
             <Link href="/investors" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Investors</Link>

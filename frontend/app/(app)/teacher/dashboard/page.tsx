@@ -165,7 +165,7 @@ export default function TeacherDashboardPage() {
       <div className="flex items-start justify-between mb-6 gap-4">
         <div>
           <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.dashboard.title")}</h1>
-          <p className="font-serif text-ink-3 text-sm mt-0.5">Overview of your courses and students</p>
+          <p className="font-serif text-ink-3 text-sm mt-0.5">{t("teacher_extra.dashboard_sub")}</p>
         </div>
         <div className="flex gap-2 shrink-0">
           <Link href="/teacher/modules/new"
@@ -223,7 +223,7 @@ export default function TeacherDashboardPage() {
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         {/* Quick Actions */}
         <div>
-          <h2 className="font-syne font-bold text-sm text-ink mb-3">Quick Actions</h2>
+          <h2 className="font-syne font-bold text-sm text-ink mb-3">{t("teacher_extra.quick_actions")}</h2>
           <div className="grid grid-cols-3 gap-2">
             {[
               { href: "/teacher/modules/new", icon: "✏️", label: "New Lesson", desc: "Create content" },
@@ -245,14 +245,14 @@ export default function TeacherDashboardPage() {
 
         {/* Recent Activity */}
         <div>
-          <h2 className="font-syne font-bold text-sm text-ink mb-3">Recent Student Activity</h2>
+          <h2 className="font-syne font-bold text-sm text-ink mb-3">{t("teacher_extra.recent_activity")}</h2>
           {loadingSecondary ? (
             <div className="card p-4 text-center">
               <p className="font-serif text-ink-3 text-sm">Loading activity…</p>
             </div>
           ) : recentActivity.length === 0 ? (
             <div className="card p-4 text-center">
-              <p className="font-serif text-ink-3 text-sm">No recent activity yet</p>
+              <p className="font-serif text-ink-3 text-sm">{t("teacher_extra.no_activity")}</p>
             </div>
           ) : (
             <div className="card divide-y divide-border">
@@ -278,7 +278,7 @@ export default function TeacherDashboardPage() {
       {/* Articles summary widget */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-syne font-bold text-base text-ink">My Articles</h2>
+          <h2 className="font-syne font-bold text-base text-ink">{t("nav.items.my_articles")}</h2>
           <Link href="/teacher/articles" className="font-serif text-ink-3 text-xs hover:text-ink">
             View all →
           </Link>
@@ -287,7 +287,7 @@ export default function TeacherDashboardPage() {
           <div className="card p-6 flex items-center gap-4">
             <div className="text-3xl">📰</div>
             <div className="flex-1">
-              <div className="font-syne font-semibold text-sm text-ink">No articles yet</div>
+              <div className="font-syne font-semibold text-sm text-ink">{t("teacher_extra.no_articles")}</div>
               <div className="font-serif text-ink-3 text-xs mt-0.5">Share your clinical knowledge with medical learners worldwide.</div>
             </div>
             <Link href="/teacher/articles/new"

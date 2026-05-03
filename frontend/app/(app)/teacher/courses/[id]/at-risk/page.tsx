@@ -75,7 +75,7 @@ export default function AtRiskPage() {
 
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">At-Risk Students</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("teacher_extra.at_risk_title")}</h1>
           <p className="font-serif text-ink-3 text-sm mt-0.5">
             {data.at_risk.length} at-risk · {data.healthy.length} healthy · {data.total_enrolled} total enrolled
           </p>
@@ -104,8 +104,8 @@ export default function AtRiskPage() {
       {data.at_risk.length === 0 ? (
         <div className="card p-8 text-center mb-6">
           <div className="text-3xl mb-2">✅</div>
-          <div className="font-syne font-semibold text-ink">No at-risk students</div>
-          <div className="font-serif text-ink-3 text-sm mt-1">All enrolled students are on track.</div>
+          <div className="font-syne font-semibold text-ink">{t("teacher_extra.no_at_risk")}</div>
+          <div className="font-serif text-ink-3 text-sm mt-1">{t("teacher_extra.all_on_track")}</div>
         </div>
       ) : (
         <div className="mb-8">

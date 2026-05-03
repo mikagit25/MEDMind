@@ -1,11 +1,6 @@
+"use client";
+import { useT } from "@/lib/i18n";
 import Link from "next/link";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "How MedMind Works — AI-Powered Medical Education",
-  description:
-    "Discover how MedMind AI combines spaced repetition, clinical simulations, and real-time PubMed search to help doctors, residents, and medical students learn faster.",
-};
 
 const NAV_LINKS = [
   { href: "/articles", label: "Articles" },
@@ -151,6 +146,7 @@ const TECH_FEATURES = [
 ];
 
 export default function HowItWorksPage() {
+  const t = useT();
   return (
     <div className="min-h-screen bg-bg">
       {/* Nav */}
@@ -192,7 +188,7 @@ export default function HowItWorksPage() {
       <section className="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-8">
           <span className="w-2 h-2 rounded-full bg-blue animate-pulse inline-block" />
-          Built for how clinicians actually learn
+          {t("how_it_works_page.title")}
         </div>
         <h1 className="font-syne font-extrabold text-5xl md:text-6xl text-ink leading-tight tracking-tight mb-6">
           How MedMind<br />
@@ -214,10 +210,10 @@ export default function HowItWorksPage() {
       {/* How it works — step by step */}
       <section className="max-w-5xl mx-auto px-6 py-16">
         <h2 className="font-syne font-bold text-3xl text-ink text-center mb-3">
-          Six steps from sign-up to mastery
+          {t("how_it_works_page.subtitle")}
         </h2>
         <p className="text-ink-3 text-center mb-16 text-sm">
-          Everything is designed to build on itself
+          {t("how_it_works_page.note")}
         </p>
 
         <div className="space-y-12">
@@ -257,7 +253,7 @@ export default function HowItWorksPage() {
       <section className="bg-surface border-y border-border">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <h2 className="font-syne font-bold text-3xl text-ink text-center mb-3">
-            Built for every stage of your career
+            {t("how_it_works_page.roles_title")}
           </h2>
           <p className="text-ink-3 text-center mb-12 text-sm">
             From first lecture to consultant rounds
@@ -428,8 +424,8 @@ export default function HowItWorksPage() {
             <span className="font-normal text-ink-3 text-xs ml-2">AI Education Platform</span>
           </div>
           <div className="flex gap-6 flex-wrap justify-center">
-            <Link href="/articles" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Articles</Link>
-            <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">How it works</Link>
+            <Link href="/articles" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("nav.items.articles")}</Link>
+            <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.how_it_works")}</Link>
             <Link href="/pricing" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Pricing</Link>
             <Link href="/investors" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Investors</Link>
             <Link href="/register" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">Register</Link>

@@ -119,7 +119,7 @@ export default function ImageDetailPage() {
                 <div className="aspect-square flex items-center justify-center bg-surface">
                   <div className="text-center text-ink-3">
                     <div className="text-4xl mb-2">🩻</div>
-                    <div className="font-serif text-sm">Image unavailable</div>
+                    <div className="font-serif text-sm">{t("imaging_detail.click_enlarge")}</div>
                     {img.source_url && (
                       <a
                         href={img.source_url}
@@ -150,7 +150,7 @@ export default function ImageDetailPage() {
 
             {/* Attribution card */}
             <div className="mt-3 p-3 rounded-xl bg-surface border border-border">
-              <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-2">Attribution</div>
+              <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-2">{t("imaging_detail.attribution")}</div>
               <p className="font-serif text-xs text-ink leading-relaxed">
                 {img.attribution ?? img.source_name}
               </p>
@@ -225,11 +225,11 @@ export default function ImageDetailPage() {
             <div className="flex items-center gap-4 mb-4">
               <div className="text-center">
                 <div className="font-syne font-black text-lg text-ink">{img.view_count}</div>
-                <div className="font-serif text-xs text-ink-3">Views</div>
+                <div className="font-serif text-xs text-ink-3">{t("imaging_detail.views")}</div>
               </div>
               <div className="text-center">
                 <div className="font-syne font-black text-lg text-ink capitalize">{img.source_name}</div>
-                <div className="font-serif text-xs text-ink-3">Source</div>
+                <div className="font-serif text-xs text-ink-3">{t("imaging_detail.source")}</div>
               </div>
             </div>
 

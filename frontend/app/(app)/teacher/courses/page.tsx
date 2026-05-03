@@ -55,7 +55,7 @@ export default function TeacherCoursesPage() {
       {courses.length === 0 ? (
         <div className="card p-10 text-center">
           <div className="text-4xl mb-3">📚</div>
-          <div className="font-syne font-semibold text-ink text-lg">No courses yet</div>
+          <div className="font-syne font-semibold text-ink text-lg">{t("teacher_extra.no_courses")}</div>
           <div className="font-serif text-ink-3 text-sm mt-1 mb-5">
             Create a course, add your modules to it, and share the invite code with students.
           </div>

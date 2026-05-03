@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
+import { useT } from "@/lib/i18n";
 
 const PLANS = [
   {
@@ -92,6 +93,7 @@ const PLANS = [
 ];
 
 export default function PricingPage() {
+  const t = useT();
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
@@ -155,10 +157,10 @@ export default function PricingPage() {
       {/* Header */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-10 text-center">
         <h1 className="font-syne font-extrabold text-4xl md:text-5xl text-ink tracking-tight mb-4">
-          Simple, transparent pricing
+          {t("pricing_page.title")}
         </h1>
         <p className="text-ink-2 text-lg max-w-xl mx-auto">
-          Start free. Upgrade when you need more.
+          {t("pricing_page.subtitle")}
         </p>
       </section>
 

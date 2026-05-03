@@ -102,7 +102,7 @@ export default function TeacherAnalyticsPage() {
     <div className="p-4 max-w-3xl mx-auto">
       <div className="mb-5">
         <Link href="/teacher/modules" className="text-ink-3 text-sm font-syne hover:text-ink">← My Modules</Link>
-        <h1 className="font-syne font-black text-2xl text-ink mt-2">Analytics</h1>
+        <h1 className="font-syne font-black text-2xl text-ink mt-2">{t("teacher.analytics.title")}</h1>
         <p className="font-serif text-ink-3 text-sm">Student engagement with your lessons</p>
       </div>
 
