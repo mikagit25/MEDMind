@@ -85,6 +85,13 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
     if (stored && stored in LOCALE_LABELS) {
       switchLocale(stored);
+      return;
+    }
+    // Detect browser language
+    const browserLang = navigator.language?.split("-")[0]?.toLowerCase();
+    const detected = (["en","ru","ar","tr","de","fr","es"] as Locale[]).find(l => l === browserLang);
+    if (detected && detected !== "en") {
+      switchLocale(detected);
     }
   }, []);
 
@@ -101,6 +108,8 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       setMessages(bundle);
       setLocaleState(next);
       localStorage.setItem(STORAGE_KEY, next);
+      // Also set cookie for SSR access
+      document.cookie = `medmind_locale=${next};path=/;max-age=31536000;SameSite=Lax`;
     } finally {
       setLoading(false);
     }

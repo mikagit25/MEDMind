@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { contentApi, bookmarksApi, api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useT } from "@/lib/i18n";
 
 function ModulesInner() {
   const searchParams = useSearchParams();
   const { user } = useAuthStore();
+  const t = useT();
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>(
@@ -94,7 +96,7 @@ function ModulesInner() {
       <div className="w-56 flex-shrink-0 border-r border-border bg-surface overflow-y-auto">
         <div className="p-3 border-b border-border">
           <span className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider">
-            Specialties
+            {t("modules.filter_specialty")}
           </span>
         </div>
         {specialties.map((sp) => (
@@ -119,7 +121,7 @@ function ModulesInner() {
           <input
             value={searchQ}
             onChange={(e) => setSearchQ(e.target.value)}
-            placeholder="Search all modules…"
+            placeholder={t("modules.search_placeholder")}
             className="w-full bg-surface border border-border rounded-xl pl-9 pr-9 py-2.5 text-ink text-sm font-serif focus:outline-none focus:border-ink transition-colors"
           />
           {searchQ && (
@@ -171,9 +173,9 @@ function ModulesInner() {
         ) : !selectedSpecialty ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="text-4xl mb-3">📚</div>
-            <h2 className="font-syne font-bold text-xl text-ink mb-1">Select a specialty</h2>
+            <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("modules.filter_specialty")}</h2>
             <p className="font-serif text-ink-3 text-sm">
-              Choose a specialty from the left, or search above
+              {t("modules.all_specialties")}
             </p>
           </div>
         ) : loading ? (
@@ -184,7 +186,7 @@ function ModulesInner() {
           </div>
         ) : modules.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full">
-            <p className="font-serif text-ink-3 text-sm">No modules found</p>
+            <p className="font-serif text-ink-3 text-sm">{t("modules.no_modules")}</p>
           </div>
         ) : (
           <div className="space-y-2.5">
@@ -253,9 +255,18 @@ function ModulesInner() {
   );
 }
 
+function ModulesPageFallback() {
+  const t = useT();
+  return (
+    <div className="flex-1 flex items-center justify-center">
+      <span className="font-serif text-ink-3 text-sm animate-pulse">{t("common.loading")}</span>
+    </div>
+  );
+}
+
 export default function ModulesPage() {
   return (
-    <Suspense fallback={<div className="flex-1 flex items-center justify-center"><span className="font-serif text-ink-3 text-sm animate-pulse">Loading…</span></div>}>
+    <Suspense fallback={<ModulesPageFallback />}>
       <ModulesInner />
     </Suspense>
   );

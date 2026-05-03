@@ -161,9 +161,9 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { lang?: string };
+  searchParams?: { lang?: string; locale?: string };
 }): Promise<Metadata> {
-  const locale = searchParams.lang ?? "en";
+  const locale = searchParams?.lang || searchParams?.locale;
   const article = await fetchArticle(params.slug, locale);
   if (!article) return { title: "Article not found" };
 
@@ -443,9 +443,9 @@ export default async function ArticlePage({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { lang?: string };
+  searchParams?: { lang?: string; locale?: string };
 }) {
-  const locale = searchParams.lang ?? "en";
+  const locale = searchParams?.lang || searchParams?.locale;
   const [article, availableLocales, related, nav, linkMap] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),

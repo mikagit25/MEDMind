@@ -95,6 +95,7 @@ const en = {
       notifications: "Notifications",
       privacy: "Privacy",
       settings: "Settings",
+      articles: "Articles",
       admin_panel: "Admin Panel",
       teacher_dashboard: "Dashboard",
       my_lessons: "My Lessons",

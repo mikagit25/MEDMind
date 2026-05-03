@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 const CATEGORY_LABELS: Record<string, string> = {
   diseases: "Diseases & Conditions",
@@ -58,6 +58,7 @@ type CategoryStat = { category: string; count: number };
 
 export default function ArticlesPage() {
   const t = useT();
+  const { locale } = useI18n();
   const [articles, setArticles] = useState<Article[]>([]);
   const [categories, setCategories] = useState<CategoryStat[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -193,7 +194,7 @@ export default function ArticlesPage() {
                   {articles.map(article => (
                     <Link
                       key={article.id}
-                      href={`/articles/${article.slug}`}
+                      href={locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`}
                       target="_blank"
                       rel="noopener"
                       className="card p-4 hover:shadow-md transition-shadow group block"

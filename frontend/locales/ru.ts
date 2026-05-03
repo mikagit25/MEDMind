@@ -95,6 +95,7 @@ const ru: Translations = {
       notifications: "Уведомления",
       privacy: "Конфиденциальность",
       settings: "Настройки",
+      articles: "Статьи",
       admin_panel: "Панель администратора",
       teacher_dashboard: "Главная",
       my_lessons: "Мои уроки",

@@ -41,7 +41,7 @@ export function Sidebar() {
     {
       label: t("nav.sections.tools"),
       items: [
-        { icon: "📰", label: "Articles", href: "/knowledge" },
+        { icon: "📰", label: t("nav.items.articles"), href: "/knowledge" },
         { icon: "💊", label: t("nav.items.drugs"), href: "/drugs" },
         { icon: "🐾", label: t("nav.items.veterinary"), href: "/veterinary" },
         { icon: "📈", label: t("nav.items.progress"), href: "/progress" },
@@ -190,7 +190,7 @@ export function Sidebar() {
           <button
             onClick={toggleDarkMode}
             className="text-white/30 hover:text-white/70 text-xs transition-colors ml-0.5"
-            title={darkMode ? "Light mode" : "Dark mode"}
+            title={t("settings.dark_mode")}
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
