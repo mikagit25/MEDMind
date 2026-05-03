@@ -111,9 +111,19 @@ export default function ArticlesPage() {
     <div className="flex-1 overflow-y-auto">
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="font-syne font-black text-2xl text-ink">Medical Articles</h1>
-          <p className="font-serif text-sm text-ink-3 mt-1">{total} evidence-based articles across {categories.length} categories</p>
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="font-syne font-black text-2xl text-ink">Medical Articles</h1>
+            <p className="font-serif text-sm text-ink-3 mt-1">{total} evidence-based articles across {categories.length} categories</p>
+          </div>
+          <a
+            href="/articles"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+          >
+            🌐 Public view ↗
+          </a>
         </div>
 
         <div className="flex gap-6">
