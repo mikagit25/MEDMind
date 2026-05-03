@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { drugsApi, veterinaryApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useT } from "@/lib/i18n";
 
 type Drug = {
   id: string;
@@ -35,6 +36,7 @@ type Alternative = {
 type Tab = "overview" | "dosing" | "adverse" | "alternatives" | "vet";
 
 export default function DrugDetailPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { user } = useAuthStore();
@@ -81,7 +83,7 @@ export default function DrugDetailPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <p className="font-serif text-ink-3 text-sm">Loading…</p>
+        <p className="font-serif text-ink-3 text-sm">{t("common.loading")}</p>
       </div>
     );
   }
@@ -90,7 +92,7 @@ export default function DrugDetailPage() {
     return (
       <div className="flex-1 p-6 max-w-4xl mx-auto w-full">
         <button onClick={() => router.back()} className="font-syne text-xs text-ink-3 hover:text-ink mb-4">
-          ← Back
+          ← {t("common.back")}
         </button>
         <div className="card p-8 text-center">
           <div className="text-3xl mb-3">💊</div>
@@ -103,8 +105,8 @@ export default function DrugDetailPage() {
 
   const tabs: { key: Tab; label: string }[] = [
     { key: "overview", label: "Overview" },
-    { key: "dosing", label: "Dosing" },
-    { key: "adverse", label: "Adverse Effects" },
+    { key: "dosing", label: t("drugs.dosing") },
+    { key: "adverse", label: t("drugs.side_effects") },
     { key: "alternatives", label: `Alternatives${alternatives.length ? ` (${alternatives.length})` : ""}` },
     { key: "vet", label: "🐾 Vet Dosing" },
   ];
@@ -188,16 +190,17 @@ export default function DrugDetailPage() {
 // ── Overview Tab ─────────────────────────────────────────────────────────────
 
 function OverviewTab({ drug }: { drug: Drug }) {
+  const t = useT();
   return (
     <div className="space-y-5">
       {drug.mechanism && (
-        <Section title="Mechanism of Action">
+        <Section title={t("drugs.mechanism")}>
           <p className="font-serif text-sm text-ink leading-relaxed">{drug.mechanism}</p>
         </Section>
       )}
 
       {drug.indications && drug.indications.length > 0 && (
-        <Section title="Indications">
+        <Section title={t("drugs.indications")}>
           <ul className="space-y-1">
             {drug.indications.map((item, i) => (
               <li key={i} className="font-serif text-sm text-green flex gap-2">
@@ -209,7 +212,7 @@ function OverviewTab({ drug }: { drug: Drug }) {
       )}
 
       {drug.contraindications && drug.contraindications.length > 0 && (
-        <Section title="Contraindications">
+        <Section title={t("drugs.contraindications")}>
           <ul className="space-y-1">
             {drug.contraindications.map((item, i) => (
               <li key={i} className="font-serif text-sm text-red flex gap-2">
@@ -221,7 +224,7 @@ function OverviewTab({ drug }: { drug: Drug }) {
       )}
 
       {drug.interactions && drug.interactions.length > 0 && (
-        <Section title="Key Drug Interactions">
+        <Section title={t("drugs.interactions")}>
           <ul className="space-y-1">
             {drug.interactions.map((item, i) => (
               <li key={i} className="font-serif text-sm text-amber flex gap-2">
@@ -238,6 +241,7 @@ function OverviewTab({ drug }: { drug: Drug }) {
 // ── Dosing Tab ────────────────────────────────────────────────────────────────
 
 function DosingTab({ drug }: { drug: Drug }) {
+  const t = useT();
   const hasDosingData = drug.dosing && Object.keys(drug.dosing).length > 0;
   const hasMonitoring = drug.monitoring && drug.monitoring.length > 0;
 
@@ -252,7 +256,7 @@ function DosingTab({ drug }: { drug: Drug }) {
   return (
     <div className="space-y-5">
       {hasDosingData && (
-        <Section title="Dosage by Route">
+        <Section title={t("drugs.dosing")}>
           <div className="divide-y divide-border">
             {Object.entries(drug.dosing!).map(([route, dose]) => (
               <div key={route} className="py-2.5 flex gap-4 items-start">
@@ -267,7 +271,7 @@ function DosingTab({ drug }: { drug: Drug }) {
       )}
 
       {hasMonitoring && (
-        <Section title="Monitoring Parameters">
+        <Section title={t("drugs.monitoring")}>
           <ul className="space-y-1.5">
             {drug.monitoring!.map((item, i) => (
               <li key={i} className="font-serif text-sm text-ink flex gap-2">
@@ -401,6 +405,7 @@ const FALLBACK_SPECIES = [
 ];
 
 function VetDosingTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
+  const t = useT();
   // Use DB species or fallback to static list for scaled dosing
   const speciesList = allSpecies.length > 0 ? allSpecies : FALLBACK_SPECIES;
 
@@ -457,7 +462,7 @@ function VetDosingTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
   return (
     <div className="space-y-5">
       {/* Species selector */}
-      <Section title="Select Species">
+      <Section title={t("simulation.select_species")}>
         <div className="flex flex-wrap gap-2">
           {speciesList.map((sp: any) => (
             <button
@@ -475,7 +480,7 @@ function VetDosingTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
         </div>
       </Section>
 
-      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">Loading dosing data…</div>}
+      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">{t("common.loading")}</div>}
 
       {!loading && selectedSpecies && (
         <>

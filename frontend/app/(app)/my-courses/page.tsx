@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { studentCoursesApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface CourseModule {
   module_id: string;
@@ -32,6 +33,7 @@ interface LeaderboardEntry {
 }
 
 export default function MyCoursesPage() {
+  const t = useT();
   const [courses, setCourses] = useState<EnrolledCourse[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -116,9 +118,9 @@ export default function MyCoursesPage() {
     <div className="max-w-3xl mx-auto px-4 py-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="font-syne font-black text-2xl text-ink">My Courses</h1>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("nav.items.my_courses")}</h1>
         <p className="font-serif text-ink-3 text-sm mt-0.5">
-          {loading ? "Loading…" : `${courses.length} course${courses.length !== 1 ? "s" : ""} enrolled`}
+          {loading ? t("common.loading") : `${courses.length} course${courses.length !== 1 ? "s" : ""} enrolled`}
         </p>
       </div>
 
@@ -150,11 +152,11 @@ export default function MyCoursesPage() {
 
       {/* Courses list */}
       {loading ? (
-        <div className="text-center py-12 text-ink-3 font-serif text-sm animate-pulse">Loading courses…</div>
+        <div className="text-center py-12 text-ink-3 font-serif text-sm animate-pulse">{t("common.loading")}</div>
       ) : courses.length === 0 ? (
         <div className="card p-10 text-center">
           <div className="text-4xl mb-3">🎓</div>
-          <div className="font-syne font-bold text-ink mb-1">No courses yet</div>
+          <div className="font-syne font-bold text-ink mb-1">{t("common.no_results")}</div>
           <div className="font-serif text-ink-3 text-sm max-w-xs mx-auto">
             Ask your teacher for an invite code and enter it above to join a course.
           </div>

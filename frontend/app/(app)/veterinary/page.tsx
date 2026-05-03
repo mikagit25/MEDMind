@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { veterinaryApi, drugsApi, contentApi, authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
+import { useT } from "@/lib/i18n";
 
 type Tab = "overview" | "dosing" | "toxicity" | "zoonoses" | "pearls" | "modules";
 
@@ -20,6 +21,7 @@ const SPECIES_LIST = [
 ];
 
 export default function VeterinaryPage() {
+  const t = useT();
   const [tab, setTab] = useState<Tab>("overview");
   const { user } = useAuthStore();
   const vetMode = (user?.preferences?.vet_mode as boolean) ?? false;
@@ -37,9 +39,9 @@ export default function VeterinaryPage() {
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
       <div className="flex items-start justify-between mb-4 flex-wrap gap-3">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Veterinary Medicine</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("veterinary.title")}</h1>
           <p className="font-serif text-ink-3 text-sm mt-0.5">
-            Species-specific pharmacology, dosing, and clinical resources
+            {t("veterinary.subtitle")}
           </p>
         </div>
         {!vetMode && (
@@ -157,6 +159,7 @@ function OverviewTab({ setTab }: { setTab: (t: Tab) => void }) {
 // ── Dose Calculator ───────────────────────────────────────────────────────────
 
 function DoseCalcTab() {
+  const t = useT();
   const [drugQuery, setDrugQuery] = useState("");
   const [drugResults, setDrugResults] = useState<any[]>([]);
   const [selectedDrug, setSelectedDrug] = useState<any>(null);
@@ -168,12 +171,12 @@ function DoseCalcTab() {
 
   useEffect(() => {
     if (!drugQuery.trim()) { setDrugResults([]); return; }
-    const t = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       const res = await drugsApi.search(drugQuery).catch(() => ({ data: [] }));
       setDrugResults((res.data ?? []).slice(0, 6));
       setShowSugg(true);
     }, 300);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [drugQuery]);
 
   const calculate = async () => {
@@ -194,14 +197,14 @@ function DoseCalcTab() {
   return (
     <div className="space-y-5">
       <div className="card p-5 space-y-4">
-        <h2 className="font-syne font-bold text-base text-ink">Species-Adjusted Dose Lookup</h2>
+        <h2 className="font-syne font-bold text-base text-ink">{t("veterinary.tabs.dosing")}</h2>
         <p className="font-serif text-ink-3 text-xs -mt-2">
           Scales human drug doses using species-specific pharmacokinetic factors
         </p>
 
         {/* Drug search */}
         <div>
-          <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Drug</label>
+          <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{t("veterinary.drug")}</label>
           <div className="relative">
             <input
               type="text"
@@ -233,7 +236,7 @@ function DoseCalcTab() {
 
         {/* Species */}
         <div>
-          <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Species</label>
+          <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{t("veterinary.species")}</label>
           <div className="flex flex-wrap gap-2">
             {SPECIES_LIST.map((sp) => (
               <button
@@ -258,7 +261,7 @@ function DoseCalcTab() {
           disabled={!selectedDrug || !selectedSpecies || loading}
           className="btn-primary disabled:opacity-40"
         >
-          {loading ? "Looking up…" : "Get Veterinary Dosing"}
+          {loading ? t("common.loading") : t("veterinary.calculate")}
         </button>
       </div>
 
@@ -438,7 +441,8 @@ function ZoonosesTab() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="text-center py-10 font-serif text-ink-3 text-sm">Loading…</div>;
+  const t = useT();
+  if (loading) return <div className="text-center py-10 font-serif text-ink-3 text-sm">{t("common.loading")}</div>;
 
   return (
     <div className="space-y-4">
@@ -482,6 +486,7 @@ function InfoBlock({ label, value }: { label: string; value?: string }) {
 // ── Clinical Pearls ───────────────────────────────────────────────────────────
 
 function ClinicalPearlsTab() {
+  const t = useT();
   const [pearls, setPearls]   = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [species, setSpecies] = useState<string>("all");
@@ -535,10 +540,10 @@ function ClinicalPearlsTab() {
         ))}
       </div>
 
-      {loading && <div className="text-center py-10 font-serif text-ink-3 text-sm">Loading pearls…</div>}
+      {loading && <div className="text-center py-10 font-serif text-ink-3 text-sm">{t("common.loading")}</div>}
 
       {!loading && pearls.length === 0 && (
-        <div className="card p-6 text-center font-serif text-ink-3 text-sm">No pearls found for this filter.</div>
+        <div className="card p-6 text-center font-serif text-ink-3 text-sm">{t("veterinary.no_pearls")}</div>
       )}
 
       {!loading && Object.entries(grouped).map(([category, items]) => (
@@ -576,6 +581,7 @@ function ClinicalPearlsTab() {
 // ── Veterinary Modules ────────────────────────────────────────────────────────
 
 function ModulesTab() {
+  const t = useT();
   const router = useRouter();
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -587,7 +593,7 @@ function ModulesTab() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="text-center py-10 font-serif text-ink-3 text-sm">Loading…</div>;
+  if (loading) return <div className="text-center py-10 font-serif text-ink-3 text-sm">{t("common.loading")}</div>;
 
   if (specialties.length === 0) {
     return (

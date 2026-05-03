@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { contentApi, adaptivePlanApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface Recommendation {
   module_id: string;
@@ -47,6 +48,7 @@ const TASK_ICONS: Record<string, string> = {
 };
 
 export default function RecommendationsPage() {
+  const t = useT();
   const [recs, setRecs] = useState<Recommendation[]>([]);
   const [daily, setDaily] = useState<DailyPlan | null>(null);
   const [loading, setLoading] = useState(true);
@@ -94,7 +96,7 @@ export default function RecommendationsPage() {
   return (
     <div className="max-w-2xl mx-auto py-8 px-4 space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-syne font-black text-2xl text-ink">For You</h1>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("recommendations.title")}</h1>
         <Link
           href="/my-courses"
           className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-1.5 hover:border-ink-3 transition-colors"
@@ -104,7 +106,7 @@ export default function RecommendationsPage() {
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-ink-3 animate-pulse">Loading…</div>
+        <div className="text-center py-16 text-ink-3 animate-pulse">{t("common.loading")}</div>
       ) : (
         <>
           {/* Daily Plan */}
@@ -116,7 +118,7 @@ export default function RecommendationsPage() {
                 {new Date(daily.date).toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}
               </p>
               {(daily.tasks ?? []).length === 0 ? (
-                <p className="font-serif text-sm text-ink-3">No tasks for today. Complete some modules first.</p>
+                <p className="font-serif text-sm text-ink-3">{t("recommendations.no_recs")}</p>
               ) : (
                 <div className="space-y-2">
                   {(daily.tasks ?? []).map((task, i) => (
@@ -143,7 +145,7 @@ export default function RecommendationsPage() {
                 <p className="font-serif text-xs text-ink-3 mt-0.5">
                   {adaptivePlan
                     ? `Generated ${new Date(adaptivePlan.generated_at).toLocaleDateString()}`
-                    : "AI-personalized based on your weak areas and progress"}
+                    : t("recommendations.based_on")}
                 </p>
               </div>
               <button
@@ -244,7 +246,7 @@ export default function RecommendationsPage() {
           {/* Module Recommendations */}
           {recs.length > 0 && (
             <section>
-              <h2 className="font-syne font-bold text-base text-ink mb-4">Recommended Modules</h2>
+              <h2 className="font-syne font-bold text-base text-ink mb-4">{t("recommendations.title")}</h2>
               <div className="space-y-2">
                 {recs.map((rec, i) => (
                   <Link
@@ -272,7 +274,7 @@ export default function RecommendationsPage() {
             <div className="text-center py-8 text-ink-3">
               <div className="text-4xl mb-3">🎯</div>
               <p className="font-serif text-sm">
-                Complete some modules to get personalized recommendations.
+                {t("recommendations.no_recs")}
               </p>
             </div>
           )}

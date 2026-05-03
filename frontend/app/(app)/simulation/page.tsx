@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { simulationApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Phase = "setup" | "chat" | "evaluate" | "result";
 
@@ -35,6 +36,7 @@ const SPECIES = [
 ];
 
 export default function SimulationPage() {
+  const t = useT();
   const [phase, setPhase] = useState<Phase>("setup");
   const [specialty, setSpecialty] = useState("internal_medicine");
   const [difficulty, setDifficulty] = useState("intermediate");
@@ -118,9 +120,9 @@ export default function SimulationPage() {
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto w-full">
       <div className="mb-6">
-        <h1 className="font-syne font-black text-2xl text-ink">Clinical Simulation</h1>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("simulation.title")}</h1>
         <p className="font-serif text-ink-3 text-sm mt-0.5">
-          Practice history-taking with an AI virtual patient
+          {t("simulation.subtitle")}
         </p>
       </div>
 
@@ -175,7 +177,7 @@ export default function SimulationPage() {
 
             {/* Species */}
             <div>
-              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Patient Type</label>
+              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{t("simulation.species")}</label>
               <div className="flex gap-2">
                 {SPECIES.map((s) => (
                   <button
@@ -213,7 +215,7 @@ export default function SimulationPage() {
               disabled={loading}
               className="btn-primary w-full disabled:opacity-40"
             >
-              {loading ? "Preparing patient…" : "Start Simulation →"}
+              {loading ? t("common.loading") : t("simulation.start")}
             </button>
           </div>
 
@@ -261,7 +263,7 @@ export default function SimulationPage() {
                 onClick={() => setPhase("evaluate")}
                 className="btn-primary text-sm"
               >
-                Submit Diagnosis →
+                {t("simulation.end_session")}
               </button>
             </div>
           </div>
@@ -319,7 +321,7 @@ export default function SimulationPage() {
               disabled={loading || !input.trim()}
               className="btn-primary px-5 disabled:opacity-40"
             >
-              Send
+              {t("simulation.send")}
             </button>
           </div>
 
@@ -333,7 +335,7 @@ export default function SimulationPage() {
       {phase === "evaluate" && (
         <div className="space-y-4">
           <div className="card p-5">
-            <h2 className="font-syne font-bold text-base text-ink mb-3">Submit Your Diagnosis</h2>
+            <h2 className="font-syne font-bold text-base text-ink mb-3">{t("simulation.session_summary")}</h2>
             <p className="font-serif text-ink-2 text-sm mb-4">
               Based on your history-taking ({turns} questions asked), what is your working diagnosis and reasoning?
             </p>
@@ -349,14 +351,14 @@ export default function SimulationPage() {
                 onClick={() => setPhase("chat")}
                 className="flex-1 px-4 py-2.5 rounded-lg border border-border font-syne font-semibold text-sm text-ink hover:bg-bg-2 transition-colors"
               >
-                ← Back to Patient
+                {t("common.back")}
               </button>
               <button
                 onClick={submitEvaluation}
                 disabled={loading || !diagnosis.trim()}
                 className="flex-2 btn-primary disabled:opacity-40"
               >
-                {loading ? "Evaluating…" : "Get AI Feedback →"}
+                {loading ? t("common.loading") : t("simulation.feedback")}
               </button>
             </div>
           </div>
@@ -386,7 +388,7 @@ export default function SimulationPage() {
 
           {/* Evaluation */}
           <div className="card p-6">
-            <h2 className="font-syne font-bold text-base text-ink mb-4">AI Evaluation</h2>
+            <h2 className="font-syne font-bold text-base text-ink mb-4">{t("simulation.feedback")}</h2>
             <div className="font-serif text-sm text-ink-2 leading-relaxed whitespace-pre-wrap prose prose-sm max-w-none">
               {evaluation.evaluation}
             </div>
@@ -395,7 +397,7 @@ export default function SimulationPage() {
           {/* Actions */}
           <div className="flex gap-3">
             <button onClick={reset} className="flex-1 btn-primary">
-              New Simulation
+              {t("simulation.new_session")}
             </button>
             <button
               onClick={() => { setPhase("chat"); }}
