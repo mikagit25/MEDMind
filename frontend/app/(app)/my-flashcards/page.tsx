@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { api } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface UserFlashcard {
   id: string;
@@ -30,6 +31,7 @@ const myCardsApi = {
 
 // ── Review mode ──────────────────────────────────────────────────────────────
 function ReviewSession({ cards, onDone }: { cards: UserFlashcard[]; onDone: () => void }) {
+  const t = useT();
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
@@ -50,10 +52,10 @@ function ReviewSession({ cards, onDone }: { cards: UserFlashcard[]; onDone: () =
     return (
       <div className="text-center py-16">
         <div className="text-5xl mb-4">🎉</div>
-        <h2 className="font-syne font-bold text-xl text-ink mb-2">Session complete!</h2>
+        <h2 className="font-syne font-bold text-xl text-ink mb-2">{t("flashcards.session_complete")}</h2>
         <p className="text-ink-3 font-serif text-sm mb-6">You reviewed {cards.length} cards.</p>
         <button onClick={onDone} className="btn-primary px-6 py-2 rounded font-syne font-semibold text-sm">
-          Back to library
+          {t("common.back")}
         </button>
       </div>
     );
@@ -63,7 +65,7 @@ function ReviewSession({ cards, onDone }: { cards: UserFlashcard[]; onDone: () =
     <div className="max-w-lg mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
         <span className="font-syne font-semibold text-sm text-ink-3">{idx + 1} / {cards.length}</span>
-        <button onClick={onDone} className="text-xs text-ink-3 hover:text-ink font-syne">✕ Exit review</button>
+        <button onClick={onDone} className="text-xs text-ink-3 hover:text-ink font-syne">✕ {t("common.close")}</button>
       </div>
 
       {/* Card flip */}
@@ -74,7 +76,7 @@ function ReviewSession({ cards, onDone }: { cards: UserFlashcard[]; onDone: () =
         {!flipped ? (
           <>
             <p className="font-syne font-semibold text-base text-ink text-center mb-4">{current.question}</p>
-            <span className="text-xs text-ink-3 font-serif">Tap to reveal answer</span>
+            <span className="text-xs text-ink-3 font-serif">{t("flashcards.flip")}</span>
           </>
         ) : (
           <>
@@ -117,6 +119,7 @@ function CardForm({
   onSave: (data: { question: string; answer: string; tags: string[]; difficulty: string }) => Promise<void>;
   onCancel: () => void;
 }) {
+  const t = useT();
   const [question, setQuestion] = useState(initial?.question ?? "");
   const [answer, setAnswer] = useState(initial?.answer ?? "");
   const [tagsRaw, setTagsRaw] = useState((initial?.tags ?? []).join(", "));
@@ -149,11 +152,11 @@ function CardForm({
   return (
     <form onSubmit={submit} className="card p-6 space-y-4 max-w-lg mx-auto">
       <h2 className="font-syne font-bold text-base text-ink">
-        {initial ? "Edit flashcard" : "New flashcard"}
+        {initial ? t("flashcards.my_cards") : t("flashcards.create")}
       </h2>
       {error && <p className="text-red-500 text-xs font-serif">{error}</p>}
       <div>
-        <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Question</label>
+        <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">{t("flashcards.question_label")}</label>
         <textarea
           value={question}
           onChange={e => setQuestion(e.target.value)}
@@ -163,7 +166,7 @@ function CardForm({
         />
       </div>
       <div>
-        <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Answer</label>
+        <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">{t("flashcards.answer_label")}</label>
         <textarea
           value={answer}
           onChange={e => setAnswer(e.target.value)}
@@ -174,7 +177,7 @@ function CardForm({
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Tags (comma-separated)</label>
+          <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Tags</label>
           <input
             value={tagsRaw}
             onChange={e => setTagsRaw(e.target.value)}
@@ -183,15 +186,15 @@ function CardForm({
           />
         </div>
         <div>
-          <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Difficulty</label>
+          <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">{t("flashcards.difficulty")}</label>
           <select
             value={difficulty}
             onChange={e => setDifficulty(e.target.value)}
             className="w-full border border-ink/10 rounded p-2 text-xs font-syne focus:outline-none"
           >
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
+            <option value="easy">{t("common.easy")}</option>
+            <option value="medium">{t("common.medium")}</option>
+            <option value="hard">{t("common.hard")}</option>
           </select>
         </div>
       </div>
@@ -201,14 +204,14 @@ function CardForm({
           disabled={saving}
           className="btn-primary px-4 py-2 rounded font-syne font-semibold text-sm disabled:opacity-60"
         >
-          {saving ? "Saving…" : "Save card"}
+          {saving ? t("common.saving") : t("flashcards.save_card")}
         </button>
         <button
           type="button"
           onClick={onCancel}
           className="px-4 py-2 rounded border border-ink/10 font-syne font-semibold text-sm text-ink-3 hover:text-ink"
         >
-          Cancel
+          {t("common.cancel")}
         </button>
       </div>
     </form>
@@ -217,6 +220,7 @@ function CardForm({
 
 // ── Main page ────────────────────────────────────────────────────────────────
 export default function MyFlashcardsPage() {
+  const t = useT();
   const [cards, setCards] = useState<UserFlashcard[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -277,10 +281,10 @@ export default function MyFlashcardsPage() {
         {dueCards.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-4xl mb-3">✅</div>
-            <p className="font-syne font-bold text-lg text-ink mb-1">All caught up!</p>
-            <p className="text-ink-3 font-serif text-sm mb-6">No cards due for review right now.</p>
+            <p className="font-syne font-bold text-lg text-ink mb-1">{t("flashcards.session_complete")}</p>
+            <p className="text-ink-3 font-serif text-sm mb-6">{t("flashcards.no_cards")}</p>
             <button onClick={() => setView("list")} className="btn-primary px-6 py-2 rounded font-syne font-semibold text-sm">
-              Back to library
+              {t("common.back")}
             </button>
           </div>
         ) : (
@@ -311,21 +315,21 @@ export default function MyFlashcardsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">My Flashcards</h1>
-          <p className="font-serif text-ink-3 text-sm mt-0.5">{total} personal cards</p>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("flashcards.my_cards")}</h1>
+          <p className="font-serif text-ink-3 text-sm mt-0.5">{total} {t("flashcards.cards_due")}</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={startReview}
             className="px-4 py-2 rounded bg-amber text-white font-syne font-semibold text-sm hover:bg-amber/90 transition-colors"
           >
-            Start Review
+            {t("flashcards.study_now")}
           </button>
           <button
             onClick={() => setView("create")}
             className="btn-primary px-4 py-2 rounded font-syne font-semibold text-sm"
           >
-            + New Card
+            + {t("flashcards.create")}
           </button>
         </div>
       </div>
@@ -334,7 +338,7 @@ export default function MyFlashcardsPage() {
       <input
         value={search}
         onChange={e => setSearch(e.target.value)}
-        placeholder="Search your cards…"
+        placeholder={t("common.search")}
         className="w-full border border-ink/10 rounded px-4 py-2 text-sm font-serif mb-5 focus:outline-none focus:ring-1 focus:ring-blue"
       />
 
@@ -348,15 +352,15 @@ export default function MyFlashcardsPage() {
       ) : cards.length === 0 ? (
         <div className="text-center py-20">
           <div className="text-5xl mb-4">📇</div>
-          <p className="font-syne font-bold text-lg text-ink mb-2">No cards yet</p>
+          <p className="font-syne font-bold text-lg text-ink mb-2">{t("flashcards.no_cards")}</p>
           <p className="text-ink-3 font-serif text-sm mb-6">
-            Create personal flashcards from your notes to review with spaced repetition.
+            {t("flashcards.create_first")}
           </p>
           <button
             onClick={() => setView("create")}
             className="btn-primary px-6 py-2 rounded font-syne font-semibold text-sm"
           >
-            Create first card
+            {t("flashcards.create")}
           </button>
         </div>
       ) : (
@@ -378,13 +382,13 @@ export default function MyFlashcardsPage() {
                   onClick={() => { setEditing(card); setView("edit"); }}
                   className="text-xs text-ink-3 hover:text-ink font-syne px-2"
                 >
-                  Edit
+                  {t("common.edit")}
                 </button>
                 <button
                   onClick={() => handleDelete(card.id)}
                   className="text-xs text-red-400 hover:text-red-600 font-syne"
                 >
-                  Delete
+                  {t("common.delete")}
                 </button>
               </div>
             </div>

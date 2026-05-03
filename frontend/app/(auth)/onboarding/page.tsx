@@ -4,20 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authApi, aiApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
-
-const ROLES = [
-  { value: "student", label: "Medical Student", icon: "🎓", desc: "Studying medicine or pharmacy" },
-  { value: "doctor", label: "Doctor / Clinician", icon: "🩺", desc: "Practicing medicine or surgery" },
-  { value: "professor", label: "Professor / Educator", icon: "🏛️", desc: "Teaching or researching" },
-  { value: "veterinarian", label: "Veterinarian", icon: "🐾", desc: "Animal medicine practice" },
-];
-
-const GOALS = [
-  { value: "exam_prep", label: "Exam preparation", icon: "📝" },
-  { value: "clinical_refresh", label: "Clinical knowledge refresh", icon: "🔄" },
-  { value: "new_specialty", label: "Learn a new specialty", icon: "📚" },
-  { value: "daily_learning", label: "Daily continuous learning", icon: "📅" },
-];
+import { useT } from "@/lib/i18n";
 
 const SPECIALTIES = [
   { code: "cardiology", label: "Cardiology", icon: "❤️" },
@@ -31,18 +18,34 @@ const SPECIALTIES = [
   { code: "veterinary", label: "Veterinary Medicine", icon: "🐾" },
 ];
 
-const TIME_OPTIONS = [
-  { value: 10, label: "10 min", sub: "Quick daily refresh" },
-  { value: 20, label: "20 min", sub: "Focused practice" },
-  { value: 30, label: "30 min", sub: "Deep learning" },
-  { value: 45, label: "45+ min", sub: "Intensive study" },
-];
-
 type Step = 1 | 2 | 3 | 4 | 5;
 
 export default function OnboardingPage() {
   const router = useRouter();
   const { user, updateUser } = useAuthStore();
+  const t = useT();
+
+  const ROLES = [
+    { value: "student", label: t("auth.onboarding.role_student"), icon: "🎓", desc: t("auth.onboarding.role_student_desc") },
+    { value: "doctor", label: t("auth.onboarding.role_doctor"), icon: "🩺", desc: t("auth.onboarding.role_doctor_desc") },
+    { value: "professor", label: t("auth.onboarding.role_professor"), icon: "🏛️", desc: t("auth.onboarding.role_professor_desc") },
+    { value: "veterinarian", label: t("auth.onboarding.role_vet"), icon: "🐾", desc: t("auth.onboarding.role_vet_desc") },
+  ];
+
+  const GOALS = [
+    { value: "exam_prep", label: t("auth.onboarding.goal_exam"), icon: "📝" },
+    { value: "clinical_refresh", label: t("auth.onboarding.goal_clinical"), icon: "🔄" },
+    { value: "new_specialty", label: t("auth.onboarding.goal_specialty"), icon: "📚" },
+    { value: "daily_learning", label: t("auth.onboarding.goal_daily"), icon: "📅" },
+  ];
+
+  const TIME_OPTIONS = [
+    { value: 10, label: "10 min", sub: t("auth.onboarding.time_quick") },
+    { value: 20, label: "20 min", sub: t("auth.onboarding.time_focused") },
+    { value: 30, label: "30 min", sub: t("auth.onboarding.time_deep") },
+    { value: 45, label: "45+ min", sub: t("auth.onboarding.time_intensive") },
+  ];
+
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState({
     role: "",
@@ -130,10 +133,10 @@ export default function OnboardingPage() {
         {step === 1 && (
           <div>
             <h2 className="font-syne font-bold text-xl text-ink mb-1">
-              What best describes you?
+              {t("auth.onboarding.step1_title")}
             </h2>
             <p className="font-serif text-ink-3 text-sm mb-5">
-              We'll tailor your experience to your professional context
+              {t("auth.onboarding.step1_sub")}
             </p>
             <div className="space-y-2.5 mb-6">
               {ROLES.map((role) => (
@@ -161,7 +164,7 @@ export default function OnboardingPage() {
               disabled={!data.role}
               className="btn-primary w-full py-2.5 disabled:opacity-40"
             >
-              Next →
+              {t("auth.onboarding.btn_next")}
             </button>
           </div>
         )}
@@ -169,8 +172,8 @@ export default function OnboardingPage() {
         {/* ── Step 2: Goal ── */}
         {step === 2 && (
           <div>
-            <h2 className="font-syne font-bold text-xl text-ink mb-1">What's your main goal?</h2>
-            <p className="font-serif text-ink-3 text-sm mb-5">Choose what best describes your learning intent</p>
+            <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("auth.onboarding.step2_title")}</h2>
+            <p className="font-serif text-ink-3 text-sm mb-5">{t("auth.onboarding.step2_sub")}</p>
             <div className="space-y-2.5 mb-6">
               {GOALS.map((goal) => (
                 <button
@@ -188,13 +191,13 @@ export default function OnboardingPage() {
               ))}
             </div>
             <div className="flex justify-between">
-              <button onClick={() => setStep(1)} className="btn-secondary px-5">← Back</button>
+              <button onClick={() => setStep(1)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
               <button
                 onClick={() => setStep(3)}
                 disabled={!data.goal}
                 className="btn-primary px-5 disabled:opacity-40"
               >
-                Next →
+                {t("auth.onboarding.btn_next")}
               </button>
             </div>
           </div>
@@ -203,8 +206,8 @@ export default function OnboardingPage() {
         {/* ── Step 3: Specialties ── */}
         {step === 3 && (
           <div>
-            <h2 className="font-syne font-bold text-xl text-ink mb-1">Choose your specialties</h2>
-            <p className="font-serif text-ink-3 text-sm mb-5">Select all that apply to your work or studies</p>
+            <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("auth.onboarding.step3_title")}</h2>
+            <p className="font-serif text-ink-3 text-sm mb-5">{t("auth.onboarding.step3_sub")}</p>
             <div className="flex flex-wrap gap-2 mb-6">
               {SPECIALTIES.map((sp) => (
                 <button
@@ -222,13 +225,13 @@ export default function OnboardingPage() {
               ))}
             </div>
             <div className="flex justify-between">
-              <button onClick={() => setStep(2)} className="btn-secondary px-5">← Back</button>
+              <button onClick={() => setStep(2)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
               <button
                 onClick={() => setStep(4)}
                 disabled={data.specialties.length === 0}
                 className="btn-primary px-5 disabled:opacity-40"
               >
-                Next →
+                {t("auth.onboarding.btn_next")}
               </button>
             </div>
           </div>
@@ -237,30 +240,30 @@ export default function OnboardingPage() {
         {/* ── Step 4: Daily time ── */}
         {step === 4 && (
           <div>
-            <h2 className="font-syne font-bold text-xl text-ink mb-1">Daily learning time</h2>
-            <p className="font-serif text-ink-3 text-sm mb-5">How much time can you dedicate each day?</p>
+            <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("auth.onboarding.step4_title")}</h2>
+            <p className="font-serif text-ink-3 text-sm mb-5">{t("auth.onboarding.step4_sub")}</p>
             <div className="grid grid-cols-2 gap-3 mb-6">
-              {TIME_OPTIONS.map((t) => (
+              {TIME_OPTIONS.map((opt) => (
                 <button
-                  key={t.value}
-                  onClick={() => setData((p) => ({ ...p, daily_minutes: t.value }))}
+                  key={opt.value}
+                  onClick={() => setData((p) => ({ ...p, daily_minutes: opt.value }))}
                   className={`py-4 rounded border text-left px-4 transition-all ${
-                    data.daily_minutes === t.value
+                    data.daily_minutes === opt.value
                       ? "border-ink bg-ink text-white"
                       : "border-border bg-surface hover:border-ink-3 text-ink"
                   }`}
                 >
-                  <div className="font-syne font-bold text-lg">{t.label}</div>
-                  <div className={`font-serif text-xs ${data.daily_minutes === t.value ? "text-white/70" : "text-ink-3"}`}>
-                    {t.sub}
+                  <div className="font-syne font-bold text-lg">{opt.label}</div>
+                  <div className={`font-serif text-xs ${data.daily_minutes === opt.value ? "text-white/70" : "text-ink-3"}`}>
+                    {opt.sub}
                   </div>
                 </button>
               ))}
             </div>
             <div className="flex justify-between">
-              <button onClick={() => setStep(3)} className="btn-secondary px-5">← Back</button>
+              <button onClick={() => setStep(3)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
               <button onClick={goToStep5} className="btn-primary px-5">
-                Build my plan →
+                {t("auth.onboarding.btn_build")}
               </button>
             </div>
           </div>
@@ -272,11 +275,11 @@ export default function OnboardingPage() {
             <div className="text-center mb-5">
               <div className="text-5xl mb-3">{planLoading ? "🤔" : "🎯"}</div>
               <h2 className="font-syne font-bold text-xl text-ink">
-                {planLoading ? "Building your plan…" : "Your personal study plan"}
+                {planLoading ? t("auth.onboarding.step5_building") : t("auth.onboarding.step5_title")}
               </h2>
               <p className="font-serif text-ink-3 text-sm mt-1">
                 {planLoading
-                  ? "AI is crafting your personalized learning path"
+                  ? t("auth.onboarding.step5_sub")
                   : `Tailored for ${ROLES.find((r) => r.value === data.role)?.label}`}
               </p>
             </div>
@@ -294,21 +297,21 @@ export default function OnboardingPage() {
             )}
 
             <div className="font-serif text-ink-3 text-xs text-center mb-5 space-y-0.5">
-              <p>✓ Role: <strong className="text-ink">{ROLES.find((r) => r.value === data.role)?.label}</strong></p>
-              <p>✓ Goal: <strong className="text-ink">{GOALS.find((g) => g.value === data.goal)?.label}</strong></p>
+              <p>{t("auth.onboarding.plan_role")}: <strong className="text-ink">{ROLES.find((r) => r.value === data.role)?.label}</strong></p>
+              <p>{t("auth.onboarding.plan_goal")}: <strong className="text-ink">{GOALS.find((g) => g.value === data.goal)?.label}</strong></p>
               <p>✓ {data.specialties.length} {data.specialties.length === 1 ? "specialty" : "specialties"} · {data.daily_minutes} min/day</p>
             </div>
 
             <div className="flex justify-between">
               <button onClick={() => setStep(4)} className="btn-secondary px-5" disabled={saving}>
-                ← Back
+                {t("auth.onboarding.btn_back")}
               </button>
               <button
                 onClick={finish}
                 disabled={saving || planLoading}
                 className="btn-primary px-8 disabled:opacity-60"
               >
-                {saving ? "Setting up…" : "Start learning →"}
+                {saving ? t("auth.onboarding.btn_setup") : t("auth.onboarding.btn_start")}
               </button>
             </div>
           </div>

@@ -114,8 +114,8 @@ export default function ArticlesPage() {
         {/* Header */}
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <h1 className="font-syne font-black text-2xl text-ink">Medical Articles</h1>
-            <p className="font-serif text-sm text-ink-3 mt-1">{total} evidence-based articles across {categories.length} categories</p>
+            <h1 className="font-syne font-black text-2xl text-ink">{t("articles.title")}</h1>
+            <p className="font-serif text-sm text-ink-3 mt-1">{t("articles.subtitle", { count: String(total), cats: String(categories.length) })}</p>
           </div>
           <a
             href="/articles"
@@ -123,7 +123,7 @@ export default function ArticlesPage() {
             rel="noopener noreferrer"
             className="shrink-0 btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
           >
-            🌐 Public view ↗
+            🌐 {t("articles.public_view")}
           </a>
         </div>
 
@@ -131,14 +131,14 @@ export default function ArticlesPage() {
           {/* Sidebar — Categories */}
           <aside className="w-52 shrink-0">
             <div className="sticky top-4">
-              <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-3">Categories</div>
+              <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-3">{t("articles.categories")}</div>
               <button
                 onClick={() => { setActiveCategory(""); setPage(1); }}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm font-serif mb-1 transition-colors ${
                   activeCategory === "" ? "bg-ink text-white font-semibold" : "hover:bg-surface text-ink-2"
                 }`}
               >
-                All Articles
+                {t("articles.all")}
                 <span className="ml-auto float-right text-xs opacity-60">{total}</span>
               </button>
               {categories.map(cat => (
@@ -163,7 +163,7 @@ export default function ArticlesPage() {
             <div className="mb-5">
               <input
                 type="search"
-                placeholder="Search articles..."
+                placeholder={t("articles.search_placeholder")}
                 value={search}
                 onChange={e => { setSearch(e.target.value); setPage(1); }}
                 className="w-full input-field text-sm"
@@ -185,8 +185,8 @@ export default function ArticlesPage() {
             ) : articles.length === 0 ? (
               <div className="text-center py-16">
                 <div className="text-4xl mb-3">📭</div>
-                <div className="font-syne font-semibold text-ink mb-1">No articles found</div>
-                <div className="font-serif text-sm text-ink-3">Try a different search or category</div>
+                <div className="font-syne font-semibold text-ink mb-1">{t("articles.no_results")}</div>
+                <div className="font-serif text-sm text-ink-3">{t("articles.no_results_hint")}</div>
               </div>
             ) : (
               <>
@@ -206,7 +206,7 @@ export default function ArticlesPage() {
                         </span>
                         {article.reading_time_minutes > 0 && (
                           <span className="ml-auto font-serif text-[10px] text-ink-3">
-                            {article.reading_time_minutes} min read
+                            {t("articles.read_time", { n: String(article.reading_time_minutes) })}
                           </span>
                         )}
                       </div>
@@ -237,17 +237,17 @@ export default function ArticlesPage() {
                       disabled={page === 1}
                       className="btn-secondary text-xs px-3 py-1.5 disabled:opacity-40"
                     >
-                      ← Prev
+                      {t("articles.prev")}
                     </button>
                     <span className="font-serif text-sm text-ink-3">
-                      Page {page} of {totalPages}
+                      {t("articles.page_of", { page: String(page), total: String(totalPages) })}
                     </span>
                     <button
                       onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
                       className="btn-secondary text-xs px-3 py-1.5 disabled:opacity-40"
                     >
-                      Next →
+                      {t("articles.next")}
                     </button>
                   </div>
                 )}

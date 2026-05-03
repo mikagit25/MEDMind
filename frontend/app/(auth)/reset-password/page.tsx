@@ -3,10 +3,12 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 function ResetPasswordForm() {
   const router = useRouter();
   const params = useSearchParams();
+  const t = useT();
   const token = params.get("token") || "";
   const email = params.get("email") || "";
 
@@ -58,8 +60,8 @@ function ResetPasswordForm() {
       <div className="min-h-screen bg-bg flex items-center justify-center px-4">
         <div className="bg-surface border border-border rounded-xl p-8 max-w-md w-full text-center">
           <div className="text-4xl mb-4">✅</div>
-          <h1 className="font-syne font-bold text-xl text-ink mb-2">Password updated!</h1>
-          <p className="text-ink-2 text-sm">Redirecting to login…</p>
+          <h1 className="font-syne font-bold text-xl text-ink mb-2">{t("auth.reset_password.title")}</h1>
+          <p className="text-ink-2 text-sm">{t("auth.reset_password.success")}</p>
         </div>
       </div>
     );
@@ -68,12 +70,12 @@ function ResetPasswordForm() {
   return (
     <div className="min-h-screen bg-bg flex items-center justify-center px-4">
       <div className="bg-surface border border-border rounded-xl p-8 max-w-md w-full">
-        <h1 className="font-syne font-bold text-2xl text-ink mb-2">Set new password</h1>
+        <h1 className="font-syne font-bold text-2xl text-ink mb-2">{t("auth.reset_password.title")}</h1>
         {email && <p className="text-ink-2 text-sm mb-6">For {email}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-syne font-semibold text-ink mb-1">
-              New password
+              {t("auth.reset_password.new_password")}
             </label>
             <input
               type="password"
@@ -99,7 +101,7 @@ function ResetPasswordForm() {
           </div>
           {error && <p className="text-red text-sm">{error}</p>}
           <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "Updating…" : "Update Password"}
+            {loading ? t("auth.reset_password.submitting") : t("auth.reset_password.submit")}
           </button>
         </form>
       </div>

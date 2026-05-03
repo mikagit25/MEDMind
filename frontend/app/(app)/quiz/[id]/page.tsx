@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { contentApi, progressApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type MCQQuestion = {
   id: string;
@@ -28,6 +29,7 @@ const DIFFICULTY_COLOR: Record<string, string> = {
 export default function QuizPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const t = useT();
 
   const [questions, setQuestions] = useState<MCQQuestion[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,7 +95,7 @@ export default function QuizPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <p className="font-serif text-ink-3 text-sm animate-pulse">Loading quiz…</p>
+        <p className="font-serif text-ink-3 text-sm animate-pulse">{t("common.loading")}</p>
       </div>
     );
   }
@@ -102,7 +104,7 @@ export default function QuizPage() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center gap-4 p-6">
         <div className="text-4xl">📋</div>
-        <h2 className="font-syne font-bold text-xl text-ink">No quiz questions yet</h2>
+        <h2 className="font-syne font-bold text-xl text-ink">{t("quiz.no_quizzes")}</h2>
         <p className="font-serif text-ink-2 text-sm text-center max-w-sm">
           This module doesn't have MCQ questions available yet.
           Try studying the lessons or reviewing flashcards.
@@ -111,7 +113,7 @@ export default function QuizPage() {
           onClick={() => router.back()}
           className="btn-primary mt-2"
         >
-          ← Back to module
+          ← {t("common.back")}
         </button>
       </div>
     );
@@ -135,15 +137,15 @@ export default function QuizPage() {
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="card bg-surface-2 p-4 rounded-lg">
               <div className="font-syne font-black text-2xl text-ink">{score.correct}/{score.total}</div>
-              <div className="font-syne text-xs text-ink-3 mt-1">Correct</div>
+              <div className="font-syne text-xs text-ink-3 mt-1">{t("quiz.correct")}</div>
             </div>
             <div className="card bg-surface-2 p-4 rounded-lg">
               <div className="font-syne font-black text-2xl text-ink">{pct}%</div>
-              <div className="font-syne text-xs text-ink-3 mt-1">Score</div>
+              <div className="font-syne text-xs text-ink-3 mt-1">{t("quiz.score")}</div>
             </div>
             <div className="card bg-surface-2 p-4 rounded-lg">
               <div className="font-syne font-black text-2xl text-amber">+{score.xp}</div>
-              <div className="font-syne text-xs text-ink-3 mt-1">XP earned</div>
+              <div className="font-syne text-xs text-ink-3 mt-1">{t("progress.xp_earned")}</div>
             </div>
           </div>
 
@@ -159,13 +161,13 @@ export default function QuizPage() {
               }}
               className="btn-primary"
             >
-              Retry quiz
+              {t("quiz.retry")}
             </button>
             <Link
               href={`/modules/${id}`}
               className="font-syne font-semibold text-sm text-ink-2 hover:text-ink text-center transition-colors"
             >
-              ← Back to module
+              ← {t("common.back")}
             </Link>
           </div>
         </div>
@@ -252,7 +254,7 @@ export default function QuizPage() {
             disabled={!selected || submitting}
             className="btn-primary w-full"
           >
-            {submitting ? "Checking…" : "Submit answer"}
+            {submitting ? t("common.loading") : t("quiz.submit_answer")}
           </button>
         ) : (
           <div>
@@ -267,14 +269,14 @@ export default function QuizPage() {
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-lg">{result.correct ? "✅" : "❌"}</span>
                 <span className={`font-syne font-bold text-sm ${result.correct ? "text-green" : "text-red"}`}>
-                  {result.correct ? `Correct! +${result.xp_earned} XP` : `Incorrect — correct answer: ${result.correct_answer}`}
+                  {result.correct ? `${t("quiz.correct")} +${result.xp_earned} XP` : `${t("quiz.incorrect")} — ${t("quiz.explanation")}: ${result.correct_answer}`}
                 </span>
               </div>
               <p className="font-serif text-sm text-ink leading-relaxed">{result.explanation}</p>
             </div>
 
             <button onClick={handleNext} className="btn-primary w-full">
-              {current + 1 >= questions.length ? "See results →" : "Next question →"}
+              {current + 1 >= questions.length ? t("quiz.finish") : t("quiz.next_question")}
             </button>
           </div>
         )}

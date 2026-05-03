@@ -2,8 +2,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 export default function ForgotPasswordPage() {
+  const t = useT();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,9 +32,9 @@ export default function ForgotPasswordPage() {
           <div className="text-4xl mb-4">📬</div>
           <h1 className="font-syne font-bold text-xl text-ink mb-2">Check your email</h1>
           <p className="text-ink-2 text-sm mb-6">
-            If <strong>{email}</strong> is registered, you&apos;ll receive a reset link shortly.
+            {t("auth.forgot_password.success")}
           </p>
-          <Link href="/login" className="btn-primary">Back to Login</Link>
+          <Link href="/login" className="btn-primary">{t("auth.forgot_password.back_to_login")}</Link>
         </div>
       </div>
     );
@@ -43,17 +45,17 @@ export default function ForgotPasswordPage() {
       <div className="bg-surface border border-border rounded-xl p-8 max-w-md w-full">
         <div className="mb-6">
           <Link href="/login" className="text-ink-3 text-sm hover:text-ink transition-colors">
-            ← Back to Login
+            {t("auth.forgot_password.back_to_login")}
           </Link>
         </div>
-        <h1 className="font-syne font-bold text-2xl text-ink mb-2">Forgot password?</h1>
+        <h1 className="font-syne font-bold text-2xl text-ink mb-2">{t("auth.forgot_password.title")}</h1>
         <p className="text-ink-2 text-sm mb-6">
-          Enter your email address and we&apos;ll send you a reset link.
+          {t("auth.forgot_password.subtitle")}
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-syne font-semibold text-ink mb-1">
-              Email address
+              {t("auth.forgot_password.email")}
             </label>
             <input
               type="email"
@@ -66,7 +68,7 @@ export default function ForgotPasswordPage() {
           </div>
           {error && <p className="text-red text-sm">{error}</p>}
           <button type="submit" disabled={loading} className="btn-primary w-full">
-            {loading ? "Sending…" : "Send Reset Link"}
+            {loading ? t("auth.forgot_password.submitting") : t("auth.forgot_password.submit")}
           </button>
         </form>
       </div>
