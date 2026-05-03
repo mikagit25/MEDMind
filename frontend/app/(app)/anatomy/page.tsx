@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { imagingApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
@@ -46,7 +46,20 @@ const SYSTEM_ICONS: Record<string, string> = {
 function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }) {
   const [loaded, setLoaded] = useState(false);
   const [started, setStarted] = useState(false);
-  const [thumbError, setThumbError] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleLoad = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setLoaded(true);
+  };
+
+  const handleStart = () => {
+    setStarted(true);
+    timerRef.current = setTimeout(() => setTimedOut(true), 10000);
+  };
+
+  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
 
   if (!started) {
     return (
@@ -55,12 +68,39 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
           <div className="text-5xl mb-3">🧊</div>
           <div className="font-syne font-semibold text-sm text-ink mb-1">{title}</div>
           <div className="font-serif text-xs text-ink-3 mb-3">Interactive 3D model — click to load</div>
-          <button
-            onClick={() => setStarted(true)}
-            className="btn-primary text-xs px-4 py-2"
-          >
+          <button onClick={handleStart} className="btn-primary text-xs px-4 py-2">
             Load 3D Viewer
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (timedOut && !loaded) {
+    return (
+      <div className="relative w-full aspect-[4/3] bg-surface rounded-xl overflow-hidden flex items-center justify-center border border-border">
+        <div className="text-center p-6">
+          <div className="text-4xl mb-3">🧊</div>
+          <div className="font-syne font-semibold text-sm text-ink mb-1">{title}</div>
+          <div className="font-serif text-xs text-ink-3 mb-4">
+            3D viewer could not load. The model may be temporarily unavailable.
+          </div>
+          <div className="flex gap-2 justify-center">
+            <button
+              onClick={() => { setTimedOut(false); setLoaded(false); setStarted(false); }}
+              className="btn-secondary text-xs px-3 py-1.5"
+            >
+              Try again
+            </button>
+            <a
+              href="https://sketchfab.com/search?q=human+anatomy&type=models"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-xs px-3 py-1.5"
+            >
+              Browse 3D Models
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -70,7 +110,7 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
     <div className="relative w-full aspect-[4/3] bg-black rounded-xl overflow-hidden">
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-surface">
-          <div className="text-ink-3 font-serif text-sm">Loading 3D viewer...</div>
+          <div className="text-ink-3 font-serif text-sm animate-pulse">Loading 3D viewer...</div>
         </div>
       )}
       <iframe
@@ -79,7 +119,7 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
         className="w-full h-full"
         allow="autoplay; fullscreen; xr-spatial-tracking"
         allowFullScreen
-        onLoad={() => setLoaded(true)}
+        onLoad={handleLoad}
         style={{ border: "none" }}
       />
     </div>

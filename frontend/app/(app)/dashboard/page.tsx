@@ -474,6 +474,23 @@ export default function DashboardPage() {
         </p>
       </div>
 
+      {/* Teacher / Admin banner */}
+      {(user?.role === 'teacher' || user?.role === 'admin') && (
+        <div className="card p-4 mb-4 bg-purple-light border border-purple/20">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">👨‍🏫</span>
+            <div>
+              <div className="font-syne font-bold text-base text-ink">Teacher Dashboard</div>
+              <div className="font-serif text-sm text-ink-3">Manage your courses and track student progress</div>
+            </div>
+            <div className="ml-auto flex gap-2">
+              <a href="/courses" className="btn-secondary text-sm px-3 py-1.5">My Courses</a>
+              <a href="/admin" className="btn-secondary text-sm px-3 py-1.5">Admin Panel</a>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* XP Progress */}
       <div className="card px-5 py-4 mb-6">
         <div className="flex items-center justify-between mb-2">

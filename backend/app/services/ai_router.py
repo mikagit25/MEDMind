@@ -17,6 +17,7 @@ import asyncio
 import hashlib
 import json
 import logging
+import re
 from typing import Optional, AsyncGenerator
 from uuid import UUID
 
@@ -162,20 +163,67 @@ async def _call_groq(messages: list, system_prompt: str) -> str:
 
 
 async def _call_ollama(messages: list, system_prompt: str) -> str:
-    """Call local Ollama API. Returns text response."""
+    """Call local Ollama API. Returns text response (think tags stripped)."""
     ollama_messages = [{"role": "system", "content": system_prompt}] + messages
-    async with httpx.AsyncClient(timeout=60) as http:
+    async with httpx.AsyncClient(timeout=120) as http:
         resp = await http.post(
             f"{settings.OLLAMA_URL}/api/chat",
             json={
                 "model": settings.OLLAMA_MODEL,
                 "messages": ollama_messages,
                 "stream": False,
+                "think": False,
+                "options": {"num_predict": 800},
             },
         )
         resp.raise_for_status()
         data = resp.json()
-        return data["message"]["content"]
+        content = data["message"]["content"]
+        return re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
+
+
+async def _stream_ollama(messages: list, system_prompt: str):
+    """Async generator — streams chunks from Ollama (think tags stripped)."""
+    ollama_messages = [{"role": "system", "content": system_prompt}] + messages
+    buffer = ""
+    async with httpx.AsyncClient(timeout=120) as http:
+        async with http.stream(
+            "POST",
+            f"{settings.OLLAMA_URL}/api/chat",
+            json={
+                "model": settings.OLLAMA_MODEL,
+                "messages": ollama_messages,
+                "stream": True,
+                "think": False,
+                "options": {"num_predict": 800},
+            },
+        ) as resp:
+            resp.raise_for_status()
+            in_think = False
+            async for line in resp.aiter_lines():
+                if not line:
+                    continue
+                try:
+                    data = json.loads(line)
+                    chunk = data.get("message", {}).get("content", "")
+                    if not chunk:
+                        continue
+                    # Strip think tags that may still appear despite think:False
+                    buffer += chunk
+                    if "<think>" in buffer:
+                        in_think = True
+                    if in_think:
+                        if "</think>" in buffer:
+                            in_think = False
+                            buffer = buffer[buffer.find("</think>") + len("</think>"):]
+                        else:
+                            buffer = ""
+                            continue
+                    if buffer and not in_think:
+                        yield buffer
+                        buffer = ""
+                except Exception:
+                    continue
 
 
 async def _call_free_ai(messages: list, system_prompt: str) -> tuple[str, str]:
@@ -459,15 +507,19 @@ async def route_ai_stream(
 
     # --- Free AI path: Ollama (local) → Gemini → Groq ---
     if use_free:
-        # 1. Ollama first — local, zero cost, works with Qwen2.5 / Llama3.2 / DeepSeek
+        # 1. Ollama first — local, zero cost, works with Qwen3 / Llama3.2 / DeepSeek
         yield {"type": "model", "model": f"ollama/{settings.OLLAMA_MODEL}"}
         try:
-            text = await _call_ollama(messages, system_prompt)
-            yield {"type": "text", "text": text}
-            await _increment_rate_limit(user)
-            return
+            got_chunk = False
+            async for chunk in _stream_ollama(messages, system_prompt):
+                if chunk:
+                    yield {"type": "text", "text": chunk}
+                    got_chunk = True
+            if got_chunk:
+                await _increment_rate_limit(user)
+                return
         except Exception as e:
-            logger.debug("Ollama not available: %s", e)
+            logger.debug("Ollama stream failed: %s", e)
 
         # 2. Try Gemini Flash streaming (free API tier)
         if settings.GEMINI_API_KEY:

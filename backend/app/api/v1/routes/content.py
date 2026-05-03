@@ -266,11 +266,6 @@ async def search_drugs(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    if user.subscription_tier not in ["pro", "clinic", "lifetime"]:
-        raise HTTPException(
-            status_code=403,
-            detail="Drug database requires Pro subscription or higher",
-        )
     from sqlalchemy import or_, cast, String
     result = await db.execute(
         select(Drug).where(
@@ -291,8 +286,6 @@ async def get_drug_detail(
     user: User = Depends(get_current_user),
 ):
     """Return full drug detail by ID."""
-    if user.subscription_tier not in ["pro", "clinic", "lifetime"]:
-        raise HTTPException(status_code=403, detail="Drug database requires Pro subscription or higher")
     result = await db.execute(select(Drug).where(Drug.id == drug_id))
     drug = result.scalar_one_or_none()
     if not drug:
@@ -307,8 +300,6 @@ async def get_drug_alternatives(
     user: User = Depends(get_current_user),
 ):
     """Return same-class drugs as alternatives/analogues."""
-    if user.subscription_tier not in ["pro", "clinic", "lifetime"]:
-        raise HTTPException(status_code=403, detail="Drug database requires Pro subscription or higher")
     result = await db.execute(select(Drug).where(Drug.id == drug_id))
     drug = result.scalar_one_or_none()
     if not drug:
