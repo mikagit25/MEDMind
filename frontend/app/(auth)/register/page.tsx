@@ -5,18 +5,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
-
-const ROLES = [
-  { value: "doctor", label: "Doctor / Physician" },
-  { value: "student", label: "Medical Student" },
-  { value: "nurse", label: "Nurse" },
-  { value: "vet", label: "Veterinarian" },
-  { value: "vet_student", label: "Vet Student" },
-  { value: "paramedic", label: "Paramedic / EMT" },
-  { value: "other", label: "Other Healthcare" },
-];
+import { useT, useI18n } from "@/lib/i18n";
 
 export default function RegisterPage() {
+  const t = useT();
+  const { locale, setLocale } = useI18n();
   const router = useRouter();
   const { setAuth } = useAuthStore();
   const [form, setForm] = useState({
@@ -39,7 +32,7 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
     if (!form.consent_terms || !form.consent_data_processing) {
-      setError("You must accept the required consents to proceed.");
+      setError(t("onboarding.consent_required") || "You must accept the required consents to proceed.");
       return;
     }
     setLoading(true);
@@ -49,22 +42,54 @@ export default function RegisterPage() {
       setAuth(data.user, data.access_token, data.refresh_token);
       router.replace("/onboarding");
     } catch (err: any) {
-      setError(err.response?.data?.detail ?? "Registration failed");
+      setError(err.response?.data?.detail ?? t("common.error"));
     } finally {
       setLoading(false);
     }
   };
 
+  const ROLES = [
+    { value: "doctor", label: t("auth.register.roles.doctor") },
+    { value: "student", label: t("auth.register.roles.student") },
+    { value: "nurse", label: t("auth.register.roles.nurse") },
+    { value: "vet", label: t("auth.register.roles.vet") },
+    { value: "vet_student", label: t("auth.register.roles.vet") },
+    { value: "other", label: t("auth.register.roles.other") },
+  ];
+
+  const LANGS = [
+    { value: "en", label: "🇬🇧 English" },
+    { value: "ru", label: "🇷🇺 Русский" },
+    { value: "de", label: "🇩🇪 Deutsch" },
+    { value: "fr", label: "🇫🇷 Français" },
+    { value: "ar", label: "🇸🇦 العربية" },
+    { value: "tr", label: "🇹🇷 Türkçe" },
+    { value: "es", label: "🇪🇸 Español" },
+  ] as const;
+
   return (
     <div className="card p-8 shadow-xl animate-fade-up">
-      <h1 className="font-syne font-bold text-2xl text-ink mb-1">Create account</h1>
-      <p className="text-ink-3 font-serif text-sm mb-6">Join the MedMind platform</p>
+      {/* Language selector at top */}
+      <div className="flex justify-end mb-4">
+        <select
+          value={locale}
+          onChange={(e) => setLocale(e.target.value as any)}
+          className="text-xs font-syne border border-border rounded px-2 py-1 bg-bg text-ink focus:outline-none"
+        >
+          {LANGS.map((l) => (
+            <option key={l.value} value={l.value}>{l.label}</option>
+          ))}
+        </select>
+      </div>
+
+      <h1 className="font-syne font-bold text-2xl text-ink mb-1">{t("auth.register.title")}</h1>
+      <p className="text-ink-3 font-serif text-sm mb-6">{t("auth.register.subtitle")}</p>
 
       <form onSubmit={handleSubmit} className="space-y-3.5">
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-              First name
+              {t("auth.register.first_name")}
             </label>
             <input
               type="text"
@@ -76,7 +101,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-              Last name
+              {t("auth.register.last_name")}
             </label>
             <input
               type="text"
@@ -90,7 +115,7 @@ export default function RegisterPage() {
 
         <div>
           <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-            Email
+            {t("auth.register.email")}
           </label>
           <input
             type="email"
@@ -104,7 +129,8 @@ export default function RegisterPage() {
 
         <div>
           <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-            Password
+            {t("auth.register.password")}
+            <span className="ml-1 font-normal text-ink-3">({t("auth.register.password_hint")})</span>
           </label>
           <input
             type="password"
@@ -119,7 +145,7 @@ export default function RegisterPage() {
 
         <div>
           <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-            Role
+            {t("auth.register.role")}
           </label>
           <select
             value={form.role}
@@ -127,9 +153,7 @@ export default function RegisterPage() {
             className="w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink transition-colors"
           >
             {ROLES.map((r) => (
-              <option key={r.value} value={r.value}>
-                {r.label}
-              </option>
+              <option key={r.value} value={r.value}>{r.label}</option>
             ))}
           </select>
         </div>
@@ -143,9 +167,8 @@ export default function RegisterPage() {
               className="mt-0.5 accent-ink"
             />
             <span className="text-xs font-serif text-ink-2">
-              I accept the{" "}
-              <span className="font-semibold text-ink">Terms of Service</span> and{" "}
-              <span className="font-semibold text-ink">Privacy Policy</span>{" "}
+              {t("auth.register.terms")}{" "}
+              <span className="font-semibold text-ink">{t("auth.register.terms_link")}</span>{" "}
               <span className="text-red">*</span>
             </span>
           </label>
@@ -157,7 +180,7 @@ export default function RegisterPage() {
               className="mt-0.5 accent-ink"
             />
             <span className="text-xs font-serif text-ink-2">
-              I consent to processing of personal data (GDPR){" "}
+              {t("analytics_consent") || "I consent to processing of personal data (GDPR)"}{" "}
               <span className="text-red">*</span>
             </span>
           </label>
@@ -169,7 +192,7 @@ export default function RegisterPage() {
               className="mt-0.5 accent-ink"
             />
             <span className="text-xs font-serif text-ink-2">
-              I agree to receive educational updates and product news (optional)
+              {t("marketing_consent") || "I agree to receive educational updates (optional)"}
             </span>
           </label>
         </div>
@@ -185,7 +208,7 @@ export default function RegisterPage() {
           disabled={loading}
           className="btn-primary w-full py-2.5 text-base disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {loading ? "Creating account…" : "Create account"}
+          {loading ? t("auth.register.submitting") : t("auth.register.submit")}
         </button>
       </form>
 
@@ -194,7 +217,7 @@ export default function RegisterPage() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-surface px-2 text-ink-3 font-serif">or sign up with</span>
+          <span className="bg-surface px-2 text-ink-3 font-serif">{t("auth.register.or_continue")}</span>
         </div>
       </div>
 
@@ -208,13 +231,13 @@ export default function RegisterPage() {
           <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
           <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
         </svg>
-        Continue with Google
+        {t("auth.login.google")}
       </a>
 
       <p className="text-center text-ink-3 font-serif text-sm mt-4">
-        Already have an account?{" "}
+        {t("auth.register.have_account")}{" "}
         <Link href="/login" className="text-ink font-syne font-semibold hover:text-red transition-colors">
-          Sign in
+          {t("auth.register.sign_in")}
         </Link>
       </p>
     </div>

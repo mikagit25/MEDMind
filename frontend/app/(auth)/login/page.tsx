@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useT } from "@/lib/i18n";
 
 export default function LoginPage() {
+  const t = useT();
   const router = useRouter();
   const { setAuth } = useAuthStore();
   const [email, setEmail] = useState("");
@@ -24,7 +26,7 @@ export default function LoginPage() {
       setAuth(data.user, data.access_token, data.refresh_token);
       router.replace("/dashboard");
     } catch (err: any) {
-      setError(err.response?.data?.detail ?? "Login failed");
+      setError(err.response?.data?.detail ?? t("auth.login.error_default"));
     } finally {
       setLoading(false);
     }
@@ -32,13 +34,13 @@ export default function LoginPage() {
 
   return (
     <div className="card p-8 shadow-xl animate-fade-up">
-      <h1 className="font-syne font-bold text-2xl text-ink mb-1">Welcome back</h1>
-      <p className="text-ink-3 font-serif text-sm mb-6">Sign in to your account</p>
+      <h1 className="font-syne font-bold text-2xl text-ink mb-1">{t("auth.login.title")}</h1>
+      <p className="text-ink-3 font-serif text-sm mb-6">{t("auth.login.subtitle")}</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-syne font-semibold text-sm text-ink-2 mb-1.5">
-            Email
+            {t("auth.login.email")}
           </label>
           <input
             type="email"
@@ -53,7 +55,7 @@ export default function LoginPage() {
 
         <div>
           <label className="block font-syne font-semibold text-sm text-ink-2 mb-1.5">
-            Password
+            {t("auth.login.password")}
           </label>
           <input
             type="password"
@@ -77,13 +79,13 @@ export default function LoginPage() {
           disabled={loading}
           className="btn-primary w-full py-2.5 text-base disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {loading ? "Signing in…" : "Sign in"}
+          {loading ? t("auth.login.submitting") : t("auth.login.submit")}
         </button>
       </form>
 
       <p className="text-center text-ink-3 font-serif text-sm mt-4">
         <Link href="/forgot-password" className="text-ink-2 hover:text-ink transition-colors text-sm">
-          Forgot your password?
+          {t("auth.login.forgot_password")}
         </Link>
       </p>
 
@@ -92,7 +94,7 @@ export default function LoginPage() {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-surface px-2 text-ink-3 font-serif">or continue with</span>
+          <span className="bg-surface px-2 text-ink-3 font-serif">{t("auth.login.or_continue")}</span>
         </div>
       </div>
 
@@ -106,13 +108,13 @@ export default function LoginPage() {
           <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
           <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
         </svg>
-        Google
+        {t("auth.login.google")}
       </a>
 
       <p className="text-center text-ink-3 font-serif text-sm mt-4">
-        Don't have an account?{" "}
+        {t("auth.login.no_account")}{" "}
         <Link href="/register" className="text-ink font-syne font-semibold hover:text-red transition-colors">
-          Create one
+          {t("auth.login.create_account")}
         </Link>
       </p>
     </div>
