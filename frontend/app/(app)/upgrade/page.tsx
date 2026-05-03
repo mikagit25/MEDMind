@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { api } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 const PLANS = [
   {
@@ -36,6 +37,7 @@ const PLANS = [
 ];
 
 export default function UpgradePage() {
+  const t = useT();
   const { user } = useAuthStore();
   const router = useRouter();
 
@@ -65,10 +67,9 @@ export default function UpgradePage() {
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto">
       <div className="mb-8">
-        <h1 className="font-syne font-bold text-2xl text-ink mb-2">Upgrade your plan</h1>
+        <h1 className="font-syne font-bold text-2xl text-ink mb-2">{t("upgrade.title")}</h1>
         <p className="text-ink-2">
-          You're on the <span className="font-syne font-semibold capitalize">{currentTier}</span> plan.
-          Unlock more content and AI capabilities.
+          {t("upgrade.subtitle")}
         </p>
       </div>
 
@@ -86,7 +87,7 @@ export default function UpgradePage() {
                 <span className="font-syne font-bold text-xl text-ink">{plan.name}</span>
                 {plan.highlight && (
                   <span className="bg-red text-white text-xs font-syne font-bold px-2 py-0.5 rounded-full">
-                    Most Popular
+                    {t("upgrade.most_popular")}
                   </span>
                 )}
               </div>

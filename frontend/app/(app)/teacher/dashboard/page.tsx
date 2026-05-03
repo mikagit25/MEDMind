@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface CourseOverview {
   id: string;
@@ -60,6 +61,7 @@ interface RecentActivity {
 }
 
 export default function TeacherDashboardPage() {
+  const t = useT();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -162,7 +164,7 @@ export default function TeacherDashboardPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6 gap-4">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Teaching Dashboard</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.dashboard.title")}</h1>
           <p className="font-serif text-ink-3 text-sm mt-0.5">Overview of your courses and students</p>
         </div>
         <div className="flex gap-2 shrink-0">

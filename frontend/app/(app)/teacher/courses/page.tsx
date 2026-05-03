@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Course = {
   id: string;
@@ -18,6 +19,7 @@ type Course = {
 };
 
 export default function TeacherCoursesPage() {
+  const t = useT();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -35,7 +37,7 @@ export default function TeacherCoursesPage() {
     <div className="p-4 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">My Courses</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.courses.title")}</h1>
           <p className="font-serif text-ink-3 text-sm">Organize modules into courses for your students</p>
         </div>
         <Link

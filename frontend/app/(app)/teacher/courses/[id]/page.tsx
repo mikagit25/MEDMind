@@ -95,6 +95,7 @@ function InviteCodeBadge({ code }: { code: string }) {
 }
 
 export default function CourseDetailPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 

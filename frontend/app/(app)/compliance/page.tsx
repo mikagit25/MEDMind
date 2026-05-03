@@ -25,6 +25,7 @@ interface Consent {
 }
 
 export default function CompliancePage() {
+  const t = useT();
   const [consents, setConsents]     = useState<Consent[]>([]);
   const [loading, setLoading]       = useState(true);
   const [exporting, setExporting]   = useState(false);
@@ -79,7 +80,7 @@ export default function CompliancePage() {
   return (
     <div className="max-w-2xl mx-auto py-8 px-4 space-y-8">
       <div>
-        <h1 className="font-syne font-black text-2xl text-ink">Privacy & Compliance</h1>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("compliance.title")}</h1>
         <p className="text-ink-3 text-sm mt-1">Manage your data and GDPR rights</p>
       </div>
 

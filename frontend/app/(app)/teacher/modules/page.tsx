@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { teacherApi, contentApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useT } from "@/lib/i18n";
 
 type Module = {
   id: string;
@@ -24,6 +25,7 @@ const STATUS_BADGE: Record<string, string> = {
 };
 
 export default function TeacherModulesPage() {
+  const t = useT();
   const { user } = useAuthStore();
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -123,7 +125,7 @@ export default function TeacherModulesPage() {
     <div className="p-4 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">My Modules</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.modules.title")}</h1>
           <p className="font-serif text-ink-3 text-sm mt-0.5">Manage your teaching content</p>
         </div>
         <div className="flex gap-2">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { drugsApi } from "@/lib/api";
 import { SpeciesSelector } from "./SpeciesSelector";
+import { useT } from "@/lib/i18n";
 
 interface DoseResult {
   drug_name: string;

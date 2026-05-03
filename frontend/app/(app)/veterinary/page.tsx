@@ -27,12 +27,12 @@ export default function VeterinaryPage() {
   const vetMode = (user?.preferences?.vet_mode as boolean) ?? false;
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: "overview",  label: "🐾 Overview" },
-    { key: "dosing",    label: "⚖️ Dose Calc" },
-    { key: "toxicity",  label: "⚠️ Toxicity" },
-    { key: "zoonoses",  label: "🦠 Zoonoses" },
-    { key: "pearls",    label: "💡 Clinical Pearls" },
-    { key: "modules",   label: "📚 Modules" },
+    { key: "overview",  label: `🐾 ${t("veterinary.tabs.overview")}` },
+    { key: "dosing",    label: `⚖️ ${t("veterinary.tabs.dose_calc")}` },
+    { key: "toxicity",  label: `⚠️ ${t("veterinary.tabs.toxicity")}` },
+    { key: "zoonoses",  label: `🦠 ${t("veterinary.tabs.zoonoses")}` },
+    { key: "pearls",    label: `💡 ${t("veterinary.tabs.pearls")}` },
+    { key: "modules",   label: `📚 ${t("veterinary.tabs.modules")}` },
   ];
 
   return (
@@ -49,22 +49,22 @@ export default function VeterinaryPage() {
             href="/settings"
             className="text-xs font-syne font-semibold px-3 py-1.5 rounded-lg bg-green-light text-green border border-green/20 hover:bg-green/10 transition-colors"
           >
-            Enable Vet Mode in Settings →
+            {t("veterinary.enable_mode")}
           </Link>
         )}
       </div>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg overflow-x-auto flex-nowrap">
-        {tabs.map((t) => (
+        {tabs.map((tab_item) => (
           <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
+            key={tab_item.key}
+            onClick={() => setTab(tab_item.key)}
             className={`px-4 py-1.5 rounded font-syne font-semibold text-sm transition-all whitespace-nowrap ${
-              tab === t.key ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
+              tab === tab_item.key ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
             }`}
           >
-            {t.label}
+            {tab_item.label}
           </button>
         ))}
       </div>
@@ -81,18 +81,18 @@ export default function VeterinaryPage() {
 
 // ── Overview ──────────────────────────────────────────────────────────────────
 
-function OverviewTab({ setTab }: { setTab: (t: Tab) => void }) {
-  // alias so quick-link buttons can switch tabs
+function OverviewTab({ setTab }: { setTab: (tab: Tab) => void }) {
+  const tr = useT();
   const setCurrentTab = setTab;
   return (
     <div className="space-y-5">
       {/* Quick links */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
-          { icon: "⚖️", label: "Dose Calculator",  desc: "Weight-adjusted species dosing", tab: "dosing"   as Tab },
-          { icon: "⚠️", label: "Toxicity Checker", desc: "Drug safety per species",         tab: "toxicity" as Tab },
-          { icon: "🦠", label: "Zoonoses",          desc: "Diseases from animals",          tab: "zoonoses" as Tab },
-          { icon: "📚", label: "Vet Modules",       desc: "Species-specific courses",       tab: "modules"  as Tab },
+          { icon: "⚖️", label: tr("veterinary.tabs.dosing"),  desc: tr("vet_description"), tab: "dosing"   as Tab },
+          { icon: "⚠️", label: tr("veterinary.tabs.toxicity"), desc: tr("veterinary.toxic_dose"),  tab: "toxicity" as Tab },
+          { icon: "🦠", label: tr("veterinary.tabs.zoonoses"),  desc: tr("veterinary.treatment"),  tab: "zoonoses" as Tab },
+          { icon: "📚", label: tr("veterinary.tabs.modules"),   desc: tr("veterinary.subtitle"),    tab: "modules"  as Tab },
         ].map((item) => (
           <button
             key={item.tab}
@@ -101,17 +101,14 @@ function OverviewTab({ setTab }: { setTab: (t: Tab) => void }) {
           >
             <div className="text-2xl mb-2">{item.icon}</div>
             <div className="font-syne font-bold text-sm text-ink group-hover:text-ink">{item.label}</div>
-            <div className="font-serif text-ink-3 text-xs mt-0.5">{item.desc}</div>
           </button>
         ))}
       </div>
 
       {/* Species cards */}
       <div className="card p-5">
-        <h2 className="font-syne font-bold text-sm text-ink mb-4">Species Reference — Dose Scaling Factors</h2>
-        <p className="font-serif text-ink-3 text-xs mb-4">
-          Scaling factors vs adult human dose. Used only as initial estimate — always verify with formulary.
-        </p>
+        <h2 className="font-syne font-bold text-sm text-ink mb-4">{tr("veterinary.dose_scaling")}</h2>
+        <p className="font-serif text-ink-3 text-xs mb-4">{tr("veterinary.dose_scaling_note")}</p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {SPECIES_LIST.map((sp) => (
             <div key={sp.key} className="p-3 rounded-lg bg-bg-2 text-center">
@@ -125,7 +122,7 @@ function OverviewTab({ setTab }: { setTab: (t: Tab) => void }) {
 
       {/* Key principles */}
       <div className="card p-5">
-        <h2 className="font-syne font-bold text-sm text-ink mb-3">Key Principles of Veterinary Pharmacology</h2>
+        <h2 className="font-syne font-bold text-sm text-ink mb-3">{tr("veterinary.key_principles")}</h2>
         <div className="space-y-3">
           {[
             {
@@ -279,7 +276,7 @@ function DoseCalcTab() {
             {/* Human dosing */}
             {result.human_dosing && Object.keys(result.human_dosing).length > 0 && (
               <div>
-                <div className="font-syne font-bold text-xs text-ink-2 uppercase mb-2">Human Dose (reference)</div>
+                <div className="font-syne font-bold text-xs text-ink-2 uppercase mb-2">{t("veterinary.human_dose")}</div>
                 <div className="space-y-1">
                   {Object.entries(result.human_dosing).map(([route, info]: [string, any]) => (
                     <div key={route} className="flex gap-3 py-1">
@@ -316,7 +313,7 @@ function DoseCalcTab() {
       )}
 
       <p className="font-serif text-ink-3 text-xs text-center">
-        ⚕️ Estimates only. Verify with current veterinary formulary (e.g. Plumb's) before clinical use.
+        ⚕️ {t("veterinary.estimates_warning")}
       </p>
     </div>
   );
@@ -363,6 +360,7 @@ const TOXICITY_DB: Record<string, Record<string, { level: "fatal" | "toxic" | "c
 };
 
 function ToxicityTab() {
+  const t = useT();
   const levelColors: Record<string, string> = {
     fatal:   "bg-red-light border-red/30 text-red",
     toxic:   "bg-red-light border-red/20 text-red",
@@ -394,7 +392,7 @@ function ToxicityTab() {
               filter === sp ? "bg-ink text-white border-ink" : "border-border text-ink-2 hover:border-ink-3"
             }`}
           >
-            {sp === "all" ? "All species" : sp}
+            {sp === "all" ? t("veterinary.all_species") : sp}
           </button>
         ))}
       </div>
@@ -416,7 +414,7 @@ function ToxicityTab() {
         ))}
         {filtered.length === 0 && (
           <div className="card p-6 text-center font-serif text-ink-3 text-sm">
-            No toxicity data for selected species.
+            {t("veterinary.no_toxicity")}
           </div>
         )}
       </div>
@@ -446,10 +444,7 @@ function ZoonosesTab() {
 
   return (
     <div className="space-y-4">
-      <p className="font-serif text-ink-2 text-sm">
-        Zoonotic diseases are infections transmissible between animals and humans.
-        Understanding them is essential for both veterinary and human medicine.
-      </p>
+      <p className="font-serif text-ink-2 text-sm">{t("veterinary.zoonoses_intro")}</p>
       <div className="grid gap-4">
         {zoonoses.map((z: any, i: number) => (
           <div key={i} className="card p-5">
@@ -463,9 +458,9 @@ function ZoonosesTab() {
               </span>
             </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-              <InfoBlock label="Transmission" value={z.transmission} />
-              <InfoBlock label="Animal sources" value={z.species?.join(", ")} />
-              <InfoBlock label="Prevention" value={z.prevention} />
+              <InfoBlock label={t("veterinary.transmission")} value={z.transmission} />
+              <InfoBlock label={t("veterinary.animal_sources")} value={z.species?.join(", ")} />
+              <InfoBlock label={t("veterinary.prevention")} value={z.prevention} />
             </div>
           </div>
         ))}
@@ -535,7 +530,7 @@ function ClinicalPearlsTab() {
               species === sp ? "bg-ink text-white border-ink" : "border-border text-ink-2 hover:border-ink-3"
             }`}
           >
-            {sp === "all" ? "All species" : sp}
+            {sp === "all" ? t("veterinary.all_species") : sp}
           </button>
         ))}
       </div>
@@ -599,10 +594,8 @@ function ModulesTab() {
     return (
       <div className="card p-8 text-center">
         <div className="text-4xl mb-3">🐾</div>
-        <p className="font-syne font-bold text-sm text-ink">No veterinary modules yet</p>
-        <p className="font-serif text-ink-3 text-xs mt-1">
-          Veterinary-specific modules will appear here as they are published.
-        </p>
+        <p className="font-syne font-bold text-sm text-ink">{t("veterinary.no_vet_modules")}</p>
+        <p className="font-serif text-ink-3 text-xs mt-1">{t("veterinary.no_vet_modules_hint")}</p>
         <p className="font-serif text-ink-3 text-xs mt-3">
           In the meantime, use the{" "}
           <Link href="/simulation" className="underline">Clinical Simulation</Link>{" "}

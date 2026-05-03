@@ -6,6 +6,7 @@ import Link from "next/link";
 import { teacherApi } from "@/lib/api";
 
 export default function NewCoursePage() {
+  const t = useT();
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

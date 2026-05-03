@@ -21,6 +21,7 @@ const SPECIALTIES = [
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
 export default function NewModulePage() {
+  const t = useT();
   const router = useRouter();
   const [form, setForm] = useState({
     title: "",

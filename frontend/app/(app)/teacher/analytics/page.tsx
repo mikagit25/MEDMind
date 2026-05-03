@@ -36,6 +36,7 @@ function ScoreBadge({ score }: { score: number | null }) {
 }
 
 export default function TeacherAnalyticsPage() {
+  const t = useT();
   const searchParams = useSearchParams();
   const preselectedModule = searchParams.get("module");
 

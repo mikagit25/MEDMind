@@ -34,6 +34,7 @@ const MODALITY_LABELS: Record<string, string> = {
 };
 
 export default function ImageDetailPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [img, setImg] = useState<Image | null>(null);

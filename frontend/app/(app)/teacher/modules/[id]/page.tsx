@@ -41,6 +41,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export default function ModuleDetailPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [mod, setMod] = useState<Module | null>(null);
