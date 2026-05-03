@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { bookmarksApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type FilterType = "all" | "lesson" | "module" | "drug" | "case";
 
@@ -30,6 +31,7 @@ const FILTER_LABELS: Record<FilterType, string> = {
 };
 
 export default function BookmarksPage() {
+  const t = useT();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
@@ -67,8 +69,8 @@ export default function BookmarksPage() {
     <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Bookmarks</h1>
-          <p className="font-serif text-ink-3 text-sm mt-0.5">{bookmarks.length} saved items</p>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("bookmarks.title")}</h1>
+          <p className="font-serif text-ink-3 text-sm mt-0.5">{bookmarks.length} {t("bookmarks.subtitle")}</p>
         </div>
       </div>
 
@@ -91,16 +93,12 @@ export default function BookmarksPage() {
       </div>
 
       {loading ? (
-        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">{t("common.loading")}</div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16">
           <div className="text-4xl mb-3">🔖</div>
-          <p className="font-syne font-bold text-sm text-ink">
-            {filter === "all" ? "No bookmarks yet" : `No ${FILTER_LABELS[filter].toLowerCase()} bookmarked`}
-          </p>
-          <p className="font-serif text-ink-3 text-xs mt-1">
-            Use the bookmark icon on any lesson, module, or drug page.
-          </p>
+          <p className="font-syne font-bold text-sm text-ink">{t("bookmarks.empty")}</p>
+          <p className="font-serif text-ink-3 text-xs mt-1">{t("bookmarks.empty_hint")}</p>
         </div>
       ) : (
         <div className="space-y-6">

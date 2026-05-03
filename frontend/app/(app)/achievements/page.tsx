@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { progressApi, achievementsApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 // XP thresholds per level (level 1-6)
 const XP_LEVELS = [0, 100, 300, 600, 1100, 2000, 3500];
@@ -28,6 +29,7 @@ const CATEGORIES = ["All", "Learning", "Dedication", "Flashcards", "Cases", "Qui
 type Stats = { total_xp: number; level: number; streak_days: number };
 
 export default function AchievementsPage() {
+  const t = useT();
   const [stats, setStats] = useState<Stats | null>(null);
   const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
   const [unlockedAt, setUnlockedAt] = useState<Record<string, string>>({});
@@ -74,10 +76,10 @@ export default function AchievementsPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
-      <h1 className="font-syne font-black text-2xl text-ink mb-6">Achievements</h1>
+      <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("achievements.title")}</h1>
 
       {loading ? (
-        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">{t("common.loading")}</div>
       ) : (
         <>
           {/* XP / Level card */}

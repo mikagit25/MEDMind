@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { notificationsApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface Notification {
   id: string;
@@ -37,6 +38,7 @@ function groupByDate(notifications: Notification[]): { label: string; items: Not
 }
 
 export default function NotificationsPage() {
+  const t = useT();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -79,7 +81,7 @@ export default function NotificationsPage() {
     <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Notifications</h1>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("notifications.title")}</h1>
           {unreadCount > 0 && (
             <p className="font-serif text-ink-3 text-sm mt-0.5">
               {unreadCount} unread
@@ -91,18 +93,17 @@ export default function NotificationsPage() {
             onClick={markAll}
             className="font-syne font-semibold text-xs text-ink-3 hover:text-ink transition-colors"
           >
-            Mark all read
+            {t("notifications.mark_all_read")}
           </button>
         )}
       </div>
 
       {loading ? (
-        <div className="text-center py-16 font-serif text-ink-3 text-sm">Loading…</div>
+        <div className="text-center py-16 font-serif text-ink-3 text-sm">{t("common.loading")}</div>
       ) : notifications.length === 0 ? (
         <div className="text-center py-16">
           <div className="text-4xl mb-3">🔔</div>
-          <p className="font-syne font-bold text-sm text-ink">All caught up!</p>
-          <p className="font-serif text-ink-3 text-xs mt-1">No notifications at the moment.</p>
+          <p className="font-syne font-bold text-sm text-ink">{t("notifications.empty")}</p>
         </div>
       ) : (
         <div className="space-y-6">
