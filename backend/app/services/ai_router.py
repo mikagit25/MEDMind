@@ -252,6 +252,7 @@ async def route_ai_request(
     specialty: str,
     mode: str,
     pubmed_context: str = "",
+    progress_context: str = "",
     db: Optional[AsyncSession] = None,
     conversation_id: Optional[UUID] = None,
 ) -> dict:
@@ -307,6 +308,8 @@ async def route_ai_request(
     )
     if memory_context:
         system_prompt += memory_context
+    if progress_context:
+        system_prompt += progress_context
     if pubmed_context:
         system_prompt += f"\n\nRecently retrieved PubMed articles for context:\n{pubmed_context}\nReference these where relevant."
 
@@ -432,6 +435,7 @@ async def route_ai_stream(
     specialty: str,
     mode: str,
     pubmed_context: str = "",
+    progress_context: str = "",
 ):
     """Async generator that yields SSE chunks.
 
@@ -444,6 +448,8 @@ async def route_ai_stream(
         f"{mode_instruction}\n\n"
         "Format with markdown headers (###) and bullets. Keep responses educational and precise."
     )
+    if progress_context:
+        system_prompt += progress_context
     if pubmed_context:
         system_prompt += f"\n\nRecently retrieved PubMed articles:\n{pubmed_context}"
 

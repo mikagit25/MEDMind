@@ -377,6 +377,9 @@ export default function ModuleDetailPage() {
   const [lessonDone, setLessonDone] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [completing, setCompleting] = useState(false);
+  const [moduleComplete, setModuleComplete] = useState(false);
+  const [completionXp, setCompletionXp] = useState(0);
+  const [completionAchievements, setCompletionAchievements] = useState<string[]>([]);
   const lessonStartRef = useRef<number>(Date.now());
 
   // Notes state

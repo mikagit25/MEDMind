@@ -142,22 +142,22 @@ async def run_achievement_check(user: User, db: AsyncSession) -> list[str]:
     fc_result = await db.execute(
         select(func.count()).select_from(FlashcardReview).where(FlashcardReview.user_id == user.id)
     )
-    total_flashcards = int(fc_result.scalar_one() or 0)
+    total_flashcards = int(fc_result.scalar() or 0)
 
     ai_result = await db.execute(
         select(func.count()).select_from(AIConversation).where(AIConversation.user_id == user.id)
     )
-    total_ai = int(ai_result.scalar_one() or 0)
+    total_ai = int(ai_result.scalar() or 0)
 
     bm_result = await db.execute(
         select(func.count()).select_from(UserBookmark).where(UserBookmark.user_id == user.id)
     )
-    total_bookmarks = int(bm_result.scalar_one() or 0)
+    total_bookmarks = int(bm_result.scalar() or 0)
 
     note_result = await db.execute(
         select(func.count()).select_from(UserNote).where(UserNote.user_id == user.id)
     )
-    total_notes = int(note_result.scalar_one() or 0)
+    total_notes = int(note_result.scalar() or 0)
 
     xp = user.xp or 0
     streak = user.streak_days or 0

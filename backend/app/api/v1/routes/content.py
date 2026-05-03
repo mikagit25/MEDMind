@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, or_
 
 from app.core.database import get_db
-from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article
+from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article, UserProgress
 from app.schemas.schemas import (
     SpecialtyOut, ModuleOut, ModuleDetail, LessonOut, LessonDetail,
     FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
@@ -601,24 +601,8 @@ async def get_recommendations(
 ):
     """Recommend next modules based on user progress."""
     from sqlalchemy import not_
-    # Modules user has started
-    started_ids_result = await db.execute(
-        select(Module.id).where(
-            Module.id.in_(
-                select(Module.id).join(
-                    __import__("app.models.models", fromlist=["UserProgress"]).UserProgress,
-                    Module.id == __import__("app.models.models", fromlist=["UserProgress"]).UserProgress.module_id,
-                ).where(
-                    __import__("app.models.models", fromlist=["UserProgress"]).UserProgress.user_id == user.id
-                )
-            )
-        )
-    )
-
-    # Simpler approach — get modules not yet started
-    from app.models.models import UserProgress as UP
     started_result = await db.execute(
-        select(UP.module_id).where(UP.user_id == user.id)
+        select(UserProgress.module_id).where(UserProgress.user_id == user.id)
     )
     started_ids = {row[0] for row in started_result.all()}
 

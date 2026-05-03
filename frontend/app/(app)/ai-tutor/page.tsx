@@ -194,7 +194,7 @@ export default function AiTutorPage() {
 
   const submitFeedback = async (msgIndex: number, rating: 1 | -1) => {
     const msg = messages[msgIndex];
-    if (!msg.messageId || msg.feedback !== null) return;
+    if (!msg?.messageId || msg.feedback !== null) return;
     // Optimistically update UI
     setMessages((p) => {
       const updated = [...p];

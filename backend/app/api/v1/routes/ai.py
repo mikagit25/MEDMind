@@ -13,7 +13,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import load_only
 
 from app.core.database import get_db
-from app.models.models import User, AIConversation, AIConversationMessage
+from app.models.models import User, AIConversation, AIConversationMessage, UserProgress, Module
 from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, MessageOut
 from app.api.deps import get_current_user
 from app.services.ai_router import route_ai_request, route_ai_stream
@@ -21,8 +21,56 @@ from app.services.prompt_guard import sanitize_ai_message
 from app.core.audit import audit
 from app.core.redis_client import get_redis
 from app.services.pubmed_service import search_pubmed, build_pubmed_context
+from sqlalchemy import func
 
 router = APIRouter(prefix="/ai", tags=["ai"])
+
+LEVEL_NAMES = {1: "Beginner", 2: "Learner", 3: "Resident", 4: "Specialist", 5: "Expert", 6: "Master"}
+
+
+async def _build_progress_context(user: User, db: AsyncSession) -> str:
+    """Build a short learner-profile string injected into every AI system prompt."""
+    try:
+        prog_result = await db.execute(
+            select(UserProgress).where(UserProgress.user_id == user.id)
+        )
+        all_progress = prog_result.scalars().all()
+        if not all_progress:
+            return ""
+
+        total_lessons = sum(len(p.lessons_completed or []) for p in all_progress)
+        modules_started = sum(1 for p in all_progress if (p.completion_percent or 0) > 0)
+
+        # Find weak modules (started but < 50% completion)
+        weak = [p for p in all_progress if 0 < float(p.completion_percent or 0) < 50]
+        weak_ids = [p.module_id for p in weak[:3]]
+        weak_titles: list[str] = []
+        if weak_ids:
+            mods = (await db.execute(
+                select(Module.title).where(Module.id.in_(weak_ids))
+            )).scalars().all()
+            weak_titles = list(mods)
+
+        level = user.level or 1
+        xp = user.xp or 0
+        streak = user.streak_days or 0
+        level_name = LEVEL_NAMES.get(level, "Learner")
+
+        lines = [
+            f"\n\n## Learner Profile",
+            f"- Level: {level} ({level_name}) | {xp} XP | {streak} day streak",
+            f"- Lessons completed: {total_lessons} | Modules in progress: {modules_started}",
+        ]
+        if weak_titles:
+            lines.append(f"- Needs reinforcement: {', '.join(weak_titles)}")
+        lines.append(
+            "Tailor your explanation to this learner's level. "
+            "For beginners: use analogies, avoid jargon. "
+            "For advanced: use precise terminology and cite guidelines."
+        )
+        return "\n".join(lines)
+    except Exception:
+        return ""
 
 # Daily request limits per subscription tier
 TIER_DAILY_LIMITS: dict[str, int | None] = {
@@ -268,6 +316,9 @@ async def ask_ai_stream(
         pubmed_refs = await search_pubmed(data.message)
         pubmed_context = build_pubmed_context(pubmed_refs)
 
+    # Build learner profile context
+    progress_context = await _build_progress_context(user, db)
+
     conv_id = str(conversation.id)
 
     async def event_stream() -> AsyncGenerator[str, None]:
@@ -285,6 +336,7 @@ async def ask_ai_stream(
                 specialty=data.specialty,
                 mode=data.mode,
                 pubmed_context=pubmed_context,
+                progress_context=progress_context,
             ):
                 if chunk.get("type") == "text":
                     text = chunk["text"]

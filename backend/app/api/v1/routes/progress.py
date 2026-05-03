@@ -51,7 +51,7 @@ def calculate_sm2(ease_factor: float, interval: int, quality: int) -> tuple[floa
 async def add_xp(user: User, xp: int, db: AsyncSession):
     """Add XP to user, level up if needed, and update streak."""
     from datetime import date as _date
-    user.xp += xp
+    user.xp = (user.xp or 0) + xp
     # Level thresholds: 0, 500, 2000, 5000, 12000, 25000
     thresholds = [0, 500, 2000, 5000, 12000, 25000]
     for i, threshold in enumerate(thresholds):

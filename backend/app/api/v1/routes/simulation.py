@@ -96,7 +96,9 @@ async def make_step_choice(
     if session.status != "in_progress":
         raise HTTPException(400, f"Session is already '{session.status}'")
 
-    case = (await db.execute(select(ClinicalCase).where(ClinicalCase.id == session.case_id))).scalar_one()
+    case = (await db.execute(select(ClinicalCase).where(ClinicalCase.id == session.case_id))).scalar_one_or_none()
+    if not case:
+        raise HTTPException(404, "Clinical case not found")
     steps = case.steps if isinstance(case.steps, list) else []
     current = next((s for s in steps if s["id"] == session.current_step_id), None)
     if not current:
@@ -172,7 +174,9 @@ async def get_session(
     if not session:
         raise HTTPException(404, "Session not found")
 
-    case = (await db.execute(select(ClinicalCase).where(ClinicalCase.id == session.case_id))).scalar_one()
+    case = (await db.execute(select(ClinicalCase).where(ClinicalCase.id == session.case_id))).scalar_one_or_none()
+    if not case:
+        raise HTTPException(404, "Clinical case not found")
 
     return {
         "session_id": str(session.id),

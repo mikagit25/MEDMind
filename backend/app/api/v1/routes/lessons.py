@@ -26,7 +26,7 @@ AI assist:
 import json
 import mimetypes
 import uuid as _uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Literal, Optional
 from uuid import UUID
@@ -794,7 +794,7 @@ async def create_preview_link(
 
     import secrets
     token = secrets.token_hex(32)  # 64-char hex
-    expires_at = datetime.utcnow() + __import__("datetime").timedelta(hours=expires_hours)
+    expires_at = datetime.utcnow() + timedelta(hours=expires_hours)
 
     lesson.preview_token = token
     lesson.preview_expires_at = expires_at
