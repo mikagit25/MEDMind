@@ -81,6 +81,7 @@ services:
     container_name: medmind_frontend
     environment:
       NEXT_PUBLIC_API_URL: https://medmind.pro/api/v1
+      INTERNAL_API_URL: http://medmind_backend:8000/api/v1
       NODE_ENV: production
       HOSTNAME: "0.0.0.0"
     depends_on:
