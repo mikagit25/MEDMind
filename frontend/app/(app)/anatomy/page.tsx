@@ -43,7 +43,94 @@ const SYSTEM_ICONS: Record<string, string> = {
   reproductive: "🔬",
 };
 
-function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }) {
+function AnatomyImageView({ viewer, getEmbedUrl }: { viewer: Viewer; getEmbedUrl: (v: Viewer) => string }) {
+  const [imgError, setImgError] = useState(false);
+  const [show3D, setShow3D] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
+
+  if (show3D) {
+    return <SketchfabEmbed embedUrl={getEmbedUrl(viewer)} title={viewer.title} onBack={() => setShow3D(false)} />;
+  }
+
+  return (
+    <div>
+      {/* Main image display */}
+      <div
+        className="relative w-full aspect-[4/3] bg-surface rounded-xl overflow-hidden border border-border cursor-zoom-in"
+        onClick={() => setLightbox(true)}
+      >
+        {viewer.thumbnail_url && !imgError ? (
+          <img
+            src={viewer.thumbnail_url}
+            alt={viewer.title}
+            onError={() => setImgError(true)}
+            className="w-full h-full object-contain p-4"
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-ink-3">
+            <span className="text-6xl">{viewer.organ_system === "cardiovascular" ? "🫀" : viewer.organ_system === "nervous" ? "🧠" : viewer.organ_system === "respiratory" ? "🫁" : "🦴"}</span>
+            <span className="font-serif text-sm">{viewer.title}</span>
+          </div>
+        )}
+        {!imgError && (
+          <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-syne px-2 py-1 rounded-full">
+            Click to enlarge
+          </div>
+        )}
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex gap-2 mt-3">
+        <button
+          onClick={() => setShow3D(true)}
+          className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+        >
+          🧊 Try 3D View
+        </button>
+        {viewer.thumbnail_url && !imgError && (
+          <a
+            href={viewer.thumbnail_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+          >
+            🔗 Full Image ↗
+          </a>
+        )}
+        <a
+          href={`https://en.wikipedia.org/wiki/${encodeURIComponent(viewer.title.replace(/ — .*/,"").trim())}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+        >
+          📖 Wikipedia ↗
+        </a>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && viewer.thumbnail_url && !imgError && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setLightbox(false)}
+        >
+          <img
+            src={viewer.thumbnail_url}
+            alt={viewer.title}
+            className="max-w-full max-h-full object-contain rounded-lg"
+          />
+          <button
+            className="absolute top-4 right-4 text-white font-syne text-xl bg-black/50 w-10 h-10 rounded-full flex items-center justify-center"
+            onClick={() => setLightbox(false)}
+          >
+            ×
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SketchfabEmbed({ embedUrl, title, onBack }: { embedUrl: string; title: string; onBack?: () => void }) {
   const [loaded, setLoaded] = useState(false);
   const [started, setStarted] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
@@ -67,10 +154,15 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
         <div className="text-center p-4">
           <div className="text-5xl mb-3">🧊</div>
           <div className="font-syne font-semibold text-sm text-ink mb-1">{title}</div>
-          <div className="font-serif text-xs text-ink-3 mb-3">Interactive 3D model — click to load</div>
-          <button onClick={handleStart} className="btn-primary text-xs px-4 py-2">
-            Load 3D Viewer
-          </button>
+          <div className="font-serif text-xs text-ink-3 mb-3">Interactive 3D model — may take a moment to load</div>
+          <div className="flex gap-2 justify-center">
+            {onBack && (
+              <button onClick={onBack} className="btn-secondary text-xs px-3 py-2">← Back</button>
+            )}
+            <button onClick={handleStart} className="btn-primary text-xs px-4 py-2">
+              Load 3D Viewer
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -85,12 +177,15 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
           <div className="font-serif text-xs text-ink-3 mb-4">
             3D viewer could not load. The model may be temporarily unavailable.
           </div>
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 justify-center flex-wrap">
+            {onBack && (
+              <button onClick={onBack} className="btn-secondary text-xs px-3 py-1.5">← View Image</button>
+            )}
             <button
               onClick={() => { setTimedOut(false); setLoaded(false); setStarted(false); }}
               className="btn-secondary text-xs px-3 py-1.5"
             >
-              Try again
+              Retry 3D
             </button>
             <a
               href="https://sketchfab.com/search?q=human+anatomy&type=models"
@@ -98,7 +193,7 @@ function SketchfabEmbed({ embedUrl, title }: { embedUrl: string; title: string }
               rel="noopener noreferrer"
               className="btn-primary text-xs px-3 py-1.5"
             >
-              Browse 3D Models
+              Browse 3D ↗
             </a>
           </div>
         </div>
@@ -296,21 +391,14 @@ export default function AnatomyPage() {
                   )}
                 </div>
 
-                {/* 3D embed */}
-                <SketchfabEmbed
-                  embedUrl={getEmbedUrl(activeViewer)}
-                  title={activeViewer.title}
-                />
+                {/* Primary: anatomy diagram image */}
+                <AnatomyImageView viewer={activeViewer} getEmbedUrl={getEmbedUrl} />
 
                 {/* Controls hint */}
                 <div className="flex items-center gap-4 mt-3 px-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-syne text-xs text-ink-3">🖱️ Drag</span>
-                    <span className="font-serif text-xs text-ink-3">— rotate</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-syne text-xs text-ink-3">⚙️ Scroll</span>
-                    <span className="font-serif text-xs text-ink-3">— zoom</span>
+                    <span className="font-syne text-xs text-ink-3">🔍 Click image</span>
+                    <span className="font-serif text-xs text-ink-3">— to enlarge</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-syne text-xs text-ink-3">✋ Right-drag</span>
