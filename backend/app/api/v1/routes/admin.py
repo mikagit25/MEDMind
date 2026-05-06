@@ -14,7 +14,7 @@ from app.core.database import get_db
 from app.core.encryption import decrypt_email
 from app.models.models import (
     Article, Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
-    AuditLog, LessonTranslation, SUPPORTED_LOCALES,
+    AuditLog, LessonTranslation, AIConversation, SUPPORTED_LOCALES,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -43,40 +43,88 @@ async def get_stats(
     db: AsyncSession = Depends(get_db),
     _: User = _admin,
 ):
-    total_users = (await db.execute(select(func.count(User.id)))).scalar() or 0
-    active_users = (await db.execute(select(func.count(User.id)).where(User.is_active == True))).scalar() or 0
-    total_modules = (await db.execute(select(func.count(Module.id)))).scalar() or 0
-    published_modules = (await db.execute(select(func.count(Module.id)).where(Module.is_published == True))).scalar() or 0
+    from datetime import timedelta
+    now = datetime.utcnow()
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    seven_days_ago = today_start - timedelta(days=7)
+    thirty_days_ago = today_start - timedelta(days=30)
+
+    # ── Basic counts ──────────────────────────────────────────────────────────
+    total_users      = (await db.execute(select(func.count(User.id)))).scalar() or 0
+    active_users     = (await db.execute(select(func.count(User.id)).where(User.is_active == True))).scalar() or 0
+    total_modules    = (await db.execute(select(func.count(Module.id)))).scalar() or 0
+    published_modules= (await db.execute(select(func.count(Module.id)).where(Module.is_published == True))).scalar() or 0
     total_flashcards = (await db.execute(select(func.count(Flashcard.id)))).scalar() or 0
-    total_lessons = (await db.execute(select(func.count(Lesson.id)))).scalar() or 0
-    total_mcq = (await db.execute(select(func.count(MCQQuestion.id)))).scalar() or 0
-    total_cases = (await db.execute(select(func.count(ClinicalCase.id)))).scalar() or 0
-    total_articles = (await db.execute(select(func.count(Article.id)))).scalar() or 0
-    published_articles = (await db.execute(select(func.count(Article.id)).where(Article.is_published == True))).scalar() or 0
+    total_lessons    = (await db.execute(select(func.count(Lesson.id)))).scalar() or 0
+    total_mcq        = (await db.execute(select(func.count(MCQQuestion.id)))).scalar() or 0
+    total_cases      = (await db.execute(select(func.count(ClinicalCase.id)))).scalar() or 0
+    total_articles   = (await db.execute(select(func.count(Article.id)))).scalar() or 0
+    published_articles=(await db.execute(select(func.count(Article.id)).where(Article.is_published == True))).scalar() or 0
     pending_articles = (await db.execute(select(func.count(Article.id)).where(Article.review_status == "pending_review"))).scalar() or 0
 
-    # Users by subscription tier
+    # ── User activity ─────────────────────────────────────────────────────────
+    dau = (await db.execute(
+        select(func.count(User.id)).where(User.last_active_date >= today_start)
+    )).scalar() or 0
+
+    wau = (await db.execute(
+        select(func.count(User.id)).where(User.last_active_date >= seven_days_ago)
+    )).scalar() or 0
+
+    mau = (await db.execute(
+        select(func.count(User.id)).where(User.last_active_date >= thirty_days_ago)
+    )).scalar() or 0
+
+    new_users_week = (await db.execute(
+        select(func.count(User.id)).where(User.created_at >= seven_days_ago)
+    )).scalar() or 0
+
+    new_users_month = (await db.execute(
+        select(func.count(User.id)).where(User.created_at >= thirty_days_ago)
+    )).scalar() or 0
+
+    # ── Users by tier ─────────────────────────────────────────────────────────
     tier_rows = await db.execute(
-        select(User.subscription_tier, func.count(User.id))
-        .group_by(User.subscription_tier)
+        select(User.subscription_tier, func.count(User.id)).group_by(User.subscription_tier)
     )
     tiers = {row[0]: row[1] for row in tier_rows}
 
-    # New users last 7 days
-    seven_days_ago = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
-    from datetime import timedelta
-    seven_days_ago = seven_days_ago - timedelta(days=7)
-    new_users_week = (
-        await db.execute(
-            select(func.count(User.id)).where(User.created_at >= seven_days_ago)
-        )
-    ).scalar() or 0
+    # ── AI usage stats (last 30 days) ─────────────────────────────────────────
+    ai_rows = await db.execute(
+        select(AIConversation.model_used, func.count(AIConversation.id), func.sum(AIConversation.total_tokens))
+        .where(AIConversation.created_at >= thirty_days_ago)
+        .group_by(AIConversation.model_used)
+    )
+    ai_by_model = {}
+    total_tokens_30d = 0
+    total_conversations_30d = 0
+    for row in ai_rows:
+        model = row[0] or "unknown"
+        count = row[1] or 0
+        tokens = row[2] or 0
+        ai_by_model[model] = {"conversations": count, "tokens": tokens}
+        total_tokens_30d += tokens
+        total_conversations_30d += count
+
+    # ── Recent audit log (last 24h most common actions) ───────────────────────
+    audit_rows = await db.execute(
+        select(AuditLog.action, func.count(AuditLog.id))
+        .where(AuditLog.created_at >= now - timedelta(hours=24))
+        .group_by(AuditLog.action)
+        .order_by(func.count(AuditLog.id).desc())
+        .limit(10)
+    )
+    recent_actions = {row[0]: row[1] for row in audit_rows}
 
     return {
         "users": {
             "total": total_users,
             "active": active_users,
+            "dau": dau,
+            "wau": wau,
+            "mau": mau,
             "new_last_7_days": new_users_week,
+            "new_last_30_days": new_users_month,
             "by_tier": tiers,
         },
         "content": {
@@ -92,7 +140,78 @@ async def get_stats(
             "published": published_articles,
             "pending_review": pending_articles,
         },
+        "ai": {
+            "conversations_30d": total_conversations_30d,
+            "tokens_30d": total_tokens_30d,
+            "by_model": ai_by_model,
+        },
+        "activity": {
+            "top_actions_24h": recent_actions,
+        },
     }
+
+
+@router.get("/health")
+async def get_system_health(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """System health: DB pool, Redis, Ollama."""
+    import time
+    from app.core.database import engine
+    from app.core.config import settings
+
+    result: dict = {"timestamp": datetime.utcnow().isoformat(), "services": {}}
+
+    # DB pool stats
+    pool = engine.pool
+    result["services"]["database"] = {
+        "status": "ok",
+        "pool_size": pool.size(),
+        "checked_out": pool.checkedout(),
+        "overflow": pool.overflow(),
+        "checked_in": pool.checkedin(),
+    }
+
+    # Quick DB ping
+    try:
+        t0 = time.monotonic()
+        await db.execute(select(func.now()))
+        result["services"]["database"]["latency_ms"] = round((time.monotonic() - t0) * 1000, 1)
+    except Exception as e:
+        result["services"]["database"]["status"] = "error"
+        result["services"]["database"]["error"] = str(e)
+
+    # Redis ping
+    try:
+        import redis.asyncio as aioredis
+        r = aioredis.from_url(settings.REDIS_URL, socket_connect_timeout=2)
+        t0 = time.monotonic()
+        await r.ping()
+        await r.aclose()
+        result["services"]["redis"] = {
+            "status": "ok",
+            "latency_ms": round((time.monotonic() - t0) * 1000, 1),
+        }
+    except Exception as e:
+        result["services"]["redis"] = {"status": "error", "error": str(e)}
+
+    # Ollama ping
+    try:
+        import httpx
+        t0 = time.monotonic()
+        async with httpx.AsyncClient(timeout=3) as client:
+            resp = await client.get(f"{settings.OLLAMA_URL}/api/tags")
+        models = [m["name"] for m in resp.json().get("models", [])]
+        result["services"]["ollama"] = {
+            "status": "ok",
+            "latency_ms": round((time.monotonic() - t0) * 1000, 1),
+            "models": models,
+        }
+    except Exception as e:
+        result["services"]["ollama"] = {"status": "unavailable", "error": str(e)}
+
+    return result
 
 
 # ── Users ─────────────────────────────────────────────────────────────────────
