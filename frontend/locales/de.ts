@@ -19,7 +19,8 @@ const de: Translations = {
     search: "Suchen",
     loading: "Wird geladen…",
     error: "Etwas ist schiefgelaufen",
-    retry: "Erneut versuchen",
+
+    error_retry: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",    retry: "Erneut versuchen",
     submit: "Absenden",
     reset: "Zurücksetzen",
     clear: "Leeren",
@@ -876,7 +877,9 @@ const de: Translations = {
     research_consent: "Forschungsdatennutzung",
     granted: "Erteilt",
     revoked: "Widerrufen",
-  },
+
+    export_error: "Export fehlgeschlagen. Bitte erneut versuchen.",
+    delete_error: "Kontolöschung fehlgeschlagen. Bitte Support kontaktieren.",  },
 
   upgrade: {
     title: "Plan wählen",

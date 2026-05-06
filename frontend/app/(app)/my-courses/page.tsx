@@ -43,6 +43,8 @@ export default function MyCoursesPage() {
   const [joinError, setJoinError] = useState("");
   const [joinSuccess, setJoinSuccess] = useState("");
 
+  const [leaveError, setLeaveError] = useState("");
+
   // Expanded course detail
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [moduleProgress, setModuleProgress] = useState<Record<string, CourseModule[]>>({});
@@ -110,7 +112,7 @@ export default function MyCoursesPage() {
       setCourses((cs) => cs.filter((c) => c.id !== courseId));
       if (expandedId === courseId) setExpandedId(null);
     } catch {
-      alert("Could not leave course. Try again.");
+      setLeaveError(t("common.error_retry"));
     }
   }
 
@@ -123,6 +125,12 @@ export default function MyCoursesPage() {
           {loading ? t("common.loading") : `${courses.length} course${courses.length !== 1 ? "s" : ""} enrolled`}
         </p>
       </div>
+
+      {leaveError && (
+        <div className="mb-4 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+          {leaveError}
+        </div>
+      )}
 
       {/* Join with invite code */}
       <div className="card p-4 mb-6">

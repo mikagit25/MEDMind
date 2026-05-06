@@ -19,7 +19,8 @@ const fr: Translations = {
     search: "Rechercher",
     loading: "Chargement…",
     error: "Une erreur s'est produite",
-    retry: "Réessayer",
+
+    error_retry: "Quelque chose a mal tourné. Veuillez réessayer.",    retry: "Réessayer",
     submit: "Envoyer",
     reset: "Réinitialiser",
     clear: "Effacer",
@@ -876,7 +877,9 @@ const fr: Translations = {
     research_consent: "Utilisation des données de recherche",
     granted: "Accordé",
     revoked: "Révoqué",
-  },
+
+    export_error: "Échec de l'export. Veuillez réessayer.",
+    delete_error: "Échec de la suppression. Contactez le support.",  },
 
   upgrade: {
     title: "Choisissez votre plan",

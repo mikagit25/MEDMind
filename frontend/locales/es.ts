@@ -19,7 +19,8 @@ const es: Translations = {
     search: "Buscar",
     loading: "Cargando…",
     error: "Algo salió mal",
-    retry: "Reintentar",
+
+    error_retry: "Algo salió mal. Por favor, inténtalo de nuevo.",    retry: "Reintentar",
     submit: "Enviar",
     reset: "Restablecer",
     clear: "Limpiar",
@@ -876,7 +877,9 @@ const es: Translations = {
     research_consent: "Uso de datos en investigación",
     granted: "Concedido",
     revoked: "Revocado",
-  },
+
+    export_error: "Error al exportar. Por favor, inténtalo de nuevo.",
+    delete_error: "Error al eliminar la cuenta. Contacta con soporte.",  },
 
   upgrade: {
     title: "Elige tu plan",

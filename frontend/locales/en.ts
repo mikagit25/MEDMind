@@ -18,6 +18,7 @@ const en = {
     search: "Search",
     loading: "Loading…",
     error: "Something went wrong",
+    error_retry: "Something went wrong. Please try again.",
     retry: "Retry",
     submit: "Submit",
     reset: "Reset",
@@ -912,6 +913,8 @@ const en = {
     research_consent: "Research data use",
     granted: "Granted",
     revoked: "Revoked",
+    export_error: "Export failed. Please try again.",
+    delete_error: "Account deletion failed. Please contact support.",
   },
 
   // ── Upgrade ────────────────────────────────────────────────────────────────────

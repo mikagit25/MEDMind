@@ -33,6 +33,7 @@ export default function CompliancePage() {
   const [deleting, setDeleting]     = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [exportDone, setExportDone] = useState(false);
+  const [actionError, setActionError] = useState("");
 
   useEffect(() => {
     complianceApi.getConsents()
@@ -61,7 +62,7 @@ export default function CompliancePage() {
       URL.revokeObjectURL(url);
       setExportDone(true);
     } catch {
-      alert("Export failed. Please try again.");
+      setActionError(t("compliance.export_error"));
     } finally {
       setExporting(false);
     }
@@ -73,7 +74,7 @@ export default function CompliancePage() {
       await complianceApi.deleteAccount();
       window.location.href = "/auth/login";
     } catch {
-      alert("Account deletion failed. Please contact support.");
+      setActionError(t("compliance.delete_error"));
       setDeleting(false);
     }
   };
@@ -84,6 +85,12 @@ export default function CompliancePage() {
         <h1 className="font-syne font-black text-2xl text-ink">{t("compliance.title")}</h1>
         <p className="text-ink-3 text-sm mt-1">Manage your data and GDPR rights</p>
       </div>
+
+      {actionError && (
+        <div className="p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+          {actionError}
+        </div>
+      )}
 
       {/* Consent Manager */}
       <section className="card p-6 space-y-4">

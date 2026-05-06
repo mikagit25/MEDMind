@@ -19,7 +19,8 @@ const tr: Translations = {
     search: "Ara",
     loading: "Yükleniyor…",
     error: "Bir şeyler yanlış gitti",
-    retry: "Tekrar dene",
+
+    error_retry: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",    retry: "Tekrar dene",
     submit: "Gönder",
     reset: "Sıfırla",
     clear: "Temizle",
@@ -868,7 +869,9 @@ const tr: Translations = {
     research_consent: "Araştırma veri kullanımı",
     granted: "Verildi",
     revoked: "İptal edildi",
-  },
+
+    export_error: "Dışa aktarma başarısız. Lütfen tekrar deneyin.",
+    delete_error: "Hesap silme başarısız. Destek ile iletişime geçin.",  },
 
   upgrade: {
     title: "Planınızı Seçin",

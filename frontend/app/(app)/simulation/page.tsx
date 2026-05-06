@@ -57,6 +57,8 @@ export default function SimulationPage() {
   const [loading, setLoading] = useState(false);
   const [evaluation, setEvaluation] = useState<any>(null);
   const [turns, setTurns] = useState(0);
+  const [setupError, setSetupError] = useState("");
+  const [evalError, setEvalError] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ export default function SimulationPage() {
       setTurns(0);
       setPhase("chat");
     } catch {
-      alert("Failed to start session. Please try again.");
+      setSetupError(t("common.error_retry"));
     } finally {
       setLoading(false);
     }
@@ -110,7 +112,7 @@ export default function SimulationPage() {
       setEvaluation(data);
       setPhase("result");
     } catch {
-      alert("Failed to evaluate. Please try again.");
+      setEvalError(t("common.error_retry"));
     } finally {
       setLoading(false);
     }
@@ -231,6 +233,11 @@ export default function SimulationPage() {
               <p className="font-serif text-ink-3 text-xs mt-1">{t("simulation.seed_empty_hint")}</p>
             </div>
 
+            {setupError && (
+              <div className="p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+                {setupError}
+              </div>
+            )}
             <button
               onClick={startSession}
               disabled={loading}
@@ -370,6 +377,11 @@ export default function SimulationPage() {
               placeholder={t("simulation.diagnosis_placeholder")}
               className="w-full px-4 py-3 rounded-lg border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink resize-none"
             />
+            {evalError && (
+              <div className="mt-3 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+                {evalError}
+              </div>
+            )}
             <div className="flex gap-3 mt-4">
               <button
                 onClick={() => setPhase("chat")}

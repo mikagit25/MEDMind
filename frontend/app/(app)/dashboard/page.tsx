@@ -110,9 +110,11 @@ function xpToNextLevel(xp: number, level: number) {
 function DownloadPDFButton() {
   const t = useT();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleDownload() {
     setLoading(true);
+    setError("");
     try {
       const blob = await progressApi.exportPDF();
       const url = URL.createObjectURL(blob);
@@ -122,20 +124,25 @@ function DownloadPDFButton() {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert("Could not generate report. Please try again.");
+      setError(t("common.error_retry"));
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <button
-      onClick={handleDownload}
-      disabled={loading}
-      className="mt-3 w-full py-2 px-3 rounded bg-green text-white font-syne font-semibold text-xs hover:bg-green/90 transition-colors disabled:opacity-60"
-    >
-      {loading ? t("dashboard.generating") : t("dashboard.download_cme")}
-    </button>
+    <>
+      {error && (
+        <div className="mt-2 text-xs text-red font-serif">{error}</div>
+      )}
+      <button
+        onClick={handleDownload}
+        disabled={loading}
+        className="mt-3 w-full py-2 px-3 rounded bg-green text-white font-syne font-semibold text-xs hover:bg-green/90 transition-colors disabled:opacity-60"
+      >
+        {loading ? t("dashboard.generating") : t("dashboard.download_cme")}
+      </button>
+    </>
   );
 }
 

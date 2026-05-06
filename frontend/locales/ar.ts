@@ -19,7 +19,8 @@ const ar: Translations = {
     search: "بحث",
     loading: "جارٍ التحميل…",
     error: "حدث خطأ ما",
-    retry: "إعادة المحاولة",
+
+    error_retry: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",    retry: "إعادة المحاولة",
     submit: "إرسال",
     reset: "إعادة تعيين",
     clear: "مسح",
@@ -868,7 +869,9 @@ const ar: Translations = {
     research_consent: "استخدام البيانات البحثية",
     granted: "ممنوح",
     revoked: "ملغى",
-  },
+
+    export_error: "فشل التصدير. يرجى المحاولة مرة أخرى.",
+    delete_error: "فشل حذف الحساب. يرجى التواصل مع الدعم.",  },
 
   upgrade: {
     title: "اختر خطتك",
