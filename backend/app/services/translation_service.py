@@ -247,19 +247,37 @@ Return a JSON object with the same keys and translated values."""
     payload = json.dumps({"title": title, **extraction["texts"]}, ensure_ascii=False)
 
     translated_raw = await _call_translation_api(system_prompt, payload)
-
-    try:
-        translated_map: dict[str, Any] = json.loads(translated_raw)
-    except json.JSONDecodeError:
-        # Try to extract JSON from response
-        start = translated_raw.find("{")
-        end = translated_raw.rfind("}") + 1
-        translated_map = json.loads(translated_raw[start:end]) if start >= 0 else {}
+    translated_map: dict[str, Any] = _parse_json_response(translated_raw, {"title": title})
 
     translated_title = translated_map.pop("title", title)
     translated_blocks = _apply_translations(blocks, extraction["key_map"], translated_map)
 
     return translated_title, translated_blocks
+
+
+def _parse_json_response(raw: str, fallback: dict) -> dict:
+    """Parse JSON from Claude response, stripping markdown code fences if present."""
+    text = raw.strip()
+    # Strip ```json ... ``` or ``` ... ``` wrappers
+    if text.startswith("```"):
+        lines = text.split("\n")
+        # Remove first line (```json or ```) and last line (```)
+        inner_lines = lines[1:]
+        if inner_lines and inner_lines[-1].strip() == "```":
+            inner_lines = inner_lines[:-1]
+        text = "\n".join(inner_lines).strip()
+    try:
+        return json.loads(text)
+    except Exception:
+        # Try to extract JSON object from anywhere in the text
+        start = text.find("{")
+        end = text.rfind("}") + 1
+        if start >= 0 and end > start:
+            try:
+                return json.loads(text[start:end])
+            except Exception:
+                pass
+    return fallback
 
 
 async def _translate_text_batch(
@@ -277,42 +295,66 @@ Preserve all JSON keys. Return ONLY valid JSON with translated values."""
 
     payload = json.dumps(texts, ensure_ascii=False)
     raw = await _call_translation_api(system_prompt, payload)
-    try:
-        return json.loads(raw)
-    except Exception:
-        return texts  # fallback: return originals
+    return _parse_json_response(raw, texts)
+
+
+_claude_unavailable = False  # Set True after first credit error to skip future Claude calls
 
 
 async def _call_translation_api(system_prompt: str, user_content: str) -> str:
-    """Call Claude Haiku for translation. Falls back to Ollama if no API key."""
-    if settings.ANTHROPIC_API_KEY:
-        msg = await _claude.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=4096,
-            system=system_prompt,
-            messages=[{"role": "user", "content": user_content}],
-        )
-        return msg.content[0].text
+    """Call Claude Haiku for translation. Falls back to Ollama on any error."""
+    global _claude_unavailable
+    if settings.ANTHROPIC_API_KEY and not _claude_unavailable:
+        try:
+            msg = await _claude.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=4096,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_content}],
+            )
+            return msg.content[0].text
+        except Exception as e:
+            err_str = str(e)
+            if "credit balance" in err_str or "insufficient_quota" in err_str:
+                _claude_unavailable = True
+                logger.warning("Claude credits exhausted — switching to Ollama for all translations")
+            else:
+                logger.warning("Claude translation failed, falling back to Ollama: %s", e)
 
-    # Fallback: Ollama (local)
-    return await _call_ollama_translation(system_prompt, user_content)
+    # Fallback: Ollama (local) — retry with smaller payload on timeout
+    try:
+        return await _call_ollama_translation(system_prompt, user_content)
+    except Exception as e:
+        if "Timeout" in type(e).__name__ and len(user_content) > 500:
+            # Retry with truncated content (first half)
+            half = user_content[: len(user_content) // 2]
+            logger.warning("Ollama timeout, retrying with truncated payload (%d chars)", len(half))
+            return await _call_ollama_translation(system_prompt, half)
+        raise
 
 
 async def _call_ollama_translation(system_prompt: str, user_content: str) -> str:
+    # Prepend /no_think to force qwen3 to skip reasoning and reply directly
+    no_think_prompt = "/no_think\n" + system_prompt
     async with httpx.AsyncClient(timeout=120) as http:
         resp = await http.post(
             f"{settings.OLLAMA_URL}/api/chat",
             json={
                 "model": settings.OLLAMA_MODEL,
                 "messages": [
-                    {"role": "system", "content": system_prompt},
+                    {"role": "system", "content": no_think_prompt},
                     {"role": "user", "content": user_content},
                 ],
                 "stream": False,
+                "think": False,
+                "options": {"temperature": 0.1, "num_predict": 256},
             },
         )
         resp.raise_for_status()
-        return resp.json()["message"]["content"]
+        raw = resp.json()["message"]["content"]
+        import re
+        raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+        return raw
 
 
 # ── Block extraction / injection helpers ──────────────────────────────────────
@@ -496,22 +538,18 @@ async def _translate_article_one(article: Article, locale: str, db: AsyncSession
         tr.translated_at = datetime.utcnow()
         tr.error_message = None
     except Exception as exc:
-        logger.error("Article translation failed article=%s locale=%s: %s", article.id, locale, exc)
+        err_msg = f"{type(exc).__name__}: {exc}"
+        logger.error("Article translation failed article=%s locale=%s: %s", article.id, locale, err_msg)
         tr.status = "failed"
-        tr.error_message = str(exc)[:500]
+        tr.error_message = err_msg[:500]
 
     await db.commit()
 
 
-async def _translate_article_body(blocks: list[dict], locale: str) -> list[dict]:
-    """Extract translatable text from article body blocks, translate in batch, re-inject."""
-    import copy
-    if not blocks:
-        return blocks
-
+def _extract_body_texts(blocks: list[dict]) -> tuple[dict, dict]:
+    """Extract translatable texts from body blocks into flat dicts."""
     texts: dict[str, str] = {}
     key_map: dict[str, tuple] = {}
-
     for i, block in enumerate(blocks):
         btype = block.get("type", "")
         if btype in ("h2", "h3", "p", "callout"):
@@ -545,11 +583,40 @@ async def _translate_article_body(blocks: list[dict], locale: str) -> list[dict]
                     key = f"b{i}_{field}"
                     texts[key] = val
                     key_map[key] = (i, field)
+    return texts, key_map
 
+
+async def _translate_article_body(blocks: list[dict], locale: str) -> list[dict]:
+    """Translate article body blocks in chunks to avoid Ollama timeouts on large articles."""
+    import copy
+    if not blocks:
+        return blocks
+
+    texts, key_map = _extract_body_texts(blocks)
     if not texts:
         return blocks
 
-    translated = await _translate_text_batch(texts, locale, context="medical article body")
+    # Keep chunks small: ~600 chars ≈ 100 words ≈ 80-120 output tokens ≈ 40-60s on CPU
+    CHUNK_CHAR_LIMIT = 600
+    chunks: list[dict] = []
+    current_chunk: dict = {}
+    current_size = 0
+    for key, val in texts.items():
+        val_size = len(val)
+        if current_chunk and current_size + val_size > CHUNK_CHAR_LIMIT:
+            chunks.append(current_chunk)
+            current_chunk = {}
+            current_size = 0
+        current_chunk[key] = val
+        current_size += val_size
+    if current_chunk:
+        chunks.append(current_chunk)
+
+    # Translate each chunk and merge
+    translated: dict = {}
+    for chunk in chunks:
+        result = await _translate_text_batch(chunk, locale, context="medical article body")
+        translated.update(result)
 
     result = copy.deepcopy(blocks)
     for flat_key, path in key_map.items():

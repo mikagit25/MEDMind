@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 export default function NewCoursePage() {
   const t = useT();

@@ -110,12 +110,12 @@ export const drugsApi = {
 
 export const simulationApi = {
   // Virtual patient
-  startVirtualPatient: (data: { specialty?: string; difficulty?: string; species?: string; patient_seed?: string }) =>
+  startVirtualPatient: (data: { specialty?: string; difficulty?: string; species?: string; patient_seed?: string; language?: string }) =>
     api.post("/ai/virtual-patient/start", data).then(r => r.data),
-  chatVirtualPatient: (session_token: string, message: string) =>
-    api.post("/ai/virtual-patient/chat", { session_token, message }).then(r => r.data),
-  evaluateVirtualPatient: (session_token: string, message: string) =>
-    api.post("/ai/virtual-patient/evaluate", { session_token, message }).then(r => r.data),
+  chatVirtualPatient: (session_token: string, message: string, language?: string) =>
+    api.post("/ai/virtual-patient/chat", { session_token, message, language }).then(r => r.data),
+  evaluateVirtualPatient: (session_token: string, message: string, language?: string) =>
+    api.post("/ai/virtual-patient/evaluate", { session_token, message, language }).then(r => r.data),
   // FSM cases
   startCase: (caseId: string) =>
     api.post(`/cases/${caseId}/sessions`).then(r => r.data),

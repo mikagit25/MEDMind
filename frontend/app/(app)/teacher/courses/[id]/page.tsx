@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type CourseModule = {
   id: string;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type ModuleStats = {
   module_id: string;

@@ -191,7 +191,7 @@ export default function ImagingPage() {
     <div className="flex h-full">
       {/* ── Sidebar filters ──────────────────────────────────── */}
       <aside className="w-48 shrink-0 border-r border-border p-4 hidden md:block">
-        <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest mb-3">Modality</h2>
+        <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest mb-3">{t("modalities")}</h2>
         <div className="space-y-0.5">
           <button
             onClick={() => handleModalityChange("")}
@@ -323,7 +323,7 @@ export default function ImagingPage() {
           ) : images.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-5xl mb-3">🩻</div>
-              <div className="font-syne font-semibold text-ink">No images found</div>
+              <div className="font-syne font-semibold text-ink">{t("no_images")}</div>
               <div className="font-serif text-sm text-ink-3 mt-1">
                 {searchQ ? `No local results for "${searchQ}" — try the NIH OpenI results above.` : "No images in this category yet."}
               </div>

@@ -282,6 +282,7 @@ class AIAskRequest(BaseModel):
     specialty: str = "General Medicine"
     mode: str = "tutor"  # tutor|socratic|case|exam
     search_pubmed: bool = True
+    language: Optional[str] = None  # user locale: en|ru|ar|tr|de|fr|es
 
 
 class AIAskResponse(BaseModel):

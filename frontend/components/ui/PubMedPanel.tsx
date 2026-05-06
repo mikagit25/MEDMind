@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { contentApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type PubMedRef = {
   pmid: string;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export default function PubMedPanel({ initialRefs = [], onClose }: Props) {
+  const t = useT();
   const [query, setQuery] = useState("");
   const [refs, setRefs] = useState<PubMedRef[]>(initialRefs);
   const [loading, setLoading] = useState(false);
@@ -89,7 +91,7 @@ export default function PubMedPanel({ initialRefs = [], onClose }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Search PubMed…"
+            placeholder={t("pubmed_panel.search_placeholder")}
             className="flex-1 px-2.5 py-1.5 rounded border border-border bg-bg text-ink font-serif text-xs focus:outline-none focus:border-ink transition-colors"
           />
           <button
@@ -118,7 +120,7 @@ export default function PubMedPanel({ initialRefs = [], onClose }: Props) {
         {!loading && refs.length === 0 && (
           <div className="p-4 text-center">
             <p className="font-serif text-ink-3 text-xs">
-              {query ? "No results found" : "Search PubMed or references from AI responses will appear here"}
+              {query ? t("pubmed_panel.no_results") : t("pubmed_panel.empty_hint")}
             </p>
           </div>
         )}
@@ -144,7 +146,7 @@ export default function PubMedPanel({ initialRefs = [], onClose }: Props) {
                       onClick={() => setExpanded(expanded === ref.pmid ? null : ref.pmid)}
                       className="font-syne text-xs text-ink-3 hover:text-ink mt-1 transition-colors"
                     >
-                      {expanded === ref.pmid ? "▲ Hide" : "▼ Abstract"}
+                      {expanded === ref.pmid ? t("pubmed_panel.hide") : t("pubmed_panel.abstract")}
                     </button>
                     {expanded === ref.pmid && (
                       <p className="font-serif text-xs text-ink-2 leading-relaxed mt-1.5 line-clamp-6">
@@ -161,7 +163,7 @@ export default function PubMedPanel({ initialRefs = [], onClose }: Props) {
 
       <div className="px-3 py-2 border-t border-border flex-shrink-0">
         <p className="font-serif text-ink-3 text-xs text-center">
-          Powered by NCBI PubMed E-utilities
+          {t("pubmed_panel.powered_by")}
         </p>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { simulationApi } from "@/lib/api";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 type Phase = "setup" | "chat" | "evaluate" | "result";
 
@@ -11,32 +11,40 @@ interface ChatMessage {
   content: string;
 }
 
-const SPECIALTIES = [
-  { value: "internal_medicine", label: "Internal Medicine" },
-  { value: "cardiology", label: "Cardiology" },
-  { value: "pulmonology", label: "Pulmonology" },
-  { value: "gastroenterology", label: "Gastroenterology" },
-  { value: "neurology", label: "Neurology" },
-  { value: "endocrinology", label: "Endocrinology" },
-  { value: "pediatrics", label: "Pediatrics" },
-  { value: "emergency_medicine", label: "Emergency Medicine" },
+const SPECIALTY_KEYS = [
+  { value: "internal_medicine", key: "spec_internal_medicine" },
+  { value: "cardiology", key: "spec_cardiology" },
+  { value: "pulmonology", key: "spec_pulmonology" },
+  { value: "gastroenterology", key: "spec_gastroenterology" },
+  { value: "neurology", key: "spec_neurology" },
+  { value: "endocrinology", key: "spec_endocrinology" },
+  { value: "pediatrics", key: "spec_pediatrics" },
+  { value: "emergency_medicine", key: "spec_emergency" },
 ];
 
-const DIFFICULTIES = [
-  { value: "beginner", label: "Beginner", desc: "Clear, direct answers" },
-  { value: "intermediate", label: "Intermediate", desc: "Some misleading symptoms" },
-  { value: "advanced", label: "Advanced", desc: "Vague and incomplete history" },
+const DIFFICULTY_KEYS = [
+  { value: "beginner", key: "diff_beginner", descKey: "diff_beginner_desc" },
+  { value: "intermediate", key: "diff_intermediate", descKey: "diff_intermediate_desc" },
+  { value: "advanced", key: "diff_advanced", descKey: "diff_advanced_desc" },
 ];
 
-const SPECIES = [
-  { value: "human", label: "Human" },
-  { value: "canine", label: "Dog 🐕" },
-  { value: "feline", label: "Cat 🐈" },
-  { value: "equine", label: "Horse 🐎" },
+const SPECIES_KEYS = [
+  { value: "human", key: "species_human", emoji: "" },
+  { value: "canine", key: "species_dog", emoji: "🐕" },
+  { value: "feline", key: "species_cat", emoji: "🐈" },
+  { value: "equine", key: "species_horse", emoji: "🐎" },
 ];
+
+const SPECIES_AVATAR: Record<string, string> = {
+  human: "👤",
+  canine: "🐕",
+  feline: "🐈",
+  equine: "🐎",
+};
 
 export default function SimulationPage() {
   const t = useT();
+  const { locale } = useI18n();
   const [phase, setPhase] = useState<Phase>("setup");
   const [specialty, setSpecialty] = useState("internal_medicine");
   const [difficulty, setDifficulty] = useState("intermediate");
@@ -63,6 +71,7 @@ export default function SimulationPage() {
         difficulty,
         species,
         patient_seed: patientSeed || undefined,
+        language: locale || "en",
       });
       setSessionToken(data.session_token);
       setMessages([{ role: "patient", content: data.patient_opening }]);
@@ -82,7 +91,7 @@ export default function SimulationPage() {
     setMessages((prev) => [...prev, { role: "student", content: text }]);
     setLoading(true);
     try {
-      const data = await simulationApi.chatVirtualPatient(sessionToken, text);
+      const data = await simulationApi.chatVirtualPatient(sessionToken, text, locale || "en");
       setSessionToken(data.session_token);
       setMessages((prev) => [...prev, { role: "patient", content: data.patient_response }]);
       setTurns(data.turns);
@@ -97,7 +106,7 @@ export default function SimulationPage() {
     if (!diagnosis.trim() || loading) return;
     setLoading(true);
     try {
-      const data = await simulationApi.evaluateVirtualPatient(sessionToken, diagnosis);
+      const data = await simulationApi.evaluateVirtualPatient(sessionToken, diagnosis, locale || "en");
       setEvaluation(data);
       setPhase("result");
     } catch {
@@ -117,6 +126,18 @@ export default function SimulationPage() {
     setInput("");
   };
 
+  const speciesLabel = (value: string) => {
+    const s = SPECIES_KEYS.find((k) => k.value === value);
+    if (!s) return value;
+    const label = t(`simulation.${s.key}` as any);
+    return s.emoji ? `${label} ${s.emoji}` : label;
+  };
+
+  const specialtyLabel = (value: string) => {
+    const s = SPECIALTY_KEYS.find((k) => k.value === value);
+    return s ? t(`simulation.${s.key}` as any) : value.replace(/_/g, " ");
+  };
+
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto w-full">
       <div className="mb-6">
@@ -130,13 +151,13 @@ export default function SimulationPage() {
       {phase === "setup" && (
         <div className="space-y-6">
           <div className="card p-6 space-y-5">
-            <h2 className="font-syne font-bold text-base text-ink">Configure Your Patient</h2>
+            <h2 className="font-syne font-bold text-base text-ink">{t("simulation.configure")}</h2>
 
             {/* Specialty */}
             <div>
-              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Specialty</label>
+              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{t("simulation.specialty_label")}</label>
               <div className="grid grid-cols-2 gap-2">
-                {SPECIALTIES.map((s) => (
+                {SPECIALTY_KEYS.map((s) => (
                   <button
                     key={s.value}
                     onClick={() => setSpecialty(s.value)}
@@ -146,7 +167,7 @@ export default function SimulationPage() {
                         : "border-border text-ink-2 hover:border-ink-3"
                     }`}
                   >
-                    {s.label}
+                    {t(`simulation.${s.key}` as any)}
                   </button>
                 ))}
               </div>
@@ -154,9 +175,9 @@ export default function SimulationPage() {
 
             {/* Difficulty */}
             <div>
-              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Difficulty</label>
+              <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{t("simulation.difficulty_label")}</label>
               <div className="grid grid-cols-3 gap-2">
-                {DIFFICULTIES.map((d) => (
+                {DIFFICULTY_KEYS.map((d) => (
                   <button
                     key={d.value}
                     onClick={() => setDifficulty(d.value)}
@@ -166,9 +187,9 @@ export default function SimulationPage() {
                         : "border-border hover:border-ink-3"
                     }`}
                   >
-                    <div className="font-syne font-bold text-xs">{d.label}</div>
+                    <div className="font-syne font-bold text-xs">{t(`simulation.${d.key}` as any)}</div>
                     <div className={`font-serif text-xs mt-0.5 ${difficulty === d.value ? "text-white/70" : "text-ink-3"}`}>
-                      {d.desc}
+                      {t(`simulation.${d.descKey}` as any)}
                     </div>
                   </button>
                 ))}
@@ -179,7 +200,7 @@ export default function SimulationPage() {
             <div>
               <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{t("simulation.species")}</label>
               <div className="flex gap-2">
-                {SPECIES.map((s) => (
+                {SPECIES_KEYS.map((s) => (
                   <button
                     key={s.value}
                     onClick={() => setSpecies(s.value)}
@@ -189,7 +210,7 @@ export default function SimulationPage() {
                         : "border-border text-ink-2 hover:border-ink-3"
                     }`}
                   >
-                    {s.label}
+                    {speciesLabel(s.value)}
                   </button>
                 ))}
               </div>
@@ -198,16 +219,16 @@ export default function SimulationPage() {
             {/* Seed (optional) */}
             <div>
               <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-                Patient seed <span className="text-ink-3 font-normal">(optional)</span>
+                {t("simulation.patient_seed_label")} <span className="text-ink-3 font-normal">({t("simulation.patient_seed_hint")})</span>
               </label>
               <input
                 type="text"
                 value={patientSeed}
                 onChange={(e) => setPatientSeed(e.target.value)}
-                placeholder="e.g. 65yo diabetic with chest pain"
+                placeholder={t("simulation.patient_seed_placeholder")}
                 className="w-full px-3 py-2 rounded border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink"
               />
-              <p className="font-serif text-ink-3 text-xs mt-1">Leave blank for a random patient</p>
+              <p className="font-serif text-ink-3 text-xs mt-1">{t("simulation.seed_empty_hint")}</p>
             </div>
 
             <button
@@ -221,19 +242,14 @@ export default function SimulationPage() {
 
           {/* Tips */}
           <div className="card p-5">
-            <h3 className="font-syne font-bold text-sm text-ink mb-3">How it works</h3>
+            <h3 className="font-syne font-bold text-sm text-ink mb-3">{t("simulation.how_it_works")}</h3>
             <ol className="space-y-2">
-              {[
-                "The AI plays a patient with a hidden diagnosis",
-                "Ask open-ended questions to gather history",
-                "Use clinical reasoning to form a differential",
-                "Submit your working diagnosis for AI evaluation",
-              ].map((tip, i) => (
-                <li key={i} className="flex gap-3">
+              {(["tip_1", "tip_2", "tip_3", "tip_4"] as const).map((key, i) => (
+                <li key={key} className="flex gap-3">
                   <span className="w-5 h-5 rounded-full bg-ink text-white font-syne font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                     {i + 1}
                   </span>
-                  <span className="font-serif text-ink-2 text-sm">{tip}</span>
+                  <span className="font-serif text-ink-2 text-sm">{t(`simulation.${key}` as any)}</span>
                 </li>
               ))}
             </ol>
@@ -248,17 +264,23 @@ export default function SimulationPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-ink flex items-center justify-center text-white text-sm">
-                {species === "human" ? "👤" : species === "canine" ? "🐕" : species === "feline" ? "🐈" : "🐎"}
+                {SPECIES_AVATAR[species] ?? "👤"}
               </div>
               <div>
-                <div className="font-syne font-bold text-sm text-ink capitalize">
-                  {species === "human" ? "Virtual Patient" : `Virtual ${species.charAt(0).toUpperCase() + species.slice(1)} Patient`}
+                <div className="font-syne font-bold text-sm text-ink">
+                  {species === "human"
+                    ? t("simulation.virtual_patient")
+                    : `${t("simulation.virtual_patient")} (${t(`simulation.${SPECIES_KEYS.find((k) => k.value === species)?.key ?? "species_human"}` as any)})`}
                 </div>
-                <div className="font-serif text-ink-3 text-xs capitalize">{specialty.replace("_", " ")} · {difficulty}</div>
+                <div className="font-serif text-ink-3 text-xs">
+                  {specialtyLabel(specialty)} · {t(`simulation.diff_${difficulty}` as any)}
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className="font-serif text-ink-3 text-xs">{turns} question{turns !== 1 ? "s" : ""} asked</span>
+              <span className="font-serif text-ink-3 text-xs">
+                {turns} {turns === 1 ? t("simulation.question_asked") : t("simulation.questions_asked")}
+              </span>
               <button
                 onClick={() => setPhase("evaluate")}
                 className="btn-primary text-sm"
@@ -277,7 +299,7 @@ export default function SimulationPage() {
                     m.role === "patient" ? "bg-amber-light text-amber" : "bg-ink text-white"
                   }`}
                 >
-                  {m.role === "patient" ? "P" : "Dr"}
+                  {m.role === "patient" ? t("simulation.patient_avatar") : t("simulation.doctor_avatar")}
                 </div>
                 <div
                   className={`max-w-[80%] px-4 py-3 rounded-xl font-serif text-sm leading-relaxed ${
@@ -292,7 +314,9 @@ export default function SimulationPage() {
             ))}
             {loading && (
               <div className="flex gap-3">
-                <div className="w-7 h-7 rounded-full bg-amber-light flex items-center justify-center text-xs text-amber flex-shrink-0">P</div>
+                <div className="w-7 h-7 rounded-full bg-amber-light flex items-center justify-center text-xs text-amber flex-shrink-0">
+                  {t("simulation.patient_avatar")}
+                </div>
                 <div className="bg-bg-2 px-4 py-3 rounded-xl">
                   <span className="inline-flex gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-ink-3 animate-bounce" style={{ animationDelay: "0ms" }} />
@@ -312,7 +336,7 @@ export default function SimulationPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-              placeholder="Ask the patient a question…"
+              placeholder={t("simulation.input_placeholder")}
               disabled={loading}
               className="flex-1 px-4 py-3 rounded-lg border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink disabled:opacity-50"
             />
@@ -326,7 +350,7 @@ export default function SimulationPage() {
           </div>
 
           <p className="font-serif text-ink-3 text-xs text-center">
-            When you have enough information, click "Submit Diagnosis" to get AI feedback
+            {t("simulation.end_hint")}
           </p>
         </div>
       )}
@@ -337,13 +361,13 @@ export default function SimulationPage() {
           <div className="card p-5">
             <h2 className="font-syne font-bold text-base text-ink mb-3">{t("simulation.session_summary")}</h2>
             <p className="font-serif text-ink-2 text-sm mb-4">
-              Based on your history-taking ({turns} questions asked), what is your working diagnosis and reasoning?
+              {t("simulation.diagnosis_prompt").replace("{n}", String(turns))}
             </p>
             <textarea
               value={diagnosis}
               onChange={(e) => setDiagnosis(e.target.value)}
               rows={5}
-              placeholder="e.g. My working diagnosis is community-acquired pneumonia. The patient presented with productive cough, fever, and right-sided chest pain. Key findings included…"
+              placeholder={t("simulation.diagnosis_placeholder")}
               className="w-full px-4 py-3 rounded-lg border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink resize-none"
             />
             <div className="flex gap-3 mt-4">
@@ -358,7 +382,7 @@ export default function SimulationPage() {
                 disabled={loading || !diagnosis.trim()}
                 className="flex-2 btn-primary disabled:opacity-40"
               >
-                {loading ? t("common.loading") : t("simulation.feedback")}
+                {loading ? t("simulation.submitting") : t("simulation.submit_diagnosis")}
               </button>
             </div>
           </div>
@@ -372,17 +396,19 @@ export default function SimulationPage() {
           <div className="grid grid-cols-3 gap-3">
             <div className="card p-4 text-center">
               <div className="font-syne font-black text-2xl text-ink">{evaluation.turns_taken}</div>
-              <div className="font-serif text-ink-3 text-xs mt-0.5">Questions asked</div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">{t("simulation.stat_questions")}</div>
             </div>
             <div className="card p-4 text-center">
-              <div className="font-syne font-black text-2xl text-ink capitalize">{evaluation.difficulty ?? difficulty}</div>
-              <div className="font-serif text-ink-3 text-xs mt-0.5">Difficulty</div>
-            </div>
-            <div className="card p-4 text-center">
-              <div className="font-syne font-black text-2xl text-ink capitalize">
-                {(evaluation.specialty ?? specialty).replace("_", " ")}
+              <div className="font-syne font-black text-2xl text-ink">
+                {t(`simulation.diff_${evaluation.difficulty ?? difficulty}` as any)}
               </div>
-              <div className="font-serif text-ink-3 text-xs mt-0.5">Specialty</div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">{t("simulation.stat_difficulty")}</div>
+            </div>
+            <div className="card p-4 text-center">
+              <div className="font-syne font-black text-2xl text-ink">
+                {specialtyLabel(evaluation.specialty ?? specialty)}
+              </div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">{t("simulation.stat_specialty")}</div>
             </div>
           </div>
 
@@ -397,13 +423,13 @@ export default function SimulationPage() {
           {/* Actions */}
           <div className="flex gap-3">
             <button onClick={reset} className="flex-1 btn-primary">
-              {t("simulation.new_session")}
+              {t("simulation.new_patient")}
             </button>
             <button
               onClick={() => { setPhase("chat"); }}
               className="flex-1 px-4 py-2.5 rounded-lg border border-border font-syne font-semibold text-sm text-ink hover:bg-bg-2 transition-colors"
             >
-              Review Conversation
+              {t("simulation.review_conversation")}
             </button>
           </div>
         </div>

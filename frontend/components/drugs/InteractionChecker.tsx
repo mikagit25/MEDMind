@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { drugsApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface Drug {
   id: string;
@@ -25,6 +26,7 @@ const SEVERITY_STYLES: Record<string, string> = {
 };
 
 export function InteractionChecker() {
+  const t = useT();
   const [query, setQuery]             = useState("");
   const [suggestions, setSuggestions] = useState<Drug[]>([]);
   const [selected, setSelected]       = useState<Drug[]>([]);
@@ -71,14 +73,14 @@ export function InteractionChecker() {
 
   return (
     <div className="card p-5 space-y-4">
-      <h3 className="font-syne font-bold text-base text-ink">Drug Interaction Checker</h3>
+      <h3 className="font-syne font-bold text-base text-ink">{t("drugs.interaction_checker")}</h3>
 
       {/* Search */}
       <div className="relative">
         <input
           value={query}
           onChange={e => search(e.target.value)}
-          placeholder="Add drug (e.g. Warfarin)…"
+          placeholder={t("drugs.interaction_placeholder")}
           className="input w-full"
         />
         {suggestions.length > 0 && (
@@ -113,24 +115,24 @@ export function InteractionChecker() {
         disabled={selected.length < 2 || loading}
         className="btn-primary w-full disabled:opacity-50"
       >
-        {loading ? "Checking…" : `Check ${selected.length} drug${selected.length !== 1 ? "s" : ""}`}
+        {loading ? t("drugs.interaction_checking") : `${t("drugs.interaction_check")} (${selected.length})`}
       </button>
 
       {/* Results */}
       {checked && (
         interactions.length === 0 ? (
           <div className="text-center py-4 text-green-600 dark:text-green-400 font-semibold text-sm">
-            ✓ No known interactions found
+            ✓ {t("drugs.interaction_no_found")}
           </div>
         ) : (
           <div className="space-y-3">
-            <div className="text-sm font-semibold text-ink">{interactions.length} interaction{interactions.length !== 1 ? "s" : ""} found:</div>
+            <div className="text-sm font-semibold text-ink">{interactions.length} {t("drugs.interaction_found")}:</div>
             {interactions.map((ix, i) => (
               <div key={i} className={`border rounded-xl p-4 text-sm space-y-2 ${SEVERITY_STYLES[ix.severity] ?? ""}`}>
                 <div className="font-bold capitalize">{ix.severity}: {ix.drug_a} + {ix.drug_b}</div>
-                {ix.mechanism && <div><span className="font-semibold">Mechanism:</span> {ix.mechanism}</div>}
-                {ix.clinical_effect && <div><span className="font-semibold">Effect:</span> {ix.clinical_effect}</div>}
-                {ix.management && <div><span className="font-semibold">Management:</span> {ix.management}</div>}
+                {ix.mechanism && <div><span className="font-semibold">{t("drugs.mechanism")}:</span> {ix.mechanism}</div>}
+                {ix.clinical_effect && <div><span className="font-semibold">{t("drugs.interaction_effect")}:</span> {ix.clinical_effect}</div>}
+                {ix.management && <div><span className="font-semibold">{t("drugs.interaction_management")}:</span> {ix.management}</div>}
               </div>
             ))}
           </div>

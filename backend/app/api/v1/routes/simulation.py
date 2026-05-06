@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional
 from uuid import UUID
 
 import anthropic
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -19,6 +20,42 @@ from app.models.models import ClinicalCase, ClinicalCaseSession, User
 router = APIRouter(tags=["simulation"])
 
 _claude = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY, timeout=30.0)
+
+
+async def _sim_ai_call(system_prompt: str, messages: list, max_tokens: int = 400) -> str:
+    """Call Claude for simulation; fall back to Ollama if Claude unavailable."""
+    import re as _re
+    # Try Claude first
+    if settings.ANTHROPIC_API_KEY:
+        try:
+            msg = await _claude.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=max_tokens,
+                system=system_prompt,
+                messages=messages,
+            )
+            return msg.content[0].text
+        except Exception as e:
+            if "credit" not in str(e).lower() and "quota" not in str(e).lower():
+                raise HTTPException(502, f"AI error: {e}")
+            # Fall through to Ollama on credit/quota errors
+
+    # Ollama fallback
+    ollama_messages = [{"role": "system", "content": "/no_think\n" + system_prompt}] + messages
+    async with httpx.AsyncClient(timeout=120) as http:
+        resp = await http.post(
+            f"{settings.OLLAMA_URL}/api/chat",
+            json={
+                "model": settings.OLLAMA_MODEL,
+                "messages": ollama_messages,
+                "stream": False,
+                "think": False,
+                "options": {"temperature": 0.7, "num_predict": max_tokens},
+            },
+        )
+        resp.raise_for_status()
+        raw = resp.json()["message"]["content"]
+        return _re.sub(r"<think>.*?</think>", "", raw, flags=_re.DOTALL).strip()
 
 
 # ── FSM Case Sessions ─────────────────────────────────────────────────────────
@@ -239,17 +276,24 @@ async def _generate_debrief(session_id: UUID, case: ClinicalCase, path: list, sc
 
 # ── Virtual Patient ───────────────────────────────────────────────────────────
 
+LANGUAGE_NAMES_SIM = {
+    "ru": "Russian", "ar": "Arabic", "tr": "Turkish",
+    "de": "German", "fr": "French", "es": "Spanish", "en": "English",
+}
+
+
 class VirtualPatientStart(BaseModel):
     specialty: str = "internal_medicine"
     difficulty: str = "intermediate"   # beginner | intermediate | advanced
     species: str = "human"             # human | canine | feline | equine
-    # Optional seed — if omitted, AI generates a random patient
-    patient_seed: Optional[str] = None  # e.g. "65yo diabetic with foot pain"
+    patient_seed: Optional[str] = None
+    language: Optional[str] = None     # user locale: en|ru|de|fr|tr|es|ar
 
 
 class VirtualPatientMessage(BaseModel):
-    session_token: str   # returned by /start
-    message: str         # student's question to the patient
+    session_token: str
+    message: str
+    language: Optional[str] = None
 
 
 @router.post("/ai/virtual-patient/start")
@@ -325,6 +369,14 @@ async def start_virtual_patient(
         )
         opening_cue = f"Hello, I'm the vet student on duty today. {physio.get('narrator_intro', 'What seems to be the problem?')}"
 
+    lang_code = data.language or "en"
+    lang_name = LANGUAGE_NAMES_SIM.get(lang_code, "English")
+    lang_instruction = (
+        f"\nLANGUAGE: Always respond in {lang_name} regardless of what language "
+        f"the student uses. Stay in character and speak {lang_name} naturally."
+        if lang_name != "English" else ""
+    )
+
     system_prompt = (
         f"{role_block}\n"
         f"Specialty context: {data.specialty}. Difficulty: {data.difficulty}.\n"
@@ -337,20 +389,12 @@ async def start_virtual_patient(
         "5. For beginner: give clear, direct answers.\n"
         "   For intermediate: occasionally mention irrelevant symptoms to test differential.\n"
         "   For advanced: be vague, omit key details unless specifically probed.\n"
-        "6. If asked something the owner/patient wouldn't know, say so naturally.\n\n"
+        "6. If asked something the owner/patient wouldn't know, say so naturally.\n"
+        f"{lang_instruction}\n\n"
         "Start with your opening statement in 1-2 sentences."
     )
 
-    try:
-        message = await _claude.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=300,
-            system=system_prompt,
-            messages=[{"role": "user", "content": opening_cue}],
-        )
-        opening = message.content[0].text
-    except Exception as e:
-        raise HTTPException(502, f"AI service error: {e}")
+    opening = await _sim_ai_call(system_prompt, [{"role": "user", "content": opening_cue}], max_tokens=300)
 
     # Encode session context as a signed token (simple JSON for now — no secrets needed since it's educational)
     import base64
@@ -394,16 +438,14 @@ async def chat_with_virtual_patient(
     history = session_data.get("history", [])
     history.append({"role": "user", "content": data.message})
 
-    try:
-        message = await _claude.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=400,
-            system=session_data["system_prompt"],
-            messages=history[-20:],  # keep last 20 turns
-        )
-        reply = message.content[0].text
-    except Exception as e:
-        raise HTTPException(502, f"AI service error: {e}")
+    # Apply language from request if provided (overrides session)
+    system_prompt = session_data["system_prompt"]
+    if data.language:
+        lang_name = LANGUAGE_NAMES_SIM.get(data.language, "English")
+        if lang_name != "English" and "LANGUAGE:" not in system_prompt:
+            system_prompt += f"\nLANGUAGE: Always respond in {lang_name}."
+
+    reply = await _sim_ai_call(system_prompt, history[-20:], max_tokens=400)
 
     history.append({"role": "assistant", "content": reply})
 
@@ -454,15 +496,7 @@ async def evaluate_virtual_patient_session(
         "Format your response as structured markdown."
     )
 
-    try:
-        message = await _claude.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=800,
-            messages=[{"role": "user", "content": eval_prompt}],
-        )
-        evaluation = message.content[0].text
-    except Exception as e:
-        raise HTTPException(502, f"AI service error: {e}")
+    evaluation = await _sim_ai_call("You are a medical education evaluator.", [{"role": "user", "content": eval_prompt}], max_tokens=800)
 
     return {
         "evaluation": evaluation,

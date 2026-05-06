@@ -4,14 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import { aiApi, contentApi, API_URL } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
-const MODES = [
-  { value: "tutor", label: "🎓 Tutor", desc: "Explain & teach" },
-  { value: "socratic", label: "❓ Socratic", desc: "Guided questions" },
-  { value: "case", label: "🩺 Case", desc: "Clinical reasoning" },
-  { value: "exam", label: "📝 Exam", desc: "Test knowledge" },
-];
+// MODES is defined inside component so t() is available
+
 
 type Message = {
   role: "user" | "assistant";
@@ -21,7 +17,15 @@ type Message = {
 
 export default function AiTutorPage() {
   const t = useT();
+  const { locale } = useI18n();
   const { user } = useAuthStore();
+
+  const MODES = [
+    { value: "tutor", label: `🎓 ${t("ai_tutor.mode_tutor")}`, desc: t("ai_tutor.mode_tutor_desc") },
+    { value: "socratic", label: `❓ ${t("ai_tutor.mode_socratic")}`, desc: t("ai_tutor.mode_socratic_desc") },
+    { value: "case", label: `🩺 ${t("ai_tutor.mode_case")}`, desc: t("ai_tutor.mode_case_desc") },
+    { value: "exam", label: `📝 ${t("ai_tutor.mode_exam")}`, desc: t("ai_tutor.mode_exam_desc") },
+  ];
   const [mode, setMode] = useState("tutor");
   const [specialty, setSpecialty] = useState("");
   const [specialties, setSpecialties] = useState<any[]>([]);
@@ -68,6 +72,7 @@ export default function AiTutorPage() {
           mode,
           specialty: specialty || undefined,
           conversation_id: conversationId ?? undefined,
+          language: locale || "en",
         }),
       });
 
@@ -256,7 +261,7 @@ export default function AiTutorPage() {
             onClick={clearChat}
             className="text-ink-3 hover:text-ink font-syne text-xs transition-colors"
           >
-            Clear
+            {t("ai_tutor.clear")}
           </button>
         </div>
 
@@ -265,21 +270,21 @@ export default function AiTutorPage() {
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <div className="text-5xl mb-4">🤖</div>
-              <h2 className="font-syne font-bold text-xl text-ink mb-2">How can I help you today?</h2>
+              <h2 className="font-syne font-bold text-xl text-ink mb-2">{t("ai_tutor.welcome_title")}</h2>
               <p className="font-serif text-ink-3 text-sm max-w-sm">
-                Ask me anything about medicine. I can explain concepts, guide you through clinical cases, or test your knowledge.
+                {t("ai_tutor.welcome_sub")}
               </p>
               {isFree && (
                 <div className="mt-4 px-4 py-2 bg-amber-light border border-amber/30 rounded text-xs font-syne text-amber">
-                  Free plan: 5 questions/day. Upgrade for unlimited access.
+                  {t("ai_tutor.free_limit")}
                 </div>
               )}
               <div className="mt-6 flex flex-wrap gap-2 justify-center max-w-md">
                 {[
-                  "Explain the pathophysiology of heart failure",
-                  "What are the signs of meningitis?",
-                  "Walk me through an MI case",
-                  "MCQ on pharmacology",
+                  t("ai_tutor.suggestions.heart_failure"),
+                  t("ai_tutor.suggestions.meningitis"),
+                  t("ai_tutor.suggestions.mi_case"),
+                  t("ai_tutor.suggestions.pharmacology"),
                 ].map((q) => (
                   <button
                     key={q}
@@ -395,7 +400,7 @@ export default function AiTutorPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask a medical question… (Enter to send, Shift+Enter for new line)"
+              placeholder={t("ai_tutor.input_placeholder")}
               rows={1}
               className="flex-1 resize-none px-3.5 py-2.5 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink-3 transition-colors leading-relaxed"
               style={{ maxHeight: "120px", overflowY: "auto" }}

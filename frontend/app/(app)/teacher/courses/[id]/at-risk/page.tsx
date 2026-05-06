@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface AtRiskStudent {
   student_id: string;
@@ -49,6 +50,7 @@ function daysSince(dateStr: string | null): string {
 }
 
 export default function AtRiskPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<AtRiskData | null>(null);
   const [loading, setLoading] = useState(true);

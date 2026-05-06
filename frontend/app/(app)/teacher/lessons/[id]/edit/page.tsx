@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { teacherApi, imagingApi } from "@/lib/api";
 import { MediaPickerModal } from "@/components/ui/MediaPickerModal";
+import { useT } from "@/lib/i18n";
 
 const LOCALE_FLAGS: Record<string, string> = {
   ru: "🇷🇺", ar: "🇸🇦", tr: "🇹🇷", de: "🇩🇪", fr: "🇫🇷", es: "🇪🇸",
@@ -142,6 +143,7 @@ function QuizBlockEditor({
   block: Block;
   onChange: (b: Block) => void;
 }) {
+  const t = useT();
   const c = block.content as QuizContent;
   const opts = c.options ?? { A: "", B: "", C: "", D: "" };
 
@@ -173,7 +175,7 @@ function QuizBlockEditor({
         ))}
       </div>
       <div className="flex items-center gap-3">
-        <span className="font-syne text-xs text-ink-3 shrink-0">Correct answer:</span>
+        <span className="font-syne text-xs text-ink-3 shrink-0">{t("teacher.lessons.correct_answer")}</span>
         <select
           value={c.correct ?? "A"}
           onChange={(e) => onChange({ ...block, content: { ...c, correct: e.target.value } })}
@@ -202,6 +204,7 @@ function CaseBlockEditor({
   block: Block;
   onChange: (b: Block) => void;
 }) {
+  const t = useT();
   const c = block.content as CaseContent;
   const questions = c.questions ?? [""];
   const points = c.teaching_points ?? [""];
@@ -225,7 +228,7 @@ function CaseBlockEditor({
   return (
     <div className="space-y-3">
       <div>
-        <label className="block font-syne text-xs text-ink-3 mb-1">Patient presentation *</label>
+        <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons.patient_presentation")} *</label>
         <textarea
           value={c.presentation ?? ""}
           onChange={(e) => onChange({ ...block, content: { ...c, presentation: e.target.value } })}
@@ -235,7 +238,7 @@ function CaseBlockEditor({
         />
       </div>
       <div>
-        <label className="block font-syne text-xs text-ink-3 mb-1">Discussion questions</label>
+        <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons.discussion_questions")}</label>
         {questions.map((q, i) => (
           <div key={i} className="flex gap-1.5 mb-1">
             <input
@@ -253,7 +256,7 @@ function CaseBlockEditor({
         <button onClick={() => addItem("questions")} className="text-xs text-ink-3 font-syne hover:text-ink">+ Add question</button>
       </div>
       <div>
-        <label className="block font-syne text-xs text-ink-3 mb-1">Teaching points</label>
+        <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons.teaching_points")}</label>
         {points.map((p, i) => (
           <div key={i} className="flex gap-1.5 mb-1">
             <input
@@ -286,6 +289,7 @@ function ImageBlockEditor({
   lessonId: string;
   lessonTitle?: string;
 }) {
+  const t = useT();
   const c = block.content as ImageContent;
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -354,7 +358,7 @@ function ImageBlockEditor({
               >
                 <span className="text-lg">🩻</span>
                 <div className="text-left">
-                  <div className="font-syne font-semibold text-xs text-blue">Browse Library</div>
+                  <div className="font-syne font-semibold text-xs text-blue">{t("teacher.lessons.browse_library")}</div>
                   <div className="font-serif text-[10px] text-ink-3">X-Ray, CT, MRI…</div>
                 </div>
               </button>
@@ -369,7 +373,7 @@ function ImageBlockEditor({
                     <div className="font-syne font-semibold text-xs text-green">
                       {loadingSuggestions ? "Searching…" : "Suggest Images"}
                     </div>
-                    <div className="font-serif text-[10px] text-ink-3">Based on lesson topic</div>
+                    <div className="font-serif text-[10px] text-ink-3">{t("teacher.lessons.based_on_lesson_topic")}</div>
                   </div>
                 </button>
               )}
@@ -908,6 +912,7 @@ function editorStateToContent(title: string, blocks: Block[], minutes: number, o
 }
 
 export default function LessonEditPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
@@ -1255,7 +1260,7 @@ export default function LessonEditPage() {
       {/* ── Add block ──────────────────────────────────────────── */}
       {!isArchived && (
         <div className="card p-3 mb-4">
-          <p className="font-syne text-xs text-ink-3 mb-2">Add block</p>
+          <p className="font-syne text-xs text-ink-3 mb-2">{t("teacher.lessons.add_block")}</p>
           <div className="flex gap-2 flex-wrap">
             {(["text", "quiz", "case", "image", "anatomy_3d", "flashcard", "dosage_table"] as BlockType[]).map((type) => (
               <button

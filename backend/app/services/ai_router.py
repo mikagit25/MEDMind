@@ -476,6 +476,12 @@ async def route_ai_request(
     }
 
 
+LANGUAGE_NAMES = {
+    "ru": "Russian", "ar": "Arabic", "tr": "Turkish",
+    "de": "German", "fr": "French", "es": "Spanish", "en": "English",
+}
+
+
 async def route_ai_stream(
     user: User,
     message: str,
@@ -484,6 +490,7 @@ async def route_ai_stream(
     mode: str,
     pubmed_context: str = "",
     progress_context: str = "",
+    language: str | None = None,
 ):
     """Async generator that yields SSE chunks.
 
@@ -491,10 +498,21 @@ async def route_ai_stream(
     Falls back gracefully if primary backend unavailable.
     """
     mode_instruction = SYSTEM_PROMPTS.get(mode, SYSTEM_PROMPTS["tutor"])
+
+    # Language instruction — always respond in user's chosen language
+    lang_name = LANGUAGE_NAMES.get(language or "en", "English")
+    lang_instruction = (
+        f"\n\nIMPORTANT: Always respond in {lang_name}, regardless of the language "
+        f"the user types in. If the user switches languages, still reply in {lang_name}."
+        if lang_name != "English"
+        else ""
+    )
+
     system_prompt = (
         f"You are MedMind AI, an expert medical education assistant specializing in {specialty}.\n\n"
         f"{mode_instruction}\n\n"
         "Format with markdown headers (###) and bullets. Keep responses educational and precise."
+        f"{lang_instruction}"
     )
     if progress_context:
         system_prompt += progress_context

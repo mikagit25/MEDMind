@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { complianceApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 const CONSENT_LABELS: Record<string, { label: string; description: string }> = {
   data_processing: {

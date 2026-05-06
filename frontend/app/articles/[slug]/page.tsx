@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
-export const revalidate = 3600;
+// Force dynamic rendering so searchParams (locale) are always respected
+export const dynamic = "force-dynamic";
 
 const LOCALE_LABELS: Record<string, string> = {
   en: "English",
@@ -70,7 +72,8 @@ async function fetchArticle(slug: string, locale?: string): Promise<ArticleDetai
     const url = locale && locale !== "en"
       ? `${API_URL}/articles/${slug}?locale=${locale}`
       : `${API_URL}/articles/${slug}`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    // no-store: article content is locale-dependent (dynamic) and translates over time
+    const res = await fetch(url, { cache: "no-store" });
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
@@ -82,7 +85,7 @@ async function fetchArticle(slug: string, locale?: string): Promise<ArticleDetai
 async function fetchAvailableLocales(slug: string): Promise<string[]> {
   try {
     const res = await fetch(`${API_URL}/articles/${slug}/available-locales`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -163,7 +166,9 @@ export async function generateMetadata({
   params: { slug: string };
   searchParams?: { lang?: string; locale?: string };
 }): Promise<Metadata> {
-  const locale = searchParams?.lang || searchParams?.locale;
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const rawLocale = searchParams?.lang || searchParams?.locale;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const article = await fetchArticle(params.slug, locale);
   if (!article) return { title: "Article not found" };
 
@@ -438,6 +443,17 @@ function renderBlock(
   }
 }
 
+// Simple server-side labels (SSR can't use useT hook)
+const SERVER_LABELS: Record<string, Record<string, string>> = {
+  en: { faq: "{ui.faq}", refs: "References", disclaimer: "Medical Disclaimer", related: "Related Articles", read_in: "Read in", module: "Study this topic in-depth", open_module: "Open module →" },
+  ru: { faq: "Часто задаваемые вопросы", refs: "Источники", disclaimer: "Медицинский дисклеймер", related: "Похожие статьи", read_in: "Читать на", module: "Изучить тему подробнее", open_module: "Открыть модуль →" },
+  de: { faq: "Häufig gestellte Fragen", refs: "Referenzen", disclaimer: "Medizinischer Haftungsausschluss", related: "Verwandte Artikel", read_in: "Lesen auf", module: "Dieses Thema vertiefen", open_module: "Modul öffnen →" },
+  fr: { faq: "Questions fréquemment posées", refs: "Références", disclaimer: "Avertissement médical", related: "Articles connexes", read_in: "Lire en", module: "Approfondir ce sujet", open_module: "Ouvrir le module →" },
+  ar: { faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة" },
+  tr: { faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →" },
+  es: { faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →" },
+};
+
 export default async function ArticlePage({
   params,
   searchParams,
@@ -445,7 +461,12 @@ export default async function ArticlePage({
   params: { slug: string };
   searchParams?: { lang?: string; locale?: string };
 }) {
-  const locale = searchParams?.lang || searchParams?.locale;
+  // 1. Explicit lang param wins; 2. fall back to user's cookie locale
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+  const cookieLocale = cookies().get("medmind_locale")?.value;
+  const rawLocale = searchParams?.lang || searchParams?.locale || cookieLocale;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
+  const ui = SERVER_LABELS[locale] ?? SERVER_LABELS.en;
   const [article, availableLocales, related, nav, linkMap] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),
@@ -580,7 +601,7 @@ export default async function ArticlePage({
           {/* Sources */}
           {article.sources?.length > 0 && (
             <section className="mt-10 border-t border-border pt-6">
-              <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">References</h2>
+              <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">{ui.refs}</h2>
               <ol className="space-y-2">
                 {article.sources.map((src, i) => (
                   <li key={i} className="flex items-start gap-2 text-xs font-serif text-ink-3">
@@ -603,7 +624,7 @@ export default async function ArticlePage({
 
           {/* Medical disclaimer */}
           <div className="mt-10 bg-surface-2 border border-border rounded-lg px-5 py-4 text-xs font-serif text-ink-3">
-            <strong className="font-syne font-semibold text-ink-2">Medical Disclaimer:</strong>{" "}
+            <strong className="font-syne font-semibold text-ink-2">{ui.disclaimer}:</strong>{" "}
             This article is for educational purposes only and does not constitute medical advice.
             Always consult a qualified healthcare professional for diagnosis and treatment.
           </div>

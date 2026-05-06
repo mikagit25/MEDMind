@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { imagingApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 type Image = {
   id: string;

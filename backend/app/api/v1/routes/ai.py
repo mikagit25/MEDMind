@@ -337,6 +337,7 @@ async def ask_ai_stream(
                 mode=data.mode,
                 pubmed_context=pubmed_context,
                 progress_context=progress_context,
+                language=data.language,
             ):
                 if chunk.get("type") == "text":
                     text = chunk["text"]
