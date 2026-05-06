@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 const SPECIALTIES = [
   { code: "cardiology", name: "Cardiology" },
@@ -20,7 +21,6 @@ const SPECIALTIES = [
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
-// ─── Lesson templates ──────────────────────────────────────────────────────
 const TEMPLATES = [
   {
     id: "pharmacology",
@@ -110,6 +110,7 @@ const TEMPLATES = [
 ];
 
 function NewLessonInner() {
+  const t = useT();
   const router = useRouter();
   const searchParams = useSearchParams();
   const moduleId = searchParams.get("module_id") ?? "";
@@ -119,12 +120,10 @@ function NewLessonInner() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Manual form
   const [manualTitle, setManualTitle] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [manualMinutes, setManualMinutes] = useState(20);
 
-  // AI form
   const [aiTitle, setAiTitle] = useState("");
   const [aiSpecialty, setAiSpecialty] = useState("");
   const [aiConcepts, setAiConcepts] = useState("");
@@ -139,7 +138,7 @@ function NewLessonInner() {
     setLoading(true);
     setError("");
     try {
-      const tmpl = TEMPLATES.find((t) => t.id === selectedTemplate);
+      const tmpl = TEMPLATES.find((tpl) => tpl.id === selectedTemplate);
       const content = tmpl
         ? { ...tmpl.content, title: manualTitle.trim(), estimated_minutes: manualMinutes }
         : {
@@ -155,7 +154,7 @@ function NewLessonInner() {
       });
       router.push(`/teacher/lessons/${lesson.id}/edit`);
     } catch {
-      setError("Failed to create lesson.");
+      setError(t("teacher.lessons.create.failed"));
       setLoading(false);
     }
   }
@@ -177,7 +176,7 @@ function NewLessonInner() {
       });
       router.push(`/teacher/lessons/${lesson.id}/edit`);
     } catch (e: any) {
-      setError(e?.response?.data?.detail ?? "AI generation failed. Try again.");
+      setError(e?.response?.data?.detail ?? t("teacher.lessons.create.failed"));
       setLoading(false);
     }
   }
@@ -186,9 +185,9 @@ function NewLessonInner() {
     <div className="p-4 max-w-2xl mx-auto">
       <div className="mb-5">
         <Link href={moduleId ? `/teacher/modules/${moduleId}` : "/teacher/modules"} className="text-ink-3 text-sm font-syne hover:text-ink">
-          ← Module
+          {t("teacher.lessons.create.back_module")}
         </Link>
-        <h1 className="font-syne font-black text-2xl text-ink mt-2">New Lesson</h1>
+        <h1 className="font-syne font-black text-2xl text-ink mt-2">{t("teacher.lessons.create.title")}</h1>
       </div>
 
       {/* Mode toggle */}
@@ -197,13 +196,13 @@ function NewLessonInner() {
           onClick={() => setMode("manual")}
           className={`flex-1 py-2 rounded-lg font-syne font-semibold text-sm transition-colors ${mode === "manual" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
         >
-          Manual
+          {t("teacher.lessons.create.mode_manual")}
         </button>
         <button
           onClick={() => setMode("ai")}
           className={`flex-1 py-2 rounded-lg font-syne font-semibold text-sm transition-colors ${mode === "ai" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
         >
-          AI Generate
+          {t("teacher.lessons.create.mode_ai")}
         </button>
       </div>
 
@@ -217,12 +216,14 @@ function NewLessonInner() {
         <form onSubmit={handleManual} className="space-y-4">
           <div className="card p-5 space-y-4">
             <div>
-              <label className="block font-syne font-semibold text-sm text-ink mb-1">Title *</label>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">
+                {t("teacher.lessons.lesson_title")} *
+              </label>
               <input
                 type="text"
                 value={manualTitle}
                 onChange={(e) => setManualTitle(e.target.value)}
-                placeholder="Lesson title"
+                placeholder={t("teacher.lessons.lesson_title")}
                 required
                 minLength={2}
                 maxLength={300}
@@ -230,7 +231,9 @@ function NewLessonInner() {
               />
             </div>
             <div>
-              <label className="block font-syne font-semibold text-sm text-ink mb-1">Estimated minutes</label>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">
+                {t("teacher.lessons.create.est_minutes")}
+              </label>
               <input
                 type="number"
                 value={manualMinutes}
@@ -245,32 +248,33 @@ function NewLessonInner() {
           {/* Template picker */}
           <div>
             <p className="font-syne font-semibold text-sm text-ink mb-2">
-              Start from template <span className="text-ink-3 font-normal">(optional)</span>
+              {t("teacher.lessons.create.template_label")}{" "}
+              <span className="text-ink-3 font-normal">({t("teacher.lessons.create.template_optional")})</span>
             </p>
             <div className="grid grid-cols-2 gap-2">
-              {TEMPLATES.map((t) => (
+              {TEMPLATES.map((tpl) => (
                 <button
-                  key={t.id}
+                  key={tpl.id}
                   type="button"
-                  onClick={() => setSelectedTemplate(selectedTemplate === t.id ? null : t.id)}
+                  onClick={() => setSelectedTemplate(selectedTemplate === tpl.id ? null : tpl.id)}
                   className={`text-left p-3 rounded-xl border transition-colors ${
-                    selectedTemplate === t.id
+                    selectedTemplate === tpl.id
                       ? "border-ink bg-ink text-white"
                       : "border-border bg-surface hover:border-ink-3"
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-lg">{t.icon}</span>
-                    <span className="font-syne font-semibold text-sm">{t.label}</span>
+                    <span className="text-lg">{tpl.icon}</span>
+                    <span className="font-syne font-semibold text-sm">{tpl.label}</span>
                   </div>
-                  <p className={`font-serif text-xs ${selectedTemplate === t.id ? "text-white/70" : "text-ink-3"}`}>
-                    {t.description}
+                  <p className={`font-serif text-xs ${selectedTemplate === tpl.id ? "text-white/70" : "text-ink-3"}`}>
+                    {tpl.description}
                   </p>
                 </button>
               ))}
             </div>
             {!selectedTemplate && (
-              <p className="font-serif text-xs text-ink-3 mt-2">No template — starts with a blank text block.</p>
+              <p className="font-serif text-xs text-ink-3 mt-2">{t("teacher.lessons.create.template_none")}</p>
             )}
           </div>
 
@@ -279,20 +283,22 @@ function NewLessonInner() {
             disabled={loading || !manualTitle.trim()}
             className="w-full btn-primary py-2.5 rounded-lg font-syne font-semibold text-sm disabled:opacity-50"
           >
-            {loading ? "Creating..." : "Create & Open Editor"}
+            {loading ? t("teacher.lessons.create.creating") : t("teacher.lessons.create.create_open")}
           </button>
         </form>
       ) : (
         <form onSubmit={handleAiGenerate} className="card p-5 space-y-4">
           <div className="p-3 rounded-lg bg-blue-light border border-blue/20">
-            <p className="font-syne font-semibold text-sm text-blue mb-0.5">AI Generation</p>
+            <p className="font-syne font-semibold text-sm text-blue mb-0.5">{t("teacher.lessons.create.ai_gen_title")}</p>
             <p className="font-serif text-xs text-ink-3">
-              Claude will generate a complete, evidence-based lesson draft. You can edit it afterwards.
+              {t("teacher.lessons.create.ai_gen_desc")}
             </p>
           </div>
 
           <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Lesson title *</label>
+            <label className="block font-syne font-semibold text-sm text-ink mb-1">
+              {t("teacher.lessons.lesson_title")} *
+            </label>
             <input
               type="text"
               value={aiTitle}
@@ -307,14 +313,16 @@ function NewLessonInner() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-syne font-semibold text-sm text-ink mb-1">Specialty *</label>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">
+                {t("teacher.lessons.create.spec_label")} *
+              </label>
               <select
                 value={aiSpecialty}
                 onChange={(e) => setAiSpecialty(e.target.value)}
                 required
                 className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
               >
-                <option value="">Select specialty</option>
+                <option value="">{t("teacher.lessons.create.select_spec")}</option>
                 {SPECIALTIES.map((s) => (
                   <option key={s.code} value={s.name}>{s.name}</option>
                 ))}
@@ -322,7 +330,9 @@ function NewLessonInner() {
             </div>
 
             <div>
-              <label className="block font-syne font-semibold text-sm text-ink mb-1">Level</label>
+              <label className="block font-syne font-semibold text-sm text-ink mb-1">
+                {t("teacher.lessons.create.level_label")}
+              </label>
               <select
                 value={aiLevel}
                 onChange={(e) => setAiLevel(e.target.value)}
@@ -337,7 +347,8 @@ function NewLessonInner() {
 
           <div>
             <label className="block font-syne font-semibold text-sm text-ink mb-1">
-              Key concepts <span className="text-ink-3 font-normal">(comma separated)</span>
+              {t("teacher.lessons.create.key_concepts")}{" "}
+              <span className="text-ink-3 font-normal">({t("teacher.lessons.create.key_concepts_hint")})</span>
             </label>
             <input
               type="text"
@@ -349,7 +360,9 @@ function NewLessonInner() {
           </div>
 
           <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Estimated minutes</label>
+            <label className="block font-syne font-semibold text-sm text-ink mb-1">
+              {t("teacher.lessons.create.est_minutes")}
+            </label>
             <input
               type="number"
               value={aiMinutes}
@@ -368,7 +381,7 @@ function NewLessonInner() {
                 onChange={(e) => setIncludeQuiz(e.target.checked)}
                 className="w-4 h-4"
               />
-              <span className="font-syne text-sm text-ink">Include quiz blocks</span>
+              <span className="font-syne text-sm text-ink">{t("teacher.lessons.create.include_quiz")}</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -377,7 +390,7 @@ function NewLessonInner() {
                 onChange={(e) => setIncludeCase(e.target.checked)}
                 className="w-4 h-4"
               />
-              <span className="font-syne text-sm text-ink">Include clinical case</span>
+              <span className="font-syne text-sm text-ink">{t("teacher.lessons.create.include_case")}</span>
             </label>
           </div>
 
@@ -386,7 +399,7 @@ function NewLessonInner() {
             disabled={loading || !aiTitle.trim() || !aiSpecialty}
             className="w-full btn-primary py-2.5 rounded-lg font-syne font-semibold text-sm disabled:opacity-50"
           >
-            {loading ? "Generating with AI... (may take 20–40s)" : "Generate Lesson with AI"}
+            {loading ? t("teacher.lessons.create.generating") : t("teacher.lessons.create.generate_ai")}
           </button>
         </form>
       )}

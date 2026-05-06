@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { api, teacherApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 interface LessonStat {
   lesson_id: string;
@@ -32,6 +33,7 @@ interface CourseModule {
 }
 
 export default function CourseAnalyticsPage() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const searchParams = useSearchParams();
   const preselectedModule = searchParams.get("module");
@@ -44,7 +46,6 @@ export default function CourseAnalyticsPage() {
   const [error, setError] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
 
-  // Load course modules
   useEffect(() => {
     teacherApi.getCourse(id)
       .then((course: any) => {
@@ -62,7 +63,6 @@ export default function CourseAnalyticsPage() {
       .finally(() => setLoading(false));
   }, [id, preselectedModule]);
 
-  // Load analytics when module selected
   useEffect(() => {
     if (!selectedModuleId) return;
     setLoadingStats(true);
@@ -103,22 +103,22 @@ export default function CourseAnalyticsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
       <Link href={`/teacher/courses/${id}`} className="text-xs text-ink-3 hover:text-ink font-syne mb-4 inline-block">
-        ← Back to {courseTitle || "course"}
+        {t("teacher.analytics.back")} {courseTitle || "course"}
       </Link>
 
       <div className="flex items-start justify-between mb-4 gap-3">
         <div>
-          <h1 className="font-syne font-black text-2xl text-ink">Course Analytics</h1>
-          <p className="font-serif text-ink-3 text-sm">Per-module lesson engagement</p>
+          <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.analytics.title")}</h1>
+          <p className="font-serif text-ink-3 text-sm">{t("teacher.analytics.subtitle")}</p>
         </div>
         <div className="flex gap-2 shrink-0">
           <Link href={`/teacher/courses/${id}/at-risk`}
             className="text-xs font-syne text-amber border border-amber/30 rounded px-3 py-1.5 hover:bg-amber-light transition-colors">
-            ⚠️ At-Risk
+            ⚠️ {t("teacher.courses.at_risk")}
           </Link>
           <Link href={`/teacher/courses/${id}/insights`}
             className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-1.5 hover:border-ink-3 transition-colors">
-            📊 Insights
+            📊 {t("teacher.courses.insights")}
           </Link>
         </div>
       </div>
@@ -129,8 +129,8 @@ export default function CourseAnalyticsPage() {
 
       {courseModules.length === 0 ? (
         <div className="card p-8 text-center">
-          <div className="text-3xl mb-2">📊</div>
-          <div className="font-syne font-semibold text-ink">No modules in this course</div>
+          <div className="text-3xl mb-2">{t("teacher.analytics.no_modules_icon")}</div>
+          <div className="font-syne font-semibold text-ink">{t("teacher.analytics.no_modules")}</div>
         </div>
       ) : (
         <>
@@ -150,7 +150,7 @@ export default function CourseAnalyticsPage() {
                 onClick={exportCSV}
                 className="text-xs font-syne text-ink-3 border border-border rounded px-3 py-2 hover:border-ink-3 transition-colors shrink-0"
               >
-                ⬇ CSV
+                ⬇ {t("teacher.analytics.export_csv")}
               </button>
             )}
           </div>
@@ -163,7 +163,7 @@ export default function CourseAnalyticsPage() {
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="card text-center py-4">
                   <div className="font-syne font-black text-2xl text-ink">{stats.total_students}</div>
-                  <div className="font-serif text-xs text-ink-3 mt-0.5">Enrolled students</div>
+                  <div className="font-serif text-xs text-ink-3 mt-0.5">{t("teacher.analytics.enrolled")}</div>
                 </div>
                 <div className="card text-center py-4">
                   <div className={`font-syne font-black text-2xl ${
@@ -172,17 +172,17 @@ export default function CourseAnalyticsPage() {
                   }`}>
                     {stats.avg_completion_rate}%
                   </div>
-                  <div className="font-serif text-xs text-ink-3 mt-0.5">Avg completion</div>
+                  <div className="font-serif text-xs text-ink-3 mt-0.5">{t("teacher.analytics.avg_completion")}</div>
                 </div>
                 <div className="card text-center py-4">
                   <div className="font-syne font-black text-2xl text-ink">{stats.lessons.length}</div>
-                  <div className="font-serif text-xs text-ink-3 mt-0.5">Total lessons</div>
+                  <div className="font-serif text-xs text-ink-3 mt-0.5">{t("teacher.analytics.total_lessons")}</div>
                 </div>
               </div>
 
               {/* Bar chart funnel */}
               <div className="card p-5 mb-4">
-                <h2 className="font-syne font-bold text-sm text-ink mb-4">Completion Funnel</h2>
+                <h2 className="font-syne font-bold text-sm text-ink mb-4">{t("teacher.analytics.funnel")}</h2>
                 <div className="space-y-3">
                   {stats.lessons.map((lesson, i) => {
                     const isDropOff = lesson.lesson_id === stats.drop_off_lesson_id;
@@ -200,7 +200,7 @@ export default function CourseAnalyticsPage() {
                             {isDropOff && <span className="text-xs shrink-0">⚠</span>}
                           </div>
                           <div className="flex items-center gap-3 shrink-0">
-                            <span className="font-syne text-xs text-ink-3">{lesson.completions} done</span>
+                            <span className="font-syne text-xs text-ink-3">{lesson.completions} {t("teacher.analytics.done")}</span>
                             <span className={`font-syne font-bold text-xs ${
                               ratePct >= 70 ? "text-green" : ratePct >= 40 ? "text-amber" : "text-red"
                             }`}>{ratePct}%</span>
@@ -220,7 +220,7 @@ export default function CourseAnalyticsPage() {
                 {stats.drop_off_lesson_id && (
                   <div className="mt-4 p-3 rounded-lg bg-amber-light/60 border border-amber/20">
                     <p className="font-syne font-semibold text-xs text-amber">
-                      ⚠ Drop-off detected — students are stopping at this lesson. Consider simplifying it or adding more context.
+                      ⚠ {t("teacher.analytics.drop_off")}
                     </p>
                   </div>
                 )}
@@ -229,15 +229,15 @@ export default function CourseAnalyticsPage() {
               {/* Detailed lesson table */}
               <div className="card overflow-hidden">
                 <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-                  <h2 className="font-syne font-bold text-sm text-ink">Lesson Detail</h2>
+                  <h2 className="font-syne font-bold text-sm text-ink">{t("teacher.analytics.detail")}</h2>
                 </div>
                 <div className="divide-y divide-border">
                   <div className="grid grid-cols-12 gap-2 px-4 py-2 bg-surface text-xs font-syne text-ink-3">
-                    <div className="col-span-4">Lesson</div>
-                    <div className="col-span-2 text-center">Status</div>
-                    <div className="col-span-2 text-center">Completions</div>
-                    <div className="col-span-2 text-center">Rate</div>
-                    <div className="col-span-2 text-center">Avg Quiz</div>
+                    <div className="col-span-4">{t("teacher.analytics.col_lesson")}</div>
+                    <div className="col-span-2 text-center">{t("teacher.analytics.col_status")}</div>
+                    <div className="col-span-2 text-center">{t("teacher.analytics.col_completions")}</div>
+                    <div className="col-span-2 text-center">{t("teacher.analytics.col_rate")}</div>
+                    <div className="col-span-2 text-center">{t("teacher.analytics.col_avg_quiz")}</div>
                   </div>
                   {stats.lessons.map((lesson, i) => {
                     const quizScore = lesson.avg_quiz_score;
