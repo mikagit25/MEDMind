@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AchievementToast, AchievementToastData } from "@/components/ui/AchievementToast";
-import { achievementsApi } from "@/lib/api";
+import { achievementsApi, authApi } from "@/lib/api";
 
 const ACHIEVEMENT_META: Record<string, { name: string; icon: string; xp: number }> = {
   first_lesson:    { name: "First Steps",        icon: "🎓", xp: 50 },
@@ -21,24 +21,73 @@ const ACHIEVEMENT_META: Record<string, { name: string; icon: string; xp: number 
 };
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, _hasHydrated, setAuth, logout } = useAuthStore();
   const { darkMode } = useUIStore();
   const router = useRouter();
   const [toast, setToast] = useState<AchievementToastData | null>(null);
+  const [tokenChecked, setTokenChecked] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
+  // After Zustand hydrates, validate/refresh the token silently
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/login");
-    } else if (user && !user.onboarding_completed) {
+    if (!_hasHydrated) return;
+
+    async function validateSession() {
+      const storedAccess = typeof window !== "undefined"
+        ? localStorage.getItem("access_token")
+        : null;
+
+      if (!isAuthenticated || !storedAccess) {
+        // No session at all — go to login
+        setTokenChecked(true);
+        router.push("/login");
+        return;
+      }
+
+      // Try to call /auth/me with the current token
+      try {
+        const me = await authApi.me();
+        // Token is valid — update user data in store (might have changed)
+        setAuth(me, storedAccess, localStorage.getItem("refresh_token") ?? "");
+        setTokenChecked(true);
+      } catch (err: any) {
+        if (err?.response?.status === 401) {
+          // Token expired — try to refresh
+          const refreshToken = localStorage.getItem("refresh_token");
+          if (refreshToken) {
+            try {
+              const res = await authApi.refresh(refreshToken);
+              setAuth(res.user ?? user!, res.access_token, res.refresh_token);
+              setTokenChecked(true);
+              return;
+            } catch {
+              // Refresh also failed — really log out
+            }
+          }
+          logout();
+          router.push("/login");
+        } else {
+          // Network error — keep the session, don't force logout
+          setTokenChecked(true);
+        }
+      }
+    }
+
+    validateSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_hasHydrated]);
+
+  // Redirect to onboarding if not completed
+  useEffect(() => {
+    if (tokenChecked && isAuthenticated && user && !user.onboarding_completed) {
       router.push("/onboarding");
     }
-  }, [isAuthenticated, user, router]);
+  }, [tokenChecked, isAuthenticated, user, router]);
 
-  // Poll for new achievements after key actions
+  // Poll for new achievements
   const checkAchievements = useCallback(async () => {
     try {
       const newCodes: string[] = await achievementsApi.check();
@@ -52,15 +101,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     } catch {}
   }, []);
 
-  // Check once on mount and expose globally
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && tokenChecked) {
       checkAchievements();
       (window as any).__checkAchievements = checkAchievements;
     }
-  }, [isAuthenticated, checkAchievements]);
+  }, [isAuthenticated, tokenChecked, checkAchievements]);
 
-  if (!isAuthenticated || (user && !user.onboarding_completed)) return null;
+  // Show loading spinner while hydrating / validating token
+  if (!_hasHydrated || !tokenChecked) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-bg">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-ink/20 border-t-ink animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) return null;
 
   return (
     <div className="flex h-screen overflow-hidden bg-bg dark:bg-[#1a1814]">

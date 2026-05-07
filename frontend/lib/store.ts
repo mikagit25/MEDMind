@@ -21,9 +21,11 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
+  _hasHydrated: boolean;
   setAuth: (user: User, access: string, refresh: string) => void;
   updateUser: (data: Partial<User>) => void;
   logout: () => void;
+  setHasHydrated: (v: boolean) => void;
 }
 
 interface UIState {
@@ -39,6 +41,7 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       refreshToken: null,
       isAuthenticated: false,
+      _hasHydrated: false,
 
       setAuth: (user, access, refresh) => {
         if (typeof window !== "undefined") {
@@ -60,6 +63,8 @@ export const useAuthStore = create<AuthState>()(
         }
         set({ user: null, accessToken: null, refreshToken: null, isAuthenticated: false });
       },
+
+      setHasHydrated: (v) => set({ _hasHydrated: v }),
     }),
     {
       name: "medmind-auth",
@@ -68,7 +73,19 @@ export const useAuthStore = create<AuthState>()(
         accessToken: state.accessToken,
         refreshToken: state.refreshToken,
         isAuthenticated: state.isAuthenticated,
+        // _hasHydrated is NOT persisted — it's always false on fresh load
       }),
+      onRehydrateStorage: () => (state) => {
+        // Called when Zustand finishes loading from localStorage
+        state?.setHasHydrated(true);
+        // Also sync tokens to localStorage keys used by the API interceptor
+        if (state?.accessToken && typeof window !== "undefined") {
+          localStorage.setItem("access_token", state.accessToken);
+        }
+        if (state?.refreshToken && typeof window !== "undefined") {
+          localStorage.setItem("refresh_token", state.refreshToken);
+        }
+      },
     }
   )
 );
