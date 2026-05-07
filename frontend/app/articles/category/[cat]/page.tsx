@@ -1,56 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
+import { getCategoryLabel, CATEGORY_ICONS, CATEGORY_DESCRIPTIONS } from "@/lib/categories";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
-export const revalidate = 3600;
-
-const CATEGORY_LABELS: Record<string, string> = {
-  diseases: "Diseases & Conditions",
-  drugs: "Drugs & Medications",
-  procedures: "Procedures & Techniques",
-  symptoms: "Symptoms & Signs",
-  diagnostics: "Diagnostics & Lab Tests",
-  emergency: "Emergency Medicine",
-  nutrition: "Nutrition & Prevention",
-  pediatrics: "Pediatrics",
-  cardiology: "Cardiology",
-  neurology: "Neurology",
-  oncology: "Oncology",
-  surgery: "Surgery",
-  psychiatry: "Psychiatry",
-  endocrinology: "Endocrinology",
-  "infectious-diseases": "Infectious Diseases",
-  veterinary: "Veterinary Medicine",
-};
-
-const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-  diseases: "Evidence-based articles on medical conditions, their pathophysiology, diagnosis, and treatment.",
-  drugs: "Comprehensive drug monographs: mechanisms of action, dosing, contraindications, and interactions.",
-  procedures: "Step-by-step guides to clinical procedures and techniques used in modern medicine.",
-  symptoms: "Clinical approach to common and rare symptoms — differential diagnosis and workup.",
-  diagnostics: "Laboratory tests, imaging, and diagnostic criteria explained for clinical practice.",
-  emergency: "Rapid-reference articles on acute medical emergencies and critical care.",
-  nutrition: "Evidence-based nutritional guidelines and preventive medicine recommendations.",
-  pediatrics: "Medical content tailored to pediatric patients — growth, development, and disease management.",
-  cardiology: "Heart diseases, arrhythmias, heart failure, and cardiovascular pharmacology.",
-  neurology: "Neurological disorders, stroke, epilepsy, neurodegenerative diseases.",
-  oncology: "Cancer biology, diagnosis, staging, and treatment modalities.",
-  surgery: "Surgical principles, operative techniques, and perioperative care.",
-  psychiatry: "Mental health conditions, psychopharmacology, and psychiatric emergencies.",
-  endocrinology: "Hormonal disorders, diabetes, thyroid, adrenal, and metabolic conditions.",
-  "infectious-diseases": "Bacterial, viral, fungal, and parasitic infections — diagnosis and antimicrobial therapy.",
-  veterinary: "Veterinary medicine: animal diseases, pharmacology, and clinical techniques.",
-};
-
-const CATEGORY_ICONS: Record<string, string> = {
-  diseases: "🫀", drugs: "💊", procedures: "🔬", symptoms: "🩺",
-  diagnostics: "🧪", emergency: "🚑", nutrition: "🥗", pediatrics: "👶",
-  cardiology: "❤️", neurology: "🧠", oncology: "🎗️", surgery: "🔪",
-  psychiatry: "🧘", endocrinology: "⚗️", "infectious-diseases": "🦠", veterinary: "🐾",
-};
+export const dynamic = "force-dynamic";
 
 type Article = {
   id: string;
@@ -82,10 +40,13 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: { cat: string };
-  searchParams?: { page?: string };
+  searchParams?: { page?: string; lang?: string };
 }): Promise<Metadata> {
-  const label = CATEGORY_LABELS[params.cat];
-  if (!label) return { title: "Category not found" };
+  const cookieLocale = cookies().get("medmind_locale")?.value;
+  const rawLocale = searchParams?.lang || cookieLocale;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
+  const label = getCategoryLabel(params.cat, locale);
+  if (!label || label === params.cat) return { title: "Category not found" };
 
   const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
   const description = CATEGORY_DESCRIPTIONS[params.cat] ??
@@ -114,10 +75,13 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: { cat: string };
-  searchParams?: { page?: string };
+  searchParams?: { page?: string; lang?: string };
 }) {
-  const label = CATEGORY_LABELS[params.cat];
-  if (!label) notFound();
+  const cookieLocale = cookies().get("medmind_locale")?.value;
+  const rawLocale = searchParams?.lang || cookieLocale;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
+  const label = getCategoryLabel(params.cat, locale);
+  if (!label || label === params.cat) notFound();
 
   const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
   const result = await fetchCategory(params.cat, page);

@@ -4,44 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import { useT, useI18n } from "@/lib/i18n";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  diseases: "Diseases & Conditions",
-  drugs: "Drugs & Medications",
-  procedures: "Procedures & Techniques",
-  symptoms: "Symptoms & Signs",
-  diagnostics: "Diagnostics & Lab Tests",
-  emergency: "Emergency Medicine",
-  nutrition: "Nutrition & Prevention",
-  pediatrics: "Pediatrics",
-  cardiology: "Cardiology",
-  neurology: "Neurology",
-  oncology: "Oncology",
-  surgery: "Surgery",
-  psychiatry: "Psychiatry",
-  endocrinology: "Endocrinology",
-  "infectious-diseases": "Infectious Diseases",
-  veterinary: "Veterinary Medicine",
-};
-
-const CATEGORY_ICONS: Record<string, string> = {
-  diseases: "🫀",
-  drugs: "💊",
-  procedures: "🔬",
-  symptoms: "🩺",
-  diagnostics: "🧪",
-  emergency: "🚑",
-  nutrition: "🥗",
-  pediatrics: "👶",
-  cardiology: "❤️",
-  neurology: "🧠",
-  oncology: "🎗️",
-  surgery: "✂️",
-  psychiatry: "🧘",
-  endocrinology: "⚗️",
-  "infectious-diseases": "🦠",
-  veterinary: "🐾",
-};
+import { CATEGORY_ICONS, CATEGORY_KEY } from "@/lib/categories";
 
 type Article = {
   id: string;
@@ -150,7 +113,7 @@ export default function ArticlesPage() {
                   }`}
                 >
                   <span className="mr-1.5">{CATEGORY_ICONS[cat.category] ?? "📄"}</span>
-                  {CATEGORY_LABELS[cat.category] ?? cat.category}
+                  {CATEGORY_KEY[cat.category] ? t(`articles.${CATEGORY_KEY[cat.category]}` as any) : cat.category}
                   <span className="ml-auto float-right text-xs opacity-60">{cat.count}</span>
                 </button>
               ))}
@@ -202,7 +165,7 @@ export default function ArticlesPage() {
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-sm">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
                         <span className="font-syne font-semibold text-[10px] text-ink-3 uppercase tracking-wide">
-                          {CATEGORY_LABELS[article.category] ?? article.category}
+                          {CATEGORY_KEY[article.category] ? t(`articles.${CATEGORY_KEY[article.category]}` as any) : article.category}
                         </span>
                         {article.reading_time_minutes > 0 && (
                           <span className="ml-auto font-serif text-[10px] text-ink-3">

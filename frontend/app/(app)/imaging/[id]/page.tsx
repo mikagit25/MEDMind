@@ -240,10 +240,10 @@ export default function ImageDetailPage() {
                 📚 Study Tips
               </div>
               <ul className="font-serif text-xs text-ink-3 space-y-1 list-disc list-inside">
-                <li>Identify key anatomical landmarks first</li>
-                <li>Note any abnormalities or asymmetries</li>
-                <li>Compare with the normal anatomy in our library</li>
-                <li>Correlate imaging findings with clinical presentation</li>
+                <li>{t("imaging.imaging_tip_1")}</li>
+                <li>{t("imaging.imaging_tip_2")}</li>
+                <li>{t("imaging.imaging_tip_3")}</li>
+                <li>{t("imaging.imaging_tip_4")}</li>
               </ul>
             </div>
 

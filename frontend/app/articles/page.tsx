@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { getCategoryLabel, CATEGORY_ICONS } from "@/lib/categories";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
-export const revalidate = 3600; // ISR: re-generate every hour
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Medical Articles — Evidence-Based Health Information",
@@ -25,43 +28,6 @@ export const metadata: Metadata = {
   },
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  diseases: "Diseases & Conditions",
-  drugs: "Drugs & Medications",
-  procedures: "Procedures & Techniques",
-  symptoms: "Symptoms & Signs",
-  diagnostics: "Diagnostics & Lab Tests",
-  emergency: "Emergency Medicine",
-  nutrition: "Nutrition & Prevention",
-  pediatrics: "Pediatrics",
-  cardiology: "Cardiology",
-  neurology: "Neurology",
-  oncology: "Oncology",
-  surgery: "Surgery",
-  psychiatry: "Psychiatry",
-  endocrinology: "Endocrinology",
-  "infectious-diseases": "Infectious Diseases",
-  veterinary: "Veterinary Medicine",
-};
-
-const CATEGORY_ICONS: Record<string, string> = {
-  diseases: "🫀",
-  drugs: "💊",
-  procedures: "🔬",
-  symptoms: "🩺",
-  diagnostics: "🧪",
-  emergency: "🚑",
-  nutrition: "🥗",
-  pediatrics: "👶",
-  cardiology: "❤️",
-  neurology: "🧠",
-  oncology: "🎗️",
-  surgery: "🔪",
-  psychiatry: "🧘",
-  endocrinology: "⚗️",
-  "infectious-diseases": "🦠",
-  veterinary: "🐾",
-};
 
 type Article = {
   id: string;
@@ -106,9 +72,12 @@ async function fetchCategories(): Promise<CategoryStat[]> {
 export default async function ArticlesPage({
   searchParams,
 }: {
-  searchParams?: { search?: string };
+  searchParams?: { search?: string; lang?: string };
 }) {
   const search = searchParams?.search;
+  const cookieLocale = cookies().get("medmind_locale")?.value;
+  const rawLocale = searchParams?.lang || cookieLocale;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const [articles, categories] = await Promise.all([fetchArticles(search), fetchCategories()]);
 
   return (
@@ -178,7 +147,7 @@ export default async function ArticlesPage({
                 >
                   <span className="text-2xl">{CATEGORY_ICONS[category] ?? "📄"}</span>
                   <span className="font-syne font-semibold text-xs text-ink">
-                    {CATEGORY_LABELS[category] ?? category}
+                    {getCategoryLabel(category, locale)}
                   </span>
                   <span className="text-ink-3 text-[10px] font-serif">{count} articles</span>
                 </Link>
@@ -202,7 +171,7 @@ export default async function ArticlesPage({
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((a) => (
-                <ArticleCard key={a.id} article={a} />
+                <ArticleCard key={a.id} article={a} locale={locale} />
               ))}
             </div>
           </section>
@@ -234,7 +203,7 @@ export default async function ArticlesPage({
   );
 }
 
-function ArticleCard({ article }: { article: Article }) {
+function ArticleCard({ article, locale }: { article: Article; locale: string }) {
   return (
     <Link
       href={`/articles/${article.slug}`}
@@ -243,7 +212,7 @@ function ArticleCard({ article }: { article: Article }) {
       <div className="flex items-center gap-2 mb-3">
         <span className="text-base">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
         <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
-          {CATEGORY_LABELS[article.category] ?? article.category}
+          {getCategoryLabel(article.category, locale)}
         </span>
       </div>
       <h3 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">

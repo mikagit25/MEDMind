@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
+import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -19,24 +20,6 @@ const LOCALE_LABELS: Record<string, string> = {
   es: "Español",
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  diseases: "Diseases & Conditions",
-  drugs: "Drugs & Medications",
-  procedures: "Procedures & Techniques",
-  symptoms: "Symptoms & Signs",
-  diagnostics: "Diagnostics & Lab Tests",
-  emergency: "Emergency Medicine",
-  nutrition: "Nutrition & Prevention",
-  pediatrics: "Pediatrics",
-  cardiology: "Cardiology",
-  neurology: "Neurology",
-  oncology: "Oncology",
-  surgery: "Surgery",
-  psychiatry: "Psychiatry",
-  endocrinology: "Endocrinology",
-  "infectious-diseases": "Infectious Diseases",
-  veterinary: "Veterinary Medicine",
-};
 
 type Block =
   | { type: "h2"; content: string }
@@ -204,7 +187,7 @@ export async function generateMetadata({
       siteName: "MedMind AI",
       type: "article",
       publishedTime: article.published_at ?? undefined,
-      section: CATEGORY_LABELS[article.category] ?? article.category,
+      section: getCategoryLabel(article.category, locale),
       tags: article.keywords,
     },
     twitter: {
@@ -216,7 +199,7 @@ export async function generateMetadata({
 }
 
 // schema.org structured data
-function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo): object[] {
+function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo, locale = "en"): object[] {
   const url = `${SITE_URL}/articles/${article.slug}`;
   const base = {
     "@context": "https://schema.org",
@@ -249,7 +232,7 @@ function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo): object
       {
         "@type": "ListItem",
         position: 3,
-        name: CATEGORY_LABELS[article.category] ?? article.category,
+        name: getCategoryLabel(article.category, locale),
         item: `${SITE_URL}/articles/category/${article.category}`,
       },
       { "@type": "ListItem", position: 4, name: article.title, item: url },
@@ -481,7 +464,7 @@ export default async function ArticlePage({
     ? await fetchModuleByCode(article.related_module_code)
     : null;
 
-  const schema = buildSchemaOrg(article, moduleInfo);
+  const schema = buildSchemaOrg(article, moduleInfo, locale);
   const allLocales = ["en", ...availableLocales.filter((l) => l !== "en")];
 
   return (
@@ -519,7 +502,7 @@ export default async function ArticlePage({
             <Link href="/articles" className="hover:text-ink">Articles</Link>
             <span>/</span>
             <Link href={`/articles/category/${article.category}`} className="hover:text-ink capitalize">
-              {CATEGORY_LABELS[article.category] ?? article.category}
+              {getCategoryLabel(article.category, locale)}
             </Link>
             <span>/</span>
             <span className="text-ink-2 truncate max-w-xs">{article.title}</span>
@@ -529,7 +512,7 @@ export default async function ArticlePage({
           <div className="mb-8">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-syne font-semibold border border-border rounded-full px-3 py-0.5 text-ink-2">
-                {CATEGORY_LABELS[article.category] ?? article.category}
+                {getCategoryLabel(article.category, locale)}
               </span>
               {article.subcategory && (
                 <span className="text-xs font-syne font-semibold border border-border rounded-full px-3 py-0.5 text-ink-3">
@@ -665,7 +648,7 @@ export default async function ArticlePage({
           {related.length > 0 && (
             <section className="mt-12 border-t border-border pt-8">
               <h2 className="font-syne font-bold text-base text-ink mb-5 uppercase tracking-wide text-sm text-ink-2">
-                More in {CATEGORY_LABELS[article.category] ?? article.category}
+                {getMoreIn(locale)} {getCategoryLabel(article.category, locale)}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {related.map((r) => (
@@ -772,7 +755,7 @@ export default async function ArticlePage({
               ← All articles
             </Link>
             <Link href={`/articles/category/${article.category}`} className="mt-2 text-sm font-serif text-ink-2 hover:text-ink flex items-center gap-1">
-              More in {CATEGORY_LABELS[article.category] ?? article.category}
+              {getMoreIn(locale)} {getCategoryLabel(article.category, locale)}
             </Link>
           </div>
         </aside>
