@@ -3,7 +3,7 @@
  * No-op when NEXT_PUBLIC_GA_ID is not set.
  */
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-GPK32JQ0NJ";
 
 declare global {
   interface Window {
