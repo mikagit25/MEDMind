@@ -430,11 +430,33 @@ export const teacherApi = {
   getMyArticleStats: () =>
     api.get("/articles/my/stats").then(r => r.data),
 
+  // AI article generation (credit-gated)
+  generateArticleAI: (data: {
+    topic: string;
+    category: string;
+    model: string;
+    specialty?: string;
+    author_display_name?: string;
+    author_bio?: string;
+  }) => api.post("/articles/my/generate-ai", data).then(r => r.data),
+
   // Grade tracking
   getAssignmentGrades: (courseId: string, assignmentId: string) =>
     api.get(`/courses/${courseId}/assignments/${assignmentId}/grades`).then(r => r.data),
   upsertGrade: (courseId: string, assignmentId: string, data: { student_id: string; score: number; feedback?: string }) =>
     api.post(`/courses/${courseId}/assignments/${assignmentId}/grades`, data).then(r => r.data),
+};
+
+// ============================================================
+// CREDITS API
+// ============================================================
+export const creditsApi = {
+  getBalance: () => api.get("/credits/balance").then(r => r.data),
+  getPackages: () => api.get("/credits/packages").then(r => r.data),
+  getPricing: () => api.get("/credits/pricing").then(r => r.data),
+  getTransactions: () => api.get("/credits/transactions").then(r => r.data),
+  createCheckout: (packageId: string) =>
+    api.post("/credits/purchase/checkout", null, { params: { package_id: packageId } }).then(r => r.data),
 };
 
 // Fire-and-forget view tracking — never throws

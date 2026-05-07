@@ -204,3 +204,40 @@ def _estimate_reading_time(body: list) -> int:
         elif isinstance(block.get("items"), list):
             words += sum(len(str(i).split()) for i in block["items"])
     return max(3, round(words / 200))  # ~200 words/minute
+
+
+async def generate_article_content(
+    topic: str,
+    category: str,
+    model: str = "claude-haiku",
+    specialty: str | None = None,
+) -> Dict[str, Any]:
+    """Generate article content using the specified model.
+
+    Used by the credit-gated /articles/my/generate-ai endpoint.
+    Maps credit-system model names to internal model names:
+      'ollama'        → Ollama local
+      'claude-haiku'  → Claude Haiku
+      'claude-sonnet' → Claude Sonnet
+    """
+    from app.core.config import settings
+
+    # Map credit-system model names → internal model names
+    _model_map = {
+        "ollama": "ollama",
+        "claude-haiku": "haiku",
+        "claude-sonnet": "sonnet",
+    }
+    internal_model = _model_map.get(model, "haiku")
+
+    user_topic = topic
+    if specialty:
+        user_topic = f"{topic} (specialty: {specialty})"
+
+    return await generate_medical_article(
+        topic=user_topic,
+        category=category,
+        schema_type="MedicalWebPage",
+        language="en",
+        model=internal_model,
+    )

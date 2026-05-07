@@ -46,7 +46,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, require_admin, require_author, require_teacher
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Article, ArticleTranslation, Module, User
+from app.models.models import Article, ArticleTranslation, AuthorCreditAccount, CreditTransaction, LLMPricing, Module, User
 
 router = APIRouter(prefix="/articles", tags=["articles"])
 
@@ -84,6 +84,15 @@ class ArticleGenerateRequest(BaseModel):
     language: str = "en"
     auto_publish: bool = False
     model: str = "haiku"
+
+
+class ArticleAIGenerateRequest(BaseModel):
+    topic: str
+    category: str
+    model: str = "claude-haiku"  # 'ollama', 'claude-haiku', 'claude-sonnet'
+    specialty: Optional[str] = None
+    author_display_name: Optional[str] = None
+    author_bio: Optional[str] = None
 
 
 class ArticlePatch(BaseModel):
@@ -518,8 +527,115 @@ async def my_article_stats(
         "published_articles": len(published),
         "estimated_revenue_usd": round(total_rev, 2),
         "revenue_per_1000_views": _RPM,
+        "revenue_share_pct": 40,
         "articles": article_stats,
     }
+
+
+@router.post("/my/generate-ai", status_code=201)
+async def generate_article_ai(
+    req: ArticleAIGenerateRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_author),
+):
+    """Generate an article using AI — costs credits based on model selected."""
+    # Check pricing
+    pricing = await db.get(LLMPricing, req.model)
+    if not pricing or not pricing.is_active:
+        raise HTTPException(status_code=400, detail=f"Model '{req.model}' is not available")
+
+    # Check / create credit account
+    acc = await db.get(AuthorCreditAccount, user.id)
+    if not acc:
+        # Grant welcome bonus
+        acc = AuthorCreditAccount(user_id=user.id, balance=10, total_purchased=0, total_spent=0)
+        db.add(acc)
+        db.add(CreditTransaction(
+            user_id=user.id, type="bonus", credits=10,
+            description="Welcome bonus — 10 free credits",
+        ))
+        await db.flush()
+
+    if acc.balance < pricing.credits_per_article:
+        raise HTTPException(
+            status_code=402,
+            detail={
+                "message": "Insufficient credits",
+                "required": pricing.credits_per_article,
+                "balance": acc.balance,
+                "buy_url": "/teacher/credits",
+            },
+        )
+
+    # Deduct credits optimistically
+    acc.balance -= pricing.credits_per_article
+    acc.total_spent += pricing.credits_per_article
+
+    # Generate article using AI service
+    try:
+        from app.services.article_generator import generate_article_content
+        content = await generate_article_content(
+            topic=req.topic,
+            category=req.category,
+            model=req.model,
+            specialty=req.specialty,
+        )
+    except Exception as e:
+        # Refund on failure
+        acc.balance += pricing.credits_per_article
+        acc.total_spent -= pricing.credits_per_article
+        await db.commit()
+        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+    # Create article
+    import re as _re
+    base_slug = _re.sub(r"[^a-z0-9]+", "-", req.topic.lower()).strip("-")[:60]
+    slug = f"{base_slug}-{_uuid.uuid4().hex[:6]}"
+
+    display = req.author_display_name
+    if not display:
+        fn = user.first_name or ""
+        ln = user.last_name or ""
+        display = f"{fn} {ln}".strip() or user.email
+
+    article = Article(
+        slug=slug,
+        title=content["title"],
+        excerpt=content.get("excerpt", content.get("og_description", "")),
+        body=content.get("body", []),
+        category=req.category,
+        keywords=content.get("keywords", []),
+        reading_time_minutes=content.get("reading_time_minutes", 8),
+        faq=content.get("faq", []),
+        sources=content.get("sources", []),
+        og_title=content.get("og_title"),
+        og_description=content.get("og_description"),
+        author_id=user.id,
+        author_display_name=display,
+        author_bio=req.author_bio,
+        is_published=False,
+        review_status="draft",
+        generated_by=f"ai-{req.model}",
+        revenue_share_pct=40,
+    )
+    db.add(article)
+    await db.flush()
+
+    # Log credit transaction
+    db.add(CreditTransaction(
+        user_id=user.id,
+        type="spend",
+        credits=pricing.credits_per_article,
+        usd_amount=float(pricing.credits_per_article) * 0.01,
+        actual_cost_usd=float(pricing.actual_cost_usd),
+        model=req.model,
+        article_id=article.id,
+        description=f"Generated article: {content['title'][:60]}",
+    ))
+
+    await db.commit()
+    await db.refresh(article)
+    return _detail(article) | {"is_published": article.is_published}
 
 
 # ── Teacher / Author endpoints ─────────────────────────────────────────────────

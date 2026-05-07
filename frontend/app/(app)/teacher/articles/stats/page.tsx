@@ -118,9 +118,9 @@ export default function ArticleStatsPage() {
               <div>
                 <h2 className="font-syne font-bold text-base text-ink mb-1">How Revenue Works</h2>
                 <ul className="text-sm font-serif text-ink-2 space-y-1">
-                  <li>• You earn <strong>70%</strong> of ad revenue from your articles (RPM ~$2.00 per 1,000 views)</li>
+                  <li>• You earn <strong>40%</strong> of ad revenue from your articles (Platform keeps 60% | RPM ~$2.00 per 1,000 views)</li>
                   <li>• Articles are automatically translated to <strong>7 languages</strong>, multiplying your audience</li>
-                  <li>• Revenue formula: <code className="bg-white/60 px-1 rounded text-xs">(views ÷ 1,000) × $2.00 × 70%</code></li>
+                  <li>• Revenue formula: <code className="bg-white/60 px-1 rounded text-xs">(views ÷ 1,000) × $2.00 × 40%</code></li>
                   <li>• <strong>Payouts processed monthly, minimum $10.</strong> Next payout: {nextPayoutDate()}</li>
                 </ul>
               </div>

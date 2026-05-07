@@ -1079,7 +1079,7 @@ class Article(Base):
 
     # Author Program metrics
     view_count = Column(Integer, nullable=False, default=0)
-    revenue_share_pct = Column(Integer, nullable=False, default=70)
+    revenue_share_pct = Column(Integer, nullable=False, default=40)
 
     # Which model generated this: claude-haiku | claude-sonnet | manual | teacher
     generated_by = Column(String(50), nullable=True)
@@ -1139,3 +1139,48 @@ class ArticleTranslation(Base):
         Index("ix_article_translations_article_id", "article_id"),
         Index("ix_article_translations_status", "status"),
     )
+
+
+# ============================================================
+# CREDIT SYSTEM
+# ============================================================
+
+class AuthorCreditAccount(Base):
+    __tablename__ = "author_credit_accounts"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    balance = Column(Integer, nullable=False, default=0)
+    total_purchased = Column(Integer, nullable=False, default=0)
+    total_spent = Column(Integer, nullable=False, default=0)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = relationship("User")
+
+
+class CreditTransaction(Base):
+    __tablename__ = "credit_transactions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    type = Column(String(20), nullable=False)  # 'purchase', 'spend', 'bonus', 'refund'
+    credits = Column(Integer, nullable=False)
+    usd_amount = Column(Numeric(10, 4), nullable=True)
+    model = Column(String(50), nullable=True)  # for 'spend' transactions: 'ollama', 'claude-haiku', 'claude-sonnet'
+    actual_cost_usd = Column(Numeric(10, 6), nullable=True)  # real API cost
+    article_id = Column(UUID(as_uuid=True), ForeignKey("articles.id", ondelete="SET NULL"), nullable=True)
+    stripe_payment_intent_id = Column(String(200), nullable=True)
+    description = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class LLMPricing(Base):
+    __tablename__ = "llm_pricing"
+
+    model = Column(String(50), primary_key=True)
+    credits_per_article = Column(Integer, nullable=False)
+    actual_cost_usd = Column(Numeric(10, 6), nullable=False)
+    markup_multiplier = Column(Numeric(4, 2), nullable=False, default=2.0)
+    display_name = Column(String(100), nullable=True)
+    description = Column(Text, nullable=True)
+    is_active = Column(Boolean, nullable=False, default=True)
+    updated_at = Column(DateTime, default=datetime.utcnow)
