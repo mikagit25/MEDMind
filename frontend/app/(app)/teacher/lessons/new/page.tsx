@@ -1,23 +1,12 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { teacherApi } from "@/lib/api";
+import { teacherApi, contentApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
-const SPECIALTIES = [
-  { code: "cardiology", name: "Cardiology" },
-  { code: "neurology", name: "Neurology" },
-  { code: "surgery", name: "Surgery" },
-  { code: "obstetrics", name: "Obstetrics & Gynecology" },
-  { code: "pediatrics", name: "Pediatrics" },
-  { code: "therapy", name: "Internal Medicine" },
-  { code: "pharmacology", name: "Pharmacology" },
-  { code: "lab_diagnostics", name: "Laboratory Diagnostics" },
-  { code: "respiratory", name: "Respiratory Medicine" },
-  { code: "veterinary", name: "Veterinary" },
-];
+type Specialty = { id: string; code: string; name: string };
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
@@ -119,6 +108,18 @@ function NewLessonInner() {
   const [mode, setMode] = useState<"manual" | "ai">(initialMode);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
+
+  useEffect(() => {
+    Promise.all([contentApi.getSpecialties(false), contentApi.getSpecialties(true)]).then(([h, v]) => {
+      const seen = new Set<string>();
+      const all: Specialty[] = [];
+      for (const s of [...(h ?? []), ...(v ?? [])]) {
+        if (!seen.has(s.name)) { seen.add(s.name); all.push(s); }
+      }
+      setSpecialties(all.sort((a, b) => a.name.localeCompare(b.name)));
+    }).catch(() => {});
+  }, []);
 
   const [manualTitle, setManualTitle] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
@@ -323,8 +324,8 @@ function NewLessonInner() {
                 className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
               >
                 <option value="">{t("teacher.lessons.create.select_spec")}</option>
-                {SPECIALTIES.map((s) => (
-                  <option key={s.code} value={s.name}>{s.name}</option>
+                {specialties.map((s) => (
+                  <option key={s.id} value={s.name}>{s.name}</option>
                 ))}
               </select>
             </div>

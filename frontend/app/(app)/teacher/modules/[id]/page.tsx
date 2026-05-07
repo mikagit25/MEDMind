@@ -107,8 +107,30 @@ export default function ModuleDetailPage() {
       else updated = await teacherApi.unpublishLesson(lessonId);
       setLessons((ls) => ls.map((l) => (l.id === lessonId ? { ...l, ...updated } : l)));
     } catch (e: any) {
-      setError(e?.response?.data?.detail ?? "Action failed");
+      const detail = e?.response?.data?.detail;
+      if (detail && typeof detail === "object" && detail.errors) {
+        setError(`Validation failed:\n• ${detail.errors.join("\n• ")}`);
+      } else {
+        setError(typeof detail === "string" ? detail : "Action failed");
+      }
     }
+  }
+
+  async function handlePublishAll() {
+    setPublishing(true);
+    setError("");
+    const drafts = lessons.filter((l) => l.status === "draft" || l.status === "review");
+    let failed = 0;
+    for (const lesson of drafts) {
+      try {
+        const updated = await teacherApi.publishLesson(lesson.id);
+        setLessons((ls) => ls.map((l) => (l.id === lesson.id ? { ...l, ...updated } : l)));
+      } catch {
+        failed++;
+      }
+    }
+    if (failed > 0) setError(`${failed} lesson(s) failed to publish. Try editing them first.`);
+    setPublishing(false);
   }
 
   if (loading) return <div className="p-6 text-ink-3 font-serif text-sm">Loading...</div>;
@@ -182,9 +204,9 @@ export default function ModuleDetailPage() {
       )}
 
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
+        <div className="mb-4 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif whitespace-pre-line">
           {error}
-          <button onClick={() => setError("")} className="ml-2 underline">dismiss</button>
+          <button onClick={() => setError("")} className="ml-2 underline text-xs">dismiss</button>
         </div>
       )}
 
@@ -195,6 +217,15 @@ export default function ModuleDetailPage() {
           {publishedCount > 0 && <span className="text-green font-normal text-sm ml-2">{publishedCount} published</span>}
         </h2>
         <div className="flex gap-2">
+          {lessons.some((l) => l.status === "draft" || l.status === "review") && (
+            <button
+              onClick={handlePublishAll}
+              disabled={publishing}
+              className="text-sm text-green border border-green/30 rounded-lg px-3 py-1.5 font-syne font-semibold hover:bg-green-light transition-colors disabled:opacity-40"
+            >
+              ✓ Publish All
+            </button>
+          )}
           <Link
             href={`/teacher/lessons/new?module_id=${mod.id}&mode=manual`}
             className="text-sm border border-border rounded-lg px-3 py-1.5 font-syne font-semibold text-ink hover:border-ink-3 transition-colors"
@@ -205,7 +236,7 @@ export default function ModuleDetailPage() {
             href={`/teacher/lessons/new?module_id=${mod.id}&mode=ai`}
             className="btn-primary text-sm px-3 py-1.5 rounded-lg font-syne font-semibold"
           >
-            + AI Generate
+            ✨ AI Generate
           </Link>
         </div>
       </div>
@@ -231,7 +262,7 @@ export default function ModuleDetailPage() {
             .map((lesson) => (
               <div key={lesson.id} className="card p-3 flex items-center gap-3">
                 <div className="text-ink-3 font-syne text-xs w-5 text-center shrink-0">
-                  {lesson.lesson_order + 1}
+                  {lesson.lesson_order}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-syne font-semibold text-sm text-ink truncate">{lesson.title}</div>

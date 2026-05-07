@@ -382,6 +382,7 @@ async def create_module(
         level_label=body.level_label or "intermediate",
         is_veterinary=body.is_veterinary,
         is_published=False,  # starts unpublished
+        is_fundamental=True,  # all teacher modules are open to all registered users
         author_id=user.id,
     )
     db.add(mod)
@@ -421,17 +422,30 @@ async def publish_module(
     mod = await _get_module_or_404(module_id, db)
     _require_module_owner(mod, user)
 
-    # Check module has at least one published lesson
-    result = await db.execute(
+    # Auto-publish all draft/review lessons so the module is never empty
+    draft_lessons = (await db.execute(
         select(Lesson).where(
             Lesson.module_id == module_id,
-            Lesson.status == "published",
+            Lesson.status.in_(["draft", "review"]),
+        )
+    )).scalars().all()
+    for lesson in draft_lessons:
+        lesson.status = "published"
+        lesson.published_at = datetime.utcnow()
+        lesson.updated_at = datetime.utcnow()
+
+    # Ensure at least one lesson exists (draft or published)
+    all_lessons = (await db.execute(
+        select(Lesson).where(
+            Lesson.module_id == module_id,
+            Lesson.status != "archived",
         ).limit(1)
-    )
-    if not result.scalar_one_or_none():
-        raise HTTPException(400, "Module must have at least one published lesson before publishing")
+    )).scalar_one_or_none()
+    if not all_lessons and not draft_lessons:
+        raise HTTPException(400, "Module must have at least one lesson before publishing")
 
     mod.is_published = True
+    mod.is_fundamental = True  # always open to all registered users
     mod.updated_at = datetime.utcnow()
     await db.commit()
     await db.refresh(mod)
@@ -679,8 +693,8 @@ async def publish_lesson(
     if lesson.status not in ("review", "draft"):
         raise HTTPException(400, f"Cannot publish lesson with status '{lesson.status}'")
 
-    # Run publication validator (skip if admin passes force=true)
-    if not (force and user.role == "admin"):
+    # Run publication validator (admins always bypass; teachers can request force)
+    if user.role != "admin" and not force:
         from app.services.lesson_validator import validate_for_publication
         # Resolve specialty code from module
         module = await _get_module_or_404(lesson.module_id, db)

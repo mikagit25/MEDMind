@@ -1,29 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { teacherApi } from "@/lib/api";
+import { teacherApi, contentApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
-const SPECIALTIES = [
-  { code: "cardiology", name: "Cardiology" },
-  { code: "neurology", name: "Neurology" },
-  { code: "surgery", name: "Surgery" },
-  { code: "obstetrics", name: "Obstetrics & Gynecology" },
-  { code: "pediatrics", name: "Pediatrics" },
-  { code: "therapy", name: "Internal Medicine" },
-  { code: "pharmacology", name: "Pharmacology" },
-  { code: "lab_diagnostics", name: "Laboratory Diagnostics" },
-  { code: "respiratory", name: "Respiratory Medicine" },
-  { code: "veterinary", name: "Veterinary" },
-];
-
 const LEVELS = ["beginner", "intermediate", "advanced"];
+
+type Specialty = { id: string; code: string; name: string };
 
 export default function NewModulePage() {
   const t = useT();
   const router = useRouter();
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -33,6 +23,28 @@ export default function NewModulePage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Load specialties from DB (vet=false for human, vet=true for vet)
+    Promise.all([
+      contentApi.getSpecialties(false),
+      contentApi.getSpecialties(true),
+    ]).then(([human, vet]) => {
+      const humanList: Specialty[] = (human?.data ?? human ?? []);
+      const vetList: Specialty[] = (vet?.data ?? vet ?? []);
+      // Deduplicate by name
+      const seen = new Set<string>();
+      const all: Specialty[] = [];
+      for (const s of [...humanList, ...vetList]) {
+        if (!seen.has(s.name)) {
+          seen.add(s.name);
+          all.push(s);
+        }
+      }
+      all.sort((a, b) => a.name.localeCompare(b.name));
+      setSpecialties(all);
+    }).catch(() => {});
+  }, []);
 
   function set(key: string, value: string | boolean) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -52,8 +64,8 @@ export default function NewModulePage() {
         is_veterinary: form.is_veterinary,
       });
       router.push(`/teacher/modules/${mod.id}`);
-    } catch {
-      setError("Failed to create module. Please try again.");
+    } catch (e: any) {
+      setError(e?.response?.data?.detail ?? "Failed to create module. Please try again.");
       setLoading(false);
     }
   }
@@ -62,9 +74,9 @@ export default function NewModulePage() {
     <div className="p-4 max-w-xl mx-auto">
       <div className="mb-5">
         <Link href="/teacher/modules" className="text-ink-3 text-sm font-syne hover:text-ink">
-          ← My Modules
+          ← {t("teacher.modules.title")}
         </Link>
-        <h1 className="font-syne font-black text-2xl text-ink mt-2">New Module</h1>
+        <h1 className="font-syne font-black text-2xl text-ink mt-2">{t("teacher.modules.new_module")}</h1>
         <p className="font-serif text-ink-3 text-sm">Create a new teaching module</p>
       </div>
 
@@ -76,7 +88,9 @@ export default function NewModulePage() {
         )}
 
         <div>
-          <label className="block font-syne font-semibold text-sm text-ink mb-1">Title *</label>
+          <label className="block font-syne font-semibold text-sm text-ink mb-1">
+            {t("teacher.modules.module_name")} *
+          </label>
           <input
             type="text"
             value={form.title}
@@ -90,7 +104,9 @@ export default function NewModulePage() {
         </div>
 
         <div>
-          <label className="block font-syne font-semibold text-sm text-ink mb-1">Description</label>
+          <label className="block font-syne font-semibold text-sm text-ink mb-1">
+            {t("teacher.modules.description")}
+          </label>
           <textarea
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
@@ -102,21 +118,25 @@ export default function NewModulePage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Specialty</label>
+            <label className="block font-syne font-semibold text-sm text-ink mb-1">
+              {t("teacher.modules.specialty")}
+            </label>
             <select
               value={form.specialty_code}
               onChange={(e) => set("specialty_code", e.target.value)}
               className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
             >
               <option value="">— General —</option>
-              {SPECIALTIES.map((s) => (
-                <option key={s.code} value={s.code}>{s.name}</option>
+              {specialties.map((s) => (
+                <option key={s.id} value={s.code}>{s.name}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block font-syne font-semibold text-sm text-ink mb-1">Level</label>
+            <label className="block font-syne font-semibold text-sm text-ink mb-1">
+              Level
+            </label>
             <select
               value={form.level_label}
               onChange={(e) => set("level_label", e.target.value)}
@@ -144,7 +164,7 @@ export default function NewModulePage() {
           disabled={loading || !form.title.trim()}
           className="w-full btn-primary py-2.5 rounded-lg font-syne font-semibold text-sm disabled:opacity-50"
         >
-          {loading ? "Creating..." : "Create Module"}
+          {loading ? "Creating..." : t("teacher.modules.create")}
         </button>
       </form>
     </div>

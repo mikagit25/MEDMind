@@ -1023,7 +1023,12 @@ export default function LessonEditPage() {
       else updated = await teacherApi.unpublishLesson(lesson.id);
       setLesson(updated);
     } catch (e: any) {
-      setError(e?.response?.data?.detail ?? "Action failed");
+      const detail = e?.response?.data?.detail;
+      if (detail && typeof detail === "object" && detail.errors) {
+        setError(`Cannot publish — fix these issues first:\n• ${detail.errors.join("\n• ")}`);
+      } else {
+        setError(typeof detail === "string" ? detail : "Action failed");
+      }
     } finally {
       setWorkflowLoading(false);
     }
@@ -1188,8 +1193,8 @@ export default function LessonEditPage() {
 
       {/* ── Notifications ──────────────────────────────────────── */}
       {error && (
-        <div className="mb-3 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif flex justify-between">
-          {error}
+        <div className="mb-3 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif flex justify-between whitespace-pre-line">
+          <span>{error}</span>
           <button onClick={() => setError("")} className="underline text-xs shrink-0 ml-2">dismiss</button>
         </div>
       )}
