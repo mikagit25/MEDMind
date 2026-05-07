@@ -401,10 +401,25 @@ export default function ModuleDetailPage() {
       const ls: Lesson[] = lessonRes ?? [];
       ls.sort((a, b) => a.lesson_order - b.lesson_order);
       setLessons(ls);
-      if (ls.length > 0) setActiveLesson(ls[0]);
+      if (ls.length > 0) {
+        // Load first lesson with full content
+        contentApi.getLesson(ls[0].id).then((full: any) => {
+          setActiveLesson({ ...ls[0], content: full?.content ?? null });
+        }).catch(() => setActiveLesson(ls[0]));
+      }
       setLoading(false);
     });
   }, [id]);
+
+  // Load full lesson content when active lesson changes (no content yet)
+  useEffect(() => {
+    if (!activeLesson?.id || activeLesson.content) return;
+    contentApi.getLesson(activeLesson.id).then((full: any) => {
+      if (full?.content) {
+        setActiveLesson((prev) => prev ? { ...prev, content: full.content } : prev);
+      }
+    }).catch(() => {});
+  }, [activeLesson?.id]);
 
   // Re-fetch active lesson with translation when locale changes
   useEffect(() => {
