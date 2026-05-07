@@ -169,6 +169,7 @@ async def list_articles(
     search: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
+    locale: Optional[str] = Query(None, description="Return translated titles/excerpts: ru|ar|tr|de|fr|es"),
     db: AsyncSession = Depends(get_db),
 ):
     q = select(Article).where(Article.is_published == True, Article.review_status == "published")
@@ -186,7 +187,28 @@ async def list_articles(
 
     q = q.order_by(desc(Article.published_at)).offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(q)).scalars().all()
-    return {"total": total, "page": page, "limit": limit, "articles": [_list_item(a) for a in rows]}
+
+    items = [_list_item(a) for a in rows]
+
+    # Overlay translated title/excerpt when locale requested and translation available
+    if locale and locale != "en" and rows:
+        article_ids = [a.id for a in rows]
+        tr_rows = (await db.execute(
+            select(ArticleTranslation)
+            .where(
+                ArticleTranslation.article_id.in_(article_ids),
+                ArticleTranslation.locale == locale,
+                ArticleTranslation.status == "done",
+            )
+        )).scalars().all()
+        tr_map = {str(tr.article_id): tr for tr in tr_rows}
+        for item in items:
+            tr = tr_map.get(item["id"])
+            if tr:
+                item["title"] = tr.title
+                item["excerpt"] = tr.excerpt
+
+    return {"total": total, "page": page, "limit": limit, "articles": items}
 
 
 @router.get("/sitemap-data")
@@ -288,6 +310,7 @@ async def articles_by_category(
     category: str,
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
+    locale: Optional[str] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
     q = select(Article).where(Article.is_published == True, Article.review_status == "published", Article.category == category)
@@ -296,7 +319,26 @@ async def articles_by_category(
     )).scalar() or 0
     q = q.order_by(desc(Article.published_at)).offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(q)).scalars().all()
-    return {"category": category, "total": total, "page": page, "limit": limit, "articles": [_list_item(a) for a in rows]}
+    items = [_list_item(a) for a in rows]
+
+    if locale and locale != "en" and rows:
+        article_ids = [a.id for a in rows]
+        tr_rows = (await db.execute(
+            select(ArticleTranslation)
+            .where(
+                ArticleTranslation.article_id.in_(article_ids),
+                ArticleTranslation.locale == locale,
+                ArticleTranslation.status == "done",
+            )
+        )).scalars().all()
+        tr_map = {str(tr.article_id): tr for tr in tr_rows}
+        for item in items:
+            tr = tr_map.get(item["id"])
+            if tr:
+                item["title"] = tr.title
+                item["excerpt"] = tr.excerpt
+
+    return {"category": category, "total": total, "page": page, "limit": limit, "articles": items}
 
 
 @router.get("/{slug}/related")

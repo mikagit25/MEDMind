@@ -21,10 +21,12 @@ type Article = {
   published_at: string | null;
 };
 
-async function fetchCategory(cat: string, page = 1): Promise<{ articles: Article[]; total: number } | null> {
+async function fetchCategory(cat: string, page = 1, locale = "en"): Promise<{ articles: Article[]; total: number } | null> {
   try {
-    const res = await fetch(`${API_URL}/articles/category/${cat}?page=${page}&limit=24`, {
-      next: { revalidate: 3600 },
+    const params = new URLSearchParams({ page: String(page), limit: "24" });
+    if (locale && locale !== "en") params.set("locale", locale);
+    const res = await fetch(`${API_URL}/articles/category/${cat}?${params}`, {
+      cache: "no-store",
     });
     if (res.status === 404) return null;
     if (!res.ok) return null;
@@ -84,7 +86,7 @@ export default async function CategoryPage({
   if (!label || label === params.cat) notFound();
 
   const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
-  const result = await fetchCategory(params.cat, page);
+  const result = await fetchCategory(params.cat, page, locale);
   if (!result) notFound();
 
   const { articles, total } = result;

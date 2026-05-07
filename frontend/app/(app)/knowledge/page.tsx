@@ -50,6 +50,7 @@ export default function ArticlesPage() {
       const params: Record<string, string | number> = { limit: LIMIT, page: pg };
       if (cat) params.category = cat;
       if (q) params.search = q;
+      if (locale && locale !== "en") params.locale = locale;
       const r = await api.get("/articles", { params });
       setArticles(r.data.articles ?? []);
       setTotal(r.data.total ?? 0);

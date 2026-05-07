@@ -42,12 +42,13 @@ type Article = {
 
 type CategoryStat = { category: string; count: number };
 
-async function fetchArticles(search?: string): Promise<Article[]> {
+async function fetchArticles(search?: string, locale = "en"): Promise<Article[]> {
   try {
     const params = new URLSearchParams({ limit: "24" });
     if (search) params.set("search", search);
+    if (locale && locale !== "en") params.set("locale", locale);
     const res = await fetch(`${API_URL}/articles?${params}`, {
-      next: { revalidate: search ? 60 : 3600 },
+      cache: "no-store",
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -78,7 +79,7 @@ export default async function ArticlesPage({
   const cookieLocale = cookies().get("medmind_locale")?.value;
   const rawLocale = searchParams?.lang || cookieLocale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
-  const [articles, categories] = await Promise.all([fetchArticles(search), fetchCategories()]);
+  const [articles, categories] = await Promise.all([fetchArticles(search, locale), fetchCategories()]);
 
   return (
     <div className="min-h-screen bg-bg">
