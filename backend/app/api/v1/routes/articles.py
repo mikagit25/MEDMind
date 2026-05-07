@@ -652,7 +652,7 @@ async def generate_article_ai(
                     bg_acc.balance += credits_spent
                     bg_acc.total_spent -= credits_spent
                 art.title = f"Generation failed: {topic[:60]}"
-                art.excerpt = f"Credits refunded. Error: {str(exc)[:120]}"
+                art.excerpt = f"Credits refunded. Error: {type(exc).__name__}: {repr(exc)[:150]}"
                 art.generated_by = "ai-failed"
                 art.updated_at = datetime.utcnow()
                 await bg_db.commit()

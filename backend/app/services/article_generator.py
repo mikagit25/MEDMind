@@ -109,7 +109,16 @@ async def generate_medical_article(
     user_msg = f"Write a comprehensive medical article about: {topic}\nCategory: {category}"
 
     if model == "ollama":
-        raw = await _call_ollama(system, user_msg, settings)
+        # Simplified prompt for local model — shorter output, faster generation
+        system_ollama = (
+            "You are a medical writer. Return ONLY valid JSON, no markdown, no explanation.\n"
+            "JSON structure: {title, excerpt, body (array of {type, content} blocks, 4-6 blocks), "
+            "keywords (array of 5 strings), reading_time_minutes (int), faq (2 items), sources (2 items)}\n"
+            "Block types: h2 (heading), p (paragraph), ul (list, has 'items' array instead of content).\n"
+            "Do not use markdown in JSON values."
+        )
+        user_ollama = f"Write a medical article about: {topic}. Category: {category}."
+        raw = await _call_ollama(system_ollama, user_ollama, settings)
     else:
         raw = await _call_claude(system, user_msg, model, settings)
     return _parse_response(raw, topic, category, language)
@@ -156,10 +165,10 @@ async def _call_ollama(system: str, user_msg: str, settings) -> str:
             {"role": "user",   "content": "/no_think\n" + user_msg},
         ],
         "stream": False,
-        "options": {"num_predict": 4096, "temperature": 0.3},
+        "options": {"num_predict": 1500, "temperature": 0.3},
         "think": False,
     }
-    async with httpx.AsyncClient(timeout=180.0) as client:
+    async with httpx.AsyncClient(timeout=360.0) as client:
         r = await client.post(f"{settings.OLLAMA_URL}/api/chat", json=payload)
         r.raise_for_status()
         return r.json()["message"]["content"]
