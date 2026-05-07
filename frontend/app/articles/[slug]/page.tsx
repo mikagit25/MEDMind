@@ -494,7 +494,10 @@ export default async function ArticlePage({
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
+      <div
+        className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10"
+        dir={locale === "ar" ? "rtl" : "ltr"}
+      >
         {/* Main content */}
         <main>
           {/* Breadcrumb */}
@@ -530,9 +533,10 @@ export default async function ArticlePage({
               <span>📖 {article.reading_time_minutes} min read</span>
               {article.published_at && (
                 <span>
-                  {new Date(article.published_at).toLocaleDateString("en-US", {
-                    year: "numeric", month: "long", day: "numeric",
-                  })}
+                  {new Date(article.published_at).toLocaleDateString(
+                    locale === "ar" ? "ar-SA" : locale === "ru" ? "ru-RU" : "en-US",
+                    { year: "numeric", month: "long", day: "numeric" }
+                  )}
                 </span>
               )}
               <span>{article.author?.name ?? "MedMind AI Editorial"}</span>
