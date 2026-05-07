@@ -12,6 +12,7 @@ type TeacherArticle = {
   excerpt: string;
   category: string;
   review_status: "draft" | "pending_review" | "published" | "rejected";
+  generated_by?: string;
   reading_time_minutes: number;
   published_at: string | null;
   submitted_at: string | null;
@@ -24,6 +25,7 @@ const STATUS_STYLES: Record<string, string> = {
   pending_review: "bg-amber-light text-amber border-amber/20",
   published:      "bg-green-light text-green border-green/20",
   rejected:       "bg-red-light text-red border-red/20",
+  generating:     "bg-blue-light text-blue border-blue/20",
 };
 
 // STATUS_LABELS resolved via t() in component
@@ -44,6 +46,9 @@ export default function TeacherArticlesPage() {
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [creditBalance, setCreditBalance] = useState<number | null>(null);
+  const [showGenModal, setShowGenModal] = useState(false);
+  const [genForm, setGenForm] = useState({ topic: "", category: "diseases", model: "ollama" });
+  const [generating, setGenerating] = useState(false);
 
   const showToast = (msg: string, type: "ok" | "err" = "ok") => {
     setToast({ msg, type });
@@ -108,6 +113,33 @@ export default function TeacherArticlesPage() {
     }
   };
 
+  const handleGenerate = async () => {
+    if (!genForm.topic.trim()) return;
+    setGenerating(true);
+    try {
+      const result = await teacherApi.generateArticleAI({
+        topic: genForm.topic,
+        category: genForm.category,
+        model: genForm.model,
+      });
+      setShowGenModal(false);
+      setGenForm({ topic: "", category: "diseases", model: "ollama" });
+      if (creditBalance !== null) setCreditBalance(c => c === null ? null : c - (genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50));
+      showToast("Article generation started! It will appear in your list within 1–3 minutes.");
+      // Reload after short delay to show placeholder
+      setTimeout(() => load(), 2000);
+    } catch (e: any) {
+      const detail = e?.response?.data?.detail;
+      if (detail?.message === "Insufficient credits") {
+        showToast(`Need ${detail.required} credits, you have ${detail.balance}. Buy more credits!`, "err");
+      } else {
+        showToast(typeof detail === "string" ? detail : "Generation failed", "err");
+      }
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   return (
     <div className="flex-1 overflow-y-auto p-6">
       {/* Toast */}
@@ -137,12 +169,12 @@ export default function TeacherArticlesPage() {
               <span className="text-amber-500">→ Buy</span>
             </Link>
           )}
-          <Link
-            href="/teacher/credits"
+          <button
+            onClick={() => setShowGenModal(true)}
             className="border border-amber-300 text-amber-700 bg-amber-50 hover:bg-amber-100 font-syne font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
           >
             ✨ Generate with AI
-          </Link>
+          </button>
           <Link
             href="/teacher/articles/new"
             className="bg-ink text-white font-syne font-semibold text-sm px-4 py-2 rounded-lg hover:bg-ink-2 transition-colors"
@@ -212,9 +244,19 @@ export default function TeacherArticlesPage() {
               <div className="flex items-start gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className={`border rounded-full px-2.5 py-0.5 text-xs font-syne font-semibold ${STATUS_STYLES[a.review_status]}`}>
-                      {t(`teacher.articles.status.${a.review_status}`)}
-                    </span>
+                    {a.generated_by === "ai-generating" ? (
+                      <span className="border rounded-full px-2.5 py-0.5 text-xs font-syne font-semibold bg-blue-light text-blue border-blue/20 animate-pulse">
+                        ✨ Generating…
+                      </span>
+                    ) : a.generated_by === "ai-failed" ? (
+                      <span className="border rounded-full px-2.5 py-0.5 text-xs font-syne font-semibold bg-red-light text-red border-red/20">
+                        ✗ Failed
+                      </span>
+                    ) : (
+                      <span className={`border rounded-full px-2.5 py-0.5 text-xs font-syne font-semibold ${STATUS_STYLES[a.review_status]}`}>
+                        {t(`teacher.articles.status.${a.review_status}`)}
+                      </span>
+                    )}
                     <span className="text-xs text-ink-3 font-syne capitalize">
                       {CATEGORY_LABELS[a.category] ?? a.category}
                     </span>
@@ -293,6 +335,81 @@ export default function TeacherArticlesPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {/* AI Generation Modal */}
+      {showGenModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-bg rounded-2xl shadow-xl w-full max-w-md p-6 border border-border">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <h2 className="font-syne font-black text-xl text-ink">✨ Generate with AI</h2>
+                <p className="text-ink-3 text-xs font-serif mt-0.5">Article will be ready in 1–3 minutes</p>
+              </div>
+              <button onClick={() => setShowGenModal(false)} className="text-ink-3 hover:text-ink text-2xl leading-none">×</button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block font-syne font-semibold text-sm text-ink mb-1">Topic *</label>
+                <input
+                  type="text"
+                  value={genForm.topic}
+                  onChange={e => setGenForm(f => ({ ...f, topic: e.target.value }))}
+                  placeholder="e.g. Hypertension: diagnosis and management"
+                  className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-syne font-semibold text-sm text-ink mb-1">Category</label>
+                  <select
+                    value={genForm.category}
+                    onChange={e => setGenForm(f => ({ ...f, category: e.target.value }))}
+                    className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
+                  >
+                    {["diseases","drugs","procedures","cardiology","neurology","oncology","surgery","pediatrics","emergency","diagnostics"].map(c => (
+                      <option key={c} value={c}>{c.charAt(0).toUpperCase()+c.slice(1)}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-syne font-semibold text-sm text-ink mb-1">AI Model</label>
+                  <select
+                    value={genForm.model}
+                    onChange={e => setGenForm(f => ({ ...f, model: e.target.value }))}
+                    className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
+                  >
+                    <option value="ollama">Ollama — 5 credits ($0.05)</option>
+                    <option value="claude-haiku">Claude Haiku — 10 credits ($0.10)</option>
+                    <option value="claude-sonnet">Claude Sonnet — 50 credits ($0.50)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="bg-surface-2 rounded-lg p-3 text-xs font-serif text-ink-3">
+                Your balance: <strong className="text-ink">{creditBalance ?? "…"} credits</strong>
+                {" · "}Cost: <strong className="text-ink">{genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50} credits</strong>
+                {(creditBalance ?? 0) < (genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50) && (
+                  <span className="text-red ml-2">⚠ Insufficient credits — <a href="/teacher/credits" className="underline">buy more</a></span>
+                )}
+              </div>
+
+              <div className="flex gap-2 pt-1">
+                <button onClick={() => setShowGenModal(false)} className="flex-1 border border-border text-ink-3 text-sm py-2.5 rounded-lg font-syne font-semibold hover:border-ink-3 transition-colors">
+                  Cancel
+                </button>
+                <button
+                  onClick={handleGenerate}
+                  disabled={generating || !genForm.topic.trim() || (creditBalance ?? 0) < (genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50)}
+                  className="flex-1 bg-ink text-white text-sm py-2.5 rounded-lg font-syne font-semibold hover:bg-ink-2 transition-colors disabled:opacity-40"
+                >
+                  {generating ? "Starting…" : "Generate Article"}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

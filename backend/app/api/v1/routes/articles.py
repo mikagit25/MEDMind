@@ -538,7 +538,15 @@ async def generate_article_ai(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(require_author),
 ):
-    """Generate an article using AI — costs credits based on model selected."""
+    """Generate an article using AI — costs credits based on model selected.
+
+    Returns immediately with a placeholder draft (generated_by='ai-generating').
+    Background task fills in the real content — poll /my/{id} until
+    generated_by changes to 'ai-{model}' (done) or 'ai-failed' (error).
+    """
+    import asyncio
+    import re as _re
+
     # Check pricing
     pricing = await db.get(LLMPricing, req.model)
     if not pricing or not pricing.is_active:
@@ -547,7 +555,6 @@ async def generate_article_ai(
     # Check / create credit account
     acc = await db.get(AuthorCreditAccount, user.id)
     if not acc:
-        # Grant welcome bonus
         acc = AuthorCreditAccount(user_id=user.id, balance=10, total_purchased=0, total_spent=0)
         db.add(acc)
         db.add(CreditTransaction(
@@ -567,31 +574,13 @@ async def generate_article_ai(
             },
         )
 
-    # Deduct credits optimistically
+    # Deduct credits immediately
     acc.balance -= pricing.credits_per_article
     acc.total_spent += pricing.credits_per_article
 
-    # Generate article using AI service
-    try:
-        from app.services.article_generator import generate_article_content
-        content = await generate_article_content(
-            topic=req.topic,
-            category=req.category,
-            model=req.model,
-            specialty=req.specialty,
-        )
-    except Exception as e:
-        # Refund on failure
-        acc.balance += pricing.credits_per_article
-        acc.total_spent -= pricing.credits_per_article
-        await db.commit()
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
-
-    # Create article
-    import re as _re
+    # Create placeholder article — returned instantly
     base_slug = _re.sub(r"[^a-z0-9]+", "-", req.topic.lower()).strip("-")[:60]
     slug = f"{base_slug}-{_uuid.uuid4().hex[:6]}"
-
     display = req.author_display_name
     if not display:
         fn = user.first_name or ""
@@ -600,28 +589,20 @@ async def generate_article_ai(
 
     article = Article(
         slug=slug,
-        title=content["title"],
-        excerpt=content.get("excerpt", content.get("og_description", "")),
-        body=content.get("body", []),
+        title=f"Generating: {req.topic[:80]}…",
+        excerpt="AI is writing this article — check back in a few minutes.",
+        body=[],
         category=req.category,
-        keywords=content.get("keywords", []),
-        reading_time_minutes=content.get("reading_time_minutes", 8),
-        faq=content.get("faq", []),
-        sources=content.get("sources", []),
-        og_title=content.get("og_title"),
-        og_description=content.get("og_description"),
         author_id=user.id,
         author_display_name=display,
         author_bio=req.author_bio,
         is_published=False,
         review_status="draft",
-        generated_by=f"ai-{req.model}",
+        generated_by="ai-generating",
         revenue_share_pct=40,
     )
     db.add(article)
-    await db.flush()
 
-    # Log credit transaction
     db.add(CreditTransaction(
         user_id=user.id,
         type="spend",
@@ -629,13 +610,61 @@ async def generate_article_ai(
         usd_amount=float(pricing.credits_per_article) * 0.01,
         actual_cost_usd=float(pricing.actual_cost_usd),
         model=req.model,
-        article_id=article.id,
-        description=f"Generated article: {content['title'][:60]}",
+        description=f"AI generation: {req.topic[:60]}",
     ))
 
     await db.commit()
     await db.refresh(article)
-    return _detail(article) | {"is_published": article.is_published}
+
+    # Capture IDs for background task
+    article_id = article.id
+    user_id = user.id
+    topic, category, model, specialty = req.topic, req.category, req.model, req.specialty
+    credits_spent = pricing.credits_per_article
+
+    async def _generate_background() -> None:
+        from app.core.database import AsyncSessionLocal
+        from app.services.article_generator import generate_article_content
+        async with AsyncSessionLocal() as bg_db:
+            art = await bg_db.get(Article, article_id)
+            if not art:
+                return
+            try:
+                content = await generate_article_content(
+                    topic=topic, category=category, model=model, specialty=specialty,
+                )
+                art.title = content.get("title", topic)
+                art.excerpt = content.get("excerpt", content.get("og_description", ""))
+                art.body = content.get("body", [])
+                art.keywords = content.get("keywords", [])
+                art.reading_time_minutes = content.get("reading_time_minutes", 8)
+                art.faq = content.get("faq", [])
+                art.sources = content.get("sources", [])
+                art.og_title = content.get("og_title")
+                art.og_description = content.get("og_description")
+                art.generated_by = f"ai-{model}"
+                art.updated_at = datetime.utcnow()
+                await bg_db.commit()
+            except Exception as exc:
+                # Refund on failure
+                bg_acc = await bg_db.get(AuthorCreditAccount, user_id)
+                if bg_acc:
+                    bg_acc.balance += credits_spent
+                    bg_acc.total_spent -= credits_spent
+                art.title = f"Generation failed: {topic[:60]}"
+                art.excerpt = f"Credits refunded. Error: {str(exc)[:120]}"
+                art.generated_by = "ai-failed"
+                art.updated_at = datetime.utcnow()
+                await bg_db.commit()
+
+    asyncio.create_task(_generate_background())
+
+    return {
+        **_detail(article),
+        "is_published": False,
+        "generating": True,
+        "message": f"Article generation started. Using {pricing.credits_per_article} credits. Refresh in 1-3 minutes.",
+    }
 
 
 # ── Teacher / Author endpoints ─────────────────────────────────────────────────

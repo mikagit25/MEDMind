@@ -116,22 +116,32 @@ async def generate_medical_article(
 
 
 async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
-    """Call Claude API. haiku for speed/cost, sonnet for quality."""
+    """Call Claude API. haiku for speed/cost, sonnet for quality.
+    Falls back to Ollama if API key is missing or account has insufficient credits.
+    """
     import anthropic
 
     model_id = "claude-haiku-4-5-20251001" if model == "haiku" else "claude-sonnet-4-6"
 
     if not settings.ANTHROPIC_API_KEY:
+        logger.info("No Anthropic API key — falling back to Ollama")
         return await _call_ollama(system, user_msg, settings)
 
-    client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
-    message = await client.messages.create(
-        model=model_id,
-        max_tokens=8192,
-        system=system,
-        messages=[{"role": "user", "content": user_msg}],
-    )
-    return message.content[0].text
+    try:
+        client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
+        message = await client.messages.create(
+            model=model_id,
+            max_tokens=8192,
+            system=system,
+            messages=[{"role": "user", "content": user_msg}],
+        )
+        return message.content[0].text
+    except anthropic.APIStatusError as e:
+        # Insufficient Anthropic credits or auth error → fall back to Ollama
+        if e.status_code in (400, 401, 402, 403):
+            logger.warning("Claude API unavailable (HTTP %s): %s — falling back to Ollama", e.status_code, e.message)
+            return await _call_ollama(system, user_msg, settings)
+        raise
 
 
 async def _call_ollama(system: str, user_msg: str, settings) -> str:
