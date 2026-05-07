@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
+import { ArticleViewTracker } from "./ArticleViewTracker";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -474,6 +475,9 @@ export default async function ArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+
+      {/* View tracking (client-side, fire-and-forget) */}
+      <ArticleViewTracker slug={article.slug} />
 
       {/* Nav */}
       <nav className="bg-surface border-b border-border sticky top-0 z-50">

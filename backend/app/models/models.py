@@ -1077,6 +1077,10 @@ class Article(Base):
     is_published = Column(Boolean, nullable=False, default=False)
     published_at = Column(DateTime, nullable=True)
 
+    # Author Program metrics
+    view_count = Column(Integer, nullable=False, default=0)
+    revenue_share_pct = Column(Integer, nullable=False, default=70)
+
     # Which model generated this: claude-haiku | claude-sonnet | manual | teacher
     generated_by = Column(String(50), nullable=True)
 

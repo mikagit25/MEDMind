@@ -38,12 +38,12 @@ from typing import Any, Dict, List, Optional
 from uuid import UUID
 
 import aiofiles
-from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, UploadFile
 from pydantic import BaseModel
-from sqlalchemy import func, select, desc
+from sqlalchemy import func, select, desc, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user, require_admin, require_teacher
+from app.api.deps import get_current_user, require_admin, require_author, require_teacher
 from app.core.config import settings
 from app.core.database import get_db
 from app.models.models import Article, ArticleTranslation, Module, User
@@ -466,12 +466,68 @@ async def get_article(
     return detail
 
 
-# ── Teacher endpoints ──────────────────────────────────────────────────────────
+# ── Author Program endpoints ───────────────────────────────────────────────────
+
+@router.post("/{slug}/view", status_code=204)
+async def track_article_view(slug: str, db: AsyncSession = Depends(get_db)):
+    """Public — increment view_count atomically. Returns 204 No Content."""
+    await db.execute(
+        update(Article).where(Article.slug == slug).values(view_count=Article.view_count + 1)
+    )
+    await db.commit()
+    return Response(status_code=204)
+
+
+_RPM = 2.00  # revenue per 1,000 views in USD
+
+
+@router.get("/my/stats")
+async def my_article_stats(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_author),
+):
+    """Author stats: views + estimated earnings per article."""
+    rows = (await db.execute(
+        select(Article).where(Article.author_id == user.id)
+        .order_by(desc(Article.created_at))
+    )).scalars().all()
+
+    total_views = sum(a.view_count for a in rows)
+    published = [a for a in rows if a.is_published and a.review_status == "published"]
+
+    article_stats = []
+    for a in rows:
+        rev = (a.view_count / 1000) * _RPM * (a.revenue_share_pct / 100)
+        article_stats.append({
+            "id": str(a.id),
+            "slug": a.slug,
+            "title": a.title,
+            "views": a.view_count,
+            "revenue_share_pct": a.revenue_share_pct,
+            "estimated_revenue_usd": round(rev, 2),
+            "review_status": a.review_status,
+            "is_published": a.is_published,
+            "published_at": a.published_at.isoformat() if a.published_at else None,
+        })
+
+    total_rev = sum(s["estimated_revenue_usd"] for s in article_stats)
+
+    return {
+        "total_views": total_views,
+        "total_articles": len(rows),
+        "published_articles": len(published),
+        "estimated_revenue_usd": round(total_rev, 2),
+        "revenue_per_1000_views": _RPM,
+        "articles": article_stats,
+    }
+
+
+# ── Teacher / Author endpoints ─────────────────────────────────────────────────
 
 @router.get("/my")
 async def my_articles(
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """List articles authored by the current teacher."""
     rows = (await db.execute(
@@ -485,7 +541,7 @@ async def my_articles(
 async def create_my_article(
     req: ArticleCreateRequest,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """Teacher creates a draft article."""
     existing = (await db.execute(select(Article).where(Article.slug == req.slug))).scalar_one_or_none()
@@ -517,7 +573,7 @@ async def create_my_article(
 async def get_my_article(
     article_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     article = await _get_article_or_404(article_id, db)
     if str(article.author_id) != str(user.id) and user.role != "admin":
@@ -530,7 +586,7 @@ async def update_my_article(
     article_id: UUID,
     data: ArticlePatch,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     article = await _get_article_or_404(article_id, db)
     if str(article.author_id) != str(user.id) and user.role != "admin":
@@ -554,7 +610,7 @@ async def update_my_article(
 async def submit_for_review(
     article_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """Submit a draft article for admin review."""
     article = await _get_article_or_404(article_id, db)
@@ -574,7 +630,7 @@ async def submit_for_review(
 async def withdraw_review(
     article_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """Withdraw article from review back to draft."""
     article = await _get_article_or_404(article_id, db)
@@ -591,7 +647,7 @@ async def withdraw_review(
 async def delete_my_article(
     article_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """Teacher deletes own draft or rejected article."""
     article = await _get_article_or_404(article_id, db)
@@ -609,7 +665,7 @@ async def upload_article_image(
     article_id: UUID,
     file: UploadFile = File(...),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(require_teacher),
+    user: User = Depends(require_author),
 ):
     """Upload an image for use in an article body block. Returns the public URL."""
     article = await _get_article_or_404(article_id, db)

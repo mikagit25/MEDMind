@@ -427,12 +427,19 @@ export const teacherApi = {
       headers: { "Content-Type": "multipart/form-data" },
     }).then(r => r.data);
   },
+  getMyArticleStats: () =>
+    api.get("/articles/my/stats").then(r => r.data),
 
   // Grade tracking
   getAssignmentGrades: (courseId: string, assignmentId: string) =>
     api.get(`/courses/${courseId}/assignments/${assignmentId}/grades`).then(r => r.data),
   upsertGrade: (courseId: string, assignmentId: string, data: { student_id: string; score: number; feedback?: string }) =>
     api.post(`/courses/${courseId}/assignments/${assignmentId}/grades`, data).then(r => r.data),
+};
+
+// Fire-and-forget view tracking — never throws
+export const trackArticleView = (slug: string): void => {
+  fetch(`/api/v1/articles/${slug}/view`, { method: "POST" }).catch(() => {});
 };
 
 // ============================================================

@@ -82,3 +82,13 @@ async def require_teacher(user: User = Depends(get_current_user)) -> User:
             detail="Teacher or admin access required",
         )
     return user
+
+
+async def require_author(user: User = Depends(get_current_user)) -> User:
+    """Allow teachers, doctors, and admins to author content."""
+    if user.role not in ("teacher", "doctor", "admin"):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Author access required (teacher or doctor)",
+        )
+    return user

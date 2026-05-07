@@ -119,8 +119,8 @@ export function Sidebar() {
             </Link>
           </div>
         )}
-        {/* Teacher nav */}
-        {(user?.role === "teacher" || user?.role === "admin") && (
+        {/* Teacher/Doctor nav */}
+        {(user?.role === "teacher" || user?.role === "doctor" || user?.role === "admin") && (
           <div className="mb-4">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">
               {t("nav.sections.teaching")}
