@@ -6,6 +6,8 @@ import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT, useI18n } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 // MODES is defined inside component so t() is available
 
@@ -314,13 +316,34 @@ export default function AiTutorPage() {
               </div>
               <div className="flex flex-col gap-1 max-w-[75%]">
                 <div
-                  className={`rounded-lg px-4 py-2.5 font-serif text-sm leading-relaxed whitespace-pre-wrap ${
+                  className={`rounded-lg px-4 py-2.5 font-serif text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-ink text-white rounded-tr-none"
+                      ? "bg-ink text-white rounded-tr-none whitespace-pre-wrap"
                       : "bg-surface border border-border text-ink rounded-tl-none"
                   }`}
                 >
-                  {msg.content}
+                  {msg.role === "user" ? msg.content : (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        h1: ({ children }) => <p className="font-syne font-bold text-base mt-2 mb-1">{children}</p>,
+                        h2: ({ children }) => <p className="font-syne font-bold text-base mt-2 mb-1">{children}</p>,
+                        h3: ({ children }) => <p className="font-syne font-semibold text-sm mt-2 mb-0.5">{children}</p>,
+                        h4: ({ children }) => <p className="font-syne font-semibold text-sm mt-1 mb-0.5">{children}</p>,
+                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                        strong: ({ children }) => <strong className="font-semibold text-ink">{children}</strong>,
+                        em: ({ children }) => <em className="italic">{children}</em>,
+                        ul: ({ children }) => <ul className="my-1.5 space-y-0.5 pl-4 list-disc">{children}</ul>,
+                        ol: ({ children }) => <ol className="my-1.5 space-y-0.5 pl-4 list-decimal">{children}</ol>,
+                        li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                        hr: () => <hr className="my-2 border-border" />,
+                        code: ({ children }) => <code className="bg-bg-2 rounded px-1 py-0.5 text-xs font-mono">{children}</code>,
+                        blockquote: ({ children }) => <blockquote className="border-l-2 border-ink-3 pl-3 italic text-ink-2 my-1">{children}</blockquote>,
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
+                  )}
                   {msg.pubmed && msg.pubmed.length > 0 && (
                     <div className="mt-2 pt-2 border-t border-border-2 text-xs text-ink-3 space-y-0.5">
                       <strong className="font-syne">References:</strong>
