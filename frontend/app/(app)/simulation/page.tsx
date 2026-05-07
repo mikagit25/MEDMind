@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { simulationApi } from "@/lib/api";
 import { useT, useI18n } from "@/lib/i18n";
+import { ga } from "@/lib/gtag";
 
 type Phase = "setup" | "chat" | "evaluate" | "result";
 
@@ -78,6 +79,7 @@ export default function SimulationPage() {
       setSessionToken(data.session_token);
       setMessages([{ role: "patient", content: data.patient_opening }]);
       setTurns(0);
+      ga.simulationStarted(specialty, difficulty);
       setPhase("chat");
     } catch {
       setSetupError(t("common.error_retry"));
@@ -110,6 +112,7 @@ export default function SimulationPage() {
     try {
       const data = await simulationApi.evaluateVirtualPatient(sessionToken, diagnosis, locale || "en");
       setEvaluation(data);
+      ga.simulationEvaluated(specialty);
       setPhase("result");
     } catch {
       setEvalError(t("common.error_retry"));

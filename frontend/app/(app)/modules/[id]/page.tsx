@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib/api";
 import { useI18n } from "@/lib/i18n";
+import { ga } from "@/lib/gtag";
 
 type LessonContent = {
   intro?: string;
@@ -436,6 +437,7 @@ export default function ModuleDetailPage() {
     try {
       await progressApi.completeLesson(activeLesson.id);
       progressApi.recordLessonCompletion(activeLesson.id, { time_spent_seconds: timeSpent });
+      ga.lessonComplete(activeLesson.title || "");
       setLessonDone((p) => new Set(Array.from(p).concat(activeLesson.id)));
       const idx = lessons.findIndex((l) => l.id === activeLesson.id);
       if (idx < lessons.length - 1) {

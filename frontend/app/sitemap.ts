@@ -25,13 +25,17 @@ type ArticleSitemapEntry = {
 
 async function fetchArticleSlugs(): Promise<ArticleSitemapEntry[]> {
   try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000); // 8s timeout
     const res = await fetch(`${API_URL}/articles/sitemap-data`, {
       next: { revalidate: 3600 },
+      signal: controller.signal,
     });
+    clearTimeout(timer);
     if (!res.ok) return [];
     return await res.json();
   } catch {
-    return [];
+    return []; // backend unavailable during build → empty sitemap for articles
   }
 }
 

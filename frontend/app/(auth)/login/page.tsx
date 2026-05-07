@@ -6,6 +6,7 @@ import Link from "next/link";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
+import { ga } from "@/lib/gtag";
 
 export default function LoginPage() {
   const t = useT();
@@ -24,6 +25,7 @@ export default function LoginPage() {
       const res = await authApi.login(email, password);
       const data = res.data;
       setAuth(data.user, data.access_token, data.refresh_token);
+      ga.login("email");
       router.replace("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.detail ?? t("auth.login.error_default"));

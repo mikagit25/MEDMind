@@ -5,6 +5,7 @@ import { aiApi, contentApi, API_URL } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT, useI18n } from "@/lib/i18n";
+import { ga } from "@/lib/gtag";
 
 // MODES is defined inside component so t() is available
 
@@ -53,6 +54,7 @@ export default function AiTutorPage() {
     if (!text || loading) return;
     setInput("");
     setMessages((p) => [...p, { role: "user", content: text }]);
+    ga.aiTutorMessage(specialty);
     setLoading(true);
 
     // Add empty assistant message that will be filled by stream

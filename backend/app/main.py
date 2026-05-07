@@ -29,9 +29,10 @@ if settings.SENTRY_DSN:
     )
 from app.core.logging_config import setup_logging
 from app.middleware.correlation_id import CorrelationIdMiddleware
+from app.core.telemetry import setup_telemetry
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles, fhir
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -131,6 +132,9 @@ app.add_middleware(
 )
 app.add_middleware(CorrelationIdMiddleware)
 
+# OpenTelemetry tracing (no-op if OTEL_ENABLED not set)
+setup_telemetry(app)
+
 # Include routers
 API_PREFIX = "/api/v1"
 app.include_router(auth.router, prefix=API_PREFIX)
@@ -156,6 +160,7 @@ app.include_router(simulation.router, prefix=API_PREFIX)
 app.include_router(adaptive.router, prefix=API_PREFIX)
 app.include_router(analytics.router, prefix=API_PREFIX)
 app.include_router(articles.router, prefix=API_PREFIX)
+app.include_router(fhir.router, prefix=API_PREFIX)
 
 # Serve uploaded media files (images for lessons).
 # In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.

@@ -207,9 +207,13 @@ export default function AdminPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { label: "Total users", val: stats.users.total },
-                { label: "Active users", val: stats.users.active },
+                { label: "DAU (today)", val: (stats.users as any).dau ?? "—" },
+                { label: "WAU (7d)", val: (stats.users as any).wau ?? "—" },
+                { label: "MAU (30d)", val: (stats.users as any).mau ?? "—" },
+                { label: "Active accounts", val: stats.users.active },
                 { label: "New this week", val: stats.users.new_last_7_days },
-                { label: "Paying users", val: Object.entries(stats.users.by_tier).filter(([k]) => k !== "free").reduce((a, [, v]) => a + v, 0) },
+                { label: "New this month", val: (stats.users as any).new_last_30_days ?? "—" },
+                { label: "Paying", val: Object.entries(stats.users.by_tier).filter(([k]) => k !== "free").reduce((a, [, v]) => a + (v as number), 0) },
               ].map((s) => (
                 <div key={s.label} className="card p-4 text-center">
                   <div className="font-syne font-black text-2xl text-ink">{s.val}</div>
@@ -218,6 +222,65 @@ export default function AdminPage() {
               ))}
             </div>
           </section>
+
+          {/* AI usage */}
+          {(stats as any).ai && (
+            <section>
+              <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">AI Usage (30d)</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="card p-4 text-center">
+                  <div className="font-syne font-black text-2xl text-ink">{(stats as any).ai.conversations_30d}</div>
+                  <div className="text-ink-3 text-xs font-syne mt-1">Conversations</div>
+                </div>
+                <div className="card p-4 text-center">
+                  <div className="font-syne font-black text-2xl text-ink">{((stats as any).ai.tokens_30d / 1000).toFixed(0)}k</div>
+                  <div className="text-ink-3 text-xs font-syne mt-1">Tokens used</div>
+                </div>
+                {Object.entries((stats as any).ai.by_model ?? {}).slice(0, 2).map(([model, data]: [string, any]) => (
+                  <div key={model} className="card p-4 text-center">
+                    <div className="font-syne font-black text-xl text-ink">{data.conversations}</div>
+                    <div className="text-ink-3 text-[10px] font-syne">{(data.tokens / 1000).toFixed(0)}k tokens</div>
+                    <div className="text-ink-3 text-xs font-syne mt-1 truncate" title={model}>{model.split("/").pop()}</div>
+                  </div>
+                ))}
+              </div>
+              {Object.keys((stats as any).ai.by_model ?? {}).length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {Object.entries((stats as any).ai.by_model).map(([model, data]: [string, any]) => (
+                    <span key={model} className="text-xs font-syne text-ink-3 bg-surface border border-border rounded px-2 py-1">
+                      {model.split("/").pop()}: {data.conversations} conv · {(data.tokens/1000).toFixed(1)}k tok
+                    </span>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* Top actions last 24h */}
+          {(stats as any).activity?.top_actions_24h && Object.keys((stats as any).activity.top_actions_24h).length > 0 && (
+            <section>
+              <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">Top Events (24h)</h2>
+              <div className="card p-4">
+                <div className="space-y-2">
+                  {Object.entries((stats as any).activity.top_actions_24h as Record<string, number>)
+                    .sort(([, a], [, b]) => b - a)
+                    .slice(0, 8)
+                    .map(([action, count]) => {
+                      const max = Math.max(...Object.values((stats as any).activity.top_actions_24h as Record<string, number>));
+                      return (
+                        <div key={action} className="flex items-center gap-3">
+                          <div className="font-syne text-xs text-ink w-48 truncate">{action}</div>
+                          <div className="flex-1 h-2 bg-border rounded-full overflow-hidden">
+                            <div className="h-full bg-ink rounded-full" style={{ width: `${(count / max) * 100}%` }} />
+                          </div>
+                          <div className="font-syne font-bold text-xs text-ink w-8 text-right">{count}</div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Tier breakdown */}
           <section>

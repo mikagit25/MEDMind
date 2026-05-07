@@ -6,6 +6,7 @@ import Link from "next/link";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT, useI18n } from "@/lib/i18n";
+import { ga } from "@/lib/gtag";
 
 export default function RegisterPage() {
   const t = useT();
@@ -40,6 +41,7 @@ export default function RegisterPage() {
       const res = await authApi.register(form);
       const data = res.data;
       setAuth(data.user, data.access_token, data.refresh_token);
+      ga.signUp("email");
       router.replace("/onboarding");
     } catch (err: any) {
       setError(err.response?.data?.detail ?? t("common.error"));

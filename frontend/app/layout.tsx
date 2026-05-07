@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
       </head>
       <body className="bg-bg font-serif text-ink antialiased">
+        <GoogleAnalytics />
         <Providers>{children}</Providers>
         <Toaster position="top-right" />
       </body>
