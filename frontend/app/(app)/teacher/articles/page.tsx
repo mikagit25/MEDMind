@@ -73,6 +73,14 @@ export default function TeacherArticlesPage() {
 
   useEffect(() => { load(); }, [load]);
 
+  // Auto-poll while any article is still generating
+  useEffect(() => {
+    const hasGenerating = articles.some(a => a.generated_by === "ai-generating");
+    if (!hasGenerating) return;
+    const timer = setInterval(() => load(), 12000);
+    return () => clearInterval(timer);
+  }, [articles, load]);
+
   const submit = async (id: string) => {
     setSubmitting(id);
     try {

@@ -30,12 +30,15 @@ Admin endpoints (require role=admin):
 """
 from __future__ import annotations
 
+import logging
 import mimetypes
 import uuid as _uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import UUID
+
+logger = logging.getLogger(__name__)
 
 import aiofiles
 from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, UploadFile
@@ -646,16 +649,23 @@ async def generate_article_ai(
                 art.updated_at = datetime.utcnow()
                 await bg_db.commit()
             except Exception as exc:
+                logger.error(
+                    "AI article generation failed [article=%s topic=%r model=%s]: %s: %s",
+                    article_id, topic, model, type(exc).__name__, exc,
+                )
                 # Refund on failure
-                bg_acc = await bg_db.get(AuthorCreditAccount, user_id)
-                if bg_acc:
-                    bg_acc.balance += credits_spent
-                    bg_acc.total_spent -= credits_spent
-                art.title = f"Generation failed: {topic[:60]}"
-                art.excerpt = f"Credits refunded. Error: {type(exc).__name__}: {repr(exc)[:150]}"
-                art.generated_by = "ai-failed"
-                art.updated_at = datetime.utcnow()
-                await bg_db.commit()
+                try:
+                    bg_acc = await bg_db.get(AuthorCreditAccount, user_id)
+                    if bg_acc:
+                        bg_acc.balance += credits_spent
+                        bg_acc.total_spent -= credits_spent
+                    art.title = f"Generation failed: {topic[:60]}"
+                    art.excerpt = f"Credits refunded. Error: {type(exc).__name__}: {str(exc)[:200]}"
+                    art.generated_by = "ai-failed"
+                    art.updated_at = datetime.utcnow()
+                    await bg_db.commit()
+                except Exception as inner:
+                    logger.error("Failed to persist generation failure state: %s", inner)
 
     asyncio.create_task(_generate_background())
 
