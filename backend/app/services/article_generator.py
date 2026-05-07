@@ -210,6 +210,12 @@ def _parse_response(raw: str, topic: str, category: str, language: str) -> Dict[
     data.setdefault("related_module_code", None)
     data.setdefault("subcategory", None)
 
+    # Auto-generate SEO fields from title/excerpt if AI didn't provide them
+    title = data.get("title", topic)
+    excerpt = data.get("excerpt", "")
+    data.setdefault("og_title", title[:60] if len(title) <= 60 else title[:57] + "…")
+    data.setdefault("og_description", excerpt[:155] if len(excerpt) <= 155 else excerpt[:152] + "…")
+
     logger.info("Generated article: %s (slug: %s, language: %s)", data.get("title"), data["slug"], language)
     return data
 

@@ -773,6 +773,12 @@ async def submit_for_review(
         raise HTTPException(status_code=403, detail="Not your article")
     if article.review_status not in ("draft", "rejected"):
         raise HTTPException(status_code=400, detail=f"Cannot submit: current status is '{article.review_status}'")
+    if article.generated_by == "ai-generating":
+        raise HTTPException(status_code=400, detail="Article is still being generated. Wait for generation to complete.")
+    if article.generated_by == "ai-failed":
+        raise HTTPException(status_code=400, detail="Article generation failed. Delete it and try again.")
+    if not article.body:
+        raise HTTPException(status_code=400, detail="Article has no content. Add body sections before submitting.")
 
     article.review_status = "pending_review"
     article.submitted_at = datetime.utcnow()
