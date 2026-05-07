@@ -4,14 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
 import { authApi, complianceApi } from "@/lib/api";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, useT } from "@/lib/i18n";
 
-const SUBSCRIPTION_INFO: Record<string, { label: string; color: string; desc: string }> = {
-  free: { label: "Free", color: "bg-surface-2 text-ink-3", desc: "Access to fundamental modules only" },
-  student: { label: "Student", color: "bg-blue-light text-blue", desc: "Full library access" },
-  pro: { label: "Pro", color: "bg-amber-light text-amber", desc: "Full access including vet content & drugs" },
-  clinic: { label: "Clinic", color: "bg-green-light text-green", desc: "Team access with analytics" },
-  lifetime: { label: "Lifetime", color: "bg-ink text-white", desc: "Unlimited access forever" },
+const TIER_COLORS: Record<string, string> = {
+  free: "bg-surface-2 text-ink-3",
+  student: "bg-blue-light text-blue",
+  pro: "bg-amber-light text-amber",
+  clinic: "bg-green-light text-green",
+  lifetime: "bg-ink text-white",
 };
 
 const ALL_SPECIES = [
@@ -27,6 +27,7 @@ const ALL_SPECIES = [
 export default function SettingsPage() {
   const { user, updateUser, logout } = useAuthStore();
   const { locale, setLocale } = useI18n();
+  const t = useT();
   const [firstName, setFirstName] = useState(user?.first_name ?? "");
   const [lastName, setLastName] = useState(user?.last_name ?? "");
   const [vetMode, setVetMode] = useState<boolean>((user?.preferences?.vet_mode as boolean) ?? false);
@@ -38,8 +39,7 @@ export default function SettingsPage() {
   const [error, setError] = useState("");
 
   const sub = user?.subscription_tier ?? "free";
-  const subInfo = SUBSCRIPTION_INFO[sub] ?? SUBSCRIPTION_INFO.free;
-  const canUseVet = true; // Test mode: vet access is free for all users
+  const canUseVet = true;
 
   const toggleSpecies = (id: string) => {
     setVetSpecies((prev) =>
@@ -52,7 +52,6 @@ export default function SettingsPage() {
     setSaving(true);
     setError("");
     try {
-      // Save profile + vet settings in parallel
       const [profileRes] = await Promise.all([
         authApi.updateMe({ first_name: firstName, last_name: lastName }),
         canUseVet
@@ -71,15 +70,17 @@ export default function SettingsPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
-      <h1 className="font-syne font-black text-2xl text-ink mb-6">Settings</h1>
+      <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("settings.title")}</h1>
 
       {/* Profile */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-4">Profile</h2>
+        <h2 className="font-syne font-bold text-base text-ink mb-4">{t("settings.profile")}</h2>
         <form onSubmit={handleSave} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">First name</label>
+              <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
+                {t("settings.first_name")}
+              </label>
               <input
                 type="text"
                 value={firstName}
@@ -88,7 +89,9 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Last name</label>
+              <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
+                {t("settings.last_name")}
+              </label>
               <input
                 type="text"
                 value={lastName}
@@ -98,51 +101,49 @@ export default function SettingsPage() {
             </div>
           </div>
           <div>
-            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Email</label>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
+              {t("settings.email")}
+            </label>
             <input
               type="email"
               value={user?.email ?? ""}
               disabled
               className="w-full px-3 py-2 rounded border border-border bg-surface-2 text-ink-3 font-serif text-sm cursor-not-allowed"
             />
+            <p className="text-ink-3 text-xs font-serif mt-1">{t("settings.email_hint")}</p>
           </div>
           {error && <p className="text-red font-serif text-xs">{error}</p>}
           <button type="submit" disabled={saving} className="btn-primary disabled:opacity-40">
-            {saving ? "Saving…" : saved ? "✓ Saved" : "Save Changes"}
+            {saving ? "…" : saved ? `✓ ${t("settings.saved_success")}` : t("settings.save_profile")}
           </button>
         </form>
       </section>
 
       {/* Language */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-1">🌐 Language / Язык / اللغة / Dil</h2>
-        <p className="font-serif text-ink-3 text-sm mb-4">Interface language</p>
+        <h2 className="font-syne font-bold text-base text-ink mb-1">🌐 {t("settings.language")}</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">{t("settings.language_hint")}</p>
         <div className="flex flex-wrap gap-2">
-          {(["en", "ru", "ar", "tr", "de", "fr", "es"] as const).map((lang) => {
-            const labels: Record<string, string> = { en: "English", ru: "Русский", ar: "العربية", tr: "Türkçe", de: "Deutsch", fr: "Français", es: "Español" };
-            return (
-              <button
-                key={lang}
-                onClick={() => setLocale(lang)}
-                className={`px-4 py-1.5 rounded-full font-syne font-semibold text-sm border transition-colors ${
-                  locale === lang
-                    ? "bg-ink text-white border-ink"
-                    : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
-                }`}
-              >
-                {labels[lang]}
-              </button>
-            );
-          })}
+          {(["en", "ru", "ar", "tr", "de", "fr", "es"] as const).map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setLocale(lang)}
+              className={`px-4 py-1.5 rounded-full font-syne font-semibold text-sm border transition-colors ${
+                locale === lang
+                  ? "bg-ink text-white border-ink"
+                  : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+              }`}
+            >
+              {t(`settings.languages.${lang}` as any) || lang}
+            </button>
+          ))}
         </div>
       </section>
 
       {/* Veterinary mode */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-1">🐾 Veterinary Mode</h2>
-        <p className="font-serif text-ink-3 text-sm mb-4">
-          Show veterinary content, species-specific dosing, and vet modules alongside human medicine.
-        </p>
+        <h2 className="font-syne font-bold text-base text-ink mb-1">🐾 {t("settings.veterinary_mode")}</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">{t("settings.vet_description")}</p>
         {canUseVet ? (
           <div className="space-y-4">
             <label className="flex items-center gap-3 cursor-pointer select-none">
@@ -159,12 +160,14 @@ export default function SettingsPage() {
                 />
               </div>
               <span className="font-syne font-semibold text-sm text-ink">
-                {vetMode ? "Veterinary mode ON" : "Veterinary mode OFF"}
+                {t("settings.veterinary_mode")} {vetMode ? "ON" : "OFF"}
               </span>
             </label>
             {vetMode && (
               <div>
-                <p className="font-syne font-semibold text-xs text-ink-2 mb-2">Select species you work with:</p>
+                <p className="font-syne font-semibold text-xs text-ink-2 mb-2">
+                  {t("settings.vet_species")}:
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {ALL_SPECIES.map((sp) => (
                     <button
@@ -199,10 +202,11 @@ export default function SettingsPage() {
 
       {/* Subscription */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-3">Subscription</h2>
+        <h2 className="font-syne font-bold text-base text-ink mb-3">{t("settings.subscription")}</h2>
         <div className="flex items-center gap-3">
-          <span className={`badge px-3 py-1 ${subInfo.color}`}>{subInfo.label}</span>
-          <span className="font-serif text-ink-3 text-sm">{subInfo.desc}</span>
+          <span className={`badge px-3 py-1 ${TIER_COLORS[sub] ?? TIER_COLORS.free}`}>
+            {sub.charAt(0).toUpperCase() + sub.slice(1)}
+          </span>
         </div>
         {sub === "free" && (
           <div className="mt-4">
@@ -218,7 +222,7 @@ export default function SettingsPage() {
               target="_blank"
               className="btn-secondary inline-block text-sm"
             >
-              Manage Billing ↗
+              {t("settings.manage_billing")}
             </a>
           </div>
         )}
@@ -246,6 +250,7 @@ export default function SettingsPage() {
 
 function GDPRSection() {
   const { logout } = useAuthStore();
+  const t = useT();
   const [exporting, setExporting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -257,7 +262,6 @@ function GDPRSection() {
     setError("");
     try {
       const res = await complianceApi.exportData();
-      // Trigger browser download
       const blob = new Blob([JSON.stringify(res.data, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -289,7 +293,7 @@ function GDPRSection() {
 
   return (
     <section className="card p-6 mb-5">
-      <h2 className="font-syne font-bold text-base text-ink mb-1">🔒 Privacy & Data (GDPR)</h2>
+      <h2 className="font-syne font-bold text-base text-ink mb-1">🔒 {t("settings.privacy")}</h2>
       <p className="font-serif text-ink-3 text-sm mb-4">
         Under GDPR you have the right to access, export, and delete your personal data.
       </p>
@@ -297,10 +301,9 @@ function GDPRSection() {
       {error && <p className="font-serif text-red text-xs mb-3">{error}</p>}
 
       <div className="space-y-3">
-        {/* Export */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="font-syne font-semibold text-sm text-ink">Export my data</p>
+            <p className="font-syne font-semibold text-sm text-ink">{t("settings.export_data")}</p>
             <p className="font-serif text-ink-3 text-xs">Download all your data as JSON (Art. 20 GDPR)</p>
           </div>
           <button
@@ -308,15 +311,14 @@ function GDPRSection() {
             disabled={exporting}
             className="btn-secondary text-sm shrink-0 disabled:opacity-40"
           >
-            {exporting ? "Exporting…" : exportDone ? "✓ Downloaded" : "Export →"}
+            {exporting ? "…" : exportDone ? "✓" : `${t("settings.export_data")} →`}
           </button>
         </div>
 
         <hr className="border-border" />
 
-        {/* Delete */}
         <div>
-          <p className="font-syne font-semibold text-sm text-ink">Delete my account</p>
+          <p className="font-syne font-semibold text-sm text-ink">{t("settings.delete_account")}</p>
           <p className="font-serif text-ink-3 text-xs mb-2">
             Permanently anonymizes your personal data (Art. 17 GDPR). Learning progress data is retained anonymously.
           </p>
@@ -325,12 +327,12 @@ function GDPRSection() {
               onClick={() => setConfirmDelete(true)}
               className="btn-secondary text-red border-red/30 hover:bg-red-light text-sm"
             >
-              Delete account
+              {t("settings.delete_account")}
             </button>
           ) : (
             <div className="p-3 rounded bg-red-light border border-red/30">
               <p className="font-syne font-semibold text-sm text-red mb-2">
-                Are you sure? This cannot be undone.
+                {t("settings.delete_confirm")}
               </p>
               <div className="flex gap-2">
                 <button
@@ -338,7 +340,7 @@ function GDPRSection() {
                   disabled={deleting}
                   className="px-4 py-1.5 rounded bg-red text-white font-syne font-semibold text-xs hover:bg-red/90 disabled:opacity-40"
                 >
-                  {deleting ? "Deleting…" : "Yes, delete permanently"}
+                  {deleting ? "…" : "Yes, delete permanently"}
                 </button>
                 <button
                   onClick={() => setConfirmDelete(false)}
