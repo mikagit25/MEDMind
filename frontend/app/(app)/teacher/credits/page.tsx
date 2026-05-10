@@ -159,11 +159,18 @@ export default function CreditsPage() {
                 </thead>
                 <tbody>
                   {pricing.map((p) => (
-                    <tr key={p.model} className="border-t border-border hover:bg-surface-2 transition-colors">
+                    <tr key={p.model} className={`border-t border-border hover:bg-surface-2 transition-colors ${p.credits_per_article === 0 ? "bg-green-light/20" : ""}`}>
                       <td className="px-5 py-3 font-syne font-bold text-ink">{p.display_name}</td>
                       <td className="px-4 py-3 font-serif text-ink-3 text-xs">{p.description}</td>
-                      <td className="px-4 py-3 text-right font-syne font-bold text-amber-700">{p.credits_per_article}</td>
-                      <td className="px-5 py-3 text-right font-syne text-ink-3">${p.usd_per_article.toFixed(2)}</td>
+                      <td className="px-4 py-3 text-right font-syne font-bold">
+                        {p.credits_per_article === 0
+                          ? <span className="text-green">FREE</span>
+                          : <span className="text-amber-700">{p.credits_per_article} cr</span>
+                        }
+                      </td>
+                      <td className="px-5 py-3 text-right font-syne text-ink-3">
+                        {p.credits_per_article === 0 ? "—" : `$${p.usd_per_article.toFixed(2)}`}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -208,12 +215,22 @@ export default function CreditsPage() {
 
           {/* How it works */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/50 rounded-xl p-5 mb-8">
-            <h2 className="font-syne font-bold text-base text-ink mb-3">How It Works</h2>
+            <h2 className="font-syne font-bold text-base text-ink mb-3">How Credits Work</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="bg-green-light border border-green/20 rounded-xl p-4">
+                <div className="font-syne font-bold text-sm text-green mb-1">🆓 Ollama — Always Free</div>
+                <div className="text-xs font-serif text-ink-2">Generate unlimited articles using our local AI server. No credits needed. Article is ready in ~2–3 minutes and automatically translated to 7 languages.</div>
+              </div>
+              <div className="bg-amber-light/40 border border-amber/20 rounded-xl p-4">
+                <div className="font-syne font-bold text-sm text-amber-800 mb-1">⚡ Claude — Paid (Better Quality)</div>
+                <div className="text-xs font-serif text-ink-2">When you buy credits, we transfer your payment directly to the Anthropic API. Your credits = actual Claude API budget. Haiku: 1 credit, Sonnet: 5 credits.</div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                { step: "1", title: "Buy Credits", desc: "Purchase a credit pack. 1 credit = $0.01. No subscription required." },
-                { step: "2", title: "Generate Article", desc: "Choose a topic and AI model. Credits are deducted automatically on generation." },
-                { step: "3", title: "Earn Revenue", desc: "Published articles earn 40% of ad revenue (RPM ~$2.00 per 1,000 views)." },
+                { step: "1", title: "Buy Credits (optional)", desc: "Purchase only if you want Claude quality. 1 credit = $0.01, paid directly to Anthropic API on your behalf." },
+                { step: "2", title: "Generate Article", desc: "Choose Ollama (free) or Claude (credits). Article auto-published after admin review, translated to 7 languages." },
+                { step: "3", title: "Earn Revenue", desc: "Published articles earn 40% of ad revenue — RPM ~$2.00 per 1,000 views. Payouts monthly, min $10." },
               ].map((s) => (
                 <div key={s.step} className="flex gap-3">
                   <div className="w-7 h-7 rounded-full bg-ink text-white font-syne font-bold text-xs flex items-center justify-center flex-shrink-0">
