@@ -7,7 +7,7 @@ import io
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func
+from sqlalchemy import select, func, update
 
 from app.core.database import get_db
 from app.models.models import (
@@ -88,12 +88,15 @@ async def complete_lesson(
     if not lesson:
         raise HTTPException(status_code=404, detail="Lesson not found")
 
-    # Get or create user_progress record
+    # Get or create user_progress record — SELECT FOR UPDATE prevents double-XP
+    # if two requests race (e.g. network retry, double-tap).
     prog_result = await db.execute(
-        select(UserProgress).where(
+        select(UserProgress)
+        .where(
             UserProgress.user_id == user.id,
             UserProgress.module_id == lesson.module_id,
         )
+        .with_for_update()
     )
     progress = prog_result.scalar_one_or_none()
 
@@ -103,8 +106,6 @@ async def complete_lesson(
         await db.flush()
 
     # Mark lesson as completed (idempotent).
-    # Normalise to str so UUID objects don't break JSON serialisation when
-    # lessons_completed is stored as JSONB/ARRAY and read back as strings.
     completed = [str(x) for x in (progress.lessons_completed or [])]
     lesson_id_str = str(lesson.id)
     is_new_completion = lesson_id_str not in completed

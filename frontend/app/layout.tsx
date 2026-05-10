@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { PWAInstallPrompt } from "@/components/ui/PWAInstallPrompt";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
@@ -64,11 +65,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
         ))}
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
+        {/* PWA */}
+        <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: light)" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="MedMind" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        {/* Viewport — prevents zoom on input focus on iOS */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body className="bg-bg font-serif text-ink antialiased">
         <GoogleAnalytics />
         <Providers>{children}</Providers>
         <Toaster position="top-right" />
+        <PWAInstallPrompt />
       </body>
     </html>
   );
