@@ -87,12 +87,13 @@ function OverviewTab({ setTab }: { setTab: (tab: Tab) => void }) {
   return (
     <div className="space-y-5">
       {/* Quick links */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {[
-          { icon: "⚖️", label: tr("veterinary.tabs.dosing"),  desc: tr("vet_description"), tab: "dosing"   as Tab },
-          { icon: "⚠️", label: tr("veterinary.tabs.toxicity"), desc: tr("veterinary.toxic_dose"),  tab: "toxicity" as Tab },
-          { icon: "🦠", label: tr("veterinary.tabs.zoonoses"),  desc: tr("veterinary.treatment"),  tab: "zoonoses" as Tab },
-          { icon: "📚", label: tr("veterinary.tabs.modules"),   desc: tr("veterinary.subtitle"),    tab: "modules"  as Tab },
+          { icon: "⚖️", label: tr("veterinary.tabs.dosing"),  tab: "dosing"   as Tab },
+          { icon: "⚠️", label: tr("veterinary.tabs.toxicity"), tab: "toxicity" as Tab },
+          { icon: "🦠", label: tr("veterinary.tabs.zoonoses"), tab: "zoonoses" as Tab },
+          { icon: "💡", label: tr("veterinary.tabs.pearls"),   tab: "pearls"  as Tab },
+          { icon: "📚", label: tr("veterinary.tabs.modules"),  tab: "modules"  as Tab },
         ].map((item) => (
           <button
             key={item.tab}
@@ -103,6 +104,14 @@ function OverviewTab({ setTab }: { setTab: (tab: Tab) => void }) {
             <div className="font-syne font-bold text-sm text-ink group-hover:text-ink">{item.label}</div>
           </button>
         ))}
+        <Link
+          href="/imaging/veterinary"
+          className="card p-4 text-left hover:border-ink transition-colors group block"
+        >
+          <div className="text-2xl mb-2">🔬</div>
+          <div className="font-syne font-bold text-sm text-ink group-hover:text-ink">Anatomy Images</div>
+          <div className="font-serif text-xs text-ink-3 mt-0.5">Dog · Cat · Horse · Bird</div>
+        </Link>
       </div>
 
       {/* Species cards */}

@@ -236,13 +236,20 @@ export default function ImagingPage() {
           ))}
         </div>
 
-        <div className="mt-6 pt-4 border-t border-border">
+        <div className="mt-6 pt-4 border-t border-border space-y-0.5">
           <Link
             href="/anatomy"
             className="flex items-center gap-2 px-2 py-1.5 rounded-lg font-syne text-xs text-ink hover:bg-surface transition-colors"
           >
             <span>🧊</span>
             3D Anatomy
+          </Link>
+          <Link
+            href="/imaging/veterinary"
+            className="flex items-center gap-2 px-2 py-1.5 rounded-lg font-syne text-xs text-ink hover:bg-surface transition-colors"
+          >
+            <span>🐾</span>
+            Vet Anatomy
           </Link>
         </div>
       </aside>
