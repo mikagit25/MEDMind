@@ -323,39 +323,78 @@ function DoseCalcTab() {
 
 const TOXICITY_DB: Record<string, Record<string, { level: "fatal" | "toxic" | "caution"; note: string }>> = {
   "paracetamol / acetaminophen": {
-    "Cat":   { level: "fatal",  note: "FATAL — causes methaemoglobinaemia and acute hepatic necrosis. Absolutely contraindicated." },
-    "Dog":   { level: "toxic",  note: "Toxic in overdose (hepatotoxicity). Use only under strict supervision." },
+    "Cat":   { level: "fatal",  note: "FATAL — methaemoglobinaemia + acute hepatic necrosis. Even 1 tablet can kill a cat within 24 h. Absolutely contraindicated." },
+    "Dog":   { level: "toxic",  note: "Toxic in overdose (>75 mg/kg): hepatotoxicity. Treat with N-acetylcysteine urgently." },
   },
-  "ibuprofen": {
-    "Cat":   { level: "fatal",  note: "Highly toxic: GI ulceration + acute renal failure. Contraindicated." },
-    "Dog":   { level: "toxic",  note: "Toxic even at low doses: GI ulceration, renal failure. Contraindicated." },
+  "ibuprofen / NSAIDs": {
+    "Cat":   { level: "fatal",  note: "GI ulceration + acute renal failure. Virtually all human NSAIDs are contraindicated in cats." },
+    "Dog":   { level: "toxic",  note: "GI ulceration, renal failure. Use only approved veterinary NSAIDs (meloxicam, carprofen)." },
+    "Rabbit": { level: "toxic", note: "Renal papillary necrosis risk. Avoid all NSAIDs unless under specialist guidance." },
   },
   "aspirin": {
-    "Cat":   { level: "caution", note: "High risk — cats lack glucuronyl transferase. Only q72h maximum if absolutely needed." },
+    "Cat":   { level: "caution", note: "Half-life ~40 h due to glucuronidation deficiency. Maximum q72h. High toxicity risk; avoid if possible." },
+    "Dog":   { level: "caution", note: "GI ulceration risk. Safer alternatives (carprofen, meloxicam) exist for pain." },
   },
   "xylitol": {
-    "Dog":   { level: "fatal",  note: "FATAL — causes severe hypoglycaemia and acute liver failure even in small amounts." },
+    "Dog":   { level: "fatal",  note: "FATAL — severe hypoglycaemia within 30 min (>0.1 g/kg) + acute liver failure (>0.5 g/kg). Found in sugar-free gum, peanut butter, baked goods." },
+    "Cat":   { level: "caution", note: "Appears less sensitive than dogs, but avoid — evidence limited." },
   },
   "permethrin": {
-    "Cat":   { level: "fatal",  note: "FATAL — severe neurotoxicity from pyrethroid toxicosis. Never use dog flea products on cats." },
+    "Cat":   { level: "fatal",  note: "FATAL — pyrethroid toxicosis: muscle tremors, hyperthermia, seizures. Never use dog spot-on products on cats." },
   },
   "ivermectin": {
-    "Dog":   { level: "caution", note: "Toxic in Collie breeds and MDR1 (ABCB1)-mutant dogs. Safe for other breeds at standard doses." },
+    "Dog":   { level: "caution", note: "MDR1/ABCB1-mutant breeds (Collie, Sheltie, Aussie): severe CNS toxicity at antiparasitic doses. Test before prescribing." },
+    "Rabbit": { level: "fatal", note: "Not safe in rabbits at standard doses — profound CNS depression. Use selamectin or fenbendazole instead." },
   },
   "enrofloxacin": {
-    "Cat":   { level: "caution", note: "Doses >5 mg/kg can cause irreversible retinal degeneration and blindness." },
-    "Dog":   { level: "caution", note: "Avoid in growing puppies (<12 months) — cartilage toxicity." },
+    "Cat":   { level: "fatal",  note: "Doses >5 mg/kg/day cause irreversible retinal degeneration → blindness. Use marbofloxacin or pradofloxacin." },
+    "Dog":   { level: "caution", note: "Avoid in growing dogs (<12 months large breeds) — cartilage erosion risk." },
+    "Bird":  { level: "caution", note: "Safe in birds at standard doses (10–15 mg/kg); avoid IM injection — causes muscle necrosis." },
   },
-  "amoxicillin": {
-    "Rabbit": { level: "fatal", note: "FATAL in rabbits and guinea pigs — disrupts GI flora, causing fatal enterotoxaemia." },
-    "Hamster": { level: "fatal", note: "FATAL — same mechanism as rabbits." },
+  "amoxicillin / penicillins": {
+    "Rabbit": { level: "fatal", note: "FATAL — disrupts cecal flora → Clostridium overgrowth → fatal enterotoxaemia within 5–7 days." },
+    "Guinea pig": { level: "fatal", note: "FATAL — same mechanism as rabbits. Never use amoxicillin, clindamycin, lincomycin." },
+    "Hamster": { level: "fatal", note: "FATAL — same mechanism as rabbits and guinea pigs." },
   },
-  "metronidazole (high dose)": {
-    "Bird":   { level: "caution", note: "Neurotoxicity at high doses. Use minimum effective dose." },
-    "Dog":    { level: "caution", note: "Neurotoxicity (ataxia, vestibular signs) at high doses or prolonged use." },
+  "clindamycin / lincomycin": {
+    "Rabbit": { level: "fatal", note: "FATAL enterotoxaemia. Safe alternatives: enrofloxacin, trimethoprim-sulfa, chloramphenicol." },
+    "Hamster": { level: "fatal", note: "FATAL — same as rabbits." },
+  },
+  "metronidazole": {
+    "Bird":   { level: "caution", note: "Neurotoxicity at doses >50 mg/kg; use minimum effective dose, maximum 5–7 days." },
+    "Dog":    { level: "caution", note: "Vestibular syndrome (ataxia, nystagmus, head tilt) at >60 mg/kg/day or prolonged use. Reversible in 1–2 weeks." },
   },
   "xylazine": {
-    "Cattle": { level: "caution", note: "Cattle are extremely sensitive — require ~10× lower doses than horses." },
+    "Cattle": { level: "caution", note: "Cattle need 1/10th the equine dose — extremely sensitive. Accidental equine doses cause fatal cardiovascular/respiratory depression." },
+    "Cat":    { level: "caution", note: "Cats are very sensitive; causes marked bradycardia, respiratory depression. Monitor closely." },
+  },
+  "lily plants (Lilium / Hemerocallis)": {
+    "Cat":   { level: "fatal",  note: "FATAL nephrotoxicity — pollen, petals, leaves, even vase water. No antidote; survival requires immediate IV diuresis." },
+  },
+  "grapes / raisins": {
+    "Dog":   { level: "fatal",  note: "Acute renal failure — no safe dose established, mechanism unknown. Some dogs affected by tiny amounts." },
+  },
+  "onion / garlic / chives (Allium spp.)": {
+    "Dog":   { level: "toxic",  note: "Heinz body haemolytic anaemia: clinical signs 1–5 days post-ingestion. Toxic dose ~15–30 g/kg raw onion." },
+    "Cat":   { level: "toxic",  note: "5× more sensitive than dogs. Avoid any Allium exposure." },
+  },
+  "chocolate (theobromine)": {
+    "Dog":   { level: "toxic",  note: ">20 mg/kg theobromine: GI signs; >40 mg/kg: cardiac arrhythmia; >60 mg/kg: seizures. Dark chocolate most dangerous." },
+    "Cat":   { level: "caution", note: "Rarely eat enough, but toxic mechanism same as dogs." },
+  },
+  "PTFE / Teflon fumes": {
+    "Bird":  { level: "fatal",  note: "FATAL within minutes — overheated non-stick coating (>260°C) releases fumes causing acute haemorrhagic pneumonitis. Ban all Teflon cookware from bird households." },
+  },
+  "essential oils (tea tree, pennyroyal, eucalyptus)": {
+    "Cat":   { level: "toxic",  note: "Hepatotoxicity, CNS depression, respiratory distress — even diffuser exposure. Cats cannot metabolise phenols and monoterpenes." },
+    "Bird":  { level: "toxic",  note: "Diffuser oils severely irritate avian respiratory epithelium. Never use aromatherapy near birds." },
+  },
+  "macadamia nuts": {
+    "Dog":   { level: "toxic",  note: "Hyperthermia, tremors, weakness, ataxia within 12 h (>2 g/kg). Usually self-limiting in 48 h but requires monitoring." },
+  },
+  "brodifacoum / anticoagulant rodenticides": {
+    "Dog":   { level: "fatal",  note: "Delayed coagulopathy 3–5 days post-ingestion. Treat with vitamin K1 for 4–6 weeks minimum. Never use vit K2 or K3." },
+    "Cat":   { level: "fatal",  note: "Same as dogs. Requires prolonged vitamin K1 therapy." },
   },
 };
 
@@ -372,11 +411,11 @@ function ToxicityTab() {
 
   const [filter, setFilter] = useState<string>("all");
 
-  const allSpecies = ["all", "Cat", "Dog", "Rabbit", "Bird", "Cattle", "Hamster"];
+  const allSpecies = ["all", "Cat", "Dog", "Rabbit", "Bird", "Cattle", "Guinea pig", "Hamster"];
 
   const filtered = Object.entries(TOXICITY_DB).flatMap(([drug, speciesMap]) =>
     Object.entries(speciesMap)
-      .filter(([species]) => filter === "all" || species === filter)
+      .filter(([species]) => filter === "all" || species.toLowerCase() === filter.toLowerCase())
       .map(([species, info]) => ({ drug, species, ...info }))
   );
 
