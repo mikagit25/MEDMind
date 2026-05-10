@@ -208,6 +208,8 @@ export const contentApi = {
     api.get(`/specialties${vet ? "?vet=true" : ""}`).then(r => r.data),
   getModules: (specialtyId: string) =>
     api.get(`/specialties/${specialtyId}/modules`).then(r => r.data),
+  getAllModules: (params?: { search?: string; specialty_code?: string; vet?: boolean }) =>
+    api.get("/modules", { params }).then(r => r.data),
   getModule: (id: string) => api.get(`/modules/${id}`).then(r => r.data),
   getLessons: (moduleId: string) => api.get(`/modules/${moduleId}/lessons`).then(r => r.data),
   getLesson: (id: string) => api.get(`/lessons/${id}`).then(r => r.data),

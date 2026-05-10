@@ -117,8 +117,73 @@ async def list_specialty_modules(
 
 
 # ============================================================
-# MODULES
+# MODULES — public list (all published, for student browse page)
 # ============================================================
+@router.get("/modules", response_model=List[ModuleOut])
+async def list_all_modules(
+    search: Optional[str] = Query(None),
+    specialty_code: Optional[str] = Query(None),
+    vet: bool = Query(False),
+    limit: int = Query(200, ge=1, le=500),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return all published modules. Used by the student browse page."""
+    stmt = (
+        select(Module)
+        .where(Module.is_published == True, Module.is_veterinary == vet)
+        .order_by(Module.is_fundamental.desc(), Module.module_order)
+        .limit(limit)
+    )
+    if search:
+        stmt = stmt.where(or_(
+            Module.title.ilike(f"%{search}%"),
+            Module.description.ilike(f"%{search}%"),
+        ))
+    if specialty_code:
+        stmt = stmt.join(Specialty, Specialty.id == Module.specialty_id).where(
+            Specialty.code == specialty_code
+        )
+
+    modules = (await db.execute(stmt)).scalars().all()
+    if not modules:
+        return []
+
+    module_ids = [m.id for m in modules]
+
+    # Batch counts
+    lesson_counts = {r.module_id: r.cnt for r in (await db.execute(
+        select(Lesson.module_id, func.count(Lesson.id).label("cnt"))
+        .where(Lesson.module_id.in_(module_ids)).group_by(Lesson.module_id)
+    )).all()}
+    fc_counts = {r.module_id: r.cnt for r in (await db.execute(
+        select(Flashcard.module_id, func.count(Flashcard.id).label("cnt"))
+        .where(Flashcard.module_id.in_(module_ids)).group_by(Flashcard.module_id)
+    )).all()}
+    mcq_counts = {r.module_id: r.cnt for r in (await db.execute(
+        select(MCQQuestion.module_id, func.count(MCQQuestion.id).label("cnt"))
+        .where(MCQQuestion.module_id.in_(module_ids)).group_by(MCQQuestion.module_id)
+    )).all()}
+
+    # Specialty names
+    spec_ids = list({m.specialty_id for m in modules if m.specialty_id})
+    spec_map: dict = {}
+    if spec_ids:
+        spec_rows = (await db.execute(
+            select(Specialty.id, Specialty.name).where(Specialty.id.in_(spec_ids))
+        )).all()
+        spec_map = {r.id: r.name for r in spec_rows}
+
+    out = []
+    for mod in modules:
+        d = ModuleOut.model_validate(mod)
+        d.lesson_count = lesson_counts.get(mod.id, 0)
+        d.flashcard_count = fc_counts.get(mod.id, 0)
+        d.mcq_count = mcq_counts.get(mod.id, 0)
+        d.specialty_name = spec_map.get(mod.specialty_id, "")
+        out.append(d)
+    return out
+
+
 @router.get("/modules/{module_id}", response_model=ModuleDetail)
 async def get_module(
     module_id: UUID,

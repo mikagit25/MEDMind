@@ -249,12 +249,19 @@ const en = {
 
   // ── Modules ──────────────────────────────────────────────────────────────────
   modules: {
-    title: "Module Library",
+    title: "Learning Modules",
     subtitle: "Browse all available learning modules",
+    modules_available: "modules available",
     search_placeholder: "Search modules, topics…",
     filter_level: "Level",
     filter_specialty: "Specialty",
     all_specialties: "All specialties",
+    all: "All",
+    all_modules: "All modules",
+    in_progress: "Continue learning",
+    completed: "Completed",
+    recommended: "Recommended modules",
+    no_results: "No modules found",
     levels: {
       beginner: "Beginner",
       intermediate: "Intermediate",
@@ -262,10 +269,9 @@ const en = {
     },
     card_lessons: "lessons",
     card_mins: "min",
-    no_modules: "No modules found",
+    no_modules: "No modules in this specialty yet",
     start: "Start",
     continue: "Continue",
-    completed: "Completed ✓",
     locked: "🔒 Upgrade to access",
     lesson_of: "Lesson {n} of {total}",
     next_lesson: "Next lesson",

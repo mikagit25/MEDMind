@@ -1,272 +1,369 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { contentApi, bookmarksApi, api } from "@/lib/api";
+import { contentApi, progressApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 
+// ── Types ──────────────────────────────────────────────────────────────────────
+type Module = {
+  id: string;
+  title: string;
+  description?: string;
+  specialty_name?: string;
+  is_fundamental: boolean;
+  lesson_count: number;
+  flashcard_count: number;
+  mcq_count: number;
+  duration_hours?: number;
+  level_label?: string;
+};
+
+type ModuleProgress = {
+  module_id: string;
+  module_title: string;
+  completion_percent: number;
+  lessons_completed: number;
+  last_activity_at?: string;
+};
+
+const LEVEL_COLORS: Record<string, string> = {
+  beginner:     "bg-green-light text-green",
+  intermediate: "bg-blue-light text-blue",
+  advanced:     "bg-amber-light text-amber",
+};
+
+function ProgressRing({ pct }: { pct: number }) {
+  const r = 16, c = 2 * Math.PI * r;
+  const dash = (pct / 100) * c;
+  return (
+    <svg width={40} height={40} className="flex-shrink-0 -rotate-90">
+      <circle cx={20} cy={20} r={r} fill="none" stroke="var(--color-border)" strokeWidth={4} />
+      <circle cx={20} cy={20} r={r} fill="none" stroke="var(--color-ink)" strokeWidth={4}
+        strokeDasharray={`${dash} ${c}`} strokeLinecap="round" />
+      <text x={20} y={20} className="fill-ink font-syne font-bold" fontSize={9}
+        textAnchor="middle" dominantBaseline="central" style={{ transform: "rotate(90deg)", transformOrigin: "20px 20px" }}>
+        {Math.round(pct)}%
+      </text>
+    </svg>
+  );
+}
+
+function ModuleCard({
+  mod,
+  progress,
+}: {
+  mod: Module;
+  progress?: ModuleProgress;
+}) {
+  const pct = progress?.completion_percent ?? 0;
+
+  return (
+    <Link
+      href={`/modules/${mod.id}`}
+      className="card group flex flex-col gap-3 p-4 hover:border-ink hover:shadow-md transition-all"
+    >
+      {/* Top row */}
+      <div className="flex items-start gap-3">
+        {progress && <ProgressRing pct={pct} />}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            {mod.specialty_name && (
+              <span className="font-syne text-[10px] font-semibold text-ink-3 uppercase tracking-wide truncate max-w-[140px]">
+                {mod.specialty_name}
+              </span>
+            )}
+            {mod.is_fundamental && (
+              <span className="badge bg-green-light text-green text-[10px]">Free</span>
+            )}
+            {mod.level_label && (
+              <span className={`badge text-[10px] ${LEVEL_COLORS[mod.level_label] ?? "bg-surface-2 text-ink-3"}`}>
+                {mod.level_label}
+              </span>
+            )}
+          </div>
+          <h3 className="font-syne font-bold text-sm text-ink leading-snug group-hover:text-accent transition-colors line-clamp-2">
+            {mod.title}
+          </h3>
+          {mod.description && (
+            <p className="font-serif text-[11px] text-ink-3 mt-1 line-clamp-2 leading-relaxed">
+              {mod.description}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Progress bar (if in progress) */}
+      {progress && pct > 0 && (
+        <div className="w-full h-1.5 bg-border-2 rounded-full overflow-hidden">
+          <div className="h-full bg-ink rounded-full transition-all" style={{ width: `${pct}%` }} />
+        </div>
+      )}
+
+      {/* Stats row */}
+      <div className="flex items-center gap-3 text-[11px] font-syne text-ink-3">
+        {mod.lesson_count > 0 && <span>📖 {mod.lesson_count}</span>}
+        {mod.flashcard_count > 0 && <span>🃏 {mod.flashcard_count}</span>}
+        {mod.mcq_count > 0 && <span>❓ {mod.mcq_count}</span>}
+        <span className="ml-auto text-[10px] font-semibold text-accent group-hover:underline">
+          {progress ? (pct >= 100 ? "Review →" : "Continue →") : "Start →"}
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+// ── Main page ──────────────────────────────────────────────────────────────────
 function ModulesInner() {
-  const searchParams = useSearchParams();
   const { user } = useAuthStore();
   const t = useT();
-  const [specialties, setSpecialties] = useState<any[]>([]);
-  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>(
-    searchParams.get("specialty")
-  );
-  const [modules, setModules] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [searchQ, setSearchQ] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const [allModules, setAllModules]     = useState<Module[]>([]);
+  const [myProgress, setMyProgress]     = useState<ModuleProgress[]>([]);
+  const [loading, setLoading]           = useState(true);
+  const [activeSpecialty, setActiveSpecialty] = useState<string>("all");
+  const [searchQ, setSearchQ]           = useState("");
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [searchResults, setSearchResults] = useState<Module[] | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+
+  // Load all modules + user progress in parallel on mount
   useEffect(() => {
-    contentApi.getSpecialties().then((r) => {
-      setSpecialties(r.data ?? []);
-    });
-    // Load existing module bookmarks
-    bookmarksApi.list("module").then((r) => {
-      const ids = new Set<string>((r.data ?? []).map((b: any) => String(b.content_id)));
-      setBookmarkedIds(ids);
-    }).catch(() => {});
+    setLoading(true);
+    Promise.all([
+      contentApi.getAllModules({ vet: false }),
+      progressApi.getModulesProgress().catch(() => []),
+    ]).then(([mods, prog]) => {
+      setAllModules(mods ?? []);
+      setMyProgress(prog ?? []);
+    }).finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    if (!selectedSpecialty) return;
-    setLoading(true);
-    contentApi
-      .getModules(selectedSpecialty)
-      .then((r) => setModules(r.data ?? []))
-      .catch(() => setModules([]))
-      .finally(() => setLoading(false));
-  }, [selectedSpecialty]);
-
-  const toggleBookmark = useCallback(async (modId: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const wasBookmarked = bookmarkedIds.has(modId);
-    // Optimistic update
-    setBookmarkedIds((prev) => {
-      const next = new Set(prev);
-      if (wasBookmarked) next.delete(modId); else next.add(modId);
-      return next;
-    });
-    try {
-      if (wasBookmarked) {
-        await bookmarksApi.remove("module", modId);
-      } else {
-        await bookmarksApi.add("module", modId);
-      }
-    } catch {
-      // Rollback on error
-      setBookmarkedIds((prev) => {
-        const next = new Set(prev);
-        if (wasBookmarked) next.add(modId); else next.delete(modId);
-        return next;
-      });
-    }
-  }, [bookmarkedIds]);
-
-  // Debounced search across all modules
+  // Debounced search
   useEffect(() => {
     if (searchTimer.current) clearTimeout(searchTimer.current);
-    if (!searchQ.trim()) { setSearchResults([]); return; }
+    if (!searchQ.trim()) { setSearchResults(null); return; }
     searchTimer.current = setTimeout(async () => {
       setSearchLoading(true);
       try {
-        const res = await api.get("/search", { params: { q: searchQ.trim(), limit: 30 } });
-        setSearchResults(res.data?.modules ?? []);
+        const res = await contentApi.getAllModules({ search: searchQ.trim(), vet: false });
+        setSearchResults(res ?? []);
       } catch {
         setSearchResults([]);
       } finally {
         setSearchLoading(false);
       }
-    }, 300);
+    }, 350);
   }, [searchQ]);
 
-  const isFree = user?.subscription_tier === "free";
+  // Build data structures
+  const progressMap = new Map(myProgress.map(p => [p.module_id, p]));
+  const inProgressModules = allModules.filter(m => {
+    const p = progressMap.get(m.id);
+    return p && p.completion_percent > 0 && p.completion_percent < 100;
+  }).sort((a, b) => {
+    const pa = progressMap.get(a.id)?.last_activity_at ?? "";
+    const pb = progressMap.get(b.id)?.last_activity_at ?? "";
+    return pb.localeCompare(pa);
+  });
+  const completedModules = allModules.filter(m => (progressMap.get(m.id)?.completion_percent ?? 0) >= 100);
+
+  // Build specialty list from modules
+  const specialties = Array.from(
+    new Map(
+      allModules
+        .filter(m => m.specialty_name)
+        .map(m => [m.specialty_name!, m.specialty_name!])
+    ).entries()
+  ).sort((a, b) => a[0].localeCompare(b[0], "ru"));
+
+  // Filter modules for browse section
+  const browseMods = allModules.filter(m => {
+    if (activeSpecialty === "all") return true;
+    if (activeSpecialty === "free") return m.is_fundamental;
+    return m.specialty_name === activeSpecialty;
+  });
+
   const isSearching = searchQ.trim().length >= 2;
+  const displayMods = isSearching ? (searchResults ?? []) : browseMods;
+
+  if (loading) {
+    return (
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="card h-32 animate-pulse bg-surface-2" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex-1 flex overflow-hidden">
-      {/* Left: Specialty list */}
-      <div className="w-56 flex-shrink-0 border-r border-border bg-surface overflow-y-auto">
-        <div className="p-3 border-b border-border">
-          <span className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider">
-            {t("modules.filter_specialty")}
-          </span>
-        </div>
-        {specialties.map((sp) => (
-          <button
-            key={sp.id}
-            onClick={() => setSelectedSpecialty(String(sp.id))}
-            className={`nav-item w-full ${
-              selectedSpecialty === String(sp.id) ? "active" : "text-ink-2 bg-transparent hover:bg-bg-2 hover:text-ink"
-            }`}
-          >
-            <span className="text-sm">{sp.name}</span>
-            <span className="ml-auto text-xs opacity-60">{sp.module_count ?? 0}</span>
-          </button>
-        ))}
-      </div>
+    <div className="flex-1 overflow-y-auto">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
 
-      {/* Right: Module list */}
-      <div className="flex-1 overflow-y-auto p-5">
-        {/* Search bar */}
+        {/* Header */}
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <div>
+            <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">
+              {t("modules.title") || "Learning Modules"}
+            </h1>
+            <p className="font-serif text-xs text-ink-3 mt-0.5">
+              {allModules.length} {t("modules.modules_available") || "modules available"}
+              {inProgressModules.length > 0 && ` · ${inProgressModules.length} in progress`}
+            </p>
+          </div>
+        </div>
+
+        {/* Search */}
         <div className="relative mb-5">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">🔍</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none text-sm">🔍</span>
           <input
             value={searchQ}
-            onChange={(e) => setSearchQ(e.target.value)}
-            placeholder={t("modules.search_placeholder")}
+            onChange={e => setSearchQ(e.target.value)}
+            placeholder={t("modules.search_placeholder") || "Search modules…"}
             className="w-full bg-surface border border-border rounded-xl pl-9 pr-9 py-2.5 text-ink text-sm font-serif focus:outline-none focus:border-ink transition-colors"
           />
           {searchQ && (
-            <button
-              onClick={() => setSearchQ("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink text-sm"
-            >
-              ✕
-            </button>
+            <button onClick={() => setSearchQ("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-3 hover:text-ink">✕</button>
           )}
         </div>
 
+        {/* Search results */}
         {isSearching ? (
-          searchLoading ? (
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => <div key={i} className="card h-20 animate-pulse bg-bg-2" />)}
-            </div>
-          ) : searchResults.length === 0 ? (
-            <div className="text-center py-16 text-ink-3 font-serif text-sm">No modules found for &ldquo;{searchQ}&rdquo;</div>
-          ) : (
-            <div className="space-y-2.5">
-              <p className="font-syne text-xs text-ink-3 mb-3">{searchResults.length} result{searchResults.length !== 1 ? "s" : ""} for &ldquo;{searchQ}&rdquo;</p>
-              {searchResults.map((mod: any) => {
-                const locked = isFree && !mod.is_fundamental;
-                return (
-                  <div key={mod.id} className={`card transition-all ${locked ? "opacity-60" : "hover:border-ink-3 hover:shadow-sm"}`}>
-                    <div className="flex items-start gap-3">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-syne font-bold text-sm text-ink">{mod.title}</h3>
-                          {mod.is_fundamental && <span className="badge bg-blue-light text-blue text-[10px]">Free</span>}
-                          {locked && <span className="badge bg-amber-light text-amber text-[10px]">🔒 Pro</span>}
-                        </div>
-                        {mod.description && <p className="font-serif text-ink-3 text-xs line-clamp-2">{mod.description}</p>}
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        {!locked ? (
-                          <Link href={`/modules/${mod.id}`} className="btn-primary text-xs px-3 py-1.5">Open →</Link>
-                        ) : (
-                          <Link href="/settings?tab=billing" className="btn-secondary text-xs px-3 py-1.5">Upgrade</Link>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )
-        ) : !selectedSpecialty ? (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="text-4xl mb-3">📚</div>
-            <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("modules.filter_specialty")}</h2>
-            <p className="font-serif text-ink-3 text-sm">
-              {t("modules.all_specialties")}
-            </p>
-          </div>
-        ) : loading ? (
-          <div className="space-y-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="card h-20 animate-pulse bg-bg-2" />
-            ))}
-          </div>
-        ) : modules.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full">
-            <p className="font-serif text-ink-3 text-sm">{t("modules.no_modules")}</p>
+          <div>
+            {searchLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[1,2,3].map(i => <div key={i} className="card h-28 animate-pulse bg-surface-2" />)}
+              </div>
+            ) : displayMods.length === 0 ? (
+              <div className="text-center py-16 text-ink-3 font-serif text-sm">
+                {t("modules.no_results") || `No modules found for "${searchQ}"`}
+              </div>
+            ) : (
+              <>
+                <p className="font-syne text-xs text-ink-3 mb-3">
+                  {displayMods.length} result{displayMods.length !== 1 ? "s" : ""} for «{searchQ}»
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {displayMods.map(m => (
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         ) : (
-          <div className="space-y-2.5">
-            {modules.map((mod: any) => {
-              const locked = isFree && !mod.is_fundamental;
-              return (
-                <div
-                  key={mod.id}
-                  className={`card transition-all ${locked ? "opacity-60" : "hover:border-ink-3 hover:shadow-sm"}`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-syne font-bold text-sm text-ink">{mod.title}</h3>
-                        {mod.is_fundamental && (
-                          <span className="badge bg-blue-light text-blue text-[10px]">Free</span>
-                        )}
-                        {locked && (
-                          <span className="badge bg-amber-light text-amber text-[10px]">🔒 Pro</span>
-                        )}
-                      </div>
-                      {mod.description && (
-                        <p className="font-serif text-ink-3 text-xs line-clamp-2">{mod.description}</p>
-                      )}
-                      <div className="flex gap-3 mt-2 text-xs font-syne text-ink-3">
-                        {mod.lesson_count > 0 && <span>📖 {mod.lesson_count} lessons</span>}
-                        {mod.flashcard_count > 0 && <span>🃏 {mod.flashcard_count} cards</span>}
-                        {mod.mcq_count > 0 && <span>❓ {mod.mcq_count} MCQs</span>}
-                      </div>
-                    </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <button
-                      onClick={(e) => toggleBookmark(String(mod.id), e)}
-                      title={bookmarkedIds.has(String(mod.id)) ? "Remove bookmark" : "Bookmark"}
-                      className={`text-lg leading-none transition-transform hover:scale-110 ${
-                        bookmarkedIds.has(String(mod.id)) ? "opacity-100" : "opacity-30 hover:opacity-70"
-                      }`}
-                    >
-                      🔖
-                    </button>
-                    {!locked && (
-                      <Link
-                        href={`/modules/${mod.id}`}
-                        className="btn-primary text-xs px-3 py-1.5"
-                      >
-                        Open →
-                      </Link>
-                    )}
-                    {locked && (
-                      <Link
-                        href="/settings?tab=billing"
-                        className="btn-secondary text-xs px-3 py-1.5"
-                      >
-                        Upgrade
-                      </Link>
-                    )}
-                  </div>
-                  </div>
+          <>
+            {/* ── Section: In Progress ──────────────────────────── */}
+            {inProgressModules.length > 0 && (
+              <section className="mb-7">
+                <h2 className="font-syne font-bold text-base text-ink mb-3 flex items-center gap-2">
+                  <span>▶️</span>
+                  {t("modules.in_progress") || "Continue learning"}
+                  <span className="font-normal text-ink-3 text-xs">({inProgressModules.length})</span>
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {inProgressModules.map(m => (
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                  ))}
                 </div>
-              );
-            })}
-          </div>
+              </section>
+            )}
+
+            {/* ── Section: Completed ───────────────────────────── */}
+            {completedModules.length > 0 && (
+              <section className="mb-7">
+                <h2 className="font-syne font-bold text-base text-ink mb-3 flex items-center gap-2">
+                  <span>✅</span>
+                  {t("modules.completed") || "Completed"}
+                  <span className="font-normal text-ink-3 text-xs">({completedModules.length})</span>
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {completedModules.map(m => (
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* ── Section: Browse / Recommended ────────────────── */}
+            <section>
+              <h2 className="font-syne font-bold text-base text-ink mb-3 flex items-center gap-2">
+                <span>📚</span>
+                {inProgressModules.length > 0 || completedModules.length > 0
+                  ? (t("modules.all_modules") || "All modules")
+                  : (t("modules.recommended") || "Recommended modules")}
+              </h2>
+
+              {/* Specialty filter pills */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <button
+                  onClick={() => setActiveSpecialty("all")}
+                  className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                    activeSpecialty === "all"
+                      ? "bg-ink text-white border-ink"
+                      : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                  }`}
+                >
+                  {t("modules.all") || "All"}
+                  <span className="ml-1 opacity-60">{allModules.length}</span>
+                </button>
+                <button
+                  onClick={() => setActiveSpecialty("free")}
+                  className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                    activeSpecialty === "free"
+                      ? "bg-green text-white border-green"
+                      : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                  }`}
+                >
+                  ✓ Free
+                </button>
+                {specialties.map(([name]) => (
+                  <button
+                    key={name}
+                    onClick={() => setActiveSpecialty(name)}
+                    className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                      activeSpecialty === name
+                        ? "bg-ink text-white border-ink"
+                        : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                    }`}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Module grid */}
+              {browseMods.length === 0 ? (
+                <div className="text-center py-12 text-ink-3 font-serif text-sm">
+                  {t("modules.no_modules") || "No modules in this specialty yet"}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {browseMods.map(m => (
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                  ))}
+                </div>
+              )}
+            </section>
+          </>
         )}
       </div>
     </div>
   );
 }
 
-function ModulesPageFallback() {
-  const t = useT();
-  return (
-    <div className="flex-1 flex items-center justify-center">
-      <span className="font-serif text-ink-3 text-sm animate-pulse">{t("common.loading")}</span>
-    </div>
-  );
-}
-
 export default function ModulesPage() {
   return (
-    <Suspense fallback={<ModulesPageFallback />}>
+    <Suspense fallback={
+      <div className="flex-1 flex items-center justify-center">
+        <span className="font-serif text-ink-3 text-sm animate-pulse">Loading modules…</span>
+      </div>
+    }>
       <ModulesInner />
     </Suspense>
   );

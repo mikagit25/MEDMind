@@ -120,15 +120,16 @@ class ModuleOut(BaseModel):
     id: UUID
     code: str
     title: str
-    title_en: Optional[str]
-    description: Optional[str]
-    level: int
-    level_label: Optional[str]
-    module_order: int
-    duration_hours: Optional[float]
-    is_fundamental: bool
-    is_published: bool
-    specialty_id: Optional[UUID]
+    title_en: Optional[str] = None
+    description: Optional[str] = None
+    level: int = 1
+    level_label: Optional[str] = None
+    module_order: int = 0
+    duration_hours: Optional[float] = None
+    is_fundamental: bool = False
+    is_published: bool = False
+    specialty_id: Optional[UUID] = None
+    specialty_name: Optional[str] = None
     lesson_count: int = 0
     flashcard_count: int = 0
     mcq_count: int = 0
