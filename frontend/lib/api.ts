@@ -196,7 +196,7 @@ export const authApi = {
   refresh: (refresh_token: string) =>
     api.post("/auth/refresh", { refresh_token }).then(r => r.data),
   me: () => api.get("/auth/me").then(r => r.data),
-  updateMe: (data: { first_name?: string; last_name?: string; preferences?: Record<string, unknown> }) =>
+  updateMe: (data: { first_name?: string; last_name?: string; role?: string; preferences?: Record<string, unknown> }) =>
     api.patch("/auth/me", data).then(r => r.data),
   onboarding: (data: object) => api.post("/auth/onboarding", data).then(r => r.data),
   updateVetSettings: (data: { vet_mode: boolean; species: string[] }) =>

@@ -28,8 +28,9 @@ export default function OnboardingPage() {
   const ROLES = [
     { value: "student", label: t("auth.onboarding.role_student"), icon: "🎓", desc: t("auth.onboarding.role_student_desc") },
     { value: "doctor", label: t("auth.onboarding.role_doctor"), icon: "🩺", desc: t("auth.onboarding.role_doctor_desc") },
-    { value: "professor", label: t("auth.onboarding.role_professor"), icon: "🏛️", desc: t("auth.onboarding.role_professor_desc") },
-    { value: "veterinarian", label: t("auth.onboarding.role_vet"), icon: "🐾", desc: t("auth.onboarding.role_vet_desc") },
+    { value: "teacher", label: t("auth.onboarding.role_teacher"), icon: "🏛️", desc: t("auth.onboarding.role_teacher_desc") },
+    { value: "nurse", label: t("auth.onboarding.role_nurse"), icon: "👩‍⚕️", desc: t("auth.onboarding.role_nurse_desc") },
+    { value: "vet", label: t("auth.onboarding.role_vet"), icon: "🐾", desc: t("auth.onboarding.role_vet_desc") },
   ];
 
   const GOALS = [

@@ -24,12 +24,23 @@ const ALL_SPECIES = [
   { id: "exotic", label: "🦎 Exotic" },
 ];
 
+const ROLE_OPTIONS = [
+  { value: "student",     label: "Student / Resident",          icon: "🎓" },
+  { value: "doctor",      label: "Doctor / Physician",          icon: "🩺" },
+  { value: "teacher",     label: "Teacher / Professor",         icon: "🏛️" },
+  { value: "nurse",       label: "Nurse / Healthcare Worker",   icon: "👩‍⚕️" },
+  { value: "vet",         label: "Veterinarian",                icon: "🐾" },
+  { value: "vet_student", label: "Veterinary Student",          icon: "🎓" },
+  { value: "other",       label: "Other",                       icon: "👤" },
+];
+
 export default function SettingsPage() {
   const { user, updateUser, logout } = useAuthStore();
   const { locale, setLocale } = useI18n();
   const t = useT();
   const [firstName, setFirstName] = useState(user?.first_name ?? "");
   const [lastName, setLastName] = useState(user?.last_name ?? "");
+  const [role, setRole] = useState(user?.role ?? "student");
   const [vetMode, setVetMode] = useState<boolean>((user?.preferences?.vet_mode as boolean) ?? false);
   const [vetSpecies, setVetSpecies] = useState<string[]>(
     (user?.preferences?.vet_species as string[]) ?? []
@@ -53,7 +64,7 @@ export default function SettingsPage() {
     setError("");
     try {
       const [profileRes] = await Promise.all([
-        authApi.updateMe({ first_name: firstName, last_name: lastName }),
+        authApi.updateMe({ first_name: firstName, last_name: lastName, role }),
         canUseVet
           ? authApi.updateVetSettings({ vet_mode: vetMode, species: vetSpecies })
           : Promise.resolve(null),
@@ -112,6 +123,27 @@ export default function SettingsPage() {
             />
             <p className="text-ink-3 text-xs font-serif mt-1">{t("settings.email_hint")}</p>
           </div>
+
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
+              {t("settings.role") || "Role / Profession"}
+            </label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink"
+            >
+              {ROLE_OPTIONS.map((r) => (
+                <option key={r.value} value={r.value}>
+                  {r.icon} {r.label}
+                </option>
+              ))}
+            </select>
+            <p className="text-ink-3 text-xs font-serif mt-1">
+              {t("settings.role_hint") || "Changing your role updates access to teacher and doctor features."}
+            </p>
+          </div>
+
           {error && <p className="text-red font-serif text-xs">{error}</p>}
           <button type="submit" disabled={saving} className="btn-primary disabled:opacity-40">
             {saving ? "…" : saved ? `✓ ${t("settings.saved_success")}` : t("settings.save_profile")}

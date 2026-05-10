@@ -9,6 +9,9 @@ from pydantic import BaseModel, EmailStr, field_validator
 # ============================================================
 # AUTH SCHEMAS
 # ============================================================
+_REGISTER_ALLOWED_ROLES = {"student", "doctor", "teacher", "nurse", "vet", "vet_student", "other"}
+
+
 class UserRegister(BaseModel):
     email: EmailStr
     password: str
@@ -23,6 +26,13 @@ class UserRegister(BaseModel):
     def password_strength(cls, v):
         if len(v) < 8:
             raise ValueError("Password must be at least 8 characters")
+        return v
+
+    @field_validator("role")
+    def validate_role(cls, v):
+        v = v.lower().strip()
+        if v not in _REGISTER_ALLOWED_ROLES:
+            return "student"  # silently normalise unknown roles; never allow admin
         return v
 
     @field_validator("consent_terms", "consent_data_processing")
@@ -82,6 +92,7 @@ class UserOut(BaseModel):
 class UserUpdate(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    role: Optional[str] = None
     preferences: Optional[Dict[str, Any]] = None
     profile_data: Optional[Dict[str, Any]] = None
 

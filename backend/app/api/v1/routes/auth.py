@@ -54,6 +54,7 @@ async def record_failed_attempt(request: Request) -> None:
 class UserUpdate(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    role: Optional[str] = None
     preferences: Optional[dict] = None
 
 
@@ -224,6 +225,9 @@ async def get_me(
     return UserOut.model_validate(user)
 
 
+_ME_ALLOWED_ROLES = {"student", "doctor", "teacher", "nurse", "vet", "vet_student", "other"}
+
+
 @router.patch("/me", response_model=UserOut)
 async def update_me(
     data: UserUpdate,
@@ -234,11 +238,31 @@ async def update_me(
         user.first_name = data.first_name
     if data.last_name is not None:
         user.last_name = data.last_name
+    if data.role is not None:
+        role = data.role.lower().strip()
+        if role in _ME_ALLOWED_ROLES:
+            user.role = role
     if data.preferences is not None:
         user.preferences = {**(user.preferences or {}), **data.preferences}
     await db.commit()
     await db.refresh(user)
     return UserOut.model_validate(user)
+
+
+ALLOWED_ROLES = {"student", "doctor", "teacher", "nurse", "vet", "vet_student", "other"}
+
+# Maps onboarding UI role values → DB role column values
+ONBOARDING_ROLE_MAP = {
+    "student":      "student",
+    "doctor":       "doctor",
+    "teacher":      "teacher",
+    "professor":    "teacher",   # legacy onboarding value
+    "veterinarian": "vet",
+    "vet":          "vet",
+    "vet_student":  "vet_student",
+    "nurse":        "nurse",
+    "other":        "other",
+}
 
 
 @router.post("/onboarding", response_model=UserOut)
@@ -247,8 +271,19 @@ async def complete_onboarding(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Save onboarding preferences and mark onboarding complete."""
-    user.preferences = {**(user.preferences or {}), **data}
+    """Save onboarding preferences and mark onboarding complete.
+
+    Critically: the 'role' field updates user.role (DB column),
+    not just preferences — this is what grants teacher/doctor access.
+    """
+    # Map onboarding role → DB role and update the actual role column
+    if role_raw := data.get("role"):
+        db_role = ONBOARDING_ROLE_MAP.get(str(role_raw).lower(), "student")
+        user.role = db_role
+
+    # Store everything else in preferences (goal, specialties, daily_minutes, etc.)
+    prefs_data = {k: v for k, v in data.items() if k != "role"}
+    user.preferences = {**(user.preferences or {}), **prefs_data}
     user.onboarding_completed = True
     await db.commit()
     await db.refresh(user)

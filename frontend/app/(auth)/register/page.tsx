@@ -51,11 +51,12 @@ export default function RegisterPage() {
   };
 
   const ROLES = [
-    { value: "doctor", label: t("auth.register.roles.doctor") },
     { value: "student", label: t("auth.register.roles.student") },
+    { value: "doctor", label: t("auth.register.roles.doctor") },
+    { value: "teacher", label: t("auth.register.roles.teacher") },
     { value: "nurse", label: t("auth.register.roles.nurse") },
     { value: "vet", label: t("auth.register.roles.vet") },
-    { value: "vet_student", label: t("auth.register.roles.vet") },
+    { value: "vet_student", label: t("auth.register.roles.vet_student") },
     { value: "other", label: t("auth.register.roles.other") },
   ];
 
