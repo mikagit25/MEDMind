@@ -116,13 +116,10 @@ Structure the article as a JSON object with this exact format:
 }}
 
 Requirements:
-- Minimum 12 body blocks (h2, h3, p, ul, callout sections)
-- Include at least 6 sections: overview, pathophysiology, clinical signs, diagnosis, treatment, prognosis
-- Include specific drug doses, diagnostic values, reference ranges where relevant
-- Include species-specific differences
-- Include 3-5 FAQ entries
-- 5-8 keywords
-- Clinical pearls in callout blocks
+- 8-12 body blocks covering: overview, pathophysiology, clinical signs, diagnosis, treatment, prognosis
+- Include specific drug names, doses, and diagnostic values
+- Include 3 FAQ entries and 5 keywords
+- Use callout blocks for important clinical warnings
 
 Topic context: {category} — {specialty}
 
@@ -132,17 +129,36 @@ Respond with ONLY the JSON object, no other text."""
 def generate_article(title: str, category: str, specialty: str) -> dict | None:
     prompt = ARTICLE_PROMPT.format(title=title, category=category, specialty=specialty)
     try:
+        # Use streaming to avoid read timeout on slow CPU inference
         r = requests.post(OLLAMA_URL, json={
             "model": OLLAMA_MODEL,
             "prompt": prompt,
             "system": SYSTEM_PROMPT,
-            "stream": False,
-            "options": {"temperature": 0.3, "num_predict": 4000},
-        }, timeout=600)
+            "stream": True,
+            "options": {"temperature": 0.3, "num_predict": 2500, "num_ctx": 4096},
+        }, stream=True, timeout=30)
         if r.status_code != 200:
             log.error("Ollama HTTP %d", r.status_code)
             return None
-        raw = r.json().get("response", "")
+
+        # Collect streamed tokens
+        raw = ""
+        last_tok = time.time()
+        for line in r.iter_lines():
+            if not line:
+                continue
+            try:
+                chunk = json.loads(line)
+                raw += chunk.get("response", "")
+                last_tok = time.time()
+                if chunk.get("done"):
+                    break
+            except Exception:
+                pass
+            # Safety timeout: 600s total
+            if time.time() - last_tok > 120:
+                log.warning("Token stream stalled for %s", title)
+                break
 
         # Extract JSON
         m = re.search(r"\{.*\}", raw, re.DOTALL)
