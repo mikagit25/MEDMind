@@ -24,11 +24,14 @@ type Modality = { modality: string; count: number };
 
 const MODALITY_LABELS: Record<string, string> = {
   xray: "X-Ray",
-  ct: "CT",
+  ct: "CT Scan",
   mri: "MRI",
   ultrasound: "Ultrasound",
   anatomy: "Anatomy",
   histology: "Histology",
+  ecg: "ECG",
+  fundoscopy: "Fundoscopy",
+  dermatoscopy: "Dermatology",
   "3d": "3D Model",
   other: "Other",
 };
@@ -40,6 +43,9 @@ const MODALITY_ICONS: Record<string, string> = {
   ultrasound: "〰️",
   anatomy: "🫀",
   histology: "🔭",
+  ecg: "📈",
+  fundoscopy: "👁️",
+  dermatoscopy: "🔍",
   "3d": "🧊",
   other: "📷",
 };
@@ -57,15 +63,21 @@ function ImageCard({ img }: { img: Image }) {
   const [imgError, setImgError] = useState(false);
   const thumb = img.thumbnail_url || img.image_url;
 
+  // Extract first sentence of description for preview
+  const descPreview = img.description
+    ? img.description.split(/\n|\.(?:\s|$)/)[0]?.trim() + "."
+    : "";
+
   return (
     <Link
       href={`/imaging/${img.id}`}
-      className="card overflow-hidden hover:shadow-md transition-shadow group block"
+      className="card overflow-hidden hover:shadow-lg transition-all duration-200 group block"
     >
       <div className="aspect-[4/3] bg-surface overflow-hidden relative">
         {imgError ? (
-          <div className="w-full h-full flex items-center justify-center text-ink-3">
-            <span className="text-3xl">{MODALITY_ICONS[img.modality] ?? "📷"}</span>
+          <div className="w-full h-full flex flex-col items-center justify-center text-ink-3 bg-surface-2 gap-2">
+            <span className="text-4xl">{MODALITY_ICONS[img.modality] ?? "📷"}</span>
+            <span className="text-xs font-serif text-center px-3 line-clamp-2">{img.title}</span>
           </div>
         ) : (
           <img
@@ -78,16 +90,24 @@ function ImageCard({ img }: { img: Image }) {
         <div className="absolute top-2 left-2">
           <ModalityBadge modality={img.modality} />
         </div>
+        {img.anatomy_region && (
+          <div className="absolute top-2 right-2 bg-black/50 text-white text-[9px] font-syne px-1.5 py-0.5 rounded-full capitalize">
+            {img.anatomy_region}
+          </div>
+        )}
       </div>
-      <div className="p-3">
-        <h3 className="font-syne font-semibold text-sm text-ink line-clamp-2 mb-1 group-hover:underline">
+      <div className="p-3.5">
+        <h3 className="font-syne font-semibold text-sm text-ink line-clamp-2 mb-1.5 group-hover:text-accent transition-colors leading-snug">
           {img.title}
         </h3>
-        <div className="flex items-center justify-between">
-          <span className="font-serif text-xs text-ink-3">{img.source_name}</span>
-          {img.anatomy_region && (
-            <span className="font-serif text-xs text-ink-3 capitalize">{img.anatomy_region}</span>
-          )}
+        {descPreview && (
+          <p className="font-serif text-xs text-ink-3 line-clamp-2 leading-relaxed">
+            {descPreview}
+          </p>
+        )}
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-border">
+          <span className="font-serif text-[10px] text-ink-3">{img.source_name}</span>
+          <span className="text-[10px] font-syne text-ink-3/60">Read more →</span>
         </div>
       </div>
     </Link>

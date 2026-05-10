@@ -198,11 +198,26 @@ export default function ImageDetailPage() {
               {img.title}
             </h1>
 
-            {img.description && (
-              <div className="mb-4">
-                <p className="font-serif text-sm text-ink leading-relaxed">{img.description}</p>
-              </div>
-            )}
+            {img.description && (() => {
+              // Split at "📋 Clinical note:" marker if present
+              const [mainDesc, clinicalNote] = img.description.split(/\n\n📋 Clinical note:/);
+              return (
+                <div className="mb-4 space-y-3">
+                  <div className="p-4 rounded-xl bg-surface border border-border">
+                    <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-2">Description</div>
+                    <p className="font-serif text-sm text-ink leading-relaxed">{mainDesc.trim()}</p>
+                  </div>
+                  {clinicalNote && (
+                    <div className="p-4 rounded-xl bg-amber-50 border border-amber/30">
+                      <div className="font-syne font-bold text-xs text-amber-800 uppercase tracking-wider mb-2">
+                        📋 Clinical Notes
+                      </div>
+                      <p className="font-serif text-sm text-amber-900 leading-relaxed">{clinicalNote.trim()}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Tags */}
             {img.tags.length > 0 && (
