@@ -352,7 +352,7 @@ export default function TeacherArticlesPage() {
             <div className="flex items-center justify-between mb-5">
               <div>
                 <h2 className="font-syne font-black text-xl text-ink">✨ Generate with AI</h2>
-                <p className="text-ink-3 text-xs font-serif mt-0.5">Article will be ready in 1–3 minutes</p>
+                <p className="text-ink-3 text-xs font-serif mt-0.5">Article ready in 1–3 minutes · Auto-translated to 7 languages</p>
               </div>
               <button onClick={() => setShowGenModal(false)} className="text-ink-3 hover:text-ink text-2xl leading-none">×</button>
             </div>
@@ -369,38 +369,72 @@ export default function TeacherArticlesPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-syne font-semibold text-sm text-ink mb-1">Category</label>
-                  <select
-                    value={genForm.category}
-                    onChange={e => setGenForm(f => ({ ...f, category: e.target.value }))}
-                    className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
-                  >
-                    {["diseases","drugs","procedures","cardiology","neurology","oncology","surgery","pediatrics","emergency","diagnostics"].map(c => (
-                      <option key={c} value={c}>{c.charAt(0).toUpperCase()+c.slice(1)}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block font-syne font-semibold text-sm text-ink mb-1">AI Model</label>
-                  <select
-                    value={genForm.model}
-                    onChange={e => setGenForm(f => ({ ...f, model: e.target.value }))}
-                    className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
-                  >
-                    <option value="ollama">Ollama — 5 credits ($0.05)</option>
-                    <option value="claude-haiku">Claude Haiku — 10 credits ($0.10)</option>
-                    <option value="claude-sonnet">Claude Sonnet — 50 credits ($0.50)</option>
-                  </select>
+              <div>
+                <label className="block font-syne font-semibold text-sm text-ink mb-1">Category</label>
+                <select
+                  value={genForm.category}
+                  onChange={e => setGenForm(f => ({ ...f, category: e.target.value }))}
+                  className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
+                >
+                  {["diseases","drugs","procedures","cardiology","neurology","oncology","surgery","pediatrics","emergency","diagnostics","endocrinology","psychiatry","infectious-diseases"].map(c => (
+                    <option key={c} value={c}>{c.charAt(0).toUpperCase()+c.slice(1).replace(/-/g," ")}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Model picker: FREE vs PAID */}
+              <div>
+                <label className="block font-syne font-semibold text-sm text-ink mb-2">AI Model</label>
+                <div className="space-y-2">
+                  {/* Ollama — always free */}
+                  <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${genForm.model === "ollama" ? "border-green bg-green-light" : "border-border hover:border-ink-3"}`}>
+                    <input type="radio" name="model" value="ollama" checked={genForm.model === "ollama"} onChange={e => setGenForm(f => ({ ...f, model: e.target.value }))} className="sr-only" />
+                    <span className="text-lg">🆓</span>
+                    <div className="flex-1">
+                      <div className="font-syne font-bold text-sm text-ink">Ollama <span className="text-green font-semibold">— FREE</span></div>
+                      <div className="text-xs font-serif text-ink-3">Runs on MedMind servers · No credits needed · ~2 min</div>
+                    </div>
+                    {genForm.model === "ollama" && <span className="text-green text-sm font-bold">✓</span>}
+                  </label>
+
+                  {/* Claude Haiku */}
+                  <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${genForm.model === "claude-haiku" ? "border-amber bg-amber-light/30" : "border-border hover:border-ink-3"} ${(creditBalance ?? 0) < 1 ? "opacity-60" : ""}`}>
+                    <input type="radio" name="model" value="claude-haiku" checked={genForm.model === "claude-haiku"} onChange={e => setGenForm(f => ({ ...f, model: e.target.value }))} className="sr-only" disabled={(creditBalance ?? 0) < 1} />
+                    <span className="text-lg">⚡</span>
+                    <div className="flex-1">
+                      <div className="font-syne font-bold text-sm text-ink">Claude Haiku <span className="text-amber font-semibold">— 1 credit ($0.01)</span></div>
+                      <div className="text-xs font-serif text-ink-3">Anthropic · High quality · ~1 min</div>
+                    </div>
+                    {(creditBalance ?? 0) < 1 && <span className="text-xs text-red font-syne font-semibold">No credits</span>}
+                  </label>
+
+                  {/* Claude Sonnet */}
+                  <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${genForm.model === "claude-sonnet" ? "border-amber bg-amber-light/30" : "border-border hover:border-ink-3"} ${(creditBalance ?? 0) < 5 ? "opacity-60" : ""}`}>
+                    <input type="radio" name="model" value="claude-sonnet" checked={genForm.model === "claude-sonnet"} onChange={e => setGenForm(f => ({ ...f, model: e.target.value }))} className="sr-only" disabled={(creditBalance ?? 0) < 5} />
+                    <span className="text-lg">🧠</span>
+                    <div className="flex-1">
+                      <div className="font-syne font-bold text-sm text-ink">Claude Sonnet <span className="text-amber font-semibold">— 5 credits ($0.05)</span></div>
+                      <div className="text-xs font-serif text-ink-3">Anthropic · Best quality · comprehensive articles</div>
+                    </div>
+                    {(creditBalance ?? 0) < 5 && <span className="text-xs text-red font-syne font-semibold">No credits</span>}
+                  </label>
                 </div>
               </div>
 
+              {/* Balance info + pay CTA when needed */}
               <div className="bg-surface-2 rounded-lg p-3 text-xs font-serif text-ink-3">
-                Your balance: <strong className="text-ink">{creditBalance ?? "…"} credits</strong>
-                {" · "}Cost: <strong className="text-ink">{genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50} credits</strong>
-                {(creditBalance ?? 0) < (genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50) && (
-                  <span className="text-red ml-2">⚠ Insufficient credits — <a href="/teacher/credits" className="underline">buy more</a></span>
+                <div className="flex items-center justify-between">
+                  <span>Balance: <strong className="text-ink">{creditBalance ?? "…"} credits</strong></span>
+                  {genForm.model !== "ollama" && (
+                    <span>Cost: <strong className="text-ink">{genForm.model === "claude-haiku" ? 1 : 5} credit{genForm.model === "claude-haiku" ? "" : "s"}</strong></span>
+                  )}
+                  {genForm.model === "ollama" && <span className="text-green font-semibold">Free generation</span>}
+                </div>
+                {genForm.model !== "ollama" && (creditBalance ?? 0) < (genForm.model === "claude-haiku" ? 1 : 5) && (
+                  <div className="mt-2 flex items-center justify-between bg-amber-light/40 rounded px-2 py-1.5">
+                    <span className="text-amber-800">Not enough credits for Claude</span>
+                    <a href="/teacher/credits" className="font-syne font-bold text-amber-700 hover:underline">Buy credits →</a>
+                  </div>
                 )}
               </div>
 
@@ -410,10 +444,10 @@ export default function TeacherArticlesPage() {
                 </button>
                 <button
                   onClick={handleGenerate}
-                  disabled={generating || !genForm.topic.trim() || (creditBalance ?? 0) < (genForm.model === "ollama" ? 5 : genForm.model === "claude-haiku" ? 10 : 50)}
+                  disabled={generating || !genForm.topic.trim() || (genForm.model !== "ollama" && (creditBalance ?? 0) < (genForm.model === "claude-haiku" ? 1 : 5))}
                   className="flex-1 bg-ink text-white text-sm py-2.5 rounded-lg font-syne font-semibold hover:bg-ink-2 transition-colors disabled:opacity-40"
                 >
-                  {generating ? "Starting…" : "Generate Article"}
+                  {generating ? "Starting…" : genForm.model === "ollama" ? "Generate Free" : "Generate Article"}
                 </button>
               </div>
             </div>

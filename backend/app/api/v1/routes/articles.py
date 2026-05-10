@@ -566,13 +566,15 @@ async def generate_article_ai(
         ))
         await db.flush()
 
-    if acc.balance < pricing.credits_per_article:
+    # Ollama is free (0 credits) — always allowed
+    if pricing.credits_per_article > 0 and acc.balance < pricing.credits_per_article:
         raise HTTPException(
             status_code=402,
             detail={
                 "message": "Insufficient credits",
                 "required": pricing.credits_per_article,
                 "balance": acc.balance,
+                "free_alternative": "Use Ollama for free — select 'Ollama' in the model picker",
                 "buy_url": "/teacher/credits",
             },
         )

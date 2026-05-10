@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <rect width="180" height="180" rx="40" fill="#0D0D0D"/>
+  <path d="M56 73c0-14 11.2-25 25-25 5.5 0 10.6 1.7 14.6 4.6 2.8-1.7 6.1-2.6 9.6-2.6C117 50 127 60 127 72.5c0 3.4-.8 6.6-2.1 9.5 1.5 2.7 2.4 5.8 2.4 9.1 0 10-7 18.5-16.3 21v2.2c0 4.5-3.4 8.2-7.7 8.2s-7.7-3.7-7.7-8.2v-1.8H90v1.8c0 4.5-3.4 8.2-7.7 8.2s-7.7-3.7-7.7-8.2v-2.2C65.3 109.6 58 101 58 91c0-3 .7-5.9 1.9-8.5C58.7 79.9 58 76.5 58 73z" fill="none" stroke="#22C55E" stroke-width="7" stroke-linejoin="round"/>
+  <line x1="90" y1="52" x2="90" y2="111" stroke="#22C55E" stroke-width="4.5" stroke-dasharray="11,8"/>
+  <polyline points="38,140 58,140 65,120 75,153 87,118 99,138 107,122 116,140 142,140" fill="none" stroke="#22C55E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
