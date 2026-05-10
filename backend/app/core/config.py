@@ -35,7 +35,7 @@ class Settings(BaseSettings):
 
     # Ollama (primary free AI — local, zero cost, no API key)
     OLLAMA_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "qwen3:8b"  # qwen3:4b for low-RAM machines
+    OLLAMA_MODEL: str = "qwen3:8b"  # ~5 tok/sec CPU; best quality for medical articles
 
     # Google OAuth2
     GOOGLE_CLIENT_ID: str = ""

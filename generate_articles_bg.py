@@ -198,11 +198,76 @@ async def already_exists(db, slug: str) -> bool:
     return r.first() is not None
 
 
-async def generate_and_save(topic: str, category: str, db) -> str | None:
-    """Generate one article, save, trigger translation. Returns slug or None."""
+LOCALES = ["ru", "ar", "tr", "de", "fr", "es"]
+GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single"
+
+
+async def _google_translate(text: str, target: str, source: str = "en") -> str:
+    """Free Google Translate endpoint (no key required)."""
+    import httpx
+    if not text or not text.strip():
+        return text
+    params = {
+        "client": "gtx", "sl": source, "tl": target, "dt": "t", "q": text[:4500]
+    }
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        r = await client.get(GOOGLE_TRANSLATE_URL, params=params)
+        r.raise_for_status()
+        data = r.json()
+        return "".join(seg[0] for seg in data[0] if seg[0]) if data and data[0] else text
+
+
+async def translate_article_google(article_id, article, db) -> None:
+    """Translate article title+excerpt into all locales using Google Translate."""
+    import uuid
+    from sqlalchemy import text as sqlt
+
+    for locale in LOCALES:
+        try:
+            t_title = await _google_translate(article["title"], locale)
+            t_excerpt = await _google_translate(article["excerpt"], locale)
+
+            # Translate body text blocks
+            t_body = []
+            for block in article.get("body", []):
+                b = dict(block)
+                if b.get("type") in ("p", "h2", "h3") and b.get("content"):
+                    b["content"] = await _google_translate(b["content"], locale)
+                elif b.get("type") == "ul" and b.get("items"):
+                    items = []
+                    for item in b["items"]:
+                        items.append(await _google_translate(str(item), locale))
+                    b["items"] = items
+                elif b.get("type") == "callout" and b.get("content"):
+                    b["content"] = await _google_translate(b["content"], locale)
+                t_body.append(b)
+
+            # Upsert into article_translations
+            existing = (await db.execute(sqlt(
+                "SELECT article_id FROM article_translations WHERE article_id=:aid AND locale=:loc"
+            ), {"aid": str(article_id), "loc": locale})).first()
+
+            if existing:
+                await db.execute(sqlt("""
+                    UPDATE article_translations SET title=:t, excerpt=:e, body=:b, status='done'
+                    WHERE article_id=:aid AND locale=:loc
+                """), {"t": t_title, "e": t_excerpt, "b": __import__('json').dumps(t_body), "aid": str(article_id), "loc": locale})
+            else:
+                await db.execute(sqlt("""
+                    INSERT INTO article_translations (article_id, locale, title, excerpt, body, faq, status)
+                    VALUES (:aid, :loc, :t, :e, :b::jsonb, '[]'::jsonb, 'done')
+                """), {"aid": str(article_id), "loc": locale, "t": t_title, "e": t_excerpt, "b": __import__('json').dumps(t_body)})
+
+            await db.commit()
+            logger.info("TRANSLATED: %s → %s", article["title"][:40], locale)
+        except Exception as exc:
+            logger.warning("TRANSLATE ERR %s→%s: %s", article["title"][:30], locale, exc)
+
+
+async def generate_and_save(topic: str, category: str, db) -> dict | None:
+    """Generate one article, save. Returns article dict or None."""
     from app.models.models import Article
     from app.services.article_generator import generate_medical_article
-    from app.services.translation_service import schedule_article_translations
 
     slug_hint = slugify(topic)
 
@@ -218,12 +283,15 @@ async def generate_and_save(topic: str, category: str, db) -> str | None:
         result = await generate_medical_article(
             topic=topic,
             category=category,
-            schema_type="MedicalCondition" if category in ("diseases","cardiology","neurology","oncology","endocrinology","infectious-diseases","psychiatry","pediatrics") else "MedicalWebPage",
+            schema_type="MedicalCondition" if category in (
+                "diseases","cardiology","neurology","oncology","endocrinology",
+                "infectious-diseases","psychiatry","pediatrics"
+            ) else "MedicalWebPage",
             language="en",
             model="ollama",
         )
     except Exception as exc:
-        logger.error("GENERATION FAILED for %r: %s", topic, exc)
+        logger.error("GENERATION FAILED for %r: %s: %s", topic, type(exc).__name__, exc)
         return None
 
     # Ensure unique slug
@@ -254,52 +322,62 @@ async def generate_and_save(topic: str, category: str, db) -> str | None:
         published_at=datetime.utcnow(),
         generated_by="ollama-bg",
         review_status="published",
-        revenue_share_pct=0,  # platform-generated article, no author revenue
+        revenue_share_pct=0,
     )
     db.add(article)
     await db.commit()
     await db.refresh(article)
 
     elapsed = (datetime.utcnow() - t0).seconds
-    logger.info("SAVED: %s — %d body blocks, %d faq, slug=%s (%ds)", article.title, len(article.body or []), len(article.faq or []), article.slug, elapsed)
+    logger.info(
+        "SAVED: %s — %d blocks, %d faq, slug=%s (%ds)",
+        article.title, len(article.body or []), len(article.faq or []), article.slug, elapsed,
+    )
 
-    # Schedule translations (background task within this same event loop)
-    try:
-        await schedule_article_translations(article.id, db)
-        logger.info("TRANSLATION SCHEDULED: %s → 6 locales", article.slug)
-    except Exception as exc:
-        logger.error("TRANSLATION SCHEDULE FAILED for %s: %s", article.slug, exc)
-
-    return article.slug
+    return {"id": article.id, "title": article.title, "excerpt": article.excerpt or "", "body": article.body or []}
 
 
 async def main():
     import sys
-    sys.path.insert(0, "/app")  # inside Docker container
+    sys.path.insert(0, "/app")
 
     from app.core.database import AsyncSessionLocal
 
     logger.info("=== MedMind Article Generator Started — %d topics ===", len(TOPICS))
-    ok = 0
-    skip = 0
-    fail = 0
+    generated = []   # list of (article_id, article_dict)
+    ok = skip = fail = 0
 
+    # ── Phase 1: Generate all articles (Ollama, sequential) ──────────────────
+    logger.info("=== PHASE 1: Article Generation ===")
     for i, (topic, category) in enumerate(TOPICS, 1):
         logger.info("--- [%d/%d] ---", i, len(TOPICS))
         async with AsyncSessionLocal() as db:
             try:
-                slug = await generate_and_save(topic, category, db)
-                if slug:
+                art = await generate_and_save(topic, category, db)
+                if art:
+                    generated.append(art)
                     ok += 1
                 else:
                     skip += 1
             except Exception as exc:
-                logger.error("UNHANDLED ERROR for %r: %s", topic, exc)
+                logger.error("UNHANDLED for %r: %s", topic, exc)
                 fail += 1
-        # Brief pause between articles to avoid hammering Ollama
-        await asyncio.sleep(8)
+        await asyncio.sleep(5)  # let Ollama cool down between requests
 
-    logger.info("=== DONE: %d generated, %d skipped, %d failed ===", ok, skip, fail)
+    logger.info("=== PHASE 1 DONE: %d generated, %d skipped, %d failed ===", ok, skip, fail)
+
+    # ── Phase 2: Translate all new articles via Google Translate ─────────────
+    logger.info("=== PHASE 2: Translation (%d articles × %d locales) ===", len(generated), len(LOCALES))
+    for art in generated:
+        async with AsyncSessionLocal() as db:
+            try:
+                await translate_article_google(art["id"], art, db)
+            except Exception as exc:
+                logger.error("TRANSLATION FAILED for %s: %s", art["title"][:40], exc)
+        await asyncio.sleep(2)  # polite delay for Google Translate
+
+    logger.info("=== ALL DONE ===")
+    logger.info("Generated: %d | Skipped: %d | Failed: %d | Translated: %d", ok, skip, fail, len(generated))
 
 
 if __name__ == "__main__":

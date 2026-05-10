@@ -153,22 +153,23 @@ async def _call_claude(system: str, user_msg: str, model: str, settings) -> str:
         raise
 
 
-async def _call_ollama(system: str, user_msg: str, settings) -> str:
+async def _call_ollama(system: str, user_msg: str, settings, model_override: str | None = None) -> str:
     """Call local Ollama via /api/chat (supports system prompt properly)."""
     import httpx
 
+    model_name = model_override or settings.OLLAMA_MODEL
     payload = {
-        "model": settings.OLLAMA_MODEL,
+        "model": model_name,
         "messages": [
             {"role": "system", "content": system},
             # /no_think prefix disables Qwen3 chain-of-thought to keep output clean JSON
             {"role": "user",   "content": "/no_think\n" + user_msg},
         ],
         "stream": False,
-        "options": {"num_predict": 1500, "temperature": 0.3},
+        "options": {"num_predict": 1200, "temperature": 0.3},
         "think": False,
     }
-    async with httpx.AsyncClient(timeout=360.0) as client:
+    async with httpx.AsyncClient(timeout=600.0) as client:
         r = await client.post(f"{settings.OLLAMA_URL}/api/chat", json=payload)
         r.raise_for_status()
         return r.json()["message"]["content"]
