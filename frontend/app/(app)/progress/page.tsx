@@ -104,7 +104,7 @@ export default function ProgressPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6">
       <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("progress.title")}</h1>
 
       {/* XP Level bar */}

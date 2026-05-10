@@ -78,7 +78,7 @@ export default function NotificationsPage() {
   const groups = groupByDate(notifications);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-2xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-syne font-black text-2xl text-ink">{t("notifications.title")}</h1>

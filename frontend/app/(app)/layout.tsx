@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { MobileNavWrapper } from "@/components/layout/MobileNav";
 import { AchievementToast, AchievementToastData } from "@/components/ui/AchievementToast";
 import { achievementsApi, authApi, refreshApi } from "@/lib/api";
 import { isTokenFresh, isTokenExpired, markMeChecked, wasMeCheckedRecently, clearMeCache } from "@/lib/auth";
@@ -150,9 +151,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-bg dark:bg-[#1a1814]">
-      <Sidebar />
-      <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
+    <div className="flex h-dvh overflow-hidden bg-bg dark:bg-[#1a1814]">
+      {/* Desktop sidebar — hidden on mobile */}
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
+
+      {/* Mobile: header + drawer + bottom nav wrap the children */}
+      <div className="flex md:hidden flex-col flex-1 overflow-hidden min-h-0">
+        <MobileNavWrapper>
+          {children}
+        </MobileNavWrapper>
+      </div>
+
+      {/* Desktop: children directly in main */}
+      <main className="hidden md:flex flex-1 flex-col overflow-hidden">{children}</main>
+
       <AchievementToast achievement={toast} onDismiss={() => setToast(null)} />
     </div>
   );

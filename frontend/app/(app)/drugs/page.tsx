@@ -26,7 +26,7 @@ export default function DrugsPage() {
   const [tab, setTab] = useState<Tab>("search");
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-4xl mx-auto w-full">
       <h1 className="font-syne font-black text-2xl text-ink mb-1">{t("drugs.title")}</h1>
       <p className="font-serif text-ink-3 text-sm mb-5">{t("drugs.subtitle")}</p>
 

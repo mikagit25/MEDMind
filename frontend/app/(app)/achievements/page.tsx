@@ -75,7 +75,7 @@ export default function AchievementsPage() {
     .reduce((s, c) => s + ACHIEVEMENT_META[c].xp, 0);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-4xl mx-auto w-full">
       <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("achievements.title")}</h1>
 
       {loading ? (

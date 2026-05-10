@@ -466,10 +466,10 @@ export default function DashboardPage() {
   const role = user?.role ?? "student";
 
   return (
-    <div className="flex-1 overflow-y-auto p-6">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="font-syne font-black text-2xl text-ink">
+      <div className="mb-4 sm:mb-6">
+        <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">
           {new Date().getHours() < 12
             ? t("dashboard.greeting_morning")
             : new Date().getHours() < 18

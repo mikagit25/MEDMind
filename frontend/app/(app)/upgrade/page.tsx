@@ -65,7 +65,7 @@ export default function UpgradePage() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-3xl mx-auto">
       <div className="mb-8">
         <h1 className="font-syne font-bold text-2xl text-ink mb-2">{t("upgrade.title")}</h1>
         <p className="text-ink-2">

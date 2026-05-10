@@ -227,8 +227,8 @@ export default function AiTutorPage() {
       {/* Main chat area */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-surface flex-shrink-0">
-          <h1 className="font-syne font-black text-lg text-ink mr-auto">{t("nav.items.ai_tutor")}</h1>
+        <div className="flex items-center gap-2 px-3 sm:px-4 py-2.5 border-b border-border bg-surface flex-shrink-0">
+          <h1 className="font-syne font-black text-base sm:text-lg text-ink mr-auto">{t("nav.items.ai_tutor")}</h1>
 
           {/* Specialty */}
           <select
@@ -418,7 +418,7 @@ export default function AiTutorPage() {
         </div>
 
         {/* Input */}
-        <div className="px-4 py-3 border-t border-border bg-surface flex-shrink-0">
+        <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-surface flex-shrink-0">
           <div className="flex gap-2 items-end">
             <textarea
               ref={inputRef}
@@ -427,13 +427,13 @@ export default function AiTutorPage() {
               onKeyDown={handleKeyDown}
               placeholder={t("ai_tutor.input_placeholder")}
               rows={1}
-              className="flex-1 resize-none px-3.5 py-2.5 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink-3 transition-colors leading-relaxed"
-              style={{ maxHeight: "120px", overflowY: "auto" }}
+              className="flex-1 resize-none px-3 py-2.5 rounded-xl border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink-3 transition-colors leading-relaxed"
+              style={{ maxHeight: "100px", overflowY: "auto" }}
             />
             <button
               onClick={send}
               disabled={loading || !input.trim()}
-              className="btn-primary px-4 py-2.5 h-10 flex-shrink-0 disabled:opacity-40"
+              className="btn-primary px-4 py-2.5 h-10 flex-shrink-0 disabled:opacity-40 rounded-xl"
             >
               →
             </button>

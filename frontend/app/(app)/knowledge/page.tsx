@@ -74,26 +74,26 @@ export default function ArticlesPage() {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 py-4 sm:py-8">
         {/* Header */}
-        <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="mb-4 sm:mb-6 flex items-center justify-between gap-3">
           <div>
-            <h1 className="font-syne font-black text-2xl text-ink">{t("articles.title")}</h1>
-            <p className="font-serif text-sm text-ink-3 mt-1">{t("articles.subtitle", { count: String(total), cats: String(categories.length) })}</p>
+            <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">{t("articles.title")}</h1>
+            <p className="font-serif text-xs sm:text-sm text-ink-3 mt-0.5">{t("articles.subtitle", { count: String(total), cats: String(categories.length) })}</p>
           </div>
           <a
             href="/articles"
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+            className="shrink-0 btn-secondary text-xs px-2.5 py-1.5 flex items-center gap-1"
           >
-            🌐 {t("articles.public_view")}
+            🌐 <span className="hidden sm:inline">{t("articles.public_view")}</span>
           </a>
         </div>
 
         <div className="flex gap-6">
-          {/* Sidebar — Categories */}
-          <aside className="w-52 shrink-0">
+          {/* Sidebar — Categories: hidden on mobile */}
+          <aside className="hidden md:block w-52 shrink-0">
             <div className="sticky top-4">
               <div className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-3">{t("articles.categories")}</div>
               <button
@@ -124,7 +124,7 @@ export default function ArticlesPage() {
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Search */}
-            <div className="mb-5">
+            <div className="mb-3">
               <input
                 type="search"
                 placeholder={t("articles.search_placeholder")}
@@ -132,6 +132,25 @@ export default function ArticlesPage() {
                 onChange={e => { setSearch(e.target.value); setPage(1); }}
                 className="w-full input-field text-sm"
               />
+            </div>
+
+            {/* Mobile category pills (hidden on md+) */}
+            <div className="md:hidden flex gap-2 mb-4 overflow-x-auto pb-1 -mx-1 px-1">
+              <button
+                onClick={() => { setActiveCategory(""); setPage(1); }}
+                className={`shrink-0 px-3 py-1.5 rounded-full font-syne text-xs border transition-colors ${activeCategory === "" ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"}`}
+              >
+                All ({total})
+              </button>
+              {categories.map(cat => (
+                <button
+                  key={cat.category}
+                  onClick={() => { setActiveCategory(cat.category); setPage(1); }}
+                  className={`shrink-0 px-3 py-1.5 rounded-full font-syne text-xs border transition-colors ${activeCategory === cat.category ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"}`}
+                >
+                  {CATEGORY_ICONS[cat.category] ?? "📄"} {CATEGORY_KEY[cat.category] ? t(`articles.${CATEGORY_KEY[cat.category]}` as any) : cat.category}
+                </button>
+              ))}
             </div>
 
             {/* Articles grid */}

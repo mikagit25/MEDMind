@@ -144,7 +144,7 @@ export default function SimulationPage() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-3xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-3xl mx-auto w-full">
       <div className="mb-6">
         <h1 className="font-syne font-black text-2xl text-ink">{t("simulation.title")}</h1>
         <p className="font-serif text-ink-3 text-sm mt-0.5">

@@ -36,7 +36,7 @@ export default function VeterinaryPage() {
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto p-3 sm:p-6 max-w-4xl mx-auto w-full">
       <div className="flex items-start justify-between mb-4 flex-wrap gap-3">
         <div>
           <h1 className="font-syne font-black text-2xl text-ink">{t("veterinary.title")}</h1>

@@ -109,7 +109,27 @@
   .nav-item.active {
     @apply bg-gold/15 text-gold;
   }
+
+  /* Mobile safe area for bottom nav (notched phones) */
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
+
+/* Drawer slide-in animation */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+.animate-slide-in-left {
+  animation: slideInLeft 0.22s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Mobile: use 100dvh so bottom nav doesn't get cut by browser chrome */
+@supports (height: 100dvh) {
+  .h-dvh { height: 100dvh; }
+}
+.h-dvh { height: 100svh; }
 
 /* Dark mode utility overrides — outside @layer to avoid circular deps */
 .dark .bg-surface { background-color: #2a2520 !important; }
