@@ -10,7 +10,39 @@ export const api = axios.create({
 });
 
 // Separate instance for refresh calls — does NOT trigger the 401 interceptor
-const refreshApi = axios.create({ baseURL: API_URL });
+export const refreshApi = axios.create({ baseURL: API_URL });
+
+// BroadcastChannel: sync refreshed tokens across all open tabs
+let _tokenChannel: BroadcastChannel | null = null;
+function _getTokenChannel(): BroadcastChannel | null {
+  if (typeof window === "undefined") return null;
+  if (!_tokenChannel) {
+    try {
+      _tokenChannel = new BroadcastChannel("medmind_auth");
+      _tokenChannel.onmessage = (e) => {
+        if (e.data?.type === "tokens_refreshed") {
+          // Another tab refreshed — update our localStorage silently
+          const { access_token, refresh_token } = e.data;
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("refresh_token", refresh_token);
+          try {
+            const stored = localStorage.getItem("medmind-auth");
+            if (stored) {
+              const parsed = JSON.parse(stored);
+              parsed.state = { ...parsed.state, accessToken: access_token, refreshToken: refresh_token };
+              localStorage.setItem("medmind-auth", JSON.stringify(parsed));
+            }
+          } catch {}
+        } else if (e.data?.type === "logout") {
+          // Another tab logged out — sync
+          _clearAuthData();
+          window.location.href = "/login";
+        }
+      };
+    } catch {}
+  }
+  return _tokenChannel;
+}
 
 // Attach JWT to every request
 api.interceptors.request.use((config) => {
@@ -32,7 +64,7 @@ function _notifyRefreshed(token: string) {
   _refreshSubscribers = [];
 }
 
-// Auto-refresh on 401 — deduplicates concurrent refreshes
+// Auto-refresh on 401 — deduplicates concurrent refreshes, syncs across tabs
 api.interceptors.response.use(
   (r) => r,
   async (error) => {
@@ -71,23 +103,14 @@ api.interceptors.response.use(
     }
 
     try {
-      // Use dedicated refreshApi to avoid interceptor loop
       const res = await refreshApi.post("/auth/refresh", { refresh_token: refreshToken });
       const newAccess: string = res.data.access_token;
       const newRefresh: string = res.data.refresh_token;
 
-      if (typeof window !== "undefined") {
-        localStorage.setItem("access_token", newAccess);
-        localStorage.setItem("refresh_token", newRefresh);
-      }
-      // Update Zustand store without causing re-render issues
-      try {
-        const { useAuthStore } = await import("./store");
-        const store = useAuthStore.getState();
-        if (store.user) {
-          store.setAuth(store.user, newAccess, newRefresh);
-        }
-      } catch {}
+      _storeTokens(newAccess, newRefresh);
+
+      // Broadcast new tokens to all other open tabs
+      try { _getTokenChannel()?.postMessage({ type: "tokens_refreshed", access_token: newAccess, refresh_token: newRefresh }); } catch {}
 
       _notifyRefreshed(newAccess);
       original.headers.Authorization = `Bearer ${newAccess}`;
@@ -97,23 +120,49 @@ api.interceptors.response.use(
       _isRefreshing = false;
       _refreshSubscribers = [];
 
-      // Only force logout if the refresh token is definitively invalid (401/403)
-      // Network errors (5xx, ECONNREFUSED) → keep session, don't logout
       const status = (refreshError as any)?.response?.status;
       if (status === 401 || status === 403) {
+        // Before giving up, check if another tab already refreshed and we have new tokens
+        const currentRefresh = localStorage.getItem("refresh_token");
+        if (currentRefresh && currentRefresh !== refreshToken) {
+          // Another tab refreshed — retry with new token
+          original._retry = false;
+          return api(original);
+        }
         _doLogout();
       }
+      // Network error → stay logged in, don't kick user out
       return Promise.reject(error);
     }
   }
 );
 
-function _doLogout() {
+function _storeTokens(access: string, refresh: string) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("access_token", access);
+  localStorage.setItem("refresh_token", refresh);
+  try {
+    // Dynamic import to avoid circular dependency issues
+    import("./store").then(({ useAuthStore }) => {
+      const store = useAuthStore.getState();
+      if (store.user) store.setAuth(store.user, access, refresh);
+    }).catch(() => {});
+  } catch {}
+  try {
+    const stored = localStorage.getItem("medmind-auth");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      parsed.state = { ...parsed.state, accessToken: access, refreshToken: refresh };
+      localStorage.setItem("medmind-auth", JSON.stringify(parsed));
+    }
+  } catch {}
+}
+
+function _clearAuthData() {
   if (typeof window === "undefined") return;
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
   clearMeCache();
-  // Clear Zustand store
   try {
     const stored = localStorage.getItem("medmind-auth");
     if (stored) {
@@ -122,7 +171,18 @@ function _doLogout() {
       localStorage.setItem("medmind-auth", JSON.stringify(parsed));
     }
   } catch {}
+}
+
+function _doLogout() {
+  if (typeof window === "undefined") return;
+  _clearAuthData();
+  try { _getTokenChannel()?.postMessage({ type: "logout" }); } catch {}
   window.location.href = "/login";
+}
+
+// Initialize BroadcastChannel early (on module load in browser)
+if (typeof window !== "undefined") {
+  _getTokenChannel();
 }
 
 // ============================================================

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { getCategoryLabel, CATEGORY_ICONS } from "@/lib/categories";
+import { ArticleNav } from "@/components/layout/ArticleNav";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -83,24 +84,7 @@ export default async function ArticlesPage({
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Nav */}
-      <nav className="bg-surface border-b border-border sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-6">
-          <Link href="/" className="font-syne font-extrabold text-xl text-ink tracking-tight">
-            MedMind AI
-          </Link>
-          <div className="flex gap-4 text-sm font-serif text-ink-2">
-            <Link href="/articles" className="text-ink font-semibold">Articles</Link>
-            <Link href="/pricing" className="hover:text-ink transition-colors">Pricing</Link>
-            <Link href="/login" className="hover:text-ink transition-colors">Sign in</Link>
-          </div>
-          <div className="ml-auto">
-            <Link href="/register" className="bg-ink text-white font-syne font-semibold text-sm px-4 py-1.5 rounded-lg hover:bg-ink-2 transition-colors">
-              Get started free
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <ArticleNav />
 
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Header */}

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
 import { ArticleViewTracker } from "./ArticleViewTracker";
+import { ArticleNav } from "@/components/layout/ArticleNav";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -493,24 +494,7 @@ export default async function ArticlePage({
       {/* View tracking (client-side, fire-and-forget) */}
       <ArticleViewTracker slug={article.slug} />
 
-      {/* Nav */}
-      <nav className="bg-surface border-b border-border sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-6">
-          <Link href="/" className="font-syne font-extrabold text-xl text-ink tracking-tight">
-            MedMind AI
-          </Link>
-          <div className="flex gap-4 text-sm font-serif text-ink-2">
-            <Link href="/articles" className="hover:text-ink transition-colors">Articles</Link>
-            <Link href="/pricing" className="hover:text-ink transition-colors">Pricing</Link>
-          </div>
-          <div className="ml-auto flex gap-2">
-            <Link href="/login" className="text-ink-2 font-syne font-semibold text-sm px-3 py-1.5 hover:text-ink">Sign in</Link>
-            <Link href="/register" className="bg-ink text-white font-syne font-semibold text-sm px-4 py-1.5 rounded-lg hover:bg-ink-2 transition-colors">
-              Start free
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <ArticleNav />
 
       <div
         className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10"

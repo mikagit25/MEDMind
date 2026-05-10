@@ -38,24 +38,22 @@ export function isTokenExpired(token: string | null): boolean {
   return payload.exp <= Math.floor(Date.now() / 1000);
 }
 
-/** Key for storing the last /auth/me validation timestamp. */
+/** Key for last /auth/me check — stored in localStorage so it persists across tabs. */
 const LAST_ME_KEY = "mm_last_me_check";
 
-/** Store the timestamp when /auth/me was last called successfully. */
 export function markMeChecked() {
-  try { sessionStorage.setItem(LAST_ME_KEY, Date.now().toString()); } catch {}
+  try { localStorage.setItem(LAST_ME_KEY, Date.now().toString()); } catch {}
 }
 
-/** Returns true if /auth/me was successfully called within the last 10 minutes. */
+/** Returns true if /auth/me was called within the last 30 minutes (across any tab). */
 export function wasMeCheckedRecently(): boolean {
   try {
-    const ts = sessionStorage.getItem(LAST_ME_KEY);
+    const ts = localStorage.getItem(LAST_ME_KEY);
     if (!ts) return false;
-    return Date.now() - parseInt(ts) < 10 * 60 * 1000; // 10 minutes
+    return Date.now() - parseInt(ts) < 30 * 60 * 1000;
   } catch { return false; }
 }
 
-/** Clear the me-check cache (on logout). */
 export function clearMeCache() {
-  try { sessionStorage.removeItem(LAST_ME_KEY); } catch {}
+  try { localStorage.removeItem(LAST_ME_KEY); } catch {}
 }

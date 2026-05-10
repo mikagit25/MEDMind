@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AchievementToast, AchievementToastData } from "@/components/ui/AchievementToast";
-import { achievementsApi, authApi } from "@/lib/api";
+import { achievementsApi, authApi, refreshApi } from "@/lib/api";
 import { isTokenFresh, isTokenExpired, markMeChecked, wasMeCheckedRecently, clearMeCache } from "@/lib/auth";
 
 const ACHIEVEMENT_META: Record<string, { name: string; icon: string; xp: number }> = {
@@ -40,50 +40,64 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       const storedAccess  = localStorage.getItem("access_token");
       const storedRefresh = localStorage.getItem("refresh_token");
 
-      // Case 1: No stored credentials at all → go to login
+      // Case 1: No stored credentials and no Zustand state → go to login
       if (!storedAccess && !storedRefresh && !isAuthenticated) {
         setTokenChecked(true);
         router.push("/login");
         return;
       }
 
-      // Case 2: Access token is still fresh (not expiring in next 5 min)
-      //         AND we checked /auth/me recently (within 10 min) → skip network call
-      if (isTokenFresh(storedAccess) && wasMeCheckedRecently() && isAuthenticated) {
+      // Case 2: Access token is fresh AND we have a user in store → no network call needed
+      // Use localStorage as the me-cache key (persists across tabs) instead of sessionStorage
+      if (isTokenFresh(storedAccess) && isAuthenticated && user) {
         setTokenChecked(true);
         return;
       }
 
-      // Case 3: Access token is fresh but /auth/me not called recently → call it once
-      if (isTokenFresh(storedAccess) && isAuthenticated) {
+      // Case 3: Access token is fresh but no user in store yet → call /auth/me once
+      if (isTokenFresh(storedAccess)) {
         try {
           const me = await authApi.me();
           setAuth(me, storedAccess!, storedRefresh ?? "");
           markMeChecked();
         } catch (err: any) {
-          // Network error → keep session (don't kick user out for a blip)
-          if (!err?.response) { /* network error, stay logged in */ }
-          // 401 handled by the interceptor which already refreshes
+          if (!err?.response) {
+            // Pure network error — stay logged in if we have a user
+            if (isAuthenticated && user) { setTokenChecked(true); return; }
+          }
+          // 401 is auto-handled by interceptor (refreshes token); if it propagates, fall through
         }
         setTokenChecked(true);
         return;
       }
 
-      // Case 4: Access token expired (or missing) but refresh token exists → refresh
-      if (!isTokenFresh(storedAccess) && storedRefresh && !isTokenExpired(storedRefresh)) {
+      // Case 4: Access token expired — try refresh using refreshApi (no interceptor loop)
+      if (storedRefresh) {
         try {
-          const res = await authApi.refresh(storedRefresh);
+          const res = await refreshApi.post("/auth/refresh", { refresh_token: storedRefresh });
+          const newAccess: string = res.data.access_token;
+          const newRefresh: string = res.data.refresh_token;
+          localStorage.setItem("access_token", newAccess);
+          localStorage.setItem("refresh_token", newRefresh);
+
           const me = await authApi.me();
-          setAuth(me, res.access_token, res.refresh_token);
+          setAuth(me, newAccess, newRefresh);
           markMeChecked();
           setTokenChecked(true);
           return;
-        } catch {
-          // Refresh failed — full logout
+        } catch (refreshErr: any) {
+          // If refresh returns 401/403, our token is genuinely invalid → logout
+          // If it's a network error, stay logged in
+          const status = refreshErr?.response?.status;
+          if (!status) {
+            // Network failure — keep session if we have one
+            if (isAuthenticated && user) { setTokenChecked(true); return; }
+          }
+          // Definitive auth failure → logout
         }
       }
 
-      // Case 5: No valid session — redirect to login
+      // Case 5: Nothing worked → login
       logout();
       clearMeCache();
       setTokenChecked(true);
