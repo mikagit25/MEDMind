@@ -98,12 +98,18 @@ const CLINICAL_FACTS: Record<string, string[]> = {
 function buildEmbedUrl(viewer: Viewer): string {
   if (viewer.embed_url) return viewer.embed_url;
   if (viewer.embed_type === "sketchfab") {
-    return `https://sketchfab.com/models/${viewer.embed_id}/embed?autospin=0.2&autostart=1&ui_theme=dark&preload=1`;
+    return `https://sketchfab.com/models/${viewer.embed_id}/embed?autospin=0.2&autostart=1&ui_theme=dark&preload=1&ui_controls=1&ui_infos=0&ui_stop=0`;
   }
   return viewer.embed_id;
 }
 
-// ── 3D Viewer with auto-start, 15-second timeout & fallback ─────────────────
+function buildSketchfabLink(viewer: Viewer): string {
+  if (viewer.source_url) return viewer.source_url;
+  if (viewer.embed_type === "sketchfab") return `https://sketchfab.com/models/${viewer.embed_id}`;
+  return `https://sketchfab.com/search?q=${encodeURIComponent(viewer.title)}&type=models`;
+}
+
+// ── 3D Viewer — verified Sketchfab models with 30s timeout ──────────────────
 function SketchfabViewer({
   viewer,
   onBack,
@@ -115,14 +121,13 @@ function SketchfabViewer({
   const [timedOut, setTimedOut] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const embedUrl = buildEmbedUrl(viewer);
-  const sketchfabSearch = `https://sketchfab.com/search?q=${encodeURIComponent(viewer.title)}&type=models`;
+  const sketchfabLink = buildSketchfabLink(viewer);
 
   useEffect(() => {
-    // Auto-start: begin loading immediately, timeout after 15 s
-    timerRef.current = setTimeout(() => setTimedOut(true), 15000);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
+    setLoaded(false);
+    setTimedOut(false);
+    timerRef.current = setTimeout(() => setTimedOut(true), 30000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [viewer.id]);
 
   const handleLoad = () => {
@@ -133,50 +138,30 @@ function SketchfabViewer({
   const handleRetry = () => {
     setTimedOut(false);
     setLoaded(false);
-    timerRef.current = setTimeout(() => setTimedOut(true), 15000);
+    timerRef.current = setTimeout(() => setTimedOut(true), 30000);
   };
 
   if (timedOut && !loaded) {
     return (
       <div className="relative w-full aspect-[4/3] bg-surface rounded-xl overflow-hidden flex items-center justify-center border border-border">
-        {/* Fallback thumbnail */}
         {viewer.thumbnail_url && (
-          <img
-            src={viewer.thumbnail_url}
-            alt={viewer.title}
-            className="absolute inset-0 w-full h-full object-contain p-6 opacity-30"
-          />
+          <img src={viewer.thumbnail_url} alt={viewer.title}
+            className="absolute inset-0 w-full h-full object-contain p-6 opacity-25" />
         )}
         <div className="relative text-center p-6 z-10">
-          <div className="text-4xl mb-3">🧊</div>
-          <div className="font-syne font-semibold text-sm text-ink mb-1">
-            {viewer.title}
-          </div>
+          <div className="text-4xl mb-3">🔄</div>
+          <div className="font-syne font-semibold text-sm text-ink mb-1">{viewer.title}</div>
           <div className="font-serif text-xs text-ink-3 mb-4">
-            3D viewer could not load. The model may be temporarily unavailable.
+            3D model is taking longer than expected to load.<br/>
+            Try opening it directly on Sketchfab for the best experience.
           </div>
           <div className="flex gap-2 justify-center flex-wrap">
             {onBack && (
-              <button
-                onClick={onBack}
-                className="btn-secondary text-xs px-3 py-1.5"
-              >
-                ← View Image
-              </button>
+              <button onClick={onBack} className="btn-secondary text-xs px-3 py-1.5">← View Image</button>
             )}
-            <button
-              onClick={handleRetry}
-              className="btn-secondary text-xs px-3 py-1.5"
-            >
-              Retry 3D
-            </button>
-            <a
-              href={sketchfabSearch}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-xs px-3 py-1.5"
-            >
-              Search on Sketchfab ↗
+            <button onClick={handleRetry} className="btn-secondary text-xs px-3 py-1.5">Retry</button>
+            <a href={sketchfabLink} target="_blank" rel="noopener noreferrer" className="btn-primary text-xs px-3 py-1.5">
+              Open on Sketchfab ↗
             </a>
           </div>
         </div>
@@ -187,30 +172,27 @@ function SketchfabViewer({
   return (
     <div className="relative w-full aspect-[4/3] bg-black rounded-xl overflow-hidden">
       {!loaded && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface gap-2">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface gap-3 z-10">
           {viewer.thumbnail_url && (
-            <img
-              src={viewer.thumbnail_url}
-              alt={viewer.title}
-              className="absolute inset-0 w-full h-full object-contain p-6 opacity-20"
-            />
+            <img src={viewer.thumbnail_url} alt={viewer.title}
+              className="absolute inset-0 w-full h-full object-contain p-6 opacity-20" />
           )}
-          <div className="relative text-ink-3 font-serif text-sm animate-pulse z-10">
-            Loading 3D model…
-          </div>
-          <div className="relative text-ink-3 font-syne text-xs z-10 opacity-60">
-            {viewer.title}
+          <div className="relative text-center">
+            <div className="w-8 h-8 rounded-full border-2 border-ink/20 border-t-ink animate-spin mx-auto mb-2" />
+            <div className="font-serif text-ink-3 text-sm">Loading 3D model…</div>
+            <div className="font-syne text-ink-3 text-xs opacity-60 mt-1">{viewer.title}</div>
           </div>
         </div>
       )}
       <iframe
+        key={viewer.id}
         title={viewer.title}
         src={embedUrl}
         className="w-full h-full"
         allow="autoplay; fullscreen; xr-spatial-tracking"
         allowFullScreen
         onLoad={handleLoad}
-        style={{ border: "none" }}
+        style={{ border: "none", opacity: loaded ? 1 : 0, transition: "opacity 0.3s" }}
       />
     </div>
   );
@@ -286,16 +268,24 @@ function AnatomyImageView({ viewer }: { viewer: Viewer }) {
       <div className="flex gap-2 mt-3 flex-wrap">
         <button
           onClick={() => setShow3D(true)}
-          className="btn-primary text-xs px-3 py-1.5 flex items-center gap-1.5"
+          className="btn-primary text-xs px-3 py-2 flex items-center gap-1.5 font-semibold"
         >
           🧊 Open 3D Viewer
         </button>
+        <a
+          href={buildSketchfabLink(viewer)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5"
+        >
+          Sketchfab ↗
+        </a>
         {viewer.thumbnail_url && !imgError && (
           <a
             href={viewer.thumbnail_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+            className="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5"
           >
             Full Image ↗
           </a>
@@ -306,7 +296,7 @@ function AnatomyImageView({ viewer }: { viewer: Viewer }) {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1.5"
+          className="btn-secondary text-xs px-3 py-2 flex items-center gap-1.5"
         >
           📖 Wikipedia ↗
         </a>
