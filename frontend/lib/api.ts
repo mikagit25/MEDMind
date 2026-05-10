@@ -1,4 +1,5 @@
 import axios from "axios";
+import { clearMeCache } from "./auth";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 export { API_URL };
@@ -8,44 +9,121 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+// Separate instance for refresh calls — does NOT trigger the 401 interceptor
+const refreshApi = axios.create({ baseURL: API_URL });
+
 // Attach JWT to every request
 api.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    if (token) config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Auto-refresh on 401
+let _isRefreshing = false;
+let _refreshSubscribers: ((token: string) => void)[] = [];
+
+function _subscribeRefresh(cb: (token: string) => void) {
+  _refreshSubscribers.push(cb);
+}
+function _notifyRefreshed(token: string) {
+  _refreshSubscribers.forEach((cb) => cb(token));
+  _refreshSubscribers = [];
+}
+
+// Auto-refresh on 401 — deduplicates concurrent refreshes
 api.interceptors.response.use(
   (r) => r,
   async (error) => {
     const original = error.config;
-    if (error.response?.status === 401 && !original._retry) {
-      original._retry = true;
-      const refresh = localStorage.getItem("refresh_token");
-      if (refresh) {
-        try {
-          const res = await axios.post(`${API_URL}/auth/refresh`, {
-            refresh_token: refresh,
-          });
-          localStorage.setItem("access_token", res.data.access_token);
-          localStorage.setItem("refresh_token", res.data.refresh_token);
-          original.headers.Authorization = `Bearer ${res.data.access_token}`;
-          return api(original);
-        } catch {
-          localStorage.removeItem("access_token");
-          localStorage.removeItem("refresh_token");
-          window.location.href = "/login";
-        }
-      }
+
+    // Only intercept 401 errors from the API (not refresh endpoint itself)
+    if (
+      error.response?.status !== 401 ||
+      original._retry ||
+      original.url?.includes("/auth/refresh")
+    ) {
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
+
+    original._retry = true;
+
+    // If another request is already refreshing, wait for it
+    if (_isRefreshing) {
+      return new Promise((resolve) => {
+        _subscribeRefresh((newToken) => {
+          original.headers.Authorization = `Bearer ${newToken}`;
+          resolve(api(original));
+        });
+      });
+    }
+
+    _isRefreshing = true;
+    const refreshToken = typeof window !== "undefined"
+      ? localStorage.getItem("refresh_token")
+      : null;
+
+    if (!refreshToken) {
+      _isRefreshing = false;
+      _doLogout();
+      return Promise.reject(error);
+    }
+
+    try {
+      // Use dedicated refreshApi to avoid interceptor loop
+      const res = await refreshApi.post("/auth/refresh", { refresh_token: refreshToken });
+      const newAccess: string = res.data.access_token;
+      const newRefresh: string = res.data.refresh_token;
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("access_token", newAccess);
+        localStorage.setItem("refresh_token", newRefresh);
+      }
+      // Update Zustand store without causing re-render issues
+      try {
+        const { useAuthStore } = await import("./store");
+        const store = useAuthStore.getState();
+        if (store.user) {
+          store.setAuth(store.user, newAccess, newRefresh);
+        }
+      } catch {}
+
+      _notifyRefreshed(newAccess);
+      original.headers.Authorization = `Bearer ${newAccess}`;
+      _isRefreshing = false;
+      return api(original);
+    } catch (refreshError: any) {
+      _isRefreshing = false;
+      _refreshSubscribers = [];
+
+      // Only force logout if the refresh token is definitively invalid (401/403)
+      // Network errors (5xx, ECONNREFUSED) → keep session, don't logout
+      const status = (refreshError as any)?.response?.status;
+      if (status === 401 || status === 403) {
+        _doLogout();
+      }
+      return Promise.reject(error);
+    }
   }
 );
+
+function _doLogout() {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  clearMeCache();
+  // Clear Zustand store
+  try {
+    const stored = localStorage.getItem("medmind-auth");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      parsed.state = { ...parsed.state, user: null, accessToken: null, refreshToken: null, isAuthenticated: false };
+      localStorage.setItem("medmind-auth", JSON.stringify(parsed));
+    }
+  } catch {}
+  window.location.href = "/login";
+}
 
 // ============================================================
 // API FUNCTIONS

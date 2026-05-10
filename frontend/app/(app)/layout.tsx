@@ -6,6 +6,7 @@ import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { AchievementToast, AchievementToastData } from "@/components/ui/AchievementToast";
 import { achievementsApi, authApi } from "@/lib/api";
+import { isTokenFresh, isTokenExpired, markMeChecked, wasMeCheckedRecently, clearMeCache } from "@/lib/auth";
 
 const ACHIEVEMENT_META: Record<string, { name: string; icon: string; xp: number }> = {
   first_lesson:    { name: "First Steps",        icon: "🎓", xp: 50 },
@@ -31,49 +32,62 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  // After Zustand hydrates, validate/refresh the token silently
+  // After Zustand hydrates, validate session smartly (no API call if token is fresh)
   useEffect(() => {
     if (!_hasHydrated) return;
 
     async function validateSession() {
-      const storedAccess = typeof window !== "undefined"
-        ? localStorage.getItem("access_token")
-        : null;
+      const storedAccess  = localStorage.getItem("access_token");
+      const storedRefresh = localStorage.getItem("refresh_token");
 
-      if (!isAuthenticated || !storedAccess) {
-        // No session at all — go to login
+      // Case 1: No stored credentials at all → go to login
+      if (!storedAccess && !storedRefresh && !isAuthenticated) {
         setTokenChecked(true);
         router.push("/login");
         return;
       }
 
-      // Try to call /auth/me with the current token
-      try {
-        const me = await authApi.me();
-        // Token is valid — update user data in store (might have changed)
-        setAuth(me, storedAccess, localStorage.getItem("refresh_token") ?? "");
+      // Case 2: Access token is still fresh (not expiring in next 5 min)
+      //         AND we checked /auth/me recently (within 10 min) → skip network call
+      if (isTokenFresh(storedAccess) && wasMeCheckedRecently() && isAuthenticated) {
         setTokenChecked(true);
-      } catch (err: any) {
-        if (err?.response?.status === 401) {
-          // Token expired — try to refresh
-          const refreshToken = localStorage.getItem("refresh_token");
-          if (refreshToken) {
-            try {
-              const res = await authApi.refresh(refreshToken);
-              setAuth(res.user ?? user!, res.access_token, res.refresh_token);
-              setTokenChecked(true);
-              return;
-            } catch {
-              // Refresh also failed — really log out
-            }
-          }
-          logout();
-          router.push("/login");
-        } else {
-          // Network error — keep the session, don't force logout
+        return;
+      }
+
+      // Case 3: Access token is fresh but /auth/me not called recently → call it once
+      if (isTokenFresh(storedAccess) && isAuthenticated) {
+        try {
+          const me = await authApi.me();
+          setAuth(me, storedAccess!, storedRefresh ?? "");
+          markMeChecked();
+        } catch (err: any) {
+          // Network error → keep session (don't kick user out for a blip)
+          if (!err?.response) { /* network error, stay logged in */ }
+          // 401 handled by the interceptor which already refreshes
+        }
+        setTokenChecked(true);
+        return;
+      }
+
+      // Case 4: Access token expired (or missing) but refresh token exists → refresh
+      if (!isTokenFresh(storedAccess) && storedRefresh && !isTokenExpired(storedRefresh)) {
+        try {
+          const res = await authApi.refresh(storedRefresh);
+          const me = await authApi.me();
+          setAuth(me, res.access_token, res.refresh_token);
+          markMeChecked();
           setTokenChecked(true);
+          return;
+        } catch {
+          // Refresh failed — full logout
         }
       }
+
+      // Case 5: No valid session — redirect to login
+      logout();
+      clearMeCache();
+      setTokenChecked(true);
+      router.push("/login");
     }
 
     validateSession();

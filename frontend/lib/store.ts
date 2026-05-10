@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { clearMeCache } from "./auth";
 
 interface User {
   id: string;
@@ -60,6 +61,7 @@ export const useAuthStore = create<AuthState>()(
         if (typeof window !== "undefined") {
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          clearMeCache();
         }
         set({ user: null, accessToken: null, refreshToken: null, isAuthenticated: false });
       },
