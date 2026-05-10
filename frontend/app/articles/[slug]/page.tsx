@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
 import { ArticleViewTracker } from "./ArticleViewTracker";
 import { ArticleNav } from "@/components/layout/ArticleNav";
+import { ArticleAudioPlayer } from "@/components/ui/ArticleAudioPlayer";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -543,6 +544,9 @@ export default async function ArticlePage({
               )}
               <span>{article.author?.name ?? "MedMind AI Editorial"}</span>
             </div>
+
+            {/* Audio player */}
+            <ArticleAudioPlayer articleId={article.id} locale={locale} title={article.title} />
 
             {/* Verification badge */}
             {article.verification_status === "expert_verified" ? (

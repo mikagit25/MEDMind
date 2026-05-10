@@ -8,6 +8,7 @@ import { useT, useI18n } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/ui/VoiceTutor";
 
 // MODES is defined inside component so t() is available
 
@@ -37,6 +38,7 @@ export default function AiTutorPage() {
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [pubmedPanel, setPubmedPanel] = useState<any[]>([]);
+  const [voiceMode, setVoiceMode] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -261,6 +263,9 @@ export default function AiTutorPage() {
             ))}
           </div>
 
+          {/* Voice mode toggle */}
+          <VoiceModeToggle active={voiceMode} onToggle={() => setVoiceMode(v => !v)} />
+
           <button
             onClick={clearChat}
             className="text-ink-3 hover:text-ink font-syne text-xs transition-colors"
@@ -363,6 +368,12 @@ export default function AiTutorPage() {
                     </div>
                   )}
                 </div>
+                {/* Listen button for assistant messages */}
+                {msg.role === "assistant" && msg.content && !loading && (
+                  <div className="ml-1">
+                    <VoiceSpeakButton text={msg.content} locale={locale} compact />
+                  </div>
+                )}
                 {/* Feedback buttons — only for assistant messages with a DB ID */}
                 {msg.role === "assistant" && msg.messageId && (
                   <div className="flex gap-1 ml-1">
@@ -420,12 +431,18 @@ export default function AiTutorPage() {
         {/* Input */}
         <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-surface flex-shrink-0">
           <div className="flex gap-2 items-end">
+            {/* Voice mic button — STT via Web Speech API */}
+            <VoiceMicButton
+              onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
+              disabled={loading}
+              locale={locale}
+            />
             <textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={t("ai_tutor.input_placeholder")}
+              placeholder={voiceMode ? "🎙️ Speak or type…" : t("ai_tutor.input_placeholder")}
               rows={1}
               className="flex-1 resize-none px-3 py-2.5 rounded-xl border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink-3 transition-colors leading-relaxed"
               style={{ maxHeight: "100px", overflowY: "auto" }}

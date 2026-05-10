@@ -659,3 +659,41 @@ interface AIAskData {
   mode?: string;
   search_pubmed?: boolean;
 }
+
+// ── TTS API ────────────────────────────────────────────────────────────────────
+export const ttsApi = {
+  /** Get available voices per locale. */
+  voices: () => api.get("/tts/voices").then(r => r.data),
+
+  /** Return a URL for streaming TTS audio — used as <audio src>. */
+  speakUrl: (text: string, locale = "en", gender: "female" | "male" = "female", rate = "+0%") => {
+    // We POST via fetch to get a blob URL (axios doesn't support blob streaming well)
+    return { text, locale, gender, rate };
+  },
+
+  /** Fetch TTS audio as Blob (for playback). */
+  speakBlob: async (text: string, locale = "en", gender: "female" | "male" = "female", rate = "+0%"): Promise<Blob> => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+    const res = await fetch(`${API_URL}/tts/speak`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ text, locale, gender, rate }),
+    });
+    if (!res.ok) throw new Error(`TTS failed: ${res.status}`);
+    return res.blob();
+  },
+
+  /** Stream article as audio blob. */
+  articleBlob: async (articleId: string, locale = "en", gender: "female" | "male" = "female"): Promise<Blob> => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+    const params = new URLSearchParams({ locale, gender });
+    const res = await fetch(`${API_URL}/tts/article/${articleId}?${params}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    if (!res.ok) throw new Error(`Article TTS failed: ${res.status}`);
+    return res.blob();
+  },
+};
