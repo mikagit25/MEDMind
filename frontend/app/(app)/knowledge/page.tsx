@@ -43,7 +43,7 @@ export default function ArticlesPage() {
     api.get("/articles/categories").then(r => setCategories(r.data ?? [])).catch(() => {});
   }, []);
 
-  // Load articles when filters change
+  // Load articles when filters or locale change
   const loadArticles = useCallback(async (cat: string, q: string, pg: number) => {
     setLoading(true);
     try {
@@ -59,12 +59,12 @@ export default function ArticlesPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [locale]); // locale in deps — new closure when language changes
 
   useEffect(() => {
     setPage(1);
     loadArticles(activeCategory, debouncedSearch, 1);
-  }, [activeCategory, debouncedSearch, loadArticles]);
+  }, [activeCategory, debouncedSearch, loadArticles, locale]);
 
   useEffect(() => {
     if (page > 1) loadArticles(activeCategory, debouncedSearch, page);
@@ -177,7 +177,7 @@ export default function ArticlesPage() {
                   {articles.map(article => (
                     <Link
                       key={article.id}
-                      href={locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`}
+                      href={locale && locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`}
                       target="_blank"
                       rel="noopener"
                       className="card p-4 hover:shadow-md transition-shadow group block"

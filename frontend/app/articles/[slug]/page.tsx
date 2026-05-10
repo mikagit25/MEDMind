@@ -107,10 +107,11 @@ type ArticleNav = {
   next: { slug: string; title: string } | null;
 };
 
-async function fetchRelated(slug: string): Promise<RelatedArticle[]> {
+async function fetchRelated(slug: string, locale?: string): Promise<RelatedArticle[]> {
   try {
-    const res = await fetch(`${API_URL}/articles/${slug}/related`, {
-      next: { revalidate: 3600 },
+    const localeParam = locale && locale !== "en" ? `?locale=${locale}` : "";
+    const res = await fetch(`${API_URL}/articles/${slug}/related${localeParam}`, {
+      cache: "no-store",
     });
     if (!res.ok) return [];
     return await res.json();
@@ -119,10 +120,11 @@ async function fetchRelated(slug: string): Promise<RelatedArticle[]> {
   }
 }
 
-async function fetchNav(slug: string): Promise<ArticleNav> {
+async function fetchNav(slug: string, locale?: string): Promise<ArticleNav> {
   try {
-    const res = await fetch(`${API_URL}/articles/${slug}/nav`, {
-      next: { revalidate: 3600 },
+    const localeParam = locale && locale !== "en" ? `?locale=${locale}` : "";
+    const res = await fetch(`${API_URL}/articles/${slug}/nav${localeParam}`, {
+      cache: "no-store",
     });
     if (!res.ok) return { prev: null, next: null };
     return await res.json();
@@ -470,8 +472,8 @@ export default async function ArticlePage({
   const [article, availableLocales, related, nav, linkMap] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),
-    fetchRelated(params.slug),
-    fetchNav(params.slug),
+    fetchRelated(params.slug, locale),
+    fetchNav(params.slug, locale),
     fetchLinkMap(),
   ]);
   if (!article) notFound();
@@ -729,10 +731,10 @@ export default async function ArticlePage({
               <div>
                 {nav.prev && (
                   <Link
-                    href={`/articles/${nav.prev.slug}`}
+                    href={locale && locale !== "en" ? `/articles/${nav.prev.slug}?lang=${locale}` : `/articles/${nav.prev.slug}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
-                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">← Previous</span>
+                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">←</span>
                     <span className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
                       {nav.prev.title}
                     </span>
@@ -742,10 +744,10 @@ export default async function ArticlePage({
               <div>
                 {nav.next && (
                   <Link
-                    href={`/articles/${nav.next.slug}`}
+                    href={locale && locale !== "en" ? `/articles/${nav.next.slug}?lang=${locale}` : `/articles/${nav.next.slug}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all text-right"
                   >
-                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">Next →</span>
+                    <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">→</span>
                     <span className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
                       {nav.next.title}
                     </span>
@@ -765,7 +767,7 @@ export default async function ArticlePage({
                 {related.map((r) => (
                   <Link
                     key={r.slug}
-                    href={`/articles/${r.slug}`}
+                    href={locale && locale !== "en" ? `/articles/${r.slug}?lang=${locale}` : `/articles/${r.slug}`}
                     className="group flex flex-col gap-2 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
                     <h3 className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">

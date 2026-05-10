@@ -191,7 +191,7 @@ export default async function ArticlesPage({
 function ArticleCard({ article, locale }: { article: Article; locale: string }) {
   return (
     <Link
-      href={`/articles/${article.slug}`}
+      href={locale && locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`}
       className="group flex flex-col bg-surface border border-border rounded-xl p-5 hover:border-ink hover:shadow-md transition-all"
     >
       <div className="flex items-center gap-2 mb-3">

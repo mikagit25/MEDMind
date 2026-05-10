@@ -361,6 +361,7 @@ async def articles_by_category(
 async def article_related(
     slug: str,
     limit: int = Query(4, ge=1, le=8),
+    locale: Optional[str] = Query(None, description="Return translated titles/excerpts"),
     db: AsyncSession = Depends(get_db),
 ):
     """Return related published articles from the same category (excluding self)."""
@@ -370,7 +371,6 @@ async def article_related(
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
 
-    # Primary: same category, ordered by recency
     rows = (await db.execute(
         select(Article)
         .where(
@@ -383,11 +383,35 @@ async def article_related(
         .limit(limit)
     )).scalars().all()
 
-    return [_list_item(a) for a in rows]
+    items = [_list_item(a) for a in rows]
+
+    # Overlay translated title/excerpt when locale requested
+    if locale and locale != "en" and rows:
+        article_ids = [a.id for a in rows]
+        tr_rows = (await db.execute(
+            select(ArticleTranslation)
+            .where(
+                ArticleTranslation.article_id.in_(article_ids),
+                ArticleTranslation.locale == locale,
+                ArticleTranslation.status == "done",
+            )
+        )).scalars().all()
+        tr_map = {str(tr.article_id): tr for tr in tr_rows}
+        for item in items:
+            tr = tr_map.get(item["id"])
+            if tr:
+                item["title"] = tr.title
+                item["excerpt"] = tr.excerpt
+
+    return items
 
 
 @router.get("/{slug}/nav")
-async def article_nav(slug: str, db: AsyncSession = Depends(get_db)):
+async def article_nav(
+    slug: str,
+    locale: Optional[str] = Query(None, description="Return translated titles"),
+    db: AsyncSession = Depends(get_db),
+):
     """Return prev/next article in the same category (by published_at)."""
     article = (await db.execute(
         select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
@@ -423,10 +447,27 @@ async def article_nav(slug: str, db: AsyncSession = Depends(get_db)):
         .limit(1)
     )).scalar_one_or_none()
 
-    return {
+    result = {
         "prev": {"slug": prev_art.slug, "title": prev_art.title} if prev_art else None,
         "next": {"slug": next_art.slug, "title": next_art.title} if next_art else None,
     }
+
+    # Overlay translated titles
+    if locale and locale != "en":
+        for key, art in [("prev", prev_art), ("next", next_art)]:
+            if art:
+                tr = (await db.execute(
+                    select(ArticleTranslation)
+                    .where(
+                        ArticleTranslation.article_id == art.id,
+                        ArticleTranslation.locale == locale,
+                        ArticleTranslation.status == "done",
+                    )
+                )).scalar_one_or_none()
+                if tr:
+                    result[key]["title"] = tr.title
+
+    return result
 
 
 @router.get("/{slug}/available-locales")
