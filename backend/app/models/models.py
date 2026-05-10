@@ -1100,6 +1100,12 @@ class Article(Base):
     review_note = Column(Text, nullable=True)    # shown to teacher on rejection
     submitted_at = Column(DateTime, nullable=True)
 
+    # Verification: unverified | ai_verified | expert_verified
+    verification_status = Column(String(30), nullable=False, default="unverified")
+    # Real PubMed sources [{pmid, title, authors, journal, year, url}]
+    verified_sources = Column(JSONB, nullable=True)
+    last_verified_at = Column(DateTime, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

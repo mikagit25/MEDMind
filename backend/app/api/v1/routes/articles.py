@@ -163,6 +163,10 @@ def _detail(a: Article) -> dict:
         "generated_by": a.generated_by,
         "review_status": a.review_status,
         "review_note": a.review_note,
+        # Verification
+        "verification_status": getattr(a, "verification_status", "unverified"),
+        "verified_sources": getattr(a, "verified_sources", None) or [],
+        "last_verified_at": getattr(a, "last_verified_at", None).isoformat() if getattr(a, "last_verified_at", None) else None,
     }
 
 
@@ -949,6 +953,44 @@ async def reject_article(
     article.is_published = False
     await db.commit()
     return {"id": str(article.id), "review_status": article.review_status, "review_note": article.review_note}
+
+
+@router.post("/{article_id}/verify")
+async def verify_article_pubmed(
+    article_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Trigger PubMed verification for an article (admin only).
+    Sets verification_status = 'ai_verified' if ≥2 relevant papers found.
+    """
+    from app.services.pubmed_service import verify_article_orm
+    status = await verify_article_orm(article_id, db)
+    if status == "not_found":
+        raise HTTPException(status_code=404, detail="Article not found")
+    article = await _get_article_or_404(article_id, db)
+    return {
+        "id": str(article_id),
+        "verification_status": status,
+        "verified_sources": article.verified_sources or [],
+        "last_verified_at": article.last_verified_at.isoformat() if article.last_verified_at else None,
+    }
+
+
+@router.patch("/{article_id}/expert-verify")
+async def expert_verify_article(
+    article_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = _admin,
+):
+    """Mark article as expert-verified by admin physician (manual review).
+    Highest trust level — shown with green badge on article page.
+    """
+    article = await _get_article_or_404(article_id, db)
+    article.verification_status = "expert_verified"
+    article.last_verified_at = datetime.utcnow()
+    await db.commit()
+    return {"id": str(article_id), "verification_status": "expert_verified"}
 
 
 @router.post("/generate")

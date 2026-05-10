@@ -1,8 +1,9 @@
-"""PubMed search integration with Redis caching."""
+"""PubMed search integration with Redis caching + article verification."""
 import hashlib
 import json
 import logging
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -99,3 +100,120 @@ def build_pubmed_context(articles: List[dict]) -> str:
     for i, a in enumerate(articles, 1):
         lines.append(f'{i}. "{a["title"]}" — {a["authors"]} ({a["year"]})')
     return "\n".join(lines)
+
+
+# ── Article verification ───────────────────────────────────────────────────────
+
+_MIN_PAPERS_FOR_VERIFIED = 2
+
+
+async def verify_article(
+    title: str,
+    keywords: Optional[List[str]] = None,
+    category: Optional[str] = None,
+    existing_pmids: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """Cross-reference article topic with PubMed.
+
+    Returns dict with:
+      status: 'ai_verified' | 'unverified'
+      verified_sources: [{pmid, title, authors, journal, year, url}]
+      pubmed_count: int
+    """
+    # Build query from title + top keywords
+    query_parts = [title[:80]]
+    if keywords:
+        query_parts.extend(kw for kw in keywords[:2] if kw.lower() not in title.lower())
+
+    query = " ".join(query_parts)
+    pubmed_results = await search_pubmed(query, max_results=5)
+
+    # Also validate existing LLM-cited PMIDs
+    existing_found: List[dict] = []
+    if existing_pmids:
+        valid_ids = [str(p).strip() for p in existing_pmids if str(p).strip().isdigit()]
+        if valid_ids:
+            # Cross-check via esummary directly
+            try:
+                params: Dict[str, Any] = {
+                    "db": "pubmed", "id": ",".join(valid_ids[:3]), "retmode": "json",
+                }
+                if settings.PUBMED_API_KEY:
+                    params["api_key"] = settings.PUBMED_API_KEY
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    r = await client.get(PUBMED_BASE + "esummary.fcgi", params=params)
+                    r.raise_for_status()
+                    d = r.json()
+                    for pid in valid_ids[:3]:
+                        doc = d.get("result", {}).get(pid, {})
+                        if doc and not doc.get("error"):
+                            authors_list = doc.get("authors", [])
+                            author_str = (
+                                ", ".join(a["name"] for a in authors_list[:2])
+                                + (" et al." if len(authors_list) > 2 else "")
+                                if authors_list else "Unknown"
+                            )
+                            existing_found.append({
+                                "pmid": pid,
+                                "title": doc.get("title", "").rstrip("."),
+                                "authors": author_str,
+                                "journal": doc.get("source", ""),
+                                "year": (doc.get("pubdate", "") or "")[:4],
+                                "url": f"https://pubmed.ncbi.nlm.nih.gov/{pid}/",
+                            })
+            except Exception as exc:
+                logger.warning("PMID validation failed: %s", exc)
+
+    # Merge: validated LLM PMIDs first, then PubMed search results (deduplicated)
+    seen: set[str] = set()
+    merged: List[dict] = []
+    for src in existing_found + pubmed_results:
+        pmid = src.get("pmid", "")
+        if pmid and pmid not in seen:
+            seen.add(pmid)
+            merged.append(src)
+        if len(merged) >= 5:
+            break
+
+    status = "ai_verified" if len(merged) >= _MIN_PAPERS_FOR_VERIFIED else "unverified"
+
+    return {
+        "status": status,
+        "verified_sources": merged,
+        "pubmed_count": len(merged),
+    }
+
+
+async def verify_article_orm(article_id, db) -> str:
+    """Verify article against PubMed and persist result. Returns new status."""
+    from app.models.models import Article
+    from sqlalchemy import select
+
+    art = (await db.execute(select(Article).where(Article.id == article_id))).scalar_one_or_none()
+    if not art:
+        return "not_found"
+
+    existing_pmids = []
+    if art.sources:
+        for src in art.sources:
+            pmid = src.get("pmid")
+            if pmid and str(pmid).strip().isdigit():
+                existing_pmids.append(str(pmid).strip())
+
+    result = await verify_article(
+        title=art.title,
+        keywords=art.keywords or [],
+        category=art.category,
+        existing_pmids=existing_pmids,
+    )
+
+    art.verification_status = result["status"]
+    art.verified_sources = result["verified_sources"] or []
+    art.last_verified_at = datetime.utcnow()
+    await db.commit()
+
+    logger.info(
+        "Verified %s [%.40s]: %d PubMed sources → %s",
+        art.slug, art.title, result["pubmed_count"], result["status"],
+    )
+    return result["status"]

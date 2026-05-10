@@ -31,6 +31,15 @@ type Block =
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "image"; url: string; caption?: string; alt?: string };
 
+type VerifiedSource = {
+  pmid: string;
+  title: string;
+  authors: string;
+  journal: string;
+  year: string;
+  url: string;
+};
+
 type ArticleDetail = {
   id: string;
   slug: string;
@@ -49,6 +58,11 @@ type ArticleDetail = {
   sources: { title: string; url: string; pmid: string | null }[];
   related_module_code: string | null;
   author: { name: string; bio: string | null; is_ai: boolean } | null;
+  // Verification
+  verification_status: "unverified" | "ai_verified" | "expert_verified";
+  verified_sources: VerifiedSource[];
+  last_verified_at: string | null;
+  generated_by: string | null;
 };
 
 async function fetchArticle(slug: string, locale?: string): Promise<ArticleDetail | null> {
@@ -533,7 +547,7 @@ export default async function ArticlePage({
             <p className="font-serif text-ink-2 text-lg leading-relaxed">
               {article.excerpt}
             </p>
-            <div className="flex items-center gap-4 mt-4 text-xs font-serif text-ink-3">
+            <div className="flex items-center gap-4 mt-4 text-xs font-serif text-ink-3 flex-wrap">
               <span>📖 {article.reading_time_minutes} min read</span>
               {article.published_at && (
                 <span>
@@ -545,6 +559,36 @@ export default async function ArticlePage({
               )}
               <span>{article.author?.name ?? "MedMind AI Editorial"}</span>
             </div>
+
+            {/* Verification badge */}
+            {article.verification_status === "expert_verified" ? (
+              <div className="mt-4 inline-flex items-center gap-2 bg-green-light border border-green/30 rounded-lg px-3 py-2">
+                <span className="text-green text-base">✅</span>
+                <div>
+                  <div className="font-syne font-bold text-xs text-green">Expert Verified</div>
+                  <div className="font-serif text-[11px] text-ink-2">Reviewed by a licensed healthcare professional</div>
+                </div>
+              </div>
+            ) : article.verification_status === "ai_verified" ? (
+              <div className="mt-4 inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2">
+                <span className="text-blue-500 text-base">🔬</span>
+                <div>
+                  <div className="font-syne font-bold text-xs text-blue-700">AI Cross-Referenced</div>
+                  <div className="font-serif text-[11px] text-ink-2">
+                    Topic validated against {article.verified_sources?.length ?? 0} PubMed-indexed publications
+                    {article.last_verified_at && ` · ${new Date(article.last_verified_at).toLocaleDateString("en-US", {month:"short", year:"numeric"})}`}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4 inline-flex items-center gap-2 bg-amber-50 border border-amber/30 rounded-lg px-3 py-2">
+                <span className="text-amber text-base">⚠️</span>
+                <div>
+                  <div className="font-syne font-bold text-xs text-amber-800">AI-Generated · Not Verified</div>
+                  <div className="font-serif text-[11px] text-ink-2">Content has not been cross-referenced with medical literature</div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Body */}
@@ -589,35 +633,106 @@ export default async function ArticlePage({
             </section>
           )}
 
-          {/* Sources */}
-          {article.sources?.length > 0 && (
-            <section className="mt-10 border-t border-border pt-6">
-              <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">{ui.refs}</h2>
-              <ol className="space-y-2">
-                {article.sources.map((src, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs font-serif text-ink-3">
-                    <span className="font-syne font-semibold text-ink-3 mt-0.5">{i + 1}.</span>
-                    <span>
-                      {src.url ? (
-                        <a href={src.url} target="_blank" rel="noopener noreferrer" className="hover:text-ink underline underline-offset-2">
-                          {src.title}
-                        </a>
-                      ) : (
-                        src.title
-                      )}
-                      {src.pmid && <span className="ml-1 text-ink-3">[PMID: {src.pmid}]</span>}
+          {/* Sources — PubMed verified (preferred) or LLM-provided */}
+          {(() => {
+            const hasPubMed = article.verified_sources?.length > 0;
+            const sources = hasPubMed
+              ? article.verified_sources
+              : article.sources || [];
+            if (!sources.length) return null;
+            return (
+              <section className="mt-10 border-t border-border pt-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider">{ui.refs}</h2>
+                  {hasPubMed && (
+                    <span className="text-[10px] font-syne font-bold text-blue-600 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
+                      PubMed indexed
                     </span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          )}
+                  )}
+                  {!hasPubMed && (
+                    <span className="text-[10px] font-syne font-bold text-amber-700 bg-amber-50 border border-amber/20 rounded-full px-2 py-0.5">
+                      AI-cited · not validated
+                    </span>
+                  )}
+                </div>
+                <ol className="space-y-2.5">
+                  {sources.map((src: any, i: number) => (
+                    <li key={i} className="flex items-start gap-2 text-xs font-serif text-ink-3">
+                      <span className="font-syne font-semibold text-ink-3 mt-0.5 flex-shrink-0">{i + 1}.</span>
+                      <span className="leading-relaxed">
+                        {src.url ? (
+                          <a href={src.url} target="_blank" rel="noopener noreferrer" className="hover:text-ink underline underline-offset-2 text-ink-2">
+                            {src.title}
+                          </a>
+                        ) : (
+                          <span className="text-ink-2">{src.title}</span>
+                        )}
+                        {src.authors && <span className="ml-1 text-ink-3"> — {src.authors}</span>}
+                        {src.journal && <span className="ml-1 italic text-ink-3">{src.journal}</span>}
+                        {src.year && <span className="ml-1 text-ink-3">({src.year})</span>}
+                        {src.pmid && (
+                          <a
+                            href={`https://pubmed.ncbi.nlm.nih.gov/${src.pmid}/`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="ml-1.5 text-blue-600 hover:underline text-[10px] font-syne font-semibold"
+                          >
+                            PMID:{src.pmid}
+                          </a>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            );
+          })()}
 
-          {/* Medical disclaimer */}
-          <div className="mt-10 bg-surface-2 border border-border rounded-lg px-5 py-4 text-xs font-serif text-ink-3">
-            <strong className="font-syne font-semibold text-ink-2">{ui.disclaimer}:</strong>{" "}
-            This article is for educational purposes only and does not constitute medical advice.
-            Always consult a qualified healthcare professional for diagnosis and treatment.
+          {/* Medical disclaimer — full, depends on verification status */}
+          <div className={`mt-10 rounded-xl px-5 py-5 border text-xs font-serif leading-relaxed ${
+            article.verification_status === "expert_verified"
+              ? "bg-green-light/30 border-green/20"
+              : article.verification_status === "ai_verified"
+              ? "bg-blue-50 border-blue-200"
+              : "bg-amber-50 border-amber/20"
+          }`}>
+            <div className="flex items-start gap-3">
+              <span className="text-lg flex-shrink-0 mt-0.5">
+                {article.verification_status === "expert_verified" ? "✅" :
+                 article.verification_status === "ai_verified" ? "🔬" : "⚕️"}
+              </span>
+              <div>
+                <div className="font-syne font-bold text-sm text-ink mb-2">{ui.disclaimer}</div>
+                <p className="text-ink-2 mb-2">
+                  <strong>This article is intended for educational and informational purposes only.</strong>{" "}
+                  It does not constitute medical advice, professional diagnosis, or a treatment plan.
+                  Never disregard professional medical advice or delay seeking it because of information in this article.
+                  Always consult a qualified, licensed healthcare professional before making clinical decisions.
+                </p>
+                {article.verification_status === "expert_verified" && (
+                  <p className="text-green-800 font-semibold">
+                    ✅ This article has been reviewed by a licensed healthcare professional on the MedMind editorial team.
+                  </p>
+                )}
+                {article.verification_status === "ai_verified" && (
+                  <p className="text-blue-700">
+                    🔬 The topic and references in this article have been cross-referenced with{" "}
+                    <strong>{article.verified_sources?.length ?? 0} peer-reviewed publications</strong> indexed in PubMed/MEDLINE.
+                    The content was generated by AI and has not been verified by a human clinician.
+                  </p>
+                )}
+                {article.verification_status === "unverified" && (
+                  <p className="text-amber-800">
+                    ⚠️ This article was generated by AI ({article.generated_by ?? "AI"}) and has{" "}
+                    <strong>not yet been cross-referenced with medical databases</strong>.
+                    Treat all information with appropriate clinical judgement.
+                  </p>
+                )}
+                <p className="mt-2 text-ink-3">
+                  MedMind AI is an educational platform. Drug dosages, contraindications, and clinical protocols
+                  should always be verified against current official guidelines and prescribing information.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Prev / Next in category */}
