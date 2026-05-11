@@ -109,10 +109,12 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
     db.add(refresh)
     await db.commit()
 
-    # Send welcome email (non-blocking)
+    # Send welcome email (non-blocking) — decrypt email first (stored Fernet-encrypted in DB)
     from app.services.email_service import send_welcome_email
+    from app.core.encryption import decrypt_email
     try:
-        await send_welcome_email(user.email, user.first_name or "there")
+        plain_email = decrypt_email(user.email)
+        await send_welcome_email(plain_email, user.first_name or "there")
     except Exception:
         pass  # Never fail registration due to email error
 
