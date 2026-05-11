@@ -335,29 +335,62 @@ def fetch_top_slugs(limit: int = 20, lang: str = "en") -> list[str]:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-async def process_one(slug: str, lang: str, access_token: str, output_dir: Path, delete_after: bool = True):
+def add_to_playlist(video_id: str, playlist_id: str, access_token: str) -> bool:
+    """Add an uploaded video to a YouTube playlist."""
+    resp = httpx.post(
+        "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet",
+        headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"},
+        content=json.dumps({
+            "snippet": {
+                "playlistId": playlist_id,
+                "resourceId": {"kind": "youtube#video", "videoId": video_id},
+            }
+        }).encode(),
+        timeout=15,
+    )
+    if resp.status_code in (200, 201):
+        return True
+    print(f"  ⚠️  Playlist add failed: {resp.status_code} {resp.text[:100]}")
+    return False
+
+
+async def process_one(
+    slug: str,
+    lang: str,
+    access_token: str,
+    output_dir: Path,
+    delete_after: bool = True,
+    playlist_id: str | None = None,
+) -> str | None:
+    """Generate and upload one video. Returns video_id on success."""
     article = fetch_article(slug, lang)
     if not article:
         print(f"⚠️  Could not fetch article '{slug}', skipping")
-        return
+        return None
 
     title   = article.get("title", slug)
     excerpt = article.get("excerpt", "")
-    tags_en = CHANNEL_DESCRIPTIONS["en"]["tags"] + [article.get("category", "")]
     tags    = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])["tags"] + [article.get("category", "")]
 
     # Generate video
     mp4 = await generate_video(slug, lang, output_dir)
     if not mp4:
-        return
+        return None
 
     # Upload
     description = build_description(slug, excerpt, lang)
     video_id    = upload_to_youtube(mp4, title, description, tags, access_token)
 
-    if video_id and delete_after:
-        mp4.unlink(missing_ok=True)
-        print(f"🗑️  Local file deleted (saved disk space)")
+    if video_id:
+        if delete_after:
+            mp4.unlink(missing_ok=True)
+            print(f"🗑️  Local file deleted")
+        if playlist_id:
+            ok = add_to_playlist(video_id, playlist_id, access_token)
+            if ok:
+                print(f"📂 Added to playlist")
+
+    return video_id
 
 
 async def main():
