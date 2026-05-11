@@ -60,9 +60,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 # ── Config ────────────────────────────────────────────────────────────────────
-API_BASE     = os.getenv("API_BASE",       "http://localhost:8000/api/v1")
-ADMIN_EMAIL  = os.getenv("ADMIN_EMAIL",    "admin@medmind.ai")
-ADMIN_PASS   = os.getenv("ADMIN_PASSWORD", "adminpass123")
+API_BASE     = os.getenv("API_BASE", "https://medmind.pro/api/v1")
 OUTPUT_DIR   = Path(os.getenv("VIDEO_OUTPUT", "output/videos"))
 
 # ── Language → default Edge TTS voice ─────────────────────────────────────────
@@ -558,37 +556,17 @@ async def build_video(
 # ── API helpers ───────────────────────────────────────────────────────────────
 
 async def get_token(client: httpx.AsyncClient) -> str:
-    r = await client.post(
-        f"{API_BASE}/auth/login",
-        data={"username": ADMIN_EMAIL, "password": ADMIN_PASS},
-        headers={"Content-Type": "application/x-www-form-urlencoded"},
-    )
-    if r.status_code != 200:
-        raise RuntimeError(f"Login failed: {r.status_code}")
-    return r.json()["access_token"]
+    return ""  # Articles are public — no auth needed
 
 
 async def fetch_article(slug: str, token: str, client: httpx.AsyncClient,
                         lang: str = "en") -> dict:
-    """Fetch article. If lang != en, attempts to fetch translated version."""
-    params = {} if lang == "en" else {"locale": lang}
+    """Fetch article from public API. Applies locale translation if available."""
+    params = {} if lang == "en" else {"lang": lang}
     r = await client.get(f"{API_BASE}/articles/{slug}", params=params, timeout=20)
     if r.status_code == 200:
         return r.json()
-    # Try admin endpoint (includes drafts)
-    r = await client.get(
-        f"{API_BASE}/articles/admin/list",
-        params={"search": slug, "limit": 5},
-        headers={"Authorization": f"Bearer {token}"},
-        timeout=20,
-    )
-    if r.status_code == 200:
-        items = r.json()
-        items = items if isinstance(items, list) else items.get("articles", [])
-        for a in items:
-            if a.get("slug") == slug:
-                return a
-    raise RuntimeError(f"Article '{slug}' not found")
+    raise RuntimeError(f"Article '{slug}' not found (status {r.status_code})")
 
 
 async def fetch_available_locales(slug: str, client: httpx.AsyncClient) -> list[str]:

@@ -109,56 +109,64 @@ def refresh_access_token(token: dict, secret: dict) -> dict:
 
 
 def do_auth_flow(secret: dict) -> dict:
-    """Interactive OAuth flow — opens browser, user logs in."""
-    import urllib.parse, webbrowser, http.server, threading
+    """
+    Headless OAuth flow — prints URL, user opens in browser,
+    pastes the redirect URL (or just the code) back into terminal.
+    Works on servers without a browser.
+    """
+    import urllib.parse
 
     auth_url = (
         "https://accounts.google.com/o/oauth2/auth"
         "?response_type=code"
-        f"&client_id={secret['client_id']}"
-        "&redirect_uri=http://localhost:8080"
+        f"&client_id={urllib.parse.quote(secret['client_id'])}"
+        "&redirect_uri=http://localhost"
         "&scope=https://www.googleapis.com/auth/youtube.upload"
-        " https://www.googleapis.com/auth/youtube"
+        "%20https://www.googleapis.com/auth/youtube"
         "&access_type=offline"
         "&prompt=consent"
     )
 
-    code_holder = {}
+    print("\n" + "="*60)
+    print("STEP 1: Open this URL in your browser (on any device):")
+    print("="*60)
+    print(auth_url)
+    print("="*60)
+    print("\nSTEP 2: Log in with the Google account that owns MedMindAI-en")
+    print("STEP 3: After clicking Allow, browser goes to localhost (will show error — that's OK)")
+    print("STEP 4: Copy the FULL URL from browser address bar and paste below")
+    print("        It looks like: http://localhost/?code=4/0AX4XfW...&scope=...\n")
 
-    class Handler(http.server.BaseHTTPRequestHandler):
-        def do_GET(self):
-            params = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
-            code_holder["code"] = params.get("code", [None])[0]
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(b"<h1>Authorised! You can close this tab.</h1>")
+    raw = input("Paste the full redirect URL here: ").strip()
 
-        def log_message(self, *a): pass
+    # Extract code from URL or accept raw code
+    if raw.startswith("http"):
+        params = urllib.parse.parse_qs(urllib.parse.urlparse(raw).query)
+        code = params.get("code", [None])[0]
+    else:
+        code = raw  # user pasted just the code
 
-    server = http.server.HTTPServer(("localhost", 8080), Handler)
-    thread = threading.Thread(target=server.handle_request)
-    thread.start()
-
-    print(f"\nOpening browser for Google login…\n{auth_url}\n")
-    webbrowser.open(auth_url)
-    thread.join(timeout=120)
-
-    code = code_holder.get("code")
     if not code:
-        print("❌ No auth code received. Try again.")
+        print("❌ Could not extract auth code. Try again.")
         sys.exit(1)
 
+    print("Exchanging code for token…")
     resp = httpx.post("https://oauth2.googleapis.com/token", data={
         "code":          code,
         "client_id":     secret["client_id"],
         "client_secret": secret["client_secret"],
-        "redirect_uri":  "http://localhost:8080",
+        "redirect_uri":  "http://localhost",
         "grant_type":    "authorization_code",
     })
-    resp.raise_for_status()
+
+    if resp.status_code != 200:
+        print(f"❌ Token exchange failed: {resp.text}")
+        sys.exit(1)
+
     token = resp.json()
+    token["expires_at"] = time.time() + token.get("expires_in", 3600)
     save_token(token)
-    print("✅ Authentication successful!")
+    print("✅ Authentication successful! Token saved.")
     return token
 
 
@@ -315,9 +323,11 @@ def fetch_article(slug: str, lang: str = "en") -> dict | None:
 
 def fetch_top_slugs(limit: int = 20, lang: str = "en") -> list[str]:
     try:
-        resp = httpx.get(f"{API_URL}/articles", params={"limit": limit, "lang": lang}, timeout=15)
+        resp = httpx.get(f"{API_URL}/articles", params={"limit": limit, "page": 1}, timeout=15)
         if resp.status_code == 200:
-            return [a["slug"] for a in resp.json().get("articles", [])]
+            data = resp.json()
+            articles = data.get("articles", data) if isinstance(data, dict) else data
+            return [a["slug"] for a in articles[:limit]]
     except Exception as e:
         print(f"Warning: could not fetch articles list: {e}")
     return []
@@ -362,11 +372,13 @@ async def main():
     args = parser.parse_args()
 
     secret = load_client_secret()
+    print(f"✅ client_secret.json loaded (client_id: {secret.get('client_id','?')[:30]}…)")
 
     if args.auth:
         token = do_auth_flow(secret)
         token["expires_at"] = time.time() + token.get("expires_in", 3600)
         save_token(token)
+        print("\nNow run the upload command without --auth")
         return
 
     access_token, _ = get_valid_token()
