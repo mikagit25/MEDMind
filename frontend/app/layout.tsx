@@ -56,6 +56,75 @@ export const metadata: Metadata = {
   },
 };
 
+const JSON_LD_ORGANIZATION = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "MedMind AI",
+  url: "https://medmind.pro",
+  logo: "https://medmind.pro/opengraph-image",
+  description:
+    "AI-powered medical education platform for doctors, residents, medical students, and veterinarians. Evidence-based learning with Claude AI and real-time PubMed integration.",
+  sameAs: [
+    "https://medmind.pro",
+  ],
+  foundingDate: "2025",
+  knowsAbout: [
+    "Medical Education", "Clinical Cases", "Pharmacology",
+    "Cardiology", "Neurology", "Surgery", "Pediatrics",
+    "Veterinary Medicine", "Spaced Repetition", "AI Tutoring",
+  ],
+};
+
+const JSON_LD_WEBSITE = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "MedMind AI",
+  url: "https://medmind.pro",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://medmind.pro/articles?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const JSON_LD_EDUCATIONAL = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: "MedMind AI",
+  url: "https://medmind.pro",
+  description: "Evidence-based AI medical education — 97+ modules, clinical cases, drug database, spaced repetition flashcards in 7 languages.",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Medical Learning Plans",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "Free Plan",
+        price: "0",
+        priceCurrency: "USD",
+        description: "8 core modules, 5 AI questions/day, basic flashcards",
+      },
+      {
+        "@type": "Offer",
+        name: "Student Plan",
+        price: "15",
+        priceCurrency: "USD",
+        description: "All 82+ modules, 50 AI questions/day, full SM-2 flashcards",
+      },
+      {
+        "@type": "Offer",
+        name: "Pro Plan",
+        price: "40",
+        priceCurrency: "USD",
+        description: "Unlimited AI, veterinary content, drug database, priority support",
+      },
+    ],
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -84,6 +153,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/icon-192.png" />
         {/* Viewport — prevents zoom on input focus on iOS */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        {/* JSON-LD structured data for Google, Perplexity, ChatGPT, Bing */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_ORGANIZATION) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_WEBSITE) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_EDUCATIONAL) }} />
       </head>
       <body className="bg-bg font-serif text-ink antialiased">
         <GoogleAnalytics />
