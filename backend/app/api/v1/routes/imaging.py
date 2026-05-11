@@ -414,18 +414,49 @@ async def delete_annotation(
     await db.commit()
 
 
+# ── Translation helper ─────────────────────────────────────────────────────
+
+async def _apply_image_translations(images: list, locale: str, db: AsyncSession) -> list[dict]:
+    """Overlay translations onto a list of MedicalImage ORM objects."""
+    if not images or locale == "en":
+        return [ImageOut.from_orm(img).model_dump() for img in images]
+
+    from sqlalchemy import text as sql_text
+    ids = [img.id for img in images]
+    tr_rows = await db.execute(
+        sql_text(
+            "SELECT image_id, title, description FROM medical_image_translations "
+            "WHERE image_id = ANY(:ids) AND locale = :locale"
+        ).bindparams(ids=ids, locale=locale)
+    )
+    tr_map = {str(row.image_id): row for row in tr_rows}
+
+    result = []
+    for img in images:
+        d = ImageOut.from_orm(img).model_dump()
+        tr = tr_map.get(str(img.id))
+        if tr:
+            if tr.title:
+                d["title"] = tr.title
+            if tr.description:
+                d["description"] = tr.description
+        result.append(d)
+    return result
+
+
 # ── Image library endpoints ────────────────────────────────────────────────
 
-@router.get("", response_model=List[ImageOut])
+@router.get("")
 async def browse_images(
     modality: Optional[str] = Query(None),
     region: Optional[str] = Query(None),
     specialty: Optional[str] = Query(None),
+    locale: str = Query("en", max_length=5),
     limit: int = Query(40, le=100),
     offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
 ):
-    """Browse library with optional filters."""
+    """Browse library with optional filters. Locale applies title/description translations."""
     q = select(MedicalImage).where(MedicalImage.is_active == True)
     if modality:
         q = q.where(MedicalImage.modality == modality)
@@ -436,7 +467,8 @@ async def browse_images(
     q = q.order_by(MedicalImage.view_count.desc(), MedicalImage.created_at.desc())
     q = q.offset(offset).limit(limit)
     result = await db.execute(q)
-    return [ImageOut.from_orm(img) for img in result.scalars().all()]
+    images = result.scalars().all()
+    return await _apply_image_translations(images, locale, db)
 
 
 @router.get("/modalities")
@@ -468,10 +500,11 @@ async def list_regions(
     return [{"region": row[0], "count": row[1]} for row in result.fetchall()]
 
 
-@router.get("/search", response_model=List[ImageOut])
+@router.get("/search")
 async def search_images(
     q: str = Query(..., min_length=2),
     modality: Optional[str] = Query(None),
+    locale: str = Query("en", max_length=5),
     limit: int = Query(30, le=100),
     db: AsyncSession = Depends(get_db),
 ):
@@ -492,7 +525,7 @@ async def search_images(
         query = query.where(MedicalImage.modality == modality)
     query = query.order_by(MedicalImage.view_count.desc()).limit(limit)
     result = await db.execute(query)
-    return [ImageOut.from_orm(img) for img in result.scalars().all()]
+    return await _apply_image_translations(result.scalars().all(), locale, db)
 
 
 @router.get("/openi")
@@ -548,9 +581,13 @@ def _guess_modality(entry: dict) -> str:
     return "other"
 
 
-@router.get("/{image_id}", response_model=ImageOut)
-async def get_image(image_id: UUID, db: AsyncSession = Depends(get_db)):
-    """Get image detail and increment view count."""
+@router.get("/{image_id}")
+async def get_image(
+    image_id: UUID,
+    locale: str = Query("en", max_length=5),
+    db: AsyncSession = Depends(get_db),
+):
+    """Get image detail and increment view count. Applies locale translation."""
     result = await db.execute(
         select(MedicalImage).where(MedicalImage.id == image_id, MedicalImage.is_active == True)
     )
@@ -560,7 +597,8 @@ async def get_image(image_id: UUID, db: AsyncSession = Depends(get_db)):
     img.view_count = (img.view_count or 0) + 1
     await db.commit()
     await db.refresh(img)
-    return ImageOut.from_orm(img)
+    translated = await _apply_image_translations([img], locale, db)
+    return translated[0]
 
 
 # ── Anatomy viewers ────────────────────────────────────────────────────────
