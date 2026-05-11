@@ -486,6 +486,91 @@ async def article_available_locales(slug: str, db: AsyncSession = Depends(get_db
     return {"slug": slug, "locales": list(rows)}
 
 
+# NOTE: /my and /admin routes MUST be defined before /{slug} so FastAPI
+# matches them before the wildcard slug pattern (first-match wins).
+
+@router.get("/my")
+async def my_articles_early(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_author),
+):
+    """List articles authored by the current teacher (early registration before /{slug})."""
+    rows = (await db.execute(
+        select(Article).where(Article.author_id == user.id)
+        .order_by(desc(Article.created_at))
+    )).scalars().all()
+    return [_detail(a) | {"is_published": a.is_published} for a in rows]
+
+
+@router.get("/my/stats")
+async def my_article_stats_early(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_author),
+):
+    """Author stats (early registration before /{slug})."""
+    rows = (await db.execute(
+        select(Article).where(Article.author_id == user.id)
+        .order_by(desc(Article.created_at))
+    )).scalars().all()
+    total_views = sum(a.view_count for a in rows)
+    published = [a for a in rows if a.is_published and a.review_status == "published"]
+    _RPM_LOCAL = 2.00
+    article_stats = []
+    for a in rows:
+        rev = (a.view_count / 1000) * _RPM_LOCAL * (a.revenue_share_pct / 100)
+        article_stats.append({
+            "id": str(a.id), "slug": a.slug, "title": a.title,
+            "views": a.view_count, "revenue_share_pct": a.revenue_share_pct,
+            "estimated_revenue_usd": round(rev, 2),
+            "review_status": a.review_status, "is_published": a.is_published,
+            "published_at": a.published_at.isoformat() if a.published_at else None,
+        })
+    return {
+        "total_views": total_views, "total_articles": len(rows),
+        "published_articles": len(published),
+        "estimated_revenue_usd": round(sum(s["estimated_revenue_usd"] for s in article_stats), 2),
+        "revenue_per_1000_views": _RPM_LOCAL, "revenue_share_pct": 40,
+        "articles": article_stats,
+    }
+
+
+@router.get("/admin/list")
+async def admin_list_articles_early(
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=200),
+    published: Optional[bool] = Query(None),
+    category: Optional[str] = Query(None),
+    review_status: Optional[str] = Query(None),
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Admin: list articles (early registration before /{slug})."""
+    q = select(Article)
+    if published is not None:
+        q = q.where(Article.is_published == published)
+    if category:
+        q = q.where(Article.category == category)
+    if review_status:
+        q = q.where(Article.review_status == review_status)
+    total = (await db.execute(select(func.count(Article.id)))).scalar() or 0
+    q = q.order_by(desc(Article.created_at)).offset((page - 1) * limit).limit(limit)
+    rows = (await db.execute(q)).scalars().all()
+    return {"total": total, "page": page, "articles": [_detail(a) | {"is_published": a.is_published} for a in rows]}
+
+
+@router.get("/admin/pending")
+async def admin_pending_articles_early(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Admin: articles awaiting review (early registration before /{slug})."""
+    rows = (await db.execute(
+        select(Article).where(Article.review_status == "pending_review")
+        .order_by(Article.submitted_at)
+    )).scalars().all()
+    return [_detail(a) | {"is_published": a.is_published, "submitted_at": a.submitted_at.isoformat() if a.submitted_at else None} for a in rows]
+
+
 @router.get("/{slug}")
 async def get_article(
     slug: str,
