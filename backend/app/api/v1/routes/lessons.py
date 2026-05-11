@@ -1288,6 +1288,103 @@ async def restore_version(
     return lesson
 
 
+class CourseOutlineRequest(BaseModel):
+    title: str = Field(min_length=2, max_length=300)
+    description: str = Field(default="", max_length=2000)
+    specialty: str
+    target_level: Literal["beginner", "intermediate", "advanced"] = "intermediate"
+    num_modules: int = Field(default=3, ge=1, le=8)
+    lessons_per_module: int = Field(default=3, ge=1, le=6)
+    include_quiz: bool = True
+    include_clinical_case: bool = False
+    language: str = "ru"
+
+
+@router.post("/generate-course-outline")
+async def generate_course_outline(
+    body: CourseOutlineRequest,
+    user: User = Depends(get_current_user),
+):
+    """AI generates a complete course structure: modules + lesson titles/concepts.
+    Returns a JSON outline for the teacher to review/edit before generating content.
+    """
+    _require_teacher(user)
+    if not settings.ANTHROPIC_API_KEY:
+        raise HTTPException(503, "AI service not configured")
+
+    import re
+
+    lang_instruction = (
+        "Respond in Russian language." if body.language == "ru"
+        else f"Respond in {body.language} language."
+    )
+
+    prompt = (
+        f"You are an expert medical curriculum designer. Create a complete course outline.\n\n"
+        f"Course title: {body.title}\n"
+        f"Description: {body.description or 'Not provided'}\n"
+        f"Medical specialty: {body.specialty}\n"
+        f"Student level: {body.target_level}\n"
+        f"Number of modules: {body.num_modules}\n"
+        f"Lessons per module: {body.lessons_per_module}\n"
+        f"{lang_instruction}\n\n"
+        f"Return ONLY valid JSON with this exact structure:\n"
+        f'{{\n'
+        f'  "course_title": "...",\n'
+        f'  "course_description": "...",\n'
+        f'  "total_hours": 12.0,\n'
+        f'  "modules": [\n'
+        f'    {{\n'
+        f'      "title": "Module 1: ...",\n'
+        f'      "description": "What this module covers...",\n'
+        f'      "estimated_hours": 4.0,\n'
+        f'      "lessons": [\n'
+        f'        {{\n'
+        f'          "title": "Lesson 1: ...",\n'
+        f'          "key_concepts": ["concept1", "concept2", "concept3"],\n'
+        f'          "estimated_minutes": 20,\n'
+        f'          "include_quiz": {"true" if body.include_quiz else "false"},\n'
+        f'          "include_clinical_case": {"true" if body.include_clinical_case else "false"}\n'
+        f'        }}\n'
+        f'      ]\n'
+        f'    }}\n'
+        f'  ]\n'
+        f'}}\n\n'
+        f"Requirements:\n"
+        f"- Modules must follow logical learning progression (foundations → advanced)\n"
+        f"- Each lesson title must be specific and clinically meaningful\n"
+        f"- Key concepts: 3-5 per lesson, specific medical terms/topics\n"
+        f"- Estimated minutes: 15-30 per lesson\n"
+        f"- Total hours should reflect realistic study time\n"
+        f"- Return ONLY the JSON, no markdown fences, no extra text"
+    )
+
+    try:
+        response = await _claude.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.3,
+        )
+        raw = response.content[0].text if response.content else "{}"
+        raw = re.sub(r"```(?:json)?", "", raw).strip().strip("`").strip()
+        try:
+            outline = json.loads(raw)
+        except json.JSONDecodeError:
+            m = re.search(r"\{.*\}", raw, re.DOTALL)
+            outline = json.loads(m.group()) if m else {}
+
+        if "modules" not in outline:
+            raise HTTPException(502, "AI returned unexpected format")
+
+        return outline
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(502, f"AI generation error: {exc}")
+
+
 @router.post("/generate", response_model=LessonOut, status_code=201)
 async def generate_lesson(
     module_id_q: UUID = Query(..., alias="module_id"),

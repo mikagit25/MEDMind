@@ -464,6 +464,8 @@ export const teacherApi = {
     api.post(`/lessons/${id}/ai-improve`, data).then(r => r.data),
   aiGenerate: (moduleId: string, data: { title: string; specialty: string; key_concepts?: string[]; target_level?: string; estimated_minutes?: number; include_quiz?: boolean; include_clinical_case?: boolean }) =>
     api.post(`/lessons/generate?module_id=${moduleId}`, data).then(r => r.data),
+  aiGenerateCourseOutline: (data: { title: string; description?: string; specialty: string; target_level?: string; num_modules?: number; lessons_per_module?: number; include_quiz?: boolean; include_clinical_case?: boolean; language?: string }) =>
+    api.post("/lessons/generate-course-outline", data).then(r => r.data),
 
   // ── Analytics ──
   moduleAnalytics: (moduleId: string) =>
