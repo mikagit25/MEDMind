@@ -276,21 +276,26 @@ def section_tts_text(section: dict) -> str:
 # ── Edge TTS ──────────────────────────────────────────────────────────────────
 
 async def synthesize(text: str, path: str, voice: str) -> float:
-    """Generate MP3 via Edge TTS. Returns duration in seconds (estimated)."""
+    """Generate MP3 via Edge TTS. Returns ACTUAL audio duration in seconds."""
     try:
         import edge_tts
     except ImportError:
         print("  [error] edge-tts not installed. Run: pip install edge-tts")
         sys.exit(1)
 
-    # Limit text length to avoid timeouts
     text = text[:2000]
     communicate = edge_tts.Communicate(text, voice)
     await communicate.save(path)
 
-    # Estimate duration: ~150 words/min for natural speech
-    words = len(text.split())
-    return max(3.0, words / 150 * 60)
+    # Get real duration from the generated file (not an estimate)
+    try:
+        from moviepy.editor import AudioFileClip as _AFC
+        with _AFC(path) as _a:
+            real_dur = _a.duration
+        return max(2.0, real_dur)
+    except Exception:
+        # Fallback estimate only if moviepy unavailable
+        return max(3.0, len(text.split()) / 150 * 60)
 
 
 # ── Slide rendering ───────────────────────────────────────────────────────────
@@ -488,6 +493,7 @@ async def build_video(
         sys.exit(1)
 
     clips = []
+    audio_clips = []  # track for explicit cleanup
     category = article.get("category", "")
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -501,9 +507,9 @@ async def build_video(
         title_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(title_text, title_audio, voice)
         print(f"{duration:.1f}s")
-        clip = (ImageClip(title_img)
-                .set_duration(duration + 0.3)
-                .set_audio(AudioFileClip(title_audio)))
+        aclip = AudioFileClip(title_audio)
+        audio_clips.append(aclip)
+        clip = ImageClip(title_img).set_duration(duration + 0.3).set_audio(aclip)
         clips.append(clip)
         clip_index += 1
 
@@ -517,9 +523,9 @@ async def build_video(
             audio_path = str(tmp / f"audio_{clip_index:03}.mp3")
             duration = await synthesize(text, audio_path, voice)
             print(f"{duration:.1f}s")
-            clip = (ImageClip(slide_img)
-                    .set_duration(duration + 0.5)
-                    .set_audio(AudioFileClip(audio_path)))
+            aclip = AudioFileClip(audio_path)
+            audio_clips.append(aclip)
+            clip = ImageClip(slide_img).set_duration(duration + 0.5).set_audio(aclip)
             clips.append(clip)
             clip_index += 1
 
@@ -530,14 +536,14 @@ async def build_video(
         outro_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(outro_text, outro_audio, voice)
         print(f"{duration:.1f}s")
-        outro_clip = (ImageClip(outro_img)
-                      .set_duration(duration + 1.0)
-                      .set_audio(AudioFileClip(outro_audio)))
+        aclip = AudioFileClip(outro_audio)
+        audio_clips.append(aclip)
+        outro_clip = ImageClip(outro_img).set_duration(duration + 1.0).set_audio(aclip)
         clips.append(outro_clip)
 
         # ── 4. Concatenate & export ───────────────────────────────────────────
         print(f"\n  Assembling {len(clips)} clips → {output_path.name}")
-        final = concatenate_videoclips(clips, method="compose")
+        final = concatenate_videoclips(clips, method="chain")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         final.write_videofile(
             str(output_path),
@@ -551,6 +557,8 @@ async def build_video(
         final.close()
         for c in clips:
             c.close()
+        for a in audio_clips:
+            a.close()
 
 
 # ── API helpers ───────────────────────────────────────────────────────────────
