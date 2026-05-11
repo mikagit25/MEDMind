@@ -1,28 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
 import { useT, useI18n } from "@/lib/i18n";
 
 export default function RootPage() {
-  const router = useRouter();
   const { isAuthenticated } = useAuthStore();
   const t = useT();
   const { locale, setLocale } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (isAuthenticated) router.replace("/dashboard");
-  }, [isAuthenticated, router]);
-
-  if (isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-bg flex items-center justify-center">
-        <div className="font-syne text-ink-3 text-sm animate-pulse">Loading…</div>
-      </div>
-    );
-  }
 
   const features = t("landing.features") as unknown as { icon: string; title: string; desc: string }[];
   const plans    = t("landing.pricing_plans") as unknown as { name: string; price: string; period: string; features: string[]; cta: string; highlight: boolean }[];
@@ -70,12 +56,20 @@ export default function RootPage() {
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>
 
-            <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-              {t("landing.nav_sign_in")}
-            </Link>
-            <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
-              {t("landing.nav_register")}
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/dashboard" className="font-syne font-bold text-sm bg-red text-white px-3 sm:px-4 py-2 rounded hover:bg-ink transition-colors whitespace-nowrap">
+                Dashboard →
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+                  {t("landing.nav_sign_in")}
+                </Link>
+                <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+                  {t("landing.nav_register")}
+                </Link>
+              </>
+            )}
 
             {/* Hamburger — mobile only */}
             <button
@@ -134,12 +128,20 @@ export default function RootPage() {
           {t("landing.hero_subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center px-4 sm:px-0">
-          <Link href="/register" className="font-syne font-bold text-base bg-ink text-white px-6 sm:px-8 py-3.5 rounded hover:bg-red transition-colors text-center">
-            {t("landing.hero_cta")}
-          </Link>
-          <Link href="/login" className="font-syne font-semibold text-base border border-border-2 text-ink-2 px-6 sm:px-8 py-3.5 rounded hover:border-ink hover:text-ink transition-colors text-center">
-            {t("landing.hero_cta2")}
-          </Link>
+          {isAuthenticated ? (
+            <Link href="/dashboard" className="font-syne font-bold text-base bg-red text-white px-6 sm:px-8 py-3.5 rounded hover:bg-ink transition-colors text-center">
+              {t("landing.go_to_dashboard") as string || "Open Dashboard →"}
+            </Link>
+          ) : (
+            <>
+              <Link href="/register" className="font-syne font-bold text-base bg-ink text-white px-6 sm:px-8 py-3.5 rounded hover:bg-red transition-colors text-center">
+                {t("landing.hero_cta")}
+              </Link>
+              <Link href="/login" className="font-syne font-semibold text-base border border-border-2 text-ink-2 px-6 sm:px-8 py-3.5 rounded hover:border-ink hover:text-ink transition-colors text-center">
+                {t("landing.hero_cta2")}
+              </Link>
+            </>
+          )}
         </div>
         <p className="text-ink-3 text-xs mt-4 font-syne">{t("landing.hero_note")}</p>
       </section>

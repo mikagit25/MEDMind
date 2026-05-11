@@ -1302,6 +1302,7 @@ const ru: Translations = {
     how_it_works: "Как это работает",
     sign_in: "Войти",
     get_started: "Начать",
+    go_to_dashboard: "Открыть кабинет →",
   },
 
   pricing_page: {

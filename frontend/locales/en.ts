@@ -1328,6 +1328,7 @@ const en = {
     how_it_works: "How it works",
     sign_in: "Sign in",
     get_started: "Get started",
+    go_to_dashboard: "Open Dashboard →",
   },
 
   pricing_page: {
