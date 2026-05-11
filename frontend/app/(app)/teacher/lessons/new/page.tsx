@@ -10,6 +10,14 @@ type Specialty = { id: string; code: string; name: string };
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
+// Template labels and descriptions use t() in the component (see templateMeta below)
+const TEMPLATE_META: Record<string, { labelKey: string; descKey: string }> = {
+  pharmacology:     { labelKey: "teacher.lessons_new.templates.pharmacology_label",     descKey: "teacher.lessons_new.templates.pharmacology_desc" },
+  clinical_case:    { labelKey: "teacher.lessons_new.templates.clinical_case_label",    descKey: "teacher.lessons_new.templates.clinical_case_desc" },
+  anatomy:          { labelKey: "teacher.lessons_new.templates.anatomy_label",          descKey: "teacher.lessons_new.templates.anatomy_desc" },
+  pathophysiology:  { labelKey: "teacher.lessons_new.templates.pathophysiology_label",  descKey: "teacher.lessons_new.templates.pathophysiology_desc" },
+};
+
 const TEMPLATES = [
   {
     id: "pharmacology",
@@ -266,10 +274,10 @@ function NewLessonInner() {
                 >
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className="text-lg">{tpl.icon}</span>
-                    <span className="font-syne font-semibold text-sm">{tpl.label}</span>
+                    <span className="font-syne font-semibold text-sm">{t(TEMPLATE_META[tpl.id]?.labelKey as any) || tpl.label}</span>
                   </div>
                   <p className={`font-serif text-xs ${selectedTemplate === tpl.id ? "text-white/70" : "text-ink-3"}`}>
-                    {tpl.description}
+                    {t(TEMPLATE_META[tpl.id]?.descKey as any) || tpl.description}
                   </p>
                 </button>
               ))}

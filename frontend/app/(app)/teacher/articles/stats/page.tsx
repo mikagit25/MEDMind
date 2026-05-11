@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { teacherApi } from "@/lib/api";
+import { useT, useI18n } from "@/lib/i18n";
 
 type ArticleStat = {
   id: string;
@@ -32,122 +33,108 @@ const STATUS_STYLES: Record<string, string> = {
   rejected:       "bg-red-light text-red border-red/20",
 };
 
-const STATUS_LABELS: Record<string, string> = {
-  draft: "Draft",
-  pending_review: "In Review",
-  published: "Published",
-  rejected: "Rejected",
-};
-
-function nextPayoutDate(): string {
+function nextPayoutDate(locale: string): string {
   const now = new Date();
   const next = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  return next.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const loc = locale === "ru" ? "ru-RU" : locale === "ar" ? "ar-SA" : locale === "de" ? "de-DE"
+    : locale === "fr" ? "fr-FR" : locale === "es" ? "es-ES" : locale === "tr" ? "tr-TR" : "en-US";
+  return next.toLocaleDateString(loc, { month: "long", day: "numeric", year: "numeric" });
 }
 
 export default function ArticleStatsPage() {
+  const t = useT();
+  const { locale } = useI18n();
   const [data, setData] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const statusLabels: Record<string, string> = {
+    draft:          t("teacher.articles.status.draft"),
+    pending_review: t("teacher.articles.status.pending_review"),
+    published:      t("teacher.articles.status.published"),
+    rejected:       t("teacher.articles.status.rejected"),
+  };
+
   useEffect(() => {
     teacherApi.getMyArticleStats()
       .then(setData)
-      .catch(() => setError("Failed to load stats. Please try again."))
+      .catch(() => setError(t("teacher.articles.stats.load_err")))
       .finally(() => setLoading(false));
   }, []);
 
   return (
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto">
-      {/* Header */}
       <div className="mb-6 flex items-center gap-3">
-        <Link
-          href="/teacher/articles"
-          className="text-ink-3 hover:text-ink font-syne text-sm transition-colors"
-        >
-          ← My Articles
+        <Link href="/teacher/articles" className="text-ink-3 hover:text-ink font-syne text-sm transition-colors">
+          {t("teacher.articles.stats.back")}
         </Link>
         <span className="text-border">|</span>
-        <h1 className="font-syne font-black text-2xl text-ink">Author Earnings</h1>
+        <h1 className="font-syne font-black text-2xl text-ink">{t("teacher.articles.stats.title")}</h1>
       </div>
 
       {loading && (
-        <div className="text-center py-20 text-ink-3 font-serif">Loading your stats…</div>
+        <div className="text-center py-20 text-ink-3 font-serif">{t("teacher.articles.stats.loading")}</div>
       )}
 
       {error && (
-        <div className="bg-red-light border border-red/20 text-red rounded-xl p-4 font-serif text-sm mb-6">
-          {error}
-        </div>
+        <div className="bg-red-light border border-red/20 text-red rounded-xl p-4 font-serif text-sm mb-6">{error}</div>
       )}
 
       {data && (
         <>
-          {/* Summary cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="card p-5 text-center">
-              <div className="text-3xl font-syne font-black text-ink mb-1">
-                {data.total_views.toLocaleString()}
+            {[
+              { value: data.total_views.toLocaleString(), label: t("teacher.articles.stats.total_views"), color: "text-ink" },
+              { value: data.published_articles.toString(), label: t("teacher.articles.stats.published"), color: "text-ink" },
+              { value: `$${data.estimated_revenue_usd.toFixed(2)}`, label: t("teacher.articles.stats.est_revenue"), color: "text-green" },
+              { value: `$${data.revenue_per_1000_views.toFixed(2)}`, label: t("teacher.articles.stats.rpm"), color: "text-ink" },
+            ].map((card, i) => (
+              <div key={i} className="card p-5 text-center">
+                <div className={`text-3xl font-syne font-black mb-1 ${card.color}`}>{card.value}</div>
+                <div className="text-xs font-syne text-ink-3 uppercase tracking-widest">{card.label}</div>
               </div>
-              <div className="text-xs font-syne text-ink-3 uppercase tracking-widest">Total Views</div>
-            </div>
-            <div className="card p-5 text-center">
-              <div className="text-3xl font-syne font-black text-ink mb-1">
-                {data.published_articles}
-              </div>
-              <div className="text-xs font-syne text-ink-3 uppercase tracking-widest">Published</div>
-            </div>
-            <div className="card p-5 text-center">
-              <div className="text-3xl font-syne font-black text-green mb-1">
-                ${data.estimated_revenue_usd.toFixed(2)}
-              </div>
-              <div className="text-xs font-syne text-ink-3 uppercase tracking-widest">Est. Revenue</div>
-            </div>
-            <div className="card p-5 text-center">
-              <div className="text-3xl font-syne font-black text-ink mb-1">
-                ${data.revenue_per_1000_views.toFixed(2)}
-              </div>
-              <div className="text-xs font-syne text-ink-3 uppercase tracking-widest">RPM (USD)</div>
-            </div>
+            ))}
           </div>
 
-          {/* Revenue info */}
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-gold/30 rounded-xl p-5 mb-8">
             <div className="flex items-start gap-3">
               <span className="text-2xl">💰</span>
               <div>
-                <h2 className="font-syne font-bold text-base text-ink mb-1">How Revenue Works</h2>
+                <h2 className="font-syne font-bold text-base text-ink mb-1">{t("teacher.articles.stats.how_revenue")}</h2>
                 <ul className="text-sm font-serif text-ink-2 space-y-1">
-                  <li>• You earn <strong>40%</strong> of ad revenue from your articles (Platform keeps 60% | RPM ~$2.00 per 1,000 views)</li>
-                  <li>• Articles are automatically translated to <strong>7 languages</strong>, multiplying your audience</li>
-                  <li>• Revenue formula: <code className="bg-white/60 px-1 rounded text-xs">(views ÷ 1,000) × $2.00 × 40%</code></li>
-                  <li>• <strong>Payouts processed monthly, minimum $10.</strong> Next payout: {nextPayoutDate()}</li>
+                  <li dangerouslySetInnerHTML={{ __html: `• ${t("teacher.articles.stats.revenue_40pct")}` }} />
+                  <li dangerouslySetInnerHTML={{ __html: `• ${t("teacher.articles.stats.translated_7")}` }} />
+                  <li>• {t("teacher.articles.stats.formula")} <code className="bg-white/60 px-1 rounded text-xs">(views ÷ 1,000) × $2.00 × 40%</code></li>
+                  <li dangerouslySetInnerHTML={{ __html: `• ${t("teacher.articles.stats.payout_info")} ${nextPayoutDate(locale)}` }} />
                 </ul>
               </div>
             </div>
           </div>
 
-          {/* Articles table */}
           {data.articles.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-4xl mb-3">📝</div>
-              <div className="font-syne font-bold text-lg text-ink mb-2">No articles yet</div>
-              <p className="text-ink-3 font-serif text-sm mb-5">Create and publish your first article to start earning.</p>
-              <Link href="/teacher/articles/new" className="btn-primary">Write an Article</Link>
+              <div className="font-syne font-bold text-lg text-ink mb-2">{t("teacher.articles.stats.no_articles")}</div>
+              <p className="text-ink-3 font-serif text-sm mb-5">{t("teacher.articles.stats.no_articles_desc")}</p>
+              <Link href="/teacher/articles/new" className="btn-primary">{t("teacher.articles.stats.write_article")}</Link>
             </div>
           ) : (
             <div className="card overflow-hidden">
               <div className="px-5 py-3 border-b border-border bg-surface-2">
-                <h3 className="font-syne font-semibold text-sm text-ink">Per-Article Breakdown</h3>
+                <h3 className="font-syne font-semibold text-sm text-ink">{t("teacher.articles.stats.breakdown")}</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-border">
-                      <th className="text-left px-5 py-3 font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider">Title</th>
-                      <th className="text-right px-4 py-3 font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider">Views</th>
-                      <th className="text-right px-4 py-3 font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider">Est. Revenue</th>
-                      <th className="text-center px-4 py-3 font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider">Status</th>
+                      {[
+                        t("teacher.articles.stats.col_title"),
+                        t("teacher.articles.stats.col_views"),
+                        t("teacher.articles.stats.col_revenue"),
+                        t("teacher.articles.stats.col_status"),
+                      ].map((h, i) => (
+                        <th key={i} className={`${i === 0 ? "text-left px-5" : i === 3 ? "text-center px-4" : "text-right px-4"} py-3 font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider`}>{h}</th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
@@ -156,25 +143,17 @@ export default function ArticleStatsPage() {
                         <td className="px-5 py-3">
                           <div className="font-syne font-semibold text-ink text-sm leading-tight line-clamp-1">{a.title}</div>
                           {a.is_published && (
-                            <a
-                              href={`/articles/${a.slug}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-green font-serif hover:underline"
-                            >
-                              View live →
+                            <a href={`/articles/${a.slug}`} target="_blank" rel="noopener noreferrer"
+                              className="text-xs text-green font-serif hover:underline">
+                              {t("teacher.articles.stats.view_live")}
                             </a>
                           )}
                         </td>
-                        <td className="px-4 py-3 text-right font-syne font-bold text-ink">
-                          {a.views.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right font-syne font-bold text-green">
-                          ${a.estimated_revenue_usd.toFixed(2)}
-                        </td>
+                        <td className="px-4 py-3 text-right font-syne font-bold text-ink">{a.views.toLocaleString()}</td>
+                        <td className="px-4 py-3 text-right font-syne font-bold text-green">${a.estimated_revenue_usd.toFixed(2)}</td>
                         <td className="px-4 py-3 text-center">
                           <span className={`border rounded-full px-2.5 py-0.5 text-xs font-syne font-semibold ${STATUS_STYLES[a.review_status] ?? ""}`}>
-                            {STATUS_LABELS[a.review_status] ?? a.review_status}
+                            {statusLabels[a.review_status] ?? a.review_status}
                           </span>
                         </td>
                       </tr>
@@ -182,13 +161,9 @@ export default function ArticleStatsPage() {
                   </tbody>
                   <tfoot>
                     <tr className="border-t-2 border-border bg-surface-2">
-                      <td className="px-5 py-3 font-syne font-bold text-ink text-sm">Total</td>
-                      <td className="px-4 py-3 text-right font-syne font-black text-ink">
-                        {data.total_views.toLocaleString()}
-                      </td>
-                      <td className="px-4 py-3 text-right font-syne font-black text-green">
-                        ${data.estimated_revenue_usd.toFixed(2)}
-                      </td>
+                      <td className="px-5 py-3 font-syne font-bold text-ink text-sm">{t("teacher.articles.stats.total")}</td>
+                      <td className="px-4 py-3 text-right font-syne font-black text-ink">{data.total_views.toLocaleString()}</td>
+                      <td className="px-4 py-3 text-right font-syne font-black text-green">${data.estimated_revenue_usd.toFixed(2)}</td>
                       <td />
                     </tr>
                   </tfoot>

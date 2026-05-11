@@ -71,22 +71,23 @@ const BLOCK_ICONS: Record<BlockType, string> = {
   dosage_table: "💊",
 };
 
-const BLOCK_LABELS: Record<BlockType, string> = {
-  text: "Text Block",
-  quiz: "Quiz",
-  case: "Clinical Case",
-  image: "Image",
-  anatomy_3d: "3D Anatomy",
-  flashcard: "Flashcard",
-  dosage_table: "Dosage Table",
+// Labels resolved via t() inside components — defined as keys here
+const BLOCK_LABEL_KEYS: Record<BlockType, string> = {
+  text: "teacher.lessons_edit.block_types.text",
+  quiz: "teacher.lessons_edit.block_types.quiz",
+  case: "teacher.lessons_edit.block_types.case",
+  image: "teacher.lessons_edit.block_types.image",
+  anatomy_3d: "teacher.lessons_edit.block_types.anatomy_3d",
+  flashcard: "teacher.lessons_edit.block_types.flashcard",
+  dosage_table: "teacher.lessons_edit.block_types.dosage_table",
 };
 
-const AI_TASKS = [
-  { value: "improve_clarity", label: "Improve clarity" },
-  { value: "add_quiz", label: "Add quiz blocks" },
-  { value: "simplify_language", label: "Simplify language" },
-  { value: "add_clinical_case", label: "Add clinical case" },
-  { value: "check_accuracy", label: "Check accuracy" },
+const AI_TASK_KEYS = [
+  { value: "improve_clarity",   key: "teacher.lessons_edit.ai_tasks.improve_clarity" },
+  { value: "add_quiz",          key: "teacher.lessons_edit.ai_tasks.add_quiz" },
+  { value: "simplify_language", key: "teacher.lessons_edit.ai_tasks.simplify_language" },
+  { value: "add_clinical_case", key: "teacher.lessons_edit.ai_tasks.add_clinical_case" },
+  { value: "check_accuracy",    key: "teacher.lessons_edit.ai_tasks.check_accuracy" },
 ];
 
 const SPECIALTIES = [
@@ -115,6 +116,7 @@ function TextBlockEditor({
   block: Block;
   onChange: (b: Block) => void;
 }) {
+  const t = useT();
   const c = block.content as TextContent;
   return (
     <div className="space-y-2">
@@ -122,13 +124,13 @@ function TextBlockEditor({
         type="text"
         value={c.heading ?? ""}
         onChange={(e) => onChange({ ...block, content: { ...c, heading: e.target.value } })}
-        placeholder="Heading (optional)"
+        placeholder={t("teacher.lessons_edit.blocks.heading_ph")}
         className="w-full border border-border rounded-lg px-3 py-1.5 font-syne font-semibold text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
       />
       <textarea
         value={c.text}
         onChange={(e) => onChange({ ...block, content: { ...c, text: e.target.value } })}
-        placeholder="Write the lesson text here..."
+        placeholder={t("teacher.lessons_edit.blocks.text_ph")}
         rows={5}
         className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink-3 resize-y"
       />
@@ -817,7 +819,7 @@ function BlockCard({
       {/* Block header */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
         <span className="text-base">{BLOCK_ICONS[block.type]}</span>
-        <span className="font-syne font-semibold text-xs text-ink flex-1">{BLOCK_LABELS[block.type]}</span>
+        <span className="font-syne font-semibold text-xs text-ink flex-1">{t(BLOCK_LABEL_KEYS[block.type] as any)}</span>
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => onMove(-1)}
@@ -960,7 +962,7 @@ export default function LessonEditPage() {
         setBlocks(state.blocks.length > 0 ? state.blocks : [emptyBlock("text", 0)]);
         setObjectives(state.learning_objectives.length > 0 ? state.learning_objectives : [""]);
       })
-      .catch(() => setError("Failed to load lesson"));
+      .catch(() => setError(t("teacher.lessons_edit.load_err")));
   }, [id]);
 
   function updateBlock(idx: number, b: Block) {
@@ -1003,10 +1005,10 @@ export default function LessonEditPage() {
         estimated_minutes: minutes,
       });
       setLesson(updated);
-      setSaveMsg("Saved");
+      setSaveMsg(t("teacher.lessons_edit.saved"));
       setTimeout(() => setSaveMsg(""), 2500);
     } catch {
-      setError("Save failed. Check connection and try again.");
+      setError(t("teacher.lessons_edit.save_err"));
     } finally {
       setSaving(false);
     }
@@ -1027,7 +1029,7 @@ export default function LessonEditPage() {
       if (detail && typeof detail === "object" && detail.errors) {
         setError(`Cannot publish — fix these issues first:\n• ${detail.errors.join("\n• ")}`);
       } else {
-        setError(typeof detail === "string" ? detail : "Action failed");
+        setError(typeof detail === "string" ? detail : t("teacher.lessons_edit.action_err"));
       }
     } finally {
       setWorkflowLoading(false);
@@ -1041,7 +1043,7 @@ export default function LessonEditPage() {
       setPreviewLink(data.url ?? data.preview_url ?? data.link ?? "");
       setPreviewLinkModal(true);
     } catch {
-      setError("Failed to generate preview link");
+      setError(t("teacher.lessons_edit.preview_err"));
     } finally {
       setPreviewLinkLoading(false);
     }
@@ -1075,7 +1077,7 @@ export default function LessonEditPage() {
       setTimeout(() => setSaveMsg(""), 3000);
       await loadVersions();
     } catch {
-      setError("Failed to restore version");
+      setError(t("teacher.lessons_edit.restore_err"));
     } finally {
       setRestoringVersion(null);
     }
@@ -1108,7 +1110,7 @@ export default function LessonEditPage() {
       });
       setAiSuggestion(result);
     } catch (e: any) {
-      setError(e?.response?.data?.detail ?? "AI improve failed");
+      setError(e?.response?.data?.detail ?? t("teacher.lessons_edit.ai_err"));
     } finally {
       setAiLoading(false);
     }
@@ -1122,13 +1124,13 @@ export default function LessonEditPage() {
     if (state.learning_objectives.length > 0) setObjectives(state.learning_objectives);
     setAiSuggestion(null);
     setAiOpen(false);
-    setSaveMsg("AI suggestion applied — remember to save");
+    setSaveMsg(t("teacher.lessons_edit.ai_applied"));
     setTimeout(() => setSaveMsg(""), 4000);
   }
 
   function applyAiBlock(block: Block) {
     setBlocks((bs) => [...bs, { ...block, order: bs.length }]);
-    setSaveMsg("Block added — remember to save");
+    setSaveMsg(t("teacher.lessons_edit.block_added"));
     setTimeout(() => setSaveMsg(""), 3000);
   }
 
@@ -1274,7 +1276,7 @@ export default function LessonEditPage() {
                 className="flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 font-syne text-xs text-ink hover:border-ink-3 hover:bg-surface transition-colors"
               >
                 <span>{BLOCK_ICONS[type]}</span>
-                {BLOCK_LABELS[type]}
+                {t(BLOCK_LABEL_KEYS[type] as any)}
               </button>
             ))}
           </div>
@@ -1289,21 +1291,21 @@ export default function LessonEditPage() {
             disabled={saving}
             className="btn-primary py-2.5 px-6 rounded-lg font-syne font-semibold text-sm disabled:opacity-50 flex-1"
           >
-            {saving ? "Saving..." : "Save Changes"}
+            {saving ? t("teacher.lessons_edit.saving") : t("teacher.lessons_edit.save_btn")}
           </button>
           <button
             onClick={handleSharePreview}
             disabled={previewLinkLoading}
             className="border border-border rounded-lg px-4 py-2.5 font-syne font-semibold text-sm text-ink hover:border-ink-3 transition-colors disabled:opacity-50"
-            title="Generate a shareable preview link"
+            title={t("teacher.lessons_edit.preview_btn")}
           >
-            {previewLinkLoading ? "..." : "🔗 Share Preview"}
+            {previewLinkLoading ? "..." : `🔗 ${t("teacher.lessons_edit.preview_btn")}`}
           </button>
           <button
             onClick={() => setAiOpen((v) => !v)}
             className={`border rounded-lg px-4 py-2.5 font-syne font-semibold text-sm transition-colors ${aiOpen ? "border-blue/40 bg-blue-light text-blue" : "border-border text-ink hover:border-ink-3"}`}
           >
-            {aiOpen ? "Hide AI" : "AI Improve"}
+            {aiOpen ? t("teacher.lessons_edit.ai_btn_open") : t("teacher.lessons_edit.ai_btn_closed")}
           </button>
         </div>
       )}
@@ -1349,21 +1351,21 @@ export default function LessonEditPage() {
           </p>
           <div className="grid grid-cols-3 gap-2 mb-3">
             <div>
-              <label className="block font-syne text-xs text-ink-3 mb-1">Task</label>
+              <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons_edit.ai_task_label")}</label>
               <select value={aiTask} onChange={(e) => setAiTask(e.target.value)}
                 className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
-                {AI_TASKS.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
+                {AI_TASK_KEYS.map((tk) => <option key={tk.value} value={tk.value}>{t(tk.key as any)}</option>)}
               </select>
             </div>
             <div>
-              <label className="block font-syne text-xs text-ink-3 mb-1">Specialty</label>
+              <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons_edit.ai_spec_label")}</label>
               <select value={aiSpecialty} onChange={(e) => setAiSpecialty(e.target.value)}
                 className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
                 {SPECIALTIES.map((s) => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
-              <label className="block font-syne text-xs text-ink-3 mb-1">Level</label>
+              <label className="block font-syne text-xs text-ink-3 mb-1">{t("teacher.lessons_edit.ai_level_label")}</label>
               <select value={aiLevel} onChange={(e) => setAiLevel(e.target.value)}
                 className="w-full border border-border rounded px-2 py-1.5 font-serif text-xs text-ink bg-surface focus:outline-none">
                 {LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
@@ -1372,7 +1374,7 @@ export default function LessonEditPage() {
           </div>
           <button onClick={handleAiImprove} disabled={aiLoading}
             className="btn-primary text-sm px-4 py-2 rounded-lg font-syne font-semibold disabled:opacity-50 mb-3">
-            {aiLoading ? "Claude is analysing..." : "Run AI Improve"}
+            {aiLoading ? t("teacher.lessons_edit.ai_running") : t("teacher.lessons_edit.ai_run")}
           </button>
 
           {aiSuggestion && (

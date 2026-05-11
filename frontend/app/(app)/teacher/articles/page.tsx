@@ -351,7 +351,7 @@ export default function TeacherArticlesPage() {
           <div className="bg-bg rounded-2xl shadow-xl w-full max-w-md p-6 border border-border">
             <div className="flex items-center justify-between mb-5">
               <div>
-                <h2 className="font-syne font-black text-xl text-ink">✨ Generate with AI</h2>
+                <h2 className="font-syne font-black text-xl text-ink">✨ {t("teacher.articles.gen_modal.title")}</h2>
                 <p className="text-ink-3 text-xs font-serif mt-0.5">Article ready in 1–3 minutes · Auto-translated to 7 languages</p>
               </div>
               <button onClick={() => setShowGenModal(false)} className="text-ink-3 hover:text-ink text-2xl leading-none">×</button>
@@ -359,18 +359,18 @@ export default function TeacherArticlesPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block font-syne font-semibold text-sm text-ink mb-1">Topic *</label>
+                <label className="block font-syne font-semibold text-sm text-ink mb-1">{t("teacher.articles.gen_modal.topic_label")}</label>
                 <input
                   type="text"
                   value={genForm.topic}
                   onChange={e => setGenForm(f => ({ ...f, topic: e.target.value }))}
-                  placeholder="e.g. Hypertension: diagnosis and management"
+                  placeholder={t("teacher.articles.gen_modal.topic_placeholder")}
                   className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-surface focus:outline-none focus:border-ink"
                 />
               </div>
 
               <div>
-                <label className="block font-syne font-semibold text-sm text-ink mb-1">Category</label>
+                <label className="block font-syne font-semibold text-sm text-ink mb-1">{t("teacher.articles.gen_modal.category_label")}</label>
                 <select
                   value={genForm.category}
                   onChange={e => setGenForm(f => ({ ...f, category: e.target.value }))}
@@ -384,7 +384,7 @@ export default function TeacherArticlesPage() {
 
               {/* Model picker: FREE vs PAID */}
               <div>
-                <label className="block font-syne font-semibold text-sm text-ink mb-2">AI Model</label>
+                <label className="block font-syne font-semibold text-sm text-ink mb-2">{t("teacher.articles.gen_modal.model_label")}</label>
                 <div className="space-y-2">
                   {/* Ollama — always free */}
                   <label className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-colors ${genForm.model === "ollama" ? "border-green bg-green-light" : "border-border hover:border-ink-3"}`}>
@@ -424,7 +424,7 @@ export default function TeacherArticlesPage() {
               {/* Balance info + pay CTA when needed */}
               <div className="bg-surface-2 rounded-lg p-3 text-xs font-serif text-ink-3">
                 <div className="flex items-center justify-between">
-                  <span>Balance: <strong className="text-ink">{creditBalance ?? "…"} credits</strong></span>
+                  <span>{t("teacher.articles.gen_modal.credits_balance")} <strong className="text-ink">{creditBalance ?? "…"} {t("teacher.articles.gen_modal.credits_unit")}</strong></span>
                   {genForm.model !== "ollama" && (
                     <span>Cost: <strong className="text-ink">{genForm.model === "claude-haiku" ? 1 : 5} credit{genForm.model === "claude-haiku" ? "" : "s"}</strong></span>
                   )}
@@ -440,14 +440,14 @@ export default function TeacherArticlesPage() {
 
               <div className="flex gap-2 pt-1">
                 <button onClick={() => setShowGenModal(false)} className="flex-1 border border-border text-ink-3 text-sm py-2.5 rounded-lg font-syne font-semibold hover:border-ink-3 transition-colors">
-                  Cancel
+                  {t("teacher.articles.gen_modal.cancel")}
                 </button>
                 <button
                   onClick={handleGenerate}
                   disabled={generating || !genForm.topic.trim() || (genForm.model !== "ollama" && (creditBalance ?? 0) < (genForm.model === "claude-haiku" ? 1 : 5))}
                   className="flex-1 bg-ink text-white text-sm py-2.5 rounded-lg font-syne font-semibold hover:bg-ink-2 transition-colors disabled:opacity-40"
                 >
-                  {generating ? "Starting…" : genForm.model === "ollama" ? "Generate Free" : "Generate Article"}
+                  {generating ? t("teacher.articles.gen_modal.generating") : t("teacher.articles.gen_modal.generate")}
                 </button>
               </div>
             </div>
