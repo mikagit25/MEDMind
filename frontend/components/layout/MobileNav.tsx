@@ -89,9 +89,9 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
     <div className="flex flex-col h-full bg-ink overflow-y-auto">
       {/* Header */}
       <div className="px-4 py-4 border-b border-white/10 flex items-center justify-between">
-        <div className="font-syne font-black text-xl text-white tracking-tight">
+        <Link href="/" onClick={onClose} className="font-syne font-black text-xl text-white tracking-tight hover:opacity-80 transition-opacity">
           Med<span className="text-gold">Mind</span>
-        </div>
+        </Link>
         <button onClick={onClose} className="text-white/50 hover:text-white p-1 rounded">
           ✕
         </button>
@@ -205,9 +205,9 @@ function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <div className="font-syne font-black text-lg text-white tracking-tight">
+      <Link href="/" className="font-syne font-black text-lg text-white tracking-tight hover:opacity-80 transition-opacity">
         Med<span className="text-gold">Mind</span>
-      </div>
+      </Link>
       <div className="ml-auto flex items-center gap-2">
         {user?.subscription_tier === "free" && (
           <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">

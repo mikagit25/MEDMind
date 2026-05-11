@@ -72,14 +72,14 @@ export function Sidebar() {
 
   return (
     <aside className="w-64 bg-ink flex flex-col flex-shrink-0 overflow-y-auto">
-      {/* Logo */}
+      {/* Logo → links to landing page */}
       <div className="px-5 py-6 border-b border-white/10">
-        <div className="font-syne font-black text-2xl text-white tracking-tight">
+        <Link href="/" className="font-syne font-black text-2xl text-white tracking-tight hover:opacity-80 transition-opacity">
           Med<span className="text-gold">Mind</span>
           <span className="text-xs text-white/30 font-semibold tracking-widest ml-1.5 uppercase block mt-0.5">
             AI Platform
           </span>
-        </div>
+        </Link>
       </div>
 
       {/* Search */}
