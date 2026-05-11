@@ -62,7 +62,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: http://38.19.202.103:8000/api/v1
+        NEXT_PUBLIC_API_URL: /api/v1
     container_name: medmind_frontend
     environment:
       PORT: "3000"
