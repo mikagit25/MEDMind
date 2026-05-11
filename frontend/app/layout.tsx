@@ -151,6 +151,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="MedMind" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
+        {/* Bing Webmaster Tools verification */}
+        <meta name="msvalidate.01" content="EE9494199B77315D3C02B51990B776E4" />
         {/* Viewport — prevents zoom on input focus on iOS */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         {/* JSON-LD structured data for Google, Perplexity, ChatGPT, Bing */}
