@@ -954,3 +954,70 @@ async def system_health(
     result["smtp"] = "configured" if settings.SMTP_USER else "not configured"
 
     return result
+
+
+# ── Article Pipeline (research → generate → translate → publish) ───────────────
+
+class PipelineRequest(BaseModel):
+    topic: str
+    category: str
+    model: str = "haiku"  # haiku | sonnet
+    auto_publish: bool = True
+
+
+class BatchPipelineRequest(BaseModel):
+    topics: list[str]
+    category: str
+    model: str = "haiku"
+    auto_publish: bool = True
+    max_concurrent: int = 3
+
+
+@router.post("/pipeline/generate")
+async def pipeline_generate_article(
+    req: PipelineRequest,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Generate a single article via the open-source pipeline (research → AI → translate → publish)."""
+    from app.services.article_pipeline import run_pipeline
+    slug = await run_pipeline(
+        topic=req.topic,
+        category=req.category,
+        db=db,
+        model=req.model,
+        auto_publish=req.auto_publish,
+        skip_if_exists=False,
+    )
+    if not slug:
+        raise HTTPException(500, "Pipeline failed — check logs")
+    return {"slug": slug, "url": f"https://medmind.pro/articles/{slug}"}
+
+
+@router.post("/pipeline/batch")
+async def pipeline_batch(
+    req: BatchPipelineRequest,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """
+    Queue a batch of topics for background generation.
+    Returns immediately with a task count; generation runs in background.
+    """
+    import asyncio
+    from app.services.article_pipeline import run_pipeline
+
+    async def _generate_one(topic: str):
+        try:
+            async with __import__('app.core.database', fromlist=['AsyncSessionLocal']).AsyncSessionLocal() as session:
+                slug = await run_pipeline(
+                    topic=topic, category=req.category, db=session,
+                    model=req.model, auto_publish=req.auto_publish,
+                )
+            return {"topic": topic, "slug": slug, "ok": True}
+        except Exception as e:
+            return {"topic": topic, "error": str(e), "ok": False}
+
+    # Fire and forget — don't await the whole batch
+    asyncio.create_task(asyncio.gather(*[_generate_one(t) for t in req.topics[:50]]))
+    return {"queued": len(req.topics[:50]), "message": "Batch generation started in background"}
