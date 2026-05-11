@@ -97,6 +97,11 @@ class Settings(BaseSettings):
     AI_CACHE_TTL: int = 86400       # 24 hours
     PUBMED_CACHE_TTL: int = 604800  # 7 days
 
+    # IndexNow — instant indexing for Bing, Yandex, Seznam, Naver
+    # Generate key: python3 -c "import uuid; print(uuid.uuid4().hex)"
+    # Place key file at https://medmind.pro/{key}.txt containing just the key
+    INDEXNOW_KEY: str = ""
+
     # Sentry error tracking
     SENTRY_DSN: str = ""
     SENTRY_TRACES_SAMPLE_RATE: float = 0.1  # 10% of transactions

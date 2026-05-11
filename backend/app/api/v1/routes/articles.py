@@ -1062,6 +1062,12 @@ async def approve_article(
     from app.services.translation_service import schedule_article_translations
     await schedule_article_translations(article.id, db)
 
+    # Notify search engines and AI crawlers
+    if auto_publish:
+        import asyncio
+        from app.services.indexing_service import notify_article_published
+        asyncio.create_task(notify_article_published(article.slug))
+
     return {"id": str(article.id), "review_status": article.review_status, "is_published": article.is_published}
 
 
@@ -1156,6 +1162,9 @@ async def generate_article(
     if req.auto_publish:
         from app.services.translation_service import schedule_article_translations
         await schedule_article_translations(article.id, db)
+        import asyncio
+        from app.services.indexing_service import notify_article_published
+        asyncio.create_task(notify_article_published(article.slug))
 
     return _detail(article) | {"is_published": article.is_published}
 
@@ -1184,6 +1193,9 @@ async def create_article(
     if req.auto_publish:
         from app.services.translation_service import schedule_article_translations
         await schedule_article_translations(article.id, db)
+        import asyncio
+        from app.services.indexing_service import notify_article_published
+        asyncio.create_task(notify_article_published(article.slug))
 
     return _detail(article) | {"is_published": article.is_published}
 
@@ -1218,6 +1230,10 @@ async def toggle_publish(
     if publish:
         from app.services.translation_service import schedule_article_translations
         await schedule_article_translations(article.id, db)
+        # Notify search engines and AI crawlers asynchronously
+        import asyncio
+        from app.services.indexing_service import notify_article_published
+        asyncio.create_task(notify_article_published(article.slug))
 
     return {"id": str(article.id), "slug": article.slug, "is_published": article.is_published}
 
