@@ -13,7 +13,7 @@ from app.models.models import User, UserBookmark
 
 router = APIRouter(prefix="/bookmarks", tags=["bookmarks"])
 
-VALID_TYPES = {"lesson", "module", "case", "drug", "flashcard", "mcq"}
+VALID_TYPES = {"lesson", "module", "case", "drug", "flashcard", "mcq", "article"}
 
 
 class BookmarkOut(BaseModel):

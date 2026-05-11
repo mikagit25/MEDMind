@@ -6,6 +6,8 @@ import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
 import { ArticleViewTracker } from "./ArticleViewTracker";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ArticleAudioPlayer } from "@/components/ui/ArticleAudioPlayer";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
+import { ArticleReadTracker } from "@/components/ui/ArticleReadTracker";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -494,8 +496,9 @@ export default async function ArticlePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      {/* View tracking (client-side, fire-and-forget) */}
+      {/* View tracking + reading progress (client-side) */}
       <ArticleViewTracker slug={article.slug} />
+      <ArticleReadTracker slug={article.slug} />
 
       <ArticleNav />
 
@@ -545,6 +548,7 @@ export default async function ArticlePage({
                 </span>
               )}
               <span>{article.author?.name ?? "MedMind AI Editorial"}</span>
+              <BookmarkButton articleId={article.id} />
             </div>
 
             {/* Audio player */}

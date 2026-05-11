@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { getCategoryLabel, CATEGORY_ICONS } from "@/lib/categories";
 import { ArticleNav } from "@/components/layout/ArticleNav";
+import { ReadBadge } from "@/components/ui/ReadBadge";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -198,6 +199,9 @@ function ArticleCard({ article, locale }: { article: Article; locale: string }) 
         <span className="text-base">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
         <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
           {getCategoryLabel(article.category, locale)}
+        </span>
+        <span className="ml-auto">
+          <ReadBadge slug={article.slug} />
         </span>
       </div>
       <h3 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
