@@ -48,15 +48,15 @@ type DeepValue<T, K extends string> =
       ? T[K]
       : never;
 
-function deepGet(obj: Record<string, unknown>, path: string): string {
+function deepGet(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.split(".");
   let cur: unknown = obj;
   for (const part of parts) {
-    if (cur == null || typeof cur !== "object") return path;
+    if (cur == null || typeof cur !== "object" || Array.isArray(cur)) return path;
     cur = (cur as Record<string, unknown>)[part];
   }
-  if (typeof cur === "string") return cur;
-  return path; // key not found — return key itself as fallback
+  if (cur === undefined || cur === null) return path;
+  return cur; // returns string, array, or nested object as-is
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -117,13 +117,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   const t = useCallback(
     (key: string, vars?: Record<string, string | number>): string => {
-      let str = deepGet(messages as unknown as Record<string, unknown>, key);
-      if (vars) {
-        Object.entries(vars).forEach(([k, v]) => {
-          str = str.replace(new RegExp(`\\{${k}\\}`, "g"), String(v));
-        });
-      }
-      return str;
+      const val = deepGet(messages as unknown as Record<string, unknown>, key);
+      // Arrays and objects pass through as-is (caller casts with `as unknown as Type[]`)
+      if (typeof val !== "string") return val as unknown as string;
+      if (!vars) return val;
+      return Object.entries(vars).reduce(
+        (s, [k, v]) => s.replace(new RegExp(`\\{${k}\\}`, "g"), String(v)),
+        val
+      );
     },
     [messages]
   );
