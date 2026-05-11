@@ -26,12 +26,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["ru_RU", "ar_SA", "tr_TR", "de_DE", "fr_FR", "es_ES"],
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "MedMind AI — Medical Education Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MedMind AI — Medical Education Platform",
     description: "AI-powered medical learning for doctors, students, and veterinarians.",
     site: "@medmindai",
+    images: [`${SITE_URL}/opengraph-image`],
   },
   robots: {
     index: true,
