@@ -216,8 +216,10 @@ export const contentApi = {
   getFlashcards: (moduleId: string, dueOnly = false) =>
     api.get(`/modules/${moduleId}/flashcards${dueOnly ? "?due_only=true" : ""}`).then(r => r.data),
   getMCQ: (moduleId: string) => api.get(`/modules/${moduleId}/mcq`).then(r => r.data),
-  getCases: (moduleId: string) => api.get(`/modules/${moduleId}/cases`).then(r => r.data),
-  getCase: (caseId: string) => api.get(`/cases/${caseId}`).then(r => r.data),
+  getAllCases: (params?: { locale?: string; specialty?: string; difficulty?: string; search?: string; limit?: number }) =>
+    api.get("/cases", { params }).then(r => r.data),
+  getCases: (moduleId: string, locale = "en") => api.get(`/modules/${moduleId}/cases`, { params: { locale } }).then(r => r.data),
+  getCase: (caseId: string, locale = "en") => api.get(`/cases/${caseId}`, { params: { locale } }).then(r => r.data),
   search: (q: string, limit = 20) => api.get(`/search?q=${encodeURIComponent(q)}&limit=${limit}`).then(r => r.data),
   searchPubMed: (query: string, max_results = 5) =>
     api.get(`/search/pubmed?query=${encodeURIComponent(query)}&max_results=${max_results}`).then(r => r.data),

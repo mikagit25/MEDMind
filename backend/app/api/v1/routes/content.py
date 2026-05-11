@@ -297,29 +297,130 @@ async def list_mcq(
 # ============================================================
 # CLINICAL CASES
 # ============================================================
-@router.get("/modules/{module_id}/cases", response_model=List[ClinicalCaseOut])
-async def list_cases(
-    module_id: UUID,
+
+def _apply_case_translation(case, tr) -> dict:
+    """Merge a ClinicalCase ORM row with a translation row into a dict."""
+    d = {
+        "id": str(case.id),
+        "module_id": str(case.module_id),
+        "title": tr.title if tr and tr.title else case.title,
+        "specialty": case.specialty,
+        "presentation": tr.presentation if tr and tr.presentation else case.presentation,
+        "vitals": case.vitals,
+        "diagnosis": case.diagnosis,
+        "differential_diagnosis": case.differential_diagnosis,
+        "management": (tr.management if tr and tr.management else case.management) or [],
+        "teaching_points": (tr.teaching_points if tr and tr.teaching_points else case.teaching_points) or [],
+        "difficulty": case.difficulty or "medium",
+        "steps": case.steps,
+        "initial_step_id": case.initial_step_id,
+        "ideal_path": case.ideal_path,
+        "max_score": case.max_score or 100,
+        "content": case.content,
+    }
+    return d
+
+
+@router.get("/cases")
+async def list_all_cases(
+    locale: str = Query("en", max_length=5),
+    specialty: Optional[str] = Query(None),
+    difficulty: Optional[str] = Query(None),
+    search: Optional[str] = Query(None, max_length=100),
+    limit: int = Query(100, le=300),
+    offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    """Return all clinical cases, optionally filtered, with locale translations."""
+    from sqlalchemy import text as sql_text
+    from sqlalchemy.orm import aliased
+
+    stmt = select(ClinicalCase)
+    if specialty:
+        stmt = stmt.where(ClinicalCase.specialty.ilike(f"%{specialty}%"))
+    if difficulty:
+        stmt = stmt.where(ClinicalCase.difficulty == difficulty)
+    if search:
+        stmt = stmt.where(ClinicalCase.title.ilike(f"%{search}%"))
+    stmt = stmt.order_by(ClinicalCase.difficulty, ClinicalCase.title).limit(limit).offset(offset)
+
+    result = await db.execute(stmt)
+    cases = result.scalars().all()
+
+    if not cases:
+        return []
+
+    # Fetch translations for all cases in one query
+    case_ids = [c.id for c in cases]
+    if locale != "en":
+        tr_result = await db.execute(
+            sql_text(
+                "SELECT case_id, title, presentation, teaching_points, management "
+                "FROM clinical_case_translations "
+                "WHERE case_id = ANY(:ids) AND locale = :locale"
+            ).bindparams(ids=case_ids, locale=locale)
+        )
+        tr_map = {str(row.case_id): row for row in tr_result}
+    else:
+        tr_map = {}
+
+    return [_apply_case_translation(c, tr_map.get(str(c.id))) for c in cases]
+
+
+@router.get("/modules/{module_id}/cases")
+async def list_cases(
+    module_id: UUID,
+    locale: str = Query("en", max_length=5),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    from sqlalchemy import text as sql_text
+
     result = await db.execute(
         select(ClinicalCase).where(ClinicalCase.module_id == module_id)
     )
-    return result.scalars().all()
+    cases = result.scalars().all()
+
+    if not cases or locale == "en":
+        return [_apply_case_translation(c, None) for c in cases]
+
+    case_ids = [c.id for c in cases]
+    tr_result = await db.execute(
+        sql_text(
+            "SELECT case_id, title, presentation, teaching_points, management "
+            "FROM clinical_case_translations WHERE case_id = ANY(:ids) AND locale = :locale"
+        ).bindparams(ids=case_ids, locale=locale)
+    )
+    tr_map = {str(row.case_id): row for row in tr_result}
+    return [_apply_case_translation(c, tr_map.get(str(c.id))) for c in cases]
 
 
-@router.get("/cases/{case_id}", response_model=ClinicalCaseDetail)
+@router.get("/cases/{case_id}")
 async def get_case(
     case_id: UUID,
+    locale: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
+    from sqlalchemy import text as sql_text
+
     result = await db.execute(select(ClinicalCase).where(ClinicalCase.id == case_id))
     case = result.scalar_one_or_none()
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
-    return case
+
+    tr = None
+    if locale != "en":
+        tr_result = await db.execute(
+            sql_text(
+                "SELECT case_id, title, presentation, teaching_points, management "
+                "FROM clinical_case_translations WHERE case_id = :cid AND locale = :locale"
+            ).bindparams(cid=case_id, locale=locale)
+        )
+        tr = tr_result.first()
+
+    return _apply_case_translation(case, tr)
 
 
 # ============================================================
