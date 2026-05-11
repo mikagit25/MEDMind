@@ -1,3 +1,7 @@
+networks:
+  default:
+    name: medmind_default
+
 services:
   postgres:
     image: pgvector/pgvector:pg15
