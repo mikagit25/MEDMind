@@ -1,0 +1,408 @@
+"""
+MedMind AI — YouTube Auto-Uploader
+
+Generates MP4 from article and uploads to YouTube channel.
+
+Setup (one-time):
+    1. Put client_secret.json in /opt/medmind/
+    2. Run: python3 youtube_uploader.py --auth
+       → Opens browser, you login, saves token to youtube_token.json
+    3. Then run normally:
+       python3 youtube_uploader.py --slug atrial-fibrillation --lang en
+
+Batch upload (top articles):
+    python3 youtube_uploader.py --batch --limit 20 --lang en
+
+Environment:
+    MEDMIND_API_URL  — defaults to https://medmind.pro/api/v1
+    YT_CLIENT_SECRET — path to client_secret JSON (default: /opt/medmind/client_secret.json)
+    YT_TOKEN         — path to saved token (default: /opt/medmind/youtube_token.json)
+"""
+from __future__ import annotations
+
+import argparse
+import asyncio
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import time
+from pathlib import Path
+
+import httpx
+
+# ── Config ────────────────────────────────────────────────────────────────────
+
+API_URL        = os.environ.get("MEDMIND_API_URL", "https://medmind.pro/api/v1")
+CLIENT_SECRET  = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret.json"))
+TOKEN_FILE     = Path(os.environ.get("YT_TOKEN", "/opt/medmind/youtube_token.json"))
+VIDEO_SCRIPT   = Path(__file__).parent / "article_to_video.py"
+
+# YouTube category IDs: 27 = Education, 25 = News & Politics, 26 = Howto & Style
+YT_CATEGORY    = "27"   # Education
+YT_PRIVACY     = "public"   # public | unlisted | private
+
+CHANNEL_DESCRIPTIONS = {
+    "en": {
+        "prefix": "🩺 MedMind AI — Evidence-based medical education powered by Claude AI & PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 Full article with sources: https://medmind.pro/articles/{slug}\n"
+            "📚 Free medical learning platform: https://medmind.pro\n"
+            "✅ 97+ modules | 7 languages | Clinical cases | AI Tutor\n\n"
+            "#MedicalEducation #Medicine #MedMindAI #USMLE #MedStudent"
+        ),
+        "tags": ["medical education", "medicine", "medmind", "USMLE", "clinical medicine",
+                 "medical student", "doctor", "healthcare", "AI tutor", "evidence based medicine"],
+    },
+    "ru": {
+        "prefix": "🩺 MedMind AI — Доказательное медицинское образование на основе Claude AI и PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 Полная статья с источниками: https://medmind.pro/articles/{slug}?lang=ru\n"
+            "📚 Бесплатная платформа: https://medmind.pro\n"
+            "✅ 97+ модулей | 7 языков | Клинические случаи | ИИ-тьютор\n\n"
+            "#Медицина #МедицинскоеОбразование #MedMindAI #USMLE #Врач"
+        ),
+        "tags": ["медицина", "медицинское образование", "medmind", "врач", "клиническая медицина",
+                 "медицинский студент", "ИИ тьютор", "доказательная медицина"],
+    },
+}
+
+
+# ── OAuth helpers ─────────────────────────────────────────────────────────────
+
+def load_client_secret() -> dict:
+    if not CLIENT_SECRET.exists():
+        print(f"❌ client_secret.json not found at {CLIENT_SECRET}")
+        print("Download it from Google Cloud Console → APIs & Services → Credentials")
+        sys.exit(1)
+    with open(CLIENT_SECRET) as f:
+        data = json.load(f)
+    return data.get("installed") or data.get("web") or data
+
+
+def load_token() -> dict | None:
+    if TOKEN_FILE.exists():
+        with open(TOKEN_FILE) as f:
+            return json.load(f)
+    return None
+
+
+def save_token(token: dict):
+    TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(TOKEN_FILE, "w") as f:
+        json.dump(token, f, indent=2)
+    print(f"✅ Token saved to {TOKEN_FILE}")
+
+
+def refresh_access_token(token: dict, secret: dict) -> dict:
+    resp = httpx.post("https://oauth2.googleapis.com/token", data={
+        "client_id":     secret["client_id"],
+        "client_secret": secret["client_secret"],
+        "refresh_token": token["refresh_token"],
+        "grant_type":    "refresh_token",
+    })
+    resp.raise_for_status()
+    new_token = {**token, **resp.json()}
+    save_token(new_token)
+    return new_token
+
+
+def do_auth_flow(secret: dict) -> dict:
+    """Interactive OAuth flow — opens browser, user logs in."""
+    import urllib.parse, webbrowser, http.server, threading
+
+    auth_url = (
+        "https://accounts.google.com/o/oauth2/auth"
+        "?response_type=code"
+        f"&client_id={secret['client_id']}"
+        "&redirect_uri=http://localhost:8080"
+        "&scope=https://www.googleapis.com/auth/youtube.upload"
+        " https://www.googleapis.com/auth/youtube"
+        "&access_type=offline"
+        "&prompt=consent"
+    )
+
+    code_holder = {}
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            params = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            code_holder["code"] = params.get("code", [None])[0]
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"<h1>Authorised! You can close this tab.</h1>")
+
+        def log_message(self, *a): pass
+
+    server = http.server.HTTPServer(("localhost", 8080), Handler)
+    thread = threading.Thread(target=server.handle_request)
+    thread.start()
+
+    print(f"\nOpening browser for Google login…\n{auth_url}\n")
+    webbrowser.open(auth_url)
+    thread.join(timeout=120)
+
+    code = code_holder.get("code")
+    if not code:
+        print("❌ No auth code received. Try again.")
+        sys.exit(1)
+
+    resp = httpx.post("https://oauth2.googleapis.com/token", data={
+        "code":          code,
+        "client_id":     secret["client_id"],
+        "client_secret": secret["client_secret"],
+        "redirect_uri":  "http://localhost:8080",
+        "grant_type":    "authorization_code",
+    })
+    resp.raise_for_status()
+    token = resp.json()
+    save_token(token)
+    print("✅ Authentication successful!")
+    return token
+
+
+def get_valid_token() -> tuple[str, dict]:
+    """Return (access_token, token_dict). Refreshes if expired."""
+    secret = load_client_secret()
+    token  = load_token()
+
+    if not token:
+        print("No token found. Running auth flow…")
+        token = do_auth_flow(secret)
+
+    # Check expiry
+    expires_at = token.get("expires_at", 0)
+    if time.time() >= expires_at - 60:
+        print("Token expired, refreshing…")
+        token = refresh_access_token(token, secret)
+        token["expires_at"] = time.time() + token.get("expires_in", 3600)
+        save_token(token)
+
+    return token["access_token"], token
+
+
+# ── Video generation ──────────────────────────────────────────────────────────
+
+async def generate_video(slug: str, lang: str, output_dir: Path) -> Path | None:
+    """Run article_to_video.py and return path to generated MP4."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        sys.executable, str(VIDEO_SCRIPT),
+        "--slug", slug,
+        "--lang", lang,
+        "--output", str(output_dir),
+    ]
+    print(f"\n🎬 Generating video: {slug} [{lang}]")
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(VIDEO_SCRIPT.parent.parent))
+
+    if result.returncode != 0:
+        print(f"❌ Video generation failed:\n{result.stderr[-500:]}")
+        return None
+
+    # Find generated MP4
+    safe_slug = slug.replace("/", "-")[:80]
+    lang_suffix = "" if lang == "en" else f"_{lang}"
+    mp4 = output_dir / f"{safe_slug}{lang_suffix}.mp4"
+    if mp4.exists():
+        print(f"✅ Video ready: {mp4} ({mp4.stat().st_size // 1_048_576} MB)")
+        return mp4
+
+    # Fallback: find any MP4
+    mp4s = list(output_dir.glob("*.mp4"))
+    if mp4s:
+        mp4s.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+        return mp4s[0]
+
+    print("❌ MP4 not found after generation")
+    return None
+
+
+# ── YouTube upload ────────────────────────────────────────────────────────────
+
+def build_description(slug: str, excerpt: str, lang: str) -> str:
+    tmpl = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])
+    return tmpl["prefix"] + excerpt + tmpl["suffix"].format(slug=slug)
+
+
+def upload_to_youtube(
+    mp4_path: Path,
+    title: str,
+    description: str,
+    tags: list[str],
+    access_token: str,
+) -> str | None:
+    """Upload MP4 to YouTube. Returns video ID on success."""
+    # Step 1: initiate resumable upload
+    metadata = {
+        "snippet": {
+            "title":       title[:100],
+            "description": description[:5000],
+            "tags":        tags[:500],
+            "categoryId":  YT_CATEGORY,
+        },
+        "status": {
+            "privacyStatus":          YT_PRIVACY,
+            "selfDeclaredMadeForKids": False,
+        },
+    }
+
+    file_size = mp4_path.stat().st_size
+    init_resp = httpx.post(
+        "https://www.googleapis.com/upload/youtube/v3/videos"
+        "?uploadType=resumable&part=snippet,status",
+        headers={
+            "Authorization":           f"Bearer {access_token}",
+            "Content-Type":            "application/json",
+            "X-Upload-Content-Type":   "video/mp4",
+            "X-Upload-Content-Length": str(file_size),
+        },
+        content=json.dumps(metadata).encode(),
+    )
+
+    if init_resp.status_code != 200:
+        print(f"❌ Upload init failed: {init_resp.status_code} {init_resp.text[:300]}")
+        return None
+
+    upload_url = init_resp.headers["Location"]
+
+    # Step 2: upload file in chunks
+    CHUNK = 10 * 1024 * 1024  # 10 MB chunks
+    uploaded = 0
+
+    with open(mp4_path, "rb") as f:
+        while uploaded < file_size:
+            chunk = f.read(CHUNK)
+            end   = uploaded + len(chunk) - 1
+            resp  = httpx.put(
+                upload_url,
+                headers={
+                    "Authorization":  f"Bearer {access_token}",
+                    "Content-Type":   "video/mp4",
+                    "Content-Range":  f"bytes {uploaded}-{end}/{file_size}",
+                    "Content-Length": str(len(chunk)),
+                },
+                content=chunk,
+                timeout=300,
+            )
+            if resp.status_code in (200, 201):
+                video_id = resp.json().get("id")
+                print(f"✅ Uploaded! https://youtu.be/{video_id}")
+                return video_id
+            elif resp.status_code == 308:
+                uploaded = end + 1
+                pct = int(uploaded * 100 / file_size)
+                print(f"   Uploading… {pct}%", end="\r")
+            else:
+                print(f"❌ Upload chunk failed: {resp.status_code} {resp.text[:200]}")
+                return None
+
+    return None
+
+
+# ── Fetch article info ────────────────────────────────────────────────────────
+
+def fetch_article(slug: str, lang: str = "en") -> dict | None:
+    params = {"lang": lang} if lang != "en" else {}
+    try:
+        resp = httpx.get(f"{API_URL}/articles/{slug}", params=params, timeout=15)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception as e:
+        print(f"Warning: could not fetch article: {e}")
+    return None
+
+
+def fetch_top_slugs(limit: int = 20, lang: str = "en") -> list[str]:
+    try:
+        resp = httpx.get(f"{API_URL}/articles", params={"limit": limit, "lang": lang}, timeout=15)
+        if resp.status_code == 200:
+            return [a["slug"] for a in resp.json().get("articles", [])]
+    except Exception as e:
+        print(f"Warning: could not fetch articles list: {e}")
+    return []
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+async def process_one(slug: str, lang: str, access_token: str, output_dir: Path, delete_after: bool = True):
+    article = fetch_article(slug, lang)
+    if not article:
+        print(f"⚠️  Could not fetch article '{slug}', skipping")
+        return
+
+    title   = article.get("title", slug)
+    excerpt = article.get("excerpt", "")
+    tags_en = CHANNEL_DESCRIPTIONS["en"]["tags"] + [article.get("category", "")]
+    tags    = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])["tags"] + [article.get("category", "")]
+
+    # Generate video
+    mp4 = await generate_video(slug, lang, output_dir)
+    if not mp4:
+        return
+
+    # Upload
+    description = build_description(slug, excerpt, lang)
+    video_id    = upload_to_youtube(mp4, title, description, tags, access_token)
+
+    if video_id and delete_after:
+        mp4.unlink(missing_ok=True)
+        print(f"🗑️  Local file deleted (saved disk space)")
+
+
+async def main():
+    parser = argparse.ArgumentParser(description="MedMind YouTube Uploader")
+    parser.add_argument("--auth",   action="store_true", help="Run OAuth flow to get token")
+    parser.add_argument("--slug",   type=str, help="Single article slug to upload")
+    parser.add_argument("--lang",   type=str, default="en", help="Language code (en|ru|de|fr|es|tr|ar)")
+    parser.add_argument("--batch",  action="store_true", help="Upload top N articles")
+    parser.add_argument("--limit",  type=int, default=10, help="Number of articles in batch")
+    parser.add_argument("--output", type=str, default="/tmp/medmind_videos", help="Video output dir")
+    parser.add_argument("--keep",   action="store_true", help="Keep MP4 after upload")
+    args = parser.parse_args()
+
+    secret = load_client_secret()
+
+    if args.auth:
+        token = do_auth_flow(secret)
+        token["expires_at"] = time.time() + token.get("expires_in", 3600)
+        save_token(token)
+        return
+
+    access_token, _ = get_valid_token()
+    output_dir = Path(args.output)
+
+    if args.slug:
+        await process_one(args.slug, args.lang, access_token, output_dir, delete_after=not args.keep)
+
+    elif args.batch:
+        slugs = fetch_top_slugs(args.limit, args.lang)
+        if not slugs:
+            # Fallback: hardcoded top medical topics
+            slugs = [
+                "infective-endocarditis-understanding-bacterial-heart-valve-infections",
+                "rheumatic-heart-disease-pathophysiology-clinical-management",
+                "cardiac-syncope-mechanisms-recognition-and-clinical-management",
+                "brugada-syndrome-genetics-diagnosis-and-management",
+                "pulmonary-hypertension-pathophysiology-diagnosis-and-management",
+                "long-qt-syndrome-understanding-cardiac-arrhythmia-risk",
+                "wolff-parkinson-white-syndrome-pathophysiology-and-clinical-management",
+                "aortic-regurgitation-pathophysiology-diagnosis-and-management",
+                "cardiac-tamponade-pathophysiology-clinical-presentation-and-management",
+                "tricuspid-regurgitation-pathophysiology-diagnosis-and-management",
+            ][:args.limit]
+
+        print(f"\n📋 Batch: {len(slugs)} videos [{args.lang}]\n")
+        for i, slug in enumerate(slugs, 1):
+            print(f"\n[{i}/{len(slugs)}] {slug}")
+            await process_one(slug, args.lang, access_token, output_dir, delete_after=not args.keep)
+            if i < len(slugs):
+                print("⏳ Waiting 30s before next upload…")
+                await asyncio.sleep(30)  # YouTube rate limit
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    asyncio.run(main())
