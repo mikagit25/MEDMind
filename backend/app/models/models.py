@@ -524,8 +524,14 @@ class Course(Base):
     teacher_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     title = Column(String(300), nullable=False)
     description = Column(Text)
-    # invite code — students join with this
     invite_code = Column(String(16), unique=True, nullable=False, default=lambda: uuid.uuid4().hex[:8].upper())
+    # Discovery & enrollment
+    is_public = Column(Boolean, default=False)
+    enrollment_type = Column(String(20), default="invite")  # invite | open | request
+    difficulty = Column(String(20))   # beginner | intermediate | advanced
+    specialty_tag = Column(String(100))
+    thumbnail_emoji = Column(String(10))
+    estimated_hours = Column(Numeric(5, 1))
     is_active = Column(Boolean, default=True)
     starts_at = Column(DateTime)
     ends_at = Column(DateTime)
@@ -536,6 +542,23 @@ class Course(Base):
     course_modules = relationship("CourseModule", back_populates="course", cascade="all, delete-orphan")
     enrollments = relationship("CourseEnrollment", back_populates="course", cascade="all, delete-orphan")
     assignments = relationship("CourseAssignment", back_populates="course", cascade="all, delete-orphan")
+    access_requests = relationship("CourseAccessRequest", back_populates="course", cascade="all, delete-orphan")
+
+
+class CourseAccessRequest(Base):
+    """Student requests access to a non-public course."""
+    __tablename__ = "course_access_requests"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    message = Column(Text)
+    status = Column(String(20), default="pending")  # pending | approved | denied
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    course = relationship("Course", back_populates="access_requests")
+    user = relationship("User", foreign_keys=[user_id])
 
 
 class CourseModule(Base):

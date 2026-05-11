@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { studentCoursesApi } from "@/lib/api";
+import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 
-interface CourseModule {
-  module_id: string;
-  module_title: string;
-  completion_percent: number;
-  lessons_completed: number;
-  total_lessons: number;
-}
+// ── Types ──────────────────────────────────────────────────────────────────────
+type PublicCourse = {
+  id: string;
+  title: string;
+  description?: string;
+  teacher_name?: string;
+  enrollment_type: "open" | "invite" | "request";
+  difficulty?: string;
+  specialty_tag?: string;
+  thumbnail_emoji: string;
+  estimated_hours?: number;
+  module_count: number;
+  student_count: number;
+  is_public: boolean;
+};
 
-interface EnrolledCourse {
+type EnrolledCourse = {
   id: string;
   title: string;
   description?: string;
@@ -22,327 +31,527 @@ interface EnrolledCourse {
   total_modules: number;
   overall_completion: number;
   enrolled_at: string;
+};
+
+type RequestStatus = "pending" | "approved" | "denied" | null;
+
+type Tab = "enrolled" | "discover" | "join";
+
+const DIFFICULTY_LABEL: Record<string, string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+const DIFFICULTY_COLOR: Record<string, string> = {
+  beginner:     "bg-green-light text-green",
+  intermediate: "bg-blue-light text-blue",
+  advanced:     "bg-amber-light text-amber",
+};
+
+// ── Course card for discover tab ───────────────────────────────────────────────
+function DiscoverCard({
+  course,
+  isEnrolled,
+  onEnroll,
+}: {
+  course: PublicCourse;
+  isEnrolled: boolean;
+  onEnroll: (id: string, type: PublicCourse["enrollment_type"]) => Promise<void>;
+}) {
+  const [status, setStatus] = useState<"idle" | "loading" | "requested">(
+    isEnrolled ? "idle" : "idle"
+  );
+  const [reqStatus, setReqStatus] = useState<RequestStatus>(null);
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [requestMsg, setRequestMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleEnroll = async () => {
+    if (isEnrolled || status === "loading") return;
+    setStatus("loading");
+    await onEnroll(course.id, course.enrollment_type);
+    setStatus("idle");
+  };
+
+  const handleRequest = async () => {
+    setSubmitting(true);
+    try {
+      const res = await studentCoursesApi.requestAccess(course.id, requestMsg);
+      setReqStatus(res.status ?? "pending");
+      setShowRequestForm(false);
+    } catch {
+      setReqStatus("pending");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="card flex flex-col gap-3 p-4 hover:border-ink-3 transition-all">
+      {/* Header */}
+      <div className="flex items-start gap-3">
+        <div className="text-3xl flex-shrink-0 w-10 h-10 flex items-center justify-center bg-surface rounded-xl">
+          {course.thumbnail_emoji}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-1.5 mb-1">
+            {course.specialty_tag && (
+              <span className="font-syne text-[10px] font-semibold text-ink-3 uppercase tracking-wide">
+                {course.specialty_tag}
+              </span>
+            )}
+            {course.difficulty && (
+              <span className={`badge text-[10px] ${DIFFICULTY_COLOR[course.difficulty] ?? "bg-surface-2 text-ink-3"}`}>
+                {DIFFICULTY_LABEL[course.difficulty] ?? course.difficulty}
+              </span>
+            )}
+            {course.enrollment_type === "open" && (
+              <span className="badge bg-green-light text-green text-[10px]">Free</span>
+            )}
+            {course.enrollment_type === "request" && (
+              <span className="badge bg-amber-light text-amber text-[10px]">By request</span>
+            )}
+          </div>
+          <h3 className="font-syne font-bold text-sm text-ink leading-snug line-clamp-2">
+            {course.title}
+          </h3>
+          {course.teacher_name && (
+            <p className="font-serif text-[11px] text-ink-3 mt-0.5">by {course.teacher_name}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Description */}
+      {course.description && (
+        <p className="font-serif text-xs text-ink-3 line-clamp-2 leading-relaxed">
+          {course.description}
+        </p>
+      )}
+
+      {/* Stats */}
+      <div className="flex items-center gap-3 text-[11px] font-syne text-ink-3">
+        <span>📖 {course.module_count} modules</span>
+        {course.estimated_hours && <span>⏱ {course.estimated_hours}h</span>}
+        <span>👥 {course.student_count} enrolled</span>
+      </div>
+
+      {/* CTA */}
+      <div className="border-t border-border pt-3">
+        {isEnrolled ? (
+          <Link
+            href={`/courses/${course.id}`}
+            className="btn-primary text-xs px-4 py-2 w-full text-center block"
+          >
+            Continue learning →
+          </Link>
+        ) : course.enrollment_type === "open" ? (
+          <button
+            onClick={handleEnroll}
+            disabled={status === "loading"}
+            className="btn-primary text-xs px-4 py-2 w-full disabled:opacity-50"
+          >
+            {status === "loading" ? "Enrolling…" : "Enroll free →"}
+          </button>
+        ) : reqStatus === "pending" ? (
+          <div className="text-xs font-syne text-amber text-center py-1">
+            ⏳ Access request sent — awaiting teacher approval
+          </div>
+        ) : reqStatus === "approved" ? (
+          <Link href={`/courses/${course.id}`} className="btn-primary text-xs px-4 py-2 w-full text-center block">
+            Access granted — Start →
+          </Link>
+        ) : showRequestForm ? (
+          <div className="space-y-2">
+            <textarea
+              value={requestMsg}
+              onChange={e => setRequestMsg(e.target.value)}
+              placeholder="Optional: why do you want to join this course?"
+              rows={2}
+              className="w-full text-xs font-serif border border-border rounded-lg px-3 py-2 bg-bg text-ink focus:outline-none focus:border-ink resize-none"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowRequestForm(false)}
+                className="btn-secondary text-xs px-3 py-1.5 flex-1"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRequest}
+                disabled={submitting}
+                className="btn-primary text-xs px-3 py-1.5 flex-1 disabled:opacity-50"
+              >
+                {submitting ? "Sending…" : "Send request"}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowRequestForm(true)}
+            className="btn-secondary text-xs px-4 py-2 w-full"
+          >
+            Request access →
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
 
-interface LeaderboardEntry {
-  rank: number;
-  user_id: string;
-  name: string;
-  xp: number;
-  is_me: boolean;
+// ── Enrolled course card ───────────────────────────────────────────────────────
+function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (id: string) => void }) {
+  const pct = Math.round(course.overall_completion ?? 0);
+  return (
+    <div className="card flex flex-col gap-3 p-4 hover:border-ink-3 transition-all">
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          {course.specialty && (
+            <span className="font-syne text-[10px] font-semibold text-ink-3 uppercase tracking-wide block mb-1">
+              {course.specialty}
+            </span>
+          )}
+          <h3 className="font-syne font-bold text-sm text-ink leading-snug line-clamp-2">
+            {course.title}
+          </h3>
+          {course.teacher_name && (
+            <p className="font-serif text-[11px] text-ink-3 mt-0.5">by {course.teacher_name}</p>
+          )}
+        </div>
+        <div className="flex-shrink-0 text-right">
+          <div className={`font-syne font-black text-lg leading-none ${pct >= 100 ? "text-green" : "text-ink"}`}>
+            {pct}%
+          </div>
+          <div className="font-serif text-[10px] text-ink-3">{course.total_modules} modules</div>
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="h-1.5 bg-border-2 rounded-full overflow-hidden">
+        <div
+          className={`h-full rounded-full transition-all ${pct >= 100 ? "bg-green" : "bg-gradient-to-r from-blue to-blue/60"}`}
+          style={{ width: `${Math.min(pct, 100)}%` }}
+        />
+      </div>
+
+      <div className="flex items-center gap-2 border-t border-border pt-3">
+        <Link
+          href={`/courses/${course.id}`}
+          className="btn-primary text-xs px-4 py-1.5 flex-1 text-center"
+        >
+          {pct >= 100 ? "Review →" : "Continue →"}
+        </Link>
+        <button
+          onClick={() => onLeave(course.id)}
+          className="text-xs font-syne text-ink-3 hover:text-red border border-border hover:border-red/30 rounded-lg px-3 py-1.5 transition-colors"
+          title="Leave course"
+        >
+          Leave
+        </button>
+      </div>
+    </div>
+  );
 }
 
+// ── Main page ──────────────────────────────────────────────────────────────────
 export default function MyCoursesPage() {
+  const { user } = useAuthStore();
   const t = useT();
-  const [courses, setCourses] = useState<EnrolledCourse[]>([]);
+
+  const [tab, setTab] = useState<Tab>("discover");
+  const [enrolled, setEnrolled] = useState<EnrolledCourse[]>([]);
+  const [publicCourses, setPublicCourses] = useState<PublicCourse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [enrolledIds, setEnrolledIds] = useState<Set<string>>(new Set());
+
+  // Filters
+  const [filterSpecialty, setFilterSpecialty] = useState<string>("all");
+  const [filterDifficulty, setFilterDifficulty] = useState<string>("all");
 
   // Join form
   const [joinCode, setJoinCode] = useState("");
   const [joining, setJoining] = useState(false);
-  const [joinError, setJoinError] = useState("");
-  const [joinSuccess, setJoinSuccess] = useState("");
+  const [joinMsg, setJoinMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const [leaveError, setLeaveError] = useState("");
-
-  // Expanded course detail
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [moduleProgress, setModuleProgress] = useState<Record<string, CourseModule[]>>({});
-  const [leaderboard, setLeaderboard] = useState<Record<string, LeaderboardEntry[]>>({});
-  const [detailLoading, setDetailLoading] = useState<string | null>(null);
-
+  // Load data
   useEffect(() => {
-    studentCoursesApi
-      .getEnrolled()
-      .then((data) => setCourses(Array.isArray(data) ? data : data?.courses ?? []))
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    setLoading(true);
+    Promise.all([
+      studentCoursesApi.getEnrolled().catch(() => []),
+      studentCoursesApi.discover().catch(() => []),
+    ]).then(([enrolledData, publicData]) => {
+      const enrList = Array.isArray(enrolledData) ? enrolledData : enrolledData?.courses ?? [];
+      setEnrolled(enrList);
+      setEnrolledIds(new Set(enrList.map((c: EnrolledCourse) => c.id)));
+      setPublicCourses(Array.isArray(publicData) ? publicData : []);
+      // If already enrolled in some courses, start on "My courses" tab
+      if (enrList.length > 0) setTab("enrolled");
+    }).finally(() => setLoading(false));
   }, []);
 
-  async function handleJoin(e: React.FormEvent) {
+  const handleEnroll = useCallback(async (courseId: string, type: PublicCourse["enrollment_type"]) => {
+    if (type !== "open") return;
+    try {
+      await studentCoursesApi.joinById(courseId);
+      setEnrolledIds(prev => new Set([...prev, courseId]));
+      // Refresh enrolled list
+      const updated = await studentCoursesApi.getEnrolled().catch(() => []);
+      const list = Array.isArray(updated) ? updated : updated?.courses ?? [];
+      setEnrolled(list);
+      setTab("enrolled");
+    } catch (e: any) {
+      console.error("Enroll error", e);
+    }
+  }, []);
+
+  const handleLeave = useCallback(async (courseId: string) => {
+    if (!confirm("Leave this course? Your progress will be saved.")) return;
+    try {
+      await studentCoursesApi.leave(courseId);
+      setEnrolled(prev => prev.filter(c => c.id !== courseId));
+      setEnrolledIds(prev => { const s = new Set(prev); s.delete(courseId); return s; });
+    } catch { /* noop */ }
+  }, []);
+
+  const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!joinCode.trim()) return;
     setJoining(true);
-    setJoinError("");
-    setJoinSuccess("");
+    setJoinMsg(null);
     try {
-      const result = await studentCoursesApi.join(joinCode.trim());
-      setJoinSuccess(`Joined "${result.title ?? "course"}" successfully!`);
+      const res = await studentCoursesApi.join(joinCode.trim().toUpperCase());
+      setJoinMsg({ type: "success", text: `Joined "${res.title ?? "course"}" successfully!` });
       setJoinCode("");
-      const updated = await studentCoursesApi.getEnrolled();
-      setCourses(Array.isArray(updated) ? updated : updated?.courses ?? []);
+      const updated = await studentCoursesApi.getEnrolled().catch(() => []);
+      const list = Array.isArray(updated) ? updated : updated?.courses ?? [];
+      setEnrolled(list);
+      setEnrolledIds(new Set(list.map((c: EnrolledCourse) => c.id)));
+      setTab("enrolled");
     } catch (e: any) {
-      setJoinError(e?.response?.data?.detail ?? "Invalid invite code or already enrolled.");
+      setJoinMsg({ type: "error", text: e?.response?.data?.detail ?? "Invalid invite code or already enrolled." });
     } finally {
       setJoining(false);
     }
-  }
+  };
 
-  async function toggleCourse(courseId: string) {
-    if (expandedId === courseId) {
-      setExpandedId(null);
-      return;
-    }
-    setExpandedId(courseId);
-    if (!moduleProgress[courseId]) {
-      setDetailLoading(courseId);
-      try {
-        const [prog, lb] = await Promise.all([
-          studentCoursesApi.getProgress(courseId).catch(() => []),
-          studentCoursesApi.getLeaderboard(courseId).catch(() => []),
-        ]);
-        setModuleProgress((prev) => ({
-          ...prev,
-          [courseId]: Array.isArray(prog) ? prog : prog?.modules ?? [],
-        }));
-        setLeaderboard((prev) => ({
-          ...prev,
-          [courseId]: Array.isArray(lb) ? lb : lb?.entries ?? [],
-        }));
-      } finally {
-        setDetailLoading(null);
-      }
-    }
-  }
+  // Filtered discover list
+  const specialties = Array.from(new Set(publicCourses.map(c => c.specialty_tag).filter(Boolean))) as string[];
+  const filteredPublic = publicCourses.filter(c => {
+    if (filterSpecialty !== "all" && c.specialty_tag !== filterSpecialty) return false;
+    if (filterDifficulty !== "all" && c.difficulty !== filterDifficulty) return false;
+    return true;
+  });
 
-  async function handleLeave(courseId: string, title: string) {
-    if (!confirm(`Leave "${title}"? Your progress will be retained but you will lose access.`)) return;
-    try {
-      await studentCoursesApi.leave(courseId);
-      setCourses((cs) => cs.filter((c) => c.id !== courseId));
-      if (expandedId === courseId) setExpandedId(null);
-    } catch {
-      setLeaveError(t("common.error_retry"));
-    }
-  }
+  // ── Tabs ──
+  const TABS: { id: Tab; label: string; count?: number }[] = [
+    { id: "discover", label: "Discover", count: publicCourses.length },
+    { id: "enrolled", label: "My courses", count: enrolled.length },
+    { id: "join", label: "Join with code" },
+  ];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="font-syne font-black text-2xl text-ink">{t("nav.items.my_courses")}</h1>
-        <p className="font-serif text-ink-3 text-sm mt-0.5">
-          {loading ? t("common.loading") : `${courses.length} course${courses.length !== 1 ? "s" : ""} enrolled`}
-        </p>
-      </div>
+    <div className="flex-1 overflow-y-auto">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
 
-      {leaveError && (
-        <div className="mb-4 p-3 rounded-lg bg-red-light border border-red/20 text-red text-sm font-serif">
-          {leaveError}
+        {/* Header */}
+        <div className="mb-5">
+          <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">Courses</h1>
+          <p className="font-serif text-xs text-ink-3 mt-0.5">
+            {enrolled.length > 0
+              ? `${enrolled.length} enrolled · ${publicCourses.length} available`
+              : `${publicCourses.length} courses available — enroll for free`}
+          </p>
         </div>
-      )}
 
-      {/* Join with invite code */}
-      <div className="card p-4 mb-6">
-        <h2 className="font-syne font-bold text-sm text-ink mb-3">Join a Course</h2>
-        <form onSubmit={handleJoin} className="flex gap-2">
-          <input
-            value={joinCode}
-            onChange={(e) => setJoinCode(e.target.value)}
-            placeholder="Enter invite code from your teacher..."
-            className="flex-1 border border-border rounded-lg px-3 py-2 font-mono text-sm text-ink bg-surface focus:outline-none focus:border-ink-3"
-          />
-          <button
-            type="submit"
-            disabled={joining || !joinCode.trim()}
-            className="btn-primary px-5 py-2 rounded-lg font-syne font-semibold text-sm disabled:opacity-50 shrink-0"
-          >
-            {joining ? "Joining…" : "Join"}
-          </button>
-        </form>
-        {joinError && (
-          <p className="text-red font-serif text-xs mt-2">{joinError}</p>
-        )}
-        {joinSuccess && (
-          <p className="text-green font-serif text-xs mt-2">✓ {joinSuccess}</p>
-        )}
-      </div>
+        {/* Tabs */}
+        <div className="flex gap-1 mb-5 border-b border-border">
+          {TABS.map(tab_ => (
+            <button
+              key={tab_.id}
+              onClick={() => setTab(tab_.id)}
+              className={`px-4 py-2 font-syne font-semibold text-sm border-b-2 transition-colors -mb-px ${
+                tab === tab_.id
+                  ? "border-ink text-ink"
+                  : "border-transparent text-ink-3 hover:text-ink"
+              }`}
+            >
+              {tab_.label}
+              {tab_.count !== undefined && tab_.count > 0 && (
+                <span className={`ml-1.5 text-[10px] rounded-full px-1.5 py-0.5 ${
+                  tab === tab_.id ? "bg-ink text-white" : "bg-surface-2 text-ink-3"
+                }`}>
+                  {tab_.count}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
 
-      {/* Courses list */}
-      {loading ? (
-        <div className="text-center py-12 text-ink-3 font-serif text-sm animate-pulse">{t("common.loading")}</div>
-      ) : courses.length === 0 ? (
-        <div className="card p-10 text-center">
-          <div className="text-4xl mb-3">🎓</div>
-          <div className="font-syne font-bold text-ink mb-1">{t("common.no_results")}</div>
-          <div className="font-serif text-ink-3 text-sm max-w-xs mx-auto">
-            Ask your teacher for an invite code and enter it above to join a course.
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="card h-48 animate-pulse bg-surface-2" />
+            ))}
           </div>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {courses.map((course) => {
-            const isOpen = expandedId === course.id;
-            const pct = Math.round(course.overall_completion ?? 0);
-            const mods = moduleProgress[course.id] ?? [];
-            const lb = leaderboard[course.id] ?? [];
-            const isLoadingDetail = detailLoading === course.id;
-
-            return (
-              <div key={course.id} className="card overflow-hidden">
-                {/* Course header — click to expand */}
-                <button
-                  onClick={() => toggleCourse(course.id)}
-                  className="w-full px-4 py-4 text-left hover:bg-surface transition-colors"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="font-syne font-bold text-sm text-ink">{course.title}</div>
-                      <div className="font-serif text-xs text-ink-3 mt-0.5">
-                        {course.teacher_name && `by ${course.teacher_name}`}
-                        {course.teacher_name && course.specialty && " · "}
-                        {course.specialty}
-                        {!course.teacher_name && !course.specialty && `${course.total_modules} module${course.total_modules !== 1 ? "s" : ""}`}
-                      </div>
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <div
-                        className={`font-syne font-black text-lg leading-none ${
-                          pct >= 100 ? "text-green" : "text-ink"
+        ) : (
+          <>
+            {/* ── TAB: DISCOVER ───────────────────────────── */}
+            {tab === "discover" && (
+              <div>
+                {/* Filters */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {/* Specialty filter */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {["all", ...specialties].map(sp => (
+                      <button
+                        key={sp}
+                        onClick={() => setFilterSpecialty(sp)}
+                        className={`px-3 py-1 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                          filterSpecialty === sp
+                            ? "bg-ink text-white border-ink"
+                            : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                         }`}
                       >
-                        {pct}%
-                      </div>
-                      <div className="font-serif text-[10px] text-ink-3 mt-0.5">
-                        {course.total_modules} modules
-                      </div>
-                    </div>
-                    <span className="text-ink-3 text-xs shrink-0 mt-1.5">{isOpen ? "▲" : "▼"}</span>
+                        {sp === "all" ? "All specialties" : sp}
+                      </button>
+                    ))}
                   </div>
-
-                  {/* Completion bar */}
-                  <div className="mt-3 h-1.5 bg-border rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all ${
-                        pct >= 100
-                          ? "bg-green"
-                          : "bg-gradient-to-r from-blue to-blue/50"
-                      }`}
-                      style={{ width: `${Math.min(pct, 100)}%` }}
-                    />
+                  {/* Difficulty filter */}
+                  <div className="flex gap-1.5 ml-auto">
+                    {["all", "beginner", "intermediate", "advanced"].map(d => (
+                      <button
+                        key={d}
+                        onClick={() => setFilterDifficulty(d)}
+                        className={`px-3 py-1 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                          filterDifficulty === d
+                            ? "bg-ink text-white border-ink"
+                            : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                        }`}
+                      >
+                        {d === "all" ? "All levels" : DIFFICULTY_LABEL[d]}
+                      </button>
+                    ))}
                   </div>
-                </button>
+                </div>
 
-                {/* Expanded detail */}
-                {isOpen && (
-                  <div className="border-t border-border">
-                    {isLoadingDetail ? (
-                      <div className="px-4 py-8 text-center text-ink-3 font-serif text-sm animate-pulse">
-                        Loading details…
-                      </div>
-                    ) : (
-                      <div className="px-4 py-4 space-y-5">
-                        {/* Module progress */}
-                        {mods.length > 0 && (
-                          <div>
-                            <h3 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest mb-3">
-                              Module Progress
-                            </h3>
-                            <div className="space-y-2">
-                              {mods.map((m) => {
-                                const mp = Math.round(m.completion_percent ?? 0);
-                                return (
-                                  <Link
-                                    key={m.module_id}
-                                    href={`/modules/${m.module_id}`}
-                                    className="flex items-center gap-3 hover:bg-surface rounded-lg px-2 py-2 -mx-2 transition-colors group"
-                                  >
-                                    <div className="flex-1 min-w-0">
-                                      <div className="font-syne text-xs text-ink group-hover:underline truncate">
-                                        {m.module_title}
-                                      </div>
-                                      <div className="mt-1.5 h-1 bg-border rounded-full overflow-hidden">
-                                        <div
-                                          className={`h-full rounded-full transition-all ${
-                                            mp >= 100 ? "bg-green" : "bg-blue/60"
-                                          }`}
-                                          style={{ width: `${Math.min(mp, 100)}%` }}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="shrink-0 text-right">
-                                      <span className="font-syne font-bold text-xs text-ink-3">{mp}%</span>
-                                      {m.total_lessons > 0 && (
-                                        <div className="font-serif text-[10px] text-ink-3">
-                                          {m.lessons_completed}/{m.total_lessons}
-                                        </div>
-                                      )}
-                                    </div>
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-
-                        {mods.length === 0 && (
-                          <p className="font-serif text-xs text-ink-3 text-center py-2">
-                            No modules in this course yet.
-                          </p>
-                        )}
-
-                        {/* Class leaderboard */}
-                        {lb.length > 0 && (
-                          <div>
-                            <h3 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest mb-3">
-                              Class Leaderboard
-                            </h3>
-                            <div className="space-y-1">
-                              {lb.slice(0, 5).map((entry) => (
-                                <div
-                                  key={entry.user_id}
-                                  className={`flex items-center gap-2 px-2 py-1.5 rounded-lg ${
-                                    entry.is_me
-                                      ? "bg-blue-light border border-blue/20"
-                                      : ""
-                                  }`}
-                                >
-                                  <span className="font-syne font-black text-xs text-ink-3 w-6 text-center shrink-0">
-                                    {entry.rank === 1
-                                      ? "🥇"
-                                      : entry.rank === 2
-                                      ? "🥈"
-                                      : entry.rank === 3
-                                      ? "🥉"
-                                      : `${entry.rank}.`}
-                                  </span>
-                                  <span
-                                    className={`font-syne text-xs flex-1 ${
-                                      entry.is_me ? "text-blue font-bold" : "text-ink"
-                                    }`}
-                                  >
-                                    {entry.name}
-                                    {entry.is_me && (
-                                      <span className="ml-1 text-[10px] text-blue/70">(you)</span>
-                                    )}
-                                  </span>
-                                  <span className="font-syne font-bold text-xs text-ink-3 shrink-0">
-                                    {entry.xp} XP
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Leave course */}
-                        <div className="flex justify-end pt-1 border-t border-border">
-                          <button
-                            onClick={() => handleLeave(course.id, course.title)}
-                            className="text-xs font-syne text-red/70 hover:text-red border border-red/20 hover:border-red/40 rounded px-3 py-1.5 transition-colors mt-3"
-                          >
-                            Leave course
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                {filteredPublic.length === 0 ? (
+                  <div className="text-center py-12 text-ink-3 font-serif text-sm">No courses found</div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {filteredPublic.map(course => (
+                      <DiscoverCard
+                        key={course.id}
+                        course={course}
+                        isEnrolled={enrolledIds.has(course.id)}
+                        onEnroll={handleEnroll}
+                      />
+                    ))}
                   </div>
                 )}
               </div>
-            );
-          })}
-        </div>
-      )}
+            )}
+
+            {/* ── TAB: MY COURSES ─────────────────────────── */}
+            {tab === "enrolled" && (
+              <div>
+                {enrolled.length === 0 ? (
+                  <div className="card p-10 text-center">
+                    <div className="text-5xl mb-4">🎓</div>
+                    <h2 className="font-syne font-bold text-lg text-ink mb-2">No courses yet</h2>
+                    <p className="font-serif text-ink-3 text-sm max-w-sm mx-auto mb-5">
+                      Explore our free platform courses or ask your teacher for an invite code.
+                    </p>
+                    <div className="flex gap-3 justify-center">
+                      <button
+                        onClick={() => setTab("discover")}
+                        className="btn-primary px-5 py-2 text-sm"
+                      >
+                        Browse courses →
+                      </button>
+                      <button
+                        onClick={() => setTab("join")}
+                        className="btn-secondary px-5 py-2 text-sm"
+                      >
+                        Enter invite code
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {enrolled.map(course => (
+                      <EnrolledCard key={course.id} course={course} onLeave={handleLeave} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── TAB: JOIN WITH CODE ─────────────────────── */}
+            {tab === "join" && (
+              <div className="max-w-md mx-auto">
+                <div className="card p-6">
+                  <div className="text-3xl mb-3">🔑</div>
+                  <h2 className="font-syne font-bold text-lg text-ink mb-1">Join a teacher's course</h2>
+                  <p className="font-serif text-ink-3 text-sm mb-5 leading-relaxed">
+                    Enter the invite code your teacher shared with you. Codes are 8 characters (e.g. AB12CD34).
+                  </p>
+                  <form onSubmit={handleJoin} className="space-y-3">
+                    <input
+                      value={joinCode}
+                      onChange={e => setJoinCode(e.target.value.toUpperCase())}
+                      placeholder="Enter invite code (e.g. AB12CD34)"
+                      maxLength={16}
+                      className="w-full border border-border rounded-xl px-4 py-3 font-mono text-sm text-ink bg-surface focus:outline-none focus:border-ink text-center tracking-widest uppercase"
+                    />
+                    {joinMsg && (
+                      <p className={`text-xs font-serif ${joinMsg.type === "success" ? "text-green" : "text-red"}`}>
+                        {joinMsg.type === "success" ? "✓ " : "✗ "}{joinMsg.text}
+                      </p>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={joining || joinCode.trim().length < 6}
+                      className="btn-primary w-full py-2.5 disabled:opacity-50"
+                    >
+                      {joining ? "Joining…" : "Join course →"}
+                    </button>
+                  </form>
+                </div>
+
+                {/* Info boxes */}
+                <div className="mt-5 space-y-3">
+                  <div className="card p-4 flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">👨‍🏫</span>
+                    <div>
+                      <div className="font-syne font-bold text-sm text-ink mb-0.5">Are you a teacher?</div>
+                      <p className="font-serif text-xs text-ink-3 leading-relaxed">
+                        Create your own course, add modules, and share the invite code with your students.
+                      </p>
+                      <Link href="/teacher/courses/new" className="inline-block mt-2 text-xs font-syne font-semibold text-ink hover:text-accent underline">
+                        Create a course →
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="card p-4 flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">📚</span>
+                    <div>
+                      <div className="font-syne font-bold text-sm text-ink mb-0.5">Free platform courses</div>
+                      <p className="font-serif text-xs text-ink-3 leading-relaxed">
+                        No invite code needed — browse and enroll in our curated courses.
+                      </p>
+                      <button
+                        onClick={() => setTab("discover")}
+                        className="inline-block mt-2 text-xs font-syne font-semibold text-ink hover:text-accent underline"
+                      >
+                        Browse courses →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import (
     Course, CourseModule, CourseEnrollment, CourseAssignment,
-    Module, User, UserProgress,
+    CourseAccessRequest, Module, User, UserProgress,
 )
 
 router = APIRouter(prefix="/courses", tags=["courses"])
@@ -176,6 +176,118 @@ class StudentProgressOut(BaseModel):
     modules_progress: List[dict]  # {module_id, title, completion_percent, lessons_done, last_activity}
 
 
+# ── DISCOVER (public, no auth required) ───────────────────────────────────
+
+@router.get("/discover")
+async def discover_courses(
+    specialty: Optional[str] = None,
+    difficulty: Optional[str] = None,
+    db: AsyncSession = Depends(get_db),
+):
+    """Return all public active courses for the discovery catalogue."""
+    q = (
+        select(Course)
+        .options(
+            selectinload(Course.course_modules).selectinload(CourseModule.module),
+            selectinload(Course.enrollments),
+        )
+        .where(Course.is_public == True, Course.is_active == True)
+        .order_by(Course.created_at.desc())
+    )
+    if specialty:
+        q = q.where(Course.specialty_tag == specialty)
+    if difficulty:
+        q = q.where(Course.difficulty == difficulty)
+
+    courses = (await db.execute(q)).scalars().all()
+
+    out = []
+    for c in courses:
+        teacher_name = None
+        if c.teacher_id:
+            t = (await db.execute(select(User).where(User.id == c.teacher_id))).scalar_one_or_none()
+            if t:
+                teacher_name = f"{t.first_name or ''} {t.last_name or ''}".strip() or None
+        out.append({
+            "id": str(c.id),
+            "title": c.title,
+            "description": c.description,
+            "teacher_name": teacher_name,
+            "enrollment_type": c.enrollment_type,
+            "difficulty": c.difficulty,
+            "specialty_tag": c.specialty_tag,
+            "thumbnail_emoji": c.thumbnail_emoji or "📚",
+            "estimated_hours": float(c.estimated_hours) if c.estimated_hours else None,
+            "module_count": len(c.course_modules),
+            "student_count": len(c.enrollments),
+            "is_public": c.is_public,
+        })
+    return out
+
+
+@router.post("/{course_id}/request-access", status_code=201)
+async def request_course_access(
+    course_id: UUID,
+    body: dict,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Student requests access to a closed/invite-only course."""
+    course = (await db.execute(
+        select(Course).where(Course.id == course_id, Course.is_active == True)
+    )).scalar_one_or_none()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+    # Already enrolled?
+    enrolled = (await db.execute(
+        select(CourseEnrollment).where(
+            CourseEnrollment.course_id == course_id,
+            CourseEnrollment.student_id == user.id,
+            CourseEnrollment.status == "active",
+        )
+    )).scalar_one_or_none()
+    if enrolled:
+        raise HTTPException(status_code=400, detail="Already enrolled in this course")
+
+    # Existing request?
+    existing = (await db.execute(
+        select(CourseAccessRequest).where(
+            CourseAccessRequest.course_id == course_id,
+            CourseAccessRequest.user_id == user.id,
+        )
+    )).scalar_one_or_none()
+    if existing:
+        return {"status": existing.status, "message": "Request already submitted"}
+
+    req = CourseAccessRequest(
+        course_id=course_id,
+        user_id=user.id,
+        message=str(body.get("message", ""))[:500],
+    )
+    db.add(req)
+    await db.commit()
+    return {"status": "pending", "message": "Access request submitted successfully"}
+
+
+@router.get("/{course_id}/request-status")
+async def get_request_status(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Get the status of the current user's access request."""
+    req = (await db.execute(
+        select(CourseAccessRequest).where(
+            CourseAccessRequest.course_id == course_id,
+            CourseAccessRequest.user_id == user.id,
+        )
+    )).scalar_one_or_none()
+    if not req:
+        return {"status": None}
+    return {"status": req.status, "created_at": req.created_at.isoformat()}
+
+
 # ── TEACHER endpoints ──────────────────────────────────────────────────────
 
 @router.post("", response_model=CourseOut, status_code=201)
@@ -200,21 +312,27 @@ async def create_course(
     return CourseOut.from_orm_obj(course, 0)
 
 
+class JoinByCodeBody(BaseModel):
+    invite_code: str
+
+class JoinOpenBody(BaseModel):
+    course_id: str
+
+
 @router.post("/join", status_code=201)
 async def join_course(
-    invite_code: str,
+    body: JoinByCodeBody,
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
     """Student joins a course by invite code."""
     result = await db.execute(
-        select(Course).where(Course.invite_code == invite_code.upper(), Course.is_active == True)
+        select(Course).where(Course.invite_code == body.invite_code.upper().strip(), Course.is_active == True)
     )
     course = result.scalar_one_or_none()
     if not course:
         raise HTTPException(status_code=404, detail="Invalid or expired invite code")
 
-    # Idempotent
     existing = await db.execute(
         select(CourseEnrollment).where(
             CourseEnrollment.course_id == course.id,
@@ -228,6 +346,45 @@ async def join_course(
     db.add(enr)
     await db.commit()
     return {"ok": True, "course_id": str(course.id), "already_enrolled": False, "title": course.title}
+
+
+@router.post("/join-open", status_code=201)
+async def join_open_course(
+    body: JoinOpenBody,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Student enrolls in a public/open course directly (no invite code needed)."""
+    import uuid as _uuid
+    try:
+        cid = _uuid.UUID(body.course_id)
+    except ValueError:
+        raise HTTPException(status_code=422, detail="Invalid course_id")
+
+    course = (await db.execute(
+        select(Course).where(Course.id == cid, Course.is_active == True)
+    )).scalar_one_or_none()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    if not course.is_public and course.enrollment_type not in ("open",):
+        raise HTTPException(status_code=403, detail="This course requires an invite code")
+
+    existing = (await db.execute(
+        select(CourseEnrollment).where(
+            CourseEnrollment.course_id == course.id,
+            CourseEnrollment.student_id == user.id,
+        )
+    )).scalar_one_or_none()
+    if existing:
+        if existing.status != "active":
+            existing.status = "active"
+            await db.commit()
+        return {"ok": True, "already_enrolled": True, "title": course.title}
+
+    enr = CourseEnrollment(course_id=course.id, student_id=user.id)
+    db.add(enr)
+    await db.commit()
+    return {"ok": True, "already_enrolled": False, "title": course.title}
 
 
 @router.get("/enrolled", response_model=List[CourseOut])

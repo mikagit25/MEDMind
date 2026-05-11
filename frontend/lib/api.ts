@@ -609,7 +609,14 @@ export const trackArticleView = (slug: string): void => {
 // ============================================================
 export const studentCoursesApi = {
   getEnrolled: () => api.get("/courses/enrolled").then(r => r.data),
+  discover: (params?: { specialty?: string; difficulty?: string }) =>
+    api.get("/courses/discover", { params }).then(r => r.data),
   join: (invite_code: string) => api.post("/courses/join", { invite_code }).then(r => r.data),
+  joinById: (courseId: string) => api.post("/courses/join-open", { course_id: courseId }).then(r => r.data),
+  requestAccess: (courseId: string, message?: string) =>
+    api.post(`/courses/${courseId}/request-access`, { message: message ?? "" }).then(r => r.data),
+  getRequestStatus: (courseId: string) =>
+    api.get(`/courses/${courseId}/request-status`).then(r => r.data),
   getProgress: (courseId: string) => api.get(`/courses/${courseId}/my-progress`).then(r => r.data),
   getLeaderboard: (courseId: string) => api.get(`/courses/${courseId}/leaderboard`).then(r => r.data),
   leave: (courseId: string) => api.delete(`/courses/${courseId}/leave`).then(r => r.data),
