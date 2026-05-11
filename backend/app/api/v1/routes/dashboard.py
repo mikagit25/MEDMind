@@ -23,38 +23,31 @@ router = APIRouter(tags=["dashboard"])
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 async def _base_stats(user: User, db: AsyncSession) -> Dict[str, Any]:
-    """Shared stats used by all dashboard roles."""
-    # Lessons completed
-    prog_rows = (await db.execute(
-        select(UserProgress).where(UserProgress.user_id == user.id)
-    )).scalars().all()
+    """Shared stats — single-pass aggregation to avoid N+1 queries."""
+    from sqlalchemy import text as sql_text
 
-    lessons_done = sum(len(p.lessons_completed or []) for p in prog_rows)
-    modules_started = len(prog_rows)
-
-    # Due flashcards
-    due_count = (await db.execute(
-        select(func.count(FlashcardReview.flashcard_id)).where(
-            FlashcardReview.user_id == user.id,
-            FlashcardReview.next_review_at <= datetime.utcnow(),
-        )
-    )).scalar() or 0
-
-    # Achievements count
-    ach_count = (await db.execute(
-        select(func.count(UserAchievement.id)).where(
-            UserAchievement.user_id == user.id
-        )
-    )).scalar() or 0
+    row = (await db.execute(sql_text("""
+        SELECT
+            COALESCE((
+                SELECT SUM(jsonb_array_length(lessons_completed))
+                FROM user_progress WHERE user_id = :uid
+                  AND lessons_completed IS NOT NULL
+                  AND jsonb_typeof(lessons_completed) = 'array'
+            ), 0) AS lessons_done,
+            (SELECT COUNT(*) FROM user_progress WHERE user_id = :uid) AS modules_started,
+            (SELECT COUNT(*) FROM flashcard_reviews
+             WHERE user_id = :uid AND next_review_at <= NOW()) AS due_cards,
+            (SELECT COUNT(*) FROM user_achievements WHERE user_id = :uid) AS ach_count
+    """).bindparams(uid=user.id))).one()
 
     return {
         "xp": user.xp,
         "level": user.level,
         "streak_days": user.streak_days or 0,
-        "lessons_completed": lessons_done,
-        "modules_started": modules_started,
-        "flashcards_due": due_count,
-        "achievements_count": ach_count,
+        "lessons_completed": int(row.lessons_done),
+        "modules_started": int(row.modules_started),
+        "flashcards_due": int(row.due_cards),
+        "achievements_count": int(row.ach_count),
     }
 
 

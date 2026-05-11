@@ -349,9 +349,35 @@ async def route_ai_request(
 
     # Build system prompt
     mode_instruction = SYSTEM_PROMPTS.get(mode, SYSTEM_PROMPTS["tutor"])
+
+    # Adaptive difficulty: tailor depth to user level
+    user_level = getattr(user, "level", 1) or 1
+    user_xp = getattr(user, "xp", 0) or 0
+    if user_level <= 2 or user_xp < 100:
+        difficulty_hint = (
+            "LEARNER LEVEL: Beginner. Use simple language, avoid heavy jargon, "
+            "define technical terms when first used, give concrete examples."
+        )
+    elif user_level <= 6 or user_xp < 1000:
+        difficulty_hint = (
+            "LEARNER LEVEL: Intermediate. Use standard clinical terminology. "
+            "Assume basic pathophysiology knowledge. Connect concepts to clinical practice."
+        )
+    elif user_level <= 12 or user_xp < 5000:
+        difficulty_hint = (
+            "LEARNER LEVEL: Advanced. Use full medical terminology and abbreviations. "
+            "Discuss mechanisms, nuances, controversies, and recent guideline updates."
+        )
+    else:
+        difficulty_hint = (
+            "LEARNER LEVEL: Expert / Clinician. Engage peer-to-peer. Discuss cutting-edge "
+            "research, subspecialty nuances, diagnostic reasoning, and management edge cases."
+        )
+
     system_prompt = (
         f"You are MedMind AI, an expert medical education assistant specializing in {specialty}.\n\n"
         f"{mode_instruction}\n\n"
+        f"{difficulty_hint}\n\n"
         "Format with markdown headers (###) and bullets. Keep responses educational and precise."
     )
     if memory_context:

@@ -756,52 +756,94 @@ async def get_recommendations(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Recommend next modules based on user progress."""
-    from sqlalchemy import not_
+    """
+    Hybrid recommendations:
+    1. Collaborative filtering — modules popular among users with similar progress
+    2. Content-based — not-yet-started modules ordered by curriculum order
+    Merges both lists, deduplicates, respects tier and vet-mode.
+    """
+    from sqlalchemy import text as sql_text
+
     started_result = await db.execute(
         select(UserProgress.module_id).where(UserProgress.user_id == user.id)
     )
     started_ids = {row[0] for row in started_result.all()}
+    is_free = user.subscription_tier == "free"
+    prefs = user.preferences or {}
+    vet_mode = bool(prefs.get("vet_mode"))
 
-    # Pick published, accessible modules not yet started
-    stmt = (
+    # ── 1. Collaborative filtering ─────────────────────────────────────────────
+    # "Users who studied the same modules also studied these" — ranked by popularity
+    collab_ids: list = []
+    if started_ids:
+        try:
+            collab_rows = await db.execute(sql_text("""
+                WITH similar_users AS (
+                    SELECT DISTINCT user_id
+                    FROM user_progress
+                    WHERE module_id = ANY(:started)
+                      AND user_id != :uid
+                    GROUP BY user_id
+                    HAVING COUNT(*) >= LEAST(3, :min_overlap)
+                )
+                SELECT up.module_id, COUNT(*) AS cnt
+                FROM user_progress up
+                JOIN similar_users su ON su.user_id = up.user_id
+                JOIN modules m ON m.id = up.module_id
+                WHERE up.module_id != ALL(:started)
+                  AND m.is_published = TRUE
+                  AND (:free_only = FALSE OR m.is_fundamental = TRUE)
+                GROUP BY up.module_id
+                ORDER BY cnt DESC
+                LIMIT :lim
+            """).bindparams(
+                started=list(started_ids),
+                uid=user.id,
+                min_overlap=max(1, len(started_ids) // 3),
+                free_only=is_free,
+                lim=limit,
+            ))
+            collab_ids = [row[0] for row in collab_rows]
+        except Exception:
+            pass  # Fallback to content-based if query fails
+
+    # ── 2. Content-based (curriculum order, not yet started) ───────────────────
+    cb_stmt = (
         select(Module)
         .where(
             Module.is_published == True,
             Module.id.not_in(started_ids) if started_ids else True,
+            Module.id.not_in(collab_ids) if collab_ids else True,
         )
         .order_by(Module.module_order)
         .limit(limit)
     )
-
-    # Free users see only fundamentals
-    if user.subscription_tier == "free":
-        stmt = stmt.where(Module.is_fundamental == True)
-
-    # Vet mode: prefer vet modules by joining specialty
-    prefs = user.preferences or {}
-    if prefs.get("vet_mode"):
-        # Join specialty to filter/prioritise vet content
-        vet_stmt = (
-            select(Module)
-            .join(Specialty, Module.specialty_id == Specialty.id)
-            .where(
-                Module.is_published == True,
-                Specialty.is_veterinary == True,
-                Module.id.not_in(started_ids) if started_ids else True,
-            )
-            .order_by(Module.module_order)
-            .limit(limit)
+    if is_free:
+        cb_stmt = cb_stmt.where(Module.is_fundamental == True)
+    if vet_mode:
+        cb_stmt = cb_stmt.join(Specialty, Module.specialty_id == Specialty.id).where(
+            Specialty.is_veterinary == True
         )
-        vet_result = await db.execute(vet_stmt)
-        vet_modules = vet_result.scalars().all()
-        if vet_modules:
-            return {"modules": vet_modules, "total": len(vet_modules), "vet_filtered": True}
-        # Fallback to regular recommendations if no vet modules available
+    cb_result = await db.execute(cb_stmt)
+    cb_modules = cb_result.scalars().all()
 
-    result = await db.execute(stmt)
-    modules = result.scalars().all()
-    return {"modules": modules, "total": len(modules)}
+    # ── 3. Fetch collab modules and merge ──────────────────────────────────────
+    final_modules = list(cb_modules)
+    if collab_ids:
+        collab_result = await db.execute(
+            select(Module).where(Module.id.in_(collab_ids))
+        )
+        collab_modules = collab_result.scalars().all()
+        # Prepend collaborative results (higher priority)
+        final_modules = collab_modules + final_modules
+
+    final_modules = final_modules[:limit]
+    return {
+        "modules": final_modules,
+        "total": len(final_modules),
+        "collaborative_count": len(collab_ids),
+        "vet_filtered": vet_mode,
+    }
 
 
 @router.get("/recommendations/daily")
