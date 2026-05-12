@@ -486,6 +486,95 @@ async def article_available_locales(slug: str, db: AsyncSession = Depends(get_db
     return {"slug": slug, "locales": list(rows)}
 
 
+@router.get("/{slug}/quiz")
+async def article_quiz(slug: str, db: AsyncSession = Depends(get_db)):
+    """
+    Generate 5 USMLE-style MCQ questions for an article.
+    Results are cached in Redis for 24 h so Claude is called at most once per article.
+    No authentication required — public endpoint.
+    """
+    from app.core.cache import get_cached, set_cached
+    import json as _json
+
+    cache_key = f"article_quiz:{slug}"
+    cached = await get_cached(cache_key)
+    if cached:
+        return cached
+
+    article = (await db.execute(
+        select(Article).where(Article.slug == slug, Article.is_published == True)
+    )).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    # Build plain-text summary from body blocks (limit for token budget)
+    blocks = article.body or []
+    lines: list[str] = [f"Title: {article.title}", f"Summary: {article.excerpt}"]
+    for block in blocks:
+        btype = block.get("type", "")
+        if btype == "h2":
+            lines.append(f"\n## {block.get('content','')}")
+        elif btype == "p":
+            lines.append(block.get("content", "")[:600])
+        elif btype == "ul":
+            for item in (block.get("items") or [])[:4]:
+                lines.append(f"- {item}")
+        if len("\n".join(lines)) > 4000:
+            break
+    article_text = "\n".join(lines)[:4500]
+
+    prompt = f"""You are a medical educator writing USMLE-style multiple-choice questions.
+
+Based on the article below, generate exactly 5 high-quality MCQ questions.
+Rules:
+- Each question must have 4 options labeled A, B, C, D
+- Exactly one option is correct
+- Questions should test clinical reasoning, not just memorization
+- Mix difficulty: 2 easy, 2 medium, 1 hard
+- Explanation must be 1-2 sentences citing the key concept from the article
+
+Respond with ONLY valid JSON, no other text:
+{{
+  "questions": [
+    {{
+      "question": "Clinical scenario or direct question...",
+      "options": {{"A": "...", "B": "...", "C": "...", "D": "..."}},
+      "correct": "A",
+      "explanation": "A is correct because...",
+      "difficulty": "easy"
+    }}
+  ]
+}}
+
+ARTICLE:
+{article_text}"""
+
+    try:
+        import anthropic as _anthropic
+        from app.core.config import settings as _s
+        client = _anthropic.AsyncAnthropic(api_key=_s.ANTHROPIC_API_KEY)
+        msg = await client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2048,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = msg.content[0].text.strip()
+        # Strip markdown fences if present
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        data = _json.loads(raw)
+        questions = data.get("questions", [])[:5]
+    except Exception as e:
+        logger.error("Quiz generation failed for %s: %s", slug, e)
+        raise HTTPException(status_code=503, detail="Quiz generation temporarily unavailable")
+
+    result = {"slug": slug, "title": article.title, "questions": questions}
+    await set_cached(cache_key, result, ttl=86400)  # cache 24 h
+    return result
+
+
 # NOTE: /my and /admin routes MUST be defined before /{slug} so FastAPI
 # matches them before the wildcard slug pattern (first-match wins).
 

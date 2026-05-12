@@ -8,6 +8,7 @@ import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ArticleAudioPlayer } from "@/components/ui/ArticleAudioPlayer";
 import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { ArticleReadTracker } from "@/components/ui/ArticleReadTracker";
+import { ArticleQuiz } from "@/components/ui/ArticleQuiz";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -606,6 +607,9 @@ export default async function ArticlePage({
               </div>
             </div>
           )}
+
+          {/* Quiz */}
+          <ArticleQuiz slug={article.slug} />
 
           {/* FAQ */}
           {article.faq?.length > 0 && (
