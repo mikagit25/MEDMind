@@ -178,7 +178,6 @@ async def run(limit: int, dry_run: bool):
             log(f"  [DRY] {img.get('title','?')[:60]}  [{img.get('modality','')}]")
         return
 
-    access_token = get_access_token()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     success = 0
@@ -210,6 +209,8 @@ async def run(limit: int, dry_run: bool):
                 + CHANNEL_DESC_SUFFIX
             )
 
+            # Refresh token before each upload
+            access_token = get_access_token()
             video_id = upload_short(mp4, yt_title, yt_desc, access_token)
 
             if video_id:

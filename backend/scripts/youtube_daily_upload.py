@@ -123,7 +123,6 @@ async def run(limit: int, dry_run: bool):
             log(f"  [DRY] Would upload: {a['slug']}  [{a['category']}]")
         return
 
-    access_token, _ = get_valid_token()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     success = 0
@@ -135,6 +134,9 @@ async def run(limit: int, dry_run: bool):
         log(f"\n[{i}/{len(queue)}] {slug}  [{category}]")
         if playlist_id:
             log(f"  → Playlist: {playlist_id}")
+
+        # Refresh token before each upload — sessions can exceed 1 hour
+        access_token, _ = get_valid_token()
 
         try:
             video_id = await process_one(
