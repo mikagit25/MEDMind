@@ -321,15 +321,28 @@ def main():
     else:
         articles = fetch_articles(limit=200, lang=args.lang)
 
-    # Filter already published
-    queue = []
-    for a in articles:
-        track_key = f"{key_prefix}:{a['slug']}"
-        if not args.force and track_key in published:
-            continue
-        queue.append(a)
-        if len(queue) >= args.limit:
-            break
+    # Category priority — human medicine first, veterinary last
+    PRIORITY = ["cardiology","neurology","diseases","emergency","surgery",
+                "internal-medicine","pharmacology","drugs","oncology",
+                "pediatrics","ob-gyn","psychiatry","endocrinology",
+                "infectious-diseases","hematology","nephrology","pulmonology",
+                "orthopedics","rheumatology","ophthalmology","ent","urology",
+                "geriatrics","diagnostics","procedures","symptoms","nutrition",
+                "dermatology","anatomy","veterinary"]
+
+    def cat_priority(a: dict) -> int:
+        cat = a.get("category", "")
+        try:
+            return PRIORITY.index(cat)
+        except ValueError:
+            return 50
+
+    unpublished = [
+        a for a in articles
+        if args.force or f"{key_prefix}:{a['slug']}" not in published
+    ]
+    unpublished.sort(key=cat_priority)
+    queue = unpublished[:args.limit]
 
     if not queue:
         print(f"  ✅ Nothing new to publish (all {len(published)} articles already sent)")
