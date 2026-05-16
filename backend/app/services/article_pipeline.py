@@ -128,6 +128,48 @@ Return ONLY valid JSON (no markdown code fences):
         raise
 
 
+def _gtranslate(text: str, locale: str) -> str:
+    """Google Translate free API. Returns translated text or original on error."""
+    import urllib.request, urllib.parse, json as _json
+    if not text or not text.strip():
+        return text
+    try:
+        url = (
+            "https://translate.googleapis.com/translate_a/single"
+            "?client=gtx&sl=en&tl=" + locale
+            + "&dt=t&q=" + urllib.parse.quote(text[:4500])
+        )
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = _json.loads(resp.read())
+        return "".join(part[0] for part in data[0] if part[0])
+    except Exception:
+        return text
+
+
+def _translate_blocks(blocks: list, locale: str) -> list:
+    """Translate all article body blocks using Google Translate."""
+    import time
+    result = []
+    for block in blocks:
+        btype = block.get("type", "")
+        nb = dict(block)
+        if btype in ("h2", "h3", "p", "callout"):
+            if block.get("content"):
+                nb["content"] = _gtranslate(block["content"], locale)
+                time.sleep(0.25)
+        elif btype == "ul":
+            items = block.get("items", [])
+            nb["items"] = [_gtranslate(it, locale) for it in items]
+            time.sleep(0.1 * len(items))
+        elif btype == "table":
+            nb["headers"] = [_gtranslate(h, locale) for h in block.get("headers", [])]
+            nb["rows"]    = [[_gtranslate(c, locale) for c in row] for row in block.get("rows", [])]
+            time.sleep(0.3)
+        result.append(nb)
+    return result
+
+
 async def _translate_article(
     title: str,
     excerpt: str,
@@ -135,49 +177,15 @@ async def _translate_article(
     teaching_points: list,
     locale: str,
 ) -> dict:
-    """Translate key fields to target locale using Claude haiku."""
-    from app.core.config import settings
-    import anthropic, json
+    """Translate article to locale using Google Translate (free, no API quota)."""
+    import asyncio
+    loop = asyncio.get_event_loop()
 
-    LANG_NAMES = {
-        "ru": "Russian", "de": "German", "fr": "French",
-        "es": "Spanish", "tr": "Turkish", "ar": "Arabic",
-    }
-    lang = LANG_NAMES.get(locale, locale)
+    tr_title   = await loop.run_in_executor(None, _gtranslate, title,   locale)
+    tr_excerpt = await loop.run_in_executor(None, _gtranslate, excerpt, locale)
+    tr_body    = await loop.run_in_executor(None, _translate_blocks, body_blocks, locale)
 
-    client = anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY, timeout=45)
-
-    # Build translatable content
-    body_text = "\n".join(
-        b.get("content", "") or " | ".join(b.get("items", []))
-        for b in body_blocks[:6]  # first 6 blocks for excerpt
-    )[:3000]
-
-    prompt = f"""Translate the following medical content to {lang}.
-Preserve all medical terminology accurately. Keep proper nouns (drug names, procedures) as-is.
-Return ONLY valid JSON:
-{{
-  "title": "translated title",
-  "excerpt": "translated excerpt",
-  "body_preview": "translated first 3 paragraphs"
-}}
-
-Title: {title}
-Excerpt: {excerpt}
-Body: {body_text}"""
-
-    msg = await client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=1200,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    raw = msg.content[0].text.strip()
-    raw = re.sub(r"^```(?:json)?\s*", "", raw)
-    raw = re.sub(r"\s*```$", "", raw)
-    try:
-        return json.loads(raw)
-    except Exception:
-        return {"title": title, "excerpt": excerpt, "body_preview": ""}
+    return {"title": tr_title, "excerpt": tr_excerpt, "body": tr_body}
 
 
 async def run_pipeline(
@@ -274,7 +282,7 @@ async def run_pipeline(
                     locale=loc,
                     title=tr.get("title", title),
                     excerpt=tr.get("excerpt", excerpt),
-                    body=body,  # full body translation via background job
+                    body=tr.get("body", body),  # full translated body from Google Translate
                     status="done",
                 ))
         await db.commit()
