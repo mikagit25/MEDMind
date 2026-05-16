@@ -147,8 +147,8 @@ def fetch_articles(limit: int = 100, lang: str = "en") -> list[dict]:
 
 
 def fetch_article_detail(slug: str, lang: str = "en") -> dict | None:
-    """Fetch full article with body for key point extraction."""
-    params = {} if lang == "en" else {"locale": lang, "lang": lang}
+    """Fetch full article with body. locale= returns translated title/excerpt."""
+    params = {} if lang == "en" else {"locale": lang}
     try:
         r = httpx.get(f"{API_URL}/articles/{slug}", params=params, timeout=15)
         if r.status_code == 200:
@@ -171,6 +171,25 @@ def extract_key_points(body: list, max_points: int = 4) -> list[str]:
     return points
 
 
+def gtranslate(text: str, locale: str) -> str:
+    """Translate text via Google Translate free API."""
+    import urllib.parse, urllib.request, json as _json
+    if not text or locale == "en":
+        return text
+    try:
+        url = (
+            "https://translate.googleapis.com/translate_a/single"
+            "?client=gtx&sl=en&tl=" + locale
+            + "&dt=t&q=" + urllib.parse.quote(text[:500])
+        )
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = _json.loads(resp.read())
+        return "".join(p[0] for p in data[0] if p[0])
+    except Exception:
+        return text
+
+
 # ── Post formatting ────────────────────────────────────────────────────────────
 
 def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
@@ -188,9 +207,13 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
         title   = detail.get("title",   title)
         excerpt = detail.get("excerpt", excerpt)
 
-    # Key points from body sections
+    # Key points from body sections — translate if non-English
     body        = (detail or {}).get("body", [])
-    key_points  = extract_key_points(body, max_points=4)
+    key_points_en = extract_key_points(body, max_points=4)
+    key_points = (
+        key_points_en if lang == "en"
+        else [gtranslate(pt, lang) for pt in key_points_en]
+    )
 
     # Build URL
     if lang == "en":
