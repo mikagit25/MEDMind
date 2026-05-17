@@ -335,7 +335,9 @@ Write a COMPREHENSIVE, AUTHORITATIVE article of 2000-2500 words. Include SPECIFI
 Use EXACTLY these section headings (##):
 
 ## Key Points
-6-8 of the most critical clinical facts — what every physician must know. Be specific: include numbers, doses, criteria, classic associations.
+List 6-8 of the most critical clinical facts as bullet points (use "- " prefix). Each bullet: one specific fact with numbers, doses, criteria, or classic associations. Example:
+- Migraine affects ~15% of the general population, with 3:1 female predominance
+- First-line acute treatment: ibuprofen 400-600 mg or sumatriptan 50-100 mg PO
 
 ## Overview and Epidemiology
 Definition, incidence/prevalence, affected populations, demographics, major risk factors. (200 words)
@@ -356,7 +358,7 @@ First-line therapy with SPECIFIC drug names, doses, duration, monitoring (e.g., 
 Short and long-term complications with incidence rates where known. Prognostic factors. When to refer to specialist. (150-200 words)
 
 ## Clinical Pearls
-5-7 high-yield board-style teaching points: classic associations, what not to miss, common pitfalls, USMLE-style facts.
+List 5-7 high-yield board-style teaching points as bullet points (use "- " prefix). Each bullet: one USMLE-style fact about classic associations, what not to miss, or common pitfalls.
 
 Rules:
 - State facts DIRECTLY — avoid hedging when evidence is clear
@@ -423,7 +425,11 @@ def text_to_blocks(text: str) -> list[dict]:
             heading = stripped[3:].strip()
             blocks.append({"type": "h2", "content": heading})
             in_key_points = "key point" in heading.lower() or "clinical pearl" in heading.lower()
-        elif stripped.startswith(("- ", "• ", "* ")):
+        elif stripped.startswith(("- ", "• ", "* ")) or (
+            in_key_points and len(stripped) > 4 and stripped[0].isdigit()
+            and stripped[1:3] in (". ", ") ")
+        ):
+            # Accept "- ", "• ", "* " bullets AND numbered lists (1. / 1) ) in key-point sections
             flush_buffer()
             bullet_buffer.append(stripped)
         else:
