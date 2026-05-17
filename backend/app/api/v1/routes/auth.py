@@ -158,11 +158,23 @@ async def logout(
 @router.post("/login", response_model=TokenResponse)
 async def login(data: UserLogin, request: Request, db: AsyncSession = Depends(get_db)):
     await check_auth_rate_limit(request)
-    search_hash = email_search_hash(data.email.lower())
+    email_lower = data.email.lower()
+    search_hash = email_search_hash(email_lower)
     result = await db.execute(
         select(User).where(User.email_hash == search_hash, User.is_active == True)
     )
     user = result.scalar_one_or_none()
+
+    # Fallback: plain-text email lookup (accounts registered before encryption was enabled)
+    if not user:
+        result_plain = await db.execute(
+            select(User).where(User.email == email_lower, User.is_active == True)
+        )
+        user = result_plain.scalar_one_or_none()
+        if user:
+            # Migrate email_hash to current algorithm
+            user.email_hash = search_hash
+            await db.commit()
 
     if not user or not user.password_hash or not verify_password(data.password, user.password_hash):
         await record_failed_attempt(request)
@@ -488,13 +500,23 @@ async def google_callback(
     last_name = guser.get("family_name", "")
     avatar_url = guser.get("picture")
 
-    # Upsert user — always search by email_hash (works with encrypted emails too)
+    # Upsert user — search by email_hash first, then plain email fallback
+    # (plain fallback needed for accounts registered before email encryption was enabled)
     _search_hash = email_search_hash(email)
     result = await db.execute(select(User).where(User.email_hash == _search_hash))
     user = result.scalar_one_or_none()
 
     if not user:
-        # New user via Google — create account
+        # Fallback: search by plain-text email (accounts registered without ENCRYPTION_KEY)
+        result_plain = await db.execute(select(User).where(User.email == email))
+        user = result_plain.scalar_one_or_none()
+        if user:
+            # Migrate email_hash to current algorithm
+            user.email_hash = _search_hash
+            await db.commit()
+
+    if not user:
+        # Truly new user — create account
         user = User(
             email=encrypt_email(email),
             email_hash=_search_hash,
@@ -511,9 +533,15 @@ async def google_callback(
             await db.flush()
         except IntegrityError:
             await db.rollback()
-            # Race condition — user was just created, find and use them
+            # Race condition or email already exists with different hash
             result2 = await db.execute(select(User).where(User.email_hash == _search_hash))
             user = result2.scalar_one_or_none()
+            if not user:
+                result3 = await db.execute(select(User).where(User.email == email))
+                user = result3.scalar_one_or_none()
+                if user:
+                    user.email_hash = _search_hash
+                    await db.commit()
             if not user:
                 raise HTTPException(status_code=500, detail="Account creation failed, please try again")
         else:
@@ -522,16 +550,22 @@ async def google_callback(
             db.add(UserConsent(user_id=user.id, consent_type="privacy", version="1.0"))
             await db.commit()
         await db.refresh(user)
-    else:
-        # Existing user — update OAuth info if needed
-        if not user.oauth_provider:
-            user.oauth_provider = "google"
-            user.oauth_id = google_id
-        if avatar_url and not user.avatar_url:
-            user.avatar_url = avatar_url
+
+    # Update OAuth info for all found users (new or existing)
+    needs_commit = False
+    if not user.oauth_provider:
+        user.oauth_provider = "google"
+        user.oauth_id = google_id
+        needs_commit = True
+    if avatar_url and not user.avatar_url:
+        user.avatar_url = avatar_url
+        needs_commit = True
+    if not user.is_verified:
         user.is_verified = True
+        needs_commit = True
+    if needs_commit:
         await db.commit()
-        await db.refresh(user)
+    await db.refresh(user)
 
     # Issue JWT tokens
     access_token = create_access_token(str(user.id))
