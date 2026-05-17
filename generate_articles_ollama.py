@@ -380,17 +380,23 @@ def text_to_blocks(text: str) -> list[dict]:
     bullet_buffer: list[str] = []
     in_key_points = False   # track "Key Points" section for callout
 
+    def clean_md(s: str) -> str:
+        s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)   # **bold**
+        s = re.sub(r"\*(.+?)\*", r"\1", s)         # *italic*
+        s = re.sub(r"\*{1,3}", "", s)               # stray asterisks
+        s = re.sub(r"`(.+?)`", r"\1", s)            # `code`
+        s = re.sub(r"#+\s+", "", s)                 # stray headings inside text
+        return s.strip()
+
     def flush_buffer():
         para = " ".join(buffer).strip()
         if para:
-            clean = re.sub(r"\*\*(.+?)\*\*", r"\1", para)
-            clean = re.sub(r"\*(.+?)\*", r"\1", clean)
-            blocks.append({"type": "p", "content": clean})
+            blocks.append({"type": "p", "content": clean_md(para)})
         buffer.clear()
 
     def flush_bullets():
         if bullet_buffer:
-            items = [re.sub(r"\*\*(.+?)\*\*", r"\1", b.lstrip("-•* ").strip())
+            items = [clean_md(b.lstrip("-•* ").strip())
                      for b in bullet_buffer if b.strip()]
             if in_key_points:
                 # Key Points → callout block (highlighted box)
@@ -422,9 +428,7 @@ def text_to_blocks(text: str) -> list[dict]:
             bullet_buffer.append(stripped)
         else:
             flush_bullets()
-            clean = re.sub(r"\*\*(.+?)\*\*", r"\1", stripped)
-            clean = re.sub(r"\*(.+?)\*", r"\1", clean)
-            buffer.append(clean)
+            buffer.append(clean_md(stripped))
 
     flush_buffer()
     flush_bullets()
