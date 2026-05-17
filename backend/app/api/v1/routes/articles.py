@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import logging
 import mimetypes
+import re as _re
 import uuid as _uuid
 from datetime import datetime
 from pathlib import Path
@@ -549,25 +550,57 @@ Respond with ONLY valid JSON, no other text:
 ARTICLE:
 {article_text}"""
 
+    questions = None
+
+    # Try Claude first
     try:
         import anthropic as _anthropic
         from app.core.config import settings as _s
-        client = _anthropic.AsyncAnthropic(api_key=_s.ANTHROPIC_API_KEY)
-        msg = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=2048,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = msg.content[0].text.strip()
-        # Strip markdown fences if present
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        data = _json.loads(raw)
-        questions = data.get("questions", [])[:5]
+        if _s.ANTHROPIC_API_KEY:
+            client = _anthropic.AsyncAnthropic(api_key=_s.ANTHROPIC_API_KEY)
+            msg = await client.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=2048,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            raw = msg.content[0].text.strip()
+            if raw.startswith("```"):
+                raw = raw.split("```")[1]
+                if raw.startswith("json"):
+                    raw = raw[4:]
+            data = _json.loads(raw)
+            questions = data.get("questions", [])[:5]
     except Exception as e:
-        logger.error("Quiz generation failed for %s: %s", slug, e)
+        if "credit" in str(e).lower() or "balance" in str(e).lower() or "402" in str(e):
+            logger.info("Claude API balance depleted, falling back to Ollama for quiz: %s", slug)
+        else:
+            logger.warning("Claude quiz failed for %s: %s", slug, e)
+
+    # Ollama fallback (free, local)
+    if not questions:
+        try:
+            import httpx as _httpx
+            ollama_resp = await _httpx.AsyncClient(timeout=120).post(
+                "http://172.20.0.1:11434/api/chat",
+                json={
+                    "model":   "qwen3:8b",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "stream":  False,
+                    "options": {"temperature": 0.3, "num_predict": 2000},
+                    "think":   False,
+                },
+            )
+            raw = ollama_resp.json().get("message", {}).get("content", "").strip()
+            raw = _re.sub(r"^```(?:json)?\s*", "", raw)
+            raw = _re.sub(r"\s*```$", "", raw)
+            m = _re.search(r"\{.*\}", raw, _re.DOTALL)
+            if m:
+                data = _json.loads(m.group())
+                questions = data.get("questions", [])[:5]
+        except Exception as e2:
+            logger.error("Ollama quiz fallback failed for %s: %s", slug, e2)
+
+    if not questions:
         raise HTTPException(status_code=503, detail="Quiz generation temporarily unavailable")
 
     result = {"slug": slug, "title": article.title, "questions": questions}
