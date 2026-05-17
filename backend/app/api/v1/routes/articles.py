@@ -576,17 +576,17 @@ ARTICLE:
         else:
             logger.warning("Claude quiz failed for %s: %s", slug, e)
 
-    # Ollama fallback (free, local)
+    # Ollama fallback — use 1.7b for faster response (quiz needs ~500 tokens, not 2000)
     if not questions:
         try:
             import httpx as _httpx
-            ollama_resp = await _httpx.AsyncClient(timeout=120).post(
+            ollama_resp = await _httpx.AsyncClient(timeout=180).post(
                 "http://172.20.0.1:11434/api/chat",
                 json={
-                    "model":   "qwen3:8b",
+                    "model":   "qwen3:1.7b",
                     "messages": [{"role": "user", "content": prompt}],
                     "stream":  False,
-                    "options": {"temperature": 0.3, "num_predict": 2000},
+                    "options": {"temperature": 0.3, "num_predict": 1500, "num_ctx": 4096},
                     "think":   False,
                 },
             )
