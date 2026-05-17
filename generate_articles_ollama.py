@@ -490,17 +490,44 @@ def slugify(title: str) -> str:
 
 # ── Database save ──────────────────────────────────────────────────────────────
 
-def save_article(conn, article_id: str, slug: str, title: str, excerpt: str,
-                 body: list, category: str) -> bool:
-    """Insert article into DB. Returns False if slug already exists."""
-    schema_type = SCHEMA_MAP.get(category, "MedicalWebPage")
-    # ~200 words/min reading speed; count all text blocks
+def calc_reading_time(body: list) -> int:
     all_text = " ".join(
         b.get("content", "") or " ".join(b.get("items", []))
         for b in body
         if b.get("type") in ("p", "h2", "h3", "ul", "callout")
     )
-    reading_time = max(5, len(all_text.split()) // 200)
+    return max(5, len(all_text.split()) // 200)
+
+
+def update_article(conn, article_id: str, title: str, excerpt: str,
+                   body: list) -> bool:
+    """Update body/excerpt/reading_time of an existing article by ID."""
+    reading_time = calc_reading_time(body)
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                UPDATE articles
+                   SET title = %s,
+                       excerpt = %s,
+                       body = %s::jsonb,
+                       reading_time_minutes = %s,
+                       updated_at = NOW()
+                 WHERE id = %s
+            """, (title, excerpt, json.dumps(body, ensure_ascii=False),
+                  reading_time, article_id))
+        conn.commit()
+        return True
+    except Exception as e:
+        conn.rollback()
+        log.error("DB update failed for %s: %s", article_id, e)
+        return False
+
+
+def save_article(conn, article_id: str, slug: str, title: str, excerpt: str,
+                 body: list, category: str) -> bool:
+    """Insert article into DB. Returns False if slug already exists."""
+    schema_type = SCHEMA_MAP.get(category, "MedicalWebPage")
+    reading_time = calc_reading_time(body)
     try:
         with conn.cursor() as cur:
             cur.execute("SELECT 1 FROM articles WHERE slug=%s", (slug,))
@@ -578,16 +605,18 @@ def notify_indexnow(slug: str):
 
 def main():
     parser = argparse.ArgumentParser(description="MedMind Ollama Article Generator")
-    parser.add_argument("--limit",    type=int,   default=20,
+    parser.add_argument("--limit",      type=int,   default=20,
                         help="Max articles to generate (default: 20, ~5 hrs overnight)")
-    parser.add_argument("--model",    type=str,   default=OLLAMA_MODEL,
+    parser.add_argument("--model",      type=str,   default=OLLAMA_MODEL,
                         help=f"Ollama model (default: {OLLAMA_MODEL})")
-    parser.add_argument("--category", type=str,   default=None,
+    parser.add_argument("--category",   type=str,   default=None,
                         help="Only this category")
-    parser.add_argument("--dry-run",  action="store_true",
+    parser.add_argument("--dry-run",    action="store_true",
                         help="Show topics without generating")
-    parser.add_argument("--delay",    type=float, default=DELAY,
+    parser.add_argument("--delay",      type=float, default=DELAY,
                         help="Seconds between articles (default: 2)")
+    parser.add_argument("--regenerate", action="store_true",
+                        help="Re-generate existing shallow Ollama articles (reading_time=3)")
     args = parser.parse_args()
 
     log.info("Ollama Article Generator started | model=%s | limit=%d",
@@ -611,6 +640,57 @@ def main():
     errors = 0
     skipped = 0
 
+    # ── Regenerate mode: upgrade shallow Ollama articles ─────────────────────────
+    if args.regenerate:
+        with conn.cursor() as cur:
+            query = """
+                SELECT id, title, category
+                FROM articles
+                WHERE generated_by = 'ollama-qwen3'
+                  AND reading_time_minutes <= 3
+            """
+            params: list = []
+            if args.category:
+                query += " AND category = %s"
+                params.append(args.category)
+            query += " ORDER BY created_at ASC LIMIT %s"
+            params.append(args.limit)
+            cur.execute(query, params)
+            shallow = cur.fetchall()
+
+        log.info("Regenerating %d shallow articles (reading_time=3)", len(shallow))
+        for article_id, title, category in shallow:
+            log.info("[%d/%d] Regenerating: %s", count+1, len(shallow), title[:60])
+            t0   = time.time()
+            data = generate_with_ollama(title, category, args.model)
+            elapsed = time.time() - t0
+
+            if not data or not data.get("body_text"):
+                log.warning("  ✗ Generation failed (%.1fs)", elapsed)
+                errors += 1
+                continue
+
+            new_title   = data.get("title", title)
+            new_excerpt = data.get("excerpt", "")
+            new_body    = text_to_blocks(data["body_text"])
+            log.info("  Generated: '%s' (%.1fs, %d blocks)",
+                     new_title[:60], elapsed, len(new_body))
+
+            if update_article(conn, str(article_id), new_title, new_excerpt, new_body):
+                n_tr = save_translations(conn, str(article_id), new_title, new_excerpt, new_body)
+                rt   = calc_reading_time(new_body)
+                log.info("  ✓ Updated (%d min read) + %d translations", rt, n_tr)
+                notify_indexnow(slugify(new_title))
+                count += 1
+            else:
+                errors += 1
+            time.sleep(args.delay)
+
+        conn.close()
+        log.info("Done. Regenerated: %d | Errors: %d", count, errors)
+        return
+
+    # ── Normal mode: generate new topics ─────────────────────────────────────────
     for category, topics in TOPICS.items():
         if args.category and category != args.category:
             continue
