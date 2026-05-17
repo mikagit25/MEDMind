@@ -398,7 +398,7 @@ function renderBlock(
       return (
         <div key={i} className={`border rounded-lg px-5 py-4 mb-4 ${CALLOUT_STYLES[block.variant] ?? CALLOUT_STYLES.info}`}>
           <span className="mr-2">{CALLOUT_ICONS[block.variant] ?? "ℹ️"}</span>
-          <span className="font-serif text-sm">{block.content}</span>
+          <span className="font-serif text-sm whitespace-pre-wrap">{block.content}</span>
         </div>
       );
     case "table":
