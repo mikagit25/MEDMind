@@ -37,10 +37,10 @@ log = logging.getLogger(__name__)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 OLLAMA_URL  = "http://localhost:11434/api/chat"
-OLLAMA_MODEL = "qwen3:1.7b"   # fast; use qwen3:8b for better quality
+OLLAMA_MODEL = "qwen3:8b"     # quality model — ~14 min/article, worth it
 DB_URL      = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
 LOCALES     = ["ru", "de", "fr", "es", "tr", "ar"]
-DELAY       = 2.0             # seconds between articles
+DELAY       = 3.0             # seconds between articles
 INDEXNOW_KEY = "b58fd85c39a0441e97c1587402e9c9df"
 
 SCHEMA_MAP = {
@@ -325,81 +325,110 @@ def translate_blocks(blocks: list, locale: str) -> list:
 # ── Ollama generation ──────────────────────────────────────────────────────────
 
 ARTICLE_PROMPT = """\
-You are a medical writer creating educational content for medical students and doctors.
-Write a comprehensive, accurate medical article about: {topic}
+You are a senior clinician writing an authoritative medical reference, comparable to UpToDate or StatPearls. Audience: medical students, residents, and practicing physicians who need actionable clinical information.
+
+Topic: {topic}
 Category: {category}
 
-Structure the article with these sections (use ## for headings):
-## Overview
-## Pathophysiology / Mechanism of Action
-## Clinical Features / Indications
-## Diagnosis / Monitoring
-## Treatment / Management
-## Key Clinical Points
+Write a COMPREHENSIVE, AUTHORITATIVE article of 2000-2500 words. Include SPECIFIC clinical details: exact drug doses, diagnostic criteria with numbers, lab thresholds, staging systems, guideline recommendations (AHA/ACC/ESC/WHO/NICE), and evidence-based management algorithms.
 
-Requirements:
-- 650-850 words total
-- Accurate, evidence-based medical content
-- Include specific details: dosages, criteria, lab values where relevant
-- Professional tone for healthcare professionals and students
-- Do NOT include references or citations
+Use EXACTLY these section headings (##):
 
-Return ONLY valid JSON, no other text:
+## Key Points
+6-8 of the most critical clinical facts — what every physician must know. Be specific: include numbers, doses, criteria, classic associations.
+
+## Overview and Epidemiology
+Definition, incidence/prevalence, affected populations, demographics, major risk factors. (200 words)
+
+## Pathophysiology
+Underlying mechanisms, molecular and cellular basis, disease progression, why symptoms occur. (250-350 words)
+
+## Clinical Presentation
+Symptoms, physical signs, typical vs atypical presentations, red flags requiring urgent attention. (200-250 words)
+
+## Diagnosis
+Diagnostic criteria with SPECIFIC values (e.g., "HbA1c ≥ 6.5%"), laboratory workup, imaging findings, differential diagnosis, validated scoring systems (e.g., Wells score, CURB-65). (200-300 words)
+
+## Management and Treatment
+First-line therapy with SPECIFIC drug names, doses, duration, monitoring (e.g., "metoprolol succinate 25-200 mg once daily, titrate every 2 weeks"). Second-line and adjunct options. Special populations: pregnancy, CKD, elderly, hepatic impairment. Reference major guidelines. (400-500 words)
+
+## Complications and Prognosis
+Short and long-term complications with incidence rates where known. Prognostic factors. When to refer to specialist. (150-200 words)
+
+## Clinical Pearls
+5-7 high-yield board-style teaching points: classic associations, what not to miss, common pitfalls, USMLE-style facts.
+
+Rules:
+- State facts DIRECTLY — avoid hedging when evidence is clear
+- Use precise numbers throughout: doses in mg/kg, lab values with units, timeframes in hours/days/weeks
+- Do NOT write a references section
+- Write complete, full-length sections — do not abbreviate
+
+Return ONLY valid JSON (no markdown fences):
 {{
-  "title": "clear clinical title (max 80 chars)",
-  "excerpt": "2-sentence clinical summary for medical professionals",
-  "body_text": "full article text with ## section headings"
+  "title": "Authoritative clinical title, max 85 chars",
+  "excerpt": "3 sentences covering: clinical significance, key mechanism, main management approach",
+  "body_text": "Full 2000-2500 word article with ALL 8 ## sections above"
 }}"""
 
 
 def text_to_blocks(text: str) -> list[dict]:
-    """Convert markdown-style article text to body blocks."""
-    blocks = []
-    lines  = text.strip().split("\n")
-    buffer = []
+    """Convert markdown article text to structured body blocks."""
+    blocks  = []
+    lines   = text.strip().split("\n")
+    buffer: list[str] = []
+    bullet_buffer: list[str] = []
+    in_key_points = False   # track "Key Points" section for callout
 
     def flush_buffer():
         para = " ".join(buffer).strip()
         if para:
-            # Detect bullet lists
-            if para.startswith(("- ", "• ", "* ")):
-                items = [l.lstrip("-•* ").strip()
-                         for l in para.split("\n") if l.strip()]
-                blocks.append({"type": "ul", "items": items})
-            else:
-                blocks.append({"type": "p", "content": para})
+            clean = re.sub(r"\*\*(.+?)\*\*", r"\1", para)
+            clean = re.sub(r"\*(.+?)\*", r"\1", clean)
+            blocks.append({"type": "p", "content": clean})
         buffer.clear()
+
+    def flush_bullets():
+        if bullet_buffer:
+            items = [re.sub(r"\*\*(.+?)\*\*", r"\1", b.lstrip("-•* ").strip())
+                     for b in bullet_buffer if b.strip()]
+            if in_key_points:
+                # Key Points → callout block (highlighted box)
+                blocks.append({
+                    "type":    "callout",
+                    "variant": "info",
+                    "content": "\n".join(f"• {it}" for it in items)
+                })
+            else:
+                blocks.append({"type": "ul", "items": items})
+            bullet_buffer.clear()
 
     for line in lines:
         stripped = line.strip()
         if not stripped:
             flush_buffer()
+            flush_bullets()
         elif stripped.startswith("### "):
-            flush_buffer()
+            flush_buffer(); flush_bullets()
             blocks.append({"type": "h3", "content": stripped[4:].strip()})
+            in_key_points = False
         elif stripped.startswith("## "):
-            flush_buffer()
-            blocks.append({"type": "h2", "content": stripped[3:].strip()})
+            flush_buffer(); flush_bullets()
+            heading = stripped[3:].strip()
+            blocks.append({"type": "h2", "content": heading})
+            in_key_points = "key point" in heading.lower() or "clinical pearl" in heading.lower()
         elif stripped.startswith(("- ", "• ", "* ")):
             flush_buffer()
-            buffer.append(stripped)
+            bullet_buffer.append(stripped)
         else:
-            # Remove markdown bold/italic
+            flush_bullets()
             clean = re.sub(r"\*\*(.+?)\*\*", r"\1", stripped)
             clean = re.sub(r"\*(.+?)\*", r"\1", clean)
             buffer.append(clean)
 
     flush_buffer()
-
-    # Merge consecutive bullet items into one ul block
-    merged = []
-    for block in blocks:
-        if (merged and merged[-1]["type"] == "ul"
-                and block["type"] == "ul"):
-            merged[-1]["items"].extend(block["items"])
-        else:
-            merged.append(block)
-    return merged
+    flush_bullets()
+    return blocks
 
 
 def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
@@ -413,14 +442,15 @@ def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
                 "messages": [{"role": "user", "content": prompt}],
                 "stream":   False,
                 "options":  {
-                    "temperature": 0.35,
-                    "num_predict": 1800,
-                    "num_ctx":     4096,
-                    "top_p":       0.9,
+                    "temperature": 0.25,   # lower = more factual, less hallucination
+                    "num_predict": 4500,   # ~2500 words output
+                    "num_ctx":     8192,   # large context for detailed prompt + long output
+                    "top_p":       0.85,
+                    "repeat_penalty": 1.1, # reduce repetition in long articles
                 },
                 "think": False,
             },
-            timeout=300,
+            timeout=900,   # 15 min max per article
         )
         if resp.status_code != 200:
             log.error("Ollama error %s: %s", resp.status_code, resp.text[:200])
@@ -464,9 +494,13 @@ def save_article(conn, article_id: str, slug: str, title: str, excerpt: str,
                  body: list, category: str) -> bool:
     """Insert article into DB. Returns False if slug already exists."""
     schema_type = SCHEMA_MAP.get(category, "MedicalWebPage")
-    reading_time = max(3, len(" ".join(
-        b.get("content", "") for b in body if b.get("type") == "p"
-    ).split()) // 200)
+    # ~200 words/min reading speed; count all text blocks
+    all_text = " ".join(
+        b.get("content", "") or " ".join(b.get("items", []))
+        for b in body
+        if b.get("type") in ("p", "h2", "h3", "ul", "callout")
+    )
+    reading_time = max(5, len(all_text.split()) // 200)
     try:
         with conn.cursor() as cur:
             cur.execute("SELECT 1 FROM articles WHERE slug=%s", (slug,))
@@ -544,8 +578,8 @@ def notify_indexnow(slug: str):
 
 def main():
     parser = argparse.ArgumentParser(description="MedMind Ollama Article Generator")
-    parser.add_argument("--limit",    type=int,   default=50,
-                        help="Max articles to generate (default: 50)")
+    parser.add_argument("--limit",    type=int,   default=20,
+                        help="Max articles to generate (default: 20, ~5 hrs overnight)")
     parser.add_argument("--model",    type=str,   default=OLLAMA_MODEL,
                         help=f"Ollama model (default: {OLLAMA_MODEL})")
     parser.add_argument("--category", type=str,   default=None,
