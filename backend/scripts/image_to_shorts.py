@@ -140,21 +140,67 @@ def _get_anthropic_key() -> str:
         return ""
 
 
+def _generate_script_fallback(image_info: dict) -> dict:
+    """Template-based script generation — no API required."""
+    title       = image_info.get("title", "Medical Image")
+    description = (image_info.get("description") or "").strip()
+    modality    = image_info.get("modality", "")
+    specialty   = image_info.get("specialty", "")
+
+    display_title = title[:48]
+
+    context = f"{modality} image" if modality else "medical image"
+    if specialty:
+        context += f" from {specialty}"
+
+    desc_short = description[:200] if description else "an important clinical finding"
+    spoken_text = (
+        f"Here's a {context}: {title}. "
+        f"{desc_short} "
+        f"Understanding this helps clinicians make accurate diagnoses. "
+        f"Follow MedMind AI for more medical education."
+    )
+    spoken_text = spoken_text[:400]
+
+    def trunc(s: str, n: int) -> str:
+        return (s[:n-1] + "…") if len(s) > n else s
+
+    if description:
+        sentences = [s.strip() for s in description.split(".") if len(s.strip()) > 10]
+        key_points = [trunc(s, 38) for s in sentences[:3]]
+    else:
+        key_points = []
+    if len(key_points) < 4:
+        key_points.append(f"{specialty or 'Clinical'} significance")
+
+    yt_title  = trunc(f"🔬 {title} #Shorts", 65)
+    yt_desc   = (
+        f"Learn about {title} in this quick medical education Short. "
+        f"{desc_short[:120] if description else 'Visual clinical reference for medical students and professionals.'}"
+        f"\n\n🔗 Full library: https://medmind.pro/articles\n"
+        f"#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts"
+    )
+    return {
+        "display_title":       display_title,
+        "spoken_text":         spoken_text,
+        "key_points":          key_points[:4],
+        "youtube_title":       yt_title,
+        "youtube_description": yt_desc,
+    }
+
+
 async def generate_script(image_info: dict) -> dict | None:
-    """Call Claude Haiku to generate narration + key points for the image."""
-    import anthropic as _ant
-
-    api_key = _get_anthropic_key()
-    if not api_key:
-        print("  ❌ ANTHROPIC_API_KEY not found")
-        return None
-
+    """Generate narration + key points. Tries Claude first, falls back to template."""
     title       = image_info.get("title", "")[:200]
     description = (image_info.get("description") or "")[:600]
     modality    = image_info.get("modality", "")
     specialty   = image_info.get("specialty", "")
 
-    prompt = f"""You are creating a 30-second YouTube Shorts script about a medical image.
+    api_key = _get_anthropic_key()
+    if api_key:
+        try:
+            import anthropic as _ant
+            prompt = f"""You are creating a 30-second YouTube Shorts script about a medical image.
 
 Image details:
 Title: {title}
@@ -174,22 +220,25 @@ Generate educational content. Return ONLY valid JSON, no other text:
   "youtube_title": "Engaging title with 1 emoji, max 65 chars, include #Shorts",
   "youtube_description": "2 sentences explaining what viewers will learn. End with: \\n\\n🔗 Full library: https://medmind.pro/articles\\n#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts"
 }}"""
+            client = _ant.AsyncAnthropic(api_key=api_key)
+            msg    = await client.messages.create(
+                model      = "claude-haiku-4-5-20251001",
+                max_tokens = 600,
+                messages   = [{"role": "user", "content": prompt}],
+            )
+            raw = msg.content[0].text.strip()
+            if raw.startswith("```"):
+                raw = raw.split("```")[1]
+                if raw.startswith("json"): raw = raw[4:]
+            return json.loads(raw)
+        except Exception as e:
+            if "credit" in str(e).lower() or "balance" in str(e).lower():
+                print(f"  ⚠️  Claude API unavailable (no credits) — using template")
+            else:
+                print(f"  ⚠️  Claude failed ({e}) — using template")
 
-    try:
-        client = _ant.AsyncAnthropic(api_key=api_key)
-        msg    = await client.messages.create(
-            model      = "claude-haiku-4-5-20251001",
-            max_tokens = 600,
-            messages   = [{"role": "user", "content": prompt}],
-        )
-        raw = msg.content[0].text.strip()
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"): raw = raw[4:]
-        return json.loads(raw)
-    except Exception as e:
-        print(f"  ❌ Script generation failed: {e}")
-        return None
+    print(f"  📋 Using template script")
+    return _generate_script_fallback(image_info)
 
 
 # ── Edge TTS ───────────────────────────────────────────────────────────────────
