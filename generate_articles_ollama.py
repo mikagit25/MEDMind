@@ -35,6 +35,12 @@ from psycopg2.extras import Json
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
+try:
+    from generate_og_image import generate_og_image as _gen_og_image
+    _HAS_OG = True
+except ImportError:
+    _HAS_OG = False
+
 # ── Config ─────────────────────────────────────────────────────────────────────
 OLLAMA_URL  = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "qwen3:8b"     # quality model — ~14 min/article, worth it
@@ -690,7 +696,13 @@ def main():
                 n_tr = save_translations(conn, str(article_id), new_title, new_excerpt, new_body)
                 rt   = calc_reading_time(new_body)
                 log.info("  ✓ Updated (%d min read) + %d translations", rt, n_tr)
-                notify_indexnow(slugify(new_title))
+                new_slug = slugify(new_title)
+                if _HAS_OG:
+                    try:
+                        _gen_og_image(new_slug, new_title, category, rt, force=True)
+                    except Exception:
+                        pass
+                notify_indexnow(new_slug)
                 count += 1
             else:
                 errors += 1
@@ -753,6 +765,15 @@ def main():
             # Translate all 6 locales
             n_tr = save_translations(conn, article_id, title, excerpt, body)
             log.info("  ✓ Published + %d translations | %s", n_tr, slug)
+
+            # Generate OG image for Telegram/social sharing
+            if _HAS_OG:
+                try:
+                    rt = calc_reading_time(body)
+                    _gen_og_image(slug, title, category, rt)
+                    log.info("  🖼  OG image generated")
+                except Exception as e:
+                    log.warning("  OG image failed: %s", e)
 
             # Notify search engines
             notify_indexnow(slug)

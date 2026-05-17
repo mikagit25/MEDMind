@@ -26,6 +26,29 @@ from pathlib import Path
 
 import httpx
 
+sys.path.insert(0, "/opt/medmind")
+try:
+    from generate_og_image import generate_og_image as _gen_og
+    _HAS_OG = True
+except ImportError:
+    _HAS_OG = False
+
+
+def _make_og_image(article: dict, detail: dict | None) -> str:
+    """Generate (or return existing) OG image URL for the article."""
+    if not _HAS_OG:
+        return ""
+    slug     = article.get("slug", "")
+    title    = (detail or article).get("title", slug)
+    category = article.get("category", "diseases")
+    rt       = article.get("reading_time_minutes", 8)
+    try:
+        return _gen_og(slug, title, category, rt)
+    except Exception as e:
+        print(f"  ⚠️  OG image failed: {e}")
+        return ""
+
+
 # ── Config ─────────────────────────────────────────────────────────────────────
 BOT_TOKEN      = os.environ.get("TG_BOT_TOKEN",
                  "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk")
@@ -390,13 +413,17 @@ def main():
             print("  ─────────────────────────────────────────")
             continue
 
-        # Try to send with image first
-        sent = None
-        img_url = (detail or {}).get("og_image") or ""
-        if img_url and img_url.startswith("http"):
-            sent = send_photo_message(channel, img_url, post_text[:1024])
+        # Generate OG image if not yet created
+        og_img_path = Path(f"/var/lib/docker/volumes/medmind_media_data/_data/og/{slug}.jpg")
+        if og_img_path.exists():
+            img_url = f"https://medmind.pro/media/og/{slug}.jpg"
+        else:
+            img_url = _make_og_image(article, detail)
 
-        # Fallback to text post
+        # Send with image, fallback to text
+        sent = None
+        if img_url:
+            sent = send_photo_message(channel, img_url, post_text[:1024])
         if not sent:
             sent = send_message(channel, post_text)
 
