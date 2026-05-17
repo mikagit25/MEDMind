@@ -26,7 +26,7 @@ from psycopg2.extras import execute_values
 
 DB_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://medmind:medmind_secret@postgres:5432/medmind"
+    "postgresql://medmind:medmind_secret@localhost:5432/medmind"
 ).replace("postgresql+asyncpg://", "postgresql://")
 
 LOCALES = ["ru", "de", "fr", "es", "tr", "ar"]
