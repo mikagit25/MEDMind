@@ -514,6 +514,7 @@ async def google_callback(
             # Migrate email_hash to current algorithm
             user.email_hash = _search_hash
             await db.commit()
+            await db.refresh(user)  # refresh after commit to avoid expired-attribute access
 
     if not user:
         # Truly new user — create account
@@ -542,6 +543,7 @@ async def google_callback(
                 if user:
                     user.email_hash = _search_hash
                     await db.commit()
+                    await db.refresh(user)
             if not user:
                 raise HTTPException(status_code=500, detail="Account creation failed, please try again")
         else:
