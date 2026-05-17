@@ -52,6 +52,7 @@ type ArticleDetail = {
   excerpt: string;
   og_title: string | null;
   og_description: string | null;
+  og_image: string | null;
   category: string;
   subcategory: string | null;
   keywords: string[];
@@ -211,11 +212,15 @@ export async function generateMetadata({
       publishedTime: article.published_at ?? undefined,
       section: getCategoryLabel(article.category, locale),
       tags: article.keywords,
+      ...(article.og_image ? {
+        images: [{ url: article.og_image, width: 1200, height: 630, alt: title }],
+      } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      ...(article.og_image ? { images: [article.og_image] } : {}),
     },
   };
 }

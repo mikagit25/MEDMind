@@ -152,6 +152,15 @@ def _list_item(a: Article) -> dict:
     }
 
 
+def _og_image_url(slug: str) -> str | None:
+    """Return OG image URL if the file exists on disk."""
+    from pathlib import Path as _Path
+    p = _Path(f"/app/data/media/og/{slug}.jpg")
+    if p.exists():
+        return f"https://medmind.pro/media/og/{slug}.jpg"
+    return None
+
+
 def _detail(a: Article) -> dict:
     return {
         **_list_item(a),
@@ -161,6 +170,7 @@ def _detail(a: Article) -> dict:
         "related_module_code": a.related_module_code,
         "og_title": a.og_title,
         "og_description": a.og_description,
+        "og_image": _og_image_url(a.slug),
         "generated_by": a.generated_by,
         "review_status": a.review_status,
         "review_note": a.review_note,
