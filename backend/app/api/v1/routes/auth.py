@@ -6,6 +6,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from app.core.database import get_db
 from app.core.security import (
@@ -82,7 +83,11 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
         subscription_tier="free",
     )
     db.add(user)
-    await db.flush()  # get user.id
+    try:
+        await db.flush()  # get user.id
+    except IntegrityError:
+        await db.rollback()
+        raise HTTPException(status_code=400, detail="Email already registered")
 
     # Record GDPR consents
     ip = request.client.host if request.client else None
@@ -95,7 +100,11 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
         )
         db.add(consent)
 
-    await db.commit()
+    try:
+        await db.commit()
+    except IntegrityError:
+        await db.rollback()
+        raise HTTPException(status_code=400, detail="Email already registered")
     await db.refresh(user)
 
     access_token = create_access_token(str(user.id))
@@ -498,11 +507,20 @@ async def google_callback(
             subscription_tier="free",
         )
         db.add(user)
-        await db.flush()
-        # GDPR consent (implicit via OAuth)
-        db.add(UserConsent(user_id=user.id, consent_type="terms", version="1.0"))
-        db.add(UserConsent(user_id=user.id, consent_type="privacy", version="1.0"))
-        await db.commit()
+        try:
+            await db.flush()
+        except IntegrityError:
+            await db.rollback()
+            # Race condition — user was just created, find and use them
+            result2 = await db.execute(select(User).where(User.email_hash == _search_hash))
+            user = result2.scalar_one_or_none()
+            if not user:
+                raise HTTPException(status_code=500, detail="Account creation failed, please try again")
+        else:
+            # GDPR consent (implicit via OAuth)
+            db.add(UserConsent(user_id=user.id, consent_type="terms", version="1.0"))
+            db.add(UserConsent(user_id=user.id, consent_type="privacy", version="1.0"))
+            await db.commit()
         await db.refresh(user)
     else:
         # Existing user — update OAuth info if needed
