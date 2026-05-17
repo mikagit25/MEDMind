@@ -442,15 +442,15 @@ def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
                 "messages": [{"role": "user", "content": prompt}],
                 "stream":   False,
                 "options":  {
-                    "temperature": 0.25,   # lower = more factual, less hallucination
-                    "num_predict": 4500,   # ~2500 words output
-                    "num_ctx":     8192,   # large context for detailed prompt + long output
-                    "top_p":       0.85,
-                    "repeat_penalty": 1.1, # reduce repetition in long articles
+                    "temperature":    0.25,  # lower = more factual, less hallucination
+                    "num_predict":    3200,  # ~1800 words; CPU 3 tok/s → ~18 min
+                    "num_ctx":        8192,  # large context for detailed prompt + output
+                    "top_p":          0.85,
+                    "repeat_penalty": 1.1,   # reduce repetition in long articles
                 },
                 "think": False,
             },
-            timeout=900,   # 15 min max per article
+            timeout=1800,  # 30 min max — qwen3:8b CPU needs ~18 min for 3200 tokens
         )
         if resp.status_code != 200:
             log.error("Ollama error %s: %s", resp.status_code, resp.text[:200])
