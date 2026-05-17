@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ttsApi } from "@/lib/api";
 
 type Gender = "female" | "male";
-type Rate = "-20%" | "-10%" | "+0%" | "+10%" | "+20%";
+type Rate   = "-20%" | "-10%" | "+0%" | "+10%" | "+20%";
 
 interface Props {
   articleId: string;
@@ -12,60 +11,72 @@ interface Props {
   title?: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
+
 export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
   const [state, setState] = useState<"idle" | "loading" | "playing" | "paused" | "error">("idle");
   const [gender, setGender] = useState<Gender>("female");
-  const [rate, setRate] = useState<Rate>("+0%");
+  const [rate,   setRate]   = useState<Rate>("+0%");
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const blobUrlRef = useRef<string | null>(null);
 
-  const cleanup = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = "";
-    }
-    if (blobUrlRef.current) {
-      URL.revokeObjectURL(blobUrlRef.current);
-      blobUrlRef.current = null;
-    }
+  const buildSrc = (g: Gender, r: Rate) => {
+    const params = new URLSearchParams({ locale, gender: g, rate: r });
+    return `${API_URL}/tts/article/${articleId}?${params}`;
   };
 
-  useEffect(() => () => cleanup(), []);
+  const cleanup = () => {
+    const a = audioRef.current;
+    if (a) {
+      a.pause();
+      a.removeAttribute("src");
+      a.load();
+    }
+    setProgress(0);
+    setDuration(0);
+  };
 
-  const load = async () => {
+  useEffect(() => () => { cleanup(); }, []);
+
+  const load = (g: Gender = gender, r: Rate = rate) => {
     cleanup();
     setState("loading");
-    try {
-      const blob = await ttsApi.articleBlob(articleId, locale, gender);
-      const url = URL.createObjectURL(blob);
-      blobUrlRef.current = url;
 
-      const audio = new Audio(url);
-      audioRef.current = audio;
+    const audio = new Audio();
+    audioRef.current = audio;
 
-      audio.addEventListener("loadedmetadata", () => setDuration(audio.duration));
-      audio.addEventListener("timeupdate", () => setProgress(audio.currentTime));
-      audio.addEventListener("ended", () => { setState("paused"); setProgress(0); });
-      audio.addEventListener("error", () => setState("error"));
+    audio.preload = "none";
+    audio.src = buildSrc(g, r);
 
-      await audio.play();
-      setState("playing");
-    } catch (err) {
-      setState("error");
-    }
+    audio.addEventListener("loadedmetadata", () => setDuration(audio.duration));
+    audio.addEventListener("timeupdate", () => setProgress(audio.currentTime));
+    audio.addEventListener("ended", () => { setState("paused"); setProgress(0); });
+    audio.addEventListener("error", () => setState("error"));
+    audio.addEventListener("canplay", () => {
+      // First data arrived — update state from loading to playing
+      if (state === "loading" || audioRef.current === audio) {
+        setState("playing");
+      }
+    });
+
+    // Start playing immediately — browser streams while downloading
+    audio.play()
+      .then(() => setState("playing"))
+      .catch(() => setState("error"));
   };
 
   const togglePlay = () => {
-    if (!audioRef.current) { load(); return; }
+    if (!audioRef.current || audioRef.current.src === "" || audioRef.current.readyState === 0) {
+      load();
+      return;
+    }
     if (state === "playing") {
       audioRef.current.pause();
       setState("paused");
     } else {
-      audioRef.current.play();
-      setState("playing");
+      audioRef.current.play().then(() => setState("playing")).catch(() => setState("error"));
     }
   };
 
@@ -75,25 +86,21 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
     setProgress(t);
   };
 
-  const handleGenderChange = (g: Gender) => {
+  const changeGender = (g: Gender) => {
     setGender(g);
-    if (state !== "idle") {
-      cleanup();
-      setState("idle");
-      setProgress(0);
-    }
+    cleanup();
+    setState("idle");
   };
 
-  const handleRateChange = (r: Rate) => {
+  const changeRate = (r: Rate) => {
     setRate(r);
     if (state !== "idle") {
-      cleanup();
-      setState("idle");
-      setProgress(0);
+      load(gender, r);
     }
   };
 
   const fmt = (s: number) => {
+    if (!isFinite(s)) return "--:--";
     const m = Math.floor(s / 60);
     const sec = Math.floor(s % 60);
     return `${m}:${sec.toString().padStart(2, "0")}`;
@@ -102,7 +109,7 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
   return (
     <div className="card p-4 my-4 border border-border">
       <div className="flex items-center gap-3">
-        {/* Play/Pause button */}
+        {/* Play/Pause */}
         <button
           onClick={togglePlay}
           disabled={state === "loading"}
@@ -127,24 +134,23 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="font-syne font-bold text-xs text-ink">
-              {state === "idle" ? "🔊 Listen to article" :
-               state === "loading" ? "Loading audio…" :
-               state === "error" ? "❌ Failed to load audio" :
+              {state === "idle"    ? "🔊 Listen to article" :
+               state === "loading" ? "⏳ Starting audio…" :
+               state === "error"   ? "❌ Audio unavailable" :
                title ? `🔊 ${title.slice(0, 40)}` : "🔊 Playing"}
             </span>
-            {(state === "playing" || state === "paused") && duration > 0 && (
+            {(state === "playing" || state === "paused") && (
               <span className="text-[10px] font-syne text-ink-3">
-                {fmt(progress)} / {fmt(duration)}
+                {fmt(progress)}{duration > 0 ? ` / ${fmt(duration)}` : ""}
               </span>
             )}
           </div>
 
-          {/* Progress bar */}
-          {(state === "playing" || state === "paused") && duration > 0 && (
+          {(state === "playing" || state === "paused") && (
             <input
               type="range"
               min={0}
-              max={duration}
+              max={duration || 100}
               value={progress}
               onChange={seek}
               className="w-full h-1.5 rounded-full accent-ink cursor-pointer"
@@ -153,12 +159,17 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
 
           {state === "idle" && (
             <p className="font-serif text-[10px] text-ink-3">
-              AI-narrated · Microsoft Neural Voice · {locale.toUpperCase()}
+              AI-narrated · Microsoft Neural Voice · {locale.toUpperCase()} · Streams instantly
             </p>
+          )}
+          {state === "loading" && (
+            <div className="w-full h-1.5 rounded-full bg-surface-2 overflow-hidden">
+              <div className="h-full bg-ink/30 animate-pulse rounded-full" style={{ width: "60%" }} />
+            </div>
           )}
         </div>
 
-        {/* Settings toggle */}
+        {/* Settings */}
         <button
           onClick={() => setExpanded(e => !e)}
           className="text-ink-3 hover:text-ink p-1 rounded transition-colors"
@@ -179,13 +190,10 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
             <div className="font-syne font-bold text-[10px] text-ink-3 uppercase mb-1.5">Voice</div>
             <div className="flex gap-1.5">
               {(["female", "male"] as Gender[]).map(g => (
-                <button
-                  key={g}
-                  onClick={() => handleGenderChange(g)}
+                <button key={g} onClick={() => changeGender(g)}
                   className={`px-2.5 py-1 rounded font-syne text-xs border transition-colors ${
                     gender === g ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"
-                  }`}
-                >
+                  }`}>
                   {g === "female" ? "👩 Female" : "👨 Male"}
                 </button>
               ))}
@@ -195,13 +203,10 @@ export function ArticleAudioPlayer({ articleId, locale = "en", title }: Props) {
             <div className="font-syne font-bold text-[10px] text-ink-3 uppercase mb-1.5">Speed</div>
             <div className="flex gap-1.5">
               {(["-20%", "-10%", "+0%", "+10%", "+20%"] as Rate[]).map(r => (
-                <button
-                  key={r}
-                  onClick={() => handleRateChange(r)}
+                <button key={r} onClick={() => changeRate(r)}
                   className={`px-2 py-1 rounded font-syne text-xs border transition-colors ${
                     rate === r ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"
-                  }`}
-                >
+                  }`}>
                   {r === "+0%" ? "1×" : r === "+20%" ? "1.2×" : r === "+10%" ? "1.1×" : r === "-10%" ? "0.9×" : "0.8×"}
                 </button>
               ))}

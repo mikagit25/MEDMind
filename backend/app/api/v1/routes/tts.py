@@ -2,11 +2,10 @@
 
 GET  /tts/voices           List available voices
 POST /tts/speak            Stream MP3 audio for given text + locale
-POST /tts/article/{id}     Stream full article as audio (extracts body text)
+GET  /tts/article/{id}     Stream full article as audio (no auth required)
 """
 import logging
 import re
-import unicodedata
 from typing import AsyncGenerator
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -33,7 +32,6 @@ LOCALE_VOICES: dict[str, str] = {
     "tr": "tr-TR-EmelNeural",
 }
 
-# Male voice alternatives
 LOCALE_VOICES_MALE: dict[str, str] = {
     "en": "en-US-GuyNeural",
     "ru": "ru-RU-DmitryNeural",
@@ -44,7 +42,7 @@ LOCALE_VOICES_MALE: dict[str, str] = {
     "tr": "tr-TR-AhmetNeural",
 }
 
-MAX_CHARS = 8_000  # Edge TTS practical limit per request
+MAX_CHARS = 6_000   # ~6-8 min of speech; beyond that UX suffers anyway
 
 
 class SpeakRequest(BaseModel):
@@ -74,40 +72,44 @@ def _blocks_to_text(blocks: list) -> str:
             for item in block.get("items", []):
                 parts.append(item + ". ")
     text = " ".join(parts)
-    # Strip markdown remnants
     text = re.sub(r"\*{1,3}([^*]+)\*{1,3}", r"\1", text)
     text = re.sub(r"`[^`]+`", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text[:MAX_CHARS]
 
 
-async def _stream_tts(text: str, voice: str, rate: str = "+0%") -> AsyncGenerator[bytes, None]:
-    """Stream Edge TTS MP3 chunks."""
+def _check_edge_tts():
+    """Raise 503 early (before streaming starts) if edge_tts not available."""
     try:
-        import edge_tts
+        import edge_tts  # noqa: F401
+    except ImportError:
+        raise HTTPException(
+            status_code=503,
+            detail="TTS service unavailable. Please try again later."
+        )
+
+
+async def _stream_tts(text: str, voice: str, rate: str = "+0%") -> AsyncGenerator[bytes, None]:
+    """Stream Edge TTS MP3 chunks. Call _check_edge_tts() before this."""
+    import edge_tts
+    try:
         communicate = edge_tts.Communicate(text, voice, rate=rate)
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 yield chunk["data"]
-    except ImportError:
-        raise HTTPException(status_code=503, detail="TTS service unavailable — edge-tts not installed")
     except Exception as e:
-        logger.error("Edge TTS error: %s", e)
-        raise HTTPException(status_code=502, detail=f"TTS generation failed: {e}")
+        logger.error("Edge TTS stream error: %s", e)
+        # Can't raise HTTPException here — headers already sent
+        # Just stop the stream; client shows "error" state
 
 
 @router.get("/voices")
-async def list_voices(user: User = Depends(get_current_user)):
-    """Return available voices grouped by language."""
-    voices = []
-    for locale, female_voice in LOCALE_VOICES.items():
-        male_voice = LOCALE_VOICES_MALE.get(locale)
-        voices.append({
-            "locale": locale,
-            "female": female_voice,
-            "male": male_voice,
-        })
-    return {"voices": voices}
+async def list_voices():
+    """Return available voices grouped by language. Public endpoint."""
+    return {"voices": [
+        {"locale": loc, "female": female, "male": LOCALE_VOICES_MALE.get(loc)}
+        for loc, female in LOCALE_VOICES.items()
+    ]}
 
 
 @router.post("/speak")
@@ -115,7 +117,8 @@ async def speak(
     req: SpeakRequest,
     user: User = Depends(get_current_user),
 ):
-    """Stream MP3 audio for arbitrary text."""
+    """Stream MP3 audio for arbitrary text. Requires auth."""
+    _check_edge_tts()
     voice = _voice_for(req.locale, req.gender)
     return StreamingResponse(
         _stream_tts(req.text, voice, req.rate),
@@ -135,13 +138,18 @@ async def speak_article(
     gender: str = Query("female", pattern="^(female|male)$"),
     rate: str = Query("+0%"),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ):
-    """Stream article body as MP3 audio. Uses translated body if available."""
-    # Try translated version first
+    """
+    Stream article body as MP3. Public — no auth required.
+    Uses translated body if available for the requested locale.
+    """
+    # Check TTS availability BEFORE starting stream (prevents 502)
+    _check_edge_tts()
+
     lang = locale[:2].lower()
     text = None
 
+    # Try translated body first
     if lang != "en":
         tr_result = await db.execute(
             select(ArticleTranslation).where(
@@ -153,6 +161,7 @@ async def speak_article(
         if tr and tr.body:
             text = _blocks_to_text(tr.body)
 
+    # Fallback to English body
     if not text:
         art_result = await db.execute(select(Article).where(Article.id == article_id))
         article = art_result.scalar_one_or_none()
@@ -164,6 +173,8 @@ async def speak_article(
         raise HTTPException(status_code=422, detail="Article has no readable content")
 
     voice = _voice_for(locale, gender)
+    logger.info("TTS: article=%s locale=%s voice=%s chars=%d", article_id, locale, voice, len(text))
+
     return StreamingResponse(
         _stream_tts(text, voice, rate),
         media_type="audio/mpeg",
