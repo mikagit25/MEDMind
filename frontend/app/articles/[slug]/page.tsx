@@ -9,6 +9,7 @@ import { ArticleAudioPlayer } from "@/components/ui/ArticleAudioPlayer";
 import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { ArticleReadTracker } from "@/components/ui/ArticleReadTracker";
 import { ArticleQuiz } from "@/components/ui/ArticleQuiz";
+import { LocaleCookieSetter } from "@/components/ui/LocaleCookieSetter";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -471,10 +472,12 @@ export default async function ArticlePage({
   params: { slug: string };
   searchParams?: { lang?: string; locale?: string };
 }) {
-  // 1. Explicit lang param wins; 2. fall back to user's cookie locale
+  // Priority: explicit ?lang= param > cookie > default English
+  // When ?lang=en is explicit, English is forced regardless of cookie
   const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
-  const cookieLocale = cookies().get("medmind_locale")?.value;
-  const rawLocale = searchParams?.lang || searchParams?.locale || cookieLocale;
+  const explicitLang = searchParams?.lang || searchParams?.locale;
+  const cookieLocale = explicitLang ? undefined : cookies().get("medmind_locale")?.value;
+  const rawLocale = explicitLang || cookieLocale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const ui = SERVER_LABELS[locale] ?? SERVER_LABELS.en;
   const [article, availableLocales, related, nav, linkMap] = await Promise.all([
@@ -505,6 +508,7 @@ export default async function ArticlePage({
       {/* View tracking + reading progress (client-side) */}
       <ArticleViewTracker slug={article.slug} />
       <ArticleReadTracker slug={article.slug} />
+      <LocaleCookieSetter locale={locale} />
 
       <ArticleNav />
 
@@ -744,7 +748,7 @@ export default async function ArticlePage({
               <div>
                 {nav.prev && (
                   <Link
-                    href={locale && locale !== "en" ? `/articles/${nav.prev.slug}?lang=${locale}` : `/articles/${nav.prev.slug}`}
+                    href={`/articles/${nav.prev.slug}?lang=${locale}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
                     <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">←</span>
@@ -757,7 +761,7 @@ export default async function ArticlePage({
               <div>
                 {nav.next && (
                   <Link
-                    href={locale && locale !== "en" ? `/articles/${nav.next.slug}?lang=${locale}` : `/articles/${nav.next.slug}`}
+                    href={`/articles/${nav.next.slug}?lang=${locale}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all text-right"
                   >
                     <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">→</span>
@@ -780,7 +784,7 @@ export default async function ArticlePage({
                 {related.map((r) => (
                   <Link
                     key={r.slug}
-                    href={locale && locale !== "en" ? `/articles/${r.slug}?lang=${locale}` : `/articles/${r.slug}`}
+                    href={`/articles/${r.slug}?lang=${locale}`}
                     className="group flex flex-col gap-2 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
                     <h3 className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
@@ -853,9 +857,7 @@ export default async function ArticlePage({
               <div className="flex flex-col gap-1">
                 {allLocales.map((loc) => {
                   const isCurrent = loc === locale;
-                  const href = loc === "en"
-                    ? `/articles/${article.slug}`
-                    : `/articles/${article.slug}?lang=${loc}`;
+                  const href = `/articles/${article.slug}?lang=${loc}`;
                   return (
                     <Link
                       key={loc}
