@@ -54,6 +54,7 @@ type ArticleDetail = {
   og_title: string | null;
   og_description: string | null;
   og_image: string | null;
+  cover_image: string | null;
   category: string;
   subcategory: string | null;
   keywords: string[];
@@ -547,6 +548,21 @@ export default async function ArticlePage({
             <p className="font-serif text-ink-2 text-lg leading-relaxed">
               {article.excerpt}
             </p>
+
+            {/* Hero cover image */}
+            {article.cover_image && (
+              <figure className="mt-6 mb-2 -mx-4 sm:-mx-0 rounded-xl overflow-hidden">
+                <img
+                  src={article.cover_image}
+                  alt={article.title}
+                  className="w-full max-h-[480px] object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="text-[10px] text-ink-3 font-serif text-right px-2 pt-1">
+                  Image: Wikimedia Commons
+                </figcaption>
+              </figure>
+            )}
             <div className="flex items-center gap-4 mt-4 text-xs font-serif text-ink-3 flex-wrap">
               <span>📖 {article.reading_time_minutes} min read</span>
               {article.published_at && (

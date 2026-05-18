@@ -1096,6 +1096,7 @@ class Article(Base):
     # SEO overrides (if blank, title/excerpt are used)
     og_title = Column(String(200), nullable=True)
     og_description = Column(String(300), nullable=True)
+    cover_image = Column(String(500), nullable=True)   # hero image URL (Wikipedia/upload)
 
     is_published = Column(Boolean, nullable=False, default=False)
     published_at = Column(DateTime, nullable=True)

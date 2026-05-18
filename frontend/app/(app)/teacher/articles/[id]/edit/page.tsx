@@ -387,6 +387,8 @@ export default function ArticleEditorPage() {
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [body, setBody] = useState<Block[]>([]);
+  const [coverImage, setCoverImage] = useState("");
+  const [coverUploading, setCoverUploading] = useState(false);
 
   const [saving, setSaving] = useState(false);
   const [savedId, setSavedId] = useState<string | null>(isNew ? null : (articleId ?? null));
@@ -410,6 +412,7 @@ export default function ArticleEditorPage() {
         setDisplayName(a.author_display_name ?? "");
         setBio(a.author_bio ?? "");
         setBody(a.body ?? []);
+        setCoverImage(a.cover_image ?? "");
         setSavedId(a.id);
       }).catch(() => showToast(t("teacher.articles.editor.load_err"), "err"));
     }
@@ -601,6 +604,73 @@ export default function ArticleEditorPage() {
                 placeholder="e.g. Cardiologist at St. Mary's Hospital, 15 years experience"
                 className="input w-full"
               />
+            </div>
+          </div>
+        </section>
+
+        {/* Cover image */}
+        <section className="space-y-3">
+          <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider">Cover Image</h2>
+          <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+            {coverImage && (
+              <div className="relative rounded-lg overflow-hidden h-48 bg-surface-2">
+                <img src={coverImage} alt="Cover" className="w-full h-full object-cover" />
+                <button
+                  onClick={() => { setCoverImage(""); savedId && fetch(`/api/v1/articles/my/${savedId}/cover`, { method: "PATCH", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("access_token")}` }, body: JSON.stringify({ cover_image: "" }) }); }}
+                  className="absolute top-2 right-2 bg-bg/80 rounded-full p-1 text-xs text-red"
+                >✕ Remove</button>
+              </div>
+            )}
+            <div className="flex gap-2">
+              <input
+                type="url"
+                value={coverImage}
+                onChange={e => setCoverImage(e.target.value)}
+                placeholder="https://upload.wikimedia.org/... or any image URL"
+                className="input flex-1 text-sm"
+              />
+              <button
+                onClick={async () => {
+                  if (!savedId) { alert("Save article first"); return; }
+                  if (!coverImage) return;
+                  const res = await fetch(`/api/v1/articles/my/${savedId}/cover`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("access_token")}` },
+                    body: JSON.stringify({ cover_image: coverImage }),
+                  });
+                  if (res.ok) showToast("Cover image saved");
+                  else showToast("Failed to save cover image", "err");
+                }}
+                className="btn-secondary text-sm px-3"
+              >Save URL</button>
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="btn-secondary text-sm px-3 cursor-pointer">
+                {coverUploading ? "Uploading…" : "📁 Upload image"}
+                <input type="file" accept="image/*" className="hidden" onChange={async e => {
+                  const file = e.target.files?.[0]; if (!file) return;
+                  if (!savedId) { alert("Save article first"); return; }
+                  setCoverUploading(true);
+                  try {
+                    const form = new FormData(); form.append("file", file);
+                    const res = await fetch(`/api/v1/articles/my/${savedId}/upload-image`, {
+                      method: "POST", headers: { "Authorization": `Bearer ${localStorage.getItem("access_token")}` }, body: form,
+                    });
+                    const data = await res.json();
+                    if (data.url) {
+                      setCoverImage(data.url);
+                      await fetch(`/api/v1/articles/my/${savedId}/cover`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("access_token")}` },
+                        body: JSON.stringify({ cover_image: data.url }),
+                      });
+                      showToast("Cover image uploaded");
+                    }
+                  } catch { showToast("Upload failed", "err"); }
+                  setCoverUploading(false);
+                }} />
+              </label>
+              <span className="text-ink-3 text-xs font-serif">Or paste a URL from Wikipedia, Unsplash, etc.</span>
             </div>
           </div>
         </section>

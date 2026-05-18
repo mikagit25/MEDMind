@@ -36,6 +36,12 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 try:
+    from fetch_article_image import fetch_cover_image as _fetch_cover_image
+    _HAS_COVER = True
+except ImportError:
+    _HAS_COVER = False
+
+try:
     from generate_og_image import generate_og_image as _gen_og_image
     _HAS_OG = True
 except ImportError:
@@ -766,12 +772,24 @@ def main():
             n_tr = save_translations(conn, article_id, title, excerpt, body)
             log.info("  ✓ Published + %d translations | %s", n_tr, slug)
 
+            # Fetch cover image from Wikipedia
+            if _HAS_COVER:
+                try:
+                    cover_url = _fetch_cover_image(title, category)
+                    if cover_url:
+                        with conn.cursor() as cur:
+                            cur.execute("UPDATE articles SET cover_image=%s WHERE id=%s",
+                                        (cover_url, article_id))
+                        conn.commit()
+                        log.info("  🖼  Cover image: %s", cover_url[:60])
+                except Exception as e:
+                    log.warning("  Cover image failed: %s", e)
+
             # Generate OG image for Telegram/social sharing
             if _HAS_OG:
                 try:
                     rt = calc_reading_time(body)
                     _gen_og_image(slug, title, category, rt)
-                    log.info("  🖼  OG image generated")
                 except Exception as e:
                     log.warning("  OG image failed: %s", e)
 

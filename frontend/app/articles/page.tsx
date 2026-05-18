@@ -40,6 +40,7 @@ type Article = {
   keywords: string[];
   reading_time_minutes: number;
   published_at: string | null;
+  cover_image: string | null;
 };
 
 type CategoryStat = { category: string; count: number };
@@ -190,33 +191,57 @@ export default async function ArticlesPage({
 }
 
 function ArticleCard({ article, locale }: { article: Article; locale: string }) {
+  const href = locale && locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`;
   return (
     <Link
-      href={locale && locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`}
-      className="group flex flex-col bg-surface border border-border rounded-xl p-5 hover:border-ink hover:shadow-md transition-all"
+      href={href}
+      className="group flex flex-col bg-surface border border-border rounded-xl overflow-hidden hover:border-ink hover:shadow-md transition-all"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
-        <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
-          {getCategoryLabel(article.category, locale)}
-        </span>
-        <span className="ml-auto">
-          <ReadBadge slug={article.slug} />
-        </span>
-      </div>
-      <h3 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
-        {article.title}
-      </h3>
-      <p className="text-ink-2 font-serif text-sm leading-relaxed flex-1 line-clamp-3">
-        {article.excerpt}
-      </p>
-      <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border">
-        <span className="text-ink-3 text-xs font-serif">{article.reading_time_minutes} min read</span>
-        {article.published_at && (
-          <span className="text-ink-3 text-xs font-serif ml-auto">
-            {new Date(article.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-          </span>
+      {/* Cover image thumbnail */}
+      {article.cover_image ? (
+        <div className="relative h-44 overflow-hidden bg-surface-2">
+          <img
+            src={article.cover_image}
+            alt={article.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+          <div className="absolute top-2 left-2">
+            <span className="text-xs font-syne font-semibold bg-bg/90 backdrop-blur-sm rounded-full px-2 py-0.5 text-ink-2 flex items-center gap-1">
+              <span>{CATEGORY_ICONS[article.category] ?? "📄"}</span>
+              <span>{getCategoryLabel(article.category, locale)}</span>
+            </span>
+          </div>
+        </div>
+      ) : null}
+
+      <div className="flex flex-col flex-1 p-5">
+        {!article.cover_image && (
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-base">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
+            <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
+              {getCategoryLabel(article.category, locale)}
+            </span>
+            <span className="ml-auto"><ReadBadge slug={article.slug} /></span>
+          </div>
         )}
+        {article.cover_image && (
+          <div className="flex justify-end mb-2"><ReadBadge slug={article.slug} /></div>
+        )}
+        <h3 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
+          {article.title}
+        </h3>
+        <p className="text-ink-2 font-serif text-sm leading-relaxed flex-1 line-clamp-3">
+          {article.excerpt}
+        </p>
+        <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border">
+          <span className="text-ink-3 text-xs font-serif">{article.reading_time_minutes} min read</span>
+          {article.published_at && (
+            <span className="text-ink-3 text-xs font-serif ml-auto">
+              {new Date(article.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </span>
+          )}
+        </div>
       </div>
     </Link>
   );

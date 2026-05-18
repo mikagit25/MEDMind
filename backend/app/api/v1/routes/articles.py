@@ -148,6 +148,7 @@ def _list_item(a: Article) -> dict:
         "reading_time_minutes": a.reading_time_minutes,
         "schema_type": a.schema_type,
         "published_at": a.published_at.isoformat() if a.published_at else None,
+        "cover_image": getattr(a, "cover_image", None) or None,
         "author": _author_info(a),
     }
 
@@ -170,7 +171,7 @@ def _detail(a: Article) -> dict:
         "related_module_code": a.related_module_code,
         "og_title": a.og_title,
         "og_description": a.og_description,
-        "og_image": _og_image_url(a.slug),
+        "og_image": getattr(a, "cover_image", None) or _og_image_url(a.slug),
         "generated_by": a.generated_by,
         "review_status": a.review_status,
         "review_note": a.review_note,
@@ -1119,6 +1120,40 @@ async def upload_article_image(
 
     url = f"{settings.MEDIA_URL}/articles/{article_id}/{filename}"
     return {"url": url, "filename": filename, "size": len(data), "content_type": content_type}
+
+
+class CoverImageBody(BaseModel):
+    cover_image: str = ""  # URL or empty to clear
+
+
+@router.patch("/my/{article_id}/cover")
+async def set_cover_image(
+    article_id: UUID,
+    body: CoverImageBody,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_author),
+):
+    """Set or clear the cover image URL for an article."""
+    article = await _get_article_or_404(article_id, db)
+    if str(article.author_id) != str(user.id) and user.role != "admin":
+        raise HTTPException(status_code=403, detail="Not your article")
+    article.cover_image = body.cover_image or None  # type: ignore[attr-defined]
+    await db.commit()
+    return {"cover_image": article.cover_image}  # type: ignore[attr-defined]
+
+
+@router.patch("/{article_id}/cover")
+async def admin_set_cover_image(
+    article_id: UUID,
+    body: CoverImageBody,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Admin: set cover_image on any article."""
+    article = await _get_article_or_404(article_id, db)
+    article.cover_image = body.cover_image or None  # type: ignore[attr-defined]
+    await db.commit()
+    return {"cover_image": article.cover_image}  # type: ignore[attr-defined]
 
 
 # ── Admin endpoints ────────────────────────────────────────────────────────────
