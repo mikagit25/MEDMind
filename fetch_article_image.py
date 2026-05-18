@@ -122,52 +122,46 @@ def _search_commons(query: str, min_width: int = 400) -> str | None:
 
 def fetch_cover_image(title: str, category: str = "") -> str | None:
     """
-    Fetch a relevant medical image URL from Wikipedia/Commons.
-    Returns a URL string or None if not found.
+    Fetch a relevant medical image from Wikipedia's page thumbnails.
+    Only returns images that Wikipedia associates with the specific article — no broad searches.
 
     Strategy:
-    1. Try exact title lookup on Wikipedia → pageimages
-    2. Extract main medical term from title and retry
-    3. Search Commons with category hint + title keywords
+    1. Try exact title on Wikipedia pageimages
+    2. Try shortened title (first 2-3 meaningful words)
+    Returns None if no directly relevant image found.
     """
-    # Clean title for Wikipedia search
-    clean = (title
-             .replace(":", " ")
-             .replace("-", " ")
-             .replace("  ", " ")
-             .strip())
+    # Clean title — remove generic medical suffixes to improve hit rate
+    import re as _re
+    clean = _re.sub(r"[,:;()\[\]]", " ", title)   # remove punctuation
+    clean = clean.replace("-", " ").replace("  ", " ").strip()
 
-    # Remove common generic suffixes
-    for suffix in ["pathophysiology", "clinical presentation", "evidence-based",
-                   "management", "treatment", "diagnosis", "overview", "review",
-                   "causes", "workup", "types"]:
-        clean = clean.lower().replace(suffix, "").strip()
+    STOP_WORDS = {
+        "pathophysiology", "clinical", "presentation", "evidence-based", "evidence",
+        "management", "treatment", "diagnosis", "overview", "review", "based",
+        "causes", "workup", "types", "approach", "strategies", "outcomes",
+        "features", "criteria", "applications", "modern", "comprehensive", "and",
+        "the", "for", "with", "its", "their", "how", "what", "why", "when",
+    }
+    # Strip punctuation from each word, then filter
+    words = [w for w in clean.split() if w.lower().rstrip(".,;:") not in STOP_WORDS and len(w) > 2]
 
-    # Capitalize properly
-    clean = " ".join(w.capitalize() for w in clean.split() if len(w) > 2)
-    clean = clean[:60].strip()
-
-    hint = CATEGORY_HINTS.get(category, "medicine medical")
-
-    # Strategy 1: Direct title
-    url = _fetch_page_thumbnail(clean)
-    if url:
-        return url
-    time.sleep(0.3)
-
-    # Strategy 2: Category hint + main term
-    if clean:
-        url = _search_commons(f"{clean} {hint} medicine", min_width=300)
+    # Strategy 1: first 1-2 keywords (most specific medical term)
+    short_query = " ".join(words[:2])
+    if short_query:
+        url = _fetch_page_thumbnail(short_query, min_width=300)
         if url:
             return url
-        time.sleep(0.3)
+        time.sleep(0.25)
 
-    # Strategy 3: Category-level fallback
-    url = _fetch_page_thumbnail(hint.split()[0])
-    if url:
-        return url
+    # Strategy 2: just the first word (single-term disease/condition)
+    if words and len(words[0]) >= 5:
+        single = words[0]
+        if single != short_query:
+            url = _fetch_page_thumbnail(single, min_width=300)
+            if url:
+                return url
 
-    return None
+    return None  # Don't fall back to broad searches — better no image than wrong image
 
 
 def update_article_cover(conn, article_id: str, cover_url: str) -> None:
