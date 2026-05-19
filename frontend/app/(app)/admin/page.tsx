@@ -37,6 +37,8 @@ type AdminModule = {
   flashcards: number;
   mcq: number;
   cases: number;
+  author_id?: string | null;
+  author_name?: string | null;
 };
 
 type Tab = "overview" | "users" | "modules" | "generate" | "articles" | "translations" | "flags" | "system" | "audit";
@@ -458,6 +460,12 @@ export default function AdminPage() {
               <option value="false">Unpublished</option>
             </select>
             <button onClick={loadModules} className="btn-primary text-xs">Search</button>
+            {/* Teacher submissions badge */}
+            {modules.filter(m => m.author_id).length > 0 && (
+              <span className="ml-2 bg-amber-light text-amber border border-amber/20 rounded-full px-3 py-1 font-syne font-semibold text-xs">
+                {modules.filter(m => m.author_id && !m.is_published).length} teacher submissions awaiting review
+              </span>
+            )}
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => bulkPublishAll(true)}
@@ -486,8 +494,9 @@ export default function AdminPage() {
                       <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Module</th>
                       <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Specialty</th>
                       <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Content</th>
-                      <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Flags</th>
+                      <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Author</th>
                       <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Status</th>
+                      <th className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">Open</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -507,14 +516,28 @@ export default function AdminPage() {
                           </div>
                         </td>
                         <td className="px-4 py-2.5">
-                          <div className="flex gap-1 flex-wrap">
-                            {m.is_fundamental && (
-                              <span className="text-[10px] bg-blue-light text-blue border border-blue/20 rounded-full px-1.5 py-0.5 font-syne font-semibold">Base</span>
-                            )}
-                            {m.is_veterinary && (
-                              <span className="text-[10px] bg-amber-light text-amber border border-amber/20 rounded-full px-1.5 py-0.5 font-syne font-semibold">Vet</span>
-                            )}
-                          </div>
+                          {m.author_id ? (
+                            <div>
+                              <span className="text-[10px] bg-amber-light text-amber border border-amber/20 rounded-full px-1.5 py-0.5 font-syne font-semibold">
+                                Teacher
+                              </span>
+                              {m.author_name && (
+                                <div className="text-[10px] text-ink-3 mt-0.5">{m.author_name}</div>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex gap-1 flex-wrap">
+                              {m.is_fundamental && (
+                                <span className="text-[10px] bg-blue-light text-blue border border-blue/20 rounded-full px-1.5 py-0.5 font-syne font-semibold">Base</span>
+                              )}
+                              {m.is_veterinary && (
+                                <span className="text-[10px] bg-amber-light text-amber border border-amber/20 rounded-full px-1.5 py-0.5 font-syne font-semibold">Vet</span>
+                              )}
+                              {!m.is_fundamental && !m.is_veterinary && (
+                                <span className="text-[10px] text-ink-3">System</span>
+                              )}
+                            </div>
+                          )}
                         </td>
                         <td className="px-4 py-2.5">
                           <button
@@ -527,6 +550,16 @@ export default function AdminPage() {
                           >
                             {m.is_published ? "✓ Published" : "Unpublished"}
                           </button>
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <a
+                            href={`/modules/${m.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-0.5 transition-colors"
+                          >
+                            Open ↗
+                          </a>
                         </td>
                       </tr>
                     ))}
@@ -937,12 +970,20 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5 flex-shrink-0">
+                    <a
+                      href={`/articles/${a.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-syne border border-border rounded px-3 py-1.5 text-ink-3 hover:text-ink text-center transition-colors"
+                    >
+                      Open full ↗
+                    </a>
                     <button
                       onClick={() => togglePreview(a.id)}
                       disabled={loadingPreview === a.id}
                       className="text-xs font-syne border border-border rounded px-3 py-1.5 text-ink-3 hover:text-ink text-center transition-colors"
                     >
-                      {loadingPreview === a.id ? "…" : a.previewOpen ? "Hide" : "Preview"}
+                      {loadingPreview === a.id ? "…" : a.previewOpen ? "Hide preview" : "Quick preview"}
                     </button>
                     <button
                       onClick={() => approveArticle(a.id)}
