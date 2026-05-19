@@ -27,10 +27,19 @@ AUTH_RATE_LIMIT = 10   # max failed attempts
 AUTH_RATE_WINDOW = 300  # 5-minute sliding window (seconds)
 
 
+def _client_ip(request: Request) -> str:
+    """Get real client IP from X-Forwarded-For (nginx proxy) or direct connection."""
+    forwarded = request.headers.get("X-Forwarded-For") or request.headers.get("X-Real-IP")
+    if forwarded:
+        # X-Forwarded-For may be comma-separated; take the first (client) IP
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
 async def check_auth_rate_limit(request: Request) -> None:
     """Block IPs with too many failed auth attempts (Redis-backed, survives restarts)."""
     from app.core.redis_client import get_redis
-    ip = request.client.host if request.client else "unknown"
+    ip = _client_ip(request)
     key = f"auth_fails:{ip}"
     redis = await get_redis()
     count = await redis.get(key)
@@ -43,7 +52,7 @@ async def check_auth_rate_limit(request: Request) -> None:
 
 async def record_failed_attempt(request: Request) -> None:
     from app.core.redis_client import get_redis
-    ip = request.client.host if request.client else "unknown"
+    ip = _client_ip(request)
     key = f"auth_fails:{ip}"
     redis = await get_redis()
     pipe = redis.pipeline()

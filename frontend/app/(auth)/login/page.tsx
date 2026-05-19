@@ -22,8 +22,7 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      const res = await authApi.login(email, password);
-      const data = res.data;
+      const data = await authApi.login(email, password);
       setAuth(data.user, data.access_token, data.refresh_token);
       ga.login("email");
       router.replace("/dashboard");
