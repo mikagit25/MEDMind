@@ -66,6 +66,59 @@ GROQ_MODELS = {
 }
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 
+
+# ── Multi-key rotation manager ───────────────────────────────────────────────────
+
+class KeyRotator:
+    """Rotates through multiple Groq API keys when rate limits are hit.
+
+    Strategy:
+    - Tracks per-key exhaustion (daily limit hit = skip until tomorrow)
+    - On 429: switch immediately to next key, no waiting
+    - On token rate limit (tpm): brief pause then retry same key
+    - When ALL keys exhausted: wait until next day reset (rare)
+    """
+
+    def __init__(self, keys: list[str]):
+        self.keys = [k for k in keys if k]
+        self.idx = 0
+        self.exhausted: set[int] = set()   # indices of daily-limit-hit keys
+        self.requests: dict[int, int] = {i: 0 for i in range(len(keys))}
+
+    @property
+    def current(self) -> str:
+        return self.keys[self.idx]
+
+    @property
+    def active_count(self) -> int:
+        return len(self.keys) - len(self.exhausted)
+
+    def rotate(self, exhausted: bool = False) -> str | None:
+        """Switch to next available key. Returns key or None if all exhausted."""
+        if exhausted:
+            self.exhausted.add(self.idx)
+            log.warning("  Key %d/%d daily limit reached — marking exhausted",
+                        self.idx + 1, len(self.keys))
+
+        # Find next non-exhausted key
+        for _ in range(len(self.keys)):
+            self.idx = (self.idx + 1) % len(self.keys)
+            if self.idx not in self.exhausted:
+                log.info("  Switched to key %d/%d", self.idx + 1, len(self.keys))
+                return self.current
+
+        return None  # all keys exhausted
+
+    def record(self):
+        self.requests[self.idx] = self.requests.get(self.idx, 0) + 1
+
+    def status(self) -> str:
+        parts = []
+        for i, k in enumerate(self.keys):
+            tag = "✓" if i not in self.exhausted else "✗"
+            parts.append(f"key{i+1}:{tag}({self.requests.get(i,0)}req)")
+        return " | ".join(parts)
+
 # ── Article prompt (same structured format — no JSON escaping issues) ───────────
 ARTICLE_PROMPT = """\
 You are a senior clinician writing an authoritative medical reference comparable to UpToDate or StatPearls.
@@ -142,54 +195,87 @@ def _parse_output(content: str) -> dict | None:
     return {"title": title, "excerpt": excerpt, "body_text": body_text}
 
 
-def generate_with_groq(topic: str, category: str, model: str, api_key: str) -> dict | None:
-    """Call Groq API to generate article. Returns dict with title/excerpt/body_text."""
+def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotator") -> dict | None:
+    """Call Groq API with automatic key rotation on rate limits."""
     prompt = ARTICLE_PROMPT.format(topic=topic, category=category)
-    try:
-        resp = httpx.post(
-            GROQ_URL,
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 4096,
-                "temperature": 0.3,
-                "top_p": 0.9,
-            },
-            timeout=120,
-        )
 
-        if resp.status_code == 429:
-            # Rate limit — extract retry-after
-            retry = int(resp.headers.get("retry-after", "60"))
-            log.warning("  Rate limited — waiting %ds", retry)
-            time.sleep(retry + 2)
-            return generate_with_groq(topic, category, model, api_key)  # retry once
-
-        if resp.status_code != 200:
-            log.error("Groq error %s: %s", resp.status_code, resp.text[:200])
+    for attempt in range(len(rotator.keys) + 1):
+        if rotator.active_count == 0:
+            log.error("All Groq keys exhausted for today. Stopping.")
             return None
 
-        data = resp.json()
-        content = data["choices"][0]["message"]["content"]
-        tokens_used = data.get("usage", {}).get("total_tokens", 0)
-        log.info("  Tokens: %d (completion: %d)",
-                 tokens_used, data.get("usage", {}).get("completion_tokens", 0))
+        api_key = rotator.current
+        try:
+            resp = httpx.post(
+                GROQ_URL,
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json={
+                    "model": model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "max_tokens": 4096,
+                    "temperature": 0.3,
+                    "top_p": 0.9,
+                },
+                timeout=120,
+            )
 
-        result = _parse_output(content)
-        if not result:
-            log.error("Parse failed for '%s' — preview: %s", topic, content[:300])
-        return result
+            if resp.status_code == 429:
+                body = resp.json().get("error", {})
+                err_msg = body.get("message", "")
+                retry_after = int(resp.headers.get("retry-after", "0"))
 
-    except httpx.TimeoutException:
-        log.error("Groq timeout for '%s'", topic)
-        return None
-    except Exception as e:
-        log.error("Groq call failed for '%s': %s", topic, e)
-        return None
+                # Daily limit hit → rotate to next key permanently
+                if "rate_limit_exceeded" in err_msg.lower() and retry_after > 3600:
+                    next_key = rotator.rotate(exhausted=True)
+                    if next_key is None:
+                        log.error("All keys daily-limited. Stopping.")
+                        return None
+                    continue
+
+                # Token-per-minute limit → brief pause, retry same key
+                if retry_after and retry_after < 120:
+                    log.warning("  TPM limit — waiting %ds (key %d/%d)",
+                                retry_after, rotator.idx + 1, len(rotator.keys))
+                    time.sleep(retry_after + 1)
+                    continue
+
+                # Generic 429 → try next key
+                log.warning("  429 rate limit — switching key [%s]", err_msg[:60])
+                next_key = rotator.rotate(exhausted=False)
+                if next_key is None:
+                    return None
+                continue
+
+            if resp.status_code == 401:
+                log.error("  Key %d invalid — switching", rotator.idx + 1)
+                rotator.rotate(exhausted=True)
+                continue
+
+            if resp.status_code != 200:
+                log.error("Groq error %s: %s", resp.status_code, resp.text[:200])
+                return None
+
+            data = resp.json()
+            content = data["choices"][0]["message"]["content"]
+            usage = data.get("usage", {})
+            log.info("  Tokens: %d (completion: %d) [key %d/%d]",
+                     usage.get("total_tokens", 0), usage.get("completion_tokens", 0),
+                     rotator.idx + 1, len(rotator.keys))
+
+            rotator.record()
+            result = _parse_output(content)
+            if not result:
+                log.error("Parse failed for '%s' — preview: %s", topic, content[:300])
+            return result
+
+        except httpx.TimeoutException:
+            log.error("Groq timeout for '%s' (key %d)", topic, rotator.idx + 1)
+            return None
+        except Exception as e:
+            log.error("Groq call failed: %s", e)
+            return None
+
+    return None
 
 
 def main():
@@ -223,43 +309,63 @@ def main():
         print(f"\nTotal: {total} topics")
         return
 
-    # Get API key
-    api_key = args.key or os.environ.get("GROQ_API_KEY") or ""
-    if not api_key:
-        # Try to load from backend .env.prod
-        env_file = os.path.join(os.path.dirname(__file__), "backend", ".env.prod")
-        if os.path.exists(env_file):
-            with open(env_file) as f:
-                for line in f:
-                    if line.startswith("GROQ_API_KEY="):
-                        api_key = line.split("=", 1)[1].strip()
-                        break
+    # ── Load all API keys (supports multi-key rotation) ────────────────────────
+    keys: list[str] = []
 
-    if not api_key or api_key == "":
-        print("\n❌  GROQ_API_KEY not set!")
-        print("\n1. Go to https://console.groq.com → API Keys → Create key")
-        print("2. Add to /opt/medmind/backend/.env.prod:")
-        print("   GROQ_API_KEY=gsk_xxxxxxxxxxxx")
-        print("\nOr pass directly:")
-        print("   python3 generate_articles_groq.py --key gsk_xxxxxxxxxxxx --limit 50\n")
+    # 1. From --key argument
+    if args.key:
+        keys.extend([k.strip() for k in args.key.split(",") if k.strip()])
+
+    # 2. From environment variables GROQ_API_KEY, GROQ_API_KEY_2, _3, _4 ...
+    env_vars = ["GROQ_API_KEY"] + [f"GROQ_API_KEY_{i}" for i in range(2, 10)]
+    for var in env_vars:
+        val = os.environ.get(var, "")
+        if val and val not in keys:
+            keys.append(val)
+
+    # 3. From backend/.env.prod
+    env_file = os.path.join(os.path.dirname(__file__), "backend", ".env.prod")
+    if os.path.exists(env_file):
+        with open(env_file) as f:
+            for line in f:
+                line = line.strip()
+                for var in env_vars:
+                    if line.startswith(f"{var}="):
+                        val = line.split("=", 1)[1].strip()
+                        if val and val not in keys:
+                            keys.append(val)
+
+    if not keys:
+        print("\n❌  No GROQ_API_KEY configured!")
+        print("Add to /opt/medmind/backend/.env.prod: GROQ_API_KEY=gsk_xxx")
+        print("Multiple keys: GROQ_API_KEY_2=gsk_yyy  GROQ_API_KEY_3=gsk_zzz\n")
         sys.exit(1)
 
-    log.info("Groq Article Generator | model=%s | limit=%d", args.model, args.limit)
+    # ── Verify keys ────────────────────────────────────────────────────────────
+    valid_keys = []
+    for k in keys:
+        try:
+            test = httpx.post(
+                GROQ_URL,
+                headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"},
+                json={"model": args.model, "messages": [{"role": "user", "content": "OK"}], "max_tokens": 2},
+                timeout=10,
+            )
+            if test.status_code == 200:
+                valid_keys.append(k)
+                log.info("  ✓ Key %d/%d valid: %s...", len(valid_keys), len(keys), k[:20])
+            else:
+                log.warning("  ✗ Key invalid: %s... (%s)", k[:20], test.status_code)
+        except Exception as e:
+            log.warning("  ✗ Key check failed: %s... (%s)", k[:20], e)
 
-    # Test API key
-    test = httpx.post(
-        GROQ_URL,
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json={"model": args.model, "messages": [{"role": "user", "content": "Say OK"}], "max_tokens": 5},
-        timeout=15,
-    )
-    if test.status_code == 401:
-        print("\n❌  Invalid API key. Check your GROQ_API_KEY.\n")
+    if not valid_keys:
+        print("\n❌  No valid Groq API keys found.\n")
         sys.exit(1)
-    elif test.status_code == 200:
-        log.info("API key verified ✓")
-    else:
-        log.warning("API test returned %s — continuing anyway", test.status_code)
+
+    rotator = KeyRotator(valid_keys)
+    log.info("Groq Article Generator | model=%s | limit=%d | keys=%d",
+             args.model, args.limit, len(valid_keys))
 
     conn = psycopg2.connect(DB_URL)
     count = errors = skipped = 0
@@ -296,10 +402,14 @@ def main():
                     skipped += 1
                     continue
 
-            # Generate via Groq
+            # Generate via Groq (with key rotation)
             t0 = time.time()
-            data = generate_with_groq(topic, category, args.model, api_key)
+            data = generate_with_groq(topic, category, args.model, rotator)
             elapsed = time.time() - t0
+
+            if rotator.active_count == 0:
+                log.error("All Groq API keys exhausted. Stopping.")
+                break
 
             if not data or not data.get("title") or not data.get("body_text"):
                 log.warning("  ✗ Generation failed (%.1fs)", elapsed)
@@ -352,10 +462,8 @@ def main():
             time.sleep(args.delay)
 
     conn.close()
-    model_info = GROQ_MODELS.get(args.model, {})
     log.info("Done. Generated: %d | Skipped: %d | Errors: %d", count, skipped, errors)
-    log.info("Used ~%d tokens (~%d requests) of %d daily free requests",
-             count * 3000, count, model_info.get("rpd", 14400))
+    log.info("Key usage: %s", rotator.status())
 
 
 if __name__ == "__main__":
