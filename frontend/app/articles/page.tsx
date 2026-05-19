@@ -11,24 +11,46 @@ const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Medical Articles — Evidence-Based Health Information",
-  description:
-    "Comprehensive evidence-based medical articles on diseases, drugs, procedures, and clinical guidelines. Written for doctors, students, and healthcare professionals.",
-  alternates: {
-    canonical: `${SITE_URL}/articles`,
-    languages: Object.fromEntries(
-      ["en", "ru", "ar", "tr", "de", "fr", "es"].map((l) => [l, `${SITE_URL}/${l}/articles`])
-    ),
-  },
-  openGraph: {
-    title: "Medical Articles — MedMind AI",
-    description: "Evidence-based medical content: diseases, drugs, procedures, diagnostics.",
-    url: `${SITE_URL}/articles`,
-    siteName: "MedMind AI",
-    type: "website",
-  },
-};
+// metadata is generated dynamically per locale — see generateMetadata below
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: { search?: string; lang?: string };
+}): Promise<Metadata> {
+  const cookieLocale = undefined; // SSR: don't read cookies in generateMetadata
+  const rawLocale = searchParams?.lang;
+  const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
+  const search = searchParams?.search;
+
+  // Search pages: noindex (too many permutations, thin content)
+  if (search) {
+    return {
+      title: `Search: ${search} — Medical Articles — MedMind AI`,
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const canonical = locale !== "en" ? `${SITE_URL}/articles?lang=${locale}` : `${SITE_URL}/articles`;
+
+  return {
+    title: "Medical Articles — Evidence-Based Health Information",
+    description:
+      "Comprehensive evidence-based medical articles on diseases, drugs, procedures, and clinical guidelines. Written for doctors, students, and healthcare professionals.",
+    alternates: {
+      canonical,
+      languages: Object.fromEntries(
+        SUPPORTED.map((l) => [l, l === "en" ? `${SITE_URL}/articles` : `${SITE_URL}/articles?lang=${l}`])
+      ),
+    },
+    openGraph: {
+      title: "Medical Articles — MedMind AI",
+      description: "Evidence-based medical content: diseases, drugs, procedures, diagnostics.",
+      url: canonical,
+      siteName: "MedMind AI",
+      type: "website",
+    },
+  };
+}
 
 
 type Article = {
