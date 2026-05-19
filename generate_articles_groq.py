@@ -37,7 +37,7 @@ import psycopg2
 sys.path.insert(0, os.path.dirname(__file__))
 from generate_articles_ollama import (
     TOPICS, SCHEMA_MAP, INDEXNOW_KEY, DB_URL, LOCALES,
-    slugify, text_to_blocks, calc_reading_time, save_article,
+    slugify, text_to_blocks, calc_reading_time, save_article, update_article,
     save_translations, notify_indexnow, gtranslate, translate_blocks,
 )
 
@@ -108,6 +108,26 @@ class KeyRotator:
                 return self.current
 
         return None  # all keys exhausted
+
+    def wait_for_reset(self):
+        """All keys exhausted — sleep until Groq daily reset (midnight UTC) then reset all."""
+        import datetime as _dt
+        now = _dt.datetime.utcnow()
+        # Groq resets at 00:00 UTC — calculate seconds to next midnight
+        tomorrow = (now + _dt.timedelta(days=1)).replace(hour=0, minute=2, second=0, microsecond=0)
+        wait_sec = int((tomorrow - now).total_seconds())
+        hours, mins = wait_sec // 3600, (wait_sec % 3600) // 60
+        log.info("=" * 60)
+        log.info("ALL GROQ KEYS EXHAUSTED — daily limits hit")
+        log.info("Groq resets at 00:00 UTC. Sleeping %dh %dm until %s UTC",
+                 hours, mins, tomorrow.strftime("%H:%M"))
+        log.info("Status: %s", self.status())
+        log.info("=" * 60)
+        time.sleep(wait_sec)
+        # Reset all keys for the new day
+        self.exhausted.clear()
+        self.idx = 0
+        log.info("Daily limits reset — resuming generation with all %d keys", len(self.keys))
 
     def record(self):
         self.requests[self.idx] = self.requests.get(self.idx, 0) + 1
@@ -196,13 +216,12 @@ def _parse_output(content: str) -> dict | None:
 
 
 def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotator") -> dict | None:
-    """Call Groq API with automatic key rotation on rate limits."""
+    """Call Groq API with automatic key rotation and daily-reset waiting."""
     prompt = ARTICLE_PROMPT.format(topic=topic, category=category)
 
-    for attempt in range(len(rotator.keys) + 1):
+    while True:  # retry loop: handles key rotation and daily resets automatically
         if rotator.active_count == 0:
-            log.error("All Groq keys exhausted for today. Stopping.")
-            return None
+            rotator.wait_for_reset()  # sleep until midnight UTC, then reset all keys
 
         api_key = rotator.current
         try:
@@ -224,13 +243,10 @@ def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotat
                 err_msg = body.get("message", "")
                 retry_after = int(resp.headers.get("retry-after", "0"))
 
-                # Daily limit hit → rotate to next key permanently
+                # Daily limit hit → mark key exhausted, outer while handles full exhaustion
                 if "rate_limit_exceeded" in err_msg.lower() and retry_after > 3600:
-                    next_key = rotator.rotate(exhausted=True)
-                    if next_key is None:
-                        log.error("All keys daily-limited. Stopping.")
-                        return None
-                    continue
+                    rotator.rotate(exhausted=True)
+                    continue  # outer while will call wait_for_reset if all keys exhausted
 
                 # Token-per-minute limit → brief pause, retry same key
                 if retry_after and retry_after < 120:
@@ -241,9 +257,7 @@ def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotat
 
                 # Generic 429 → try next key
                 log.warning("  429 rate limit — switching key [%s]", err_msg[:60])
-                next_key = rotator.rotate(exhausted=False)
-                if next_key is None:
-                    return None
+                rotator.rotate(exhausted=False)
                 continue
 
             if resp.status_code == 401:
@@ -274,8 +288,6 @@ def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotat
         except Exception as e:
             log.error("Groq call failed: %s", e)
             return None
-
-    return None
 
 
 def main():
@@ -402,14 +414,10 @@ def main():
                     skipped += 1
                     continue
 
-            # Generate via Groq (with key rotation)
+            # Generate via Groq (with key rotation and auto daily-reset)
             t0 = time.time()
             data = generate_with_groq(topic, category, args.model, rotator)
             elapsed = time.time() - t0
-
-            if rotator.active_count == 0:
-                log.error("All Groq API keys exhausted. Stopping.")
-                break
 
             if not data or not data.get("title") or not data.get("body_text"):
                 log.warning("  ✗ Generation failed (%.1fs)", elapsed)
@@ -461,8 +469,62 @@ def main():
             count += 1
             time.sleep(args.delay)
 
+    # ── Phase 2: regenerate shallow articles (reading_time <= 3 min) ─────────────
+    if not args.category:
+        log.info("=" * 60)
+        log.info("Phase 1 complete. Generated: %d | Skipped: %d | Errors: %d", count, skipped, errors)
+        log.info("Phase 2: regenerating shallow articles (reading_time_minutes <= 3)...")
+        log.info("=" * 60)
+        regen_count = 0
+        regen_errors = 0
+        while True:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    SELECT id, title, excerpt, category
+                    FROM articles
+                    WHERE reading_time_minutes <= 3
+                      AND is_published = true
+                      AND generated_by IN ('ollama-qwen3', 'groq')
+                    ORDER BY created_at ASC
+                    LIMIT 50
+                """)
+                rows = cur.fetchall()
+
+            if not rows:
+                log.info("Phase 2 complete — no more shallow articles to regenerate.")
+                break
+
+            log.info("Phase 2 batch: %d shallow articles to improve", len(rows))
+            for art_id, art_title, art_excerpt, art_category in rows:
+                log.info("  [regen] %s / %s", art_category, art_title[:60])
+                t0 = time.time()
+                data = generate_with_groq(art_title, art_category, args.model, rotator)
+                elapsed = time.time() - t0
+
+                if not data or not data.get("body_text"):
+                    log.warning("  ✗ Regen failed (%.1fs)", elapsed)
+                    regen_errors += 1
+                    continue
+
+                new_body = text_to_blocks(data["body_text"])
+                new_title = data.get("title") or art_title
+                new_excerpt = data.get("excerpt") or art_excerpt
+                rt = calc_reading_time(new_body)
+                ok = update_article(conn, art_id, new_title, new_excerpt, new_body)
+                if ok:
+                    log.info("  ✓ Regenerated: '%s' (%d min, %.1fs)", new_title[:55], rt, elapsed)
+                    regen_count += 1
+                    # Update translations for improved article
+                    save_translations(conn, art_id, new_title, new_excerpt, new_body)
+                else:
+                    regen_errors += 1
+                time.sleep(args.delay)
+
+        log.info("Phase 2 done. Regenerated: %d | Errors: %d", regen_count, regen_errors)
+
     conn.close()
-    log.info("Done. Generated: %d | Skipped: %d | Errors: %d", count, skipped, errors)
+    log.info("=" * 60)
+    log.info("All done. Phase1 generated: %d | Skipped: %d | Errors: %d", count, skipped, errors)
     log.info("Key usage: %s", rotator.status())
 
 
