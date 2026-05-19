@@ -41,7 +41,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "modules" | "generate" | "articles" | "translations" | "flags" | "system" | "audit";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "flags" | "system" | "audit";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -180,6 +180,7 @@ export default function AdminPage() {
         {([
           ["overview",     "📊 Overview"],
           ["users",        "👥 Users"],
+          ["teachers",     "🎓 Teachers"],
           ["modules",      "📚 Modules"],
           ["generate",     "✨ Generate"],
           ["articles",     "📰 Articles"],
@@ -579,6 +580,9 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* ── Teachers ── */}
+      {tab === "teachers" && <TeachersPanel showToast={showToast} />}
+
       {/* ── Generate Module ── */}
       {tab === "generate" && <GenerateModulePanel showToast={showToast} />}
 
@@ -599,6 +603,213 @@ export default function AdminPage() {
     </div>
   );
 }
+
+// ── Teachers Panel ────────────────────────────────────────────────────────────
+
+type Teacher = {
+  id: string;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  role: string;
+  is_active: boolean;
+  is_verified_teacher: boolean;
+  is_trusted_author: boolean;
+  created_at?: string;
+  articles: { total: number; published: number; pending: number };
+};
+
+function TeachersPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "err") => void }) {
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState<string | null>(null);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get("/admin/teachers");
+      setTeachers(r.data);
+    } catch {
+      showToast("Failed to load teachers", "err");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const patch = async (id: string, update: Partial<Pick<Teacher, "is_verified_teacher" | "is_trusted_author" | "is_active">>) => {
+    setUpdating(id);
+    try {
+      const r = await api.patch(`/admin/users/${id}`, update);
+      setTeachers(prev => prev.map(t => t.id === id ? { ...t, ...r.data } : t));
+      const msg = "is_verified_teacher" in update
+        ? (update.is_verified_teacher ? "Teacher verified ✓" : "Verification removed")
+        : "is_trusted_author" in update
+        ? (update.is_trusted_author ? "Trusted author — articles auto-publish" : "Review required again")
+        : "Updated";
+      showToast(msg);
+    } catch (e: any) {
+      showToast(e.response?.data?.detail ?? "Update failed", "err");
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const pending = teachers.reduce((s, t) => s + t.articles.pending, 0);
+
+  return (
+    <div className="space-y-5">
+      {/* Legend */}
+      <div className="card p-4 bg-surface">
+        <h3 className="font-syne font-bold text-sm text-ink mb-3">Author Trust Levels</h3>
+        <div className="grid sm:grid-cols-3 gap-3 text-xs font-serif">
+          <div className="flex items-start gap-2 p-3 bg-surface-2 rounded-lg border border-border">
+            <span className="text-base">🕐</span>
+            <div>
+              <div className="font-syne font-semibold text-ink">Unverified</div>
+              <div className="text-ink-3">All articles go through mandatory review before publishing</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg border border-blue/20">
+            <span className="text-base">✅</span>
+            <div>
+              <div className="font-syne font-semibold text-blue-700">Verified Teacher</div>
+              <div className="text-ink-3">Identity confirmed as medical professional. Still requires review.</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 p-3 bg-green-light rounded-lg border border-green/20">
+            <span className="text-base">⚡</span>
+            <div>
+              <div className="font-syne font-semibold text-green">Trusted Author</div>
+              <div className="text-ink-3">Articles publish <strong>instantly</strong> — no review required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats bar */}
+      <div className="flex items-center gap-4 flex-wrap">
+        <div className="font-syne text-sm text-ink-2">
+          <span className="font-bold text-ink">{teachers.length}</span> teachers total ·{" "}
+          <span className="font-bold text-blue-600">{teachers.filter(t => t.is_verified_teacher).length}</span> verified ·{" "}
+          <span className="font-bold text-green">{teachers.filter(t => t.is_trusted_author).length}</span> trusted
+          {pending > 0 && (
+            <span className="ml-3 bg-amber-light text-amber border border-amber/20 rounded-full px-2.5 py-0.5 font-semibold">
+              {pending} articles pending review
+            </span>
+          )}
+        </div>
+        <button onClick={load} className="btn-primary text-xs ml-auto">Refresh</button>
+      </div>
+
+      {/* Table */}
+      <div className="card overflow-hidden">
+        {loading ? (
+          <div className="p-8 text-center text-ink-3 text-sm">Loading…</div>
+        ) : teachers.length === 0 ? (
+          <div className="p-8 text-center text-ink-3 font-serif text-sm">No teachers registered yet</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-surface-2">
+                  {["Teacher", "Articles", "Verified", "Trusted Author", "Account"].map(h => (
+                    <th key={h} className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {teachers.map(t => (
+                  <tr key={t.id} className={`border-b border-border last:border-0 transition-colors ${
+                    t.is_trusted_author ? "bg-green-light/20 hover:bg-green-light/40" :
+                    t.is_verified_teacher ? "bg-blue-50/50 hover:bg-blue-50" :
+                    "hover:bg-surface-2"
+                  }`}>
+                    {/* Name + email */}
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-surface-2 border border-border flex items-center justify-center text-xs font-syne font-bold text-ink-2 flex-shrink-0">
+                          {(t.first_name?.[0] ?? t.email[0]).toUpperCase()}
+                        </div>
+                        <div>
+                          <div className="font-syne font-semibold text-sm text-ink">
+                            {t.first_name || t.last_name ? `${t.first_name ?? ""} ${t.last_name ?? ""}`.trim() : "—"}
+                            {t.is_trusted_author && <span className="ml-1.5 text-[10px] bg-green text-white rounded-full px-1.5 py-0.5">⚡ Trusted</span>}
+                            {!t.is_trusted_author && t.is_verified_teacher && <span className="ml-1.5 text-[10px] bg-blue-100 text-blue-700 rounded-full px-1.5 py-0.5">✓ Verified</span>}
+                          </div>
+                          <div className="text-ink-3 text-xs font-serif">{t.email}</div>
+                          <div className="text-ink-3 text-[10px] font-syne capitalize">{t.role}</div>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Article stats */}
+                    <td className="px-4 py-3">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-xs font-syne text-ink">{t.articles.total} total</span>
+                        <span className="text-[10px] text-green">{t.articles.published} published</span>
+                        {t.articles.pending > 0 && (
+                          <span className="text-[10px] text-amber font-semibold">{t.articles.pending} pending ⏳</span>
+                        )}
+                      </div>
+                    </td>
+
+                    {/* Verified toggle */}
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => patch(t.id, { is_verified_teacher: !t.is_verified_teacher })}
+                        disabled={updating === t.id}
+                        className={`relative w-11 h-6 rounded-full border-2 transition-colors focus:outline-none disabled:opacity-50 ${
+                          t.is_verified_teacher ? "bg-blue-500 border-blue-500" : "bg-surface-2 border-border"
+                        }`}
+                      >
+                        <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${t.is_verified_teacher ? "translate-x-5" : ""}`} />
+                      </button>
+                      <div className="text-[10px] text-ink-3 mt-0.5">{t.is_verified_teacher ? "Verified ✓" : "Not verified"}</div>
+                    </td>
+
+                    {/* Trusted author toggle */}
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => patch(t.id, { is_trusted_author: !t.is_trusted_author })}
+                        disabled={updating === t.id}
+                        className={`relative w-11 h-6 rounded-full border-2 transition-colors focus:outline-none disabled:opacity-50 ${
+                          t.is_trusted_author ? "bg-green border-green" : "bg-surface-2 border-border"
+                        }`}
+                      >
+                        <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${t.is_trusted_author ? "translate-x-5" : ""}`} />
+                      </button>
+                      <div className="text-[10px] text-ink-3 mt-0.5">
+                        {t.is_trusted_author ? "Auto-publish ⚡" : "Review required"}
+                      </div>
+                    </td>
+
+                    {/* Account status */}
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => patch(t.id, { is_active: !t.is_active })}
+                        disabled={updating === t.id}
+                        className={`text-xs font-syne font-semibold border rounded px-2 py-0.5 transition-colors ${
+                          t.is_active
+                            ? "border-red/30 text-red hover:bg-red-light"
+                            : "border-green/30 text-green hover:bg-green-light"
+                        }`}
+                      >
+                        {t.is_active ? "Disable" : "Enable"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 
 // ── Generate Module Panel ─────────────────────────────────────────────────────
 

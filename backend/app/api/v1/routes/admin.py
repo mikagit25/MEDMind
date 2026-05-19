@@ -6,7 +6,7 @@ import json
 
 from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
 from pydantic import BaseModel
-from sqlalchemy import func, select, update, desc
+from sqlalchemy import func, select, update, desc, Integer, cast
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, require_admin
@@ -28,6 +28,8 @@ class UserPatch(BaseModel):
     subscription_tier: Optional[str] = None
     is_active: Optional[bool] = None
     role: Optional[str] = None
+    is_verified_teacher: Optional[bool] = None
+    is_trusted_author: Optional[bool] = None
 
 
 class ModulePatch(BaseModel):
@@ -293,6 +295,10 @@ async def patch_user(
         if data.role not in VALID_ROLES:
             raise HTTPException(status_code=400, detail=f"Invalid role. Valid: {VALID_ROLES}")
         target.role = data.role
+    if data.is_verified_teacher is not None:
+        target.is_verified_teacher = data.is_verified_teacher
+    if data.is_trusted_author is not None:
+        target.is_trusted_author = data.is_trusted_author
 
     db.add(AuditLog(
         user_id=admin.id,
@@ -308,7 +314,59 @@ async def patch_user(
         "role": target.role,
         "subscription_tier": target.subscription_tier,
         "is_active": target.is_active,
+        "is_verified_teacher": target.is_verified_teacher,
+        "is_trusted_author": target.is_trusted_author,
     }
+
+
+# ── Teachers ─────────────────────────────────────────────────────────────────
+
+@router.get("/teachers")
+async def list_teachers(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """List all teachers with verification/trust status and article stats."""
+    from sqlalchemy import func as _func
+    from app.models.models import Article
+
+    result = await db.execute(
+        select(User).where(User.role.in_(["teacher", "doctor"])).order_by(User.created_at.desc())
+    )
+    teachers = result.scalars().all()
+
+    # Get article counts per teacher
+    teacher_ids = [t.id for t in teachers]
+    art_stats: dict = {}
+    if teacher_ids:
+        art_rows = await db.execute(
+            select(Article.author_id, Article.is_published, Article.review_status)
+            .where(Article.author_id.in_(teacher_ids))
+        )
+        for row in art_rows:
+            tid = str(row.author_id)
+            s = art_stats.setdefault(tid, {"total": 0, "published": 0, "pending": 0})
+            s["total"] += 1
+            if row.is_published:
+                s["published"] += 1
+            if row.review_status == "pending_review":
+                s["pending"] += 1
+
+    return [
+        {
+            "id": str(t.id),
+            "email": decrypt_email(t.email),
+            "first_name": t.first_name,
+            "last_name": t.last_name,
+            "role": t.role,
+            "is_active": t.is_active,
+            "is_verified_teacher": t.is_verified_teacher,
+            "is_trusted_author": t.is_trusted_author,
+            "created_at": t.created_at.isoformat() if t.created_at else None,
+            "articles": art_stats.get(str(t.id), {"total": 0, "published": 0, "pending": 0}),
+        }
+        for t in teachers
+    ]
 
 
 # ── Modules ───────────────────────────────────────────────────────────────────

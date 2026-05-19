@@ -291,6 +291,8 @@ class User(Base):
     onboarding_completed = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
+    is_verified_teacher = Column(Boolean, default=False)   # admin confirmed real medical professional
+    is_trusted_author = Column(Boolean, default=False)     # articles auto-publish, no review needed
     oauth_provider = Column(String(50))
     oauth_id = Column(String(200))
     created_at = Column(DateTime, default=datetime.utcnow)

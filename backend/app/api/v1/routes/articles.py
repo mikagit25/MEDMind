@@ -1045,11 +1045,21 @@ async def submit_for_review(
     if not article.body:
         raise HTTPException(status_code=400, detail="Article has no content. Add body sections before submitting.")
 
+    # Trusted authors bypass review — publish immediately
+    if getattr(user, "is_trusted_author", False):
+        article.review_status = "published"
+        article.is_published = True
+        article.submitted_at = datetime.utcnow()
+        article.published_at = datetime.utcnow()
+        article.review_note = None
+        await db.commit()
+        return {"id": str(article.id), "review_status": "published", "auto_published": True}
+
     article.review_status = "pending_review"
     article.submitted_at = datetime.utcnow()
     article.review_note = None
     await db.commit()
-    return {"id": str(article.id), "review_status": article.review_status}
+    return {"id": str(article.id), "review_status": article.review_status, "auto_published": False}
 
 
 @router.post("/my/{article_id}/withdraw")
