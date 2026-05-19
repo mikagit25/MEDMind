@@ -109,9 +109,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_hasHydrated]);
 
-  // Redirect to onboarding if not completed
+  // Redirect to onboarding if not completed (skip for admin/teacher — they don't need it)
   useEffect(() => {
-    if (tokenChecked && isAuthenticated && user && !user.onboarding_completed) {
+    if (
+      tokenChecked && isAuthenticated && user &&
+      !user.onboarding_completed &&
+      user.role !== "admin" && user.role !== "teacher"
+    ) {
       router.push("/onboarding");
     }
   }, [tokenChecked, isAuthenticated, user, router]);
