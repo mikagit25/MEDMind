@@ -70,11 +70,11 @@ api.interceptors.response.use(
   async (error) => {
     const original = error.config;
 
-    // Only intercept 401 errors from the API (not refresh endpoint itself)
+    // Only intercept 401 errors from the API (not auth endpoints — login/refresh handle their own 401)
     if (
       error.response?.status !== 401 ||
       original._retry ||
-      original.url?.includes("/auth/refresh")
+      original.url?.includes("/auth/")
     ) {
       return Promise.reject(error);
     }
