@@ -36,10 +36,32 @@ import psycopg2
 # ── Import TOPICS from Ollama script (same topic list, no duplication) ─────────
 sys.path.insert(0, os.path.dirname(__file__))
 from generate_articles_ollama import (
-    TOPICS, SCHEMA_MAP, INDEXNOW_KEY, DB_URL, LOCALES,
+    TOPICS as _BASE_TOPICS, SCHEMA_MAP, INDEXNOW_KEY, DB_URL, LOCALES,
     slugify, text_to_blocks, calc_reading_time, save_article, update_article,
     save_translations, notify_indexnow, gtranslate, translate_blocks,
 )
+
+# Merge base topics + all NEW_TOPICS from gemini script + topics_extra.json
+try:
+    from generate_articles_gemini import NEW_TOPICS as _NEW_TOPICS, topic_key as _topic_key
+    TOPICS: dict[str, list[str]] = {**_BASE_TOPICS, **_NEW_TOPICS}
+except ImportError:
+    TOPICS = dict(_BASE_TOPICS)
+    def _topic_key(t: str) -> str:
+        _STOP = {"and","the","of","in","with","vs","versus","for","or","a","an","to","from","on"}
+        words = [w for w in re.split(r"[\s\-]+", t.lower()) if w not in _STOP and len(w) > 1]
+        return "-".join(words[:2])
+
+_EXTRA_FILE = os.path.join(os.path.dirname(__file__), "topics_extra.json")
+if os.path.exists(_EXTRA_FILE):
+    with open(_EXTRA_FILE) as _f:
+        for _cat, _topics in json.load(_f).items():
+            TOPICS.setdefault(_cat, [])
+            _seen = {t.lower() for t in TOPICS[_cat]}
+            for _t in _topics:
+                if _t.lower() not in _seen:
+                    TOPICS[_cat].append(_t)
+                    _seen.add(_t.lower())
 
 try:
     from fetch_article_image import fetch_cover_image as _fetch_cover_image
@@ -401,92 +423,125 @@ def main():
     conn = psycopg2.connect(DB_URL)
     count = errors = skipped = 0
 
-    STOP = {"and", "the", "of", "in", "with", "vs", "versus", "its", "for",
-            "or", "a", "an", "to", "from", "on", "at", "by", "as"}
+    # ── Smart pre-filter: load all existing articles once (O(1) per topic) ──────
+    log.info("Pre-loading existing articles from DB...")
+    _STOP = {"and", "the", "of", "in", "with", "vs", "versus", "its", "for",
+             "or", "a", "an", "to", "from", "on", "at", "by", "as", "during",
+             "after", "before", "using", "via", "per"}
+    existing_keys: set[str] = set()
+    with conn.cursor() as cur:
+        cur.execute("SELECT slug, title FROM articles WHERE is_published = true")
+        for slug, title in cur.fetchall():
+            parts = [w for w in slug.split("-") if w not in _STOP and len(w) > 1]
+            if parts:
+                existing_keys.add("-".join(parts[:2]))
+            words = [w for w in re.split(r"[\s\-]+", title.lower()) if w not in _STOP and len(w) > 1]
+            if words:
+                existing_keys.add("-".join(words[:2]))
+    log.info("Loaded %d existing article keys", len(existing_keys))
 
-    for category, topics in TOPICS.items():
-        if args.category and category != args.category:
+    # Build flat pending list (same approach as Gemini — no per-topic DB queries)
+    pending: list[tuple[str, str]] = []
+    for cat, topics in TOPICS.items():
+        if args.category and cat != args.category:
             continue
+        for topic in topics:
+            if _topic_key(topic) not in existing_keys:
+                pending.append((cat, topic))
+    log.info("Topics pending: %d | Already exist: %d", len(pending),
+             sum(len(t) for c, t in TOPICS.items()
+                 if not args.category or c == args.category) - len(pending))
+
+    # Generated this session (prevents Gemini/Groq overlap)
+    generated_keys: set[str] = set()
+
+    # Watch topics_extra.json for live updates from discover_topics.py
+    def _reload_extra_if_updated():
+        if not os.path.exists(_EXTRA_FILE):
+            return
+        mtime = os.path.getmtime(_EXTRA_FILE)
+        if not hasattr(_reload_extra_if_updated, "_last_mtime"):
+            _reload_extra_if_updated._last_mtime = mtime
+            return
+        if mtime > _reload_extra_if_updated._last_mtime:
+            _reload_extra_if_updated._last_mtime = mtime
+            with open(_EXTRA_FILE) as f:
+                extra = json.load(f)
+            added = 0
+            for cat, topics in extra.items():
+                for topic in topics:
+                    k = _topic_key(topic)
+                    if k not in existing_keys and k not in generated_keys:
+                        pending.append((cat, topic))
+                        added += 1
+            if added:
+                log.info("topics_extra.json updated — +%d new topics queued", added)
+
+    for category, topic in pending:
         if count >= args.limit:
             break
+        if _topic_key(topic) in generated_keys:
+            continue
+        _reload_extra_if_updated()
 
-        for topic in topics:
-            if count >= args.limit:
-                break
+        log.info("[%d/%d] %s / %s", count + 1, args.limit, category, topic)
 
-            log.info("[%d/%d] %s / %s", count + 1, args.limit, category, topic)
+        # Generate via Groq (with key rotation and auto daily-reset)
+        t0 = time.time()
+        data = generate_with_groq(topic, category, args.model, rotator)
+        elapsed = time.time() - t0
 
-            # Smart pre-check: skip if similar article exists
-            words = [w for w in re.split(r"[\s\-]+", topic.lower()) if w not in STOP]
-            key2 = slugify(" ".join(words[:2]))
+        if not data or not data.get("title") or not data.get("body_text"):
+            log.warning("  ✗ Generation failed (%.1fs)", elapsed)
+            errors += 1
+            continue
 
-            with conn.cursor() as cur:
-                cur.execute("SELECT 1 FROM articles WHERE slug LIKE %s LIMIT 1", (key2 + "%",))
-                if cur.fetchone():
-                    log.info("  -- Skipped (keyword '%s' exists)", key2)
-                    skipped += 1
-                    continue
-                slug_pre = slugify(topic)[:50]
-                cur.execute("SELECT 1 FROM articles WHERE slug LIKE %s LIMIT 1", (slug_pre + "%",))
-                if cur.fetchone():
-                    log.info("  -- Skipped (topic slug exists)")
-                    skipped += 1
-                    continue
+        title   = data["title"]
+        excerpt = data.get("excerpt", "")
+        body    = text_to_blocks(data["body_text"])
+        slug    = slugify(title)
 
-            # Generate via Groq (with key rotation and auto daily-reset)
-            t0 = time.time()
-            data = generate_with_groq(topic, category, args.model, rotator)
-            elapsed = time.time() - t0
+        log.info("  Generated: '%s' (%.1fs, %d blocks)", title[:60], elapsed, len(body))
 
-            if not data or not data.get("title") or not data.get("body_text"):
-                log.warning("  ✗ Generation failed (%.1fs)", elapsed)
-                errors += 1
-                continue
+        article_id = str(uuid.uuid4())
+        saved = save_article(conn, article_id, slug, title, excerpt, body, category)
+        if not saved:
+            alt_slug = slugify(f"{title} {category}")[:90]
+            saved = save_article(conn, article_id, alt_slug, title, excerpt, body, category)
+        if not saved:
+            log.info("  -- Slug conflict, skipping")
+            skipped += 1
+            continue
 
-            title   = data["title"]
-            excerpt = data.get("excerpt", "")
-            body    = text_to_blocks(data["body_text"])
-            slug    = slugify(title)
+        generated_keys.add(_topic_key(topic))  # mark so Gemini doesn't repeat
 
-            log.info("  Generated: '%s' (%.1fs, %d blocks)", title[:60], elapsed, len(body))
+        # Translate to 6 locales
+        n_tr = save_translations(conn, article_id, title, excerpt, body)
+        log.info("  ✓ Published + %d translations | %s", n_tr, slug)
 
-            article_id = str(uuid.uuid4())
-            saved = save_article(conn, article_id, slug, title, excerpt, body, category)
-            if not saved:
-                alt_slug = slugify(f"{title} {category}")[:90]
-                saved = save_article(conn, article_id, alt_slug, title, excerpt, body, category)
-            if not saved:
-                log.info("  -- Slug conflict, skipping")
-                skipped += 1
-                continue
+        # Cover image from Wikipedia
+        if _HAS_COVER:
+            try:
+                cover_url = _fetch_cover_image(title, category)
+                if cover_url:
+                    with conn.cursor() as cur:
+                        cur.execute("UPDATE articles SET cover_image=%s WHERE id=%s",
+                                    (cover_url, article_id))
+                    conn.commit()
+                    log.info("  Cover: %s", cover_url[:60])
+            except Exception as e:
+                log.warning("  Cover failed: %s", e)
 
-            # Translate to 6 locales
-            n_tr = save_translations(conn, article_id, title, excerpt, body)
-            log.info("  ✓ Published + %d translations | %s", n_tr, slug)
+        # OG image
+        if _HAS_OG:
+            try:
+                _gen_og_image(slug, title, category, calc_reading_time(body))
+            except Exception:
+                pass
 
-            # Cover image from Wikipedia
-            if _HAS_COVER:
-                try:
-                    cover_url = _fetch_cover_image(title, category)
-                    if cover_url:
-                        with conn.cursor() as cur:
-                            cur.execute("UPDATE articles SET cover_image=%s WHERE id=%s",
-                                        (cover_url, article_id))
-                        conn.commit()
-                        log.info("  🖼  Cover: %s", cover_url[:60])
-                except Exception as e:
-                    log.warning("  Cover failed: %s", e)
-
-            # OG image
-            if _HAS_OG:
-                try:
-                    _gen_og_image(slug, title, category, calc_reading_time(body))
-                except Exception:
-                    pass
-
-            notify_indexnow(slug)
-            count += 1
-            time.sleep(args.delay)
+        notify_indexnow(slug)
+        count += 1
+        time.sleep(args.delay)
 
     # ── Phase 2: regenerate shallow articles (reading_time <= 3 min) ─────────────
     if not args.category:

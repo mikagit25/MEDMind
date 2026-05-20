@@ -674,6 +674,18 @@ NEW_TOPICS: dict[str, list[str]] = {
 # Merge base + new topics
 ALL_TOPICS: dict[str, list[str]] = {**BASE_TOPICS, **NEW_TOPICS}
 
+# Load discovered topics from discover_topics.py (if file exists)
+_EXTRA_FILE = os.path.join(os.path.dirname(__file__), "topics_extra.json")
+if os.path.exists(_EXTRA_FILE):
+    with open(_EXTRA_FILE) as _f:
+        for _cat, _topics in json.load(_f).items():
+            ALL_TOPICS.setdefault(_cat, [])
+            _existing_set = {t.lower() for t in ALL_TOPICS[_cat]}
+            for _t in _topics:
+                if _t.lower() not in _existing_set:
+                    ALL_TOPICS[_cat].append(_t)
+                    _existing_set.add(_t.lower())
+
 STOP = {"and", "the", "of", "in", "with", "vs", "versus", "its", "for",
         "or", "a", "an", "to", "from", "on", "at", "by", "as", "during",
         "after", "before", "using", "via", "per"}
@@ -1091,8 +1103,30 @@ def main():
     if not pending:
         log.info("No pending topics — all already generated! Proceeding to Phase 2.")
 
+    # In-memory set of generated topic keys — updated after each success so a
+    # parallel Groq process doesn't waste API calls on the same topic
+    generated_keys: set[str] = set()
+
     count = errors = skipped = 0
-    phase1_limit = min(args.limit, len(pending))
+
+    def _reload_pending_if_needed():
+        """Reload pending list if topics_extra.json was updated by discover_topics.py."""
+        if not os.path.exists(_EXTRA_FILE):
+            return pending
+        mtime = os.path.getmtime(_EXTRA_FILE)
+        if not hasattr(_reload_pending_if_needed, "_last_mtime"):
+            _reload_pending_if_needed._last_mtime = mtime
+            return pending
+        if mtime > _reload_pending_if_needed._last_mtime:
+            _reload_pending_if_needed._last_mtime = mtime
+            new_pending = build_pending_topics(conn, args.category)
+            added = [t for t in new_pending if topic_key(t[1]) not in generated_keys]
+            if added:
+                log.info("topics_extra.json updated — added %d new pending topics", len(added))
+                pending.extend(added)
+        return pending
+
+    phase1_limit = min(args.limit, len(pending)) if pending else 0
     log.info("Phase 1: generating %d articles (limit=%d, pending=%d)",
              phase1_limit, args.limit, len(pending))
 
@@ -1100,7 +1134,13 @@ def main():
         if count >= args.limit:
             break
 
-        log.info("[%d/%d] %s / %s", count + 1, phase1_limit, category, topic)
+        # Skip if already generated this session (prevents Groq/Gemini overlap)
+        if topic_key(topic) in generated_keys:
+            continue
+
+        _reload_pending_if_needed()
+
+        log.info("[%d/%d] %s / %s", count + 1, args.limit, category, topic)
 
         t0 = time.time()
         data = generate_with_gemini(topic, category, args.model, rotator)
@@ -1136,6 +1176,7 @@ def main():
         except Exception:
             conn.rollback()
 
+        generated_keys.add(topic_key(topic))  # mark so Groq doesn't repeat it
         n_tr = save_translations(conn, article_id, title, excerpt, body)
         log.info("  ✓ Published + %d translations | %s", n_tr, slug)
 
