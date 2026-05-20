@@ -71,11 +71,11 @@ PROVIDERS = {
     "cerebras": {
         "base_url":   "https://api.cerebras.ai/v1/chat/completions",
         "env_vars":   ["CEREBRAS_API_KEY"] + [f"CEREBRAS_API_KEY_{i}" for i in range(2, 10)],
-        "models":     ["llama-3.3-70b", "llama3.1-70b", "llama3.1-8b"],
-        "default":    "llama-3.3-70b",
+        "models":     ["qwen-3-235b-a22b-instruct-2507", "gpt-oss-120b", "llama3.1-8b"],
+        "default":    "qwen-3-235b-a22b-instruct-2507",
         "rpd":        1000,
         "rpm":        30,
-        "speed":      "~900 tok/s (fastest)",
+        "speed":      "~900 tok/s, 235B model (highest quality)",
         "register":   "https://inference.cerebras.ai",
     },
     "openrouter": {
@@ -439,9 +439,12 @@ def main():
                                     "messages": [{"role": "user", "content": "OK"}],
                                     "max_tokens": 3},
                               timeout=15)
-            if test.status_code in (200, 429):
+            if test.status_code in (200, 429, 404):
+                # 404 = model not found (key is valid, wrong model name)
+                # 429 = rate-limited (key valid)
+                # 200 = active
                 valid_keys.append(k)
-                status = "active" if test.status_code == 200 else "rate-limited"
+                status = {200: "active", 429: "rate-limited", 404: "valid/model-check"}.get(test.status_code, "unknown")
                 log.info("  ✓ Key %d/%d valid (%s): %s...", len(valid_keys), len(keys), status, k[:20])
             else:
                 log.warning("  ✗ Key invalid: %s... (HTTP %s)", k[:20], test.status_code)
