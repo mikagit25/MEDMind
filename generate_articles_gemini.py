@@ -56,12 +56,12 @@ log = logging.getLogger(__name__)
 
 # ── Gemini config ─────────────────────────────────────────────────────────────
 GEMINI_URL  = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-DEFAULT_MODEL = "gemini-2.0-flash"
+DEFAULT_MODEL = "gemini-2.5-flash"
 GEMINI_MODELS = {
-    "gemini-2.0-flash":      {"rpd": 1500, "rpm": 15,  "desc": "Best free (default)"},
+    "gemini-2.5-flash":      {"rpd": 500,  "rpm": 10,  "desc": "Latest, best quality (default)"},
+    "gemini-2.0-flash":      {"rpd": 1500, "rpm": 15,  "desc": "Fast, high daily limit"},
     "gemini-2.0-flash-lite": {"rpd": 1500, "rpm": 30,  "desc": "Faster, lighter"},
-    "gemini-1.5-flash":      {"rpd": 1500, "rpm": 15,  "desc": "Previous gen, stable"},
-    "gemini-1.5-pro":        {"rpd": 50,   "rpm": 2,   "desc": "High quality, strict limits"},
+    "gemini-2.5-flash-lite": {"rpd": 500,  "rpm": 15,  "desc": "Lite version of 2.5"},
 }
 
 # ── New high-traffic topics (not in base TOPICS dict) ────────────────────────
