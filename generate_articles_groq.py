@@ -218,10 +218,12 @@ def _parse_output(content: str) -> dict | None:
 def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotator") -> dict | None:
     """Call Groq API with automatic key rotation and daily-reset waiting."""
     prompt = ARTICLE_PROMPT.format(topic=topic, category=category)
+    consecutive_429 = 0  # track back-to-back 429s across all keys to detect full RPM saturation
 
     while True:  # retry loop: handles key rotation and daily resets automatically
         if rotator.active_count == 0:
             rotator.wait_for_reset()  # sleep until midnight UTC, then reset all keys
+            consecutive_429 = 0
 
         api_key = rotator.current
         try:
@@ -239,26 +241,43 @@ def generate_with_groq(topic: str, category: str, model: str, rotator: "KeyRotat
             )
 
             if resp.status_code == 429:
+                consecutive_429 += 1
                 body = resp.json().get("error", {})
                 err_msg = body.get("message", "")
                 retry_after = int(resp.headers.get("retry-after", "0"))
 
-                # Daily limit hit → mark key exhausted, outer while handles full exhaustion
-                if "rate_limit_exceeded" in err_msg.lower() and retry_after > 3600:
+                # Daily / tokens-per-day limit → mark key exhausted
+                is_daily = (retry_after > 3600 or
+                            "per day" in err_msg.lower() or
+                            "tokens per day" in err_msg.lower())
+                if is_daily:
                     rotator.rotate(exhausted=True)
+                    consecutive_429 = 0
                     continue  # outer while will call wait_for_reset if all keys exhausted
 
-                # Token-per-minute limit → brief pause, retry same key
+                # Token-per-minute / requests-per-minute → use retry-after or fixed pause
                 if retry_after and retry_after < 120:
-                    log.warning("  TPM limit — waiting %ds (key %d/%d)",
+                    log.warning("  Rate limit — waiting %ds (key %d/%d)",
                                 retry_after, rotator.idx + 1, len(rotator.keys))
                     time.sleep(retry_after + 1)
+                    consecutive_429 = 0
                     continue
 
-                # Generic 429 → try next key
-                log.warning("  429 rate limit — switching key [%s]", err_msg[:60])
+                # All keys hit RPM simultaneously — back off before rotating
+                if consecutive_429 >= len(rotator.keys):
+                    wait = min(60, consecutive_429 * 5)
+                    log.warning("  All keys rate-limited — backing off %ds", wait)
+                    time.sleep(wait)
+                    consecutive_429 = 0
+                    continue
+
+                # Generic 429 → try next key with small pause
+                log.warning("  429 — switching key [%s]", err_msg[:80])
+                time.sleep(3)
                 rotator.rotate(exhausted=False)
                 continue
+
+            consecutive_429 = 0  # reset on any non-429 response
 
             if resp.status_code == 401:
                 log.error("  Key %d invalid — switching", rotator.idx + 1)
