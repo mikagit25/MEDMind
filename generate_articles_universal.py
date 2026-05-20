@@ -63,6 +63,9 @@ try:
 except ImportError:
     _HAS_OG = False
 
+from article_prompt import ARTICLE_PROMPT
+from pubmed_citations import fetch_citations, format_citations_block, save_citations_to_db
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
@@ -128,53 +131,7 @@ PROVIDERS = {
     },
 }
 
-ARTICLE_PROMPT = """\
-You are a senior clinician writing an authoritative medical reference comparable to UpToDate or StatPearls.
-Audience: medical students, residents, and practicing physicians.
-
-Topic: {topic}
-Category: {category}
-
-Write a COMPREHENSIVE article of 2500-3000 words with SPECIFIC clinical details: exact drug doses, \
-diagnostic criteria, lab thresholds, guideline recommendations (AHA/ACC/ESC/WHO/NICE).
-
-Use EXACTLY this output format:
-
-TITLE: [Clinical title, max 85 characters]
-EXCERPT: [3 sentences: clinical significance, key mechanism, main management]
-ARTICLE_START
-
-## Key Points
-List 7-9 critical clinical facts ("- " prefix). Each: one specific fact with numbers/doses/criteria.
-
-## Overview and Epidemiology
-Definition, incidence/prevalence, demographics, major risk factors. (250 words)
-
-## Pathophysiology
-Mechanisms, molecular basis, disease progression. (300 words)
-
-## Clinical Presentation
-Symptoms, physical signs, typical/atypical, red flags. (250 words)
-
-## Diagnosis
-Criteria with SPECIFIC values, lab workup, imaging, scoring systems. (300 words)
-
-## Management and Treatment
-First-line therapy: SPECIFIC drug names, doses, duration, monitoring. Second-line options.
-Special populations: pregnancy, CKD, elderly, hepatic impairment. Reference guidelines. (500 words)
-
-## Complications and Prognosis
-Complications with incidence rates, prognostic factors, referral criteria. (200 words)
-
-## Special Populations and Considerations
-Pediatric, geriatric, pregnancy, comorbidities, drug interactions. (200 words)
-
-## Clinical Pearls
-List 6-8 USMLE-style teaching points ("- " prefix). Classic associations, pitfalls.
-
-ARTICLE_END
-
-Rules: state facts DIRECTLY with numbers. No references section. Complete full-length sections."""
+# ARTICLE_PROMPT imported from article_prompt.py
 
 
 def _parse_output(content: str) -> dict | None:
@@ -542,8 +499,32 @@ def main():
             conn.rollback()
 
         generated_keys.add(topic_key(topic))
+
+        # PubMed citations — fetch real references and append to body
+        try:
+            citations = fetch_citations(topic, category, n=6)
+            if citations:
+                cite_text = format_citations_block(citations)
+                # Append citations as final block in body
+                from generate_articles_ollama import text_to_blocks as _t2b
+                cite_blocks = _t2b(cite_text)
+                body = body + cite_blocks
+                # Update body in DB
+                with conn.cursor() as cur:
+                    import json as _json
+                    cur.execute("UPDATE articles SET body=%s::jsonb WHERE id=%s",
+                                (_json.dumps(body, ensure_ascii=False), article_id))
+                conn.commit()
+                save_citations_to_db(conn, article_id, citations)
+                log.info("  📚 PubMed: %d citations added", len(citations))
+            else:
+                log.debug("  PubMed: no citations found for '%s'", topic)
+        except Exception as e:
+            log.debug("  PubMed failed: %s", e)
+
         n_tr = save_translations(conn, article_id, title, excerpt, body)
-        log.info("  ✓ Published + %d translations | %s", n_tr, slug)
+        word_count = sum(len(b.get("text", "").split()) for b in body if isinstance(b, dict))
+        log.info("  ✓ Published + %d translations | ~%d words | %s", n_tr, word_count, slug)
 
         if _HAS_COVER:
             try:

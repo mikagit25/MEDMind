@@ -161,54 +161,7 @@ class KeyRotator:
             parts.append(f"key{i+1}:{tag}({self.requests.get(i,0)}req)")
         return " | ".join(parts)
 
-# ── Article prompt (same structured format — no JSON escaping issues) ───────────
-ARTICLE_PROMPT = """\
-You are a senior clinician writing an authoritative medical reference comparable to UpToDate or StatPearls.
-Audience: medical students, residents, and practicing physicians.
-
-Topic: {topic}
-Category: {category}
-
-Write a COMPREHENSIVE article of 2500-3000 words with SPECIFIC clinical details: exact drug doses, \
-diagnostic criteria, lab thresholds, guideline recommendations (AHA/ACC/ESC/WHO/NICE).
-
-Use EXACTLY this output format:
-
-TITLE: [Clinical title, max 85 characters]
-EXCERPT: [3 sentences: clinical significance, key mechanism, main management]
-ARTICLE_START
-
-## Key Points
-List 7-9 critical clinical facts ("- " prefix). Each: one specific fact with numbers/doses/criteria.
-
-## Overview and Epidemiology
-Definition, incidence/prevalence, demographics, major risk factors. (250 words)
-
-## Pathophysiology
-Mechanisms, molecular basis, disease progression. (300 words)
-
-## Clinical Presentation
-Symptoms, physical signs, typical/atypical, red flags. (250 words)
-
-## Diagnosis
-Criteria with SPECIFIC values, lab workup, imaging, scoring systems (Wells, CURB-65, etc). (300 words)
-
-## Management and Treatment
-First-line therapy: SPECIFIC drug names, doses, duration, monitoring. Second-line options.
-Special populations: pregnancy, CKD, elderly, hepatic impairment. Reference guidelines. (500 words)
-
-## Complications and Prognosis
-Complications with incidence rates, prognostic factors, referral criteria. (200 words)
-
-## Special Populations and Considerations
-Pediatric, geriatric, pregnancy, comorbidities, drug interactions. (200 words)
-
-## Clinical Pearls
-List 6-8 USMLE-style teaching points ("- " prefix). Classic associations, pitfalls.
-
-ARTICLE_END
-
-Rules: state facts DIRECTLY with numbers. No references section. Complete full-length sections."""
+from article_prompt import ARTICLE_PROMPT
 
 
 def _parse_output(content: str) -> dict | None:
