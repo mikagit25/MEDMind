@@ -89,45 +89,77 @@ def load_groq_keys() -> list[str]:
 
 
 def call_groq(prompt: str, keys: list[str], max_tokens: int = 2000) -> str | None:
-    """Call Groq API with key rotation on 429."""
-    for i, key in enumerate(keys):
-        try:
-            resp = httpx.post(
-                GROQ_URL,
-                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                json={
-                    "model": GROQ_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": max_tokens,
-                    "temperature": 0.7,
-                },
-                timeout=60,
-            )
-            if resp.status_code == 200:
-                return resp.json()["choices"][0]["message"]["content"]
-            elif resp.status_code == 429:
-                retry = int(resp.headers.get("retry-after", "5") or "5")
-                if retry > 3600:
-                    log.warning("  Key %d/%d daily limit — trying next", i+1, len(keys))
-                    continue
-                log.warning("  429 — waiting %ds", retry)
-                time.sleep(min(retry + 1, 30))
-                # retry same key
-                resp2 = httpx.post(
+    """Call Groq with key rotation. Waits until midnight UTC if all keys exhausted."""
+    import datetime as _dt
+    exhausted: set[int] = set()
+
+    while True:
+        # All keys daily-exhausted → sleep until Groq reset
+        if len(exhausted) >= len(keys):
+            now = _dt.datetime.utcnow()
+            tomorrow = (now + _dt.timedelta(days=1)).replace(
+                hour=0, minute=2, second=0, microsecond=0)
+            wait_sec = int((tomorrow - now).total_seconds())
+            h, m = wait_sec // 3600, (wait_sec % 3600) // 60
+            log.info("All Groq keys exhausted — sleeping %dh %dm until %s UTC (discovery pause)",
+                     h, m, tomorrow.strftime("%H:%M"))
+            time.sleep(wait_sec)
+            exhausted.clear()
+            log.info("Groq daily limits reset — resuming topic discovery")
+
+        for i, key in enumerate(keys):
+            if i in exhausted:
+                continue
+            try:
+                resp = httpx.post(
                     GROQ_URL,
-                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    headers={"Authorization": f"Bearer {key}",
+                             "Content-Type": "application/json"},
                     json={"model": GROQ_MODEL,
                           "messages": [{"role": "user", "content": prompt}],
                           "max_tokens": max_tokens, "temperature": 0.7},
                     timeout=60,
                 )
-                if resp2.status_code == 200:
-                    return resp2.json()["choices"][0]["message"]["content"]
-            else:
-                log.warning("  Groq %s: %s", resp.status_code, resp.text[:100])
-        except Exception as e:
-            log.warning("  Groq error (key %d): %s", i+1, e)
-    return None
+                if resp.status_code == 200:
+                    return resp.json()["choices"][0]["message"]["content"]
+
+                if resp.status_code == 429:
+                    retry = int(resp.headers.get("retry-after", "0") or "0")
+                    err_msg = ""
+                    try:
+                        err_msg = resp.json().get("error", {}).get("message", "")
+                    except Exception:
+                        pass
+                    is_daily = (retry > 3600 or "per day" in err_msg.lower())
+                    if is_daily:
+                        log.warning("  Key %d/%d daily limit", i + 1, len(keys))
+                        exhausted.add(i)
+                        continue
+                    # Temporary RPM — wait and retry same key
+                    wait = min(retry + 1, 60) if retry else 10
+                    log.warning("  Key %d/%d RPM — waiting %ds", i + 1, len(keys), wait)
+                    time.sleep(wait)
+                    # retry same key once
+                    resp2 = httpx.post(
+                        GROQ_URL,
+                        headers={"Authorization": f"Bearer {key}",
+                                 "Content-Type": "application/json"},
+                        json={"model": GROQ_MODEL,
+                              "messages": [{"role": "user", "content": prompt}],
+                              "max_tokens": max_tokens, "temperature": 0.7},
+                        timeout=60,
+                    )
+                    if resp2.status_code == 200:
+                        return resp2.json()["choices"][0]["message"]["content"]
+                else:
+                    log.warning("  Groq %s: %s", resp.status_code, resp.text[:100])
+
+            except Exception as e:
+                log.warning("  Groq error (key %d): %s", i + 1, e)
+
+        # If we get here without returning, all non-exhausted keys failed → retry outer while
+        if len(exhausted) < len(keys):
+            time.sleep(5)  # brief pause before next round
 
 
 def load_extra_topics() -> dict[str, list[str]]:
