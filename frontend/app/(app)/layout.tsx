@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNavWrapper } from "@/components/layout/MobileNav";
@@ -26,6 +26,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, user, _hasHydrated, setAuth, logout } = useAuthStore();
   const { darkMode } = useUIStore();
   const router = useRouter();
+  const pathname = usePathname();
   const [toast, setToast] = useState<AchievementToastData | null>(null);
   const [tokenChecked, setTokenChecked] = useState(false);
 
@@ -41,8 +42,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       const storedAccess  = localStorage.getItem("access_token");
       const storedRefresh = localStorage.getItem("refresh_token");
 
-      // Case 1: No stored credentials and no Zustand state → go to login
+      // Case 1: No stored credentials and no Zustand state
+      // Public pages (drugs, imaging) are accessible without login
       if (!storedAccess && !storedRefresh && !isAuthenticated) {
+        const PUBLIC_PATHS = ["/drugs", "/imaging"];
+        const isPublic = PUBLIC_PATHS.some(p => pathname.startsWith(p));
+        if (isPublic) {
+          setTokenChecked(true); // show page without auth
+          return;
+        }
         setTokenChecked(true);
         router.push("/login");
         return;
@@ -98,11 +106,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Case 5: Nothing worked → login
+      // Case 5: Nothing worked → login (unless it's a public page)
+      const PUBLIC_PATHS = ["/drugs", "/imaging"];
+      const isPublicPath = PUBLIC_PATHS.some(p => pathname.startsWith(p));
       logout();
       clearMeCache();
       setTokenChecked(true);
-      router.push("/login");
+      if (!isPublicPath) router.push("/login");
     }
 
     validateSession();

@@ -426,6 +426,22 @@ async def get_case(
 # ============================================================
 # DRUGS
 # ============================================================
+@router.get("/drugs/sitemap-data")
+async def drugs_sitemap_data(db: AsyncSession = Depends(get_db)):
+    """Public endpoint for sitemap generation — returns all drug IDs and available langs."""
+    result = await db.execute(
+        select(Drug.id, Drug.translations).order_by(Drug.name)
+    )
+    rows = result.all()
+    return [
+        {
+            "id": str(r[0]),
+            "available_langs": list((r[1] or {}).keys()),
+        }
+        for r in rows
+    ]
+
+
 @router.get("/drugs/browse")
 async def browse_drugs(
     page: int = Query(1, ge=1),
@@ -434,7 +450,7 @@ async def browse_drugs(
     vet: Optional[bool] = Query(None),
     high_yield: Optional[bool] = Query(None),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Browse all drugs with pagination and optional filters."""
     from sqlalchemy import func
@@ -464,7 +480,7 @@ async def browse_drugs(
 @router.get("/drugs/classes")
 async def get_drug_classes(
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Return distinct drug classes with counts."""
     from sqlalchemy import func
@@ -509,7 +525,7 @@ async def search_drugs(
     q: str = Query(None, min_length=1, max_length=100),
     lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     from sqlalchemy import or_
     if not q:
@@ -532,7 +548,7 @@ async def get_drug_detail(
     drug_id: UUID,
     lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Return full drug detail with optional locale translation."""
     result = await db.execute(select(Drug).where(Drug.id == drug_id))
@@ -546,7 +562,7 @@ async def get_drug_detail(
 async def get_drug_alternatives(
     drug_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Return same-class drugs as alternatives/analogues."""
     result = await db.execute(select(Drug).where(Drug.id == drug_id))
@@ -605,7 +621,7 @@ class InteractionCheckRequest(BaseModel):
 async def check_drug_interactions(
     data: InteractionCheckRequest,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Check pairwise interactions for a list of drug IDs."""
     from app.services.drug_service import check_interactions
@@ -628,7 +644,7 @@ class DoseCalculateRequest(BaseModel):
 @router.post("/drugs/calculate-dose")
 async def calculate_drug_dose(
     data: DoseCalculateRequest,
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Calculate weight-based dose with renal adjustment."""
     from app.services.drug_service import calculate_dose
@@ -667,7 +683,7 @@ async def get_species_dosing(
     drug: str = Query(..., min_length=1, max_length=100, description="Drug name to look up"),
     species: str = Query(..., description="Target species (canine|feline|equine|bovine|porcine|avian|exotic)"),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Return species-adjusted dosing for veterinary users (or any authenticated user in test mode)."""
 
@@ -821,7 +837,7 @@ async def search(
 async def search_pubmed(
     q: str = Query(..., min_length=2, max_length=300),
     limit: int = Query(10, le=20),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Search PubMed via NCBI E-utilities API."""
     from app.services.pubmed_service import PubMedService
@@ -837,7 +853,7 @@ async def search_pubmed(
 async def get_recommendations(
     limit: int = Query(5, le=20),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """
     Hybrid recommendations:
@@ -932,7 +948,7 @@ async def get_recommendations(
 @router.get("/recommendations/daily")
 async def get_daily_plan(
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Return today's learning plan based on due flashcards and incomplete modules."""
     from app.models.models import FlashcardReview as FR

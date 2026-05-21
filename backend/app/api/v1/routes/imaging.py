@@ -41,7 +41,7 @@ from pydantic import BaseModel
 from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, get_current_user_optional
 from app.core.config import settings
 from app.core.database import get_db
 from app.models.models import ImageAnnotation, MedicalImage, AnatomyViewer, User

@@ -58,6 +58,12 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
             <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
               {t("landing.nav_articles")}
             </Link>
+            <Link href="/drugs" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 hidden md:block">
+              💊 Drugs
+            </Link>
+            <Link href="/imaging" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 hidden md:block">
+              🩻 Imaging
+            </Link>
             <Link href="/pricing" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
               {t("landing.nav_pricing")}
             </Link>
@@ -112,6 +118,8 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
             {[
               { href: "/how-it-works", label: t("landing.nav_how") },
               { href: "/articles",     label: t("landing.nav_articles") },
+              { href: "/drugs",        label: "💊 Drug Database" },
+              { href: "/imaging",      label: "🩻 Medical Imaging" },
               { href: "/pricing",      label: t("landing.nav_pricing") },
               { href: "/login",        label: t("landing.nav_sign_in") },
             ].map(item => (
