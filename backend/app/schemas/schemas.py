@@ -357,6 +357,7 @@ class DrugOut(BaseModel):
     is_high_yield: bool = False
     is_nti: bool = False
     is_veterinary: bool = False
+    image_url: Optional[str] = None
 
     model_config = {"from_attributes": True}
 
