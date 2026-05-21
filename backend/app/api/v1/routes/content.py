@@ -426,13 +426,89 @@ async def get_case(
 # ============================================================
 # DRUGS
 # ============================================================
-@router.get("/drugs", response_model=List[DrugOut])
-async def search_drugs(
-    q: str = Query(..., min_length=1, max_length=100),
+@router.get("/drugs/browse")
+async def browse_drugs(
+    page: int = Query(1, ge=1),
+    limit: int = Query(24, ge=1, le=100),
+    drug_class: Optional[str] = Query(None),
+    vet: Optional[bool] = Query(None),
+    high_yield: Optional[bool] = Query(None),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    from sqlalchemy import or_, cast, String
+    """Browse all drugs with pagination and optional filters."""
+    from sqlalchemy import func
+    q = select(Drug)
+    if drug_class:
+        q = q.where(Drug.drug_class.ilike(f"%{drug_class}%"))
+    if vet is not None:
+        q = q.where(Drug.is_veterinary == vet)
+    if high_yield is not None:
+        q = q.where(Drug.is_high_yield == high_yield)
+
+    total_q = select(func.count()).select_from(q.subquery())
+    total = (await db.execute(total_q)).scalar_one()
+
+    drugs_q = q.order_by(Drug.name).offset((page - 1) * limit).limit(limit)
+    drugs = (await db.execute(drugs_q)).scalars().all()
+
+    return {
+        "items": [_drug_to_dict(d) for d in drugs],
+        "total": total,
+        "page": page,
+        "pages": max(1, (total + limit - 1) // limit),
+        "limit": limit,
+    }
+
+
+@router.get("/drugs/classes")
+async def get_drug_classes(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return distinct drug classes with counts."""
+    from sqlalchemy import func
+    result = await db.execute(
+        select(Drug.drug_class, func.count(Drug.id).label("count"))
+        .where(Drug.drug_class.isnot(None))
+        .group_by(Drug.drug_class)
+        .order_by(func.count(Drug.id).desc())
+        .limit(30)
+    )
+    return [{"drug_class": r[0], "count": r[1]} for r in result.all()]
+
+
+def _drug_to_dict(d: Drug) -> dict:
+    return {
+        "id": str(d.id),
+        "name": d.name,
+        "generic_name": d.generic_name,
+        "drug_class": d.drug_class,
+        "mechanism": d.mechanism,
+        "indications": d.indications or [],
+        "contraindications": d.contraindications or [],
+        "dosing": d.dosing or {},
+        "adverse_effects": d.adverse_effects or {},
+        "interactions": d.interactions or [],
+        "monitoring": d.monitoring or [],
+        "black_box_warning": d.black_box_warning,
+        "is_high_yield": d.is_high_yield,
+        "is_nti": d.is_nti,
+        "is_veterinary": d.is_veterinary,
+        "image_url": d.image_url,
+    }
+
+
+@router.get("/drugs", response_model=List[DrugOut])
+async def search_drugs(
+    q: str = Query(None, min_length=1, max_length=100),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    from sqlalchemy import or_
+    if not q:
+        result = await db.execute(select(Drug).order_by(Drug.name).limit(24))
+        return result.scalars().all()
     result = await db.execute(
         select(Drug).where(
             or_(

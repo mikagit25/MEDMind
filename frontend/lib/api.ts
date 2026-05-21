@@ -235,6 +235,14 @@ export const contentApi = {
 
 export const drugsApi = {
   search: (q: string) => api.get(`/drugs?q=${encodeURIComponent(q)}`).then(r => r.data),
+  browse: (page = 1, limit = 24, drug_class?: string, vet?: boolean, high_yield?: boolean) => {
+    const params = new URLSearchParams({ page: String(page), limit: String(limit) });
+    if (drug_class) params.set("drug_class", drug_class);
+    if (vet !== undefined) params.set("vet", String(vet));
+    if (high_yield !== undefined) params.set("high_yield", String(high_yield));
+    return api.get(`/drugs/browse?${params}`).then(r => r.data);
+  },
+  getClasses: () => api.get("/drugs/classes").then(r => r.data),
   get: (id: string) => api.get(`/drugs/${id}`).then(r => r.data),
   getAlternatives: (id: string) => api.get(`/drugs/${id}/alternatives`).then(r => r.data),
   getDosing: (drugId: string, speciesId: string) =>
@@ -243,11 +251,12 @@ export const drugsApi = {
     api.post("/drugs/check-interactions", { drug_ids }).then(r => r.data),
   calculateDose: (data: DoseCalcData) =>
     api.post("/drugs/calculate-dose", data).then(r => r.data),
-  // RxImage public API proxy — fetch pill/drug images by name
-  fetchImages: (name: string) =>
+  // RxImage NLM free API — official FDA drug pill images
+  fetchRxImage: (name: string): Promise<string | null> =>
     fetch(`https://rximage.nlm.nih.gov/api/rximage/1/rxnav?name=${encodeURIComponent(name)}&resolution=600`)
       .then(r => r.json())
-      .catch(() => ({ replyList: [] })),
+      .then(d => d?.replyList?.[0]?.imageUrl ?? null)
+      .catch(() => null),
 };
 
 export const simulationApi = {

@@ -88,3 +88,13 @@ htmlcov/
 # Jupyter
 .ipynb_checkpoints/
 frontend/tmp/
+
+# OAuth tokens and secrets
+youtube_token.json
+client_secret.json
+*.env.shorts
+telegram_published.json
+youtube_playlists.json
+youtube_shorts_uploaded.json
+youtube_uploaded.json
+topics_extra.json

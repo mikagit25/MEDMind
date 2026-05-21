@@ -419,6 +419,7 @@ class Drug(Base):
     is_high_yield = Column(Boolean, default=False)
     is_nti = Column(Boolean, default=False)
     is_veterinary = Column(Boolean, default=False)
+    image_url = Column(Text, nullable=True)
     content = Column(JSONB)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

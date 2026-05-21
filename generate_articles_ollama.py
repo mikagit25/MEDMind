@@ -296,6 +296,351 @@ TOPICS: dict[str, list[str]] = {
         "UTI in Women Prevention and Treatment",
         "Vaginal Yeast Infection Treatment Prevention",
     ],
+
+    # ── Wave 2: High-Search-Volume Specialty Topics ────────────────────────────
+
+    "cardiology": [
+        "Atrial Fibrillation Diagnosis Risk Stratification and Management",
+        "Heart Failure with Reduced Ejection Fraction HFrEF Treatment",
+        "Acute Myocardial Infarction STEMI Management and Reperfusion",
+        "Coronary Artery Disease Prevention and Medical Management",
+        "Hypertensive Crisis Urgency versus Emergency Management",
+        "Aortic Stenosis Valvular Disease Assessment and TAVR",
+        "Pericarditis Diagnosis Colchicine Treatment and Recurrence",
+        "Myocarditis Clinical Presentation Diagnosis and Management",
+        "Pulmonary Hypertension Classification and Targeted Therapy",
+        "Ventricular Tachycardia Recognition and Emergency Management",
+        "Supraventricular Tachycardia SVT Vagal Maneuvers and Adenosine",
+        "Infective Endocarditis Diagnosis Antibiotic Treatment Prophylaxis",
+        "Abdominal Aortic Aneurysm Screening Monitoring Surgical Repair",
+        "Peripheral Arterial Disease Ankle-Brachial Index and Revascularization",
+        "Deep Vein Thrombosis Diagnosis Anticoagulation Prevention",
+        "Heart Failure with Preserved Ejection Fraction HFpEF Management",
+        "Cardiac Rehabilitation After Myocardial Infarction Evidence and Benefits",
+        "Sudden Cardiac Death Risk Factors ICD Implantation Prevention",
+        "Stable and Unstable Angina Pectoris Medical Management",
+        "SGLT2 Inhibitors Heart Failure Cardiovascular Outcomes Evidence",
+        "Hypertriglyceridemia Cardiovascular Risk and Management",
+        "Arrhythmia Classification ECG Recognition and Management",
+        "Cardiogenic Shock Recognition Inotropes Mechanical Circulatory Support",
+    ],
+
+    "neurology": [
+        "Acute Ischemic Stroke tPA Thrombectomy Time Windows",
+        "Alzheimer Disease Pathophysiology Early Detection and New Treatments",
+        "Parkinson Disease Motor Non-Motor Symptoms Levodopa Treatment",
+        "Epilepsy Classification Antiseizure Drug Selection Monitoring",
+        "Multiple Sclerosis Disease-Modifying Therapies Relapse Management",
+        "Migraine Prophylaxis CGRP Inhibitors Acute Treatment Options",
+        "Peripheral Neuropathy Etiology Workup Symptomatic Treatment",
+        "Guillain-Barre Syndrome IVIG Plasma Exchange Clinical Management",
+        "Bacterial Meningitis CSF Analysis Empiric Antibiotics Dexamethasone",
+        "Bell Palsy Diagnosis Corticosteroid Therapy Facial Nerve Recovery",
+        "Benign Paroxysmal Positional Vertigo Epley Maneuver Diagnosis",
+        "Essential Tremor Diagnosis versus Parkinsonism Treatment Options",
+        "Tension-Type Headache Chronic Management and Prevention",
+        "Transient Ischemic Attack TIA Workup and Stroke Prevention",
+        "Dementia with Lewy Bodies Clinical Features and Management",
+        "Amyotrophic Lateral Sclerosis ALS Riluzole Palliative Care",
+        "Myasthenia Gravis Acetylcholine Receptor Antibodies Pyridostigmine",
+        "Restless Legs Syndrome Diagnostic Criteria Dopamine Agonists",
+        "Diabetic Peripheral Neuropathy Pain Management Gabapentin Duloxetine",
+        "Concussion Traumatic Brain Injury Return-to-Play Protocol",
+        "Idiopathic Intracranial Hypertension Papilledema Acetazolamide",
+        "Cervical Myelopathy Spondylosis Diagnosis Surgical Decompression",
+    ],
+
+    "dermatology": [
+        "Atopic Dermatitis Pathogenesis Dupilumab JAK Inhibitor Therapy",
+        "Psoriasis Vulgaris Biologics IL-17 IL-23 Inhibitor Comparison",
+        "Acne Vulgaris Treatment Ladder Retinoids Antibiotics Isotretinoin",
+        "Melanoma ABCDE Criteria Staging Immunotherapy BRAF Inhibitors",
+        "Basal Cell Carcinoma Recognition Mohs Surgery Prevention",
+        "Squamous Cell Carcinoma Skin High-Risk Features Surgical Management",
+        "Rosacea Subtypes Topical Metronidazole Azelaic Acid Laser Therapy",
+        "Seborrheic Dermatitis Scalp Face Ketoconazole Zinc Pyrithione",
+        "Contact Dermatitis Allergic versus Irritant Patch Testing Management",
+        "Chronic Urticaria Antihistamines Omalizumab Management",
+        "Tinea Infections Dermatophytosis Topical Oral Antifungal Treatment",
+        "Scabies Diagnosis Permethrin Treatment Household Contacts",
+        "Herpes Simplex Skin Manifestations Acyclovir Antiviral Therapy",
+        "Herpes Zoster Shingles Antiviral Treatment Postherpetic Neuralgia",
+        "Alopecia Areata Autoimmune Hair Loss JAK Inhibitor Baricitinib",
+        "Androgenetic Alopecia Male Female Pattern Baldness Treatment",
+        "Hidradenitis Suppurativa Severity Classification Biologic Treatment",
+        "Warts Verruca Vulgaris Salicylic Acid Cryotherapy Options",
+        "Cellulitis Skin Infection Antibiotic Therapy Complications",
+        "Lichen Planus Oral Cutaneous Diagnosis Corticosteroid Treatment",
+        "Drug-Induced Skin Reactions Maculopapular SJS TEN Recognition",
+        "Sunscreen UV Protection SPF Skin Cancer Prevention Evidence",
+    ],
+
+    "oncology": [
+        "Breast Cancer Staging Hormone Receptor HER2 Treatment Decisions",
+        "Lung Cancer Screening Low-Dose CT NSCLC SCLC Treatment",
+        "Colorectal Cancer Colonoscopy Screening Staging Chemotherapy",
+        "Prostate Cancer PSA Screening Gleason Score Active Surveillance",
+        "Cervical Cancer HPV Vaccination Pap Smear Colposcopy Conization",
+        "Ovarian Cancer BRCA Testing Chemotherapy Bevacizumab PARP Inhibitors",
+        "Pancreatic Cancer Early Detection Gemcitabine FOLFIRINOX Palliative",
+        "Hepatocellular Carcinoma Cirrhosis Surveillance Sorafenib Atezolizumab",
+        "Gastric Cancer H pylori Surgical and Systemic Treatment",
+        "Thyroid Cancer Differentiated Papillary Follicular Radioiodine Therapy",
+        "Lymphoma Hodgkin Non-Hodgkin Staging CHOP Chemotherapy",
+        "Leukemia CML CLL AML Classification Targeted Therapy Imatinib",
+        "Multiple Myeloma Bortezomib Lenalidomide Stem Cell Transplantation",
+        "Advanced Melanoma BRAF V600E Mutation Immunotherapy Nivolumab",
+        "Immunotherapy Checkpoint Inhibitors PD-1 CTLA-4 Immune Toxicities",
+        "Cancer Pain Management WHO Analgesic Ladder Opioid Titration",
+        "Chemotherapy Side Effects Nausea Neutropenia Neuropathy Management",
+        "Cancer Screening Guidelines USPSTF Mammography Colonoscopy Lung CT",
+        "Tumor Markers Clinical Use CEA CA-125 AFP PSA Interpretation",
+        "Palliative Care Goals of Care Symptom Control End of Life",
+        "Bone Metastases Pain Bisphosphonates Radiation Denosumab",
+        "Febrile Neutropenia Management Empiric Antibiotics G-CSF Protocol",
+    ],
+
+    "infectious-diseases": [
+        "Community-Acquired Pneumonia CURB-65 Antibiotic Duration Admission",
+        "Urinary Tract Infection Uncomplicated Complicated Antibiotic Treatment",
+        "Sepsis Surviving Sepsis Campaign Antibiotic Stewardship Hour-1 Bundle",
+        "HIV Antiretroviral Therapy Drug Resistance Opportunistic Infections",
+        "Tuberculosis Diagnosis Rifampin Isoniazid Drug-Resistant MDR-TB",
+        "Hepatitis B Surface Antigen Vaccination Tenofovir Antiviral Treatment",
+        "Hepatitis C Direct-Acting Antivirals Sofosbuvir Sustained Virologic Response",
+        "Post-Acute COVID-19 Sequelae Long COVID Pathophysiology Management",
+        "Lyme Disease Diagnosis Doxycycline Stages Chronic Lyme Controversy",
+        "Influenza Oseltamivir Timing High-Risk Populations Vaccination",
+        "Sexually Transmitted Infections Gonorrhea Chlamydia Syphilis Treatment",
+        "Clostridioides difficile Colitis Vancomycin Fidaxomicin Fecal Transplant",
+        "Necrotizing Fasciitis versus Cellulitis Surgical Emergency Antibiotics",
+        "Meningococcal Disease Prophylaxis Ciprofloxacin Vaccination",
+        "Malaria Chemoprophylaxis Chloroquine Artemisinin Combination Therapy",
+        "Invasive Candidiasis Fluconazole Echinocandin Candidemia Management",
+        "Adult Vaccination Schedule Tetanus Shingles Pneumococcal Influenza",
+        "Travel Medicine Pre-Travel Vaccines Malaria Prophylaxis Diarrhea",
+        "MRSA Methicillin-Resistant S aureus Vancomycin Daptomycin Treatment",
+        "Opportunistic Infections HIV CD4 Count PCP MAC CMV Prophylaxis",
+        "Food-Borne Illness Salmonella Campylobacter E coli Dehydration",
+        "Respiratory Syncytial Virus Adults Elderly Nirsevimab Prevention",
+    ],
+
+    "endocrinology": [
+        "Hypothyroidism TSH Target Levothyroxine Dosing Monitoring",
+        "Hyperthyroidism Graves Disease Methimazole Radioactive Iodine Beta-Blocker",
+        "Type 2 Diabetes GLP-1 SGLT2 Metformin Treatment Algorithm 2024",
+        "Diabetic Ketoacidosis Pathophysiology Fluid Insulin Bicarbonate Protocol",
+        "Thyroid Nodule Fine-Needle Aspiration Bethesda Classification Surveillance",
+        "Subclinical Hypothyroidism Treatment Thresholds Evidence Review",
+        "Hashimoto Thyroiditis Autoimmune Antibodies and Hypothyroidism",
+        "Adrenal Insufficiency Primary Secondary ACTH Stimulation Cortisol Replacement",
+        "Cushing Syndrome Hypercortisolism Screening Tests Surgical Treatment",
+        "Primary Hyperaldosteronism Conn Syndrome Adrenal Venous Sampling",
+        "Pheochromocytoma Catecholamine Excess Preoperative Alpha-Blockade Surgery",
+        "Type 1 Diabetes Insulin Pumps Continuous Glucose Monitoring Targets",
+        "Gestational Diabetes Screening Glyburide versus Insulin Outcomes",
+        "Hypoglycemia Causes Symptoms Glucagon Treatment Unawareness",
+        "Hyperprolactinemia Prolactinoma Cabergoline Dopamine Agonists",
+        "Acromegaly Growth Hormone Excess IGF-1 Octreotide Surgery",
+        "Vitamin D Deficiency Bone Health Supplementation Dosing Evidence",
+        "Hypercalcemia Causes Primary Hyperparathyroidism Malignancy Management",
+        "Metabolic Syndrome Insulin Resistance Waist Circumference Criteria",
+        "Obesity GLP-1 Receptor Agonists Semaglutide Bariatric Surgery",
+        "Thyroid Storm Life-Threatening Emergency Beta-Blockers Thionamides",
+        "Adrenal Incidentaloma Workup Biochemical Testing Surveillance",
+    ],
+
+    "pediatrics": [
+        "Fever in Children Age-Based Evaluation Temperature Management Referral",
+        "Acute Otitis Media Antibiotic Selection Watchful Waiting Tubes",
+        "Febrile Seizures Simple versus Complex Evaluation Management",
+        "Bronchiolitis RSV Supportive Care Hospitalization Criteria",
+        "Croup Laryngotracheobronchitis Dexamethasone Nebulized Racemic Epinephrine",
+        "Childhood Asthma Step Therapy Controller Rescue Medications Monitoring",
+        "ADHD Diagnostic Criteria Methylphenidate Amphetamine Behavioral Therapy",
+        "Autism Spectrum Disorder M-CHAT Screening Early Intervention",
+        "Childhood Vaccination Schedule MMR Varicella DTaP PCV Timing",
+        "Streptococcal Pharyngitis Rapid Antigen Test Amoxicillin Complications",
+        "Acute Gastroenteritis Dehydration Assessment Oral Rehydration Therapy",
+        "Kawasaki Disease Diagnostic Criteria IVIG Aspirin Coronary Aneurysms",
+        "Neonatal Jaundice Hyperbilirubinemia Phototherapy Exchange Transfusion",
+        "Failure to Thrive Organic Non-Organic Causes Nutritional Workup",
+        "Developmental Milestones Red Flags Ages and Stages Screening Tools",
+        "Pediatric UTI Vesicoureteral Reflux DMSA Scan Prophylaxis",
+        "Childhood Obesity BMI Percentiles Lifestyle Intervention",
+        "Iron Deficiency Anemia Children Lead Screening Oral Iron",
+        "Pediatric Appendicitis Alvarado Score Ultrasound CT Diagnosis",
+        "Type 1 Diabetes Children Insulin Regimens HbA1c Targets",
+        "Intussusception Colicky Pain Currant Jelly Stool Air Enema",
+        "Breath-Holding Spells versus Seizures Parental Reassurance",
+    ],
+
+    "rheumatology": [
+        "Rheumatoid Arthritis Early DMARD Methotrexate Biologic Treat-to-Target",
+        "Systemic Lupus Erythematosus ACR-EULAR Criteria Organ Manifestations",
+        "Gout Hyperuricemia Acute Attack Colchicine Allopurinol Urate Targets",
+        "Osteoarthritis Pathophysiology NSAIDs Corticosteroid Hyaluronic Injections",
+        "Psoriatic Arthritis Skin Joint Manifestations TNF IL-17 Inhibitors",
+        "Ankylosing Spondylitis HLA-B27 NSAIDs TNF Inhibitors Secukinumab",
+        "Sjögren Syndrome Dry Eyes Dry Mouth Extraglandular Manifestations",
+        "Fibromyalgia Diagnostic Criteria Multidisciplinary Treatment CBT Exercise",
+        "Polymyalgia Rheumatica Prednisone Response ESR CRP Monitoring",
+        "Giant Cell Arteritis Temporal Arteritis Vision Loss Steroid Treatment",
+        "ANCA-Associated Vasculitis Cyclophosphamide Rituximab Induction",
+        "Antiphospholipid Syndrome Thrombosis Pregnancy Loss Anticoagulation",
+        "Reactive Arthritis Post-Infectious Chlamydia Salmonella NSAIDs",
+        "Pseudogout CPPD Crystal Deposition Joint Aspiration Treatment",
+        "Septic Arthritis Joint Aspiration Culture Empiric Antibiotics",
+        "Lupus Nephritis Kidney Biopsy WHO Classification Mycophenolate",
+        "Systemic Sclerosis Scleroderma Pulmonary Fibrosis Bosentan",
+        "Inflammatory Myopathies Dermatomyositis Polymyositis Creatine Kinase",
+        "Raynaud Phenomenon Primary Secondary Calcium Channel Blockers",
+        "Juvenile Idiopathic Arthritis Subtypes Methotrexate Biologic Therapy",
+        "Relapsing Polychondritis Cartilage Destruction Dapsone Steroids",
+        "Behçet Disease Mucosal Ulcers Colchicine Azathioprine Management",
+    ],
+
+    "pulmonology": [
+        "COPD GOLD Staging Bronchodilators Exacerbation Prevention Vaccines",
+        "Asthma Step-Up Step-Down Therapy ICS LABA Spirometry Monitoring",
+        "Community-Acquired Pneumonia Antibiotic Duration Admission Criteria",
+        "Pulmonary Embolism Wells Score CT Pulmonary Angiography DOAC Treatment",
+        "Idiopathic Pulmonary Fibrosis Antifibrotics Pirfenidone Nintedanib",
+        "Obstructive Sleep Apnea CPAP Pressure Titration Cardiovascular Risk",
+        "Spontaneous Pneumothorax Diagnosis Chest Tube VATS Management",
+        "Pleural Effusion Transudates Exudates Light Criteria Thoracentesis",
+        "Lung Cancer Low-Dose CT Screening NSCLC SCLC Immunotherapy",
+        "Sarcoidosis Pulmonary Extrapulmonary Corticosteroid Indications",
+        "Acute Exacerbation COPD Triggers Antibiotics Steroids NIV",
+        "Bronchiectasis Causes Airway Clearance Physiotherapy Antibiotics",
+        "Interstitial Lung Disease Classification HRCT Biopsy Treatment",
+        "Pulmonary Arterial Hypertension Right Heart Catheterization Prostanoids",
+        "Cystic Fibrosis CFTR Modulators Elexacaftor Tezacaftor Ivacaftor",
+        "ARDS Berlin Definition Lung-Protective Ventilation Prone Positioning",
+        "Hypersensitivity Pneumonitis Allergen Avoidance Corticosteroid",
+        "Alpha-1 Antitrypsin Deficiency Early-Onset Emphysema Pi ZZ Testing",
+        "Hemoptysis Causes Evaluation Bronchoscopy CT Angiography Management",
+        "Aspiration Pneumonia Risk Factors Anaerobic Coverage Management",
+        "Occupational Lung Diseases Asbestosis Silicosis Workers Compensation",
+        "Non-Invasive Ventilation BiPAP CPAP Indications COPD Heart Failure",
+    ],
+
+    "nephrology": [
+        "Acute Kidney Injury KDIGO Stages Prerenal Intrinsic Postrenal Management",
+        "Chronic Kidney Disease GFR Stages Progression Monitoring SGLT2",
+        "Diabetic Nephropathy Albuminuria ACE Inhibitor ARB Glycemic Control",
+        "IgA Nephropathy Oxford Classification Supportive RAAS Treatment",
+        "Nephrotic Syndrome Minimal Change Membranous Causes Treatment",
+        "Nephritic Syndrome Hematuria Complement IgA ANCA Workup",
+        "Autosomal Dominant Polycystic Kidney Disease Tolvaptan Genetics",
+        "Calcium Oxalate Kidney Stones Prevention Thiazide Citrate Diet",
+        "Hypertensive Nephrosclerosis Blood Pressure Targets Progression",
+        "Glomerulonephritis Rapidly Progressive Crescentic Kidney Biopsy",
+        "Acute Tubular Necrosis Contrast-Induced Nephropathy Prevention",
+        "Hemodialysis Access AV Fistula Graft Catheter Adequacy",
+        "Kidney Transplantation Rejection Types Tacrolimus Immunosuppression",
+        "Drug Dosing in Renal Failure Creatinine Clearance Cockcroft-Gault",
+        "Hyperkalemia Emergency Treatment Calcium Kayexalate Patiromer",
+        "Metabolic Acidosis Anion Gap Non-Anion Gap Bicarbonate Correction",
+        "Hyponatremia SIADH Correction Rate Osmotic Demyelination",
+        "Rhabdomyolysis Myoglobinuria AKI Prevention Fluid Resuscitation",
+        "SGLT2 Inhibitors CKD Cardiovascular Renal Protection Outcomes",
+        "Electrolyte Imbalances ICU Management Monitoring Replacement",
+    ],
+
+    "ophthalmology": [
+        "Age-Related Macular Degeneration Dry Wet Anti-VEGF Ranibizumab",
+        "Primary Open-Angle Glaucoma Tonometry Optic Disc Topical Medications",
+        "Cataracts Age-Related Phacoemulsification IOL Types Selection",
+        "Diabetic Retinopathy Screening Intervals Laser Ranibizumab Aflibercept",
+        "Dry Eye Disease Meibomian Gland Cyclosporine Lifitegrast Treatment",
+        "Acute Angle-Closure Glaucoma Emergency Pilocarpine Laser Iridotomy",
+        "Rhegmatogenous Retinal Detachment Symptoms Surgery Outcomes",
+        "Conjunctivitis Bacterial Viral Allergic Differential Diagnosis Treatment",
+        "Anterior Uveitis Causes Corticosteroid Cycloplegic Management",
+        "Central Retinal Artery Occlusion Stroke Equivalent Urgent Workup",
+        "Optic Neuritis Multiple Sclerosis MRI Association IV Steroids",
+        "Myopia Progressive Control Atropine Orthokeratology Myopia Progression",
+        "Corneal Ulcer Bacterial Fungal Acanthamoeba Topical Antibiotics",
+        "Strabismus Amblyopia Patching Atropine Surgery Timing",
+        "Herpes Zoster Ophthalmicus Hutchinson Sign Antiviral Treatment",
+        "Orbital Cellulitis Periorbital Preseptal CT Scan IV Antibiotics",
+        "Floaters Posterior Vitreous Detachment Retinal Tear Emergency Signs",
+        "Blepharitis Anterior Posterior Lid Scrubs Antibiotic Drops",
+        "Papilledema Optic Disc Swelling Raised ICP Intracranial Causes",
+        "Glaucoma Normal Tension Optic Nerve Damage Treatment Controversy",
+    ],
+
+    "orthopedics": [
+        "Low Back Pain Red Flags Imaging Indications Conservative Management",
+        "Knee Osteoarthritis NSAIDs Corticosteroid Hyaluronic Total Knee Arthroplasty",
+        "ACL Tear Mechanism MRI Reconstruction Rehabilitation Return to Sport",
+        "Rotator Cuff Tear MRI Findings Conservative versus Surgical Decision",
+        "Meniscus Tear Degenerative Traumatic Repair versus Meniscectomy",
+        "Osteoporosis DEXA Scan FRAX Score Bisphosphonates Fracture Prevention",
+        "Hip Fracture Elderly 30-Day Mortality Surgical Repair Rehabilitation",
+        "Frozen Shoulder Adhesive Capsulitis Stages Physiotherapy Manipulation",
+        "Lateral Epicondylitis Tennis Elbow Eccentric Loading Steroid Injection",
+        "Carpal Tunnel Syndrome Tinel Phalen Signs Night Splint Surgery",
+        "Plantar Fasciitis Heel Pain Conservative Management Corticosteroid PRP",
+        "Ankle Sprain Grade Classification RICE PRICE Proprioception Rehab",
+        "Patellofemoral Pain Syndrome Runner Knee Quadriceps Strengthening",
+        "Compartment Syndrome Acute Fasciotomy Pressure Measurement Emergency",
+        "Lumbar Spinal Stenosis Claudication Epidural Injection Decompression",
+        "Sciatica L4 L5 S1 Radiculopathy Conservative versus Surgical Treatment",
+        "Adolescent Idiopathic Scoliosis Cobb Angle Bracing Surgery Criteria",
+        "Shoulder Anterior Dislocation Bankart Reduction Immobilization Surgery",
+        "Gout Acute Arthritis Colchicine NSAIDs Steroids Urate Lowering",
+        "Stress Fracture Runners Bone Scan MRI Return-to-Activity Protocol",
+        "Achilles Tendinopathy Eccentric Loading PRP Injection Surgical",
+        "Developmental Dysplasia Hip Pavlik Harness Closed Open Reduction",
+    ],
+
+    "urology": [
+        "Benign Prostatic Hyperplasia Alpha-Blockers 5-Alpha Reductase Inhibitors TURP",
+        "Prostate Cancer Active Surveillance Radical Prostatectomy Radiation Therapy",
+        "Erectile Dysfunction PDE5 Inhibitors Sildenafil Tadalafil Vacuum Device",
+        "Nephrolithiasis ESWL Ureteroscopy Metabolic Workup Dietary Prevention",
+        "Urinary Incontinence Stress Urge Mixed Pelvic Floor Anticholinergics",
+        "Recurrent UTI Women Prophylaxis Nitrofurantoin Trimethoprim Cranberry",
+        "Bladder Cancer Transitional Cell TURBT BCG Intravesical Immunotherapy",
+        "Testicular Cancer Orchiectomy Retroperitoneal LND Cisplatin Chemotherapy",
+        "Hematuria Gross Microscopic Cystoscopy CT Urogram Differential Causes",
+        "Overactive Bladder Mirabegron Botulinum Toxin Posterior Tibial Nerve",
+        "Renal Cell Carcinoma Partial versus Radical Nephrectomy Immunotherapy",
+        "Male Infertility Semen Analysis Varicocele Assisted Reproduction",
+        "Acute Urinary Retention Catheterization TWOC Alpha-Blocker Treatment",
+        "Prostatitis Acute Bacterial Chronic Pelvic Pain Antibiotics Treatment",
+        "Testicular Torsion Emergency Detorsion Blue Dot Sign Bilateral Fixation",
+        "Pelvic Floor Dysfunction Dyssynergia Biofeedback Management",
+        "Interstitial Cystitis Bladder Pain Syndrome Pentosan Polysulfate",
+        "Vesicoureteral Reflux Grades Continuous Antibiotic Prophylaxis Surgery",
+        "Nocturia Causes Desmopressin Sleep Quality Management",
+        "Neurogenic Bladder Spinal Cord Injury CIC Anticholinergics Management",
+    ],
+
+    "hematology": [
+        "Iron Deficiency Anemia Oral IV Iron Supplementation Transfusion Criteria",
+        "Vitamin B12 Deficiency Pernicious Anemia Intrinsic Factor IM Injections",
+        "Anemia of Chronic Disease Hepcidin Erythropoiesis-Stimulating Agents",
+        "Sickle Cell Disease Vaso-Occlusive Crisis Hydroxyurea Exchange Transfusion",
+        "Thalassemia Alpha Beta Classification Transfusion Chelation Gene Therapy",
+        "Immune Thrombocytopenic Purpura ITP Steroids IVIG Eltrombopag",
+        "Deep Vein Thrombosis Anticoagulation Duration Wells Score Compression",
+        "Massive Pulmonary Embolism Risk Stratification Thrombolysis Embolectomy",
+        "Hemophilia A Factor VIII Replacement Prophylaxis Inhibitor Development",
+        "Disseminated Intravascular Coagulation DIC Sepsis Fibrinogen FFP",
+        "Anticoagulation Warfarin versus DOACs Reversal Agents Drug Interactions",
+        "Febrile Neutropenia Risk Stratification MASCC Score Antibiotic Protocol",
+        "Polycythemia Vera JAK2 V617F Mutation Phlebotomy Hydroxyurea Ruxolitinib",
+        "Heparin-Induced Thrombocytopenia HIT Platelet Factor 4 Argatroban",
+        "Leukocytosis Left Shift Reactive versus Leukemia Differential Diagnosis",
+        "Splenomegaly Causes Hypersplenism Diagnostic Workup",
+        "Inherited Thrombophilias Factor V Leiden Prothrombin Mutation Testing",
+        "Antiphospholipid Antibody Syndrome Triple Positive Catastrophic APS",
+        "Myelodysplastic Syndrome Bone Marrow Failure Azacitidine Transplantation",
+        "Lymphocytosis Differential Diagnosis CLL Viral EBV CMV Reactive",
+    ],
 }
 
 
@@ -342,48 +687,51 @@ You are a senior clinician writing an authoritative medical reference, comparabl
 Topic: {topic}
 Category: {category}
 
-Write a COMPREHENSIVE, AUTHORITATIVE article of 2000-2500 words. Include SPECIFIC clinical details: exact drug doses, diagnostic criteria with numbers, lab thresholds, staging systems, guideline recommendations (AHA/ACC/ESC/WHO/NICE), and evidence-based management algorithms.
+Write a COMPREHENSIVE, AUTHORITATIVE article of 3000-3500 words. Include SPECIFIC clinical details: exact drug doses, diagnostic criteria with numbers, lab thresholds, staging systems, guideline recommendations (AHA/ACC/ESC/WHO/NICE), and evidence-based management algorithms.
 
-Use EXACTLY these section headings (##):
+Use EXACTLY this output format with the markers below:
+
+TITLE: [Clinical title, max 85 characters]
+EXCERPT: [3 sentences: clinical significance, key mechanism, main management approach]
+ARTICLE_START
 
 ## Key Points
-List 6-8 of the most critical clinical facts as bullet points (use "- " prefix). Each bullet: one specific fact with numbers, doses, criteria, or classic associations. Example:
-- Migraine affects ~15% of the general population, with 3:1 female predominance
-- First-line acute treatment: ibuprofen 400-600 mg or sumatriptan 50-100 mg PO
+List 7-9 critical clinical facts as bullet points ("- " prefix). Each: one specific fact with numbers/doses/criteria.
+- Example: Atrial fibrillation affects 33 million people worldwide; prevalence doubles each decade after age 55
+- Example: Rate control target: resting HR < 80 bpm; rhythm control preferred in symptomatic or newly diagnosed AF < 1 year
 
 ## Overview and Epidemiology
-Definition, incidence/prevalence, affected populations, demographics, major risk factors. (200 words)
+Definition, incidence/prevalence, affected populations, demographics, major risk factors. (250-300 words)
 
 ## Pathophysiology
-Underlying mechanisms, molecular and cellular basis, disease progression, why symptoms occur. (250-350 words)
+Underlying mechanisms, molecular and cellular basis, disease progression, why symptoms occur. (300-400 words)
 
 ## Clinical Presentation
-Symptoms, physical signs, typical vs atypical presentations, red flags requiring urgent attention. (200-250 words)
+Symptoms, physical signs, typical vs atypical presentations, red flags requiring urgent attention. (250-300 words)
 
 ## Diagnosis
-Diagnostic criteria with SPECIFIC values (e.g., "HbA1c ≥ 6.5%"), laboratory workup, imaging findings, differential diagnosis, validated scoring systems (e.g., Wells score, CURB-65). (200-300 words)
+Diagnostic criteria with SPECIFIC values, laboratory workup, imaging findings, differential diagnosis, validated scoring systems (Wells score, CURB-65, CHADS2-VASc, etc). (300-350 words)
 
 ## Management and Treatment
-First-line therapy with SPECIFIC drug names, doses, duration, monitoring (e.g., "metoprolol succinate 25-200 mg once daily, titrate every 2 weeks"). Second-line and adjunct options. Special populations: pregnancy, CKD, elderly, hepatic impairment. Reference major guidelines. (400-500 words)
+First-line therapy with SPECIFIC drug names, doses, duration, monitoring. Second-line and adjunct options. Special populations: pregnancy, CKD, elderly, hepatic impairment. Reference major guidelines (AHA/ACC/ESC/WHO/NICE). (500-600 words)
 
 ## Complications and Prognosis
-Short and long-term complications with incidence rates where known. Prognostic factors. When to refer to specialist. (150-200 words)
+Short and long-term complications with incidence rates. Prognostic factors. When to refer. (200-250 words)
+
+## Special Populations and Considerations
+Pediatric, geriatric, pregnancy, comorbidities, drug interactions, monitoring parameters. (200-250 words)
 
 ## Clinical Pearls
-List 5-7 high-yield board-style teaching points as bullet points (use "- " prefix). Each bullet: one USMLE-style fact about classic associations, what not to miss, or common pitfalls.
+List 6-8 high-yield USMLE-style teaching points ("- " prefix). Classic associations, what not to miss, common pitfalls.
+
+ARTICLE_END
 
 Rules:
-- State facts DIRECTLY — avoid hedging when evidence is clear
-- Use precise numbers throughout: doses in mg/kg, lab values with units, timeframes in hours/days/weeks
+- State facts DIRECTLY with numbers — avoid vague hedging
+- Use precise values: doses in mg/kg, lab values with units, timeframes in hours/days/weeks
 - Do NOT write a references section
-- Write complete, full-length sections — do not abbreviate
-
-Return ONLY valid JSON (no markdown fences):
-{{
-  "title": "Authoritative clinical title, max 85 chars",
-  "excerpt": "3 sentences covering: clinical significance, key mechanism, main management approach",
-  "body_text": "Full 2000-2500 word article with ALL 8 ## sections above"
-}}"""
+- Write COMPLETE, FULL-LENGTH sections — never abbreviate or summarize
+- Output ONLY the structured text above, starting with TITLE:"""
 
 
 def text_to_blocks(text: str) -> list[dict]:
@@ -392,14 +740,14 @@ def text_to_blocks(text: str) -> list[dict]:
     lines   = text.strip().split("\n")
     buffer: list[str] = []
     bullet_buffer: list[str] = []
-    in_key_points = False   # track "Key Points" section for callout
+    in_key_points = False
 
     def clean_md(s: str) -> str:
-        s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)   # **bold**
-        s = re.sub(r"\*(.+?)\*", r"\1", s)         # *italic*
-        s = re.sub(r"\*{1,3}", "", s)               # stray asterisks
-        s = re.sub(r"`(.+?)`", r"\1", s)            # `code`
-        s = re.sub(r"#+\s+", "", s)                 # stray headings inside text
+        s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)
+        s = re.sub(r"\*(.+?)\*", r"\1", s)
+        s = re.sub(r"\*{1,3}", "", s)
+        s = re.sub(r"`(.+?)`", r"\1", s)
+        s = re.sub(r"#+\s+", "", s)
         return s.strip()
 
     def flush_buffer():
@@ -413,7 +761,6 @@ def text_to_blocks(text: str) -> list[dict]:
             items = [clean_md(b.lstrip("-•* ").strip())
                      for b in bullet_buffer if b.strip()]
             if in_key_points:
-                # Key Points → callout block (highlighted box)
                 blocks.append({
                     "type":    "callout",
                     "variant": "info",
@@ -441,7 +788,6 @@ def text_to_blocks(text: str) -> list[dict]:
             in_key_points and len(stripped) > 4 and stripped[0].isdigit()
             and stripped[1:3] in (". ", ") ")
         ):
-            # Accept "- ", "• ", "* " bullets AND numbered lists (1. / 1) ) in key-point sections
             flush_buffer()
             bullet_buffer.append(stripped)
         else:
@@ -453,8 +799,43 @@ def text_to_blocks(text: str) -> list[dict]:
     return blocks
 
 
+def _parse_article_output(content: str) -> dict | None:
+    """Parse structured delimiter output from the model. No JSON involved."""
+    # Extract TITLE
+    title_m = re.search(r"^TITLE:\s*(.+)$", content, re.MULTILINE)
+    if not title_m:
+        return None
+    title = title_m.group(1).strip().strip('"')
+
+    # Extract EXCERPT (everything between EXCERPT: and ARTICLE_START)
+    excerpt_m = re.search(
+        r"^EXCERPT:\s*(.+?)(?=\nARTICLE_START|\n\n## |\nARTICLE_END)",
+        content, re.MULTILINE | re.DOTALL
+    )
+    excerpt = excerpt_m.group(1).strip() if excerpt_m else ""
+
+    # Extract ARTICLE body (between ARTICLE_START and ARTICLE_END)
+    body_m = re.search(
+        r"ARTICLE_START\s*\n(.*?)(?:ARTICLE_END|$)",
+        content, re.DOTALL
+    )
+    if not body_m:
+        # Fallback: everything from first ## heading
+        body_m2 = re.search(r"(## Key Points.*)", content, re.DOTALL)
+        if not body_m2:
+            return None
+        body_text = body_m2.group(1).strip()
+    else:
+        body_text = body_m.group(1).strip()
+
+    if not body_text or len(body_text) < 500:
+        return None
+
+    return {"title": title, "excerpt": excerpt, "body_text": body_text}
+
+
 def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
-    """Call Ollama to generate article. Returns parsed JSON or None."""
+    """Call Ollama to generate article. Returns dict with title/excerpt/body_text."""
     prompt = ARTICLE_PROMPT.format(topic=topic, category=category)
     try:
         resp = httpx.post(
@@ -464,37 +845,30 @@ def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
                 "messages": [{"role": "user", "content": prompt}],
                 "stream":   False,
                 "options":  {
-                    "temperature":    0.25,  # lower = more factual, less hallucination
-                    "num_predict":    3200,  # ~1800 words; CPU 3 tok/s → ~18 min
-                    "num_ctx":        8192,  # large context for detailed prompt + output
-                    "top_p":          0.85,
-                    "repeat_penalty": 1.1,   # reduce repetition in long articles
+                    "temperature":    0.3,
+                    "num_predict":    5000,   # ~3000 words; CPU ~28 min — worth the quality
+                    "num_ctx":        8192,
+                    "top_p":          0.9,
+                    "repeat_penalty": 1.05,
                 },
                 "think": False,
             },
-            timeout=1800,  # 30 min max — qwen3:8b CPU needs ~18 min for 3200 tokens
+            timeout=3600,  # 60 min max for long articles
         )
         if resp.status_code != 200:
             log.error("Ollama error %s: %s", resp.status_code, resp.text[:200])
             return None
 
         content = resp.json().get("message", {}).get("content", "")
+        if not content:
+            log.error("Empty response from Ollama for '%s'", topic)
+            return None
 
-        # Strip markdown fences
-        content = re.sub(r"^```(?:json)?\s*", "", content.strip())
-        content = re.sub(r"\s*```$", "", content)
-
-        # Extract JSON object
-        m = re.search(r"\{.*\}", content, re.DOTALL)
-        if m:
-            content = m.group()
-
-        data = json.loads(content)
+        data = _parse_article_output(content)
+        if not data:
+            log.error("Parse failed for '%s' — output preview: %s", topic, content[:300])
         return data
 
-    except json.JSONDecodeError as e:
-        log.error("JSON parse error for '%s': %s", topic, e)
-        return None
     except Exception as e:
         log.error("Ollama call failed for '%s': %s", topic, e)
         return None
@@ -554,7 +928,7 @@ def save_article(conn, article_id: str, slug: str, title: str, excerpt: str,
         with conn.cursor() as cur:
             cur.execute("SELECT 1 FROM articles WHERE slug=%s", (slug,))
             if cur.fetchone():
-                return False  # already exists
+                return False
 
             cur.execute("""
                 INSERT INTO articles
@@ -628,7 +1002,7 @@ def notify_indexnow(slug: str):
 def main():
     parser = argparse.ArgumentParser(description="MedMind Ollama Article Generator")
     parser.add_argument("--limit",      type=int,   default=20,
-                        help="Max articles to generate (default: 20, ~5 hrs overnight)")
+                        help="Max articles to generate (default: 20)")
     parser.add_argument("--model",      type=str,   default=OLLAMA_MODEL,
                         help=f"Ollama model (default: {OLLAMA_MODEL})")
     parser.add_argument("--category",   type=str,   default=None,
@@ -638,7 +1012,7 @@ def main():
     parser.add_argument("--delay",      type=float, default=DELAY,
                         help="Seconds between articles (default: 2)")
     parser.add_argument("--regenerate", action="store_true",
-                        help="Re-generate existing shallow Ollama articles (reading_time=3)")
+                        help="Re-generate existing shallow Ollama articles (reading_time<=3)")
     args = parser.parse_args()
 
     log.info("Ollama Article Generator started | model=%s | limit=%d",
@@ -658,8 +1032,8 @@ def main():
 
     conn = psycopg2.connect(DB_URL)
 
-    count  = 0
-    errors = 0
+    count   = 0
+    errors  = 0
     skipped = 0
 
     # ── Regenerate mode: upgrade shallow Ollama articles ─────────────────────────
@@ -680,7 +1054,7 @@ def main():
             cur.execute(query, params)
             shallow = cur.fetchall()
 
-        log.info("Regenerating %d shallow articles (reading_time=3)", len(shallow))
+        log.info("Regenerating %d shallow articles (reading_time<=3)", len(shallow))
         for article_id, title, category in shallow:
             log.info("[%d/%d] Regenerating: %s", count+1, len(shallow), title[:60])
             t0   = time.time()
@@ -688,7 +1062,7 @@ def main():
             elapsed = time.time() - t0
 
             if not data or not data.get("body_text"):
-                log.warning("  ✗ Generation failed (%.1fs)", elapsed)
+                log.warning("  x Generation failed (%.1fs)", elapsed)
                 errors += 1
                 continue
 
@@ -701,7 +1075,7 @@ def main():
             if update_article(conn, str(article_id), new_title, new_excerpt, new_body):
                 n_tr = save_translations(conn, str(article_id), new_title, new_excerpt, new_body)
                 rt   = calc_reading_time(new_body)
-                log.info("  ✓ Updated (%d min read) + %d translations", rt, n_tr)
+                log.info("  ok Updated (%d min read) + %d translations", rt, n_tr)
                 new_slug = slugify(new_title)
                 if _HAS_OG:
                     try:
@@ -729,25 +1103,39 @@ def main():
             if count >= args.limit:
                 break
 
-            slug = slugify(topic)
             log.info("[%d/%d] %s / %s", count+1, args.limit, category, topic)
 
-            # Check if exists
+            # Smart pre-check: use first 2 significant words to catch differently-titled
+            # articles on the same subject (avoids wasting 25+ min generating a duplicate)
+            STOP = {"and", "the", "of", "in", "with", "vs", "versus", "its", "for",
+                    "or", "a", "an", "to", "from", "on", "at", "by", "as"}
+            words = [w for w in re.split(r"[\s\-]+", topic.lower()) if w not in STOP]
+            key2 = slugify(" ".join(words[:2]))   # e.g. "atrial-fibrillation"
+            key1 = slugify(words[0])               # e.g. "atrial"
+
             with conn.cursor() as cur:
-                cur.execute("SELECT 1 FROM articles WHERE slug LIKE %s",
-                            (slug[:50] + "%",))
+                # First: exact 2-word prefix match (most specific)
+                cur.execute("SELECT 1 FROM articles WHERE slug LIKE %s LIMIT 1",
+                            (key2 + "%",))
                 if cur.fetchone():
-                    log.info("  — Skipped (exists)")
+                    log.info("  -- Skipped (keyword '%s' exists)", key2)
+                    skipped += 1
+                    continue
+                # Second: full topic-slug prefix (original check)
+                slug_pre = slugify(topic)[:50]
+                cur.execute("SELECT 1 FROM articles WHERE slug LIKE %s LIMIT 1",
+                            (slug_pre + "%",))
+                if cur.fetchone():
+                    log.info("  -- Skipped (topic slug exists)")
                     skipped += 1
                     continue
 
-            # Generate with Ollama
             t0   = time.time()
             data = generate_with_ollama(topic, category, args.model)
             elapsed = time.time() - t0
 
             if not data or not data.get("title") or not data.get("body_text"):
-                log.warning("  ✗ Generation failed (%.1fs)", elapsed)
+                log.warning("  x Generation failed (%.1fs)", elapsed)
                 errors += 1
                 continue
 
@@ -759,20 +1147,23 @@ def main():
             log.info("  Generated: '%s' (%.1fs, %d blocks)",
                      title[:60], elapsed, len(body))
 
-            # Save to DB
+            # If the generated slug already exists, save under a unique variant
             article_id = str(uuid.uuid4())
             saved = save_article(conn, article_id, slug, title, excerpt,
                                  body, category)
             if not saved:
-                log.info("  — Slug already exists, skipping")
+                # Try appending category suffix to make slug unique
+                alt_slug = slugify(f"{title} {category}")[:90]
+                saved = save_article(conn, article_id, alt_slug, title, excerpt,
+                                     body, category)
+            if not saved:
+                log.info("  -- Slug conflict, skipping")
                 skipped += 1
                 continue
 
-            # Translate all 6 locales
             n_tr = save_translations(conn, article_id, title, excerpt, body)
-            log.info("  ✓ Published + %d translations | %s", n_tr, slug)
+            log.info("  ok Published + %d translations | %s", n_tr, slug)
 
-            # Fetch cover image from Wikipedia
             if _HAS_COVER:
                 try:
                     cover_url = _fetch_cover_image(title, category)
@@ -781,11 +1172,10 @@ def main():
                             cur.execute("UPDATE articles SET cover_image=%s WHERE id=%s",
                                         (cover_url, article_id))
                         conn.commit()
-                        log.info("  🖼  Cover image: %s", cover_url[:60])
+                        log.info("  img Cover image: %s", cover_url[:60])
                 except Exception as e:
                     log.warning("  Cover image failed: %s", e)
 
-            # Generate OG image for Telegram/social sharing
             if _HAS_OG:
                 try:
                     rt = calc_reading_time(body)
@@ -793,7 +1183,6 @@ def main():
                 except Exception as e:
                     log.warning("  OG image failed: %s", e)
 
-            # Notify search engines
             notify_indexnow(slug)
 
             count += 1
