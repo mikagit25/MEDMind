@@ -243,7 +243,7 @@ export const drugsApi = {
     return api.get(`/drugs/browse?${params}`).then(r => r.data);
   },
   getClasses: () => api.get("/drugs/classes").then(r => r.data),
-  get: (id: string) => api.get(`/drugs/${id}`).then(r => r.data),
+  get: (id: string, lang = "en") => api.get(`/drugs/${id}?lang=${lang}`).then(r => r.data),
   getAlternatives: (id: string) => api.get(`/drugs/${id}/alternatives`).then(r => r.data),
   getDosing: (drugId: string, speciesId: string) =>
     api.get(`/veterinary/drugs/${drugId}/dosing/${speciesId}`).then(r => r.data),

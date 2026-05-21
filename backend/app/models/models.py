@@ -420,6 +420,7 @@ class Drug(Base):
     is_nti = Column(Boolean, default=False)
     is_veterinary = Column(Boolean, default=False)
     image_url = Column(Text, nullable=True)
+    translations = Column(JSONB, default=dict)
     content = Column(JSONB)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

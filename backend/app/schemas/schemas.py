@@ -358,6 +358,7 @@ class DrugOut(BaseModel):
     is_nti: bool = False
     is_veterinary: bool = False
     image_url: Optional[str] = None
+    translations: Optional[Dict[str, Any]] = None
 
     model_config = {"from_attributes": True}
 

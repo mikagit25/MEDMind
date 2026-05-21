@@ -478,30 +478,36 @@ async def get_drug_classes(
     return [{"drug_class": r[0], "count": r[1]} for r in result.all()]
 
 
-def _drug_to_dict(d: Drug) -> dict:
+def _drug_to_dict(d: Drug, lang: str = "en") -> dict:
+    """Return drug dict with optional locale overlay from translations."""
+    tr = {}
+    if lang and lang != "en" and d.translations:
+        tr = (d.translations or {}).get(lang, {})
     return {
         "id": str(d.id),
-        "name": d.name,
+        "name": d.name,                          # drug names stay in English always
         "generic_name": d.generic_name,
-        "drug_class": d.drug_class,
-        "mechanism": d.mechanism,
-        "indications": d.indications or [],
-        "contraindications": d.contraindications or [],
-        "dosing": d.dosing or {},
-        "adverse_effects": d.adverse_effects or {},
+        "drug_class": tr.get("drug_class") or d.drug_class,
+        "mechanism": tr.get("mechanism") or d.mechanism,
+        "indications": tr.get("indications") or d.indications or [],
+        "contraindications": tr.get("contraindications") or d.contraindications or [],
+        "dosing": d.dosing or {},                # dosing stays English (medical standard)
+        "adverse_effects": tr.get("adverse_effects") or d.adverse_effects or {},
         "interactions": d.interactions or [],
         "monitoring": d.monitoring or [],
-        "black_box_warning": d.black_box_warning,
+        "black_box_warning": tr.get("black_box_warning") or d.black_box_warning,
         "is_high_yield": d.is_high_yield,
         "is_nti": d.is_nti,
         "is_veterinary": d.is_veterinary,
         "image_url": d.image_url,
+        "available_langs": list((d.translations or {}).keys()),
     }
 
 
 @router.get("/drugs", response_model=List[DrugOut])
 async def search_drugs(
     q: str = Query(None, min_length=1, max_length=100),
+    lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
@@ -521,18 +527,19 @@ async def search_drugs(
     return result.scalars().all()
 
 
-@router.get("/drugs/{drug_id}", response_model=DrugOut)
+@router.get("/drugs/{drug_id}")
 async def get_drug_detail(
     drug_id: UUID,
+    lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Return full drug detail by ID."""
+    """Return full drug detail with optional locale translation."""
     result = await db.execute(select(Drug).where(Drug.id == drug_id))
     drug = result.scalar_one_or_none()
     if not drug:
         raise HTTPException(status_code=404, detail="Drug not found")
-    return drug
+    return _drug_to_dict(drug, lang)
 
 
 @router.get("/drugs/{drug_id}/alternatives")

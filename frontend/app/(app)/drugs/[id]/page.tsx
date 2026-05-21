@@ -1,9 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { drugsApi, veterinaryApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
+
+const LANG_FLAGS: Record<string, string> = {
+  en: "🇺🇸", ru: "🇷🇺", ar: "🇸🇦", de: "🇩🇪", fr: "🇫🇷", es: "🇪🇸", tr: "🇹🇷",
+};
+const LANG_NAMES: Record<string, string> = {
+  en: "English", ru: "Русский", ar: "العربية", de: "Deutsch", fr: "Français", es: "Español", tr: "Türkçe",
+};
 
 type Drug = {
   id: string;
@@ -22,6 +29,7 @@ type Drug = {
   is_nti?: boolean;
   is_veterinary?: boolean;
   image_url?: string;
+  available_langs?: string[];
 };
 
 type Alternative = {
@@ -40,10 +48,11 @@ export default function DrugDetailPage() {
   const t = useT();
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const lang = searchParams.get("lang") || "en";
 
   const [drug, setDrug] = useState<Drug | null>(null);
   const [alternatives, setAlternatives] = useState<Alternative[]>([]);
-  const [rxImageUrl, setRxImageUrl] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("overview");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -57,31 +66,21 @@ export default function DrugDetailPage() {
     if (!id) return;
     setLoading(true);
     setError("");
-    setRxImageUrl(null);
 
     Promise.all([
-      drugsApi.get(id),
+      drugsApi.get(id, lang),
       drugsApi.getAlternatives(id).catch(() => ({ alternatives: [] })),
     ])
       .then(([drugData, altData]) => {
         setDrug(drugData);
         setAlternatives(altData?.alternatives ?? []);
-        // Fetch RxImage pill photo in background
-        const imgName = drugData.generic_name || drugData.name;
-        if (imgName && !drugData.image_url) {
-          drugsApi.fetchRxImage(imgName).then((url) => {
-            if (url) setRxImageUrl(url);
-          }).catch(() => {});
-        } else if (drugData.image_url) {
-          setRxImageUrl(drugData.image_url);
-        }
       })
       .catch((e) => {
         const detail = e?.response?.data?.detail;
         setError(detail || "Failed to load drug");
       })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, lang]);
 
   if (loading) {
     return (
@@ -125,8 +124,22 @@ export default function DrugDetailPage() {
     { key: "vet", label: "🐾 Vet Dosing" },
   ];
 
+  const availableLangs = ["en", ...(drug.available_langs || [])];
+  const SITE_URL = "https://medmind.pro";
+
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6 max-w-4xl mx-auto w-full">
+      {/* hreflang links for SEO */}
+      {availableLangs.length > 1 && (
+        <head>
+          <link rel="canonical" href={`${SITE_URL}/drugs/${id}${lang !== "en" ? `?lang=${lang}` : ""}`} />
+          {availableLangs.map((l) => (
+            <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/drugs/${id}${l !== "en" ? `?lang=${l}` : ""}`} />
+          ))}
+          <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/drugs/${id}`} />
+        </head>
+      )}
+
       {/* Back */}
       <button onClick={() => router.back()} className="font-syne text-xs text-ink-3 hover:text-ink mb-5 flex items-center gap-1">
         ← Drug Database
@@ -134,14 +147,13 @@ export default function DrugDetailPage() {
 
       {/* Header */}
       <div className="flex items-start gap-4 mb-4 flex-wrap sm:flex-nowrap">
-        {/* Drug image */}
-        {rxImageUrl ? (
+        {/* Drug image from DB (pre-fetched from Wikipedia) */}
+        {drug.image_url ? (
           <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl border border-border bg-white overflow-hidden flex-shrink-0">
             <img
-              src={rxImageUrl}
+              src={drug.image_url}
               alt={drug.name}
               className="w-full h-full object-contain p-1"
-              onError={() => setRxImageUrl(null)}
             />
           </div>
         ) : (
@@ -167,6 +179,27 @@ export default function DrugDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Language switcher */}
+      {availableLangs.length > 1 && (
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <span className="font-syne font-semibold text-xs text-ink-3">Language:</span>
+          {availableLangs.map((l) => (
+            <button
+              key={l}
+              onClick={() => router.push(`/drugs/${id}${l !== "en" ? `?lang=${l}` : ""}`)}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full font-syne font-semibold text-xs border transition-all ${
+                l === lang
+                  ? "bg-ink text-white border-ink"
+                  : "border-border text-ink-2 hover:border-ink"
+              }`}
+            >
+              <span>{LANG_FLAGS[l] || "🌐"}</span>
+              <span>{LANG_NAMES[l] || l.toUpperCase()}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Black Box Warning */}
       {drug.black_box_warning && (
