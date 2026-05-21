@@ -59,10 +59,10 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
               {t("landing.nav_articles")}
             </Link>
             <Link href="/drugs" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 hidden md:block">
-              💊 Drugs
+              {t("landing.nav_drugs")}
             </Link>
             <Link href="/imaging" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 hidden md:block">
-              🩻 Imaging
+              {t("landing.nav_imaging")}
             </Link>
             <Link href="/pricing" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
               {t("landing.nav_pricing")}
@@ -117,10 +117,10 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
           <div className="md:hidden border-t border-border bg-surface px-4 py-3 space-y-1">
             {[
               { href: "/how-it-works", label: t("landing.nav_how") },
-              { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/drugs",        label: "💊 Drug Database" },
-              { href: "/imaging",      label: "🩻 Medical Imaging" },
-              { href: "/pricing",      label: t("landing.nav_pricing") },
+              { href: "/articles", label: t("landing.nav_articles") },
+              { href: "/drugs",    label: t("landing.nav_drugs") },
+              { href: "/imaging",  label: t("landing.nav_imaging") },
+              { href: "/pricing",  label: t("landing.nav_pricing") },
               { href: "/login",        label: t("landing.nav_sign_in") },
             ].map(item => (
               <Link key={item.href} href={item.href}
@@ -202,38 +202,6 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
               <p className="text-ink-3 text-sm leading-relaxed">{f.desc}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="bg-surface border-y border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-2 sm:mb-3">{t("landing.pricing_title")}</h2>
-          <p className="text-ink-3 text-center mb-10 sm:mb-12 text-sm">{t("landing.pricing_subtitle")}</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {(Array.isArray(plans) ? plans : []).map((p, i) => (
-              <div key={i} className={`rounded-lg p-5 sm:p-6 border ${p.highlight ? "border-red bg-red-light" : "border-border bg-bg"}`}>
-                {p.highlight && (
-                  <div className="font-syne font-bold text-xs text-red uppercase tracking-widest mb-3">{t("landing.pricing_most_popular")}</div>
-                )}
-                <div className="font-syne font-extrabold text-xl text-ink mb-1">{p.name}</div>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="font-syne font-bold text-3xl text-ink">{p.price}</span>
-                  <span className="text-ink-3 text-sm">{p.period}</span>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  {p.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-ink-2">
-                      <span className="text-green-2 mt-0.5 flex-shrink-0">✓</span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/register" className={`block text-center font-syne font-semibold text-sm py-2.5 rounded transition-colors ${p.highlight ? "bg-ink text-white hover:bg-red" : "border border-border-2 text-ink-2 hover:border-ink hover:text-ink"}`}>
-                  {p.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -411,6 +379,38 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
         </section>
       )}
 
+      {/* Pricing — placed after articles for better conversion flow */}
+      <section className="bg-surface border-y border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-2 sm:mb-3">{t("landing.pricing_title")}</h2>
+          <p className="text-ink-3 text-center mb-10 sm:mb-12 text-sm">{t("landing.pricing_subtitle")}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {(Array.isArray(plans) ? plans : []).map((p, i) => (
+              <div key={i} className={`rounded-lg p-5 sm:p-6 border ${p.highlight ? "border-red bg-red-light" : "border-border bg-bg"}`}>
+                {p.highlight && (
+                  <div className="font-syne font-bold text-xs text-red uppercase tracking-widest mb-3">{t("landing.pricing_most_popular")}</div>
+                )}
+                <div className="font-syne font-extrabold text-xl text-ink mb-1">{p.name}</div>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="font-syne font-bold text-3xl text-ink">{p.price}</span>
+                  <span className="text-ink-3 text-sm">{p.period}</span>
+                </div>
+                <ul className="space-y-2 mb-6">
+                  {p.features.map((f, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-ink-2">
+                      <span className="text-green-2 mt-0.5 flex-shrink-0">✓</span>{f}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className={`block text-center font-syne font-semibold text-sm py-2.5 rounded transition-colors ${p.highlight ? "bg-ink text-white hover:bg-red" : "border border-border-2 text-ink-2 hover:border-ink hover:text-ink"}`}>
+                  {p.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
@@ -432,6 +432,8 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
           <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
             <Link href="/how-it-works" className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.nav_how")}</Link>
             <Link href="/articles"     className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.nav_articles")}</Link>
+            <Link href="/drugs"        className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.nav_drugs")}</Link>
+            <Link href="/imaging"      className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.nav_imaging")}</Link>
             <Link href="/pricing"      className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.nav_pricing")}</Link>
             <Link href="/investors"    className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.footer_investors")}</Link>
             <Link href="/register"     className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{t("landing.footer_register")}</Link>
