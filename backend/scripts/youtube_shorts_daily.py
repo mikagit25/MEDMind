@@ -96,13 +96,31 @@ def load_secret() -> dict:
 def save_token(t: dict):
     with open(TOKEN_FILE, "w") as f: json.dump(t, f, indent=2)
 
+def _token_expires_at(token: dict) -> float:
+    if token.get("expires_at"):
+        return float(token["expires_at"])
+    if token.get("expiry"):
+        try:
+            from datetime import timezone
+            dt = datetime.fromisoformat(token["expiry"].replace("Z", "+00:00"))
+            return dt.timestamp()
+        except Exception:
+            pass
+    return 0.0
+
+def _token_creds(token: dict, secret: dict) -> dict:
+    if token.get("client_id") and token.get("client_secret"):
+        return {"client_id": token["client_id"], "client_secret": token["client_secret"]}
+    return secret
+
 def get_access_token() -> str:
     token  = load_token()
     secret = load_secret()
-    if time.time() >= token.get("expires_at", 0) - 60:
+    if time.time() >= _token_expires_at(token) - 60:
+        creds = _token_creds(token, secret)
         resp = httpx.post("https://oauth2.googleapis.com/token", data={
-            "client_id":     secret["client_id"],
-            "client_secret": secret["client_secret"],
+            "client_id":     creds["client_id"],
+            "client_secret": creds["client_secret"],
             "refresh_token": token["refresh_token"],
             "grant_type":    "refresh_token",
         })
@@ -110,7 +128,7 @@ def get_access_token() -> str:
         token = {**token, **resp.json()}
         token["expires_at"] = time.time() + token.get("expires_in", 3600)
         save_token(token)
-    return token["access_token"]
+    return token.get("access_token") or token.get("token")
 
 
 # ── Tracking ───────────────────────────────────────────────────────────────────

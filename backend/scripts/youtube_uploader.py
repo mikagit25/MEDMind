@@ -106,10 +106,30 @@ def save_token(token: dict):
     print(f"✅ Token saved to {TOKEN_FILE}")
 
 
+def _token_expires_at(token: dict) -> float:
+    """Handle both our format (expires_at) and Google-auth format (expiry)."""
+    if token.get("expires_at"):
+        return float(token["expires_at"])
+    if token.get("expiry"):
+        try:
+            import datetime as _dt
+            dt = _dt.datetime.fromisoformat(token["expiry"].replace("Z", "+00:00"))
+            return dt.timestamp()
+        except Exception:
+            pass
+    return 0.0
+
+def _token_creds(token: dict, secret: dict) -> dict:
+    """Use credentials embedded in Google-auth token if present."""
+    if token.get("client_id") and token.get("client_secret"):
+        return {"client_id": token["client_id"], "client_secret": token["client_secret"]}
+    return secret
+
 def refresh_access_token(token: dict, secret: dict) -> dict:
+    creds = _token_creds(token, secret)
     resp = httpx.post("https://oauth2.googleapis.com/token", data={
-        "client_id":     secret["client_id"],
-        "client_secret": secret["client_secret"],
+        "client_id":     creds["client_id"],
+        "client_secret": creds["client_secret"],
         "refresh_token": token["refresh_token"],
         "grant_type":    "refresh_token",
     })
@@ -190,15 +210,13 @@ def get_valid_token() -> tuple[str, dict]:
         print("No token found. Running auth flow…")
         token = do_auth_flow(secret)
 
-    # Check expiry
-    expires_at = token.get("expires_at", 0)
-    if time.time() >= expires_at - 60:
+    if time.time() >= _token_expires_at(token) - 60:
         print("Token expired, refreshing…")
         token = refresh_access_token(token, secret)
         token["expires_at"] = time.time() + token.get("expires_in", 3600)
         save_token(token)
 
-    return token["access_token"], token
+    return token.get("access_token") or token.get("token"), token
 
 
 # ── Video generation ──────────────────────────────────────────────────────────
