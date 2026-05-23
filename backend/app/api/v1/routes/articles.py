@@ -433,6 +433,9 @@ async def article_nav(
 
     pub = article.published_at
 
+    if pub is None:
+        return {"prev": None, "next": None}
+
     prev_art = (await db.execute(
         select(Article)
         .where(
@@ -514,7 +517,7 @@ async def article_quiz(slug: str, db: AsyncSession = Depends(get_db)):
         return cached
 
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published == True)
+        select(Article).where(Article.slug == slug, Article.is_published.is_(True))
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -617,6 +620,132 @@ ARTICLE:
     result = {"slug": slug, "title": article.title, "questions": questions}
     await set_cached(cache_key, result, ttl=86400)  # cache 24 h
     return result
+
+
+class ArticleAskRequest(BaseModel):
+    question: str
+
+
+FREE_DAILY_LIMIT = 3
+PAID_TIERS = {"student", "pro", "lifetime"}
+
+
+@router.post("/{slug}/ask")
+async def article_ask(
+    slug: str,
+    req: ArticleAskRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+    """
+    AI consultation for an article.
+    Free users: 3 questions/day via Ollama.
+    Paid users: unlimited via Claude.
+    """
+    import json as _json
+
+    if not req.question or len(req.question.strip()) < 3:
+        raise HTTPException(status_code=400, detail="Question too short")
+
+    # Rate limit for free users
+    is_paid = (current_user.subscription_tier or "free") in PAID_TIERS
+    if not is_paid:
+        from app.core.redis_client import get_redis
+        redis = await get_redis()
+        from datetime import date
+        rate_key = f"article_ask:{current_user.id}:{date.today().isoformat()}"
+        count = await redis.get(rate_key)
+        count = int(count) if count else 0
+        if count >= FREE_DAILY_LIMIT:
+            raise HTTPException(
+                status_code=429,
+                detail=f"Daily limit reached. Free plan includes {FREE_DAILY_LIMIT} AI questions per day. Upgrade to Pro for unlimited access."
+            )
+        await redis.setex(rate_key, 86400, count + 1)
+
+    # Fetch article for context
+    article = (await db.execute(
+        select(Article).where(Article.slug == slug, Article.is_published.is_(True))
+    )).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    # Build context from article body
+    blocks = article.body or []
+    lines: list[str] = [f"Article: {article.title}", f"Summary: {article.excerpt or ''}"]
+    for block in blocks:
+        btype = block.get("type", "")
+        if btype == "h2":
+            lines.append(f"\n## {block.get('content','')}")
+        elif btype == "p":
+            lines.append(block.get("content", "")[:500])
+        elif btype == "ul":
+            for item in (block.get("items") or [])[:5]:
+                lines.append(f"- {item}")
+        if len("\n".join(lines)) > 3000:
+            break
+    context = "\n".join(lines)[:3500]
+
+    prompt = f"""You are a medical education assistant. Answer the student's question based on the article context below.
+Be concise (3-5 sentences), clinically accurate, and cite specific facts from the article when relevant.
+If the question is outside the article scope, briefly answer from general medical knowledge.
+
+ARTICLE CONTEXT:
+{context}
+
+STUDENT QUESTION: {req.question}
+
+ANSWER:"""
+
+    answer = None
+
+    # Paid users → Claude
+    if is_paid:
+        try:
+            import anthropic as _anthropic
+            from app.core.config import settings as _s
+            if _s.ANTHROPIC_API_KEY:
+                client = _anthropic.AsyncAnthropic(api_key=_s.ANTHROPIC_API_KEY)
+                msg = await client.messages.create(
+                    model="claude-haiku-4-5-20251001",
+                    max_tokens=512,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                answer = msg.content[0].text.strip()
+        except Exception as e:
+            logger.warning("Claude ask failed for %s: %s", slug, e)
+
+    # Free users or Claude fallback → Ollama
+    if not answer:
+        try:
+            import httpx as _httpx
+            resp = await _httpx.AsyncClient(timeout=60).post(
+                "http://172.20.0.1:11434/api/chat",
+                json={
+                    "model":    "qwen3:8b",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "stream":   False,
+                    "options":  {"temperature": 0.2, "num_predict": 400, "num_ctx": 4096},
+                    "think":    False,
+                },
+            )
+            answer = resp.json().get("message", {}).get("content", "").strip()
+        except Exception as e:
+            logger.error("Ollama ask failed for %s: %s", slug, e)
+
+    if not answer:
+        raise HTTPException(status_code=503, detail="AI temporarily unavailable. Please try again.")
+
+    remaining = None
+    if not is_paid:
+        from app.core.redis_client import get_redis
+        from datetime import date
+        redis = await get_redis()
+        rate_key = f"article_ask:{current_user.id}:{date.today().isoformat()}"
+        count = await redis.get(rate_key)
+        remaining = max(0, FREE_DAILY_LIMIT - int(count or 0))
+
+    return {"answer": answer, "remaining": remaining, "is_paid": is_paid}
 
 
 # NOTE: /my and /admin routes MUST be defined before /{slug} so FastAPI
