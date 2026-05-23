@@ -55,6 +55,17 @@ CHANNEL_DESCRIPTIONS = {
         "tags": ["medical education", "medicine", "medmind", "USMLE", "clinical medicine",
                  "medical student", "doctor", "healthcare", "AI tutor", "evidence based medicine"],
     },
+    "es": {
+        "prefix": "🩺 MedMind AI — Educación médica basada en evidencia con Claude AI y PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 Artículo completo con fuentes: https://medmind.pro/articles/{slug}?lang=es\n"
+            "📚 Plataforma gratuita: https://medmind.pro\n"
+            "✅ 97+ módulos | 7 idiomas | Casos clínicos | Tutor IA\n\n"
+            "#MedicinaEnEspañol #EducacionMedica #MedMindAI #USMLE #MIR #Medicina"
+        ),
+        "tags": ["medicina", "educación médica", "medmind", "USMLE", "MIR", "medicina clínica",
+                 "estudiante de medicina", "farmacología", "tutor IA", "medicina basada en evidencia"],
+    },
     "ru": {
         "prefix": "🩺 MedMind AI — Доказательное медицинское образование на основе Claude AI и PubMed.\n\n",
         "suffix": (
@@ -228,9 +239,38 @@ async def generate_video(slug: str, lang: str, output_dir: Path) -> Path | None:
 
 # ── YouTube upload ────────────────────────────────────────────────────────────
 
+def upload_thumbnail(video_id: str, thumb_path: Path, access_token: str) -> bool:
+    """Upload custom thumbnail for a video."""
+    try:
+        data = thumb_path.read_bytes()
+        resp = httpx.post(
+            f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set"
+            f"?videoId={video_id}&uploadType=media",
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type":  "image/jpeg",
+                "Content-Length": str(len(data)),
+            },
+            content=data,
+            timeout=60,
+        )
+        if resp.status_code in (200, 204):
+            print(f"🖼️  Thumbnail uploaded")
+            return True
+        else:
+            print(f"  ⚠️  Thumbnail failed: {resp.status_code} {resp.text[:100]}")
+            return False
+    except Exception as e:
+        print(f"  ⚠️  Thumbnail error: {e}")
+        return False
+
+
 def build_description(slug: str, excerpt: str, lang: str) -> str:
+    import re
     tmpl = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])
-    return tmpl["prefix"] + excerpt + tmpl["suffix"].format(slug=slug)
+    clean = re.sub(r"<[^>]+>", "", str(excerpt or ""))
+    clean = clean.replace("<", "").replace(">", "").strip()
+    return tmpl["prefix"] + clean + tmpl["suffix"].format(slug=slug)
 
 
 def upload_to_youtube(
@@ -321,9 +361,9 @@ def fetch_article(slug: str, lang: str = "en") -> dict | None:
     return None
 
 
-def fetch_top_slugs(limit: int = 20, lang: str = "en") -> list[str]:
+def fetch_top_slugs(limit: int = 20, lang: str = "en", page: int = 1) -> list[str]:
     try:
-        resp = httpx.get(f"{API_URL}/articles", params={"limit": limit, "page": 1}, timeout=15)
+        resp = httpx.get(f"{API_URL}/articles", params={"limit": limit, "page": page}, timeout=15)
         if resp.status_code == 200:
             data = resp.json()
             articles = data.get("articles", data) if isinstance(data, dict) else data
@@ -363,25 +403,45 @@ async def process_one(
     playlist_id: str | None = None,
 ) -> str | None:
     """Generate and upload one video. Returns video_id on success."""
+    import tempfile
+    sys.path.insert(0, str(Path(__file__).parent))
+    try:
+        from generate_thumbnail import generate_thumbnail
+        _thumb_available = True
+    except ImportError:
+        _thumb_available = False
+
     article = fetch_article(slug, lang)
     if not article:
         print(f"⚠️  Could not fetch article '{slug}', skipping")
         return None
 
-    title   = article.get("title", slug)
-    excerpt = article.get("excerpt", "")
-    tags    = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])["tags"] + [article.get("category", "")]
+    title        = article.get("title", slug)
+    excerpt      = article.get("excerpt", "")
+    category     = article.get("category", "diseases")
+    reading_time = article.get("reading_time_minutes", 0)
+    tags         = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])["tags"] + [category]
 
     # Generate video
     mp4 = await generate_video(slug, lang, output_dir)
     if not mp4:
         return None
 
-    # Upload
+    # Upload video
     description = build_description(slug, excerpt, lang)
     video_id    = upload_to_youtube(mp4, title, description, tags, access_token)
 
     if video_id:
+        # Generate and upload thumbnail
+        if _thumb_available:
+            thumb_path = output_dir / f"{slug[:60]}_thumb.jpg"
+            try:
+                generate_thumbnail(title, category, lang, reading_time, out_path=thumb_path)
+                upload_thumbnail(video_id, thumb_path, access_token)
+                thumb_path.unlink(missing_ok=True)
+            except Exception as e:
+                print(f"  ⚠️  Thumbnail skipped: {e}")
+
         if delete_after:
             mp4.unlink(missing_ok=True)
             print(f"🗑️  Local file deleted")
@@ -400,6 +460,7 @@ async def main():
     parser.add_argument("--lang",   type=str, default="en", help="Language code (en|ru|de|fr|es|tr|ar)")
     parser.add_argument("--batch",  action="store_true", help="Upload top N articles")
     parser.add_argument("--limit",  type=int, default=10, help="Number of articles in batch")
+    parser.add_argument("--page",   type=int, default=1, help="Page of articles to fetch (for multi-account)")
     parser.add_argument("--output", type=str, default="/tmp/medmind_videos", help="Video output dir")
     parser.add_argument("--keep",   action="store_true", help="Keep MP4 after upload")
     args = parser.parse_args()
@@ -421,7 +482,7 @@ async def main():
         await process_one(args.slug, args.lang, access_token, output_dir, delete_after=not args.keep)
 
     elif args.batch:
-        slugs = fetch_top_slugs(args.limit, args.lang)
+        slugs = fetch_top_slugs(args.limit, args.lang, args.page)
         if not slugs:
             # Fallback: hardcoded top medical topics
             slugs = [
