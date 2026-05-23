@@ -24,7 +24,7 @@ import httpx
 # ── Config ─────────────────────────────────────────────────────────────────────
 TOKEN_FILE    = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token.json"))
 SECRET_FILE   = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret.json"))
-PLAYLISTS_FILE = Path("/opt/medmind/youtube_playlists.json")
+PLAYLISTS_FILE = Path(os.environ.get("YT_PLAYLISTS", "/opt/medmind/youtube_playlists.json"))
 
 # category slug → (playlist title, description)
 CATEGORY_PLAYLISTS: dict[str, tuple[str, str]] = {
@@ -48,12 +48,41 @@ CATEGORY_PLAYLISTS: dict[str, tuple[str, str]] = {
     "nutrition":           ("Nutrition & Lifestyle",       "Nutrition science, dietary guidelines, and preventive medicine."),
 }
 
-PLAYLIST_DESCRIPTION_SUFFIX = (
-    "\n\n🔗 Full articles with sources: https://medmind.pro/articles\n"
-    "📚 Free medical learning platform: https://medmind.pro\n"
-    "✅ 100+ modules | 7 languages | Clinical cases | AI Tutor\n"
-    "#MedicalEducation #MedMindAI #USMLE"
-)
+CATEGORY_PLAYLISTS_ES: dict[str, tuple[str, str]] = {
+    "cardiology":          ("Cardiología",                 "Enfermedades del corazón, arritmias y medicina cardiovascular explicadas por MedMind AI."),
+    "neurology":           ("Neurología",                  "Enfermedades neurológicas, trastornos cerebrales y del sistema nervioso."),
+    "diseases":            ("Enfermedades y Condiciones",  "Principales enfermedades, fisiopatología y manejo clínico."),
+    "drugs":               ("Farmacología y Medicamentos", "Mecanismos, indicaciones, dosis y efectos secundarios de los fármacos."),
+    "pharmacology":        ("Farmacología",                "Mecanismos, indicaciones, dosis y efectos secundarios de los fármacos."),
+    "internal-medicine":   ("Medicina Interna",            "Medicina interna general: enfermedades sistémicas y enfoque clínico."),
+    "emergency":           ("Medicina de Urgencias",       "Situaciones de urgencia, manejo agudo y cuidados críticos."),
+    "pediatrics":          ("Pediatría",                   "Enfermedades infantiles, desarrollo pediátrico y salud del niño."),
+    "surgery":             ("Cirugía",                     "Condiciones quirúrgicas, técnicas y cuidados perioperatorios."),
+    "ob-gyn":              ("Obstetricia y Ginecología",   "Embarazo, parto y salud reproductiva femenina."),
+    "oncology":            ("Oncología",                   "Biología del cáncer, tratamiento y oncología clínica."),
+    "psychiatry":          ("Psiquiatría y Salud Mental",  "Trastornos de salud mental, psicofarmacología y terapia."),
+    "endocrinology":       ("Endocrinología y Metabolismo","Trastornos hormonales, diabetes, tiroides y enfermedades metabólicas."),
+    "infectious-diseases": ("Enfermedades Infecciosas",    "Bacterias, virus, hongos, parásitos: infecciones explicadas."),
+    "diagnostics":         ("Diagnóstico e Imagen",        "Análisis de laboratorio, estudios de imagen y razonamiento diagnóstico."),
+    "procedures":          ("Procedimientos Médicos",      "Procedimientos clínicos, técnicas y guías paso a paso."),
+    "symptoms":            ("Síntomas Clínicos",           "Síntomas comunes: diagnóstico diferencial y enfoque clínico."),
+    "nutrition":           ("Nutrición y Estilo de Vida",  "Ciencia de la nutrición, guías dietéticas y medicina preventiva."),
+}
+
+PLAYLIST_DESCRIPTION_SUFFIX = {
+    "en": (
+        "\n\n🔗 Full articles with sources: https://medmind.pro/articles\n"
+        "📚 Free medical learning platform: https://medmind.pro\n"
+        "✅ 100+ modules | 7 languages | Clinical cases | AI Tutor\n"
+        "#MedicalEducation #MedMindAI #USMLE"
+    ),
+    "es": (
+        "\n\n🔗 Artículos completos: https://medmind.pro/articles\n"
+        "📚 Plataforma médica gratuita: https://medmind.pro\n"
+        "✅ 100+ módulos | 7 idiomas | Casos clínicos | Tutor IA\n"
+        "#MedicinaEnEspañol #EducacionMedica #MedMindAI #USMLE #MIR"
+    ),
+}
 
 
 # ── Auth helpers ───────────────────────────────────────────────────────────────
@@ -116,7 +145,7 @@ def create_playlist(title: str, description: str, access_token: str) -> str | No
         content=json.dumps({
             "snippet": {
                 "title":       title[:150],
-                "description": (description + PLAYLIST_DESCRIPTION_SUFFIX)[:5000],
+                "description": description[:5000],
             },
             "status": {"privacyStatus": "public"},
         }).encode(),
@@ -171,18 +200,19 @@ def add_video_to_playlist(video_id: str, playlist_id: str, access_token: str) ->
 
 # ── Commands ───────────────────────────────────────────────────────────────────
 
-def cmd_setup(access_token: str):
+def cmd_setup(access_token: str, lang: str = "en"):
     """Create all category playlists that don't exist yet."""
     playlists = load_playlists()
+    category_map = CATEGORY_PLAYLISTS_ES if lang == "es" else CATEGORY_PLAYLISTS
+    suffix = PLAYLIST_DESCRIPTION_SUFFIX.get(lang, PLAYLIST_DESCRIPTION_SUFFIX["en"])
 
-    # First, load existing playlists from the channel to avoid duplicates
     print("Fetching existing channel playlists…")
     existing = list_channel_playlists(access_token)
     existing_by_title = {p["snippet"]["title"]: p["id"] for p in existing}
     print(f"Found {len(existing)} existing playlists on channel")
 
     created = 0
-    for category, (title, description) in CATEGORY_PLAYLISTS.items():
+    for category, (title, description) in category_map.items():
         if category in playlists:
             print(f"  ✓  '{title}' — already mapped ({playlists[category]})")
             continue
@@ -191,12 +221,11 @@ def cmd_setup(access_token: str):
             playlists[category] = pid
             print(f"  ✓  '{title}' — found on channel ({pid})")
             continue
-        # Create new playlist
-        pid = create_playlist(title, description, access_token)
+        pid = create_playlist(title, description + suffix, access_token)
         if pid:
             playlists[category] = pid
             created += 1
-        time.sleep(0.5)  # gentle rate limit
+        time.sleep(0.5)
 
     save_playlists(playlists)
     print(f"\n✅ Done. {created} new playlists created. Total mapped: {len(playlists)}")
@@ -239,6 +268,7 @@ def main():
     parser.add_argument("--list",  action="store_true", help="List channel playlists")
     parser.add_argument("--add",   nargs=2, metavar=("VIDEO_ID", "CATEGORY"),
                         help="Add video to playlist for category")
+    parser.add_argument("--lang",  default="en", help="Language for playlist titles (en/es)")
     args = parser.parse_args()
 
     if not (args.setup or args.list or args.add):
@@ -249,7 +279,7 @@ def main():
     access_token = get_access_token()
 
     if args.setup:
-        cmd_setup(access_token)
+        cmd_setup(access_token, lang=args.lang)
     elif args.list:
         cmd_list(access_token)
     elif args.add:

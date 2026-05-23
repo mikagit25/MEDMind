@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -23,21 +24,59 @@ from pathlib import Path
 
 import httpx
 
-DAILY_LIMIT     = 10
+DAILY_LIMIT     = 3   # API quota: 10K units/day, ~1700/video → max 5 total with regular uploads
 WAIT_BETWEEN    = 30             # seconds between uploads (Shorts are smaller)
 OUTPUT_DIR      = Path("/tmp/yt_shorts")
-TRACKING_FILE   = Path("/opt/medmind/youtube_shorts_uploaded.json")
-PLAYLISTS_FILE  = Path("/opt/medmind/youtube_playlists.json")
-TOKEN_FILE      = Path("/opt/medmind/youtube_token.json")
-SECRET_FILE     = Path("/opt/medmind/client_secret.json")
+TRACKING_FILE   = Path(os.environ.get("YT_TRACKING", "/opt/medmind/youtube_shorts_uploaded.json"))
+PLAYLISTS_FILE  = Path(os.environ.get("YT_PLAYLISTS", "/opt/medmind/youtube_playlists.json"))
+TOKEN_FILE      = Path(os.environ.get("YT_TOKEN",          "/opt/medmind/youtube_token.json"))
+SECRET_FILE     = Path(os.environ.get("YT_CLIENT_SECRET",  "/opt/medmind/client_secret.json"))
 API_URL         = "https://medmind.pro/api/v1"
 
-# Medical image YouTube description template
-CHANNEL_DESC_SUFFIX = (
-    "\n\n🔗 Full articles: https://medmind.pro/articles\n"
-    "📚 Free medical platform: https://medmind.pro\n"
-    "#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts #MedStudent"
-)
+# Description templates per language
+CHANNEL_DESC_SUFFIXES = {
+    "en": (
+        "\n\n🔗 Full articles: https://medmind.pro/articles\n"
+        "📚 Free medical platform: https://medmind.pro\n"
+        "#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts #MedStudent"
+    ),
+    "es": (
+        "\n\n🔗 Artículos completos: https://medmind.pro/articles\n"
+        "📚 Plataforma médica gratuita: https://medmind.pro\n"
+        "#EducaciónMédica #Medicina #MedMindAI #Shorts #EstudianteDeMedicina #USMLE"
+    ),
+    "ru": (
+        "\n\n🔗 Полные статьи: https://medmind.pro/articles\n"
+        "📚 Бесплатная медицинская платформа: https://medmind.pro\n"
+        "#МедицинскоеОбразование #Медицина #MedMindAI #Shorts #МедицинскийСтудент"
+    ),
+    "de": (
+        "\n\n🔗 Vollständige Artikel: https://medmind.pro/articles\n"
+        "📚 Kostenlose Medizinplattform: https://medmind.pro\n"
+        "#Medizin #Medizinstudent #MedMindAI #Shorts #MedicalEducation"
+    ),
+}
+
+TITLE_PREFIXES = {
+    "en": "🩺",
+    "es": "🩺 Caso clínico:",
+    "ru": "🩺 Клинический случай:",
+    "de": "🩺 Klinischer Fall:",
+}
+
+LEARN_ABOUT = {
+    "en": "Learn about",
+    "es": "Aprende sobre",
+    "ru": "Изучите",
+    "de": "Erfahren Sie mehr über",
+}
+
+SPECIALTY_LABEL = {
+    "en": "Specialty",
+    "es": "Especialidad",
+    "ru": "Специальность",
+    "de": "Fachgebiet",
+}
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from scripts.image_to_shorts import build_short, fetch_images
@@ -154,11 +193,16 @@ def upload_short(mp4: Path, title: str, description: str, access_token: str) -> 
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 
-async def run(limit: int, dry_run: bool):
+async def run(limit: int, dry_run: bool, lang: str = "en"):
     now = lambda: datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     log = lambda msg: print(f"[{now()}] {msg}", flush=True)
 
-    log(f"{'[DRY RUN] ' if dry_run else ''}Daily Shorts upload started (limit={limit})")
+    desc_suffix  = CHANNEL_DESC_SUFFIXES.get(lang, CHANNEL_DESC_SUFFIXES["en"])
+    title_prefix = TITLE_PREFIXES.get(lang, "🩺")
+    learn_about  = LEARN_ABOUT.get(lang, "Learn about")
+    spec_label   = SPECIALTY_LABEL.get(lang, "Specialty")
+
+    log(f"{'[DRY RUN] ' if dry_run else ''}Daily Shorts upload started (limit={limit}, lang={lang})")
 
     uploaded = load_uploaded()
     log(f"Already uploaded: {len(uploaded)} Shorts")
@@ -202,11 +246,11 @@ async def run(limit: int, dry_run: bool):
 
             # Build YouTube title/description from Claude script
             # (re-generate is wasteful; use image info directly)
-            yt_title = f"🩺 {title[:52]} #Shorts"
+            yt_title = f"{title_prefix} {title[:52]} #Shorts"
             yt_desc  = (
-                f"Learn about {title} ({modality.upper()}).\n"
-                f"Specialty: {specialty.replace('-',' ').title()}\n"
-                + CHANNEL_DESC_SUFFIX
+                f"{learn_about} {title} ({modality.upper()}).\n"
+                f"{spec_label}: {specialty.replace('-',' ').title()}\n"
+                + desc_suffix
             )
 
             # Refresh token before each upload
@@ -246,9 +290,11 @@ async def run(limit: int, dry_run: bool):
 def main():
     parser = argparse.ArgumentParser(description="MedMind Daily Shorts Upload")
     parser.add_argument("--limit",   type=int, default=DAILY_LIMIT)
+    parser.add_argument("--lang",    type=str, default="en",
+                        help="Language for titles/descriptions: en|es|ru|de (default: en)")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    asyncio.run(run(args.limit, args.dry_run))
+    asyncio.run(run(args.limit, args.dry_run, args.lang))
 
 
 if __name__ == "__main__":

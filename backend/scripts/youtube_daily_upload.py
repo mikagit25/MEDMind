@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -33,8 +34,8 @@ import httpx
 DAILY_LIMIT    = 6                             # YouTube unverified channel quota
 WAIT_BETWEEN   = 60                            # seconds between uploads
 OUTPUT_DIR     = Path("/tmp/yt_daily")
-TRACKING_FILE  = Path("/opt/medmind/youtube_uploaded.json")
-PLAYLISTS_FILE = Path("/opt/medmind/youtube_playlists.json")
+TRACKING_FILE  = Path(os.environ.get("YT_TRACKING", "/opt/medmind/youtube_uploaded.json"))
+PLAYLISTS_FILE = Path(os.environ.get("YT_PLAYLISTS", "/opt/medmind/youtube_playlists.json"))
 API_URL        = "https://medmind.pro/api/v1"
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -93,11 +94,11 @@ def fetch_all_slugs(max_articles: int = 400) -> list[dict]:
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 
-async def run(limit: int, dry_run: bool):
+async def run(limit: int, dry_run: bool, lang: str = "en"):
     now     = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     log     = lambda msg: print(f"[{now}] {msg}", flush=True)
 
-    log(f"{'[DRY RUN] ' if dry_run else ''}Daily YouTube upload started (limit={limit})")
+    log(f"{'[DRY RUN] ' if dry_run else ''}Daily YouTube upload started (limit={limit}, lang={lang})")
 
     uploaded  = load_uploaded()
     playlists = load_playlists()
@@ -141,7 +142,7 @@ async def run(limit: int, dry_run: bool):
         try:
             video_id = await process_one(
                 slug         = slug,
-                lang         = "en",
+                lang         = lang,
                 access_token = access_token,
                 output_dir   = OUTPUT_DIR,
                 delete_after = True,
@@ -152,7 +153,7 @@ async def run(limit: int, dry_run: bool):
                 uploaded[slug] = {
                     "video_id":    video_id,
                     "uploaded_at": datetime.now(timezone.utc).isoformat(),
-                    "lang":        "en",
+                    "lang":        lang,
                     "category":    category,
                 }
                 save_uploaded(uploaded)
@@ -175,11 +176,13 @@ def main():
     parser = argparse.ArgumentParser(description="MedMind Daily YouTube Upload")
     parser.add_argument("--limit",   type=int, default=DAILY_LIMIT,
                         help=f"Max videos to upload (default: {DAILY_LIMIT})")
+    parser.add_argument("--lang",    type=str, default="en",
+                        help="Language code: en|ru|es|de|fr|ar|tr (default: en)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show what would be uploaded without actually doing it")
     args = parser.parse_args()
 
-    asyncio.run(run(args.limit, args.dry_run))
+    asyncio.run(run(args.limit, args.dry_run, args.lang))
 
 
 if __name__ == "__main__":
