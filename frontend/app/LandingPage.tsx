@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
 import { useT, useI18n } from "@/lib/i18n";
-import { CATEGORY_ICONS, getCategoryLabel } from "@/lib/categories";
+import { getCategoryLabel } from "@/lib/categories";
+import { CategoryIcon, SpecialtyIcon, FeatureIcon } from "@/lib/medical-icons";
 
 type ArticlePreview = {
   id: string;
@@ -16,12 +17,34 @@ type ArticlePreview = {
   published_at: string | null;
 };
 
-export default function LandingPage({ articles = [] }: { articles: ArticlePreview[] }) {
+export default function LandingPage({ articles: initialArticles = [] }: { articles: ArticlePreview[] }) {
   const { isAuthenticated } = useAuthStore();
   const t = useT();
   const { locale, setLocale } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [articles, setArticles] = useState<ArticlePreview[]>(initialArticles);
+
+  const API = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+  useEffect(() => {
+    if (locale === "en") {
+      setArticles(initialArticles);
+      return;
+    }
+    const seen: Record<string, number> = {};
+    fetch(`${API}/api/v1/articles?limit=24&locale=${locale}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data?.articles) return;
+        const filtered = (data.articles as ArticlePreview[]).filter(a => {
+          seen[a.category] = (seen[a.category] ?? 0) + 1;
+          return seen[a.category] <= 3;
+        }).slice(0, 10);
+        setArticles(filtered);
+      })
+      .catch(() => {});
+  }, [locale]);
 
   const features = t("landing.features") as unknown as { icon: string; title: string; desc: string }[];
   const plans    = t("landing.pricing_plans") as unknown as { name: string; price: string; period: string; features: string[]; cta: string; highlight: boolean }[];
@@ -195,13 +218,18 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
         <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-2 sm:mb-3">{t("landing.features_title")}</h2>
         <p className="text-ink-3 text-center mb-10 sm:mb-12 text-sm">{t("landing.features_subtitle")}</p>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
-          {(Array.isArray(features) ? features : []).map((f, i) => (
-            <div key={i} className="bg-surface border border-border rounded-lg p-5 sm:p-6 hover:border-border-2 transition-colors">
-              <div className="text-3xl mb-4">{f.icon}</div>
-              <h3 className="font-syne font-bold text-base text-ink mb-2">{f.title}</h3>
-              <p className="text-ink-3 text-sm leading-relaxed">{f.desc}</p>
-            </div>
-          ))}
+          {(Array.isArray(features) ? features : []).map((f, i) => {
+            const featureKeys = ["tutor","flashcards","cases","modules","pubmed","veterinary"];
+            return (
+              <div key={i} className="bg-surface border border-border rounded-lg p-5 sm:p-6 hover:border-border-2 transition-colors group">
+                <div className="w-10 h-10 rounded-lg bg-bg flex items-center justify-center mb-4 text-red group-hover:bg-red group-hover:text-white transition-colors">
+                  <FeatureIcon name={featureKeys[i] ?? "tutor"} size={20} strokeWidth={1.75} />
+                </div>
+                <h3 className="font-syne font-bold text-base text-ink mb-2">{f.title}</h3>
+                <p className="text-ink-3 text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -212,8 +240,10 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {(Array.isArray(specs) ? specs : []).map((s, i) => (
             <Link key={i} href={specArticle[s.name] ? `/articles/category/${specArticle[s.name]}` : "/register"}
-              className="bg-surface border border-border rounded-lg p-4 text-center hover:border-border-2 hover:shadow-sm transition-all">
-              <div className="text-2xl mb-2">{s.icon}</div>
+              className="bg-surface border border-border rounded-lg p-4 text-center hover:border-ink hover:shadow-sm transition-all group">
+              <div className="w-12 h-12 rounded-xl bg-bg mx-auto flex items-center justify-center mb-3 text-ink-3 group-hover:bg-red group-hover:text-white transition-colors">
+                <SpecialtyIcon name={s.name} size={24} strokeWidth={1.5} />
+              </div>
               <div className="font-syne font-bold text-sm text-ink leading-tight">{s.name}</div>
               <div className="text-ink-3 text-xs mt-1">{s.count} {t("landing.specialties_modules")}</div>
             </Link>
@@ -229,20 +259,20 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
             <div>
               <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1 rounded-full font-syne font-semibold text-xs text-ink-3 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
-                MEDICAL KNOWLEDGE BASE
+                {t("landing.articles_badge")}
               </div>
               <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink">
-                Evidence-Based Medical Articles
+                {t("landing.articles_title")}
               </h2>
               <p className="text-ink-3 text-sm mt-1.5 max-w-lg">
-                {articles.length}+ clinical references — diseases, drugs, diagnostics and treatment guidelines for medical professionals.
+                {articles.length}+ {t("landing.articles_subtitle")}
               </p>
             </div>
             <Link
               href="/articles"
               className="flex-shrink-0 font-syne font-semibold text-sm border border-border text-ink-2 px-5 py-2.5 rounded-lg hover:border-ink hover:text-ink transition-colors self-start sm:self-auto"
             >
-              All articles →
+              {t("landing.articles_all")}
             </Link>
           </div>
 
@@ -257,19 +287,20 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
                     : "border-border text-ink-2 hover:border-ink hover:text-ink bg-surface"
                 }`}
               >
-                All topics
+                {t("landing.articles_all_topics")}
               </button>
               {articleCategories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`font-syne font-semibold text-xs px-3.5 py-1.5 rounded-full border transition-colors ${
+                  className={`inline-flex items-center gap-1.5 font-syne font-semibold text-xs px-3.5 py-1.5 rounded-full border transition-colors ${
                     activeCategory === cat
                       ? "bg-ink text-white border-ink"
                       : "border-border text-ink-2 hover:border-ink hover:text-ink bg-surface"
                   }`}
                 >
-                  {CATEGORY_ICONS[cat] ?? "📄"} {getCategoryLabel(cat, locale === "en" ? "en" : locale)}
+                  <CategoryIcon category={cat} size={11} strokeWidth={2} />
+                  {getCategoryLabel(cat, locale === "en" ? "en" : locale)}
                 </button>
               ))}
             </div>
@@ -294,17 +325,17 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
                       />
                     </div>
                   ) : (
-                    <div className="md:w-2/5 h-52 md:h-auto bg-gradient-to-br from-surface-2 to-surface flex items-center justify-center text-6xl flex-shrink-0">
-                      {CATEGORY_ICONS[filteredArticles[0].category] ?? "📄"}
+                    <div className="md:w-2/5 h-52 md:h-auto bg-gradient-to-br from-surface-2 to-surface flex items-center justify-center flex-shrink-0 text-ink-3">
+                      <CategoryIcon category={filteredArticles[0].category} size={64} strokeWidth={1} />
                     </div>
                   )}
                   <div className="flex flex-col justify-center p-6 sm:p-8">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-sm">{CATEGORY_ICONS[filteredArticles[0].category] ?? "📄"}</span>
+                      <span className="text-ink-3"><CategoryIcon category={filteredArticles[0].category} size={14} /></span>
                       <span className="font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider">
-                        {getCategoryLabel(filteredArticles[0].category, "en")}
+                        {getCategoryLabel(filteredArticles[0].category, locale)}
                       </span>
-                      <span className="text-ink-3 text-xs ml-auto">{filteredArticles[0].reading_time_minutes} min read</span>
+                      <span className="text-ink-3 text-xs ml-auto">{filteredArticles[0].reading_time_minutes} {t("landing.articles_min_read")}</span>
                     </div>
                     <h3 className="font-syne font-extrabold text-xl sm:text-2xl text-ink mb-3 group-hover:text-red transition-colors leading-snug">
                       {filteredArticles[0].title}
@@ -313,7 +344,7 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
                       {filteredArticles[0].excerpt}
                     </p>
                     <span className="font-syne font-semibold text-sm text-red group-hover:underline">
-                      Read article →
+                      {t("landing.articles_read")}
                     </span>
                   </div>
                 </div>
@@ -338,16 +369,16 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
                           />
                         </div>
                       ) : (
-                        <div className="h-36 bg-gradient-to-br from-surface-2 to-surface flex items-center justify-center text-4xl">
-                          {CATEGORY_ICONS[article.category] ?? "📄"}
+                        <div className="h-36 bg-gradient-to-br from-surface-2 to-surface flex items-center justify-center text-ink-3">
+                          <CategoryIcon category={article.category} size={40} strokeWidth={1} />
                         </div>
                       )}
                       <div className="flex flex-col flex-1 p-4">
                         <div className="flex items-center gap-1.5 mb-2">
                           <span className="font-syne font-semibold text-[10px] text-ink-3 uppercase tracking-wider">
-                            {getCategoryLabel(article.category, "en")}
+                            {getCategoryLabel(article.category, locale)}
                           </span>
-                          <span className="text-ink-3 text-[10px] ml-auto">{article.reading_time_minutes} min</span>
+                          <span className="text-ink-3 text-[10px] ml-auto">{article.reading_time_minutes} {t("landing.articles_min_read")}</span>
                         </div>
                         <h3 className="font-syne font-bold text-sm text-ink mb-2 line-clamp-2 group-hover:text-red transition-colors leading-snug flex-1">
                           {article.title}
@@ -369,11 +400,11 @@ export default function LandingPage({ articles = [] }: { articles: ArticlePrevie
               href="/articles"
               className="inline-flex items-center gap-2 font-syne font-bold text-sm bg-ink text-white px-7 py-3 rounded-lg hover:bg-red transition-colors"
             >
-              Explore all medical articles
+              {t("landing.articles_cta")}
               <span>→</span>
             </Link>
             <p className="text-ink-3 text-xs mt-3 font-syne">
-              600+ articles · 7 languages · updated daily
+              {t("landing.articles_stats")}
             </p>
           </div>
         </section>

@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-import { getCategoryLabel, getMoreIn, CATEGORY_ICONS } from "@/lib/categories";
+import { getCategoryLabel, getMoreIn } from "@/lib/categories";
+import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleViewTracker } from "./ArticleViewTracker";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ArticleAudioPlayer } from "@/components/ui/ArticleAudioPlayer";
 import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { ArticleReadTracker } from "@/components/ui/ArticleReadTracker";
 import { ArticleQuiz } from "@/components/ui/ArticleQuiz";
+import { ArticleAIChat } from "@/components/ui/ArticleAIChat";
 import { LocaleCookieSetter } from "@/components/ui/LocaleCookieSetter";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
@@ -635,6 +637,9 @@ export default async function ArticlePage({
 
           {/* Quiz */}
           <ArticleQuiz slug={article.slug} />
+
+          {/* AI Consultation */}
+          <ArticleAIChat slug={article.slug} articleTitle={article.title} />
 
           {/* FAQ */}
           {article.faq?.length > 0 && (

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { getCategoryLabel, CATEGORY_ICONS } from "@/lib/categories";
+import { getCategoryLabel } from "@/lib/categories";
+import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ReadBadge } from "@/components/ui/ReadBadge";
 
@@ -154,7 +155,9 @@ export default async function ArticlesPage({
                   href={`/articles/category/${category}`}
                   className="flex flex-col items-center gap-1 p-4 bg-surface border border-border rounded-xl hover:border-ink hover:shadow-sm transition-all text-center"
                 >
-                  <span className="text-2xl">{CATEGORY_ICONS[category] ?? "📄"}</span>
+                  <div className="w-10 h-10 rounded-xl bg-bg flex items-center justify-center text-ink-3 group-hover:text-ink transition-colors">
+                    <CategoryIcon category={category} size={20} strokeWidth={1.75} />
+                  </div>
                   <span className="font-syne font-semibold text-xs text-ink">
                     {getCategoryLabel(category, locale)}
                   </span>
@@ -230,7 +233,7 @@ function ArticleCard({ article, locale }: { article: Article; locale: string }) 
           />
           <div className="absolute top-2 left-2">
             <span className="text-xs font-syne font-semibold bg-bg/90 backdrop-blur-sm rounded-full px-2 py-0.5 text-ink-2 flex items-center gap-1">
-              <span>{CATEGORY_ICONS[article.category] ?? "📄"}</span>
+              <CategoryIcon category={article.category} size={11} strokeWidth={2} />
               <span>{getCategoryLabel(article.category, locale)}</span>
             </span>
           </div>
@@ -240,7 +243,7 @@ function ArticleCard({ article, locale }: { article: Article; locale: string }) 
       <div className="flex flex-col flex-1 p-5">
         {!article.cover_image && (
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-base">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
+            <span className="text-ink-3"><CategoryIcon category={article.category} size={14} strokeWidth={1.75} /></span>
             <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
               {getCategoryLabel(article.category, locale)}
             </span>

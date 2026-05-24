@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import { useT, useI18n } from "@/lib/i18n";
-import { CATEGORY_ICONS, CATEGORY_KEY } from "@/lib/categories";
+import { CATEGORY_KEY } from "@/lib/categories";
+import { CategoryIcon } from "@/lib/medical-icons";
 
 type Article = {
   id: string;
@@ -113,7 +114,7 @@ export default function ArticlesPage() {
                     activeCategory === cat.category ? "bg-ink text-white font-semibold" : "hover:bg-surface text-ink-2"
                   }`}
                 >
-                  <span className="mr-1.5">{CATEGORY_ICONS[cat.category] ?? "📄"}</span>
+                  <CategoryIcon category={cat.category} size={12} className="mr-1.5 inline" strokeWidth={2} />
                   {CATEGORY_KEY[cat.category] ? t(`articles.${CATEGORY_KEY[cat.category]}` as any) : cat.category}
                   <span className="ml-auto float-right text-xs opacity-60">{cat.count}</span>
                 </button>
@@ -148,7 +149,8 @@ export default function ArticlesPage() {
                   onClick={() => { setActiveCategory(cat.category); setPage(1); }}
                   className={`shrink-0 px-3 py-1.5 rounded-full font-syne text-xs border transition-colors ${activeCategory === cat.category ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink-3"}`}
                 >
-                  {CATEGORY_ICONS[cat.category] ?? "📄"} {CATEGORY_KEY[cat.category] ? t(`articles.${CATEGORY_KEY[cat.category]}` as any) : cat.category}
+                  <CategoryIcon category={cat.category} size={11} className="inline mr-1" strokeWidth={2} />
+                  {CATEGORY_KEY[cat.category] ? t(`articles.${CATEGORY_KEY[cat.category]}` as any) : cat.category}
                 </button>
               ))}
             </div>
@@ -167,7 +169,7 @@ export default function ArticlesPage() {
               </div>
             ) : articles.length === 0 ? (
               <div className="text-center py-16">
-                <div className="text-4xl mb-3">📭</div>
+                <div className="flex justify-center mb-3 text-ink-3"><CategoryIcon category="diagnostics" size={40} strokeWidth={1} /></div>
                 <div className="font-syne font-semibold text-ink mb-1">{t("articles.no_results")}</div>
                 <div className="font-serif text-sm text-ink-3">{t("articles.no_results_hint")}</div>
               </div>
@@ -183,7 +185,7 @@ export default function ArticlesPage() {
                       className="card p-4 hover:shadow-md transition-shadow group block"
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm">{CATEGORY_ICONS[article.category] ?? "📄"}</span>
+                        <CategoryIcon category={article.category} size={13} className="text-ink-3" strokeWidth={1.75} />
                         <span className="font-syne font-semibold text-[10px] text-ink-3 uppercase tracking-wide">
                           {CATEGORY_KEY[article.category] ? t(`articles.${CATEGORY_KEY[article.category]}` as any) : article.category}
                         </span>

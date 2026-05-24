@@ -3,36 +3,16 @@
  * Keys map to articles.cat_* locale keys.
  */
 
+/** @deprecated use CategoryIcon from lib/medical-icons instead */
 export const CATEGORY_ICONS: Record<string, string> = {
-  diseases: "🫀",
-  drugs: "💊",
-  procedures: "🔬",
-  symptoms: "🩺",
-  diagnostics: "🧪",
-  emergency: "🚑",
-  nutrition: "🥗",
-  pediatrics: "👶",
-  cardiology: "❤️",
-  neurology: "🧠",
-  oncology: "🎗️",
-  surgery: "✂️",
-  psychiatry: "🧘",
-  endocrinology: "⚗️",
-  "infectious-diseases": "🦠",
-  veterinary: "🐾",
-  pharmacology: "💊",
-  "internal-medicine": "🩺",
-  "ob-gyn": "🤰",
-  orthopedics: "🦴",
-  rheumatology: "🤝",
-  hematology: "🩸",
-  nephrology: "🫘",
-  pulmonology: "🫁",
-  ophthalmology: "👁️",
-  ent: "👂",
-  urology: "⚕️",
-  geriatrics: "👴",
-  dermatology: "🩹",
+  diseases: "", drugs: "", procedures: "", symptoms: "",
+  diagnostics: "", emergency: "", nutrition: "", pediatrics: "",
+  cardiology: "", neurology: "", oncology: "", surgery: "",
+  psychiatry: "", endocrinology: "", "infectious-diseases": "",
+  veterinary: "", pharmacology: "", "internal-medicine": "",
+  "ob-gyn": "", orthopedics: "", rheumatology: "", hematology: "",
+  nephrology: "", pulmonology: "", ophthalmology: "", ent: "",
+  urology: "", geriatrics: "", dermatology: "",
 };
 
 /** Maps slug → locale key suffix (for t("articles.cat_<key>")) */

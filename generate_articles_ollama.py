@@ -49,7 +49,7 @@ except ImportError:
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 OLLAMA_URL  = "http://localhost:11434/api/chat"
-OLLAMA_MODEL = "qwen3:8b"     # quality model — ~14 min/article, worth it
+OLLAMA_MODEL = "qwen3:1.7b"   # fast model ~2.5 min/article; use --model qwen3:8b for quality
 DB_URL      = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
 LOCALES     = ["ru", "de", "fr", "es", "tr", "ar"]
 DELAY       = 3.0             # seconds between articles
@@ -853,7 +853,7 @@ def generate_with_ollama(topic: str, category: str, model: str) -> dict | None:
                 },
                 "think": False,
             },
-            timeout=3600,  # 60 min max for long articles
+            timeout=300,   # 5 min max per article (qwen3:1.7b ~2.5 min; qwen3:8b use 900)
         )
         if resp.status_code != 200:
             log.error("Ollama error %s: %s", resp.status_code, resp.text[:200])

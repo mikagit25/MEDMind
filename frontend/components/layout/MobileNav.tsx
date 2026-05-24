@@ -7,17 +7,29 @@ import { useAuthStore, useUIStore } from "@/lib/store";
 import { NotificationBell } from "@/components/ui/NotificationBell";
 import { clsx } from "clsx";
 import { useT } from "@/lib/i18n";
+import {
+  LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked,
+  ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
+  Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
+  Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
+  Search, Sun, Moon, LogOut, FileText, Menu, X,
+  type LucideProps,
+} from "lucide-react";
 
-// ── Bottom tabs — 5 key destinations ──────────────────────────────────────────
-const BOTTOM_TABS = [
-  { icon: "🏠", labelKey: "nav.items.dashboard", href: "/dashboard" },
-  { icon: "📚", labelKey: "nav.items.modules",   href: "/modules"   },
-  { icon: "🤖", labelKey: "nav.items.ai_tutor",  href: "/ai-tutor"  },
-  { icon: "🩻", labelKey: "nav.items.imaging",   href: "/imaging"   },
-  { icon: "💊", labelKey: "nav.items.drugs",      href: "/drugs"     },
-] as const;
+type NavItem = { Icon: React.ComponentType<LucideProps>; label: string; href: string };
 
-// ── Drawer nav sections (mirrors Sidebar) ─────────────────────────────────────
+function NavIcon({ Icon }: { Icon: React.ComponentType<LucideProps> }) {
+  return <Icon size={15} strokeWidth={1.75} className="flex-shrink-0" />;
+}
+
+const BOTTOM_TABS: { Icon: React.ComponentType<LucideProps>; labelKey: string; href: string }[] = [
+  { Icon: LayoutDashboard, labelKey: "nav.items.dashboard", href: "/dashboard" },
+  { Icon: BookOpen,        labelKey: "nav.items.modules",   href: "/modules"   },
+  { Icon: Bot,             labelKey: "nav.items.ai_tutor",  href: "/ai-tutor"  },
+  { Icon: ScanLine,        labelKey: "nav.items.imaging",   href: "/imaging"   },
+  { Icon: Pill,            labelKey: "nav.items.drugs",     href: "/drugs"     },
+];
+
 function DrawerNav({ onClose }: { onClose: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -26,64 +38,64 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
   const [searchQ, setSearchQ] = useState("");
   const t = useT();
 
-  const NAV_SECTIONS = [
+  const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     {
       label: t("nav.sections.learning"),
       items: [
-        { icon: "🏠", label: t("nav.items.dashboard"),  href: "/dashboard"     },
-        { icon: "📚", label: t("nav.items.modules"),    href: "/modules"       },
-        { icon: "🎓", label: t("nav.items.my_courses"), href: "/my-courses"    },
-        { icon: "🤖", label: t("nav.items.ai_tutor"),   href: "/ai-tutor"      },
-        { icon: "🃏", label: t("nav.items.flashcards"), href: "/flashcards"    },
-        { icon: "📇", label: t("nav.items.my_cards"),   href: "/my-flashcards" },
-        { icon: "📝", label: t("nav.items.quiz"),        href: "/quiz"          },
-        { icon: "🩺", label: t("nav.items.cases"),      href: "/cases"         },
-        { icon: "🏥", label: t("nav.items.simulation"), href: "/simulation"    },
+        { Icon: LayoutDashboard, label: t("nav.items.dashboard"),   href: "/dashboard"     },
+        { Icon: BookOpen,        label: t("nav.items.modules"),     href: "/modules"       },
+        { Icon: GraduationCap,  label: t("nav.items.my_courses"),  href: "/my-courses"    },
+        { Icon: Bot,             label: t("nav.items.ai_tutor"),    href: "/ai-tutor"      },
+        { Icon: Layers,          label: t("nav.items.flashcards"),  href: "/flashcards"    },
+        { Icon: BookMarked,      label: t("nav.items.my_cards"),    href: "/my-flashcards" },
+        { Icon: ClipboardList,   label: t("nav.items.quiz"),        href: "/quiz"          },
+        { Icon: Stethoscope,     label: t("nav.items.cases"),       href: "/cases"         },
+        { Icon: Building2,       label: t("nav.items.simulation"),  href: "/simulation"    },
       ],
     },
     {
       label: t("nav.sections.visual_medicine"),
       items: [
-        { icon: "🩻", label: t("nav.items.imaging"),    href: "/imaging"  },
-        { icon: "🧊", label: t("nav.items.anatomy_3d"), href: "/anatomy"  },
+        { Icon: ScanLine, label: t("nav.items.imaging"),    href: "/imaging" },
+        { Icon: Box,      label: t("nav.items.anatomy_3d"), href: "/anatomy" },
       ],
     },
     {
       label: t("nav.sections.tools"),
       items: [
-        { icon: "📰", label: t("nav.items.articles"),    href: "/knowledge"       },
-        { icon: "💊", label: t("nav.items.drugs"),       href: "/drugs"           },
-        { icon: "🐾", label: t("nav.items.veterinary"),  href: "/veterinary"      },
-        { icon: "📈", label: t("nav.items.progress"),    href: "/progress"        },
-        { icon: "🏆", label: t("nav.items.leaderboard"), href: "/leaderboard"     },
-        { icon: "🎯", label: t("nav.items.for_you"),     href: "/recommendations" },
+        { Icon: Newspaper,  label: t("nav.items.articles"),    href: "/knowledge"       },
+        { Icon: Pill,       label: t("nav.items.drugs"),       href: "/drugs"           },
+        { Icon: PawPrint,   label: t("nav.items.veterinary"),  href: "/veterinary"      },
+        { Icon: TrendingUp, label: t("nav.items.progress"),    href: "/progress"        },
+        { Icon: Trophy,     label: t("nav.items.leaderboard"), href: "/leaderboard"     },
+        { Icon: Target,     label: t("nav.items.for_you"),     href: "/recommendations" },
       ],
     },
     {
       label: t("nav.sections.account"),
       items: [
-        { icon: "🏅", label: t("nav.items.achievements"),  href: "/achievements" },
-        { icon: "🔖", label: t("nav.items.bookmarks"),     href: "/bookmarks"    },
-        { icon: "🔔", label: t("nav.items.notifications"), href: "/notifications"},
-        { icon: "⚙️", label: t("nav.items.settings"),      href: "/settings"     },
+        { Icon: Award,    label: t("nav.items.achievements"),  href: "/achievements" },
+        { Icon: Bookmark, label: t("nav.items.bookmarks"),     href: "/bookmarks"    },
+        { Icon: Bell,     label: t("nav.items.notifications"), href: "/notifications"},
+        { Icon: Shield,   label: t("nav.items.privacy"),       href: "/compliance"   },
+        { Icon: Settings, label: t("nav.items.settings"),      href: "/settings"     },
       ],
     },
   ];
 
-  const handleLogout = () => {
-    logout();
-    onClose();
-    router.push("/login");
-  };
+  const TEACHER_ITEMS: NavItem[] = [
+    { Icon: LayoutDashboard, label: t("nav.items.teacher_dashboard"), href: "/teacher/dashboard" },
+    { Icon: PenLine,         label: t("nav.items.my_lessons"),        href: "/teacher/modules"   },
+    { Icon: FileText,        label: t("nav.items.my_articles"),       href: "/teacher/articles"  },
+    { Icon: BarChart2,       label: t("nav.items.analytics"),         href: "/teacher/analytics" },
+    { Icon: CreditCard,      label: "Credits",                        href: "/teacher/credits"   },
+  ];
 
+  const handleLogout = () => { logout(); onClose(); router.push("/login"); };
+  const handleNav = (href: string) => { onClose(); router.push(href); };
   const initials = user
     ? `${user.first_name?.[0] ?? ""}${user.last_name?.[0] ?? ""}`.toUpperCase() || "U"
     : "U";
-
-  const handleNav = (href: string) => {
-    onClose();
-    router.push(href);
-  };
 
   return (
     <div className="flex flex-col h-full bg-ink overflow-y-auto">
@@ -92,50 +104,40 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         <Link href="/" onClick={onClose} className="font-syne font-black text-xl text-white tracking-tight hover:opacity-80 transition-opacity">
           Med<span className="text-gold">Mind</span>
         </Link>
-        <button onClick={onClose} className="text-white/50 hover:text-white p-1 rounded">
-          ✕
+        <button onClick={onClose} className="text-white/50 hover:text-white p-1 rounded transition-colors">
+          <X size={18} strokeWidth={1.75} />
         </button>
       </div>
 
       {/* Search */}
       <div className="px-3 py-3 border-b border-white/10">
-        <form onSubmit={(e) => { e.preventDefault(); if (searchQ.trim()) { handleNav(`/search?q=${encodeURIComponent(searchQ.trim())}`); }}}>
+        <form onSubmit={(e) => { e.preventDefault(); if (searchQ.trim()) handleNav(`/search?q=${encodeURIComponent(searchQ.trim())}`); }}>
           <div className="relative">
-            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30 text-xs">🔍</span>
-            <input
-              value={searchQ}
-              onChange={(e) => setSearchQ(e.target.value)}
+            <Search size={13} strokeWidth={2} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30" />
+            <input value={searchQ} onChange={(e) => setSearchQ(e.target.value)}
               placeholder={t("nav.search_placeholder")}
-              className="w-full bg-white/10 text-white text-sm placeholder:text-white/30 rounded-lg pl-7 pr-3 py-2 focus:outline-none focus:bg-white/15"
-            />
+              className="w-full bg-white/10 text-white text-sm placeholder:text-white/30 rounded-lg pl-7 pr-3 py-2 focus:outline-none focus:bg-white/15" />
           </div>
         </form>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 px-2 py-3">
-        {/* Admin */}
         {user?.role === "admin" && (
           <div className="mb-3">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1">Admin</div>
             <button onClick={() => handleNav("/admin")} className={clsx("nav-item w-full text-left", pathname.startsWith("/admin") && "active")}>
-              <span>🛠️</span> {t("nav.items.admin_panel")}
+              <NavIcon Icon={Settings2} /> {t("nav.items.admin_panel")}
             </button>
           </div>
         )}
-        {/* Teacher */}
         {(user?.role === "teacher" || user?.role === "doctor" || user?.role === "admin") && (
           <div className="mb-3">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1">{t("nav.sections.teaching")}</div>
-            {[
-              { icon: "🏠", label: t("nav.items.teacher_dashboard"), href: "/teacher/dashboard" },
-              { icon: "✏️", label: t("nav.items.my_lessons"),        href: "/teacher/modules"   },
-              { icon: "📰", label: t("nav.items.my_articles"),       href: "/teacher/articles"  },
-              { icon: "📊", label: t("nav.items.analytics"),         href: "/teacher/analytics" },
-              { icon: "💳", label: "Credits",                         href: "/teacher/credits"   },
-            ].map(item => (
-              <button key={item.href} onClick={() => handleNav(item.href)} className={clsx("nav-item w-full text-left", pathname.startsWith(item.href) && "active")}>
-                <span>{item.icon}</span> {item.label}
+            {TEACHER_ITEMS.map(item => (
+              <button key={item.href} onClick={() => handleNav(item.href)}
+                className={clsx("nav-item w-full text-left", pathname.startsWith(item.href) && "active")}>
+                <NavIcon Icon={item.Icon} /> {item.label}
               </button>
             ))}
           </div>
@@ -144,9 +146,9 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
           <div key={section.label} className="mb-3">
             <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1">{section.label}</div>
             {section.items.map(item => (
-              <button key={item.href} onClick={() => handleNav(item.href)} className={clsx("nav-item w-full text-left", pathname.startsWith(item.href) && "active")}>
-                <span className="text-base w-5 text-center">{item.icon}</span>
-                {item.label}
+              <button key={item.href} onClick={() => handleNav(item.href)}
+                className={clsx("nav-item w-full text-left", pathname.startsWith(item.href) && "active")}>
+                <NavIcon Icon={item.Icon} /> {item.label}
               </button>
             ))}
           </div>
@@ -163,9 +165,10 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
             <div className="font-syne font-bold text-white text-sm truncate">{user?.first_name} {user?.last_name}</div>
             <div className="text-white/40 text-xs capitalize">{user?.subscription_tier} · {user?.role}</div>
           </div>
-          <button onClick={toggleDarkMode} className="text-white/40 hover:text-white/80 text-sm">{darkMode ? "☀️" : "🌙"}</button>
+          <button onClick={toggleDarkMode} className="text-white/40 hover:text-white/80 transition-colors">
+            {darkMode ? <Sun size={14} strokeWidth={1.75} /> : <Moon size={14} strokeWidth={1.75} />}
+          </button>
         </div>
-        {/* XP */}
         <div className="mb-3">
           <div className="flex justify-between text-[10px] font-syne text-white/40 mb-1">
             <span>Lv. {user?.level ?? 1}</span>
@@ -181,8 +184,8 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
               {t("nav.upgrade_cta")}
             </button>
           )}
-          <button onClick={handleLogout} className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-xs font-syne rounded-lg transition-colors">
-            {t("nav.logout")}
+          <button onClick={handleLogout} className="flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-xs font-syne rounded-lg transition-colors">
+            <LogOut size={12} strokeWidth={1.75} /> {t("nav.logout")}
           </button>
         </div>
       </div>
@@ -190,29 +193,20 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
   );
 }
 
-// ── Mobile top header ─────────────────────────────────────────────────────────
 function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
   const { user } = useAuthStore();
   const t = useT();
   return (
     <header className="md:hidden flex items-center gap-3 px-4 py-3 bg-ink border-b border-white/10 flex-shrink-0 z-40">
-      <button
-        onClick={onMenuOpen}
-        className="text-white/70 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
-        aria-label="Open menu"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      <button onClick={onMenuOpen} className="text-white/70 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors" aria-label="Open menu">
+        <Menu size={20} strokeWidth={1.75} />
       </button>
       <Link href="/" className="font-syne font-black text-lg text-white tracking-tight hover:opacity-80 transition-opacity">
         Med<span className="text-gold">Mind</span>
       </Link>
       <div className="ml-auto flex items-center gap-2">
         {user?.subscription_tier === "free" && (
-          <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">
-            Pro
-          </Link>
+          <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">Pro</Link>
         )}
         <NotificationBell />
       </div>
@@ -220,7 +214,6 @@ function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
   );
 }
 
-// ── Mobile bottom tab bar ─────────────────────────────────────────────────────
 function MobileBottomNav() {
   const pathname = usePathname();
   const t = useT();
@@ -229,17 +222,12 @@ function MobileBottomNav() {
       {BOTTOM_TABS.map(tab => {
         const active = pathname.startsWith(tab.href);
         return (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            className={clsx(
-              "flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors min-h-[52px]",
-              active ? "text-gold" : "text-white/40 hover:text-white/70"
-            )}
-          >
-            <span className="text-xl leading-none">{tab.icon}</span>
+          <Link key={tab.href} href={tab.href}
+            className={clsx("flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors min-h-[52px]",
+              active ? "text-gold" : "text-white/40 hover:text-white/70")}>
+            <tab.Icon size={20} strokeWidth={active ? 2 : 1.75} />
             <span className={clsx("text-[9px] font-syne font-bold leading-none", active ? "text-gold" : "text-white/40")}>
-              {t(tab.labelKey).split(" ")[0]}
+              {t(tab.labelKey as any).split(" ")[0]}
             </span>
           </Link>
         );
@@ -248,24 +236,19 @@ function MobileBottomNav() {
   );
 }
 
-// ── Main export: wraps the app layout on mobile ───────────────────────────────
 export function MobileNavWrapper({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
   useEffect(() => {
     if (!drawerOpen) return;
     const handler = (e: MouseEvent) => {
-      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
-        setDrawerOpen(false);
-      }
+      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) setDrawerOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [drawerOpen]);
 
-  // Prevent body scroll when drawer open
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -273,27 +256,18 @@ export function MobileNavWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Mobile header (top bar) */}
       <MobileHeader onMenuOpen={() => setDrawerOpen(true)} />
-
-      {/* Drawer overlay */}
       {drawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
-          {/* Backdrop */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
-          {/* Drawer panel */}
           <div ref={drawerRef} className="relative w-72 max-w-[85vw] h-full shadow-2xl animate-slide-in-left">
             <DrawerNav onClose={() => setDrawerOpen(false)} />
           </div>
         </div>
       )}
-
-      {/* Main content */}
       <main className="flex-1 flex flex-col overflow-hidden min-h-0">
         {children}
       </main>
-
-      {/* Bottom tab bar */}
       <MobileBottomNav />
     </>
   );

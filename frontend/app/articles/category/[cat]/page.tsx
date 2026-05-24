@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-import { getCategoryLabel, CATEGORY_ICONS, CATEGORY_DESCRIPTIONS } from "@/lib/categories";
+import { getCategoryLabel, CATEGORY_DESCRIPTIONS } from "@/lib/categories";
+import { CategoryIcon } from "@/lib/medical-icons";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -149,7 +150,9 @@ export default async function CategoryPage({
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-3xl">{CATEGORY_ICONS[params.cat] ?? "📄"}</span>
+            <div className="w-12 h-12 rounded-xl bg-surface border border-border flex items-center justify-center text-ink-2">
+              <CategoryIcon category={params.cat} size={26} strokeWidth={1.5} />
+            </div>
             <h1 className="font-syne font-black text-3xl text-ink">{label}</h1>
           </div>
           <p className="text-ink-2 font-serif text-base max-w-2xl">
