@@ -50,7 +50,7 @@ except ImportError:
 # ── Config ─────────────────────────────────────────────────────────────────────
 OLLAMA_URL  = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "qwen3:1.7b"   # fast model ~2.5 min/article; use --model qwen3:8b for quality
-DB_URL      = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
+DB_URL      = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
 LOCALES     = ["ru", "de", "fr", "es", "tr", "ar"]
 DELAY       = 3.0             # seconds between articles
 INDEXNOW_KEY = "b58fd85c39a0441e97c1587402e9c9df"

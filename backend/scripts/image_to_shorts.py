@@ -419,15 +419,38 @@ async def build_short(
 # ── API helpers ────────────────────────────────────────────────────────────────
 
 def fetch_images(limit: int = 100, offset: int = 0) -> list[dict]:
-    """Fetch medical images from the API. Prefer clear educational modalities."""
-    prefer = {"histology", "xray", "ct", "mri", "ecg", "anatomy", "diagram", "ultrasound"}
+    """Fetch medical images from the API. Prefer clinical modalities, filter junk."""
+    prefer = {"xray", "ct", "mri", "ecg", "histology", "ultrasound", "endoscopy",
+              "fundus", "dermoscopy", "diagram", "angiography", "nuclear"}
+    # Keywords that indicate non-clinical / book / animal content
+    _JUNK_WORDS = {
+        "ferret", "skull", "vertebrat", "textbook", "electronic resource",
+        "putorius", "mustela", "furo", "mav-usp", "book", "cover",
+        "specimen", "fossil", "museum",
+    }
+
     try:
-        resp = httpx.get(f"{API_URL}/imaging", params={"limit": limit}, timeout=20)
+        resp = httpx.get(f"{API_URL}/imaging", params={"limit": limit * 3}, timeout=20)
         if resp.status_code == 200:
             data = resp.json()
             imgs = data if isinstance(data, list) else data.get("images", [])
-            # Sort: preferred modalities first
-            imgs.sort(key=lambda x: (0 if x.get("modality","") in prefer else 1))
+
+            # Filter out non-medical content
+            def is_clinical(img: dict) -> bool:
+                title = (img.get("title") or "").lower()
+                desc  = (img.get("description") or "").lower()
+                combined = title + " " + desc
+                return not any(w in combined for w in _JUNK_WORDS)
+
+            imgs = [i for i in imgs if is_clinical(i)]
+
+            # Sort: preferred modalities first, then by title quality
+            def sort_key(img: dict) -> tuple:
+                modality = img.get("modality", "").lower()
+                has_desc = 1 if img.get("description") else 0
+                return (0 if modality in prefer else 1, -has_desc)
+
+            imgs.sort(key=sort_key)
             return imgs[:limit]
     except Exception as e:
         print(f"⚠️  Could not fetch images: {e}")

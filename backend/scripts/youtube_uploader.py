@@ -438,6 +438,7 @@ async def process_one(
     excerpt      = article.get("excerpt", "")
     category     = article.get("category", "diseases")
     reading_time = article.get("reading_time_minutes", 0)
+    cover_url    = article.get("cover_image") or article.get("cover_image_url")
     tags         = CHANNEL_DESCRIPTIONS.get(lang, CHANNEL_DESCRIPTIONS["en"])["tags"] + [category]
 
     # Generate video
@@ -454,7 +455,8 @@ async def process_one(
         if _thumb_available:
             thumb_path = output_dir / f"{slug[:60]}_thumb.jpg"
             try:
-                generate_thumbnail(title, category, lang, reading_time, out_path=thumb_path)
+                generate_thumbnail(title, category, lang, reading_time,
+                                   out_path=thumb_path, cover_url=cover_url)
                 upload_thumbnail(video_id, thumb_path, access_token)
                 thumb_path.unlink(missing_ok=True)
             except Exception as e:
