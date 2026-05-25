@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { notificationsApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
@@ -140,13 +141,13 @@ export default function NotificationsPage() {
                             {new Date(n.created_at).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
                           </span>
                           {meta.action && meta.actionHref && (
-                            <a
+                            <Link
                               href={meta.actionHref}
                               className="font-syne font-semibold text-xs text-ink hover:underline"
                               onClick={(e) => e.stopPropagation()}
                             >
                               {meta.action} →
-                            </a>
+                            </Link>
                           )}
                         </div>
                       </div>

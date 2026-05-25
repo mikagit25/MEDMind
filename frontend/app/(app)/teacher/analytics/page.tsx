@@ -36,26 +36,69 @@ function ScoreBadge({ score }: { score: number | null }) {
   return <span className={`font-syne font-semibold text-xs ${color}`}>{score.toFixed(0)}%</span>;
 }
 
+type OverviewRow = {
+  id: string;
+  title: string;
+  is_published: boolean;
+  lessons: number;
+  totalCompletions: number;
+  avgQuiz: number | null;
+};
+
 export default function TeacherAnalyticsPage() {
   const t = useT();
   const searchParams = useSearchParams();
   const preselectedModule = searchParams.get("module");
 
+  const [tab, setTab] = useState<"overview" | "module">("overview");
   const [modules, setModules] = useState<MyModule[]>([]);
   const [selected, setSelected] = useState<string>("");
   const [stats, setStats] = useState<ModuleStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingStats, setLoadingStats] = useState(false);
   const [error, setError] = useState("");
+  const [overview, setOverview] = useState<OverviewRow[]>([]);
+  const [loadingOverview, setLoadingOverview] = useState(false);
 
   useEffect(() => {
     teacherApi.listMyModules()
-      .then((mods: MyModule[]) => {
+      .then(async (mods: MyModule[]) => {
         setModules(mods);
         const first = preselectedModule && mods.find((m: MyModule) => m.id === preselectedModule)
           ? preselectedModule
           : mods[0]?.id ?? "";
         setSelected(first);
+        if (preselectedModule) setTab("module");
+
+        // Load overview: fetch stats for all modules in parallel (capped at 10)
+        if (mods.length > 0) {
+          setLoadingOverview(true);
+          const results = await Promise.allSettled(
+            mods.slice(0, 10).map(m => teacherApi.moduleAnalytics(m.id))
+          );
+          const rows: OverviewRow[] = [];
+          results.forEach((r, i) => {
+            if (r.status !== "fulfilled") return;
+            const s: ModuleStats = r.value;
+            const lessons = s.lessons ?? [];
+            const totalCompletions = lessons.reduce((acc: number, l: any) => acc + (l.completions || 0), 0);
+            const scored = lessons.filter((l: any) => l.avg_quiz_score !== null);
+            const avgQuiz = scored.length
+              ? scored.reduce((acc: number, l: any) => acc + (l.avg_quiz_score ?? 0), 0) / scored.length
+              : null;
+            rows.push({
+              id: mods[i].id,
+              title: mods[i].title,
+              is_published: mods[i].is_published,
+              lessons: lessons.length,
+              totalCompletions,
+              avgQuiz,
+            });
+          });
+          rows.sort((a, b) => b.totalCompletions - a.totalCompletions);
+          setOverview(rows);
+          setLoadingOverview(false);
+        }
       })
       .catch(() => setError("Failed to load modules"))
       .finally(() => setLoading(false));
@@ -119,6 +162,143 @@ export default function TeacherAnalyticsPage() {
         </div>
       ) : (
         <>
+          {/* Tab switcher */}
+          <div className="flex gap-1 bg-surface border border-border rounded-lg p-1 w-fit mb-5">
+            <button
+              onClick={() => setTab("overview")}
+              className={`font-syne font-semibold text-sm px-4 py-1.5 rounded transition-colors ${tab === "overview" ? "bg-ink text-white" : "text-ink-2 hover:text-ink"}`}
+            >
+              All Modules
+            </button>
+            <button
+              onClick={() => { setTab("module"); if (!selected && modules[0]) setSelected(modules[0].id); }}
+              className={`font-syne font-semibold text-sm px-4 py-1.5 rounded transition-colors ${tab === "module" ? "bg-ink text-white" : "text-ink-2 hover:text-ink"}`}
+            >
+              Per Module
+            </button>
+          </div>
+
+          {/* ── Overview tab ── */}
+          {tab === "overview" && (
+            <div className="space-y-5">
+              {/* Summary cards */}
+              {!loadingOverview && overview.length > 0 && (() => {
+                const totalC = overview.reduce((s, r) => s + r.totalCompletions, 0);
+                const allScored = overview.filter(r => r.avgQuiz !== null);
+                const globalAvgQuiz = allScored.length
+                  ? allScored.reduce((s, r) => s + (r.avgQuiz ?? 0), 0) / allScored.length
+                  : null;
+                return (
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="card p-4 text-center">
+                      <div className="font-syne font-black text-2xl text-ink">{overview.length}</div>
+                      <div className="font-serif text-xs text-ink-3 mt-0.5">Modules</div>
+                    </div>
+                    <div className="card p-4 text-center">
+                      <div className="font-syne font-black text-2xl text-ink">{totalC}</div>
+                      <div className="font-serif text-xs text-ink-3 mt-0.5">Total completions</div>
+                    </div>
+                    <div className="card p-4 text-center">
+                      <div className={`font-syne font-black text-2xl ${globalAvgQuiz !== null ? (globalAvgQuiz >= 80 ? "text-green" : globalAvgQuiz >= 60 ? "text-amber" : "text-red") : "text-ink-3"}`}>
+                        {globalAvgQuiz !== null ? `${globalAvgQuiz.toFixed(0)}%` : "—"}
+                      </div>
+                      <div className="font-serif text-xs text-ink-3 mt-0.5">Avg quiz score</div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Module comparison bar chart */}
+              <div className="card p-5">
+                <h2 className="font-syne font-bold text-sm text-ink mb-4">Completions by Module</h2>
+                {loadingOverview ? (
+                  <div className="text-center py-6 text-ink-3 font-serif text-sm">Loading…</div>
+                ) : overview.length === 0 ? (
+                  <div className="text-center py-6 text-ink-3 font-serif text-sm">No data yet</div>
+                ) : (() => {
+                  const maxC = Math.max(...overview.map(r => r.totalCompletions), 1);
+                  return (
+                    <div className="space-y-3">
+                      {overview.map(r => (
+                        <div key={r.id}>
+                          <div className="flex items-center justify-between mb-1 gap-2">
+                            <button
+                              onClick={() => { setSelected(r.id); setTab("module"); }}
+                              className="font-syne text-xs text-ink hover:underline text-left truncate max-w-xs flex items-center gap-1.5"
+                            >
+                              {!r.is_published && <span className="text-amber text-[10px] font-syne border border-amber/30 rounded px-1 py-0.5">draft</span>}
+                              {r.title}
+                            </button>
+                            <div className="flex items-center gap-3 flex-shrink-0">
+                              {r.avgQuiz !== null && (
+                                <span className={`text-xs font-syne font-semibold ${r.avgQuiz >= 80 ? "text-green" : r.avgQuiz >= 60 ? "text-amber" : "text-red"}`}>
+                                  {r.avgQuiz.toFixed(0)}% quiz
+                                </span>
+                              )}
+                              <span className="font-syne font-semibold text-xs text-ink-3">{r.totalCompletions} done</span>
+                            </div>
+                          </div>
+                          <div className="h-2 bg-surface-2 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all ${r.totalCompletions >= maxC * 0.7 ? "bg-green" : r.totalCompletions >= maxC * 0.3 ? "bg-amber" : "bg-red"}`}
+                              style={{ width: `${(r.totalCompletions / maxC) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Module table */}
+              <div className="card overflow-hidden">
+                <div className="px-4 py-3 border-b border-border bg-surface-2">
+                  <h2 className="font-syne font-bold text-sm text-ink">Module Summary</h2>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-border">
+                        {["Module", "Status", "Lessons", "Completions", "Avg Quiz", ""].map(h => (
+                          <th key={h} className="text-left px-4 py-2 font-syne text-xs uppercase text-ink-3">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {overview.map(r => (
+                        <tr key={r.id} className="border-b border-border last:border-0 hover:bg-surface-2 transition-colors">
+                          <td className="px-4 py-2.5 font-syne font-semibold text-ink text-sm">{r.title}</td>
+                          <td className="px-4 py-2.5">
+                            <span className={`text-xs font-syne px-1.5 py-0.5 rounded border ${r.is_published ? "bg-green-light text-green border-green/30" : "bg-surface-2 text-ink-3 border-border"}`}>
+                              {r.is_published ? "Published" : "Draft"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-2.5 font-syne text-ink text-sm">{r.lessons}</td>
+                          <td className="px-4 py-2.5 font-syne font-bold text-ink text-sm">{r.totalCompletions}</td>
+                          <td className="px-4 py-2.5">
+                            <ScoreBadge score={r.avgQuiz} />
+                          </td>
+                          <td className="px-4 py-2.5">
+                            <button
+                              onClick={() => { setSelected(r.id); setTab("module"); }}
+                              className="text-xs font-syne text-ink-3 hover:text-ink border border-border rounded px-2 py-0.5 transition-colors"
+                            >
+                              Details →
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── Per-module tab ── */}
+          {tab === "module" && (
+          <>
           {/* Module selector + export */}
           <div className="flex items-center gap-3 mb-4">
             <select
@@ -260,6 +440,8 @@ export default function TeacherAnalyticsPage() {
               )}
             </>
           ) : null}
+          </>
+        )}
         </>
       )}
     </div>

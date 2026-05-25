@@ -120,17 +120,52 @@ export default function ProgressPage() {
           { label: t("quiz.title"), value: stats?.mcqs_answered ?? 0, icon: "❓" },
           { label: t("progress.streak"), value: `${stats?.streak_days ?? 0} 🔥`, icon: "📅" },
           { label: t("progress.accuracy"), value: `${stats?.correct_rate ?? 0}%`, icon: "✅" },
-          { label: t("progress.modules_completed"), value: stats?.modules_started ?? 0, icon: "📚" },
-          { label: t("progress.modules_completed"), value: stats?.modules_completed ?? 0, icon: "🏆" },
-          { label: t("progress.total_time"), value: stats?.total_sessions ?? 0, icon: "⏱" },
+          { label: "Modules started", value: stats?.modules_started ?? 0, icon: "📚" },
+          { label: "Modules completed", value: stats?.modules_completed ?? 0, icon: "🏆" },
+          { label: "Study sessions", value: stats?.total_sessions ?? 0, icon: "⏱" },
         ].map((s) => (
-          <div key={s.label} className="card text-center py-4">
+          <div key={`${s.label}-${s.icon}`} className="card text-center py-4">
             <div className="text-2xl mb-1">{s.icon}</div>
             <div className="font-syne font-black text-xl text-ink">{s.value}</div>
             <div className="font-serif text-ink-3 text-xs mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
+
+      {/* Weekly activity chart */}
+      {history.length > 0 && (() => {
+        const last14 = history.slice(0, 14).reverse();
+        const maxAct = Math.max(...last14.map((d: any) => (d.lessons ?? 0) + (d.cards ?? 0)), 1);
+        return (
+          <div className="card p-5 mb-8">
+            <h2 className="font-syne font-bold text-base text-ink mb-4">📅 Activity — Last 14 Days</h2>
+            <div className="flex items-end gap-1.5 h-20">
+              {last14.map((d: any, i: number) => {
+                const total = (d.lessons ?? 0) + (d.cards ?? 0);
+                const pct = total / maxAct;
+                const isToday = i === last14.length - 1;
+                return (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-1" title={`${d.date}: ${d.lessons ?? 0} lessons, ${d.cards ?? 0} cards`}>
+                    <div className="w-full flex flex-col justify-end" style={{ height: "64px" }}>
+                      <div
+                        className={`w-full rounded-t transition-all ${total === 0 ? "bg-bg-2" : isToday ? "bg-amber" : pct >= 0.7 ? "bg-green" : "bg-green/50"}`}
+                        style={{ height: `${Math.max(pct * 64, total > 0 ? 4 : 0)}px` }}
+                      />
+                    </div>
+                    <span className="font-syne text-[9px] text-ink-3 leading-none">
+                      {d.date ? new Date(d.date).toLocaleDateString("en-US", { weekday: "short" }).slice(0, 1) : ""}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex justify-between text-[10px] font-serif text-ink-3 mt-2">
+              <span>{last14[0]?.date ? new Date(last14[0].date).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : ""}</span>
+              <span>Today</span>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Modules in progress */}
       {modulesProgress.length > 0 && (

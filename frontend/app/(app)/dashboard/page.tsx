@@ -161,14 +161,14 @@ function DoctorPanel({ stats }: { stats: any }) {
   const t = useT();
   const cmeCredits = stats?.cme_credits ?? 0;
   const casesCompleted = stats?.cases_completed ?? 0;
-  const mcqAccuracy = stats?.mcq_accuracy ?? 0;
+  const mcqAccuracy = stats?.correct_rate ?? stats?.mcq_accuracy ?? 0;
   return (
     <div className="mb-6">
       <h2 className="font-syne font-bold text-base text-ink mb-3">{t("dashboard.clinical_dashboard")}</h2>
       <div className="grid grid-cols-3 gap-3 mb-4">
         <StatCard value={`${cmeCredits}`} label={t("dashboard.stat_cme")} />
         <StatCard value={casesCompleted} label={t("dashboard.stat_cases")} />
-        <StatCard value={`${Math.round(mcqAccuracy * 100)}%`} label={t("dashboard.stat_accuracy")} />
+        <StatCard value={`${Math.round(typeof mcqAccuracy === "number" && mcqAccuracy <= 1 ? mcqAccuracy * 100 : mcqAccuracy)}%`} label={t("dashboard.stat_accuracy")} />
       </div>
       <div className="card p-4">
         <div className="flex items-center justify-between mb-3">
@@ -194,13 +194,15 @@ function DoctorPanel({ stats }: { stats: any }) {
         {cmeCredits >= 0 && (
           <div className="mt-3 p-3 rounded bg-green-light border border-green/20">
             <div className="flex items-center justify-between">
-              <span className="font-syne font-semibold text-xs text-green">CME Progress</span>
-              <span className="font-syne font-bold text-xs text-green">{cmeCredits} / 50 credits</span>
+              <span className="font-syne font-semibold text-xs text-green">CME This Year</span>
+              <span className="font-syne font-bold text-xs text-green">{stats?.cme_credits_this_year ?? cmeCredits} / 50 credits</span>
             </div>
             <div className="mt-1.5 h-1.5 bg-green/20 rounded-full">
-              <div className="h-full bg-green rounded-full" style={{ width: `${Math.min((cmeCredits / 50) * 100, 100)}%` }} />
+              <div className="h-full bg-green rounded-full" style={{ width: `${Math.min(((stats?.cme_credits_this_year ?? cmeCredits) / 50) * 100, 100)}%` }} />
             </div>
-            <p className="font-serif text-xs text-ink-3 mt-1.5">Complete modules to earn CME/CPD credits</p>
+            <p className="font-serif text-xs text-ink-3 mt-1.5">
+              {cmeCredits} total · Complete modules to earn CME/CPD credits
+            </p>
             <DownloadPDFButton />
           </div>
         )}
@@ -441,29 +443,114 @@ function TodaysPlan() {
   );
 }
 
+// ── Continue Learning ─────────────────────────────────────────
+function ContinueLearning({ modules }: { modules: any[] }) {
+  if (!modules || modules.length === 0) return null;
+  const inProgress = modules.filter((m: any) => (m.completion_percent ?? 0) < 100).slice(0, 3);
+  if (inProgress.length === 0) return null;
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-syne font-bold text-sm text-ink">Continue Learning</span>
+        <Link href="/progress" className="text-xs text-ink-3 font-syne hover:text-ink">All modules →</Link>
+      </div>
+      <div className="space-y-2">
+        {inProgress.map((m: any) => {
+          const pct = Math.round(m.completion_percent ?? 0);
+          return (
+            <Link
+              key={m.id}
+              href={`/modules/${m.id}`}
+              className="flex items-center gap-3 p-2 rounded-lg hover:bg-bg-2 transition-colors"
+            >
+              <div className="flex-1 min-w-0">
+                <div className="font-syne font-semibold text-xs text-ink truncate">{m.title}</div>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="h-1 flex-1 bg-bg-2 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-red to-amber-2 rounded-full" style={{ width: `${pct}%` }} />
+                  </div>
+                  <span className="font-syne text-[10px] text-ink-3 shrink-0">{pct}%</span>
+                </div>
+              </div>
+              <span className="text-ink-3 text-xs shrink-0">→</span>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Daily Goal ────────────────────────────────────────────────
+function DailyGoalWidget({ flashcardsDue, dailyGoalMinutes }: { flashcardsDue: number; dailyGoalMinutes: number }) {
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-syne font-bold text-sm text-ink">Today&apos;s Goal</span>
+        <Link href="/settings" className="text-xs text-ink-3 font-syne hover:text-ink">Edit goal →</Link>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <Link href="/flashcards" className={`p-3 rounded-lg border text-center transition-colors hover:border-ink-3 ${flashcardsDue > 0 ? "bg-amber-light border-amber/30" : "bg-green-light border-green/30"}`}>
+          <div className={`font-syne font-black text-xl ${flashcardsDue > 0 ? "text-amber" : "text-green"}`}>
+            {flashcardsDue > 0 ? flashcardsDue : "✓"}
+          </div>
+          <div className="font-serif text-[10px] text-ink-3 mt-0.5">
+            {flashcardsDue > 0 ? "cards due" : "cards done"}
+          </div>
+        </Link>
+        <div className="p-3 rounded-lg border border-border text-center">
+          <div className="font-syne font-black text-xl text-ink">{dailyGoalMinutes}</div>
+          <div className="font-serif text-[10px] text-ink-3 mt-0.5">min / day goal</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main dashboard ──
 export default function DashboardPage() {
   const t = useT();
   const { user } = useAuthStore();
+  const role = user?.role ?? "student";
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
+  const [studentDashboard, setStudentDashboard] = useState<any>(null);
+  const [recentModules, setRecentModules] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const roleSpecific = role === "doctor"
+      ? contentApi.getDoctorDashboard().catch(() => null)
+      : role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)
+      ? contentApi.getStudentDashboard().catch(() => null)
+      : Promise.resolve(null);
+
     Promise.all([
       contentApi.getSpecialties().catch(() => []),
       progressApi.getStats().catch(() => null),
-    ]).then(([modRes, statsRes]) => {
+      contentApi.getDashboard().catch(() => null),
+      roleSpecific,
+    ]).then(([modRes, statsRes, overviewRes, roleRes]) => {
       setSpecialties(modRes?.slice(0, 3) ?? []);
       setStats(statsRes);
+      setRecentModules(overviewRes?.recent_modules ?? []);
+      if (role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) {
+        setStudentDashboard(roleRes);
+      } else if (role === "doctor" && roleRes) {
+        // Merge CME data into stats for DoctorPanel
+        setStats((prev: any) => ({
+          ...prev,
+          cme_credits: roleRes?.cme?.total_credits ?? 0,
+          cme_credits_this_year: roleRes?.cme?.credits_this_year ?? 0,
+        }));
+      }
       setLoading(false);
     });
-  }, []);
+  }, [role]);
 
   const level = user?.level ?? 1;
   const xp = user?.xp ?? 0;
   const xpInfo = xpToNextLevel(xp, level);
-  const role = user?.role ?? "student";
 
   return (
     <div className="flex-1 overflow-y-auto p-3 sm:p-6">
@@ -491,8 +578,8 @@ export default function DashboardPage() {
               <div className="font-serif text-sm text-ink-3">Manage your courses and track student progress</div>
             </div>
             <div className="ml-auto flex gap-2">
-              <a href="/courses" className="btn-secondary text-sm px-3 py-1.5">My Courses</a>
-              <a href="/admin" className="btn-secondary text-sm px-3 py-1.5">Admin Panel</a>
+              <Link href="/teacher/dashboard" className="btn-secondary text-sm px-3 py-1.5">Teacher Cabinet</Link>
+              {user?.role === 'admin' && <Link href="/admin" className="btn-secondary text-sm px-3 py-1.5">Admin Panel</Link>}
             </div>
           </div>
         </div>
@@ -572,6 +659,11 @@ export default function DashboardPage() {
                   <StatCard value={stats.mcqs_answered ?? 0} label={t("quiz.title")} />
                 </div>
               )}
+              <ContinueLearning modules={recentModules} />
+              <DailyGoalWidget
+                flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
+                dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}
+              />
               <StreakCalendar streakDays={stats?.streak_days ?? 0} />
               <TodaysPlan />
               <MiniLeaderboard />

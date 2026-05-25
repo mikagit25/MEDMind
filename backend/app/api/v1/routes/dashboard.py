@@ -14,6 +14,7 @@ from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
     Module, CMECredit, CourseEnrollment, Course, UserAchievement,
 )
+from app.core.encryption import decrypt_email
 
 STUDENT_DASHBOARD_TTL = 300  # 5 minutes
 
@@ -284,3 +285,115 @@ async def professor_dashboard(
         "courses": courses_out,
         "total_students": sum(c["student_count"] for c in courses_out),
     }
+
+
+@router.get("/professor/students")
+async def professor_all_students(
+    search: Optional[str] = Query(None),
+    course_id: Optional[str] = Query(None),
+    sort: str = Query("enrolled_at"),   # enrolled_at | name | xp
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """All students across all professor's courses, with progress summary."""
+    # Get all active courses for this professor
+    courses = (await db.execute(
+        select(Course).where(Course.teacher_id == user.id, Course.is_active == True)
+    )).scalars().all()
+    course_map = {str(c.id): c.title for c in courses}
+    if not course_map:
+        return {"students": [], "total": 0}
+
+    course_ids = list(course_map.keys())
+    if course_id and course_id in course_map:
+        filter_ids = [course_id]
+    else:
+        filter_ids = course_ids
+
+    # Fetch enrollments with student info
+    q = (
+        select(
+            CourseEnrollment.student_id,
+            CourseEnrollment.course_id,
+            CourseEnrollment.enrolled_at,
+            CourseEnrollment.status,
+            User.first_name,
+            User.last_name,
+            User.email,
+            User.xp,
+            User.level,
+            User.streak_days,
+        )
+        .join(User, User.id == CourseEnrollment.student_id)
+        .where(CourseEnrollment.course_id.in_(filter_ids))
+        .where(CourseEnrollment.status == "active")
+    )
+    if search:
+        like = f"%{search.lower()}%"
+        from sqlalchemy import or_
+        q = q.where(or_(User.first_name.ilike(like), User.last_name.ilike(like), User.email.ilike(like)))
+
+    rows = (await db.execute(q)).all()
+
+    # Group by student (may appear in multiple courses)
+    from collections import defaultdict
+    student_data: dict = defaultdict(lambda: {
+        "courses": [], "enrolled_at": None, "xp": 0, "level": 1, "streak_days": 0,
+        "first_name": None, "last_name": None, "email": None,
+    })
+    for r in rows:
+        sid = str(r.student_id)
+        d = student_data[sid]
+        d["courses"].append({"id": str(r.course_id), "title": course_map.get(str(r.course_id), "")})
+        d["first_name"] = r.first_name
+        d["last_name"] = r.last_name
+        d["email"] = r.email
+        d["xp"] = r.xp or 0
+        d["level"] = r.level or 1
+        d["streak_days"] = r.streak_days or 0
+        if d["enrolled_at"] is None or (r.enrolled_at and r.enrolled_at < d["enrolled_at"]):
+            d["enrolled_at"] = r.enrolled_at
+
+    # Fetch last_activity per student from UserProgress
+    if student_data:
+        sids = list(student_data.keys())
+        progress_rows = (await db.execute(
+            select(
+                UserProgress.user_id,
+                func.max(UserProgress.last_activity).label("last_activity"),
+                func.count(UserProgress.id).label("completions"),
+            )
+            .where(UserProgress.user_id.in_(sids))
+            .group_by(UserProgress.user_id)
+        )).all()
+        for p in progress_rows:
+            sid = str(p.user_id)
+            if sid in student_data:
+                student_data[sid]["last_activity"] = p.last_activity.isoformat() if p.last_activity else None
+                student_data[sid]["completions"] = p.completions
+
+    result = []
+    for sid, d in student_data.items():
+        name = " ".join(filter(None, [d["first_name"], d["last_name"]])) or "Student"
+        result.append({
+            "id": sid,
+            "name": name,
+            "email": decrypt_email(d["email"]) if d["email"] else "—",
+            "courses": d["courses"],
+            "xp": d["xp"],
+            "level": d["level"],
+            "streak_days": d["streak_days"],
+            "completions": d.get("completions", 0),
+            "last_activity": d.get("last_activity"),
+            "enrolled_at": d["enrolled_at"].isoformat() if d.get("enrolled_at") else None,
+        })
+
+    # Sort
+    if sort == "name":
+        result.sort(key=lambda x: x["name"].lower())
+    elif sort == "xp":
+        result.sort(key=lambda x: x["xp"], reverse=True)
+    else:
+        result.sort(key=lambda x: x.get("enrolled_at") or "", reverse=True)
+
+    return {"students": result, "total": len(result)}

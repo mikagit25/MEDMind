@@ -534,6 +534,10 @@ export const teacherApi = {
   getAtRiskStudents: (courseId: string) =>
     api.get(`/professor/courses/${courseId}/at-risk`).then(r => r.data),
 
+  // All students across all courses
+  getAllStudents: (params?: { search?: string; course_id?: string; sort?: string }) =>
+    api.get("/professor/students", { params }).then(r => r.data),
+
   // Content insights
   getContentInsights: (courseId: string) =>
     api.get(`/professor/courses/${courseId}/content-insights`).then(r => r.data),

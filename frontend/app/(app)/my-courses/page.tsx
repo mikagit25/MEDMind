@@ -216,6 +216,11 @@ function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (i
           {course.teacher_name && (
             <p className="font-serif text-[11px] text-ink-3 mt-0.5">by {course.teacher_name}</p>
           )}
+          {course.enrolled_at && (
+            <p className="font-serif text-[10px] text-ink-3 mt-0.5">
+              Enrolled {new Date(course.enrolled_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </p>
+          )}
         </div>
         <div className="flex-shrink-0 text-right">
           <div className={`font-syne font-black text-lg leading-none ${pct >= 100 ? "text-green" : "text-ink"}`}>
@@ -266,6 +271,7 @@ export default function MyCoursesPage() {
   // Filters
   const [filterSpecialty, setFilterSpecialty] = useState<string>("all");
   const [filterDifficulty, setFilterDifficulty] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Join form
   const [joinCode, setJoinCode] = useState("");
@@ -338,6 +344,10 @@ export default function MyCoursesPage() {
   const filteredPublic = publicCourses.filter(c => {
     if (filterSpecialty !== "all" && c.specialty_tag !== filterSpecialty) return false;
     if (filterDifficulty !== "all" && c.difficulty !== filterDifficulty) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      if (!c.title.toLowerCase().includes(q) && !(c.teacher_name ?? "").toLowerCase().includes(q) && !(c.description ?? "").toLowerCase().includes(q)) return false;
+    }
     return true;
   });
 
@@ -397,8 +407,15 @@ export default function MyCoursesPage() {
             {/* ── TAB: DISCOVER ───────────────────────────── */}
             {tab === "discover" && (
               <div>
-                {/* Filters */}
+                {/* Search + Filters */}
                 <div className="flex flex-wrap gap-2 mb-4">
+                  {/* Search */}
+                  <input
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="Search courses…"
+                    className="border border-border rounded-lg px-3 py-1.5 text-sm font-serif bg-bg focus:outline-none focus:border-ink w-48"
+                  />
                   {/* Specialty filter */}
                   <div className="flex flex-wrap gap-1.5">
                     {["all", ...specialties].map(sp => (

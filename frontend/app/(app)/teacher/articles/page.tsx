@@ -18,6 +18,7 @@ type TeacherArticle = {
   submitted_at: string | null;
   review_note: string | null;
   updated_at: string;
+  view_count?: number;
 };
 
 const STATUS_STYLES: Record<string, string> = {
@@ -335,10 +336,23 @@ export default function TeacherArticlesPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border text-[11px] text-ink-3 font-serif">
+              <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border text-[11px] text-ink-3 font-serif flex-wrap">
                 <span>Updated {new Date(a.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
                 {a.published_at && (
                   <span>· Published {new Date(a.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+                )}
+                {a.review_status === "published" && a.view_count !== undefined && (
+                  <>
+                    <span className="text-border">·</span>
+                    <span className="flex items-center gap-1 text-ink-2">
+                      <span>👁</span>
+                      <span className="font-syne font-semibold">{(a.view_count ?? 0).toLocaleString()}</span>
+                      <span>views</span>
+                    </span>
+                    <span className="flex items-center gap-1 text-green font-syne font-semibold">
+                      ~${(((a.view_count ?? 0) / 1000) * 2 * 0.4).toFixed(2)} earned
+                    </span>
+                  </>
                 )}
               </div>
             </div>

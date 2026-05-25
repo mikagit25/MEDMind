@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { teacherApi } from "@/lib/api";
+import { teacherApi, creditsApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
 interface CourseOverview {
@@ -69,9 +69,11 @@ export default function TeacherDashboardPage() {
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
   const [loadingSecondary, setLoadingSecondary] = useState(false);
   const [articleStats, setArticleStats] = useState<ArticleStats>({ draft: 0, pending: 0, published: 0, total: 0 });
+  const [creditBalance, setCreditBalance] = useState<number | null>(null);
+  const [revenueStats, setRevenueStats] = useState<{ total_views: number; estimated_revenue_usd: number; published_articles: number } | null>(null);
 
   useEffect(() => {
-    // Load article stats in parallel with dashboard
+    // Load article stats, revenue and credits in parallel with dashboard
     teacherApi.listMyArticles().then((articles: { review_status: string }[]) => {
       const list = Array.isArray(articles) ? articles : [];
       setArticleStats({
@@ -81,6 +83,13 @@ export default function TeacherDashboardPage() {
         total:     list.length,
       });
     }).catch(() => {/* non-critical */});
+
+    creditsApi.getBalance().then(b => setCreditBalance(b.balance)).catch(() => {});
+    teacherApi.getMyArticleStats().then(s => setRevenueStats({
+      total_views: s.total_views,
+      estimated_revenue_usd: s.estimated_revenue_usd,
+      published_articles: s.published_articles,
+    })).catch(() => {});
 
     teacherApi.getProfessorDashboard()
       .then(async (d: DashboardData) => {
@@ -182,18 +191,80 @@ export default function TeacherDashboardPage() {
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { icon: "📚", value: data.courses.length, label: "Courses", sub: `${data.courses.filter(c => c.is_active).length} active` },
-          { icon: "👥", value: data.total_students, label: "Students", sub: "enrolled total" },
-          { icon: "🗂️", value: data.total_modules, label: "Modules", sub: "across courses" },
-          { icon: "🔥", value: `${data.streak_days}d`, label: "Streak", sub: `Lv ${data.level} · ${data.xp} XP` },
-        ].map(({ icon, value, label, sub }) => (
-          <div key={label} className="card text-center py-4 px-3">
-            <div className="text-2xl mb-1">{icon}</div>
-            <div className="font-syne font-black text-2xl text-ink">{value}</div>
-            <div className="font-serif text-ink-3 text-xs mt-0.5">{label}</div>
-            <div className="font-serif text-ink-3/60 text-xs">{sub}</div>
-          </div>
+          { icon: "📚", value: data.courses.length, label: "Courses", sub: `${data.courses.filter(c => c.is_active).length} active`, href: "/teacher/courses" },
+          { icon: "👥", value: data.total_students, label: "Students", sub: "enrolled total", href: "/teacher/students" },
+          { icon: "🗂️", value: data.total_modules, label: "Modules", sub: "across courses", href: "/teacher/modules" },
+          { icon: "🔥", value: `${data.streak_days}d`, label: "Streak", sub: `Lv ${data.level} · ${data.xp} XP`, href: null },
+        ].map(({ icon, value, label, sub, href }) => (
+          href ? (
+            <Link key={label} href={href} className="card text-center py-4 px-3 hover:border-ink-3 transition-colors">
+              <div className="text-2xl mb-1">{icon}</div>
+              <div className="font-syne font-black text-2xl text-ink">{value}</div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">{label}</div>
+              <div className="font-serif text-ink-3/60 text-xs">{sub}</div>
+            </Link>
+          ) : (
+            <div key={label} className="card text-center py-4 px-3">
+              <div className="text-2xl mb-1">{icon}</div>
+              <div className="font-syne font-black text-2xl text-ink">{value}</div>
+              <div className="font-serif text-ink-3 text-xs mt-0.5">{label}</div>
+              <div className="font-serif text-ink-3/60 text-xs">{sub}</div>
+            </div>
+          )
         ))}
+      </div>
+
+      {/* Revenue + Credits widgets */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {/* Earnings widget */}
+        <div className="card p-5 flex items-center gap-5">
+          <div className="w-12 h-12 rounded-xl bg-amber-light flex items-center justify-center text-2xl flex-shrink-0">
+            💰
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-syne text-ink-3 uppercase tracking-wider mb-0.5">Estimated earnings</div>
+            <div className="font-syne font-black text-2xl text-ink">
+              ${revenueStats ? revenueStats.estimated_revenue_usd.toFixed(2) : "—"}
+            </div>
+            <div className="text-xs font-serif text-ink-3 mt-0.5">
+              {revenueStats
+                ? `${revenueStats.total_views.toLocaleString()} views · ${revenueStats.published_articles} articles`
+                : "Loading…"}
+            </div>
+          </div>
+          <Link
+            href="/teacher/articles/stats"
+            className="text-xs font-syne font-semibold text-amber border border-amber/30 bg-amber-light rounded px-3 py-1.5 hover:bg-amber hover:text-white transition-colors flex-shrink-0"
+          >
+            Details →
+          </Link>
+        </div>
+
+        {/* Credits widget */}
+        <div className="card p-5 flex items-center gap-5">
+          <div className="w-12 h-12 rounded-xl bg-blue-light flex items-center justify-center text-2xl flex-shrink-0">
+            💳
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-syne text-ink-3 uppercase tracking-wider mb-0.5">AI credits</div>
+            <div className="font-syne font-black text-2xl text-ink">
+              {creditBalance !== null ? creditBalance.toLocaleString() : "—"}
+            </div>
+            <div className="text-xs font-serif text-ink-3 mt-0.5">
+              {creditBalance === 0
+                ? "No credits — top up to use Claude AI"
+                : creditBalance !== null && creditBalance < 5
+                ? "Low balance — consider buying more"
+                : "Use for AI article generation"}
+            </div>
+          </div>
+          <Link
+            href="/teacher/credits"
+            className="text-xs font-syne font-semibold text-blue border border-blue/30 bg-blue-light rounded px-3 py-1.5 hover:bg-blue hover:text-white transition-colors flex-shrink-0"
+          >
+            {creditBalance === 0 ? "Buy now" : "Manage →"}
+          </Link>
+        </div>
       </div>
 
       {/* At-risk alert banner */}
@@ -231,6 +302,7 @@ export default function TeacherDashboardPage() {
               { href: "/teacher/articles/new", icon: "📰", label: "Write Article", desc: "Share expertise" },
               { href: "/teacher/modules", icon: "🗂️", label: "My Modules", desc: "Manage content" },
               { href: "/teacher/analytics", icon: "📊", label: "Analytics", desc: "View insights" },
+              { href: "/teacher/students", icon: "👥", label: "Students", desc: "All enrolled" },
               { href: "/teacher/articles", icon: "🗒️", label: "My Articles", desc: "Drafts & published" },
             ].map(({ href, icon, label, desc }) => (
               <Link key={href} href={href}

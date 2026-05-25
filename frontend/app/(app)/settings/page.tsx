@@ -45,6 +45,8 @@ export default function SettingsPage() {
   const [vetSpecies, setVetSpecies] = useState<string[]>(
     (user?.preferences?.vet_species as string[]) ?? []
   );
+  const [dailyGoal, setDailyGoal] = useState<number>((user?.preferences?.daily_goal_minutes as number) ?? 20);
+  const [emailNotifs, setEmailNotifs] = useState<boolean>((user?.preferences?.email_notifications as boolean) ?? true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -64,7 +66,12 @@ export default function SettingsPage() {
     setError("");
     try {
       const [profileRes] = await Promise.all([
-        authApi.updateMe({ first_name: firstName, last_name: lastName, role }),
+        authApi.updateMe({
+          first_name: firstName,
+          last_name: lastName,
+          role,
+          preferences: { ...(user?.preferences ?? {}), daily_goal_minutes: dailyGoal, email_notifications: emailNotifs },
+        }),
         canUseVet
           ? authApi.updateVetSettings({ vet_mode: vetMode, species: vetSpecies })
           : Promise.resolve(null),
@@ -169,6 +176,49 @@ export default function SettingsPage() {
               {t(`settings.languages.${lang}` as any) || lang}
             </button>
           ))}
+        </div>
+      </section>
+
+      {/* Learning preferences */}
+      <section className="card p-6 mb-5">
+        <h2 className="font-syne font-bold text-base text-ink mb-4">⚙️ Learning Preferences</h2>
+        <div className="space-y-5">
+          {/* Daily goal */}
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
+              Daily Study Goal
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min={5}
+                max={120}
+                step={5}
+                value={dailyGoal}
+                onChange={e => setDailyGoal(Number(e.target.value))}
+                className="flex-1 accent-ink"
+              />
+              <span className="font-syne font-bold text-sm text-ink w-20 text-right">{dailyGoal} min/day</span>
+            </div>
+            <div className="flex justify-between text-[10px] font-serif text-ink-3 mt-1">
+              <span>5 min</span>
+              <span>120 min</span>
+            </div>
+          </div>
+
+          {/* Email notifications */}
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-syne font-semibold text-sm text-ink">Email notifications</div>
+              <div className="font-serif text-xs text-ink-3">Streak reminders and weekly progress digest</div>
+            </div>
+            <div
+              onClick={() => setEmailNotifs(v => !v)}
+              className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer ${emailNotifs ? "bg-green" : "bg-border-2"}`}
+            >
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${emailNotifs ? "translate-x-6" : "translate-x-1"}`} />
+            </div>
+          </div>
         </div>
       </section>
 

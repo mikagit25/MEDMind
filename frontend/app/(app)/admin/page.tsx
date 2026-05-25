@@ -22,6 +22,15 @@ type AdminUser = {
   xp: number;
   level: number;
   created_at?: string;
+  // detail fields (loaded on demand)
+  subscription_expires?: string | null;
+  stripe_customer_id?: string | null;
+  is_verified_teacher?: boolean;
+  is_trusted_author?: boolean;
+  streak_days?: number;
+  ai_requests_today?: number;
+  articles_authored?: number;
+  last_login?: string | null;
 };
 
 type AdminModule = {
@@ -41,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "flags" | "system" | "audit";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -63,6 +72,8 @@ export default function AdminPage() {
   const [modules, setModules] = useState<AdminModule[]>([]);
   const [userSearch, setUserSearch] = useState("");
   const [userTierFilter, setUserTierFilter] = useState("");
+  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+  const [userDetailLoading, setUserDetailLoading] = useState(false);
   const [moduleSearch, setModuleSearch] = useState("");
   const [modulePublished, setModulePublished] = useState<"" | "true" | "false">("");
   const [loading, setLoading] = useState(false);
@@ -132,6 +143,19 @@ export default function AdminPage() {
     }
   };
 
+  const openUserDetail = async (u: AdminUser) => {
+    setSelectedUser(u);
+    setUserDetailLoading(true);
+    try {
+      const r = await api.get(`/admin/users/${u.id}`);
+      setSelectedUser(r.data);
+    } catch {
+      // keep basic data already shown
+    } finally {
+      setUserDetailLoading(false);
+    }
+  };
+
   const togglePublish = async (mod: AdminModule) => {
     try {
       const r = await api.patch(`/admin/modules/${mod.id}`, { is_published: !mod.is_published });
@@ -185,6 +209,10 @@ export default function AdminPage() {
           ["generate",     "✨ Generate"],
           ["articles",     "📰 Articles"],
           ["translations", "🌐 Translations"],
+          ["analytics",   "📈 Analytics"],
+          ["imaging",     "🩻 Imaging"],
+          ["drugs",       "💊 Drugs"],
+          ["revenue",     "💰 Revenue"],
           ["flags",        "🚩 Flags"],
           ["system",       "⚙️ System"],
           ["audit",        "🔍 Audit Log"],
@@ -411,7 +439,13 @@ export default function AdminPage() {
                             {u.is_active ? "Active" : "Disabled"}
                           </span>
                         </td>
-                        <td className="px-4 py-2.5">
+                        <td className="px-4 py-2.5 flex gap-2 items-center">
+                          <button
+                            onClick={() => openUserDetail(u)}
+                            className="text-xs font-syne font-semibold border border-ink/20 text-ink-2 rounded px-2 py-0.5 hover:bg-surface-2 transition-colors"
+                          >
+                            Details
+                          </button>
                           <button
                             onClick={() => patchUser(u.id, { is_active: !u.is_active })}
                             className={`text-xs font-syne font-semibold border rounded px-2 py-0.5 transition-colors ${
@@ -592,6 +626,14 @@ export default function AdminPage() {
       {/* ── Translations ── */}
       {tab === "translations" && <TranslationsPanel showToast={showToast} />}
 
+      {tab === "analytics" && <AnalyticsPanel />}
+
+      {tab === "imaging" && <ImagingPanel showToast={showToast} />}
+
+      {tab === "drugs" && <DrugsPanel showToast={showToast} />}
+
+      {tab === "revenue" && <RevenuePanel />}
+
       {/* ── Feature Flags ── */}
       {tab === "flags" && <FeatureFlagsPanel showToast={showToast} />}
 
@@ -600,6 +642,87 @@ export default function AdminPage() {
 
       {/* ── Audit Log ── */}
       {tab === "audit" && <AuditLogPanel />}
+
+      {/* ── User Detail Modal ── */}
+      {selectedUser && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => setSelectedUser(null)}
+        >
+          <div
+            className="bg-bg border border-border rounded-xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-surface-2">
+              <div>
+                <div className="font-syne font-bold text-ink text-base">
+                  {selectedUser.first_name} {selectedUser.last_name}
+                </div>
+                <div className="text-ink-3 text-xs font-serif">{selectedUser.email}</div>
+              </div>
+              <button onClick={() => setSelectedUser(null)} className="text-ink-3 hover:text-ink text-xl leading-none">×</button>
+            </div>
+
+            {userDetailLoading ? (
+              <div className="p-8 text-center text-ink-3 font-serif text-sm">Loading…</div>
+            ) : (
+              <div className="p-6 grid grid-cols-2 gap-4 text-sm">
+                {[
+                  ["Role", selectedUser.role],
+                  ["Tier", selectedUser.subscription_tier],
+                  ["Status", selectedUser.is_active ? "Active" : "Disabled"],
+                  ["XP / Level", `${selectedUser.xp} xp / Lv ${selectedUser.level}`],
+                  ["Streak", `${selectedUser.streak_days ?? 0} days`],
+                  ["AI requests today", selectedUser.ai_requests_today ?? 0],
+                  ["Articles authored", selectedUser.articles_authored ?? 0],
+                  ["Verified teacher", selectedUser.is_verified_teacher ? "Yes" : "No"],
+                  ["Trusted author", selectedUser.is_trusted_author ? "Yes" : "No"],
+                  ["Subscription expires", selectedUser.subscription_expires
+                    ? new Date(selectedUser.subscription_expires).toLocaleDateString()
+                    : "—"],
+                  ["Stripe ID", selectedUser.stripe_customer_id || "—"],
+                  ["Joined", selectedUser.created_at
+                    ? new Date(selectedUser.created_at).toLocaleDateString()
+                    : "—"],
+                  ["Last login", selectedUser.last_login
+                    ? new Date(selectedUser.last_login).toLocaleDateString()
+                    : "—"],
+                ].map(([label, val]) => (
+                  <div key={String(label)}>
+                    <div className="text-ink-3 text-xs font-syne uppercase tracking-wider mb-0.5">{label}</div>
+                    <div className="font-syne font-semibold text-ink text-sm">{String(val)}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Quick actions */}
+            <div className="px-6 pb-5 flex gap-2 flex-wrap">
+              <button
+                onClick={() => { patchUser(selectedUser.id, { is_active: !selectedUser.is_active }); setSelectedUser(null); }}
+                className={`text-xs font-syne font-semibold border rounded px-3 py-1 transition-colors ${
+                  selectedUser.is_active ? "border-red/30 text-red hover:bg-red-light" : "border-green/30 text-green hover:bg-green-light"
+                }`}
+              >
+                {selectedUser.is_active ? "Disable account" : "Enable account"}
+              </button>
+              <button
+                onClick={() => { patchUser(selectedUser.id, { is_verified_teacher: !selectedUser.is_verified_teacher }); setSelectedUser((p) => p ? { ...p, is_verified_teacher: !p.is_verified_teacher } : p); }}
+                className="text-xs font-syne font-semibold border border-ink/20 text-ink-2 rounded px-3 py-1 hover:bg-surface-2 transition-colors"
+              >
+                {selectedUser.is_verified_teacher ? "Revoke teacher" : "Verify teacher"}
+              </button>
+              <button
+                onClick={() => { patchUser(selectedUser.id, { is_trusted_author: !selectedUser.is_trusted_author }); setSelectedUser((p) => p ? { ...p, is_trusted_author: !p.is_trusted_author } : p); }}
+                className="text-xs font-syne font-semibold border border-ink/20 text-ink-2 rounded px-3 py-1 hover:bg-surface-2 transition-colors"
+              >
+                {selectedUser.is_trusted_author ? "Revoke trusted" : "Mark trusted author"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -995,6 +1118,16 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
   const [reviewNote, setReviewNote] = useState<Record<string, string>>({});
   const [actioning, setActioning] = useState<string | null>(null);
   const [loadingPreview, setLoadingPreview] = useState<string | null>(null);
+  const [seoArticle, setSeoArticle] = useState<{
+    id: string; slug: string; title: string;
+    og_title: string; og_description: string;
+    keywords: string; cover_image: string;
+  } | null>(null);
+  const [seoSaving, setSeoSaving] = useState(false);
+  const [showBulkVerify, setShowBulkVerify] = useState(false);
+  const [bulkVerifyStatus, setBulkVerifyStatus] = useState("ai_reviewed");
+  const [bulkVerifyCategory, setBulkVerifyCategory] = useState("");
+  const [bulkVerifying, setBulkVerifying] = useState(false);
 
   // Generate form
   const [topic, setTopic] = useState("");
@@ -1127,6 +1260,40 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
       showToast("Article deleted");
     } catch {
       showToast("Delete failed", "err");
+    }
+  };
+
+  const openSeoEditor = async (a: AdminArticle) => {
+    try {
+      const r = await api.get(`/articles/admin/${a.id}`);
+      setSeoArticle({
+        id: a.id, slug: a.slug, title: a.title,
+        og_title: r.data.og_title ?? "",
+        og_description: r.data.og_description ?? "",
+        keywords: (r.data.keywords ?? []).join(", "),
+        cover_image: r.data.cover_image ?? "",
+      });
+    } catch {
+      showToast("Failed to load article SEO data", "err");
+    }
+  };
+
+  const saveSeo = async () => {
+    if (!seoArticle) return;
+    setSeoSaving(true);
+    try {
+      await api.patch(`/articles/${seoArticle.id}`, {
+        og_title: seoArticle.og_title || null,
+        og_description: seoArticle.og_description || null,
+        keywords: seoArticle.keywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+        cover_image: seoArticle.cover_image || null,
+      });
+      showToast("SEO updated");
+      setSeoArticle(null);
+    } catch {
+      showToast("Save failed", "err");
+    } finally {
+      setSeoSaving(false);
     }
   };
 
@@ -1282,6 +1449,12 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
           <option value="rejected">Rejected</option>
         </select>
         <button onClick={load} className="btn-primary text-xs">Refresh</button>
+        <button
+          onClick={() => setShowBulkVerify(v => !v)}
+          className="font-syne font-semibold text-xs border border-border rounded px-3 py-1.5 text-ink-2 hover:bg-surface-2 transition-colors"
+        >
+          ✓ Bulk Verify
+        </button>
         <div className="ml-auto">
           <button
             onClick={() => setShowGenForm(v => !v)}
@@ -1347,6 +1520,56 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
         </div>
       )}
 
+      {/* Bulk verify form */}
+      {showBulkVerify && (
+        <div className="card p-5 border border-border bg-surface-2">
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">Bulk Set Verification Status</h3>
+          <div className="flex gap-3 flex-wrap items-end">
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Verification Status</label>
+              <select value={bulkVerifyStatus} onChange={e => setBulkVerifyStatus(e.target.value)} className="input text-sm">
+                <option value="ai_reviewed">AI Reviewed</option>
+                <option value="expert_reviewed">Expert Reviewed</option>
+                <option value="verified">Verified</option>
+                <option value="unverified">Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Category (optional)</label>
+              <select value={bulkVerifyCategory} onChange={e => setBulkVerifyCategory(e.target.value)} className="input text-sm">
+                <option value="">All categories</option>
+                {ARTICLE_CATEGORIES.map(c => <option key={c} value={c}>{ARTICLE_CATEGORY_LABELS[c] ?? c}</option>)}
+              </select>
+            </div>
+            <button
+              disabled={bulkVerifying}
+              onClick={async () => {
+                const scope = bulkVerifyCategory ? `category "${bulkVerifyCategory}"` : "ALL articles";
+                if (!confirm(`Set verification_status="${bulkVerifyStatus}" on ${scope}?`)) return;
+                setBulkVerifying(true);
+                try {
+                  const body: Record<string, any> = { status: bulkVerifyStatus };
+                  if (bulkVerifyCategory) body.category = bulkVerifyCategory;
+                  else body.all = true;
+                  const r = await api.post("/admin/articles/bulk-verify", body);
+                  showToast(`Updated ${r.data.updated} articles`);
+                  setShowBulkVerify(false);
+                  load();
+                } catch {
+                  showToast("Bulk verify failed", "err");
+                } finally {
+                  setBulkVerifying(false);
+                }
+              }}
+              className="btn-primary text-sm px-5"
+            >
+              {bulkVerifying ? "Updating…" : "Apply"}
+            </button>
+            <button onClick={() => setShowBulkVerify(false)} className="text-sm text-ink-3 hover:text-ink px-2">Cancel</button>
+          </div>
+        </div>
+      )}
+
       {/* Stats */}
       <div className="text-xs text-ink-3 font-serif">
         {total} articles — {articles.filter(a => a.is_published).length} published
@@ -1409,7 +1632,7 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-2.5 flex gap-2">
+                    <td className="px-4 py-2.5 flex gap-1.5 flex-wrap">
                       <a
                         href={`/articles/${a.slug}`}
                         target="_blank"
@@ -1418,6 +1641,12 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
                       >
                         View
                       </a>
+                      <button
+                        onClick={() => openSeoEditor(a)}
+                        className="text-xs font-syne text-ink-2 hover:bg-surface-2 border border-border rounded px-2 py-0.5"
+                      >
+                        SEO
+                      </button>
                       <button
                         onClick={() => deleteArticle(a)}
                         className="text-xs font-syne text-red hover:bg-red-light border border-red/30 rounded px-2 py-0.5"
@@ -1438,6 +1667,74 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
         )}
       </div>
       </>}
+
+      {/* ── SEO Editor Modal ── */}
+      {seoArticle && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setSeoArticle(null)}>
+          <div className="bg-bg border border-border rounded-xl shadow-2xl w-full max-w-xl mx-4 overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-surface-2">
+              <div>
+                <div className="font-syne font-bold text-ink text-sm">SEO Editor</div>
+                <div className="text-ink-3 text-xs font-mono mt-0.5">{seoArticle.slug}</div>
+              </div>
+              <button onClick={() => setSeoArticle(null)} className="text-ink-3 hover:text-ink text-xl leading-none">×</button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="text-xs font-syne font-semibold text-ink-3 uppercase tracking-wider mb-1 block">OG Title</label>
+                <input
+                  value={seoArticle.og_title}
+                  onChange={e => setSeoArticle(p => p ? { ...p, og_title: e.target.value } : p)}
+                  placeholder={seoArticle.title}
+                  className="input w-full text-sm"
+                  maxLength={200}
+                />
+                <div className="text-right text-xs text-ink-3 mt-0.5">{seoArticle.og_title.length}/200</div>
+              </div>
+              <div>
+                <label className="text-xs font-syne font-semibold text-ink-3 uppercase tracking-wider mb-1 block">OG Description</label>
+                <textarea
+                  value={seoArticle.og_description}
+                  onChange={e => setSeoArticle(p => p ? { ...p, og_description: e.target.value } : p)}
+                  placeholder="Brief description for search engines and social sharing…"
+                  className="input w-full text-sm resize-none"
+                  rows={3}
+                  maxLength={300}
+                />
+                <div className="text-right text-xs text-ink-3 mt-0.5">{seoArticle.og_description.length}/300</div>
+              </div>
+              <div>
+                <label className="text-xs font-syne font-semibold text-ink-3 uppercase tracking-wider mb-1 block">Keywords <span className="normal-case font-normal">(comma-separated)</span></label>
+                <input
+                  value={seoArticle.keywords}
+                  onChange={e => setSeoArticle(p => p ? { ...p, keywords: e.target.value } : p)}
+                  placeholder="hypertension, blood pressure, cardiology…"
+                  className="input w-full text-sm"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-syne font-semibold text-ink-3 uppercase tracking-wider mb-1 block">Cover Image URL</label>
+                <input
+                  value={seoArticle.cover_image}
+                  onChange={e => setSeoArticle(p => p ? { ...p, cover_image: e.target.value } : p)}
+                  placeholder="https://…"
+                  className="input w-full text-sm font-mono"
+                />
+                {seoArticle.cover_image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={seoArticle.cover_image} alt="" className="mt-2 h-24 rounded border border-border object-cover w-full" />
+                )}
+              </div>
+            </div>
+            <div className="px-6 pb-5 flex justify-end gap-2">
+              <button onClick={() => setSeoArticle(null)} className="text-sm font-syne text-ink-3 hover:text-ink px-4 py-1.5">Cancel</button>
+              <button onClick={saveSeo} disabled={seoSaving} className="btn-primary text-sm px-5">
+                {seoSaving ? "Saving…" : "Save SEO"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1900,6 +2197,597 @@ function AuditLogPanel() {
           <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="btn text-xs px-3">← Prev</button>
           <span className="text-xs text-ink-3 self-center">Page {page}</span>
           <button onClick={() => setPage(p => p + 1)} disabled={page * 50 >= total} className="btn text-xs px-3">Next →</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 📈 ANALYTICS PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+type AnalyticsData = {
+  summary: { total_published: number; total_views: number; avg_views_per_article: number; new_last_7_days: number; new_last_30_days: number };
+  top_articles: { slug: string; title: string; category: string; views: number; reading_time: number; generated_by: string; published_at: string | null }[];
+  by_category: { category: string; views: number; count: number }[];
+  daily_growth: { date: string; count: number }[];
+  by_generator: { generator: string; count: number }[];
+  by_verification: { status: string; count: number }[];
+};
+
+const GENERATOR_LABELS: Record<string, string> = {
+  groq: "Groq (llama-3.3)", gemini: "Gemini 2.5", cerebras: "Cerebras",
+  sambanova: "SambaNova", "ollama-qwen3": "Ollama (qwen3)", manual: "Manual",
+  haiku: "Claude Haiku", sonnet: "Claude Sonnet",
+};
+const VERIFICATION_COLORS: Record<string, string> = {
+  unverified: "bg-amber-light text-amber border-amber/20",
+  ai_verified: "bg-blue-light text-blue border-blue/20",
+  expert_verified: "bg-green-light text-green border-green/20",
+};
+
+function AnalyticsPanel() {
+  const [data, setData] = useState<AnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.get("/admin/analytics").then(r => setData(r.data)).finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="py-20 text-center text-ink-3">Loading analytics…</div>;
+  if (!data) return <div className="py-20 text-center text-red">Failed to load analytics</div>;
+
+  const { summary, top_articles, by_category, daily_growth, by_generator, by_verification } = data;
+  const maxCatViews = Math.max(...by_category.map(c => c.views), 1);
+  const maxDailyCount = Math.max(...daily_growth.map(d => d.count), 1);
+  const totalGenerated = by_generator.reduce((s, g) => s + g.count, 0);
+
+  return (
+    <div className="space-y-6">
+      {/* ── Summary cards ── */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        {[
+          { label: "Published Articles", value: summary.total_published.toLocaleString(), icon: "📰" },
+          { label: "Total Views",        value: summary.total_views.toLocaleString(),     icon: "👁️" },
+          { label: "Avg Views/Article",  value: summary.avg_views_per_article.toFixed(1), icon: "📊" },
+          { label: "New (7 days)",        value: `+${summary.new_last_7_days}`,            icon: "🆕" },
+          { label: "New (30 days)",       value: `+${summary.new_last_30_days}`,           icon: "📅" },
+        ].map(c => (
+          <div key={c.label} className="card p-4">
+            <div className="text-2xl mb-1">{c.icon}</div>
+            <div className="text-2xl font-bold font-syne">{c.value}</div>
+            <div className="text-xs text-ink-3 mt-0.5">{c.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* ── Daily growth chart ── */}
+        <div className="card p-4">
+          <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-4">
+            New Articles — Last 30 Days
+          </h3>
+          {daily_growth.length === 0 ? (
+            <p className="text-ink-3 text-sm">No data</p>
+          ) : (
+            <div className="flex items-end gap-0.5 h-32">
+              {daily_growth.map(d => (
+                <div key={d.date} className="flex-1 flex flex-col items-center gap-0.5 group relative" title={`${d.date}: ${d.count}`}>
+                  <div
+                    className="w-full bg-blue rounded-t transition-all group-hover:bg-blue/80"
+                    style={{ height: `${Math.max(4, (d.count / maxDailyCount) * 100)}%` }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="flex justify-between text-xs text-ink-3 mt-1">
+            <span>{daily_growth[0]?.date?.slice(5)}</span>
+            <span>{daily_growth[daily_growth.length - 1]?.date?.slice(5)}</span>
+          </div>
+        </div>
+
+        {/* ── Generator breakdown ── */}
+        <div className="card p-4">
+          <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-4">
+            Generation Sources
+          </h3>
+          <div className="space-y-2">
+            {by_generator.map(g => (
+              <div key={g.generator} className="flex items-center gap-2">
+                <div className="w-28 text-xs text-ink-2 truncate">{GENERATOR_LABELS[g.generator] ?? g.generator}</div>
+                <div className="flex-1 bg-surface-2 rounded-full h-2">
+                  <div
+                    className="bg-blue h-2 rounded-full"
+                    style={{ width: `${(g.count / totalGenerated) * 100}%` }}
+                  />
+                </div>
+                <div className="text-xs text-ink-3 w-10 text-right">{g.count}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* ── Views by category ── */}
+        <div className="card p-4">
+          <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-4">
+            Views by Category
+          </h3>
+          <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+            {by_category.map(c => (
+              <div key={c.category} className="flex items-center gap-2">
+                <div className="w-32 text-xs text-ink-2 truncate capitalize">{c.category.replace(/-/g, " ")}</div>
+                <div className="flex-1 bg-surface-2 rounded-full h-2">
+                  <div className="bg-accent h-2 rounded-full" style={{ width: `${(c.views / maxCatViews) * 100}%` }} />
+                </div>
+                <div className="text-xs text-ink-3 w-16 text-right">{c.views.toLocaleString()} ({c.count})</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Verification status ── */}
+        <div className="card p-4">
+          <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-4">
+            Verification Status
+          </h3>
+          <div className="space-y-3">
+            {by_verification.map(v => (
+              <div key={v.status} className="flex items-center justify-between">
+                <span className={`text-xs font-semibold px-2 py-1 rounded border ${VERIFICATION_COLORS[v.status] ?? "bg-surface-2 text-ink-3 border-border"}`}>
+                  {v.status.replace(/_/g, " ")}
+                </span>
+                <span className="text-sm font-bold">{v.count.toLocaleString()}</span>
+              </div>
+            ))}
+            <p className="text-xs text-ink-3 pt-2 border-t border-border">
+              Expert verification boosts SEO trust signals and EEAT score.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Top articles table ── */}
+      <div className="card p-4">
+        <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-4">
+          Top 20 Articles by Views
+        </h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border text-xs text-ink-3 font-semibold">
+                <th className="text-left pb-2 pr-3">#</th>
+                <th className="text-left pb-2 pr-3">Title</th>
+                <th className="text-left pb-2 pr-3">Category</th>
+                <th className="text-left pb-2 pr-3">Generator</th>
+                <th className="text-right pb-2 pr-3">Read</th>
+                <th className="text-right pb-2">Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              {top_articles.map((a, i) => (
+                <tr key={a.slug} className="border-b border-border/50 hover:bg-surface-2 transition-colors">
+                  <td className="py-2 pr-3 text-ink-3">{i + 1}</td>
+                  <td className="py-2 pr-3">
+                    <a href={`/articles/${a.slug}`} target="_blank" rel="noreferrer"
+                       className="hover:text-blue transition-colors line-clamp-1">{a.title}</a>
+                  </td>
+                  <td className="py-2 pr-3 text-xs text-ink-3 capitalize">{a.category.replace(/-/g, " ")}</td>
+                  <td className="py-2 pr-3 text-xs text-ink-3">{GENERATOR_LABELS[a.generated_by] ?? a.generated_by}</td>
+                  <td className="py-2 pr-3 text-right text-xs text-ink-3">{a.reading_time}m</td>
+                  <td className="py-2 text-right font-semibold">{(a.views || 0).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 🩻 IMAGING PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+type MedImage = {
+  id: string;
+  title: string;
+  description?: string;
+  modality: string;
+  anatomy_region?: string;
+  specialty?: string;
+  image_url: string;
+  thumbnail_url?: string;
+  source_name?: string;
+  license?: string;
+  view_count: number;
+  is_user_upload: boolean;
+  tags?: string[];
+};
+
+const MODALITY_COLORS: Record<string, string> = {
+  xray: "bg-blue-light text-blue border-blue/20",
+  ct: "bg-amber-light text-amber border-amber/20",
+  mri: "bg-green-light text-green border-green/20",
+  ecg: "bg-red-light text-red border-red/20",
+  histology: "bg-purple-light text-purple border-purple/20",
+  ultrasound: "bg-teal-light text-teal border-teal/20",
+  anatomy: "bg-surface-2 text-ink-2 border-border",
+  diagram: "bg-surface-2 text-ink-2 border-border",
+};
+
+function ImagingPanel({ showToast }: { showToast: (m: string, t?: "ok" | "err") => void }) {
+  const [images, setImages] = useState<MedImage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [modalityFilter, setModalityFilter] = useState("");
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+
+  const load = useCallback(async (p = 1) => {
+    setLoading(true);
+    try {
+      const params: Record<string, string | number> = { limit: 24, offset: (p - 1) * 24 };
+      if (search) params.search = search;
+      if (modalityFilter) params.modality = modalityFilter;
+      const r = await api.get("/imaging", { params });
+      const data = r.data;
+      const imgs = Array.isArray(data) ? data : data.images ?? [];
+      setImages(imgs);
+      setTotal(Array.isArray(data) ? imgs.length : data.total ?? imgs.length);
+    } catch {
+      showToast("Failed to load images", "err");
+    } finally {
+      setLoading(false);
+    }
+  }, [search, modalityFilter, showToast]);
+
+  useEffect(() => { load(1); setPage(1); }, [search, modalityFilter]);
+
+  const deleteImage = async (id: string) => {
+    if (!confirm("Delete this image?")) return;
+    try {
+      await adminApi.delete(`/admin/imaging/${id}`);
+      setImages(prev => prev.filter(i => i.id !== id));
+      showToast("Image deleted");
+    } catch {
+      showToast("Delete failed", "err");
+    }
+  };
+
+  const MODALITIES = ["xray", "ct", "mri", "ecg", "histology", "ultrasound", "anatomy", "diagram", "endoscopy", "fundus"];
+
+  return (
+    <div className="space-y-4">
+      {/* ── Filters ── */}
+      <div className="flex flex-wrap gap-3 items-center">
+        <input
+          value={search} onChange={e => setSearch(e.target.value)}
+          placeholder="Search title or description…"
+          className="input text-sm w-64"
+        />
+        <select value={modalityFilter} onChange={e => setModalityFilter(e.target.value)} className="input text-sm">
+          <option value="">All modalities</option>
+          {MODALITIES.map(m => <option key={m} value={m}>{m.toUpperCase()}</option>)}
+        </select>
+        <span className="text-xs text-ink-3 ml-auto">{total} images</span>
+      </div>
+
+      {/* ── Grid ── */}
+      {loading ? (
+        <div className="py-20 text-center text-ink-3">Loading…</div>
+      ) : images.length === 0 ? (
+        <div className="py-20 text-center text-ink-3">No images found</div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map(img => (
+            <div key={img.id} className="card overflow-hidden group">
+              {/* Image preview */}
+              <div className="relative aspect-video bg-surface-2 overflow-hidden">
+                <img
+                  src={img.thumbnail_url ?? img.image_url}
+                  alt={img.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={e => { (e.target as HTMLImageElement).src = "/placeholder-medical.jpg"; }}
+                />
+                {img.is_user_upload && (
+                  <span className="absolute top-1 right-1 text-xs bg-amber text-white px-1.5 py-0.5 rounded font-semibold">UGC</span>
+                )}
+              </div>
+
+              {/* Info */}
+              <div className="p-2 space-y-1">
+                <p className="text-xs font-semibold line-clamp-2 leading-tight">{img.title}</p>
+                <div className="flex items-center justify-between gap-1">
+                  <span className={`text-xs px-1.5 py-0.5 rounded border ${MODALITY_COLORS[img.modality] ?? "bg-surface-2 text-ink-3 border-border"}`}>
+                    {img.modality}
+                  </span>
+                  <span className="text-xs text-ink-3">{img.view_count} views</span>
+                </div>
+                {img.source_name && (
+                  <p className="text-xs text-ink-3 truncate">{img.source_name}</p>
+                )}
+
+                {/* Actions */}
+                <div className="flex gap-1 pt-1">
+                  <a href={img.image_url} target="_blank" rel="noreferrer"
+                     className="flex-1 text-center text-xs py-1 rounded border border-border hover:bg-surface-2 transition-colors">
+                    View
+                  </a>
+                  <button
+                    onClick={() => deleteImage(img.id)}
+                    className="flex-1 text-xs py-1 rounded border border-red/30 text-red hover:bg-red-light transition-colors">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ── Pagination ── */}
+      {total > 24 && (
+        <div className="flex gap-2 justify-center">
+          <button onClick={() => { setPage(p => p - 1); load(page - 1); }} disabled={page === 1}
+            className="btn text-xs px-3">← Prev</button>
+          <span className="text-xs text-ink-3 self-center">Page {page} of {Math.ceil(total / 24)}</span>
+          <button onClick={() => { setPage(p => p + 1); load(page + 1); }} disabled={page * 24 >= total}
+            className="btn text-xs px-3">Next →</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ── Drugs Panel ───────────────────────────────────────────────────────────────
+
+function DrugsPanel({ showToast }: { showToast: (m: string, t?: "ok" | "err") => void }) {
+  const [drugs, setDrugs] = useState<any[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const adminApi = api; // same axios instance with /admin prefix handled by interceptors
+
+  const load = useCallback(async (p = 1) => {
+    setLoading(true);
+    try {
+      const r = await api.get("/admin/drugs", { params: { page: p, per_page: 50, search: search || undefined } });
+      setDrugs(r.data.items ?? []);
+      setTotal(r.data.total ?? 0);
+      setPage(p);
+    } catch {
+      showToast("Failed to load drugs", "err");
+    } finally {
+      setLoading(false);
+    }
+  }, [search]);
+
+  useEffect(() => { load(1); }, [load]);
+
+  const deleteDrug = async (id: string, name: string) => {
+    if (!confirm(`Delete drug "${name}"? This cannot be undone.`)) return;
+    setDeleting(id);
+    try {
+      await adminApi.delete(`/admin/drugs/${id}`);
+      setDrugs(prev => prev.filter(d => d.id !== id));
+      setTotal(t => t - 1);
+      showToast("Drug deleted");
+    } catch {
+      showToast("Delete failed", "err");
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const toggleFlag = async (id: string, flag: "is_high_yield" | "is_nti" | "is_veterinary", current: boolean) => {
+    try {
+      await adminApi.patch(`/admin/drugs/${id}`, { [flag]: !current });
+      setDrugs(prev => prev.map(d => d.id === id ? { ...d, [flag]: !current } : d));
+    } catch {
+      showToast("Update failed", "err");
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2 items-center">
+        <input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && load(1)}
+          placeholder="Search drug name…"
+          className="border border-border rounded px-3 py-1.5 text-sm font-serif bg-bg focus:outline-none w-64"
+        />
+        <button onClick={() => load(1)} className="btn-primary text-xs">Search</button>
+        <span className="text-xs text-ink-3 font-serif ml-auto">{total} drugs in database</span>
+      </div>
+
+      <div className="card overflow-hidden">
+        {loading ? (
+          <div className="p-8 text-center text-ink-3 text-sm">Loading…</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-surface-2">
+                  {["Name", "Generic", "Class", "Indications", "Flags", "Actions"].map(h => (
+                    <th key={h} className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {drugs.map(d => (
+                  <tr key={d.id} className="border-b border-border last:border-0 hover:bg-surface-2 transition-colors">
+                    <td className="px-4 py-2.5">
+                      <div className="font-syne font-semibold text-ink text-sm">{d.name}</div>
+                    </td>
+                    <td className="px-4 py-2.5 text-ink-3 text-xs font-serif">{d.generic_name || "—"}</td>
+                    <td className="px-4 py-2.5 text-ink-2 text-xs font-serif capitalize">{d.drug_class || "—"}</td>
+                    <td className="px-4 py-2.5 text-ink-3 text-xs">{d.indications_count}</td>
+                    <td className="px-4 py-2.5">
+                      <div className="flex gap-1 flex-wrap">
+                        {(["is_high_yield", "is_nti", "is_veterinary"] as const).map(flag => (
+                          <button
+                            key={flag}
+                            onClick={() => toggleFlag(d.id, flag, d[flag])}
+                            className={`text-[10px] font-syne font-semibold rounded px-1.5 py-0.5 border transition-colors ${
+                              d[flag]
+                                ? flag === "is_high_yield" ? "bg-amber-light text-amber border-amber/30"
+                                  : flag === "is_nti" ? "bg-red-light text-red border-red/30"
+                                  : "bg-blue-light text-blue border-blue/20"
+                                : "bg-surface-2 text-ink-3 border-border"
+                            }`}
+                          >
+                            {flag === "is_high_yield" ? "HY" : flag === "is_nti" ? "NTI" : "Vet"}
+                          </button>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-4 py-2.5">
+                      <button
+                        onClick={() => deleteDrug(d.id, d.name)}
+                        disabled={deleting === d.id}
+                        className="text-xs font-syne text-red hover:bg-red-light border border-red/30 rounded px-2 py-0.5"
+                      >
+                        {deleting === d.id ? "…" : "Delete"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {!drugs.length && !loading && (
+                  <tr><td colSpan={6} className="px-4 py-10 text-center text-ink-3 font-serif text-sm">No drugs found</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {total > 50 && (
+        <div className="flex gap-2 justify-center">
+          <button onClick={() => load(page - 1)} disabled={page === 1} className="btn text-xs px-3">← Prev</button>
+          <span className="text-xs text-ink-3 self-center">Page {page} of {Math.ceil(total / 50)}</span>
+          <button onClick={() => load(page + 1)} disabled={page * 50 >= total} className="btn text-xs px-3">Next →</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+// ── Revenue Panel ─────────────────────────────────────────────────────────────
+
+function RevenuePanel() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.get("/admin/revenue").then(r => setData(r.data)).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="p-10 text-center text-ink-3 font-serif text-sm">Loading…</div>;
+  if (!data) return <div className="p-10 text-center text-red font-serif text-sm">Failed to load revenue data</div>;
+
+  const purchaseTotal = (data.credit_summary.find((x: any) => x.type === "purchase")?.usd ?? 0) as number;
+  const purchaseCount = (data.credit_summary.find((x: any) => x.type === "purchase")?.count ?? 0) as number;
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { label: "This month", val: `$${Number(data.this_month_usd).toFixed(2)}` },
+          { label: "Prev month", val: `$${Number(data.prev_month_usd).toFixed(2)}` },
+          { label: "Total revenue", val: `$${Number(purchaseTotal).toFixed(2)}` },
+          { label: "Total purchases", val: purchaseCount },
+        ].map(({ label, val }) => (
+          <div key={label} className="card p-4">
+            <div className="text-xs font-syne text-ink-3 uppercase tracking-wider mb-1">{label}</div>
+            <div className="font-syne font-bold text-xl text-ink">{val}</div>
+          </div>
+        ))}
+      </div>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="card p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-4">Users by Subscription</h3>
+          <div className="space-y-2">
+            {data.subscription_tiers.map((t: any) => (
+              <div key={t.tier} className="flex items-center gap-3">
+                <span className={`font-syne font-semibold text-xs rounded px-2 py-0.5 border w-20 text-center ${TIER_COLORS[t.tier] ?? "bg-surface-2 text-ink-3 border-border"}`}>
+                  {t.tier}
+                </span>
+                <div className="flex-1 bg-surface-2 rounded-full h-2 overflow-hidden">
+                  <div className="h-full rounded-full bg-ink transition-all" style={{ width: `${Math.min(100, (t.count / Math.max(...data.subscription_tiers.map((x: any) => x.count), 1)) * 100)}%` }} />
+                </div>
+                <span className="font-syne font-semibold text-ink text-sm w-8 text-right">{t.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="card p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-4">Credit Activity</h3>
+          <div className="space-y-2">
+            {data.credit_summary.map((c: any) => (
+              <div key={c.type} className="flex justify-between text-sm">
+                <span className="font-syne text-ink-2 capitalize">{c.type}</span>
+                <div className="flex gap-3">
+                  <span className="font-syne font-semibold text-ink">{c.credits.toLocaleString()} cr</span>
+                  {c.usd > 0 && <span className="text-ink-3 font-serif">${c.usd.toFixed(2)}</span>}
+                  <span className="text-ink-3 font-serif text-xs self-center">{c.count} tx</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="card overflow-hidden">
+        <div className="px-5 py-3 border-b border-border bg-surface-2">
+          <h3 className="font-syne font-bold text-sm text-ink">Recent Transactions</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                {["Type", "Credits", "USD", "User", "Description", "Date"].map(h => (
+                  <th key={h} className="text-left px-4 py-2 font-syne text-xs uppercase text-ink-3">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.recent_transactions.map((tx: any, i: number) => (
+                <tr key={i} className="border-b border-border last:border-0 hover:bg-surface-2">
+                  <td className="px-4 py-2">
+                    <span className={`text-xs font-syne font-semibold rounded px-1.5 py-0.5 ${tx.type === "purchase" ? "bg-green-light text-green" : tx.type === "spend" ? "bg-amber-light text-amber" : tx.type === "bonus" ? "bg-blue-light text-blue" : "bg-surface-2 text-ink-3"}`}>{tx.type}</span>
+                  </td>
+                  <td className="px-4 py-2 font-syne font-semibold text-ink text-xs">{tx.credits > 0 ? "+" : ""}{tx.credits}</td>
+                  <td className="px-4 py-2 text-ink-2 text-xs">{tx.usd != null ? `$${tx.usd.toFixed(2)}` : "—"}</td>
+                  <td className="px-4 py-2 text-ink-3 text-xs font-serif truncate max-w-[160px]">{tx.user_email}</td>
+                  <td className="px-4 py-2 text-ink-3 text-xs font-serif truncate max-w-[200px]">{tx.description || "—"}</td>
+                  <td className="px-4 py-2 text-ink-3 text-xs font-serif whitespace-nowrap">{tx.created_at ? new Date(tx.created_at).toLocaleDateString() : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {data.stripe_events.length > 0 && (
+        <div className="card p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">Recent Stripe Events</h3>
+          <div className="space-y-1">
+            {data.stripe_events.map((e: any, i: number) => (
+              <div key={i} className="flex items-center gap-3 text-xs font-serif text-ink-3">
+                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${e.processed ? "bg-green" : "bg-amber"}`} />
+                <span className="font-mono text-ink-2">{e.type}</span>
+                <span className="ml-auto">{e.at ? new Date(e.at).toLocaleDateString() : ""}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

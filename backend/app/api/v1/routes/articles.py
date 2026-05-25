@@ -1083,7 +1083,15 @@ async def my_articles(
         select(Article).where(Article.author_id == user.id)
         .order_by(desc(Article.created_at))
     )).scalars().all()
-    return [_detail(a) | {"is_published": a.is_published} for a in rows]
+    return [
+        _detail(a) | {
+            "is_published": a.is_published,
+            "view_count": a.view_count or 0,
+            "submitted_at": a.submitted_at.isoformat() if getattr(a, "submitted_at", None) else None,
+            "updated_at": a.updated_at.isoformat() if a.updated_at else None,
+        }
+        for a in rows
+    ]
 
 
 @router.post("/my")
