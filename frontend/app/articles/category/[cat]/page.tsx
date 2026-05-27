@@ -54,12 +54,11 @@ export async function generateMetadata({
   const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
   const description = CATEGORY_DESCRIPTIONS[params.cat] ??
     `Evidence-based medical articles in ${label}. Comprehensive content for healthcare professionals.`;
-  const baseUrl = `${SITE_URL}/articles/category/${params.cat}`;
-  // Self-referential canonical includes locale so Google indexes each language variant
-  const langSuffix = locale !== "en" ? `lang=${locale}` : "";
-  const pageSuffix = page > 1 ? `page=${page}` : "";
-  const qs = [langSuffix, pageSuffix].filter(Boolean).join("&");
-  const canonical = qs ? `${baseUrl}?${qs}` : baseUrl;
+  const basePath = `/articles/category/${params.cat}`;
+  const baseUrl  = `${SITE_URL}${basePath}`;
+  // Path-prefixed canonical so Google indexes each language as a distinct page
+  const localBase = locale !== "en" ? `${SITE_URL}/${locale}${basePath}` : baseUrl;
+  const canonical = page > 1 ? `${localBase}?page=${page}` : localBase;
 
   return {
     title: page > 1 ? `${label} — Page ${page} — Medical Articles` : `${label} — Medical Articles`,
@@ -69,7 +68,7 @@ export async function generateMetadata({
       languages: Object.fromEntries(
         ["en", "ru", "ar", "tr", "de", "fr", "es"].map((l) => [
           l,
-          l === "en" ? baseUrl : `${baseUrl}?lang=${l}`,
+          l === "en" ? baseUrl : `${SITE_URL}/${l}${basePath}`,
         ])
       ),
     },
@@ -199,7 +198,9 @@ export default async function CategoryPage({
             <div>
               {page > 1 && (
                 <Link
-                  href={`/articles/category/${params.cat}?page=${page - 1}${locale !== "en" ? `&lang=${locale}` : ""}`}
+                  href={locale !== "en"
+                    ? `/${locale}/articles/category/${params.cat}${page - 1 > 1 ? `?page=${page - 1}` : ""}`
+                    : `/articles/category/${params.cat}${page - 1 > 1 ? `?page=${page - 1}` : ""}`}
                   className="inline-flex items-center gap-1.5 font-syne font-semibold text-sm text-ink-2 hover:text-ink border border-border rounded-lg px-4 py-2 hover:border-ink transition-all"
                 >
                   ← Previous
@@ -212,7 +213,9 @@ export default async function CategoryPage({
             <div>
               {page < totalPages && (
                 <Link
-                  href={`/articles/category/${params.cat}?page=${page + 1}${locale !== "en" ? `&lang=${locale}` : ""}`}
+                  href={locale !== "en"
+                    ? `/${locale}/articles/category/${params.cat}?page=${page + 1}`
+                    : `/articles/category/${params.cat}?page=${page + 1}`}
                   className="inline-flex items-center gap-1.5 font-syne font-semibold text-sm text-ink-2 hover:text-ink border border-border rounded-lg px-4 py-2 hover:border-ink transition-all"
                 >
                   Next →

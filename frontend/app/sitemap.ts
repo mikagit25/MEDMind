@@ -61,13 +61,30 @@ async function fetchArticleSlugs(): Promise<ArticleSitemapEntry[]> {
   }
 }
 
-/** hreflang map using ?lang=XX query param (our actual URL scheme) */
+/**
+ * Build hreflang alternates using path-prefixed URLs (/es/path, /ru/path).
+ * Google treats path-prefixed locales as distinct pages; query params (?lang=)
+ * are canonicalized to the base URL and never indexed as separate language versions.
+ *
+ * baseUrl must be the full English URL, e.g. https://medmind.pro/articles/slug
+ * The locale prefix is inserted after the origin: https://medmind.pro/es/articles/slug
+ */
 function langAlternates(baseUrl: string, availableLocales: string[] = LOCALES): Record<string, string> {
-  const map: Record<string, string> = { "x-default": baseUrl, en: baseUrl };
+  // Extract origin + path separately so we can inject the locale prefix correctly
+  const url = new URL(baseUrl);
+  const map: Record<string, string> = {
+    "x-default": baseUrl,
+    en: baseUrl,
+  };
   for (const l of availableLocales) {
-    if (l !== "en") map[l] = `${baseUrl}?lang=${l}`;
+    if (l !== "en") map[l] = `${url.origin}/${l}${url.pathname}${url.search}`;
   }
   return map;
+}
+
+/** Locale-prefixed URL for a given path (empty prefix for English). */
+function localizedUrl(path: string, locale: string): string {
+  return locale === "en" ? `${SITE_URL}${path}` : `${SITE_URL}/${locale}${path}`;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -103,7 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   for (const loc of NON_EN) {
     entries.push({
-      url: `${SITE_URL}/articles?lang=${loc}`,
+      url: localizedUrl("/articles", loc),
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.8,
@@ -121,21 +138,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   for (const loc of NON_EN) {
     entries.push({
-      url: `${SITE_URL}/drugs?lang=${loc}`,
+      url: localizedUrl("/drugs", loc),
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.8,
+      alternates: { languages: langAlternates(`${SITE_URL}/drugs`) },
     });
   }
 
   // ── Individual drug pages ─────────────────────────────────────────────────
   const drugs = await fetchDrugIds();
   for (const drug of drugs) {
-    const baseUrl = `${SITE_URL}/drugs/${drug.id}`;
-    const langs   = drug.available_langs ?? [];
+    const basePath = `/drugs/${drug.id}`;
+    const baseUrl  = `${SITE_URL}${basePath}`;
+    const langs    = drug.available_langs ?? [];
     const langMap: Record<string, string> = { "x-default": baseUrl, en: baseUrl };
     for (const l of langs) {
-      if (l !== "en") langMap[l] = `${baseUrl}?lang=${l}`;
+      if (l !== "en") langMap[l] = localizedUrl(basePath, l);
     }
     entries.push({
       url: baseUrl,
@@ -147,7 +166,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const l of langs) {
       if (l !== "en") {
         entries.push({
-          url: `${baseUrl}?lang=${l}`,
+          url: localizedUrl(basePath, l),
           lastModified: now,
           changeFrequency: "monthly",
           priority: 0.65,
@@ -167,10 +186,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   for (const loc of NON_EN) {
     entries.push({
-      url: `${SITE_URL}/imaging?lang=${loc}`,
+      url: localizedUrl("/imaging", loc),
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.75,
+      alternates: { languages: langAlternates(`${SITE_URL}/imaging`) },
     });
   }
 
@@ -192,15 +212,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const article of articles) {
     const lastMod  = article.updated_at ? new Date(article.updated_at) : now;
-    const baseUrl  = `${SITE_URL}/articles/${article.slug}`;
-    const avail    = ["en", ...(article.locales ?? [])];
+    const basePath = `/articles/${article.slug}`;
+    const baseUrl  = `${SITE_URL}${basePath}`;
 
     const languages: Record<string, string> = {
       "x-default": baseUrl,
       en: baseUrl,
     };
     for (const loc of article.locales ?? []) {
-      languages[loc] = `${baseUrl}?lang=${loc}`;
+      languages[loc] = localizedUrl(basePath, loc);
     }
 
     // English canonical
@@ -212,10 +232,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       alternates: { languages },
     });
 
-    // One entry per translated locale so Google indexes each language variant
+    // One path-prefixed entry per translated locale — Google indexes each as a
+    // distinct page rather than a query-param duplicate of the English version.
     for (const loc of article.locales ?? []) {
       entries.push({
-        url: `${baseUrl}?lang=${loc}`,
+        url: localizedUrl(basePath, loc),
         lastModified: lastMod,
         changeFrequency: "monthly",
         priority: 0.7,
@@ -228,7 +249,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Category pages — English + non-English variants ───────────────────────
   for (const [cat, count] of Object.entries(categoryCount)) {
-    const catBase = `${SITE_URL}/articles/category/${cat}`;
+    const catPath = `/articles/category/${cat}`;
+    const catBase = `${SITE_URL}${catPath}`;
     const langMap = langAlternates(catBase);
 
     // English base
@@ -239,10 +261,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
       alternates: { languages: langMap },
     });
-    // Non-English variants
+    // Non-English variants — path-prefixed so Google indexes them independently
     for (const loc of NON_EN) {
       entries.push({
-        url: `${catBase}?lang=${loc}`,
+        url: localizedUrl(catPath, loc),
         lastModified: now,
         changeFrequency: "weekly",
         priority: 0.6,

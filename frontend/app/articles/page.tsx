@@ -31,7 +31,7 @@ export async function generateMetadata({
     };
   }
 
-  const canonical = locale !== "en" ? `${SITE_URL}/articles?lang=${locale}` : `${SITE_URL}/articles`;
+  const canonical = locale !== "en" ? `${SITE_URL}/${locale}/articles` : `${SITE_URL}/articles`;
 
   return {
     title: "Medical Articles — Evidence-Based Health Information",
@@ -40,7 +40,7 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: Object.fromEntries(
-        SUPPORTED.map((l) => [l, l === "en" ? `${SITE_URL}/articles` : `${SITE_URL}/articles?lang=${l}`])
+        SUPPORTED.map((l) => [l, l === "en" ? `${SITE_URL}/articles` : `${SITE_URL}/${l}/articles`])
       ),
     },
     openGraph: {
@@ -216,7 +216,7 @@ export default async function ArticlesPage({
 }
 
 function ArticleCard({ article, locale }: { article: Article; locale: string }) {
-  const href = locale && locale !== "en" ? `/articles/${article.slug}?lang=${locale}` : `/articles/${article.slug}`;
+  const href = locale && locale !== "en" ? `/${locale}/articles/${article.slug}` : `/articles/${article.slug}`;
   return (
     <Link
       href={href}

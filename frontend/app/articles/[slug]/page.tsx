@@ -186,17 +186,18 @@ export async function generateMetadata({
   const title = article.og_title ?? article.title;
   const description = article.og_description ?? article.excerpt;
   const canonicalUrl = `${SITE_URL}/articles/${article.slug}`;
+  // Path-prefixed canonical so Google indexes /es/articles/slug as a distinct page
   const currentUrl = locale !== "en"
-    ? `${SITE_URL}/articles/${article.slug}?lang=${locale}`
+    ? `${SITE_URL}/${locale}/articles/${article.slug}`
     : canonicalUrl;
 
-  // Build hreflang alternates for all available translations
+  // Build hreflang alternates — path-prefixed to avoid query-param canonicalization
   const hreflangAlternates: Record<string, string> = {
     "x-default": canonicalUrl,
     en: canonicalUrl,
   };
   for (const loc of availableLocales) {
-    hreflangAlternates[loc] = `${SITE_URL}/articles/${article.slug}?lang=${loc}`;
+    hreflangAlternates[loc] = `${SITE_URL}/${loc}/articles/${article.slug}`;
   }
 
   return {
@@ -771,7 +772,7 @@ export default async function ArticlePage({
               <div>
                 {nav.prev && (
                   <Link
-                    href={`/articles/${nav.prev.slug}?lang=${locale}`}
+                    href={locale !== "en" ? `/${locale}/articles/${nav.prev.slug}` : `/articles/${nav.prev.slug}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
                     <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">←</span>
@@ -784,7 +785,7 @@ export default async function ArticlePage({
               <div>
                 {nav.next && (
                   <Link
-                    href={`/articles/${nav.next.slug}?lang=${locale}`}
+                    href={locale !== "en" ? `/${locale}/articles/${nav.next.slug}` : `/articles/${nav.next.slug}`}
                     className="group flex flex-col gap-1 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all text-right"
                   >
                     <span className="text-[10px] font-syne font-semibold text-ink-3 uppercase tracking-wider">→</span>
@@ -807,7 +808,7 @@ export default async function ArticlePage({
                 {related.map((r) => (
                   <Link
                     key={r.slug}
-                    href={`/articles/${r.slug}?lang=${locale}`}
+                    href={locale !== "en" ? `/${locale}/articles/${r.slug}` : `/articles/${r.slug}`}
                     className="group flex flex-col gap-2 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
                   >
                     <h3 className="font-syne font-semibold text-sm text-ink group-hover:text-accent transition-colors line-clamp-2">
@@ -880,7 +881,9 @@ export default async function ArticlePage({
               <div className="flex flex-col gap-1">
                 {allLocales.map((loc) => {
                   const isCurrent = loc === locale;
-                  const href = `/articles/${article.slug}?lang=${loc}`;
+                  const href = loc !== "en"
+                    ? `/${loc}/articles/${article.slug}`
+                    : `/articles/${article.slug}`;
                   return (
                     <Link
                       key={loc}

@@ -47,11 +47,13 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-snippet": -1 },
   },
-  // Tell crawlers this page is available in 7 languages
+  // Root-level hreflang — points to language homepages served by middleware.
+  // English has no prefix; other locales use /es, /ru, etc. (middleware rewrites
+  // these to /?lang=XX so the homepage renders in that locale).
   alternates: {
     canonical: SITE_URL,
     languages: Object.fromEntries(
-      SUPPORTED_LOCALES.map((l) => [l, `${SITE_URL}/${l}`])
+      SUPPORTED_LOCALES.map((l) => [l, l === "en" ? SITE_URL : `${SITE_URL}/${l}`])
     ),
   },
 };
@@ -138,9 +140,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }
           } catch(e) {}
         `}} />
-        {/* hreflang — tells Google which locale version to serve per country */}
+        {/* hreflang — root-level signals for the site homepage */}
         {SUPPORTED_LOCALES.map((l) => (
-          <link key={l} rel="alternate" hrefLang={l} href={`${SITE_URL}/${l}`} />
+          <link key={l} rel="alternate" hrefLang={l} href={l === "en" ? SITE_URL : `${SITE_URL}/${l}`} />
         ))}
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         {/* PWA */}
