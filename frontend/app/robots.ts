@@ -156,7 +156,18 @@ export default function robots(): MetadataRoute.Robots {
         disallow: DISALLOW_ALL,
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    // Sitemap index + one sitemap per language so Google allocates crawl budget
+    // per language and can index all 7 locales in parallel.
+    sitemap: [
+      `${SITE_URL}/sitemap.xml`,
+      `${SITE_URL}/sitemap-en.xml`,
+      `${SITE_URL}/sitemap-ru.xml`,
+      `${SITE_URL}/sitemap-ar.xml`,
+      `${SITE_URL}/sitemap-tr.xml`,
+      `${SITE_URL}/sitemap-de.xml`,
+      `${SITE_URL}/sitemap-fr.xml`,
+      `${SITE_URL}/sitemap-es.xml`,
+    ],
     host: SITE_URL,
   };
 }
