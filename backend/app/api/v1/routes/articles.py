@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import logging
 import mimetypes
+import os
 import re as _re
 import uuid as _uuid
 from datetime import datetime
@@ -699,13 +700,12 @@ ANSWER:"""
 
     answer = None
 
-    # Paid users → Claude
+    # 1. Paid users → Claude
     if is_paid:
         try:
             import anthropic as _anthropic
-            from app.core.config import settings as _s
-            if _s.ANTHROPIC_API_KEY:
-                client = _anthropic.AsyncAnthropic(api_key=_s.ANTHROPIC_API_KEY)
+            if settings.ANTHROPIC_API_KEY:
+                client = _anthropic.AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
                 msg = await client.messages.create(
                     model="claude-haiku-4-5-20251001",
                     max_tokens=512,
@@ -715,7 +715,38 @@ ANSWER:"""
         except Exception as e:
             logger.warning("Claude ask failed for %s: %s", slug, e)
 
-    # Free users or Claude fallback → Ollama
+    # 2. Groq fallback (free & fast — all users when Claude unavailable)
+    if not answer:
+        try:
+            import httpx as _httpx
+            _groq_keys = [
+                settings.GROQ_API_KEY,
+                *[os.environ.get(f"GROQ_API_KEY_{i}", "") for i in range(2, 6)],
+            ]
+            _groq_keys = [k for k in _groq_keys if k]
+            for _key in _groq_keys:
+                try:
+                    _resp = await _httpx.AsyncClient(timeout=30).post(
+                        "https://api.groq.com/openai/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {_key}", "Content-Type": "application/json"},
+                        json={
+                            "model":    settings.GROQ_MODEL or "llama-3.3-70b-versatile",
+                            "messages": [{"role": "user", "content": prompt}],
+                            "max_tokens": 512,
+                            "temperature": 0.3,
+                        },
+                    )
+                    if _resp.status_code == 200:
+                        answer = _resp.json()["choices"][0]["message"]["content"].strip()
+                        break
+                    elif _resp.status_code == 429:
+                        continue  # try next key
+                except Exception:
+                    continue
+        except Exception as e:
+            logger.warning("Groq ask failed for %s: %s", slug, e)
+
+    # 3. Ollama final fallback (local, always available)
     if not answer:
         try:
             import httpx as _httpx

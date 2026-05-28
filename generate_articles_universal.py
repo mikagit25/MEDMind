@@ -74,11 +74,11 @@ PROVIDERS = {
     "cerebras": {
         "base_url":   "https://api.cerebras.ai/v1/chat/completions",
         "env_vars":   ["CEREBRAS_API_KEY"] + [f"CEREBRAS_API_KEY_{i}" for i in range(2, 10)],
-        "models":     ["qwen-3-235b-a22b-instruct-2507", "gpt-oss-120b", "llama3.1-8b"],
-        "default":    "qwen-3-235b-a22b-instruct-2507",
+        "models":     ["gpt-oss-120b", "zai-glm-4.7"],
+        "default":    "gpt-oss-120b",
         "rpd":        1000,
         "rpm":        30,
-        "speed":      "~900 tok/s, 235B model (highest quality)",
+        "speed":      "~900 tok/s",
         "register":   "https://inference.cerebras.ai",
     },
     "openrouter": {

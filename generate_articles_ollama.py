@@ -50,7 +50,7 @@ except ImportError:
 # ── Config ─────────────────────────────────────────────────────────────────────
 OLLAMA_URL  = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "qwen3:1.7b"   # fast model ~2.5 min/article; use --model qwen3:8b for quality
-DB_URL      = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+DB_URL      = "postgresql://medmind:medmind_secret@172.20.0.3:5432/medmind"
 LOCALES     = ["ru", "de", "fr", "es", "tr", "ar"]
 DELAY       = 3.0             # seconds between articles
 INDEXNOW_KEY = "b58fd85c39a0441e97c1587402e9c9df"
@@ -984,13 +984,13 @@ def save_translations(conn, article_id: str, title: str, excerpt: str,
 
 
 def notify_indexnow(slug: str):
-    """Ping Bing/Yandex IndexNow for instant indexing."""
-    url = f"https://medmind.pro/articles/{slug}"
+    """Ping IndexNow for all language variants of a new article."""
+    urls = [f"https://medmind.pro/articles/{slug}"]  # English (canonical)
+    urls += [f"https://medmind.pro/{loc}/articles/{slug}" for loc in LOCALES]
     try:
         httpx.post(
             "https://api.indexnow.org/indexnow",
-            json={"host": "medmind.pro", "key": INDEXNOW_KEY,
-                  "urlList": [url]},
+            json={"host": "medmind.pro", "key": INDEXNOW_KEY, "urlList": urls},
             timeout=5
         )
     except Exception:

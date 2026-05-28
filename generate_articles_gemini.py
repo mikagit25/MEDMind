@@ -56,7 +56,7 @@ log = logging.getLogger(__name__)
 
 # ── Gemini config ─────────────────────────────────────────────────────────────
 GEMINI_URL  = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-2.0-flash"
 GEMINI_MODELS = {
     "gemini-2.5-flash":      {"rpd": 500,  "rpm": 10,  "desc": "Latest, best quality (default)"},
     "gemini-2.0-flash":      {"rpd": 1500, "rpm": 15,  "desc": "Fast, high daily limit"},
