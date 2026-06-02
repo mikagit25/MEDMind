@@ -36,6 +36,12 @@ ACCOUNTS = {
         "token_file":  "/opt/medmind/youtube_token_ar.json",
         "secret_file": "/opt/medmind/client_secret_account3_web.json",
     },
+    "kids": {
+        "label":       "🐻 Happy Bear Kids",
+        "token_file":  "/opt/kids_channel/credentials/token.pickle",
+        "token_type":  "pickle",
+        "reauth_cmd":  "python3 /opt/kids_channel/scripts/reauth_youtube.py",
+    },
 }
 
 YT_SCOPES = (
@@ -43,6 +49,28 @@ YT_SCOPES = (
     " https://www.googleapis.com/auth/youtube"
     " https://www.googleapis.com/auth/youtube.force-ssl"
 )
+
+
+def check_pickle_token(token_file: str) -> tuple[bool, str]:
+    """Try to refresh pickle token. Returns (is_valid, status_message)."""
+    import pickle
+    try:
+        from google.auth.transport.requests import Request
+        with open(token_file, "rb") as f:
+            creds = pickle.load(f)
+        if creds.valid:
+            return True, "действителен"
+        if creds.refresh_token:
+            creds.refresh(Request())
+            with open(token_file, "wb") as f:
+                pickle.dump(creds, f)
+            return True, "обновлён успешно"
+        return False, "нет refresh_token"
+    except Exception as e:
+        msg = str(e).lower()
+        if "invalid_grant" in msg:
+            return False, "refresh_token истёк — нужна повторная авторизация"
+        return False, f"ошибка: {str(e)[:80]}"
 
 
 def token_expires_in(token_file: str) -> float | None:
@@ -111,17 +139,36 @@ def main():
 
     alerts = []
     for account, cfg in ACCOUNTS.items():
+        # ── Pickle token (kids channel) ───────────────────────────────────────
+        if cfg.get("token_type") == "pickle":
+            valid, status = check_pickle_token(cfg["token_file"])
+            print(f"  {cfg['label']}: {status}")
+            if not valid:
+                alerts.append({
+                    "label":      cfg["label"],
+                    "hours_left": 0,
+                    "auth_url":   None,
+                    "reauth_cmd": cfg.get("reauth_cmd", ""),
+                    "is_pickle":  True,
+                })
+            continue
+
+        # ── JSON token (MedMind channels) ─────────────────────────────────────
         expires_in = token_expires_in(cfg["token_file"])
         if expires_in is None:
             print(f"  {cfg['label']}: expiry unknown (token saved before monitor)")
-            # Try to refresh and check
             expires_in = 7 * 86400  # assume 7 days if unknown
         hours_left = expires_in / 3600
         print(f"  {cfg['label']}: expires in {hours_left:.1f}h")
 
         if expires_in < ALERT_HOURS * 3600:
             auth_url = build_auth_url(cfg["secret_file"], account)
-            alerts.append((cfg["label"], hours_left, auth_url))
+            alerts.append({
+                "label":      cfg["label"],
+                "hours_left": hours_left,
+                "auth_url":   auth_url,
+                "is_pickle":  False,
+            })
 
     if not alerts:
         print("  ✅ All tokens are healthy")
@@ -129,15 +176,26 @@ def main():
 
     # Build Telegram message
     msg_lines = ["🔑 <b>YouTube Token Renewal Required</b>\n"]
-    for label, hours_left, auth_url in alerts:
-        msg_lines.append(f"<b>{label}</b> — expires in <b>{hours_left:.0f}h</b>")
-        if auth_url:
-            msg_lines.append(f"👉 <a href=\"{auth_url}\">Tap to renew (opens Google)</a>")
+    for alert in alerts:
+        label     = alert["label"]
+        auth_url  = alert.get("auth_url")
+        is_pickle = alert.get("is_pickle", False)
+
+        if is_pickle:
+            msg_lines.append(f"<b>{label}</b> — ❌ требуется повторная авторизация")
+            cmd = alert.get("reauth_cmd", "")
+            if cmd:
+                msg_lines.append(f"🖥 SSH на сервер и выполни:\n<code>{cmd}</code>")
         else:
-            msg_lines.append("⚠️ Auth URL unavailable — run auth script manually")
+            hours_left = alert["hours_left"]
+            msg_lines.append(f"<b>{label}</b> — expires in <b>{hours_left:.0f}h</b>")
+            if auth_url:
+                msg_lines.append(f"👉 <a href=\"{auth_url}\">Tap to renew (opens Google)</a>")
+            else:
+                msg_lines.append("⚠️ Auth URL unavailable — run auth script manually")
         msg_lines.append("")
 
-    msg_lines.append("After tapping: log in → Allow → token saves automatically.")
+    msg_lines.append("MedMind: tap link → log in → Allow → saves automatically.")
     message = "\n".join(msg_lines)
 
     if ADMIN_CHAT_ID:

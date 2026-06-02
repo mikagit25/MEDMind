@@ -24,6 +24,11 @@ ACCOUNTS = [
         "secret": "/opt/medmind/client_secret_account3_web.json",
         "token":  "/opt/medmind/youtube_token_ar.json",
     },
+    {
+        "label":      "🐻 Happy Bear Kids",
+        "token":      "/opt/kids_channel/credentials/token.pickle",
+        "token_type": "pickle",
+    },
 ]
 
 
@@ -69,6 +74,23 @@ def curl_tg(msg: str) -> bool:
         return False
 
 
+def get_access_token_pickle(token_path: str) -> str | None:
+    """Get/refresh access token from google-auth pickle file (kids channel)."""
+    import pickle
+    try:
+        from google.auth.transport.requests import Request
+        with open(token_path, "rb") as f:
+            creds = pickle.load(f)
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+            with open(token_path, "wb") as f:
+                pickle.dump(creds, f)
+        return creds.token if creds.valid else None
+    except Exception as e:
+        print(f"  Pickle token error: {e}")
+        return None
+
+
 def get_access_token(secret_path: str, token_path: str) -> str | None:
     with open(secret_path) as f:
         s = json.load(f)
@@ -112,7 +134,10 @@ def main():
     for acc in ACCOUNTS:
         print(f"Fetching {acc['label']}…")
         try:
-            token = get_access_token(acc["secret"], acc["token"])
+            if acc.get("token_type") == "pickle":
+                token = get_access_token_pickle(acc["token"])
+            else:
+                token = get_access_token(acc["secret"], acc["token"])
             if not token:
                 lines.append(f"{acc['label']}: ❌ нет токена\n")
                 continue
