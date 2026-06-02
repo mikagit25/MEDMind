@@ -24,7 +24,7 @@ from pathlib import Path
 
 import httpx
 
-DAILY_LIMIT     = 3   # API quota: 10K units/day, ~1700/video → max 5 total with regular uploads
+DAILY_LIMIT     = 2   # 4 regular + 2 Shorts = 6 total/day ≈ 9600 API units (under 10K limit)
 WAIT_BETWEEN    = 30             # seconds between uploads (Shorts are smaller)
 OUTPUT_DIR      = Path("/tmp/yt_shorts")
 TRACKING_FILE   = Path(os.environ.get("YT_TRACKING", "/opt/medmind/youtube_shorts_uploaded.json"))

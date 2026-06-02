@@ -650,6 +650,38 @@ async def create_assignment(
     )
 
 
+@router.put("/{course_id}/assignments/{assignment_id}", response_model=AssignmentOut)
+async def update_assignment(
+    course_id: UUID,
+    assignment_id: UUID,
+    body: AssignmentCreate,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    _require_teacher(user)
+    result = await db.execute(
+        select(CourseAssignment).where(
+            CourseAssignment.id == assignment_id,
+            CourseAssignment.course_id == course_id,
+        )
+    )
+    assignment = result.scalar_one_or_none()
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    assignment.title = body.title
+    assignment.description = body.description
+    assignment.due_date = body.due_date
+    assignment.max_score = body.max_score
+    await db.commit()
+    await db.refresh(assignment)
+    return AssignmentOut(
+        id=assignment.id, module_id=assignment.module_id,
+        title=assignment.title, description=assignment.description,
+        due_date=assignment.due_date.isoformat() if assignment.due_date else None,
+        max_score=assignment.max_score,
+    )
+
+
 @router.delete("/{course_id}/assignments/{assignment_id}", status_code=204)
 async def delete_assignment(
     course_id: UUID,
@@ -965,3 +997,53 @@ async def get_grades(
             "graded_at": r.graded_at.isoformat() if r.graded_at else None,
         })
     return {"assignment_id": str(assignment_id), "grades": grades}
+
+
+@router.get("/{course_id}/my-assignments")
+async def get_my_assignments(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Student view: list assignments with deadline status for an enrolled course."""
+    # Verify enrollment
+    enr = (await db.execute(
+        select(CourseEnrollment).where(
+            CourseEnrollment.course_id == course_id,
+            CourseEnrollment.student_id == user.id,
+            CourseEnrollment.status == "active",
+        )
+    )).scalar_one_or_none()
+    if not enr:
+        raise HTTPException(403, "Not enrolled in this course")
+
+    assignments = (await db.execute(
+        select(CourseAssignment, Module.title.label("mod_title"))
+        .outerjoin(Module, Module.id == CourseAssignment.module_id)
+        .where(CourseAssignment.course_id == course_id)
+        .order_by(CourseAssignment.due_date.asc().nullslast())
+    )).all()
+
+    now = datetime.utcnow()
+    result = []
+    for a, mod_title in assignments:
+        due = a.due_date
+        if due is None:
+            status = "no_deadline"
+        elif due < now:
+            status = "overdue"
+        elif (due - now).days <= 3:
+            status = "due_soon"
+        else:
+            status = "upcoming"
+        result.append({
+            "id": str(a.id),
+            "module_id": str(a.module_id),
+            "module_title": mod_title or "",
+            "title": a.title or mod_title or "Assignment",
+            "description": a.description,
+            "due_date": due.isoformat() if due else None,
+            "status": status,
+            "max_score": a.max_score,
+        })
+    return {"assignments": result}

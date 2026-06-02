@@ -637,3 +637,97 @@ async def google_exchange_code(code: str):
         "refresh_token": data["refresh_token"],
         "onboarding": data["onboarding"],
     }
+
+
+# ── YouTube OAuth callback ────────────────────────────────────────────────────
+# Handles automatic token renewal for YouTube channels.
+# Flow: cron generates auth URL → sends to Telegram → admin taps link →
+#       Google redirects here with code → token saved automatically.
+
+_YT_TOKEN_PATHS = {
+    "en": "/app/youtube_token_en.json",
+    "es": "/app/youtube_token_es.json",
+}
+_YT_SECRET_PATHS = {
+    "en": "/app/client_secret_web.json",
+    "es": "/app/client_secret_account2_web.json",
+}
+_YT_CALLBACK_URL = "https://medmind.pro/api/v1/auth/youtube/callback"
+
+@router.get("/youtube/callback")
+async def youtube_token_callback(
+    code: str | None = None,
+    state: str = "en",      # carries account id: "en" or "es"
+    error: str | None = None,
+):
+    """
+    Receives YouTube OAuth redirect. Exchanges code for token and saves it.
+    account is passed via `state` param so redirect_uri stays clean (no query params).
+    """
+    import json as _json, time as _time, httpx as _httpx
+    from fastapi.responses import HTMLResponse
+
+    account = state  # state carries "en" or "es"
+
+    if error:
+        return HTMLResponse(f"<h2>❌ Auth error: {error}</h2>", status_code=400)
+    if not code:
+        return HTMLResponse("<h2>❌ No code received</h2>", status_code=400)
+    if account not in _YT_TOKEN_PATHS:
+        return HTMLResponse(f"<h2>❌ Unknown account: {account}</h2>", status_code=400)
+
+    secret_path = _YT_SECRET_PATHS.get(account)
+    token_path  = _YT_TOKEN_PATHS[account]
+
+    try:
+        with open(secret_path) as f:
+            secret = _json.load(f)
+        web = secret.get("web") or secret.get("installed") or {}
+        client_id     = web["client_id"]
+        client_secret = web["client_secret"]
+    except Exception as e:
+        return HTMLResponse(f"<h2>❌ Cannot read client secret: {e}</h2>", status_code=500)
+
+    resp = await _httpx.AsyncClient(timeout=15).post(
+        "https://oauth2.googleapis.com/token",
+        data={
+            "code":          code,
+            "client_id":     client_id,
+            "client_secret": client_secret,
+            "redirect_uri":  _YT_CALLBACK_URL,   # clean URI, no query params
+            "grant_type":    "authorization_code",
+        },
+    )
+    if resp.status_code != 200:
+        return HTMLResponse(
+            f"<h2>❌ Token exchange failed</h2><pre>{resp.text}</pre>", status_code=500
+        )
+
+    token = resp.json()
+    token["expires_at"] = _time.time() + token.get("expires_in", 3600)
+    # Store absolute refresh_token expiry for the monitor script
+    rte = token.get("refresh_token_expires_in")
+    if rte:
+        token["refresh_token_absolute_expiry"] = _time.time() + float(rte)
+
+    # Preserve existing refresh_token if new response doesn't include one
+    try:
+        with open(token_path) as f:
+            old = _json.load(f)
+        if not token.get("refresh_token") and old.get("refresh_token"):
+            token["refresh_token"] = old["refresh_token"]
+    except Exception:
+        pass
+
+    with open(token_path, "w") as f:
+        _json.dump(token, f, indent=2)
+
+    channel = "MedMind EN" if account == "en" else "MedMind ES"
+    return HTMLResponse(f"""
+<html><body style="font-family:sans-serif;padding:40px;text-align:center">
+<h1>✅ YouTube token renewed!</h1>
+<p>Channel: <strong>{channel}</strong></p>
+<p>Token saved. YouTube uploads will resume automatically.</p>
+<p>You can close this tab.</p>
+</body></html>
+""")

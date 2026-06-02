@@ -1,10 +1,13 @@
 """Role-based dashboard endpoints."""
+import io
+import hashlib
 import json
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, Depends, Query
-from sqlalchemy import select, func, desc
+from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import StreamingResponse
+from sqlalchemy import select, func, desc, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
@@ -397,3 +400,144 @@ async def professor_all_students(
         result.sort(key=lambda x: x.get("enrolled_at") or "", reverse=True)
 
     return {"students": result, "total": len(result)}
+
+
+# ── CME Certificate Generator ─────────────────────────────────────────────────
+
+@router.get("/doctor/cme-credits/{credit_id}/certificate")
+async def generate_cme_certificate(
+    credit_id: str,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate a professional PDF certificate for a CME activity."""
+    from reportlab.lib.pagesizes import landscape, A4
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import cm, inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
+    from reportlab.graphics.shapes import Drawing, Rect, String as RLString
+    import uuid as uuid_lib
+
+    # Fetch the CME credit record
+    row = (await db.execute(
+        select(CMECredit, Module.title.label("mod_title"))
+        .outerjoin(Module, Module.id == CMECredit.module_id)
+        .where(CMECredit.id == credit_id, CMECredit.user_id == user.id)
+    )).first()
+
+    if not row:
+        raise HTTPException(404, "Certificate not found")
+
+    credit, mod_title = row
+
+    # Generate deterministic certificate ID
+    cert_seed = f"{credit.id}:{user.id}:{credit.completion_date}"
+    cert_id = "MC-" + hashlib.sha256(cert_seed.encode()).hexdigest()[:12].upper()
+
+    # Persist cert_id in certificate_url if not set
+    if not credit.certificate_url:
+        await db.execute(
+            update(CMECredit).where(CMECredit.id == credit.id)
+            .values(certificate_url=cert_id)
+        )
+        await db.commit()
+
+    full_name = f"{user.first_name or ''} {user.last_name or ''}".strip() or "Medical Professional"
+    activity = credit.activity_title or mod_title or "Medical Education Activity"
+    credits = float(credit.credits_earned or 1.0)
+    credit_type = credit.credit_type or "AMA PRA Category 1"
+    comp_date = credit.completion_date or datetime.utcnow()
+    date_str = comp_date.strftime("%B %d, %Y")
+
+    # ── Build PDF ─────────────────────────────────────────────
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf, pagesize=landscape(A4),
+        rightMargin=1.5*cm, leftMargin=1.5*cm,
+        topMargin=1.5*cm, bottomMargin=1.5*cm,
+    )
+
+    NAVY   = colors.HexColor("#0f172a")
+    BLUE   = colors.HexColor("#2563eb")
+    GOLD   = colors.HexColor("#d97706")
+    LIGHT  = colors.HexColor("#eff6ff")
+    GRAY   = colors.HexColor("#64748b")
+
+    styles = getSampleStyleSheet()
+    center = lambda size, color=NAVY, bold=False: ParagraphStyle(
+        "c", parent=styles["Normal"], alignment=1, fontSize=size,
+        textColor=color, fontName="Helvetica-Bold" if bold else "Helvetica",
+        leading=size*1.3, spaceAfter=0,
+    )
+
+    story = []
+
+    # Header bar
+    story.append(Spacer(1, 0.3*cm))
+    story.append(Paragraph("MedMind AI", center(11, BLUE, bold=True)))
+    story.append(Spacer(1, 0.2*cm))
+    story.append(HRFlowable(width="100%", thickness=3, color=GOLD))
+    story.append(Spacer(1, 0.5*cm))
+
+    # Title
+    story.append(Paragraph("CERTIFICATE OF COMPLETION", center(28, NAVY, bold=True)))
+    story.append(Spacer(1, 0.2*cm))
+    story.append(Paragraph("Continuing Medical Education", center(13, GRAY)))
+    story.append(Spacer(1, 0.6*cm))
+    story.append(HRFlowable(width="60%", thickness=1, color=colors.HexColor("#e2e8f0")))
+    story.append(Spacer(1, 0.5*cm))
+
+    # This is to certify
+    story.append(Paragraph("This is to certify that", center(12, GRAY)))
+    story.append(Spacer(1, 0.3*cm))
+    story.append(Paragraph(f"<b>{full_name}</b>", center(26, NAVY, bold=True)))
+    story.append(Spacer(1, 0.3*cm))
+    story.append(Paragraph(
+        "has successfully completed the following Continuing Medical Education activity:",
+        center(11, GRAY)
+    ))
+    story.append(Spacer(1, 0.4*cm))
+
+    # Activity name box
+    story.append(Paragraph(f"<i>{activity}</i>", center(17, BLUE)))
+    story.append(Spacer(1, 0.5*cm))
+
+    # Credits & date info table
+    info = Table(
+        [[
+            Paragraph(f"<b>{credits:.1f}</b><br/><font size=9 color='#64748b'>{credit_type} Credits</font>", center(18, GOLD, bold=True)),
+            Paragraph(f"<b>{date_str}</b><br/><font size=9 color='#64748b'>Completion Date</font>", center(14, NAVY)),
+            Paragraph(f"<b>{cert_id}</b><br/><font size=9 color='#64748b'>Certificate ID</font>", center(10, GRAY)),
+        ]],
+        colWidths=[7*cm, 9*cm, 9*cm],
+    )
+    info.setStyle(TableStyle([
+        ("ALIGN", (0,0), (-1,-1), "CENTER"),
+        ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
+        ("ROWBACKGROUNDS", (0,0), (-1,-1), [LIGHT]),
+        ("ROUNDEDCORNERS", [8]),
+        ("TOPPADDING", (0,0), (-1,-1), 12),
+        ("BOTTOMPADDING", (0,0), (-1,-1), 12),
+    ]))
+    story.append(info)
+    story.append(Spacer(1, 0.5*cm))
+
+    # Footer
+    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#e2e8f0")))
+    story.append(Spacer(1, 0.2*cm))
+    story.append(Paragraph(
+        f"MedMind AI · medmind.pro · Issued {datetime.utcnow().strftime('%Y-%m-%d')} · Verify at medmind.pro/verify/{cert_id}",
+        center(8, GRAY)
+    ))
+
+    doc.build(story)
+    buf.seek(0)
+
+    safe_name = full_name.replace(" ", "_")
+    filename = f"CME_Certificate_{safe_name}_{comp_date.strftime('%Y%m')}.pdf"
+    return StreamingResponse(
+        buf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )

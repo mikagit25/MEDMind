@@ -31,7 +31,7 @@ from pathlib import Path
 import httpx
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DAILY_LIMIT    = 6                             # YouTube unverified channel quota
+DAILY_LIMIT    = 4                             # 4 videos + 2 Shorts = 6 total/day ≈ 9600 API units
 WAIT_BETWEEN   = 60                            # seconds between uploads
 OUTPUT_DIR     = Path("/tmp/yt_daily")
 TRACKING_FILE  = Path(os.environ.get("YT_TRACKING", "/opt/medmind/youtube_uploaded.json"))

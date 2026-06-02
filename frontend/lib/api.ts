@@ -231,6 +231,8 @@ export const contentApi = {
   getProfessorDashboard: () => api.get("/professor/dashboard").then(r => r.data),
   getCMECredits: (year?: number) =>
     api.get("/doctor/cme-credits", { params: year ? { year } : undefined }).then(r => r.data),
+  downloadCMECertificate: (creditId: string) =>
+    api.get(`/doctor/cme-credits/${creditId}/certificate`, { responseType: "blob" }).then(r => r.data),
 };
 
 export const drugsApi = {
@@ -722,4 +724,33 @@ export const ttsApi = {
     if (!res.ok) throw new Error(`Article TTS failed: ${res.status}`);
     return res.blob();
   },
+};
+
+// ── Referral API ───────────────────────────────────────────────────────────────
+export const referralApi = {
+  getInfo: () => api.get("/referral").then(r => r.data),
+  applyCode: (code: string) => api.post("/referral/apply", { code }).then(r => r.data),
+};
+
+// ── Team API ───────────────────────────────────────────────────────────────────
+export const teamApi = {
+  list: () => api.get("/team").then(r => r.data),
+  invite: (email: string) => api.post("/team/invite", { email }).then(r => r.data),
+  join: (token: string) => api.post(`/team/join/${token}`).then(r => r.data),
+  removeMember: (memberId: string) => api.delete(`/team/members/${memberId}`).then(r => r.data),
+  stats: () => api.get("/team/stats").then(r => r.data),
+};
+
+// ── Exam API ───────────────────────────────────────────────────────────────────
+export const examApi = {
+  getModes: () => api.get("/exam/modes").then(r => r.data),
+  createSession: (mode_id: string, specialty_filter?: string) =>
+    api.post("/exam/sessions", { mode_id, specialty_filter }).then(r => r.data),
+  getSession: (sessionId: string) => api.get(`/exam/sessions/${sessionId}`).then(r => r.data),
+  submitAnswer: (sessionId: string, question_index: number, selected_option: string) =>
+    api.post(`/exam/sessions/${sessionId}/answer`, { question_index, selected_option }).then(r => r.data),
+  finalizeSession: (sessionId: string) =>
+    api.post(`/exam/sessions/${sessionId}/submit`).then(r => r.data),
+  getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
+  getHistory: () => api.get("/exam/history").then(r => r.data),
 };

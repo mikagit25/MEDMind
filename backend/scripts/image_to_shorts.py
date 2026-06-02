@@ -419,39 +419,50 @@ async def build_short(
 # ── API helpers ────────────────────────────────────────────────────────────────
 
 def fetch_images(limit: int = 100, offset: int = 0) -> list[dict]:
-    """Fetch medical images from the API. Prefer clinical modalities, filter junk."""
+    """Fetch medical images from the API via pagination. Prefer clinical modalities, filter junk."""
     prefer = {"xray", "ct", "mri", "ecg", "histology", "ultrasound", "endoscopy",
               "fundus", "dermoscopy", "diagram", "angiography", "nuclear"}
-    # Keywords that indicate non-clinical / book / animal content
     _JUNK_WORDS = {
         "ferret", "skull", "vertebrat", "textbook", "electronic resource",
         "putorius", "mustela", "furo", "mav-usp", "book", "cover",
         "specimen", "fossil", "museum",
     }
 
+    def is_clinical(img: dict) -> bool:
+        combined = ((img.get("title") or "") + " " + (img.get("description") or "")).lower()
+        return not any(w in combined for w in _JUNK_WORDS)
+
+    def sort_key(img: dict) -> tuple:
+        modality = img.get("modality", "").lower()
+        has_desc = 1 if img.get("description") else 0
+        return (0 if modality in prefer else 1, -has_desc)
+
+    all_imgs: list[dict] = []
+    page_size = 100
+    page_offset = 0
+    max_fetch = 800  # paginate up to 800 images so we always find new ones
+
     try:
-        resp = httpx.get(f"{API_URL}/imaging", params={"limit": limit * 3}, timeout=20)
-        if resp.status_code == 200:
+        while len(all_imgs) < max_fetch:
+            resp = httpx.get(
+                f"{API_URL}/imaging",
+                params={"limit": page_size, "offset": page_offset},
+                timeout=20,
+            )
+            if resp.status_code != 200:
+                break
             data = resp.json()
-            imgs = data if isinstance(data, list) else data.get("images", [])
+            page = data if isinstance(data, list) else data.get("images", [])
+            if not page:
+                break
+            all_imgs.extend(page)
+            if len(page) < page_size:
+                break
+            page_offset += page_size
 
-            # Filter out non-medical content
-            def is_clinical(img: dict) -> bool:
-                title = (img.get("title") or "").lower()
-                desc  = (img.get("description") or "").lower()
-                combined = title + " " + desc
-                return not any(w in combined for w in _JUNK_WORDS)
-
-            imgs = [i for i in imgs if is_clinical(i)]
-
-            # Sort: preferred modalities first, then by title quality
-            def sort_key(img: dict) -> tuple:
-                modality = img.get("modality", "").lower()
-                has_desc = 1 if img.get("description") else 0
-                return (0 if modality in prefer else 1, -has_desc)
-
-            imgs.sort(key=sort_key)
-            return imgs[:limit]
+        imgs = [i for i in all_imgs if is_clinical(i)]
+        imgs.sort(key=sort_key)
+        return imgs[:limit]
     except Exception as e:
         print(f"⚠️  Could not fetch images: {e}")
     return []

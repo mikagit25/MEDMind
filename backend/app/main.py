@@ -32,7 +32,7 @@ from app.middleware.correlation_id import CorrelationIdMiddleware
 from app.core.telemetry import setup_telemetry
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles, fhir, credits, tts
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles, fhir, credits, tts, referral, team, exam
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -163,6 +163,9 @@ app.include_router(articles.router, prefix=API_PREFIX)
 app.include_router(fhir.router, prefix=API_PREFIX)
 app.include_router(credits.router, prefix=API_PREFIX)
 app.include_router(tts.router, prefix=API_PREFIX)
+app.include_router(referral.router, prefix=API_PREFIX)
+app.include_router(team.router, prefix=API_PREFIX)
+app.include_router(exam.router, prefix=API_PREFIX)
 
 # Serve uploaded media files (images for lessons).
 # In production MEDIA_ROOT=/app/data/media; locally it falls back to ./data/media.

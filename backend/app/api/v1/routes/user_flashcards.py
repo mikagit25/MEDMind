@@ -259,3 +259,109 @@ async def review_card(
         "interval_days": new_interval,
         "ease_factor": new_ef,
     }
+
+
+# ── Community / Public Flashcards ─────────────────────────────────────────
+
+@router.patch("/{card_id}/publish")
+async def toggle_publish(
+    card_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Toggle a card's public visibility."""
+    card = (await db.execute(
+        select(UserFlashcard).where(UserFlashcard.id == card_id, UserFlashcard.user_id == user.id)
+    )).scalar_one_or_none()
+    if not card:
+        raise HTTPException(404, "Card not found")
+    card.is_public = not card.is_public
+    await db.commit()
+    return {"id": str(card.id), "is_public": card.is_public}
+
+
+@router.get("/community")
+async def browse_community_cards(
+    search: Optional[str] = Query(None),
+    tags: Optional[str] = Query(None),
+    difficulty: Optional[str] = Query(None),
+    limit: int = Query(50, le=100),
+    offset: int = Query(0, ge=0),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Browse publicly shared flashcards from the community."""
+    from sqlalchemy import or_, and_
+    q = select(UserFlashcard, User.first_name, User.last_name).join(
+        User, User.id == UserFlashcard.user_id
+    ).where(UserFlashcard.is_public == True)  # noqa: E712
+
+    if search:
+        like = f"%{search.lower()}%"
+        q = q.where(or_(
+            UserFlashcard.question.ilike(like),
+            UserFlashcard.answer.ilike(like),
+        ))
+    if difficulty:
+        q = q.where(UserFlashcard.difficulty == difficulty)
+    if tags:
+        for tag in tags.split(","):
+            q = q.where(UserFlashcard.tags.any(tag.strip()))
+
+    total = (await db.execute(
+        select(func.count()).select_from(q.subquery())
+    )).scalar() or 0
+
+    rows = (await db.execute(
+        q.order_by(UserFlashcard.created_at.desc()).offset(offset).limit(limit)
+    )).all()
+
+    cards = []
+    for card, fn, ln in rows:
+        author = f"{fn or ''} {ln or ''}".strip() or "Anonymous"
+        cards.append({
+            "id": str(card.id),
+            "question": card.question,
+            "answer": card.answer,
+            "tags": card.tags or [],
+            "difficulty": card.difficulty,
+            "author": author,
+            "created_at": card.created_at.isoformat() if card.created_at else None,
+        })
+    return {"cards": cards, "total": total, "offset": offset}
+
+
+@router.post("/community/{card_id}/clone", status_code=201)
+async def clone_community_card(
+    card_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Clone a public card into your personal deck."""
+    original = (await db.execute(
+        select(UserFlashcard).where(UserFlashcard.id == card_id, UserFlashcard.is_public == True)  # noqa: E712
+    )).scalar_one_or_none()
+    if not original:
+        raise HTTPException(404, "Card not found or not public")
+
+    # Enforce per-tier limits
+    existing = (await db.execute(
+        select(func.count()).where(UserFlashcard.user_id == user.id)
+    )).scalar() or 0
+    limit_val = MAX_CARDS_PAID if user.subscription_tier != "free" else MAX_CARDS_FREE
+    if existing >= limit_val:
+        raise HTTPException(403, f"Card limit reached ({limit_val} for your tier)")
+
+    clone = UserFlashcard(
+        user_id=user.id,
+        question=original.question,
+        answer=original.answer,
+        tags=list(original.tags or []),
+        difficulty=original.difficulty,
+        module_id=original.module_id,
+        is_public=False,
+    )
+    db.add(clone)
+    await db.commit()
+    await db.refresh(clone)
+    return _card_out(clone)

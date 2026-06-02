@@ -1,0 +1,20 @@
+{
+  "db3cef86-829f-4a00-8b10-99302a5a6e6c": {
+    "video_id": "ZkegfHs4eas",
+    "uploaded_at": "2026-05-23T15:10:04.789749+00:00",
+    "title": "Liver Histology \u2014 Portal Triad",
+    "modality": "histology"
+  },
+  "0374a85c-971b-486d-a700-44bfbb77c0bd": {
+    "video_id": "Mj18E6xwTt4",
+    "uploaded_at": "2026-05-23T15:10:37.071475+00:00",
+    "title": "Osteochondrosis in the central and third tarsal bones of you",
+    "modality": "xray"
+  },
+  "5c85b5ec-dcdf-479b-a5f8-5f52a45883b7": {
+    "video_id": "E5v6L79Mx9s",
+    "uploaded_at": "2026-05-24T15:10:51.240685+00:00",
+    "title": "Cardiac Muscle \u2014 Intercalated Discs",
+    "modality": "histology"
+  }
+}

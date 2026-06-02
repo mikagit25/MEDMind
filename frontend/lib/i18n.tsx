@@ -80,15 +80,22 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [messages, setMessages] = useState<Translations>(en);
   const [loading, setLoading] = useState(false);
 
-  // Initialise from localStorage on mount (explicit user choice only)
+  // Initialise from localStorage, then fall back to browser language
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
     if (stored && stored in LOCALE_LABELS) {
       switchLocale(stored);
+      return;
     }
-    // NOTE: browser language auto-detection removed — it caused all article pages
-    // to silently switch to Russian for Russian-browser users without explicit choice.
-    // Language must be set explicitly via the language switcher.
+    // Auto-detect from browser Accept-Language on first visit
+    const browserLangs = navigator.languages ?? [navigator.language ?? "en"];
+    for (const lang of browserLangs) {
+      const code = lang.split("-")[0].toLowerCase() as Locale;
+      if (code in LOCALE_LABELS && code !== "en") {
+        switchLocale(code);
+        return;
+      }
+    }
   }, []);
 
   // Apply dir attribute to <html> for RTL support
