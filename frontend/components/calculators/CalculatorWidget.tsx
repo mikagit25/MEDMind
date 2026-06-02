@@ -942,6 +942,295 @@ function CockcroftGaultCalc({ lang }: { lang: string }) {
   );
 }
 
+// ── AKI Staging Calculator (KDIGO 2012) ──────────────────────────────────────
+
+function AkiCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    baseline_cr:  { en: "Baseline Creatinine", ru: "Базовый креатинин", ar: "الكرياتينين الأساسي", tr: "Bazal Kreatinin", de: "Ausgangskreatinin", fr: "Créatinine de base", es: "Creatinina basal" },
+    current_cr:   { en: "Current Creatinine", ru: "Текущий креатинин", ar: "الكرياتينين الحالي", tr: "Mevcut Kreatinin", de: "Aktuelles Kreatinin", fr: "Créatinine actuelle", es: "Creatinina actual" },
+    uo:           { en: "Urine Output (optional)", ru: "Диурез (необязательно)", ar: "إنتاج البول (اختياري)", tr: "İdrar Çıkışı (isteğe bağlı)", de: "Urinausscheidung (optional)", fr: "Diurèse (optionnel)", es: "Diuresis (opcional)" },
+    uo_duration:  { en: "Duration of low UO", ru: "Длительность олигурии", ar: "مدة انخفاض البول", tr: "Düşük idrar çıkışı süresi", de: "Dauer der Oligurie", fr: "Durée de la faible diurèse", es: "Duración de oliguria" },
+    weight:       { en: "Patient weight (for UO/kg)", ru: "Масса пациента (для диуреза/кг)", ar: "وزن المريض (لإنتاج البول/كغ)", tr: "Hasta ağırlığı (idrar çıkışı/kg için)", de: "Patientengewicht (für UO/kg)", fr: "Poids patient (pour diurèse/kg)", es: "Peso paciente (para diuresis/kg)" },
+    calc:         { en: "Stage AKI", ru: "Определить стадию ОПП", ar: "تحديد مرحلة الإصابة الكلوية", tr: "AKI Evresini Belirle", de: "AKI-Stufe bestimmen", fr: "Stadifier l'IRA", es: "Estadificar IRA" },
+    ref:          { en: "KDIGO AKI Guidelines 2012 · Kidney International Supplements 2012;2:1–138", ru: "KDIGO AKI Guidelines 2012 · Kidney International Supplements 2012;2:1–138", ar: "إرشادات KDIGO للإصابة الكلوية الحادة 2012", tr: "KDIGO AKI Kılavuzları 2012 · Kidney International Supplements 2012;2:1–138", de: "KDIGO AKI-Leitlinien 2012 · Kidney International Supplements 2012;2:1–138", fr: "Recommandations KDIGO IRA 2012 · Kidney International Supplements 2012;2:1–138", es: "Guías KDIGO IRA 2012 · Kidney International Supplements 2012;2:1–138" },
+    no_aki:       { en: "No AKI criteria met", ru: "Критерии ОПП не выполнены", ar: "لا تتحقق معايير الإصابة الكلوية الحادة", tr: "AKI kriterleri karşılanmadı", de: "Keine AKI-Kriterien erfüllt", fr: "Aucun critère d'IRA atteint", es: "No se cumplen criterios de IRA" },
+    cr_criterion: { en: "Creatinine criterion", ru: "Критерий по креатинину", ar: "معيار الكرياتينين", tr: "Kreatinin kriteri", de: "Kreatinin-Kriterium", fr: "Critère créatinine", es: "Criterio creatinina" },
+    uo_criterion: { en: "Urine output criterion", ru: "Критерий по диурезу", ar: "معيار إنتاج البول", tr: "İdrar çıkışı kriteri", de: "Diurese-Kriterium", fr: "Critère diurèse", es: "Criterio diuresis" },
+    highest_stage:{ en: "Final stage (highest criterion)", ru: "Итоговая стадия (наивысший критерий)", ar: "المرحلة النهائية (أعلى معيار)", tr: "Son evre (en yüksek kriter)", de: "Endstadium (höchstes Kriterium)", fr: "Stade final (critère le plus élevé)", es: "Estadio final (criterio más alto)" },
+  };
+
+  const [baseCr, setBaseCr] = useState("");
+  const [currCr, setCurrCr] = useState("");
+  const [unit, setUnit] = useState<"mg" | "umol">("mg");
+  const [uo, setUo] = useState("");
+  const [uoDuration, setUoDuration] = useState("");
+  const [weight, setWeight] = useState("");
+  const [result, setResult] = useState<null | {
+    crStage: number; uoStage: number; finalStage: number;
+    ratio: number; absDiff: number;
+    uoPerKg: number | null;
+  }>(null);
+
+  const STAGE_INFO: Record<number, { label: Record<Lang, string>; rec: Record<Lang, string>; color: "green" | "amber" | "red" }> = {
+    0: {
+      label: { en: "No AKI", ru: "ОПП отсутствует", ar: "لا توجد إصابة كلوية حادة", tr: "AKI yok", de: "Kein AKI", fr: "Pas d'IRA", es: "Sin IRA" },
+      rec: { en: "No AKI criteria met. Monitor renal function if clinically at risk.", ru: "Критерии ОПП не выполнены. Мониторинг функции почек при наличии факторов риска.", ar: "لا تتحقق معايير الإصابة الكلوية الحادة. راقب وظائف الكلى إذا كان هناك خطر سريري.", tr: "AKI kriterleri karşılanmadı. Klinik risk varsa böbrek fonksiyonunu izleyin.", de: "Keine AKI-Kriterien erfüllt. Nierenfunktion bei klinischem Risiko überwachen.", fr: "Aucun critère d'IRA atteint. Surveiller la fonction rénale si risque clinique.", es: "No se cumplen criterios de IRA. Monitorizar función renal si hay riesgo clínico." },
+      color: "green",
+    },
+    1: {
+      label: { en: "AKI Stage 1", ru: "ОПП 1 стадия", ar: "إصابة كلوية حادة المرحلة 1", tr: "AKI Evre 1", de: "AKI Stadium 1", fr: "IRA Stade 1", es: "IRA Estadio 1" },
+      rec: { en: "Stage 1 AKI: Identify and remove precipitants (nephrotoxins, hypovolaemia). Optimise haemodynamics. Avoid contrast. Monitor creatinine q6–12h and urine output.", ru: "ОПП 1 ст.: Выявить и устранить причины (нефротоксины, гиповолемия). Гемодинамическая оптимизация. Отмена НПВП, ИАПФ/БРА. Мониторинг креатинина каждые 6–12 ч и диуреза.", ar: "IRA المرحلة 1: تحديد الأسباب وإزالتها (مواد سُمية للكلى، نقص حجم الدم). تحسين الديناميكا الدموية. تجنب التباين. مراقبة الكرياتينين كل 6–12 ساعة.", tr: "AKI Evre 1: Presipitan faktörleri tanımlayın ve kaldırın (nefrotoksinler, hipovolemi). Hemodinamiyi optimize edin. Kontrasttan kaçının. Kreatinini q6-12h izleyin.", de: "AKI Stadium 1: Auslöser identifizieren und entfernen (Nephrotoxine, Hypovolämie). Hämodynamik optimieren. Kontrastmittel vermeiden. Kreatinin q6–12h und Diurese überwachen.", fr: "IRA Stade 1 : Identifier et supprimer les facteurs précipitants (néphrotoxiques, hypovolémie). Optimiser l'hémodynamique. Éviter le contraste. Surveiller créatinine q6–12h et diurèse.", es: "IRA Estadio 1: Identificar y eliminar precipitantes (nefrotóxicos, hipovolemia). Optimizar hemodinámica. Evitar contraste. Monitorizar creatinina q6-12h y diuresis." },
+      color: "amber",
+    },
+    2: {
+      label: { en: "AKI Stage 2", ru: "ОПП 2 стадия", ar: "إصابة كلوية حادة المرحلة 2", tr: "AKI Evre 2", de: "AKI Stadium 2", fr: "IRA Stade 2", es: "IRA Estadio 2" },
+      rec: { en: "Stage 2 AKI: Nephrology consult. Strict fluid balance. Stop all nephrotoxic agents (NSAIDs, ACEi/ARB, aminoglycosides, contrast). Adjust drug doses. Consider renal replacement therapy indications.", ru: "ОПП 2 ст.: Консультация нефролога. Строгий контроль баланса жидкости. Отмена всех нефротоксинов (НПВП, ИАПФ/БРА, аминогликозиды, контраст). Коррекция доз. Оценка показаний к ЗПТ.", ar: "IRA المرحلة 2: استشارة طب الكلى. موازنة صارمة للسوائل. إيقاف جميع العوامل السامة للكلى. تعديل جرعات الأدوية. النظر في العلاج ببديل الكلى.", tr: "AKI Evre 2: Nefroloji konsültasyonu. Sıkı sıvı dengesi. Tüm nefrotoksik ajanları kesin. İlaç dozlarını ayarlayın. Renal replasman tedavisini değerlendirin.", de: "AKI Stadium 2: Nephrologische Konsultation. Strenge Flüssigkeitsbilanz. Alle nephrotoxischen Substanzen absetzen. Dosisanpassung. Nierenersatztherapie-Indikationen prüfen.", fr: "IRA Stade 2 : Consultation néphrologie. Bilan hydrique strict. Arrêter tous les néphrotoxiques. Adapter les doses médicamenteuses. Évaluer les indications de EER.", es: "IRA Estadio 2: Consulta nefrología. Balance hídrico estricto. Suspender todos los nefrotóxicos. Ajustar dosis. Evaluar indicaciones de terapia renal sustitutiva." },
+      color: "red",
+    },
+    3: {
+      label: { en: "AKI Stage 3", ru: "ОПП 3 стадия", ar: "إصابة كلوية حادة المرحلة 3", tr: "AKI Evre 3", de: "AKI Stadium 3", fr: "IRA Stade 3", es: "IRA Estadio 3" },
+      rec: { en: "Stage 3 AKI (severe): Urgent nephrology input. Consider immediate RRT if: refractory fluid overload, hyperkalaemia >6.5 mEq/L, metabolic acidosis pH <7.1, uraemic symptoms. ICU-level monitoring.", ru: "ОПП 3 ст. (тяжёлое): Экстренная консультация нефролога. Рассмотреть срочную ЗПТ при: рефрактерной перегрузке жидкостью, гиперкалиемии >6,5 мэкв/л, метаболическом ацидозе pH <7,1, уремических симптомах. Мониторинг в ОРИТ.", ar: "IRA المرحلة 3 (شديد): استشارة عاجلة لطب الكلى. فكر في العلاج الفوري ببديل الكلى في حالات: الحمل الزائد للسوائل، فرط بوتاسيوم الدم >6.5 ملي مكافئ/لتر، الحماض الأيضي pH <7.1، أعراض اليوريميا.", tr: "AKI Evre 3 (şiddetli): Acil nefroloji konsültasyonu. Refraktör sıvı yüklenmesi, hiperkalaemi >6.5 mEq/L, metabolik asidoz pH <7.1, üremik semptomlar varsa acil RRT düşünün. YBÜ düzeyinde izleme.", de: "AKI Stadium 3 (schwer): Dringende nephrologische Beurteilung. Sofortige Nierenersatztherapie erwägen bei: refraktärer Flüssigkeitsüberladung, Hyperkaliämie >6,5 mEq/L, metabolischer Azidose pH <7,1, urämischen Symptomen. Intensivüberwachung.", fr: "IRA Stade 3 (sévère) : Avis néphrologue urgent. Envisager EER immédiate si : surcharge hydrique réfractaire, hyperkaliémie >6,5 mEq/L, acidose métabolique pH <7,1, symptômes urémiques. Surveillance niveau réanimation.", es: "IRA Estadio 3 (grave): Consulta urgente nefrología. Considerar TRS inmediata si: sobrecarga hídrica refractaria, hiperpotasemia >6.5 mEq/L, acidosis metabólica pH <7.1, síntomas urémicos. Monitorización nivel UCI." },
+      color: "red",
+    },
+  };
+
+  function getStageCr(baseline: number, current: number): number {
+    const ratio = current / baseline;
+    const diff = current - baseline;
+    if (ratio >= 3.0 || current >= 4.0) return 3;
+    if (ratio >= 2.0) return 2;
+    if (ratio >= 1.5 || diff >= 0.3) return 1;
+    return 0;
+  }
+
+  function getStageUo(uoPerKg: number, hours: number): number {
+    if (uoPerKg < 0.3 && hours >= 24) return 3;
+    if (uoPerKg < 0.5 && hours >= 12) return 2;
+    if (uoPerKg < 0.5 && hours >= 6) return 1;
+    return 0;
+  }
+
+  function calculate() {
+    const base = parseFloat(baseCr), curr = parseFloat(currCr);
+    if (!base || !curr || base <= 0 || curr <= 0) return;
+
+    const baseConv = unit === "umol" ? base / 88.42 : base;
+    const currConv = unit === "umol" ? curr / 88.42 : curr;
+
+    const crStage = getStageCr(baseConv, currConv);
+    const ratio = Math.round((currConv / baseConv) * 100) / 100;
+    const absDiff = Math.round((currConv - baseConv) * 100) / 100;
+
+    let uoStage = 0;
+    let uoPerKg: number | null = null;
+    const uoVal = parseFloat(uo), wt = parseFloat(weight), hrs = parseFloat(uoDuration);
+    if (uoVal > 0 && wt > 0 && hrs > 0) {
+      uoPerKg = Math.round((uoVal / wt / hrs) * 1000) / 1000;
+      uoStage = getStageUo(uoPerKg, hrs);
+    }
+
+    const finalStage = Math.max(crStage, uoStage);
+    setResult({ crStage, uoStage, finalStage, ratio, absDiff, uoPerKg });
+  }
+
+  const stageColors: Record<number, "green" | "amber" | "red"> = { 0: "green", 1: "amber", 2: "red", 3: "red" };
+  const stageBadge: Record<number, string> = { 0: "—", 1: "1", 2: "2", 3: "3" };
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_380px] gap-6">
+      {/* Inputs */}
+      <div className="space-y-5">
+        {/* Creatinine section */}
+        <div className="bg-surface border border-border rounded-xl p-4 space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="font-syne font-bold text-sm text-ink">
+              {lang === "ru" ? "Критерий 1 — Креатинин" : lang === "ar" ? "المعيار 1 — الكرياتينين" : lang === "de" ? "Kriterium 1 — Kreatinin" : lang === "fr" ? "Critère 1 — Créatinine" : lang === "es" ? "Criterio 1 — Creatinina" : lang === "tr" ? "Kriter 1 — Kreatinin" : "Criterion 1 — Creatinine"}
+            </p>
+            <select value={unit} onChange={e => { setUnit(e.target.value as "mg" | "umol"); setResult(null); }}
+              className="text-xs font-syne border border-border rounded px-2 py-1 bg-bg text-ink focus:outline-none">
+              <option value="mg">mg/dL</option>
+              <option value="umol">μmol/L</option>
+            </select>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <label className="font-syne font-semibold text-sm text-ink">{t(L.baseline_cr, lang)}</label>
+              <input type="number" step="0.01" min="0" placeholder={unit === "mg" ? "e.g. 0.9" : "e.g. 80"}
+                value={baseCr} onChange={e => setBaseCr(e.target.value)}
+                className="w-full border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="font-syne font-semibold text-sm text-ink">{t(L.current_cr, lang)}</label>
+              <input type="number" step="0.01" min="0" placeholder={unit === "mg" ? "e.g. 1.8" : "e.g. 159"}
+                value={currCr} onChange={e => setCurrCr(e.target.value)}
+                className="w-full border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            </div>
+          </div>
+          <p className="text-ink-3 text-xs leading-relaxed">
+            {lang === "ru" ? "Базовый — исходный или минимальный за последние 7 дней. При недоступности — используйте обратный расчёт по eGFR=75." : lang === "ar" ? "الأساسي = الكرياتينين في الحالة الطبيعية أو أدنى قيمة خلال 7 أيام." : lang === "de" ? "Ausgangskreatinin = Normalwert oder niedrigster Wert innerhalb von 7 Tagen." : lang === "fr" ? "Baseline = créatinine habituelle ou valeur la plus basse dans les 7 jours." : lang === "es" ? "Basal = creatinina habitual o valor mínimo en los últimos 7 días." : lang === "tr" ? "Bazal = son 7 günde minimum veya olağan değer." : "Baseline = usual or lowest value within 7 days. If unknown, back-calculate assuming eGFR=75."}
+          </p>
+        </div>
+
+        {/* Urine output section */}
+        <div className="bg-surface border border-border rounded-xl p-4 space-y-4">
+          <p className="font-syne font-bold text-sm text-ink">
+            {lang === "ru" ? "Критерий 2 — Диурез (необязательно)" : lang === "ar" ? "المعيار 2 — إنتاج البول (اختياري)" : lang === "de" ? "Kriterium 2 — Urinausscheidung (optional)" : lang === "fr" ? "Critère 2 — Diurèse (optionnel)" : lang === "es" ? "Criterio 2 — Diuresis (opcional)" : lang === "tr" ? "Kriter 2 — İdrar Çıkışı (isteğe bağlı)" : "Criterion 2 — Urine Output (optional)"}
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3">
+            <div className="space-y-1.5">
+              <label className="font-syne font-semibold text-sm text-ink">{lang === "ru" ? "Диурез (мл)" : lang === "ar" ? "البول (مل)" : lang === "de" ? "Urin (ml)" : lang === "fr" ? "Diurèse (ml)" : lang === "es" ? "Diuresis (ml)" : lang === "tr" ? "İdrar (ml)" : "Total UO (mL)"}</label>
+              <input type="number" min="0" placeholder="e.g. 480" value={uo} onChange={e => setUo(e.target.value)}
+                className="w-full border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="font-syne font-semibold text-sm text-ink">{t(L.uo_duration, lang)} (h)</label>
+              <input type="number" min="0" max="72" placeholder="e.g. 8" value={uoDuration} onChange={e => setUoDuration(e.target.value)}
+                className="w-full border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="font-syne font-semibold text-sm text-ink">{t(L.weight, lang)} (kg)</label>
+              <input type="number" min="0" placeholder="e.g. 70" value={weight} onChange={e => setWeight(e.target.value)}
+                className="w-full border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            </div>
+          </div>
+          <p className="text-ink-3 text-xs">
+            {lang === "ru" ? "Порог олигурии: <0,5 мл/кг/ч ≥6 ч (ст. 1), ≥12 ч (ст. 2); <0,3 мл/кг/ч ≥24 ч или анурия ≥12 ч (ст. 3)" : lang === "ar" ? "عتبة قلة البول: <0.5 مل/كغ/ساعة ≥6 ساعات (مرحلة 1)، ≥12 ساعة (مرحلة 2)؛ <0.3 مل/كغ/ساعة ≥24 ساعة أو انقطاع البول ≥12 ساعة (مرحلة 3)" : lang === "de" ? "Oligurie-Schwelle: <0,5 ml/kg/h ≥6 h (St. 1), ≥12 h (St. 2); <0,3 ml/kg/h ≥24 h oder Anurie ≥12 h (St. 3)" : lang === "fr" ? "Seuil d'oligurie : <0,5 ml/kg/h ≥6h (St 1), ≥12h (St 2) ; <0,3 ml/kg/h ≥24h ou anurie ≥12h (St 3)" : lang === "es" ? "Umbral oliguria: <0,5 ml/kg/h ≥6h (Est. 1), ≥12h (Est. 2); <0,3 ml/kg/h ≥24h o anuria ≥12h (Est. 3)" : lang === "tr" ? "Oligüri eşiği: <0,5 ml/kg/sa ≥6sa (Evre 1), ≥12sa (Evre 2); <0,3 ml/kg/sa ≥24sa veya anüri ≥12sa (Evre 3)" : "Oliguria threshold: <0.5 mL/kg/h ≥6h (St.1), ≥12h (St.2); <0.3 mL/kg/h ≥24h or anuria ≥12h (St.3)"}
+          </p>
+        </div>
+
+        <button onClick={calculate}
+          className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">
+          {t(L.calc, lang)}
+        </button>
+      </div>
+
+      {/* Result */}
+      <div className="space-y-4">
+        {result ? (() => {
+          const info = STAGE_INFO[result.finalStage];
+          const colors = RISK_COLORS[info.color];
+          return (
+            <>
+              {/* Main result */}
+              <div className={`rounded-xl border p-5 space-y-4 ${colors.bg} ${colors.border}`}>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(L.highest_stage, lang)}</p>
+                    <div className="flex items-center gap-3">
+                      <span className={`font-syne font-extrabold text-5xl ${colors.text}`}>
+                        {result.finalStage === 0 ? "—" : result.finalStage}
+                      </span>
+                      {result.finalStage > 0 && (
+                        <span className={`font-syne font-bold text-xs px-3 py-1 rounded-full ${colors.badge}`}>
+                          {t(info.label, lang)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {result.finalStage === 0 && (
+                    <span className="font-syne font-bold text-sm px-4 py-2 rounded-full bg-green text-white">
+                      {t(L.no_aki, lang)}
+                    </span>
+                  )}
+                </div>
+                <p className={`text-sm leading-relaxed ${colors.text} font-medium`}>{t(info.rec, lang)}</p>
+              </div>
+
+              {/* Criteria breakdown */}
+              <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+                <p className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest">
+                  {lang === "ru" ? "Разбивка по критериям" : lang === "ar" ? "تفصيل المعايير" : lang === "de" ? "Kriterien-Auswertung" : lang === "fr" ? "Détail des critères" : lang === "es" ? "Desglose de criterios" : lang === "tr" ? "Kriter dökümü" : "Criteria breakdown"}
+                </p>
+
+                {/* Creatinine criterion */}
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-bg border border-border">
+                  <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center font-syne font-bold text-sm ${result.crStage > 0 ? `${RISK_COLORS[stageColors[result.crStage]].badge}` : "bg-surface-2 text-ink-3"}`}>
+                    {stageBadge[result.crStage]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-syne font-semibold text-sm text-ink">{t(L.cr_criterion, lang)}</p>
+                    <p className="text-ink-3 text-xs">
+                      {lang === "ru"
+                        ? `×${result.ratio} от базового (+${result.absDiff} ${unit === "umol" ? "мкмоль/л" : "мг/дл"})`
+                        : `×${result.ratio} from baseline (+${result.absDiff} ${unit === "umol" ? "μmol/L" : "mg/dL"})`}
+                    </p>
+                  </div>
+                  <span className="text-xs font-syne font-bold text-ink-2">
+                    {result.crStage === 0
+                      ? (lang === "ru" ? "Нет ОПП" : "No AKI")
+                      : `${lang === "ru" ? "Ст." : lang === "de" ? "Std." : lang === "fr" ? "St." : lang === "es" ? "Est." : lang === "tr" ? "Evre" : lang === "ar" ? "مرحلة" : "Stage"} ${result.crStage}`}
+                  </span>
+                </div>
+
+                {/* UO criterion */}
+                {result.uoPerKg !== null && (
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-bg border border-border">
+                    <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center font-syne font-bold text-sm ${result.uoStage > 0 ? `${RISK_COLORS[stageColors[result.uoStage]].badge}` : "bg-surface-2 text-ink-3"}`}>
+                      {stageBadge[result.uoStage]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-syne font-semibold text-sm text-ink">{t(L.uo_criterion, lang)}</p>
+                      <p className="text-ink-3 text-xs">{result.uoPerKg} mL/kg/h</p>
+                    </div>
+                    <span className="text-xs font-syne font-bold text-ink-2">
+                      {result.uoStage === 0
+                        ? (lang === "ru" ? "Нет ОПП" : "No AKI")
+                        : `${lang === "ru" ? "Ст." : lang === "de" ? "Std." : lang === "fr" ? "St." : lang === "es" ? "Est." : lang === "tr" ? "Evre" : lang === "ar" ? "مرحلة" : "Stage"} ${result.uoStage}`}
+                    </span>
+                  </div>
+                )}
+
+                {/* KDIGO stage table */}
+                <div className="mt-2 overflow-x-auto">
+                  <table className="w-full text-xs font-syne border-collapse">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-1.5 pr-3 text-ink-3 font-semibold">{lang === "ru" ? "Стадия" : "Stage"}</th>
+                        <th className="text-left py-1.5 pr-3 text-ink-3 font-semibold">{lang === "ru" ? "Креатинин" : "Creatinine"}</th>
+                        <th className="text-left py-1.5 text-ink-3 font-semibold">{lang === "ru" ? "Диурез" : "Urine Output"}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {[
+                        { s: 1, cr: "×1.5–1.9 or +0.3 mg/dL", uo: "<0.5 mL/kg/h ≥6h" },
+                        { s: 2, cr: "×2.0–2.9", uo: "<0.5 mL/kg/h ≥12h" },
+                        { s: 3, cr: "×3.0 or ≥4.0 mg/dL or RRT", uo: "<0.3 mL/kg/h ≥24h or anuria ≥12h" },
+                      ].map(row => (
+                        <tr key={row.s} className={result.finalStage === row.s ? "bg-amber-light/40" : ""}>
+                          <td className="py-1.5 pr-3 font-bold text-ink">{row.s}</td>
+                          <td className="py-1.5 pr-3 text-ink-2">{row.cr}</td>
+                          <td className="py-1.5 text-ink-2">{row.uo}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <AiPanel lang={lang} calcName="AKI (KDIGO)" score={result.finalStage} riskLabel={t(info.label, lang)} />
+
+              <div className="text-ink-3 text-xs leading-relaxed">
+                <span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>
+                {t(L.ref, lang)}
+              </div>
+            </>
+          );
+        })() : (
+          <div className="rounded-xl border border-border bg-surface p-8 flex flex-col items-center justify-center text-center min-h-[300px] space-y-3">
+            <div className="text-4xl">🫘</div>
+            <p className="text-ink font-syne font-semibold text-sm">
+              {lang === "ru" ? "Введите данные и нажмите «Определить стадию ОПП»" : lang === "ar" ? "أدخل القيم وانقر على تحديد مرحلة الإصابة" : lang === "de" ? "Werte eingeben und AKI-Stufe bestimmen" : lang === "fr" ? "Entrez les valeurs et stadifiez l'IRA" : lang === "es" ? "Ingrese los valores y estadifique la IRA" : lang === "tr" ? "Değerleri girin ve AKI evresini belirleyin" : "Enter values and press Stage AKI"}
+            </p>
+            <p className="text-ink-3 text-xs max-w-xs">
+              {lang === "ru" ? "Использует критерии KDIGO 2012. Диурез необязателен — итоговая стадия определяется наивысшим из двух критериев." : "Uses KDIGO 2012 criteria. Urine output is optional — final stage is the highest met criterion."}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Main widget exported ─────────────────────────────────────────────────────
 
 export function CalculatorWidget({ slug }: { slug: string }) {
@@ -949,6 +1238,7 @@ export function CalculatorWidget({ slug }: { slug: string }) {
   const lang = locale as string;
 
   if (slug === "egfr-ckd-epi") return <EgfrCalc lang={lang} />;
+  if (slug === "aki") return <AkiCalc lang={lang} />;
   if (slug === "bmi") return <BmiCalc lang={lang} />;
   if (slug === "corrected-calcium") return <CorrectedCalciumCalc lang={lang} />;
   if (slug === "anion-gap") return <AnionGapCalc lang={lang} />;
@@ -976,6 +1266,7 @@ export function CalculatorsIndex() {
 
   const numericCalcs = [
     { slug: "egfr-ckd-epi",        name: tIdx("egfr_name"),     subtitle: tIdx("egfr_sub"),     category: tIdx("nephrology"),    icon: "🫘" },
+    { slug: "aki",                  name: tIdx("aki_name"),      subtitle: tIdx("aki_sub"),      category: tIdx("critical_care"), icon: "🚨" },
     { slug: "bmi",                  name: tIdx("bmi_name"),      subtitle: tIdx("bmi_sub"),      category: tIdx("general"),       icon: "⚖️" },
     { slug: "corrected-calcium",    name: tIdx("calcium_name"),  subtitle: tIdx("calcium_sub"),  category: tIdx("biochemistry"),  icon: "🧪" },
     { slug: "anion-gap",            name: tIdx("aniongap_name"), subtitle: tIdx("aniongap_sub"), category: tIdx("biochemistry"),  icon: "⚗️" },

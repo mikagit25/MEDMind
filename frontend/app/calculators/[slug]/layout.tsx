@@ -32,6 +32,11 @@ const CALC_SEO: Record<string, { title: string; description: string; keywords: s
     keywords: ["HEART score", "chest pain", "MACE risk", "emergency cardiology", "ACS risk", "ED chest pain calculator"],
   },
   "egfr-ckd-epi": EGFR_META,
+  "aki": {
+    title: "AKI Staging Calculator (KDIGO 2012) — Acute Kidney Injury — MedMind AI",
+    description: "KDIGO 2012 AKI staging calculator. Stage acute kidney injury by creatinine rise (×1.5/×2/×3) and urine output (<0.5 mL/kg/h). With management recommendations. Free, 7 languages.",
+    keywords: ["AKI staging", "KDIGO 2012", "acute kidney injury", "creatinine rise", "oliguria", "nephrology calculator", "AKI KDIGO criteria"],
+  },
   "gcs": {
     title: "Glasgow Coma Scale (GCS) Calculator — Consciousness Assessment — MedMind AI",
     description: "GCS calculator with eye, verbal, and motor response components. Assess level of consciousness and severity of traumatic brain injury. Free, 7 languages.",

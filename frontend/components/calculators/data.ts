@@ -626,6 +626,7 @@ export const CALC_SLUGS = [
   "cha2ds2-vasc", "curb-65", "wells-dvt", "heart-score", "egfr-ckd-epi",
   "gcs", "qsofa", "has-bled", "abcd2", "child-pugh",
   "bmi", "corrected-calcium", "anion-gap", "meld", "cockcroft-gault",
+  "aki",
 ] as const;
 
 // ── Index page translations ──────────────────────────────────────────────────
@@ -658,6 +659,9 @@ export const INDEX_T: Record<string, T> = {
   meld_sub: { en: "Liver disease severity and transplant priority (UNOS)", ru: "Тяжесть заболевания печени и приоритет трансплантации (UNOS)", ar: "شدة مرض الكبد وأولوية زرع الأعضاء (UNOS)", tr: "Karaciğer hastalığı şiddeti ve nakil önceliği (UNOS)", de: "Schweregrad der Lebererkrankung und Transplantationspriorität (UNOS)", fr: "Sévérité de l'hépatopathie et priorité transplantation (UNOS)", es: "Gravedad hepatopatía y prioridad trasplante (UNOS)" },
   cg_name: { en: "Cockcroft-Gault CrCl", ru: "Клиренс креатинина (Кокрофт-Голт)", ar: "تصفية الكرياتينين (كوكروفت-غولت)", tr: "Cockcroft-Gault KrKl", de: "Cockcroft-Gault-KrCl", fr: "Clairance créatinine Cockcroft-Gault", es: "ClCr Cockcroft-Gault" },
   cg_sub: { en: "Kidney function and drug dosing adjustment", ru: "Функция почек и коррекция доз препаратов", ar: "وظائف الكلى وتعديل جرعة الدواء", tr: "Böbrek fonksiyonu ve ilaç doz ayarlaması", de: "Nierenfunktion und Medikamentendosisanpassung", fr: "Fonction rénale et adaptation posologique", es: "Función renal y ajuste de dosis farmacológica" },
+  critical_care: { en: "Critical Care", ru: "Интенсивная терапия", ar: "الرعاية الحرجة", tr: "Yoğun Bakım", de: "Intensivmedizin", fr: "Soins intensifs", es: "Cuidados intensivos" },
+  aki_name: { en: "AKI Staging (KDIGO)", ru: "Стадии ОПП (KDIGO)", ar: "تصنيف الإصابة الكلوية الحادة (KDIGO)", tr: "ABH Evrelemesi (KDIGO)", de: "AKI-Staging (KDIGO)", fr: "Stadification IRA (KDIGO)", es: "Estadificación IRA (KDIGO)" },
+  aki_sub: { en: "Acute kidney injury severity by creatinine rise and urine output (KDIGO 2012)", ru: "Тяжесть острого повреждения почек по уровню креатинина и диурезу (KDIGO 2012)", ar: "شدة الإصابة الكلوية الحادة وفق ارتفاع الكرياتينين وإنتاج البول (KDIGO 2012)", tr: "Kreatinin yükselmesi ve idrar çıkışına göre akut böbrek hasarı şiddeti (KDIGO 2012)", de: "Schweregrad der AKI nach Kreatininanstieg und Urinausscheidung (KDIGO 2012)", fr: "Sévérité de l'IRA selon l'élévation de la créatinine et la diurèse (KDIGO 2012)", es: "Gravedad de IRA según elevación de creatinina y diuresis (KDIGO 2012)" },
   open_calculator: { en: "Open calculator →", ru: "Открыть калькулятор →", ar: "فتح الآلة الحاسبة →", tr: "Hesap makinesini aç →", de: "Rechner öffnen →", fr: "Ouvrir le calculateur →", es: "Abrir calculadora →" },
   footer_note: {
     en: "These calculators are for educational purposes only. Clinical decisions must account for the full clinical picture. Always use your professional judgement.",

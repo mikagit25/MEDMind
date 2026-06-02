@@ -60,6 +60,13 @@ const NUMERIC_CALCS: Record<string, NumericCalcMeta> = {
     icon: "🫀",
     seoDescription: "MELD and MELD-Na score calculator for liver disease severity and transplant prioritisation. Free, multilingual.",
   },
+  "aki": {
+    name:     { en: "AKI Staging (KDIGO)", ru: "Стадии ОПП (KDIGO)", ar: "تصنيف الإصابة الكلوية الحادة (KDIGO)", tr: "ABH Evrelemesi (KDIGO)", de: "AKI-Staging (KDIGO)", fr: "Stadification IRA (KDIGO)", es: "Estadificación IRA (KDIGO)" },
+    subtitle: { en: "Acute kidney injury severity by creatinine and urine output (KDIGO 2012)", ru: "Тяжесть ОПП по уровню креатинина и диурезу (KDIGO 2012)", ar: "شدة الإصابة الكلوية الحادة وفق الكرياتينين وإنتاج البول (KDIGO 2012)", tr: "Kreatinin ve idrar çıkışına göre AKI şiddeti (KDIGO 2012)", de: "AKI-Schweregrad nach Kreatinin und Diurese (KDIGO 2012)", fr: "Sévérité de l'IRA selon créatinine et diurèse (KDIGO 2012)", es: "Gravedad IRA según creatinina y diuresis (KDIGO 2012)" },
+    category: { en: "Critical Care", ru: "Интенсивная терапия", ar: "الرعاية الحرجة", tr: "Yoğun Bakım", de: "Intensivmedizin", fr: "Soins intensifs", es: "Cuidados intensivos" },
+    icon: "🚨",
+    seoDescription: "AKI staging calculator using KDIGO 2012 criteria (creatinine and urine output). With per-stage management recommendations. Free, multilingual.",
+  },
   "cockcroft-gault": {
     name:     { en: "Cockcroft-Gault CrCl", ru: "Клиренс креатинина (Кокрофт-Голт)", ar: "تصفية الكرياتينين (كوكروفت-غولت)", tr: "Cockcroft-Gault KrKl", de: "Cockcroft-Gault-KrCl", fr: "Clairance créatinine Cockcroft-Gault", es: "ClCr Cockcroft-Gault" },
     subtitle: { en: "Kidney function and drug dosing adjustment", ru: "Функция почек и коррекция доз препаратов", ar: "وظائف الكلى وتعديل جرعة الدواء", tr: "Böbrek fonksiyonu ve ilaç doz ayarlaması", de: "Nierenfunktion und Medikamentendosisanpassung", fr: "Fonction rénale et adaptation posologique", es: "Función renal y ajuste de dosis farmacológica" },
