@@ -50,6 +50,7 @@ services:
       - media_data:/app/data/media   # persistent storage for uploaded images
       - /opt/medmind/youtube_token.json:/app/youtube_token_en.json
       - /opt/medmind/youtube_token_account2.json:/app/youtube_token_es.json
+      - /opt/medmind/youtube_token_ar.json:/app/youtube_token_ar.json
     ports:
       - "8000:8000"
     depends_on:

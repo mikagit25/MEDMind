@@ -31,6 +31,11 @@ ACCOUNTS = {
         "token_file":  "/opt/medmind/youtube_token_account2.json",
         "secret_file": "/opt/medmind/client_secret_account2_web.json",
     },
+    "ar": {
+        "label":       "🇸🇦 MedMind AR",
+        "token_file":  "/opt/medmind/youtube_token_ar.json",
+        "secret_file": "/opt/medmind/client_secret_account3_web.json",
+    },
 }
 
 YT_SCOPES = (

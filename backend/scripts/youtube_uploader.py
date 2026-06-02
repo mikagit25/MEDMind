@@ -77,6 +77,17 @@ CHANNEL_DESCRIPTIONS = {
         "tags": ["медицина", "медицинское образование", "medmind", "врач", "клиническая медицина",
                  "медицинский студент", "ИИ тьютор", "доказательная медицина"],
     },
+    "ar": {
+        "prefix": "🩺 MedMind AI — التعليم الطبي المبني على الأدلة بتقنية Claude AI و PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 المقال الكامل مع المصادر: https://medmind.pro/articles/{slug}?lang=ar\n"
+            "📚 منصة طبية مجانية: https://medmind.pro\n"
+            "✅ أكثر من 97 وحدة | 7 لغات | حالات سريرية | مساعد ذكاء اصطناعي\n\n"
+            "#التعليم_الطبي #الطب #MedMindAI #USMLE #طالب_طب"
+        ),
+        "tags": ["تعليم طبي", "الطب", "medmind", "USMLE", "الطب السريري",
+                 "طالب طب", "دراسة الطب", "ذكاء اصطناعي طبي", "طب مبني على الأدلة"],
+    },
 }
 
 
@@ -369,7 +380,7 @@ def upload_to_youtube(
 # ── Fetch article info ────────────────────────────────────────────────────────
 
 def fetch_article(slug: str, lang: str = "en") -> dict | None:
-    params = {"lang": lang} if lang != "en" else {}
+    params = {"locale": lang} if lang != "en" else {}
     try:
         resp = httpx.get(f"{API_URL}/articles/{slug}", params=params, timeout=15)
         if resp.status_code == 200:

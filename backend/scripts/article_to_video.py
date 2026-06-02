@@ -570,7 +570,7 @@ async def get_token(client: httpx.AsyncClient) -> str:
 async def fetch_article(slug: str, token: str, client: httpx.AsyncClient,
                         lang: str = "en") -> dict:
     """Fetch article from public API. Applies locale translation if available."""
-    params = {} if lang == "en" else {"lang": lang}
+    params = {} if lang == "en" else {"locale": lang}
     r = await client.get(f"{API_BASE}/articles/{slug}", params=params, timeout=20)
     if r.status_code == 200:
         return r.json()
