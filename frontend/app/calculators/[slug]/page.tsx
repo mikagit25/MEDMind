@@ -16,11 +16,57 @@ function t(obj: Record<Lang, string>, lang: string): string {
   return (obj as Record<string, string>)[lang] ?? obj.en;
 }
 
-const EGFR_META = {
-  name: { en: "eGFR (CKD-EPI 2021)", ru: "рСКФ (CKD-EPI 2021)", ar: "معدل الترشيح الكبيبي التقديري (CKD-EPI 2021)", tr: "eGFR (CKD-EPI 2021)", de: "eGFR (CKD-EPI 2021)", fr: "DFGe (CKD-EPI 2021)", es: "TFGe (CKD-EPI 2021)" } as Record<Lang, string>,
-  subtitle: { en: "Kidney function and CKD staging", ru: "Функция почек и стадия ХБП", ar: "وظائف الكلى وتصنيف مرض الكلى المزمن", tr: "Böbrek fonksiyonu ve KBH evrelemesi", de: "Nierenfunktion und CKD-Stadienbestimmung", fr: "Fonction rénale et stadification de l'IRC", es: "Función renal y estadificación de ERC" } as Record<Lang, string>,
-  category: { en: "Nephrology", ru: "Нефрология", ar: "أمراض الكلى", tr: "Nefroloji", de: "Nephrologie", fr: "Néphrologie", es: "Nefrología" } as Record<Lang, string>,
-  icon: "🫘",
+type NumericCalcMeta = {
+  name: Record<Lang, string>;
+  subtitle: Record<Lang, string>;
+  category: Record<Lang, string>;
+  icon: string;
+  seoDescription: string;
+};
+
+const NUMERIC_CALCS: Record<string, NumericCalcMeta> = {
+  "egfr-ckd-epi": {
+    name:     { en: "eGFR (CKD-EPI 2021)", ru: "рСКФ (CKD-EPI 2021)", ar: "معدل الترشيح الكبيبي التقديري (CKD-EPI 2021)", tr: "eGFR (CKD-EPI 2021)", de: "eGFR (CKD-EPI 2021)", fr: "DFGe (CKD-EPI 2021)", es: "TFGe (CKD-EPI 2021)" },
+    subtitle: { en: "Kidney function and CKD staging", ru: "Функция почек и стадия ХБП", ar: "وظائف الكلى وتصنيف مرض الكلى المزمن", tr: "Böbrek fonksiyonu ve KBH evrelemesi", de: "Nierenfunktion und CKD-Stadienbestimmung", fr: "Fonction rénale et stadification de l'IRC", es: "Función renal y estadificación de ERC" },
+    category: { en: "Nephrology", ru: "Нефрология", ar: "أمراض الكلى", tr: "Nefroloji", de: "Nephrologie", fr: "Néphrologie", es: "Nefrología" },
+    icon: "🫘",
+    seoDescription: "eGFR calculator using CKD-EPI 2021 equation. Estimates kidney function and determines CKD stage. Free, multilingual.",
+  },
+  "bmi": {
+    name:     { en: "BMI Calculator", ru: "Индекс массы тела", ar: "مؤشر كتلة الجسم", tr: "Vücut Kitle İndeksi", de: "BMI-Rechner", fr: "Calculateur IMC", es: "Calculadora IMC" },
+    subtitle: { en: "Body mass index and obesity classification (WHO)", ru: "Индекс массы тела и классификация ожирения (ВОЗ)", ar: "مؤشر كتلة الجسم وتصنيف السمنة (WHO)", tr: "Vücut kitle indeksi ve obezite sınıflaması (WHO)", de: "Body-Mass-Index und Adipositas-Klassifikation (WHO)", fr: "Indice de masse corporelle et classification obésité (OMS)", es: "Índice de masa corporal y clasificación de obesidad (OMS)" },
+    category: { en: "General", ru: "Общее", ar: "عام", tr: "Genel", de: "Allgemein", fr: "Général", es: "General" },
+    icon: "⚖️",
+    seoDescription: "BMI calculator with WHO obesity classification (underweight, normal, overweight, obese). Free, multilingual.",
+  },
+  "corrected-calcium": {
+    name:     { en: "Corrected Calcium", ru: "Скорр. кальций", ar: "الكالسيوم المصحح", tr: "Düzeltilmiş Kalsiyum", de: "Korrigiertes Kalzium", fr: "Calcium corrigé", es: "Calcio corregido" },
+    subtitle: { en: "Calcium correction for hypoalbuminaemia", ru: "Коррекция кальция при гипоальбуминемии", ar: "تصحيح الكالسيوم في نقص ألبومين الدم", tr: "Hipoalbüminemi için kalsiyum düzeltmesi", de: "Kalziumkorrektur bei Hypoalbuminämie", fr: "Correction calcique pour hypoalbuminémie", es: "Corrección de calcio por hipoalbuminemia" },
+    category: { en: "Biochemistry", ru: "Биохимия", ar: "الكيمياء الحيوية", tr: "Biyokimya", de: "Biochemie", fr: "Biochimie", es: "Bioquímica" },
+    icon: "🧪",
+    seoDescription: "Corrected calcium calculator adjusting for hypoalbuminaemia using the Payne formula. Free, multilingual.",
+  },
+  "anion-gap": {
+    name:     { en: "Anion Gap", ru: "Анионный разрыв", ar: "الفجوة الأيونية", tr: "Anyon Açığı", de: "Anionenlücke", fr: "Trou anionique", es: "Brecha aniónica" },
+    subtitle: { en: "Metabolic acidosis classification with albumin correction", ru: "Классификация метаболического ацидоза с поправкой на альбумин", ar: "تصنيف الحماض الأيضي مع تصحيح الألبومين", tr: "Albumin düzeltmeli metabolik asidoz sınıflaması", de: "Metabolische Azidose-Klassifikation mit Albumin-Korrektur", fr: "Classification de l'acidose métabolique avec correction albumine", es: "Clasificación acidosis metabólica con corrección albúmina" },
+    category: { en: "Biochemistry", ru: "Биохимия", ar: "الكيمياء الحيوية", tr: "Biyokimya", de: "Biochemie", fr: "Biochimie", es: "Bioquímica" },
+    icon: "⚗️",
+    seoDescription: "Anion gap calculator with albumin correction for metabolic acidosis classification. Free, multilingual.",
+  },
+  "meld": {
+    name:     { en: "MELD / MELD-Na Score", ru: "Шкала MELD / MELD-Na", ar: "مقياس MELD / MELD-Na", tr: "MELD / MELD-Na Skoru", de: "MELD / MELD-Na Score", fr: "Score MELD / MELD-Na", es: "Puntuación MELD / MELD-Na" },
+    subtitle: { en: "Liver disease severity and transplant priority (UNOS)", ru: "Тяжесть заболевания печени и приоритет трансплантации (UNOS)", ar: "شدة مرض الكبد وأولوية زرع الأعضاء (UNOS)", tr: "Karaciğer hastalığı şiddeti ve nakil önceliği (UNOS)", de: "Schweregrad der Lebererkrankung und Transplantationspriorität (UNOS)", fr: "Sévérité de l'hépatopathie et priorité transplantation (UNOS)", es: "Gravedad hepatopatía y prioridad trasplante (UNOS)" },
+    category: { en: "Hepatology", ru: "Гепатология", ar: "أمراض الكبد", tr: "Hepatoloji", de: "Hepatologie", fr: "Hépatologie", es: "Hepatología" },
+    icon: "🫀",
+    seoDescription: "MELD and MELD-Na score calculator for liver disease severity and transplant prioritisation. Free, multilingual.",
+  },
+  "cockcroft-gault": {
+    name:     { en: "Cockcroft-Gault CrCl", ru: "Клиренс креатинина (Кокрофт-Голт)", ar: "تصفية الكرياتينين (كوكروفت-غولت)", tr: "Cockcroft-Gault KrKl", de: "Cockcroft-Gault-KrCl", fr: "Clairance créatinine Cockcroft-Gault", es: "ClCr Cockcroft-Gault" },
+    subtitle: { en: "Kidney function and drug dosing adjustment", ru: "Функция почек и коррекция доз препаратов", ar: "وظائف الكلى وتعديل جرعة الدواء", tr: "Böbrek fonksiyonu ve ilaç doz ayarlaması", de: "Nierenfunktion und Medikamentendosisanpassung", fr: "Fonction rénale et adaptation posologique", es: "Función renal y ajuste de dosis farmacológica" },
+    category: { en: "Nephrology", ru: "Нефрология", ar: "أمراض الكلى", tr: "Nefroloji", de: "Nephrologie", fr: "Néphrologie", es: "Nefrología" },
+    icon: "💊",
+    seoDescription: "Cockcroft-Gault creatinine clearance calculator for drug dosing in renal impairment. Free, multilingual.",
+  },
 };
 
 export default function CalculatorPage({ params }: { params: { slug: string } }) {
@@ -32,20 +78,19 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
   if (!validSlugs.includes(slug)) notFound();
 
   const calc = getCalc(slug);
-  const isEgfr = slug === "egfr-ckd-epi";
+  const numericMeta = NUMERIC_CALCS[slug];
+  const isNumeric = !!numericMeta;
 
-  const name = isEgfr ? t(EGFR_META.name, lang) : t(calc!.nameI18n, lang);
-  const subtitle = isEgfr ? t(EGFR_META.subtitle, lang) : t(calc!.subtitle, lang);
-  const category = isEgfr ? t(EGFR_META.category, lang) : t(calc!.categoryI18n, lang);
-  const icon = isEgfr ? EGFR_META.icon : calc!.icon;
+  const name = isNumeric ? t(numericMeta.name, lang) : t(calc!.nameI18n, lang);
+  const subtitle = isNumeric ? t(numericMeta.subtitle, lang) : t(calc!.subtitle, lang);
+  const category = isNumeric ? t(numericMeta.category, lang) : t(calc!.categoryI18n, lang);
+  const icon = isNumeric ? numericMeta.icon : calc!.icon;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
     name: `${name} — MedMind AI`,
-    description: isEgfr
-      ? "eGFR calculator using CKD-EPI 2021 equation. Estimates kidney function and determines CKD stage. Free, multilingual."
-      : t(calc!.seoDescription, "en"),
+    description: isNumeric ? numericMeta.seoDescription : t(calc!.seoDescription, "en"),
     url: `https://medmind.pro/calculators/${slug}`,
     audience: { "@type": "MedicalAudience", audienceType: "Clinician" },
   };

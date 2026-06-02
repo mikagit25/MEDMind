@@ -32,6 +32,56 @@ const CALC_SEO: Record<string, { title: string; description: string; keywords: s
     keywords: ["HEART score", "chest pain", "MACE risk", "emergency cardiology", "ACS risk", "ED chest pain calculator"],
   },
   "egfr-ckd-epi": EGFR_META,
+  "gcs": {
+    title: "Glasgow Coma Scale (GCS) Calculator — Consciousness Assessment — MedMind AI",
+    description: "GCS calculator with eye, verbal, and motor response components. Assess level of consciousness and severity of traumatic brain injury. Free, 7 languages.",
+    keywords: ["Glasgow Coma Scale", "GCS calculator", "consciousness assessment", "traumatic brain injury", "TBI score", "neurology calculator"],
+  },
+  "qsofa": {
+    title: "qSOFA Score Calculator — Sepsis Risk Screening — MedMind AI",
+    description: "Quick SOFA (qSOFA) score for early sepsis identification outside ICU. Three criteria: altered mentation, tachypnoea, hypotension. Based on Sepsis-3 definition. Free.",
+    keywords: ["qSOFA", "sepsis screening", "quick SOFA", "Sepsis-3", "sepsis calculator", "critical care"],
+  },
+  "has-bled": {
+    title: "HAS-BLED Score Calculator — Bleeding Risk in AFib — MedMind AI",
+    description: "HAS-BLED score for major bleeding risk in atrial fibrillation patients on anticoagulation. ESC guideline recommended. Identify modifiable risk factors. Free, 7 languages.",
+    keywords: ["HAS-BLED", "bleeding risk calculator", "anticoagulation bleeding", "atrial fibrillation", "ESC guidelines", "cardiology"],
+  },
+  "abcd2": {
+    title: "ABCD² Score Calculator — TIA Stroke Risk — MedMind AI",
+    description: "ABCD² score for early stroke risk after transient ischaemic attack (TIA). Predicts 2-day and 7-day stroke risk. Guides hospital admission and investigation urgency. Free.",
+    keywords: ["ABCD2 score", "TIA stroke risk", "transient ischaemic attack", "stroke prediction", "neurology calculator", "stroke risk"],
+  },
+  "child-pugh": {
+    title: "Child-Pugh Score Calculator — Liver Cirrhosis Severity — MedMind AI",
+    description: "Child-Pugh score for hepatic reserve assessment in liver cirrhosis. Classifies into Child-Pugh A/B/C with 1-year and 2-year survival estimates. Free, 7 languages.",
+    keywords: ["Child-Pugh score", "liver cirrhosis", "hepatic reserve", "cirrhosis severity", "hepatology calculator", "MELD alternative"],
+  },
+  "bmi": {
+    title: "BMI Calculator — Body Mass Index (WHO Classification) — MedMind AI",
+    description: "Free BMI calculator using WHO classification. Calculate body mass index, determine obesity grade, and get evidence-based management recommendations. Available in 7 languages.",
+    keywords: ["BMI calculator", "body mass index", "obesity classification", "WHO BMI", "overweight calculator", "weight calculator"],
+  },
+  "corrected-calcium": {
+    title: "Corrected Calcium Calculator — Hypoalbuminaemia Adjustment — MedMind AI",
+    description: "Calculate albumin-corrected calcium to interpret serum calcium accurately in hypoalbuminaemic patients. Detects true hypo- and hypercalcaemia. Free, multilingual.",
+    keywords: ["corrected calcium calculator", "albumin corrected calcium", "hypercalcemia", "hypocalcemia", "calcium correction", "biochemistry calculator"],
+  },
+  "anion-gap": {
+    title: "Anion Gap Calculator — Metabolic Acidosis Classification — MedMind AI",
+    description: "Calculate anion gap and albumin-corrected anion gap for metabolic acidosis diagnosis. Differentiates high-AG from normal-AG acidosis. Free, 7 languages.",
+    keywords: ["anion gap calculator", "metabolic acidosis", "albumin corrected anion gap", "HAGMA", "acid-base calculator", "biochemistry"],
+  },
+  "meld": {
+    title: "MELD / MELD-Na Score Calculator — Liver Disease Severity — MedMind AI",
+    description: "MELD and MELD-Na score for liver disease severity and transplant priority (UNOS). Predicts 90-day mortality in cirrhosis. Evidence-based, free, 7 languages.",
+    keywords: ["MELD score calculator", "MELD-Na", "liver transplant", "cirrhosis prognosis", "UNOS scoring", "hepatology calculator"],
+  },
+  "cockcroft-gault": {
+    title: "Cockcroft-Gault Calculator — Creatinine Clearance & Drug Dosing — MedMind AI",
+    description: "Cockcroft-Gault formula for creatinine clearance estimation and drug dose adjustment in renal impairment. Essential for pharmacokinetics. Free, 7 languages.",
+    keywords: ["Cockcroft-Gault", "creatinine clearance", "drug dosing renal", "CrCl calculator", "nephrology", "renal dosing"],
+  },
 };
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

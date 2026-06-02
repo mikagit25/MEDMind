@@ -233,7 +233,7 @@ function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
     const s: Record<string, number> = {};
     calc.fields.forEach((f, i) => {
       if (f.type === "checkbox") s[`cb_${i}`] = 0;
-      else if (f.type === "select") s[f.id] = 0;
+      else if (f.type === "select") s[f.id] = Math.min(...f.options.map(o => o.value));
     });
     return s;
   }, [calc]);
@@ -491,15 +491,469 @@ function EgfrCalc({ lang }: { lang: string }) {
   );
 }
 
+// ── Shared numeric input helpers ──────────────────────────────────────────────
+
+function NumInput({ label, value, onChange, placeholder, unit, min = 0, max, step = "any" }: {
+  label: string; value: string; onChange: (v: string) => void;
+  placeholder?: string; unit?: string; min?: number; max?: number; step?: string;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label className="font-syne font-semibold text-sm text-ink">{label}</label>
+      <div className="flex gap-2">
+        <input
+          type="number" min={min} max={max} step={step} placeholder={placeholder}
+          value={value} onChange={e => onChange(e.target.value)}
+          className="flex-1 border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2"
+        />
+        {unit && <span className="flex items-center px-3 text-sm text-ink-3 font-syne border border-border rounded-lg bg-bg">{unit}</span>}
+      </div>
+    </div>
+  );
+}
+
+function NumResult({ label, value, unit, description, recommendation, color }: {
+  label: string; value: string | null; unit: string; description?: string; recommendation?: string;
+  color: "green" | "amber" | "red";
+}) {
+  const colors = RISK_COLORS[color];
+  if (!value) {
+    return (
+      <div className="rounded-xl border border-border bg-surface p-8 flex items-center justify-center min-h-[160px]">
+        <p className="text-ink-3 text-sm font-syne text-center">Enter values and press Calculate</p>
+      </div>
+    );
+  }
+  return (
+    <div className={`rounded-xl border p-5 space-y-3 ${colors.bg} ${colors.border}`}>
+      <div>
+        <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{label}</p>
+        <p className={`font-syne font-extrabold text-4xl ${colors.text}`}>{value}</p>
+        <p className="text-ink-3 text-xs mt-0.5">{unit}</p>
+      </div>
+      {description && <p className={`text-sm font-medium leading-relaxed ${colors.text}`}>{description}</p>}
+      {recommendation && (
+        <div className="border-t border-current/20 pt-3">
+          <p className="text-xs font-syne uppercase tracking-widest text-ink-3 mb-1">Recommendation</p>
+          <p className="text-sm text-ink leading-relaxed">{recommendation}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── BMI Calculator ────────────────────────────────────────────────────────────
+
+function BmiCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    weight:  { en: "Weight", ru: "Масса тела", ar: "الوزن", tr: "Ağırlık", de: "Gewicht", fr: "Poids", es: "Peso" },
+    height:  { en: "Height", ru: "Рост", ar: "الطول", tr: "Boy", de: "Größe", fr: "Taille", es: "Talla" },
+    calc:    { en: "Calculate BMI", ru: "Вычислить ИМТ", ar: "احسب مؤشر كتلة الجسم", tr: "VKİ hesapla", de: "BMI berechnen", fr: "Calculer l'IMC", es: "Calcular IMC" },
+    result:  { en: "BMI", ru: "ИМТ", ar: "مؤشر كتلة الجسم", tr: "VKİ", de: "BMI", fr: "IMC", es: "IMC" },
+    ref:     { en: "WHO BMI Classification 2024", ru: "Классификация ВОЗ 2024", ar: "تصنيف منظمة الصحة العالمية 2024", tr: "WHO BMI Sınıflaması 2024", de: "WHO BMI-Klassifikation 2024", fr: "Classification IMC OMS 2024", es: "Clasificación IMC OMS 2024" },
+  };
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [result, setResult] = useState<null | { bmi: number; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+
+  function getBmiCategory(bmi: number): { label: string; rec: string; color: "green" | "amber" | "red" } {
+    if (bmi < 18.5) return {
+      label: lang === "ru" ? "Дефицит массы тела" : lang === "ar" ? "نقص الوزن" : lang === "de" ? "Untergewicht" : lang === "fr" ? "Insuffisance pondérale" : lang === "es" ? "Bajo peso" : lang === "tr" ? "Düşük kilo" : "Underweight",
+      rec: lang === "ru" ? "Нутритивная поддержка. Исключить недоедание, эндокринопатии." : "Nutritional support. Exclude malnutrition, endocrinopathies.",
+      color: "amber",
+    };
+    if (bmi < 25) return {
+      label: lang === "ru" ? "Нормальная масса тела" : lang === "ar" ? "وزن طبيعي" : lang === "de" ? "Normalgewicht" : lang === "fr" ? "Poids normal" : lang === "es" ? "Peso normal" : lang === "tr" ? "Normal kilo" : "Normal weight",
+      rec: lang === "ru" ? "Поддерживайте здоровый образ жизни и регулярную физическую активность." : "Maintain healthy lifestyle and regular physical activity.",
+      color: "green",
+    };
+    if (bmi < 30) return {
+      label: lang === "ru" ? "Избыточная масса тела" : lang === "ar" ? "زيادة الوزن" : lang === "de" ? "Übergewicht" : lang === "fr" ? "Surpoids" : lang === "es" ? "Sobrepeso" : lang === "tr" ? "Fazla kilo" : "Overweight",
+      rec: lang === "ru" ? "Изменение образа жизни. Оценка метаболических рисков (АД, гликемия, липиды)." : "Lifestyle modification. Assess metabolic risk factors (BP, glucose, lipids).",
+      color: "amber",
+    };
+    return {
+      label: lang === "ru" ? "Ожирение" : lang === "ar" ? "السمنة" : lang === "de" ? "Adipositas" : lang === "fr" ? "Obésité" : lang === "es" ? "Obesidad" : lang === "tr" ? "Obezite" : "Obesity",
+      rec: lang === "ru" ? "Вмешательство: диета, ФА, медикаменты или бариатрическая хирургия (≥40). Скрининг осложнений." : "Intervention: diet, exercise, medications, or bariatric surgery (≥40). Screen for complications.",
+      color: "red",
+    };
+  }
+
+  function calculate() {
+    const w = parseFloat(weight), h = parseFloat(height) / 100;
+    if (!w || !h || w <= 0 || h <= 0) return;
+    const bmi = Math.round((w / (h * h)) * 10) / 10;
+    setResult({ bmi, ...getBmiCategory(bmi) });
+  }
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_360px] gap-6">
+      <div className="space-y-4">
+        <NumInput label={t(L.weight, lang)} value={weight} onChange={setWeight} placeholder="e.g. 80" unit="kg" />
+        <NumInput label={t(L.height, lang)} value={height} onChange={setHeight} placeholder="e.g. 175" unit="cm" />
+        <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">{t(L.calc, lang)}</button>
+      </div>
+      <div className="space-y-4">
+        <NumResult label={t(L.result, lang)} value={result ? String(result.bmi) : null} unit="kg/m²" description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
+        <AiPanel lang={lang} calcName="BMI" score={result?.bmi ?? 0} riskLabel={result?.label ?? ""} />
+        <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Corrected Calcium Calculator ──────────────────────────────────────────────
+
+function CorrectedCalciumCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    calcium:   { en: "Total Calcium", ru: "Общий кальций", ar: "الكالسيوم الكلي", tr: "Total Kalsiyum", de: "Gesamtkalzium", fr: "Calcium total", es: "Calcio total" },
+    albumin:   { en: "Serum Albumin", ru: "Сывороточный альбумин", ar: "ألبومين المصل", tr: "Serum Albumini", de: "Serumalbumin", fr: "Albumine sérique", es: "Albúmina sérica" },
+    calc:      { en: "Calculate", ru: "Вычислить", ar: "احسب", tr: "Hesapla", de: "Berechnen", fr: "Calculer", es: "Calcular" },
+    result:    { en: "Corrected Calcium", ru: "Скорр. кальций", ar: "الكالسيوم المصحح", tr: "Düzeltilmiş Kalsiyum", de: "Korrigiertes Kalzium", fr: "Calcium corrigé", es: "Calcio corregido" },
+    ref:       { en: "Payne RB et al. BMJ 1973;4:643–644", ru: "Payne RB et al. BMJ 1973;4:643–644", ar: "Payne RB et al. BMJ 1973;4:643–644", tr: "Payne RB et al. BMJ 1973;4:643–644", de: "Payne RB et al. BMJ 1973;4:643–644", fr: "Payne RB et al. BMJ 1973;4:643–644", es: "Payne RB et al. BMJ 1973;4:643–644" },
+  };
+  const [calcium, setCalcium] = useState("");
+  const [albumin, setAlbumin] = useState("");
+  const [unit, setUnit] = useState<"mmol" | "mg">("mmol");
+  const [result, setResult] = useState<null | { value: number; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+
+  function getCalciumCategory(val: number, unitType: "mmol" | "mg"): { label: string; rec: string; color: "green" | "amber" | "red" } {
+    const mmol = unitType === "mg" ? val / 4 : val;
+    if (mmol < 2.1) return {
+      label: lang === "ru" ? "Гипокальциемия" : "Hypocalcemia",
+      rec: lang === "ru" ? "Исключить гипопаратиреоз, дефицит витамина D. Мониторинг ЭКГ. Коррекция кальция." : "Exclude hypoparathyroidism, vitamin D deficiency. ECG monitoring. Calcium supplementation.",
+      color: "red",
+    };
+    if (mmol <= 2.6) return {
+      label: lang === "ru" ? "Нормокальциемия" : "Normocalcemia",
+      rec: lang === "ru" ? "Уровень кальция в норме с поправкой на гипоальбуминемию." : "Calcium level normal after correcting for hypoalbuminaemia.",
+      color: "green",
+    };
+    return {
+      label: lang === "ru" ? "Гиперкальциемия" : "Hypercalcemia",
+      rec: lang === "ru" ? "Исключить первичный гиперпаратиреоз, злокачественные образования. Гидратация. Биофосфонаты." : "Exclude primary hyperparathyroidism, malignancy. Hydration. Consider bisphosphonates.",
+      color: "red",
+    };
+  }
+
+  function calculate() {
+    const ca = parseFloat(calcium), alb = parseFloat(albumin);
+    if (!ca || !alb || ca <= 0 || alb <= 0) return;
+    const normalAlb = 4.0;
+    let corrected: number;
+    if (unit === "mg") {
+      corrected = ca + 0.8 * (normalAlb - alb);
+    } else {
+      corrected = ca + 0.02 * (40 - alb * 10);
+    }
+    corrected = Math.round(corrected * 100) / 100;
+    setResult({ value: corrected, ...getCalciumCategory(corrected, unit) });
+  }
+
+  const unitLabel = unit === "mmol" ? "mmol/L" : "mg/dL";
+  const albUnit = unit === "mmol" ? "g/L" : "g/dL";
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_360px] gap-6">
+      <div className="space-y-4">
+        <div className="space-y-1.5">
+          <label className="font-syne font-semibold text-sm text-ink">{t(L.calcium, lang)}</label>
+          <div className="flex gap-2">
+            <input type="number" step="0.01" min="0" placeholder={unit === "mmol" ? "e.g. 2.1" : "e.g. 8.5"} value={calcium} onChange={e => setCalcium(e.target.value)}
+              className="flex-1 border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            <select value={unit} onChange={e => { setUnit(e.target.value as "mmol" | "mg"); setResult(null); }}
+              className="border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink focus:outline-none focus:border-border-2">
+              <option value="mmol">mmol/L</option>
+              <option value="mg">mg/dL</option>
+            </select>
+          </div>
+        </div>
+        <NumInput label={`${t(L.albumin, lang)} (${albUnit})`} value={albumin} onChange={setAlbumin} placeholder={unit === "mmol" ? "e.g. 35" : "e.g. 3.5"} unit={albUnit} />
+        <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">{t(L.calc, lang)}</button>
+      </div>
+      <div className="space-y-4">
+        <NumResult label={t(L.result, lang)} value={result ? String(result.value) : null} unit={unitLabel} description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
+        <AiPanel lang={lang} calcName="Corrected Calcium" score={result?.value ?? 0} riskLabel={result?.label ?? ""} />
+        <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Anion Gap Calculator ──────────────────────────────────────────────────────
+
+function AnionGapCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    sodium:    { en: "Sodium (Na⁺)", ru: "Натрий (Na⁺)", ar: "الصوديوم (Na⁺)", tr: "Sodyum (Na⁺)", de: "Natrium (Na⁺)", fr: "Sodium (Na⁺)", es: "Sodio (Na⁺)" },
+    chloride:  { en: "Chloride (Cl⁻)", ru: "Хлорид (Cl⁻)", ar: "الكلوريد (Cl⁻)", tr: "Klorür (Cl⁻)", de: "Chlorid (Cl⁻)", fr: "Chlorure (Cl⁻)", es: "Cloruro (Cl⁻)" },
+    bicarb:    { en: "Bicarbonate (HCO₃⁻)", ru: "Бикарбонат (HCO₃⁻)", ar: "البيكربونات (HCO₃⁻)", tr: "Bikarbonat (HCO₃⁻)", de: "Bikarbonat (HCO₃⁻)", fr: "Bicarbonate (HCO₃⁻)", es: "Bicarbonato (HCO₃⁻)" },
+    albumin:   { en: "Albumin (for correction)", ru: "Альбумин (для поправки)", ar: "ألبومين (للتصحيح)", tr: "Albumin (düzeltme için)", de: "Albumin (für Korrektur)", fr: "Albumine (pour correction)", es: "Albúmina (para corrección)" },
+    calc:      { en: "Calculate Anion Gap", ru: "Вычислить анионный разрыв", ar: "احسب الفجوة الأيونية", tr: "Anyon Açığı Hesapla", de: "Anionenlücke berechnen", fr: "Calculer le trou anionique", es: "Calcular brecha aniónica" },
+    result:    { en: "Anion Gap", ru: "Анионный разрыв", ar: "الفجوة الأيونية", tr: "Anyon Açığı", de: "Anionenlücke", fr: "Trou anionique", es: "Brecha aniónica" },
+    corrected: { en: "Albumin-corrected AG", ru: "Скорр. анионный разрыв", ar: "الفجوة المصحح للألبومين", tr: "Albumin düzeltmeli AG", de: "Albumin-korrigierte AL", fr: "TA corrigé albumine", es: "BA corregido por albúmina" },
+    ref:       { en: "Emmett M, Narins RG. Medicine 1977;56:38–54", ru: "Emmett M, Narins RG. Medicine 1977;56:38–54", ar: "Emmett M, Narins RG. Medicine 1977;56:38–54", tr: "Emmett M, Narins RG. Medicine 1977;56:38–54", de: "Emmett M, Narins RG. Medicine 1977;56:38–54", fr: "Emmett M, Narins RG. Medicine 1977;56:38–54", es: "Emmett M, Narins RG. Medicine 1977;56:38–54" },
+  };
+  const [na, setNa] = useState("");
+  const [cl, setCl] = useState("");
+  const [hco3, setHco3] = useState("");
+  const [alb, setAlb] = useState("");
+  const [result, setResult] = useState<null | { ag: number; agCorr: number | null; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+
+  function getAgCategory(ag: number): { label: string; rec: string; color: "green" | "amber" | "red" } {
+    if (ag <= 12) return {
+      label: lang === "ru" ? "Нормальный анионный разрыв (≤12)" : "Normal anion gap (≤12)",
+      rec: lang === "ru" ? "Нормальный АР. Рассмотреть неАР метаболический ацидоз (гиперхлоремический). Причины: диарея, RTA, введение хлоридов." : "Normal AG. Consider non-AG metabolic acidosis (hyperchloraemic). Causes: diarrhoea, RTA, chloride infusion.",
+      color: "green",
+    };
+    return {
+      label: lang === "ru" ? "Высокий анионный разрыв (>12)" : "Elevated anion gap (>12)",
+      rec: lang === "ru" ? "Высокий АР. Причины: лактат-ацидоз, ДКА, уремия, интоксикации (MULEPAK). Дополнительное обследование." : "Elevated AG. Causes: lactic acidosis, DKA, uraemia, toxins (MULEPAK mnemonic). Further workup needed.",
+      color: "red",
+    };
+  }
+
+  function calculate() {
+    const sodium = parseFloat(na), chloride = parseFloat(cl), bicarb = parseFloat(hco3);
+    if (!sodium || !chloride || !bicarb) return;
+    const ag = Math.round((sodium - chloride - bicarb) * 10) / 10;
+    const albumin = parseFloat(alb);
+    const agCorr = albumin > 0 ? Math.round((ag + 2.5 * (4.0 - albumin)) * 10) / 10 : null;
+    const effectiveAg = agCorr ?? ag;
+    setResult({ ag, agCorr, ...getAgCategory(effectiveAg) });
+  }
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_360px] gap-6">
+      <div className="space-y-4">
+        <NumInput label={t(L.sodium, lang)} value={na} onChange={setNa} placeholder="e.g. 140" unit="mEq/L" />
+        <NumInput label={t(L.chloride, lang)} value={cl} onChange={setCl} placeholder="e.g. 104" unit="mEq/L" />
+        <NumInput label={t(L.bicarb, lang)} value={hco3} onChange={setHco3} placeholder="e.g. 24" unit="mEq/L" />
+        <NumInput label={`${t(L.albumin, lang)} (optional)`} value={alb} onChange={setAlb} placeholder="e.g. 4.0" unit="g/dL" />
+        <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">{t(L.calc, lang)}</button>
+      </div>
+      <div className="space-y-4">
+        {result ? (
+          <div className={`rounded-xl border p-5 space-y-3 ${RISK_COLORS[result.color].bg} ${RISK_COLORS[result.color].border}`}>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(L.result, lang)}</p>
+                <p className={`font-syne font-extrabold text-3xl ${RISK_COLORS[result.color].text}`}>{result.ag}</p>
+                <p className="text-ink-3 text-xs">mEq/L</p>
+              </div>
+              {result.agCorr !== null && (
+                <div>
+                  <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(L.corrected, lang)}</p>
+                  <p className={`font-syne font-extrabold text-3xl ${RISK_COLORS[result.color].text}`}>{result.agCorr}</p>
+                  <p className="text-ink-3 text-xs">mEq/L</p>
+                </div>
+              )}
+            </div>
+            <p className={`text-sm font-medium ${RISK_COLORS[result.color].text}`}>{result.label}</p>
+            <div className="border-t border-current/20 pt-3">
+              <p className="text-xs font-syne uppercase tracking-widest text-ink-3 mb-1">{t(UI.recommendation, lang)}</p>
+              <p className="text-sm text-ink leading-relaxed">{result.rec}</p>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-border bg-surface p-8 flex items-center justify-center min-h-[160px]">
+            <p className="text-ink-3 text-sm font-syne text-center">{lang === "ru" ? "Введите данные" : "Enter values above"}</p>
+          </div>
+        )}
+        <AiPanel lang={lang} calcName="Anion Gap" score={result?.ag ?? 0} riskLabel={result?.label ?? ""} />
+        <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
+      </div>
+    </div>
+  );
+}
+
+// ── MELD Score Calculator ─────────────────────────────────────────────────────
+
+function MeldCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    inr:     { en: "INR", ru: "МНО", ar: "النسبة الدولية المعيارية", tr: "INR", de: "INR", fr: "INR", es: "INR" },
+    bili:    { en: "Total Bilirubin", ru: "Общий билирубин", ar: "البيليروبين الكلي", tr: "Total Bilirubin", de: "Gesamtbilirubin", fr: "Bilirubine totale", es: "Bilirrubina total" },
+    creat:   { en: "Creatinine", ru: "Креатинин", ar: "الكرياتينين", tr: "Kreatinin", de: "Kreatinin", fr: "Créatinine", es: "Creatinina" },
+    sodium:  { en: "Sodium (for MELD-Na)", ru: "Натрий (для MELD-Na)", ar: "الصوديوم (لـ MELD-Na)", tr: "Sodyum (MELD-Na için)", de: "Natrium (für MELD-Na)", fr: "Sodium (pour MELD-Na)", es: "Sodio (para MELD-Na)" },
+    calc:    { en: "Calculate MELD", ru: "Вычислить MELD", ar: "احسب MELD", tr: "MELD hesapla", de: "MELD berechnen", fr: "Calculer MELD", es: "Calcular MELD" },
+    result:  { en: "MELD Score", ru: "Шкала MELD", ar: "نتيجة MELD", tr: "MELD Skoru", de: "MELD-Score", fr: "Score MELD", es: "Puntuación MELD" },
+    meldna:  { en: "MELD-Na Score", ru: "Шкала MELD-Na", ar: "نتيجة MELD-Na", tr: "MELD-Na Skoru", de: "MELD-Na-Score", fr: "Score MELD-Na", es: "Puntuación MELD-Na" },
+    ref:     { en: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na policy", ru: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na", ar: "Kamath PS et al. Hepatology 2001;33:464–470 · سياسة UNOS MELD-Na", tr: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na", de: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na", fr: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na", es: "Kamath PS et al. Hepatology 2001;33:464–470 · UNOS MELD-Na" },
+  };
+  const [inr, setInr] = useState("");
+  const [bili, setBili] = useState("");
+  const [creat, setCreat] = useState("");
+  const [sodium, setSodium] = useState("");
+  const [result, setResult] = useState<null | { meld: number; meldNa: number | null; label: string; mortality: string; color: "green" | "amber" | "red" }>(null);
+
+  function getMeldCategory(meld: number): { label: string; mortality: string; color: "green" | "amber" | "red" } {
+    if (meld < 10) return { label: lang === "ru" ? "Лёгкая степень" : "Mild", mortality: lang === "ru" ? "90-дневная летальность <5%. Плановое наблюдение." : "90-day mortality <5%. Routine follow-up.", color: "green" };
+    if (meld < 20) return { label: lang === "ru" ? "Средняя степень" : "Moderate", mortality: lang === "ru" ? "90-дневная летальность ~20%. Наблюдение каждые 3 мес." : "90-day mortality ~20%. Follow-up every 3 months.", color: "amber" };
+    if (meld < 30) return { label: lang === "ru" ? "Тяжёлая степень" : "Severe", mortality: lang === "ru" ? "90-дневная летальность ~40–50%. Приоритет трансплантации." : "90-day mortality ~40–50%. High priority for transplantation.", color: "red" };
+    return { label: lang === "ru" ? "Критическая степень" : "Critical", mortality: lang === "ru" ? "90-дневная летальность >70%. Экстренная оценка трансплантации." : "90-day mortality >70%. Urgent transplantation evaluation.", color: "red" };
+  }
+
+  function calculate() {
+    const i = Math.max(parseFloat(inr), 1.0);
+    const b = Math.max(parseFloat(bili), 1.0);
+    const c = Math.min(Math.max(parseFloat(creat), 1.0), 4.0);
+    if (!i || !b || !c) return;
+    const meld = Math.round(3.78 * Math.log(b) + 11.2 * Math.log(i) + 9.57 * Math.log(c) + 6.43);
+    const na = parseFloat(sodium);
+    let meldNa: number | null = null;
+    if (na > 0) {
+      const clampedNa = Math.min(Math.max(na, 125), 137);
+      meldNa = Math.round(meld + 1.32 * (137 - clampedNa) - 0.033 * meld * (137 - clampedNa));
+    }
+    setResult({ meld, meldNa, ...getMeldCategory(meldNa ?? meld) });
+  }
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_360px] gap-6">
+      <div className="space-y-4">
+        <NumInput label={t(L.inr, lang)} value={inr} onChange={setInr} placeholder="e.g. 1.5" step="0.01" />
+        <NumInput label={`${t(L.bili, lang)} (mg/dL)`} value={bili} onChange={setBili} placeholder="e.g. 2.0" step="0.01" unit="mg/dL" />
+        <NumInput label={`${t(L.creat, lang)} (mg/dL)`} value={creat} onChange={setCreat} placeholder="e.g. 1.2" step="0.01" unit="mg/dL" />
+        <NumInput label={`${t(L.sodium, lang)} (optional)`} value={sodium} onChange={setSodium} placeholder="e.g. 135" unit="mEq/L" />
+        <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">{t(L.calc, lang)}</button>
+      </div>
+      <div className="space-y-4">
+        {result ? (
+          <div className={`rounded-xl border p-5 space-y-3 ${RISK_COLORS[result.color].bg} ${RISK_COLORS[result.color].border}`}>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(L.result, lang)}</p>
+                <p className={`font-syne font-extrabold text-3xl ${RISK_COLORS[result.color].text}`}>{result.meld}</p>
+              </div>
+              {result.meldNa !== null && (
+                <div>
+                  <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(L.meldna, lang)}</p>
+                  <p className={`font-syne font-extrabold text-3xl ${RISK_COLORS[result.color].text}`}>{result.meldNa}</p>
+                </div>
+              )}
+            </div>
+            <span className={`inline-block font-syne font-bold text-sm px-3 py-1 rounded-full ${RISK_COLORS[result.color].badge}`}>{result.label}</span>
+            <p className="text-sm text-ink leading-relaxed">{result.mortality}</p>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-border bg-surface p-8 flex items-center justify-center min-h-[160px]">
+            <p className="text-ink-3 text-sm font-syne text-center">{lang === "ru" ? "Введите данные" : "Enter values above"}</p>
+          </div>
+        )}
+        <AiPanel lang={lang} calcName="MELD Score" score={result?.meld ?? 0} riskLabel={result?.label ?? ""} />
+        <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Cockcroft-Gault Calculator ────────────────────────────────────────────────
+
+function CockcroftGaultCalc({ lang }: { lang: string }) {
+  const L: Record<string, Record<Lang, string>> = {
+    age:     { en: "Age", ru: "Возраст", ar: "العمر", tr: "Yaş", de: "Alter", fr: "Âge", es: "Edad" },
+    weight:  { en: "Weight (actual body weight)", ru: "Масса тела (фактическая)", ar: "الوزن (الوزن الفعلي)", tr: "Ağırlık (gerçek vücut ağırlığı)", de: "Gewicht (tatsächlich)", fr: "Poids (poids corporel réel)", es: "Peso (peso corporal real)" },
+    creat:   { en: "Serum Creatinine", ru: "Сывороточный креатинин", ar: "كرياتينين المصل", tr: "Serum Kreatinini", de: "Serumkreatinin", fr: "Créatinine sérique", es: "Creatinina sérica" },
+    sex:     { en: "Sex", ru: "Пол", ar: "الجنس", tr: "Cinsiyet", de: "Geschlecht", fr: "Sexe", es: "Sexo" },
+    calc:    { en: "Calculate CrCl", ru: "Вычислить КлКр", ar: "احسب تصفية الكرياتينين", tr: "CrCl Hesapla", de: "KrCl berechnen", fr: "Calculer la ClCr", es: "Calcular ClCr" },
+    result:  { en: "Creatinine Clearance", ru: "Клиренс креатинина", ar: "تصفية الكرياتينين", tr: "Kreatinin Klerensi", de: "Kreatinin-Clearance", fr: "Clairance de la créatinine", es: "Aclaramiento de creatinina" },
+    ref:     { en: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", ru: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", ar: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", tr: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", de: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", fr: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41", es: "Cockcroft DW & Gault MH. Nephron 1976;16:31–41" },
+  };
+  const [age, setAge] = useState("");
+  const [weight, setWeight] = useState("");
+  const [creat, setCreat] = useState("");
+  const [sex, setSex] = useState<"male" | "female">("male");
+  const [unit, setUnit] = useState<"mg" | "umol">("mg");
+  const [result, setResult] = useState<null | { crcl: number; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+
+  function getCategory(crcl: number): { label: string; rec: string; color: "green" | "amber" | "red" } {
+    if (crcl >= 90) return {
+      label: lang === "ru" ? "Нормальная функция почек (≥90)" : "Normal kidney function (≥90)",
+      rec: lang === "ru" ? "Стандартные дозы препаратов. Мониторинг при применении нефротоксинов." : "Standard drug dosing. Monitor if using nephrotoxic agents.",
+      color: "green",
+    };
+    if (crcl >= 60) return {
+      label: lang === "ru" ? "Лёгкое снижение (60–89)" : "Mild reduction (60–89)",
+      rec: lang === "ru" ? "Большинство препаратов — стандартные дозы. Осторожность с НПВП, метформином." : "Most drugs at standard doses. Caution with NSAIDs, metformin.",
+      color: "green",
+    };
+    if (crcl >= 30) return {
+      label: lang === "ru" ? "Умеренное снижение (30–59)" : "Moderate reduction (30–59)",
+      rec: lang === "ru" ? "Коррекция доз многих препаратов. Избегать НПВП. Осторожность с метформином (<45)." : "Dose adjustment required for many drugs. Avoid NSAIDs. Caution with metformin (<45).",
+      color: "amber",
+    };
+    if (crcl >= 15) return {
+      label: lang === "ru" ? "Тяжёлое снижение (15–29)" : "Severe reduction (15–29)",
+      rec: lang === "ru" ? "Значительная коррекция доз. Консультация нефролога. Отмена метформина." : "Significant dose adjustments. Nephrology consultation. Discontinue metformin.",
+      color: "red",
+    };
+    return {
+      label: lang === "ru" ? "Почечная недостаточность (<15)" : "Kidney failure (<15)",
+      rec: lang === "ru" ? "Диализная дозировка или отмена ренально выводимых препаратов. Диализ или трансплантация." : "Dialysis dosing or discontinuation of renally cleared drugs. Dialysis or transplantation.",
+      color: "red",
+    };
+  }
+
+  function calculate() {
+    const a = parseFloat(age), w = parseFloat(weight), cr = parseFloat(creat);
+    if (!a || !w || !cr || a <= 0 || w <= 0 || cr <= 0) return;
+    const crMgdl = unit === "umol" ? cr / 88.42 : cr;
+    let crcl = ((140 - a) * w) / (72 * crMgdl);
+    if (sex === "female") crcl *= 0.85;
+    crcl = Math.round(crcl * 10) / 10;
+    setResult({ crcl, ...getCategory(crcl) });
+  }
+
+  return (
+    <div className="grid lg:grid-cols-[1fr_360px] gap-6">
+      <div className="space-y-4">
+        <NumInput label={t(L.age, lang)} value={age} onChange={setAge} placeholder="e.g. 65" unit={lang === "ru" ? "лет" : "years"} />
+        <NumInput label={t(L.weight, lang)} value={weight} onChange={setWeight} placeholder="e.g. 70" unit="kg" />
+        <div className="space-y-1.5">
+          <label className="font-syne font-semibold text-sm text-ink">{t(L.creat, lang)}</label>
+          <div className="flex gap-2">
+            <input type="number" step="0.01" min="0" placeholder={unit === "mg" ? "e.g. 1.2" : "e.g. 106"} value={creat} onChange={e => setCreat(e.target.value)}
+              className="flex-1 border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink placeholder-ink-3 focus:outline-none focus:border-border-2" />
+            <select value={unit} onChange={e => { setUnit(e.target.value as "mg" | "umol"); setResult(null); }}
+              className="border border-border rounded-lg px-3 py-2.5 text-sm font-syne bg-surface text-ink focus:outline-none focus:border-border-2">
+              <option value="mg">mg/dL</option>
+              <option value="umol">μmol/L</option>
+            </select>
+          </div>
+        </div>
+        <div className="space-y-1.5">
+          <label className="font-syne font-semibold text-sm text-ink">{t(L.sex, lang)}</label>
+          <div className="flex gap-2">
+            {(["male", "female"] as const).map(s => (
+              <button key={s} onClick={() => setSex(s)}
+                className={`flex-1 font-syne font-semibold text-sm py-2.5 rounded-lg border transition-colors ${sex === s ? "bg-ink text-white border-ink" : "bg-surface text-ink-2 border-border hover:border-border-2"}`}>
+                {t(UI[s], lang)}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-3 rounded-lg hover:bg-red transition-colors">{t(L.calc, lang)}</button>
+      </div>
+      <div className="space-y-4">
+        <NumResult label={t(L.result, lang)} value={result ? String(result.crcl) : null} unit="mL/min" description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
+        <AiPanel lang={lang} calcName="Cockcroft-Gault" score={result?.crcl ?? 0} riskLabel={result?.label ?? ""} />
+        <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main widget exported ─────────────────────────────────────────────────────
 
 export function CalculatorWidget({ slug }: { slug: string }) {
   const { locale } = useI18n();
   const lang = locale as string;
 
-  if (slug === "egfr-ckd-epi") {
-    return <EgfrCalc lang={lang} />;
-  }
+  if (slug === "egfr-ckd-epi") return <EgfrCalc lang={lang} />;
+  if (slug === "bmi") return <BmiCalc lang={lang} />;
+  if (slug === "corrected-calcium") return <CorrectedCalciumCalc lang={lang} />;
+  if (slug === "anion-gap") return <AnionGapCalc lang={lang} />;
+  if (slug === "meld") return <MeldCalc lang={lang} />;
+  if (slug === "cockcroft-gault") return <CockcroftGaultCalc lang={lang} />;
 
   const calc = getCalc(slug);
   if (!calc) return (
@@ -520,6 +974,15 @@ export function CalculatorsIndex() {
   const lang = locale as string;
   const tIdx = (key: string) => t(INDEX_T[key], lang);
 
+  const numericCalcs = [
+    { slug: "egfr-ckd-epi",        name: tIdx("egfr_name"),     subtitle: tIdx("egfr_sub"),     category: tIdx("nephrology"),    icon: "🫘" },
+    { slug: "bmi",                  name: tIdx("bmi_name"),      subtitle: tIdx("bmi_sub"),      category: tIdx("general"),       icon: "⚖️" },
+    { slug: "corrected-calcium",    name: tIdx("calcium_name"),  subtitle: tIdx("calcium_sub"),  category: tIdx("biochemistry"),  icon: "🧪" },
+    { slug: "anion-gap",            name: tIdx("aniongap_name"), subtitle: tIdx("aniongap_sub"), category: tIdx("biochemistry"),  icon: "⚗️" },
+    { slug: "meld",                 name: tIdx("meld_name"),     subtitle: tIdx("meld_sub"),     category: tIdx("hepatology"),    icon: "🫀" },
+    { slug: "cockcroft-gault",      name: tIdx("cg_name"),       subtitle: tIdx("cg_sub"),       category: tIdx("nephrology"),    icon: "💊" },
+  ];
+
   const allCalcs = [
     ...CALCULATORS.map(c => ({
       slug: c.slug,
@@ -528,13 +991,7 @@ export function CalculatorsIndex() {
       category: t(c.categoryI18n, lang),
       icon: c.icon,
     })),
-    {
-      slug: "egfr-ckd-epi",
-      name: tIdx("egfr_name"),
-      subtitle: tIdx("egfr_sub"),
-      category: tIdx("nephrology"),
-      icon: "🫘",
-    },
+    ...numericCalcs,
   ];
 
   return (
