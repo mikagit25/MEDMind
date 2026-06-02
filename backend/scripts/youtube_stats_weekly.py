@@ -19,6 +19,11 @@ ACCOUNTS = [
         "secret": "/opt/medmind/client_secret_account2_web.json",
         "token":  "/opt/medmind/youtube_token_account2.json",
     },
+    {
+        "label":  "🇸🇦 MedMind AR",
+        "secret": "/opt/medmind/client_secret_account3_web.json",
+        "token":  "/opt/medmind/youtube_token_ar.json",
+    },
 ]
 
 

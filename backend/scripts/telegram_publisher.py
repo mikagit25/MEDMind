@@ -125,6 +125,40 @@ CATEGORY_RU = {
 
 HASHTAGS_EN = "#MedicalEducation #Medicine #MedMindAI #USMLE #MedStudent"
 HASHTAGS_RU = "#Медицина #МедицинскоеОбразование #MedMindAI #Врач #МедВуз"
+HASHTAGS_AR = "#التعليم_الطبي #الطب #MedMindAI #USMLE #طالب_طب"
+
+# Category → Arabic label
+CATEGORY_AR = {
+    "cardiology":          "أمراض القلب",
+    "neurology":           "طب الأعصاب",
+    "diseases":            "الأمراض",
+    "drugs":               "الأدوية",
+    "pharmacology":        "الأدوية",
+    "internal-medicine":   "الطب الداخلي",
+    "emergency":           "الطوارئ",
+    "surgery":             "الجراحة",
+    "pediatrics":          "طب الأطفال",
+    "ob-gyn":              "النساء والتوليد",
+    "oncology":            "الأورام",
+    "psychiatry":          "الطب النفسي",
+    "endocrinology":       "الغدد الصماء",
+    "infectious-diseases": "الأمراض المعدية",
+    "diagnostics":         "التشخيص",
+    "procedures":          "الإجراءات",
+    "symptoms":            "الأعراض",
+    "nutrition":           "التغذية",
+    "orthopedics":         "العظام",
+    "rheumatology":        "الروماتيزم",
+    "hematology":          "أمراض الدم",
+    "nephrology":          "أمراض الكلى",
+    "pulmonology":         "أمراض الرئة",
+    "ophthalmology":       "طب العيون",
+    "ent":                 "أمراض الأذن والأنف والحنجرة",
+    "urology":             "المسالك البولية",
+    "geriatrics":          "طب الشيخوخة",
+    "dermatology":         "الأمراض الجلدية",
+    "physiology":          "علم وظائف الأعضاء",
+}
 
 
 # ── Tracking ───────────────────────────────────────────────────────────────────
@@ -230,26 +264,30 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
         title   = detail.get("title",   title)
         excerpt = detail.get("excerpt", excerpt)
 
-    # Key points from body sections — translate if non-English
-    body        = (detail or {}).get("body", [])
-    key_points_en = extract_key_points(body, max_points=4)
-    key_points = (
-        key_points_en if lang == "en"
-        else [gtranslate(pt, lang) for pt in key_points_en]
-    )
+    # Key points from body sections
+    # detail is already fetched with ?locale=lang, so headings are in target language
+    body       = (detail or {}).get("body", [])
+    key_points = extract_key_points(body, max_points=4)
 
     # Build URL
     if lang == "en":
-        url      = f"https://medmind.pro/articles/{slug}"
-        hashtags = HASHTAGS_EN
-        cat_label = category.replace("-", " ").title()
+        url        = f"https://medmind.pro/articles/{slug}"
+        hashtags   = HASHTAGS_EN
+        cat_label  = category.replace("-", " ").title()
         read_label = f"⏱ {minutes} min read"
         read_more  = "📖 Full article + sources:"
         subscribe  = "📚 Free medical platform: medmind.pro"
+    elif lang == "ar":
+        url        = f"https://medmind.pro/articles/{slug}?lang=ar"
+        hashtags   = HASHTAGS_AR
+        cat_label  = CATEGORY_AR.get(category, category)
+        read_label = f"⏱ {minutes} دقائق للقراءة"
+        read_more  = "📖 المقال الكامل مع المصادر:"
+        subscribe  = "📚 منصة طبية مجانية: medmind.pro"
     else:
-        url       = f"https://medmind.pro/articles/{slug}?lang={lang}"
-        hashtags  = HASHTAGS_RU
-        cat_label = CATEGORY_RU.get(category, category)
+        url        = f"https://medmind.pro/articles/{slug}?lang={lang}"
+        hashtags   = HASHTAGS_RU
+        cat_label  = CATEGORY_RU.get(category, category)
         read_label = f"⏱ {minutes} мин чтения"
         read_more  = "📖 Полная статья + источники:"
         subscribe  = "📚 Бесплатная медплатформа: medmind.pro"
