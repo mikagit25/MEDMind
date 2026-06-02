@@ -81,6 +81,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
               { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
             ].map(item => (
@@ -129,6 +130,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
               { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
               { href: "/login",        label: t("landing.nav_sign_in") },
@@ -355,6 +357,50 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
         </div>
       </section>
 
+      {/* ── Clinical Calculators teaser ──────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1 rounded-full font-syne font-semibold text-xs text-ink-3 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-2 inline-block" />
+              {locale === "ru" ? "Клинические инструменты" : locale === "ar" ? "الأدوات السريرية" : locale === "de" ? "Klinische Tools" : locale === "fr" ? "Outils cliniques" : locale === "es" ? "Herramientas clínicas" : locale === "tr" ? "Klinik araçlar" : "Clinical tools"}
+            </div>
+            <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink">
+              {t("landing.nav_calculators")}
+            </h2>
+            <p className="text-ink-3 text-sm mt-1.5 max-w-lg">
+              {locale === "ru" ? "Доказательные шкалы, которыми врачи пользуются каждый день. Бесплатно, на вашем языке." : locale === "ar" ? "أدوات تقييم قائمة على الأدلة يستخدمها الأطباء يومياً. مجانية، بلغتك." : locale === "de" ? "Evidenzbasierte Scoring-Tools, täglich von Klinikern eingesetzt. Kostenlos, in Ihrer Sprache." : locale === "fr" ? "Outils de scoring validés utilisés quotidiennement. Gratuit, dans votre langue." : locale === "es" ? "Herramientas de puntuación usadas diariamente por clínicos. Gratis, en tu idioma." : locale === "tr" ? "Klinisyenlerin günlük kullandığı kanıta dayalı puanlama araçları. Ücretsiz, dilinizde." : "Evidence-based scoring tools used daily by clinicians worldwide. Free, in your language."}
+            </p>
+          </div>
+          <Link href="/calculators" className="font-syne font-bold text-sm text-red hover:underline whitespace-nowrap flex-shrink-0">
+            {locale === "ru" ? "Все калькуляторы →" : locale === "ar" ? "جميع الآلات الحاسبة →" : locale === "de" ? "Alle Rechner →" : locale === "fr" ? "Tous les calculateurs →" : locale === "es" ? "Todas las calculadoras →" : locale === "tr" ? "Tüm hesap makineleri →" : "All calculators →"}
+          </Link>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { slug: "cha2ds2-vasc", icon: "❤️", cat: locale === "ru" ? "Кардиология" : locale === "ar" ? "أمراض القلب" : locale === "de" ? "Kardiologie" : locale === "fr" ? "Cardiologie" : locale === "es" ? "Cardiología" : locale === "tr" ? "Kardiyoloji" : "Cardiology", name: "CHA₂DS₂-VASc", desc: locale === "ru" ? "Риск инсульта при фибрилляции предсердий" : locale === "ar" ? "خطر السكتة الدماغية في الرجفان الأذيني" : locale === "de" ? "Schlaganfallrisiko bei Vorhofflimmern" : locale === "fr" ? "Risque d'AVC dans la fibrillation auriculaire" : locale === "es" ? "Riesgo de ictus en fibrilación auricular" : locale === "tr" ? "Atriyal fibrilasyonda inme riski" : "Stroke risk in atrial fibrillation" },
+            { slug: "curb-65", icon: "🫁", cat: locale === "ru" ? "Пульмонология" : locale === "ar" ? "أمراض الرئة" : locale === "de" ? "Pneumologie" : locale === "fr" ? "Pneumologie" : locale === "es" ? "Neumología" : locale === "tr" ? "Pulmonoloji" : "Pulmonology", name: "CURB-65", desc: locale === "ru" ? "Тяжесть внебольничной пневмонии" : locale === "ar" ? "شدة الالتهاب الرئوي المكتسب من المجتمع" : locale === "de" ? "Schweregrad der ambulant erworbenen Pneumonie" : locale === "fr" ? "Sévérité de la pneumonie communautaire" : locale === "es" ? "Gravedad de la neumonía comunitaria" : locale === "tr" ? "Toplum kökenli pnömoni şiddeti" : "Community-acquired pneumonia severity" },
+            { slug: "egfr-ckd-epi", icon: "🫘", cat: locale === "ru" ? "Нефрология" : locale === "ar" ? "أمراض الكلى" : locale === "de" ? "Nephrologie" : locale === "fr" ? "Néphrologie" : locale === "es" ? "Nefrología" : locale === "tr" ? "Nefroloji" : "Nephrology", name: "eGFR (CKD-EPI 2021)", desc: locale === "ru" ? "Функция почек и стадия ХБП" : locale === "ar" ? "وظائف الكلى وتصنيف مرض الكلى المزمن" : locale === "de" ? "Nierenfunktion und CKD-Stadium" : locale === "fr" ? "Fonction rénale et stadification de l'IRC" : locale === "es" ? "Función renal y estadio de ERC" : locale === "tr" ? "Böbrek fonksiyonu ve KBH evresi" : "Kidney function and CKD staging" },
+          ].map(c => (
+            <Link key={c.slug} href={`/calculators/${c.slug}`}
+              className="group bg-surface border border-border rounded-xl p-5 hover:border-ink hover:shadow-sm transition-all flex flex-col gap-3">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-2xl">{c.icon}</span>
+                <span className="text-xs font-syne font-semibold text-ink-3 bg-bg px-2 py-0.5 rounded-full border border-border">{c.cat}</span>
+              </div>
+              <div>
+                <h3 className="font-syne font-bold text-base text-ink group-hover:text-red transition-colors leading-tight mb-1">{c.name}</h3>
+                <p className="text-ink-3 text-sm leading-snug">{c.desc}</p>
+              </div>
+              <span className="text-red font-syne font-semibold text-sm mt-auto">
+                {locale === "ru" ? "Открыть →" : locale === "ar" ? "فتح →" : locale === "de" ? "Öffnen →" : locale === "fr" ? "Ouvrir →" : locale === "es" ? "Abrir →" : locale === "tr" ? "Aç →" : "Open →"}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* ── Interactive demo ─────────────────────────────────────────────────── */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
         <div className="text-center mb-8">
@@ -533,6 +579,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
               { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
               { href: "/investors",    label: t("landing.footer_investors") },

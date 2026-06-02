@@ -996,6 +996,7 @@ const tr: Translations = {
     nav_drugs: "İlaçlar",
     nav_imaging: "Görüntüleme",
     nav_pricing: "Fiyatlandırma",
+    nav_calculators: "Hesap Makineleri",
     nav_sign_in: "Giriş yap",
     nav_register: "Ücretsiz başla",
     specialties_title: "Altı temel uzmanlık",

@@ -1004,6 +1004,7 @@ const fr: Translations = {
     nav_drugs: "Médicaments",
     nav_imaging: "Imagerie",
     nav_pricing: "Tarifs",
+    nav_calculators: "Calculateurs",
     nav_sign_in: "Se connecter",
     nav_register: "Commencer gratuitement",
     specialties_title: "Six spécialités principales",

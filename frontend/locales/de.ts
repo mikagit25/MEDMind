@@ -1004,6 +1004,7 @@ const de: Translations = {
     nav_drugs: "Medikamente",
     nav_imaging: "Bildgebung",
     nav_pricing: "Preise",
+    nav_calculators: "Rechner",
     nav_sign_in: "Anmelden",
     nav_register: "Kostenlos starten",
     specialties_title: "Sechs Kernfachgebiete",

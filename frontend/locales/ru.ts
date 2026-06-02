@@ -1268,6 +1268,7 @@ const ru: Translations = {
     nav_drugs: "Препараты",
     nav_imaging: "Изображения",
     nav_pricing: "Тарифы",
+    nav_calculators: "Калькуляторы",
     nav_sign_in: "Войти",
     nav_register: "Начать бесплатно",
     stats_modules: "Клинических модулей",

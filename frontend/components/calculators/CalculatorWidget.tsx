@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { useAuthStore } from "@/lib/store";
+import { api } from "@/lib/api";
 import {
   type Lang, type CalcMeta, type FieldDef, type RiskBand,
   CALCULATORS, getCalc, getRiskBand, UI, CALC_SLUGS,
@@ -130,21 +132,96 @@ function ResultPanel({ calc, score, band, lang }: {
   );
 }
 
-// ── AI CTA ───────────────────────────────────────────────────────────────────
+// ── AI Panel: CTA for guests, live interpretation for auth users ─────────────
 
-function AiCta({ lang }: { lang: string }) {
-  return (
-    <div className="bg-surface border border-border rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-      <div className="flex-1 min-w-0">
-        <p className="font-syne font-bold text-sm text-ink mb-1">{t(UI.ai_cta_title, lang)}</p>
-        <p className="text-ink-3 text-xs leading-relaxed">{t(UI.ai_cta_desc, lang)}</p>
+const AI_INTERPRET_PROMPT: Record<Lang, (calcName: string, score: number, risk: string) => string> = {
+  en: (c, s, r) => `I just calculated a ${c} score of ${s}, which indicates ${r}. Please provide a concise clinical interpretation: what does this score mean in practice, what are the key management implications, and what should I monitor or consider next? Keep it practical and evidence-based.`,
+  ru: (c, s, r) => `Я рассчитал шкалу ${c}: результат ${s} баллов, что соответствует ${r}. Пожалуйста, дай краткую клиническую интерпретацию: что означает этот результат на практике, какова тактика ведения, что необходимо мониторировать?`,
+  ar: (c, s, r) => `قمت بحساب نتيجة ${c}: ${s} نقطة، مما يشير إلى ${r}. أعطني تفسيراً سريرياً موجزاً: ماذا تعني هذه النتيجة عملياً، وما هي الخطوات الإدارية الرئيسية، وما الذي يجب مراقبته؟`,
+  tr: (c, s, r) => `${c} skorunu hesapladım: ${s} puan, bu ${r} gösteriyor. Pratik klinik yorum ver: bu skor ne anlama geliyor, temel yönetim seçenekleri neler ve neleri takip etmeliyim?`,
+  de: (c, s, r) => `Ich habe einen ${c}-Score von ${s} berechnet, was auf ${r} hinweist. Bitte gib eine kurze klinische Interpretation: Was bedeutet dieser Score in der Praxis, welche therapeutischen Konsequenzen ergeben sich und was sollte überwacht werden?`,
+  fr: (c, s, r) => `J'ai calculé un score ${c} de ${s}, indiquant ${r}. Donne une interprétation clinique concise : que signifie ce résultat en pratique, quelles sont les implications thérapeutiques et que faut-il surveiller?`,
+  es: (c, s, r) => `He calculado una puntuación ${c} de ${s}, que indica ${r}. Por favor, proporciona una interpretación clínica concisa: qué significa este resultado en la práctica, cuáles son las implicaciones de manejo y qué se debe monitorizar?`,
+};
+
+function AiPanel({ lang, calcName, score, riskLabel }: {
+  lang: string; calcName: string; score: number; riskLabel: string;
+}) {
+  const { isAuthenticated } = useAuthStore();
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState<string | null>(null);
+  const [error, setError] = useState(false);
+
+  async function fetchInterpretation() {
+    setLoading(true);
+    setError(false);
+    try {
+      const prompt = AI_INTERPRET_PROMPT[lang as Lang]?.(calcName, score, riskLabel)
+        ?? AI_INTERPRET_PROMPT.en(calcName, score, riskLabel);
+      const res = await api.ai.ask({ message: prompt, specialty: "general", search_pubmed: false });
+      setResponse(res.response ?? res.content ?? res.message ?? JSON.stringify(res));
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="bg-surface border border-border rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <div className="flex-1 min-w-0">
+          <p className="font-syne font-bold text-sm text-ink mb-1">{t(UI.ai_cta_title, lang)}</p>
+          <p className="text-ink-3 text-xs leading-relaxed">{t(UI.ai_cta_desc, lang)}</p>
+        </div>
+        <Link href="/register"
+          className="flex-shrink-0 font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+          {t(UI.ai_cta_btn, lang)}
+        </Link>
       </div>
-      <Link
-        href="/register"
-        className="flex-shrink-0 font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap"
-      >
-        {t(UI.ai_cta_btn, lang)}
-      </Link>
+    );
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-xl p-5 space-y-3">
+      <div className="flex items-center gap-2">
+        <div className="w-6 h-6 rounded bg-red flex items-center justify-center text-white text-[10px] font-bold font-syne flex-shrink-0">AI</div>
+        <p className="font-syne font-bold text-sm text-ink">{t(UI.ai_cta_title, lang)}</p>
+      </div>
+
+      {response ? (
+        <div className="text-sm text-ink leading-relaxed whitespace-pre-wrap">{response}</div>
+      ) : (
+        <p className="text-ink-3 text-xs leading-relaxed">{t(UI.ai_cta_desc, lang)}</p>
+      )}
+
+      {error && (
+        <p className="text-red text-xs">{lang === "ru" ? "Ошибка. Попробуйте ещё раз." : "Error. Please try again."}</p>
+      )}
+
+      {!response && (
+        <button onClick={fetchInterpretation} disabled={loading}
+          className="w-full font-syne font-bold text-sm bg-red text-white py-2.5 rounded hover:bg-ink transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+          {loading ? (
+            <>
+              <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+              </svg>
+              {lang === "ru" ? "Claude думает…" : lang === "ar" ? "كلود يفكر…" : lang === "de" ? "Claude denkt…" : lang === "fr" ? "Claude réfléchit…" : lang === "es" ? "Claude piensa…" : lang === "tr" ? "Claude düşünüyor…" : "Claude is thinking…"}
+            </>
+          ) : (
+            lang === "ru" ? "AI-интерпретация этого результата" : lang === "ar" ? "تفسير ذكاء اصطناعي لهذه النتيجة" : lang === "de" ? "KI-Interpretation dieses Ergebnisses" : lang === "fr" ? "Interprétation IA de ce résultat" : lang === "es" ? "Interpretación IA de este resultado" : lang === "tr" ? "Bu sonucun yapay zeka yorumu" : "AI interpretation of this result"
+          )}
+        </button>
+      )}
+
+      {response && (
+        <button onClick={() => setResponse(null)}
+          className="text-ink-3 text-xs font-syne hover:text-ink transition-colors">
+          {lang === "ru" ? "Новый запрос" : "New query"}
+        </button>
+      )}
     </div>
   );
 }
@@ -229,7 +306,12 @@ function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
           </Link>
         )}
 
-        <AiCta lang={lang} />
+        <AiPanel
+          lang={lang}
+          calcName={calc.nameI18n.en}
+          score={score}
+          riskLabel={band ? t(UI[band.labelKey], "en") : ""}
+        />
 
         <div className="text-ink-3 text-xs leading-relaxed">
           <span className="font-syne font-semibold">{t(UI.reference, lang)}: </span>
@@ -393,7 +475,12 @@ function EgfrCalc({ lang }: { lang: string }) {
           </div>
         )}
 
-        <AiCta lang={lang} />
+        <AiPanel
+          lang={lang}
+          calcName="eGFR (CKD-EPI 2021)"
+          score={result?.egfr ?? 0}
+          riskLabel={result ? `CKD stage ${result.stage.stage}` : ""}
+        />
 
         <div className="text-ink-3 text-xs leading-relaxed">
           <span className="font-syne font-semibold">{tl("reference")}: </span>

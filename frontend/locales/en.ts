@@ -1294,6 +1294,7 @@ const en = {
     nav_drugs: "Drugs",
     nav_imaging: "Imaging",
     nav_pricing: "Pricing",
+    nav_calculators: "Calculators",
     nav_sign_in: "Sign in",
     nav_register: "Start free",
     stats_modules: "Clinical modules",

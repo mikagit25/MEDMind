@@ -996,6 +996,7 @@ const ar: Translations = {
     nav_drugs: "الأدوية",
     nav_imaging: "التصوير",
     nav_pricing: "الأسعار",
+    nav_calculators: "الآلات الحاسبة",
     nav_sign_in: "تسجيل الدخول",
     nav_register: "ابدأ مجاناً",
     specialties_title: "ست تخصصات رئيسية",
