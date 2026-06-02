@@ -25,9 +25,9 @@ ACCOUNTS = [
         "token":  "/opt/medmind/youtube_token_ar.json",
     },
     {
-        "label":      "🐻 Happy Bear Kids",
-        "token":      "/opt/kids_channel/credentials/token.pickle",
-        "token_type": "pickle",
+        "label":  "🐻 Happy Bear Kids",
+        "secret": "/opt/kids_channel/credentials/client_secret_kids_web.json",
+        "token":  "/opt/kids_channel/credentials/youtube_token.json",
     },
 ]
 

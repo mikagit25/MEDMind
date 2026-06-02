@@ -645,14 +645,16 @@ async def google_exchange_code(code: str):
 #       Google redirects here with code → token saved automatically.
 
 _YT_TOKEN_PATHS = {
-    "en": "/app/youtube_token_en.json",
-    "es": "/app/youtube_token_es.json",
-    "ar": "/app/youtube_token_ar.json",
+    "en":   "/app/youtube_token_en.json",
+    "es":   "/app/youtube_token_es.json",
+    "ar":   "/app/youtube_token_ar.json",
+    "kids": "/app/youtube_token_kids.json",
 }
 _YT_SECRET_PATHS = {
-    "en": "/app/client_secret_web.json",
-    "es": "/app/client_secret_account2_web.json",
-    "ar": "/app/client_secret_account3_web.json",
+    "en":   "/app/client_secret_web.json",
+    "es":   "/app/client_secret_account2_web.json",
+    "ar":   "/app/client_secret_account3_web.json",
+    "kids": "/app/client_secret_kids_web.json",
 }
 _YT_CALLBACK_URL = "https://medmind.pro/api/v1/auth/youtube/callback"
 
@@ -711,6 +713,10 @@ async def youtube_token_callback(
     rte = token.get("refresh_token_expires_in")
     if rte:
         token["refresh_token_absolute_expiry"] = _time.time() + float(rte)
+    # Embed client credentials so kids upload scripts can refresh without a separate secret file
+    if account == "kids":
+        token["client_id"]     = client_id
+        token["client_secret"] = client_secret
 
     # Preserve existing refresh_token if new response doesn't include one
     try:
@@ -724,7 +730,7 @@ async def youtube_token_callback(
     with open(token_path, "w") as f:
         _json.dump(token, f, indent=2)
 
-    channel = {"en": "MedMind EN", "es": "MedMind ES", "ar": "MedMind AR 🇸🇦"}.get(account, account)
+    channel = {"en": "MedMind EN", "es": "MedMind ES", "ar": "MedMind AR 🇸🇦", "kids": "Happy Bear Kids 🐻"}.get(account, account)
     return HTMLResponse(f"""
 <html><body style="font-family:sans-serif;padding:40px;text-align:center">
 <h1>✅ YouTube token renewed!</h1>

@@ -38,9 +38,8 @@ ACCOUNTS = {
     },
     "kids": {
         "label":       "🐻 Happy Bear Kids",
-        "token_file":  "/opt/kids_channel/credentials/token.pickle",
-        "token_type":  "pickle",
-        "reauth_cmd":  "python3 /opt/kids_channel/scripts/reauth_youtube.py",
+        "token_file":  "/opt/kids_channel/credentials/youtube_token.json",
+        "secret_file": "/opt/kids_channel/credentials/client_secret_kids_web.json",
     },
 }
 
