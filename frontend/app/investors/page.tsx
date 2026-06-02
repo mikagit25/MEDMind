@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Investors — MedMind AI",
+  title: { absolute: "Investors — MedMind AI" },
   description:
     "MedMind AI is building the global AI-powered medical education platform. Learn about our market opportunity, traction, business model, and vision.",
 };
