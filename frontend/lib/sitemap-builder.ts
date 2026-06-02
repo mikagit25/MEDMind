@@ -172,6 +172,29 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     );
   }
 
+  // ── Calculator pages — all locales ──────────────────────────────────────
+  const CALC_SLUGS = ["cha2ds2-vasc", "curb-65", "wells-dvt", "heart-score", "egfr-ckd-epi"];
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/calculators", locale),
+      lastmod: now,
+      priority: 0.85,
+      changefreq: "monthly",
+      hreflang: hreflangTags("/calculators", [...LOCALES]),
+    })
+  );
+  for (const slug of CALC_SLUGS) {
+    entries.push(
+      urlEntry({
+        url: localizedUrl(`/calculators/${slug}`, locale),
+        lastmod: now,
+        priority: 0.8,
+        changefreq: "monthly",
+        hreflang: hreflangTags(`/calculators/${slug}`, [...LOCALES]),
+      })
+    );
+  }
+
   // ── Static pages — English only ─────────────────────────────────────────
   if (locale === "en") {
     const statics: { path: string; priority: number; changefreq: string }[] = [
