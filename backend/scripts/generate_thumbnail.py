@@ -19,6 +19,21 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 FONT_BOLD    = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 FONT_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
+# Arabic needs NotoSansArabic — DejaVu/Liberation don't render Arabic glyphs
+ARABIC_FONTS = {
+    "regular": [
+        "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+        "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSansArabicUI-Regular.ttf",
+    ],
+    "bold": [
+        "/usr/share/fonts/truetype/noto/NotoSansArabic-Bold.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSansArabic-SemiBold.ttf",
+        "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Bold.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",  # fallback
+    ],
+}
+
 # Brand palette
 INK   = (13,  13,  18)
 WHITE = (255, 255, 255)
@@ -125,6 +140,27 @@ def _load_font(path: str, size: int) -> ImageFont.FreeTypeFont:
         return ImageFont.load_default()
 
 
+def _load_font_for_lang(size: int, lang: str = "en", bold: bool = False) -> ImageFont.FreeTypeFont:
+    """Return the correct font for the given language."""
+    if lang == "ar":
+        candidates = ARABIC_FONTS["bold"] if bold else ARABIC_FONTS["regular"]
+        for path in candidates:
+            if Path(path).exists():
+                return ImageFont.truetype(path, size)
+    font_path = FONT_BOLD if bold else FONT_REGULAR
+    return _load_font(font_path, size)
+
+
+def _prepare_arabic(text: str) -> str:
+    """Reshape and apply BiDi to Arabic text so Pillow renders it correctly."""
+    try:
+        import arabic_reshaper
+        from bidi.algorithm import get_display
+        return get_display(arabic_reshaper.reshape(text))
+    except ImportError:
+        return text
+
+
 def _fetch_cover(url: str) -> Image.Image | None:
     """Download cover image, return PIL Image or None."""
     try:
@@ -228,47 +264,89 @@ def generate_thumbnail(
               mask=header_overlay.split()[3])
     draw = ImageDraw.Draw(img)  # re-draw after paste
 
-    f_label = _load_font(FONT_BOLD, 27)
+    is_rtl = lang == "ar"
+    f_label = _load_font_for_lang(27, lang, bold=True)
     label   = LANG_LABELS.get(lang, "MEDICAL EDUCATION")
-    draw.text((28, 20), label, font=f_label, fill=WHITE)
+    if is_rtl:
+        label = _prepare_arabic(label)
+        draw.text((W - 28, 20), label, font=f_label, fill=WHITE, anchor="ra")
+    else:
+        draw.text((28, 20), label, font=f_label, fill=WHITE)
 
-    # Icon + medmind.pro right-aligned
-    icon = CATEGORY_ICONS.get(category, "🏥")
-    draw.text((W - 24, 20), "medmind.pro", font=f_label,
-              fill=(*WHITE, 200), anchor="ra")
+    # medmind.pro right-aligned (or left for RTL)
+    f_url = _load_font(FONT_BOLD, 27)
+    if is_rtl:
+        draw.text((28, 20), "medmind.pro", font=f_url, fill=(*WHITE, 200))
+    else:
+        draw.text((W - 24, 20), "medmind.pro", font=f_url,
+                  fill=(*WHITE, 200), anchor="ra")
 
     # ── Category badge ───────────────────────────────────────────────────────
     f_cat     = _load_font(FONT_BOLD, 27)
     cat_label = category.replace("-", " ").upper()
     bbox      = draw.textbbox((0, 0), cat_label, font=f_cat)
     bw        = bbox[2] - bbox[0] + 28
-    draw.rounded_rectangle([28, 88, 28 + bw, 130], radius=7, fill=accent)
-    draw.text((42, 92), cat_label, font=f_cat, fill=WHITE)
+    badge_x   = W - 28 - bw if is_rtl else 28
+    draw.rounded_rectangle([badge_x, 88, badge_x + bw, 130], radius=7, fill=accent)
+    draw.text((badge_x + 14, 92), cat_label, font=f_cat, fill=WHITE)
 
     # ── Title ─────────────────────────────────────────────────────────────────
-    f_title   = _load_font(FONT_BOLD, 70)
-    max_chars = 20 if len(title) > 45 else 24
+    f_title   = _load_font_for_lang(70, lang, bold=True)
     clean     = re.sub(r'\s+', ' ', title).strip()
-    lines     = textwrap.wrap(clean, width=max_chars)[:3]
+
+    if is_rtl:
+        # Arabic: reshape + bidi, wrap by pixels not chars
+        ar_title = _prepare_arabic(clean)
+        dummy_img = Image.new("RGB", (1, 1))
+        dummy_draw = ImageDraw.Draw(dummy_img)
+        words = ar_title.split()
+        lines = []
+        current = words[0] if words else ""
+        max_px = min(580, PANEL_X - 50)
+        for word in words[1:]:
+            test = f"{current} {word}"
+            bbox = dummy_draw.textbbox((0, 0), test, font=f_title)
+            if bbox[2] <= max_px:
+                current = test
+            else:
+                lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+        lines = lines[:3]
+    else:
+        max_chars = 20 if len(title) > 45 else 24
+        lines     = textwrap.wrap(clean, width=max_chars)[:3]
 
     # Text shadow for readability
     y = 152
     shadow_offset = 3
     for line in lines:
-        draw.text((28 + shadow_offset, y + shadow_offset), line,
-                  font=f_title, fill=(0, 0, 0))
-        draw.text((28, y), line, font=f_title, fill=WHITE)
+        if is_rtl:
+            x = min(580, PANEL_X - 50)
+            draw.text((x + shadow_offset, y + shadow_offset), line,
+                      font=f_title, fill=(0, 0, 0), anchor="ra")
+            draw.text((x, y), line, font=f_title, fill=WHITE, anchor="ra")
+        else:
+            draw.text((28 + shadow_offset, y + shadow_offset), line,
+                      font=f_title, fill=(0, 0, 0))
+            draw.text((28, y), line, font=f_title, fill=WHITE)
         y += 86
 
     # ── Divider line ─────────────────────────────────────────────────────────
-    draw.rectangle([28, y + 14, min(600, PANEL_X - 40), y + 18], fill=accent)
+    if is_rtl:
+        draw.rectangle([max(40, PANEL_X - 570), y + 14, min(600, PANEL_X - 40), y + 18], fill=accent)
+    else:
+        draw.rectangle([28, y + 14, min(600, PANEL_X - 40), y + 18], fill=accent)
     y += 38
 
     # ── Reading time ─────────────────────────────────────────────────────────
     f_sub = _load_font(FONT_REGULAR, 34)
     if reading_time > 0:
         rt_text = f"⏱  {reading_time} min read"
-        draw.text((30, y + 6), rt_text, font=f_sub, fill=GREY)
+        x_rt = min(580, PANEL_X - 50) if is_rtl else 30
+        anchor_rt = "ra" if is_rtl else "la"
+        draw.text((x_rt, y + 6), rt_text, font=f_sub, fill=GREY, anchor=anchor_rt)
 
     # ── Bottom logo bar ───────────────────────────────────────────────────────
     bottom_y  = H - 82

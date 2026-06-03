@@ -99,6 +99,22 @@ OUTRO_TEXT: dict[str, str] = {
     "ar": "شكراً لمشاهدتكم. اقرأ المقال كاملاً على MedMind AI على medmind.pro. اشترك لمزيد من المحتوى الطبي.",
 }
 
+# Arabic-specific fonts (must come before generic Unicode fonts)
+ARABIC_FONT_PATHS = [
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansArabicUI-Regular.ttf",
+    "/usr/share/fonts/opentype/noto/NotoNaskhArabic-Regular.ttf",
+]
+ARABIC_FONT_BOLD_PATHS = [
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Bold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-SemiBold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Bold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansArabicUI-Bold.ttf",
+    # fallback to regular if no bold
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+]
+
 # Per-language font paths (Unicode fonts for non-Latin scripts)
 UNICODE_FONT_PATHS = [
     "/Library/Fonts/Arial Unicode.ttf",
@@ -167,20 +183,20 @@ def _find_font(paths: list[str], size: int) -> ImageFont.FreeTypeFont | ImageFon
 
 
 def fonts(size: int, lang: str = "en") -> ImageFont.FreeTypeFont:
-    # Non-Latin scripts need a Unicode-capable font
-    if lang in ("ar", "ru", "tr"):
-        paths = UNICODE_FONT_PATHS + FONT_SEARCH_PATHS
-    else:
-        paths = FONT_SEARCH_PATHS
-    return _find_font(paths, size)
+    if lang == "ar":
+        # Arabic needs NotoSansArabic — generic fonts show boxes
+        return _find_font(ARABIC_FONT_PATHS + UNICODE_FONT_PATHS, size)
+    if lang in ("ru", "tr"):
+        return _find_font(UNICODE_FONT_PATHS + FONT_SEARCH_PATHS, size)
+    return _find_font(FONT_SEARCH_PATHS, size)
 
 
 def fonts_bold(size: int, lang: str = "en") -> ImageFont.FreeTypeFont:
-    if lang in ("ar", "ru", "tr"):
-        paths = UNICODE_FONT_PATHS + FONT_BOLD_PATHS
-    else:
-        paths = FONT_BOLD_PATHS
-    return _find_font(paths, size)
+    if lang == "ar":
+        return _find_font(ARABIC_FONT_BOLD_PATHS + UNICODE_FONT_PATHS, size)
+    if lang in ("ru", "tr"):
+        return _find_font(UNICODE_FONT_PATHS + FONT_BOLD_PATHS, size)
+    return _find_font(FONT_BOLD_PATHS, size)
 
 
 def prepare_text(text: str, lang: str) -> str:
