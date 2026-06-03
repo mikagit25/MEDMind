@@ -55,6 +55,21 @@ CHANNEL_DESC_SUFFIXES = {
         "📚 Kostenlose Medizinplattform: https://medmind.pro\n"
         "#Medizin #Medizinstudent #MedMindAI #Shorts #MedicalEducation"
     ),
+    "ar": (
+        "\n\n🔗 المقالات الكاملة: https://medmind.pro/ar/articles\n"
+        "📚 منصة طبية مجانية: https://medmind.pro/ar\n"
+        "#التعليم_الطبي #الطب #MedMindAI #Shorts #طالب_طب #USMLE"
+    ),
+    "tr": (
+        "\n\n🔗 Makaleler: https://medmind.pro/tr/articles\n"
+        "📚 Ücretsiz tıp platformu: https://medmind.pro/tr\n"
+        "#TıpEğitimi #Tıp #MedMindAI #Shorts #TıpÖğrencisi #USMLE"
+    ),
+    "fr": (
+        "\n\n🔗 Articles complets: https://medmind.pro/fr/articles\n"
+        "📚 Plateforme médicale gratuite: https://medmind.pro/fr\n"
+        "#ÉducationMédicale #Médecine #MedMindAI #Shorts #ÉtudiantMédecine"
+    ),
 }
 
 TITLE_PREFIXES = {
@@ -62,6 +77,9 @@ TITLE_PREFIXES = {
     "es": "🩺 Caso clínico:",
     "ru": "🩺 Клинический случай:",
     "de": "🩺 Klinischer Fall:",
+    "ar": "🩺",
+    "tr": "🩺 Klinik Vaka:",
+    "fr": "🩺 Cas clinique:",
 }
 
 LEARN_ABOUT = {
@@ -69,6 +87,9 @@ LEARN_ABOUT = {
     "es": "Aprende sobre",
     "ru": "Изучите",
     "de": "Erfahren Sie mehr über",
+    "ar": "تعرّف على",
+    "tr": "Hakkında öğren",
+    "fr": "Découvrez",
 }
 
 SPECIALTY_LABEL = {
@@ -76,6 +97,9 @@ SPECIALTY_LABEL = {
     "es": "Especialidad",
     "ru": "Специальность",
     "de": "Fachgebiet",
+    "ar": "التخصص",
+    "tr": "Uzmanlık",
+    "fr": "Spécialité",
 }
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -145,14 +169,23 @@ def save_uploaded(data: dict):
 
 # ── YouTube upload ─────────────────────────────────────────────────────────────
 
-def upload_short(mp4: Path, title: str, description: str, access_token: str) -> str | None:
+TAGS_BY_LANG: dict[str, list[str]] = {
+    "en": ["medical education", "USMLE", "medicine", "medmind", "shorts", "medical student", "healthcare", "clinical medicine"],
+    "es": ["educación médica", "medicina", "medmind", "shorts", "estudiante de medicina", "USMLE", "salud", "medicina clínica"],
+    "ru": ["медицинское образование", "медицина", "medmind", "shorts", "медицинский студент", "здравоохранение", "клиническая медицина"],
+    "de": ["Medizinstudium", "Medizin", "medmind", "shorts", "Medizinstudent", "Gesundheitswesen", "klinische Medizin", "USMLE"],
+    "ar": ["التعليم الطبي", "الطب", "medmind", "shorts", "طالب طب", "الرعاية الصحية", "الطب السريري", "USMLE"],
+    "tr": ["tıp eğitimi", "tıp", "medmind", "shorts", "tıp öğrencisi", "sağlık", "klinik tıp", "USMLE"],
+    "fr": ["éducation médicale", "médecine", "medmind", "shorts", "étudiant en médecine", "santé", "médecine clinique", "USMLE"],
+}
+
+def upload_short(mp4: Path, title: str, description: str, access_token: str, lang: str = "en") -> str | None:
     """Upload Short video. Returns video_id or None."""
     metadata = {
         "snippet": {
             "title":       title[:100],
             "description": description[:5000],
-            "tags":        ["medical education", "USMLE", "medicine", "medmind", "shorts",
-                            "medical student", "healthcare", "clinical medicine"],
+            "tags":        TAGS_BY_LANG.get(lang, TAGS_BY_LANG["en"]),
             "categoryId":  "27",   # Education
         },
         "status": {
@@ -273,9 +306,41 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
 
             # Refresh token before each upload
             access_token = get_access_token()
-            video_id = upload_short(mp4, yt_title, yt_desc, access_token)
+            video_id = upload_short(mp4, yt_title, yt_desc, access_token, lang=lang)
 
             if video_id:
+                # Generate and upload thumbnail
+                try:
+                    from scripts.generate_thumbnail import generate_thumbnail
+                    cover_url = img.get("image_url") or img.get("url")
+                    thumb_path = OUTPUT_DIR / f"thumb_{img_id[:8]}.jpg"
+                    generate_thumbnail(
+                        title=title,
+                        category=specialty or modality or "diagnostics",
+                        lang=lang,
+                        out_path=thumb_path,
+                        cover_url=cover_url,
+                    )
+                    thumb_data = thumb_path.read_bytes()
+                    thumb_resp = httpx.post(
+                        f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set"
+                        f"?videoId={video_id}&uploadType=media",
+                        headers={
+                            "Authorization": f"Bearer {access_token}",
+                            "Content-Type":  "image/jpeg",
+                            "Content-Length": str(len(thumb_data)),
+                        },
+                        content=thumb_data,
+                        timeout=60,
+                    )
+                    if thumb_resp.status_code in (200, 204):
+                        log(f"  🖼️  Thumbnail uploaded")
+                    else:
+                        log(f"  ⚠️  Thumbnail upload failed: {thumb_resp.status_code}")
+                    thumb_path.unlink(missing_ok=True)
+                except Exception as e:
+                    log(f"  ⚠️  Thumbnail skipped: {e}")
+
                 # Try to add to relevant playlist (by specialty/modality)
                 playlists = json.load(open(PLAYLISTS_FILE)) if PLAYLISTS_FILE.exists() else {}
                 playlist_id = (playlists.get(specialty) or
