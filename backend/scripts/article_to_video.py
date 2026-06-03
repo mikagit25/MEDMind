@@ -71,7 +71,9 @@ LANG_VOICE: dict[str, str] = {
     "fr": "fr-FR-DeniseNeural",
     "es": "es-ES-ElviraNeural",
     "tr": "tr-TR-EmelNeural",
-    "ar": "ar-SA-ZariyahNeural",
+    # ar-EG (Egyptian) is preferred over ar-SA: Egyptian media dominates
+    # the Arabic-speaking world, making it more familiar and natural for most listeners
+    "ar": "ar-EG-SalmaNeural",
 }
 
 # Male voice alternatives (use --voice to override)
@@ -82,7 +84,20 @@ LANG_VOICE_MALE: dict[str, str] = {
     "fr": "fr-FR-HenriNeural",
     "es": "es-ES-AlvaroNeural",
     "tr": "tr-TR-AhmetNeural",
-    "ar": "ar-SA-HamedNeural",
+    "ar": "ar-EG-ShakirNeural",
+}
+
+# Per-language speech rate adjustments for Edge TTS.
+# Arabic medical content benefits from slower delivery: dense phonetics +
+# technical terminology make the default rate hard to follow.
+LANG_RATE: dict[str, str] = {
+    "en": "+0%",
+    "ru": "-5%",
+    "de": "-5%",
+    "fr": "-5%",
+    "es": "-5%",
+    "tr": "-5%",
+    "ar": "-15%",   # Arabic TTS default is noticeably fast for medical content
 }
 
 # Right-to-left languages
@@ -291,7 +306,7 @@ def section_tts_text(section: dict) -> str:
 
 # ── Edge TTS ──────────────────────────────────────────────────────────────────
 
-async def synthesize(text: str, path: str, voice: str) -> float:
+async def synthesize(text: str, path: str, voice: str, rate: str = "+0%") -> float:
     """Generate MP3 via Edge TTS. Returns ACTUAL audio duration in seconds."""
     try:
         import edge_tts
@@ -300,7 +315,7 @@ async def synthesize(text: str, path: str, voice: str) -> float:
         sys.exit(1)
 
     text = text[:2000]
-    communicate = edge_tts.Communicate(text, voice)
+    communicate = edge_tts.Communicate(text, voice, rate=rate)
     await communicate.save(path)
 
     # Get real duration from the generated file (not an estimate)
@@ -511,6 +526,7 @@ async def build_video(
     clips = []
     audio_clips = []  # track for explicit cleanup
     category = article.get("category", "")
+    tts_rate = LANG_RATE.get(lang, "+0%")
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -521,7 +537,7 @@ async def build_video(
         title_img = render_title_slide(article, lang)
         title_text = f"{article.get('title', '')}. {article.get('excerpt', '')}"
         title_audio = str(tmp / f"audio_{clip_index:03}.mp3")
-        duration = await synthesize(title_text, title_audio, voice)
+        duration = await synthesize(title_text, title_audio, voice, rate=tts_rate)
         print(f"{duration:.1f}s")
         aclip = AudioFileClip(title_audio)
         audio_clips.append(aclip)
@@ -537,7 +553,7 @@ async def build_video(
             slide_img = render_section_slide(section, i, total, category, lang)
             text = section_tts_text(section)
             audio_path = str(tmp / f"audio_{clip_index:03}.mp3")
-            duration = await synthesize(text, audio_path, voice)
+            duration = await synthesize(text, audio_path, voice, rate=tts_rate)
             print(f"{duration:.1f}s")
             aclip = AudioFileClip(audio_path)
             audio_clips.append(aclip)
@@ -550,7 +566,7 @@ async def build_video(
         outro_img = render_outro_slide(article, lang)
         outro_text = OUTRO_TEXT.get(lang, OUTRO_TEXT["en"])
         outro_audio = str(tmp / f"audio_{clip_index:03}.mp3")
-        duration = await synthesize(outro_text, outro_audio, voice)
+        duration = await synthesize(outro_text, outro_audio, voice, rate=tts_rate)
         print(f"{duration:.1f}s")
         aclip = AudioFileClip(outro_audio)
         audio_clips.append(aclip)
