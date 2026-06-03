@@ -58,8 +58,8 @@ CHANNEL_DESCRIPTIONS = {
     "es": {
         "prefix": "🩺 MedMind AI — Educación médica basada en evidencia con Claude AI y PubMed.\n\n",
         "suffix": (
-            "\n\n🔗 Artículo completo con fuentes: https://medmind.pro/articles/{slug}?lang=es\n"
-            "📚 Plataforma gratuita: https://medmind.pro\n"
+            "\n\n🔗 Artículo completo con fuentes: https://medmind.pro/es/articles/{slug}\n"
+            "📚 Plataforma gratuita de medicina: https://medmind.pro/es\n"
             "✅ 97+ módulos | 7 idiomas | Casos clínicos | Tutor IA\n\n"
             "#MedicinaEnEspañol #EducacionMedica #MedMindAI #USMLE #MIR #Medicina"
         ),
@@ -69,8 +69,8 @@ CHANNEL_DESCRIPTIONS = {
     "ru": {
         "prefix": "🩺 MedMind AI — Доказательное медицинское образование на основе Claude AI и PubMed.\n\n",
         "suffix": (
-            "\n\n🔗 Полная статья с источниками: https://medmind.pro/articles/{slug}?lang=ru\n"
-            "📚 Бесплатная платформа: https://medmind.pro\n"
+            "\n\n🔗 Полная статья с источниками: https://medmind.pro/ru/articles/{slug}\n"
+            "📚 Бесплатная медицинская платформа: https://medmind.pro/ru\n"
             "✅ 97+ модулей | 7 языков | Клинические случаи | ИИ-тьютор\n\n"
             "#Медицина #МедицинскоеОбразование #MedMindAI #USMLE #Врач"
         ),
@@ -80,13 +80,46 @@ CHANNEL_DESCRIPTIONS = {
     "ar": {
         "prefix": "🩺 MedMind AI — التعليم الطبي المبني على الأدلة بتقنية Claude AI و PubMed.\n\n",
         "suffix": (
-            "\n\n🔗 المقال الكامل مع المصادر: https://medmind.pro/articles/{slug}?lang=ar\n"
-            "📚 منصة طبية مجانية: https://medmind.pro\n"
+            "\n\n🔗 المقال الكامل مع المصادر: https://medmind.pro/ar/articles/{slug}\n"
+            "📚 منصة طبية مجانية: https://medmind.pro/ar\n"
             "✅ أكثر من 97 وحدة | 7 لغات | حالات سريرية | مساعد ذكاء اصطناعي\n\n"
             "#التعليم_الطبي #الطب #MedMindAI #USMLE #طالب_طب"
         ),
         "tags": ["تعليم طبي", "الطب", "medmind", "USMLE", "الطب السريري",
                  "طالب طب", "دراسة الطب", "ذكاء اصطناعي طبي", "طب مبني على الأدلة"],
+    },
+    "de": {
+        "prefix": "🩺 MedMind AI — Evidenzbasierte medizinische Weiterbildung mit Claude AI & PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 Vollständiger Artikel mit Quellen: https://medmind.pro/de/articles/{slug}\n"
+            "📚 Kostenlose Medizinplattform: https://medmind.pro/de\n"
+            "✅ 97+ Module | 7 Sprachen | Klinische Fälle | KI-Tutor\n\n"
+            "#Medizin #Medizinstudium #MedMindAI #USMLE #Arzt #Medizinstudent"
+        ),
+        "tags": ["Medizin", "Medizinstudium", "medmind", "USMLE", "klinische Medizin",
+                 "Medizinstudent", "Arzt", "Gesundheitswesen", "KI Tutor", "evidenzbasierte Medizin"],
+    },
+    "fr": {
+        "prefix": "🩺 MedMind AI — Formation médicale fondée sur les preuves avec Claude AI & PubMed.\n\n",
+        "suffix": (
+            "\n\n🔗 Article complet avec sources: https://medmind.pro/fr/articles/{slug}\n"
+            "📚 Plateforme médicale gratuite: https://medmind.pro/fr\n"
+            "✅ 97+ modules | 7 langues | Cas cliniques | Tuteur IA\n\n"
+            "#Médecine #ÉducationMédicale #MedMindAI #USMLE #ÉtudiantMédecine"
+        ),
+        "tags": ["médecine", "éducation médicale", "medmind", "USMLE", "médecine clinique",
+                 "étudiant en médecine", "médecin", "santé", "tuteur IA", "médecine fondée sur les preuves"],
+    },
+    "tr": {
+        "prefix": "🩺 MedMind AI — Claude AI & PubMed destekli kanıta dayalı tıp eğitimi.\n\n",
+        "suffix": (
+            "\n\n🔗 Kaynaklı tam makale: https://medmind.pro/tr/articles/{slug}\n"
+            "📚 Ücretsiz tıp platformu: https://medmind.pro/tr\n"
+            "✅ 97+ modül | 7 dil | Klinik vakalar | Yapay Zeka Öğretmeni\n\n"
+            "#Tıp #TıpEğitimi #MedMindAI #USMLE #TıpÖğrencisi"
+        ),
+        "tags": ["tıp", "tıp eğitimi", "medmind", "USMLE", "klinik tıp",
+                 "tıp öğrencisi", "doktor", "sağlık", "yapay zeka", "kanıta dayalı tıp"],
     },
 }
 
