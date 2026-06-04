@@ -384,36 +384,37 @@ def render_shorts_frame(
     img_pil:    Image.Image | None,
     lang:       str = "en",
 ) -> np.ndarray:
-    frame  = Image.new("RGB", (W, H), BG)
-    draw   = ImageDraw.Draw(frame)
-
-    modality = image_info.get("modality", "").lower()
+    modality  = image_info.get("modality", "").lower()
     mod_color = MODALITY_COLORS.get(modality, ACCENT)
 
-    # ── Image panel ───────────────────────────────────────────────────────────
+    # ── Full-bleed background image ───────────────────────────────────────────
     if img_pil:
-        fitted = fit_image(img_pil, W, IMG_H)
-        frame.paste(fitted, (0, 0))
+        bg = fit_image(img_pil, W, H)
     else:
-        # Placeholder when image unavailable
-        draw.rectangle([0, 0, W, IMG_H], fill=(20, 28, 40))
-        f = fb(48)
-        msg = modality.upper() or "MEDICAL IMAGE"
-        draw.text((W//2, IMG_H//2), msg, font=f, fill=DIM, anchor="mm")
+        bg = Image.new("RGB", (W, H), (20, 28, 40))
+        _d = ImageDraw.Draw(bg)
+        _d.text((W//2, H//3), modality.upper() or "MEDICAL IMAGE",
+                font=fb(64), fill=DIM, anchor="mm")
 
-    # Gradient overlay: transparent at top → opaque at bottom of image panel
-    for y in range(IMG_H - 200, IMG_H):
-        alpha = int(255 * (y - (IMG_H - 200)) / 200)
-        draw.line([(0, y), (W, y)], fill=tuple([*BG, alpha])[:3])
+    frame_np  = np.array(bg, dtype=np.float32)
+    bg_color  = np.array(BG,  dtype=np.float32)
 
-    # Dark fade at very bottom of image
-    for y in range(IMG_H - 60, IMG_H):
-        draw.line([(0, y), (W, y)], fill=BG)
+    # Top strip: 55% dark blend so logo/badge is always readable
+    TOP_STRIP = 90
+    frame_np[:TOP_STRIP] = frame_np[:TOP_STRIP] * 0.45 + bg_color * 0.55
+
+    # Bottom gradient: transparent → 90% dark (text area)
+    GRAD_START = 1080
+    grad_rows  = H - GRAD_START
+    alphas     = np.linspace(0.0, 0.90, grad_rows, dtype=np.float32).reshape(grad_rows, 1, 1)
+    frame_np[GRAD_START:] = frame_np[GRAD_START:] * (1 - alphas) + bg_color * alphas
+
+    frame = Image.fromarray(frame_np.astype(np.uint8))
+    draw  = ImageDraw.Draw(frame)
 
     # ── Top bar ───────────────────────────────────────────────────────────────
-    draw.rectangle([0, 0, W, 6], fill=ACCENT)
+    draw.rectangle([0, 0, W, 5], fill=ACCENT)
 
-    # Logo
     f_logo = fb(30)
     draw.text((28, 20), "MedMind", font=f_logo, fill=TEXT_C)
     bb = draw.textbbox((28, 20), "MedMind", font=f_logo)
@@ -423,29 +424,17 @@ def render_shorts_frame(
     f_badge = fb(22)
     badge   = modality.upper() or "MED"
     bw      = tw(draw, badge, f_badge) + 28
-    draw.rounded_rectangle([W-bw-16, 16, W-16, 56], radius=8,
-                            fill=(*mod_color, 30), outline=(*mod_color, 180), width=1)
-    draw.text((W - bw//2 - 16, 36), badge, font=f_badge, fill=mod_color, anchor="mm")
+    draw.rounded_rectangle([W-bw-16, 14, W-16, 56], radius=8,
+                           fill=mod_color, outline=mod_color, width=1)
+    draw.text((W - bw//2 - 16, 35), badge, font=f_badge, fill=(10, 14, 20), anchor="mm")
 
-    # ── Content panel (below image) ───────────────────────────────────────────
-    draw.rectangle([0, IMG_H, W, H], fill=BG)
-
-    # Thin colored top border of content area
-    draw.rectangle([0, IMG_H, W, IMG_H+3], fill=mod_color)
-
-    y = IMG_H + 28
-    pad = 40
+    # ── Text area (bottom portion over dark gradient) ─────────────────────────
+    y   = GRAD_START + 40
+    pad = 44
     is_rtl = lang in RTL_LANGS
 
-    def _draw_text_line(draw, x_ltr, x_rtl, y, text, font, fill, anchor_ltr="la", anchor_rtl="ra"):
-        if is_rtl:
-            t = _prepare_arabic(text)
-            draw.text((x_rtl, y), t, font=font, fill=fill, anchor=anchor_rtl)
-        else:
-            draw.text((x_ltr, y), text, font=font, fill=fill, anchor=anchor_ltr)
-
     # Display title
-    f_title = _font_for(lang, bold=True, size=46)
+    f_title = _font_for(lang, bold=True, size=52)
     title   = script.get("display_title", image_info.get("title", ""))[:50]
     t_lines = wrap(draw, title, f_title, W - pad*2)[:2]
     for line in t_lines:
@@ -453,51 +442,49 @@ def render_shorts_frame(
             draw.text((W - pad, y), _prepare_arabic(line), font=f_title, fill=TEXT_C, anchor="ra")
         else:
             draw.text((pad, y), line, font=f_title, fill=TEXT_C)
-        y += 58
-    y += 8
+        y += 64
+    y += 10
 
-    # Blue divider
+    # Accent divider
     if is_rtl:
-        draw.rectangle([W - pad - 120, y, W - pad, y+3], fill=ACCENT)
+        draw.rectangle([W - pad - 110, y, W - pad, y+3], fill=ACCENT)
     else:
-        draw.rectangle([pad, y, pad+120, y+3], fill=ACCENT)
-    y += 18
+        draw.rectangle([pad, y, pad+110, y+3], fill=ACCENT)
+    y += 20
 
     # Key points
-    f_pt = _font_for(lang, bold=False, size=34)
-    dot_r = 6
+    f_pt  = _font_for(lang, bold=False, size=36)
+    dot_r = 7
     for point in script.get("key_points", [])[:4]:
-        if not point: continue
+        if not point:
+            continue
         if is_rtl:
-            # Dot on right side
-            draw.ellipse([W - pad - dot_r*2, y+10, W - pad, y+10+dot_r*2], fill=mod_color)
-            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 28)[:2]
+            draw.ellipse([W - pad - dot_r*2, y+12, W - pad, y+12+dot_r*2], fill=mod_color)
+            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 32)[:2]
             for ln in pt_lines:
-                draw.text((W - pad - dot_r*2 - 12, y), _prepare_arabic(ln),
+                draw.text((W - pad - dot_r*2 - 14, y), _prepare_arabic(ln),
                           font=f_pt, fill=TEXT_C, anchor="ra")
-                y += 44
+                y += 48
         else:
-            draw.ellipse([pad, y+10, pad+dot_r*2, y+10+dot_r*2], fill=mod_color)
-            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 28)[:2]
+            draw.ellipse([pad, y+12, pad+dot_r*2, y+12+dot_r*2], fill=mod_color)
+            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 32)[:2]
             for ln in pt_lines:
-                draw.text((pad + dot_r*2 + 12, y), ln, font=f_pt, fill=TEXT_C)
-                y += 44
-        y += 6
+                draw.text((pad + dot_r*2 + 14, y), ln, font=f_pt, fill=TEXT_C)
+                y += 48
+        y += 8
 
-    # Specialty badge
+    # Specialty label (muted, small)
     spec = (image_info.get("specialty") or "").replace("-", " ").title()
     if spec:
-        f_spec = _font_for(lang, bold=False, size=26)
+        f_spec = _font_for(lang, bold=False, size=27)
         if is_rtl:
-            draw.text((W - pad, y + 14), _prepare_arabic(spec), font=f_spec, fill=MUTED, anchor="ra")
+            draw.text((W - pad, y + 12), _prepare_arabic(spec), font=f_spec, fill=MUTED, anchor="ra")
         else:
-            draw.text((pad, y + 14), spec, font=f_spec, fill=MUTED)
+            draw.text((pad, y + 12), spec, font=f_spec, fill=MUTED)
 
     # ── Bottom bar ─────────────────────────────────────────────────────────────
-    f_url = fb(30)
-    url_y = H - 52
-    draw.text((W//2, url_y), "medmind.pro", font=f_url, fill=ACCENT, anchor="mm")
-    draw.rectangle([0, H-6, W, H], fill=ACCENT)
+    draw.text((W//2, H - 52), "medmind.pro", font=fb(30), fill=ACCENT, anchor="mm")
+    draw.rectangle([0, H-5, W, H], fill=ACCENT)
 
     return np.array(frame)
 
