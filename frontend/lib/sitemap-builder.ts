@@ -172,25 +172,45 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     );
   }
 
-  // ── Calculator pages — all locales ──────────────────────────────────────
-  const CALC_SLUGS = ["cha2ds2-vasc", "curb-65", "wells-dvt", "heart-score", "egfr-ckd-epi"];
+  // ── Calculator pages — client-side i18n, same URL for every locale ─────────
+  // Calculators use client-side language switching: the URL is always
+  // /calculators/<slug> regardless of locale, so never use localizedUrl() here.
+  const ALL_CALC_SLUGS = [
+    "cha2ds2-vasc", "has-bled", "heart-score", "wells-dvt",
+    "egfr-ckd-epi", "cockcroft-gault", "aki", "corrected-calcium",
+    "qsofa", "gcs", "curb-65", "abcd2",
+    "meld", "child-pugh", "anion-gap", "bmi",
+  ];
+  // Only emit once — the EN sitemap is the canonical source; other locales
+  // include calculators too so Google can map them per-language hreflang.
   entries.push(
     urlEntry({
-      url: localizedUrl("/calculators", locale),
+      url: `${SITE_URL}/calculators`,
       lastmod: now,
       priority: 0.85,
       changefreq: "monthly",
-      hreflang: hreflangTags("/calculators", [...LOCALES]),
+      hreflang: [
+        `      <xhtml:link rel="alternate" hreflang="x-default" href="${esc(`${SITE_URL}/calculators`)}"/>`,
+        ...[...LOCALES].map(
+          (l) => `      <xhtml:link rel="alternate" hreflang="${l}" href="${esc(`${SITE_URL}/calculators`)}"/>`
+        ),
+      ].join("\n"),
     })
   );
-  for (const slug of CALC_SLUGS) {
+  for (const slug of ALL_CALC_SLUGS) {
+    const calcUrl = `${SITE_URL}/calculators/${slug}`;
     entries.push(
       urlEntry({
-        url: localizedUrl(`/calculators/${slug}`, locale),
+        url: calcUrl,
         lastmod: now,
         priority: 0.8,
         changefreq: "monthly",
-        hreflang: hreflangTags(`/calculators/${slug}`, [...LOCALES]),
+        hreflang: [
+          `      <xhtml:link rel="alternate" hreflang="x-default" href="${esc(calcUrl)}"/>`,
+          ...[...LOCALES].map(
+            (l) => `      <xhtml:link rel="alternate" hreflang="${l}" href="${esc(calcUrl)}"/>`
+          ),
+        ].join("\n"),
       })
     );
   }

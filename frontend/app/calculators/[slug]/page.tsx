@@ -7,6 +7,7 @@ import { useI18n } from "@/lib/i18n";
 import { CalculatorWidget } from "@/components/calculators/CalculatorWidget";
 import { getCalc, CALC_SLUGS, INDEX_T } from "@/components/calculators/data";
 import type { Lang } from "@/components/calculators/data";
+import { CALC_ABOUT } from "@/components/calculators/descriptions";
 
 const LANGS = [
   { value: "en", flag: "🇬🇧" }, { value: "ru", flag: "🇷🇺" }, { value: "de", flag: "🇩🇪" },
@@ -30,42 +31,6 @@ const L = {
   register:         { en: "Register", ru: "Регистрация", ar: "إنشاء حساب", tr: "Kayıt ol", de: "Registrieren", fr: "S'inscrire", es: "Registrarse" },
   disclaimer:       { en: "For educational use only. Always apply clinical judgement.", ru: "Только для образовательных целей. Всегда применяйте клиническое суждение.", ar: "للأغراض التعليمية فقط. اعتمد دائماً على الحكم السريري.", tr: "Yalnızca eğitim amaçlıdır. Her zaman klinik yargınızı kullanın.", de: "Nur zu Bildungszwecken. Immer klinisches Urteilsvermögen anwenden.", fr: "Usage éducatif uniquement. Appliquez toujours votre jugement clinique.", es: "Solo uso educativo. Aplique siempre su juicio clínico." },
 } as const satisfies Record<string, Record<Lang, string>>;
-
-// ── Clinical descriptions (English — most important for SEO) ──────────────────
-const CALC_ABOUT: Record<string, string> = {
-  "egfr-ckd-epi":
-    "The CKD-EPI 2021 equation estimates glomerular filtration rate from serum creatinine without a race variable, eliminating racial bias introduced by the 2009 formula. It is the KDIGO-recommended method for staging chronic kidney disease (CKD) and detecting progression. An eGFR below 60 mL/min/1.73 m² persisting for ≥3 months confirms CKD and guides drug dose adjustment, nephrology referral thresholds, and cardiovascular risk stratification.",
-  "cockcroft-gault":
-    "The Cockcroft-Gault formula estimates creatinine clearance (CrCl) using age, sex, weight, and serum creatinine. Unlike eGFR, it was derived to predict drug clearance rather than true GFR, making it the standard referenced in drug labelling and pharmacokinetic studies. It is especially critical for dosing renally-cleared drugs such as aminoglycosides, vancomycin, digoxin, heparins, and direct oral anticoagulants — where errors can cause toxicity or subtherapeutic levels.",
-  "aki":
-    "KDIGO 2012 defines acute kidney injury as a rise in serum creatinine ≥0.3 mg/dL within 48 h, a ≥50% rise within 7 days, or urine output below 0.5 mL/kg/h for ≥6 h. The three-stage classification guides monitoring intensity and intervention — from optimising fluids and avoiding nephrotoxins (Stage 1) to renal replacement therapy consideration (Stage 3). Both creatinine and urine output criteria are assessed simultaneously; the higher stage applies.",
-  "corrected-calcium":
-    "Total serum calcium is bound approximately 40% to albumin, so hypoalbuminaemia artificially lowers measured calcium despite potentially normal ionised calcium. The Payne formula (add 0.8 mg/dL per 1 g/dL drop in albumin below 4 g/dL) corrects for this. Correction is essential in critically ill patients, malnutrition, cirrhosis, and nephrotic syndrome — groups where hypoalbuminaemia is common and true calcium status matters for arrhythmia and neuromuscular risk assessment.",
-  "anion-gap":
-    "The anion gap (Na⁺ − [Cl⁻ + HCO₃⁻], normal 8–12 mEq/L) identifies unmeasured anions and classifies metabolic acidosis as high-gap (lactic acidosis, ketoacidosis, uraemia, toxins) or normal-gap (hyperchloraemic, diarrhoea, renal tubular acidosis). Albumin correction is essential — hypoalbuminaemia lowers the gap by ~2.5 mEq/L per 1 g/dL fall, masking a true high-gap acidosis. The delta-delta ratio (ΔAG / ΔHCO₃⁻) reveals concurrent mixed disorders.",
-  "meld":
-    "MELD (Model for End-stage Liver Disease) predicts 90-day mortality in chronic liver disease and portal hypertension using bilirubin, INR, and creatinine. UNOS uses MELD-Na (which adds serum sodium) for transplant allocation in candidates with MELD ≥11. Scores are recalculated every 1–7 days depending on severity; a score above 40 carries approximately 70% 3-month waitlist mortality without transplantation.",
-  "bmi":
-    "Body mass index (BMI = kg/m²) is the standard WHO screening tool for overweight and obesity. Classification: underweight <18.5, normal 18.5–24.9, overweight 25–29.9, obese Class I 30–34.9, Class II 35–39.9, Class III ≥40. In clinical practice, BMI is a starting point — waist circumference, waist-to-hip ratio, and body composition analysis add important context, particularly in Asian populations (where risk thresholds are lower) and athletes with high muscle mass.",
-  "cha2ds2-vasc":
-    "CHA₂DS₂-VASc scores annual stroke risk in non-valvular atrial fibrillation. ESC 2020 guidelines recommend initiating oral anticoagulation for men with score ≥2 and women with score ≥3. Anticoagulation should be considered at score ≥1 (men) or ≥2 (women) if there are no contraindications. Always use alongside HAS-BLED to identify correctable bleeding risk factors before prescribing anticoagulants.",
-  "has-bled":
-    "HAS-BLED estimates annual major bleeding risk in atrial fibrillation patients on anticoagulation. A score ≥3 indicates high bleeding risk and should prompt correction of modifiable factors — uncontrolled hypertension, labile INR (switch to NOAC), excess alcohol, nephropathy — rather than automatic anticoagulant avoidance. In most patients, AF stroke risk exceeds bleeding risk; HAS-BLED informs shared decision-making rather than dictating discontinuation.",
-  "wells-dvt":
-    "The Wells DVT score stratifies pre-test probability of deep vein thrombosis in symptomatic outpatients. A score ≥2 (high probability) warrants proximal compression ultrasound regardless of D-dimer result. A score of 0–1 with a negative high-sensitivity D-dimer effectively excludes DVT without imaging, reducing unnecessary Doppler studies by approximately 40%. The score is validated for symptomatic proximal DVT and should not be applied in patients currently anticoagulated, pregnant, or postoperative.",
-  "heart-score":
-    "The HEART score (History, ECG, Age, Risk factors, Troponin) safely identifies low-risk chest pain presentations in the ED. A score ≤3 carries <2% MACE risk at 6 weeks and supports discharge with outpatient follow-up. A score ≥7 is associated with >70% MACE risk and warrants early invasive evaluation. The HEART pathway (two troponins + HEART score) outperforms TIMI and GRACE for risk stratification in undifferentiated chest pain.",
-  "curb-65":
-    "CURB-65 stratifies severity of community-acquired pneumonia (CAP) using five bedside variables: confusion, urea >7 mmol/L, respiratory rate ≥30, blood pressure <90/60 mmHg, and age ≥65. Score 0–1 supports oral antibiotics and outpatient management; score 2 warrants hospitalisation; score ≥3 indicates severe CAP requiring ICU evaluation. CURB-65 is simpler than PSI/PORT but less granular for very-low-risk stratification in younger patients.",
-  "qsofa":
-    "Quick SOFA is a 3-point bedside screen for patients outside the ICU at risk of poor outcome from suspected infection. Two or more criteria — altered mental status, respiratory rate ≥22/min, systolic BP ≤100 mmHg — predicts in-hospital mortality ≥10% and should trigger urgent clinical reassessment, organ function testing, blood cultures, and early antibiotics. qSOFA is a screening alert, not a diagnostic tool for sepsis — full SOFA scoring requires laboratory data.",
-  "gcs":
-    "The Glasgow Coma Scale quantifies consciousness through three components: eye opening (E 1–4), verbal response (V 1–5), and motor response (M 1–6). The minimum score is 3 (deep coma); maximum is 15 (fully alert). GCS ≤8 conventionally defines coma and is the standard threshold for considering airway protection. Serial scoring is more informative than a single measurement — a drop of ≥2 points warrants immediate reassessment for reversible causes including hypoglycaemia, opiate overdose, and rising intracranial pressure.",
-  "abcd2":
-    "The ABCD² score estimates 2-day stroke risk after a TIA using five variables: Age, Blood pressure, Clinical features, Duration, and Diabetes. A score ≥4 is associated with >4% 2-day stroke risk, warranting immediate dual antiplatelet therapy and urgent neurovascular imaging. ABCD² has limitations in distinguishing TIA from mimics; brain and vascular imaging (CT/CTA or MRI/MRA) is mandatory in all TIA presentations and should not be delayed by score calculation.",
-  "child-pugh":
-    "The Child-Pugh score classifies hepatic functional reserve in cirrhosis using bilirubin, albumin, INR, ascites severity, and hepatic encephalopathy grade. Class A (5–6 points) indicates well-compensated disease with >95% 1-year survival. Class B (7–9) represents significant functional impairment. Class C (10–15) carries 35–45% 1-year survival without transplantation. The score guides surgical candidacy, predicts variceal bleeding mortality, and informs drug dosing in hepatic impairment.",
-};
 
 // ── Related calculators (3 per slug) ─────────────────────────────────────────
 const RELATED_CALCS: Record<string, string[]> = {
@@ -245,7 +210,7 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
   const category = isNumeric ? t(numericMeta.category, lang) : t(calc!.categoryI18n, lang);
   const icon     = isNumeric ? numericMeta.icon              : calc!.icon;
   const seodesc  = isNumeric ? numericMeta.seoDescription    : t(calc!.seoDescription, "en");
-  const about    = CALC_ABOUT[slug] ?? "";
+  const about    = CALC_ABOUT[slug]?.[lang as Lang] ?? CALC_ABOUT[slug]?.en ?? "";
   const relatedSlugs = RELATED_CALCS[slug] ?? [];
   const specialty    = CALC_SPECIALTY[slug] ?? "cardiology";
 
