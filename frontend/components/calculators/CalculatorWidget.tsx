@@ -1231,6 +1231,283 @@ function AkiCalc({ lang }: { lang: string }) {
   );
 }
 
+// ── Pregnancy Due Date ───────────────────────────────────────────────────────
+
+const PL = {
+  lmp:        { en: "Last menstrual period (LMP)", ru: "Первый день последней менструации", ar: "أول يوم في آخر دورة شهرية", tr: "Son adet tarihi (SAT)", de: "Erster Tag der letzten Periode", fr: "Premier jour des dernières règles", es: "Primer día de la última menstruación" },
+  edd:        { en: "Estimated due date (EDD)", ru: "Предполагаемая дата родов (ПДР)", ar: "التاريخ المتوقع للولادة", tr: "Tahmini doğum tarihi", de: "Voraussichtlicher Geburtstermin", fr: "Date prévue d'accouchement", es: "Fecha probable de parto" },
+  ga:         { en: "Gestational age today", ru: "Гестационный возраст сегодня", ar: "عمر الحمل اليوم", tr: "Bugünkü gestasyonel yaş", de: "Gestationsalter heute", fr: "Âge gestationnel aujourd'hui", es: "Edad gestacional hoy" },
+  weeks:      { en: "weeks", ru: "нед.", ar: "أسابيع", tr: "hafta", de: "Wo.", fr: "sem.", es: "sem." },
+  days_short: { en: "days", ru: "дн.", ar: "أيام", tr: "gün", de: "Tage", fr: "j", es: "días" },
+  trimester:  { en: "Trimester", ru: "Триместр", ar: "الثلاثي", tr: "Trimester", de: "Trimester", fr: "Trimestre", es: "Trimestre" },
+  first:      { en: "1st trimester (0–13 weeks)", ru: "I триместр (0–13 нед.)", ar: "الثلاثي الأول (0–13 أسبوعاً)", tr: "1. trimester (0–13 hafta)", de: "1. Trimester (0–13 Wo.)", fr: "1ᵉʳ trimestre (0–13 sem.)", es: "1.er trimestre (0–13 sem.)" },
+  second:     { en: "2nd trimester (14–27 weeks)", ru: "II триместр (14–27 нед.)", ar: "الثلاثي الثاني (14–27 أسبوعاً)", tr: "2. trimester (14–27 hafta)", de: "2. Trimester (14–27 Wo.)", fr: "2ᵉ trimestre (14–27 sem.)", es: "2.º trimestre (14–27 sem.)" },
+  third:      { en: "3rd trimester (28–40 weeks)", ru: "III триместр (28–40 нед.)", ar: "الثلاثي الثالث (28–40 أسبوعاً)", tr: "3. trimester (28–40 hafta)", de: "3. Trimester (28–40 Wo.)", fr: "3ᵉ trimestre (28–40 sem.)", es: "3.er trimestre (28–40 sem.)" },
+  postterm:   { en: "Post-term (> 40 weeks)", ru: "Переношенная (> 40 нед.)", ar: "ما بعد الموعد (> 40 أسبوعاً)", tr: "Miat geçmiş (> 40 hafta)", de: "Übertragen (> 40 Wo.)", fr: "Post-terme (> 40 sem.)", es: "Post-término (> 40 sem.)" },
+  note_preg:  { en: "Based on Naegele's rule (LMP + 280 days). Confirm with first-trimester ultrasound.", ru: "По правилу Негеле (ПМ + 280 дней). Уточните по УЗИ 1-го триместра.", ar: "استناداً لقاعدة نيغيل (آخر دورة + 280 يوماً). تأكّد بالموجات فوق الصوتية للثلاثي الأول.", tr: "Naegele kuralına göre (SAT + 280 gün). Birinci trimester ultrasonu ile doğrulayın.", de: "Nach Naegele-Regel (LMP + 280 Tage). Durch Ersttrimester-Ultraschall bestätigen.", fr: "Règle de Naegele (DDR + 280 j). Confirmer par échographie du 1ᵉʳ trimestre.", es: "Regla de Naegele (FUR + 280 días). Confirmar con ecografía del primer trimestre." },
+} as const satisfies Record<string, T>;
+
+function PregnancyCalc({ lang }: { lang: string }) {
+  const [lmp, setLmp] = useState("");
+  const [result, setResult] = useState<{ edd: string; gaWeeks: number; gaDays: number; trimester: string } | null>(null);
+
+  function calculate() {
+    if (!lmp) return;
+    const lmpDate = new Date(lmp);
+    if (isNaN(lmpDate.getTime())) return;
+    const eddDate = new Date(lmpDate.getTime() + 280 * 86400000);
+    const today = new Date();
+    const diffMs = today.getTime() - lmpDate.getTime();
+    const totalDays = Math.floor(diffMs / 86400000);
+    const gaWeeks = Math.floor(totalDays / 7);
+    const gaDays = totalDays % 7;
+    let tri = "";
+    if (gaWeeks > 40) tri = t(PL.postterm, lang);
+    else if (gaWeeks >= 28) tri = t(PL.third, lang);
+    else if (gaWeeks >= 14) tri = t(PL.second, lang);
+    else tri = t(PL.first, lang);
+    setResult({ edd: eddDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }), gaWeeks, gaDays, trimester: tri });
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-2xl p-6 space-y-5">
+      <div>
+        <label className="block font-syne font-semibold text-sm text-ink mb-1">{t(PL.lmp, lang)}</label>
+        <input type="date" value={lmp} onChange={e => setLmp(e.target.value)} max={new Date().toISOString().split("T")[0]}
+          className="w-full border border-border rounded-lg px-3 py-2 text-sm font-syne text-ink bg-bg focus:outline-none focus:border-ink-2" />
+      </div>
+      <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-2.5 rounded-lg hover:bg-red transition-colors">{t(UI.calculate, lang)}</button>
+      {result && (
+        <div className="space-y-3 pt-2">
+          <div className="bg-bg border border-border rounded-xl p-4 text-center">
+            <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(PL.edd, lang)}</p>
+            <p className="font-syne font-extrabold text-2xl text-red">{result.edd}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-bg border border-border rounded-xl p-4 text-center">
+              <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(PL.ga, lang)}</p>
+              <p className="font-syne font-extrabold text-xl text-ink">{result.gaWeeks}<span className="text-sm font-normal ml-1">{t(PL.weeks, lang)}</span> {result.gaDays}<span className="text-sm font-normal ml-0.5">{t(PL.days_short, lang)}</span></p>
+            </div>
+            <div className="bg-bg border border-border rounded-xl p-4 text-center">
+              <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(PL.trimester, lang)}</p>
+              <p className="font-syne font-bold text-sm text-ink leading-snug mt-1">{result.trimester}</p>
+            </div>
+          </div>
+          <p className="text-ink-3 text-xs leading-relaxed border border-border rounded-lg p-3">{t(PL.note_preg, lang)}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Ideal Body Weight ────────────────────────────────────────────────────────
+
+const IL = {
+  height:    { en: "Height (cm)", ru: "Рост (см)", ar: "الطول (سم)", tr: "Boy (cm)", de: "Größe (cm)", fr: "Taille (cm)", es: "Talla (cm)" },
+  weight:    { en: "Actual weight (kg)", ru: "Фактический вес (кг)", ar: "الوزن الفعلي (كغ)", tr: "Gerçek ağırlık (kg)", de: "Tatsächliches Gewicht (kg)", fr: "Poids réel (kg)", es: "Peso actual (kg)" },
+  ibw:       { en: "Ideal body weight (IBW)", ru: "Идеальный вес (ИВТ)", ar: "الوزن المثالي للجسم", tr: "İdeal vücut ağırlığı (IBW)", de: "Idealgewicht (IBW)", fr: "Poids idéal (IBW)", es: "Peso corporal ideal (IBW)" },
+  abw:       { en: "Adjusted body weight (ABW)", ru: "Скорректированный вес (СВТ)", ar: "الوزن الجسمي المعدّل", tr: "Düzeltilmiş vücut ağırlığı (ABW)", de: "Angepasstes Körpergewicht (ABW)", fr: "Poids ajusté (ABW)", es: "Peso ajustado (ABW)" },
+  abw_note:  { en: "Used for dosing in obesity (actual > 120% IBW). ABW = IBW + 0.4 × (actual − IBW)", ru: "Применяется при ожирении (факт. > 120% ИВТ). СВТ = ИВТ + 0,4 × (факт. − ИВТ)", ar: "يُستخدم للجرعة في السمنة (الفعلي > 120% من المثالي). ABW = IBW + 0.4 × (الفعلي − IBW)", tr: "Obezitede dozaj için kullanılır (gerçek > %120 IBW). ABW = IBW + 0.4 × (gerçek − IBW)", de: "Dosierung bei Adipositas (Ist > 120 % IBW). ABW = IBW + 0,4 × (Ist − IBW)", fr: "Dosage en cas d'obésité (réel > 120 % IBW). ABW = IBW + 0,4 × (réel − IBW)", es: "Dosificación en obesidad (real > 120% IBW). ABW = IBW + 0,4 × (real − IBW)" },
+  devine:    { en: "Devine formula (1974) — standard for drug dosing in renal/pulmonary medicine.", ru: "Формула Девина (1974) — стандарт дозирования в нефрологии и пульмонологии.", ar: "معادلة ديفين (1974) — معيار لجرعات الأدوية في طب الكلى والرئة.", tr: "Devine formülü (1974) — renal/pulmoner tıpta ilaç dozajı için standart.", de: "Devine-Formel (1974) — Standard für Medikamentendosierung in Nephrologie/Pneumologie.", fr: "Formule de Devine (1974) — standard pour le dosage médicamenteux en néphrologie/pneumologie.", es: "Fórmula de Devine (1974) — estándar para dosificación farmacológica en nefrología/neumología." },
+} as const satisfies Record<string, T>;
+
+function IBWCalc({ lang }: { lang: string }) {
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [sex, setSex] = useState<"male" | "female">("male");
+  const [result, setResult] = useState<{ ibw: number; abw: number | null } | null>(null);
+
+  function calculate() {
+    const h = parseFloat(height), w = parseFloat(weight);
+    if (!h || h < 100 || h > 250) return;
+    const inches = h / 2.54;
+    const base = sex === "male" ? 50 : 45.5;
+    const ibw = Math.max(base + 2.3 * (inches - 60), 0);
+    const abw = w && w > ibw * 1.2 ? ibw + 0.4 * (w - ibw) : null;
+    setResult({ ibw: Math.round(ibw * 10) / 10, abw: abw ? Math.round(abw * 10) / 10 : null });
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-2xl p-6 space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        <button onClick={() => setSex("male")} className={`font-syne font-semibold text-sm py-2 rounded-lg border transition-colors ${sex === "male" ? "bg-ink text-white border-ink" : "border-border text-ink-2 hover:border-ink-2"}`}>{t(UI.male, lang)}</button>
+        <button onClick={() => setSex("female")} className={`font-syne font-semibold text-sm py-2 rounded-lg border transition-colors ${sex === "female" ? "bg-ink text-white border-ink" : "border-border text-ink-2 hover:border-ink-2"}`}>{t(UI.female, lang)}</button>
+      </div>
+      <NumInput label={t(IL.height, lang)} value={height} onChange={setHeight} unit="cm" min={100} max={250} />
+      <NumInput label={t(IL.weight, lang)} value={weight} onChange={setWeight} unit="kg" min={20} max={300} />
+      <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-2.5 rounded-lg hover:bg-red transition-colors">{t(UI.calculate, lang)}</button>
+      {result && (
+        <div className="space-y-3 pt-2">
+          <div className="bg-bg border border-border rounded-xl p-4 text-center">
+            <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(IL.ibw, lang)}</p>
+            <p className="font-syne font-extrabold text-3xl text-red">{result.ibw} <span className="text-base font-normal">kg</span></p>
+          </div>
+          {result.abw && (
+            <div className="bg-bg border border-border rounded-xl p-4 text-center">
+              <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(IL.abw, lang)}</p>
+              <p className="font-syne font-extrabold text-2xl text-blue">{result.abw} <span className="text-base font-normal">kg</span></p>
+              <p className="text-ink-3 text-xs mt-1">{t(IL.abw_note, lang)}</p>
+            </div>
+          )}
+          <p className="text-ink-3 text-xs leading-relaxed border border-border rounded-lg p-3">{t(IL.devine, lang)}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Target Heart Rate ────────────────────────────────────────────────────────
+
+const HRL = {
+  resting_hr:  { en: "Resting heart rate (bpm)", ru: "ЧСС в покое (уд/мин)", ar: "معدل ضربات القلب أثناء الراحة (نبضة/دقيقة)", tr: "Dinlenme kalp hızı (atım/dak)", de: "Ruheherzfrequenz (S/min)", fr: "Fréquence cardiaque au repos (bpm)", es: "Frecuencia cardíaca en reposo (lpm)" },
+  hrmax:       { en: "Max heart rate (220 − age)", ru: "Макс. ЧСС (220 − возраст)", ar: "أقصى معدل لضربات القلب (220 ناقص العمر)", tr: "Maks. kalp hızı (220 − yaş)", de: "Maximale HF (220 − Alter)", fr: "FC maximale (220 − âge)", es: "FC máxima (220 − edad)" },
+  zones:       { en: "Training zones (Karvonen method)", ru: "Зоны нагрузки (метод Карвонена)", ar: "مناطق التدريب (طريقة كارفونن)", tr: "Antrenman bölgeleri (Karvonen yöntemi)", de: "Trainingszonen (Karvonen-Methode)", fr: "Zones d'entraînement (méthode Karvonen)", es: "Zonas de entrenamiento (método Karvonen)" },
+  zone1: { en: "50–60% — Warm-up / Recovery", ru: "50–60% — Разминка / Восстановление", ar: "50–60% — الإحماء / التعافي", tr: "50–60% — Isınma / Toparlanma", de: "50–60 % — Aufwärmen / Erholung", fr: "50–60 % — Échauffement / Récupération", es: "50–60 % — Calentamiento / Recuperación" },
+  zone2: { en: "60–70% — Fat burning / Aerobic base", ru: "60–70% — Сжигание жира / Аэробная база", ar: "60–70% — حرق الدهون / القاعدة الهوائية", tr: "60–70% — Yağ yakma / Aerobik taban", de: "60–70 % — Fettverbrennung / Aerobe Basis", fr: "60–70 % — Combustion graisses / Base aérobie", es: "60–70 % — Quema de grasa / Base aeróbica" },
+  zone3: { en: "70–80% — Aerobic / Cardiovascular fitness", ru: "70–80% — Аэробная / Кардиотренировка", ar: "70–80% — اللياقة الهوائية / القلبية الوعائية", tr: "70–80% — Aerobik / Kardiyovasküler kondisyon", de: "70–80 % — Aerob / Kardiovaskuläre Fitness", fr: "70–80 % — Aérobie / Forme cardiovasculaire", es: "70–80 % — Aeróbico / Forma cardiovascular" },
+  zone4: { en: "80–90% — Anaerobic threshold / Performance", ru: "80–90% — Анаэробный порог / Производительность", ar: "80–90% — الحد اللاهوائي / الأداء", tr: "80–90% — Anaerobik eşik / Performans", de: "80–90 % — Anaerobe Schwelle / Leistung", fr: "80–90 % — Seuil anaérobie / Performance", es: "80–90 % — Umbral anaeróbico / Rendimiento" },
+  bpm: { en: "bpm", ru: "уд/мин", ar: "نبضة/دقيقة", tr: "atım/dak", de: "S/min", fr: "bpm", es: "lpm" },
+} as const satisfies Record<string, T>;
+
+function TargetHeartRateCalc({ lang }: { lang: string }) {
+  const [age, setAge] = useState("");
+  const [rhr, setRhr] = useState("");
+  const [result, setResult] = useState<{ hrmax: number; zones: [number, number][] } | null>(null);
+
+  function calculate() {
+    const a = parseInt(age), r = parseInt(rhr);
+    if (!a || a < 10 || a > 100) return;
+    if (!r || r < 30 || r > 120) return;
+    const hrmax = 220 - a;
+    const hrr = hrmax - r;
+    const zones: [number, number][] = [
+      [Math.round(hrr * 0.50 + r), Math.round(hrr * 0.60 + r)],
+      [Math.round(hrr * 0.60 + r), Math.round(hrr * 0.70 + r)],
+      [Math.round(hrr * 0.70 + r), Math.round(hrr * 0.80 + r)],
+      [Math.round(hrr * 0.80 + r), Math.round(hrr * 0.90 + r)],
+    ];
+    setResult({ hrmax, zones });
+  }
+
+  const zoneLabels = [HRL.zone1, HRL.zone2, HRL.zone3, HRL.zone4] as const;
+  const zoneColors = ["text-green-2", "text-blue", "text-amber-2", "text-red"];
+
+  return (
+    <div className="bg-surface border border-border rounded-2xl p-6 space-y-4">
+      <NumInput label={t(UI.age, lang)} value={age} onChange={setAge} unit="" min={10} max={100} />
+      <NumInput label={t(HRL.resting_hr, lang)} value={rhr} onChange={setRhr} unit="bpm" min={30} max={120} />
+      <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-2.5 rounded-lg hover:bg-red transition-colors">{t(UI.calculate, lang)}</button>
+      {result && (
+        <div className="space-y-3 pt-2">
+          <div className="bg-bg border border-border rounded-xl p-4 text-center">
+            <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(HRL.hrmax, lang)}</p>
+            <p className="font-syne font-extrabold text-3xl text-ink">{result.hrmax} <span className="text-base font-normal">{t(HRL.bpm, lang)}</span></p>
+          </div>
+          <p className="font-syne font-semibold text-sm text-ink">{t(HRL.zones, lang)}</p>
+          <div className="space-y-2">
+            {result.zones.map(([lo, hi], i) => (
+              <div key={i} className="flex items-center justify-between bg-bg border border-border rounded-lg px-4 py-2.5">
+                <span className="text-ink-3 text-xs font-syne">{t(zoneLabels[i], lang)}</span>
+                <span className={`font-syne font-bold text-sm ${zoneColors[i]}`}>{lo}–{hi} <span className="font-normal text-xs">{t(HRL.bpm, lang)}</span></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Daily Calorie Needs (TDEE) ───────────────────────────────────────────────
+
+const CL = {
+  weight_kg:   { en: "Weight (kg)", ru: "Вес (кг)", ar: "الوزن (كغ)", tr: "Ağırlık (kg)", de: "Gewicht (kg)", fr: "Poids (kg)", es: "Peso (kg)" },
+  height_cm:   { en: "Height (cm)", ru: "Рост (см)", ar: "الطول (سم)", tr: "Boy (cm)", de: "Größe (cm)", fr: "Taille (cm)", es: "Talla (cm)" },
+  activity:    { en: "Activity level", ru: "Уровень активности", ar: "مستوى النشاط", tr: "Aktivite düzeyi", de: "Aktivitätsniveau", fr: "Niveau d'activité", es: "Nivel de actividad" },
+  bmr:         { en: "Basal metabolic rate (BMR)", ru: "Базальный метаболизм (BMR)", ar: "معدل الأيض الأساسي (BMR)", tr: "Bazal metabolizma hızı (BMR)", de: "Grundumsatz (BMR)", fr: "Métabolisme basal (BMR)", es: "Tasa metabólica basal (TMB)" },
+  tdee:        { en: "Daily calorie needs (TDEE)", ru: "Суточная потребность в калориях", ar: "احتياجات السعرات الحرارية اليومية", tr: "Günlük kalori ihtiyacı (TDEE)", de: "Täglicher Kalorienbedarf (TDEE)", fr: "Besoins caloriques quotidiens", es: "Necesidades calóricas diarias (TDEE)" },
+  lose:        { en: "For weight loss (−500 kcal)", ru: "Для похудения (−500 ккал)", ar: "لفقدان الوزن (−500 سعرة)", tr: "Kilo vermek için (−500 kcal)", de: "Zur Gewichtsabnahme (−500 kcal)", fr: "Pour perdre du poids (−500 kcal)", es: "Para perder peso (−500 kcal)" },
+  gain:        { en: "For weight gain (+500 kcal)", ru: "Для набора веса (+500 ккал)", ar: "لزيادة الوزن (+500 سعرة)", tr: "Kilo almak için (+500 kcal)", de: "Zur Gewichtszunahme (+500 kcal)", fr: "Pour prendre du poids (+500 kcal)", es: "Para ganar peso (+500 kcal)" },
+  kcal:        { en: "kcal/day", ru: "ккал/сут", ar: "سعرة/يوم", tr: "kcal/gün", de: "kcal/Tag", fr: "kcal/j", es: "kcal/día" },
+  mifflin:     { en: "Mifflin-St Jeor equation (1990). Most accurate BMR formula for general population.", ru: "Формула Миффлина-Сент-Жора (1990). Наиболее точная для расчёта BMR у населения.", ar: "معادلة ميفلين-سانت جيور (1990). أكثر معادلات BMR دقةً للسكان العاميين.", tr: "Mifflin-St Jeor denklemi (1990). Genel popülasyon için en doğru BMR formülü.", de: "Mifflin-St-Jeor-Gleichung (1990). Genaueste BMR-Formel für die allgemeine Bevölkerung.", fr: "Équation de Mifflin-St Jeor (1990). Formule BMR la plus précise pour la population générale.", es: "Ecuación de Mifflin-St Jeor (1990). Fórmula de TMB más precisa para la población general." },
+  act_sed:     { en: "Sedentary (desk job, little exercise)", ru: "Малоактивный (сидячая работа)", ar: "خامل (عمل مكتبي، قليل من الرياضة)", tr: "Hareketsiz (ofis işi, az egzersiz)", de: "Sitzend (Bürojob, wenig Sport)", fr: "Sédentaire (bureau, peu d'exercice)", es: "Sedentario (trabajo de escritorio, poco ejercicio)" },
+  act_light:   { en: "Lightly active (1–3 days/week exercise)", ru: "Слабоактивный (1–3 дня/нед. упражнений)", ar: "نشيط بشكل خفيف (1–3 أيام/الأسبوع)", tr: "Hafif aktif (haftada 1–3 gün egzersiz)", de: "Leicht aktiv (1–3 Tage/Wo. Sport)", fr: "Légèrement actif (1–3 j/sem. exercice)", es: "Ligeramente activo (1–3 días/semana)" },
+  act_mod:     { en: "Moderately active (3–5 days/week)", ru: "Умеренно активный (3–5 дней/нед.)", ar: "نشيط باعتدال (3–5 أيام/الأسبوع)", tr: "Orta aktif (haftada 3–5 gün)", de: "Mäßig aktiv (3–5 Tage/Wo.)", fr: "Modérément actif (3–5 j/sem.)", es: "Moderadamente activo (3–5 días/semana)" },
+  act_very:    { en: "Very active (6–7 days/week)", ru: "Очень активный (6–7 дней/нед.)", ar: "نشيط جداً (6–7 أيام/الأسبوع)", tr: "Çok aktif (haftada 6–7 gün)", de: "Sehr aktiv (6–7 Tage/Wo.)", fr: "Très actif (6–7 j/sem.)", es: "Muy activo (6–7 días/semana)" },
+  act_extra:   { en: "Extra active (athlete / physical job)", ru: "Экстра активный (спортсмен / физ. труд)", ar: "نشاط فائق (رياضي / عمل جسدي)", tr: "Ekstra aktif (atlet / fiziksel iş)", de: "Extra aktiv (Sportler / körperl. Arbeit)", fr: "Très très actif (athlète / travail physique)", es: "Extra activo (atleta / trabajo físico)" },
+} as const satisfies Record<string, T>;
+
+const ACTIVITY_OPTS = [
+  { key: "act_sed",   mult: 1.2 },
+  { key: "act_light", mult: 1.375 },
+  { key: "act_mod",   mult: 1.55 },
+  { key: "act_very",  mult: 1.725 },
+  { key: "act_extra", mult: 1.9 },
+] as const;
+
+function CalorieCalc({ lang }: { lang: string }) {
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [age, setAge] = useState("");
+  const [sex, setSex] = useState<"male" | "female">("male");
+  const [activity, setActivity] = useState(1.55);
+  const [result, setResult] = useState<{ bmr: number; tdee: number } | null>(null);
+
+  function calculate() {
+    const w = parseFloat(weight), h = parseFloat(height), a = parseInt(age);
+    if (!w || !h || !a) return;
+    const bmr = sex === "male"
+      ? 10 * w + 6.25 * h - 5 * a + 5
+      : 10 * w + 6.25 * h - 5 * a - 161;
+    setResult({ bmr: Math.round(bmr), tdee: Math.round(bmr * activity) });
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-2xl p-6 space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        <button onClick={() => setSex("male")} className={`font-syne font-semibold text-sm py-2 rounded-lg border transition-colors ${sex === "male" ? "bg-ink text-white border-ink" : "border-border text-ink-2"}`}>{t(UI.male, lang)}</button>
+        <button onClick={() => setSex("female")} className={`font-syne font-semibold text-sm py-2 rounded-lg border transition-colors ${sex === "female" ? "bg-ink text-white border-ink" : "border-border text-ink-2"}`}>{t(UI.female, lang)}</button>
+      </div>
+      <NumInput label={t(UI.age, lang)} value={age} onChange={setAge} unit="" min={10} max={100} />
+      <NumInput label={t(CL.weight_kg, lang)} value={weight} onChange={setWeight} unit="kg" min={20} max={300} />
+      <NumInput label={t(CL.height_cm, lang)} value={height} onChange={setHeight} unit="cm" min={100} max={250} />
+      <div>
+        <label className="block font-syne font-semibold text-sm text-ink mb-1">{t(CL.activity, lang)}</label>
+        <select value={activity} onChange={e => setActivity(parseFloat(e.target.value))}
+          className="w-full border border-border rounded-lg px-3 py-2 text-sm font-syne text-ink bg-bg focus:outline-none focus:border-ink-2">
+          {ACTIVITY_OPTS.map(o => (
+            <option key={o.mult} value={o.mult}>{t(CL[o.key as keyof typeof CL] as T, lang)}</option>
+          ))}
+        </select>
+      </div>
+      <button onClick={calculate} className="w-full font-syne font-bold text-sm bg-ink text-white py-2.5 rounded-lg hover:bg-red transition-colors">{t(UI.calculate, lang)}</button>
+      {result && (
+        <div className="space-y-3 pt-2">
+          <div className="bg-bg border border-border rounded-xl p-4 text-center">
+            <p className="text-ink-3 text-xs font-syne uppercase tracking-widest mb-1">{t(CL.tdee, lang)}</p>
+            <p className="font-syne font-extrabold text-3xl text-red">{result.tdee} <span className="text-base font-normal">{t(CL.kcal, lang)}</span></p>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-bg border border-border rounded-lg p-3 text-center">
+              <p className="text-ink-3 text-xs font-syne mb-0.5">{t(CL.bmr, lang)}</p>
+              <p className="font-syne font-bold text-sm text-ink">{result.bmr}</p>
+            </div>
+            <div className="bg-bg border border-blue/30 rounded-lg p-3 text-center">
+              <p className="text-ink-3 text-xs font-syne mb-0.5">{t(CL.lose, lang)}</p>
+              <p className="font-syne font-bold text-sm text-blue">{result.tdee - 500}</p>
+            </div>
+            <div className="bg-bg border border-green-2/30 rounded-lg p-3 text-center">
+              <p className="text-ink-3 text-xs font-syne mb-0.5">{t(CL.gain, lang)}</p>
+              <p className="font-syne font-bold text-sm text-green-2">{result.tdee + 500}</p>
+            </div>
+          </div>
+          <p className="text-ink-3 text-xs leading-relaxed border border-border rounded-lg p-3">{t(CL.mifflin, lang)}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main widget exported ─────────────────────────────────────────────────────
 
 export function CalculatorWidget({ slug }: { slug: string }) {
@@ -1244,6 +1521,10 @@ export function CalculatorWidget({ slug }: { slug: string }) {
   if (slug === "anion-gap") return <AnionGapCalc lang={lang} />;
   if (slug === "meld") return <MeldCalc lang={lang} />;
   if (slug === "cockcroft-gault") return <CockcroftGaultCalc lang={lang} />;
+  if (slug === "pregnancy-due-date") return <PregnancyCalc lang={lang} />;
+  if (slug === "ideal-body-weight") return <IBWCalc lang={lang} />;
+  if (slug === "target-heart-rate") return <TargetHeartRateCalc lang={lang} />;
+  if (slug === "daily-calories") return <CalorieCalc lang={lang} />;
 
   const calc = getCalc(slug);
   if (!calc) return (
@@ -1265,13 +1546,17 @@ export function CalculatorsIndex() {
   const tIdx = (key: string) => t(INDEX_T[key], lang);
 
   const numericCalcs = [
-    { slug: "egfr-ckd-epi",        name: tIdx("egfr_name"),     subtitle: tIdx("egfr_sub"),     category: tIdx("nephrology"),    icon: "🫘" },
-    { slug: "aki",                  name: tIdx("aki_name"),      subtitle: tIdx("aki_sub"),      category: tIdx("critical_care"), icon: "🚨" },
-    { slug: "bmi",                  name: tIdx("bmi_name"),      subtitle: tIdx("bmi_sub"),      category: tIdx("general"),       icon: "⚖️" },
-    { slug: "corrected-calcium",    name: tIdx("calcium_name"),  subtitle: tIdx("calcium_sub"),  category: tIdx("biochemistry"),  icon: "🧪" },
-    { slug: "anion-gap",            name: tIdx("aniongap_name"), subtitle: tIdx("aniongap_sub"), category: tIdx("biochemistry"),  icon: "⚗️" },
-    { slug: "meld",                 name: tIdx("meld_name"),     subtitle: tIdx("meld_sub"),     category: tIdx("hepatology"),    icon: "🫀" },
-    { slug: "cockcroft-gault",      name: tIdx("cg_name"),       subtitle: tIdx("cg_sub"),       category: tIdx("nephrology"),    icon: "💊" },
+    { slug: "egfr-ckd-epi",         name: tIdx("egfr_name"),     subtitle: tIdx("egfr_sub"),       category: tIdx("nephrology"),    icon: "🫘" },
+    { slug: "aki",                   name: tIdx("aki_name"),      subtitle: tIdx("aki_sub"),        category: tIdx("critical_care"), icon: "🚨" },
+    { slug: "bmi",                   name: tIdx("bmi_name"),      subtitle: tIdx("bmi_sub"),        category: tIdx("general"),       icon: "⚖️" },
+    { slug: "corrected-calcium",     name: tIdx("calcium_name"),  subtitle: tIdx("calcium_sub"),    category: tIdx("biochemistry"),  icon: "🧪" },
+    { slug: "anion-gap",             name: tIdx("aniongap_name"), subtitle: tIdx("aniongap_sub"),   category: tIdx("biochemistry"),  icon: "⚗️" },
+    { slug: "meld",                  name: tIdx("meld_name"),     subtitle: tIdx("meld_sub"),       category: tIdx("hepatology"),    icon: "🫀" },
+    { slug: "cockcroft-gault",       name: tIdx("cg_name"),       subtitle: tIdx("cg_sub"),         category: tIdx("nephrology"),    icon: "💊" },
+    { slug: "pregnancy-due-date",    name: tIdx("preg_name"),     subtitle: tIdx("preg_sub"),       category: tIdx("obstetrics"),    icon: "🤰" },
+    { slug: "ideal-body-weight",     name: tIdx("ibw_name"),      subtitle: tIdx("ibw_sub"),        category: tIdx("general"),       icon: "⚖️" },
+    { slug: "target-heart-rate",     name: tIdx("thr_name"),      subtitle: tIdx("thr_sub"),        category: tIdx("cardiology"),    icon: "💓" },
+    { slug: "daily-calories",        name: tIdx("cal_name"),      subtitle: tIdx("cal_sub"),        category: tIdx("general"),       icon: "🍎" },
   ];
 
   const allCalcs = [

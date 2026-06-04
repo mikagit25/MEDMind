@@ -176,10 +176,11 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   // Calculators use client-side language switching: the URL is always
   // /calculators/<slug> regardless of locale, so never use localizedUrl() here.
   const ALL_CALC_SLUGS = [
-    "cha2ds2-vasc", "has-bled", "heart-score", "wells-dvt",
+    "cha2ds2-vasc", "has-bled", "heart-score", "wells-dvt", "wells-pe",
     "egfr-ckd-epi", "cockcroft-gault", "aki", "corrected-calcium",
-    "qsofa", "gcs", "curb-65", "abcd2",
+    "sofa", "qsofa", "gcs", "curb-65", "abcd2",
     "meld", "child-pugh", "anion-gap", "bmi",
+    "pregnancy-due-date", "ideal-body-weight", "target-heart-rate", "daily-calories",
   ];
   // Only emit once — the EN sitemap is the canonical source; other locales
   // include calculators too so Google can map them per-language hreflang.
