@@ -496,8 +496,8 @@ async def build_short(
     output_path: Path,
     voice: str | None = None,
     lang: str = "en",
-) -> bool:
-    """Generate one Short MP4. Returns True on success."""
+) -> dict | None:
+    """Generate one Short MP4. Returns the script dict on success, None on failure."""
     try:
         from moviepy.editor import ImageClip, AudioFileClip
     except ImportError:
@@ -511,7 +511,7 @@ async def build_short(
     print(f"  📝 Generating script [{lang}]…")
     script = await generate_script(image_info, lang=lang)
     if not script:
-        return False
+        return None
 
     print(f"  🎙️  TTS: {script.get('spoken_text','')[:60]}…")
     with tempfile.TemporaryDirectory() as tmp:
@@ -545,7 +545,7 @@ async def build_short(
 
     size_mb = output_path.stat().st_size / 1_048_576
     print(f"  ✅ {output_path.name} ({size_mb:.1f} MB, {duration:.0f}s)")
-    return True
+    return script
 
 
 # ── API helpers ────────────────────────────────────────────────────────────────
@@ -609,7 +609,8 @@ async def main():
     parser.add_argument("--batch",    type=int, default=1, help="Number of Shorts to generate")
     parser.add_argument("--output",   default="/tmp/yt_shorts", help="Output directory")
     parser.add_argument("--dry-run",  action="store_true")
-    parser.add_argument("--voice",    default="en-US-AriaNeural")
+    parser.add_argument("--lang",     default="en", help="Language code: en|es|ar|ru|de|fr|tr")
+    parser.add_argument("--voice",    default=None, help="Override TTS voice (optional)")
     args = parser.parse_args()
 
     output_dir = Path(args.output)
@@ -640,8 +641,8 @@ async def main():
             print("  ✓ Already exists, skipping")
             continue
 
-        ok = await build_short(img, out, args.voice)
-        if not ok:
+        result = await build_short(img, out, voice=args.voice, lang=args.lang)
+        if not result:
             print("  ❌ Failed")
         print()
 

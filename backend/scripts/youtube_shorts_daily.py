@@ -287,18 +287,25 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
         mp4 = OUTPUT_DIR / f"short_{img_id[:8]}.mp4"
 
         try:
+            script = None
             if not mp4.exists():
-                ok = await build_short(img, mp4, lang=lang)
-                if not ok:
+                script = await build_short(img, mp4, lang=lang)
+                if not script:
                     log(f"  ❌ Generation failed")
                     continue
             else:
                 log(f"  ♻️  Reusing existing file")
 
-            # Build YouTube title/description from Claude script
-            # (re-generate is wasteful; use image info directly)
-            yt_title = f"{title_prefix} {title[:52]} #Shorts"
+            # Prefer Claude-generated localized title/description.
+            # Fall back to template construction when reusing an existing file.
+            yt_title = (
+                script.get("youtube_title")
+                if script else None
+            ) or f"{title_prefix} {title[:52]} #Shorts"
             yt_desc  = (
+                script.get("youtube_description")
+                if script else None
+            ) or (
                 f"{learn_about} {title} ({modality.upper()}).\n"
                 f"{spec_label}: {specialty.replace('-',' ').title()}\n"
                 + desc_suffix
