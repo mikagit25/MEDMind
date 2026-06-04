@@ -288,7 +288,7 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
 
         try:
             if not mp4.exists():
-                ok = await build_short(img, mp4)
+                ok = await build_short(img, mp4, lang=lang)
                 if not ok:
                     log(f"  ❌ Generation failed")
                     continue

@@ -56,6 +56,36 @@ MODALITY_COLORS = {
     "diagram":    (88,  166, 255),
 }
 
+# ── Language / voice config ────────────────────────────────────────────────────
+LANG_VOICE: dict[str, str] = {
+    "en": "en-US-AriaNeural",
+    "ru": "ru-RU-SvetlanaNeural",
+    "de": "de-DE-KatjaNeural",
+    "fr": "fr-FR-DeniseNeural",
+    "es": "es-ES-ElviraNeural",
+    "tr": "tr-TR-EmelNeural",
+    "ar": "ar-EG-SalmaNeural",
+}
+LANG_RATE: dict[str, str] = {
+    "en": "+0%",
+    "ru": "-5%",
+    "de": "-5%",
+    "fr": "-5%",
+    "es": "-5%",
+    "tr": "-5%",
+    "ar": "-15%",
+}
+LANG_NAME: dict[str, str] = {
+    "en": "English",
+    "ru": "Russian",
+    "de": "German",
+    "fr": "French",
+    "es": "Spanish",
+    "tr": "Turkish",
+    "ar": "Arabic",
+}
+RTL_LANGS = {"ar", "he", "fa"}
+
 # ── Font helpers ───────────────────────────────────────────────────────────────
 _BOLD = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
@@ -65,12 +95,26 @@ _REG  = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
     "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
 ]
+_ARABIC_BOLD = [
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Bold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Bold.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+]
+_ARABIC_REG = [
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
+]
 
 def _font(paths, size):
     for p in paths:
         if Path(p).exists():
             return ImageFont.truetype(p, size)
     return ImageFont.load_default()
+
+def _font_for(lang: str, bold: bool, size: int):
+    if lang in RTL_LANGS:
+        return _font(_ARABIC_BOLD if bold else _ARABIC_REG, size)
+    return _font(_BOLD if bold else _REG, size)
 
 def fb(s): return _font(_BOLD, s)
 def fr(s): return _font(_REG,  s)
@@ -89,6 +133,15 @@ def wrap(draw, text, font, max_w):
             cur = w
     if cur: lines.append(cur)
     return lines
+
+def _prepare_arabic(text: str) -> str:
+    """Reshape + bidi-reorder Arabic text for correct Pillow rendering."""
+    try:
+        import arabic_reshaper
+        from bidi.algorithm import get_display
+        return get_display(arabic_reshaper.reshape(text))
+    except Exception:
+        return text
 
 
 # ── Image download ─────────────────────────────────────────────────────────────
@@ -140,8 +193,69 @@ def _get_anthropic_key() -> str:
         return ""
 
 
-def _generate_script_fallback(image_info: dict) -> dict:
+_FALLBACK_TEMPLATES: dict[str, dict[str, str]] = {
+    "en": {
+        "intro":     "Here's a {context}: {title}.",
+        "cta":       "Understanding this helps clinicians make accurate diagnoses. Follow MedMind AI for more medical education.",
+        "sig":       "Clinical significance",
+        "yt_learn":  "Learn about {title} in this quick medical education Short.",
+        "yt_ref":    "Visual clinical reference for medical students and professionals.",
+        "yt_link":   "\n\n🔗 Full library: https://medmind.pro/articles\n#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts",
+    },
+    "ar": {
+        "intro":     "إليك {context}: {title}.",
+        "cta":       "فهم هذا يساعد الأطباء على إجراء تشخيصات دقيقة. تابع MedMind AI لمزيد من التعليم الطبي.",
+        "sig":       "الأهمية السريرية",
+        "yt_learn":  "تعرّف على {title} في هذا الفيديو القصير للتعليم الطبي.",
+        "yt_ref":    "مرجع سريري مرئي لطلاب الطب والمهنيين.",
+        "yt_link":   "\n\n🔗 المكتبة الكاملة: https://medmind.pro/ar/articles\n#التعليم_الطبي #الطب #MedMindAI #Shorts #USMLE",
+    },
+    "es": {
+        "intro":     "Aquí tienes una {context}: {title}.",
+        "cta":       "Comprender esto ayuda a los médicos a hacer diagnósticos precisos. Sigue MedMind AI para más educación médica.",
+        "sig":       "Relevancia clínica",
+        "yt_learn":  "Aprende sobre {title} en este Short de educación médica.",
+        "yt_ref":    "Referencia clínica visual para estudiantes y profesionales de la medicina.",
+        "yt_link":   "\n\n🔗 Biblioteca completa: https://medmind.pro/es/articles\n#EducaciónMédica #Medicina #MedMindAI #Shorts #USMLE",
+    },
+    "ru": {
+        "intro":     "Перед вами {context}: {title}.",
+        "cta":       "Понимание этого помогает врачам ставить точные диагнозы. Подписывайтесь на MedMind AI.",
+        "sig":       "Клиническое значение",
+        "yt_learn":  "Изучите {title} в этом коротком видео по медицинскому образованию.",
+        "yt_ref":    "Визуальный клинический справочник для студентов и специалистов.",
+        "yt_link":   "\n\n🔗 Полная библиотека: https://medmind.pro/ru/articles\n#МедицинскоеОбразование #Медицина #MedMindAI #Shorts #USMLE",
+    },
+    "de": {
+        "intro":     "Hier ist eine {context}: {title}.",
+        "cta":       "Das Verständnis hilft Klinikern, genaue Diagnosen zu stellen. Folge MedMind AI.",
+        "sig":       "Klinische Bedeutung",
+        "yt_learn":  "Lerne über {title} in diesem kurzen Medizin-Short.",
+        "yt_ref":    "Visuelles klinisches Nachschlagewerk für Medizinstudenten und Fachleute.",
+        "yt_link":   "\n\n🔗 Vollständige Bibliothek: https://medmind.pro/de/articles\n#Medizin #Medizinstudent #MedMindAI #Shorts #USMLE",
+    },
+    "fr": {
+        "intro":     "Voici une {context}: {title}.",
+        "cta":       "Comprendre cela aide les cliniciens à poser des diagnostics précis. Suivez MedMind AI.",
+        "sig":       "Signification clinique",
+        "yt_learn":  "Découvrez {title} dans ce Short d'éducation médicale.",
+        "yt_ref":    "Référence clinique visuelle pour étudiants en médecine et professionnels.",
+        "yt_link":   "\n\n🔗 Bibliothèque complète: https://medmind.pro/fr/articles\n#ÉducationMédicale #Médecine #MedMindAI #Shorts #USMLE",
+    },
+    "tr": {
+        "intro":     "İşte bir {context}: {title}.",
+        "cta":       "Bunu anlamak klinisyenlerin doğru teşhis koymasına yardımcı olur. MedMind AI'ı takip edin.",
+        "sig":       "Klinik önemi",
+        "yt_learn":  "Bu kısa tıp eğitimi videosunda {title} hakkında bilgi edinin.",
+        "yt_ref":    "Tıp öğrencileri ve profesyoneller için görsel klinik başvuru kaynağı.",
+        "yt_link":   "\n\n🔗 Tam kütüphane: https://medmind.pro/tr/articles\n#TıpEğitimi #Tıp #MedMindAI #Shorts #USMLE",
+    },
+}
+
+def _generate_script_fallback(image_info: dict, lang: str = "en") -> dict:
     """Template-based script generation — no API required."""
+    t = _FALLBACK_TEMPLATES.get(lang, _FALLBACK_TEMPLATES["en"])
+
     title       = image_info.get("title", "Medical Image")
     description = (image_info.get("description") or "").strip()
     modality    = image_info.get("modality", "")
@@ -153,14 +267,12 @@ def _generate_script_fallback(image_info: dict) -> dict:
     if specialty:
         context += f" from {specialty}"
 
-    desc_short = description[:200] if description else "an important clinical finding"
+    desc_short = description[:200] if description else ""
     spoken_text = (
-        f"Here's a {context}: {title}. "
-        f"{desc_short} "
-        f"Understanding this helps clinicians make accurate diagnoses. "
-        f"Follow MedMind AI for more medical education."
-    )
-    spoken_text = spoken_text[:400]
+        t["intro"].format(context=context, title=title) + " "
+        + (desc_short + " " if desc_short else "")
+        + t["cta"]
+    )[:400]
 
     def trunc(s: str, n: int) -> str:
         return (s[:n-1] + "…") if len(s) > n else s
@@ -171,14 +283,13 @@ def _generate_script_fallback(image_info: dict) -> dict:
     else:
         key_points = []
     if len(key_points) < 4:
-        key_points.append(f"{specialty or 'Clinical'} significance")
+        key_points.append(f"{specialty or t['sig']}")
 
     yt_title  = trunc(f"🔬 {title} #Shorts", 65)
-    yt_desc   = (
-        f"Learn about {title} in this quick medical education Short. "
-        f"{desc_short[:120] if description else 'Visual clinical reference for medical students and professionals.'}"
-        f"\n\n🔗 Full library: https://medmind.pro/articles\n"
-        f"#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts"
+    yt_ref = desc_short[:120] if description else t["yt_ref"]
+    yt_desc = (
+        t["yt_learn"].format(title=title) + " " + yt_ref
+        + t["yt_link"]
     )
     return {
         "display_title":       display_title,
@@ -189,41 +300,45 @@ def _generate_script_fallback(image_info: dict) -> dict:
     }
 
 
-async def generate_script(image_info: dict) -> dict | None:
+async def generate_script(image_info: dict, lang: str = "en") -> dict | None:
     """Generate narration + key points. Tries Claude first, falls back to template."""
     title       = image_info.get("title", "")[:200]
     description = (image_info.get("description") or "")[:600]
     modality    = image_info.get("modality", "")
     specialty   = image_info.get("specialty", "")
+    lang_name   = LANG_NAME.get(lang, "English")
+
+    link_suffix = _FALLBACK_TEMPLATES.get(lang, _FALLBACK_TEMPLATES["en"])["yt_link"]
 
     api_key = _get_anthropic_key()
     if api_key:
         try:
             import anthropic as _ant
             prompt = f"""You are creating a 30-second YouTube Shorts script about a medical image.
+IMPORTANT: Generate ALL text content in {lang_name}. The entire response must be in {lang_name}.
 
 Image details:
 Title: {title}
 Modality: {modality} | Specialty: {specialty}
 Description: {description}
 
-Generate educational content. Return ONLY valid JSON, no other text:
+Return ONLY valid JSON, no other text:
 {{
-  "display_title": "Catchy short title, max 48 characters",
-  "spoken_text": "Natural 30-second narration (~75 words). Start with what we're looking at, then 2-3 key clinical findings, end with why it matters. Conversational but accurate.",
+  "display_title": "Catchy short title in {lang_name}, max 48 characters",
+  "spoken_text": "Natural 30-second narration (~75 words) in {lang_name}. Start with what we're looking at, then 2-3 key clinical findings, end with why it matters. Conversational but accurate.",
   "key_points": [
-    "Finding 1 (max 38 chars)",
-    "Finding 2 (max 38 chars)",
-    "Finding 3 (max 38 chars)",
-    "Clinical significance (max 38 chars)"
+    "Finding 1 in {lang_name} (max 38 chars)",
+    "Finding 2 in {lang_name} (max 38 chars)",
+    "Finding 3 in {lang_name} (max 38 chars)",
+    "Clinical significance in {lang_name} (max 38 chars)"
   ],
-  "youtube_title": "Engaging title with 1 emoji, max 65 chars, include #Shorts",
-  "youtube_description": "2 sentences explaining what viewers will learn. End with: \\n\\n🔗 Full library: https://medmind.pro/articles\\n#MedicalEducation #USMLE #Medicine #MedMindAI #Shorts"
+  "youtube_title": "Engaging title with 1 emoji in {lang_name}, max 65 chars, include #Shorts",
+  "youtube_description": "2 sentences in {lang_name} explaining what viewers will learn. End with: {link_suffix}"
 }}"""
             client = _ant.AsyncAnthropic(api_key=api_key)
             msg    = await client.messages.create(
                 model      = "claude-haiku-4-5-20251001",
-                max_tokens = 600,
+                max_tokens = 700,
                 messages   = [{"role": "user", "content": prompt}],
             )
             raw = msg.content[0].text.strip()
@@ -238,12 +353,12 @@ Generate educational content. Return ONLY valid JSON, no other text:
                 print(f"  ⚠️  Claude failed ({e}) — using template")
 
     print(f"  📋 Using template script")
-    return _generate_script_fallback(image_info)
+    return _generate_script_fallback(image_info, lang=lang)
 
 
 # ── Edge TTS ───────────────────────────────────────────────────────────────────
 
-async def synthesize(text: str, path: str, voice: str = "en-US-AriaNeural") -> float:
+async def synthesize(text: str, path: str, voice: str = "en-US-AriaNeural", rate: str = "+0%") -> float:
     """Generate MP3. Returns actual duration in seconds."""
     try:
         import edge_tts
@@ -251,7 +366,7 @@ async def synthesize(text: str, path: str, voice: str = "en-US-AriaNeural") -> f
         print("  [error] edge-tts not installed")
         sys.exit(1)
 
-    communicate = edge_tts.Communicate(text[:1200], voice)
+    communicate = edge_tts.Communicate(text[:1200], voice, rate=rate)
     await communicate.save(path)
     try:
         from moviepy.editor import AudioFileClip as _AFC
@@ -267,6 +382,7 @@ def render_shorts_frame(
     image_info: dict,
     script:     dict,
     img_pil:    Image.Image | None,
+    lang:       str = "en",
 ) -> np.ndarray:
     frame  = Image.new("RGB", (W, H), BG)
     draw   = ImageDraw.Draw(frame)
@@ -319,39 +435,63 @@ def render_shorts_frame(
 
     y = IMG_H + 28
     pad = 40
+    is_rtl = lang in RTL_LANGS
+
+    def _draw_text_line(draw, x_ltr, x_rtl, y, text, font, fill, anchor_ltr="la", anchor_rtl="ra"):
+        if is_rtl:
+            t = _prepare_arabic(text)
+            draw.text((x_rtl, y), t, font=font, fill=fill, anchor=anchor_rtl)
+        else:
+            draw.text((x_ltr, y), text, font=font, fill=fill, anchor=anchor_ltr)
 
     # Display title
-    f_title = fb(46)
+    f_title = _font_for(lang, bold=True, size=46)
     title   = script.get("display_title", image_info.get("title", ""))[:50]
     t_lines = wrap(draw, title, f_title, W - pad*2)[:2]
     for line in t_lines:
-        draw.text((pad, y), line, font=f_title, fill=TEXT_C)
+        if is_rtl:
+            draw.text((W - pad, y), _prepare_arabic(line), font=f_title, fill=TEXT_C, anchor="ra")
+        else:
+            draw.text((pad, y), line, font=f_title, fill=TEXT_C)
         y += 58
     y += 8
 
     # Blue divider
-    draw.rectangle([pad, y, pad+120, y+3], fill=ACCENT)
+    if is_rtl:
+        draw.rectangle([W - pad - 120, y, W - pad, y+3], fill=ACCENT)
+    else:
+        draw.rectangle([pad, y, pad+120, y+3], fill=ACCENT)
     y += 18
 
     # Key points
-    f_pt = fr(34)
+    f_pt = _font_for(lang, bold=False, size=34)
     dot_r = 6
     for point in script.get("key_points", [])[:4]:
         if not point: continue
-        # Dot
-        draw.ellipse([pad, y+10, pad+dot_r*2, y+10+dot_r*2], fill=mod_color)
-        # Text
-        pt_lines = wrap(draw, point, f_pt, W - pad*2 - 28)[:2]
-        for ln in pt_lines:
-            draw.text((pad + dot_r*2 + 12, y), ln, font=f_pt, fill=TEXT_C)
-            y += 44
+        if is_rtl:
+            # Dot on right side
+            draw.ellipse([W - pad - dot_r*2, y+10, W - pad, y+10+dot_r*2], fill=mod_color)
+            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 28)[:2]
+            for ln in pt_lines:
+                draw.text((W - pad - dot_r*2 - 12, y), _prepare_arabic(ln),
+                          font=f_pt, fill=TEXT_C, anchor="ra")
+                y += 44
+        else:
+            draw.ellipse([pad, y+10, pad+dot_r*2, y+10+dot_r*2], fill=mod_color)
+            pt_lines = wrap(draw, point, f_pt, W - pad*2 - 28)[:2]
+            for ln in pt_lines:
+                draw.text((pad + dot_r*2 + 12, y), ln, font=f_pt, fill=TEXT_C)
+                y += 44
         y += 6
 
     # Specialty badge
     spec = (image_info.get("specialty") or "").replace("-", " ").title()
     if spec:
-        f_spec = fr(26)
-        draw.text((pad, y + 14), spec, font=f_spec, fill=MUTED)
+        f_spec = _font_for(lang, bold=False, size=26)
+        if is_rtl:
+            draw.text((W - pad, y + 14), _prepare_arabic(spec), font=f_spec, fill=MUTED, anchor="ra")
+        else:
+            draw.text((pad, y + 14), spec, font=f_spec, fill=MUTED)
 
     # ── Bottom bar ─────────────────────────────────────────────────────────────
     f_url = fb(30)
@@ -367,7 +507,8 @@ def render_shorts_frame(
 async def build_short(
     image_info: dict,
     output_path: Path,
-    voice: str = "en-US-AriaNeural",
+    voice: str | None = None,
+    lang: str = "en",
 ) -> bool:
     """Generate one Short MP4. Returns True on success."""
     try:
@@ -376,15 +517,19 @@ async def build_short(
         print("  [error] moviepy not installed")
         sys.exit(1)
 
-    print(f"  📝 Generating script…")
-    script = await generate_script(image_info)
+    if voice is None:
+        voice = LANG_VOICE.get(lang, LANG_VOICE["en"])
+    rate = LANG_RATE.get(lang, "+0%")
+
+    print(f"  📝 Generating script [{lang}]…")
+    script = await generate_script(image_info, lang=lang)
     if not script:
         return False
 
     print(f"  🎙️  TTS: {script.get('spoken_text','')[:60]}…")
     with tempfile.TemporaryDirectory() as tmp:
         audio_path = str(Path(tmp) / "audio.mp3")
-        duration   = await synthesize(script["spoken_text"], audio_path, voice)
+        duration   = await synthesize(script["spoken_text"], audio_path, voice, rate=rate)
         print(f"  ⏱️  Duration: {duration:.1f}s")
 
         print(f"  🖼️  Downloading image…")
@@ -393,7 +538,7 @@ async def build_short(
         )
 
         print(f"  🎨 Rendering frame…")
-        frame = render_shorts_frame(image_info, script, img_pil)
+        frame = render_shorts_frame(image_info, script, img_pil, lang=lang)
 
         print(f"  🎬 Assembling MP4…")
         output_path.parent.mkdir(parents=True, exist_ok=True)
