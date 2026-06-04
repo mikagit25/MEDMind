@@ -223,6 +223,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/how-it-works", priority: 0.9, changefreq: "monthly" },
       { path: "/pricing",      priority: 0.9, changefreq: "monthly" },
       { path: "/investors",    priority: 0.6, changefreq: "monthly" },
+      { path: "/symptoms",     priority: 0.9, changefreq: "monthly" },
       { path: "/register",     priority: 0.7, changefreq: "monthly" },
     ];
     for (const s of statics) {
