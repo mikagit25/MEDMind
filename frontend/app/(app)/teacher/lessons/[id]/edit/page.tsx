@@ -813,6 +813,7 @@ function BlockCard({
   lessonTitle?: string;
 }) {
   const [collapsed, setCollapsed] = useState(false);
+  const t = useT();
 
   return (
     <div className="border border-border rounded-xl bg-surface">

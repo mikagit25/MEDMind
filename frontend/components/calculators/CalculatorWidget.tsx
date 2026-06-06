@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { useAuthStore } from "@/lib/store";
-import { api } from "@/lib/api";
+import { api, aiApi } from "@/lib/api";
 import {
   type Lang, type CalcMeta, type FieldDef, type RiskBand,
   CALCULATORS, getCalc, getRiskBand, UI, CALC_SLUGS,
@@ -18,6 +18,8 @@ const RISK_COLORS: Record<RiskBand["color"], { bg: string; text: string; border:
   red:      { bg: "bg-red-light",   text: "text-red",      border: "border-red/30",      badge: "bg-red text-white" },
   "red-dark": { bg: "bg-red-light", text: "text-red",      border: "border-red/30",      badge: "bg-red text-white" },
 };
+
+type T = Record<Lang, string>;
 
 // ── t() helper for inline translations ──────────────────────────────────────
 
@@ -158,7 +160,7 @@ function AiPanel({ lang, calcName, score, riskLabel }: {
     try {
       const prompt = AI_INTERPRET_PROMPT[lang as Lang]?.(calcName, score, riskLabel)
         ?? AI_INTERPRET_PROMPT.en(calcName, score, riskLabel);
-      const res = await api.ai.ask({ message: prompt, specialty: "general", search_pubmed: false });
+      const res = await aiApi.ask({ message: prompt, specialty: "general", search_pubmed: false });
       setResponse(res.response ?? res.content ?? res.message ?? JSON.stringify(res));
     } catch {
       setError(true);

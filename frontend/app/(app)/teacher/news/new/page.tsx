@@ -24,7 +24,7 @@ export default function TeacherNewsNewPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams?.get("edit");
-  const token = useAuthStore(s => s.token);
+  const token = useAuthStore(s => s.accessToken);
 
   const [form, setForm] = useState({
     source_url: "", source_name: "", source_doi: "",

@@ -125,7 +125,7 @@ export default function NewsPage() {
             <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t.nav_symptoms}</Link>
           </div>
           <div className="flex items-center gap-2">
-            <select value={lang} onChange={e => setLocale(e.target.value)}
+            <select value={lang} onChange={e => setLocale(e.target.value as import("../../lib/i18n").Locale)}
               className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>

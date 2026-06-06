@@ -29,7 +29,7 @@ const STATUS_LABEL: Record<string, string> = {
 const API = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
 
 export default function TeacherNewsPage() {
-  const token = useAuthStore(s => s.token);
+  const token = useAuthStore(s => s.accessToken);
   const [news, setNews]     = useState<TeacherNews[]>([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast]   = useState<{ msg: string; ok: boolean } | null>(null);

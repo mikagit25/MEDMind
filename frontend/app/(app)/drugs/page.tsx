@@ -474,7 +474,7 @@ function DoseCalculator() {
   const calculate = async (e: React.FormEvent) => {
     e.preventDefault(); setLoading(true); setError(""); setResult(null);
     try {
-      const res = await drugsApi.calculateDose({ drug_name: form.drug_name, weight_kg: parseFloat(form.weight_kg), age_years: form.age_years ? parseFloat(form.age_years) : undefined, renal_gfr: form.renal_gfr ? parseFloat(form.renal_gfr) : undefined, dose_per_kg: form.dose_per_kg ? parseFloat(form.dose_per_kg) : undefined, unit: form.unit, max_dose: form.max_dose ? parseFloat(form.max_dose) : undefined });
+      const res = await drugsApi.calculateDose({ drug_name: form.drug_name, weight_kg: parseFloat(form.weight_kg), age_years: form.age_years ? parseFloat(form.age_years) : undefined, renal_gfr: form.renal_gfr ? parseFloat(form.renal_gfr) : undefined, dose_per_kg: form.dose_per_kg ? parseFloat(form.dose_per_kg) : undefined, unit: form.unit, max_dose: form.max_dose ? parseFloat(form.max_dose) : undefined } as any);
       setResult(res);
     } catch (err: any) { setError(err.response?.data?.detail ?? "Calculation failed"); }
     finally { setLoading(false); }

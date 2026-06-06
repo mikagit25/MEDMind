@@ -50,9 +50,9 @@ export function VoiceMicButton({ onTranscript, disabled, locale = "en" }: MicPro
               : locale === "tr" ? "tr-TR"
               : "en-US";
 
-    rec.onresult = (e) => {
-      const text = Array.from(e.results)
-        .map(r => r[0].transcript)
+    rec.onresult = (e: any) => {
+      const text = Array.from(e.results as any[])
+        .map((r: any) => r[0].transcript)
         .join(" ")
         .trim();
       if (text) onTranscript(text);

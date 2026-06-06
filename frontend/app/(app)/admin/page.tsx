@@ -2449,7 +2449,7 @@ function ImagingPanel({ showToast }: { showToast: (m: string, t?: "ok" | "err") 
   const deleteImage = async (id: string) => {
     if (!confirm("Delete this image?")) return;
     try {
-      await adminApi.delete(`/admin/imaging/${id}`);
+      await api.delete(`/admin/imaging/${id}`);
       setImages(prev => prev.filter(i => i.id !== id));
       showToast("Image deleted");
     } catch {

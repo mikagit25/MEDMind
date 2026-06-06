@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { contentApi, progressApi } from "@/lib/api";
+import { contentApi, progressApi, simulationApi } from "@/lib/api";
 import { useT, useI18n } from "@/lib/i18n";
 import Link from "next/link";
 
@@ -155,7 +155,7 @@ function CasesInner() {
     if (!selected?.steps?.length) return;
     setFsmLoading(true);
     try {
-      const res = await progressApi.startCase(selected.id);
+      const res = await simulationApi.startCase(selected.id);
       setFsmSession(res);
       setFsmCompleted(null);
       setChosenId(null);
@@ -178,7 +178,7 @@ function CasesInner() {
     if (!fsmSession || !chosenId) return;
     setFsmLoading(true);
     try {
-      const res = await progressApi.makeChoice(fsmSession.session_id, chosenId);
+      const res = await simulationApi.makeChoice(fsmSession.session_id, chosenId);
       if (res.status === "completed") {
         setFsmCompleted(res as CompletedResult);
         setFsmSession(null);
@@ -198,7 +198,7 @@ function CasesInner() {
     for (let i = 0; i < 12; i++) {
       await new Promise(r => setTimeout(r, 3000));
       try {
-        const sess = await progressApi.getSession(sessionId);
+        const sess = await simulationApi.getSession(sessionId);
         if (sess?.debriefing?.text) {
           setFsmDebriefing(sess.debriefing.text);
           return;
