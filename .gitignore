@@ -90,8 +90,12 @@ htmlcov/
 frontend/tmp/
 
 # OAuth tokens and secrets
-youtube_token.json
-client_secret.json
+youtube_token*.json
+client_secret*.json
+auth_account*.py
+test_account*.py
+backend/youtube_token*.json
+backend/client_secret*.json
 *.env.shorts
 telegram_published.json
 youtube_playlists.json
