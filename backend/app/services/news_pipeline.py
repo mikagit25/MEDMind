@@ -152,7 +152,7 @@ async def _groq(system: str, user: str, max_tokens: int = 1200) -> str:
         try:
             return await _call_openai_compat(
                 "https://api.cerebras.ai/v1/chat/completions",
-                key, "llama-3.3-70b", system, user, max_tokens,
+                key, "gpt-oss-120b", system, user, max_tokens,
             )
         except Exception as e:
             last_err = e
