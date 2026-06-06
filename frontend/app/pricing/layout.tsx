@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 
 export const metadata: Metadata = {
-  title: "Pricing — MedMind AI",
+  title: { absolute: "Pricing — MedMind AI" },
   description:
     "Affordable plans for medical students, residents, doctors and veterinarians. Start free, upgrade anytime. Evidence-based medical education powered by AI.",
   keywords: ["medical education pricing", "USMLE prep cost", "medical AI subscription", "student plan"],

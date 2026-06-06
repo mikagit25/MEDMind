@@ -52,6 +52,9 @@ export default function CalculatorsPage() {
             <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
               {locale === "ru" ? "Чекер симптомов" : locale === "ar" ? "فاحص الأعراض" : locale === "de" ? "Symptom-Checker" : locale === "fr" ? "Symptômes" : locale === "es" ? "Síntomas" : locale === "tr" ? "Semptomlar" : "Symptoms"}
             </Link>
+            <Link href="/news" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+              {locale === "ru" ? "Новости" : locale === "ar" ? "أخبار" : locale === "de" ? "Nachrichten" : locale === "fr" ? "Actualités" : locale === "es" ? "Noticias" : locale === "tr" ? "Haberler" : "News"}
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             <select value={locale} onChange={e => setLocale(e.target.value as Lang)}

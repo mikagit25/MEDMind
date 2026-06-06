@@ -137,10 +137,21 @@ async def _stream_gemini(messages: list, system_prompt: str):
                     pass
 
 
+def _groq_user_keys() -> list[str]:
+    """Keys reserved for user-facing AI tutor (KEY_1 + KEY_2 only)."""
+    keys = []
+    for attr in ("GROQ_API_KEY", "GROQ_API_KEY_2"):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+
 async def _call_groq(messages: list, system_prompt: str) -> str:
-    """Call Groq API (OpenAI-compatible). Returns text response."""
-    if not settings.GROQ_API_KEY:
-        raise ValueError("No GROQ_API_KEY configured")
+    """Call Groq API with KEY_1/KEY_2 rotation (user-reserved keys)."""
+    keys = _groq_user_keys()
+    if not keys:
+        raise ValueError("No GROQ user keys configured")
 
     payload = {
         "model": settings.GROQ_MODEL,
@@ -148,18 +159,23 @@ async def _call_groq(messages: list, system_prompt: str) -> str:
         "max_tokens": 1200,
         "temperature": 0.7,
     }
-    async with httpx.AsyncClient(timeout=30) as http:
-        resp = await http.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
+    last_err: Exception | None = None
+    for key in keys:
+        try:
+            async with httpx.AsyncClient(timeout=30) as http:
+                resp = await http.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json=payload,
+                )
+                if resp.status_code == 429:
+                    last_err = Exception("rate limited")
+                    continue
+                resp.raise_for_status()
+                return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            last_err = e
+    raise RuntimeError(f"Groq user keys exhausted: {last_err}")
 
 
 async def _call_ollama(messages: list, system_prompt: str) -> str:
@@ -260,7 +276,11 @@ async def _call_free_ai(messages: list, system_prompt: str) -> tuple[str, str]:
 
 
 async def _stream_groq(messages: list, system_prompt: str):
-    """Async generator yielding text chunks from Groq streaming API."""
+    """Stream Groq with KEY_1/KEY_2 rotation (user-reserved keys only)."""
+    keys = _groq_user_keys()
+    if not keys:
+        raise ValueError("No GROQ user keys configured")
+
     payload = {
         "model": settings.GROQ_MODEL,
         "messages": [{"role": "system", "content": system_prompt}] + messages,
@@ -268,14 +288,29 @@ async def _stream_groq(messages: list, system_prompt: str):
         "temperature": 0.7,
         "stream": True,
     }
+
+    # For streaming we must pick a key before opening the stream.
+    # Check which key is available with a quick non-streaming probe on 429.
+    active_key = keys[0]
+    for key in keys:
+        async with httpx.AsyncClient(timeout=10) as probe:
+            try:
+                r = await probe.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json={**payload, "stream": False, "max_tokens": 1},
+                )
+                if r.status_code != 429:
+                    active_key = key
+                    break
+            except Exception:
+                pass
+
     async with httpx.AsyncClient(timeout=60) as http:
         async with http.stream(
             "POST",
             "https://api.groq.com/openai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                "Content-Type": "application/json",
-            },
+            headers={"Authorization": f"Bearer {active_key}", "Content-Type": "application/json"},
             json=payload,
         ) as resp:
             resp.raise_for_status()

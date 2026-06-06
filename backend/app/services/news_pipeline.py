@@ -97,9 +97,10 @@ def _parse_rss_date(date_str: str) -> Optional[datetime]:
 # ── AI caller with key rotation + provider fallback ───────────────────────────
 
 def _groq_keys() -> list[str]:
-    """Return all configured Groq API keys."""
+    """Return Groq keys reserved for content generation (KEY_3 + KEY_4 only).
+    KEY_1 and KEY_2 are reserved exclusively for user-facing AI tutor."""
     keys = []
-    for attr in ("GROQ_API_KEY", "GROQ_API_KEY_2", "GROQ_API_KEY_3", "GROQ_API_KEY_4"):
+    for attr in ("GROQ_API_KEY_3", "GROQ_API_KEY_4"):
         k = getattr(settings, attr, "")
         if k:
             keys.append(k)
@@ -166,24 +167,26 @@ async def _groq(system: str, user: str, max_tokens: int = 1200) -> str:
 SUMMARISE_SYSTEM = """\
 You are a medical science journalist writing for healthcare professionals (doctors, residents, nurses).
 
-Given a title and abstract/description of a medical publication or news item, write a concise \
-summary (280-380 words) in clear, engaging English prose.
+Given a title and abstract/description of a medical publication or news item, write a comprehensive \
+summary (500-700 words) in clear, engaging English prose.
 
-Structure (no headers):
-1. Lead sentence: key finding in plain language
-2. Study/report context: design, population, setting (2-3 sentences)
-3. Main results: specific numbers/data where available
-4. Clinical significance: what this means for practice
-5. One-sentence caveats or limitations (if relevant)
+Structure (no headers, flowing paragraphs):
+1. Lead paragraph: key finding in plain language, why it matters (2-3 sentences)
+2. Background & context: disease burden, previous knowledge gap, why this study was needed (2-3 sentences)
+3. Study design: type of study, population, setting, methodology in sufficient detail (3-4 sentences)
+4. Key results: specific numbers, effect sizes, p-values, confidence intervals where available (3-4 sentences)
+5. Secondary findings or subgroup analyses if mentioned (1-2 sentences)
+6. Clinical significance: what this changes in practice, guideline implications (2-3 sentences)
+7. Limitations and caveats (1-2 sentences)
 
-DO NOT: copy-paste from the source, add disclaimers, mention "this article", use bullet points.
+DO NOT: copy-paste from the source, add disclaimers, mention "this article", use bullet points or headers.
 Return ONLY the summary text — no title, no JSON, no markdown."""
 
 
 async def _summarise(title: str, abstract: str, category: str) -> str:
     user = f"Category: {category}\n\nTitle: {title}\n\nAbstract/Description:\n{abstract}"
     try:
-        return await _groq(SUMMARISE_SYSTEM, user, max_tokens=600)
+        return await _groq(SUMMARISE_SYSTEM, user, max_tokens=1100)
     except Exception as e:
         logger.warning("Groq summarisation failed: %s", e)
         return abstract[:800]  # fallback to truncated abstract

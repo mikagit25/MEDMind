@@ -112,5 +112,101 @@
     "uploaded_at": "2026-05-29T16:27:10.940489+00:00",
     "lang": "es",
     "category": "pediatrics"
+  },
+  "clinical-application-of-metabolomics-for-biomarker-discovery-in-cardiometabolic-disease": {
+    "video_id": "M_DTnhsjPJE",
+    "uploaded_at": "2026-06-02T15:49:31.016588+00:00",
+    "lang": "es",
+    "category": "biochemistry"
+  },
+  "ddimer-and-wells-score-in-the-diagnosis-of-venous-thromboembolism-pretest-probability-and-": {
+    "video_id": "auRnEgs_4XI",
+    "uploaded_at": "2026-06-02T15:55:00.401749+00:00",
+    "lang": "es",
+    "category": "diagnostics-interpretation"
+  },
+  "targeting-the-warburg-effect-in-cancer-clinical-implications-of-aerobic-glycolysis": {
+    "video_id": "9PNY40WRvjw",
+    "uploaded_at": "2026-06-02T16:01:00.074223+00:00",
+    "lang": "es",
+    "category": "biochemistry"
+  },
+  "bnp-and-ntprobnp-cutoffs-for-heart-failure-diagnosis-evidencebased-interpretation-and-clin": {
+    "video_id": "f_-vkX5UMsg",
+    "uploaded_at": "2026-06-02T16:07:00.362043+00:00",
+    "lang": "es",
+    "category": "diagnostics-interpretation"
+  },
+  "empiric-ceftriaxone-adjunctive-dexamethasone-for-pediatric-acute-bacterial-meningitis": {
+    "video_id": "8GCDqlX46g8",
+    "uploaded_at": "2026-06-03T15:50:13.359233+00:00",
+    "lang": "es",
+    "category": "pediatrics-specific"
+  },
+  "evidencebased-management-of-pediatric-croup-with-stridor-racemic-epinephrine-and-dexametha": {
+    "video_id": "Ftg_eH9_V6Y",
+    "uploaded_at": "2026-06-03T16:01:31.850467+00:00",
+    "lang": "es",
+    "category": "pediatrics-specific"
+  },
+  "vaginal-cytology-pap-smear-and-colposcopy-evidencebased-strategies-for-cervical-cancer-scr": {
+    "video_id": "1_owfHSuJdU",
+    "uploaded_at": "2026-06-03T16:07:35.292592+00:00",
+    "lang": "es",
+    "category": "womens-health"
+  },
+  "lichen-sclerosus-of-the-vulva-diagnosis-management-and-longterm-outcomes-womens-health": {
+    "video_id": "fP9RchhGpIQ",
+    "uploaded_at": "2026-06-04T15:51:32.719629+00:00",
+    "lang": "es",
+    "category": "womens-health"
+  },
+  "urodynamic-evaluation-and-diagnosis-of-lower-urinary-tract-dysfunction-diagnostics-interpr": {
+    "video_id": "qVcHYloPA1E",
+    "uploaded_at": "2026-06-04T16:03:19.366661+00:00",
+    "lang": "es",
+    "category": "diagnostics-interpretation"
+  },
+  "highsensitivity-troponin-t-hstnt-interpretation-in-acute-coronary-syndromes-diagnostics-in": {
+    "video_id": "JEAdr5zvYNE",
+    "uploaded_at": "2026-06-04T16:10:45.567075+00:00",
+    "lang": "es",
+    "category": "diagnostics-interpretation"
+  },
+  "postmenopausal-osteoporosis-bisphosphonate-therapy-guided-by-dexa-and-frax": {
+    "video_id": "qNP60rGpvDM",
+    "uploaded_at": "2026-06-05T15:49:16.333307+00:00",
+    "lang": "es",
+    "category": "womens-health"
+  },
+  "renal-amyloidosis-light-chain-treatment": {
+    "video_id": "lxSWe7dUAM4",
+    "uploaded_at": "2026-06-05T16:04:28.074559+00:00",
+    "lang": "es",
+    "category": "nephrology"
+  },
+  "analgesic-nephropathy-treatment": {
+    "video_id": "7JtTw_4Q61c",
+    "uploaded_at": "2026-06-05T16:13:08.501043+00:00",
+    "lang": "es",
+    "category": "nephrology"
+  },
+  "infant-botulism-and-honey-risk": {
+    "video_id": "ODOr5oaqvGQ",
+    "uploaded_at": "2026-06-06T15:50:03.856059+00:00",
+    "lang": "es",
+    "category": "pediatrics"
+  },
+  "lansoprazolebased-triple-therapy-for-helicobacter-pylori-eradication-pharmacology-and-clin": {
+    "video_id": "b9f-EfwI82Q",
+    "uploaded_at": "2026-06-06T16:02:21.804253+00:00",
+    "lang": "es",
+    "category": "pharmacology"
+  },
+  "valacyclovir-in-the-management-of-herpes-simplex-and-herpes-zoster-infections": {
+    "video_id": "-sKZ8_2jk8Y",
+    "uploaded_at": "2026-06-06T16:09:37.384894+00:00",
+    "lang": "es",
+    "category": "pharmacology"
   }
 }

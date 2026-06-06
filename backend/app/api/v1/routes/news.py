@@ -32,7 +32,7 @@ from uuid import UUID
 import httpx
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from pydantic import BaseModel, HttpUrl
-from sqlalchemy import func, select, desc
+from sqlalchemy import func, select, desc, case
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_admin, require_teacher
@@ -46,6 +46,24 @@ router = APIRouter(prefix="/news", tags=["news"])
 SUPPORTED_LOCALES = ["en", "ru", "ar", "es", "de", "fr", "tr"]
 _teacher = Depends(require_teacher)
 _admin   = Depends(require_admin())
+
+# News categories → MedMind article categories (may differ in naming/granularity)
+_NEWS_TO_ARTICLE_CATS: dict[str, list[str]] = {
+    "cardiology":         ["cardiology", "cardiology-advanced"],
+    "oncology":           ["oncology", "hematology"],
+    "neurology":          ["neurology"],
+    "infectious-disease": ["infectious-diseases", "infectious-specific", "microbiology"],
+    "endocrinology":      ["endocrinology"],
+    "pulmonology":        ["pulmonology"],
+    "nephrology":         ["nephrology"],
+    "gastroenterology":   ["gastroenterology"],
+    "psychiatry":         ["psychiatry", "mental-health"],
+    "pediatrics":         ["pediatrics"],
+    "surgery":            ["surgery", "surgery-procedures"],
+    "obstetrics":         ["womens-health"],
+    "general-medicine":   ["internal-medicine", "diseases", "clinical-syndromes"],
+    "public-health":      ["public-health", "internal-medicine"],
+}
 
 
 # ── Schemas ───────────────────────────────────────────────────────────────────
@@ -234,7 +252,7 @@ async def sitemap_data(db: AsyncSession = Depends(get_db)):
 @router.get("/{slug}/related-articles")
 async def related_articles(slug: str, locale: str = Query("en"),
                             db: AsyncSession = Depends(get_db)):
-    """Return up to 4 published articles in the same category as this news item."""
+    """Return up to 5 published articles in the same category as this news item."""
     news_result = await db.execute(
         select(NewsArticle.category).where(
             NewsArticle.slug == slug, NewsArticle.is_published == True
@@ -243,16 +261,21 @@ async def related_articles(slug: str, locale: str = Query("en"),
     row = news_result.first()
     if not row:
         return []
-    category = row.category
+    news_category = row.category
 
     from app.models.models import Article, ArticleTranslation
+    from sqlalchemy import func
     locale = locale if locale in SUPPORTED_LOCALES else "en"
 
+    # Map news category to one or more article categories
+    article_cats = _NEWS_TO_ARTICLE_CATS.get(news_category, [news_category])
+
+    # Sort by created_at (always set) so new articles surface first
     q = (
         select(Article)
-        .where(Article.category == category, Article.is_published == True)
-        .order_by(desc(Article.published_at))
-        .limit(4)
+        .where(Article.category.in_(article_cats), Article.is_published == True)
+        .order_by(desc(Article.created_at))
+        .limit(5)
     )
     articles_result = await db.execute(q)
     articles = articles_result.scalars().all()
@@ -271,7 +294,7 @@ async def related_articles(slug: str, locale: str = Query("en"),
             if t:
                 title = t.title
                 excerpt = t.excerpt
-        out.append({"slug": a.slug, "title": title, "excerpt": excerpt[:180],
+        out.append({"slug": a.slug, "title": title, "excerpt": excerpt[:200],
                     "category": a.category})
     return out
 
