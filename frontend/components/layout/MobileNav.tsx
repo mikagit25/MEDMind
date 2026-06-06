@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Menu, X,
+  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio,
   type LucideProps,
 } from "lucide-react";
 
@@ -64,6 +64,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
       label: t("nav.sections.tools"),
       items: [
         { Icon: Newspaper,  label: t("nav.items.articles"),    href: "/knowledge"       },
+        { Icon: Radio,      label: t("nav.items.news"),        href: "/news"            },
         { Icon: Pill,       label: t("nav.items.drugs"),       href: "/drugs"           },
         { Icon: PawPrint,   label: t("nav.items.veterinary"),  href: "/veterinary"      },
         { Icon: TrendingUp, label: t("nav.items.progress"),    href: "/progress"        },
@@ -87,6 +88,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
     { Icon: LayoutDashboard, label: t("nav.items.teacher_dashboard"), href: "/teacher/dashboard" },
     { Icon: PenLine,         label: t("nav.items.my_lessons"),        href: "/teacher/modules"   },
     { Icon: FileText,        label: t("nav.items.my_articles"),       href: "/teacher/articles"  },
+    { Icon: Radio,           label: t("nav.items.my_news"),           href: "/teacher/news"      },
     { Icon: BarChart2,       label: t("nav.items.analytics"),         href: "/teacher/analytics" },
     { Icon: CreditCard,      label: "Credits",                        href: "/teacher/credits"   },
   ];

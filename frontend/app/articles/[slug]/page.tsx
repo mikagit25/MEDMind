@@ -141,6 +141,22 @@ async function fetchNav(slug: string, locale?: string): Promise<ArticleNav> {
   }
 }
 
+type RelatedNews = { slug: string; title: string; source_name: string; category: string; summary_excerpt: string };
+
+async function fetchRelatedNews(category: string, locale: string): Promise<RelatedNews[]> {
+  try {
+    const res = await fetch(
+      `${API_URL}/news?category=${category}&locale=${locale}&limit=3`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : (data.items ?? []);
+  } catch {
+    return [];
+  }
+}
+
 type LinkMapEntry = { term: string; slug: string };
 
 async function fetchLinkMap(): Promise<LinkMapEntry[]> {
@@ -460,13 +476,13 @@ function renderBlock(
 
 // Simple server-side labels (SSR can't use useT hook)
 const SERVER_LABELS: Record<string, Record<string, string>> = {
-  en: { faq: "{ui.faq}", refs: "References", disclaimer: "Medical Disclaimer", related: "Related Articles", read_in: "Read in", module: "Study this topic in-depth", open_module: "Open module →" },
-  ru: { faq: "Часто задаваемые вопросы", refs: "Источники", disclaimer: "Медицинский дисклеймер", related: "Похожие статьи", read_in: "Читать на", module: "Изучить тему подробнее", open_module: "Открыть модуль →" },
-  de: { faq: "Häufig gestellte Fragen", refs: "Referenzen", disclaimer: "Medizinischer Haftungsausschluss", related: "Verwandte Artikel", read_in: "Lesen auf", module: "Dieses Thema vertiefen", open_module: "Modul öffnen →" },
-  fr: { faq: "Questions fréquemment posées", refs: "Références", disclaimer: "Avertissement médical", related: "Articles connexes", read_in: "Lire en", module: "Approfondir ce sujet", open_module: "Ouvrir le module →" },
-  ar: { faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة" },
-  tr: { faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →" },
-  es: { faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →" },
+  en: { faq: "{ui.faq}", refs: "References", disclaimer: "Medical Disclaimer", related: "Related Articles", read_in: "Read in", module: "Study this topic in-depth", open_module: "Open module →", related_news: "Latest News on This Topic" },
+  ru: { faq: "Часто задаваемые вопросы", refs: "Источники", disclaimer: "Медицинский дисклеймер", related: "Похожие статьи", read_in: "Читать на", module: "Изучить тему подробнее", open_module: "Открыть модуль →", related_news: "Последние новости по теме" },
+  de: { faq: "Häufig gestellte Fragen", refs: "Referenzen", disclaimer: "Medizinischer Haftungsausschluss", related: "Verwandte Artikel", read_in: "Lesen auf", module: "Dieses Thema vertiefen", open_module: "Modul öffnen →", related_news: "Aktuelle Nachrichten zu diesem Thema" },
+  fr: { faq: "Questions fréquemment posées", refs: "Références", disclaimer: "Avertissement médical", related: "Articles connexes", read_in: "Lire en", module: "Approfondir ce sujet", open_module: "Ouvrir le module →", related_news: "Dernières actualités sur ce sujet" },
+  ar: { faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة", related_news: "آخر الأخبار حول هذا الموضوع" },
+  tr: { faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →", related_news: "Bu Konuyla İlgili Son Haberler" },
+  es: { faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →", related_news: "Últimas noticias sobre este tema" },
 };
 
 export default async function ArticlePage({
@@ -497,6 +513,8 @@ export default async function ArticlePage({
   const moduleInfo = article.related_module_code
     ? await fetchModuleByCode(article.related_module_code)
     : null;
+
+  const relatedNews = await fetchRelatedNews(article.category, locale);
 
   const schema = buildSchemaOrg(article, moduleInfo, locale);
   const allLocales = ["en", ...availableLocales.filter((l) => l !== "en")];
@@ -816,6 +834,40 @@ export default async function ArticlePage({
                     </h3>
                     <p className="font-serif text-xs text-ink-3 line-clamp-2 leading-relaxed">{r.excerpt}</p>
                     <span className="text-[10px] font-syne text-ink-3 mt-auto">{r.reading_time_minutes} min read →</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Related news */}
+          {relatedNews.length > 0 && (
+            <section className="mt-10 border-t border-border pt-8">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wide">
+                  {ui.related_news}
+                </h2>
+                <Link href="/news" className="text-xs font-syne font-semibold text-red hover:underline">
+                  {locale === "ru" ? "Все новости →" : locale === "ar" ? "← كل الأخبار" : locale === "de" ? "Alle Nachrichten →" : locale === "fr" ? "Toutes les actualités →" : locale === "es" ? "Todas las noticias →" : locale === "tr" ? "Tüm haberler →" : "All news →"}
+                </Link>
+              </div>
+              <div className="space-y-3">
+                {relatedNews.map((n) => (
+                  <Link
+                    key={n.slug}
+                    href={`/news/${n.slug}`}
+                    className="group flex gap-4 p-4 rounded-xl border border-border hover:border-ink hover:shadow-sm transition-all"
+                  >
+                    <div className="flex-shrink-0 w-1 self-stretch bg-red rounded-full opacity-60 group-hover:opacity-100 transition-opacity" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] font-syne font-bold text-red uppercase tracking-wider">{n.source_name}</span>
+                      </div>
+                      <h3 className="font-syne font-semibold text-sm text-ink group-hover:text-red transition-colors line-clamp-2 leading-snug">
+                        {n.title}
+                      </h3>
+                      <p className="text-xs text-ink-3 mt-1 line-clamp-1 leading-relaxed">{n.summary_excerpt}</p>
+                    </div>
                   </Link>
                 ))}
               </div>

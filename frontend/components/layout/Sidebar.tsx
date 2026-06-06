@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText,
+  Search, Sun, Moon, LogOut, FileText, Radio,
   type LucideProps,
 } from "lucide-react";
 
@@ -56,6 +56,7 @@ export function Sidebar() {
       label: t("nav.sections.tools"),
       items: [
         { icon: Newspaper,   label: t("nav.items.articles"),    href: "/knowledge" },
+        { icon: Radio,       label: t("nav.items.news"),         href: "/news" },
         { icon: Pill,        label: t("nav.items.drugs"),        href: "/drugs" },
         { icon: PawPrint,    label: t("nav.items.veterinary"),   href: "/veterinary" },
         { icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress" },
@@ -80,6 +81,7 @@ export function Sidebar() {
     { icon: PenLine,         label: t("nav.items.my_lessons"),        href: "/teacher/modules" },
     { icon: BookOpen,        label: t("nav.items.teacher_courses"),   href: "/teacher/courses" },
     { icon: FileText,        label: t("nav.items.my_articles"),       href: "/teacher/articles" },
+    { icon: Radio,           label: t("nav.items.my_news"),           href: "/teacher/news" },
     { icon: BarChart2,       label: t("nav.items.analytics"),         href: "/teacher/analytics" },
     { icon: CreditCard,      label: "Credits",                        href: "/teacher/credits" },
   ];

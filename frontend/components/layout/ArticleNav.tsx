@@ -33,6 +33,8 @@ export function ArticleNav() {
         </Link>
         <div className="flex gap-4 text-sm font-serif text-ink-2">
           <Link href="/articles" className="hover:text-ink transition-colors">Articles</Link>
+          <Link href="/news" className="hover:text-ink transition-colors">News</Link>
+          <Link href="/calculators" className="hover:text-ink transition-colors">Calculators</Link>
           <Link href="/pricing" className="hover:text-ink transition-colors">Pricing</Link>
           {loggedIn === null ? null : loggedIn ? null : (
             <Link href="/login" className="hover:text-ink transition-colors">Sign in</Link>

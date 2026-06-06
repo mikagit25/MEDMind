@@ -17,6 +17,17 @@ type ArticlePreview = {
   published_at: string | null;
 };
 
+type NewsPreview = {
+  id: string;
+  slug: string;
+  source_name: string;
+  title: string;
+  summary_excerpt: string;
+  category: string;
+  original_published_at: string | null;
+  fetched_at: string;
+};
+
 const SPECIALTY_SLUGS: Record<string, string> = {
   Cardiology: "cardiology", Neurology: "neurology", Surgery: "surgery",
   Pediatrics: "pediatrics", "OB/GYN": "obstetrics", Therapy: "therapy",
@@ -36,9 +47,18 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [articles, setArticles]       = useState<ArticlePreview[]>(initialArticles);
+  const [news, setNews]               = useState<NewsPreview[]>([]);
   const [demoAnswer, setDemoAnswer]   = useState<number | null>(null);
 
   const API = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+  // Fetch news
+  useEffect(() => {
+    fetch(`${API}/news?locale=${locale}&limit=6`)
+      .then(r => r.ok ? r.json() : [])
+      .then(data => { if (Array.isArray(data)) setNews(data); })
+      .catch(() => {});
+  }, [locale]);
 
   // Reload articles whenever locale changes
   useEffect(() => {
@@ -80,7 +100,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
           <div className="hidden md:flex items-center gap-1">
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/news",         label: t("landing.nav_news") },
               { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
@@ -129,7 +149,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
           <div className="md:hidden border-t border-border bg-surface px-4 py-3 space-y-1">
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/news",         label: t("landing.nav_news") },
               { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
@@ -204,6 +224,58 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
           ))}
         </div>
       </section>
+
+      {/* ── News block ───────────────────────────────────────────────────────── */}
+      {news.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1 rounded-full font-syne font-semibold text-xs text-ink-3 mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse" />
+                {t("landing.news_badge")}
+              </div>
+              <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink">
+                {t("landing.news_title")}
+              </h2>
+              <p className="text-ink-3 text-sm mt-1.5 max-w-lg">
+                {t("landing.news_subtitle")}
+              </p>
+            </div>
+            <Link href="/news"
+              className="flex-shrink-0 font-syne font-semibold text-sm border border-border text-ink-2 px-5 py-2.5 rounded-lg hover:border-ink hover:text-ink transition-colors self-start sm:self-auto">
+              {t("landing.news_all")}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {news.map(item => (
+              <Link key={item.id} href={`/news/${item.slug}`}
+                className="group bg-surface border border-border rounded-xl p-5 hover:border-ink hover:shadow-sm transition-all flex flex-col">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="text-xs font-syne font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                    {item.source_name}
+                  </span>
+                  <span className="text-xs text-ink-3 font-syne flex-shrink-0">
+                    {(item.original_published_at || item.fetched_at || "").split("T")[0]}
+                  </span>
+                </div>
+                <span className="text-xs font-syne font-semibold text-red uppercase tracking-wide mb-2">
+                  {item.category.replace(/-/g, " ")}
+                </span>
+                <h3 className="font-syne font-bold text-sm text-ink group-hover:text-red transition-colors leading-snug mb-2 line-clamp-3">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-ink-2 leading-relaxed line-clamp-3 flex-1">
+                  {item.summary_excerpt}
+                </p>
+                <span className="mt-4 text-xs font-syne font-semibold text-red flex items-center gap-1">
+                  {t("landing.news_read")}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Articles (moved up — main content hook) ──────────────────────────── */}
       {articles.length > 0 && (
@@ -578,7 +650,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
           <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
             {[
               { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/how-it-works", label: t("landing.nav_how") },
+              { href: "/news",         label: t("landing.nav_news") },
               { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },

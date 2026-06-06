@@ -1218,3 +1218,41 @@ class LLMPricing(Base):
     description = Column(Text, nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)
     updated_at = Column(DateTime, default=datetime.utcnow)
+
+
+class NewsArticle(Base):
+    """AI-summarised medical news from PubMed, WHO RSS, and medRxiv.
+    Original source always attributed. Translations stored inline as JSONB.
+    """
+    __tablename__ = "news_articles"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    slug = Column(String(400), unique=True, nullable=False, index=True)
+
+    # Source
+    source_name = Column(String(200), nullable=False)
+    source_url = Column(String(1000), nullable=False)
+    source_doi = Column(String(300), nullable=True)
+    source_hash = Column(String(64), unique=True, nullable=False)  # dedup key
+
+    # English content
+    title = Column(String(500), nullable=False)
+    summary = Column(Text, nullable=False)
+    category = Column(String(100), nullable=False, index=True)
+    tags = Column(ARRAY(String), nullable=True)
+
+    # Translations: {"ru": {"title": "...", "summary": "..."}, "ar": {...}, ...}
+    translations = Column(JSONB, nullable=False, default=dict)
+
+    original_published_at = Column(DateTime, nullable=True)
+    fetched_at = Column(DateTime, default=datetime.utcnow)
+    translated_at = Column(DateTime, nullable=True)
+
+    is_published = Column(Boolean, nullable=False, default=True)
+
+    # Teacher-created news fields (NULL = auto-pipeline)
+    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    author_display_name = Column(String(200), nullable=True)
+    # draft | submitted | published | rejected
+    review_status = Column(String(20), nullable=False, default="published")
+    review_note = Column(Text, nullable=True)

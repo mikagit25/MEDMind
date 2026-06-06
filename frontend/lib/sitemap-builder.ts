@@ -22,6 +22,8 @@ export type ArticleSitemapEntry = {
 
 export type DrugSitemapEntry = { id: string; available_langs: string[] };
 
+export type NewsSitemapEntry = { slug: string; fetched_at: string };
+
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
 export function localizedUrl(path: string, locale: string): string {
@@ -41,6 +43,18 @@ function esc(str: string): string {
 export async function fetchArticlesSitemapData(): Promise<ArticleSitemapEntry[]> {
   try {
     const res = await fetch(`${BACKEND_URL}/articles/sitemap-data`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchNewsSitemapData(): Promise<NewsSitemapEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/news/sitemap-data`, {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
@@ -102,9 +116,10 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs] = await Promise.all([
+  const [articles, drugs, newsItems] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
+    fetchNewsSitemapData(),
   ]);
 
   const entries: string[] = [];
@@ -172,6 +187,30 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     );
   }
 
+  // ── News pages ──────────────────────────────────────────────────────────────
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/news", locale),
+      lastmod: now,
+      priority: 0.9,
+      changefreq: "hourly",
+      hreflang: hreflangTags("/news", [...LOCALES]),
+    })
+  );
+  for (const item of newsItems) {
+    const path = `/news/${item.slug}`;
+    const lastmod = item.fetched_at ? item.fetched_at.split("T")[0] : now;
+    entries.push(
+      urlEntry({
+        url: localizedUrl(path, locale),
+        lastmod,
+        priority: 0.75,
+        changefreq: "weekly",
+        hreflang: hreflangTags(path, [...LOCALES]),
+      })
+    );
+  }
+
   // ── Calculator pages — client-side i18n, same URL for every locale ─────────
   // Calculators use client-side language switching: the URL is always
   // /calculators/<slug> regardless of locale, so never use localizedUrl() here.
@@ -224,6 +263,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/pricing",      priority: 0.9, changefreq: "monthly" },
       { path: "/investors",    priority: 0.6, changefreq: "monthly" },
       { path: "/symptoms",     priority: 0.9, changefreq: "monthly" },
+      { path: "/news",         priority: 0.9, changefreq: "hourly"  },
       { path: "/register",     priority: 0.7, changefreq: "monthly" },
     ];
     for (const s of statics) {

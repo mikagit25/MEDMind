@@ -146,6 +146,16 @@ async def _nightly_plan_refresh():
         logger.error("Nightly plan refresh failed: %s", e)
 
 
+async def _news_pipeline_job():
+    """Run every 6 hours — fetch and translate new medical news."""
+    try:
+        from app.services.news_pipeline import run_news_pipeline
+        count = await run_news_pipeline(days_back=2)
+        logger.info("News pipeline job done: %d new articles", count)
+    except Exception as e:
+        logger.error("News pipeline job failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -187,8 +197,17 @@ def start_scheduler():
         misfire_grace_time=3600,
     )
 
+    # Every 6 hours — fetch new medical news from PubMed, WHO, medRxiv
+    scheduler.add_job(
+        _news_pipeline_job,
+        trigger=CronTrigger(hour="*/6", minute=30, timezone="UTC"),
+        id="news_pipeline",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
     scheduler.start()
-    logger.info("Background scheduler started (daily streak reset, weekly stats)")
+    logger.info("Background scheduler started (daily streak reset, weekly stats, news pipeline)")
 
 
 def stop_scheduler():
