@@ -6,7 +6,7 @@ Translates articles that:
   - Have English body (body identical to original — old pipeline bug)
   - Have NULL or empty body
 
-Run on host (uses 172.18.0.3:5432):
+Run on host (uses localhost:5432):
     python3 /opt/medmind/translate_articles.py
     python3 /opt/medmind/translate_articles.py --force      # re-translate all
     python3 /opt/medmind/translate_articles.py --limit 50
@@ -22,7 +22,7 @@ import psycopg2
 
 DB_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+    "postgresql://medmind:medmind_secret@localhost:5432/medmind"
 ).replace("postgresql+asyncpg://", "postgresql://")
 
 LOCALES = ["ru", "de", "fr", "es", "tr", "ar"]

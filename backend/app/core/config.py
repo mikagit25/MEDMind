@@ -31,7 +31,18 @@ class Settings(BaseSettings):
 
     # Groq (free fallback — console.groq.com, 14400 req/day)
     GROQ_API_KEY: str = ""
+    GROQ_API_KEY_2: str = ""
+    GROQ_API_KEY_3: str = ""
+    GROQ_API_KEY_4: str = ""
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
+
+    # Cerebras / SambaNova (additional free providers for news pipeline)
+    CEREBRAS_API_KEY: str = ""
+    CEREBRAS_API_KEY_2: str = ""
+    CEREBRAS_API_KEY_3: str = ""
+    CEREBRAS_API_KEY_4: str = ""
+    CEREBRAS_API_KEY_5: str = ""
+    SAMBANOVA_API_KEY: str = ""
 
     # Ollama (primary free AI — local, zero cost, no API key)
     OLLAMA_URL: str = "http://localhost:11434"

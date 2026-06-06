@@ -23,7 +23,7 @@ from pathlib import Path
 
 import psycopg2
 
-DB_URL = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+DB_URL = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
 UA     = "MedMindAI/1.0 (https://medmind.pro; 33mikalai@gmail.com)"
 
 # Medical search terms per category to improve relevance

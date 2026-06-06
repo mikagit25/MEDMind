@@ -253,7 +253,7 @@ def generate_og_image(
 def generate_for_all(limit: int = 999, force: bool = False):
     """Generate OG images for all articles in DB that are missing them."""
     import psycopg2
-    DB_URL = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+    DB_URL = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
     conn   = psycopg2.connect(DB_URL)
     with conn.cursor() as cur:
         cur.execute("""
@@ -291,7 +291,7 @@ if __name__ == "__main__":
     if args.slug:
         # Need to look up the article from DB
         import psycopg2
-        DB_URL = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+        DB_URL = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
         conn   = psycopg2.connect(DB_URL)
         with conn.cursor() as cur:
             cur.execute(
@@ -309,7 +309,7 @@ if __name__ == "__main__":
 
     elif args.all:
         import psycopg2
-        DB_URL = "postgresql://medmind:medmind_secret@172.18.0.3:5432/medmind"
+        DB_URL = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
         conn   = psycopg2.connect(DB_URL)
         with conn.cursor() as cur:
             q = "SELECT slug, title, category, reading_time_minutes FROM articles WHERE is_published=true"

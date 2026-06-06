@@ -94,27 +94,71 @@ def _parse_rss_date(date_str: str) -> Optional[datetime]:
     return None
 
 
-# ── Groq API caller ───────────────────────────────────────────────────────────
+# ── AI caller with key rotation + provider fallback ───────────────────────────
 
-async def _groq(system: str, user: str, max_tokens: int = 1200) -> str:
+def _groq_keys() -> list[str]:
+    """Return all configured Groq API keys."""
+    keys = []
+    for attr in ("GROQ_API_KEY", "GROQ_API_KEY_2", "GROQ_API_KEY_3", "GROQ_API_KEY_4"):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+def _cerebras_keys() -> list[str]:
+    keys = []
+    for attr in ("CEREBRAS_API_KEY", "CEREBRAS_API_KEY_2", "CEREBRAS_API_KEY_3",
+                 "CEREBRAS_API_KEY_4", "CEREBRAS_API_KEY_5"):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+
+async def _call_openai_compat(base_url: str, api_key: str, model: str,
+                               system: str, user: str, max_tokens: int) -> str:
     payload = {
-        "model": settings.GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
+        "model": model,
+        "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
         "max_tokens": max_tokens,
         "temperature": 0.3,
     }
     async with httpx.AsyncClient(timeout=40) as http:
         resp = await http.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {settings.GROQ_API_KEY}",
-                     "Content-Type": "application/json"},
+            base_url,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
             json=payload,
         )
         resp.raise_for_status()
         return resp.json()["choices"][0]["message"]["content"].strip()
+
+
+async def _groq(system: str, user: str, max_tokens: int = 1200) -> str:
+    """Try all Groq keys in rotation, then fall back to Cerebras."""
+    last_err: Exception | None = None
+
+    for key in _groq_keys():
+        try:
+            return await _call_openai_compat(
+                "https://api.groq.com/openai/v1/chat/completions",
+                key, settings.GROQ_MODEL, system, user, max_tokens,
+            )
+        except Exception as e:
+            last_err = e
+            logger.debug("Groq key failed (%s): %s", key[:12], e)
+
+    # Fallback: Cerebras (900 tok/s, very fast)
+    for key in _cerebras_keys():
+        try:
+            return await _call_openai_compat(
+                "https://api.cerebras.ai/v1/chat/completions",
+                key, "llama-3.3-70b", system, user, max_tokens,
+            )
+        except Exception as e:
+            last_err = e
+            logger.debug("Cerebras key failed (%s): %s", key[:12], e)
+
+    raise RuntimeError(f"All AI providers exhausted: {last_err}")
 
 
 # ── Summarisation ─────────────────────────────────────────────────────────────
