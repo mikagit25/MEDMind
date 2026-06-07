@@ -103,7 +103,7 @@ SPECIALTY_LABEL = {
 }
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from scripts.image_to_shorts import build_short, fetch_images
+from scripts.image_to_shorts import build_short, fetch_images, generate_script
 from scripts.youtube_playlists import get_playlist_id, add_video_to_playlist
 
 
@@ -295,16 +295,18 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
                     continue
             else:
                 log(f"  ♻️  Reusing existing file")
+                # Generate localized script for title/description/thumbnail even
+                # when the video file already exists — without this the metadata
+                # falls back to the English title stored in the imaging DB.
+                script = await generate_script(img, lang=lang)
 
-            # Prefer Claude-generated localized title/description.
-            # Fall back to template construction when reusing an existing file.
+            # Use Claude-generated localized title/description.
+            # Fall back to template construction only if generate_script returned None.
             yt_title = (
-                script.get("youtube_title")
-                if script else None
+                script.get("youtube_title") if script else None
             ) or f"{title_prefix} {title[:52]} #Shorts"
             yt_desc  = (
-                script.get("youtube_description")
-                if script else None
+                script.get("youtube_description") if script else None
             ) or (
                 f"{learn_about} {title} ({modality.upper()}).\n"
                 f"{spec_label}: {specialty.replace('-',' ').title()}\n"
@@ -321,8 +323,11 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
                     from scripts.generate_thumbnail import generate_thumbnail
                     cover_url = img.get("image_url") or img.get("url")
                     thumb_path = OUTPUT_DIR / f"thumb_{img_id[:8]}.jpg"
+                    # Prefer the Arabic display_title from Claude; fall back to
+                    # the English DB title only when script generation failed.
+                    thumb_title = (script.get("display_title") if script else None) or title
                     generate_thumbnail(
-                        title=title,
+                        title=thumb_title,
                         category=specialty or modality or "diagnostics",
                         lang=lang,
                         out_path=thumb_path,
