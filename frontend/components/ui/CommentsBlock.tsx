@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { commentsApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
+import { useI18n } from "@/lib/i18n";
 
 interface Comment {
   id: string;
@@ -22,29 +23,32 @@ interface Props {
   slug: string;
 }
 
-function timeAgo(iso: string): string {
+function timeAgo(iso: string, c: Record<string, string>): string {
   const diff = Date.now() - new Date(iso).getTime();
   const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins}m ago`;
+  if (mins < 1) return c.just_now;
+  if (mins < 60) return `${mins}${c.ago_min}`;
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
+  if (hrs < 24) return `${hrs}${c.ago_hour}`;
   const days = Math.floor(hrs / 24);
-  if (days < 30) return `${days}d ago`;
-  return new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(iso));
+  if (days < 30) return `${days}${c.ago_day}`;
+  try {
+    return new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(iso));
+  } catch {
+    return iso.split("T")[0];
+  }
 }
 
 function Avatar({ name, url, size = 32 }: { name: string; url: string | null; size?: number }) {
   const initials = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
-  const colors = ["bg-red", "bg-blue-500", "bg-green", "bg-amber", "bg-purple-500", "bg-teal-500"];
-  const color = colors[name.charCodeAt(0) % colors.length];
-
+  const COLORS = ["bg-red", "bg-blue-500", "bg-green", "bg-amber", "bg-purple-500", "bg-teal-500"];
+  const color = COLORS[name.charCodeAt(0) % COLORS.length];
   if (url) {
     return (
       <img src={url} alt={name} width={size} height={size}
         className="rounded-full object-cover flex-shrink-0"
         style={{ width: size, height: size }}
-        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+        onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
       />
     );
   }
@@ -60,6 +64,9 @@ function Avatar({ name, url, size = 32 }: { name: string; url: string | null; si
 
 export function CommentsBlock({ contentType, slug }: Props) {
   const { user, isAuthenticated } = useAuthStore();
+  const { t, isRTL } = useI18n();
+  const c = (key: string) => t(`comments.${key}`);
+
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [draft, setDraft] = useState("");
@@ -76,14 +83,14 @@ export function CommentsBlock({ contentType, slug }: Props) {
 
   const handlePost = async () => {
     const body = draft.trim();
-    if (body.length < 5) { setError("Minimum 5 characters"); return; }
+    if (body.length < 5) { setError(c("min_error")); return; }
     setPosting(true); setError("");
     try {
       const created: Comment = await commentsApi.post(contentType, slug, body);
       setComments(prev => [...prev, created]);
       setDraft("");
     } catch (e: any) {
-      setError(e?.response?.data?.detail ?? "Failed to post. Please try again.");
+      setError(e?.response?.data?.detail ?? c("post_error"));
     } finally {
       setPosting(false);
     }
@@ -93,79 +100,93 @@ export function CommentsBlock({ contentType, slug }: Props) {
     if (!isAuthenticated) return;
     try {
       const res = await commentsApi.like(id);
-      setComments(prev => prev.map(c =>
-        c.id === id ? { ...c, likes: res.likes, liked_by_me: res.liked } : c
+      setComments(prev => prev.map(cm =>
+        cm.id === id ? { ...cm, likes: res.likes, liked_by_me: res.liked } : cm
       ));
     } catch {}
   };
 
   const handleReport = async (id: string) => {
     if (!isAuthenticated) return;
-    if (!confirm("Report this comment as inappropriate?")) return;
+    if (!confirm(c("report_confirm"))) return;
     try {
       await commentsApi.report(id);
-      setComments(prev => prev.map(c =>
-        c.id === id ? { ...c, reported_by_me: true } : c
+      setComments(prev => prev.map(cm =>
+        cm.id === id ? { ...cm, reported_by_me: true } : cm
       ));
     } catch {}
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this comment?")) return;
+    if (!confirm(c("delete_confirm"))) return;
     try {
       await commentsApi.delete(id);
-      setComments(prev => prev.filter(c => c.id !== id));
+      setComments(prev => prev.filter(cm => cm.id !== id));
     } catch {}
   };
 
+  const userName = user?.first_name
+    ? `${user.first_name} ${user.last_name ?? ""}`.trim()
+    : user?.email ?? "?";
+
   return (
-    <section className="mt-12 border-t border-border pt-8">
-      <h2 className="font-syne font-bold text-base text-ink mb-6 flex items-center gap-2">
-        Discussion
-        {!loading && comments.length > 0 && (
-          <span className="text-xs font-syne font-semibold text-ink-3 bg-bg-2 border border-border rounded-full px-2 py-0.5">
-            {comments.length}
-          </span>
-        )}
-      </h2>
+    <section className="mt-12 border-t border-border pt-8" dir={isRTL ? "rtl" : "ltr"}>
+      {/* Heading */}
+      <div className="flex items-center gap-3 mb-6">
+        <h2 className="font-syne font-bold text-base text-ink flex items-center gap-2">
+          {c("heading")}
+          {!loading && comments.length > 0 && (
+            <span className="text-xs font-syne font-semibold text-ink-3 bg-bg-2 border border-border rounded-full px-2 py-0.5">
+              {comments.length}
+            </span>
+          )}
+        </h2>
+        {/* Unified-thread note */}
+        <span className="text-xs font-serif text-ink-3 italic hidden sm:block">
+          {c("unified_note")}
+        </span>
+      </div>
 
       {/* Compose */}
       {isAuthenticated ? (
         <div className="flex gap-3 mb-8">
-          <Avatar name={user?.first_name ? `${user.first_name} ${user.last_name ?? ""}`.trim() : user?.email ?? "?"} url={null} size={36} />
+          <Avatar name={userName} url={null} size={36} />
           <div className="flex-1">
             <textarea
               ref={textareaRef}
               value={draft}
               onChange={e => { setDraft(e.target.value); setError(""); }}
               onKeyDown={e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handlePost(); }}
-              placeholder="Share a clinical observation, question, or insight…"
+              placeholder={c("placeholder")}
               rows={3}
+              maxLength={2000}
               className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-ink font-serif text-sm resize-none focus:outline-none focus:border-ink transition-colors placeholder:text-ink-3"
             />
             {error && <p className="text-xs text-red mt-1 font-serif">{error}</p>}
             <div className="flex items-center justify-between mt-2">
-              <span className="text-xs text-ink-3 font-serif">{draft.length}/2000 · Ctrl+Enter to submit</span>
+              <span className="text-xs text-ink-3 font-serif">
+                {draft.length}/2000 · {c("char_hint")}
+              </span>
               <button
                 onClick={handlePost}
                 disabled={posting || draft.trim().length < 5}
                 className="px-4 py-1.5 rounded-lg bg-ink text-white font-syne font-semibold text-sm hover:bg-ink/80 disabled:opacity-40 transition-all"
               >
-                {posting ? "Posting…" : "Post"}
+                {posting ? c("posting") : c("post")}
               </button>
             </div>
           </div>
         </div>
       ) : (
         <div className="mb-8 p-4 rounded-xl border border-border bg-surface flex items-center gap-3">
-          <span className="text-2xl">💬</span>
+          <span className="text-2xl flex-shrink-0">💬</span>
           <div>
-            <p className="font-syne font-semibold text-sm text-ink">Join the discussion</p>
+            <p className="font-syne font-semibold text-sm text-ink">{c("join_title")}</p>
             <p className="font-serif text-xs text-ink-3 mt-0.5">
-              <Link href="/login" className="text-red hover:underline font-semibold">Sign in</Link>
-              {" "}or{" "}
-              <Link href="/register" className="text-red hover:underline font-semibold">create a free account</Link>
-              {" "}to post a comment.
+              <Link href="/login" className="text-red hover:underline font-semibold">{c("sign_in")}</Link>
+              {" "}{t("common.or")}{" "}
+              <Link href="/register" className="text-red hover:underline font-semibold">{c("register")}</Link>
+              {" "}{c("join_desc")}
             </p>
           </div>
         </div>
@@ -186,53 +207,59 @@ export function CommentsBlock({ contentType, slug }: Props) {
           ))}
         </div>
       ) : comments.length === 0 ? (
-        <p className="font-serif text-ink-3 text-sm text-center py-8">
-          No comments yet. Be the first to share an insight.
-        </p>
+        <p className="font-serif text-ink-3 text-sm text-center py-8">{c("empty")}</p>
       ) : (
         <div className="space-y-6">
-          {comments.map(c => (
-            <div key={c.id} className="flex gap-3 group">
-              <Avatar name={c.user_name} url={c.user_avatar} size={36} />
+          {comments.map(cm => (
+            <div key={cm.id} className="flex gap-3 group">
+              <Avatar name={cm.user_name} url={cm.user_avatar} size={36} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                  <span className="font-syne font-semibold text-sm text-ink">{c.user_name}</span>
-                  <span className="font-serif text-xs text-ink-3">{timeAgo(c.created_at)}</span>
+                  <span className="font-syne font-semibold text-sm text-ink">{cm.user_name}</span>
+                  <span className="font-serif text-xs text-ink-3">{timeAgo(cm.created_at, {
+                    just_now: c("just_now"),
+                    ago_min: c("ago_min"),
+                    ago_hour: c("ago_hour"),
+                    ago_day: c("ago_day"),
+                  })}</span>
                 </div>
-                <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{c.body}</p>
+                <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap break-words">
+                  {cm.body}
+                </p>
                 <div className="flex items-center gap-3 mt-2">
                   {/* Like */}
                   <button
-                    onClick={() => handleLike(c.id)}
+                    onClick={() => handleLike(cm.id)}
                     disabled={!isAuthenticated}
                     className={`flex items-center gap-1 text-xs font-syne font-semibold transition-colors ${
-                      c.liked_by_me ? "text-red" : "text-ink-3 hover:text-ink disabled:cursor-default"
+                      cm.liked_by_me ? "text-red" : "text-ink-3 hover:text-ink disabled:cursor-default"
                     }`}
+                    title={c("like")}
                   >
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill={c.liked_by_me ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill={cm.liked_by_me ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
-                    {c.likes > 0 && <span>{c.likes}</span>}
+                    {cm.likes > 0 && <span>{cm.likes}</span>}
                   </button>
 
-                  {/* Report */}
-                  {isAuthenticated && c.user_id !== user?.id && (
+                  {/* Report (not own comment) */}
+                  {isAuthenticated && cm.user_id !== user?.id && (
                     <button
-                      onClick={() => handleReport(c.id)}
-                      disabled={c.reported_by_me}
+                      onClick={() => handleReport(cm.id)}
+                      disabled={cm.reported_by_me}
                       className="text-xs font-syne text-ink-3 hover:text-amber transition-colors disabled:opacity-40 disabled:cursor-default opacity-0 group-hover:opacity-100"
                     >
-                      {c.reported_by_me ? "Reported" : "Report"}
+                      {cm.reported_by_me ? c("reported") : c("report")}
                     </button>
                   )}
 
                   {/* Delete own */}
-                  {isAuthenticated && c.user_id === user?.id && (
+                  {isAuthenticated && cm.user_id === user?.id && (
                     <button
-                      onClick={() => handleDelete(c.id)}
+                      onClick={() => handleDelete(cm.id)}
                       className="text-xs font-syne text-ink-3 hover:text-red transition-colors opacity-0 group-hover:opacity-100"
                     >
-                      Delete
+                      {c("delete")}
                     </button>
                   )}
                 </div>

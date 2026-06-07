@@ -1477,6 +1477,32 @@ const ar: Translations = {
     insert: "إدراج",
     footer: "جميع الصور مفتوحة الوصول مع الإسناد المناسب.",
   },
+
+  comments: {
+    heading: "النقاش",
+    placeholder: "شارك ملاحظة سريرية أو سؤالاً أو رأياً…",
+    post: "نشر",
+    posting: "جارٍ النشر…",
+    char_hint: "Ctrl+Enter للإرسال",
+    min_error: "الحد الأدنى 5 أحرف",
+    post_error: "فشل النشر. حاول مرة أخرى.",
+    empty: "لا توجد تعليقات بعد. كن أول من يشارك.",
+    join_title: "انضم إلى النقاش",
+    join_desc: "لنشر تعليق.",
+    sign_in: "سجّل الدخول",
+    register: "أنشئ حساباً مجانياً",
+    like: "إعجاب",
+    report: "إبلاغ",
+    reported: "تم الإبلاغ",
+    delete: "حذف",
+    report_confirm: "هل تريد الإبلاغ عن هذا التعليق؟",
+    delete_confirm: "هل تريد حذف هذا التعليق؟",
+    unified_note: "التعليقات مشتركة بين جميع النسخ اللغوية لهذه المقالة.",
+    just_now: "الآن",
+    ago_min: "د",
+    ago_hour: "س",
+    ago_day: "ي",
+  },
 };
 
 export default ar;

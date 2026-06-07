@@ -1477,6 +1477,32 @@ const tr: Translations = {
     insert: "Ekle",
     footer: "Tüm görüntüler açık erişimlidir ve atıf otomatik olarak eklenir.",
   },
+
+  comments: {
+    heading: "Tartışma",
+    placeholder: "Klinik bir gözlem, soru veya görüş paylaşın…",
+    post: "Gönder",
+    posting: "Gönderiliyor…",
+    char_hint: "Göndermek için Ctrl+Enter",
+    min_error: "En az 5 karakter gerekli",
+    post_error: "Gönderilemedi. Lütfen tekrar deneyin.",
+    empty: "Henüz yorum yok. İlk içgörüyü paylaşan siz olun.",
+    join_title: "Tartışmaya katılın",
+    join_desc: "yorum yapmak için.",
+    sign_in: "Giriş yapın",
+    register: "ücretsiz hesap oluşturun",
+    like: "Beğen",
+    report: "Şikayet et",
+    reported: "Şikayet edildi",
+    delete: "Sil",
+    report_confirm: "Bu yorumu uygunsuz olarak şikayet et?",
+    delete_confirm: "Bu yorumu sil?",
+    unified_note: "Yorumlar bu makalenin tüm dil sürümleri arasında paylaşılmaktadır.",
+    just_now: "az önce",
+    ago_min: "dk",
+    ago_hour: "sa",
+    ago_day: "g",
+  },
 };
 
 export default tr;

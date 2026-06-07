@@ -1485,6 +1485,32 @@ const es: Translations = {
     insert: "Insertar",
     footer: "Todas las imágenes son de acceso abierto con atribución. La atribución se añade automáticamente a la leyenda.",
   },
+
+  comments: {
+    heading: "Discusión",
+    placeholder: "Comparte una observación clínica, pregunta o reflexión…",
+    post: "Publicar",
+    posting: "Publicando…",
+    char_hint: "Ctrl+Enter para enviar",
+    min_error: "Mínimo 5 caracteres",
+    post_error: "Error al publicar. Por favor, inténtalo de nuevo.",
+    empty: "Sin comentarios aún. Sé el primero en compartir.",
+    join_title: "Únete a la discusión",
+    join_desc: "para publicar un comentario.",
+    sign_in: "Inicia sesión",
+    register: "crea una cuenta gratuita",
+    like: "Me gusta",
+    report: "Reportar",
+    reported: "Reportado",
+    delete: "Eliminar",
+    report_confirm: "¿Reportar este comentario como inapropiado?",
+    delete_confirm: "¿Eliminar este comentario?",
+    unified_note: "Los comentarios se comparten entre todas las versiones lingüísticas de este artículo.",
+    just_now: "ahora mismo",
+    ago_min: "min",
+    ago_hour: "h",
+    ago_day: "d",
+  },
 };
 
 export default es;

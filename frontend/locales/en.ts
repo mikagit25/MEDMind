@@ -1523,6 +1523,33 @@ const en = {
     no_articles: "No articles yet",
     share_knowledge: "Share your clinical knowledge with medical learners worldwide",
   },
+
+  // ── Comments ─────────────────────────────────────────────────────────────────
+  comments: {
+    heading: "Discussion",
+    placeholder: "Share a clinical observation, question, or insight…",
+    post: "Post",
+    posting: "Posting…",
+    char_hint: "Ctrl+Enter to submit",
+    min_error: "Minimum 5 characters",
+    post_error: "Failed to post. Please try again.",
+    empty: "No comments yet. Be the first to share an insight.",
+    join_title: "Join the discussion",
+    join_desc: "to post a comment.",
+    sign_in: "Sign in",
+    register: "create a free account",
+    like: "Like",
+    report: "Report",
+    reported: "Reported",
+    delete: "Delete",
+    report_confirm: "Report this comment as inappropriate?",
+    delete_confirm: "Delete this comment?",
+    unified_note: "Comments are shared across all language versions of this article.",
+    just_now: "just now",
+    ago_min: "m ago",
+    ago_hour: "h ago",
+    ago_day: "d ago",
+  },
 } as const;
 
 // Recursive helper that widens all leaf types to string
