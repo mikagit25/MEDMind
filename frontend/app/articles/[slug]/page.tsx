@@ -12,6 +12,7 @@ import { ArticleReadTracker } from "@/components/ui/ArticleReadTracker";
 import { ArticleQuiz } from "@/components/ui/ArticleQuiz";
 import { ArticleAIChat } from "@/components/ui/ArticleAIChat";
 import { LocaleCookieSetter } from "@/components/ui/LocaleCookieSetter";
+import { CommentsBlock } from "@/components/ui/CommentsBlock";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -873,6 +874,8 @@ export default async function ArticlePage({
               </div>
             </section>
           )}
+
+          <CommentsBlock contentType="article" slug={article.slug} />
         </main>
 
         {/* Sidebar */}

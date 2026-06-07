@@ -618,6 +618,19 @@ export const creditsApi = {
     api.post("/credits/purchase/checkout", null, { params: { package_id: packageId } }).then(r => r.data),
 };
 
+export const commentsApi = {
+  list: (contentType: "article" | "news", slug: string, limit = 50) =>
+    api.get(`/comments/${contentType}/${encodeURIComponent(slug)}`, { params: { limit } }).then(r => r.data),
+  post: (contentType: "article" | "news", slug: string, body: string) =>
+    api.post(`/comments/${contentType}/${encodeURIComponent(slug)}`, { body }).then(r => r.data),
+  delete: (id: string) =>
+    api.delete(`/comments/${id}`).then(r => r.data),
+  like: (id: string) =>
+    api.post(`/comments/${id}/like`).then(r => r.data),
+  report: (id: string) =>
+    api.post(`/comments/${id}/report`).then(r => r.data),
+};
+
 // Fire-and-forget view tracking — never throws
 export const trackArticleView = (slug: string): void => {
   fetch(`/api/v1/articles/${slug}/view`, { method: "POST" }).catch(() => {});

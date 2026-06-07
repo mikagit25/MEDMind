@@ -8,7 +8,7 @@ import os
 from sqlalchemy import (
     Boolean, Column, DateTime, Float, ForeignKey, Index,
     Integer, String, Text, UniqueConstraint, Numeric,
-    JSON as _SQLJSON,
+    JSON as _SQLJSON, func,
 )
 from sqlalchemy.dialects.postgresql import UUID, JSONB as _PGJSONB, ARRAY as _PGARRAY
 from sqlalchemy.orm import relationship, validates
@@ -1256,3 +1256,37 @@ class NewsArticle(Base):
     # draft | submitted | published | rejected
     review_status = Column(String(20), nullable=False, default="published")
     review_note = Column(Text, nullable=True)
+
+
+# ── Comments ──────────────────────────────────────────────────────────────────
+
+class Comment(Base):
+    """User comment on an article or news item."""
+    __tablename__ = "comments"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    content_type = Column(String(10),  nullable=False, index=True)  # "article" | "news"
+    content_slug = Column(String(400), nullable=False, index=True)
+    body         = Column(Text,  nullable=False)
+    created_at   = Column(DateTime(timezone=True), server_default=func.now())
+    is_hidden    = Column(Boolean, default=False, nullable=False)
+    report_count = Column(Integer, default=0,     nullable=False)
+
+    user = relationship("User", lazy="joined", foreign_keys=[user_id])
+
+
+class CommentLike(Base):
+    """One row per (user, comment) like — composite PK prevents duplicates."""
+    __tablename__ = "comment_likes"
+
+    comment_id = Column(UUID(as_uuid=True), ForeignKey("comments.id", ondelete="CASCADE"), primary_key=True)
+    user_id    = Column(UUID(as_uuid=True), ForeignKey("users.id",    ondelete="CASCADE"), primary_key=True)
+
+
+class CommentReport(Base):
+    """One row per (user, comment) report — prevents duplicate reports."""
+    __tablename__ = "comment_reports"
+
+    comment_id = Column(UUID(as_uuid=True), ForeignKey("comments.id", ondelete="CASCADE"), primary_key=True)
+    user_id    = Column(UUID(as_uuid=True), ForeignKey("users.id",    ondelete="CASCADE"), primary_key=True)

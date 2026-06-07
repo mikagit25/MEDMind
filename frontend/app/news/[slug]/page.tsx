@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { getCategoryLabel } from "@/lib/categories";
+import { CommentsBlock } from "@/components/ui/CommentsBlock";
 
 type Lang = "en" | "ru" | "ar" | "es" | "de" | "fr" | "tr";
 
@@ -346,6 +347,8 @@ export default function NewsDetailPage() {
             </div>
           </section>
         )}
+
+        <CommentsBlock contentType="news" slug={slug} />
 
         {/* Footer */}
         <div className="mt-14 pt-8 border-t border-border flex flex-wrap justify-center gap-4 text-xs text-ink-3 font-syne">
