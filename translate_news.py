@@ -165,11 +165,36 @@ DO NOT: copy-paste from the source, add disclaimers, mention "this article", use
 Return ONLY the summary text — no title, no JSON, no markdown."""
 
 
+def _is_truncated(t_text: str, en_text: str, is_title: bool = True) -> bool:
+    """Detect a likely truncated translation.
+
+    Heuristics:
+    - Empty or very short output (<= 10 chars for titles, <= 100 for summaries).
+    - Ends on an alphabetic character AND is < 55 % of the EN character length
+      (translated titles in inflected languages are often longer, not shorter).
+    - For summaries: less than 30 % of EN length is a clear red flag.
+    """
+    if not t_text:
+        return True
+    if is_title:
+        if len(t_text) <= 10:
+            return True
+        if t_text[-1].isalpha() and len(t_text) < len(en_text) * 0.55:
+            return True
+    else:
+        if len(t_text) < 100:
+            return True
+        if len(t_text) < len(en_text) * 0.30:
+            return True
+    return False
+
+
 def _translate(title: str, summary: str, locale: str) -> dict:
     lang_name = LOCALE_NAMES[locale]
-    # Translate title and summary separately — avoids JSON truncation issues
-    t_title = _ai(TRANSLATE_TITLE_SYS.format(lang_name=lang_name), title, max_tokens=120)
-    t_summary = _ai(TRANSLATE_SUMMARY_SYS.format(lang_name=lang_name), summary, max_tokens=1000)
+    # max_tokens for titles: Cyrillic/Arabic chars can cost 2-4 tokens each.
+    # A 150-char EN title may become 200+ chars in Russian → up to 300 tokens needed.
+    t_title   = _ai(TRANSLATE_TITLE_SYS.format(lang_name=lang_name),   title,   max_tokens=400)
+    t_summary = _ai(TRANSLATE_SUMMARY_SYS.format(lang_name=lang_name), summary, max_tokens=2000)
     return {"title": t_title.strip(), "summary": t_summary.strip()}
 
 
@@ -180,57 +205,144 @@ def _resummarise(title: str, abstract: str) -> str:
 
 # ── Main logic ────────────────────────────────────────────────────────────────
 
-def run_translate(dry_run: bool = False):
-    """Translate news articles that have no/partial translations."""
+def run_translate(dry_run: bool = False, repair: bool = False):
+    """Translate news articles that have no/partial/truncated translations.
+
+    repair=True  — also re-translate locales where existing translation looks
+                   truncated (ends mid-word, suspiciously short, etc.).
+    """
     conn = _get_conn()
     cur = conn.cursor()
-    cur.execute("""
-        SELECT id, title, summary, translations
-        FROM news_articles
-        WHERE review_status = 'published'
-        AND (translations = '{}' OR translations IS NULL)
-        ORDER BY fetched_at DESC
-    """)
+    if repair:
+        # Re-check ALL published articles (including already-translated ones)
+        cur.execute("""
+            SELECT id, title, summary, translations
+            FROM news_articles
+            WHERE review_status = 'published'
+            ORDER BY fetched_at DESC
+        """)
+        log.info("Repair mode: checking ALL published articles for truncated translations")
+    else:
+        cur.execute("""
+            SELECT id, title, summary, translations
+            FROM news_articles
+            WHERE review_status = 'published'
+            AND (translations = '{}' OR translations IS NULL)
+            ORDER BY fetched_at DESC
+        """)
     rows = cur.fetchall()
     conn.close()
-    log.info("News articles without translations: %d", len(rows))
+
+    # Also grab articles with partial/missing locales (some locales not yet translated)
+    if not repair:
+        conn2 = _get_conn()
+        cur2 = conn2.cursor()
+        cur2.execute("""
+            SELECT id, title, summary, translations
+            FROM news_articles
+            WHERE review_status = 'published'
+            AND translations IS NOT NULL
+            AND translations != '{}'
+            ORDER BY fetched_at DESC
+        """)
+        partial = cur2.fetchall()
+        conn2.close()
+        # Add articles that have some locales missing entirely
+        existing_ids = {r[0] for r in rows}
+        for row in partial:
+            trans = row[3] or {}
+            missing = [loc for loc in LOCALES if loc not in trans]
+            has_truncated = any(
+                _is_truncated(trans.get(loc, {}).get("title", ""), row[1], is_title=True) or
+                _is_truncated(trans.get(loc, {}).get("summary", ""), row[2], is_title=False)
+                for loc in LOCALES if loc in trans
+            )
+            if (missing or has_truncated) and row[0] not in existing_ids:
+                rows.append(row)
+                existing_ids.add(row[0])
+
+    log.info("Articles to process: %d", len(rows))
 
     ok = 0
     for i, (news_id, title, summary, existing_trans) in enumerate(rows, 1):
-        if dry_run:
-            log.info("[%d/%d] SKIP (dry-run): %s", i, len(rows), title[:60])
-            continue
-        translations = existing_trans or {}
-        updated = False
+        translations = dict(existing_trans or {})
+        locales_to_do = []
+
         for locale in LOCALES:
-            if locale in translations and translations[locale].get("title"):
-                continue
+            existing = translations.get(locale, {})
+            t_title   = existing.get("title", "")
+            t_summary = existing.get("summary", "")
+            needs_title   = _is_truncated(t_title,   title,   is_title=True)
+            needs_summary = _is_truncated(t_summary, summary, is_title=False)
+            if needs_title or needs_summary:
+                locales_to_do.append((locale, needs_title, needs_summary))
+
+        if not locales_to_do:
+            log.debug("[%d/%d] all locales OK: %s", i, len(rows), title[:60])
+            continue
+
+        if dry_run:
+            for locale, nt, ns in locales_to_do:
+                log.info("[%d/%d] WOULD retranslate [%s] title=%s summary=%s: %s",
+                         i, len(rows), locale, nt, ns, title[:60])
+            continue
+
+        log.info("[%d/%d] %s", i, len(rows), title[:70])
+        updated = False
+        for locale, needs_title, needs_summary in locales_to_do:
+            lang_name = LOCALE_NAMES[locale]
+            existing = dict(translations.get(locale, {}))
             try:
-                t = _translate(title, summary, locale)
-                if t.get("title") and t.get("summary"):
-                    translations[locale] = t
-                    updated = True
-                    log.info("  [%s] OK", locale)
-                else:
-                    log.warning("  [%s] empty result", locale)
+                if needs_title and needs_summary:
+                    t = _translate(title, summary, locale)
+                    if t.get("title") and t.get("summary"):
+                        translations[locale] = t
+                        updated = True
+                        log.info("  [%s] full translation OK", locale)
+                    else:
+                        log.warning("  [%s] empty result", locale)
+                elif needs_title:
+                    t_title = _ai(
+                        TRANSLATE_TITLE_SYS.format(lang_name=lang_name),
+                        title, max_tokens=400,
+                    ).strip()
+                    if t_title and not _is_truncated(t_title, title, is_title=True):
+                        existing["title"] = t_title
+                        translations[locale] = existing
+                        updated = True
+                        log.info("  [%s] title fixed: %s", locale, t_title[:60])
+                    else:
+                        log.warning("  [%s] title still truncated after retry (%d chars)", locale, len(t_title))
+                else:  # needs_summary only
+                    t_summary = _ai(
+                        TRANSLATE_SUMMARY_SYS.format(lang_name=lang_name),
+                        summary, max_tokens=2000,
+                    ).strip()
+                    if t_summary and not _is_truncated(t_summary, summary, is_title=False):
+                        existing["summary"] = t_summary
+                        translations[locale] = existing
+                        updated = True
+                        log.info("  [%s] summary fixed (%d chars)", locale, len(t_summary))
+                    else:
+                        log.warning("  [%s] summary still short after retry (%d chars)", locale, len(t_summary))
             except Exception as e:
                 log.warning("  [%s] FAILED: %s", locale, e)
-            time.sleep(1.5)  # pace between locale calls
+            time.sleep(1.5)
+
         if updated:
-            conn2 = _get_conn()
+            conn3 = _get_conn()
             try:
-                cur2 = conn2.cursor()
-                cur2.execute(
-                    "UPDATE news_articles SET translations = %s WHERE id = %s",
-                    (Json(translations), news_id)
+                cur3 = conn3.cursor()
+                cur3.execute(
+                    "UPDATE news_articles SET translations = %s, translated_at = NOW() WHERE id = %s",
+                    (Json(translations), news_id),
                 )
-                conn2.commit()
+                conn3.commit()
                 ok += 1
             finally:
-                conn2.close()
-        log.info("[%d/%d] translated: %s", i, len(rows), title[:70])
+                conn3.close()
 
-    log.info("Done. Translated: %d / %d articles", ok, len(rows))
+    log.info("Done. Fixed: %d / %d articles", ok, len(rows))
 
 
 def run_resummarise(dry_run: bool = False):
@@ -285,13 +397,14 @@ def run_resummarise(dry_run: bool = False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--translate", action="store_true", help="Translate articles without translations")
+    parser.add_argument("--translate",   action="store_true", help="Translate articles without translations")
+    parser.add_argument("--repair",      action="store_true", help="Re-translate truncated/incomplete translations")
     parser.add_argument("--resummarise", action="store_true", help="Re-summarise raw abstracts with AI")
-    parser.add_argument("--all", action="store_true", help="Run both: resummarise then translate")
-    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--all",         action="store_true", help="Run: resummarise → translate → repair")
+    parser.add_argument("--dry-run",     action="store_true")
     args = parser.parse_args()
 
-    if not any([args.translate, args.resummarise, args.all]):
+    if not any([args.translate, args.repair, args.resummarise, args.all]):
         parser.print_help()
         sys.exit(1)
 
@@ -303,8 +416,12 @@ def main():
         run_resummarise(dry_run=args.dry_run)
 
     if args.all or args.translate:
-        log.info("=== PHASE 2: Translate articles ===")
-        run_translate(dry_run=args.dry_run)
+        log.info("=== PHASE 2: Translate new articles ===")
+        run_translate(dry_run=args.dry_run, repair=False)
+
+    if args.all or args.repair:
+        log.info("=== PHASE 3: Repair truncated translations ===")
+        run_translate(dry_run=args.dry_run, repair=True)
 
 
 if __name__ == "__main__":
