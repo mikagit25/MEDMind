@@ -123,6 +123,86 @@ CHANNEL_DESCRIPTIONS = {
     },
 }
 
+CHANNEL_DESCRIPTIONS_NEWS: dict[str, dict] = {
+    "en": {
+        "prefix": "📰 MedMind AI — Latest medical news & research breakthroughs.\n\n",
+        "suffix": (
+            "\n\n🔗 Full news article: https://medmind.pro/news/{slug}\n"
+            "📚 Free medical learning platform: https://medmind.pro\n"
+            "✅ 97+ modules | 7 languages | Clinical cases | AI Tutor\n\n"
+            "#MedicalNews #Medicine #MedMindAI #HealthNews #MedStudent #Research"
+        ),
+        "tags": ["medical news", "medicine", "medmind", "health news",
+                 "medical research", "clinical medicine", "USMLE", "MedMindAI"],
+    },
+    "es": {
+        "prefix": "📰 MedMind AI — Últimas noticias y avances en investigación médica.\n\n",
+        "suffix": (
+            "\n\n🔗 Artículo completo: https://medmind.pro/es/news/{slug}\n"
+            "📚 Plataforma médica gratuita: https://medmind.pro/es\n"
+            "✅ 97+ módulos | 7 idiomas | Casos clínicos | Tutor IA\n\n"
+            "#NoticiasMédicas #Medicina #MedMindAI #InvestigaciónMédica #Salud"
+        ),
+        "tags": ["noticias médicas", "medicina", "medmind", "investigación médica",
+                 "salud", "USMLE", "MIR", "MedMindAI"],
+    },
+    "ar": {
+        "prefix": "📰 MedMind AI — آخر الأخبار والاكتشافات الطبية.\n\n",
+        "suffix": (
+            "\n\n🔗 المقال الكامل: https://medmind.pro/ar/news/{slug}\n"
+            "📚 منصة طبية مجانية: https://medmind.pro/ar\n"
+            "✅ أكثر من 97 وحدة | 7 لغات | حالات سريرية | مساعد ذكاء اصطناعي\n\n"
+            "#أخبار_طبية #الطب #MedMindAI #أبحاث_طبية #طالب_طب"
+        ),
+        "tags": ["أخبار طبية", "الطب", "medmind", "أبحاث طبية",
+                 "أخبار الصحة", "الطب السريري", "USMLE", "MedMindAI"],
+    },
+    "de": {
+        "prefix": "📰 MedMind AI — Aktuelle Medizinnachrichten & Forschungsdurchbrüche.\n\n",
+        "suffix": (
+            "\n\n🔗 Vollständiger Artikel: https://medmind.pro/de/news/{slug}\n"
+            "📚 Kostenlose Medizinplattform: https://medmind.pro/de\n"
+            "✅ 97+ Module | 7 Sprachen | Klinische Fälle | KI-Tutor\n\n"
+            "#Medizinnews #Medizin #MedMindAI #Gesundheit #Medizinstudent"
+        ),
+        "tags": ["Medizinnachrichten", "Medizin", "medmind", "Gesundheit",
+                 "Medizinstudent", "USMLE", "MedMindAI"],
+    },
+    "fr": {
+        "prefix": "📰 MedMind AI — Actualités médicales et avancées de la recherche.\n\n",
+        "suffix": (
+            "\n\n🔗 Article complet: https://medmind.pro/fr/news/{slug}\n"
+            "📚 Plateforme médicale gratuite: https://medmind.pro/fr\n"
+            "✅ 97+ modules | 7 langues | Cas cliniques | Tuteur IA\n\n"
+            "#ActualitésMédicales #Médecine #MedMindAI #Santé #ÉtudiantMédecine"
+        ),
+        "tags": ["actualités médicales", "médecine", "medmind", "santé",
+                 "recherche médicale", "USMLE", "MedMindAI"],
+    },
+    "ru": {
+        "prefix": "📰 MedMind AI — Последние медицинские новости и открытия.\n\n",
+        "suffix": (
+            "\n\n🔗 Полная статья: https://medmind.pro/ru/news/{slug}\n"
+            "📚 Бесплатная медицинская платформа: https://medmind.pro/ru\n"
+            "✅ 97+ модулей | 7 языков | Клинические случаи | ИИ-тьютор\n\n"
+            "#МедицинскиеНовости #Медицина #MedMindAI #Здоровье #Врач"
+        ),
+        "tags": ["медицинские новости", "медицина", "medmind", "здоровье",
+                 "медицинские исследования", "USMLE", "MedMindAI"],
+    },
+    "tr": {
+        "prefix": "📰 MedMind AI — Son tıp haberleri ve araştırma gelişmeleri.\n\n",
+        "suffix": (
+            "\n\n🔗 Tam makale: https://medmind.pro/tr/news/{slug}\n"
+            "📚 Ücretsiz tıp platformu: https://medmind.pro/tr\n"
+            "✅ 97+ modül | 7 dil | Klinik vakalar | Yapay Zeka Öğretmeni\n\n"
+            "#TıpHaberleri #Tıp #MedMindAI #Sağlık #TıpÖğrencisi"
+        ),
+        "tags": ["tıp haberleri", "tıp", "medmind", "sağlık",
+                 "tıp araştırması", "USMLE", "MedMindAI"],
+    },
+}
+
 
 # ── OAuth helpers ─────────────────────────────────────────────────────────────
 
@@ -513,6 +593,84 @@ async def process_one(
             ok = add_to_playlist(video_id, playlist_id, access_token)
             if ok:
                 print(f"📂 Added to playlist")
+
+    return video_id
+
+
+async def process_news_one(
+    slug: str,
+    lang: str,
+    access_token: str,
+    output_dir: Path,
+    delete_after: bool = True,
+    playlist_id: str | None = None,
+) -> str | None:
+    """Generate and upload one news video. Returns video_id on success."""
+    sys.path.insert(0, str(Path(__file__).parent))
+    try:
+        from news_to_video import build_news_video, fetch_news_article
+    except ImportError as e:
+        print(f"  ❌ news_to_video import failed: {e}")
+        return None
+
+    _thumb_available = False
+    try:
+        from generate_thumbnail import generate_thumbnail
+        _thumb_available = True
+    except ImportError:
+        pass
+
+    news = fetch_news_article(slug, lang)
+    if not news:
+        print(f"⚠️  Could not fetch news '{slug}', skipping")
+        return None
+
+    title    = news.get("title", slug)
+    category = news.get("category", "diseases")
+    summary  = news.get("summary", "")
+    tags_raw = news.get("tags") or []
+    tmpl     = CHANNEL_DESCRIPTIONS_NEWS.get(lang, CHANNEL_DESCRIPTIONS_NEWS["en"])
+    tags     = tmpl["tags"] + ([category] if category not in tmpl["tags"] else []) + tags_raw[:5]
+
+    # Generate video
+    safe_slug = "".join(c if c.isalnum() or c in "-_" else "_" for c in slug)
+    suffix    = f"_{lang}" if lang != "en" else ""
+    mp4       = output_dir / f"news_{safe_slug}{suffix}.mp4"
+    print(f"  Generating news video for '{slug}' [{lang}]…")
+    await build_news_video(news, mp4, lang)
+    if not mp4.exists():
+        print("❌ Video file not created")
+        return None
+
+    # Build YouTube description
+    description = (
+        tmpl["prefix"]
+        + summary[:600]
+        + ("…" if len(summary) > 600 else "")
+        + tmpl["suffix"].format(slug=slug)
+    )
+
+    # Upload
+    video_id = upload_to_youtube(mp4, title, description, tags, access_token)
+
+    if video_id:
+        if _thumb_available:
+            thumb_path = output_dir / f"news_thumb_{safe_slug}.jpg"
+            try:
+                generate_thumbnail(title, category, lang,
+                                   out_path=thumb_path, cover_url=None)
+                upload_thumbnail(video_id, thumb_path, access_token)
+                thumb_path.unlink(missing_ok=True)
+            except Exception as e:
+                print(f"  ⚠️  Thumbnail skipped: {e}")
+
+        if delete_after:
+            mp4.unlink(missing_ok=True)
+            print("🗑️  Local file deleted")
+
+        if playlist_id:
+            if add_to_playlist(video_id, playlist_id, access_token):
+                print("📂 Added to playlist")
 
     return video_id
 
