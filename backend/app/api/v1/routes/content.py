@@ -449,6 +449,7 @@ async def browse_drugs(
     drug_class: Optional[str] = Query(None),
     vet: Optional[bool] = Query(None),
     high_yield: Optional[bool] = Query(None),
+    lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
     user = Depends(get_current_user_optional),
 ):
@@ -469,7 +470,7 @@ async def browse_drugs(
     drugs = (await db.execute(drugs_q)).scalars().all()
 
     return {
-        "items": [_drug_to_dict(d) for d in drugs],
+        "items": [_drug_to_dict(d, lang) for d in drugs],
         "total": total,
         "page": page,
         "pages": max(1, (total + limit - 1) // limit),
@@ -520,7 +521,7 @@ def _drug_to_dict(d: Drug, lang: str = "en") -> dict:
     }
 
 
-@router.get("/drugs", response_model=List[DrugOut])
+@router.get("/drugs")
 async def search_drugs(
     q: str = Query(None, min_length=1, max_length=100),
     lang: str = Query("en", max_length=5),
@@ -530,7 +531,7 @@ async def search_drugs(
     from sqlalchemy import or_
     if not q:
         result = await db.execute(select(Drug).order_by(Drug.name).limit(24))
-        return result.scalars().all()
+        return [_drug_to_dict(d, lang) for d in result.scalars().all()]
     result = await db.execute(
         select(Drug).where(
             or_(
@@ -540,7 +541,7 @@ async def search_drugs(
             )
         ).limit(20)
     )
-    return result.scalars().all()
+    return [_drug_to_dict(d, lang) for d in result.scalars().all()]
 
 
 @router.get("/drugs/{drug_id}")

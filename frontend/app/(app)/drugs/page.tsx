@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { drugsApi } from "@/lib/api";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 type Drug = {
   id: string;
@@ -111,6 +111,7 @@ function DrugImage({ drug, size = "sm" }: { drug: Drug; size?: "sm" | "lg" }) {
 
 function DrugBrowser() {
   const router = useRouter();
+  const { locale } = useI18n();
   const [result, setResult] = useState<BrowseResult | null>(null);
   const [classes, setClasses] = useState<{ drug_class: string; count: number }[]>([]);
   const [page, setPage] = useState(1);
@@ -125,7 +126,7 @@ function DrugBrowser() {
   const loadBrowse = useCallback(async (p = 1) => {
     setLoading(true);
     try {
-      const data = await drugsApi.browse(p, 24, selectedClass || undefined, filterVet, filterHY);
+      const data = await drugsApi.browse(p, 24, selectedClass || undefined, filterVet, filterHY, locale);
       setResult(data);
       setPage(p);
     } catch {
@@ -133,7 +134,7 @@ function DrugBrowser() {
     } finally {
       setLoading(false);
     }
-  }, [selectedClass, filterVet, filterHY]);
+  }, [selectedClass, filterVet, filterHY, locale]);
 
   // Initial load + filter changes
   useEffect(() => {
@@ -150,7 +151,7 @@ function DrugBrowser() {
     searchTimer.current = setTimeout(async () => {
       setLoading(true);
       try {
-        const data = await drugsApi.search(search);
+        const data = await drugsApi.search(search, locale);
         setSearchResults(data ?? []);
       } catch {
         setSearchResults([]);
@@ -158,7 +159,7 @@ function DrugBrowser() {
         setLoading(false);
       }
     }, 350);
-  }, [search]);
+  }, [search, locale]);
 
   // Load drug classes for filter
   useEffect(() => {
@@ -366,6 +367,7 @@ const SEVERITY_COLORS: Record<string, string> = {
 };
 
 function InteractionChecker() {
+  const { locale } = useI18n();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Drug[]>([]);
   const [selected, setSelected] = useState<Drug[]>([]);
@@ -377,7 +379,7 @@ function InteractionChecker() {
     if (!query.trim()) { setSuggestions([]); return; }
     const t = setTimeout(async () => {
       try {
-        const res = await drugsApi.search(query);
+        const res = await drugsApi.search(query, locale);
         setSuggestions((res ?? []).slice(0, 6));
         setShowSugg(true);
       } catch { setSuggestions([]); }
@@ -517,6 +519,7 @@ function DoseCalculator() {
 // ── Veterinary Dosing ─────────────────────────────────────────────────────────
 
 function VeterinaryDosing() {
+  const { locale } = useI18n();
   const [species, setSpecies] = useState<any[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState("");
   const [drugQuery, setDrugQuery] = useState("");
@@ -536,7 +539,7 @@ function VeterinaryDosing() {
   useEffect(() => {
     if (!drugQuery.trim()) { setDrugResults([]); return; }
     const t = setTimeout(async () => {
-      try { const res = await drugsApi.search(drugQuery); setDrugResults((res ?? []).slice(0, 6)); setShowSugg(true); }
+      try { const res = await drugsApi.search(drugQuery, locale); setDrugResults((res ?? []).slice(0, 6)); setShowSugg(true); }
       catch { setDrugResults([]); }
     }, 300);
     return () => clearTimeout(t);

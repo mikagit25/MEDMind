@@ -82,5 +82,29 @@
     "uploaded_at": "2026-06-05T21:55:50.916035+00:00",
     "lang": "ar",
     "category": "pharmacology"
+  },
+  "analgesic-nephropathy-treatment": {
+    "video_id": "a5GztUvtQ9s",
+    "uploaded_at": "2026-06-06T20:53:19.884216+00:00",
+    "lang": "ar",
+    "category": "nephrology"
+  },
+  "goodpasture-syndrome-treatment": {
+    "video_id": "Zu_B8DT2U78",
+    "uploaded_at": "2026-06-06T21:07:25.062533+00:00",
+    "lang": "ar",
+    "category": "nephrology"
+  },
+  "pseudohypoaldosteronism-type-1-treatment": {
+    "video_id": "3BCwQqWR80E",
+    "uploaded_at": "2026-06-06T21:20:22.293628+00:00",
+    "lang": "ar",
+    "category": "nephrology"
+  },
+  "renal-artery-stenosis-fibromuscular-dysplasia-angioplasty": {
+    "video_id": "uJar1Jhg6fA",
+    "uploaded_at": "2026-06-06T21:32:53.120205+00:00",
+    "lang": "ar",
+    "category": "nephrology"
   }
 }

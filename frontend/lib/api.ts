@@ -236,9 +236,9 @@ export const contentApi = {
 };
 
 export const drugsApi = {
-  search: (q: string) => api.get(`/drugs?q=${encodeURIComponent(q)}`).then(r => r.data),
-  browse: (page = 1, limit = 24, drug_class?: string, vet?: boolean, high_yield?: boolean) => {
-    const params = new URLSearchParams({ page: String(page), limit: String(limit) });
+  search: (q: string, lang = "en") => api.get(`/drugs?q=${encodeURIComponent(q)}&lang=${encodeURIComponent(lang)}`).then(r => r.data),
+  browse: (page = 1, limit = 24, drug_class?: string, vet?: boolean, high_yield?: boolean, lang = "en") => {
+    const params = new URLSearchParams({ page: String(page), limit: String(limit), lang });
     if (drug_class) params.set("drug_class", drug_class);
     if (vet !== undefined) params.set("vet", String(vet));
     if (high_yield !== undefined) params.set("high_yield", String(high_yield));

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { getCategoryLabel } from "@/lib/categories";
 
 type Lang = "en" | "ru" | "ar" | "es" | "de" | "fr" | "tr";
@@ -104,6 +104,7 @@ const API = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
 export default function NewsDetailPage() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const slug = params?.slug as string;
   const { locale, setLocale } = useI18n();
   const langParam = searchParams?.get("locale") as Lang | null;
@@ -116,6 +117,14 @@ export default function NewsDetailPage() {
   const [moreNews, setMoreNews]     = useState<NewsPreview[]>([]);
   const [loading, setLoading]       = useState(true);
   const [notFound, setNotFound]     = useState(false);
+
+  // Sync global i18n locale to the URL param when it differs (e.g. external link with ?locale=ru)
+  useEffect(() => {
+    if (langParam && LANGS.some(l => l.value === langParam) && langParam !== locale) {
+      setLocale(langParam as import("../../../lib/i18n").Locale);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [langParam]);
 
   useEffect(() => {
     if (!slug) return;
@@ -181,8 +190,15 @@ export default function NewsDetailPage() {
               {lang === "ru" ? "Калькуляторы" : lang === "ar" ? "آلات حاسبة" : lang === "de" ? "Rechner" : lang === "fr" ? "Calculateurs" : lang === "es" ? "Calculadoras" : lang === "tr" ? "Hesap makineleri" : "Calculators"}
             </Link>
           </div>
-          <select value={lang} onChange={e => setLocale(e.target.value as import("../../../lib/i18n").Locale)}
-            className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
+          <select
+            value={lang}
+            onChange={e => {
+              const next = e.target.value as import("../../../lib/i18n").Locale;
+              setLocale(next);
+              router.push(`/news/${slug}?locale=${next}`);
+            }}
+            className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none"
+          >
             {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
           </select>
         </div>
