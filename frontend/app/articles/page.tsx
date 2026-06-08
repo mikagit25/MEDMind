@@ -5,6 +5,7 @@ import { getCategoryLabel } from "@/lib/categories";
 import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ReadBadge } from "@/components/ui/ReadBadge";
+import { getArticlesT } from "@/lib/articles-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -12,18 +13,15 @@ const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
 export const dynamic = "force-dynamic";
 
-// metadata is generated dynamically per locale — see generateMetadata below
 export async function generateMetadata({
   searchParams,
 }: {
   searchParams?: { search?: string; lang?: string };
 }): Promise<Metadata> {
-  const cookieLocale = undefined; // SSR: don't read cookies in generateMetadata
   const rawLocale = searchParams?.lang;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const search = searchParams?.search;
 
-  // Search pages: noindex (too many permutations, thin content)
   if (search) {
     return {
       title: `Search: ${search} — Medical Articles — MedMind AI`,
@@ -53,7 +51,6 @@ export async function generateMetadata({
   };
 }
 
-
 type Article = {
   id: string;
   slug: string;
@@ -73,9 +70,7 @@ async function fetchArticles(search?: string, locale = "en"): Promise<Article[]>
     const params = new URLSearchParams({ limit: "24" });
     if (search) params.set("search", search);
     if (locale && locale !== "en") params.set("locale", locale);
-    const res = await fetch(`${API_URL}/articles?${params}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`${API_URL}/articles?${params}`, { cache: "no-store" });
     if (!res.ok) return [];
     const data = await res.json();
     return data.articles ?? [];
@@ -86,9 +81,7 @@ async function fetchArticles(search?: string, locale = "en"): Promise<Article[]>
 
 async function fetchCategories(): Promise<CategoryStat[]> {
   try {
-    const res = await fetch(`${API_URL}/articles/categories`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${API_URL}/articles/categories`, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
     return await res.json();
   } catch {
@@ -105,20 +98,23 @@ export default async function ArticlesPage({
   const cookieLocale = cookies().get("medmind_locale")?.value;
   const rawLocale = searchParams?.lang || cookieLocale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
-  const [articles, categories] = await Promise.all([fetchArticles(search, locale), fetchCategories()]);
+  const t = getArticlesT(locale);
+
+  const [articles, categories] = await Promise.all([
+    fetchArticles(search, locale),
+    fetchCategories(),
+  ]);
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-bg" dir={t.dir}>
       <ArticleNav />
 
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-10">
-          <h1 className="font-syne font-black text-4xl text-ink mb-3">Medical Articles</h1>
-          <p className="text-ink-2 font-serif text-lg max-w-2xl">
-            Evidence-based medical content written for healthcare professionals and students.
-            All articles are grounded in clinical guidelines and peer-reviewed research.
-          </p>
+          <h1 className="font-syne font-black text-4xl text-ink mb-3">{t.heading}</h1>
+          <p className="text-ink-2 font-serif text-lg max-w-2xl">{t.page_desc}</p>
+
           {/* Search bar */}
           <form method="GET" action="/articles" className="mt-6 flex gap-2 max-w-lg">
             <div className="relative flex-1">
@@ -126,7 +122,7 @@ export default async function ArticlesPage({
               <input
                 name="search"
                 defaultValue={search ?? ""}
-                placeholder="Search articles by title or topic…"
+                placeholder={t.search_placeholder}
                 className="w-full bg-surface border border-border rounded-xl pl-9 pr-4 py-2.5 text-ink text-sm font-serif focus:outline-none focus:border-ink transition-colors"
               />
             </div>
@@ -134,10 +130,13 @@ export default async function ArticlesPage({
               type="submit"
               className="bg-ink text-white font-syne font-semibold text-sm px-5 py-2.5 rounded-xl hover:bg-ink-2 transition-colors shrink-0"
             >
-              Search
+              {t.search_btn}
             </button>
             {search && (
-              <Link href="/articles" className="flex items-center px-3 py-2.5 border border-border rounded-xl text-ink-3 text-sm hover:border-ink-3 transition-colors font-serif shrink-0">
+              <Link
+                href="/articles"
+                className="flex items-center px-3 py-2.5 border border-border rounded-xl text-ink-3 text-sm hover:border-ink-3 transition-colors font-serif shrink-0"
+              >
                 ✕
               </Link>
             )}
@@ -147,7 +146,9 @@ export default async function ArticlesPage({
         {/* Category grid */}
         {categories.length > 0 && (
           <section className="mb-12">
-            <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">Browse by Category</h2>
+            <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">
+              {t.browse_by_cat}
+            </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
               {categories.map(({ category, count }) => (
                 <Link
@@ -161,7 +162,9 @@ export default async function ArticlesPage({
                   <span className="font-syne font-semibold text-xs text-ink">
                     {getCategoryLabel(category, locale)}
                   </span>
-                  <span className="text-ink-3 text-[10px] font-serif">{count} articles</span>
+                  <span className="text-ink-3 text-[10px] font-serif">
+                    {t.n_articles.replace("{n}", String(count))}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -174,23 +177,24 @@ export default async function ArticlesPage({
             <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">
               {search ? (
                 <>
-                  Results for &ldquo;{search}&rdquo;
-                  <Link href="/articles" className="ml-3 text-ink-2 font-normal normal-case text-xs hover:text-ink underline">
-                    Clear
+                  {t.results_for.replace("{q}", search)}
+                  <Link
+                    href="/articles"
+                    className="ml-3 text-ink-2 font-normal normal-case text-xs hover:text-ink underline"
+                  >
+                    {t.clear}
                   </Link>
                 </>
-              ) : "Latest Articles"}
+              ) : t.latest}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((a) => (
-                <ArticleCard key={a.id} article={a} locale={locale} />
+                <ArticleCard key={a.id} article={a} locale={locale} t={t} />
               ))}
             </div>
           </section>
         ) : (
-          <div className="text-center py-20 text-ink-3 font-serif">
-            No articles published yet. Check back soon.
-          </div>
+          <div className="text-center py-20 text-ink-3 font-serif">{t.no_results}</div>
         )}
       </main>
 
@@ -199,14 +203,20 @@ export default async function ArticlesPage({
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="font-syne font-extrabold text-xl text-ink mb-1">MedMind AI</div>
-            <p className="text-ink-3 font-serif text-sm">AI-powered medical education platform</p>
+            <p className="text-ink-3 font-serif text-sm">{t.footer_tagline}</p>
           </div>
           <div className="flex gap-3">
-            <Link href="/register" className="bg-ink text-white font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:bg-ink-2 transition-colors">
-              Start learning free
+            <Link
+              href="/register"
+              className="bg-ink text-white font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:bg-ink-2 transition-colors"
+            >
+              {t.start_free}
             </Link>
-            <Link href="/pricing" className="border border-border text-ink font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:border-ink transition-colors">
-              View pricing
+            <Link
+              href="/pricing"
+              className="border border-border text-ink font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:border-ink transition-colors"
+            >
+              {t.view_pricing}
             </Link>
           </div>
         </div>
@@ -215,14 +225,29 @@ export default async function ArticlesPage({
   );
 }
 
-function ArticleCard({ article, locale }: { article: Article; locale: string }) {
-  const href = locale && locale !== "en" ? `/${locale}/articles/${article.slug}` : `/articles/${article.slug}`;
+function ArticleCard({
+  article,
+  locale,
+  t,
+}: {
+  article: Article;
+  locale: string;
+  t: ReturnType<typeof getArticlesT>;
+}) {
+  const href =
+    locale && locale !== "en"
+      ? `/${locale}/articles/${article.slug}`
+      : `/articles/${article.slug}`;
+
+  const dateLocale = locale === "ar" ? "ar-SA" : locale === "tr" ? "tr-TR" :
+    locale === "ru" ? "ru-RU" : locale === "de" ? "de-DE" :
+    locale === "fr" ? "fr-FR" : locale === "es" ? "es-ES" : "en-US";
+
   return (
     <Link
       href={href}
       className="group flex flex-col bg-surface border border-border rounded-xl overflow-hidden hover:border-ink hover:shadow-md transition-all"
     >
-      {/* Cover image thumbnail */}
       {article.cover_image ? (
         <div className="relative h-44 overflow-hidden bg-surface-2">
           <img
@@ -243,15 +268,21 @@ function ArticleCard({ article, locale }: { article: Article; locale: string }) 
       <div className="flex flex-col flex-1 p-5">
         {!article.cover_image && (
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-ink-3"><CategoryIcon category={article.category} size={14} strokeWidth={1.75} /></span>
+            <span className="text-ink-3">
+              <CategoryIcon category={article.category} size={14} strokeWidth={1.75} />
+            </span>
             <span className="text-[11px] font-syne font-semibold text-ink-3 uppercase tracking-wider">
               {getCategoryLabel(article.category, locale)}
             </span>
-            <span className="ml-auto"><ReadBadge slug={article.slug} /></span>
+            <span className="ml-auto">
+              <ReadBadge slug={article.slug} />
+            </span>
           </div>
         )}
         {article.cover_image && (
-          <div className="flex justify-end mb-2"><ReadBadge slug={article.slug} /></div>
+          <div className="flex justify-end mb-2">
+            <ReadBadge slug={article.slug} />
+          </div>
         )}
         <h3 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
           {article.title}
@@ -260,10 +291,16 @@ function ArticleCard({ article, locale }: { article: Article; locale: string }) 
           {article.excerpt}
         </p>
         <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border">
-          <span className="text-ink-3 text-xs font-serif">{article.reading_time_minutes} min read</span>
+          <span className="text-ink-3 text-xs font-serif">
+            {t.read_time.replace("{n}", String(article.reading_time_minutes))}
+          </span>
           {article.published_at && (
             <span className="text-ink-3 text-xs font-serif ml-auto">
-              {new Date(article.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {new Date(article.published_at).toLocaleDateString(dateLocale, {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
             </span>
           )}
         </div>
