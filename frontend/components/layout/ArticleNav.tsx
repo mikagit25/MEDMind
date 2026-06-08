@@ -1,29 +1,65 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuthStore } from "@/lib/store";
+import { isTokenExpired, isTokenFresh } from "@/lib/auth";
+import { refreshApi } from "@/lib/api";
 
-/** Reads auth state from localStorage (no Zustand needed — works on public pages). */
-function useIsLoggedIn(): boolean | null {
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+/**
+ * Validates and silently refreshes the session on public pages (news, articles).
+ * These pages don't have the (app)/layout.tsx session guard, so we do a lightweight
+ * check here: if the access token is expired but we have a refresh token, swap them.
+ * On failure we just clear auth state — no redirect (public page, user can still read).
+ */
+function usePublicPageAuth() {
+  const { isAuthenticated, user, _hasHydrated, setAuth, logout } = useAuthStore();
+
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("medmind-auth");
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setLoggedIn(!!parsed?.state?.isAuthenticated && !!parsed?.state?.user);
-      } else {
-        setLoggedIn(false);
+    if (!_hasHydrated) return;
+
+    async function syncSession() {
+      const access  = localStorage.getItem("access_token");
+      const refresh = localStorage.getItem("refresh_token");
+
+      // Fresh token — nothing to do
+      if (isTokenFresh(access)) return;
+
+      // Expired access token + we have a refresh token → try to swap
+      if (isTokenExpired(access) && refresh) {
+        try {
+          const res = await refreshApi.post("/auth/refresh", { refresh_token: refresh });
+          const newAccess: string  = res.data.access_token;
+          const newRefresh: string = res.data.refresh_token;
+          localStorage.setItem("access_token", newAccess);
+          localStorage.setItem("refresh_token", newRefresh);
+          if (user) setAuth(user, newAccess, newRefresh);
+        } catch (err: any) {
+          const status = err?.response?.status;
+          // Definitive auth failure → clear state (but stay on page — it's public)
+          if (status === 401 || status === 403) logout();
+        }
+        return;
       }
-    } catch {
-      setLoggedIn(false);
+
+      // No tokens at all and Zustand still says authenticated → stale state, clear it
+      if (!access && !refresh && isAuthenticated) logout();
     }
-  }, []);
-  return loggedIn;
+
+    syncSession();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_hasHydrated]);
+
+  return { isAuthenticated, user, _hasHydrated };
 }
 
 export function ArticleNav() {
-  const loggedIn = useIsLoggedIn();
+  const { isAuthenticated, user, _hasHydrated } = usePublicPageAuth();
+
+  // null while Zustand is hydrating from localStorage (prevents flash of wrong state)
+  const loggedIn: boolean | null = _hasHydrated
+    ? (isAuthenticated && !!user)
+    : null;
 
   return (
     <nav className="bg-surface border-b border-border sticky top-0 z-50">
@@ -36,13 +72,12 @@ export function ArticleNav() {
           <Link href="/news" className="hover:text-ink transition-colors">News</Link>
           <Link href="/calculators" className="hover:text-ink transition-colors">Calculators</Link>
           <Link href="/pricing" className="hover:text-ink transition-colors">Pricing</Link>
-          {loggedIn === null ? null : loggedIn ? null : (
+          {loggedIn ? null : loggedIn === false ? (
             <Link href="/login" className="hover:text-ink transition-colors">Sign in</Link>
-          )}
+          ) : null}
         </div>
         <div className="ml-auto flex gap-2">
           {loggedIn === null ? (
-            // Skeleton while loading
             <div className="w-24 h-7 rounded-lg bg-surface animate-pulse" />
           ) : loggedIn ? (
             <Link
