@@ -2,14 +2,21 @@ import type { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 
-// Pages with valuable public medical content — AI crawlers should index these
+// Public pages with valuable medical content — all search engines should index these
 const PUBLIC_ALLOW = [
   "/",
-  "/how-it-works",
-  "/pricing",
   "/articles",
   "/articles/",
   "/articles/category/",
+  "/news",
+  "/news/",
+  "/drugs",
+  "/drugs/",
+  "/calculators",
+  "/calculators/",
+  "/symptoms",
+  "/how-it-works",
+  "/pricing",
   "/investors",
   "/register",
   "/login",
@@ -25,7 +32,6 @@ const DISALLOW_ALL = [
   "/flashcards",
   "/quiz",
   "/cases",
-  "/drugs",
   "/anatomy",
   "/imaging",
   "/ai-tutor",
