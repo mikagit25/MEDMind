@@ -413,14 +413,16 @@ function renderBlock(
           {linkifyText(block.content, linkMap, currentSlug)}
         </p>
       );
-    case "ul":
+    case "ul": {
+      const items: string[] = block.items ?? (block as any).content?.items ?? [];
       return (
         <ul key={i} className="list-disc list-inside space-y-1.5 mb-4 ml-2">
-          {block.items.map((item, j) => (
+          {items.map((item, j) => (
             <li key={j} className="font-serif text-ink-2 text-base">{item}</li>
           ))}
         </ul>
       );
+    }
     case "callout":
       return (
         <div key={i} className={`border rounded-lg px-5 py-4 mb-4 ${CALLOUT_STYLES[block.variant] ?? CALLOUT_STYLES.info}`}>
@@ -428,13 +430,15 @@ function renderBlock(
           <span className="font-serif text-sm whitespace-pre-wrap">{block.content}</span>
         </div>
       );
-    case "table":
+    case "table": {
+      const headers: string[] = block.headers ?? (block as any).content?.headers ?? [];
+      const rows: string[][] = block.rows ?? (block as any).content?.rows ?? [];
       return (
         <div key={i} className="overflow-x-auto mb-6 rounded-lg border border-border">
           <table className="w-full text-sm">
             <thead className="bg-surface-2">
               <tr>
-                {block.headers.map((h, j) => (
+                {headers.map((h, j) => (
                   <th key={j} className="text-left px-4 py-2.5 font-syne font-semibold text-ink-2 text-xs uppercase border-b border-border">
                     {h}
                   </th>
@@ -442,7 +446,7 @@ function renderBlock(
               </tr>
             </thead>
             <tbody>
-              {block.rows.map((row, j) => (
+              {rows.map((row, j) => (
                 <tr key={j} className="border-t border-border hover:bg-surface-2">
                   {row.map((cell, k) => (
                     <td key={k} className="px-4 py-2.5 font-serif text-ink-2">{cell}</td>
@@ -453,6 +457,7 @@ function renderBlock(
           </table>
         </div>
       );
+    }
     case "image":
       return (
         <figure key={i} className="mb-6">
@@ -635,7 +640,7 @@ export default async function ArticlePage({
 
           {/* Body */}
           <article className="prose-custom">
-            {article.body.map((block, i) => renderBlock(block, i, linkMap, article.slug))}
+            {(article.body ?? []).map((block, i) => renderBlock(block, i, linkMap, article.slug))}
           </article>
 
           {/* Author bio — only for human authors */}
