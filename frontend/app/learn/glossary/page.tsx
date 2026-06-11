@@ -1,0 +1,169 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+
+export const revalidate = 86400; // 24 hours ISR
+
+export const metadata: Metadata = {
+  title: "Medical Glossary — Plain Language Definitions",
+  description:
+    "Plain-language definitions of medical terms. Understand what doctors mean without a medical degree. Free, educational, for everyone.",
+  alternates: { canonical: `${SITE_URL}/learn/glossary` },
+  openGraph: {
+    title: "Medical Glossary — MedMind",
+    description: "Plain-language medical definitions for everyone.",
+    url: `${SITE_URL}/learn/glossary`,
+    type: "website",
+  },
+};
+
+type GlossaryTerm = {
+  term: string;
+  simple_definition: string;
+  slug: string;
+  module_title: string;
+};
+
+async function fetchGlossary(): Promise<GlossaryTerm[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/glossary?limit=500`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.terms ?? [];
+  } catch {
+    return [];
+  }
+}
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+export default async function GlossaryPage() {
+  const terms = await fetchGlossary();
+
+  // Group by first letter
+  const grouped: Record<string, GlossaryTerm[]> = {};
+  for (const term of terms) {
+    const letter = term.term[0]?.toUpperCase() ?? "#";
+    if (!grouped[letter]) grouped[letter] = [];
+    grouped[letter].push(term);
+  }
+  const availableLetters = Object.keys(grouped).sort();
+
+  return (
+    <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            name: "Medical Glossary",
+            description: "Plain-language definitions of medical terms",
+            url: `${SITE_URL}/learn/glossary`,
+            audience: { "@type": "Patient" },
+            medicalAudience: [{ "@type": "MedicalAudience", audienceType: "Patient" }],
+          }),
+        }}
+      />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        {/* Hero */}
+        <div className="text-center mb-10">
+          <h1 className="font-syne font-black text-3xl sm:text-4xl text-ink mb-3">
+            Medical Glossary
+          </h1>
+          <p className="font-serif text-ink-3 text-base max-w-xl mx-auto">
+            {terms.length > 0
+              ? `${terms.length} medical terms explained in plain language — no jargon, no medical degree needed.`
+              : "Plain-language medical definitions — for patients, families, and the curious."}
+          </p>
+        </div>
+
+        {terms.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="text-5xl mb-4">📖</div>
+            <p className="font-syne font-bold text-ink text-lg mb-2">Glossary coming soon</p>
+            <p className="font-serif text-ink-3 text-sm mb-6">
+              We&apos;re generating plain-language definitions for all our content.
+            </p>
+            <Link href="/register" className="inline-block px-6 py-2.5 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors">
+              Get notified when it&apos;s ready
+            </Link>
+          </div>
+        ) : (
+          <>
+            {/* Alphabet nav */}
+            <div className="flex flex-wrap gap-1.5 justify-center mb-10">
+              {ALPHABET.map((letter) => (
+                <a
+                  key={letter}
+                  href={`#letter-${letter}`}
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center font-syne font-bold text-sm transition-colors ${
+                    availableLetters.includes(letter)
+                      ? "bg-surface border border-border text-ink hover:bg-ink hover:text-white"
+                      : "bg-bg-2 text-ink-3 cursor-default"
+                  }`}
+                >
+                  {letter}
+                </a>
+              ))}
+            </div>
+
+            {/* Terms by letter */}
+            <div className="space-y-10">
+              {availableLetters.map((letter) => (
+                <section key={letter} id={`letter-${letter}`}>
+                  <h2 className="font-syne font-black text-2xl text-ink mb-4 border-b border-border pb-2">
+                    {letter}
+                  </h2>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {grouped[letter].map((term) => (
+                      <Link
+                        key={term.slug}
+                        href={`/learn/glossary/${term.slug}`}
+                        className="group block bg-surface border border-border rounded-xl p-4 hover:border-ink hover:shadow-sm transition-all"
+                      >
+                        <div className="font-syne font-bold text-sm text-ink group-hover:text-accent mb-1">
+                          {term.term}
+                        </div>
+                        <p className="font-serif text-xs text-ink-3 line-clamp-2">
+                          {term.simple_definition}
+                        </p>
+                        <div className="mt-2 font-serif text-xs text-ink-3/60">
+                          From: {term.module_title}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="mt-16 text-center bg-surface border border-border rounded-2xl p-8">
+              <h2 className="font-syne font-black text-xl text-ink mb-2">
+                Want to learn more?
+              </h2>
+              <p className="font-serif text-sm text-ink-3 mb-5">
+                MedMind has 800+ clinical lessons, AI tutor, and flashcards — for students and curious minds alike.
+              </p>
+              <Link
+                href="/register"
+                className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
+              >
+                Start Learning Free →
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    </>
+  );
+}

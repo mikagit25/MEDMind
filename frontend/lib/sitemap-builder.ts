@@ -24,6 +24,10 @@ export type DrugSitemapEntry = { id: string; available_langs: string[] };
 
 export type NewsSitemapEntry = { slug: string; fetched_at: string };
 
+export type LearnGlossaryEntry = { slug: string };
+export type LearnTopicEntry = { slug: string };
+export type LearnDrugEntry = { slug: string };
+
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
 export function localizedUrl(path: string, locale: string): string {
@@ -76,6 +80,45 @@ export async function fetchDrugsSitemapData(): Promise<DrugSitemapEntry[]> {
   }
 }
 
+export async function fetchLearnGlossarySitemapData(): Promise<LearnGlossaryEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/glossary?limit=500`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.terms ?? []).map((t: { slug: string }) => ({ slug: t.slug }));
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchLearnTopicsSitemapData(): Promise<LearnTopicEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/topics?limit=200`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data: { slug: string }[] = await res.json();
+    return data.map((t) => ({ slug: t.slug }));
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchLearnDrugsSitemapData(): Promise<LearnDrugEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/drugs?limit=200`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data: { slug: string }[] = await res.json();
+    return data.map((d) => ({ slug: d.slug }));
+  } catch {
+    return [];
+  }
+}
+
 // ── XML builders ─────────────────────────────────────────────────────────────
 
 function hreflangTags(path: string, availableLocales: string[]): string {
@@ -116,10 +159,13 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs, newsItems] = await Promise.all([
+  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
     fetchNewsSitemapData(),
+    fetchLearnGlossarySitemapData(),
+    fetchLearnTopicsSitemapData(),
+    fetchLearnDrugsSitemapData(),
   ]);
 
   const entries: string[] = [];
@@ -209,6 +255,53 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         hreflang: hreflangTags(path, [...LOCALES]),
       })
     );
+  }
+
+  // ── /learn/* pages — English only (no localized versions yet) ──────────────
+  if (locale === "en") {
+    // Index pages
+    entries.push(
+      urlEntry({ url: `${SITE_URL}/learn/glossary`, lastmod: now, priority: 0.8, changefreq: "weekly" })
+    );
+    entries.push(
+      urlEntry({ url: `${SITE_URL}/learn/topics`, lastmod: now, priority: 0.8, changefreq: "weekly" })
+    );
+
+    // Individual glossary term pages
+    for (const term of learnGlossary) {
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}/learn/glossary/${term.slug}`,
+          lastmod: now,
+          priority: 0.6,
+          changefreq: "monthly",
+        })
+      );
+    }
+
+    // Individual topic pages
+    for (const topic of learnTopics) {
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}/learn/topics/${topic.slug}`,
+          lastmod: now,
+          priority: 0.7,
+          changefreq: "monthly",
+        })
+      );
+    }
+
+    // Individual public drug pages
+    for (const drug of learnDrugs) {
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}/learn/drugs/${drug.slug}`,
+          lastmod: now,
+          priority: 0.65,
+          changefreq: "monthly",
+        })
+      );
+    }
   }
 
   // ── Calculator pages — client-side i18n, same URL for every locale ─────────

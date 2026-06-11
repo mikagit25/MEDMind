@@ -8,7 +8,7 @@
 ## 🟢 Current Status
 **Phase:** Roadmap V3 — Phase 2 завершена, следующая: Phase 3 (Публичный SEO-контур)
 **Last Updated:** 2026-06-11
-**Next Action:** Выполнить Phase 3 — публичные маршруты /learn/glossary, /learn/topics/[slug], /learn/drugs/[slug]; backend /public/* endpoints; sitemap + JSON-LD.
+**Next Action:** Выполнить Phase 4 — публичные квизы + шеринг результатов.
 
 ---
 
@@ -154,7 +154,7 @@ cd /Volumes/one/MEDMind/backend && source venv/bin/activate && uvicorn app.main:
 | Phase 0 | Подготовка репозитория | ✅ 2026-06-11 |
 | Phase 1 | lay_summary (двухуровневый контент) | ✅ 2026-06-11 |
 | Phase 2 | Режим «Пациент» (AI guardrails) | ✅ 2026-06-11 |
-| Phase 3 | Публичный SEO-контур | ⏳ |
+| Phase 3 | Публичный SEO-контур | ✅ 2026-06-11 |
 | Phase 4 | Публичные квизы + шеринг | ⏳ |
 | Phase 5 | Геймификация (XP, стрики, лидерборд) | ⏳ |
 | Phase 6 | Контур «Владельцы животных» | ⏳ |
