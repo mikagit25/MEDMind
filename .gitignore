@@ -99,6 +99,15 @@ backend/client_secret*.json
 *.env.shorts
 telegram_published.json
 youtube_playlists.json
+youtube_playlists_*.json
 youtube_shorts_uploaded.json
+youtube_shorts_uploaded_*.json
 youtube_uploaded.json
+youtube_uploaded_*.json
+youtube_news_uploaded.json
+youtube_news_uploaded_*.json
 topics_extra.json
+body_translation_progress.txt
+*.pid
+channel_art/
+youtube_token.json.bak
