@@ -11,6 +11,13 @@ export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [show, setShow] = useState(false);
 
+  // Register service worker
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
+    }
+  }, []);
+
   useEffect(() => {
     // Don't show if already installed or dismissed recently
     const dismissed = localStorage.getItem("pwa_prompt_dismissed");

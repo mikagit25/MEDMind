@@ -105,6 +105,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
         module.duration_hours = meta.get("duration_hours", 0)
         module.is_fundamental = is_fundamental
         module.is_veterinary = is_vet
+        module.language = meta.get("language", "en")
         module.prerequisite_codes = meta.get("prerequisite_modules", [])
         module.content = data
         module.is_published = True

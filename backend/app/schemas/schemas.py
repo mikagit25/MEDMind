@@ -128,6 +128,8 @@ class ModuleOut(BaseModel):
     duration_hours: Optional[float] = None
     is_fundamental: bool = False
     is_published: bool = False
+    is_veterinary: bool = False
+    language: str = "en"
     specialty_id: Optional[UUID] = None
     specialty_name: Optional[str] = None
     lesson_count: int = 0

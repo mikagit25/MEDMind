@@ -64,10 +64,11 @@ async def list_specialties(
 @router.get("/specialties/{specialty_id}/modules", response_model=List[ModuleOut])
 async def list_specialty_modules(
     specialty_id: UUID,
+    language: Optional[str] = Query(None, description="Filter by content language"),
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
-    cache_key = f"specialty_modules:{specialty_id}"
+    cache_key = f"specialty_modules:{specialty_id}:{language or 'all'}"
     if cached := await get_cached(cache_key):
         return cached
 
@@ -76,6 +77,8 @@ async def list_specialty_modules(
         .where(Module.specialty_id == specialty_id, Module.is_published == True)
         .order_by(Module.module_order)
     )
+    if language:
+        stmt = stmt.where(Module.language == language)
     result = await db.execute(stmt)
     modules = result.scalars().all()
     if not modules:
@@ -124,6 +127,7 @@ async def list_all_modules(
     search: Optional[str] = Query(None),
     specialty_code: Optional[str] = Query(None),
     vet: bool = Query(False),
+    language: Optional[str] = Query(None, description="Filter by content language (e.g. 'en', 'ru')"),
     limit: int = Query(200, ge=1, le=500),
     db: AsyncSession = Depends(get_db),
 ):
@@ -143,6 +147,8 @@ async def list_all_modules(
         stmt = stmt.join(Specialty, Specialty.id == Module.specialty_id).where(
             Specialty.code == specialty_code
         )
+    if language:
+        stmt = stmt.where(Module.language == language)
 
     modules = (await db.execute(stmt)).scalars().all()
     if not modules:
