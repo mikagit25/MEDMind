@@ -25,10 +25,15 @@ export default function AiTutorPage() {
   const { user } = useAuthStore();
 
   const MODES = [
-    { value: "tutor", label: `🎓 ${t("ai_tutor.mode_tutor")}`, desc: t("ai_tutor.mode_tutor_desc") },
+    { value: "tutor",    label: `🎓 ${t("ai_tutor.mode_tutor")}`,    desc: t("ai_tutor.mode_tutor_desc") },
     { value: "socratic", label: `❓ ${t("ai_tutor.mode_socratic")}`, desc: t("ai_tutor.mode_socratic_desc") },
-    { value: "case", label: `🩺 ${t("ai_tutor.mode_case")}`, desc: t("ai_tutor.mode_case_desc") },
-    { value: "exam", label: `📝 ${t("ai_tutor.mode_exam")}`, desc: t("ai_tutor.mode_exam_desc") },
+    { value: "case",     label: `🩺 ${t("ai_tutor.mode_case")}`,     desc: t("ai_tutor.mode_case_desc") },
+    { value: "exam",     label: `📝 ${t("ai_tutor.mode_exam")}`,     desc: t("ai_tutor.mode_exam_desc") },
+    {
+      value: "patient",
+      label: "🏥 Not a medic — explain simply",
+      desc: "Plain language explanations for everyone. No jargon. Safety-first. Always recommends seeing a doctor.",
+    },
   ];
   const [mode, setMode] = useState("tutor");
   const [specialty, setSpecialty] = useState("");
@@ -246,14 +251,18 @@ export default function AiTutorPage() {
           </select>
 
           {/* Mode */}
-          <div className="hidden sm:flex gap-1">
+          <div className="hidden sm:flex gap-1 flex-wrap">
             {MODES.map((m) => (
               <button
                 key={m.value}
                 onClick={() => setMode(m.value)}
                 title={m.desc}
                 className={`px-2.5 py-1.5 rounded font-syne font-semibold text-xs transition-colors ${
-                  mode === m.value
+                  m.value === "patient"
+                    ? mode === "patient"
+                      ? "bg-green text-white border border-green"
+                      : "bg-green-light text-green border border-green/30 hover:bg-green hover:text-white"
+                    : mode === m.value
                     ? "bg-ink text-white"
                     : "bg-bg text-ink-2 hover:bg-bg-2"
                 }`}
@@ -455,9 +464,15 @@ export default function AiTutorPage() {
               →
             </button>
           </div>
-          <p className="text-ink-3 font-serif text-xs mt-1.5">
-            Mode: <strong>{MODES.find((m) => m.value === mode)?.label}</strong> · AI may make mistakes — verify clinical decisions
-          </p>
+          {mode === "patient" ? (
+            <p className="font-serif text-xs mt-1.5 text-green">
+              🏥 <strong>Patient mode</strong> — plain language, no diagnoses, always recommends seeing a doctor. For emergencies call 112 / 911.
+            </p>
+          ) : (
+            <p className="text-ink-3 font-serif text-xs mt-1.5">
+              Mode: <strong>{MODES.find((m) => m.value === mode)?.label}</strong> · AI may make mistakes — verify clinical decisions
+            </p>
+          )}
         </div>
       </div>
 

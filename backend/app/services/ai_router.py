@@ -29,6 +29,7 @@ from app.core.config import settings
 from app.core.redis_client import get_redis  # used for cache
 from app.models.models import User
 from app.prompts.tutor_prompts import SYSTEM_PROMPTS
+from app.prompts.patient_mode import ensure_disclaimer, is_red_flag
 
 logger = logging.getLogger(__name__)
 
@@ -382,6 +383,34 @@ async def route_ai_request(
         except Exception as _e:
             logger.warning("Memory retrieval error: %s", _e)
 
+    # ── Patient mode: always Claude Haiku, skip paid-tier check ─────────────
+    is_patient_mode = (mode == "patient")
+    if is_patient_mode:
+        # Override routing — always use Haiku for patient mode (cheap + fast)
+        model_used = "claude-haiku-4-5-20251001"
+        system_prompt = SYSTEM_PROMPTS["patient"]
+        messages = list(conversation_history) + [{"role": "user", "content": message}]
+        try:
+            response = await claude_client.messages.create(
+                model=model_used,
+                max_tokens=1200,
+                system=system_prompt,
+                messages=messages,
+            )
+            reply = response.content[0].text if response.content else "I'm sorry, I couldn't generate a response."
+        except Exception as e:
+            logger.error("Patient mode Claude request failed: %s", e)
+            reply = (
+                "I'm sorry, I'm temporarily unavailable. If this is a medical emergency, "
+                "please call emergency services (911 / 112 / 103) immediately."
+            )
+        # Post-filter: guarantee disclaimer is present
+        reply = ensure_disclaimer(reply)
+        # Cache patient-mode responses (safe — they contain only educational content)
+        if cache_key:
+            await redis.setex(cache_key, 1800, reply)
+        return {"reply": reply, "model": model_used, "from_cache": False}
+
     # Build system prompt
     mode_instruction = SYSTEM_PROMPTS.get(mode, SYSTEM_PROMPTS["tutor"])
 
@@ -504,6 +533,11 @@ async def route_ai_request(
     # Cache single-turn responses
     if cache_key:
         await redis.setex(cache_key, settings.AI_CACHE_TTL, reply)
+
+    # Post-filter for patient mode (safety net — should already be handled above,
+    # but guard against any code path that might skip the dedicated block)
+    if mode == "patient":
+        reply = ensure_disclaimer(reply)
 
     # ── Background memory extraction (non-blocking) ───────────────────────────
     if db is not None and conversation_id is not None and user.subscription_tier != "free":

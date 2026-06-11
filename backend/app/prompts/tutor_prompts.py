@@ -1,4 +1,5 @@
 """AI tutor prompt templates."""
+from app.prompts.patient_mode import PATIENT_MODE_SYSTEM
 
 # ── Mode-specific system prompts (used by ai_router.py) ──────────────────────
 SYSTEM_PROMPTS: dict[str, str] = {
@@ -28,6 +29,8 @@ SYSTEM_PROMPTS: dict[str, str] = {
         "and briefly note why the main distractor is wrong. "
         "Format: clinical vignette, then options A through E on separate lines."
     ),
+    # Patient mode — SAFETY CRITICAL: see backend/app/prompts/patient_mode.py
+    "patient": PATIENT_MODE_SYSTEM,
 }
 
 

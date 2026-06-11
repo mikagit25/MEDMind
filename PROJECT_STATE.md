@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V3 — Phase 1 завершена, следующая: Phase 2 (Patient Mode AI)
+**Phase:** Roadmap V3 — Phase 2 завершена, следующая: Phase 3 (Публичный SEO-контур)
 **Last Updated:** 2026-06-11
-**Next Action:** Выполнить Phase 2 — добавить режим "patient" в /ai/ask с guardrails-промптом и пост-фильтром дисклеймера.
+**Next Action:** Выполнить Phase 3 — публичные маршруты /learn/glossary, /learn/topics/[slug], /learn/drugs/[slug]; backend /public/* endpoints; sitemap + JSON-LD.
 
 ---
 
@@ -153,7 +153,7 @@ cd /Volumes/one/MEDMind/backend && source venv/bin/activate && uvicorn app.main:
 |------|----------|--------|
 | Phase 0 | Подготовка репозитория | ✅ 2026-06-11 |
 | Phase 1 | lay_summary (двухуровневый контент) | ✅ 2026-06-11 |
-| Phase 2 | Режим «Пациент» (AI guardrails) | ⏳ |
+| Phase 2 | Режим «Пациент» (AI guardrails) | ✅ 2026-06-11 |
 | Phase 3 | Публичный SEO-контур | ⏳ |
 | Phase 4 | Публичные квизы + шеринг | ⏳ |
 | Phase 5 | Геймификация (XP, стрики, лидерборд) | ⏳ |
