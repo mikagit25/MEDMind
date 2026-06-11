@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 os.environ.setdefault("DATABASE_URL", "sqlite+aiosqlite:///:memory:")
 os.environ.setdefault("REDIS_URL", "redis://localhost:6379/0")
 os.environ.setdefault("JWT_SECRET_KEY", "test-secret-key-for-ci-only-32chars!!")
+os.environ.setdefault("ANTHROPIC_API_KEY", "sk-ant-test-key-for-ci-only")
 
 # ── SQLite compatibility: remap Postgres-only types to JSON/TEXT ──────────────
 # Must happen before any model imports so the compilers are registered first.
@@ -118,6 +119,38 @@ def event_loop():
     loop.close()
 
 
+@pytest.fixture
+def fake_redis():
+    """Shared in-memory Redis stub for a single test."""
+    return FakeRedis()
+
+
+@pytest.fixture(autouse=True)
+def _patch_all_redis(monkeypatch, fake_redis):
+    """Globally replace every get_redis reference with FakeRedis for all tests.
+    Also disable APScheduler so it doesn't acquire event-loop state across tests.
+    """
+    import app.core.redis_client as _rc
+    import app.api.v1.routes.ai as _ai
+    import app.core.cache as _cache
+    import app.core.feature_flags as _ff
+    import app.services.scheduler as _sched
+
+    _f = fake_redis
+
+    async def _fake_get_redis():
+        return _f
+
+    monkeypatch.setattr(_rc, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_rc, "_redis_pool", None)
+    monkeypatch.setattr(_ai, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_cache, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_ff, "get_redis", _fake_get_redis)
+    # Disable scheduler — it binds to the event loop and breaks across tests
+    monkeypatch.setattr(_sched, "start_scheduler", lambda: None)
+    monkeypatch.setattr(_sched, "stop_scheduler", lambda: None)
+
+
 @pytest_asyncio.fixture
 async def engine():
     eng = create_async_engine(TEST_DB_URL, echo=False)
@@ -138,20 +171,8 @@ async def db_session(engine):
 
 
 @pytest_asyncio.fixture
-async def client(engine, monkeypatch):
-    """HTTP test client with DB override and fake Redis."""
-    import app.core.redis_client as _rc
-
-    fake = FakeRedis()
-
-    async def _fake_get_redis():
-        return fake
-
-    # Patch at module level so all imports of get_redis see the fake
-    monkeypatch.setattr(_rc, "get_redis", _fake_get_redis)
-    # Also reset the pool so it doesn't try to reuse a stale real connection
-    monkeypatch.setattr(_rc, "_redis_pool", None)
-
+async def client(engine):
+    """HTTP test client with in-memory DB. Redis already patched by _patch_all_redis."""
     session_factory = async_sessionmaker(engine, expire_on_commit=False)
 
     async def override_get_db():

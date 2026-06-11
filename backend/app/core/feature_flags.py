@@ -13,6 +13,9 @@ from app.core.redis_client import get_redis
 
 FLAG_PREFIX = "feature_flag:"
 
+# In-memory override — used when Redis is unavailable (tests, cold start)
+_MEM_FLAGS: dict[str, dict] = {}
+
 # Default flag values (fallback when Redis is unavailable)
 DEFAULTS: dict[str, bool] = {
     "pgvector_search": False,      # semantic vector search (requires pgvector)
@@ -32,7 +35,12 @@ async def is_enabled(flag: str, user_id: str | None = None) -> bool:
         redis = await get_redis()
         raw = await redis.hgetall(f"{FLAG_PREFIX}{flag}")
         if not raw:
-            return DEFAULTS.get(flag, False)
+            # Check in-memory override first, then defaults
+            mem = _MEM_FLAGS.get(flag)
+            if mem is not None:
+                raw = {"enabled": "1" if mem["enabled"] else "0", "rollout": str(mem["rollout"])}
+            else:
+                return DEFAULTS.get(flag, False)
 
         if raw.get("enabled", "0") != "1":
             return False
@@ -50,17 +58,35 @@ async def is_enabled(flag: str, user_id: str | None = None) -> bool:
 
         return False
     except Exception:
-        # Redis unavailable → fall back to defaults
+        # Redis unavailable → check in-memory override, then defaults
+        mem = _MEM_FLAGS.get(flag)
+        if mem is not None:
+            if not mem["enabled"]:
+                return False
+            rollout = mem["rollout"]
+            if rollout >= 100:
+                return True
+            if rollout <= 0:
+                return False
+            if user_id:
+                h = int(hashlib.md5(f"{flag}:{user_id}".encode()).hexdigest(), 16)
+                return (h % 100) < rollout
+            return False
         return DEFAULTS.get(flag, False)
 
 
 async def set_flag(flag: str, enabled: bool, rollout: int = 100) -> None:
-    """Set a feature flag value in Redis."""
-    redis = await get_redis()
-    await redis.hset(f"{FLAG_PREFIX}{flag}", mapping={
-        "enabled": "1" if enabled else "0",
-        "rollout": str(max(0, min(100, rollout))),
-    })
+    """Set a feature flag value in Redis, with in-memory fallback."""
+    rollout = max(0, min(100, rollout))
+    _MEM_FLAGS[flag] = {"enabled": enabled, "rollout": rollout}
+    try:
+        redis = await get_redis()
+        await redis.hset(f"{FLAG_PREFIX}{flag}", mapping={
+            "enabled": "1" if enabled else "0",
+            "rollout": str(rollout),
+        })
+    except Exception:
+        pass  # already saved in _MEM_FLAGS above
 
 
 async def list_flags() -> dict[str, dict]:

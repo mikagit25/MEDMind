@@ -199,19 +199,8 @@ async def adapt_study_plan(
 async def get_current_plan(
     user: User = Depends(get_current_user),
 ):
-    """Return the cached study plan without recalculating. Returns empty plan if none generated yet."""
+    """Return the cached study plan without recalculating. Returns 404 if none generated yet."""
     cached = await get_cached(f"study_plan:{user.id}")
     if not cached:
-        return {
-            "generated_at": None,
-            "valid_until": None,
-            "weak_modules": [],
-            "recommended_actions": [],
-            "daily_goal_minutes": 20,
-            "focus_areas": [],
-            "weak_areas": [],
-            "next_modules": [],
-            "due_reviews": [],
-            "up_next": [],
-        }
+        raise HTTPException(status_code=404, detail="No study plan found. Call POST /student/plan/adapt to generate one.")
     return cached

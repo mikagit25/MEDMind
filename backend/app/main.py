@@ -110,7 +110,10 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning("Public quiz seed failed (non-fatal): %s", e)
 
-    await get_redis()  # Initialize Redis connection
+    try:
+        await get_redis()  # Initialize Redis connection (non-fatal if unavailable)
+    except Exception as e:
+        logger.warning("Redis unavailable at startup (non-fatal): %s", e)
     start_scheduler()  # registers jobs AND starts APScheduler
     logger.info("MedMind backend ready! Scheduler started.")
     yield

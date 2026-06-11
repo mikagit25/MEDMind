@@ -95,12 +95,15 @@ async def test_vector_search_accuracy_with_growing_dataset():
     from sqlalchemy import text
 
     async with AsyncSessionLocal() as db:
-        # Check pgvector is available
-        result = await db.execute(
-            text("SELECT 1 FROM pg_extension WHERE extname='vector'")
-        )
-        if not result.scalar():
-            pytest.skip("pgvector extension not installed")
+        # Check pgvector is available (Postgres only — skip on SQLite/test env)
+        try:
+            result = await db.execute(
+                text("SELECT 1 FROM pg_extension WHERE extname='vector'")
+            )
+            if not result.scalar():
+                pytest.skip("pgvector extension not installed")
+        except Exception:
+            pytest.skip("pgvector not available in current database backend")
 
     query_vec = [0.1] * 1536  # simulate an Ada-002 embedding
     query_str = "[" + ",".join(str(v) for v in query_vec) + "]"
@@ -146,8 +149,9 @@ async def test_graceful_degradation_when_claude_unavailable():
         ),
     ):
         from app.main import app
+        from httpx import ASGITransport
 
-        async with AsyncClient(app=app, base_url="http://test") as ac:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
             resp = await ac.post(
                 "/api/v1/ai/ask",
                 json={"message": "What is cardiac output?"},

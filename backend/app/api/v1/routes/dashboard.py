@@ -27,31 +27,43 @@ router = APIRouter(tags=["dashboard"])
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 async def _base_stats(user: User, db: AsyncSession) -> Dict[str, Any]:
-    """Shared stats — single-pass aggregation to avoid N+1 queries."""
-    from sqlalchemy import text as sql_text
+    """Shared stats — ORM-based aggregation (dialect-agnostic)."""
+    # Count total lessons completed across all modules (sum list lengths via Python)
+    progress_rows = (await db.execute(
+        select(UserProgress.lessons_completed)
+        .where(UserProgress.user_id == user.id)
+    )).scalars().all()
+    lessons_done = sum(
+        len(lc) if isinstance(lc, list) else 0
+        for lc in progress_rows
+    )
 
-    row = (await db.execute(sql_text("""
-        SELECT
-            COALESCE((
-                SELECT SUM(jsonb_array_length(lessons_completed))
-                FROM user_progress WHERE user_id = :uid
-                  AND lessons_completed IS NOT NULL
-                  AND jsonb_typeof(lessons_completed) = 'array'
-            ), 0) AS lessons_done,
-            (SELECT COUNT(*) FROM user_progress WHERE user_id = :uid) AS modules_started,
-            (SELECT COUNT(*) FROM flashcard_reviews
-             WHERE user_id = :uid AND next_review_at <= NOW()) AS due_cards,
-            (SELECT COUNT(*) FROM user_achievements WHERE user_id = :uid) AS ach_count
-    """).bindparams(uid=user.id))).one()
+    modules_started = (await db.execute(
+        select(func.count()).select_from(UserProgress)
+        .where(UserProgress.user_id == user.id)
+    )).scalar() or 0
+
+    due_cards = (await db.execute(
+        select(func.count()).select_from(FlashcardReview)
+        .where(
+            FlashcardReview.user_id == user.id,
+            FlashcardReview.next_review_at <= datetime.utcnow(),
+        )
+    )).scalar() or 0
+
+    ach_count = (await db.execute(
+        select(func.count()).select_from(UserAchievement)
+        .where(UserAchievement.user_id == user.id)
+    )).scalar() or 0
 
     return {
         "xp": user.xp,
         "level": user.level,
         "streak_days": user.streak_days or 0,
-        "lessons_completed": int(row.lessons_done),
-        "modules_started": int(row.modules_started),
-        "flashcards_due": int(row.due_cards),
-        "achievements_count": int(row.ach_count),
+        "lessons_completed": lessons_done,
+        "modules_started": int(modules_started),
+        "flashcards_due": int(due_cards),
+        "achievements_count": int(ach_count),
     }
 
 

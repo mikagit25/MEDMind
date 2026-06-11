@@ -74,7 +74,7 @@ async def _build_progress_context(user: User, db: AsyncSession) -> str:
 
 # Daily request limits per subscription tier
 TIER_DAILY_LIMITS: dict[str, int | None] = {
-    "free": 20,        # 20 questions/day — enough for casual learning
+    "free": 5,         # 5 questions/day (per TZ spec)
     "student": 100,    # 100/day — full study sessions
     "pro": None,       # unlimited
     "clinic": None,
@@ -107,7 +107,10 @@ async def check_ai_rate_limit(user: User, db: AsyncSession) -> None:
     if daily_limit is None and hourly_limit is None:
         return  # unlimited tier — no checks needed
 
-    redis = await get_redis()
+    try:
+        redis = await get_redis()
+    except Exception:
+        return  # Redis unavailable → allow request (fail open)
     now = datetime.utcnow()
     seconds_till_midnight = 86400 - (now.hour * 3600 + now.minute * 60 + now.second)
     seconds_till_next_hour = 3600 - (now.minute * 60 + now.second)

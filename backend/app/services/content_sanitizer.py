@@ -49,11 +49,20 @@ def extract_text_from_content(content: Any) -> str:
             continue
         btype = block.get("type", "")
         if btype == "text":
-            parts.append(block.get("content", ""))
+            raw = block.get("content", "")
+            if isinstance(raw, dict):
+                raw = raw.get("text", "")
+            parts.append(raw if isinstance(raw, str) else "")
         elif btype == "quiz":
-            parts.append(block.get("question", ""))
+            raw = block.get("question", "") or block.get("content", {})
+            if isinstance(raw, dict):
+                raw = raw.get("question", "")
+            parts.append(raw if isinstance(raw, str) else "")
         elif btype == "case":
-            parts.append(block.get("presentation", ""))
+            raw = block.get("presentation", "") or block.get("content", {})
+            if isinstance(raw, dict):
+                raw = raw.get("presentation", "")
+            parts.append(raw if isinstance(raw, str) else "")
 
     # Legacy format: direct fields
     if not parts:
