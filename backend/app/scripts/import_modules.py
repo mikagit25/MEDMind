@@ -84,7 +84,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
         level_int = LEVEL_MAP.get(level_str, 3)
 
         is_fundamental = module_code.startswith("BASE-")
-        is_vet = module_code.startswith("VET-")
+        is_vet = module_code.startswith("VET-") or module_code.startswith("PET-")
 
         # Check if module already exists
         existing = await db.execute(select(Module).where(Module.code == module_code))
@@ -130,7 +130,9 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 title=lesson_data.get("title", ""),
                 lesson_order=lesson_data.get("order", 0),
                 content=content,
-                estimated_minutes=content.get("estimated_minutes", 20),
+                estimated_minutes=content.get("estimated_minutes", 20) if isinstance(content, dict) else 20,
+                lay_summary=lesson_data.get("lay_summary"),
+                lay_glossary=lesson_data.get("lay_glossary"),
             )
             db.add(lesson)
 

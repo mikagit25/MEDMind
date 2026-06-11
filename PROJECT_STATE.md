@@ -8,7 +8,7 @@
 ## 🟢 Current Status
 **Phase:** Roadmap V3 — Phase 2 завершена, следующая: Phase 3 (Публичный SEO-контур)
 **Last Updated:** 2026-06-11
-**Next Action:** Выполнить Phase 6 — Контур «Владельцы животных».
+**Next Action:** Выполнить Phase 7 — PWA + i18n фундамент.
 
 ---
 
@@ -157,7 +157,7 @@ cd /Volumes/one/MEDMind/backend && source venv/bin/activate && uvicorn app.main:
 | Phase 3 | Публичный SEO-контур | ✅ 2026-06-11 |
 | Phase 4 | Публичные квизы + шеринг | ✅ 2026-06-11 |
 | Phase 5 | Геймификация (XP, стрики, лидерборд) | ✅ 2026-06-11 |
-| Phase 6 | Контур «Владельцы животных» | ⏳ |
+| Phase 6 | Контур «Владельцы животных» | ✅ 2026-06-11 |
 | Phase 7 | PWA + i18n фундамент | ⏳ |
 
 Детали каждой фазы: `docs/MEDMIND_ROADMAP_V3.md`

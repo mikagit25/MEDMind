@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "id": "PET-002",
+    "type": "specialty_module",
+    "specialty": "Veterinary",
+    "title": "Когда срочно к ветеринару: красные флаги",
+    "title_en": "When to Go to the Vet Urgently: Red Flag Symptoms",
+    "order_in_specialty": 11,
+    "level": "basic",
+    "prerequisite_modules": [],
+    "duration_hours": 1,
+    "version": "1.0",
+    "audience": "pet_owners",
+    "contains_dosages": false
+  },
+  "lessons": [
+    {
+      "id": "PET002-L1",
+      "order": 1,
+      "title": "Красные флаги у собак: когда нельзя ждать до утра",
+      "lay_summary": "Dogs are good at masking pain and illness — by the time your dog looks obviously unwell, something serious may already be happening. Learning to spot the red flags can genuinely save your dog's life.\n\n**Go to an emergency vet immediately if your dog shows any of these:**\n\n- **Bloated, tight abdomen with unsuccessful retching** — this could be GDV (twisted stomach), which is fatal within hours without surgery. Large, deep-chested breeds (Great Danes, German Shepherds, Labradors) are most at risk.\n- **Sudden collapse or extreme weakness** — especially if gums look pale, white, blue, or grey instead of pink.\n- **Difficulty breathing** — any laboured breathing, blue or grey tongue, breathing with mouth open (unusual for dogs).\n- **Seizures lasting more than 5 minutes** or multiple seizures in a short period.\n- **Suspected poisoning** (see Module PET-001).\n- **Suspected broken bone or traumatic injury** — hit by car, fallen from height, heavy blow.\n- **Cannot urinate** — especially male cats (though applies to dogs too); straining without producing urine is an emergency.\n- **Sudden vision loss or eye injury** — eyes can deteriorate very quickly.\n- **High fever** (>39.5°C / 103°F) combined with lethargy, or any temperature above 40.5°C (105°F).\n\nWhen in doubt, call your vet. A two-minute phone call could tell you whether you need to come in immediately or can wait for a morning appointment.\n\n⚠️ *This information is for educational purposes only. If your pet is showing any of these signs, contact a veterinarian immediately.*",
+      "lay_glossary": [
+        {"term": "GDV (Gastric Dilatation-Volvulus)", "simple_definition": "A life-threatening condition where the stomach fills with gas and twists on itself, cutting off blood supply. Requires emergency surgery — dogs can die within hours without treatment."},
+        {"term": "Pale or grey gums", "simple_definition": "A sign that there isn't enough blood or oxygen reaching the tissues. Normal dog gums are bubblegum pink. Pale, white, blue, or grey gums signal a serious emergency."},
+        {"term": "Seizure", "simple_definition": "A sudden episode of uncontrolled electrical activity in the brain, causing muscle convulsions, loss of consciousness, or unusual behaviour. Brief seizures (under 2 minutes) are less immediately dangerous than prolonged ones."}
+      ],
+      "content": {
+        "intro": "Owners who recognise emergency presentations save lives. This lesson covers the most time-critical presentations in dogs.",
+        "sections": [
+          {
+            "heading": "GDV — the most time-critical emergency",
+            "body": "Gastric dilatation-volvulus carries 15–30% mortality even with surgery. Risk factors: large/giant breed, deep chest, single large daily meal, vigorous exercise post-feeding. Signs: unproductive retching, marked abdominal distension, hypersalivation, restlessness progressing to collapse. Treatment window: <6 hours from onset before irreversible ischaemia."
+          },
+          {
+            "heading": "Cardiovascular and respiratory emergencies",
+            "body": "Cyanosis (blue/grey mucous membranes), open-mouth breathing in a dog (not panting), orthopnoea (distress in lateral recumbency), acute collapse with pale gums — all indicate immediate emergency care. CRT >2 seconds suggests shock."
+          },
+          {
+            "heading": "Neurological emergencies",
+            "body": "Status epilepticus (seizure >5 min or cluster seizures), acute vestibular syndrome (sudden head tilt, rolling, nystagmus — mimics stroke), acute myelopathy (paralysis of hind limbs, loss of bladder/bowel control)."
+          }
+        ],
+        "estimated_minutes": 20,
+        "key_points": [
+          "GDV can kill a large dog in 2–6 hours — distension + unproductive retching = go now",
+          "Pale, white, blue, or grey gums are always an emergency — check gums monthly so you know what normal looks like",
+          "Dogs hide pain; by the time they seem 'very sick' the situation may be critical",
+          "When unsure, call the vet rather than googling — a 2-minute call can clarify urgency"
+        ]
+      }
+    },
+    {
+      "id": "PET002-L2",
+      "order": 2,
+      "title": "Красные флаги у кошек: скрытая болезнь",
+      "lay_summary": "Cats are masters at hiding illness — this is an evolutionary survival instinct (sick animals in the wild are vulnerable to predators). This means by the time a cat looks clearly unwell, the condition is often already serious.\n\n**Go to an emergency vet immediately if your cat shows:**\n\n- **Cannot urinate or straining in the litter box** — especially male cats. A blocked bladder is a life-threatening emergency. Cats can die within 24–48 hours if untreated. This is the most common cat emergency.\n- **Breathing with open mouth or with effort** — cats almost never breathe with their mouth open unless in extreme distress. Any laboured breathing is an emergency.\n- **Collapse or sudden inability to use hind legs** — in cats, sudden hind limb paralysis with cold, painful legs is often caused by an aortic thromboembolism (blood clot). Very painful, requires immediate assessment.\n- **Not eating for more than 48 hours** (especially in overweight cats) — can lead to hepatic lipidosis (fatty liver disease) which becomes life-threatening quickly.\n- **Suspected lily or toxin exposure** (see Module PET-001).\n- **Yellow/jaundiced skin or eyes** — yellowing of the whites of the eyes or inside the ears indicates liver or red blood cell problems.\n- **Seizures**.\n\n⚠️ *This information is for educational purposes only. If your cat is showing any of these signs, contact a veterinarian immediately.*",
+      "lay_glossary": [
+        {"term": "Urethral obstruction", "simple_definition": "A blockage in the tube that carries urine out of the body. In male cats, the urethra is very narrow and easily blocked by crystals or mucus plugs. Without treatment, the bladder ruptures or toxins build up in the blood — a life-threatening emergency."},
+        {"term": "Aortic thromboembolism (saddle thrombus)", "simple_definition": "A blood clot that lodges at the base of the main artery supplying the hind legs, cutting off blood flow. Causes sudden paralysis and severe pain in both hind legs — cats' legs feel cold and stiff. Associated with underlying heart disease."},
+        {"term": "Hepatic lipidosis", "simple_definition": "Fatty liver disease that develops when a cat stops eating for even a few days. Fat mobilises into the liver faster than it can be processed, causing liver failure. More common in overweight cats."}
+      ],
+      "content": {
+        "intro": "Feline stoicism means owners often miss early warning signs. Clinical deterioration in cats can be rapid once the tipping point is reached.",
+        "sections": [
+          {
+            "heading": "Feline urethral obstruction — most common cat emergency",
+            "body": "Predominantly affects male cats (narrow urethra). Signs: straining in litter box, vocalising in tray, small/no urine produced, frequently visiting tray, vomiting. Without relief within 24–48 h: bladder rupture or uraemic crisis. Treatment: urethral catheterisation under anaesthesia."
+          },
+          {
+            "heading": "Aortic thromboembolism (saddle thrombus)",
+            "body": "Acute onset, bilateral hind limb paresis/paralysis, cold extremities, absent femoral pulses, intense pain (vocalising). 90%+ associated with hypertrophic cardiomyopathy (HCM) — often first presentation of underlying heart disease. Prognosis guarded; requires immediate pain management and cardiovascular stabilisation."
+          },
+          {
+            "heading": "Respiratory distress",
+            "body": "Open-mouth breathing, cyanosis, orthopnoea, loud breathing sounds, or abdominal component to breathing. Causes: pleural effusion, pyothorax, congestive heart failure, pulmonary oedema, diaphragmatic hernia. Emergency drainage/stabilisation often required."
+          }
+        ],
+        "estimated_minutes": 20,
+        "key_points": [
+          "Urinary obstruction in male cats is the single most common feline emergency — any straining without urine production = emergency now",
+          "Cats with sudden hind limb paralysis are in severe pain — this is never 'wait and see'",
+          "A cat that hasn't eaten for 48 hours needs vet attention — hepatic lipidosis can develop within days",
+          "Open-mouth breathing in a cat at rest is always an emergency"
+        ]
+      }
+    },
+    {
+      "id": "PET002-L3",
+      "order": 3,
+      "title": "What can wait vs. what cannot: a practical guide",
+      "lay_summary": "Not every vet visit needs to be an emergency dash. Knowing the difference between 'go now' and 'book a regular appointment' reduces stress for you and your pet — and keeps emergency clinics available for true emergencies.\n\n**Always go now (same hour):**\nSuspected poisoning, cannot breathe normally, cannot urinate (male cats), collapse or extreme weakness, major trauma, seizures lasting more than 2–3 minutes, pale/blue/grey gums, suspected GDV (dog), sudden hind leg paralysis (cat).\n\n**See a vet today (same day, can call first):**\nVomiting more than 3 times in a day, diarrhoea with blood, significant limping or sudden lameness, eye injuries or sudden cloudiness, refusing food for 24 hours combined with other symptoms, visible wound that may need stitches, known ingestion of something potentially toxic but currently well.\n\n**Book a regular appointment (within a few days):**\nMild intermittent vomiting, soft stools without blood, slight lethargy with normal eating/drinking, skin lumps or bumps (most are benign, but all should be checked), gradual weight change, mild itching or scratching.\n\n**Never skip the vet for:** any lump that grows rapidly, persistent coughing, significant unexplained weight loss, or any symptom that feels 'just not right' and doesn't improve.\n\n⚠️ *This information is for educational purposes only. When unsure, always contact your veterinarian — it is always better to call and be reassured than to wait too long.*",
+      "lay_glossary": [
+        {"term": "Triage", "simple_definition": "The process of deciding how urgently a patient needs treatment. Emergency clinics use triage to see the most critical animals first, which is why a patient that 'looks okay' may wait while one in collapse is seen immediately."},
+        {"term": "Capillary refill time (CRT)", "simple_definition": "A quick test of circulation: press gently on your pet's gum until it turns white, then release and count how many seconds before the pink colour returns. Normal is under 2 seconds. Longer than 2 seconds can indicate poor circulation or shock."}
+      ],
+      "content": {
+        "intro": "Clear triage guidance reduces unnecessary emergency visits while ensuring true emergencies are not delayed. Owner education is the most effective tool.",
+        "sections": [
+          {
+            "heading": "True emergency — minutes matter",
+            "body": "Respiratory distress, circulatory collapse (pale/grey/blue mucous membranes, CRT >2 s), urethral obstruction, GDV, status epilepticus, aortic thromboembolism, suspected poisoning, major trauma, dystocia >30 min between pups/kittens."
+          },
+          {
+            "heading": "Same-day urgent — hours matter",
+            "body": "Significant vomiting/diarrhoea (>3 episodes, blood present), sudden lameness (non-weight-bearing), eye trauma, anorexia with concurrent symptoms, wounds requiring closure."
+          },
+          {
+            "heading": "Routine — days acceptable",
+            "body": "Mild gastrointestinal upset with normal vitals, cutaneous masses (stable, slow-growing), mild pruritus, routine health concerns. However: owner instinct matters — 'something is wrong' warrants a call even if symptoms seem mild."
+          }
+        ],
+        "estimated_minutes": 15,
+        "key_points": [
+          "Call your vet's emergency line when unsure — they can help triage over the phone",
+          "Keep your vet's emergency number and the nearest 24-hour clinic saved in your phone before you need it",
+          "Emergency clinics triage by severity — arriving with a stable patient may mean a wait",
+          "Pet insurance makes people more likely to seek timely care — worth considering for all pets"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "A large-breed dog is retching repeatedly without bringing anything up, and its abdomen looks swollen. What should the owner do?",
+      "answer": "Go to an emergency vet immediately. These are classic signs of GDV (gastric dilatation-volvulus / 'bloat'). This condition can be fatal within hours without emergency surgery. Do not wait.",
+      "difficulty": "easy",
+      "category": "Pet emergencies"
+    },
+    {
+      "question": "What does it mean if a dog or cat's gums are pale, white, or blue instead of pink?",
+      "answer": "This indicates inadequate blood flow or oxygenation to the tissues — a sign of shock, severe anaemia, or respiratory failure. This is always an emergency requiring immediate veterinary attention.",
+      "difficulty": "easy",
+      "category": "Pet emergencies"
+    },
+    {
+      "question": "A male cat is repeatedly going to the litter box but producing no urine. What is the most likely diagnosis and urgency?",
+      "answer": "Urethral obstruction — a veterinary emergency. The male cat's urethra is narrow and easily blocked. Without treatment within 24–48 hours, bladder rupture or fatal uraemia can occur. Go to the vet immediately.",
+      "difficulty": "easy",
+      "category": "Pet emergencies"
+    },
+    {
+      "question": "A cat suddenly cannot use its hind legs — they feel cold and the cat is in obvious pain. What condition should be suspected?",
+      "answer": "Aortic thromboembolism (saddle thrombus) — a blood clot at the aortic bifurcation causing sudden bilateral hind limb ischaemia. Associated with underlying hypertrophic cardiomyopathy. This is extremely painful and requires immediate emergency care.",
+      "difficulty": "medium",
+      "category": "Pet emergencies"
+    },
+    {
+      "question": "Which symptom differentiates 'go to vet today' from 'go to emergency vet now' for vomiting in a dog?",
+      "answer": "Vomiting with pale/grey gums, collapse, blood, or signs of abdominal distension (possible GDV) = emergency now. Vomiting more than 3 times in a day with otherwise normal gums and energy = same-day urgent appointment. Single episode of vomiting in a well dog = can monitor and call vet.",
+      "difficulty": "medium",
+      "category": "Pet triage"
+    }
+  ],
+  "mcq_questions": [
+    {
+      "id": "PET002-Q1",
+      "difficulty": "easy",
+      "question": "A Great Dane has been retching for 30 minutes without vomiting and its belly looks visibly swollen. What should the owner do?",
+      "options": {
+        "A": "Wait another 2 hours to see if symptoms resolve",
+        "B": "Give the dog water and walk it around the block",
+        "C": "Go to an emergency vet immediately",
+        "D": "Call the vet in the morning if it doesn't improve overnight"
+      },
+      "correct": "C",
+      "explanation": "These are the classic signs of GDV (gastric dilatation-volvulus). Large, deep-chested breeds like Great Danes are at very high risk. GDV can cause gastric necrosis and death within 2–6 hours without emergency surgery. Waiting in any form is dangerous. Walking and giving water could worsen distension."
+    },
+    {
+      "id": "PET002-Q2",
+      "difficulty": "easy",
+      "question": "Which of the following is the MOST common life-threatening emergency in male cats?",
+      "options": {
+        "A": "Hairball obstruction",
+        "B": "Urethral obstruction",
+        "C": "Cat flu",
+        "D": "Dental disease"
+      },
+      "correct": "B",
+      "explanation": "Urethral obstruction is the most common feline emergency. The male cat's urethra is much narrower than a female's and is prone to blockage by struvite crystals, calcium oxalate crystals, or mucus plugs. Straining without urine production = emergency. Hairballs rarely cause life-threatening obstruction. Cat flu and dental disease, while serious, are rarely immediately life-threatening."
+    },
+    {
+      "id": "PET002-Q3",
+      "difficulty": "medium",
+      "question": "An owner calls to say their cat has not eaten for 3 days but is 'just hiding more than usual' with no other obvious symptoms. What is the appropriate advice?",
+      "options": {
+        "A": "This is normal — cats often fast for a few days",
+        "B": "Try a different food and monitor for another week",
+        "C": "See a vet today — 48+ hours of anorexia in cats risks hepatic lipidosis",
+        "D": "Only worry if the cat vomits"
+      },
+      "correct": "C",
+      "explanation": "Cats — especially overweight cats — can develop hepatic lipidosis (fatty liver syndrome) after as little as 2–3 days without adequate caloric intake. Fat is mobilised to the liver faster than it can be processed, leading to liver failure. Hiding is a non-specific sign of illness in cats. Three days of anorexia warrants same-day veterinary evaluation, not watchful waiting."
+    },
+    {
+      "id": "PET002-Q4",
+      "difficulty": "medium",
+      "question": "A dog was hit by a car but seems to be walking and appears alert. The owner says 'he seems fine — do we still need to go to the vet?'",
+      "options": {
+        "A": "No, if he is walking he is probably fine",
+        "B": "Yes — internal injuries and internal bleeding can be present without visible symptoms immediately after trauma",
+        "C": "Only if he stops eating",
+        "D": "Monitor for 24 hours; go to vet only if he gets worse"
+      },
+      "correct": "B",
+      "explanation": "Internal haemorrhage, pneumothorax, diaphragmatic hernia, bladder rupture, and traumatic brain injury can all be present in an animal that appears ambulatory immediately after major trauma. Adrenaline masks pain. All animals hit by a car require immediate veterinary assessment regardless of apparent initial condition."
+    },
+    {
+      "id": "PET002-Q5",
+      "difficulty": "easy",
+      "question": "How can an owner quickly assess circulation at home using the gum test?",
+      "options": {
+        "A": "Check if the gums are wet or dry",
+        "B": "Press a gum until white, release, and count seconds to pink return — normal is under 2 seconds",
+        "C": "Check gum temperature with a thermometer",
+        "D": "Look for gum colour only — any shade of pink is fine"
+      },
+      "correct": "B",
+      "explanation": "Capillary refill time (CRT) is assessed by pressing on a gum until it blanches, then releasing and timing how quickly normal colour returns. Under 2 seconds is normal. Prolonged CRT (>2 seconds) suggests reduced cardiac output or peripheral vasoconstriction (shock). Combined with gum colour assessment (pink = normal; pale, white, blue, grey = emergency), this gives valuable emergency information."
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "Male cat straining in litter tray",
+      "difficulty": "easy",
+      "presentation": "Whisker, a 4-year-old male neutered Domestic Shorthair, has been spending prolonged periods in the litter tray. The owner has noticed several small spots of blood-tinged urine over the past 12 hours but now reports no urine is being produced. The cat is vocalising in the tray and appearing distressed. The owner initially searched online and thought this was 'probably constipation'.",
+      "vitals": null,
+      "diagnosis": "Urethral obstruction — veterinary emergency",
+      "differential_diagnosis": ["Urethral obstruction (most likely in male cat)", "Severe feline idiopathic cystitis", "Urolithiasis"],
+      "management": [
+        "Emergency veterinary presentation — do not delay",
+        "Physical examination: palpate bladder (expected to be large, tense, and painful)",
+        "Stabilise if in uraemic crisis (IV fluids, pain relief)",
+        "Urethral catheterisation under sedation/anaesthesia",
+        "IV fluid diuresis post-relief",
+        "Dietary and environmental modification to prevent recurrence",
+        "Discuss perineal urethrostomy for recurrent cases"
+      ],
+      "teaching_points": [
+        "Urethral obstruction in male cats is among the most common feline emergencies and can be rapidly fatal",
+        "Initial haematuria and dysuria progressing to complete obstruction is a typical history",
+        "Owners commonly mistake straining for defaecation or minor cystitis — education at discharge is essential",
+        "Post-obstruction diuresis requires careful fluid management to avoid electrolyte imbalance"
+      ]
+    }
+  ]
+}

@@ -28,6 +28,7 @@ export type LearnGlossaryEntry = { slug: string };
 export type LearnTopicEntry = { slug: string };
 export type LearnDrugEntry = { slug: string };
 export type PublicQuizEntry = { slug: string };
+export type LearnPetEntry = { slug: string };
 
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
@@ -120,6 +121,19 @@ export async function fetchLearnDrugsSitemapData(): Promise<LearnDrugEntry[]> {
   }
 }
 
+export async function fetchLearnPetsSitemapData(): Promise<LearnPetEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/pets`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data: { modules: { slug: string }[] } = await res.json();
+    return (data.modules ?? []).map((m) => ({ slug: m.slug }));
+  } catch {
+    return [];
+  }
+}
+
 export async function fetchPublicQuizzesSitemapData(): Promise<PublicQuizEntry[]> {
   try {
     const res = await fetch(`${BACKEND_URL}/public/quiz`, {
@@ -173,7 +187,7 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs, publicQuizzes] = await Promise.all([
+  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs, publicQuizzes, learnPets] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
     fetchNewsSitemapData(),
@@ -181,6 +195,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     fetchLearnTopicsSitemapData(),
     fetchLearnDrugsSitemapData(),
     fetchPublicQuizzesSitemapData(),
+    fetchLearnPetsSitemapData(),
   ]);
 
   const entries: string[] = [];
@@ -313,6 +328,21 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
           url: `${SITE_URL}/learn/drugs/${drug.slug}`,
           lastmod: now,
           priority: 0.65,
+          changefreq: "monthly",
+        })
+      );
+    }
+
+    // Pet owner module index + individual modules
+    entries.push(
+      urlEntry({ url: `${SITE_URL}/learn/pets`, lastmod: now, priority: 0.85, changefreq: "weekly" })
+    );
+    for (const pet of learnPets) {
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}/learn/pets/${pet.slug}`,
+          lastmod: now,
+          priority: 0.75,
           changefreq: "monthly",
         })
       );

@@ -19,6 +19,8 @@ const PUBLIC_ALLOW = [
   "/learn/topics/",
   "/learn/drugs",
   "/learn/drugs/",
+  "/learn/pets",
+  "/learn/pets/",
   "/quiz/public",
   "/quiz/public/",
   "/decks/shared/",

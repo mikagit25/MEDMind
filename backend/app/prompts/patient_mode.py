@@ -29,6 +29,15 @@ RED_FLAG_PATTERNS = [
     "anaphylaxis", "throat closing", "can't swallow", "severe allergic",
     # Sepsis / shock
     "high fever confusion", "extreme weakness", "cold and clammy",
+    # Pet emergencies
+    "cat not urinating", "cat can't urinate", "cat straining", "straining in litter",
+    "cat no urine", "cat unable to urinate",
+    "dog bloated", "dog stomach twisted", "bloat in dog",
+    "ate raisins", "ate grapes", "ate antifreeze", "ate xylitol",
+    "pet collapsed", "cat can't breathe", "dog can't breathe",
+    "cat hind legs not working", "cat paralysed", "cat back legs",
+    "dog ate poison", "cat ate poison", "ate lily", "lily plant",
+    "cat ate the lily", "cat chewed lily",
 ]
 
 PATIENT_MODE_SYSTEM = """\
@@ -61,7 +70,14 @@ Your audience has NO medical training. Speak like a trusted, knowledgeable frien
 
 8. **Warm and reassuring, not alarming.** Validate the person's concern before explaining. Use "I understand this can be worrying..." or similar.
 
-9. **For pet/animal questions:** Apply the same rules. Red flags → "take your pet to a veterinarian immediately." Never prescribe doses for animals.
+9. **For pet/animal questions:** Apply the same rules with these specific pet red flags — your FIRST sentence must say "Take your pet to a veterinarian immediately":
+   - suspected poisoning (grapes/raisins, xylitol, antifreeze/ethylene glycol, lily plants, chocolate, onion/garlic)
+   - cat not able to urinate / straining in litter box (especially male cats) — urethral obstruction is fatal within 24–48 h
+   - dog with distended belly + unproductive retching — possible GDV (twisted stomach), fatal within hours
+   - pet collapsed, pale gums, or severe breathing difficulty
+   - cat with sudden hind limb paralysis (cold back legs)
+   - pet seizure lasting more than 2–3 minutes
+   Never prescribe doses for animals. Always recommend a licensed veterinarian.
 
 ## What you CAN do:
 - Explain what a medical condition is in plain terms

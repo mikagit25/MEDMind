@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "id": "PET-003",
+    "type": "specialty_module",
+    "specialty": "Veterinary",
+    "title": "Уход и профилактика: вакцинация, паразиты, зубы",
+    "title_en": "Pet Care and Prevention: Vaccination, Parasites, Dental Health",
+    "order_in_specialty": 12,
+    "level": "basic",
+    "prerequisite_modules": [],
+    "duration_hours": 1,
+    "version": "1.0",
+    "audience": "pet_owners",
+    "contains_dosages": false
+  },
+  "lessons": [
+    {
+      "id": "PET003-L1",
+      "order": 1,
+      "title": "Vaccination: what, why, and when",
+      "lay_summary": "Vaccination is the single most effective thing you can do to protect your pet's long-term health. Vaccines teach the immune system to recognise and fight specific diseases before your pet is ever exposed to them.\n\n**For dogs**, the core vaccines — the ones every dog should have regardless of lifestyle — protect against: distemper, parvovirus, adenovirus (hepatitis), and rabies (required by law in many countries). Non-core vaccines (recommended based on lifestyle and location) include: kennel cough (Bordetella), leptospirosis (contact with water/wildlife), and Lyme disease.\n\n**For cats**, core vaccines protect against: cat flu (feline herpesvirus and calicivirus), feline panleukopenia (cat parvovirus — very serious), and rabies where required. Non-core vaccines include: feline leukaemia virus (FeLV — recommended for cats with outdoor access), feline immunodeficiency virus (FIV).\n\n**When to start and how often?** Puppies and kittens typically start a series of vaccines at 6–8 weeks, completing the primary course by 16 weeks. After that, boosters are given every 1–3 years depending on the vaccine. Your vet will advise a schedule. Annual health checks (even in years without all boosters) allow early detection of problems.\n\n**Common myth:** 'My indoor cat doesn't need vaccines.' Even indoor cats are exposed to viruses on clothing and through windows, and their immune systems need maintaining. Feline panleukopenia in particular can be brought in on shoes.\n\n⚠️ *This information is for educational purposes only. Vaccination schedules vary by country, region, and individual risk factors. Your veterinarian is the right person to advise on what's appropriate for your pet.*",
+      "lay_glossary": [
+        {"term": "Core vaccine", "simple_definition": "A vaccine recommended for every pet of that species, regardless of their lifestyle or location — because the disease is severe, widespread, or transmissible to humans."},
+        {"term": "Booster", "simple_definition": "A follow-up vaccine given after the initial course to 'remind' the immune system and maintain protection over time."},
+        {"term": "Parvovirus", "simple_definition": "A highly contagious and often fatal virus in dogs and cats (different strains). It attacks rapidly dividing cells — the gut lining and bone marrow — causing severe vomiting, bloody diarrhoea, and immune system collapse. Vaccine-preventable."}
+      ],
+      "content": {
+        "intro": "Vaccination is the foundation of preventive veterinary medicine. Understanding the rationale helps owners maintain compliance.",
+        "sections": [
+          {
+            "heading": "Core vs non-core vaccines",
+            "body": "Core vaccines (WSAVA guidelines): dogs — distemper, parvovirus, adenovirus; cats — panleukopenia, herpesvirus-1, calicivirus. Rabies is core where endemic/legally required. Non-core selection based on geographic risk, lifestyle (indoor/outdoor), boarding, travel."
+          },
+          {
+            "heading": "Primary course timing",
+            "body": "Maternally-derived antibodies (MDA) can interfere with vaccination. Standard protocol: first vaccine 6–8 wks, boosters every 2–4 wks until 16 wks (to bridge MDA decline). Critical period: 8–12 wks — highest risk of disease if unvaccinated, also a sensitive socialisation window."
+          },
+          {
+            "heading": "Vaccine duration of immunity",
+            "body": "Duration varies by antigen. Modified live vaccines (MLV): 3+ years for CDV, CPV, FPV. Killed vaccines (leptospirosis, FeLV): annual. Titre testing (serology) can guide booster decisions in individual animals with adverse reaction history."
+          }
+        ],
+        "estimated_minutes": 20,
+        "key_points": [
+          "Core vaccines for dogs: distemper, parvovirus, hepatitis, rabies (where required)",
+          "Core vaccines for cats: panleukopenia, herpesvirus, calicivirus, rabies (where required)",
+          "Indoor cats still need core vaccines — viruses enter on clothing and through ventilation",
+          "Annual vet visits even in booster-off years enable early disease detection"
+        ]
+      }
+    },
+    {
+      "id": "PET003-L2",
+      "order": 2,
+      "title": "Parasites: fleas, ticks, worms, and heartworm",
+      "lay_summary": "Parasites are not just unpleasant — they cause real disease. Some are also zoonotic, meaning they can transfer from pets to humans. Understanding the most common parasites helps you protect your whole family.\n\n**Fleas** are the most common external parasite. One flea can lay 50 eggs a day — so an infestation spreads fast. They cause itching, skin allergies, and transmit tapeworm. You need to treat the pet AND the environment (house), because 95% of the flea population (eggs, larvae, pupae) is in the home, not on the pet.\n\n**Ticks** attach to skin and feed on blood. They transmit serious diseases including Lyme disease, and in some countries, dangerous tick-borne encephalitis. If you find a tick, remove it carefully using a tick tweezer — twist, don't pull straight. Never crush a tick (infectious fluids can be released). The tick's head must come out.\n\n**Intestinal worms** (roundworms, tapeworms, hookworms, whipworms) affect digestive health and some are zoonotic — children are most at risk. Regular deworming is recommended. Roundworms are common in puppies and can be passed to humans through contaminated soil.\n\n**Heartworm** is transmitted by mosquitoes and is a serious risk in many parts of the world (USA, South America, parts of Europe). It can be fatal. Prevention (monthly treatment given to the vet's recommendation) is far easier than treatment of active infection.\n\nAll parasite prevention products should be chosen with your vet — over-the-counter products vary in quality and safety. Never use dog flea products on cats (see PET-001).\n\n⚠️ *This information is for educational purposes only. Parasite prevention protocols vary by location and species. Consult your veterinarian for a personalised prevention plan.*",
+      "lay_glossary": [
+        {"term": "Zoonotic", "simple_definition": "A disease that can spread between animals and humans. Several pet parasites (roundworms, toxoplasma, ringworm) can infect people — particularly children and immunocompromised individuals."},
+        {"term": "Heartworm (Dirofilaria immitis)", "simple_definition": "A parasitic worm transmitted by mosquitoes that lives in the heart and lungs of infected animals. Can cause fatal heart and lung damage. Prevention is highly effective; treatment of active infection is complex and risky."},
+        {"term": "Tick-borne disease", "simple_definition": "A disease transmitted through the bite of an infected tick. Includes Lyme disease (bacterial), Ehrlichia, Anaplasma, Babesia, and others. Some affect both pets and humans."}
+      ],
+      "content": {
+        "intro": "Ectoparasite and endoparasite management requires understanding of lifecycle and transmission to be effective. Environmental control is as important as animal treatment.",
+        "sections": [
+          {
+            "heading": "Flea control: the 95% rule",
+            "body": "Only 5% of the flea population is on the pet; 95% (eggs, larvae, pupae) is in carpets, bedding, upholstery. Effective control requires: (1) treat all pets in household, (2) treat environment (insect growth regulator), (3) sustain treatment for 3+ months to break lifecycle. Ctenocephalides felis has developed resistance to some pyrethroids."
+          },
+          {
+            "heading": "Tick management",
+            "body": "Ixodes spp. transmit Borrelia burgdorferi (Lyme disease) within 24–48 hours of attachment — prompt removal reduces transmission risk. Tick preventatives (isoxazolines, pyrethroids — not on cats) are effective. Check pets and humans after rural/woodland walks."
+          },
+          {
+            "heading": "Helminth control",
+            "body": "Toxocara canis/cati: zoonotic, patent period 3–4 wks; treat puppies from 2 wks, every 2 wks until 8 wks, then monthly to 6 months. Adults: 1–4 times/year based on risk. Echinococcus (tapeworm): requires specific treatment (praziquantel); risk from hunting/raw feeding. Heartworm: prevention with macrocyclic lactones where endemic."
+          }
+        ],
+        "estimated_minutes": 25,
+        "key_points": [
+          "Fleas live mostly in the home — treating the pet alone without treating the environment fails",
+          "Tick removal must include the head — use a tick hook and twist, never pull or crush",
+          "Roundworms from dogs and cats can infect children through contaminated soil — wash hands after gardening",
+          "Heartworm prevention is given year-round in endemic areas — ask your vet about your region's risk"
+        ]
+      }
+    },
+    {
+      "id": "PET003-L3",
+      "order": 3,
+      "title": "Dental health: the hidden disease",
+      "lay_summary": "Dental disease is the most common condition seen by vets — yet most owners don't realise it until their pet is in significant discomfort. By age 3, around 80% of dogs and 70% of cats have some form of dental disease.\n\n**Why dental health matters beyond the mouth:** Bacteria from dental infections don't stay in the mouth. They enter the bloodstream and have been linked to kidney disease, liver disease, and heart valve disease in pets. Regular dental care is truly a whole-body health matter.\n\n**Signs of dental disease to watch for:** bad breath (more than normal 'pet breath'), difficulty eating, dropping food, pawing at the mouth, visible brown/yellow tartar on teeth (especially the back teeth), red or swollen gums, drooling, or a suddenly grumpy cat or dog who is reluctant to be touched near the face.\n\n**What you can do at home:**\n- **Brushing** is the gold standard. Use pet-specific toothpaste (never human toothpaste — fluoride and xylitol are toxic to pets). Even brushing 2–3 times per week makes a significant difference.\n- **Dental chews and diets** — certain products have VOHC (Veterinary Oral Health Council) approval for plaque/tartar reduction. Look for this seal.\n- **Water additives and dental gels** can help, but are less effective than brushing.\n\n**Professional cleaning** under anaesthesia is needed once tartar is established — no-anaesthesia dental 'cleaning' only addresses visible tartar without treating below the gumline where disease actually lives.\n\n⚠️ *This information is for educational purposes only. Have your pet's teeth checked at every annual visit. Your vet will advise if a professional clean is needed.*",
+      "lay_glossary": [
+        {"term": "Periodontal disease", "simple_definition": "Infection and destruction of the structures supporting the teeth — the gums, periodontal ligament, and jawbone. It starts with plaque (bacteria film on teeth), progresses to tartar, then gum inflammation, then bone loss. In advanced stages, teeth become loose and painful."},
+        {"term": "Tartar (dental calculus)", "simple_definition": "Hardened plaque that has mineralised on the tooth surface. Once tartar forms, it cannot be removed by brushing — it requires professional scaling with ultrasonic equipment, under anaesthesia."},
+        {"term": "VOHC seal", "simple_definition": "The Veterinary Oral Health Council seal of acceptance — given to dental products that have proven in clinical trials to reduce plaque or tartar by at least 20%. A useful indicator that a product actually works."}
+      ],
+      "content": {
+        "intro": "Periodontal disease affects the majority of adult pets and is significantly undertreated due to the anaesthetic requirement for treatment and owner perception that it is cosmetic.",
+        "sections": [
+          {
+            "heading": "Progression of periodontal disease",
+            "body": "Stage 1 (gingivitis): plaque accumulation, reversible with cleaning. Stage 2: early periodontitis, <25% attachment loss. Stage 3: moderate periodontitis, 25–50% attachment loss. Stage 4: advanced periodontitis, >50% loss, extraction required. Pain assessment in cats especially is challenging — behaviour change is the main indicator."
+          },
+          {
+            "heading": "Systemic impact of dental disease",
+            "body": "Periodontal bacteraemia associated with glomerulonephritis, endocarditis, hepatic disease in veterinary literature. Regular prophylaxis reduces systemic burden. Dental radiography essential to assess subgingival disease — visual assessment alone misses 60% of lesions."
+          },
+          {
+            "heading": "Home care programme",
+            "body": "Daily brushing achieves maximum plaque control. Enzymatic toothpaste (no fluoride, no xylitol) acceptable to most dogs with positive conditioning. Cats: finger brush introduction from kittenhood. VOHC-approved dental diets: Hill's t/d, Royal Canin Dental. Avoid 'no anaesthesia dental scaling' — no subgingival access, polishing not performed."
+          }
+        ],
+        "estimated_minutes": 20,
+        "key_points": [
+          "80% of dogs and 70% of cats have dental disease by age 3",
+          "Bad breath is not normal — it signals bacterial overgrowth in the mouth",
+          "Never use human toothpaste on pets — fluoride and xylitol are toxic",
+          "Dental disease bacteria enter the bloodstream and damage kidneys, liver, and heart over time"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "What are the core vaccines for dogs (as per WSAVA guidelines)?",
+      "answer": "Distemper virus, parvovirus (CPV-2), and adenovirus (canine hepatitis). Rabies is core where legally required or endemic. These protect against diseases that are severe, widespread, or zoonotic.",
+      "difficulty": "easy",
+      "category": "Pet preventive care"
+    },
+    {
+      "question": "Why must you treat the home as well as the pet when dealing with a flea infestation?",
+      "answer": "95% of the flea population (eggs, larvae, pupae) lives in the environment — carpets, bedding, upholstery — not on the pet. Treating only the pet leaves the environmental reservoir intact, and new adult fleas will re-infest within weeks.",
+      "difficulty": "easy",
+      "category": "Pet parasites"
+    },
+    {
+      "question": "What is the correct technique to remove a tick from a pet?",
+      "answer": "Use a tick hook or fine-tipped tweezers: grip the tick as close to the skin as possible and twist (rotate) while applying gentle upward pressure. Do not pull straight or jerk. Never crush, burn, or apply petroleum jelly. Ensure the entire tick including mouthparts is removed. Clean the site with antiseptic.",
+      "difficulty": "easy",
+      "category": "Pet parasites"
+    },
+    {
+      "question": "Why is regular dental care for pets more than just cosmetic?",
+      "answer": "Periodontal bacteria enter the bloodstream and have been associated with kidney disease (glomerulonephritis), heart valve disease (endocarditis), and hepatic disease in pets. Dental disease is also painful even when pets do not show obvious signs of discomfort.",
+      "difficulty": "medium",
+      "category": "Pet dental health"
+    },
+    {
+      "question": "Which toothpaste ingredients are toxic to pets and must never be used?",
+      "answer": "Fluoride (toxic in both dogs and cats) and xylitol (causes hypoglycaemia and liver failure in dogs). Always use veterinary-formulated enzymatic toothpaste — human toothpaste is dangerous for pets.",
+      "difficulty": "easy",
+      "category": "Pet dental health"
+    },
+    {
+      "question": "What is heartworm and how is it transmitted?",
+      "answer": "Dirofilaria immitis — a parasitic roundworm that lives in the pulmonary arteries and right heart of infected animals. Transmitted by mosquitoes. Can cause fatal cardiopulmonary disease. Prevention with monthly macrocyclic lactone treatments (prescribed by vet) is highly effective; treatment of established infection is lengthy, expensive, and risky.",
+      "difficulty": "medium",
+      "category": "Pet parasites"
+    }
+  ],
+  "mcq_questions": [
+    {
+      "id": "PET003-Q1",
+      "difficulty": "easy",
+      "question": "An owner says their indoor cat has never been outdoors and asks if vaccination is still necessary. What is the best answer?",
+      "options": {
+        "A": "No — indoor cats are not exposed to disease",
+        "B": "Only if you plan to let the cat outdoors in future",
+        "C": "Yes — viruses like panleukopenia can enter on shoes, clothing, and through ventilation; core vaccines are still recommended",
+        "D": "Only the rabies vaccine is required for indoor cats"
+      },
+      "correct": "C",
+      "explanation": "Feline panleukopenia virus (FPV) is extremely hardy and can be carried on clothing, shoes, or equipment. Herpesvirus and calicivirus spread through airborne droplets and can enter through windows or ventilation. Core vaccines are recommended for all cats regardless of indoor/outdoor status. FeLV (feline leukaemia) vaccine can be skipped for strictly indoor cats with no contact with unknown cats."
+    },
+    {
+      "id": "PET003-Q2",
+      "difficulty": "easy",
+      "question": "You find a tick on your dog. What is the correct removal method?",
+      "options": {
+        "A": "Burn it with a match to make it release",
+        "B": "Apply petroleum jelly to suffocate it, then pull",
+        "C": "Use a tick hook — grip close to skin, twist, and remove; do not crush or jerk",
+        "D": "Pull straight with fingers as quickly as possible"
+      },
+      "correct": "C",
+      "explanation": "The correct method: use a tick removal tool or fine-tipped tweezers, grip as close to the skin as possible, and rotate while applying gentle upward pressure. Burning, petroleum jelly, and sudden jerking all risk causing the tick to regurgitate infectious material into the bite site, increasing disease transmission risk. Crushing can also release infectious fluids."
+    },
+    {
+      "id": "PET003-Q3",
+      "difficulty": "medium",
+      "question": "Why is 'no-anaesthesia dental cleaning' not considered an acceptable substitute for professional veterinary dental cleaning?",
+      "options": {
+        "A": "It is acceptable for mild cases — only severe disease needs anaesthesia",
+        "B": "Subgingival disease cannot be assessed or treated, no polishing is done, and the patient cannot be properly examined for disease — it only addresses visible tartar",
+        "C": "It is mainly a cost concern — clinically the results are similar",
+        "D": "Only dogs need anaesthesia; cats can be done awake"
+      },
+      "correct": "B",
+      "explanation": "Disease below the gumline (the majority of clinically significant periodontal disease) cannot be accessed without anaesthesia. Dental radiography, probing, subgingival scaling, and polishing all require a still, properly positioned patient under general anaesthesia. AVDC (American Veterinary Dental College) and BVDA position statements both oppose no-anaesthesia dental procedures as being cosmetic only."
+    },
+    {
+      "id": "PET003-Q4",
+      "difficulty": "easy",
+      "question": "A dog owner wants to brush their dog's teeth. Which product should they use?",
+      "options": {
+        "A": "Regular mint human toothpaste — it is more effective",
+        "B": "Just water — toothpaste is not necessary",
+        "C": "Veterinary enzymatic pet toothpaste — human toothpaste contains fluoride and possibly xylitol, both harmful to pets",
+        "D": "Baking soda — a safe home alternative"
+      },
+      "correct": "C",
+      "explanation": "Human toothpastes contain fluoride, which is toxic to pets when swallowed (pets cannot spit). Many also contain xylitol, which causes dangerous hypoglycaemia in dogs. Veterinary enzymatic toothpastes are specifically formulated to be safe when swallowed, taste acceptable to animals, and contain enzymes (glucose oxidase, lactoperoxidase) that inhibit oral bacteria. Water alone is largely ineffective. Baking soda can be abrasive and is not recommended."
+    },
+    {
+      "id": "PET003-Q5",
+      "difficulty": "medium",
+      "question": "A dog's roundworm burden is a public health concern primarily because:",
+      "options": {
+        "A": "Roundworms can be transmitted to humans through mosquito bites",
+        "B": "Larvae can survive in the environment and infect humans (especially children) through ingestion of contaminated soil",
+        "C": "Roundworms are airborne and spread through dog fur",
+        "D": "Adult roundworms are visible on the dog's coat"
+      },
+      "correct": "B",
+      "explanation": "Toxocara canis larvae (from dog roundworms) can survive in soil for months to years. Children playing in contaminated soil and not washing hands can accidentally ingest eggs. In humans, larvae migrate through tissues (visceral larva migrans), potentially affecting the eye (ocular larva migrans — can cause blindness). Regular deworming of dogs, especially puppies, and picking up faeces promptly are key zoonotic prevention measures."
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "Dog with advanced dental disease",
+      "difficulty": "easy",
+      "presentation": "Max, a 7-year-old Cocker Spaniel, is presented for 'bad breath'. The owner says Max has had smelly breath for years and thought this was normal. On examination: severe halitosis, generalised gingival recession, heavy brown tartar on all teeth especially upper premolars and molars, tooth mobility noted on right upper canine, serosanguinous discharge from gingival sulcus. The owner is surprised that dental disease could be causing the smell — 'I thought dogs just had bad breath naturally'.",
+      "vitals": null,
+      "diagnosis": "Stage 3–4 periodontal disease",
+      "differential_diagnosis": ["Periodontal disease (primary)", "Stomatitis", "Oral neoplasia (rule out during anaesthetic exam)"],
+      "management": [
+        "Pre-anaesthetic blood work",
+        "General anaesthesia + full mouth dental radiographs",
+        "Ultrasonic scaling (supra- and subgingival) of all teeth",
+        "Dental probing and charting",
+        "Extractions of non-viable teeth",
+        "Polishing all remaining teeth",
+        "Chlorhexidine oral rinse post-procedure",
+        "Discharge with home care plan: daily brushing, VOHC dental diet, 6-monthly checks"
+      ],
+      "teaching_points": [
+        "Halitosis is the primary complaint but severe periodontal disease is the underlying cause",
+        "Owner education: bad breath is not normal — it indicates pathological bacterial load",
+        "Cocker Spaniels are a breed predisposed to severe periodontal disease due to crowded dentition",
+        "Annual check-ups would have allowed earlier intervention — preventing the severity seen here",
+        "Subgingival assessment and radiographs are impossible without anaesthesia"
+      ]
+    }
+  ]
+}

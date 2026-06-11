@@ -753,3 +753,125 @@ async def get_shared_deck(
         "view_count": deck.view_count,
         "created_at": deck.created_at.isoformat() if deck.created_at else None,
     }
+
+
+# ── Pet owner modules (PET-*) ─────────────────────────────────────────────────
+
+PET_DISCLAIMER = (
+    "⚠️ This content is for educational purposes only and does not constitute "
+    "veterinary medical advice. If your pet is unwell, contact a veterinarian immediately."
+)
+
+
+@router.get("/pets")
+async def list_public_pets(
+    request: Request,
+    _: None = Depends(check_public_rate_limit),
+    db: AsyncSession = Depends(get_db),
+):
+    """List all public PET-* modules with lesson summaries."""
+    cache_key = "pub_pets_list"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    result = await db.execute(
+        select(Module).where(
+            Module.code.like("PET-%"),
+            Module.is_published == True,
+        ).order_by(Module.module_order)
+    )
+    modules = result.scalars().all()
+
+    items = []
+    for mod in modules:
+        lessons_result = await db.execute(
+            select(Lesson).where(Lesson.module_id == mod.id).order_by(Lesson.lesson_order)
+        )
+        lessons = lessons_result.scalars().all()
+
+        slug = _slugify(mod.title_en or mod.title)
+        items.append({
+            "module_code": mod.code,
+            "slug": slug,
+            "title": mod.title_en or mod.title,
+            "description": (mod.content or {}).get("meta", {}).get("description", ""),
+            "lesson_count": len(lessons),
+            "lessons": [
+                {
+                    "slug": _slugify(l.title),
+                    "title": l.title,
+                    "lay_summary_preview": (l.lay_summary or "")[:200] + "…" if l.lay_summary else None,
+                }
+                for l in lessons
+            ],
+        })
+
+    response = {"modules": items, "disclaimer": PET_DISCLAIMER}
+    await _cache_set(cache_key, response)
+    return response
+
+
+@router.get("/pets/{module_slug}")
+async def get_public_pet_module(
+    module_slug: str,
+    request: Request,
+    _: None = Depends(check_public_rate_limit),
+    db: AsyncSession = Depends(get_db),
+):
+    """Get a specific PET module's public content."""
+    cache_key = f"pub_pet:{module_slug}"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    # Fetch all PET modules and find by slug
+    result = await db.execute(
+        select(Module).where(
+            Module.code.like("PET-%"),
+            Module.is_published == True,
+        )
+    )
+    modules = result.scalars().all()
+
+    module = None
+    for mod in modules:
+        if _slugify(mod.title_en or mod.title) == module_slug or mod.code.lower() == module_slug.lower():
+            module = mod
+            break
+
+    if not module:
+        raise HTTPException(status_code=404, detail="Pet module not found")
+
+    lessons_result = await db.execute(
+        select(Lesson).where(Lesson.module_id == module.id).order_by(Lesson.lesson_order)
+    )
+    lessons = lessons_result.scalars().all()
+
+    # Aggregate all glossary terms, deduplicated by term
+    glossary: dict[str, str] = {}
+    for lesson in lessons:
+        for entry in (lesson.lay_glossary or []):
+            term = entry.get("term", "")
+            if term and term not in glossary:
+                glossary[term] = entry.get("simple_definition", "")
+
+    response = {
+        "module_code": module.code,
+        "slug": module_slug,
+        "title": module.title_en or module.title,
+        "lessons": [
+            {
+                "slug": _slugify(l.title),
+                "title": l.title,
+                "lay_summary": l.lay_summary,
+                "lay_glossary": l.lay_glossary or [],
+                "key_points": (l.content or {}).get("key_points", []) if isinstance(l.content, dict) else [],
+            }
+            for l in lessons
+        ],
+        "glossary": [{"term": k, "simple_definition": v} for k, v in glossary.items()],
+        "disclaimer": PET_DISCLAIMER,
+    }
+    await _cache_set(cache_key, response)
+    return response

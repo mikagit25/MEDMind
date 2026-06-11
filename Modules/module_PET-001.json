@@ -1,0 +1,248 @@
+{
+  "meta": {
+    "id": "PET-001",
+    "type": "specialty_module",
+    "specialty": "Veterinary",
+    "title": "Опасные продукты и токсины для собак и кошек",
+    "title_en": "Dangerous Foods and Toxins for Dogs and Cats",
+    "order_in_specialty": 10,
+    "level": "basic",
+    "prerequisite_modules": [],
+    "duration_hours": 1,
+    "version": "1.0",
+    "audience": "pet_owners",
+    "contains_dosages": false
+  },
+  "lessons": [
+    {
+      "id": "PET001-L1",
+      "order": 1,
+      "title": "Продукты питания, опасные для собак",
+      "lay_summary": "Dogs and humans have very different digestive systems, and many everyday foods that are safe for us can be seriously harmful — or even fatal — to dogs. Here's what every dog owner needs to know.\n\nThe most dangerous foods for dogs include: **chocolate** (contains theobromine, which dogs cannot metabolise; dark chocolate is worst), **grapes and raisins** (can cause sudden kidney failure — even a small amount can be deadly), **onions and garlic** (damage red blood cells and cause anaemia; all forms are harmful, including powder), **xylitol** (an artificial sweetener found in sugar-free gum, peanut butter, and baked goods — causes dangerously low blood sugar and liver failure), and **macadamia nuts** (cause weakness, tremors, and vomiting).\n\nAvocado contains a substance called persin that can cause vomiting and diarrhea in dogs. Alcohol is much more toxic to dogs than to humans — even a small amount can cause breathing problems and coma. Cooked bones can splinter and puncture the digestive tract.\n\nIf you suspect your dog has eaten any of these, **call your veterinarian or an animal poison helpline immediately** — do not wait for symptoms to appear. Time matters, especially with grapes/raisins and xylitol.\n\n⚠️ *This information is for educational purposes only. If you think your pet has been poisoned, contact a veterinarian immediately — do not wait.*",
+      "lay_glossary": [
+        {"term": "Theobromine", "simple_definition": "A chemical naturally found in chocolate that dogs cannot break down properly — it builds up in their body and becomes toxic."},
+        {"term": "Xylitol", "simple_definition": "A sugar substitute used in many sugar-free products. Extremely dangerous for dogs — it causes a sudden dangerous drop in blood sugar."},
+        {"term": "Anaemia", "simple_definition": "A condition where there aren't enough healthy red blood cells to carry oxygen around the body, causing weakness and pale gums."}
+      ],
+      "content": {
+        "intro": "Many common human foods are toxic to dogs. Some cause immediate symptoms; others (like grapes) cause delayed organ failure. All dog owners should memorise this list.",
+        "sections": [
+          {
+            "heading": "Immediately dangerous (call vet now)",
+            "body": "Grapes and raisins — kidney failure; xylitol — hypoglycaemia and liver damage; dark chocolate (>1 g/kg theobromine); concentrated onion/garlic. Do NOT induce vomiting without veterinary instruction."
+          },
+          {
+            "heading": "Potentially harmful",
+            "body": "Alcohol, avocado (persin toxicity), macadamia nuts, cooked bones (splintering), caffeine, nutmeg, raw dough (yeast expands, produces ethanol)."
+          },
+          {
+            "heading": "Safe alternatives",
+            "body": "Carrots, blueberries, watermelon (seedless, no rind), plain cooked chicken — all safe in moderation as treats."
+          }
+        ],
+        "estimated_minutes": 15,
+        "key_points": [
+          "Grapes and raisins can cause acute kidney failure at any dose — no safe threshold is known",
+          "Xylitol found in sugar-free peanut butter is one of the leading causes of dog poisoning",
+          "Onion toxicity is cumulative — small repeated amounts cause anaemia over time",
+          "Always check labels of human foods before sharing with dogs"
+        ]
+      }
+    },
+    {
+      "id": "PET001-L2",
+      "order": 2,
+      "title": "Продукты питания, опасные для кошек",
+      "lay_summary": "Cats are obligate carnivores — their bodies are designed to eat meat, and many foods that dogs or humans tolerate are dangerous for them. Cats are also notoriously better at hiding illness until it becomes severe, which makes early awareness crucial.\n\n**Lilies are the number-one killer of cats.** Even tiny amounts of any true lily (Easter lily, tiger lily, daylily) can cause fatal kidney failure within 24–72 hours. This includes drinking water from a vase containing lilies. If your cat has been anywhere near a lily, treat it as an emergency.\n\nOther serious dangers include: **onions and garlic** (cause red blood cell destruction and anaemia), **raw fish fed regularly** (destroys vitamin B1, causing neurological damage), **dog food** (lacks taurine, an amino acid cats need — long-term feeding causes heart disease and blindness), **milk and dairy** (most adult cats are lactose intolerant; causes vomiting and diarrhoea), and **xylitol**.\n\nCats should also never be given paracetamol (acetaminophen) — it is rapidly fatal to cats. Never give your cat human medications unless prescribed by a vet.\n\n⚠️ *This information is for educational purposes only. If you think your pet has been poisoned, contact a veterinarian immediately — do not wait.*",
+      "lay_glossary": [
+        {"term": "Obligate carnivore", "simple_definition": "An animal that must eat meat to survive — their body cannot make certain nutrients from plants, so they need to get them from animal tissue."},
+        {"term": "Taurine", "simple_definition": "An amino acid (building block of protein) that cats cannot make themselves and must get from food. Deficiency causes heart disease and blindness in cats."},
+        {"term": "Lily toxicity", "simple_definition": "Even tiny amounts of true lily plants cause acute kidney failure in cats — often fatal without immediate treatment within 6 hours of exposure."}
+      ],
+      "content": {
+        "intro": "Feline metabolism differs markedly from canine and human. Cats lack key enzymes for detoxifying many compounds. Clinical signs are often delayed.",
+        "sections": [
+          {
+            "heading": "True lily plants — FATAL emergency",
+            "body": "All parts of Lilium and Hemerocallis spp. including pollen, petals, leaves, and vase water are nephrotoxic to cats. Even minor exposure (grooming pollen off fur) requires immediate veterinary decontamination."
+          },
+          {
+            "heading": "Other significant toxins",
+            "body": "Paracetamol/acetaminophen (cannot be metabolised; causes methaemoglobinaemia), essential oils (especially tea tree, eucalyptus), permethrin-containing flea products labelled 'for dogs only', raw liver in large amounts (hypervitaminosis A)."
+          },
+          {
+            "heading": "Dietary hazards",
+            "body": "Onions/garlic (Heinz body anaemia), raw salmon/tuna daily (thiamine deficiency), dog food long-term (taurine-deficient DCM), milk/cream (lactose intolerance — GI upset, not dangerous but uncomfortable)."
+          }
+        ],
+        "estimated_minutes": 15,
+        "key_points": [
+          "Lily exposure is a veterinary emergency — treatment must begin within 6 hours",
+          "Never give cats paracetamol, aspirin, or ibuprofen",
+          "Permethrin spot-on flea products for dogs can be fatal if applied to cats or cats groom treated dogs",
+          "Cats hide illness — by the time symptoms show, the situation is often critical"
+        ]
+      }
+    },
+    {
+      "id": "PET001-L3",
+      "order": 3,
+      "title": "Household toxins and first-response steps",
+      "lay_summary": "Beyond food, many everyday household products pose serious risks to pets. Knowing what to do in the first minutes after suspected poisoning can save your pet's life.\n\n**Common household hazards** include: rodent bait (anticoagulant or neurotoxic), slug pellets (metaldehyde causes severe muscle tremors), certain houseplants (sago palm is rapidly fatal to dogs; also azalea, oleander, autumn crocus), human medications left on counters (NSAIDs, antidepressants, ADD medications are all toxic), antifreeze (ethylene glycol — has a sweet taste pets love; causes kidney failure), and cleaning products.\n\n**What to do if you suspect poisoning:**\n1. Stay calm and remove your pet from the source.\n2. **Call your vet or animal poison helpline immediately** — do not wait for symptoms.\n3. Note the product name, estimate how much was consumed and when.\n4. Do NOT induce vomiting unless specifically instructed by a vet — for some toxins (acids, alkalis, petroleum products) vomiting makes things worse.\n5. If instructed to bring your pet in, transport them gently and keep them warm.\n\nThe ASPCA Animal Poison Control Center (US): +1 888 426 4435. UK: Animal Poison Line 01202 509000.\n\n⚠️ *This information is for educational purposes only. Suspected poisoning is always a veterinary emergency.*",
+      "lay_glossary": [
+        {"term": "Anticoagulant rodenticide", "simple_definition": "A type of rat poison that prevents blood from clotting. Pets that eat it (or eat a poisoned rodent) can bleed to death internally — symptoms may not appear for several days."},
+        {"term": "Metaldehyde", "simple_definition": "The active ingredient in most slug and snail pellets. Causes severe muscle tremors and seizures in pets — even a few pellets can be lethal."},
+        {"term": "Ethylene glycol", "simple_definition": "The active ingredient in antifreeze. Sweet-tasting and extremely toxic — causes irreversible kidney failure within hours if not treated immediately."}
+      ],
+      "content": {
+        "intro": "Non-food household toxins represent a significant proportion of veterinary emergency presentations. Owner education on first-response steps dramatically improves outcomes.",
+        "sections": [
+          {
+            "heading": "High-risk household items",
+            "body": "Rodenticides (anticoagulant: delayed; bromethalin: neurological), metaldehyde (slug bait — immediate tremors), ethylene glycol (antifreeze — renal failure within 12h in cats, 24-72h in dogs), sago palm (cycasin → hepatic necrosis), NSAIDS/acetaminophen."
+          },
+          {
+            "heading": "First-response protocol",
+            "body": "1. Remove from source. 2. Contact vet or poison control. 3. Collect packaging. 4. Do not induce vomiting without instruction. 5. Do not give milk, oil, or home antidotes. Time from exposure to treatment determines outcome."
+          }
+        ],
+        "estimated_minutes": 20,
+        "key_points": [
+          "Keep all human medications in closed cabinets — the leading cause of pet poisoning in the UK and US",
+          "Antifreeze ingestion is an emergency within the hour — do not wait to see if symptoms develop",
+          "Rodenticide toxicity may not show for 3–5 days — pets can appear well while bleeding internally",
+          "Never induce vomiting without vet guidance — it can cause additional injury with certain toxins"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "Which fruit can cause acute kidney failure in dogs even in very small amounts?",
+      "answer": "Grapes and raisins. No safe dose is known — even a few raisins can be fatal. Mechanism not fully understood but consistently nephrotoxic.",
+      "difficulty": "easy",
+      "category": "Pet toxicology"
+    },
+    {
+      "question": "Why is xylitol so dangerous for dogs?",
+      "answer": "Xylitol triggers a massive insulin release causing severe hypoglycaemia, and at higher doses causes acute hepatic necrosis. It is found in sugar-free gum, some peanut butters, vitamins, and baked goods.",
+      "difficulty": "easy",
+      "category": "Pet toxicology"
+    },
+    {
+      "question": "What makes lily plants uniquely dangerous to cats?",
+      "answer": "All parts of true lilies (Lilium, Hemerocallis) are acutely nephrotoxic to cats. Even tiny exposures (pollen groomed off fur, water from a vase) can cause fatal acute kidney injury within 24–72 h. No antidote — early decontamination is essential.",
+      "difficulty": "easy",
+      "category": "Pet toxicology"
+    },
+    {
+      "question": "What is the first-response rule for suspected pet poisoning?",
+      "answer": "Call a vet or animal poison control immediately. Do NOT induce vomiting unless specifically instructed — for corrosives or petroleum products this worsens injury. Note time, product, and estimated dose.",
+      "difficulty": "easy",
+      "category": "Pet toxicology"
+    },
+    {
+      "question": "What household product contains ethylene glycol and why is it dangerous to pets?",
+      "answer": "Antifreeze. Ethylene glycol is sweet-tasting and highly palatable. Causes oxalate crystal deposition in renal tubules leading to acute kidney failure. Treatment window is very short — within hours of ingestion.",
+      "difficulty": "medium",
+      "category": "Pet toxicology"
+    },
+    {
+      "question": "Why should you never give a dog food labelled only for dogs to a cat long-term?",
+      "answer": "Dog food is deficient in taurine, arachidonic acid, and vitamin A precursors that cats require but cannot synthesise. Long-term feeding causes dilated cardiomyopathy, blindness (retinal degeneration), and reproductive failure.",
+      "difficulty": "medium",
+      "category": "Pet nutrition"
+    }
+  ],
+  "mcq_questions": [
+    {
+      "id": "PET001-Q1",
+      "difficulty": "easy",
+      "question": "Which of the following foods is MOST acutely dangerous to dogs and requires immediate veterinary attention even after a very small amount?",
+      "options": {
+        "A": "Plain boiled chicken",
+        "B": "A few raisins",
+        "C": "A small piece of apple (no seeds)",
+        "D": "Plain white rice"
+      },
+      "correct": "B",
+      "explanation": "Raisins (and grapes) are associated with acute kidney failure in dogs at very low doses. The toxic threshold is unknown — even 1–2 raisins have caused renal failure in small dogs. Boiled chicken, seedless apple, and plain rice are all safe foods for dogs."
+    },
+    {
+      "id": "PET001-Q2",
+      "difficulty": "easy",
+      "question": "A cat has been in a room containing Easter lilies. The owner sees no symptoms. What should they do?",
+      "options": {
+        "A": "Monitor at home for 24 hours before calling the vet",
+        "B": "Give the cat milk to dilute any toxin",
+        "C": "Call the veterinarian immediately — this is an emergency",
+        "D": "Induce vomiting at home using salt"
+      },
+      "correct": "C",
+      "explanation": "Lily exposure in cats is a true emergency. Renal failure develops within 24–72 hours but decontamination must occur within 6 hours for best outcomes. Waiting for symptoms is dangerous — by then damage is already occurring. Milk, salt vomiting, and watchful waiting are all inappropriate responses."
+    },
+    {
+      "id": "PET001-Q3",
+      "difficulty": "medium",
+      "question": "A dog has ingested antifreeze 45 minutes ago. The owner calls you. What is the MOST important instruction?",
+      "options": {
+        "A": "Give water to dilute the antifreeze",
+        "B": "Go to a veterinary clinic immediately — do not wait for symptoms",
+        "C": "Induce vomiting with hydrogen peroxide at home, then monitor",
+        "D": "Wait to see if symptoms develop over the next few hours"
+      },
+      "correct": "B",
+      "explanation": "Ethylene glycol (antifreeze) causes irreversible renal tubular damage within hours. The treatment window is critical — antidote (fomepizole in dogs, ethanol in cats) must be given early. Dogs may appear normal initially ('drunk' phase passes), giving a false impression of recovery. Inducing vomiting at home without guidance can risk aspiration. Immediate veterinary care is the only correct response."
+    },
+    {
+      "id": "PET001-Q4",
+      "difficulty": "medium",
+      "question": "Which of the following is the primary reason onions are toxic to dogs and cats?",
+      "options": {
+        "A": "They contain cyanogenic glycosides",
+        "B": "They cause acute pancreatitis",
+        "C": "Organosulphur compounds damage red blood cells, causing haemolytic anaemia",
+        "D": "They block calcium absorption in the intestine"
+      },
+      "correct": "C",
+      "explanation": "All forms of Allium spp. (onion, garlic, leeks, chives) contain organosulphur compounds (n-propyl disulphide) that oxidise haemoglobin to methaemoglobin and cause Heinz body formation, leading to haemolytic anaemia. Cats are more sensitive than dogs. Toxicity is cumulative — small repeated exposures are as dangerous as a single large dose."
+    },
+    {
+      "id": "PET001-Q5",
+      "difficulty": "easy",
+      "question": "Xylitol is most commonly found in which of the following products?",
+      "options": {
+        "A": "Regular sugar cookies",
+        "B": "Sugar-free gum and some peanut butters",
+        "C": "Fresh fruit",
+        "D": "Plain yoghurt"
+      },
+      "correct": "B",
+      "explanation": "Xylitol is used as a sugar substitute in sugar-free and low-calorie products including chewing gum, some peanut butters (always check labels), breath mints, vitamins, toothpaste, and certain baked goods. Plain sugar cookies, fresh fruit, and plain yoghurt typically do not contain xylitol, though always verify labels."
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "Labrador with suspected grape ingestion",
+      "difficulty": "easy",
+      "presentation": "Bruno, a 3-year-old Labrador Retriever (30 kg), was found eating raisins from a bag left on a coffee table. The owner estimates he ate approximately 20 raisins (about 30 g) roughly 1 hour ago. Currently alert and showing no clinical signs. Owner asks: 'He seems fine — do we really need to come in?'",
+      "vitals": null,
+      "diagnosis": "Suspected grape/raisin toxicosis — veterinary emergency",
+      "differential_diagnosis": ["Grape/raisin toxicosis", "Benign ingestion (if product identified as safe)"],
+      "management": [
+        "Immediate veterinary presentation — do not wait for symptom onset",
+        "Decontamination: induce emesis if within 1–2 hours and no contraindications",
+        "Activated charcoal if vomiting is achieved",
+        "IV fluid diuresis for 48 hours minimum",
+        "Serial renal panels (BUN, creatinine, phosphorus) at 24h and 48h",
+        "Monitor urine output closely — oliguria is a poor prognostic sign"
+      ],
+      "teaching_points": [
+        "No safe dose of grapes or raisins has been established — assume any amount is potentially toxic",
+        "Asymptomatic presentation at 1 hour is expected — AKI onset is typically 24–72 hours",
+        "Early aggressive IV fluid therapy before azotaemia develops dramatically improves prognosis",
+        "The mechanism of nephrotoxicity is unknown, making dose-response modelling impossible"
+      ]
+    }
+  ]
+}
