@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V3 — Phase 0 завершена, следующая: Phase 1 (lay_summary)
+**Phase:** Roadmap V3 — Phase 1 завершена, следующая: Phase 2 (Patient Mode AI)
 **Last Updated:** 2026-06-11
-**Next Action:** Выполнить Phase 1 из docs/MEDMIND_ROADMAP_V3.md — добавить lay_summary + lay_glossary в модели уроков.
+**Next Action:** Выполнить Phase 2 — добавить режим "patient" в /ai/ask с guardrails-промптом и пост-фильтром дисклеймера.
 
 ---
 
@@ -152,7 +152,7 @@ cd /Volumes/one/MEDMind/backend && source venv/bin/activate && uvicorn app.main:
 | Фаза | Название | Статус |
 |------|----------|--------|
 | Phase 0 | Подготовка репозитория | ✅ 2026-06-11 |
-| Phase 1 | lay_summary (двухуровневый контент) | ⏳ |
+| Phase 1 | lay_summary (двухуровневый контент) | ✅ 2026-06-11 |
 | Phase 2 | Режим «Пациент» (AI guardrails) | ⏳ |
 | Phase 3 | Публичный SEO-контур | ⏳ |
 | Phase 4 | Публичные квизы + шеринг | ⏳ |

@@ -213,6 +213,7 @@ export const contentApi = {
   getModule: (id: string) => api.get(`/modules/${id}`).then(r => r.data),
   getLessons: (moduleId: string) => api.get(`/modules/${moduleId}/lessons`).then(r => r.data),
   getLesson: (id: string) => api.get(`/lessons/${id}`).then(r => r.data),
+  getLessonLay: (id: string) => api.get(`/lessons/${id}?view=lay`).then(r => r.data),
   getFlashcards: (moduleId: string, dueOnly = false) =>
     api.get(`/modules/${moduleId}/flashcards${dueOnly ? "?due_only=true" : ""}`).then(r => r.data),
   getMCQ: (moduleId: string) => api.get(`/modules/${moduleId}/mcq`).then(r => r.data),

@@ -13,7 +13,11 @@ type LessonContent = {
   clinical_pearl?: string;
   key_points?: string[];
 };
-type Lesson = { id: string; title: string; content: LessonContent | string; lesson_order: number };
+type GlossaryTerm = { term: string; simple_definition: string };
+type Lesson = {
+  id: string; title: string; content: LessonContent | string; lesson_order: number;
+  lay_summary?: string | null; lay_glossary?: GlossaryTerm[] | null;
+};
 type Note = { id: string; content: string; lesson_id?: string; module_id?: string };
 
 type Block = { type: string; order: number; content: Record<string, unknown> };
@@ -368,6 +372,51 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
   );
 }
 
+// ── Plain-language (Lay) View ─────────────────────────────────────────────────
+function LayView({ data }: { data: { lay_summary?: string | null; lay_glossary?: GlossaryTerm[] | null } }) {
+  return (
+    <div className="space-y-5">
+      {/* Disclaimer banner */}
+      <div className="flex items-start gap-2 p-3 rounded-lg bg-green-light border border-green/20">
+        <span className="text-green text-base flex-shrink-0">ℹ</span>
+        <p className="font-serif text-xs text-green leading-relaxed">
+          <strong>Simple language mode.</strong> This is an educational summary written for everyone, not just medical professionals.
+          It does not replace advice from a doctor or healthcare provider.
+        </p>
+      </div>
+
+      {/* Summary */}
+      {data.lay_summary && (
+        <div className="card p-5">
+          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">In Plain Language</div>
+          <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{data.lay_summary}</p>
+        </div>
+      )}
+
+      {/* Glossary */}
+      {data.lay_glossary && data.lay_glossary.length > 0 && (
+        <div className="card p-5">
+          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">Key Terms Explained</div>
+          <div className="space-y-3">
+            {data.lay_glossary.map((item, i) => (
+              <div key={i} className="flex gap-3 py-2 border-b border-border last:border-0">
+                <span className="font-syne font-bold text-xs text-ink w-28 flex-shrink-0 pt-0.5">{item.term}</span>
+                <span className="font-serif text-xs text-ink-2 leading-relaxed">{item.simple_definition}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Disclaimer footer */}
+      <p className="font-serif text-xs text-ink-3 text-center italic">
+        ⚕️ This information is for educational purposes only and does not replace professional medical advice.
+        Always consult a qualified healthcare provider.
+      </p>
+    </div>
+  );
+}
+
 export default function ModuleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -382,6 +431,16 @@ export default function ModuleDetailPage() {
   const [completionXp, setCompletionXp] = useState(0);
   const [completionAchievements, setCompletionAchievements] = useState<string[]>([]);
   const lessonStartRef = useRef<number>(Date.now());
+
+  // Plain-language mode (Phase 1)
+  const [layMode, setLayMode] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("medmind_lay_mode") === "1";
+    }
+    return false;
+  });
+  const [layData, setLayData] = useState<{ lay_summary?: string | null; lay_glossary?: GlossaryTerm[] | null } | null>(null);
+  const [layLoading, setLayLoading] = useState(false);
 
   // Notes state
   const [showNotes, setShowNotes] = useState(false);
@@ -444,6 +503,29 @@ export default function ModuleDetailPage() {
   useEffect(() => {
     lessonStartRef.current = Date.now();
   }, [activeLesson?.id]);
+
+  // Persist lay mode preference
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("medmind_lay_mode", layMode ? "1" : "0");
+    }
+  }, [layMode]);
+
+  // Fetch lay view when switching to lay mode or changing lesson
+  useEffect(() => {
+    if (!layMode || !activeLesson) return;
+    // Use cached data from lesson if available
+    if (activeLesson.lay_summary) {
+      setLayData({ lay_summary: activeLesson.lay_summary, lay_glossary: activeLesson.lay_glossary });
+      return;
+    }
+    setLayLoading(true);
+    setLayData(null);
+    contentApi.getLessonLay(activeLesson.id)
+      .then((data: any) => setLayData(data))
+      .catch(() => setLayData(null))
+      .finally(() => setLayLoading(false));
+  }, [layMode, activeLesson?.id]);
 
   const completeLesson = async () => {
     if (!activeLesson || completing) return;
@@ -576,18 +658,61 @@ export default function ModuleDetailPage() {
           <div className="max-w-2xl mx-auto p-6">
             <div className="flex items-start justify-between mb-4 gap-3">
               <h2 className="font-syne font-black text-2xl text-ink">{activeLesson.title}</h2>
-              <button
-                onClick={() => setShowNotes((v) => !v)}
-                className={`flex-shrink-0 flex items-center gap-1.5 text-xs font-syne font-bold px-3 py-1.5 rounded transition-colors ${
-                  showNotes
-                    ? "bg-amber-light text-amber border border-amber/30"
-                    : "bg-bg-2 text-ink-2 hover:bg-amber-light hover:text-amber border border-border"
-                }`}
-              >
-                📝 Notes {notes.length > 0 && !showNotes ? `(${notes.length})` : ""}
-              </button>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                {/* Plain-language toggle */}
+                <button
+                  onClick={() => setLayMode((v) => !v)}
+                  title={layMode ? "Switch to professional view" : "Switch to plain language (for everyone)"}
+                  className={`flex items-center gap-1.5 text-xs font-syne font-bold px-3 py-1.5 rounded border transition-colors ${
+                    layMode
+                      ? "bg-green-light text-green border-green/30"
+                      : "bg-bg-2 text-ink-2 hover:bg-green-light hover:text-green border-border"
+                  }`}
+                >
+                  {layMode ? "🟢 Simple" : "🔬 Pro"}
+                </button>
+                <button
+                  onClick={() => setShowNotes((v) => !v)}
+                  className={`flex items-center gap-1.5 text-xs font-syne font-bold px-3 py-1.5 rounded border transition-colors ${
+                    showNotes
+                      ? "bg-amber-light text-amber border-amber/30"
+                      : "bg-bg-2 text-ink-2 hover:bg-amber-light hover:text-amber border-border"
+                  }`}
+                >
+                  📝 Notes {notes.length > 0 && !showNotes ? `(${notes.length})` : ""}
+                </button>
+              </div>
             </div>
-            <LessonContentRenderer content={activeLesson.content} />
+
+            {/* Lay mode view */}
+            {layMode ? (
+              <div>
+                {layLoading ? (
+                  <div className="space-y-3 animate-pulse">
+                    <div className="h-4 bg-bg-2 rounded w-3/4" />
+                    <div className="h-4 bg-bg-2 rounded w-full" />
+                    <div className="h-4 bg-bg-2 rounded w-5/6" />
+                    <div className="h-4 bg-bg-2 rounded w-2/3" />
+                  </div>
+                ) : layData?.lay_summary ? (
+                  <LayView data={layData} />
+                ) : (
+                  <div className="card p-6 text-center">
+                    <p className="font-serif text-ink-3 text-sm mb-2">
+                      Simple language version not yet available for this lesson.
+                    </p>
+                    <button
+                      onClick={() => setLayMode(false)}
+                      className="text-xs font-syne font-semibold text-ink-2 underline"
+                    >
+                      View professional content
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <LessonContentRenderer content={activeLesson.content} />
+            )}
 
             {/* Notes panel */}
             {showNotes && (

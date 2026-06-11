@@ -11,7 +11,7 @@ from app.core.database import get_db
 from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article, UserProgress
 from app.schemas.schemas import (
     SpecialtyOut, ModuleOut, ModuleDetail, LessonOut, LessonDetail,
-    FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
+    LessonLayView, FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
 )
 from app.api.deps import get_current_user, get_current_user_optional
 from app.core.cache import get_cached, set_cached
@@ -227,9 +227,10 @@ async def list_module_lessons(
     return result.scalars().all()
 
 
-@router.get("/lessons/{lesson_id}", response_model=LessonDetail)
+@router.get("/lessons/{lesson_id}")
 async def get_lesson(
     lesson_id: UUID,
+    view: Optional[str] = Query(None, description="Pass 'lay' for plain-language summary"),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
@@ -244,7 +245,11 @@ async def get_lesson(
     if module and not module.is_fundamental and user.subscription_tier not in PAID_TIERS:
         raise HTTPException(status_code=403, detail="Upgrade to access specialty content")
 
-    return lesson
+    # ?view=lay — return simplified version for non-specialists
+    if view == "lay":
+        return LessonLayView.model_validate(lesson)
+
+    return LessonDetail.model_validate(lesson)
 
 
 # ============================================================

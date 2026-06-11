@@ -133,6 +133,12 @@ class Lesson(Base):
     # When the lesson should be re-reviewed (protocols become outdated)
     next_review_due = Column(DateTime, nullable=True)
 
+    # ── Plain-language content for non-specialists (Phase 1) ───────────────
+    # lay_summary: 150-300 word explanation at 8th-grade reading level
+    lay_summary = Column(Text, nullable=True)
+    # lay_glossary: [{term: str, simple_definition: str}, ...]
+    lay_glossary = Column(JSONB, nullable=True)
+
     # ── Draft sharing via preview token ────────────────────────────────────
     preview_token = Column(String(64), unique=True, nullable=True, index=True)
     preview_expires_at = Column(DateTime, nullable=True)

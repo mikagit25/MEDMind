@@ -156,8 +156,29 @@ class LessonOut(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class GlossaryTerm(BaseModel):
+    term: str
+    simple_definition: str
+
+
 class LessonDetail(LessonOut):
     content: Dict[str, Any]
+    lay_summary: Optional[str] = None
+    lay_glossary: Optional[List[GlossaryTerm]] = None
+
+
+class LessonLayView(BaseModel):
+    """Simplified lesson view for non-specialists (?view=lay)."""
+    id: UUID
+    title: str
+    lay_summary: Optional[str] = None
+    lay_glossary: Optional[List[GlossaryTerm]] = None
+    disclaimer: str = (
+        "This information is for educational purposes only "
+        "and does not replace professional medical advice."
+    )
+
+    model_config = {"from_attributes": True}
 
 
 # ============================================================
