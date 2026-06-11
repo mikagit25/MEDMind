@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** 3 — Feature Completion  
-**Last Updated:** 2026-04-06  
-**Next Action:** Testing phase — run backend + frontend, import VET modules, end-to-end QA. All features implemented.
+**Phase:** Roadmap V3 — Phase 0 завершена, следующая: Phase 1 (lay_summary)
+**Last Updated:** 2026-06-11
+**Next Action:** Выполнить Phase 1 из docs/MEDMIND_ROADMAP_V3.md — добавить lay_summary + lay_glossary в модели уроков.
 
 ---
 
@@ -144,6 +144,23 @@ cd /Volumes/one/MEDMind/backend && source venv/bin/activate && uvicorn app.main:
 │   └── DB_SCHEMA.sql
 └── PROJECT_STATE.md       ← THIS FILE
 ```
+
+---
+
+## 🗺 Roadmap V3 Progress
+
+| Фаза | Название | Статус |
+|------|----------|--------|
+| Phase 0 | Подготовка репозитория | ✅ 2026-06-11 |
+| Phase 1 | lay_summary (двухуровневый контент) | ⏳ |
+| Phase 2 | Режим «Пациент» (AI guardrails) | ⏳ |
+| Phase 3 | Публичный SEO-контур | ⏳ |
+| Phase 4 | Публичные квизы + шеринг | ⏳ |
+| Phase 5 | Геймификация (XP, стрики, лидерборд) | ⏳ |
+| Phase 6 | Контур «Владельцы животных» | ⏳ |
+| Phase 7 | PWA + i18n фундамент | ⏳ |
+
+Детали каждой фазы: `docs/MEDMIND_ROADMAP_V3.md`
 
 ---
 

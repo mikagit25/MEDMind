@@ -1,7 +1,17 @@
 # MedMind AI — Medical Education Platform
 
-AI-powered learning platform for medical professionals and veterinarians.  
-Built with FastAPI, Next.js 14, React Native (Expo), Claude API.
+**For medical students, physicians, veterinarians — and everyone who wants to understand medicine.**  
+AI-powered learning with 833+ drugs, 80+ clinical modules, and a patient-friendly mode that explains medicine in plain language.
+
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](backend/tests/)
+[![PG15](https://img.shields.io/badge/PostgreSQL-15%20%2B%20pgvector-blue)](docs/PG15_MIGRATION.md)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](frontend/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+<!-- TODO: screenshots -->
+<!-- ![Dashboard](docs/screenshots/dashboard.png) -->
+<!-- ![Drug Database](docs/screenshots/drugs.png) -->
+<!-- ![AI Tutor](docs/screenshots/ai-tutor.png) -->
 
 ---
 

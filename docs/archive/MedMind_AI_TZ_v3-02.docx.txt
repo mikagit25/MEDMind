@@ -1,0 +1,1333 @@
+﻿🏥 MedMind AI
+Техническое задание для разработки
+Полная версия для Claude Code
+Версия
+	3.0 — Финальная консолидированная
+	Дата
+	Март 2026
+	Статус контента
+	70 JSON-модулей готовы (8 базовых + 62 специальности)
+	Цель документа
+	Полное ТЗ для Claude Code — от нуля до MVP без дополнительных вопросов
+	________________
+
+
+0. Контекст проекта — что уже сделано
+Это не новый проект с нуля. Большой объём контента уже создан. Claude Code должен знать это с самого начала.
+
+
+0.1 Что готово на момент передачи задания
+Контент (70 модулей в JSON)
+В ходе работы с Claude claude.ai уже сгенерированы все учебные модули. Они хранятся в виде JSON-файлов и должны быть импортированы в базу данных при первом запуске.
+
+
+Специальность
+	Кол-во модулей
+	Статус
+	Идентификаторы
+	Базовые дисциплины
+	8
+	✅ Готово
+	BASE-CARDIO-ANATOMY-001 ... BASE-EMERGENCY-008
+	Кардиология
+	10
+	✅ Готово
+	CARDIO-001 ... CARDIO-010
+	Терапия / Internal Medicine
+	12
+	✅ Готово
+	THERAPY-001 ... THERAPY-012
+	Неврология
+	10
+	✅ Готово
+	NEURO-001 ... NEURO-010
+	Хирургия
+	10
+	✅ Готово
+	SURG-001 ... SURG-010
+	Педиатрия
+	11
+	✅ Готово
+	PEDS-001 ... PEDS-011
+	Акушерство и гинекология
+	9
+	✅ Готово
+	OB-001 ... OB-009
+	Итого
+	70
+	✅ Готово
+	—
+	
+
+Структура каждого JSON-модуля
+Каждый файл module_XXX.json содержит следующие поля:
+* meta — id, specialty, title, level, duration_hours, version
+* lessons — массив уроков (3–5 на модуль), каждый с intro, sections[], key_points[]
+* flashcards — 5–8 карточек с question/answer/difficulty/category
+* mcq_questions — 3 MCQ-вопроса с options{A-E}, correct, explanation
+* clinical_cases — 1 клинический кейс с presentation, diagnosis, management[], teaching_points[]
+
+
+Демо-интерфейс (medmind-v2.html)
+Создан HTML-прототип платформы. Он показывает финальный дизайн: тёмный сайдбар, чат с AI-тьютором, поиск PubMed, флэшкарты, клинические кейсы, режимы обучения. Этот файл — референс UI, не финальный код.
+
+
+Запланированный контент (ещё не создан)
+* Психиатрия: ~8 модулей (PSYCH-001...008)
+* Анестезиология/Реаниматология: ~7 модулей (ANES-001...007)
+* Онкология: ~8 модулей (ONC-001...008)
+* Дерматология: ~7 модулей (DERM-001...007)
+* Ветеринария: ~16 модулей по 6 специальностям (VET-001...016)
+
+
+________________
+
+
+1. Общее описание проекта
+1.1 Что такое MedMind AI
+MedMind AI — глобальная образовательная платформа для врачей, ветеринаров и студентов медицинских специальностей. Платформа объединяет структурированный учебный контент, AI-тьютора на базе Claude API, интервальное повторение флэшкарт и реальные клинические кейсы.
+
+
+Ключевые принципы платформы:
+* AI как мозг — Claude API отвечает на вопросы, объясняет концепции, генерирует новый контент
+* Доказательная медицина — весь контент основан на клинических гайдлайнах и PubMed
+* Переиспользование контента — базовые дисциплины создаются один раз и применяются во всех специальностях
+* Персонализация — адаптация к уровню и прогрессу пользователя
+* Ветеринария как отдельный рынок — уникальная особенность, отличающая от конкурентов
+
+
+1.2 Целевая аудитория
+Роль
+	Задача на платформе
+	Ключевые функции
+	Студент-медик
+	Подготовка к экзаменам, освоение специальности
+	Модули, флэшкарты, MCQ, прогресс
+	Ординатор/резидент
+	Углубление в специальность, клинические кейсы
+	Кейсы, AI-тьютор, PubMed интеграция
+	Практикующий врач
+	CME-кредиты, актуализация знаний
+	Сертификаты, новый контент
+	Ветеринар
+	Специфический контент по видам животных
+	Ветеринарный режим, дозировки по видам
+	Преподаватель
+	Создание курсов, отслеживание студентов
+	Редактор контента, аналитика
+	
+
+1.3 Бизнес-модель
+Тариф
+	Цена
+	Лимиты AI-запросов
+	Доступ к контенту
+	Free
+	$0/мес
+	5 запросов/день
+	Базовые дисциплины (8 модулей)
+	Student
+	$15/мес
+	50 запросов/день
+	Все медицинские специальности
+	Pro
+	$40/мес
+	Безлимит
+	Всё включая ветеринарию
+	Clinic
+	$199/мес
+	10 пользователей, безлимит
+	Всё + аналитика команды
+	Lifetime
+	$299 единоразово
+	Безлимит
+	Всё навсегда
+	
+
+________________
+
+
+2. Технический стек
+2.1 Полный стек технологий
+Уровень
+	Технология
+	Версия
+	Назначение
+	Backend
+	FastAPI (Python)
+	3.11+
+	Основной API, бизнес-логика
+	Backend
+	SQLAlchemy 2.0 + Alembic
+	Async
+	ORM + миграции БД
+	Backend
+	Pydantic v2
+	2.x
+	Валидация данных, схемы
+	Database
+	PostgreSQL
+	15+
+	Основная БД
+	Database
+	pgvector
+	latest
+	Векторный поиск по эмбеддингам
+	Database
+	pg_trgm, btree_gin
+	built-in
+	Полнотекстовый поиск
+	Cache
+	Redis
+	7+
+	Кэш AI-ответов, сессии, rate limiting
+	AI
+	Claude API (Sonnet 4)
+	claude-sonnet-4-6
+	Сложные запросы, генерация
+	AI
+	Claude API (Haiku 4.5)
+	claude-haiku-4-5-20251001
+	Простые запросы, экономия
+	AI
+	Ollama (Llama 3)
+	optional
+	Бесплатный tier (локальная модель)
+	Storage
+	S3 / DigitalOcean Spaces
+	—
+	Изображения, файлы
+	Frontend Web
+	Next.js 14+ App Router
+	14+
+	Веб-приложение
+	Frontend Web
+	TailwindCSS + shadcn/ui
+	latest
+	UI компоненты
+	Frontend Web
+	Zustand + React Query
+	latest
+	Состояние и кэш
+	Mobile
+	React Native (Expo)
+	0.72+
+	iOS и Android
+	Mobile
+	WatermelonDB
+	latest
+	Локальная БД для offline
+	Auth
+	JWT + OAuth2
+	—
+	Google, Apple, email
+	Payments
+	Stripe
+	latest
+	Подписки и платежи
+	Infra
+	Docker + docker-compose
+	—
+	Dev и prod окружение
+	Monitoring
+	Prometheus + Grafana
+	—
+	Метрики и алерты
+	
+
+2.2 Маршрутизация AI-запросов
+Критически важная логика — выбор модели в зависимости от типа запроса и тарифа пользователя:
+* Free tier → Ollama (Llama 3 локально) — бесплатно
+* Простые вопросы (Student/Pro) → Claude Haiku ($0.00025/1K input) — быстро и дёшево
+* Сложные медицинские вопросы → Claude Sonnet ($0.003/1K input) — высокое качество
+* Экспертный уровень → Claude Opus — только по запросу
+
+
+Экономия: маршрутизация Haiku/Sonnet снижает затраты на AI в 3-5 раз по сравнению с использованием только Sonnet.
+
+
+________________
+
+
+3. База данных — полная схема
+3.1 Ключевые таблицы
+Полный SQL-скрипт создания схемы находится в разделе ТЗ v2.0 (Раздел 2). Claude Code должен реализовать его дословно с учётом корректировок ниже.
+
+
+Таблица users
+Поле
+	Тип
+	Описание
+	id
+	UUID PRIMARY KEY
+	uuid_generate_v4()
+	email
+	VARCHAR(255) UNIQUE
+	Зашифровано (GDPR)
+	role
+	VARCHAR(50)
+	student | resident | doctor | professor | admin
+	subscription_tier
+	VARCHAR(50)
+	free | student | pro | clinic | lifetime
+	subscription_expires
+	TIMESTAMP
+	NULL для lifetime
+	profile_data
+	JSONB
+	{years_of_experience, institution, country, interests}
+	preferences
+	JSONB
+	{daily_goal_minutes, dark_mode, language, vet_mode}
+	ai_requests_today
+	INTEGER DEFAULT 0
+	Счётчик для rate limiting
+	ai_requests_reset_at
+	TIMESTAMP
+	Сброс в полночь
+	
+
+Таблица modules (ядро контента)
+Поле
+	Тип
+	Описание
+	id
+	UUID PRIMARY KEY
+	—
+	code
+	VARCHAR(50) UNIQUE
+	Например: CARDIO-001, THERAPY-006
+	specialty_id
+	UUID → specialties
+	Ссылка на специальность
+	title
+	VARCHAR(300)
+	Название модуля
+	title_ru
+	VARCHAR(300)
+	Русское название
+	module_order
+	INTEGER
+	Порядок в специальности
+	level
+	INTEGER 1-5
+	Сложность (1=базовый, 5=экспертный)
+	is_fundamental
+	BOOLEAN
+	TRUE для BASE-* модулей
+	used_in
+	UUID[]
+	ID специальностей, где используется
+	embedding
+	vector(1536)
+	Для семантического поиска
+	content
+	JSONB
+	Полный JSON-контент модуля
+	is_published
+	BOOLEAN DEFAULT false
+	Видимость пользователям
+	
+
+Таблица user_progress
+Поле
+	Тип
+	Описание
+	user_id + module_id
+	UUID (composite PK)
+	Прогресс пользователя по модулю
+	lessons_completed
+	UUID[]
+	Пройденные уроки
+	flashcards_mastered
+	UUID[]
+	Освоенные флэшкарты
+	mcq_score
+	NUMERIC(5,2)
+	Результат MCQ в процентах
+	completion_percent
+	NUMERIC(5,2)
+	Общий прогресс 0-100
+	next_review_at
+	TIMESTAMP
+	SM-2 алгоритм
+	ease_factor
+	NUMERIC(4,2) DEFAULT 2.5
+	SM-2 ease factor
+	interval_days
+	INTEGER DEFAULT 1
+	SM-2 интервал
+	
+
+Дополнительные таблицы (реализовать полностью)
+* lessons — отдельные уроки с content JSONB, embedding vector(1536)
+* flashcards — карточки с question, answer, difficulty, category
+* mcq_questions — вопросы с options JSONB, correct, explanation
+* clinical_cases — кейсы с presentation, diagnosis, management, teaching_points
+* ai_conversations — история диалогов с AI
+* ai_conversation_messages — сообщения в диалоге
+* user_notes — заметки пользователя к урокам
+* user_bookmarks — закладки
+* user_achievements — достижения (геймификация)
+* cme_credits — CME кредиты для врачей
+* drugs — справочник медикаментов
+* drug_interactions — взаимодействия препаратов
+* animal_species — виды животных для ветеринарии
+* veterinary_dosing — дозировки по видам
+* user_consents — GDPR согласия
+* audit_log — аудит доступа к данным
+
+
+Функции и триггеры
+* calculate_next_review(ease_factor, interval, quality) → TIMESTAMP — SM-2 алгоритм
+* update_module_completion(user_id, module_id) → void — пересчёт прогресса
+* recommend_next_modules(user_id, limit) → UUID[] — рекомендации
+* Триггер updated_at на всех таблицах
+
+
+________________
+
+
+4. Импорт готовых JSON-модулей — КРИТИЧЕСКИЙ ПРИОРИТЕТ
+Это самый важный первый шаг. 70 модулей уже созданы. Они должны быть загружены в БД при первом запуске приложения.
+
+
+4.1 Структура файлов для импорта
+Файлы хранятся в директории /data/modules/ (скопировать из outputs при деплое):
+module_BASE-CARDIO-ANATOMY-001.json
+module_CARDIO-001.json
+... (70 файлов всего)
+
+
+4.2 Скрипт импорта (scripts/import_modules.py)
+Claude Code должен создать и запустить этот скрипт как часть начальной настройки:
+* Читает все module_*.json файлы из директории
+* Для каждого модуля: создаёт запись в таблице modules с полем content = весь JSON
+* Извлекает lessons, flashcards, mcq_questions, clinical_cases в отдельные таблицы
+* Генерирует embeddings для каждого урока через Claude/OpenAI API
+* Помечает модуль is_published = true после успешного импорта
+* Логирует ошибки, не прерывает импорт при единичной ошибке
+* Идемпотентен — повторный запуск обновляет существующие, не дублирует
+
+
+4.3 Соответствие полей JSON → БД
+Поле в JSON
+	Поле в БД
+	Таблица
+	meta.id
+	code
+	modules
+	meta.specialty
+	specialty (lookup)
+	modules
+	meta.title
+	title
+	modules
+	meta.level
+	level
+	modules
+	meta.duration_hours
+	estimated_hours
+	modules
+	meta.prerequisite_modules
+	prerequisites (UUID[])
+	modules
+	lessons[]
+	Отдельные записи
+	lessons
+	flashcards[]
+	Отдельные записи
+	flashcards
+	mcq_questions[]
+	Отдельные записи
+	mcq_questions
+	clinical_cases[]
+	Отдельные записи
+	clinical_cases
+	Весь JSON
+	content (JSONB)
+	modules
+	
+
+________________
+
+
+5. API спецификация
+5.1 Базовая структура
+Базовый URL: /api/v1/
+Аутентификация: Bearer JWT токен в заголовке Authorization
+Формат: JSON, UTF-8
+
+
+5.2 Основные эндпоинты
+Аутентификация (/auth/)
+Метод
+	Путь
+	Описание
+	Auth
+	POST
+	/auth/register
+	Регистрация пользователя
+	—
+	POST
+	/auth/login
+	Вход (email/password)
+	—
+	POST
+	/auth/refresh
+	Обновление токена
+	—
+	GET
+	/auth/oauth/{provider}
+	OAuth (Google, Apple)
+	—
+	POST
+	/auth/logout
+	Выход
+	JWT
+	POST
+	/auth/forgot-password
+	Сброс пароля
+	—
+	
+
+Контент (/modules/, /lessons/, /flashcards/)
+Метод
+	Путь
+	Описание
+	Auth
+	GET
+	/specialties
+	Список специальностей
+	—
+	GET
+	/specialties/{id}/modules
+	Модули специальности
+	—
+	GET
+	/modules/{id}
+	Детали модуля
+	JWT
+	GET
+	/modules/{id}/lessons
+	Уроки модуля
+	JWT
+	GET
+	/lessons/{id}
+	Детали урока
+	JWT
+	GET
+	/modules/{id}/flashcards
+	Флэшкарты модуля
+	JWT
+	GET
+	/modules/{id}/flashcards?due_only=true
+	Флэшкарты к повторению
+	JWT
+	GET
+	/modules/{id}/mcq
+	MCQ-вопросы
+	JWT
+	GET
+	/modules/{id}/cases
+	Клинические кейсы
+	JWT
+	
+
+Прогресс (/progress/)
+Метод
+	Путь
+	Описание
+	POST
+	/progress/lesson/{id}/complete
+	Отметить урок завершённым
+	POST
+	/progress/flashcard/review
+	Оценить флэшкарту (SM-2)
+	POST
+	/progress/mcq/{id}/answer
+	Ответить на MCQ-вопрос
+	GET
+	/progress/stats
+	Общая статистика прогресса
+	GET
+	/progress/modules
+	Прогресс по всем модулям
+	GET
+	/progress/streak
+	Стрик и ежедневные цели
+	GET
+	/progress/weaknesses
+	Слабые места для повторения
+	
+
+AI-тьютор (/ai/)
+Метод
+	Путь
+	Описание
+	POST
+	/ai/ask
+	Задать вопрос AI-тьютору
+	GET
+	/ai/conversations
+	История диалогов
+	GET
+	/ai/conversations/{id}
+	Конкретный диалог
+	POST
+	/ai/conversations/{id}/clear
+	Очистить диалог
+	POST
+	/ai/feedback
+	Оценить ответ (👍/👎)
+	POST
+	/ai/explain/{concept}
+	Объяснение концепта
+	POST
+	/ai/quiz/{topic}
+	Устный экзамен по теме
+	POST
+	/ai/case-discuss/{case_id}
+	Обсуждение клинического кейса
+	
+
+Поиск и рекомендации (/search/)
+Метод
+	Путь
+	Описание
+	GET
+	/search?q={query}
+	Полнотекстовый + векторный поиск
+	GET
+	/search/pubmed?q={query}
+	Поиск в PubMed (прокси)
+	GET
+	/recommendations
+	Рекомендации следующего контента
+	GET
+	/recommendations/daily
+	Ежедневный план обучения
+	
+
+Препараты (/drugs/)
+Метод
+	Путь
+	Описание
+	GET
+	/drugs?q={query}
+	Поиск препаратов
+	GET
+	/drugs/{id}
+	Детали препарата
+	POST
+	/drugs/check-interactions
+	Проверка взаимодействий
+	GET
+	/drugs/{id}/dosing
+	Дозировки для разных групп
+	POST
+	/drugs/calculate-dose
+	Расчёт дозы (вес, возраст, функция почек)
+	
+
+Ветеринария (/veterinary/)
+Метод
+	Путь
+	Описание
+	GET
+	/veterinary/species
+	Список видов животных
+	GET
+	/veterinary/drugs
+	Ветеринарные препараты
+	GET
+	/veterinary/drugs/{id}/dosing/{species_id}
+	Дозировка для вида
+	POST
+	/veterinary/drugs/check-species-safety
+	Безопасность для вида
+	GET
+	/veterinary/zoonoses
+	Зоонозные заболевания
+	PUT
+	/user/veterinary-settings
+	Включить/выключить вет. режим
+	
+
+Дашборд и профиль (/dashboard/, /profile/)
+* GET /dashboard/overview — роль-ориентированный дашборд
+* GET /student/dashboard, /professor/dashboard, /doctor/dashboard
+* GET /doctor/cme-credits — CME кредиты
+* GET /profile, PUT /profile — профиль пользователя
+* GET /notifications, POST /notifications/{id}/read
+* GET /achievements — достижения
+* GET/POST /bookmarks — закладки
+
+
+Администрирование (/admin/)
+* GET/POST /admin/modules — управление модулями
+* POST /admin/modules/generate — генерация нового модуля через Claude
+* POST /admin/modules/import — импорт JSON-файла
+* GET /admin/users — список пользователей
+* GET /admin/analytics — аналитика использования
+* GET /admin/audit-logs — аудит доступа
+
+
+________________
+
+
+6. AI-интеграция
+6.1 Конфигурация Claude API
+Модель
+	Идентификатор
+	Использование
+	Цена (input/1M)
+	Haiku 4.5
+	claude-haiku-4-5-20251001
+	Простые вопросы, частые запросы
+	$0.25
+	Sonnet 4.6
+	claude-sonnet-4-6
+	Сложные медицинские вопросы
+	$3.00
+	Opus 4.6
+	claude-opus-4-6
+	Экспертный уровень (редко)
+	$15.00
+	
+
+6.2 Система промптов (реализовать все)
+Промпты для генерации контента (ContentPrompts)
+* generate_module_structure(specialty, topic, level) — структура модуля
+* generate_lesson_content(specialty, lesson_title, key_concepts, level) — урок
+* generate_flashcards(specialty, topic, count) — флэшкарты
+* generate_mcq_questions(specialty, topic, difficulty, count) — MCQ
+* generate_clinical_case(specialty, topic, difficulty) — клинический кейс
+* generate_branching_case(specialty, topic, difficulty) — интерактивный кейс с ветвлением
+
+
+Промпты для AI-тьютора (TutorPrompts)
+* tutor_system_prompt() — системный промпт (личность, стиль, принципы)
+* explain_concept(concept, level) — объяснение концепта
+* quiz_mode(topic, previous_mistakes) — устный экзамен
+* case_discussion(case_data, user_decision) — обсуждение кейса
+
+
+Промпты для адаптации (AdaptationPrompts)
+* validate_medical_content(content, type) — валидация точности
+* adapt_content_difficulty(content, user_level, performance) — адаптация сложности
+* adapt_human_content_to_vet(content, species) — адаптация под ветеринарию
+
+
+Промпты для справочника препаратов (DrugPrompts)
+* generate_drug_profile(drug_name, specialty) — полный профиль препарата
+* generate_drug_interactions(drug_list) — проверка взаимодействий
+* generate_drug_learning_materials(drug_name, exam_type) — учебные материалы
+
+
+Ветеринарные промпты (VeterinaryPrompts)
+* generate_vet_module_structure(specialty, topic, species, level) — ветеринарный модуль
+* adapt_human_content_to_vet(human_content, species) — адаптация контента
+* parse_drug_data(source, raw_data) — обработка ветеринарных данных
+
+
+6.3 Логика маршрутизации запросов
+Реализовать в services/ai_router.py:
+* Проверить тариф пользователя и дневной лимит
+* Free tier → перенаправить на Ollama (если доступен) или вернуть ошибку
+* Определить сложность запроса (простой/сложный) по ключевым словам
+* Простой запрос + Student/Pro → Haiku
+* Сложный медицинский запрос → Sonnet
+* Проверить кэш Redis (TTL 24 часа для информационных ответов)
+* При кэш-попадании → вернуть из кэша (бесплатно)
+* Записать запрос в ai_conversations, обновить счётчик ai_requests_today
+
+
+6.4 Интеграция с PubMed
+Реализовать services/pubmed_integration.py с методами:
+* search_articles(query, max_results, sort) — поиск статей
+* fetch_articles_details(pmids) — детали по PMID
+* Кэшировать результаты в Redis (TTL 7 дней)
+* Ограничение: 3 запроса/сек без ключа, 10/сек с NCBI API key
+
+
+________________
+
+
+7. Фронтенд — структура и компоненты
+7.1 Структура Next.js проекта
+app/
+  layout.tsx                 — корневой layout
+  page.tsx                   — лендинг/главная
+  (auth)/
+    login/page.tsx
+    register/page.tsx
+    onboarding/page.tsx      — онбординг нового пользователя
+  (app)/
+    dashboard/page.tsx       — дашборд (роль-ориентированный)
+    modules/[id]/page.tsx    — просмотр модуля
+    lessons/[id]/page.tsx    — просмотр урока
+    flashcards/page.tsx      — повторение флэшкарт
+    ai-tutor/page.tsx        — AI-тьютор
+    cases/page.tsx           — клинические кейсы
+    drugs/page.tsx           — справочник препаратов
+    progress/page.tsx        — прогресс и аналитика
+    settings/page.tsx        — настройки профиля
+  admin/
+    modules/page.tsx         — управление контентом
+    users/page.tsx           — пользователи
+
+
+7.2 Ключевые компоненты
+Обучение
+* FlashcardReview — карточка с переворотом, оценка 1-5, прогресс-бар
+* MCQQuiz — вопрос с вариантами, объяснение после ответа
+* ClinicalCase — интерактивный кейс с ветвлением решений
+* LessonReader — урок с разметкой, ключевыми моментами, клиническими жемчужинами
+* NextReview — виджет 'что повторить сегодня'
+
+
+AI-тьютор
+* AIAssistant — чат с AI, история сообщений, streaming ответов
+* ModeSelector — режимы: Объяснение / Экзамен / Кейс / Поиск
+* PubMedPanel — результаты поиска статей с live индикатором
+* FeedbackButtons — 👍 / 👎 с опциональным комментарием
+
+
+Навигация и дашборд
+* Sidebar — тёмный сайдбар с навигацией (как в демо)
+* RoleBasedDashboard — StudentDashboard / DoctorDashboard / ProfessorDashboard
+* SpecialtiesGrid — сетка специальностей с прогрессом
+* LearningStats — XP, стрик, цель дня, точность
+
+
+Геймификация
+* XPBar — прогресс-бар опыта в хедере
+* AchievementToast — всплывающее уведомление о достижении
+* Leaderboard — таблица лидеров (глобальная, по специальности)
+
+
+Ветеринарный режим
+* VeterinaryToggle — переключатель вет. режима
+* SpeciesSelector — выбор вида животного
+* DoseCalculator — калькулятор дозы с видовыми предупреждениями
+
+
+Препараты
+* DrugSearch — поиск с автодополнением, фильтры
+* DrugCard — карточка препарата (Black Box Warning, NTI, High Yield)
+* InteractionChecker — проверка нескольких препаратов на взаимодействия
+
+
+Комплаенс
+* ConsentManager — управление GDPR согласиями
+* DataExport — экспорт персональных данных
+
+
+________________
+
+
+8. Онбординг и геймификация
+8.1 Персонализированный онбординг
+При первом входе пользователь проходит 5-шаговый онбординг:
+1. Кто вы? (student / resident / doctor / professor)
+2. Ваша цель? (exam_prep / cme_credits / stay_updated / general_knowledge)
+3. Интересующие специальности (мультивыбор, до 5)
+4. Сколько времени в день? (10 / 20 / 30 / 45 / 60 минут)
+5. Генерация персонального Welcome Plan через Claude API
+
+
+Welcome Plan включает: приветственное сообщение, задачи на первые 24ч, фокус недели 1 и 2, критерии успеха.
+
+
+8.2 Система XP и уровней
+Действие
+	XP
+	Условие
+	Урок завершён
+	+50 XP
+	—
+	Флэшкарта правильно
+	+5 XP
+	Бонус +1 XP за каждые 10 подряд
+	MCQ-вопрос верно
+	+10 XP
+	+20 XP за сложный вопрос
+	Клинический кейс решён
+	+100 XP
+	—
+	Дневная цель достигнута
+	+25 XP бонус
+	—
+	7-дневный стрик
+	+100 XP бонус
+	—
+	AI взаимодействие полезно
+	+2 XP
+	По факту 👍
+	
+
+Уровень
+	Название
+	XP требуется
+	1
+	Novice
+	0
+	2
+	Learner
+	500
+	3
+	Resident
+	2,000
+	4
+	Specialist
+	5,000
+	5
+	Expert
+	12,000
+	6
+	Master
+	25,000
+	
+
+8.3 Достижения
+* streak_7 — 7 дней подряд в приложении
+* streak_30 — 30 дней активности (редкий значок)
+* module_master — 100% по любому модулю
+* flashcard_champion — 500 карточек с рейтингом 4-5
+* polyglot — изучено 3+ специальности
+* deep_diver — 5 уровней в одной теме
+
+
+________________
+
+
+9. Мобильное приложение и Offline-режим
+9.1 Архитектура React Native
+* Expo SDK 50+ для кросс-платформенной разработки
+* WatermelonDB — локальная SQLite БД для offline-first
+* Синхронизация при запуске, при возврате из фона, каждые 30 мин
+* Очередь исходящих действий (sync_queue) при отсутствии интернета
+
+
+9.2 Что кэшируется локально
+* Последние 10 просмотренных уроков + 5 рекомендованных
+* Все флэшкарты с due_date <= сегодня + 7 дней вперёд
+* Пул из 50 MCQ-вопросов для offline практики
+* Пользовательский прогресс (синхронизируется при подключении)
+* Лимит кэша: 500 МБ. Вытеснение по LRU + приоритету
+
+
+9.3 Разрешение конфликтов
+* Прогресс обновлён на двух устройствах → most_recent_wins + слияние метрик
+* Заметки edited offline → конкатенация с временными метками
+* Ошибка 409 (конфликт) → server_wins + уведомление пользователя
+
+
+________________
+
+
+10. Безопасность и комплаенс
+10.1 Шифрование данных
+* Email пользователей: шифровать в БД (Fernet/AES-256)
+* Пароли: bcrypt с cost factor 12
+* JWT: HS256, access token TTL 15 мин, refresh 30 дней
+* Все соединения: HTTPS/TLS 1.3
+* Ключи шифрования: ротация каждые 90 дней
+
+
+10.2 Rate Limiting
+Тариф
+	AI запросов/день
+	API запросов/мин
+	Free
+	5
+	30
+	Student
+	50
+	60
+	Pro
+	Безлимит
+	120
+	Clinic
+	Безлимит (10 пользователей)
+	120 на пользователя
+	
+
+10.3 GDPR
+* Таблица user_consents с типами: data_processing, analytics, marketing
+* Эндпоинт GET /compliance/export-data — экспорт всех данных пользователя
+* Эндпоинт POST /compliance/delete-account — анонимизация при удалении
+* Аудит-лог доступа к медицинским данным
+* Политика конфиденциальности и HIPAA-дисклеймер
+
+
+10.4 HIPAA-дисклеймер (важно!)
+MedMind AI — ОБРАЗОВАТЕЛЬНЫЙ инструмент. Не является медицинским устройством, не предназначен для постановки диагнозов. Все AI-ответы требуют верификации врачом. Этот дисклеймер должен быть виден при каждом AI-взаимодействии.
+
+
+________________
+
+
+11. План разработки по фазам
+Порядок фаз оптимизирован с учётом того, что контент (70 модулей) уже готов. Фаза 3 — импорт, не генерация.
+
+
+Фаза
+	Название
+	Недели
+	Результат
+	0
+	Подготовка окружения
+	1
+	Docker, репозиторий, API ключи
+	1
+	База данных
+	2-3
+	PostgreSQL + pgvector, полная схема
+	2
+	Аутентификация
+	4
+	JWT, OAuth, роли, профили
+	3
+	ИМПОРТ 70 МОДУЛЕЙ
+	5
+	Весь контент в БД (КРИТИЧНО)
+	4
+	API контента
+	6
+	Эндпоинты для модулей, уроков, кейсов
+	4.5
+	Справочник препаратов
+	7
+	БД препаратов, проверка взаимодействий
+	5
+	AI-тьютор
+	8-9
+	Claude API, промпты, кэш, история
+	6
+	Прогресс и SM-2
+	10
+	Флэшкарты, интервальное повторение
+	7
+	Поиск и рекомендации
+	11
+	pgvector поиск, PubMed
+	4.6
+	Ролевые дашборды
+	12
+	Student / Doctor / Professor дашборды
+	4.7
+	Ветеринарный режим
+	13
+	Виды животных, дозировки, адаптация
+	4.8
+	Ветеринарные источники
+	14
+	FDA CVM, WSAVA, зоонозы
+	8
+	Геймификация и онбординг
+	15
+	XP, достижения, Welcome Plan
+	9
+	Мобильное приложение
+	16-17
+	React Native, offline, синхронизация
+	10
+	Монетизация и запуск
+	18-19
+	Stripe, маркетинговый сайт, деплой
+	
+
+________________
+
+
+12. Промпты для Claude Code — как запускать каждую фазу
+Каждый промпт ниже — готовый запрос для Claude Code. Копировать и выполнять последовательно.
+
+
+Фаза 0: Подготовка
+Создай структуру проекта MedMind AI. Технологический стек: FastAPI (Python 3.11), PostgreSQL 15 + pgvector, Redis 7, Next.js 14. Создай docker-compose.yml, .env.example, базовую структуру папок для backend (/app/api, /app/services, /app/models, /app/core) и frontend (/app, /components, /lib). Настрой pre-commit hooks (black, flake8, mypy для Python; prettier, eslint для TypeScript).
+
+
+Фаза 1: База данных
+Создай полную схему базы данных для MedMind AI. PostgreSQL 15 с расширениями pgvector, pg_trgm, btree_gin. Таблицы: users, specialties, modules, lessons, flashcards, mcq_questions, clinical_cases, user_progress, ai_conversations, ai_conversation_messages, user_notes, user_bookmarks, user_achievements, cme_credits, drugs, drug_interactions, animal_species, veterinary_dosing, user_consents, audit_log. Добавь: триггеры updated_at, функцию calculate_next_review() для SM-2 алгоритма, функцию recommend_next_modules(), все необходимые индексы включая векторные для pgvector. Создай Alembic миграции.
+
+
+Фаза 2: Аутентификация
+Реализуй систему аутентификации для FastAPI. JWT токены (access 15 мин, refresh 30 дней). Хеширование bcrypt cost=12. OAuth через Google и Apple (PKCE flow). Rate limiting на /auth/login (5 попыток/мин). Роли: student, resident, doctor, professor, admin. Middleware для проверки токена и роли. Эндпоинты: /auth/register, /auth/login, /auth/refresh, /auth/oauth/{provider}, /auth/logout, /auth/forgot-password. Pydantic v2 схемы для всех запросов/ответов.
+
+
+Фаза 3: ИМПОРТ КОНТЕНТА (КРИТИЧНО)
+Создай скрипт scripts/import_modules.py. Он должен: читать все файлы module_*.json из директории /data/modules/; для каждого файла создавать запись в таблице modules (code из meta.id, title, specialty через lookup, level, estimated_hours, is_fundamental, content = весь JSON); извлекать lessons[], flashcards[], mcq_questions[], clinical_cases[] в соответствующие таблицы; генерировать embeddings для lessons через Claude API (claude-haiku-4-5-20251001) и сохранять в поле embedding (vector 1536); помечать is_published=true после успешного импорта. Скрипт должен быть идемпотентен (повторный запуск = update, не duplicate). Добавить прогресс-бар и подробное логирование.
+
+
+Фаза 5: AI-тьютор
+Реализуй AI-тьютора MedMind. Клиент Claude API с маршрутизацией: Free → Ollama, простые вопросы → claude-haiku-4-5-20251001, сложные медицинские → claude-sonnet-4-6. Кэш Redis (TTL 24ч для информационных ответов, хеш от prompt+model). Режимы: объяснение концепта, ответы на вопросы, устный экзамен, обсуждение кейса. Системный промпт: опытный преподаватель медицины, точность и EBM, адаптация к уровню. Контекст пользователя: что изучил, слабые места. Сохранение истории в ai_conversations. Rate limiting по тарифу (5/50/безлимит запросов/день). Streaming ответов через SSE. HIPAA-дисклеймер в каждом ответе.
+
+
+Фаза 9: Мобильное приложение
+Создай React Native (Expo SDK 50) приложение MedMind. Offline-first с WatermelonDB (SQLite). Синхронизация при запуске, возврате из фона, каждые 30 мин. Очередь исходящих действий sync_queue с retry. Кэшировать: последние 10 уроков + 5 рекомендованных, флэшкарты due_date <= +7 дней, 50 MCQ для offline. LRU вытеснение, лимит 500 МБ. Push-уведомления (напоминания о повторении). Общие компоненты: FlashcardReview, AIAssistant (с offline заглушкой), ProgressStats. Навигация: Expo Router.
+
+
+________________
+
+
+13. Полная структура проекта
+medmind-ai/
+├── backend/
+│   ├── app/
+│   │   ├── api/v1/
+│   │   │   ├── routers/
+│   │   │   │   ├── auth.py
+│   │   │   │   ├── modules.py
+│   │   │   │   ├── lessons.py
+│   │   │   │   ├── flashcards.py
+│   │   │   │   ├── ai.py
+│   │   │   │   ├── progress.py
+│   │   │   │   ├── search.py
+│   │   │   │   ├── drugs.py
+│   │   │   │   ├── veterinary.py
+│   │   │   │   ├── dashboard.py
+│   │   │   │   ├── compliance.py
+│   │   │   │   └── admin.py
+│   │   ├── services/
+│   │   │   ├── ai_router.py       — маршрутизация запросов
+│   │   │   ├── claude_service.py  — Claude API клиент
+│   │   │   ├── pubmed_service.py  — PubMed интеграция
+│   │   │   ├── drug_service.py    — справочник препаратов
+│   │   │   ├── vet_service.py     — ветеринарный сервис
+│   │   │   ├── progress_service.py
+│   │   │   ├── search_service.py
+│   │   │   └── notification_service.py
+│   │   ├── models/                — SQLAlchemy модели
+│   │   ├── schemas/               — Pydantic схемы
+│   │   ├── core/
+│   │   │   ├── config.py
+│   │   │   ├── security.py        — JWT, bcrypt
+│   │   │   ├── database.py        — async SQLAlchemy
+│   │   │   └── redis.py
+│   │   └── prompts/               — все промпты
+│   │       ├── content_prompts.py
+│   │       ├── tutor_prompts.py
+│   │       ├── drug_prompts.py
+│   │       └── vet_prompts.py
+│   ├── alembic/                   — миграции
+│   ├── scripts/
+│   │   └── import_modules.py      — импорт JSON контента
+│   ├── data/modules/              — 70 JSON-файлов
+│   └── tests/
+├── frontend/
+│   ├── app/                       — Next.js App Router
+│   ├── components/
+│   │   ├── ai/                    — AIAssistant
+│   │   ├── learning/              — FlashcardReview, MCQQuiz
+│   │   ├── dashboard/             — RoleBasedDashboard
+│   │   ├── drugs/                 — DrugSearch, InteractionChecker
+│   │   ├── veterinary/            — VeterinaryToggle, DoseCalculator
+│   │   └── compliance/            — ConsentManager
+│   └── lib/                       — хуки, утилиты, API клиент
+├── mobile/                        — React Native (Expo)
+├── docker-compose.yml
+├── .env.example
+└── README.md
+
+
+________________
+
+
+14. Переменные окружения (.env)
+Переменная
+	Описание
+	Обязательно
+	DATABASE_URL
+	postgresql+asyncpg://...
+	✅
+	REDIS_URL
+	redis://localhost:6379
+	✅
+	ANTHROPIC_API_KEY
+	Ключ Claude API
+	✅
+	JWT_SECRET_KEY
+	Секрет для JWT (min 32 chars)
+	✅
+	GOOGLE_CLIENT_ID
+	OAuth Google
+	⚡ Рекомендуется
+	APPLE_CLIENT_ID
+	OAuth Apple
+	⚡ Рекомендуется
+	STRIPE_SECRET_KEY
+	Stripe платежи
+	⚡ Для монетизации
+	PUBMED_API_KEY
+	NCBI API key (бесплатно)
+	⚡ Рекомендуется
+	AWS_S3_BUCKET
+	S3 для хранения файлов
+	⚡ Для медиа
+	ENCRYPTION_KEY
+	Fernet ключ для email шифрования
+	✅
+	OLLAMA_URL
+	http://localhost:11434 для Free tier
+	⚠️ Опционально
+	OPENAI_API_KEY
+	Для embeddings (альтернатива)
+	⚠️ Опционально
+	NCBI_API_KEY
+	PubMed ключ (10 запросов/сек)
+	⚡ Рекомендуется
+	
+
+________________
+
+
+15. Требования к тестированию
+15.1 Backend тесты (pytest)
+* Шифрование: поле email хранится в зашифрованном виде, дешифруется корректно
+* Аутентификация: роли, refresh токены, rate limiting логина
+* GDPR: экспорт данных, анонимизация при удалении
+* AI маршрутизация: Free tier → Ollama, правильная модель по сложности
+* SM-2 алгоритм: расчёт следующей даты повторения
+* Ролевой доступ: студент не видит профиль другого, только admin — аудит-логи
+
+
+15.2 Frontend тесты
+* FlashcardReview: правильный SM-2 rating, переключение карточек
+* AIAssistant: отправка сообщений, отображение streaming, обратная связь
+* SpeciesSelector: фильтрация по категориям, предупреждения о токсичности
+
+
+________________
+
+
+16. Критические требования — не упустить
+Эти пункты должны быть реализованы правильно с первого раза. Ошибки здесь критичны.
+
+
+16.1 Медицинская точность
+* HIPAA-дисклеймер в каждом AI-ответе — не диагностический инструмент
+* AI не должен давать конкретные дозировки без оговорки о проверке врачом
+* Клинические кейсы — образовательные, не для реальных пациентов
+
+
+16.2 Безопасность
+* Никогда не хранить API ключи в коде (только .env)
+* Все SQL запросы через parameterized queries (нет конкатенации строк)
+* Sanitize все входные данные перед передачей в AI промпты
+* Логировать попытки несанкционированного доступа
+
+
+16.3 Производительность
+* Кэшировать AI ответы в Redis — одинаковые вопросы не оплачиваются дважды
+* Пагинация во всех списках (по умолчанию limit=20)
+* Ленивая загрузка тяжёлого контента (embeddings, изображения)
+* Индексы на все поля используемые в WHERE и JOIN
+
+
+16.4 Ветеринарный режим
+* Дозировки для разных видов — РАЗНЫЕ. Не путать кошку и собаку
+* Предупреждение о токсичности (например: парацетамол токсичен для кошек)
+* Препараты одобренные для людей могут быть запрещены для животных
+
+
+16.5 Контент
+* 70 JSON-модулей ОБЯЗАТЕЛЬНО импортировать при первом запуске
+* Не генерировать контент заново — он уже создан и проверен
+* При добавлении новых модулей — использовать тот же JSON формат
+
+
+________________
+
+
+17. Деплой
+17.1 Минимальный деплой (MVP)
+* VPS с 4 CPU, 8 GB RAM — достаточно для старта
+* Docker Compose: postgres + pgvector, redis, fastapi, nextjs
+* Nginx как reverse proxy + SSL (Let's Encrypt)
+* GitHub Actions CI/CD: lint → test → build → deploy
+
+
+17.2 Масштабирование
+* Kubernetes: при >1000 DAU
+* AWS RDS для PostgreSQL (Multi-AZ)
+* ElastiCache для Redis
+* CloudFront CDN для статики
+* Prometheus + Grafana для мониторинга
+
+
+17.3 Порядок запуска (первый деплой)
+6. docker-compose up -d postgres redis
+7. alembic upgrade head (применить миграции)
+8. python scripts/import_modules.py (импортировать 70 модулей)
+9. docker-compose up -d fastapi
+10. Проверить /api/v1/modules — должны вернуться 70 модулей
+11. docker-compose up -d nextjs
+12. Настроить Nginx и SSL
+
+
+________________
+
+
+Приложение A: Реестр готовых модулей
+Все 70 модулей готовы к импорту. Список для проверки после импорта:
+
+
+Базовые дисциплины (8 модулей)
+* BASE-CARDIO-ANATOMY-001 — Анатомия и физиология ССС
+* BASE-RESP-PHYSIO-002 — Физиология дыхательной системы
+* BASE-NEURO-ANATOMY-003 — Анатомия нервной системы
+* BASE-PHARMA-001 — Клиническая фармакология
+* BASE-LAB-DIAGNOSTICS-005 — Лабораторная диагностика
+* BASE-ECG-006 — ЭКГ — систематический подход
+* BASE-RADIOLOGY-007 — Лучевая диагностика
+* BASE-EMERGENCY-008 — Неотложные состояния
+
+
+Кардиология (10 модулей: CARDIO-001...010)
+* ИБС и острый коронарный синдром, Сердечная недостаточность, Аритмии
+* Артериальная гипертензия, Клапанные пороки, Кардиомиопатии
+* Перикардит, Лёгочная гипертензия, Аорта и периферические сосуды, ВПС у взрослых
+
+
+Терапия / Internal Medicine (12 модулей: THERAPY-001...012)
+* Пульмонология, Гастроэнтерология, Нефрология, Эндокринология
+* Ревматология, Гематология, Инфекционные болезни, Неврология в терапии
+* Онкология в терапии, Дерматология в терапии, Профессиональная медицина, Клиническая фармакология
+
+
+Неврология (10 модулей: NEURO-001...010)
+* Инсульт, Эпилепсия, Головная боль, Нейродегенеративные болезни
+* Рассеянный склероз, Нейроинфекции, Нарушения движения
+* Нервно-мышечные болезни, Расстройства сна и боль, Черепно-мозговая травма
+
+
+Хирургия (10 модулей: SURG-001...010)
+* Острый живот, Хирургия желудка и пищевода, Поджелудочная и желчный
+* Колоректальная хирургия, Сосудистая хирургия, Травматология
+* Грудная хирургия, Урологическая и эндокринная, Хирургические инфекции, Пластическая хирургия
+
+
+Педиатрия (11 модулей: PEDS-001...011)
+* Неонатология, Детские инфекции, Детская кардиология, Педиатрическая пульмонология
+* Гастроэнтерология и питание, Неврология детского возраста, Педиатрическая эндокринология
+* Нефрология и онкология, Педиатрическая ортопедия, Детская психиатрия, (+ 1 модуль)
+
+
+Акушерство и гинекология (9 модулей: OB-001...009)
+* Нормальная беременность, Ведение родов, Гинекология (ВЗОМТ, эндометриоз, СПКЯ)
+* Гинекологическая онкология, Бесплодие и менопауза, Осложнения беременности
+* ЗВРП и кровотечения, Урогинекология, Внематочная беременность и трофобластическая болезнь
+
+
+В разработке (ещё не созданы)
+* Психиатрия: PSYCH-001...008 (~8 модулей)
+* Анестезиология: ANES-001...007 (~7 модулей)
+* Онкология: ONC-001...008 (~8 модулей)
+* Дерматология: DERM-001...007 (~7 модулей)
+* Ветеринария: VET-001...016 (~16 модулей, 6 специальностей)
+
+
+Конец технического задания MedMind AI v3.0

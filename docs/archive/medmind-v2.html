@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedMind AI — Medical Education Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0ede8;--bg2:#e8e4de;--surface:#ffffff;--surface2:#f7f4f0;
+  --border:#d8d2c8;--border2:#c8c0b4;
+  --ink:#1a1814;--ink2:#4a453e;--ink3:#8a8278;
+  --red:#c0392b;--red2:#e74c3c;--red-light:#fdf0ef;
+  --blue:#1a4a7a;--blue2:#2980b9;--blue-light:#eef4fb;
+  --green:#1a6a3a;--green2:#27ae60;--green-light:#edfaf3;
+  --amber:#8a5a00;--amber2:#d4a030;--amber-light:#fdf8ec;
+  --shadow:rgba(26,24,20,.08);--shadow2:rgba(26,24,20,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Source Serif 4',serif;min-height:100vh;overflow-x:hidden}
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:255px;background:var(--ink);color:white;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+/* SIDEBAR */
+.logo-area{padding:22px 18px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.logo{font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:800;color:white;letter-spacing:-.02em}
+.logo span{color:#e8c97a}
+.logo-sub{font-size:.62rem;color:rgba(255,255,255,.35);letter-spacing:.2em;text-transform:uppercase;margin-top:2px}
+.nav{padding:14px 10px;flex:1}
+.nav-sec{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:0 8px;margin:14px 0 5px}
+.nitem{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:5px;cursor:pointer;transition:all .15s;color:rgba(255,255,255,.55);font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.02em;margin-bottom:1px;border:none;background:none;width:100%;text-align:left}
+.nitem:hover{background:rgba(255,255,255,.08);color:white}
+.nitem.active{background:rgba(232,201,122,.15);color:#e8c97a}
+.nitem .ico{font-size:.95rem;width:18px;text-align:center}
+.nitem .badge{margin-left:auto;background:var(--red2);color:white;font-size:.58rem;padding:1px 5px;border-radius:8px}
+.prof-area{padding:14px 10px;border-top:1px solid rgba(255,255,255,.1)}
+.prof{display:flex;align-items:center;gap:9px}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#e8c97a,#c9a84c);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--ink);flex-shrink:0}
+.prof-name{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;color:white}
+.prof-role{font-size:.6rem;color:rgba(255,255,255,.38);letter-spacing:.04em}
+/* HEADER */
+.hdr{padding:14px 26px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
+.hdr-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink)}
+.hdr-sub{font-size:.75rem;color:var(--ink3);margin-top:1px}
+.hdr-acts{margin-left:auto;display:flex;gap:7px;align-items:center}
+.hbtn{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:600;padding:.42rem .9rem;border:1px solid var(--border2);background:var(--surface2);color:var(--ink2);cursor:pointer;border-radius:4px;transition:all .15s}
+.hbtn:hover{border-color:var(--ink);color:var(--ink)}
+.hbtn.pri{background:var(--ink);color:white;border-color:var(--ink)}
+.hbtn.pri:hover{background:#2a2520}
+/* PUBMED STATUS BADGE */
+.pm-status{display:flex;align-items:center;gap:5px;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:600;padding:4px 9px;border-radius:20px;border:1px solid var(--green2);color:var(--green);background:var(--green-light)}
+.pm-dot{width:6px;height:6px;border-radius:50%;background:var(--green2);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.pm-status.searching{border-color:var(--amber2);color:var(--amber);background:var(--amber-light)}
+.pm-status.searching .pm-dot{background:var(--amber2)}
+/* SPEC + MODE */
+.spec-wrap{padding:12px 26px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+.slbl{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--ink3);margin-bottom:7px}
+.srow{display:flex;gap:5px;flex-wrap:wrap}
+.sbtn{font-family:'Syne',sans-serif;font-size:.67rem;font-weight:600;padding:4px 10px;border:1px solid var(--border2);background:var(--surface2);color:var(--ink2);cursor:pointer;border-radius:16px;transition:all .15s}
+.sbtn:hover{border-color:var(--ink);color:var(--ink)}
+.sbtn.active{background:var(--ink);color:white;border-color:var(--ink)}
+.mode-row{display:flex;gap:8px;padding:10px 26px;background:var(--surface2);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto}
+.mcard{flex:1;min-width:120px;padding:10px 12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;border-radius:6px;transition:all .18s;text-align:center}
+.mcard:hover{border-color:var(--ink)}
+.mcard.active{border-color:var(--red);background:var(--red-light)}
+.mcard-ico{font-size:1.2rem;margin-bottom:4px}
+.mcard-name{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;color:var(--ink)}
+.mcard-desc{font-size:.6rem;color:var(--ink3);margin-top:2px;line-height:1.35}
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px 26px;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;animation:fu .22s ease-out}
+@keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.msg.user{flex-direction:row-reverse}
+.mav{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.msg.ai .mav{background:linear-gradient(135deg,var(--red),#a02020);color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem}
+.msg.user .mav{background:linear-gradient(135deg,var(--blue),#1a3060);color:white}
+.mbody{max-width:74%;display:flex;flex-direction:column;gap:3px}
+.msg.user .mbody{align-items:flex-end}
+.mbub{padding:11px 15px;border-radius:10px;font-size:.875rem;line-height:1.65;position:relative}
+.msg.ai .mbub{background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:2px;color:var(--ink)}
+.msg.user .mbub{background:var(--ink);color:white;border-bottom-right-radius:2px}
+.mbub h3{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;margin:10px 0 4px;color:var(--red)}
+.mbub h3:first-child{margin-top:0}
+.mbub ul,.mbub ol{padding-left:16px;margin:5px 0}
+.mbub li{margin-bottom:3px;font-size:.855rem}
+.mbub strong{font-weight:600}
+.mbub em{font-style:italic;color:var(--ink2)}
+.mbub code{background:var(--surface2);padding:1px 4px;border-radius:2px;font-family:monospace;font-size:.8rem;color:var(--red)}
+.mbub p{margin-bottom:6px}
+.mbub p:last-child{margin-bottom:0}
+/* PUBMED REFS PANEL */
+.refs-panel{margin-top:10px;padding:10px 12px;background:var(--blue-light);border:1px solid #c0d8f0;border-radius:6px;font-size:.75rem}
+.refs-title{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.ref-item{padding:6px 0;border-bottom:1px solid #d0e4f4;display:flex;flex-direction:column;gap:2px}
+.ref-item:last-child{border-bottom:none;padding-bottom:0}
+.ref-title{color:var(--blue);font-weight:600;line-height:1.35}
+.ref-meta{color:var(--ink3);font-size:.68rem}
+.ref-link{color:var(--blue2);text-decoration:none;font-size:.68rem}
+.ref-link:hover{text-decoration:underline}
+/* SEARCH PROGRESS */
+.search-progress{padding:10px 15px;background:var(--amber-light);border:1px solid var(--amber2);border-radius:8px;border-bottom-left-radius:2px;font-size:.8rem;color:var(--amber);display:flex;align-items:center;gap:8px}
+.spin{width:14px;height:14px;border:2px solid var(--amber2);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* TYPING */
+.typing{display:flex;align-items:center;gap:4px;padding:10px 15px;background:var(--surface);border:1px solid var(--border);border-radius:10px;border-bottom-left-radius:2px;width:fit-content}
+.typing span{width:5px;height:5px;border-radius:50%;background:var(--ink3);animation:dot 1.2s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+/* INPUT */
+.cin-area{padding:14px 26px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0}
+.qps{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.qp{font-size:.68rem;padding:4px 9px;border:1px solid var(--border2);background:var(--surface2);color:var(--ink2);cursor:pointer;border-radius:16px;transition:all .15s;font-family:'Syne',sans-serif;font-weight:600;white-space:nowrap}
+.qp:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+.irow{display:flex;gap:7px;align-items:flex-end}
+.ibox{flex:1;background:var(--surface2);border:1px solid var(--border2);padding:9px 13px;font-family:'Source Serif 4',serif;font-size:.875rem;color:var(--ink);outline:none;resize:none;border-radius:5px;transition:border-color .15s;min-height:42px;max-height:110px}
+.ibox:focus{border-color:var(--ink)}
+.sbtn2{width:42px;height:42px;background:var(--ink);color:white;border:none;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s;flex-shrink:0}
+.sbtn2:hover{background:var(--red)}
+.sbtn2:disabled{background:var(--border2);cursor:not-allowed}
+/* FLASHCARDS */
+.fc-area{display:flex;flex-direction:column;align-items:center;padding:20px 26px;gap:14px;overflow-y:auto;flex:1}
+.fc-prog{width:100%;max-width:580px;background:var(--border);height:3px;border-radius:2px}
+.fc-prog-fill{height:100%;background:var(--red);border-radius:2px;transition:width .3s}
+.flashcard{width:100%;max-width:580px;min-height:260px;background:var(--surface);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;cursor:pointer;transition:all .22s;box-shadow:0 3px 16px var(--shadow);position:relative;overflow:hidden}
+.flashcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red2))}
+.flashcard:hover{box-shadow:0 7px 26px var(--shadow2);transform:translateY(-2px)}
+.fc-cat{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.fc-q{font-size:1rem;line-height:1.6;color:var(--ink)}
+.fc-a{font-size:.88rem;line-height:1.65;color:var(--ink2);margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:none}
+.fc-a.show{display:block}
+.fc-hint{font-size:.68rem;color:var(--ink3);margin-top:16px;font-style:italic}
+.fc-acts{display:flex;gap:8px;margin-top:10px}
+.fcb{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:.55rem 1.2rem;border:none;border-radius:5px;cursor:pointer;transition:all .15s;letter-spacing:.04em}
+.fcb.easy{background:var(--green-light);color:var(--green);border:1px solid var(--green2)}.fcb.easy:hover{background:var(--green2);color:white}
+.fcb.hard{background:var(--amber-light);color:var(--amber);border:1px solid var(--amber2)}.fcb.hard:hover{background:var(--amber2);color:white}
+.fcb.fail{background:var(--red-light);color:var(--red);border:1px solid var(--red2)}.fcb.fail:hover{background:var(--red2);color:white}
+.fcb.rev{background:var(--ink);color:white;padding:.55rem 1.8rem}.fcb.rev:hover{background:var(--red)}
+/* CASE */
+.case-hdr{background:linear-gradient(135deg,var(--red) 0%,#8a1a1a 100%);color:white;padding:18px 22px;border-radius:7px;margin-bottom:16px}
+.case-lbl{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.65;margin-bottom:3px;font-family:'Syne',sans-serif}
+.case-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700}
+.vitals{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;margin:14px 0}
+.vital{background:var(--surface);border:1px solid var(--border);padding:10px;border-radius:5px}
+.vl{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);font-family:'Syne',sans-serif;font-weight:600}
+.vv{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-top:2px}
+.vv.ab{color:var(--red)}.vv.ok{color:var(--green2)}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.scard{background:var(--surface);border:1px solid var(--border);padding:16px;border-radius:7px}
+.sc-lbl{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--ink3);margin-bottom:5px}
+.sc-val{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--ink)}
+.sc-sub{font-size:.72rem;color:var(--ink3);margin-top:2px}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+/* LOADER */
+.loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;gap:14px;transition:opacity .4s}
+.loader.hide{opacity:0;pointer-events:none}
+.llogo{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--ink)}
+.llogo span{color:var(--red)}
+.lbar{width:180px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.lfill{height:100%;background:var(--red);animation:lf 1.6s ease-in-out forwards}
+@keyframes lf{from{width:0}to{width:100%}}
+@media(max-width:768px){.sidebar{display:none}.chat-msgs{padding:12px 14px}.cin-area{padding:10px 14px}.spec-wrap,.mode-row{padding:10px 14px}.hdr{padding:10px 14px}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader">
+  <div class="llogo">Med<span>Mind</span></div>
+  <div style="font-size:.7rem;color:var(--ink3);letter-spacing:.2em;text-transform:uppercase">AI · PubMed · Evidence-Based</div>
+  <div class="lbar"><div class="lfill"></div></div>
+</div>
+
+<div class="app">
+<div class="sidebar">
+  <div class="logo-area">
+    <div class="logo">Med<span>Mind</span></div>
+    <div class="logo-sub">AI Education Platform</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-sec">Learn</div>
+    <button class="nitem active" onclick="showTab('tutor')"><span class="ico">🧠</span> AI Tutor</button>
+    <button class="nitem" onclick="showTab('cases')"><span class="ico">🩺</span> Clinical Cases</button>
+    <button class="nitem" onclick="showTab('flash')"><span class="ico">📇</span> Flashcards</button>
+    <div class="nav-sec">Reference</div>
+    <button class="nitem" onclick="showTab('drugs')"><span class="ico">💊</span> Drug Database</button>
+    <div class="nav-sec">Track</div>
+    <button class="nitem" onclick="showTab('progress')"><span class="ico">📊</span> Progress</button>
+  </nav>
+  <div class="prof-area">
+    <div class="prof">
+      <div class="av">DR</div>
+      <div>
+        <div class="prof-name">Dr. Resident</div>
+        <div class="prof-role">Internal Medicine · Y2</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title" id="ptitle">AI Medical Tutor</div>
+      <div class="hdr-sub" id="psub">Powered by Claude AI + live PubMed search</div>
+    </div>
+    <div class="hdr-acts">
+      <div class="pm-status" id="pm-badge"><div class="pm-dot"></div>PubMed Live</div>
+      <button class="hbtn" onclick="clearChat()">Clear</button>
+      <button class="hbtn pri" onclick="clearChat()">New session</button>
+    </div>
+  </div>
+
+  <!-- TUTOR TAB -->
+  <div id="tab-tutor" class="chat-wrap">
+    <div class="spec-wrap">
+      <div class="slbl">Specialty</div>
+      <div class="srow" id="spec-row">
+        <button class="sbtn active" onclick="setSpec(this,'General Medicine')">General</button>
+        <button class="sbtn" onclick="setSpec(this,'Cardiology')">Cardiology</button>
+        <button class="sbtn" onclick="setSpec(this,'Neurology')">Neurology</button>
+        <button class="sbtn" onclick="setSpec(this,'Emergency Medicine')">Emergency</button>
+        <button class="sbtn" onclick="setSpec(this,'Pediatrics')">Pediatrics</button>
+        <button class="sbtn" onclick="setSpec(this,'Surgery')">Surgery</button>
+        <button class="sbtn" onclick="setSpec(this,'Pharmacology')">Pharmacology</button>
+        <button class="sbtn" onclick="setSpec(this,'Veterinary Medicine')">🐾 Veterinary</button>
+      </div>
+    </div>
+    <div class="mode-row">
+      <div class="mcard active" onclick="setMode(this,'tutor')">
+        <div class="mcard-ico">🎓</div><div class="mcard-name">Tutor</div>
+        <div class="mcard-desc">Explain concepts</div>
+      </div>
+      <div class="mcard" onclick="setMode(this,'socratic')">
+        <div class="mcard-ico">🤔</div><div class="mcard-name">Socratic</div>
+        <div class="mcard-desc">Guided questions</div>
+      </div>
+      <div class="mcard" onclick="setMode(this,'case')">
+        <div class="mcard-ico">🩺</div><div class="mcard-name">Case-based</div>
+        <div class="mcard-desc">Patient simulation</div>
+      </div>
+      <div class="mcard" onclick="setMode(this,'exam')">
+        <div class="mcard-ico">📝</div><div class="mcard-name">Exam Prep</div>
+        <div class="mcard-desc">MCQ + explanations</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="cin-area">
+      <div class="qps" id="qps"></div>
+      <div class="irow">
+        <textarea class="ibox" id="uinput" placeholder="Ask a medical question… (PubMed will be searched automatically)" rows="1"
+          onkeydown="handleKey(event)" oninput="autoR(this)"></textarea>
+        <button class="sbtn2" id="sendbtn" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASES TAB -->
+  <div id="tab-cases" style="display:none;flex:1;overflow-y:auto;padding:22px 26px">
+    <div id="case-cont"></div>
+  </div>
+
+  <!-- FLASHCARDS TAB -->
+  <div id="tab-flash" style="display:none;flex:1;overflow-y:auto">
+    <div class="fc-area" id="fc-area"></div>
+  </div>
+
+  <!-- DRUGS TAB -->
+  <div id="tab-drugs" style="display:none;flex:1;overflow-y:auto;padding:22px 26px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:22px;text-align:center;color:var(--ink3)">
+      <div style="font-size:2.2rem;margin-bottom:10px">💊</div>
+      <div style="font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:7px">Drug Database</div>
+      <div style="font-size:.83rem;line-height:1.6">Ask the AI Tutor about any drug — the system will search PubMed for the latest evidence automatically.</div>
+      <button class="hbtn pri" style="margin-top:14px" onclick="showTab('tutor');setTimeout(()=>askQ('Explain the pharmacology, clinical uses, dosing, and key drug interactions of metformin with latest evidence'),300)">Search a drug with AI + PubMed</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS TAB -->
+  <div id="tab-progress" style="display:none;flex:1;overflow-y:auto;padding:22px 26px">
+    <div class="stats">
+      <div class="scard"><div class="sc-lbl">Sessions</div><div class="sc-val">12</div><div class="sc-sub">This week</div></div>
+      <div class="scard"><div class="sc-lbl">Questions</div><div class="sc-val">84</div><div class="sc-sub">Total answered</div></div>
+      <div class="scard"><div class="sc-lbl">PubMed refs</div><div class="sc-val">247</div><div class="sc-sub">Articles cited</div></div>
+      <div class="scard"><div class="sc-lbl">Streak</div><div class="sc-val">7</div><div class="sc-sub">Days in a row</div></div>
+    </div>
+    <div style="background:var(--blue-light);border:1px solid #c0d8f0;border-radius:8px;padding:18px">
+      <div style="font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:10px;text-transform:uppercase;letter-spacing:.1em">📚 Recent PubMed Queries</div>
+      <div style="font-size:.82rem;color:var(--ink2);line-height:2">
+        STEMI management guidelines 2024<br>
+        Beta-blocker pharmacology heart failure<br>
+        Sepsis-3 criteria systematic review<br>
+        Feline hyperthyroidism treatment methimazole<br>
+        Pediatric asthma management GINA
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+var history = [];
+var specialty = 'General Medicine';
+var mode = 'tutor';
+var fcIdx = 0, fcDone = false;
+
+var QPS = {
+  'General Medicine':   ['Explain SIRS criteria','Differential for chest pain','Approach to fever of unknown origin','ABG interpretation guide'],
+  'Cardiology':         ['STEMI vs NSTEMI management','Atrial fibrillation treatment 2024','Heart failure with reduced EF','Aortic stenosis guidelines'],
+  'Neurology':          ['Acute ischemic stroke management','Status epilepticus protocol','Migraine treatment options','GCS scoring'],
+  'Emergency Medicine': ['Sepsis bundle 2024','Trauma primary survey ATLS','Anaphylaxis epinephrine dosing','RSI medications'],
+  'Pediatrics':         ['Febrile seizure management','Pediatric asthma GINA','Vaccination schedule 2024','Kawasaki disease criteria'],
+  'Surgery':            ['Acute appendicitis management','Bowel obstruction diagnosis','Post-op wound infection','Laparoscopy complications'],
+  'Pharmacology':       ['Beta-blocker mechanisms and uses','Antibiotic spectrum of activity','ACE inhibitor vs ARB','Opioid analgesics comparison'],
+  'Veterinary Medicine':['Feline hyperthyroidism treatment','Canine parvovirus management','Equine colic diagnosis','Small animal anesthesia protocols']
+};
+
+var FLASHCARDS = [
+  {cat:'Cardiology',q:'Diagnostic criteria for STEMI on ECG?',a:'ST elevation ≥1mm in ≥2 contiguous limb leads OR ≥2mm in ≥2 contiguous precordial leads. New LBBB qualifies. Posterior MI: ST depression V1-V3 (mirror).'},
+  {cat:'Pharmacology',q:'Mechanism of beta-blockers + name 3 cardioselective agents.',a:'Competitive antagonism at β1-adrenergic receptors → ↓HR, ↓contractility, ↓AV conduction, ↓renin. Cardioselective: Metoprolol, Atenolol, Bisoprolol (MAB).'},
+  {cat:'Neurology',q:'tPA window for acute ischemic stroke and key contraindications?',a:'Window: 3–4.5 hours from symptom onset. Contraindications: hemorrhage on CT, recent surgery, BP >185/110 uncontrolled, coagulopathy, prior stroke <3 months.'},
+  {cat:'Emergency',q:'Sepsis-3 definition and qSOFA score?',a:'Sepsis-3: life-threatening organ dysfunction (SOFA ≥2) caused by dysregulated host response to infection. qSOFA: AMS + RR≥22 + SBP≤100 (2+ = high risk).'},
+  {cat:'Respiratory',q:'Interpret: pH 7.30, pCO2 55, HCO3 26, SpO2 88% on room air',a:'Respiratory acidosis with partial metabolic compensation. Acute-on-chronic hypercapnic respiratory failure. HCO3 elevation = renal compensation (chronic). Hypoxemia present → O2 therapy needed.'},
+  {cat:'Veterinary',q:'Clinical signs and treatment of feline hyperthyroidism?',a:'Signs: weight loss + polyphagia, tachycardia, hypertension, vomiting, unkempt coat, palpable thyroid nodule. Dx: T4 elevated. Rx: methimazole, radioiodine (I-131), or thyroidectomy.'},
+];
+
+// ============================================================
+// PUBMED API — REAL SEARCH
+// ============================================================
+async function searchPubMed(query) {
+  try {
+    // Build search term from query (take key medical terms)
+    var searchTerm = encodeURIComponent(query.replace(/[?!.,]/g,'').substring(0, 120));
+    var baseUrl = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+    // Step 1: esearch — get PMIDs
+    var searchUrl = baseUrl + 'esearch.fcgi?db=pubmed&term=' + searchTerm +
+      '&retmax=5&retmode=json&sort=relevance&usehistory=y';
+    var r1 = await fetch(searchUrl);
+    var d1 = await r1.json();
+    var ids = d1.esearchresult && d1.esearchresult.idlist ? d1.esearchresult.idlist : [];
+    if(!ids.length) return [];
+    // Step 2: esummary — get article details
+    var sumUrl = baseUrl + 'esummary.fcgi?db=pubmed&id=' + ids.join(',') + '&retmode=json';
+    var r2 = await fetch(sumUrl);
+    var d2 = await r2.json();
+    var articles = [];
+    ids.forEach(function(id) {
+      var art = d2.result && d2.result[id];
+      if(art) {
+        articles.push({
+          pmid: id,
+          title: art.title || 'No title',
+          authors: art.authors && art.authors.length ? art.authors.slice(0,2).map(function(a){return a.name}).join(', ') + (art.authors.length>2?' et al.':'') : 'Unknown',
+          journal: art.source || '',
+          year: art.pubdate ? art.pubdate.substring(0,4) : '',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/' + id + '/'
+        });
+      }
+    });
+    return articles;
+  } catch(e) {
+    console.warn('PubMed search failed:', e);
+    return [];
+  }
+}
+
+function buildRefsPanel(articles) {
+  if(!articles || !articles.length) return '';
+  var items = articles.map(function(a) {
+    return '<div class="ref-item">' +
+      '<div class="ref-title">' + a.title.substring(0,100) + (a.title.length>100?'...':'') + '</div>' +
+      '<div class="ref-meta">' + a.authors + ' · ' + a.journal + ' · ' + a.year + '</div>' +
+      '<a class="ref-link" href="' + a.url + '" target="_blank">PubMed: ' + a.pmid + ' →</a>' +
+    '</div>';
+  }).join('');
+  return '<div class="refs-panel">' +
+    '<div class="refs-title">📚 PubMed References (' + articles.length + ' articles found)</div>' +
+    items + '</div>';
+}
+
+// ============================================================
+// SYSTEM PROMPT
+// ============================================================
+function getSysPrompt(refs) {
+  var refContext = refs && refs.length ?
+    '\n\nRecently retrieved PubMed articles for context:\n' +
+    refs.map(function(a,i){return (i+1)+'. "'+a.title+'" — '+a.authors+' ('+a.year+')'}).join('\n') +
+    '\n\nReference these articles where relevant in your response.' : '';
+  var modes = {
+    tutor: 'Provide clear, accurate, evidence-based explanations. Structure with headers when helpful. Always cite guidelines.',
+    socratic: 'Guide the student with targeted questions rather than direct answers. Acknowledge correct reasoning and gently correct errors.',
+    case: 'Run an interactive clinical simulation. Present findings step by step, evaluate student reasoning, ask what they would do next.',
+    exam: 'Generate USMLE-style MCQ (5 options, A-E). After answer, explain each option with clinical pearls.'
+  };
+  return 'You are MedMind AI, an expert medical education assistant specializing in ' + specialty + '. ' +
+    (modes[mode]||modes.tutor) +
+    ' Format with markdown headers (###) and bullets. Keep responses educational and precise.' +
+    refContext;
+}
+
+// ============================================================
+// CHAT
+// ============================================================
+function buildWelcome() {
+  var m = document.getElementById('chat-msgs');
+  m.innerHTML = '';
+  var texts = {
+    tutor: '👋 Hello! I\'m your AI medical tutor.\n\nI combine **Claude AI** with **live PubMed search** — every answer is backed by the latest published research automatically retrieved from PubMed\'s 40+ million articles.\n\n**Current specialty:** ' + specialty + '\n\nAsk me anything — from mechanisms to clinical guidelines to patient cases.',
+    socratic: '🤔 Welcome to **Socratic mode**.\n\nI won\'t give you direct answers — instead I\'ll guide your thinking with questions. This is proven to build deeper, lasting understanding.\n\n**Specialty:** ' + specialty + '\n\nWhat topic shall we explore?',
+    case: '🩺 Welcome to **Case-Based Learning**.\n\nI\'ll present you with realistic clinical scenarios. You take the history, order investigations, make decisions.\n\n**Specialty:** ' + specialty + '\n\nReady for a case? Or name a presentation you want to practice.',
+    exam: '📝 Welcome to **Exam Prep mode**.\n\nI\'ll test you with USMLE-style questions and detailed explanations.\n\n**Specialty:** ' + specialty + '\n\nReady for your first question?'
+  };
+  addMsg('ai', texts[mode]||texts.tutor, null);
+  updateQPs();
+}
+
+function addMsg(role, text, refs) {
+  var m = document.getElementById('chat-msgs');
+  var div = document.createElement('div');
+  div.className = 'msg ' + role;
+  var av = role==='ai' ? '<div class="mav">AI</div>' : '<div class="mav">👤</div>';
+  var refsHtml = refs ? buildRefsPanel(refs) : '';
+  div.innerHTML = av + '<div class="mbody"><div class="mbub">' + fmt(text) + refsHtml + '</div></div>';
+  m.appendChild(div);
+  m.scrollTop = m.scrollHeight;
+}
+
+function fmt(t) {
+  return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/### (.+)/g,'<h3>$1</h3>')
+    .replace(/## (.+)/g,'<h3>$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/^[-•] (.+)/gm,'<li>$1</li>')
+    .replace(/(<li>[\s\S]*?<\/li>\n?)+/g,'<ul>$&</ul>')
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/\n/g,'<br>')
+    .replace(/^(.)/,'<p>$1').replace(/(.)$/,'$1</p>');
+}
+
+function showSearching() {
+  var m = document.getElementById('chat-msgs');
+  var div = document.createElement('div');
+  div.className = 'msg ai'; div.id = 'searching';
+  div.innerHTML = '<div class="mav">AI</div><div class="mbody"><div class="search-progress"><div class="spin"></div>Searching PubMed for relevant research…</div></div>';
+  m.appendChild(div); m.scrollTop = m.scrollHeight;
+}
+
+function showTyping() {
+  var t = document.getElementById('searching');
+  if(t) { t.querySelector('.search-progress').innerHTML = '<div class="typing"><span></span><span></span><span></span></div>'; }
+  else {
+    var m = document.getElementById('chat-msgs');
+    var div = document.createElement('div');
+    div.className = 'msg ai'; div.id = 'searching';
+    div.innerHTML = '<div class="mav">AI</div><div class="mbody"><div class="typing"><span></span><span></span><span></span></div></div>';
+    m.appendChild(div); m.scrollTop = m.scrollHeight;
+  }
+}
+
+function removeIndicator() {
+  var t = document.getElementById('searching'); if(t) t.remove();
+}
+
+function setPmBadge(state) {
+  var b = document.getElementById('pm-badge');
+  b.className = 'pm-status' + (state==='searching'?' searching':'');
+  b.innerHTML = '<div class="pm-dot"></div>' + (state==='searching'?'Searching PubMed…':'PubMed Live');
+}
+
+async function sendMsg() {
+  var inp = document.getElementById('uinput');
+  var txt = inp.value.trim(); if(!txt) return;
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('sendbtn').disabled = true;
+  addMsg('user', txt, null);
+  history.push({role:'user',content:txt});
+
+  // 1. Search PubMed
+  setPmBadge('searching');
+  showSearching();
+  var refs = await searchPubMed(txt);
+
+  // 2. Call Claude with PubMed context
+  showTyping();
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:getSysPrompt(refs),
+        messages:history
+      })
+    });
+    var data = await res.json();
+    removeIndicator();
+    var reply = data.content&&data.content[0] ? data.content[0].text : 'Could not generate a response.';
+    history.push({role:'assistant',content:reply});
+    addMsg('ai', reply, refs);
+  } catch(e) {
+    removeIndicator();
+    addMsg('ai','Connection error. Please try again.',null);
+  }
+  setPmBadge('live');
+  document.getElementById('sendbtn').disabled = false;
+}
+
+function askQ(q) { document.getElementById('uinput').value=q; sendMsg(); }
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}}
+function autoR(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px'}
+function clearChat(){history=[];buildWelcome()}
+function updateQPs(){
+  var c=document.getElementById('qps');c.innerHTML='';
+  var ps=QPS[specialty]||QPS['General Medicine'];
+  ps.forEach(function(p){var b=document.createElement('button');b.className='qp';b.textContent=p;b.onclick=function(){askQ(p)};c.appendChild(b)});
+}
+function setSpec(el,sp){
+  document.querySelectorAll('.sbtn').forEach(function(b){b.classList.remove('active')});
+  el.classList.add('active'); specialty=sp; updateQPs();
+}
+function setMode(el,m){
+  document.querySelectorAll('.mcard').forEach(function(c){c.classList.remove('active')});
+  el.classList.add('active'); mode=m; clearChat();
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(t) {
+  ['tutor','cases','flash','drugs','progress'].forEach(function(id){
+    var el=document.getElementById('tab-'+id);
+    if(el)el.style.display='none';
+  });
+  document.querySelectorAll('.nitem').forEach(function(n){n.classList.remove('active')});
+  var el=document.getElementById('tab-'+t);
+  if(el)el.style.display=t==='tutor'?'flex':'block';
+  var titles={
+    tutor:['AI Medical Tutor','Powered by Claude AI + live PubMed search'],
+    cases:['Clinical Cases','AI-generated interactive simulations'],
+    flash:['Flashcards','Evidence-based spaced repetition'],
+    drugs:['Drug Database','PubMed-powered pharmacology'],
+    progress:['My Progress','Track your learning journey']
+  };
+  if(titles[t]){document.getElementById('ptitle').textContent=titles[t][0];document.getElementById('psub').textContent=titles[t][1]}
+  if(t==='flash')buildFC();
+  if(t==='cases')buildCase();
+}
+
+// FLASHCARDS
+function buildFC() {
+  var a=document.getElementById('fc-area');
+  if(fcIdx>=FLASHCARDS.length)fcIdx=0;
+  fcDone=false;
+  var c=FLASHCARDS[fcIdx];
+  var pct=((fcIdx/FLASHCARDS.length)*100).toFixed(0);
+  a.innerHTML=
+    '<div style="width:100%;max-width:580px;display:flex;justify-content:space-between"><span style="font-family:Syne,sans-serif;font-size:.7rem;color:var(--ink3);font-weight:600">Card '+(fcIdx+1)+' / '+FLASHCARDS.length+'</span><span style="font-family:Syne,sans-serif;font-size:.7rem;color:var(--ink3);font-weight:600">'+pct+'% done</span></div>'+
+    '<div style="width:100%;max-width:580px"><div class="fc-prog"><div class="fc-prog-fill" style="width:'+pct+'%"></div></div></div>'+
+    '<div class="flashcard" id="fccard" onclick="revealFC()">'+
+      '<div class="fc-cat">'+c.cat+'</div>'+
+      '<div class="fc-q">'+c.q+'</div>'+
+      '<div class="fc-a" id="fca">'+c.a+'</div>'+
+      '<div class="fc-hint" id="fch">Click card to reveal answer</div>'+
+    '</div>'+
+    '<div id="fcbtns" style="display:none"><div class="fc-acts">'+
+      '<button class="fcb rev" onclick="buildFC()">Next →</button>'+
+      '<button class="fcb easy" onclick="buildFC()">Easy ✓</button>'+
+      '<button class="fcb hard" onclick="buildFC()">Hard</button>'+
+      '<button class="fcb fail" onclick="buildFC()">Again ✗</button>'+
+    '</div></div>';
+}
+function revealFC(){
+  if(fcDone)return; fcDone=true; fcIdx++;
+  var a=document.getElementById('fca'),h=document.getElementById('fch'),b=document.getElementById('fcbtns');
+  if(a)a.classList.add('show'); if(h)h.style.display='none'; if(b)b.style.display='block';
+}
+
+// CLINICAL CASE
+function buildCase() {
+  document.getElementById('case-cont').innerHTML=
+    '<div class="case-hdr">'+
+      '<div class="case-lbl">Clinical Case · Emergency Medicine</div>'+
+      '<div class="case-title">58-year-old male with acute chest pain</div>'+
+      '<div style="display:flex;gap:14px;margin-top:8px;font-size:.72rem;opacity:.75"><span>⏱ Presented 40 min ago</span><span>📍 Emergency Department</span><span>⚠️ Priority: URGENT</span></div>'+
+    '</div>'+
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:18px;margin-bottom:14px">'+
+      '<div style="font-family:Syne,sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);margin-bottom:9px">History & Chief Complaint</div>'+
+      '<p style="font-size:.87rem;line-height:1.7;color:var(--ink2)">58M, PMH of <strong>HTN, T2DM, dyslipidemia</strong>. Crushing substernal chest pain radiating to left arm, onset 1 hour ago at rest. Diaphoresis, nausea. No antacid relief. Meds: metformin, lisinopril, atorvastatin. Smoker 30 pack-years.</p>'+
+    '</div>'+
+    '<div style="font-family:Syne,sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);margin-bottom:8px">Vital Signs</div>'+
+    '<div class="vitals">'+
+      '<div class="vital"><div class="vl">BP</div><div class="vv ab">158/96</div></div>'+
+      '<div class="vital"><div class="vl">HR</div><div class="vv ab">102 bpm</div></div>'+
+      '<div class="vital"><div class="vl">RR</div><div class="vv ok">18/min</div></div>'+
+      '<div class="vital"><div class="vl">SpO2</div><div class="vv ab">94%</div></div>'+
+      '<div class="vital"><div class="vl">Temp</div><div class="vv ok">36.8°C</div></div>'+
+      '<div class="vital"><div class="vl">Pain</div><div class="vv ab">8/10</div></div>'+
+    '</div>'+
+    '<div style="background:var(--amber-light);border:1px solid var(--amber2);border-radius:7px;padding:14px;margin:14px 0">'+
+      '<div style="font-family:Syne,sans-serif;font-size:.68rem;font-weight:700;color:var(--amber)">ECG RESULT</div>'+
+      '<div style="font-size:.85rem;margin-top:5px;color:var(--ink2)">Sinus tachycardia · <strong>2mm ST elevation in II, III, aVF</strong> · Reciprocal ST depression V1-V4</div>'+
+    '</div>'+
+    '<button class="hbtn pri" onclick="showTab(\'tutor\');setTimeout(function(){askQ(\'58yo male, crushing chest pain radiating to left arm, diaphoresis. ECG: 2mm STE in II/III/aVF, reciprocal changes V1-V4. BP 158/96, HR 102, SpO2 94%. What is the diagnosis and evidence-based immediate management?\')},300)">→ Analyze with AI + PubMed</button>';
+}
+
+// INIT
+window.onload=function(){
+  setTimeout(function(){
+    var l=document.getElementById('loader');l.classList.add('hide');
+    setTimeout(function(){l.style.display='none'},400);
+  },1700);
+  buildWelcome();
+};
+</script>
+</body>
+</html>
