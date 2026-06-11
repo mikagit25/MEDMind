@@ -293,7 +293,11 @@ class User(Base):
     xp = Column(Integer, default=0)
     level = Column(Integer, default=1)
     streak_days = Column(Integer, default=0)
+    longest_streak = Column(Integer, default=0)
     last_active_date = Column(DateTime)
+    # Leaderboard opt-in (Phase 5)
+    leaderboard_opt_in = Column(Boolean, default=False, nullable=False, server_default="false")
+    leaderboard_display_name = Column(String(100), nullable=True)
     onboarding_completed = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
@@ -1344,3 +1348,23 @@ class SharedDeck(Base):
     owner = relationship("User", lazy="joined", foreign_keys=[owner_id])
 
     __table_args__ = (Index("ix_shared_decks_owner_id", "owner_id"),)
+
+
+# ============================================================
+# XP EVENTS — audit trail for all XP awards (Phase 5)
+# ============================================================
+class XPEvent(Base):
+    """One row per XP award event — audit trail for gamification."""
+    __tablename__ = "xp_events"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    source       = Column(String(50), nullable=False)  # "lesson" | "mcq" | "flashcard" | "case"
+    amount       = Column(Integer, nullable=False)
+    reference_id = Column(String(100), nullable=True)  # lesson/card/question UUID
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_xp_events_user_id", "user_id"),
+        Index("ix_xp_events_created_at", "created_at"),
+    )

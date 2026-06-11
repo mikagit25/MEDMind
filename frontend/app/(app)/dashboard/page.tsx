@@ -312,7 +312,7 @@ function VeterinarianPanel({ stats }: { stats: any }) {
 }
 
 // ── Streak Calendar (last 7 days) ──────────────────────────────────────────
-function StreakCalendar({ streakDays }: { streakDays: number }) {
+function StreakCalendar({ streakDays, longestStreak }: { streakDays: number; longestStreak?: number }) {
   const days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - (6 - i));
@@ -328,7 +328,12 @@ function StreakCalendar({ streakDays }: { streakDays: number }) {
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
-        <span className="font-syne font-bold text-sm text-ink">Study Streak</span>
+        <div>
+          <span className="font-syne font-bold text-sm text-ink">Study Streak</span>
+          {longestStreak && longestStreak > streakDays && (
+            <span className="font-serif text-[10px] text-ink-3 ml-2">best: {longestStreak}d</span>
+          )}
+        </div>
         <span className="font-syne font-black text-sm text-amber">{streakDays} 🔥</span>
       </div>
       <div className="flex gap-1.5">
@@ -626,20 +631,20 @@ export default function DashboardPage() {
       {/* Role-specific panel */}
       {role === "doctor" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
           <TodaysPlan />
           <DoctorPanel stats={stats} />
         </>
       )}
       {(role === "professor" || role === "teacher" || role === "admin") && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
           <ProfessorPanel stats={stats} />
         </>
       )}
       {role === "veterinarian" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
           <TodaysPlan />
           <VeterinarianPanel stats={stats} />
         </>
@@ -664,7 +669,7 @@ export default function DashboardPage() {
                 flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
                 dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}
               />
-              <StreakCalendar streakDays={stats?.streak_days ?? 0} />
+              <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
               <TodaysPlan />
               <MiniLeaderboard />
             </>

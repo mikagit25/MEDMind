@@ -146,6 +146,55 @@ async def _nightly_plan_refresh():
         logger.error("Nightly plan refresh failed: %s", e)
 
 
+async def _evening_streak_reminder():
+    """
+    Run daily at 20:00 UTC — warn users with an active streak who haven't
+    studied yet today, giving them time to maintain it before midnight reset.
+    """
+    from app.models.models import User, Notification
+    try:
+        async with AsyncSessionLocal() as db:
+            now = datetime.utcnow()
+            today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+
+            # Users with streak > 0 who haven't been active today
+            at_risk = await db.execute(
+                select(User).where(
+                    User.is_active == True,
+                    User.streak_days > 0,
+                    (User.last_active_date == None) | (User.last_active_date < today_start),
+                )
+            )
+            users_at_risk = at_risk.scalars().all()
+
+            notified = 0
+            for u in users_at_risk:
+                # Avoid duplicate evening notifications
+                existing = await db.execute(
+                    select(Notification).where(
+                        Notification.user_id == u.id,
+                        Notification.type == "streak_reminder",
+                        Notification.created_at >= today_start,
+                    )
+                )
+                if existing.scalar_one_or_none():
+                    continue
+
+                db.add(Notification(
+                    user_id=u.id,
+                    type="streak_reminder",
+                    title="Don't lose your streak!",
+                    body=f"You have a {u.streak_days}-day streak — study something today to keep it going.",
+                ))
+                notified += 1
+
+            if notified:
+                await db.commit()
+                logger.info("Evening streak reminders sent to %d users", notified)
+    except Exception as e:
+        logger.error("Evening streak reminder failed: %s", e)
+
+
 async def _news_pipeline_job():
     """Run every 6 hours — fetch and translate new medical news."""
     try:
@@ -193,6 +242,15 @@ def start_scheduler():
         _nightly_plan_refresh,
         trigger=CronTrigger(hour=3, minute=0, timezone="UTC"),
         id="nightly_plan_refresh",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Daily 20:00 UTC — evening streak reminders
+    scheduler.add_job(
+        _evening_streak_reminder,
+        trigger=CronTrigger(hour=20, minute=0, timezone="UTC"),
+        id="evening_streak_reminder",
         replace_existing=True,
         misfire_grace_time=3600,
     )

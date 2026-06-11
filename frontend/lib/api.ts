@@ -318,6 +318,9 @@ export const progressApi = {
     api.get("/progress/leaderboard", { params: { period, limit } }).then(r => r.data),
   getSpecialtyLeaderboard: (specialtyId: string) =>
     api.get(`/progress/leaderboard/specialty/${specialtyId}`).then(r => r.data),
+  updateLeaderboardSettings: (data: { leaderboard_opt_in?: boolean; leaderboard_display_name?: string }) =>
+    api.patch("/progress/leaderboard/settings", data).then(r => r.data),
+  getGamificationMe: () => api.get("/progress/gamification/me").then(r => r.data),
   exportPDF: () =>
     api.get("/progress/export/pdf", { responseType: "blob" }).then(r => r.data),
 };

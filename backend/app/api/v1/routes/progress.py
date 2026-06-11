@@ -12,7 +12,7 @@ from sqlalchemy import select, func, update
 from app.core.database import get_db
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
-    Module, MCQQuestion, ClinicalCase, CMECredit
+    Module, MCQQuestion, ClinicalCase, CMECredit, XPEvent
 )
 from app.schemas.schemas import (
     LessonCompleteRequest, LessonCompleteResponse,
@@ -48,33 +48,41 @@ def calculate_sm2(ease_factor: float, interval: int, quality: int) -> tuple[floa
     return new_ef, new_interval
 
 
-async def add_xp(user: User, xp: int, db: AsyncSession):
-    """Add XP to user, level up if needed, and update streak."""
-    from datetime import date as _date
-    user.xp = (user.xp or 0) + xp
-    # Level thresholds: 0, 500, 2000, 5000, 12000, 25000
-    thresholds = [0, 500, 2000, 5000, 12000, 25000]
-    for i, threshold in enumerate(thresholds):
-        if user.xp >= threshold:
-            user.level = i + 1
+import math as _math
 
-    # Streak: if last_active_date is yesterday or earlier today, bump streak
+
+def _calc_level(xp: int) -> int:
+    """Level formula: floor(sqrt(xp / 100)). Min level 1."""
+    return max(1, _math.isqrt(max(0, xp) // 100))
+
+
+async def add_xp(user: User, xp: int, db: AsyncSession, source: str = "lesson", reference_id: str | None = None):
+    """Add XP to user, level up if needed, update streak, record XP event."""
+    from datetime import date as _date, timedelta
+    user.xp = (user.xp or 0) + xp
+    user.level = _calc_level(user.xp)
+
+    # Streak update
     today = _date.today()
     raw = user.last_active_date
-    if raw is None:
-        last = None
-    elif isinstance(raw, datetime):
-        last = raw.date()
-    else:
-        last = raw  # already a date object from DB
+    last = raw.date() if isinstance(raw, datetime) else raw
     if last is None or last < today:
-        from datetime import timedelta
         if last == today - timedelta(days=1):
             user.streak_days = (user.streak_days or 0) + 1
         elif last != today:
-            # Gap > 1 day — reset streak
             user.streak_days = 1
+        # Update longest_streak
+        if (user.streak_days or 0) > (user.longest_streak or 0):
+            user.longest_streak = user.streak_days
     user.last_active_date = datetime.utcnow()
+
+    # Audit trail
+    db.add(XPEvent(
+        user_id=user.id,
+        source=source,
+        amount=xp,
+        reference_id=reference_id,
+    ))
 
 
 @router.post("/lesson/{lesson_id}/complete", response_model=LessonCompleteResponse)
@@ -115,7 +123,7 @@ async def complete_lesson(
         progress.last_activity_at = datetime.utcnow()
 
         # Award XP
-        await add_xp(user, XP_LESSON, db)
+        await add_xp(user, XP_LESSON, db, source="lesson", reference_id=str(lesson_id))
 
     # Recalculate module completion
     lessons_result = await db.execute(select(Lesson).where(Lesson.module_id == lesson.module_id))
@@ -276,7 +284,7 @@ async def review_flashcard(
     # XP for correct answer (quality >= 3)
     xp_earned = XP_FLASHCARD_CORRECT if data.quality >= 3 else 0
     if xp_earned:
-        await add_xp(user, xp_earned, db)
+        await add_xp(user, xp_earned, db, source="flashcard", reference_id=str(data.flashcard_id))
 
     await db.commit()
 
@@ -308,7 +316,7 @@ async def answer_mcq(
     xp = XP_MCQ_HARD_CORRECT if (is_correct and question.difficulty == "hard") else (XP_MCQ_CORRECT if is_correct else 0)
 
     if xp:
-        await add_xp(user, xp, db)
+        await add_xp(user, xp, db, source="mcq", reference_id=str(question.id))
     await db.commit()
 
     newly_unlocked = await run_achievement_check(user, db)
@@ -461,7 +469,7 @@ async def complete_case(
     is_correct = (match_count / max(len(keywords), 1)) >= 0.4
 
     xp = 15 if is_correct else 5
-    await add_xp(user, xp, db)
+    await add_xp(user, xp, db, source="case", reference_id=str(case_id))
     await db.commit()
 
     # Build explanation from teaching_points or diagnosis
@@ -620,10 +628,12 @@ async def get_leaderboard(
         User.id,
         User.first_name,
         User.last_name,
+        User.leaderboard_display_name,
         User.level,
         User.xp,
         User.streak_days,
-    ).where(User.is_active == True)
+        User.longest_streak,
+    ).where(User.is_active == True, User.leaderboard_opt_in == True)
 
     if period == "week":
         since = datetime.utcnow() - timedelta(days=7)
@@ -638,24 +648,54 @@ async def get_leaderboard(
     my_rank = None
     board = []
     for i, row in enumerate(rows, 1):
+        is_me = str(row.id) == str(user.id)
+        display = (
+            row.leaderboard_display_name
+            or f"{row.first_name or ''} {(row.last_name or '')[:1]}.".strip()
+        )
         entry = {
             "rank": i,
             "user_id": str(row.id),
-            "name": f"{row.first_name or ''} {(row.last_name or '')[:1]}.".strip(),
+            "name": display,
             "level": row.level,
             "xp": row.xp,
             "streak_days": row.streak_days or 0,
-            "is_me": str(row.id) == str(user.id),
+            "longest_streak": row.longest_streak or 0,
+            "is_me": is_me,
         }
-        if entry["is_me"]:
+        if is_me:
             my_rank = i
         board.append(entry)
+
+    # Always include current user's rank even if not on the shown list
+    my_entry = None
+    if my_rank is None and user.leaderboard_opt_in:
+        count_above = (await db.execute(
+            select(func.count()).where(
+                User.is_active == True,
+                User.leaderboard_opt_in == True,
+                User.xp > user.xp,
+            )
+        )).scalar() or 0
+        my_rank = count_above + 1
+        my_entry = {
+            "rank": my_rank,
+            "user_id": str(user.id),
+            "name": user.leaderboard_display_name or f"{user.first_name or ''} {(user.last_name or '')[:1]}.".strip(),
+            "level": user.level,
+            "xp": user.xp,
+            "streak_days": user.streak_days or 0,
+            "longest_streak": user.longest_streak or 0,
+            "is_me": True,
+        }
 
     return {
         "period": period,
         "my_rank": my_rank,
+        "opted_in": user.leaderboard_opt_in,
         "total_shown": len(board),
         "leaderboard": board,
+        "my_entry": my_entry,
     }
 
 
@@ -705,6 +745,50 @@ async def get_specialty_leaderboard(
         for i, row in enumerate(rows, 1)
     ]
     return {"specialty_id": str(specialty_id), "leaderboard": board}
+
+
+@router.patch("/leaderboard/settings")
+async def update_leaderboard_settings(
+    data: dict,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Opt in/out of leaderboard and set display name."""
+    if "leaderboard_opt_in" in data:
+        user.leaderboard_opt_in = bool(data["leaderboard_opt_in"])
+    if "leaderboard_display_name" in data:
+        name = (data["leaderboard_display_name"] or "").strip()[:100]
+        user.leaderboard_display_name = name or None
+    await db.commit()
+    return {
+        "leaderboard_opt_in": user.leaderboard_opt_in,
+        "leaderboard_display_name": user.leaderboard_display_name,
+    }
+
+
+@router.get("/gamification/me")
+async def get_gamification_me(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return gamification stats for the current user."""
+    import math as _math
+    xp = user.xp or 0
+    level = max(1, _math.isqrt(max(0, xp) // 100))
+    xp_for_next = ((level + 1) ** 2) * 100
+    # Level 1 spans 0-399 (levels 0 and 1 both map to display level 1)
+    xp_for_current = 0 if level == 1 else (level ** 2) * 100
+    pct = max(0, round(((xp - xp_for_current) / max(1, xp_for_next - xp_for_current)) * 100))
+    return {
+        "xp": xp,
+        "level": level,
+        "streak_days": user.streak_days or 0,
+        "longest_streak": user.longest_streak or 0,
+        "xp_for_next_level": xp_for_next,
+        "xp_progress_pct": pct,
+        "leaderboard_opt_in": user.leaderboard_opt_in,
+        "leaderboard_display_name": user.leaderboard_display_name,
+    }
 
 
 # ============================================================

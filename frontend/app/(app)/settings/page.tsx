@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
-import { authApi, complianceApi } from "@/lib/api";
+import { authApi, complianceApi, progressApi } from "@/lib/api";
 import { useI18n, useT } from "@/lib/i18n";
 
 const TIER_COLORS: Record<string, string> = {
@@ -313,6 +313,9 @@ export default function SettingsPage() {
       {/* GDPR / Privacy */}
       <GDPRSection />
 
+      {/* Leaderboard */}
+      <LeaderboardSection />
+
       {/* Account */}
       <section className="card p-6">
         <h2 className="font-syne font-bold text-base text-ink mb-3">Account</h2>
@@ -434,6 +437,70 @@ function GDPRSection() {
             </div>
           )}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function LeaderboardSection() {
+  const [optIn, setOptIn] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveOk, setSaveOk] = useState(false);
+
+  // Lazy-load current settings on first render
+  useState(() => {
+    progressApi.getGamificationMe?.()
+      .then((d: any) => {
+        setOptIn(d.leaderboard_opt_in ?? false);
+        setDisplayName(d.leaderboard_display_name ?? "");
+        setLoaded(true);
+      })
+      .catch(() => setLoaded(true));
+  });
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await progressApi.updateLeaderboardSettings?.({ leaderboard_opt_in: optIn, leaderboard_display_name: displayName });
+      setSaveOk(true);
+      setTimeout(() => setSaveOk(false), 2000);
+    } catch {}
+    setSaving(false);
+  };
+
+  return (
+    <section className="card p-6 mb-5">
+      <h2 className="font-syne font-bold text-base text-ink mb-1">Leaderboard</h2>
+      <p className="font-serif text-xs text-ink-3 mb-4">
+        Control whether you appear on the global leaderboard. Your real name is never shown unless you opt in.
+      </p>
+      <div className="space-y-4">
+        <label className="flex items-center gap-3 cursor-pointer">
+          <div
+            onClick={() => setOptIn((v) => !v)}
+            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${optIn ? "bg-ink" : "bg-bg-3"}`}
+          >
+            <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${optIn ? "translate-x-5" : "translate-x-0.5"}`} />
+          </div>
+          <span className="font-serif text-sm text-ink">Show me on the leaderboard</span>
+        </label>
+        {optIn && (
+          <div>
+            <label className="font-serif text-xs text-ink-3 block mb-1">Display name</label>
+            <input
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder="Leave blank to use your real name"
+              maxLength={100}
+              className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm focus:outline-none focus:border-ink bg-bg"
+            />
+          </div>
+        )}
+        <button onClick={handleSave} disabled={saving} className="btn-primary text-sm px-4 py-2">
+          {saving ? "Saving…" : saveOk ? "Saved!" : "Save"}
+        </button>
       </div>
     </section>
   );
