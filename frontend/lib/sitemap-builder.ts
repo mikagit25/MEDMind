@@ -27,6 +27,7 @@ export type NewsSitemapEntry = { slug: string; fetched_at: string };
 export type LearnGlossaryEntry = { slug: string };
 export type LearnTopicEntry = { slug: string };
 export type LearnDrugEntry = { slug: string };
+export type PublicQuizEntry = { slug: string };
 
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
@@ -119,6 +120,19 @@ export async function fetchLearnDrugsSitemapData(): Promise<LearnDrugEntry[]> {
   }
 }
 
+export async function fetchPublicQuizzesSitemapData(): Promise<PublicQuizEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/quiz`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    const data: { slug: string }[] = await res.json();
+    return data.map((q) => ({ slug: q.slug }));
+  } catch {
+    return [];
+  }
+}
+
 // ── XML builders ─────────────────────────────────────────────────────────────
 
 function hreflangTags(path: string, availableLocales: string[]): string {
@@ -159,13 +173,14 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs] = await Promise.all([
+  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs, publicQuizzes] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
     fetchNewsSitemapData(),
     fetchLearnGlossarySitemapData(),
     fetchLearnTopicsSitemapData(),
     fetchLearnDrugsSitemapData(),
+    fetchPublicQuizzesSitemapData(),
   ]);
 
   const entries: string[] = [];
@@ -298,6 +313,21 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
           url: `${SITE_URL}/learn/drugs/${drug.slug}`,
           lastmod: now,
           priority: 0.65,
+          changefreq: "monthly",
+        })
+      );
+    }
+
+    // Public quiz index + individual quizzes
+    entries.push(
+      urlEntry({ url: `${SITE_URL}/quiz/public`, lastmod: now, priority: 0.85, changefreq: "weekly" })
+    );
+    for (const quiz of publicQuizzes) {
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}/quiz/public/${quiz.slug}`,
+          lastmod: now,
+          priority: 0.75,
           changefreq: "monthly",
         })
       );

@@ -1296,3 +1296,51 @@ class CommentReport(Base):
 
     comment_id = Column(UUID(as_uuid=True), ForeignKey("comments.id", ondelete="CASCADE"), primary_key=True)
     user_id    = Column(UUID(as_uuid=True), ForeignKey("users.id",    ondelete="CASCADE"), primary_key=True)
+
+
+# ============================================================
+# PUBLIC QUIZZES (Phase 4 — viral sharing contour)
+# ============================================================
+class PublicQuiz(Base):
+    """Standalone quiz accessible without authentication.
+
+    questions JSONB shape:
+      [{question, options: {A,B,C,D}, correct: "A", explanation}]
+    """
+    __tablename__ = "public_quizzes"
+
+    id          = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    slug        = Column(String(200), nullable=False, unique=True, index=True)
+    title       = Column(String(300), nullable=False)
+    description = Column(Text, nullable=True)
+    category    = Column(String(100), nullable=False, default="general")  # first-aid, anatomy, etc.
+    questions   = Column(JSONB, nullable=False, default=list)
+    is_active   = Column(Boolean, default=True, nullable=False)
+    play_count  = Column(Integer, default=0, nullable=False)
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (Index("ix_public_quizzes_category", "category"),)
+
+
+# ============================================================
+# SHARED FLASHCARD DECKS (Phase 4 — deck sharing)
+# ============================================================
+class SharedDeck(Base):
+    """Snapshot of user flashcards shared via a public token link."""
+    __tablename__ = "shared_decks"
+
+    id          = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    owner_id    = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    name        = Column(String(300), nullable=False)
+    description = Column(Text, nullable=True)
+    # URL-safe token (8–12 chars) used in /decks/shared/{token}
+    token       = Column(String(20), nullable=False, unique=True, index=True)
+    # Snapshot of cards: [{question, answer, difficulty}]
+    cards       = Column(JSONB, nullable=False, default=list)
+    is_active   = Column(Boolean, default=True, nullable=False)
+    view_count  = Column(Integer, default=0, nullable=False)
+    created_at  = Column(DateTime, default=datetime.utcnow)
+
+    owner = relationship("User", lazy="joined", foreign_keys=[owner_id])
+
+    __table_args__ = (Index("ix_shared_decks_owner_id", "owner_id"),)

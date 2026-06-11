@@ -225,9 +225,14 @@ export default function MyFlashcardsPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [view, setView] = useState<"list" | "create" | "edit" | "review">("list");
+  const [view, setView] = useState<"list" | "create" | "edit" | "review" | "share">("list");
   const [editing, setEditing] = useState<UserFlashcard | null>(null);
   const [dueCards, setDueCards] = useState<UserFlashcard[]>([]);
+  const [selectedForShare, setSelectedForShare] = useState<Set<string>>(new Set());
+  const [shareName, setShareName] = useState("");
+  const [shareDesc, setShareDesc] = useState("");
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [shareError, setShareError] = useState("");
 
   const fetchCards = useCallback(async (q?: string) => {
     setLoading(true);
@@ -275,6 +280,84 @@ export default function MyFlashcardsPage() {
     setTotal(t => t - 1);
   }
 
+  async function handleShareDeck() {
+    setShareError("");
+    if (!shareName.trim()) { setShareError("Deck name is required"); return; }
+    if (selectedForShare.size === 0) { setShareError("Select at least one card"); return; }
+    try {
+      const res = await api.post("/my/flashcards/decks/share", {
+        name: shareName.trim(),
+        description: shareDesc.trim() || undefined,
+        card_ids: Array.from(selectedForShare),
+      });
+      setShareUrl(res.data.share_url);
+    } catch (e: any) {
+      setShareError(e?.response?.data?.detail ?? "Failed to create share link");
+    }
+  }
+
+  if (view === "share") {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="font-syne font-black text-xl text-ink">Share a Deck</h1>
+          <button onClick={() => { setView("list"); setShareUrl(null); setSelectedForShare(new Set()); setShareName(""); setShareDesc(""); }} className="text-xs text-ink-3 hover:text-ink font-syne">✕ Cancel</button>
+        </div>
+
+        {shareUrl ? (
+          <div className="card p-6 text-center">
+            <div className="text-4xl mb-3">🔗</div>
+            <h2 className="font-syne font-bold text-lg text-ink mb-2">Deck Shared!</h2>
+            <p className="font-serif text-xs text-ink-3 mb-4">Anyone with this link can view your deck.</p>
+            <div className="bg-bg-2 rounded-xl p-3 mb-4 font-mono text-xs text-ink break-all">{shareUrl}</div>
+            <button
+              onClick={() => { navigator.clipboard.writeText(shareUrl); }}
+              className="btn-primary px-6 py-2 rounded font-syne font-semibold text-sm"
+            >
+              Copy Link
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-5">
+            <div>
+              <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Deck Name *</label>
+              <input value={shareName} onChange={e => setShareName(e.target.value)} className="w-full border border-ink/10 rounded px-4 py-2 text-sm font-serif focus:outline-none focus:ring-1 focus:ring-blue" placeholder="e.g. Cardiology Basics" />
+            </div>
+            <div>
+              <label className="font-syne font-semibold text-xs text-ink-3 mb-1 block">Description (optional)</label>
+              <input value={shareDesc} onChange={e => setShareDesc(e.target.value)} className="w-full border border-ink/10 rounded px-4 py-2 text-sm font-serif focus:outline-none focus:ring-1 focus:ring-blue" placeholder="What is this deck about?" />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="font-syne font-semibold text-xs text-ink-3">Select Cards ({selectedForShare.size} selected)</label>
+                <button onClick={() => setSelectedForShare(new Set(cards.map(c => c.id)))} className="text-xs text-blue font-syne hover:underline">Select all</button>
+              </div>
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {cards.map(card => (
+                  <label key={card.id} className="flex items-start gap-3 cursor-pointer card p-3 hover:border-ink/20">
+                    <input type="checkbox" checked={selectedForShare.has(card.id)} onChange={e => {
+                      const next = new Set(selectedForShare);
+                      if (e.target.checked) next.add(card.id); else next.delete(card.id);
+                      setSelectedForShare(next);
+                    }} className="mt-0.5" />
+                    <div>
+                      <p className="font-syne font-semibold text-xs text-ink line-clamp-1">{card.question}</p>
+                      <p className="font-serif text-xs text-ink-3 line-clamp-1">{card.answer}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+            {shareError && <p className="text-red-500 text-xs font-serif">{shareError}</p>}
+            <button onClick={handleShareDeck} className="btn-primary w-full py-2.5 rounded font-syne font-semibold text-sm">
+              Create Share Link →
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   if (view === "review") {
     return (
       <div className="max-w-2xl mx-auto px-4 py-6">
@@ -318,12 +401,18 @@ export default function MyFlashcardsPage() {
           <h1 className="font-syne font-black text-2xl text-ink">{t("flashcards.my_cards")}</h1>
           <p className="font-serif text-ink-3 text-sm mt-0.5">{total} {t("flashcards.cards_due")}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button
             onClick={startReview}
             className="px-4 py-2 rounded bg-amber text-white font-syne font-semibold text-sm hover:bg-amber/90 transition-colors"
           >
             {t("flashcards.study_now")}
+          </button>
+          <button
+            onClick={() => setView("share")}
+            className="px-4 py-2 rounded border border-border text-ink font-syne font-semibold text-sm hover:border-ink transition-colors"
+          >
+            Share Deck
           </button>
           <button
             onClick={() => setView("create")}

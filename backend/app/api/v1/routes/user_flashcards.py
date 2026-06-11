@@ -1,4 +1,5 @@
 """User-generated flashcards (UGC) — personal study cards."""
+import secrets
 from datetime import datetime, timedelta
 from typing import List, Optional
 from uuid import UUID
@@ -9,7 +10,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.models.models import UserFlashcard
+from app.models.models import UserFlashcard, SharedDeck
 from app.api.deps import get_current_user
 from app.models.models import User
 
@@ -365,3 +366,110 @@ async def clone_community_card(
     await db.commit()
     await db.refresh(clone)
     return _card_out(clone)
+
+
+# ── Shared Decks ──────────────────────────────────────────────────────────────
+
+class SharedDeckCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=200)
+    description: Optional[str] = Field(None, max_length=500)
+    card_ids: List[UUID] = Field(..., min_length=1, max_length=200)
+
+
+class SharedDeckOut(BaseModel):
+    token: str
+    name: str
+    description: Optional[str]
+    card_count: int
+    view_count: int
+    share_url: str
+    created_at: Optional[str]
+
+
+def _deck_out(deck: SharedDeck, site_url: str = "https://medmind.pro") -> dict:
+    return {
+        "token": deck.token,
+        "name": deck.name,
+        "description": deck.description,
+        "card_count": len(deck.cards) if deck.cards else 0,
+        "view_count": deck.view_count,
+        "share_url": f"{site_url}/decks/shared/{deck.token}",
+        "created_at": deck.created_at.isoformat() if deck.created_at else None,
+    }
+
+
+@router.post("/decks/share")
+async def create_shared_deck(
+    payload: SharedDeckCreate,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Create a shareable snapshot deck from selected personal flashcards."""
+    # Fetch the requested cards (must belong to this user)
+    result = await db.execute(
+        select(UserFlashcard).where(
+            UserFlashcard.user_id == user.id,
+            UserFlashcard.id.in_(payload.card_ids),
+        )
+    )
+    cards = result.scalars().all()
+    if not cards:
+        raise HTTPException(status_code=404, detail="No matching cards found")
+
+    # Generate unique token
+    for _ in range(10):
+        token = secrets.token_urlsafe(8)[:10]
+        existing = await db.execute(select(SharedDeck).where(SharedDeck.token == token))
+        if not existing.scalar_one_or_none():
+            break
+
+    snapshot = [
+        {"question": c.question, "answer": c.answer, "difficulty": c.difficulty}
+        for c in cards
+    ]
+
+    deck = SharedDeck(
+        owner_id=user.id,
+        name=payload.name,
+        description=payload.description,
+        token=token,
+        cards=snapshot,
+    )
+    db.add(deck)
+    await db.commit()
+    await db.refresh(deck)
+    return _deck_out(deck)
+
+
+@router.get("/decks/share")
+async def list_my_shared_decks(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """List all shared decks created by the current user."""
+    result = await db.execute(
+        select(SharedDeck)
+        .where(SharedDeck.owner_id == user.id)
+        .where(SharedDeck.is_active.is_(True))
+        .order_by(SharedDeck.created_at.desc())
+    )
+    decks = result.scalars().all()
+    return [_deck_out(d) for d in decks]
+
+
+@router.delete("/decks/share/{token}")
+async def deactivate_shared_deck(
+    token: str,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Deactivate (revoke) a shared deck link."""
+    result = await db.execute(
+        select(SharedDeck).where(SharedDeck.token == token).where(SharedDeck.owner_id == user.id)
+    )
+    deck = result.scalar_one_or_none()
+    if not deck:
+        raise HTTPException(status_code=404, detail="Deck not found")
+    deck.is_active = False
+    await db.commit()
+    return {"message": "Deck link deactivated"}

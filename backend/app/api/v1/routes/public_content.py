@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.redis_client import get_redis
-from app.models.models import Lesson, Module, Drug, Specialty
+from app.models.models import Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck
 from fastapi import Depends
 
 logger = logging.getLogger(__name__)
@@ -540,3 +540,216 @@ async def get_public_drug(
 
     await _cache_set(cache_key, response)
     return response
+
+
+# ── /public/quiz ──────────────────────────────────────────────────────────────
+
+@router.get("/quiz")
+async def list_public_quizzes(
+    request: Request,
+    category: Optional[str] = Query(None),
+    db: AsyncSession = Depends(get_db),
+):
+    """List active public quizzes."""
+    await check_public_rate_limit(request)
+
+    cache_key = f"pub_quiz_list:{category or '*'}"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    stmt = select(
+        PublicQuiz.slug, PublicQuiz.title, PublicQuiz.description,
+        PublicQuiz.category, PublicQuiz.play_count,
+    ).where(PublicQuiz.is_active.is_(True)).order_by(PublicQuiz.created_at)
+
+    if category:
+        stmt = stmt.where(PublicQuiz.category == category)
+
+    result = await db.execute(stmt)
+    rows = result.all()
+
+    quizzes = [
+        {
+            "slug": r.slug,
+            "title": r.title,
+            "description": r.description,
+            "category": r.category,
+            "play_count": r.play_count,
+        }
+        for r in rows
+    ]
+
+    await _cache_set(cache_key, quizzes, ttl=300)
+    return quizzes
+
+
+@router.get("/quiz/{slug}")
+async def get_public_quiz(
+    slug: str,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    """Quiz detail — questions WITHOUT correct answers (stripped for client)."""
+    await check_public_rate_limit(request)
+
+    cache_key = f"pub_quiz:{slug}"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    result = await db.execute(
+        select(PublicQuiz).where(PublicQuiz.slug == slug).where(PublicQuiz.is_active.is_(True))
+    )
+    quiz = result.scalar_one_or_none()
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+
+    public_questions = [
+        {
+            "question": q.get("question", ""),
+            "options": q.get("options", {}),
+        }
+        for q in (quiz.questions or [])
+    ]
+
+    response = {
+        "slug": quiz.slug,
+        "title": quiz.title,
+        "description": quiz.description,
+        "category": quiz.category,
+        "question_count": len(public_questions),
+        "questions": public_questions,
+        "play_count": quiz.play_count,
+    }
+
+    await _cache_set(cache_key, response, ttl=300)
+    return response
+
+
+@router.post("/quiz/{slug}/submit")
+async def submit_quiz_result(
+    slug: str,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    """Submit anonymous quiz result — returns answers + score + percentile.
+
+    Body: {"answers": {"0": "A", "1": "C", ...}}
+    """
+    await check_public_rate_limit(request)
+
+    body = await request.json()
+    user_answers: dict[str, str] = body.get("answers", {})
+
+    result = await db.execute(
+        select(PublicQuiz).where(PublicQuiz.slug == slug).where(PublicQuiz.is_active.is_(True))
+    )
+    quiz = result.scalar_one_or_none()
+    if not quiz:
+        raise HTTPException(status_code=404, detail="Quiz not found")
+
+    questions = quiz.questions or []
+    correct_count = 0
+    results_list = []
+    for i, q in enumerate(questions):
+        user_ans = user_answers.get(str(i), "").upper()
+        correct_ans = q.get("correct", "").upper()
+        is_correct = user_ans == correct_ans
+        if is_correct:
+            correct_count += 1
+        results_list.append({
+            "question": q.get("question", ""),
+            "options": q.get("options", {}),
+            "user_answer": user_ans,
+            "correct_answer": correct_ans,
+            "is_correct": is_correct,
+            "explanation": q.get("explanation", ""),
+        })
+
+    total_q = len(questions)
+    score_pct = round(correct_count / total_q * 100) if total_q else 0
+
+    # Aggregate stats in Redis
+    redis = await get_redis()
+    stats_key = f"pub_quiz_stats:{slug}"
+    pipe = redis.pipeline()
+    pipe.hincrby(stats_key, "total_plays", 1)
+    pipe.hincrby(stats_key, f"score_{correct_count}", 1)
+    await pipe.execute()
+
+    # Increment DB play_count
+    try:
+        await db.execute(
+            PublicQuiz.__table__.update()
+            .where(PublicQuiz.slug == slug)
+            .values(play_count=PublicQuiz.play_count + 1)
+        )
+        await db.commit()
+    except Exception:
+        pass
+
+    # Calculate percentile
+    stats = await redis.hgetall(stats_key)
+    total_plays = int(stats.get(b"total_plays", stats.get("total_plays", 1)))
+    scored_lte = sum(
+        int(v) for k, v in stats.items()
+        if (k if isinstance(k, str) else k.decode()).startswith("score_")
+        and int((k if isinstance(k, str) else k.decode())[6:]) <= correct_count
+    )
+    percentile = round(scored_lte / total_plays * 100) if total_plays else 50
+
+    return {
+        "score": correct_count,
+        "total": total_q,
+        "score_pct": score_pct,
+        "percentile": percentile,
+        "results": results_list,
+        "total_plays": total_plays,
+    }
+
+
+# ── /public/decks ─────────────────────────────────────────────────────────────
+
+@router.get("/decks/{token}")
+async def get_shared_deck(
+    token: str,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    """View a shared flashcard deck by token — no authentication required."""
+    await check_public_rate_limit(request)
+
+    result = await db.execute(
+        select(SharedDeck).where(SharedDeck.token == token).where(SharedDeck.is_active.is_(True))
+    )
+    deck = result.scalar_one_or_none()
+    if not deck:
+        raise HTTPException(status_code=404, detail="Deck not found or link has been deactivated")
+
+    try:
+        await db.execute(
+            SharedDeck.__table__.update()
+            .where(SharedDeck.token == token)
+            .values(view_count=SharedDeck.view_count + 1)
+        )
+        await db.commit()
+    except Exception:
+        pass
+
+    return {
+        "token": deck.token,
+        "name": deck.name,
+        "description": deck.description,
+        "card_count": len(deck.cards) if deck.cards else 0,
+        "cards": [
+            {
+                "question": c.get("question", ""),
+                "answer": c.get("answer", ""),
+                "difficulty": c.get("difficulty", "medium"),
+            }
+            for c in (deck.cards or [])
+        ],
+        "view_count": deck.view_count,
+        "created_at": deck.created_at.isoformat() if deck.created_at else None,
+    }
