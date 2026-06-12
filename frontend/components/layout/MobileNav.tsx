@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio,
+  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck,
   type LucideProps,
 } from "lucide-react";
 
@@ -75,11 +75,13 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
     {
       label: t("nav.sections.account"),
       items: [
-        { Icon: Award,    label: t("nav.items.achievements"),  href: "/achievements" },
-        { Icon: Bookmark, label: t("nav.items.bookmarks"),     href: "/bookmarks"    },
-        { Icon: Bell,     label: t("nav.items.notifications"), href: "/notifications"},
-        { Icon: Shield,   label: t("nav.items.privacy"),       href: "/compliance"   },
-        { Icon: Settings, label: t("nav.items.settings"),      href: "/settings"     },
+        { Icon: Award,         label: t("nav.items.achievements"),  href: "/achievements" },
+        { Icon: Bookmark,      label: t("nav.items.bookmarks"),     href: "/bookmarks"    },
+        { Icon: Bell,          label: t("nav.items.notifications"), href: "/notifications"},
+        { Icon: CalendarCheck, label: t("nav.items.study_plan"),    href: "/study-plan"   },
+        { Icon: Gift,          label: t("nav.items.referral"),      href: "/referral"     },
+        { Icon: Shield,        label: t("nav.items.privacy"),       href: "/compliance"   },
+        { Icon: Settings,      label: t("nav.items.settings"),      href: "/settings"     },
       ],
     },
   ];

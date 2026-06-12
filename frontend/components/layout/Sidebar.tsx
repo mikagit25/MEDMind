@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Radio,
+  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck,
   type LucideProps,
 } from "lucide-react";
 
@@ -67,11 +67,13 @@ export function Sidebar() {
     {
       label: t("nav.sections.account"),
       items: [
-        { icon: Award,    label: t("nav.items.achievements"),  href: "/achievements" },
-        { icon: Bookmark, label: t("nav.items.bookmarks"),     href: "/bookmarks" },
-        { icon: Bell,     label: t("nav.items.notifications"), href: "/notifications" },
-        { icon: Shield,   label: t("nav.items.privacy"),       href: "/compliance" },
-        { icon: Settings, label: t("nav.items.settings"),      href: "/settings" },
+        { icon: Award,         label: t("nav.items.achievements"),  href: "/achievements" },
+        { icon: Bookmark,      label: t("nav.items.bookmarks"),     href: "/bookmarks" },
+        { icon: Bell,          label: t("nav.items.notifications"), href: "/notifications" },
+        { icon: CalendarCheck, label: t("nav.items.study_plan"),    href: "/study-plan" },
+        { icon: Gift,          label: t("nav.items.referral"),      href: "/referral" },
+        { icon: Shield,        label: t("nav.items.privacy"),       href: "/compliance" },
+        { icon: Settings,      label: t("nav.items.settings"),      href: "/settings" },
       ],
     },
   ];

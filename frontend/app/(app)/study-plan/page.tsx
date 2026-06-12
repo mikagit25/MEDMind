@@ -128,8 +128,8 @@ export default function StudyPlanPage() {
           <h1 className="font-syne font-black text-2xl text-ink">{plan?.exam_label ?? EXAM_LABELS[examType] ?? "Exam"} Study Plan</h1>
           {plan && <p className="font-serif text-ink-3 text-sm mt-0.5">{plan.total_weeks} weeks · {plan.daily_hours}h/day · {plan.days_remaining} days left</p>}
         </div>
-        <button onClick={() => handleGenerate()} disabled={status === "loading"}
-          className="font-syne font-semibold text-xs border border-border text-ink-2 px-3 py-1.5 rounded hover:border-border-2 hover:text-ink transition-colors disabled:opacity-40">
+        <button onClick={() => handleGenerate()}
+          className="font-syne font-semibold text-xs border border-border text-ink-2 px-3 py-1.5 rounded hover:border-border-2 hover:text-ink transition-colors">
           Regenerate
         </button>
       </div>
@@ -204,7 +204,7 @@ export default function StudyPlanPage() {
             <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Daily study hours: <strong>{dailyHours}h</strong></label>
             <input type="range" min={0.5} max={8} step={0.5} value={dailyHours} onChange={e => setDailyHours(Number(e.target.value))} className="w-full accent-ink" />
           </div>
-          <button onClick={() => handleGenerate()} disabled={status === "loading"} className="w-full btn-primary disabled:opacity-40">
+          <button onClick={() => handleGenerate()} className="w-full btn-primary">
             Generate {EXAM_LABELS[examType] ?? "Exam"} Study Plan
           </button>
           <p className="font-serif text-xs text-ink-3">
