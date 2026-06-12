@@ -100,3 +100,28 @@ def case_discussion_prompt(
         "Write in 2-4 clear sentences."
         + HIPAA_DISCLAIMER
     )
+
+
+LESSON_MCQ_SYSTEM = (
+    "You are a medical exam question writer. "
+    "Given lesson content, generate exactly 5 USMLE Step 1/2-style MCQ questions that test "
+    "comprehension and clinical application of the material. "
+    "Return ONLY valid JSON — no markdown, no commentary, no code fences. "
+    "Format: {\"questions\":[{\"question\":\"...\",\"options\":{\"A\":\"...\",\"B\":\"...\",\"C\":\"...\",\"D\":\"...\"},\"correct\":\"A\",\"explanation\":\"...\"}]}"
+)
+
+
+def lesson_mcq_prompt(lesson_title: str, lesson_text: str, difficulty: str = "medium") -> str:
+    diff_note = {
+        "easy":   "Questions should be factual recall, suitable for a first-year student.",
+        "medium": "Questions should require understanding of mechanisms and clinical relevance.",
+        "hard":   "Questions should require integration of knowledge and clinical decision-making.",
+    }.get(difficulty, "")
+    return (
+        f"Lesson: {lesson_title}\n\n"
+        f"{lesson_text[:3000]}\n\n"
+        f"Difficulty: {difficulty}. {diff_note}\n\n"
+        "Generate 5 MCQ questions based strictly on the content above. "
+        "Each question must have 4 options (A-D), one correct answer, and a 1-2 sentence explanation. "
+        "Return ONLY the JSON object."
+    )

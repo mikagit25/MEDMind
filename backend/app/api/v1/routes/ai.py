@@ -13,7 +13,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import load_only
 
 from app.core.database import get_db
-from app.models.models import User, AIConversation, AIConversationMessage, UserProgress, Module
+from app.models.models import User, AIConversation, AIConversationMessage, UserProgress, Module, Lesson
 from app.schemas.schemas import AIAskRequest, AIAskResponse, ConversationOut, MessageOut
 from app.api.deps import get_current_user
 from app.services.ai_router import route_ai_request, route_ai_stream
@@ -506,6 +506,94 @@ async def quiz_mode(
         mode="quiz",
     )
     return {"topic": topic, "quiz": response.get("response", ""), "model": response.get("model")}
+
+
+# ============================================================
+# LESSON MCQ GENERATION
+# ============================================================
+
+class GeneratedMCQ(BaseModel):
+    question: str
+    options: dict  # {"A": ..., "B": ..., "C": ..., "D": ...}
+    correct: str   # "A" | "B" | "C" | "D"
+    explanation: str
+
+class LessonQuizResponse(BaseModel):
+    lesson_id: str
+    lesson_title: str
+    questions: List[GeneratedMCQ]
+    model: Optional[str] = None
+
+
+@router.post("/lessons/{lesson_id}/generate-quiz", response_model=LessonQuizResponse)
+async def generate_lesson_quiz(
+    lesson_id: UUID,
+    difficulty: str = "medium",
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate 5 USMLE-style MCQ questions from a lesson's content using Claude Haiku."""
+    from app.prompts.tutor_prompts import lesson_mcq_prompt, LESSON_MCQ_SYSTEM
+    from app.services.content_sanitizer import sanitize_for_llm_context
+
+    if difficulty not in ("easy", "medium", "hard"):
+        difficulty = "medium"
+
+    lesson = await db.get(Lesson, lesson_id)
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+
+    await check_ai_rate_limit(user, db)
+
+    # Extract plain text from lesson content (blocks or legacy dict)
+    lesson_text = sanitize_for_llm_context(lesson.content, max_chars=3000)
+
+    prompt = lesson_mcq_prompt(lesson.title or "Medical Lesson", lesson_text, difficulty)
+
+    # Always use Haiku for MCQ generation — fast and sufficient
+    from app.services.ai_router import call_claude_structured
+    try:
+        raw, model_label = await call_claude_structured(
+            system=LESSON_MCQ_SYSTEM,
+            user_message=prompt,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
+
+    # Parse JSON response
+    try:
+        # Strip any accidental markdown fences
+        clean = raw.strip()
+        if clean.startswith("```"):
+            clean = clean.split("```")[1]
+            if clean.startswith("json"):
+                clean = clean[4:]
+        parsed = json.loads(clean)
+        questions_raw = parsed.get("questions", [])
+    except (json.JSONDecodeError, AttributeError):
+        raise HTTPException(status_code=502, detail="AI returned malformed response. Please try again.")
+
+    questions = []
+    for q in questions_raw[:5]:
+        try:
+            questions.append(GeneratedMCQ(
+                question=str(q.get("question", "")),
+                options={k: str(v) for k, v in q.get("options", {}).items()},
+                correct=str(q.get("correct", "A")),
+                explanation=str(q.get("explanation", "")),
+            ))
+        except Exception:
+            continue
+
+    if not questions:
+        raise HTTPException(status_code=502, detail="AI returned no valid questions. Please try again.")
+
+    return LessonQuizResponse(
+        lesson_id=str(lesson_id),
+        lesson_title=lesson.title or "",
+        questions=questions,
+        model=model_label,
+    )
 
 
 # ============================================================

@@ -6,9 +6,17 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Phase 9 ✅ (Clinical Calculators — backend API + Save Result). Phase 8 ✅ (Mobile App).
+**Phase:** Phase 10 ✅ (AI MCQ Generation from Lesson). Phase 9 ✅ (Clinical Calculators).
 **Last Updated:** 2026-06-12
-**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 478 passed, 0 failed.
+**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 492 passed, 0 failed.
+
+### Phase 10 — AI MCQ Generation from Lesson ✅ (2026-06-12)
+- **Backend: `POST /ai/lessons/{lesson_id}/generate-quiz`** — authenticated; fetches lesson content, calls Claude Haiku with structured JSON prompt, returns 5 USMLE-style MCQ questions with options (A-D), correct answer, and explanation
+- **`call_claude_structured()`** — new utility in `ai_router.py` for direct Claude calls with custom system prompts (structured output, bypasses standard routing)
+- **`LESSON_MCQ_SYSTEM` + `lesson_mcq_prompt()`** — new prompt and template in `tutor_prompts.py`; supports easy/medium/hard difficulty
+- **Frontend: `LessonQuizPanel` component** — `frontend/components/ui/LessonQuizPanel.tsx`; renders for authenticated users on lesson page; flow: idle (difficulty selector + generate button) → loading spinner → question-by-question quiz (progress bar, ABCD options, check answer, explanation) → score screen (X/5 correct, color-coded feedback); inserted above navigation footer in `modules/[id]/page.tsx`
+- **`aiApi.generateLessonQuiz()`** added to `frontend/lib/api.ts`
+- 6 new tests in `test_v4_phase10.py` — 401 unauthenticated, 404 unknown lesson, returns 5 questions, correct structure, difficulty param, invalid UUID
 
 ### Phase 9 — Clinical Calculators backend + Save Result ✅ (2026-06-12)
 - **Backend: `GET /calculators`** — public catalog of 22 clinical calculators (slug, name, category, icon)

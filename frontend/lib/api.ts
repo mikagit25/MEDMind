@@ -338,6 +338,8 @@ export const aiApi = {
     api.post(`/ai/quiz/${encodeURIComponent(topic)}`).then(r => r.data),
   discussCase: (caseId: string, decision?: string) =>
     api.post(`/ai/case-discuss/${caseId}`, { decision }).then(r => r.data),
+  generateLessonQuiz: (lessonId: string, difficulty: "easy" | "medium" | "hard" = "medium") =>
+    api.post(`/ai/lessons/${lessonId}/generate-quiz`, null, { params: { difficulty } }).then(r => r.data),
 };
 
 export const notesApi = {

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib/api";
+import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
 import { useI18n } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
 
@@ -792,6 +793,9 @@ export default function ModuleDetailPage() {
                 )}
               </div>
             )}
+
+            {/* AI Practice Questions */}
+            <LessonQuizPanel lessonId={activeLesson.id} lessonTitle={activeLesson.title} />
 
             {/* Lesson navigation footer */}
             <div className="mt-8 border-t border-border pt-5 space-y-4">

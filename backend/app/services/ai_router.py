@@ -39,6 +39,21 @@ claude_client = anthropic.AsyncAnthropic(
     max_retries=2,
 )
 
+
+async def call_claude_structured(system: str, user_message: str, model: str = "claude-haiku-4-5-20251001", max_tokens: int = 2000) -> tuple[str, str]:
+    """Call Claude directly with a custom system prompt. Returns (text, model_label).
+    Used for structured-output tasks (JSON generation) that bypass the standard routing.
+    """
+    response = await claude_client.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user_message}],
+    )
+    text = response.content[0].text if response.content else ""
+    return text, model
+
+
 # Keywords that indicate a complex medical question → use Claude
 COMPLEX_KEYWORDS = [
     "mechanism", "pathophysiology", "differential", "management", "treatment",
