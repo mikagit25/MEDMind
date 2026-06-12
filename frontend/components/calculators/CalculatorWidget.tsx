@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { useAuthStore } from "@/lib/store";
-import { api, aiApi } from "@/lib/api";
+import { api, aiApi, calculatorsApi } from "@/lib/api";
 import {
   type Lang, type CalcMeta, type FieldDef, type RiskBand,
   CALCULATORS, getCalc, getRiskBand, UI, CALC_SLUGS,
@@ -228,6 +228,70 @@ function AiPanel({ lang, calcName, score, riskLabel }: {
   );
 }
 
+// ── Save result panel ────────────────────────────────────────────────────────
+
+const SAVE_T = {
+  title:   { en: "Save this result", ru: "Сохранить результат", ar: "حفظ هذه النتيجة", tr: "Bu sonucu kaydet", de: "Ergebnis speichern", fr: "Sauvegarder ce résultat", es: "Guardar este resultado" } as Record<Lang, string>,
+  note:    { en: "Add a note (optional)", ru: "Добавить заметку (необязательно)", ar: "إضافة ملاحظة (اختياري)", tr: "Not ekle (isteğe bağlı)", de: "Notiz hinzufügen (optional)", fr: "Ajouter une note (optionnel)", es: "Agregar nota (opcional)" } as Record<Lang, string>,
+  save:    { en: "Save", ru: "Сохранить", ar: "حفظ", tr: "Kaydet", de: "Speichern", fr: "Sauvegarder", es: "Guardar" } as Record<Lang, string>,
+  saved:   { en: "Saved ✓", ru: "Сохранено ✓", ar: "تم الحفظ ✓", tr: "Kaydedildi ✓", de: "Gespeichert ✓", fr: "Sauvegardé ✓", es: "Guardado ✓" } as Record<Lang, string>,
+  error:   { en: "Could not save. Try again.", ru: "Не удалось сохранить. Попробуйте ещё раз.", ar: "تعذّر الحفظ. حاول مرة أخرى.", tr: "Kaydedilemedi. Tekrar deneyin.", de: "Speichern fehlgeschlagen. Erneut versuchen.", fr: "Échec de la sauvegarde. Réessayez.", es: "No se pudo guardar. Inténtalo de nuevo." } as Record<Lang, string>,
+};
+
+function SaveResultPanel({ slug, inputs, score, riskLabel, lang }: {
+  slug: string; inputs: Record<string, number>; score: number; riskLabel: string; lang: string;
+}) {
+  const { isAuthenticated } = useAuthStore();
+  const [note, setNote] = useState("");
+  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+
+  if (!isAuthenticated) return null;
+
+  async function handleSave() {
+    if (status === "saving" || status === "saved") return;
+    setStatus("saving");
+    try {
+      await calculatorsApi.saveResult(slug, {
+        inputs: inputs as Record<string, unknown>,
+        score: String(score),
+        risk_level: riskLabel,
+        note: note.trim() || undefined,
+      });
+      setStatus("saved");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+      <p className="font-syne font-semibold text-sm text-ink">{t(SAVE_T.title, lang)}</p>
+      <textarea
+        value={note}
+        onChange={e => setNote(e.target.value)}
+        placeholder={t(SAVE_T.note, lang)}
+        rows={2}
+        disabled={status === "saved"}
+        className="w-full text-xs text-ink bg-transparent border border-border rounded-lg p-2 resize-none placeholder:text-ink-3 focus:outline-none focus:border-border-2 disabled:opacity-50"
+      />
+      {status === "error" && (
+        <p className="text-red text-xs">{t(SAVE_T.error, lang)}</p>
+      )}
+      <button
+        onClick={handleSave}
+        disabled={status === "saving" || status === "saved"}
+        className={`w-full font-syne font-semibold text-sm py-2 rounded transition-colors disabled:cursor-not-allowed ${
+          status === "saved"
+            ? "bg-green text-white opacity-90"
+            : "border border-border text-ink-2 hover:border-border-2 hover:text-ink disabled:opacity-60"
+        }`}
+      >
+        {status === "saved" ? t(SAVE_T.saved, lang) : status === "saving" ? "…" : t(SAVE_T.save, lang)}
+      </button>
+    </div>
+  );
+}
+
 // ── Checkbox-based calculator ─────────────────────────────────────────────────
 
 function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
@@ -313,6 +377,14 @@ function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
           calcName={calc.nameI18n.en}
           score={score}
           riskLabel={band ? t(UI[band.labelKey], "en") : ""}
+        />
+
+        <SaveResultPanel
+          slug={calc.slug}
+          inputs={vals}
+          score={score}
+          riskLabel={band ? t(UI[band.labelKey], "en") : ""}
+          lang={lang}
         />
 
         <div className="text-ink-3 text-xs leading-relaxed">

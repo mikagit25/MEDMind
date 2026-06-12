@@ -6,9 +6,19 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V3 Phase 8 ✅ (Mobile App — React Native Expo). Все фазы V4 завершены.
+**Phase:** Phase 9 ✅ (Clinical Calculators — backend API + Save Result). Phase 8 ✅ (Mobile App).
 **Last Updated:** 2026-06-12
-**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 464 passed, 0 failed.
+**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 478 passed, 0 failed.
+
+### Phase 9 — Clinical Calculators backend + Save Result ✅ (2026-06-12)
+- **Backend: `GET /calculators`** — public catalog of 22 clinical calculators (slug, name, category, icon)
+- **Backend: `POST /calculators/{slug}/save-result`** — authenticated; saves inputs/score/risk_level/note to `calculator_results` table
+- **Backend: `GET /calculators/history`** — authenticated; returns user's saved results newest first, optional `?slug=` filter
+- **Backend: `DELETE /calculators/history/{id}`** — authenticated; ownership-scoped delete
+- **`CalculatorResult` model** — `calculator_results` table with JSONB inputs + 3 indexes; Alembic migration `2b5112c7bd74`
+- **Frontend: `calculatorsApi`** — added to `frontend/lib/api.ts` (list, saveResult, getHistory, deleteResult)
+- **Frontend: `SaveResultPanel`** — new component in `CalculatorWidget.tsx`; renders for authenticated users after calculation; optional note textarea; save/saved/error states; inserted after `AiPanel` in CheckboxCalc right panel
+- 14 new tests in `test_v4_phase9.py` — public catalog, 401 unauthenticated, save/note/unknown-slug, history/filter/scoping, delete/wrong-user/invalid-uuid
 
 ### V3 Phase 8 — Mobile App (React Native Expo) ✅ (2026-06-12)
 - **WatermelonDB offline sync** (pre-existing): `syncModules()`, `syncFlashcards()`, `pushPendingReviews()` in `mobile/src/lib/database.ts`; schema: modules, lessons, flashcards, ai_messages tables

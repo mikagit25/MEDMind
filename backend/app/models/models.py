@@ -1417,6 +1417,29 @@ class SharedDeck(Base):
 # ============================================================
 # XP EVENTS — audit trail for all XP awards (Phase 5)
 # ============================================================
+# ============================================================
+# CALCULATOR RESULTS — saved calculator history (Phase 9)
+# ============================================================
+class CalculatorResult(Base):
+    """A saved clinical calculator result for an authenticated user."""
+    __tablename__ = "calculator_results"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    slug         = Column(String(100), nullable=False)   # e.g. "cha2ds2-vasc"
+    inputs       = Column(JSONB, nullable=False)         # user-entered field values
+    score        = Column(String(50), nullable=True)     # computed score or result label
+    risk_level   = Column(String(50), nullable=True)     # low / moderate / high / very-high
+    note         = Column(Text, nullable=True)           # optional free-text note by user
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_calc_results_user_id",        "user_id"),
+        Index("ix_calc_results_user_slug",      "user_id", "slug"),
+        Index("ix_calc_results_created_at",     "created_at"),
+    )
+
+
 class XPEvent(Base):
     """One row per XP award event — audit trail for gamification."""
     __tablename__ = "xp_events"

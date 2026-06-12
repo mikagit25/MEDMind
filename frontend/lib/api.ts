@@ -771,3 +771,13 @@ export const examApi = {
   getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
   getHistory: () => api.get("/exam/history").then(r => r.data),
 };
+
+// ── Calculators API ──────────────────────────────────────────────────────────
+export const calculatorsApi = {
+  list: () => api.get("/calculators").then(r => r.data),
+  saveResult: (slug: string, payload: { inputs: Record<string, unknown>; score?: string; risk_level?: string; note?: string }) =>
+    api.post(`/calculators/${slug}/save-result`, payload).then(r => r.data),
+  getHistory: (slug?: string) =>
+    api.get("/calculators/history", { params: slug ? { slug } : undefined }).then(r => r.data),
+  deleteResult: (id: string) => api.delete(`/calculators/history/${id}`).then(r => r.data),
+};
