@@ -90,7 +90,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
     { Icon: FileText,        label: t("nav.items.my_articles"),       href: "/teacher/articles"  },
     { Icon: Radio,           label: t("nav.items.my_news"),           href: "/teacher/news"      },
     { Icon: BarChart2,       label: t("nav.items.analytics"),         href: "/teacher/analytics" },
-    { Icon: CreditCard,      label: "Credits",                        href: "/teacher/credits"   },
+    { Icon: CreditCard,      label: t("nav.items.credits"),           href: "/teacher/credits"   },
   ];
 
   const handleLogout = () => { logout(); onClose(); router.push("/login"); };

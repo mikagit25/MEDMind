@@ -83,7 +83,7 @@ export function Sidebar() {
     { icon: FileText,        label: t("nav.items.my_articles"),       href: "/teacher/articles" },
     { icon: Radio,           label: t("nav.items.my_news"),           href: "/teacher/news" },
     { icon: BarChart2,       label: t("nav.items.analytics"),         href: "/teacher/analytics" },
-    { icon: CreditCard,      label: "Credits",                        href: "/teacher/credits" },
+    { icon: CreditCard,      label: t("nav.items.credits"),           href: "/teacher/credits" },
   ];
 
   const handleLogout = () => {

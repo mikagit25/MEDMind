@@ -7,9 +7,8 @@ import { useAuthStore } from "@/lib/store";
 import { contentApi, progressApi, adaptivePlanApi } from "@/lib/api";
 
 // ── Mini Leaderboard ──────────────────────────────────────────
-const LEVEL_NAMES = ["", "Novice", "Learner", "Resident", "Specialist", "Expert", "Master"];
-
 function MiniLeaderboard() {
+  const t = useT();
   const [board, setBoard] = useState<any[]>([]);
   const [myRank, setMyRank] = useState<number | null>(null);
 
@@ -27,9 +26,9 @@ function MiniLeaderboard() {
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-syne font-bold text-sm text-ink">🏆 This Week&apos;s Top</h3>
+        <h3 className="font-syne font-bold text-sm text-ink">{t("dashboard.leaderboard_widget_title")}</h3>
         <Link href="/leaderboard" className="text-xs text-ink-3 font-syne hover:text-ink">
-          Full leaderboard →
+          {t("dashboard.leaderboard_full_link")}
         </Link>
       </div>
       <div className="space-y-2">
@@ -43,9 +42,9 @@ function MiniLeaderboard() {
             </span>
             <div className="flex-1 min-w-0">
               <div className="font-syne font-semibold text-xs text-ink truncate">
-                {entry.name}{entry.is_me ? " (you)" : ""}
+                {entry.name}{entry.is_me ? ` ${t("dashboard.leaderboard_you")}` : ""}
               </div>
-              <div className="font-serif text-[10px] text-ink-3">{LEVEL_NAMES[entry.level] ?? "Learner"}</div>
+              <div className="font-serif text-[10px] text-ink-3">{t(`dashboard.level_${Math.min(entry.level ?? 1, 6)}` as any) || t("dashboard.level_2")}</div>
             </div>
             <div className="text-right">
               <div className="font-syne font-bold text-xs text-ink">{entry.xp} XP</div>
@@ -56,7 +55,7 @@ function MiniLeaderboard() {
       </div>
       {myRank && myRank > 3 && (
         <div className="mt-2 text-center font-serif text-xs text-ink-3">
-          Your rank this week: <span className="font-syne font-bold text-ink">#{myRank}</span>
+          {t("dashboard.leaderboard_my_rank")} <span className="font-syne font-bold text-ink">#{myRank}</span>
         </div>
       )}
     </div>
@@ -65,19 +64,20 @@ function MiniLeaderboard() {
 
 // ── New User Welcome ──────────────────────────────────────────
 function NewUserWelcome({ firstName }: { firstName?: string }) {
+  const t = useT();
   const steps = [
-    { icon: "📚", label: "Browse modules by specialty", href: "/modules", color: "bg-blue-light text-blue border-blue/20" },
-    { icon: "🃏", label: "Start flashcard review", href: "/flashcards", color: "bg-green-light text-green border-green/20" },
-    { icon: "🤖", label: "Ask the AI Tutor anything", href: "/ai-tutor", color: "bg-amber-light text-amber border-amber/20" },
-    { icon: "📝", label: "Test yourself with MCQs", href: "/quiz", color: "bg-red-light text-red border-red/20" },
+    { icon: "📚", label: t("dashboard.welcome_step_modules"), href: "/modules", color: "bg-blue-light text-blue border-blue/20" },
+    { icon: "🃏", label: t("dashboard.welcome_step_flashcards"), href: "/flashcards", color: "bg-green-light text-green border-green/20" },
+    { icon: "🤖", label: t("dashboard.welcome_step_ai"), href: "/ai-tutor", color: "bg-amber-light text-amber border-amber/20" },
+    { icon: "📝", label: t("dashboard.welcome_step_quiz"), href: "/quiz", color: "bg-red-light text-red border-red/20" },
   ];
   return (
     <div className="card p-5 mb-4 border-amber/30 bg-amber-light/20">
       <div className="font-syne font-black text-base text-ink mb-1">
-        Welcome{firstName ? `, ${firstName}` : ""}! 🎉
+        {t("dashboard.welcome_title")}{firstName ? `, ${firstName}` : ""}! 🎉
       </div>
       <p className="font-serif text-ink-3 text-xs mb-4">
-        Start your medical learning journey. Here&apos;s how to get started:
+        {t("dashboard.welcome_subtitle")}
       </p>
       <div className="grid grid-cols-2 gap-2">
         {steps.map((s) => (
@@ -180,28 +180,28 @@ function DoctorPanel({ stats }: { stats: any }) {
             <span className="text-xl">🩺</span>
             <div>
               <div className="font-syne font-semibold text-xs text-amber">{t("dashboard.clinical_cases")}</div>
-              <div className="font-serif text-xs text-ink-3">Evidence-based</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.evidence_based")}</div>
             </div>
           </Link>
           <Link href="/drugs" className="flex items-center gap-2 p-3 rounded bg-blue-light border border-blue/20 hover:border-blue/40 transition-colors">
             <span className="text-xl">💊</span>
             <div>
               <div className="font-syne font-semibold text-xs text-blue">{t("nav.items.drugs")}</div>
-              <div className="font-serif text-xs text-ink-3">Interactions & dosing</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.interactions_dosing")}</div>
             </div>
           </Link>
         </div>
         {cmeCredits >= 0 && (
           <div className="mt-3 p-3 rounded bg-green-light border border-green/20">
             <div className="flex items-center justify-between">
-              <span className="font-syne font-semibold text-xs text-green">CME This Year</span>
-              <span className="font-syne font-bold text-xs text-green">{stats?.cme_credits_this_year ?? cmeCredits} / 50 credits</span>
+              <span className="font-syne font-semibold text-xs text-green">{t("dashboard.cme_this_year")}</span>
+              <span className="font-syne font-bold text-xs text-green">{stats?.cme_credits_this_year ?? cmeCredits} {t("dashboard.cme_credits_year")}</span>
             </div>
             <div className="mt-1.5 h-1.5 bg-green/20 rounded-full">
               <div className="h-full bg-green rounded-full" style={{ width: `${Math.min(((stats?.cme_credits_this_year ?? cmeCredits) / 50) * 100, 100)}%` }} />
             </div>
             <p className="font-serif text-xs text-ink-3 mt-1.5">
-              {cmeCredits} total · Complete modules to earn CME/CPD credits
+              {cmeCredits} {t("dashboard.cme_total_hint")}
             </p>
             <DownloadPDFButton />
           </div>
@@ -213,56 +213,57 @@ function DoctorPanel({ stats }: { stats: any }) {
 
 // ── Role-specific panel: Professor ──
 function ProfessorPanel({ stats }: { stats: any }) {
+  const t = useT();
   const modulesCompleted = stats?.modules_completed ?? 0;
   const lessonsCompleted = stats?.lessons_completed ?? 0;
   return (
     <div className="mb-6">
-      <h2 className="font-syne font-bold text-base text-ink mb-3">Teaching Dashboard</h2>
+      <h2 className="font-syne font-bold text-base text-ink mb-3">{t("dashboard.teaching_dashboard")}</h2>
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <StatCard value={modulesCompleted} label="Modules done" />
-        <StatCard value={lessonsCompleted} label="Lessons taught" />
-        <StatCard value={stats?.streak_days ?? 0} label="Day streak 🔥" />
+        <StatCard value={modulesCompleted} label={t("dashboard.stat_modules_done")} />
+        <StatCard value={lessonsCompleted} label={t("dashboard.stat_lessons_taught")} />
+        <StatCard value={stats?.streak_days ?? 0} label={t("dashboard.stat_day_streak")} />
       </div>
       {/* Teacher authoring shortcut */}
       <Link href="/teacher/modules" className="flex items-center justify-between p-4 rounded-xl bg-ink text-white mb-3 hover:bg-ink/90 transition-colors">
         <div className="flex items-center gap-3">
           <span className="text-2xl">✏️</span>
           <div>
-            <div className="font-syne font-bold text-sm">My Lessons</div>
-            <div className="font-serif text-xs text-white/70">Create and manage your modules</div>
+            <div className="font-syne font-bold text-sm">{t("dashboard.teaching_my_lessons")}</div>
+            <div className="font-serif text-xs text-white/70">{t("dashboard.teaching_my_lessons_hint")}</div>
           </div>
         </div>
         <span className="text-white/60 text-lg">→</span>
       </Link>
       <div className="card p-4 mb-3">
-        <h3 className="font-syne font-semibold text-sm text-ink mb-3">Curriculum Tools</h3>
+        <h3 className="font-syne font-semibold text-sm text-ink mb-3">{t("dashboard.teaching_curriculum_tools")}</h3>
         <div className="grid grid-cols-2 gap-2">
           <Link href="/modules" className="flex items-center gap-2 p-3 rounded bg-red-light border border-red/20 hover:border-red/40 transition-colors">
             <span className="text-xl">📚</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-red">All Modules</div>
-              <div className="font-serif text-xs text-ink-3">Browse curriculum</div>
+              <div className="font-syne font-semibold text-xs text-red">{t("dashboard.teaching_all_modules")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.teaching_browse_curriculum")}</div>
             </div>
           </Link>
           <Link href="/quiz" className="flex items-center gap-2 p-3 rounded bg-blue-light border border-blue/20 hover:border-blue/40 transition-colors">
             <span className="text-xl">📝</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-blue">Quiz Bank</div>
-              <div className="font-serif text-xs text-ink-3">MCQ practice</div>
+              <div className="font-syne font-semibold text-xs text-blue">{t("dashboard.teaching_quiz_bank")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.teaching_mcq_practice")}</div>
             </div>
           </Link>
           <Link href="/ai-tutor" className="flex items-center gap-2 p-3 rounded bg-green-light border border-green/20 hover:border-green/40 transition-colors">
             <span className="text-xl">🤖</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-green">AI Assistant</div>
-              <div className="font-serif text-xs text-ink-3">Research & explain</div>
+              <div className="font-syne font-semibold text-xs text-green">{t("dashboard.teaching_ai_assistant")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.teaching_research")}</div>
             </div>
           </Link>
           <Link href="/search" className="flex items-center gap-2 p-3 rounded border border-border bg-surface hover:border-ink-3 transition-colors">
             <span className="text-xl">🔍</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-ink">Search</div>
-              <div className="font-serif text-xs text-ink-3">Find any content</div>
+              <div className="font-syne font-semibold text-xs text-ink">{t("dashboard.teaching_search")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.teaching_find_content")}</div>
             </div>
           </Link>
         </div>
@@ -273,38 +274,39 @@ function ProfessorPanel({ stats }: { stats: any }) {
 
 // ── Role-specific panel: Veterinarian ──
 function VeterinarianPanel({ stats }: { stats: any }) {
+  const t = useT();
   return (
     <div className="mb-6">
-      <h2 className="font-syne font-bold text-base text-ink mb-3">Veterinary Dashboard</h2>
+      <h2 className="font-syne font-bold text-base text-ink mb-3">{t("dashboard.vet_dashboard")}</h2>
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <StatCard value={stats?.lessons_completed ?? 0} label="Lessons done" />
-        <StatCard value={stats?.cards_reviewed ?? 0} label="Cards reviewed" />
-        <StatCard value={`${stats?.streak_days ?? 0}🔥`} label="Day streak" />
+        <StatCard value={stats?.lessons_completed ?? 0} label={t("dashboard.stat_lessons_done")} />
+        <StatCard value={stats?.cards_reviewed ?? 0} label={t("dashboard.stat_cards_reviewed")} />
+        <StatCard value={`${stats?.streak_days ?? 0}🔥`} label={t("dashboard.stat_day_streak")} />
       </div>
       <div className="card p-4 mb-3">
-        <h3 className="font-syne font-semibold text-sm text-ink mb-3">Vet Tools</h3>
+        <h3 className="font-syne font-semibold text-sm text-ink mb-3">{t("dashboard.vet_tools")}</h3>
         <div className="grid grid-cols-2 gap-2">
           <Link href="/drugs?vet=true" className="flex items-center gap-2 p-3 rounded bg-amber-light border border-amber/20 hover:border-amber/40 transition-colors">
             <span className="text-xl">🐾</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-amber">Vet Drug Reference</div>
-              <div className="font-serif text-xs text-ink-3">Species-specific dosing</div>
+              <div className="font-syne font-semibold text-xs text-amber">{t("dashboard.vet_drug_ref")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.vet_drug_hint")}</div>
             </div>
           </Link>
           <Link href="/cases?vet=true" className="flex items-center gap-2 p-3 rounded bg-green-light border border-green/20 hover:border-green/40 transition-colors">
             <span className="text-xl">🩺</span>
             <div>
-              <div className="font-syne font-semibold text-xs text-green">Vet Cases</div>
-              <div className="font-serif text-xs text-ink-3">Clinical scenarios</div>
+              <div className="font-syne font-semibold text-xs text-green">{t("dashboard.vet_cases")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("dashboard.vet_cases_hint")}</div>
             </div>
           </Link>
         </div>
       </div>
       <div className="card p-3 bg-amber-light/40 border-amber/20">
-        <p className="font-syne font-semibold text-xs text-amber-dark mb-1">⚠️ Toxicity Quick Check</p>
+        <p className="font-syne font-semibold text-xs text-amber-dark mb-1">{t("dashboard.vet_toxicity_title")}</p>
         <p className="font-serif text-xs text-ink-2">
           Common dangers: paracetamol (cats), xylitol (dogs), permethrin (cats).{" "}
-          <Link href="/drugs" className="text-amber underline">Check drug safety →</Link>
+          <Link href="/drugs" className="text-amber underline">{t("dashboard.vet_check_drug_safety")}</Link>
         </p>
       </div>
     </div>
@@ -313,6 +315,7 @@ function VeterinarianPanel({ stats }: { stats: any }) {
 
 // ── Streak Calendar (last 7 days) ──────────────────────────────────────────
 function StreakCalendar({ streakDays, longestStreak }: { streakDays: number; longestStreak?: number }) {
+  const t = useT();
   const days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - (6 - i));
@@ -329,9 +332,9 @@ function StreakCalendar({ streakDays, longestStreak }: { streakDays: number; lon
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <span className="font-syne font-bold text-sm text-ink">Study Streak</span>
+          <span className="font-syne font-bold text-sm text-ink">{t("dashboard.streak_title")}</span>
           {longestStreak && longestStreak > streakDays && (
-            <span className="font-serif text-[10px] text-ink-3 ml-2">best: {longestStreak}d</span>
+            <span className="font-serif text-[10px] text-ink-3 ml-2">{t("dashboard.streak_best")} {longestStreak}d</span>
           )}
         </div>
         <span className="font-syne font-black text-sm text-amber">{streakDays} 🔥</span>
@@ -361,6 +364,7 @@ function StreakCalendar({ streakDays, longestStreak }: { streakDays: number; lon
 // ── Today's Plan ────────────────────────────────────────────────────────────
 function TodaysPlan() {
   const router = useRouter();
+  const t = useT();
   const [plan, setPlan] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -377,22 +381,22 @@ function TodaysPlan() {
   const weakAreas: any[] = plan?.weak_areas?.slice(0, 2) ?? [];
 
   const tasks = [
-    ...upNext.map((t: any) => ({
-      label: t.title ?? t.topic ?? "Continue studying",
+    ...upNext.map((item: any) => ({
+      label: item.title ?? item.topic ?? t("dashboard.plan_continue_studying"),
       icon: "📚",
-      href: t.lesson_id ? `/modules/${t.module_id}` : "/modules",
+      href: item.lesson_id ? `/modules/${item.module_id}` : "/modules",
       color: "text-blue",
       bg: "bg-blue-light",
     })),
-    ...dueReviews.map((t: any) => ({
-      label: `Review: ${t.topic ?? t.title ?? "Flashcards"}`,
+    ...dueReviews.map((item: any) => ({
+      label: `${t("dashboard.plan_review_prefix")} ${item.topic ?? item.title ?? t("dashboard.plan_flashcards")}`,
       icon: "🃏",
       href: "/flashcards",
       color: "text-green",
       bg: "bg-green-light",
     })),
-    ...weakAreas.map((t: any) => ({
-      label: `Strengthen: ${t.topic ?? t.title ?? "Weak area"}`,
+    ...weakAreas.map((item: any) => ({
+      label: `${t("dashboard.plan_strengthen_prefix")} ${item.topic ?? item.title ?? t("dashboard.plan_weak_area")}`,
       icon: "💪",
       href: "/quiz",
       color: "text-amber",
@@ -405,14 +409,14 @@ function TodaysPlan() {
       <div className="card p-4 mb-4 flex items-center gap-3">
         <span className="text-xl">✅</span>
         <div>
-          <div className="font-syne font-bold text-sm text-ink">All caught up!</div>
-          <div className="font-serif text-xs text-ink-3">Generate your adaptive plan to get personalized tasks.</div>
+          <div className="font-syne font-bold text-sm text-ink">{t("dashboard.plan_caught_up")}</div>
+          <div className="font-serif text-xs text-ink-3">{t("dashboard.plan_caught_up_hint")}</div>
         </div>
         <button
           onClick={() => router.push("/recommendations")}
           className="ml-auto font-syne font-semibold text-xs text-ink border border-border rounded px-2 py-1 hover:border-ink transition-colors"
         >
-          Plan →
+          {t("dashboard.plan_get_plan")}
         </button>
       </div>
     );
@@ -421,12 +425,12 @@ function TodaysPlan() {
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
-        <span className="font-syne font-bold text-sm text-ink">Today's Plan</span>
+        <span className="font-syne font-bold text-sm text-ink">{t("dashboard.plan_title")}</span>
         <button
           onClick={() => router.push("/recommendations")}
           className="font-syne text-xs text-ink-3 hover:text-ink"
         >
-          See all →
+          {t("dashboard.plan_see_all")}
         </button>
       </div>
       <div className="space-y-2">
@@ -456,8 +460,8 @@ function ContinueLearning({ modules }: { modules: any[] }) {
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
-        <span className="font-syne font-bold text-sm text-ink">Continue Learning</span>
-        <Link href="/progress" className="text-xs text-ink-3 font-syne hover:text-ink">All modules →</Link>
+        <span className="font-syne font-bold text-sm text-ink">{t("dashboard.continue_learning")}</span>
+        <Link href="/progress" className="text-xs text-ink-3 font-syne hover:text-ink">{t("dashboard.all_modules")}</Link>
       </div>
       <div className="space-y-2">
         {inProgress.map((m: any) => {
@@ -488,11 +492,12 @@ function ContinueLearning({ modules }: { modules: any[] }) {
 
 // ── Daily Goal ────────────────────────────────────────────────
 function DailyGoalWidget({ flashcardsDue, dailyGoalMinutes }: { flashcardsDue: number; dailyGoalMinutes: number }) {
+  const t = useT();
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
-        <span className="font-syne font-bold text-sm text-ink">Today&apos;s Goal</span>
-        <Link href="/settings" className="text-xs text-ink-3 font-syne hover:text-ink">Edit goal →</Link>
+        <span className="font-syne font-bold text-sm text-ink">{t("dashboard.adaptive_plan")}</span>
+        <Link href="/settings" className="text-xs text-ink-3 font-syne hover:text-ink">{t("common.edit")} →</Link>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Link href="/flashcards" className={`p-3 rounded-lg border text-center transition-colors hover:border-ink-3 ${flashcardsDue > 0 ? "bg-amber-light border-amber/30" : "bg-green-light border-green/30"}`}>
@@ -500,12 +505,12 @@ function DailyGoalWidget({ flashcardsDue, dailyGoalMinutes }: { flashcardsDue: n
             {flashcardsDue > 0 ? flashcardsDue : "✓"}
           </div>
           <div className="font-serif text-[10px] text-ink-3 mt-0.5">
-            {flashcardsDue > 0 ? "cards due" : "cards done"}
+            {flashcardsDue > 0 ? t("dashboard.cards_due") : t("dashboard.cards_done")}
           </div>
         </Link>
         <div className="p-3 rounded-lg border border-border text-center">
           <div className="font-syne font-black text-xl text-ink">{dailyGoalMinutes}</div>
-          <div className="font-serif text-[10px] text-ink-3 mt-0.5">min / day goal</div>
+          <div className="font-serif text-[10px] text-ink-3 mt-0.5">{t("settings.daily_goal_value", { goal: "" }).replace(" /", "").trim()} / {t("common.minutes")}</div>
         </div>
       </div>
     </div>
@@ -579,12 +584,12 @@ export default function DashboardPage() {
           <div className="flex items-center gap-3">
             <span className="text-2xl">👨‍🏫</span>
             <div>
-              <div className="font-syne font-bold text-base text-ink">Teacher Dashboard</div>
-              <div className="font-serif text-sm text-ink-3">Manage your courses and track student progress</div>
+              <div className="font-syne font-bold text-base text-ink">{t("dashboard.teacher_title")}</div>
+              <div className="font-serif text-sm text-ink-3">{t("dashboard.teacher_manage")}</div>
             </div>
             <div className="ml-auto flex gap-2">
-              <Link href="/teacher/dashboard" className="btn-secondary text-sm px-3 py-1.5">Teacher Cabinet</Link>
-              {user?.role === 'admin' && <Link href="/admin" className="btn-secondary text-sm px-3 py-1.5">Admin Panel</Link>}
+              <Link href="/teacher/dashboard" className="btn-secondary text-sm px-3 py-1.5">{t("dashboard.teacher_cabinet")}</Link>
+              {user?.role === 'admin' && <Link href="/admin" className="btn-secondary text-sm px-3 py-1.5">{t("dashboard.admin_panel_link")}</Link>}
             </div>
           </div>
         </div>

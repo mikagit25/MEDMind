@@ -25,13 +25,13 @@ const ALL_SPECIES = [
 ];
 
 const ROLE_OPTIONS = [
-  { value: "student",     label: "Student / Resident",          icon: "🎓" },
-  { value: "doctor",      label: "Doctor / Physician",          icon: "🩺" },
-  { value: "teacher",     label: "Teacher / Professor",         icon: "🏛️" },
-  { value: "nurse",       label: "Nurse / Healthcare Worker",   icon: "👩‍⚕️" },
-  { value: "vet",         label: "Veterinarian",                icon: "🐾" },
-  { value: "vet_student", label: "Veterinary Student",          icon: "🎓" },
-  { value: "other",       label: "Other",                       icon: "👤" },
+  { value: "student",     key: "onboarding.role_student",     icon: "🎓" },
+  { value: "doctor",      key: "onboarding.role_doctor",      icon: "🩺" },
+  { value: "teacher",     key: "onboarding.role_teacher",     icon: "🏛️" },
+  { value: "nurse",       key: "onboarding.role_nurse",       icon: "👩‍⚕️" },
+  { value: "vet",         key: "onboarding.role_vet",         icon: "🐾" },
+  { value: "vet_student", key: "onboarding.role_vet_student", icon: "🎓" },
+  { value: "other",       key: "onboarding.role_other",       icon: "👤" },
 ];
 
 export default function SettingsPage() {
@@ -80,7 +80,7 @@ export default function SettingsPage() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } catch (err: any) {
-      setError(err.response?.data?.detail ?? "Failed to save");
+      setError(err.response?.data?.detail ?? t("settings.save_err"));
     } finally {
       setSaving(false);
     }
@@ -133,7 +133,7 @@ export default function SettingsPage() {
 
           <div>
             <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-              {t("settings.role") || "Role / Profession"}
+              {t("settings.role")}
             </label>
             <select
               value={role}
@@ -142,12 +142,12 @@ export default function SettingsPage() {
             >
               {ROLE_OPTIONS.map((r) => (
                 <option key={r.value} value={r.value}>
-                  {r.icon} {r.label}
+                  {r.icon} {t(r.key as any)}
                 </option>
               ))}
             </select>
             <p className="text-ink-3 text-xs font-serif mt-1">
-              {t("settings.role_hint") || "Changing your role updates access to teacher and doctor features."}
+              {t("settings.role_hint")}
             </p>
           </div>
 
@@ -181,12 +181,12 @@ export default function SettingsPage() {
 
       {/* Learning preferences */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-4">⚙️ Learning Preferences</h2>
+        <h2 className="font-syne font-bold text-base text-ink mb-4">{t("settings.learning_preferences")}</h2>
         <div className="space-y-5">
           {/* Daily goal */}
           <div>
             <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">
-              Daily Study Goal
+              {t("settings.daily_goal")}
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -198,19 +198,19 @@ export default function SettingsPage() {
                 onChange={e => setDailyGoal(Number(e.target.value))}
                 className="flex-1 accent-ink"
               />
-              <span className="font-syne font-bold text-sm text-ink w-20 text-right">{dailyGoal} min/day</span>
+              <span className="font-syne font-bold text-sm text-ink w-20 text-right">{t("settings.daily_goal_value", { goal: String(dailyGoal) })}</span>
             </div>
             <div className="flex justify-between text-[10px] font-serif text-ink-3 mt-1">
-              <span>5 min</span>
-              <span>120 min</span>
+              <span>{t("settings.daily_goal_range_min")}</span>
+              <span>{t("settings.daily_goal_range_max")}</span>
             </div>
           </div>
 
           {/* Email notifications */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-syne font-semibold text-sm text-ink">Email notifications</div>
-              <div className="font-serif text-xs text-ink-3">Streak reminders and weekly progress digest</div>
+              <div className="font-syne font-semibold text-sm text-ink">{t("settings.email_notifications")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("settings.email_notifications_hint")}</div>
             </div>
             <div
               onClick={() => setEmailNotifs(v => !v)}
@@ -242,7 +242,7 @@ export default function SettingsPage() {
                 />
               </div>
               <span className="font-syne font-semibold text-sm text-ink">
-                {t("settings.veterinary_mode")} {vetMode ? "ON" : "OFF"}
+                {t("settings.veterinary_mode")} {vetMode ? t("settings.vet_on") : t("settings.vet_off")}
               </span>
             </label>
             {vetMode && (
@@ -275,8 +275,8 @@ export default function SettingsPage() {
               <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow" />
             </div>
             <span className="font-serif text-ink-3 text-sm">
-              Available on Pro plan and above.{" "}
-              <Link href="/pricing" className="text-blue underline">Upgrade</Link>
+              {t("settings.vet_pro_only")}{" "}
+              <Link href="/pricing" className="text-blue underline">{t("common.upgrade")}</Link>
             </span>
           </div>
         )}
@@ -293,7 +293,7 @@ export default function SettingsPage() {
         {sub === "free" && (
           <div className="mt-4">
             <Link href="/pricing" className="btn-primary inline-block">
-              Upgrade Plan
+              {t("common.upgrade")}
             </Link>
           </div>
         )}
@@ -318,15 +318,15 @@ export default function SettingsPage() {
 
       {/* Account */}
       <section className="card p-6">
-        <h2 className="font-syne font-bold text-base text-ink mb-3">Account</h2>
+        <h2 className="font-syne font-bold text-base text-ink mb-3">{t("settings.account")}</h2>
         <p className="font-serif text-ink-3 text-sm mb-4">
-          Member since: {user?.created_at ? new Date(user.created_at).toLocaleDateString() : "—"}
+          {t("settings.member_since")} {user?.created_at ? new Date(user.created_at).toLocaleDateString() : "—"}
         </p>
         <button
           onClick={() => { logout(); window.location.href = "/login"; }}
           className="btn-secondary text-red border-red/30 hover:bg-red-light"
         >
-          Sign Out
+          {t("settings.sign_out")}
         </button>
       </section>
     </div>
@@ -357,7 +357,7 @@ function GDPRSection() {
       setExportDone(true);
       setTimeout(() => setExportDone(false), 3000);
     } catch {
-      setError("Export failed. Please try again.");
+      setError(t("compliance.export_error"));
     } finally {
       setExporting(false);
     }
@@ -371,7 +371,7 @@ function GDPRSection() {
       logout();
       window.location.href = "/";
     } catch {
-      setError("Account deletion failed. Please contact support.");
+      setError(t("compliance.delete_error"));
       setDeleting(false);
     }
   };
@@ -380,7 +380,7 @@ function GDPRSection() {
     <section className="card p-6 mb-5">
       <h2 className="font-syne font-bold text-base text-ink mb-1">🔒 {t("settings.privacy")}</h2>
       <p className="font-serif text-ink-3 text-sm mb-4">
-        Under GDPR you have the right to access, export, and delete your personal data.
+        {t("settings.gdpr_desc")}
       </p>
 
       {error && <p className="font-serif text-red text-xs mb-3">{error}</p>}
@@ -389,7 +389,7 @@ function GDPRSection() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="font-syne font-semibold text-sm text-ink">{t("settings.export_data")}</p>
-            <p className="font-serif text-ink-3 text-xs">Download all your data as JSON (Art. 20 GDPR)</p>
+            <p className="font-serif text-ink-3 text-xs">{t("settings.export_gdpr_hint")}</p>
           </div>
           <button
             onClick={handleExport}
@@ -405,7 +405,7 @@ function GDPRSection() {
         <div>
           <p className="font-syne font-semibold text-sm text-ink">{t("settings.delete_account")}</p>
           <p className="font-serif text-ink-3 text-xs mb-2">
-            Permanently anonymizes your personal data (Art. 17 GDPR). Learning progress data is retained anonymously.
+            {t("settings.delete_gdpr_hint")}
           </p>
           {!confirmDelete ? (
             <button
@@ -425,13 +425,13 @@ function GDPRSection() {
                   disabled={deleting}
                   className="px-4 py-1.5 rounded bg-red text-white font-syne font-semibold text-xs hover:bg-red/90 disabled:opacity-40"
                 >
-                  {deleting ? "…" : "Yes, delete permanently"}
+                  {deleting ? "…" : t("settings.yes_delete_permanently")}
                 </button>
                 <button
                   onClick={() => setConfirmDelete(false)}
                   className="btn-secondary text-xs"
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </button>
               </div>
             </div>
@@ -443,6 +443,7 @@ function GDPRSection() {
 }
 
 function LeaderboardSection() {
+  const t = useT();
   const [optIn, setOptIn] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [loaded, setLoaded] = useState(false);
@@ -472,9 +473,9 @@ function LeaderboardSection() {
 
   return (
     <section className="card p-6 mb-5">
-      <h2 className="font-syne font-bold text-base text-ink mb-1">Leaderboard</h2>
+      <h2 className="font-syne font-bold text-base text-ink mb-1">{t("settings.leaderboard_section")}</h2>
       <p className="font-serif text-xs text-ink-3 mb-4">
-        Control whether you appear on the global leaderboard. Your real name is never shown unless you opt in.
+        {t("settings.leaderboard_desc")}
       </p>
       <div className="space-y-4">
         <label className="flex items-center gap-3 cursor-pointer">
@@ -484,22 +485,22 @@ function LeaderboardSection() {
           >
             <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${optIn ? "translate-x-5" : "translate-x-0.5"}`} />
           </div>
-          <span className="font-serif text-sm text-ink">Show me on the leaderboard</span>
+          <span className="font-serif text-sm text-ink">{t("settings.leaderboard_opt_in")}</span>
         </label>
         {optIn && (
           <div>
-            <label className="font-serif text-xs text-ink-3 block mb-1">Display name</label>
+            <label className="font-serif text-xs text-ink-3 block mb-1">{t("settings.leaderboard_display_name")}</label>
             <input
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              placeholder="Leave blank to use your real name"
+              placeholder={t("settings.leaderboard_name_hint")}
               maxLength={100}
               className="w-full border border-border rounded-lg px-3 py-2 font-serif text-sm focus:outline-none focus:border-ink bg-bg"
             />
           </div>
         )}
         <button onClick={handleSave} disabled={saving} className="btn-primary text-sm px-4 py-2">
-          {saving ? "Saving…" : saveOk ? "Saved!" : "Save"}
+          {saving ? t("common.saving") : saveOk ? t("common.saved") : t("common.save")}
         </button>
       </div>
     </section>
