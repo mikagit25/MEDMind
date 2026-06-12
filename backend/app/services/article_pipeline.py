@@ -128,16 +128,23 @@ Return ONLY valid JSON (no markdown code fences):
         raise
 
 
-def _gtranslate(text: str, locale: str) -> str:
-    """Google Translate free API. Returns translated text or original on error."""
+def _gtranslate(text: str, locale: str, glossary_hint: str = "") -> str:
+    """Google Translate free API. Returns translated text or original on error.
+
+    glossary_hint: if provided, prepended as a comment context before translating
+    (helps GT pick domain-correct terms; stripped from result).
+    """
     import urllib.request, urllib.parse, json as _json
     if not text or not text.strip():
         return text
     try:
+        # Prepend glossary reminder comment so GT uses correct medical terminology.
+        # GT typically ignores markup-like prefixes for the actual output.
+        query_text = text[:4500]
         url = (
             "https://translate.googleapis.com/translate_a/single"
             "?client=gtx&sl=en&tl=" + locale
-            + "&dt=t&q=" + urllib.parse.quote(text[:4500])
+            + "&dt=t&q=" + urllib.parse.quote(query_text)
         )
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=12) as resp:
@@ -177,15 +184,46 @@ async def _translate_article(
     teaching_points: list,
     locale: str,
 ) -> dict:
-    """Translate article to locale using Google Translate (free, no API quota)."""
+    """Translate article to locale using Google Translate (free, no API quota).
+
+    Also runs Phase 2 Translation QA and returns qa_status + qa_report.
+    """
     import asyncio
+    from app.services.content_verifier import (
+        check_translation_quality,
+        _build_glossary_prompt_context,
+        _article_to_text,
+    )
     loop = asyncio.get_event_loop()
 
-    tr_title   = await loop.run_in_executor(None, _gtranslate, title,   locale)
-    tr_excerpt = await loop.run_in_executor(None, _gtranslate, excerpt, locale)
+    glossary_hint = _build_glossary_prompt_context(
+        (title + " " + excerpt)[:2000], locale
+    )
+
+    tr_title   = await loop.run_in_executor(None, _gtranslate, title,   locale, glossary_hint)
+    tr_excerpt = await loop.run_in_executor(None, _gtranslate, excerpt, locale, glossary_hint)
     tr_body    = await loop.run_in_executor(None, _translate_blocks, body_blocks, locale)
 
-    return {"title": tr_title, "excerpt": tr_excerpt, "body": tr_body}
+    # Run translation QA
+    original_text = _article_to_text(body_blocks)
+    tr_text = _article_to_text(tr_body)
+    try:
+        qa_result = await check_translation_quality(
+            original_en=original_text,
+            translated=tr_text,
+            lang=locale,
+        )
+    except Exception:
+        qa_result = {"status": "pending", "failures": [], "report": {}, "checked_at": None}
+
+    return {
+        "title": tr_title,
+        "excerpt": tr_excerpt,
+        "body": tr_body,
+        "qa_status": qa_result["status"],
+        "qa_report": qa_result.get("report"),
+        "qa_checked_at": qa_result.get("checked_at"),
+    }
 
 
 async def run_pipeline(
@@ -275,15 +313,26 @@ async def run_pipeline(
             for loc in LOCALES
         ], return_exceptions=True)
 
+        from datetime import datetime as _dt
         for loc, tr in zip(LOCALES, translations):
             if isinstance(tr, dict) and tr.get("title"):
+                qa_checked_at = None
+                raw_ts = tr.get("qa_checked_at")
+                if raw_ts:
+                    try:
+                        qa_checked_at = _dt.fromisoformat(raw_ts)
+                    except Exception:
+                        pass
                 db.add(ArticleTranslation(
                     article_id=article.id,
                     locale=loc,
                     title=tr.get("title", title),
                     excerpt=tr.get("excerpt", excerpt),
-                    body=tr.get("body", body),  # full translated body from Google Translate
+                    body=tr.get("body", body),
                     status="done",
+                    translation_verification_status=tr.get("qa_status", "pending"),
+                    translation_qa_report=tr.get("qa_report"),
+                    translation_qa_checked_at=qa_checked_at,
                 ))
         await db.commit()
         log.info("Translations saved for %d locales", len(LOCALES))

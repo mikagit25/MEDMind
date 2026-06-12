@@ -1182,6 +1182,13 @@ class ArticleTranslation(Base):
     status = Column(String(20), nullable=False, default="pending")
     error_message = Column(Text, nullable=True)
     translated_at = Column(DateTime, nullable=True)
+
+    # V4 Phase 2: translation quality verification
+    # pending | passed | failed
+    translation_verification_status = Column(String(20), nullable=True, default="pending")
+    translation_qa_report = Column(JSONB, nullable=True)
+    translation_qa_checked_at = Column(DateTime, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -1190,6 +1197,7 @@ class ArticleTranslation(Base):
     __table_args__ = (
         Index("ix_article_translations_article_id", "article_id"),
         Index("ix_article_translations_status", "status"),
+        Index("ix_article_translations_qa_status", "translation_verification_status"),
     )
 
 

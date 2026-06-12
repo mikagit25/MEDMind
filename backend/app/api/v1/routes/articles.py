@@ -925,7 +925,8 @@ async def get_article(
 
     detail = _detail(article)
 
-    # Serve translated version if requested and available
+    # Serve translated version if requested and available.
+    # V4 Phase 2: skip translations with translation_verification_status="failed" — fallback to English.
     if locale and locale != "en":
         tr = (await db.execute(
             select(ArticleTranslation).where(
@@ -934,7 +935,7 @@ async def get_article(
                 ArticleTranslation.status == "done",
             )
         )).scalar_one_or_none()
-        if tr:
+        if tr and tr.translation_verification_status != "failed":
             detail = {
                 **detail,
                 "title": tr.title,
@@ -944,6 +945,9 @@ async def get_article(
                 "locale": locale,
                 "is_translated": True,
             }
+        elif tr and tr.translation_verification_status == "failed":
+            # Translation QA failed — serve English with a marker
+            detail["translation_under_review"] = True
 
     return detail
 

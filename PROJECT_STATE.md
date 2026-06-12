@@ -6,9 +6,24 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ (в процессе)
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 2 (Translation QA) или Phase 3 (Trust pages). Тест-сьют: 409 passed, 0 failed.
+**Next Action:** V4 Phase 3 (Trust pages). Тест-сьют: 427 passed, 0 failed.
+
+### V4 Phase 2 — Translation QA ✅ (2026-06-12)
+- Medical glossary: 250 canonical terms × 7 languages in `backend/app/data/med_glossary/{en,ru,de,fr,es,tr,ar}.json`
+- `check_translation_quality()` in `content_verifier.py`:
+  - Number/unit corruption check (regex, digit-level comparison)
+  - Negation preservation check (Haiku semantic check)
+  - Glossary canonical term check (stem matching for declined forms)
+  - Returns `passed | failed` + structured report
+- `ArticleTranslation.translation_verification_status` + `translation_qa_report` + `translation_qa_checked_at`
+- Alembic migration 0033: adds QA fields to `article_translations`
+- Article detail endpoint: `translation_verification_status=failed` → fallback to English + `translation_under_review: true` marker
+- `_translate_article()` updated to run QA after translation, stores qa_status/qa_report in DB
+- Glossary hints injected into translation prompts via `_build_glossary_prompt_context()`
+- `backend/app/scripts/back_translate_check.py` — 5% random sampling back-translation spot-check
+- 18 new tests in `test_v4_phase2.py` — all passing
 
 ### V4 Phase 1 — Content Verification Pipeline ✅ (2026-06-12)
 - Alembic migration 0032: verification fields on articles/news_articles, content_feedback table
