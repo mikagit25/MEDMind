@@ -5,6 +5,7 @@ from app.models.models import (
     UserAchievement, StripeEvent, UserConsent, AuditLog,
     DrugInteraction, AnimalSpecies, VeterinaryDosing, CMECredit,
     Course, CourseModule, CourseEnrollment, CourseAssignment,
+    ContentFeedback,
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "UserAchievement", "StripeEvent", "UserConsent", "AuditLog",
     "DrugInteraction", "AnimalSpecies", "VeterinaryDosing", "CMECredit",
     "Course", "CourseModule", "CourseEnrollment", "CourseAssignment",
+    "ContentFeedback",
 ]

@@ -43,7 +43,7 @@ from uuid import UUID
 logger = logging.getLogger(__name__)
 
 import aiofiles
-from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Query, Request, Response, UploadFile
 from pydantic import BaseModel
 from sqlalchemy import func, select, desc, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,11 +51,17 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, require_admin, require_author, require_teacher
 from app.core.config import settings
 from app.core.database import get_db
-from app.models.models import Article, ArticleTranslation, AuthorCreditAccount, CreditTransaction, LLMPricing, Module, User
+from app.models.models import Article, ArticleTranslation, AuthorCreditAccount, ContentFeedback, CreditTransaction, LLMPricing, Module, User
+from app.services.content_verifier import PUBLISHED_STATUSES
 
 router = APIRouter(prefix="/articles", tags=["articles"])
 
 _admin = Depends(require_admin())
+
+# V4: filter expression for public endpoints
+def _verified_only():
+    """SQLAlchemy filter: only serve content that passed verification."""
+    return Article.verification_status.in_(PUBLISHED_STATUSES)
 _ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/svg+xml", "image/webp", "image/gif"}
 
 
@@ -201,7 +207,7 @@ async def list_articles(
     locale: Optional[str] = Query(None, description="Return translated titles/excerpts: ru|ar|tr|de|fr|es"),
     db: AsyncSession = Depends(get_db),
 ):
-    q = select(Article).where(Article.is_published == True, Article.review_status == "published")
+    q = select(Article).where(Article.is_published == True, Article.review_status == "published", _verified_only())
     if category:
         q = q.where(Article.category == category)
     if search:
@@ -209,7 +215,7 @@ async def list_articles(
         like = f"%{search.lower()}%"
         q = q.where(or_(Article.title.ilike(like), Article.excerpt.ilike(like)))
 
-    count_q = select(func.count(Article.id)).where(Article.is_published == True, Article.review_status == "published")
+    count_q = select(func.count(Article.id)).where(Article.is_published == True, Article.review_status == "published", _verified_only())
     if category:
         count_q = count_q.where(Article.category == category)
     total = (await db.execute(count_q)).scalar() or 0
@@ -244,7 +250,7 @@ async def list_articles(
 async def sitemap_data(db: AsyncSession = Depends(get_db)):
     rows = (await db.execute(
         select(Article.id, Article.slug, Article.updated_at, Article.category)
-        .where(Article.is_published == True, Article.review_status == "published")
+        .where(Article.is_published == True, Article.review_status == "published", _verified_only())
         .order_by(desc(Article.published_at))
     )).all()
 
@@ -275,11 +281,52 @@ async def sitemap_data(db: AsyncSession = Depends(get_db)):
 async def list_categories(db: AsyncSession = Depends(get_db)):
     rows = await db.execute(
         select(Article.category, func.count(Article.id).label("count"))
-        .where(Article.is_published == True, Article.review_status == "published")
+        .where(Article.is_published == True, Article.review_status == "published", _verified_only())
         .group_by(Article.category)
         .order_by(desc("count"))
     )
     return [{"category": r.category, "count": r.count} for r in rows.all()]
+
+
+class ContentFeedbackRequest(BaseModel):
+    content_type: str          # "article" | "news"
+    content_id: str            # article UUID or news slug
+    problem_type: str          # factual_error | outdated | missing_source | other
+    comment: Optional[str] = None
+    reporter_email: Optional[str] = None
+
+
+@router.post("/feedback", status_code=201, tags=["public"])
+async def submit_content_feedback(
+    req: ContentFeedbackRequest,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    """Public endpoint — no auth required. Rate limiting is handled at the API gateway level.
+    Stores user-reported content errors for admin review.
+    """
+    import hashlib as _hl
+    ip = getattr(getattr(request, "client", None), "host", "") or ""
+    ip_hash = _hl.sha256(ip.encode()).hexdigest()[:16] if ip else None
+
+    valid_types = {"article", "news"}
+    valid_problems = {"factual_error", "outdated", "missing_source", "other"}
+    if req.content_type not in valid_types:
+        raise HTTPException(status_code=422, detail="Invalid content_type")
+    if req.problem_type not in valid_problems:
+        raise HTTPException(status_code=422, detail="Invalid problem_type")
+
+    feedback = ContentFeedback(
+        content_type=req.content_type,
+        content_id=req.content_id[:100],
+        problem_type=req.problem_type,
+        comment=(req.comment or "")[:2000],
+        reporter_email=(req.reporter_email or "")[:200] or None,
+        ip_hash=ip_hash,
+    )
+    db.add(feedback)
+    await db.commit()
+    return {"ok": True}
 
 
 @router.get("/link-map")
@@ -293,7 +340,7 @@ async def article_link_map(db: AsyncSession = Depends(get_db)):
     """
     rows = (await db.execute(
         select(Article.slug, Article.title, Article.keywords)
-        .where(Article.is_published == True, Article.review_status == "published")
+        .where(Article.is_published == True, Article.review_status == "published", _verified_only())
     )).all()
 
     entries: List[Dict[str, str]] = []
@@ -342,9 +389,9 @@ async def articles_by_category(
     locale: Optional[str] = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
-    q = select(Article).where(Article.is_published == True, Article.review_status == "published", Article.category == category)
+    q = select(Article).where(Article.is_published == True, Article.review_status == "published", Article.category == category, _verified_only())
     total = (await db.execute(
-        select(func.count(Article.id)).where(Article.is_published == True, Article.review_status == "published", Article.category == category)
+        select(func.count(Article.id)).where(Article.is_published == True, Article.review_status == "published", Article.category == category, _verified_only())
     )).scalar() or 0
     q = q.order_by(desc(Article.published_at)).offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(q)).scalars().all()
@@ -379,7 +426,7 @@ async def article_related(
 ):
     """Return related published articles from the same category (excluding self)."""
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published", _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -427,7 +474,7 @@ async def article_nav(
 ):
     """Return prev/next article in the same category (by published_at)."""
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published", _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -490,7 +537,7 @@ async def article_nav(
 async def article_available_locales(slug: str, db: AsyncSession = Depends(get_db)):
     """Return list of locales with completed translations for this article."""
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published", _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -518,7 +565,7 @@ async def article_quiz(slug: str, db: AsyncSession = Depends(get_db)):
         return cached
 
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published.is_(True))
+        select(Article).where(Article.slug == slug, Article.is_published.is_(True), _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -666,7 +713,7 @@ async def article_ask(
 
     # Fetch article for context
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published.is_(True))
+        select(Article).where(Article.slug == slug, Article.is_published.is_(True), _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
@@ -871,7 +918,7 @@ async def get_article(
     db: AsyncSession = Depends(get_db),
 ):
     article = (await db.execute(
-        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published")
+        select(Article).where(Article.slug == slug, Article.is_published == True, Article.review_status == "published", _verified_only())
     )).scalar_one_or_none()
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")

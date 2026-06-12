@@ -1139,11 +1139,17 @@ class Article(Base):
     review_note = Column(Text, nullable=True)    # shown to teacher on rejection
     submitted_at = Column(DateTime, nullable=True)
 
-    # Verification: unverified | ai_verified | expert_verified
-    verification_status = Column(String(30), nullable=False, default="unverified")
+    # V4 Verification: pending | passed | failed | human_reviewed
+    # (legacy: unverified → pending, ai_verified → passed, expert_verified → human_reviewed)
+    verification_status = Column(String(30), nullable=False, default="pending")
     # Real PubMed sources [{pmid, title, authors, journal, year, url}]
     verified_sources = Column(JSONB, nullable=True)
-    last_verified_at = Column(DateTime, nullable=True)
+    last_verified_at = Column(DateTime, nullable=True)   # kept for backward compat
+    # V4 verification fields
+    verified_at = Column(DateTime, nullable=True)
+    verification_report = Column(JSONB, nullable=True)   # [{claim, result, citation}]
+    reviewed_by = Column(String(200), nullable=True)     # reviewer display name
+    reviewed_at = Column(DateTime, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -1156,6 +1162,7 @@ class Article(Base):
         Index("ix_articles_published_at", "published_at"),
         Index("ix_articles_author_id", "author_id"),
         Index("ix_articles_review_status", "review_status"),
+        Index("ix_articles_verification_status", "verification_status"),
     )
 
 
@@ -1267,6 +1274,31 @@ class NewsArticle(Base):
     # draft | submitted | published | rejected
     review_status = Column(String(20), nullable=False, default="published")
     review_note = Column(Text, nullable=True)
+
+    # V4 Verification: pending | passed | failed | human_reviewed
+    verification_status = Column(String(30), nullable=False, default="pending")
+    sources_v4 = Column(JSONB, nullable=True)     # [{title, url, type, accessed_at}]
+    verified_at = Column(DateTime, nullable=True)
+    verification_report = Column(JSONB, nullable=True)
+    reviewed_by = Column(String(200), nullable=True)
+    reviewed_at = Column(DateTime, nullable=True)
+
+
+# ── Content Feedback ───────────────────────────────────────────────────────────
+
+class ContentFeedback(Base):
+    """User-submitted content error reports (no auth required)."""
+    __tablename__ = "content_feedback"
+
+    id = Column(Integer, primary_key=True)
+    content_type = Column(String(20), nullable=False)     # "article" | "news"
+    content_id = Column(String(100), nullable=False)      # UUID or slug
+    problem_type = Column(String(50), nullable=False)     # factual_error|outdated|missing_source|other
+    comment = Column(Text, nullable=True)
+    reporter_email = Column(String(200), nullable=True)
+    ip_hash = Column(String(64), nullable=True)
+    resolved = Column(Boolean, nullable=False, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 
 # ── Comments ──────────────────────────────────────────────────────────────────

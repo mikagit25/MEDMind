@@ -6,9 +6,18 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V3 — ВСЕ 7 ФАЗ ЗАВЕРШЕНЫ ✅
-**Last Updated:** 2026-06-11
-**Next Action:** Production deploy или расширение (Phase 8+). Тест-сьют: 387 passed, 0 failed.
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ (в процессе)
+**Last Updated:** 2026-06-12
+**Next Action:** V4 Phase 2 (Translation QA) или Phase 3 (Trust pages). Тест-сьют: 409 passed, 0 failed.
+
+### V4 Phase 1 — Content Verification Pipeline ✅ (2026-06-12)
+- Alembic migration 0032: verification fields on articles/news_articles, content_feedback table
+- Model updates: Article.verification_status → V4 enum (pending/passed/failed/human_reviewed); ContentFeedback model added
+- `backend/app/services/content_verifier.py` — claim extractor + source checker (Haiku-based)
+- Publication gateway: all public article/news endpoints + sitemap filter out pending/failed
+- `POST /api/v1/articles/feedback` — public content error reporting endpoint
+- 22 new tests in `test_v4_phase1.py` — all passing
+- i18n: 100+ hardcoded strings extracted to translation keys across 7 locales (dashboard, settings, nav)
 
 ---
 

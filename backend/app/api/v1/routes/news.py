@@ -39,9 +39,15 @@ from app.api.deps import get_current_user, get_db, require_admin, require_teache
 from app.core.config import settings
 from app.models.models import Article, ArticleTranslation, NewsArticle, User
 from app.services.news_pipeline import run_news_pipeline, _slugify, _source_hash
+from app.services.content_verifier import PUBLISHED_STATUSES
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/news", tags=["news"])
+
+
+def _news_verified_only():
+    """SQLAlchemy filter: only serve news that passed verification."""
+    return NewsArticle.verification_status.in_(PUBLISHED_STATUSES)
 
 SUPPORTED_LOCALES = ["en", "ru", "ar", "es", "de", "fr", "tr"]
 _teacher = Depends(require_teacher)
@@ -219,7 +225,7 @@ async def list_news(
     locale = locale if locale in SUPPORTED_LOCALES else "en"
     q = (
         select(NewsArticle)
-        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published")
+        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published", _news_verified_only())
     )
     if category:
         q = q.where(NewsArticle.category == category)
@@ -232,7 +238,7 @@ async def list_news(
 async def list_categories(db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(NewsArticle.category, func.count(NewsArticle.id).label("count"))
-        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published")
+        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published", _news_verified_only())
         .group_by(NewsArticle.category)
         .order_by(desc("count"))
     )
@@ -243,7 +249,7 @@ async def list_categories(db: AsyncSession = Depends(get_db)):
 async def sitemap_data(db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(NewsArticle.slug, NewsArticle.fetched_at)
-        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published")
+        .where(NewsArticle.is_published == True, NewsArticle.review_status == "published", _news_verified_only())
         .order_by(desc(NewsArticle.fetched_at))
     )
     return [NewsSitemapEntry(slug=r.slug, fetched_at=_fmt(r.fetched_at) or "") for r in result]
@@ -308,6 +314,7 @@ async def get_news_article(slug: str, locale: str = Query("en"),
             NewsArticle.slug == slug,
             NewsArticle.is_published == True,
             NewsArticle.review_status == "published",
+            _news_verified_only(),
         )
     )
     news = result.scalar_one_or_none()
