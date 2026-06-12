@@ -47,6 +47,8 @@ export default function SettingsPage() {
   );
   const [dailyGoal, setDailyGoal] = useState<number>((user?.preferences?.daily_goal_minutes as number) ?? 20);
   const [emailNotifs, setEmailNotifs] = useState<boolean>((user?.preferences?.email_notifications as boolean) ?? true);
+  const [examType, setExamType] = useState<string>((user?.preferences?.exam_type as string) ?? "");
+  const [examDate, setExamDate] = useState<string>((user?.preferences?.exam_date as string) ?? "");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -70,7 +72,7 @@ export default function SettingsPage() {
           first_name: firstName,
           last_name: lastName,
           role,
-          preferences: { ...(user?.preferences ?? {}), daily_goal_minutes: dailyGoal, email_notifications: emailNotifs },
+          preferences: { ...(user?.preferences ?? {}), daily_goal_minutes: dailyGoal, email_notifications: emailNotifs, exam_type: examType || undefined, exam_date: examDate || undefined },
         }),
         canUseVet
           ? authApi.updateVetSettings({ vet_mode: vetMode, species: vetSpecies })
@@ -219,6 +221,51 @@ export default function SettingsPage() {
               <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${emailNotifs ? "translate-x-6" : "translate-x-1"}`} />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Exam preparation */}
+      <section className="card p-6 mb-5">
+        <h2 className="font-syne font-bold text-base text-ink mb-1">🎯 Exam Preparation</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">Set your target exam and date to get a personalized study plan.</p>
+        <div className="space-y-4">
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Target Exam</label>
+            <select
+              value={examType}
+              onChange={e => setExamType(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink"
+            >
+              <option value="">— Not set —</option>
+              <option value="usmle_step1">USMLE Step 1</option>
+              <option value="usmle_step2">USMLE Step 2 CK</option>
+              <option value="usmle_step3">USMLE Step 3</option>
+              <option value="nclex_rn">NCLEX-RN</option>
+              <option value="nclex_pn">NCLEX-PN</option>
+              <option value="ukmla">UKMLA</option>
+              <option value="plab">PLAB</option>
+              <option value="custom">Other Board Exam</option>
+            </select>
+          </div>
+          <div>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Exam Date</label>
+            <input
+              type="date"
+              value={examDate}
+              onChange={e => setExamDate(e.target.value)}
+              min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
+              className="w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink"
+            />
+          </div>
+          {examType && examDate && (
+            <Link
+              href="/study-plan"
+              className="flex items-center justify-between w-full bg-ink text-white rounded px-4 py-2.5 font-syne font-bold text-sm hover:bg-red transition-colors"
+            >
+              <span>View My Study Plan</span>
+              <span>→</span>
+            </Link>
+          )}
         </div>
       </section>
 

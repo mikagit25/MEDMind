@@ -6,9 +6,16 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Phase 10 ✅ (AI MCQ Generation from Lesson). Phase 9 ✅ (Clinical Calculators).
+**Phase:** Phase 11 ✅ (Personal Exam Study Planner). Phase 10 ✅ (AI MCQ from Lesson).
 **Last Updated:** 2026-06-12
-**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 492 passed, 0 failed.
+**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 499 passed, 0 failed.
+
+### Phase 11 — Personal Exam Study Planner ✅ (2026-06-12)
+- **Backend: `POST /student/exam-prep/plan`** — authenticated; accepts `exam_type` (usmle_step1/2/3, nclex_rn/pn, ukmla, plab, custom), `exam_date` (ISO), `daily_hours`; fetches all published modules + user progress; calls Claude Haiku to generate a week-by-week schedule; returns `{exam_label, days_remaining, total_weeks, weeks: [{theme, modules, daily_hours, milestone}], tip}`; cached 6h per user/exam/date combo
+- **Settings page**: new "Exam Preparation" section with exam type dropdown + date picker; saves to `user.preferences.exam_type` + `user.preferences.exam_date`; shows "View My Study Plan →" button when both are set
+- **Frontend: `/study-plan` page** — countdown (color-coded by urgency), study tip, week-by-week cards with theme/modules/milestone; "Regenerate" button; auto-generates on load if exam prefs already set; daily hours slider
+- **`adaptivePlanApi.generateExamPlan()`** added to `frontend/lib/api.ts`
+- 7 new tests in `test_v4_phase11.py` — 401 unauthenticated, past date 422, invalid date 422, returns plan with correct structure, all exam types, days_remaining accuracy
 
 ### Phase 10 — AI MCQ Generation from Lesson ✅ (2026-06-12)
 - **Backend: `POST /ai/lessons/{lesson_id}/generate-quiz`** — authenticated; fetches lesson content, calls Claude Haiku with structured JSON prompt, returns 5 USMLE-style MCQ questions with options (A-D), correct answer, and explanation

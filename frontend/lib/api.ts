@@ -677,6 +677,8 @@ export const memoryApi = {
 export const adaptivePlanApi = {
   generate: () => api.post("/student/plan/adapt").then(r => r.data),
   getCurrent: () => api.get("/student/plan/current").then(r => r.data),
+  generateExamPlan: (payload: { exam_type: string; exam_date: string; daily_hours: number }) =>
+    api.post("/student/exam-prep/plan", payload).then(r => r.data),
 };
 
 // Types
