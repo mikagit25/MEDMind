@@ -9,11 +9,12 @@ from pydantic import BaseModel
 from sqlalchemy import func, select, update, desc, Integer, cast, text, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user, require_admin
+from app.api.deps import get_current_user, require_admin, require_reviewer
 from app.core.database import get_db
 from app.core.encryption import decrypt_email
 from app.models.models import (
-    Article, Flashcard, Lesson, MCQQuestion, Module, Specialty, User, ClinicalCase,
+    Article, ContentFeedback, Flashcard, Lesson, MCQQuestion, Module, Reviewer,
+    Specialty, User, ClinicalCase,
     AuditLog, LessonTranslation, AIConversation, SUPPORTED_LOCALES, MedicalImage, Drug,
     StripeEvent, CreditTransaction, AuthorCreditAccount,
 )
@@ -1483,3 +1484,196 @@ async def admin_delete_imaging(
         raise HTTPException(status_code=404, detail="Image not found")
     img.is_active = False
     await db.commit()
+
+
+# ── Reviewer queue (accessible to admin + reviewer roles) ──────────────────────
+
+_reviewer = Depends(require_reviewer())
+
+
+class RequestChangesBody(BaseModel):
+    comment: str
+
+
+@router.get("/reviewer-queue")
+async def list_reviewer_queue(
+    page: int = Query(1, ge=1),
+    limit: int = Query(20, ge=1, le=100),
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Articles that have passed automated verification but not yet been human-reviewed.
+    Sorted by view_count desc (highest-traffic first), then by published_at desc.
+    """
+    q = (
+        select(
+            Article.id,
+            Article.slug,
+            Article.title,
+            Article.category,
+            Article.view_count,
+            Article.published_at,
+            Article.verification_status,
+            Article.review_status,
+            Article.reviewed_by,
+            Article.last_verified_at,
+        )
+        .where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.verification_status == "passed",
+        )
+        .order_by(desc(Article.view_count), desc(Article.published_at))
+        .offset((page - 1) * limit)
+        .limit(limit)
+    )
+    rows = (await db.execute(q)).all()
+    total = await db.scalar(
+        select(func.count(Article.id)).where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.verification_status == "passed",
+        )
+    ) or 0
+
+    return {
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "items": [
+            {
+                "id": str(r.id),
+                "slug": r.slug,
+                "title": r.title,
+                "category": r.category,
+                "view_count": r.view_count,
+                "published_at": r.published_at.isoformat() if r.published_at else None,
+                "verification_status": r.verification_status,
+                "last_verified_at": r.last_verified_at.isoformat() if r.last_verified_at else None,
+            }
+            for r in rows
+        ],
+    }
+
+
+@router.get("/reviewer-queue/{article_id}")
+async def get_reviewer_queue_article(
+    article_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Full article detail for reviewer: body, sources, verification_report."""
+    article = (await db.execute(select(Article).where(Article.id == article_id))).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    return {
+        "id": str(article.id),
+        "slug": article.slug,
+        "title": article.title,
+        "category": article.category,
+        "excerpt": article.excerpt,
+        "body": article.body or [],
+        "sources": article.sources or [],
+        "faq": article.faq or [],
+        "verification_status": article.verification_status,
+        "verification_report": article.verification_report,
+        "last_verified_at": article.last_verified_at.isoformat() if article.last_verified_at else None,
+        "reviewed_by": article.reviewed_by,
+        "review_note": article.review_note,
+        "view_count": article.view_count,
+        "published_at": article.published_at.isoformat() if article.published_at else None,
+    }
+
+
+@router.post("/reviewer-queue/{article_id}/approve")
+async def approve_article(
+    article_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Approve article: sets verification_status='human_reviewed'.
+    Links to the reviewer's Reviewer profile by matching user email/name.
+    """
+    article = (await db.execute(select(Article).where(Article.id == article_id))).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    # Resolve reviewer display name — prefer linked Reviewer profile, fall back to user name
+    reviewer_name = f"{user.first_name or ''} {user.last_name or ''}".strip() or user.email
+
+    article.verification_status = "human_reviewed"
+    article.reviewed_by = reviewer_name
+    article.last_verified_at = datetime.utcnow()
+    article.review_note = None  # clear any prior rejection note
+    article.updated_at = datetime.utcnow()
+    await db.commit()
+
+    return {
+        "id": str(article.id),
+        "verification_status": "human_reviewed",
+        "reviewed_by": reviewer_name,
+        "last_verified_at": article.last_verified_at.isoformat(),
+    }
+
+
+@router.post("/reviewer-queue/{article_id}/request-changes")
+async def request_changes(
+    article_id: UUID,
+    body: RequestChangesBody,
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Request changes: sets verification_status='failed', hides article from public.
+    The public endpoint gate (V4 Phase 1) already excludes failed articles.
+    """
+    if not body.comment.strip():
+        raise HTTPException(status_code=400, detail="Comment is required")
+
+    article = (await db.execute(select(Article).where(Article.id == article_id))).scalar_one_or_none()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    article.verification_status = "failed"
+    article.review_note = body.comment.strip()
+    article.updated_at = datetime.utcnow()
+    await db.commit()
+
+    return {
+        "id": str(article.id),
+        "verification_status": "failed",
+        "review_note": article.review_note,
+    }
+
+
+@router.get("/reviewer-queue/stats/summary")
+async def reviewer_queue_summary(
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Dashboard stats for the reviewer: queue depth + unresolved feedback."""
+    queue_count = await db.scalar(
+        select(func.count(Article.id)).where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.verification_status == "passed",
+        )
+    ) or 0
+
+    feedback_count = await db.scalar(
+        select(func.count(ContentFeedback.id)).where(
+            ContentFeedback.resolved == False
+        )
+    ) or 0
+
+    human_reviewed_count = await db.scalar(
+        select(func.count(Article.id)).where(
+            Article.verification_status == "human_reviewed"
+        )
+    ) or 0
+
+    return {
+        "queue_depth": queue_count,
+        "unresolved_feedback": feedback_count,
+        "human_reviewed_total": human_reviewed_count,
+    }

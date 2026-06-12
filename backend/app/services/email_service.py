@@ -159,6 +159,73 @@ async def send_welcome_email(to_email: str, first_name: str) -> None:
         logger.info("DEV MODE — Welcome email for %s (%s)", first_name, to_email)
 
 
+async def send_reviewer_digest(
+    to_email: str,
+    reviewer_name: str,
+    queue_count: int,
+    feedback_count: int,
+) -> None:
+    """Weekly digest for content reviewers: queue depth + unresolved feedback."""
+    subject = "MedMind Reviewer Weekly Digest"
+    queue_url = f"{settings.FRONTEND_URL}/admin/reviewer"
+
+    html = f"""
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: Georgia, serif; background: #f0ede8; margin: 0; padding: 40px 20px;">
+  <div style="max-width: 520px; margin: 0 auto; background: #fff; border: 1px solid #d8d2c8; border-radius: 12px; padding: 40px;">
+    <h1 style="font-family: 'Syne', sans-serif; color: #1a1814; font-size: 22px; margin: 0 0 8px;">Weekly Reviewer Digest</h1>
+    <p style="color: #8a8278; font-size: 13px; margin: 0 0 24px;">Hi {reviewer_name} — here's your weekly summary.</p>
+
+    <div style="display:flex; gap:16px; margin-bottom:24px;">
+      <div style="flex:1; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:16px 20px; text-align:center;">
+        <div style="font-family:'Syne',sans-serif; font-size:32px; font-weight:800; color:#c2410c;">{queue_count}</div>
+        <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:600; color:#9a3412; text-transform:uppercase; letter-spacing:.05em;">Articles Awaiting Review</div>
+      </div>
+      <div style="flex:1; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:16px 20px; text-align:center;">
+        <div style="font-family:'Syne',sans-serif; font-size:32px; font-weight:800; color:#b91c1c;">{feedback_count}</div>
+        <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:600; color:#991b1b; text-transform:uppercase; letter-spacing:.05em;">Unresolved Content Feedback</div>
+      </div>
+    </div>
+
+    {"<p style='color:#4a453e;font-size:15px;line-height:1.6;margin:0 0 20px;'><strong>" + str(queue_count) + " article" + ("s" if queue_count != 1 else "") + "</strong> have passed AI verification and are waiting for your expert review before being fully published.</p>" if queue_count else "<p style='color:#8a8278;font-size:14px;'>No articles currently pending your review. Check back next week!</p>"}
+
+    <a href="{queue_url}"
+       style="display:inline-block; background:#1a1814; color:#fff; text-decoration:none;
+              font-family:'Syne',sans-serif; font-weight:600; font-size:14px;
+              padding:12px 28px; border-radius:6px;">
+      Open Reviewer Queue →
+    </a>
+
+    <p style="color: #8a8278; font-size: 12px; margin: 28px 0 0; border-top: 1px solid #e8e3db; padding-top: 16px;">
+      You're receiving this because you're a reviewer on the MedMind editorial team.
+      Contact <a href="mailto:editorial@medmind.pro" style="color:#c0392b;">editorial@medmind.pro</a> to unsubscribe.
+    </p>
+  </div>
+</body>
+</html>"""
+    text = (
+        f"MedMind Weekly Reviewer Digest — {reviewer_name}\n\n"
+        f"Articles awaiting review: {queue_count}\n"
+        f"Unresolved content feedback: {feedback_count}\n\n"
+        f"Open queue: {queue_url}"
+    )
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Reviewer digest sent to %s", to_email)
+        except Exception as e:
+            logger.error("Failed to send reviewer digest to %s: %s", to_email, e)
+    else:
+        logger.info(
+            "DEV MODE — Reviewer digest for %s: queue=%d feedback=%d",
+            to_email, queue_count, feedback_count,
+        )
+
+
 async def send_payment_failed_email(to_email: str, first_name: str) -> None:
     """Notify user that their subscription payment failed."""
     subject = "Action required: Payment failed for MedMind AI"

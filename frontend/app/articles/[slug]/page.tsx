@@ -634,12 +634,21 @@ export default async function ArticlePage({
             <ArticleAudioPlayer articleId={article.id} locale={locale} title={article.title} />
 
             {/* Verification badge */}
-            {article.verification_status === "expert_verified" ? (
+            {(article.verification_status === "human_reviewed" || article.verification_status === "expert_verified") ? (
               <div className="mt-4 inline-flex items-center gap-2 bg-green-light border border-green/30 rounded-lg px-3 py-2">
                 <span className="text-green text-base">✅</span>
                 <div>
-                  <div className="font-syne font-bold text-xs text-green">Expert Verified</div>
-                  <div className="font-serif text-[11px] text-ink-2">Reviewed by a licensed healthcare professional</div>
+                  <div className="font-syne font-bold text-xs text-green">Reviewed by Specialist</div>
+                  <div className="font-serif text-[11px] text-ink-2">
+                    {article.reviewed_by ? (
+                      <>Medically reviewed by <strong>{article.reviewed_by}</strong></>
+                    ) : (
+                      "Reviewed by a licensed healthcare professional"
+                    )}
+                    {article.last_verified_at && (
+                      <> · {new Date(article.last_verified_at).toLocaleDateString("en-US", { month: "short", year: "numeric" })}</>
+                    )}
+                  </div>
                 </div>
               </div>
             ) : article.verification_status === "ai_verified" ? (
@@ -768,7 +777,7 @@ export default async function ArticlePage({
 
           {/* Medical disclaimer — full, depends on verification status */}
           <div className={`mt-10 rounded-xl px-5 py-5 border text-xs font-serif leading-relaxed ${
-            article.verification_status === "expert_verified"
+            (article.verification_status === "expert_verified" || article.verification_status === "human_reviewed")
               ? "bg-green-light/30 border-green/20"
               : article.verification_status === "ai_verified"
               ? "bg-blue-50 border-blue-200"
@@ -776,7 +785,7 @@ export default async function ArticlePage({
           }`}>
             <div className="flex items-start gap-3">
               <span className="text-lg flex-shrink-0 mt-0.5">
-                {article.verification_status === "expert_verified" ? "✅" :
+                {(article.verification_status === "expert_verified" || article.verification_status === "human_reviewed") ? "✅" :
                  article.verification_status === "ai_verified" ? "🔬" : "⚕️"}
               </span>
               <div>
@@ -787,9 +796,12 @@ export default async function ArticlePage({
                   Never disregard professional medical advice or delay seeking it because of information in this article.
                   Always consult a qualified, licensed healthcare professional before making clinical decisions.
                 </p>
-                {article.verification_status === "expert_verified" && (
+                {(article.verification_status === "expert_verified" || article.verification_status === "human_reviewed") && (
                   <p className="text-green-800 font-semibold">
-                    ✅ This article has been reviewed by a licensed healthcare professional on the MedMind editorial team.
+                    ✅ {article.reviewed_by
+                      ? <>This article has been reviewed by <strong>{article.reviewed_by}</strong>, a licensed healthcare professional.</>
+                      : "This article has been reviewed by a licensed healthcare professional on the MedMind editorial team."
+                    }
                   </p>
                 )}
                 {article.verification_status === "ai_verified" && (

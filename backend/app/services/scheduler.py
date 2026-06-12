@@ -205,6 +205,61 @@ async def _news_pipeline_job():
         logger.error("News pipeline job failed: %s", e)
 
 
+async def _weekly_reviewer_digest():
+    """Send weekly digest to all users with role='reviewer'.
+    Reports: queue depth (passed articles awaiting review) + unresolved content feedback.
+    """
+    from sqlalchemy import select, func
+    from app.core.database import AsyncSessionLocal
+    from app.models.models import Article, ContentFeedback, User
+    from app.services.email_service import send_reviewer_digest
+
+    try:
+        async with AsyncSessionLocal() as db:
+            # Count articles in the queue
+            queue_count = await db.scalar(
+                select(func.count(Article.id)).where(
+                    Article.is_published == True,
+                    Article.review_status == "published",
+                    Article.verification_status == "passed",
+                )
+            ) or 0
+
+            # Count unresolved feedback
+            feedback_count = await db.scalar(
+                select(func.count(ContentFeedback.id)).where(
+                    ContentFeedback.resolved == False
+                )
+            ) or 0
+
+            # Fetch all active reviewers
+            reviewers = (await db.execute(
+                select(User).where(User.role == "reviewer", User.is_active == True)
+            )).scalars().all()
+
+            if not reviewers:
+                logger.info("Reviewer digest: no active reviewers to notify")
+                return
+
+            for reviewer in reviewers:
+                try:
+                    await send_reviewer_digest(
+                        to_email=reviewer.email,
+                        reviewer_name=f"{reviewer.first_name or ''} {reviewer.last_name or ''}".strip() or reviewer.email,
+                        queue_count=queue_count,
+                        feedback_count=feedback_count,
+                    )
+                except Exception as e:
+                    logger.warning("Reviewer digest email failed for %s: %s", reviewer.email, e)
+
+            logger.info(
+                "Reviewer digest sent to %d reviewers (queue=%d, feedback=%d)",
+                len(reviewers), queue_count, feedback_count,
+            )
+    except Exception as e:
+        logger.error("Weekly reviewer digest job failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -260,6 +315,15 @@ def start_scheduler():
         _news_pipeline_job,
         trigger=CronTrigger(hour="*/6", minute=30, timezone="UTC"),
         id="news_pipeline",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Weekly Monday 08:00 UTC — reviewer digest email
+    scheduler.add_job(
+        _weekly_reviewer_digest,
+        trigger=CronTrigger(day_of_week="mon", hour=8, minute=0, timezone="UTC"),
+        id="weekly_reviewer_digest",
         replace_existing=True,
         misfire_grace_time=3600,
     )

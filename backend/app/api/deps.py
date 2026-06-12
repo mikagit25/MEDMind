@@ -74,6 +74,15 @@ def require_admin():
     return check
 
 
+def require_reviewer():
+    """Allow admins and users with role='reviewer'."""
+    async def check(user: User = Depends(get_current_user)) -> User:
+        if user.role not in ("admin", "reviewer"):
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Reviewer access required")
+        return user
+    return check
+
+
 async def require_teacher(user: User = Depends(get_current_user)) -> User:
     """Allow teachers and admins only."""
     if user.role not in ("teacher", "admin"):

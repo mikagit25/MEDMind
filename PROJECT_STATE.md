@@ -6,9 +6,24 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅ + Фаза 5 ✅
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅ + Фаза 5 ✅ + Фаза 6 ✅
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 6 (Reviewer workspace) или следующий роадмап. Тест-сьют: 436 passed, 0 failed.
+**Next Action:** V4 Phase 7 или следующий роадмап. Тест-сьют: 450 passed, 0 failed.
+
+### V4 Phase 6 — Reviewer workspace ✅ (2026-06-12)
+- RBAC: `reviewer` role added to `require_reviewer()` dep in `app/api/deps.py`
+- Reviewer queue API (5 endpoints in `admin.py`):
+  - `GET /api/v1/admin/reviewer-queue` — paginated, sorted by view_count desc, only `verification_status=passed`
+  - `GET /api/v1/admin/reviewer-queue/{id}` — full detail with body/sources/faq/verification_report
+  - `POST /api/v1/admin/reviewer-queue/{id}/approve` → `verification_status=human_reviewed`, sets `reviewed_by`
+  - `POST /api/v1/admin/reviewer-queue/{id}/request-changes` → `verification_status=failed` + `review_note`
+  - `GET /api/v1/admin/reviewer-queue/stats/summary` — queue_depth, unresolved_feedback, human_reviewed_total
+- Weekly digest: `_weekly_reviewer_digest()` + Monday 08:00 UTC cron job in `scheduler.py`
+- Email: `send_reviewer_digest()` in `email_service.py` — HTML digest with 2 stat cards
+- Frontend: `app/(app)/admin/reviewer/page.tsx` — full reviewer queue UI (list + detail panel + approve/reject modal)
+- Article page: `human_reviewed` status now shows "Reviewed by Specialist" badge with reviewer name + date
+- Article disclaimer: `human_reviewed` styled as green (same as `expert_verified`)
+- 14 new tests in `test_v4_phase6.py` — all passing in full suite (450 total)
 
 ### V4 Phase 5 — Localized landings + hreflang audit ✅ (2026-06-12)
 - `app/[locale]/page.tsx` — 6 locale routes (/ru, /de, /fr, /es, /tr, /ar); /en redirects to /
