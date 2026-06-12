@@ -306,6 +306,7 @@ class User(Base):
     is_trusted_author = Column(Boolean, default=False)     # articles auto-publish, no review needed
     oauth_provider = Column(String(50))
     oauth_id = Column(String(200))
+    push_token = Column(String(200), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

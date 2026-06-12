@@ -350,6 +350,27 @@ async def update_vet_settings(
     return UserOut.model_validate(user)
 
 
+# ── Push token (mobile PWA) ───────────────────────────────────────────────────
+
+class PushTokenRequest(BaseModel):
+    push_token: str
+
+
+@router.patch("/push-token", status_code=200)
+async def register_push_token(
+    data: PushTokenRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Register an Expo push notification token for the authenticated user."""
+    token = data.push_token.strip()
+    if not token:
+        raise HTTPException(status_code=400, detail="push_token is required")
+    user.push_token = token
+    await db.commit()
+    return {"status": "ok"}
+
+
 # ── Password reset ────────────────────────────────────────────────────────────
 
 class ForgotPasswordRequest(BaseModel):

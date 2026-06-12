@@ -7,6 +7,7 @@ import {
   ActivityIndicator, TextInput, RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { contentApi } from '@/lib/api';
 
 interface Module { id: string; title: string; description: string; is_fundamental: boolean; lesson_count: number; flashcard_count: number; }
@@ -89,7 +90,12 @@ export default function ModulesScreen() {
             </TouchableOpacity>
 
             {(expanded === spec.id || !!search) && spec.modules.map((mod) => (
-              <View key={mod.id} style={s.modCard}>
+              <TouchableOpacity
+                key={mod.id}
+                style={s.modCard}
+                onPress={() => router.push(`/module/${mod.id}` as any)}
+                activeOpacity={0.75}
+              >
                 <View style={s.modRow}>
                   <View style={s.modInfo}>
                     <Text style={s.modTitle}>{mod.title}</Text>
@@ -106,8 +112,9 @@ export default function ModulesScreen() {
                 <View style={s.modMeta}>
                   <Text style={s.metaChip}>📖 {mod.lesson_count ?? 0} lessons</Text>
                   <Text style={s.metaChip}>⚡ {mod.flashcard_count ?? 0} cards</Text>
+                  <Text style={s.metaChip}>›</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         )}

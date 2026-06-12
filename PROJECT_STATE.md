@@ -6,9 +6,21 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V3 Phase 7 ✅ (PWA + i18n). Все фазы V4 завершены.
+**Phase:** V3 Phase 8 ✅ (Mobile App — React Native Expo). Все фазы V4 завершены.
 **Last Updated:** 2026-06-12
-**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 458 passed, 0 failed.
+**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 464 passed, 0 failed.
+
+### V3 Phase 8 — Mobile App (React Native Expo) ✅ (2026-06-12)
+- **WatermelonDB offline sync** (pre-existing): `syncModules()`, `syncFlashcards()`, `pushPendingReviews()` in `mobile/src/lib/database.ts`; schema: modules, lessons, flashcards, ai_messages tables
+- **Push notifications** (pre-existing): `registerForPushNotifications()`, `scheduleFlashcardReminder()`, `setupNotificationResponseHandler()` in `mobile/src/lib/notifications.ts`; daily 9:00 AM reminder if due cards > 0
+- **Offline AI fallback** (pre-existing): keyword matching (MI, HTN, sepsis, diabetes, antibiotics) + offline queue in `offlineAI.ts`
+- **8 existing screens** (pre-existing): dashboard (XP/streak), modules, flashcards, AI tutor, leaderboard, achievements, auth/login, auth/register
+- **NEW: `mobile/app/module/[id].tsx`** — module detail screen: lesson list sorted by lesson_order, taps navigate to lesson reader, shows lesson count + estimated time
+- **NEW: `mobile/app/lesson/[id].tsx`** — lesson reader: renders all content block types (h1/h2/h3/p/list/callout/warning/table), medical disclaimer, clinical risk badge, lay summary section, "Mark as complete" button → `POST /progress/lesson/{id}/complete`
+- **NEW: modules.tsx** — module cards now tap to navigate to `/module/{id}` (Expo Router)
+- **Backend: `PATCH /auth/push-token`** — stores Expo push token on the authenticated user; empty/whitespace → 400
+- **Backend: `push_token` column** added to `users` table + Alembic migration `afb63dd2fe0d`
+- 6 new tests in `test_v4_phase8.py` — 401 without auth, token stored, empty 400, whitespace 400, idempotent update, user-scoped isolation
 
 ### V3 Phase 7 — PWA + i18n foundation ✅ (2026-06-12)
 - `frontend/public/manifest.json` — full Web App Manifest: name, icons, shortcuts (AI Tutor, Modules, Flashcards), screenshots, theme/bg colors matching design system
