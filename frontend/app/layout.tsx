@@ -146,6 +146,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ))}
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         {/* PWA */}
+        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: light)" />
         <meta name="mobile-web-app-capable" content="yes" />

@@ -6,9 +6,16 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅ + Фаза 5 ✅ + Фаза 6 ✅
+**Phase:** V3 Phase 7 ✅ (PWA + i18n). Все фазы V4 завершены.
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 7 или следующий роадмап. Тест-сьют: 450 passed, 0 failed.
+**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 458 passed, 0 failed.
+
+### V3 Phase 7 — PWA + i18n foundation ✅ (2026-06-12)
+- `frontend/public/manifest.json` — full Web App Manifest: name, icons, shortcuts (AI Tutor, Modules, Flashcards), screenshots, theme/bg colors matching design system
+- `<link rel="manifest">` added to `app/layout.tsx` — browsers can now prompt PWA install
+- **Already in place (pre-existing):** `sw.js` (cache-first shell + stale-while-revalidate assets + lesson offline cache), `icon-192.png` + `icon-512.png`, all PWA meta tags (theme-color, apple-mobile-web-app-capable, etc.), `PWAInstallPrompt.tsx` (30s delayed prompt, respects dismissal), `/offline` page, i18n system (7 languages, lazy loading, RTL for Arabic, dot-notation keys), `Module.language` field + `?language=` API filter
+- 8 new tests in `test_v4_phase7.py` — language field defaults, language filter API (en/ru/unknown), specialty module filter, public endpoint access
+- Acceptance criteria met: PWA installable (manifest + sw + icons + HTTPS on prod); en/ru switching without page reload via existing Zustand i18n context
 
 ### V4 Phase 6 — Reviewer workspace ✅ (2026-06-12)
 - RBAC: `reviewer` role added to `require_reviewer()` dep in `app/api/deps.py`
