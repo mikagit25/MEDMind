@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck,
+  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck, Users,
   type LucideProps,
 } from "lucide-react";
 
@@ -173,6 +173,19 @@ export function Sidebar() {
             ))}
           </div>
         ))}
+
+        {/* Clinic: Team */}
+        {(user?.subscription_tier === "clinic" || user?.role === "admin") && (
+          <div className="mb-4">
+            <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">
+              Clinic
+            </div>
+            <Link href="/team" className={clsx("nav-item", pathname.startsWith("/team") && "active")}>
+              <NavIcon Icon={Users} />
+              {t("nav.items.team")}
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* User footer */}
