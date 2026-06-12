@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.redis_client import get_redis
-from app.models.models import Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck
+from app.models.models import Article, Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck
 from fastapi import Depends
 
 logger = logging.getLogger(__name__)
@@ -875,3 +875,33 @@ async def get_public_pet_module(
     }
     await _cache_set(cache_key, response)
     return response
+
+
+# ── /public/stats ─────────────────────────────────────────────────────────────
+
+@router.get("/stats")
+async def get_public_stats(
+    _: None = Depends(check_public_rate_limit),
+    db: AsyncSession = Depends(get_db),
+):
+    """Platform counters for the landing page."""
+    cache_key = "pub_stats"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    article_count = await db.scalar(
+        select(func.count(Article.id)).where(
+            Article.is_published == True,
+            Article.review_status == "published",
+            Article.verification_status.in_(["passed", "human_reviewed"]),
+        )
+    ) or 0
+
+    module_count = await db.scalar(
+        select(func.count(Module.id)).where(Module.is_published == True)
+    ) or 0
+
+    result = {"articles": article_count, "modules": module_count, "languages": 7}
+    await _cache_set(cache_key, result, ttl=1800)
+    return result

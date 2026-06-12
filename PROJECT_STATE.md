@@ -6,9 +6,20 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 4. Тест-сьют: 436 passed, 0 failed.
+**Next Action:** V4 Phase 5 (локализованные лендинги + hreflang-аудит). Тест-сьют: 436 passed, 0 failed.
+
+### V4 Phase 4 — New landing: two-audience bifurcation ✅ (2026-06-12)
+- Hero redesigned: two-card bifurcation (professionals → /register, patients → /learn)
+- Real API stats counter: `GET /api/v1/public/stats` returns verified articles, modules, languages
+- Search bar: plain-language search field → `/articles?search=...` (no auth, no AI calls)
+- MiniQuiz component (`components/ui/MiniQuiz.tsx`): 3-question interactive quiz, loads from real public quiz API
+- Content pipeline block: 4 steps (sources → AI → verification → human review) + live counters + editorial link
+- "For specialists" block: feature list + pricing preview cards → /pricing
+- Footer updated: trust links (/about, /editorial-policy, /medical-disclaimer, /contact) + disclaimer line
+- i18n: 41 new keys added to all 7 locales (en/ru fully translated, others English fallback)
+- page.tsx now server-fetches stats + mini-quiz data (parallel fetch, no client waterfall)
 
 ### V4 Phase 3 — Trust pages & E-E-A-T ✅ (2026-06-12)
 - Static trust pages (SSR, multilingual 7 langs): `/about`, `/editorial-policy`, `/medical-disclaimer`, `/contact`

@@ -1,10 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
 import { useT, useI18n } from "@/lib/i18n";
 import { getCategoryLabel } from "@/lib/categories";
 import { CategoryIcon, SpecialtyIcon, FeatureIcon } from "@/lib/medical-icons";
+import { MiniQuiz } from "@/components/ui/MiniQuiz";
+import type { MiniQuizQuestion } from "@/components/ui/MiniQuiz";
 
 type ArticlePreview = {
   id: string;
@@ -40,14 +43,26 @@ const LANGS = [
   { value: "es", flag: "🇪🇸" },
 ] as const;
 
-export default function LandingPage({ articles: initialArticles = [] }: { articles: ArticlePreview[] }) {
+type PlatformStats = { articles: number; modules: number; languages: number };
+
+export default function LandingPage({
+  articles: initialArticles = [],
+  stats = { articles: 600, modules: 82, languages: 7 },
+  miniQuiz = null,
+}: {
+  articles: ArticlePreview[];
+  stats?: PlatformStats;
+  miniQuiz?: { slug: string; questions: MiniQuizQuestion[] } | null;
+}) {
   const { isAuthenticated } = useAuthStore();
   const t = useT();
   const { locale, setLocale } = useI18n();
+  const router = useRouter();
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [articles, setArticles]       = useState<ArticlePreview[]>(initialArticles);
   const [news, setNews]               = useState<NewsPreview[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [demoAnswer, setDemoAnswer]   = useState<number | null>(null);
 
   const API = process.env.NEXT_PUBLIC_API_URL ?? "";
@@ -172,50 +187,72 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
         )}
       </nav>
 
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12 sm:pb-16 text-center">
-        <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-6 sm:mb-8">
+      {/* ── Hero (V4 — bifurcation) ───────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-10 sm:pb-14 text-center">
+        <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-6">
           <span className="w-2 h-2 rounded-full bg-green-2 animate-pulse inline-block" />
           {t("landing.hero_badge")}
         </div>
-        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-tight tracking-tight mb-5 sm:mb-6">
-          {t("landing.hero_title")}<br />
-          <span className="text-red">{t("landing.hero_title_red")}</span>
+
+        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-tight tracking-tight mb-3">
+          {t("landing.hero_v4_title") as string}
         </h1>
-        <p className="text-ink-2 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-10 px-2">
-          {t("landing.hero_subtitle")}
+        <p className="font-syne font-extrabold text-3xl sm:text-4xl md:text-5xl text-ink-2 leading-tight tracking-tight mb-6">
+          {t("landing.hero_v4_title2") as string}
+        </p>
+        <p className="text-ink-2 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-10 px-2">
+          {t("landing.hero_v4_sub") as string}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center px-4 sm:px-0">
-          {isAuthenticated ? (
-            <Link href="/dashboard" className="font-syne font-bold text-base bg-red text-white px-6 sm:px-8 py-3.5 rounded hover:bg-ink transition-colors text-center">
-              {t("landing.go_to_dashboard") as string}
+        {isAuthenticated ? (
+          <Link href="/dashboard"
+            className="inline-block font-syne font-bold text-base bg-ink text-white px-8 py-3.5 rounded-xl hover:bg-ink/80 transition-colors">
+            {t("landing.go_to_dashboard") as string}
+          </Link>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            {/* Audience 1: professionals/students */}
+            <Link href="/register"
+              className="group flex flex-col gap-2 bg-ink text-white rounded-2xl p-6 text-start hover:bg-ink/90 transition-colors">
+              <span className="text-2xl">🩺</span>
+              <span className="font-syne font-bold text-lg leading-snug">
+                {t("landing.audience_pro_title") as string}
+              </span>
+              <span className="text-white/60 text-sm">
+                {t("landing.audience_pro_sub") as string}
+              </span>
+              <span className="mt-auto text-sm font-syne font-semibold text-white/80 group-hover:text-white">
+                {t("landing.audience_pro_cta") as string}
+              </span>
             </Link>
-          ) : (
-            <>
-              <Link href="/register" className="font-syne font-bold text-base bg-ink text-white px-6 sm:px-8 py-3.5 rounded hover:bg-red transition-colors text-center">
-                {t("landing.hero_cta")}
-              </Link>
-              <Link href="/articles" className="font-syne font-semibold text-base border-2 border-ink text-ink px-6 sm:px-8 py-3.5 rounded hover:bg-ink hover:text-white transition-colors text-center">
-                {t("landing.hero_cta2")}
-              </Link>
-              <Link href="/login" className="hidden sm:block font-syne font-semibold text-base border border-border text-ink-2 px-6 sm:px-8 py-3.5 rounded hover:border-ink hover:text-ink transition-colors text-center">
-                {t("landing.hero_cta3")}
-              </Link>
-            </>
-          )}
-        </div>
-        <p className="text-ink-3 text-xs mt-4 font-syne">{t("landing.hero_note")}</p>
+
+            {/* Audience 2: patients/general public */}
+            <Link href="/learn"
+              className="group flex flex-col gap-2 bg-surface border-2 border-border rounded-2xl p-6 text-start hover:border-ink transition-colors">
+              <span className="text-2xl">🌿</span>
+              <span className="font-syne font-bold text-lg text-ink leading-snug">
+                {t("landing.audience_patient_title") as string}
+              </span>
+              <span className="text-ink-3 text-sm">
+                {t("landing.audience_patient_sub") as string}
+              </span>
+              <span className="mt-auto text-sm font-syne font-semibold text-ink-2 group-hover:text-ink">
+                {t("landing.audience_patient_cta") as string}
+              </span>
+            </Link>
+          </div>
+        )}
+        <p className="text-ink-3 text-xs mt-5 font-syne">{t("landing.hero_note")}</p>
       </section>
 
       {/* ── Stats bar ────────────────────────────────────────────────────────── */}
       <section className="border-y border-border bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
           {[
-            { val: "600+",  label: "Medical articles" },
-            { val: "7",     label: t("landing.stats_langs") },
-            { val: "82+",   label: t("landing.stats_modules") },
-            { val: "500+",  label: t("landing.stats_flashcards") },
+            { val: `${stats.articles > 0 ? `${stats.articles}+` : "600+"}`, label: t("landing.pipeline_stat_articles") as string },
+            { val: `${stats.languages}`, label: t("landing.stats_langs") as string },
+            { val: `${stats.modules > 0 ? `${stats.modules}+` : "82+"}`, label: t("landing.stats_modules") as string },
+            { val: "500+", label: t("landing.stats_flashcards") as string },
           ].map((s, i) => (
             <div key={i}>
               <div className="font-syne font-extrabold text-xl sm:text-2xl text-ink">{s.val}</div>
@@ -223,6 +260,34 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ── Search bar ───────────────────────────────────────────────────────── */}
+      <section className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (searchQuery.trim()) {
+              router.push(`/articles?search=${encodeURIComponent(searchQuery.trim())}`);
+            }
+          }}
+          className="relative"
+        >
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t("landing.search_hero_placeholder") as string}
+            className="w-full bg-surface border border-border rounded-2xl px-5 py-4 pr-32 font-syne text-ink placeholder-ink-3 text-sm focus:outline-none focus:border-ink transition-colors shadow-sm"
+          />
+          <button
+            type="submit"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-ink text-white font-syne font-semibold text-sm px-4 py-2 rounded-xl hover:bg-ink/80 transition-colors"
+          >
+            {t("landing.search_hero_btn") as string}
+          </button>
+        </form>
+        <p className="text-center text-ink-3 text-xs mt-2 font-syne">{t("landing.search_hero_hint") as string}</p>
       </section>
 
       {/* ── News block ───────────────────────────────────────────────────────── */}
@@ -473,8 +538,88 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
         </div>
       </section>
 
-      {/* ── Interactive demo ─────────────────────────────────────────────────── */}
+      {/* ── Mini Quiz ────────────────────────────────────────────────────────── */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1 rounded-full font-syne font-semibold text-xs text-ink-3 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block animate-pulse" />
+            {t("landing.demo_badge")}
+          </div>
+          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink mb-2">
+            {t("landing.quiz_title") as string}
+          </h2>
+          <p className="text-ink-3 text-sm max-w-md mx-auto">{t("landing.quiz_sub") as string}</p>
+        </div>
+        <div className="bg-surface border border-border rounded-2xl p-6 sm:p-8">
+          {miniQuiz ? (
+            <MiniQuiz questions={miniQuiz.questions} quizSlug={miniQuiz.slug} />
+          ) : (
+            /* Fallback: single hardcoded demo question */
+            <MiniQuiz
+              questions={[{
+                question: t("landing.demo_question") as string,
+                options: t("landing.demo_options") as unknown as string[],
+                correct_index: t("landing.demo_correct") as unknown as number,
+                explanation: t("landing.demo_explanation") as string,
+              }]}
+            />
+          )}
+        </div>
+      </section>
+
+      {/* ── Content pipeline ─────────────────────────────────────────────────── */}
+      <section className="bg-surface border-y border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+          <div className="text-center mb-12">
+            <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-2">
+              {t("landing.pipeline_title") as string}
+            </h2>
+            <p className="text-ink-3 text-sm">{t("landing.pipeline_sub") as string}</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {([
+              { num: "1", title: t("landing.pipeline_step1_title") as string, body: t("landing.pipeline_step1") as string, color: "bg-blue-50 border-blue-200 text-blue-700" },
+              { num: "2", title: t("landing.pipeline_step2_title") as string, body: t("landing.pipeline_step2") as string, color: "bg-violet-50 border-violet-200 text-violet-700" },
+              { num: "3", title: t("landing.pipeline_step3_title") as string, body: t("landing.pipeline_step3") as string, color: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+              { num: "4", title: t("landing.pipeline_step4_title") as string, body: t("landing.pipeline_step4") as string, color: "bg-amber-50 border-amber-200 text-amber-700" },
+            ] as const).map((step) => (
+              <div key={step.num} className={`rounded-2xl border p-6 ${step.color.split(" ").slice(0, 2).join(" ")}`}>
+                <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-syne font-extrabold text-sm mb-4 ${step.color}`}>
+                  {step.num}
+                </div>
+                <h3 className="font-syne font-bold text-sm text-ink mb-2">{step.title}</h3>
+                <p className="text-ink-3 text-xs leading-relaxed">{step.body}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats row + editorial link */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-border pt-8">
+            <div className="flex gap-8 text-center">
+              {[
+                { val: `${stats.articles > 0 ? `${stats.articles}+` : "600+"}`, label: t("landing.pipeline_stat_articles") as string },
+                { val: `${stats.modules > 0 ? `${stats.modules}+` : "82+"}`, label: t("landing.pipeline_stat_modules") as string },
+                { val: `${stats.languages}`, label: t("landing.pipeline_stat_langs") as string },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div className="font-syne font-extrabold text-2xl text-ink">{s.val}</div>
+                  <div className="text-ink-3 text-xs font-syne mt-0.5">{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/editorial-policy"
+              className="font-syne font-semibold text-sm text-ink-2 hover:text-ink border border-border rounded-xl px-5 py-2.5 hover:border-ink transition-colors flex-shrink-0"
+            >
+              {t("landing.pipeline_editorial") as string}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ORIGINAL Interactive demo (hidden — replaced by MiniQuiz above) ───── */}
+      {false && <section className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1 rounded-full font-syne font-semibold text-xs text-ink-3 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
@@ -538,9 +683,7 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
             <p className="text-ink-3 text-xs font-syne text-center">Select an answer above</p>
           )}
         </div>
-      </section>
-
-      {/* ── What's inside (feature preview) ─────────────────────────────────── */}
+      </section>}
       <section className="bg-surface border-y border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-10 sm:mb-14">
@@ -621,6 +764,51 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
         </div>
       </section>
 
+      {/* ── For specialists ──────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-3">
+              {t("landing.pros_title") as string}
+            </h2>
+            <p className="text-ink-2 mb-6 leading-relaxed">{t("landing.pros_sub") as string}</p>
+            <ul className="space-y-3">
+              {(t("landing.pros_features") as unknown as string[]).map((f: string) => (
+                <li key={f} className="flex items-start gap-3 text-sm text-ink-2">
+                  <span className="text-emerald-500 mt-0.5 flex-shrink-0 font-bold">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4">
+            {/* Pricing preview cards */}
+            {[
+              { name: "Student", price: "$15", period: "/mo", highlight: false },
+              { name: "Pro", price: "$40", period: "/mo", highlight: true },
+              { name: "Clinic", price: "$199", period: "/mo", highlight: false },
+            ].map((plan) => (
+              <div key={plan.name}
+                className={`flex items-center justify-between rounded-xl border px-5 py-4 ${
+                  plan.highlight ? "bg-ink border-ink text-white" : "bg-surface border-border text-ink"
+                }`}
+              >
+                <span className={`font-syne font-bold text-sm ${plan.highlight ? "text-white" : "text-ink"}`}>
+                  {plan.name}
+                </span>
+                <span className={`font-syne font-extrabold text-lg ${plan.highlight ? "text-white" : "text-ink"}`}>
+                  {plan.price}<span className={`text-xs font-normal ${plan.highlight ? "text-white/60" : "text-ink-3"}`}>{plan.period}</span>
+                </span>
+              </div>
+            ))}
+            <Link href="/pricing"
+              className="text-center font-syne font-semibold text-sm border border-border rounded-xl px-5 py-3 text-ink-2 hover:border-ink hover:text-ink transition-colors mt-2">
+              {t("landing.pros_cta") as string}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ────────────────────────────────────────────────────────── */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
@@ -642,28 +830,48 @@ export default function LandingPage({ articles: initialArticles = [] }: { articl
 
       {/* ── Footer ───────────────────────────────────────────────────────────── */}
       <footer className="border-t border-border bg-surface">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-syne font-extrabold text-lg text-ink">
-            Med<span className="text-red">Mind</span>
-            <span className="font-normal text-ink-3 text-xs ml-2">{t("landing.footer_tagline")}</span>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
+            <div>
+              <div className="font-syne font-extrabold text-lg text-ink">
+                Med<span className="text-red">Mind</span>
+              </div>
+              <p className="text-ink-3 text-xs mt-0.5 font-syne">{t("landing.footer_tagline")}</p>
+            </div>
+            <div className="flex gap-4 sm:gap-6 flex-wrap">
+              {[
+                { href: "/articles",     label: t("landing.nav_articles") },
+                { href: "/news",         label: t("landing.nav_news") },
+                { href: "/calculators",  label: t("landing.nav_calculators") },
+                { href: "/drugs",        label: t("landing.nav_drugs") },
+                { href: "/pricing",      label: t("landing.nav_pricing") },
+                { href: "/investors",    label: t("landing.footer_investors") },
+              ].map(item => (
+                <Link key={item.href} href={item.href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
+          {/* Trust links */}
+          <div className="flex flex-wrap gap-4 pb-5 border-b border-border">
             {[
-              { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/news",         label: t("landing.nav_news") },
-              { href: "/calculators",  label: t("landing.nav_calculators") },
-              { href: "/drugs",        label: t("landing.nav_drugs") },
-              { href: "/pricing",      label: t("landing.nav_pricing") },
-              { href: "/investors",    label: t("landing.footer_investors") },
-              { href: "/register",     label: t("landing.footer_register") },
-              { href: "/login",        label: t("landing.footer_login") },
+              { href: "/about",                label: "About" },
+              { href: "/editorial-policy",     label: "Editorial Policy" },
+              { href: "/medical-disclaimer",   label: "Medical Disclaimer" },
+              { href: "/contact",              label: "Contact" },
             ].map(item => (
-              <Link key={item.href} href={item.href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">
+              <Link key={item.href} href={item.href} className="text-ink-3 text-xs hover:text-ink transition-colors font-syne underline">
                 {item.label}
               </Link>
             ))}
           </div>
-          <div className="text-ink-3 text-xs font-syne">{t("landing.footer_copy")}</div>
+          <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <p className="text-ink-3 text-[11px] font-syne max-w-lg">
+              For educational purposes only. Not a substitute for professional medical advice. Always consult a licensed healthcare provider.
+            </p>
+            <div className="text-ink-3 text-xs font-syne flex-shrink-0">{t("landing.footer_copy")}</div>
+          </div>
         </div>
       </footer>
     </div>
