@@ -45,19 +45,33 @@ const LANGS = [
 
 type PlatformStats = { articles: number; modules: number; languages: number };
 
+const RTL_LOCALES = new Set(["ar"]);
+
 export default function LandingPage({
   articles: initialArticles = [],
   stats = { articles: 600, modules: 82, languages: 7 },
   miniQuiz = null,
+  initialLocale,
 }: {
   articles: ArticlePreview[];
   stats?: PlatformStats;
   miniQuiz?: { slug: string; questions: MiniQuizQuestion[] } | null;
+  initialLocale?: string;
 }) {
   const { isAuthenticated } = useAuthStore();
   const t = useT();
   const { locale, setLocale } = useI18n();
   const router = useRouter();
+
+  // Apply URL-driven locale on mount (for /{locale} routes)
+  useEffect(() => {
+    if (initialLocale && initialLocale !== locale) {
+      setLocale(initialLocale as Parameters<typeof setLocale>[0]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialLocale]);
+
+  const isRTL = RTL_LOCALES.has(locale);
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [articles, setArticles]       = useState<ArticlePreview[]>(initialArticles);
@@ -103,7 +117,7 @@ export default function LandingPage({
   const filteredArticles  = activeCategory === "all" ? articles : articles.filter(a => a.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-bg" dir={isRTL ? "rtl" : "ltr"}>
 
       {/* ── Navigation ───────────────────────────────────────────────────────── */}
       <nav className="bg-surface border-b border-border sticky top-0 z-50">

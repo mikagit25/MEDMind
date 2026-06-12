@@ -67,6 +67,29 @@ jobs:
           NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
         run: npm run build
 
+  # ── SEO Audit (allowed to fail — runs against prod only on push to main) ────
+  seo-audit:
+    name: SEO Audit (sitemaps + hreflang)
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    continue-on-error: true  # allowed-to-fail per roadmap spec
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run SEO audit
+        run: python scripts/ops/seo_audit.py --site https://medmind.pro --max-urls 100
+        continue-on-error: true
+
   # ── Deploy (runs only on push to main) ─────────────────────────────────────
   deploy:
     name: Deploy to production

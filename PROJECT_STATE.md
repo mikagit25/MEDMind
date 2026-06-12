@@ -6,9 +6,16 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅ + Фаза 4 ✅ + Фаза 5 ✅
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 5 (локализованные лендинги + hreflang-аудит). Тест-сьют: 436 passed, 0 failed.
+**Next Action:** V4 Phase 6 (Reviewer workspace) или следующий роадмап. Тест-сьют: 436 passed, 0 failed.
+
+### V4 Phase 5 — Localized landings + hreflang audit ✅ (2026-06-12)
+- `app/[locale]/page.tsx` — 6 locale routes (/ru, /de, /fr, /es, /tr, /ar); /en redirects to /
+- LandingPage: `initialLocale` prop + `dir="rtl"` for Arabic
+- Sitemap: each non-en sitemap now includes the /{locale} landing page entry
+- `scripts/ops/seo_audit.py` — checks 200 status, canonical, hreflang reciprocity, disclaimer presence
+- CI: `seo-audit` job (allowed-to-fail) runs on push to main against prod
 
 ### V4 Phase 4 — New landing: two-audience bifurcation ✅ (2026-06-12)
 - Hero redesigned: two-card bifurcation (professionals → /register, patients → /learn)

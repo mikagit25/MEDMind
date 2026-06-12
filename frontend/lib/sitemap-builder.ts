@@ -408,6 +408,23 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     );
   }
 
+  // ── Localized landing pages (/ru, /de, /fr, /es, /tr, /ar) ───────────────
+  // Only emit the current locale's own landing page (avoid duplicates in each sitemap)
+  if (locale !== "en") {
+    const lp = localizedUrl("/", locale);
+    // Use localizedUrl which produces /<locale> for non-en
+    const locLanding = `${SITE_URL}/${locale}`;
+    entries.push(
+      urlEntry({
+        url: locLanding,
+        lastmod: now,
+        priority: 1.0,
+        changefreq: "weekly",
+        hreflang: hreflangTags("/", [...LOCALES]),
+      })
+    );
+  }
+
   // ── Static pages — English only ─────────────────────────────────────────
   if (locale === "en") {
     const statics: { path: string; priority: number; changefreq: string }[] = [
