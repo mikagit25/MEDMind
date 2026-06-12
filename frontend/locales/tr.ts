@@ -81,6 +81,7 @@ const tr: Translations = {
       ai_tutor: "YZ Öğretmen",
       flashcards: "Kartlar",
       my_cards: "Kartlarım",
+      community_cards: "Topluluk Kartları",
       quiz: "Quiz",
       cases: "Klinik Vakalar",
       simulation: "Simülasyon",
@@ -498,6 +499,15 @@ const tr: Translations = {
     question_label: "Soru / Terim",
     answer_label: "Cevap / Tanım",
     save_card: "Kartı Kaydet",
+    community_title: "Topluluk Kartları",
+    community_subtitle: "Topluluktan herkese açık kartları gözat ve kopyala",
+    community_search: "Topluluk kartlarında ara…",
+    community_no_results: "Aramanıza uyan kart bulunamadı",
+    community_by: "yazan",
+    community_filter_all: "Tüm seviyeler",
+    clone: "Kopyala",
+    cloning: "Kopyalanıyor…",
+    cloned: "Eklendi!",
   },
 
   quiz: {

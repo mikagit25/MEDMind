@@ -81,6 +81,7 @@ const de: Translations = {
       ai_tutor: "KI-Tutor",
       flashcards: "Lernkarten",
       my_cards: "Meine Karten",
+      community_cards: "Community-Karten",
       quiz: "Quiz",
       cases: "Klinische Fälle",
       simulation: "Simulation",
@@ -506,6 +507,15 @@ const de: Translations = {
     question_label: "Frage / Begriff",
     answer_label: "Antwort / Definition",
     save_card: "Karte speichern",
+    community_title: "Community-Karten",
+    community_subtitle: "Öffentliche Karteikarten aus der Community durchsuchen und klonen",
+    community_search: "Community-Karten suchen…",
+    community_no_results: "Keine öffentlichen Karten gefunden",
+    community_by: "von",
+    community_filter_all: "Alle Schwierigkeiten",
+    clone: "Klonen",
+    cloning: "Wird geklont…",
+    cloned: "Hinzugefügt!",
   },
 
   quiz: {

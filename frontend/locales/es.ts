@@ -81,6 +81,7 @@ const es: Translations = {
       ai_tutor: "Tutor IA",
       flashcards: "Tarjetas de estudio",
       my_cards: "Mis tarjetas",
+      community_cards: "Tarjetas de la comunidad",
       quiz: "Cuestionario",
       cases: "Casos clínicos",
       simulation: "Simulación",
@@ -506,6 +507,15 @@ const es: Translations = {
     question_label: "Pregunta / Término",
     answer_label: "Respuesta / Definición",
     save_card: "Guardar tarjeta",
+    community_title: "Tarjetas de la comunidad",
+    community_subtitle: "Explora y clona tarjetas públicas de la comunidad",
+    community_search: "Buscar tarjetas de la comunidad…",
+    community_no_results: "No se encontraron tarjetas públicas",
+    community_by: "por",
+    community_filter_all: "Todas las dificultades",
+    clone: "Clonar",
+    cloning: "Clonando…",
+    cloned: "¡Añadido!",
   },
 
   quiz: {

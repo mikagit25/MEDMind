@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck,
+  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck, Globe,
   type LucideProps,
 } from "lucide-react";
 
@@ -47,7 +47,8 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         { Icon: GraduationCap,  label: t("nav.items.my_courses"),  href: "/my-courses"    },
         { Icon: Bot,             label: t("nav.items.ai_tutor"),    href: "/ai-tutor"      },
         { Icon: Layers,          label: t("nav.items.flashcards"),  href: "/flashcards"    },
-        { Icon: BookMarked,      label: t("nav.items.my_cards"),    href: "/my-flashcards" },
+        { Icon: BookMarked,      label: t("nav.items.my_cards"),        href: "/my-flashcards" },
+        { Icon: Globe,           label: t("nav.items.community_cards"), href: "/my-flashcards/community" },
         { Icon: ClipboardList,   label: t("nav.items.quiz"),        href: "/quiz"          },
         { Icon: Stethoscope,     label: t("nav.items.cases"),       href: "/cases"         },
         { Icon: Building2,       label: t("nav.items.simulation"),  href: "/simulation"    },

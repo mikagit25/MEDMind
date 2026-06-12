@@ -81,6 +81,7 @@ const ru: Translations = {
       ai_tutor: "ИИ-репетитор",
       flashcards: "Флэшкарты",
       my_cards: "Мои карточки",
+      community_cards: "Карточки сообщества",
       quiz: "Тесты",
       cases: "Клинические случаи",
       simulation: "Симуляция",
@@ -510,6 +511,15 @@ const ru: Translations = {
     question_label: "Вопрос / Термин",
     answer_label: "Ответ / Определение",
     save_card: "Сохранить карточку",
+    community_title: "Карточки сообщества",
+    community_subtitle: "Просматривайте и клонируйте публичные карточки",
+    community_search: "Поиск карточек…",
+    community_no_results: "Карточки не найдены",
+    community_by: "от",
+    community_filter_all: "Все уровни",
+    clone: "Клонировать",
+    cloning: "Клонирование…",
+    cloned: "Добавлено!",
   },
 
   quiz: {

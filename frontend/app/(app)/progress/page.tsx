@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { progressApi, achievementsApi, memoryApi, studentCoursesApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
@@ -30,6 +30,42 @@ function LevelBar({ xp, level }: { xp: number; level: number }) {
           style={{ width: `${pct}%` }}
         />
       </div>
+    </div>
+  );
+}
+
+function ExportPDFButton() {
+  const t = useT();
+  const [state, setState] = useState<"idle" | "loading" | "error">("idle");
+
+  const handleExport = useCallback(async () => {
+    setState("loading");
+    try {
+      const blob = await progressApi.exportPDF();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `medmind_cpd_${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setState("idle");
+    } catch {
+      setState("error");
+    }
+  }, []);
+
+  return (
+    <div>
+      <button
+        onClick={handleExport}
+        disabled={state === "loading"}
+        className="flex items-center gap-2 px-4 py-2 rounded bg-green text-white font-syne font-semibold text-sm hover:bg-green/90 transition-colors disabled:opacity-60"
+      >
+        {state === "loading" ? t("common.loading") : t("progress.download_report")}
+      </button>
+      {state === "error" && (
+        <p className="mt-1 text-xs text-red font-serif">{t("common.error_retry")}</p>
+      )}
     </div>
   );
 }
@@ -105,7 +141,10 @@ export default function ProgressPage() {
 
   return (
     <div className="flex-1 overflow-y-auto p-3 sm:p-6">
-      <h1 className="font-syne font-black text-2xl text-ink mb-6">{t("progress.title")}</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-syne font-black text-2xl text-ink">{t("progress.title")}</h1>
+        <ExportPDFButton />
+      </div>
 
       {/* XP Level bar */}
       <div className="mb-6">

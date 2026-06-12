@@ -81,6 +81,7 @@ const en = {
       ai_tutor: "AI Tutor",
       flashcards: "Flashcards",
       my_cards: "My Cards",
+      community_cards: "Community Cards",
       quiz: "Quiz",
       cases: "Cases",
       simulation: "Simulation",
@@ -517,6 +518,15 @@ const en = {
     question_label: "Question / Term",
     answer_label: "Answer / Definition",
     save_card: "Save card",
+    community_title: "Community Cards",
+    community_subtitle: "Browse and clone public flashcards from the community",
+    community_search: "Search community cards…",
+    community_no_results: "No public cards match your search",
+    community_by: "by",
+    community_filter_all: "All difficulties",
+    clone: "Clone",
+    cloning: "Cloning…",
+    cloned: "Cloned!",
   },
 
   // ── Quiz ──────────────────────────────────────────────────────────────────────

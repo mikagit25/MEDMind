@@ -81,6 +81,7 @@ const ar: Translations = {
       ai_tutor: "المعلم الذكي",
       flashcards: "البطاقات التعليمية",
       my_cards: "بطاقاتي",
+      community_cards: "بطاقات المجتمع",
       quiz: "الاختبارات",
       cases: "الحالات السريرية",
       simulation: "المحاكاة",
@@ -498,6 +499,15 @@ const ar: Translations = {
     question_label: "السؤال / المصطلح",
     answer_label: "الجواب / التعريف",
     save_card: "حفظ البطاقة",
+    community_title: "بطاقات المجتمع",
+    community_subtitle: "تصفح ونسخ البطاقات العامة من المجتمع",
+    community_search: "البحث في بطاقات المجتمع…",
+    community_no_results: "لا توجد بطاقات عامة تطابق بحثك",
+    community_by: "بواسطة",
+    community_filter_all: "كل المستويات",
+    clone: "نسخ",
+    cloning: "جارٍ النسخ…",
+    cloned: "تمت الإضافة!",
   },
 
   quiz: {

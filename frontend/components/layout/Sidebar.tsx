@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck, Users,
+  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck, Users, Globe,
   type LucideProps,
 } from "lucide-react";
 
@@ -39,7 +39,8 @@ export function Sidebar() {
         { icon: GraduationCap,  label: t("nav.items.my_courses"),   href: "/my-courses" },
         { icon: Bot,             label: t("nav.items.ai_tutor"),     href: "/ai-tutor" },
         { icon: Layers,          label: t("nav.items.flashcards"),   href: "/flashcards" },
-        { icon: BookMarked,      label: t("nav.items.my_cards"),     href: "/my-flashcards" },
+        { icon: BookMarked,      label: t("nav.items.my_cards"),        href: "/my-flashcards" },
+        { icon: Globe,           label: t("nav.items.community_cards"), href: "/my-flashcards/community" },
         { icon: ClipboardList,   label: t("nav.items.quiz"),         href: "/quiz" },
         { icon: Stethoscope,     label: t("nav.items.cases"),        href: "/cases" },
         { icon: Building2,       label: t("nav.items.simulation"),   href: "/simulation" },

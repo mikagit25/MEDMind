@@ -81,6 +81,7 @@ const fr: Translations = {
       ai_tutor: "Tuteur IA",
       flashcards: "Fiches mémo",
       my_cards: "Mes fiches",
+      community_cards: "Fiches communauté",
       quiz: "Quiz",
       cases: "Cas cliniques",
       simulation: "Simulation",
@@ -506,6 +507,15 @@ const fr: Translations = {
     question_label: "Question / Terme",
     answer_label: "Réponse / Définition",
     save_card: "Enregistrer la fiche",
+    community_title: "Fiches communauté",
+    community_subtitle: "Parcourir et cloner les fiches publiques de la communauté",
+    community_search: "Rechercher dans les fiches…",
+    community_no_results: "Aucune fiche publique ne correspond à votre recherche",
+    community_by: "par",
+    community_filter_all: "Toutes les difficultés",
+    clone: "Cloner",
+    cloning: "Clonage…",
+    cloned: "Ajouté!",
   },
 
   quiz: {
