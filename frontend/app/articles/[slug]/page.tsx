@@ -74,6 +74,9 @@ type ArticleDetail = {
   verified_sources: VerifiedSource[];
   last_verified_at: string | null;
   generated_by: string | null;
+  // Trust (Phase 3)
+  reviewed_by: string | null;
+  updated_at: string | null;
 };
 
 async function fetchArticle(slug: string, locale?: string): Promise<ArticleDetail | null> {
@@ -250,19 +253,23 @@ export async function generateMetadata({
 // schema.org structured data
 function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo, locale = "en"): object[] {
   const url = `${SITE_URL}/articles/${article.slug}`;
-  const base = {
-    "@context": "https://schema.org",
-    "@type": article.schema_type === "Drug"
+  const schemaType =
+    article.schema_type === "Drug"
       ? "Drug"
       : article.schema_type === "MedicalCondition"
       ? "MedicalCondition"
       : article.schema_type === "MedicalProcedure"
       ? "MedicalProcedure"
-      : "MedicalWebPage",
+      : "MedicalWebPage";
+
+  const base: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
     name: article.title,
     description: article.excerpt,
     url,
     datePublished: article.published_at,
+    dateModified: article.updated_at ?? article.published_at,
     publisher: {
       "@type": "Organization",
       name: "MedMind AI",
@@ -270,6 +277,25 @@ function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo, locale 
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
+
+  // lastReviewed + reviewedBy (MedicalWebPage E-E-A-T signals)
+  if (article.last_verified_at) {
+    base.lastReviewed = article.last_verified_at;
+  }
+  if (article.reviewed_by) {
+    base.reviewedBy = { "@type": "Person", name: article.reviewed_by };
+  }
+
+  // citation — link verified PubMed sources
+  if (article.verified_sources?.length) {
+    base.citation = article.verified_sources.map((s) => ({
+      "@type": "CreativeWork",
+      name: s.title,
+      url: s.url || `https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`,
+      author: s.authors,
+      datePublished: s.year,
+    }));
+  }
 
   // Breadcrumb
   const breadcrumb = {

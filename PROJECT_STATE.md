@@ -6,9 +6,20 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅
+**Phase:** Roadmap V4 — Фаза 0 ✅ + Фаза 1 ✅ + Фаза 2 ✅ + Фаза 3 ✅
 **Last Updated:** 2026-06-12
-**Next Action:** V4 Phase 3 (Trust pages). Тест-сьют: 427 passed, 0 failed.
+**Next Action:** V4 Phase 4. Тест-сьют: 436 passed, 0 failed.
+
+### V4 Phase 3 — Trust pages & E-E-A-T ✅ (2026-06-12)
+- Static trust pages (SSR, multilingual 7 langs): `/about`, `/editorial-policy`, `/medical-disclaimer`, `/contact`
+- `frontend/components/layout/PublicFooter.tsx` — shared footer with trust links + disclaimer line
+- `frontend/lib/trust-i18n.ts` — server-safe SSR translation library for trust pages (7 languages)
+- `frontend/app/reviewers/[slug]/page.tsx` — reviewer profile scaffold with Schema.org Person
+- Schema.org enhanced on article pages: `dateModified`, `lastReviewed`, `reviewedBy`, `citation` from verified sources
+- Backend: `Reviewer` model + alembic migration 0034 + `/api/v1/reviewers` endpoint (list + detail)
+- Article detail response now includes `reviewed_by` and `updated_at` fields
+- Sitemap: 4 trust pages added to static pages list in `sitemap-builder.ts`
+- 9 new tests in `test_v4_phase3.py` — all passing
 
 ### V4 Phase 2 — Translation QA ✅ (2026-06-12)
 - Medical glossary: 250 canonical terms × 7 languages in `backend/app/data/med_glossary/{en,ru,de,fr,es,tr,ar}.json`

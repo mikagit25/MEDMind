@@ -1202,6 +1202,28 @@ class ArticleTranslation(Base):
 
 
 # ============================================================
+# REVIEWER PROFILES (V4 Phase 3)
+# ============================================================
+
+class Reviewer(Base):
+    """Expert reviewer who validates human_reviewed articles."""
+    __tablename__ = "reviewers"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    slug = Column(String(100), unique=True, nullable=False, index=True)
+    name = Column(String(200), nullable=False)
+    credentials = Column(String(500), nullable=True)   # "MD, PhD, Cardiologist at …"
+    bio = Column(Text, nullable=True)
+    institution = Column(String(300), nullable=True)
+    avatar_url = Column(String(500), nullable=True)
+    specialties = Column(JSONB, nullable=True)          # ["cardiology", "internal medicine"]
+    linkedin_url = Column(String(500), nullable=True)
+    is_active = Column(Boolean, default=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+# ============================================================
 # CREDIT SYSTEM
 # ============================================================
 

@@ -411,13 +411,18 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   // ── Static pages — English only ─────────────────────────────────────────
   if (locale === "en") {
     const statics: { path: string; priority: number; changefreq: string }[] = [
-      { path: "/",             priority: 1.0, changefreq: "weekly"  },
-      { path: "/how-it-works", priority: 0.9, changefreq: "monthly" },
-      { path: "/pricing",      priority: 0.9, changefreq: "monthly" },
-      { path: "/investors",    priority: 0.6, changefreq: "monthly" },
-      { path: "/symptoms",     priority: 0.9, changefreq: "monthly" },
-      { path: "/news",         priority: 0.9, changefreq: "hourly"  },
-      { path: "/register",     priority: 0.7, changefreq: "monthly" },
+      { path: "/",                   priority: 1.0, changefreq: "weekly"  },
+      { path: "/how-it-works",       priority: 0.9, changefreq: "monthly" },
+      { path: "/pricing",            priority: 0.9, changefreq: "monthly" },
+      { path: "/investors",          priority: 0.6, changefreq: "monthly" },
+      { path: "/symptoms",           priority: 0.9, changefreq: "monthly" },
+      { path: "/news",               priority: 0.9, changefreq: "hourly"  },
+      { path: "/register",           priority: 0.7, changefreq: "monthly" },
+      // Trust pages (V4 Phase 3)
+      { path: "/about",              priority: 0.7, changefreq: "monthly" },
+      { path: "/editorial-policy",   priority: 0.7, changefreq: "monthly" },
+      { path: "/medical-disclaimer", priority: 0.6, changefreq: "yearly"  },
+      { path: "/contact",            priority: 0.6, changefreq: "monthly" },
     ];
     for (const s of statics) {
       entries.push(

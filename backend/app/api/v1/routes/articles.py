@@ -182,6 +182,8 @@ def _detail(a: Article) -> dict:
         "generated_by": a.generated_by,
         "review_status": a.review_status,
         "review_note": a.review_note,
+        "reviewed_by": a.reviewed_by,
+        "updated_at": a.updated_at.isoformat() if getattr(a, "updated_at", None) else None,
         # Verification
         "verification_status": getattr(a, "verification_status", "unverified"),
         "verified_sources": getattr(a, "verified_sources", None) or [],
