@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck, Globe, Shuffle, Calculator,
+  Search, Sun, Moon, LogOut, FileText, FileJson, Menu, X, Radio, Gift, CalendarCheck, Globe, Shuffle, Calculator,
   type LucideProps,
 } from "lucide-react";
 
@@ -84,6 +84,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         { Icon: Bell,          label: t("nav.items.notifications"), href: "/notifications"},
         { Icon: CalendarCheck, label: t("nav.items.study_plan"),    href: "/study-plan"   },
         { Icon: Gift,          label: t("nav.items.referral"),      href: "/referral"     },
+        { Icon: FileJson,      label: t("nav.items.fhir_export"),   href: "/fhir-export"  },
         { Icon: Shield,        label: t("nav.items.privacy"),       href: "/compliance"   },
         { Icon: Settings,      label: t("nav.items.settings"),      href: "/settings"     },
       ],

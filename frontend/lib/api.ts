@@ -790,6 +790,16 @@ export const examApi = {
   getHistory: () => api.get("/exam/history").then(r => r.data),
 };
 
+// ── FHIR Learning Record Export ───────────────────────────────────────────────
+export const fhirApi = {
+  /** Download full FHIR Bundle (all learning records). */
+  bundle: () => api.get("/fhir/Bundle/me", { responseType: "json" }).then(r => r.data),
+  /** Download CPD/CME DiagnosticReport. */
+  diagnosticReport: () => api.get("/fhir/DiagnosticReport/me", { responseType: "json" }).then(r => r.data),
+  /** Practitioner profile resource. */
+  practitioner: () => api.get("/fhir/Practitioner/me", { responseType: "json" }).then(r => r.data),
+};
+
 // ── Calculators API ──────────────────────────────────────────────────────────
 export const calculatorsApi = {
   list: () => api.get("/calculators").then(r => r.data),

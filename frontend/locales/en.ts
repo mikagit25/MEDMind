@@ -91,6 +91,7 @@ const en = {
       drug_checker: "Interaction Checker",
       calc_history: "Calc History",
       my_notes: "My Notes",
+      fhir_export: "FHIR Export",
       veterinary: "Veterinary",
       progress: "Progress",
       leaderboard: "Leaderboard",
@@ -521,6 +522,27 @@ const en = {
     cancel: "Cancel",
     go_to_module: "Go to module",
     nav: "My Notes",
+  },
+
+  // ── FHIR Export ──────────────────────────────────────────────────────────────
+  fhir_export: {
+    title: "Learning Record Export",
+    subtitle: "Export your medical learning data in HL7 FHIR R4 format — accepted by hospitals, medical schools, and CME tracking systems.",
+    what_is_fhir: "What is FHIR?",
+    fhir_description: "HL7 FHIR (Fast Healthcare Interoperability Resources) is the international standard for exchanging medical data. Your learning records exported in FHIR format can be imported directly into hospital HR systems, medical school databases, and CPD/CME management platforms.",
+    export_options: "Available exports",
+    bundle_title: "Full Learning Record (FHIR Bundle)",
+    bundle_description: "Complete record including profile, XP, completed lessons, module progress, and CPD/CME summary — as a single FHIR R4 Bundle.",
+    diagnostic_report_title: "CPD/CME DiagnosticReport",
+    diagnostic_report_description: "Continuing Professional Development summary in FHIR DiagnosticReport format, suitable for medical licensing bodies.",
+    practitioner_title: "Learner Profile (Practitioner)",
+    practitioner_description: "Your personal profile as a FHIR Practitioner resource — name, identifier, contact.",
+    download: "Download JSON",
+    downloading: "Downloading…",
+    downloaded: "Downloaded ✓",
+    error: "Export failed. Please try again.",
+    disclaimer: "Exported files are in standard HL7 FHIR R4 JSON format. MedMind AI is not responsible for how third-party systems process this data.",
+    nav: "FHIR Export",
   },
 
   // ── Calculator History ────────────────────────────────────────────────────────
