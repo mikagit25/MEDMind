@@ -1685,6 +1685,12 @@ const ar: Translations = {
     typing: "MedMind AI يفكر…",
     feedback_helpful: "مفيد",
     feedback_not_helpful: "غير مفيد",
+    save_card: "حفظ كبطاقة تعليمية",
+    saving_card: "جارٍ الحفظ…",
+    card_saved: "تم الحفظ!",
+    save_question_label: "السؤال",
+    save_answer_label: "الجواب",
+    save_difficulty_label: "المستوى",
     suggestions: {
       heart_failure: "اشرح فيزيولوجيا مرض قصور القلب",
       meningitis: "ما هي علامات التهاب السحايا؟",

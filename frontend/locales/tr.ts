@@ -1685,6 +1685,12 @@ const tr: Translations = {
     typing: "MedMind AI düşünüyor…",
     feedback_helpful: "Faydalı",
     feedback_not_helpful: "Faydasız",
+    save_card: "Kart olarak kaydet",
+    saving_card: "Kaydediliyor…",
+    card_saved: "Kaydedildi!",
+    save_question_label: "Soru",
+    save_answer_label: "Cevap",
+    save_difficulty_label: "Zorluk",
     suggestions: {
       heart_failure: "Kalp yetmezliğinin patofizyolojisini açıkla",
       meningitis: "Menenjit belirtileri nelerdir?",

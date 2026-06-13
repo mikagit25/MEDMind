@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { aiApi, contentApi, API_URL } from "@/lib/api";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { aiApi, contentApi, API_URL, myFlashcardsApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT, useI18n } from "@/lib/i18n";
@@ -18,6 +18,90 @@ type Message = {
   content: string;
   pubmed?: any[];  messageId?: string;  // DB id for feedback
   feedback?: 1 | -1 | null;};
+
+// ── Save-as-flashcard inline component ───────────────────────────────────────
+function SaveFlashcardButton({ question, answer }: { question: string; answer: string }) {
+  const t = useT();
+  const [phase, setPhase] = useState<"idle" | "form" | "saving" | "saved">("idle");
+  const [q, setQ] = useState(question.slice(0, 400));
+  const [a, setA] = useState(answer.slice(0, 1000));
+  const [difficulty, setDifficulty] = useState("medium");
+
+  const save = useCallback(async () => {
+    if (!q.trim() || !a.trim()) return;
+    setPhase("saving");
+    try {
+      await myFlashcardsApi.create({ question: q.trim(), answer: a.trim(), difficulty });
+      setPhase("saved");
+      setTimeout(() => setPhase("idle"), 3000);
+    } catch {
+      setPhase("form");
+    }
+  }, [q, a, difficulty]);
+
+  if (phase === "saved") {
+    return <span className="text-xs font-syne text-green font-semibold ml-1">{t("ai_tutor.card_saved")}</span>;
+  }
+
+  if (phase === "idle") {
+    return (
+      <button
+        onClick={() => setPhase("form")}
+        title={t("ai_tutor.save_card")}
+        className="text-xs px-1.5 py-0.5 rounded text-ink-3 hover:text-blue transition-colors font-syne"
+      >
+        💾
+      </button>
+    );
+  }
+
+  return (
+    <div className="mt-2 p-3 rounded-lg border border-stroke bg-bg-2 flex flex-col gap-2 text-xs">
+      <div className="flex flex-col gap-1">
+        <label className="font-syne font-semibold text-ink-3">{t("ai_tutor.save_question_label")}</label>
+        <textarea
+          value={q}
+          onChange={e => setQ(e.target.value)}
+          rows={2}
+          maxLength={400}
+          className="bg-bg border border-stroke rounded px-2 py-1 font-serif text-ink text-xs resize-none focus:outline-none focus:ring-1 focus:ring-red/30"
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="font-syne font-semibold text-ink-3">{t("ai_tutor.save_answer_label")}</label>
+        <textarea
+          value={a}
+          onChange={e => setA(e.target.value)}
+          rows={3}
+          maxLength={1000}
+          className="bg-bg border border-stroke rounded px-2 py-1 font-serif text-ink text-xs resize-none focus:outline-none focus:ring-1 focus:ring-red/30"
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label className="font-syne font-semibold text-ink-3">{t("ai_tutor.save_difficulty_label")}:</label>
+        <select
+          value={difficulty}
+          onChange={e => setDifficulty(e.target.value)}
+          className="bg-bg border border-stroke rounded px-2 py-0.5 font-syne text-ink text-xs focus:outline-none"
+        >
+          <option value="easy">{t("common.easy")}</option>
+          <option value="medium">{t("common.medium")}</option>
+          <option value="hard">{t("common.hard")}</option>
+        </select>
+        <button
+          onClick={save}
+          disabled={phase === "saving"}
+          className="ml-auto btn-primary px-3 py-1 rounded font-syne font-semibold text-xs disabled:opacity-60"
+        >
+          {phase === "saving" ? t("ai_tutor.saving_card") : t("flashcards.save_card")}
+        </button>
+        <button onClick={() => setPhase("idle")} className="text-ink-3 hover:text-ink font-syne text-xs px-1">
+          {t("common.cancel")}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function AiTutorPage() {
   const t = useT();
@@ -410,6 +494,15 @@ export default function AiTutorPage() {
                     >
                       👎
                     </button>
+                  </div>
+                )}
+                {/* Save as flashcard — authenticated users, assistant messages only */}
+                {msg.role === "assistant" && msg.content && !loading && user && (
+                  <div className="ml-1 mt-1">
+                    <SaveFlashcardButton
+                      question={messages[i - 1]?.content ?? msg.content.slice(0, 200)}
+                      answer={msg.content}
+                    />
                   </div>
                 )}
               </div>

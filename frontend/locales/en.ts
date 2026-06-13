@@ -1456,6 +1456,12 @@ const en = {
     typing: "MedMind AI is thinking…",
     feedback_helpful: "Helpful",
     feedback_not_helpful: "Not helpful",
+    save_card: "Save as flashcard",
+    saving_card: "Saving…",
+    card_saved: "Saved!",
+    save_question_label: "Question",
+    save_answer_label: "Answer",
+    save_difficulty_label: "Difficulty",
     suggestions: {
       heart_failure: "Explain the pathophysiology of heart failure",
       meningitis: "What are the signs of meningitis?",

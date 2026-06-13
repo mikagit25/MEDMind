@@ -1700,6 +1700,12 @@ const de: Translations = {
     typing: "MedMind AI denkt nach…",
     feedback_helpful: "Hilfreich",
     feedback_not_helpful: "Nicht hilfreich",
+    save_card: "Als Lernkarte speichern",
+    saving_card: "Speichern…",
+    card_saved: "Gespeichert!",
+    save_question_label: "Frage",
+    save_answer_label: "Antwort",
+    save_difficulty_label: "Schwierigkeit",
     suggestions: {
       heart_failure: "Erkläre die Pathophysiologie der Herzinsuffizienz",
       meningitis: "Welche Zeichen hat Meningitis?",

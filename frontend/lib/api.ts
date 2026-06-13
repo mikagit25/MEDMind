@@ -753,6 +753,12 @@ export const referralApi = {
   applyCode: (code: string) => api.post("/referral/apply", { code }).then(r => r.data),
 };
 
+// ── My Flashcards API ────────────────────────────────────────────────────────
+export const myFlashcardsApi = {
+  create: (data: { question: string; answer: string; tags?: string[]; difficulty?: string }) =>
+    api.post("/my/flashcards", data).then(r => r.data),
+};
+
 // ── Community Flashcards API ───────────────────────────────────────────────────
 export const communityFlashcardsApi = {
   browse: (params?: { search?: string; tags?: string; difficulty?: string; limit?: number; offset?: number }) =>

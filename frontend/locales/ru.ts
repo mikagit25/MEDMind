@@ -1421,6 +1421,12 @@ const ru: Translations = {
     typing: "MedMind AI думает…",
     feedback_helpful: "Полезно",
     feedback_not_helpful: "Не полезно",
+    save_card: "Сохранить как карточку",
+    saving_card: "Сохранение…",
+    card_saved: "Сохранено!",
+    save_question_label: "Вопрос",
+    save_answer_label: "Ответ",
+    save_difficulty_label: "Сложность",
     suggestions: {
       heart_failure: "Объясни патофизиологию сердечной недостаточности",
       meningitis: "Каковы признаки менингита?",

@@ -1700,6 +1700,12 @@ const fr: Translations = {
     typing: "MedMind AI réfléchit…",
     feedback_helpful: "Utile",
     feedback_not_helpful: "Pas utile",
+    save_card: "Enregistrer comme fiche",
+    saving_card: "Enregistrement…",
+    card_saved: "Enregistré!",
+    save_question_label: "Question",
+    save_answer_label: "Réponse",
+    save_difficulty_label: "Difficulté",
     suggestions: {
       heart_failure: "Expliquez la physiopathologie de l'insuffisance cardiaque",
       meningitis: "Quels sont les signes de méningite?",
