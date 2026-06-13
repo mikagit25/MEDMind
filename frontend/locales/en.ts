@@ -89,6 +89,7 @@ const en = {
       anatomy_3d: "3D Anatomy",
       drugs: "Drug Database",
       drug_checker: "Interaction Checker",
+      calc_history: "Calc History",
       veterinary: "Veterinary",
       progress: "Progress",
       leaderboard: "Leaderboard",
@@ -502,6 +503,20 @@ const en = {
     ai_clear: "Clear analysis",
     image_unavailable: "Image unavailable",
     back: "← Imaging Library",
+  },
+
+  // ── Calculator History ────────────────────────────────────────────────────────
+  calc_history: {
+    title: "My Calculator History",
+    subtitle: "Saved clinical calculator results",
+    browse_link: "Browse all calculators",
+    all_calculators: "All calculators",
+    loading: "Loading…",
+    empty: "No saved results yet.",
+    go_calculate: "Go to calculators",
+    delete: "Delete result",
+    show_inputs: "Show inputs",
+    nav: "Calc History",
   },
 
   // ── Flashcards ────────────────────────────────────────────────────────────────

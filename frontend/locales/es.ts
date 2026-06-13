@@ -89,6 +89,7 @@ const es: Translations = {
       anatomy_3d: "Anatomía 3D",
       drugs: "Base de medicamentos",
       drug_checker: "Verificador de interacciones",
+      calc_history: "Historial de cálculos",
       veterinary: "Veterinaria",
       progress: "Progreso",
       leaderboard: "Clasificación",
@@ -492,6 +493,19 @@ const es: Translations = {
     ai_clear: "Borrar análisis",
     image_unavailable: "Imagen no disponible",
     back: "← Biblioteca de imágenes",
+  },
+
+  calc_history: {
+    title: "Mi historial de cálculos",
+    subtitle: "Resultados guardados de calculadoras clínicas",
+    browse_link: "Ver todas las calculadoras",
+    all_calculators: "Todas las calculadoras",
+    loading: "Cargando…",
+    empty: "Aún no hay resultados guardados.",
+    go_calculate: "Ir a las calculadoras",
+    delete: "Eliminar resultado",
+    show_inputs: "Mostrar datos ingresados",
+    nav: "Historial de cálculos",
   },
 
   flashcards: {

@@ -89,6 +89,7 @@ const tr: Translations = {
       anatomy_3d: "3D Anatomi",
       drugs: "İlaç Veritabanı",
       drug_checker: "Etkileşim Denetleyici",
+      calc_history: "Hesaplama Geçmişi",
       veterinary: "Veterinerlik",
       progress: "İlerleme",
       leaderboard: "Sıralama",
@@ -484,6 +485,19 @@ const tr: Translations = {
     ai_clear: "Temizle",
     image_unavailable: "Görüntü mevcut değil",
     back: "← Görüntü Kütüphanesi",
+  },
+
+  calc_history: {
+    title: "Hesaplama Geçmişim",
+    subtitle: "Kaydedilen klinik hesap makinesi sonuçları",
+    browse_link: "Tüm hesap makinelerini görüntüle",
+    all_calculators: "Tüm hesap makineleri",
+    loading: "Yükleniyor…",
+    empty: "Henüz kayıtlı sonuç yok.",
+    go_calculate: "Hesap makinelerine git",
+    delete: "Sonucu sil",
+    show_inputs: "Girişleri göster",
+    nav: "Hesaplama Geçmişi",
   },
 
   flashcards: {

@@ -89,6 +89,7 @@ const ar: Translations = {
       anatomy_3d: "تشريح ثلاثي الأبعاد",
       drugs: "قاعدة الأدوية",
       drug_checker: "فاحص التفاعلات",
+      calc_history: "سجل الحسابات",
       veterinary: "الطب البيطري",
       progress: "التقدم",
       leaderboard: "لوحة الشرف",
@@ -484,6 +485,19 @@ const ar: Translations = {
     ai_clear: "مسح التحليل",
     image_unavailable: "الصورة غير متاحة",
     back: "← مكتبة الصور",
+  },
+
+  calc_history: {
+    title: "سجل الحسابات",
+    subtitle: "نتائج الآلات الحاسبة السريرية المحفوظة",
+    browse_link: "تصفح جميع الآلات الحاسبة",
+    all_calculators: "جميع الآلات الحاسبة",
+    loading: "جارٍ التحميل…",
+    empty: "لا توجد نتائج محفوظة حتى الآن.",
+    go_calculate: "الذهاب إلى الآلات الحاسبة",
+    delete: "حذف النتيجة",
+    show_inputs: "إظهار المدخلات",
+    nav: "سجل الحسابات",
   },
 
   flashcards: {

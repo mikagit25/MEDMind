@@ -89,6 +89,7 @@ const ru: Translations = {
       anatomy_3d: "3D Анатомия",
       drugs: "База препаратов",
       drug_checker: "Проверка взаимодействий",
+      calc_history: "История расчётов",
       veterinary: "Ветеринария",
       progress: "Прогресс",
       leaderboard: "Рейтинг",
@@ -496,6 +497,19 @@ const ru: Translations = {
     ai_clear: "Очистить",
     image_unavailable: "Снимок недоступен",
     back: "← Библиотека снимков",
+  },
+
+  calc_history: {
+    title: "История калькуляторов",
+    subtitle: "Сохранённые результаты клинических расчётов",
+    browse_link: "Открыть все калькуляторы",
+    all_calculators: "Все калькуляторы",
+    loading: "Загрузка…",
+    empty: "Сохранённых результатов пока нет.",
+    go_calculate: "Перейти к калькуляторам",
+    delete: "Удалить результат",
+    show_inputs: "Показать входные данные",
+    nav: "История расчётов",
   },
 
   flashcards: {

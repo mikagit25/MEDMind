@@ -89,6 +89,7 @@ const de: Translations = {
       anatomy_3d: "3D-Anatomie",
       drugs: "Arzneimitteldatenbank",
       drug_checker: "Wechselwirkungsprüfer",
+      calc_history: "Rechnerverlauf",
       veterinary: "Veterinärmedizin",
       progress: "Fortschritt",
       leaderboard: "Rangliste",
@@ -492,6 +493,19 @@ const de: Translations = {
     ai_clear: "Analyse löschen",
     image_unavailable: "Bild nicht verfügbar",
     back: "← Bildgebungsbibliothek",
+  },
+
+  calc_history: {
+    title: "Mein Rechnerverlauf",
+    subtitle: "Gespeicherte klinische Rechnerergebnisse",
+    browse_link: "Alle Rechner anzeigen",
+    all_calculators: "Alle Rechner",
+    loading: "Wird geladen…",
+    empty: "Noch keine gespeicherten Ergebnisse.",
+    go_calculate: "Zu den Rechnern",
+    delete: "Ergebnis löschen",
+    show_inputs: "Eingaben anzeigen",
+    nav: "Rechnerverlauf",
   },
 
   flashcards: {

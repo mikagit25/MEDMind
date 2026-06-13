@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck, Users, Globe, Shuffle,
+  Search, Sun, Moon, LogOut, FileText, Radio, Gift, CalendarCheck, Users, Globe, Shuffle, Calculator,
   type LucideProps,
 } from "lucide-react";
 
@@ -60,6 +60,7 @@ export function Sidebar() {
         { icon: Radio,       label: t("nav.items.news"),         href: "/news" },
         { icon: Pill,        label: t("nav.items.drugs"),         href: "/drugs" },
         { icon: Shuffle,     label: t("nav.items.drug_checker"),  href: "/drug-checker" },
+        { icon: Calculator,  label: t("nav.items.calc_history"),  href: "/calculators" },
         { icon: PawPrint,    label: t("nav.items.veterinary"),   href: "/veterinary" },
         { icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress" },
         { icon: Trophy,      label: t("nav.items.leaderboard"),  href: "/leaderboard" },

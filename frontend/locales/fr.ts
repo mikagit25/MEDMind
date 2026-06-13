@@ -89,6 +89,7 @@ const fr: Translations = {
       anatomy_3d: "Anatomie 3D",
       drugs: "Base de médicaments",
       drug_checker: "Vérificateur d'interactions",
+      calc_history: "Historique calculs",
       veterinary: "Médecine vétérinaire",
       progress: "Progression",
       leaderboard: "Classement",
@@ -492,6 +493,19 @@ const fr: Translations = {
     ai_clear: "Effacer l'analyse",
     image_unavailable: "Image non disponible",
     back: "← Bibliothèque d'imagerie",
+  },
+
+  calc_history: {
+    title: "Mon historique de calculs",
+    subtitle: "Résultats de calculateurs cliniques enregistrés",
+    browse_link: "Parcourir tous les calculateurs",
+    all_calculators: "Tous les calculateurs",
+    loading: "Chargement…",
+    empty: "Aucun résultat enregistré pour l'instant.",
+    go_calculate: "Aller aux calculateurs",
+    delete: "Supprimer le résultat",
+    show_inputs: "Afficher les données saisies",
+    nav: "Historique calculs",
   },
 
   flashcards: {
