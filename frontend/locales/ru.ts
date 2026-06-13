@@ -92,6 +92,7 @@ const ru: Translations = {
       calc_history: "История расчётов",
       my_notes: "Мои заметки",
       fhir_export: "Экспорт FHIR",
+      ai_history: "История ИИ",
       veterinary: "Ветеринария",
       progress: "Прогресс",
       leaderboard: "Рейтинг",
@@ -1453,6 +1454,20 @@ const ru: Translations = {
     related: "Похожие статьи",
     related_module: "Изучить эту тему подробнее",
     open_module: "Открыть модуль →",
+  },
+
+  ai_history: {
+    title: "История разговоров с ИИ",
+    subtitle: "Последние сессии с ИИ-тьютором",
+    loading: "Загрузка…",
+    loading_messages: "Загрузка сообщений…",
+    empty: "Разговоров пока нет.",
+    go_to_tutor: "Открыть ИИ-тьютор",
+    start_new: "Начать новый разговор",
+    untitled: "Без названия",
+    no_messages: "В этом разговоре нет сообщений.",
+    resume: "Продолжить разговор",
+    nav: "История ИИ",
   },
 
   ai_tutor: {

@@ -8,7 +8,7 @@ import { NotificationBell } from "@/components/ui/NotificationBell";
 import { clsx } from "clsx";
 import { useT } from "@/lib/i18n";
 import {
-  LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked,
+  LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked, MessageSquare,
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
@@ -38,6 +38,7 @@ export function Sidebar() {
         { icon: BookOpen,        label: t("nav.items.modules"),      href: "/modules" },
         { icon: GraduationCap,  label: t("nav.items.my_courses"),   href: "/my-courses" },
         { icon: Bot,             label: t("nav.items.ai_tutor"),     href: "/ai-tutor" },
+        { icon: MessageSquare,   label: t("nav.items.ai_history"),   href: "/ai-history" },
         { icon: Layers,          label: t("nav.items.flashcards"),   href: "/flashcards" },
         { icon: BookMarked,      label: t("nav.items.my_cards"),        href: "/my-flashcards" },
         { icon: Globe,           label: t("nav.items.community_cards"), href: "/my-flashcards/community" },

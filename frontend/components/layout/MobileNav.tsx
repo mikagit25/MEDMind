@@ -8,7 +8,7 @@ import { NotificationBell } from "@/components/ui/NotificationBell";
 import { clsx } from "clsx";
 import { useT } from "@/lib/i18n";
 import {
-  LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked,
+  LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked, MessageSquare,
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
@@ -46,6 +46,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         { Icon: BookOpen,        label: t("nav.items.modules"),     href: "/modules"       },
         { Icon: GraduationCap,  label: t("nav.items.my_courses"),  href: "/my-courses"    },
         { Icon: Bot,             label: t("nav.items.ai_tutor"),    href: "/ai-tutor"      },
+        { Icon: MessageSquare,   label: t("nav.items.ai_history"),  href: "/ai-history"    },
         { Icon: Layers,          label: t("nav.items.flashcards"),  href: "/flashcards"    },
         { Icon: BookMarked,      label: t("nav.items.my_cards"),        href: "/my-flashcards" },
         { Icon: Globe,           label: t("nav.items.community_cards"), href: "/my-flashcards/community" },

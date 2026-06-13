@@ -92,6 +92,7 @@ const fr: Translations = {
       calc_history: "Historique calculs",
       my_notes: "Mes notes",
       fhir_export: "Export FHIR",
+      ai_history: "Historique IA",
       veterinary: "Médecine vétérinaire",
       progress: "Progression",
       leaderboard: "Classement",
@@ -1732,6 +1733,20 @@ const fr: Translations = {
     hide: "▲ Masquer",
     abstract: "▼ Résumé",
     powered_by: "Propulsé par NCBI PubMed E-utilities",
+  },
+
+  ai_history: {
+    title: "Historique des conversations IA",
+    subtitle: "Vos dernières sessions avec le tuteur IA",
+    loading: "Chargement…",
+    loading_messages: "Chargement des messages…",
+    empty: "Aucune conversation pour l'instant.",
+    go_to_tutor: "Ouvrir le tuteur IA",
+    start_new: "Démarrer une nouvelle conversation",
+    untitled: "Conversation sans titre",
+    no_messages: "Aucun message dans cette conversation.",
+    resume: "Reprendre la conversation",
+    nav: "Historique IA",
   },
 
   ai_tutor: {

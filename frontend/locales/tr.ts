@@ -92,6 +92,7 @@ const tr: Translations = {
       calc_history: "Hesaplama Geçmişi",
       my_notes: "Notlarım",
       fhir_export: "FHIR Dışa Aktarım",
+      ai_history: "YZ Geçmişi",
       veterinary: "Veterinerlik",
       progress: "İlerleme",
       leaderboard: "Sıralama",
@@ -1717,6 +1718,20 @@ const tr: Translations = {
     hide: "▲ Gizle",
     abstract: "▼ Özet",
     powered_by: "NCBI PubMed E-utilities ile çalışır",
+  },
+
+  ai_history: {
+    title: "YZ Konuşma Geçmişi",
+    subtitle: "Son YZ öğretmen oturumlarınız",
+    loading: "Yükleniyor…",
+    loading_messages: "Mesajlar yükleniyor…",
+    empty: "Henüz konuşma yok.",
+    go_to_tutor: "YZ Öğretmeni Aç",
+    start_new: "Yeni konuşma başlat",
+    untitled: "Başlıksız konuşma",
+    no_messages: "Bu konuşmada mesaj yok.",
+    resume: "Konuşmaya devam et",
+    nav: "YZ Geçmişi",
   },
 
   ai_tutor: {

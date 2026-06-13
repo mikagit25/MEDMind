@@ -92,6 +92,7 @@ const ar: Translations = {
       calc_history: "سجل الحسابات",
       my_notes: "ملاحظاتي",
       fhir_export: "تصدير FHIR",
+      ai_history: "سجل المحادثات",
       veterinary: "الطب البيطري",
       progress: "التقدم",
       leaderboard: "لوحة الشرف",
@@ -1717,6 +1718,20 @@ const ar: Translations = {
     hide: "▲ إخفاء",
     abstract: "▼ الملخص",
     powered_by: "مدعوم بـ NCBI PubMed E-utilities",
+  },
+
+  ai_history: {
+    title: "سجل محادثات الذكاء الاصطناعي",
+    subtitle: "جلسات المعلم الذكي الأخيرة",
+    loading: "جارٍ التحميل…",
+    loading_messages: "جارٍ تحميل الرسائل…",
+    empty: "لا توجد محادثات بعد.",
+    go_to_tutor: "فتح المعلم الذكي",
+    start_new: "بدء محادثة جديدة",
+    untitled: "محادثة بلا عنوان",
+    no_messages: "لا توجد رسائل في هذه المحادثة.",
+    resume: "استئناف المحادثة",
+    nav: "سجل المحادثات",
   },
 
   ai_tutor: {

@@ -92,6 +92,7 @@ const en = {
       calc_history: "Calc History",
       my_notes: "My Notes",
       fhir_export: "FHIR Export",
+      ai_history: "AI History",
       veterinary: "Veterinary",
       progress: "Progress",
       leaderboard: "Leaderboard",
@@ -1492,6 +1493,21 @@ const en = {
     insert: "Insert",
     footer: "All images are open-access with proper attribution. Attribution is automatically added to the caption.",
   },
+  // ── AI Conversation History ───────────────────────────────────────────────────
+  ai_history: {
+    title: "AI Conversation History",
+    subtitle: "Your recent AI tutor sessions",
+    loading: "Loading…",
+    loading_messages: "Loading messages…",
+    empty: "No conversations yet.",
+    go_to_tutor: "Open AI Tutor",
+    start_new: "Start a new conversation",
+    untitled: "Untitled conversation",
+    no_messages: "No messages in this conversation.",
+    resume: "Resume this conversation",
+    nav: "AI History",
+  },
+
   // ── AI Tutor ─────────────────────────────────────────────────────────────────
   ai_tutor: {
     welcome_title: "How can I help you today?",

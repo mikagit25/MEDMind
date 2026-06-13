@@ -92,6 +92,7 @@ const de: Translations = {
       calc_history: "Rechnerverlauf",
       my_notes: "Meine Notizen",
       fhir_export: "FHIR-Export",
+      ai_history: "KI-Verlauf",
       veterinary: "Veterinärmedizin",
       progress: "Fortschritt",
       leaderboard: "Rangliste",
@@ -1732,6 +1733,20 @@ const de: Translations = {
     hide: "▲ Ausblenden",
     abstract: "▼ Abstract",
     powered_by: "Powered by NCBI PubMed E-utilities",
+  },
+
+  ai_history: {
+    title: "KI-Gesprächsverlauf",
+    subtitle: "Ihre letzten KI-Tutor-Sitzungen",
+    loading: "Wird geladen…",
+    loading_messages: "Nachrichten werden geladen…",
+    empty: "Noch keine Gespräche.",
+    go_to_tutor: "KI-Tutor öffnen",
+    start_new: "Neues Gespräch starten",
+    untitled: "Unbenanntes Gespräch",
+    no_messages: "Keine Nachrichten in diesem Gespräch.",
+    resume: "Gespräch fortsetzen",
+    nav: "KI-Verlauf",
   },
 
   ai_tutor: {
