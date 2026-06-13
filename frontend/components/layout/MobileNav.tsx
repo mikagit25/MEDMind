@@ -12,7 +12,7 @@ import {
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
-  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck, Globe,
+  Search, Sun, Moon, LogOut, FileText, Menu, X, Radio, Gift, CalendarCheck, Globe, Shuffle,
   type LucideProps,
 } from "lucide-react";
 
@@ -66,7 +66,8 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
       items: [
         { Icon: Newspaper,  label: t("nav.items.articles"),    href: "/knowledge"       },
         { Icon: Radio,      label: t("nav.items.news"),        href: "/news"            },
-        { Icon: Pill,       label: t("nav.items.drugs"),       href: "/drugs"           },
+        { Icon: Pill,       label: t("nav.items.drugs"),        href: "/drugs"           },
+        { Icon: Shuffle,    label: t("nav.items.drug_checker"), href: "/drug-checker"    },
         { Icon: PawPrint,   label: t("nav.items.veterinary"),  href: "/veterinary"      },
         { Icon: TrendingUp, label: t("nav.items.progress"),    href: "/progress"        },
         { Icon: Trophy,     label: t("nav.items.leaderboard"), href: "/leaderboard"     },
