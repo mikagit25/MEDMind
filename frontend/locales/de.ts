@@ -90,6 +90,7 @@ const de: Translations = {
       drugs: "Arzneimitteldatenbank",
       drug_checker: "Wechselwirkungsprüfer",
       calc_history: "Rechnerverlauf",
+      my_notes: "Meine Notizen",
       veterinary: "Veterinärmedizin",
       progress: "Fortschritt",
       leaderboard: "Rangliste",
@@ -493,6 +494,22 @@ const de: Translations = {
     ai_clear: "Analyse löschen",
     image_unavailable: "Bild nicht verfügbar",
     back: "← Bildgebungsbibliothek",
+  },
+
+  my_notes: {
+    title: "Meine Notizen",
+    subtitle: "Persönliche Notizen aus Lernsitzungen",
+    search_placeholder: "Notizen durchsuchen…",
+    loading: "Wird geladen…",
+    empty: "Noch keine Notizen.",
+    empty_hint: "Notizen in Modullektionen werden hier angezeigt.",
+    no_results: "Keine Notizen zur Suchanfrage gefunden.",
+    edit: "Notiz bearbeiten",
+    delete: "Notiz löschen",
+    save: "Speichern",
+    cancel: "Abbrechen",
+    go_to_module: "Zum Modul",
+    nav: "Meine Notizen",
   },
 
   calc_history: {

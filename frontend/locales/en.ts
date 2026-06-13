@@ -90,6 +90,7 @@ const en = {
       drugs: "Drug Database",
       drug_checker: "Interaction Checker",
       calc_history: "Calc History",
+      my_notes: "My Notes",
       veterinary: "Veterinary",
       progress: "Progress",
       leaderboard: "Leaderboard",
@@ -503,6 +504,23 @@ const en = {
     ai_clear: "Clear analysis",
     image_unavailable: "Image unavailable",
     back: "← Imaging Library",
+  },
+
+  // ── My Notes ─────────────────────────────────────────────────────────────────
+  my_notes: {
+    title: "My Notes",
+    subtitle: "Personal notes from your learning sessions",
+    search_placeholder: "Search notes…",
+    loading: "Loading…",
+    empty: "No notes yet.",
+    empty_hint: "Write notes inside any module lesson to see them here.",
+    no_results: "No notes match your search.",
+    edit: "Edit note",
+    delete: "Delete note",
+    save: "Save",
+    cancel: "Cancel",
+    go_to_module: "Go to module",
+    nav: "My Notes",
   },
 
   // ── Calculator History ────────────────────────────────────────────────────────

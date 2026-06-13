@@ -90,6 +90,7 @@ const ar: Translations = {
       drugs: "قاعدة الأدوية",
       drug_checker: "فاحص التفاعلات",
       calc_history: "سجل الحسابات",
+      my_notes: "ملاحظاتي",
       veterinary: "الطب البيطري",
       progress: "التقدم",
       leaderboard: "لوحة الشرف",
@@ -485,6 +486,22 @@ const ar: Translations = {
     ai_clear: "مسح التحليل",
     image_unavailable: "الصورة غير متاحة",
     back: "← مكتبة الصور",
+  },
+
+  my_notes: {
+    title: "ملاحظاتي",
+    subtitle: "ملاحظات شخصية من جلسات التعلم",
+    search_placeholder: "البحث في الملاحظات…",
+    loading: "جارٍ التحميل…",
+    empty: "لا توجد ملاحظات حتى الآن.",
+    empty_hint: "اكتب ملاحظات داخل دروس الوحدات لتظهر هنا.",
+    no_results: "لا توجد ملاحظات تطابق بحثك.",
+    edit: "تعديل الملاحظة",
+    delete: "حذف الملاحظة",
+    save: "حفظ",
+    cancel: "إلغاء",
+    go_to_module: "الذهاب إلى الوحدة",
+    nav: "ملاحظاتي",
   },
 
   calc_history: {

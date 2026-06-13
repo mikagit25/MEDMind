@@ -90,6 +90,7 @@ const tr: Translations = {
       drugs: "İlaç Veritabanı",
       drug_checker: "Etkileşim Denetleyici",
       calc_history: "Hesaplama Geçmişi",
+      my_notes: "Notlarım",
       veterinary: "Veterinerlik",
       progress: "İlerleme",
       leaderboard: "Sıralama",
@@ -485,6 +486,22 @@ const tr: Translations = {
     ai_clear: "Temizle",
     image_unavailable: "Görüntü mevcut değil",
     back: "← Görüntü Kütüphanesi",
+  },
+
+  my_notes: {
+    title: "Notlarım",
+    subtitle: "Öğrenme oturumlarından kişisel notlar",
+    search_placeholder: "Notlarda ara…",
+    loading: "Yükleniyor…",
+    empty: "Henüz not yok.",
+    empty_hint: "Modül derslerinde not alın, burada görünsün.",
+    no_results: "Aramanızla eşleşen not bulunamadı.",
+    edit: "Notu düzenle",
+    delete: "Notu sil",
+    save: "Kaydet",
+    cancel: "İptal",
+    go_to_module: "Modüle git",
+    nav: "Notlarım",
   },
 
   calc_history: {

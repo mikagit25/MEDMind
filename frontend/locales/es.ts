@@ -90,6 +90,7 @@ const es: Translations = {
       drugs: "Base de medicamentos",
       drug_checker: "Verificador de interacciones",
       calc_history: "Historial de cálculos",
+      my_notes: "Mis notas",
       veterinary: "Veterinaria",
       progress: "Progreso",
       leaderboard: "Clasificación",
@@ -493,6 +494,22 @@ const es: Translations = {
     ai_clear: "Borrar análisis",
     image_unavailable: "Imagen no disponible",
     back: "← Biblioteca de imágenes",
+  },
+
+  my_notes: {
+    title: "Mis notas",
+    subtitle: "Notas personales de tus sesiones de aprendizaje",
+    search_placeholder: "Buscar en notas…",
+    loading: "Cargando…",
+    empty: "Aún no hay notas.",
+    empty_hint: "Escribe notas en las lecciones de módulos para verlas aquí.",
+    no_results: "No se encontraron notas que coincidan con la búsqueda.",
+    edit: "Editar nota",
+    delete: "Eliminar nota",
+    save: "Guardar",
+    cancel: "Cancelar",
+    go_to_module: "Ir al módulo",
+    nav: "Mis notas",
   },
 
   calc_history: {

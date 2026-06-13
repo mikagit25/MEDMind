@@ -61,6 +61,7 @@ export function Sidebar() {
         { icon: Pill,        label: t("nav.items.drugs"),         href: "/drugs" },
         { icon: Shuffle,     label: t("nav.items.drug_checker"),  href: "/drug-checker" },
         { icon: Calculator,  label: t("nav.items.calc_history"),  href: "/calculators" },
+        { icon: PenLine,     label: t("nav.items.my_notes"),      href: "/my-notes" },
         { icon: PawPrint,    label: t("nav.items.veterinary"),   href: "/veterinary" },
         { icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress" },
         { icon: Trophy,      label: t("nav.items.leaderboard"),  href: "/leaderboard" },

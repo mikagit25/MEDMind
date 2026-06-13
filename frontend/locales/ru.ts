@@ -90,6 +90,7 @@ const ru: Translations = {
       drugs: "База препаратов",
       drug_checker: "Проверка взаимодействий",
       calc_history: "История расчётов",
+      my_notes: "Мои заметки",
       veterinary: "Ветеринария",
       progress: "Прогресс",
       leaderboard: "Рейтинг",
@@ -497,6 +498,22 @@ const ru: Translations = {
     ai_clear: "Очистить",
     image_unavailable: "Снимок недоступен",
     back: "← Библиотека снимков",
+  },
+
+  my_notes: {
+    title: "Мои заметки",
+    subtitle: "Личные заметки из учебных сессий",
+    search_placeholder: "Поиск по заметкам…",
+    loading: "Загрузка…",
+    empty: "Заметок пока нет.",
+    empty_hint: "Делайте заметки внутри модулей, и они появятся здесь.",
+    no_results: "Заметки не найдены.",
+    edit: "Редактировать заметку",
+    delete: "Удалить заметку",
+    save: "Сохранить",
+    cancel: "Отмена",
+    go_to_module: "Перейти к модулю",
+    nav: "Мои заметки",
   },
 
   calc_history: {
