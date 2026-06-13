@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Phase 11 ✅ (Personal Exam Study Planner). Phase 10 ✅ (AI MCQ from Lesson).
-**Last Updated:** 2026-06-12
-**Next Action:** Следующий роадмап / отдельные задачи. Тест-сьют: 499 passed, 0 failed.
+**Phase:** V4 Phases 1–20 ✅ + PSYCH/ANES content ✅. Тест-сьют: 565 passed, 0 failed.
+**Last Updated:** 2026-06-13
+**Next Action:** Всё из бэклога выполнено. Калькуляторы ✅, PSYCH+ANES ✅, Stripe webhook ✅, тесты ✅.
 
 ### Phase 11 — Personal Exam Study Planner ✅ (2026-06-12)
 - **Backend: `POST /student/exam-prep/plan`** — authenticated; accepts `exam_type` (usmle_step1/2/3, nclex_rn/pn, ukmla, plab, custom), `exam_date` (ISO), `daily_hours`; fetches all published modules + user progress; calls Claude Haiku to generate a week-by-week schedule; returns `{exam_label, days_remaining, total_weeks, weeks: [{theme, modules, daily_hours, milestone}], tip}`; cached 6h per user/exam/date combo
