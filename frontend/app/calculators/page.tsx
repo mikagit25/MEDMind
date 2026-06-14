@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { useAuthStore } from "@/lib/store";
 import { CalculatorsIndex } from "@/components/calculators/CalculatorWidget";
 import { INDEX_T } from "@/components/calculators/data";
 import type { Lang } from "@/components/calculators/data";
@@ -28,6 +29,8 @@ const JSON_LD = {
 export default function CalculatorsPage() {
   const { locale, setLocale } = useI18n();
   const lang = locale as string;
+  const { isAuthenticated, _hasHydrated } = useAuthStore();
+  const loggedIn = _hasHydrated ? isAuthenticated : null;
 
   return (
     <div className="min-h-screen bg-bg">
@@ -61,12 +64,22 @@ export default function CalculatorsPage() {
               className="hidden sm:block text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>
-            <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-              {locale === "ru" ? "Войти" : locale === "ar" ? "تسجيل الدخول" : locale === "de" ? "Anmelden" : locale === "fr" ? "Connexion" : locale === "es" ? "Iniciar sesión" : locale === "tr" ? "Giriş yap" : "Sign in"}
-            </Link>
-            <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
-              {locale === "ru" ? "Регистрация" : locale === "ar" ? "إنشاء حساب" : locale === "de" ? "Registrieren" : locale === "fr" ? "S'inscrire" : locale === "es" ? "Registrarse" : locale === "tr" ? "Kayıt ol" : "Register"}
-            </Link>
+            {loggedIn === null ? (
+              <div className="w-24 h-8 rounded bg-surface animate-pulse" />
+            ) : loggedIn ? (
+              <Link href="/dashboard" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+                {locale === "ru" ? "Кабинет →" : locale === "ar" ? "لوحة التحكم →" : locale === "de" ? "Dashboard →" : locale === "fr" ? "Tableau de bord →" : locale === "es" ? "Panel →" : locale === "tr" ? "Panel →" : "Dashboard →"}
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+                  {locale === "ru" ? "Войти" : locale === "ar" ? "تسجيل الدخول" : locale === "de" ? "Anmelden" : locale === "fr" ? "Connexion" : locale === "es" ? "Iniciar sesión" : locale === "tr" ? "Giriş yap" : "Sign in"}
+                </Link>
+                <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+                  {locale === "ru" ? "Регистрация" : locale === "ar" ? "إنشاء حساب" : locale === "de" ? "Registrieren" : locale === "fr" ? "S'inscrire" : locale === "es" ? "Registrarse" : locale === "tr" ? "Kayıt ol" : "Register"}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

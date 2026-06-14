@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { drugsApi } from "@/lib/api";
 import { InteractionChecker } from "@/components/drugs/InteractionChecker";
+import { useI18n } from "@/lib/i18n";
 
 type Drug = {
   id: string; name: string; generic_name?: string; drug_class?: string;
@@ -45,7 +46,17 @@ function DrugCard({ drug }: { drug: Drug }) {
   );
 }
 
-function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { drug_class: string; count: number }[] }) {
+const BROWSE_UI: Record<string, Record<string, string>> = {
+  en: { search_placeholder: "Search by name, class, generic name…", all_classes: "All classes", no_results: "No results for", no_drugs: "No drugs found", adjust_filters: "Try adjusting filters", drugs: "drugs", page: "Page", of: "of", clear: "✕ Clear filters" },
+  ru: { search_placeholder: "Поиск по названию, классу, МНН…", all_classes: "Все классы", no_results: "Ничего не найдено по запросу", no_drugs: "Препараты не найдены", adjust_filters: "Попробуйте изменить фильтры", drugs: "препаратов", page: "Стр.", of: "из", clear: "✕ Сбросить" },
+  ar: { search_placeholder: "البحث بالاسم أو الفئة…", all_classes: "جميع الفئات", no_results: "لا نتائج لـ", no_drugs: "لم يتم العثور على أدوية", adjust_filters: "حاول تعديل الفلاتر", drugs: "دواء", page: "صفحة", of: "من", clear: "✕ مسح" },
+  de: { search_placeholder: "Nach Name, Klasse, Wirkstoff suchen…", all_classes: "Alle Klassen", no_results: "Keine Ergebnisse für", no_drugs: "Keine Medikamente gefunden", adjust_filters: "Filter anpassen", drugs: "Medikamente", page: "Seite", of: "von", clear: "✕ Filter löschen" },
+  fr: { search_placeholder: "Rechercher par nom, classe, générique…", all_classes: "Toutes les classes", no_results: "Aucun résultat pour", no_drugs: "Aucun médicament trouvé", adjust_filters: "Ajuster les filtres", drugs: "médicaments", page: "Page", of: "sur", clear: "✕ Effacer" },
+  es: { search_placeholder: "Buscar por nombre, clase, genérico…", all_classes: "Todas las clases", no_results: "Sin resultados para", no_drugs: "No se encontraron medicamentos", adjust_filters: "Ajustar filtros", drugs: "medicamentos", page: "Pág.", of: "de", clear: "✕ Limpiar" },
+  tr: { search_placeholder: "Ad, sınıf, jenerik ile ara…", all_classes: "Tüm sınıflar", no_results: "Sonuç yok:", no_drugs: "İlaç bulunamadı", adjust_filters: "Filtreleri ayarlayın", drugs: "ilaç", page: "Sayfa", of: "/ toplam", clear: "✕ Temizle" },
+};
+
+function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes: { drug_class: string; count: number }[]; lang: string }) {
   const [result, setResult]       = useState<BrowseResult>(initial);
   const [page, setPage]           = useState(1);
   const [search, setSearch]       = useState("");
@@ -55,15 +66,16 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
   const [filterHY, setFilterHY]   = useState<boolean | undefined>();
   const [loading, setLoading]     = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
+  const ui = BROWSE_UI[lang] ?? BROWSE_UI.en;
 
   const loadBrowse = useCallback(async (p = 1) => {
     setLoading(true);
     try {
-      const data = await drugsApi.browse(p, 24, selectedClass || undefined, filterVet, filterHY, "en");
+      const data = await drugsApi.browse(p, 24, selectedClass || undefined, filterVet, filterHY, lang);
       setResult(data); setPage(p);
     } catch { /* keep current */ }
     finally { setLoading(false); }
-  }, [selectedClass, filterVet, filterHY]);
+  }, [selectedClass, filterVet, filterHY, lang]);
 
   useEffect(() => {
     if (!search) loadBrowse(1);
@@ -74,11 +86,11 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
     if (!search.trim()) { setSearchResults([]); return; }
     timer.current = setTimeout(async () => {
       setLoading(true);
-      try { const d = await drugsApi.search(search, "en"); setSearchResults(d ?? []); }
+      try { const d = await drugsApi.search(search, lang); setSearchResults(d ?? []); }
       catch { setSearchResults([]); }
       finally { setLoading(false); }
     }, 350);
-  }, [search]);
+  }, [search, lang]);
 
   const displayDrugs = search.trim() ? searchResults : result?.items ?? [];
   const isSearch = !!search.trim();
@@ -88,7 +100,7 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
       <div className="flex flex-col sm:flex-row gap-3 mb-5">
         <div className="relative flex-1">
           <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="Search by name, class, generic name…"
+            placeholder={ui.search_placeholder}
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink transition-colors" />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none">🔍</span>
           {search && (
@@ -97,7 +109,7 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
         </div>
         <select value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setPage(1); }}
           className="px-3 py-2.5 rounded-xl border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink min-w-[180px]">
-          <option value="">All classes</option>
+          <option value="">{ui.all_classes}</option>
           {classes.slice(0, 20).map(c => <option key={c.drug_class} value={c.drug_class}>{c.drug_class} ({c.count})</option>)}
         </select>
       </div>
@@ -114,11 +126,11 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
         {(selectedClass || filterHY || filterVet) && (
           <button onClick={() => { setSelectedClass(""); setFilterHY(undefined); setFilterVet(undefined); setPage(1); }}
             className="px-3 py-1 rounded-full font-syne font-semibold text-xs border border-red/30 text-red hover:bg-red-light transition-all">
-            ✕ Clear filters
+            {ui.clear}
           </button>
         )}
         {!isSearch && result && (
-          <span className="ml-auto font-serif text-ink-3 text-xs self-center">{result.total} drugs</span>
+          <span className="ml-auto font-serif text-ink-3 text-xs self-center">{result.total} {ui.drugs}</span>
         )}
       </div>
 
@@ -135,8 +147,8 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
       ) : displayDrugs.length === 0 ? (
         <div className="text-center py-16">
           <div className="text-4xl mb-3">💊</div>
-          <p className="font-syne font-bold text-ink text-sm">{isSearch ? `No results for "${search}"` : "No drugs found"}</p>
-          <p className="font-serif text-ink-3 text-xs mt-1">Try adjusting filters</p>
+          <p className="font-syne font-bold text-ink text-sm">{isSearch ? `${ui.no_results} "${search}"` : ui.no_drugs}</p>
+          <p className="font-serif text-ink-3 text-xs mt-1">{ui.adjust_filters}</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
@@ -163,7 +175,7 @@ function BrowseTab({ initial, classes }: { initial: BrowseResult; classes: { dru
           })}
           <button onClick={() => loadBrowse(page + 1)} disabled={page >= result.pages || loading}
             className="px-3 py-1.5 rounded-lg border border-border font-syne font-semibold text-sm text-ink-2 hover:border-ink disabled:opacity-40 transition-all">→</button>
-          <span className="font-serif text-ink-3 text-xs ml-2">Page {page} of {result.pages}</span>
+          <span className="font-serif text-ink-3 text-xs ml-2">{ui.page} {page} {ui.of} {result.pages}</span>
         </div>
       )}
     </div>
@@ -228,20 +240,38 @@ function DoseCalculator() {
   );
 }
 
+const TAB_LABELS: Record<string, string[]> = {
+  en: ["💊 Browse", "⚡ Interactions", "⚖️ Dose Calc", "🐾 Veterinary"],
+  ru: ["💊 Препараты", "⚡ Взаимодействия", "⚖️ Дозировка", "🐾 Ветеринария"],
+  ar: ["💊 تصفح", "⚡ التفاعلات", "⚖️ جرعة", "🐾 بيطري"],
+  de: ["💊 Suchen", "⚡ Wechselwirkungen", "⚖️ Dosierung", "🐾 Veterinär"],
+  fr: ["💊 Parcourir", "⚡ Interactions", "⚖️ Posologie", "🐾 Vétérinaire"],
+  es: ["💊 Explorar", "⚡ Interacciones", "⚖️ Dosis", "🐾 Veterinaria"],
+  tr: ["💊 Gözat", "⚡ Etkileşimler", "⚖️ Doz Hesapla", "🐾 Veteriner"],
+};
+
 export function DrugBrowserClient({
   initial,
   classes,
+  initialLang = "en",
 }: {
   initial: BrowseResult;
   classes: { drug_class: string; count: number }[];
+  initialLang?: string;
 }) {
   const [tab, setTab] = useState<Tab>("browse");
+  const { locale } = useI18n();
+  // Use initialLang (from server cookie) until useI18n hydrates to the real locale.
+  // locale starts as "en" on SSR — we only switch once it differs from the default.
+  const [lang, setLang] = useState(initialLang || "en");
+  useEffect(() => { if (locale) setLang(locale); }, [locale]);
+  const tabLabels = TAB_LABELS[lang] ?? TAB_LABELS.en;
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: "browse",       label: "💊 Browse" },
-    { key: "interactions", label: "⚡ Interactions" },
-    { key: "dose",         label: "⚖️ Dose Calc" },
-    { key: "vet",          label: "🐾 Veterinary" },
+    { key: "browse",       label: tabLabels[0] },
+    { key: "interactions", label: tabLabels[1] },
+    { key: "dose",         label: tabLabels[2] },
+    { key: "vet",          label: tabLabels[3] },
   ];
 
   return (
@@ -255,7 +285,7 @@ export function DrugBrowserClient({
         ))}
       </div>
 
-      {tab === "browse"       && <BrowseTab initial={initial} classes={classes} />}
+      {tab === "browse"       && <BrowseTab initial={initial} classes={classes} lang={lang} />}
       {tab === "interactions" && <InteractionChecker />}
       {tab === "dose"         && <DoseCalculator />}
       {tab === "vet"          && <VetDosing />}

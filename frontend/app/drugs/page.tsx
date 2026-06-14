@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { DrugBrowserClient } from "@/components/drugs/DrugBrowserClient";
+import { DrugPageTitle } from "@/components/drugs/DrugPageTitle";
+import { ArticleNav } from "@/components/layout/ArticleNav";
+import { PublicFooter } from "@/components/layout/PublicFooter";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -79,18 +82,17 @@ export default async function DrugsPage() {
 
   return (
     <div className="min-h-screen bg-bg">
+      <ArticleNav />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* SEO header — always in initial HTML */}
-        <h1 className="font-syne font-black text-2xl sm:text-3xl text-ink mb-1">
-          Drug Reference Database
-        </h1>
-        <p className="font-serif text-ink-3 text-sm mb-6">
-          {initial.total > 0 ? `${initial.total.toLocaleString()} drugs` : "833+"} with mechanisms, dosing, interactions &amp; side effects — in 7 languages
-        </p>
+        {/* Title follows user locale client-side; falls back to server-detected lang */}
+        <DrugPageTitle serverLang={lang} total={initial.total} />
 
         {/* All interactive browsing is in the client component */}
-        <DrugBrowserClient initial={initial} classes={classes} />
+        <DrugBrowserClient initial={initial} classes={classes} initialLang={lang} />
       </div>
+
+      <PublicFooter locale={lang} />
     </div>
   );
 }

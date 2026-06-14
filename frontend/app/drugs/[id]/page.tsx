@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import { DrugDetailTabs } from "@/components/drugs/DrugDetailTabs";
+import { ArticleNav } from "@/components/layout/ArticleNav";
+import { PublicFooter } from "@/components/layout/PublicFooter";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -103,6 +106,8 @@ export async function generateMetadata({
   };
 }
 
+const SUPPORTED_LANGS = ["en", "ru", "ar", "de", "fr", "es", "tr"];
+
 export default async function DrugDetailPage({
   params,
   searchParams,
@@ -110,7 +115,10 @@ export default async function DrugDetailPage({
   params: { id: string };
   searchParams: { lang?: string };
 }) {
-  const lang = searchParams.lang ?? "en";
+  const cookieStore = cookies();
+  const cookieLang = cookieStore.get("medmind_locale")?.value ?? "en";
+  const rawLang = searchParams.lang ?? cookieLang;
+  const lang = SUPPORTED_LANGS.includes(rawLang) ? rawLang : "en";
   const [drug, alternatives, allSpecies] = await Promise.all([
     fetchDrug(params.id, lang),
     fetchAlternatives(params.id),
@@ -119,15 +127,22 @@ export default async function DrugDetailPage({
 
   if (!drug) notFound();
 
+  const BACK_LABELS: Record<string, string> = {
+    en: "← Drug Database", ru: "← База препаратов", ar: "← قاعدة الأدوية",
+    de: "← Arzneimittel-DB", fr: "← Base de données", es: "← Base de datos", tr: "← İlaç Veritabanı",
+  };
+
   return (
     <div className="min-h-screen bg-bg">
+      <ArticleNav />
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
         {/* Back link */}
         <Link
           href="/drugs"
           className="inline-flex items-center gap-1 font-syne text-xs text-ink-3 hover:text-ink mb-6 transition-colors"
         >
-          ← Drug Database
+          {BACK_LABELS[lang] ?? BACK_LABELS.en}
         </Link>
 
         {/* Drug header — always in initial HTML for SEO */}
@@ -219,6 +234,8 @@ export default async function DrugDetailPage({
           lang={lang}
         />
       </div>
+
+      <PublicFooter locale={lang} />
     </div>
   );
 }

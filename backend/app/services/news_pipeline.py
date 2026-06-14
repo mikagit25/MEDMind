@@ -198,21 +198,37 @@ TRANSLATE_SYSTEM = """\
 Professional medical translator. Translate the JSON from English to {lang_name}.
 Use standard medical terminology for {lang_name}.
 Keep proper nouns, drug names, and acronyms (e.g. PCR, COVID-19, RNA) unchanged.
-Return ONLY valid JSON with the same keys."""
+Return ONLY valid JSON with the same keys. Do not truncate — complete the full translation."""
+
+
+def _clean_json(raw: str) -> str:
+    raw = raw.strip()
+    if raw.startswith("```"):
+        parts = raw.split("```")
+        raw = parts[1] if len(parts) > 1 else raw
+        if raw.startswith("json"):
+            raw = raw[4:]
+    return raw.strip()
+
+
+# Max characters for the summary in a translation payload to stay within token budget.
+# 1800 chars ≈ 450 words ≈ 600 tokens → leaves plenty of room in a 2000-token budget.
+_SUMMARY_CHAR_LIMIT = 1800
 
 
 async def _translate_news(title: str, summary: str, locale: str) -> dict:
     lang_name = LOCALE_NAMES.get(locale, locale)
-    payload = json.dumps({"title": title, "summary": summary}, ensure_ascii=False)
+    # Truncate summary to avoid token overrun (keeps the most clinically relevant part)
+    short_summary = summary[:_SUMMARY_CHAR_LIMIT]
+    payload = json.dumps({"title": title, "summary": short_summary}, ensure_ascii=False)
     system = TRANSLATE_SYSTEM.format(lang_name=lang_name)
     try:
-        raw = await _groq(system, payload, max_tokens=1000)
-        # Strip markdown fences if present
-        if raw.startswith("```"):
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-        return json.loads(raw.strip())
+        raw = await _groq(system, payload, max_tokens=2000)
+        cleaned = _clean_json(raw)
+        obj = json.loads(cleaned)
+        if obj.get("title") and obj.get("summary"):
+            return obj
+        return {}
     except Exception as e:
         logger.warning("Translation to %s failed: %s", locale, e)
         return {}
@@ -437,12 +453,14 @@ async def _process_item(item: dict, db: AsyncSession) -> int:
     if not summary or len(summary) < 50:
         return 0
 
-    # 5. Translate to all target locales
+    # 5. Translate to all target locales (with small delay to avoid rate limits)
+    import asyncio as _asyncio
     translations: dict[str, dict] = {}
     for locale in LOCALES:
         t = await _translate_news(title, summary, locale)
         if t.get("title") and t.get("summary"):
             translations[locale] = t
+        await _asyncio.sleep(0.3)  # avoid rate limit bursts
 
     # 6. Build slug (unique)
     date_part = (item["published_at"] or datetime.utcnow()).strftime("%Y%m%d")

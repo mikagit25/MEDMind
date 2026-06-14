@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { useAuthStore } from "@/lib/store";
 import { CalculatorWidget } from "@/components/calculators/CalculatorWidget";
 import { getCalc, CALC_SLUGS, INDEX_T } from "@/components/calculators/data";
 import type { Lang } from "@/components/calculators/data";
@@ -237,6 +238,8 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
   const { slug } = params;
   const { locale, setLocale } = useI18n();
   const lang = locale as string;
+  const { isAuthenticated, _hasHydrated } = useAuthStore();
+  const loggedIn = _hasHydrated ? isAuthenticated : null;
 
   const validSlugs: readonly string[] = CALC_SLUGS;
   if (!validSlugs.includes(slug)) notFound();
@@ -312,12 +315,22 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
               className="hidden sm:block text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>
-            <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-              {t(L.sign_in, lang)}
-            </Link>
-            <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
-              {t(L.register, lang)}
-            </Link>
+            {loggedIn === null ? (
+              <div className="w-24 h-8 rounded bg-surface animate-pulse" />
+            ) : loggedIn ? (
+              <Link href="/dashboard" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+                {lang === "ru" ? "Кабинет →" : lang === "ar" ? "لوحة التحكم →" : lang === "de" ? "Dashboard →" : lang === "fr" ? "Tableau de bord →" : lang === "es" ? "Panel →" : lang === "tr" ? "Panel →" : "Dashboard →"}
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+                  {t(L.sign_in, lang)}
+                </Link>
+                <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
+                  {t(L.register, lang)}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

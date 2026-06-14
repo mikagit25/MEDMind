@@ -32,7 +32,7 @@ from uuid import UUID
 import httpx
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from pydantic import BaseModel, HttpUrl
-from sqlalchemy import func, select, desc, case
+from sqlalchemy import func, select, desc, case, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_admin, require_teacher
@@ -229,7 +229,16 @@ async def list_news(
     )
     if category:
         q = q.where(NewsArticle.category == category)
-    q = q.order_by(desc(NewsArticle.fetched_at)).limit(limit).offset(offset)
+    # For non-English locales: prioritise articles that have a translation for the requested locale
+    if locale != "en":
+        has_translation = case(
+            (NewsArticle.translations.has_key(locale), 0),  # type: ignore[arg-type]
+            else_=1,
+        )
+        q = q.order_by(has_translation, desc(NewsArticle.fetched_at))
+    else:
+        q = q.order_by(desc(NewsArticle.fetched_at))
+    q = q.limit(limit).offset(offset)
     result = await db.execute(q)
     return [_to_list_item(n, locale) for n in result.scalars().all()]
 

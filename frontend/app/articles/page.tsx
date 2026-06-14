@@ -6,6 +6,7 @@ import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { ReadBadge } from "@/components/ui/ReadBadge";
 import { getArticlesT } from "@/lib/articles-i18n";
+import { ArticlesFooterCTA } from "./FooterCTA";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -205,20 +206,7 @@ export default async function ArticlesPage({
             <div className="font-syne font-extrabold text-xl text-ink mb-1">MedMind AI</div>
             <p className="text-ink-3 font-serif text-sm">{t.footer_tagline}</p>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="/register"
-              className="bg-ink text-white font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:bg-ink-2 transition-colors"
-            >
-              {t.start_free}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-border text-ink font-syne font-semibold text-sm px-5 py-2 rounded-lg hover:border-ink transition-colors"
-            >
-              {t.view_pricing}
-            </Link>
-          </div>
+          <ArticlesFooterCTA startFreeLabel={t.start_free} viewPricingLabel={t.view_pricing} />
         </div>
       </footer>
     </div>

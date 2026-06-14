@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { useAuthStore } from "@/lib/store";
 
 type Lang = "en" | "ru" | "ar" | "es" | "de" | "fr" | "tr";
 
@@ -82,15 +83,30 @@ function formatDate(dateStr: string | null, lang: Lang): string {
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
 
+function getStoredLocale(): Lang {
+  if (typeof window === "undefined") return "en";
+  const stored = localStorage.getItem("medmind_locale") as Lang | null;
+  return stored && LANGS.some(l => l.value === stored) ? stored : "en";
+}
+
 export default function NewsPage() {
   const { locale, setLocale } = useI18n();
-  const lang = (LANGS.some(l => l.value === locale) ? locale : "en") as Lang;
+  // Use stored locale immediately on client to avoid English→Russian flicker on first fetch
+  const [effectiveLang, setEffectiveLang] = useState<Lang>(() => getStoredLocale());
+  const lang = (LANGS.some(l => l.value === locale) ? locale : effectiveLang) as Lang;
   const t = T[lang];
+  const { isAuthenticated, _hasHydrated } = useAuthStore();
+  const loggedIn = _hasHydrated ? isAuthenticated : null;
 
   const [news, setNews] = useState<NewsItem[]>([]);
   const [categories, setCategories] = useState<CategoryStat[]>([]);
   const [activeCat, setActiveCat] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Keep effectiveLang in sync when locale changes via the selector
+  useEffect(() => {
+    if (LANGS.some(l => l.value === locale)) setEffectiveLang(locale as Lang);
+  }, [locale]);
 
   const fetchNews = useCallback(async (cat: string | null) => {
     setLoading(true);
@@ -129,9 +145,17 @@ export default function NewsPage() {
               className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>
-            <Link href="/register" className="btn-primary text-xs sm:text-sm px-3 py-1.5 hidden sm:block">
-              {lang === "ru" ? "Регистрация" : lang === "ar" ? "التسجيل" : lang === "de" ? "Registrieren" : lang === "fr" ? "S'inscrire" : lang === "es" ? "Registrarse" : lang === "tr" ? "Kayıt ol" : "Sign up"}
-            </Link>
+            {loggedIn === null ? (
+              <div className="hidden sm:block w-24 h-7 rounded-lg bg-surface animate-pulse" />
+            ) : loggedIn ? (
+              <Link href="/dashboard" className="btn-primary text-xs sm:text-sm px-3 py-1.5 hidden sm:block">
+                {lang === "ru" ? "Кабинет →" : lang === "ar" ? "لوحة التحكم →" : lang === "de" ? "Dashboard →" : lang === "fr" ? "Tableau de bord →" : lang === "es" ? "Panel →" : lang === "tr" ? "Panel →" : "Dashboard →"}
+              </Link>
+            ) : (
+              <Link href="/register" className="btn-primary text-xs sm:text-sm px-3 py-1.5 hidden sm:block">
+                {lang === "ru" ? "Регистрация" : lang === "ar" ? "التسجيل" : lang === "de" ? "Registrieren" : lang === "fr" ? "S'inscrire" : lang === "es" ? "Registrarse" : lang === "tr" ? "Kayıt ol" : "Sign up"}
+              </Link>
+            )}
           </div>
         </div>
       </nav>
