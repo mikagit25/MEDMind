@@ -194,6 +194,171 @@ async def _call_groq(messages: list, system_prompt: str) -> str:
     raise RuntimeError(f"Groq user keys exhausted: {last_err}")
 
 
+def _cerebras_user_keys() -> list[str]:
+    """All Cerebras keys for user-facing AI (separate pool from news pipeline)."""
+    keys = []
+    for attr in ("CEREBRAS_API_KEY", "CEREBRAS_API_KEY_2", "CEREBRAS_API_KEY_3",
+                 "CEREBRAS_API_KEY_4", "CEREBRAS_API_KEY_5"):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+
+def _sambanova_keys() -> list[str]:
+    keys = []
+    for attr in ("SAMBANOVA_API_KEY", "SAMBANOVA_API_KEY_2", "SAMBANOVA_API_KEY_3"):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+
+async def _call_openai_compat(base_url: str, api_key: str, model: str,
+                               messages: list, system_prompt: str) -> str:
+    """Generic OpenAI-compatible non-streaming call."""
+    payload = {
+        "model": model,
+        "messages": [{"role": "system", "content": system_prompt}] + messages,
+        "max_tokens": 1200,
+        "temperature": 0.7,
+    }
+    async with httpx.AsyncClient(timeout=40) as http:
+        resp = await http.post(
+            base_url,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json=payload,
+        )
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]["content"]
+
+
+async def _stream_openai_compat(base_url: str, api_key: str, model: str,
+                                 messages: list, system_prompt: str):
+    """Generic OpenAI-compatible streaming call."""
+    payload = {
+        "model": model,
+        "messages": [{"role": "system", "content": system_prompt}] + messages,
+        "max_tokens": 1200,
+        "temperature": 0.7,
+        "stream": True,
+    }
+    async with httpx.AsyncClient(timeout=60) as http:
+        async with http.stream(
+            "POST", base_url,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json=payload,
+        ) as resp:
+            resp.raise_for_status()
+            async for line in resp.aiter_lines():
+                if line.startswith("data: "):
+                    data_str = line[6:].strip()
+                    if data_str == "[DONE]":
+                        break
+                    try:
+                        chunk = json.loads(data_str)
+                        delta = chunk["choices"][0]["delta"].get("content", "")
+                        if delta:
+                            yield delta
+                    except (json.JSONDecodeError, KeyError, IndexError):
+                        pass
+
+
+async def _call_cerebras(messages: list, system_prompt: str) -> str:
+    """Call Cerebras API with key rotation. 900 tok/s, very fast."""
+    keys = _cerebras_user_keys()
+    if not keys:
+        raise ValueError("No CEREBRAS keys configured")
+    last_err: Exception | None = None
+    for key in keys:
+        try:
+            return await _call_openai_compat(
+                "https://api.cerebras.ai/v1/chat/completions",
+                key, settings.CEREBRAS_MODEL, messages, system_prompt,
+            )
+        except Exception as e:
+            if "429" in str(e):
+                last_err = e
+                continue
+            raise
+    raise RuntimeError(f"Cerebras keys exhausted: {last_err}")
+
+
+async def _stream_cerebras(messages: list, system_prompt: str):
+    """Stream from Cerebras with key rotation."""
+    keys = _cerebras_user_keys()
+    if not keys:
+        raise ValueError("No CEREBRAS keys configured")
+    # Pick first non-rate-limited key
+    active_key = keys[0]
+    for key in keys:
+        try:
+            async with httpx.AsyncClient(timeout=10) as probe:
+                r = await probe.post(
+                    "https://api.cerebras.ai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json={"model": settings.CEREBRAS_MODEL,
+                          "messages": [{"role": "user", "content": "hi"}], "max_tokens": 1},
+                )
+                if r.status_code != 429:
+                    active_key = key
+                    break
+        except Exception:
+            pass
+    async for chunk in _stream_openai_compat(
+        "https://api.cerebras.ai/v1/chat/completions",
+        active_key, settings.CEREBRAS_MODEL, messages, system_prompt,
+    ):
+        yield chunk
+
+
+async def _call_sambanova(messages: list, system_prompt: str) -> str:
+    """Call SambaNova API with key rotation."""
+    keys = _sambanova_keys()
+    if not keys:
+        raise ValueError("No SAMBANOVA keys configured")
+    last_err: Exception | None = None
+    for key in keys:
+        try:
+            return await _call_openai_compat(
+                "https://api.sambanova.ai/v1/chat/completions",
+                key, settings.SAMBANOVA_MODEL, messages, system_prompt,
+            )
+        except Exception as e:
+            if "429" in str(e):
+                last_err = e
+                continue
+            raise
+    raise RuntimeError(f"SambaNova keys exhausted: {last_err}")
+
+
+async def _stream_sambanova(messages: list, system_prompt: str):
+    """Stream from SambaNova with key rotation."""
+    keys = _sambanova_keys()
+    if not keys:
+        raise ValueError("No SAMBANOVA keys configured")
+    active_key = keys[0]
+    for key in keys:
+        try:
+            async with httpx.AsyncClient(timeout=10) as probe:
+                r = await probe.post(
+                    "https://api.sambanova.ai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json={"model": settings.SAMBANOVA_MODEL,
+                          "messages": [{"role": "user", "content": "hi"}], "max_tokens": 1},
+                )
+                if r.status_code != 429:
+                    active_key = key
+                    break
+        except Exception:
+            pass
+    async for chunk in _stream_openai_compat(
+        "https://api.sambanova.ai/v1/chat/completions",
+        active_key, settings.SAMBANOVA_MODEL, messages, system_prompt,
+    ):
+        yield chunk
+
+
 async def _call_ollama(messages: list, system_prompt: str) -> str:
     """Call local Ollama API. Returns text response (think tags stripped)."""
     ollama_messages = [{"role": "system", "content": system_prompt}] + messages
@@ -259,24 +424,39 @@ async def _stream_ollama(messages: list, system_prompt: str):
 
 
 async def _call_free_ai(messages: list, system_prompt: str) -> tuple[str, str]:
-    """Try Ollama (local) → Gemini Flash → Groq → raise. Returns (text, model_label)."""
-    # 1. Try Ollama first — local, completely free, no API key needed
-    #    Supports Qwen2.5, Llama3.2, DeepSeek, Mistral and hundreds of others
+    """Try Ollama → Gemini → Cerebras → SambaNova → Groq → raise. Returns (text, model_label)."""
+    # 1. Ollama — local, completely free, no API key needed
     try:
         text = await _call_ollama(messages, system_prompt)
         return text, f"ollama/{settings.OLLAMA_MODEL}"
     except Exception as e:
-        logger.debug("Ollama not available (not installed or not running): %s", e)
+        logger.debug("Ollama not available: %s", e)
 
-    # 2. Try Gemini Flash (free tier via aistudio.google.com — requires API key)
+    # 2. Gemini Flash (free tier — aistudio.google.com)
     if settings.GEMINI_API_KEY:
         try:
             text = await _call_gemini(messages, system_prompt)
             return text, f"gemini/{settings.GEMINI_MODEL}"
         except Exception as e:
-            logger.warning("Gemini failed, trying Groq: %s", e)
+            logger.warning("Gemini failed, trying Cerebras: %s", e)
 
-    # 3. Try Groq (free tier — console.groq.com, requires API key, 14400 req/day)
+    # 3. Cerebras (free tier — 900 tok/s, 5 key rotation)
+    if _cerebras_user_keys():
+        try:
+            text = await _call_cerebras(messages, system_prompt)
+            return text, f"cerebras/{settings.CEREBRAS_MODEL}"
+        except Exception as e:
+            logger.warning("Cerebras failed, trying SambaNova: %s", e)
+
+    # 4. SambaNova (free tier — 3 key rotation)
+    if _sambanova_keys():
+        try:
+            text = await _call_sambanova(messages, system_prompt)
+            return text, f"sambanova/{settings.SAMBANOVA_MODEL}"
+        except Exception as e:
+            logger.warning("SambaNova failed, trying Groq: %s", e)
+
+    # 5. Groq (last resort — KEY_1/KEY_2 only, user-reserved)
     if settings.GROQ_API_KEY:
         try:
             text = await _call_groq(messages, system_prompt)
@@ -286,8 +466,7 @@ async def _call_free_ai(messages: list, system_prompt: str) -> tuple[str, str]:
 
     raise RuntimeError(
         "No free AI backend available. "
-        "Run Ollama locally (recommended: ollama pull qwen2.5) "
-        "or set GEMINI_API_KEY / GROQ_API_KEY."
+        "Run Ollama locally or set GEMINI_API_KEY / CEREBRAS_API_KEY / GROQ_API_KEY."
     )
 
 
@@ -633,9 +812,9 @@ async def route_ai_stream(
 
     use_free = _use_free_ai(user, message)
 
-    # --- Free AI path: Ollama (local) → Gemini → Groq ---
+    # --- Free AI path: Ollama → Gemini → Cerebras → SambaNova → Groq ---
     if use_free:
-        # 1. Ollama first — local, zero cost, works with Qwen3 / Llama3.2 / DeepSeek
+        # 1. Ollama — local, zero cost
         yield {"type": "model", "model": f"ollama/{settings.OLLAMA_MODEL}"}
         try:
             got_chunk = False
@@ -649,7 +828,7 @@ async def route_ai_stream(
         except Exception as e:
             logger.debug("Ollama stream failed: %s", e)
 
-        # 2. Try Gemini Flash streaming (free API tier)
+        # 2. Gemini Flash streaming
         if settings.GEMINI_API_KEY:
             yield {"type": "model", "model": f"gemini/{settings.GEMINI_MODEL}"}
             try:
@@ -658,9 +837,31 @@ async def route_ai_stream(
                 await _increment_rate_limit(user)
                 return
             except Exception as e:
-                logger.warning("Gemini stream failed, trying Groq: %s", e)
+                logger.warning("Gemini stream failed, trying Cerebras: %s", e)
 
-        # 3. Try Groq streaming (free API tier fallback)
+        # 3. Cerebras streaming (900 tok/s, 5 key rotation)
+        if _cerebras_user_keys():
+            yield {"type": "model", "model": f"cerebras/{settings.CEREBRAS_MODEL}"}
+            try:
+                async for chunk in _stream_cerebras(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("Cerebras stream failed, trying SambaNova: %s", e)
+
+        # 4. SambaNova streaming (3 key rotation)
+        if _sambanova_keys():
+            yield {"type": "model", "model": f"sambanova/{settings.SAMBANOVA_MODEL}"}
+            try:
+                async for chunk in _stream_sambanova(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("SambaNova stream failed, trying Groq: %s", e)
+
+        # 5. Groq streaming (last resort — KEY_1/KEY_2 only)
         if settings.GROQ_API_KEY:
             yield {"type": "model", "model": f"groq/{settings.GROQ_MODEL}"}
             try:
