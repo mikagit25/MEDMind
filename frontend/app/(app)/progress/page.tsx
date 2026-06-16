@@ -131,6 +131,20 @@ export default function ProgressPage() {
     }
   }
 
+  async function handleVerifyMemory(id: string) {
+    try {
+      const updated = await memoryApi.verify(id);
+      setMemoryItems((prev) => prev.map((m) => m.id === id ? { ...m, ...updated } : m));
+    } catch { /* ignore */ }
+  }
+
+  async function handleDeprecateMemory(id: string) {
+    try {
+      await memoryApi.deprecate(id);
+      setMemoryItems((prev) => prev.filter((m) => m.id !== id));
+    } catch { /* ignore */ }
+  }
+
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
@@ -396,11 +410,16 @@ export default function ProgressPage() {
               ) : (
                 <>
                   {memoryItems.map((m: any) => (
-                    <div key={m.id} className="card px-4 py-3 flex items-start gap-3">
+                    <div key={m.id} className={`card px-4 py-3 flex items-start gap-3 ${m.is_verified ? "border-green/30" : m.is_deprecated ? "opacity-50" : ""}`}>
                       <div className="flex-1 min-w-0">
-                        <div className="font-syne font-semibold text-xs text-ink-3 uppercase tracking-wide mb-0.5 capitalize">
-                          {(m.memory_type ?? m.type ?? "note").replace(/_/g, " ")}
-                          {m.specialty && ` · ${m.specialty}`}
+                        <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                          <span className="font-syne font-semibold text-xs text-ink-3 uppercase tracking-wide capitalize">
+                            {(m.memory_type ?? m.type ?? "note").replace(/_/g, " ")}
+                            {m.specialty && ` · ${m.specialty}`}
+                          </span>
+                          {m.is_verified && (
+                            <span className="text-[10px] font-syne font-bold text-green bg-green-light border border-green/20 rounded-full px-1.5 py-0.5">✓ verified</span>
+                          )}
                         </div>
                         <div className="font-serif text-sm text-ink leading-relaxed line-clamp-3">
                           {m.content ?? m.summary ?? m.text ?? "—"}
@@ -411,13 +430,31 @@ export default function ProgressPage() {
                           </div>
                         )}
                       </div>
-                      <button
-                        onClick={() => handleDeleteMemory(m.id)}
-                        className="text-ink-3 hover:text-red text-xs shrink-0 mt-0.5 transition-colors"
-                        title="Remove from knowledge bank"
-                      >
-                        ✕
-                      </button>
+                      <div className="flex flex-col gap-1 shrink-0 mt-0.5">
+                        {!m.is_verified && (
+                          <button
+                            onClick={() => handleVerifyMemory(m.id)}
+                            className="text-green hover:text-green/70 text-[11px] font-syne font-semibold transition-colors"
+                            title="Mark as verified"
+                          >
+                            ✓
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleDeprecateMemory(m.id)}
+                          className="text-ink-3 hover:text-amber text-[11px] transition-colors"
+                          title="Archive (deprecate)"
+                        >
+                          ↓
+                        </button>
+                        <button
+                          onClick={() => handleDeleteMemory(m.id)}
+                          className="text-ink-3 hover:text-red text-xs transition-colors"
+                          title="Remove from knowledge bank"
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </div>
                   ))}
                   <p className="text-center font-serif text-xs text-ink-3 pt-1">

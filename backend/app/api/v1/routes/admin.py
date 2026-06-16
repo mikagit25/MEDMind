@@ -1677,3 +1677,53 @@ async def reviewer_queue_summary(
         "unresolved_feedback": feedback_count,
         "human_reviewed_total": human_reviewed_count,
     }
+
+
+@router.get("/feedback")
+async def list_feedback(
+    resolved: Optional[bool] = None,
+    content_type: Optional[str] = None,
+    limit: int = 50,
+    offset: int = 0,
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """List user-submitted content feedback reports. Reviewer+ access."""
+    q = select(ContentFeedback).order_by(ContentFeedback.created_at.desc())
+    if resolved is not None:
+        q = q.where(ContentFeedback.resolved == resolved)
+    if content_type:
+        q = q.where(ContentFeedback.content_type == content_type)
+    total = await db.scalar(select(func.count()).select_from(q.subquery()))
+    rows = (await db.execute(q.offset(offset).limit(limit))).scalars().all()
+    return {
+        "total": total,
+        "items": [
+            {
+                "id": r.id,
+                "content_type": r.content_type,
+                "content_id": r.content_id,
+                "problem_type": r.problem_type,
+                "comment": r.comment,
+                "reporter_email": r.reporter_email,
+                "resolved": r.resolved,
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+            }
+            for r in rows
+        ],
+    }
+
+
+@router.patch("/feedback/{feedback_id}/resolve")
+async def resolve_feedback(
+    feedback_id: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = _reviewer,
+):
+    """Mark a feedback report as resolved."""
+    item = await db.get(ContentFeedback, feedback_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Feedback not found")
+    item.resolved = True
+    await db.commit()
+    return {"id": feedback_id, "resolved": True}

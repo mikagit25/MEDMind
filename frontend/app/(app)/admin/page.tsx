@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -216,6 +216,7 @@ export default function AdminPage() {
           ["flags",        "🚩 Flags"],
           ["system",       "⚙️ System"],
           ["audit",        "🔍 Audit Log"],
+          ["feedback",     "🚨 Feedback"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -642,6 +643,9 @@ export default function AdminPage() {
 
       {/* ── Audit Log ── */}
       {tab === "audit" && <AuditLogPanel />}
+
+      {/* ── User Feedback Reports ── */}
+      {tab === "feedback" && <FeedbackPanel />}
 
       {/* ── User Detail Modal ── */}
       {selectedUser && (
@@ -2788,6 +2792,164 @@ function RevenuePanel() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Feedback Panel ─────────────────────────────────────────────────────────────
+
+type FeedbackItem = {
+  id: number;
+  content_type: string;
+  content_id: string;
+  problem_type: string;
+  comment: string | null;
+  reporter_email: string | null;
+  resolved: boolean;
+  created_at: string | null;
+};
+
+const PROBLEM_LABEL: Record<string, string> = {
+  factual_error: "Factual error",
+  outdated: "Outdated",
+  missing_source: "Missing source",
+  wrong_translation: "Wrong translation",
+  other: "Other",
+};
+
+const PROBLEM_COLOR: Record<string, string> = {
+  factual_error: "bg-red/10 text-red border-red/20",
+  outdated: "bg-amber-light text-amber-700 border-amber/20",
+  missing_source: "bg-blue-light text-blue-700 border-blue/20",
+  wrong_translation: "bg-purple-100 text-purple-700 border-purple-200",
+  other: "bg-surface-2 text-ink-2 border-border",
+};
+
+function FeedbackPanel() {
+  const [items, setItems] = useState<FeedbackItem[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [showResolved, setShowResolved] = useState(false);
+  const [resolving, setResolving] = useState<number | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await adminApi.getFeedback({ resolved: showResolved ? undefined : false, limit: 100 });
+      setItems(data.items ?? []);
+      setTotal(data.total ?? 0);
+    } finally {
+      setLoading(false);
+    }
+  }, [showResolved]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function handleResolve(id: number) {
+    setResolving(id);
+    try {
+      await adminApi.resolveFeedback(id);
+      setItems(prev => prev.filter(i => i.id !== id));
+      setTotal(prev => prev - 1);
+    } finally {
+      setResolving(null);
+    }
+  }
+
+  const unresolved = items.filter(i => !i.resolved).length;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="font-syne font-black text-xl text-ink">User Feedback Reports</h2>
+          <p className="font-serif text-sm text-ink-3 mt-0.5">
+            Inaccuracy reports submitted by readers via the "Report inaccuracy" button.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          {unresolved > 0 && (
+            <span className="bg-red/10 text-red border border-red/20 font-syne font-bold text-xs px-2.5 py-1 rounded-full">
+              {unresolved} unresolved
+            </span>
+          )}
+          <label className="flex items-center gap-2 font-syne text-sm text-ink-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showResolved}
+              onChange={e => setShowResolved(e.target.checked)}
+              className="accent-ink"
+            />
+            Show resolved
+          </label>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="text-center py-12 text-ink-3 font-serif text-sm">Loading…</div>
+      ) : items.length === 0 ? (
+        <div className="card p-10 text-center">
+          <div className="text-3xl mb-2">✅</div>
+          <div className="font-syne font-bold text-sm text-ink">No unresolved feedback</div>
+          <div className="font-serif text-xs text-ink-3 mt-1">All reports have been reviewed.</div>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {items.map(item => (
+            <div
+              key={item.id}
+              className={`card p-4 border ${item.resolved ? "opacity-60" : ""}`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <span className={`text-xs font-syne font-bold border rounded-full px-2.5 py-0.5 ${PROBLEM_COLOR[item.problem_type] ?? PROBLEM_COLOR.other}`}>
+                      {PROBLEM_LABEL[item.problem_type] ?? item.problem_type}
+                    </span>
+                    <span className="text-xs font-syne text-ink-3 border border-border rounded-full px-2.5 py-0.5">
+                      {item.content_type}
+                    </span>
+                    {item.resolved && (
+                      <span className="text-xs font-syne text-green border border-green/20 bg-green-light rounded-full px-2.5 py-0.5">
+                        resolved
+                      </span>
+                    )}
+                    <span className="text-xs font-serif text-ink-3 ml-auto">
+                      {item.created_at ? new Date(item.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}
+                    </span>
+                  </div>
+
+                  <div className="font-mono text-xs text-ink-2 mb-2 truncate">
+                    ID: <span className="text-ink">{item.content_id}</span>
+                  </div>
+
+                  {item.comment && (
+                    <p className="font-serif text-sm text-ink-2 bg-surface rounded-lg px-3 py-2 mb-2 leading-relaxed">
+                      "{item.comment}"
+                    </p>
+                  )}
+
+                  {item.reporter_email && (
+                    <div className="font-serif text-xs text-ink-3">
+                      Reporter: <a href={`mailto:${item.reporter_email}`} className="text-ink-2 hover:underline">{item.reporter_email}</a>
+                    </div>
+                  )}
+                </div>
+
+                {!item.resolved && (
+                  <button
+                    onClick={() => handleResolve(item.id)}
+                    disabled={resolving === item.id}
+                    className="flex-shrink-0 font-syne font-semibold text-xs px-3 py-1.5 bg-green text-white rounded-lg hover:bg-green/90 transition-colors disabled:opacity-50"
+                  >
+                    {resolving === item.id ? "…" : "Resolve"}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

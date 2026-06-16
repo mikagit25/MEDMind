@@ -5,28 +5,80 @@ import Link from "next/link";
 import { notificationsApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+
 /**
  * Notification bell with real-time unread count.
- * Uses 30s polling (reliable across all auth setups).
- * On future PWA/WebSocket upgrade this component is the only place to change.
+ * Uses SSE (fetch-based, supports Bearer auth) with 30s polling fallback.
  */
 export function NotificationBell() {
   const [unread, setUnread] = useState(0);
   const { isAuthenticated } = useAuthStore();
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const fetchUnread = () => {
-    notificationsApi.list({ unread_only: true, limit: 1 })
-      .then((data: any) => setUnread(data.unread_count ?? 0))
-      .catch(() => {});
-  };
+  const abortRef = useRef<AbortController | null>(null);
+  const fallbackRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    fetchUnread();
-    intervalRef.current = setInterval(fetchUnread, 30_000);
+
+    // Initial fetch for count
+    notificationsApi.list({ unread_only: true, limit: 1 })
+      .then((data: any) => setUnread(data.unread_count ?? 0))
+      .catch(() => {});
+
+    let sseActive = false;
+
+    async function connectSSE() {
+      const token = localStorage.getItem("medmind_token");
+      if (!token) return;
+
+      abortRef.current = new AbortController();
+      try {
+        const res = await fetch(`${API_URL}/notifications/stream`, {
+          headers: { Authorization: `Bearer ${token}` },
+          signal: abortRef.current.signal,
+        });
+        if (!res.ok || !res.body) return;
+
+        sseActive = true;
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buf = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, { stream: true });
+          const lines = buf.split("\n");
+          buf = lines.pop() ?? "";
+          for (const line of lines) {
+            if (!line.startsWith("data:")) continue;
+            try {
+              const payload = JSON.parse(line.slice(5).trim());
+              if (payload.unread_count !== undefined) setUnread(payload.unread_count);
+              else if (payload.type === "new_notification") setUnread((n) => n + 1);
+            } catch { /* malformed line */ }
+          }
+        }
+      } catch {
+        // AbortError on cleanup or network error — fall through to polling
+      } finally {
+        sseActive = false;
+      }
+    }
+
+    connectSSE();
+
+    // Polling fallback (runs always, SSE is best-effort on top)
+    fallbackRef.current = setInterval(() => {
+      if (sseActive) return; // SSE covers us
+      notificationsApi.list({ unread_only: true, limit: 1 })
+        .then((data: any) => setUnread(data.unread_count ?? 0))
+        .catch(() => {});
+    }, 30_000);
+
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      abortRef.current?.abort();
+      if (fallbackRef.current) clearInterval(fallbackRef.current);
     };
   }, [isAuthenticated]);
 

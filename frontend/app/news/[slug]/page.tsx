@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { getCategoryLabel } from "@/lib/categories";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { CommentsBlock } from "@/components/ui/CommentsBlock";
+import { ReportArticleButton } from "@/components/ui/ReportArticleButton";
 
 export const dynamic = "force-dynamic";
 
@@ -288,6 +289,11 @@ export default async function NewsDetailPage({
             <p className="text-xs text-amber-800 font-syne leading-relaxed">
               <span className="font-bold">{ui.disclaimer_label}: </span>{ui.disclaimer}
             </p>
+          </div>
+
+          {/* Report inaccuracy */}
+          <div className="flex justify-end mb-4">
+            <ReportArticleButton contentType="news" contentId={article.id} locale={locale} />
           </div>
 
           {/* CTA */}

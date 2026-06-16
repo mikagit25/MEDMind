@@ -438,6 +438,10 @@ export const adminApi = {
     api.patch(`/admin/feature-flags/${flag}`, null, { params: { enabled, rollout: rollout ?? 100 } }).then(r => r.data),
   getSystemHealth: () =>
     api.get("/admin/system/health").then(r => r.data),
+  getFeedback: (params?: { resolved?: boolean; content_type?: string; limit?: number; offset?: number }) =>
+    api.get("/admin/feedback", { params }).then(r => r.data),
+  resolveFeedback: (id: number) =>
+    api.patch(`/admin/feedback/${id}/resolve`).then(r => r.data),
 };
 
 // ============================================================
@@ -669,6 +673,8 @@ export const memoryApi = {
     api.get("/memory/", { params }).then(r => r.data),
   stats: () => api.get("/memory/stats").then(r => r.data),
   remove: (id: string) => api.delete(`/memory/${id}`).then(r => r.data),
+  verify: (id: string) => api.patch(`/memory/${id}/verify`).then(r => r.data),
+  deprecate: (id: string) => api.patch(`/memory/${id}/deprecate`).then(r => r.data),
 };
 
 // ============================================================
