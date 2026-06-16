@@ -293,7 +293,7 @@ export default async function NewsDetailPage({
 
           {/* Report inaccuracy */}
           <div className="flex justify-end mb-4">
-            <ReportArticleButton contentType="news" contentId={article.id} locale={locale} />
+            <ReportArticleButton contentType="news" contentId={article.id} locale={lang} />
           </div>
 
           {/* CTA */}
