@@ -79,7 +79,7 @@ CATEGORY_CONTEXT: dict[str, str] = {
     "diagnostics":                "medical diagnostic equipment laboratory",
     "diagnostics-interpretation": "ECG MRI scan radiology reading",
     "procedures":                 "medical procedure clinical equipment",
-    "ob-gyn":                     "obstetrics gynecology anatomy",
+    "ob-gyn":                     "maternal fetal medicine clinical ultrasound monitor hospital equipment",
     "pediatrics":                 "pediatric medicine children healthcare",
     "endocrinology":              "endocrine glands hormone system anatomy",
     "symptoms":                   "human body clinical symptoms anatomy",
