@@ -11,12 +11,9 @@ export const metadata: Metadata = {
     "medical news", "healthcare news", "medical research", "PubMed news",
     "WHO news", "clinical research updates", "медицинские новости", "actualités médicales",
   ],
-  alternates: {
-    canonical: `${SITE_URL}/news`,
-    languages: Object.fromEntries(
-      LOCALES.map(l => [l, l === "en" ? `${SITE_URL}/news` : `${SITE_URL}/${l}/news`])
-    ),
-  },
+  // canonical for /news index only; no languages — layout alternates merge with
+  // child page alternates in Next.js and would create conflicting hreflang.
+  alternates: { canonical: `${SITE_URL}/news` },
   openGraph: {
     title: "Medical News — MedMind AI",
     description: "Latest medical research summarised by AI. PubMed, WHO, medRxiv — in 7 languages.",

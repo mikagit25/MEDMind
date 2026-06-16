@@ -1,7 +1,22 @@
+import type { Metadata } from "next";
 import LandingPage from "./LandingPage";
 import type { MiniQuizQuestion } from "@/components/ui/MiniQuiz";
 
 export const dynamic = "force-dynamic";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: SITE_URL,
+    // Homepage hreflang: moved here from layout so it only appears on the homepage,
+    // not on article/news/drug pages where it would create conflicting duplicate tags.
+    languages: Object.fromEntries(
+      SUPPORTED_LOCALES.map((l) => [l, l === "en" ? SITE_URL : `${SITE_URL}/${l}`])
+    ),
+  },
+};
 
 const API_URL =
   process.env.INTERNAL_API_URL ??

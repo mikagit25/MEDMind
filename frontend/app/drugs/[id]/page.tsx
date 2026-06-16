@@ -82,14 +82,16 @@ export async function generateMetadata({
   const description = drug.mechanism
     ? `${drug.name}: ${drug.mechanism.slice(0, 155)}`
     : `Pharmacology, dosing, side effects, and interactions for ${drug.name}${drug.drug_class ? ` — ${drug.drug_class}` : ""}.`;
-  const canonicalUrl = `${SITE_URL}/drugs/${params.id}${lang !== "en" ? `?lang=${lang}` : ""}`;
+  // Use path-prefixed canonicals (/ar/drugs/id) — mirrors middleware routing and
+  // avoids query-param URLs that the middleware 301-redirects to path-prefixed form.
+  const enUrl = `${SITE_URL}/drugs/${params.id}`;
+  const canonicalUrl = lang !== "en" ? `${SITE_URL}/${lang}/drugs/${params.id}` : enUrl;
 
   const availableLangs = ["en", ...(drug.available_langs ?? [])];
-  const langAlternates: Record<string, string> = {};
+  const langAlternates: Record<string, string> = { "x-default": enUrl };
   for (const l of availableLangs) {
-    langAlternates[l] = `${SITE_URL}/drugs/${params.id}${l !== "en" ? `?lang=${l}` : ""}`;
+    langAlternates[l] = l !== "en" ? `${SITE_URL}/${l}/drugs/${params.id}` : enUrl;
   }
-  langAlternates["x-default"] = `${SITE_URL}/drugs/${params.id}`;
 
   return {
     title,

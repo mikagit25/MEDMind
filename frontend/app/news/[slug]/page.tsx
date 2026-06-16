@@ -134,19 +134,31 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams?: { locale?: string };
+  searchParams?: { lang?: string; locale?: string };
 }): Promise<Metadata> {
   const cookieLocale = cookies().get("medmind_locale")?.value;
-  const rawLocale = searchParams?.locale || cookieLocale;
+  // Middleware rewrites /ar/news/slug → /news/slug?lang=ar; also support ?locale=
+  const rawLocale = searchParams?.lang || searchParams?.locale || cookieLocale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const article = await fetchNews(params.slug, locale);
   if (!article) return { title: "News not found" };
 
-  const canonical = `${SITE_URL}/news/${article.slug}`;
+  const enUrl = `${SITE_URL}/news/${article.slug}`;
+  const canonical = locale !== "en" ? `${SITE_URL}/${locale}/news/${article.slug}` : enUrl;
   return {
     title: article.title,
     description: article.summary.slice(0, 200),
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        "x-default": enUrl,
+        en: enUrl,
+        ...(SUPPORTED.filter((l) => l !== "en").reduce((acc, l) => ({
+          ...acc,
+          [l]: `${SITE_URL}/${l}/news/${article.slug}`,
+        }), {} as Record<string, string>)),
+      },
+    },
     openGraph: {
       title: article.title,
       description: article.summary.slice(0, 200),
@@ -163,10 +175,10 @@ export default async function NewsDetailPage({
   searchParams,
 }: {
   params: { slug: string };
-  searchParams?: { locale?: string };
+  searchParams?: { lang?: string; locale?: string };
 }) {
   const cookieLocale = cookies().get("medmind_locale")?.value;
-  const rawLocale = searchParams?.locale || cookieLocale;
+  const rawLocale = searchParams?.lang || searchParams?.locale || cookieLocale;
   const lang = (rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en") as Lang;
   const ui = UI[lang] ?? UI.en;
   const slug = params.slug;

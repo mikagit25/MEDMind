@@ -47,15 +47,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-snippet": -1 },
   },
-  // Root-level hreflang — points to language homepages served by middleware.
-  // English has no prefix; other locales use /es, /ru, etc. (middleware rewrites
-  // these to /?lang=XX so the homepage renders in that locale).
-  alternates: {
-    canonical: SITE_URL,
-    languages: Object.fromEntries(
-      SUPPORTED_LOCALES.map((l) => [l, l === "en" ? SITE_URL : `${SITE_URL}/${l}`])
-    ),
-  },
+  // No alternates in root layout — Next.js merges layout+page alternates,
+  // so any canonical/languages here would appear on EVERY page. Each page's
+  // generateMetadata sets its own alternates independently.
 };
 
 const JSON_LD_ORGANIZATION = {
@@ -140,11 +134,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }
           } catch(e) {}
         `}} />
-        {/* hreflang — root-level signals for the site homepage */}
-        {SUPPORTED_LOCALES.map((l) => (
-          <link key={l} rel="alternate" hrefLang={l} href={l === "en" ? SITE_URL : `${SITE_URL}/${l}`} />
-        ))}
-        <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
+        {/* hreflang is set per-page via generateMetadata alternates.languages,
+            NOT here — layout-level hreflang would appear on every page and
+            create duplicate/conflicting tags on article and drug pages. */}
         {/* PWA */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
