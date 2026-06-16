@@ -13,6 +13,7 @@ import { ArticleQuiz } from "@/components/ui/ArticleQuiz";
 import { ArticleAIChat } from "@/components/ui/ArticleAIChat";
 import { LocaleCookieSetter } from "@/components/ui/LocaleCookieSetter";
 import { CommentsBlock } from "@/components/ui/CommentsBlock";
+import { ReportArticleButton } from "@/components/ui/ReportArticleButton";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -826,6 +827,11 @@ export default async function ArticlePage({
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Report inaccuracy */}
+          <div className="mt-4 flex justify-end">
+            <ReportArticleButton contentType="article" contentId={article.id} locale={locale} />
           </div>
 
           {/* Prev / Next in category */}
