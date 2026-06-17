@@ -63,9 +63,12 @@ export default function LandingPage({
   const { locale, setLocale } = useI18n();
   const router = useRouter();
 
-  // Apply URL-driven locale on mount (for /{locale} routes)
+  // Apply locale from URL-prefixed routes (/ru, /de, etc.)
+  // Do NOT apply when initialLocale === "en" — that's just the root "/" fallback,
+  // not an explicit English selection. Overriding here would clobber the user's
+  // stored preference every time they navigate back to the homepage.
   useEffect(() => {
-    if (initialLocale && initialLocale !== locale) {
+    if (initialLocale && initialLocale !== "en" && initialLocale !== locale) {
       setLocale(initialLocale as Parameters<typeof setLocale>[0]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

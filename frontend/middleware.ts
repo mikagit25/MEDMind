@@ -27,6 +27,31 @@ function isPublicPath(pathname: string): boolean {
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
 
+  // ── Case 0: Root "/" — redirect to user's preferred locale ────────────────
+  // Priority: 1) explicit locale cookie  2) browser Accept-Language header
+  // Skip if ?lang= is present (handled by Case 2) to avoid redirect loops.
+  if (pathname === "/" && !searchParams.get("lang")) {
+    // Cookie set by switchLocale() in I18nProvider — the user's saved choice
+    const localeCookie = request.cookies.get("medmind_locale")?.value;
+    if (localeCookie && LOCALES.includes(localeCookie)) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${localeCookie}`;
+      // 302 (not 301) so browsers re-check on every visit in case preference changes
+      return NextResponse.redirect(url, { status: 302 });
+    }
+    // First-time visitor: detect from Accept-Language (e.g. "ru-RU,ru;q=0.9,en;q=0.8")
+    const acceptLang = request.headers.get("accept-language") ?? "";
+    for (const part of acceptLang.split(",")) {
+      const code = part.trim().split(";")[0].trim().split("-")[0].toLowerCase();
+      if (LOCALES.includes(code)) {
+        const url = request.nextUrl.clone();
+        url.pathname = `/${code}`;
+        return NextResponse.redirect(url, { status: 302 });
+      }
+    }
+    // No match → serve English (default, fall through)
+  }
+
   // ── Case 1: Path-prefixed locale (/es/articles/slug) ──────────────────────
   const localeMatch = pathname.match(LOCALE_RE);
   if (localeMatch) {
