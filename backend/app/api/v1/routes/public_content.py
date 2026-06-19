@@ -306,7 +306,7 @@ async def list_public_topics(
     if cached:
         return cached
 
-    # Modules with lay_summary lessons
+    # All published modules — lay_summary optional (falls back to description)
     stmt = (
         select(
             Module.code, Module.title, Module.description,
@@ -316,10 +316,9 @@ async def list_public_topics(
         )
         .join(Lesson, Lesson.module_id == Module.id)
         .outerjoin(Specialty, Module.specialty_id == Specialty.id)
-        .where(Lesson.lay_summary.isnot(None))
         .where(Lesson.status == "published")
         .group_by(Module.code, Module.title, Module.description, Specialty.name)
-        .order_by(Module.code)
+        .order_by(Specialty.name.nullslast(), Module.code)
         .limit(limit)
     )
     if specialty:
@@ -334,7 +333,7 @@ async def list_public_topics(
             slug=_slugify(row.code),
             title=row.title,
             description=row.description,
-            lay_summary=row.sample_summary[:200] if row.sample_summary else None,
+            lay_summary=(row.sample_summary[:200] if row.sample_summary else None) or row.description,
             lesson_count=row.lesson_count,
             specialty=row.specialty_name,
         ).model_dump()
@@ -391,22 +390,21 @@ async def get_public_topic(
     lesson_data = []
     total_terms = 0
     for l in lessons:
-        if l.lay_summary or l.lay_glossary:
-            glossary = l.lay_glossary or []
-            total_terms += len(glossary) if isinstance(glossary, list) else 0
-            lesson_data.append({
-                "title": l.title,
-                "lay_summary": l.lay_summary,
-                "lay_glossary": [
-                    {"term": t["term"], "slug": _slugify(t["term"]), "simple_definition": t["simple_definition"]}
-                    for t in (glossary if isinstance(glossary, list) else [])
-                    if isinstance(t, dict)
-                ],
-                "order": l.lesson_order,
-            })
+        glossary = l.lay_glossary or []
+        total_terms += len(glossary) if isinstance(glossary, list) else 0
+        lesson_data.append({
+            "title": l.title,
+            "lay_summary": l.lay_summary,   # None if not yet generated — frontend handles gracefully
+            "lay_glossary": [
+                {"term": t["term"], "slug": _slugify(t["term"]), "simple_definition": t["simple_definition"]}
+                for t in (glossary if isinstance(glossary, list) else [])
+                if isinstance(t, dict)
+            ],
+            "order": l.lesson_order,
+        })
 
     if not lesson_data:
-        raise HTTPException(status_code=404, detail="No public content available for this topic yet")
+        raise HTTPException(status_code=404, detail="Topic not found")
 
     response = PublicTopicDetail(
         module_code=module.code,

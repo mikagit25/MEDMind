@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import sys
+from datetime import datetime
 from pathlib import Path
 
 # Add parent to path
@@ -134,6 +135,8 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 estimated_minutes=content.get("estimated_minutes", 20) if isinstance(content, dict) else 20,
                 lay_summary=lesson_data.get("lay_summary"),
                 lay_glossary=lesson_data.get("lay_glossary"),
+                status="published",
+                published_at=datetime.utcnow(),
             )
             db.add(lesson)
 

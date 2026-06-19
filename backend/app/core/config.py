@@ -35,6 +35,8 @@ class Settings(BaseSettings):
     GROQ_API_KEY_3: str = ""
     GROQ_API_KEY_4: str = ""
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    # Dedicated key for module/course content generation scripts (not user AI)
+    GROQ_KEY_MODULE: str = ""
 
     # Cerebras (free tier — cloud.cerebras.ai, 900 tok/s, OpenAI-compatible)
     CEREBRAS_API_KEY: str = ""
