@@ -8,6 +8,43 @@ export interface LearnStrings {
   nav_get_started: string;
   disclaimer: string;
   footer_tagline: string;
+  // Pet health index page
+  pets_h1: string;
+  pets_subtitle: string;
+  pets_disclaimer: string;
+  pets_lesson_singular: string;
+  pets_lesson_plural: string;
+  pets_empty: string;
+  pets_pro_h2: string;
+  pets_pro_desc: string;
+  pets_pro_btn: string;
+  // Pet module detail page
+  pets_back: string;
+  pets_key_points: string;
+  pets_glossary_section: string;
+  pets_glossary_full: string;
+  pets_vet_h2: string;
+  pets_vet_desc: string;
+  pets_vet_btn: string;
+  pets_footer_note: string;
+  // Veterinary professional page (/learn/vet)
+  vet_h1: string;
+  vet_badge: string;
+  vet_subtitle: string;
+  vet_disclaimer: string;
+  vet_specs_title: string;
+  vet_modules_label: string;
+  vet_cta_h2: string;
+  vet_cta_desc: string;
+  vet_cta_login: string;
+  vet_cta_signup: string;
+  vet_pet_owners: string;
+  vet_pet_owners_link: string;
+  // Hub card for vet (on /learn page)
+  card_vet_title: string;
+  card_vet_subtitle: string;
+  card_vet_desc: string;
+  card_vet_cta: string;
   // Hub hero
   hub_badge: string;
   hub_h1: string;
@@ -159,6 +196,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Dosing, interactions, adverse effects, and clinical pearls — available for healthcare professionals.",
     drugs_cta_btn: "Create Free Account →",
+    pets_h1: "Pet Health Guides",
+    pets_subtitle: "Evidence-based health information for dog and cat owners — written in plain language by veterinary professionals. No jargon, no dosing advice, just what you actually need to know.",
+    pets_disclaimer: "This content is for educational purposes only and does not constitute veterinary advice. If your pet is unwell, contact a veterinarian immediately.",
+    pets_lesson_singular: "lesson",
+    pets_lesson_plural: "lessons",
+    pets_empty: "Pet health content coming soon.",
+    pets_pro_h2: "Veterinary students & professionals",
+    pets_pro_desc: "Access full clinical modules, drug dosing by species, MCQs, clinical cases, and spaced repetition flashcards.",
+    pets_pro_btn: "Browse Veterinary Modules →",
+    pets_back: "← Back to all pet health guides",
+    pets_key_points: "Key points",
+    pets_glossary_section: "Glossary for this section",
+    pets_glossary_full: "Complete Glossary",
+    pets_vet_h2: "Are you a vet or vet student?",
+    pets_vet_desc: "Access full clinical modules with drug dosing, clinical cases, and spaced repetition.",
+    pets_vet_btn: "Explore Veterinary Modules →",
+    pets_footer_note: "The information on this page is for general educational purposes only and does not constitute veterinary medical advice. Always consult a qualified veterinarian for your pet's health concerns.",
+    vet_h1: "Veterinary Medicine",
+    vet_badge: "For vet students & professionals",
+    vet_subtitle: "Clinical modules covering small animals, large animals, exotics, pharmacology, surgery, and more — written for veterinary students and practitioners.",
+    vet_disclaimer: "Clinical educational content for veterinary professionals. Not a substitute for clinical judgment.",
+    vet_specs_title: "Specialties covered",
+    vet_modules_label: "modules",
+    vet_cta_h2: "Full access for veterinary professionals",
+    vet_cta_desc: "Species-adjusted drug dosing, clinical cases, MCQs, spaced repetition flashcards, and CME tracking — all in one platform.",
+    vet_cta_login: "Log in",
+    vet_cta_signup: "Create free account →",
+    vet_pet_owners: "Looking for pet owner guides?",
+    vet_pet_owners_link: "Pet Health Guides →",
+    card_vet_title: "Veterinary Medicine",
+    card_vet_subtitle: "For vet students & professionals",
+    card_vet_desc: "Clinical modules on small animals, large animals, pharmacology, surgery, and exotic species — with species-adjusted drug dosing and clinical cases.",
+    card_vet_cta: "Explore Vet Modules →",
   },
 
   // ── Russian ───────────────────────────────────────────────────────────────────
@@ -244,6 +314,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Дозировки, взаимодействия, побочные эффекты и клинические жемчужины — доступно для медицинских работников.",
     drugs_cta_btn: "Создать бесплатный аккаунт →",
+    pets_h1: "Здоровье питомцев",
+    pets_subtitle: "Достоверная информация о здоровье собак и кошек — написана простым языком ветеринарными специалистами. Без жаргона, без рекомендаций по дозировке — только то, что вам действительно нужно знать.",
+    pets_disclaimer: "Этот контент предназначен только для образовательных целей и не является ветеринарной консультацией. Если ваш питомец нездоров, немедленно обратитесь к ветеринару.",
+    pets_lesson_singular: "урок",
+    pets_lesson_plural: "уроков",
+    pets_empty: "Контент о здоровье питомцев скоро появится.",
+    pets_pro_h2: "Студенты и специалисты ветеринарии",
+    pets_pro_desc: "Полные клинические модули, дозирование препаратов по видам, тестовые вопросы, клинические кейсы и карточки для интервального повторения.",
+    pets_pro_btn: "Ветеринарные модули →",
+    pets_back: "← Все руководства по здоровью питомцев",
+    pets_key_points: "Ключевые моменты",
+    pets_glossary_section: "Глоссарий раздела",
+    pets_glossary_full: "Полный глоссарий",
+    pets_vet_h2: "Вы ветеринар или студент-ветеринар?",
+    pets_vet_desc: "Полные клинические модули с дозировкой препаратов, клинические кейсы и интервальное повторение.",
+    pets_vet_btn: "Ветеринарные модули →",
+    pets_footer_note: "Информация на этой странице предназначена исключительно для образовательных целей и не является ветеринарной медицинской консультацией. При любых проблемах со здоровьем питомца всегда обращайтесь к квалифицированному ветеринару.",
+    vet_h1: "Ветеринарная медицина",
+    vet_badge: "Для студентов и специалистов ветеринарии",
+    vet_subtitle: "Клинические модули по мелким и крупным животным, экзотике, фармакологии, хирургии и многому другому — для студентов-ветеринаров и практикующих специалистов.",
+    vet_disclaimer: "Клинический образовательный контент для ветеринарных специалистов. Не заменяет клиническое суждение.",
+    vet_specs_title: "Охватываемые специальности",
+    vet_modules_label: "модулей",
+    vet_cta_h2: "Полный доступ для ветеринарных специалистов",
+    vet_cta_desc: "Дозирование препаратов по видам, клинические кейсы, тестовые вопросы, интервальное повторение и отслеживание CME — всё в одной платформе.",
+    vet_cta_login: "Войти",
+    vet_cta_signup: "Создать бесплатный аккаунт →",
+    vet_pet_owners: "Ищете руководства для владельцев питомцев?",
+    vet_pet_owners_link: "Здоровье питомцев →",
+    card_vet_title: "Ветеринарная медицина",
+    card_vet_subtitle: "Для студентов и специалистов",
+    card_vet_desc: "Клинические модули по мелким и крупным животным, фармакологии, хирургии и экзотическим видам — с дозированием препаратов по видам и клиническими кейсами.",
+    card_vet_cta: "Ветеринарные модули →",
   },
 
   // ── Arabic ────────────────────────────────────────────────────────────────────
@@ -326,6 +429,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "الجرعات والتفاعلات والآثار الجانبية والنقاط السريرية — متاحة للمتخصصين الصحيين.",
     drugs_cta_btn: "إنشاء حساب مجاني →",
+    pets_h1: "أدلة صحة الحيوانات الأليفة",
+    pets_subtitle: "معلومات صحية موثوقة لأصحاب الكلاب والقطط — مكتوبة بلغة بسيطة من قبل متخصصين بيطريين. بدون مصطلحات معقدة، بدون جرعات، فقط ما تحتاج لمعرفته حقاً.",
+    pets_disclaimer: "هذا المحتوى لأغراض تعليمية فقط ولا يشكل استشارة بيطرية. إذا كان حيوانك الأليف مريضاً، اتصل بطبيب بيطري فوراً.",
+    pets_lesson_singular: "درس",
+    pets_lesson_plural: "دروس",
+    pets_empty: "محتوى صحة الحيوانات قريباً.",
+    pets_pro_h2: "طلاب وأخصائيو البيطرة",
+    pets_pro_desc: "وحدات سريرية كاملة، جرعات الأدوية حسب النوع، أسئلة اختبار، حالات سريرية، وبطاقات مراجعة متباعدة.",
+    pets_pro_btn: "تصفح الوحدات البيطرية →",
+    pets_back: "← العودة إلى جميع أدلة صحة الحيوانات",
+    pets_key_points: "النقاط الرئيسية",
+    pets_glossary_section: "مسرد هذا القسم",
+    pets_glossary_full: "المسرد الكامل",
+    pets_vet_h2: "هل أنت طبيب بيطري أو طالب بيطرة؟",
+    pets_vet_desc: "وحدات سريرية كاملة مع جرعات الأدوية والحالات السريرية والمراجعة المتباعدة.",
+    pets_vet_btn: "استكشاف الوحدات البيطرية →",
+    pets_footer_note: "المعلومات على هذه الصفحة لأغراض تعليمية عامة فقط ولا تشكل استشارة طبية بيطرية. استشر دائماً طبيباً بيطرياً مؤهلاً لأي مخاوف تتعلق بصحة حيوانك الأليف.",
+    vet_h1: "الطب البيطري",
+    vet_badge: "لطلاب وأخصائيي البيطرة",
+    vet_subtitle: "وحدات سريرية تغطي الحيوانات الصغيرة والكبيرة والغريبة والأدوية والجراحة وأكثر — للطلاب والممارسين البيطريين.",
+    vet_disclaimer: "محتوى تعليمي سريري للمتخصصين البيطريين. لا يغني عن الحكم السريري.",
+    vet_specs_title: "التخصصات المشمولة",
+    vet_modules_label: "وحدات",
+    vet_cta_h2: "وصول كامل للمتخصصين البيطريين",
+    vet_cta_desc: "جرعات الأدوية حسب النوع، الحالات السريرية، أسئلة الاختبار، المراجعة المتباعدة، وتتبع التعليم المستمر — كل ذلك في منصة واحدة.",
+    vet_cta_login: "تسجيل الدخول",
+    vet_cta_signup: "إنشاء حساب مجاني →",
+    vet_pet_owners: "تبحث عن أدلة لأصحاب الحيوانات؟",
+    vet_pet_owners_link: "أدلة صحة الحيوانات الأليفة →",
+    card_vet_title: "الطب البيطري",
+    card_vet_subtitle: "للطلاب والمتخصصين",
+    card_vet_desc: "وحدات سريرية في الحيوانات الصغيرة والكبيرة والأدوية والجراحة والأنواع الغريبة — مع جرعات الأدوية حسب النوع والحالات السريرية.",
+    card_vet_cta: "استكشاف الوحدات البيطرية →",
   },
 
   // ── Turkish ───────────────────────────────────────────────────────────────────
@@ -410,6 +546,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Doz, etkileşimler, yan etkiler ve klinik notlar — sağlık profesyonelleri için mevcut.",
     drugs_cta_btn: "Ücretsiz Hesap Oluştur →",
+    pets_h1: "Evcil Hayvan Sağlık Rehberleri",
+    pets_subtitle: "Köpek ve kedi sahipleri için veteriner uzmanları tarafından sade dilde yazılmış güvenilir sağlık bilgileri. Jargon yok, doz tavsiyesi yok, sadece bilmeniz gerekenler.",
+    pets_disclaimer: "Bu içerik yalnızca eğitim amaçlıdır ve veteriner tavsiyesi niteliği taşımaz. Hayvanınız hastaysa hemen bir veterinere başvurun.",
+    pets_lesson_singular: "ders",
+    pets_lesson_plural: "ders",
+    pets_empty: "Evcil hayvan sağlığı içeriği yakında geliyor.",
+    pets_pro_h2: "Veteriner öğrencileri ve profesyonelleri",
+    pets_pro_desc: "Tam klinik modüller, türe göre ilaç dozları, MCQ'lar, klinik vakalar ve aralıklı tekrar kartları.",
+    pets_pro_btn: "Veteriner Modüllerini Gözat →",
+    pets_back: "← Tüm evcil hayvan sağlık rehberlerine dön",
+    pets_key_points: "Temel noktalar",
+    pets_glossary_section: "Bu bölümün sözlüğü",
+    pets_glossary_full: "Tam Sözlük",
+    pets_vet_h2: "Veteriner veya veteriner öğrencisi misiniz?",
+    pets_vet_desc: "İlaç dozları, klinik vakalar ve aralıklı tekrar ile tam klinik modüllere erişin.",
+    pets_vet_btn: "Veteriner Modüllerini Keşfet →",
+    pets_footer_note: "Bu sayfadaki bilgiler yalnızca genel eğitim amaçlıdır ve veteriner tıbbi tavsiyesi niteliği taşımaz. Hayvanınızın sağlığıyla ilgili endişeleriniz için her zaman nitelikli bir veterinere danışın.",
+    vet_h1: "Veteriner Tıbbı",
+    vet_badge: "Veteriner öğrencileri ve profesyonelleri için",
+    vet_subtitle: "Küçük hayvanlar, büyük hayvanlar, egzotikler, farmakoloji, cerrahi ve daha fazlasını kapsayan klinik modüller — veteriner öğrencileri ve uygulayıcıları için.",
+    vet_disclaimer: "Veteriner profesyonelleri için klinik eğitim içeriği. Klinik yargının yerini tutmaz.",
+    vet_specs_title: "Kapsanan uzmanlıklar",
+    vet_modules_label: "modül",
+    vet_cta_h2: "Veteriner profesyonelleri için tam erişim",
+    vet_cta_desc: "Türe göre ilaç dozları, klinik vakalar, MCQ'lar, aralıklı tekrar ve CME takibi — tek bir platformda.",
+    vet_cta_login: "Giriş yap",
+    vet_cta_signup: "Ücretsiz hesap oluştur →",
+    vet_pet_owners: "Evcil hayvan sahibi rehberleri mi arıyorsunuz?",
+    vet_pet_owners_link: "Evcil Hayvan Sağlık Rehberleri →",
+    card_vet_title: "Veteriner Tıbbı",
+    card_vet_subtitle: "Öğrenciler ve profesyoneller için",
+    card_vet_desc: "Küçük hayvanlar, büyük hayvanlar, farmakoloji, cerrahi ve egzotik türlere ilişkin klinik modüller — türe göre ilaç dozları ve klinik vakalarla.",
+    card_vet_cta: "Vet Modüllerini Keşfet →",
   },
 
   // ── German ────────────────────────────────────────────────────────────────────
@@ -494,6 +663,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Dosierung, Wechselwirkungen, Nebenwirkungen und klinische Hinweise — für medizinische Fachkräfte verfügbar.",
     drugs_cta_btn: "Kostenloses Konto erstellen →",
+    pets_h1: "Tiergesundheitsratgeber",
+    pets_subtitle: "Evidenzbasierte Gesundheitsinformationen für Hunde- und Katzenbesitzer — in verständlicher Sprache von Veterinärfachleuten verfasst. Kein Fachjargon, keine Dosierungsempfehlungen.",
+    pets_disclaimer: "Dieser Inhalt dient nur zu Bildungszwecken und stellt keine Tierarztberatung dar. Wenn Ihr Tier krank ist, wenden Sie sich sofort an einen Tierarzt.",
+    pets_lesson_singular: "Lektion",
+    pets_lesson_plural: "Lektionen",
+    pets_empty: "Tiergesundheitsinhalte kommen bald.",
+    pets_pro_h2: "Veterinärstudenten & Fachkräfte",
+    pets_pro_desc: "Vollständige klinische Module, artspezifische Medikamentendosierungen, MCQs, klinische Fälle und Lernkarten.",
+    pets_pro_btn: "Veterinärmodule durchsuchen →",
+    pets_back: "← Zurück zu allen Tiergesundheitsratgebern",
+    pets_key_points: "Wesentliche Punkte",
+    pets_glossary_section: "Glossar für diesen Abschnitt",
+    pets_glossary_full: "Vollständiges Glossar",
+    pets_vet_h2: "Sind Sie Tierarzt oder Veterinärstudent?",
+    pets_vet_desc: "Vollständige klinische Module mit Medikamentendosierungen, klinischen Fällen und Lernkarten.",
+    pets_vet_btn: "Veterinärmodule erkunden →",
+    pets_footer_note: "Die Informationen auf dieser Seite dienen ausschließlich zu allgemeinen Bildungszwecken und stellen keine tierärztliche Beratung dar. Wenden Sie sich bei Gesundheitsproblemen Ihres Tieres immer an einen qualifizierten Tierarzt.",
+    vet_h1: "Veterinärmedizin",
+    vet_badge: "Für Veterinärstudenten & Fachkräfte",
+    vet_subtitle: "Klinische Module zu Kleintieren, Großtieren, Exoten, Pharmakologie, Chirurgie und mehr — für Veterinärstudenten und Praktiker.",
+    vet_disclaimer: "Klinische Bildungsinhalte für Veterinärfachkräfte. Kein Ersatz für klinisches Urteilsvermögen.",
+    vet_specs_title: "Abgedeckte Fachgebiete",
+    vet_modules_label: "Module",
+    vet_cta_h2: "Vollzugriff für Veterinärfachkräfte",
+    vet_cta_desc: "Artspezifische Medikamentendosierungen, klinische Fälle, MCQs, Lernkarten und CME-Tracking — alles auf einer Plattform.",
+    vet_cta_login: "Einloggen",
+    vet_cta_signup: "Kostenloses Konto erstellen →",
+    vet_pet_owners: "Suchen Sie Ratgeber für Tierbesitzer?",
+    vet_pet_owners_link: "Tiergesundheitsratgeber →",
+    card_vet_title: "Veterinärmedizin",
+    card_vet_subtitle: "Für Studenten & Fachkräfte",
+    card_vet_desc: "Klinische Module zu Kleintieren, Großtieren, Pharmakologie, Chirurgie und exotischen Arten — mit artspezifischen Dosierungen und klinischen Fällen.",
+    card_vet_cta: "Vet-Module erkunden →",
   },
 
   // ── French ────────────────────────────────────────────────────────────────────
@@ -578,6 +780,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Dosage, interactions, effets indésirables et perles cliniques — disponibles pour les professionnels de santé.",
     drugs_cta_btn: "Créer un compte gratuit →",
+    pets_h1: "Guides de santé animale",
+    pets_subtitle: "Informations de santé fiables pour les propriétaires de chiens et chats — rédigées en langage clair par des professionnels vétérinaires. Sans jargon, sans conseils de dosage.",
+    pets_disclaimer: "Ce contenu est à titre éducatif uniquement et ne constitue pas un avis vétérinaire. Si votre animal est malade, contactez immédiatement un vétérinaire.",
+    pets_lesson_singular: "leçon",
+    pets_lesson_plural: "leçons",
+    pets_empty: "Contenu santé animale bientôt disponible.",
+    pets_pro_h2: "Étudiants et professionnels vétérinaires",
+    pets_pro_desc: "Modules cliniques complets, dosages par espèce, QCM, cas cliniques et flashcards de révision espacée.",
+    pets_pro_btn: "Parcourir les modules vétérinaires →",
+    pets_back: "← Retour à tous les guides de santé animale",
+    pets_key_points: "Points clés",
+    pets_glossary_section: "Glossaire de cette section",
+    pets_glossary_full: "Glossaire complet",
+    pets_vet_h2: "Êtes-vous vétérinaire ou étudiant vétérinaire ?",
+    pets_vet_desc: "Modules cliniques complets avec dosages, cas cliniques et révision espacée.",
+    pets_vet_btn: "Explorer les modules vétérinaires →",
+    pets_footer_note: "Les informations sur cette page sont à titre éducatif général uniquement et ne constituent pas un conseil médical vétérinaire. Consultez toujours un vétérinaire qualifié pour les problèmes de santé de votre animal.",
+    vet_h1: "Médecine vétérinaire",
+    vet_badge: "Pour étudiants et professionnels vétérinaires",
+    vet_subtitle: "Modules cliniques couvrant les petits animaux, grands animaux, exotiques, pharmacologie, chirurgie et plus — pour étudiants et praticiens vétérinaires.",
+    vet_disclaimer: "Contenu éducatif clinique pour les professionnels vétérinaires. Ne remplace pas le jugement clinique.",
+    vet_specs_title: "Spécialités couvertes",
+    vet_modules_label: "modules",
+    vet_cta_h2: "Accès complet pour les professionnels vétérinaires",
+    vet_cta_desc: "Dosages par espèce, cas cliniques, QCM, révision espacée et suivi CME — tout sur une seule plateforme.",
+    vet_cta_login: "Se connecter",
+    vet_cta_signup: "Créer un compte gratuit →",
+    vet_pet_owners: "Vous cherchez des guides pour propriétaires ?",
+    vet_pet_owners_link: "Guides de santé animale →",
+    card_vet_title: "Médecine vétérinaire",
+    card_vet_subtitle: "Pour étudiants et professionnels",
+    card_vet_desc: "Modules cliniques sur les petits animaux, grands animaux, pharmacologie, chirurgie et espèces exotiques — avec dosages par espèce et cas cliniques.",
+    card_vet_cta: "Explorer les modules vétérinaires →",
   },
 
   // ── Spanish ───────────────────────────────────────────────────────────────────
@@ -664,6 +899,39 @@ const translations: Record<LearnLocale, LearnStrings> = {
     drugs_cta_desc:
       "Dosificación, interacciones, efectos adversos y perlas clínicas — disponibles para profesionales de la salud.",
     drugs_cta_btn: "Crear Cuenta Gratis →",
+    pets_h1: "Guías de Salud Animal",
+    pets_subtitle: "Información de salud basada en evidencia para dueños de perros y gatos — escrita en lenguaje sencillo por profesionales veterinarios. Sin jerga, sin consejos de dosis.",
+    pets_disclaimer: "Este contenido es solo educativo y no constituye asesoramiento veterinario. Si tu mascota está enferma, contacta a un veterinario de inmediato.",
+    pets_lesson_singular: "lección",
+    pets_lesson_plural: "lecciones",
+    pets_empty: "Contenido de salud animal próximamente.",
+    pets_pro_h2: "Estudiantes y profesionales veterinarios",
+    pets_pro_desc: "Módulos clínicos completos, dosificación por especie, preguntas tipo test, casos clínicos y tarjetas de repaso espaciado.",
+    pets_pro_btn: "Ver módulos veterinarios →",
+    pets_back: "← Volver a todas las guías de salud animal",
+    pets_key_points: "Puntos clave",
+    pets_glossary_section: "Glosario de esta sección",
+    pets_glossary_full: "Glosario completo",
+    pets_vet_h2: "¿Eres veterinario o estudiante de veterinaria?",
+    pets_vet_desc: "Módulos clínicos completos con dosificación de medicamentos, casos clínicos y repaso espaciado.",
+    pets_vet_btn: "Explorar módulos veterinarios →",
+    pets_footer_note: "La información en esta página es solo para fines educativos generales y no constituye asesoramiento médico veterinario. Consulta siempre a un veterinario cualificado para los problemas de salud de tu mascota.",
+    vet_h1: "Medicina Veterinaria",
+    vet_badge: "Para estudiantes y profesionales veterinarios",
+    vet_subtitle: "Módulos clínicos que cubren animales pequeños, grandes, exóticos, farmacología, cirugía y más — para estudiantes y practicantes veterinarios.",
+    vet_disclaimer: "Contenido educativo clínico para profesionales veterinarios. No sustituye el juicio clínico.",
+    vet_specs_title: "Especialidades cubiertas",
+    vet_modules_label: "módulos",
+    vet_cta_h2: "Acceso completo para profesionales veterinarios",
+    vet_cta_desc: "Dosificación por especie, casos clínicos, preguntas tipo test, repaso espaciado y seguimiento CME — todo en una plataforma.",
+    vet_cta_login: "Iniciar sesión",
+    vet_cta_signup: "Crear cuenta gratis →",
+    vet_pet_owners: "¿Buscas guías para dueños de mascotas?",
+    vet_pet_owners_link: "Guías de Salud Animal →",
+    card_vet_title: "Medicina Veterinaria",
+    card_vet_subtitle: "Para estudiantes y profesionales",
+    card_vet_desc: "Módulos clínicos de animales pequeños, grandes, farmacología, cirugía y especies exóticas — con dosificación por especie y casos clínicos.",
+    card_vet_cta: "Explorar módulos veterinarios →",
   },
 };
 

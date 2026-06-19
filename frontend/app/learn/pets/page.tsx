@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLearnT } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -48,8 +49,15 @@ async function fetchPetModules(): Promise<PetModule[]> {
   }
 }
 
-export default async function PetHealthPage() {
-  const modules = await fetchPetModules();
+export default async function PetHealthPage({
+  searchParams,
+}: {
+  searchParams?: { lang?: string };
+}) {
+  const [modules, t] = await Promise.all([
+    fetchPetModules(),
+    Promise.resolve(getLearnT(searchParams?.lang)),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -80,11 +88,10 @@ export default async function PetHealthPage() {
           {" / "}Pets
         </p>
         <h1 className="font-syne font-black text-3xl text-ink mb-3">
-          Pet Health Guides
+          {t.pets_h1}
         </h1>
         <p className="font-serif text-ink-2 text-base leading-relaxed">
-          Evidence-based health information for dog and cat owners — written in plain language by veterinary professionals.
-          No jargon, no dosing advice, just what you actually need to know.
+          {t.pets_subtitle}
         </p>
       </div>
 
@@ -92,14 +99,13 @@ export default async function PetHealthPage() {
       <div className="bg-amber-light border border-amber/30 rounded-lg p-4 mb-8 flex gap-3">
         <span className="text-lg flex-shrink-0">⚠️</span>
         <p className="font-serif text-sm text-amber-dark">
-          This content is for educational purposes only and does not constitute veterinary advice.
-          If your pet is unwell, <strong>contact a veterinarian immediately</strong>.
+          {t.pets_disclaimer}
         </p>
       </div>
 
       {/* Module grid */}
       {modules.length === 0 ? (
-        <p className="font-serif text-ink-3 text-center py-12">Content coming soon.</p>
+        <p className="font-serif text-ink-3 text-center py-12">{t.pets_empty}</p>
       ) : (
         <div className="space-y-6">
           {modules.map((mod) => (
@@ -115,7 +121,7 @@ export default async function PetHealthPage() {
                     {mod.title}
                   </h2>
                   <p className="font-serif text-sm text-ink-3 mb-3">
-                    {mod.lesson_count} lesson{mod.lesson_count !== 1 ? "s" : ""}
+                    {mod.lesson_count} {mod.lesson_count === 1 ? t.pets_lesson_singular : t.pets_lesson_plural}
                   </p>
                   <ul className="space-y-1">
                     {mod.lessons.slice(0, 3).map((l) => (
@@ -133,14 +139,16 @@ export default async function PetHealthPage() {
         </div>
       )}
 
-      {/* CTA */}
-      <div className="mt-12 card p-6 text-center">
-        <p className="font-syne font-bold text-base text-ink mb-1">Veterinary students & professionals</p>
-        <p className="font-serif text-sm text-ink-3 mb-4">
-          Access full clinical modules, drug dosing, MCQs, and spaced repetition flashcards.
-        </p>
-        <Link href="/register" className="btn-primary inline-block">
-          Explore Pro Content
+      {/* Separator */}
+      <div className="mt-12 pt-8 border-t border-border" />
+
+      {/* Vet professional CTA — now links to /learn/vet */}
+      <div className="card p-6 text-center bg-surface border-2 border-ink/10">
+        <div className="text-3xl mb-3">🩺</div>
+        <p className="font-syne font-bold text-base text-ink mb-1">{t.pets_pro_h2}</p>
+        <p className="font-serif text-sm text-ink-3 mb-4">{t.pets_pro_desc}</p>
+        <Link href="/learn/vet" className="btn-primary inline-block">
+          {t.pets_pro_btn}
         </Link>
       </div>
     </main>

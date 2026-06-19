@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getLearnT } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -39,7 +40,7 @@ async function fetchAllModules(): Promise<{ slug: string; title: string }[]> {
     const res = await fetch(`${API_URL}/public/pets`, { next: { revalidate: 86400 } });
     if (!res.ok) return [];
     const data = await res.json();
-    return (data.modules ?? []).map((m: any) => ({ slug: m.slug, title: m.title }));
+    return (data.modules ?? []).map((m: { slug: string; title: string }) => ({ slug: m.slug, title: m.title }));
   } catch {
     return [];
   }
@@ -74,10 +75,15 @@ export async function generateMetadata({
 
 export default async function PetModulePage({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams?: { lang?: string };
 }) {
-  const mod = await fetchModule(params.slug);
+  const [mod, t] = await Promise.all([
+    fetchModule(params.slug),
+    Promise.resolve(getLearnT(searchParams?.lang)),
+  ]);
   if (!mod) notFound();
 
   const jsonLd = {
@@ -87,11 +93,7 @@ export default async function PetModulePage({
     description: mod.lessons[0]?.lay_summary?.slice(0, 200) ?? "",
     url: `${SITE_URL}/learn/pets/${params.slug}`,
     audience: { "@type": "Audience", audienceType: "Pet owners" },
-    publisher: {
-      "@type": "Organization",
-      name: "MedMind AI",
-      url: SITE_URL,
-    },
+    publisher: { "@type": "Organization", name: "MedMind AI", url: SITE_URL },
     medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
   };
 
@@ -106,7 +108,7 @@ export default async function PetModulePage({
       <p className="font-serif text-sm text-ink-3 mb-6">
         <Link href="/learn" className="hover:text-ink">Learn</Link>
         {" / "}
-        <Link href="/learn/pets" className="hover:text-ink">Pet Health</Link>
+        <Link href="/learn/pets" className="hover:text-ink">{t.pets_h1}</Link>
         {" / "}
         <span>{mod.title}</span>
       </p>
@@ -138,7 +140,7 @@ export default async function PetModulePage({
 
             {lesson.key_points?.length > 0 && (
               <div className="bg-bg-2 rounded-lg p-4 mb-4">
-                <p className="font-syne font-semibold text-sm text-ink mb-2">Key points</p>
+                <p className="font-syne font-semibold text-sm text-ink mb-2">{t.pets_key_points}</p>
                 <ul className="space-y-1.5">
                   {lesson.key_points.map((pt, j) => (
                     <li key={j} className="font-serif text-sm text-ink-2 flex items-start gap-2">
@@ -153,7 +155,7 @@ export default async function PetModulePage({
             {lesson.lay_glossary?.length > 0 && (
               <details className="border border-border rounded-lg">
                 <summary className="cursor-pointer px-4 py-3 font-syne font-semibold text-sm text-ink select-none">
-                  Glossary for this section ({lesson.lay_glossary.length} terms)
+                  {t.pets_glossary_section} ({lesson.lay_glossary.length})
                 </summary>
                 <div className="px-4 pb-4 pt-2 space-y-2">
                   {lesson.lay_glossary.map((g) => (
@@ -172,7 +174,7 @@ export default async function PetModulePage({
       {/* Full glossary */}
       {mod.glossary?.length > 0 && (
         <section className="mt-12 pt-8 border-t border-border">
-          <h2 className="font-syne font-bold text-lg text-ink mb-4">Complete Glossary</h2>
+          <h2 className="font-syne font-bold text-lg text-ink mb-4">{t.pets_glossary_full}</h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {mod.glossary.map((g) => (
               <div key={g.term} className="card p-3">
@@ -184,32 +186,29 @@ export default async function PetModulePage({
         </section>
       )}
 
-      {/* Navigation to other pet guides */}
+      {/* Back nav */}
       <div className="mt-10">
         <Link
           href="/learn/pets"
           className="font-serif text-sm text-ink-3 hover:text-ink transition-colors"
         >
-          ← Back to all pet health guides
+          {t.pets_back}
         </Link>
       </div>
 
-      {/* CTA */}
+      {/* Vet professional CTA — links to /learn/vet */}
       <div className="mt-8 card p-6 text-center">
-        <p className="font-syne font-bold text-base text-ink mb-1">Are you a vet or vet student?</p>
-        <p className="font-serif text-sm text-ink-3 mb-4">
-          Access full clinical modules with drug dosing, clinical cases, and spaced repetition.
-        </p>
-        <Link href="/register" className="btn-primary inline-block">
-          Access Veterinary Modules
+        <p className="font-syne font-bold text-base text-ink mb-1">{t.pets_vet_h2}</p>
+        <p className="font-serif text-sm text-ink-3 mb-4">{t.pets_vet_desc}</p>
+        <Link href="/learn/vet" className="btn-primary inline-block">
+          {t.pets_vet_btn}
         </Link>
       </div>
 
       {/* Footer disclaimer */}
       <div className="mt-8 p-4 bg-bg-2 rounded-lg">
         <p className="font-serif text-xs text-ink-3 text-center">
-          ℹ️ The information on this page is for general educational purposes only and does not constitute
-          veterinary medical advice. Always consult a qualified veterinarian for your pet's health concerns.
+          ℹ️ {t.pets_footer_note}
         </p>
       </div>
     </main>

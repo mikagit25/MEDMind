@@ -110,6 +110,16 @@ export default async function LearnHubPage({
       color: "border-amber-200 hover:border-amber-400",
       badge: null,
     },
+    {
+      href: "/learn/vet",
+      icon: "🩺",
+      title: t.card_vet_title,
+      subtitle: t.card_vet_subtitle,
+      description: t.card_vet_desc,
+      cta: t.card_vet_cta,
+      color: "border-green-200 hover:border-green-400",
+      badge: null,
+    },
   ];
 
   const SPECIALTIES = [

@@ -383,6 +383,17 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       hreflang: hreflangTags("/learn/pets", LEARN_LOCALES),
     })
   );
+
+  // Veterinary professionals page
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn/vet", locale),
+      lastmod: now,
+      priority: 0.85,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn/vet", LEARN_LOCALES),
+    })
+  );
   for (const pet of learnPets) {
     entries.push(
       urlEntry({
