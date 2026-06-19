@@ -13,6 +13,7 @@ const PUBLIC_PREFIXES = [
   "/calculators",
   "/drugs",
   "/imaging",
+  "/learn",
   "/sitemap",
   "/robots",
   "/opengraph",
@@ -60,7 +61,10 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = rest;
     url.searchParams.set("lang", locale);
-    return NextResponse.rewrite(url);
+    // Forward locale to Server Components via request header (readable via headers())
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", locale);
+    return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
   }
 
   // ── Case 2: ?lang= query param → 301 redirect to path-prefixed URL ────────

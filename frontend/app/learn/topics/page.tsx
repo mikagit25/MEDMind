@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -58,8 +59,13 @@ const SPECIALTY_ORDER = [
   "Veterinary",
 ];
 
-export default async function TopicsPage() {
+export default async function TopicsPage({
+  searchParams,
+}: {
+  searchParams?: { lang?: string; search?: string };
+}) {
   const topics = await fetchTopics();
+  const t = getLearnT(searchParams?.lang);
 
   // Group by specialty
   const grouped: Record<string, PublicTopic[]> = {};
@@ -102,27 +108,25 @@ export default async function TopicsPage() {
         {/* Hero */}
         <div className="text-center mb-10">
           <h1 className="font-syne font-black text-3xl sm:text-4xl text-ink mb-3">
-            Medical Topics
+            {t.topics_h1}
           </h1>
           <p className="font-serif text-ink-3 text-base max-w-xl mx-auto">
             {topics.length > 0
-              ? `${topics.length} topics across ${specialties.length} specialties — explained in plain language.`
-              : "Plain-language health guides for patients, students, and curious minds."}
+              ? interpolate(t.topics_count, { count: topics.length, specs: specialties.length })
+              : t.topics_empty_desc}
           </p>
         </div>
 
         {topics.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-5xl mb-4">🔬</div>
-            <p className="font-syne font-bold text-ink text-lg mb-2">Topics coming soon</p>
-            <p className="font-serif text-ink-3 text-sm mb-6">
-              We&apos;re generating plain-language summaries for all our medical content.
-            </p>
+            <p className="font-syne font-bold text-ink text-lg mb-2">{t.topics_coming_soon}</p>
+            <p className="font-serif text-ink-3 text-sm mb-6">{t.topics_coming_desc}</p>
             <Link
               href="/register"
               className="inline-block px-6 py-2.5 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
             >
-              Get notified when it&apos;s ready
+              {t.topics_notify}
             </Link>
           </div>
         ) : (
@@ -186,16 +190,16 @@ export default async function TopicsPage() {
             {/* CTA */}
             <div className="mt-16 text-center bg-surface border border-border rounded-2xl p-8">
               <h2 className="font-syne font-black text-xl text-ink mb-2">
-                Ready to go deeper?
+                {t.topics_cta_h2}
               </h2>
               <p className="font-serif text-sm text-ink-3 mb-5">
-                Full lessons, AI tutor, flashcards, and clinical cases — for students, physicians, and curious minds.
+                {t.topics_cta_desc}
               </p>
               <Link
                 href="/register"
                 className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
               >
-                Start Learning Free →
+                {t.topics_cta_btn}
               </Link>
             </div>
           </>

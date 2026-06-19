@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLearnT } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -58,66 +59,69 @@ async function fetchStats(): Promise<Stats> {
   }
 }
 
-const SECTIONS = [
-  {
-    href: "/learn/topics",
-    icon: "📚",
-    title: "Medical Topics",
-    subtitle: "Browse by specialty",
-    description:
-      "Cardiology, neurology, pharmacology, surgery and more — each topic broken down into clear, jargon-free lessons. Understand what your doctor is talking about.",
-    cta: "Explore Topics →",
-    color: "border-blue-200 hover:border-blue-400",
-    badge: "topics",
-  },
-  {
-    href: "/learn/drugs",
-    icon: "💊",
-    title: "Drug Guide",
-    subtitle: "What medications do",
-    description:
-      "Understand the purpose, mechanism, and safety of common medications. Plain explanations without dosing — always consult your doctor before taking or stopping any drug.",
-    cta: "Browse Drugs →",
-    color: "border-green-200 hover:border-green-400",
-    badge: "drugs",
-  },
-  {
-    href: "/learn/glossary",
-    icon: "🔤",
-    title: "Medical Glossary",
-    subtitle: "Terms explained simply",
-    description:
-      "A-Z glossary of medical terms translated into everyday language. Never be confused by a diagnosis or lab report again.",
-    cta: "Open Glossary →",
-    color: "border-purple-200 hover:border-purple-400",
-    badge: "glossary",
-  },
-  {
-    href: "/learn/pets",
-    icon: "🐾",
-    title: "Pet Health",
-    subtitle: "Veterinary guides for owners",
-    description:
-      "Learn about common conditions, medications, and when to see a vet. Written for pet owners, not veterinarians.",
-    cta: "Pet Health Guide →",
-    color: "border-amber-200 hover:border-amber-400",
-    badge: null,
-  },
-];
+export default async function LearnHubPage({
+  searchParams,
+}: {
+  searchParams?: { lang?: string };
+}) {
+  const [stats, t] = await Promise.all([
+    fetchStats(),
+    Promise.resolve(getLearnT(searchParams?.lang)),
+  ]);
 
-const SPECIALTIES = [
-  { name: "Cardiology", icon: "❤️", href: "/learn/topics#spec-кардиология" },
-  { name: "Neurology", icon: "🧠", href: "/learn/topics#spec-неврология" },
-  { name: "Internal Medicine", icon: "🩺", href: "/learn/topics#spec-терапия" },
-  { name: "Pharmacology", icon: "💊", href: "/learn/topics#spec-фармакология" },
-  { name: "Pediatrics", icon: "👶", href: "/learn/topics#spec-педиатрия" },
-  { name: "Surgery", icon: "🔬", href: "/learn/topics#spec-хирургия" },
-  { name: "Obstetrics", icon: "🤱", href: "/learn/topics#spec-акушерство-и-гинекология" },
-  { name: "Psychiatry", icon: "🧩", href: "/learn/topics#spec-психиатрия" },
-];
+  const SECTIONS = [
+    {
+      href: "/learn/topics",
+      icon: "📚",
+      title: t.card_topics_title,
+      subtitle: t.card_topics_subtitle,
+      description: t.card_topics_desc,
+      cta: t.card_topics_cta,
+      color: "border-blue-200 hover:border-blue-400",
+      badge: "topics",
+    },
+    {
+      href: "/learn/drugs",
+      icon: "💊",
+      title: t.card_drugs_title,
+      subtitle: t.card_drugs_subtitle,
+      description: t.card_drugs_desc,
+      cta: t.card_drugs_cta,
+      color: "border-green-200 hover:border-green-400",
+      badge: "drugs",
+    },
+    {
+      href: "/learn/glossary",
+      icon: "🔤",
+      title: t.card_glossary_title,
+      subtitle: t.card_glossary_subtitle,
+      description: t.card_glossary_desc,
+      cta: t.card_glossary_cta,
+      color: "border-purple-200 hover:border-purple-400",
+      badge: "glossary",
+    },
+    {
+      href: "/learn/pets",
+      icon: "🐾",
+      title: t.card_pets_title,
+      subtitle: t.card_pets_subtitle,
+      description: t.card_pets_desc,
+      cta: t.card_pets_cta,
+      color: "border-amber-200 hover:border-amber-400",
+      badge: null,
+    },
+  ];
 
-export default async function LearnHubPage() {
-  const stats = await fetchStats();
+  const SPECIALTIES = [
+    { name: t.spec_cardiology, icon: "❤️", href: "/learn/topics#spec-кардиология" },
+    { name: t.spec_neurology, icon: "🧠", href: "/learn/topics#spec-неврология" },
+    { name: t.spec_internal, icon: "🩺", href: "/learn/topics#spec-терапия" },
+    { name: t.spec_pharmacology, icon: "💊", href: "/learn/topics#spec-фармакология" },
+    { name: t.spec_pediatrics, icon: "👶", href: "/learn/topics#spec-педиатрия" },
+    { name: t.spec_surgery, icon: "🔬", href: "/learn/topics#spec-хирургия" },
+    { name: t.spec_obstetrics, icon: "🤱", href: "/learn/topics#spec-акушерство-и-гинекология" },
+    { name: t.spec_psychiatry, icon: "🧩", href: "/learn/topics#spec-психиатрия" },
+  ];
 
   return (
     <>
@@ -141,15 +145,14 @@ export default async function LearnHubPage() {
         {/* Hero */}
         <div className="text-center py-14 sm:py-20">
           <div className="inline-block px-3 py-1 rounded-full bg-blue-50 border border-blue-100 font-syne font-semibold text-xs text-blue-600 mb-5">
-            Free · No account required
+            {t.hub_badge}
           </div>
           <h1 className="font-syne font-black text-4xl sm:text-5xl text-ink mb-4 leading-tight">
-            Understand medicine,<br className="hidden sm:block" />
-            <span className="text-accent"> without a medical degree</span>
+            {t.hub_h1}<br className="hidden sm:block" />
+            <span className="text-accent"> {t.hub_h1_accent}</span>
           </h1>
           <p className="font-serif text-ink-3 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            Plain-language guides on medical topics, drugs, and conditions —
-            written for patients, students, and anyone curious about health.
+            {t.hub_subtitle}
           </p>
 
           {/* Stats */}
@@ -158,7 +161,7 @@ export default async function LearnHubPage() {
               {stats.topics > 0 && (
                 <div className="text-center">
                   <div className="font-syne font-black text-3xl text-ink">{stats.topics}+</div>
-                  <div className="font-serif text-xs text-ink-3">medical topics</div>
+                  <div className="font-serif text-xs text-ink-3">{t.hub_stat_topics}</div>
                 </div>
               )}
               {stats.drugs > 0 && (
@@ -167,7 +170,7 @@ export default async function LearnHubPage() {
               {stats.drugs > 0 && (
                 <div className="text-center">
                   <div className="font-syne font-black text-3xl text-ink">{stats.drugs}+</div>
-                  <div className="font-serif text-xs text-ink-3">drug guides</div>
+                  <div className="font-serif text-xs text-ink-3">{t.hub_stat_drugs}</div>
                 </div>
               )}
               {stats.glossary_terms > 0 && (
@@ -175,7 +178,7 @@ export default async function LearnHubPage() {
                   <div className="w-px h-8 bg-border hidden sm:block" />
                   <div className="text-center">
                     <div className="font-syne font-black text-3xl text-ink">{stats.glossary_terms}+</div>
-                    <div className="font-serif text-xs text-ink-3">glossary terms</div>
+                    <div className="font-serif text-xs text-ink-3">{t.hub_stat_glossary}</div>
                   </div>
                 </>
               )}
@@ -187,24 +190,24 @@ export default async function LearnHubPage() {
               href="/learn/topics"
               className="px-7 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
             >
-              Browse All Topics
+              {t.hub_btn_browse}
             </Link>
             <Link
               href="/register"
               className="px-7 py-3 rounded-xl border border-border bg-surface font-syne font-bold text-sm text-ink hover:border-ink transition-colors"
             >
-              Full Access — Free Signup
+              {t.hub_btn_signup}
             </Link>
           </div>
         </div>
 
         {/* Quick specialty nav */}
         <div className="mb-12">
-          <h2 className="font-syne font-black text-xl text-ink mb-4 text-center">Browse by specialty</h2>
+          <h2 className="font-syne font-black text-xl text-ink mb-4 text-center">{t.hub_by_specialty}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {SPECIALTIES.map((s) => (
               <Link
-                key={s.name}
+                key={s.href}
                 href={s.href}
                 className="group flex items-center gap-3 bg-surface border border-border rounded-xl p-4 hover:border-ink hover:shadow-sm transition-all"
               >
@@ -229,17 +232,17 @@ export default async function LearnHubPage() {
                 <span className="text-3xl">{s.icon}</span>
                 {s.badge === "topics" && stats.topics > 0 && (
                   <span className="font-serif text-xs text-ink-3/60 bg-bg-2 px-2 py-0.5 rounded border border-border">
-                    {stats.topics} topics
+                    {stats.topics} {t.hub_stat_topics}
                   </span>
                 )}
                 {s.badge === "drugs" && stats.drugs > 0 && (
                   <span className="font-serif text-xs text-ink-3/60 bg-bg-2 px-2 py-0.5 rounded border border-border">
-                    {stats.drugs} drugs
+                    {stats.drugs} {t.hub_stat_drugs}
                   </span>
                 )}
                 {s.badge === "glossary" && stats.glossary_terms > 0 && (
                   <span className="font-serif text-xs text-ink-3/60 bg-bg-2 px-2 py-0.5 rounded border border-border">
-                    {stats.glossary_terms} terms
+                    {stats.glossary_terms} {t.hub_stat_glossary}
                   </span>
                 )}
               </div>
@@ -256,23 +259,23 @@ export default async function LearnHubPage() {
         {/* For professionals CTA */}
         <div className="bg-ink rounded-2xl p-8 text-center">
           <div className="font-syne font-black text-2xl text-white mb-2">
-            Are you a healthcare professional?
+            {t.pro_h2}
           </div>
           <p className="font-serif text-sm text-white/70 mb-5 max-w-xl mx-auto">
-            Get access to full clinical lessons, AI tutor, case simulations, flashcards, drug dosing, and CME tracking.
+            {t.pro_desc}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/register"
               className="px-7 py-3 rounded-xl bg-white text-ink font-syne font-bold text-sm hover:bg-gray-100 transition-colors"
             >
-              Start Free →
+              {t.pro_start}
             </Link>
             <Link
               href="/how-it-works"
               className="px-7 py-3 rounded-xl border border-white/20 text-white font-syne font-bold text-sm hover:border-white/60 transition-colors"
             >
-              How it works
+              {t.pro_how}
             </Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -52,9 +53,10 @@ async function fetchDrugs(search?: string): Promise<Drug[]> {
 export default async function DrugsIndexPage({
   searchParams,
 }: {
-  searchParams: { search?: string; class?: string };
+  searchParams: { search?: string; class?: string; lang?: string };
 }) {
   const drugs = await fetchDrugs(searchParams.search);
+  const t = getLearnT(searchParams.lang);
 
   // Group by drug class
   const grouped: Record<string, Drug[]> = {};
@@ -86,15 +88,15 @@ export default async function DrugsIndexPage({
         {/* Hero */}
         <div className="text-center mb-10">
           <h1 className="font-syne font-black text-3xl sm:text-4xl text-ink mb-3">
-            Drug Guide
+            {t.drugs_h1}
           </h1>
           <p className="font-serif text-ink-3 text-base max-w-xl mx-auto mb-1">
             {drugs.length > 0
-              ? `${drugs.length} medications explained in plain language.`
-              : "Plain-language medication guides for patients and curious minds."}
+              ? interpolate(t.drugs_count, { count: drugs.length })
+              : t.drugs_empty_desc}
           </p>
           <p className="font-serif text-xs text-amber mt-2">
-            ⚕️ This is educational information only — no dosing advice. Always consult your doctor or pharmacist.
+            ⚕️ {t.drugs_disclaimer}
           </p>
         </div>
 
@@ -104,14 +106,18 @@ export default async function DrugsIndexPage({
             type="text"
             name="search"
             defaultValue={searchParams.search ?? ""}
-            placeholder="Search medications…"
+            placeholder={t.drugs_search_placeholder}
             className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-surface font-serif text-sm text-ink placeholder:text-ink-3 focus:outline-none focus:border-ink"
           />
+          {/* Preserve lang param in search form */}
+          {searchParams.lang && (
+            <input type="hidden" name="lang" value={searchParams.lang} />
+          )}
           <button
             type="submit"
             className="px-5 py-2.5 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
           >
-            Search
+            {t.drugs_search_btn}
           </button>
         </form>
 
@@ -119,19 +125,19 @@ export default async function DrugsIndexPage({
           <div className="text-center py-20">
             <div className="text-5xl mb-4">💊</div>
             <p className="font-syne font-bold text-ink text-lg mb-2">
-              {searchParams.search ? "No results found" : "Drug guides coming soon"}
+              {searchParams.search ? t.drugs_no_results : t.drugs_coming_soon}
             </p>
             <p className="font-serif text-ink-3 text-sm mb-6">
               {searchParams.search
-                ? `No medications matched "${searchParams.search}". Try a different term.`
-                : "We're building plain-language guides for all major medications."}
+                ? interpolate(t.drugs_no_results_hint, { search: searchParams.search })
+                : t.drugs_coming_desc}
             </p>
             {searchParams.search && (
               <Link
                 href="/learn/drugs"
                 className="inline-block px-5 py-2 rounded-xl border border-border font-syne font-semibold text-sm text-ink hover:border-ink transition-colors"
               >
-                Clear search
+                {t.drugs_clear_search}
               </Link>
             )}
           </div>
@@ -208,16 +214,16 @@ export default async function DrugsIndexPage({
             {/* CTA */}
             <div className="mt-14 text-center bg-surface border border-border rounded-2xl p-8">
               <h2 className="font-syne font-black text-xl text-ink mb-2">
-                Need full clinical details?
+                {t.drugs_cta_h2}
               </h2>
               <p className="font-serif text-sm text-ink-3 mb-5">
-                Dosing, interactions, adverse effects, and clinical pearls — available for healthcare professionals.
+                {t.drugs_cta_desc}
               </p>
               <Link
                 href="/register"
                 className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
               >
-                Create Free Account →
+                {t.drugs_cta_btn}
               </Link>
             </div>
           </>

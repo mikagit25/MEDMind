@@ -287,68 +287,116 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     );
   }
 
-  // ── /learn/* pages — English only (no localized versions yet) ──────────────
+  // ── /learn/* pages — all locales with hreflang ─────────────────────────────
+  const LEARN_LOCALES = [...LOCALES]; // en, ru, ar, tr, de, fr, es
+
+  // Hub page
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn", locale),
+      lastmod: now,
+      priority: 0.9,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn", LEARN_LOCALES),
+    })
+  );
+
+  // Topics index
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn/topics", locale),
+      lastmod: now,
+      priority: 0.8,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn/topics", LEARN_LOCALES),
+    })
+  );
+
+  // Drugs index
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn/drugs", locale),
+      lastmod: now,
+      priority: 0.8,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn/drugs", LEARN_LOCALES),
+    })
+  );
+
+  // Glossary index
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn/glossary", locale),
+      lastmod: now,
+      priority: 0.8,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn/glossary", LEARN_LOCALES),
+    })
+  );
+
+  // Individual glossary term pages (EN canonical; other locales get same content)
+  for (const term of learnGlossary) {
+    entries.push(
+      urlEntry({
+        url: localizedUrl(`/learn/glossary/${term.slug}`, locale),
+        lastmod: now,
+        priority: 0.6,
+        changefreq: "monthly",
+        hreflang: hreflangTags(`/learn/glossary/${term.slug}`, LEARN_LOCALES),
+      })
+    );
+  }
+
+  // Individual topic pages
+  for (const topic of learnTopics) {
+    entries.push(
+      urlEntry({
+        url: localizedUrl(`/learn/topics/${topic.slug}`, locale),
+        lastmod: now,
+        priority: 0.7,
+        changefreq: "monthly",
+        hreflang: hreflangTags(`/learn/topics/${topic.slug}`, LEARN_LOCALES),
+      })
+    );
+  }
+
+  // Individual public drug pages
+  for (const drug of learnDrugs) {
+    entries.push(
+      urlEntry({
+        url: localizedUrl(`/learn/drugs/${drug.slug}`, locale),
+        lastmod: now,
+        priority: 0.65,
+        changefreq: "monthly",
+        hreflang: hreflangTags(`/learn/drugs/${drug.slug}`, LEARN_LOCALES),
+      })
+    );
+  }
+
+  // Pet owner module index + individual modules
+  entries.push(
+    urlEntry({
+      url: localizedUrl("/learn/pets", locale),
+      lastmod: now,
+      priority: 0.85,
+      changefreq: "weekly",
+      hreflang: hreflangTags("/learn/pets", LEARN_LOCALES),
+    })
+  );
+  for (const pet of learnPets) {
+    entries.push(
+      urlEntry({
+        url: localizedUrl(`/learn/pets/${pet.slug}`, locale),
+        lastmod: now,
+        priority: 0.75,
+        changefreq: "monthly",
+        hreflang: hreflangTags(`/learn/pets/${pet.slug}`, LEARN_LOCALES),
+      })
+    );
+  }
+
+  // Public quiz index + individual quizzes (EN only — not localized yet)
   if (locale === "en") {
-    // Index pages
-    entries.push(
-      urlEntry({ url: `${SITE_URL}/learn/glossary`, lastmod: now, priority: 0.8, changefreq: "weekly" })
-    );
-    entries.push(
-      urlEntry({ url: `${SITE_URL}/learn/topics`, lastmod: now, priority: 0.8, changefreq: "weekly" })
-    );
-
-    // Individual glossary term pages
-    for (const term of learnGlossary) {
-      entries.push(
-        urlEntry({
-          url: `${SITE_URL}/learn/glossary/${term.slug}`,
-          lastmod: now,
-          priority: 0.6,
-          changefreq: "monthly",
-        })
-      );
-    }
-
-    // Individual topic pages
-    for (const topic of learnTopics) {
-      entries.push(
-        urlEntry({
-          url: `${SITE_URL}/learn/topics/${topic.slug}`,
-          lastmod: now,
-          priority: 0.7,
-          changefreq: "monthly",
-        })
-      );
-    }
-
-    // Individual public drug pages
-    for (const drug of learnDrugs) {
-      entries.push(
-        urlEntry({
-          url: `${SITE_URL}/learn/drugs/${drug.slug}`,
-          lastmod: now,
-          priority: 0.65,
-          changefreq: "monthly",
-        })
-      );
-    }
-
-    // Pet owner module index + individual modules
-    entries.push(
-      urlEntry({ url: `${SITE_URL}/learn/pets`, lastmod: now, priority: 0.85, changefreq: "weekly" })
-    );
-    for (const pet of learnPets) {
-      entries.push(
-        urlEntry({
-          url: `${SITE_URL}/learn/pets/${pet.slug}`,
-          lastmod: now,
-          priority: 0.75,
-          changefreq: "monthly",
-        })
-      );
-    }
-
-    // Public quiz index + individual quizzes
     entries.push(
       urlEntry({ url: `${SITE_URL}/quiz/public`, lastmod: now, priority: 0.85, changefreq: "weekly" })
     );
