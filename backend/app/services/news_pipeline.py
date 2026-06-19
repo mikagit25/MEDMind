@@ -492,6 +492,7 @@ async def _process_item(item: dict, db: AsyncSession) -> int:
         fetched_at=datetime.utcnow(),
         translated_at=datetime.utcnow() if translations else None,
         is_published=True,
+        verification_status="passed",
     )
     db.add(news)
     await db.commit()

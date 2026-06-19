@@ -933,11 +933,11 @@ def save_article(conn, article_id: str, slug: str, title: str, excerpt: str,
             cur.execute("""
                 INSERT INTO articles
                   (id, slug, title, excerpt, body, category, schema_type,
-                   is_published, review_status, generated_by,
-                   reading_time_minutes, created_at)
+                   is_published, review_status, verification_status, generated_by,
+                   reading_time_minutes, created_at, published_at)
                 VALUES
-                  (%s,%s,%s,%s,%s::jsonb,%s,%s,true,'published','ollama-qwen3',
-                   %s, NOW())
+                  (%s,%s,%s,%s,%s::jsonb,%s,%s,true,'published','passed','ollama-qwen3',
+                   %s, NOW(), NOW())
             """, (
                 article_id, slug, title, excerpt,
                 json.dumps(body, ensure_ascii=False),
