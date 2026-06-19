@@ -101,18 +101,22 @@ class PublicTopic(BaseModel):
     module_code: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     description: Optional[str]
     lay_summary: Optional[str]       # first lesson's lay_summary
     lesson_count: int
     specialty: Optional[str]
+    specialty_en: Optional[str] = None
 
 
 class PublicTopicDetail(BaseModel):
     module_code: str
     slug: str
     title: str
+    title_en: Optional[str] = None
     description: Optional[str]
     specialty: Optional[str]
+    specialty_en: Optional[str] = None
     lessons: list[dict]              # [{title, lay_summary, lay_glossary, order}]
     total_glossary_terms: int
     disclaimer: str = (
@@ -309,15 +313,16 @@ async def list_public_topics(
     # All published modules — lay_summary optional (falls back to description)
     stmt = (
         select(
-            Module.code, Module.title, Module.description,
+            Module.code, Module.title, Module.title_en, Module.description,
             Specialty.name.label("specialty_name"),
+            Specialty.name_en.label("specialty_name_en"),
             func.count(Lesson.id).label("lesson_count"),
             func.max(Lesson.lay_summary).label("sample_summary"),
         )
         .join(Lesson, Lesson.module_id == Module.id)
         .outerjoin(Specialty, Module.specialty_id == Specialty.id)
         .where(Lesson.status == "published")
-        .group_by(Module.code, Module.title, Module.description, Specialty.name)
+        .group_by(Module.code, Module.title, Module.title_en, Module.description, Specialty.name, Specialty.name_en)
         .order_by(Specialty.name.nullslast(), Module.code)
         .limit(limit)
     )
@@ -331,11 +336,13 @@ async def list_public_topics(
         PublicTopic(
             module_code=row.code,
             slug=_slugify(row.code),
-            title=row.title,
+            title=row.title_en or row.title,
+            title_en=row.title_en,
             description=row.description,
             lay_summary=(row.sample_summary[:200] if row.sample_summary else None) or row.description,
             lesson_count=row.lesson_count,
             specialty=row.specialty_name,
+            specialty_en=row.specialty_name_en,
         ).model_dump()
         for row in rows
     ]
@@ -360,7 +367,7 @@ async def get_public_topic(
 
     # Find module by slugified code
     stmt = (
-        select(Module, Specialty.name.label("specialty_name"))
+        select(Module, Specialty.name.label("specialty_name"), Specialty.name_en.label("specialty_name_en"))
         .outerjoin(Specialty, Module.specialty_id == Specialty.id)
     )
     result = await db.execute(stmt)
@@ -368,10 +375,12 @@ async def get_public_topic(
 
     module = None
     specialty_name = None
-    for mod, spec in rows:
+    specialty_name_en = None
+    for mod, spec, spec_en in rows:
         if _slugify(mod.code) == module_slug:
             module = mod
             specialty_name = spec
+            specialty_name_en = spec_en
             break
 
     if not module:
@@ -409,9 +418,11 @@ async def get_public_topic(
     response = PublicTopicDetail(
         module_code=module.code,
         slug=module_slug,
-        title=module.title,
+        title=module.title_en or module.title,
+        title_en=module.title_en,
         description=module.description,
         specialty=specialty_name,
+        specialty_en=specialty_name_en,
         lessons=lesson_data,
         total_glossary_terms=total_terms,
     ).model_dump()

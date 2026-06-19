@@ -47,7 +47,9 @@ type PublicTopic = {
   module_code: string;
   slug: string;
   title: string;
+  title_en?: string | null;
   specialty: string | null;
+  specialty_en?: string | null;
   lesson_count: number;
   lay_summary: string | null;
 };
