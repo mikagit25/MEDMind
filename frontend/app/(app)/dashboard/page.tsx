@@ -454,6 +454,7 @@ function TodaysPlan() {
 
 // ── Continue Learning ─────────────────────────────────────────
 function ContinueLearning({ modules }: { modules: any[] }) {
+  const t = useT();
   if (!modules || modules.length === 0) return null;
   const inProgress = modules.filter((m: any) => (m.completion_percent ?? 0) < 100).slice(0, 3);
   if (inProgress.length === 0) return null;

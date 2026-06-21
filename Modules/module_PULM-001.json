@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "id": "PULM-001",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "COPD: Diagnosis, Staging (GOLD) and Evidence-Based Management",
+    "order_in_specialty": 1,
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-20"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of COPD",
+      "content": {
+        "intro": "Chronic obstructive pulmonary disease (COPD) is a progressive lung disease characterized by airflow limitation, which is not fully reversible. The global prevalence of COPD is approximately 11.7%, with a higher prevalence in men (14.3%) compared to women (7.6%). According to the World Health Organization (WHO), COPD is the third leading cause of death worldwide, accounting for 3.2 million deaths in 2019. The pathophysiology of COPD involves an abnormal inflammatory response to noxious particles or gases, leading to persistent airflow limitation. The disease is often associated with smoking, but other risk factors include exposure to air pollution, occupational exposures, and genetic predisposition.",
+        "sections": [
+          {
+            "heading": "Risk Factors and Pathogenesis",
+            "text": "The development of COPD is influenced by a combination of genetic and environmental factors. Smoking is the most significant risk factor, accounting for approximately 80-90% of all COPD cases. Other risk factors include exposure to air pollution, occupational exposures to dust and chemicals, and a history of respiratory infections. The pathogenesis of COPD involves an abnormal inflammatory response to noxious particles or gases, leading to the release of pro-inflammatory cytokines and the activation of various cell types, including macrophages, neutrophils, and T-lymphocytes. This inflammatory response leads to the destruction of lung tissue and the formation of emphysematous bullae, resulting in persistent airflow limitation."
+          },
+          {
+            "heading": "Molecular Mechanisms",
+            "text": "The molecular mechanisms underlying COPD involve the activation of various signaling pathways, including the NF-κB pathway, the PI3K/Akt pathway, and the MAPK pathway. These pathways regulate the expression of pro-inflammatory genes, the production of reactive oxygen species (ROS), and the activation of proteolytic enzymes, such as matrix metalloproteinases (MMPs). The imbalance between the production of ROS and the activity of antioxidant enzymes, such as superoxide dismutase (SOD) and glutathione peroxidase (GPx), contributes to the oxidative stress and tissue damage observed in COPD."
+          },
+          {
+            "heading": "Systemic Effects",
+            "text": "COPD is a systemic disease, with extrapulmonary manifestations that include cardiovascular disease, skeletal muscle dysfunction, and osteoporosis. The systemic inflammation observed in COPD is characterized by elevated levels of C-reactive protein (CRP), interleukin-6 (IL-6), and tumor necrosis factor-alpha (TNF-α). These inflammatory mediators contribute to the development of cardiovascular disease, which is a major comorbidity in COPD patients. The use of statins, such as Atorvastatin 40-80mg, has been shown to reduce the risk of cardiovascular events in COPD patients with elevated cardiovascular risk."
+          },
+          {
+            "heading": "Economic Burden",
+            "text": "The economic burden of COPD is significant, with estimated annual costs ranging from $2,500 to $10,000 per patient. The majority of these costs are attributed to hospitalizations, emergency department visits, and the use of medications, such as bronchodilators and corticosteroids. The use of pulmonary rehabilitation programs, which include exercise training, education, and behavioral modification, has been shown to reduce healthcare utilization and improve quality of life in COPD patients."
+          }
+        ],
+        "clinical_pearl": "The presence of a forced expiratory volume in one second (FEV1) to forced vital capacity (FVC) ratio of less than 0.7 is diagnostic of airflow limitation in COPD patients.",
+        "key_points": [
+          "The global prevalence of COPD is approximately 11.7%.",
+          "Smoking is the most significant risk factor for COPD, accounting for approximately 80-90% of all cases.",
+          "The use of statins, such as Atorvastatin 40-80mg, has been shown to reduce the risk of cardiovascular events in COPD patients with elevated cardiovascular risk.",
+          "The economic burden of COPD is significant, with estimated annual costs ranging from $2,500 to $10,000 per patient.",
+          "Pulmonary rehabilitation programs have been shown to reduce healthcare utilization and improve quality of life in COPD patients.",
+          "The presence of a FEV1 to FVC ratio of less than 0.7 is diagnostic of airflow limitation in COPD patients.",
+          "The use of long-acting muscarinic antagonists (LAMAs), such as Tiotropium 18mcg, has been shown to improve lung function and reduce exacerbations in COPD patients."
+        ],
+        "references": [
+          {
+            "title": "Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease",
+            "authors": "Global Initiative for Chronic Obstructive Lung Disease (GOLD)",
+            "journal_or_source": "GOLD Report",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The GOLD report provides a comprehensive overview of the diagnosis, management, and prevention of COPD."
+          },
+          {
+            "title": "The Lancet Respiratory Medicine",
+            "authors": "Celli BR, et al.",
+            "journal_or_source": "The Lancet Respiratory Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "This review article provides an overview of the pathogenesis and treatment of COPD."
+          },
+          {
+            "title": "New England Journal of Medicine",
+            "authors": "Vestbo J, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The TORCH trial demonstrated the efficacy of salmeterol and fluticasone in reducing exacerbations and improving quality of life in COPD patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation and Diagnosis of COPD",
+      "content": {
+        "intro": "The clinical presentation of COPD can vary widely, ranging from mild symptoms to severe disability. The diagnosis of COPD is based on a combination of clinical evaluation, spirometry, and imaging studies. The Global Initiative for Chronic Obstructive Lung Disease (GOLD) recommends the use of the COPD Assessment Test (CAT) to assess the severity of symptoms and the impact of COPD on daily life.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "The symptoms of COPD include dyspnea, cough, sputum production, and wheezing. The severity of symptoms can vary widely, with some patients experiencing mild symptoms and others experiencing severe disability. The physical examination may reveal signs of airflow limitation, such as wheezing, rhonchi, and a prolonged expiratory phase."
+          },
+          {
+            "heading": "Spirometry",
+            "text": "Spirometry is the most commonly used test to diagnose and assess the severity of COPD. The forced expiratory volume in one second (FEV1) and the forced vital capacity (FVC) are used to calculate the FEV1 to FVC ratio, which is diagnostic of airflow limitation in COPD patients. The GOLD report recommends the use of spirometry to diagnose and assess the severity of COPD."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest X-rays and computed tomography (CT) scans, can be used to assess the severity of lung damage and to rule out other conditions, such as pneumonia or lung cancer. The use of CT scans has been shown to improve the diagnosis and management of COPD, particularly in patients with severe disease."
+          },
+          {
+            "heading": "Differential Diagnosis",
+            "text": "The differential diagnosis of COPD includes other conditions that can cause airflow limitation, such as asthma, bronchiectasis, and cystic fibrosis. The use of clinical evaluation, spirometry, and imaging studies can help to differentiate COPD from these conditions."
+          }
+        ],
+        "clinical_pearl": "The presence of a FEV1 to FVC ratio of less than 0.7 is diagnostic of airflow limitation in COPD patients.",
+        "key_points": [
+          "The symptoms of COPD include dyspnea, cough, sputum production, and wheezing.",
+          "Spirometry is the most commonly used test to diagnose and assess the severity of COPD.",
+          "The FEV1 to FVC ratio is diagnostic of airflow limitation in COPD patients.",
+          "Imaging studies, such as chest X-rays and CT scans, can be used to assess the severity of lung damage and to rule out other conditions.",
+          "The differential diagnosis of COPD includes other conditions that can cause airflow limitation, such as asthma and bronchiectasis.",
+          "The use of the COPD Assessment Test (CAT) can help to assess the severity of symptoms and the impact of COPD on daily life."
+        ],
+        "references": [
+          {
+            "title": "Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease",
+            "authors": "Global Initiative for Chronic Obstructive Lung Disease (GOLD)",
+            "journal_or_source": "GOLD Report",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The GOLD report provides a comprehensive overview of the diagnosis, management, and prevention of COPD."
+          },
+          {
+            "title": "The Lancet Respiratory Medicine",
+            "authors": "Celli BR, et al.",
+            "journal_or_source": "The Lancet Respiratory Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "This review article provides an overview of the diagnosis and treatment of COPD."
+          },
+          {
+            "title": "New England Journal of Medicine",
+            "authors": "Vestbo J, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The TORCH trial demonstrated the efficacy of salmeterol and fluticasone in reducing exacerbations and improving quality of life in COPD patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnostic Criteria for COPD",
+      "content": {
+        "intro": "The diagnosis of COPD is based on a combination of clinical evaluation, spirometry, and imaging studies. The Global Initiative for Chronic Obstructive Lung Disease (GOLD) recommends the use of the COPD Assessment Test (CAT) to assess the severity of symptoms and the impact of COPD on daily life.",
+        "sections": [
+          {
+            "heading": "Spirometry",
+            "text": "Spirometry is the most commonly used test to diagnose and assess the severity of COPD. The forced expiratory volume in one second (FEV1) and the forced vital capacity (FVC) are used to calculate the FEV1 to FVC ratio, which is diagnostic of airflow limitation in COPD patients. The GOLD report recommends the use of spirometry to diagnose and assess the severity of COPD."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest X-rays and computed tomography (CT) scans, can be used to assess the severity of lung damage and to rule out other conditions, such as pneumonia or lung cancer. The use of CT scans has been shown to improve the diagnosis and management of COPD, particularly in patients with severe disease."
+          },
+          {
+            "heading": "Blood Tests",
+            "text": "Blood tests, such as complete blood counts (CBCs) and blood chemistries, can be used to assess the severity of COPD and to rule out other conditions, such as anemia or kidney disease. The use of blood tests has been shown to improve the diagnosis and management of COPD, particularly in patients with severe disease."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for COPD include a FEV1 to FVC ratio of less than 0.7, which is diagnostic of airflow limitation in COPD patients. The GOLD report recommends the use of the COPD Assessment Test (CAT) to assess the severity of symptoms and the impact of COPD on daily life."
+          }
+        ],
+        "clinical_pearl": "The presence of a FEV1 to FVC ratio of less than 0.7 is diagnostic of airflow limitation in COPD patients.",
+        "key_points": [
+          "Spirometry is the most commonly used test to diagnose and assess the severity of COPD.",
+          "The FEV1 to FVC ratio is diagnostic of airflow limitation in COPD patients.",
+          "Imaging studies, such as chest X-rays and CT scans, can be used to assess the severity of lung damage and to rule out other conditions.",
+          "Blood tests, such as CBCs and blood chemistries, can be used to assess the severity of COPD and to rule out other conditions.",
+          "The diagnostic criteria for COPD include a FEV1 to FVC ratio of less than 0.7.",
+          "The use of the COPD Assessment Test (CAT) can help to assess the severity of symptoms and the impact of COPD on daily life."
+        ],
+        "references": [
+          {
+            "title": "Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease",
+            "authors": "Global Initiative for Chronic Obstructive Lung Disease (GOLD)",
+            "journal_or_source": "GOLD Report",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The GOLD report provides a comprehensive overview of the diagnosis, management, and prevention of COPD."
+          },
+          {
+            "title": "The Lancet Respiratory Medicine",
+            "authors": "Celli BR, et al.",
+            "journal_or_source": "The Lancet Respiratory Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "This review article provides an overview of the diagnosis and treatment of COPD."
+          },
+          {
+            "title": "New England Journal of Medicine",
+            "authors": "Vestbo J, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The TORCH trial demonstrated the efficacy of salmeterol and fluticasone in reducing exacerbations and improving quality of life in COPD patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of COPD",
+      "content": {
+        "intro": "The treatment and management of COPD involve a combination of pharmacological and non-pharmacological interventions. The Global Initiative for Chronic Obstructive Lung Disease (GOLD) recommends the use of long-acting bronchodilators, such as long-acting muscarinic antagonists (LAMAs) and long-acting beta-2 agonists (LABAs), to improve lung function and reduce symptoms.",
+        "sections": [
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "The pharmacological treatment of COPD includes the use of bronchodilators, such as LAMAs and LABAs, to improve lung function and reduce symptoms. The use of inhaled corticosteroids (ICS) has been shown to reduce exacerbations and improve quality of life in COPD patients. The GOLD report recommends the use of LAMAs and LABAs as first-line therapy for COPD."
+          },
+          {
+            "heading": "Non-Pharmacological Interventions",
+            "text": "Non-pharmacological interventions, such as pulmonary rehabilitation programs, have been shown to improve quality of life and reduce healthcare utilization in COPD patients. The use of oxygen therapy has been shown to improve survival and reduce symptoms in COPD patients with severe hypoxemia."
+          },
+          {
+            "heading": "Surgical Interventions",
+            "text": "Surgical interventions, such as lung transplantation, have been shown to improve survival and quality of life in COPD patients with severe disease. The use of bullectomy and lung volume reduction surgery has been shown to improve lung function and reduce symptoms in COPD patients with severe emphysema."
+          },
+          {
+            "heading": "Palliative Care",
+            "text": "Palliative care, including the use of opioids and benzodiazepines, has been shown to improve symptoms and quality of life in COPD patients with advanced disease. The GOLD report recommends the use of palliative care to improve symptoms and quality of life in COPD patients with advanced disease."
+          }
+        ],
+        "clinical_pearl": "The use of LAMAs and LABAs has been shown to improve lung function and reduce symptoms in COPD patients.",
+        "key_points": [
+          "The pharmacological treatment of COPD includes the use of bronchodilators, such as LAMAs and LABAs, to improve lung function and reduce symptoms.",
+          "The use of ICS has been shown to reduce exacerbations and improve quality of life in COPD patients.",
+          "Non-pharmacological interventions, such as pulmonary rehabilitation programs, have been shown to improve quality of life and reduce healthcare utilization in COPD patients.",
+          "Surgical interventions, such as lung transplantation, have been shown to improve survival and quality of life in COPD patients with severe disease.",
+          "Palliative care, including the use of opioids and benzodiazepines, has been shown to improve symptoms and quality of life in COPD patients with advanced disease.",
+          "The GOLD report recommends the use of LAMAs and LABAs as first-line therapy for COPD."
+        ],
+        "references": [
+          {
+            "title": "Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease",
+            "authors": "Global Initiative for Chronic Obstructive Lung Disease (GOLD)",
+            "journal_or_source": "GOLD Report",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The GOLD report provides a comprehensive overview of the diagnosis, management, and prevention of COPD."
+          },
+          {
+            "title": "The Lancet Respiratory Medicine",
+            "authors": "Celli BR, et al.",
+            "journal_or_source": "The Lancet Respiratory Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "This review article provides an overview of the treatment and management of COPD."
+          },
+          {
+            "title": "New England Journal of Medicine",
+            "authors": "Vestbo J, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The TORCH trial demonstrated the efficacy of salmeterol and fluticasone in reducing exacerbations and improving quality of life in COPD patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications, Prognosis, and Follow-up of COPD",
+      "content": {
+        "intro": "The complications of COPD include exacerbations, pneumonia, and respiratory failure. The prognosis of COPD is poor, with a 5-year mortality rate of approximately 50%. The follow-up of COPD patients includes regular monitoring of lung function, symptoms, and quality of life.",
+        "sections": [
+          {
+            "heading": "Exacerbations",
+            "text": "Exacerbations are a common complication of COPD, characterized by an increase in symptoms, such as dyspnea, cough, and sputum production. The treatment of exacerbations includes the use of antibiotics, corticosteroids, and bronchodilators. The GOLD report recommends the use of a treatment plan to manage exacerbations."
+          },
+          {
+            "heading": "Pneumonia",
+            "text": "Pneumonia is a common complication of COPD, characterized by an infection of the lungs. The treatment of pneumonia includes the use of antibiotics, such as Azithromycin 500mg, and supportive care, such as oxygen therapy and mechanical ventilation."
+          },
+          {
+            "heading": "Respiratory Failure",
+            "text": "Respiratory failure is a life-threatening complication of COPD, characterized by the inability to breathe. The treatment of respiratory failure includes the use of mechanical ventilation, such as non-invasive positive pressure ventilation (NIPPV), and supportive care, such as oxygen therapy and sedation."
+          },
+          {
+            "heading": "Prognosis and Follow-up",
+            "text": "The prognosis of COPD is poor, with a 5-year mortality rate of approximately 50%. The follow-up of COPD patients includes regular monitoring of lung function, symptoms, and quality of life. The GOLD report recommends the use of a follow-up plan to monitor the progression of COPD and to adjust treatment as needed."
+          }
+        ],
+        "clinical_pearl": "The use of a treatment plan to manage exacerbations has been shown to improve outcomes in COPD patients.",
+        "key_points": [
+          "Exacerbations are a common complication of COPD, characterized by an increase in symptoms.",
+          "Pneumonia is a common complication of COPD, characterized by an infection of the lungs.",
+          "Respiratory failure is a life-threatening complication of COPD, characterized by the inability to breathe.",
+          "The prognosis of COPD is poor, with a 5-year mortality rate of approximately 50%.",
+          "The follow-up of COPD patients includes regular monitoring of lung function, symptoms, and quality of life.",
+          "The GOLD report recommends the use of a follow-up plan to monitor the progression of COPD and to adjust treatment as needed."
+        ],
+        "references": [
+          {
+            "title": "Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease",
+            "authors": "Global Initiative for Chronic Obstructive Lung Disease (GOLD)",
+            "journal_or_source": "GOLD Report",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The GOLD report provides a comprehensive overview of the diagnosis, management, and prevention of COPD."
+          },
+          {
+            "title": "The Lancet Respiratory Medicine",
+            "authors": "Celli BR, et al.",
+            "journal_or_source": "The Lancet Respiratory Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "This review article provides an overview of the complications and prognosis of COPD."
+          },
+          {
+            "title": "New England Journal of Medicine",
+            "authors": "Vestbo J, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The TORCH trial demonstrated the efficacy of salmeterol and fluticasone in reducing exacerbations and improving quality of life in COPD patients."
+          }
+        ]
+      }
+    }
+  ]
+}

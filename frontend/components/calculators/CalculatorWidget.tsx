@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { useAuthStore } from "@/lib/store";
@@ -294,7 +294,7 @@ function SaveResultPanel({ slug, inputs, score, riskLabel, lang }: {
 
 // ── Checkbox-based calculator ─────────────────────────────────────────────────
 
-function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
+function CheckboxCalc({ calc, lang, onResult }: { calc: CalcMeta; lang: string; onResult?: (color: "green"|"amber"|"red"|"red-dark"|null) => void }) {
   const initState = useMemo(() => {
     const s: Record<string, number> = {};
     calc.fields.forEach((f, i) => {
@@ -307,6 +307,8 @@ function CheckboxCalc({ calc, lang }: { calc: CalcMeta; lang: string }) {
   const [vals, setVals] = useState<Record<string, number>>(initState);
   const score = useMemo(() => Object.values(vals).reduce((a, b) => a + b, 0), [vals]);
   const band = getRiskBand(calc, score);
+  const bandColor = (band?.color ?? null) as "green"|"amber"|"red"|"red-dark"|null;
+  useEffect(() => { onResult?.(bandColor); }, [bandColor, onResult]);
 
   function setField(key: string, v: number) {
     setVals(prev => ({ ...prev, [key]: v }));
@@ -441,7 +443,7 @@ const CKD_STAGES: CkdStage[] = [
   { stage: "G5",  labelKey: "g5",  recKey: "rec_g5",  color: "red",    min: 0,   max: 14 },
 ];
 
-function EgfrCalc({ lang }: { lang: string }) {
+function EgfrCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|"amber"|"red"|null) => void }) {
   const [creat, setCreat] = useState("");
   const [unit, setUnit] = useState<"mg" | "umol">("mg");
   const [age, setAge] = useState("");
@@ -459,6 +461,7 @@ function EgfrCalc({ lang }: { lang: string }) {
   }
 
   const colors = result ? RISK_COLORS[result.stage.color] : RISK_COLORS.green;
+  useEffect(() => { onResult?.(result?.stage.color ?? null); }, [result, onResult]);
   const tl = (key: string) => t(eGFR_T[key], lang);
 
   return (
@@ -618,7 +621,7 @@ function NumResult({ label, value, unit, description, recommendation, color }: {
 
 // ── BMI Calculator ────────────────────────────────────────────────────────────
 
-function BmiCalc({ lang }: { lang: string }) {
+function BmiCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|"amber"|"red"|null) => void }) {
   const L: Record<string, Record<Lang, string>> = {
     weight:  { en: "Weight", ru: "Масса тела", ar: "الوزن", tr: "Ağırlık", de: "Gewicht", fr: "Poids", es: "Peso" },
     height:  { en: "Height", ru: "Рост", ar: "الطول", tr: "Boy", de: "Größe", fr: "Taille", es: "Talla" },
@@ -629,6 +632,7 @@ function BmiCalc({ lang }: { lang: string }) {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [result, setResult] = useState<null | { bmi: number; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+  useEffect(() => { onResult?.(result?.color ?? null); }, [result, onResult]);
 
   function getBmiCategory(bmi: number): { label: string; rec: string; color: "green" | "amber" | "red" } {
     if (bmi < 18.5) return {
@@ -756,7 +760,7 @@ function CorrectedCalciumCalc({ lang }: { lang: string }) {
 
 // ── Anion Gap Calculator ──────────────────────────────────────────────────────
 
-function AnionGapCalc({ lang }: { lang: string }) {
+function AnionGapCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|"amber"|"red"|null) => void }) {
   const L: Record<string, Record<Lang, string>> = {
     sodium:    { en: "Sodium (Na⁺)", ru: "Натрий (Na⁺)", ar: "الصوديوم (Na⁺)", tr: "Sodyum (Na⁺)", de: "Natrium (Na⁺)", fr: "Sodium (Na⁺)", es: "Sodio (Na⁺)" },
     chloride:  { en: "Chloride (Cl⁻)", ru: "Хлорид (Cl⁻)", ar: "الكلوريد (Cl⁻)", tr: "Klorür (Cl⁻)", de: "Chlorid (Cl⁻)", fr: "Chlorure (Cl⁻)", es: "Cloruro (Cl⁻)" },
@@ -772,6 +776,7 @@ function AnionGapCalc({ lang }: { lang: string }) {
   const [hco3, setHco3] = useState("");
   const [alb, setAlb] = useState("");
   const [result, setResult] = useState<null | { ag: number; agCorr: number | null; label: string; rec: string; color: "green" | "amber" | "red" }>(null);
+  useEffect(() => { onResult?.(result?.color ?? null); }, [result, onResult]);
 
   function getAgCategory(ag: number): { label: string; rec: string; color: "green" | "amber" | "red" } {
     if (ag <= 12) return {
@@ -842,7 +847,7 @@ function AnionGapCalc({ lang }: { lang: string }) {
 
 // ── MELD Score Calculator ─────────────────────────────────────────────────────
 
-function MeldCalc({ lang }: { lang: string }) {
+function MeldCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|"amber"|"red"|null) => void }) {
   const L: Record<string, Record<Lang, string>> = {
     inr:     { en: "INR", ru: "МНО", ar: "النسبة الدولية المعيارية", tr: "INR", de: "INR", fr: "INR", es: "INR" },
     bili:    { en: "Total Bilirubin", ru: "Общий билирубин", ar: "البيليروبين الكلي", tr: "Total Bilirubin", de: "Gesamtbilirubin", fr: "Bilirubine totale", es: "Bilirrubina total" },
@@ -858,6 +863,7 @@ function MeldCalc({ lang }: { lang: string }) {
   const [creat, setCreat] = useState("");
   const [sodium, setSodium] = useState("");
   const [result, setResult] = useState<null | { meld: number; meldNa: number | null; label: string; mortality: string; color: "green" | "amber" | "red" }>(null);
+  useEffect(() => { onResult?.(result?.color ?? null); }, [result, onResult]);
 
   function getMeldCategory(meld: number): { label: string; mortality: string; color: "green" | "amber" | "red" } {
     if (meld < 10) return { label: lang === "ru" ? "Лёгкая степень" : "Mild", mortality: lang === "ru" ? "90-дневная летальность <5%. Плановое наблюдение." : "90-day mortality <5%. Routine follow-up.", color: "green" };
@@ -1018,7 +1024,7 @@ function CockcroftGaultCalc({ lang }: { lang: string }) {
 
 // ── AKI Staging Calculator (KDIGO 2012) ──────────────────────────────────────
 
-function AkiCalc({ lang }: { lang: string }) {
+function AkiCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|"amber"|"red"|null) => void }) {
   const L: Record<string, Record<Lang, string>> = {
     baseline_cr:  { en: "Baseline Creatinine", ru: "Базовый креатинин", ar: "الكرياتينين الأساسي", tr: "Bazal Kreatinin", de: "Ausgangskreatinin", fr: "Créatinine de base", es: "Creatinina basal" },
     current_cr:   { en: "Current Creatinine", ru: "Текущий креатинин", ar: "الكرياتينين الحالي", tr: "Mevcut Kreatinin", de: "Aktuelles Kreatinin", fr: "Créatinine actuelle", es: "Creatinina actual" },
@@ -1109,6 +1115,7 @@ function AkiCalc({ lang }: { lang: string }) {
 
   const stageColors: Record<number, "green" | "amber" | "red"> = { 0: "green", 1: "amber", 2: "red", 3: "red" };
   const stageBadge: Record<number, string> = { 0: "—", 1: "1", 2: "2", 3: "3" };
+  useEffect(() => { onResult?.(result ? stageColors[result.finalStage] ?? null : null); }, [result, onResult]);
 
   return (
     <div className="grid lg:grid-cols-[1fr_380px] gap-6">
@@ -1584,16 +1591,16 @@ function CalorieCalc({ lang }: { lang: string }) {
 
 // ── Main widget exported ─────────────────────────────────────────────────────
 
-export function CalculatorWidget({ slug }: { slug: string }) {
+export function CalculatorWidget({ slug, onResult }: { slug: string; onResult?: (color: "green"|"amber"|"red"|"red-dark"|null) => void }) {
   const { locale } = useI18n();
   const lang = locale as string;
 
-  if (slug === "egfr-ckd-epi") return <EgfrCalc lang={lang} />;
-  if (slug === "aki") return <AkiCalc lang={lang} />;
-  if (slug === "bmi") return <BmiCalc lang={lang} />;
+  if (slug === "egfr-ckd-epi") return <EgfrCalc lang={lang} onResult={onResult} />;
+  if (slug === "aki") return <AkiCalc lang={lang} onResult={onResult} />;
+  if (slug === "bmi") return <BmiCalc lang={lang} onResult={onResult} />;
   if (slug === "corrected-calcium") return <CorrectedCalciumCalc lang={lang} />;
-  if (slug === "anion-gap") return <AnionGapCalc lang={lang} />;
-  if (slug === "meld") return <MeldCalc lang={lang} />;
+  if (slug === "anion-gap") return <AnionGapCalc lang={lang} onResult={onResult} />;
+  if (slug === "meld") return <MeldCalc lang={lang} onResult={onResult} />;
   if (slug === "cockcroft-gault") return <CockcroftGaultCalc lang={lang} />;
   if (slug === "pregnancy-due-date") return <PregnancyCalc lang={lang} />;
   if (slug === "ideal-body-weight") return <IBWCalc lang={lang} />;
@@ -1607,7 +1614,7 @@ export function CalculatorWidget({ slug }: { slug: string }) {
     </div>
   );
 
-  return <CheckboxCalc calc={calc} lang={lang} />;
+  return <CheckboxCalc calc={calc} lang={lang} onResult={onResult} />;
 }
 
 // ── Index widget: grid of all calculators ─────────────────────────────────────

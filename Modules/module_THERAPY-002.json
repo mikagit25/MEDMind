@@ -7,7 +7,9 @@
     "order_in_specialty": 2,
     "level": "intermediate",
     "duration_hours": 5,
-    "version": "1.0"
+    "version": "2.0",
+    "content_enriched": true,
+    "enriched_at": "2026-06-20"
   },
   "lessons": [
     {
@@ -151,6 +153,41 @@
       "category": "ГЭ",
       "question": "Лечение гепатической энцефалопатии",
       "answer": "Острая: лактулоза (2-3 мягких стула/сут). Профилактика рецидивов: рифаксимин 550мг ×2. Устранить триггер.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "THERAPY-002-FC9",
+      "category": "Трансфузия при ЖКК",
+      "question": "Цель гемоглобина при трансфузии крови при ЖКК",
+      "answer": "70-90 г/л (TRIGGER trial)",
+      "difficulty": "easy"
+    },
+    {
+      "id": "THERAPY-002-FC10",
+      "category": "ВЗК",
+      "question": "Почему ведолизумаб предпочтителен при ВЗК",
+      "answer": "Ведолизумаб — кишечно-специфический, меньше инфекций",
+      "difficulty": "medium"
+    },
+    {
+      "id": "THERAPY-002-FC11",
+      "category": "Гепатит",
+      "question": "Критерий включения в лист трансплантации печени",
+      "answer": "MELD >15",
+      "difficulty": "easy"
+    },
+    {
+      "id": "THERAPY-002-FC12",
+      "category": "СБП",
+      "question": "Влияние альбумина на исход СБП",
+      "answer": "Альбумин IV снижает ГРС с 33% до 10% и смертность с 29% до 10%",
+      "difficulty": "medium"
+    },
+    {
+      "id": "THERAPY-002-FC13",
+      "category": "ГЭ",
+      "question": "Эффективность рифаксимина в профилактике рецидивов гепатической энцефалопатии",
+      "answer": "Рифаксимин снижает рецидивы на 57%",
       "difficulty": "medium"
     }
   ],

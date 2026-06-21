@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PULM-006",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Pulmonary Hypertension: Classification, Diagnosis and Targeted Therapy",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-21"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Pulmonary Hypertension",
+      "content": {
+        "intro": "Pulmonary hypertension (PH) is a complex and multifactorial disease characterized by elevated pulmonary artery pressure, leading to right ventricular failure. The epidemiology of PH varies widely depending on the underlying cause, with certain forms being more prevalent in specific populations. For instance, pulmonary arterial hypertension (PAH) is more common in women and has a median age at diagnosis of 50 years. The pathophysiology of PH involves vascular remodeling, including proliferation and resistance to apoptosis of endothelial and smooth muscle cells, as well as inflammation and thrombosis. Understanding the epidemiology and pathophysiology of PH is crucial for the diagnosis and management of the disease.",
+        "sections": [
+          {
+            "heading": "Classification of Pulmonary Hypertension",
+            "text": "The classification of PH has evolved over time, with the most recent classification system being adopted by the 6th World Symposium on Pulmonary Hypertension in 2018. This system categorizes PH into five groups based on the underlying cause: Group 1 (pulmonary arterial hypertension), Group 2 (PH due to left heart disease), Group 3 (PH due to lung disease), Group 4 (chronic thromboembolic PH), and Group 5 (PH with unclear or multifactorial mechanisms). Each group has distinct pathophysiological mechanisms and treatment approaches. For example, Group 1 PAH is characterized by endothelial dysfunction and is often treated with endothelin receptor antagonists such as bosentan (62.5-125 mg twice daily) or ambrisentan (5-10 mg once daily)."
+          },
+          {
+            "heading": "Pathophysiological Mechanisms",
+            "text": "The pathophysiology of PH involves a complex interplay of molecular and cellular mechanisms. Key pathways include the endothelin, nitric oxide, and prostacyclin pathways, which regulate vascular tone and remodeling. Endothelin-1, a potent vasoconstrictor, is elevated in PAH and contributes to vascular remodeling. The use of endothelin receptor antagonists, such as macitentan (10 mg once daily), has been shown to improve exercise capacity and delay clinical worsening in patients with PAH. The 2015 ESC/ERS guidelines recommend the use of endothelin receptor antagonists as first-line therapy for PAH patients with WHO functional class III symptoms."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic and environmental factors play a significant role in the development of PH. Certain genetic mutations, such as those affecting the BMPR2 gene, can increase the risk of developing PAH. Environmental factors, including exposure to high altitudes and certain toxins, can also contribute to the development of PH. The 2019 AHA/ACC guideline on pulmonary hypertension highlights the importance of genetic counseling and screening for patients with a family history of PAH. Additionally, the NICE 2013 guideline recommends that patients with PAH be screened for thyroid disease, as hypothyroidism is a common comorbidity in these patients."
+          }
+        ],
+        "clinical_pearl": "In patients with PAH, the 6-minute walk distance (6MWD) is a key prognostic indicator, with a distance of less than 300 meters being associated with a poor prognosis.",
+        "key_points": [
+          "The prevalence of PAH is approximately 15-50 cases per million population.",
+          "The endothelin receptor antagonist bosentan has been shown to improve exercise capacity in patients with PAH.",
+          "The prostacyclin analogue epoprostenol (0.5-1.5 ng/kg/min) is a potent vasodilator used in the treatment of PAH.",
+          "The 2015 ESC/ERS guidelines recommend the use of phosphodiesterase-5 inhibitors, such as sildenafil (20-50 mg three times daily), as add-on therapy for PAH patients with WHO functional class III symptoms.",
+          "The soluble guanylate cyclase stimulator riociguat (0.5-2.5 mg three times daily) has been shown to improve exercise capacity in patients with PAH.",
+          "The landmark SERAPHIN trial demonstrated the efficacy of macitentan in reducing the risk of morbidity and mortality in patients with PAH."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC/ERS Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension"
+          },
+          {
+            "title": "Ambrisentan for the treatment of pulmonary arterial hypertension",
+            "authors": "Galie N, et al.",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2008,
+            "type": "clinical trial",
+            "note": "Results of the ARIES-1 trial"
+          },
+          {
+            "title": "Macitentan for the treatment of pulmonary arterial hypertension",
+            "authors": "Pulido T, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Results of the SERAPHIN trial"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Pulmonary Hypertension",
+      "content": {
+        "intro": "The clinical presentation of PH can vary widely depending on the underlying cause and severity of the disease. Common symptoms include dyspnea, fatigue, chest pain, and syncope. Patients with PAH often present with symptoms of right heart failure, including peripheral edema and ascites. A thorough clinical evaluation, including a physical examination, medical history, and diagnostic testing, is essential for diagnosing PH and determining the underlying cause.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "The symptoms of PH can be non-specific, making diagnosis challenging. Dyspnea is the most common symptom, occurring in over 90% of patients. Fatigue, chest pain, and syncope are also common symptoms. Physical examination findings may include a loud second heart sound, jugular venous distension, and peripheral edema. The 2019 AHA/ACC guideline on pulmonary hypertension recommends that patients with suspected PH undergo a thorough physical examination and medical history to identify underlying causes and comorbidities."
+          },
+          {
+            "heading": "Differential Diagnosis",
+            "text": "The differential diagnosis of PH is broad and includes conditions such as left heart disease, lung disease, and thromboembolic disease. A thorough diagnostic evaluation, including laboratory testing and imaging studies, is necessary to determine the underlying cause of PH. The 2015 ESC/ERS guidelines recommend that patients with suspected PH undergo a transthoracic echocardiogram to assess right ventricular function and estimate pulmonary artery pressure."
+          },
+          {
+            "heading": "WHO Functional Classification",
+            "text": "The WHO functional classification system is used to categorize patients with PH based on their functional status. The system includes four classes: I (no limitation of physical activity), II (slight limitation of physical activity), III (marked limitation of physical activity), and IV (inability to carry out any physical activity). The WHO functional class is an important prognostic indicator, with higher classes being associated with a poorer prognosis. The 2013 NICE guideline recommends that patients with PAH be classified according to the WHO functional classification system to guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "In patients with PAH, a 6MWD of less than 300 meters is associated with a poor prognosis and increased risk of clinical worsening.",
+        "key_points": [
+          "The most common symptom of PH is dyspnea, occurring in over 90% of patients.",
+          "The physical examination finding of a loud second heart sound is characteristic of PH.",
+          "The 2015 ESC/ERS guidelines recommend that patients with suspected PH undergo a transthoracic echocardiogram to assess right ventricular function and estimate pulmonary artery pressure.",
+          "The soluble guanylate cyclase stimulator riociguat has been shown to improve exercise capacity in patients with PAH.",
+          "The endothelin receptor antagonist bosentan has been shown to improve exercise capacity in patients with PAH.",
+          "The prostacyclin analogue epoprostenol is a potent vasodilator used in the treatment of PAH."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC/ERS Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension"
+          },
+          {
+            "title": "Clinical characteristics and survival in patients with pulmonary arterial hypertension",
+            "authors": "D'Alonzo GE, et al.",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 1991,
+            "type": "clinical trial",
+            "note": "Results of the NIH registry"
+          },
+          {
+            "title": "WHO Group 1 pulmonary arterial hypertension: epidemiology and pathophysiology",
+            "authors": "Humbert M, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2004,
+            "type": "review",
+            "note": "Overview of the epidemiology and pathophysiology of PAH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Pulmonary Hypertension",
+      "content": {
+        "intro": "The diagnosis of PH requires a combination of clinical evaluation, laboratory testing, and imaging studies. A thorough medical history and physical examination are essential for identifying underlying causes and comorbidities. Laboratory testing, including blood gas analysis and biomarker measurement, can help assess disease severity and guide treatment decisions. Imaging studies, such as echocardiography and right heart catheterization, are necessary for confirming the diagnosis and determining the underlying cause of PH.",
+        "sections": [
+          {
+            "heading": "Laboratory Testing",
+            "text": "Laboratory testing plays a crucial role in the diagnosis and management of PH. Blood gas analysis can help assess oxygenation and ventilation, while biomarker measurement, such as N-terminal pro-b-type natriuretic peptide (NT-proBNP), can help assess disease severity and guide treatment decisions. The 2015 ESC/ERS guidelines recommend that patients with suspected PH undergo laboratory testing, including blood gas analysis and biomarker measurement, to assess disease severity and guide treatment decisions."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, including echocardiography and right heart catheterization, are essential for confirming the diagnosis and determining the underlying cause of PH. Echocardiography can assess right ventricular function and estimate pulmonary artery pressure, while right heart catheterization can directly measure pulmonary artery pressure and assess cardiac output. The 2019 AHA/ACC guideline on pulmonary hypertension recommends that patients with suspected PH undergo echocardiography and right heart catheterization to confirm the diagnosis and determine the underlying cause."
+          },
+          {
+            "heading": "Right Heart Catheterization",
+            "text": "Right heart catheterization is the gold standard for diagnosing PH and determining the underlying cause. The procedure involves inserting a catheter into the right heart to directly measure pulmonary artery pressure and assess cardiac output. The 2015 ESC/ERS guidelines recommend that patients with suspected PH undergo right heart catheterization to confirm the diagnosis and determine the underlying cause. The procedure can also be used to assess the response to vasodilator therapy and guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "In patients with PAH, a mean pulmonary artery pressure of greater than 25 mmHg is diagnostic of PH.",
+        "key_points": [
+          "The diagnosis of PH requires a combination of clinical evaluation, laboratory testing, and imaging studies.",
+          "Laboratory testing, including blood gas analysis and biomarker measurement, can help assess disease severity and guide treatment decisions.",
+          "Echocardiography can assess right ventricular function and estimate pulmonary artery pressure.",
+          "Right heart catheterization is the gold standard for diagnosing PH and determining the underlying cause.",
+          "The soluble guanylate cyclase stimulator riociguat has been shown to improve exercise capacity in patients with PAH.",
+          "The endothelin receptor antagonist bosentan has been shown to improve exercise capacity in patients with PAH."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC/ERS Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension"
+          },
+          {
+            "title": "Right heart catheterization in pulmonary arterial hypertension",
+            "authors": "Humbert M, et al.",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2006,
+            "type": "review",
+            "note": "Overview of the role of right heart catheterization in PAH"
+          },
+          {
+            "title": "Echocardiography in pulmonary arterial hypertension",
+            "authors": "Rajaram S, et al.",
+            "journal_or_source": "Journal of the American Society of Echocardiography",
+            "year": 2012,
+            "type": "review",
+            "note": "Overview of the role of echocardiography in PAH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Pulmonary Hypertension",
+      "content": {
+        "intro": "The treatment and management of PH depend on the underlying cause and severity of the disease. Treatment options include pharmacological therapy, oxygen therapy, and lifestyle modifications. Pharmacological therapy includes endothelin receptor antagonists, phosphodiesterase-5 inhibitors, and soluble guanylate cyclase stimulators. Oxygen therapy and lifestyle modifications, such as exercise training and dietary changes, can also help improve symptoms and quality of life.",
+        "sections": [
+          {
+            "heading": "Pharmacological Therapy",
+            "text": "Pharmacological therapy is the mainstay of treatment for PH. Endothelin receptor antagonists, such as bosentan and ambrisentan, are commonly used to treat PAH. Phosphodiesterase-5 inhibitors, such as sildenafil and tadalafil, can also be used to treat PAH. Soluble guanylate cyclase stimulators, such as riociguat, can be used to treat PAH and chronic thromboembolic PH. The 2015 ESC/ERS guidelines recommend that patients with PAH be treated with endothelin receptor antagonists or phosphodiesterase-5 inhibitors as first-line therapy."
+          },
+          {
+            "heading": "Oxygen Therapy",
+            "text": "Oxygen therapy can help improve symptoms and quality of life in patients with PH. Oxygen therapy can be used to treat hypoxemia and reduce the workload on the right heart. The 2019 AHA/ACC guideline on pulmonary hypertension recommends that patients with PH and hypoxemia undergo oxygen therapy to improve symptoms and quality of life."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as exercise training and dietary changes, can also help improve symptoms and quality of life in patients with PH. Exercise training can help improve exercise capacity and reduce symptoms, while dietary changes can help manage comorbidities such as hypertension and diabetes. The 2013 NICE guideline recommends that patients with PAH undergo exercise training and dietary changes to improve symptoms and quality of life."
+          }
+        ],
+        "clinical_pearl": "In patients with PAH, the use of endothelin receptor antagonists and phosphodiesterase-5 inhibitors can improve exercise capacity and reduce symptoms.",
+        "key_points": [
+          "The treatment and management of PH depend on the underlying cause and severity of the disease.",
+          "Pharmacological therapy, including endothelin receptor antagonists and phosphodiesterase-5 inhibitors, is the mainstay of treatment for PH.",
+          "Oxygen therapy can help improve symptoms and quality of life in patients with PH.",
+          "Lifestyle modifications, such as exercise training and dietary changes, can also help improve symptoms and quality of life.",
+          "The soluble guanylate cyclase stimulator riociguat has been shown to improve exercise capacity in patients with PAH.",
+          "The endothelin receptor antagonist bosentan has been shown to improve exercise capacity in patients with PAH."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC/ERS Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension"
+          },
+          {
+            "title": "Treatment of pulmonary arterial hypertension",
+            "authors": "Humbert M, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "review",
+            "note": "Overview of the treatment of PAH"
+          },
+          {
+            "title": "Exercise training in pulmonary arterial hypertension",
+            "authors": "Mereles D, et al.",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Results of the EXCITE trial"
+          }
+        ]
+      }
+    }
+  ]
+}

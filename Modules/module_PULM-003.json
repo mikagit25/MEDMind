@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PULM-003",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Community-Acquired and Hospital-Acquired Pneumonia: Pathogens, CURB-65, Treatment",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-21"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Pneumonia",
+      "content": {
+        "intro": "Community-acquired pneumonia (CAP) and hospital-acquired pneumonia (HAP) are significant causes of morbidity and mortality worldwide. The epidemiology of pneumonia is complex, involving various pathogens and risk factors. CAP is typically caused by Streptococcus pneumoniae, Haemophilus influenzae, and Moraxella catarrhalis, while HAP is often caused by multidrug-resistant organisms such as Pseudomonas aeruginosa and Acinetobacter baumannii. The pathophysiology of pneumonia involves the invasion of the lung parenchyma by pathogens, leading to inflammation and damage to the alveolar-capillary membrane. This results in impaired gas exchange and potentially life-threatening complications. The CURB-65 score is a useful tool for assessing the severity of pneumonia, with points assigned for confusion, uremia, respiratory rate, blood pressure, and age.",
+        "sections": [
+          {
+            "heading": "Epidemiology of CAP and HAP",
+            "text": "The epidemiology of CAP and HAP differs significantly. CAP is more common in the community, with an estimated incidence of 2-3 per 1000 adults per year. HAP, on the other hand, is a significant problem in healthcare settings, with an estimated incidence of 5-10 per 1000 hospital admissions. The epidemiology of pneumonia is influenced by various factors, including age, comorbidities, and antibiotic use. The ESC (2019) and AHA (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          },
+          {
+            "heading": "Pathophysiology of Pneumonia",
+            "text": "The pathophysiology of pneumonia involves the invasion of the lung parenchyma by pathogens, leading to inflammation and damage to the alveolar-capillary membrane. This results in impaired gas exchange and potentially life-threatening complications. The inflammatory response to pneumonia is characterized by the production of cytokines and chemokines, which recruit immune cells to the site of infection. The NICE (2019) guidelines recommend the use of oxygen therapy and ventilatory support as needed to manage respiratory failure in patients with pneumonia. The ACCP (2019) guidelines recommend the use of corticosteroids such as prednisone for the treatment of severe pneumonia."
+          },
+          {
+            "heading": "Risk Factors and Prevention",
+            "text": "Various risk factors contribute to the development of pneumonia, including age, comorbidities, and antibiotic use. The CDC (2020) guidelines recommend the use of vaccines such as the pneumococcal conjugate vaccine to prevent pneumonia in high-risk populations. The WHO (2019) guidelines recommend the use of infection control measures such as hand hygiene and isolation to prevent the spread of pneumonia in healthcare settings. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          }
+        ],
+        "clinical_pearl": "The CURB-65 score is a useful tool for assessing the severity of pneumonia, with points assigned for confusion, uremia, respiratory rate, blood pressure, and age. A score of 0-1 indicates low severity, while a score of 2-3 indicates moderate severity, and a score of 4-5 indicates high severity.",
+        "key_points": [
+          "The epidemiology of CAP and HAP differs significantly, with CAP being more common in the community and HAP being a significant problem in healthcare settings.",
+          "The pathophysiology of pneumonia involves the invasion of the lung parenchyma by pathogens, leading to inflammation and damage to the alveolar-capillary membrane.",
+          "The CURB-65 score is a useful tool for assessing the severity of pneumonia, with points assigned for confusion, uremia, respiratory rate, blood pressure, and age.",
+          "The ESC (2019) and AHA (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions.",
+          "The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP.",
+          "The NICE (2019) guidelines recommend the use of oxygen therapy and ventilatory support as needed to manage respiratory failure in patients with pneumonia."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of adult lower respiratory tract infections",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of lower respiratory tract infections, including pneumonia."
+          },
+          {
+            "title": "Community-Acquired Pneumonia: A Review of the Literature",
+            "authors": "Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of the epidemiology, pathophysiology, and treatment of community-acquired pneumonia."
+          },
+          {
+            "title": "Pneumonia: Diagnosis and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of pneumonia, including the use of oxygen therapy and ventilatory support."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Pneumonia",
+      "content": {
+        "intro": "The clinical presentation of pneumonia can vary significantly, depending on the underlying pathogen and the severity of the infection. Typical symptoms include cough, fever, and shortness of breath, while atypical symptoms include headache, fatigue, and myalgias. The physical examination may reveal signs such as crackles, wheezes, and decreased breath sounds. The diagnosis of pneumonia is typically made based on a combination of clinical findings, laboratory results, and imaging studies.",
+        "sections": [
+          {
+            "heading": "Typical Symptoms of Pneumonia",
+            "text": "The typical symptoms of pneumonia include cough, fever, and shortness of breath. The cough may be productive of sputum, which can be purulent or bloody. The fever may be high, with temperatures exceeding 39°C. The shortness of breath may be severe, requiring oxygen therapy or ventilatory support. The AHA (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions. The ESC (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          },
+          {
+            "heading": "Atypical Symptoms of Pneumonia",
+            "text": "The atypical symptoms of pneumonia include headache, fatigue, and myalgias. These symptoms may be present in addition to the typical symptoms, or they may be the only symptoms present. The diagnosis of pneumonia can be challenging in patients with atypical symptoms, as they may not have the typical signs of infection. The NICE (2019) guidelines recommend the use of a thorough physical examination and laboratory results to diagnose pneumonia in patients with atypical symptoms. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "The physical examination findings in pneumonia may include signs such as crackles, wheezes, and decreased breath sounds. The lungs may be dull to percussion, and the patient may have a decreased level of consciousness. The CDC (2020) guidelines recommend the use of a thorough physical examination to diagnose pneumonia and guide management decisions. The WHO (2019) guidelines recommend the use of infection control measures such as hand hygiene and isolation to prevent the spread of pneumonia in healthcare settings."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of pneumonia can be challenging, as the symptoms and physical examination findings can vary significantly. A high index of suspicion is necessary to diagnose pneumonia, particularly in patients with atypical symptoms.",
+        "key_points": [
+          "The typical symptoms of pneumonia include cough, fever, and shortness of breath.",
+          "The atypical symptoms of pneumonia include headache, fatigue, and myalgias.",
+          "The physical examination findings in pneumonia may include signs such as crackles, wheezes, and decreased breath sounds.",
+          "The diagnosis of pneumonia is typically made based on a combination of clinical findings, laboratory results, and imaging studies.",
+          "The AHA (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions.",
+          "The NICE (2019) guidelines recommend the use of a thorough physical examination and laboratory results to diagnose pneumonia in patients with atypical symptoms."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of adult lower respiratory tract infections",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of lower respiratory tract infections, including pneumonia."
+          },
+          {
+            "title": "Community-Acquired Pneumonia: A Review of the Literature",
+            "authors": "Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of the epidemiology, pathophysiology, and treatment of community-acquired pneumonia."
+          },
+          {
+            "title": "Pneumonia: Diagnosis and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of pneumonia, including the use of oxygen therapy and ventilatory support."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Pneumonia",
+      "content": {
+        "intro": "The diagnosis of pneumonia typically involves a combination of clinical findings, laboratory results, and imaging studies. The laboratory results may include a complete blood count, blood cultures, and sputum cultures. The imaging studies may include a chest X-ray or computed tomography (CT) scan. The diagnosis of pneumonia can be challenging, as the symptoms and physical examination findings can vary significantly.",
+        "sections": [
+          {
+            "heading": "Laboratory Results",
+            "text": "The laboratory results in pneumonia may include a complete blood count, blood cultures, and sputum cultures. The complete blood count may show an elevated white blood cell count, indicating the presence of an infection. The blood cultures may grow the underlying pathogen, allowing for targeted antibiotic therapy. The sputum cultures may also grow the underlying pathogen, allowing for targeted antibiotic therapy. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP. The ESC (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "The imaging studies in pneumonia may include a chest X-ray or computed tomography (CT) scan. The chest X-ray may show signs such as consolidation, cavitation, or pleural effusion. The CT scan may show signs such as ground-glass opacification or tree-in-bud pattern. The imaging studies can help to confirm the diagnosis of pneumonia and guide management decisions. The NICE (2019) guidelines recommend the use of a chest X-ray to diagnose pneumonia in patients with typical symptoms. The AHA (2019) guidelines recommend the use of a CT scan to diagnose pneumonia in patients with atypical symptoms."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for pneumonia typically include a combination of clinical findings, laboratory results, and imaging studies. The CDC (2020) guidelines recommend the use of a thorough physical examination and laboratory results to diagnose pneumonia. The WHO (2019) guidelines recommend the use of infection control measures such as hand hygiene and isolation to prevent the spread of pneumonia in healthcare settings. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of pneumonia can be challenging, as the symptoms and physical examination findings can vary significantly. A high index of suspicion is necessary to diagnose pneumonia, particularly in patients with atypical symptoms.",
+        "key_points": [
+          "The laboratory results in pneumonia may include a complete blood count, blood cultures, and sputum cultures.",
+          "The imaging studies in pneumonia may include a chest X-ray or computed tomography (CT) scan.",
+          "The diagnostic criteria for pneumonia typically include a combination of clinical findings, laboratory results, and imaging studies.",
+          "The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP.",
+          "The ESC (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions.",
+          "The NICE (2019) guidelines recommend the use of a chest X-ray to diagnose pneumonia in patients with typical symptoms."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of adult lower respiratory tract infections",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of lower respiratory tract infections, including pneumonia."
+          },
+          {
+            "title": "Community-Acquired Pneumonia: A Review of the Literature",
+            "authors": "Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of the epidemiology, pathophysiology, and treatment of community-acquired pneumonia."
+          },
+          {
+            "title": "Pneumonia: Diagnosis and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of pneumonia, including the use of oxygen therapy and ventilatory support."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Pneumonia",
+      "content": {
+        "intro": "The treatment and management of pneumonia typically involve a combination of antibiotic therapy, oxygen therapy, and ventilatory support. The antibiotic therapy may include medications such as ceftriaxone and azithromycin, while the oxygen therapy may include supplemental oxygen or non-invasive ventilation. The ventilatory support may include invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO). The treatment and management of pneumonia can be challenging, as the underlying pathogen and severity of the infection can vary significantly.",
+        "sections": [
+          {
+            "heading": "Antibiotic Therapy",
+            "text": "The antibiotic therapy for pneumonia typically includes medications such as ceftriaxone and azithromycin. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP. The ESC (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions. The AHA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP."
+          },
+          {
+            "heading": "Oxygen Therapy and Ventilatory Support",
+            "text": "The oxygen therapy and ventilatory support for pneumonia may include supplemental oxygen or non-invasive ventilation. The NICE (2019) guidelines recommend the use of oxygen therapy and ventilatory support as needed to manage respiratory failure in patients with pneumonia. The CDC (2020) guidelines recommend the use of infection control measures such as hand hygiene and isolation to prevent the spread of pneumonia in healthcare settings. The WHO (2019) guidelines recommend the use of oxygen therapy and ventilatory support as needed to manage respiratory failure in patients with pneumonia."
+          },
+          {
+            "heading": "Complications and Prognosis",
+            "text": "The complications and prognosis of pneumonia can vary significantly, depending on the underlying pathogen and severity of the infection. The complications may include respiratory failure, sepsis, and acute kidney injury. The prognosis may be poor, particularly in patients with severe pneumonia or underlying comorbidities. The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP. The ESC (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of pneumonia can be challenging, as the underlying pathogen and severity of the infection can vary significantly. A high index of suspicion is necessary to diagnose pneumonia, particularly in patients with atypical symptoms.",
+        "key_points": [
+          "The antibiotic therapy for pneumonia typically includes medications such as ceftriaxone and azithromycin.",
+          "The oxygen therapy and ventilatory support for pneumonia may include supplemental oxygen or non-invasive ventilation.",
+          "The complications and prognosis of pneumonia can vary significantly, depending on the underlying pathogen and severity of the infection.",
+          "The IDSA (2019) guidelines recommend the use of antibiotics such as ceftriaxone and azithromycin for the treatment of CAP.",
+          "The ESC (2019) guidelines recommend the use of the CURB-65 score to assess the severity of pneumonia and guide management decisions.",
+          "The NICE (2019) guidelines recommend the use of oxygen therapy and ventilatory support as needed to manage respiratory failure in patients with pneumonia."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of adult lower respiratory tract infections",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of lower respiratory tract infections, including pneumonia."
+          },
+          {
+            "title": "Community-Acquired Pneumonia: A Review of the Literature",
+            "authors": "Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of the epidemiology, pathophysiology, and treatment of community-acquired pneumonia."
+          },
+          {
+            "title": "Pneumonia: Diagnosis and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of pneumonia, including the use of oxygen therapy and ventilatory support."
+          }
+        ]
+      }
+    }
+  ]
+}

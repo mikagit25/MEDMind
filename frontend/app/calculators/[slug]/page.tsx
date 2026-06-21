@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
@@ -183,43 +183,187 @@ function getCalcInfo(slug: string, lang: string): { name: string; icon: string; 
   return { name: slug, icon: "🔢", subtitle: "" };
 }
 
-// ── Related articles component ────────────────────────────────────────────────
-type ArticlePreview = { slug: string; title: string; excerpt?: string; category?: string };
+// ── Static article metadata (slug → title) ───────────────────────────────────
+const ARTICLE_META: Record<string, string> = {
+  "anticoagulation-warfarin-vs-doacs-reversal-agents":                                      "Anticoagulation: Warfarin vs. DOACs & Reversal Agents",
+  "antithrombotic-therapy-in-atrial-fibrillation-and-post-pci-triple-therapy-management":   "Antithrombotic Therapy in AF and Post-PCI Triple Therapy",
+  "ischemic-stroke-pathophysiology-diagnosis-and-evidence-based-management":                 "Ischemic Stroke: Pathophysiology, Diagnosis & Management",
+  "acute-ischemic-stroke-management-and-tpa-thrombolytic-protocol":                         "Acute Ischemic Stroke Management & tPA Protocol",
+  "stroke-recognition-fast-acronym":                                                         "Stroke Recognition: FAST Acronym",
+  "deep-vein-thrombosis-dvt-prevention-risk-stratification-prophylaxis-and-management":     "DVT: Risk Stratification, Prophylaxis & Management",
+  "ddimer-wells-score-and-pretest-probability-in-the-diagnosis-of-venous-thromboembolism":  "D-Dimer, Wells Score & Pretest Probability in VTE Diagnosis",
+  "radiological-assessment-of-pulmonary-embolism-and-ct-pulmonary-angiography-evidencebased-d": "Radiological Assessment of PE & CTPA Evidence-Based Guide",
+  "estimating-gfr-with-creatinine-mdrd-vs-ckdepi-and-ckd-staging-in-clinical-practice":    "Estimating GFR: MDRD vs CKD-EPI & CKD Staging",
+  "acute-kidney-injury-management":                                                          "Acute Kidney Injury Management",
+  "apixaban-for-stroke-prevention-in-afib-with-renal-adjustment":                           "Apixaban for Stroke Prevention in AF: Renal Dose Adjustment",
+  "enoxaparin-lmwh-dvt-prophylaxis-renal-adjustment":                                       "Enoxaparin (LMWH) DVT Prophylaxis: Renal Adjustment",
+  "sepsisassociated-acute-kidney-injury-ngal-cystatin-c-biomarkers-in-critical-care":       "Sepsis-Associated AKI: NGAL, Cystatin C Biomarkers",
+  "indications-for-renal-replacement-therapy-in-critical-care-crrt-versus-intermittent-hemodi": "Renal Replacement Therapy in Critical Care: CRRT vs IHD",
+  "hepatic-encephalopathy-pathophysiology-clinical-presentation-and-management":             "Hepatic Encephalopathy: Pathophysiology & Management",
+  "hepatic-dosing-and-child-pugh-score-in-drug-clearance":                                  "Hepatic Dosing & Child-Pugh Score in Drug Clearance",
+  "serumascites-albumin-gradient-saagguided-differential-diagnosis-and-management-of-ascites-": "Serum-Ascites Albumin Gradient (SAAG): Diagnosis & Management of Ascites",
+  "ascites-evaluation-and-paracentesis-saag-based-diagnosis-and-management":                "Ascites Evaluation & Paracentesis: SAAG-Based Management",
+  "sequential-organ-failure-assessment-sofa-score-in-multiorgan-dysfunction":               "SOFA Score in Multi-Organ Dysfunction",
+  "goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-framework":    "Goal-Directed Lactate Clearance in Septic Shock",
+  "vasopressor-therapy-in-critical-care-norepinephrine-vasopressin-and-angiotensin-ii":     "Vasopressor Therapy in Critical Care: NE, Vasopressin & ATII",
+  "emergency-department-sepsis-recognition-using-qsofa-score":                              "ED Sepsis Recognition Using qSOFA Score",
+  "goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-strategies":   "Lactate-Guided Management in Septic Shock",
+  "lactate-guided-sepsis-management-diagnostics-interpretation":                            "Lactate-Guided Sepsis Management: Diagnostics & Interpretation",
+  "curb-65-and-psi-for-risk-stratification-in-community-acquired-pneumonia":                "CURB-65 & PSI for CAP Risk Stratification",
+  "community-acquired-pneumonia-diagnosis-management-and-clinical-outcomes":                "Community-Acquired Pneumonia: Diagnosis & Management",
+  "hospital-acquired-pneumonia-epidemiology-pathophysiology-and-management":                "Hospital-Acquired Pneumonia: Epidemiology & Management",
+  "obesity-management-with-glp-1-agonists":                                                 "Obesity Management with GLP-1 Agonists",
+  "phenterminetopiramate-combination-therapy-for-obesity-clinical-use-efficacy-and-safety": "Phentermine-Topiramate Combination Therapy for Obesity",
+  "semaglutidebased-glp1-receptor-agonist-therapy-and-bariatric-surgery-in-adult-obesity":  "Semaglutide & Bariatric Surgery in Adult Obesity",
+  "anion-gap-metabolic-acidosis-comprehensive-clinical-approach-and-management":            "Anion Gap Metabolic Acidosis: Clinical Approach & Management",
+  "acidbase-disorders-clinical-application-of-the-hendersonhasselbalch-equation":           "Acid-Base Disorders: Henderson-Hasselbalch in Clinical Practice",
+  "anticoagulation-reversal-agents":                                                         "Anticoagulation Reversal Agents",
+};
 
-function RelatedArticles({ specialty, lang, label, readLabel }: {
-  specialty: string; lang: string; label: string; readLabel: string;
+// ── Curated articles always shown per calculator ──────────────────────────────
+const CALC_ARTICLES: Record<string, string[]> = {
+  "cha2ds2-vasc":   ["antithrombotic-therapy-in-atrial-fibrillation-and-post-pci-triple-therapy-management", "anticoagulation-warfarin-vs-doacs-reversal-agents"],
+  "has-bled":       ["anticoagulation-reversal-agents", "anticoagulation-warfarin-vs-doacs-reversal-agents"],
+  "wells-dvt":      ["deep-vein-thrombosis-dvt-prevention-risk-stratification-prophylaxis-and-management", "ddimer-wells-score-and-pretest-probability-in-the-diagnosis-of-venous-thromboembolism"],
+  "wells-pe":       ["radiological-assessment-of-pulmonary-embolism-and-ct-pulmonary-angiography-evidencebased-d", "ddimer-wells-score-and-pretest-probability-in-the-diagnosis-of-venous-thromboembolism"],
+  "heart-score":    ["ischemic-stroke-pathophysiology-diagnosis-and-evidence-based-management", "ddimer-wells-score-and-pretest-probability-in-the-diagnosis-of-venous-thromboembolism"],
+  "abcd2":          ["ischemic-stroke-pathophysiology-diagnosis-and-evidence-based-management", "stroke-recognition-fast-acronym"],
+  "egfr-ckd-epi":   ["estimating-gfr-with-creatinine-mdrd-vs-ckdepi-and-ckd-staging-in-clinical-practice", "apixaban-for-stroke-prevention-in-afib-with-renal-adjustment"],
+  "cockcroft-gault":["estimating-gfr-with-creatinine-mdrd-vs-ckdepi-and-ckd-staging-in-clinical-practice", "enoxaparin-lmwh-dvt-prophylaxis-renal-adjustment"],
+  "aki":            ["acute-kidney-injury-management", "sepsisassociated-acute-kidney-injury-ngal-cystatin-c-biomarkers-in-critical-care"],
+  "anion-gap":      ["anion-gap-metabolic-acidosis-comprehensive-clinical-approach-and-management", "acidbase-disorders-clinical-application-of-the-hendersonhasselbalch-equation"],
+  "meld":           ["hepatic-encephalopathy-pathophysiology-clinical-presentation-and-management", "hepatic-dosing-and-child-pugh-score-in-drug-clearance"],
+  "child-pugh":     ["hepatic-dosing-and-child-pugh-score-in-drug-clearance", "hepatic-encephalopathy-pathophysiology-clinical-presentation-and-management"],
+  "sofa":           ["sequential-organ-failure-assessment-sofa-score-in-multiorgan-dysfunction", "goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-framework"],
+  "qsofa":          ["emergency-department-sepsis-recognition-using-qsofa-score", "goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-strategies"],
+  "curb-65":        ["curb-65-and-psi-for-risk-stratification-in-community-acquired-pneumonia", "community-acquired-pneumonia-diagnosis-management-and-clinical-outcomes"],
+  "bmi":            ["obesity-management-with-glp-1-agonists", "semaglutidebased-glp1-receptor-agonist-therapy-and-bariatric-surgery-in-adult-obesity"],
+};
+
+// ── Result-band-specific article recommendations ──────────────────────────────
+const CALC_RESULT_ARTICLES: Record<string, Partial<Record<"green"|"amber"|"red"|"red-dark", string[]>>> = {
+  "cha2ds2-vasc": {
+    amber: ["anticoagulation-warfarin-vs-doacs-reversal-agents"],
+    red:   ["anticoagulation-warfarin-vs-doacs-reversal-agents", "antithrombotic-therapy-in-atrial-fibrillation-and-post-pci-triple-therapy-management"],
+  },
+  "has-bled": {
+    red:   ["anticoagulation-reversal-agents"],
+  },
+  "wells-dvt": {
+    amber: ["deep-vein-thrombosis-dvt-prevention-risk-stratification-prophylaxis-and-management"],
+    red:   ["deep-vein-thrombosis-dvt-prevention-risk-stratification-prophylaxis-and-management", "anticoagulation-warfarin-vs-doacs-reversal-agents"],
+  },
+  "wells-pe": {
+    amber: ["radiological-assessment-of-pulmonary-embolism-and-ct-pulmonary-angiography-evidencebased-d"],
+    red:   ["radiological-assessment-of-pulmonary-embolism-and-ct-pulmonary-angiography-evidencebased-d", "anticoagulation-warfarin-vs-doacs-reversal-agents"],
+  },
+  "abcd2": {
+    amber: ["acute-ischemic-stroke-management-and-tpa-thrombolytic-protocol"],
+    red:   ["acute-ischemic-stroke-management-and-tpa-thrombolytic-protocol", "stroke-recognition-fast-acronym"],
+  },
+  "egfr-ckd-epi": {
+    amber: ["enoxaparin-lmwh-dvt-prophylaxis-renal-adjustment", "apixaban-for-stroke-prevention-in-afib-with-renal-adjustment"],
+    red:   ["indications-for-renal-replacement-therapy-in-critical-care-crrt-versus-intermittent-hemodi", "apixaban-for-stroke-prevention-in-afib-with-renal-adjustment"],
+  },
+  "aki": {
+    amber: ["indications-for-renal-replacement-therapy-in-critical-care-crrt-versus-intermittent-hemodi"],
+    red:   ["indications-for-renal-replacement-therapy-in-critical-care-crrt-versus-intermittent-hemodi", "sepsisassociated-acute-kidney-injury-ngal-cystatin-c-biomarkers-in-critical-care"],
+  },
+  "meld": {
+    amber: ["serumascites-albumin-gradient-saagguided-differential-diagnosis-and-management-of-ascites-"],
+    red:   ["ascites-evaluation-and-paracentesis-saag-based-diagnosis-and-management", "serumascites-albumin-gradient-saagguided-differential-diagnosis-and-management-of-ascites-"],
+  },
+  "sofa": {
+    amber: ["goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-framework"],
+    red:   ["vasopressor-therapy-in-critical-care-norepinephrine-vasopressin-and-angiotensin-ii", "goaldirected-lactate-clearance-in-septic-shock-diagnostic-and-therapeutic-framework"],
+  },
+  "qsofa": {
+    amber: ["lactate-guided-sepsis-management-diagnostics-interpretation"],
+    red:   ["lactate-guided-sepsis-management-diagnostics-interpretation", "vasopressor-therapy-in-critical-care-norepinephrine-vasopressin-and-angiotensin-ii"],
+  },
+  "curb-65": {
+    amber: ["community-acquired-pneumonia-diagnosis-management-and-clinical-outcomes"],
+    red:   ["hospital-acquired-pneumonia-epidemiology-pathophysiology-and-management", "community-acquired-pneumonia-diagnosis-management-and-clinical-outcomes"],
+  },
+  "bmi": {
+    amber: ["obesity-management-with-glp-1-agonists"],
+    red:   ["phenterminetopiramate-combination-therapy-for-obesity-clinical-use-efficacy-and-safety", "semaglutidebased-glp1-receptor-agonist-therapy-and-bariatric-surgery-in-adult-obesity"],
+  },
+  "anion-gap": {
+    red:   ["anion-gap-metabolic-acidosis-comprehensive-clinical-approach-and-management", "acidbase-disorders-clinical-application-of-the-hendersonhasselbalch-equation"],
+  },
+};
+
+// ── Curated articles component (static, no API fetch) ─────────────────────────
+function CuratedArticles({ slugs, lang, label, readLabel }: {
+  slugs: string[]; lang: string; label: string; readLabel: string;
 }) {
-  const [articles, setArticles] = useState<ArticlePreview[]>([]);
-
-  useEffect(() => {
-    const api = process.env.NEXT_PUBLIC_API_URL ?? "https://medmind.pro/api/v1";
-    fetch(`${api}/articles/category/${specialty}?limit=4&locale=${lang}`)
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setArticles(Array.isArray(d) ? d.slice(0, 4) : []))
-      .catch(() => {});
-  }, [specialty, lang]);
-
-  if (articles.length === 0) return null;
-
+  const known = slugs.filter(s => ARTICLE_META[s]);
+  if (known.length === 0) return null;
   return (
     <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14">
       <h2 className="font-syne font-bold text-lg text-ink mb-5">{label}</h2>
       <div className="grid sm:grid-cols-2 gap-3">
-        {articles.map(a => (
+        {known.map(s => (
           <Link
-            key={a.slug}
-            href={`/articles/${a.slug}`}
+            key={s}
+            href={`/articles/${s}`}
             className="group block bg-surface border border-border rounded-xl p-4 hover:border-ink-3 transition-colors"
           >
-            <p className="font-syne font-semibold text-sm text-ink group-hover:text-red transition-colors leading-snug mb-1 line-clamp-2">
-              {a.title}
+            <p className="font-syne font-semibold text-sm text-ink group-hover:text-red transition-colors leading-snug line-clamp-2">
+              {ARTICLE_META[s]}
             </p>
-            {a.excerpt && (
-              <p className="text-ink-3 text-xs leading-relaxed line-clamp-2 mb-2">{a.excerpt}</p>
-            )}
-            <span className="text-xs font-syne text-ink-3 group-hover:text-ink transition-colors">{readLabel}</span>
+            <span className="mt-2 block text-xs font-syne text-ink-3 group-hover:text-ink transition-colors">{readLabel}</span>
           </Link>
         ))}
+      </div>
+    </section>
+  );
+}
+
+// ── Result-based article recommendations ─────────────────────────────────────
+const RESULT_LABELS: Record<Lang, string> = {
+  en: "Recommended reading for your result",
+  ru: "Рекомендуемые статьи по результату",
+  ar: "قراءة موصى بها لنتيجتك",
+  tr: "Sonucunuz için önerilen okuma",
+  de: "Empfohlene Lektüre zu Ihrem Ergebnis",
+  fr: "Lecture recommandée pour votre résultat",
+  es: "Lectura recomendada según su resultado",
+};
+
+function ResultArticles({ calcSlug, band, lang, readLabel }: {
+  calcSlug: string; band: "green"|"amber"|"red"|"red-dark"|null; lang: string; readLabel: string;
+}) {
+  if (!band || band === "green") return null;
+  const bandKey = (band === "red-dark" ? "red" : band) as "amber"|"red";
+  const slugs = CALC_RESULT_ARTICLES[calcSlug]?.[bandKey] ?? [];
+  if (slugs.length === 0) return null;
+  const label = (RESULT_LABELS as Record<string, string>)[lang] ?? RESULT_LABELS.en;
+
+  const bandColors: Record<string, string> = {
+    amber: "border-amber/40 bg-amber-light",
+    red:   "border-red/20 bg-red/5",
+  };
+
+  return (
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-10">
+      <div className={`rounded-2xl border p-6 ${bandColors[bandKey] ?? ""}`}>
+        <h2 className="font-syne font-bold text-base text-ink mb-4">{label}</h2>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {slugs.filter(s => ARTICLE_META[s]).map(s => (
+            <Link
+              key={s}
+              href={`/articles/${s}`}
+              className="group block bg-surface border border-border rounded-xl p-4 hover:border-ink-3 transition-colors"
+            >
+              <p className="font-syne font-semibold text-sm text-ink group-hover:text-red transition-colors leading-snug line-clamp-2">
+                {ARTICLE_META[s]}
+              </p>
+              <span className="mt-2 block text-xs font-syne text-ink-3 group-hover:text-ink transition-colors">{readLabel}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -243,6 +387,11 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
 
   const validSlugs: readonly string[] = CALC_SLUGS;
   if (!validSlugs.includes(slug)) notFound();
+
+  const [resultBand, setResultBand] = useState<"green"|"amber"|"red"|"red-dark"|null>(null);
+  const handleResult = useCallback((color: "green"|"amber"|"red"|"red-dark"|null) => {
+    setResultBand(color);
+  }, []);
 
   const calc       = getCalc(slug);
   const numericMeta = NUMERIC_CALCS[slug];
@@ -358,8 +507,16 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
 
       {/* ── Calculator widget ── */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-12">
-        <CalculatorWidget slug={slug} />
+        <CalculatorWidget slug={slug} onResult={handleResult} />
       </section>
+
+      {/* ── Result-based article recommendations ── */}
+      <ResultArticles
+        calcSlug={slug}
+        band={resultBand}
+        lang={lang}
+        readLabel={t(L.read_article, lang)}
+      />
 
       {/* ── About this calculator ── */}
       {about && (
@@ -398,9 +555,9 @@ export default function CalculatorPage({ params }: { params: { slug: string } })
         </section>
       )}
 
-      {/* ── Related articles ── */}
-      <RelatedArticles
-        specialty={specialty}
+      {/* ── Curated related articles ── */}
+      <CuratedArticles
+        slugs={CALC_ARTICLES[slug] ?? []}
         lang={lang}
         label={t(L.related_articles, lang)}
         readLabel={t(L.read_article, lang)}

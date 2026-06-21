@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.redis_client import get_redis
-from app.models.models import Article, Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck
+from app.models.models import Article, Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck, ModuleTranslation, LessonTranslation
 from fastapi import Depends
 
 logger = logging.getLogger(__name__)
@@ -299,13 +299,14 @@ async def get_glossary_term(
 async def list_public_topics(
     request: Request,
     specialty: Optional[str] = Query(None),
+    locale: str = Query("en", max_length=5, description="Locale for translated titles, e.g. 'ru'"),
     limit: int = Query(50, ge=1, le=200),
     db: AsyncSession = Depends(get_db),
 ):
     """List modules that have at least one lesson with lay_summary."""
     await check_public_rate_limit(request)
 
-    cache_key = f"pub_topics:{specialty or '*'}:{limit}"
+    cache_key = f"pub_topics:{specialty or '*'}:{locale}:{limit}"
     cached = await _cache_get(cache_key)
     if cached:
         return cached
@@ -313,7 +314,7 @@ async def list_public_topics(
     # All published modules — lay_summary optional (falls back to description)
     stmt = (
         select(
-            Module.code, Module.title, Module.title_en, Module.description,
+            Module.id, Module.code, Module.title, Module.title_en, Module.description,
             Specialty.name.label("specialty_name"),
             Specialty.name_en.label("specialty_name_en"),
             func.count(Lesson.id).label("lesson_count"),
@@ -322,7 +323,7 @@ async def list_public_topics(
         .join(Lesson, Lesson.module_id == Module.id)
         .outerjoin(Specialty, Module.specialty_id == Specialty.id)
         .where(Lesson.status == "published")
-        .group_by(Module.code, Module.title, Module.title_en, Module.description, Specialty.name, Specialty.name_en)
+        .group_by(Module.id, Module.code, Module.title, Module.title_en, Module.description, Specialty.name, Specialty.name_en)
         .order_by(Specialty.name.nullslast(), Module.code)
         .limit(limit)
     )
@@ -332,22 +333,39 @@ async def list_public_topics(
     result = await db.execute(stmt)
     rows = result.all()
 
-    topics = [
-        PublicTopic(
+    # Bulk-fetch translations for non-English locale
+    translation_map: dict = {}
+    if locale != "en":
+        module_ids = [row.id for row in rows]
+        if module_ids:
+            tr_result = await db.execute(
+                select(ModuleTranslation).where(
+                    ModuleTranslation.module_id.in_(module_ids),
+                    ModuleTranslation.locale == locale,
+                    ModuleTranslation.status == "done",
+                )
+            )
+            for tr in tr_result.scalars().all():
+                translation_map[tr.module_id] = tr
+
+    topics = []
+    for row in rows:
+        tr = translation_map.get(row.id)
+        title = (tr.title if tr and tr.title else None) or row.title_en or row.title
+        description = (tr.description if tr and tr.description else None) or row.description
+        topics.append(PublicTopic(
             module_code=row.code,
             slug=_slugify(row.code),
-            title=row.title_en or row.title,
+            title=title,
             title_en=row.title_en,
-            description=row.description,
-            lay_summary=(row.sample_summary[:200] if row.sample_summary else None) or row.description,
+            description=description,
+            lay_summary=(row.sample_summary[:200] if row.sample_summary else None) or description,
             lesson_count=row.lesson_count,
             specialty=row.specialty_name,
             specialty_en=row.specialty_name_en,
-        ).model_dump()
-        for row in rows
-    ]
+        ).model_dump())
 
-    await _cache_set(cache_key, topics)
+    await _cache_set(cache_key, topics, ttl=3600)
     return topics
 
 
@@ -355,12 +373,13 @@ async def list_public_topics(
 async def get_public_topic(
     module_slug: str,
     request: Request,
+    locale: str = Query("en", max_length=5, description="Locale for translated content, e.g. 'ru'"),
     db: AsyncSession = Depends(get_db),
 ):
     """Single topic (module) detail with all lay_summary lessons."""
     await check_public_rate_limit(request)
 
-    cache_key = f"pub_topic:{module_slug}"
+    cache_key = f"pub_topic:{module_slug}:{locale}"
     cached = await _cache_get(cache_key)
     if cached:
         return cached
@@ -396,14 +415,66 @@ async def get_public_topic(
     lessons_result = await db.execute(lessons_stmt)
     lessons = lessons_result.scalars().all()
 
+    # Fetch lesson translations in bulk for non-English locales
+    lesson_translation_map: dict = {}
+    if locale != "en" and lessons:
+        lesson_ids = [l.id for l in lessons]
+        lt_result = await db.execute(
+            select(LessonTranslation).where(
+                LessonTranslation.lesson_id.in_(lesson_ids),
+                LessonTranslation.locale == locale,
+                LessonTranslation.status == "done",
+            )
+        )
+        for lt in lt_result.scalars().all():
+            lesson_translation_map[lt.lesson_id] = lt
+
+    # Overlay translated module title/description
+    module_title = module.title_en or module.title
+    module_description = module.description
+    if locale != "en":
+        mt = await db.get(ModuleTranslation, (module.id, locale))
+        if mt and mt.status == "done":
+            if mt.title:
+                module_title = mt.title
+            if mt.description:
+                module_description = mt.description
+
     lesson_data = []
     total_terms = 0
     for l in lessons:
+        lt = lesson_translation_map.get(l.id)
+        lesson_title = (lt.title if lt and lt.title else None) or l.title
+
+        # Use translated content_json if available, else fall back to English content
+        english_content = l.content or {}
+        translated_content = None
+        if lt and lt.content_json and isinstance(lt.content_json, dict):
+            translated_content = lt.content_json
+
+        active_content = translated_content or english_content
+
+        intro = active_content.get("intro") or l.lay_summary or ""
+        sections = active_content.get("sections") or []
+        key_points = active_content.get("key_points") or []
+        # Normalize sections: ensure each has title and text
+        sections_clean = [
+            {"title": s.get("title") or "", "text": s.get("text") or ""}
+            for s in sections
+            if isinstance(s, dict) and s.get("text")
+        ]
+
         glossary = l.lay_glossary or []
         total_terms += len(glossary) if isinstance(glossary, list) else 0
         lesson_data.append({
-            "title": l.title,
-            "lay_summary": l.lay_summary,   # None if not yet generated — frontend handles gracefully
+            "title": lesson_title,
+            "lesson_code": l.lesson_code or "",
+            "lesson_slug": _slugify(l.lesson_code or l.title or str(l.id)),
+            "estimated_minutes": l.estimated_minutes,
+            "intro": intro,
+            "sections": sections_clean,
+            "key_points": [kp for kp in key_points if isinstance(kp, str)],
+            "lay_summary": intro[:300] if intro else None,
             "lay_glossary": [
                 {"term": t["term"], "slug": _slugify(t["term"]), "simple_definition": t["simple_definition"]}
                 for t in (glossary if isinstance(glossary, list) else [])
@@ -418,17 +489,175 @@ async def get_public_topic(
     response = PublicTopicDetail(
         module_code=module.code,
         slug=module_slug,
-        title=module.title_en or module.title,
+        title=module_title,
         title_en=module.title_en,
-        description=module.description,
+        description=module_description,
         specialty=specialty_name,
         specialty_en=specialty_name_en,
         lessons=lesson_data,
         total_glossary_terms=total_terms,
     ).model_dump()
 
-    await _cache_set(cache_key, response)
+    await _cache_set(cache_key, response, ttl=3600)
     return response
+
+
+@router.get("/topics/{module_slug}/lessons/{lesson_slug}")
+async def get_public_lesson(
+    module_slug: str,
+    lesson_slug: str,
+    request: Request,
+    locale: str = Query("en", max_length=5),
+    db: AsyncSession = Depends(get_db),
+):
+    """Single lesson detail page — full content, no auth required."""
+    await check_public_rate_limit(request)
+
+    cache_key = f"pub_lesson:{module_slug}:{lesson_slug}:{locale}"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    # Find module
+    stmt = (
+        select(Module, Specialty.name.label("spec"), Specialty.name_en.label("spec_en"))
+        .outerjoin(Specialty, Module.specialty_id == Specialty.id)
+    )
+    result = await db.execute(stmt)
+    module = None
+    specialty_name = None
+    for mod, spec, spec_en in result.all():
+        if _slugify(mod.code) == module_slug:
+            module = mod
+            specialty_name = spec
+            break
+
+    if not module:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    # Find lesson by slug (lesson_code slugified)
+    lessons_result = await db.execute(
+        select(Lesson)
+        .where(Lesson.module_id == module.id, Lesson.status == "published")
+        .order_by(Lesson.lesson_order)
+    )
+    lessons = lessons_result.scalars().all()
+
+    lesson = None
+    for l in lessons:
+        if _slugify(l.lesson_code or l.title or str(l.id)) == lesson_slug:
+            lesson = l
+            break
+
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+
+    # Translation
+    lt = None
+    if locale != "en":
+        lt_result = await db.execute(
+            select(LessonTranslation).where(
+                LessonTranslation.lesson_id == lesson.id,
+                LessonTranslation.locale == locale,
+                LessonTranslation.status == "done",
+            )
+        )
+        lt = lt_result.scalar_one_or_none()
+
+    # Module translation
+    module_title = module.title_en or module.title
+    if locale != "en":
+        mt = await db.get(ModuleTranslation, (module.id, locale))
+        if mt and mt.status == "done" and mt.title:
+            module_title = mt.title
+
+    english_content = lesson.content or {}
+    translated_content = lt.content_json if (lt and lt.content_json and isinstance(lt.content_json, dict)) else None
+    active = translated_content or english_content
+
+    lesson_title = (lt.title if lt and lt.title else None) or lesson.title
+    intro = active.get("intro") or lesson.lay_summary or ""
+    sections = [
+        {"title": s.get("title") or "", "text": s.get("text") or ""}
+        for s in (active.get("sections") or [])
+        if isinstance(s, dict) and s.get("text")
+    ]
+    key_points = [kp for kp in (active.get("key_points") or []) if isinstance(kp, str)]
+
+    glossary = lesson.lay_glossary or []
+    lesson_index = next((i for i, l in enumerate(lessons) if l.id == lesson.id), 0)
+    prev_lesson = lessons[lesson_index - 1] if lesson_index > 0 else None
+    next_lesson = lessons[lesson_index + 1] if lesson_index < len(lessons) - 1 else None
+
+    response = {
+        "module_code": module.code,
+        "module_slug": module_slug,
+        "module_title": module_title,
+        "specialty": specialty_name,
+        "lesson_code": lesson.lesson_code or "",
+        "lesson_slug": lesson_slug,
+        "title": lesson_title,
+        "estimated_minutes": lesson.estimated_minutes,
+        "intro": intro,
+        "sections": sections,
+        "key_points": key_points,
+        "lay_glossary": [
+            {"term": t["term"], "slug": _slugify(t["term"]), "simple_definition": t["simple_definition"]}
+            for t in (glossary if isinstance(glossary, list) else [])
+            if isinstance(t, dict)
+        ],
+        "prev_lesson": {
+            "title": prev_lesson.title,
+            "slug": _slugify(prev_lesson.lesson_code or prev_lesson.title or str(prev_lesson.id)),
+        } if prev_lesson else None,
+        "next_lesson": {
+            "title": next_lesson.title,
+            "slug": _slugify(next_lesson.lesson_code or next_lesson.title or str(next_lesson.id)),
+        } if next_lesson else None,
+        "total_lessons": len(lessons),
+        "lesson_number": lesson_index + 1,
+        "disclaimer": (
+            "This content is for educational purposes only and does not replace "
+            "professional medical advice. Always consult a qualified healthcare provider."
+        ),
+    }
+
+    await _cache_set(cache_key, response, ttl=3600)
+    return response
+
+
+@router.get("/sitemap/lessons")
+async def get_lessons_sitemap_data(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    """Returns all (module_slug, lesson_slug) pairs for sitemap generation."""
+    await check_public_rate_limit(request)
+
+    cache_key = "pub_sitemap_lessons"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    result = await db.execute(
+        select(Module.code, Lesson.lesson_code, Lesson.title)
+        .join(Lesson, Lesson.module_id == Module.id)
+        .where(Lesson.status == "published")
+        .order_by(Module.code, Lesson.lesson_order)
+    )
+    rows = result.all()
+
+    data = [
+        {
+            "module_slug": _slugify(module_code),
+            "lesson_slug": _slugify(lesson_code or lesson_title or ""),
+        }
+        for module_code, lesson_code, lesson_title in rows
+        if lesson_code or lesson_title
+    ]
+
+    await _cache_set(cache_key, data, ttl=86400)
+    return data
 
 
 # ── /public/drugs ─────────────────────────────────────────────────────────────

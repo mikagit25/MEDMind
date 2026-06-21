@@ -666,16 +666,20 @@ async def google_exchange_code(code: str):
 #       Google redirects here with code → token saved automatically.
 
 _YT_TOKEN_PATHS = {
-    "en":   "/app/youtube_token_en.json",
-    "es":   "/app/youtube_token_es.json",
-    "ar":   "/app/youtube_token_ar.json",
-    "kids": "/app/youtube_token_kids.json",
+    "en":      "/app/youtube_token_en.json",
+    "es":      "/app/youtube_token_es.json",
+    "ar":      "/app/youtube_token_ar.json",
+    "kids":    "/app/youtube_token_kids.json",
+    "kids_ar": "/app/youtube_token_kids_ar.json",
+    "kids_id": "/app/youtube_token_kids_id.json",
 }
 _YT_SECRET_PATHS = {
-    "en":   "/app/client_secret_web.json",
-    "es":   "/app/client_secret_account2_web.json",
-    "ar":   "/app/client_secret_account3_web.json",
-    "kids": "/app/client_secret_kids_web.json",
+    "en":      "/app/client_secret_web.json",
+    "es":      "/app/client_secret_account2_web.json",
+    "ar":      "/app/client_secret_account3_web.json",
+    "kids":    "/app/client_secret_kids_web.json",
+    "kids_ar": "/app/client_secret_kids_web.json",
+    "kids_id": "/app/client_secret_kids_web.json",
 }
 _YT_CALLBACK_URL = "https://medmind.pro/api/v1/auth/youtube/callback"
 
@@ -751,7 +755,12 @@ async def youtube_token_callback(
     with open(token_path, "w") as f:
         _json.dump(token, f, indent=2)
 
-    channel = {"en": "MedMind EN", "es": "MedMind ES", "ar": "MedMind AR 🇸🇦", "kids": "Happy Bear Kids 🐻"}.get(account, account)
+    channel = {
+        "en": "MedMind EN", "es": "MedMind ES", "ar": "MedMind AR 🇸🇦",
+        "kids": "Happy Bear Kids 🐻 EN",
+        "kids_ar": "Happy Bear Kids 🐻 AR",
+        "kids_id": "Happy Bear Kids 🐻 ID",
+    }.get(account, account)
     return HTMLResponse(f"""
 <html><body style="font-family:sans-serif;padding:40px;text-align:center">
 <h1>✅ YouTube token renewed!</h1>

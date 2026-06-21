@@ -83,6 +83,8 @@ class Module(Base):
     is_published = Column(Boolean, default=False)
     is_veterinary = Column(Boolean, default=False)
     language = Column(String(10), nullable=False, server_default="en")
+    # "specialty_module" | "disease_module" | "patient_guide"
+    module_type = Column(String(30), nullable=False, server_default="specialty_module")
     # Teacher-authored modules: who created this module
     author_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

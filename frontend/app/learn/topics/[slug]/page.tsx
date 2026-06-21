@@ -8,8 +8,15 @@ const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL 
 export const revalidate = 86400;
 
 type GlossaryEntry = { term: string; slug: string; simple_definition: string };
+type Section = { title: string; text: string };
 type LessonEntry = {
   title: string;
+  lesson_code: string;
+  lesson_slug: string;
+  estimated_minutes: number | null;
+  intro: string | null;
+  sections: Section[];
+  key_points: string[];
   lay_summary: string | null;
   lay_glossary: GlossaryEntry[];
   order: number;
@@ -136,41 +143,60 @@ export default async function TopicDetailPage({
         </div>
 
         {/* Lessons */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           {data.lessons.map((lesson, idx) => (
-            <section key={idx} className="border-b border-border pb-8 last:border-0">
-              <h2 className="font-syne font-bold text-lg text-ink mb-3">
-                {lesson.title}
-              </h2>
+            <Link
+              key={idx}
+              href={`/learn/topics/${data.slug}/${lesson.lesson_slug}`}
+              className="group block border border-border rounded-2xl p-6 bg-surface hover:border-ink hover:shadow-sm transition-all"
+            >
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <div>
+                  <span className="font-serif text-xs text-ink-3/60 mb-1 block">
+                    Lesson {idx + 1}
+                    {lesson.estimated_minutes ? ` · ${lesson.estimated_minutes} min` : ""}
+                  </span>
+                  <h2 className="font-syne font-bold text-lg text-ink group-hover:text-accent transition-colors leading-snug">
+                    {lesson.title}
+                  </h2>
+                </div>
+                <span className="shrink-0 mt-1 font-serif text-xs text-ink-3/50 bg-bg-2 px-2 py-0.5 rounded">
+                  {lesson.sections.length > 0 ? `${lesson.sections.length} sections` : ""}
+                </span>
+              </div>
 
-              {lesson.lay_summary && (
-                <p className="font-serif text-sm text-ink-2 leading-relaxed mb-4">
-                  {lesson.lay_summary}
+              {lesson.intro && (
+                <p className="font-serif text-sm text-ink-3 leading-relaxed mb-4 line-clamp-3">
+                  {lesson.intro}
                 </p>
               )}
 
-              {lesson.lay_glossary.length > 0 && (
-                <div>
-                  <p className="font-syne font-bold text-xs text-ink-3 uppercase tracking-widest mb-3">
-                    Key Terms
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {lesson.lay_glossary.map((term) => (
-                      <Link
-                        key={term.slug}
-                        href={`/learn/glossary/${term.slug}`}
-                        className="group inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface border border-border hover:border-ink hover:bg-ink hover:text-white transition-all"
-                        title={term.simple_definition}
-                      >
-                        <span className="font-syne font-semibold text-xs text-ink group-hover:text-white">
-                          {term.term}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+              {lesson.key_points.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {lesson.key_points.slice(0, 3).map((kp, ki) => (
+                    <span
+                      key={ki}
+                      className="inline-block px-2.5 py-1 rounded-lg bg-bg-2 border border-border font-serif text-xs text-ink-3 line-clamp-1"
+                    >
+                      {kp.length > 60 ? kp.slice(0, 60) + "…" : kp}
+                    </span>
+                  ))}
                 </div>
               )}
-            </section>
+
+              {lesson.lay_glossary.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {lesson.lay_glossary.slice(0, 5).map((term) => (
+                    <span
+                      key={term.slug}
+                      className="inline-flex items-center px-2.5 py-1 rounded-lg bg-bg border border-border font-syne font-semibold text-xs text-ink-3"
+                    >
+                      {term.term}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </Link>
           ))}
         </div>
 

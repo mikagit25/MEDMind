@@ -454,22 +454,22 @@ export default function ModuleDetailPage() {
   useEffect(() => {
     if (!id) return;
     Promise.all([
-      contentApi.getModule(id),
-      contentApi.getLessons(id),
+      contentApi.getModule(id, locale !== "en" ? locale : undefined),
+      contentApi.getLessons(id, locale !== "en" ? locale : undefined),
     ]).then(([modRes, lessonRes]) => {
       setMod(modRes);
       const ls: Lesson[] = lessonRes ?? [];
       ls.sort((a, b) => a.lesson_order - b.lesson_order);
       setLessons(ls);
       if (ls.length > 0) {
-        // Load first lesson with full content
-        contentApi.getLesson(ls[0].id).then((full: any) => {
+        // Load first lesson with full content (translated if locale set)
+        contentApi.getLesson(ls[0].id, locale !== "en" ? locale : undefined).then((full: any) => {
           setActiveLesson({ ...ls[0], content: full?.content ?? null });
         }).catch(() => setActiveLesson(ls[0]));
       }
       setLoading(false);
     });
-  }, [id]);
+  }, [id, locale]);
 
   // Load full lesson content when active lesson changes (no content yet)
   useEffect(() => {

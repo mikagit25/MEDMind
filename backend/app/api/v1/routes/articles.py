@@ -312,7 +312,7 @@ async def submit_content_feedback(
     ip_hash = _hl.sha256(ip.encode()).hexdigest()[:16] if ip else None
 
     valid_types = {"article", "news"}
-    valid_problems = {"factual_error", "outdated", "missing_source", "other"}
+    valid_problems = {"factual_error", "outdated", "missing_source", "wrong_translation", "other"}
     if req.content_type not in valid_types:
         raise HTTPException(status_code=422, detail="Invalid content_type")
     if req.problem_type not in valid_problems:

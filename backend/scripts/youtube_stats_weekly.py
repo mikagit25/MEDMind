@@ -24,10 +24,21 @@ ACCOUNTS = [
         "secret": "/opt/medmind/client_secret_account3_web.json",
         "token":  "/opt/medmind/youtube_token_ar.json",
     },
+    # ── Happy Bear Kids ──────────────────────────────────────────────────────
     {
-        "label":  "🐻 Happy Bear Kids",
-        "secret": "/opt/kids_channel/credentials/client_secret_kids_web.json",
-        "token":  "/opt/kids_channel/credentials/youtube_token.json",
+        "label":      "🐻 Happy Bear Kids EN",
+        "secret":     "/opt/kids_channel/credentials/client_secret_kids_web.json",
+        "token":      "/opt/kids_channel/credentials/youtube_token.json",
+    },
+    {
+        "label":      "🐻 Happy Bear Kids AR",
+        "token_type": "self_contained",
+        "token":      "/opt/kids_channel/credentials/youtube_token_ar.json",
+    },
+    {
+        "label":      "🐻 Happy Bear Kids ID",
+        "token_type": "self_contained",
+        "token":      "/opt/kids_channel/credentials/youtube_token_id.json",
     },
 ]
 
@@ -72,6 +83,28 @@ def curl_tg(msg: str) -> bool:
         return json.loads(r.stdout).get("ok", False)
     except Exception:
         return False
+
+
+def get_access_token_selfcontained(token_path: str) -> str | None:
+    """Get access token from self-contained JSON (client_id/secret embedded in token file)."""
+    with open(token_path) as f:
+        token = json.load(f)
+    if not token.get("refresh_token"):
+        return None
+    if not token.get("access_token") or time.time() >= token.get("expires_at", 0) - 60:
+        new = curl_post("https://oauth2.googleapis.com/token", {
+            "client_id":     token["client_id"],
+            "client_secret": token["client_secret"],
+            "refresh_token": token["refresh_token"],
+            "grant_type":    "refresh_token",
+        })
+        if not new or "access_token" not in new:
+            return None
+        token["access_token"] = new["access_token"]
+        token["expires_at"]   = time.time() + new.get("expires_in", 3600)
+        with open(token_path, "w") as f:
+            json.dump(token, f, indent=2)
+    return token["access_token"]
 
 
 def get_access_token_pickle(token_path: str) -> str | None:
@@ -136,6 +169,8 @@ def main():
         try:
             if acc.get("token_type") == "pickle":
                 token = get_access_token_pickle(acc["token"])
+            elif acc.get("token_type") == "self_contained":
+                token = get_access_token_selfcontained(acc["token"])
             else:
                 token = get_access_token(acc["secret"], acc["token"])
             if not token:

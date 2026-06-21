@@ -1,0 +1,327 @@
+{
+  "meta": {
+    "id": "PULM-002",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Bronchial Asthma: Pathophysiology, GINA Stepwise Approach and Biologics",
+    "order_in_specialty": 1,
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-20"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Risk Factors of Bronchial Asthma",
+      "content": {
+        "intro": "Bronchial asthma is a chronic inflammatory disorder of the airways that affects approximately 300 million people worldwide. The pathophysiology of asthma involves airway inflammation, airway hyperresponsiveness, and reversible airflow obstruction. According to the Global Initiative for Asthma (GINA) 2023 report, asthma prevalence varies widely across different regions and countries, with the highest prevalence observed in developed countries. The risk factors for developing asthma include a family history of asthma, atopy, and exposure to allergens such as house dust mites, pet dander, and pollen.",
+        "sections": [
+          {
+            "heading": "Pathophysiology of Asthma",
+            "text": "The pathophysiology of asthma involves a complex interplay between airway inflammation, airway hyperresponsiveness, and reversible airflow obstruction. Inflammation is characterized by the infiltration of eosinophils, neutrophils, and lymphocytes into the airway wall, leading to the release of various cytokines and chemokines. These inflammatory mediators contribute to airway hyperresponsiveness, which is the exaggerated response to stimuli such as allergens, irritants, and respiratory viruses. Airflow obstruction in asthma is reversible, either spontaneously or with treatment, and is characterized by increased airway resistance and decreased lung function."
+          },
+          {
+            "heading": "Risk Factors for Developing Asthma",
+            "text": "Several risk factors have been identified for developing asthma, including a family history of asthma, atopy, and exposure to allergens such as house dust mites, pet dander, and pollen. Other risk factors include respiratory infections, particularly during childhood, and exposure to air pollutants such as tobacco smoke and nitrogen dioxide. According to the WHO 2022 report, approximately 80% of asthma cases can be attributed to environmental factors, highlighting the importance of reducing exposure to allergens and pollutants in the prevention and management of asthma."
+          },
+          {
+            "heading": "Epidemiology of Asthma",
+            "text": "The epidemiology of asthma varies widely across different regions and countries. According to the GINA 2023 report, the prevalence of asthma is highest in developed countries, with approximately 10% of the population affected. In contrast, the prevalence of asthma is lower in developing countries, with approximately 5% of the population affected. The burden of asthma is significant, with approximately 250,000 deaths attributed to asthma annually, according to the WHO 2022 report."
+          },
+          {
+            "heading": "Impact of Asthma on Quality of Life",
+            "text": "Asthma can have a significant impact on quality of life, particularly if left uncontrolled. According to the European Respiratory Society (ERS) 2022 report, approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night. Uncontrolled asthma can also lead to decreased lung function, increased risk of exacerbations, and decreased quality of life. Therefore, it is essential to manage asthma effectively to improve quality of life and reduce the burden of the disease."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of asthma is to use a stepwise approach, as recommended by the GINA 2023 guidelines, to adjust treatment based on symptom control and lung function. This approach involves starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications such as long-acting beta-agonists (LABAs) or leukotriene modifiers as needed.",
+        "key_points": [
+          "The prevalence of asthma varies widely across different regions and countries, with the highest prevalence observed in developed countries.",
+          "The pathophysiology of asthma involves airway inflammation, airway hyperresponsiveness, and reversible airflow obstruction.",
+          "Risk factors for developing asthma include a family history of asthma, atopy, and exposure to allergens such as house dust mites, pet dander, and pollen.",
+          "The GINA 2023 report recommends a stepwise approach to managing asthma, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "Uncontrolled asthma can lead to decreased lung function, increased risk of exacerbations, and decreased quality of life.",
+          "The ERS 2022 report highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease.",
+          "The WHO 2022 report estimates that approximately 80% of asthma cases can be attributed to environmental factors, highlighting the importance of reducing exposure to allergens and pollutants in the prevention and management of asthma."
+        ],
+        "references": [
+          {
+            "title": "Global Initiative for Asthma (GINA) 2023 Report",
+            "authors": "Global Initiative for Asthma",
+            "journal_or_source": "GINA Report",
+            "year": 2023,
+            "type": "guideline",
+            "note": "Provides an overview of the epidemiology, pathophysiology, and management of asthma."
+          },
+          {
+            "title": "European Respiratory Society (ERS) 2022 Report",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "ERS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease."
+          },
+          {
+            "title": "World Health Organization (WHO) 2022 Report",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Estimates that approximately 80% of asthma cases can be attributed to environmental factors, highlighting the importance of reducing exposure to allergens and pollutants in the prevention and management of asthma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation and Diagnosis of Bronchial Asthma",
+      "content": {
+        "intro": "The clinical presentation of bronchial asthma can vary widely, ranging from mild intermittent symptoms to severe persistent symptoms. According to the GINA 2023 guidelines, the diagnosis of asthma is based on a combination of clinical history, physical examination, and lung function tests. The clinical presentation of asthma can be divided into several key components, including symptoms, physical examination findings, and lung function tests.",
+        "sections": [
+          {
+            "heading": "Symptoms of Asthma",
+            "text": "The symptoms of asthma can vary widely, but typically include wheezing, coughing, shortness of breath, and chest tightness. According to the American Thoracic Society (ATS) 2022 report, approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night. The symptoms of asthma can be triggered by a variety of factors, including allergens, irritants, and respiratory viruses."
+          },
+          {
+            "heading": "Physical Examination Findings in Asthma",
+            "text": "The physical examination findings in asthma can include wheezing, coughing, and decreased lung sounds. According to the ERS 2022 report, the physical examination findings in asthma can be divided into several key components, including the assessment of lung function, the assessment of airway inflammation, and the assessment of comorbidities. The physical examination findings in asthma can also include the assessment of the patient's overall health status, including the assessment of nutritional status and the presence of any comorbidities."
+          },
+          {
+            "heading": "Lung Function Tests in Asthma",
+            "text": "Lung function tests are an essential component of the diagnosis and management of asthma. According to the GINA 2023 guidelines, lung function tests can include spirometry, peak expiratory flow (PEF) measurement, and bronchoprovocation testing. Spirometry is the most commonly used lung function test in asthma, and can provide information on lung function, including forced expiratory volume in one second (FEV1) and forced vital capacity (FVC). PEF measurement can provide information on airway function, and can be used to monitor asthma symptoms and response to treatment."
+          },
+          {
+            "heading": "Diagnosis of Asthma",
+            "text": "The diagnosis of asthma is based on a combination of clinical history, physical examination, and lung function tests. According to the ATS 2022 report, the diagnosis of asthma can be confirmed by the presence of symptoms, physical examination findings, and abnormal lung function tests. The diagnosis of asthma can also be supported by the presence of airway inflammation, as assessed by sputum eosinophil count or exhaled nitric oxide (FeNO) measurement."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis of asthma is to use a combination of clinical history, physical examination, and lung function tests to confirm the diagnosis. This approach can help to identify patients with asthma and to initiate treatment promptly.",
+        "key_points": [
+          "The symptoms of asthma can vary widely, but typically include wheezing, coughing, shortness of breath, and chest tightness.",
+          "The physical examination findings in asthma can include wheezing, coughing, and decreased lung sounds.",
+          "Lung function tests are an essential component of the diagnosis and management of asthma.",
+          "The diagnosis of asthma is based on a combination of clinical history, physical examination, and lung function tests.",
+          "The GINA 2023 guidelines recommend using a stepwise approach to managing asthma, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "The ERS 2022 report highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease.",
+          "The ATS 2022 report estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+        ],
+        "references": [
+          {
+            "title": "Global Initiative for Asthma (GINA) 2023 Report",
+            "authors": "Global Initiative for Asthma",
+            "journal_or_source": "GINA Report",
+            "year": 2023,
+            "type": "guideline",
+            "note": "Provides an overview of the epidemiology, pathophysiology, and management of asthma."
+          },
+          {
+            "title": "American Thoracic Society (ATS) 2022 Report",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "ATS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease."
+          },
+          {
+            "title": "European Respiratory Society (ERS) 2022 Report",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "ERS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnostic Criteria for Bronchial Asthma",
+      "content": {
+        "intro": "The investigations and diagnostic criteria for bronchial asthma can vary widely, depending on the severity of symptoms and the presence of comorbidities. According to the GINA 2023 guidelines, the diagnosis of asthma is based on a combination of clinical history, physical examination, and lung function tests. The investigations and diagnostic criteria for asthma can include spirometry, peak expiratory flow (PEF) measurement, bronchoprovocation testing, and sputum eosinophil count or exhaled nitric oxide (FeNO) measurement.",
+        "sections": [
+          {
+            "heading": "Spirometry in Asthma",
+            "text": "Spirometry is the most commonly used lung function test in asthma, and can provide information on lung function, including forced expiratory volume in one second (FEV1) and forced vital capacity (FVC). According to the ERS 2022 report, spirometry can be used to diagnose asthma, monitor asthma symptoms, and assess response to treatment. The results of spirometry can be interpreted in several ways, including the assessment of FEV1 and FVC, and the calculation of the FEV1/FVC ratio."
+          },
+          {
+            "heading": "Peak Expiratory Flow (PEF) Measurement in Asthma",
+            "text": "PEF measurement is a simple and non-invasive test that can provide information on airway function. According to the ATS 2022 report, PEF measurement can be used to monitor asthma symptoms and assess response to treatment. The results of PEF measurement can be interpreted in several ways, including the assessment of PEF values and the calculation of the PEF variability."
+          },
+          {
+            "heading": "Bronchoprovocation Testing in Asthma",
+            "text": "Bronchoprovocation testing is a specialized test that can provide information on airway responsiveness. According to the GINA 2023 guidelines, bronchoprovocation testing can be used to diagnose asthma, particularly in patients with normal lung function and symptoms suggestive of asthma. The results of bronchoprovocation testing can be interpreted in several ways, including the assessment of the dose-response curve and the calculation of the provocative concentration of methacholine (PC20)."
+          },
+          {
+            "heading": "Sputum Eosinophil Count or Exhaled Nitric Oxide (FeNO) Measurement in Asthma",
+            "text": "Sputum eosinophil count or FeNO measurement can provide information on airway inflammation. According to the ERS 2022 report, sputum eosinophil count or FeNO measurement can be used to monitor asthma symptoms and assess response to treatment. The results of sputum eosinophil count or FeNO measurement can be interpreted in several ways, including the assessment of eosinophil count and FeNO values."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis of asthma is to use a combination of clinical history, physical examination, and lung function tests to confirm the diagnosis. This approach can help to identify patients with asthma and to initiate treatment promptly.",
+        "key_points": [
+          "Spirometry is the most commonly used lung function test in asthma, and can provide information on lung function, including FEV1 and FVC.",
+          "PEF measurement can be used to monitor asthma symptoms and assess response to treatment.",
+          "Bronchoprovocation testing can be used to diagnose asthma, particularly in patients with normal lung function and symptoms suggestive of asthma.",
+          "Sputum eosinophil count or FeNO measurement can provide information on airway inflammation.",
+          "The GINA 2023 guidelines recommend using a stepwise approach to managing asthma, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "The ERS 2022 report highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease.",
+          "The ATS 2022 report estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+        ],
+        "references": [
+          {
+            "title": "Global Initiative for Asthma (GINA) 2023 Report",
+            "authors": "Global Initiative for Asthma",
+            "journal_or_source": "GINA Report",
+            "year": 2023,
+            "type": "guideline",
+            "note": "Provides an overview of the epidemiology, pathophysiology, and management of asthma."
+          },
+          {
+            "title": "European Respiratory Society (ERS) 2022 Report",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "ERS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease."
+          },
+          {
+            "title": "American Thoracic Society (ATS) 2022 Report",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "ATS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Bronchial Asthma",
+      "content": {
+        "intro": "The treatment and management of bronchial asthma can vary widely, depending on the severity of symptoms and the presence of comorbidities. According to the GINA 2023 guidelines, the treatment of asthma is based on a stepwise approach, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed. The treatment of asthma can include pharmacological and non-pharmacological interventions, such as avoidance of triggers, immunotherapy, and pulmonary rehabilitation.",
+        "sections": [
+          {
+            "heading": "Pharmacological Treatment of Asthma",
+            "text": "The pharmacological treatment of asthma can include inhaled corticosteroids, long-acting beta-agonists (LABAs), leukotriene modifiers, and short-acting beta-agonists (SABAs). According to the ERS 2022 report, inhaled corticosteroids are the most effective treatment for asthma, and can reduce symptoms, improve lung function, and reduce the risk of exacerbations. LABAs can be added to inhaled corticosteroids to improve symptom control and reduce the risk of exacerbations."
+          },
+          {
+            "heading": "Non-Pharmacological Treatment of Asthma",
+            "text": "The non-pharmacological treatment of asthma can include avoidance of triggers, immunotherapy, and pulmonary rehabilitation. According to the ATS 2022 report, avoidance of triggers can reduce symptoms and improve quality of life. Immunotherapy can be used to reduce symptoms and improve lung function, particularly in patients with allergic asthma. Pulmonary rehabilitation can improve lung function, reduce symptoms, and improve quality of life."
+          },
+          {
+            "heading": "Biologics in the Treatment of Asthma",
+            "text": "Biologics can be used in the treatment of asthma, particularly in patients with severe asthma. According to the GINA 2023 guidelines, biologics can reduce symptoms, improve lung function, and reduce the risk of exacerbations. The most commonly used biologics in asthma include omalizumab, mepolizumab, and benralizumab."
+          },
+          {
+            "heading": "Treatment of Acute Asthma Exacerbations",
+            "text": "The treatment of acute asthma exacerbations can include SABAs, inhaled corticosteroids, and systemic corticosteroids. According to the ERS 2022 report, SABAs can be used to relieve symptoms and improve lung function. Inhaled corticosteroids can be used to reduce inflammation and improve lung function. Systemic corticosteroids can be used to reduce inflammation and improve lung function, particularly in patients with severe exacerbations."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the treatment of asthma is to use a stepwise approach, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed. This approach can help to improve symptom control, reduce the risk of exacerbations, and improve quality of life.",
+        "key_points": [
+          "The treatment of asthma is based on a stepwise approach, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "Inhaled corticosteroids are the most effective treatment for asthma, and can reduce symptoms, improve lung function, and reduce the risk of exacerbations.",
+          "LABAs can be added to inhaled corticosteroids to improve symptom control and reduce the risk of exacerbations.",
+          "Biologics can be used in the treatment of asthma, particularly in patients with severe asthma.",
+          "The GINA 2023 guidelines recommend using a stepwise approach to managing asthma, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "The ERS 2022 report highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease.",
+          "The ATS 2022 report estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+        ],
+        "references": [
+          {
+            "title": "Global Initiative for Asthma (GINA) 2023 Report",
+            "authors": "Global Initiative for Asthma",
+            "journal_or_source": "GINA Report",
+            "year": 2023,
+            "type": "guideline",
+            "note": "Provides an overview of the epidemiology, pathophysiology, and management of asthma."
+          },
+          {
+            "title": "European Respiratory Society (ERS) 2022 Report",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "ERS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease."
+          },
+          {
+            "title": "American Thoracic Society (ATS) 2022 Report",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "ATS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications, Prognosis, and Follow-up of Bronchial Asthma",
+      "content": {
+        "intro": "The complications, prognosis, and follow-up of bronchial asthma can vary widely, depending on the severity of symptoms and the presence of comorbidities. According to the GINA 2023 guidelines, the complications of asthma can include exacerbations, hospitalizations, and mortality. The prognosis of asthma can be improved with effective management, including pharmacological and non-pharmacological interventions.",
+        "sections": [
+          {
+            "heading": "Complications of Asthma",
+            "text": "The complications of asthma can include exacerbations, hospitalizations, and mortality. According to the ERS 2022 report, exacerbations can be triggered by a variety of factors, including respiratory viruses, allergens, and air pollutants. Hospitalizations can be reduced with effective management, including pharmacological and non-pharmacological interventions. Mortality can be reduced with effective management, including pharmacological and non-pharmacological interventions."
+          },
+          {
+            "heading": "Prognosis of Asthma",
+            "text": "The prognosis of asthma can be improved with effective management, including pharmacological and non-pharmacological interventions. According to the ATS 2022 report, the prognosis of asthma can be influenced by a variety of factors, including the severity of symptoms, the presence of comorbidities, and the effectiveness of treatment. The prognosis of asthma can be improved with early diagnosis, effective treatment, and regular follow-up."
+          },
+          {
+            "heading": "Follow-up of Asthma",
+            "text": "The follow-up of asthma can include regular monitoring of symptoms, lung function, and treatment response. According to the GINA 2023 guidelines, the follow-up of asthma can include regular visits to a healthcare provider, monitoring of peak expiratory flow (PEF), and monitoring of treatment response. The follow-up of asthma can also include education on asthma self-management, including avoidance of triggers, use of medications, and recognition of symptoms."
+          },
+          {
+            "heading": "Asthma Self-Management",
+            "text": "Asthma self-management can include education on avoidance of triggers, use of medications, and recognition of symptoms. According to the ERS 2022 report, asthma self-management can improve quality of life, reduce symptoms, and reduce the risk of exacerbations. Asthma self-management can also include monitoring of peak expiratory flow (PEF), monitoring of treatment response, and regular follow-up with a healthcare provider."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of asthma is to use a comprehensive approach, including pharmacological and non-pharmacological interventions, to improve symptom control, reduce the risk of exacerbations, and improve quality of life.",
+        "key_points": [
+          "The complications of asthma can include exacerbations, hospitalizations, and mortality.",
+          "The prognosis of asthma can be improved with effective management, including pharmacological and non-pharmacological interventions.",
+          "The follow-up of asthma can include regular monitoring of symptoms, lung function, and treatment response.",
+          "Asthma self-management can improve quality of life, reduce symptoms, and reduce the risk of exacerbations.",
+          "The GINA 2023 guidelines recommend using a stepwise approach to managing asthma, starting with low-dose inhaled corticosteroids and gradually increasing the dose or adding other medications as needed.",
+          "The ERS 2022 report highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease.",
+          "The ATS 2022 report estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+        ],
+        "references": [
+          {
+            "title": "Global Initiative for Asthma (GINA) 2023 Report",
+            "authors": "Global Initiative for Asthma",
+            "journal_or_source": "GINA Report",
+            "year": 2023,
+            "type": "guideline",
+            "note": "Provides an overview of the epidemiology, pathophysiology, and management of asthma."
+          },
+          {
+            "title": "European Respiratory Society (ERS) 2022 Report",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "ERS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Highlights the importance of managing asthma effectively to improve quality of life and reduce the burden of the disease."
+          },
+          {
+            "title": "American Thoracic Society (ATS) 2022 Report",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "ATS Report",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Estimates that approximately 50% of patients with asthma experience symptoms daily, and approximately 20% experience symptoms at night."
+          }
+        ]
+      }
+    }
+  ]
+}

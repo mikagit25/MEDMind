@@ -29,6 +29,7 @@ export type LearnTopicEntry = { slug: string };
 export type LearnDrugEntry = { slug: string };
 export type PublicQuizEntry = { slug: string };
 export type LearnPetEntry = { slug: string };
+export type LearnLessonEntry = { module_slug: string; lesson_slug: string };
 
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
@@ -103,6 +104,18 @@ export async function fetchLearnTopicsSitemapData(): Promise<LearnTopicEntry[]> 
     if (!res.ok) return [];
     const data: { slug: string }[] = await res.json();
     return data.map((t) => ({ slug: t.slug }));
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchLearnLessonsSitemapData(): Promise<LearnLessonEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/public/sitemap/lessons`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
   } catch {
     return [];
   }
@@ -187,12 +200,13 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnDrugs, publicQuizzes, learnPets] = await Promise.all([
+  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnLessons, learnDrugs, publicQuizzes, learnPets] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
     fetchNewsSitemapData(),
     fetchLearnGlossarySitemapData(),
     fetchLearnTopicsSitemapData(),
+    fetchLearnLessonsSitemapData(),
     fetchLearnDrugsSitemapData(),
     fetchPublicQuizzesSitemapData(),
     fetchLearnPetsSitemapData(),
@@ -356,6 +370,20 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         priority: 0.7,
         changefreq: "monthly",
         hreflang: hreflangTags(`/learn/topics/${topic.slug}`, LEARN_LOCALES),
+      })
+    );
+  }
+
+  // Individual lesson pages — highest priority for content indexing
+  for (const lesson of learnLessons) {
+    const path = `/learn/topics/${lesson.module_slug}/${lesson.lesson_slug}`;
+    entries.push(
+      urlEntry({
+        url: localizedUrl(path, locale),
+        lastmod: now,
+        priority: 0.75,
+        changefreq: "monthly",
+        hreflang: hreflangTags(path, LEARN_LOCALES),
       })
     );
   }

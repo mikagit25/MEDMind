@@ -12,6 +12,7 @@ interface User {
   xp: number;
   level: number;
   streak_days: number;
+  longest_streak?: number;
   onboarding_completed: boolean;
   preferences: Record<string, unknown>;
   created_at?: string;

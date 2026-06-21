@@ -71,7 +71,7 @@ type ArticleDetail = {
   related_module_code: string | null;
   author: { name: string; bio: string | null; is_ai: boolean } | null;
   // Verification
-  verification_status: "unverified" | "ai_verified" | "expert_verified";
+  verification_status: "unverified" | "ai_verified" | "expert_verified" | "human_reviewed";
   verified_sources: VerifiedSource[];
   last_verified_at: string | null;
   generated_by: string | null;

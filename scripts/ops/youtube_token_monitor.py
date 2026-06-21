@@ -36,10 +36,23 @@ ACCOUNTS = {
         "token_file":  "/opt/medmind/youtube_token_ar.json",
         "secret_file": "/opt/medmind/client_secret_account3_web.json",
     },
+    # ── Happy Bear Kids ──────────────────────────────────────────────────────
     "kids": {
-        "label":       "🐻 Happy Bear Kids",
+        "label":       "🐻 Happy Bear Kids EN",
         "token_file":  "/opt/kids_channel/credentials/youtube_token.json",
         "secret_file": "/opt/kids_channel/credentials/client_secret_kids_web.json",
+    },
+    "kids_ar": {
+        "label":       "🐻 Happy Bear Kids AR",
+        "token_type":  "self_contained",
+        "token_file":  "/opt/kids_channel/credentials/youtube_token_ar.json",
+        "reauth_cmd":  "cd /opt/kids_channel && python3 scripts/reauth_youtube.py --channel ar",
+    },
+    "kids_id": {
+        "label":       "🐻 Happy Bear Kids ID",
+        "token_type":  "self_contained",
+        "token_file":  "/opt/kids_channel/credentials/youtube_token_id.json",
+        "reauth_cmd":  "cd /opt/kids_channel && python3 scripts/reauth_youtube.py --channel id",
     },
 }
 
@@ -48,6 +61,50 @@ YT_SCOPES = (
     " https://www.googleapis.com/auth/youtube"
     " https://www.googleapis.com/auth/youtube.force-ssl"
 )
+
+
+def check_selfcontained_token(token_file: str) -> tuple[bool, str]:
+    """Try to refresh a self-contained JSON token (client_id/secret embedded). Returns (valid, status)."""
+    import urllib.request, urllib.parse
+    try:
+        with open(token_file) as f:
+            t = json.load(f)
+        if not t.get("refresh_token"):
+            return False, "нет refresh_token"
+
+        # Try refresh
+        payload = urllib.parse.urlencode({
+            "client_id":     t["client_id"],
+            "client_secret": t["client_secret"],
+            "refresh_token": t["refresh_token"],
+            "grant_type":    "refresh_token",
+        }).encode()
+        req = urllib.request.Request(
+            "https://oauth2.googleapis.com/token",
+            data=payload,
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            new = json.loads(resp.read())
+
+        if "access_token" not in new:
+            err = new.get("error", "unknown")
+            if err == "invalid_grant":
+                return False, "refresh_token истёк — нужна повторная авторизация"
+            return False, f"ошибка обновления: {err}"
+
+        # Save refreshed token
+        t["access_token"] = new["access_token"]
+        t["expires_at"]   = time.time() + new.get("expires_in", 3600)
+        with open(token_file, "w") as f:
+            json.dump(t, f, indent=2)
+        return True, "обновлён успешно"
+
+    except Exception as e:
+        msg = str(e).lower()
+        if "invalid_grant" in msg:
+            return False, "refresh_token истёк — нужна повторная авторизация"
+        return False, f"ошибка: {str(e)[:80]}"
 
 
 def check_pickle_token(token_file: str) -> tuple[bool, str]:
@@ -138,7 +195,21 @@ def main():
 
     alerts = []
     for account, cfg in ACCOUNTS.items():
-        # ── Pickle token (kids channel) ───────────────────────────────────────
+        # ── Self-contained JSON token (Kids AR/ID) ───────────────────────────
+        if cfg.get("token_type") == "self_contained":
+            valid, status = check_selfcontained_token(cfg["token_file"])
+            print(f"  {cfg['label']}: {status}")
+            if not valid:
+                alerts.append({
+                    "label":      cfg["label"],
+                    "hours_left": 0,
+                    "auth_url":   None,
+                    "reauth_cmd": cfg.get("reauth_cmd", ""),
+                    "is_pickle":  True,   # same alert format: show reauth command
+                })
+            continue
+
+        # ── Pickle token ─────────────────────────────────────────────────────
         if cfg.get("token_type") == "pickle":
             valid, status = check_pickle_token(cfg["token_file"])
             print(f"  {cfg['label']}: {status}")

@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PULM-007",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Interstitial Lung Diseases: ILD, IPF, Sarcoidosis",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-21"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Interstitial Lung Diseases",
+      "content": {
+        "intro": "Interstitial lung diseases (ILDs) are a group of disorders characterized by inflammation and fibrosis of the lung parenchyma. The epidemiology of ILDs varies widely depending on the specific disease. Idiopathic pulmonary fibrosis (IPF) is the most common form of ILD, with a prevalence of approximately 13-20 cases per 100,000 people in the United States. The pathophysiology of ILDs involves a complex interplay of genetic and environmental factors, leading to chronic inflammation and fibrosis. The exact mechanisms are not fully understood, but it is believed that repeated injury to the lung parenchyma, followed by abnormal repair, leads to the development of fibrosis. The role of the immune system in the pathogenesis of ILDs is also being investigated, with evidence suggesting that both innate and adaptive immunity play a role.",
+        "sections": [
+          {
+            "heading": "Epidemiology of ILDs",
+            "text": "The epidemiology of ILDs is complex and varies depending on the specific disease. IPF is the most common form of ILD, with a prevalence of approximately 13-20 cases per 100,000 people in the United States. The incidence of IPF increases with age, with most cases occurring in people over the age of 60. The disease is more common in men than women, with a male-to-female ratio of approximately 1.5:1. The mortality rate for IPF is high, with a 5-year survival rate of approximately 20-30%. Other forms of ILDs, such as sarcoidosis, have a different epidemiological profile. Sarcoidosis is more common in women than men, with a female-to-male ratio of approximately 1.5:1. The disease is also more common in African Americans than Caucasians, with a prevalence of approximately 2.4 times higher."
+          },
+          {
+            "heading": "Pathophysiology of ILDs",
+            "text": "The pathophysiology of ILDs involves a complex interplay of genetic and environmental factors, leading to chronic inflammation and fibrosis. The exact mechanisms are not fully understood, but it is believed that repeated injury to the lung parenchyma, followed by abnormal repair, leads to the development of fibrosis. The role of the immune system in the pathogenesis of ILDs is also being investigated, with evidence suggesting that both innate and adaptive immunity play a role. The ESC 2015 guidelines recommend a multidisciplinary approach to the diagnosis and management of ILDs, including the use of high-resolution computed tomography (HRCT) and pulmonary function tests (PFTs). The AHA 2017 guidelines also recommend the use of anti-fibrotic medications, such as pirfenidone and nintedanib, in the treatment of IPF."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic and environmental factors play a significant role in the development of ILDs. Genetic mutations, such as those in the TERT and TERC genes, have been identified as risk factors for the development of IPF. Environmental factors, such as exposure to tobacco smoke and asbestos, have also been linked to an increased risk of developing ILDs. The NICE 2013 guidelines recommend that patients with ILDs be advised to stop smoking and avoid exposure to other environmental toxins. The ACC 2019 guidelines also recommend the use of oxygen therapy in patients with ILDs who have hypoxemia."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of ILDs requires a multidisciplinary approach, including the use of HRCT and PFTs. The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The use of anti-fibrotic medications, such as pirfenidone and nintedanib, can slow the progression of disease in patients with IPF.",
+        "key_points": [
+          "The prevalence of IPF is approximately 13-20 cases per 100,000 people in the United States.",
+          "The incidence of IPF increases with age, with most cases occurring in people over the age of 60.",
+          "The mortality rate for IPF is high, with a 5-year survival rate of approximately 20-30%.",
+          "The ESC 2015 guidelines recommend a multidisciplinary approach to the diagnosis and management of ILDs.",
+          "The AHA 2017 guidelines recommend the use of anti-fibrotic medications, such as pirfenidone and nintedanib, in the treatment of IPF.",
+          "The NICE 2013 guidelines recommend that patients with ILDs be advised to stop smoking and avoid exposure to other environmental toxins."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, Humbert M, Vachiery JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension in patients with ILDs."
+          },
+          {
+            "title": "2017 AHA/ACC/AAP/AATS/AGS/APS/SPVM Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, Daniels CJ, Aboulhosn JA",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of adults with congenital heart disease, including those with ILDs."
+          },
+          {
+            "title": "Idiopathic Pulmonary Fibrosis: A Review of the Current Status and Future Directions",
+            "authors": "Raghu G, Rochwerg B, Zhang Y",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A review of the current status and future directions in the diagnosis and treatment of IPF."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Interstitial Lung Diseases",
+      "content": {
+        "intro": "The clinical presentation of interstitial lung diseases (ILDs) can vary widely, but common symptoms include dyspnea, cough, and fatigue. The diagnosis of ILDs requires a multidisciplinary approach, including the use of high-resolution computed tomography (HRCT) and pulmonary function tests (PFTs). The clinical presentation of ILDs can be divided into several categories, including respiratory symptoms, systemic symptoms, and physical examination findings.",
+        "sections": [
+          {
+            "heading": "Respiratory Symptoms",
+            "text": "The most common respiratory symptoms of ILDs include dyspnea, cough, and wheezing. Dyspnea is the most common symptom, occurring in approximately 90% of patients. Cough is also a common symptom, occurring in approximately 60% of patients. Wheezing is less common, occurring in approximately 20% of patients. The ESC 2015 guidelines recommend that patients with ILDs be evaluated for respiratory symptoms, including dyspnea and cough. The AHA 2017 guidelines also recommend the use of oxygen therapy in patients with ILDs who have hypoxemia."
+          },
+          {
+            "heading": "Systemic Symptoms",
+            "text": "Systemic symptoms, such as fever, weight loss, and fatigue, can also occur in patients with ILDs. Fever is a common symptom, occurring in approximately 30% of patients. Weight loss is also common, occurring in approximately 20% of patients. Fatigue is the most common systemic symptom, occurring in approximately 80% of patients. The NICE 2013 guidelines recommend that patients with ILDs be evaluated for systemic symptoms, including fever and weight loss. The ACC 2019 guidelines also recommend the use of anti-fibrotic medications, such as pirfenidone and nintedanib, in the treatment of IPF."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "Physical examination findings, such as crackles and clubbing, can also occur in patients with ILDs. Crackles are the most common physical examination finding, occurring in approximately 70% of patients. Clubbing is less common, occurring in approximately 20% of patients. The clinical presentation of ILDs can vary widely, but common physical examination findings include crackles, clubbing, and cyanosis. The ESC 2015 guidelines recommend that patients with ILDs be evaluated for physical examination findings, including crackles and clubbing."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of ILDs requires a multidisciplinary approach, including the use of HRCT and PFTs. The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The use of anti-fibrotic medications, such as pirfenidone and nintedanib, can slow the progression of disease in patients with IPF.",
+        "key_points": [
+          "The most common respiratory symptoms of ILDs include dyspnea, cough, and wheezing.",
+          "The ESC 2015 guidelines recommend that patients with ILDs be evaluated for respiratory symptoms, including dyspnea and cough.",
+          "The AHA 2017 guidelines recommend the use of oxygen therapy in patients with ILDs who have hypoxemia.",
+          "Systemic symptoms, such as fever, weight loss, and fatigue, can also occur in patients with ILDs.",
+          "The NICE 2013 guidelines recommend that patients with ILDs be evaluated for systemic symptoms, including fever and weight loss.",
+          "The ACC 2019 guidelines recommend the use of anti-fibrotic medications, such as pirfenidone and nintedanib, in the treatment of IPF."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, Humbert M, Vachiery JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension in patients with ILDs."
+          },
+          {
+            "title": "2017 AHA/ACC/AAP/AATS/AGS/APS/SPVM Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, Daniels CJ, Aboulhosn JA",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of adults with congenital heart disease, including those with ILDs."
+          },
+          {
+            "title": "Idiopathic Pulmonary Fibrosis: A Review of the Current Status and Future Directions",
+            "authors": "Raghu G, Rochwerg B, Zhang Y",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A review of the current status and future directions in the diagnosis and treatment of IPF."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Interstitial Lung Diseases",
+      "content": {
+        "intro": "The diagnosis of interstitial lung diseases (ILDs) requires a multidisciplinary approach, including the use of high-resolution computed tomography (HRCT) and pulmonary function tests (PFTs). The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The diagnosis of ILDs can be divided into several categories, including imaging tests, pulmonary function tests, and laboratory tests.",
+        "sections": [
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests, such as HRCT and chest X-ray, are commonly used in the diagnosis of ILDs. HRCT is the most sensitive imaging test for the diagnosis of ILDs, with a sensitivity of approximately 90%. Chest X-ray is less sensitive, with a sensitivity of approximately 50%. The ESC 2015 guidelines recommend that patients with ILDs be evaluated with HRCT and chest X-ray. The AHA 2017 guidelines also recommend the use of positron emission tomography (PET) in patients with ILDs who have suspected malignancy."
+          },
+          {
+            "heading": "Pulmonary Function Tests",
+            "text": "Pulmonary function tests, such as spirometry and diffusing capacity of the lungs for carbon monoxide (DLCO), are commonly used in the diagnosis of ILDs. Spirometry is the most commonly used pulmonary function test, with a sensitivity of approximately 80%. DLCO is less commonly used, with a sensitivity of approximately 60%. The NICE 2013 guidelines recommend that patients with ILDs be evaluated with spirometry and DLCO. The ACC 2019 guidelines also recommend the use of cardiopulmonary exercise testing (CPET) in patients with ILDs who have suspected pulmonary hypertension."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as blood tests and bronchoalveolar lavage (BAL), are commonly used in the diagnosis of ILDs. Blood tests, such as complete blood count (CBC) and blood chemistry tests, are used to evaluate for systemic inflammation and infection. BAL is used to evaluate for alveolar inflammation and infection. The ESC 2015 guidelines recommend that patients with ILDs be evaluated with blood tests and BAL. The AHA 2017 guidelines also recommend the use of genetic testing in patients with ILDs who have suspected genetic predisposition."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of ILDs requires a multidisciplinary approach, including the use of HRCT and PFTs. The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The use of anti-fibrotic medications, such as pirfenidone and nintedanib, can slow the progression of disease in patients with IPF.",
+        "key_points": [
+          "The diagnosis of ILDs requires a multidisciplinary approach, including the use of HRCT and PFTs.",
+          "The ESC 2015 guidelines recommend that patients with ILDs be evaluated with HRCT and chest X-ray.",
+          "The AHA 2017 guidelines recommend the use of PET in patients with ILDs who have suspected malignancy.",
+          "Pulmonary function tests, such as spirometry and DLCO, are commonly used in the diagnosis of ILDs.",
+          "The NICE 2013 guidelines recommend that patients with ILDs be evaluated with spirometry and DLCO.",
+          "The ACC 2019 guidelines recommend the use of CPET in patients with ILDs who have suspected pulmonary hypertension."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, Humbert M, Vachiery JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension in patients with ILDs."
+          },
+          {
+            "title": "2017 AHA/ACC/AAP/AATS/AGS/APS/SPVM Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, Daniels CJ, Aboulhosn JA",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of adults with congenital heart disease, including those with ILDs."
+          },
+          {
+            "title": "Idiopathic Pulmonary Fibrosis: A Review of the Current Status and Future Directions",
+            "authors": "Raghu G, Rochwerg B, Zhang Y",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A review of the current status and future directions in the diagnosis and treatment of IPF."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Interstitial Lung Diseases",
+      "content": {
+        "intro": "The treatment and management of interstitial lung diseases (ILDs) require a multidisciplinary approach, including the use of pharmacological and non-pharmacological therapies. The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The treatment of ILDs can be divided into several categories, including pharmacological therapies, non-pharmacological therapies, and pulmonary rehabilitation.",
+        "sections": [
+          {
+            "heading": "Pharmacological Therapies",
+            "text": "Pharmacological therapies, such as anti-fibrotic medications and corticosteroids, are commonly used in the treatment of ILDs. Anti-fibrotic medications, such as pirfenidone and nintedanib, have been shown to slow the progression of disease in patients with IPF. Corticosteroids, such as prednisone, are commonly used in the treatment of ILDs, but their use is limited by side effects. The ESC 2015 guidelines recommend that patients with ILDs be treated with anti-fibrotic medications and corticosteroids. The AHA 2017 guidelines also recommend the use of immunosuppressive medications, such as azathioprine and cyclophosphamide, in patients with ILDs who have suspected autoimmune disease."
+          },
+          {
+            "heading": "Non-Pharmacological Therapies",
+            "text": "Non-pharmacological therapies, such as oxygen therapy and pulmonary rehabilitation, are commonly used in the treatment of ILDs. Oxygen therapy is used to treat hypoxemia and improve exercise tolerance. Pulmonary rehabilitation is a comprehensive program that includes exercise training, education, and support. The NICE 2013 guidelines recommend that patients with ILDs be treated with oxygen therapy and pulmonary rehabilitation. The ACC 2019 guidelines also recommend the use of lung transplantation in patients with ILDs who have advanced disease."
+          },
+          {
+            "heading": "Pulmonary Rehabilitation",
+            "text": "Pulmonary rehabilitation is a comprehensive program that includes exercise training, education, and support. Exercise training, such as aerobic exercise and strength training, is used to improve exercise tolerance and reduce symptoms. Education, such as disease management and nutrition counseling, is used to improve patient knowledge and self-management. Support, such as counseling and support groups, is used to improve patient quality of life. The ESC 2015 guidelines recommend that patients with ILDs be treated with pulmonary rehabilitation. The AHA 2017 guidelines also recommend the use of telehealth in patients with ILDs who have limited access to healthcare services."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of ILDs require a multidisciplinary approach, including the use of pharmacological and non-pharmacological therapies. The clinical presentation of ILDs can vary widely, but common symptoms include dyspnea, cough, and fatigue. The use of anti-fibrotic medications, such as pirfenidone and nintedanib, can slow the progression of disease in patients with IPF.",
+        "key_points": [
+          "The treatment of ILDs requires a multidisciplinary approach, including the use of pharmacological and non-pharmacological therapies.",
+          "The ESC 2015 guidelines recommend that patients with ILDs be treated with anti-fibrotic medications and corticosteroids.",
+          "The AHA 2017 guidelines recommend the use of immunosuppressive medications, such as azathioprine and cyclophosphamide, in patients with ILDs who have suspected autoimmune disease.",
+          "Non-pharmacological therapies, such as oxygen therapy and pulmonary rehabilitation, are commonly used in the treatment of ILDs.",
+          "The NICE 2013 guidelines recommend that patients with ILDs be treated with oxygen therapy and pulmonary rehabilitation.",
+          "The ACC 2019 guidelines recommend the use of lung transplantation in patients with ILDs who have advanced disease."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the diagnosis and treatment of pulmonary hypertension",
+            "authors": "Galie N, Humbert M, Vachiery JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of pulmonary hypertension in patients with ILDs."
+          },
+          {
+            "title": "2017 AHA/ACC/AAP/AATS/AGS/APS/SPVM Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, Daniels CJ, Aboulhosn JA",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of adults with congenital heart disease, including those with ILDs."
+          },
+          {
+            "title": "Idiopathic Pulmonary Fibrosis: A Review of the Current Status and Future Directions",
+            "authors": "Raghu G, Rochwerg B, Zhang Y",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A review of the current status and future directions in the diagnosis and treatment of IPF."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { adminApi } from "@/lib/api";
+import { api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
 type QueueArticle = {
@@ -19,10 +19,10 @@ type QueueArticle = {
 };
 
 type ArticleDetail = QueueArticle & {
-  body: unknown[];
+  body: Record<string, unknown>[];
   sources: { title: string; url: string; pmid: string | null }[];
   faq: { question: string; answer: string }[];
-  verification_report: unknown;
+  verification_report: Record<string, unknown> | string | null;
   review_note: string | null;
 };
 
@@ -63,7 +63,7 @@ export default function ReviewerQueuePage() {
 
   const loadStats = useCallback(async () => {
     try {
-      const data = await adminApi("/admin/reviewer-queue/stats/summary");
+      const data = await api.get("/admin/reviewer-queue/stats/summary").then(r => r.data);
       setStats(data);
     } catch {
       // non-fatal
@@ -73,7 +73,7 @@ export default function ReviewerQueuePage() {
   const loadQueue = useCallback(async (p: number) => {
     setLoading(true);
     try {
-      const data = await adminApi(`/admin/reviewer-queue?page=${p}&page_size=${PAGE_SIZE}`);
+      const data = await api.get("/admin/reviewer-queue", { params: { page: p, page_size: PAGE_SIZE } }).then(r => r.data);
       setArticles(data.items ?? []);
       setTotal(data.total ?? 0);
     } catch {
@@ -92,7 +92,7 @@ export default function ReviewerQueuePage() {
     setDetailLoading(true);
     setSelected(null);
     try {
-      const data = await adminApi(`/admin/reviewer-queue/${article.id}`);
+      const data = await api.get(`/admin/reviewer-queue/${article.id}`).then(r => r.data);
       setSelected(data);
     } catch {
       showToast("Failed to load article", false);
@@ -105,7 +105,7 @@ export default function ReviewerQueuePage() {
     if (!selected) return;
     setActionLoading(true);
     try {
-      await adminApi(`/admin/reviewer-queue/${selected.id}/approve`, { method: "POST" });
+      await api.post(`/admin/reviewer-queue/${selected.id}/approve`).then(r => r.data);
       showToast("Article approved — marked as human-reviewed");
       setSelected(null);
       loadStats();
@@ -121,10 +121,7 @@ export default function ReviewerQueuePage() {
     if (!selected || !rejectComment.trim()) return;
     setActionLoading(true);
     try {
-      await adminApi(`/admin/reviewer-queue/${selected.id}/request-changes`, {
-        method: "POST",
-        body: JSON.stringify({ comment: rejectComment.trim() }),
-      });
+      await api.post(`/admin/reviewer-queue/${selected.id}/request-changes`, { comment: rejectComment.trim() }).then(r => r.data);
       showToast("Changes requested — article hidden from public");
       setShowRejectModal(false);
       setRejectComment("");

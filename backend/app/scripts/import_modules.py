@@ -18,7 +18,10 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy import select
 
 from app.core.config import settings
-from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase
+from app.models.models import (
+    Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase,
+    ModuleTranslation, LessonTranslation, SUPPORTED_LOCALES,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -34,24 +37,101 @@ LEVEL_MAP = {
 
 # Specialty name → specialty code in DB
 SPECIALTY_CODE_MAP = {
+    # Russian names
     "Кардиология": "cardiology",
     "Терапия": "therapy",
-    "Internal Medicine": "therapy",
     "Неврология": "neurology",
     "Хирургия": "surgery",
     "Педиатрия": "pediatrics",
     "Акушерство и гинекология": "obstetrics",
     "Акушерство": "obstetrics",
     "Базовые дисциплины": "pharmacology",
-    "Foundations": "pharmacology",
     "Фармакология": "pharmacology",
-    "Психиатрия": "therapy",
-    "Анестезиология": "surgery",
-    "Онкология": "therapy",
-    "Дерматология": "therapy",
-    "Veterinary": "veterinary",
+    "Психиатрия": "psychiatry",
+    "Анестезиология": "anesthesiology",
+    "Онкология": "oncology",
+    "Дерматология": "dermatology",
+    "Пульмонология": "pulmonology",
+    "Нефрология": "nephrology",
+    "Гастроэнтерология": "gastroenterology",
+    "Эндокринология": "endocrinology",
+    "Ревматология": "rheumatology",
+    "Инфекционные болезни": "infectious_diseases",
+    "Скорая и неотложная помощь": "emergency_medicine",
+    "Реаниматология и ИТ": "critical_care",
+    "Гематология": "hematology",
+    "Офтальмология": "ophthalmology",
+    "ЛОР-болезни": "ent",
+    "Ортопедия и травматология": "orthopedics",
     "Ветеринария": "veterinary",
+    # English names (from generated modules)
+    "Internal Medicine": "therapy",
+    "Foundations": "pharmacology",
+    "Anesthesiology": "anesthesiology",
+    "Oncology": "oncology",
+    "Dermatology": "dermatology",
+    "Pulmonology": "pulmonology",
+    "Nephrology": "nephrology",
+    "Gastroenterology": "gastroenterology",
+    "Endocrinology": "endocrinology",
+    "Rheumatology": "rheumatology",
+    "Infectious Diseases": "infectious_diseases",
+    "Emergency Medicine": "emergency_medicine",
+    "Critical Care": "critical_care",
+    "Hematology": "hematology",
+    "Ophthalmology": "ophthalmology",
+    "Otorhinolaryngology": "ent",
+    "Orthopedics": "orthopedics",
+    "Veterinary": "veterinary",
+    "Cardiology": "cardiology",
+    "Neurology": "neurology",
+    "Surgery": "surgery",
+    "Pediatrics": "pediatrics",
+    "Psychiatry": "psychiatry",
+    "Pharmacology": "pharmacology",
+    "Anesthesiology": "anesthesiology",
+    "Obstetrics": "obstetrics",
+    "Obstetrics & Gynaecology": "obstetrics",
+    "Urology": "urology",
+    "Урология": "urology",
+    "Хирургия": "surgery",
+    "Педиатрия": "pediatrics",
+    "Кардиология": "cardiology",
+    "Неврология": "neurology",
 }
+
+
+async def _schedule_pending_translations(
+    db: AsyncSession,
+    module: Module,
+    lessons: list[Lesson],
+) -> None:
+    """Create ModuleTranslation + LessonTranslation rows (status=pending) for all locales.
+    Does NOT trigger async translation — a separate cron handles that.
+    Idempotent: skips rows that already exist in any state.
+    """
+    for locale in SUPPORTED_LOCALES:
+        existing_mt = await db.get(ModuleTranslation, (module.id, locale))
+        if not existing_mt:
+            db.add(ModuleTranslation(
+                module_id=module.id,
+                locale=locale,
+                title=module.title or module.title_en or "",
+                description=module.description or "",
+                status="pending",
+            ))
+
+        for lesson in lessons:
+            existing_lt = await db.get(LessonTranslation, (lesson.id, locale))
+            if not existing_lt:
+                db.add(LessonTranslation(
+                    lesson_id=lesson.id,
+                    locale=locale,
+                    title=lesson.title or "",
+                    content_json=None,
+                    status="pending",
+                ))
+    await db.flush()
 
 
 async def get_specialty_id(db: AsyncSession, specialty_name: str) -> str | None:
@@ -86,6 +166,8 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
 
         is_fundamental = module_code.startswith("BASE-")
         is_vet = module_code.startswith("VET-") or module_code.startswith("PET-")
+        # "patient_guide" | "disease_module" | "specialty_module"
+        module_type = meta.get("type", "specialty_module")
 
         # Check if module already exists
         existing = await db.execute(select(Module).where(Module.code == module_code))
@@ -106,6 +188,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
         module.duration_hours = meta.get("duration_hours", 0)
         module.is_fundamental = is_fundamental
         module.is_veterinary = is_vet
+        module.module_type = module_type
         module.language = meta.get("language", "en")
         module.prerequisite_codes = meta.get("prerequisite_modules", [])
         module.content = data
@@ -188,8 +271,17 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
             )
             db.add(case)
 
+        # Collect new lessons for translation scheduling
+        lesson_result = await db.execute(
+            select(Lesson).where(Lesson.module_id == module.id)
+        )
+        imported_lessons = lesson_result.scalars().all()
+
+        # Schedule translations for all supported locales (status=pending)
+        await _schedule_pending_translations(db, module, imported_lessons)
+
         await db.commit()
-        logger.info(f"✅ Imported: {module_code}")
+        logger.info(f"✅ Imported: {module_code} ({len(imported_lessons)} lessons, translations scheduled)")
         return True
 
     except Exception as e:

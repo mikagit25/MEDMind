@@ -210,9 +210,12 @@ export const contentApi = {
     api.get(`/specialties/${specialtyId}/modules`).then(r => r.data),
   getAllModules: (params?: { search?: string; specialty_code?: string; vet?: boolean }) =>
     api.get("/modules", { params }).then(r => r.data),
-  getModule: (id: string) => api.get(`/modules/${id}`).then(r => r.data),
-  getLessons: (moduleId: string) => api.get(`/modules/${moduleId}/lessons`).then(r => r.data),
-  getLesson: (id: string) => api.get(`/lessons/${id}`).then(r => r.data),
+  getModule: (id: string, locale?: string) =>
+    api.get(`/modules/${id}`, { params: locale && locale !== "en" ? { locale } : undefined }).then(r => r.data),
+  getLessons: (moduleId: string, locale?: string) =>
+    api.get(`/modules/${moduleId}/lessons`, { params: locale && locale !== "en" ? { locale } : undefined }).then(r => r.data),
+  getLesson: (id: string, locale?: string) =>
+    api.get(`/lessons/${id}`, { params: locale && locale !== "en" ? { locale } : undefined }).then(r => r.data),
   getLessonLay: (id: string) => api.get(`/lessons/${id}?view=lay`).then(r => r.data),
   getFlashcards: (moduleId: string, dueOnly = false) =>
     api.get(`/modules/${moduleId}/flashcards${dueOnly ? "?due_only=true" : ""}`).then(r => r.data),

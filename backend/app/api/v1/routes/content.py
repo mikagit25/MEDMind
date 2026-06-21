@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, or_
 
 from app.core.database import get_db
-from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article, UserProgress
+from app.models.models import Specialty, Module, Lesson, Flashcard, MCQQuestion, ClinicalCase, User, Drug, Article, UserProgress, ModuleTranslation, LessonTranslation
 from app.schemas.schemas import (
     SpecialtyOut, ModuleOut, ModuleDetail, LessonOut, LessonDetail,
     LessonLayView, FlashcardOut, MCQQuestionOut, ClinicalCaseOut, ClinicalCaseDetail, DrugOut
@@ -193,10 +193,11 @@ async def list_all_modules(
 @router.get("/modules/{module_id}", response_model=ModuleDetail)
 async def get_module(
     module_id: UUID,
+    locale: Optional[str] = Query(None, max_length=5, description="Locale for translated title, e.g. 'ru', 'de'"),
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
-    cache_key = f"module:{module_id}"
+    cache_key = f"module:{module_id}:{locale or 'en'}"
     if cached := await get_cached(cache_key):
         return cached
 
@@ -212,8 +213,18 @@ async def get_module(
                 status_code=403,
                 detail="Upgrade to Student plan to access specialty modules"
             )
-    await set_cached(cache_key, ModuleDetail.model_validate(module).model_dump(), ttl=300)
-    return module
+
+    # Overlay translated title/description if available
+    if locale and locale != "en":
+        tr = await db.get(ModuleTranslation, (module_id, locale))
+        if tr and tr.status == "done" and tr.title:
+            module.title = tr.title
+            if tr.description:
+                module.description = tr.description
+
+    data = ModuleDetail.model_validate(module).model_dump()
+    await set_cached(cache_key, data, ttl=300)
+    return data
 
 
 # ============================================================
@@ -222,6 +233,7 @@ async def get_module(
 @router.get("/modules/{module_id}/lessons", response_model=List[LessonOut])
 async def list_module_lessons(
     module_id: UUID,
+    locale: Optional[str] = Query(None, max_length=5, description="Locale for translated lesson titles, e.g. 'ru'"),
     db: AsyncSession = Depends(get_db),
     user: Optional[User] = Depends(get_current_user_optional),
 ):
@@ -230,7 +242,16 @@ async def list_module_lessons(
         .where(Lesson.module_id == module_id)
         .order_by(Lesson.lesson_order)
     )
-    return result.scalars().all()
+    lessons = result.scalars().all()
+
+    # Overlay translated titles when locale is requested
+    if locale and locale != "en" and lessons:
+        for lesson in lessons:
+            tr = await db.get(LessonTranslation, (lesson.id, locale))
+            if tr and tr.status == "done" and tr.title:
+                lesson.title = tr.title
+
+    return lessons
 
 
 @router.get("/lessons/{lesson_id}")
