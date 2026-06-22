@@ -72,6 +72,15 @@ services:
     volumes:
       - media_data:/app/data/media
       - ./Modules:/app/data/modules:ro
+      # YouTube OAuth tokens — host files override baked-in empty placeholders
+      - /opt/medmind/youtube_token.json:/app/youtube_token_en.json
+      - /opt/medmind/youtube_token_account2.json:/app/youtube_token_es.json
+      - /opt/medmind/youtube_token_ar.json:/app/youtube_token_ar.json
+      - /opt/kids_channel/credentials/youtube_token.json:/app/youtube_token_kids.json
+      - /opt/kids_channel/credentials/youtube_token_ar.json:/app/youtube_token_kids_ar.json
+      - /opt/kids_channel/credentials/youtube_token_id.json:/app/youtube_token_kids_id.json
+      # Kids channel client secret (empty in backend dir, real file on host)
+      - /opt/kids_channel/credentials/client_secret_kids_web.json:/app/client_secret_kids_web.json:ro
     depends_on:
       postgres:
         condition: service_healthy
