@@ -604,6 +604,181 @@ class CaseDiscussRequest(BaseModel):
     discussion_point: Optional[str] = None
 
 
+# ============================================================
+# DIFFERENTIAL DIAGNOSIS
+# ============================================================
+
+class DifferentialRequest(BaseModel):
+    case_description: str
+    language: Optional[str] = "en"
+
+
+class DifferentialItem(BaseModel):
+    diagnosis: str
+    icd: Optional[str] = None
+    reasoning: str
+    next_steps: Optional[str] = None
+
+
+class CantMissItem(BaseModel):
+    diagnosis: str
+    icd: Optional[str] = None
+    urgency: str
+    red_flags: str
+    action: str
+
+
+class ExpandedItem(BaseModel):
+    diagnosis: str
+    icd: Optional[str] = None
+    reasoning: str
+
+
+class DifferentialResponse(BaseModel):
+    reasoning: str
+    most_likely: List[DifferentialItem]
+    expanded: List[ExpandedItem]
+    cant_miss: List[CantMissItem]
+    recommended_workup: List[str]
+    pubmed_refs: Optional[List[dict]] = None
+    model: Optional[str] = None
+
+
+@router.post("/differential", response_model=DifferentialResponse)
+async def differential_diagnosis(
+    data: DifferentialRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate a structured differential diagnosis from a clinical case description."""
+    from app.prompts.tutor_prompts import DIFFERENTIAL_SYSTEM, differential_prompt
+    from app.services.ai_router import call_claude_structured
+
+    data.case_description = sanitize_ai_message(data.case_description)
+    await check_ai_rate_limit(user, db)
+
+    # Use Sonnet for pro/clinic, Haiku for student/free
+    model = "claude-sonnet-4-6" if user.subscription_tier in ("pro", "clinic", "lifetime") else "claude-haiku-4-5-20251001"
+    prompt = differential_prompt(data.case_description, data.language or "en")
+
+    try:
+        raw, model_label = await call_claude_structured(
+            system=DIFFERENTIAL_SYSTEM,
+            user_message=prompt,
+            model=model,
+            max_tokens=2500,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
+
+    # Parse JSON
+    try:
+        clean = raw.strip()
+        if clean.startswith("```"):
+            clean = clean.split("```")[1]
+            if clean.startswith("json"):
+                clean = clean[4:]
+        parsed = json.loads(clean)
+    except (json.JSONDecodeError, AttributeError):
+        raise HTTPException(status_code=502, detail="AI returned malformed response. Please try again.")
+
+    # PubMed refs for paid users
+    pubmed_refs = None
+    if user.subscription_tier != "free":
+        try:
+            pubmed_refs = await search_pubmed(data.case_description)
+        except Exception:
+            pass
+
+    await audit(db, "ai_differential", user_id=user.id, resource_type="user", resource_id=user.id)
+
+    return DifferentialResponse(
+        reasoning=parsed.get("reasoning", ""),
+        most_likely=[DifferentialItem(**d) for d in parsed.get("most_likely", [])],
+        expanded=[ExpandedItem(**d) for d in parsed.get("expanded", [])],
+        cant_miss=[CantMissItem(**d) for d in parsed.get("cant_miss", [])],
+        recommended_workup=parsed.get("recommended_workup", []),
+        pubmed_refs=pubmed_refs,
+        model=model_label,
+    )
+
+
+# ============================================================
+# PATIENT HANDOUT GENERATOR
+# ============================================================
+
+class HandoutRequest(BaseModel):
+    condition: str
+    language: Optional[str] = "en"
+
+
+class PatientHandoutResponse(BaseModel):
+    condition: str
+    what_is_it: str
+    how_common: Optional[str] = None
+    causes: List[str]
+    symptoms: List[str]
+    diagnosis: Optional[str] = None
+    treatment_overview: str
+    lifestyle_tips: List[str]
+    when_to_see_doctor: List[str]
+    warning_signs: List[str]
+    model: Optional[str] = None
+
+
+@router.post("/handout", response_model=PatientHandoutResponse)
+async def generate_handout(
+    data: HandoutRequest,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Generate a plain-language patient education handout for a medical condition."""
+    from app.prompts.tutor_prompts import HANDOUT_SYSTEM, handout_prompt
+    from app.services.ai_router import call_claude_structured
+
+    data.condition = sanitize_ai_message(data.condition, "condition")
+    await check_ai_rate_limit(user, db)
+
+    model = "claude-haiku-4-5-20251001"
+    prompt = handout_prompt(data.condition, data.language or "en")
+
+    try:
+        raw, model_label = await call_claude_structured(
+            system=HANDOUT_SYSTEM,
+            user_message=prompt,
+            model=model,
+            max_tokens=2000,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
+
+    try:
+        clean = raw.strip()
+        if clean.startswith("```"):
+            clean = clean.split("```")[1]
+            if clean.startswith("json"):
+                clean = clean[4:]
+        parsed = json.loads(clean)
+    except (json.JSONDecodeError, AttributeError):
+        raise HTTPException(status_code=502, detail="AI returned malformed response. Please try again.")
+
+    await audit(db, "ai_handout", user_id=user.id, resource_type="user", resource_id=user.id)
+
+    return PatientHandoutResponse(
+        condition=parsed.get("condition", data.condition),
+        what_is_it=parsed.get("what_is_it", ""),
+        how_common=parsed.get("how_common"),
+        causes=parsed.get("causes", []),
+        symptoms=parsed.get("symptoms", []),
+        diagnosis=parsed.get("diagnosis"),
+        treatment_overview=parsed.get("treatment_overview", ""),
+        lifestyle_tips=parsed.get("lifestyle_tips", []),
+        when_to_see_doctor=parsed.get("when_to_see_doctor", []),
+        warning_signs=parsed.get("warning_signs", []),
+        model=model_label,
+    )
+
+
 @router.post("/case-discuss/{case_id}")
 async def discuss_case(
     case_id: UUID,

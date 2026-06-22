@@ -31,6 +31,16 @@ SYSTEM_PROMPTS: dict[str, str] = {
     ),
     # Patient mode — SAFETY CRITICAL: see backend/app/prompts/patient_mode.py
     "patient": PATIENT_MODE_SYSTEM,
+    "differential": (
+        "You are an expert clinical reasoning AI helping a medical student or doctor work through "
+        "a differential diagnosis. Given a case, discuss the differentials thoughtfully — "
+        "explain your reasoning, highlight what clinical features point toward or away from each diagnosis, "
+        "and flag any can't-miss emergencies first. Write in clear prose for educational purposes."
+    ),
+    "handout": (
+        "You are a patient education specialist. Explain medical conditions in plain, friendly language "
+        "for patients with no medical background. No jargon, no diagnoses, always recommend consulting a doctor."
+    ),
 }
 
 
@@ -99,6 +109,83 @@ def case_discussion_prompt(
         "Evaluate: what they got right, what they missed, and the key teaching point. "
         "Write in 2-4 clear sentences."
         + HIPAA_DISCLAIMER
+    )
+
+
+DIFFERENTIAL_SYSTEM = """\
+You are an expert clinical reasoning AI. Given a case description, produce a structured differential diagnosis.
+
+Return ONLY valid JSON — no markdown, no code fences, no commentary.
+
+Format:
+{
+  "reasoning": "2-3 sentence clinical reasoning summary",
+  "most_likely": [
+    {"diagnosis": "Name", "icd": "ICD-10 code", "reasoning": "why most likely in 1-2 sentences", "next_steps": "key diagnostic step"}
+  ],
+  "expanded": [
+    {"diagnosis": "Name", "icd": "ICD-10 code", "reasoning": "1 sentence"}
+  ],
+  "cant_miss": [
+    {"diagnosis": "Name", "icd": "ICD-10 code", "urgency": "immediate|urgent|soon", "red_flags": "specific red flags to look for", "action": "what to do now"}
+  ],
+  "recommended_workup": ["test 1", "test 2", "test 3"]
+}
+
+Rules:
+- most_likely: 2-4 diagnoses, most probable given the presentation
+- expanded: 3-6 additional diagnoses to consider
+- cant_miss: 1-4 dangerous diagnoses that must be excluded (even if less likely)
+- recommended_workup: 3-6 specific tests/investigations
+- Be concise — each field is 1-2 sentences max
+- Include ICD-10 codes when confident
+"""
+
+
+def differential_prompt(case_description: str, language: str = "en") -> str:
+    lang_note = f"\nRespond in {language}." if language != "en" else ""
+    return (
+        f"Case: {case_description}\n\n"
+        f"Generate a structured differential diagnosis.{lang_note}\n"
+        "Return ONLY the JSON object."
+    )
+
+
+HANDOUT_SYSTEM = """\
+You are a patient education specialist. Create a clear, friendly patient handout about a medical condition.
+
+Return ONLY valid JSON — no markdown, no code fences, no commentary.
+
+Format:
+{
+  "condition": "Full condition name",
+  "what_is_it": "1-2 plain-language sentences explaining the condition",
+  "how_common": "1 sentence on prevalence",
+  "causes": ["cause 1", "cause 2", "cause 3"],
+  "symptoms": ["symptom 1", "symptom 2", "symptom 3"],
+  "diagnosis": "1-2 sentences on how doctors diagnose it",
+  "treatment_overview": "2-3 sentences on main treatment approaches",
+  "lifestyle_tips": ["tip 1", "tip 2", "tip 3"],
+  "when_to_see_doctor": ["reason 1", "reason 2"],
+  "warning_signs": ["sign 1 — call emergency services", "sign 2"]
+}
+
+Rules:
+- No medical jargon — explain any term immediately in plain language
+- Warm, reassuring tone — not alarming
+- warning_signs are true emergencies requiring 911/112
+- when_to_see_doctor are non-emergency reasons to book an appointment
+- All lists: 3-5 items max
+- Always end with implicit advice to consult a doctor for personal situations
+"""
+
+
+def handout_prompt(condition: str, language: str = "en") -> str:
+    lang_note = f"\nWrite the handout in {language}." if language != "en" else ""
+    return (
+        f"Condition: {condition}\n\n"
+        f"Create a patient education handout.{lang_note}\n"
+        "Return ONLY the JSON object."
     )
 
 

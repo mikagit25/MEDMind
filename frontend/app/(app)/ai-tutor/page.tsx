@@ -9,6 +9,8 @@ import { ga } from "@/lib/gtag";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/ui/VoiceTutor";
+import { DifferentialPanel } from "@/components/ui/DifferentialPanel";
+import { PatientHandout } from "@/components/ui/PatientHandout";
 
 // MODES is defined inside component so t() is available
 
@@ -115,8 +117,18 @@ export default function AiTutorPage() {
     { value: "exam",     label: `📝 ${t("ai_tutor.mode_exam")}`,     desc: t("ai_tutor.mode_exam_desc") },
     {
       value: "patient",
-      label: "🏥 Not a medic — explain simply",
+      label: "🏥 Patient mode",
       desc: "Plain language explanations for everyone. No jargon. Safety-first. Always recommends seeing a doctor.",
+    },
+    {
+      value: "differential",
+      label: "🔬 Differential Dx",
+      desc: "Structured differential diagnosis: Most Likely / Expanded / Can't Miss — with ICD-10 codes and workup.",
+    },
+    {
+      value: "handout",
+      label: "📄 Patient Handout",
+      desc: "Generate a plain-language patient education handout for any medical condition. Printable.",
     },
   ];
   const [mode, setMode] = useState("tutor");
@@ -345,7 +357,15 @@ export default function AiTutorPage() {
                   m.value === "patient"
                     ? mode === "patient"
                       ? "bg-green text-white border border-green"
-                      : "bg-green-light text-green border border-green/30 hover:bg-green hover:text-white"
+                      : "bg-green/10 text-green border border-green/30 hover:bg-green hover:text-white"
+                    : m.value === "differential"
+                    ? mode === "differential"
+                      ? "bg-blue-2 text-white border border-blue-2"
+                      : "bg-blue/10 text-blue-2 border border-blue/30 hover:bg-blue-2 hover:text-white"
+                    : m.value === "handout"
+                    ? mode === "handout"
+                      ? "bg-ink text-white border border-ink"
+                      : "bg-bg text-ink-2 border border-border hover:bg-ink hover:text-white"
                     : mode === m.value
                     ? "bg-ink text-white"
                     : "bg-bg text-ink-2 hover:bg-bg-2"
@@ -367,7 +387,22 @@ export default function AiTutorPage() {
           </button>
         </div>
 
-        {/* Messages */}
+        {/* Differential Diagnosis — dedicated panel, no chat */}
+        {mode === "differential" && (
+          <div className="flex-1 overflow-y-auto">
+            <DifferentialPanel />
+          </div>
+        )}
+
+        {/* Patient Handout — dedicated panel, no chat */}
+        {mode === "handout" && (
+          <div className="flex-1 overflow-y-auto">
+            <PatientHandout />
+          </div>
+        )}
+
+        {/* Messages — standard chat for all other modes */}
+        {mode !== "differential" && mode !== "handout" && (
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full text-center">
@@ -529,8 +564,10 @@ export default function AiTutorPage() {
           )}
           <div ref={bottomRef} />
         </div>
+        )} {/* end mode !== differential/handout */}
 
-        {/* Input */}
+        {/* Input — hidden for dedicated tool modes */}
+        {mode !== "differential" && mode !== "handout" && (
         <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-surface flex-shrink-0">
           <div className="flex gap-2 items-end">
             {/* Voice mic button — STT via Web Speech API */}
@@ -567,6 +604,7 @@ export default function AiTutorPage() {
             </p>
           )}
         </div>
+        )} {/* end input block */}
       </div>
 
       {/* PubMed panel */}
