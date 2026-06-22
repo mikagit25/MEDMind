@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useT } from "@/lib/i18n";
 import { aiApi } from "@/lib/api";
-import { MessageSquare, ChevronRight, X, User, Bot } from "lucide-react";
+import { MessageSquare, ChevronRight, X, User, Bot, Download } from "lucide-react";
+import { API_URL } from "@/lib/api";
 
 type Conversation = {
   id: string;
@@ -24,12 +25,33 @@ type Message = {
 };
 
 const MODE_LABEL: Record<string, string> = {
-  tutor: "Tutor",
-  quiz: "Quiz",
-  case: "Case",
-  explain: "Explain",
-  patient: "Patient",
+  tutor:          "Tutor",
+  socratic:       "Socratic",
+  quiz:           "Quiz",
+  case:           "Case",
+  exam:           "Exam",
+  explain:        "Explain",
+  patient:        "Patient",
+  differential:   "Differential Dx",
+  handout:        "Handout",
+  analyze:        "Doc Analysis",
+  second_opinion: "Second Opinion",
 };
+
+async function downloadConversationPDF(convId: string) {
+  const token = localStorage.getItem("access_token") ?? "";
+  const res = await fetch(`${API_URL}/ai/conversations/${convId}/export-pdf`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) return;
+  const blob = await res.blob();
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = `medmind_session_${convId.slice(0, 8)}.pdf`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, { dateStyle: "medium" });
@@ -97,15 +119,22 @@ function ConversationModal({ conv, onClose }: { conv: Conversation; onClose: () 
             messages.map(m => <MessageBubble key={m.id} msg={m} />)
           )}
         </div>
-        {/* Footer: resume link */}
-        <div className="p-4 border-t border-border">
+        {/* Footer */}
+        <div className="p-4 border-t border-border flex items-center gap-3">
           <Link
             href={`/ai-tutor?conversation_id=${conv.id}`}
-            className="block w-full text-center text-sm font-semibold text-primary hover:underline"
+            className="flex-1 text-center text-sm font-semibold text-primary hover:underline"
             onClick={onClose}
           >
             {t("ai_history.resume")} →
           </Link>
+          <button
+            onClick={() => downloadConversationPDF(conv.id)}
+            title="Download PDF"
+            className="flex items-center gap-1.5 text-xs font-syne text-ink-3 hover:text-ink border border-border rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
+          >
+            <Download size={13} /> PDF
+          </button>
         </div>
       </div>
     </div>

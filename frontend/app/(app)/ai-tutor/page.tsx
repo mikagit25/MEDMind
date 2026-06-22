@@ -12,6 +12,7 @@ import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/
 import { DifferentialPanel } from "@/components/ui/DifferentialPanel";
 import { PatientHandout } from "@/components/ui/PatientHandout";
 import { DocumentAnalyzer } from "@/components/ui/DocumentAnalyzer";
+import { Download } from "lucide-react";
 
 // MODES is defined inside component so t() is available
 
@@ -135,6 +136,11 @@ export default function AiTutorPage() {
       value: "analyze",
       label: "🔬 Analyze Doc",
       desc: "Upload lab results, ECG, radiology report, or clinical note — AI explains key findings for learning.",
+    },
+    {
+      value: "second_opinion",
+      label: "⚖️ Second Opinion",
+      desc: "Describe your diagnosis/treatment — AI explains what guidelines say and suggests questions for your doctor.",
     },
   ];
   const [mode, setMode] = useState("tutor");
@@ -310,6 +316,22 @@ export default function AiTutorPage() {
 
   const isFree = user?.subscription_tier === "free";
 
+  const downloadPDF = async () => {
+    if (!conversationId) return;
+    const token = localStorage.getItem("access_token") ?? "";
+    const res = await fetch(`${API_URL}/ai/conversations/${conversationId}/export-pdf`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) return;
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `medmind_session.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const submitFeedback = async (msgIndex: number, rating: 1 | -1) => {
     const msg = messages[msgIndex];
     if (!msg?.messageId || msg.feedback !== null) return;
@@ -389,6 +411,15 @@ export default function AiTutorPage() {
           {/* Voice mode toggle */}
           <VoiceModeToggle active={voiceMode} onToggle={() => setVoiceMode(v => !v)} />
 
+          {conversationId && messages.length > 0 && (
+            <button
+              onClick={downloadPDF}
+              title="Download session as PDF"
+              className="flex items-center gap-1 text-ink-3 hover:text-ink font-syne text-xs transition-colors"
+            >
+              <Download size={13} /> PDF
+            </button>
+          )}
           <button
             onClick={clearChat}
             className="text-ink-3 hover:text-ink font-syne text-xs transition-colors"

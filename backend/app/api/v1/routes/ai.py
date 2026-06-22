@@ -7,7 +7,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import load_only
@@ -387,6 +387,161 @@ async def ask_ai_stream(
             "Cache-Control": "no-cache",
             "X-Accel-Buffering": "no",
         },
+    )
+
+
+@router.get("/conversations/{conversation_id}/export-pdf")
+async def export_conversation_pdf(
+    conversation_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Export a conversation as a formatted PDF study summary."""
+    import io
+    import re as _re
+    from datetime import timezone
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import cm
+    from reportlab.lib import colors
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
+    from reportlab.lib.enums import TA_LEFT, TA_RIGHT, TA_CENTER
+
+    # Verify ownership
+    conv_result = await db.execute(
+        select(AIConversation).where(
+            AIConversation.id == conversation_id,
+            AIConversation.user_id == user.id,
+        )
+    )
+    conv = conv_result.scalar_one_or_none()
+    if not conv:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+
+    msgs_result = await db.execute(
+        select(AIConversationMessage)
+        .where(AIConversationMessage.conversation_id == conversation_id)
+        .order_by(AIConversationMessage.created_at)
+    )
+    messages = msgs_result.scalars().all()
+
+    # ── Build PDF ─────────────────────────────────────────────────────────────
+    buf = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=A4,
+        leftMargin=2*cm, rightMargin=2*cm,
+        topMargin=2*cm, bottomMargin=2*cm,
+    )
+
+    RED   = colors.HexColor("#C0392B")
+    GRAY  = colors.HexColor("#6B7280")
+    LGRAY = colors.HexColor("#F3F4F6")
+    DGRAY = colors.HexColor("#1F2937")
+    BLUE  = colors.HexColor("#2563EB")
+
+    styles = getSampleStyleSheet()
+    title_style  = ParagraphStyle("title",  fontSize=18, fontName="Helvetica-Bold", textColor=DGRAY, spaceAfter=4)
+    meta_style   = ParagraphStyle("meta",   fontSize=9,  fontName="Helvetica",      textColor=GRAY,  spaceAfter=2)
+    label_style  = ParagraphStyle("label",  fontSize=8,  fontName="Helvetica-Bold", textColor=GRAY,  spaceBefore=8, spaceAfter=2)
+    user_style   = ParagraphStyle("user",   fontSize=10, fontName="Helvetica",      textColor=DGRAY, leading=14)
+    ai_style     = ParagraphStyle("ai",     fontSize=10, fontName="Helvetica",      textColor=DGRAY, leading=14)
+    ref_style    = ParagraphStyle("ref",    fontSize=8,  fontName="Helvetica",      textColor=BLUE,  spaceAfter=2)
+    footer_style = ParagraphStyle("footer", fontSize=8,  fontName="Helvetica-Oblique", textColor=GRAY, alignment=TA_CENTER)
+
+    def clean_md(text: str) -> str:
+        """Strip markdown to plain text for PDF."""
+        text = _re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+        text = _re.sub(r'\*(.+?)\*',     r'\1', text)
+        text = _re.sub(r'#{1,6}\s*',     '',    text)
+        text = _re.sub(r'`(.+?)`',       r'\1', text)
+        text = _re.sub(r'^\s*[-*]\s+',   '• ',  text, flags=_re.MULTILINE)
+        return text.strip()
+
+    story = []
+
+    # Header
+    story.append(Paragraph("MedMind AI", ParagraphStyle("brand", fontSize=11, fontName="Helvetica-Bold", textColor=RED)))
+    story.append(Spacer(1, 4))
+    title = conv.title or "AI Tutor Session"
+    story.append(Paragraph(title[:120], title_style))
+
+    date_str = conv.created_at.strftime("%B %d, %Y") if conv.created_at else ""
+    mode_str = (conv.mode or "tutor").replace("_", " ").title()
+    spec_str = f" · {conv.specialty}" if conv.specialty else ""
+    story.append(Paragraph(f"{date_str} · {mode_str}{spec_str}", meta_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=RED, spaceAfter=12))
+
+    # Messages
+    all_refs: list[dict] = []
+    for msg in messages:
+        if msg.role == "user":
+            story.append(Paragraph("YOU", label_style))
+            story.append(
+                Table(
+                    [[Paragraph(clean_md(msg.content), user_style)]],
+                    colWidths=["100%"],
+                    style=TableStyle([
+                        ("BACKGROUND", (0,0), (-1,-1), LGRAY),
+                        ("ROUNDEDCORNERS", (0,0), (-1,-1), [6,6,6,6]),
+                        ("TOPPADDING",    (0,0), (-1,-1), 8),
+                        ("BOTTOMPADDING", (0,0), (-1,-1), 8),
+                        ("LEFTPADDING",   (0,0), (-1,-1), 10),
+                        ("RIGHTPADDING",  (0,0), (-1,-1), 10),
+                    ]),
+                )
+            )
+        else:
+            story.append(Paragraph("MEDMIND AI", label_style))
+            story.append(
+                Table(
+                    [[Paragraph(clean_md(msg.content), ai_style)]],
+                    colWidths=["100%"],
+                    style=TableStyle([
+                        ("BACKGROUND", (0,0), (-1,-1), colors.white),
+                        ("BOX",        (0,0), (-1,-1), 0.5, colors.HexColor("#E5E7EB")),
+                        ("TOPPADDING",    (0,0), (-1,-1), 8),
+                        ("BOTTOMPADDING", (0,0), (-1,-1), 8),
+                        ("LEFTPADDING",   (0,0), (-1,-1), 10),
+                        ("RIGHTPADDING",  (0,0), (-1,-1), 10),
+                    ]),
+                )
+            )
+            if msg.pubmed_refs:
+                all_refs.extend(msg.pubmed_refs)
+        story.append(Spacer(1, 6))
+
+    # References
+    seen_pmids: set = set()
+    unique_refs = [r for r in all_refs if r.get("pmid") not in seen_pmids and not seen_pmids.add(r["pmid"])]
+    if unique_refs:
+        story.append(HRFlowable(width="100%", thickness=0.5, color=GRAY, spaceBefore=8, spaceAfter=8))
+        story.append(Paragraph("REFERENCES", label_style))
+        for ref in unique_refs[:8]:
+            story.append(Paragraph(
+                f"• {ref.get('title','?')} ({ref.get('year','')}) — PMID {ref.get('pmid','')}",
+                ref_style,
+            ))
+
+    # Footer
+    story.append(Spacer(1, 16))
+    story.append(HRFlowable(width="100%", thickness=0.5, color=GRAY, spaceAfter=6))
+    story.append(Paragraph(
+        "Educational content only — not for clinical decisions. Always verify with a licensed clinician. "
+        f"Generated by MedMind AI · medmind.pro · {date_str}",
+        footer_style,
+    ))
+
+    doc.build(story)
+    buf.seek(0)
+
+    safe_title = _re.sub(r'[^a-zA-Z0-9_-]', '_', (conv.title or "session")[:40])
+    filename = f"medmind_{safe_title}.pdf"
+
+    return Response(
+        content=buf.read(),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 
