@@ -82,6 +82,10 @@ class Settings(BaseSettings):
     AI_LIMIT_CLINIC: Optional[int] = None
     AI_LIMIT_LIFETIME: Optional[int] = None
 
+    # Telegram Bot
+    TELEGRAM_BOT_TOKEN: str = ""
+    TELEGRAM_WEBHOOK_SECRET: str = ""  # optional extra security header
+
     # Email (SMTP)
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587

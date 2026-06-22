@@ -309,6 +309,7 @@ class User(Base):
     oauth_provider = Column(String(50))
     oauth_id = Column(String(200))
     push_token = Column(String(200), nullable=True)
+    telegram_chat_id = Column(String(50), nullable=True, unique=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
