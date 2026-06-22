@@ -257,10 +257,17 @@ def refresh_access_token(token: dict, secret: dict) -> dict:
         "refresh_token": token["refresh_token"],
         "grant_type":    "refresh_token",
     })
+    if resp.status_code in (400, 401):
+        # Refresh token revoked or expired — need full re-auth
+        raise TokenRevokedException(resp.text)
     resp.raise_for_status()
     new_token = {**token, **resp.json()}
     save_token(new_token)
     return new_token
+
+
+class TokenRevokedException(Exception):
+    pass
 
 
 def do_auth_flow(secret: dict) -> dict:
@@ -336,9 +343,13 @@ def get_valid_token() -> tuple[str, dict]:
 
     if time.time() >= _token_expires_at(token) - 60:
         print("Token expired, refreshing…")
-        token = refresh_access_token(token, secret)
-        token["expires_at"] = time.time() + token.get("expires_in", 3600)
-        save_token(token)
+        try:
+            token = refresh_access_token(token, secret)
+            token["expires_at"] = time.time() + token.get("expires_in", 3600)
+            save_token(token)
+        except TokenRevokedException:
+            print("⚠️  Refresh token revoked by Google. Re-authorizing…")
+            token = do_auth_flow(secret)
 
     return token.get("access_token") or token.get("token"), token
 

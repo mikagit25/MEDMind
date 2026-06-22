@@ -137,6 +137,52 @@ def _token_creds(token: dict, secret: dict) -> dict:
         return {"client_id": token["client_id"], "client_secret": token["client_secret"]}
     return secret
 
+def _do_auth_flow(secret: dict) -> dict:
+    import urllib.parse
+    auth_url = (
+        "https://accounts.google.com/o/oauth2/auth"
+        "?response_type=code"
+        f"&client_id={urllib.parse.quote(secret['client_id'])}"
+        "&redirect_uri=http://localhost"
+        "&scope=https://www.googleapis.com/auth/youtube.upload"
+        "%20https://www.googleapis.com/auth/youtube"
+        "&access_type=offline"
+        "&prompt=consent"
+    )
+    print("\n" + "=" * 60)
+    print("STEP 1: Open this URL in your browser:")
+    print("=" * 60)
+    print(auth_url)
+    print("=" * 60)
+    print("\nSTEP 2: Log in and click Allow")
+    print("STEP 3: Browser goes to localhost (error is OK)")
+    print("STEP 4: Copy FULL URL from address bar and paste below\n")
+    raw = input("Paste the full redirect URL here: ").strip()
+    if raw.startswith("http"):
+        params = urllib.parse.parse_qs(urllib.parse.urlparse(raw).query)
+        code = params.get("code", [None])[0]
+    else:
+        code = raw
+    if not code:
+        print("❌ Could not extract auth code.")
+        sys.exit(1)
+    resp = httpx.post("https://oauth2.googleapis.com/token", data={
+        "code":          code,
+        "client_id":     secret["client_id"],
+        "client_secret": secret["client_secret"],
+        "redirect_uri":  "http://localhost",
+        "grant_type":    "authorization_code",
+    })
+    if resp.status_code != 200:
+        print(f"❌ Token exchange failed: {resp.text}")
+        sys.exit(1)
+    token = resp.json()
+    token["expires_at"] = time.time() + token.get("expires_in", 3600)
+    save_token(token)
+    print("✅ Authentication successful! Token saved.")
+    return token
+
+
 def get_access_token() -> str:
     token  = load_token()
     secret = load_secret()
@@ -148,10 +194,14 @@ def get_access_token() -> str:
             "refresh_token": token["refresh_token"],
             "grant_type":    "refresh_token",
         })
-        resp.raise_for_status()
-        token = {**token, **resp.json()}
-        token["expires_at"] = time.time() + token.get("expires_in", 3600)
-        save_token(token)
+        if resp.status_code in (400, 401):
+            print("⚠️  Refresh token revoked by Google. Re-authorizing…")
+            token = _do_auth_flow(secret)
+        else:
+            resp.raise_for_status()
+            token = {**token, **resp.json()}
+            token["expires_at"] = time.time() + token.get("expires_in", 3600)
+            save_token(token)
     return token.get("access_token") or token.get("token")
 
 
