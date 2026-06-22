@@ -54,6 +54,36 @@ async def call_claude_structured(system: str, user_message: str, model: str = "c
     return text, model
 
 
+async def call_claude_vision(
+    system: str,
+    image_data: bytes,
+    media_type: str,
+    question: str,
+    model: str = "claude-haiku-4-5-20251001",
+    max_tokens: int = 3000,
+) -> tuple[str, str]:
+    """Call Claude with an image (vision). Returns (text, model_label)."""
+    import base64
+    b64 = base64.standard_b64encode(image_data).decode("utf-8")
+    response = await claude_client.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {"type": "base64", "media_type": media_type, "data": b64},
+                },
+                {"type": "text", "text": question},
+            ],
+        }],
+    )
+    text = response.content[0].text if response.content else ""
+    return text, model
+
+
 # Keywords that indicate a complex medical question → use Claude
 COMPLEX_KEYWORDS = [
     "mechanism", "pathophysiology", "differential", "management", "treatment",

@@ -11,6 +11,7 @@ import remarkGfm from "remark-gfm";
 import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/ui/VoiceTutor";
 import { DifferentialPanel } from "@/components/ui/DifferentialPanel";
 import { PatientHandout } from "@/components/ui/PatientHandout";
+import { DocumentAnalyzer } from "@/components/ui/DocumentAnalyzer";
 
 // MODES is defined inside component so t() is available
 
@@ -129,6 +130,11 @@ export default function AiTutorPage() {
       value: "handout",
       label: "📄 Patient Handout",
       desc: "Generate a plain-language patient education handout for any medical condition. Printable.",
+    },
+    {
+      value: "analyze",
+      label: "🔬 Analyze Doc",
+      desc: "Upload lab results, ECG, radiology report, or clinical note — AI explains key findings for learning.",
     },
   ];
   const [mode, setMode] = useState("tutor");
@@ -366,6 +372,10 @@ export default function AiTutorPage() {
                     ? mode === "handout"
                       ? "bg-ink text-white border border-ink"
                       : "bg-bg text-ink-2 border border-border hover:bg-ink hover:text-white"
+                    : m.value === "analyze"
+                    ? mode === "analyze"
+                      ? "bg-red text-white border border-red"
+                      : "bg-red/10 text-red border border-red/30 hover:bg-red hover:text-white"
                     : mode === m.value
                     ? "bg-ink text-white"
                     : "bg-bg text-ink-2 hover:bg-bg-2"
@@ -401,8 +411,15 @@ export default function AiTutorPage() {
           </div>
         )}
 
+        {/* Document Analyzer — dedicated panel, no chat */}
+        {mode === "analyze" && (
+          <div className="flex-1 overflow-y-auto">
+            <DocumentAnalyzer />
+          </div>
+        )}
+
         {/* Messages — standard chat for all other modes */}
-        {mode !== "differential" && mode !== "handout" && (
+        {mode !== "differential" && mode !== "handout" && mode !== "analyze" && (
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full text-center">
@@ -567,7 +584,7 @@ export default function AiTutorPage() {
         )} {/* end mode !== differential/handout */}
 
         {/* Input — hidden for dedicated tool modes */}
-        {mode !== "differential" && mode !== "handout" && (
+        {mode !== "differential" && mode !== "handout" && mode !== "analyze" && (
         <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-surface flex-shrink-0">
           <div className="flex gap-2 items-end">
             {/* Voice mic button — STT via Web Speech API */}

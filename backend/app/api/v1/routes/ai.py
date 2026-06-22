@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import List, Optional, AsyncGenerator
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel
 from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -602,6 +602,116 @@ async def generate_lesson_quiz(
 class CaseDiscussRequest(BaseModel):
     user_decision: str
     discussion_point: Optional[str] = None
+
+
+# ============================================================
+# DOCUMENT / IMAGE ANALYSIS
+# ============================================================
+
+SUPPORTED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+SUPPORTED_TYPES = SUPPORTED_IMAGE_TYPES | {"application/pdf", "text/plain"}
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+
+
+def _extract_pdf_text(data: bytes) -> str:
+    """Extract plain text from a PDF using pypdf."""
+    import io
+    try:
+        from pypdf import PdfReader
+        reader = PdfReader(io.BytesIO(data))
+        pages = [page.extract_text() or "" for page in reader.pages[:20]]
+        return "\n\n".join(p for p in pages if p.strip())
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Could not read PDF: {e}")
+
+
+@router.post("/analyze-document")
+async def analyze_document(
+    file: UploadFile = File(...),
+    question: str = Form(default="Please analyze this medical document and explain the key findings for educational purposes."),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """
+    Analyze a medical document (PDF, image, text) using AI.
+    Educational tool — teaches interpretation of lab results, ECGs, imaging reports, etc.
+    """
+    from app.prompts.tutor_prompts import DOCUMENT_ANALYSIS_SYSTEM
+    from app.services.ai_router import call_claude_structured, call_claude_vision
+
+    await check_ai_rate_limit(user, db)
+
+    # Validate file type
+    content_type = file.content_type or ""
+    if content_type not in SUPPORTED_TYPES:
+        raise HTTPException(
+            status_code=415,
+            detail=f"Unsupported file type: {content_type}. Supported: images (JPEG/PNG/WEBP), PDF, plain text.",
+        )
+
+    # Read file data
+    data = await file.read()
+    if len(data) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=413, detail="File too large. Maximum size is 10 MB.")
+    if len(data) == 0:
+        raise HTTPException(status_code=422, detail="File is empty.")
+
+    # Sanitize question
+    question = sanitize_ai_message(question, "question")
+
+    # Select model — Sonnet for pro/clinic (better at medical images), Haiku otherwise
+    model = "claude-sonnet-4-6" if user.subscription_tier in ("pro", "clinic", "lifetime") else "claude-haiku-4-5-20251001"
+
+    try:
+        if content_type in SUPPORTED_IMAGE_TYPES:
+            # Vision path
+            analysis, model_used = await call_claude_vision(
+                system=DOCUMENT_ANALYSIS_SYSTEM,
+                image_data=data,
+                media_type=content_type,
+                question=question,
+                model=model,
+                max_tokens=3000,
+            )
+        elif content_type == "application/pdf":
+            # PDF text extraction path
+            text = _extract_pdf_text(data)
+            if not text.strip():
+                raise HTTPException(
+                    status_code=422,
+                    detail="Could not extract text from PDF. The file may be scanned/image-based. Try uploading as an image instead.",
+                )
+            prompt = f"Document content:\n\n{text[:6000]}\n\n---\nUser question: {question}"
+            analysis, model_used = await call_claude_structured(
+                system=DOCUMENT_ANALYSIS_SYSTEM,
+                user_message=prompt,
+                model=model,
+                max_tokens=3000,
+            )
+        else:
+            # Plain text
+            text = data.decode("utf-8", errors="replace")
+            prompt = f"Document content:\n\n{text[:6000]}\n\n---\nUser question: {question}"
+            analysis, model_used = await call_claude_structured(
+                system=DOCUMENT_ANALYSIS_SYSTEM,
+                user_message=prompt,
+                model=model,
+                max_tokens=3000,
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"AI service error: {e}")
+
+    await audit(db, "ai_document_analysis", user_id=user.id, resource_type="user", resource_id=user.id)
+
+    return {
+        "analysis": analysis,
+        "filename": file.filename,
+        "file_type": content_type,
+        "model": model_used,
+        "disclaimer": "Educational analysis only — not a clinical report. Always review with a qualified clinician.",
+    }
 
 
 # ============================================================
