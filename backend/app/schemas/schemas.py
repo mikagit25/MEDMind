@@ -74,6 +74,7 @@ class UserOut(BaseModel):
     onboarding_completed: bool
     preferences: Dict[str, Any] = {}
     created_at: datetime
+    telegram_chat_id: Optional[str] = None
 
     model_config = {"from_attributes": True}
 

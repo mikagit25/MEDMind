@@ -16,6 +16,7 @@ interface User {
   onboarding_completed: boolean;
   preferences: Record<string, unknown>;
   created_at?: string;
+  telegram_chat_id?: string | null;
 }
 
 interface AuthState {

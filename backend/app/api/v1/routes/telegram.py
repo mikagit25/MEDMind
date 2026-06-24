@@ -1056,6 +1056,58 @@ async def cmd_link(chat_id: int) -> None:
     await send_message(chat_id, text, parse_mode="Markdown")
 
 
+async def cmd_start_weblink(chat_id: int, code: str, first_name: str, lang: str) -> None:
+    """Complete web-initiated linking: /start wl_{code}."""
+    try:
+        redis = await get_redis()
+        user_id_bytes = await redis.get(f"tg_weblink:{code}")
+        if not user_id_bytes:
+            await send_message(
+                chat_id,
+                "⚠️ This link has *expired* (10 minutes limit).\n\n"
+                "Please generate a new one at medmind.pro/bots",
+                parse_mode="Markdown",
+            )
+            return
+        user_id = user_id_bytes.decode()
+        import uuid as _uuid
+        from app.core.database import AsyncSessionLocal
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(select(User).where(User.id == _uuid.UUID(user_id)))
+            user = result.scalar_one_or_none()
+            if not user:
+                await send_message(chat_id, "⚠️ Account not found. Please try again from medmind.pro/bots")
+                return
+            if user.telegram_chat_id and user.telegram_chat_id != str(chat_id):
+                await send_message(
+                    chat_id,
+                    "⚠️ Your MedMind account is already linked to a *different* Telegram account.\n\n"
+                    "To re-link, use the website settings to unlink first.",
+                    parse_mode="Markdown",
+                )
+                return
+            user.telegram_chat_id = str(chat_id)
+            db.add(user)
+            await db.commit()
+            await redis.delete(f"tg_weblink:{code}")
+            tier = user.subscription_tier or "free"
+            logger.info("Telegram linked (web-init): user=%s chat_id=%s", user.email, chat_id)
+
+        await send_message(
+            chat_id,
+            f"✅ *Telegram linked successfully!*\n\n"
+            f"👤 Account: {user.email}\n"
+            f"📊 Plan: {tier.title()}\n\n"
+            f"Your Telegram is now connected to MedMind. All your bot conversations will appear in your account history.\n\n"
+            f"Send any message to start! Type /help to see all commands.\n\n"
+            f"⚕️ _Educational use only · medmind.pro_",
+            parse_mode="Markdown",
+        )
+    except Exception as e:
+        logger.error("cmd_start_weblink error: %s", e)
+        await send_message(chat_id, "⚠️ Linking failed. Please try again or use /link")
+
+
 # ── Patient state machine: AI final answer ────────────────────────────────────
 
 async def call_ai_patient_final(chat_id: int, intake: dict) -> str:
@@ -1708,7 +1760,57 @@ async def cmd_tracklog(chat_id: int, args: str) -> None:
     await send_message(chat_id, "\n".join(lines))
 
 
-# ── Account linking endpoint (called by /link-telegram frontend page) ─────────
+# ── Telegram dialog → DB sync (fire-and-forget for linked users) ──────────────
+
+async def sync_dialog_to_db(user_id: str, mode: str, user_text: str, ai_reply: str) -> None:
+    """Save Telegram exchange to ai_conversations so it appears in /ai-history."""
+    try:
+        from app.core.database import AsyncSessionLocal
+        from app.models.models import AIConversation, AIConversationMessage
+        from datetime import datetime, timezone
+        today = datetime.now(timezone.utc).date()
+
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(AIConversation)
+                .where(
+                    AIConversation.user_id == user_id,
+                    AIConversation.mode == f"telegram_{mode}",
+                )
+                .order_by(AIConversation.created_at.desc())
+                .limit(1)
+            )
+            conv = result.scalar_one_or_none()
+
+            if not conv or conv.created_at.date() != today:
+                conv = AIConversation(
+                    user_id=user_id,
+                    title=f"Telegram · {mode.title()} · {today}",
+                    mode=f"telegram_{mode}",
+                    specialty="telegram",
+                )
+                db.add(conv)
+                await db.flush()
+
+            db.add(AIConversationMessage(
+                conversation_id=conv.id,
+                role="user",
+                content=user_text,
+                model_used="telegram",
+            ))
+            db.add(AIConversationMessage(
+                conversation_id=conv.id,
+                role="assistant",
+                content=ai_reply,
+                model_used="telegram",
+            ))
+            conv.updated_at = datetime.utcnow()
+            await db.commit()
+    except Exception as e:
+        logger.warning("sync_dialog_to_db failed: %s", e)
+
+
+# ── Account linking endpoints ─────────────────────────────────────────────────
 
 from pydantic import BaseModel
 from app.api.deps import get_current_user as _get_current_user
@@ -1724,6 +1826,7 @@ async def link_account(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(_get_current_user),
 ):
+    """Bot-initiated link: user sends /link in Telegram, clicks URL, we save chat_id."""
     redis = await get_redis()
     chat_id_bytes = await redis.get(f"tg_link:{body.token}")
     if not chat_id_bytes:
@@ -1737,8 +1840,43 @@ async def link_account(
     db.add(current_user)
     await db.commit()
     await redis.delete(f"tg_link:{body.token}")
-    logger.info("Telegram linked: user=%s chat_id=%s", current_user.email, chat_id)
+    logger.info("Telegram linked (bot-init): user=%s chat_id=%s", current_user.email, chat_id)
     return {"ok": True, "email": current_user.email}
+
+
+@router.post("/web-link")
+async def generate_web_link(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(_get_current_user),
+):
+    """Web-initiated link: generate a deep-link the user opens in Telegram."""
+    if current_user.telegram_chat_id:
+        return {
+            "already_linked": True,
+            "telegram_chat_id": current_user.telegram_chat_id,
+        }
+    import secrets
+    raw = secrets.token_urlsafe(8)
+    code = "".join(c for c in raw if c.isalnum())[:8].upper()
+    try:
+        redis = await get_redis()
+        await redis.set(f"tg_weblink:{code}", str(current_user.id), ex=600)
+    except Exception:
+        raise HTTPException(status_code=503, detail="Cache unavailable. Please try again.")
+    deep_link = f"https://t.me/Medmindpro_bot?start=wl_{code}"
+    return {"already_linked": False, "code": code, "deep_link": deep_link, "expires_in": 600}
+
+
+@router.delete("/unlink")
+async def unlink_telegram(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(_get_current_user),
+):
+    """Remove Telegram linking from the current user's account."""
+    current_user.telegram_chat_id = None
+    db.add(current_user)
+    await db.commit()
+    return {"ok": True}
 
 
 # ── Main webhook handler ──────────────────────────────────────────────────────
@@ -1791,7 +1929,10 @@ async def telegram_webhook(request: Request) -> dict:
         args  = parts[1] if len(parts) > 1 else ""
 
         if cmd == "/start":
-            await cmd_start(chat_id, first_name, lang)
+            if args.startswith("wl_"):
+                await cmd_start_weblink(chat_id, args[3:], first_name, lang)
+            else:
+                await cmd_start(chat_id, first_name, lang)
         elif cmd == "/help":
             await cmd_help(chat_id)
         elif cmd == "/mode":
@@ -1957,6 +2098,11 @@ async def telegram_webhook(request: Request) -> dict:
     history.append({"role": "user",      "content": text})
     history.append({"role": "assistant", "content": reply})
     await save_history(chat_id, history)
+
+    # Sync to DB for linked users (fire-and-forget, don't block reply)
+    if linked_user:
+        import asyncio as _asyncio
+        _asyncio.ensure_future(sync_dialog_to_db(str(linked_user.id), mode, text, reply))
 
     # Append usage hint for free users
     if remaining is not None and remaining <= 3:

@@ -834,3 +834,14 @@ export const healthProfileApi = {
     api.get(`/health-profile/metrics/${metric}`, { params: { days } }).then(r => r.data),
   getDiseases: () => api.get("/health-profile/diseases").then(r => r.data),
 };
+
+export const telegramApi = {
+  generateWebLink: () => api.post("/telegram/web-link").then(r => r.data) as Promise<{
+    already_linked: boolean;
+    telegram_chat_id?: string;
+    code?: string;
+    deep_link?: string;
+    expires_in?: number;
+  }>,
+  unlink: () => api.delete("/telegram/unlink").then(r => r.data),
+};
