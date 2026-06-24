@@ -131,8 +131,8 @@ export default function LandingPage({
 
           <div className="hidden md:flex items-center gap-1">
             {[
+              { href: "/how-it-works", label: t("landing.nav_how") },
               { href: "/articles",     label: t("landing.nav_articles") },
-              { href: "/news",         label: t("landing.nav_news") },
               { href: "/calculators",  label: t("landing.nav_calculators") },
               { href: "/drugs",        label: t("landing.nav_drugs") },
               { href: "/pricing",      label: t("landing.nav_pricing") },
@@ -180,6 +180,7 @@ export default function LandingPage({
         {menuOpen && (
           <div className="md:hidden border-t border-border bg-surface px-4 py-3 space-y-1">
             {[
+              { href: "/how-it-works", label: t("landing.nav_how") },
               { href: "/articles",     label: t("landing.nav_articles") },
               { href: "/news",         label: t("landing.nav_news") },
               { href: "/calculators",  label: t("landing.nav_calculators") },
@@ -826,6 +827,113 @@ export default function LandingPage({
         </div>
       </section>
 
+      {/* ── Telegram Bot ─────────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Left: text */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-[#229ED9]/10 border border-[#229ED9]/30 px-3 py-1 rounded-full font-syne font-semibold text-xs text-[#229ED9] mb-4">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+              {t("landing.tg_badge")}
+            </div>
+            <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-3">
+              {t("landing.tg_title")}
+            </h2>
+            <p className="text-ink-2 mb-6 leading-relaxed">
+              {t("landing.tg_desc")}
+            </p>
+            <ul className="space-y-3 mb-8">
+              {(t("landing.tg_features") as unknown as { icon: string; title: string; desc: string }[]).map((f) => (
+                <li key={f.title} className="flex gap-3 items-start">
+                  <span className="text-lg leading-none mt-0.5">{f.icon}</span>
+                  <div>
+                    <span className="font-syne font-semibold text-sm text-ink">{f.title} — </span>
+                    <span className="font-serif text-sm text-ink-3">{f.desc}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://t.me/Medmindpro_bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8cbf] text-white font-syne font-bold px-6 py-3 rounded-xl transition-colors"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+                {t("landing.tg_open")}
+              </a>
+              <Link
+                href="/bots"
+                className="inline-flex items-center justify-center gap-2 border border-border text-ink-2 hover:border-ink hover:text-ink font-syne font-semibold px-6 py-3 rounded-xl transition-colors text-sm"
+              >
+                {t("landing.tg_learn_more")}
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: animated chat demo */}
+          <div className="relative">
+            <div className="bg-[#17212B] rounded-2xl overflow-hidden shadow-2xl border border-white/5 max-w-sm mx-auto">
+              {/* Telegram header */}
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10">
+                <div className="w-9 h-9 rounded-full bg-[#229ED9] flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-xs font-bold">AI</span>
+                </div>
+                <div>
+                  <div className="text-white font-semibold text-sm">MedMind AI</div>
+                  <div className="text-white/40 text-xs">@Medmindpro_bot · online</div>
+                </div>
+              </div>
+              {/* Chat messages */}
+              <div className="px-4 py-4 space-y-3 min-h-[280px]">
+                <div className="flex justify-end">
+                  <div className="bg-[#2B5278] text-white text-xs rounded-xl rounded-tr-sm px-3 py-2 max-w-[75%] leading-relaxed">
+                    What&apos;s the mechanism of action of beta-blockers in heart failure?
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <div className="w-7 h-7 rounded-full bg-[#229ED9] flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold mt-0.5">AI</div>
+                  <div className="bg-[#182533] text-white/90 text-xs rounded-xl rounded-tl-sm px-3 py-2 max-w-[80%] leading-relaxed space-y-1.5">
+                    <p><strong>Beta-blockers</strong> in HF work counterintuitively — they block chronic sympathetic overstimulation that damages the myocardium.</p>
+                    <p><strong>Key mechanisms:</strong></p>
+                    <p>↓ HR → ↑ diastolic filling · ↓ O₂ demand · ↑ β-receptor density · Anti-arrhythmic</p>
+                    <p className="text-white/40">💡 Start low, go slow — stable patients only.</p>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <div className="bg-[#2B5278] text-white text-xs rounded-xl rounded-tr-sm px-3 py-2 max-w-[75%]">
+                    Which beta-blocker is preferred?
+                  </div>
+                </div>
+                <div className="flex gap-2 items-end">
+                  <div className="w-7 h-7 rounded-full bg-[#229ED9] flex items-center justify-center flex-shrink-0 text-white text-[10px] font-bold">AI</div>
+                  <div className="bg-[#182533] rounded-xl rounded-tl-sm px-4 py-3">
+                    <div className="flex gap-1 items-center">
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{animationDelay:"0ms"}}/>
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{animationDelay:"150ms"}}/>
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{animationDelay:"300ms"}}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Input area */}
+              <div className="px-3 py-3 border-t border-white/10 flex gap-2 items-center">
+                <div className="flex-1 bg-[#182533] rounded-full px-4 py-2 text-white/30 text-xs font-syne">
+                  {t("landing.tg_placeholder")}
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#229ED9] flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-3 -right-3 bg-green-2 text-white text-xs font-syne font-bold px-3 py-1.5 rounded-full shadow-lg">
+              {t("landing.tg_free")}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ────────────────────────────────────────────────────────── */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
@@ -857,11 +965,12 @@ export default function LandingPage({
             </div>
             <div className="flex gap-4 sm:gap-6 flex-wrap">
               {[
+                { href: "/how-it-works", label: t("landing.nav_how") },
                 { href: "/articles",     label: t("landing.nav_articles") },
-                { href: "/news",         label: t("landing.nav_news") },
                 { href: "/calculators",  label: t("landing.nav_calculators") },
                 { href: "/drugs",        label: t("landing.nav_drugs") },
                 { href: "/pricing",      label: t("landing.nav_pricing") },
+                { href: "/bots",         label: "Telegram Bot" },
                 { href: "/investors",    label: t("landing.footer_investors") },
               ].map(item => (
                 <Link key={item.href} href={item.href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">

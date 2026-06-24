@@ -116,6 +116,8 @@ const tr: Translations = {
       referral: "Arkadaşları Davet Et",
       study_plan: "Çalışma Planı",
       team: "Ekibim",
+      how_it_works: "Nasıl Çalışır",
+      telegram_bot: "Telegram Botu",
     },
     upgrade_cta: "⚡ Planı Yükselt",
     logout: "Çıkış Yap",

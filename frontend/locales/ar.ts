@@ -116,6 +116,8 @@ const ar: Translations = {
       referral: "دعوة الأصدقاء",
       study_plan: "خطة الدراسة",
       team: "فريقي",
+      how_it_works: "كيف يعمل",
+      telegram_bot: "روبوت تيليغرام",
     },
     upgrade_cta: "⚡ ترقية الخطة",
     logout: "تسجيل الخروج",

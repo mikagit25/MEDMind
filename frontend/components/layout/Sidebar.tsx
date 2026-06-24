@@ -13,7 +13,7 @@ import {
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
   Search, Sun, Moon, LogOut, FileText, FileJson, Radio, Gift, CalendarCheck, Users, Globe, Shuffle, Calculator,
-  HeartPulse,
+  HeartPulse, HelpCircle, Send,
   type LucideProps,
 } from "lucide-react";
 
@@ -69,6 +69,8 @@ export function Sidebar() {
         { icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress" },
         { icon: Trophy,      label: t("nav.items.leaderboard"),  href: "/leaderboard" },
         { icon: Target,      label: t("nav.items.for_you"),      href: "/recommendations" },
+        { icon: Send,        label: t("nav.items.telegram_bot"), href: "/bots" },
+        { icon: HelpCircle,  label: t("nav.items.how_it_works"), href: "/how-it-works" },
       ],
     },
     {

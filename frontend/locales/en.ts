@@ -116,6 +116,8 @@ const en = {
       referral: "Invite Friends",
       study_plan: "Study Plan",
       team: "My Team",
+      how_it_works: "How It Works",
+      telegram_bot: "Telegram Bot",
     },
     upgrade_cta: "⚡ Upgrade Plan",
     logout: "Log out",

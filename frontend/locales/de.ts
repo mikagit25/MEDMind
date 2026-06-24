@@ -116,6 +116,8 @@ const de: Translations = {
       referral: "Freunde einladen",
       study_plan: "Lernplan",
       team: "Mein Team",
+      how_it_works: "So funktioniert es",
+      telegram_bot: "Telegram-Bot",
     },
     upgrade_cta: "⚡ Plan upgraden",
     logout: "Abmelden",

@@ -13,7 +13,7 @@ import {
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
   Search, Sun, Moon, LogOut, FileText, FileJson, Menu, X, Radio, Gift, CalendarCheck, Globe, Shuffle, Calculator,
-  HeartPulse,
+  HeartPulse, HelpCircle, Send,
   type LucideProps,
 } from "lucide-react";
 
@@ -74,9 +74,11 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         { Icon: Calculator, label: t("nav.items.calc_history"), href: "/calculators"     },
         { Icon: PenLine,    label: t("nav.items.my_notes"),     href: "/my-notes"        },
         { Icon: PawPrint,   label: t("nav.items.veterinary"),  href: "/veterinary"      },
-        { Icon: TrendingUp, label: t("nav.items.progress"),    href: "/progress"        },
-        { Icon: Trophy,     label: t("nav.items.leaderboard"), href: "/leaderboard"     },
-        { Icon: Target,     label: t("nav.items.for_you"),     href: "/recommendations" },
+        { Icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress"        },
+        { Icon: Trophy,      label: t("nav.items.leaderboard"), href: "/leaderboard"     },
+        { Icon: Target,      label: t("nav.items.for_you"),     href: "/recommendations" },
+        { Icon: Send,        label: t("nav.items.telegram_bot"), href: "/bots"           },
+        { Icon: HelpCircle,  label: t("nav.items.how_it_works"), href: "/how-it-works"  },
       ],
     },
     {
