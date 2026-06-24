@@ -13,6 +13,7 @@ import {
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
   Search, Sun, Moon, LogOut, FileText, FileJson, Radio, Gift, CalendarCheck, Users, Globe, Shuffle, Calculator,
+  HeartPulse,
   type LucideProps,
 } from "lucide-react";
 
@@ -61,6 +62,7 @@ export function Sidebar() {
         { icon: Radio,       label: t("nav.items.news"),         href: "/news" },
         { icon: Pill,        label: t("nav.items.drugs"),         href: "/drugs" },
         { icon: Shuffle,     label: t("nav.items.drug_checker"),  href: "/drug-checker" },
+        { icon: HeartPulse,  label: t("nav.items.health_hub"),    href: "/health" },
         { icon: Calculator,  label: t("nav.items.calc_history"),  href: "/calculators" },
         { icon: PenLine,     label: t("nav.items.my_notes"),      href: "/my-notes" },
         { icon: PawPrint,    label: t("nav.items.veterinary"),   href: "/veterinary" },

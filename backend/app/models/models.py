@@ -1458,3 +1458,58 @@ class XPEvent(Base):
         Index("ix_xp_events_user_id", "user_id"),
         Index("ix_xp_events_created_at", "created_at"),
     )
+
+
+# ============================================================
+# HEALTH PROFILES — persistent health data for users
+# ============================================================
+class HealthProfile(Base):
+    """Persistent health profile: conditions, medications, allergies, demographics."""
+    __tablename__ = "health_profiles"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"),
+                          nullable=False, unique=True)
+    # Demographics
+    birth_year   = Column(Integer, nullable=True)
+    sex          = Column(String(10), nullable=True)   # male / female / other
+    # Conditions / medications / allergies stored as JSONB arrays of strings
+    conditions   = Column(JSONB, nullable=False, default=list)
+    medications  = Column(JSONB, nullable=False, default=list)
+    allergies    = Column(JSONB, nullable=False, default=list)
+    # Full symptom/complaint history (up to 200 entries from Telegram and web)
+    health_log   = Column(JSONB, nullable=False, default=list)
+    # Mood check-in log: [{date, mood}]
+    checkin_log  = Column(JSONB, nullable=False, default=list)
+    # Metric trackers: {glucose: [{date, value}], bp: [...]}
+    trackers     = Column(JSONB, nullable=False, default=dict)
+    # Telegram chat_id if linked
+    telegram_chat_id = Column(String(50), nullable=True, index=True)
+    updated_at   = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", lazy="joined", foreign_keys=[user_id])
+
+    __table_args__ = (Index("ix_health_profiles_user_id", "user_id"),)
+
+
+class HealthMetric(Base):
+    """One measurement row for a health metric (glucose, BP, weight, etc.)."""
+    __tablename__ = "health_metrics"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"),
+                          nullable=False)
+    metric       = Column(String(50), nullable=False)   # glucose, bp, weight, …
+    value        = Column(String(50), nullable=False)   # raw value string
+    unit         = Column(String(20), nullable=True)
+    note         = Column(Text, nullable=True)
+    source       = Column(String(20), nullable=False, default="web")  # web / telegram
+    recorded_at  = Column(DateTime, nullable=False, default=datetime.utcnow)
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_health_metrics_user_id", "user_id"),
+        Index("ix_health_metrics_user_metric", "user_id", "metric"),
+        Index("ix_health_metrics_recorded_at", "recorded_at"),
+    )

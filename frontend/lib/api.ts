@@ -818,3 +818,19 @@ export const calculatorsApi = {
     api.get("/calculators/history", { params: slug ? { slug } : undefined }).then(r => r.data),
   deleteResult: (id: string) => api.delete(`/calculators/history/${id}`).then(r => r.data),
 };
+
+export const healthProfileApi = {
+  get: () => api.get("/health-profile/").then(r => r.data),
+  update: (payload: {
+    birth_year?: number | null;
+    sex?: string | null;
+    conditions?: string[];
+    medications?: string[];
+    allergies?: string[];
+  }) => api.put("/health-profile/", payload).then(r => r.data),
+  addMetric: (metric: string, value: string, note?: string) =>
+    api.post("/health-profile/metrics", { metric, value, note }).then(r => r.data),
+  getMetricHistory: (metric: string, days = 30) =>
+    api.get(`/health-profile/metrics/${metric}`, { params: { days } }).then(r => r.data),
+  getDiseases: () => api.get("/health-profile/diseases").then(r => r.data),
+};
