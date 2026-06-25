@@ -1595,7 +1595,7 @@ const de: Translations = {
     pricing_plans: [
       { name: "Kostenlos", price: "$0", period: "für immer", features: ["8 Basismodule", "5 KI-Fragen/Tag", "Basis-Karteikarten", "Community-Support"], cta: "Loslegen", highlight: false },
       { name: "Student", price: "$15", period: "/Monat", features: ["Alle 82+ Module", "50 KI-Fragen/Tag", "Volle Karteikarten + SM-2", "PubMed-Zitate"], cta: "Student starten", highlight: false },
-      { name: "Pro", price: "$40", period: "/Monat", features: ["Alles in Student", "Unbegrenzte KI-Fragen", "Veterinärinhalt", "Medikamentendatenbank", "Prioritätssupport"], cta: "Pro starten", highlight: true },
+      { name: "Pro", price: "$20", period: "/Monat", features: ["Alles in Student", "Unbegrenzte KI-Fragen", "Veterinärinhalt", "Medikamentendatenbank", "Prioritätssupport"], cta: "Pro starten", highlight: true },
       { name: "Lifetime", price: "$299", period: "einmalig", features: ["Alles in Pro", "Alle zukünftigen Module", "Lebenslange Updates", "Keine laufenden Gebühren"], cta: "Lifetime sichern", highlight: false },
     ],
     // Telegram section
@@ -1628,7 +1628,7 @@ const de: Translations = {
     plans: [
       { name: "Kostenlos",   price: "$0",   period: "für immer",  description: "Mit Kernmodulen lernen beginnen",      features: ["8 Grundmodule", "5 KI-Fragen / Tag", "Basis-Karteikarten", "Fortschrittsverfolgung"],                                                                                                             cta: "Kostenlos starten",    highlight: false, tier: "free" },
       { name: "Student",     price: "$15",  period: "/ Monat",    description: "Vollzugang für Medizinstudenten",      features: ["Alle 82+ Medizinmodule", "50 KI-Fragen / Tag", "Spaced-Repetition-Karteikarten", "Klinische Fallsimulationen", "PubMed-Suchintegration", "Fortschrittsanalysen"],                                cta: "Student holen",        highlight: false, tier: "student" },
-      { name: "Pro",         price: "$40",  period: "/ Monat",    description: "Für praktizierende Ärzte",             features: ["Alles in Student", "Unbegrenzte KI-Fragen", "Medikamentendatenbank", "Veterinärmodule", "Erweiterte KI-Modi", "Prioritätssupport"],                                                               cta: "Pro holen",            highlight: true,  tier: "pro" },
+      { name: "Pro",         price: "$20",  period: "/ Monat",    description: "Für praktizierende Ärzte",             features: ["Alles in Student", "Unbegrenzte KI-Fragen", "Medikamentendatenbank", "Veterinärmodule", "Erweiterte KI-Modi", "Prioritätssupport"],                                                               cta: "Pro holen",            highlight: true,  tier: "pro" },
       { name: "Klinik",      price: "$199", period: "/ Monat",    description: "Für Teams und Institutionen",          features: ["Bis zu 10 Nutzer", "Alles in Pro", "Team-Analyse-Dashboard", "Eigene Module hochladen", "Dedizierter Support", "SCORM-Export"],                                                                    cta: "Klinik holen",         highlight: false, tier: "clinic" },
       { name: "Lifetime",    price: "$299", period: "einmalig",   description: "Unbegrenzter Zugang für immer",        features: ["Alles in Pro", "Lebenslange Updates", "Frühzugang zu neuen Funktionen", "KI für immer unbegrenzt", "Alle zukünftigen Fachgebiete"],                                                               cta: "Lifetime kaufen",      highlight: false, tier: "lifetime" },
     ],

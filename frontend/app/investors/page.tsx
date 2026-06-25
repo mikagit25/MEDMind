@@ -76,7 +76,7 @@ const REVENUE_STREAMS = [
     icon: "👤",
     tiers: [
       { tier: "Student",  price: "$15/mo",    desc: "Full module access, 100 AI queries/day" },
-      { tier: "Pro",      price: "$40/mo",    desc: "Unlimited AI, all features, Claude Sonnet" },
+      { tier: "Pro",      price: "$20/mo",    desc: "Unlimited AI, all features, Claude Sonnet" },
       { tier: "Lifetime", price: "$299 once", desc: "All future content, permanent access" },
     ],
     note: "Primary growth engine. Near-zero CAC via SEO & YouTube flywheel.",
@@ -150,7 +150,7 @@ const MOAT = [
 
 const UNIT_ECONOMICS = [
   { label: "Student plan LTV (24 mo avg)",  val: "$360",    note: "$15/mo × 24" },
-  { label: "Pro plan LTV (18 mo avg)",      val: "$720",    note: "$40/mo × 18" },
+  { label: "Pro plan LTV (18 mo avg)",      val: "$360",    note: "$20/mo × 18" },
   { label: "Clinic LTV (12 mo contract)",   val: "$2,400+", note: "$199/mo × 12" },
   { label: "Organic CAC (SEO / YouTube)",   val: "< $5",    note: "Near-zero — content flywheel" },
   { label: "Paid CAC target (social)",      val: "< $30",   note: "LTV/CAC ratio > 10×" },

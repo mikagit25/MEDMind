@@ -161,7 +161,7 @@ const JSON_LD_EDUCATIONAL = {
       {
         "@type": "Offer",
         name: "Pro Plan",
-        price: "40",
+        price: "20",
         priceCurrency: "USD",
         description: "Unlimited AI, veterinary content, drug database, priority support",
       },

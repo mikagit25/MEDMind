@@ -803,7 +803,7 @@ export default function LandingPage({
             {/* Pricing preview cards */}
             {[
               { name: "Student", price: "$15", period: "/mo", highlight: false },
-              { name: "Pro", price: "$40", period: "/mo", highlight: true },
+              { name: "Pro", price: "$20", period: "/mo", highlight: true },
               { name: "Clinic", price: "$199", period: "/mo", highlight: false },
             ].map((plan) => (
               <div key={plan.name}

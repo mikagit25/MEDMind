@@ -1580,7 +1580,7 @@ const tr: Translations = {
     pricing_plans: [
       { name: "Ücretsiz", price: "$0", period: "sonsuza kadar", features: ["8 temel modül", "Günlük 5 YZ sorusu", "Temel flash kartlar", "Topluluk desteği"], cta: "Başlayın", highlight: false },
       { name: "Öğrenci", price: "$15", period: "/ay", features: ["82+ modül", "Günlük 50 YZ sorusu", "Tam flash kartlar + SM-2", "PubMed atıfları"], cta: "Öğrenci Başla", highlight: false },
-      { name: "Pro", price: "$40", period: "/ay", features: ["Öğrencideki her şey", "Sınırsız YZ sorusu", "Veteriner içeriği", "İlaç veritabanı", "Öncelikli destek"], cta: "Pro Başla", highlight: true },
+      { name: "Pro", price: "$20", period: "/ay", features: ["Öğrencideki her şey", "Sınırsız YZ sorusu", "Veteriner içeriği", "İlaç veritabanı", "Öncelikli destek"], cta: "Pro Başla", highlight: true },
       { name: "Ömür Boyu", price: "$299", period: "tek seferlik", features: ["Pro'daki her şey", "Tüm gelecek modüller", "Ömür boyu güncellemeler", "Tekrarlayan ücret yok"], cta: "Ömür Boyu Al", highlight: false },
     ],
     // Telegram section
@@ -1613,7 +1613,7 @@ const tr: Translations = {
     plans: [
       { name: "Ücretsiz",    price: "$0",   period: "sonsuza kadar",  description: "Temel modüllerle öğrenmeye başlayın",      features: ["8 temel modül", "Günlük 5 YZ sorusu", "Temel flash kartlar", "İlerleme takibi"],                                                                                                          cta: "Ücretsiz Başla",   highlight: false, tier: "free" },
       { name: "Öğrenci",     price: "$15",  period: "/ ay",           description: "Tıp öğrencileri için tam erişim",           features: ["82+ tıp modülü", "Günlük 50 YZ sorusu", "Aralıklı tekrar flash kartları", "Klinik vaka simülasyonları", "PubMed arama entegrasyonu", "İlerleme analitikleri"],                       cta: "Öğrenci Al",       highlight: false, tier: "student" },
-      { name: "Pro",         price: "$40",  period: "/ ay",           description: "Pratisyen hekimler için",                   features: ["Öğrencideki her şey", "Sınırsız YZ sorusu", "İlaç veritabanı erişimi", "Veteriner modülleri", "Gelişmiş YZ modları", "Öncelikli destek"],                                               cta: "Pro Al",           highlight: true,  tier: "pro" },
+      { name: "Pro",         price: "$20",  period: "/ ay",           description: "Pratisyen hekimler için",                   features: ["Öğrencideki her şey", "Sınırsız YZ sorusu", "İlaç veritabanı erişimi", "Veteriner modülleri", "Gelişmiş YZ modları", "Öncelikli destek"],                                               cta: "Pro Al",           highlight: true,  tier: "pro" },
       { name: "Klinik",      price: "$199", period: "/ ay",           description: "Ekipler ve kurumlar için",                  features: ["10 kullanıcıya kadar", "Pro'daki her şey", "Ekip analitik paneli", "Özel modül yükleme", "Özel destek", "SCORM dışa aktarma"],                                                          cta: "Klinik Al",        highlight: false, tier: "clinic" },
       { name: "Ömür Boyu",   price: "$299", period: "tek seferlik",   description: "Sonsuza kadar sınırsız erişim",             features: ["Pro'daki her şey", "Ömür boyu güncellemeler", "Yeni özelliklere erken erişim", "Sonsuza kadar sınırsız YZ", "Tüm gelecek uzmanlıklar"],                                               cta: "Ömür Boyu Satın Al", highlight: false, tier: "lifetime" },
     ],

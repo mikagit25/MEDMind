@@ -18,7 +18,7 @@ const PLANS = [
   {
     tier: "pro",
     name: "Pro",
-    price: "$40/mo",
+    price: "$20/mo",
     priceId: "price_pro_monthly",
     description: "Unlimited AI, drug database, PubMed, vet content",
     color: "border-red bg-red-light",
