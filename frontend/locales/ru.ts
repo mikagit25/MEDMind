@@ -117,7 +117,7 @@ const ru: Translations = {
       study_plan: "План обучения",
       team: "Моя команда",
       how_it_works: "Как это работает",
-      telegram_bot: "Telegram Бот",
+      telegram_bot: "AI Консультация",
     },
     upgrade_cta: "⚡ Улучшить план",
     logout: "Выйти",

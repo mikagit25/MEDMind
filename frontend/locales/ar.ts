@@ -117,7 +117,7 @@ const ar: Translations = {
       study_plan: "خطة الدراسة",
       team: "فريقي",
       how_it_works: "كيف يعمل",
-      telegram_bot: "روبوت تيليغرام",
+      telegram_bot: "استشارة الذكاء الاصطناعي",
     },
     upgrade_cta: "⚡ ترقية الخطة",
     logout: "تسجيل الخروج",

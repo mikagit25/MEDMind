@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import BotsPage from "./BotsPage";
 
 export const metadata: Metadata = {
-  title: "MedMind AI Telegram Bot — Medical AI Assistant in Telegram",
+  title: "AI Medical Consultation — MedMind",
   description:
-    "MedMind AI bot for Telegram: medical tutor, clinical cases, differential diagnosis, patient explanations and second opinion. Free 10 messages/day. Available in 9 languages.",
+    "AI medical consultation on the web: Medical Tutor, Clinical Cases, Differential Diagnosis, Patient Mode, Second Opinion. Also available in Telegram. Free to try.",
   openGraph: {
-    title: "MedMind AI Telegram Bot",
-    description: "AI medical education assistant in Telegram — free to try, no signup required.",
+    title: "AI Medical Consultation — MedMind",
+    description: "5 consultation modes: Tutor, Clinical Case, Differential Dx, Patient Mode, Second Opinion. Use on the web or link your Telegram.",
     url: "https://medmind.pro/bots",
   },
 };
