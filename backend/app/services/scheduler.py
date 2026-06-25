@@ -205,6 +205,157 @@ async def _news_pipeline_job():
         logger.error("News pipeline job failed: %s", e)
 
 
+async def _tg_daily_checkin_job():
+    """Run every hour — send daily check-in to opted-in Telegram users whose time matches."""
+    from app.core.redis_client import get_redis
+    from app.api.v1.routes.telegram import send_checkin_message
+    import json
+    from datetime import datetime, timezone
+
+    try:
+        redis     = await get_redis()
+        now_hour  = datetime.now(timezone.utc).strftime("%H")
+        cursor    = 0
+        sent      = 0
+        while True:
+            cursor, keys = await redis.scan(cursor, match="tg_checkin:*", count=200)
+            for key in keys:
+                raw = await redis.get(key)
+                if not raw:
+                    continue
+                data      = json.loads(raw)
+                ci_hour   = data.get("time", "08:00").split(":")[0].zfill(2)
+                if ci_hour != now_hour:
+                    continue
+                chat_id   = int(key.decode().split(":")[-1])
+                lang      = data.get("lang", "en")
+                # Avoid double-sending (check sent-flag with 1h TTL)
+                sent_key  = f"tg_ci_sent:{chat_id}:{datetime.now(timezone.utc).strftime('%Y%m%d')}"
+                if await redis.exists(sent_key):
+                    continue
+                try:
+                    await send_checkin_message(chat_id, lang)
+                    await redis.set(sent_key, "1", ex=3600 * 25)
+                    sent += 1
+                except Exception as e:
+                    logger.warning("TG check-in send error for %s: %s", chat_id, e)
+            if cursor == 0:
+                break
+        if sent:
+            logger.info("TG daily check-in: sent to %d users", sent)
+    except Exception as e:
+        logger.error("TG daily check-in job failed: %s", e)
+
+
+async def _tg_med_reminders_job():
+    """Run every 5 minutes — fire medication reminders from sorted-set queue."""
+    from app.core.redis_client import get_redis
+    from app.api.v1.routes.telegram import send_message
+    import json
+    from datetime import datetime, timezone, timedelta
+
+    try:
+        redis = await get_redis()
+        now   = datetime.now(timezone.utc).timestamp()
+        # Get all reminders due up to now
+        due   = await redis.zrangebyscore("tg_reminder_queue", 0, now)
+        if not due:
+            return
+        fired = 0
+        for entry_bytes in due:
+            entry = json.loads(entry_bytes)
+            chat_id  = entry["chat_id"]
+            med      = entry["med"]
+            time_str = entry["time"]
+            try:
+                await send_message(chat_id,
+                    f"💊 *Medication reminder*\n\nTime to take: *{med}*\n_{time_str} UTC_")
+                fired += 1
+            except Exception as e:
+                logger.warning("TG reminder send error for %s: %s", chat_id, e)
+
+            # Re-schedule for tomorrow
+            await redis.zrem("tg_reminder_queue", entry_bytes)
+            h, m = map(int, time_str.split(":"))
+            tomorrow = datetime.now(timezone.utc).replace(
+                hour=h, minute=m, second=0, microsecond=0
+            ) + timedelta(days=1)
+            new_entry = json.dumps({"chat_id": chat_id, "med": med, "time": time_str})
+            await redis.zadd("tg_reminder_queue", {new_entry: tomorrow.timestamp()})
+
+        if fired:
+            logger.info("TG medication reminders fired: %d", fired)
+    except Exception as e:
+        logger.error("TG medication reminders job failed: %s", e)
+
+
+async def _tg_weekly_digest_job():
+    """Run every Sunday 18:00 UTC — send weekly health summary to active users."""
+    from app.core.redis_client import get_redis
+    from app.api.v1.routes.telegram import send_message, get_profile, TRACKER_UNITS
+    import json
+    from datetime import datetime, timezone, timedelta
+
+    try:
+        redis   = await get_redis()
+        members = await redis.smembers("tg_active_users")
+        if not members:
+            return
+
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%d")
+        sent   = 0
+        for member in members:
+            try:
+                chat_id = int(member)
+                profile = await get_profile(chat_id)
+                log     = profile.get("log", [])
+                recent  = [e for e in log if e.get("date", "") >= cutoff]
+                checkin = [e for e in profile.get("checkin_log", []) if e.get("date", "") >= cutoff]
+
+                if not recent and not checkin:
+                    continue
+
+                # Category frequency
+                cats: dict[str, int] = {}
+                for e in recent:
+                    cats[e.get("category", "general")] = cats.get(e.get("category", "general"), 0) + 1
+                top = sorted(cats.items(), key=lambda x: -x[1])[:3]
+
+                # Mood stats
+                moods = [e.get("mood") for e in checkin if e.get("mood")]
+                good_days = sum(1 for m in moods if m == "good")
+
+                lines = ["📊 *Weekly Health Summary*\n"]
+                if recent:
+                    lines.append(f"🏥 Health check-ins this week: *{len(recent)}*")
+                if moods:
+                    lines.append(f"😊 Days feeling good: *{good_days}/{len(moods)}*")
+                if top:
+                    lines.append("\n*Most common concerns:*")
+                    for cat, n in top:
+                        flag = " ⚠️ *see a doctor if recurring*" if n >= 3 else ""
+                        lines.append(f"  • {cat.title()} — {n}×{flag}")
+
+                trackers = profile.get("trackers", {})
+                if trackers:
+                    lines.append("\n*Latest readings:*")
+                    for metric, readings in trackers.items():
+                        if readings:
+                            r    = readings[-1]
+                            unit = TRACKER_UNITS.get(metric, "")
+                            lines.append(f"  • {metric.title()}: {r['value']} {unit} ({r['date']})")
+
+                lines.append("\n_/report for full history · medmind.pro_")
+                await send_message(chat_id, "\n".join(lines))
+                sent += 1
+            except Exception as e:
+                logger.warning("TG weekly digest error for %s: %s", member, e)
+
+        logger.info("TG weekly digest sent to %d users", sent)
+    except Exception as e:
+        logger.error("TG weekly digest job failed: %s", e)
+
+
 async def _weekly_reviewer_digest():
     """Send weekly digest to all users with role='reviewer'.
     Reports: queue depth (passed articles awaiting review) + unresolved content feedback.
@@ -324,6 +475,34 @@ def start_scheduler():
         _weekly_reviewer_digest,
         trigger=CronTrigger(day_of_week="mon", hour=8, minute=0, timezone="UTC"),
         id="weekly_reviewer_digest",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Hourly — Telegram daily check-in (sends to users whose chosen time matches current hour)
+    scheduler.add_job(
+        _tg_daily_checkin_job,
+        trigger=CronTrigger(minute=0, timezone="UTC"),
+        id="tg_daily_checkin",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
+    # Every 5 minutes — fire Telegram medication reminders
+    from apscheduler.triggers.interval import IntervalTrigger
+    scheduler.add_job(
+        _tg_med_reminders_job,
+        trigger=IntervalTrigger(minutes=5),
+        id="tg_med_reminders",
+        replace_existing=True,
+        misfire_grace_time=120,
+    )
+
+    # Sunday 18:00 UTC — Telegram weekly health digest
+    scheduler.add_job(
+        _tg_weekly_digest_job,
+        trigger=CronTrigger(day_of_week="sun", hour=18, minute=0, timezone="UTC"),
+        id="tg_weekly_digest",
         replace_existing=True,
         misfire_grace_time=3600,
     )

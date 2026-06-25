@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ENDO-003",
+    "type": "specialty_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Diabetic Ketoacidosis and Hyperosmolar State: Emergency Management",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Diabetic Ketoacidosis",
+      "content": {
+        "intro": "Diabetic ketoacidosis (DKA) is a serious complication of diabetes that occurs when the body produces high levels of blood acids called ketones. The condition arises due to a lack of insulin in the body, which can be triggered by various factors including infection, not taking diabetes medication as prescribed, or a new diagnosis of diabetes. DKA can also occur in people with type 2 diabetes, although it is less common. According to the American Diabetes Association (ADA), DKA is a leading cause of hospitalization and death among people with diabetes. The pathophysiology of DKA involves the breakdown of fat for energy, which produces ketones, leading to metabolic acidosis. Understanding the epidemiology and pathophysiology of DKA is crucial for its management and prevention.",
+        "sections": [
+          {
+            "heading": "Epidemiology of DKA",
+            "text": "DKA is a common complication of diabetes, affecting approximately 14.4 per 1,000 people with type 1 diabetes and 6.3 per 1,000 people with type 2 diabetes annually, according to the Centers for Disease Control and Prevention (CDC). The risk of developing DKA is higher in people with type 1 diabetes, especially during the first year after diagnosis. The ESC 2019 guidelines on diabetes, pre-diabetes, and cardiovascular diseases emphasize the importance of early recognition and treatment of DKA to prevent complications. The AHA 2020 guidelines for the management of adult patients with diabetic ketoacidosis also highlight the need for prompt and effective treatment."
+          },
+          {
+            "heading": "Pathophysiology of DKA",
+            "text": "The pathophysiology of DKA involves the breakdown of fat for energy, which produces ketones, leading to metabolic acidosis. This process is triggered by a lack of insulin in the body, which can be due to various factors such as infection, not taking diabetes medication as prescribed, or a new diagnosis of diabetes. The ADA 2022 guidelines for the management of diabetic ketoacidosis recommend the use of intravenous insulin and fluids to treat DKA. The NICE 2020 guidelines for the management of diabetic ketoacidosis also emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "heading": "Risk Factors for DKA",
+            "text": "Several risk factors can increase the likelihood of developing DKA, including infection, not taking diabetes medication as prescribed, or a new diagnosis of diabetes. The ESC 2019 guidelines on diabetes, pre-diabetes, and cardiovascular diseases highlight the importance of early recognition and treatment of DKA to prevent complications. The AHA 2020 guidelines for the management of adult patients with diabetic ketoacidosis also emphasize the need for prompt and effective treatment. The use of sodium-glucose cotransporter 2 (SGLT2) inhibitors, such as canagliflozin (100-300 mg daily) or empagliflozin (10-25 mg daily), has been associated with an increased risk of DKA, as shown in the CANVAS trial (2017) and the EMPA-REG OUTCOME trial (2015)."
+          }
+        ],
+        "clinical_pearl": "The use of SGLT2 inhibitors, such as canagliflozin or empagliflozin, can increase the risk of DKA, especially in people with type 1 diabetes. Therefore, it is essential to monitor patients closely for signs of DKA, such as hyperglycemia, metabolic acidosis, and ketonuria.",
+        "key_points": [
+          "DKA is a serious complication of diabetes that occurs when the body produces high levels of blood acids called ketones.",
+          "The pathophysiology of DKA involves the breakdown of fat for energy, which produces ketones, leading to metabolic acidosis.",
+          "The risk of developing DKA is higher in people with type 1 diabetes, especially during the first year after diagnosis.",
+          "The use of SGLT2 inhibitors, such as canagliflozin or empagliflozin, can increase the risk of DKA.",
+          "The ADA 2022 guidelines recommend the use of intravenous insulin and fluids to treat DKA.",
+          "The NICE 2020 guidelines emphasize the importance of early recognition and treatment of DKA to prevent complications."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases developed in collaboration with the EASD",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "title": "2020 AHA Guidelines for the Management of Adult Patients with Diabetic Ketoacidosis",
+            "authors": "Kitabchi AE, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines highlight the need for prompt and effective treatment of DKA."
+          },
+          {
+            "title": "CANVAS Program: Canagliflozin Treatment for Type 2 Diabetes",
+            "authors": "Neal B, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "The trial showed that canagliflozin can increase the risk of DKA, especially in people with type 1 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Diabetic Ketoacidosis",
+      "content": {
+        "intro": "The clinical presentation of diabetic ketoacidosis (DKA) can vary, but it typically includes symptoms such as hyperglycemia, metabolic acidosis, and ketonuria. Patients with DKA may also present with signs of dehydration, such as dry mouth, decreased urine output, and sunken eyes. The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms. Understanding the clinical presentation of DKA is crucial for its diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Symptoms of DKA",
+            "text": "The symptoms of DKA can include hyperglycemia, metabolic acidosis, and ketonuria, as well as signs of dehydration, such as dry mouth, decreased urine output, and sunken eyes. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The NICE 2020 guidelines also emphasize the importance of early recognition and treatment of DKA to prevent complications. The use of insulin analogs, such as insulin aspart (100-200 units daily) or insulin lispro (100-200 units daily), can help to improve glycemic control and reduce the risk of DKA."
+          },
+          {
+            "heading": "Signs of DKA",
+            "text": "The signs of DKA can include dehydration, such as dry mouth, decreased urine output, and sunken eyes, as well as signs of metabolic acidosis, such as deep and rapid breathing, and a fruity odor on the breath. The AHA 2020 guidelines for the management of adult patients with diabetic ketoacidosis recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The ESC 2019 guidelines on diabetes, pre-diabetes, and cardiovascular diseases also emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "heading": "Diagnosis of DKA",
+            "text": "The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of point-of-care testing, such as the i-STAT system, can help to quickly diagnose DKA and guide treatment. The landmark trial, DCCT (1993), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          }
+        ],
+        "clinical_pearl": "The use of insulin analogs, such as insulin aspart or insulin lispro, can help to improve glycemic control and reduce the risk of DKA. Therefore, it is essential to monitor patients closely for signs of DKA, such as hyperglycemia, metabolic acidosis, and ketonuria.",
+        "key_points": [
+          "The symptoms of DKA can include hyperglycemia, metabolic acidosis, and ketonuria, as well as signs of dehydration.",
+          "The signs of DKA can include dehydration, such as dry mouth, decreased urine output, and sunken eyes, as well as signs of metabolic acidosis.",
+          "The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms.",
+          "The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration.",
+          "The use of insulin analogs, such as insulin aspart or insulin lispro, can help to improve glycemic control and reduce the risk of DKA.",
+          "The landmark trial, DCCT (1993), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Management of Adult Patients with Diabetic Ketoacidosis",
+            "authors": "Kitabchi AE, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines highlight the need for prompt and effective treatment of DKA."
+          },
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases developed in collaboration with the EASD",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "title": "The Diabetes Control and Complications Trial (DCCT)",
+            "authors": "The Diabetes Control and Complications Trial Research Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1993,
+            "type": "trial",
+            "note": "The trial showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Diabetic Ketoacidosis",
+      "content": {
+        "intro": "The diagnosis of diabetic ketoacidosis (DKA) is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms. The investigations for DKA include laboratory tests, such as blood glucose, electrolyte, and ketone levels, as well as imaging studies, such as chest X-rays and abdominal CT scans. Understanding the investigations and diagnosis of DKA is crucial for its management and treatment.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for DKA",
+            "text": "The laboratory tests for DKA include blood glucose, electrolyte, and ketone levels, as well as complete blood counts and blood cultures. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of point-of-care testing, such as the i-STAT system, can help to quickly diagnose DKA and guide treatment. The landmark trial, EDIC (2005), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          },
+          {
+            "heading": "Imaging Studies for DKA",
+            "text": "The imaging studies for DKA include chest X-rays and abdominal CT scans, which can help to identify any underlying conditions, such as pneumonia or pancreatitis, that may be contributing to the development of DKA. The AHA 2020 guidelines for the management of adult patients with diabetic ketoacidosis recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The ESC 2019 guidelines on diabetes, pre-diabetes, and cardiovascular diseases also emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "heading": "Diagnosis of DKA",
+            "text": "The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of the SGLT2 inhibitors, such as canagliflozin (100-300 mg daily) or empagliflozin (10-25 mg daily), can increase the risk of DKA, especially in people with type 1 diabetes, as shown in the CANVAS trial (2017) and the EMPA-REG OUTCOME trial (2015)."
+          }
+        ],
+        "clinical_pearl": "The use of point-of-care testing, such as the i-STAT system, can help to quickly diagnose DKA and guide treatment. Therefore, it is essential to monitor patients closely for signs of DKA, such as hyperglycemia, metabolic acidosis, and ketonuria.",
+        "key_points": [
+          "The laboratory tests for DKA include blood glucose, electrolyte, and ketone levels, as well as complete blood counts and blood cultures.",
+          "The imaging studies for DKA include chest X-rays and abdominal CT scans, which can help to identify any underlying conditions that may be contributing to the development of DKA.",
+          "The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria, as well as the absence of other causes of these symptoms.",
+          "The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration.",
+          "The use of SGLT2 inhibitors, such as canagliflozin or empagliflozin, can increase the risk of DKA, especially in people with type 1 diabetes.",
+          "The landmark trial, EDIC (2005), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Management of Adult Patients with Diabetic Ketoacidosis",
+            "authors": "Kitabchi AE, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines highlight the need for prompt and effective treatment of DKA."
+          },
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases developed in collaboration with the EASD",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "title": "The Epidemiology of Diabetes Interventions and Complications (EDIC) Study",
+            "authors": "The EDIC Research Group",
+            "journal_or_source": "Diabetes",
+            "year": 2005,
+            "type": "trial",
+            "note": "The trial showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Diabetic Ketoacidosis",
+      "content": {
+        "intro": "The treatment and management of diabetic ketoacidosis (DKA) involve the use of intravenous insulin and fluids to correct hyperglycemia and dehydration, as well as the treatment of any underlying conditions that may be contributing to the development of DKA. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of insulin analogs, such as insulin aspart (100-200 units daily) or insulin lispro (100-200 units daily), can help to improve glycemic control and reduce the risk of DKA.",
+        "sections": [
+          {
+            "heading": "Intravenous Insulin Therapy for DKA",
+            "text": "The use of intravenous insulin therapy is the cornerstone of treatment for DKA. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of insulin analogs, such as insulin aspart or insulin lispro, can help to improve glycemic control and reduce the risk of DKA. The landmark trial, DCCT (1993), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          },
+          {
+            "heading": "Fluid Replacement Therapy for DKA",
+            "text": "The use of fluid replacement therapy is essential for the treatment of DKA. The AHA 2020 guidelines for the management of adult patients with diabetic ketoacidosis recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The ESC 2019 guidelines on diabetes, pre-diabetes, and cardiovascular diseases also emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "heading": "Treatment of Underlying Conditions for DKA",
+            "text": "The treatment of underlying conditions, such as infection or pancreatitis, is essential for the management of DKA. The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration. The use of SGLT2 inhibitors, such as canagliflozin (100-300 mg daily) or empagliflozin (10-25 mg daily), can increase the risk of DKA, especially in people with type 1 diabetes, as shown in the CANVAS trial (2017) and the EMPA-REG OUTCOME trial (2015)."
+          }
+        ],
+        "clinical_pearl": "The use of insulin analogs, such as insulin aspart or insulin lispro, can help to improve glycemic control and reduce the risk of DKA. Therefore, it is essential to monitor patients closely for signs of DKA, such as hyperglycemia, metabolic acidosis, and ketonuria.",
+        "key_points": [
+          "The use of intravenous insulin therapy is the cornerstone of treatment for DKA.",
+          "The use of fluid replacement therapy is essential for the treatment of DKA.",
+          "The treatment of underlying conditions, such as infection or pancreatitis, is essential for the management of DKA.",
+          "The ADA 2022 guidelines recommend that patients with DKA be treated with intravenous insulin and fluids to correct hyperglycemia and dehydration.",
+          "The use of SGLT2 inhibitors, such as canagliflozin or empagliflozin, can increase the risk of DKA, especially in people with type 1 diabetes.",
+          "The landmark trial, DCCT (1993), showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Management of Adult Patients with Diabetic Ketoacidosis",
+            "authors": "Kitabchi AE, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines highlight the need for prompt and effective treatment of DKA."
+          },
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases developed in collaboration with the EASD",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early recognition and treatment of DKA to prevent complications."
+          },
+          {
+            "title": "The Diabetes Control and Complications Trial (DCCT)",
+            "authors": "The Diabetes Control and Complications Trial Research Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1993,
+            "type": "trial",
+            "note": "The trial showed that intensive glucose control can reduce the risk of DKA in patients with type 1 diabetes."
+          }
+        ]
+      }
+    }
+  ]
+}

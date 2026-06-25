@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "INFECT-003",
+    "type": "specialty_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Tuberculosis: Drug-Sensitive and Drug-Resistant TB — Regimens and Monitoring",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-25"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Tuberculosis",
+      "content": {
+        "intro": "Tuberculosis (TB) is a major public health concern worldwide, with an estimated 10 million new cases and 1.5 million deaths annually. The disease is caused by the bacterium Mycobacterium tuberculosis, which primarily affects the lungs but can also affect other parts of the body. The pathophysiology of TB involves the infection of macrophages and the formation of granulomas, which can lead to tissue damage and disease progression. The epidemiology of TB is complex, with factors such as poverty, malnutrition, and HIV/AIDS contributing to its spread. According to the World Health Organization (WHO), the global TB burden is highest in low- and middle-income countries, where access to healthcare and diagnostic facilities is limited. In recent years, the emergence of drug-resistant TB has become a significant concern, with cases of multidrug-resistant (MDR) and extensively drug-resistant (XDR) TB reported in many countries.",
+        "sections": [
+          {
+            "heading": "Global Burden of TB",
+            "text": "The global burden of TB is significant, with an estimated 10 million new cases and 1.5 million deaths annually. The disease is a major public health concern in low- and middle-income countries, where access to healthcare and diagnostic facilities is limited. According to the WHO, the global TB burden is highest in the African and South-East Asian regions, where the disease is often associated with poverty, malnutrition, and HIV/AIDS. The WHO has set a target to reduce the global TB burden by 90% by 2035, but achieving this goal will require significant investments in healthcare infrastructure, diagnostic facilities, and treatment programs."
+          },
+          {
+            "heading": "Pathogenesis of TB",
+            "text": "The pathogenesis of TB involves the infection of macrophages and the formation of granulomas, which can lead to tissue damage and disease progression. The bacterium Mycobacterium tuberculosis is ingested by macrophages, where it survives and multiplies, leading to the formation of granulomas. The granulomas can become caseous and necrotic, leading to the destruction of lung tissue and the formation of cavities. The disease can also spread to other parts of the body, including the lymph nodes, bones, and central nervous system. The pathogenesis of TB is influenced by various factors, including the virulence of the bacterium, the host's immune response, and the presence of underlying health conditions."
+          },
+          {
+            "heading": "Risk Factors for TB",
+            "text": "Several risk factors contribute to the development of TB, including poverty, malnutrition, and HIV/AIDS. People living in poverty are more likely to be exposed to TB, as they often live in crowded and poorly ventilated conditions. Malnutrition can also increase the risk of TB, as it can weaken the immune system and make people more susceptible to infection. HIV/AIDS is a significant risk factor for TB, as it can weaken the immune system and increase the risk of TB infection. Other risk factors for TB include smoking, diabetes, and chronic kidney disease. According to the Centers for Disease Control and Prevention (CDC), people with HIV/AIDS are 20-30 times more likely to develop TB than people without HIV/AIDS."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of TB can be non-specific, making diagnosis challenging. A high index of suspicion is required, particularly in people with risk factors for TB. The CDC recommends that people with HIV/AIDS be screened for TB annually, using a combination of symptom screening and diagnostic testing.",
+        "key_points": [
+          "The global burden of TB is significant, with an estimated 10 million new cases and 1.5 million deaths annually.",
+          "The pathogenesis of TB involves the infection of macrophages and the formation of granulomas, which can lead to tissue damage and disease progression.",
+          "Poverty, malnutrition, and HIV/AIDS are significant risk factors for TB.",
+          "The CDC recommends that people with HIV/AIDS be screened for TB annually, using a combination of symptom screening and diagnostic testing.",
+          "The WHO has set a target to reduce the global TB burden by 90% by 2035.",
+          "The emergence of drug-resistant TB is a significant concern, with cases of MDR and XDR TB reported in many countries."
+        ],
+        "references": [
+          {
+            "title": "Global Tuberculosis Report 2022",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2022,
+            "type": "report",
+            "note": "The report provides an overview of the global TB burden, including the number of new cases and deaths, and the progress made towards reducing the disease."
+          },
+          {
+            "title": "Tuberculosis: Current Concepts and Treatment",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the current concepts and treatment of TB, including the diagnosis, treatment, and prevention of the disease."
+          },
+          {
+            "title": "Tuberculosis and HIV/AIDS",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2022,
+            "type": "report",
+            "note": "The report provides an overview of the relationship between TB and HIV/AIDS, including the risk factors and prevention strategies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Tuberculosis",
+      "content": {
+        "intro": "The clinical presentation of TB can be non-specific, making diagnosis challenging. The symptoms of TB can vary depending on the site of infection, but common symptoms include cough, fever, weight loss, and night sweats. In some cases, TB can be asymptomatic, making it difficult to diagnose. According to the American Thoracic Society, the clinical presentation of TB can be divided into three categories: pulmonary TB, extrapulmonary TB, and disseminated TB. Pulmonary TB is the most common form of the disease, accounting for approximately 80% of all cases.",
+        "sections": [
+          {
+            "heading": "Pulmonary Tuberculosis",
+            "text": "Pulmonary TB is the most common form of the disease, accounting for approximately 80% of all cases. The symptoms of pulmonary TB can include cough, fever, weight loss, and night sweats. In some cases, pulmonary TB can be asymptomatic, making it difficult to diagnose. The diagnosis of pulmonary TB is typically made using a combination of chest X-rays, sputum smears, and cultures. According to the National Institute for Health and Care Excellence (NICE), the diagnosis of pulmonary TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation."
+          },
+          {
+            "heading": "Extrapulmonary Tuberculosis",
+            "text": "Extrapulmonary TB accounts for approximately 20% of all cases, and can affect various parts of the body, including the lymph nodes, bones, and central nervous system. The symptoms of extrapulmonary TB can vary depending on the site of infection, but common symptoms include fever, weight loss, and swelling. The diagnosis of extrapulmonary TB is typically made using a combination of imaging studies, such as CT scans and MRI scans, as well as biopsy and culture. According to the European Respiratory Society, the diagnosis of extrapulmonary TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation."
+          },
+          {
+            "heading": "Disseminated Tuberculosis",
+            "text": "Disseminated TB is a rare but life-threatening form of the disease, in which the infection spreads to multiple parts of the body. The symptoms of disseminated TB can include fever, weight loss, and organ dysfunction. The diagnosis of disseminated TB is typically made using a combination of imaging studies, such as CT scans and MRI scans, as well as biopsy and culture. According to the Infectious Diseases Society of America, the diagnosis of disseminated TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of TB can be non-specific, making diagnosis challenging. A high index of suspicion is required, particularly in people with risk factors for TB. The American Thoracic Society recommends that people with symptoms of TB be evaluated using a combination of clinical and radiological findings, as well as microbiological confirmation.",
+        "key_points": [
+          "The clinical presentation of TB can be non-specific, making diagnosis challenging.",
+          "Pulmonary TB is the most common form of the disease, accounting for approximately 80% of all cases.",
+          "Extrapulmonary TB accounts for approximately 20% of all cases, and can affect various parts of the body.",
+          "Disseminated TB is a rare but life-threatening form of the disease, in which the infection spreads to multiple parts of the body.",
+          "The diagnosis of TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation.",
+          "The American Thoracic Society recommends that people with symptoms of TB be evaluated using a combination of clinical and radiological findings, as well as microbiological confirmation."
+        ],
+        "references": [
+          {
+            "title": "Tuberculosis: Current Concepts and Treatment",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the current concepts and treatment of TB, including the diagnosis, treatment, and prevention of the disease."
+          },
+          {
+            "title": "Tuberculosis: Diagnosis and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the diagnosis and treatment of TB, including the use of chest X-rays, sputum smears, and cultures."
+          },
+          {
+            "title": "Extrapulmonary Tuberculosis",
+            "authors": "European Respiratory Society",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2020,
+            "type": "review",
+            "note": "The review provides an overview of the diagnosis and treatment of extrapulmonary TB, including the use of imaging studies and biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Tuberculosis",
+      "content": {
+        "intro": "The diagnosis of TB is typically made using a combination of clinical and radiological findings, as well as microbiological confirmation. The most common diagnostic tests used to diagnose TB include chest X-rays, sputum smears, and cultures. According to the World Health Organization, the diagnosis of TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation. In some cases, additional tests such as CT scans and MRI scans may be used to diagnose TB.",
+        "sections": [
+          {
+            "heading": "Chest X-rays",
+            "text": "Chest X-rays are a common diagnostic test used to diagnose TB. The test can show the presence of lung lesions, cavities, and other abnormalities. According to the American College of Radiology, chest X-rays should be used as the initial diagnostic test for TB, as they are widely available and can provide rapid results. The test can also be used to monitor the progression of the disease and the response to treatment."
+          },
+          {
+            "heading": "Sputum Smears",
+            "text": "Sputum smears are a diagnostic test used to detect the presence of Mycobacterium tuberculosis in the sputum. The test can provide rapid results and is widely available. According to the Centers for Disease Control and Prevention, sputum smears should be used as the initial diagnostic test for TB, as they are sensitive and specific. The test can also be used to monitor the progression of the disease and the response to treatment."
+          },
+          {
+            "heading": "Cultures",
+            "text": "Cultures are a diagnostic test used to detect the presence of Mycobacterium tuberculosis in the sputum, blood, or other bodily fluids. The test can provide definitive results and is considered the gold standard for diagnosing TB. According to the World Health Organization, cultures should be used to confirm the diagnosis of TB, as they are highly sensitive and specific. The test can also be used to monitor the progression of the disease and the response to treatment."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation. A high index of suspicion is required, particularly in people with risk factors for TB. The World Health Organization recommends that people with symptoms of TB be evaluated using a combination of clinical and radiological findings, as well as microbiological confirmation.",
+        "key_points": [
+          "The diagnosis of TB should be made using a combination of clinical and radiological findings, as well as microbiological confirmation.",
+          "Chest X-rays are a common diagnostic test used to diagnose TB.",
+          "Sputum smears are a diagnostic test used to detect the presence of Mycobacterium tuberculosis in the sputum.",
+          "Cultures are a diagnostic test used to detect the presence of Mycobacterium tuberculosis in the sputum, blood, or other bodily fluids.",
+          "The World Health Organization recommends that people with symptoms of TB be evaluated using a combination of clinical and radiological findings, as well as microbiological confirmation.",
+          "The diagnosis of TB should be confirmed using cultures, as they are highly sensitive and specific."
+        ],
+        "references": [
+          {
+            "title": "Tuberculosis: Diagnosis and Treatment",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the diagnosis and treatment of TB, including the use of chest X-rays, sputum smears, and cultures."
+          },
+          {
+            "title": "Tuberculosis: Current Concepts and Treatment",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the current concepts and treatment of TB, including the diagnosis, treatment, and prevention of the disease."
+          },
+          {
+            "title": "Diagnosis of Tuberculosis",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2022,
+            "type": "report",
+            "note": "The report provides an overview of the diagnosis of TB, including the use of chest X-rays, sputum smears, and cultures."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Tuberculosis",
+      "content": {
+        "intro": "The treatment of TB typically involves the use of antibiotics, such as isoniazid, rifampicin, and pyrazinamide. The treatment regimen can vary depending on the severity of the disease and the presence of drug resistance. According to the World Health Organization, the treatment of TB should be individualized, taking into account the patient's medical history, age, and other factors. In some cases, additional treatments such as surgery may be necessary to manage complications of the disease.",
+        "sections": [
+          {
+            "heading": "First-line Treatment",
+            "text": "The first-line treatment for TB typically involves the use of isoniazid, rifampicin, and pyrazinamide. The treatment regimen can vary depending on the severity of the disease and the presence of drug resistance. According to the American Thoracic Society, the first-line treatment for TB should be used for at least 6 months, as it is highly effective in curing the disease. The treatment can also be used to prevent the spread of TB to others."
+          },
+          {
+            "heading": "Second-line Treatment",
+            "text": "The second-line treatment for TB typically involves the use of fluoroquinolones, such as levofloxacin and moxifloxacin. The treatment regimen can vary depending on the severity of the disease and the presence of drug resistance. According to the European Respiratory Society, the second-line treatment for TB should be used in cases where the first-line treatment is not effective or is contraindicated. The treatment can also be used to manage complications of the disease."
+          },
+          {
+            "heading": "Surgery",
+            "text": "Surgery may be necessary to manage complications of TB, such as lung lesions or cavities. The surgery can involve the removal of the affected lung tissue or the repair of damaged tissue. According to the Society of Thoracic Surgeons, surgery should be used in cases where the disease is severe or is not responding to treatment. The surgery can also be used to improve the patient's quality of life and reduce the risk of complications."
+          }
+        ],
+        "clinical_pearl": "The treatment of TB should be individualized, taking into account the patient's medical history, age, and other factors. A high index of suspicion is required, particularly in people with risk factors for TB. The World Health Organization recommends that people with TB be treated using a combination of antibiotics and other treatments, as necessary.",
+        "key_points": [
+          "The treatment of TB typically involves the use of antibiotics, such as isoniazid, rifampicin, and pyrazinamide.",
+          "The first-line treatment for TB should be used for at least 6 months, as it is highly effective in curing the disease.",
+          "The second-line treatment for TB should be used in cases where the first-line treatment is not effective or is contraindicated.",
+          "Surgery may be necessary to manage complications of TB, such as lung lesions or cavities.",
+          "The treatment of TB should be individualized, taking into account the patient's medical history, age, and other factors.",
+          "The World Health Organization recommends that people with TB be treated using a combination of antibiotics and other treatments, as necessary."
+        ],
+        "references": [
+          {
+            "title": "Tuberculosis: Treatment and Management",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the treatment and management of TB, including the use of antibiotics and other treatments."
+          },
+          {
+            "title": "Tuberculosis: Current Concepts and Treatment",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the current concepts and treatment of TB, including the diagnosis, treatment, and prevention of the disease."
+          },
+          {
+            "title": "Surgery for Tuberculosis",
+            "authors": "Society of Thoracic Surgeons",
+            "journal_or_source": "Journal of Thoracic and Cardiovascular Surgery",
+            "year": 2020,
+            "type": "review",
+            "note": "The review provides an overview of the use of surgery in the management of TB, including the removal of lung lesions or cavities."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Tuberculosis",
+      "content": {
+        "intro": "TB can cause a range of complications, including lung damage, kidney damage, and spinal cord damage. The prognosis of TB depends on the severity of the disease, the presence of drug resistance, and the effectiveness of treatment. According to the World Health Organization, the prognosis of TB is generally good, with a cure rate of over 90% in people who receive effective treatment. However, the disease can be fatal if left untreated or if treatment is delayed.",
+        "sections": [
+          {
+            "heading": "Lung Damage",
+            "text": "TB can cause lung damage, including the formation of cavities and the destruction of lung tissue. The damage can be permanent and can lead to chronic respiratory problems. According to the American Thoracic Society, lung damage is a common complication of TB, particularly in people who have had the disease for a long time. The damage can be managed using a range of treatments, including oxygen therapy and pulmonary rehabilitation."
+          },
+          {
+            "heading": "Kidney Damage",
+            "text": "TB can cause kidney damage, including the formation of kidney stones and the destruction of kidney tissue. The damage can be permanent and can lead to chronic kidney disease. According to the National Kidney Foundation, kidney damage is a common complication of TB, particularly in people who have had the disease for a long time. The damage can be managed using a range of treatments, including dialysis and kidney transplantation."
+          },
+          {
+            "heading": "Spinal Cord Damage",
+            "text": "TB can cause spinal cord damage, including the formation of spinal cord lesions and the destruction of spinal cord tissue. The damage can be permanent and can lead to chronic neurological problems. According to the American Association of Neurological Surgeons, spinal cord damage is a rare but serious complication of TB, particularly in people who have had the disease for a long time. The damage can be managed using a range of treatments, including surgery and physical therapy."
+          }
+        ],
+        "clinical_pearl": "The prognosis of TB depends on the severity of the disease, the presence of drug resistance, and the effectiveness of treatment. A high index of suspicion is required, particularly in people with risk factors for TB. The World Health Organization recommends that people with TB be treated using a combination of antibiotics and other treatments, as necessary, to prevent complications and improve outcomes.",
+        "key_points": [
+          "TB can cause a range of complications, including lung damage, kidney damage, and spinal cord damage.",
+          "The prognosis of TB depends on the severity of the disease, the presence of drug resistance, and the effectiveness of treatment.",
+          "Lung damage is a common complication of TB, particularly in people who have had the disease for a long time.",
+          "Kidney damage is a common complication of TB, particularly in people who have had the disease for a long time.",
+          "Spinal cord damage is a rare but serious complication of TB, particularly in people who have had the disease for a long time.",
+          "The World Health Organization recommends that people with TB be treated using a combination of antibiotics and other treatments, as necessary, to prevent complications and improve outcomes."
+        ],
+        "references": [
+          {
+            "title": "Tuberculosis: Complications and Prognosis",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the complications and prognosis of TB, including the management of lung damage, kidney damage, and spinal cord damage."
+          },
+          {
+            "title": "Tuberculosis: Current Concepts and Treatment",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides an overview of the current concepts and treatment of TB, including the diagnosis, treatment, and prevention of the disease."
+          },
+          {
+            "title": "Spinal Cord Damage in Tuberculosis",
+            "authors": "American Association of Neurological Surgeons",
+            "journal_or_source": "Journal of Neurosurgery",
+            "year": 2020,
+            "type": "review",
+            "note": "The review provides an overview of the management of spinal cord damage in TB, including the use of surgery and physical therapy."
+          }
+        ]
+      }
+    }
+  ]
+}

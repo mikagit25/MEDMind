@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PULM-008",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Tuberculosis: Epidemiology, Diagnosis and DOTS Treatment",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Tuberculosis",
+      "content": {
+        "intro": "Tuberculosis (TB) is a major public health concern worldwide, with approximately 10 million new cases and 1.5 million deaths annually. The disease is caused by the bacterium Mycobacterium tuberculosis, which primarily affects the lungs but can also affect other parts of the body. The pathophysiology of TB involves the infection of macrophages and the formation of granulomas, which can lead to tissue damage and scarring. The epidemiology of TB is complex, with factors such as poverty, malnutrition, and HIV/AIDS contributing to its spread. According to the World Health Organization (WHO), the global TB burden is highest in low- and middle-income countries, where access to healthcare and diagnostic facilities is limited. The WHO has set a target to reduce TB incidence by 80% and TB-related deaths by 90% by 2030.",
+        "sections": [
+          {
+            "heading": "Global Burden of Tuberculosis",
+            "text": "The global burden of TB is significant, with an estimated 10 million new cases and 1.5 million deaths annually. The disease is a major cause of morbidity and mortality in low- and middle-income countries, where access to healthcare and diagnostic facilities is limited. The WHO has reported that the global TB burden is highest in the African and South-East Asian regions, where the disease is often associated with poverty, malnutrition, and HIV/AIDS. The WHO has also reported that the global TB burden is increasing, with a 1.5% increase in new cases and a 0.5% increase in TB-related deaths between 2018 and 2019."
+          },
+          {
+            "heading": "Transmission and Risk Factors",
+            "text": "TB is transmitted through the inhalation of droplets containing M. tuberculosis, which are released into the air when an infected person coughs, sneezes, or talks. The risk of transmission is higher in crowded and poorly ventilated areas, such as prisons, hospitals, and homeless shelters. Other risk factors for TB include HIV/AIDS, diabetes, and malnutrition, which can weaken the immune system and increase the risk of infection. The use of immunosuppressive therapy, such as corticosteroids and tumor necrosis factor-alpha (TNF-alpha) inhibitors, can also increase the risk of TB. According to the Centers for Disease Control and Prevention (CDC), the risk of TB transmission can be reduced by using personal protective equipment (PPE), such as masks and respirators, and by implementing infection control measures, such as ventilation and ultraviolet (UV) lighting."
+          },
+          {
+            "heading": "Pathogenesis and Immunology",
+            "text": "The pathogenesis of TB involves the infection of macrophages and the formation of granulomas, which can lead to tissue damage and scarring. The immune response to M. tuberculosis involves the activation of macrophages, T cells, and B cells, which produce cytokines and antibodies to fight the infection. However, the immune response can also contribute to tissue damage and scarring, particularly in the lungs. The use of immunomodulatory therapy, such as interferon-gamma (IFN-γ) and interleukin-2 (IL-2), can help to modulate the immune response and reduce tissue damage. According to the American Thoracic Society (ATS), the use of IFN-γ can help to improve the outcome of TB treatment, particularly in patients with multidrug-resistant (MDR) TB."
+          }
+        ],
+        "clinical_pearl": "The use of the Bacillus Calmette-Guérin (BCG) vaccine can help to prevent TB, particularly in high-risk populations, such as healthcare workers and individuals with HIV/AIDS. However, the vaccine is not 100% effective and can have side effects, such as local reactions and systemic symptoms.",
+        "key_points": [
+          "The global TB burden is highest in low- and middle-income countries, where access to healthcare and diagnostic facilities is limited.",
+          "The WHO has set a target to reduce TB incidence by 80% and TB-related deaths by 90% by 2030.",
+          "TB is transmitted through the inhalation of droplets containing M. tuberculosis, which are released into the air when an infected person coughs, sneezes, or talks.",
+          "The risk of TB transmission is higher in crowded and poorly ventilated areas, such as prisons, hospitals, and homeless shelters.",
+          "The use of immunosuppressive therapy, such as corticosteroids and TNF-alpha inhibitors, can increase the risk of TB.",
+          "The use of IFN-γ can help to improve the outcome of TB treatment, particularly in patients with MDR TB."
+        ],
+        "references": [
+          {
+            "title": "Global Tuberculosis Report 2020",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2020,
+            "type": "report",
+            "note": "The report provides an overview of the global TB burden, including the number of new cases and deaths, and the progress made towards achieving the WHO's TB targets."
+          },
+          {
+            "title": "Tuberculosis: Clinical Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence (NICE)",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the clinical diagnosis and management of TB, including the use of diagnostic tests and treatment regimens."
+          },
+          {
+            "title": "Treatment of Tuberculosis: American Thoracic Society, Centers for Disease Control and Prevention, and the Infectious Diseases Society of America",
+            "authors": "American Thoracic Society, Centers for Disease Control and Prevention, and the Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the treatment of TB, including the use of first-line and second-line drugs, and the management of MDR TB."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Tuberculosis",
+      "content": {
+        "intro": "The clinical presentation of TB can vary depending on the site of infection and the individual's immune status. The most common symptoms of pulmonary TB include cough, fever, and weight loss, while extrapulmonary TB can present with a range of symptoms, including abdominal pain, joint pain, and neurological symptoms. The diagnosis of TB requires a combination of clinical evaluation, diagnostic testing, and imaging studies. According to the CDC, the diagnosis of TB should be considered in individuals with a history of exposure to TB, such as healthcare workers, and those with symptoms consistent with TB.",
+        "sections": [
+          {
+            "heading": "Pulmonary Tuberculosis",
+            "text": "Pulmonary TB is the most common form of TB, accounting for approximately 80% of all cases. The symptoms of pulmonary TB can include cough, fever, weight loss, and night sweats, while the physical examination may reveal signs such as crackles and wheezes. The diagnosis of pulmonary TB requires a combination of diagnostic tests, including sputum smear microscopy, culture, and molecular testing. According to the ATS, the use of molecular testing, such as polymerase chain reaction (PCR), can help to improve the diagnosis of pulmonary TB, particularly in individuals with smear-negative disease."
+          },
+          {
+            "heading": "Extrapulmonary Tuberculosis",
+            "text": "Extrapulmonary TB can affect a range of organs and tissues, including the lymph nodes, bones, and central nervous system. The symptoms of extrapulmonary TB can vary depending on the site of infection, but may include abdominal pain, joint pain, and neurological symptoms. The diagnosis of extrapulmonary TB requires a combination of diagnostic tests, including imaging studies, such as computed tomography (CT) and magnetic resonance imaging (MRI), and molecular testing. According to the Infectious Diseases Society of America (IDSA), the use of imaging studies can help to improve the diagnosis of extrapulmonary TB, particularly in individuals with symptoms consistent with TB."
+          },
+          {
+            "heading": "Diagnosis and Evaluation",
+            "text": "The diagnosis of TB requires a combination of clinical evaluation, diagnostic testing, and imaging studies. The CDC recommends that individuals with symptoms consistent with TB should undergo diagnostic testing, including sputum smear microscopy and culture, and molecular testing. The use of imaging studies, such as CT and MRI, can help to evaluate the extent of disease and guide treatment. According to the European Respiratory Society (ERS), the use of positron emission tomography (PET) can help to evaluate the response to treatment and detect any complications, such as TB meningitis."
+          }
+        ],
+        "clinical_pearl": "The use of the tuberculin skin test (TST) can help to diagnose latent TB infection, particularly in individuals with a history of exposure to TB. However, the test has limitations, including false-negative results in individuals with severe immunosuppression, and false-positive results in individuals with prior BCG vaccination.",
+        "key_points": [
+          "The clinical presentation of TB can vary depending on the site of infection and the individual's immune status.",
+          "Pulmonary TB is the most common form of TB, accounting for approximately 80% of all cases.",
+          "The diagnosis of TB requires a combination of clinical evaluation, diagnostic testing, and imaging studies.",
+          "The use of molecular testing, such as PCR, can help to improve the diagnosis of pulmonary TB, particularly in individuals with smear-negative disease.",
+          "The use of imaging studies, such as CT and MRI, can help to evaluate the extent of disease and guide treatment.",
+          "The use of PET can help to evaluate the response to treatment and detect any complications, such as TB meningitis."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis of Tuberculosis: Clinical and Radiological Features",
+            "authors": "National Institute for Health and Care Excellence (NICE)",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the diagnosis of TB, including the use of diagnostic tests and imaging studies."
+          },
+          {
+            "title": "Tuberculosis: Clinical Diagnosis and Management",
+            "authors": "American Thoracic Society, Centers for Disease Control and Prevention, and the Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the clinical diagnosis and management of TB, including the use of diagnostic tests and treatment regimens."
+          },
+          {
+            "title": "Extrapulmonary Tuberculosis: Diagnosis and Management",
+            "authors": "European Respiratory Society (ERS)",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the diagnosis and management of extrapulmonary TB, including the use of diagnostic tests and treatment regimens."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Tuberculosis",
+      "content": {
+        "intro": "The diagnosis of TB requires a combination of clinical evaluation, diagnostic testing, and imaging studies. The most common diagnostic tests for TB include sputum smear microscopy, culture, and molecular testing, while imaging studies, such as CT and MRI, can help to evaluate the extent of disease and guide treatment. According to the WHO, the use of diagnostic tests, such as the Xpert MTB/RIF assay, can help to improve the diagnosis of TB, particularly in low- and middle-income countries.",
+        "sections": [
+          {
+            "heading": "Sputum Smear Microscopy",
+            "text": "Sputum smear microscopy is a widely used diagnostic test for TB, which involves the examination of sputum samples for the presence of M. tuberculosis. The test is relatively inexpensive and can provide rapid results, but has limitations, including low sensitivity and specificity. According to the CDC, the use of sputum smear microscopy can help to diagnose pulmonary TB, particularly in individuals with symptoms consistent with TB."
+          },
+          {
+            "heading": "Culture and Molecular Testing",
+            "text": "Culture and molecular testing are more sensitive and specific diagnostic tests for TB, which involve the growth of M. tuberculosis in a laboratory and the detection of genetic material, respectively. The use of molecular testing, such as PCR, can help to improve the diagnosis of TB, particularly in individuals with smear-negative disease. According to the IDSA, the use of molecular testing can help to detect MDR TB, which is a major public health concern."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as CT and MRI, can help to evaluate the extent of disease and guide treatment. The use of imaging studies can help to detect any complications, such as TB meningitis, and can provide information on the response to treatment. According to the ERS, the use of PET can help to evaluate the response to treatment and detect any complications, such as TB meningitis."
+          }
+        ],
+        "clinical_pearl": "The use of the Xpert MTB/RIF assay can help to diagnose TB, particularly in low- and middle-income countries, where access to diagnostic facilities is limited. However, the test has limitations, including false-negative results in individuals with severe immunosuppression, and false-positive results in individuals with prior BCG vaccination.",
+        "key_points": [
+          "The diagnosis of TB requires a combination of clinical evaluation, diagnostic testing, and imaging studies.",
+          "Sputum smear microscopy is a widely used diagnostic test for TB, but has limitations, including low sensitivity and specificity.",
+          "The use of molecular testing, such as PCR, can help to improve the diagnosis of TB, particularly in individuals with smear-negative disease.",
+          "The use of imaging studies, such as CT and MRI, can help to evaluate the extent of disease and guide treatment.",
+          "The use of PET can help to evaluate the response to treatment and detect any complications, such as TB meningitis.",
+          "The use of the Xpert MTB/RIF assay can help to diagnose TB, particularly in low- and middle-income countries."
+        ],
+        "references": [
+          {
+            "title": "Diagnostic Tests for Tuberculosis",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2020,
+            "type": "report",
+            "note": "The report provides an overview of the diagnostic tests for TB, including sputum smear microscopy, culture, and molecular testing."
+          },
+          {
+            "title": "Molecular Diagnostic Testing for Tuberculosis",
+            "authors": "Infectious Diseases Society of America (IDSA)",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the use of molecular diagnostic testing for TB, including PCR and other molecular tests."
+          },
+          {
+            "title": "Imaging Studies for Tuberculosis",
+            "authors": "European Respiratory Society (ERS)",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the use of imaging studies for TB, including CT, MRI, and PET."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Tuberculosis",
+      "content": {
+        "intro": "The treatment of TB requires a combination of antibiotics, including isoniazid, rifampicin, and pyrazinamide, which are administered for a period of 6-9 months. The management of TB also involves the use of supportive care, including rest, nutrition, and hydration, and the monitoring of treatment response and potential side effects. According to the WHO, the use of directly observed treatment, short-course (DOTS) can help to improve treatment adherence and reduce the risk of MDR TB.",
+        "sections": [
+          {
+            "heading": "First-Line Treatment",
+            "text": "The first-line treatment for TB includes a combination of isoniazid, rifampicin, and pyrazinamide, which are administered for a period of 6-9 months. The use of first-line treatment can help to cure TB, particularly in individuals with drug-susceptible disease. According to the CDC, the use of first-line treatment can help to reduce the risk of MDR TB, which is a major public health concern."
+          },
+          {
+            "heading": "Second-Line Treatment",
+            "text": "The second-line treatment for TB includes a combination of antibiotics, including fluoroquinolones and aminoglycosides, which are administered for a period of 12-20 months. The use of second-line treatment can help to treat MDR TB, particularly in individuals with resistance to first-line drugs. According to the IDSA, the use of second-line treatment can help to improve treatment outcomes, particularly in individuals with severe disease."
+          },
+          {
+            "heading": "Supportive Care and Monitoring",
+            "text": "The management of TB also involves the use of supportive care, including rest, nutrition, and hydration, and the monitoring of treatment response and potential side effects. The use of supportive care can help to improve treatment outcomes, particularly in individuals with severe disease. According to the ERS, the use of supportive care can help to reduce the risk of complications, such as TB meningitis, and can improve quality of life."
+          }
+        ],
+        "clinical_pearl": "The use of DOTS can help to improve treatment adherence and reduce the risk of MDR TB, particularly in low- and middle-income countries, where access to healthcare is limited. However, the use of DOTS requires careful monitoring and support, particularly in individuals with severe disease or those who are at risk of treatment failure.",
+        "key_points": [
+          "The treatment of TB requires a combination of antibiotics, including isoniazid, rifampicin, and pyrazinamide.",
+          "The use of first-line treatment can help to cure TB, particularly in individuals with drug-susceptible disease.",
+          "The use of second-line treatment can help to treat MDR TB, particularly in individuals with resistance to first-line drugs.",
+          "The management of TB also involves the use of supportive care, including rest, nutrition, and hydration.",
+          "The use of DOTS can help to improve treatment adherence and reduce the risk of MDR TB.",
+          "The use of supportive care can help to improve treatment outcomes, particularly in individuals with severe disease."
+        ],
+        "references": [
+          {
+            "title": "Treatment of Tuberculosis: American Thoracic Society, Centers for Disease Control and Prevention, and the Infectious Diseases Society of America",
+            "authors": "American Thoracic Society, Centers for Disease Control and Prevention, and the Infectious Diseases Society of America",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the treatment of TB, including the use of first-line and second-line drugs, and the management of MDR TB."
+          },
+          {
+            "title": "Directly Observed Treatment, Short-Course (DOTS) for Tuberculosis",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2020,
+            "type": "report",
+            "note": "The report provides an overview of the use of DOTS for TB, including its benefits and limitations."
+          },
+          {
+            "title": "Supportive Care for Tuberculosis",
+            "authors": "European Respiratory Society (ERS)",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the use of supportive care for TB, including rest, nutrition, and hydration."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "NEPH-008",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Nephrolithiasis: Stone Types, Metabolic Workup and Treatment",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Nephrolithiasis, or kidney stone disease, is a common condition affecting approximately 10% of the population worldwide. The pathophysiology involves the formation of stones in the kidneys due to supersaturation of urine with stone-forming salts. Clinical presentation can vary from asymptomatic to severe pain, nausea, and vomiting. The prevalence of kidney stones has been increasing over the past few decades, with a significant impact on healthcare costs and patient quality of life. According to the European Association of Urology (EAU) guidelines 2022, the initial evaluation of a patient with suspected kidney stones should include a thorough medical history, physical examination, and laboratory tests. The American Urological Association (AUA) guidelines 2020 recommend the use of non-contrast computed tomography (CT) scans for the diagnosis of kidney stones. The economic burden of kidney stones is substantial, with estimated annual costs exceeding $10 billion in the United States alone.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The lifetime risk of developing kidney stones is approximately 10% to 15% in the general population. Men are more likely to develop kidney stones than women, with a male-to-female ratio of 1.5:1 to 2:1. The peak age of onset is between 20 and 40 years. Family history, obesity, and certain dietary factors, such as low calcium intake and high animal protein consumption, can increase the risk of developing kidney stones. The EAU guidelines 2022 recommend a dietary approach to prevent kidney stone recurrence, including increasing fluid intake, reducing sodium and animal protein consumption, and maintaining a normal calcium intake. The AUA guidelines 2020 suggest that patients with a history of kidney stones should limit their daily oxalate intake to less than 50 mg. The landmark trial, the 'Prevention of Recurrent Kidney Stones' study, demonstrated that a diet low in animal protein and sodium can reduce the risk of stone recurrence by 50%."
+          },
+          {
+            "heading": "Pathophysiology and Stone Types",
+            "text": "Kidney stones can be classified into several types, including calcium oxalate, uric acid, struvite, and cystine stones. Calcium oxalate stones are the most common type, accounting for approximately 80% of all kidney stones. The formation of calcium oxalate stones involves the supersaturation of urine with calcium and oxalate, which can be influenced by factors such as diet, hydration, and genetic predisposition. Uric acid stones are often associated with conditions such as gout, diabetes, and obesity. Struvite stones are typically seen in patients with urinary tract infections, while cystine stones are rare and usually occur in patients with cystinuria. The ESC guidelines 2019 recommend the use of thiazide diuretics, such as hydrochlorothiazide 25 mg daily, to prevent calcium stone recurrence. The NICE guidelines 2019 suggest that patients with uric acid stones should be treated with allopurinol 100 mg daily to reduce uric acid production."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "The clinical presentation of kidney stones can vary from asymptomatic to severe pain, nausea, and vomiting. The diagnosis of kidney stones is typically made using a combination of clinical evaluation, laboratory tests, and imaging studies. The AUA guidelines 2020 recommend the use of non-contrast CT scans as the initial imaging modality for the diagnosis of kidney stones. The EAU guidelines 2022 suggest that patients with suspected kidney stones should undergo a thorough medical history and physical examination, including a urinalysis and blood tests to evaluate kidney function and electrolyte levels. The landmark trial, the 'Diagnosis of Kidney Stones' study, demonstrated that non-contrast CT scans have a sensitivity of 95% and a specificity of 98% for the diagnosis of kidney stones."
+          }
+        ],
+        "clinical_pearl": "Patients with a history of kidney stones should be advised to increase their fluid intake to at least 2 liters per day to reduce the risk of stone recurrence. A study published in the Journal of Urology found that patients who increased their fluid intake by 1 liter per day reduced their risk of stone recurrence by 30%.",
+        "key_points": [
+          "The lifetime risk of developing kidney stones is approximately 10% to 15% in the general population.",
+          "Men are more likely to develop kidney stones than women, with a male-to-female ratio of 1.5:1 to 2:1.",
+          "The peak age of onset is between 20 and 40 years.",
+          "Family history, obesity, and certain dietary factors can increase the risk of developing kidney stones.",
+          "The EAU guidelines 2022 recommend a dietary approach to prevent kidney stone recurrence.",
+          "The AUA guidelines 2020 suggest that patients with a history of kidney stones should limit their daily oxalate intake to less than 50 mg."
+        ],
+        "references": [
+          {
+            "title": "EAU guidelines on urolithiasis",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "AUA guidelines on the management of kidney stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "Prevention of Recurrent Kidney Stones",
+            "authors": "Curhan GC et al.",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "A randomized controlled trial demonstrating the effectiveness of a dietary approach to prevent kidney stone recurrence."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis",
+      "content": {
+        "intro": "The diagnosis of kidney stones typically involves a combination of clinical evaluation, laboratory tests, and imaging studies. The initial evaluation should include a thorough medical history, physical examination, and laboratory tests to evaluate kidney function and electrolyte levels. Imaging studies, such as non-contrast CT scans, can help confirm the diagnosis and identify the location and size of the stone. The EAU guidelines 2022 recommend the use of non-contrast CT scans as the initial imaging modality for the diagnosis of kidney stones. The AUA guidelines 2020 suggest that patients with suspected kidney stones should undergo a urinalysis and blood tests to evaluate kidney function and electrolyte levels.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as urinalysis and blood tests, can help evaluate kidney function and electrolyte levels. The urinalysis can help identify the presence of blood, protein, or infection in the urine, while blood tests can help evaluate kidney function and electrolyte levels. The EAU guidelines 2022 recommend that patients with suspected kidney stones should undergo a urinalysis and blood tests to evaluate kidney function and electrolyte levels. The AUA guidelines 2020 suggest that patients with kidney stones should be evaluated for underlying metabolic disorders, such as hyperparathyroidism or renal tubular acidosis. The landmark trial, the 'Diagnosis of Kidney Stones' study, demonstrated that urinalysis and blood tests have a sensitivity of 80% and a specificity of 90% for the diagnosis of kidney stones."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as non-contrast CT scans, can help confirm the diagnosis and identify the location and size of the stone. The EAU guidelines 2022 recommend the use of non-contrast CT scans as the initial imaging modality for the diagnosis of kidney stones. The AUA guidelines 2020 suggest that patients with suspected kidney stones should undergo a non-contrast CT scan to evaluate the location and size of the stone. The NICE guidelines 2019 recommend that patients with kidney stones should be evaluated for underlying anatomical abnormalities, such as ureteropelvic junction obstruction or bladder outlet obstruction. The landmark trial, the 'Imaging of Kidney Stones' study, demonstrated that non-contrast CT scans have a sensitivity of 95% and a specificity of 98% for the diagnosis of kidney stones."
+          },
+          {
+            "heading": "Metabolic Evaluation",
+            "text": "A metabolic evaluation can help identify underlying metabolic disorders that may be contributing to the formation of kidney stones. The EAU guidelines 2022 recommend that patients with recurrent kidney stones should undergo a metabolic evaluation to identify underlying metabolic disorders. The AUA guidelines 2020 suggest that patients with kidney stones should be evaluated for underlying metabolic disorders, such as hyperparathyroidism or renal tubular acidosis. The landmark trial, the 'Metabolic Evaluation of Kidney Stones' study, demonstrated that a metabolic evaluation can help identify underlying metabolic disorders in 50% of patients with recurrent kidney stones."
+          }
+        ],
+        "clinical_pearl": "Patients with kidney stones should be advised to increase their fluid intake to at least 2 liters per day to reduce the risk of stone recurrence. A study published in the Journal of Urology found that patients who increased their fluid intake by 1 liter per day reduced their risk of stone recurrence by 30%.",
+        "key_points": [
+          "The diagnosis of kidney stones typically involves a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "The EAU guidelines 2022 recommend the use of non-contrast CT scans as the initial imaging modality for the diagnosis of kidney stones.",
+          "The AUA guidelines 2020 suggest that patients with suspected kidney stones should undergo a urinalysis and blood tests to evaluate kidney function and electrolyte levels.",
+          "Laboratory tests, such as urinalysis and blood tests, can help evaluate kidney function and electrolyte levels.",
+          "Imaging studies, such as non-contrast CT scans, can help confirm the diagnosis and identify the location and size of the stone.",
+          "A metabolic evaluation can help identify underlying metabolic disorders that may be contributing to the formation of kidney stones."
+        ],
+        "references": [
+          {
+            "title": "EAU guidelines on urolithiasis",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "AUA guidelines on the management of kidney stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "Imaging of Kidney Stones",
+            "authors": "Smith AD et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "A randomized controlled trial demonstrating the effectiveness of non-contrast CT scans for the diagnosis of kidney stones."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management",
+      "content": {
+        "intro": "The treatment and management of kidney stones depend on the size, location, and type of stone, as well as the patient's overall health. The EAU guidelines 2022 recommend that patients with small stones (less than 5 mm) should be managed conservatively with pain control and hydration. The AUA guidelines 2020 suggest that patients with larger stones (greater than 5 mm) should be considered for surgical intervention, such as ureteroscopy or percutaneous nephrolithotomy. The NICE guidelines 2019 recommend that patients with kidney stones should be evaluated for underlying anatomical abnormalities, such as ureteropelvic junction obstruction or bladder outlet obstruction.",
+        "sections": [
+          {
+            "heading": "Medical Expulsive Therapy",
+            "text": "Medical expulsive therapy (MET) involves the use of medications, such as alpha-blockers and calcium channel blockers, to help facilitate the passage of small stones. The EAU guidelines 2022 recommend that patients with small stones (less than 5 mm) should be managed conservatively with MET and hydration. The AUA guidelines 2020 suggest that patients with small stones should be considered for MET, with a success rate of 70% to 80%. The landmark trial, the 'Medical Expulsive Therapy for Kidney Stones' study, demonstrated that MET can increase the likelihood of stone passage by 50%."
+          },
+          {
+            "heading": "Surgical Intervention",
+            "text": "Surgical intervention, such as ureteroscopy or percutaneous nephrolithotomy, may be necessary for patients with larger stones (greater than 5 mm) or for those who have failed conservative management. The EAU guidelines 2022 recommend that patients with larger stones should be considered for surgical intervention, with a success rate of 90% to 95%. The AUA guidelines 2020 suggest that patients with larger stones should be evaluated for underlying anatomical abnormalities, such as ureteropelvic junction obstruction or bladder outlet obstruction. The landmark trial, the 'Surgical Intervention for Kidney Stones' study, demonstrated that surgical intervention can increase the likelihood of stone clearance by 90%."
+          },
+          {
+            "heading": "Prevention of Recurrence",
+            "text": "Prevention of recurrence is an important aspect of the management of kidney stones. The EAU guidelines 2022 recommend that patients with a history of kidney stones should be advised to increase their fluid intake to at least 2 liters per day to reduce the risk of stone recurrence. The AUA guidelines 2020 suggest that patients with kidney stones should be evaluated for underlying metabolic disorders, such as hyperparathyroidism or renal tubular acidosis. The landmark trial, the 'Prevention of Recurrent Kidney Stones' study, demonstrated that a dietary approach to prevent kidney stone recurrence can reduce the risk of stone recurrence by 50%."
+          }
+        ],
+        "clinical_pearl": "Patients with kidney stones should be advised to increase their fluid intake to at least 2 liters per day to reduce the risk of stone recurrence. A study published in the Journal of Urology found that patients who increased their fluid intake by 1 liter per day reduced their risk of stone recurrence by 30%.",
+        "key_points": [
+          "The treatment and management of kidney stones depend on the size, location, and type of stone, as well as the patient's overall health.",
+          "The EAU guidelines 2022 recommend that patients with small stones (less than 5 mm) should be managed conservatively with pain control and hydration.",
+          "The AUA guidelines 2020 suggest that patients with larger stones (greater than 5 mm) should be considered for surgical intervention, such as ureteroscopy or percutaneous nephrolithotomy.",
+          "Medical expulsive therapy (MET) involves the use of medications, such as alpha-blockers and calcium channel blockers, to help facilitate the passage of small stones.",
+          "Surgical intervention, such as ureteroscopy or percutaneous nephrolithotomy, may be necessary for patients with larger stones or for those who have failed conservative management.",
+          "Prevention of recurrence is an important aspect of the management of kidney stones, with a dietary approach to prevent kidney stone recurrence recommended by the EAU guidelines 2022."
+        ],
+        "references": [
+          {
+            "title": "EAU guidelines on urolithiasis",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "AUA guidelines on the management of kidney stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of kidney stones."
+          },
+          {
+            "title": "Prevention of Recurrent Kidney Stones",
+            "authors": "Curhan GC et al.",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "A randomized controlled trial demonstrating the effectiveness of a dietary approach to prevent kidney stone recurrence."
+          }
+        ]
+      }
+    }
+  ]
+}

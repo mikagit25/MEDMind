@@ -193,6 +193,72 @@ def _get_anthropic_key() -> str:
         return ""
 
 
+def _get_groq_content_keys() -> list[str]:
+    """Return Groq keys designated for YouTube/content pipeline (KEY_3, KEY_4, KEY_5)."""
+    keys: list[str] = []
+    env_sources: list[str] = []
+
+    # Read from backend .env
+    env_file = Path("/opt/medmind/backend/.env")
+    if env_file.exists():
+        for line in env_file.read_text().splitlines():
+            for k in ("GROQ_API_KEY_3=", "GROQ_API_KEY_4=", "GROQ_API_KEY_5="):
+                if line.startswith(k):
+                    val = line.split("=", 1)[1].strip()
+                    if val:
+                        env_sources.append(val)
+
+    # Also check process env
+    for var in ("GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"):
+        val = os.environ.get(var, "")
+        if val and val not in env_sources:
+            env_sources.append(val)
+
+    return env_sources
+
+
+async def _generate_script_groq(image_info: dict, lang: str, prompt: str) -> dict | None:
+    """Try Groq Llama as fallback when Claude has no credits."""
+    keys = _get_groq_content_keys()
+    if not keys:
+        return None
+    try:
+        import httpx as _httpx
+    except ImportError:
+        return None
+
+    for key in keys:
+        try:
+            resp = await asyncio.wait_for(
+                asyncio.get_event_loop().run_in_executor(
+                    None,
+                    lambda k=key: _httpx.post(
+                        "https://api.groq.com/openai/v1/chat/completions",
+                        headers={"Authorization": f"Bearer {k}", "Content-Type": "application/json"},
+                        json={
+                            "model": "llama-3.3-70b-versatile",
+                            "messages": [{"role": "user", "content": prompt}],
+                            "max_tokens": 700,
+                            "temperature": 0.4,
+                        },
+                        timeout=30,
+                    ),
+                ),
+                timeout=35,
+            )
+            if resp.status_code == 200:
+                raw = resp.json()["choices"][0]["message"]["content"].strip()
+                if raw.startswith("```"):
+                    raw = raw.split("```")[1]
+                    if raw.startswith("json"): raw = raw[4:]
+                return json.loads(raw)
+            elif resp.status_code in (429, 503):
+                continue  # try next key
+        except Exception:
+            continue
+    return None
+
+
 _FALLBACK_TEMPLATES: dict[str, dict[str, str]] = {
     "en": {
         "intro":     "Here's a {context}: {title}.",
@@ -310,31 +376,31 @@ async def generate_script(image_info: dict, lang: str = "en") -> dict | None:
 
     link_suffix = _FALLBACK_TEMPLATES.get(lang, _FALLBACK_TEMPLATES["en"])["yt_link"]
 
+    prompt = (
+        f"You are creating a 30-second YouTube Shorts script about a medical image.\n"
+        f"IMPORTANT: Generate ALL text content in {lang_name}. The entire response must be in {lang_name}.\n\n"
+        f"Image details:\nTitle: {title}\nModality: {modality} | Specialty: {specialty}\n"
+        f"Description: {description}\n\n"
+        f"Return ONLY valid JSON, no other text:\n"
+        "{{\n"
+        f'  "display_title": "Catchy short title in {lang_name}, max 48 characters",\n'
+        f'  "spoken_text": "Natural 30-second narration (~75 words) in {lang_name}. Start with what we are looking at, then 2-3 key clinical findings, end with why it matters. Conversational but accurate.",\n'
+        '  "key_points": [\n'
+        f'    "Finding 1 in {lang_name} (max 38 chars)",\n'
+        f'    "Finding 2 in {lang_name} (max 38 chars)",\n'
+        f'    "Finding 3 in {lang_name} (max 38 chars)",\n'
+        f'    "Clinical significance in {lang_name} (max 38 chars)"\n'
+        "  ],\n"
+        f'  "youtube_title": "Engaging title with 1 emoji in {lang_name}, max 65 chars, include #Shorts",\n'
+        f'  "youtube_description": "2 sentences in {lang_name} explaining what viewers will learn. End with: {link_suffix}"\n'
+        "}}"
+    )
+
+    # Claude (primary)
     api_key = _get_anthropic_key()
     if api_key:
         try:
             import anthropic as _ant
-            prompt = f"""You are creating a 30-second YouTube Shorts script about a medical image.
-IMPORTANT: Generate ALL text content in {lang_name}. The entire response must be in {lang_name}.
-
-Image details:
-Title: {title}
-Modality: {modality} | Specialty: {specialty}
-Description: {description}
-
-Return ONLY valid JSON, no other text:
-{{
-  "display_title": "Catchy short title in {lang_name}, max 48 characters",
-  "spoken_text": "Natural 30-second narration (~75 words) in {lang_name}. Start with what we're looking at, then 2-3 key clinical findings, end with why it matters. Conversational but accurate.",
-  "key_points": [
-    "Finding 1 in {lang_name} (max 38 chars)",
-    "Finding 2 in {lang_name} (max 38 chars)",
-    "Finding 3 in {lang_name} (max 38 chars)",
-    "Clinical significance in {lang_name} (max 38 chars)"
-  ],
-  "youtube_title": "Engaging title with 1 emoji in {lang_name}, max 65 chars, include #Shorts",
-  "youtube_description": "2 sentences in {lang_name} explaining what viewers will learn. End with: {link_suffix}"
-}}"""
             client = _ant.AsyncAnthropic(api_key=api_key)
             msg    = await client.messages.create(
                 model      = "claude-haiku-4-5-20251001",
@@ -348,9 +414,15 @@ Return ONLY valid JSON, no other text:
             return json.loads(raw)
         except Exception as e:
             if "credit" in str(e).lower() or "balance" in str(e).lower():
-                print(f"  ⚠️  Claude API unavailable (no credits) — using template")
+                print(f"  ⚠️  Claude no credits — trying Groq fallback…")
             else:
-                print(f"  ⚠️  Claude failed ({e}) — using template")
+                print(f"  ⚠️  Claude failed ({e}) — trying Groq fallback…")
+
+    # Groq fallback (Llama 3.3 70B — same prompt, same JSON schema)
+    groq_result = await _generate_script_groq(image_info, lang, prompt)
+    if groq_result:
+        print(f"  ✅ Groq script generated [{lang}]")
+        return groq_result
 
     print(f"  📋 Using template script")
     return _generate_script_fallback(image_info, lang=lang)

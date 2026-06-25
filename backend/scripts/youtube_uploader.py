@@ -581,6 +581,9 @@ async def process_one(
     if not mp4:
         return None
 
+    # Refresh token right before upload — video generation can take 10+ min
+    access_token, _ = get_valid_token()
+
     # Upload video
     description = build_description(slug, excerpt, lang)
     video_id    = upload_to_youtube(mp4, title, description, tags, access_token)
@@ -652,6 +655,9 @@ async def process_news_one(
     if not mp4.exists():
         print("❌ Video file not created")
         return None
+
+    # Refresh token right before upload — video generation can take several minutes
+    access_token, _ = get_valid_token()
 
     # Build YouTube description
     description = (

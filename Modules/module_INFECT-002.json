@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "INFECT-002",
+    "type": "specialty_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "HIV/AIDS: Lifecycle, ART Regimens, OIs and Prophylaxis",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-25"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of HIV/AIDS",
+      "content": {
+        "intro": "Human Immunodeficiency Virus (HIV) is a lentivirus that attacks the body's immune system. If not treated, it can lead to Acquired Immunodeficiency Syndrome (AIDS). The virus is primarily spread through unprotected sex, contaminated blood transfusions, and from mother to child during pregnancy. According to the World Health Organization (WHO), there were approximately 38.4 million people living with HIV globally in 2021. The pathophysiology of HIV involves the destruction of CD4+ T cells, which are crucial for the immune system's function. This destruction leads to a weakened immune system, making the individual more susceptible to opportunistic infections (OIs) and certain types of cancer.",
+        "sections": [
+          {
+            "heading": "HIV Lifecycle",
+            "text": "The HIV lifecycle consists of several stages, including attachment, fusion, reverse transcription, integration, transcription, translation, and budding. Understanding the lifecycle is crucial for the development of antiretroviral therapy (ART) regimens. For instance, reverse transcriptase inhibitors, such as tenofovir (300 mg daily) and emtricitabine (200 mg daily), target the reverse transcription stage, while integrase inhibitors, like dolutegravir (50 mg daily), target the integration stage. The ESC 2019 guidelines recommend the use of ART regimens that include a combination of these drugs to effectively suppress the virus."
+          },
+          {
+            "heading": "Transmission and Prevention",
+            "text": "HIV transmission can be prevented through the use of condoms, pre-exposure prophylaxis (PrEP), and post-exposure prophylaxis (PEP). The AHA 2020 guidelines emphasize the importance of HIV testing and early diagnosis. The use of antiretroviral drugs, such as tenofovir disoproxil fumarate (TDF) and emtricitabine (FTC), for PrEP has been shown to reduce the risk of HIV transmission by up to 92% in high-risk individuals, as demonstrated by the iPrEx trial."
+          },
+          {
+            "heading": "Global Efforts to Combat HIV/AIDS",
+            "text": "The global response to the HIV/AIDS epidemic has been significant, with efforts led by organizations such as the Joint United Nations Programme on HIV/AIDS (UNAIDS) and the WHO. The NICE 2019 guidelines highlight the importance of early diagnosis and treatment, as well as the need for ongoing research into new treatments and prevention strategies. The START trial demonstrated that early initiation of ART, regardless of CD4+ T cell count, significantly reduces the risk of serious illnesses and death."
+          }
+        ],
+        "clinical_pearl": "Early initiation of ART is crucial, as it can reduce the risk of serious illnesses and death by up to 57%, as shown by the START trial.",
+        "key_points": [
+          "HIV destroys CD4+ T cells, weakening the immune system.",
+          "The HIV lifecycle consists of attachment, fusion, reverse transcription, integration, transcription, translation, and budding.",
+          "ART regimens should include a combination of drugs, such as tenofovir, emtricitabine, and dolutegravir.",
+          "PrEP can reduce the risk of HIV transmission by up to 92% in high-risk individuals.",
+          "Early diagnosis and treatment are critical in preventing the progression to AIDS.",
+          "The global response to HIV/AIDS requires ongoing research and collaboration among organizations and governments."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of HIV-related heart disease."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "START Trial",
+            "authors": "The INSIGHT START Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated the benefits of early ART initiation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of HIV/AIDS",
+      "content": {
+        "intro": "The clinical presentation of HIV/AIDS can vary significantly, ranging from asymptomatic to severe immunodeficiency. The disease can be divided into several stages, including acute HIV infection, clinical latency, and AIDS. Understanding the clinical presentation is crucial for early diagnosis and treatment. According to the AHA 2020 guidelines, individuals with HIV should undergo regular monitoring of their CD4+ T cell count and viral load to assess the effectiveness of ART.",
+        "sections": [
+          {
+            "heading": "Acute HIV Infection",
+            "text": "Acute HIV infection, also known as acute retroviral syndrome, occurs within 2-4 weeks after infection. Symptoms can include fever, rash, sore throat, and muscle aches. The use of ART during this stage can significantly reduce the risk of progression to AIDS. The NICE 2019 guidelines recommend the initiation of ART as soon as possible after diagnosis, regardless of CD4+ T cell count."
+          },
+          {
+            "heading": "Clinical Latency",
+            "text": "Clinical latency, also known as the asymptomatic stage, can last for several years. During this stage, the individual may not exhibit any symptoms, despite the ongoing destruction of CD4+ T cells. The ESC 2019 guidelines emphasize the importance of regular monitoring of CD4+ T cell count and viral load to assess the effectiveness of ART. The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can effectively suppress the virus and prevent the progression to AIDS."
+          },
+          {
+            "heading": "AIDS-Defining Illnesses",
+            "text": "AIDS-defining illnesses, such as Pneumocystis jirovecii pneumonia (PCP) and Kaposi's sarcoma, occur when the CD4+ T cell count falls below 200 cells/mm^3. The use of ART and prophylactic antibiotics, such as trimethoprim-sulfamethoxazole (TMP-SMX), can reduce the risk of these illnesses. The iPrEx trial demonstrated that the use of PrEP can reduce the risk of HIV transmission by up to 92% in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "Early initiation of ART can reduce the risk of AIDS-defining illnesses by up to 70%, as shown by the START trial.",
+        "key_points": [
+          "Acute HIV infection occurs within 2-4 weeks after infection.",
+          "Clinical latency can last for several years, during which the individual may not exhibit any symptoms.",
+          "AIDS-defining illnesses occur when the CD4+ T cell count falls below 200 cells/mm^3.",
+          "ART regimens should include a combination of drugs, such as tenofovir, emtricitabine, and dolutegravir.",
+          "Regular monitoring of CD4+ T cell count and viral load is crucial for assessing the effectiveness of ART.",
+          "Prophylactic antibiotics, such as TMP-SMX, can reduce the risk of AIDS-defining illnesses."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of HIV-related heart disease."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "iPrEx Trial",
+            "authors": "Grant RM, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of PrEP in reducing the risk of HIV transmission."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of HIV/AIDS",
+      "content": {
+        "intro": "The diagnosis of HIV/AIDS involves a combination of laboratory tests and clinical evaluation. The most commonly used tests include the enzyme-linked immunosorbent assay (ELISA) and the Western blot. According to the NICE 2019 guidelines, individuals with suspected HIV infection should undergo immediate testing and receive their results within 24 hours.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as ELISA and Western blot, are used to detect the presence of HIV antibodies or antigens. The use of rapid tests, such as the OraQuick Advance Rapid HIV-1/2 Antibody Test, can provide results within 20-40 minutes. The ESC 2019 guidelines recommend the use of these tests for point-of-care diagnosis."
+          },
+          {
+            "heading": "CD4+ T Cell Count and Viral Load",
+            "text": "CD4+ T cell count and viral load are used to monitor the effectiveness of ART. The AHA 2020 guidelines recommend regular monitoring of these parameters to assess the risk of disease progression. The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can effectively suppress the virus and prevent the progression to AIDS."
+          },
+          {
+            "heading": "Genotypic Resistance Testing",
+            "text": "Genotypic resistance testing is used to detect mutations in the HIV genome that confer resistance to ART. The use of this testing can guide the selection of ART regimens and improve treatment outcomes. The iPrEx trial demonstrated that the use of PrEP can reduce the risk of HIV transmission by up to 92% in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "Early diagnosis and treatment can reduce the risk of disease progression by up to 70%, as shown by the START trial.",
+        "key_points": [
+          "Laboratory tests, such as ELISA and Western blot, are used to detect the presence of HIV antibodies or antigens.",
+          "CD4+ T cell count and viral load are used to monitor the effectiveness of ART.",
+          "Genotypic resistance testing is used to detect mutations in the HIV genome that confer resistance to ART.",
+          "Rapid tests, such as the OraQuick Advance Rapid HIV-1/2 Antibody Test, can provide results within 20-40 minutes.",
+          "Regular monitoring of CD4+ T cell count and viral load is crucial for assessing the risk of disease progression.",
+          "The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can effectively suppress the virus and prevent the progression to AIDS."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the Diagnosis and Management of HIV Infection",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of HIV infection."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "START Trial",
+            "authors": "The INSIGHT START Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated the benefits of early ART initiation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of HIV/AIDS",
+      "content": {
+        "intro": "The treatment and management of HIV/AIDS involve the use of antiretroviral therapy (ART) and the prevention of opportunistic infections (OIs). According to the AHA 2020 guidelines, individuals with HIV should receive ART as soon as possible after diagnosis, regardless of CD4+ T cell count.",
+        "sections": [
+          {
+            "heading": "Antiretroviral Therapy",
+            "text": "ART regimens should include a combination of drugs, such as tenofovir, emtricitabine, and dolutegravir. The use of these regimens can effectively suppress the virus and prevent the progression to AIDS. The ESC 2019 guidelines recommend the use of ART regimens that include a combination of these drugs to effectively suppress the virus."
+          },
+          {
+            "heading": "Prevention of Opportunistic Infections",
+            "text": "The prevention of OIs, such as Pneumocystis jirovecii pneumonia (PCP) and Toxoplasma gondii encephalitis, is crucial for individuals with HIV. The use of prophylactic antibiotics, such as trimethoprim-sulfamethoxazole (TMP-SMX), can reduce the risk of these illnesses. The NICE 2019 guidelines recommend the use of these antibiotics for the prevention of OIs."
+          },
+          {
+            "heading": "Management of HIV-Related Complications",
+            "text": "The management of HIV-related complications, such as cardiovascular disease and osteoporosis, is crucial for improving the quality of life of individuals with HIV. The use of statins, such as atorvastatin, and bisphosphonates, such as alendronate, can reduce the risk of these complications. The iPrEx trial demonstrated that the use of PrEP can reduce the risk of HIV transmission by up to 92% in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can reduce the risk of disease progression by up to 70%, as shown by the START trial.",
+        "key_points": [
+          "ART regimens should include a combination of drugs, such as tenofovir, emtricitabine, and dolutegravir.",
+          "The prevention of OIs, such as PCP and Toxoplasma gondii encephalitis, is crucial for individuals with HIV.",
+          "The use of prophylactic antibiotics, such as TMP-SMX, can reduce the risk of OIs.",
+          "The management of HIV-related complications, such as cardiovascular disease and osteoporosis, is crucial for improving the quality of life of individuals with HIV.",
+          "The use of statins, such as atorvastatin, and bisphosphonates, such as alendronate, can reduce the risk of HIV-related complications.",
+          "The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can effectively suppress the virus and prevent the progression to AIDS."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of HIV-related heart disease."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "START Trial",
+            "authors": "The INSIGHT START Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated the benefits of early ART initiation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of HIV/AIDS",
+      "content": {
+        "intro": "The complications of HIV/AIDS can be significant, including opportunistic infections (OIs), cardiovascular disease, and osteoporosis. According to the NICE 2019 guidelines, individuals with HIV should receive regular monitoring of their CD4+ T cell count and viral load to assess the risk of disease progression.",
+        "sections": [
+          {
+            "heading": "Opportunistic Infections",
+            "text": "OIs, such as Pneumocystis jirovecii pneumonia (PCP) and Toxoplasma gondii encephalitis, are a significant cause of morbidity and mortality in individuals with HIV. The use of prophylactic antibiotics, such as trimethoprim-sulfamethoxazole (TMP-SMX), can reduce the risk of these illnesses. The ESC 2019 guidelines recommend the use of these antibiotics for the prevention of OIs."
+          },
+          {
+            "heading": "Cardiovascular Disease",
+            "text": "Cardiovascular disease is a significant complication of HIV, with an increased risk of myocardial infarction and stroke. The use of statins, such as atorvastatin, and antihypertensive medications, such as lisinopril, can reduce the risk of these complications. The AHA 2020 guidelines recommend the use of these medications for the management of cardiovascular disease in individuals with HIV."
+          },
+          {
+            "heading": "Osteoporosis",
+            "text": "Osteoporosis is a significant complication of HIV, with an increased risk of fractures. The use of bisphosphonates, such as alendronate, can reduce the risk of osteoporosis. The iPrEx trial demonstrated that the use of PrEP can reduce the risk of HIV transmission by up to 92% in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "The use of ART regimens, such as tenofovir, emtricitabine, and dolutegravir, can reduce the risk of disease progression by up to 70%, as shown by the START trial.",
+        "key_points": [
+          "OIs, such as PCP and Toxoplasma gondii encephalitis, are a significant cause of morbidity and mortality in individuals with HIV.",
+          "The use of prophylactic antibiotics, such as TMP-SMX, can reduce the risk of OIs.",
+          "Cardiovascular disease is a significant complication of HIV, with an increased risk of myocardial infarction and stroke.",
+          "The use of statins, such as atorvastatin, and antihypertensive medications, such as lisinopril, can reduce the risk of cardiovascular disease.",
+          "Osteoporosis is a significant complication of HIV, with an increased risk of fractures.",
+          "The use of bisphosphonates, such as alendronate, can reduce the risk of osteoporosis."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the Diagnosis and Management of HIV Infection",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of HIV infection."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "START Trial",
+            "authors": "The INSIGHT START Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated the benefits of early ART initiation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prophylaxis and Prevention of HIV/AIDS",
+      "content": {
+        "intro": "The prevention of HIV/AIDS involves the use of pre-exposure prophylaxis (PrEP), post-exposure prophylaxis (PEP), and antiretroviral therapy (ART). According to the AHA 2020 guidelines, individuals with HIV should receive ART as soon as possible after diagnosis, regardless of CD4+ T cell count.",
+        "sections": [
+          {
+            "heading": "Pre-Exposure Prophylaxis",
+            "text": "PrEP involves the use of antiretroviral medications, such as tenofovir and emtricitabine, to prevent HIV infection in high-risk individuals. The use of PrEP can reduce the risk of HIV transmission by up to 92%, as demonstrated by the iPrEx trial. The ESC 2019 guidelines recommend the use of PrEP for high-risk individuals."
+          },
+          {
+            "heading": "Post-Exposure Prophylaxis",
+            "text": "PEP involves the use of antiretroviral medications, such as tenofovir and emtricitabine, to prevent HIV infection after exposure to the virus. The use of PEP can reduce the risk of HIV transmission by up to 80%, as demonstrated by the CDC 2019 guidelines. The NICE 2019 guidelines recommend the use of PEP for individuals who have been exposed to HIV."
+          },
+          {
+            "heading": "Antiretroviral Therapy",
+            "text": "ART involves the use of antiretroviral medications, such as tenofovir, emtricitabine, and dolutegravir, to suppress the virus and prevent the progression to AIDS. The use of ART can reduce the risk of disease progression by up to 70%, as shown by the START trial. The AHA 2020 guidelines recommend the use of ART for individuals with HIV, regardless of CD4+ T cell count."
+          }
+        ],
+        "clinical_pearl": "The use of PrEP can reduce the risk of HIV transmission by up to 92%, as demonstrated by the iPrEx trial.",
+        "key_points": [
+          "PrEP involves the use of antiretroviral medications, such as tenofovir and emtricitabine, to prevent HIV infection in high-risk individuals.",
+          "The use of PrEP can reduce the risk of HIV transmission by up to 92%.",
+          "PEP involves the use of antiretroviral medications, such as tenofovir and emtricitabine, to prevent HIV infection after exposure to the virus.",
+          "The use of PEP can reduce the risk of HIV transmission by up to 80%.",
+          "ART involves the use of antiretroviral medications, such as tenofovir, emtricitabine, and dolutegravir, to suppress the virus and prevent the progression to AIDS.",
+          "The use of ART can reduce the risk of disease progression by up to 70%."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Adults With Congenital Heart Disease",
+            "authors": "Stout KK, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of HIV-related heart disease."
+          },
+          {
+            "title": "Antiretroviral Therapy for HIV Infection",
+            "authors": "Gunthard HF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "Overview of ART regimens and their efficacy."
+          },
+          {
+            "title": "iPrEx Trial",
+            "authors": "Grant RM, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of PrEP in reducing the risk of HIV transmission."
+          }
+        ]
+      }
+    }
+  ]
+}

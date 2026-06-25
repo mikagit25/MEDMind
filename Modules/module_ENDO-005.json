@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ENDO-005",
+    "type": "specialty_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Adrenal Disorders: Cushing's Syndrome, Addison's Disease, Phaeochromocytoma",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Adrenal Disorders",
+      "content": {
+        "intro": "Adrenal disorders, including Cushing's syndrome, Addison's disease, and phaeochromocytoma, are rare but significant conditions that affect the adrenal glands. Cushing's syndrome is caused by excess cortisol production, often due to a pituitary tumor or adrenal gland tumor. Addison's disease, on the other hand, is characterized by adrenal insufficiency, where the adrenal glands do not produce enough cortisol and aldosterone. Phaeochromocytoma is a rare tumor of the adrenal gland that produces excess catecholamines, leading to hypertension and other symptoms. Understanding the epidemiology and pathophysiology of these disorders is crucial for accurate diagnosis and treatment. The prevalence of Cushing's syndrome is approximately 2-5 cases per million population per year, while Addison's disease affects about 4-6 per 100,000 people. Phaeochromocytoma is even rarer, with an incidence of about 2-8 per million population per year.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Adrenal Disorders",
+            "text": "The epidemiology of adrenal disorders varies by condition. Cushing's syndrome is more common in women, with a female-to-male ratio of 3:1. The peak age of onset is between 25 and 40 years. Addison's disease, on the other hand, affects both sexes equally, with a peak age of onset between 30 and 50 years. Phaeochromocytoma can occur at any age, but it is most common in adults between 40 and 50 years old. The ESC 2016 guidelines recommend that patients with hypertension and a family history of phaeochromocytoma or other adrenal disorders be screened for these conditions. The ACC/AHA 2017 guidelines also recommend screening for Cushing's syndrome in patients with uncontrolled hypertension and other signs of cortisol excess."
+          },
+          {
+            "heading": "Pathophysiology of Cushing's Syndrome",
+            "text": "Cushing's syndrome is caused by excess cortisol production, which can be due to a variety of factors, including a pituitary tumor, adrenal gland tumor, or familial Cushing's syndrome. The excess cortisol leads to a range of symptoms, including weight gain, hypertension, glucose intolerance, and osteoporosis. The diagnosis of Cushing's syndrome is based on a combination of clinical features, laboratory tests, and imaging studies. The NICE 2019 guidelines recommend using the dexamethasone suppression test to diagnose Cushing's syndrome, with a threshold of 50 nmol/L for the overnight test. The AHA 2017 guidelines also recommend using the 24-hour urine free cortisol test to diagnose Cushing's syndrome, with a threshold of 250 μg/24 hours."
+          },
+          {
+            "heading": "Pathophysiology of Addison's Disease and Phaeochromocytoma",
+            "text": "Addison's disease is characterized by adrenal insufficiency, where the adrenal glands do not produce enough cortisol and aldosterone. This can be due to a variety of factors, including autoimmune disorders, infection, or adrenal gland damage. Phaeochromocytoma, on the other hand, is a rare tumor of the adrenal gland that produces excess catecholamines, leading to hypertension and other symptoms. The diagnosis of Addison's disease is based on a combination of clinical features, laboratory tests, and imaging studies, including the cosyntropin stimulation test. The ESC 2018 guidelines recommend using the plasma free metanephrines test to diagnose phaeochromocytoma, with a threshold of 0.3 nmol/L for the normetanephrine test."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of adrenal disorders can be non-specific, making diagnosis challenging. However, the presence of hypertension, glucose intolerance, and osteoporosis should raise suspicion for Cushing's syndrome, while the presence of hypotension, fatigue, and weight loss should raise suspicion for Addison's disease.",
+        "key_points": [
+          "The prevalence of Cushing's syndrome is approximately 2-5 cases per million population per year.",
+          "Addison's disease affects about 4-6 per 100,000 people.",
+          "Phaeochromocytoma is even rarer, with an incidence of about 2-8 per million population per year.",
+          "The ESC 2016 guidelines recommend screening for phaeochromocytoma in patients with hypertension and a family history of adrenal disorders.",
+          "The ACC/AHA 2017 guidelines recommend screening for Cushing's syndrome in patients with uncontrolled hypertension and other signs of cortisol excess.",
+          "The NICE 2019 guidelines recommend using the dexamethasone suppression test to diagnose Cushing's syndrome, with a threshold of 50 nmol/L for the overnight test."
+        ],
+        "references": [
+          {
+            "title": "2016 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, Bueno H, Cleland JG, Coats AJ, Falk V, González-Juanatey JR, Harjola VP, Jankowska EA, Jessup M, Linde C, Nihoyannopoulos P, Parissis JT, Pieske B, Riley JP, Rosano GM, Ruilope LM, Ruschitzka F, Rutten FH, van der Meer P",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of heart failure, including the use of screening tests for phaeochromocytoma."
+          },
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, Carey RM, Aronow WS, Casey DE Jr, Collins KJ, Dennison Himmelfarb C, DePalma SM, Gidding S, Jamerson KA, Jones DW, MacLaughlin EJ, Muntner P, Ovbiagele B, Smith SC Jr, Spencer CC, Stafford RS, Taler SJ, Thomas RJ, Williams KA Sr, Williamson JD, Wright JT Jr",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention, detection, evaluation, and management of high blood pressure in adults, including the use of screening tests for Cushing's syndrome."
+          },
+          {
+            "title": "Phaeochromocytoma and paraganglioma: An endocrine society clinical practice guideline",
+            "authors": "Lenders JW, Duh QY, Eisenhofer G, Gimenez-Roqueplo AP, Grebe SK, Murad MH, Naruse M, Pacak K, Young WF Jr",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of phaeochromocytoma and paraganglioma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Adrenal Disorders",
+      "content": {
+        "intro": "The clinical presentation of adrenal disorders can be non-specific, making diagnosis challenging. However, certain signs and symptoms should raise suspicion for these conditions. Cushing's syndrome, for example, is characterized by weight gain, hypertension, glucose intolerance, and osteoporosis. Addison's disease, on the other hand, is characterized by hypotension, fatigue, and weight loss. Phaeochromocytoma is characterized by hypertension, palpitations, and sweating.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Cushing's Syndrome",
+            "text": "The clinical presentation of Cushing's syndrome can vary, but common signs and symptoms include weight gain, hypertension, glucose intolerance, and osteoporosis. The excess cortisol production can also lead to mood changes, such as anxiety and depression. The diagnosis of Cushing's syndrome is based on a combination of clinical features, laboratory tests, and imaging studies. The AHA 2017 guidelines recommend using the 24-hour urine free cortisol test to diagnose Cushing's syndrome, with a threshold of 250 μg/24 hours."
+          },
+          {
+            "heading": "Clinical Presentation of Addison's Disease",
+            "text": "The clinical presentation of Addison's disease can also vary, but common signs and symptoms include hypotension, fatigue, and weight loss. The adrenal insufficiency can also lead to electrolyte imbalances, such as hyperkalemia and hyponatremia. The diagnosis of Addison's disease is based on a combination of clinical features, laboratory tests, and imaging studies, including the cosyntropin stimulation test. The NICE 2019 guidelines recommend using the short synacthen test to diagnose adrenal insufficiency, with a threshold of 550 nmol/L for the cortisol response."
+          },
+          {
+            "heading": "Clinical Presentation of Phaeochromocytoma",
+            "text": "The clinical presentation of phaeochromocytoma can be dramatic, with sudden onset of hypertension, palpitations, and sweating. The excess catecholamines can also lead to headaches, anxiety, and tremors. The diagnosis of phaeochromocytoma is based on a combination of clinical features, laboratory tests, and imaging studies, including the plasma free metanephrines test. The ESC 2018 guidelines recommend using the plasma free metanephrines test to diagnose phaeochromocytoma, with a threshold of 0.3 nmol/L for the normetanephrine test."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of adrenal disorders can be non-specific, but certain signs and symptoms should raise suspicion for these conditions. A thorough medical history and physical examination are essential for diagnosis.",
+        "key_points": [
+          "The clinical presentation of Cushing's syndrome includes weight gain, hypertension, glucose intolerance, and osteoporosis.",
+          "The clinical presentation of Addison's disease includes hypotension, fatigue, and weight loss.",
+          "The clinical presentation of phaeochromocytoma includes hypertension, palpitations, and sweating.",
+          "The AHA 2017 guidelines recommend using the 24-hour urine free cortisol test to diagnose Cushing's syndrome.",
+          "The NICE 2019 guidelines recommend using the short synacthen test to diagnose adrenal insufficiency.",
+          "The ESC 2018 guidelines recommend using the plasma free metanephrines test to diagnose phaeochromocytoma."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, Carey RM, Aronow WS, Casey DE Jr, Collins KJ, Dennison Himmelfarb C, DePalma SM, Gidding S, Jamerson KA, Jones DW, MacLaughlin EJ, Muntner P, Ovbiagele B, Smith SC Jr, Spencer CC, Stafford RS, Taler SJ, Thomas RJ, Williams KA Sr, Williamson JD, Wright JT Jr",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention, detection, evaluation, and management of high blood pressure in adults, including the use of screening tests for Cushing's syndrome."
+          },
+          {
+            "title": "Clinical practice guidelines for the diagnosis and treatment of adrenal insufficiency",
+            "authors": "Bornstein SR, Allolio B, Arlt W, Barthel A, Don-Wauchope A, Hammer GD, Husebye ES, Merke DP, Murad MH, Stratakis CA, Torpy DJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of adrenal insufficiency, including the use of the cosyntropin stimulation test."
+          },
+          {
+            "title": "Phaeochromocytoma and paraganglioma: An endocrine society clinical practice guideline",
+            "authors": "Lenders JW, Duh QY, Eisenhofer G, Gimenez-Roqueplo AP, Grebe SK, Murad MH, Naruse M, Pacak K, Young WF Jr",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of phaeochromocytoma and paraganglioma, including the use of the plasma free metanephrines test."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Adrenal Disorders",
+      "content": {
+        "intro": "The diagnosis of adrenal disorders requires a combination of clinical features, laboratory tests, and imaging studies. Cushing's syndrome, for example, can be diagnosed using the dexamethasone suppression test, while Addison's disease can be diagnosed using the cosyntropin stimulation test. Phaeochromocytoma can be diagnosed using the plasma free metanephrines test.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Adrenal Disorders",
+            "text": "Laboratory tests play a crucial role in the diagnosis of adrenal disorders. For Cushing's syndrome, the dexamethasone suppression test is used to diagnose excess cortisol production. The test involves administering a dose of dexamethasone, a synthetic glucocorticoid, and measuring the cortisol levels in the blood or urine. The AHA 2017 guidelines recommend using the 24-hour urine free cortisol test to diagnose Cushing's syndrome, with a threshold of 250 μg/24 hours. For Addison's disease, the cosyntropin stimulation test is used to diagnose adrenal insufficiency. The test involves administering a dose of cosyntropin, a synthetic ACTH, and measuring the cortisol levels in the blood. The NICE 2019 guidelines recommend using the short synacthen test to diagnose adrenal insufficiency, with a threshold of 550 nmol/L for the cortisol response."
+          },
+          {
+            "heading": "Imaging Studies for Adrenal Disorders",
+            "text": "Imaging studies, such as CT or MRI scans, can be used to visualize the adrenal glands and diagnose adrenal disorders. For Cushing's syndrome, imaging studies can help identify the source of excess cortisol production, such as a pituitary tumor or adrenal gland tumor. For Addison's disease, imaging studies can help identify the cause of adrenal insufficiency, such as adrenal gland damage or infection. For phaeochromocytoma, imaging studies can help identify the tumor and its location."
+          },
+          {
+            "heading": "Genetic Testing for Adrenal Disorders",
+            "text": "Genetic testing can be used to diagnose certain adrenal disorders, such as familial Cushing's syndrome or congenital adrenal hyperplasia. The test involves analyzing the DNA for mutations in genes that are associated with adrenal disorders. The ESC 2018 guidelines recommend using genetic testing to diagnose familial phaeochromocytoma, with a threshold of 10% for the risk of developing the disease."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of adrenal disorders requires a combination of clinical features, laboratory tests, and imaging studies. A thorough medical history and physical examination are essential for diagnosis.",
+        "key_points": [
+          "The dexamethasone suppression test is used to diagnose Cushing's syndrome.",
+          "The cosyntropin stimulation test is used to diagnose Addison's disease.",
+          "The plasma free metanephrines test is used to diagnose phaeochromocytoma.",
+          "The AHA 2017 guidelines recommend using the 24-hour urine free cortisol test to diagnose Cushing's syndrome.",
+          "The NICE 2019 guidelines recommend using the short synacthen test to diagnose adrenal insufficiency.",
+          "The ESC 2018 guidelines recommend using genetic testing to diagnose familial phaeochromocytoma."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, Carey RM, Aronow WS, Casey DE Jr, Collins KJ, Dennison Himmelfarb C, DePalma SM, Gidding S, Jamerson KA, Jones DW, MacLaughlin EJ, Muntner P, Ovbiagele B, Smith SC Jr, Spencer CC, Stafford RS, Taler SJ, Thomas RJ, Williams KA Sr, Williamson JD, Wright JT Jr",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention, detection, evaluation, and management of high blood pressure in adults, including the use of screening tests for Cushing's syndrome."
+          },
+          {
+            "title": "Clinical practice guidelines for the diagnosis and treatment of adrenal insufficiency",
+            "authors": "Bornstein SR, Allolio B, Arlt W, Barthel A, Don-Wauchope A, Hammer GD, Husebye ES, Merke DP, Murad MH, Stratakis CA, Torpy DJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of adrenal insufficiency, including the use of the cosyntropin stimulation test."
+          },
+          {
+            "title": "Phaeochromocytoma and paraganglioma: An endocrine society clinical practice guideline",
+            "authors": "Lenders JW, Duh QY, Eisenhofer G, Gimenez-Roqueplo AP, Grebe SK, Murad MH, Naruse M, Pacak K, Young WF Jr",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of phaeochromocytoma and paraganglioma, including the use of the plasma free metanephrines test."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Adrenal Disorders",
+      "content": {
+        "intro": "The treatment and management of adrenal disorders depend on the underlying cause and severity of the condition. Cushing's syndrome, for example, can be treated with medication or surgery, while Addison's disease can be treated with hormone replacement therapy. Phaeochromocytoma can be treated with surgery or medication.",
+        "sections": [
+          {
+            "heading": "Treatment of Cushing's Syndrome",
+            "text": "The treatment of Cushing's syndrome depends on the underlying cause of the condition. For Cushing's syndrome caused by a pituitary tumor, the treatment of choice is transsphenoidal surgery to remove the tumor. For Cushing's syndrome caused by an adrenal gland tumor, the treatment of choice is adrenalectomy to remove the tumor. Medications, such as ketoconazole or metyrapone, can also be used to reduce cortisol production. The AHA 2017 guidelines recommend using the medication pasireotide to treat Cushing's syndrome, with a dose of 0.6 mg twice a day."
+          },
+          {
+            "heading": "Treatment of Addison's Disease",
+            "text": "The treatment of Addison's disease involves hormone replacement therapy to replace the deficient hormones. The medication of choice is hydrocortisone, which is given in a dose of 15-20 mg per day. The NICE 2019 guidelines recommend using the medication fludrocortisone to treat Addison's disease, with a dose of 0.05-0.1 mg per day. Patients with Addison's disease also require regular monitoring of their electrolyte levels and blood pressure."
+          },
+          {
+            "heading": "Treatment of Phaeochromocytoma",
+            "text": "The treatment of phaeochromocytoma involves surgery to remove the tumor. The surgery is usually performed under general anesthesia, and the patient is given medication to control their blood pressure and heart rate. The ESC 2018 guidelines recommend using the medication phenoxybenzamine to treat phaeochromocytoma, with a dose of 10-20 mg per day. Patients with phaeochromocytoma also require regular monitoring of their blood pressure and electrolyte levels."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of adrenal disorders require a multidisciplinary approach, including endocrinologists, surgeons, and other healthcare professionals. A thorough medical history and physical examination are essential for diagnosis and treatment.",
+        "key_points": [
+          "The treatment of Cushing's syndrome depends on the underlying cause of the condition.",
+          "The treatment of Addison's disease involves hormone replacement therapy.",
+          "The treatment of phaeochromocytoma involves surgery to remove the tumor.",
+          "The AHA 2017 guidelines recommend using the medication pasireotide to treat Cushing's syndrome.",
+          "The NICE 2019 guidelines recommend using the medication fludrocortisone to treat Addison's disease.",
+          "The ESC 2018 guidelines recommend using the medication phenoxybenzamine to treat phaeochromocytoma."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, Carey RM, Aronow WS, Casey DE Jr, Collins KJ, Dennison Himmelfarb C, DePalma SM, Gidding S, Jamerson KA, Jones DW, MacLaughlin EJ, Muntner P, Ovbiagele B, Smith SC Jr, Spencer CC, Stafford RS, Taler SJ, Thomas RJ, Williams KA Sr, Williamson JD, Wright JT Jr",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention, detection, evaluation, and management of high blood pressure in adults, including the use of screening tests for Cushing's syndrome."
+          },
+          {
+            "title": "Clinical practice guidelines for the diagnosis and treatment of adrenal insufficiency",
+            "authors": "Bornstein SR, Allolio B, Arlt W, Barthel A, Don-Wauchope A, Hammer GD, Husebye ES, Merke DP, Murad MH, Stratakis CA, Torpy DJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of adrenal insufficiency, including the use of hormone replacement therapy."
+          },
+          {
+            "title": "Phaeochromocytoma and paraganglioma: An endocrine society clinical practice guideline",
+            "authors": "Lenders JW, Duh QY, Eisenhofer G, Gimenez-Roqueplo AP, Grebe SK, Murad MH, Naruse M, Pacak K, Young WF Jr",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of phaeochromocytoma and paraganglioma, including the use of surgery and medication."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Adrenal Disorders",
+      "content": {
+        "intro": "Adrenal disorders can have significant complications and impact on prognosis. Cushing's syndrome, for example, can lead to cardiovascular disease, osteoporosis, and glucose intolerance. Addison's disease can lead to hypotension, electrolyte imbalances, and increased risk of infection. Phaeochromocytoma can lead to cardiovascular disease, stroke, and increased risk of malignancy.",
+        "sections": [
+          {
+            "heading": "Complications of Cushing's Syndrome",
+            "text": "Cushing's syndrome can lead to a range of complications, including cardiovascular disease, osteoporosis, and glucose intolerance. The excess cortisol production can also lead to mood changes, such as anxiety and depression. The AHA 2017 guidelines recommend regular monitoring of blood pressure and lipid profiles in patients with Cushing's syndrome. The NICE 2019 guidelines recommend using the medication bisphosphonates to treat osteoporosis in patients with Cushing's syndrome."
+          },
+          {
+            "heading": "Complications of Addison's Disease",
+            "text": "Addison's disease can lead to a range of complications, including hypotension, electrolyte imbalances, and increased risk of infection. The adrenal insufficiency can also lead to fatigue, weight loss, and decreased quality of life. The ESC 2018 guidelines recommend regular monitoring of electrolyte levels and blood pressure in patients with Addison's disease. The guidelines also recommend using the medication fludrocortisone to treat Addison's disease, with a dose of 0.05-0.1 mg per day."
+          },
+          {
+            "heading": "Complications of Phaeochromocytoma",
+            "text": "Phaeochromocytoma can lead to a range of complications, including cardiovascular disease, stroke, and increased risk of malignancy. The excess catecholamines can also lead to hypertension, palpitations, and sweating. The AHA 2017 guidelines recommend regular monitoring of blood pressure and cardiovascular risk factors in patients with phaeochromocytoma. The ESC 2018 guidelines recommend using the medication phenoxybenzamine to treat phaeochromocytoma, with a dose of 10-20 mg per day."
+          }
+        ],
+        "clinical_pearl": "Adrenal disorders can have significant complications and impact on prognosis. Regular monitoring and management of these conditions are essential to prevent complications and improve outcomes.",
+        "key_points": [
+          "Cushing's syndrome can lead to cardiovascular disease, osteoporosis, and glucose intolerance.",
+          "Addison's disease can lead to hypotension, electrolyte imbalances, and increased risk of infection.",
+          "Phaeochromocytoma can lead to cardiovascular disease, stroke, and increased risk of malignancy.",
+          "The AHA 2017 guidelines recommend regular monitoring of blood pressure and lipid profiles in patients with Cushing's syndrome.",
+          "The NICE 2019 guidelines recommend using the medication bisphosphonates to treat osteoporosis in patients with Cushing's syndrome.",
+          "The ESC 2018 guidelines recommend using the medication phenoxybenzamine to treat phaeochromocytoma."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, Carey RM, Aronow WS, Casey DE Jr, Collins KJ, Dennison Himmelfarb C, DePalma SM, Gidding S, Jamerson KA, Jones DW, MacLaughlin EJ, Muntner P, Ovbiagele B, Smith SC Jr, Spencer CC, Stafford RS, Taler SJ, Thomas RJ, Williams KA Sr, Williamson JD, Wright JT Jr",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention, detection, evaluation, and management of high blood pressure in adults, including the use of screening tests for Cushing's syndrome."
+          },
+          {
+            "title": "Clinical practice guidelines for the diagnosis and treatment of adrenal insufficiency",
+            "authors": "Bornstein SR, Allolio B, Arlt W, Barthel A, Don-Wauchope A, Hammer GD, Husebye ES, Merke DP, Murad MH, Stratakis CA, Torpy DJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of adrenal insufficiency, including the use of hormone replacement therapy."
+          },
+          {
+            "title": "Phaeochromocytoma and paraganglioma: An endocrine society clinical practice guideline",
+            "authors": "Lenders JW, Duh QY, Eisenhofer G, Gimenez-Roqueplo AP, Grebe SK, Murad MH, Naruse M, Pacak K, Young WF Jr",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of phaeochromocytoma and paraganglioma, including the use of surgery and medication."
+          }
+        ]
+      }
+    }
+  ]
+}

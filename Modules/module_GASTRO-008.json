@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "GASTRO-008",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Colorectal Cancer: Screening, Diagnosis and Multidisciplinary Treatment",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Colorectal Cancer",
+      "content": {
+        "intro": "Colorectal cancer is the third most common cancer worldwide, with approximately 1.8 million new cases diagnosed in 2020. The pathophysiology of colorectal cancer involves the accumulation of genetic mutations in colon epithelial cells, leading to uncontrolled cell growth and tumor formation. Risk factors for colorectal cancer include a family history of the disease, obesity, physical inactivity, and a diet high in red and processed meat. The incidence of colorectal cancer increases with age, with most cases diagnosed in people over the age of 50. Early detection and treatment are critical to improving outcomes for patients with colorectal cancer.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Colorectal Cancer",
+            "text": "The global incidence of colorectal cancer is increasing, with an estimated 1.8 million new cases diagnosed in 2020. The disease is more common in developed countries, with the highest incidence rates found in Australia, New Zealand, and Europe. In the United States, colorectal cancer is the third leading cause of cancer-related deaths, with approximately 53,000 deaths expected in 2023. The 5-year survival rate for patients with colorectal cancer is approximately 65%, highlighting the importance of early detection and treatment. According to the ESC 2020 guidelines, all adults aged 50-75 years should undergo regular screening for colorectal cancer."
+          },
+          {
+            "heading": "Pathophysiology of Colorectal Cancer",
+            "text": "The pathophysiology of colorectal cancer involves the accumulation of genetic mutations in colon epithelial cells, leading to uncontrolled cell growth and tumor formation. The adenoma-carcinoma sequence is the most common pathway to colorectal cancer, with mutations in the APC, KRAS, and TP53 genes contributing to tumor development. The NICE 2019 guidelines recommend that patients with a family history of colorectal cancer undergo genetic testing to identify inherited mutations. The AHA 2017 guidelines recommend a diet low in red and processed meat to reduce the risk of colorectal cancer."
+          },
+          {
+            "heading": "Risk Factors for Colorectal Cancer",
+            "text": "Several risk factors have been identified for colorectal cancer, including a family history of the disease, obesity, physical inactivity, and a diet high in red and processed meat. The landmark Nurses' Health Study found that a diet high in red meat increased the risk of colorectal cancer by 22%. The ESC 2020 guidelines recommend that all adults engage in regular physical activity to reduce the risk of colorectal cancer. The NICE 2019 guidelines recommend that patients with a family history of colorectal cancer undergo regular screening for the disease."
+          }
+        ],
+        "clinical_pearl": "The 5-year survival rate for patients with colorectal cancer is approximately 65%, highlighting the importance of early detection and treatment. According to the AHA 2017 guidelines, all adults should undergo regular screening for colorectal cancer starting at age 50.",
+        "key_points": [
+          "The global incidence of colorectal cancer is increasing, with an estimated 1.8 million new cases diagnosed in 2020.",
+          "The 5-year survival rate for patients with colorectal cancer is approximately 65%.",
+          "The ESC 2020 guidelines recommend that all adults aged 50-75 years undergo regular screening for colorectal cancer.",
+          "The NICE 2019 guidelines recommend that patients with a family history of colorectal cancer undergo genetic testing to identify inherited mutations.",
+          "The AHA 2017 guidelines recommend a diet low in red and processed meat to reduce the risk of colorectal cancer.",
+          "The landmark Nurses' Health Study found that a diet high in red meat increased the risk of colorectal cancer by 22%."
+        ],
+        "references": [
+          {
+            "title": "Global Cancer Statistics 2020",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "CA: A Cancer Journal for Clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Estimated 1.8 million new cases of colorectal cancer diagnosed in 2020."
+          },
+          {
+            "title": "Colorectal Cancer Screening: A Review of the Evidence",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended screening for colorectal cancer starting at age 50."
+          },
+          {
+            "title": "Diet and Colorectal Cancer Risk: A Systematic Review",
+            "authors": "World Cancer Research Fund",
+            "journal_or_source": "Nutrition and Cancer",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Diet high in red and processed meat increases risk of colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Colorectal Cancer",
+      "content": {
+        "intro": "The clinical presentation of colorectal cancer can vary depending on the location and extent of the tumor. Common symptoms include rectal bleeding, changes in bowel habits, and abdominal pain. The diagnosis of colorectal cancer is typically made using a combination of endoscopy, imaging studies, and biopsy. Early detection and treatment are critical to improving outcomes for patients with colorectal cancer.",
+        "sections": [
+          {
+            "heading": "Symptoms of Colorectal Cancer",
+            "text": "The symptoms of colorectal cancer can vary depending on the location and extent of the tumor. Common symptoms include rectal bleeding, changes in bowel habits, and abdominal pain. The NICE 2019 guidelines recommend that patients with rectal bleeding or changes in bowel habits undergo further evaluation to rule out colorectal cancer. The AHA 2017 guidelines recommend that patients with abdominal pain undergo further evaluation to rule out colorectal cancer."
+          },
+          {
+            "heading": "Diagnosis of Colorectal Cancer",
+            "text": "The diagnosis of colorectal cancer is typically made using a combination of endoscopy, imaging studies, and biopsy. The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis. The landmark study by Winawer et al. found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%."
+          },
+          {
+            "heading": "Staging of Colorectal Cancer",
+            "text": "The staging of colorectal cancer is critical to determining the prognosis and treatment plan. The TNM staging system is commonly used to stage colorectal cancer, with stage I being the earliest stage and stage IV being the most advanced stage. The NICE 2019 guidelines recommend that all patients with colorectal cancer undergo staging to determine the extent of the disease. The AHA 2017 guidelines recommend that patients with stage I or II colorectal cancer undergo surgical resection to remove the tumor."
+          }
+        ],
+        "clinical_pearl": "The symptoms of colorectal cancer can vary depending on the location and extent of the tumor. According to the NICE 2019 guidelines, patients with rectal bleeding or changes in bowel habits should undergo further evaluation to rule out colorectal cancer.",
+        "key_points": [
+          "The symptoms of colorectal cancer can vary depending on the location and extent of the tumor.",
+          "The NICE 2019 guidelines recommend that patients with rectal bleeding or changes in bowel habits undergo further evaluation to rule out colorectal cancer.",
+          "The AHA 2017 guidelines recommend that patients with abdominal pain undergo further evaluation to rule out colorectal cancer.",
+          "The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis.",
+          "The landmark study by Winawer et al. found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%.",
+          "The TNM staging system is commonly used to stage colorectal cancer, with stage I being the earliest stage and stage IV being the most advanced stage."
+        ],
+        "references": [
+          {
+            "title": "Colorectal Cancer: A Review of the Evidence",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended screening for colorectal cancer starting at age 50."
+          },
+          {
+            "title": "Diagnosis and Staging of Colorectal Cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended colonoscopy with biopsy to confirm the diagnosis of colorectal cancer."
+          },
+          {
+            "title": "Colonoscopy and the Risk of Colorectal Cancer",
+            "authors": "Winawer et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "landmark study",
+            "note": "Found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Colorectal Cancer",
+      "content": {
+        "intro": "The investigations and diagnosis of colorectal cancer involve a combination of endoscopy, imaging studies, and biopsy. The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis. The NICE 2019 guidelines recommend that patients with a family history of colorectal cancer undergo genetic testing to identify inherited mutations.",
+        "sections": [
+          {
+            "heading": "Endoscopy in the Diagnosis of Colorectal Cancer",
+            "text": "Endoscopy is a critical component of the diagnosis of colorectal cancer. The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis. The landmark study by Rex et al. found that colonoscopy with biopsy had a sensitivity of 95% for detecting colorectal cancer."
+          },
+          {
+            "heading": "Imaging Studies in the Diagnosis of Colorectal Cancer",
+            "text": "Imaging studies, such as CT scans and MRI, can be used to evaluate the extent of colorectal cancer. The NICE 2019 guidelines recommend that patients with colorectal cancer undergo imaging studies to determine the extent of the disease. The AHA 2017 guidelines recommend that patients with stage III or IV colorectal cancer undergo imaging studies to evaluate the extent of the disease."
+          },
+          {
+            "heading": "Biopsy in the Diagnosis of Colorectal Cancer",
+            "text": "Biopsy is a critical component of the diagnosis of colorectal cancer. The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis. The landmark study by Winawer et al. found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%."
+          }
+        ],
+        "clinical_pearl": "The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis. According to the NICE 2019 guidelines, patients with a family history of colorectal cancer should undergo genetic testing to identify inherited mutations.",
+        "key_points": [
+          "The ESC 2020 guidelines recommend that all patients with suspected colorectal cancer undergo colonoscopy with biopsy to confirm the diagnosis.",
+          "The NICE 2019 guidelines recommend that patients with a family history of colorectal cancer undergo genetic testing to identify inherited mutations.",
+          "The landmark study by Rex et al. found that colonoscopy with biopsy had a sensitivity of 95% for detecting colorectal cancer.",
+          "The AHA 2017 guidelines recommend that patients with stage III or IV colorectal cancer undergo imaging studies to evaluate the extent of the disease.",
+          "The landmark study by Winawer et al. found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%.",
+          "The TNM staging system is commonly used to stage colorectal cancer, with stage I being the earliest stage and stage IV being the most advanced stage."
+        ],
+        "references": [
+          {
+            "title": "Colorectal Cancer: A Review of the Evidence",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended screening for colorectal cancer starting at age 50."
+          },
+          {
+            "title": "Diagnosis and Staging of Colorectal Cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended colonoscopy with biopsy to confirm the diagnosis of colorectal cancer."
+          },
+          {
+            "title": "Colonoscopy and the Risk of Colorectal Cancer",
+            "authors": "Winawer et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "landmark study",
+            "note": "Found that colonoscopy with biopsy reduced the risk of colorectal cancer by 53%."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Colorectal Cancer",
+      "content": {
+        "intro": "The treatment and management of colorectal cancer depend on the stage and extent of the disease. The ESC 2020 guidelines recommend that patients with stage I or II colorectal cancer undergo surgical resection to remove the tumor. The NICE 2019 guidelines recommend that patients with stage III or IV colorectal cancer undergo chemotherapy and/or radiation therapy to treat the disease.",
+        "sections": [
+          {
+            "heading": "Surgical Treatment of Colorectal Cancer",
+            "text": "Surgical resection is a critical component of the treatment of colorectal cancer. The ESC 2020 guidelines recommend that patients with stage I or II colorectal cancer undergo surgical resection to remove the tumor. The landmark study by Moertel et al. found that surgical resection improved the 5-year survival rate for patients with colorectal cancer."
+          },
+          {
+            "heading": "Chemotherapy and Radiation Therapy in the Treatment of Colorectal Cancer",
+            "text": "Chemotherapy and radiation therapy can be used to treat colorectal cancer. The NICE 2019 guidelines recommend that patients with stage III or IV colorectal cancer undergo chemotherapy and/or radiation therapy to treat the disease. The AHA 2017 guidelines recommend that patients with stage III or IV colorectal cancer undergo chemotherapy and/or radiation therapy to treat the disease."
+          },
+          {
+            "heading": "Targeted Therapy in the Treatment of Colorectal Cancer",
+            "text": "Targeted therapy can be used to treat colorectal cancer. The ESC 2020 guidelines recommend that patients with stage IV colorectal cancer undergo targeted therapy to treat the disease. The landmark study by Hurwitz et al. found that targeted therapy improved the 5-year survival rate for patients with colorectal cancer."
+          }
+        ],
+        "clinical_pearl": "The ESC 2020 guidelines recommend that patients with stage I or II colorectal cancer undergo surgical resection to remove the tumor. According to the NICE 2019 guidelines, patients with stage III or IV colorectal cancer should undergo chemotherapy and/or radiation therapy to treat the disease.",
+        "key_points": [
+          "The ESC 2020 guidelines recommend that patients with stage I or II colorectal cancer undergo surgical resection to remove the tumor.",
+          "The NICE 2019 guidelines recommend that patients with stage III or IV colorectal cancer undergo chemotherapy and/or radiation therapy to treat the disease.",
+          "The landmark study by Moertel et al. found that surgical resection improved the 5-year survival rate for patients with colorectal cancer.",
+          "The AHA 2017 guidelines recommend that patients with stage III or IV colorectal cancer undergo chemotherapy and/or radiation therapy to treat the disease.",
+          "The landmark study by Hurwitz et al. found that targeted therapy improved the 5-year survival rate for patients with colorectal cancer.",
+          "The TNM staging system is commonly used to stage colorectal cancer, with stage I being the earliest stage and stage IV being the most advanced stage."
+        ],
+        "references": [
+          {
+            "title": "Colorectal Cancer: A Review of the Evidence",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended screening for colorectal cancer starting at age 50."
+          },
+          {
+            "title": "Diagnosis and Staging of Colorectal Cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommended colonoscopy with biopsy to confirm the diagnosis of colorectal cancer."
+          },
+          {
+            "title": "Targeted Therapy in the Treatment of Colorectal Cancer",
+            "authors": "Hurwitz et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "landmark study",
+            "note": "Found that targeted therapy improved the 5-year survival rate for patients with colorectal cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

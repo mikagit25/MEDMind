@@ -43,7 +43,7 @@ LOCALE_NAMES = {
 }
 
 # ── Provider configs ──────────────────────────────────────────────────────────
-ENV_FILE = os.path.join(os.path.dirname(__file__), "backend", ".env.prod")
+ENV_FILE = os.path.join(os.path.dirname(__file__), "..", "..", "backend", ".env")
 
 def _load_keys(prefix: str) -> list[str]:
     keys = []
@@ -77,8 +77,8 @@ PROVIDERS = {
     "groq": {
         "url": "https://api.groq.com/openai/v1/chat/completions",
         "model": "llama-3.3-70b-versatile",
-        # KEY_3 + KEY_4 only — KEY_1/KEY_2 reserved for user AI tutor
-        "keys": [k for k in [_load_keys("GROQ_API_KEY_3"), _load_keys("GROQ_API_KEY_4")] if k for k in k],
+        # KEY_3/4/5 for content pipeline — KEY_1/KEY_2 reserved for user AI tutor
+        "keys": [k for src in [_load_keys("GROQ_API_KEY_3"), _load_keys("GROQ_API_KEY_4"), _load_keys("GROQ_API_KEY_5")] for k in src],
     },
 }
 

@@ -84,13 +84,13 @@ export default function LinkTelegramPage() {
               Your MedMind account (<strong>{user?.email}</strong>) is now linked to Telegram.
             </p>
             <p className="font-serif text-sm text-ink-2">
-              Go back to @Medmindaibot and send a message to start using your {user?.subscription_tier} plan.
+              Go back to @Medmindpro_bot and send a message to start using your {user?.subscription_tier} plan.
             </p>
             <a
-              href="https://t.me/Medmindaibot"
+              href="https://t.me/Medmindpro_bot"
               className="block w-full btn-primary py-2.5 rounded-xl font-syne font-semibold text-sm text-center"
             >
-              Open @Medmindaibot →
+              Open @Medmindpro_bot →
             </a>
           </>
         )}
@@ -100,7 +100,7 @@ export default function LinkTelegramPage() {
             <h1 className="font-syne font-bold text-xl text-ink">Link Failed</h1>
             <p className="font-serif text-sm text-red">{error}</p>
             <p className="font-serif text-xs text-ink-3">
-              The link may have expired (10 minutes). Get a new one by sending /link to @Medmindaibot.
+              The link may have expired (10 minutes). Get a new one by sending /link to @Medmindpro_bot.
             </p>
             <Link href="/dashboard" className="block text-xs font-syne text-ink-3 hover:text-ink">
               ← Back to Dashboard

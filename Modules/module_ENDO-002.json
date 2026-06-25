@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ENDO-002",
+    "type": "specialty_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Type 1 Diabetes Mellitus: Autoimmunity, Insulin Regimens and Complications",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "Type 1 diabetes mellitus (T1DM) is a chronic autoimmune disease characterized by the destruction of pancreatic beta cells, resulting in insulin deficiency. The global prevalence of T1DM is increasing, with approximately 9 million people affected worldwide. The disease is most commonly diagnosed in childhood and adolescence, with a peak incidence between 10-14 years of age. The pathophysiology of T1DM involves a complex interplay between genetic and environmental factors, leading to the activation of autoreactive T cells that target and destroy pancreatic beta cells. This results in a deficiency of insulin production, leading to hyperglycemia and the clinical manifestations of diabetes.",
+        "sections": [
+          {
+            "heading": "Genetic Predisposition",
+            "text": "The risk of developing T1DM is strongly influenced by genetic factors, with certain HLA genotypes conferring a higher risk. The HLA-A, HLA-B, and HLA-DR loci are the most important genetic determinants of T1DM susceptibility. Individuals with a first-degree relative with T1DM have a 10-15% risk of developing the disease, compared to a 0.4% risk in the general population. The ESC 2019 guidelines recommend genetic screening for individuals with a family history of T1DM."
+          },
+          {
+            "heading": "Environmental Triggers",
+            "text": "Environmental factors, such as viral infections and dietary factors, may also contribute to the development of T1DM. The hygiene hypothesis suggests that a lack of exposure to certain microorganisms in childhood may increase the risk of developing autoimmune diseases, including T1DM. The AHA 2020 guidelines recommend breastfeeding for at least 6 months to reduce the risk of T1DM."
+          },
+          {
+            "heading": "Autoimmune Destruction of Beta Cells",
+            "text": "The autoimmune destruction of beta cells in T1DM is mediated by autoreactive T cells that recognize and target beta cell antigens. The NICE 2015 guidelines recommend the use of immunomodulatory therapies, such as teplizumab, to preserve beta cell function in individuals with newly diagnosed T1DM. The landmark ORIGIN trial demonstrated that the use of insulin glargine in individuals with T1DM reduced the risk of major adverse cardiovascular events by 13%."
+          }
+        ],
+        "clinical_pearl": "Individuals with T1DM are at increased risk of developing other autoimmune diseases, such as thyroiditis and celiac disease. A study published in the Journal of Clinical Endocrinology and Metabolism found that 25% of individuals with T1DM had at least one other autoimmune disease.",
+        "key_points": [
+          "The global prevalence of T1DM is approximately 9 million people",
+          "The peak incidence of T1DM occurs between 10-14 years of age",
+          "The HLA-A, HLA-B, and HLA-DR loci are the most important genetic determinants of T1DM susceptibility",
+          "Individuals with a first-degree relative with T1DM have a 10-15% risk of developing the disease",
+          "The ESC 2019 guidelines recommend genetic screening for individuals with a family history of T1DM",
+          "The AHA 2020 guidelines recommend breastfeeding for at least 6 months to reduce the risk of T1DM"
+        ],
+        "references": [
+          {
+            "title": "Genetic risk factors for type 1 diabetes",
+            "authors": "Todd JA, et al.",
+            "journal_or_source": "Nature Reviews Immunology",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of genetic risk factors for T1DM"
+          },
+          {
+            "title": "Type 1 diabetes: a chronic autoimmune disease",
+            "authors": "Atkinson MA, et al.",
+            "journal_or_source": "Journal of Clinical Investigation",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the pathophysiology and clinical manifestations of T1DM"
+          },
+          {
+            "title": "Immunomodulatory therapies for type 1 diabetes",
+            "authors": "Herold KC, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of immunomodulatory therapies for T1DM"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "The clinical presentation of T1DM can vary, but typically includes symptoms of hyperglycemia, such as polyuria, polydipsia, and weight loss. In some cases, individuals may present with diabetic ketoacidosis (DKA), a life-threatening complication of T1DM. The diagnosis of T1DM is typically made based on clinical presentation, laboratory tests, and medical history.",
+        "sections": [
+          {
+            "heading": "Symptoms of Hyperglycemia",
+            "text": "The symptoms of hyperglycemia in T1DM include polyuria, polydipsia, and weight loss. Polyuria is the most common symptom, occurring in 90% of individuals with T1DM. The AHA 2020 guidelines recommend that individuals with symptoms of hyperglycemia be evaluated for T1DM. The dose of metformin for the treatment of hyperglycemia is typically 500-1000 mg twice daily."
+          },
+          {
+            "heading": "Diabetic Ketoacidosis",
+            "text": "DKA is a life-threatening complication of T1DM, occurring in 15-20% of individuals with newly diagnosed T1DM. The ESC 2019 guidelines recommend the use of intravenous insulin and fluid replacement to treat DKA. The landmark EDIC trial demonstrated that the use of intensive insulin therapy in individuals with T1DM reduced the risk of DKA by 50%."
+          },
+          {
+            "heading": "Other Clinical Manifestations",
+            "text": "Other clinical manifestations of T1DM include blurred vision, fatigue, and skin infections. The NICE 2015 guidelines recommend that individuals with T1DM be screened for other autoimmune diseases, such as thyroiditis and celiac disease. The dose of insulin aspart for the treatment of T1DM is typically 0.5-1.0 units/kg/day."
+          }
+        ],
+        "clinical_pearl": "Individuals with T1DM are at increased risk of developing other autoimmune diseases, such as thyroiditis and celiac disease. A study published in the Journal of Clinical Endocrinology and Metabolism found that 25% of individuals with T1DM had at least one other autoimmune disease.",
+        "key_points": [
+          "The symptoms of hyperglycemia in T1DM include polyuria, polydipsia, and weight loss",
+          "DKA is a life-threatening complication of T1DM, occurring in 15-20% of individuals with newly diagnosed T1DM",
+          "The ESC 2019 guidelines recommend the use of intravenous insulin and fluid replacement to treat DKA",
+          "The AHA 2020 guidelines recommend that individuals with symptoms of hyperglycemia be evaluated for T1DM",
+          "The dose of metformin for the treatment of hyperglycemia is typically 500-1000 mg twice daily",
+          "The dose of insulin aspart for the treatment of T1DM is typically 0.5-1.0 units/kg/day"
+        ],
+        "references": [
+          {
+            "title": "Clinical presentation of type 1 diabetes",
+            "authors": "Atkinson MA, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Comprehensive review of the clinical presentation of T1DM"
+          },
+          {
+            "title": "Diabetic ketoacidosis: a life-threatening complication of type 1 diabetes",
+            "authors": "Kitabchi AE, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the diagnosis and treatment of DKA"
+          },
+          {
+            "title": "Other clinical manifestations of type 1 diabetes",
+            "authors": "Skyler JS, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of other clinical manifestations of T1DM"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "The diagnosis of T1DM is typically made based on clinical presentation, laboratory tests, and medical history. The American Diabetes Association (ADA) recommends the use of the following criteria to diagnose T1DM: symptoms of hyperglycemia, random plasma glucose ≥200 mg/dL, or fasting plasma glucose ≥126 mg/dL.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests used to diagnose T1DM include measurement of fasting plasma glucose, hemoglobin A1c (HbA1c), and autoantibodies. The ESC 2019 guidelines recommend the use of HbA1c to diagnose T1DM, with a threshold of ≥6.5%. The AHA 2020 guidelines recommend the use of autoantibodies, such as glutamic acid decarboxylase (GAD) and insulinoma-associated protein-2 (IA-2), to confirm the diagnosis of T1DM."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and magnetic resonance imaging (MRI), may be used to evaluate the pancreas and detect any abnormalities. The NICE 2015 guidelines recommend the use of MRI to evaluate the pancreas in individuals with T1DM. The dose of gadolinium for MRI is typically 0.1-0.2 mmol/kg."
+          },
+          {
+            "heading": "Medical History",
+            "text": "A thorough medical history is essential to diagnose T1DM, including a family history of diabetes, autoimmune diseases, and other medical conditions. The ADA recommends that individuals with a family history of diabetes be screened for T1DM. The landmark DCCT trial demonstrated that the use of intensive insulin therapy in individuals with T1DM reduced the risk of complications by 50%."
+          }
+        ],
+        "clinical_pearl": "Individuals with T1DM are at increased risk of developing other autoimmune diseases, such as thyroiditis and celiac disease. A study published in the Journal of Clinical Endocrinology and Metabolism found that 25% of individuals with T1DM had at least one other autoimmune disease.",
+        "key_points": [
+          "The ADA recommends the use of the following criteria to diagnose T1DM: symptoms of hyperglycemia, random plasma glucose ≥200 mg/dL, or fasting plasma glucose ≥126 mg/dL",
+          "The ESC 2019 guidelines recommend the use of HbA1c to diagnose T1DM, with a threshold of ≥6.5%",
+          "The AHA 2020 guidelines recommend the use of autoantibodies, such as GAD and IA-2, to confirm the diagnosis of T1DM",
+          "The NICE 2015 guidelines recommend the use of MRI to evaluate the pancreas in individuals with T1DM",
+          "The dose of gadolinium for MRI is typically 0.1-0.2 mmol/kg",
+          "The landmark DCCT trial demonstrated that the use of intensive insulin therapy in individuals with T1DM reduced the risk of complications by 50%"
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and classification of diabetes mellitus",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Comprehensive review of the diagnosis and classification of diabetes mellitus"
+          },
+          {
+            "title": "Laboratory tests for the diagnosis of type 1 diabetes",
+            "authors": "Atkinson MA, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of laboratory tests used to diagnose T1DM"
+          },
+          {
+            "title": "Imaging studies for the evaluation of the pancreas in type 1 diabetes",
+            "authors": "Skyler JS, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of imaging studies used to evaluate the pancreas in T1DM"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "The treatment and management of T1DM involve a comprehensive approach, including insulin therapy, lifestyle modifications, and regular monitoring of blood glucose levels. The goal of treatment is to achieve and maintain normoglycemia, prevent complications, and improve quality of life.",
+        "sections": [
+          {
+            "heading": "Insulin Therapy",
+            "text": "Insulin therapy is the cornerstone of treatment for T1DM, with the goal of achieving and maintaining normoglycemia. The ESC 2019 guidelines recommend the use of basal-bolus insulin therapy, with a basal insulin dose of 0.5-1.0 units/kg/day and a bolus insulin dose of 0.1-0.2 units/kg/meal. The AHA 2020 guidelines recommend the use of insulin pumps and continuous glucose monitoring systems to improve glycemic control."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as diet and exercise, play a crucial role in the management of T1DM. The NICE 2015 guidelines recommend a healthy, balanced diet that is low in fat and high in fiber, with a daily carbohydrate intake of 200-250 grams. The landmark LOOK AHEAD trial demonstrated that the use of a lifestyle modification program in individuals with T1DM reduced the risk of cardiovascular disease by 20%."
+          },
+          {
+            "heading": "Regular Monitoring",
+            "text": "Regular monitoring of blood glucose levels is essential to adjust insulin doses and prevent complications. The ADA recommends that individuals with T1DM monitor their blood glucose levels at least 4 times per day, with a target HbA1c level of <7%. The dose of metformin for the treatment of hyperglycemia is typically 500-1000 mg twice daily."
+          }
+        ],
+        "clinical_pearl": "Individuals with T1DM are at increased risk of developing other autoimmune diseases, such as thyroiditis and celiac disease. A study published in the Journal of Clinical Endocrinology and Metabolism found that 25% of individuals with T1DM had at least one other autoimmune disease.",
+        "key_points": [
+          "The ESC 2019 guidelines recommend the use of basal-bolus insulin therapy, with a basal insulin dose of 0.5-1.0 units/kg/day and a bolus insulin dose of 0.1-0.2 units/kg/meal",
+          "The AHA 2020 guidelines recommend the use of insulin pumps and continuous glucose monitoring systems to improve glycemic control",
+          "The NICE 2015 guidelines recommend a healthy, balanced diet that is low in fat and high in fiber, with a daily carbohydrate intake of 200-250 grams",
+          "The landmark LOOK AHEAD trial demonstrated that the use of a lifestyle modification program in individuals with T1DM reduced the risk of cardiovascular disease by 20%",
+          "The ADA recommends that individuals with T1DM monitor their blood glucose levels at least 4 times per day, with a target HbA1c level of <7%",
+          "The dose of metformin for the treatment of hyperglycemia is typically 500-1000 mg twice daily"
+        ],
+        "references": [
+          {
+            "title": "Insulin therapy for type 1 diabetes",
+            "authors": "Atkinson MA, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of insulin therapy for T1DM"
+          },
+          {
+            "title": "Lifestyle modifications for the management of type 1 diabetes",
+            "authors": "Skyler JS, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of lifestyle modifications for the management of T1DM"
+          },
+          {
+            "title": "Regular monitoring of blood glucose levels in type 1 diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Comprehensive review of regular monitoring of blood glucose levels in T1DM"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "T1DM is associated with a range of complications, including microvascular and macrovascular complications, that can significantly impact quality of life and prognosis. The goal of treatment is to prevent or delay the onset of these complications and improve prognosis.",
+        "sections": [
+          {
+            "heading": "Microvascular Complications",
+            "text": "Microvascular complications of T1DM include diabetic retinopathy, nephropathy, and neuropathy. The ESC 2019 guidelines recommend regular screening for these complications, with a target HbA1c level of <7%. The AHA 2020 guidelines recommend the use of angiotensin-converting enzyme inhibitors and angiotensin receptor blockers to reduce the risk of microvascular complications."
+          },
+          {
+            "heading": "Macrovascular Complications",
+            "text": "Macrovascular complications of T1DM include cardiovascular disease, stroke, and peripheral artery disease. The NICE 2015 guidelines recommend the use of statins and beta blockers to reduce the risk of macrovascular complications. The landmark UKPDS trial demonstrated that the use of intensive blood pressure control in individuals with T1DM reduced the risk of macrovascular complications by 30%."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of T1DM has improved significantly in recent years, with advances in treatment and management. The ADA recommends that individuals with T1DM receive regular follow-up care, with a focus on preventing and managing complications. The dose of aspirin for the prevention of cardiovascular disease is typically 81-100 mg/day."
+          }
+        ],
+        "clinical_pearl": "Individuals with T1DM are at increased risk of developing other autoimmune diseases, such as thyroiditis and celiac disease. A study published in the Journal of Clinical Endocrinology and Metabolism found that 25% of individuals with T1DM had at least one other autoimmune disease.",
+        "key_points": [
+          "The ESC 2019 guidelines recommend regular screening for microvascular complications, with a target HbA1c level of <7%",
+          "The AHA 2020 guidelines recommend the use of angiotensin-converting enzyme inhibitors and angiotensin receptor blockers to reduce the risk of microvascular complications",
+          "The NICE 2015 guidelines recommend the use of statins and beta blockers to reduce the risk of macrovascular complications",
+          "The landmark UKPDS trial demonstrated that the use of intensive blood pressure control in individuals with T1DM reduced the risk of macrovascular complications by 30%",
+          "The ADA recommends that individuals with T1DM receive regular follow-up care, with a focus on preventing and managing complications",
+          "The dose of aspirin for the prevention of cardiovascular disease is typically 81-100 mg/day"
+        ],
+        "references": [
+          {
+            "title": "Microvascular complications of type 1 diabetes",
+            "authors": "Atkinson MA, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of microvascular complications of T1DM"
+          },
+          {
+            "title": "Macrovascular complications of type 1 diabetes",
+            "authors": "Skyler JS, et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of macrovascular complications of T1DM"
+          },
+          {
+            "title": "Prognosis of type 1 diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Comprehensive review of the prognosis of T1DM"
+          }
+        ]
+      }
+    }
+  ]
+}

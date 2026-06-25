@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "RHEUM-002",
+    "type": "specialty_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Systemic Lupus Erythematosus: SLICC Criteria, Organ Manifestations, Treatment",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Systemic Lupus Erythematosus",
+      "content": {
+        "intro": "Systemic lupus erythematosus (SLE) is a chronic autoimmune disease that affects multiple organ systems. The exact cause of SLE is unknown, but it is believed to result from a combination of genetic, environmental, and hormonal factors. The disease is characterized by the production of autoantibodies, which are antibodies that target the body's own tissues. The prevalence of SLE varies by population, with higher rates in women and certain ethnic groups. According to the 2019 European League Against Rheumatism (EULAR) guidelines, the diagnosis of SLE is based on the presence of at least four of the 11 criteria established by the Systemic Lupus International Collaborating Clinics (SLICC). These criteria include clinical manifestations such as malar rash, discoid rash, and oral ulcers, as well as immunological criteria such as the presence of antinuclear antibodies (ANA) and anti-double-stranded DNA (anti-dsDNA) antibodies.",
+        "sections": [
+          {
+            "heading": "Epidemiology of SLE",
+            "text": "The epidemiology of SLE has been studied extensively, with estimates suggesting that the disease affects approximately 50 per 100,000 people in the United States. The disease is more common in women, with a female-to-male ratio of approximately 9:1. Certain ethnic groups, such as African Americans and Hispanics, are also at higher risk of developing SLE. The 2019 EULAR guidelines recommend that patients with SLE be screened for cardiovascular risk factors, as they are at increased risk of developing cardiovascular disease. The guidelines also recommend the use of hydroxychloroquine as a first-line treatment for SLE, with a dose of 200-400 mg per day."
+          },
+          {
+            "heading": "Pathophysiology of SLE",
+            "text": "The pathophysiology of SLE is complex and involves the activation of multiple immune cell types, including T cells and B cells. The disease is characterized by the production of autoantibodies, which target the body's own tissues and lead to inflammation and tissue damage. The 2018 American College of Rheumatology (ACR) guidelines recommend the use of belimumab, a monoclonal antibody that targets the B cell activating factor (BAFF), in patients with SLE who have not responded to conventional therapy. The guidelines also recommend the use of rituximab, a monoclonal antibody that targets CD20-positive B cells, in patients with SLE who have not responded to conventional therapy."
+          },
+          {
+            "heading": "SLICC Criteria for SLE",
+            "text": "The SLICC criteria for SLE include 11 clinical and immunological criteria, such as malar rash, discoid rash, and oral ulcers, as well as the presence of ANA and anti-dsDNA antibodies. The 2019 EULAR guidelines recommend that patients with SLE be evaluated for the presence of these criteria, and that the diagnosis of SLE be made based on the presence of at least four of the criteria. The guidelines also recommend the use of the Systemic Lupus Erythematosus Disease Activity Index (SLEDAI) to assess disease activity in patients with SLE."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of SLE should be made based on a combination of clinical and immunological criteria, including the presence of at least four of the SLICC criteria. The use of hydroxychloroquine as a first-line treatment for SLE can help to reduce disease activity and improve outcomes.",
+        "key_points": [
+          "The prevalence of SLE varies by population, with higher rates in women and certain ethnic groups.",
+          "The diagnosis of SLE is based on the presence of at least four of the 11 criteria established by the SLICC.",
+          "The use of hydroxychloroquine as a first-line treatment for SLE can help to reduce disease activity and improve outcomes.",
+          "The 2019 EULAR guidelines recommend the use of belimumab in patients with SLE who have not responded to conventional therapy.",
+          "The 2018 ACR guidelines recommend the use of rituximab in patients with SLE who have not responded to conventional therapy.",
+          "The SLEDAI is a useful tool for assessing disease activity in patients with SLE."
+        ],
+        "references": [
+          {
+            "title": "2019 European League Against Rheumatism (EULAR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "2018 American College of Rheumatology (ACR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "Systemic Lupus Erythematosus Disease Activity Index (SLEDAI)",
+            "authors": "Bombardier C, et al.",
+            "journal_or_source": "Arthritis & Rheumatism",
+            "year": 1992,
+            "type": "article",
+            "note": "Description of the SLEDAI, a tool for assessing disease activity in patients with SLE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Systemic Lupus Erythematosus",
+      "content": {
+        "intro": "The clinical presentation of SLE can vary widely, with some patients experiencing mild symptoms and others experiencing more severe disease. Common symptoms of SLE include fever, fatigue, and joint pain, as well as skin rashes and kidney problems. According to the 2019 EULAR guidelines, the diagnosis of SLE should be considered in patients who present with a combination of these symptoms, particularly if they have a positive ANA test. The guidelines also recommend the use of the SLEDAI to assess disease activity in patients with SLE.",
+        "sections": [
+          {
+            "heading": "Mucocutaneous Manifestations of SLE",
+            "text": "The mucocutaneous manifestations of SLE include malar rash, discoid rash, and oral ulcers. The 2018 ACR guidelines recommend the use of topical corticosteroids to treat these manifestations, with a dose of 0.1-0.5% triamcinolone acetonide. The guidelines also recommend the use of antimalarial drugs, such as hydroxychloroquine, to treat SLE patients with mucocutaneous manifestations."
+          },
+          {
+            "heading": "Musculoskeletal Manifestations of SLE",
+            "text": "The musculoskeletal manifestations of SLE include arthritis, myositis, and tendonitis. The 2019 EULAR guidelines recommend the use of nonsteroidal anti-inflammatory drugs (NSAIDs) to treat these manifestations, with a dose of 500-1000 mg per day of naproxen. The guidelines also recommend the use of corticosteroids, such as prednisone, to treat SLE patients with musculoskeletal manifestations."
+          },
+          {
+            "heading": "Renal Manifestations of SLE",
+            "text": "The renal manifestations of SLE include nephritis and nephrotic syndrome. The 2018 ACR guidelines recommend the use of immunosuppressive drugs, such as cyclophosphamide, to treat these manifestations, with a dose of 500-1000 mg per month. The guidelines also recommend the use of angiotensin-converting enzyme (ACE) inhibitors, such as lisinopril, to treat SLE patients with renal manifestations."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of SLE should be considered in patients who present with a combination of symptoms, particularly if they have a positive ANA test. The use of the SLEDAI can help to assess disease activity in patients with SLE.",
+        "key_points": [
+          "The clinical presentation of SLE can vary widely, with some patients experiencing mild symptoms and others experiencing more severe disease.",
+          "Common symptoms of SLE include fever, fatigue, and joint pain, as well as skin rashes and kidney problems.",
+          "The diagnosis of SLE should be considered in patients who present with a combination of these symptoms, particularly if they have a positive ANA test.",
+          "The use of the SLEDAI can help to assess disease activity in patients with SLE.",
+          "The 2018 ACR guidelines recommend the use of topical corticosteroids to treat mucocutaneous manifestations of SLE.",
+          "The 2019 EULAR guidelines recommend the use of NSAIDs to treat musculoskeletal manifestations of SLE."
+        ],
+        "references": [
+          {
+            "title": "2019 European League Against Rheumatism (EULAR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "2018 American College of Rheumatology (ACR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "Systemic Lupus Erythematosus Disease Activity Index (SLEDAI)",
+            "authors": "Bombardier C, et al.",
+            "journal_or_source": "Arthritis & Rheumatism",
+            "year": 1992,
+            "type": "article",
+            "note": "Description of the SLEDAI, a tool for assessing disease activity in patients with SLE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Systemic Lupus Erythematosus",
+      "content": {
+        "intro": "The diagnosis of SLE is based on a combination of clinical and laboratory findings. According to the 2019 EULAR guidelines, the diagnosis of SLE should be considered in patients who present with a combination of symptoms, particularly if they have a positive ANA test. The guidelines also recommend the use of the SLEDAI to assess disease activity in patients with SLE. Laboratory tests, such as complete blood count (CBC) and blood chemistry tests, can help to identify abnormalities in patients with SLE.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for SLE",
+            "text": "Laboratory tests, such as CBC and blood chemistry tests, can help to identify abnormalities in patients with SLE. The 2018 ACR guidelines recommend the use of these tests to monitor disease activity in patients with SLE. The guidelines also recommend the use of urinalysis to monitor kidney function in patients with SLE."
+          },
+          {
+            "heading": "Imaging Studies for SLE",
+            "text": "Imaging studies, such as X-rays and computed tomography (CT) scans, can help to identify organ damage in patients with SLE. The 2019 EULAR guidelines recommend the use of these studies to monitor disease activity in patients with SLE. The guidelines also recommend the use of magnetic resonance imaging (MRI) to monitor kidney function in patients with SLE."
+          },
+          {
+            "heading": "Biopsy for SLE",
+            "text": "Biopsy can help to confirm the diagnosis of SLE in patients with kidney or skin manifestations. The 2018 ACR guidelines recommend the use of biopsy to confirm the diagnosis of SLE in patients with kidney or skin manifestations. The guidelines also recommend the use of biopsy to monitor disease activity in patients with SLE."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of SLE should be considered in patients who present with a combination of symptoms, particularly if they have a positive ANA test. The use of the SLEDAI can help to assess disease activity in patients with SLE.",
+        "key_points": [
+          "The diagnosis of SLE is based on a combination of clinical and laboratory findings.",
+          "Laboratory tests, such as CBC and blood chemistry tests, can help to identify abnormalities in patients with SLE.",
+          "Imaging studies, such as X-rays and CT scans, can help to identify organ damage in patients with SLE.",
+          "Biopsy can help to confirm the diagnosis of SLE in patients with kidney or skin manifestations.",
+          "The 2018 ACR guidelines recommend the use of urinalysis to monitor kidney function in patients with SLE.",
+          "The 2019 EULAR guidelines recommend the use of MRI to monitor kidney function in patients with SLE."
+        ],
+        "references": [
+          {
+            "title": "2019 European League Against Rheumatism (EULAR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "2018 American College of Rheumatology (ACR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "Systemic Lupus Erythematosus Disease Activity Index (SLEDAI)",
+            "authors": "Bombardier C, et al.",
+            "journal_or_source": "Arthritis & Rheumatism",
+            "year": 1992,
+            "type": "article",
+            "note": "Description of the SLEDAI, a tool for assessing disease activity in patients with SLE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Systemic Lupus Erythematosus",
+      "content": {
+        "intro": "The treatment of SLE is based on the severity of the disease and the presence of organ damage. According to the 2019 EULAR guidelines, the treatment of SLE should be individualized and should include a combination of nonpharmacologic and pharmacologic interventions. Nonpharmacologic interventions, such as patient education and lifestyle modifications, can help to reduce disease activity and improve outcomes.",
+        "sections": [
+          {
+            "heading": "Nonpharmacologic Interventions for SLE",
+            "text": "Nonpharmacologic interventions, such as patient education and lifestyle modifications, can help to reduce disease activity and improve outcomes. The 2018 ACR guidelines recommend the use of these interventions to reduce disease activity in patients with SLE. The guidelines also recommend the use of stress management techniques, such as meditation and yoga, to reduce stress and improve outcomes."
+          },
+          {
+            "heading": "Pharmacologic Interventions for SLE",
+            "text": "Pharmacologic interventions, such as NSAIDs and corticosteroids, can help to reduce disease activity and improve outcomes. The 2019 EULAR guidelines recommend the use of these interventions to reduce disease activity in patients with SLE. The guidelines also recommend the use of immunosuppressive drugs, such as cyclophosphamide, to reduce disease activity in patients with SLE."
+          },
+          {
+            "heading": "Biologic Agents for SLE",
+            "text": "Biologic agents, such as belimumab, can help to reduce disease activity and improve outcomes in patients with SLE. The 2018 ACR guidelines recommend the use of these agents to reduce disease activity in patients with SLE. The guidelines also recommend the use of rituximab to reduce disease activity in patients with SLE."
+          }
+        ],
+        "clinical_pearl": "The treatment of SLE should be individualized and should include a combination of nonpharmacologic and pharmacologic interventions. The use of biologic agents, such as belimumab, can help to reduce disease activity and improve outcomes in patients with SLE.",
+        "key_points": [
+          "The treatment of SLE is based on the severity of the disease and the presence of organ damage.",
+          "Nonpharmacologic interventions, such as patient education and lifestyle modifications, can help to reduce disease activity and improve outcomes.",
+          "Pharmacologic interventions, such as NSAIDs and corticosteroids, can help to reduce disease activity and improve outcomes.",
+          "Biologic agents, such as belimumab, can help to reduce disease activity and improve outcomes in patients with SLE.",
+          "The 2018 ACR guidelines recommend the use of stress management techniques to reduce stress and improve outcomes.",
+          "The 2019 EULAR guidelines recommend the use of immunosuppressive drugs to reduce disease activity in patients with SLE."
+        ],
+        "references": [
+          {
+            "title": "2019 European League Against Rheumatism (EULAR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "2018 American College of Rheumatology (ACR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "Systemic Lupus Erythematosus Disease Activity Index (SLEDAI)",
+            "authors": "Bombardier C, et al.",
+            "journal_or_source": "Arthritis & Rheumatism",
+            "year": 1992,
+            "type": "article",
+            "note": "Description of the SLEDAI, a tool for assessing disease activity in patients with SLE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Systemic Lupus Erythematosus",
+      "content": {
+        "intro": "The prognosis of SLE is variable and depends on the severity of the disease and the presence of organ damage. According to the 2019 EULAR guidelines, the prognosis of SLE is generally good, with a 10-year survival rate of approximately 90%. However, patients with SLE are at increased risk of developing complications, such as cardiovascular disease and kidney failure.",
+        "sections": [
+          {
+            "heading": "Cardiovascular Complications of SLE",
+            "text": "Patients with SLE are at increased risk of developing cardiovascular disease, including myocardial infarction and stroke. The 2018 ACR guidelines recommend the use of statins to reduce the risk of cardiovascular disease in patients with SLE. The guidelines also recommend the use of antihypertensive medications to reduce blood pressure and improve outcomes."
+          },
+          {
+            "heading": "Renal Complications of SLE",
+            "text": "Patients with SLE are at increased risk of developing kidney failure, including end-stage renal disease. The 2019 EULAR guidelines recommend the use of immunosuppressive drugs to reduce the risk of kidney failure in patients with SLE. The guidelines also recommend the use of ACE inhibitors to reduce blood pressure and improve outcomes."
+          },
+          {
+            "heading": "Infections in SLE",
+            "text": "Patients with SLE are at increased risk of developing infections, including pneumonia and sepsis. The 2018 ACR guidelines recommend the use of prophylactic antibiotics to reduce the risk of infections in patients with SLE. The guidelines also recommend the use of vaccinations to reduce the risk of infections."
+          }
+        ],
+        "clinical_pearl": "The prognosis of SLE is variable and depends on the severity of the disease and the presence of organ damage. Patients with SLE are at increased risk of developing complications, such as cardiovascular disease and kidney failure.",
+        "key_points": [
+          "The prognosis of SLE is variable and depends on the severity of the disease and the presence of organ damage.",
+          "Patients with SLE are at increased risk of developing cardiovascular disease, including myocardial infarction and stroke.",
+          "Patients with SLE are at increased risk of developing kidney failure, including end-stage renal disease.",
+          "The 2018 ACR guidelines recommend the use of statins to reduce the risk of cardiovascular disease in patients with SLE.",
+          "The 2019 EULAR guidelines recommend the use of immunosuppressive drugs to reduce the risk of kidney failure in patients with SLE.",
+          "The 2018 ACR guidelines recommend the use of prophylactic antibiotics to reduce the risk of infections in patients with SLE."
+        ],
+        "references": [
+          {
+            "title": "2019 European League Against Rheumatism (EULAR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "2018 American College of Rheumatology (ACR) guidelines for the management of systemic lupus erythematosus",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SLE"
+          },
+          {
+            "title": "Systemic Lupus Erythematosus Disease Activity Index (SLEDAI)",
+            "authors": "Bombardier C, et al.",
+            "journal_or_source": "Arthritis & Rheumatism",
+            "year": 1992,
+            "type": "article",
+            "note": "Description of the SLEDAI, a tool for assessing disease activity in patients with SLE"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "INFECT-005",
+    "type": "specialty_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Infective Endocarditis: Duke Criteria, Organisms, Antibiotic Protocols",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-25"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Infective Endocarditis",
+      "content": {
+        "intro": "Infective endocarditis (IE) is a serious and potentially life-threatening infection of the heart valves. The epidemiology of IE has evolved over the years, with an increasing incidence of healthcare-associated infections and a shift towards more virulent organisms. The pathophysiology of IE involves the colonization of the heart valves by microorganisms, leading to the formation of vegetations and the destruction of the valve tissue. The Duke criteria are widely used for the diagnosis of IE, and they include both major and minor criteria. The major criteria include positive blood cultures and evidence of endocardial involvement, while the minor criteria include predisposing heart conditions, fever, and other clinical manifestations.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Infective Endocarditis",
+            "text": "The epidemiology of IE has changed significantly over the years, with an increasing incidence of healthcare-associated infections. According to the 2015 ESC guidelines, the incidence of IE is estimated to be around 3-10 cases per 100,000 person-years. The most common organisms responsible for IE are Staphylococcus aureus, Streptococcus viridans, and Enterococcus faecalis. The use of intravenous drugs and the presence of prosthetic heart valves are significant risk factors for the development of IE. The 2017 AHA guidelines recommend that patients with a history of IE should be treated with prophylactic antibiotics before undergoing dental procedures."
+          },
+          {
+            "heading": "Pathophysiology of Infective Endocarditis",
+            "text": "The pathophysiology of IE involves the colonization of the heart valves by microorganisms, leading to the formation of vegetations and the destruction of the valve tissue. The vegetations are composed of a mixture of microorganisms, platelets, and fibrin, and they can cause significant damage to the heart valves. The 2014 NICE guidelines recommend that patients with IE should be treated with a combination of antibiotics, including penicillin, gentamicin, and rifampicin. The use of anticoagulation therapy is also recommended in patients with IE, particularly those with a history of embolic events."
+          },
+          {
+            "heading": "Duke Criteria for the Diagnosis of Infective Endocarditis",
+            "text": "The Duke criteria are widely used for the diagnosis of IE, and they include both major and minor criteria. The major criteria include positive blood cultures and evidence of endocardial involvement, while the minor criteria include predisposing heart conditions, fever, and other clinical manifestations. The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo transthoracic echocardiography (TTE) and transesophageal echocardiography (TEE) to confirm the diagnosis. The use of cardiac magnetic resonance imaging (MRI) is also recommended in patients with IE, particularly those with a history of embolic events."
+          }
+        ],
+        "clinical_pearl": "The use of the Duke criteria can help to diagnose IE early and accurately, and the treatment should be started promptly to prevent complications.",
+        "key_points": [
+          "The incidence of IE is estimated to be around 3-10 cases per 100,000 person-years.",
+          "The most common organisms responsible for IE are Staphylococcus aureus, Streptococcus viridans, and Enterococcus faecalis.",
+          "The use of intravenous drugs and the presence of prosthetic heart valves are significant risk factors for the development of IE.",
+          "The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo TTE and TEE to confirm the diagnosis.",
+          "The use of anticoagulation therapy is recommended in patients with IE, particularly those with a history of embolic events.",
+          "The treatment of IE should be started promptly to prevent complications, and it should include a combination of antibiotics, including penicillin, gentamicin, and rifampicin."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the management of infective endocarditis",
+            "authors": "Habib G, Lancellotti P, Antunes MJ, Bongiorni MG, Casalta JP, Del Zotti F, Dulgheru R, El Khoury G, Erba PA, Iung B, Miro JM, Mulder BJ, Plonska-Gosciniak E, Price S, Roos-Hesselink J, Snygg-Martin U, Thuny F, Tornos Mas P, Vilacosta I, Zamorano JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE."
+          },
+          {
+            "title": "Infective Endocarditis in Adults: Diagnosis, Antimicrobial Therapy, and Management of Complications",
+            "authors": "Baddour LM, Wilson WR, Bayer AS, Fowler VG Jr, Tleyjeh IM, Rybak MJ, Barsic B, Lockhart PB, Gewitz MH, Levison ME, Bolger AF, Steckelberg JM, Baltimore RS, Fink AM, O'Gara P, Taubert KA",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE in adults."
+          },
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, Otto CM, Bonow RO, Carabello BA, Erwin JP 3rd, Guyton RA, O'Gara PT, Ruiz CE, Skubas NJ, Sorajja P, Sundt TM 3rd, Thomas JD",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the management of patients with valvular heart disease, including those with IE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Infective Endocarditis",
+      "content": {
+        "intro": "The clinical presentation of IE can vary widely, and it often depends on the underlying organism and the affected valve. The most common symptoms of IE include fever, fatigue, and weight loss, and they can be accompanied by signs of heart failure, such as shortness of breath and swelling of the legs. The diagnosis of IE should be suspected in patients with a history of valvular heart disease, intravenous drug use, or a prosthetic heart valve.",
+        "sections": [
+          {
+            "heading": "Symptoms of Infective Endocarditis",
+            "text": "The symptoms of IE can vary widely, and they often depend on the underlying organism and the affected valve. The most common symptoms of IE include fever, fatigue, and weight loss, and they can be accompanied by signs of heart failure, such as shortness of breath and swelling of the legs. The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo a thorough physical examination, including a cardiac examination and a search for signs of embolic events."
+          },
+          {
+            "heading": "Signs of Infective Endocarditis",
+            "text": "The signs of IE can include a new or changing heart murmur, and they can be accompanied by signs of heart failure, such as jugular venous distension and peripheral edema. The 2017 AHA guidelines recommend that patients with a suspected diagnosis of IE should undergo echocardiography to confirm the diagnosis and to assess the severity of the disease. The use of cardiac MRI is also recommended in patients with IE, particularly those with a history of embolic events."
+          },
+          {
+            "heading": "Complications of Infective Endocarditis",
+            "text": "The complications of IE can include heart failure, embolic events, and death. The 2014 NICE guidelines recommend that patients with IE should be treated with a combination of antibiotics, including penicillin, gentamicin, and rifampicin. The use of anticoagulation therapy is also recommended in patients with IE, particularly those with a history of embolic events. The treatment of IE should be started promptly to prevent complications, and it should be tailored to the underlying organism and the affected valve."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of IE should be suspected in patients with a history of valvular heart disease, intravenous drug use, or a prosthetic heart valve, and it should be confirmed with echocardiography and blood cultures.",
+        "key_points": [
+          "The symptoms of IE can vary widely, and they often depend on the underlying organism and the affected valve.",
+          "The most common symptoms of IE include fever, fatigue, and weight loss, and they can be accompanied by signs of heart failure.",
+          "The diagnosis of IE should be suspected in patients with a history of valvular heart disease, intravenous drug use, or a prosthetic heart valve.",
+          "The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo a thorough physical examination, including a cardiac examination and a search for signs of embolic events.",
+          "The use of anticoagulation therapy is recommended in patients with IE, particularly those with a history of embolic events.",
+          "The treatment of IE should be started promptly to prevent complications, and it should be tailored to the underlying organism and the affected valve."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the management of infective endocarditis",
+            "authors": "Habib G, Lancellotti P, Antunes MJ, Bongiorni MG, Casalta JP, Del Zotti F, Dulgheru R, El Khoury G, Erba PA, Iung B, Miro JM, Mulder BJ, Plonska-Gosciniak E, Price S, Roos-Hesselink J, Snygg-Martin U, Thuny F, Tornos Mas P, Vilacosta I, Zamorano JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE."
+          },
+          {
+            "title": "Infective Endocarditis in Adults: Diagnosis, Antimicrobial Therapy, and Management of Complications",
+            "authors": "Baddour LM, Wilson WR, Bayer AS, Fowler VG Jr, Tleyjeh IM, Rybak MJ, Barsic B, Lockhart PB, Gewitz MH, Levison ME, Bolger AF, Steckelberg JM, Baltimore RS, Fink AM, O'Gara P, Taubert KA",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE in adults."
+          },
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, Otto CM, Bonow RO, Carabello BA, Erwin JP 3rd, Guyton RA, O'Gara PT, Ruiz CE, Skubas NJ, Sorajja P, Sundt TM 3rd, Thomas JD",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the management of patients with valvular heart disease, including those with IE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Infective Endocarditis",
+      "content": {
+        "intro": "The diagnosis of IE should be suspected in patients with a history of valvular heart disease, intravenous drug use, or a prosthetic heart valve, and it should be confirmed with echocardiography and blood cultures. The use of transthoracic echocardiography (TTE) and transesophageal echocardiography (TEE) is recommended for the diagnosis of IE, and it can help to identify the affected valve and the extent of the disease.",
+        "sections": [
+          {
+            "heading": "Echocardiography in Infective Endocarditis",
+            "text": "The use of TTE and TEE is recommended for the diagnosis of IE, and it can help to identify the affected valve and the extent of the disease. The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo TTE and TEE to confirm the diagnosis. The use of cardiac MRI is also recommended in patients with IE, particularly those with a history of embolic events."
+          },
+          {
+            "heading": "Blood Cultures in Infective Endocarditis",
+            "text": "The use of blood cultures is essential for the diagnosis of IE, and it can help to identify the underlying organism. The 2017 AHA guidelines recommend that patients with a suspected diagnosis of IE should undergo blood cultures to confirm the diagnosis. The use of molecular diagnostic techniques, such as polymerase chain reaction (PCR), is also recommended in patients with IE, particularly those with a history of embolic events."
+          },
+          {
+            "heading": "Duke Criteria in Infective Endocarditis",
+            "text": "The Duke criteria are widely used for the diagnosis of IE, and they include both major and minor criteria. The major criteria include positive blood cultures and evidence of endocardial involvement, while the minor criteria include predisposing heart conditions, fever, and other clinical manifestations. The 2014 NICE guidelines recommend that patients with a suspected diagnosis of IE should be evaluated using the Duke criteria to confirm the diagnosis."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of IE should be suspected in patients with a history of valvular heart disease, intravenous drug use, or a prosthetic heart valve, and it should be confirmed with echocardiography and blood cultures.",
+        "key_points": [
+          "The use of TTE and TEE is recommended for the diagnosis of IE, and it can help to identify the affected valve and the extent of the disease.",
+          "The use of blood cultures is essential for the diagnosis of IE, and it can help to identify the underlying organism.",
+          "The Duke criteria are widely used for the diagnosis of IE, and they include both major and minor criteria.",
+          "The 2015 ESC guidelines recommend that patients with a suspected diagnosis of IE should undergo TTE and TEE to confirm the diagnosis.",
+          "The use of cardiac MRI is recommended in patients with IE, particularly those with a history of embolic events.",
+          "The treatment of IE should be started promptly to prevent complications, and it should be tailored to the underlying organism and the affected valve."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the management of infective endocarditis",
+            "authors": "Habib G, Lancellotti P, Antunes MJ, Bongiorni MG, Casalta JP, Del Zotti F, Dulgheru R, El Khoury G, Erba PA, Iung B, Miro JM, Mulder BJ, Plonska-Gosciniak E, Price S, Roos-Hesselink J, Snygg-Martin U, Thuny F, Tornos Mas P, Vilacosta I, Zamorano JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE."
+          },
+          {
+            "title": "Infective Endocarditis in Adults: Diagnosis, Antimicrobial Therapy, and Management of Complications",
+            "authors": "Baddour LM, Wilson WR, Bayer AS, Fowler VG Jr, Tleyjeh IM, Rybak MJ, Barsic B, Lockhart PB, Gewitz MH, Levison ME, Bolger AF, Steckelberg JM, Baltimore RS, Fink AM, O'Gara P, Taubert KA",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE in adults."
+          },
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, Otto CM, Bonow RO, Carabello BA, Erwin JP 3rd, Guyton RA, O'Gara PT, Ruiz CE, Skubas NJ, Sorajja P, Sundt TM 3rd, Thomas JD",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the management of patients with valvular heart disease, including those with IE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Infective Endocarditis",
+      "content": {
+        "intro": "The treatment of IE should be started promptly to prevent complications, and it should be tailored to the underlying organism and the affected valve. The use of antibiotics is essential for the treatment of IE, and it should be guided by the results of blood cultures and susceptibility testing. The 2015 ESC guidelines recommend that patients with IE should be treated with a combination of antibiotics, including penicillin, gentamicin, and rifampicin.",
+        "sections": [
+          {
+            "heading": "Antibiotic Therapy in Infective Endocarditis",
+            "text": "The use of antibiotics is essential for the treatment of IE, and it should be guided by the results of blood cultures and susceptibility testing. The 2017 AHA guidelines recommend that patients with IE should be treated with a combination of antibiotics, including penicillin, gentamicin, and rifampicin. The use of anticoagulation therapy is also recommended in patients with IE, particularly those with a history of embolic events."
+          },
+          {
+            "heading": "Surgical Therapy in Infective Endocarditis",
+            "text": "The use of surgical therapy is recommended in patients with IE, particularly those with complicated disease, such as heart failure or embolic events. The 2014 NICE guidelines recommend that patients with IE should be evaluated for surgical therapy, and it should be considered in patients with a high risk of complications."
+          },
+          {
+            "heading": "Prevention of Infective Endocarditis",
+            "text": "The prevention of IE is essential, and it should be guided by the results of risk assessment and the use of prophylactic antibiotics. The 2015 ESC guidelines recommend that patients with a history of IE should be treated with prophylactic antibiotics before undergoing dental procedures. The use of good oral hygiene and regular dental check-ups is also recommended in patients with a history of IE."
+          }
+        ],
+        "clinical_pearl": "The treatment of IE should be started promptly to prevent complications, and it should be tailored to the underlying organism and the affected valve.",
+        "key_points": [
+          "The use of antibiotics is essential for the treatment of IE, and it should be guided by the results of blood cultures and susceptibility testing.",
+          "The 2015 ESC guidelines recommend that patients with IE should be treated with a combination of antibiotics, including penicillin, gentamicin, and rifampicin.",
+          "The use of anticoagulation therapy is recommended in patients with IE, particularly those with a history of embolic events.",
+          "The use of surgical therapy is recommended in patients with IE, particularly those with complicated disease, such as heart failure or embolic events.",
+          "The prevention of IE is essential, and it should be guided by the results of risk assessment and the use of prophylactic antibiotics.",
+          "The use of good oral hygiene and regular dental check-ups is recommended in patients with a history of IE."
+        ],
+        "references": [
+          {
+            "title": "2015 ESC Guidelines for the management of infective endocarditis",
+            "authors": "Habib G, Lancellotti P, Antunes MJ, Bongiorni MG, Casalta JP, Del Zotti F, Dulgheru R, El Khoury G, Erba PA, Iung B, Miro JM, Mulder BJ, Plonska-Gosciniak E, Price S, Roos-Hesselink J, Snygg-Martin U, Thuny F, Tornos Mas P, Vilacosta I, Zamorano JL",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE."
+          },
+          {
+            "title": "Infective Endocarditis in Adults: Diagnosis, Antimicrobial Therapy, and Management of Complications",
+            "authors": "Baddour LM, Wilson WR, Bayer AS, Fowler VG Jr, Tleyjeh IM, Rybak MJ, Barsic B, Lockhart PB, Gewitz MH, Levison ME, Bolger AF, Steckelberg JM, Baltimore RS, Fink AM, O'Gara P, Taubert KA",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of IE in adults."
+          },
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, Otto CM, Bonow RO, Carabello BA, Erwin JP 3rd, Guyton RA, O'Gara PT, Ruiz CE, Skubas NJ, Sorajja P, Sundt TM 3rd, Thomas JD",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the management of patients with valvular heart disease, including those with IE."
+          }
+        ]
+      }
+    }
+  ]
+}

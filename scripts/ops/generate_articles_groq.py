@@ -323,7 +323,7 @@ def main():
         keys.extend([k.strip() for k in args.key.split(",") if k.strip()])
 
     # 2. From environment variables — KEY_3 and KEY_4 only (KEY_1/KEY_2 reserved for users)
-    env_vars = ["GROQ_API_KEY_3", "GROQ_API_KEY_4"] + [f"GROQ_API_KEY_{i}" for i in range(5, 10)]
+    env_vars = ["GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"]
     for var in env_vars:
         val = os.environ.get(var, "")
         if val and val not in keys:

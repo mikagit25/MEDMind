@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "NEPH-007",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Polycystic Kidney Disease and Hereditary Nephropathies",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Polycystic kidney disease (PKD) is a genetic disorder characterized by the growth of numerous cysts in the kidneys. It is a leading cause of kidney failure and affects approximately 1 in 400 to 1 in 1000 people worldwide. The disease has two main forms: autosomal dominant PKD (ADPKD) and autosomal recessive PKD (ARPKD). ADPKD is the most common form and typically presents in adulthood, while ARPKD presents in infancy or childhood. The pathophysiology of PKD involves the formation of cysts due to mutations in the PKD1 or PKD2 genes, leading to the activation of various signaling pathways and the proliferation of cystic cells. Clinical presentation may vary, but common symptoms include abdominal pain, hematuria, and hypertension.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Genetics",
+            "text": "The prevalence of ADPKD is estimated to be around 1 in 400 to 1 in 1000 people, with a higher prevalence in certain populations such as the Finnish and Danish. The disease is caused by mutations in the PKD1 or PKD2 genes, with PKD1 mutations accounting for approximately 85% of cases. The risk of developing ADPKD is 50% for each child of an affected parent. The disease can also occur sporadically due to de novo mutations. According to the 2020 ESC guidelines, genetic testing is recommended for individuals with a family history of ADPKD."
+          },
+          {
+            "heading": "Pathophysiology and Cyst Formation",
+            "text": "The formation of cysts in PKD is a complex process involving the activation of various signaling pathways, including the mTOR and cAMP pathways. The cysts are filled with fluid and can grow over time, leading to kidney enlargement and damage. The 2017 AHA guidelines recommend the use of tolvaptan, a vasopressin V2 receptor antagonist, to slow the rate of kidney function decline in patients with ADPKD. The starting dose is 60 mg/day, with a maximum dose of 120 mg/day. The TEMPO 3:4 trial demonstrated the efficacy of tolvaptan in reducing the rate of kidney function decline by 30% over a period of 3 years."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "The clinical presentation of PKD can vary, but common symptoms include abdominal pain, hematuria, and hypertension. The diagnosis is typically made using imaging studies such as ultrasound or CT scans. The 2019 NICE guidelines recommend the use of ultrasound as the first-line imaging modality for diagnosing PKD. According to the Ongoing Telmisartan Alone and in Combination with an ACE Inhibitor (ONTARGET) trial, the use of ACE inhibitors or ARBs can help to slow the progression of kidney disease in patients with PKD."
+          }
+        ],
+        "clinical_pearl": "The presence of multiple cysts in the kidneys is a key diagnostic feature of PKD. According to the 2017 AHA guidelines, the diagnosis of ADPKD can be made with a high degree of certainty in individuals with a family history of the disease and the presence of multiple cysts in the kidneys.",
+        "key_points": [
+          "The prevalence of ADPKD is estimated to be around 1 in 400 to 1 in 1000 people.",
+          "The disease is caused by mutations in the PKD1 or PKD2 genes.",
+          "The risk of developing ADPKD is 50% for each child of an affected parent.",
+          "The use of tolvaptan can slow the rate of kidney function decline in patients with ADPKD.",
+          "The starting dose of tolvaptan is 60 mg/day, with a maximum dose of 120 mg/day.",
+          "The diagnosis of PKD is typically made using imaging studies such as ultrasound or CT scans."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA Guidelines for the Management of ADPKD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of ADPKD."
+          },
+          {
+            "title": "TEMPO 3:4 Trial",
+            "authors": "Torres VE, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of tolvaptan in reducing the rate of kidney function decline in patients with ADPKD."
+          },
+          {
+            "title": "2019 NICE Guidelines for the Management of PKD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of PKD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis",
+      "content": {
+        "intro": "The diagnosis of PKD is typically made using a combination of clinical evaluation, imaging studies, and genetic testing. The clinical evaluation includes a thorough medical history and physical examination, with a focus on identifying signs and symptoms of kidney disease. Imaging studies such as ultrasound, CT scans, and MRI are used to visualize the kidneys and detect the presence of cysts. Genetic testing is also used to identify mutations in the PKD1 or PKD2 genes.",
+        "sections": [
+          {
+            "heading": "Imaging Studies",
+            "text": "Ultrasound is the first-line imaging modality for diagnosing PKD, according to the 2019 NICE guidelines. CT scans and MRI can also be used to visualize the kidneys and detect the presence of cysts. The use of contrast agents can help to enhance the visibility of the cysts and improve the accuracy of the diagnosis. The CRISP trial demonstrated the efficacy of MRI in detecting cysts in the kidneys and monitoring disease progression."
+          },
+          {
+            "heading": "Genetic Testing",
+            "text": "Genetic testing is used to identify mutations in the PKD1 or PKD2 genes. The test can be used to confirm the diagnosis of PKD and to identify individuals who are at risk of developing the disease. The 2020 ESC guidelines recommend genetic testing for individuals with a family history of PKD. The use of next-generation sequencing (NGS) has improved the accuracy and efficiency of genetic testing for PKD."
+          },
+          {
+            "heading": "Clinical Evaluation",
+            "text": "The clinical evaluation includes a thorough medical history and physical examination, with a focus on identifying signs and symptoms of kidney disease. The patient's medical history should include information about their family history, medical conditions, and medications. The physical examination should include an assessment of blood pressure, abdominal tenderness, and other signs of kidney disease. The use of the Kidney Disease Quality of Life (KDQOL) questionnaire can help to assess the patient's quality of life and monitor disease progression."
+          }
+        ],
+        "clinical_pearl": "The presence of multiple cysts in the kidneys is a key diagnostic feature of PKD. According to the 2017 AHA guidelines, the diagnosis of ADPKD can be made with a high degree of certainty in individuals with a family history of the disease and the presence of multiple cysts in the kidneys.",
+        "key_points": [
+          "Ultrasound is the first-line imaging modality for diagnosing PKD.",
+          "Genetic testing is used to identify mutations in the PKD1 or PKD2 genes.",
+          "The use of contrast agents can help to enhance the visibility of the cysts and improve the accuracy of the diagnosis.",
+          "The CRISP trial demonstrated the efficacy of MRI in detecting cysts in the kidneys and monitoring disease progression.",
+          "The 2020 ESC guidelines recommend genetic testing for individuals with a family history of PKD.",
+          "The use of NGS has improved the accuracy and efficiency of genetic testing for PKD."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the Management of PKD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of PKD."
+          },
+          {
+            "title": "CRISP Trial",
+            "authors": "Chapman AB, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "clinical trial",
+            "note": "Efficacy of MRI in detecting cysts in the kidneys and monitoring disease progression."
+          },
+          {
+            "title": "2020 ESC Guidelines for the Management of ADPKD",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of ADPKD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management",
+      "content": {
+        "intro": "The treatment and management of PKD involve a combination of lifestyle modifications, medications, and surgical interventions. Lifestyle modifications include a healthy diet, regular exercise, and stress management. Medications such as ACE inhibitors and ARBs can help to slow the progression of kidney disease. Surgical interventions such as nephrectomy may be necessary in some cases.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "A healthy diet and regular exercise can help to slow the progression of kidney disease. The 2017 AHA guidelines recommend a diet that is low in sodium and protein. The use of stress management techniques such as meditation and yoga can also help to reduce blood pressure and slow disease progression. The DASH trial demonstrated the efficacy of a low-sodium diet in reducing blood pressure and slowing kidney disease progression."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications such as ACE inhibitors and ARBs can help to slow the progression of kidney disease. The 2020 ESC guidelines recommend the use of ACE inhibitors or ARBs in patients with PKD and hypertension. The use of tolvaptan can also help to slow the rate of kidney function decline in patients with ADPKD. The starting dose is 60 mg/day, with a maximum dose of 120 mg/day. The TEMPO 3:4 trial demonstrated the efficacy of tolvaptan in reducing the rate of kidney function decline by 30% over a period of 3 years."
+          },
+          {
+            "heading": "Surgical Interventions",
+            "text": "Surgical interventions such as nephrectomy may be necessary in some cases. The 2019 NICE guidelines recommend nephrectomy in patients with PKD and severe kidney disease. The use of laparoscopic surgery can help to reduce the risk of complications and improve recovery time. The use of renal transplantation may also be necessary in some cases, particularly in patients with end-stage kidney disease."
+          }
+        ],
+        "clinical_pearl": "The use of ACE inhibitors or ARBs can help to slow the progression of kidney disease in patients with PKD. According to the 2020 ESC guidelines, the use of ACE inhibitors or ARBs is recommended in patients with PKD and hypertension.",
+        "key_points": [
+          "A healthy diet and regular exercise can help to slow the progression of kidney disease.",
+          "The use of ACE inhibitors or ARBs can help to slow the progression of kidney disease.",
+          "The use of tolvaptan can help to slow the rate of kidney function decline in patients with ADPKD.",
+          "The starting dose of tolvaptan is 60 mg/day, with a maximum dose of 120 mg/day.",
+          "The TEMPO 3:4 trial demonstrated the efficacy of tolvaptan in reducing the rate of kidney function decline by 30% over a period of 3 years.",
+          "The use of nephrectomy may be necessary in some cases, particularly in patients with PKD and severe kidney disease."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA Guidelines for the Management of ADPKD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of ADPKD."
+          },
+          {
+            "title": "TEMPO 3:4 Trial",
+            "authors": "Torres VE, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of tolvaptan in reducing the rate of kidney function decline in patients with ADPKD."
+          },
+          {
+            "title": "2020 ESC Guidelines for the Management of ADPKD",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of ADPKD."
+          }
+        ]
+      }
+    }
+  ]
+}

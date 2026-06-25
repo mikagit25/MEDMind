@@ -739,7 +739,7 @@ async def youtube_token_callback(
     if rte:
         token["refresh_token_absolute_expiry"] = _time.time() + float(rte)
     # Embed client credentials so kids upload scripts can refresh without a separate secret file
-    if account == "kids":
+    if account in ("kids", "kids_ar", "kids_id"):
         token["client_id"]     = client_id
         token["client_secret"] = client_secret
 

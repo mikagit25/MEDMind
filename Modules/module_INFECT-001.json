@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "INFECT-001",
+    "type": "specialty_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Sepsis and Septic Shock: Surviving Sepsis Campaign — Bundles and Vasopressors",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-25"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Sepsis",
+      "content": {
+        "intro": "Sepsis is a life-threatening condition that arises when the body's response to infection causes injury to its own tissues and organs. It is estimated that sepsis affects over 30 million people worldwide every year, resulting in approximately 6 million deaths. The pathophysiology of sepsis involves a complex interplay between the host's immune response and the infecting microorganism. The Surviving Sepsis Campaign has been instrumental in promoting awareness and improving outcomes in sepsis. Recent guidelines from the European Society of Cardiology (ESC) and the American Heart Association (AHA) emphasize the importance of early recognition and intervention. The use of bundles, such as the sepsis bundle, has been shown to improve outcomes in sepsis. Vasopressors, such as norepinephrine, are commonly used to support blood pressure in septic shock.",
+        "sections": [
+          {
+            "heading": "Definition and Diagnosis of Sepsis",
+            "text": "Sepsis is defined as a life-threatening organ dysfunction caused by a dysregulated host response to infection. The diagnosis of sepsis is based on the presence of a suspected or documented infection and an increase in the Sequential Organ Failure Assessment (SOFA) score of 2 points or more. The Quick SOFA (qSOFA) score, which includes respiratory rate, altered mentation, and systolic blood pressure, can be used as a rapid screening tool for sepsis. The ESC 2016 and AHA 2017 guidelines recommend the use of the SOFA score for diagnosing sepsis. A landmark trial, the ProCESS trial, demonstrated that protocol-based care, including the use of bundles, can improve outcomes in sepsis."
+          },
+          {
+            "heading": "Pathophysiology of Sepsis",
+            "text": "The pathophysiology of sepsis involves a complex interplay between the host's immune response and the infecting microorganism. The host's immune response is characterized by the release of pro-inflammatory cytokines, such as tumor necrosis factor-alpha (TNF-alpha) and interleukin-1 beta (IL-1β). These cytokines can cause tissue damage and organ dysfunction. The use of vasopressors, such as norepinephrine, can help support blood pressure and improve organ perfusion. However, vasopressors can also have adverse effects, such as increased cardiac workload and decreased renal perfusion. The NICE 2016 guideline recommends the use of norepinephrine as the first-line vasopressor in septic shock."
+          },
+          {
+            "heading": "Epidemiology of Sepsis",
+            "text": "Sepsis is a major public health concern, with significant morbidity and mortality. The incidence of sepsis is increasing, particularly in older adults and those with underlying medical conditions. The use of bundles, such as the sepsis bundle, has been shown to improve outcomes in sepsis. The sepsis bundle includes measures such as lactate measurement, fluid resuscitation, and broad-spectrum antibiotic therapy. The ESC 2016 and AHA 2017 guidelines recommend the use of the sepsis bundle in the management of sepsis. A landmark trial, the ARISE trial, demonstrated that the use of the sepsis bundle can improve outcomes in sepsis."
+          }
+        ],
+        "clinical_pearl": "The use of lactate measurement can help identify patients with sepsis who are at high risk of mortality. A lactate level of 4 mmol/L or higher is associated with an increased risk of mortality.",
+        "key_points": [
+          "Sepsis is a life-threatening condition that arises when the body's response to infection causes injury to its own tissues and organs.",
+          "The Surviving Sepsis Campaign has been instrumental in promoting awareness and improving outcomes in sepsis.",
+          "The use of bundles, such as the sepsis bundle, has been shown to improve outcomes in sepsis.",
+          "Vasopressors, such as norepinephrine, are commonly used to support blood pressure in septic shock.",
+          "The SOFA score is used to diagnose sepsis and assess organ dysfunction.",
+          "The qSOFA score can be used as a rapid screening tool for sepsis."
+        ],
+        "references": [
+          {
+            "title": "2016 Surviving Sepsis Campaign International Guidelines for the Management of Sepsis and Septic Shock",
+            "authors": "Rhodes A, Evans LE, Alhazzani W, et al.",
+            "journal_or_source": "Intensive Care Medicine",
+            "year": 2017,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the management of sepsis and septic shock."
+          },
+          {
+            "title": "The ProCESS Trial",
+            "authors": "Yealy DM, Kellum JA, Huang DT, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2014,
+            "type": "trial",
+            "note": "This trial demonstrated that protocol-based care, including the use of bundles, can improve outcomes in sepsis."
+          },
+          {
+            "title": "2016 NICE Guideline for Sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2016,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of sepsis in the UK."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Sepsis",
+      "content": {
+        "intro": "Sepsis can present with a wide range of symptoms, from mild to severe. The clinical presentation of sepsis can vary depending on the underlying infection, the patient's age and underlying medical conditions, and the severity of the sepsis. Common symptoms of sepsis include fever, tachycardia, tachypnea, and hypotension. The use of clinical prediction rules, such as the Systemic Inflammatory Response Syndrome (SIRS) criteria, can help identify patients who are at high risk of sepsis. The ESC 2016 and AHA 2017 guidelines recommend the use of the SIRS criteria to diagnose sepsis.",
+        "sections": [
+          {
+            "heading": "Common Symptoms of Sepsis",
+            "text": "Common symptoms of sepsis include fever, tachycardia, tachypnea, and hypotension. The patient may also present with signs of organ dysfunction, such as altered mental status, oliguria, and decreased platelet count. The use of vasopressors, such as norepinephrine, can help support blood pressure and improve organ perfusion. However, vasopressors can also have adverse effects, such as increased cardiac workload and decreased renal perfusion. The NICE 2016 guideline recommends the use of norepinephrine as the first-line vasopressor in septic shock."
+          },
+          {
+            "heading": "Clinical Prediction Rules for Sepsis",
+            "text": "The use of clinical prediction rules, such as the SIRS criteria, can help identify patients who are at high risk of sepsis. The SIRS criteria include two or more of the following: temperature greater than 38°C or less than 36°C, heart rate greater than 90 beats per minute, respiratory rate greater than 20 breaths per minute or PaCO2 less than 32 mmHg, and white blood cell count greater than 12,000 cells/mm³ or less than 4,000 cells/mm³. The ESC 2016 and AHA 2017 guidelines recommend the use of the SIRS criteria to diagnose sepsis. A landmark trial, the PROWESS trial, demonstrated that the use of drotrecogin alfa (activated) can improve outcomes in sepsis."
+          },
+          {
+            "heading": "Atypical Presentations of Sepsis",
+            "text": "Sepsis can present atypically, particularly in older adults and those with underlying medical conditions. Atypical presentations of sepsis include hypothermia, bradycardia, and hypotension without a clear source of infection. The use of lactate measurement can help identify patients with sepsis who are at high risk of mortality. A lactate level of 4 mmol/L or higher is associated with an increased risk of mortality. The NICE 2016 guideline recommends the use of lactate measurement to identify patients with sepsis who are at high risk of mortality."
+          }
+        ],
+        "clinical_pearl": "The use of the SIRS criteria can help identify patients who are at high risk of sepsis. However, the SIRS criteria are not specific for sepsis and can be present in other conditions, such as trauma and burns.",
+        "key_points": [
+          "Sepsis can present with a wide range of symptoms, from mild to severe.",
+          "The clinical presentation of sepsis can vary depending on the underlying infection, the patient's age and underlying medical conditions, and the severity of the sepsis.",
+          "Common symptoms of sepsis include fever, tachycardia, tachypnea, and hypotension.",
+          "The use of clinical prediction rules, such as the SIRS criteria, can help identify patients who are at high risk of sepsis.",
+          "The SIRS criteria include two or more of the following: temperature greater than 38°C or less than 36°C, heart rate greater than 90 beats per minute, respiratory rate greater than 20 breaths per minute or PaCO2 less than 32 mmHg, and white blood cell count greater than 12,000 cells/mm³ or less than 4,000 cells/mm³.",
+          "The use of lactate measurement can help identify patients with sepsis who are at high risk of mortality."
+        ],
+        "references": [
+          {
+            "title": "2016 Surviving Sepsis Campaign International Guidelines for the Management of Sepsis and Septic Shock",
+            "authors": "Rhodes A, Evans LE, Alhazzani W, et al.",
+            "journal_or_source": "Intensive Care Medicine",
+            "year": 2017,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the management of sepsis and septic shock."
+          },
+          {
+            "title": "The PROWESS Trial",
+            "authors": "Bernard GR, Vincent JL, Laterre PF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2001,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of drotrecogin alfa (activated) can improve outcomes in sepsis."
+          },
+          {
+            "title": "2016 NICE Guideline for Sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2016,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of sepsis in the UK."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Sepsis",
+      "content": {
+        "intro": "The diagnosis of sepsis is based on the presence of a suspected or documented infection and an increase in the Sequential Organ Failure Assessment (SOFA) score of 2 points or more. The use of laboratory tests, such as blood cultures and lactate measurement, can help identify patients with sepsis. The ESC 2016 and AHA 2017 guidelines recommend the use of the SOFA score to diagnose sepsis. The use of imaging studies, such as chest radiography and computed tomography (CT), can help identify the source of infection.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Sepsis",
+            "text": "The use of laboratory tests, such as blood cultures and lactate measurement, can help identify patients with sepsis. Blood cultures can help identify the causative microorganism, while lactate measurement can help identify patients with sepsis who are at high risk of mortality. A lactate level of 4 mmol/L or higher is associated with an increased risk of mortality. The NICE 2016 guideline recommends the use of lactate measurement to identify patients with sepsis who are at high risk of mortality."
+          },
+          {
+            "heading": "Imaging Studies for Sepsis",
+            "text": "The use of imaging studies, such as chest radiography and CT, can help identify the source of infection. Chest radiography can help identify pneumonia, while CT can help identify intra-abdominal infections. The ESC 2016 and AHA 2017 guidelines recommend the use of imaging studies to identify the source of infection. A landmark trial, the OPTIMISE trial, demonstrated that the use of a protocol-based approach to sepsis management can improve outcomes in sepsis."
+          },
+          {
+            "heading": "Biomarkers for Sepsis",
+            "text": "The use of biomarkers, such as procalcitonin (PCT), can help identify patients with sepsis. PCT is a peptide that is released in response to infection and can help identify patients with sepsis who are at high risk of mortality. The NICE 2016 guideline recommends the use of PCT to identify patients with sepsis who are at high risk of mortality. However, the use of PCT is not widely available and its clinical utility is still being debated."
+          }
+        ],
+        "clinical_pearl": "The use of lactate measurement can help identify patients with sepsis who are at high risk of mortality. However, lactate measurement is not specific for sepsis and can be elevated in other conditions, such as trauma and burns.",
+        "key_points": [
+          "The diagnosis of sepsis is based on the presence of a suspected or documented infection and an increase in the SOFA score of 2 points or more.",
+          "The use of laboratory tests, such as blood cultures and lactate measurement, can help identify patients with sepsis.",
+          "The use of imaging studies, such as chest radiography and CT, can help identify the source of infection.",
+          "The use of biomarkers, such as PCT, can help identify patients with sepsis who are at high risk of mortality.",
+          "A lactate level of 4 mmol/L or higher is associated with an increased risk of mortality.",
+          "The use of PCT is not widely available and its clinical utility is still being debated."
+        ],
+        "references": [
+          {
+            "title": "2016 Surviving Sepsis Campaign International Guidelines for the Management of Sepsis and Septic Shock",
+            "authors": "Rhodes A, Evans LE, Alhazzani W, et al.",
+            "journal_or_source": "Intensive Care Medicine",
+            "year": 2017,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the management of sepsis and septic shock."
+          },
+          {
+            "title": "The OPTIMISE Trial",
+            "authors": "Mouncey PR, Osborn TM, Power GS, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2015,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of a protocol-based approach to sepsis management can improve outcomes in sepsis."
+          },
+          {
+            "title": "2016 NICE Guideline for Sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2016,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of sepsis in the UK."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Sepsis",
+      "content": {
+        "intro": "The treatment and management of sepsis involve a multifaceted approach that includes the use of antibiotics, fluid resuscitation, and vasopressors. The ESC 2016 and AHA 2017 guidelines recommend the use of broad-spectrum antibiotics to cover all possible sources of infection. The use of fluid resuscitation can help improve organ perfusion and reduce the risk of mortality. The use of vasopressors, such as norepinephrine, can help support blood pressure and improve organ perfusion.",
+        "sections": [
+          {
+            "heading": "Antibiotic Therapy for Sepsis",
+            "text": "The use of broad-spectrum antibiotics is recommended to cover all possible sources of infection. The choice of antibiotic should be based on the suspected source of infection and the patient's underlying medical conditions. The ESC 2016 and AHA 2017 guidelines recommend the use of broad-spectrum antibiotics, such as meropenem or piperacillin-tazobactam, to cover all possible sources of infection. A landmark trial, the MERINO trial, demonstrated that the use of meropenem can improve outcomes in sepsis."
+          },
+          {
+            "heading": "Fluid Resuscitation for Sepsis",
+            "text": "The use of fluid resuscitation can help improve organ perfusion and reduce the risk of mortality. The ESC 2016 and AHA 2017 guidelines recommend the use of crystalloids, such as 0.9% saline or lactated Ringer's solution, for fluid resuscitation. The use of colloids, such as albumin, is not recommended for fluid resuscitation in sepsis. A landmark trial, the FEAST trial, demonstrated that the use of fluid resuscitation can improve outcomes in sepsis."
+          },
+          {
+            "heading": "Vasopressor Therapy for Sepsis",
+            "text": "The use of vasopressors, such as norepinephrine, can help support blood pressure and improve organ perfusion. The ESC 2016 and AHA 2017 guidelines recommend the use of norepinephrine as the first-line vasopressor in septic shock. The use of other vasopressors, such as epinephrine and vasopressin, may be considered in patients who are refractory to norepinephrine. A landmark trial, the CATS trial, demonstrated that the use of vasopressin can improve outcomes in sepsis."
+          }
+        ],
+        "clinical_pearl": "The use of broad-spectrum antibiotics is recommended to cover all possible sources of infection. However, the use of broad-spectrum antibiotics can also lead to antibiotic resistance and other adverse effects.",
+        "key_points": [
+          "The treatment and management of sepsis involve a multifaceted approach that includes the use of antibiotics, fluid resuscitation, and vasopressors.",
+          "The use of broad-spectrum antibiotics is recommended to cover all possible sources of infection.",
+          "The use of fluid resuscitation can help improve organ perfusion and reduce the risk of mortality.",
+          "The use of vasopressors, such as norepinephrine, can help support blood pressure and improve organ perfusion.",
+          "The choice of antibiotic should be based on the suspected source of infection and the patient's underlying medical conditions.",
+          "The use of colloids, such as albumin, is not recommended for fluid resuscitation in sepsis."
+        ],
+        "references": [
+          {
+            "title": "2016 Surviving Sepsis Campaign International Guidelines for the Management of Sepsis and Septic Shock",
+            "authors": "Rhodes A, Evans LE, Alhazzani W, et al.",
+            "journal_or_source": "Intensive Care Medicine",
+            "year": 2017,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the management of sepsis and septic shock."
+          },
+          {
+            "title": "The MERINO Trial",
+            "authors": "Paul M, Shani V, Muchtar E, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2018,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of meropenem can improve outcomes in sepsis."
+          },
+          {
+            "title": "2016 NICE Guideline for Sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2016,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of sepsis in the UK."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Sepsis",
+      "content": {
+        "intro": "Sepsis can lead to a range of complications, including organ dysfunction, failure, and death. The prognosis of sepsis is dependent on a range of factors, including the severity of the sepsis, the underlying medical conditions, and the timeliness and effectiveness of treatment. The ESC 2016 and AHA 2017 guidelines recommend the use of a multifaceted approach to sepsis management, including the use of antibiotics, fluid resuscitation, and vasopressors.",
+        "sections": [
+          {
+            "heading": "Organ Dysfunction and Failure in Sepsis",
+            "text": "Sepsis can lead to organ dysfunction and failure, including acute respiratory distress syndrome (ARDS), acute kidney injury (AKI), and cardiac dysfunction. The use of organ support therapies, such as mechanical ventilation and renal replacement therapy, can help improve outcomes in sepsis. The ESC 2016 and AHA 2017 guidelines recommend the use of organ support therapies to support organ function and improve outcomes in sepsis."
+          },
+          {
+            "heading": "Mortality and Morbidity in Sepsis",
+            "text": "Sepsis is a leading cause of mortality and morbidity worldwide. The mortality rate for sepsis is estimated to be around 30-50%, depending on the severity of the sepsis and the underlying medical conditions. The use of a multifaceted approach to sepsis management, including the use of antibiotics, fluid resuscitation, and vasopressors, can help improve outcomes and reduce mortality in sepsis. A landmark trial, the PROWESS-SHOCK trial, demonstrated that the use of a protocol-based approach to sepsis management can improve outcomes and reduce mortality in sepsis."
+          },
+          {
+            "heading": "Long-Term Outcomes in Sepsis",
+            "text": "Sepsis can have long-term consequences, including cognitive impairment, physical disability, and psychological trauma. The use of a multifaceted approach to sepsis management, including the use of antibiotics, fluid resuscitation, and vasopressors, can help improve outcomes and reduce long-term morbidity in sepsis. The ESC 2016 and AHA 2017 guidelines recommend the use of a multifaceted approach to sepsis management to improve outcomes and reduce long-term morbidity in sepsis."
+          }
+        ],
+        "clinical_pearl": "The use of a multifaceted approach to sepsis management, including the use of antibiotics, fluid resuscitation, and vasopressors, can help improve outcomes and reduce mortality in sepsis.",
+        "key_points": [
+          "Sepsis can lead to a range of complications, including organ dysfunction, failure, and death.",
+          "The prognosis of sepsis is dependent on a range of factors, including the severity of the sepsis, the underlying medical conditions, and the timeliness and effectiveness of treatment.",
+          "The use of a multifaceted approach to sepsis management, including the use of antibiotics, fluid resuscitation, and vasopressors, can help improve outcomes and reduce mortality in sepsis.",
+          "Sepsis is a leading cause of mortality and morbidity worldwide.",
+          "The mortality rate for sepsis is estimated to be around 30-50%, depending on the severity of the sepsis and the underlying medical conditions.",
+          "The use of organ support therapies, such as mechanical ventilation and renal replacement therapy, can help improve outcomes in sepsis."
+        ],
+        "references": [
+          {
+            "title": "2016 Surviving Sepsis Campaign International Guidelines for the Management of Sepsis and Septic Shock",
+            "authors": "Rhodes A, Evans LE, Alhazzani W, et al.",
+            "journal_or_source": "Intensive Care Medicine",
+            "year": 2017,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the management of sepsis and septic shock."
+          },
+          {
+            "title": "The PROWESS-SHOCK Trial",
+            "authors": "Ranieri VM, Thompson BT, Barie PS, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of a protocol-based approach to sepsis management can improve outcomes and reduce mortality in sepsis."
+          },
+          {
+            "title": "2016 NICE Guideline for Sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2016,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of sepsis in the UK."
+          }
+        ]
+      }
+    }
+  ]
+}

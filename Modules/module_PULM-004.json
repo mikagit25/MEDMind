@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PULM-004",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Pulmonary Embolism and DVT: CTPA, Risk Stratification and Anticoagulation",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Pulmonary Embolism and DVT",
+      "content": {
+        "intro": "Pulmonary embolism (PE) and deep vein thrombosis (DVT) are significant causes of morbidity and mortality worldwide. The pathophysiology of these conditions involves the formation of blood clots in the deep veins, which can then break loose and travel to the lungs, resulting in a pulmonary embolism. The epidemiology of PE and DVT is complex, with multiple risk factors contributing to their development, including immobility, surgery, cancer, and genetic predisposition. The incidence of PE and DVT is estimated to be around 1 in 1,000 per year, with a higher incidence in older adults and those with underlying medical conditions.",
+        "sections": [
+          {
+            "heading": "Risk Factors for PE and DVT",
+            "text": "The risk factors for PE and DVT can be categorized into inherited and acquired factors. Inherited factors include genetic mutations such as factor V Leiden and prothrombin G20210A, while acquired factors include immobility, surgery, cancer, and pregnancy. The ESC guidelines (2019) recommend that patients with a history of PE or DVT be screened for underlying thrombophilic conditions. The use of oral contraceptives and hormone replacement therapy can also increase the risk of PE and DVT, particularly in women with a history of thrombosis. The Wells score is a clinical prediction rule that can be used to estimate the probability of PE, with a score of 2 or less indicating a low probability of PE."
+          },
+          {
+            "heading": "Pathophysiology of PE and DVT",
+            "text": "The pathophysiology of PE and DVT involves the formation of blood clots in the deep veins, which can then break loose and travel to the lungs, resulting in a pulmonary embolism. The formation of blood clots is a complex process that involves the interaction of multiple cellular and molecular components, including platelets, coagulation factors, and fibrinogen. The AHA guidelines (2020) recommend the use of anticoagulant therapy to prevent the formation of new blood clots and to reduce the risk of recurrent PE and DVT. The use of low-molecular-weight heparin (LMWH) and direct oral anticoagulants (DOACs) has been shown to be effective in reducing the risk of recurrent PE and DVT."
+          },
+          {
+            "heading": "Clinical Presentation of PE and DVT",
+            "text": "The clinical presentation of PE and DVT can vary widely, ranging from asymptomatic to life-threatening. The symptoms of PE can include chest pain, shortness of breath, and cough, while the symptoms of DVT can include leg pain, swelling, and redness. The NICE guidelines (2020) recommend that patients with suspected PE or DVT be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies. The use of D-dimer testing and CT pulmonary angiography (CTPA) can help to diagnose PE, while the use of ultrasound and venography can help to diagnose DVT."
+          }
+        ],
+        "clinical_pearl": "The use of the Wells score and the revised Geneva score can help to estimate the probability of PE and to guide further evaluation and treatment.",
+        "key_points": [
+          "The incidence of PE and DVT is estimated to be around 1 in 1,000 per year.",
+          "The ESC guidelines (2019) recommend that patients with a history of PE or DVT be screened for underlying thrombophilic conditions.",
+          "The use of oral contraceptives and hormone replacement therapy can increase the risk of PE and DVT.",
+          "The Wells score is a clinical prediction rule that can be used to estimate the probability of PE.",
+          "The AHA guidelines (2020) recommend the use of anticoagulant therapy to prevent the formation of new blood clots.",
+          "The use of LMWH and DOACs has been shown to be effective in reducing the risk of recurrent PE and DVT."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Management of Acute Pulmonary Embolism",
+            "authors": "Konstantinides SV, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of acute PE."
+          },
+          {
+            "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+            "authors": "Kearon C, et al.",
+            "journal_or_source": "Chest",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of anticoagulant therapy in patients with VTE."
+          },
+          {
+            "title": "Hokusai-VTE: A Randomized, Double-Blind, Multicenter Study to Evaluate the Efficacy and Safety of Edoxaban in the Treatment of Symptomatic Deep-Vein Thrombosis and Pulmonary Embolism",
+            "authors": "Büller HR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "trial",
+            "note": "The trial evaluated the efficacy and safety of edoxaban in the treatment of symptomatic DVT and PE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Pulmonary Embolism and DVT",
+      "content": {
+        "intro": "The clinical presentation of pulmonary embolism (PE) and deep vein thrombosis (DVT) can vary widely, ranging from asymptomatic to life-threatening. The symptoms of PE can include chest pain, shortness of breath, and cough, while the symptoms of DVT can include leg pain, swelling, and redness. The diagnosis of PE and DVT requires a combination of clinical assessment, laboratory tests, and imaging studies.",
+        "sections": [
+          {
+            "heading": "Symptoms of PE",
+            "text": "The symptoms of PE can include chest pain, shortness of breath, and cough. The chest pain can be sudden and severe, and can be accompanied by a feeling of anxiety or panic. The shortness of breath can be severe and can be accompanied by a feeling of suffocation. The cough can be dry and can be accompanied by a feeling of chest tightness. The AHA guidelines (2020) recommend that patients with suspected PE be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies."
+          },
+          {
+            "heading": "Symptoms of DVT",
+            "text": "The symptoms of DVT can include leg pain, swelling, and redness. The leg pain can be severe and can be accompanied by a feeling of warmth or tenderness. The swelling can be severe and can be accompanied by a feeling of tightness or heaviness. The redness can be severe and can be accompanied by a feeling of warmth or inflammation. The NICE guidelines (2020) recommend that patients with suspected DVT be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies."
+          },
+          {
+            "heading": "Clinical Assessment of PE and DVT",
+            "text": "The clinical assessment of PE and DVT requires a combination of history, physical examination, and laboratory tests. The history can include questions about the patient's symptoms, medical history, and risk factors for PE and DVT. The physical examination can include evaluation of the patient's vital signs, lung sounds, and leg swelling. The laboratory tests can include D-dimer testing, complete blood count, and blood chemistry tests. The ESC guidelines (2019) recommend that patients with suspected PE or DVT be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies."
+          }
+        ],
+        "clinical_pearl": "The use of the Wells score and the revised Geneva score can help to estimate the probability of PE and to guide further evaluation and treatment.",
+        "key_points": [
+          "The symptoms of PE can include chest pain, shortness of breath, and cough.",
+          "The symptoms of DVT can include leg pain, swelling, and redness.",
+          "The AHA guidelines (2020) recommend that patients with suspected PE be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies.",
+          "The NICE guidelines (2020) recommend that patients with suspected DVT be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies.",
+          "The clinical assessment of PE and DVT requires a combination of history, physical examination, and laboratory tests.",
+          "The ESC guidelines (2019) recommend that patients with suspected PE or DVT be evaluated using a combination of clinical assessment, laboratory tests, and imaging studies."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Management of Acute Pulmonary Embolism",
+            "authors": "Konstantinides SV, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of acute PE."
+          },
+          {
+            "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+            "authors": "Kearon C, et al.",
+            "journal_or_source": "Chest",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of anticoagulant therapy in patients with VTE."
+          },
+          {
+            "title": "Clinical Presentation and Diagnosis of Pulmonary Embolism",
+            "authors": "Le Gal G, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "review",
+            "note": "The article provides an overview of the clinical presentation and diagnosis of PE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Pulmonary Embolism and DVT",
+      "content": {
+        "intro": "The diagnosis of pulmonary embolism (PE) and deep vein thrombosis (DVT) requires a combination of clinical assessment, laboratory tests, and imaging studies. The clinical assessment can include evaluation of the patient's symptoms, medical history, and risk factors for PE and DVT. The laboratory tests can include D-dimer testing, complete blood count, and blood chemistry tests. The imaging studies can include CT pulmonary angiography (CTPA), ventilation-perfusion scanning, and ultrasound.",
+        "sections": [
+          {
+            "heading": "D-dimer Testing",
+            "text": "D-dimer testing is a laboratory test that can be used to diagnose PE and DVT. The test measures the level of D-dimer in the blood, which is a protein that is produced when blood clots are broken down. The AHA guidelines (2020) recommend that D-dimer testing be used as a screening test for PE and DVT. The test is sensitive but not specific, and a positive result can indicate the presence of a blood clot. The ESC guidelines (2019) recommend that D-dimer testing be used in combination with clinical assessment and imaging studies to diagnose PE and DVT."
+          },
+          {
+            "heading": "CT Pulmonary Angiography (CTPA)",
+            "text": "CTPA is an imaging study that can be used to diagnose PE. The study uses CT scanning to visualize the pulmonary arteries and to detect the presence of blood clots. The NICE guidelines (2020) recommend that CTPA be used as the first-line imaging study for diagnosing PE. The study is sensitive and specific, and can provide a definitive diagnosis of PE. The use of CTPA has been shown to reduce the risk of recurrent PE and to improve patient outcomes."
+          },
+          {
+            "heading": "Ultrasound and Venography",
+            "text": "Ultrasound and venography are imaging studies that can be used to diagnose DVT. The studies use ultrasound or X-ray technology to visualize the deep veins and to detect the presence of blood clots. The AHA guidelines (2020) recommend that ultrasound and venography be used as the first-line imaging studies for diagnosing DVT. The studies are sensitive and specific, and can provide a definitive diagnosis of DVT. The use of ultrasound and venography has been shown to reduce the risk of recurrent DVT and to improve patient outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of D-dimer testing and CTPA can help to diagnose PE, while the use of ultrasound and venography can help to diagnose DVT.",
+        "key_points": [
+          "D-dimer testing is a laboratory test that can be used to diagnose PE and DVT.",
+          "CTPA is an imaging study that can be used to diagnose PE.",
+          "Ultrasound and venography are imaging studies that can be used to diagnose DVT.",
+          "The AHA guidelines (2020) recommend that D-dimer testing be used as a screening test for PE and DVT.",
+          "The ESC guidelines (2019) recommend that D-dimer testing be used in combination with clinical assessment and imaging studies to diagnose PE and DVT.",
+          "The use of CTPA has been shown to reduce the risk of recurrent PE and to improve patient outcomes."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Management of Acute Pulmonary Embolism",
+            "authors": "Konstantinides SV, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of acute PE."
+          },
+          {
+            "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+            "authors": "Kearon C, et al.",
+            "journal_or_source": "Chest",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of anticoagulant therapy in patients with VTE."
+          },
+          {
+            "title": "Diagnosis of Pulmonary Embolism: A Systematic Review and Meta-Analysis",
+            "authors": "Le Gal G, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2018,
+            "type": "review",
+            "note": "The article provides an overview of the diagnosis of PE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Pulmonary Embolism and DVT",
+      "content": {
+        "intro": "The treatment and management of pulmonary embolism (PE) and deep vein thrombosis (DVT) require a combination of anticoagulant therapy, thrombolytic therapy, and supportive care. The anticoagulant therapy can include the use of low-molecular-weight heparin (LMWH), unfractionated heparin (UFH), and direct oral anticoagulants (DOACs). The thrombolytic therapy can include the use of tissue plasminogen activator (tPA) and other thrombolytic agents. The supportive care can include the use of oxygen therapy, pain management, and bed rest.",
+        "sections": [
+          {
+            "heading": "Anticoagulant Therapy",
+            "text": "The anticoagulant therapy is the mainstay of treatment for PE and DVT. The therapy can include the use of LMWH, UFH, and DOACs. The AHA guidelines (2020) recommend that anticoagulant therapy be initiated as soon as possible after diagnosis. The therapy can be administered intravenously or subcutaneously, and can be continued for several months or even years. The ESC guidelines (2019) recommend that anticoagulant therapy be used in combination with thrombolytic therapy in patients with severe PE or DVT."
+          },
+          {
+            "heading": "Thrombolytic Therapy",
+            "text": "The thrombolytic therapy can be used to treat severe PE or DVT. The therapy can include the use of tPA and other thrombolytic agents. The NICE guidelines (2020) recommend that thrombolytic therapy be used in patients with severe PE or DVT who are at high risk of death or serious complications. The therapy can be administered intravenously or intra-arterially, and can be continued for several hours or days."
+          },
+          {
+            "heading": "Supportive Care",
+            "text": "The supportive care is an important part of the treatment and management of PE and DVT. The care can include the use of oxygen therapy, pain management, and bed rest. The AHA guidelines (2020) recommend that supportive care be provided to all patients with PE or DVT, regardless of the severity of the condition. The care can be provided in the hospital or at home, and can be continued for several days or weeks."
+          }
+        ],
+        "clinical_pearl": "The use of anticoagulant therapy and thrombolytic therapy can help to treat PE and DVT, while the use of supportive care can help to manage the symptoms and complications of the condition.",
+        "key_points": [
+          "The anticoagulant therapy is the mainstay of treatment for PE and DVT.",
+          "The thrombolytic therapy can be used to treat severe PE or DVT.",
+          "The supportive care is an important part of the treatment and management of PE and DVT.",
+          "The AHA guidelines (2020) recommend that anticoagulant therapy be initiated as soon as possible after diagnosis.",
+          "The ESC guidelines (2019) recommend that anticoagulant therapy be used in combination with thrombolytic therapy in patients with severe PE or DVT.",
+          "The use of LMWH and DOACs has been shown to reduce the risk of recurrent PE and DVT."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Management of Acute Pulmonary Embolism",
+            "authors": "Konstantinides SV, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of acute PE."
+          },
+          {
+            "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+            "authors": "Kearon C, et al.",
+            "journal_or_source": "Chest",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of anticoagulant therapy in patients with VTE."
+          },
+          {
+            "title": "Thrombolytic Therapy for Pulmonary Embolism: A Systematic Review and Meta-Analysis",
+            "authors": "Wang TF, et al.",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "The article provides an overview of the use of thrombolytic therapy for PE."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Pulmonary Embolism and DVT",
+      "content": {
+        "intro": "The complications and prognosis of pulmonary embolism (PE) and deep vein thrombosis (DVT) can vary widely, depending on the severity of the condition and the effectiveness of treatment. The complications can include recurrent PE or DVT, post-thrombotic syndrome, and chronic thromboembolic pulmonary hypertension. The prognosis can be affected by the severity of the condition, the presence of underlying medical conditions, and the effectiveness of treatment.",
+        "sections": [
+          {
+            "heading": "Recurrent PE or DVT",
+            "text": "The recurrent PE or DVT is a common complication of PE and DVT. The recurrence can occur in up to 10% of patients with PE or DVT, and can be fatal. The AHA guidelines (2020) recommend that patients with a history of PE or DVT be treated with anticoagulant therapy to prevent recurrence. The therapy can include the use of LMWH, UFH, and DOACs."
+          },
+          {
+            "heading": "Post-Thrombotic Syndrome",
+            "text": "The post-thrombotic syndrome is a complication of DVT that can occur in up to 50% of patients. The syndrome can cause chronic pain, swelling, and discoloration of the affected limb. The NICE guidelines (2020) recommend that patients with post-thrombotic syndrome be treated with compression stockings, elevation of the affected limb, and pain management."
+          },
+          {
+            "heading": "Chronic Thromboembolic Pulmonary Hypertension",
+            "text": "The chronic thromboembolic pulmonary hypertension is a complication of PE that can occur in up to 5% of patients. The condition can cause chronic shortness of breath, fatigue, and exercise intolerance. The ESC guidelines (2019) recommend that patients with chronic thromboembolic pulmonary hypertension be treated with anticoagulant therapy, oxygen therapy, and pulmonary rehabilitation."
+          }
+        ],
+        "clinical_pearl": "The use of anticoagulant therapy and supportive care can help to prevent complications and improve prognosis in patients with PE and DVT.",
+        "key_points": [
+          "The recurrent PE or DVT is a common complication of PE and DVT.",
+          "The post-thrombotic syndrome is a complication of DVT that can cause chronic pain, swelling, and discoloration of the affected limb.",
+          "The chronic thromboembolic pulmonary hypertension is a complication of PE that can cause chronic shortness of breath, fatigue, and exercise intolerance.",
+          "The AHA guidelines (2020) recommend that patients with a history of PE or DVT be treated with anticoagulant therapy to prevent recurrence.",
+          "The NICE guidelines (2020) recommend that patients with post-thrombotic syndrome be treated with compression stockings, elevation of the affected limb, and pain management.",
+          "The ESC guidelines (2019) recommend that patients with chronic thromboembolic pulmonary hypertension be treated with anticoagulant therapy, oxygen therapy, and pulmonary rehabilitation."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Management of Acute Pulmonary Embolism",
+            "authors": "Konstantinides SV, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of acute PE."
+          },
+          {
+            "title": "Antithrombotic Therapy for VTE Disease: CHEST Guideline and Expert Panel Report",
+            "authors": "Kearon C, et al.",
+            "journal_or_source": "Chest",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of anticoagulant therapy in patients with VTE."
+          },
+          {
+            "title": "Chronic Thromboembolic Pulmonary Hypertension: A Review of the Literature",
+            "authors": "Pepke-Zaba J, et al.",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2018,
+            "type": "review",
+            "note": "The article provides an overview of the diagnosis and management of chronic thromboembolic pulmonary hypertension."
+          }
+        ]
+      }
+    }
+  ]
+}

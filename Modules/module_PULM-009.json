@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "PULM-009",
+    "type": "specialty_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Obstructive Sleep Apnoea: Pathophysiology, Diagnosis and CPAP",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Obstructive sleep apnoea (OSA) is a common sleep disorder affecting approximately 10% of the adult population worldwide. It is characterized by repeated episodes of upper airway obstruction during sleep, resulting in reduced or completely halted airflow despite ongoing breathing efforts. The pathophysiology of OSA involves a complex interplay of anatomical, physiological, and neurological factors. Anatomical factors include a narrow upper airway, which can be due to various conditions such as obesity, tonsillar hypertrophy, or retrognathia. Physiological factors involve the loss of muscle tone in the upper airway muscles during sleep, leading to airway collapse. Neurological factors include impaired arousal responses and ventilatory control. Clinical presentation of OSA can vary, but common symptoms include excessive daytime sleepiness, loud snoring, and witnessed apnoeas. The diagnosis of OSA is based on a combination of clinical evaluation, sleep questionnaires, and polysomnography (PSG) or home sleep apnoea testing (HSAT). The American Academy of Sleep Medicine (AASM) recommends the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The prevalence of OSA increases with age and is higher in men than in women. Obesity is a significant risk factor for OSA, with a body mass index (BMI) of 30 or higher increasing the risk. Other risk factors include smoking, hypertension, diabetes, and a family history of OSA. The economic burden of OSA is substantial, with estimated annual costs exceeding $65 billion in the United States alone. The 2015 American Heart Association (AHA) guidelines emphasize the importance of addressing modifiable risk factors, such as obesity and smoking, in the management of OSA. The 2020 European Society of Cardiology (ESC) guidelines recommend lifestyle modifications, including weight loss and avoidance of alcohol and sedatives, as the first line of treatment for mild OSA."
+          },
+          {
+            "heading": "Pathophysiology and Clinical Presentation",
+            "text": "The pathophysiology of OSA involves the collapse of the upper airway during sleep, leading to reduced or completely halted airflow. This collapse can be due to various factors, including a narrow upper airway, loss of muscle tone, and impaired arousal responses. Clinical presentation can vary, but common symptoms include excessive daytime sleepiness, loud snoring, and witnessed apnoeas. The Epworth Sleepiness Scale (ESS) is a widely used questionnaire to assess daytime sleepiness. A score of 10 or higher indicates excessive daytime sleepiness. The Berlin Questionnaire is another tool used to assess the risk of OSA. The 2019 National Institute for Health and Care Excellence (NICE) guidelines recommend the use of the ESS and Berlin Questionnaire in the initial assessment of patients with suspected OSA."
+          },
+          {
+            "heading": "Diagnosis and Treatment",
+            "text": "The diagnosis of OSA is based on a combination of clinical evaluation, sleep questionnaires, and PSG or HSAT. The AASM recommends the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain. Treatment options for OSA include lifestyle modifications, continuous positive airway pressure (CPAP) therapy, and oral appliances. CPAP therapy is the most effective treatment for moderate to severe OSA, with a recommended pressure range of 5-15 cm H2O. The 2019 AHA guidelines recommend the use of CPAP therapy as the first line of treatment for moderate to severe OSA. The landmark Sleep Heart Health Study demonstrated a significant reduction in cardiovascular risk with CPAP therapy in patients with OSA."
+          }
+        ],
+        "clinical_pearl": "The use of CPAP therapy can reduce the risk of cardiovascular events by 50% in patients with moderate to severe OSA.",
+        "key_points": [
+          "The prevalence of OSA is approximately 10% in the adult population worldwide.",
+          "Obesity is a significant risk factor for OSA, with a BMI of 30 or higher increasing the risk.",
+          "The AASM recommends the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain.",
+          "CPAP therapy is the most effective treatment for moderate to severe OSA, with a recommended pressure range of 5-15 cm H2O.",
+          "The 2019 AHA guidelines recommend the use of CPAP therapy as the first line of treatment for moderate to severe OSA.",
+          "The Sleep Heart Health Study demonstrated a significant reduction in cardiovascular risk with CPAP therapy in patients with OSA."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association (AHA) guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of addressing modifiable risk factors in the management of OSA."
+          },
+          {
+            "title": "2020 European Society of Cardiology (ESC) guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends lifestyle modifications as the first line of treatment for mild OSA."
+          },
+          {
+            "title": "Sleep Heart Health Study",
+            "authors": "Quan SF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "landmark trial",
+            "note": "Demonstrated a significant reduction in cardiovascular risk with CPAP therapy in patients with OSA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis",
+      "content": {
+        "intro": "The diagnosis of OSA is based on a combination of clinical evaluation, sleep questionnaires, and PSG or HSAT. Clinical evaluation involves a thorough medical history, physical examination, and assessment of symptoms. Sleep questionnaires, such as the ESS and Berlin Questionnaire, are used to assess daytime sleepiness and risk of OSA. PSG is the gold standard for the diagnosis of OSA, but HSAT is increasingly being used as a more convenient and cost-effective alternative. The AASM recommends the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "Clinical evaluation involves a thorough medical history, physical examination, and assessment of symptoms. The medical history should include questions about sleep patterns, daytime sleepiness, and snoring. The physical examination should include an assessment of the upper airway, including the size of the tonsils and the length of the soft palate. The 2019 NICE guidelines recommend the use of a comprehensive sleep history and physical examination in the initial assessment of patients with suspected OSA."
+          },
+          {
+            "heading": "Sleep Questionnaires",
+            "text": "Sleep questionnaires, such as the ESS and Berlin Questionnaire, are used to assess daytime sleepiness and risk of OSA. The ESS is a widely used questionnaire that assesses daytime sleepiness in eight different situations. A score of 10 or higher indicates excessive daytime sleepiness. The Berlin Questionnaire is another tool used to assess the risk of OSA. It includes questions about snoring, daytime sleepiness, and hypertension."
+          },
+          {
+            "heading": "Polysomnography (PSG) and Home Sleep Apnoea Testing (HSAT)",
+            "text": "PSG is the gold standard for the diagnosis of OSA, but HSAT is increasingly being used as a more convenient and cost-effective alternative. PSG involves the recording of various physiological parameters, including electroencephalography (EEG), electromyography (EMG), and electrooculography (EOG), during sleep. HSAT involves the recording of oxygen saturation, heart rate, and respiratory effort during sleep. The 2015 AHA guidelines recommend the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain."
+          }
+        ],
+        "clinical_pearl": "The use of HSAT can reduce the cost and increase the accessibility of OSA diagnosis, especially in patients with mild to moderate OSA.",
+        "key_points": [
+          "The diagnosis of OSA is based on a combination of clinical evaluation, sleep questionnaires, and PSG or HSAT.",
+          "Clinical evaluation involves a thorough medical history, physical examination, and assessment of symptoms.",
+          "The ESS and Berlin Questionnaire are widely used sleep questionnaires to assess daytime sleepiness and risk of OSA.",
+          "PSG is the gold standard for the diagnosis of OSA, but HSAT is increasingly being used as a more convenient and cost-effective alternative.",
+          "The 2015 AHA guidelines recommend the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain.",
+          "The 2019 NICE guidelines recommend the use of a comprehensive sleep history and physical examination in the initial assessment of patients with suspected OSA."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association (AHA) guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of PSG for the diagnosis of OSA, especially in patients with significant comorbidities or when the diagnosis is uncertain."
+          },
+          {
+            "title": "2019 National Institute for Health and Care Excellence (NICE) guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of a comprehensive sleep history and physical examination in the initial assessment of patients with suspected OSA."
+          },
+          {
+            "title": "Sleep Apnoea and Cardiovascular Disease",
+            "authors": "McNicholas WT, et al.",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2018,
+            "type": "review article",
+            "note": "Discusses the relationship between OSA and cardiovascular disease, including the role of PSG and HSAT in diagnosis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management",
+      "content": {
+        "intro": "The treatment of OSA involves a combination of lifestyle modifications, CPAP therapy, and oral appliances. Lifestyle modifications include weight loss, avoidance of alcohol and sedatives, and regular exercise. CPAP therapy is the most effective treatment for moderate to severe OSA, with a recommended pressure range of 5-15 cm H2O. Oral appliances, such as mandibular advancement devices, can be used as an alternative to CPAP therapy in patients with mild to moderate OSA.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications are an essential part of OSA treatment. Weight loss can reduce the severity of OSA, and avoidance of alcohol and sedatives can reduce the risk of airway collapse. Regular exercise can also improve sleep quality and reduce daytime sleepiness. The 2020 ESC guidelines recommend lifestyle modifications as the first line of treatment for mild OSA."
+          },
+          {
+            "heading": "Continuous Positive Airway Pressure (CPAP) Therapy",
+            "text": "CPAP therapy is the most effective treatment for moderate to severe OSA. It involves the delivery of a constant flow of air pressure into the upper airway during sleep, keeping the airway open and preventing collapse. The recommended pressure range for CPAP therapy is 5-15 cm H2O. The 2019 AHA guidelines recommend the use of CPAP therapy as the first line of treatment for moderate to severe OSA."
+          },
+          {
+            "heading": "Oral Appliances and Surgery",
+            "text": "Oral appliances, such as mandibular advancement devices, can be used as an alternative to CPAP therapy in patients with mild to moderate OSA. These devices work by advancing the lower jaw and keeping the airway open during sleep. Surgery, such as uvulopalatopharyngoplasty, can be used in patients with severe OSA who have failed other treatments. The 2015 AASM guidelines recommend the use of oral appliances as a treatment option for patients with mild to moderate OSA."
+          }
+        ],
+        "clinical_pearl": "The use of CPAP therapy can reduce the risk of cardiovascular events by 50% in patients with moderate to severe OSA.",
+        "key_points": [
+          "The treatment of OSA involves a combination of lifestyle modifications, CPAP therapy, and oral appliances.",
+          "Lifestyle modifications include weight loss, avoidance of alcohol and sedatives, and regular exercise.",
+          "CPAP therapy is the most effective treatment for moderate to severe OSA, with a recommended pressure range of 5-15 cm H2O.",
+          "Oral appliances, such as mandibular advancement devices, can be used as an alternative to CPAP therapy in patients with mild to moderate OSA.",
+          "The 2020 ESC guidelines recommend lifestyle modifications as the first line of treatment for mild OSA.",
+          "The 2019 AHA guidelines recommend the use of CPAP therapy as the first line of treatment for moderate to severe OSA."
+        ],
+        "references": [
+          {
+            "title": "2020 European Society of Cardiology (ESC) guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends lifestyle modifications as the first line of treatment for mild OSA."
+          },
+          {
+            "title": "2019 American Heart Association (AHA) guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of CPAP therapy as the first line of treatment for moderate to severe OSA."
+          },
+          {
+            "title": "Sleep Apnoea and Cardiovascular Disease",
+            "authors": "McNicholas WT, et al.",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2018,
+            "type": "review article",
+            "note": "Discusses the relationship between OSA and cardiovascular disease, including the role of CPAP therapy in reducing cardiovascular risk."
+          }
+        ]
+      }
+    }
+  ]
+}

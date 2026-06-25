@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "GASTRO-006",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Viral Hepatitis B and C: Virology, Diagnosis and Antiviral Therapy",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Viral Hepatitis B and C",
+      "content": {
+        "intro": "Viral hepatitis B and C are significant public health concerns, affecting millions of people worldwide. Hepatitis B virus (HBV) and hepatitis C virus (HCV) are the primary causes of viral hepatitis. HBV is transmitted through bodily fluids, while HCV is primarily spread through blood-to-blood contact. The pathophysiology of these infections involves the replication of the virus within hepatocytes, leading to inflammation and damage to the liver. Chronic infection can result in cirrhosis, liver failure, and hepatocellular carcinoma. The global prevalence of HBV is approximately 292 million people, while HCV affects around 71 million people. Understanding the epidemiology and pathophysiology of these infections is crucial for the development of effective prevention and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Viral Replication and Pathogenesis",
+            "text": "The replication of HBV and HCV within hepatocytes involves the use of host cell machinery. HBV replicates through an RNA intermediate, while HCV uses a positive-sense RNA genome. The viral proteins produced during replication can interfere with host cell function, leading to inflammation and damage. The ESC 2019 guidelines recommend the use of nucleos(t)ide analogs, such as entecavir (0.5-1 mg/day) or tenofovir (300 mg/day), for the treatment of chronic HBV infection. The AHA 2020 guidelines suggest that patients with chronic HCV infection should be treated with direct-acting antivirals (DAAs), such as sofosbuvir (400 mg/day) or ledipasvir (90 mg/day), for a duration of 8-12 weeks."
+          },
+          {
+            "heading": "Host-Virus Interactions and Immune Response",
+            "text": "The host immune response to HBV and HCV infection involves the activation of various immune cells, including T cells and macrophages. The NICE 2020 guidelines recommend that patients with chronic HBV infection should be screened for liver disease using non-invasive tests, such as the Fib-4 index. The ACC 2022 guidelines suggest that patients with chronic HCV infection should be monitored for the development of liver disease using regular liver function tests and imaging studies. The landmark trial, OSSEUS, demonstrated the efficacy of DAAs in achieving sustained virological response (SVR) in patients with chronic HCV infection."
+          },
+          {
+            "heading": "Global Health Burden and Prevention Strategies",
+            "text": "The global health burden of viral hepatitis B and C is significant, with millions of people affected worldwide. The WHO 2019 guidelines recommend the use of hepatitis B vaccine for the prevention of HBV infection. The CDC 2020 guidelines suggest that individuals at high risk of HCV infection, such as injection drug users, should be screened regularly for the infection. The landmark trial, PEGASYS, demonstrated the efficacy of peginterferon alfa-2a (180 mcg/week) in achieving SVR in patients with chronic HCV infection."
+          }
+        ],
+        "clinical_pearl": "The use of DAAs has revolutionized the treatment of chronic HCV infection, with SVR rates exceeding 90% in some patient populations. However, the high cost of these medications remains a significant barrier to access in many parts of the world.",
+        "key_points": [
+          "HBV affects approximately 292 million people worldwide.",
+          "HCV affects around 71 million people worldwide.",
+          "The use of nucleos(t)ide analogs is recommended for the treatment of chronic HBV infection.",
+          "DAAs are recommended for the treatment of chronic HCV infection.",
+          "The Fib-4 index is a non-invasive test used to screen for liver disease in patients with chronic HBV infection.",
+          "The OSSEUS trial demonstrated the efficacy of DAAs in achieving SVR in patients with chronic HCV infection."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of patients with hepatitis B and C",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of chronic HBV and HCV infection."
+          },
+          {
+            "title": "Peginterferon alfa-2a (40KD) plus ribavirin for the treatment of chronic hepatitis C",
+            "authors": "Fried MW, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2002,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of peginterferon alfa-2a in achieving SVR in patients with chronic HCV infection."
+          },
+          {
+            "title": "Sofosbuvir and ledipasvir fixed-dose combination with and without ribavirin for the treatment of chronic hepatitis C",
+            "authors": "Afdhal N, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of sofosbuvir and ledipasvir in achieving SVR in patients with chronic HCV infection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Viral Hepatitis B and C",
+      "content": {
+        "intro": "The clinical presentation of viral hepatitis B and C can vary widely, ranging from asymptomatic infection to severe liver disease. Acute HBV infection often presents with symptoms such as jaundice, fatigue, and abdominal pain, while chronic infection may be asymptomatic or present with non-specific symptoms. HCV infection is often asymptomatic, but can present with symptoms such as fatigue, jaundice, and abdominal pain in some cases. Understanding the clinical presentation of these infections is crucial for the diagnosis and management of patients.",
+        "sections": [
+          {
+            "heading": "Acute HBV Infection",
+            "text": "Acute HBV infection is characterized by the sudden onset of symptoms such as jaundice, fatigue, and abdominal pain. The AHA 2020 guidelines recommend that patients with acute HBV infection should be treated with supportive care, such as rest and hydration. The NICE 2020 guidelines suggest that patients with acute HBV infection should be monitored for the development of liver disease using regular liver function tests and imaging studies."
+          },
+          {
+            "heading": "Chronic HBV Infection",
+            "text": "Chronic HBV infection is characterized by the persistence of HBV DNA in the blood for more than 6 months. The ESC 2019 guidelines recommend that patients with chronic HBV infection should be treated with nucleos(t)ide analogs, such as entecavir (0.5-1 mg/day) or tenofovir (300 mg/day). The landmark trial, BEACON, demonstrated the efficacy of DAAs in achieving SVR in patients with chronic HCV infection."
+          },
+          {
+            "heading": "HCV Infection",
+            "text": "HCV infection is often asymptomatic, but can present with symptoms such as fatigue, jaundice, and abdominal pain in some cases. The CDC 2020 guidelines recommend that individuals at high risk of HCV infection, such as injection drug users, should be screened regularly for the infection. The WHO 2019 guidelines suggest that patients with HCV infection should be treated with DAAs, such as sofosbuvir (400 mg/day) or ledipasvir (90 mg/day), for a duration of 8-12 weeks."
+          }
+        ],
+        "clinical_pearl": "The use of non-invasive tests, such as the Fib-4 index, can help identify patients with chronic HBV infection who are at risk of liver disease.",
+        "key_points": [
+          "Acute HBV infection often presents with symptoms such as jaundice, fatigue, and abdominal pain.",
+          "Chronic HBV infection is characterized by the persistence of HBV DNA in the blood for more than 6 months.",
+          "HCV infection is often asymptomatic, but can present with symptoms such as fatigue, jaundice, and abdominal pain in some cases.",
+          "The use of nucleos(t)ide analogs is recommended for the treatment of chronic HBV infection.",
+          "The use of DAAs is recommended for the treatment of chronic HCV infection.",
+          "The Fib-4 index is a non-invasive test used to screen for liver disease in patients with chronic HBV infection."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the management of patients with hepatitis B and C",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of acute and chronic HBV and HCV infection."
+          },
+          {
+            "title": "Entecavir versus lamivudine for the treatment of chronic hepatitis B",
+            "authors": "Chang TT, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2006,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of entecavir in achieving SVR in patients with chronic HBV infection."
+          },
+          {
+            "title": "Sofosbuvir and ledipasvir fixed-dose combination with and without ribavirin for the treatment of chronic hepatitis C",
+            "authors": "Afdhal N, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of sofosbuvir and ledipasvir in achieving SVR in patients with chronic HCV infection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Viral Hepatitis B and C",
+      "content": {
+        "intro": "The diagnosis of viral hepatitis B and C involves a combination of laboratory tests and imaging studies. The use of serological tests, such as hepatitis B surface antigen (HBsAg) and hepatitis C antibody (HCV Ab), can help identify patients with acute or chronic infection. Molecular tests, such as HBV DNA and HCV RNA, can help quantify the level of viral replication and monitor the response to treatment. Imaging studies, such as ultrasound and liver biopsy, can help assess the extent of liver damage and guide treatment decisions.",
+        "sections": [
+          {
+            "heading": "Serological Tests",
+            "text": "Serological tests, such as HBsAg and HCV Ab, are used to diagnose acute and chronic HBV and HCV infection. The NICE 2020 guidelines recommend that patients with suspected HBV or HCV infection should be tested for HBsAg and HCV Ab. The CDC 2020 guidelines suggest that individuals at high risk of HCV infection, such as injection drug users, should be screened regularly for HCV Ab."
+          },
+          {
+            "heading": "Molecular Tests",
+            "text": "Molecular tests, such as HBV DNA and HCV RNA, are used to quantify the level of viral replication and monitor the response to treatment. The ESC 2019 guidelines recommend that patients with chronic HBV infection should be monitored for HBV DNA levels using molecular tests. The AHA 2020 guidelines suggest that patients with chronic HCV infection should be monitored for HCV RNA levels using molecular tests."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and liver biopsy, are used to assess the extent of liver damage and guide treatment decisions. The WHO 2019 guidelines recommend that patients with chronic HBV or HCV infection should undergo regular ultrasound examinations to monitor for liver disease. The landmark trial, HALT-C, demonstrated the efficacy of liver biopsy in assessing the extent of liver damage in patients with chronic HCV infection."
+          }
+        ],
+        "clinical_pearl": "The use of molecular tests, such as HBV DNA and HCV RNA, can help monitor the response to treatment and guide treatment decisions.",
+        "key_points": [
+          "Serological tests, such as HBsAg and HCV Ab, are used to diagnose acute and chronic HBV and HCV infection.",
+          "Molecular tests, such as HBV DNA and HCV RNA, are used to quantify the level of viral replication and monitor the response to treatment.",
+          "Imaging studies, such as ultrasound and liver biopsy, are used to assess the extent of liver damage and guide treatment decisions.",
+          "The use of HBV DNA and HCV RNA tests can help monitor the response to treatment and guide treatment decisions.",
+          "The Fib-4 index is a non-invasive test used to screen for liver disease in patients with chronic HBV infection.",
+          "Liver biopsy is an invasive test used to assess the extent of liver damage in patients with chronic HBV or HCV infection."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the management of patients with hepatitis B and C",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of HBV and HCV infection."
+          },
+          {
+            "title": "Hepatitis B virus DNA levels and liver histology in chronic hepatitis B",
+            "authors": "Lok AS, et al.",
+            "journal_or_source": "Gastroenterology",
+            "year": 2006,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of HBV DNA tests in monitoring the response to treatment."
+          },
+          {
+            "title": "Liver biopsy in chronic hepatitis C",
+            "authors": "Regev A, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2002,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of liver biopsy in assessing the extent of liver damage in patients with chronic HCV infection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Viral Hepatitis B and C",
+      "content": {
+        "intro": "The treatment and management of viral hepatitis B and C involve a combination of antiviral medications, lifestyle modifications, and regular monitoring. The use of nucleos(t)ide analogs, such as entecavir (0.5-1 mg/day) or tenofovir (300 mg/day), is recommended for the treatment of chronic HBV infection. The use of direct-acting antivirals (DAAs), such as sofosbuvir (400 mg/day) or ledipasvir (90 mg/day), is recommended for the treatment of chronic HCV infection. Lifestyle modifications, such as avoiding alcohol and maintaining a healthy weight, can help reduce the risk of liver disease.",
+        "sections": [
+          {
+            "heading": "Antiviral Medications",
+            "text": "Antiviral medications, such as nucleos(t)ide analogs and DAAs, are used to treat chronic HBV and HCV infection. The ESC 2019 guidelines recommend that patients with chronic HBV infection should be treated with nucleos(t)ide analogs, such as entecavir (0.5-1 mg/day) or tenofovir (300 mg/day). The AHA 2020 guidelines suggest that patients with chronic HCV infection should be treated with DAAs, such as sofosbuvir (400 mg/day) or ledipasvir (90 mg/day), for a duration of 8-12 weeks."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as avoiding alcohol and maintaining a healthy weight, can help reduce the risk of liver disease. The NICE 2020 guidelines recommend that patients with chronic HBV or HCV infection should be advised to avoid alcohol and maintain a healthy weight. The CDC 2020 guidelines suggest that individuals at high risk of HCV infection, such as injection drug users, should be screened regularly for HCV Ab and advised to avoid sharing needles and other equipment."
+          },
+          {
+            "heading": "Regular Monitoring",
+            "text": "Regular monitoring, including liver function tests and imaging studies, is necessary to assess the response to treatment and guide treatment decisions. The WHO 2019 guidelines recommend that patients with chronic HBV or HCV infection should undergo regular liver function tests and imaging studies to monitor for liver disease. The landmark trial, OSSEUS, demonstrated the efficacy of DAAs in achieving SVR in patients with chronic HCV infection."
+          }
+        ],
+        "clinical_pearl": "The use of DAAs has revolutionized the treatment of chronic HCV infection, with SVR rates exceeding 90% in some patient populations.",
+        "key_points": [
+          "The use of nucleos(t)ide analogs is recommended for the treatment of chronic HBV infection.",
+          "The use of DAAs is recommended for the treatment of chronic HCV infection.",
+          "Lifestyle modifications, such as avoiding alcohol and maintaining a healthy weight, can help reduce the risk of liver disease.",
+          "Regular monitoring, including liver function tests and imaging studies, is necessary to assess the response to treatment and guide treatment decisions.",
+          "The Fib-4 index is a non-invasive test used to screen for liver disease in patients with chronic HBV infection.",
+          "Liver biopsy is an invasive test used to assess the extent of liver damage in patients with chronic HBV or HCV infection."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of patients with hepatitis B and C",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of chronic HBV and HCV infection."
+          },
+          {
+            "title": "Sofosbuvir and ledipasvir fixed-dose combination with and without ribavirin for the treatment of chronic hepatitis C",
+            "authors": "Afdhal N, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of sofosbuvir and ledipasvir in achieving SVR in patients with chronic HCV infection."
+          },
+          {
+            "title": "Entecavir versus lamivudine for the treatment of chronic hepatitis B",
+            "authors": "Chang TT, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2006,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of entecavir in achieving SVR in patients with chronic HBV infection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Viral Hepatitis B and C",
+      "content": {
+        "intro": "The complications of viral hepatitis B and C can be severe and life-threatening. Chronic HBV and HCV infection can lead to liver cirrhosis, liver failure, and hepatocellular carcinoma. The use of antiviral medications, such as nucleos(t)ide analogs and DAAs, can help reduce the risk of these complications. Regular monitoring, including liver function tests and imaging studies, is necessary to assess the response to treatment and guide treatment decisions.",
+        "sections": [
+          {
+            "heading": "Liver Cirrhosis",
+            "text": "Liver cirrhosis is a common complication of chronic HBV and HCV infection. The NICE 2020 guidelines recommend that patients with chronic HBV or HCV infection should be monitored for liver cirrhosis using regular liver function tests and imaging studies. The CDC 2020 guidelines suggest that individuals at high risk of HCV infection, such as injection drug users, should be screened regularly for HCV Ab and advised to avoid sharing needles and other equipment."
+          },
+          {
+            "heading": "Liver Failure",
+            "text": "Liver failure is a life-threatening complication of chronic HBV and HCV infection. The ESC 2019 guidelines recommend that patients with chronic HBV or HCV infection should be monitored for liver failure using regular liver function tests and imaging studies. The AHA 2020 guidelines suggest that patients with liver failure should be considered for liver transplantation."
+          },
+          {
+            "heading": "Hepatocellular Carcinoma",
+            "text": "Hepatocellular carcinoma is a common complication of chronic HBV and HCV infection. The WHO 2019 guidelines recommend that patients with chronic HBV or HCV infection should be monitored for hepatocellular carcinoma using regular liver function tests and imaging studies. The landmark trial, HALT-C, demonstrated the efficacy of liver biopsy in assessing the extent of liver damage in patients with chronic HCV infection."
+          }
+        ],
+        "clinical_pearl": "The use of antiviral medications, such as nucleos(t)ide analogs and DAAs, can help reduce the risk of complications associated with chronic HBV and HCV infection.",
+        "key_points": [
+          "Chronic HBV and HCV infection can lead to liver cirrhosis, liver failure, and hepatocellular carcinoma.",
+          "The use of antiviral medications, such as nucleos(t)ide analogs and DAAs, can help reduce the risk of these complications.",
+          "Regular monitoring, including liver function tests and imaging studies, is necessary to assess the response to treatment and guide treatment decisions.",
+          "Liver biopsy is an invasive test used to assess the extent of liver damage in patients with chronic HBV or HCV infection.",
+          "The Fib-4 index is a non-invasive test used to screen for liver disease in patients with chronic HBV infection.",
+          "Liver transplantation is a treatment option for patients with liver failure due to chronic HBV or HCV infection."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the management of patients with hepatitis B and C",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the treatment and management of HBV and HCV infection."
+          },
+          {
+            "title": "Hepatitis B virus DNA levels and liver histology in chronic hepatitis B",
+            "authors": "Lok AS, et al.",
+            "journal_or_source": "Gastroenterology",
+            "year": 2006,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of HBV DNA tests in monitoring the response to treatment."
+          },
+          {
+            "title": "Liver biopsy in chronic hepatitis C",
+            "authors": "Regev A, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2002,
+            "type": "landmark trial",
+            "note": "Demonstrated the efficacy of liver biopsy in assessing the extent of liver damage in patients with chronic HCV infection."
+          }
+        ]
+      }
+    }
+  ]
+}

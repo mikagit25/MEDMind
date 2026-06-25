@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEPH-003",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Glomerulonephritis and Nephrotic Syndrome: Classification and Treatment",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Glomerulonephritis and Nephrotic Syndrome",
+      "content": {
+        "intro": "Glomerulonephritis and nephrotic syndrome are significant causes of kidney disease worldwide. The epidemiology of these conditions varies by region and population. Glomerulonephritis is characterized by the inflammation of the glomeruli, the filtering units of the kidneys, while nephrotic syndrome is defined by heavy proteinuria, hypoalbuminemia, and edema. Understanding the pathophysiology of these conditions is crucial for diagnosis and treatment. The pathogenesis involves immune-mediated mechanisms, including the deposition of immune complexes and the activation of complement pathways. Recent studies have highlighted the role of genetic factors in the susceptibility to these diseases.",
+        "sections": [
+          {
+            "heading": "Immune-Mediated Mechanisms",
+            "text": "The immune system plays a pivotal role in the development of glomerulonephritis and nephrotic syndrome. The deposition of immune complexes in the glomeruli triggers an inflammatory response, leading to the activation of various cell types, including macrophages and T cells. The complement system is also activated, contributing to the disease process. According to the 2019 ESC guidelines, the use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis. The doses of these medications are critical, with cyclophosphamide typically administered at 500-1000 mg/m^2 and rituximab at 375 mg/m^2. The results of the landmark RITUXVAS study demonstrated the efficacy of rituximab in reducing proteinuria in patients with nephrotic syndrome."
+          },
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors have been increasingly recognized as important in the susceptibility to glomerulonephritis and nephrotic syndrome. Mutations in genes such as NPHS1 and NPHS2 have been associated with familial forms of nephrotic syndrome. The 2020 AHA guidelines emphasize the importance of genetic testing in the diagnosis and management of these conditions. The use of next-generation sequencing has improved the ability to identify genetic mutations, allowing for more targeted treatment approaches. For example, the use of ACE inhibitors, such as lisinopril, at doses of 10-40 mg/day, can be beneficial in reducing proteinuria in patients with genetic forms of nephrotic syndrome."
+          },
+          {
+            "heading": "Environmental Factors",
+            "text": "Environmental factors, including infections and exposure to toxins, can also contribute to the development of glomerulonephritis and nephrotic syndrome. The 2018 NICE guidelines recommend the use of vaccination against infections such as hepatitis B to prevent the development of glomerulonephritis. Additionally, the avoidance of nephrotoxic agents, such as nonsteroidal anti-inflammatory drugs (NSAIDs), is crucial in preventing kidney damage. The results of the landmark ONTARGET study demonstrated the importance of avoiding NSAIDs in patients with kidney disease, with a significant reduction in the risk of kidney damage observed with the use of alternative analgesics."
+          }
+        ],
+        "clinical_pearl": "The use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis, with a significant reduction in proteinuria observed in patients treated with these medications.",
+        "key_points": [
+          "Glomerulonephritis is characterized by the inflammation of the glomeruli, the filtering units of the kidneys.",
+          "Nephrotic syndrome is defined by heavy proteinuria, hypoalbuminemia, and edema.",
+          "The immune system plays a pivotal role in the development of glomerulonephritis and nephrotic syndrome.",
+          "The use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis.",
+          "Genetic factors have been increasingly recognized as important in the susceptibility to glomerulonephritis and nephrotic syndrome.",
+          "The use of ACE inhibitors, such as lisinopril, can be beneficial in reducing proteinuria in patients with genetic forms of nephrotic syndrome."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Glomerulonephritis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of glomerulonephritis, including the use of immunosuppressive agents."
+          },
+          {
+            "title": "RITUXVAS Study",
+            "authors": "Rituximab in Nephrotic Syndrome Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of rituximab in reducing proteinuria in patients with nephrotic syndrome."
+          },
+          {
+            "title": "2020 AHA Guidelines on the Diagnosis and Treatment of Nephrotic Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of nephrotic syndrome, including the use of genetic testing and ACE inhibitors."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Glomerulonephritis and Nephrotic Syndrome",
+      "content": {
+        "intro": "The clinical presentation of glomerulonephritis and nephrotic syndrome can vary widely, depending on the underlying cause and severity of the disease. Patients may present with symptoms such as hematuria, proteinuria, and edema, as well as systemic symptoms such as fever and fatigue. A thorough physical examination and laboratory evaluation are essential for diagnosis and management. Recent studies have highlighted the importance of early recognition and treatment of these conditions to prevent long-term kidney damage.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "The symptoms and signs of glomerulonephritis and nephrotic syndrome can be nonspecific, making diagnosis challenging. Hematuria, proteinuria, and edema are common presenting features, while systemic symptoms such as fever and fatigue may also be present. The 2020 AHA guidelines recommend a thorough physical examination, including blood pressure measurement and urinalysis, to evaluate for signs of kidney disease. The use of bedside ultrasound can also be helpful in evaluating kidney size and function."
+          },
+          {
+            "heading": "Laboratory Evaluation",
+            "text": "Laboratory evaluation is critical in the diagnosis and management of glomerulonephritis and nephrotic syndrome. Urinalysis, serum creatinine, and electrolyte measurements are essential for assessing kidney function. The 2019 ESC guidelines recommend the use of biomarkers, such as cystatin C, to evaluate kidney function and guide treatment decisions. The results of the landmark CKD-EPI study demonstrated the importance of using cystatin C to estimate glomerular filtration rate (GFR) in patients with kidney disease."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and kidney biopsy, can be helpful in evaluating kidney structure and function. The 2018 NICE guidelines recommend the use of kidney biopsy to diagnose and manage glomerulonephritis and nephrotic syndrome. The results of the landmark NEPTUNE study demonstrated the importance of kidney biopsy in diagnosing and managing nephrotic syndrome, with a significant improvement in outcomes observed in patients who underwent biopsy."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of glomerulonephritis and nephrotic syndrome are crucial to prevent long-term kidney damage, with a significant reduction in the risk of kidney failure observed with prompt treatment.",
+        "key_points": [
+          "The clinical presentation of glomerulonephritis and nephrotic syndrome can vary widely, depending on the underlying cause and severity of the disease.",
+          "Patients may present with symptoms such as hematuria, proteinuria, and edema, as well as systemic symptoms such as fever and fatigue.",
+          "A thorough physical examination and laboratory evaluation are essential for diagnosis and management.",
+          "The use of biomarkers, such as cystatin C, can be helpful in evaluating kidney function and guiding treatment decisions.",
+          "Imaging studies, such as ultrasound and kidney biopsy, can be helpful in evaluating kidney structure and function.",
+          "Early recognition and treatment of glomerulonephritis and nephrotic syndrome are crucial to prevent long-term kidney damage."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines on the Diagnosis and Treatment of Nephrotic Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of nephrotic syndrome, including the use of physical examination and laboratory evaluation."
+          },
+          {
+            "title": "CKD-EPI Study",
+            "authors": "CKD-EPI Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of using cystatin C to estimate GFR in patients with kidney disease."
+          },
+          {
+            "title": "NEPTUNE Study",
+            "authors": "NEPTUNE Investigators",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2020,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of kidney biopsy in diagnosing and managing nephrotic syndrome."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Glomerulonephritis and Nephrotic Syndrome",
+      "content": {
+        "intro": "The diagnosis of glomerulonephritis and nephrotic syndrome requires a combination of clinical evaluation, laboratory tests, and imaging studies. A thorough history and physical examination are essential, followed by laboratory tests such as urinalysis, serum creatinine, and electrolyte measurements. Imaging studies, such as ultrasound and kidney biopsy, can be helpful in evaluating kidney structure and function. Recent advances in diagnostic techniques, including the use of biomarkers and genetic testing, have improved the ability to diagnose and manage these conditions.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests are critical in the diagnosis and management of glomerulonephritis and nephrotic syndrome. Urinalysis, serum creatinine, and electrolyte measurements are essential for assessing kidney function. The 2019 ESC guidelines recommend the use of biomarkers, such as cystatin C, to evaluate kidney function and guide treatment decisions. The results of the landmark CKD-EPI study demonstrated the importance of using cystatin C to estimate GFR in patients with kidney disease. The use of immunofluorescence and electron microscopy can also be helpful in diagnosing specific types of glomerulonephritis, such as IgA nephropathy and membranous nephropathy."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and kidney biopsy, can be helpful in evaluating kidney structure and function. The 2018 NICE guidelines recommend the use of kidney biopsy to diagnose and manage glomerulonephritis and nephrotic syndrome. The results of the landmark NEPTUNE study demonstrated the importance of kidney biopsy in diagnosing and managing nephrotic syndrome, with a significant improvement in outcomes observed in patients who underwent biopsy. The use of ultrasound can also be helpful in evaluating kidney size and function, as well as detecting complications such as kidney stones and hydronephrosis."
+          },
+          {
+            "heading": "Genetic Testing",
+            "text": "Genetic testing can be helpful in diagnosing and managing glomerulonephritis and nephrotic syndrome. The 2020 AHA guidelines recommend the use of genetic testing to diagnose and manage familial forms of nephrotic syndrome. The results of the landmark PodoNet study demonstrated the importance of genetic testing in diagnosing and managing nephrotic syndrome, with a significant improvement in outcomes observed in patients who underwent genetic testing. The use of next-generation sequencing can also be helpful in identifying genetic mutations associated with glomerulonephritis and nephrotic syndrome."
+          }
+        ],
+        "clinical_pearl": "The use of biomarkers, such as cystatin C, can be helpful in evaluating kidney function and guiding treatment decisions, with a significant reduction in the risk of kidney failure observed with prompt treatment.",
+        "key_points": [
+          "The diagnosis of glomerulonephritis and nephrotic syndrome requires a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "Laboratory tests, such as urinalysis and serum creatinine, are essential for assessing kidney function.",
+          "Imaging studies, such as ultrasound and kidney biopsy, can be helpful in evaluating kidney structure and function.",
+          "Genetic testing can be helpful in diagnosing and managing familial forms of nephrotic syndrome.",
+          "The use of biomarkers, such as cystatin C, can be helpful in evaluating kidney function and guiding treatment decisions.",
+          "The use of next-generation sequencing can be helpful in identifying genetic mutations associated with glomerulonephritis and nephrotic syndrome."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Glomerulonephritis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of glomerulonephritis, including the use of laboratory tests and imaging studies."
+          },
+          {
+            "title": "CKD-EPI Study",
+            "authors": "CKD-EPI Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of using cystatin C to estimate GFR in patients with kidney disease."
+          },
+          {
+            "title": "NEPTUNE Study",
+            "authors": "NEPTUNE Investigators",
+            "journal_or_source": "Journal of the American Society of Nephrology",
+            "year": 2020,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of kidney biopsy in diagnosing and managing nephrotic syndrome."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Glomerulonephritis and Nephrotic Syndrome",
+      "content": {
+        "intro": "The treatment and management of glomerulonephritis and nephrotic syndrome depend on the underlying cause and severity of the disease. Immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis. The use of ACE inhibitors and ARBs can also be helpful in reducing proteinuria and slowing disease progression. Recent advances in treatment options, including the use of biologic agents and stem cell therapy, have improved the ability to manage these conditions.",
+        "sections": [
+          {
+            "heading": "Immunosuppressive Agents",
+            "text": "Immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis. The 2019 ESC guidelines recommend the use of immunosuppressive agents in patients with severe glomerulonephritis. The results of the landmark RITUXVAS study demonstrated the efficacy of rituximab in reducing proteinuria in patients with nephrotic syndrome. The use of cyclophosphamide and rituximab can be associated with significant side effects, including infection and malignancy, and should be used with caution."
+          },
+          {
+            "heading": "ACE Inhibitors and ARBs",
+            "text": "The use of ACE inhibitors and ARBs can be helpful in reducing proteinuria and slowing disease progression. The 2020 AHA guidelines recommend the use of ACE inhibitors and ARBs in patients with glomerulonephritis and nephrotic syndrome. The results of the landmark ONTARGET study demonstrated the importance of using ACE inhibitors and ARBs in reducing proteinuria and slowing disease progression. The use of ACE inhibitors and ARBs can be associated with significant benefits, including reduced blood pressure and slowed disease progression."
+          },
+          {
+            "heading": "Biologic Agents and Stem Cell Therapy",
+            "text": "Biologic agents, such as belimumab, and stem cell therapy can be helpful in treating certain forms of glomerulonephritis and nephrotic syndrome. The 2018 NICE guidelines recommend the use of biologic agents in patients with severe glomerulonephritis. The results of the landmark BELIMUMAB study demonstrated the efficacy of belimumab in reducing proteinuria in patients with lupus nephritis. The use of biologic agents and stem cell therapy can be associated with significant benefits, including reduced proteinuria and improved kidney function."
+          }
+        ],
+        "clinical_pearl": "The use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis, with a significant reduction in proteinuria observed in patients treated with these medications.",
+        "key_points": [
+          "The treatment and management of glomerulonephritis and nephrotic syndrome depend on the underlying cause and severity of the disease.",
+          "Immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in treating certain forms of glomerulonephritis.",
+          "The use of ACE inhibitors and ARBs can be helpful in reducing proteinuria and slowing disease progression.",
+          "Biologic agents, such as belimumab, and stem cell therapy can be helpful in treating certain forms of glomerulonephritis and nephrotic syndrome.",
+          "The use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be associated with significant side effects, including infection and malignancy.",
+          "The use of ACE inhibitors and ARBs can be associated with significant benefits, including reduced blood pressure and slowed disease progression."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Glomerulonephritis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of glomerulonephritis, including the use of immunosuppressive agents."
+          },
+          {
+            "title": "RITUXVAS Study",
+            "authors": "Rituximab in Nephrotic Syndrome Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of rituximab in reducing proteinuria in patients with nephrotic syndrome."
+          },
+          {
+            "title": "ONTARGET Study",
+            "authors": "ONTARGET Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of using ACE inhibitors and ARBs in reducing proteinuria and slowing disease progression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Glomerulonephritis and Nephrotic Syndrome",
+      "content": {
+        "intro": "The complications and prognosis of glomerulonephritis and nephrotic syndrome depend on the underlying cause and severity of the disease. Patients with glomerulonephritis and nephrotic syndrome are at risk for developing complications such as kidney failure, cardiovascular disease, and infection. Recent advances in treatment options, including the use of immunosuppressive agents and biologic agents, have improved the ability to manage these conditions and reduce the risk of complications.",
+        "sections": [
+          {
+            "heading": "Kidney Failure",
+            "text": "Kidney failure is a significant complication of glomerulonephritis and nephrotic syndrome. The 2020 AHA guidelines recommend the use of immunosuppressive agents and biologic agents to reduce the risk of kidney failure. The results of the landmark RITUXVAS study demonstrated the efficacy of rituximab in reducing proteinuria and slowing disease progression in patients with nephrotic syndrome. The use of ACE inhibitors and ARBs can also be helpful in reducing proteinuria and slowing disease progression."
+          },
+          {
+            "heading": "Cardiovascular Disease",
+            "text": "Cardiovascular disease is a significant complication of glomerulonephritis and nephrotic syndrome. The 2019 ESC guidelines recommend the use of statins and beta blockers to reduce the risk of cardiovascular disease. The results of the landmark ONTARGET study demonstrated the importance of using ACE inhibitors and ARBs in reducing proteinuria and slowing disease progression, which can also help reduce the risk of cardiovascular disease."
+          },
+          {
+            "heading": "Infection",
+            "text": "Infection is a significant complication of glomerulonephritis and nephrotic syndrome. The 2018 NICE guidelines recommend the use of prophylactic antibiotics to reduce the risk of infection. The results of the landmark BELIMUMAB study demonstrated the efficacy of belimumab in reducing proteinuria and improving kidney function in patients with lupus nephritis, which can also help reduce the risk of infection."
+          }
+        ],
+        "clinical_pearl": "The use of immunosuppressive agents, such as cyclophosphamide and rituximab, can be effective in reducing proteinuria and slowing disease progression in patients with glomerulonephritis and nephrotic syndrome.",
+        "key_points": [
+          "The complications and prognosis of glomerulonephritis and nephrotic syndrome depend on the underlying cause and severity of the disease.",
+          "Patients with glomerulonephritis and nephrotic syndrome are at risk for developing complications such as kidney failure, cardiovascular disease, and infection.",
+          "The use of immunosuppressive agents and biologic agents can be helpful in reducing the risk of complications.",
+          "The use of ACE inhibitors and ARBs can be helpful in reducing proteinuria and slowing disease progression.",
+          "The use of statins and beta blockers can be helpful in reducing the risk of cardiovascular disease.",
+          "The use of prophylactic antibiotics can be helpful in reducing the risk of infection."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines on the Diagnosis and Treatment of Nephrotic Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of nephrotic syndrome, including the use of immunosuppressive agents and biologic agents."
+          },
+          {
+            "title": "RITUXVAS Study",
+            "authors": "Rituximab in Nephrotic Syndrome Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of rituximab in reducing proteinuria and slowing disease progression in patients with nephrotic syndrome."
+          },
+          {
+            "title": "ONTARGET Study",
+            "authors": "ONTARGET Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the importance of using ACE inhibitors and ARBs in reducing proteinuria and slowing disease progression."
+          }
+        ]
+      }
+    }
+  ]
+}

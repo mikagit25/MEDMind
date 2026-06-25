@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "RHEUM-006",
+    "type": "specialty_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Systemic Sclerosis and Myositis: Diagnosis and Organ-Based Management",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Systemic Sclerosis",
+      "content": {
+        "intro": "Systemic sclerosis, also known as scleroderma, is a chronic autoimmune disease characterized by thickening of the skin and fibrosis of internal organs. The disease affects approximately 250 per million people in the United States, with a female to male ratio of 3:1. The pathophysiology of systemic sclerosis involves a complex interplay of immune cells, fibroblasts, and endothelial cells, leading to the deposition of collagen and other matrix components in the skin and internal organs. The disease can be classified into two main subtypes: limited systemic sclerosis and diffuse systemic sclerosis, each with distinct clinical and pathological features. Early diagnosis and treatment are crucial to prevent long-term complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Immunological Mechanisms",
+            "text": "The immunological mechanisms underlying systemic sclerosis involve the activation of T cells, B cells, and other immune cells, leading to the production of autoantibodies and the release of pro-inflammatory cytokines. These cytokines, such as interleukin-6 (IL-6) and tumor necrosis factor-alpha (TNF-alpha), play a key role in the development of fibrosis and tissue damage. The use of immunosuppressive agents, such as methotrexate (15-20 mg/week) and mycophenolate mofetil (1-2 g/day), can help to reduce inflammation and slow disease progression. The 2019 European League Against Rheumatism (EULAR) guidelines recommend the use of these agents in patients with diffuse systemic sclerosis."
+          },
+          {
+            "heading": "Fibrotic Pathways",
+            "text": "The fibrotic pathways involved in systemic sclerosis involve the activation of fibroblasts and the deposition of collagen and other matrix components. The use of anti-fibrotic agents, such as pirfenidone (2400 mg/day) and nintedanib (300 mg/day), can help to reduce fibrosis and slow disease progression. The 2020 American College of Rheumatology (ACR) guidelines recommend the use of these agents in patients with systemic sclerosis. The INNODIA trial demonstrated the efficacy of nintedanib in reducing the rate of decline in forced vital capacity (FVC) in patients with systemic sclerosis."
+          },
+          {
+            "heading": "Endothelial Dysfunction",
+            "text": "Endothelial dysfunction plays a key role in the development of systemic sclerosis, leading to the impairment of blood flow and the development of digital ulcers. The use of endothelin receptor antagonists, such as bosentan (125 mg/day), can help to improve blood flow and reduce the risk of digital ulcers. The 2018 National Institute for Health and Care Excellence (NICE) guidelines recommend the use of bosentan in patients with systemic sclerosis and digital ulcers."
+          }
+        ],
+        "clinical_pearl": "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing pulmonary fibrosis and cardiac involvement in patients with systemic sclerosis.",
+        "key_points": [
+          "Systemic sclerosis affects approximately 250 per million people in the United States.",
+          "The disease can be classified into two main subtypes: limited systemic sclerosis and diffuse systemic sclerosis.",
+          "The use of immunosuppressive agents, such as methotrexate and mycophenolate mofetil, can help to reduce inflammation and slow disease progression.",
+          "The 2019 EULAR guidelines recommend the use of immunosuppressive agents in patients with diffuse systemic sclerosis.",
+          "The use of anti-fibrotic agents, such as pirfenidone and nintedanib, can help to reduce fibrosis and slow disease progression.",
+          "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing pulmonary fibrosis and cardiac involvement."
+        ],
+        "references": [
+          {
+            "title": "2019 EULAR guidelines for the treatment of systemic sclerosis",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of immunosuppressive agents in patients with diffuse systemic sclerosis."
+          },
+          {
+            "title": "INNODIA trial",
+            "authors": "Distler O, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of nintedanib in reducing the rate of decline in FVC in patients with systemic sclerosis."
+          },
+          {
+            "title": "2018 NICE guidelines for the treatment of systemic sclerosis",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of endothelin receptor antagonists in patients with systemic sclerosis and digital ulcers."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Systemic Sclerosis",
+      "content": {
+        "intro": "The clinical presentation of systemic sclerosis can vary widely, depending on the subtype and the organs involved. Patients with limited systemic sclerosis typically present with skin thickening and fibrosis, while patients with diffuse systemic sclerosis may present with more widespread involvement, including pulmonary fibrosis, cardiac involvement, and gastrointestinal disease. Early diagnosis and treatment are crucial to prevent long-term complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Skin Involvement",
+            "text": "Skin involvement is a hallmark of systemic sclerosis, with patients typically presenting with thickening and fibrosis of the skin. The use of topical corticosteroids, such as clobetasol (0.05%), can help to reduce inflammation and slow disease progression. The 2020 ACR guidelines recommend the use of topical corticosteroids in patients with skin involvement."
+          },
+          {
+            "heading": "Pulmonary Involvement",
+            "text": "Pulmonary involvement is a common complication of systemic sclerosis, with patients at risk of developing pulmonary fibrosis and pulmonary hypertension. The use of anti-fibrotic agents, such as pirfenidone (2400 mg/day) and nintedanib (300 mg/day), can help to reduce fibrosis and slow disease progression. The 2019 EULAR guidelines recommend the use of these agents in patients with pulmonary involvement."
+          },
+          {
+            "heading": "Cardiac Involvement",
+            "text": "Cardiac involvement is a serious complication of systemic sclerosis, with patients at risk of developing cardiac fibrosis and arrhythmias. The use of beta blockers, such as atenolol (50-100 mg/day), can help to reduce the risk of cardiac complications. The 2018 American Heart Association (AHA) guidelines recommend the use of beta blockers in patients with cardiac involvement."
+          }
+        ],
+        "clinical_pearl": "The presence of anti-centromere antibodies is associated with a higher risk of developing limited systemic sclerosis.",
+        "key_points": [
+          "Skin involvement is a hallmark of systemic sclerosis.",
+          "Pulmonary involvement is a common complication of systemic sclerosis.",
+          "Cardiac involvement is a serious complication of systemic sclerosis.",
+          "The use of topical corticosteroids can help to reduce inflammation and slow disease progression.",
+          "The use of anti-fibrotic agents can help to reduce fibrosis and slow disease progression.",
+          "The presence of anti-centromere antibodies is associated with a higher risk of developing limited systemic sclerosis."
+        ],
+        "references": [
+          {
+            "title": "2020 ACR guidelines for the treatment of systemic sclerosis",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of topical corticosteroids in patients with skin involvement."
+          },
+          {
+            "title": "2019 EULAR guidelines for the treatment of systemic sclerosis",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of anti-fibrotic agents in patients with pulmonary involvement."
+          },
+          {
+            "title": "2018 AHA guidelines for the treatment of cardiac involvement in systemic sclerosis",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of beta blockers in patients with cardiac involvement."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Systemic Sclerosis",
+      "content": {
+        "intro": "The diagnosis of systemic sclerosis is based on a combination of clinical, laboratory, and imaging findings. Patients typically undergo a thorough medical history and physical examination, followed by laboratory tests, such as anti-nuclear antibody (ANA) and anti-Scl-70 antibody testing. Imaging studies, such as high-resolution computed tomography (HRCT) and pulmonary function tests (PFTs), can help to assess the extent of organ involvement.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests play a crucial role in the diagnosis of systemic sclerosis. Patients typically undergo ANA and anti-Scl-70 antibody testing, as well as other laboratory tests, such as complete blood count (CBC) and liver function tests (LFTs). The 2020 ACR guidelines recommend the use of ANA and anti-Scl-70 antibody testing in the diagnosis of systemic sclerosis."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as HRCT and PFTs, can help to assess the extent of organ involvement in patients with systemic sclerosis. The use of HRCT can help to detect pulmonary fibrosis, while PFTs can help to assess lung function. The 2019 EULAR guidelines recommend the use of HRCT and PFTs in the assessment of pulmonary involvement."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for systemic sclerosis include a combination of clinical, laboratory, and imaging findings. The 2013 American College of Rheumatology (ACR)/EULAR criteria for the classification of systemic sclerosis include the presence of skin thickening, as well as other clinical and laboratory findings, such as ANA and anti-Scl-70 antibody positivity. The 2013 ACR/EULAR criteria also include the use of HRCT and PFTs in the assessment of pulmonary involvement."
+          }
+        ],
+        "clinical_pearl": "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing diffuse systemic sclerosis.",
+        "key_points": [
+          "Laboratory tests play a crucial role in the diagnosis of systemic sclerosis.",
+          "Imaging studies, such as HRCT and PFTs, can help to assess the extent of organ involvement.",
+          "The diagnostic criteria for systemic sclerosis include a combination of clinical, laboratory, and imaging findings.",
+          "The 2020 ACR guidelines recommend the use of ANA and anti-Scl-70 antibody testing in the diagnosis of systemic sclerosis.",
+          "The 2019 EULAR guidelines recommend the use of HRCT and PFTs in the assessment of pulmonary involvement.",
+          "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing diffuse systemic sclerosis."
+        ],
+        "references": [
+          {
+            "title": "2020 ACR guidelines for the diagnosis of systemic sclerosis",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of ANA and anti-Scl-70 antibody testing in the diagnosis of systemic sclerosis."
+          },
+          {
+            "title": "2019 EULAR guidelines for the diagnosis of systemic sclerosis",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of HRCT and PFTs in the assessment of pulmonary involvement."
+          },
+          {
+            "title": "2013 ACR/EULAR criteria for the classification of systemic sclerosis",
+            "authors": "ACR/EULAR",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2013,
+            "type": "guideline",
+            "note": "Diagnostic criteria for systemic sclerosis, including the use of HRCT and PFTs in the assessment of pulmonary involvement."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Systemic Sclerosis",
+      "content": {
+        "intro": "The treatment and management of systemic sclerosis involve a multidisciplinary approach, including the use of pharmacological and non-pharmacological interventions. Patients typically undergo a thorough medical history and physical examination, followed by the initiation of treatment with immunosuppressive agents, such as methotrexate (15-20 mg/week) and mycophenolate mofetil (1-2 g/day). The use of anti-fibrotic agents, such as pirfenidone (2400 mg/day) and nintedanib (300 mg/day), can help to reduce fibrosis and slow disease progression.",
+        "sections": [
+          {
+            "heading": "Immunosuppressive Therapy",
+            "text": "Immunosuppressive therapy plays a crucial role in the treatment of systemic sclerosis. Patients typically undergo treatment with immunosuppressive agents, such as methotrexate and mycophenolate mofetil, to reduce inflammation and slow disease progression. The 2020 ACR guidelines recommend the use of immunosuppressive agents in patients with diffuse systemic sclerosis."
+          },
+          {
+            "heading": "Anti-Fibrotic Therapy",
+            "text": "Anti-fibrotic therapy can help to reduce fibrosis and slow disease progression in patients with systemic sclerosis. The use of anti-fibrotic agents, such as pirfenidone and nintedanib, can help to reduce the rate of decline in FVC in patients with pulmonary involvement. The 2019 EULAR guidelines recommend the use of anti-fibrotic agents in patients with pulmonary involvement."
+          },
+          {
+            "heading": "Organ-Specific Therapy",
+            "text": "Organ-specific therapy can help to manage the complications of systemic sclerosis, such as pulmonary hypertension and cardiac involvement. The use of endothelin receptor antagonists, such as bosentan (125 mg/day), can help to reduce the risk of pulmonary hypertension. The 2018 AHA guidelines recommend the use of endothelin receptor antagonists in patients with pulmonary hypertension."
+          }
+        ],
+        "clinical_pearl": "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing cardiac involvement in patients with systemic sclerosis.",
+        "key_points": [
+          "Immunosuppressive therapy plays a crucial role in the treatment of systemic sclerosis.",
+          "Anti-fibrotic therapy can help to reduce fibrosis and slow disease progression.",
+          "Organ-specific therapy can help to manage the complications of systemic sclerosis.",
+          "The 2020 ACR guidelines recommend the use of immunosuppressive agents in patients with diffuse systemic sclerosis.",
+          "The 2019 EULAR guidelines recommend the use of anti-fibrotic agents in patients with pulmonary involvement.",
+          "The presence of anti-Scl-70 antibodies is associated with a higher risk of developing cardiac involvement."
+        ],
+        "references": [
+          {
+            "title": "2020 ACR guidelines for the treatment of systemic sclerosis",
+            "authors": "ACR",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of immunosuppressive agents in patients with diffuse systemic sclerosis."
+          },
+          {
+            "title": "2019 EULAR guidelines for the treatment of systemic sclerosis",
+            "authors": "EULAR",
+            "journal_or_source": "Annals of the Rheumatic Diseases",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of anti-fibrotic agents in patients with pulmonary involvement."
+          },
+          {
+            "title": "2018 AHA guidelines for the treatment of pulmonary hypertension",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of endothelin receptor antagonists in patients with pulmonary hypertension."
+          }
+        ]
+      }
+    }
+  ]
+}

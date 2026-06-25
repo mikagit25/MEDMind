@@ -121,7 +121,7 @@ PROVIDERS = {
     },
     "groq": {
         "base_url":   "https://api.groq.com/openai/v1/chat/completions",
-        "env_vars":   ["GROQ_API_KEY"] + [f"GROQ_API_KEY_{i}" for i in range(2, 10)],
+        "env_vars":   ["GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"],
         "models":     ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
         "default":    "llama-3.3-70b-versatile",
         "rpd":        14400,
@@ -318,7 +318,7 @@ def generate_article(topic: str, category: str, model: str,
 
 def load_keys(provider_cfg: dict) -> list[str]:
     keys: list[str] = []
-    env_file = os.path.join(os.path.dirname(__file__), "backend", ".env.prod")
+    env_file = os.path.join(os.path.dirname(__file__), "..", "..", "backend", ".env.prod")
     if os.path.exists(env_file):
         with open(env_file) as f:
             for line in f:

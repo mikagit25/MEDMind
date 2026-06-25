@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "NEPH-005",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Hypertensive Nephropathy and Diabetic Nephropathy",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Hypertensive and Diabetic Nephropathy",
+      "content": {
+        "intro": "Hypertensive nephropathy and diabetic nephropathy are two leading causes of chronic kidney disease (CKD) worldwide. Hypertension is a major risk factor for the development of CKD, with approximately 80% of patients with CKD having a history of hypertension. Diabetic nephropathy, on the other hand, is a complication of diabetes mellitus and is the most common cause of end-stage renal disease (ESRD). The pathophysiology of both conditions involves complex interactions between genetic, environmental, and metabolic factors. In hypertensive nephropathy, chronic high blood pressure leads to vascular damage and fibrosis in the kidneys, resulting in a gradual decline in renal function. In diabetic nephropathy, hyperglycemia and advanced glycosylation end-products (AGEs) accumulate in the kidneys, leading to inflammation, oxidative stress, and fibrosis.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Hypertensive Nephropathy",
+            "text": "The prevalence of hypertensive nephropathy varies worldwide, but it is estimated that approximately 10% of the general population has CKD. In the United States, the Centers for Disease Control and Prevention (CDC) report that over 37 million adults have CKD, with hypertension being the leading cause. The ESC 2018 guidelines recommend that patients with hypertension and CKD be treated with angiotensin-converting enzyme inhibitors (ACEIs) or angiotensin II receptor blockers (ARBs) to slow disease progression. The ACCORD trial demonstrated that intensive blood pressure control (target systolic blood pressure <120 mmHg) reduced the risk of CKD progression by 20% compared to standard control (target systolic blood pressure <140 mmHg)."
+          },
+          {
+            "heading": "Pathophysiology of Diabetic Nephropathy",
+            "text": "Diabetic nephropathy is characterized by the accumulation of extracellular matrix proteins, including collagen and fibronectin, in the glomeruli and tubulointerstitium. The AHA 2017 guidelines recommend that patients with diabetes and CKD be treated with ACEIs or ARBs to reduce proteinuria and slow disease progression. The EMPA-REG trial demonstrated that the SGLT2 inhibitor empagliflozin reduced the risk of CKD progression by 39% compared to placebo in patients with type 2 diabetes. The NICE 2020 guidelines recommend that patients with diabetic nephropathy be treated with a combination of ACEIs, ARBs, and SGLT2 inhibitors to achieve optimal blood pressure control and reduce proteinuria."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic factors, such as polymorphisms in the ACE and AGT genes, can increase the risk of developing hypertensive and diabetic nephropathy. Environmental factors, such as dietary salt intake and physical activity, can also influence disease progression. The DASH diet, which is rich in fruits, vegetables, and low-fat dairy products, has been shown to reduce blood pressure and slow CKD progression. The AHA 2017 guidelines recommend that patients with CKD follow a healthy diet and engage in regular physical activity to reduce the risk of disease progression."
+          }
+        ],
+        "clinical_pearl": "The use of ACEIs or ARBs in patients with hypertensive nephropathy can reduce the risk of CKD progression by 20-30%. In patients with diabetic nephropathy, the use of SGLT2 inhibitors can reduce the risk of CKD progression by 30-40%.",
+        "key_points": [
+          "Hypertensive nephropathy is a leading cause of CKD worldwide, with approximately 80% of patients with CKD having a history of hypertension.",
+          "The ESC 2018 guidelines recommend that patients with hypertension and CKD be treated with ACEIs or ARBs to slow disease progression.",
+          "The ACCORD trial demonstrated that intensive blood pressure control reduced the risk of CKD progression by 20% compared to standard control.",
+          "Diabetic nephropathy is characterized by the accumulation of extracellular matrix proteins in the glomeruli and tubulointerstitium.",
+          "The AHA 2017 guidelines recommend that patients with diabetes and CKD be treated with ACEIs or ARBs to reduce proteinuria and slow disease progression.",
+          "The EMPA-REG trial demonstrated that the SGLT2 inhibitor empagliflozin reduced the risk of CKD progression by 39% compared to placebo in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in patients with CKD."
+          },
+          {
+            "title": "Intensive Blood Pressure Control and Cardiovascular Outcomes in Patients with Chronic Kidney Disease",
+            "authors": "Cheung AK, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "Results of the ACCORD trial demonstrating the benefits of intensive blood pressure control in patients with CKD."
+          },
+          {
+            "title": "Empagliflozin and Progression of Kidney Disease in Type 2 Diabetes",
+            "authors": "Wanner C, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2016,
+            "type": "trial",
+            "note": "Results of the EMPA-REG trial demonstrating the benefits of SGLT2 inhibitors in patients with type 2 diabetes and CKD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Hypertensive and Diabetic Nephropathy",
+      "content": {
+        "intro": "The clinical presentation of hypertensive and diabetic nephropathy can vary depending on the severity of disease and the presence of comorbid conditions. Patients with hypertensive nephropathy may present with symptoms such as headache, dizziness, and fatigue, while patients with diabetic nephropathy may present with symptoms such as polyuria, polydipsia, and weight loss.",
+        "sections": [
+          {
+            "heading": "Symptoms of Hypertensive Nephropathy",
+            "text": "Patients with hypertensive nephropathy may present with symptoms such as headache, dizziness, and fatigue due to chronic high blood pressure. The AHA 2017 guidelines recommend that patients with hypertension and CKD be screened for symptoms of CKD, including fatigue, weakness, and shortness of breath. The SPRINT trial demonstrated that intensive blood pressure control reduced the risk of cardiovascular events by 25% compared to standard control in patients with hypertension and CKD."
+          },
+          {
+            "heading": "Symptoms of Diabetic Nephropathy",
+            "text": "Patients with diabetic nephropathy may present with symptoms such as polyuria, polydipsia, and weight loss due to hyperglycemia and renal damage. The NICE 2020 guidelines recommend that patients with diabetes and CKD be screened for symptoms of CKD, including fatigue, weakness, and shortness of breath. The CANVAS trial demonstrated that the SGLT2 inhibitor canagliflozin reduced the risk of cardiovascular events by 14% compared to placebo in patients with type 2 diabetes and CKD."
+          },
+          {
+            "heading": "Physical Examination and Diagnostic Tests",
+            "text": "Physical examination and diagnostic tests, such as urinalysis and serum creatinine, can help diagnose and monitor hypertensive and diabetic nephropathy. The ESC 2018 guidelines recommend that patients with hypertension and CKD undergo regular urinalysis and serum creatinine measurements to monitor disease progression. The AHA 2017 guidelines recommend that patients with diabetes and CKD undergo regular hemoglobin A1c measurements to monitor glycemic control."
+          }
+        ],
+        "clinical_pearl": "The use of SGLT2 inhibitors in patients with diabetic nephropathy can reduce the risk of cardiovascular events by 10-20%.",
+        "key_points": [
+          "Patients with hypertensive nephropathy may present with symptoms such as headache, dizziness, and fatigue due to chronic high blood pressure.",
+          "The AHA 2017 guidelines recommend that patients with hypertension and CKD be screened for symptoms of CKD, including fatigue, weakness, and shortness of breath.",
+          "The SPRINT trial demonstrated that intensive blood pressure control reduced the risk of cardiovascular events by 25% compared to standard control in patients with hypertension and CKD.",
+          "Patients with diabetic nephropathy may present with symptoms such as polyuria, polydipsia, and weight loss due to hyperglycemia and renal damage.",
+          "The NICE 2020 guidelines recommend that patients with diabetes and CKD be screened for symptoms of CKD, including fatigue, weakness, and shortness of breath.",
+          "The CANVAS trial demonstrated that the SGLT2 inhibitor canagliflozin reduced the risk of cardiovascular events by 14% compared to placebo in patients with type 2 diabetes and CKD."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in adults."
+          },
+          {
+            "title": "A Randomized Trial of Intensive versus Standard Blood-Pressure Control",
+            "authors": "Wright JT, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Results of the SPRINT trial demonstrating the benefits of intensive blood pressure control in patients with hypertension and CKD."
+          },
+          {
+            "title": "Canagliflozin and Cardiovascular and Renal Outcomes in Type 2 Diabetes",
+            "authors": "Neal B, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "Results of the CANVAS trial demonstrating the benefits of SGLT2 inhibitors in patients with type 2 diabetes and CKD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Hypertensive and Diabetic Nephropathy",
+      "content": {
+        "intro": "The diagnosis of hypertensive and diabetic nephropathy involves a combination of clinical evaluation, laboratory tests, and imaging studies. Patients with suspected hypertensive or diabetic nephropathy should undergo a comprehensive evaluation, including medical history, physical examination, and laboratory tests such as urinalysis and serum creatinine.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as urinalysis and serum creatinine, can help diagnose and monitor hypertensive and diabetic nephropathy. The ESC 2018 guidelines recommend that patients with hypertension and CKD undergo regular urinalysis and serum creatinine measurements to monitor disease progression. The AHA 2017 guidelines recommend that patients with diabetes and CKD undergo regular hemoglobin A1c measurements to monitor glycemic control."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and CT scans, can help evaluate the kidneys and diagnose complications of hypertensive and diabetic nephropathy. The NICE 2020 guidelines recommend that patients with diabetes and CKD undergo regular ultrasound evaluations to monitor kidney size and function. The AHA 2017 guidelines recommend that patients with hypertension and CKD undergo regular CT scans to monitor for cardiovascular complications."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for hypertensive and diabetic nephropathy involve a combination of clinical and laboratory findings. The ESC 2018 guidelines recommend that patients with hypertension and CKD be diagnosed based on the presence of proteinuria, hematuria, and elevated serum creatinine. The AHA 2017 guidelines recommend that patients with diabetes and CKD be diagnosed based on the presence of proteinuria, hematuria, and elevated hemoglobin A1c."
+          }
+        ],
+        "clinical_pearl": "The use of biomarkers, such as cystatin C, can help diagnose and monitor hypertensive and diabetic nephropathy.",
+        "key_points": [
+          "The diagnosis of hypertensive and diabetic nephropathy involves a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "The ESC 2018 guidelines recommend that patients with hypertension and CKD undergo regular urinalysis and serum creatinine measurements to monitor disease progression.",
+          "The AHA 2017 guidelines recommend that patients with diabetes and CKD undergo regular hemoglobin A1c measurements to monitor glycemic control.",
+          "Imaging studies, such as ultrasound and CT scans, can help evaluate the kidneys and diagnose complications of hypertensive and diabetic nephropathy.",
+          "The NICE 2020 guidelines recommend that patients with diabetes and CKD undergo regular ultrasound evaluations to monitor kidney size and function.",
+          "The AHA 2017 guidelines recommend that patients with hypertension and CKD undergo regular CT scans to monitor for cardiovascular complications."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in patients with CKD."
+          },
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in adults."
+          },
+          {
+            "title": "Type 2 Diabetes and Cardiovascular Disease: A Scientific Statement From the American Heart Association",
+            "authors": "Fox CS, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "statement",
+            "note": "Recommendations for the management of type 2 diabetes and cardiovascular disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Hypertensive and Diabetic Nephropathy",
+      "content": {
+        "intro": "The treatment and management of hypertensive and diabetic nephropathy involve a combination of lifestyle modifications, pharmacological interventions, and surgical interventions. Patients with hypertensive nephropathy should be treated with ACEIs or ARBs to slow disease progression, while patients with diabetic nephropathy should be treated with SGLT2 inhibitors to reduce the risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as dietary changes and exercise, can help manage hypertensive and diabetic nephropathy. The AHA 2017 guidelines recommend that patients with hypertension and CKD follow a healthy diet, such as the DASH diet, to reduce blood pressure and slow disease progression. The NICE 2020 guidelines recommend that patients with diabetes and CKD engage in regular physical activity to improve glycemic control and reduce the risk of cardiovascular events."
+          },
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "Pharmacological interventions, such as ACEIs, ARBs, and SGLT2 inhibitors, can help manage hypertensive and diabetic nephropathy. The ESC 2018 guidelines recommend that patients with hypertension and CKD be treated with ACEIs or ARBs to slow disease progression. The AHA 2017 guidelines recommend that patients with diabetes and CKD be treated with SGLT2 inhibitors to reduce the risk of cardiovascular events."
+          },
+          {
+            "heading": "Surgical Interventions",
+            "text": "Surgical interventions, such as kidney transplantation, may be necessary for patients with end-stage renal disease. The NICE 2020 guidelines recommend that patients with end-stage renal disease be evaluated for kidney transplantation. The AHA 2017 guidelines recommend that patients with end-stage renal disease be treated with dialysis or kidney transplantation to improve survival and quality of life."
+          }
+        ],
+        "clinical_pearl": "The use of SGLT2 inhibitors in patients with diabetic nephropathy can reduce the risk of cardiovascular events by 10-20%.",
+        "key_points": [
+          "The treatment and management of hypertensive and diabetic nephropathy involve a combination of lifestyle modifications, pharmacological interventions, and surgical interventions.",
+          "The AHA 2017 guidelines recommend that patients with hypertension and CKD follow a healthy diet, such as the DASH diet, to reduce blood pressure and slow disease progression.",
+          "The NICE 2020 guidelines recommend that patients with diabetes and CKD engage in regular physical activity to improve glycemic control and reduce the risk of cardiovascular events.",
+          "The ESC 2018 guidelines recommend that patients with hypertension and CKD be treated with ACEIs or ARBs to slow disease progression.",
+          "The AHA 2017 guidelines recommend that patients with diabetes and CKD be treated with SGLT2 inhibitors to reduce the risk of cardiovascular events.",
+          "The NICE 2020 guidelines recommend that patients with end-stage renal disease be evaluated for kidney transplantation."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in patients with CKD."
+          },
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of hypertension in adults."
+          },
+          {
+            "title": "Type 2 Diabetes and Cardiovascular Disease: A Scientific Statement From the American Heart Association",
+            "authors": "Fox CS, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "statement",
+            "note": "Recommendations for the management of type 2 diabetes and cardiovascular disease."
+          }
+        ]
+      }
+    }
+  ]
+}

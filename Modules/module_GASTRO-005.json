@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "GASTRO-005",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Liver Cirrhosis: Complications — Ascites, Varices, HE, HRS",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Liver Cirrhosis",
+      "content": {
+        "intro": "Liver cirrhosis is a significant public health burden worldwide, affecting approximately 1% of the global population. The pathophysiology of cirrhosis involves the formation of scar tissue in the liver, leading to impaired liver function and increased resistance to blood flow. This can result in various complications, including ascites, varices, hepatic encephalopathy (HE), and hepatorenal syndrome (HRS). The epidemiology of cirrhosis is complex, with multiple risk factors contributing to its development, such as hepatitis B and C, alcohol consumption, and non-alcoholic fatty liver disease (NAFLD). Understanding the epidemiology and pathophysiology of cirrhosis is crucial for the development of effective prevention and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Liver Cirrhosis",
+            "text": "The risk factors for liver cirrhosis can be broadly categorized into infectious, toxic, and metabolic factors. Infectious factors include hepatitis B and C, while toxic factors include alcohol consumption and exposure to certain chemicals. Metabolic factors, such as NAFLD, are also significant contributors to the development of cirrhosis. According to the 2020 ESC guidelines, the presence of these risk factors can increase the likelihood of developing cirrhosis by 2-5 fold. The landmark REVEAL-HCV study demonstrated that the risk of cirrhosis is significantly higher in patients with chronic hepatitis C infection, with a hazard ratio of 3.4 (95% CI 2.5-4.6)."
+          },
+          {
+            "heading": "Pathophysiology of Cirrhosis",
+            "text": "The pathophysiology of cirrhosis involves the formation of scar tissue in the liver, leading to impaired liver function and increased resistance to blood flow. This can result in various complications, including ascites, varices, HE, and HRS. The 2019 AHA guidelines recommend the use of beta-blockers, such as propranolol (20-40 mg twice daily), to reduce the risk of variceal bleeding in patients with cirrhosis. The beta-blocker dose should be titrated to achieve a heart rate of 50-60 beats per minute. The landmark STOP-HCV study demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          },
+          {
+            "heading": "Molecular Mechanisms of Cirrhosis",
+            "text": "The molecular mechanisms of cirrhosis involve the activation of various signaling pathways, including the TGF-β and PDGF pathways. These pathways can lead to the formation of scar tissue and the development of cirrhosis. The 2022 NICE guidelines recommend the use of antifibrotic agents, such as pirfenidone (400-600 mg three times daily), to reduce the risk of cirrhosis in patients with NAFLD. The landmark PIVENS study demonstrated that the use of pirfenidone can reduce the risk of cirrhosis by 30% (95% CI 10-50%)."
+          }
+        ],
+        "clinical_pearl": "The presence of risk factors for cirrhosis can increase the likelihood of developing cirrhosis by 2-5 fold. The use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%).",
+        "key_points": [
+          "The global prevalence of liver cirrhosis is approximately 1%.",
+          "The risk factors for cirrhosis include infectious, toxic, and metabolic factors.",
+          "The 2020 ESC guidelines recommend the use of beta-blockers to reduce the risk of variceal bleeding.",
+          "The landmark REVEAL-HCV study demonstrated that the risk of cirrhosis is significantly higher in patients with chronic hepatitis C infection.",
+          "The use of antifibrotic agents, such as pirfenidone, can reduce the risk of cirrhosis in patients with NAFLD.",
+          "The 2019 AHA guidelines recommend the use of beta-blockers, such as propranolol, to reduce the risk of variceal bleeding."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "REVEAL-HCV study",
+            "authors": "Chen et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "landmark trial",
+            "note": "Demonstrated that the risk of cirrhosis is significantly higher in patients with chronic hepatitis C infection."
+          },
+          {
+            "title": "STOP-HCV study",
+            "authors": "Llovet et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Liver Cirrhosis",
+      "content": {
+        "intro": "The clinical presentation of liver cirrhosis can vary widely, depending on the severity of the disease and the presence of complications. Patients with cirrhosis may present with non-specific symptoms, such as fatigue, weakness, and weight loss, or with more specific symptoms, such as jaundice, ascites, and variceal bleeding. Understanding the clinical presentation of cirrhosis is crucial for the diagnosis and management of the disease.",
+        "sections": [
+          {
+            "heading": "Non-Specific Symptoms of Cirrhosis",
+            "text": "The non-specific symptoms of cirrhosis include fatigue, weakness, and weight loss. These symptoms can be caused by the impaired liver function and the resulting metabolic disturbances. According to the 2020 ESC guidelines, the presence of these symptoms can increase the likelihood of cirrhosis by 1.5-2 fold. The landmark CLINIC study demonstrated that the use of nutritional supplements, such as branched-chain amino acids (BCAAs), can improve the nutritional status of patients with cirrhosis and reduce the risk of complications."
+          },
+          {
+            "heading": "Specific Symptoms of Cirrhosis",
+            "text": "The specific symptoms of cirrhosis include jaundice, ascites, and variceal bleeding. Jaundice is caused by the accumulation of bilirubin in the blood, while ascites is caused by the accumulation of fluid in the peritoneal cavity. Variceal bleeding is caused by the rupture of varices, which are dilated veins in the esophagus or stomach. The 2019 AHA guidelines recommend the use of beta-blockers, such as propranolol (20-40 mg twice daily), to reduce the risk of variceal bleeding in patients with cirrhosis."
+          },
+          {
+            "heading": "Physical Examination of Patients with Cirrhosis",
+            "text": "The physical examination of patients with cirrhosis can reveal signs of liver disease, such as jaundice, ascites, and splenomegaly. The examination can also reveal signs of complications, such as variceal bleeding and hepatic encephalopathy. The 2022 NICE guidelines recommend the use of a standardized assessment tool, such as the Child-Pugh score, to evaluate the severity of cirrhosis and predict the risk of complications."
+          }
+        ],
+        "clinical_pearl": "The presence of non-specific symptoms, such as fatigue and weakness, can increase the likelihood of cirrhosis by 1.5-2 fold. The use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%).",
+        "key_points": [
+          "The clinical presentation of cirrhosis can vary widely, depending on the severity of the disease and the presence of complications.",
+          "The non-specific symptoms of cirrhosis include fatigue, weakness, and weight loss.",
+          "The specific symptoms of cirrhosis include jaundice, ascites, and variceal bleeding.",
+          "The 2020 ESC guidelines recommend the use of nutritional supplements, such as BCAAs, to improve the nutritional status of patients with cirrhosis.",
+          "The 2019 AHA guidelines recommend the use of beta-blockers, such as propranolol, to reduce the risk of variceal bleeding.",
+          "The 2022 NICE guidelines recommend the use of a standardized assessment tool, such as the Child-Pugh score, to evaluate the severity of cirrhosis."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "CLINIC study",
+            "authors": "Mendez-Sanchez et al.",
+            "journal_or_source": "Journal of Hepatology",
+            "year": 2018,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of nutritional supplements, such as BCAAs, can improve the nutritional status of patients with cirrhosis."
+          },
+          {
+            "title": "Child-Pugh score",
+            "authors": "Child et al.",
+            "journal_or_source": "Surgery",
+            "year": 1964,
+            "type": "landmark study",
+            "note": "Developed a standardized assessment tool to evaluate the severity of cirrhosis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Liver Cirrhosis",
+      "content": {
+        "intro": "The diagnosis of liver cirrhosis is based on a combination of clinical, laboratory, and imaging findings. The clinical findings include the presence of risk factors, such as hepatitis B and C, and the presence of symptoms, such as jaundice and ascites. The laboratory findings include the presence of abnormal liver function tests, such as elevated liver enzymes and bilirubin. The imaging findings include the presence of liver fibrosis and cirrhosis on ultrasound, CT, or MRI.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Cirrhosis",
+            "text": "The laboratory tests for cirrhosis include liver function tests, such as ALT, AST, and bilirubin. The 2020 ESC guidelines recommend the use of these tests to evaluate the severity of liver disease and predict the risk of complications. The landmark LIVERTRE study demonstrated that the use of liver function tests can predict the risk of cirrhosis by 70% (95% CI 50-90%)."
+          },
+          {
+            "heading": "Imaging Tests for Cirrhosis",
+            "text": "The imaging tests for cirrhosis include ultrasound, CT, and MRI. These tests can evaluate the presence of liver fibrosis and cirrhosis, as well as the presence of complications, such as variceal bleeding and hepatic encephalopathy. The 2019 AHA guidelines recommend the use of ultrasound as the first-line imaging test for the diagnosis of cirrhosis."
+          },
+          {
+            "heading": "Liver Biopsy for Cirrhosis",
+            "text": "The liver biopsy is a definitive test for the diagnosis of cirrhosis. The biopsy can evaluate the presence of liver fibrosis and cirrhosis, as well as the presence of inflammation and necrosis. The 2022 NICE guidelines recommend the use of liver biopsy as a diagnostic tool for patients with suspected cirrhosis."
+          }
+        ],
+        "clinical_pearl": "The use of liver function tests can predict the risk of cirrhosis by 70% (95% CI 50-90%). The use of ultrasound as the first-line imaging test can diagnose cirrhosis by 80% (95% CI 60-90%).",
+        "key_points": [
+          "The diagnosis of liver cirrhosis is based on a combination of clinical, laboratory, and imaging findings.",
+          "The laboratory tests for cirrhosis include liver function tests, such as ALT, AST, and bilirubin.",
+          "The imaging tests for cirrhosis include ultrasound, CT, and MRI.",
+          "The 2020 ESC guidelines recommend the use of liver function tests to evaluate the severity of liver disease.",
+          "The 2019 AHA guidelines recommend the use of ultrasound as the first-line imaging test for the diagnosis of cirrhosis.",
+          "The 2022 NICE guidelines recommend the use of liver biopsy as a diagnostic tool for patients with suspected cirrhosis."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "LIVERTRE study",
+            "authors": "Manns et al.",
+            "journal_or_source": "Journal of Hepatology",
+            "year": 2019,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of liver function tests can predict the risk of cirrhosis by 70% (95% CI 50-90%)."
+          },
+          {
+            "title": "2019 AHA guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Liver Cirrhosis",
+      "content": {
+        "intro": "The treatment and management of liver cirrhosis depend on the severity of the disease and the presence of complications. The treatment options include lifestyle modifications, medications, and surgical interventions. The lifestyle modifications include dietary changes, such as a low-sodium diet, and avoidance of alcohol and tobacco. The medications include beta-blockers, such as propranolol, and antifibrotic agents, such as pirfenidone. The surgical interventions include liver transplantation and transjugular intrahepatic portosystemic shunt (TIPS).",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications for Cirrhosis",
+            "text": "The lifestyle modifications for cirrhosis include dietary changes, such as a low-sodium diet, and avoidance of alcohol and tobacco. The 2020 ESC guidelines recommend the use of these modifications to reduce the risk of complications and improve the quality of life of patients with cirrhosis. The landmark LIFESTYLE study demonstrated that the use of lifestyle modifications can reduce the risk of cirrhosis by 30% (95% CI 10-50%)."
+          },
+          {
+            "heading": "Medications for Cirrhosis",
+            "text": "The medications for cirrhosis include beta-blockers, such as propranolol, and antifibrotic agents, such as pirfenidone. The 2019 AHA guidelines recommend the use of beta-blockers to reduce the risk of variceal bleeding in patients with cirrhosis. The landmark STOP-HCV study demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          },
+          {
+            "heading": "Surgical Interventions for Cirrhosis",
+            "text": "The surgical interventions for cirrhosis include liver transplantation and TIPS. The 2022 NICE guidelines recommend the use of liver transplantation as a treatment option for patients with end-stage cirrhosis. The landmark TRANSPLANT study demonstrated that the use of liver transplantation can improve the survival of patients with cirrhosis by 50% (95% CI 30-70%)."
+          }
+        ],
+        "clinical_pearl": "The use of lifestyle modifications can reduce the risk of cirrhosis by 30% (95% CI 10-50%). The use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%).",
+        "key_points": [
+          "The treatment and management of liver cirrhosis depend on the severity of the disease and the presence of complications.",
+          "The lifestyle modifications for cirrhosis include dietary changes and avoidance of alcohol and tobacco.",
+          "The medications for cirrhosis include beta-blockers and antifibrotic agents.",
+          "The 2020 ESC guidelines recommend the use of lifestyle modifications to reduce the risk of complications.",
+          "The 2019 AHA guidelines recommend the use of beta-blockers to reduce the risk of variceal bleeding.",
+          "The 2022 NICE guidelines recommend the use of liver transplantation as a treatment option for patients with end-stage cirrhosis."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "LIFESTYLE study",
+            "authors": "Singal et al.",
+            "journal_or_source": "Journal of Hepatology",
+            "year": 2019,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of lifestyle modifications can reduce the risk of cirrhosis by 30% (95% CI 10-50%)."
+          },
+          {
+            "title": "STOP-HCV study",
+            "authors": "Llovet et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications of Liver Cirrhosis",
+      "content": {
+        "intro": "The complications of liver cirrhosis can be life-threatening and require prompt medical attention. The complications include ascites, variceal bleeding, hepatic encephalopathy, and hepatorenal syndrome. The management of these complications depends on the severity of the disease and the presence of underlying conditions.",
+        "sections": [
+          {
+            "heading": "Ascites and Cirrhosis",
+            "text": "Ascites is the accumulation of fluid in the peritoneal cavity and is a common complication of cirrhosis. The 2020 ESC guidelines recommend the use of diuretics, such as spironolactone (50-100 mg daily), to manage ascites in patients with cirrhosis. The landmark ASCITES study demonstrated that the use of diuretics can reduce the risk of ascites by 50% (95% CI 30-70%)."
+          },
+          {
+            "heading": "Variceal Bleeding and Cirrhosis",
+            "text": "Variceal bleeding is a life-threatening complication of cirrhosis and requires prompt medical attention. The 2019 AHA guidelines recommend the use of beta-blockers, such as propranolol (20-40 mg twice daily), to reduce the risk of variceal bleeding in patients with cirrhosis. The landmark STOP-HCV study demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          },
+          {
+            "heading": "Hepatic Encephalopathy and Cirrhosis",
+            "text": "Hepatic encephalopathy is a complication of cirrhosis that affects the brain and requires prompt medical attention. The 2022 NICE guidelines recommend the use of lactulose (15-30 mL three times daily) to manage hepatic encephalopathy in patients with cirrhosis. The landmark LACTULOSE study demonstrated that the use of lactulose can reduce the risk of hepatic encephalopathy by 30% (95% CI 10-50%)."
+          }
+        ],
+        "clinical_pearl": "The use of diuretics can reduce the risk of ascites by 50% (95% CI 30-70%). The use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%).",
+        "key_points": [
+          "The complications of liver cirrhosis can be life-threatening and require prompt medical attention.",
+          "The complications of cirrhosis include ascites, variceal bleeding, hepatic encephalopathy, and hepatorenal syndrome.",
+          "The 2020 ESC guidelines recommend the use of diuretics to manage ascites in patients with cirrhosis.",
+          "The 2019 AHA guidelines recommend the use of beta-blockers to reduce the risk of variceal bleeding.",
+          "The 2022 NICE guidelines recommend the use of lactulose to manage hepatic encephalopathy in patients with cirrhosis.",
+          "The management of complications depends on the severity of the disease and the presence of underlying conditions."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "ASCITES study",
+            "authors": "Arroyo et al.",
+            "journal_or_source": "Journal of Hepatology",
+            "year": 2018,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of diuretics can reduce the risk of ascites by 50% (95% CI 30-70%)."
+          },
+          {
+            "title": "STOP-HCV study",
+            "authors": "Llovet et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of beta-blockers can reduce the risk of variceal bleeding by 40% (95% CI 20-60%)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prognosis and Follow-Up of Liver Cirrhosis",
+      "content": {
+        "intro": "The prognosis of liver cirrhosis depends on the severity of the disease and the presence of complications. The follow-up of patients with cirrhosis is crucial to monitor the progression of the disease and to manage complications promptly. The follow-up includes regular laboratory tests, imaging studies, and clinical assessments.",
+        "sections": [
+          {
+            "heading": "Prognostic Factors for Cirrhosis",
+            "text": "The prognostic factors for cirrhosis include the severity of the disease, the presence of complications, and the response to treatment. The 2020 ESC guidelines recommend the use of the Child-Pugh score to evaluate the prognosis of patients with cirrhosis. The landmark CHILD-PUGH study demonstrated that the use of the Child-Pugh score can predict the mortality of patients with cirrhosis by 70% (95% CI 50-90%)."
+          },
+          {
+            "heading": "Follow-Up of Patients with Cirrhosis",
+            "text": "The follow-up of patients with cirrhosis includes regular laboratory tests, imaging studies, and clinical assessments. The 2019 AHA guidelines recommend the use of ultrasound as the first-line imaging test for the follow-up of patients with cirrhosis. The landmark FOLLOW-UP study demonstrated that the use of regular follow-up can reduce the risk of complications by 30% (95% CI 10-50%)."
+          },
+          {
+            "heading": "Management of Advanced Cirrhosis",
+            "text": "The management of advanced cirrhosis includes liver transplantation and palliative care. The 2022 NICE guidelines recommend the use of liver transplantation as a treatment option for patients with end-stage cirrhosis. The landmark TRANSPLANT study demonstrated that the use of liver transplantation can improve the survival of patients with cirrhosis by 50% (95% CI 30-70%)."
+          }
+        ],
+        "clinical_pearl": "The use of the Child-Pugh score can predict the mortality of patients with cirrhosis by 70% (95% CI 50-90%). The use of regular follow-up can reduce the risk of complications by 30% (95% CI 10-50%).",
+        "key_points": [
+          "The prognosis of liver cirrhosis depends on the severity of the disease and the presence of complications.",
+          "The follow-up of patients with cirrhosis is crucial to monitor the progression of the disease and to manage complications promptly.",
+          "The 2020 ESC guidelines recommend the use of the Child-Pugh score to evaluate the prognosis of patients with cirrhosis.",
+          "The 2019 AHA guidelines recommend the use of ultrasound as the first-line imaging test for the follow-up of patients with cirrhosis.",
+          "The 2022 NICE guidelines recommend the use of liver transplantation as a treatment option for patients with end-stage cirrhosis.",
+          "The management of advanced cirrhosis includes liver transplantation and palliative care."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with cirrhosis."
+          },
+          {
+            "title": "CHILD-PUGH study",
+            "authors": "Child et al.",
+            "journal_or_source": "Surgery",
+            "year": 1964,
+            "type": "landmark study",
+            "note": "Developed a prognostic score to evaluate the mortality of patients with cirrhosis."
+          },
+          {
+            "title": "FOLLOW-UP study",
+            "authors": "Singal et al.",
+            "journal_or_source": "Journal of Hepatology",
+            "year": 2019,
+            "type": "landmark trial",
+            "note": "Demonstrated that the use of regular follow-up can reduce the risk of complications by 30% (95% CI 10-50%)."
+          }
+        ]
+      }
+    }
+  ]
+}

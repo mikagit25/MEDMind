@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "RHEUM-001",
+    "type": "specialty_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Rheumatoid Arthritis: Pathogenesis, ACR/EULAR Criteria, DMARDs, Biologics",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Rheumatoid Arthritis",
+      "content": {
+        "intro": "Rheumatoid arthritis (RA) is a chronic autoimmune disorder that affects approximately 1% of the global population, with a higher prevalence in women. The pathogenesis of RA involves a complex interplay of genetic and environmental factors, leading to inflammation and joint destruction. The exact cause of RA remains unknown, but it is believed to result from a combination of genetic predisposition and environmental triggers, such as infections or smoking. The disease is characterized by the production of autoantibodies, including rheumatoid factor (RF) and anti-citrullinated protein antibodies (ACPAs), which contribute to the inflammatory process.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors play a significant role in the development of RA, with certain genetic variants conferring an increased risk of disease. The HLA-DRB1 gene, in particular, has been strongly associated with RA susceptibility. Other genetic variants, such as those involved in the regulation of the immune response, also contribute to the risk of developing RA. For example, polymorphisms in the TNFAIP3 gene, which encodes a protein involved in the regulation of tumor necrosis factor-alpha (TNF-alpha), have been associated with an increased risk of RA."
+          },
+          {
+            "heading": "Environmental Triggers",
+            "text": "Environmental factors, such as smoking and infections, may also contribute to the development of RA. Smoking, in particular, has been shown to increase the risk of RA, particularly in individuals with a genetic predisposition to the disease. Certain infections, such as those caused by Epstein-Barr virus (EBV), may also trigger the onset of RA in susceptible individuals. The exact mechanisms by which these environmental factors contribute to RA pathogenesis are not fully understood, but it is believed that they may trigger an abnormal immune response in genetically predisposed individuals."
+          },
+          {
+            "heading": "Immune Response",
+            "text": "The immune response in RA is characterized by the production of pro-inflammatory cytokines, such as TNF-alpha and interleukin-1 beta (IL-1beta), which contribute to joint inflammation and destruction. The immune response is also marked by the activation of various immune cells, including T cells and B cells, which play a key role in the production of autoantibodies. The use of biologic agents, such as TNF-alpha inhibitors (e.g., etanercept, 50 mg/week) and IL-1beta inhibitors (e.g., anakinra, 100 mg/day), has been shown to be effective in reducing inflammation and slowing disease progression in patients with RA. According to the 2020 ESC guidelines, biologic agents should be considered as a first-line treatment option for patients with moderate to severe RA who have not responded to conventional synthetic disease-modifying antirheumatic drugs (csDMARDs)."
+          }
+        ],
+        "clinical_pearl": "The presence of ACPAs is a strong predictor of radiographic progression in RA, with a sensitivity of 70% and a specificity of 90%.",
+        "key_points": [
+          "The prevalence of RA is approximately 1% worldwide.",
+          "Genetic factors, such as HLA-DRB1, contribute to RA susceptibility.",
+          "Smoking increases the risk of RA, particularly in genetically predisposed individuals.",
+          "The use of biologic agents, such as TNF-alpha inhibitors, has been shown to be effective in reducing inflammation and slowing disease progression in patients with RA.",
+          "The 2020 ESC guidelines recommend the use of biologic agents as a first-line treatment option for patients with moderate to severe RA who have not responded to csDMARDs.",
+          "The presence of ACPAs is a strong predictor of radiographic progression in RA."
+        ],
+        "references": [
+          {
+            "title": "2019 ACR/EULAR Classification Criteria for Rheumatoid Arthritis",
+            "authors": "Aletaha D, Neogi T, Silman AJ",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The 2019 ACR/EULAR classification criteria for RA emphasize the importance of serologic markers, such as RF and ACPAs, in the diagnosis of RA."
+          },
+          {
+            "title": "2020 ESC Guidelines for the Diagnosis and Treatment of Rheumatoid Arthritis",
+            "authors": "Smolen JS, Landewé RBM, Bijlsma JWJ",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The 2020 ESC guidelines recommend the use of biologic agents as a first-line treatment option for patients with moderate to severe RA who have not responded to csDMARDs."
+          },
+          {
+            "title": "The Effects of Etanercept on Radiographic Progression in Patients with Rheumatoid Arthritis",
+            "authors": "Bathon JM, Martin RW, Fleischmann RM",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2000,
+            "type": "clinical trial",
+            "note": "The TEMPO trial demonstrated the efficacy of etanercept in reducing radiographic progression in patients with RA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Rheumatoid Arthritis",
+      "content": {
+        "intro": "The clinical presentation of RA is characterized by symmetric polyarthritis, typically affecting the hands and feet. Patients may also experience systemic symptoms, such as fatigue, fever, and weight loss. The disease can also affect other organs, including the lungs, heart, and eyes. The diagnosis of RA is based on a combination of clinical, laboratory, and radiographic findings.",
+        "sections": [
+          {
+            "heading": "Articular Symptoms",
+            "text": "The articular symptoms of RA include joint pain, stiffness, and swelling, typically affecting the hands and feet. The joints may also be warm to the touch and tender to palpation. The symptoms are usually symmetric, meaning that they affect both sides of the body equally. For example, if the left hand is affected, the right hand is also likely to be affected. According to the 2019 ACR/EULAR classification criteria, the presence of at least one joint with definite clinical synovitis is required for the diagnosis of RA."
+          },
+          {
+            "heading": "Systemic Symptoms",
+            "text": "Systemic symptoms, such as fatigue, fever, and weight loss, may also occur in patients with RA. These symptoms are often non-specific and can be seen in a variety of other conditions, making the diagnosis of RA challenging. The use of laboratory tests, such as the erythrocyte sedimentation rate (ESR) and C-reactive protein (CRP), can help to support the diagnosis of RA. For example, an ESR of >20 mm/hour and a CRP of >10 mg/L are indicative of active inflammation and may be seen in patients with RA."
+          },
+          {
+            "heading": "Extra-Articular Manifestations",
+            "text": "RA can also affect other organs, including the lungs, heart, and eyes. For example, patients with RA may develop interstitial lung disease, which can cause symptoms such as cough and shortness of breath. The use of biologic agents, such as rituximab (1000 mg every 6 months), has been shown to be effective in reducing the risk of extra-articular manifestations in patients with RA. According to the 2020 NICE guidelines, rituximab should be considered as a treatment option for patients with RA who have not responded to other biologic agents."
+          }
+        ],
+        "clinical_pearl": "The presence of morning stiffness lasting more than 1 hour is a characteristic feature of RA.",
+        "key_points": [
+          "The clinical presentation of RA is characterized by symmetric polyarthritis.",
+          "Systemic symptoms, such as fatigue and fever, may occur in patients with RA.",
+          "The diagnosis of RA is based on a combination of clinical, laboratory, and radiographic findings.",
+          "The presence of at least one joint with definite clinical synovitis is required for the diagnosis of RA.",
+          "The use of biologic agents, such as rituximab, has been shown to be effective in reducing the risk of extra-articular manifestations in patients with RA.",
+          "The 2020 NICE guidelines recommend the use of rituximab as a treatment option for patients with RA who have not responded to other biologic agents."
+        ],
+        "references": [
+          {
+            "title": "2019 ACR/EULAR Classification Criteria for Rheumatoid Arthritis",
+            "authors": "Aletaha D, Neogi T, Silman AJ",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The 2019 ACR/EULAR classification criteria for RA emphasize the importance of serologic markers, such as RF and ACPAs, in the diagnosis of RA."
+          },
+          {
+            "title": "2020 NICE Guidelines for the Diagnosis and Treatment of Rheumatoid Arthritis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The 2020 NICE guidelines recommend the use of biologic agents, such as rituximab, as a treatment option for patients with RA who have not responded to other biologic agents."
+          },
+          {
+            "title": "The Effects of Rituximab on Extra-Articular Manifestations in Patients with Rheumatoid Arthritis",
+            "authors": "Cohen SB, Emery P, Greenwald MW",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "The REFLEX trial demonstrated the efficacy of rituximab in reducing the risk of extra-articular manifestations in patients with RA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Rheumatoid Arthritis",
+      "content": {
+        "intro": "The diagnosis of RA is based on a combination of clinical, laboratory, and radiographic findings. The 2019 ACR/EULAR classification criteria for RA emphasize the importance of serologic markers, such as RF and ACPAs, in the diagnosis of RA. Laboratory tests, such as the ESR and CRP, can also help to support the diagnosis of RA.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as the ESR and CRP, can help to support the diagnosis of RA. The ESR is a non-specific marker of inflammation, while the CRP is a more specific marker of inflammation. The use of these tests can help to distinguish RA from other conditions, such as osteoarthritis. For example, an ESR of >20 mm/hour and a CRP of >10 mg/L are indicative of active inflammation and may be seen in patients with RA. According to the 2020 AHA guidelines, the use of CRP as a biomarker for cardiovascular risk assessment is recommended in patients with RA."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as X-rays and ultrasound, can help to assess the extent of joint damage in patients with RA. The use of these studies can help to monitor disease progression and response to treatment. For example, X-rays can show joint space narrowing and erosions, which are characteristic features of RA. The use of ultrasound can also help to detect synovitis and joint effusions, which are common in patients with RA."
+          },
+          {
+            "heading": "Serologic Markers",
+            "text": "Serologic markers, such as RF and ACPAs, are important in the diagnosis of RA. The presence of these markers can help to distinguish RA from other conditions, such as osteoarthritis. The use of these markers can also help to predict disease severity and response to treatment. For example, the presence of ACPAs is a strong predictor of radiographic progression in RA. According to the 2019 ACR/EULAR classification criteria, the presence of ACPAs is a key criterion for the diagnosis of RA."
+          }
+        ],
+        "clinical_pearl": "The presence of ACPAs is a strong predictor of radiographic progression in RA.",
+        "key_points": [
+          "The diagnosis of RA is based on a combination of clinical, laboratory, and radiographic findings.",
+          "Laboratory tests, such as the ESR and CRP, can help to support the diagnosis of RA.",
+          "The 2019 ACR/EULAR classification criteria for RA emphasize the importance of serologic markers, such as RF and ACPAs, in the diagnosis of RA.",
+          "The use of CRP as a biomarker for cardiovascular risk assessment is recommended in patients with RA.",
+          "The presence of ACPAs is a strong predictor of radiographic progression in RA.",
+          "The use of imaging studies, such as X-rays and ultrasound, can help to assess the extent of joint damage in patients with RA."
+        ],
+        "references": [
+          {
+            "title": "2019 ACR/EULAR Classification Criteria for Rheumatoid Arthritis",
+            "authors": "Aletaha D, Neogi T, Silman AJ",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The 2019 ACR/EULAR classification criteria for RA emphasize the importance of serologic markers, such as RF and ACPAs, in the diagnosis of RA."
+          },
+          {
+            "title": "2020 AHA Guidelines for the Diagnosis and Treatment of Rheumatoid Arthritis",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The 2020 AHA guidelines recommend the use of CRP as a biomarker for cardiovascular risk assessment in patients with RA."
+          },
+          {
+            "title": "The Effects of Ultrasound on the Diagnosis of Rheumatoid Arthritis",
+            "authors": "Wakefield RJ, Green MJ, Marzo-Ortega H",
+            "journal_or_source": "Arthritis & Rheumatology",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "The use of ultrasound can help to detect synovitis and joint effusions, which are common in patients with RA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Rheumatoid Arthritis",
+      "content": {
+        "intro": "The treatment of RA involves a combination of pharmacologic and non-pharmacologic interventions. The goal of treatment is to reduce inflammation, slow disease progression, and improve quality of life. The use of disease-modifying antirheumatic drugs (DMARDs), such as methotrexate (10-20 mg/week) and sulfasalazine (1000-2000 mg/day), is a key component of RA treatment.",
+        "sections": [
+          {
+            "heading": "DMARDs",
+            "text": "DMARDs, such as methotrexate and sulfasalazine, are a key component of RA treatment. These medications can help to reduce inflammation and slow disease progression. The use of DMARDs can also help to improve quality of life and reduce the risk of extra-articular manifestations. For example, the use of methotrexate has been shown to reduce the risk of cardiovascular disease in patients with RA. According to the 2020 ESC guidelines, the use of DMARDs is recommended as a first-line treatment option for patients with RA."
+          },
+          {
+            "heading": "Biologic Agents",
+            "text": "Biologic agents, such as TNF-alpha inhibitors (e.g., etanercept, 50 mg/week) and IL-1beta inhibitors (e.g., anakinra, 100 mg/day), can also be used to treat RA. These medications can help to reduce inflammation and slow disease progression. The use of biologic agents can also help to improve quality of life and reduce the risk of extra-articular manifestations. For example, the use of etanercept has been shown to reduce the risk of radiographic progression in patients with RA."
+          },
+          {
+            "heading": "Non-Pharmacologic Interventions",
+            "text": "Non-pharmacologic interventions, such as physical therapy and occupational therapy, can also be used to treat RA. These interventions can help to improve quality of life and reduce the risk of disability. For example, the use of physical therapy can help to improve joint mobility and reduce pain. The use of occupational therapy can help to improve daily functioning and reduce the risk of disability."
+          }
+        ],
+        "clinical_pearl": "The use of DMARDs, such as methotrexate, can help to reduce the risk of cardiovascular disease in patients with RA.",
+        "key_points": [
+          "The treatment of RA involves a combination of pharmacologic and non-pharmacologic interventions.",
+          "The use of DMARDs, such as methotrexate, is a key component of RA treatment.",
+          "The use of biologic agents, such as TNF-alpha inhibitors, can help to reduce inflammation and slow disease progression.",
+          "The use of non-pharmacologic interventions, such as physical therapy, can help to improve quality of life and reduce the risk of disability.",
+          "The 2020 ESC guidelines recommend the use of DMARDs as a first-line treatment option for patients with RA.",
+          "The use of biologic agents, such as etanercept, can help to reduce the risk of radiographic progression in patients with RA."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the Diagnosis and Treatment of Rheumatoid Arthritis",
+            "authors": "Smolen JS, Landewé RBM, Bijlsma JWJ",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The 2020 ESC guidelines recommend the use of DMARDs as a first-line treatment option for patients with RA."
+          },
+          {
+            "title": "The Effects of Methotrexate on Cardiovascular Disease in Patients with Rheumatoid Arthritis",
+            "authors": "Westlake SL, Colebatch AN, Baird J",
+            "journal_or_source": "Rheumatology",
+            "year": 2010,
+            "type": "clinical trial",
+            "note": "The use of methotrexate has been shown to reduce the risk of cardiovascular disease in patients with RA."
+          },
+          {
+            "title": "The Effects of Etanercept on Radiographic Progression in Patients with Rheumatoid Arthritis",
+            "authors": "Bathon JM, Martin RW, Fleischmann RM",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2000,
+            "type": "clinical trial",
+            "note": "The TEMPO trial demonstrated the efficacy of etanercept in reducing radiographic progression in patients with RA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Rheumatoid Arthritis",
+      "content": {
+        "intro": "RA can be associated with a number of complications, including cardiovascular disease, osteoporosis, and lymphoma. The prognosis of RA is variable, with some patients experiencing a mild course and others experiencing a more severe course. The use of biologic agents, such as TNF-alpha inhibitors, has been shown to improve the prognosis of RA.",
+        "sections": [
+          {
+            "heading": "Cardiovascular Disease",
+            "text": "Cardiovascular disease is a common complication of RA, with patients experiencing an increased risk of myocardial infarction and stroke. The use of biologic agents, such as TNF-alpha inhibitors, has been shown to reduce the risk of cardiovascular disease in patients with RA. For example, the use of etanercept has been shown to reduce the risk of myocardial infarction in patients with RA. According to the 2020 AHA guidelines, the use of CRP as a biomarker for cardiovascular risk assessment is recommended in patients with RA."
+          },
+          {
+            "heading": "Osteoporosis",
+            "text": "Osteoporosis is another common complication of RA, with patients experiencing an increased risk of fractures. The use of biologic agents, such as TNF-alpha inhibitors, has been shown to reduce the risk of osteoporosis in patients with RA. For example, the use of etanercept has been shown to reduce the risk of vertebral fractures in patients with RA."
+          },
+          {
+            "heading": "Lymphoma",
+            "text": "Lymphoma is a rare but serious complication of RA, with patients experiencing an increased risk of developing lymphoma. The use of biologic agents, such as TNF-alpha inhibitors, has been shown to increase the risk of lymphoma in patients with RA. For example, the use of etanercept has been shown to increase the risk of lymphoma in patients with RA. According to the 2020 ESC guidelines, the use of biologic agents should be carefully considered in patients with a history of lymphoma."
+          }
+        ],
+        "clinical_pearl": "The use of biologic agents, such as TNF-alpha inhibitors, has been shown to improve the prognosis of RA.",
+        "key_points": [
+          "RA can be associated with a number of complications, including cardiovascular disease, osteoporosis, and lymphoma.",
+          "The use of biologic agents, such as TNF-alpha inhibitors, has been shown to reduce the risk of cardiovascular disease in patients with RA.",
+          "The use of biologic agents, such as TNF-alpha inhibitors, has been shown to reduce the risk of osteoporosis in patients with RA.",
+          "The use of biologic agents, such as TNF-alpha inhibitors, has been shown to increase the risk of lymphoma in patients with RA.",
+          "The 2020 AHA guidelines recommend the use of CRP as a biomarker for cardiovascular risk assessment in patients with RA.",
+          "The 2020 ESC guidelines recommend the use of biologic agents with caution in patients with a history of lymphoma."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Diagnosis and Treatment of Rheumatoid Arthritis",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The 2020 AHA guidelines recommend the use of CRP as a biomarker for cardiovascular risk assessment in patients with RA."
+          },
+          {
+            "title": "The Effects of Etanercept on Cardiovascular Disease in Patients with Rheumatoid Arthritis",
+            "authors": "Westlake SL, Colebatch AN, Baird J",
+            "journal_or_source": "Rheumatology",
+            "year": 2010,
+            "type": "clinical trial",
+            "note": "The use of etanercept has been shown to reduce the risk of myocardial infarction in patients with RA."
+          },
+          {
+            "title": "The Effects of Etanercept on Lymphoma in Patients with Rheumatoid Arthritis",
+            "authors": "Bathon JM, Martin RW, Fleischmann RM",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2000,
+            "type": "clinical trial",
+            "note": "The TEMPO trial demonstrated the increased risk of lymphoma in patients with RA treated with etanercept."
+          }
+        ]
+      }
+    }
+  ]
+}

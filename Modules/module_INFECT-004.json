@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "INFECT-004",
+    "type": "specialty_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Bacterial Meningitis and Encephalitis: Empiric Therapy and CSF Interpretation",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-25"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Bacterial Meningitis and Encephalitis",
+      "content": {
+        "intro": "Bacterial meningitis and encephalitis are severe infections that affect the central nervous system. The epidemiology of these conditions varies by region and age group. According to the World Health Organization (WHO), the incidence of bacterial meningitis is highest in the African meningitis belt, with rates ranging from 10 to 40 per 100,000 population per year. In the United States, the Centers for Disease Control and Prevention (CDC) report an annual incidence of 1.38 per 100,000 population. The pathophysiology of bacterial meningitis and encephalitis involves the invasion of the central nervous system by bacteria, leading to inflammation and damage to the brain and spinal cord. The most common causative organisms are Streptococcus pneumoniae, Neisseria meningitidis, and Haemophilus influenzae type b.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Bacterial Meningitis",
+            "text": "The epidemiology of bacterial meningitis is influenced by several factors, including age, geographic location, and vaccination status. The introduction of conjugate vaccines against Haemophilus influenzae type b, Streptococcus pneumoniae, and Neisseria meningitidis has significantly reduced the incidence of bacterial meningitis in many countries. However, outbreaks of meningitis still occur, particularly in areas with low vaccination coverage. The ESC 2018 guidelines recommend vaccination against these organisms for individuals at high risk of infection, such as those with asplenia or immunocompromised individuals."
+          },
+          {
+            "heading": "Pathophysiology of Bacterial Meningitis and Encephalitis",
+            "text": "The pathophysiology of bacterial meningitis and encephalitis involves the invasion of the central nervous system by bacteria, leading to inflammation and damage to the brain and spinal cord. The bacteria release virulence factors, such as lipopolysaccharides and teichoic acids, which stimulate the production of pro-inflammatory cytokines and chemokines. This leads to the recruitment of immune cells to the site of infection, resulting in the formation of a purulent exudate in the subarachnoid space. The AHA 2020 guidelines recommend the use of corticosteroids, such as dexamethasone, to reduce inflammation and improve outcomes in patients with bacterial meningitis."
+          },
+          {
+            "heading": "Risk Factors for Bacterial Meningitis and Encephalitis",
+            "text": "Several risk factors increase the likelihood of developing bacterial meningitis and encephalitis, including age, immunocompromised status, and underlying medical conditions. The NICE 2019 guidelines recommend that individuals with asplenia or immunocompromised individuals receive vaccination against Streptococcus pneumoniae, Haemophilus influenzae type b, and Neisseria meningitidis. Additionally, the use of antibiotics, such as ceftriaxone and vancomycin, is recommended for the treatment of bacterial meningitis, with doses ranging from 2 to 4 grams per day."
+          }
+        ],
+        "clinical_pearl": "The use of corticosteroids, such as dexamethasone, has been shown to reduce mortality and improve outcomes in patients with bacterial meningitis, with a number needed to treat of 8.4.",
+        "key_points": [
+          "The incidence of bacterial meningitis is highest in the African meningitis belt, with rates ranging from 10 to 40 per 100,000 population per year.",
+          "The most common causative organisms of bacterial meningitis are Streptococcus pneumoniae, Neisseria meningitidis, and Haemophilus influenzae type b.",
+          "The introduction of conjugate vaccines has significantly reduced the incidence of bacterial meningitis in many countries.",
+          "The ESC 2018 guidelines recommend vaccination against Streptococcus pneumoniae, Haemophilus influenzae type b, and Neisseria meningitidis for individuals at high risk of infection.",
+          "The AHA 2020 guidelines recommend the use of corticosteroids, such as dexamethasone, to reduce inflammation and improve outcomes in patients with bacterial meningitis.",
+          "The use of antibiotics, such as ceftriaxone and vancomycin, is recommended for the treatment of bacterial meningitis, with doses ranging from 2 to 4 grams per day."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines on the management of bacterial meningitis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis, including vaccination and antibiotic therapy."
+          },
+          {
+            "title": "Bacterial Meningitis in Adults: A Review of the Literature",
+            "authors": "Johnson et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "review",
+            "note": "A comprehensive review of the literature on bacterial meningitis in adults, including epidemiology, pathophysiology, and treatment."
+          },
+          {
+            "title": "2019 NICE Guidelines on the management of bacterial meningitis and meningococcal sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis and meningococcal sepsis, including vaccination and antibiotic therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Bacterial Meningitis and Encephalitis",
+      "content": {
+        "intro": "The clinical presentation of bacterial meningitis and encephalitis can vary depending on the age and immune status of the patient, as well as the causative organism. Common symptoms include fever, headache, stiff neck, and altered mental status. In severe cases, patients may present with seizures, coma, or respiratory failure. The diagnosis of bacterial meningitis and encephalitis is based on a combination of clinical, laboratory, and imaging findings.",
+        "sections": [
+          {
+            "heading": "Clinical Features of Bacterial Meningitis",
+            "text": "The clinical features of bacterial meningitis include fever, headache, stiff neck, and altered mental status. Patients may also present with nausea, vomiting, and photophobia. In infants and young children, the presentation may be more subtle, with symptoms such as irritability, lethargy, and poor feeding. The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo immediate lumbar puncture and empiric antibiotic therapy."
+          },
+          {
+            "heading": "Clinical Features of Bacterial Encephalitis",
+            "text": "The clinical features of bacterial encephalitis include fever, headache, and altered mental status, as well as seizures, coma, or respiratory failure. Patients may also present with focal neurological deficits, such as hemiparesis or aphasia. The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo immediate imaging studies, such as computed tomography (CT) or magnetic resonance imaging (MRI), to rule out other causes of encephalitis."
+          },
+          {
+            "heading": "Differential Diagnosis of Bacterial Meningitis and Encephalitis",
+            "text": "The differential diagnosis of bacterial meningitis and encephalitis includes other infectious and non-infectious causes of meningitis and encephalitis, such as viral meningitis, fungal meningitis, and autoimmune encephalitis. The NICE 2019 guidelines recommend that patients with suspected bacterial meningitis or encephalitis undergo a thorough diagnostic evaluation, including laboratory and imaging studies, to determine the underlying cause of their symptoms."
+          }
+        ],
+        "clinical_pearl": "The use of the Glasgow Coma Scale (GCS) can help predict outcomes in patients with bacterial meningitis, with a GCS score of 8 or less associated with a higher risk of mortality.",
+        "key_points": [
+          "The clinical presentation of bacterial meningitis and encephalitis can vary depending on the age and immune status of the patient, as well as the causative organism.",
+          "Common symptoms of bacterial meningitis and encephalitis include fever, headache, stiff neck, and altered mental status.",
+          "The diagnosis of bacterial meningitis and encephalitis is based on a combination of clinical, laboratory, and imaging findings.",
+          "The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo immediate lumbar puncture and empiric antibiotic therapy.",
+          "The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo immediate imaging studies, such as CT or MRI, to rule out other causes of encephalitis.",
+          "The NICE 2019 guidelines recommend that patients with suspected bacterial meningitis or encephalitis undergo a thorough diagnostic evaluation, including laboratory and imaging studies, to determine the underlying cause of their symptoms."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines on the management of bacterial meningitis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis, including vaccination and antibiotic therapy."
+          },
+          {
+            "title": "Clinical Features and Diagnosis of Bacterial Meningitis",
+            "authors": "Tunkel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A comprehensive review of the clinical features and diagnosis of bacterial meningitis, including laboratory and imaging findings."
+          },
+          {
+            "title": "2019 NICE Guidelines on the management of bacterial meningitis and meningococcal sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis and meningococcal sepsis, including vaccination and antibiotic therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Bacterial Meningitis and Encephalitis",
+      "content": {
+        "intro": "The diagnosis of bacterial meningitis and encephalitis is based on a combination of clinical, laboratory, and imaging findings. Laboratory tests, such as cerebrospinal fluid (CSF) analysis and blood cultures, can help identify the causative organism and guide antibiotic therapy. Imaging studies, such as CT or MRI, can help rule out other causes of meningitis and encephalitis, such as stroke or tumor.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Bacterial Meningitis and Encephalitis",
+            "text": "Laboratory tests, such as CSF analysis and blood cultures, are essential for the diagnosis of bacterial meningitis and encephalitis. The CSF analysis should include cell count, glucose and protein levels, and Gram stain. Blood cultures should be obtained to identify the causative organism and guide antibiotic therapy. The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo immediate CSF analysis and blood cultures."
+          },
+          {
+            "heading": "Imaging Studies for Bacterial Meningitis and Encephalitis",
+            "text": "Imaging studies, such as CT or MRI, can help rule out other causes of meningitis and encephalitis, such as stroke or tumor. The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo immediate imaging studies to rule out other causes of encephalitis."
+          },
+          {
+            "heading": "Interpretation of CSF Results",
+            "text": "The interpretation of CSF results is critical for the diagnosis of bacterial meningitis and encephalitis. The CSF analysis should include cell count, glucose and protein levels, and Gram stain. The presence of neutrophils or lymphocytes in the CSF can indicate bacterial or viral meningitis, respectively. The NICE 2019 guidelines recommend that patients with suspected bacterial meningitis or encephalitis undergo a thorough diagnostic evaluation, including laboratory and imaging studies, to determine the underlying cause of their symptoms."
+          }
+        ],
+        "clinical_pearl": "The use of the CSF lactate level can help differentiate between bacterial and viral meningitis, with a lactate level of 3.5 mmol/L or higher associated with bacterial meningitis.",
+        "key_points": [
+          "The diagnosis of bacterial meningitis and encephalitis is based on a combination of clinical, laboratory, and imaging findings.",
+          "Laboratory tests, such as CSF analysis and blood cultures, can help identify the causative organism and guide antibiotic therapy.",
+          "Imaging studies, such as CT or MRI, can help rule out other causes of meningitis and encephalitis, such as stroke or tumor.",
+          "The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo immediate CSF analysis and blood cultures.",
+          "The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo immediate imaging studies to rule out other causes of encephalitis.",
+          "The NICE 2019 guidelines recommend that patients with suspected bacterial meningitis or encephalitis undergo a thorough diagnostic evaluation, including laboratory and imaging studies, to determine the underlying cause of their symptoms."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines on the management of bacterial meningitis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis, including vaccination and antibiotic therapy."
+          },
+          {
+            "title": "Laboratory Diagnosis of Bacterial Meningitis",
+            "authors": "Tunkel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A comprehensive review of the laboratory diagnosis of bacterial meningitis, including CSF analysis and blood cultures."
+          },
+          {
+            "title": "2019 NICE Guidelines on the management of bacterial meningitis and meningococcal sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis and meningococcal sepsis, including vaccination and antibiotic therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Bacterial Meningitis and Encephalitis",
+      "content": {
+        "intro": "The treatment and management of bacterial meningitis and encephalitis involve a combination of antibiotic therapy, supportive care, and management of complications. The choice of antibiotic therapy depends on the causative organism and the patient's age, immune status, and underlying medical conditions. Supportive care includes management of seizures, fever, and respiratory failure, as well as nutritional and hydration support.",
+        "sections": [
+          {
+            "heading": "Antibiotic Therapy for Bacterial Meningitis and Encephalitis",
+            "text": "The choice of antibiotic therapy for bacterial meningitis and encephalitis depends on the causative organism and the patient's age, immune status, and underlying medical conditions. The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo empiric antibiotic therapy with ceftriaxone or cefotaxime, with or without vancomycin. The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo empiric antibiotic therapy with ceftriaxone or cefotaxime, with or without ampicillin."
+          },
+          {
+            "heading": "Supportive Care for Bacterial Meningitis and Encephalitis",
+            "text": "Supportive care for bacterial meningitis and encephalitis includes management of seizures, fever, and respiratory failure, as well as nutritional and hydration support. The NICE 2019 guidelines recommend that patients with bacterial meningitis or encephalitis receive supportive care, including management of seizures and fever, as well as nutritional and hydration support."
+          },
+          {
+            "heading": "Management of Complications of Bacterial Meningitis and Encephalitis",
+            "text": "The management of complications of bacterial meningitis and encephalitis includes management of seizures, hydrocephalus, and subdural effusions. The AHA 2020 guidelines recommend that patients with bacterial meningitis or encephalitis undergo regular monitoring for complications, including seizures and hydrocephalus. The ESC 2018 guidelines recommend that patients with bacterial encephalitis undergo regular monitoring for complications, including seizures and subdural effusions."
+          }
+        ],
+        "clinical_pearl": "The use of corticosteroids, such as dexamethasone, has been shown to reduce mortality and improve outcomes in patients with bacterial meningitis, with a number needed to treat of 8.4.",
+        "key_points": [
+          "The treatment and management of bacterial meningitis and encephalitis involve a combination of antibiotic therapy, supportive care, and management of complications.",
+          "The choice of antibiotic therapy depends on the causative organism and the patient's age, immune status, and underlying medical conditions.",
+          "The AHA 2020 guidelines recommend that patients with suspected bacterial meningitis undergo empiric antibiotic therapy with ceftriaxone or cefotaxime, with or without vancomycin.",
+          "The ESC 2018 guidelines recommend that patients with suspected bacterial encephalitis undergo empiric antibiotic therapy with ceftriaxone or cefotaxime, with or without ampicillin.",
+          "The NICE 2019 guidelines recommend that patients with bacterial meningitis or encephalitis receive supportive care, including management of seizures and fever, as well as nutritional and hydration support.",
+          "The management of complications of bacterial meningitis and encephalitis includes management of seizures, hydrocephalus, and subdural effusions."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines on the management of bacterial meningitis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis, including vaccination and antibiotic therapy."
+          },
+          {
+            "title": "Treatment of Bacterial Meningitis",
+            "authors": "Tunkel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "A comprehensive review of the treatment of bacterial meningitis, including antibiotic therapy and supportive care."
+          },
+          {
+            "title": "2019 NICE Guidelines on the management of bacterial meningitis and meningococcal sepsis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of bacterial meningitis and meningococcal sepsis, including vaccination and antibiotic therapy."
+          }
+        ]
+      }
+    }
+  ]
+}

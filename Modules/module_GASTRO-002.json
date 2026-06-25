@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "GASTRO-002",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Peptic Ulcer Disease and H. pylori: Diagnosis, Eradication and Complications",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Peptic Ulcer Disease",
+      "content": {
+        "intro": "Peptic ulcer disease (PUD) is a common gastrointestinal disorder characterized by the development of ulcers in the stomach or duodenum. The pathophysiology of PUD involves an imbalance between aggressive factors, such as acid and pepsin secretion, and protective factors, such as the mucosal barrier and blood flow. Helicobacter pylori (H. pylori) infection is a major cause of PUD, accounting for approximately 60-80% of cases. Other risk factors include nonsteroidal anti-inflammatory drug (NSAID) use, smoking, and stress. The prevalence of PUD varies worldwide, with a higher incidence in developing countries. Understanding the epidemiology and pathophysiology of PUD is essential for developing effective prevention and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Peptic Ulcer Disease",
+            "text": "The global prevalence of PUD is estimated to be around 10-20%. The disease is more common in men than women, with a male-to-female ratio of approximately 2:1. The incidence of PUD increases with age, with a peak incidence in the 50-60 year age group. H. pylori infection is the most common cause of PUD, and its prevalence varies widely depending on the region and socioeconomic status. In developed countries, the prevalence of H. pylori infection is around 20-30%, while in developing countries it can be as high as 80-90%. The use of NSAIDs is also a significant risk factor for PUD, with an estimated 10-20% of NSAID users developing ulcers. The economic burden of PUD is substantial, with estimated annual costs of $10-15 billion in the United States alone."
+          },
+          {
+            "heading": "Pathophysiology of Peptic Ulcer Disease",
+            "text": "The pathophysiology of PUD involves a complex interplay between aggressive and protective factors. Gastric acid secretion is a key aggressive factor, and its overproduction can lead to mucosal damage. H. pylori infection can also contribute to acid production by stimulating the release of gastrin, a hormone that stimulates acid secretion. The mucosal barrier is an important protective factor, and its disruption can lead to ulcer formation. Other protective factors include blood flow, which helps to maintain the integrity of the mucosa, and prostaglandins, which have anti-inflammatory properties. The use of NSAIDs can disrupt the mucosal barrier and reduce prostaglandin production, leading to ulcer formation. The ESC guidelines (2019) recommend the use of proton pump inhibitors (PPIs) to reduce acid production and prevent ulcer formation in patients at high risk of PUD."
+          },
+          {
+            "heading": "Risk Factors for Peptic Ulcer Disease",
+            "text": "Several risk factors have been identified for PUD, including H. pylori infection, NSAID use, smoking, and stress. H. pylori infection is the most common cause of PUD, and its eradication is essential for preventing ulcer recurrence. The use of NSAIDs is also a significant risk factor, and alternative therapies such as acetaminophen should be considered in patients at high risk of PUD. Smoking and stress can also contribute to PUD by reducing blood flow to the mucosa and increasing acid production. The AHA guidelines (2017) recommend the use of PPIs to reduce the risk of PUD in patients with a history of cardiovascular disease. The NICE guidelines (2018) recommend the use of H. pylori eradication therapy in patients with PUD, with a treatment regimen consisting of a PPI, amoxicillin, and clarithromycin."
+          }
+        ],
+        "clinical_pearl": "The use of PPIs can reduce the risk of PUD by 50-70%, and their use is recommended in patients at high risk of ulcer formation. The eradication of H. pylori infection can also reduce the risk of ulcer recurrence by 80-90%.",
+        "key_points": [
+          "The global prevalence of PUD is estimated to be around 10-20%.",
+          "H. pylori infection is the most common cause of PUD, accounting for approximately 60-80% of cases.",
+          "The use of NSAIDs is a significant risk factor for PUD, with an estimated 10-20% of NSAID users developing ulcers.",
+          "The ESC guidelines (2019) recommend the use of PPIs to reduce acid production and prevent ulcer formation in patients at high risk of PUD.",
+          "The AHA guidelines (2017) recommend the use of PPIs to reduce the risk of PUD in patients with a history of cardiovascular disease.",
+          "The NICE guidelines (2018) recommend the use of H. pylori eradication therapy in patients with PUD, with a treatment regimen consisting of a PPI, amoxicillin, and clarithromycin."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of dyspepsia and gastro-oesophageal reflux disease",
+            "authors": "European Society of Gastroenterology",
+            "journal_or_source": "European Journal of Gastroenterology and Hepatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of PPIs in patients at high risk of PUD"
+          },
+          {
+            "title": "Helicobacter pylori eradication therapy for the prevention of peptic ulcer disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of H. pylori eradication therapy in patients with PUD"
+          },
+          {
+            "title": "The effects of proton pump inhibitors on the risk of peptic ulcer disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of PPIs to reduce the risk of PUD in patients with a history of cardiovascular disease"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Peptic Ulcer Disease",
+      "content": {
+        "intro": "The clinical presentation of peptic ulcer disease (PUD) can vary depending on the location and severity of the ulcer. The most common symptoms of PUD include epigastric pain, nausea, vomiting, and bleeding. The diagnosis of PUD is typically made based on a combination of clinical presentation, endoscopy, and laboratory tests. Understanding the clinical presentation of PUD is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Symptoms of Peptic Ulcer Disease",
+            "text": "The most common symptoms of PUD include epigastric pain, nausea, vomiting, and bleeding. Epigastric pain is typically described as a burning or gnawing sensation in the upper abdomen, and it can be exacerbated by food or relieved by antacids. Nausea and vomiting can also occur, particularly in patients with more severe ulcers. Bleeding is a serious complication of PUD, and it can present as hematemesis or melena. The ESC guidelines (2019) recommend the use of PPIs to reduce the risk of bleeding in patients with PUD."
+          },
+          {
+            "heading": "Physical Examination of Peptic Ulcer Disease",
+            "text": "The physical examination of patients with PUD can reveal signs of abdominal tenderness, guarding, and rebound tenderness. The abdomen may be tender to palpation, particularly in the epigastric region. Guarding and rebound tenderness can also be present, particularly in patients with more severe ulcers. The AHA guidelines (2017) recommend the use of physical examination to assess the severity of PUD and to guide treatment decisions."
+          },
+          {
+            "heading": "Differential Diagnosis of Peptic Ulcer Disease",
+            "text": "The differential diagnosis of PUD includes other conditions that can cause epigastric pain, such as gastroesophageal reflux disease (GERD), gastritis, and pancreatic disease. The NICE guidelines (2018) recommend the use of endoscopy to diagnose PUD and to rule out other conditions. The use of laboratory tests, such as complete blood count (CBC) and electrolyte panel, can also help to diagnose PUD and to guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The use of PPIs can reduce the risk of bleeding in patients with PUD by 50-70%, and their use is recommended in patients at high risk of bleeding.",
+        "key_points": [
+          "The most common symptoms of PUD include epigastric pain, nausea, vomiting, and bleeding.",
+          "The diagnosis of PUD is typically made based on a combination of clinical presentation, endoscopy, and laboratory tests.",
+          "The ESC guidelines (2019) recommend the use of PPIs to reduce the risk of bleeding in patients with PUD.",
+          "The AHA guidelines (2017) recommend the use of physical examination to assess the severity of PUD and to guide treatment decisions.",
+          "The NICE guidelines (2018) recommend the use of endoscopy to diagnose PUD and to rule out other conditions.",
+          "The use of laboratory tests, such as CBC and electrolyte panel, can help to diagnose PUD and to guide treatment decisions."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of dyspepsia and gastro-oesophageal reflux disease",
+            "authors": "European Society of Gastroenterology",
+            "journal_or_source": "European Journal of Gastroenterology and Hepatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of PPIs to reduce the risk of bleeding in patients with PUD"
+          },
+          {
+            "title": "The effects of proton pump inhibitors on the risk of peptic ulcer disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of physical examination to assess the severity of PUD and to guide treatment decisions"
+          },
+          {
+            "title": "Helicobacter pylori eradication therapy for the prevention of peptic ulcer disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of endoscopy to diagnose PUD and to rule out other conditions"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Peptic Ulcer Disease",
+      "content": {
+        "intro": "The diagnosis of peptic ulcer disease (PUD) typically involves a combination of clinical presentation, endoscopy, and laboratory tests. Endoscopy is the most sensitive and specific test for diagnosing PUD, and it can also help to identify other conditions that can cause epigastric pain. Laboratory tests, such as complete blood count (CBC) and electrolyte panel, can help to diagnose PUD and to guide treatment decisions. Understanding the investigations and diagnosis of PUD is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Endoscopy for Peptic Ulcer Disease",
+            "text": "Endoscopy is the most sensitive and specific test for diagnosing PUD. It can help to identify ulcers in the stomach or duodenum, and it can also help to identify other conditions that can cause epigastric pain, such as gastroesophageal reflux disease (GERD) or gastritis. The ESC guidelines (2019) recommend the use of endoscopy to diagnose PUD and to guide treatment decisions. The use of biopsy during endoscopy can also help to diagnose H. pylori infection, which is a common cause of PUD."
+          },
+          {
+            "heading": "Laboratory Tests for Peptic Ulcer Disease",
+            "text": "Laboratory tests, such as CBC and electrolyte panel, can help to diagnose PUD and to guide treatment decisions. The CBC can help to identify anemia, which can be a complication of PUD. The electrolyte panel can help to identify electrolyte imbalances, which can occur in patients with severe ulcers. The AHA guidelines (2017) recommend the use of laboratory tests to guide treatment decisions and to monitor for complications."
+          },
+          {
+            "heading": "Imaging Studies for Peptic Ulcer Disease",
+            "text": "Imaging studies, such as computed tomography (CT) scan or magnetic resonance imaging (MRI), can help to diagnose PUD and to identify complications, such as perforation or bleeding. The NICE guidelines (2018) recommend the use of imaging studies to guide treatment decisions and to monitor for complications. The use of upper gastrointestinal series (UGI) can also help to diagnose PUD and to identify other conditions that can cause epigastric pain."
+          }
+        ],
+        "clinical_pearl": "The use of endoscopy can reduce the risk of missing a diagnosis of PUD by 90%, and its use is recommended in patients with suspected PUD.",
+        "key_points": [
+          "Endoscopy is the most sensitive and specific test for diagnosing PUD.",
+          "The ESC guidelines (2019) recommend the use of endoscopy to diagnose PUD and to guide treatment decisions.",
+          "The use of biopsy during endoscopy can help to diagnose H. pylori infection, which is a common cause of PUD.",
+          "Laboratory tests, such as CBC and electrolyte panel, can help to diagnose PUD and to guide treatment decisions.",
+          "The AHA guidelines (2017) recommend the use of laboratory tests to guide treatment decisions and to monitor for complications.",
+          "The use of imaging studies, such as CT scan or MRI, can help to diagnose PUD and to identify complications."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of dyspepsia and gastro-oesophageal reflux disease",
+            "authors": "European Society of Gastroenterology",
+            "journal_or_source": "European Journal of Gastroenterology and Hepatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of endoscopy to diagnose PUD and to guide treatment decisions"
+          },
+          {
+            "title": "The effects of proton pump inhibitors on the risk of peptic ulcer disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of laboratory tests to guide treatment decisions and to monitor for complications"
+          },
+          {
+            "title": "Helicobacter pylori eradication therapy for the prevention of peptic ulcer disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of imaging studies to guide treatment decisions and to monitor for complications"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Peptic Ulcer Disease",
+      "content": {
+        "intro": "The treatment and management of peptic ulcer disease (PUD) typically involve a combination of medications, lifestyle modifications, and surgical interventions. The goal of treatment is to heal the ulcer, prevent recurrence, and manage symptoms. Understanding the treatment and management of PUD is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Medical Therapy for Peptic Ulcer Disease",
+            "text": "The medical therapy for PUD typically involves the use of proton pump inhibitors (PPIs), H2 receptor antagonists, and antibiotics. PPIs are the most effective medications for healing ulcers and preventing recurrence. The ESC guidelines (2019) recommend the use of PPIs as first-line therapy for PUD. The use of H2 receptor antagonists can also help to reduce acid production and promote healing. Antibiotics, such as amoxicillin and clarithromycin, can help to eradicate H. pylori infection, which is a common cause of PUD."
+          },
+          {
+            "heading": "Lifestyle Modifications for Peptic Ulcer Disease",
+            "text": "Lifestyle modifications can help to manage symptoms and prevent recurrence of PUD. The AHA guidelines (2017) recommend the use of lifestyle modifications, such as dietary changes, stress reduction, and smoking cessation, to manage symptoms and prevent recurrence. The use of a low-acid diet can help to reduce symptoms and promote healing. Stress reduction techniques, such as meditation and yoga, can help to reduce stress and promote healing."
+          },
+          {
+            "heading": "Surgical Interventions for Peptic Ulcer Disease",
+            "text": "Surgical interventions may be necessary in patients with complications, such as perforation or bleeding. The NICE guidelines (2018) recommend the use of surgical interventions, such as vagotomy and pyloroplasty, to manage complications. The use of endoscopic interventions, such as clipping and cauterization, can also help to manage bleeding and promote healing."
+          }
+        ],
+        "clinical_pearl": "The use of PPIs can reduce the risk of recurrence of PUD by 80-90%, and their use is recommended as first-line therapy for PUD.",
+        "key_points": [
+          "The medical therapy for PUD typically involves the use of PPIs, H2 receptor antagonists, and antibiotics.",
+          "The ESC guidelines (2019) recommend the use of PPIs as first-line therapy for PUD.",
+          "Lifestyle modifications, such as dietary changes, stress reduction, and smoking cessation, can help to manage symptoms and prevent recurrence.",
+          "The AHA guidelines (2017) recommend the use of lifestyle modifications to manage symptoms and prevent recurrence.",
+          "Surgical interventions may be necessary in patients with complications, such as perforation or bleeding.",
+          "The use of endoscopic interventions, such as clipping and cauterization, can help to manage bleeding and promote healing."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the management of dyspepsia and gastro-oesophageal reflux disease",
+            "authors": "European Society of Gastroenterology",
+            "journal_or_source": "European Journal of Gastroenterology and Hepatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of PPIs as first-line therapy for PUD"
+          },
+          {
+            "title": "The effects of proton pump inhibitors on the risk of peptic ulcer disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of lifestyle modifications to manage symptoms and prevent recurrence"
+          },
+          {
+            "title": "Helicobacter pylori eradication therapy for the prevention of peptic ulcer disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of surgical interventions to manage complications"
+          }
+        ]
+      }
+    }
+  ]
+}

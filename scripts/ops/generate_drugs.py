@@ -1031,8 +1031,8 @@ def _parse_drug_response(text: str) -> dict | None:
 
 def load_groq_keys() -> list[str]:
     keys = []
-    env_vars = ["GROQ_API_KEY"] + [f"GROQ_API_KEY_{i}" for i in range(2, 10)]
-    env_file = os.path.join(os.path.dirname(__file__), "backend", ".env.prod")
+    env_vars = ["GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"]
+    env_file = os.path.join(os.path.dirname(__file__), "..", "..", "backend", ".env.prod")
     if os.path.exists(env_file):
         with open(env_file) as f:
             for line in f:

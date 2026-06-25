@@ -122,6 +122,14 @@ export default async function AboutPage({
           <p className="text-ink-2 leading-relaxed">{t.team_body}</p>
         </section>
 
+        {/* Disambiguation notice for search engines */}
+        <section className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-sm text-ink-2">
+          <p>
+            <strong className="text-ink">Note:</strong> MedMind AI (<strong>medmind.pro</strong>) is a medical education and AI tutoring platform for healthcare professionals and students.
+            We are not affiliated with medmind.com, which is a separate company providing remote patient monitoring and chronic care management services.
+          </p>
+        </section>
+
         {/* CTA */}
         <section className="bg-blue-50 rounded-2xl p-8 text-center">
           <h2 className="font-syne font-bold text-xl text-ink mb-4">{t.cta_title}</h2>

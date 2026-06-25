@@ -6,91 +6,11 @@ import { useAuthStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { useT } from "@/lib/i18n";
 
-const PLANS = [
-  {
-    tier: "free",
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    description: "Start learning with core modules",
-    features: [
-      "8 fundamental modules",
-      "5 AI questions / day",
-      "Basic flashcards",
-      "Progress tracking",
-    ],
-    cta: "Start free",
-    ctaHref: "/register",
-    highlight: false,
-  },
-  {
-    tier: "student",
-    name: "Student",
-    price: "$15",
-    period: "/month",
-    description: "Full access for medical students",
-    features: [
-      "All 82+ medical modules",
-      "50 AI questions / day",
-      "Spaced repetition flashcards",
-      "Clinical case simulations",
-      "PubMed search integration",
-      "Progress analytics",
-    ],
-    cta: "Get Student",
-    highlight: false,
-  },
-  {
-    tier: "pro",
-    name: "Pro",
-    price: "$40",
-    period: "/month",
-    description: "For practicing physicians",
-    features: [
-      "Everything in Student",
-      "Unlimited AI questions",
-      "Drug database access",
-      "Veterinary modules",
-      "Advanced AI modes (Socratic, Exam)",
-      "Priority support",
-    ],
-    cta: "Get Pro",
-    highlight: true,
-  },
-  {
-    tier: "clinic",
-    name: "Clinic",
-    price: "$199",
-    period: "/month",
-    description: "For teams & institutions",
-    features: [
-      "Up to 10 users",
-      "Everything in Pro",
-      "Team analytics dashboard",
-      "Custom module upload",
-      "Dedicated support",
-      "SCORM export",
-    ],
-    cta: "Get Clinic",
-    highlight: false,
-  },
-  {
-    tier: "lifetime",
-    name: "Lifetime",
-    price: "$299",
-    period: "one-time",
-    description: "Unlimited access forever",
-    features: [
-      "Everything in Pro",
-      "Lifetime updates",
-      "Early access to new features",
-      "Unlimited AI forever",
-      "All future specialties",
-    ],
-    cta: "Buy Lifetime",
-    highlight: false,
-  },
-];
+type PlanData = {
+  name: string; price: string; period: string; description: string;
+  features: string[]; cta: string; highlight: boolean; tier: string;
+};
+type FaqItem = { q: string; a: string };
 
 export default function PricingPage() {
   const t = useT();
@@ -98,6 +18,9 @@ export default function PricingPage() {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const PLANS = t("pricing_page.plans") as unknown as PlanData[];
+  const FAQ = t("pricing_page.faq") as unknown as FaqItem[];
 
   async function handleBuy(tier: string) {
     if (tier === "free") {
@@ -186,7 +109,7 @@ export default function PricingPage() {
           >
             {plan.highlight && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-ink text-white font-syne font-bold text-xs px-3 py-1 rounded-full">
-                Most popular
+                {t("pricing_page.most_popular")}
               </div>
             )}
             <div className="mb-4">
@@ -216,7 +139,7 @@ export default function PricingPage() {
                   : "border border-border-2 text-ink-2 hover:border-ink hover:text-ink bg-transparent"
               } disabled:opacity-50 disabled:cursor-wait`}
             >
-              {loading === plan.tier ? "Redirecting…" : plan.cta}
+              {loading === plan.tier ? t("pricing_page.redirecting") : plan.cta}
             </button>
           </div>
         ))}
@@ -224,26 +147,9 @@ export default function PricingPage() {
 
       {/* FAQ */}
       <section className="max-w-3xl mx-auto px-6 pb-20">
-        <h2 className="font-syne font-extrabold text-2xl text-ink text-center mb-8">FAQ</h2>
+        <h2 className="font-syne font-extrabold text-2xl text-ink text-center mb-8">{t("pricing_page.faq_title")}</h2>
         <div className="space-y-4">
-          {[
-            {
-              q: "Can I cancel anytime?",
-              a: "Yes. Cancel anytime from your settings. You keep access until the end of your billing period.",
-            },
-            {
-              q: "What payment methods do you accept?",
-              a: "All major credit/debit cards via Stripe. Apple Pay and Google Pay available on supported browsers.",
-            },
-            {
-              q: "Is there a student discount?",
-              a: "The Student plan at $15/mo is already our discounted tier. Contact us with your .edu email for additional discounts.",
-            },
-            {
-              q: "What's included in veterinary modules?",
-              a: "Pro and above includes species-specific pharmacology, physiology, and clinical cases for companion animals and livestock.",
-            },
-          ].map(({ q, a }) => (
+          {FAQ.map(({ q, a }) => (
             <div key={q} className="bg-surface border border-border rounded-lg p-5">
               <div className="font-syne font-bold text-sm text-ink mb-2">{q}</div>
               <div className="text-ink-2 text-sm">{a}</div>

@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEPH-002",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Acute Kidney Injury: KDIGO Criteria, Staging and Management",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Acute Kidney Injury",
+      "content": {
+        "intro": "Acute kidney injury (AKI) is a common complication in hospitalized patients, affecting approximately 20% of patients in the intensive care unit (ICU). The pathophysiology of AKI involves a complex interplay of inflammatory, oxidative, and vascular mechanisms. According to the Kidney Disease: Improving Global Outcomes (KDIGO) criteria, AKI is defined as an increase in serum creatinine by 0.3 mg/dL or more within 48 hours, or a 50% or more increase in serum creatinine within 7 days. The incidence of AKI varies depending on the population and setting, with higher rates observed in critically ill patients and those with pre-existing kidney disease. The economic burden of AKI is substantial, with estimated costs ranging from $10,000 to $20,000 per patient.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Acute Kidney Injury",
+            "text": "Several risk factors have been identified for the development of AKI, including pre-existing kidney disease, diabetes, hypertension, and heart failure. The use of certain medications, such as nonsteroidal anti-inflammatory drugs (NSAIDs) and aminoglycosides, can also increase the risk of AKI. The European Society of Cardiology (ESC) and American Heart Association (AHA) recommend avoiding the use of NSAIDs in patients with pre-existing kidney disease. The KDIGO guidelines recommend using the Acute Kidney Injury Network (AKIN) criteria to diagnose and stage AKI. The AKIN criteria define AKI as an increase in serum creatinine by 0.3 mg/dL or more within 48 hours, or a 50% or more increase in serum creatinine within 7 days."
+          },
+          {
+            "heading": "Pathophysiology of Acute Kidney Injury",
+            "text": "The pathophysiology of AKI involves a complex interplay of inflammatory, oxidative, and vascular mechanisms. The activation of immune cells and the release of pro-inflammatory cytokines can lead to endothelial dysfunction and increased vascular permeability. The use of vasopressors, such as norepinephrine, can also contribute to the development of AKI. The NICE guidelines recommend using norepinephrine as a first-line vasopressor in patients with septic shock. The landmark NEPHRON-D trial demonstrated that the use of intensive glucose control can reduce the risk of AKI in critically ill patients."
+          },
+          {
+            "heading": "Prevention of Acute Kidney Injury",
+            "text": "Prevention of AKI is crucial, and several strategies can be employed to reduce the risk of AKI. The use of renal replacement therapy (RRT) can help to remove waste products and excess fluids from the blood. The KDIGO guidelines recommend using RRT in patients with AKI who have failed to respond to conservative management. The ESC guidelines recommend using the Sequential Organ Failure Assessment (SOFA) score to predict the risk of AKI in critically ill patients. The use of biomarkers, such as neutrophil gelatinase-associated lipocalin (NGAL), can also help to diagnose AKI early."
+          }
+        ],
+        "clinical_pearl": "The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI. The early recognition and treatment of AKI can improve patient outcomes and reduce the risk of long-term kidney damage.",
+        "key_points": [
+          "The incidence of AKI varies depending on the population and setting, with higher rates observed in critically ill patients and those with pre-existing kidney disease.",
+          "The use of certain medications, such as NSAIDs and aminoglycosides, can increase the risk of AKI.",
+          "The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI.",
+          "The use of vasopressors, such as norepinephrine, can contribute to the development of AKI.",
+          "The NICE guidelines recommend using norepinephrine as a first-line vasopressor in patients with septic shock.",
+          "The landmark NEPHRON-D trial demonstrated that the use of intensive glucose control can reduce the risk of AKI in critically ill patients."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The KDIGO guidelines provide a comprehensive framework for the evaluation and management of chronic kidney disease."
+          },
+          {
+            "title": "NEPHRON-D trial",
+            "authors": "NEPHRON-D investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "trial",
+            "note": "The NEPHRON-D trial demonstrated that the use of intensive glucose control can reduce the risk of AKI in critically ill patients."
+          },
+          {
+            "title": "NICE guideline for the management of sepsis",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The NICE guidelines provide a comprehensive framework for the management of sepsis, including the use of vasopressors and RRT."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Acute Kidney Injury",
+      "content": {
+        "intro": "The clinical presentation of AKI can vary depending on the underlying cause and severity of the injury. Patients with AKI may present with a range of symptoms, including oliguria, anuria, and fluid overload. The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output. The AHA recommends using the KDIGO criteria to diagnose and stage AKI.",
+        "sections": [
+          {
+            "heading": "Symptoms of Acute Kidney Injury",
+            "text": "The symptoms of AKI can vary depending on the underlying cause and severity of the injury. Patients with AKI may present with oliguria, anuria, and fluid overload. The use of diuretics, such as furosemide, can help to manage fluid overload and improve urine output. The ESC guidelines recommend using diuretics in patients with AKI who have failed to respond to conservative management."
+          },
+          {
+            "heading": "Laboratory Findings in Acute Kidney Injury",
+            "text": "The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output. The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI. The use of biomarkers, such as NGAL, can also help to diagnose AKI early."
+          },
+          {
+            "heading": "Imaging Studies in Acute Kidney Injury",
+            "text": "Imaging studies, such as ultrasound and computed tomography (CT), can help to diagnose and manage AKI. The use of ultrasound can help to evaluate kidney size and structure, while CT can help to evaluate kidney function and detect any underlying causes of AKI. The AHA recommends using imaging studies in patients with AKI who have failed to respond to conservative management."
+          }
+        ],
+        "clinical_pearl": "The early recognition and treatment of AKI can improve patient outcomes and reduce the risk of long-term kidney damage. The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI.",
+        "key_points": [
+          "The symptoms of AKI can vary depending on the underlying cause and severity of the injury.",
+          "The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output.",
+          "The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI.",
+          "The use of diuretics, such as furosemide, can help to manage fluid overload and improve urine output.",
+          "The ESC guidelines recommend using diuretics in patients with AKI who have failed to respond to conservative management.",
+          "The use of biomarkers, such as NGAL, can help to diagnose AKI early."
+        ],
+        "references": [
+          {
+            "title": "AHA guideline for the management of heart failure",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The AHA guidelines provide a comprehensive framework for the management of heart failure, including the use of diuretics and vasopressors."
+          },
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The KDIGO guidelines provide a comprehensive framework for the evaluation and management of chronic kidney disease."
+          },
+          {
+            "title": "ESC guideline for the management of acute heart failure",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The ESC guidelines provide a comprehensive framework for the management of acute heart failure, including the use of diuretics and vasopressors."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Acute Kidney Injury",
+      "content": {
+        "intro": "The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output. The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI. The use of biomarkers, such as NGAL, can also help to diagnose AKI early.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Acute Kidney Injury",
+            "text": "The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output. The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI. The use of biomarkers, such as NGAL, can also help to diagnose AKI early."
+          },
+          {
+            "heading": "Imaging Studies for Acute Kidney Injury",
+            "text": "Imaging studies, such as ultrasound and CT, can help to diagnose and manage AKI. The use of ultrasound can help to evaluate kidney size and structure, while CT can help to evaluate kidney function and detect any underlying causes of AKI."
+          },
+          {
+            "heading": "Biomarkers for Acute Kidney Injury",
+            "text": "The use of biomarkers, such as NGAL, can help to diagnose AKI early. The KDIGO guidelines recommend using biomarkers in patients with AKI who have failed to respond to conservative management. The ESC guidelines recommend using biomarkers in patients with AKI who are at high risk of developing chronic kidney disease."
+          }
+        ],
+        "clinical_pearl": "The early recognition and treatment of AKI can improve patient outcomes and reduce the risk of long-term kidney damage. The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI.",
+        "key_points": [
+          "The diagnosis of AKI is typically made using a combination of clinical and laboratory findings, including serum creatinine and urine output.",
+          "The KDIGO guidelines recommend using the AKIN criteria to diagnose and stage AKI.",
+          "The use of biomarkers, such as NGAL, can help to diagnose AKI early.",
+          "Imaging studies, such as ultrasound and CT, can help to diagnose and manage AKI.",
+          "The ESC guidelines recommend using biomarkers in patients with AKI who are at high risk of developing chronic kidney disease.",
+          "The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The KDIGO guidelines provide a comprehensive framework for the evaluation and management of chronic kidney disease."
+          },
+          {
+            "title": "ESC guideline for the management of acute heart failure",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The ESC guidelines provide a comprehensive framework for the management of acute heart failure, including the use of diuretics and vasopressors."
+          },
+          {
+            "title": "AHA guideline for the management of heart failure",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The AHA guidelines provide a comprehensive framework for the management of heart failure, including the use of diuretics and vasopressors."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Acute Kidney Injury",
+      "content": {
+        "intro": "The treatment and management of AKI depend on the underlying cause and severity of the injury. The KDIGO guidelines recommend using a combination of supportive care and specific interventions to manage AKI. The use of diuretics, such as furosemide, can help to manage fluid overload and improve urine output.",
+        "sections": [
+          {
+            "heading": "Supportive Care for Acute Kidney Injury",
+            "text": "The treatment and management of AKI depend on the underlying cause and severity of the injury. The KDIGO guidelines recommend using a combination of supportive care and specific interventions to manage AKI. The use of diuretics, such as furosemide, can help to manage fluid overload and improve urine output."
+          },
+          {
+            "heading": "Specific Interventions for Acute Kidney Injury",
+            "text": "The use of specific interventions, such as RRT, can help to manage AKI. The KDIGO guidelines recommend using RRT in patients with AKI who have failed to respond to conservative management. The ESC guidelines recommend using RRT in patients with AKI who are at high risk of developing chronic kidney disease."
+          },
+          {
+            "heading": "Pharmacological Interventions for Acute Kidney Injury",
+            "text": "The use of pharmacological interventions, such as vasopressors and diuretics, can help to manage AKI. The AHA recommends using vasopressors, such as norepinephrine, in patients with AKI who have failed to respond to conservative management. The ESC guidelines recommend using diuretics, such as furosemide, in patients with AKI who have failed to respond to conservative management."
+          }
+        ],
+        "clinical_pearl": "The early recognition and treatment of AKI can improve patient outcomes and reduce the risk of long-term kidney damage. The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI.",
+        "key_points": [
+          "The treatment and management of AKI depend on the underlying cause and severity of the injury.",
+          "The KDIGO guidelines recommend using a combination of supportive care and specific interventions to manage AKI.",
+          "The use of diuretics, such as furosemide, can help to manage fluid overload and improve urine output.",
+          "The use of RRT can help to manage AKI in patients who have failed to respond to conservative management.",
+          "The ESC guidelines recommend using RRT in patients with AKI who are at high risk of developing chronic kidney disease.",
+          "The use of pharmacological interventions, such as vasopressors and diuretics, can help to manage AKI."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The KDIGO guidelines provide a comprehensive framework for the evaluation and management of chronic kidney disease."
+          },
+          {
+            "title": "AHA guideline for the management of heart failure",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The AHA guidelines provide a comprehensive framework for the management of heart failure, including the use of diuretics and vasopressors."
+          },
+          {
+            "title": "ESC guideline for the management of acute heart failure",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The ESC guidelines provide a comprehensive framework for the management of acute heart failure, including the use of diuretics and vasopressors."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Acute Kidney Injury",
+      "content": {
+        "intro": "The complications of AKI can be severe and long-lasting, and can include chronic kidney disease, end-stage renal disease, and increased mortality. The prognosis of AKI depends on the underlying cause and severity of the injury, as well as the patient's overall health status. The KDIGO guidelines recommend using a combination of clinical and laboratory findings to predict the prognosis of AKI.",
+        "sections": [
+          {
+            "heading": "Complications of Acute Kidney Injury",
+            "text": "The complications of AKI can be severe and long-lasting, and can include chronic kidney disease, end-stage renal disease, and increased mortality. The use of RRT can help to manage AKI and reduce the risk of complications."
+          },
+          {
+            "heading": "Prognosis of Acute Kidney Injury",
+            "text": "The prognosis of AKI depends on the underlying cause and severity of the injury, as well as the patient's overall health status. The KDIGO guidelines recommend using a combination of clinical and laboratory findings to predict the prognosis of AKI."
+          },
+          {
+            "heading": "Long-term Outcomes of Acute Kidney Injury",
+            "text": "The long-term outcomes of AKI can be severe and long-lasting, and can include chronic kidney disease, end-stage renal disease, and increased mortality. The use of preventive strategies, such as the use of biomarkers and imaging studies, can help to reduce the risk of long-term complications."
+          }
+        ],
+        "clinical_pearl": "The early recognition and treatment of AKI can improve patient outcomes and reduce the risk of long-term kidney damage. The use of the KDIGO criteria can help to diagnose and stage AKI, and the implementation of preventive strategies can reduce the risk of AKI.",
+        "key_points": [
+          "The complications of AKI can be severe and long-lasting, and can include chronic kidney disease, end-stage renal disease, and increased mortality.",
+          "The prognosis of AKI depends on the underlying cause and severity of the injury, as well as the patient's overall health status.",
+          "The KDIGO guidelines recommend using a combination of clinical and laboratory findings to predict the prognosis of AKI.",
+          "The use of RRT can help to manage AKI and reduce the risk of complications.",
+          "The use of preventive strategies, such as the use of biomarkers and imaging studies, can help to reduce the risk of long-term complications.",
+          "The long-term outcomes of AKI can be severe and long-lasting, and can include chronic kidney disease, end-stage renal disease, and increased mortality."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The KDIGO guidelines provide a comprehensive framework for the evaluation and management of chronic kidney disease."
+          },
+          {
+            "title": "AHA guideline for the management of heart failure",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The AHA guidelines provide a comprehensive framework for the management of heart failure, including the use of diuretics and vasopressors."
+          },
+          {
+            "title": "ESC guideline for the management of acute heart failure",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The ESC guidelines provide a comprehensive framework for the management of acute heart failure, including the use of diuretics and vasopressors."
+          }
+        ]
+      }
+    }
+  ]
+}

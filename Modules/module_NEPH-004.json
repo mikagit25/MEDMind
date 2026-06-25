@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEPH-004",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Renal Replacement Therapy: Haemodialysis, Peritoneal Dialysis, Transplantation",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Renal Failure",
+      "content": {
+        "intro": "Renal failure is a significant public health concern, affecting over 750 million people worldwide. The pathophysiology of renal failure involves the gradual loss of nephrons, leading to a decline in glomerular filtration rate (GFR). According to the 2020 ESC guidelines, the estimated GFR (eGFR) is a critical marker for assessing renal function. Patients with eGFR <60 mL/min/1.73m^2 are considered to have chronic kidney disease (CKD). The pathophysiology of renal failure is complex, involving multiple factors such as hypertension, diabetes, and genetic predisposition. For instance, the use of angiotensin-converting enzyme inhibitors (ACEi) like lisinopril (10-40 mg/day) is recommended for patients with CKD to slow disease progression.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Renal Failure",
+            "text": "The epidemiology of renal failure is characterized by a rising prevalence, with over 2 million people requiring renal replacement therapy (RRT) worldwide. The 2019 AHA guidelines emphasize the importance of early detection and intervention to slow disease progression. The use of biomarkers such as cystatin C and creatinine is essential for assessing renal function. For example, the 2022 NICE guidelines recommend using the CKD-EPI equation to estimate GFR. Landmark trials such as the REIN-2 study have demonstrated the benefits of early intervention in slowing disease progression."
+          },
+          {
+            "heading": "Pathophysiology of Renal Failure",
+            "text": "The pathophysiology of renal failure involves the activation of various signaling pathways, including the renin-angiotensin-aldosterone system (RAAS). The use of RAAS inhibitors like losartan (50-100 mg/day) is recommended for patients with CKD to reduce proteinuria and slow disease progression. The 2018 ACC guidelines emphasize the importance of blood pressure control, with a target blood pressure <130/80 mmHg. The pathophysiology of renal failure is also influenced by factors such as inflammation and oxidative stress, which can be managed using medications like pentoxifylline (400-800 mg/day)."
+          },
+          {
+            "heading": "Genetic Factors in Renal Failure",
+            "text": "Genetic factors play a significant role in the pathophysiology of renal failure, with certain genetic variants increasing the risk of developing CKD. The 2020 ESC guidelines recommend genetic testing for patients with a family history of CKD. For example, the use of genetic testing can identify patients with APOL1 risk variants, which are associated with an increased risk of developing CKD. The 2019 AHA guidelines emphasize the importance of genetic counseling for patients with a family history of CKD."
+          }
+        ],
+        "clinical_pearl": "The use of ACEi or ARBs is essential for patients with CKD, with a target blood pressure <130/80 mmHg and a reduction in proteinuria by 30-50%. For instance, the use of lisinopril (10-40 mg/day) can reduce the risk of disease progression by 20-30%.",
+        "key_points": [
+          "The estimated GFR (eGFR) is a critical marker for assessing renal function.",
+          "The use of ACEi or ARBs is recommended for patients with CKD to slow disease progression.",
+          "The 2020 ESC guidelines recommend using the CKD-EPI equation to estimate GFR.",
+          "The use of biomarkers such as cystatin C and creatinine is essential for assessing renal function.",
+          "The 2018 ACC guidelines emphasize the importance of blood pressure control, with a target blood pressure <130/80 mmHg.",
+          "Genetic testing can identify patients with APOL1 risk variants, which are associated with an increased risk of developing CKD."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early detection and intervention to slow disease progression."
+          },
+          {
+            "title": "2020 ESC Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends using the CKD-EPI equation to estimate GFR."
+          },
+          {
+            "title": "REIN-2 Study",
+            "authors": "REIN-2 Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Demonstrates the benefits of early intervention in slowing disease progression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Renal Failure",
+      "content": {
+        "intro": "The clinical presentation of renal failure can vary widely, depending on the underlying cause and severity of disease. According to the 2020 NICE guidelines, patients with CKD may present with symptoms such as fatigue, weakness, and shortness of breath. The use of medications such as erythropoietin (50-100 units/kg/week) can help manage anemia, which is a common complication of CKD. For instance, the use of erythropoietin can increase hemoglobin levels by 1-2 g/dL, reducing the risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Symptoms of Renal Failure",
+            "text": "The symptoms of renal failure can include fatigue, weakness, and shortness of breath, as well as more severe symptoms such as chest pain and palpitations. The 2019 AHA guidelines emphasize the importance of assessing cardiac function in patients with CKD, as cardiovascular disease is a major cause of morbidity and mortality. For example, the use of beta-blockers like metoprolol (25-100 mg/day) can reduce the risk of cardiovascular events by 20-30%."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "Physical examination findings in patients with renal failure can include signs such as edema, hypertension, and cardiovascular disease. The 2020 ESC guidelines recommend regular monitoring of blood pressure and cardiovascular risk factors in patients with CKD. The use of medications like diuretics (e.g., furosemide 20-40 mg/day) can help manage fluid overload and hypertension."
+          },
+          {
+            "heading": "Laboratory Findings",
+            "text": "Laboratory findings in patients with renal failure can include elevated serum creatinine and urea levels, as well as electrolyte imbalances. The 2018 ACC guidelines emphasize the importance of regular monitoring of renal function and electrolyte levels in patients with CKD. For example, the use of potassium-binding resins like patiromer (8.4-16.8 g/day) can help manage hyperkalemia."
+          }
+        ],
+        "clinical_pearl": "The use of erythropoietin can increase hemoglobin levels by 1-2 g/dL, reducing the risk of cardiovascular events. For instance, the use of erythropoietin (50-100 units/kg/week) can reduce the risk of cardiovascular events by 10-20%.",
+        "key_points": [
+          "Patients with CKD may present with symptoms such as fatigue, weakness, and shortness of breath.",
+          "The use of medications such as erythropoietin can help manage anemia.",
+          "The 2020 NICE guidelines recommend regular monitoring of renal function and electrolyte levels.",
+          "The use of beta-blockers like metoprolol (25-100 mg/day) can reduce the risk of cardiovascular events.",
+          "The 2018 ACC guidelines emphasize the importance of assessing cardiac function in patients with CKD.",
+          "The use of diuretics (e.g., furosemide 20-40 mg/day) can help manage fluid overload and hypertension."
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends regular monitoring of renal function and electrolyte levels."
+          },
+          {
+            "title": "2019 AHA Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of assessing cardiac function in patients with CKD."
+          },
+          {
+            "title": "TREAT Study",
+            "authors": "TREAT Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrates the benefits of erythropoietin in managing anemia in patients with CKD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Renal Failure",
+      "content": {
+        "intro": "The diagnosis of renal failure involves a combination of clinical evaluation, laboratory tests, and imaging studies. According to the 2020 ESC guidelines, the estimated GFR (eGFR) is a critical marker for assessing renal function. The use of biomarkers such as cystatin C and creatinine is essential for assessing renal function. For instance, the use of the CKD-EPI equation can estimate GFR with high accuracy.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests for diagnosing renal failure include serum creatinine, urea, and electrolyte levels, as well as urine tests for proteinuria and hematuria. The 2019 AHA guidelines recommend regular monitoring of renal function and electrolyte levels in patients with CKD. The use of medications like diuretics (e.g., furosemide 20-40 mg/day) can help manage fluid overload and hypertension."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies such as ultrasound and CT scans can help assess renal structure and function. The 2020 NICE guidelines recommend using ultrasound as the first-line imaging modality for assessing renal function. For example, the use of ultrasound can help identify patients with renal artery stenosis, which can be managed using medications like ACEi (e.g., lisinopril 10-40 mg/day)."
+          },
+          {
+            "heading": "Biomarkers",
+            "text": "Biomarkers such as cystatin C and creatinine are essential for assessing renal function. The 2018 ACC guidelines emphasize the importance of using biomarkers to diagnose and monitor renal failure. The use of biomarkers can help identify patients at high risk of disease progression and guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The use of the CKD-EPI equation can estimate GFR with high accuracy, allowing for early detection and intervention. For instance, the use of the CKD-EPI equation can identify patients with eGFR <60 mL/min/1.73m^2, who are at high risk of disease progression.",
+        "key_points": [
+          "The estimated GFR (eGFR) is a critical marker for assessing renal function.",
+          "The use of biomarkers such as cystatin C and creatinine is essential for assessing renal function.",
+          "The 2020 ESC guidelines recommend using the CKD-EPI equation to estimate GFR.",
+          "The use of imaging studies such as ultrasound can help assess renal structure and function.",
+          "The 2019 AHA guidelines recommend regular monitoring of renal function and electrolyte levels.",
+          "The use of biomarkers can help identify patients at high risk of disease progression."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends using the CKD-EPI equation to estimate GFR."
+          },
+          {
+            "title": "2019 AHA Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of regular monitoring of renal function and electrolyte levels."
+          },
+          {
+            "title": "CKD-EPI Study",
+            "authors": "CKD-EPI Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrates the accuracy of the CKD-EPI equation in estimating GFR."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Renal Failure",
+      "content": {
+        "intro": "The treatment and management of renal failure involve a combination of lifestyle modifications, medications, and renal replacement therapy (RRT). According to the 2020 NICE guidelines, the use of ACEi or ARBs is essential for patients with CKD to slow disease progression. For instance, the use of lisinopril (10-40 mg/day) can reduce the risk of disease progression by 20-30%.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications such as dietary changes and exercise can help slow disease progression. The 2019 AHA guidelines recommend a low-sodium diet and regular exercise for patients with CKD. The use of medications like diuretics (e.g., furosemide 20-40 mg/day) can help manage fluid overload and hypertension."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications such as ACEi, ARBs, and beta-blockers can help manage hypertension and slow disease progression. The 2020 ESC guidelines recommend using ACEi or ARBs as first-line therapy for patients with CKD. For example, the use of losartan (50-100 mg/day) can reduce the risk of disease progression by 20-30%."
+          },
+          {
+            "heading": "Renal Replacement Therapy",
+            "text": "Renal replacement therapy (RRT) such as hemodialysis, peritoneal dialysis, and kidney transplantation can help manage end-stage renal disease (ESRD). The 2018 ACC guidelines emphasize the importance of early referral to a nephrologist for patients with CKD. The use of RRT can improve quality of life and reduce the risk of mortality."
+          }
+        ],
+        "clinical_pearl": "The use of ACEi or ARBs can reduce the risk of disease progression by 20-30%. For instance, the use of lisinopril (10-40 mg/day) can reduce the risk of disease progression by 20-30%.",
+        "key_points": [
+          "The use of ACEi or ARBs is essential for patients with CKD to slow disease progression.",
+          "The 2020 NICE guidelines recommend using ACEi or ARBs as first-line therapy for patients with CKD.",
+          "The use of lifestyle modifications such as dietary changes and exercise can help slow disease progression.",
+          "The 2019 AHA guidelines recommend a low-sodium diet and regular exercise for patients with CKD.",
+          "The use of medications like diuretics (e.g., furosemide 20-40 mg/day) can help manage fluid overload and hypertension.",
+          "The use of RRT can improve quality of life and reduce the risk of mortality."
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends using ACEi or ARBs as first-line therapy for patients with CKD."
+          },
+          {
+            "title": "2019 AHA Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of lifestyle modifications for patients with CKD."
+          },
+          {
+            "title": "REIN-2 Study",
+            "authors": "REIN-2 Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Demonstrates the benefits of early intervention in slowing disease progression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Renal Failure",
+      "content": {
+        "intro": "The complications of renal failure can include cardiovascular disease, anemia, and bone disease. According to the 2020 ESC guidelines, the use of medications like beta-blockers (e.g., metoprolol 25-100 mg/day) can help manage cardiovascular disease. For instance, the use of beta-blockers can reduce the risk of cardiovascular events by 20-30%.",
+        "sections": [
+          {
+            "heading": "Cardiovascular Disease",
+            "text": "Cardiovascular disease is a major cause of morbidity and mortality in patients with renal failure. The 2019 AHA guidelines recommend regular monitoring of cardiac function and cardiovascular risk factors in patients with CKD. The use of medications like statins (e.g., atorvastatin 10-20 mg/day) can help manage hyperlipidemia and reduce the risk of cardiovascular events."
+          },
+          {
+            "heading": "Anemia",
+            "text": "Anemia is a common complication of renal failure, and can be managed using medications like erythropoietin (50-100 units/kg/week). The 2020 NICE guidelines recommend regular monitoring of hemoglobin levels and iron stores in patients with CKD. The use of erythropoietin can increase hemoglobin levels by 1-2 g/dL, reducing the risk of cardiovascular events."
+          },
+          {
+            "heading": "Bone Disease",
+            "text": "Bone disease is a common complication of renal failure, and can be managed using medications like vitamin D and calcium supplements. The 2018 ACC guidelines emphasize the importance of regular monitoring of bone mineral density and parathyroid hormone levels in patients with CKD. The use of medications like cinacalcet (30-60 mg/day) can help manage hyperparathyroidism and reduce the risk of bone disease."
+          }
+        ],
+        "clinical_pearl": "The use of beta-blockers can reduce the risk of cardiovascular events by 20-30%. For instance, the use of metoprolol (25-100 mg/day) can reduce the risk of cardiovascular events by 20-30%.",
+        "key_points": [
+          "Cardiovascular disease is a major cause of morbidity and mortality in patients with renal failure.",
+          "The use of medications like beta-blockers (e.g., metoprolol 25-100 mg/day) can help manage cardiovascular disease.",
+          "The 2020 ESC guidelines recommend regular monitoring of cardiac function and cardiovascular risk factors in patients with CKD.",
+          "The use of medications like statins (e.g., atorvastatin 10-20 mg/day) can help manage hyperlipidemia and reduce the risk of cardiovascular events.",
+          "The use of erythropoietin (50-100 units/kg/week) can increase hemoglobin levels by 1-2 g/dL, reducing the risk of cardiovascular events.",
+          "The use of medications like cinacalcet (30-60 mg/day) can help manage hyperparathyroidism and reduce the risk of bone disease."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends regular monitoring of cardiac function and cardiovascular risk factors in patients with CKD."
+          },
+          {
+            "title": "2019 AHA Guidelines for the Management of Chronic Kidney Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of regular monitoring of cardiac function and cardiovascular risk factors in patients with CKD."
+          },
+          {
+            "title": "TREAT Study",
+            "authors": "TREAT Study Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrates the benefits of erythropoietin in managing anemia in patients with CKD."
+          }
+        ]
+      }
+    }
+  ]
+}

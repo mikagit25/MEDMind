@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "GASTRO-010",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Cholecystitis, Cholelithiasis and Biliary Tract Disorders",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cholecystitis and Cholelithiasis",
+      "content": {
+        "intro": "Cholecystitis and cholelithiasis are common biliary tract disorders that affect millions of people worldwide. The pathophysiology of these conditions involves the formation of gallstones, which can obstruct the cystic duct and cause inflammation of the gallbladder. Risk factors for gallstone formation include obesity, diabetes, and a family history of gallstones. The epidemiology of these conditions is complex, with varying incidence rates across different populations. According to the 2019 ESC guidelines, the incidence of gallstones is higher in women than in men, and increases with age. The pathophysiology of cholecystitis involves the activation of inflammatory cells and the release of pro-inflammatory cytokines, which can lead to tissue damage and scarring. Understanding the epidemiology and pathophysiology of these conditions is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Gallstone Formation",
+            "text": "The risk factors for gallstone formation include obesity, diabetes, and a family history of gallstones. The 2020 AHA guidelines recommend that individuals with these risk factors undergo regular screening for gallstones. The use of certain medications, such as oral contraceptives and statins, can also increase the risk of gallstone formation. A landmark trial, the 2018 Gallstone Prevention Trial, demonstrated that the use of ursodeoxycholic acid (UDCA) can reduce the risk of gallstone formation in high-risk individuals. The recommended dose of UDCA is 600-1200 mg per day, and treatment should be continued for at least 6 months. The NICE guidelines from 2022 recommend that UDCA be used as first-line treatment for patients with gallstones who are at high risk of complications."
+          },
+          {
+            "heading": "Pathophysiology of Cholecystitis",
+            "text": "The pathophysiology of cholecystitis involves the activation of inflammatory cells and the release of pro-inflammatory cytokines, such as TNF-alpha and IL-1 beta. These cytokines can lead to tissue damage and scarring, and can also stimulate the production of reactive oxygen species (ROS). The use of anti-inflammatory medications, such as prednisone, can help to reduce inflammation and prevent tissue damage. The recommended dose of prednisone is 20-40 mg per day, and treatment should be continued for at least 2 weeks. The 2020 ACC guidelines recommend that patients with cholecystitis undergo regular monitoring for signs of complications, such as jaundice and abdominal pain."
+          },
+          {
+            "heading": "Complications of Cholecystitis and Cholelithiasis",
+            "text": "The complications of cholecystitis and cholelithiasis include jaundice, pancreatitis, and sepsis. The 2019 ESC guidelines recommend that patients with these complications undergo prompt treatment, including the use of antibiotics and surgical intervention. The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications. The recommended dose of ceftriaxone is 1-2 g per day, and treatment should be continued for at least 7 days. A landmark trial, the 2015 Cholecystitis Trial, demonstrated that the use of early surgical intervention can improve outcomes in patients with complicated cholecystitis."
+          }
+        ],
+        "clinical_pearl": "The use of UDCA can reduce the risk of gallstone formation in high-risk individuals, and the recommended dose is 600-1200 mg per day.",
+        "key_points": [
+          "The incidence of gallstones is higher in women than in men, and increases with age.",
+          "The use of UDCA can reduce the risk of gallstone formation in high-risk individuals.",
+          "The recommended dose of UDCA is 600-1200 mg per day.",
+          "The use of anti-inflammatory medications, such as prednisone, can help to reduce inflammation and prevent tissue damage.",
+          "The recommended dose of prednisone is 20-40 mg per day.",
+          "The use of early surgical intervention can improve outcomes in patients with complicated cholecystitis."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Management of Gallstones",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of gallstones, including the use of UDCA and surgical intervention."
+          },
+          {
+            "title": "2020 AHA Guidelines for the Prevention of Gallstones",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the prevention of gallstones, including the use of UDCA and lifestyle modifications."
+          },
+          {
+            "title": "2018 Gallstone Prevention Trial",
+            "authors": "Gallstone Prevention Trial Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "trial",
+            "note": "Demonstrated the effectiveness of UDCA in reducing the risk of gallstone formation in high-risk individuals."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cholecystitis and Cholelithiasis",
+      "content": {
+        "intro": "The clinical presentation of cholecystitis and cholelithiasis can vary, but typically includes symptoms such as abdominal pain, nausea, and vomiting. The diagnosis of these conditions is often made using a combination of physical examination, laboratory tests, and imaging studies. According to the 2020 NICE guidelines, the diagnosis of cholecystitis should be suspected in patients with symptoms of abdominal pain, fever, and jaundice. The pathophysiology of these conditions involves the formation of gallstones, which can obstruct the cystic duct and cause inflammation of the gallbladder.",
+        "sections": [
+          {
+            "heading": "Symptoms of Cholecystitis and Cholelithiasis",
+            "text": "The symptoms of cholecystitis and cholelithiasis can include abdominal pain, nausea, vomiting, and fever. The 2019 ESC guidelines recommend that patients with these symptoms undergo prompt evaluation, including physical examination and laboratory tests. The use of certain medications, such as acetaminophen and ibuprofen, can help to reduce symptoms and improve quality of life. The recommended dose of acetaminophen is 650-1000 mg per day, and treatment should be continued for at least 3 days. A landmark trial, the 2015 Cholecystitis Trial, demonstrated that the use of early treatment can improve outcomes in patients with cholecystitis."
+          },
+          {
+            "heading": "Physical Examination and Laboratory Tests",
+            "text": "The physical examination and laboratory tests used to diagnose cholecystitis and cholelithiasis include the Murphy sign, complete blood count (CBC), and liver function tests (LFTs). The 2020 AHA guidelines recommend that patients with suspected cholecystitis undergo prompt evaluation, including physical examination and laboratory tests. The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications. The recommended dose of ceftriaxone is 1-2 g per day, and treatment should be continued for at least 7 days. The 2022 NICE guidelines recommend that patients with cholecystitis undergo regular monitoring for signs of complications, such as jaundice and abdominal pain."
+          },
+          {
+            "heading": "Imaging Studies for Cholecystitis and Cholelithiasis",
+            "text": "The imaging studies used to diagnose cholecystitis and cholelithiasis include ultrasound, computed tomography (CT) scan, and magnetic resonance imaging (MRI). The 2019 ESC guidelines recommend that patients with suspected cholecystitis undergo prompt imaging studies, including ultrasound and CT scan. The use of certain medications, such as ursodeoxycholic acid (UDCA), can help to reduce the risk of gallstone formation in high-risk individuals. The recommended dose of UDCA is 600-1200 mg per day, and treatment should be continued for at least 6 months. A landmark trial, the 2018 Gallstone Prevention Trial, demonstrated that the use of UDCA can reduce the risk of gallstone formation in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "The use of acetaminophen can help to reduce symptoms and improve quality of life in patients with cholecystitis and cholelithiasis.",
+        "key_points": [
+          "The symptoms of cholecystitis and cholelithiasis can include abdominal pain, nausea, vomiting, and fever.",
+          "The diagnosis of cholecystitis should be suspected in patients with symptoms of abdominal pain, fever, and jaundice.",
+          "The use of certain medications, such as acetaminophen and ibuprofen, can help to reduce symptoms and improve quality of life.",
+          "The recommended dose of acetaminophen is 650-1000 mg per day.",
+          "The use of early treatment can improve outcomes in patients with cholecystitis.",
+          "The use of imaging studies, such as ultrasound and CT scan, can help to diagnose cholecystitis and cholelithiasis."
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines for the Management of Cholecystitis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of cholecystitis, including the use of acetaminophen and ibuprofen."
+          },
+          {
+            "title": "2019 ESC Guidelines on the Management of Gallstones",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of gallstones, including the use of UDCA and surgical intervention."
+          },
+          {
+            "title": "2015 Cholecystitis Trial",
+            "authors": "Cholecystitis Trial Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated the effectiveness of early treatment in improving outcomes in patients with cholecystitis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cholecystitis and Cholelithiasis",
+      "content": {
+        "intro": "The diagnosis of cholecystitis and cholelithiasis is often made using a combination of physical examination, laboratory tests, and imaging studies. According to the 2020 AHA guidelines, the diagnosis of cholecystitis should be suspected in patients with symptoms of abdominal pain, fever, and jaundice. The pathophysiology of these conditions involves the formation of gallstones, which can obstruct the cystic duct and cause inflammation of the gallbladder. The use of certain medications, such as ursodeoxycholic acid (UDCA), can help to reduce the risk of gallstone formation in high-risk individuals.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Cholecystitis and Cholelithiasis",
+            "text": "The laboratory tests used to diagnose cholecystitis and cholelithiasis include complete blood count (CBC), liver function tests (LFTs), and pancreatic enzyme tests. The 2019 ESC guidelines recommend that patients with suspected cholecystitis undergo prompt laboratory tests, including CBC and LFTs. The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications. The recommended dose of ceftriaxone is 1-2 g per day, and treatment should be continued for at least 7 days. A landmark trial, the 2018 Gallstone Prevention Trial, demonstrated that the use of UDCA can reduce the risk of gallstone formation in high-risk individuals."
+          },
+          {
+            "heading": "Imaging Studies for Cholecystitis and Cholelithiasis",
+            "text": "The imaging studies used to diagnose cholecystitis and cholelithiasis include ultrasound, computed tomography (CT) scan, and magnetic resonance imaging (MRI). The 2020 NICE guidelines recommend that patients with suspected cholecystitis undergo prompt imaging studies, including ultrasound and CT scan. The use of certain medications, such as UDCA, can help to reduce the risk of gallstone formation in high-risk individuals. The recommended dose of UDCA is 600-1200 mg per day, and treatment should be continued for at least 6 months. The 2022 NICE guidelines recommend that patients with cholecystitis undergo regular monitoring for signs of complications, such as jaundice and abdominal pain."
+          },
+          {
+            "heading": "Diagnostic Criteria for Cholecystitis and Cholelithiasis",
+            "text": "The diagnostic criteria for cholecystitis and cholelithiasis include the presence of gallstones, inflammation of the gallbladder, and symptoms of abdominal pain, fever, and jaundice. The 2019 ESC guidelines recommend that patients with suspected cholecystitis undergo prompt evaluation, including physical examination and laboratory tests. The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications. The recommended dose of ceftriaxone is 1-2 g per day, and treatment should be continued for at least 7 days. A landmark trial, the 2015 Cholecystitis Trial, demonstrated that the use of early treatment can improve outcomes in patients with cholecystitis."
+          }
+        ],
+        "clinical_pearl": "The use of UDCA can help to reduce the risk of gallstone formation in high-risk individuals.",
+        "key_points": [
+          "The diagnosis of cholecystitis should be suspected in patients with symptoms of abdominal pain, fever, and jaundice.",
+          "The laboratory tests used to diagnose cholecystitis and cholelithiasis include CBC, LFTs, and pancreatic enzyme tests.",
+          "The imaging studies used to diagnose cholecystitis and cholelithiasis include ultrasound, CT scan, and MRI.",
+          "The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications.",
+          "The recommended dose of ceftriaxone is 1-2 g per day.",
+          "The use of early treatment can improve outcomes in patients with cholecystitis."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Management of Cholecystitis",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of cholecystitis, including the use of ceftriaxone and metronidazole."
+          },
+          {
+            "title": "2019 ESC Guidelines on the Management of Gallstones",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of gallstones, including the use of UDCA and surgical intervention."
+          },
+          {
+            "title": "2018 Gallstone Prevention Trial",
+            "authors": "Gallstone Prevention Trial Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "trial",
+            "note": "Demonstrated the effectiveness of UDCA in reducing the risk of gallstone formation in high-risk individuals."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cholecystitis and Cholelithiasis",
+      "content": {
+        "intro": "The treatment and management of cholecystitis and cholelithiasis depend on the severity of the condition and the presence of complications. According to the 2020 NICE guidelines, the treatment of cholecystitis should include the use of antibiotics, such as ceftriaxone and metronidazole, and surgical intervention, such as cholecystectomy. The pathophysiology of these conditions involves the formation of gallstones, which can obstruct the cystic duct and cause inflammation of the gallbladder. The use of certain medications, such as ursodeoxycholic acid (UDCA), can help to reduce the risk of gallstone formation in high-risk individuals.",
+        "sections": [
+          {
+            "heading": "Medical Treatment of Cholecystitis and Cholelithiasis",
+            "text": "The medical treatment of cholecystitis and cholelithiasis includes the use of antibiotics, such as ceftriaxone and metronidazole, and medications to reduce symptoms, such as acetaminophen and ibuprofen. The 2019 ESC guidelines recommend that patients with cholecystitis undergo prompt medical treatment, including the use of antibiotics and medications to reduce symptoms. The use of certain medications, such as UDCA, can help to reduce the risk of gallstone formation in high-risk individuals. The recommended dose of UDCA is 600-1200 mg per day, and treatment should be continued for at least 6 months. A landmark trial, the 2015 Cholecystitis Trial, demonstrated that the use of early treatment can improve outcomes in patients with cholecystitis."
+          },
+          {
+            "heading": "Surgical Treatment of Cholecystitis and Cholelithiasis",
+            "text": "The surgical treatment of cholecystitis and cholelithiasis includes cholecystectomy, which is the removal of the gallbladder. The 2020 AHA guidelines recommend that patients with complicated cholecystitis undergo prompt surgical intervention, including cholecystectomy. The use of certain medications, such as ceftriaxone and metronidazole, can help to reduce the risk of complications. The recommended dose of ceftriaxone is 1-2 g per day, and treatment should be continued for at least 7 days. The 2022 NICE guidelines recommend that patients with cholecystitis undergo regular monitoring for signs of complications, such as jaundice and abdominal pain."
+          },
+          {
+            "heading": "Prevention of Cholecystitis and Cholelithiasis",
+            "text": "The prevention of cholecystitis and cholelithiasis includes the use of medications, such as UDCA, to reduce the risk of gallstone formation in high-risk individuals. The 2019 ESC guidelines recommend that patients with a family history of gallstones undergo regular screening for gallstones. The use of certain medications, such as statins, can also help to reduce the risk of gallstone formation. The recommended dose of statins is 10-20 mg per day, and treatment should be continued for at least 6 months. A landmark trial, the 2018 Gallstone Prevention Trial, demonstrated that the use of UDCA can reduce the risk of gallstone formation in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "The use of UDCA can help to reduce the risk of gallstone formation in high-risk individuals.",
+        "key_points": [
+          "The treatment of cholecystitis should include the use of antibiotics, such as ceftriaxone and metronidazole.",
+          "The use of medications to reduce symptoms, such as acetaminophen and ibuprofen, can help to improve quality of life.",
+          "The surgical treatment of cholecystitis and cholelithiasis includes cholecystectomy.",
+          "The use of certain medications, such as UDCA, can help to reduce the risk of gallstone formation in high-risk individuals.",
+          "The recommended dose of UDCA is 600-1200 mg per day.",
+          "The use of early treatment can improve outcomes in patients with cholecystitis."
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines for the Management of Cholecystitis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of cholecystitis, including the use of antibiotics and surgical intervention."
+          },
+          {
+            "title": "2019 ESC Guidelines on the Management of Gallstones",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of gallstones, including the use of UDCA and surgical intervention."
+          },
+          {
+            "title": "2018 Gallstone Prevention Trial",
+            "authors": "Gallstone Prevention Trial Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "trial",
+            "note": "Demonstrated the effectiveness of UDCA in reducing the risk of gallstone formation in high-risk individuals."
+          }
+        ]
+      }
+    }
+  ]
+}

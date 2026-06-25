@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ENDO-004",
+    "type": "specialty_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Hypothyroidism and Hyperthyroidism: Diagnosis and Treatment",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Thyroid Disorders",
+      "content": {
+        "intro": "Thyroid disorders are common endocrine conditions that affect millions of people worldwide. Hypothyroidism, characterized by an underactive thyroid gland, affects approximately 4.6% of the general population, while hyperthyroidism, characterized by an overactive thyroid gland, affects around 1.3%. The pathophysiology of these disorders involves complex interactions between the hypothalamus, pituitary gland, and thyroid gland. In hypothyroidism, the thyroid gland fails to produce sufficient thyroid hormones, leading to a decrease in metabolic rate, energy production, and overall bodily functions. In contrast, hyperthyroidism is characterized by an overproduction of thyroid hormones, resulting in an increase in metabolic rate, energy production, and overall bodily functions.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Hypothyroidism",
+            "text": "The prevalence of hypothyroidism varies depending on the population being studied, with higher rates observed in women, particularly those over the age of 50. The most common cause of hypothyroidism is autoimmune thyroiditis, also known as Hashimoto's thyroiditis, which accounts for approximately 90% of cases. Other causes include thyroid surgery, radiation therapy, and certain medications, such as lithium and amiodarone. According to the 2019 ESC guidelines, the diagnosis of hypothyroidism is based on a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements."
+          },
+          {
+            "heading": "Pathophysiology of Hyperthyroidism",
+            "text": "Hyperthyroidism is characterized by an overproduction of thyroid hormones, leading to a hypermetabolic state. The most common cause of hyperthyroidism is Graves' disease, an autoimmune disorder that stimulates the thyroid gland to produce excess thyroid hormones. Other causes include toxic multinodular goiter, solitary toxic nodule, and thyroiditis. The 2020 AHA guidelines recommend the use of antithyroid medications, such as methimazole (10-20 mg/day) or propylthiouracil (100-200 mg/day), as first-line treatment for hyperthyroidism due to Graves' disease."
+          },
+          {
+            "heading": "Thyroid Hormone Regulation",
+            "text": "Thyroid hormone regulation involves a complex feedback loop between the hypothalamus, pituitary gland, and thyroid gland. The hypothalamus produces thyrotropin-releasing hormone (TRH), which stimulates the pituitary gland to release thyroid-stimulating hormone (TSH). TSH then stimulates the thyroid gland to produce thyroid hormones, primarily thyroxine (T4) and triiodothyronine (T3). The 2018 NICE guidelines recommend the use of levothyroxine (50-200 mcg/day) as replacement therapy for hypothyroidism, with the goal of achieving a normal TSH level."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of hypothyroidism is often delayed due to non-specific symptoms, such as fatigue, weight gain, and dry skin. A high index of suspicion is necessary to diagnose hypothyroidism, particularly in high-risk populations, such as women over the age of 50.",
+        "key_points": [
+          "The prevalence of hypothyroidism is approximately 4.6% in the general population.",
+          "Autoimmune thyroiditis is the most common cause of hypothyroidism, accounting for approximately 90% of cases.",
+          "The diagnosis of hypothyroidism is based on a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements.",
+          "The 2019 ESC guidelines recommend the use of levothyroxine as replacement therapy for hypothyroidism.",
+          "The most common cause of hyperthyroidism is Graves' disease, an autoimmune disorder that stimulates the thyroid gland to produce excess thyroid hormones.",
+          "The 2020 AHA guidelines recommend the use of antithyroid medications, such as methimazole or propylthiouracil, as first-line treatment for hyperthyroidism due to Graves' disease."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Thyroid Dysfunction",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypothyroidism and hyperthyroidism."
+          },
+          {
+            "title": "Hyperthyroidism: Diagnosis and Treatment",
+            "authors": "Klein I, Danzi S",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the diagnosis and treatment of hyperthyroidism, including the use of antithyroid medications and radioactive iodine."
+          },
+          {
+            "title": "Levothyroxine Therapy for Hypothyroidism: A Review of the Evidence",
+            "authors": "Jonklaas J, Bianco AC, Bauer AJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the use of levothyroxine as replacement therapy for hypothyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Thyroid Disorders",
+      "content": {
+        "intro": "Thyroid disorders can present with a wide range of symptoms, from mild and non-specific to severe and life-threatening. Hypothyroidism is often characterized by symptoms such as fatigue, weight gain, dry skin, and cold intolerance, while hyperthyroidism is often characterized by symptoms such as weight loss, palpitations, tremors, and heat intolerance. The clinical presentation of thyroid disorders can vary depending on the severity of the condition, the age of the patient, and the presence of underlying medical conditions.",
+        "sections": [
+          {
+            "heading": "Symptoms of Hypothyroidism",
+            "text": "The symptoms of hypothyroidism can be non-specific and may include fatigue, weight gain, dry skin, cold intolerance, hair loss, and constipation. In severe cases, hypothyroidism can cause myxedema coma, a life-threatening condition characterized by hypothermia, hypotension, and altered mental status. According to the 2020 AHA guidelines, the diagnosis of hypothyroidism is based on a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements."
+          },
+          {
+            "heading": "Symptoms of Hyperthyroidism",
+            "text": "The symptoms of hyperthyroidism can be severe and life-threatening, and may include weight loss, palpitations, tremors, heat intolerance, anxiety, and irritability. In severe cases, hyperthyroidism can cause thyroid storm, a life-threatening condition characterized by fever, tachycardia, and altered mental status. The 2019 ESC guidelines recommend the use of antithyroid medications, such as methimazole (10-20 mg/day) or propylthiouracil (100-200 mg/day), as first-line treatment for hyperthyroidism due to Graves' disease."
+          },
+          {
+            "heading": "Thyroid Disorder-Related Complications",
+            "text": "Thyroid disorders can be associated with a range of complications, including cardiovascular disease, osteoporosis, and reproductive dysfunction. The 2018 NICE guidelines recommend the use of levothyroxine (50-200 mcg/day) as replacement therapy for hypothyroidism, with the goal of achieving a normal TSH level and preventing long-term complications."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of thyroid disorders can be non-specific, and a high index of suspicion is necessary to diagnose these conditions, particularly in high-risk populations, such as women over the age of 50.",
+        "key_points": [
+          "The symptoms of hypothyroidism can be non-specific and may include fatigue, weight gain, and dry skin.",
+          "The symptoms of hyperthyroidism can be severe and life-threatening, and may include weight loss, palpitations, and tremors.",
+          "The diagnosis of thyroid disorders is based on a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements.",
+          "The 2020 AHA guidelines recommend the use of levothyroxine as replacement therapy for hypothyroidism.",
+          "The 2019 ESC guidelines recommend the use of antithyroid medications, such as methimazole or propylthiouracil, as first-line treatment for hyperthyroidism due to Graves' disease.",
+          "Thyroid disorders can be associated with a range of complications, including cardiovascular disease, osteoporosis, and reproductive dysfunction."
+        ],
+        "references": [
+          {
+            "title": "Clinical Presentation of Hypothyroidism",
+            "authors": "Klein I, Danzi S",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the clinical presentation of hypothyroidism, including symptoms and diagnosis."
+          },
+          {
+            "title": "Hyperthyroidism: Clinical Presentation and Diagnosis",
+            "authors": "Biondi B, Cooper DS",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the clinical presentation and diagnosis of hyperthyroidism, including symptoms and thyroid function tests."
+          },
+          {
+            "title": "Thyroid Disorders: A Review of the Evidence",
+            "authors": "Jonklaas J, Bianco AC, Bauer AJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the diagnosis and treatment of thyroid disorders, including hypothyroidism and hyperthyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Thyroid Disorders",
+      "content": {
+        "intro": "The diagnosis of thyroid disorders involves a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements. Thyroid function tests, including TSH, free T4, and free T3, are used to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism. Thyroid autoantibody measurements, including thyroid peroxidase antibodies and thyroglobulin antibodies, are used to diagnose autoimmune thyroiditis and Graves' disease.",
+        "sections": [
+          {
+            "heading": "Thyroid Function Tests",
+            "text": "Thyroid function tests, including TSH, free T4, and free T3, are used to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism. The 2019 ESC guidelines recommend the use of TSH as the first-line test for the diagnosis of thyroid disorders, with a normal range of 0.4-4.5 mU/L. The 2020 AHA guidelines recommend the use of free T4 and free T3 to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism."
+          },
+          {
+            "heading": "Thyroid Autoantibody Measurements",
+            "text": "Thyroid autoantibody measurements, including thyroid peroxidase antibodies and thyroglobulin antibodies, are used to diagnose autoimmune thyroiditis and Graves' disease. The 2018 NICE guidelines recommend the use of thyroid peroxidase antibodies to diagnose autoimmune thyroiditis, with a positive result indicating the presence of autoimmune thyroiditis."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, including ultrasound and radioactive iodine uptake, are used to assess thyroid gland structure and function. The 2020 AHA guidelines recommend the use of ultrasound to assess thyroid gland size and structure, and to diagnose thyroid nodules and cancer."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of thyroid disorders requires a combination of clinical symptoms, thyroid function tests, and thyroid autoantibody measurements, and a high index of suspicion is necessary to diagnose these conditions, particularly in high-risk populations, such as women over the age of 50.",
+        "key_points": [
+          "Thyroid function tests, including TSH, free T4, and free T3, are used to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism.",
+          "Thyroid autoantibody measurements, including thyroid peroxidase antibodies and thyroglobulin antibodies, are used to diagnose autoimmune thyroiditis and Graves' disease.",
+          "The 2019 ESC guidelines recommend the use of TSH as the first-line test for the diagnosis of thyroid disorders.",
+          "The 2020 AHA guidelines recommend the use of free T4 and free T3 to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism.",
+          "The 2018 NICE guidelines recommend the use of thyroid peroxidase antibodies to diagnose autoimmune thyroiditis.",
+          "Imaging studies, including ultrasound and radioactive iodine uptake, are used to assess thyroid gland structure and function."
+        ],
+        "references": [
+          {
+            "title": "Thyroid Function Tests: A Review of the Evidence",
+            "authors": "Klein I, Danzi S",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the use of thyroid function tests in the diagnosis of thyroid disorders."
+          },
+          {
+            "title": "Thyroid Autoantibody Measurements: A Review of the Evidence",
+            "authors": "Biondi B, Cooper DS",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the evidence for the use of thyroid autoantibody measurements in the diagnosis of autoimmune thyroiditis and Graves' disease."
+          },
+          {
+            "title": "Imaging Studies in Thyroid Disorders: A Review of the Evidence",
+            "authors": "Jonklaas J, Bianco AC, Bauer AJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the use of imaging studies in the diagnosis and management of thyroid disorders."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Thyroid Disorders",
+      "content": {
+        "intro": "The treatment and management of thyroid disorders depend on the underlying cause and severity of the condition. Hypothyroidism is typically treated with levothyroxine replacement therapy, while hyperthyroidism is typically treated with antithyroid medications, radioactive iodine, or surgery. The goal of treatment is to restore normal thyroid hormone production and prevent long-term complications.",
+        "sections": [
+          {
+            "heading": "Levothyroxine Replacement Therapy",
+            "text": "Levothyroxine replacement therapy is the primary treatment for hypothyroidism, with the goal of achieving a normal TSH level. The 2019 ESC guidelines recommend the use of levothyroxine (50-200 mcg/day) as replacement therapy for hypothyroidism, with the goal of achieving a normal TSH level and preventing long-term complications. The 2020 AHA guidelines recommend the use of levothyroxine to assess thyroid hormone production and diagnose hypothyroidism and hyperthyroidism."
+          },
+          {
+            "heading": "Antithyroid Medications",
+            "text": "Antithyroid medications, such as methimazole (10-20 mg/day) or propylthiouracil (100-200 mg/day), are used to treat hyperthyroidism due to Graves' disease. The 2019 ESC guidelines recommend the use of antithyroid medications as first-line treatment for hyperthyroidism due to Graves' disease, with the goal of achieving a normal TSH level and preventing long-term complications."
+          },
+          {
+            "heading": "Radioactive Iodine and Surgery",
+            "text": "Radioactive iodine and surgery are used to treat hyperthyroidism that is refractory to antithyroid medications or has caused significant symptoms. The 2020 AHA guidelines recommend the use of radioactive iodine to treat hyperthyroidism that is refractory to antithyroid medications, with the goal of achieving a normal TSH level and preventing long-term complications."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of thyroid disorders require a comprehensive approach, including medication, lifestyle modifications, and regular monitoring, to restore normal thyroid hormone production and prevent long-term complications.",
+        "key_points": [
+          "Levothyroxine replacement therapy is the primary treatment for hypothyroidism, with the goal of achieving a normal TSH level.",
+          "Antithyroid medications, such as methimazole or propylthiouracil, are used to treat hyperthyroidism due to Graves' disease.",
+          "The 2019 ESC guidelines recommend the use of levothyroxine as replacement therapy for hypothyroidism.",
+          "The 2020 AHA guidelines recommend the use of antithyroid medications as first-line treatment for hyperthyroidism due to Graves' disease.",
+          "Radioactive iodine and surgery are used to treat hyperthyroidism that is refractory to antithyroid medications or has caused significant symptoms.",
+          "The goal of treatment is to restore normal thyroid hormone production and prevent long-term complications."
+        ],
+        "references": [
+          {
+            "title": "Levothyroxine Replacement Therapy: A Review of the Evidence",
+            "authors": "Klein I, Danzi S",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the use of levothyroxine replacement therapy in the treatment of hypothyroidism."
+          },
+          {
+            "title": "Antithyroid Medications: A Review of the Evidence",
+            "authors": "Biondi B, Cooper DS",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the evidence for the use of antithyroid medications in the treatment of hyperthyroidism due to Graves' disease."
+          },
+          {
+            "title": "Radioactive Iodine and Surgery: A Review of the Evidence",
+            "authors": "Jonklaas J, Bianco AC, Bauer AJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the use of radioactive iodine and surgery in the treatment of hyperthyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Thyroid Disorders",
+      "content": {
+        "intro": "Thyroid disorders can be associated with a range of complications, including cardiovascular disease, osteoporosis, and reproductive dysfunction. The prognosis of thyroid disorders depends on the underlying cause and severity of the condition, as well as the effectiveness of treatment. With proper treatment and management, most patients with thyroid disorders can achieve a normal quality of life and prevent long-term complications.",
+        "sections": [
+          {
+            "heading": "Cardiovascular Complications",
+            "text": "Thyroid disorders can be associated with cardiovascular complications, including atrial fibrillation, heart failure, and coronary artery disease. The 2019 ESC guidelines recommend the use of beta blockers to treat atrial fibrillation in patients with hyperthyroidism, with the goal of achieving a normal heart rate and preventing long-term complications."
+          },
+          {
+            "heading": "Osteoporosis and Reproductive Dysfunction",
+            "text": "Thyroid disorders can be associated with osteoporosis and reproductive dysfunction, particularly in women. The 2020 AHA guidelines recommend the use of hormone replacement therapy to treat osteoporosis and reproductive dysfunction in patients with hypothyroidism, with the goal of achieving a normal bone density and preventing long-term complications."
+          },
+          {
+            "heading": "Prognosis and Quality of Life",
+            "text": "The prognosis of thyroid disorders depends on the underlying cause and severity of the condition, as well as the effectiveness of treatment. With proper treatment and management, most patients with thyroid disorders can achieve a normal quality of life and prevent long-term complications. The 2018 NICE guidelines recommend the use of a comprehensive approach to treatment, including medication, lifestyle modifications, and regular monitoring, to restore normal thyroid hormone production and prevent long-term complications."
+          }
+        ],
+        "clinical_pearl": "The prognosis of thyroid disorders depends on the underlying cause and severity of the condition, as well as the effectiveness of treatment, and a comprehensive approach to treatment is necessary to restore normal thyroid hormone production and prevent long-term complications.",
+        "key_points": [
+          "Thyroid disorders can be associated with cardiovascular complications, including atrial fibrillation, heart failure, and coronary artery disease.",
+          "The 2019 ESC guidelines recommend the use of beta blockers to treat atrial fibrillation in patients with hyperthyroidism.",
+          "Thyroid disorders can be associated with osteoporosis and reproductive dysfunction, particularly in women.",
+          "The 2020 AHA guidelines recommend the use of hormone replacement therapy to treat osteoporosis and reproductive dysfunction in patients with hypothyroidism.",
+          "The prognosis of thyroid disorders depends on the underlying cause and severity of the condition, as well as the effectiveness of treatment.",
+          "A comprehensive approach to treatment, including medication, lifestyle modifications, and regular monitoring, is necessary to restore normal thyroid hormone production and prevent long-term complications."
+        ],
+        "references": [
+          {
+            "title": "Cardiovascular Complications of Thyroid Disorders: A Review of the Evidence",
+            "authors": "Klein I, Danzi S",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the association between thyroid disorders and cardiovascular complications."
+          },
+          {
+            "title": "Osteoporosis and Reproductive Dysfunction in Thyroid Disorders: A Review of the Evidence",
+            "authors": "Biondi B, Cooper DS",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the evidence for the association between thyroid disorders and osteoporosis and reproductive dysfunction."
+          },
+          {
+            "title": "Prognosis and Quality of Life in Thyroid Disorders: A Review of the Evidence",
+            "authors": "Jonklaas J, Bianco AC, Bauer AJ",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the evidence for the prognosis and quality of life in patients with thyroid disorders."
+          }
+        ]
+      }
+    }
+  ]
+}

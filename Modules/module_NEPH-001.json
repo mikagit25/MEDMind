@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEPH-001",
+    "type": "specialty_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Chronic Kidney Disease: Staging (KDIGO), Progression and Management",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-22"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Chronic Kidney Disease",
+      "content": {
+        "intro": "Chronic kidney disease (CKD) is a growing public health concern worldwide, affecting approximately 10% of the global population. The pathophysiology of CKD involves a complex interplay of factors, including hypertension, diabetes, and genetic predisposition. According to the KDIGO guidelines (2012), CKD is defined as a glomerular filtration rate (GFR) of less than 60 mL/min/1.73m^2 or the presence of kidney damage, as indicated by albuminuria or other markers of kidney damage. The progression of CKD can be slowed or halted through early intervention and management. The ESC guidelines (2018) recommend that patients with CKD be screened for cardiovascular disease, as they are at increased risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Risk Factors for CKD",
+            "text": "The risk factors for CKD include hypertension, diabetes, family history of kidney disease, and age. According to the AHA guidelines (2017), patients with hypertension should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg. The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%. The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Pathophysiology of CKD Progression",
+            "text": "The pathophysiology of CKD progression involves a complex interplay of factors, including inflammation, oxidative stress, and fibrosis. According to the NICE guidelines (2014), patients with CKD should be treated with angiotensin-converting enzyme inhibitors (ACEi) or angiotensin receptor blockers (ARB) to slow the progression of kidney disease. The landmark trial, RENAAL (2001), demonstrated that losartan reduced the risk of kidney disease progression in patients with type 2 diabetes. The dose of ACEi or ARB should be titrated to achieve a blood pressure goal of less than 130/80 mmHg, with a target dose of 10-20 mg of lisinopril or 50-100 mg of losartan per day."
+          },
+          {
+            "heading": "KDIGO Guidelines for CKD Staging",
+            "text": "The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria. According to the guidelines, patients with CKD should be classified into one of five stages, ranging from stage 1 (kidney damage with normal GFR) to stage 5 (kidney failure). The guidelines also recommend that patients with CKD be screened for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events. The ESC guidelines (2018) recommend that patients with CKD be treated with statins to reduce their risk of cardiovascular events, with a target LDL cholesterol of less than 70 mg/dL."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl for CKD is that early intervention and management can slow or halt the progression of kidney disease. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%.",
+        "key_points": [
+          "The prevalence of CKD is approximately 10% worldwide.",
+          "The pathophysiology of CKD involves a complex interplay of factors, including hypertension, diabetes, and genetic predisposition.",
+          "The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria.",
+          "The ESC guidelines (2018) recommend that patients with CKD be screened for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events.",
+          "The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%.",
+          "The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "ESC/ESH",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the management of arterial hypertension."
+          },
+          {
+            "title": "EMPA-REG OUTCOME: a randomised, double-blind, placebo-controlled trial",
+            "authors": "Zinman B et al.",
+            "journal_or_source": "The Lancet",
+            "year": 2015,
+            "type": "trial",
+            "note": "The trial demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Chronic Kidney Disease",
+      "content": {
+        "intro": "The clinical presentation of CKD can vary widely, ranging from asymptomatic kidney damage to end-stage kidney disease. According to the NICE guidelines (2014), patients with CKD should be screened for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances. The ESC guidelines (2018) recommend that patients with CKD be evaluated for cardiovascular disease, as they are at increased risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Signs and Symptoms of CKD",
+            "text": "The signs and symptoms of CKD can include hematuria, proteinuria, and electrolyte imbalances. According to the AHA guidelines (2017), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg. The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%. The landmark trial, UKPDS (1998), demonstrated that intensive glucose control reduced the risk of kidney disease progression in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Evaluation of CKD",
+            "text": "The evaluation of CKD involves a comprehensive history and physical examination, laboratory tests, and imaging studies. According to the KDIGO guidelines (2012), patients with CKD should be evaluated for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances. The NICE guidelines (2014) recommend that patients with CKD be treated with ACEi or ARB to slow the progression of kidney disease. The dose of ACEi or ARB should be titrated to achieve a blood pressure goal of less than 130/80 mmHg, with a target dose of 10-20 mg of lisinopril or 50-100 mg of losartan per day."
+          },
+          {
+            "heading": "Cardiovascular Disease in CKD",
+            "text": "The risk of cardiovascular disease is increased in patients with CKD. According to the ESC guidelines (2018), patients with CKD should be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events. The landmark trial, SHARP (2010), demonstrated that simvastatin reduced the risk of cardiovascular events in patients with CKD. The dose of simvastatin should be titrated to achieve a target LDL cholesterol of less than 70 mg/dL."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl for CKD is that early evaluation and management can slow or halt the progression of kidney disease. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%.",
+        "key_points": [
+          "The clinical presentation of CKD can vary widely, ranging from asymptomatic kidney damage to end-stage kidney disease.",
+          "The signs and symptoms of CKD can include hematuria, proteinuria, and electrolyte imbalances.",
+          "The evaluation of CKD involves a comprehensive history and physical examination, laboratory tests, and imaging studies.",
+          "The NICE guidelines (2014) recommend that patients with CKD be treated with ACEi or ARB to slow the progression of kidney disease.",
+          "The ESC guidelines (2018) recommend that patients with CKD be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events.",
+          "The landmark trial, UKPDS (1998), demonstrated that intensive glucose control reduced the risk of kidney disease progression in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "NICE Clinical Guideline 73: Chronic kidney disease",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "ESC/ESH",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the management of arterial hypertension."
+          },
+          {
+            "title": "UK Prospective Diabetes Study (UKPDS)",
+            "authors": "UK Prospective Diabetes Study Group",
+            "journal_or_source": "The Lancet",
+            "year": 1998,
+            "type": "trial",
+            "note": "The trial demonstrated that intensive glucose control reduced the risk of kidney disease progression in patients with type 2 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Chronic Kidney Disease",
+      "content": {
+        "intro": "The diagnosis of CKD involves a comprehensive evaluation of kidney function, including laboratory tests and imaging studies. According to the KDIGO guidelines (2012), patients with CKD should be evaluated for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances. The ESC guidelines (2018) recommend that patients with CKD be evaluated for cardiovascular disease, as they are at increased risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for CKD",
+            "text": "The laboratory tests for CKD include serum creatinine, urea, and electrolytes. According to the AHA guidelines (2017), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg. The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%. The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Imaging Studies for CKD",
+            "text": "The imaging studies for CKD include ultrasound, CT, and MRI. According to the NICE guidelines (2014), patients with CKD should be evaluated for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances. The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria. The dose of ACEi or ARB should be titrated to achieve a blood pressure goal of less than 130/80 mmHg, with a target dose of 10-20 mg of lisinopril or 50-100 mg of losartan per day."
+          },
+          {
+            "heading": "Diagnosis of CKD",
+            "text": "The diagnosis of CKD involves a comprehensive evaluation of kidney function, including laboratory tests and imaging studies. According to the ESC guidelines (2018), patients with CKD should be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events. The landmark trial, SHARP (2010), demonstrated that simvastatin reduced the risk of cardiovascular events in patients with CKD. The dose of simvastatin should be titrated to achieve a target LDL cholesterol of less than 70 mg/dL."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl for CKD is that early diagnosis and management can slow or halt the progression of kidney disease. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%.",
+        "key_points": [
+          "The diagnosis of CKD involves a comprehensive evaluation of kidney function, including laboratory tests and imaging studies.",
+          "The laboratory tests for CKD include serum creatinine, urea, and electrolytes.",
+          "The imaging studies for CKD include ultrasound, CT, and MRI.",
+          "The NICE guidelines (2014) recommend that patients with CKD be evaluated for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances.",
+          "The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria.",
+          "The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "NICE Clinical Guideline 73: Chronic kidney disease",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "EMPA-REG OUTCOME: a randomised, double-blind, placebo-controlled trial",
+            "authors": "Zinman B et al.",
+            "journal_or_source": "The Lancet",
+            "year": 2015,
+            "type": "trial",
+            "note": "The trial demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Chronic Kidney Disease",
+      "content": {
+        "intro": "The treatment and management of CKD involves a comprehensive approach, including lifestyle modifications, pharmacotherapy, and dialysis. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%. The ESC guidelines (2018) recommend that patients with CKD be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications for CKD",
+            "text": "The lifestyle modifications for CKD include a healthy diet, regular exercise, and smoking cessation. According to the AHA guidelines (2017), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg. The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%. The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Pharmacotherapy for CKD",
+            "text": "The pharmacotherapy for CKD includes ACEi, ARB, and beta blockers. According to the NICE guidelines (2014), patients with CKD should be treated with ACEi or ARB to slow the progression of kidney disease. The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria. The dose of ACEi or ARB should be titrated to achieve a blood pressure goal of less than 130/80 mmHg, with a target dose of 10-20 mg of lisinopril or 50-100 mg of losartan per day."
+          },
+          {
+            "heading": "Dialysis for CKD",
+            "text": "The dialysis for CKD includes hemodialysis and peritoneal dialysis. According to the ESC guidelines (2018), patients with CKD should be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events. The landmark trial, SHARP (2010), demonstrated that simvastatin reduced the risk of cardiovascular events in patients with CKD. The dose of simvastatin should be titrated to achieve a target LDL cholesterol of less than 70 mg/dL."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl for CKD is that early treatment and management can slow or halt the progression of kidney disease. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%.",
+        "key_points": [
+          "The treatment and management of CKD involves a comprehensive approach, including lifestyle modifications, pharmacotherapy, and dialysis.",
+          "The lifestyle modifications for CKD include a healthy diet, regular exercise, and smoking cessation.",
+          "The pharmacotherapy for CKD includes ACEi, ARB, and beta blockers.",
+          "The NICE guidelines (2014) recommend that patients with CKD be treated with ACEi or ARB to slow the progression of kidney disease.",
+          "The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria.",
+          "The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "NICE Clinical Guideline 73: Chronic kidney disease",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "EMPA-REG OUTCOME: a randomised, double-blind, placebo-controlled trial",
+            "authors": "Zinman B et al.",
+            "journal_or_source": "The Lancet",
+            "year": 2015,
+            "type": "trial",
+            "note": "The trial demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Chronic Kidney Disease",
+      "content": {
+        "intro": "The complications of CKD can include cardiovascular disease, anemia, and bone disease. According to the KDIGO guidelines (2012), patients with CKD should be evaluated for signs and symptoms of kidney disease, including hematuria, proteinuria, and electrolyte imbalances. The ESC guidelines (2018) recommend that patients with CKD be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events.",
+        "sections": [
+          {
+            "heading": "Cardiovascular Disease in CKD",
+            "text": "The risk of cardiovascular disease is increased in patients with CKD. According to the AHA guidelines (2017), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg. The ACC/AHA guidelines (2017) recommend that patients with diabetes be treated with metformin as first-line therapy, with a target HbA1c of less than 7%. The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Anemia in CKD",
+            "text": "The anemia in CKD is a common complication, and can be treated with erythropoiesis-stimulating agents. According to the NICE guidelines (2014), patients with CKD should be evaluated for signs and symptoms of anemia, including fatigue, weakness, and shortness of breath. The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria. The dose of erythropoiesis-stimulating agents should be titrated to achieve a target hemoglobin level of 11-12 g/dL."
+          },
+          {
+            "heading": "Bone Disease in CKD",
+            "text": "The bone disease in CKD is a common complication, and can be treated with vitamin D and calcium supplements. According to the ESC guidelines (2018), patients with CKD should be evaluated for cardiovascular disease and treated with lifestyle modifications and pharmacotherapy to reduce their risk of cardiovascular events. The landmark trial, SHARP (2010), demonstrated that simvastatin reduced the risk of cardiovascular events in patients with CKD. The dose of simvastatin should be titrated to achieve a target LDL cholesterol of less than 70 mg/dL."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl for CKD is that early evaluation and management can slow or halt the progression of kidney disease. According to the KDIGO guidelines (2012), patients with CKD should be treated with lifestyle modifications and pharmacotherapy to achieve a blood pressure goal of less than 130/80 mmHg and a target HbA1c of less than 7%.",
+        "key_points": [
+          "The complications of CKD can include cardiovascular disease, anemia, and bone disease.",
+          "The risk of cardiovascular disease is increased in patients with CKD.",
+          "The anemia in CKD is a common complication, and can be treated with erythropoiesis-stimulating agents.",
+          "The NICE guidelines (2014) recommend that patients with CKD be evaluated for signs and symptoms of anemia, including fatigue, weakness, and shortness of breath.",
+          "The KDIGO guidelines (2012) recommend that patients with CKD be staged based on their GFR and albuminuria.",
+          "The landmark trial, EMPA-REG (2015), demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+        ],
+        "references": [
+          {
+            "title": "KDIGO Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+            "authors": "KDIGO",
+            "journal_or_source": "Kidney International",
+            "year": 2012,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "NICE Clinical Guideline 73: Chronic kidney disease",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2014,
+            "type": "guideline",
+            "note": "The guideline provides a comprehensive overview of the evaluation and management of CKD."
+          },
+          {
+            "title": "EMPA-REG OUTCOME: a randomised, double-blind, placebo-controlled trial",
+            "authors": "Zinman B et al.",
+            "journal_or_source": "The Lancet",
+            "year": 2015,
+            "type": "trial",
+            "note": "The trial demonstrated that empagliflozin reduced the risk of cardiovascular events in patients with type 2 diabetes."
+          }
+        ]
+      }
+    }
+  ]
+}

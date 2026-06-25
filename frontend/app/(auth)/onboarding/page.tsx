@@ -7,15 +7,20 @@ import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 
 const SPECIALTIES = [
-  { code: "cardiology", label: "Cardiology", icon: "❤️" },
-  { code: "neurology", label: "Neurology", icon: "🧠" },
-  { code: "surgery", label: "Surgery", icon: "🔪" },
-  { code: "obstetrics", label: "Obstetrics & Gynecology", icon: "👶" },
-  { code: "pediatrics", label: "Pediatrics", icon: "🧒" },
-  { code: "therapy", label: "Internal Medicine", icon: "💊" },
-  { code: "pharmacology", label: "Pharmacology", icon: "⚗️" },
-  { code: "pathology", label: "Pathology", icon: "🔬" },
-  { code: "veterinary", label: "Veterinary Medicine", icon: "🐾" },
+  { code: "cardiology",     label: "Cardiology",          icon: "❤️" },
+  { code: "neurology",      label: "Neurology",           icon: "🧠" },
+  { code: "surgery",        label: "Surgery",             icon: "🔪" },
+  { code: "obstetrics",     label: "OB/GYN",              icon: "👶" },
+  { code: "pediatrics",     label: "Pediatrics",          icon: "🧒" },
+  { code: "therapy",        label: "Internal Medicine",   icon: "💊" },
+  { code: "pharmacology",   label: "Pharmacology",        icon: "⚗️" },
+  { code: "lab_diagnostics",label: "Lab / Diagnostics",  icon: "🔬" },
+  { code: "respiratory",    label: "Pulmonology",         icon: "🫁" },
+  { code: "psychiatry",     label: "Psychiatry",          icon: "🧩" },
+  { code: "oncology",       label: "Oncology",            icon: "🎗️" },
+  { code: "anesthesiology", label: "Anesthesiology",      icon: "💉" },
+  { code: "dermatology",    label: "Dermatology",         icon: "🩹" },
+  { code: "veterinary",     label: "Veterinary",          icon: "🐾" },
 ];
 
 type Step = 1 | 2 | 3 | 4 | 5;
@@ -26,11 +31,12 @@ export default function OnboardingPage() {
   const t = useT();
 
   const ROLES = [
-    { value: "student", label: t("auth.onboarding.role_student"), icon: "🎓", desc: t("auth.onboarding.role_student_desc") },
-    { value: "doctor", label: t("auth.onboarding.role_doctor"), icon: "🩺", desc: t("auth.onboarding.role_doctor_desc") },
-    { value: "teacher", label: t("auth.onboarding.role_teacher"), icon: "🏛️", desc: t("auth.onboarding.role_teacher_desc") },
-    { value: "nurse", label: t("auth.onboarding.role_nurse"), icon: "👩‍⚕️", desc: t("auth.onboarding.role_nurse_desc") },
-    { value: "vet", label: t("auth.onboarding.role_vet"), icon: "🐾", desc: t("auth.onboarding.role_vet_desc") },
+    { value: "student",      label: t("auth.onboarding.role_student"), icon: "🎓", desc: t("auth.onboarding.role_student_desc") },
+    { value: "doctor",       label: t("auth.onboarding.role_doctor"),  icon: "🩺", desc: t("auth.onboarding.role_doctor_desc") },
+    { value: "nurse",        label: t("auth.onboarding.role_nurse"),   icon: "👩‍⚕️", desc: t("auth.onboarding.role_nurse_desc") },
+    { value: "teacher",      label: t("auth.onboarding.role_teacher"), icon: "🏛️", desc: t("auth.onboarding.role_teacher_desc") },
+    { value: "veterinarian", label: t("auth.onboarding.role_vet"),     icon: "🐾", desc: t("auth.onboarding.role_vet_desc") },
+    { value: "other",        label: "Other",                           icon: "👤", desc: "Curious minds welcome" },
   ];
 
   const GOALS = [
@@ -227,12 +233,8 @@ export default function OnboardingPage() {
             </div>
             <div className="flex justify-between">
               <button onClick={() => setStep(2)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
-              <button
-                onClick={() => setStep(4)}
-                disabled={data.specialties.length === 0}
-                className="btn-primary px-5 disabled:opacity-40"
-              >
-                {t("auth.onboarding.btn_next")}
+              <button onClick={() => setStep(4)} className="btn-primary px-5">
+                {data.specialties.length === 0 ? "Skip →" : t("auth.onboarding.btn_next")}
               </button>
             </div>
           </div>

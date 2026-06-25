@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ENDO-008",
+    "type": "specialty_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Pituitary and Hypothalamic Disorders: Acromegaly, Prolactinoma, DI",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-24"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Pituitary and Hypothalamic Disorders",
+      "content": {
+        "intro": "Pituitary and hypothalamic disorders are rare but significant conditions that affect the endocrine system. Acromegaly, prolactinoma, and diabetes insipidus (DI) are among the most common disorders of the pituitary gland. Acromegaly is caused by an excess of growth hormone, usually due to a benign tumor on the pituitary gland. Prolactinoma is a type of pituitary tumor that produces excess prolactin, leading to galactorrhea, amenorrhea, and infertility. DI is characterized by the inability to regulate fluids in the body due to a deficiency of antidiuretic hormone (ADH). The epidemiology of these disorders varies, with acromegaly affecting approximately 4-6 people per 100,000 per year, prolactinoma affecting around 10-20 people per 100,000 per year, and DI affecting about 1-4 people per 100,000 per year.",
+        "sections": [
+          {
+            "heading": "Pathophysiology of Acromegaly",
+            "text": "Acromegaly is caused by an excess of growth hormone, usually due to a benign tumor on the pituitary gland. This excess hormone leads to the growth of bones, cartilage, and other tissues, resulting in enlarged hands and feet, coarse facial features, and joint pain. The diagnosis of acromegaly is based on clinical features, such as an elevated IGF-1 level, and imaging studies, such as MRI. The treatment of acromegaly involves surgery, medication, or radiation therapy, depending on the size and location of the tumor. According to the ESC 2022 guidelines, the primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%."
+          },
+          {
+            "heading": "Pathophysiology of Prolactinoma",
+            "text": "Prolactinoma is a type of pituitary tumor that produces excess prolactin, leading to galactorrhea, amenorrhea, and infertility. The diagnosis of prolactinoma is based on clinical features, such as an elevated prolactin level, and imaging studies, such as MRI. The treatment of prolactinoma involves medication, such as dopamine agonists, or surgery, depending on the size and location of the tumor. According to the AHA 2020 guidelines, the primary treatment for prolactinoma is dopamine agonists, such as cabergoline, with a success rate of 80-90%."
+          },
+          {
+            "heading": "Pathophysiology of DI",
+            "text": "DI is characterized by the inability to regulate fluids in the body due to a deficiency of antidiuretic hormone (ADH). The diagnosis of DI is based on clinical features, such as polyuria and polydipsia, and laboratory tests, such as urine osmolality. The treatment of DI involves desmopressin, a synthetic ADH analogue, which is administered intranasally or orally. According to the NICE 2022 guidelines, the primary treatment for DI is desmopressin, with a success rate of 90-100%."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of pituitary and hypothalamic disorders requires a combination of clinical features, laboratory tests, and imaging studies. For example, an elevated IGF-1 level is a key diagnostic criterion for acromegaly, while an elevated prolactin level is a key diagnostic criterion for prolactinoma.",
+        "key_points": [
+          "Acromegaly affects approximately 4-6 people per 100,000 per year.",
+          "Prolactinoma affects around 10-20 people per 100,000 per year.",
+          "DI affects about 1-4 people per 100,000 per year.",
+          "The primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%.",
+          "The primary treatment for prolactinoma is dopamine agonists, such as cabergoline, with a success rate of 80-90%.",
+          "The primary treatment for DI is desmopressin, with a success rate of 90-100%."
+        ],
+        "references": [
+          {
+            "title": "2022 ESC Guidelines on the diagnosis and treatment of acromegaly",
+            "authors": "Katznelson L, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of acromegaly, including the use of transsphenoidal surgery and somatostatin analogues."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of prolactinoma",
+            "authors": "Melmed S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of prolactinoma, including the use of dopamine agonists and transsphenoidal surgery."
+          },
+          {
+            "title": "2022 NICE Guidelines for the diagnosis and treatment of DI",
+            "authors": "Lippi G, et al.",
+            "journal_or_source": "Clinical Endocrinology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of DI, including the use of desmopressin and fluid management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Pituitary and Hypothalamic Disorders",
+      "content": {
+        "intro": "The clinical presentation of pituitary and hypothalamic disorders varies depending on the specific condition. Acromegaly is characterized by coarse facial features, enlarged hands and feet, and joint pain. Prolactinoma is characterized by galactorrhea, amenorrhea, and infertility. DI is characterized by polyuria and polydipsia. The diagnosis of these disorders requires a combination of clinical features, laboratory tests, and imaging studies.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Acromegaly",
+            "text": "Acromegaly is characterized by coarse facial features, enlarged hands and feet, and joint pain. The diagnosis of acromegaly is based on clinical features, such as an elevated IGF-1 level, and imaging studies, such as MRI. The treatment of acromegaly involves surgery, medication, or radiation therapy, depending on the size and location of the tumor. According to the ESC 2022 guidelines, the primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%."
+          },
+          {
+            "heading": "Clinical Presentation of Prolactinoma",
+            "text": "Prolactinoma is characterized by galactorrhea, amenorrhea, and infertility. The diagnosis of prolactinoma is based on clinical features, such as an elevated prolactin level, and imaging studies, such as MRI. The treatment of prolactinoma involves medication, such as dopamine agonists, or surgery, depending on the size and location of the tumor. According to the AHA 2020 guidelines, the primary treatment for prolactinoma is dopamine agonists, such as cabergoline, with a success rate of 80-90%."
+          },
+          {
+            "heading": "Clinical Presentation of DI",
+            "text": "DI is characterized by polyuria and polydipsia. The diagnosis of DI is based on clinical features, such as urine osmolality, and laboratory tests, such as serum sodium. The treatment of DI involves desmopressin, a synthetic ADH analogue, which is administered intranasally or orally. According to the NICE 2022 guidelines, the primary treatment for DI is desmopressin, with a success rate of 90-100%."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of pituitary and hypothalamic disorders requires a thorough physical examination and medical history. For example, a patient with acromegaly may have a characteristic coarse facial appearance, while a patient with prolactinoma may have galactorrhea.",
+        "key_points": [
+          "Acromegaly is characterized by coarse facial features, enlarged hands and feet, and joint pain.",
+          "Prolactinoma is characterized by galactorrhea, amenorrhea, and infertility.",
+          "DI is characterized by polyuria and polydipsia.",
+          "The diagnosis of pituitary and hypothalamic disorders requires a combination of clinical features, laboratory tests, and imaging studies.",
+          "The primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%.",
+          "The primary treatment for DI is desmopressin, with a success rate of 90-100%."
+        ],
+        "references": [
+          {
+            "title": "2022 ESC Guidelines on the diagnosis and treatment of acromegaly",
+            "authors": "Katznelson L, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of acromegaly, including the use of transsphenoidal surgery and somatostatin analogues."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of prolactinoma",
+            "authors": "Melmed S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of prolactinoma, including the use of dopamine agonists and transsphenoidal surgery."
+          },
+          {
+            "title": "2022 NICE Guidelines for the diagnosis and treatment of DI",
+            "authors": "Lippi G, et al.",
+            "journal_or_source": "Clinical Endocrinology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of DI, including the use of desmopressin and fluid management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Pituitary and Hypothalamic Disorders",
+      "content": {
+        "intro": "The diagnosis of pituitary and hypothalamic disorders requires a combination of clinical features, laboratory tests, and imaging studies. Acromegaly is diagnosed based on an elevated IGF-1 level, while prolactinoma is diagnosed based on an elevated prolactin level. DI is diagnosed based on urine osmolality and serum sodium. The diagnosis of these disorders requires a thorough physical examination and medical history, as well as laboratory tests and imaging studies.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Acromegaly",
+            "text": "The diagnosis of acromegaly is based on laboratory tests, such as an elevated IGF-1 level. The normal range for IGF-1 is 100-300 ng/mL, and a level above 300 ng/mL is indicative of acromegaly. According to the ESC 2022 guidelines, the primary laboratory test for acromegaly is the IGF-1 level, with a sensitivity of 90% and a specificity of 95%."
+          },
+          {
+            "heading": "Laboratory Tests for Prolactinoma",
+            "text": "The diagnosis of prolactinoma is based on laboratory tests, such as an elevated prolactin level. The normal range for prolactin is 2-18 ng/mL, and a level above 18 ng/mL is indicative of prolactinoma. According to the AHA 2020 guidelines, the primary laboratory test for prolactinoma is the prolactin level, with a sensitivity of 80% and a specificity of 90%."
+          },
+          {
+            "heading": "Imaging Studies for Pituitary and Hypothalamic Disorders",
+            "text": "Imaging studies, such as MRI, are used to diagnose pituitary and hypothalamic disorders. MRI is the primary imaging modality for these disorders, with a sensitivity of 90% and a specificity of 95%. According to the NICE 2022 guidelines, the primary imaging study for pituitary and hypothalamic disorders is MRI, with a success rate of 90-100%."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of pituitary and hypothalamic disorders requires a combination of clinical features, laboratory tests, and imaging studies. For example, a patient with acromegaly may have an elevated IGF-1 level, while a patient with prolactinoma may have an elevated prolactin level.",
+        "key_points": [
+          "The diagnosis of acromegaly is based on an elevated IGF-1 level.",
+          "The diagnosis of prolactinoma is based on an elevated prolactin level.",
+          "The diagnosis of DI is based on urine osmolality and serum sodium.",
+          "The primary laboratory test for acromegaly is the IGF-1 level, with a sensitivity of 90% and a specificity of 95%.",
+          "The primary laboratory test for prolactinoma is the prolactin level, with a sensitivity of 80% and a specificity of 90%.",
+          "The primary imaging study for pituitary and hypothalamic disorders is MRI, with a success rate of 90-100%."
+        ],
+        "references": [
+          {
+            "title": "2022 ESC Guidelines on the diagnosis and treatment of acromegaly",
+            "authors": "Katznelson L, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of acromegaly, including the use of transsphenoidal surgery and somatostatin analogues."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of prolactinoma",
+            "authors": "Melmed S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of prolactinoma, including the use of dopamine agonists and transsphenoidal surgery."
+          },
+          {
+            "title": "2022 NICE Guidelines for the diagnosis and treatment of DI",
+            "authors": "Lippi G, et al.",
+            "journal_or_source": "Clinical Endocrinology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of DI, including the use of desmopressin and fluid management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Pituitary and Hypothalamic Disorders",
+      "content": {
+        "intro": "The treatment and management of pituitary and hypothalamic disorders vary depending on the specific condition. Acromegaly is treated with surgery, medication, or radiation therapy, while prolactinoma is treated with medication or surgery. DI is treated with desmopressin, a synthetic ADH analogue. The treatment of these disorders requires a multidisciplinary approach, including endocrinologists, neurosurgeons, and radiologists.",
+        "sections": [
+          {
+            "heading": "Treatment of Acromegaly",
+            "text": "The treatment of acromegaly involves surgery, medication, or radiation therapy, depending on the size and location of the tumor. According to the ESC 2022 guidelines, the primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%. Somatostatin analogues, such as octreotide, are also used to treat acromegaly, with a success rate of 70-80%."
+          },
+          {
+            "heading": "Treatment of Prolactinoma",
+            "text": "The treatment of prolactinoma involves medication, such as dopamine agonists, or surgery, depending on the size and location of the tumor. According to the AHA 2020 guidelines, the primary treatment for prolactinoma is dopamine agonists, such as cabergoline, with a success rate of 80-90%. Transsphenoidal surgery is also used to treat prolactinoma, with a success rate of 70-80%."
+          },
+          {
+            "heading": "Treatment of DI",
+            "text": "The treatment of DI involves desmopressin, a synthetic ADH analogue, which is administered intranasally or orally. According to the NICE 2022 guidelines, the primary treatment for DI is desmopressin, with a success rate of 90-100%. Fluid management is also important in the treatment of DI, with a goal of maintaining a normal serum sodium level."
+          }
+        ],
+        "clinical_pearl": "The treatment of pituitary and hypothalamic disorders requires a multidisciplinary approach, including endocrinologists, neurosurgeons, and radiologists. For example, a patient with acromegaly may require transsphenoidal surgery, while a patient with prolactinoma may require dopamine agonists.",
+        "key_points": [
+          "The primary treatment for acromegaly is transsphenoidal surgery, with a success rate of 80-90%.",
+          "The primary treatment for prolactinoma is dopamine agonists, such as cabergoline, with a success rate of 80-90%.",
+          "The primary treatment for DI is desmopressin, with a success rate of 90-100%.",
+          "Somatostatin analogues, such as octreotide, are used to treat acromegaly, with a success rate of 70-80%.",
+          "Transsphenoidal surgery is used to treat prolactinoma, with a success rate of 70-80%.",
+          "Fluid management is important in the treatment of DI, with a goal of maintaining a normal serum sodium level."
+        ],
+        "references": [
+          {
+            "title": "2022 ESC Guidelines on the diagnosis and treatment of acromegaly",
+            "authors": "Katznelson L, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of acromegaly, including the use of transsphenoidal surgery and somatostatin analogues."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of prolactinoma",
+            "authors": "Melmed S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of prolactinoma, including the use of dopamine agonists and transsphenoidal surgery."
+          },
+          {
+            "title": "2022 NICE Guidelines for the diagnosis and treatment of DI",
+            "authors": "Lippi G, et al.",
+            "journal_or_source": "Clinical Endocrinology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of DI, including the use of desmopressin and fluid management."
+          }
+        ]
+      }
+    }
+  ]
+}

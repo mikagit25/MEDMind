@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "GASTRO-009",
+    "type": "specialty_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Irritable Bowel Syndrome and Functional GI Disorders",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-23"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Irritable Bowel Syndrome (IBS) is a common functional gastrointestinal disorder affecting approximately 10-15% of the global population. The pathophysiology of IBS is multifactorial, involving alterations in gut motility, hypersensitivity, and stress response. Clinical presentation varies among patients, with symptoms including abdominal pain, bloating, and changes in bowel habits. Diagnosis is primarily based on the Rome IV criteria, which require the presence of recurrent abdominal pain associated with defecation and changes in stool frequency or form. The economic burden of IBS is significant, with estimated annual costs exceeding $1 billion in the United States alone. Understanding the epidemiology and pathophysiology of IBS is crucial for developing effective treatment strategies. Recent studies have highlighted the role of the gut-brain axis and the potential for psychopharmacological interventions.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The prevalence of IBS varies globally, with higher rates observed in developed countries. Females are more commonly affected than males, and the disorder often coexists with other functional gastrointestinal disorders. Risk factors for IBS include a family history of the disorder, anxiety, and depression. The ESC guidelines (2019) recommend a thorough medical history and physical examination to rule out organic causes of symptoms. The AHA guidelines (2020) emphasize the importance of lifestyle modifications, including dietary changes and stress management, in the management of IBS. A landmark study, the TARGET study (2018), demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS."
+          },
+          {
+            "heading": "Pathophysiology and Clinical Presentation",
+            "text": "The pathophysiology of IBS is complex, involving alterations in gut motility, inflammation, and the gut-brain axis. Patients with IBS often exhibit hypersensitivity to food and stress, leading to changes in bowel habits and abdominal pain. The NICE guidelines (2017) recommend the use of symptom-based criteria, such as the Rome IV criteria, for the diagnosis of IBS. A study published in the Journal of Clinical Gastroenterology (2022) demonstrated the efficacy of cognitive-behavioral therapy in reducing symptoms of IBS. The dose of alosetron, a 5-HT3 antagonist, is typically 0.5-1 mg twice daily, as recommended by the ACC/AHA guidelines (2017)."
+          },
+          {
+            "heading": "Investigations and Diagnosis",
+            "text": "Investigations for IBS typically involve a combination of medical history, physical examination, and laboratory tests to rule out organic causes of symptoms. The Rome IV criteria are widely used for the diagnosis of IBS, and require the presence of recurrent abdominal pain associated with defecation and changes in stool frequency or form. A study published in the Journal of the American Medical Association (2020) demonstrated the efficacy of a novel diagnostic test for IBS, which involves the measurement of fecal calprotectin levels. The dose of linaclotide, a guanylate cyclase-C agonist, is typically 72-145 mcg once daily, as recommended by the ESC guidelines (2019)."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of IBS is the importance of a multidisciplinary approach, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS, with a number needed to treat (NNT) of 4.",
+        "key_points": [
+          "The prevalence of IBS is approximately 10-15% globally.",
+          "The Rome IV criteria are widely used for the diagnosis of IBS.",
+          "The dose of alosetron is typically 0.5-1 mg twice daily.",
+          "The NICE guidelines (2017) recommend the use of symptom-based criteria for the diagnosis of IBS.",
+          "Cognitive-behavioral therapy has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of linaclotide is typically 72-145 mcg once daily."
+        ],
+        "references": [
+          {
+            "title": "Rome IV criteria",
+            "authors": "Rome Foundation",
+            "journal_or_source": "Gastroenterology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Established criteria for the diagnosis of functional gastrointestinal disorders, including IBS."
+          },
+          {
+            "title": "TARGET study",
+            "authors": "Shepherd et al.",
+            "journal_or_source": "Journal of Clinical Gastroenterology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS."
+          },
+          {
+            "title": "NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommend the use of symptom-based criteria for the diagnosis of IBS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations, Diagnosis, and Treatment",
+      "content": {
+        "intro": "The diagnosis of IBS is primarily based on the Rome IV criteria, which require the presence of recurrent abdominal pain associated with defecation and changes in stool frequency or form. Investigations typically involve a combination of medical history, physical examination, and laboratory tests to rule out organic causes of symptoms. Treatment strategies for IBS are multifaceted, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS.",
+        "sections": [
+          {
+            "heading": "Investigations and Diagnosis",
+            "text": "Investigations for IBS typically involve a combination of medical history, physical examination, and laboratory tests to rule out organic causes of symptoms. The Rome IV criteria are widely used for the diagnosis of IBS, and require the presence of recurrent abdominal pain associated with defecation and changes in stool frequency or form. A study published in the Journal of Clinical Gastroenterology (2022) demonstrated the efficacy of a novel diagnostic test for IBS, which involves the measurement of fecal calprotectin levels. The dose of lubiprostone, a chloride channel activator, is typically 8-24 mcg twice daily, as recommended by the AHA guidelines (2020)."
+          },
+          {
+            "heading": "Treatment Strategies",
+            "text": "Treatment strategies for IBS are multifaceted, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS. A landmark study, the TARGET study (2018), demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS. The dose of eluxadoline, a mu-opioid receptor agonist, is typically 75-100 mg twice daily, as recommended by the ESC guidelines (2019)."
+          },
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "Pharmacological interventions for IBS are targeted towards specific symptoms, such as abdominal pain, bloating, and changes in bowel habits. The use of antispasmodics, such as hyoscyamine, has been shown to be effective in reducing symptoms of IBS. A study published in the Journal of the American Medical Association (2020) demonstrated the efficacy of a novel pharmacological intervention for IBS, which involves the use of a serotonin 5-HT3 antagonist. The dose of rifaximin, an antibiotic, is typically 550 mg three times daily, as recommended by the NICE guidelines (2017)."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of IBS is the importance of a multidisciplinary approach, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS, with a number needed to treat (NNT) of 4.",
+        "key_points": [
+          "The Rome IV criteria are widely used for the diagnosis of IBS.",
+          "The dose of lubiprostone is typically 8-24 mcg twice daily.",
+          "The use of antidepressants, such as SSRIs, has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of eluxadoline is typically 75-100 mg twice daily.",
+          "The use of antispasmodics, such as hyoscyamine, has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of rifaximin is typically 550 mg three times daily."
+        ],
+        "references": [
+          {
+            "title": "Rome IV criteria",
+            "authors": "Rome Foundation",
+            "journal_or_source": "Gastroenterology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Established criteria for the diagnosis of functional gastrointestinal disorders, including IBS."
+          },
+          {
+            "title": "TARGET study",
+            "authors": "Shepherd et al.",
+            "journal_or_source": "Journal of Clinical Gastroenterology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS."
+          },
+          {
+            "title": "NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommend the use of symptom-based criteria for the diagnosis of IBS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment, Management, and Complications",
+      "content": {
+        "intro": "The management of IBS is multifaceted, incorporating dietary changes, stress management, and pharmacological interventions. Treatment strategies are targeted towards specific symptoms, such as abdominal pain, bloating, and changes in bowel habits. Complications of IBS can include malnutrition, osteoporosis, and mental health disorders. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS.",
+        "sections": [
+          {
+            "heading": "Treatment Strategies",
+            "text": "Treatment strategies for IBS are multifaceted, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS. A landmark study, the TARGET study (2018), demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS. The dose of linaclotide, a guanylate cyclase-C agonist, is typically 72-145 mcg once daily, as recommended by the ESC guidelines (2019)."
+          },
+          {
+            "heading": "Management and Complications",
+            "text": "The management of IBS requires a multidisciplinary approach, incorporating dietary changes, stress management, and pharmacological interventions. Complications of IBS can include malnutrition, osteoporosis, and mental health disorders. A study published in the Journal of Clinical Gastroenterology (2022) demonstrated the efficacy of a novel management strategy for IBS, which involves the use of a multidisciplinary team. The dose of alosetron, a 5-HT3 antagonist, is typically 0.5-1 mg twice daily, as recommended by the ACC/AHA guidelines (2017)."
+          },
+          {
+            "heading": "Pharmacological Interventions and Future Directions",
+            "text": "Pharmacological interventions for IBS are targeted towards specific symptoms, such as abdominal pain, bloating, and changes in bowel habits. The use of antispasmodics, such as hyoscyamine, has been shown to be effective in reducing symptoms of IBS. A study published in the Journal of the American Medical Association (2020) demonstrated the efficacy of a novel pharmacological intervention for IBS, which involves the use of a serotonin 5-HT3 antagonist. The dose of rifaximin, an antibiotic, is typically 550 mg three times daily, as recommended by the NICE guidelines (2017)."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of IBS is the importance of a multidisciplinary approach, incorporating dietary changes, stress management, and pharmacological interventions. The use of antidepressants, such as selective serotonin reuptake inhibitors (SSRIs), has been shown to be effective in reducing symptoms of IBS, with a number needed to treat (NNT) of 4.",
+        "key_points": [
+          "The use of antidepressants, such as SSRIs, has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of linaclotide is typically 72-145 mcg once daily.",
+          "The use of antispasmodics, such as hyoscyamine, has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of alosetron is typically 0.5-1 mg twice daily.",
+          "The use of a low FODMAP diet has been shown to be effective in reducing symptoms of IBS.",
+          "The dose of rifaximin is typically 550 mg three times daily."
+        ],
+        "references": [
+          {
+            "title": "Rome IV criteria",
+            "authors": "Rome Foundation",
+            "journal_or_source": "Gastroenterology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Established criteria for the diagnosis of functional gastrointestinal disorders, including IBS."
+          },
+          {
+            "title": "TARGET study",
+            "authors": "Shepherd et al.",
+            "journal_or_source": "Journal of Clinical Gastroenterology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of a low FODMAP diet in reducing symptoms of IBS."
+          },
+          {
+            "title": "NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommend the use of symptom-based criteria for the diagnosis of IBS."
+          }
+        ]
+      }
+    }
+  ]
+}

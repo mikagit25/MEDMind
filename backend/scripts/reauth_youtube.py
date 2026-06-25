@@ -107,14 +107,20 @@ def do_auth_flow(secret_path: Path, token_path: Path, account_label: str) -> Non
 def main() -> None:
     parser = argparse.ArgumentParser(description="Re-authorize YouTube OAuth tokens")
     parser.add_argument("--account2", action="store_true", help="Re-auth account 2 (ES channel)")
+    parser.add_argument("--account3", "--ar", action="store_true", help="Re-auth account 3 (AR channel)")
     args = parser.parse_args()
 
-    if args.account2:
-        secret_path = MEDMIND_DIR / "client_secret_account2.json"
+    if args.account3:
+        secret_path = MEDMIND_DIR / "client_secret_account3_web.json"
+        token_path  = MEDMIND_DIR / "youtube_token_ar.json"
+        label       = "Account 3 — AR Channel"
+    elif args.account2:
+        secret_path = MEDMIND_DIR / "client_secret_account2_web.json"
         token_path  = MEDMIND_DIR / "youtube_token_account2.json"
         label       = "Account 2 — ES Channel"
     else:
-        secret_path = MEDMIND_DIR / "client_secret.json"
+        # Use _web variant — same client the cron uses
+        secret_path = MEDMIND_DIR / "client_secret_web.json"
         token_path  = MEDMIND_DIR / "youtube_token.json"
         label       = "Account 1 — EN Channel"
 

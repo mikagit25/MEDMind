@@ -54,20 +54,34 @@ export const metadata: Metadata = {
 
 const JSON_LD_ORGANIZATION = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "EducationalOrganization"],
   name: "MedMind AI",
+  legalName: "MedMind AI",
+  alternateName: "MedMind Pro",
   url: "https://medmind.pro",
-  logo: "https://medmind.pro/opengraph-image",
+  logo: "https://medmind.pro/icon-512.png",
   description:
     "AI-powered medical education platform for doctors, residents, medical students, and veterinarians. Evidence-based learning with Claude AI and real-time PubMed integration.",
+  disambiguatingDescription:
+    "MedMind AI (medmind.pro) is a medical education and AI tutoring platform for healthcare professionals and students — not affiliated with medmind.com, which provides remote patient monitoring services.",
+  foundingDate: "2025",
+  founder: {
+    "@type": "Person",
+    name: "Mikalai",
+    email: "33mikalai@gmail.com",
+  },
   sameAs: [
     "https://medmind.pro",
+    "https://t.me/Medmindpro_bot",
+    "https://twitter.com/medmindai",
+    "https://x.com/medmindai",
+    "https://www.linkedin.com/company/medmind-pro",
   ],
-  foundingDate: "2025",
   knowsAbout: [
     "Medical Education", "Clinical Cases", "Pharmacology",
     "Cardiology", "Neurology", "Surgery", "Pediatrics",
     "Veterinary Medicine", "Spaced Repetition", "AI Tutoring",
+    "USMLE Preparation", "Medical Flashcards", "Drug Database",
   ],
 };
 
@@ -86,12 +100,46 @@ const JSON_LD_WEBSITE = {
   },
 };
 
+const JSON_LD_SOFTWARE = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "MedMind AI",
+  applicationCategory: "EducationApplication",
+  applicationSubCategory: "Medical Education",
+  operatingSystem: "Web, iOS, Android",
+  url: "https://medmind.pro",
+  description:
+    "AI-powered medical education app for doctors, residents, students, and veterinarians. Study with AI tutor, clinical cases, drug database and spaced repetition flashcards.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    description: "Free plan available — no credit card required",
+  },
+  featureList: [
+    "AI Medical Tutor (Claude Sonnet)",
+    "97+ Evidence-based Learning Modules",
+    "Spaced Repetition Flashcards",
+    "Clinical Case Simulations",
+    "Drug Database",
+    "Differential Diagnosis AI",
+    "USMLE Preparation",
+    "Available in 9 languages",
+    "Telegram Bot Integration",
+  ],
+  publisher: {
+    "@type": "Organization",
+    name: "MedMind AI",
+    url: "https://medmind.pro",
+  },
+};
+
 const JSON_LD_EDUCATIONAL = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   name: "MedMind AI",
   url: "https://medmind.pro",
-  description: "Evidence-based AI medical education — 97+ modules, clinical cases, drug database, spaced repetition flashcards in 7 languages.",
+  description: "Evidence-based AI medical education — 97+ modules, clinical cases, drug database, spaced repetition flashcards in 9 languages.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Medical Learning Plans",
@@ -154,6 +202,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_ORGANIZATION) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_WEBSITE) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_EDUCATIONAL) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD_SOFTWARE) }} />
       </head>
       <body className="bg-bg font-serif text-ink antialiased">
         <GoogleAnalytics />
