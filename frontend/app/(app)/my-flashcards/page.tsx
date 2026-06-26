@@ -439,18 +439,23 @@ export default function MyFlashcardsPage() {
           ))}
         </div>
       ) : cards.length === 0 ? (
-        <div className="text-center py-20">
-          <div className="text-5xl mb-4">📇</div>
-          <p className="font-syne font-bold text-lg text-ink mb-2">{t("flashcards.no_cards")}</p>
-          <p className="text-ink-3 font-serif text-sm mb-6">
+        <div className="text-center py-20 space-y-4">
+          <div className="text-5xl">🗃️</div>
+          <h3 className="font-syne font-bold text-xl text-ink">{t("flashcards.no_cards")}</h3>
+          <p className="font-serif text-ink-3 text-sm max-w-xs mx-auto">
             {t("flashcards.create_first")}
           </p>
-          <button
-            onClick={() => setView("create")}
-            className="btn-primary px-6 py-2 rounded font-syne font-semibold text-sm"
-          >
-            {t("flashcards.create")}
-          </button>
+          <div className="flex gap-3 justify-center flex-wrap">
+            <button
+              onClick={() => setView("create")}
+              className="btn-primary px-5 py-2 rounded font-syne font-semibold text-sm"
+            >
+              + {t("flashcards.create")}
+            </button>
+            <a href="/flashcards" className="px-5 py-2 border border-border rounded font-syne font-semibold text-sm text-ink hover:bg-bg-2 transition-colors">
+              {t("flashcards.title")} →
+            </a>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

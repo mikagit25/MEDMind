@@ -126,9 +126,15 @@ export default function CommunityCardsPage() {
           ))}
         </div>
       ) : cards.length === 0 ? (
-        <div className="text-center py-20">
-          <div className="text-5xl mb-4">🌐</div>
-          <p className="font-syne font-bold text-lg text-ink mb-2">{t("flashcards.community_no_results")}</p>
+        <div className="text-center py-20 space-y-3">
+          <div className="text-5xl">🌐</div>
+          <h3 className="font-syne font-bold text-xl text-ink">{t("flashcards.community_no_results")}</h3>
+          <p className="font-serif text-ink-3 text-sm max-w-xs mx-auto">
+            {t("flashcards.community_subtitle")}
+          </p>
+          <a href="/my-flashcards" className="inline-block px-5 py-2 bg-ink text-white rounded-lg font-syne font-semibold text-sm hover:bg-red transition-colors">
+            {t("flashcards.my_cards")} →
+          </a>
         </div>
       ) : (
         <>

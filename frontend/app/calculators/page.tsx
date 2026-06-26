@@ -43,7 +43,7 @@ export default function CalculatorsPage() {
             Med<span className="text-red">Mind</span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
-            <Link href="/how-it-works" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+            <Link href="/how-it-works" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 whitespace-nowrap">
               {locale === "ru" ? "Как работает" : locale === "ar" ? "كيف يعمل" : locale === "de" ? "So funktionierts" : locale === "fr" ? "Comment ça marche" : locale === "es" ? "Cómo funciona" : locale === "tr" ? "Nasıl çalışır" : "How it works"}
             </Link>
             <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">

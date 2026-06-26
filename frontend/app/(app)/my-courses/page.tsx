@@ -353,9 +353,9 @@ export default function MyCoursesPage() {
 
   // ── Tabs ──
   const TABS: { id: Tab; label: string; count?: number }[] = [
-    { id: "discover", label: "Discover", count: publicCourses.length },
-    { id: "enrolled", label: "My courses", count: enrolled.length },
-    { id: "join", label: "Join with code" },
+    { id: "discover", label: t("courses.discover") || "Discover", count: publicCourses.length },
+    { id: "enrolled", label: t("courses.my_courses") || "My courses", count: enrolled.length },
+    { id: "join", label: t("courses.join_code") || "Join with code" },
   ];
 
   return (
@@ -364,7 +364,7 @@ export default function MyCoursesPage() {
 
         {/* Header */}
         <div className="mb-5">
-          <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">Courses</h1>
+          <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">{t("courses.title") || "Courses"}</h1>
           <p className="font-serif text-xs text-ink-3 mt-0.5">
             {enrolled.length > 0
               ? `${enrolled.length} enrolled · ${publicCourses.length} available`
@@ -413,7 +413,7 @@ export default function MyCoursesPage() {
                   <input
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="Search courses…"
+                    placeholder={t("courses.search_placeholder") || "Search courses…"}
                     className="border border-border rounded-lg px-3 py-1.5 text-sm font-serif bg-bg focus:outline-none focus:border-ink w-48"
                   />
                   {/* Specialty filter */}
@@ -428,7 +428,7 @@ export default function MyCoursesPage() {
                             : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                         }`}
                       >
-                        {sp === "all" ? "All specialties" : sp}
+                        {sp === "all" ? (t("courses.all_specialties") || "All specialties") : sp}
                       </button>
                     ))}
                   </div>
@@ -444,7 +444,7 @@ export default function MyCoursesPage() {
                             : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                         }`}
                       >
-                        {d === "all" ? "All levels" : DIFFICULTY_LABEL[d]}
+                        {d === "all" ? (t("courses.all_levels") || "All levels") : DIFFICULTY_LABEL[d]}
                       </button>
                     ))}
                   </div>

@@ -119,28 +119,28 @@ export default function AiTutorPage() {
     { value: "exam",     label: `📝 ${t("ai_tutor.mode_exam")}`,     desc: t("ai_tutor.mode_exam_desc") },
     {
       value: "patient",
-      label: "🏥 Patient mode",
-      desc: "Plain language explanations for everyone. No jargon. Safety-first. Always recommends seeing a doctor.",
+      label: `🏥 ${t("ai_tutor.mode_patient")}`,
+      desc: t("ai_tutor.mode_patient_desc"),
     },
     {
       value: "differential",
-      label: "🔬 Differential Dx",
-      desc: "Structured differential diagnosis: Most Likely / Expanded / Can't Miss — with ICD-10 codes and workup.",
+      label: `🔬 ${t("ai_tutor.mode_differential")}`,
+      desc: t("ai_tutor.mode_differential_desc"),
     },
     {
       value: "handout",
-      label: "📄 Patient Handout",
-      desc: "Generate a plain-language patient education handout for any medical condition. Printable.",
+      label: `📄 ${t("ai_tutor.mode_handout")}`,
+      desc: t("ai_tutor.mode_handout_desc"),
     },
     {
       value: "analyze",
-      label: "🔬 Analyze Doc",
-      desc: "Upload lab results, ECG, radiology report, or clinical note — AI explains key findings for learning.",
+      label: `🔬 ${t("ai_tutor.mode_analyze")}`,
+      desc: t("ai_tutor.mode_analyze_desc"),
     },
     {
       value: "second_opinion",
-      label: "⚖️ Second Opinion",
-      desc: "Describe your diagnosis/treatment — AI explains what guidelines say and suggests questions for your doctor.",
+      label: `⚖️ ${t("ai_tutor.mode_second_opinion")}`,
+      desc: t("ai_tutor.mode_second_opinion_desc"),
     },
   ];
   const [mode, setMode] = useState("tutor");
@@ -157,8 +157,16 @@ export default function AiTutorPage() {
 
   useEffect(() => {
     contentApi.getSpecialties().then((r) => {
-      setSpecialties(r ?? []);
-      if (r?.length > 0) setSpecialty(r[0].code ?? "");
+      // Deduplicate by name (handles cases where both DERM and dermatology exist)
+      const seen = new Set<string>();
+      const deduped = (r ?? []).filter((s: any) => {
+        const key = (s.name ?? "").toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setSpecialties(deduped);
+      if (deduped.length > 0) setSpecialty(deduped[0].code ?? "");
     });
   }, []);
 
@@ -644,7 +652,7 @@ export default function AiTutorPage() {
           </div>
           {mode === "patient" ? (
             <p className="font-serif text-xs mt-1.5 text-green">
-              🏥 <strong>Patient mode</strong> — plain language, no diagnoses, always recommends seeing a doctor. For emergencies call 112 / 911.
+              🏥 <strong>{t("ai_tutor.mode_patient")}</strong> — plain language, no diagnoses, always recommends seeing a doctor. For emergencies call 112 / 911.
             </p>
           ) : (
             <p className="text-ink-3 font-serif text-xs mt-1.5">

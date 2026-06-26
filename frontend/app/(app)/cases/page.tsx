@@ -561,7 +561,7 @@ function CasesInner() {
         {/* Virtual patient link */}
         <div className="mt-6 p-4 bg-surface border border-border rounded-lg flex items-center justify-between">
           <div>
-            <div className="font-syne font-bold text-sm text-ink">Virtual Patient Mode</div>
+            <div className="font-syne font-bold text-sm text-ink">{t("cases.virtual_patient") as string || "Virtual Patient"} Mode</div>
             <div className="text-xs text-ink-3 mt-0.5">Practice history-taking with an AI patient</div>
           </div>
           <Link href="/simulation" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
@@ -578,11 +578,11 @@ function CasesInner() {
       <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
           <h1 className="font-syne font-black text-2xl text-ink">{t("cases.title") as string || "Clinical Cases"}</h1>
-          <p className="text-ink-3 text-sm mt-1">{filtered.length} {t("cases.subtitle") as string || "cases"}</p>
+          {!loadingList && <p className="text-ink-3 text-sm mt-1">{filtered.length} {t("cases.subtitle") as string || "cases"}</p>}
         </div>
         <Link href="/simulation"
           className="font-syne font-semibold text-sm border border-border-2 text-ink-2 px-4 py-2 rounded-lg hover:border-ink hover:text-ink transition-colors">
-          🤖 Virtual Patient
+          🤖 {t("cases.virtual_patient") as string || "Virtual Patient"}
         </Link>
       </div>
 

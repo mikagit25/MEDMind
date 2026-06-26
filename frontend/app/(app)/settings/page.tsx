@@ -226,17 +226,17 @@ export default function SettingsPage() {
 
       {/* Exam preparation */}
       <section className="card p-6 mb-5">
-        <h2 className="font-syne font-bold text-base text-ink mb-1">🎯 Exam Preparation</h2>
-        <p className="font-serif text-ink-3 text-sm mb-4">Set your target exam and date to get a personalized study plan.</p>
+        <h2 className="font-syne font-bold text-base text-ink mb-1">🎯 {t("settings.exam_prep_title") || "Exam Preparation"}</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">{t("settings.exam_prep_desc") || "Set your target exam and date to get a personalized study plan."}</p>
         <div className="space-y-4">
           <div>
-            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Target Exam</label>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{t("settings.target_exam") || "Target Exam"}</label>
             <select
               value={examType}
               onChange={e => setExamType(e.target.value)}
               className="w-full px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink"
             >
-              <option value="">— Not set —</option>
+              <option value="">{t("settings.not_set") || "— Not set —"}</option>
               <option value="usmle_step1">USMLE Step 1</option>
               <option value="usmle_step2">USMLE Step 2 CK</option>
               <option value="usmle_step3">USMLE Step 3</option>
@@ -248,7 +248,7 @@ export default function SettingsPage() {
             </select>
           </div>
           <div>
-            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Exam Date</label>
+            <label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{t("settings.exam_date_label") || "Exam Date"}</label>
             <input
               type="date"
               value={examDate}
@@ -262,7 +262,7 @@ export default function SettingsPage() {
               href="/study-plan"
               className="flex items-center justify-between w-full bg-ink text-white rounded px-4 py-2.5 font-syne font-bold text-sm hover:bg-red transition-colors"
             >
-              <span>View My Study Plan</span>
+              <span>{t("settings.view_study_plan") || "View My Study Plan"}</span>
               <span>→</span>
             </Link>
           )}

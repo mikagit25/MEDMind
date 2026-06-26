@@ -522,6 +522,7 @@ function DailyGoalWidget({ flashcardsDue, dailyGoalMinutes }: { flashcardsDue: n
 // ── Main dashboard ──
 export default function DashboardPage() {
   const t = useT();
+  const { locale } = useI18n();
   const { user } = useAuthStore();
   const role = user?.role ?? "student";
   const [specialties, setSpecialties] = useState<any[]>([]);
@@ -715,7 +716,14 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <div className="font-syne font-bold text-sm text-ink">{spec.name}</div>
-                  <div className="font-serif text-ink-3 text-xs">{spec.module_count ?? 0} modules</div>
+                  <div className="font-serif text-ink-3 text-xs">{(() => {
+                    const n = spec.module_count ?? 0;
+                    if (locale === "ru") {
+                      const r = new Intl.PluralRules("ru").select(n);
+                      return `${n} ${({ one: "модуль", few: "модуля", many: "модулей", other: "модулей" } as Record<string,string>)[r]}`;
+                    }
+                    return `${n} ${n === 1 ? "module" : "modules"}`;
+                  })()}</div>
                 </div>
                 <div className="ml-auto text-ink-3 text-xs font-syne">→</div>
               </Link>

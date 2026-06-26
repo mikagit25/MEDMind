@@ -147,8 +147,8 @@ function FlashcardsInner() {
         {/* Step 1: Pick specialty */}
         {(phase === "pick_specialty" || (phase === "loading" && !selectedSpecialty)) && (
           <div className="w-full max-w-lg">
-            <h2 className="font-syne font-bold text-xl text-ink mb-1 text-center">Choose a specialty</h2>
-            <p className="font-serif text-ink-3 text-sm text-center mb-6">Select a specialty to browse modules</p>
+            <h2 className="font-syne font-bold text-xl text-ink mb-1 text-center">{t("flashcards.choose_specialty") || "Choose a specialty"}</h2>
+            <p className="font-serif text-ink-3 text-sm text-center mb-6">{t("flashcards.select_specialty_hint") || "Select a specialty to browse modules"}</p>
             <div className="grid grid-cols-2 gap-3">
               {specialties.map((spec) => (
                 <button

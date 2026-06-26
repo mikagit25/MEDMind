@@ -127,23 +127,37 @@ function ModulesInner() {
   const [allModules, setAllModules]     = useState<Module[]>([]);
   const [myProgress, setMyProgress]     = useState<ModuleProgress[]>([]);
   const [loading, setLoading]           = useState(true);
+  const [loadError, setLoadError]       = useState(false);
   const [activeSpecialty, setActiveSpecialty] = useState<string>("all");
   const [searchQ, setSearchQ]           = useState("");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchResults, setSearchResults] = useState<Module[] | null>(null);
   const [searchLoading, setSearchLoading] = useState(false);
 
-  // Load all modules + user progress in parallel on mount
-  useEffect(() => {
+  const loadModules = () => {
     setLoading(true);
+    setLoadError(false);
+    const fetchWithRetry = async (fn: () => Promise<any>, retries = 2): Promise<any> => {
+      try { return await fn(); } catch (err: any) {
+        if (retries > 0 && [502, 503].includes(err?.response?.status ?? 0)) {
+          await new Promise(r => setTimeout(r, 1000));
+          return fetchWithRetry(fn, retries - 1);
+        }
+        throw err;
+      }
+    };
     Promise.all([
-      contentApi.getAllModules({ vet: false }),
+      fetchWithRetry(() => contentApi.getAllModules({ vet: false })),
       progressApi.getModulesProgress().catch(() => []),
     ]).then(([mods, prog]) => {
       setAllModules(mods ?? []);
       setMyProgress(prog ?? []);
-    }).finally(() => setLoading(false));
-  }, []);
+    }).catch(() => setLoadError(true))
+      .finally(() => setLoading(false));
+  };
+
+  // Load all modules + user progress in parallel on mount
+  useEffect(() => { loadModules(); }, []);
 
   // Debounced search
   useEffect(() => {
@@ -196,11 +210,25 @@ function ModulesInner() {
   if (loading) {
     return (
       <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="mb-4 h-6 w-48 rounded animate-pulse bg-surface-2" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 9 }).map((_, i) => (
             <div key={i} className="card h-32 animate-pulse bg-surface-2" />
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center justify-center py-24 text-center">
+        <div className="text-3xl mb-3">⚠️</div>
+        <h2 className="font-syne font-bold text-ink mb-1">{t("modules.load_error") || "Failed to load modules"}</h2>
+        <p className="font-serif text-ink-3 text-sm mb-4">{t("modules.load_error_hint") || "Check your connection and try again."}</p>
+        <button onClick={loadModules} className="btn-primary px-5 py-2">
+          {t("common.retry") || "Try again"}
+        </button>
       </div>
     );
   }
