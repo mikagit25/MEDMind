@@ -94,7 +94,7 @@ function NewUserWelcome({ firstName }: { firstName?: string }) {
     </div>
   );
 }
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
 
@@ -455,6 +455,7 @@ function TodaysPlan() {
 // ── Continue Learning ─────────────────────────────────────────
 function ContinueLearning({ modules }: { modules: any[] }) {
   const t = useT();
+  const { locale } = useI18n();
   if (!modules || modules.length === 0) return null;
   const inProgress = modules.filter((m: any) => (m.completion_percent ?? 0) < 100).slice(0, 3);
   if (inProgress.length === 0) return null;
@@ -474,7 +475,7 @@ function ContinueLearning({ modules }: { modules: any[] }) {
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-bg-2 transition-colors"
             >
               <div className="flex-1 min-w-0">
-                <div className="font-syne font-semibold text-xs text-ink truncate">{m.title}</div>
+                <div className="font-syne font-semibold text-xs text-ink truncate">{(locale === "en" ? m.title_en : undefined) || m.title}</div>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="h-1 flex-1 bg-bg-2 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-red to-amber-2 rounded-full" style={{ width: `${pct}%` }} />

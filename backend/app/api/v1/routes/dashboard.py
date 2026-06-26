@@ -90,6 +90,7 @@ async def dashboard_overview(
         {
             "id": str(p.module_id),
             "title": m.title,
+            "title_en": m.title_en,
             "completion_percent": float(p.completion_percent or 0),
             "last_activity": p.last_activity_at.isoformat() if p.last_activity_at else None,
         }

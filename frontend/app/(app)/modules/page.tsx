@@ -4,12 +4,13 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { contentApi, progressApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 type Module = {
   id: string;
   title: string;
+  title_en?: string;
   description?: string;
   specialty_name?: string;
   is_fundamental: boolean;
@@ -53,11 +54,14 @@ function ProgressRing({ pct }: { pct: number }) {
 function ModuleCard({
   mod,
   progress,
+  locale,
 }: {
   mod: Module;
   progress?: ModuleProgress;
+  locale?: string;
 }) {
   const pct = progress?.completion_percent ?? 0;
+  const displayTitle = (locale === "en" ? mod.title_en : undefined) || mod.title;
 
   return (
     <Link
@@ -84,7 +88,7 @@ function ModuleCard({
             )}
           </div>
           <h3 className="font-syne font-bold text-sm text-ink leading-snug group-hover:text-accent transition-colors line-clamp-2">
-            {mod.title}
+            {displayTitle}
           </h3>
           {mod.description && (
             <p className="font-serif text-[11px] text-ink-3 mt-1 line-clamp-2 leading-relaxed">
@@ -118,6 +122,7 @@ function ModuleCard({
 function ModulesInner() {
   const { user } = useAuthStore();
   const t = useT();
+  const { locale } = useI18n();
 
   const [allModules, setAllModules]     = useState<Module[]>([]);
   const [myProgress, setMyProgress]     = useState<ModuleProgress[]>([]);
@@ -250,7 +255,7 @@ function ModulesInner() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {displayMods.map(m => (
-                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} locale={locale} />
                   ))}
                 </div>
               </>
@@ -268,7 +273,7 @@ function ModulesInner() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {inProgressModules.map(m => (
-                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} locale={locale} />
                   ))}
                 </div>
               </section>
@@ -284,7 +289,7 @@ function ModulesInner() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {completedModules.map(m => (
-                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} locale={locale} />
                   ))}
                 </div>
               </section>
@@ -345,7 +350,7 @@ function ModulesInner() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {browseMods.map(m => (
-                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} />
+                    <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} locale={locale} />
                   ))}
                 </div>
               )}

@@ -77,10 +77,10 @@ async function fetchStats(): Promise<PlatformStats> {
     const res = await fetch(`${API_URL}/public/stats`, {
       next: { revalidate: 3600 },
     });
-    if (!res.ok) return { articles: 600, modules: 82, languages: 7 };
+    if (!res.ok) return { articles: 600, modules: 125, languages: 7 };
     return await res.json();
   } catch {
-    return { articles: 600, modules: 82, languages: 7 };
+    return { articles: 600, modules: 125, languages: 7 };
   }
 }
 
