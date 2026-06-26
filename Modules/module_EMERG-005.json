@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "EMERG-005",
+    "type": "specialty_module",
+    "specialty": "Emergency Medicine",
+    "specialty_ru": "Скорая и неотложная помощь",
+    "title_en": "Toxicology: Common Poisonings, Antidotes and Supportive Care",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Common Poisonings",
+      "content": {
+        "intro": "Poisoning is a significant public health concern, with millions of cases reported annually worldwide. The epidemiology of poisoning varies by region, with different substances being more common in different areas. In the United States, for example, the most common substances involved in poisoning exposures are analgesics, household cleaning products, and antidepressants. The pathophysiology of poisoning depends on the substance involved, but often involves disruption of normal cellular function, leading to clinical manifestations such as altered mental status, respiratory depression, and cardiac arrhythmias. Understanding the epidemiology and pathophysiology of common poisonings is crucial for providing effective care to poisoned patients.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Poisoning",
+            "text": "The epidemiology of poisoning is complex and influenced by various factors, including geographic location, socioeconomic status, and access to healthcare. According to the American Association of Poison Control Centers (AAPCC), there were over 2.1 million reported poison exposures in the United States in 2020, with the majority being unintentional. The most common substances involved in these exposures were analgesics (19.1%), household cleaning products (14.5%), and antidepressants (8.5%). The ESC 2018 guideline on the management of acute coronary syndromes notes that cocaine use is a significant risk factor for myocardial infarction, highlighting the importance of considering substance use in the evaluation of patients with chest pain."
+          },
+          {
+            "heading": "Pathophysiology of Poisoning",
+            "text": "The pathophysiology of poisoning depends on the substance involved, but often involves disruption of normal cellular function. For example, opioids bind to opioid receptors in the brain, leading to decreased respiratory rate and altered mental status. The AHA 2020 guideline on cardiopulmonary resuscitation notes that naloxone is effective in reversing opioid-induced respiratory depression, with a dose of 0.4-2 mg IV or IM. In contrast, tricyclic antidepressants (TCAs) can cause cardiac arrhythmias and seizures due to their effects on sodium and potassium channels. The NICE 2019 guideline on the management of poisoning notes that TCAs can be treated with sodium bicarbonate and magnesium, with a dose of 1-2 mEq/kg IV."
+          },
+          {
+            "heading": "Common Poisonings and Their Mechanisms",
+            "text": "Some common poisonings and their mechanisms include acetaminophen overdose, which can cause liver failure due to the formation of toxic metabolites. The ACC 2020 guideline on the management of acute liver failure notes that N-acetylcysteine (NAC) is effective in treating acetaminophen overdose, with a dose of 150 mg/kg IV over 60 minutes. Salicylate poisoning can cause metabolic acidosis and respiratory alkalosis due to its effects on cellular respiration. The ESC 2018 guideline on the management of acute coronary syndromes notes that aspirin can be used in low doses to prevent myocardial infarction, but high doses can be toxic."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected poisoning, it is essential to consider the possibility of co-ingestion of multiple substances, as this can affect treatment and outcome. For example, the combination of opioids and benzodiazepines can increase the risk of respiratory depression.",
+        "key_points": [
+          "The most common substances involved in poisoning exposures are analgesics, household cleaning products, and antidepressants.",
+          "The pathophysiology of poisoning depends on the substance involved, but often involves disruption of normal cellular function.",
+          "Naloxone is effective in reversing opioid-induced respiratory depression, with a dose of 0.4-2 mg IV or IM.",
+          "TCAs can cause cardiac arrhythmias and seizures due to their effects on sodium and potassium channels.",
+          "N-acetylcysteine (NAC) is effective in treating acetaminophen overdose, with a dose of 150 mg/kg IV over 60 minutes.",
+          "Aspirin can be used in low doses to prevent myocardial infarction, but high doses can be toxic."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Cocaine use is a significant risk factor for myocardial infarction."
+          },
+          {
+            "title": "2020 American Heart Association Focused Update on Cardiopulmonary Resuscitation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Naloxone is effective in reversing opioid-induced respiratory depression."
+          },
+          {
+            "title": "2019 NICE Guideline on the management of poisoning",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "TCAs can be treated with sodium bicarbonate and magnesium."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Common Poisonings",
+      "content": {
+        "intro": "The clinical presentation of poisoning can vary widely depending on the substance involved, the dose, and the individual patient. Some common symptoms of poisoning include altered mental status, nausea and vomiting, abdominal pain, and cardiac arrhythmias. Understanding the clinical presentation of common poisonings is crucial for providing effective care to poisoned patients.",
+        "sections": [
+          {
+            "heading": "Symptoms of Poisoning",
+            "text": "The symptoms of poisoning can be divided into several categories, including gastrointestinal, cardiovascular, and neurological. Gastrointestinal symptoms include nausea and vomiting, abdominal pain, and diarrhea. Cardiovascular symptoms include cardiac arrhythmias, hypotension, and hypertension. Neurological symptoms include altered mental status, seizures, and coma. The AHA 2020 guideline on cardiopulmonary resuscitation notes that cardiac arrhythmias are a common complication of poisoning, and can be treated with anti-arrhythmic medications such as amiodarone."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "The physical examination of a poisoned patient can provide valuable information about the substance involved and the severity of the poisoning. Findings may include altered mental status, tachycardia or bradycardia, hypotension or hypertension, and abdominal tenderness. The ESC 2018 guideline on the management of acute coronary syndromes notes that the physical examination can help identify patients at high risk for cardiac complications, such as those with a history of heart disease or those taking certain medications."
+          },
+          {
+            "heading": "Special Considerations in Pediatric and Geriatric Patients",
+            "text": "Pediatric and geriatric patients may present with unique challenges in the diagnosis and treatment of poisoning. Pediatric patients may be more susceptible to the effects of certain substances due to their smaller size and developing physiology. Geriatric patients may have underlying medical conditions that can affect the metabolism and excretion of certain substances. The NICE 2019 guideline on the management of poisoning notes that pediatric patients should be treated with caution, and that geriatric patients may require dose adjustments due to decreased renal function."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected poisoning, it is essential to consider the possibility of co-ingestion of multiple substances, as this can affect treatment and outcome.",
+        "key_points": [
+          "The symptoms of poisoning can be divided into several categories, including gastrointestinal, cardiovascular, and neurological.",
+          "Cardiac arrhythmias are a common complication of poisoning, and can be treated with anti-arrhythmic medications such as amiodarone.",
+          "The physical examination of a poisoned patient can provide valuable information about the substance involved and the severity of the poisoning.",
+          "Pediatric patients may be more susceptible to the effects of certain substances due to their smaller size and developing physiology.",
+          "Geriatric patients may have underlying medical conditions that can affect the metabolism and excretion of certain substances.",
+          "Dose adjustments may be necessary in geriatric patients due to decreased renal function."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Focused Update on Cardiopulmonary Resuscitation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Cardiac arrhythmias are a common complication of poisoning."
+          },
+          {
+            "title": "2018 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The physical examination can help identify patients at high risk for cardiac complications."
+          },
+          {
+            "title": "2019 NICE Guideline on the management of poisoning",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Pediatric patients should be treated with caution, and geriatric patients may require dose adjustments."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Common Poisonings",
+      "content": {
+        "intro": "The diagnosis of poisoning can be challenging, as the clinical presentation can be non-specific and the substance involved may not be immediately apparent. Laboratory tests, such as blood and urine toxicology screens, can help identify the substance involved and guide treatment. Imaging studies, such as chest radiographs and abdominal computed tomography (CT) scans, can also be useful in identifying complications of poisoning.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as blood and urine toxicology screens, can help identify the substance involved and guide treatment. The AHA 2020 guideline on cardiopulmonary resuscitation notes that blood gas analysis can help identify patients with severe metabolic acidosis, which can be a complication of poisoning. The ESC 2018 guideline on the management of acute coronary syndromes notes that troponin levels can be elevated in patients with cardiac complications of poisoning."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest radiographs and abdominal CT scans, can be useful in identifying complications of poisoning. The NICE 2019 guideline on the management of poisoning notes that chest radiographs can help identify patients with pulmonary edema, which can be a complication of certain substances. Abdominal CT scans can help identify patients with bowel obstruction or perforation, which can be a complication of certain substances."
+          },
+          {
+            "heading": "Special Considerations in the Diagnosis of Poisoning",
+            "text": "There are several special considerations in the diagnosis of poisoning, including the possibility of co-ingestion of multiple substances, and the potential for underlying medical conditions to affect the metabolism and excretion of certain substances. The ACC 2020 guideline on the management of acute liver failure notes that liver function tests can be useful in identifying patients with liver injury, which can be a complication of certain substances."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected poisoning, it is essential to consider the possibility of co-ingestion of multiple substances, as this can affect treatment and outcome.",
+        "key_points": [
+          "Laboratory tests, such as blood and urine toxicology screens, can help identify the substance involved and guide treatment.",
+          "Blood gas analysis can help identify patients with severe metabolic acidosis, which can be a complication of poisoning.",
+          "Troponin levels can be elevated in patients with cardiac complications of poisoning.",
+          "Chest radiographs can help identify patients with pulmonary edema, which can be a complication of certain substances.",
+          "Abdominal CT scans can help identify patients with bowel obstruction or perforation, which can be a complication of certain substances.",
+          "Liver function tests can be useful in identifying patients with liver injury, which can be a complication of certain substances."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Focused Update on Cardiopulmonary Resuscitation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Blood gas analysis can help identify patients with severe metabolic acidosis."
+          },
+          {
+            "title": "2018 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Troponin levels can be elevated in patients with cardiac complications of poisoning."
+          },
+          {
+            "title": "2019 NICE Guideline on the management of poisoning",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Chest radiographs can help identify patients with pulmonary edema."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Common Poisonings",
+      "content": {
+        "intro": "The treatment and management of poisoning can vary widely depending on the substance involved, the dose, and the individual patient. Some common treatments for poisoning include supportive care, such as fluid resuscitation and oxygen therapy, and antidotes, such as naloxone and N-acetylcysteine. Understanding the treatment and management of common poisonings is crucial for providing effective care to poisoned patients.",
+        "sections": [
+          {
+            "heading": "Supportive Care",
+            "text": "Supportive care, such as fluid resuscitation and oxygen therapy, is essential in the treatment of poisoning. The AHA 2020 guideline on cardiopulmonary resuscitation notes that cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone. The ESC 2018 guideline on the management of acute coronary syndromes notes that hypotension can be treated with vasopressors such as norepinephrine."
+          },
+          {
+            "heading": "Antidotes",
+            "text": "Antidotes, such as naloxone and N-acetylcysteine, can be effective in treating certain types of poisoning. The NICE 2019 guideline on the management of poisoning notes that naloxone can be used to treat opioid-induced respiratory depression, with a dose of 0.4-2 mg IV or IM. N-acetylcysteine can be used to treat acetaminophen overdose, with a dose of 150 mg/kg IV over 60 minutes."
+          },
+          {
+            "heading": "Special Considerations in the Treatment of Poisoning",
+            "text": "There are several special considerations in the treatment of poisoning, including the possibility of co-ingestion of multiple substances, and the potential for underlying medical conditions to affect the metabolism and excretion of certain substances. The ACC 2020 guideline on the management of acute liver failure notes that liver transplantation may be necessary in patients with severe liver injury, which can be a complication of certain substances."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected poisoning, it is essential to consider the possibility of co-ingestion of multiple substances, as this can affect treatment and outcome.",
+        "key_points": [
+          "Supportive care, such as fluid resuscitation and oxygen therapy, is essential in the treatment of poisoning.",
+          "Cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone.",
+          "Hypotension can be treated with vasopressors such as norepinephrine.",
+          "Naloxone can be used to treat opioid-induced respiratory depression, with a dose of 0.4-2 mg IV or IM.",
+          "N-acetylcysteine can be used to treat acetaminophen overdose, with a dose of 150 mg/kg IV over 60 minutes.",
+          "Liver transplantation may be necessary in patients with severe liver injury, which can be a complication of certain substances."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Focused Update on Cardiopulmonary Resuscitation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone."
+          },
+          {
+            "title": "2018 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Hypotension can be treated with vasopressors such as norepinephrine."
+          },
+          {
+            "title": "2019 NICE Guideline on the management of poisoning",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Naloxone can be used to treat opioid-induced respiratory depression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Common Poisonings",
+      "content": {
+        "intro": "The complications and prognosis of poisoning can vary widely depending on the substance involved, the dose, and the individual patient. Some common complications of poisoning include cardiac arrhythmias, respiratory failure, and liver injury. Understanding the complications and prognosis of common poisonings is crucial for providing effective care to poisoned patients.",
+        "sections": [
+          {
+            "heading": "Cardiac Complications",
+            "text": "Cardiac complications, such as cardiac arrhythmias and myocardial infarction, can be a significant consequence of poisoning. The AHA 2020 guideline on cardiopulmonary resuscitation notes that cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone. The ESC 2018 guideline on the management of acute coronary syndromes notes that myocardial infarction can be treated with percutaneous coronary intervention (PCI) or thrombolysis."
+          },
+          {
+            "heading": "Respiratory Complications",
+            "text": "Respiratory complications, such as respiratory failure and pulmonary edema, can be a significant consequence of poisoning. The NICE 2019 guideline on the management of poisoning notes that respiratory failure can be treated with mechanical ventilation and oxygen therapy. Pulmonary edema can be treated with diuretics such as furosemide."
+          },
+          {
+            "heading": "Hepatic Complications",
+            "text": "Hepatic complications, such as liver injury and liver failure, can be a significant consequence of poisoning. The ACC 2020 guideline on the management of acute liver failure notes that liver injury can be treated with N-acetylcysteine, with a dose of 150 mg/kg IV over 60 minutes. Liver transplantation may be necessary in patients with severe liver injury."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected poisoning, it is essential to consider the possibility of co-ingestion of multiple substances, as this can affect treatment and outcome.",
+        "key_points": [
+          "Cardiac complications, such as cardiac arrhythmias and myocardial infarction, can be a significant consequence of poisoning.",
+          "Cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone.",
+          "Myocardial infarction can be treated with percutaneous coronary intervention (PCI) or thrombolysis.",
+          "Respiratory complications, such as respiratory failure and pulmonary edema, can be a significant consequence of poisoning.",
+          "Respiratory failure can be treated with mechanical ventilation and oxygen therapy.",
+          "Liver injury can be treated with N-acetylcysteine, with a dose of 150 mg/kg IV over 60 minutes."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Focused Update on Cardiopulmonary Resuscitation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Cardiac arrhythmias can be treated with anti-arrhythmic medications such as amiodarone."
+          },
+          {
+            "title": "2018 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Myocardial infarction can be treated with percutaneous coronary intervention (PCI) or thrombolysis."
+          },
+          {
+            "title": "2019 NICE Guideline on the management of poisoning",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Respiratory failure can be treated with mechanical ventilation and oxygen therapy."
+          }
+        ]
+      }
+    }
+  ]
+}

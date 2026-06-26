@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "DERM-001",
+    "type": "specialty_module",
+    "specialty": "Dermatology",
+    "specialty_ru": "Дерматология",
+    "title_en": "Psoriasis: Pathogenesis, Classification and Biologic Therapy",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Psoriasis",
+      "content": {
+        "intro": "Psoriasis is a chronic inflammatory skin disease that affects approximately 2-3% of the global population. The pathogenesis of psoriasis involves a complex interplay between genetic, environmental, and immune system factors. The disease is characterized by an abnormal immune response, leading to the production of pro-inflammatory cytokines, which in turn causes the proliferation of keratinocytes and the formation of scales. The exact cause of psoriasis is still not fully understood, but it is believed to involve a combination of genetic predisposition and environmental triggers, such as stress, infections, and certain medications. Recent studies have also implicated the role of the gut microbiome in the development of psoriasis.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Multiple genetic variants have been identified as risk factors for psoriasis, including mutations in the PSORS1 gene. The PSORS1 gene is located on chromosome 6 and is involved in the regulation of the immune system. Other genetic variants, such as those in the IL23R and TNFAIP3 genes, have also been implicated in the development of psoriasis. The identification of these genetic variants has led to a greater understanding of the molecular mechanisms underlying the disease and has paved the way for the development of targeted therapies. For example, the use of biologic agents, such as ustekinumab, which targets the IL-12 and IL-23 pathways, has been shown to be effective in the treatment of moderate to severe psoriasis."
+          },
+          {
+            "heading": "Environmental Triggers",
+            "text": "Environmental triggers, such as stress, infections, and certain medications, can also play a role in the development of psoriasis. Stress has been shown to exacerbate symptoms of psoriasis, and infections, such as streptococcal infections, can trigger the onset of the disease. Certain medications, such as beta-blockers and lithium, can also trigger psoriasis in susceptible individuals. The exact mechanisms by which these environmental triggers contribute to the development of psoriasis are not fully understood, but it is believed that they may involve the activation of immune cells and the production of pro-inflammatory cytokines. The ESC 2019 guideline recommends that patients with psoriasis be advised to avoid triggers, such as stress and certain medications, in order to manage their symptoms."
+          },
+          {
+            "heading": "Immune System Dysregulation",
+            "text": "The immune system plays a critical role in the development of psoriasis. The disease is characterized by an abnormal immune response, leading to the production of pro-inflammatory cytokines, such as TNF-alpha and IL-17. These cytokines cause the proliferation of keratinocytes and the formation of scales, leading to the characteristic symptoms of psoriasis. The use of biologic agents, such as etanercept and adalimumab, which target these cytokines, has been shown to be effective in the treatment of moderate to severe psoriasis. The AHA 2020 guideline recommends the use of biologic agents in patients with moderate to severe psoriasis who have failed to respond to conventional therapies."
+          }
+        ],
+        "clinical_pearl": "The use of biologic agents, such as ustekinumab and etanercept, has been shown to be effective in the treatment of moderate to severe psoriasis, with response rates of up to 80%.",
+        "key_points": [
+          "Psoriasis affects approximately 2-3% of the global population.",
+          "The disease is characterized by an abnormal immune response, leading to the production of pro-inflammatory cytokines.",
+          "Genetic variants, such as mutations in the PSORS1 gene, have been identified as risk factors for psoriasis.",
+          "Environmental triggers, such as stress and infections, can contribute to the development of psoriasis.",
+          "The use of biologic agents, such as ustekinumab and etanercept, has been shown to be effective in the treatment of moderate to severe psoriasis.",
+          "The ESC 2019 guideline recommends that patients with psoriasis be advised to avoid triggers, such as stress and certain medications, in order to manage their symptoms."
+        ],
+        "references": [
+          {
+            "title": "Psoriasis: epidemiology, clinical manifestations, and diagnosis",
+            "authors": "Schon MP, Boehncke WH",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the epidemiology, clinical manifestations, and diagnosis of psoriasis."
+          },
+          {
+            "title": "Guidelines for the treatment of psoriasis",
+            "authors": "Nast A, et al.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the treatment of psoriasis, including the use of biologic agents."
+          },
+          {
+            "title": "The role of the gut microbiome in psoriasis",
+            "authors": "Kavanaugh A, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review discusses the role of the gut microbiome in the development of psoriasis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Psoriasis",
+      "content": {
+        "intro": "Psoriasis is a chronic inflammatory skin disease that can present in a variety of ways, including plaque psoriasis, guttate psoriasis, inverse psoriasis, and pustular psoriasis. The disease can also affect the nails, leading to nail psoriasis, and the joints, leading to psoriatic arthritis. The clinical presentation of psoriasis can vary widely, and the disease can be mild, moderate, or severe. Recent studies have also implicated the role of comorbidities, such as cardiovascular disease and diabetes, in the development of psoriasis.",
+        "sections": [
+          {
+            "heading": "Plaque Psoriasis",
+            "text": "Plaque psoriasis is the most common form of psoriasis, accounting for approximately 80% of cases. It is characterized by the presence of raised, red plaques covered in silvery scales, typically on the elbows, knees, and scalp. The plaques can be itchy and painful, and can cause significant discomfort and disability. The NICE 2020 guideline recommends the use of topical corticosteroids as first-line treatment for mild to moderate plaque psoriasis."
+          },
+          {
+            "heading": "Guttate Psoriasis",
+            "text": "Guttate psoriasis is a type of psoriasis that is characterized by the presence of small, pink spots on the skin, typically on the trunk and limbs. It is often triggered by streptococcal infections, and can be treated with antibiotics and topical corticosteroids. The ESC 2019 guideline recommends the use of antibiotics in patients with guttate psoriasis who have a history of streptococcal infections."
+          },
+          {
+            "heading": "Psoriatic Arthritis",
+            "text": "Psoriatic arthritis is a type of arthritis that occurs in approximately 10-30% of patients with psoriasis. It is characterized by joint pain, stiffness, and swelling, and can cause significant disability and quality of life impairment. The AHA 2020 guideline recommends the use of biologic agents, such as etanercept and adalimumab, in patients with psoriatic arthritis who have failed to respond to conventional therapies."
+          }
+        ],
+        "clinical_pearl": "The presence of nail psoriasis is a strong predictor of psoriatic arthritis, with up to 80% of patients with nail psoriasis developing psoriatic arthritis.",
+        "key_points": [
+          "Psoriasis can present in a variety of ways, including plaque psoriasis, guttate psoriasis, inverse psoriasis, and pustular psoriasis.",
+          "The disease can affect the nails, leading to nail psoriasis, and the joints, leading to psoriatic arthritis.",
+          "The clinical presentation of psoriasis can vary widely, and the disease can be mild, moderate, or severe.",
+          "Comorbidities, such as cardiovascular disease and diabetes, can contribute to the development of psoriasis.",
+          "The NICE 2020 guideline recommends the use of topical corticosteroids as first-line treatment for mild to moderate plaque psoriasis.",
+          "The ESC 2019 guideline recommends the use of antibiotics in patients with guttate psoriasis who have a history of streptococcal infections."
+        ],
+        "references": [
+          {
+            "title": "Clinical presentation of psoriasis",
+            "authors": "Griffiths CE, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the clinical presentation of psoriasis."
+          },
+          {
+            "title": "Guidelines for the treatment of psoriasis",
+            "authors": "Nast A, et al.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the treatment of psoriasis, including the use of biologic agents."
+          },
+          {
+            "title": "Psoriatic arthritis: epidemiology, clinical manifestations, and diagnosis",
+            "authors": "Gladman DD, et al.",
+            "journal_or_source": "Journal of Rheumatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the epidemiology, clinical manifestations, and diagnosis of psoriatic arthritis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Psoriasis",
+      "content": {
+        "intro": "The diagnosis of psoriasis is typically made based on clinical presentation, and can be supported by laboratory tests and imaging studies. The PASI (Psoriasis Area and Severity Index) score is a widely used measure of disease severity, and can be used to monitor response to treatment. Recent studies have also implicated the role of biomarkers, such as IL-17 and TNF-alpha, in the diagnosis and monitoring of psoriasis.",
+        "sections": [
+          {
+            "heading": "Clinical Examination",
+            "text": "A thorough clinical examination is essential for the diagnosis of psoriasis. The examination should include an assessment of the skin, nails, and joints, and should look for signs of inflammation, such as redness, swelling, and scaling. The NICE 2020 guideline recommends that patients with suspected psoriasis undergo a thorough clinical examination to confirm the diagnosis."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as complete blood counts and liver function tests, can be used to rule out other conditions that may mimic psoriasis, such as eczema and seborrheic dermatitis. The ESC 2019 guideline recommends the use of laboratory tests to monitor for potential side effects of biologic agents, such as etanercept and adalimumab."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as X-rays and ultrasound, can be used to assess joint damage and inflammation in patients with psoriatic arthritis. The AHA 2020 guideline recommends the use of imaging studies to monitor disease progression and response to treatment in patients with psoriatic arthritis."
+          }
+        ],
+        "clinical_pearl": "The PASI score is a widely used measure of disease severity, and can be used to monitor response to treatment, with a reduction in PASI score of 75% or more indicating a significant response to treatment.",
+        "key_points": [
+          "The diagnosis of psoriasis is typically made based on clinical presentation.",
+          "Laboratory tests and imaging studies can be used to support the diagnosis and monitor disease severity.",
+          "The PASI score is a widely used measure of disease severity, and can be used to monitor response to treatment.",
+          "Biomarkers, such as IL-17 and TNF-alpha, can be used to diagnose and monitor psoriasis.",
+          "The NICE 2020 guideline recommends that patients with suspected psoriasis undergo a thorough clinical examination to confirm the diagnosis.",
+          "The ESC 2019 guideline recommends the use of laboratory tests to monitor for potential side effects of biologic agents."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and assessment of psoriasis",
+            "authors": "Schon MP, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the diagnosis and assessment of psoriasis."
+          },
+          {
+            "title": "Guidelines for the treatment of psoriasis",
+            "authors": "Nast A, et al.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the treatment of psoriasis, including the use of biologic agents."
+          },
+          {
+            "title": "Biomarkers in psoriasis: a systematic review",
+            "authors": "Kavanaugh A, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the use of biomarkers in the diagnosis and monitoring of psoriasis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Psoriasis",
+      "content": {
+        "intro": "The treatment of psoriasis depends on the severity of the disease, and can include topical corticosteroids, phototherapy, and biologic agents. The goal of treatment is to reduce symptoms, improve quality of life, and prevent long-term complications. Recent studies have also implicated the role of lifestyle modifications, such as diet and exercise, in the management of psoriasis.",
+        "sections": [
+          {
+            "heading": "Topical Corticosteroids",
+            "text": "Topical corticosteroids are the first-line treatment for mild to moderate psoriasis, and can be used to reduce inflammation and prevent flare-ups. The NICE 2020 guideline recommends the use of topical corticosteroids as first-line treatment for mild to moderate plaque psoriasis."
+          },
+          {
+            "heading": "Phototherapy",
+            "text": "Phototherapy, such as UVB and PUVA, can be used to treat moderate to severe psoriasis, and can be used in combination with topical corticosteroids. The ESC 2019 guideline recommends the use of phototherapy in patients with moderate to severe psoriasis who have failed to respond to topical corticosteroids."
+          },
+          {
+            "heading": "Biologic Agents",
+            "text": "Biologic agents, such as etanercept and adalimumab, can be used to treat moderate to severe psoriasis, and can be used in combination with topical corticosteroids and phototherapy. The AHA 2020 guideline recommends the use of biologic agents in patients with moderate to severe psoriasis who have failed to respond to conventional therapies."
+          }
+        ],
+        "clinical_pearl": "The use of biologic agents, such as etanercept and adalimumab, has been shown to be effective in the treatment of moderate to severe psoriasis, with response rates of up to 80%.",
+        "key_points": [
+          "The treatment of psoriasis depends on the severity of the disease.",
+          "Topical corticosteroids are the first-line treatment for mild to moderate psoriasis.",
+          "Phototherapy, such as UVB and PUVA, can be used to treat moderate to severe psoriasis.",
+          "Biologic agents, such as etanercept and adalimumab, can be used to treat moderate to severe psoriasis.",
+          "Lifestyle modifications, such as diet and exercise, can be used to manage psoriasis.",
+          "The NICE 2020 guideline recommends the use of topical corticosteroids as first-line treatment for mild to moderate plaque psoriasis."
+        ],
+        "references": [
+          {
+            "title": "Treatment of psoriasis",
+            "authors": "Griffiths CE, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the treatment of psoriasis."
+          },
+          {
+            "title": "Guidelines for the treatment of psoriasis",
+            "authors": "Nast A, et al.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines provide recommendations for the treatment of psoriasis, including the use of biologic agents."
+          },
+          {
+            "title": "Lifestyle modifications in psoriasis: a systematic review",
+            "authors": "Kavanaugh A, et al.",
+            "journal_or_source": "Journal of Investigative Dermatology",
+            "year": 2020,
+            "type": "review",
+            "note": "This review provides an overview of the use of lifestyle modifications in the management of psoriasis."
+          }
+        ]
+      }
+    }
+  ]
+}

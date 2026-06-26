@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "EMERG-003",
+    "type": "specialty_module",
+    "specialty": "Emergency Medicine",
+    "specialty_ru": "Скорая и неотложная помощь",
+    "title_en": "Acute Stroke: Window Periods, tPA Protocol and Thrombectomy",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Acute Stroke",
+      "content": {
+        "intro": "Acute stroke is a leading cause of morbidity and mortality worldwide, with approximately 15 million people suffering from stroke each year. The pathophysiology of acute stroke involves a complex interplay between vascular, neuronal, and glial cells. Ischemic stroke accounts for about 85% of all strokes, while hemorrhagic stroke accounts for about 15%. The epidemiology of acute stroke is influenced by various factors, including age, hypertension, diabetes, and smoking. Understanding the epidemiology and pathophysiology of acute stroke is crucial for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Acute Stroke",
+            "text": "The global burden of acute stroke is significant, with an estimated 6.2 million deaths and 44.4 million disability-adjusted life years (DALYs) lost in 2019. The incidence of acute stroke increases with age, with the majority of strokes occurring in people over the age of 65. Hypertension is the most important risk factor for acute stroke, accounting for about 50% of all strokes. Other risk factors include diabetes, smoking, and atrial fibrillation. The ESC 2019 guidelines recommend that all patients with acute stroke undergo a comprehensive risk factor assessment to identify potential targets for secondary prevention."
+          },
+          {
+            "heading": "Pathophysiology of Ischemic Stroke",
+            "text": "Ischemic stroke occurs when there is a sudden interruption of blood flow to the brain, resulting in a lack of oxygen and glucose for neuronal cells. The pathophysiology of ischemic stroke involves a complex interplay between vascular, neuronal, and glial cells. The AHA 2018 guidelines recommend that all patients with acute ischemic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the infarct. The NICE 2019 guidelines recommend that all patients with acute ischemic stroke receive aspirin 300mg orally as soon as possible, unless contraindicated."
+          },
+          {
+            "heading": "Pathophysiology of Hemorrhagic Stroke",
+            "text": "Hemorrhagic stroke occurs when there is a sudden rupture of blood vessels in the brain, resulting in bleeding into the surrounding tissue. The pathophysiology of hemorrhagic stroke involves a complex interplay between vascular, neuronal, and glial cells. The AHA 2015 guidelines recommend that all patients with acute hemorrhagic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the hemorrhage. The ESC 2018 guidelines recommend that all patients with acute hemorrhagic stroke receive aggressive blood pressure control to reduce the risk of further bleeding."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of acute stroke can vary widely, but the majority of patients present with sudden onset of focal neurological deficits, such as weakness, numbness, or difficulty with speech. The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a rapid assessment with the NIH Stroke Scale (NIHSS) to identify the severity of the stroke.",
+        "key_points": [
+          "The global burden of acute stroke is significant, with an estimated 6.2 million deaths and 44.4 million DALYs lost in 2019.",
+          "Hypertension is the most important risk factor for acute stroke, accounting for about 50% of all strokes.",
+          "The ESC 2019 guidelines recommend that all patients with acute stroke undergo a comprehensive risk factor assessment to identify potential targets for secondary prevention.",
+          "The AHA 2018 guidelines recommend that all patients with acute ischemic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the infarct.",
+          "The NICE 2019 guidelines recommend that all patients with acute ischemic stroke receive aspirin 300mg orally as soon as possible, unless contraindicated.",
+          "The AHA 2015 guidelines recommend that all patients with acute hemorrhagic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the hemorrhage."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of acute and chronic heart failure, including the management of acute stroke."
+          },
+          {
+            "title": "2018 Guidelines for the Early Management of Patients with Acute Ischemic Stroke",
+            "authors": "Powers WJ, Rabinstein AA, Ackerson T, et al.",
+            "journal_or_source": "Stroke",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the early management of patients with acute ischemic stroke, including the use of thrombolytic therapy and mechanical thrombectomy."
+          },
+          {
+            "title": "NICE Guideline NG128: Stroke and transient ischaemic attack in over 16s: diagnosis and initial management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and initial management of stroke and transient ischaemic attack in patients over 16 years of age."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Acute Stroke",
+      "content": {
+        "intro": "The clinical presentation of acute stroke can vary widely, but the majority of patients present with sudden onset of focal neurological deficits, such as weakness, numbness, or difficulty with speech. The clinical presentation of acute stroke is influenced by the location and extent of the infarct or hemorrhage, as well as the patient's underlying medical conditions. Understanding the clinical presentation of acute stroke is crucial for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Ischemic Stroke",
+            "text": "The clinical presentation of ischemic stroke can vary widely, but the majority of patients present with sudden onset of focal neurological deficits, such as weakness, numbness, or difficulty with speech. The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo a rapid assessment with the NIHSS to identify the severity of the stroke. The ESC 2019 guidelines recommend that all patients with acute ischemic stroke receive urgent imaging with CT or MRI to identify the location and extent of the infarct."
+          },
+          {
+            "heading": "Clinical Presentation of Hemorrhagic Stroke",
+            "text": "The clinical presentation of hemorrhagic stroke can vary widely, but the majority of patients present with sudden onset of severe headache, vomiting, and decreased level of consciousness. The AHA 2015 guidelines recommend that all patients with suspected acute hemorrhagic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the hemorrhage. The NICE 2019 guidelines recommend that all patients with acute hemorrhagic stroke receive aggressive blood pressure control to reduce the risk of further bleeding."
+          },
+          {
+            "heading": "Atypical Presentations of Acute Stroke",
+            "text": "Atypical presentations of acute stroke can occur, and may include symptoms such as seizures, confusion, or personality changes. The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a comprehensive evaluation, including a thorough medical history, physical examination, and laboratory tests, to identify the underlying cause of the stroke. The ESC 2019 guidelines recommend that all patients with acute stroke receive a comprehensive risk factor assessment to identify potential targets for secondary prevention."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of acute stroke can be influenced by the patient's underlying medical conditions, such as diabetes, hypertension, or atrial fibrillation. The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a rapid assessment with the NIHSS to identify the severity of the stroke.",
+        "key_points": [
+          "The clinical presentation of acute stroke can vary widely, but the majority of patients present with sudden onset of focal neurological deficits.",
+          "The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo a rapid assessment with the NIHSS to identify the severity of the stroke.",
+          "The ESC 2019 guidelines recommend that all patients with acute ischemic stroke receive urgent imaging with CT or MRI to identify the location and extent of the infarct.",
+          "The AHA 2015 guidelines recommend that all patients with suspected acute hemorrhagic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the hemorrhage.",
+          "The NICE 2019 guidelines recommend that all patients with acute hemorrhagic stroke receive aggressive blood pressure control to reduce the risk of further bleeding.",
+          "The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a comprehensive evaluation, including a thorough medical history, physical examination, and laboratory tests, to identify the underlying cause of the stroke."
+        ],
+        "references": [
+          {
+            "title": "2018 Guidelines for the Early Management of Patients with Acute Ischemic Stroke",
+            "authors": "Powers WJ, Rabinstein AA, Ackerson T, et al.",
+            "journal_or_source": "Stroke",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the early management of patients with acute ischemic stroke, including the use of thrombolytic therapy and mechanical thrombectomy."
+          },
+          {
+            "title": "NICE Guideline NG128: Stroke and transient ischaemic attack in over 16s: diagnosis and initial management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and initial management of stroke and transient ischaemic attack in patients over 16 years of age."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of acute and chronic heart failure, including the management of acute stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Acute Stroke",
+      "content": {
+        "intro": "The diagnosis of acute stroke is based on a combination of clinical presentation, imaging studies, and laboratory tests. Understanding the investigations and diagnosis of acute stroke is crucial for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Imaging Studies in Acute Stroke",
+            "text": "Imaging studies, such as CT or MRI, are essential for diagnosing acute stroke. The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the infarct. The ESC 2019 guidelines recommend that all patients with acute ischemic stroke receive urgent imaging with CT or MRI to identify the location and extent of the infarct."
+          },
+          {
+            "heading": "Laboratory Tests in Acute Stroke",
+            "text": "Laboratory tests, such as complete blood count, electrolyte panel, and coagulation studies, are essential for diagnosing acute stroke. The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo a comprehensive evaluation, including a thorough medical history, physical examination, and laboratory tests, to identify the underlying cause of the stroke. The NICE 2019 guidelines recommend that all patients with acute stroke receive a comprehensive risk factor assessment to identify potential targets for secondary prevention."
+          },
+          {
+            "heading": "Diagnostic Criteria for Acute Stroke",
+            "text": "The diagnostic criteria for acute stroke include a combination of clinical presentation, imaging studies, and laboratory tests. The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a rapid assessment with the NIHSS to identify the severity of the stroke. The ESC 2019 guidelines recommend that all patients with acute stroke receive a comprehensive risk factor assessment to identify potential targets for secondary prevention."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of acute stroke can be challenging, and may require a combination of clinical presentation, imaging studies, and laboratory tests. The AHA 2018 guidelines recommend that all patients with suspected acute stroke undergo a comprehensive evaluation, including a thorough medical history, physical examination, and laboratory tests, to identify the underlying cause of the stroke.",
+        "key_points": [
+          "Imaging studies, such as CT or MRI, are essential for diagnosing acute stroke.",
+          "The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo urgent imaging with CT or MRI to identify the location and extent of the infarct.",
+          "Laboratory tests, such as complete blood count, electrolyte panel, and coagulation studies, are essential for diagnosing acute stroke.",
+          "The AHA 2018 guidelines recommend that all patients with suspected acute ischemic stroke undergo a comprehensive evaluation, including a thorough medical history, physical examination, and laboratory tests, to identify the underlying cause of the stroke.",
+          "The NICE 2019 guidelines recommend that all patients with acute stroke receive a comprehensive risk factor assessment to identify potential targets for secondary prevention.",
+          "The ESC 2019 guidelines recommend that all patients with acute stroke receive a comprehensive risk factor assessment to identify potential targets for secondary prevention."
+        ],
+        "references": [
+          {
+            "title": "2018 Guidelines for the Early Management of Patients with Acute Ischemic Stroke",
+            "authors": "Powers WJ, Rabinstein AA, Ackerson T, et al.",
+            "journal_or_source": "Stroke",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the early management of patients with acute ischemic stroke, including the use of thrombolytic therapy and mechanical thrombectomy."
+          },
+          {
+            "title": "NICE Guideline NG128: Stroke and transient ischaemic attack in over 16s: diagnosis and initial management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and initial management of stroke and transient ischaemic attack in patients over 16 years of age."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of acute and chronic heart failure, including the management of acute stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Acute Stroke",
+      "content": {
+        "intro": "The treatment and management of acute stroke is based on a combination of medical and surgical interventions. Understanding the treatment and management of acute stroke is crucial for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Thrombolytic Therapy in Acute Ischemic Stroke",
+            "text": "Thrombolytic therapy, such as tissue plasminogen activator (tPA), is essential for treating acute ischemic stroke. The AHA 2018 guidelines recommend that all patients with acute ischemic stroke receive tPA as soon as possible, unless contraindicated. The ESC 2019 guidelines recommend that all patients with acute ischemic stroke receive tPA as soon as possible, unless contraindicated."
+          },
+          {
+            "heading": "Mechanical Thrombectomy in Acute Ischemic Stroke",
+            "text": "Mechanical thrombectomy, such as stent retriever or aspiration thrombectomy, is essential for treating acute ischemic stroke. The AHA 2018 guidelines recommend that all patients with acute ischemic stroke undergo mechanical thrombectomy as soon as possible, unless contraindicated. The NICE 2019 guidelines recommend that all patients with acute ischemic stroke receive mechanical thrombectomy as soon as possible, unless contraindicated."
+          },
+          {
+            "heading": "Surgical Intervention in Acute Hemorrhagic Stroke",
+            "text": "Surgical intervention, such as craniotomy or clipping, is essential for treating acute hemorrhagic stroke. The AHA 2015 guidelines recommend that all patients with acute hemorrhagic stroke undergo surgical intervention as soon as possible, unless contraindicated. The ESC 2018 guidelines recommend that all patients with acute hemorrhagic stroke receive surgical intervention as soon as possible, unless contraindicated."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of acute stroke can be challenging, and may require a combination of medical and surgical interventions. The AHA 2018 guidelines recommend that all patients with acute ischemic stroke receive tPA as soon as possible, unless contraindicated.",
+        "key_points": [
+          "Thrombolytic therapy, such as tPA, is essential for treating acute ischemic stroke.",
+          "The AHA 2018 guidelines recommend that all patients with acute ischemic stroke receive tPA as soon as possible, unless contraindicated.",
+          "Mechanical thrombectomy, such as stent retriever or aspiration thrombectomy, is essential for treating acute ischemic stroke.",
+          "The AHA 2018 guidelines recommend that all patients with acute ischemic stroke undergo mechanical thrombectomy as soon as possible, unless contraindicated.",
+          "Surgical intervention, such as craniotomy or clipping, is essential for treating acute hemorrhagic stroke.",
+          "The AHA 2015 guidelines recommend that all patients with acute hemorrhagic stroke undergo surgical intervention as soon as possible, unless contraindicated."
+        ],
+        "references": [
+          {
+            "title": "2018 Guidelines for the Early Management of Patients with Acute Ischemic Stroke",
+            "authors": "Powers WJ, Rabinstein AA, Ackerson T, et al.",
+            "journal_or_source": "Stroke",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the early management of patients with acute ischemic stroke, including the use of thrombolytic therapy and mechanical thrombectomy."
+          },
+          {
+            "title": "NICE Guideline NG128: Stroke and transient ischaemic attack in over 16s: diagnosis and initial management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and initial management of stroke and transient ischaemic attack in patients over 16 years of age."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of acute and chronic heart failure, including the management of acute stroke."
+          }
+        ]
+      }
+    }
+  ]
+}

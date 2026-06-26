@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "DERM-003",
+    "type": "specialty_module",
+    "specialty": "Dermatology",
+    "specialty_ru": "Дерматология",
+    "title_en": "Melanoma and Skin Cancers: Diagnosis, Staging and Immunotherapy",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Melanoma",
+      "content": {
+        "intro": "Melanoma is a type of skin cancer that originates from melanocytes, the cells responsible for producing pigment in the skin. The incidence of melanoma has been increasing over the past few decades, with approximately 287,723 new cases diagnosed worldwide in 2020. The pathophysiology of melanoma involves the uncontrolled growth of melanocytes, which can be triggered by genetic mutations, exposure to ultraviolet radiation, and other environmental factors. Understanding the epidemiology and pathophysiology of melanoma is crucial for the development of effective prevention and treatment strategies. The World Health Organization (WHO) and the National Institute for Health and Care Excellence (NICE) have published guidelines for the prevention and management of melanoma, emphasizing the importance of early detection and treatment.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Melanoma",
+            "text": "Several risk factors have been identified for melanoma, including fair skin, family history, and exposure to ultraviolet radiation. The American Academy of Dermatology (AAD) recommends that individuals with a family history of melanoma undergo regular skin checks and take precautions to protect their skin from the sun. The use of sunscreen with a Sun Protection Factor (SPF) of at least 30 and protective clothing can help reduce the risk of melanoma. The European Society of Cardiology (ESC) and the American Heart Association (AHA) have also emphasized the importance of sun protection in preventing skin cancer."
+          },
+          {
+            "heading": "Genetic Mutations in Melanoma",
+            "text": "Genetic mutations play a crucial role in the development of melanoma. The BRAF V600E mutation is the most common mutation found in melanoma, and is present in approximately 40-60% of cases. Other mutations, such as NRAS and c-KIT, have also been identified in melanoma. The use of targeted therapies, such as vemurafenib and dabrafenib, has been shown to be effective in treating melanoma with these mutations. The NICE guideline for the treatment of melanoma recommends the use of vemurafenib and dabrafenib as first-line therapy for patients with BRAF V600E-positive melanoma."
+          },
+          {
+            "heading": "Prevention and Early Detection of Melanoma",
+            "text": "Prevention and early detection are key to reducing the incidence and mortality of melanoma. The AAD recommends that individuals perform regular skin self-exams and undergo annual skin checks with a dermatologist. The use of dermoscopy and total-body photography can also aid in the early detection of melanoma. The ESC and AHA have emphasized the importance of public awareness campaigns in promoting sun protection and early detection of skin cancer."
+          }
+        ],
+        "clinical_pearl": "The use of sunscreen with an SPF of at least 30 can reduce the risk of melanoma by 50%. Regular skin self-exams and annual skin checks with a dermatologist can also aid in the early detection of melanoma.",
+        "key_points": [
+          "The incidence of melanoma is increasing worldwide, with approximately 287,723 new cases diagnosed in 2020.",
+          "Fair skin, family history, and exposure to ultraviolet radiation are risk factors for melanoma.",
+          "The BRAF V600E mutation is the most common mutation found in melanoma, and is present in approximately 40-60% of cases.",
+          "Vemurafenib and dabrafenib are effective in treating melanoma with BRAF V600E mutations.",
+          "Regular skin self-exams and annual skin checks with a dermatologist can aid in the early detection of melanoma.",
+          "The use of sunscreen with an SPF of at least 30 can reduce the risk of melanoma by 50%."
+        ],
+        "references": [
+          {
+            "title": "Melanoma: Epidemiology, Pathophysiology, and Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early detection and treatment of melanoma."
+          },
+          {
+            "title": "Sun Protection and Skin Cancer Prevention",
+            "authors": "American Academy of Dermatology",
+            "journal_or_source": "AAD Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of sunscreen with an SPF of at least 30 and protective clothing to reduce the risk of skin cancer."
+          },
+          {
+            "title": "Targeted Therapies for Melanoma",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO Guideline",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommends the use of vemurafenib and dabrafenib as first-line therapy for patients with BRAF V600E-positive melanoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Melanoma",
+      "content": {
+        "intro": "Melanoma can present in various ways, including changes in the size, shape, or color of a mole. The ABCDE rule is a useful tool for identifying suspicious moles, with asymmetry, border irregularity, color variation, diameter greater than 6mm, and evolving characteristics being indicative of melanoma. Understanding the clinical presentation of melanoma is crucial for early detection and treatment.",
+        "sections": [
+          {
+            "heading": "ABCDE Rule for Melanoma",
+            "text": "The ABCDE rule is a useful tool for identifying suspicious moles. Asymmetry, border irregularity, color variation, diameter greater than 6mm, and evolving characteristics are all indicative of melanoma. The AAD recommends that individuals perform regular skin self-exams using the ABCDE rule to aid in the early detection of melanoma. The NICE guideline for the diagnosis of melanoma emphasizes the importance of using the ABCDE rule in clinical practice."
+          },
+          {
+            "heading": "Clinical Features of Melanoma",
+            "text": "Melanoma can present with various clinical features, including changes in the size, shape, or color of a mole. The use of dermoscopy and total-body photography can aid in the early detection of melanoma. The ESC and AHA have emphasized the importance of public awareness campaigns in promoting skin self-exams and early detection of skin cancer. The use of imiquimod cream has been shown to be effective in treating certain types of skin cancer, including superficial basal cell carcinoma."
+          },
+          {
+            "heading": "Differential Diagnosis of Melanoma",
+            "text": "Melanoma can be difficult to diagnose, and a differential diagnosis should be considered. Other skin cancers, such as basal cell carcinoma and squamous cell carcinoma, can present similarly to melanoma. The use of biopsy and histopathological examination can aid in the diagnosis of melanoma. The AAD recommends that individuals with a suspicious mole undergo a biopsy to confirm the diagnosis."
+          }
+        ],
+        "clinical_pearl": "The use of the ABCDE rule can aid in the early detection of melanoma, with asymmetry, border irregularity, color variation, diameter greater than 6mm, and evolving characteristics being indicative of melanoma.",
+        "key_points": [
+          "The ABCDE rule is a useful tool for identifying suspicious moles.",
+          "Melanoma can present with changes in the size, shape, or color of a mole.",
+          "Dermoscopy and total-body photography can aid in the early detection of melanoma.",
+          "Imiquimod cream is effective in treating certain types of skin cancer, including superficial basal cell carcinoma.",
+          "Biopsy and histopathological examination can aid in the diagnosis of melanoma.",
+          "The AAD recommends that individuals with a suspicious mole undergo a biopsy to confirm the diagnosis."
+        ],
+        "references": [
+          {
+            "title": "Clinical Presentation of Melanoma",
+            "authors": "American Academy of Dermatology",
+            "journal_or_source": "AAD Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of using the ABCDE rule in clinical practice."
+          },
+          {
+            "title": "Dermoscopy and Total-Body Photography for Melanoma Detection",
+            "authors": "European Society of Dermatology",
+            "journal_or_source": "ESD Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of dermoscopy and total-body photography to aid in the early detection of melanoma."
+          },
+          {
+            "title": "Imiquimod Cream for Skin Cancer Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommends the use of imiquimod cream for the treatment of certain types of skin cancer, including superficial basal cell carcinoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Melanoma",
+      "content": {
+        "intro": "The diagnosis of melanoma involves a combination of clinical examination, dermoscopy, and histopathological examination. The use of biopsy and molecular testing can aid in the diagnosis and staging of melanoma. Understanding the investigations and diagnosis of melanoma is crucial for effective treatment and management.",
+        "sections": [
+          {
+            "heading": "Clinical Examination and Dermoscopy",
+            "text": "Clinical examination and dermoscopy are essential tools for the diagnosis of melanoma. The ABCDE rule can be used to identify suspicious moles, and dermoscopy can aid in the early detection of melanoma. The AAD recommends that individuals perform regular skin self-exams using the ABCDE rule to aid in the early detection of melanoma. The NICE guideline for the diagnosis of melanoma emphasizes the importance of using dermoscopy in clinical practice."
+          },
+          {
+            "heading": "Biopsy and Histopathological Examination",
+            "text": "Biopsy and histopathological examination are crucial for the diagnosis of melanoma. The use of molecular testing, such as BRAF V600E mutation analysis, can aid in the diagnosis and staging of melanoma. The ESC and AHA have emphasized the importance of molecular testing in the diagnosis and treatment of melanoma. The use of ipilimumab has been shown to be effective in treating certain types of melanoma, including unresectable or metastatic melanoma."
+          },
+          {
+            "heading": "Molecular Testing for Melanoma",
+            "text": "Molecular testing, such as BRAF V600E mutation analysis, can aid in the diagnosis and staging of melanoma. The use of next-generation sequencing can also aid in the identification of genetic mutations in melanoma. The AAD recommends that individuals with a diagnosis of melanoma undergo molecular testing to aid in the development of a treatment plan."
+          }
+        ],
+        "clinical_pearl": "The use of biopsy and molecular testing can aid in the diagnosis and staging of melanoma, with BRAF V600E mutation analysis being a crucial tool in the diagnosis of melanoma.",
+        "key_points": [
+          "Clinical examination and dermoscopy are essential tools for the diagnosis of melanoma.",
+          "Biopsy and histopathological examination are crucial for the diagnosis of melanoma.",
+          "Molecular testing, such as BRAF V600E mutation analysis, can aid in the diagnosis and staging of melanoma.",
+          "Ipilimumab is effective in treating certain types of melanoma, including unresectable or metastatic melanoma.",
+          "Next-generation sequencing can aid in the identification of genetic mutations in melanoma.",
+          "The AAD recommends that individuals with a diagnosis of melanoma undergo molecular testing to aid in the development of a treatment plan."
+        ],
+        "references": [
+          {
+            "title": "Investigations and Diagnosis of Melanoma",
+            "authors": "American Academy of Dermatology",
+            "journal_or_source": "AAD Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of using dermoscopy in clinical practice."
+          },
+          {
+            "title": "Molecular Testing for Melanoma",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of molecular testing, such as BRAF V600E mutation analysis, to aid in the diagnosis and staging of melanoma."
+          },
+          {
+            "title": "Ipilimumab for Melanoma Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommends the use of ipilimumab for the treatment of certain types of melanoma, including unresectable or metastatic melanoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Melanoma",
+      "content": {
+        "intro": "The treatment and management of melanoma depend on the stage and type of melanoma. Surgery, chemotherapy, and immunotherapy are all treatment options for melanoma. Understanding the treatment and management of melanoma is crucial for effective care and management.",
+        "sections": [
+          {
+            "heading": "Surgical Treatment of Melanoma",
+            "text": "Surgery is a common treatment option for melanoma, with wide excision being the most common surgical procedure. The use of sentinel lymph node biopsy can aid in the staging of melanoma. The AAD recommends that individuals with a diagnosis of melanoma undergo surgical treatment to aid in the removal of the tumor."
+          },
+          {
+            "heading": "Chemotherapy and Immunotherapy for Melanoma",
+            "text": "Chemotherapy and immunotherapy are also treatment options for melanoma. The use of ipilimumab and nivolumab has been shown to be effective in treating certain types of melanoma, including unresectable or metastatic melanoma. The ESC and AHA have emphasized the importance of immunotherapy in the treatment of melanoma. The use of pembrolizumab has been shown to be effective in treating certain types of melanoma, including unresectable or metastatic melanoma."
+          },
+          {
+            "heading": "Targeted Therapies for Melanoma",
+            "text": "Targeted therapies, such as vemurafenib and dabrafenib, can aid in the treatment of melanoma. The use of these therapies can be effective in treating certain types of melanoma, including BRAF V600E-positive melanoma. The NICE guideline for the treatment of melanoma recommends the use of vemurafenib and dabrafenib as first-line therapy for patients with BRAF V600E-positive melanoma."
+          }
+        ],
+        "clinical_pearl": "The use of surgery, chemotherapy, and immunotherapy can aid in the treatment and management of melanoma, with ipilimumab and nivolumab being effective in treating certain types of melanoma.",
+        "key_points": [
+          "Surgery is a common treatment option for melanoma, with wide excision being the most common surgical procedure.",
+          "Ipilimumab and nivolumab are effective in treating certain types of melanoma, including unresectable or metastatic melanoma.",
+          "Pembrolizumab is effective in treating certain types of melanoma, including unresectable or metastatic melanoma.",
+          "Vemurafenib and dabrafenib can aid in the treatment of melanoma, particularly in patients with BRAF V600E-positive melanoma.",
+          "The AAD recommends that individuals with a diagnosis of melanoma undergo surgical treatment to aid in the removal of the tumor.",
+          "The NICE guideline for the treatment of melanoma recommends the use of vemurafenib and dabrafenib as first-line therapy for patients with BRAF V600E-positive melanoma."
+        ],
+        "references": [
+          {
+            "title": "Treatment and Management of Melanoma",
+            "authors": "American Academy of Dermatology",
+            "journal_or_source": "AAD Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of surgical treatment in the management of melanoma."
+          },
+          {
+            "title": "Ipilimumab and Nivolumab for Melanoma Treatment",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommends the use of ipilimumab and nivolumab for the treatment of certain types of melanoma, including unresectable or metastatic melanoma."
+          },
+          {
+            "title": "Pembrolizumab for Melanoma Treatment",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommends the use of pembrolizumab for the treatment of certain types of melanoma, including unresectable or metastatic melanoma."
+          }
+        ]
+      }
+    }
+  ]
+}

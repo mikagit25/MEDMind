@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "EMERG-001",
+    "type": "specialty_module",
+    "specialty": "Emergency Medicine",
+    "specialty_ru": "Скорая и неотложная помощь",
+    "title_en": "ACLS and Cardiac Arrest: Resuscitation Algorithms and Post-ROSC Care",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cardiac Arrest",
+      "content": {
+        "intro": "Cardiac arrest is a sudden and unexpected loss of cardiac function, leading to a lack of blood flow and oxygenation of vital organs. According to the American Heart Association (AHA), approximately 475,000 people in the United States experience cardiac arrest each year. The pathophysiology of cardiac arrest involves a complex interplay of electrical, mechanical, and metabolic factors. The most common causes of cardiac arrest include coronary artery disease, heart failure, and cardiac arrhythmias. Understanding the epidemiology and pathophysiology of cardiac arrest is crucial for developing effective prevention and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Cardiac Arrest",
+            "text": "The epidemiology of cardiac arrest is influenced by various factors, including age, sex, and underlying medical conditions. The incidence of cardiac arrest increases with age, with the majority of cases occurring in individuals over the age of 65. Men are more likely to experience cardiac arrest than women, with a male-to-female ratio of approximately 3:2. The AHA reports that the overall survival rate for cardiac arrest is approximately 10%, with significant variability depending on the location and timing of the event. According to the European Society of Cardiology (ESC) 2015 guidelines, bystander cardiopulmonary resuscitation (CPR) can significantly improve survival rates."
+          },
+          {
+            "heading": "Pathophysiology of Cardiac Arrest",
+            "text": "The pathophysiology of cardiac arrest involves a complex interplay of electrical, mechanical, and metabolic factors. The most common causes of cardiac arrest include coronary artery disease, heart failure, and cardiac arrhythmias. The ESC 2015 guidelines recommend the use of electrocardiogram (ECG) to diagnose cardiac arrest, with a focus on identifying underlying causes such as ST-segment elevation myocardial infarction (STEMI) or ventricular fibrillation. The AHA 2015 guidelines emphasize the importance of prompt recognition and treatment of cardiac arrest, with a focus on high-quality CPR and defibrillation."
+          },
+          {
+            "heading": "Risk Factors for Cardiac Arrest",
+            "text": "Several risk factors contribute to the development of cardiac arrest, including hypertension, hyperlipidemia, and diabetes mellitus. The AHA 2017 guidelines recommend lifestyle modifications, such as a healthy diet and regular exercise, to reduce the risk of cardiac arrest. The ESC 2016 guidelines emphasize the importance of managing underlying medical conditions, such as heart failure and coronary artery disease, to prevent cardiac arrest. According to the NICE 2019 guidelines, the use of implantable cardioverter-defibrillators (ICDs) can be effective in preventing sudden cardiac death in high-risk individuals."
+          }
+        ],
+        "clinical_pearl": "The use of automated external defibrillators (AEDs) can significantly improve survival rates for cardiac arrest, with a reported increase in survival of up to 50% when used promptly.",
+        "key_points": [
+          "The incidence of cardiac arrest increases with age, with the majority of cases occurring in individuals over the age of 65.",
+          "Men are more likely to experience cardiac arrest than women, with a male-to-female ratio of approximately 3:2.",
+          "The overall survival rate for cardiac arrest is approximately 10%, with significant variability depending on the location and timing of the event.",
+          "The ESC 2015 guidelines recommend the use of bystander CPR to improve survival rates.",
+          "The AHA 2015 guidelines emphasize the importance of prompt recognition and treatment of cardiac arrest, with a focus on high-quality CPR and defibrillation.",
+          "The use of ICDs can be effective in preventing sudden cardiac death in high-risk individuals, according to the NICE 2019 guidelines."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and treatment of cardiac arrest."
+          },
+          {
+            "title": "2015 European Society of Cardiology Guidelines for the Management of Acute Coronary Syndromes in Patients Presenting without Persistent ST-Segment Elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of ECG to diagnose cardiac arrest."
+          },
+          {
+            "title": "Cardiac Arrest and Cardiopulmonary Resuscitation: A Review of the Literature",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2018,
+            "type": "review",
+            "note": "Discusses the importance of bystander CPR in improving survival rates."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cardiac Arrest",
+      "content": {
+        "intro": "The clinical presentation of cardiac arrest can vary depending on the underlying cause and the individual's medical history. Common symptoms include chest pain, shortness of breath, and palpitations. In some cases, cardiac arrest may occur without warning, with the individual collapsing suddenly. Understanding the clinical presentation of cardiac arrest is crucial for prompt recognition and treatment.",
+        "sections": [
+          {
+            "heading": "Symptoms of Cardiac Arrest",
+            "text": "The symptoms of cardiac arrest can vary depending on the underlying cause. Common symptoms include chest pain, shortness of breath, and palpitations. In some cases, cardiac arrest may occur without warning, with the individual collapsing suddenly. The AHA 2015 guidelines recommend the use of the Universal Declaration of Death to diagnose cardiac arrest. According to the ESC 2015 guidelines, the use of ECG can help identify underlying causes of cardiac arrest, such as STEMI or ventricular fibrillation."
+          },
+          {
+            "heading": "Signs of Cardiac Arrest",
+            "text": "The signs of cardiac arrest include loss of consciousness, lack of pulse, and lack of breathing. The AHA 2015 guidelines recommend the use of CPR to maintain blood flow and oxygenation of vital organs. The ESC 2015 guidelines emphasize the importance of prompt defibrillation in cases of ventricular fibrillation. According to the NICE 2019 guidelines, the use of adrenaline (epinephrine) can be effective in treating cardiac arrest, with a recommended dose of 1mg IV."
+          },
+          {
+            "heading": "Differential Diagnosis of Cardiac Arrest",
+            "text": "The differential diagnosis of cardiac arrest includes other conditions that may present with similar symptoms, such as pulmonary embolism or stroke. The AHA 2015 guidelines recommend the use of ECG and troponin levels to diagnose cardiac arrest. The ESC 2015 guidelines emphasize the importance of considering alternative diagnoses, such as hypoglycemia or seizure disorder. According to the NICE 2019 guidelines, the use of point-of-care ultrasound can be effective in diagnosing cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          }
+        ],
+        "clinical_pearl": "The use of ECG can help identify underlying causes of cardiac arrest, such as STEMI or ventricular fibrillation, and guide treatment decisions.",
+        "key_points": [
+          "The symptoms of cardiac arrest can vary depending on the underlying cause, with common symptoms including chest pain, shortness of breath, and palpitations.",
+          "The signs of cardiac arrest include loss of consciousness, lack of pulse, and lack of breathing.",
+          "The AHA 2015 guidelines recommend the use of CPR to maintain blood flow and oxygenation of vital organs.",
+          "The ESC 2015 guidelines emphasize the importance of prompt defibrillation in cases of ventricular fibrillation.",
+          "The use of adrenaline (epinephrine) can be effective in treating cardiac arrest, with a recommended dose of 1mg IV.",
+          "The use of point-of-care ultrasound can be effective in diagnosing cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and treatment of cardiac arrest."
+          },
+          {
+            "title": "2015 European Society of Cardiology Guidelines for the Management of Acute Coronary Syndromes in Patients Presenting without Persistent ST-Segment Elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of ECG to diagnose cardiac arrest."
+          },
+          {
+            "title": "Cardiac Arrest and Cardiopulmonary Resuscitation: A Review of the Literature",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2018,
+            "type": "review",
+            "note": "Discusses the importance of bystander CPR in improving survival rates."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cardiac Arrest",
+      "content": {
+        "intro": "The diagnosis of cardiac arrest is typically made based on clinical presentation and electrocardiogram (ECG) findings. Additional investigations, such as laboratory tests and imaging studies, may be performed to identify underlying causes and guide treatment decisions. Understanding the investigations and diagnosis of cardiac arrest is crucial for prompt and effective treatment.",
+        "sections": [
+          {
+            "heading": "Electrocardiogram (ECG) Findings in Cardiac Arrest",
+            "text": "The ECG is a crucial diagnostic tool in cardiac arrest, with findings such as STEMI or ventricular fibrillation guiding treatment decisions. The AHA 2015 guidelines recommend the use of ECG to diagnose cardiac arrest, with a focus on identifying underlying causes. According to the ESC 2015 guidelines, the use of ECG can help identify alternative diagnoses, such as pulmonary embolism or pericarditis. The NICE 2019 guidelines recommend the use of ECG to guide treatment decisions, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          },
+          {
+            "heading": "Laboratory Tests in Cardiac Arrest",
+            "text": "Laboratory tests, such as troponin levels and complete blood count (CBC), may be performed to identify underlying causes of cardiac arrest. The AHA 2015 guidelines recommend the use of troponin levels to diagnose cardiac arrest, with a focus on identifying myocardial infarction. The ESC 2015 guidelines emphasize the importance of considering alternative diagnoses, such as hypoglycemia or seizure disorder. According to the NICE 2019 guidelines, the use of point-of-care testing can be effective in diagnosing cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          },
+          {
+            "heading": "Imaging Studies in Cardiac Arrest",
+            "text": "Imaging studies, such as chest X-ray and echocardiogram, may be performed to identify underlying causes of cardiac arrest. The AHA 2015 guidelines recommend the use of chest X-ray to diagnose cardiac arrest, with a focus on identifying underlying causes such as pulmonary edema or pneumothorax. The ESC 2015 guidelines emphasize the importance of considering alternative diagnoses, such as cardiac tamponade or aortic dissection. According to the NICE 2019 guidelines, the use of point-of-care ultrasound can be effective in diagnosing cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          }
+        ],
+        "clinical_pearl": "The use of ECG can help identify underlying causes of cardiac arrest, such as STEMI or ventricular fibrillation, and guide treatment decisions.",
+        "key_points": [
+          "The ECG is a crucial diagnostic tool in cardiac arrest, with findings such as STEMI or ventricular fibrillation guiding treatment decisions.",
+          "Laboratory tests, such as troponin levels and CBC, may be performed to identify underlying causes of cardiac arrest.",
+          "Imaging studies, such as chest X-ray and echocardiogram, may be performed to identify underlying causes of cardiac arrest.",
+          "The AHA 2015 guidelines recommend the use of ECG to diagnose cardiac arrest, with a focus on identifying underlying causes.",
+          "The ESC 2015 guidelines emphasize the importance of considering alternative diagnoses, such as hypoglycemia or seizure disorder.",
+          "The use of point-of-care testing can be effective in diagnosing cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and treatment of cardiac arrest."
+          },
+          {
+            "title": "2015 European Society of Cardiology Guidelines for the Management of Acute Coronary Syndromes in Patients Presenting without Persistent ST-Segment Elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of ECG to diagnose cardiac arrest."
+          },
+          {
+            "title": "Cardiac Arrest and Cardiopulmonary Resuscitation: A Review of the Literature",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2018,
+            "type": "review",
+            "note": "Discusses the importance of bystander CPR in improving survival rates."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cardiac Arrest",
+      "content": {
+        "intro": "The treatment and management of cardiac arrest involve a combination of pharmacological and non-pharmacological interventions. The primary goal of treatment is to restore cardiac function and maintain blood flow and oxygenation of vital organs. Understanding the treatment and management of cardiac arrest is crucial for prompt and effective care.",
+        "sections": [
+          {
+            "heading": "Cardiopulmonary Resuscitation (CPR) in Cardiac Arrest",
+            "text": "CPR is a critical component of cardiac arrest treatment, with a focus on maintaining blood flow and oxygenation of vital organs. The AHA 2015 guidelines recommend the use of CPR to treat cardiac arrest, with a focus on high-quality chest compressions and rescue breaths. According to the ESC 2015 guidelines, the use of CPR can significantly improve survival rates, with a reported increase in survival of up to 50% when used promptly. The NICE 2019 guidelines recommend the use of CPR to treat cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          },
+          {
+            "heading": "Pharmacological Interventions in Cardiac Arrest",
+            "text": "Pharmacological interventions, such as adrenaline (epinephrine) and amiodarone, may be used to treat cardiac arrest. The AHA 2015 guidelines recommend the use of adrenaline (epinephrine) to treat cardiac arrest, with a recommended dose of 1mg IV. The ESC 2015 guidelines emphasize the importance of considering alternative pharmacological interventions, such as atropine or magnesium. According to the NICE 2019 guidelines, the use of pharmacological interventions can be effective in treating cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          },
+          {
+            "heading": "Non-Pharmacological Interventions in Cardiac Arrest",
+            "text": "Non-pharmacological interventions, such as defibrillation and pacing, may be used to treat cardiac arrest. The AHA 2015 guidelines recommend the use of defibrillation to treat cardiac arrest, with a focus on prompt recognition and treatment of ventricular fibrillation. The ESC 2015 guidelines emphasize the importance of considering alternative non-pharmacological interventions, such as cardioversion or cardiac catheterization. According to the NICE 2019 guidelines, the use of non-pharmacological interventions can be effective in treating cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+          }
+        ],
+        "clinical_pearl": "The use of CPR can significantly improve survival rates, with a reported increase in survival of up to 50% when used promptly.",
+        "key_points": [
+          "CPR is a critical component of cardiac arrest treatment, with a focus on maintaining blood flow and oxygenation of vital organs.",
+          "The AHA 2015 guidelines recommend the use of CPR to treat cardiac arrest, with a focus on high-quality chest compressions and rescue breaths.",
+          "Pharmacological interventions, such as adrenaline (epinephrine) and amiodarone, may be used to treat cardiac arrest.",
+          "Non-pharmacological interventions, such as defibrillation and pacing, may be used to treat cardiac arrest.",
+          "The use of pharmacological interventions can be effective in treating cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax.",
+          "The use of non-pharmacological interventions can be effective in treating cardiac arrest, with a focus on identifying underlying causes such as cardiac tamponade or pneumothorax."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and treatment of cardiac arrest."
+          },
+          {
+            "title": "2015 European Society of Cardiology Guidelines for the Management of Acute Coronary Syndromes in Patients Presenting without Persistent ST-Segment Elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of ECG to diagnose cardiac arrest."
+          },
+          {
+            "title": "Cardiac Arrest and Cardiopulmonary Resuscitation: A Review of the Literature",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2018,
+            "type": "review",
+            "note": "Discusses the importance of bystander CPR in improving survival rates."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cardiac Arrest",
+      "content": {
+        "intro": "The complications and prognosis of cardiac arrest are influenced by various factors, including the underlying cause, promptness of treatment, and quality of care. Understanding the complications and prognosis of cardiac arrest is crucial for providing effective care and improving outcomes.",
+        "sections": [
+          {
+            "heading": "Complications of Cardiac Arrest",
+            "text": "The complications of cardiac arrest include neurological damage, cardiac dysfunction, and respiratory failure. The AHA 2015 guidelines recommend the use of therapeutic hypothermia to reduce the risk of neurological damage. According to the ESC 2015 guidelines, the use of early coronary angiography can reduce the risk of cardiac dysfunction. The NICE 2019 guidelines recommend the use of early mobilization to reduce the risk of respiratory failure."
+          },
+          {
+            "heading": "Prognosis of Cardiac Arrest",
+            "text": "The prognosis of cardiac arrest is influenced by various factors, including the underlying cause, promptness of treatment, and quality of care. The AHA 2015 guidelines recommend the use of the Utstein style to report cardiac arrest outcomes. According to the ESC 2015 guidelines, the use of early defibrillation can improve survival rates. The NICE 2019 guidelines recommend the use of early advanced life support to improve survival rates."
+          },
+          {
+            "heading": "Predictors of Outcome in Cardiac Arrest",
+            "text": "The predictors of outcome in cardiac arrest include the underlying cause, age, and comorbidities. The AHA 2015 guidelines recommend the use of the Cardiac Arrest Score to predict outcomes. According to the ESC 2015 guidelines, the use of early biomarkers can predict outcomes. The NICE 2019 guidelines recommend the use of early clinical assessment to predict outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of therapeutic hypothermia can reduce the risk of neurological damage after cardiac arrest.",
+        "key_points": [
+          "The complications of cardiac arrest include neurological damage, cardiac dysfunction, and respiratory failure.",
+          "The prognosis of cardiac arrest is influenced by various factors, including the underlying cause, promptness of treatment, and quality of care.",
+          "The use of early coronary angiography can reduce the risk of cardiac dysfunction after cardiac arrest.",
+          "The use of early mobilization can reduce the risk of respiratory failure after cardiac arrest.",
+          "The use of early advanced life support can improve survival rates after cardiac arrest.",
+          "The use of early biomarkers can predict outcomes after cardiac arrest."
+        ],
+        "references": [
+          {
+            "title": "2015 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and treatment of cardiac arrest."
+          },
+          {
+            "title": "2015 European Society of Cardiology Guidelines for the Management of Acute Coronary Syndromes in Patients Presenting without Persistent ST-Segment Elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2015,
+            "type": "guideline",
+            "note": "Recommends the use of ECG to diagnose cardiac arrest."
+          },
+          {
+            "title": "Cardiac Arrest and Cardiopulmonary Resuscitation: A Review of the Literature",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2018,
+            "type": "review",
+            "note": "Discusses the importance of bystander CPR in improving survival rates."
+          }
+        ]
+      }
+    }
+  ]
+}

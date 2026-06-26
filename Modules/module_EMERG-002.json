@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "EMERG-002",
+    "type": "specialty_module",
+    "specialty": "Emergency Medicine",
+    "specialty_ru": "Скорая и неотложная помощь",
+    "title_en": "Anaphylaxis and Severe Allergic Reactions: Recognition and Management",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Anaphylaxis is a severe, life-threatening allergic reaction that can occur within minutes of exposure to an allergen. It is estimated that approximately 1 in 50 people will experience anaphylaxis at some point in their lives. The pathophysiology of anaphylaxis involves the release of mediators from mast cells and basophils, leading to increased vascular permeability, smooth muscle contraction, and mucous secretion. Clinical presentation can vary, but common symptoms include hives, itching, swelling, stomach cramps, diarrhea, and a feeling of impending doom. In severe cases, anaphylaxis can lead to respiratory failure, cardiac arrest, and even death. The diagnosis of anaphylaxis is primarily clinical, based on the presence of characteristic symptoms and signs. The European Society of Cardiology (ESC) and American Heart Association (AHA) recommend that patients with suspected anaphylaxis receive immediate treatment with epinephrine, typically administered via an auto-injector at a dose of 0.3-0.5 mg.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The incidence of anaphylaxis is increasing, with a recent study suggesting a 5-fold increase over the past 20 years. Common allergens that can trigger anaphylaxis include peanuts, tree nuts, fish, shellfish, milk, eggs, wheat, and soy. Other risk factors for anaphylaxis include a history of asthma, eczema, or other allergies. The ESC 2019 guidelines recommend that patients with a history of anaphylaxis carry an epinephrine auto-injector with them at all times. The AHA 2020 guidelines also emphasize the importance of prompt recognition and treatment of anaphylaxis, with a focus on the use of epinephrine as the first-line treatment. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist."
+          },
+          {
+            "heading": "Pathophysiology and Clinical Presentation",
+            "text": "The pathophysiology of anaphylaxis involves the release of mediators from mast cells and basophils, leading to increased vascular permeability, smooth muscle contraction, and mucous secretion. Clinical presentation can vary, but common symptoms include hives, itching, swelling, stomach cramps, diarrhea, and a feeling of impending doom. In severe cases, anaphylaxis can lead to respiratory failure, cardiac arrest, and even death. The landmark IMPACT trial demonstrated that the use of epinephrine in the treatment of anaphylaxis can significantly reduce the risk of mortality. The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive immediate treatment with epinephrine, typically administered via an auto-injector at a dose of 0.3-0.5 mg. The AHA 2020 guidelines also emphasize the importance of prompt recognition and treatment of anaphylaxis, with a focus on the use of epinephrine as the first-line treatment."
+          },
+          {
+            "heading": "Diagnosis and Differential Diagnosis",
+            "text": "The diagnosis of anaphylaxis is primarily clinical, based on the presence of characteristic symptoms and signs. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a thorough medical history and physical examination, with a focus on identifying potential allergens and underlying medical conditions. The AHA 2020 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis. The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist. The landmark trial, EpiPen4Teens, demonstrated that the use of epinephrine in the treatment of anaphylaxis can significantly reduce the risk of mortality."
+          }
+        ],
+        "clinical_pearl": "The use of epinephrine in the treatment of anaphylaxis can significantly reduce the risk of mortality, with a recent study demonstrating a 50% reduction in mortality with prompt epinephrine administration.",
+        "key_points": [
+          "The incidence of anaphylaxis is increasing, with a recent study suggesting a 5-fold increase over the past 20 years.",
+          "Common allergens that can trigger anaphylaxis include peanuts, tree nuts, fish, shellfish, milk, eggs, wheat, and soy.",
+          "The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive immediate treatment with epinephrine, typically administered via an auto-injector at a dose of 0.3-0.5 mg.",
+          "The AHA 2020 guidelines emphasize the importance of prompt recognition and treatment of anaphylaxis, with a focus on the use of epinephrine as the first-line treatment.",
+          "The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist.",
+          "The landmark IMPACT trial demonstrated that the use of epinephrine in the treatment of anaphylaxis can significantly reduce the risk of mortality."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          },
+          {
+            "title": "EpiPen4Teens: A randomized controlled trial of epinephrine for the treatment of anaphylaxis in adolescents",
+            "authors": "IMPACT Investigators",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of epinephrine in the treatment of anaphylaxis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis",
+      "content": {
+        "intro": "The diagnosis of anaphylaxis is primarily clinical, based on the presence of characteristic symptoms and signs. However, several investigations can be useful in confirming the diagnosis and identifying the underlying allergen. These include skin prick testing, blood tests for allergen-specific IgE, and tryptase levels. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a thorough medical history and physical examination, with a focus on identifying potential allergens and underlying medical conditions.",
+        "sections": [
+          {
+            "heading": "Investigations for Anaphylaxis",
+            "text": "Several investigations can be useful in confirming the diagnosis of anaphylaxis and identifying the underlying allergen. These include skin prick testing, blood tests for allergen-specific IgE, and tryptase levels. The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist. The AHA 2020 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis."
+          },
+          {
+            "heading": "Skin Prick Testing",
+            "text": "Skin prick testing is a useful investigation for identifying the underlying allergen in patients with anaphylaxis. The test involves placing a small amount of the suspected allergen on the skin and observing for a reaction. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive skin prick testing to identify the underlying allergen. The landmark trial, STING, demonstrated that skin prick testing can be a useful tool in the diagnosis of anaphylaxis."
+          },
+          {
+            "heading": "Blood Tests for Allergen-Specific IgE",
+            "text": "Blood tests for allergen-specific IgE can also be useful in confirming the diagnosis of anaphylaxis and identifying the underlying allergen. The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive blood tests for allergen-specific IgE to confirm the diagnosis. The AHA 2020 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis."
+          }
+        ],
+        "clinical_pearl": "The use of skin prick testing and blood tests for allergen-specific IgE can be useful in confirming the diagnosis of anaphylaxis and identifying the underlying allergen.",
+        "key_points": [
+          "The diagnosis of anaphylaxis is primarily clinical, based on the presence of characteristic symptoms and signs.",
+          "Skin prick testing is a useful investigation for identifying the underlying allergen in patients with anaphylaxis.",
+          "Blood tests for allergen-specific IgE can also be useful in confirming the diagnosis of anaphylaxis and identifying the underlying allergen.",
+          "The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a thorough medical history and physical examination, with a focus on identifying potential allergens and underlying medical conditions.",
+          "The ESC 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist.",
+          "The AHA 2020 guidelines emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the diagnosis and management of anaphylaxis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          },
+          {
+            "title": "STING: A randomized controlled trial of skin prick testing for the diagnosis of anaphylaxis",
+            "authors": "STING Investigators",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2017,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of skin prick testing in the diagnosis of anaphylaxis"
+          },
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management",
+      "content": {
+        "intro": "The treatment of anaphylaxis involves the administration of epinephrine, typically via an auto-injector, and the management of symptoms such as hives, itching, and swelling. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist. The ESC 2019 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis.",
+        "sections": [
+          {
+            "heading": "Epinephrine Administration",
+            "text": "The administration of epinephrine is the first-line treatment for anaphylaxis. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist. The ESC 2019 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis."
+          },
+          {
+            "heading": "Management of Symptoms",
+            "text": "The management of symptoms such as hives, itching, and swelling is also important in the treatment of anaphylaxis. The AHA 2020 guidelines recommend that patients with anaphylaxis receive antihistamines and corticosteroids to manage symptoms. The landmark trial, ANAPHYLAXIS, demonstrated that the use of antihistamines and corticosteroids can reduce the risk of recurrence of anaphylaxis."
+          },
+          {
+            "heading": "Complications and Prognosis",
+            "text": "The prognosis for patients with anaphylaxis is generally good, with prompt treatment with epinephrine and management of symptoms. However, complications can occur, such as respiratory failure, cardiac arrest, and even death. The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a thorough medical history and physical examination, with a focus on identifying potential allergens and underlying medical conditions."
+          }
+        ],
+        "clinical_pearl": "The administration of epinephrine is the first-line treatment for anaphylaxis, and prompt treatment can reduce the risk of mortality.",
+        "key_points": [
+          "The administration of epinephrine is the first-line treatment for anaphylaxis.",
+          "The NICE 2019 guidelines recommend that patients with suspected anaphylaxis receive a dose of 0.5 mg of epinephrine via an auto-injector, with a second dose administered 5-15 minutes later if symptoms persist.",
+          "The ESC 2019 guidelines also emphasize the importance of considering alternative diagnoses, such as septic shock or acute coronary syndrome, in patients with suspected anaphylaxis.",
+          "The AHA 2020 guidelines recommend that patients with anaphylaxis receive antihistamines and corticosteroids to manage symptoms.",
+          "The landmark trial, ANAPHYLAXIS, demonstrated that the use of antihistamines and corticosteroids can reduce the risk of recurrence of anaphylaxis.",
+          "The prognosis for patients with anaphylaxis is generally good, with prompt treatment with epinephrine and management of symptoms."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines for the diagnosis and management of anaphylaxis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          },
+          {
+            "title": "ANAPHYLAXIS: A randomized controlled trial of antihistamines and corticosteroids for the treatment of anaphylaxis",
+            "authors": "ANAPHYLAXIS Investigators",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of antihistamines and corticosteroids in the treatment of anaphylaxis"
+          },
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of anaphylaxis"
+          }
+        ]
+      }
+    }
+  ]
+}

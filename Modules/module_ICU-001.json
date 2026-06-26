@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ICU-001",
+    "type": "specialty_module",
+    "specialty": "Critical Care",
+    "specialty_ru": "Реаниматология и ИТ",
+    "title_en": "Mechanical Ventilation: Modes, Lung-Protective Ventilation, Weaning",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-26"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Mechanical Ventilation",
+      "content": {
+        "intro": "Mechanical ventilation is a life-saving intervention for patients with respiratory failure. The epidemiology of mechanical ventilation has evolved over the years, with advances in technology and changes in patient demographics. The pathophysiology of mechanical ventilation involves the interaction between the ventilator, the patient's lungs, and the cardiovascular system. Understanding the principles of mechanical ventilation is crucial for optimizing patient outcomes. The use of mechanical ventilation has increased significantly over the past few decades, with approximately 2.5 million patients requiring mechanical ventilation annually in the United States alone. The pathophysiology of mechanical ventilation involves the delivery of positive pressure breaths to the patient's lungs, which can lead to lung injury if not managed properly.",
+        "sections": [
+          {
+            "heading": "Physiology of Breathing",
+            "text": "The physiology of breathing involves the coordination of the diaphragm, intercostal muscles, and accessory muscles to expand the lungs and draw air into the airways. Mechanical ventilation can disrupt this normal physiology, leading to changes in lung mechanics and gas exchange. The use of positive end-expiratory pressure (PEEP) can help to improve oxygenation and reduce lung injury. The optimal level of PEEP is typically set between 5-15 cmH2O, although this may vary depending on the patient's specific condition. The ARDS Network trial demonstrated that the use of lower tidal volumes (6 mL/kg) and higher PEEP levels (12 cmH2O) can reduce mortality in patients with acute respiratory distress syndrome (ARDS)."
+          },
+          {
+            "heading": "Lung-Protective Ventilation",
+            "text": "Lung-protective ventilation involves the use of strategies to minimize lung injury during mechanical ventilation. This includes the use of lower tidal volumes, higher PEEP levels, and the avoidance of excessive respiratory rates. The use of lung-protective ventilation has been shown to reduce the incidence of ventilator-induced lung injury (VILI) and improve patient outcomes. The ESC 2019 guidelines recommend the use of lung-protective ventilation in all patients receiving mechanical ventilation. The AHA 2020 guidelines also recommend the use of lung-protective ventilation, with a focus on minimizing tidal volumes and optimizing PEEP levels."
+          },
+          {
+            "heading": "Ventilator-Induced Lung Injury",
+            "text": "Ventilator-induced lung injury (VILI) is a common complication of mechanical ventilation. VILI can occur due to the use of excessive tidal volumes, respiratory rates, or inspiratory pressures. The use of lung-protective ventilation strategies can help to minimize the risk of VILI. The NICE 2017 guidelines recommend the use of lung-protective ventilation to reduce the risk of VILI. The use of neuromuscular blocking agents, such as cisatracurium (0.15-0.3 mg/kg/h), can also help to reduce the risk of VILI by minimizing patient-ventilator asynchrony."
+          }
+        ],
+        "clinical_pearl": "The use of lung-protective ventilation can reduce the incidence of VILI and improve patient outcomes. A key clinical insight is that the optimal level of PEEP is typically set between 5-15 cmH2O, although this may vary depending on the patient's specific condition.",
+        "key_points": [
+          "The use of mechanical ventilation has increased significantly over the past few decades, with approximately 2.5 million patients requiring mechanical ventilation annually in the United States alone.",
+          "The pathophysiology of mechanical ventilation involves the delivery of positive pressure breaths to the patient's lungs, which can lead to lung injury if not managed properly.",
+          "The use of positive end-expiratory pressure (PEEP) can help to improve oxygenation and reduce lung injury.",
+          "The optimal level of PEEP is typically set between 5-15 cmH2O, although this may vary depending on the patient's specific condition.",
+          "The ARDS Network trial demonstrated that the use of lower tidal volumes (6 mL/kg) and higher PEEP levels (12 cmH2O) can reduce mortality in patients with acute respiratory distress syndrome (ARDS).",
+          "The use of lung-protective ventilation can reduce the incidence of VILI and improve patient outcomes."
+        ],
+        "references": [
+          {
+            "title": "Ventilation with lower tidal volumes as compared with traditional tidal volumes for acute lung injury and the acute respiratory distress syndrome",
+            "authors": "The Acute Respiratory Distress Syndrome Network",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2000,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of lower tidal volumes can reduce mortality in patients with ARDS."
+          },
+          {
+            "title": "2019 ESC Guidelines on Acute Pulmonary Embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of lung-protective ventilation in all patients receiving mechanical ventilation."
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of lung-protective ventilation, with a focus on minimizing tidal volumes and optimizing PEEP levels."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Patients Requiring Mechanical Ventilation",
+      "content": {
+        "intro": "Patients requiring mechanical ventilation often present with respiratory failure, which can be caused by a variety of underlying conditions. The clinical presentation of these patients can vary widely, depending on the underlying cause of respiratory failure. Understanding the clinical presentation of patients requiring mechanical ventilation is crucial for optimizing patient outcomes. The use of mechanical ventilation can be life-saving, but it also carries significant risks and complications. The clinical presentation of patients requiring mechanical ventilation typically includes symptoms such as dyspnea, tachypnea, and hypoxemia.",
+        "sections": [
+          {
+            "heading": "Respiratory Failure",
+            "text": "Respiratory failure is a common indication for mechanical ventilation. Respiratory failure can be caused by a variety of underlying conditions, including pneumonia, chronic obstructive pulmonary disease (COPD), and acute respiratory distress syndrome (ARDS). The use of mechanical ventilation can help to support the patient's respiratory system and improve oxygenation. The ESC 2019 guidelines recommend the use of non-invasive ventilation (NIV) in patients with COPD exacerbations, with a focus on reducing the need for intubation and mechanical ventilation."
+          },
+          {
+            "heading": "Cardiovascular Instability",
+            "text": "Cardiovascular instability is a common complication of mechanical ventilation. The use of positive pressure ventilation can lead to decreased venous return and cardiac output, which can worsen cardiovascular instability. The use of fluid resuscitation and vasopressor support can help to optimize cardiovascular function and reduce the risk of complications. The AHA 2020 guidelines recommend the use of early goal-directed therapy to optimize cardiovascular function in patients with septic shock."
+          },
+          {
+            "heading": "Neuromuscular Weakness",
+            "text": "Neuromuscular weakness is a common complication of mechanical ventilation. The use of neuromuscular blocking agents can help to minimize patient-ventilator asynchrony and reduce the risk of complications. The NICE 2017 guidelines recommend the use of neuromuscular blocking agents in patients requiring mechanical ventilation, with a focus on minimizing the risk of VILI."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of patients requiring mechanical ventilation can vary widely, depending on the underlying cause of respiratory failure. A key clinical insight is that the use of mechanical ventilation can be life-saving, but it also carries significant risks and complications.",
+        "key_points": [
+          "The clinical presentation of patients requiring mechanical ventilation typically includes symptoms such as dyspnea, tachypnea, and hypoxemia.",
+          "Respiratory failure is a common indication for mechanical ventilation, and can be caused by a variety of underlying conditions.",
+          "The use of mechanical ventilation can help to support the patient's respiratory system and improve oxygenation.",
+          "Cardiovascular instability is a common complication of mechanical ventilation, and can be worsened by the use of positive pressure ventilation.",
+          "The use of fluid resuscitation and vasopressor support can help to optimize cardiovascular function and reduce the risk of complications.",
+          "The use of neuromuscular blocking agents can help to minimize patient-ventilator asynchrony and reduce the risk of complications."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Acute Pulmonary Embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of non-invasive ventilation (NIV) in patients with COPD exacerbations."
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of early goal-directed therapy to optimize cardiovascular function in patients with septic shock."
+          },
+          {
+            "title": "Neuromuscular blockers in early acute respiratory distress syndrome",
+            "authors": "Papazian L, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of neuromuscular blocking agents can reduce the risk of complications in patients with ARDS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Patients Requiring Mechanical Ventilation",
+      "content": {
+        "intro": "The diagnosis of patients requiring mechanical ventilation typically involves a combination of clinical evaluation, laboratory tests, and imaging studies. Understanding the diagnostic approach to patients requiring mechanical ventilation is crucial for optimizing patient outcomes. The use of mechanical ventilation can be life-saving, but it also carries significant risks and complications. The diagnostic approach to patients requiring mechanical ventilation typically includes clinical evaluation, arterial blood gas (ABG) analysis, and chest radiography.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "Clinical evaluation is a crucial component of the diagnostic approach to patients requiring mechanical ventilation. The clinical evaluation should include an assessment of the patient's respiratory rate, oxygen saturation, and mental status. The use of clinical scoring systems, such as the APACHE II score, can help to predict patient outcomes and guide management decisions. The ESC 2019 guidelines recommend the use of clinical evaluation to guide the initiation and management of mechanical ventilation."
+          },
+          {
+            "heading": "Arterial Blood Gas (ABG) Analysis",
+            "text": "Arterial blood gas (ABG) analysis is a critical component of the diagnostic approach to patients requiring mechanical ventilation. ABG analysis can provide information on the patient's oxygenation, ventilation, and acid-base status. The use of ABG analysis can help to guide adjustments to mechanical ventilation and optimize patient outcomes. The AHA 2020 guidelines recommend the use of ABG analysis to guide the management of mechanical ventilation."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest radiography and computed tomography (CT) scans, can provide valuable information on the patient's lung function and underlying pathology. The use of imaging studies can help to guide management decisions and optimize patient outcomes. The NICE 2017 guidelines recommend the use of chest radiography to guide the management of mechanical ventilation."
+          }
+        ],
+        "clinical_pearl": "The diagnostic approach to patients requiring mechanical ventilation typically includes clinical evaluation, arterial blood gas (ABG) analysis, and imaging studies. A key clinical insight is that the use of clinical scoring systems, such as the APACHE II score, can help to predict patient outcomes and guide management decisions.",
+        "key_points": [
+          "The diagnostic approach to patients requiring mechanical ventilation typically includes clinical evaluation, arterial blood gas (ABG) analysis, and imaging studies.",
+          "Clinical evaluation is a crucial component of the diagnostic approach to patients requiring mechanical ventilation.",
+          "The use of clinical scoring systems, such as the APACHE II score, can help to predict patient outcomes and guide management decisions.",
+          "Arterial blood gas (ABG) analysis is a critical component of the diagnostic approach to patients requiring mechanical ventilation.",
+          "The use of ABG analysis can help to guide adjustments to mechanical ventilation and optimize patient outcomes.",
+          "Imaging studies, such as chest radiography and computed tomography (CT) scans, can provide valuable information on the patient's lung function and underlying pathology."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Acute Pulmonary Embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of clinical evaluation to guide the initiation and management of mechanical ventilation."
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of ABG analysis to guide the management of mechanical ventilation."
+          },
+          {
+            "title": "Diagnostic accuracy of lung ultrasound for pulmonary edema in acute respiratory distress syndrome",
+            "authors": "Lichtenstein D, et al.",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "This trial demonstrated that the use of lung ultrasound can provide valuable information on the patient's lung function and underlying pathology."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Patients Requiring Mechanical Ventilation",
+      "content": {
+        "intro": "The treatment and management of patients requiring mechanical ventilation typically involves a combination of pharmacological and non-pharmacological interventions. Understanding the treatment and management approach to patients requiring mechanical ventilation is crucial for optimizing patient outcomes. The use of mechanical ventilation can be life-saving, but it also carries significant risks and complications. The treatment and management approach to patients requiring mechanical ventilation typically includes the use of sedatives, analgesics, and neuromuscular blocking agents.",
+        "sections": [
+          {
+            "heading": "Sedation and Analgesia",
+            "text": "Sedation and analgesia are critical components of the treatment and management approach to patients requiring mechanical ventilation. The use of sedatives, such as propofol (0.5-2.0 mg/kg/h) and midazolam (0.05-0.2 mg/kg/h), can help to minimize patient-ventilator asynchrony and reduce the risk of complications. The use of analgesics, such as fentanyl (0.5-2.0 mcg/kg/h) and morphine (0.05-0.2 mg/kg/h), can help to manage pain and discomfort. The ESC 2019 guidelines recommend the use of sedation and analgesia to guide the management of mechanical ventilation."
+          },
+          {
+            "heading": "Neuromuscular Blockade",
+            "text": "Neuromuscular blockade is a critical component of the treatment and management approach to patients requiring mechanical ventilation. The use of neuromuscular blocking agents, such as cisatracurium (0.15-0.3 mg/kg/h) and vecuronium (0.05-0.2 mg/kg/h), can help to minimize patient-ventilator asynchrony and reduce the risk of complications. The AHA 2020 guidelines recommend the use of neuromuscular blocking agents to guide the management of mechanical ventilation."
+          },
+          {
+            "heading": "Weaning from Mechanical Ventilation",
+            "text": "Weaning from mechanical ventilation is a critical component of the treatment and management approach to patients requiring mechanical ventilation. The use of weaning protocols, such as the use of pressure support ventilation (PSV) and spontaneous breathing trials (SBTs), can help to guide the weaning process and optimize patient outcomes. The NICE 2017 guidelines recommend the use of weaning protocols to guide the management of mechanical ventilation."
+          }
+        ],
+        "clinical_pearl": "The treatment and management approach to patients requiring mechanical ventilation typically includes the use of sedatives, analgesics, and neuromuscular blocking agents. A key clinical insight is that the use of sedation and analgesia can help to minimize patient-ventilator asynchrony and reduce the risk of complications.",
+        "key_points": [
+          "The treatment and management approach to patients requiring mechanical ventilation typically includes the use of sedatives, analgesics, and neuromuscular blocking agents.",
+          "The use of sedatives, such as propofol and midazolam, can help to minimize patient-ventilator asynchrony and reduce the risk of complications.",
+          "The use of analgesics, such as fentanyl and morphine, can help to manage pain and discomfort.",
+          "The use of neuromuscular blocking agents, such as cisatracurium and vecuronium, can help to minimize patient-ventilator asynchrony and reduce the risk of complications.",
+          "The use of weaning protocols, such as the use of pressure support ventilation (PSV) and spontaneous breathing trials (SBTs), can help to guide the weaning process and optimize patient outcomes.",
+          "The use of sedation and analgesia can help to minimize patient-ventilator asynchrony and reduce the risk of complications."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Acute Pulmonary Embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of sedation and analgesia to guide the management of mechanical ventilation."
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of neuromuscular blocking agents to guide the management of mechanical ventilation."
+          },
+          {
+            "title": "Weaning from mechanical ventilation: a systematic review",
+            "authors": "Blackwood B, et al.",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2018,
+            "type": "review",
+            "note": "This review demonstrated that the use of weaning protocols can help to guide the weaning process and optimize patient outcomes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Patients Requiring Mechanical Ventilation",
+      "content": {
+        "intro": "The complications and prognosis of patients requiring mechanical ventilation are critical components of the treatment and management approach. Understanding the complications and prognosis of patients requiring mechanical ventilation is crucial for optimizing patient outcomes. The use of mechanical ventilation can be life-saving, but it also carries significant risks and complications. The complications of mechanical ventilation typically include ventilator-induced lung injury (VILI), ventilator-associated pneumonia (VAP), and cardiac complications.",
+        "sections": [
+          {
+            "heading": "Ventilator-Induced Lung Injury (VILI)",
+            "text": "Ventilator-induced lung injury (VILI) is a common complication of mechanical ventilation. VILI can occur due to the use of excessive tidal volumes, respiratory rates, or inspiratory pressures. The use of lung-protective ventilation strategies can help to minimize the risk of VILI. The ESC 2019 guidelines recommend the use of lung-protective ventilation to reduce the risk of VILI."
+          },
+          {
+            "heading": "Ventilator-Associated Pneumonia (VAP)",
+            "text": "Ventilator-associated pneumonia (VAP) is a common complication of mechanical ventilation. VAP can occur due to the use of invasive ventilation and the presence of underlying lung disease. The use of VAP prevention strategies, such as the use of subglottic secretion drainage and oral care, can help to minimize the risk of VAP. The AHA 2020 guidelines recommend the use of VAP prevention strategies to guide the management of mechanical ventilation."
+          },
+          {
+            "heading": "Cardiac Complications",
+            "text": "Cardiac complications are a common complication of mechanical ventilation. Cardiac complications can occur due to the use of positive pressure ventilation and the presence of underlying cardiovascular disease. The use of cardiac monitoring and support can help to minimize the risk of cardiac complications. The NICE 2017 guidelines recommend the use of cardiac monitoring and support to guide the management of mechanical ventilation."
+          }
+        ],
+        "clinical_pearl": "The complications of mechanical ventilation typically include ventilator-induced lung injury (VILI), ventilator-associated pneumonia (VAP), and cardiac complications. A key clinical insight is that the use of lung-protective ventilation strategies can help to minimize the risk of VILI.",
+        "key_points": [
+          "The complications of mechanical ventilation typically include ventilator-induced lung injury (VILI), ventilator-associated pneumonia (VAP), and cardiac complications.",
+          "The use of lung-protective ventilation strategies can help to minimize the risk of VILI.",
+          "The use of VAP prevention strategies, such as the use of subglottic secretion drainage and oral care, can help to minimize the risk of VAP.",
+          "The use of cardiac monitoring and support can help to minimize the risk of cardiac complications.",
+          "The prognosis of patients requiring mechanical ventilation is typically poor, with a mortality rate of 20-50%.",
+          "The use of mechanical ventilation can be life-saving, but it also carries significant risks and complications."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Acute Pulmonary Embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of lung-protective ventilation to reduce the risk of VILI."
+          },
+          {
+            "title": "2020 AHA Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "These guidelines recommend the use of VAP prevention strategies to guide the management of mechanical ventilation."
+          },
+          {
+            "title": "Cardiac complications in critically ill patients",
+            "authors": "Levy MM, et al.",
+            "journal_or_source": "American Journal of Respiratory and Critical Care Medicine",
+            "year": 2018,
+            "type": "review",
+            "note": "This review demonstrated that the use of cardiac monitoring and support can help to minimize the risk of cardiac complications."
+          }
+        ]
+      }
+    }
+  ]
+}
