@@ -13,7 +13,7 @@ import {
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
   Search, Sun, Moon, LogOut, FileText, FileJson, Radio, Gift, CalendarCheck, Users, Globe, Shuffle, Calculator,
-  HeartPulse, HelpCircle, Send,
+  HeartPulse, HelpCircle, Activity,
   type LucideProps,
 } from "lucide-react";
 
@@ -39,6 +39,7 @@ export function Sidebar() {
         { icon: BookOpen,        label: t("nav.items.modules"),      href: "/modules" },
         { icon: GraduationCap,  label: t("nav.items.my_courses"),   href: "/my-courses" },
         { icon: Bot,             label: t("nav.items.ai_tutor"),     href: "/ai-tutor" },
+        { icon: Activity,        label: t("nav.items.telegram_bot"), href: "/bots" },
         { icon: MessageSquare,   label: t("nav.items.ai_history"),   href: "/ai-history" },
         { icon: Layers,          label: t("nav.items.flashcards"),   href: "/flashcards" },
         { icon: BookMarked,      label: t("nav.items.my_cards"),        href: "/my-flashcards" },
@@ -69,7 +70,6 @@ export function Sidebar() {
         { icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress" },
         { icon: Trophy,      label: t("nav.items.leaderboard"),  href: "/leaderboard" },
         { icon: Target,      label: t("nav.items.for_you"),      href: "/recommendations" },
-        { icon: Send,        label: t("nav.items.telegram_bot"), href: "/bots" },
         { icon: HelpCircle,  label: t("nav.items.how_it_works"), href: "/how-it-works" },
       ],
     },

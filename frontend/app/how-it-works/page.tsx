@@ -526,18 +526,18 @@ export default function HowItWorksPage() {
             Med<span className="text-red">Mind</span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
-            <Link href="/how-it-works" className="font-syne font-semibold text-sm text-ink px-3 py-2 border-b-2 border-ink">How it works</Link>
-            <Link href="/articles"     className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">Articles</Link>
-            <Link href="/drugs"        className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">Drugs</Link>
-            <Link href="/pricing"      className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">Pricing</Link>
+            <Link href="/how-it-works" className="font-syne font-semibold text-sm text-ink px-3 py-2 border-b-2 border-ink">{t("how_it_works_page.nav_how")}</Link>
+            <Link href="/articles"     className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t("how_it_works_page.nav_articles")}</Link>
+            <Link href="/drugs"        className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t("how_it_works_page.nav_drugs")}</Link>
+            <Link href="/pricing"      className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t("how_it_works_page.nav_pricing")}</Link>
           </div>
           <div className="flex items-center gap-2">
             <select value={locale} onChange={e => setLocale(e.target.value as any)}
               className="hidden sm:block text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
               {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
             </select>
-            <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink px-3 py-2">Sign in</Link>
-            <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">Start free →</Link>
+            <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink px-3 py-2">{t("how_it_works_page.nav_sign_in")}</Link>
+            <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">{t("how_it_works_page.nav_register")} →</Link>
             <button onClick={() => setMenuOpen(v => !v)} className="md:hidden p-2 rounded text-ink-2 hover:text-ink">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {menuOpen
@@ -549,7 +549,13 @@ export default function HowItWorksPage() {
         </div>
         {menuOpen && (
           <div className="md:hidden border-t border-border bg-surface px-4 py-3 space-y-1">
-            {([["How it works", "/how-it-works"], ["Articles", "/articles"], ["Drugs", "/drugs"], ["Pricing", "/pricing"], ["Sign in", "/login"]] as [string, string][]).map(([label, href]) => (
+            {([
+              [t("how_it_works_page.nav_how"), "/how-it-works"],
+              [t("how_it_works_page.nav_articles"), "/articles"],
+              [t("how_it_works_page.nav_drugs"), "/drugs"],
+              [t("how_it_works_page.nav_pricing"), "/pricing"],
+              [t("how_it_works_page.nav_sign_in"), "/login"],
+            ] as [string, string][]).map(([label, href]) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)}
                 className="block font-syne font-semibold text-sm text-ink-2 hover:text-ink px-3 py-2.5 rounded-lg hover:bg-surface-2">
                 {label}
@@ -563,17 +569,17 @@ export default function HowItWorksPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-12 text-center">
         <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-6">
           <span className="w-2 h-2 rounded-full bg-blue animate-pulse inline-block" />
-          Complete platform overview
+          {t("how_it_works_page.hero_badge")}
         </div>
         <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl text-ink leading-tight tracking-tight mb-5">
-          Everything in one<br />
-          <span className="text-red">clinical learning platform</span>
+          {t("how_it_works_page.hero_title_1")}<br />
+          <span className="text-red">{t("how_it_works_page.hero_title_2")}</span>
         </h1>
         <p className="text-ink-2 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-          MedMind combines AI tutoring, spaced-repetition flashcards, drug database, clinical calculators, medical imaging, personal health tracking, and a Telegram bot — all evidence-based, all in one place.
+          {t("how_it_works_page.hero_desc")}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto mb-10">
-          {([["82+", "Modules"], ["5,000+", "Drugs"], ["2,400+", "Images"], ["40+", "Calculators"]] as [string, string][]).map(([n, l]) => (
+          {([["125+", "Modules"], ["5,000+", "Drugs"], ["2,400+", "Images"], ["40+", "Calculators"]] as [string, string][]).map(([n, l]) => (
             <div key={l} className="bg-surface border border-border rounded-xl p-4">
               <p className="font-syne font-black text-2xl text-ink">{n}</p>
               <p className="text-xs text-ink-3 font-syne">{l}</p>
@@ -582,23 +588,23 @@ export default function HowItWorksPage() {
         </div>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/register" className="font-syne font-bold text-base bg-ink text-white px-10 py-3.5 rounded hover:bg-red transition-colors">
-            Create free account →
+            {t("how_it_works_page.hero_cta_1")}
           </Link>
           <Link href="/pricing" className="font-syne font-semibold text-base border border-border-2 text-ink-2 px-10 py-3.5 rounded hover:border-ink hover:text-ink transition-colors">
-            View pricing
+            {t("how_it_works_page.hero_cta_2")}
           </Link>
         </div>
-        <p className="text-ink-3 text-xs mt-3 font-syne">Free forever · No credit card · 82+ modules included</p>
+        <p className="text-ink-3 text-xs mt-3 font-syne">{t("how_it_works_page.hero_note_free")}</p>
       </section>
 
       {/* ── Feature showcase with tabs ────────────────────────── */}
       <section className="bg-surface border-y border-border py-14 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">
-            All features — see how they work
+            {t("how_it_works_page.features_title")}
           </h2>
           <p className="text-ink-3 text-center text-sm mb-10">
-            Select a category to see the actual interface in action
+            {t("how_it_works_page.features_subtitle")}
           </p>
 
           {/* Tabs */}
@@ -663,10 +669,13 @@ export default function HowItWorksPage() {
 
       {/* ── All other features grid ──────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">And much more</h2>
-        <p className="text-ink-3 text-center text-sm mb-10">Every feature included — no add-ons, no paywalls for core functionality</p>
+        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">{t("how_it_works_page.features_more_title")}</h2>
+        <p className="text-ink-3 text-center text-sm mb-10">{t("how_it_works_page.features_more_subtitle")}</p>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {MINI_FEATURES.map(f => (
+          {((): { icon: string; title: string; desc: string }[] => {
+            const raw = t("how_it_works_page.mini_features");
+            return Array.isArray(raw) ? raw as { icon: string; title: string; desc: string }[] : MINI_FEATURES;
+          })().map(f => (
             <div key={f.title} className="bg-surface border border-border rounded-xl p-4 hover:border-border-2 transition-colors">
               <div className="text-2xl mb-2">{f.icon}</div>
               <h3 className="font-syne font-bold text-sm text-ink mb-1">{f.title}</h3>
@@ -679,8 +688,8 @@ export default function HowItWorksPage() {
       {/* ── Who it's for ─────────────────────────────────────── */}
       <section className="bg-surface border-y border-border py-14 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">Built for every stage of your career</h2>
-          <p className="text-ink-3 text-center text-sm mb-10">From first lecture to consultant rounds</p>
+          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">{t("how_it_works_page.roles_section_title")}</h2>
+          <p className="text-ink-3 text-center text-sm mb-10">{t("how_it_works_page.roles_subtitle")}</p>
           <div className="grid sm:grid-cols-2 gap-5">
             {(Array.isArray(roles) ? roles : []).map(r => (
               <div key={r.role} className="bg-bg border border-border rounded-xl p-5 sm:p-6">
@@ -704,14 +713,17 @@ export default function HowItWorksPage() {
 
       {/* ── 3-step quickstart ────────────────────────────────── */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">Get started in 3 steps</h2>
-        <p className="text-ink-3 text-center text-sm mb-12">Takes less than 2 minutes from sign-up to first AI answer</p>
+        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">{t("how_it_works_page.quickstart_title")}</h2>
+        <p className="text-ink-3 text-center text-sm mb-12">{t("how_it_works_page.quickstart_subtitle")}</p>
         <div className="grid sm:grid-cols-3 gap-8">
-          {([
-            { n: "01", icon: "📋", title: "Create free account", desc: "Sign up with email or Google. Choose your specialty and learning goal. No credit card required." },
-            { n: "02", icon: "🎯", title: "Pick your first module", desc: "Browse 82+ modules by specialty. Start with an AI-recommended module or search for a specific topic." },
-            { n: "03", icon: "🧠", title: "Learn with AI", desc: "Ask questions, work through cases, review flashcards. The AI adapts to your level and closes knowledge gaps systematically." },
-          ] as { n: string; icon: string; title: string; desc: string }[]).map(s => (
+          {((): { n: string; icon: string; title: string; desc: string }[] => {
+            const raw = t("how_it_works_page.quickstart_steps");
+            return Array.isArray(raw) ? raw as { n: string; icon: string; title: string; desc: string }[] : [
+              { n: "01", icon: "📋", title: "Create free account", desc: "Sign up with email or Google. Choose your specialty and learning goal. No credit card required." },
+              { n: "02", icon: "🎯", title: "Pick your first module", desc: "Browse 125+ modules by specialty. Start with an AI-recommended module or search for a specific topic." },
+              { n: "03", icon: "🧠", title: "Learn with AI", desc: "Ask questions, work through cases, review flashcards. The AI adapts to your level and closes knowledge gaps systematically." },
+            ];
+          })().map(s => (
             <div key={s.n} className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 bg-surface border border-border rounded-2xl flex items-center justify-center text-3xl">
                 {s.icon}
@@ -727,17 +739,17 @@ export default function HowItWorksPage() {
       {/* ── Comparison table ─────────────────────────────────── */}
       <section className="bg-surface border-y border-border py-14 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">MedMind vs. the alternatives</h2>
-          <p className="text-ink-3 text-center text-sm mb-10">Why a purpose-built medical platform beats a collection of tools</p>
+          <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-3">{t("how_it_works_page.cmp_title")}</h2>
+          <p className="text-ink-3 text-center text-sm mb-10">{t("how_it_works_page.cmp_subtitle")}</p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 pr-6 font-syne font-bold text-ink-2 w-44">Feature</th>
-                  <th className="py-3 px-4 font-syne font-bold text-red text-center">MedMind</th>
-                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">Generic chatbot</th>
-                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">Anki alone</th>
-                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">Textbook</th>
+                  <th className="text-left py-3 pr-6 font-syne font-bold text-ink-2 w-44">{t("how_it_works_page.cmp_feature")}</th>
+                  <th className="py-3 px-4 font-syne font-bold text-red text-center">{t("how_it_works_page.cmp_medmind")}</th>
+                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">{t("how_it_works_page.cmp_chatbot")}</th>
+                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">{t("how_it_works_page.cmp_anki")}</th>
+                  <th className="py-3 px-4 font-syne font-bold text-ink-3 text-center">{t("how_it_works_page.cmp_textbook")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -757,7 +769,7 @@ export default function HowItWorksPage() {
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-10">Common questions</h2>
+        <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink text-center mb-10">{t("how_it_works_page.faq_title")}</h2>
         <div className="space-y-3">
           {(Array.isArray(faq) ? faq : []).map((item, i) => (
             <div key={i} className="bg-surface border border-border rounded-xl overflow-hidden">
@@ -781,19 +793,19 @@ export default function HowItWorksPage() {
       {/* ── Final CTA ────────────────────────────────────────── */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
-          <h2 className="font-syne font-extrabold text-3xl sm:text-4xl mb-4">Ready to start?</h2>
+          <h2 className="font-syne font-extrabold text-3xl sm:text-4xl mb-4">{t("how_it_works_page.cta_title")}</h2>
           <p className="text-white/60 mb-8 text-base leading-relaxed">
-            Join thousands of clinicians learning smarter with MedMind AI. Free forever — upgrade when you need more.
+            {t("how_it_works_page.cta_subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/register" className="font-syne font-bold text-base bg-white text-ink px-10 py-4 rounded hover:bg-red hover:text-white transition-colors">
-              Create free account →
+              {t("how_it_works_page.cta_btn")}
             </Link>
             <Link href="/pricing" className="font-syne font-semibold text-base border border-white/30 text-white/80 px-10 py-4 rounded hover:border-white hover:text-white transition-colors">
-              View pricing
+              {t("how_it_works_page.hero_cta_2")}
             </Link>
           </div>
-          <p className="text-white/40 text-xs mt-4 font-syne">Free forever · No credit card · 82+ modules included</p>
+          <p className="text-white/40 text-xs mt-4 font-syne">{t("how_it_works_page.hero_note_free")}</p>
         </div>
       </section>
 
@@ -805,11 +817,18 @@ export default function HowItWorksPage() {
             <span className="font-normal text-ink-3 text-xs ml-2">AI-powered medical education</span>
           </div>
           <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
-            {([["How it works", "/how-it-works"], ["Articles", "/articles"], ["Drug DB", "/drugs"], ["Pricing", "/pricing"], ["Investors", "/investors"], ["Register", "/register"], ["Sign in", "/login"]] as [string, string][]).map(([label, href]) => (
+            {([
+              [t("how_it_works_page.nav_how"), "/how-it-works"],
+              [t("how_it_works_page.nav_articles"), "/articles"],
+              [t("how_it_works_page.nav_drugs"), "/drugs"],
+              [t("how_it_works_page.nav_pricing"), "/pricing"],
+              [t("how_it_works_page.nav_register"), "/register"],
+              [t("how_it_works_page.nav_sign_in"), "/login"],
+            ] as [string, string][]).map(([label, href]) => (
               <Link key={href} href={href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">{label}</Link>
             ))}
           </div>
-          <div className="text-ink-3 text-xs font-syne">© 2026 MedMind AI</div>
+          <div className="text-ink-3 text-xs font-syne">{t("how_it_works_page.footer_copy")}</div>
         </div>
       </footer>
     </div>

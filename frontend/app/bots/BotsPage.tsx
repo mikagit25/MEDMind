@@ -20,15 +20,15 @@ type Message = { role: "user" | "assistant"; content: string };
 
 // ── Consultation modes ─────────────────────────────────────────────────────────
 
-const MODES = [
-  { id: "tutor",          emoji: "🎓", label: "Tutor",           color: "blue",   desc: "Explains any topic with mechanisms and clinical pearls" },
-  { id: "case",           emoji: "🩺", label: "Clinical Case",   color: "purple", desc: "Interactive case — you play the resident, I play attending" },
-  { id: "differential",  emoji: "🔬", label: "Differential Dx",  color: "green",  desc: "Structured differential with ICD-10 codes and workup" },
-  { id: "patient",        emoji: "🏥", label: "Patient Mode",    color: "orange", desc: "Plain-language explanations for patients and families" },
-  { id: "second_opinion", emoji: "⚖️", label: "Second Opinion",   color: "yellow", desc: "Review any treatment plan against current clinical guidelines" },
+const MODE_DEFS = [
+  { id: "tutor",          emoji: "🎓", color: "blue"   },
+  { id: "case",           emoji: "🩺", color: "purple" },
+  { id: "differential",  emoji: "🔬", color: "green"  },
+  { id: "patient",        emoji: "🏥", color: "orange" },
+  { id: "second_opinion", emoji: "⚖️", color: "yellow" },
 ] as const;
 
-type ModeId = (typeof MODES)[number]["id"];
+type ModeId = (typeof MODE_DEFS)[number]["id"];
 
 const MODE_COLOR: Record<string, string> = {
   blue:   "border-blue-500/50 text-blue-600 dark:text-blue-400",
@@ -167,14 +167,14 @@ function TelegramPanel({ user, onUnlink }: {
 
 // ── Working chat ───────────────────────────────────────────────────────────────
 
-function ConsultationChat({ mode }: { mode: ModeId }) {
+function ConsultationChat({ mode, modeInfo }: { mode: ModeId; modeInfo: { emoji: string; label: string; desc: string } }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const { locale } = useI18n();
+  const t = useT();
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const modeInfo = MODES.find(m => m.id === mode)!;
+  const inputRef = useRef<HTMLTextAreaElement>(null);;
 
   useEffect(() => { setMessages([]); setInput(""); }, [mode]);
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
@@ -337,7 +337,7 @@ function ConsultationChat({ mode }: { mode: ModeId }) {
             onInput={autoResize}
             rows={1}
             disabled={loading}
-            placeholder="Ask anything… (Enter to send, Shift+Enter for new line)"
+            placeholder={t("bots_page.chat_placeholder") || "Ask anything…"}
             className="flex-1 resize-none bg-surface border border-border rounded-xl px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3 focus:outline-none focus:border-ink-3 transition-colors overflow-hidden"
             style={{ minHeight: "42px", maxHeight: "128px" }}
           />
@@ -350,7 +350,7 @@ function ConsultationChat({ mode }: { mode: ModeId }) {
           <div className="flex justify-center mt-2">
             <button onClick={() => setMessages([])}
               className="inline-flex items-center gap-1 text-[10px] text-ink-3 hover:text-ink font-syne transition-colors">
-              <Trash2 size={10} /> Clear conversation
+              <Trash2 size={10} /> {t("bots_page.clear_chat") || "Clear conversation"}
             </button>
           </div>
         )}
@@ -363,6 +363,13 @@ function ConsultationChat({ mode }: { mode: ModeId }) {
 
 function ConsultationApp({ user, onUnlink }: { user: any; onUnlink: () => void }) {
   const [mode, setMode] = useState<ModeId>("tutor");
+  const t = useT();
+
+  const MODES = MODE_DEFS.map(m => ({
+    ...m,
+    label: t(`ai_tutor.mode_${m.id}`) || m.id,
+    desc: t(`ai_tutor.mode_${m.id}_desc`) || "",
+  }));
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -390,7 +397,7 @@ function ConsultationApp({ user, onUnlink }: { user: any; onUnlink: () => void }
       </div>
 
       {/* Chat */}
-      <ConsultationChat key={mode} mode={mode} />
+      <ConsultationChat key={mode} mode={mode} modeInfo={MODES.find(m => m.id === mode)!} />
     </div>
   );
 }
