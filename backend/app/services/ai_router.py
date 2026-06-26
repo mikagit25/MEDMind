@@ -184,9 +184,9 @@ async def _stream_gemini(messages: list, system_prompt: str):
 
 
 def _groq_user_keys() -> list[str]:
-    """Keys reserved for user-facing AI tutor (KEY_1 + KEY_2 only)."""
+    """Keys for user-facing AI tutor (KEY_1, KEY_2, KEY_6). KEY_3–5 reserved for content pipeline."""
     keys = []
-    for attr in ("GROQ_API_KEY", "GROQ_API_KEY_2"):
+    for attr in ("GROQ_API_KEY", "GROQ_API_KEY_2", "GROQ_API_KEY_6"):
         k = getattr(settings, attr, "")
         if k:
             keys.append(k)
@@ -842,9 +842,54 @@ async def route_ai_stream(
 
     use_free = _use_free_ai(user, message)
 
-    # --- Free AI path: Ollama → Gemini → Cerebras → SambaNova → Groq ---
+    # --- Free AI path: Groq → Cerebras → SambaNova → Gemini → Ollama ---
+    # Groq is first: ~700 tok/s, same as Telegram bot — ensures fast responses
     if use_free:
-        # 1. Ollama — local, zero cost
+        # 1. Groq streaming (KEY_1/KEY_2/KEY_6 — fast, ~700 tok/s)
+        if _groq_user_keys():
+            yield {"type": "model", "model": f"groq/{settings.GROQ_MODEL}"}
+            try:
+                async for chunk in _stream_groq(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("Groq stream failed, trying Cerebras: %s", e)
+
+        # 2. Cerebras streaming (900 tok/s, 5 key rotation)
+        if _cerebras_user_keys():
+            yield {"type": "model", "model": f"cerebras/{settings.CEREBRAS_MODEL}"}
+            try:
+                async for chunk in _stream_cerebras(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("Cerebras stream failed, trying SambaNova: %s", e)
+
+        # 3. SambaNova streaming (3 key rotation)
+        if _sambanova_keys():
+            yield {"type": "model", "model": f"sambanova/{settings.SAMBANOVA_MODEL}"}
+            try:
+                async for chunk in _stream_sambanova(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("SambaNova stream failed, trying Gemini: %s", e)
+
+        # 4. Gemini Flash streaming
+        if settings.GEMINI_API_KEY:
+            yield {"type": "model", "model": f"gemini/{settings.GEMINI_MODEL}"}
+            try:
+                async for chunk in _stream_gemini(messages, system_prompt):
+                    yield {"type": "text", "text": chunk}
+                await _increment_rate_limit(user)
+                return
+            except Exception as e:
+                logger.warning("Gemini stream failed, trying Ollama: %s", e)
+
+        # 5. Ollama — local fallback when all API keys exhausted
         yield {"type": "model", "model": f"ollama/{settings.OLLAMA_MODEL}"}
         try:
             got_chunk = False
@@ -857,50 +902,6 @@ async def route_ai_stream(
                 return
         except Exception as e:
             logger.debug("Ollama stream failed: %s", e)
-
-        # 2. Gemini Flash streaming
-        if settings.GEMINI_API_KEY:
-            yield {"type": "model", "model": f"gemini/{settings.GEMINI_MODEL}"}
-            try:
-                async for chunk in _stream_gemini(messages, system_prompt):
-                    yield {"type": "text", "text": chunk}
-                await _increment_rate_limit(user)
-                return
-            except Exception as e:
-                logger.warning("Gemini stream failed, trying Cerebras: %s", e)
-
-        # 3. Cerebras streaming (900 tok/s, 5 key rotation)
-        if _cerebras_user_keys():
-            yield {"type": "model", "model": f"cerebras/{settings.CEREBRAS_MODEL}"}
-            try:
-                async for chunk in _stream_cerebras(messages, system_prompt):
-                    yield {"type": "text", "text": chunk}
-                await _increment_rate_limit(user)
-                return
-            except Exception as e:
-                logger.warning("Cerebras stream failed, trying SambaNova: %s", e)
-
-        # 4. SambaNova streaming (3 key rotation)
-        if _sambanova_keys():
-            yield {"type": "model", "model": f"sambanova/{settings.SAMBANOVA_MODEL}"}
-            try:
-                async for chunk in _stream_sambanova(messages, system_prompt):
-                    yield {"type": "text", "text": chunk}
-                await _increment_rate_limit(user)
-                return
-            except Exception as e:
-                logger.warning("SambaNova stream failed, trying Groq: %s", e)
-
-        # 5. Groq streaming (last resort — KEY_1/KEY_2 only)
-        if settings.GROQ_API_KEY:
-            yield {"type": "model", "model": f"groq/{settings.GROQ_MODEL}"}
-            try:
-                async for chunk in _stream_groq(messages, system_prompt):
-                    yield {"type": "text", "text": chunk}
-                await _increment_rate_limit(user)
-                return
-            except Exception as e:
-                logger.warning("Groq stream failed: %s", e)
 
         # No free AI available
         if user.subscription_tier == "free":

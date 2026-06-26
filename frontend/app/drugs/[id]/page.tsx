@@ -155,6 +155,10 @@ export default async function DrugDetailPage({
                 src={drug.image_url}
                 alt={drug.name}
                 className="w-full h-full object-contain p-1"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-4xl flex items-center justify-center w-full h-full">💊</span>';
+                }}
               />
             </div>
           ) : (

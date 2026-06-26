@@ -75,7 +75,7 @@ function MockModules() {
     <div className="p-3 text-xs">
       <div className="flex items-center justify-between mb-2.5">
         <span className="font-syne font-bold text-ink text-[11px]">Module Library</span>
-        <span className="text-[9px] text-ink-3 bg-surface-2 px-2 py-0.5 rounded-full font-syne">82 modules</span>
+        <span className="text-[9px] text-ink-3 bg-surface-2 px-2 py-0.5 rounded-full font-syne">125+ modules</span>
       </div>
       <div className="grid grid-cols-2 gap-1.5">
         {modules.map(m => (

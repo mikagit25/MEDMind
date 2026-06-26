@@ -1453,7 +1453,7 @@ const fr: Translations = {
     hero_cta2: "Parcourir les articles →",
     hero_cta3: "Se connecter",
     hero_badge: "Propulsé par Claude AI + recherche PubMed en direct",
-    hero_note: "Gratuit à vie · Aucune carte de crédit requise · 82 modules inclus",
+    hero_note: "Gratuit à vie · Aucune carte de crédit requise · 125+ modules inclus",
     stats_modules: "Modules",
     stats_langs: "Langues",
     stats_flashcards: "Fiches",

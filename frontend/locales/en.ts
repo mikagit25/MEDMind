@@ -1553,7 +1553,7 @@ const en = {
     hero_cta2: "Browse free articles →",
     hero_cta3: "Sign in",
     hero_badge: "Powered by Claude AI + live PubMed search",
-    hero_note: "Free forever · No credit card required · 82 modules included",
+    hero_note: "Free forever · No credit card required · 125+ modules included",
     nav_how: "How it works",
     nav_articles: "Articles",
     nav_news: "News",

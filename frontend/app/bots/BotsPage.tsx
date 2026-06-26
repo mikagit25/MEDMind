@@ -242,10 +242,10 @@ function ConsultationChat({ mode }: { mode: ModeId }) {
           if (!line.startsWith("data: ")) continue;
           try {
             const ev = JSON.parse(line.slice(6));
-            if (ev.type === "chunk") {
+            if (ev.type === "text") {
               setMessages(p => {
                 const arr = [...p];
-                arr[arr.length - 1] = { ...arr[arr.length - 1], content: arr[arr.length - 1].content + ev.content };
+                arr[arr.length - 1] = { ...arr[arr.length - 1], content: arr[arr.length - 1].content + ev.text };
                 return arr;
               });
             }

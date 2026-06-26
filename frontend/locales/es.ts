@@ -1453,7 +1453,7 @@ const es: Translations = {
     hero_cta2: "Ver artículos gratis →",
     hero_cta3: "Iniciar sesión",
     hero_badge: "Impulsado por Claude AI + búsqueda PubMed en vivo",
-    hero_note: "Gratis para siempre · Sin tarjeta de crédito · 82 módulos incluidos",
+    hero_note: "Gratis para siempre · Sin tarjeta de crédito · 125+ módulos incluidos",
     stats_modules: "Módulos",
     stats_langs: "Idiomas",
     stats_flashcards: "Tarjetas",

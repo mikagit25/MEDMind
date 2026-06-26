@@ -30,9 +30,10 @@ class Settings(BaseSettings):
     GEMINI_MODEL: str = "gemini-2.0-flash"
 
     # Groq (free fallback — console.groq.com, 14400 req/day)
-    # User AI tutor only — do NOT use in content generation scripts
+    # User AI tutor + Telegram bot — do NOT use in content generation scripts
     GROQ_API_KEY: str = ""
     GROQ_API_KEY_2: str = ""
+    GROQ_API_KEY_6: str = ""   # extra key for web AI tutor speed
     # Content generation only (articles, news, translations) — do NOT use for user AI
     GROQ_API_KEY_3: str = ""
     GROQ_API_KEY_4: str = ""

@@ -1445,7 +1445,7 @@ const tr: Translations = {
     hero_cta2: "Makaleleri görüntüle →",
     hero_cta3: "Giriş yap",
     hero_badge: "Claude AI + canlı PubMed araması ile güçlendirilmiştir",
-    hero_note: "Sonsuza kadar ücretsiz · Kredi kartı gerekmez · 82 modül dahil",
+    hero_note: "Sonsuza kadar ücretsiz · Kredi kartı gerekmez · 125+ modül dahil",
     stats_modules: "Modül",
     stats_langs: "Dil",
     stats_flashcards: "Kart",

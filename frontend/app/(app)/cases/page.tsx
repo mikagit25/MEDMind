@@ -6,6 +6,13 @@ import { contentApi, progressApi, simulationApi } from "@/lib/api";
 import { useT, useI18n } from "@/lib/i18n";
 import Link from "next/link";
 
+type Presentation = {
+  chief_complaint?: string;
+  history?: string;
+  vitals?: Record<string, string>;
+  [key: string]: unknown;
+};
+
 type Case = {
   id: string;
   title: string;
@@ -16,6 +23,10 @@ type Case = {
   initial_step_id?: string | null;
   max_score?: number;
 };
+
+function parsePres(raw: string): Presentation {
+  try { return JSON.parse(raw); } catch { return { chief_complaint: raw }; }
+}
 
 type Step = {
   id: string;
@@ -235,8 +246,12 @@ function CasesInner() {
   const filtered = cases.filter(c => {
     if (diffFilter && c.difficulty !== diffFilter) return false;
     if (specialtyFilter && c.specialty !== specialtyFilter) return false;
-    if (search && !c.title.toLowerCase().includes(search.toLowerCase()) &&
-        !c.presentation?.toLowerCase().includes(search.toLowerCase())) return false;
+    if (search) {
+      const q = search.toLowerCase();
+      const pres = parsePres(c.presentation ?? "");
+      const presText = (pres.chief_complaint ?? "") + " " + (pres.history ?? "");
+      if (!c.title.toLowerCase().includes(q) && !presText.toLowerCase().includes(q)) return false;
+    }
     return true;
   });
 
@@ -274,7 +289,15 @@ function CasesInner() {
           <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-2">
             {t("cases.presentation") as string || "Presentation"}
           </div>
-          <p className="text-ink text-sm leading-relaxed">{selected.presentation}</p>
+          {(() => {
+            const p = parsePres(selected.presentation);
+            return (
+              <div className="space-y-2 text-sm text-ink leading-relaxed">
+                {p.chief_complaint && <p>{p.chief_complaint}</p>}
+                {p.history && <p className="text-ink-2">{p.history}</p>}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Vitals */}
@@ -624,7 +647,9 @@ function CasesInner() {
               <h3 className="font-syne font-bold text-sm text-ink leading-snug mb-2 group-hover:text-red transition-colors">
                 {c.title}
               </h3>
-              <p className="text-xs text-ink-3 leading-relaxed line-clamp-3">{c.presentation}</p>
+              <p className="text-xs text-ink-3 leading-relaxed line-clamp-3">
+                {parsePres(c.presentation).chief_complaint ?? c.presentation}
+              </p>
               {c.specialty && (
                 <div className="mt-3 text-xs text-ink-3 font-syne truncate">{c.specialty}</div>
               )}

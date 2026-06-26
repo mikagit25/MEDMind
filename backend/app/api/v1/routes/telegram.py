@@ -738,7 +738,7 @@ async def call_ai(mode: str, user_message: str, history: list[dict], linked_user
 
     # Free → Groq with KEY_1/KEY_2 rotation
     from app.core.config import settings as _s
-    keys = [k for k in [_s.GROQ_API_KEY, getattr(_s, "GROQ_API_KEY_2", None)] if k]
+    keys = [k for k in [_s.GROQ_API_KEY, getattr(_s, "GROQ_API_KEY_2", None), getattr(_s, "GROQ_API_KEY_6", None)] if k]
     if not keys:
         return "⚠️ AI service temporarily unavailable. Please try again later."
 
