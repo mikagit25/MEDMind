@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { useT } from "@/lib/i18n";
+import { ArticleNav } from "@/components/layout/ArticleNav";
 
 type PlanData = {
   name: string; price: string; period: string; description: string;
@@ -49,33 +50,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Nav */}
-      <nav className="bg-surface border-b border-border sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="font-syne font-extrabold text-2xl tracking-tight text-ink">
-            Med<span className="text-red">Mind</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2">
-              Articles
-            </Link>
-            {isAuthenticated ? (
-              <Link href="/dashboard" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
-                Dashboard →
-              </Link>
-            ) : (
-              <>
-                <Link href="/login" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-4 py-2">
-                  Sign in
-                </Link>
-                <Link href="/register" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
-                  Start free
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      <ArticleNav />
 
       {/* Header */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-10 text-center">

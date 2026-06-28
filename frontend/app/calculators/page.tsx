@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { useAuthStore } from "@/lib/store";
 import { CalculatorsIndex } from "@/components/calculators/CalculatorWidget";
 import { INDEX_T } from "@/components/calculators/data";
 import type { Lang } from "@/components/calculators/data";
-
-const LANGS = [
-  { value: "en", flag: "🇬🇧" }, { value: "ru", flag: "🇷🇺" }, { value: "de", flag: "🇩🇪" },
-  { value: "fr", flag: "🇫🇷" }, { value: "ar", flag: "🇸🇦" }, { value: "tr", flag: "🇹🇷" }, { value: "es", flag: "🇪🇸" },
-] as const;
+import { ArticleNav } from "@/components/layout/ArticleNav";
 
 function t(obj: Record<Lang, string>, lang: string): string {
   return (obj as Record<string, string>)[lang] ?? obj.en;
@@ -27,62 +22,13 @@ const JSON_LD = {
 };
 
 export default function CalculatorsPage() {
-  const { locale, setLocale } = useI18n();
+  const { locale } = useI18n();
   const lang = locale as string;
-  const { isAuthenticated, _hasHydrated } = useAuthStore();
-  const loggedIn = _hasHydrated ? isAuthenticated : null;
 
   return (
     <div className="min-h-screen bg-bg">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
-
-      {/* Nav */}
-      <nav className="bg-surface border-b border-border sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <Link href="/" className="font-syne font-extrabold text-xl sm:text-2xl tracking-tight text-ink flex-shrink-0">
-            Med<span className="text-red">Mind</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-1">
-            <Link href="/how-it-works" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 whitespace-nowrap">
-              {locale === "ru" ? "Как работает" : locale === "ar" ? "كيف يعمل" : locale === "de" ? "So funktionierts" : locale === "fr" ? "Comment ça marche" : locale === "es" ? "Cómo funciona" : locale === "tr" ? "Nasıl çalışır" : "How it works"}
-            </Link>
-            <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-              {locale === "ru" ? "Статьи" : locale === "ar" ? "مقالات" : locale === "de" ? "Artikel" : locale === "fr" ? "Articles" : locale === "es" ? "Artículos" : locale === "tr" ? "Makaleler" : "Articles"}
-            </Link>
-            <Link href="/calculators" className="font-syne font-semibold text-sm text-ink hover:text-red transition-colors px-3 py-2">
-              {locale === "ru" ? "Калькуляторы" : locale === "ar" ? "آلات حاسبة" : locale === "de" ? "Rechner" : locale === "fr" ? "Calculateurs" : locale === "es" ? "Calculadoras" : locale === "tr" ? "Hesap makineleri" : "Calculators"}
-            </Link>
-            <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 whitespace-nowrap">
-              {locale === "ru" ? "Чекер симптомов" : locale === "ar" ? "فاحص الأعراض" : locale === "de" ? "Symptom-Checker" : locale === "fr" ? "Symptômes" : locale === "es" ? "Síntomas" : locale === "tr" ? "Semptomlar" : "Symptoms"}
-            </Link>
-            <Link href="/news" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-              {locale === "ru" ? "Новости" : locale === "ar" ? "أخبار" : locale === "de" ? "Nachrichten" : locale === "fr" ? "Actualités" : locale === "es" ? "Noticias" : locale === "tr" ? "Haberler" : "News"}
-            </Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <select value={locale} onChange={e => setLocale(e.target.value as Lang)}
-              className="hidden sm:block text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
-              {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
-            </select>
-            {loggedIn === null ? (
-              <div className="w-24 h-8 rounded bg-surface animate-pulse" />
-            ) : loggedIn ? (
-              <Link href="/dashboard" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
-                {locale === "ru" ? "Кабинет →" : locale === "ar" ? "لوحة التحكم →" : locale === "de" ? "Dashboard →" : locale === "fr" ? "Tableau de bord →" : locale === "es" ? "Panel →" : locale === "tr" ? "Panel →" : "Dashboard →"}
-              </Link>
-            ) : (
-              <>
-                <Link href="/login" className="hidden sm:block font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
-                  {locale === "ru" ? "Войти" : locale === "ar" ? "تسجيل الدخول" : locale === "de" ? "Anmelden" : locale === "fr" ? "Connexion" : locale === "es" ? "Iniciar sesión" : locale === "tr" ? "Giriş yap" : "Sign in"}
-                </Link>
-                <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-3 sm:px-4 py-2 rounded hover:bg-red transition-colors whitespace-nowrap">
-                  {locale === "ru" ? "Регистрация" : locale === "ar" ? "إنشاء حساب" : locale === "de" ? "Registrieren" : locale === "fr" ? "S'inscrire" : locale === "es" ? "Registrarse" : locale === "tr" ? "Kayıt ol" : "Register"}
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      <ArticleNav />
 
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 pb-10 text-center">

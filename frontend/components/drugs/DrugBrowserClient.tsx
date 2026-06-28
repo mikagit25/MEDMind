@@ -18,14 +18,15 @@ type BrowseResult = { items: Drug[]; total: number; page: number; pages: number;
 type Tab = "browse" | "interactions" | "dose" | "vet";
 
 function DrugCard({ drug }: { drug: Drug }) {
+  const [imgOk, setImgOk] = useState(true);
   return (
     <Link
       href={`/drugs/${drug.id}`}
       className="group flex flex-col bg-surface border border-border rounded-xl p-3 hover:border-ink hover:shadow-md transition-all"
     >
       <div className="h-20 w-full rounded-lg overflow-hidden bg-bg flex items-center justify-center mb-2.5 flex-shrink-0">
-        {drug.image_url ? (
-          <img src={drug.image_url} alt={drug.name} className="w-full h-full object-contain p-1" loading="lazy" />
+        {drug.image_url && imgOk ? (
+          <img src={drug.image_url} alt={drug.name} className="w-full h-full object-contain p-1" loading="lazy" onError={() => setImgOk(false)} />
         ) : (
           <span className="text-3xl">💊</span>
         )}

@@ -25,13 +25,13 @@ const ALL_SPECIES = [
 ];
 
 const ROLE_OPTIONS = [
-  { value: "student",     key: "onboarding.role_student",     icon: "🎓" },
-  { value: "doctor",      key: "onboarding.role_doctor",      icon: "🩺" },
-  { value: "teacher",     key: "onboarding.role_teacher",     icon: "🏛️" },
-  { value: "nurse",       key: "onboarding.role_nurse",       icon: "👩‍⚕️" },
-  { value: "vet",         key: "onboarding.role_vet",         icon: "🐾" },
-  { value: "vet_student", key: "onboarding.role_vet_student", icon: "🎓" },
-  { value: "other",       key: "onboarding.role_other",       icon: "👤" },
+  { value: "student",     key: "auth.onboarding.role_student",     icon: "🎓" },
+  { value: "doctor",      key: "auth.onboarding.role_doctor",      icon: "🩺" },
+  { value: "teacher",     key: "auth.onboarding.role_teacher",     icon: "🏛️" },
+  { value: "nurse",       key: "auth.onboarding.role_nurse",       icon: "👩‍⚕️" },
+  { value: "vet",         key: "auth.onboarding.role_vet",         icon: "🐾" },
+  { value: "vet_student", key: "auth.onboarding.role_vet_student", icon: "🎓" },
+  { value: "other",       key: "auth.onboarding.role_other",       icon: "👤" },
 ];
 
 export default function SettingsPage() {

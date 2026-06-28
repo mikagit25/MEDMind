@@ -262,6 +262,14 @@ function VetTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
   );
 }
 
+function AltDrugImage({ url, name }: { url?: string; name: string }) {
+  const [ok, setOk] = useState(true);
+  if (url && ok) {
+    return <img src={url} alt={name} className="w-full h-full object-contain p-1" loading="lazy" onError={() => setOk(false)} />;
+  }
+  return <span className="text-2xl">💊</span>;
+}
+
 export function DrugDetailTabs({
   drug,
   alternatives,
@@ -328,9 +336,7 @@ export function DrugDetailTabs({
               <Link key={alt.id} href={`/drugs/${alt.id}`}
                 className="group flex flex-col bg-surface border border-border rounded-xl p-3 hover:border-ink hover:shadow-md transition-all cursor-pointer">
                 <div className="h-16 w-full rounded-lg overflow-hidden bg-bg flex items-center justify-center mb-2">
-                  {alt.image_url ? (
-                    <img src={alt.image_url} alt={alt.name} className="w-full h-full object-contain p-1" loading="lazy" />
-                  ) : <span className="text-2xl">💊</span>}
+                  <AltDrugImage url={alt.image_url} name={alt.name} />
                 </div>
                 <div className="font-syne font-bold text-xs text-ink leading-tight line-clamp-2 group-hover:text-accent">{alt.name}</div>
                 {alt.generic_name && alt.generic_name !== alt.name && (

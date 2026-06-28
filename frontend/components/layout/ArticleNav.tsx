@@ -117,7 +117,7 @@ export function ArticleNav() {
               href="/dashboard"
               className="bg-ink text-white font-syne font-semibold text-sm px-4 py-1.5 rounded-lg hover:bg-ink/80 transition-colors whitespace-nowrap"
             >
-              Dashboard →
+              {t("landing.go_to_dashboard")}
             </Link>
           ) : (
             <>
@@ -131,7 +131,7 @@ export function ArticleNav() {
                 href="/register"
                 className="bg-ink text-white font-syne font-semibold text-sm px-4 py-1.5 rounded-lg hover:bg-ink/80 transition-colors whitespace-nowrap"
               >
-                {t("landing.hero_cta") || "Get started free"}
+                {t("landing.nav_register")}
               </Link>
             </>
           )}

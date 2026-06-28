@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { useAuthStore } from "@/lib/store";
+import { ArticleNav } from "@/components/layout/ArticleNav";
 
 type Lang = "en" | "ru" | "ar" | "es" | "de" | "fr" | "tr";
 
@@ -95,9 +95,6 @@ export default function NewsPage() {
   const [effectiveLang, setEffectiveLang] = useState<Lang>(() => getStoredLocale());
   const lang = (LANGS.some(l => l.value === locale) ? locale : effectiveLang) as Lang;
   const t = T[lang];
-  const { isAuthenticated, _hasHydrated } = useAuthStore();
-  const loggedIn = _hasHydrated ? isAuthenticated : null;
-
   const [news, setNews] = useState<NewsItem[]>([]);
   const [categories, setCategories] = useState<CategoryStat[]>([]);
   const [activeCat, setActiveCat] = useState<string | null>(null);
@@ -128,37 +125,7 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen bg-bg" dir={lang === "ar" ? "rtl" : "ltr"}>
-      {/* Nav */}
-      <nav className="bg-surface border-b border-border sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <Link href="/" className="font-syne font-extrabold text-xl sm:text-2xl tracking-tight text-ink flex-shrink-0">
-            Med<span className="text-red">Mind</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-1">
-            <Link href="/articles" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t.nav_articles}</Link>
-            <Link href="/news" className="font-syne font-semibold text-sm text-ink hover:text-red transition-colors px-3 py-2">{t.title}</Link>
-            <Link href="/calculators" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t.nav_calcs}</Link>
-            <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">{t.nav_symptoms}</Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <select value={lang} onChange={e => setLocale(e.target.value as import("../../lib/i18n").Locale)}
-              className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none">
-              {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
-            </select>
-            {loggedIn === null ? (
-              <div className="hidden sm:block w-24 h-7 rounded-lg bg-surface animate-pulse" />
-            ) : loggedIn ? (
-              <Link href="/dashboard" className="btn-primary text-xs sm:text-sm px-3 py-1.5 hidden sm:block">
-                {lang === "ru" ? "Кабинет →" : lang === "ar" ? "لوحة التحكم →" : lang === "de" ? "Dashboard →" : lang === "fr" ? "Tableau de bord →" : lang === "es" ? "Panel →" : lang === "tr" ? "Panel →" : "Dashboard →"}
-              </Link>
-            ) : (
-              <Link href="/register" className="btn-primary text-xs sm:text-sm px-3 py-1.5 hidden sm:block">
-                {lang === "ru" ? "Регистрация" : lang === "ar" ? "التسجيل" : lang === "de" ? "Registrieren" : lang === "fr" ? "S'inscrire" : lang === "es" ? "Registrarse" : lang === "tr" ? "Kayıt ol" : "Sign up"}
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+      <ArticleNav />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         {/* Header */}
