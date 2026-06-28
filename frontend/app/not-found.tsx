@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
+import { useT } from "@/lib/i18n";
 
 export default function NotFound() {
+  const t = useT();
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
       <div className="text-center space-y-6 max-w-md w-full">
@@ -13,10 +16,10 @@ export default function NotFound() {
         </div>
 
         <h1 className="font-syne font-bold text-xl text-ink">
-          Page not found
+          {t("how_it_works_page.page_not_found")}
         </h1>
         <p className="font-serif text-ink-3 text-sm">
-          The page you're looking for doesn't exist or has been moved.
+          {t("how_it_works_page.page_not_found_desc")}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
@@ -24,19 +27,19 @@ export default function NotFound() {
             href="/dashboard"
             className="px-6 py-3 bg-ink text-white rounded-lg font-syne font-semibold text-sm hover:bg-red transition-colors"
           >
-            Dashboard →
+            {t("landing.go_to_dashboard")}
           </Link>
           <Link
             href="/modules"
             className="px-6 py-3 border border-border rounded-lg font-syne font-semibold text-sm hover:bg-bg-2 transition-colors text-ink"
           >
-            Modules
+            {t("nav.items.my_courses")}
           </Link>
           <Link
             href="/articles"
             className="px-6 py-3 border border-border rounded-lg font-syne font-semibold text-sm hover:bg-bg-2 transition-colors text-ink"
           >
-            Articles
+            {t("landing.nav_articles")}
           </Link>
         </div>
       </div>

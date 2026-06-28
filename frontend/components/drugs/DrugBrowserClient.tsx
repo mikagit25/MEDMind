@@ -48,13 +48,13 @@ function DrugCard({ drug }: { drug: Drug }) {
 }
 
 const BROWSE_UI: Record<string, Record<string, string>> = {
-  en: { search_placeholder: "Search by name, class, generic name…", all_classes: "All classes", no_results: "No results for", no_drugs: "No drugs found", adjust_filters: "Try adjusting filters", drugs: "drugs", page: "Page", of: "of", clear: "✕ Clear filters" },
-  ru: { search_placeholder: "Поиск по названию, классу, МНН…", all_classes: "Все классы", no_results: "Ничего не найдено по запросу", no_drugs: "Препараты не найдены", adjust_filters: "Попробуйте изменить фильтры", drugs: "препаратов", page: "Стр.", of: "из", clear: "✕ Сбросить" },
-  ar: { search_placeholder: "البحث بالاسم أو الفئة…", all_classes: "جميع الفئات", no_results: "لا نتائج لـ", no_drugs: "لم يتم العثور على أدوية", adjust_filters: "حاول تعديل الفلاتر", drugs: "دواء", page: "صفحة", of: "من", clear: "✕ مسح" },
-  de: { search_placeholder: "Nach Name, Klasse, Wirkstoff suchen…", all_classes: "Alle Klassen", no_results: "Keine Ergebnisse für", no_drugs: "Keine Medikamente gefunden", adjust_filters: "Filter anpassen", drugs: "Medikamente", page: "Seite", of: "von", clear: "✕ Filter löschen" },
-  fr: { search_placeholder: "Rechercher par nom, classe, générique…", all_classes: "Toutes les classes", no_results: "Aucun résultat pour", no_drugs: "Aucun médicament trouvé", adjust_filters: "Ajuster les filtres", drugs: "médicaments", page: "Page", of: "sur", clear: "✕ Effacer" },
-  es: { search_placeholder: "Buscar por nombre, clase, genérico…", all_classes: "Todas las clases", no_results: "Sin resultados para", no_drugs: "No se encontraron medicamentos", adjust_filters: "Ajustar filtros", drugs: "medicamentos", page: "Pág.", of: "de", clear: "✕ Limpiar" },
-  tr: { search_placeholder: "Ad, sınıf, jenerik ile ara…", all_classes: "Tüm sınıflar", no_results: "Sonuç yok:", no_drugs: "İlaç bulunamadı", adjust_filters: "Filtreleri ayarlayın", drugs: "ilaç", page: "Sayfa", of: "/ toplam", clear: "✕ Temizle" },
+  en: { search_placeholder: "Search by name, class, generic name…", all_classes: "All classes", no_results: "No results for", no_drugs: "No drugs found", adjust_filters: "Try adjusting filters", drugs: "drugs", page: "Page", of: "of", clear: "✕ Clear filters", high_yield: "⭐ High Yield", veterinary: "🐾 Veterinary" },
+  ru: { search_placeholder: "Поиск по названию, классу, МНН…", all_classes: "Все классы", no_results: "Ничего не найдено по запросу", no_drugs: "Препараты не найдены", adjust_filters: "Попробуйте изменить фильтры", drugs: "препаратов", page: "Стр.", of: "из", clear: "✕ Сбросить", high_yield: "⭐ Высокий приоритет", veterinary: "🐾 Ветеринария" },
+  ar: { search_placeholder: "البحث بالاسم أو الفئة…", all_classes: "جميع الفئات", no_results: "لا نتائج لـ", no_drugs: "لم يتم العثور على أدوية", adjust_filters: "حاول تعديل الفلاتر", drugs: "دواء", page: "صفحة", of: "من", clear: "✕ مسح", high_yield: "⭐ ذو أولوية", veterinary: "🐾 بيطري" },
+  de: { search_placeholder: "Nach Name, Klasse, Wirkstoff suchen…", all_classes: "Alle Klassen", no_results: "Keine Ergebnisse für", no_drugs: "Keine Medikamente gefunden", adjust_filters: "Filter anpassen", drugs: "Medikamente", page: "Seite", of: "von", clear: "✕ Filter löschen", high_yield: "⭐ Hohe Priorität", veterinary: "🐾 Veterinär" },
+  fr: { search_placeholder: "Rechercher par nom, classe, générique…", all_classes: "Toutes les classes", no_results: "Aucun résultat pour", no_drugs: "Aucun médicament trouvé", adjust_filters: "Ajuster les filtres", drugs: "médicaments", page: "Page", of: "sur", clear: "✕ Effacer", high_yield: "⭐ Haute priorité", veterinary: "🐾 Vétérinaire" },
+  es: { search_placeholder: "Buscar por nombre, clase, genérico…", all_classes: "Todas las clases", no_results: "Sin resultados para", no_drugs: "No se encontraron medicamentos", adjust_filters: "Ajustar filtros", drugs: "medicamentos", page: "Pág.", of: "de", clear: "✕ Limpiar", high_yield: "⭐ Alta prioridad", veterinary: "🐾 Veterinaria" },
+  tr: { search_placeholder: "Ad, sınıf, jenerik ile ara…", all_classes: "Tüm sınıflar", no_results: "Sonuç yok:", no_drugs: "İlaç bulunamadı", adjust_filters: "Filtreleri ayarlayın", drugs: "ilaç", page: "Sayfa", of: "/ toplam", clear: "✕ Temizle", high_yield: "⭐ Yüksek öncelik", veterinary: "🐾 Veteriner" },
 };
 
 function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes: { drug_class: string; count: number }[]; lang: string }) {
@@ -118,11 +118,11 @@ function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes:
       <div className="flex gap-2 mb-5 flex-wrap">
         <button onClick={() => { setFilterHY(filterHY ? undefined : true); setPage(1); }}
           className={`px-3 py-1 rounded-full font-syne font-semibold text-xs border transition-all ${filterHY ? "bg-amber-light border-amber text-amber" : "border-border text-ink-3 hover:border-ink-3"}`}>
-          ⭐ High Yield
+          {ui.high_yield}
         </button>
         <button onClick={() => { setFilterVet(filterVet ? undefined : true); setPage(1); }}
           className={`px-3 py-1 rounded-full font-syne font-semibold text-xs border transition-all ${filterVet ? "bg-green-light border-green text-green" : "border-border text-ink-3 hover:border-ink-3"}`}>
-          🐾 Veterinary
+          {ui.veterinary}
         </button>
         {(selectedClass || filterHY || filterVet) && (
           <button onClick={() => { setSelectedClass(""); setFilterHY(undefined); setFilterVet(undefined); setPage(1); }}

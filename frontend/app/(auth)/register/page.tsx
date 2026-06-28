@@ -183,7 +183,7 @@ export default function RegisterPage() {
               className="mt-0.5 accent-ink"
             />
             <span className="text-xs font-serif text-ink-2">
-              {t("analytics_consent") || "I consent to processing of personal data (GDPR)"}{" "}
+              {t("auth.register.analytics_consent")}{" "}
               <span className="text-red">*</span>
             </span>
           </label>
@@ -195,7 +195,7 @@ export default function RegisterPage() {
               className="mt-0.5 accent-ink"
             />
             <span className="text-xs font-serif text-ink-2">
-              {t("marketing_consent") || "I agree to receive educational updates (optional)"}
+              {t("auth.register.marketing_consent")}
             </span>
           </label>
         </div>

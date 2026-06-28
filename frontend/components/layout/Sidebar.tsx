@@ -209,7 +209,7 @@ export function Sidebar() {
               {user?.first_name} {user?.last_name}
             </div>
             <div className="text-white/40 text-xs capitalize">
-              {user?.subscription_tier} • {user?.role}
+              {user?.subscription_tier} • {t(`auth.onboarding.role_${user?.role}` as any) || user?.role}
             </div>
           </div>
           <NotificationBell />

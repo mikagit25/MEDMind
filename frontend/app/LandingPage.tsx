@@ -138,7 +138,7 @@ export default function LandingPage({
               { href: "/pricing",      label: t("landing.nav_pricing") },
             ].map(item => (
               <Link key={item.href} href={item.href}
-                className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+                className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 whitespace-nowrap">
                 {item.label}
               </Link>
             ))}
@@ -153,7 +153,7 @@ export default function LandingPage({
 
             {isAuthenticated ? (
               <Link href="/dashboard" className="font-syne font-bold text-sm bg-red text-white px-3 sm:px-4 py-2 rounded hover:bg-ink transition-colors whitespace-nowrap">
-                Dashboard →
+                {t("landing.go_to_dashboard")}
               </Link>
             ) : (
               <>
@@ -946,7 +946,7 @@ export default function LandingPage({
             </Link>
             <Link href="/articles"
               className="inline-block font-syne font-semibold text-base border border-white/30 text-white/80 px-8 sm:px-10 py-4 rounded hover:border-white hover:text-white transition-colors">
-              Browse articles →
+              {t("landing.footer_browse_articles")}
             </Link>
           </div>
           <p className="text-white/30 text-xs mt-5 font-syne">{t("landing.hero_note")}</p>
@@ -994,7 +994,7 @@ export default function LandingPage({
           </div>
           <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <p className="text-ink-3 text-[11px] font-syne max-w-lg">
-              For educational purposes only. Not a substitute for professional medical advice. Always consult a licensed healthcare provider.
+              {t("landing.footer_legal")}
             </p>
             <div className="text-ink-3 text-xs font-syne flex-shrink-0">{t("landing.footer_copy")}</div>
           </div>

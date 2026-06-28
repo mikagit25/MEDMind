@@ -363,22 +363,14 @@ function MockCalculator() {
   );
 }
 
-// ── Feature sections ──────────────────────────────────────────
-const FEATURES: Array<{
-  id: string;
-  tab: string;
-  items: Array<{
-    title: string;
-    desc: string;
-    badge: string;
-    extras: string[];
-    mockup: React.ReactNode;
-    flip: boolean;
-  }>;
-}> = [
+// ── Feature sections (built inside component to allow i18n) ──
+type FeatureItem = { title: string; desc: string; badge: string; extras: string[]; mockup: React.ReactNode; flip: boolean };
+type FeatureSection = { id: string; tab: string; items: FeatureItem[] };
+
+const FEATURES_RAW: Array<Omit<FeatureSection, "tab"> & { tabKey: string }> = [
   {
     id: "ai",
-    tab: "🤖 AI Learning",
+    tabKey: "feat_tab_ai",
     items: [
       {
         title: "AI Tutor with Live PubMed",
@@ -400,7 +392,7 @@ const FEATURES: Array<{
   },
   {
     id: "learning",
-    tab: "📚 Learning",
+    tabKey: "feat_tab_learning",
     items: [
       {
         title: "82+ Structured Modules",
@@ -422,7 +414,7 @@ const FEATURES: Array<{
   },
   {
     id: "clinical",
-    tab: "💊 Clinical Tools",
+    tabKey: "feat_tab_clinical",
     items: [
       {
         title: "Drug Database + Interaction Checker",
@@ -444,7 +436,7 @@ const FEATURES: Array<{
   },
   {
     id: "imaging",
-    tab: "🩻 Imaging & Health",
+    tabKey: "feat_tab_imaging",
     items: [
       {
         title: "Medical Imaging Library + AI Analysis",
@@ -466,7 +458,7 @@ const FEATURES: Array<{
   },
   {
     id: "progress",
-    tab: "📊 Progress & Bot",
+    tabKey: "feat_tab_progress",
     items: [
       {
         title: "Progress Dashboard & Gamification",
@@ -514,6 +506,7 @@ export default function HowItWorksPage() {
   const cmpRows = t("how_it_works_page.cmp_rows") as unknown as string[][];
   const roles = t("how_it_works_page.roles") as unknown as { role: string; icon: string; description: string; features: string[] }[];
 
+  const FEATURES: FeatureSection[] = FEATURES_RAW.map(f => ({ ...f, tab: t(`how_it_works_page.${f.tabKey}` as any) }));
   const activeSection = FEATURES.find(f => f.id === activeTab) ?? FEATURES[0];
 
   return (
@@ -579,7 +572,7 @@ export default function HowItWorksPage() {
           {t("how_it_works_page.hero_desc")}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto mb-10">
-          {([["125+", "Modules"], ["5,000+", "Drugs"], ["2,400+", "Images"], ["40+", "Calculators"]] as [string, string][]).map(([n, l]) => (
+          {([["125+", t("how_it_works_page.stat_modules")], ["5,000+", t("how_it_works_page.stat_drugs")], ["2,400+", t("how_it_works_page.stat_images")], ["40+", t("how_it_works_page.stat_calculators")]] as [string, string][]).map(([n, l]) => (
             <div key={l} className="bg-surface border border-border rounded-xl p-4">
               <p className="font-syne font-black text-2xl text-ink">{n}</p>
               <p className="text-xs text-ink-3 font-syne">{l}</p>
@@ -650,7 +643,7 @@ export default function HowItWorksPage() {
                   </ul>
                   <div className="mt-6">
                     <Link href="/register" className="inline-block font-syne font-semibold text-sm border border-border-2 text-ink-2 px-5 py-2.5 rounded hover:border-ink hover:text-ink transition-colors">
-                      Try it free →
+                      {t("how_it_works_page.try_free")}
                     </Link>
                   </div>
                 </div>
