@@ -62,8 +62,8 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-4">
             <Link href="/learn/glossary" className="font-serif text-xs text-ink-3 hover:text-ink">{t.nav_glossary}</Link>
             <Link href="/learn/topics" className="font-serif text-xs text-ink-3 hover:text-ink">{t.nav_topics}</Link>
-            <Link href="/drugs" className="font-serif text-xs text-ink-3 hover:text-ink">Drug DB</Link>
-            <Link href="/login" className="font-serif text-xs text-ink-3 hover:text-ink">Login</Link>
+            <Link href="/drugs" className="font-serif text-xs text-ink-3 hover:text-ink">{t.nav_drug_db}</Link>
+            <Link href="/login" className="font-serif text-xs text-ink-3 hover:text-ink">{t.nav_login}</Link>
           </div>
         </div>
       </footer>

@@ -27,7 +27,7 @@ export default function LoginPage() {
       ga.login("email");
       router.replace("/dashboard");
     } catch (err: any) {
-      setError(err.response?.data?.detail ?? t("auth.login.error_default"));
+      setError(err.response?.status === 401 ? t("auth.login.error_default") : (err.response?.data?.detail ?? t("auth.login.error_default")));
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -43,6 +45,8 @@ async function fetchGlossary(): Promise<GlossaryTerm[]> {
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default async function GlossaryPage() {
+  const locale = headers().get("x-locale") ?? "en";
+  const t = getLearnT(locale);
   const terms = await fetchGlossary();
 
   // Group by first letter
@@ -77,24 +81,22 @@ export default async function GlossaryPage() {
         {/* Hero */}
         <div className="text-center mb-10">
           <h1 className="font-syne font-black text-3xl sm:text-4xl text-ink mb-3">
-            Medical Glossary
+            {t.glossary_h1}
           </h1>
           <p className="font-serif text-ink-3 text-base max-w-xl mx-auto">
             {terms.length > 0
-              ? `${terms.length} medical terms explained in plain language — no jargon, no medical degree needed.`
-              : "Plain-language medical definitions — for patients, families, and the curious."}
+              ? interpolate(t.glossary_count, { count: terms.length })
+              : t.glossary_empty_desc}
           </p>
         </div>
 
         {terms.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-5xl mb-4">📖</div>
-            <p className="font-syne font-bold text-ink text-lg mb-2">Glossary coming soon</p>
-            <p className="font-serif text-ink-3 text-sm mb-6">
-              We&apos;re generating plain-language definitions for all our content.
-            </p>
+            <p className="font-syne font-bold text-ink text-lg mb-2">{t.glossary_coming_soon}</p>
+            <p className="font-serif text-ink-3 text-sm mb-6">{t.glossary_coming_desc}</p>
             <Link href="/register" className="inline-block px-6 py-2.5 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors">
-              Get notified when it&apos;s ready
+              {t.glossary_notify}
             </Link>
           </div>
         ) : (
@@ -137,7 +139,7 @@ export default async function GlossaryPage() {
                           {term.simple_definition}
                         </p>
                         <div className="mt-2 font-serif text-xs text-ink-3/60">
-                          From: {term.module_title}
+                          {t.glossary_from} {term.module_title}
                         </div>
                       </Link>
                     ))}
@@ -149,16 +151,16 @@ export default async function GlossaryPage() {
             {/* CTA */}
             <div className="mt-16 text-center bg-surface border border-border rounded-2xl p-8">
               <h2 className="font-syne font-black text-xl text-ink mb-2">
-                Want to learn more?
+                {t.glossary_cta_h2}
               </h2>
               <p className="font-serif text-sm text-ink-3 mb-5">
-                MedMind has 800+ clinical lessons, AI tutor, and flashcards — for students and curious minds alike.
+                {t.glossary_cta_desc}
               </p>
               <Link
                 href="/register"
                 className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
               >
-                Start Learning Free →
+                {t.glossary_cta_btn}
               </Link>
             </div>
           </>

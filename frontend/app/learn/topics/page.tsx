@@ -139,7 +139,7 @@ export default async function TopicsPage({
                   href={`#spec-${spec.toLowerCase().replace(/\s+/g, "-")}`}
                   className="px-3 py-1.5 rounded-lg bg-surface border border-border font-syne font-semibold text-xs text-ink-2 hover:bg-ink hover:text-white hover:border-ink transition-colors"
                 >
-                  {spec}
+                  {spec === "Other" ? t.topics_other : spec}
                   <span className="ml-1.5 text-ink-3 font-normal">
                     {grouped[spec].length}
                   </span>
@@ -155,7 +155,7 @@ export default async function TopicsPage({
                   id={`spec-${spec.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <h2 className="font-syne font-black text-2xl text-ink mb-5 border-b border-border pb-2">
-                    {spec}
+                    {spec === "Other" ? t.topics_other : spec}
                   </h2>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {grouped[spec].map((topic) => (
@@ -177,9 +177,6 @@ export default async function TopicsPage({
                             {topic.lay_summary}
                           </p>
                         )}
-                        <div className="mt-3 font-serif text-xs text-ink-3/50">
-                          {topic.module_code}
-                        </div>
                       </Link>
                     ))}
                   </div>

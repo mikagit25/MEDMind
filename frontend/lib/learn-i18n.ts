@@ -97,6 +97,21 @@ export interface LearnStrings {
   topics_cta_h2: string;
   topics_cta_desc: string;
   topics_cta_btn: string;
+  topics_other: string;
+  // Footer nav
+  nav_drug_db: string;
+  nav_login: string;
+  // Glossary page
+  glossary_h1: string;
+  glossary_count: string;
+  glossary_empty_desc: string;
+  glossary_cta_h2: string;
+  glossary_cta_desc: string;
+  glossary_cta_btn: string;
+  glossary_coming_soon: string;
+  glossary_coming_desc: string;
+  glossary_notify: string;
+  glossary_from: string;
   // Drugs index page  ({count} and {search} placeholders)
   drugs_h1: string;
   drugs_count: string;
@@ -180,6 +195,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     topics_cta_desc:
       "Full lessons, AI tutor, flashcards, and clinical cases — for students, physicians, and curious minds.",
     topics_cta_btn: "Start Learning Free →",
+    topics_other: "Other",
+    nav_drug_db: "Drug DB",
+    nav_login: "Login",
+    glossary_h1: "Medical Glossary",
+    glossary_count: "{count} medical terms explained in plain language — no jargon, no medical degree needed.",
+    glossary_empty_desc: "Plain-language medical definitions — for patients, families, and the curious.",
+    glossary_cta_h2: "Want to learn more?",
+    glossary_cta_desc: "MedMind has 800+ clinical lessons, AI tutor, and flashcards — for students and curious minds alike.",
+    glossary_cta_btn: "Start Learning Free →",
+    glossary_coming_soon: "Glossary coming soon",
+    glossary_coming_desc: "We're generating plain-language definitions for all our content.",
+    glossary_notify: "Get notified when it's ready",
+    glossary_from: "From:",
     drugs_h1: "Drug Guide",
     drugs_count: "{count} medications explained in plain language.",
     drugs_empty_desc: "Plain-language medication guides for patients and curious minds.",
@@ -297,6 +325,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     topics_cta_desc:
       "Полные уроки, AI-тьютор, карточки и клинические кейсы — для студентов, врачей и всех любопытных.",
     topics_cta_btn: "Учиться бесплатно →",
+    topics_other: "Прочее",
+    nav_drug_db: "База препаратов",
+    nav_login: "Войти",
+    glossary_h1: "Медицинский глоссарий",
+    glossary_count: "{count} медицинских терминов объяснены простым языком — без жаргона.",
+    glossary_empty_desc: "Медицинские определения простым языком — для пациентов, семей и любознательных.",
+    glossary_cta_h2: "Хотите узнать больше?",
+    glossary_cta_desc: "MedMind: 800+ клинических уроков, AI-тьютор и карточки — для студентов и любознательных.",
+    glossary_cta_btn: "Учиться бесплатно →",
+    glossary_coming_soon: "Глоссарий скоро появится",
+    glossary_coming_desc: "Мы создаём простые определения для всего нашего контента.",
+    glossary_notify: "Уведомить, когда будет готово",
+    glossary_from: "Из:",
     drugs_h1: "Справочник препаратов",
     drugs_count: "{count} препаратов объяснены простым языком.",
     drugs_empty_desc:
@@ -462,6 +503,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     card_vet_subtitle: "للطلاب والمتخصصين",
     card_vet_desc: "وحدات سريرية في الحيوانات الصغيرة والكبيرة والأدوية والجراحة والأنواع الغريبة — مع جرعات الأدوية حسب النوع والحالات السريرية.",
     card_vet_cta: "استكشاف الوحدات البيطرية →",
+    topics_other: "أخرى",
+    nav_drug_db: "قاعدة الأدوية",
+    nav_login: "تسجيل الدخول",
+    glossary_h1: "المسرد الطبي",
+    glossary_count: "{count} مصطلح طبي مشروح بلغة بسيطة — بدون تعقيدات.",
+    glossary_empty_desc: "تعريفات طبية بلغة بسيطة — للمرضى والأسر والفضوليين.",
+    glossary_cta_h2: "تريد معرفة المزيد؟",
+    glossary_cta_desc: "MedMind: 800+ درس سريري، مدرس ذكاء اصطناعي وبطاقات — للطلاب والفضوليين.",
+    glossary_cta_btn: "ابدأ التعلم مجاناً →",
+    glossary_coming_soon: "المسرد قادم قريباً",
+    glossary_coming_desc: "نقوم بإنشاء تعريفات بلغة بسيطة لجميع محتوياتنا.",
+    glossary_notify: "أخبرني عندما يكون جاهزاً",
+    glossary_from: "من:",
   },
 
   // ── Turkish ───────────────────────────────────────────────────────────────────
@@ -579,6 +633,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     card_vet_subtitle: "Öğrenciler ve profesyoneller için",
     card_vet_desc: "Küçük hayvanlar, büyük hayvanlar, farmakoloji, cerrahi ve egzotik türlere ilişkin klinik modüller — türe göre ilaç dozları ve klinik vakalarla.",
     card_vet_cta: "Vet Modüllerini Keşfet →",
+    topics_other: "Diğer",
+    nav_drug_db: "İlaç Veritabanı",
+    nav_login: "Giriş Yap",
+    glossary_h1: "Tıbbi Sözlük",
+    glossary_count: "{count} tıbbi terim sade dilde açıklandı — jargon yok.",
+    glossary_empty_desc: "Hastalar, aileler ve meraklı zihinler için sade tıbbi tanımlar.",
+    glossary_cta_h2: "Daha fazla öğrenmek ister misiniz?",
+    glossary_cta_desc: "MedMind: 800+ klinik ders, AI tutor ve flash kartlar — öğrenciler ve meraklılar için.",
+    glossary_cta_btn: "Ücretsiz Öğrenmeye Başla →",
+    glossary_coming_soon: "Sözlük yakında geliyor",
+    glossary_coming_desc: "Tüm içeriğimiz için sade dil tanımları oluşturuyoruz.",
+    glossary_notify: "Hazır olduğunda bildir",
+    glossary_from: "Kaynak:",
   },
 
   // ── German ────────────────────────────────────────────────────────────────────
@@ -696,6 +763,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     card_vet_subtitle: "Für Studenten & Fachkräfte",
     card_vet_desc: "Klinische Module zu Kleintieren, Großtieren, Pharmakologie, Chirurgie und exotischen Arten — mit artspezifischen Dosierungen und klinischen Fällen.",
     card_vet_cta: "Vet-Module erkunden →",
+    topics_other: "Sonstige",
+    nav_drug_db: "Medikamente-DB",
+    nav_login: "Anmelden",
+    glossary_h1: "Medizinisches Glossar",
+    glossary_count: "{count} medizinische Begriffe in verständlicher Sprache — kein Fachjargon.",
+    glossary_empty_desc: "Medizinische Definitionen in verständlicher Sprache — für Patienten, Familien und Neugierige.",
+    glossary_cta_h2: "Möchten Sie mehr lernen?",
+    glossary_cta_desc: "MedMind: 800+ klinische Lektionen, KI-Tutor und Lernkarten — für Studenten und neugierige Köpfe.",
+    glossary_cta_btn: "Kostenlos lernen →",
+    glossary_coming_soon: "Glossar kommt bald",
+    glossary_coming_desc: "Wir erstellen verständliche Definitionen für alle unsere Inhalte.",
+    glossary_notify: "Benachrichtigen, wenn bereit",
+    glossary_from: "Aus:",
   },
 
   // ── French ────────────────────────────────────────────────────────────────────
@@ -813,6 +893,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     card_vet_subtitle: "Pour étudiants et professionnels",
     card_vet_desc: "Modules cliniques sur les petits animaux, grands animaux, pharmacologie, chirurgie et espèces exotiques — avec dosages par espèce et cas cliniques.",
     card_vet_cta: "Explorer les modules vétérinaires →",
+    topics_other: "Autres",
+    nav_drug_db: "Base médicaments",
+    nav_login: "Se connecter",
+    glossary_h1: "Glossaire médical",
+    glossary_count: "{count} termes médicaux expliqués en langage clair — sans jargon.",
+    glossary_empty_desc: "Définitions médicales en langage clair — pour les patients, les familles et les curieux.",
+    glossary_cta_h2: "Vous voulez en savoir plus ?",
+    glossary_cta_desc: "MedMind : 800+ leçons cliniques, tuteur IA et flashcards — pour étudiants et esprits curieux.",
+    glossary_cta_btn: "Apprendre gratuitement →",
+    glossary_coming_soon: "Glossaire bientôt disponible",
+    glossary_coming_desc: "Nous créons des définitions en langage clair pour tout notre contenu.",
+    glossary_notify: "Me notifier quand c'est prêt",
+    glossary_from: "De :",
   },
 
   // ── Spanish ───────────────────────────────────────────────────────────────────
@@ -932,6 +1025,19 @@ const translations: Record<LearnLocale, LearnStrings> = {
     card_vet_subtitle: "Para estudiantes y profesionales",
     card_vet_desc: "Módulos clínicos de animales pequeños, grandes, farmacología, cirugía y especies exóticas — con dosificación por especie y casos clínicos.",
     card_vet_cta: "Explorar módulos veterinarios →",
+    topics_other: "Otros",
+    nav_drug_db: "Base de Medicamentos",
+    nav_login: "Iniciar sesión",
+    glossary_h1: "Glosario Médico",
+    glossary_count: "{count} términos médicos explicados en lenguaje sencillo — sin jerga.",
+    glossary_empty_desc: "Definiciones médicas en lenguaje sencillo — para pacientes, familias y curiosos.",
+    glossary_cta_h2: "¿Quieres aprender más?",
+    glossary_cta_desc: "MedMind: 800+ lecciones clínicas, tutor IA y tarjetas — para estudiantes y mentes curiosas.",
+    glossary_cta_btn: "Aprender Gratis →",
+    glossary_coming_soon: "Glosario próximamente",
+    glossary_coming_desc: "Estamos generando definiciones en lenguaje sencillo para todo nuestro contenido.",
+    glossary_notify: "Avisarme cuando esté listo",
+    glossary_from: "De:",
   },
 };
 
