@@ -80,7 +80,7 @@ function TelegramPanel({ user, onUnlink }: {
   };
 
   const handleUnlink = async () => {
-    if (!confirm("Remove Telegram linking? You can re-link at any time.")) return;
+    if (!confirm(t("bots_page.tg_confirm_unlink"))) return;
     setState("unlinking");
     try { await telegramApi.unlink(); onUnlink(); } catch {}
     setState("idle");
@@ -112,24 +112,24 @@ function TelegramPanel({ user, onUnlink }: {
             <div className="flex items-center gap-3 p-3 bg-green/5 border border-green/20 rounded-xl">
               <CheckCircle2 size={16} className="text-green flex-shrink-0" />
               <div className="flex-1 text-xs font-serif text-ink-2">
-                Your account is linked. Bot conversations sync to your{" "}
-                <Link href="/ai-history" className="text-[#229ED9] underline underline-offset-2">AI history</Link>.
+                {t("bots_page.tg_linked_desc")}{" "}
+                <Link href="/ai-history" className="text-[#229ED9] underline underline-offset-2">{t("bots_page.tg_ai_history")}</Link>.
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <a href="https://t.me/Medmindpro_bot" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 bg-[#229ED9] text-white text-xs font-syne font-bold px-2.5 py-1.5 rounded-lg">
-                  <TgIcon className="w-3 h-3" /> Open
+                  <TgIcon className="w-3 h-3" /> {t("bots_page.tg_btn_open")}
                 </a>
                 <button onClick={handleUnlink} disabled={state === "unlinking"}
                   className="inline-flex items-center gap-1 border border-border text-ink-3 hover:text-red hover:border-red text-xs font-syne px-2.5 py-1.5 rounded-lg transition-colors">
-                  <Link2Off size={11} /> Unlink
+                  <Link2Off size={11} /> {t("bots_page.tg_btn_unlink")}
                 </button>
               </div>
             </div>
           ) : (
             <div className="p-3 bg-bg border border-border rounded-xl">
               <p className="text-xs font-serif text-ink-3 mb-3">
-                Linking Telegram is <strong>optional</strong> — you can consult right here on the web. Linking syncs your {user.subscription_tier} plan and conversation history to the bot.
+                {t("bots_page.tg_link_info")}
               </p>
               {state === "link_ready" && linkData ? (
                 <div className="space-y-2">
@@ -142,20 +142,20 @@ function TelegramPanel({ user, onUnlink }: {
                   <div className="flex gap-2">
                     <a href={linkData.deep_link} target="_blank" rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 bg-[#229ED9] text-white text-xs font-syne font-bold px-3 py-1.5 rounded-lg">
-                      <ExternalLink size={11} /> Open in Telegram
+                      <ExternalLink size={11} /> {t("bots_page.tg_open_in_tg")}
                     </a>
                     <button onClick={handleGenerate} className="inline-flex items-center gap-1.5 border border-border text-ink-3 text-xs font-syne px-3 py-1.5 rounded-lg">
-                      <RefreshCw size={11} /> New link
+                      <RefreshCw size={11} /> {t("bots_page.tg_new_link")}
                     </button>
                   </div>
-                  <p className="text-[10px] text-ink-3 font-serif">⏱ Link expires in 10 minutes.</p>
+                  <p className="text-[10px] text-ink-3 font-serif">{t("bots_page.tg_link_expires")}</p>
                 </div>
               ) : (
                 <button onClick={handleGenerate} disabled={state === "loading"}
                   className="inline-flex items-center gap-2 bg-[#229ED9] hover:bg-[#1a8cbf] disabled:opacity-60 text-white text-xs font-syne font-bold px-4 py-2 rounded-lg transition-colors">
                   {state === "loading"
-                    ? <><span className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin" /> Generating…</>
-                    : <><TgIcon className="w-3.5 h-3.5" /> Connect Telegram</>}
+                    ? <><span className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin" /> {t("bots_page.tg_generating")}</>
+                    : <><TgIcon className="w-3.5 h-3.5" /> {t("bots_page.tg_connect")}</>}
                 </button>
               )}
             </div>
@@ -405,58 +405,6 @@ function ConsultationApp({ user, onUnlink }: { user: any; onUnlink: () => void }
 
 // ── Public landing page (for unauthenticated users) ────────────────────────────
 
-const PUBLIC_MODES = [
-  {
-    id: "tutor",
-    icon: "🎓",
-    label: "Tutor",
-    color: "bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400",
-    dot: "bg-blue-500",
-    desc: "Explains any medical topic clearly with key mechanisms and clinical pearls.",
-    messages: [
-      { role: "user",      text: "Explain the renin-angiotensin-aldosterone system" },
-      { role: "assistant", text: "**RAAS** is a hormonal cascade that regulates blood pressure and fluid balance:\n\n↓ BP or ↓ Na⁺ → Kidney releases **renin** → converts angiotensinogen to Ang I → ACE converts to **Ang II** → vasoconstriction + aldosterone release → ↑ Na⁺/H₂O retention → ↑ BP\n\n💡 ACE inhibitors block this at the ACE step — first-line in diabetic nephropathy." },
-    ],
-  },
-  {
-    id: "case",
-    icon: "🩺",
-    label: "Clinical Case",
-    color: "bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-400",
-    dot: "bg-purple-500",
-    desc: "Interactive clinical case discussion — you play the resident, I play the attendant.",
-    messages: [
-      { role: "assistant", text: "**Case:** A 68-year-old male presents with 2 hours of crushing substernal chest pain radiating to the left arm. BP 90/60, HR 110, diaphoretic. ECG shows ST elevation in leads II, III, aVF.\n\nWhat is your working diagnosis and immediate management?" },
-      { role: "user",      text: "Inferior STEMI — activate cath lab, aspirin, heparin" },
-      { role: "assistant", text: "✅ Correct! Inferior STEMI (RCA territory).\n\n⚠️ Check a right-sided ECG (V4R) — 40% of inferior STEMIs have RV involvement. If so, **avoid nitrates and diuretics** (RV is preload-dependent)." },
-    ],
-  },
-  {
-    id: "differential",
-    icon: "🔬",
-    label: "Differential Dx",
-    color: "bg-green-500/10 border-green-500/30 text-green-600 dark:text-green-400",
-    dot: "bg-green-500",
-    desc: "Structured differential diagnosis for any clinical presentation.",
-    messages: [
-      { role: "user",      text: "35F with acute RLQ pain, fever 38.4°C, nausea. Last period 6 weeks ago." },
-      { role: "assistant", text: "**Most likely:**\n• Appendicitis (classic location + fever)\n• Ectopic pregnancy ⚠️ — critical given 6-week amenorrhea\n\n**Can't miss:** Ectopic with rupture — check β-hCG **now**\n\n**First investigations:** β-hCG → pelvic USS → CBC + CRP" },
-    ],
-  },
-  {
-    id: "patient",
-    icon: "🏥",
-    label: "Patient Mode",
-    color: "bg-orange-500/10 border-orange-500/30 text-orange-600 dark:text-orange-400",
-    dot: "bg-orange-500",
-    desc: "Plain language explanations for patients and their families.",
-    messages: [
-      { role: "user",      text: "My doctor said I have type 2 diabetes. What does that mean?" },
-      { role: "assistant", text: "Type 2 diabetes means your body has trouble using sugar properly.\n\nNormally, **insulin** acts like a key that lets sugar into your cells. With type 2, that key doesn't work as well — so sugar builds up in your blood.\n\n✅ The good news: it's very manageable with healthy eating, exercise, and sometimes medication.\n\n⚕️ Always follow your doctor's specific advice." },
-    ],
-  },
-];
-
 function StaticChatBubble({ role, text }: { role: string; text: string }) {
   const lines = text.split("\n");
   return (
@@ -491,6 +439,58 @@ function PublicLanding() {
   const stats = t("bots_page.stats") as unknown as [string, string][];
   const steps = t("bots_page.steps") as unknown as { step: string; title: string; desc: string; icon: string }[];
 
+  const PUBLIC_MODES = [
+    {
+      id: "tutor",
+      icon: "🎓",
+      label: t("bots_page.mode_tutor_label") as string,
+      color: "bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400",
+      dot: "bg-blue-500",
+      desc: t("bots_page.mode_tutor_promo") as string,
+      messages: [
+        { role: "user",      text: "Explain the renin-angiotensin-aldosterone system" },
+        { role: "assistant", text: "**RAAS** is a hormonal cascade that regulates blood pressure and fluid balance:\n\n↓ BP or ↓ Na⁺ → Kidney releases **renin** → converts angiotensinogen to Ang I → ACE converts to **Ang II** → vasoconstriction + aldosterone release → ↑ Na⁺/H₂O retention → ↑ BP\n\n💡 ACE inhibitors block this at the ACE step — first-line in diabetic nephropathy." },
+      ],
+    },
+    {
+      id: "case",
+      icon: "🩺",
+      label: t("bots_page.mode_case_label") as string,
+      color: "bg-purple-500/10 border-purple-500/30 text-purple-600 dark:text-purple-400",
+      dot: "bg-purple-500",
+      desc: t("bots_page.mode_case_promo") as string,
+      messages: [
+        { role: "assistant", text: "**Case:** A 68-year-old male presents with 2 hours of crushing substernal chest pain radiating to the left arm. BP 90/60, HR 110, diaphoretic. ECG shows ST elevation in leads II, III, aVF.\n\nWhat is your working diagnosis and immediate management?" },
+        { role: "user",      text: "Inferior STEMI — activate cath lab, aspirin, heparin" },
+        { role: "assistant", text: "✅ Correct! Inferior STEMI (RCA territory).\n\n⚠️ Check a right-sided ECG (V4R) — 40% of inferior STEMIs have RV involvement. If so, **avoid nitrates and diuretics** (RV is preload-dependent)." },
+      ],
+    },
+    {
+      id: "differential",
+      icon: "🔬",
+      label: t("bots_page.mode_diff_label") as string,
+      color: "bg-green-500/10 border-green-500/30 text-green-600 dark:text-green-400",
+      dot: "bg-green-500",
+      desc: t("bots_page.mode_diff_promo") as string,
+      messages: [
+        { role: "user",      text: "35F with acute RLQ pain, fever 38.4°C, nausea. Last period 6 weeks ago." },
+        { role: "assistant", text: "**Most likely:**\n• Appendicitis (classic location + fever)\n• Ectopic pregnancy ⚠️ — critical given 6-week amenorrhea\n\n**Can't miss:** Ectopic with rupture — check β-hCG **now**\n\n**First investigations:** β-hCG → pelvic USS → CBC + CRP" },
+      ],
+    },
+    {
+      id: "patient",
+      icon: "🏥",
+      label: t("bots_page.mode_patient_label") as string,
+      color: "bg-orange-500/10 border-orange-500/30 text-orange-600 dark:text-orange-400",
+      dot: "bg-orange-500",
+      desc: t("bots_page.mode_patient_promo") as string,
+      messages: [
+        { role: "user",      text: "My doctor said I have type 2 diabetes. What does that mean?" },
+        { role: "assistant", text: "Type 2 diabetes means your body has trouble using sugar properly.\n\nNormally, **insulin** acts like a key that lets sugar into your cells. With type 2, that key doesn't work as well — so sugar builds up in your blood.\n\n✅ The good news: it's very manageable with healthy eating, exercise, and sometimes medication.\n\n⚕️ Always follow your doctor's specific advice." },
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-bg">
       {/* Nav */}
@@ -498,10 +498,10 @@ function PublicLanding() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="font-syne font-extrabold text-xl text-ink">Med<span className="text-red">Mind</span></Link>
           <div className="flex items-center gap-4">
-            <Link href="/pricing" className="text-ink-3 hover:text-ink text-sm font-syne transition-colors hidden sm:block">Pricing</Link>
+            <Link href="/pricing" className="text-ink-3 hover:text-ink text-sm font-syne transition-colors hidden sm:block">{t("bots_page.nav_pricing")}</Link>
             <Link href="/register"
               className="inline-flex items-center gap-2 bg-ink hover:bg-ink/80 text-white font-syne font-bold text-sm px-4 py-2 rounded-lg transition-colors">
-              Try free →
+              {t("bots_page.nav_try_free")}
             </Link>
           </div>
         </div>
@@ -513,22 +513,22 @@ function PublicLanding() {
           <Bot size={13} /> AI Medical Consultation
         </div>
         <h1 className="font-syne font-extrabold text-3xl sm:text-5xl text-ink mb-4 leading-tight">
-          Your AI medical consultant.<br className="hidden sm:block" /> On the web and in Telegram.
+          {t("bots_page.hero_h1")}
         </h1>
         <p className="text-ink-2 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          5 consultation modes — Medical Tutor, Clinical Cases, Differential Dx, Patient Mode, Second Opinion. Use it directly in your browser, or link your Telegram for on-the-go access.
+          {t("bots_page.hero_p")}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/register"
             className="inline-flex items-center justify-center gap-2 bg-ink hover:bg-ink/80 text-white font-syne font-bold px-8 py-4 rounded-xl text-base transition-colors">
-            Start consulting free →
+            {t("bots_page.hero_cta_primary")}
           </Link>
           <a href="https://t.me/Medmindpro_bot" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 border border-border text-ink-2 hover:border-ink hover:text-ink font-syne font-semibold px-8 py-4 rounded-xl text-base transition-colors">
-            <TgIcon /> Also in Telegram
+            <TgIcon /> {t("bots_page.hero_cta_tg")}
           </a>
         </div>
-        <p className="text-ink-3 text-xs mt-4 font-syne">Free · No credit card · 5 consultations/day on free plan</p>
+        <p className="text-ink-3 text-xs mt-4 font-syne">{t("bots_page.hero_free_note")}</p>
       </section>
 
       {/* Stats */}
@@ -546,8 +546,8 @@ function PublicLanding() {
       {/* Mode demos */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
         <div className="text-center mb-12">
-          <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-3">5 consultation modes</h2>
-          <p className="text-ink-3 text-sm max-w-xl mx-auto">Switch between modes at any time. Each has its own algorithms and response style.</p>
+          <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-3">{t("bots_page.modes_section_title")}</h2>
+          <p className="text-ink-3 text-sm max-w-xl mx-auto">{t("bots_page.modes_section_hint")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -578,9 +578,9 @@ function PublicLanding() {
             <span className="text-xl">⚖️</span>
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-syne font-semibold px-2 py-0.5 rounded-full border bg-yellow-500/10 border-yellow-500/30 text-yellow-600 dark:text-yellow-400 mb-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> Second Opinion
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> {t("bots_page.mode_second_label")}
               </div>
-              <p className="text-xs text-ink-3 font-serif">Review any treatment plan against current clinical guidelines.</p>
+              <p className="text-xs text-ink-3 font-serif">{t("bots_page.mode_second_promo")}</p>
             </div>
           </div>
           <div className="bg-[#17212B] p-4 grid sm:grid-cols-2 gap-3">
@@ -607,7 +607,7 @@ function PublicLanding() {
           <div className="text-center mt-10">
             <Link href="/register"
               className="inline-flex items-center gap-2 bg-ink hover:bg-ink/80 text-white font-syne font-bold px-8 py-4 rounded-xl text-base transition-colors">
-              Start for free →
+              {t("bots_page.modes_cta")}
             </Link>
           </div>
         </div>
@@ -621,13 +621,13 @@ function PublicLanding() {
               <TgIcon className="w-6 h-6 text-[#229ED9]" />
             </div>
             <div>
-              <div className="font-syne font-bold text-sm text-ink">Also available in Telegram</div>
-              <div className="font-serif text-xs text-ink-3">Link your account to use MedMind on mobile via @Medmindpro_bot</div>
+              <div className="font-syne font-bold text-sm text-ink">{t("bots_page.tg_also_available")}</div>
+              <div className="font-serif text-xs text-ink-3">{t("bots_page.tg_link_account")}</div>
             </div>
           </div>
           <a href="https://t.me/Medmindpro_bot" target="_blank" rel="noopener noreferrer"
             className="flex-shrink-0 inline-flex items-center gap-2 border border-[#229ED9]/50 hover:bg-[#229ED9]/10 text-[#229ED9] font-syne font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors">
-            <TgIcon /> Open @Medmindpro_bot
+            <TgIcon /> {t("bots_page.nav_open")} @Medmindpro_bot
           </a>
         </div>
       </section>
@@ -637,9 +637,15 @@ function PublicLanding() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link href="/" className="font-syne font-extrabold text-lg text-ink">Med<span className="text-red">Mind</span></Link>
           <div className="flex gap-5 flex-wrap justify-center">
-            {["/", "/pricing", "/articles", "/drugs", "/calculators"].map(href => (
-              <Link key={href} href={href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne capitalize">
-                {href === "/" ? "Home" : href.replace("/", "")}
+            {([
+              { href: "/",            label: t("bots_page.footer_home") as string },
+              { href: "/pricing",     label: t("bots_page.nav_pricing") as string },
+              { href: "/articles",    label: "Articles" },
+              { href: "/drugs",       label: "Drug DB" },
+              { href: "/calculators", label: "Calculators" },
+            ]).map(({ href, label }) => (
+              <Link key={href} href={href} className="text-ink-3 text-sm hover:text-ink transition-colors font-syne">
+                {label}
               </Link>
             ))}
           </div>
