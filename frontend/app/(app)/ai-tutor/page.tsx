@@ -656,7 +656,7 @@ export default function AiTutorPage() {
             </p>
           ) : (
             <p className="text-ink-3 font-serif text-xs mt-1.5">
-              Mode: <strong>{MODES.find((m) => m.value === mode)?.label}</strong> · AI may make mistakes — verify clinical decisions
+              {t("ai_tutor.mode_label")} <strong>{MODES.find((m) => m.value === mode)?.label}</strong> · {t("ai_tutor.disclaimer")}
             </p>
           )}
         </div>

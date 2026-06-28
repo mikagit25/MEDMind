@@ -37,10 +37,10 @@ type RequestStatus = "pending" | "approved" | "denied" | null;
 
 type Tab = "enrolled" | "discover" | "join";
 
-const DIFFICULTY_LABEL: Record<string, string> = {
-  beginner: "Beginner",
-  intermediate: "Intermediate",
-  advanced: "Advanced",
+const DIFFICULTY_LABEL_KEY: Record<string, string> = {
+  beginner: "courses.difficulty_beginner",
+  intermediate: "courses.difficulty_intermediate",
+  advanced: "courses.difficulty_advanced",
 };
 const DIFFICULTY_COLOR: Record<string, string> = {
   beginner:     "bg-green-light text-green",
@@ -58,6 +58,7 @@ function DiscoverCard({
   isEnrolled: boolean;
   onEnroll: (id: string, type: PublicCourse["enrollment_type"]) => Promise<void>;
 }) {
+  const t = useT();
   const [status, setStatus] = useState<"idle" | "loading" | "requested">(
     isEnrolled ? "idle" : "idle"
   );
@@ -102,14 +103,14 @@ function DiscoverCard({
             )}
             {course.difficulty && (
               <span className={`badge text-[10px] ${DIFFICULTY_COLOR[course.difficulty] ?? "bg-surface-2 text-ink-3"}`}>
-                {DIFFICULTY_LABEL[course.difficulty] ?? course.difficulty}
+                {t(DIFFICULTY_LABEL_KEY[course.difficulty] as any) || course.difficulty}
               </span>
             )}
             {course.enrollment_type === "open" && (
-              <span className="badge bg-green-light text-green text-[10px]">Free</span>
+              <span className="badge bg-green-light text-green text-[10px]">{t("courses.free_badge")}</span>
             )}
             {course.enrollment_type === "request" && (
-              <span className="badge bg-amber-light text-amber text-[10px]">By request</span>
+              <span className="badge bg-amber-light text-amber text-[10px]">{t("courses.by_request_badge")}</span>
             )}
           </div>
           <h3 className="font-syne font-bold text-sm text-ink leading-snug line-clamp-2">
@@ -142,7 +143,7 @@ function DiscoverCard({
             href={`/courses/${course.id}`}
             className="btn-primary text-xs px-4 py-2 w-full text-center block"
           >
-            Continue learning →
+            {t("courses.continue_learning")}
           </Link>
         ) : course.enrollment_type === "open" ? (
           <button
@@ -150,22 +151,22 @@ function DiscoverCard({
             disabled={status === "loading"}
             className="btn-primary text-xs px-4 py-2 w-full disabled:opacity-50"
           >
-            {status === "loading" ? "Enrolling…" : "Enroll free →"}
+            {status === "loading" ? t("courses.enrolling") : t("courses.enroll_free")}
           </button>
         ) : reqStatus === "pending" ? (
           <div className="text-xs font-syne text-amber text-center py-1">
-            ⏳ Access request sent — awaiting teacher approval
+            ⏳ {t("courses.access_pending")}
           </div>
         ) : reqStatus === "approved" ? (
           <Link href={`/courses/${course.id}`} className="btn-primary text-xs px-4 py-2 w-full text-center block">
-            Access granted — Start →
+            {t("courses.access_granted")}
           </Link>
         ) : showRequestForm ? (
           <div className="space-y-2">
             <textarea
               value={requestMsg}
               onChange={e => setRequestMsg(e.target.value)}
-              placeholder="Optional: why do you want to join this course?"
+              placeholder={t("courses.request_placeholder")}
               rows={2}
               className="w-full text-xs font-serif border border-border rounded-lg px-3 py-2 bg-bg text-ink focus:outline-none focus:border-ink resize-none"
             />
@@ -174,14 +175,14 @@ function DiscoverCard({
                 onClick={() => setShowRequestForm(false)}
                 className="btn-secondary text-xs px-3 py-1.5 flex-1"
               >
-                Cancel
+                {t("courses.cancel")}
               </button>
               <button
                 onClick={handleRequest}
                 disabled={submitting}
                 className="btn-primary text-xs px-3 py-1.5 flex-1 disabled:opacity-50"
               >
-                {submitting ? "Sending…" : "Send request"}
+                {submitting ? t("courses.sending") : t("courses.send_request")}
               </button>
             </div>
           </div>
@@ -190,7 +191,7 @@ function DiscoverCard({
             onClick={() => setShowRequestForm(true)}
             className="btn-secondary text-xs px-4 py-2 w-full"
           >
-            Request access →
+            {t("courses.request_access")}
           </button>
         )}
       </div>
@@ -200,6 +201,7 @@ function DiscoverCard({
 
 // ── Enrolled course card ───────────────────────────────────────────────────────
 function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (id: string) => void }) {
+  const t = useT();
   const pct = Math.round(course.overall_completion ?? 0);
   return (
     <div className="card flex flex-col gap-3 p-4 hover:border-ink-3 transition-all">
@@ -243,14 +245,14 @@ function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (i
           href={`/courses/${course.id}`}
           className="btn-primary text-xs px-4 py-1.5 flex-1 text-center"
         >
-          {pct >= 100 ? "Review →" : "Continue →"}
+          {pct >= 100 ? t("courses.review_arrow") : t("courses.continue_arrow")}
         </Link>
         <button
           onClick={() => onLeave(course.id)}
           className="text-xs font-syne text-ink-3 hover:text-red border border-border hover:border-red/30 rounded-lg px-3 py-1.5 transition-colors"
-          title="Leave course"
+          title={t("courses.leave")}
         >
-          Leave
+          {t("courses.leave")}
         </button>
       </div>
     </div>
@@ -367,8 +369,8 @@ export default function MyCoursesPage() {
           <h1 className="font-syne font-black text-xl sm:text-2xl text-ink">{t("courses.title") || "Courses"}</h1>
           <p className="font-serif text-xs text-ink-3 mt-0.5">
             {enrolled.length > 0
-              ? `${enrolled.length} enrolled · ${publicCourses.length} available`
-              : `${publicCourses.length} courses available — enroll for free`}
+              ? t("courses.enrolled_and_available").replace("{n}", String(enrolled.length)).replace("{m}", String(publicCourses.length))
+              : t("courses.available_free").replace("{n}", String(publicCourses.length))}
           </p>
         </div>
 
@@ -444,7 +446,7 @@ export default function MyCoursesPage() {
                             : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                         }`}
                       >
-                        {d === "all" ? (t("courses.all_levels") || "All levels") : DIFFICULTY_LABEL[d]}
+                        {d === "all" ? (t("courses.all_levels") || "All levels") : (t(DIFFICULTY_LABEL_KEY[d] as any) || d)}
                       </button>
                     ))}
                   </div>

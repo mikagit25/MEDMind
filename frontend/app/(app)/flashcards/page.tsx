@@ -157,7 +157,10 @@ function FlashcardsInner() {
                   className="card text-left hover:border-ink-3 transition-colors"
                 >
                   <div className="font-syne font-bold text-sm text-ink">{spec.name}</div>
-                  <div className="font-serif text-ink-3 text-xs mt-0.5">{spec.module_count ?? 0} modules</div>
+                  <div className="font-serif text-ink-3 text-xs mt-0.5">
+                    {spec.module_count ?? 0}{" "}
+                    {(spec.module_count ?? 0) === 1 ? t("courses.modules_count") : t("courses.modules_count_plural")}
+                  </div>
                 </button>
               ))}
             </div>

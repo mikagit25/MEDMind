@@ -29,7 +29,14 @@ export default function QuizListPage() {
   // Load specialties + progress on mount
   useEffect(() => {
     contentApi.getSpecialties().then((data: any) => {
-      setSpecialties(data ?? []);
+      const seen = new Set<string>();
+      const deduped = (data ?? []).filter((s: any) => {
+        const key = (s.name ?? "").toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setSpecialties(deduped);
     }).catch(() => {});
 
     progressApi.getModulesProgress?.().then((data: any) => {
@@ -63,15 +70,17 @@ export default function QuizListPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 bg-bg-2 p-1 rounded-lg w-fit">
-        {(["browse", "history"] as const).map((t) => (
+        {(["browse", "history"] as const).map((tabId) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
+            key={tabId}
+            onClick={() => setTab(tabId)}
             className={`px-4 py-1.5 rounded font-syne font-semibold text-sm transition-all capitalize ${
-              tab === t ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
+              tab === tabId ? "bg-white shadow text-ink" : "text-ink-3 hover:text-ink"
             }`}
           >
-            {t === "browse" ? "Browse Quizzes" : `History${historyModules.length ? ` (${historyModules.length})` : ""}`}
+            {tabId === "browse"
+              ? t("quiz.browse_tab")
+              : `${t("quiz.history_tab")}${historyModules.length ? ` (${historyModules.length})` : ""}`}
           </button>
         ))}
       </div>
@@ -83,7 +92,7 @@ export default function QuizListPage() {
 
           {/* Specialty selector */}
           <div>
-            <h2 className="font-syne font-bold text-sm text-ink mb-3">Quiz by Module</h2>
+            <h2 className="font-syne font-bold text-sm text-ink mb-3">{t("quiz.by_module_title")}</h2>
             <div className="flex flex-wrap gap-2 mb-4">
               {specialties.map((s) => (
                 <button
@@ -106,11 +115,11 @@ export default function QuizListPage() {
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Filter modules…"
+                  placeholder={t("quiz.filter_modules")}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink mb-3"
                 />
                 {loadingModules ? (
-                  <p className="text-center font-serif text-ink-3 text-sm py-8">Loading modules…</p>
+                  <p className="text-center font-serif text-ink-3 text-sm py-8">{t("quiz.loading_modules")}</p>
                 ) : (
                   <div className="grid gap-2">
                     {filtered.map((m) => {
@@ -125,7 +134,7 @@ export default function QuizListPage() {
                       );
                     })}
                     {filtered.length === 0 && !loadingModules && (
-                      <p className="text-center font-serif text-ink-3 text-sm py-6">No modules found.</p>
+                      <p className="text-center font-serif text-ink-3 text-sm py-6">{t("quiz.no_modules")}</p>
                     )}
                   </div>
                 )}
@@ -134,7 +143,7 @@ export default function QuizListPage() {
 
             {!selectedSpecialty && (
               <p className="text-center font-serif text-ink-3 text-sm py-8">
-                Select a specialty to browse available quizzes.
+                {t("quiz.select_specialty")}
               </p>
             )}
           </div>
@@ -146,13 +155,13 @@ export default function QuizListPage() {
           {historyModules.length === 0 ? (
             <div className="card p-10 text-center">
               <div className="text-4xl mb-3">📝</div>
-              <p className="font-syne font-bold text-sm text-ink">No quiz history yet</p>
-              <p className="font-serif text-ink-3 text-xs mt-1">Complete a quiz to see your results here</p>
+              <p className="font-syne font-bold text-sm text-ink">{t("quiz.no_history")}</p>
+              <p className="font-serif text-ink-3 text-xs mt-1">{t("quiz.no_history_desc")}</p>
               <button
                 onClick={() => setTab("browse")}
                 className="btn-primary mt-4 text-sm"
               >
-                Browse Quizzes
+                {t("quiz.browse_tab")}
               </button>
             </div>
           ) : (
@@ -177,6 +186,7 @@ export default function QuizListPage() {
 
 function AIQuizCard() {
   const router = useRouter();
+  const t = useT();
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -196,9 +206,9 @@ function AIQuizCard() {
       <div className="flex items-start gap-3">
         <span className="text-2xl">✨</span>
         <div className="flex-1">
-          <div className="font-syne font-bold text-sm text-ink mb-1">AI Quick Quiz</div>
+          <div className="font-syne font-bold text-sm text-ink mb-1">{t("quiz.ai_quiz_title")}</div>
           <p className="font-serif text-ink-3 text-xs mb-3">
-            Generate a custom quiz on any topic using AI
+            {t("quiz.ai_quiz_desc")}
           </p>
           <div className="flex gap-2">
             <input
@@ -206,7 +216,7 @@ function AIQuizCard() {
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && start()}
-              placeholder="e.g. Heart failure, Antibiotics, Diabetes…"
+              placeholder={t("quiz.ai_quiz_placeholder")}
               className="flex-1 px-3 py-2 rounded border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink"
             />
             <button
@@ -214,7 +224,7 @@ function AIQuizCard() {
               disabled={!topic.trim() || loading}
               className="btn-primary text-sm disabled:opacity-40"
             >
-              {loading ? "…" : "Start"}
+              {loading ? "…" : t("quiz.start_btn")}
             </button>
           </div>
         </div>
@@ -234,6 +244,7 @@ function ModuleQuizCard({
   progress?: ModuleProgress;
   onStart: () => void;
 }) {
+  const t = useT();
   const hasHistory = progress && progress.mcq_attempts > 0;
   const score = hasHistory ? Math.round(progress.mcq_score) : null;
   const scoreColor = score === null ? "" : score >= 80 ? "text-green" : score >= 60 ? "text-amber" : "text-red";
@@ -246,7 +257,7 @@ function ModuleQuizCard({
         {hasHistory && (
           <div className="flex items-center gap-3 mt-1.5">
             <span className={`font-syne font-bold text-xs ${scoreColor}`}>
-              Best: {score}%
+              {t("quiz.best")} {score}%
             </span>
             <span className="font-serif text-ink-3 text-xs">
               {progress.mcq_attempts} attempt{progress.mcq_attempts !== 1 ? "s" : ""}
@@ -258,7 +269,7 @@ function ModuleQuizCard({
         onClick={onStart}
         className="btn-primary text-xs flex-shrink-0"
       >
-        {hasHistory ? "Retry" : "Start Quiz"}
+        {hasHistory ? t("quiz.retry") : t("quiz.start_quiz")}
       </button>
     </div>
   );
@@ -267,6 +278,7 @@ function ModuleQuizCard({
 // ── History Summary ───────────────────────────────────────────────────────────
 
 function HistorySummary({ history }: { history: ModuleProgress[] }) {
+  const t = useT();
   const totalAttempts = history.reduce((s, p) => s + p.mcq_attempts, 0);
   const avgScore = history.length
     ? Math.round(history.reduce((s, p) => s + p.mcq_score, 0) / history.length)
@@ -275,9 +287,9 @@ function HistorySummary({ history }: { history: ModuleProgress[] }) {
 
   return (
     <div className="grid grid-cols-3 gap-3 mb-2">
-      <StatCard label="Total Attempts" value={String(totalAttempts)} />
-      <StatCard label="Avg Score" value={`${avgScore}%`} color={avgScore >= 80 ? "text-green" : avgScore >= 60 ? "text-amber" : "text-red"} />
-      <StatCard label="Passed (≥80%)" value={`${passed}/${history.length}`} />
+      <StatCard label={t("quiz.total_attempts")} value={String(totalAttempts)} />
+      <StatCard label={t("quiz.avg_score")} value={`${avgScore}%`} color={avgScore >= 80 ? "text-green" : avgScore >= 60 ? "text-amber" : "text-red"} />
+      <StatCard label={t("quiz.passed_80")} value={`${passed}/${history.length}`} />
     </div>
   );
 }
@@ -294,6 +306,7 @@ function StatCard({ label, value, color = "text-ink" }: { label: string; value: 
 // ── History Card ──────────────────────────────────────────────────────────────
 
 function HistoryCard({ entry, onRetry }: { entry: ModuleProgress; onRetry: () => void }) {
+  const t = useT();
   const score = Math.round(entry.mcq_score);
   const scoreColor = score >= 80 ? "text-green" : score >= 60 ? "text-amber" : "text-red";
   const scoreBg = score >= 80 ? "bg-green-light" : score >= 60 ? "bg-amber-light" : "bg-red-light";
@@ -312,7 +325,7 @@ function HistoryCard({ entry, onRetry }: { entry: ModuleProgress; onRetry: () =>
             {entry.mcq_attempts} attempt{entry.mcq_attempts !== 1 ? "s" : ""}
           </span>
           {entry.completion_percent >= 100 && (
-            <span className="font-serif text-green text-xs">✓ Module complete</span>
+            <span className="font-serif text-green text-xs">✓ {t("quiz.module_complete")}</span>
           )}
         </div>
         {/* Score bar */}
@@ -324,7 +337,7 @@ function HistoryCard({ entry, onRetry }: { entry: ModuleProgress; onRetry: () =>
         </div>
       </div>
       <button onClick={onRetry} className="text-ink-3 hover:text-ink font-syne text-xs flex-shrink-0">
-        Retry →
+        {t("quiz.retry_arrow")}
       </button>
     </div>
   );

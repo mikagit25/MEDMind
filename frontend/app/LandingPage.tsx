@@ -982,10 +982,10 @@ export default function LandingPage({
           {/* Trust links */}
           <div className="flex flex-wrap gap-4 pb-5 border-b border-border">
             {[
-              { href: "/about",                label: "About" },
-              { href: "/editorial-policy",     label: "Editorial Policy" },
-              { href: "/medical-disclaimer",   label: "Medical Disclaimer" },
-              { href: "/contact",              label: "Contact" },
+              { href: "/about",                label: t("landing.footer_about") },
+              { href: "/editorial-policy",     label: t("landing.footer_editorial") },
+              { href: "/medical-disclaimer",   label: t("landing.footer_disclaimer") },
+              { href: "/contact",              label: t("landing.footer_contact") },
             ].map(item => (
               <Link key={item.href} href={item.href} className="text-ink-3 text-xs hover:text-ink transition-colors font-syne underline">
                 {item.label}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useT } from "@/lib/i18n";
-import { aiApi } from "@/lib/api";
+import { aiApi, contentApi } from "@/lib/api";
 import { MessageSquare, ChevronRight, X, User, Bot, Download } from "lucide-react";
 import { API_URL } from "@/lib/api";
 
@@ -78,7 +78,7 @@ function MessageBubble({ msg }: { msg: Message }) {
   );
 }
 
-function ConversationModal({ conv, onClose }: { conv: Conversation; onClose: () => void }) {
+function ConversationModal({ conv, onClose, specialtyMap }: { conv: Conversation; onClose: () => void; specialtyMap: Record<string, string> }) {
   const t = useT();
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
@@ -101,7 +101,7 @@ function ConversationModal({ conv, onClose }: { conv: Conversation; onClose: () 
             </p>
             <p className="text-xs text-ink-3">
               {MODE_LABEL[conv.mode] ?? conv.mode}
-              {conv.specialty ? ` · ${conv.specialty}` : ""}
+              {conv.specialty ? ` · ${specialtyMap[conv.specialty] ?? specialtyMap[conv.specialty?.toLowerCase()] ?? conv.specialty}` : ""}
               {" · "}{formatDate(conv.updated_at)}
             </p>
           </div>
@@ -146,12 +146,23 @@ export default function AIHistoryPage() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Conversation | null>(null);
+  const [specialtyMap, setSpecialtyMap] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await aiApi.getConversations();
+      const [data, specs] = await Promise.all([
+        aiApi.getConversations(),
+        contentApi.getSpecialties().catch(() => []),
+      ]);
       setConversations(data);
+      const map: Record<string, string> = {};
+      for (const s of (specs as any[])) {
+        if (s.code) map[s.code] = s.name;
+        if (s.id) map[s.id] = s.name;
+        if (s.name) map[s.name.toLowerCase()] = s.name;
+      }
+      setSpecialtyMap(map);
     } catch {
       setConversations([]);
     } finally {
@@ -206,7 +217,7 @@ export default function AIHistoryPage() {
                   </p>
                   <p className="text-xs text-ink-3 mt-0.5">
                     {MODE_LABEL[conv.mode] ?? conv.mode}
-                    {conv.specialty ? ` · ${conv.specialty}` : ""}
+                    {conv.specialty ? ` · ${specialtyMap[conv.specialty] ?? specialtyMap[conv.specialty?.toLowerCase()] ?? conv.specialty}` : ""}
                     {" · "}{formatDate(conv.updated_at)}
                   </p>
                 </div>
@@ -218,7 +229,7 @@ export default function AIHistoryPage() {
       </div>
 
       {selected && (
-        <ConversationModal conv={selected} onClose={() => setSelected(null)} />
+        <ConversationModal conv={selected} onClose={() => setSelected(null)} specialtyMap={specialtyMap} />
       )}
     </>
   );

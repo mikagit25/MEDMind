@@ -52,7 +52,7 @@ export default function CalculatorsPage() {
             <Link href="/calculators" className="font-syne font-semibold text-sm text-ink hover:text-red transition-colors px-3 py-2">
               {locale === "ru" ? "Калькуляторы" : locale === "ar" ? "آلات حاسبة" : locale === "de" ? "Rechner" : locale === "fr" ? "Calculateurs" : locale === "es" ? "Calculadoras" : locale === "tr" ? "Hesap makineleri" : "Calculators"}
             </Link>
-            <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">
+            <Link href="/symptoms" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2 whitespace-nowrap">
               {locale === "ru" ? "Чекер симптомов" : locale === "ar" ? "فاحص الأعراض" : locale === "de" ? "Symptom-Checker" : locale === "fr" ? "Symptômes" : locale === "es" ? "Síntomas" : locale === "tr" ? "Semptomlar" : "Symptoms"}
             </Link>
             <Link href="/news" className="font-syne font-semibold text-sm text-ink-2 hover:text-ink transition-colors px-3 py-2">

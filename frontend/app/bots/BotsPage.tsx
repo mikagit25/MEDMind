@@ -62,6 +62,7 @@ function TelegramPanel({ user, onUnlink }: {
   user: { telegram_chat_id?: string | null; subscription_tier: string };
   onUnlink: () => void;
 }) {
+  const t = useT();
   const isLinked = Boolean(user.telegram_chat_id);
   const [open, setOpen] = useState(false);
   const [state, setState] = useState<"idle" | "loading" | "link_ready" | "unlinking">("idle");
@@ -99,8 +100,8 @@ function TelegramPanel({ user, onUnlink }: {
         <span className="flex-1 text-left">
           Telegram{" "}
           {isLinked
-            ? <span className="text-green font-semibold">· Connected</span>
-            : <span className="text-ink-3">· Optional — use the consultation below without it</span>}
+            ? <span className="text-green font-semibold">· {t("bots_page.tg_connected")}</span>
+            : <span className="text-ink-3">· {t("bots_page.tg_optional")}</span>}
         </span>
         {open ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
       </button>
@@ -654,6 +655,7 @@ function PublicLanding() {
 export default function BotsPage() {
   const { isAuthenticated, user, _hasHydrated, updateUser } = useAuthStore();
   const { darkMode } = useUIStore();
+  const t = useT();
 
   useEffect(() => {
     if (isAuthenticated) document.documentElement.classList.toggle("dark", darkMode);
@@ -672,9 +674,9 @@ export default function BotsPage() {
       {/* Page header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-border flex-shrink-0">
         <Bot size={18} className="text-ink" />
-        <h1 className="font-syne font-black text-base text-ink">AI Consultation</h1>
+        <h1 className="font-syne font-black text-base text-ink">{t("bots_page.consultation_title")}</h1>
         <span className="ml-auto text-[10px] font-syne text-ink-3 hidden sm:block">
-          Conversations saved to{" "}
+          {t("bots_page.saved_to_history")}{" "}
           <Link href="/ai-history" className="underline underline-offset-2 hover:text-ink transition-colors">AI history</Link>
         </span>
       </div>
