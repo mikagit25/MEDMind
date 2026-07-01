@@ -362,6 +362,11 @@ const es: Translations = {
     ai_analysis: "Análisis IA",
     ai_interpreting: "Analizando imagen con Claude Vision…",
     ai_disclaimer: "⚠️ La interpretación IA es solo para fines educativos. Siempre verifica con un clínico calificado.",
+    lay_mode_title: "Modo lenguaje simple.",
+    lay_mode_desc: "Resumen educativo para todos, no solo profesionales médicos. No reemplaza el consejo de un médico.",
+    lay_plain_language: "En lenguaje simple",
+    lay_key_terms: "Términos clave explicados",
+    lay_footer: "⚕️ Esta información es solo para fines educativos y no reemplaza el consejo médico profesional. Siempre consulta a un profesional de salud calificado.",
   },
 
   settings: {
@@ -666,6 +671,10 @@ const es: Translations = {
     diff_beginner: "Principiante",
     diff_intermediate: "Intermedio",
     diff_advanced: "Avanzado",
+    show_answer: "Mostrar respuesta",
+    management: "Manejo",
+    practice_history: "Practica la anamnesis con un paciente IA",
+    mode_label: "Modo",
   },
 
   courses: {
@@ -1789,6 +1798,11 @@ const es: Translations = {
     tg_ai_history: "historial de IA",
     nav_try_free: "Prueba gratis →",
     footer_home: "Inicio",
+    starters_tutor: ["Explica el sistema SRAA", "Fisiopatología de la insuficiencia cardíaca", "¿Cómo funcionan los betabloqueantes?"],
+    starters_case: ["Empieza un caso de cardiología", "Dame un caso de neumonía", "Presenta una emergencia neurológica"],
+    starters_differential: ["Mujer 35 años, dolor FID, fiebre, 6 semanas de amenorrea", "Dolor torácico + disnea en hombre 60 años", "Confusión en paciente anciano"],
+    starters_patient: ["Mi médico dijo que tengo diabetes tipo 2", "¿Qué es la fibrilación auricular?", "Explícame mi enfermedad renal en términos simples"],
+    starters_second_opinion: ["Bisoprolol 10mg para IC-FEr FE 30% — ¿es correcto?", "¿Es segura la metformina con ERC estadio 3?"],
   },
 
 

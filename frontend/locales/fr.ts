@@ -362,6 +362,11 @@ const fr: Translations = {
     ai_analysis: "Analyse IA",
     ai_interpreting: "Analyse de l'image avec Claude Vision…",
     ai_disclaimer: "⚠️ L'interprétation IA est à des fins éducatives uniquement. Vérifiez toujours avec un clinicien qualifié.",
+    lay_mode_title: "Mode langue simple.",
+    lay_mode_desc: "Un résumé éducatif pour tout le monde, pas seulement les professionnels de santé. Ne remplace pas les conseils d'un médecin.",
+    lay_plain_language: "En langage simple",
+    lay_key_terms: "Termes clés expliqués",
+    lay_footer: "⚕️ Ces informations sont à des fins éducatives uniquement et ne remplacent pas les conseils médicaux professionnels. Consultez toujours un professionnel de santé qualifié.",
   },
 
   settings: {
@@ -666,6 +671,10 @@ const fr: Translations = {
     diff_beginner: "Débutant",
     diff_intermediate: "Intermédiaire",
     diff_advanced: "Avancé",
+    show_answer: "Afficher la réponse",
+    management: "Prise en charge",
+    practice_history: "Entraînez-vous à recueillir l'anamnèse avec un patient IA",
+    mode_label: "Mode",
   },
 
   courses: {
@@ -1789,6 +1798,11 @@ const fr: Translations = {
     tg_ai_history: "historique IA",
     nav_try_free: "Essai gratuit →",
     footer_home: "Accueil",
+    starters_tutor: ["Explique le système SRAA", "Physiopathologie de l'insuffisance cardiaque", "Comment fonctionnent les bêtabloquants ?"],
+    starters_case: ["Commence un cas de cardiologie", "Donne-moi un cas de pneumonie", "Présente une urgence neurologique"],
+    starters_differential: ["Femme 35 ans, douleur FID, fièvre, aménorrhée 6 semaines", "Douleur thoracique + dyspnée chez homme 60 ans", "Confusion chez un patient âgé"],
+    starters_patient: ["Mon médecin dit que j'ai un diabète de type 2", "Qu'est-ce que la fibrillation auriculaire ?", "Expliquez-moi ma maladie rénale simplement"],
+    starters_second_opinion: ["Bisoprolol 10 mg pour HFrEF FE 30% — est-ce correct ?", "La metformine est-elle sûre avec une IRC stade 3 ?"],
   },
 
 

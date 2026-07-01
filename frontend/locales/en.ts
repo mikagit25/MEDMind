@@ -369,6 +369,11 @@ const en = {
     ai_analysis: "AI Analysis",
     ai_interpreting: "Analysing image with Claude Vision…",
     ai_disclaimer: "⚠️ AI interpretation is for educational purposes only. Always verify with a qualified clinician.",
+    lay_mode_title: "Simple language mode.",
+    lay_mode_desc: "This is an educational summary written for everyone, not just medical professionals. It does not replace advice from a doctor or healthcare provider.",
+    lay_plain_language: "In Plain Language",
+    lay_key_terms: "Key Terms Explained",
+    lay_footer: "⚕️ This information is for educational purposes only and does not replace professional medical advice. Always consult a qualified healthcare provider.",
   },
 
   // ── Settings ─────────────────────────────────────────────────────────────────
@@ -682,6 +687,10 @@ const en = {
     diff_beginner: "Beginner",
     diff_intermediate: "Intermediate",
     diff_advanced: "Advanced",
+    show_answer: "Show answer",
+    management: "Management",
+    practice_history: "Practice history-taking with an AI patient",
+    mode_label: "Mode",
   },
 
   courses: {
@@ -1906,6 +1915,11 @@ const en = {
     tg_ai_history: "AI history",
     nav_try_free: "Try free →",
     footer_home: "Home",
+    starters_tutor: ["Explain the RAAS system", "Pathophysiology of heart failure", "How do beta-blockers work?"],
+    starters_case: ["Start a cardiology case", "Give me a pneumonia case", "Present a neurology emergency"],
+    starters_differential: ["35F, RLQ pain, fever, 6 weeks amenorrhea", "Chest pain + dyspnea in 60M", "Confusion in elderly patient"],
+    starters_patient: ["My doctor said I have type 2 diabetes", "What is atrial fibrillation?", "Explain my kidney disease in simple terms"],
+    starters_second_opinion: ["Bisoprolol 10mg for HFrEF EF 30% — is this correct?", "Is metformin safe with my stage 3 CKD?"],
   },
 
   how_it_works_page: {

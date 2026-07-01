@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib/api";
 import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
-import { useI18n } from "@/lib/i18n";
+import { useI18n, useT } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
 
 type LessonContent = {
@@ -29,6 +29,7 @@ function ImageBlockRenderer({
 }: {
   url: string; caption?: string; modality?: string; imageId?: string;
 }) {
+  const t = useT();
   const [lightbox, setLightbox] = useState(false);
   const [analysis, setAnalysis] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
@@ -87,16 +88,16 @@ function ImageBlockRenderer({
         {showAnalysis && (
           <div className="mt-3 rounded-xl border border-blue/20 bg-blue-light/20 p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-syne font-bold text-xs text-blue uppercase tracking-wide">AI Interpretation</span>
+              <span className="font-syne font-bold text-xs text-blue uppercase tracking-wide">{t("modules.ai_analysis") as string || "AI Interpretation"}</span>
               <button onClick={() => setShowAnalysis(false)} className="text-ink-3 text-xs hover:text-ink">✕</button>
             </div>
             {analyzing ? (
-              <div className="font-serif text-sm text-ink-3 animate-pulse">Analysing image with Claude Vision…</div>
+              <div className="font-serif text-sm text-ink-3 animate-pulse">{t("modules.ai_interpreting") as string || "Analysing image with Claude Vision…"}</div>
             ) : (
               <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{analysis}</p>
             )}
             <p className="font-serif text-xs text-ink-3 mt-3 italic">
-              ⚠️ AI interpretation is for educational purposes only. Always verify with a qualified clinician.
+              {t("modules.ai_disclaimer") as string || "⚠️ AI interpretation is for educational purposes only. Always verify with a qualified clinician."}
             </p>
           </div>
         )}
@@ -375,21 +376,21 @@ function LessonContentRenderer({ content }: { content: LessonContent | string })
 
 // ── Plain-language (Lay) View ─────────────────────────────────────────────────
 function LayView({ data }: { data: { lay_summary?: string | null; lay_glossary?: GlossaryTerm[] | null } }) {
+  const t = useT();
   return (
     <div className="space-y-5">
       {/* Disclaimer banner */}
       <div className="flex items-start gap-2 p-3 rounded-lg bg-green-light border border-green/20">
         <span className="text-green text-base flex-shrink-0">ℹ</span>
         <p className="font-serif text-xs text-green leading-relaxed">
-          <strong>Simple language mode.</strong> This is an educational summary written for everyone, not just medical professionals.
-          It does not replace advice from a doctor or healthcare provider.
+          <strong>{t("modules.lay_mode_title") as string || "Simple language mode."}</strong> {t("modules.lay_mode_desc") as string || "This is an educational summary written for everyone, not just medical professionals. It does not replace advice from a doctor or healthcare provider."}
         </p>
       </div>
 
       {/* Summary */}
       {data.lay_summary && (
         <div className="card p-5">
-          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">In Plain Language</div>
+          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">{t("modules.lay_plain_language") as string || "In Plain Language"}</div>
           <p className="font-serif text-sm text-ink leading-relaxed whitespace-pre-wrap">{data.lay_summary}</p>
         </div>
       )}
@@ -397,7 +398,7 @@ function LayView({ data }: { data: { lay_summary?: string | null; lay_glossary?:
       {/* Glossary */}
       {data.lay_glossary && data.lay_glossary.length > 0 && (
         <div className="card p-5">
-          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">Key Terms Explained</div>
+          <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">{t("modules.lay_key_terms") as string || "Key Terms Explained"}</div>
           <div className="space-y-3">
             {data.lay_glossary.map((item, i) => (
               <div key={i} className="flex gap-3 py-2 border-b border-border last:border-0">
@@ -411,8 +412,7 @@ function LayView({ data }: { data: { lay_summary?: string | null; lay_glossary?:
 
       {/* Disclaimer footer */}
       <p className="font-serif text-xs text-ink-3 text-center italic">
-        ⚕️ This information is for educational purposes only and does not replace professional medical advice.
-        Always consult a qualified healthcare provider.
+        {t("modules.lay_footer") as string || "⚕️ This information is for educational purposes only and does not replace professional medical advice. Always consult a qualified healthcare provider."}
       </p>
     </div>
   );

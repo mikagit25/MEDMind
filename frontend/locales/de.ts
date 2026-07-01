@@ -362,6 +362,11 @@ const de: Translations = {
     ai_analysis: "KI-Analyse",
     ai_interpreting: "Bild wird mit Claude Vision analysiert…",
     ai_disclaimer: "⚠️ KI-Interpretation nur zu Bildungszwecken. Immer mit qualifiziertem Kliniker abgleichen.",
+    lay_mode_title: "Modus einfache Sprache.",
+    lay_mode_desc: "Eine Bildungszusammenfassung für alle, nicht nur für medizinische Fachkräfte. Ersetzt keinen Arztrat.",
+    lay_plain_language: "In einfacher Sprache",
+    lay_key_terms: "Schlüsselbegriffe erklärt",
+    lay_footer: "⚕️ Diese Informationen dienen nur zu Bildungszwecken und ersetzen keinen professionellen medizinischen Rat. Konsultieren Sie immer einen qualifizierten Arzt.",
   },
 
   settings: {
@@ -666,6 +671,10 @@ const de: Translations = {
     diff_beginner: "Anfänger",
     diff_intermediate: "Mittelstufe",
     diff_advanced: "Fortgeschritten",
+    show_answer: "Antwort anzeigen",
+    management: "Behandlung",
+    practice_history: "Üben Sie die Anamneseerhebung mit einem KI-Patienten",
+    mode_label: "Modus",
   },
 
   courses: {
@@ -1789,6 +1798,11 @@ const de: Translations = {
     tg_ai_history: "KI-Verlauf",
     nav_try_free: "Kostenlos testen →",
     footer_home: "Startseite",
+    starters_tutor: ["Erkläre das RAAS-System", "Pathophysiologie der Herzinsuffizienz", "Wie wirken Betablocker?"],
+    starters_case: ["Starte einen Kardiologiefall", "Gib mir einen Pneumoniefall", "Präsentiere einen neurologischen Notfall"],
+    starters_differential: ["Frau 35J, rechter Unterbauch, Fieber, 6 Wochen Amenorrhoe", "Brustschmerz + Dyspnoe bei 60-jährigem Mann", "Verwirrtheit beim älteren Patienten"],
+    starters_patient: ["Mein Arzt sagt, ich habe Typ-2-Diabetes", "Was ist Vorhofflimmern?", "Erkläre meine Nierenerkrankung einfach"],
+    starters_second_opinion: ["Bisoprolol 10mg bei HFrEF EF 30% — ist das korrekt?", "Ist Metformin bei CKD Stadium 3 sicher?"],
   },
 
 

@@ -175,6 +175,13 @@ function ConsultationChat({ mode, modeInfo }: { mode: ModeId; modeInfo: { emoji:
   const { locale } = useI18n();
   const t = useT();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const STARTERS_I18N: Record<ModeId, string[]> = {
+    tutor:          (t("bots_page.starters_tutor") as unknown as string[]) || STARTERS.tutor,
+    case:           (t("bots_page.starters_case") as unknown as string[]) || STARTERS.case,
+    differential:   (t("bots_page.starters_differential") as unknown as string[]) || STARTERS.differential,
+    patient:        (t("bots_page.starters_patient") as unknown as string[]) || STARTERS.patient,
+    second_opinion: (t("bots_page.starters_second_opinion") as unknown as string[]) || STARTERS.second_opinion,
+  };
   const inputRef = useRef<HTMLTextAreaElement>(null);;
 
   useEffect(() => { setMessages([]); setInput(""); }, [mode]);
@@ -286,7 +293,7 @@ function ConsultationChat({ mode, modeInfo }: { mode: ModeId; modeInfo: { emoji:
             <h2 className="font-syne font-bold text-base text-ink mb-1">{modeInfo.label}</h2>
             <p className="text-ink-3 text-sm max-w-xs leading-relaxed mb-8">{modeInfo.desc}</p>
             <div className="flex flex-wrap gap-2 justify-center max-w-md">
-              {STARTERS[mode].map(s => (
+              {STARTERS_I18N[mode].map(s => (
                 <button key={s} onClick={() => send(s)}
                   className="text-xs bg-surface border border-border hover:border-ink-3 text-ink-2 hover:text-ink font-syne px-3 py-1.5 rounded-lg transition-colors text-left">
                   {s}

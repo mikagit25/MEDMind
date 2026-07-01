@@ -538,10 +538,10 @@ function CasesInner() {
         {/* Management & teaching points for legacy */}
         {!hasFSM && selected.management?.length && !feedback && (
           <details className="mt-4">
-            <summary className="font-syne text-sm text-ink-3 cursor-pointer hover:text-ink">Show answer</summary>
+            <summary className="font-syne text-sm text-ink-3 cursor-pointer hover:text-ink">{t("cases.show_answer") as string || "Show answer"}</summary>
             <div className="mt-3 bg-surface border border-border rounded-lg p-4 space-y-3">
               <div>
-                <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-1">Management</div>
+                <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-1">{t("cases.management") as string || "Management"}</div>
                 <ul className="space-y-1">
                   {selected.management.map((m, i) => (
                     <li key={i} className="text-sm text-ink flex items-start gap-2">
@@ -569,11 +569,11 @@ function CasesInner() {
         {/* Virtual patient link */}
         <div className="mt-6 p-4 bg-surface border border-border rounded-lg flex items-center justify-between">
           <div>
-            <div className="font-syne font-bold text-sm text-ink">{t("cases.virtual_patient") as string || "Virtual Patient"} Mode</div>
-            <div className="text-xs text-ink-3 mt-0.5">Practice history-taking with an AI patient</div>
+            <div className="font-syne font-bold text-sm text-ink">{t("cases.virtual_patient") as string || "Virtual Patient"} {t("cases.mode_label") as string || "Mode"}</div>
+            <div className="text-xs text-ink-3 mt-0.5">{t("cases.practice_history") as string || "Practice history-taking with an AI patient"}</div>
           </div>
           <Link href="/simulation" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
-            Start
+            {t("modules.start") as string || "Start"}
           </Link>
         </div>
       </div>
@@ -609,7 +609,7 @@ function CasesInner() {
         >
           <option value="">{t("cases.all_difficulties") as string || "All levels"}</option>
           {["beginner","intermediate","advanced"].map(d => (
-            <option key={d} value={d}>{d}</option>
+            <option key={d} value={d}>{DIFF_LABEL[d] ?? d}</option>
           ))}
         </select>
         <select

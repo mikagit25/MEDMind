@@ -362,6 +362,11 @@ const tr: Translations = {
     ai_analysis: "YZ Analizi",
     ai_interpreting: "Claude Vision ile analiz ediliyor…",
     ai_disclaimer: "⚠️ YZ yorumu yalnızca eğitim amaçlıdır. Her zaman nitelikli bir klinisyenle doğrulayın.",
+    lay_mode_title: "Basit dil modu.",
+    lay_mode_desc: "Yalnızca tıp profesyonelleri için değil, herkes için hazırlanmış eğitim özeti. Doktor tavsiyesinin yerini tutmaz.",
+    lay_plain_language: "Basit dilde",
+    lay_key_terms: "Temel terimler açıklandı",
+    lay_footer: "⚕️ Bu bilgiler yalnızca eğitim amaçlıdır ve profesyonel tıbbi tavsiyenin yerini tutmaz. Her zaman nitelikli bir sağlık uzmanına başvurun.",
   },
 
   settings: {
@@ -658,6 +663,10 @@ const tr: Translations = {
     diff_beginner: "Başlangıç",
     diff_intermediate: "Orta",
     diff_advanced: "İleri",
+    show_answer: "Cevabı göster",
+    management: "Tedavi",
+    practice_history: "Bir YZ hastasıyla anamnez almayı pratiği yapın",
+    mode_label: "Mod",
   },
 
   courses: {
@@ -1774,6 +1783,11 @@ const tr: Translations = {
     tg_ai_history: "yapay zeka geçmişi",
     nav_try_free: "Ücretsiz dene →",
     footer_home: "Anasayfa",
+    starters_tutor: ["RAAS sistemini açıkla", "Kalp yetmezliğinin patofizyolojisi", "Beta-blokerler nasıl çalışır?"],
+    starters_case: ["Bir kardiyoloji vakası başlat", "Bana bir pnömoni vakası ver", "Bir nöroloji acilini sun"],
+    starters_differential: ["35 yaş kadın, sağ alt kadran ağrı, ateş, 6 hafta amenore", "60 yaş erkekte göğüs ağrısı + nefes darlığı", "Yaşlı hastada konfüzyon"],
+    starters_patient: ["Doktorum tip 2 diyabetim olduğunu söyledi", "Atriyal fibrilasyon nedir?", "Böbrek hastalığımı basit şekilde açıkla"],
+    starters_second_opinion: ["HFrEF EF %30 için Bisoprolol 10mg — doğru mu?", "CKD evre 3 ile metformin güvenli mi?"],
   },
 
 
