@@ -13,6 +13,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ttsApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 
 // ── SpeechRecognition browser types ──────────────────────────────────────────
 declare global {
@@ -215,6 +216,7 @@ interface VoiceModeProps {
 }
 
 export function VoiceModeToggle({ active, onToggle }: VoiceModeProps) {
+  const t = useT();
   return (
     <button
       onClick={onToggle}
@@ -229,7 +231,7 @@ export function VoiceModeToggle({ active, onToggle }: VoiceModeProps) {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
           d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4M12 4a3 3 0 013 3v4a3 3 0 01-6 0V7a3 3 0 013-3z" />
       </svg>
-      {active ? "Voice ON" : "Voice"}
+      {active ? t("ai_tutor.voice_on") as string || "Voice ON" : t("ai_tutor.voice") as string || "Voice"}
     </button>
   );
 }

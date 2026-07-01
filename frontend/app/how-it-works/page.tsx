@@ -506,7 +506,18 @@ export default function HowItWorksPage() {
   const cmpRows = t("how_it_works_page.cmp_rows") as unknown as string[][];
   const roles = t("how_it_works_page.roles") as unknown as { role: string; icon: string; description: string; features: string[] }[];
 
-  const FEATURES: FeatureSection[] = FEATURES_RAW.map(f => ({ ...f, tab: t(`how_it_works_page.${f.tabKey}` as any) }));
+  const localeFeatures = t("how_it_works_page.features") as unknown as Array<{ id: string; items: Array<{ title: string; desc: string; badge: string; extras: string[] }> }> | undefined;
+  const FEATURES: FeatureSection[] = FEATURES_RAW.map((f, fi) => {
+    const locF = Array.isArray(localeFeatures) ? localeFeatures[fi] : undefined;
+    return {
+      ...f,
+      tab: t(`how_it_works_page.${f.tabKey}` as any),
+      items: f.items.map((item, ii) => {
+        const locItem = locF?.items?.[ii];
+        return { ...item, title: locItem?.title ?? item.title, desc: locItem?.desc ?? item.desc, badge: locItem?.badge ?? item.badge, extras: locItem?.extras ?? item.extras };
+      }),
+    };
+  });
   const activeSection = FEATURES.find(f => f.id === activeTab) ?? FEATURES[0];
 
   return (

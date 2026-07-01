@@ -60,6 +60,7 @@ function ModuleCard({
   progress?: ModuleProgress;
   locale?: string;
 }) {
+  const t = useT();
   const pct = progress?.completion_percent ?? 0;
   const displayTitle = (locale === "en" ? mod.title_en : undefined) || mod.title;
 
@@ -111,7 +112,7 @@ function ModuleCard({
         {mod.flashcard_count > 0 && <span>🃏 {mod.flashcard_count}</span>}
         {mod.mcq_count > 0 && <span>❓ {mod.mcq_count}</span>}
         <span className="ml-auto text-[10px] font-semibold text-accent group-hover:underline">
-          {progress ? (pct >= 100 ? "Review →" : "Continue →") : "Start →"}
+          {progress ? (pct >= 100 ? `${t("modules.review") || "Review"} →` : `${t("modules.continue") || "Continue"} →`) : `${t("modules.start") || "Start"} →`}
         </span>
       </div>
     </Link>

@@ -47,7 +47,7 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
       {/* Medical disclaimer banner */}
       <div className="bg-amber-light border-b border-amber/20 px-4 py-2">
         <p className="max-w-5xl mx-auto font-serif text-xs text-amber text-center">
-          ⚕️ <strong>Educational content only.</strong> {t.disclaimer}
+          ⚕️ <strong>{t.disclaimer_prefix}</strong> {t.disclaimer}
         </p>
       </div>
 

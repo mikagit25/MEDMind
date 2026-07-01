@@ -131,9 +131,9 @@ function DiscoverCard({
 
       {/* Stats */}
       <div className="flex items-center gap-3 text-[11px] font-syne text-ink-3">
-        <span>📖 {course.module_count} modules</span>
+        <span>📖 {course.module_count} {course.module_count === 1 ? t("courses.modules_count") as string || "module" : t("courses.modules_count_plural") as string || "modules"}</span>
         {course.estimated_hours && <span>⏱ {course.estimated_hours}h</span>}
-        <span>👥 {course.student_count} enrolled</span>
+        <span>👥 {course.student_count} {t("courses.student_enrolled") as string || "enrolled"}</span>
       </div>
 
       {/* CTA */}
@@ -220,7 +220,7 @@ function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (i
           )}
           {course.enrolled_at && (
             <p className="font-serif text-[10px] text-ink-3 mt-0.5">
-              Enrolled {new Date(course.enrolled_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {t("courses.enrolled_date") as string || "Enrolled"} {new Date(course.enrolled_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </p>
           )}
         </div>
@@ -228,7 +228,7 @@ function EnrolledCard({ course, onLeave }: { course: EnrolledCourse; onLeave: (i
           <div className={`font-syne font-black text-lg leading-none ${pct >= 100 ? "text-green" : "text-ink"}`}>
             {pct}%
           </div>
-          <div className="font-serif text-[10px] text-ink-3">{course.total_modules} modules</div>
+          <div className="font-serif text-[10px] text-ink-3">{course.total_modules} {course.total_modules === 1 ? t("courses.modules_count") as string || "module" : t("courses.modules_count_plural") as string || "modules"}</div>
         </div>
       </div>
 

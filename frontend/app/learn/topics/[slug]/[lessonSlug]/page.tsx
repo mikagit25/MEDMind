@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -77,6 +79,8 @@ export default async function LessonPage({
 }: {
   params: { slug: string; lessonSlug: string };
 }) {
+  const locale = headers().get("x-locale") ?? "en";
+  const t = getLearnT(locale);
   const data = await fetchLesson(params.slug, params.lessonSlug);
   if (!data) notFound();
 
@@ -108,7 +112,7 @@ export default async function LessonPage({
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 font-serif text-xs text-ink-3 mb-8 flex-wrap">
           <Link href="/learn/topics" className="hover:text-ink transition-colors">
-            Topics
+            {t.breadcrumb_topics}
           </Link>
           <span>/</span>
           <Link
@@ -133,10 +137,10 @@ export default async function LessonPage({
           </h1>
           <div className="flex items-center gap-4 font-serif text-xs text-ink-3">
             <span>
-              Lesson {data.lesson_number} of {data.total_lessons}
+              {interpolate(t.lesson_of, { n: data.lesson_number, total: data.total_lessons })}
             </span>
             {data.estimated_minutes && (
-              <span>{data.estimated_minutes} min read</span>
+              <span>{interpolate(t.min_read, { n: data.estimated_minutes })}</span>
             )}
           </div>
         </div>
@@ -170,7 +174,7 @@ export default async function LessonPage({
         {data.key_points.length > 0 && (
           <div className="bg-surface border border-border rounded-2xl p-6 mb-10">
             <h2 className="font-syne font-black text-lg text-ink mb-4">
-              Key Takeaways
+              {t.key_takeaways}
             </h2>
             <ul className="space-y-2">
               {data.key_points.map((kp, idx) => (
@@ -193,7 +197,7 @@ export default async function LessonPage({
         {data.lay_glossary.length > 0 && (
           <div className="mb-10">
             <h2 className="font-syne font-black text-lg text-ink mb-4">
-              Key Terms
+              {t.key_terms}
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {data.lay_glossary.map((term) => (
@@ -222,7 +226,7 @@ export default async function LessonPage({
               className="flex-1 group block bg-surface border border-border rounded-xl p-4 hover:border-ink transition-all"
             >
               <div className="font-serif text-xs text-ink-3 mb-1">
-                Previous lesson
+                {t.prev_lesson}
               </div>
               <div className="font-syne font-bold text-sm text-ink group-hover:text-accent leading-snug">
                 {data.prev_lesson.title}
@@ -237,7 +241,7 @@ export default async function LessonPage({
               className="flex-1 group block bg-surface border border-border rounded-xl p-4 hover:border-ink transition-all text-right"
             >
               <div className="font-serif text-xs text-ink-3 mb-1">
-                Next lesson
+                {t.next_lesson}
               </div>
               <div className="font-syne font-bold text-sm text-ink group-hover:text-accent leading-snug">
                 {data.next_lesson.title}
@@ -256,24 +260,23 @@ export default async function LessonPage({
         {/* CTA */}
         <div className="text-center bg-surface border border-border rounded-2xl p-8">
           <h2 className="font-syne font-black text-xl text-ink mb-2">
-            Learn {data.module_title} interactively
+            {interpolate(t.cta_title, { topic: data.module_title })}
           </h2>
           <p className="font-serif text-sm text-ink-3 mb-5">
-            AI tutor, flashcards, quizzes, and clinical cases — personalized to
-            your level.
+            {t.cta_desc}
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link
               href="/register"
               className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
             >
-              Start for Free →
+              {t.cta_start}
             </Link>
             <Link
               href={`/learn/topics/${data.module_slug}`}
               className="inline-block px-6 py-3 rounded-xl border border-border text-ink font-syne font-bold text-sm hover:border-ink transition-colors"
             >
-              Back to {data.module_title}
+              {interpolate(t.cta_back, { topic: data.module_title })}
             </Link>
           </div>
         </div>

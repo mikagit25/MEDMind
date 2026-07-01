@@ -356,6 +356,7 @@ const en = {
     no_modules: "No modules in this specialty yet",
     start: "Start",
     continue: "Continue",
+    review: "Review",
     locked: "🔒 Upgrade to access",
     lesson_of: "Lesson {n} of {total}",
     next_lesson: "Next lesson",
@@ -678,6 +679,9 @@ const en = {
     empty_title: "No cases yet",
     empty_desc: "Cases are being generated — check back soon.",
     virtual_patient: "Virtual Patient",
+    diff_beginner: "Beginner",
+    diff_intermediate: "Intermediate",
+    diff_advanced: "Advanced",
   },
 
   courses: {
@@ -710,6 +714,9 @@ const en = {
     review_arrow: "Review →",
     continue_arrow: "Continue →",
     leave: "Leave",
+    modules_count_few: "modules",
+    student_enrolled: "enrolled",
+    enrolled_date: "Enrolled",
   },
 
   // ── Simulation ────────────────────────────────────────────────────────────────
@@ -1608,6 +1615,8 @@ const en = {
     card_saved: "Saved!",
     disclaimer: "AI may make mistakes — verify clinical decisions",
     mode_label: "Mode:",
+    voice: "Voice",
+    voice_on: "Voice ON",
     save_question_label: "Question",
     save_answer_label: "Answer",
     save_difficulty_label: "Difficulty",
@@ -2003,6 +2012,28 @@ const en = {
       { n: "01", icon: "📋", title: "Create free account", desc: "Sign up with email or Google. Choose your specialty and learning goal. No credit card required." },
       { n: "02", icon: "🎯", title: "Pick your first module", desc: "Browse 125+ modules by specialty. Start with an AI-recommended module or search for a specific topic." },
       { n: "03", icon: "🧠", title: "Learn with AI", desc: "Ask questions, work through cases, review flashcards. The AI adapts to your level and closes knowledge gaps systematically." },
+    ],
+    features: [
+      { id: "ai", items: [
+        { title: "AI Tutor with Live PubMed", desc: "Ask any medical question and get structured, cited answers grounded in real evidence. The AI searches PubMed in real-time before every response — no hallucinations, no outdated guidelines. Choose from Tutor, Socratic, Case, or Exam mode.", badge: "Powered by Claude", extras: ["4 learning modes: Tutor · Socratic · Case · Exam", "Live PubMed integration — every answer includes PMIDs", "Multilingual: 7 languages with auto-detection", "Unlimited for Pro users · 5/day on Free"] },
+        { title: "Interactive Clinical Cases", desc: "Work through realistic patient encounters complete with vitals, labs, and imaging. The AI plays attending physician — guiding your differential, investigations, and management decisions in real time.", badge: "USMLE / MRCP / PLAB format", extras: ["ECG, X-ray, and lab interpretation built in", "Branching scenarios that change based on your choices", "Immediate feedback with evidence-based explanations", "Covers all major exam formats worldwide"] },
+      ]},
+      { id: "learning", items: [
+        { title: "82+ Structured Modules", desc: "Complete curriculum across 6 core specialties — Cardiology, Neurology, Surgery, Internal Medicine, Pediatrics, and OB/GYN. Each module is built around real clinical curricula with AI-generated lessons verified against current guidelines.", badge: "82+ modules · Growing", extras: ["6 core specialties + subspecialties", "AI-generated lessons with source citations", "Module-level progress tracking", "New modules added monthly based on user demand"] },
+        { title: "Spaced Repetition Flashcards", desc: "500+ clinical flashcards using the SM-2 algorithm — the same science behind Anki. Cards appear exactly when you're about to forget, not a moment sooner. Rate difficulty and the algorithm auto-adjusts the next review interval.", badge: "SM-2 Algorithm", extras: ["Auto-generated from lesson content", "Community-verified for accuracy", "Due-card reminder notifications", "Per-deck retention stats and mastery scores"] },
+      ]},
+      { id: "clinical", items: [
+        { title: "Drug Database + Interaction Checker", desc: "Comprehensive drug reference for 5,000+ medications covering dosing, mechanisms, contraindications, monitoring parameters, and drug interactions. The interaction checker flags dangerous combinations instantly with severity grades.", badge: "5,000+ drugs", extras: ["Pediatric weight-based dosing included", "CYP450 interactions with clinical significance", "Renal and hepatic dose adjustment tables", "Pregnancy & lactation safety categories"] },
+        { title: "40+ Clinical Calculators", desc: "Evidence-based risk scores and clinical decision tools, each with full interpretation and management guidance. Results saved to your history — review past calculations and track how scores change over time.", badge: "40+ validated scores", extras: ["CHA₂DS₂-VASc · Wells · CURB-65 · SOFA · BMI · eGFR", "Each calculator linked to treatment guidelines", "Result history saved per patient or session", "Evidence level and guideline source shown"] },
+      ]},
+      { id: "imaging", items: [
+        { title: "Medical Imaging Library + AI Analysis", desc: "2,400+ annotated radiology images spanning X-ray, CT, MRI, ultrasound, ECG, and histology. Study real pathology images with attending-level annotations, then upload your own for AI interpretation — including skin lesions, blood tests, and ECG photos from Telegram.", badge: "2,400+ images", extras: ["All modalities: XR · CT · MRI · Echo · ECG · Histo", "Upload your own images for AI analysis", "Annotated key findings with arrows and labels", "Differential diagnosis generated per image"] },
+        { title: "Health Hub — Personal Health Dashboard", desc: "A unified health profile that syncs between the web dashboard and Telegram bot. Patients and healthcare workers can track chronic conditions, log vitals, set medication reminders, monitor symptom patterns, and get disease-specific article recommendations.", badge: "Unique · No other platform has this", extras: ["10 chronic disease protocols: diabetes, HTN, asthma, CKD…", "Vitals tracking: glucose, BP, weight, SpO₂, temp", "Medication reminder scheduler with daily push", "Symptom history and mood timeline synced from Telegram"] },
+      ]},
+      { id: "progress", items: [
+        { title: "Progress Dashboard & Gamification", desc: "XP points, level system, daily streaks, and a global leaderboard turn long-term study into a daily habit. See module completion rates, flashcard retention scores, and AI question history all in one place.", badge: "XP · Streaks · Leaderboard", extras: ["Daily streak calendar with heatmap view", "Specialty completion percentages", "25+ achievement badges to unlock", "Weekly digest report (Monday email)"] },
+        { title: "Telegram Bot — AI in Your Pocket", desc: "Full MedMind functionality without opening the browser. Ask medical questions, get triage advice, send ECG or blood test photos for AI interpretation, track your vitals, and set medication reminders — all in Telegram, in any language.", badge: "Works 24/7 · No app install", extras: ["Works in 7 languages — auto-detected from your message", "Photo analysis: ECG · blood tests · skin · X-rays", "Patient mode: plain-language explanations for non-clinicians", "Fully synced to your web account — history shared"] },
+      ]},
     ],
     mini_features: [
       { icon: "🌍", title: "7 Languages", desc: "EN · RU · DE · FR · ES · TR · AR — interfaces, AI, and articles" },

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { translateDrugClass } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -68,6 +70,7 @@ export default async function PublicDrugPage({
 }) {
   const drug = await fetchDrug(params.slug);
   if (!drug) notFound();
+  const locale = headers().get("x-locale") ?? "en";
 
   return (
     <>
@@ -132,7 +135,7 @@ export default async function PublicDrugPage({
             )}
             {drug.drug_class && (
               <p className="font-serif text-sm text-ink-3 mt-0.5">
-                Class: {drug.drug_class}
+                Class: {translateDrugClass(drug.drug_class, locale)}
               </p>
             )}
           </div>

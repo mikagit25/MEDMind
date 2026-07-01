@@ -348,6 +348,7 @@ const tr: Translations = {
     no_modules: "Modül bulunamadı",
     start: "Başla",
     continue: "Devam Et",
+    review: "Tekrar Et",
     completed: "Tamamlandı ✓",
     locked: "🔒 Erişim için yükseltin",
     lesson_of: "Ders {n} / {total}",
@@ -654,6 +655,9 @@ const tr: Translations = {
     empty_title: "Henüz vaka yok",
     empty_desc: "Vakalar oluşturuluyor — yakında tekrar kontrol edin.",
     virtual_patient: "Sanal hasta",
+    diff_beginner: "Başlangıç",
+    diff_intermediate: "Orta",
+    diff_advanced: "İleri",
   },
 
   courses: {
@@ -686,6 +690,9 @@ const tr: Translations = {
     review_arrow: "İncele →",
     continue_arrow: "Devam et →",
     leave: "Ayrıl",
+    modules_count_few: "modül",
+    student_enrolled: "kayıtlı",
+    enrolled_date: "Kayıt tarihi",
   },
 
   simulation: {
@@ -1875,6 +1882,28 @@ const tr: Translations = {
       { n: "02", icon: "🎯", title: "İlk modülünüzü seçin", desc: "Uzmanlığa göre 125+ modüle göz atın. Yapay zekanın önerdiği modülle başlayın." },
       { n: "03", icon: "🧠", title: "Yapay zekayla öğrenin", desc: "Soru sorun, vakalar üzerinde çalışın, kartları inceleyin. Yapay zeka seviyenize uyum sağlar." },
     ],
+    features: [
+      { id: "ai", items: [
+        { title: "Canlı PubMed'li Yapay Zeka Öğretmeni", desc: "Herhangi bir tıbbi soruyu sorun ve gerçek kanıtlara dayalı yapılandırılmış, alıntılı yanıtlar alın. Yapay zeka her yanıttan önce PubMed'i gerçek zamanlı arar — halüsinasyon yok, güncel olmayan kılavuz yok. Öğretmen, Sokratik, Vaka veya Sınav modunu seçin.", badge: "Claude ile destekleniyor", extras: ["4 öğrenme modu: Öğretmen · Sokratik · Vaka · Sınav", "Canlı PubMed entegrasyonu — her yanıt PMID içerir", "Çok dilli: 7 dil ile otomatik algılama", "Pro kullanıcılar için sınırsız · Free'de günlük 5"] },
+        { title: "İnteraktif Klinik Vakalar", desc: "Yaşam belirtileri, laboratuvar ve görüntüleme ile gerçekçi hasta karşılaşmaları üzerinde çalışın. Yapay zeka asistan hekim rolünü oynar — diferansiyel teşhis, araştırma ve tedavi kararlarında gerçek zamanlı rehberlik eder.", badge: "USMLE / MRCP / PLAB formatı", extras: ["EKG, röntgen ve laboratuvar yorumu dahil", "Seçimlerinize göre değişen dallanan senaryolar", "Kanıta dayalı açıklamalarla anında geri bildirim", "Tüm büyük sınav formatlarını kapsar"] },
+      ]},
+      { id: "learning", items: [
+        { title: "82+ Yapılandırılmış Modül", desc: "6 temel uzmanlık alanında tam müfredat — Kardiyoloji, Nöroloji, Cerrahi, İç Hastalıkları, Pediatri ve Kadın-Doğum. Her modül gerçek klinik müfredatlar üzerine kuruludur, güncel kılavuzlara göre doğrulanmış yapay zeka dersleriyle.", badge: "82+ modül · Büyüyor", extras: ["6 temel uzmanlık + alt uzmanlıklar", "Kaynak alıntılarıyla yapay zeka dersler", "Modül düzeyinde ilerleme takibi", "Kullanıcı talebine göre aylık yeni modüller"] },
+        { title: "Aralıklı Tekrarlama Kartları", desc: "SM-2 algoritmasını kullanan 500+ klinik kart — Anki'nin arkasındaki aynı bilim. Kartlar tam unutmak üzereyken görünür. Zorluğu puanlayın ve algoritma bir sonraki tekrar aralığını otomatik ayarlar.", badge: "SM-2 Algoritması", extras: ["Ders içeriğinden otomatik oluşturulur", "Topluluk tarafından doğrulanmış", "Vadesi gelen kart hatırlatıcıları", "Deste başına saklama istatistikleri ve ustalık puanları"] },
+      ]},
+      { id: "clinical", items: [
+        { title: "İlaç Veritabanı + Etkileşim Kontrolörü", desc: "Dozaj, mekanizma, kontrendikasyon, izleme parametreleri ve ilaç etkileşimlerini kapsayan 5.000+ ilaç için kapsamlı referans. Etkileşim kontrolörü tehlikeli kombinasyonları şiddet dereceleriyle anında işaretler.", badge: "5.000+ ilaç", extras: ["Çocuk ağırlık bazlı dozaj dahil", "Klinik önem ile CYP450 etkileşimleri", "Renal ve hepatik doz ayar tabloları", "Gebelik ve emzirme güvenlik kategorileri"] },
+        { title: "40+ Klinik Hesap Makinesi", desc: "Kanıta dayalı risk skorları ve klinik karar araçları, tam yorum ve yönetim rehberliği ile. Sonuçlar geçmişe kaydedilir — geçmiş hesaplamaları inceleyin ve skor değişimlerini takip edin.", badge: "40+ doğrulanmış skor", extras: ["CHA₂DS₂-VASc · Wells · CURB-65 · SOFA · VKİ · eGFR", "Her hesap makinesi tedavi kılavuzlarına bağlı", "Hasta veya seans başına sonuç geçmişi", "Kanıt düzeyi ve kılavuz kaynağı gösterilir"] },
+      ]},
+      { id: "imaging", items: [
+        { title: "Tıbbi Görüntü Kütüphanesi + Yapay Zeka Analizi", desc: "Röntgen, BT, MRI, ultrason, EKG ve histoloji kapsayan 2.400+ açıklamalı radyoloji görüntüsü. Gerçek patoloji görüntülerini uzman düzeyinde açıklamalarla inceleyin, ardından kendi görüntülerinizi yapay zeka yorumu için yükleyin.", badge: "2.400+ görüntü", extras: ["Tüm modaliteler: RÖ · BT · MRI · Eko · EKG · Histo", "Kendi görüntülerinizi yapay zeka analizi için yükleyin", "Oklar ve etiketlerle açıklamalı temel bulgular", "Görüntü başına oluşturulan diferansiyel tanı"] },
+        { title: "Health Hub — Kişisel Sağlık Paneli", desc: "Web paneli ve Telegram botu arasında senkronize olan birleşik bir sağlık profili. Hastalar ve sağlık çalışanları kronik hastalıkları takip edebilir, belirtileri kaydedebilir, ilaç hatırlatıcıları ayarlayabilir ve semptomları izleyebilir.", badge: "Benzersiz · Başka hiçbir platform buna sahip değil", extras: ["10 kronik hastalık protokolü: diyabet, HT, astım, KBH…", "Vital takibi: glikoz, KB, ağırlık, SpO₂, sıcaklık", "Günlük push ile ilaç hatırlatıcı zamanlayıcı", "Telegram'dan senkronize semptom geçmişi"] },
+      ]},
+      { id: "progress", items: [
+        { title: "İlerleme Paneli ve Oyunlaştırma", desc: "XP puanları, seviye sistemi, günlük seriler ve global sıralama tablosu uzun vadeli çalışmayı günlük alışkanlığa dönüştürür. Modül tamamlama oranları, kart saklama skorları ve yapay zeka soru geçmişi tek bir yerde.", badge: "XP · Seriler · Sıralama", extras: ["Isı haritası görünümlü günlük seri takvimi", "Uzmanlık tamamlama yüzdeleri", "25+ başarı rozeti açmak için", "Haftalık özet raporu (Pazartesi e-postası)"] },
+        { title: "Telegram Botu — Cebinizdeki Yapay Zeka", desc: "Tarayıcı açmadan tam MedMind işlevselliği. Tıbbi sorular sorun, triaj tavsiyesi alın, EKG veya kan testi fotoğrafları gönderin, vital değerlerini takip edin ve ilaç hatırlatıcıları ayarlayın — hepsi Telegram'da, herhangi bir dilde.", badge: "7/24 · Uygulama kurulumu yok", extras: ["7 dilde çalışır — mesajınızdan otomatik algılanır", "Fotoğraf analizi: EKG · kan testleri · cilt · röntgen", "Hasta modu: klinisyen olmayanlar için sade açıklamalar", "Web hesabınızla tamamen senkronize"] },
+      ]},
+    ],
     mini_features: [
       { icon: "🌍", title: "7 Dil", desc: "EN · RU · DE · FR · ES · TR · AR — arayüzler, yapay zeka ve makaleler" },
       { icon: "🦮", title: "Veteriner Modülü", desc: "Köpekler, kediler, atlar, kuşlar ve egzotik hayvanlar için ilaç dozu veritabanı" },
@@ -1984,6 +2013,8 @@ const tr: Translations = {
     card_saved: "Kaydedildi!",
     disclaimer: "Yapay zeka hata yapabilir — klinik kararları her zaman doğrulayın",
     mode_label: "Mod:",
+    voice: "Ses",
+    voice_on: "Ses AÇIK",
     save_question_label: "Soru",
     save_answer_label: "Cevap",
     save_difficulty_label: "Zorluk",

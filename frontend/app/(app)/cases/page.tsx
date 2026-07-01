@@ -97,6 +97,14 @@ function CasesInner() {
   const t = useT();
   const { locale } = useI18n();
   const searchParams = useSearchParams();
+  const DIFF_LABEL: Record<string, string> = {
+    beginner: t("cases.diff_beginner") as string || "Beginner",
+    easy: t("cases.diff_beginner") as string || "Easy",
+    intermediate: t("cases.diff_intermediate") as string || "Intermediate",
+    medium: t("cases.diff_intermediate") as string || "Medium",
+    advanced: t("cases.diff_advanced") as string || "Advanced",
+    hard: t("cases.diff_advanced") as string || "Hard",
+  };
 
   const [cases, setCases] = useState<Case[]>([]);
   const [loadingList, setLoadingList] = useState(true);
@@ -275,7 +283,7 @@ function CasesInner() {
             ← {t("cases.back") as string || "Back"}
           </button>
           <span className={`text-xs font-syne font-bold px-2 py-0.5 rounded-full ${DIFF_STYLE[selected.difficulty] ?? "bg-surface-2 text-ink-3"}`}>
-            {DIFF_ICON[selected.difficulty]} {selected.difficulty}
+            {DIFF_ICON[selected.difficulty]} {DIFF_LABEL[selected.difficulty] ?? selected.difficulty}
           </span>
           {selected.specialty && (
             <span className="text-xs text-ink-3 font-syne">{selected.specialty}</span>
@@ -638,7 +646,7 @@ function CasesInner() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className={`text-xs font-syne font-bold px-2 py-0.5 rounded-full ${DIFF_STYLE[c.difficulty] ?? "bg-surface-2 text-ink-3"}`}>
-                  {DIFF_ICON[c.difficulty]} {c.difficulty}
+                  {DIFF_ICON[c.difficulty]} {DIFF_LABEL[c.difficulty] ?? c.difficulty}
                 </span>
                 {Array.isArray(c.steps) && c.steps.length > 0 && (
                   <span className="text-xs font-syne text-ink-3 bg-surface-2 px-2 py-0.5 rounded-full">FSM</span>

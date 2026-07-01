@@ -348,6 +348,7 @@ const de: Translations = {
     no_modules: "Keine Module gefunden",
     start: "Starten",
     continue: "Fortsetzen",
+    review: "Wiederholen",
     completed: "Abgeschlossen ✓",
     locked: "🔒 Upgrade erforderlich",
     lesson_of: "Lektion {n} von {total}",
@@ -662,6 +663,9 @@ const de: Translations = {
     empty_title: "Noch keine Fälle",
     empty_desc: "Fälle werden generiert — schauen Sie bald wieder vorbei.",
     virtual_patient: "Virtueller Patient",
+    diff_beginner: "Anfänger",
+    diff_intermediate: "Mittelstufe",
+    diff_advanced: "Fortgeschritten",
   },
 
   courses: {
@@ -694,6 +698,9 @@ const de: Translations = {
     review_arrow: "Überprüfen →",
     continue_arrow: "Fortfahren →",
     leave: "Verlassen",
+    modules_count_few: "Module",
+    student_enrolled: "eingeschrieben",
+    enrolled_date: "Eingeschrieben",
   },
 
   simulation: {
@@ -1890,6 +1897,28 @@ const de: Translations = {
       { n: "02", icon: "🎯", title: "Erstes Modul wählen", desc: "125+ Module nach Fachgebiet durchsuchen. Mit dem KI-empfohlenen Modul starten." },
       { n: "03", icon: "🧠", title: "Mit KI lernen", desc: "Fragen stellen, Fälle bearbeiten, Karteikarten wiederholen. Die KI passt sich Ihrem Niveau an." },
     ],
+    features: [
+      { id: "ai", items: [
+        { title: "KI-Tutor mit Live PubMed", desc: "Stellen Sie medizinische Fragen und erhalten Sie strukturierte, zitierte Antworten auf Basis realer Evidenz. Die KI durchsucht PubMed in Echtzeit vor jeder Antwort — keine Halluzinationen, keine veralteten Leitlinien. Wählen Sie aus Tutor-, Sokrates-, Fall- oder Prüfungsmodus.", badge: "Powered by Claude", extras: ["4 Lernmodi: Tutor · Sokrates · Fall · Prüfung", "Live PubMed-Integration — jede Antwort enthält PMIDs", "Mehrsprachig: 7 Sprachen mit automatischer Erkennung", "Unbegrenzt für Pro-Nutzer · 5/Tag im Free-Plan"] },
+        { title: "Interaktive klinische Fälle", desc: "Arbeiten Sie realistische Patientenbegegnungen mit Vitalwerten, Laborbefunden und Bildgebung durch. Die KI spielt den Oberarzt — führt Sie in Echtzeit durch Differenzialdiagnose, Diagnostik und Therapieentscheidungen.", badge: "USMLE / MRCP / PLAB Format", extras: ["EKG-, Röntgen- und Laborinterpretation integriert", "Verzweigte Szenarien, die sich nach Ihren Entscheidungen ändern", "Sofortiges Feedback mit evidenzbasierten Erklärungen", "Alle wichtigen Prüfungsformate weltweit abgedeckt"] },
+      ]},
+      { id: "learning", items: [
+        { title: "82+ strukturierte Module", desc: "Vollständiges Curriculum in 6 Kernfächern — Kardiologie, Neurologie, Chirurgie, Innere Medizin, Pädiatrie und Gynäkologie. Jedes Modul basiert auf realen klinischen Lehrplänen mit KI-generierten, leitlinienverifizierten Lektionen.", badge: "82+ Module · Wachsend", extras: ["6 Kernfächer + Subspezialitäten", "KI-generierte Lektionen mit Quellenangaben", "Fortschrittsverfolgung pro Modul", "Neue Module monatlich nach Nutzerbedarf"] },
+        { title: "Lernkarten mit Spaced Repetition", desc: "500+ klinische Lernkarten mit dem SM-2-Algorithmus — dieselbe Wissenschaft wie Anki. Karten erscheinen genau, wenn Sie sie fast vergessen haben. Schwierigkeit bewerten und der Algorithmus passt das nächste Intervall an.", badge: "SM-2 Algorithmus", extras: ["Automatisch aus Lektionsinhalten generiert", "Community-verifiziert für Genauigkeit", "Erinnerungen für fällige Karten", "Behaltensstatistik und Meisterschaftswerte pro Stapel"] },
+      ]},
+      { id: "clinical", items: [
+        { title: "Arzneimitteldatenbank + Wechselwirkungsprüfer", desc: "Umfassendes Arzneimittelreferenzwerk für 5.000+ Medikamente mit Dosierungen, Mechanismen, Kontraindikationen, Überwachungsparametern und Wechselwirkungen. Der Wechselwirkungsprüfer meldet gefährliche Kombinationen sofort mit Schweregrad.", badge: "5.000+ Arzneimittel", extras: ["Pädiatrische gewichtsbasierte Dosierung enthalten", "CYP450-Wechselwirkungen mit klinischer Bedeutung", "Dosisat-Tabellen bei Nieren- und Leberinsuffizienz", "Schwangerschafts- und Stillzeit-Sicherheitskategorien"] },
+        { title: "40+ Klinische Kalkulatoren", desc: "Evidenzbasierte Risikowerte und klinische Entscheidungsinstrumente mit vollständiger Interpretation und Therapieempfehlungen. Ergebnisse werden in der Historie gespeichert — vergangene Berechnungen überprüfen und Score-Verläufe nachverfolgen.", badge: "40+ validierte Scores", extras: ["CHA₂DS₂-VASc · Wells · CURB-65 · SOFA · BMI · eGFR", "Jeder Kalkulator mit Therapieleitlinien verknüpft", "Ergebnishistorie pro Patient oder Sitzung", "Evidenzgrad und Leitlinienquelle angezeigt"] },
+      ]},
+      { id: "imaging", items: [
+        { title: "Medizinische Bilderbibliothek + KI-Analyse", desc: "2.400+ annotierte Radiologiebilder aus Röntgen, CT, MRT, Ultraschall, EKG und Histologie. Reale Pathologiebilder mit oberärztlichen Annotationen studieren, dann eigene für KI-Interpretation hochladen.", badge: "2.400+ Bilder", extras: ["Alle Modalitäten: RÖ · CT · MRT · Echo · EKG · Histo", "Eigene Bilder für KI-Analyse hochladen", "Annotierte Schlüsselbefunde mit Pfeilen und Beschriftungen", "Differenzialdiagnose pro Bild generiert"] },
+        { title: "Health Hub — Persönliches Gesundheits-Dashboard", desc: "Ein einheitliches Gesundheitsprofil, das zwischen Web-Dashboard und Telegram-Bot synchronisiert. Patienten und Ärzte können chronische Erkrankungen verfolgen, Vitalwerte eintragen, Medikamentenerinnerungen setzen und Symptome überwachen.", badge: "Einzigartig · Kein anderes Tool hat das", extras: ["10 Chronikprotokolle: Diabetes, Hypertonie, Asthma, CKD…", "Vitalwert-Tracking: Glukose, RR, Gewicht, SpO₂, Temperatur", "Medikamentenerinnerungsplaner mit täglichem Push", "Symptomgeschichte mit Telegram synchronisiert"] },
+      ]},
+      { id: "progress", items: [
+        { title: "Fortschritts-Dashboard & Gamification", desc: "XP-Punkte, Levelsystem, tägliche Serien und ein globales Leaderboard machen langfristiges Lernen zur täglichen Gewohnheit. Modulabschlussraten, Flashcard-Behaltensscores und KI-Fragenhistorie alles an einem Ort.", badge: "XP · Serien · Leaderboard", extras: ["Täglicher Serienkalender mit Heatmap-Ansicht", "Fachgebiet-Abschlussprozentwerte", "25+ Errungenschaften freischalten", "Wöchentlicher Digest-Bericht (Montags-E-Mail)"] },
+        { title: "Telegram-Bot — KI in Ihrer Tasche", desc: "Voller MedMind-Funktionsumfang ohne Browser. Medizinische Fragen stellen, Triage-Rat bekommen, EKG- oder Laborfotos für KI-Interpretation senden, Vitalwerte erfassen und Medikamentenerinnerungen setzen — alles in Telegram, in jeder Sprache.", badge: "24/7 verfügbar · Keine App-Installation", extras: ["Funktioniert in 7 Sprachen — automatisch erkannt", "Fotoanalyse: EKG · Bluttests · Haut · Röntgen", "Patientenmodus: einfache Erklärungen für Laien", "Vollständig mit Web-Account synchronisiert"] },
+      ]},
+    ],
     mini_features: [
       { icon: "🌍", title: "7 Sprachen", desc: "EN · RU · DE · FR · ES · TR · AR — Oberflächen, KI und Artikel" },
       { icon: "🦮", title: "Veterinärmodul", desc: "Arzneimitteldatenbank für Hunde, Katzen, Pferde, Vögel und Exoten" },
@@ -1999,6 +2028,8 @@ const de: Translations = {
     card_saved: "Gespeichert!",
     disclaimer: "KI kann Fehler machen — klinische Entscheidungen immer überprüfen",
     mode_label: "Modus:",
+    voice: "Stimme",
+    voice_on: "Stimme EIN",
     save_question_label: "Frage",
     save_answer_label: "Antwort",
     save_difficulty_label: "Schwierigkeit",

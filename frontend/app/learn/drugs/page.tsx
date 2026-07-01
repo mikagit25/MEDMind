@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getLearnT, interpolate } from "@/lib/learn-i18n";
+import { getLearnT, interpolate, translateDrugClass } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -152,7 +152,7 @@ export default async function DrugsIndexPage({
                     href={`#cls-${cls.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                     className="px-3 py-1 rounded-lg bg-surface border border-border font-syne font-semibold text-xs text-ink-2 hover:bg-ink hover:text-white hover:border-ink transition-colors"
                   >
-                    {cls}
+                    {translateDrugClass(cls, searchParams.lang ?? "en")}
                     <span className="ml-1.5 text-ink-3 font-normal">{grouped[cls].length}</span>
                   </a>
                 ))}
@@ -166,7 +166,7 @@ export default async function DrugsIndexPage({
                   id={`cls-${cls.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 >
                   <h2 className="font-syne font-black text-xl text-ink mb-4 border-b border-border pb-2">
-                    {cls}
+                    {translateDrugClass(cls, searchParams.lang ?? "en")}
                   </h2>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {grouped[cls].map((drug) => (

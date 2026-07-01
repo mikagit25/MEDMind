@@ -348,6 +348,7 @@ const fr: Translations = {
     no_modules: "Aucun module trouvé",
     start: "Démarrer",
     continue: "Continuer",
+    review: "Réviser",
     completed: "Terminé ✓",
     locked: "🔒 Mise à niveau requise",
     lesson_of: "Leçon {n} sur {total}",
@@ -662,6 +663,9 @@ const fr: Translations = {
     empty_title: "Pas encore de cas",
     empty_desc: "Les cas sont en cours de génération — revenez bientôt.",
     virtual_patient: "Patient virtuel",
+    diff_beginner: "Débutant",
+    diff_intermediate: "Intermédiaire",
+    diff_advanced: "Avancé",
   },
 
   courses: {
@@ -694,6 +698,9 @@ const fr: Translations = {
     review_arrow: "Réviser →",
     continue_arrow: "Continuer →",
     leave: "Quitter",
+    modules_count_few: "modules",
+    student_enrolled: "inscrits",
+    enrolled_date: "Inscrit",
   },
 
   simulation: {
@@ -1890,6 +1897,28 @@ const fr: Translations = {
       { n: "02", icon: "🎯", title: "Choisir votre premier module", desc: "Parcourez 125+ modules par spécialité. Démarrez avec le module recommandé par l'IA." },
       { n: "03", icon: "🧠", title: "Apprendre avec l'IA", desc: "Posez des questions, travaillez les cas, révisez les cartes. L'IA s'adapte à votre niveau." },
     ],
+    features: [
+      { id: "ai", items: [
+        { title: "Tuteur IA avec PubMed en direct", desc: "Posez n'importe quelle question médicale et obtenez des réponses structurées et citées fondées sur des preuves réelles. L'IA recherche PubMed en temps réel avant chaque réponse — aucune hallucination, aucune recommandation obsolète. Choisissez parmi les modes Tuteur, Socratique, Cas ou Examen.", badge: "Propulsé par Claude", extras: ["4 modes d'apprentissage : Tuteur · Socratique · Cas · Examen", "Intégration PubMed en direct — chaque réponse contient des PMID", "Multilingue : 7 langues avec détection automatique", "Illimité pour les utilisateurs Pro · 5/jour en Free"] },
+        { title: "Cas cliniques interactifs", desc: "Travaillez des rencontres patients réalistes avec constantes, bilans et imagerie. L'IA joue le médecin senior — guide votre diagnostic différentiel, les examens et les décisions thérapeutiques en temps réel.", badge: "Format USMLE / MRCP / PLAB", extras: ["Interprétation ECG, radiographie et biologie intégrée", "Scénarios à embranchements qui évoluent selon vos choix", "Feedback immédiat avec explications fondées sur les preuves", "Couvre tous les formats d'examens majeurs"] },
+      ]},
+      { id: "learning", items: [
+        { title: "82+ modules structurés", desc: "Programme complet dans 6 spécialités principales — Cardiologie, Neurologie, Chirurgie, Médecine interne, Pédiatrie et Gynécologie-Obstétrique. Chaque module est construit sur des curricula cliniques réels avec des leçons vérifiées par IA.", badge: "82+ modules · En croissance", extras: ["6 spécialités principales + sous-spécialités", "Leçons générées par IA avec citations de sources", "Suivi de la progression par module", "Nouveaux modules ajoutés chaque mois"] },
+        { title: "Fiches de répétition espacée", desc: "500+ fiches cliniques utilisant l'algorithme SM-2 — la même science qu'Anki. Les fiches apparaissent exactement quand vous êtes sur le point d'oublier. Évaluez la difficulté et l'algorithme ajuste automatiquement l'intervalle.", badge: "Algorithme SM-2", extras: ["Générées automatiquement depuis le contenu des leçons", "Vérifiées par la communauté", "Rappels pour les cartes dues", "Statistiques de rétention et scores de maîtrise par paquet"] },
+      ]},
+      { id: "clinical", items: [
+        { title: "Base de données médicaments + vérificateur d'interactions", desc: "Référence médicamenteuse complète pour 5 000+ médicaments couvrant posologies, mécanismes, contre-indications, paramètres de surveillance et interactions. Le vérificateur signale instantanément les combinaisons dangereuses avec grades de gravité.", badge: "5 000+ médicaments", extras: ["Posologie pédiatrique basée sur le poids incluse", "Interactions CYP450 avec signification clinique", "Tableaux d'ajustement pour insuffisance rénale et hépatique", "Catégories de sécurité grossesse et allaitement"] },
+        { title: "40+ calculateurs cliniques", desc: "Scores de risque fondés sur les preuves et outils d'aide à la décision clinique, chacun avec une interprétation complète et des recommandations de prise en charge. Résultats sauvegardés dans l'historique.", badge: "40+ scores validés", extras: ["CHA₂DS₂-VASc · Wells · CURB-65 · SOFA · IMC · DFGe", "Chaque calculateur lié aux recommandations thérapeutiques", "Historique des résultats par patient ou session", "Niveau de preuve et source de recommandations affichés"] },
+      ]},
+      { id: "imaging", items: [
+        { title: "Bibliothèque d'imagerie médicale + analyse IA", desc: "2 400+ images radiologiques annotées couvrant radiographie, TDM, IRM, échographie, ECG et histologie. Étudiez de vraies images pathologiques puis téléchargez les vôtres pour une interprétation par IA.", badge: "2 400+ images", extras: ["Toutes les modalités : RX · TDM · IRM · Echo · ECG · Histo", "Téléchargez vos propres images pour analyse IA", "Résultats clés annotés avec flèches et étiquettes", "Diagnostic différentiel généré par image"] },
+        { title: "Health Hub — tableau de bord santé personnel", desc: "Un profil de santé unifié synchronisé entre le tableau de bord web et le bot Telegram. Patients et soignants peuvent suivre les maladies chroniques, enregistrer les constantes, définir des rappels de médicaments et surveiller les symptômes.", badge: "Unique · Aucune autre plateforme ne propose cela", extras: ["10 protocoles de maladies chroniques : diabète, HTA, asthme, IRC…", "Suivi des constantes : glycémie, PA, poids, SpO₂, température", "Planificateur de rappels médicamenteux avec push quotidien", "Historique des symptômes synchronisé avec Telegram"] },
+      ]},
+      { id: "progress", items: [
+        { title: "Tableau de bord de progression et gamification", desc: "Points XP, système de niveaux, séries quotidiennes et classement mondial transforment l'étude à long terme en habitude quotidienne. Taux de complétion des modules, scores de rétention des fiches et historique des questions IA en un seul endroit.", badge: "XP · Séries · Classement", extras: ["Calendrier de séries avec vue thermique", "Pourcentages de complétion par spécialité", "25+ badges de réussite à débloquer", "Rapport hebdomadaire (e-mail du lundi)"] },
+        { title: "Bot Telegram — IA dans votre poche", desc: "Toute la fonctionnalité MedMind sans ouvrir le navigateur. Posez des questions médicales, obtenez des conseils de triage, envoyez des photos ECG ou d'analyses pour interprétation IA — tout dans Telegram, dans n'importe quelle langue.", badge: "24/7 · Sans installation d'app", extras: ["Fonctionne en 7 langues — auto-détecté depuis votre message", "Analyse de photos : ECG · analyses · peau · radiographies", "Mode patient : explications en langage simple pour non-cliniciens", "Entièrement synchronisé avec votre compte web"] },
+      ]},
+    ],
     mini_features: [
       { icon: "🌍", title: "7 langues", desc: "EN · RU · DE · FR · ES · TR · AR — interfaces, IA et articles" },
       { icon: "🦮", title: "Module vétérinaire", desc: "Base de données de dosage pour chiens, chats, chevaux, oiseaux et animaux exotiques" },
@@ -1999,6 +2028,8 @@ const fr: Translations = {
     card_saved: "Enregistré!",
     disclaimer: "L'IA peut se tromper — vérifiez toujours les décisions cliniques",
     mode_label: "Mode :",
+    voice: "Voix",
+    voice_on: "Voix ACTIVÉE",
     save_question_label: "Question",
     save_answer_label: "Réponse",
     save_difficulty_label: "Difficulté",
