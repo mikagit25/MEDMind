@@ -679,6 +679,8 @@ const ru: Translations = {
     management: "Ведение",
     practice_history: "Отработайте сбор анамнеза с ИИ-пациентом",
     mode_label: "Режим",
+    virtual_patient_mode: "Режим виртуального пациента",
+    specialty_veterinary: "Ветеринария",
   },
 
   courses: {

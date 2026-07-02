@@ -254,7 +254,7 @@ export default async function LessonPage({
 
         {/* Disclaimer */}
         <div className="bg-amber-light border border-amber/20 rounded-xl px-4 py-3 mb-8">
-          <p className="font-serif text-xs text-amber">⚕️ {data.disclaimer}</p>
+          <p className="font-serif text-xs text-amber">⚕️ {t.disclaimer}</p>
         </div>
 
         {/* CTA */}

@@ -675,6 +675,8 @@ const es: Translations = {
     management: "Manejo",
     practice_history: "Practica la anamnesis con un paciente IA",
     mode_label: "Modo",
+    virtual_patient_mode: "Modo Paciente virtual",
+    specialty_veterinary: "Veterinaria",
   },
 
   courses: {

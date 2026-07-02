@@ -106,6 +106,11 @@ function CasesInner() {
     hard: t("cases.diff_advanced") as string || "Hard",
   };
 
+  const SPECIALTY_LABEL: Record<string, string> = {
+    Veterinary: t("cases.specialty_veterinary") as string || "Veterinary",
+  };
+  const translateSpecialty = (s: string) => SPECIALTY_LABEL[s] ?? s;
+
   const [cases, setCases] = useState<Case[]>([]);
   const [loadingList, setLoadingList] = useState(true);
   const [search, setSearch] = useState("");
@@ -286,7 +291,7 @@ function CasesInner() {
             {DIFF_ICON[selected.difficulty]} {DIFF_LABEL[selected.difficulty] ?? selected.difficulty}
           </span>
           {selected.specialty && (
-            <span className="text-xs text-ink-3 font-syne">{selected.specialty}</span>
+            <span className="text-xs text-ink-3 font-syne">{translateSpecialty(selected.specialty)}</span>
           )}
         </div>
 
@@ -569,7 +574,7 @@ function CasesInner() {
         {/* Virtual patient link */}
         <div className="mt-6 p-4 bg-surface border border-border rounded-lg flex items-center justify-between">
           <div>
-            <div className="font-syne font-bold text-sm text-ink">{t("cases.virtual_patient") as string || "Virtual Patient"} {t("cases.mode_label") as string || "Mode"}</div>
+            <div className="font-syne font-bold text-sm text-ink">{t("cases.virtual_patient_mode") as string || "Virtual Patient Mode"}</div>
             <div className="text-xs text-ink-3 mt-0.5">{t("cases.practice_history") as string || "Practice history-taking with an AI patient"}</div>
           </div>
           <Link href="/simulation" className="font-syne font-semibold text-sm bg-ink text-white px-4 py-2 rounded hover:bg-red transition-colors">
@@ -618,9 +623,10 @@ function CasesInner() {
           className="px-3 py-2 rounded-lg border border-border bg-surface text-ink text-sm focus:outline-none focus:border-ink max-w-xs"
         >
           <option value="">{t("cases.all_specialties") as string || "All specialties"}</option>
-          {specialties.map(s => (
-            <option key={s} value={s}>{s.length > 40 ? s.slice(0, 38) + "…" : s}</option>
-          ))}
+          {specialties.map(s => {
+            const label = translateSpecialty(s);
+            return <option key={s} value={s}>{label.length > 40 ? label.slice(0, 38) + "…" : label}</option>;
+          })}
         </select>
       </div>
 
@@ -659,7 +665,7 @@ function CasesInner() {
                 {parsePres(c.presentation).chief_complaint ?? c.presentation}
               </p>
               {c.specialty && (
-                <div className="mt-3 text-xs text-ink-3 font-syne truncate">{c.specialty}</div>
+                <div className="mt-3 text-xs text-ink-3 font-syne truncate">{translateSpecialty(c.specialty!)}</div>
               )}
             </button>
           ))}

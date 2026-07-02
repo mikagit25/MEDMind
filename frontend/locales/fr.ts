@@ -675,6 +675,8 @@ const fr: Translations = {
     management: "Prise en charge",
     practice_history: "Entraînez-vous à recueillir l'anamnèse avec un patient IA",
     mode_label: "Mode",
+    virtual_patient_mode: "Mode Patient virtuel",
+    specialty_veterinary: "Médecine vétérinaire",
   },
 
   courses: {

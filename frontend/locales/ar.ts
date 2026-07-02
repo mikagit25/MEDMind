@@ -667,6 +667,8 @@ const ar: Translations = {
     management: "العلاج",
     practice_history: "تدرّب على أخذ التاريخ المرضي مع مريض الذكاء الاصطناعي",
     mode_label: "الوضع",
+    virtual_patient_mode: "وضع المريض الافتراضي",
+    specialty_veterinary: "الطب البيطري",
   },
 
   courses: {

@@ -691,6 +691,8 @@ const en = {
     management: "Management",
     practice_history: "Practice history-taking with an AI patient",
     mode_label: "Mode",
+    virtual_patient_mode: "Virtual Patient Mode",
+    specialty_veterinary: "Veterinary",
   },
 
   courses: {

@@ -667,6 +667,8 @@ const tr: Translations = {
     management: "Tedavi",
     practice_history: "Bir YZ hastasıyla anamnez almayı pratiği yapın",
     mode_label: "Mod",
+    virtual_patient_mode: "Sanal Hasta Modu",
+    specialty_veterinary: "Veterinerlik",
   },
 
   courses: {

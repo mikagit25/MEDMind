@@ -675,6 +675,8 @@ const de: Translations = {
     management: "Behandlung",
     practice_history: "Üben Sie die Anamneseerhebung mit einem KI-Patienten",
     mode_label: "Modus",
+    virtual_patient_mode: "Virtueller Patient — Modus",
+    specialty_veterinary: "Veterinärmedizin",
   },
 
   courses: {
