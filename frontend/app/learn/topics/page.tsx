@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
@@ -28,12 +29,13 @@ type PublicTopic = {
   lay_summary: string | null;
   lesson_count: number;
   specialty: string | null;
+  specialty_en: string | null;
 };
 
-async function fetchTopics(): Promise<PublicTopic[]> {
+async function fetchTopics(locale: string): Promise<PublicTopic[]> {
   try {
-    const res = await fetch(`${API_URL}/public/topics?limit=200`, {
-      next: { revalidate: 86400 },
+    const res = await fetch(`${API_URL}/public/topics?limit=200&locale=${locale}`, {
+      next: { revalidate: 86400, tags: [`topics-${locale}`] },
     });
     if (!res.ok) return [];
     return await res.json();
@@ -42,6 +44,7 @@ async function fetchTopics(): Promise<PublicTopic[]> {
   }
 }
 
+// Order by English specialty name (stable key from specialties.name_en)
 const SPECIALTY_ORDER = [
   "Cardiology",
   "Neurology",
@@ -51,12 +54,13 @@ const SPECIALTY_ORDER = [
   "Obstetrics & Gynecology",
   "Pharmacology",
   "Respiratory Medicine",
-  "Laboratory Diagnostics",
+  "Clinical Diagnostics",
   "Oncology",
   "Dermatology",
   "Psychiatry",
   "Anesthesiology",
-  "Veterinary",
+  "Veterinary Medicine",
+  "Foundations",
 ];
 
 export default async function TopicsPage({
@@ -64,21 +68,26 @@ export default async function TopicsPage({
 }: {
   searchParams?: { lang?: string; search?: string };
 }) {
-  const topics = await fetchTopics();
-  const t = getLearnT(searchParams?.lang);
+  const locale = headers().get("x-locale") ?? searchParams?.lang ?? "en";
+  const topics = await fetchTopics(locale);
+  const t = getLearnT(locale);
 
-  // Group by specialty
+  // Group by localized specialty name (displayed to user); fall back to English
   const grouped: Record<string, PublicTopic[]> = {};
   for (const topic of topics) {
-    const key = topic.specialty ?? "Other";
+    const key = topic.specialty ?? topic.specialty_en ?? "Other";
     if (!grouped[key]) grouped[key] = [];
     grouped[key].push(topic);
   }
 
-  // Sort specialties by predefined order, then alphabetically
+  // Sort specialties using English name (specialty_en) for stable ordering
   const specialties = Object.keys(grouped).sort((a, b) => {
-    const ia = SPECIALTY_ORDER.indexOf(a);
-    const ib = SPECIALTY_ORDER.indexOf(b);
+    const topicA = grouped[a][0];
+    const topicB = grouped[b][0];
+    const enA = topicA?.specialty_en ?? a;
+    const enB = topicB?.specialty_en ?? b;
+    const ia = SPECIALTY_ORDER.indexOf(enA);
+    const ib = SPECIALTY_ORDER.indexOf(enB);
     if (ia !== -1 && ib !== -1) return ia - ib;
     if (ia !== -1) return -1;
     if (ib !== -1) return 1;

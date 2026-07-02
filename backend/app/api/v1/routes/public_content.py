@@ -153,23 +153,25 @@ async def get_public_glossary(
     letter: Optional[str] = Query(None, min_length=1, max_length=1, description="Filter by first letter"),
     search: Optional[str] = Query(None, max_length=100),
     limit: int = Query(100, ge=1, le=500),
+    locale: str = Query("en", max_length=5, description="Locale for translated glossary terms"),
     db: AsyncSession = Depends(get_db),
 ):
     """Aggregated glossary from all lessons with lay_glossary set.
 
     Returns deduplicated terms sorted A-Z.
+    For non-English locales, prefers translated lay_glossary from lesson_translations.
     Cached for 1 hour. Rate limited 120 req/min per IP.
     """
     await check_public_rate_limit(request)
 
-    cache_key = f"pub_glossary:{letter or '*'}:{search or ''}:{limit}"
+    cache_key = f"pub_glossary:{locale}:{letter or '*'}:{search or ''}:{limit}"
     cached = await _cache_get(cache_key)
     if cached:
         return cached
 
-    # Fetch all lessons with lay_glossary and their modules
+    # Fetch all published lessons with lay_glossary and their modules
     stmt = (
-        select(Lesson.title, Lesson.lay_glossary, Module.code, Module.title)
+        select(Lesson.id, Lesson.title, Lesson.lay_glossary, Module.code, Module.title)
         .join(Module, Lesson.module_id == Module.id)
         .where(Lesson.lay_glossary.isnot(None))
         .where(Lesson.status == "published")
@@ -177,12 +179,31 @@ async def get_public_glossary(
     result = await db.execute(stmt)
     rows = result.all()
 
+    # For non-English locales: fetch translated glossary from lesson_translations
+    translation_glossary: dict[str, list] = {}
+    if locale != "en":
+        lesson_ids = [row.id for row in rows]
+        if lesson_ids:
+            tr_result = await db.execute(
+                select(LessonTranslation.lesson_id, LessonTranslation.lay_glossary)
+                .where(
+                    LessonTranslation.lesson_id.in_(lesson_ids),
+                    LessonTranslation.locale == locale,
+                    LessonTranslation.lay_glossary.isnot(None),
+                )
+            )
+            for tr_lesson_id, tr_glossary in tr_result.all():
+                if isinstance(tr_glossary, list) and tr_glossary:
+                    translation_glossary[str(tr_lesson_id)] = tr_glossary
+
     # Aggregate and deduplicate terms
     seen: dict[str, PublicGlossaryTerm] = {}
-    for lesson_title, glossary, module_code, module_title in rows:
-        if not isinstance(glossary, list):
+    for lesson_id, lesson_title, glossary, module_code, module_title in rows:
+        # Use translated glossary if available for this locale
+        effective_glossary = translation_glossary.get(str(lesson_id), glossary)
+        if not isinstance(effective_glossary, list):
             continue
-        for entry in glossary:
+        for entry in effective_glossary:
             if not isinstance(entry, dict):
                 continue
             term = entry.get("term", "").strip()

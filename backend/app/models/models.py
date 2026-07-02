@@ -1031,6 +1031,7 @@ class LessonTranslation(Base):
 
     title = Column(String(300), nullable=False)
     content_json = Column(JSONB, nullable=False)  # translated blocks array
+    lay_glossary = Column(JSONB, nullable=True)   # [{term, simple_definition}]
 
     # pending | translating | done | failed | reviewed
     status = Column(String(20), nullable=False, default="pending")

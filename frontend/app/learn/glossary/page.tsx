@@ -29,10 +29,10 @@ type GlossaryTerm = {
   module_title: string;
 };
 
-async function fetchGlossary(): Promise<GlossaryTerm[]> {
+async function fetchGlossary(locale: string): Promise<GlossaryTerm[]> {
   try {
-    const res = await fetch(`${API_URL}/public/glossary?limit=500`, {
-      next: { revalidate: 86400 },
+    const res = await fetch(`${API_URL}/public/glossary?limit=500&locale=${locale}`, {
+      next: { revalidate: 86400, tags: [`glossary-${locale}`] },
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -42,12 +42,14 @@ async function fetchGlossary(): Promise<GlossaryTerm[]> {
   }
 }
 
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+// Russian Cyrillic alphabet for letter nav when locale=ru
+const ALPHABET_RU = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("");
+const ALPHABET_EN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default async function GlossaryPage() {
   const locale = headers().get("x-locale") ?? "en";
   const t = getLearnT(locale);
-  const terms = await fetchGlossary();
+  const terms = await fetchGlossary(locale);
 
   // Group by first letter
   const grouped: Record<string, GlossaryTerm[]> = {};
@@ -57,6 +59,7 @@ export default async function GlossaryPage() {
     grouped[letter].push(term);
   }
   const availableLetters = Object.keys(grouped).sort();
+  const ALPHABET = locale === "ru" ? ALPHABET_RU : ALPHABET_EN;
 
   return (
     <>
