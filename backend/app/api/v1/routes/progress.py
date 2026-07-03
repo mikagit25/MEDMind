@@ -375,10 +375,18 @@ async def get_stats(
     # Total sessions ≈ number of unique activity days (from UserProgress records)
     total_sessions = len([p for p in progressions if p.last_activity_at is not None])
 
+    today = datetime.utcnow().date()
+    studied_today = bool(
+        user.last_active_date and
+        (user.last_active_date.date() if hasattr(user.last_active_date, "date") else user.last_active_date) >= today
+    )
+
     return ProgressStats(
         total_xp=user.xp,
         level=user.level,
-        streak_days=user.streak_days,
+        streak_days=user.streak_days or 0,
+        longest_streak=user.longest_streak or 0,
+        studied_today=studied_today,
         lessons_completed=lessons_completed,
         flashcards_mastered=flashcards_mastered,
         mcq_accuracy=correct_rate,

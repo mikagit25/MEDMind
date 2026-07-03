@@ -108,7 +108,15 @@ function ModuleCard({
 
       {/* Stats row */}
       <div className="flex items-center gap-3 text-[11px] font-syne text-ink-3">
-        {mod.lesson_count > 0 && <span>📖 {mod.lesson_count}</span>}
+        {progress && progress.lessons_completed > 0 ? (
+          <span className={`font-semibold ${pct >= 100 ? "text-green" : "text-ink-2"}`}>
+            {pct >= 100 ? "✅" : "📖"} {progress.lessons_completed} {t("modules.card_lessons_of")} {mod.lesson_count} {t("modules.card_lessons")}
+          </span>
+        ) : (
+          <>
+            {mod.lesson_count > 0 && <span>📖 {mod.lesson_count} {t("modules.card_lessons")}</span>}
+          </>
+        )}
         {mod.flashcard_count > 0 && <span>🃏 {mod.flashcard_count}</span>}
         {mod.mcq_count > 0 && <span>❓ {mod.mcq_count}</span>}
         <span className="ml-auto text-[10px] font-semibold text-accent group-hover:underline">

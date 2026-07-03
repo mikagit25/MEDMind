@@ -314,49 +314,82 @@ function VeterinarianPanel({ stats }: { stats: any }) {
 }
 
 // ── Streak Calendar (last 7 days) ──────────────────────────────────────────
-function StreakCalendar({ streakDays, longestStreak }: { streakDays: number; longestStreak?: number }) {
+function StreakCalendar({
+  streakDays,
+  longestStreak,
+  studiedToday,
+}: {
+  streakDays: number;
+  longestStreak?: number;
+  studiedToday?: boolean;
+}) {
   const t = useT();
+  const { locale } = useI18n();
+
+  // Browser locale tag for day names (e.g. "ru-RU" for Russian)
+  const localeTag = locale === "ru" ? "ru-RU" : locale === "ar" ? "ar-SA" : locale === "tr" ? "tr-TR" : locale === "de" ? "de-DE" : locale === "fr" ? "fr-FR" : locale === "es" ? "es-ES" : "en-US";
+
   const days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - (6 - i));
     return {
-      label: d.toLocaleDateString("en-US", { weekday: "short" }).slice(0, 1),
-      date: d.toISOString().slice(0, 10),
-      // Assume consecutive days going back from today
+      label: d.toLocaleDateString(localeTag, { weekday: "narrow" }),
       active: i >= 7 - Math.min(streakDays, 7),
       isToday: i === 6,
     };
   });
 
+  const atRisk = streakDays > 0 && !studiedToday;
+  const neverStarted = streakDays === 0 && !studiedToday;
+
   return (
-    <div className="card p-4 mb-4">
+    <div className={`card p-4 mb-4 ${atRisk ? "border-amber/40 bg-amber-light/20" : ""}`}>
       <div className="flex items-center justify-between mb-3">
         <div>
           <span className="font-syne font-bold text-sm text-ink">{t("dashboard.streak_title")}</span>
           {longestStreak && longestStreak > streakDays && (
-            <span className="font-serif text-[10px] text-ink-3 ml-2">{t("dashboard.streak_best")} {longestStreak}d</span>
+            <span className="font-serif text-[10px] text-ink-3 ml-2">
+              {t("dashboard.streak_best")} {longestStreak} {t("dashboard.streak_days_label")}
+            </span>
           )}
         </div>
-        <span className="font-syne font-black text-sm text-amber">{streakDays} 🔥</span>
+        <div className="flex items-center gap-1.5">
+          <span className={`font-syne font-black text-xl ${atRisk ? "text-amber animate-pulse" : streakDays > 0 ? "text-amber" : "text-ink-3"}`}>
+            {streakDays > 0 ? `${streakDays} 🔥` : "0"}
+          </span>
+        </div>
       </div>
-      <div className="flex gap-1.5">
+
+      <div className="flex gap-1.5 mb-3">
         {days.map((d, i) => (
           <div key={i} className="flex-1 flex flex-col items-center gap-1">
             <div
               className={`w-full aspect-square rounded-md transition-all ${
                 d.active
-                  ? d.isToday
+                  ? d.isToday && studiedToday
+                    ? "bg-green shadow-sm shadow-green/30"
+                    : d.isToday
                     ? "bg-amber shadow-sm shadow-amber/30"
                     : "bg-amber/40"
+                  : d.isToday
+                  ? "bg-bg-2 border-2 border-dashed border-amber/40"
                   : "bg-bg-2"
               }`}
             />
-            <span className={`font-syne text-xs ${d.isToday ? "font-bold text-ink" : "text-ink-3"}`}>
+            <span className={`font-syne text-[10px] ${d.isToday ? "font-bold text-ink" : "text-ink-3"}`}>
               {d.label}
             </span>
           </div>
         ))}
       </div>
+
+      {studiedToday ? (
+        <div className="text-xs font-serif text-green">{t("dashboard.streak_today_done")}</div>
+      ) : atRisk ? (
+        <div className="text-xs font-serif text-amber">{t("dashboard.streak_at_risk")}</div>
+      ) : neverStarted ? (
+        <div className="text-xs font-serif text-ink-3">{t("dashboard.streak_start")}</div>
+      ) : null}
     </div>
   );
 }
@@ -639,20 +672,20 @@ export default function DashboardPage() {
       {/* Role-specific panel */}
       {role === "doctor" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
           <TodaysPlan />
           <DoctorPanel stats={stats} />
         </>
       )}
       {(role === "professor" || role === "teacher" || role === "admin") && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
           <ProfessorPanel stats={stats} />
         </>
       )}
       {role === "veterinarian" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
           <TodaysPlan />
           <VeterinarianPanel stats={stats} />
         </>
@@ -677,7 +710,7 @@ export default function DashboardPage() {
                 flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
                 dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}
               />
-              <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={user?.longest_streak} />
+              <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
               <TodaysPlan />
               <MiniLeaderboard />
             </>
