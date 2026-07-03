@@ -389,11 +389,41 @@ async def articles_by_category(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
     locale: Optional[str] = Query(None),
+    search: Optional[str] = Query(None, description="Filter by keyword in title/slug"),
     db: AsyncSession = Depends(get_db),
 ):
-    q = select(Article).where(Article.is_published == True, Article.review_status == "published", Article.category == category, _verified_only())
+    _SPECIES_KW: dict[str, list[str]] = {
+        "dog":     ["dog", "canine", "puppy", "parvovirus", "heartworm", "dachshund", "distemper"],
+        "cat":     ["cat", "feline", "kitten"],
+        "horse":   ["horse", "equine", "laminitis", "colic", "foal"],
+        "cattle":  ["cattle", "bovine", "cow", "mastitis", "bvd"],
+        "rabbit":  ["rabbit"],
+        "bird":    ["bird", "parrot", "avian", "psittac"],
+        "reptile": ["reptile", "bearded", "gecko", "lizard"],
+    }
+
+    from sqlalchemy import or_, func as sqlfunc
+
+    base_filter = [
+        Article.is_published == True,
+        Article.review_status == "published",
+        Article.category == category,
+        _verified_only(),
+    ]
+    if search:
+        kws = _SPECIES_KW.get(search.lower(), [search.lower()])
+        base_filter.append(
+            or_(*[
+                or_(
+                    sqlfunc.lower(Article.title).like(f"%{kw}%"),
+                    sqlfunc.lower(Article.slug).like(f"%{kw}%"),
+                )
+                for kw in kws
+            ])
+        )
+    q = select(Article).where(*base_filter)
     total = (await db.execute(
-        select(func.count(Article.id)).where(Article.is_published == True, Article.review_status == "published", Article.category == category, _verified_only())
+        select(func.count(Article.id)).where(*base_filter)
     )).scalar() or 0
     q = q.order_by(desc(Article.published_at)).offset((page - 1) * limit).limit(limit)
     rows = (await db.execute(q)).scalars().all()
