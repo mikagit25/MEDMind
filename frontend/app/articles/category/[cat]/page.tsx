@@ -6,6 +6,7 @@ import { getCategoryLabel, CATEGORY_DESCRIPTIONS } from "@/lib/categories";
 import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { getArticlesT } from "@/lib/articles-i18n";
+import { PawPrint, Dog, Cat, Rabbit, Bird, Bug } from "lucide-react";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
@@ -13,6 +14,70 @@ const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const PAGE_SIZE = 24;
 
 export const dynamic = "force-dynamic";
+
+// ── Veterinary species topics ────────────────────────────────────────────────
+
+type VetSpecies = {
+  key: string;
+  icon: React.ElementType;
+  color: string;        // Tailwind bg/text classes
+  labels: Record<string, string>;
+  descs: Record<string, string>;
+};
+
+const VET_SPECIES: VetSpecies[] = [
+  {
+    key: "dog",
+    icon: Dog,
+    color: "bg-amber-50 border-amber-100 text-amber-700 hover:bg-amber-100",
+    labels: { en: "Dogs", ru: "Собаки", de: "Hunde", fr: "Chiens", es: "Perros", tr: "Köpekler", ar: "الكلاب" },
+    descs:  { en: "Canine diseases & treatment", ru: "Болезни и лечение собак", de: "Hundekrankheiten", fr: "Maladies canines", es: "Enfermedades caninas", tr: "Köpek hastalıkları", ar: "أمراض الكلاب" },
+  },
+  {
+    key: "cat",
+    icon: Cat,
+    color: "bg-violet-50 border-violet-100 text-violet-700 hover:bg-violet-100",
+    labels: { en: "Cats", ru: "Кошки", de: "Katzen", fr: "Chats", es: "Gatos", tr: "Kediler", ar: "القطط" },
+    descs:  { en: "Feline diseases & treatment", ru: "Болезни и лечение кошек", de: "Katzenkrankheiten", fr: "Maladies félines", es: "Enfermedades felinas", tr: "Kedi hastalıkları", ar: "أمراض القطط" },
+  },
+  {
+    key: "horse",
+    icon: PawPrint,
+    color: "bg-brown-50 border-stone-200 text-stone-700 hover:bg-stone-100",
+    labels: { en: "Horses", ru: "Лошади", de: "Pferde", fr: "Chevaux", es: "Caballos", tr: "Atlar", ar: "الخيول" },
+    descs:  { en: "Equine medicine & surgery", ru: "Болезни и хирургия лошадей", de: "Pferdemedizin", fr: "Médecine équine", es: "Medicina equina", tr: "At sağlığı", ar: "طب الخيول" },
+  },
+  {
+    key: "rabbit",
+    icon: Rabbit,
+    color: "bg-pink-50 border-pink-100 text-pink-700 hover:bg-pink-100",
+    labels: { en: "Rabbits", ru: "Кролики", de: "Kaninchen", fr: "Lapins", es: "Conejos", tr: "Tavşanlar", ar: "الأرانب" },
+    descs:  { en: "Rabbit & small mammal care", ru: "Кролики и мелкие млекопитающие", de: "Kaninchenpflege", fr: "Soins lapins", es: "Cuidado de conejos", tr: "Tavşan bakımı", ar: "العناية بالأرانب" },
+  },
+  {
+    key: "bird",
+    icon: Bird,
+    color: "bg-sky-50 border-sky-100 text-sky-700 hover:bg-sky-100",
+    labels: { en: "Birds", ru: "Птицы", de: "Vögel", fr: "Oiseaux", es: "Aves", tr: "Kuşlar", ar: "الطيور" },
+    descs:  { en: "Avian medicine & nutrition", ru: "Болезни и питание птиц", de: "Vogelmedizin", fr: "Médecine aviaire", es: "Medicina aviar", tr: "Kuş sağlığı", ar: "طب الطيور" },
+  },
+  {
+    key: "reptile",
+    icon: Bug,
+    color: "bg-emerald-50 border-emerald-100 text-emerald-700 hover:bg-emerald-100",
+    labels: { en: "Reptiles", ru: "Рептилии", de: "Reptilien", fr: "Reptiles", es: "Reptiles", tr: "Sürüngenler", ar: "الزواحف" },
+    descs:  { en: "Reptile health & husbandry", ru: "Здоровье и содержание рептилий", de: "Reptiliengesundheit", fr: "Santé des reptiles", es: "Salud de reptiles", tr: "Sürüngen sağlığı", ar: "صحة الزواحف" },
+  },
+  {
+    key: "cattle",
+    icon: PawPrint,
+    color: "bg-orange-50 border-orange-100 text-orange-700 hover:bg-orange-100",
+    labels: { en: "Cattle", ru: "КРС", de: "Rinder", fr: "Bovins", es: "Bovinos", tr: "Sığırlar", ar: "الأبقار" },
+    descs:  { en: "Bovine medicine & production", ru: "Болезни и продуктивность КРС", de: "Rindermedizin", fr: "Médecine bovine", es: "Medicina bovina", tr: "Sığır sağlığı", ar: "طب الأبقار" },
+  },
+];
+
+// ── Types & fetchers ─────────────────────────────────────────────────────────
 
 type Article = {
   id: string;
@@ -23,16 +88,19 @@ type Article = {
   keywords: string[];
   reading_time_minutes: number;
   published_at: string | null;
+  cover_image: string | null;
 };
 
 async function fetchCategory(
   cat: string,
   page = 1,
-  locale = "en"
+  locale = "en",
+  search?: string,
 ): Promise<{ articles: Article[]; total: number } | null> {
   try {
     const params = new URLSearchParams({ page: String(page), limit: "24" });
     if (locale && locale !== "en") params.set("locale", locale);
+    if (search) params.set("search", search);
     const res = await fetch(`${API_URL}/articles/category/${cat}?${params}`, {
       cache: "no-store",
     });
@@ -43,6 +111,26 @@ async function fetchCategory(
   } catch {
     return null;
   }
+}
+
+async function fetchSpeciesCounts(locale: string): Promise<Record<string, number>> {
+  const counts: Record<string, number> = {};
+  await Promise.all(
+    VET_SPECIES.map(async (sp) => {
+      try {
+        const params = new URLSearchParams({ limit: "1", search: sp.key });
+        if (locale && locale !== "en") params.set("locale", locale);
+        const res = await fetch(`${API_URL}/articles/category/veterinary?${params}`, {
+          cache: "no-store",
+        });
+        if (res.ok) {
+          const d = await res.json();
+          counts[sp.key] = d.total ?? 0;
+        }
+      } catch { /* ignore */ }
+    })
+  );
+  return counts;
 }
 
 export async function generateMetadata({
@@ -96,7 +184,7 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: { cat: string };
-  searchParams?: { page?: string; lang?: string };
+  searchParams?: { page?: string; lang?: string; species?: string };
 }) {
   const cookieLocale = cookies().get("medmind_locale")?.value;
   const rawLocale = searchParams?.lang || cookieLocale;
@@ -106,8 +194,14 @@ export default async function CategoryPage({
   const label = getCategoryLabel(params.cat, locale);
   if (!label || label === params.cat) notFound();
 
-  const page = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
-  const result = await fetchCategory(params.cat, page, locale);
+  const page       = Math.max(1, parseInt(searchParams?.page ?? "1", 10) || 1);
+  const speciesKey = searchParams?.species ?? "";
+  const isVet      = params.cat === "veterinary";
+
+  const [result, speciesCounts] = await Promise.all([
+    fetchCategory(params.cat, page, locale, speciesKey || undefined),
+    isVet ? fetchSpeciesCounts(locale) : Promise.resolve({}),
+  ]);
   if (!result) notFound();
 
   const { articles, total } = result;
@@ -132,7 +226,11 @@ export default async function CategoryPage({
     const base = locale !== "en"
       ? `/${locale}/articles/category/${params.cat}`
       : `/articles/category/${params.cat}`;
-    return p > 1 ? `${base}?page=${p}` : base;
+    const qs = new URLSearchParams();
+    if (p > 1) qs.set("page", String(p));
+    if (speciesKey) qs.set("species", speciesKey);
+    const q = qs.toString();
+    return q ? `${base}?${q}` : base;
   };
 
   return (
@@ -171,37 +269,121 @@ export default async function CategoryPage({
           </p>
         </div>
 
+        {/* ── Veterinary species filter ── */}
+        {isVet && (
+          <section className="mb-10">
+            {(() => {
+              const VET_SPECIES_HEADING: Record<string, string> = {
+                en: "Browse by Species",
+                ru: "По виду животного",
+                de: "Nach Tierart",
+                fr: "Par espèce",
+                es: "Por especie",
+                tr: "Türe göre",
+                ar: "حسب النوع",
+              };
+              const basePath = locale !== "en"
+                ? `/${locale}/articles/category/veterinary`
+                : "/articles/category/veterinary";
+              return (
+                <>
+                  <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">
+                    {VET_SPECIES_HEADING[locale] ?? VET_SPECIES_HEADING.en}
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
+                    {VET_SPECIES.map((sp) => {
+                      const isActive = speciesKey === sp.key;
+                      const count = speciesCounts[sp.key] ?? 0;
+                      const href  = isActive ? basePath : `${basePath}?species=${sp.key}`;
+                      const Icon  = sp.icon;
+                      return (
+                        <Link
+                          key={sp.key}
+                          href={href}
+                          className={`flex flex-col items-center gap-1.5 p-3.5 border rounded-xl transition-all text-center ${
+                            isActive
+                              ? sp.color + " ring-2 ring-offset-1 ring-current"
+                              : sp.color
+                          }`}
+                        >
+                          <Icon size={22} strokeWidth={1.75} />
+                          <span className="font-syne font-bold text-xs">
+                            {sp.labels[locale] ?? sp.labels.en}
+                          </span>
+                          {count > 0 && (
+                            <span className="text-[10px] font-serif opacity-70">
+                              {count} {t.n_articles.replace("{n}", "").trim() || "articles"}
+                            </span>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  {speciesKey && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-serif text-ink-3">
+                        {VET_SPECIES.find(s => s.key === speciesKey)?.descs[locale] ?? ""}
+                      </span>
+                      <Link
+                        href={basePath}
+                        className="text-xs font-syne font-semibold text-ink-2 hover:text-ink border border-border rounded-full px-2.5 py-0.5 hover:border-ink-2 transition-colors"
+                      >
+                        ✕ {locale === "ru" ? "Все" : locale === "de" ? "Alle" : locale === "fr" ? "Tous" : locale === "es" ? "Todos" : locale === "ar" ? "الكل" : locale === "tr" ? "Tümü" : "All"}
+                      </Link>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
+          </section>
+        )}
+
         {/* Articles */}
         {articles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((a) => (
-              <Link
-                key={a.id}
-                href={locale !== "en" ? `/${locale}/articles/${a.slug}` : `/articles/${a.slug}`}
-                className="group flex flex-col bg-surface border border-border rounded-xl p-5 hover:border-ink hover:shadow-md transition-all"
-              >
-                <h2 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                  {a.title}
-                </h2>
-                <p className="text-ink-2 font-serif text-sm leading-relaxed flex-1 line-clamp-3">
-                  {a.excerpt}
-                </p>
-                <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border">
-                  <span className="text-ink-3 text-xs font-serif">
-                    {t.read_time.replace("{n}", String(a.reading_time_minutes))}
-                  </span>
-                  {a.published_at && (
-                    <span className="text-ink-3 text-xs font-serif ml-auto">
-                      {new Date(a.published_at).toLocaleDateString(dateLocale, {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
+            {articles.map((a) => {
+              const href = locale !== "en" ? `/${locale}/articles/${a.slug}` : `/articles/${a.slug}`;
+              return (
+                <Link
+                  key={a.id}
+                  href={href}
+                  className="group flex flex-col bg-surface border border-border rounded-xl overflow-hidden hover:border-ink hover:shadow-md transition-all"
+                >
+                  {a.cover_image && (
+                    <div className="relative h-40 overflow-hidden bg-surface-2">
+                      <img
+                        src={a.cover_image}
+                        alt={a.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
                   )}
-                </div>
-              </Link>
-            ))}
+                  <div className="flex flex-col flex-1 p-5">
+                    <h2 className="font-syne font-bold text-base text-ink mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                      {a.title}
+                    </h2>
+                    <p className="text-ink-2 font-serif text-sm leading-relaxed flex-1 line-clamp-3">
+                      {a.excerpt}
+                    </p>
+                    <div className="flex items-center gap-3 mt-4 pt-3 border-t border-border">
+                      <span className="text-ink-3 text-xs font-serif">
+                        {t.read_time.replace("{n}", String(a.reading_time_minutes))}
+                      </span>
+                      {a.published_at && (
+                        <span className="text-ink-3 text-xs font-serif ml-auto">
+                          {new Date(a.published_at).toLocaleDateString(dateLocale, {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-20 text-ink-3 font-serif">
