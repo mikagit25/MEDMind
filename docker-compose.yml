@@ -78,7 +78,7 @@ services:
       INTERNAL_API_URL: http://backend:8000/api/v1
       NEXT_PUBLIC_SITE_URL: https://medmind.pro
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - backend
 
