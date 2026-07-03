@@ -54,11 +54,55 @@ MEDIA_ARTICLES = Path("/app/data/media/articles")
 MEDIA_URL_BASE = "/media/articles"
 NCBI_BASE      = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 APP_UA         = "MedMindAI/1.0 (https://medmind.pro; 33mikalai@gmail.com)"
-IMAGE_STYLE    = (
-    "professional veterinary medicine photography, clinical setting, "
-    "soft natural lighting, no text, no labels, no watermarks, "
-    "high quality, warm tones, 16:9 aspect ratio"
-)
+# Pexels curated queries per species — ordered by visual appeal, rotate via article slug hash
+SPECIES_PEXELS_QUERIES: dict[str, list[str]] = {
+    "dog":     ["golden retriever dog outdoors", "labrador dog portrait", "dog nature sunny", "german shepherd dog"],
+    "cat":     ["cat portrait natural light", "tabby cat indoor", "domestic cat window", "fluffy cat close-up"],
+    "horse":   ["horse green field", "horse portrait sunset", "bay horse outdoors", "horse countryside"],
+    "cattle":  ["dairy cow farm field", "cattle farm countryside", "cow pasture green"],
+    "rabbit":  ["rabbit pet portrait", "bunny rabbit close-up", "white rabbit nature"],
+    "bird":    ["parrot colorful portrait", "cockatiel pet bird", "macaw tropical bird"],
+    "reptile": ["bearded dragon lizard", "gecko reptile portrait", "iguana green closeup"],
+}
+
+# Species → photorealistic AI image prompt (no medical/clinical context)
+SPECIES_AI_PROMPTS: dict[str, str] = {
+    "dog":     (
+        "golden retriever dog sitting in a sunlit park, shallow depth of field, "
+        "DSLR photography, natural warm light, soft bokeh background, "
+        "high resolution, 16:9 format, no text"
+    ),
+    "cat":     (
+        "beautiful tabby cat sitting by a window with natural light, "
+        "close-up portrait, DSLR photography, soft bokeh, "
+        "warm indoor atmosphere, high resolution, 16:9 format, no text"
+    ),
+    "horse":   (
+        "majestic bay horse in a green field at golden hour, "
+        "wide landscape, DSLR photography, natural sunlight, "
+        "high resolution, 16:9 format, no text"
+    ),
+    "cattle":  (
+        "dairy cow on green farm pasture, natural morning light, "
+        "countryside photography, wide shot, "
+        "high resolution, 16:9 format, no text"
+    ),
+    "rabbit":  (
+        "white domestic rabbit on soft grass, natural daylight, "
+        "close-up portrait, shallow depth of field, "
+        "high resolution, 16:9 format, no text"
+    ),
+    "bird":    (
+        "colorful parrot perched on a branch, vibrant feathers, "
+        "natural light, wildlife photography, "
+        "high resolution, 16:9 format, no text"
+    ),
+    "reptile": (
+        "bearded dragon lizard on a rock, natural lighting, "
+        "close-up macro photography, vivid colours, "
+        "high resolution, 16:9 format, no text"
+    ),
+}
 
 # ─── PubMed grounding ────────────────────────────────────────────────────────
 
@@ -125,75 +169,65 @@ def fetch_pubmed_refs(query: str, n: int = 6) -> list[dict]:
 
 # ─── Pexels cover image ───────────────────────────────────────────────────────
 
-def fetch_pexels_image(species: list[str], title: str) -> str | None:
+def _pexels_fetch(query: str, key: str) -> str | None:
+    """Single Pexels API call — returns large2x URL or None."""
+    url = (
+        "https://api.pexels.com/v1/search?"
+        + urllib.parse.urlencode({"query": query, "per_page": 5, "orientation": "landscape"})
+    )
+    req = urllib.request.Request(url, headers={"Authorization": key, "User-Agent": APP_UA})
+    with urllib.request.urlopen(req, timeout=12) as r:
+        data = json.loads(r.read())
+    photos = data.get("photos", [])
+    if photos:
+        return photos[0]["src"].get("large2x") or photos[0]["src"].get("original")
+    return None
+
+
+def fetch_pexels_image(species: list[str], slug: str) -> str | None:
     """
-    Search Pexels for a landscape photo relevant to the species + condition.
+    Search Pexels using curated species-specific queries.
+    Uses slug hash to rotate query variants for visual variety across articles.
     Returns the large2x URL or None.
     """
     key = settings.PEXELS_API_KEY
     if not key:
-        log.debug("PEXELS_API_KEY not set")
         return None
 
-    # Build query: species + 2-3 meaningful words from title
-    _stop = {
-        "symptoms", "treatment", "diagnosis", "management", "guide", "complete",
-        "veterinary", "emergency", "and", "the", "for", "in", "with", "how",
-        "causes", "types", "options", "overview", "prevention", "care", "home",
-        "signs", "complete", "a", "an", "of", "to", "is",
-    }
-    clean = re.sub(r"[,:;()\[\]]", " ", title).strip()
-    words = [w for w in clean.split() if w.lower() not in _stop and len(w) > 3][:3]
-    sp    = species[0] if species else "dog"
-    query = urllib.parse.quote(f"{sp} {' '.join(words)}")
+    sp      = species[0] if species else "dog"
+    queries = SPECIES_PEXELS_QUERIES.get(sp, [f"{sp} animal portrait"])
+    # Rotate query based on slug so different articles get different photos
+    idx   = hash(slug) % len(queries)
+    order = queries[idx:] + queries[:idx]  # start at rotated position
 
     try:
-        url = f"https://api.pexels.com/v1/search?query={query}&per_page=3&orientation=landscape"
-        req = urllib.request.Request(url, headers={"Authorization": key, "User-Agent": APP_UA})
-        with urllib.request.urlopen(req, timeout=12) as r:
-            data = json.loads(r.read())
-
-        photos = data.get("photos", [])
-        if photos:
-            img_url = photos[0]["src"].get("large2x") or photos[0]["src"].get("original")
-            log.info("  Pexels image: %s", img_url[:80] if img_url else "none")
-            return img_url
-
-        # Fallback: search just the species
-        query2 = urllib.parse.quote(f"veterinary {sp}")
-        url2   = f"https://api.pexels.com/v1/search?query={query2}&per_page=3&orientation=landscape"
-        req2   = urllib.request.Request(url2, headers={"Authorization": key, "User-Agent": APP_UA})
-        with urllib.request.urlopen(req2, timeout=12) as r2:
-            data2 = json.loads(r2.read())
-        photos2 = data2.get("photos", [])
-        if photos2:
-            img_url = photos2[0]["src"].get("large2x") or photos2[0]["src"].get("original")
-            log.info("  Pexels image (fallback query): %s", img_url[:80] if img_url else "none")
-            return img_url
-
+        for query in order:
+            result = _pexels_fetch(query, key)
+            if result:
+                log.info("  Pexels ('%s'): %s", query, result[:80])
+                return result
+            time.sleep(0.3)
     except Exception as e:
-        log.warning("  Pexels fetch failed: %s", e)
+        log.warning("  Pexels failed: %s", e)
 
     return None
 
 
-# ─── Together.ai image generation (second fallback) ──────────────────────────
+# ─── Together.ai image generation (fallback) ─────────────────────────────────
 
 def generate_together_image(slug: str, title: str, species: list[str]) -> str | None:
-    """Generate a cover image via Together.ai FLUX.1-schnell, save to media volume."""
+    """
+    Generate a photorealistic animal photo via Together.ai FLUX.1-schnell.
+    Uses species-specific portrait prompts — no clinical/3D style.
+    Saves to /app/data/media/articles/{slug}.jpg
+    """
     key = settings.TOGETHER_API_KEY
     if not key:
         return None
 
-    _stop = {
-        "symptoms", "treatment", "diagnosis", "management", "guide", "veterinary",
-        "emergency", "prevention", "and", "the", "for", "in", "with", "how",
-    }
-    clean   = re.sub(r"[,:;()\[\]]", " ", title).strip()
-    words   = [w for w in clean.split() if w.lower() not in _stop and len(w) > 3][:3]
-    sp_str  = " and ".join(species[:2]) if species else "dog"
-    prompt  = f"{' '.join(words)}, {sp_str}, {IMAGE_STYLE}"
-    log.info("  Together.ai prompt: %s", prompt[:90])
+    sp     = species[0] if species else "dog"
+    prompt = SPECIES_AI_PROMPTS.get(sp, f"{sp} animal portrait, natural light, DSLR photography, 16:9, no text")
+    log.info("  Together.ai prompt: %s", prompt[:100])
 
     try:
         r = httpx.post(
@@ -311,14 +345,45 @@ def _sanitize_json_strings(s: str) -> str:
     return "".join(result)
 
 
+def _find_json_object(text: str) -> str | None:
+    """
+    Extract the outermost JSON object from text using bracket-depth tracking.
+    Handles strings (with escape sequences) correctly so embedded } don't confuse it.
+    """
+    start = text.find("{")
+    if start == -1:
+        return None
+    depth, in_str, escaped = 0, False, False
+    for i, ch in enumerate(text[start:], start):
+        if escaped:
+            escaped = False
+            continue
+        if ch == "\\" and in_str:
+            escaped = True
+            continue
+        if ch == '"':
+            in_str = not in_str
+            continue
+        if in_str:
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : i + 1]
+    # Truncated — return from start to end of text
+    return text[start:]
+
+
 def _extract_json(raw: str) -> dict | None:
     raw = raw.strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$",          "", raw)
-    match = re.search(r"\{[\s\S]*\}", raw)
-    if not match:
+
+    fragment = _find_json_object(raw)
+    if not fragment:
         return None
-    fragment = match.group(0)
 
     for attempt in [fragment, _sanitize_json_strings(fragment)]:
         try:
@@ -328,7 +393,7 @@ def _extract_json(raw: str) -> dict | None:
 
     # Truncated JSON — try adding missing closing brackets
     sanitised = _sanitize_json_strings(fragment)
-    for suffix in ["]}}", "]}", "}"]:
+    for suffix in ['"]}}}', '"]}}', '"]}', ']}}', ']}', '}']:
         try:
             return json.loads(sanitised + suffix)
         except Exception:
@@ -578,17 +643,22 @@ async def main(args: argparse.Namespace) -> None:
         )
         time.sleep(0.5)  # be polite to NCBI
 
-        # 2. LLM generation
+        # 2. LLM generation (up to 3 attempts on bad JSON)
         prompt = _build_prompt(topic, pubmed_refs)
-        raw    = await _call_groq(prompt, VET_SYSTEM, keys, max_tokens=8000)
-        if not raw:
-            log.error("No LLM response for %s", slug)
-            await asyncio.sleep(15)
-            continue
-
-        data = _extract_json(raw)
+        data: dict | None = None
+        for attempt in range(3):
+            raw = await _call_groq(prompt, VET_SYSTEM, keys, max_tokens=8000)
+            if not raw:
+                log.warning("No LLM response on attempt %d for %s", attempt + 1, slug)
+                await asyncio.sleep(15)
+                continue
+            data = _extract_json(raw)
+            if data:
+                break
+            log.warning("JSON parse failed on attempt %d for %s — retrying", attempt + 1, slug)
+            await asyncio.sleep(10)
         if not data:
-            log.error("Could not parse JSON for %s", slug)
+            log.error("Could not parse JSON after 3 attempts for %s", slug)
             continue
 
         log.info("  Body blocks: %d | FAQ: %d | PMIDs: %s",
@@ -601,15 +671,19 @@ async def main(args: argparse.Namespace) -> None:
         article_species: list[str]  = topic.get("species", ["dog", "cat"])
         article_title:   str        = data.get("title") or topic["title_en"]
 
-        cover_image = fetch_pexels_image(article_species, article_title)
+        cover_image = fetch_pexels_image(article_species, slug)
         if not cover_image:
             log.info("  Pexels: no image found, trying Together.ai")
             cover_image = generate_together_image(slug, article_title, article_species)
         if not cover_image:
             log.info("  cover_image: none (placeholder will show)")
 
-        # 4. Save to DB
+        # 4. Save to DB (delete first if --force)
         async with AsyncSessionLocal() as session:
+            if args.force and slug in existing_slugs:
+                from sqlalchemy import delete as sqdelete
+                await session.execute(sqdelete(Article).where(Article.slug == slug))
+                await session.commit()
             ok = await save_article(session, data, topic, pubmed_refs, cover_image=cover_image)
 
         if ok:
