@@ -35,7 +35,6 @@ export function Sidebar() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const { darkMode, toggleDarkMode } = useUIStore();
-  const [searchQ, setSearchQ] = useState("");
   const t = useT();
   const { locale, setLocale } = useI18n();
 
@@ -127,22 +126,16 @@ export function Sidebar() {
         </Link>
       </div>
 
-      {/* Search */}
+      {/* Search — opens Cmd+K modal */}
       <div className="px-3 py-3 border-b border-white/10">
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          if (searchQ.trim()) router.push(`/search?q=${encodeURIComponent(searchQ.trim())}`);
-        }}>
-          <div className="relative">
-            <Search size={13} strokeWidth={2} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30" />
-            <input
-              value={searchQ}
-              onChange={(e) => setSearchQ(e.target.value)}
-              placeholder={t("nav.search_placeholder")}
-              className="w-full bg-white/10 text-white text-sm placeholder:text-white/30 rounded-lg pl-7 pr-3 py-1.5 focus:outline-none focus:bg-white/15 transition-colors"
-            />
-          </div>
-        </form>
+        <button
+          onClick={() => window.dispatchEvent(new Event("search:open"))}
+          className="w-full flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white/30 hover:text-white/50 rounded-lg pl-2.5 pr-2 py-1.5 transition-colors text-left"
+        >
+          <Search size={13} strokeWidth={2} className="flex-shrink-0" />
+          <span className="flex-1 text-sm truncate">{t("nav.search_placeholder")}</span>
+          <kbd className="text-[10px] font-mono border border-white/20 rounded px-1 py-0.5 leading-none">⌘K</kbd>
+        </button>
       </div>
 
       {/* Navigation */}

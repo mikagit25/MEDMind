@@ -641,6 +641,17 @@ const es: Translations = {
     avg_score: "Puntuación media",
     passed_80: "Aprobado (≥80%)",
     retry_arrow: "Reintentar →",
+    exam_mode: "Modo examen",
+    exam_mode_desc: "Test cronometrado · sin pistas durante el examen",
+    exam_start: "Iniciar examen",
+    exam_questions: "preguntas",
+    exam_time_up: "¡Tiempo agotado!",
+    exam_review_title: "Revisión del examen",
+    exam_wrong: "Respuestas incorrectas",
+    exam_skipped: "Omitidas",
+    exam_time_taken: "Tiempo empleado",
+    exam_your_answer: "Tu respuesta",
+    exam_correct_answer: "Correcta",
   },
 
   cases: {

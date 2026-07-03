@@ -633,6 +633,17 @@ const ar: Translations = {
     avg_score: "متوسط الدرجة",
     passed_80: "نجح (≥80%)",
     retry_arrow: "إعادة المحاولة →",
+    exam_mode: "وضع الامتحان",
+    exam_mode_desc: "اختبار موقّت · لا تلميحات أثناء الامتحان",
+    exam_start: "بدء الامتحان",
+    exam_questions: "أسئلة",
+    exam_time_up: "انتهى الوقت!",
+    exam_review_title: "مراجعة الامتحان",
+    exam_wrong: "الإجابات الخاطئة",
+    exam_skipped: "تم تخطّيه",
+    exam_time_taken: "الوقت المستغرق",
+    exam_your_answer: "إجابتك",
+    exam_correct_answer: "الصحيح",
   },
 
   cases: {

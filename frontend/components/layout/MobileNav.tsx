@@ -43,7 +43,6 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const { darkMode, toggleDarkMode } = useUIStore();
-  const [searchQ, setSearchQ] = useState("");
   const t = useT();
   const { locale, setLocale } = useI18n();
 
@@ -131,16 +130,15 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
-      {/* Search */}
+      {/* Search — opens modal */}
       <div className="px-3 py-3 border-b border-white/10">
-        <form onSubmit={(e) => { e.preventDefault(); if (searchQ.trim()) handleNav(`/search?q=${encodeURIComponent(searchQ.trim())}`); }}>
-          <div className="relative">
-            <Search size={13} strokeWidth={2} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30" />
-            <input value={searchQ} onChange={(e) => setSearchQ(e.target.value)}
-              placeholder={t("nav.search_placeholder")}
-              className="w-full bg-white/10 text-white text-sm placeholder:text-white/30 rounded-lg pl-7 pr-3 py-2 focus:outline-none focus:bg-white/15" />
-          </div>
-        </form>
+        <button
+          onClick={() => { onClose(); window.dispatchEvent(new Event("search:open")); }}
+          className="w-full flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white/30 rounded-lg pl-2.5 pr-3 py-2 transition-colors text-left"
+        >
+          <Search size={13} strokeWidth={2} className="flex-shrink-0" />
+          <span className="flex-1 text-sm">{t("nav.search_placeholder")}</span>
+        </button>
       </div>
 
       {/* Nav */}
@@ -245,6 +243,13 @@ function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
         {user?.subscription_tier === "free" && (
           <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">Pro</Link>
         )}
+        <button
+          onClick={() => window.dispatchEvent(new Event("search:open"))}
+          className="text-white/70 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+          aria-label="Search"
+        >
+          <Search size={18} strokeWidth={1.75} />
+        </button>
         <NotificationBell />
       </div>
     </header>

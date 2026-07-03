@@ -656,6 +656,17 @@ const en = {
     avg_score: "Avg Score",
     passed_80: "Passed (≥80%)",
     retry_arrow: "Retry →",
+    exam_mode: "Exam Mode",
+    exam_mode_desc: "Timed test · no hints during the exam",
+    exam_start: "Start Exam",
+    exam_questions: "questions",
+    exam_time_up: "Time's up!",
+    exam_review_title: "Exam Review",
+    exam_wrong: "Wrong answers",
+    exam_skipped: "Skipped",
+    exam_time_taken: "Time taken",
+    exam_your_answer: "Your answer",
+    exam_correct_answer: "Correct",
   },
 
   // ── Cases ─────────────────────────────────────────────────────────────────────

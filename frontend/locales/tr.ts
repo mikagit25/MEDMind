@@ -633,6 +633,17 @@ const tr: Translations = {
     avg_score: "Ortalama Puan",
     passed_80: "Geçti (≥80%)",
     retry_arrow: "Tekrar →",
+    exam_mode: "Sınav Modu",
+    exam_mode_desc: "Zamanlı test · sınav sırasında ipucu yok",
+    exam_start: "Sınavı Başlat",
+    exam_questions: "soru",
+    exam_time_up: "Süre doldu!",
+    exam_review_title: "Sınav İncelemesi",
+    exam_wrong: "Yanlış cevaplar",
+    exam_skipped: "Atlandı",
+    exam_time_taken: "Geçen süre",
+    exam_your_answer: "Cevabınız",
+    exam_correct_answer: "Doğru",
   },
 
   cases: {

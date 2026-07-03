@@ -641,6 +641,17 @@ const fr: Translations = {
     avg_score: "Score moyen",
     passed_80: "Réussi (≥80%)",
     retry_arrow: "Réessayer →",
+    exam_mode: "Mode examen",
+    exam_mode_desc: "Test chronométré · pas d'indices pendant l'examen",
+    exam_start: "Commencer l'examen",
+    exam_questions: "questions",
+    exam_time_up: "Temps écoulé !",
+    exam_review_title: "Correction de l'examen",
+    exam_wrong: "Réponses incorrectes",
+    exam_skipped: "Ignorées",
+    exam_time_taken: "Temps passé",
+    exam_your_answer: "Votre réponse",
+    exam_correct_answer: "Correct",
   },
 
   cases: {

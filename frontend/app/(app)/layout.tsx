@@ -6,6 +6,7 @@ import { useAuthStore, useUIStore } from "@/lib/store";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNavWrapper } from "@/components/layout/MobileNav";
 import { AchievementToast, AchievementToastData } from "@/components/ui/AchievementToast";
+import { GlobalSearch } from "@/components/ui/GlobalSearch";
 import { achievementsApi, authApi, refreshApi } from "@/lib/api";
 import { isTokenFresh, isTokenExpired, markMeChecked, wasMeCheckedRecently, clearMeCache } from "@/lib/auth";
 
@@ -182,6 +183,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <main className="hidden md:flex flex-1 flex-col overflow-hidden">{children}</main>
 
       <AchievementToast achievement={toast} onDismiss={() => setToast(null)} />
+      <GlobalSearch />
     </div>
   );
 }

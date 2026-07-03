@@ -383,19 +383,17 @@ async def list_all_cases(
     if not cases:
         return []
 
-    # Fetch translations for all cases in one query
+    # Fetch translations for all cases in one query (for ALL locales, including EN)
+    # English users also need translations for cases whose base content is Russian
     case_ids = [c.id for c in cases]
-    if locale != "en":
-        tr_result = await db.execute(
-            sql_text(
-                "SELECT case_id, title, presentation, teaching_points, management "
-                "FROM clinical_case_translations "
-                "WHERE case_id = ANY(:ids) AND locale = :locale"
-            ).bindparams(ids=case_ids, locale=locale)
-        )
-        tr_map = {str(row.case_id): row for row in tr_result}
-    else:
-        tr_map = {}
+    tr_result = await db.execute(
+        sql_text(
+            "SELECT case_id, title, presentation, teaching_points, management "
+            "FROM clinical_case_translations "
+            "WHERE case_id = ANY(:ids) AND locale = :locale"
+        ).bindparams(ids=case_ids, locale=locale)
+    )
+    tr_map = {str(row.case_id): row for row in tr_result}
 
     return [_apply_case_translation(c, tr_map.get(str(c.id))) for c in cases]
 
@@ -414,7 +412,7 @@ async def list_cases(
     )
     cases = result.scalars().all()
 
-    if not cases or locale == "en":
+    if not cases:
         return [_apply_case_translation(c, None) for c in cases]
 
     case_ids = [c.id for c in cases]
@@ -442,15 +440,13 @@ async def get_case(
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
 
-    tr = None
-    if locale != "en":
-        tr_result = await db.execute(
-            sql_text(
-                "SELECT case_id, title, presentation, teaching_points, management "
-                "FROM clinical_case_translations WHERE case_id = :cid AND locale = :locale"
-            ).bindparams(cid=case_id, locale=locale)
-        )
-        tr = tr_result.first()
+    tr_result = await db.execute(
+        sql_text(
+            "SELECT case_id, title, presentation, teaching_points, management "
+            "FROM clinical_case_translations WHERE case_id = :cid AND locale = :locale"
+        ).bindparams(cid=case_id, locale=locale)
+    )
+    tr = tr_result.first()
 
     return _apply_case_translation(case, tr)
 

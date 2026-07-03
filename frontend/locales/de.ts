@@ -641,6 +641,17 @@ const de: Translations = {
     avg_score: "Durchschnittsergebnis",
     passed_80: "Bestanden (≥80%)",
     retry_arrow: "Wiederholen →",
+    exam_mode: "Prüfungsmodus",
+    exam_mode_desc: "Zeitgesteuerter Test · keine Hinweise während der Prüfung",
+    exam_start: "Prüfung starten",
+    exam_questions: "Fragen",
+    exam_time_up: "Zeit abgelaufen!",
+    exam_review_title: "Prüfungsauswertung",
+    exam_wrong: "Falsche Antworten",
+    exam_skipped: "Übersprungen",
+    exam_time_taken: "Benötigte Zeit",
+    exam_your_answer: "Ihre Antwort",
+    exam_correct_answer: "Richtig",
   },
 
   cases: {

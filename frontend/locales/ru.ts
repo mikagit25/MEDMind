@@ -645,6 +645,17 @@ const ru: Translations = {
     avg_score: "Средний балл",
     passed_80: "Сдано (≥80%)",
     retry_arrow: "Повторить →",
+    exam_mode: "Режим экзамена",
+    exam_mode_desc: "Тест с таймером · без подсказок во время экзамена",
+    exam_start: "Начать экзамен",
+    exam_questions: "вопросов",
+    exam_time_up: "Время вышло!",
+    exam_review_title: "Разбор ошибок",
+    exam_wrong: "Неверные ответы",
+    exam_skipped: "Пропущено",
+    exam_time_taken: "Затрачено времени",
+    exam_your_answer: "Ваш ответ",
+    exam_correct_answer: "Правильный ответ",
   },
 
   cases: {

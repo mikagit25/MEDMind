@@ -130,6 +130,7 @@ export default function QuizListPage() {
                           module={m}
                           progress={p}
                           onStart={() => router.push(`/quiz/${m.id}`)}
+                          onStartExam={(count) => router.push(`/quiz/${m.id}?exam=1&count=${count}`)}
                         />
                       );
                     })}
@@ -239,38 +240,69 @@ function ModuleQuizCard({
   module,
   progress,
   onStart,
+  onStartExam,
 }: {
   module: Module;
   progress?: ModuleProgress;
   onStart: () => void;
+  onStartExam: (count: number) => void;
 }) {
   const t = useT();
+  const router = useRouter();
   const hasHistory = progress && progress.mcq_attempts > 0;
   const score = hasHistory ? Math.round(progress.mcq_score) : null;
   const scoreColor = score === null ? "" : score >= 80 ? "text-green" : score >= 60 ? "text-amber" : "text-red";
+  const [showExamPicker, setShowExamPicker] = useState(false);
+  const [examCount, setExamCount] = useState(20);
 
   return (
-    <div className="card p-4 flex items-center gap-4">
-      <div className="flex-1 min-w-0">
-        <div className="font-syne font-bold text-sm text-ink truncate">{module.title}</div>
-        <div className="font-serif text-ink-3 text-xs mt-0.5">{module.code}</div>
-        {hasHistory && (
-          <div className="flex items-center gap-3 mt-1.5">
-            <span className={`font-syne font-bold text-xs ${scoreColor}`}>
-              {t("quiz.best")} {score}%
-            </span>
-            <span className="font-serif text-ink-3 text-xs">
-              {progress.mcq_attempts} attempt{progress.mcq_attempts !== 1 ? "s" : ""}
-            </span>
-          </div>
-        )}
+    <div className="card p-4">
+      <div className="flex items-center gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="font-syne font-bold text-sm text-ink truncate">{module.title}</div>
+          <div className="font-serif text-ink-3 text-xs mt-0.5">{module.code}</div>
+          {hasHistory && (
+            <div className="flex items-center gap-3 mt-1.5">
+              <span className={`font-syne font-bold text-xs ${scoreColor}`}>
+                {t("quiz.best")} {score}%
+              </span>
+              <span className="font-serif text-ink-3 text-xs">
+                {progress.mcq_attempts} attempt{progress.mcq_attempts !== 1 ? "s" : ""}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <button onClick={onStart} className="btn-primary text-xs">
+            {hasHistory ? t("quiz.retry") : t("quiz.start_quiz")}
+          </button>
+          <button
+            onClick={() => setShowExamPicker(p => !p)}
+            className="text-xs px-2.5 py-1.5 rounded border border-amber/50 text-amber hover:bg-amber-light transition-colors font-syne font-semibold"
+            title={t("quiz.exam_mode")}
+          >
+            ⏱
+          </button>
+        </div>
       </div>
-      <button
-        onClick={onStart}
-        className="btn-primary text-xs flex-shrink-0"
-      >
-        {hasHistory ? t("quiz.retry") : t("quiz.start_quiz")}
-      </button>
+      {/* Inline exam count picker */}
+      {showExamPicker && (
+        <div className="mt-3 pt-3 border-t border-border flex items-center gap-2 flex-wrap">
+          <span className="font-syne text-xs text-ink-3">{t("quiz.exam_mode")}:</span>
+          {[10, 20, 40].map(n => (
+            <button key={n} onClick={() => setExamCount(n)}
+              className={`text-xs px-2.5 py-1 rounded font-syne font-semibold border transition-colors ${
+                examCount === n ? "bg-ink text-white border-ink" : "border-border text-ink-3 hover:border-ink"
+              }`}>
+              {n} {t("quiz.exam_questions")}
+            </button>
+          ))}
+          <button onClick={() => { setShowExamPicker(false); onStartExam(examCount); }}
+            className="btn-primary text-xs ml-auto">
+            {t("quiz.exam_start")}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
