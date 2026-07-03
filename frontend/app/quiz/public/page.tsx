@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const revalidate = 300; // 5 min
@@ -10,7 +11,15 @@ export const metadata: Metadata = {
   title: "Free Medical Quizzes — Test Your Knowledge",
   description:
     "Free medical knowledge quizzes — no registration required. First aid, anatomy, drug myths, pet health, and more.",
-  alternates: { canonical: `${SITE_URL}/quiz/public` },
+  alternates: {
+    canonical: `${SITE_URL}/quiz/public`,
+    languages: {
+      "x-default": `${SITE_URL}/quiz/public`,
+      ...Object.fromEntries(
+        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/quiz/public` : `${SITE_URL}/${l}/quiz/public`])
+      ),
+    },
+  },
   openGraph: {
     title: "Free Medical Quizzes — MedMind",
     description: "Test your health knowledge. No signup needed.",

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import Link from "next/link";
-import { useT, useI18n } from "@/lib/i18n";
+import { useT, useI18n, LOCALE_LABELS, type Locale } from "@/lib/i18n";
 import { getCategoryLabel } from "@/lib/categories";
 import { CategoryIcon, SpecialtyIcon, FeatureIcon } from "@/lib/medical-icons";
 import { MiniQuiz } from "@/components/ui/MiniQuiz";
@@ -148,7 +148,7 @@ export default function LandingPage({
             <select value={locale} onChange={e => setLocale(e.target.value as any)}
               className="hidden sm:block text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none"
               aria-label="Language">
-              {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag}</option>)}
+              {LANGS.map(l => <option key={l.value} value={l.value}>{l.flag} {LOCALE_LABELS[l.value as Locale]}</option>)}
             </select>
 
             {isAuthenticated ? (
@@ -196,8 +196,9 @@ export default function LandingPage({
             <div className="pt-2 flex gap-2 flex-wrap">
               {LANGS.map(l => (
                 <button key={l.value} onClick={() => { setLocale(l.value as any); setMenuOpen(false); }}
-                  className={`text-lg rounded px-1.5 py-0.5 transition-colors ${locale === l.value ? "bg-ink/10 ring-1 ring-ink/20" : "hover:bg-surface-2"}`}>
-                  {l.flag}
+                  className={`flex items-center gap-1 text-sm rounded px-2 py-1 transition-colors ${locale === l.value ? "bg-ink/10 ring-1 ring-ink/20 font-syne font-bold" : "hover:bg-surface-2 text-ink-2"}`}>
+                  <span className="text-base">{l.flag}</span>
+                  <span className="text-xs font-syne">{l.value.toUpperCase()}</span>
                 </button>
               ))}
             </div>

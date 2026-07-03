@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getLearnT } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL =
   process.env.INTERNAL_API_URL ??
   process.env.NEXT_PUBLIC_API_URL ??
@@ -14,7 +15,15 @@ export const metadata: Metadata = {
   title: "Learn Medicine — Plain Language Health Guides for Everyone",
   description:
     "Understand medicine without a medical degree. Explore topics, drug guides, and a medical glossary — written in plain language for patients, students, and curious minds.",
-  alternates: { canonical: `${SITE_URL}/learn` },
+  alternates: {
+    canonical: `${SITE_URL}/learn`,
+    languages: {
+      "x-default": `${SITE_URL}/learn`,
+      ...Object.fromEntries(
+        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn` : `${SITE_URL}/${l}/learn`])
+      ),
+    },
+  },
   openGraph: {
     title: "Learn Medicine — MedMind",
     description:

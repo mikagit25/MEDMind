@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuthStore, useUIStore } from "@/lib/store";
 import { NotificationBell } from "@/components/ui/NotificationBell";
 import { clsx } from "clsx";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n, LOCALE_LABELS, type Locale } from "@/lib/i18n";
 import {
   LayoutDashboard, BookOpen, GraduationCap, Bot, Layers, BookMarked, MessageSquare,
   ClipboardList, Stethoscope, Building2, ScanLine, Box, Newspaper,
@@ -18,6 +18,13 @@ import {
 } from "lucide-react";
 
 type NavItem = { Icon: React.ComponentType<LucideProps>; label: string; href: string };
+
+const LANGS: { value: Locale; flag: string }[] = [
+  { value: "en", flag: "🇬🇧" }, { value: "ru", flag: "🇷🇺" },
+  { value: "de", flag: "🇩🇪" }, { value: "fr", flag: "🇫🇷" },
+  { value: "ar", flag: "🇸🇦" }, { value: "tr", flag: "🇹🇷" },
+  { value: "es", flag: "🇪🇸" },
+];
 
 function NavIcon({ Icon }: { Icon: React.ComponentType<LucideProps> }) {
   return <Icon size={15} strokeWidth={1.75} className="flex-shrink-0" />;
@@ -38,6 +45,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
   const { darkMode, toggleDarkMode } = useUIStore();
   const [searchQ, setSearchQ] = useState("");
   const t = useT();
+  const { locale, setLocale } = useI18n();
 
   const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     {
@@ -183,6 +191,21 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
             {darkMode ? <Sun size={14} strokeWidth={1.75} /> : <Moon size={14} strokeWidth={1.75} />}
           </button>
         </div>
+        {/* Language Switcher */}
+        <div className="mb-3 flex gap-1 flex-wrap">
+          {LANGS.map(l => (
+            <button key={l.value} onClick={() => setLocale(l.value)}
+              title={LOCALE_LABELS[l.value]}
+              className={`text-sm leading-none px-1.5 py-0.5 rounded transition-colors ${
+                locale === l.value
+                  ? "bg-gold/20 ring-1 ring-gold/40 opacity-100"
+                  : "opacity-40 hover:opacity-70 hover:bg-white/10"
+              }`}>
+              {l.flag}
+            </button>
+          ))}
+        </div>
+
         <div className="mb-3">
           <div className="flex justify-between text-[10px] font-syne text-white/40 mb-1">
             <span>Lv. {user?.level ?? 1}</span>

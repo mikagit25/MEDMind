@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
 export const metadata: Metadata = {
   title: { absolute: "Symptom Checker — MedMind AI" },
@@ -12,6 +13,12 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: `${SITE_URL}/symptoms`,
+    languages: {
+      "x-default": `${SITE_URL}/symptoms`,
+      ...Object.fromEntries(
+        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/symptoms` : `${SITE_URL}/${l}/symptoms`])
+      ),
+    },
   },
   openGraph: {
     title: "Symptom Checker — MedMind AI",

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const revalidate = 86400; // 24 hours ISR
@@ -13,7 +14,15 @@ export const metadata: Metadata = {
   title: "Medical Glossary — Plain Language Definitions",
   description:
     "Plain-language definitions of medical terms. Understand what doctors mean without a medical degree. Free, educational, for everyone.",
-  alternates: { canonical: `${SITE_URL}/learn/glossary` },
+  alternates: {
+    canonical: `${SITE_URL}/learn/glossary`,
+    languages: {
+      "x-default": `${SITE_URL}/learn/glossary`,
+      ...Object.fromEntries(
+        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn/glossary` : `${SITE_URL}/${l}/learn/glossary`])
+      ),
+    },
+  },
   openGraph: {
     title: "Medical Glossary — MedMind",
     description: "Plain-language medical definitions for everyone.",
