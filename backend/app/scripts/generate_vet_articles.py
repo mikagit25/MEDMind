@@ -28,6 +28,8 @@ import logging
 import re
 import sys
 import time
+import urllib.parse
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -42,9 +44,147 @@ from app.models.models import Article
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
-GROQ_API_URL  = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL    = settings.GROQ_MODEL or "llama-3.3-70b-versatile"
-TOPICS_FILE   = Path(__file__).parent / "vet_article_topics.json"
+GROQ_API_URL    = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL      = settings.GROQ_MODEL or "llama-3.3-70b-versatile"
+TOPICS_FILE     = Path(__file__).parent / "vet_article_topics.json"
+WP_UA           = "MedMindAI/1.0 (https://medmind.pro; 33mikalai@gmail.com)"
+TOGETHER_URL    = "https://api.together.xyz/v1/images/generations"
+TOGETHER_MODEL  = "black-forest-labs/FLUX.1-schnell"
+MEDIA_ARTICLES  = Path("/app/data/media/articles")
+MEDIA_URL_BASE  = "/media/articles"
+IMAGE_STYLE     = (
+    "professional veterinary medicine illustration, clean clinical photography style, "
+    "soft natural lighting, no text, no labels, no watermarks, "
+    "high quality, warm earthy tones, 16:9 format"
+)
+
+# Vet-specific stop words to clean up Wikipedia search queries
+_VET_STOP = {
+    "symptoms", "treatment", "diagnosis", "management", "guide", "complete",
+    "veterinary", "emergency", "and", "the", "for", "in", "with", "how",
+    "causes", "types", "options", "overview", "prevention", "care", "home",
+}
+
+
+# ─── Wikipedia cover image fetch ─────────────────────────────────────────────
+
+def _wp_api(params: dict) -> dict:
+    base = "https://en.wikipedia.org/w/api.php"
+    url  = base + "?" + urllib.parse.urlencode({"format": "json", **params})
+    req  = urllib.request.Request(url, headers={"User-Agent": WP_UA})
+    with urllib.request.urlopen(req, timeout=10) as r:
+        return json.loads(r.read())
+
+
+def _wp_thumbnail(query: str, min_width: int = 300) -> str | None:
+    try:
+        data  = _wp_api({"action": "query", "titles": query,
+                          "prop": "pageimages", "pithumbsize": 1200, "pilicense": "any"})
+        pages = data.get("query", {}).get("pages", {})
+        for page in pages.values():
+            thumb = page.get("thumbnail", {})
+            src, w = thumb.get("source", ""), thumb.get("width", 0)
+            if src and w >= min_width:
+                return src
+    except Exception:
+        pass
+    return None
+
+
+def fetch_vet_cover_image(title: str) -> str | None:
+    """Try to fetch a relevant image from Wikipedia for a vet article title."""
+    clean = re.sub(r"[,:;()\[\]]", " ", title).replace("-", " ").strip()
+    words = [w for w in clean.split()
+             if w.lower().rstrip(".,;:") not in _VET_STOP and len(w) > 2]
+
+    # Strategy 1: first 2 meaningful words (most specific)
+    if len(words) >= 2:
+        url = _wp_thumbnail(" ".join(words[:2]))
+        if url:
+            return url
+        time.sleep(0.2)
+
+    # Strategy 2: single first word (condition/species name)
+    if words and len(words[0]) >= 4:
+        url = _wp_thumbnail(words[0])
+        if url:
+            return url
+
+    return None
+
+
+# ─── Together.ai image generation (fallback) ─────────────────────────────────
+
+def _build_image_prompt(title: str, species: list[str]) -> str:
+    """Build a neutral, visually appealing prompt for a vet article."""
+    species_str = " and ".join(species[:2]) if species else "dog and cat"
+    # Extract the main subject (first 2-3 words of title, cleaned)
+    clean = re.sub(r"[,:;()\[\]]", " ", title).strip()
+    words = [w for w in clean.split() if w.lower() not in _VET_STOP and len(w) > 3]
+    subject = " ".join(words[:3]) if words else "veterinary medicine"
+    return f"{subject}, {species_str}, {IMAGE_STYLE}"
+
+
+def generate_together_image(slug: str, title: str, species: list[str]) -> str | None:
+    """
+    Generate a cover image via Together.ai FLUX.1-schnell.
+    Saves to /app/data/media/articles/{slug}.jpg
+    Returns the media URL or None on failure.
+    """
+    key = settings.TOGETHER_API_KEY
+    if not key:
+        log.debug("TOGETHER_API_KEY not set, skipping AI image generation")
+        return None
+
+    prompt = _build_image_prompt(title, species)
+    log.info("  Generating AI image via Together.ai: %s", prompt[:80])
+
+    try:
+        import base64
+        r = httpx.post(
+            TOGETHER_URL,
+            headers={"Authorization": f"Bearer {key}"},
+            json={
+                "model":  TOGETHER_MODEL,
+                "prompt": prompt,
+                "width":  1280,
+                "height": 720,
+                "steps":  4,
+                "n":      1,
+            },
+            timeout=90,
+        )
+        if r.status_code != 200:
+            log.warning("  Together.ai error %s: %s", r.status_code, r.text[:120])
+            return None
+
+        item = r.json()["data"][0]
+        raw: bytes | None = None
+
+        b64 = item.get("b64_json")
+        if b64:
+            raw = base64.b64decode(b64)
+        else:
+            img_url = item.get("url")
+            if img_url:
+                img_r = httpx.get(img_url, timeout=30)
+                if img_r.status_code == 200:
+                    raw = img_r.content
+
+        if not raw:
+            log.warning("  Together.ai: no image data in response")
+            return None
+
+        MEDIA_ARTICLES.mkdir(parents=True, exist_ok=True)
+        out = MEDIA_ARTICLES / f"{slug}.jpg"
+        out.write_bytes(raw)
+        media_url = f"{MEDIA_URL_BASE}/{slug}.jpg"
+        log.info("  AI image saved: %s (%d KB)", media_url, len(raw) // 1024)
+        return media_url
+
+    except Exception as e:
+        log.warning("  Together.ai generation failed: %s", e)
+        return None
 
 
 # ─── Key pool ────────────────────────────────────────────────────────────────
@@ -242,7 +382,8 @@ Write ALL content in English. Be thorough — this article should be the best re
 
 # ─── Save to DB ───────────────────────────────────────────────────────────────
 
-async def save_article(session: AsyncSession, data: dict, topic: dict) -> bool:
+async def save_article(session: AsyncSession, data: dict, topic: dict,
+                       cover_image: str | None = None) -> bool:
     article = Article(
         slug=data.get("slug") or topic["slug"],
         title=data.get("title") or topic["title_en"],
@@ -255,6 +396,7 @@ async def save_article(session: AsyncSession, data: dict, topic: dict) -> bool:
         schema_type="MedicalWebPage",
         faq=data.get("faq", []),
         sources=data.get("sources", []),
+        cover_image=cover_image,
         is_published=True,
         published_at=datetime.utcnow(),
         generated_by="groq-llama-3.3-70b",
@@ -321,8 +463,24 @@ async def main(args: argparse.Namespace) -> None:
             log.error("Could not parse JSON for %s", slug)
             continue
 
+        # Cover image: Wikipedia first → Together.ai fallback
+        cover_image: str | None = None
+        article_title  = data.get("title") or topic["title_en"]
+        article_species = topic.get("species", ["dog", "cat"])
+        try:
+            cover_image = fetch_vet_cover_image(article_title)
+            if cover_image:
+                log.info("  cover_image (Wikipedia): %s", cover_image[:80])
+        except Exception as e:
+            log.warning("  Wikipedia image fetch failed: %s", e)
+
+        if not cover_image:
+            cover_image = generate_together_image(slug, article_title, article_species)
+            if not cover_image:
+                log.info("  cover_image: none (will show placeholder)")
+
         async with AsyncSessionLocal() as session:
-            ok = await save_article(session, data, topic)
+            ok = await save_article(session, data, topic, cover_image=cover_image)
 
         if ok:
             log.info("Saved: %s ✓", slug)

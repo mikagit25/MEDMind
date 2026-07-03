@@ -48,6 +48,9 @@ class Settings(BaseSettings):
     # Dedicated key for vet SEO article generation cron (maps to GROQ_API_KEY_5)
     GROQ_KEY_VET_ARTICLES: str = ""
 
+    # Together.ai (image generation — FLUX.1-schnell, ~$0.0003/image)
+    TOGETHER_API_KEY: str = ""
+
     # Cerebras (free tier — cloud.cerebras.ai, 900 tok/s, OpenAI-compatible)
     CEREBRAS_API_KEY: str = ""
     CEREBRAS_API_KEY_2: str = ""
