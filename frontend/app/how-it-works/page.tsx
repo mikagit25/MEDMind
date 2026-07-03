@@ -794,6 +794,66 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* ── For organisations ────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+        <div className="bg-surface border border-border rounded-2xl overflow-hidden">
+          <div className="p-8 sm:p-12 flex flex-col lg:flex-row items-start gap-10">
+            <div className="flex-1 min-w-0">
+              <span className="inline-block text-xs font-syne font-bold bg-blue-light text-blue px-3 py-1 rounded-full mb-4">
+                For organisations
+              </span>
+              <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-4 leading-tight">
+                Built for healthcare teams
+              </h2>
+              <p className="text-ink-2 text-base leading-relaxed mb-6">
+                Whether you run a clinic, veterinary practice, university, or medical association — MedMind Enterprise gives your team a shared AI learning platform with progress tracking, admin controls, and dedicated support.
+              </p>
+              <ul className="space-y-2.5 mb-8">
+                {[
+                  "Team dashboard — invite, manage, and track every learner",
+                  "Monthly PDF/CSV reports — completion rates, time spent, module scores",
+                  "7 languages — your international teams learn in their native language",
+                  "Onboarding included — up and running in 1 business day",
+                ].map(f => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-ink-2">
+                    <span className="text-green-2 mt-0.5 flex-shrink-0 font-bold">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/enterprise"
+                  className="inline-block font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded hover:bg-red transition-colors whitespace-nowrap text-center"
+                >
+                  See team plans →
+                </Link>
+                <Link
+                  href="/enterprise#demo-form"
+                  className="inline-block font-syne font-semibold text-sm border border-border-2 text-ink-2 px-6 py-3 rounded hover:border-ink hover:text-ink transition-colors whitespace-nowrap text-center"
+                >
+                  Request a demo
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 shrink-0 w-full lg:w-80">
+              {[
+                { icon: "🐾", title: "Veterinary companies", desc: "Train field reps and distributor networks on your therapeutic areas" },
+                { icon: "🏥", title: "Clinics & hospitals", desc: "Structured CPD for your entire clinical team — tracked and reported" },
+                { icon: "🎓", title: "Universities", desc: "AI tutoring and clinical cases to supplement curricula" },
+                { icon: "🤝", title: "Medical associations", desc: "Member benefit: discounted access for your community" },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="bg-bg border border-border rounded-xl p-4 hover:border-border-2 transition-colors">
+                  <div className="text-2xl mb-2">{icon}</div>
+                  <div className="font-syne font-bold text-sm text-ink mb-1">{title}</div>
+                  <div className="text-ink-3 text-xs leading-relaxed">{desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ────────────────────────────────────────── */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">

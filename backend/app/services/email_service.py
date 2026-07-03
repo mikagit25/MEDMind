@@ -263,3 +263,70 @@ async def send_payment_failed_email(to_email: str, first_name: str) -> None:
             logger.error("Failed to send payment failed email to %s: %s", to_email, e)
     else:
         logger.info("DEV MODE — Payment failed email for %s (%s)", first_name, to_email)
+
+
+async def send_enterprise_lead_notification(
+    first_name: str,
+    last_name: str,
+    email: str,
+    company: str,
+    job_title: str,
+    team_size: str,
+    use_case: str,
+    message: str | None,
+) -> None:
+    """Notify admin of a new enterprise demo request."""
+    from app.core.config import settings
+    to_email = "partners@medmind.pro"
+    subject  = f"[MedMind Enterprise] New lead: {company} — {job_title}"
+
+    rows = [
+        ("Name",      f"{first_name} {last_name}"),
+        ("Email",     email),
+        ("Company",   company),
+        ("Job Title", job_title),
+        ("Team Size", team_size),
+        ("Use Case",  use_case),
+        ("Message",   message or "—"),
+    ]
+    rows_html = "".join(
+        f'<tr><td style="padding:6px 12px;font-weight:600;color:#4a453e;white-space:nowrap">{k}</td>'
+        f'<td style="padding:6px 12px;color:#1a1814">{v}</td></tr>'
+        for k, v in rows
+    )
+
+    html = f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:Georgia,serif;background:#f0ede8;margin:0;padding:40px 20px;">
+  <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:40px;">
+    <h1 style="font-family:sans-serif;color:#1a1814;font-size:20px;margin:0 0 8px;">
+      🏢 New Enterprise Lead
+    </h1>
+    <p style="color:#8a8278;font-size:13px;margin:0 0 24px;">
+      Submitted via medmind.pro/enterprise
+    </p>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      {rows_html}
+    </table>
+    <div style="margin-top:24px;padding:12px 16px;background:#f0ede8;border-radius:8px;">
+      <a href="https://medmind.pro/admin?tab=enterprise"
+         style="color:#c0392b;font-weight:600;text-decoration:none;font-size:13px;">
+        View in admin panel →
+      </a>
+    </div>
+  </div>
+</body></html>"""
+
+    text = "\n".join(f"{k}: {v}" for k, v in rows)
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Enterprise lead notification sent: %s <%s>", company, email)
+        except Exception as e:
+            logger.error("Failed to send enterprise lead notification: %s", e)
+    else:
+        logger.info("=" * 60)
+        logger.info("DEV MODE — New enterprise lead: %s <%s> @ %s", first_name, email, company)
+        logger.info("=" * 60)

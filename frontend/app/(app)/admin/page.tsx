@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -217,6 +217,7 @@ export default function AdminPage() {
           ["system",       "⚙️ System"],
           ["audit",        "🔍 Audit Log"],
           ["feedback",     "🚨 Feedback"],
+          ["enterprise",   "🏢 Enterprise Leads"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -646,6 +647,9 @@ export default function AdminPage() {
 
       {/* ── User Feedback Reports ── */}
       {tab === "feedback" && <FeedbackPanel />}
+
+      {/* ── Enterprise Leads ── */}
+      {tab === "enterprise" && <EnterpriseLeadsPanel />}
 
       {/* ── User Detail Modal ── */}
       {selectedUser && (
@@ -2950,6 +2954,185 @@ function FeedbackPanel() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Enterprise Leads Panel ───────────────────────────────────────────────────
+
+const LEAD_STATUSES = ["new", "contacted", "qualified", "closed"] as const;
+type LeadStatus = typeof LEAD_STATUSES[number];
+const STATUS_COLORS: Record<LeadStatus, string> = {
+  new:        "bg-blue-light text-blue border-blue/20",
+  contacted:  "bg-amber-light text-amber border-amber/20",
+  qualified:  "bg-green-light text-green border-green/20",
+  closed:     "bg-surface text-ink-3 border-border",
+};
+
+type Lead = {
+  id: string; first_name: string; last_name: string; email: string;
+  company: string; job_title: string; team_size: string; use_case: string;
+  message?: string; status: LeadStatus; created_at: string;
+};
+
+function EnterpriseLeadsPanel() {
+  const { token } = useAuthStore();
+  const [leads,        setLeads]        = useState<Lead[]>([]);
+  const [total,        setTotal]        = useState(0);
+  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [loading,      setLoading]      = useState(false);
+  const [selected,     setSelected]     = useState<Lead | null>(null);
+  const [updating,     setUpdating]     = useState(false);
+  const H = { Authorization: `Bearer ${token}` };
+
+  async function load(status?: string) {
+    setLoading(true);
+    try {
+      const q = status ? `?status=${status}` : "";
+      const r = await api.get(`/enterprise/leads${q}`);
+      setLeads(r.data.items ?? []);
+      setTotal(r.data.total ?? 0);
+    } finally { setLoading(false); }
+  }
+
+  useEffect(() => { load(statusFilter || undefined); }, [statusFilter]);
+
+  async function updateStatus(id: string, status: string) {
+    setUpdating(true);
+    try {
+      await api.patch(`/enterprise/leads/${id}/status`, { status });
+      setLeads(prev => prev.map(l => l.id === id ? { ...l, status: status as LeadStatus } : l));
+      if (selected?.id === id) setSelected(prev => prev ? { ...prev, status: status as LeadStatus } : prev);
+    } finally { setUpdating(false); }
+  }
+
+  function exportCsv() {
+    const q = statusFilter ? `?status=${statusFilter}` : "";
+    const t = localStorage.getItem("access_token") ?? "";
+    const url = `/api/v1/enterprise/leads/export.csv${q}`;
+    const a = document.createElement("a");
+    a.href = url;
+    a.setAttribute("download", "enterprise_leads.csv");
+    fetch(url, { headers: { Authorization: `Bearer ${t}` } })
+      .then(r => r.blob())
+      .then(blob => {
+        a.href = URL.createObjectURL(blob);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+        <h2 className="font-syne font-bold text-xl text-ink">Enterprise Leads ({total})</h2>
+        <div className="flex gap-2 flex-wrap">
+          <select
+            value={statusFilter}
+            onChange={e => setStatusFilter(e.target.value)}
+            className="border border-border rounded-lg px-3 py-1.5 text-sm bg-bg text-ink"
+          >
+            <option value="">All statuses</option>
+            {LEAD_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+          <button
+            onClick={exportCsv}
+            className="border border-border text-ink-2 hover:text-ink font-syne font-semibold text-sm px-4 py-1.5 rounded-lg transition-colors"
+          >
+            ↓ Export CSV
+          </button>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="text-center py-10 text-ink-3 font-syne">Loading…</div>
+      ) : leads.length === 0 ? (
+        <div className="text-center py-10 text-ink-3 font-syne">No leads yet</div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-border">
+                {["Date", "Name", "Company", "Title", "Team", "Use Case", "Status"].map(h => (
+                  <th key={h} className="text-left font-syne font-semibold text-xs text-ink-3 uppercase tracking-wider py-3 px-3 whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map(lead => (
+                <tr
+                  key={lead.id}
+                  onClick={() => setSelected(lead)}
+                  className="border-b border-border hover:bg-surface cursor-pointer transition-colors"
+                >
+                  <td className="py-3 px-3 text-xs text-ink-3 whitespace-nowrap">
+                    {lead.created_at ? new Date(lead.created_at).toLocaleDateString() : "—"}
+                  </td>
+                  <td className="py-3 px-3 font-syne font-semibold text-ink">
+                    {lead.first_name} {lead.last_name}
+                  </td>
+                  <td className="py-3 px-3 text-ink-2 max-w-[140px] truncate">{lead.company}</td>
+                  <td className="py-3 px-3 text-ink-3 text-xs max-w-[120px] truncate">{lead.job_title}</td>
+                  <td className="py-3 px-3 text-xs text-ink-2">{lead.team_size}</td>
+                  <td className="py-3 px-3 text-xs text-ink-2">{lead.use_case}</td>
+                  <td className="py-3 px-3">
+                    <span className={`text-xs font-syne font-semibold px-2 py-0.5 rounded-full border ${STATUS_COLORS[lead.status] ?? ""}`}>
+                      {lead.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Detail modal */}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setSelected(null)}>
+          <div className="bg-surface border border-border rounded-2xl p-6 max-w-lg w-full mx-4 shadow-xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-syne font-bold text-lg text-ink">{selected.first_name} {selected.last_name}</h3>
+              <button onClick={() => setSelected(null)} className="text-ink-3 hover:text-ink text-xl">×</button>
+            </div>
+            <div className="space-y-2 text-sm mb-5">
+              {[
+                ["Company",   selected.company],
+                ["Job Title", selected.job_title],
+                ["Email",     selected.email],
+                ["Team Size", selected.team_size],
+                ["Use Case",  selected.use_case],
+                ["Message",   selected.message || "—"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex gap-3">
+                  <span className="font-syne font-semibold text-ink-3 w-20 flex-shrink-0">{k}</span>
+                  <span className="text-ink">{v}</span>
+                </div>
+              ))}
+            </div>
+            <div>
+              <p className="font-syne font-semibold text-xs text-ink-3 mb-2 uppercase tracking-wide">Change status</p>
+              <div className="flex gap-2 flex-wrap">
+                {LEAD_STATUSES.map(s => (
+                  <button
+                    key={s}
+                    disabled={updating || selected.status === s}
+                    onClick={() => updateStatus(selected.id, s)}
+                    className={`text-xs font-syne font-semibold px-3 py-1.5 rounded-lg border transition-colors disabled:opacity-50 ${
+                      selected.status === s
+                        ? STATUS_COLORS[s]
+                        : "border-border text-ink-2 hover:border-ink hover:text-ink"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

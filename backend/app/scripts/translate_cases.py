@@ -139,14 +139,14 @@ async def _call_groq(system: str, user: str) -> str:
 
 
 def _get_groq_keys() -> list[str]:
-    """Return all available Groq content pipeline keys."""
+    """Return all available Groq keys for case translation (GROQ_KEY_CASES takes priority)."""
     keys = []
-    for attr in ("GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"):
+    for attr in ("GROQ_KEY_CASES", "GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"):
         k = getattr(settings, attr, "")
         if k:
             keys.append(k)
     if not keys:
-        raise RuntimeError("No Groq content pipeline keys configured (GROQ_API_KEY_3/4/5)")
+        raise RuntimeError("No Groq keys configured for case translation (GROQ_KEY_CASES/GROQ_API_KEY_3/4/5)")
     return keys
 
 

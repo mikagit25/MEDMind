@@ -121,7 +121,7 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="max-w-3xl mx-auto px-6 pb-20">
+      <section className="max-w-3xl mx-auto px-6 pb-16">
         <h2 className="font-syne font-extrabold text-2xl text-ink text-center mb-8">{t("pricing_page.faq_title")}</h2>
         <div className="space-y-4">
           {FAQ.map(({ q, a }) => (
@@ -130,6 +130,57 @@ export default function PricingPage() {
               <div className="text-ink-2 text-sm">{a}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Enterprise / Teams callout */}
+      <section className="max-w-6xl mx-auto px-6 pb-20">
+        <div className="bg-ink text-white rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+          <div className="flex-1 min-w-0">
+            <div className="font-syne font-bold text-xs uppercase tracking-widest text-white/50 mb-3">
+              For organisations
+            </div>
+            <h2 className="font-syne font-extrabold text-2xl md:text-3xl text-white mb-3 leading-tight">
+              Need a plan for your whole team?
+            </h2>
+            <p className="text-white/70 text-sm leading-relaxed mb-5">
+              MedMind Enterprise is built for veterinary companies, clinics, universities, and medical associations. Team dashboard, admin controls, progress reporting, and dedicated onboarding — from&nbsp;$149/month.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2.5 text-xs text-white/60 mb-7">
+              <span className="flex items-center gap-1.5"><span className="text-green-2 font-bold">✓</span> Starter — up to 25 users · $149/mo</span>
+              <span className="hidden sm:block text-white/20">·</span>
+              <span className="flex items-center gap-1.5"><span className="text-green-2 font-bold">✓</span> Business — up to 100 users · $349/mo</span>
+              <span className="hidden sm:block text-white/20">·</span>
+              <span className="flex items-center gap-1.5"><span className="text-green-2 font-bold">✓</span> Enterprise — 100+ · Custom pricing</span>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/enterprise#demo-form"
+                className="bg-white text-ink font-syne font-bold text-sm px-6 py-3 rounded-lg hover:bg-red hover:text-white transition-colors whitespace-nowrap text-center"
+              >
+                Request a demo →
+              </Link>
+              <Link
+                href="/enterprise"
+                className="border border-white/30 text-white/80 font-syne font-semibold text-sm px-6 py-3 rounded-lg hover:border-white hover:text-white transition-colors whitespace-nowrap text-center"
+              >
+                See team plans
+              </Link>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 shrink-0 w-full md:w-64">
+            {([
+              ["🐾", "Vet companies"],
+              ["🏥", "Clinics & hospitals"],
+              ["🎓", "Universities"],
+              ["🤝", "Associations"],
+            ] as [string, string][]).map(([icon, label]) => (
+              <div key={label} className="bg-white/10 rounded-xl px-4 py-4 text-center">
+                <div className="text-2xl mb-1.5">{icon}</div>
+                <div className="font-syne font-semibold text-xs text-white/80 leading-tight">{label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

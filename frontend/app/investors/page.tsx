@@ -246,7 +246,7 @@ export default function InvestorsPage() {
                 {l.label}
               </Link>
             ))}
-            <a href="mailto:33mikalai@gmail.com"
+            <a href="mailto:partners@medmind.pro"
               className="bg-ink hover:bg-red text-white font-syne font-bold text-sm px-4 py-2 rounded-lg transition-colors">
               Contact us →
             </a>
@@ -573,8 +573,16 @@ export default function InvestorsPage() {
                 className="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl px-4 py-3 transition-colors">
                 <span className="text-lg">✉️</span>
                 <div>
-                  <div className="font-syne font-semibold text-sm">Email us</div>
+                  <div className="font-syne font-semibold text-sm">Founder — Mikalai Mikheyeu</div>
                   <div className="text-white/50 text-xs font-syne">33mikalai@gmail.com</div>
+                </div>
+              </a>
+              <a href="mailto:partners@medmind.pro"
+                className="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl px-4 py-3 transition-colors">
+                <span className="text-lg">🏢</span>
+                <div>
+                  <div className="font-syne font-semibold text-sm">Business inquiries</div>
+                  <div className="text-white/50 text-xs font-syne">partners@medmind.pro</div>
                 </div>
               </a>
               <Link href="/"

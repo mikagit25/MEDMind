@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
     # Dedicated key for module/course content generation scripts (not user AI)
     GROQ_KEY_MODULE: str = ""
+    # Dedicated key for clinical case translation cron job
+    GROQ_KEY_CASES: str = ""
 
     # Cerebras (free tier — cloud.cerebras.ai, 900 tok/s, OpenAI-compatible)
     CEREBRAS_API_KEY: str = ""

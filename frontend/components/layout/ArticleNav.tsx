@@ -72,6 +72,7 @@ export function ArticleNav() {
     { href: "/calculators", label: t("landing.nav_calculators") },
     { href: "/drugs",       label: t("landing.nav_drugs") },
     { href: "/pricing",     label: t("landing.nav_pricing") },
+    { href: "/enterprise",  label: t("landing.nav_for_teams") },
   ];
 
   return (

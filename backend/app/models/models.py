@@ -1514,3 +1514,27 @@ class HealthMetric(Base):
         Index("ix_health_metrics_user_metric", "user_id", "metric"),
         Index("ix_health_metrics_recorded_at", "recorded_at"),
     )
+
+
+class EnterpriseLead(Base):
+    """Enterprise demo request / sales lead."""
+    __tablename__ = "enterprise_leads"
+
+    id          = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    first_name  = Column(String(100), nullable=False)
+    last_name   = Column(String(100), nullable=False)
+    email       = Column(String(320), nullable=False)
+    company     = Column(String(200), nullable=False)
+    job_title   = Column(String(200), nullable=False)
+    team_size   = Column(String(20),  nullable=False)   # "1-10", "11-25", "26-100", "100+"
+    use_case    = Column(String(100), nullable=False)
+    message     = Column(Text, nullable=True)
+    ip_hash     = Column(String(64),  nullable=True)    # SHA-256 of client IP
+    status      = Column(String(20),  nullable=False, default="new")  # new/contacted/qualified/closed
+    created_at  = Column(DateTime, default=datetime.utcnow)
+    updated_at  = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_enterprise_leads_status",     "status"),
+        Index("ix_enterprise_leads_created_at", "created_at"),
+    )
