@@ -169,26 +169,30 @@ def fetch_pubmed_refs(query: str, n: int = 6) -> list[dict]:
 
 # ─── Pexels cover image ───────────────────────────────────────────────────────
 
-def _pexels_fetch(query: str, key: str) -> str | None:
-    """Single Pexels API call — returns large2x URL or None."""
+def _pexels_fetch_pool(query: str, key: str, per_page: int = 80) -> list[str]:
+    """Fetch up to per_page Pexels photos for query; return list of large2x URLs."""
     url = (
         "https://api.pexels.com/v1/search?"
-        + urllib.parse.urlencode({"query": query, "per_page": 5, "orientation": "landscape"})
+        + urllib.parse.urlencode({"query": query, "per_page": per_page, "orientation": "landscape"})
     )
     req = urllib.request.Request(url, headers={"Authorization": key, "User-Agent": APP_UA})
-    with urllib.request.urlopen(req, timeout=12) as r:
-        data = json.loads(r.read())
-    photos = data.get("photos", [])
-    if photos:
-        return photos[0]["src"].get("large2x") or photos[0]["src"].get("original")
-    return None
+    try:
+        with urllib.request.urlopen(req, timeout=12) as r:
+            data = json.loads(r.read())
+        return [
+            p["src"].get("large2x") or p["src"].get("original")
+            for p in data.get("photos", []) if p.get("src")
+        ]
+    except Exception as e:
+        log.warning("  Pexels pool fetch failed for '%s': %s", query, e)
+        return []
 
 
 def fetch_pexels_image(species: list[str], slug: str) -> str | None:
     """
-    Search Pexels using curated species-specific queries.
-    Uses slug hash to rotate query variants for visual variety across articles.
-    Returns the large2x URL or None.
+    Build a large pool of Pexels photos for the species (multiple queries × 80 results)
+    then pick one deterministically by slug hash.
+    Ensures every article gets a visually distinct cover image.
     """
     key = settings.PEXELS_API_KEY
     if not key:
@@ -196,21 +200,27 @@ def fetch_pexels_image(species: list[str], slug: str) -> str | None:
 
     sp      = species[0] if species else "dog"
     queries = SPECIES_PEXELS_QUERIES.get(sp, [f"{sp} animal portrait"])
-    # Rotate query based on slug so different articles get different photos
-    idx   = hash(slug) % len(queries)
-    order = queries[idx:] + queries[:idx]  # start at rotated position
 
+    pool: list[str] = []
+    seen: set[str]  = set()
     try:
-        for query in order:
-            result = _pexels_fetch(query, key)
-            if result:
-                log.info("  Pexels ('%s'): %s", query, result[:80])
-                return result
+        for query in queries:
+            for url in _pexels_fetch_pool(query, key):
+                if url and url not in seen:
+                    pool.append(url)
+                    seen.add(url)
             time.sleep(0.3)
     except Exception as e:
-        log.warning("  Pexels failed: %s", e)
+        log.warning("  Pexels pool build failed: %s", e)
 
-    return None
+    if not pool:
+        return None
+
+    # Pick deterministically: hash ensures same slug → same photo across runs
+    idx = abs(hash(slug)) % len(pool)
+    result = pool[idx]
+    log.info("  Pexels pool=%d, idx=%d: %s", len(pool), idx, result[:80])
+    return result
 
 
 # ─── Together.ai image generation (fallback) ─────────────────────────────────
