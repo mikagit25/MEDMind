@@ -41,6 +41,7 @@ class Settings(BaseSettings):
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
     # Dedicated key for module/course content generation scripts (not user AI)
     GROQ_KEY_MODULE: str = ""
+    GROQ_KEY_MODULE_2: str = ""  # secondary key — extends TPM limit
     # Dedicated key for clinical case translation cron job
     GROQ_KEY_CASES: str = ""
     # Dedicated key for vet module enrichment cron (maps to GROQ_API_KEY_6)
@@ -50,6 +51,9 @@ class Settings(BaseSettings):
 
     # Together.ai (image generation — FLUX.1-schnell, ~$0.0003/image)
     TOGETHER_API_KEY: str = ""
+
+    # Pexels (free stock photos for article covers — api.pexels.com)
+    PEXELS_API_KEY: str = ""
 
     # Cerebras (free tier — cloud.cerebras.ai, 900 tok/s, OpenAI-compatible)
     CEREBRAS_API_KEY: str = ""

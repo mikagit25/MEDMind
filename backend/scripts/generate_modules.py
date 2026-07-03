@@ -48,9 +48,10 @@ from datetime import datetime
 
 # ── Keys ────────────────────────────────────────────────────────────────────
 # GROQ_KEY_MODULE — dedicated key for module generation (separate from article pipeline)
-GROQ_KEYS = [
+GROQ_KEYS = [k for k in [
     os.getenv("GROQ_KEY_MODULE", ""),
-]
+    os.getenv("GROQ_KEY_MODULE_2", ""),
+] if k]
 CEREBRAS_KEYS = [
     os.getenv("CEREBRAS_API_KEY_3", ""),
     os.getenv("CEREBRAS_API_KEY_4", ""),
