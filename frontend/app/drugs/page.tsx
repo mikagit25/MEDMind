@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { DrugBrowserClient } from "@/components/drugs/DrugBrowserClient";
 import { DrugPageTitle } from "@/components/drugs/DrugPageTitle";
 import { ArticleNav } from "@/components/layout/ArticleNav";
@@ -13,31 +13,48 @@ const API_URL =
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Drug Reference Database — MedMind AI",
-  description:
-    "Browse 833+ drugs with mechanisms, dosing, side effects, interactions and monitoring. Available in 7 languages for medical students, residents, and physicians.",
-  keywords:
-    "drug database, pharmacology, medication reference, drug interactions, clinical pharmacology, dosing calculator",
-  openGraph: {
-    title: "Drug Reference Database — MedMind AI",
-    description: "Comprehensive pharmacology reference: 833+ drugs in 7 languages.",
-    type: "website",
-    url: `${SITE_URL}/drugs`,
-  },
-  alternates: {
-    canonical: `${SITE_URL}/drugs`,
-    languages: {
-      ru: `${SITE_URL}/drugs?lang=ru`,
-      ar: `${SITE_URL}/drugs?lang=ar`,
-      de: `${SITE_URL}/drugs?lang=de`,
-      fr: `${SITE_URL}/drugs?lang=fr`,
-      es: `${SITE_URL}/drugs?lang=es`,
-      tr: `${SITE_URL}/drugs?lang=tr`,
-    },
-  },
-  robots: { index: true, follow: true },
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
+
+const DRUGS_TITLES: Record<string, string> = {
+  en: "Drug Reference Database — MedMind AI",
+  ru: "База препаратов — MedMind AI",
+  de: "Medikamentendatenbank — MedMind AI",
+  fr: "Base de données des médicaments — MedMind AI",
+  es: "Base de datos de medicamentos — MedMind AI",
+  tr: "İlaç Veritabanı — MedMind AI",
+  ar: "قاعدة بيانات الأدوية — MedMind AI",
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const xLocale = headers().get("x-locale");
+  const cookieLocale = cookies().get("medmind_locale")?.value;
+  const locale = (xLocale ?? cookieLocale ?? "en");
+  const validLocale = SUPPORTED_LOCALES.includes(locale) ? locale : "en";
+  const canonical = validLocale === "en" ? `${SITE_URL}/drugs` : `${SITE_URL}/${validLocale}/drugs`;
+  return {
+    title: DRUGS_TITLES[validLocale] ?? DRUGS_TITLES.en,
+    description:
+      "Browse 833+ drugs with mechanisms, dosing, side effects, interactions and monitoring. Available in 7 languages for medical students, residents, and physicians.",
+    keywords:
+      "drug database, pharmacology, medication reference, drug interactions, clinical pharmacology, dosing calculator",
+    openGraph: {
+      title: DRUGS_TITLES[validLocale] ?? DRUGS_TITLES.en,
+      description: "Comprehensive pharmacology reference: 833+ drugs in 7 languages.",
+      type: "website",
+      url: canonical,
+    },
+    alternates: {
+      canonical,
+      languages: {
+        "x-default": `${SITE_URL}/drugs`,
+        ...Object.fromEntries(
+          SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/drugs` : `${SITE_URL}/${l}/drugs`])
+        ),
+      },
+    },
+    robots: { index: true, follow: true },
+  };
+}
 
 type Drug = {
   id: string; name: string; generic_name?: string; drug_class?: string;

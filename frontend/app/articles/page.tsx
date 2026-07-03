@@ -12,6 +12,16 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 
+const ARTICLES_TITLES: Record<string, string> = {
+  en: "Medical Articles — Evidence-Based Health Information",
+  ru: "Медицинские статьи — доказательная информация",
+  de: "Medizinische Artikel — Evidenzbasierte Gesundheitsinformation",
+  fr: "Articles médicaux — Information de santé fondée sur des preuves",
+  es: "Artículos médicos — Información de salud basada en evidencia",
+  tr: "Tıbbi Makaleler — Kanıta Dayalı Sağlık Bilgisi",
+  ar: "المقالات الطبية — معلومات صحية قائمة على الأدلة",
+};
+
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
@@ -33,7 +43,7 @@ export async function generateMetadata({
   const canonical = locale !== "en" ? `${SITE_URL}/${locale}/articles` : `${SITE_URL}/articles`;
 
   return {
-    title: "Medical Articles — Evidence-Based Health Information",
+    title: ARTICLES_TITLES[locale] ?? ARTICLES_TITLES.en,
     description:
       "Comprehensive evidence-based medical articles on diseases, drugs, procedures, and clinical guidelines. Written for doctors, students, and healthcare professionals.",
     alternates: {

@@ -372,7 +372,12 @@ async def list_public_topics(
     topics = []
     for row in rows:
         tr = translation_map.get(row.id)
-        title = (tr.title if tr and tr.title else None) or row.title_en or row.title
+        tr_title = tr.title if tr and tr.title else None
+        # For RU: modules.title is Russian — prefer it as fallback over English title_en
+        if locale == "ru":
+            title = tr_title or row.title or row.title_en
+        else:
+            title = tr_title or row.title_en or row.title
         description = (tr.description if tr and tr.description else None) or row.description
         topics.append(PublicTopic(
             module_code=row.code,

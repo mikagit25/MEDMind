@@ -6,6 +6,7 @@ import Link from "next/link";
 import { drugsApi } from "@/lib/api";
 import { InteractionChecker } from "@/components/drugs/InteractionChecker";
 import { useI18n } from "@/lib/i18n";
+import { translateDrugClass } from "@/lib/learn-i18n";
 
 type Drug = {
   id: string; name: string; generic_name?: string; drug_class?: string;
@@ -17,7 +18,7 @@ type Drug = {
 type BrowseResult = { items: Drug[]; total: number; page: number; pages: number; limit: number };
 type Tab = "browse" | "interactions" | "dose" | "vet";
 
-function DrugCard({ drug }: { drug: Drug }) {
+function DrugCard({ drug, lang }: { drug: Drug; lang: string }) {
   const [imgOk, setImgOk] = useState(true);
   return (
     <Link
@@ -36,7 +37,7 @@ function DrugCard({ drug }: { drug: Drug }) {
         <div className="font-serif text-ink-3 text-xs mt-0.5 line-clamp-1">{drug.generic_name}</div>
       )}
       {drug.drug_class && (
-        <div className="font-serif text-ink-3 text-xs mt-1 line-clamp-1 leading-tight">{drug.drug_class}</div>
+        <div className="font-serif text-ink-3 text-xs mt-1 line-clamp-1 leading-tight">{translateDrugClass(drug.drug_class, lang)}</div>
       )}
       <div className="flex gap-1 mt-1.5 flex-wrap">
         {drug.is_high_yield && <span className="px-1.5 py-0.5 rounded-full bg-amber-light text-amber font-syne font-bold text-xs">⭐ HY</span>}
@@ -111,7 +112,7 @@ function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes:
         <select value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setPage(1); }}
           className="px-3 py-2.5 rounded-xl border border-border bg-surface text-ink font-serif text-sm focus:outline-none focus:border-ink min-w-[180px]">
           <option value="">{ui.all_classes}</option>
-          {classes.slice(0, 20).map(c => <option key={c.drug_class} value={c.drug_class}>{c.drug_class} ({c.count})</option>)}
+          {classes.slice(0, 20).map(c => <option key={c.drug_class} value={c.drug_class}>{translateDrugClass(c.drug_class, lang)} ({c.count})</option>)}
         </select>
       </div>
 
@@ -153,7 +154,7 @@ function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes:
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-          {displayDrugs.map(drug => <DrugCard key={drug.id} drug={drug} />)}
+          {displayDrugs.map(drug => <DrugCard key={drug.id} drug={drug} lang={lang} />)}
         </div>
       )}
 
@@ -359,7 +360,7 @@ function VetDosing() {
                 <button key={d.id} onClick={() => selectDrug(d)}
                   className="w-full text-left px-3 py-2 font-serif text-sm text-ink hover:bg-bg transition-colors first:rounded-t-xl last:rounded-b-xl">
                   <span className="font-syne font-semibold">{d.name}</span>
-                  <span className="text-ink-3 ml-2 text-xs">{d.drug_class}</span>
+                  <span className="text-ink-3 ml-2 text-xs">{d.drug_class}</span>{/* VetDosing always searches in EN, class shown as-is */}
                 </button>
               ))}
             </div>

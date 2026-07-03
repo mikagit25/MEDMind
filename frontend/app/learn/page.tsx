@@ -2,6 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getLearnT } from "@/lib/learn-i18n";
 
+const LEARN_TITLES: Record<string, string> = {
+  en: "Learn Medicine — Plain Language Health Guides for Everyone",
+  ru: "Медицина для всех — руководства по здоровью",
+  de: "Medizin lernen — Gesundheitsleitfäden für alle",
+  fr: "Apprendre la médecine — guides de santé pour tous",
+  es: "Aprende medicina — guías de salud para todos",
+  tr: "Tıp Öğren — Herkes İçin Sağlık Rehberleri",
+  ar: "تعلم الطب — أدلة صحية للجميع",
+};
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL =
@@ -11,27 +21,35 @@ const API_URL =
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Learn Medicine — Plain Language Health Guides for Everyone",
-  description:
-    "Understand medicine without a medical degree. Explore topics, drug guides, and a medical glossary — written in plain language for patients, students, and curious minds.",
-  alternates: {
-    canonical: `${SITE_URL}/learn`,
-    languages: {
-      "x-default": `${SITE_URL}/learn`,
-      ...Object.fromEntries(
-        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn` : `${SITE_URL}/${l}/learn`])
-      ),
-    },
-  },
-  openGraph: {
-    title: "Learn Medicine — MedMind",
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: { lang?: string };
+}): Promise<Metadata> {
+  const locale = SUPPORTED_LOCALES.includes(searchParams?.lang ?? "") ? searchParams!.lang! : "en";
+  const canonical = locale === "en" ? `${SITE_URL}/learn` : `${SITE_URL}/${locale}/learn`;
+  return {
+    title: LEARN_TITLES[locale] ?? LEARN_TITLES.en,
     description:
-      "Plain-language health guides for everyone. Topics, drugs, glossary — no medical degree required.",
-    url: `${SITE_URL}/learn`,
-    type: "website",
-  },
-};
+      "Understand medicine without a medical degree. Explore topics, drug guides, and a medical glossary — written in plain language for patients, students, and curious minds.",
+    alternates: {
+      canonical,
+      languages: {
+        "x-default": `${SITE_URL}/learn`,
+        ...Object.fromEntries(
+          SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn` : `${SITE_URL}/${l}/learn`])
+        ),
+      },
+    },
+    openGraph: {
+      title: LEARN_TITLES[locale] ?? LEARN_TITLES.en,
+      description:
+        "Plain-language health guides for everyone. Topics, drugs, glossary — no medical degree required.",
+      url: canonical,
+      type: "website",
+    },
+  };
+}
 
 type Stats = {
   topics: number;

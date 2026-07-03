@@ -3,32 +3,46 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
+const TOPICS_TITLES: Record<string, string> = {
+  en: "Medical Topics — Plain Language Health Guides",
+  ru: "Медицинские темы — руководства по здоровью",
+  de: "Medizinische Themen — Gesundheitsleitfäden",
+  fr: "Sujets médicaux — guides de santé",
+  es: "Temas médicos — guías de salud",
+  tr: "Tıbbi Konular — Sağlık Rehberleri",
+  ar: "المواضيع الطبية — أدلة الصحة",
+};
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const revalidate = 86400;
 
-export const metadata: Metadata = {
-  title: "Medical Topics — Plain Language Health Guides",
-  description:
-    "Browse 80+ medical topics explained in plain language. Cardiology, neurology, pharmacology, surgery, and more — for patients and curious minds.",
-  alternates: {
-    canonical: `${SITE_URL}/learn/topics`,
-    languages: {
-      "x-default": `${SITE_URL}/learn/topics`,
-      ...Object.fromEntries(
-        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn/topics` : `${SITE_URL}/${l}/learn/topics`])
-      ),
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = headers().get("x-locale") ?? "en";
+  const canonical = locale === "en" ? `${SITE_URL}/learn/topics` : `${SITE_URL}/${locale}/learn/topics`;
+  return {
+    title: TOPICS_TITLES[locale] ?? TOPICS_TITLES.en,
+    description:
+      "Browse 80+ medical topics explained in plain language. Cardiology, neurology, pharmacology, surgery, and more — for patients and curious minds.",
+    alternates: {
+      canonical,
+      languages: {
+        "x-default": `${SITE_URL}/learn/topics`,
+        ...Object.fromEntries(
+          SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn/topics` : `${SITE_URL}/${l}/learn/topics`])
+        ),
+      },
     },
-  },
-  openGraph: {
-    title: "Medical Topics — MedMind",
-    description: "Plain-language health guides for everyone.",
-    url: `${SITE_URL}/learn/topics`,
-    type: "website",
-  },
-};
+    openGraph: {
+      title: TOPICS_TITLES[locale] ?? TOPICS_TITLES.en,
+      description: "Plain-language health guides for everyone.",
+      url: canonical,
+      type: "website",
+    },
+  };
+}
 
 type PublicTopic = {
   module_code: string;

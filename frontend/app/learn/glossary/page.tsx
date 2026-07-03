@@ -4,32 +4,46 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
+const GLOSSARY_TITLES: Record<string, string> = {
+  en: "Medical Glossary — Plain Language Definitions",
+  ru: "Медицинский глоссарий — простые определения",
+  de: "Medizinisches Glossar — verständliche Definitionen",
+  fr: "Glossaire médical — définitions simples",
+  es: "Glosario médico — definiciones sencillas",
+  tr: "Tıbbi Sözlük — Basit Tanımlar",
+  ar: "المسرد الطبي — تعريفات بسيطة",
+};
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const revalidate = 86400; // 24 hours ISR
 
-export const metadata: Metadata = {
-  title: "Medical Glossary — Plain Language Definitions",
-  description:
-    "Plain-language definitions of medical terms. Understand what doctors mean without a medical degree. Free, educational, for everyone.",
-  alternates: {
-    canonical: `${SITE_URL}/learn/glossary`,
-    languages: {
-      "x-default": `${SITE_URL}/learn/glossary`,
-      ...Object.fromEntries(
-        SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn/glossary` : `${SITE_URL}/${l}/learn/glossary`])
-      ),
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = headers().get("x-locale") ?? "en";
+  const canonical = locale === "en" ? `${SITE_URL}/learn/glossary` : `${SITE_URL}/${locale}/learn/glossary`;
+  return {
+    title: GLOSSARY_TITLES[locale] ?? GLOSSARY_TITLES.en,
+    description:
+      "Plain-language definitions of medical terms. Understand what doctors mean without a medical degree. Free, educational, for everyone.",
+    alternates: {
+      canonical,
+      languages: {
+        "x-default": `${SITE_URL}/learn/glossary`,
+        ...Object.fromEntries(
+          SUPPORTED_LOCALES.map((l) => [l, l === "en" ? `${SITE_URL}/learn/glossary` : `${SITE_URL}/${l}/learn/glossary`])
+        ),
+      },
     },
-  },
-  openGraph: {
-    title: "Medical Glossary — MedMind",
-    description: "Plain-language medical definitions for everyone.",
-    url: `${SITE_URL}/learn/glossary`,
-    type: "website",
-  },
-};
+    openGraph: {
+      title: GLOSSARY_TITLES[locale] ?? GLOSSARY_TITLES.en,
+      description: "Plain-language medical definitions for everyone.",
+      url: canonical,
+      type: "website",
+    },
+  };
+}
 
 type GlossaryTerm = {
   term: string;
