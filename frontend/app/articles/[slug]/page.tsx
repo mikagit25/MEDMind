@@ -533,13 +533,15 @@ export default async function ArticlePage({
   const rawLocale = explicitLang || cookieLocale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const ui = SERVER_LABELS[locale] ?? SERVER_LABELS.en;
-  const [article, availableLocales, related, nav, linkMap] = await Promise.all([
+  const [article, availableLocales, related, nav] = await Promise.all([
     fetchArticle(params.slug, locale),
     fetchAvailableLocales(params.slug),
     fetchRelated(params.slug, locale),
     fetchNav(params.slug, locale),
-    fetchLinkMap(),
   ]);
+  // linkMap disabled in SSR: 12 k entries + huge regex caused 5–12 s TTFB.
+  // Internal linking can be re-introduced via a lightweight client-side pass.
+  const linkMap: LinkMapEntry[] = [];
   if (!article) notFound();
 
   // Resolve module if article has a related module code

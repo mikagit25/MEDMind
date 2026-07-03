@@ -49,6 +49,7 @@ from sqlalchemy import func, select, desc, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, require_admin, require_author, require_teacher
+from app.core.cache import get_cached, set_cached
 from app.core.config import settings
 from app.core.database import get_db
 from app.models.models import Article, ArticleTranslation, AuthorCreditAccount, ContentFeedback, CreditTransaction, LLMPricing, Module, User
@@ -333,13 +334,16 @@ async def submit_content_feedback(
 
 @router.get("/link-map")
 async def article_link_map(db: AsyncSession = Depends(get_db)):
-    """Return a flat list of {term, slug} for all published articles.
+    """Return a flat list of {term, slug} for published articles.
 
     Used by the frontend to auto-link medical terms in article body text.
-    Includes article titles (primary) and individual keywords (secondary).
-    Sorted by term length descending so longer/more specific terms match first.
-    Cached for 1 hour via ISR on the consuming page.
+    Redis-cached for 2 hours to avoid rebuilding 12k-entry map on every request.
     """
+    CACHE_KEY = "article:link-map"
+    cached = await get_cached(CACHE_KEY)
+    if cached is not None:
+        return cached
+
     rows = (await db.execute(
         select(Article.slug, Article.title, Article.keywords)
         .where(Article.is_published == True, Article.review_status == "published", _verified_only())
@@ -349,20 +353,18 @@ async def article_link_map(db: AsyncSession = Depends(get_db)):
     seen_terms: set = set()
 
     for r in rows:
-        # Title → primary link
         term = r.title.strip()
         if term and term.lower() not in seen_terms:
             entries.append({"term": term, "slug": r.slug})
             seen_terms.add(term.lower())
-        # Keywords → secondary links (only if not already mapped)
         for kw in (r.keywords or []):
             kw = kw.strip()
             if len(kw) >= 4 and kw.lower() not in seen_terms:
                 entries.append({"term": kw, "slug": r.slug})
                 seen_terms.add(kw.lower())
 
-    # Sort longest terms first to prevent partial-match shadowing
     entries.sort(key=lambda e: len(e["term"]), reverse=True)
+    await set_cached(CACHE_KEY, entries, ttl=7200)
     return entries
 
 
