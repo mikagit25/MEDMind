@@ -1623,9 +1623,9 @@ const tr: Translations = {
     pricing_month: "/ay",
     pricing_one_time: "tek seferlik",
     // V4 Phase 4
-    hero_v4_title: "Medicine, understood by everyone.",
-    hero_v4_title2: "Depth trusted by specialists.",
-    hero_v4_sub: "Evidence-based medical content in 7 languages.",
+    hero_v4_title: "Tıp, herkes tarafından anlaşılır.",
+    hero_v4_title2: "Uzmanların güvendiği derinlik.",
+    hero_v4_sub: "7 dilde kanıta dayalı tıbbi içerik — öğrenciler, doktorlar, hastalar ve veterinerler için.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",

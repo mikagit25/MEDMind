@@ -1630,10 +1630,10 @@ const fr: Translations = {
     pricing_forever: "pour toujours",
     pricing_month: "/mois",
     pricing_one_time: "unique",
-    // V4 Phase 4 — bifurcation hero (English fallback for non-en/ru)
-    hero_v4_title: "Medicine, understood by everyone.",
-    hero_v4_title2: "Depth trusted by specialists.",
-    hero_v4_sub: "Evidence-based medical content in 7 languages — for students, doctors, patients, and veterinarians.",
+    // V4 Phase 4
+    hero_v4_title: "La médecine, comprise par tous.",
+    hero_v4_title2: "La profondeur en qui les spécialistes ont confiance.",
+    hero_v4_sub: "Contenu médical fondé sur des preuves en 7 langues — pour les étudiants, médecins, patients et vétérinaires.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",
