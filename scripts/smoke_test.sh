@@ -2,15 +2,15 @@
 # smoke_test.sh — post-deploy health check for MedMind AI
 #
 # Usage:
-#   ./scripts/smoke_test.sh                     # defaults: backend=localhost:8000, frontend=localhost:3001
-#   BACKEND=http://api.medmind.pro FRONTEND=https://medmind.pro ./scripts/smoke_test.sh
+#   ./scripts/smoke_test.sh                                      # defaults: medmind.pro
+#   BACKEND=http://localhost:8000 FRONTEND=http://localhost:3001 ./scripts/smoke_test.sh  # local
 #
 # Exit codes: 0 = all green, 1 = one or more checks failed
 
 set -euo pipefail
 
-BACKEND="${BACKEND:-http://localhost:8000}"
-FRONTEND="${FRONTEND:-http://localhost:3001}"
+BACKEND="${BACKEND:-https://medmind.pro}"
+FRONTEND="${FRONTEND:-https://medmind.pro}"
 TIMEOUT=15   # seconds per request
 FAILURES=0
 
