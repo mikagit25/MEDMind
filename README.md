@@ -148,6 +148,22 @@ cd backend
 
 ---
 
+## Smoke Test
+
+Post-deploy health check — verifies backend, 10 random drug pages, public routes, and locale-prefixed URLs.
+
+```bash
+# Against production (default)
+./scripts/smoke_test.sh
+
+# Against local dev stack
+BACKEND=http://localhost:8000 FRONTEND=http://localhost:3001 ./scripts/smoke_test.sh
+```
+
+Exit code: `0` = all green, `N` = number of failed checks.
+
+---
+
 ## Subscription Tiers
 
 | Tier | AI Requests/Day | Content Access |
