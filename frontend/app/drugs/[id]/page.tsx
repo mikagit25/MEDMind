@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { DrugDetailTabs } from "@/components/drugs/DrugDetailTabs";
+import { DrugImage } from "@/components/drugs/DrugImage";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 
@@ -149,23 +150,15 @@ export default async function DrugDetailPage({
 
         {/* Drug header — always in initial HTML for SEO */}
         <div className="flex items-start gap-4 mb-4 flex-wrap sm:flex-nowrap">
-          {drug.image_url ? (
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl border border-border bg-white overflow-hidden flex-shrink-0">
-              <img
-                src={drug.image_url}
-                alt={drug.name}
-                className="w-full h-full object-contain p-1"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                  e.currentTarget.parentElement!.innerHTML = '<span class="text-4xl flex items-center justify-center w-full h-full">💊</span>';
-                }}
-              />
-            </div>
-          ) : (
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl border border-border bg-bg-2 flex items-center justify-center flex-shrink-0">
-              <span className="text-4xl">💊</span>
-            </div>
-          )}
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl border border-border bg-white overflow-hidden flex-shrink-0">
+            {drug.image_url ? (
+              <DrugImage src={drug.image_url} alt={drug.name} />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-bg-2">
+                <span className="text-4xl">💊</span>
+              </div>
+            )}
+          </div>
 
           <div className="flex-1 min-w-0">
             <h1 className="font-syne font-black text-xl sm:text-2xl text-ink leading-tight">

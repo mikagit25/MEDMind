@@ -572,6 +572,83 @@ async def search_drugs(
     return [_drug_to_dict(d, lang) for d in result.scalars().all()]
 
 
+# Species dose scaling factors vs human adult (approximate)
+_SPECIES_FACTORS: dict[str, float] = {
+    "canine": 1.0,
+    "feline": 0.6,
+    "equine": 10.0,
+    "bovine": 12.0,
+    "porcine": 1.2,
+    "avian": 0.05,
+    "exotic": 0.3,
+}
+
+class DosingResult(BaseModel):
+    drug_name: str
+    species: str
+    human_dosing: dict
+    species_dosing: dict
+    note: str
+
+
+@router.get("/drugs/dosing", response_model=DosingResult)
+async def get_species_dosing(
+    drug: str = Query(..., min_length=1, max_length=100, description="Drug name to look up"),
+    species: str = Query(..., description="Target species (canine|feline|equine|bovine|porcine|avian|exotic)"),
+    db: AsyncSession = Depends(get_db),
+    user = Depends(get_current_user_optional),
+):
+    """Return species-adjusted dosing for veterinary users (or any authenticated user in test mode)."""
+
+    species = species.lower()
+    if species not in _SPECIES_FACTORS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Unknown species '{species}'. Allowed: {', '.join(_SPECIES_FACTORS)}",
+        )
+
+    from sqlalchemy import or_
+    result = await db.execute(
+        select(Drug).where(
+            or_(Drug.name.ilike(f"%{drug}%"), Drug.generic_name.ilike(f"%{drug}%"))
+        ).limit(1)
+    )
+    db_drug = result.scalar_one_or_none()
+    if not db_drug:
+        raise HTTPException(status_code=404, detail=f"Drug '{drug}' not found")
+
+    human_dosing: dict = db_drug.dosing or {}
+    factor = _SPECIES_FACTORS[species]
+
+    species_dosing: dict = {}
+    for route, info in human_dosing.items():
+        if isinstance(info, dict) and "dose" in info:
+            try:
+                import re
+                raw = str(info["dose"])
+                nums = re.findall(r"\d+(?:\.\d+)?", raw)
+                if nums:
+                    scaled_nums = [f"{float(n) * factor:.2f}" for n in nums]
+                    scaled_dose = raw
+                    for orig, scaled in zip(nums, scaled_nums):
+                        scaled_dose = scaled_dose.replace(orig, scaled, 1)
+                    species_dosing[route] = {**info, "dose": scaled_dose}
+                else:
+                    species_dosing[route] = info
+            except Exception:
+                species_dosing[route] = info
+        else:
+            species_dosing[route] = info
+
+    return DosingResult(
+        drug_name=db_drug.name,
+        species=species,
+        human_dosing=human_dosing,
+        species_dosing=species_dosing,
+        note=f"Doses scaled by factor ×{factor} for {species}. Always verify with a licensed veterinarian.",
+    )
+
+
 @router.get("/drugs/{drug_id}")
 async def get_drug_detail(
     drug_id: UUID,
@@ -685,86 +762,6 @@ async def calculate_drug_dose(
         dose_per_kg=data.dose_per_kg,
         unit=data.unit,
         max_dose=data.max_dose,
-    )
-
-
-# Species dose scaling factors vs human adult (approximate)
-_SPECIES_FACTORS: dict[str, float] = {
-    "canine": 1.0,
-    "feline": 0.6,
-    "equine": 10.0,
-    "bovine": 12.0,
-    "porcine": 1.2,
-    "avian": 0.05,
-    "exotic": 0.3,
-}
-
-class DosingResult(BaseModel):
-    drug_name: str
-    species: str
-    human_dosing: dict
-    species_dosing: dict
-    note: str
-
-
-@router.get("/drugs/dosing", response_model=DosingResult)
-async def get_species_dosing(
-    drug: str = Query(..., min_length=1, max_length=100, description="Drug name to look up"),
-    species: str = Query(..., description="Target species (canine|feline|equine|bovine|porcine|avian|exotic)"),
-    db: AsyncSession = Depends(get_db),
-    user = Depends(get_current_user_optional),
-):
-    """Return species-adjusted dosing for veterinary users (or any authenticated user in test mode)."""
-
-    species = species.lower()
-    if species not in _SPECIES_FACTORS:
-        raise HTTPException(
-            status_code=422,
-            detail=f"Unknown species '{species}'. Allowed: {', '.join(_SPECIES_FACTORS)}",
-        )
-
-    from sqlalchemy import or_
-    result = await db.execute(
-        select(Drug).where(
-            or_(Drug.name.ilike(f"%{drug}%"), Drug.generic_name.ilike(f"%{drug}%"))
-        ).limit(1)
-    )
-    db_drug = result.scalar_one_or_none()
-    if not db_drug:
-        raise HTTPException(status_code=404, detail=f"Drug '{drug}' not found")
-
-    human_dosing: dict = db_drug.dosing or {}
-    factor = _SPECIES_FACTORS[species]
-
-    # Apply scaling factor to numeric dosing values where present
-    species_dosing: dict = {}
-    for route, info in human_dosing.items():
-        if isinstance(info, dict) and "dose" in info:
-            try:
-                import re
-                # Extract numeric part from strings like "5-10 mg/kg"
-                raw = str(info["dose"])
-                nums = re.findall(r"\d+(?:\.\d+)?", raw)
-                if nums:
-                    scaled_nums = [f"{float(n) * factor:.2f}" for n in nums]
-                    # Replace originals with scaled values
-                    scaled_dose = raw
-                    for orig, scaled in zip(nums, scaled_nums):
-                        scaled_dose = scaled_dose.replace(orig, scaled, 1)
-                    species_dosing[route] = {**info, "dose": scaled_dose}
-                else:
-                    species_dosing[route] = info
-            except Exception:
-                species_dosing[route] = info
-        else:
-            species_dosing[route] = info
-
-    return DosingResult(
-        drug_name=db_drug.name,
-        species=species,
-        human_dosing=human_dosing,
-        species_dosing=species_dosing,
-        note=f"Doses scaled by factor ×{factor} for {species}. Always verify with a licensed veterinarian.",
     )
 
 

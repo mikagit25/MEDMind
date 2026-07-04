@@ -28,6 +28,25 @@ const LANG_NAMES: Record<string, string> = {
   en: "English", ru: "Русский", ar: "العربية", de: "Deutsch", fr: "Français", es: "Español", tr: "Türkçe",
 };
 
+const T: Record<string, Record<string, string>> = {
+  language:      { en: "Language:", ru: "Язык:", ar: "اللغة:", de: "Sprache:", fr: "Langue:", es: "Idioma:", tr: "Dil:" },
+  overview:      { en: "Overview", ru: "Обзор", ar: "نظرة عامة", de: "Übersicht", fr: "Aperçu", es: "Resumen", tr: "Genel Bakış" },
+  dosing:        { en: "Dosing", ru: "Дозировка", ar: "الجرعات", de: "Dosierung", fr: "Posologie", es: "Dosificación", tr: "Dozaj" },
+  adverse:       { en: "Side Effects", ru: "Побочные эффекты", ar: "الآثار الجانبية", de: "Nebenwirkungen", fr: "Effets secondaires", es: "Efectos secundarios", tr: "Yan Etkiler" },
+  vet:           { en: "🐾 Vet Dosing", ru: "🐾 Вет. дозы", ar: "🐾 جرعات بيطرية", de: "🐾 Vet. Dosierung", fr: "🐾 Doses vét.", es: "🐾 Dosis vet.", tr: "🐾 Vet. Dozu" },
+  selectSpecies: { en: "Select Species", ru: "Выберите вид", ar: "اختر النوع", de: "Tierart wählen", fr: "Choisir l'espèce", es: "Seleccionar especie", tr: "Tür seçin" },
+  loading:       { en: "Loading…", ru: "Загрузка…", ar: "جارٍ التحميل…", de: "Lädt…", fr: "Chargement…", es: "Cargando…", tr: "Yükleniyor…" },
+  estimatedDose: { en: "Estimated Dosing", ru: "Ориентировочная доза", ar: "الجرعة التقديرية", de: "Geschätzte Dosierung", fr: "Dosage estimé", es: "Dosificación estimada", tr: "Tahmini Dozaj" },
+  vetDisclaimer: { en: "⚠ Scaled from human doses — verify with current veterinary formulary before clinical use.", ru: "⚠ Дозы масштабированы от человеческих — проверяйте по ветеринарному формуляру перед применением.", ar: "⚠ مُحتسبة من جرعات البشر — تحقق من الدستور البيطري قبل الاستخدام.", de: "⚠ Von menschlichen Dosen skaliert — vor klinischer Anwendung mit aktuellem Veterinärformular prüfen.", fr: "⚠ Extrapolé des doses humaines — vérifier avec le formulaire vétérinaire actuel avant usage clinique.", es: "⚠ Escalado desde dosis humanas — verificar con formulario veterinario vigente antes del uso clínico.", tr: "⚠ İnsan dozlarından ölçeklendirildi — klinik kullanım öncesi mevcut veteriner formüleri ile doğrulayın." },
+  noVetData:     { en: "No veterinary dosing data", ru: "Нет ветеринарных данных по дозировке", ar: "لا توجد بيانات جرعات بيطرية", de: "Keine veterinären Dosierdaten", fr: "Aucune donnée de dosage vétérinaire", es: "Sin datos de dosificación veterinaria", tr: "Veteriner dozaj verisi yok" },
+  vetEduOnly:    { en: "🐾 For educational use only.", ru: "🐾 Только в образовательных целях.", ar: "🐾 للاستخدام التعليمي فقط.", de: "🐾 Nur zu Bildungszwecken.", fr: "🐾 À des fins éducatives uniquement.", es: "🐾 Solo para uso educativo.", tr: "🐾 Yalnızca eğitim amaçlıdır." },
+  similarDrugs:  { en: "Similar Drugs — Same Class", ru: "Похожие препараты — тот же класс", ar: "أدوية مماثلة — نفس الفئة", de: "Ähnliche Medikamente — gleiche Klasse", fr: "Médicaments similaires — même classe", es: "Medicamentos similares — misma clase", tr: "Benzer İlaçlar — Aynı Sınıf" },
+  sameClass:     { en: "Same pharmacological class or related mechanism of action", ru: "Тот же фармакологический класс или схожий механизм действия", ar: "نفس الفئة الدوائية أو آلية عمل مماثلة", de: "Gleiche pharmakologische Klasse oder verwandter Wirkungsmechanismus", fr: "Même classe pharmacologique ou mécanisme d'action similaire", es: "Misma clase farmacológica o mecanismo de acción relacionado", tr: "Aynı farmakolojik sınıf veya ilgili etki mekanizması" },
+  caution:       { en: "Caution: Risk for", ru: "Осторожно: риск для", ar: "تحذير: خطر على", de: "Vorsicht: Risiko für", fr: "Attention : risque pour", es: "Precaución: riesgo para", tr: "Dikkat: Risk var:" },
+  safe:          { en: "Generally safe for", ru: "Как правило, безопасен для", ar: "آمن عمومًا لـ", de: "Im Allgemeinen sicher für", fr: "Généralement sûr pour", es: "Generalmente seguro para", tr: "Genellikle güvenli:" },
+};
+const t = (key: string, lang: string) => T[key]?.[lang] ?? T[key]?.["en"] ?? key;
+
 const FALLBACK_SPECIES = [
   { id: "canine", name: "Canine", icon: "🐕" }, { id: "feline", name: "Feline", icon: "🐈" },
   { id: "equine", name: "Equine", icon: "🐎" }, { id: "bovine", name: "Bovine", icon: "🐄" },
@@ -173,7 +192,7 @@ function AdverseTab({ drug }: { drug: Drug }) {
   );
 }
 
-function VetTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
+function VetTab({ drug, allSpecies, lang }: { drug: Drug; allSpecies: any[]; lang: string }) {
   const speciesList = allSpecies.length > 0 ? allSpecies : FALLBACK_SPECIES;
   const [selectedSpecies, setSelectedSpecies] = useState<any | null>(null);
   const [dbDosing, setDbDosing] = useState<any[]>([]);
@@ -194,32 +213,37 @@ function VetTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
     setDbDosing(dosingRes ?? []); setSafety(safetyRes); setScaledDosing(scaledRes); setLoading(false);
   };
 
+  const speciesDisplayName = (sp: any) =>
+    lang !== "en" && sp.name_ru ? sp.name_ru : sp.name;
+
   return (
     <div className="space-y-5">
-      <Section title="Select Species">
+      <Section title={t("selectSpecies", lang)}>
         <div className="flex flex-wrap gap-2">
           {speciesList.map((sp: any) => (
             <button key={sp.id} onClick={() => selectSpecies(sp)}
               className={`px-3 py-2 rounded-lg border font-syne font-semibold text-xs transition-all ${selectedSpecies?.id === sp.id ? "border-ink bg-ink text-white" : "border-border text-ink-2 hover:border-ink-3"}`}>
-              {sp.icon && <span className="mr-1">{sp.icon}</span>}{sp.name}
+              {sp.icon && <span className="mr-1">{sp.icon}</span>}{speciesDisplayName(sp)}
             </button>
           ))}
         </div>
       </Section>
-      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">Loading…</div>}
+      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">{t("loading", lang)}</div>}
       {!loading && selectedSpecies && (
         <>
           {safety && (
             <div className={`p-4 rounded-xl border flex gap-3 ${safety.is_toxic ? "bg-red-light border-red/30" : "bg-green-light border-green/20"}`}>
               <span className="text-xl">{safety.is_toxic ? "⚠️" : "✅"}</span>
               <div className={`font-syne font-bold text-sm ${safety.is_toxic ? "text-red" : "text-green"}`}>
-                {safety.is_toxic ? `Caution: Risk for ${selectedSpecies.name}` : `Generally safe for ${selectedSpecies.name}`}
+                {safety.is_toxic
+                  ? `${t("caution", lang)} ${speciesDisplayName(selectedSpecies)}`
+                  : `${t("safe", lang)} ${speciesDisplayName(selectedSpecies)}`}
                 {safety.toxicity_note && <div className="font-serif font-normal text-xs text-ink-2 mt-0.5">{safety.toxicity_note}</div>}
               </div>
             </div>
           )}
           {dbDosing.length > 0 && (
-            <Section title={`Dosing — ${selectedSpecies.name}`}>
+            <Section title={`${t("dosing", lang)} — ${speciesDisplayName(selectedSpecies)}`}>
               <div className="space-y-3">
                 {dbDosing.map((d: any, i: number) => (
                   <div key={i} className="p-3 rounded-lg bg-bg space-y-1">
@@ -235,9 +259,9 @@ function VetTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
             </Section>
           )}
           {scaledDosing?.species_dosing && Object.keys(scaledDosing.species_dosing).length > 0 && (
-            <Section title={`Estimated Dosing — ${selectedSpecies.name}`}>
+            <Section title={`${t("estimatedDose", lang)} — ${speciesDisplayName(selectedSpecies)}`}>
               <div className="p-3 rounded-lg bg-amber-light border border-amber/20 mb-3 font-serif text-xs text-amber">
-                ⚠ Scaled from human doses — verify with current veterinary formulary before clinical use.
+                {t("vetDisclaimer", lang)}
               </div>
               <div className="divide-y divide-border">
                 {Object.entries(scaledDosing.species_dosing).map(([route, info]: [string, any]) => (
@@ -251,13 +275,13 @@ function VetTab({ drug, allSpecies }: { drug: Drug; allSpecies: any[] }) {
           )}
           {dbDosing.length === 0 && !scaledDosing && (
             <div className="bg-surface border border-border rounded-xl p-6 text-center">
-              <p className="font-serif text-ink-3 text-sm">No veterinary dosing data for {drug.name} in {selectedSpecies.name}.</p>
+              <p className="font-serif text-ink-3 text-sm">{t("noVetData", lang)} — {drug.name} / {speciesDisplayName(selectedSpecies)}</p>
             </div>
           )}
         </>
       )}
-      {!selectedSpecies && <div className="bg-surface border border-border rounded-xl p-6 text-center"><p className="font-serif text-ink-3 text-sm">Select a species above.</p></div>}
-      <p className="font-serif text-ink-3 text-xs text-center">🐾 For educational use only.</p>
+      {!selectedSpecies && <div className="bg-surface border border-border rounded-xl p-6 text-center"><p className="font-serif text-ink-3 text-sm">{t("selectSpecies", lang)}</p></div>}
+      <p className="font-serif text-ink-3 text-xs text-center">{t("vetEduOnly", lang)}</p>
     </div>
   );
 }
@@ -286,10 +310,10 @@ export function DrugDetailTabs({
   const availableLangs = ["en", ...(drug.available_langs ?? [])];
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: "overview", label: "Overview" },
-    { key: "dosing",   label: "Dosing" },
-    { key: "adverse",  label: "Side Effects" },
-    { key: "vet",      label: "🐾 Vet Dosing" },
+    { key: "overview", label: t("overview", lang) },
+    { key: "dosing",   label: t("dosing", lang) },
+    { key: "adverse",  label: t("adverse", lang) },
+    { key: "vet",      label: t("vet", lang) },
   ];
 
   return (
@@ -297,7 +321,7 @@ export function DrugDetailTabs({
       {/* Language switcher */}
       {availableLangs.length > 1 && (
         <div className="flex items-center gap-2 mb-6 flex-wrap">
-          <span className="font-syne font-semibold text-xs text-ink-3">Language:</span>
+          <span className="font-syne font-semibold text-xs text-ink-3">{t("language", lang)}</span>
           {availableLangs.map(l => (
             <button key={l}
               onClick={() => router.push(`/drugs/${drug.id}${l !== "en" ? `?lang=${l}` : ""}`)}
@@ -322,13 +346,13 @@ export function DrugDetailTabs({
       {tab === "overview" && <OverviewTab drug={drug} />}
       {tab === "dosing"   && <DosingTab drug={drug} />}
       {tab === "adverse"  && <AdverseTab drug={drug} />}
-      {tab === "vet"      && <VetTab drug={drug} allSpecies={allSpecies} />}
+      {tab === "vet"      && <VetTab drug={drug} allSpecies={allSpecies} lang={lang} />}
 
       {/* Related drugs */}
       {alternatives.length > 0 && (
         <div className="mt-10">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-syne font-bold text-base text-ink">Similar Drugs — Same Class</h2>
+            <h2 className="font-syne font-bold text-base text-ink">{t("similarDrugs", lang)}</h2>
             <span className="font-serif text-ink-3 text-xs">{alternatives.length} found</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -349,7 +373,7 @@ export function DrugDetailTabs({
               </Link>
             ))}
           </div>
-          <p className="font-serif text-ink-3 text-xs text-center mt-4">Same pharmacological class or related mechanism of action</p>
+          <p className="font-serif text-ink-3 text-xs text-center mt-4">{t("sameClass", lang)}</p>
         </div>
       )}
     </>

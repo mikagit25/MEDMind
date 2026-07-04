@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const revalidate = 86400;
+
+function localePath(path: string, locale: string) {
+  return locale !== "en" ? `/${locale}${path}` : path;
+}
 
 type GlossaryEntry = { term: string; slug: string; simple_definition: string };
 type Section = { title: string; text: string };
@@ -71,6 +77,8 @@ export default async function TopicDetailPage({
 }: {
   params: { slug: string };
 }) {
+  const locale = headers().get("x-locale") ?? "en";
+  const t = getLearnT(locale);
   const data = await fetchTopic(params.slug);
   if (!data) notFound();
 
@@ -101,8 +109,8 @@ export default async function TopicDetailPage({
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 font-serif text-xs text-ink-3 mb-8">
-          <Link href="/learn/topics" className="hover:text-ink transition-colors">
-            Topics
+          <Link href={localePath("/learn/topics", locale)} className="hover:text-ink transition-colors">
+            {t.breadcrumb_topics}
           </Link>
           <span>/</span>
           {data.specialty && (
@@ -130,16 +138,16 @@ export default async function TopicDetailPage({
             </p>
           )}
           <div className="flex items-center gap-4 mt-4 font-serif text-xs text-ink-3">
-            <span>{data.lessons.length} lessons</span>
+            <span>{data.lessons.length} {t.pets_lesson_plural}</span>
             {data.total_glossary_terms > 0 && (
-              <span>{data.total_glossary_terms} terms defined</span>
+              <span>{data.total_glossary_terms} {t.nav_glossary.toLowerCase()}</span>
             )}
           </div>
         </div>
 
         {/* Disclaimer */}
         <div className="bg-amber-light border border-amber/20 rounded-xl px-4 py-3 mb-8">
-          <p className="font-serif text-xs text-amber">⚕️ {data.disclaimer}</p>
+          <p className="font-serif text-xs text-amber">⚕️ {t.disclaimer}</p>
         </div>
 
         {/* Lessons */}
@@ -147,14 +155,14 @@ export default async function TopicDetailPage({
           {data.lessons.map((lesson, idx) => (
             <Link
               key={idx}
-              href={`/learn/topics/${data.slug}/${lesson.lesson_slug}`}
+              href={localePath(`/learn/topics/${data.slug}/${lesson.lesson_slug}`, locale)}
               className="group block border border-border rounded-2xl p-6 bg-surface hover:border-ink hover:shadow-sm transition-all"
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
                   <span className="font-serif text-xs text-ink-3/60 mb-1 block">
-                    Lesson {idx + 1}
-                    {lesson.estimated_minutes ? ` · ${lesson.estimated_minutes} min` : ""}
+                    {interpolate(t.lesson_of, { n: idx + 1, total: data.lessons.length })}
+                    {lesson.estimated_minutes ? ` · ${interpolate(t.min_read, { n: lesson.estimated_minutes })}` : ""}
                   </span>
                   <h2 className="font-syne font-bold text-lg text-ink group-hover:text-accent transition-colors leading-snug">
                     {lesson.title}
@@ -204,16 +212,16 @@ export default async function TopicDetailPage({
         {allTerms.length > 0 && (
           <section className="mt-10 bg-surface border border-border rounded-2xl p-6">
             <h2 className="font-syne font-black text-xl text-ink mb-1">
-              Glossary for This Topic
+              {t.key_terms}
             </h2>
             <p className="font-serif text-xs text-ink-3 mb-5">
-              {allTerms.length} plain-language definitions
+              {allTerms.length} {t.nav_glossary.toLowerCase()}
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
-              {[...new Map(allTerms.map((t) => [t.slug, t])).values()].map((term) => (
+              {[...new Map(allTerms.map((entry) => [entry.slug, entry])).values()].map((term) => (
                 <Link
                   key={term.slug}
-                  href={`/learn/glossary/${term.slug}`}
+                  href={localePath(`/learn/glossary/${term.slug}`, locale)}
                   className="group block bg-bg border border-border rounded-xl p-3 hover:border-ink transition-all"
                 >
                   <div className="font-syne font-bold text-xs text-ink group-hover:text-accent mb-1">
@@ -231,23 +239,23 @@ export default async function TopicDetailPage({
         {/* CTA */}
         <div className="mt-12 text-center bg-surface border border-border rounded-2xl p-8">
           <h2 className="font-syne font-black text-xl text-ink mb-2">
-            Want the full {data.title} course?
+            {interpolate(t.cta_title, { topic: data.title })}
           </h2>
           <p className="font-serif text-sm text-ink-3 mb-5">
-            Get interactive lessons, AI tutor, flashcards, and clinical cases on MedMind.
+            {t.cta_desc}
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link
-              href="/register"
+              href={localePath("/register", locale)}
               className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
             >
-              Start Learning Free →
+              {t.cta_start}
             </Link>
             <Link
-              href="/learn/topics"
+              href={localePath("/learn/topics", locale)}
               className="inline-block px-6 py-3 rounded-xl border border-border text-ink font-syne font-bold text-sm hover:border-ink transition-colors"
             >
-              Browse All Topics
+              {t.nav_topics}
             </Link>
           </div>
         </div>

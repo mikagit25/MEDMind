@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, get_current_user_optional
 from app.models.models import User
 from app.services.vet_service import (
     get_all_species,
@@ -57,7 +57,7 @@ async def get_drug_dosing(
     drug_id: UUID,
     species_id: UUID,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Get species-specific dosing for a drug."""
     entries = await get_dosing_for_drug_species(db, drug_id, species_id)
@@ -73,7 +73,7 @@ async def get_drug_dosing(
 async def check_drug_species_safety(
     data: SafetyCheckRequest,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     """Check if a drug is safe for a given animal species."""
     return await check_species_safety(db, data.drug_id, data.species_id)

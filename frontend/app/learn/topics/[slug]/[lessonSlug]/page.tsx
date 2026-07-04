@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { getLearnT, interpolate } from "@/lib/learn-i18n";
 
+function localePath(path: string, locale: string) {
+  return locale !== "en" ? `/${locale}${path}` : path;
+}
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
   process.env.INTERNAL_API_URL ??
@@ -111,12 +115,12 @@ export default async function LessonPage({
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 font-serif text-xs text-ink-3 mb-8 flex-wrap">
-          <Link href="/learn/topics" className="hover:text-ink transition-colors">
+          <Link href={localePath("/learn/topics", locale)} className="hover:text-ink transition-colors">
             {t.breadcrumb_topics}
           </Link>
           <span>/</span>
           <Link
-            href={`/learn/topics/${data.module_slug}`}
+            href={localePath(`/learn/topics/${data.module_slug}`, locale)}
             className="hover:text-ink transition-colors"
           >
             {data.module_title}
@@ -203,7 +207,7 @@ export default async function LessonPage({
               {data.lay_glossary.map((term) => (
                 <Link
                   key={term.slug}
-                  href={`/learn/glossary/${term.slug}`}
+                  href={localePath(`/learn/glossary/${term.slug}`, locale)}
                   className="group block bg-surface border border-border rounded-xl p-3 hover:border-ink transition-all"
                 >
                   <div className="font-syne font-bold text-xs text-ink group-hover:text-accent mb-1">
@@ -222,7 +226,7 @@ export default async function LessonPage({
         <div className="flex gap-4 mb-10">
           {data.prev_lesson ? (
             <Link
-              href={`/learn/topics/${data.module_slug}/${data.prev_lesson.slug}`}
+              href={localePath(`/learn/topics/${data.module_slug}/${data.prev_lesson.slug}`, locale)}
               className="flex-1 group block bg-surface border border-border rounded-xl p-4 hover:border-ink transition-all"
             >
               <div className="font-serif text-xs text-ink-3 mb-1">
@@ -237,7 +241,7 @@ export default async function LessonPage({
           )}
           {data.next_lesson ? (
             <Link
-              href={`/learn/topics/${data.module_slug}/${data.next_lesson.slug}`}
+              href={localePath(`/learn/topics/${data.module_slug}/${data.next_lesson.slug}`, locale)}
               className="flex-1 group block bg-surface border border-border rounded-xl p-4 hover:border-ink transition-all text-right"
             >
               <div className="font-serif text-xs text-ink-3 mb-1">
@@ -267,13 +271,13 @@ export default async function LessonPage({
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link
-              href="/register"
+              href={localePath("/register", locale)}
               className="inline-block px-8 py-3 rounded-xl bg-ink text-white font-syne font-bold text-sm hover:bg-ink-2 transition-colors"
             >
               {t.cta_start}
             </Link>
             <Link
-              href={`/learn/topics/${data.module_slug}`}
+              href={localePath(`/learn/topics/${data.module_slug}`, locale)}
               className="inline-block px-6 py-3 rounded-xl border border-border text-ink font-syne font-bold text-sm hover:border-ink transition-colors"
             >
               {interpolate(t.cta_back, { topic: data.module_title })}
