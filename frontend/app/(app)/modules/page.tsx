@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
 import { contentApi, progressApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
@@ -138,6 +138,9 @@ function ModulesInner() {
   const [loading, setLoading]           = useState(true);
   const [loadError, setLoadError]       = useState(false);
   const [activeSpecialty, setActiveSpecialty] = useState<string>("all");
+  const [showVet, setShowVet]           = useState(false);
+  const [vetModules, setVetModules]     = useState<Module[]>([]);
+  const [vetLoading, setVetLoading]     = useState(false);
   const [searchQ, setSearchQ]           = useState("");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [searchResults, setSearchResults] = useState<Module[] | null>(null);
@@ -165,6 +168,30 @@ function ModulesInner() {
       .finally(() => setLoading(false));
   };
 
+  const loadVetModules = useCallback(async () => {
+    if (vetModules.length > 0) return;
+    setVetLoading(true);
+    try {
+      const mods = await contentApi.getAllModules({ vet: true });
+      setVetModules(mods ?? []);
+    } catch {
+      setVetModules([]);
+    } finally {
+      setVetLoading(false);
+    }
+  }, [vetModules.length]);
+
+  const handleVetToggle = useCallback(() => {
+    if (!showVet) {
+      setShowVet(true);
+      setActiveSpecialty("all");
+      setSearchQ("");
+      loadVetModules();
+    } else {
+      setShowVet(false);
+    }
+  }, [showVet, loadVetModules]);
+
   // Load all modules + user progress in parallel on mount
   useEffect(() => { loadModules(); }, []);
 
@@ -172,6 +199,7 @@ function ModulesInner() {
   useEffect(() => {
     if (searchTimer.current) clearTimeout(searchTimer.current);
     if (!searchQ.trim()) { setSearchResults(null); return; }
+    if (showVet) setShowVet(false);
     searchTimer.current = setTimeout(async () => {
       setSearchLoading(true);
       try {
@@ -344,9 +372,9 @@ function ModulesInner() {
               {/* Specialty filter pills */}
               <div className="flex flex-wrap gap-2 mb-4">
                 <button
-                  onClick={() => setActiveSpecialty("all")}
+                  onClick={() => { setActiveSpecialty("all"); setShowVet(false); }}
                   className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
-                    activeSpecialty === "all"
+                    activeSpecialty === "all" && !showVet
                       ? "bg-ink text-white border-ink"
                       : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                   }`}
@@ -355,9 +383,9 @@ function ModulesInner() {
                   <span className="ml-1 opacity-60">{allModules.length}</span>
                 </button>
                 <button
-                  onClick={() => setActiveSpecialty("free")}
+                  onClick={() => { setActiveSpecialty("free"); setShowVet(false); }}
                   className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
-                    activeSpecialty === "free"
+                    activeSpecialty === "free" && !showVet
                       ? "bg-green text-white border-green"
                       : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                   }`}
@@ -367,9 +395,9 @@ function ModulesInner() {
                 {specialties.map(([name]) => (
                   <button
                     key={name}
-                    onClick={() => setActiveSpecialty(name)}
+                    onClick={() => { setActiveSpecialty(name); setShowVet(false); }}
                     className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
-                      activeSpecialty === name
+                      activeSpecialty === name && !showVet
                         ? "bg-ink text-white border-ink"
                         : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
                     }`}
@@ -377,10 +405,39 @@ function ModulesInner() {
                     {name}
                   </button>
                 ))}
+                <button
+                  onClick={handleVetToggle}
+                  className={`px-3 py-1.5 rounded-full font-syne text-xs font-semibold border transition-colors ${
+                    showVet
+                      ? "bg-green text-white border-green"
+                      : "border-border text-ink-3 hover:border-ink-3 hover:text-ink"
+                  }`}
+                >
+                  🐾 {t("modules.veterinary") || "Veterinary"}
+                  {vetModules.length > 0 && <span className="ml-1 opacity-70">{vetModules.length}</span>}
+                </button>
               </div>
 
               {/* Module grid */}
-              {browseMods.length === 0 ? (
+              {showVet ? (
+                vetLoading ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="card h-32 animate-pulse bg-surface-2" />
+                    ))}
+                  </div>
+                ) : vetModules.length === 0 ? (
+                  <div className="text-center py-12 text-ink-3 font-serif text-sm">
+                    {t("modules.no_vet_modules") || "No veterinary modules available yet"}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {vetModules.map(m => (
+                      <ModuleCard key={m.id} mod={m} progress={progressMap.get(m.id)} locale={locale} />
+                    ))}
+                  </div>
+                )
+              ) : browseMods.length === 0 ? (
                 <div className="text-center py-12 text-ink-3 font-serif text-sm">
                   {t("modules.no_modules") || "No modules in this specialty yet"}
                 </div>

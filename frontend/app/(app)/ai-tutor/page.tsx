@@ -142,6 +142,11 @@ export default function AiTutorPage() {
       label: `⚖️ ${t("ai_tutor.mode_second_opinion")}`,
       desc: t("ai_tutor.mode_second_opinion_desc"),
     },
+    {
+      value: "vet",
+      label: `🐾 ${t("ai_tutor.mode_vet") || "Vet Tutor"}`,
+      desc: t("ai_tutor.mode_vet_desc") || "Species-specific pharmacology and clinical reasoning for veterinary students and practitioners",
+    },
   ];
   const [mode, setMode] = useState("tutor");
   const [specialty, setSpecialty] = useState("");
