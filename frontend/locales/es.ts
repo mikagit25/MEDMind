@@ -1671,9 +1671,9 @@ const es: Translations = {
     pipeline_step4_title: "Human review",
     pipeline_step4: "Selected articles approved by licensed healthcare professionals",
     pipeline_editorial: "Read our editorial policy →",
-    pipeline_stat_articles: "verified articles",
-    pipeline_stat_modules: "clinical modules",
-    pipeline_stat_langs: "languages",
+    pipeline_stat_articles: "artículos verificados",
+    pipeline_stat_modules: "módulos clínicos",
+    pipeline_stat_langs: "idiomas",
     pros_title: "Built for healthcare professionals",
     pros_sub: "One platform for the full learning cycle — from boards prep to clinical practice.",
     pros_features: [

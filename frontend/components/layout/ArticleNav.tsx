@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { useI18n } from "@/lib/i18n";
 import { isTokenExpired, isTokenFresh } from "@/lib/auth";
 import { refreshApi } from "@/lib/api";
+
+const NON_EN_LOCALES = ["ru", "ar", "de", "fr", "es", "tr"];
 
 type Locale = "en" | "ru" | "ar" | "de" | "fr" | "es" | "tr";
 
@@ -63,6 +66,23 @@ function usePublicPageAuth() {
 export function ArticleNav() {
   const { isAuthenticated, user, _hasHydrated } = usePublicPageAuth();
   const { locale, setLocale, t, isRTL } = useI18n();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLocaleChange = useCallback((next: Locale) => {
+    setLocale(next);
+    // Strip existing locale prefix from pathname (e.g. /ru/drugs/id → /drugs/id)
+    let basePath = pathname;
+    for (const loc of NON_EN_LOCALES) {
+      if (basePath === `/${loc}` || basePath.startsWith(`/${loc}/`)) {
+        basePath = basePath.slice(loc.length + 1) || "/";
+        break;
+      }
+    }
+    // Navigate to locale-prefixed path so SSR re-renders in the new language
+    const target = next !== "en" ? `/${next}${basePath}` : basePath;
+    router.push(target);
+  }, [setLocale, router, pathname]);
 
   const loggedIn: boolean | null = _hasHydrated ? (isAuthenticated && !!user) : null;
 
@@ -101,7 +121,7 @@ export function ArticleNav() {
           {/* Language switcher */}
           <select
             value={locale}
-            onChange={e => setLocale(e.target.value as Locale)}
+            onChange={e => handleLocaleChange(e.target.value as Locale)}
             className="text-xs font-syne border border-border rounded px-1.5 py-1 bg-bg text-ink focus:outline-none cursor-pointer"
             aria-label="Language"
           >

@@ -10,6 +10,8 @@ export interface TrustT {
   dir: "ltr" | "rtl";
   // Shared footer labels
   footer_tagline: string;
+  footer_how_it_works: string;
+  footer_pricing: string;
   footer_editorial: string;
   footer_about: string;
   footer_disclaimer: string;
@@ -110,6 +112,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   en: {
     dir: "ltr",
     footer_tagline: "Medicine, understood by everyone",
+    footer_how_it_works: "How it works",
+    footer_pricing: "Pricing",
     footer_editorial: "Editorial Policy",
     footer_about: "About",
     footer_disclaimer: "Medical Disclaimer",
@@ -119,6 +123,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   ru: {
     dir: "ltr",
     footer_tagline: "Медицина, понятная каждому",
+    footer_how_it_works: "Как это работает",
+    footer_pricing: "Тарифы",
     footer_editorial: "Редакционная политика",
     footer_about: "О проекте",
     footer_disclaimer: "Медицинский дисклеймер",
@@ -128,6 +134,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   de: {
     dir: "ltr",
     footer_tagline: "Medizin, die jeder versteht",
+    footer_how_it_works: "So funktioniert es",
+    footer_pricing: "Preise",
     footer_editorial: "Redaktionelle Richtlinien",
     footer_about: "Über uns",
     footer_disclaimer: "Medizinischer Haftungsausschluss",
@@ -137,6 +145,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   fr: {
     dir: "ltr",
     footer_tagline: "La médecine comprise de tous",
+    footer_how_it_works: "Comment ça marche",
+    footer_pricing: "Tarifs",
     footer_editorial: "Politique éditoriale",
     footer_about: "À propos",
     footer_disclaimer: "Avertissement médical",
@@ -146,6 +156,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   es: {
     dir: "ltr",
     footer_tagline: "Medicina al alcance de todos",
+    footer_how_it_works: "Cómo funciona",
+    footer_pricing: "Precios",
     footer_editorial: "Política editorial",
     footer_about: "Acerca de",
     footer_disclaimer: "Aviso médico",
@@ -155,6 +167,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   tr: {
     dir: "ltr",
     footer_tagline: "Herkesin anlayacağı tıp",
+    footer_how_it_works: "Nasıl çalışır",
+    footer_pricing: "Fiyatlandırma",
     footer_editorial: "Editoryal Politika",
     footer_about: "Hakkında",
     footer_disclaimer: "Tıbbi Sorumluluk Reddi",
@@ -164,6 +178,8 @@ const SHARED: Record<TrustLocale, TrustT> = {
   ar: {
     dir: "rtl",
     footer_tagline: "الطب بلغة الجميع",
+    footer_how_it_works: "كيف يعمل",
+    footer_pricing: "الأسعار",
     footer_editorial: "السياسة التحريرية",
     footer_about: "حول المشروع",
     footer_disclaimer: "إخلاء المسؤولية الطبية",

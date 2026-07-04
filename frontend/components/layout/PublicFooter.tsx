@@ -27,8 +27,8 @@ export function PublicFooter({ locale = "en" }: Props) {
 
           {/* Trust links */}
           <nav className="flex flex-wrap gap-4 text-sm font-syne">
-            <Link href="/how-it-works" className="text-ink-2 hover:text-ink transition-colors">How it works</Link>
-            <Link href="/pricing"       className="text-ink-2 hover:text-ink transition-colors">Pricing</Link>
+            <Link href="/how-it-works" className="text-ink-2 hover:text-ink transition-colors">{t.footer_how_it_works}</Link>
+            <Link href="/pricing"       className="text-ink-2 hover:text-ink transition-colors">{t.footer_pricing}</Link>
             <Link href="/about"         className="text-ink-2 hover:text-ink transition-colors">{t.footer_about}</Link>
             <Link href="/editorial-policy"   className="text-ink-2 hover:text-ink transition-colors">{t.footer_editorial}</Link>
             <Link href="/medical-disclaimer" className="text-ink-2 hover:text-ink transition-colors">{t.footer_disclaimer}</Link>
