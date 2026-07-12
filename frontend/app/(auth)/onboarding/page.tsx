@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { authApi, aiApi } from "@/lib/api";
+import { authApi, aiApi, API_URL } from "@/lib/api";
 import { analytics } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
@@ -24,11 +24,31 @@ const SPECIALTIES = [
   { code: "veterinary",     label: "Veterinary",          icon: "🐾" },
 ];
 
-type Step = 1 | 2 | 3 | 4 | 5;
+// Roles that skip the diagnostic quiz
+const SKIP_QUIZ_ROLES = new Set(["other"]);
+
+type Step = 1 | 2 | 3 | 4 | 5 | 6;
+
+type QuizQuestion = {
+  id: string;
+  question: string;
+  options: Record<string, string>;
+  correct: string;
+  explanation: string;
+  difficulty: string;
+};
+
+function calcLevel(correct: number, total: number): "beginner" | "intermediate" | "advanced" {
+  if (total === 0) return "beginner";
+  const pct = correct / total;
+  if (pct >= 0.75) return "advanced";
+  if (pct >= 0.4) return "intermediate";
+  return "beginner";
+}
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { user, updateUser } = useAuthStore();
+  const { updateUser } = useAuthStore();
   const t = useT();
 
   const ROLES = [
@@ -41,10 +61,10 @@ export default function OnboardingPage() {
   ];
 
   const GOALS = [
-    { value: "exam_prep", label: t("auth.onboarding.goal_exam"), icon: "📝" },
-    { value: "clinical_refresh", label: t("auth.onboarding.goal_clinical"), icon: "🔄" },
-    { value: "new_specialty", label: t("auth.onboarding.goal_specialty"), icon: "📚" },
-    { value: "daily_learning", label: t("auth.onboarding.goal_daily"), icon: "📅" },
+    { value: "exam_prep",         label: t("auth.onboarding.goal_exam"),     icon: "📝" },
+    { value: "clinical_refresh",  label: t("auth.onboarding.goal_clinical"), icon: "🔄" },
+    { value: "new_specialty",     label: t("auth.onboarding.goal_specialty"),icon: "📚" },
+    { value: "daily_learning",    label: t("auth.onboarding.goal_daily"),    icon: "📅" },
   ];
 
   const TIME_OPTIONS = [
@@ -60,8 +80,19 @@ export default function OnboardingPage() {
     goal: "",
     specialties: [] as string[],
     daily_minutes: 20,
+    level: "beginner" as "beginner" | "intermediate" | "advanced",
   });
-  const [aiPlan, setAiPlan] = useState<string>("");
+
+  // Quiz state
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [quizLoading, setQuizLoading] = useState(false);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+
+  // AI plan state
+  const [aiPlan, setAiPlan] = useState("");
   const [planLoading, setPlanLoading] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -73,8 +104,66 @@ export default function OnboardingPage() {
         : [...p.specialties, code],
     }));
 
-  const goToStep5 = async () => {
+  const goToQuizStep = useCallback(async () => {
+    // Skip quiz for "other" role
+    if (SKIP_QUIZ_ROLES.has(data.role)) {
+      setStep(5);
+      return;
+    }
+    setStep(4);
+    setQuizLoading(true);
+    setQuizIndex(0);
+    setSelectedOption(null);
+    setRevealed(false);
+    setCorrectCount(0);
+    try {
+      const specsParam = data.specialties.join(",");
+      const res = await fetch(
+        `${API_URL}/onboarding/diagnostic-quiz?specialties=${encodeURIComponent(specsParam)}`
+      );
+      const json = await res.json();
+      const qs: QuizQuestion[] = json.questions ?? [];
+      setQuizQuestions(qs);
+      if (qs.length === 0) {
+        // No questions available — skip quiz entirely
+        setStep(5);
+      }
+    } catch {
+      setQuizQuestions([]);
+      setStep(5);
+    } finally {
+      setQuizLoading(false);
+    }
+  }, [data.role, data.specialties]);
+
+  const handleAnswer = (option: string) => {
+    if (revealed) return;
+    setSelectedOption(option);
+    setRevealed(true);
+    const q = quizQuestions[quizIndex];
+    if (option === q.correct) setCorrectCount((c) => c + 1);
+  };
+
+  const nextQuestion = () => {
+    if (quizIndex + 1 >= quizQuestions.length) {
+      // Quiz complete — calculate level and advance
+      const lvl = calcLevel(correctCount + (selectedOption === quizQuestions[quizIndex].correct ? 1 : 0), quizQuestions.length);
+      setData((p) => ({ ...p, level: lvl }));
+      setStep(5);
+    } else {
+      setQuizIndex((i) => i + 1);
+      setSelectedOption(null);
+      setRevealed(false);
+    }
+  };
+
+  const skipQuiz = () => {
+    setData((p) => ({ ...p, level: "beginner" }));
     setStep(5);
+  };
+
+  const goToStep6 = async () => {
+    setStep(6);
     setPlanLoading(true);
     const roleLabel = ROLES.find((r) => r.value === data.role)?.label ?? data.role;
     const goalLabel = GOALS.find((g) => g.value === data.goal)?.label ?? data.goal;
@@ -83,7 +172,7 @@ export default function OnboardingPage() {
       .join(", ");
     try {
       const res = await aiApi.ask({
-        message: `I am a ${roleLabel}. My learning goal is: ${goalLabel}. My specialties: ${specLabels || "General Medicine"}. I have ${data.daily_minutes} minutes per day. Please create a short, personalized 4-week study plan for me with 3-4 actionable bullet points. Be concise and encouraging.`,
+        message: `I am a ${roleLabel}. My learning goal is: ${goalLabel}. My specialties: ${specLabels || "General Medicine"}. I have ${data.daily_minutes} minutes per day. My current level: ${data.level}. Please create a short, personalized 4-week study plan with 3-4 actionable bullet points. Be concise and encouraging.`,
         mode: "tutor",
         specialty: data.specialties[0] ?? "General Medicine",
         search_pubmed: false,
@@ -106,16 +195,20 @@ export default function OnboardingPage() {
         goal: data.goal,
         specialties: data.specialties,
         daily_minutes: data.daily_minutes,
+        level: data.level,
       });
       updateUser(res.data);
       analytics.onboardingCompleted(data.role, data.specialties[0]);
-      router.replace("/dashboard");
+      router.replace("/starter-plan");
     } catch {
-      router.replace("/dashboard");
+      router.replace("/starter-plan");
     } finally {
       setSaving(false);
     }
   };
+
+  const TOTAL_STEPS = 6;
+  const PROGRESS_STEP = SKIP_QUIZ_ROLES.has(data.role) ? (step <= 3 ? step : step - 1) : step;
 
   return (
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-4">
@@ -126,14 +219,17 @@ export default function OnboardingPage() {
 
       {/* Progress dots */}
       <div className="flex gap-2 mb-8">
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div
-            key={s}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              s === step ? "w-8 bg-ink" : s < step ? "w-4 bg-ink-3" : "w-4 bg-border-2"
-            }`}
-          />
-        ))}
+        {Array.from({ length: TOTAL_STEPS }).map((_, i) => {
+          const s = i + 1;
+          return (
+            <div
+              key={s}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                s === PROGRESS_STEP ? "w-8 bg-ink" : s < PROGRESS_STEP ? "w-4 bg-ink-3" : "w-4 bg-border-2"
+              }`}
+            />
+          );
+        })}
       </div>
 
       <div className="w-full max-w-lg card p-8 shadow-xl animate-fade-up">
@@ -235,15 +331,85 @@ export default function OnboardingPage() {
             </div>
             <div className="flex justify-between">
               <button onClick={() => setStep(2)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
-              <button onClick={() => setStep(4)} className="btn-primary px-5">
+              <button onClick={goToQuizStep} className="btn-primary px-5">
                 {data.specialties.length === 0 ? "Skip →" : t("auth.onboarding.btn_next")}
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Step 4: Daily time ── */}
+        {/* ── Step 4: Diagnostic Quiz ── */}
         {step === 4 && (
+          <div>
+            {quizLoading ? (
+              <div className="text-center py-10">
+                <div className="font-syne text-ink-3 text-sm animate-pulse">Loading your diagnostic quiz…</div>
+              </div>
+            ) : quizQuestions.length > 0 ? (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-syne font-bold text-lg text-ink">Quick Knowledge Check</h2>
+                  <span className="text-xs font-syne text-ink-3 bg-surface-2 px-2 py-0.5 rounded-full">
+                    {quizIndex + 1} / {quizQuestions.length}
+                  </span>
+                </div>
+                <div className="h-1 bg-border rounded-full mb-5 overflow-hidden">
+                  <div
+                    className="h-full bg-ink rounded-full transition-all"
+                    style={{ width: `${((quizIndex + (revealed ? 1 : 0)) / quizQuestions.length) * 100}%` }}
+                  />
+                </div>
+
+                <p className="font-serif text-ink text-sm mb-4 leading-relaxed">
+                  {quizQuestions[quizIndex].question}
+                </p>
+
+                <div className="space-y-2 mb-5">
+                  {Object.entries(quizQuestions[quizIndex].options ?? {}).map(([key, val]) => {
+                    const isCorrect = key === quizQuestions[quizIndex].correct;
+                    const isSelected = key === selectedOption;
+                    let cls = "border-border bg-surface text-ink-2 hover:border-ink-3";
+                    if (revealed) {
+                      if (isCorrect) cls = "border-green bg-green/10 text-ink font-semibold";
+                      else if (isSelected) cls = "border-red bg-red/10 text-ink";
+                    } else if (isSelected) {
+                      cls = "border-ink bg-ink text-white";
+                    }
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => handleAnswer(key)}
+                        disabled={revealed}
+                        className={`w-full flex items-start gap-2 px-3 py-2.5 rounded border text-left text-sm font-syne transition-all ${cls}`}
+                      >
+                        <span className="font-bold shrink-0">{key}.</span>
+                        <span>{val as string}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {revealed && quizQuestions[quizIndex].explanation && (
+                  <div className="bg-surface-2 border border-border rounded p-3 mb-4 text-xs font-serif text-ink-2">
+                    {quizQuestions[quizIndex].explanation}
+                  </div>
+                )}
+
+                <div className="flex justify-between">
+                  <button onClick={skipQuiz} className="btn-secondary px-4 text-sm">{t("auth.onboarding.btn_skip") || "Skip quiz"}</button>
+                  {revealed && (
+                    <button onClick={nextQuestion} className="btn-primary px-5">
+                      {quizIndex + 1 >= quizQuestions.length ? "See my level →" : t("auth.onboarding.btn_next")}
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : null}
+          </div>
+        )}
+
+        {/* ── Step 5: Daily time ── */}
+        {step === 5 && (
           <div>
             <h2 className="font-syne font-bold text-xl text-ink mb-1">{t("auth.onboarding.step4_title")}</h2>
             <p className="font-serif text-ink-3 text-sm mb-5">{t("auth.onboarding.step4_sub")}</p>
@@ -266,16 +432,18 @@ export default function OnboardingPage() {
               ))}
             </div>
             <div className="flex justify-between">
-              <button onClick={() => setStep(3)} className="btn-secondary px-5">{t("auth.onboarding.btn_back")}</button>
-              <button onClick={goToStep5} className="btn-primary px-5">
+              <button onClick={() => setStep(SKIP_QUIZ_ROLES.has(data.role) ? 3 : 4)} className="btn-secondary px-5">
+                {t("auth.onboarding.btn_back")}
+              </button>
+              <button onClick={goToStep6} className="btn-primary px-5">
                 {t("auth.onboarding.btn_build")}
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Step 5: AI Welcome Plan ── */}
-        {step === 5 && (
+        {/* ── Step 6: AI Welcome Plan ── */}
+        {step === 6 && (
           <div>
             <div className="text-center mb-5">
               <div className="text-5xl mb-3">{planLoading ? "🤔" : "🎯"}</div>
@@ -304,11 +472,14 @@ export default function OnboardingPage() {
             <div className="font-serif text-ink-3 text-xs text-center mb-5 space-y-0.5">
               <p>{t("auth.onboarding.plan_role")}: <strong className="text-ink">{ROLES.find((r) => r.value === data.role)?.label}</strong></p>
               <p>{t("auth.onboarding.plan_goal")}: <strong className="text-ink">{GOALS.find((g) => g.value === data.goal)?.label}</strong></p>
-              <p>✓ {data.specialties.length} {data.specialties.length === 1 ? "specialty" : "specialties"} · {data.daily_minutes} min/day</p>
+              <p>
+                ✓ {data.specialties.length} {data.specialties.length === 1 ? "specialty" : "specialties"} · {data.daily_minutes} min/day
+                {data.level !== "beginner" && ` · ${data.level}`}
+              </p>
             </div>
 
             <div className="flex justify-between">
-              <button onClick={() => setStep(4)} className="btn-secondary px-5" disabled={saving}>
+              <button onClick={() => setStep(5)} className="btn-secondary px-5" disabled={saving}>
                 {t("auth.onboarding.btn_back")}
               </button>
               <button

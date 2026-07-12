@@ -1015,3 +1015,155 @@ async def get_daily_plan(
         "streak_days": user.streak_days,
         "xp_today": 0,  # Would need a daily XP tracker table
     }
+
+
+# ============================================================
+# ONBOARDING — DIAGNOSTIC QUIZ + STARTER PLAN  (V5 Phase 2)
+# ============================================================
+
+_DIFFICULTY_ORDER = {"easy": 0, "medium": 1, "hard": 2}
+
+
+@router.get("/onboarding/diagnostic-quiz")
+async def get_diagnostic_quiz(
+    specialties: str = Query("", description="Comma-separated specialty codes"),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return 6 MCQ questions for the onboarding diagnostic quiz.
+
+    Questions come from published modules for the given specialty codes.
+    Mix of easy (2), medium (2), hard (2).  No auth required.
+    If no matching MCQs exist, returns an empty list (quiz step is skipped).
+    """
+    import random
+
+    specialty_list = [s.strip() for s in specialties.split(",") if s.strip()]
+
+    # Fetch modules for those specialties (up to 10 modules to sample from)
+    stmt = (
+        select(Module.id)
+        .join(Specialty, Module.specialty_id == Specialty.id)
+        .where(Module.is_published == True)
+    )
+    if specialty_list:
+        stmt = stmt.where(Specialty.code.in_(specialty_list))
+    stmt = stmt.limit(20)
+
+    mod_rows = (await db.execute(stmt)).all()
+    module_ids = [r[0] for r in mod_rows]
+
+    if not module_ids:
+        return {"questions": []}
+
+    # Fetch MCQs from those modules
+    q_stmt = (
+        select(MCQQuestion)
+        .where(MCQQuestion.module_id.in_(module_ids))
+        .limit(60)
+    )
+    all_qs = (await db.execute(q_stmt)).scalars().all()
+
+    if not all_qs:
+        return {"questions": []}
+
+    # Group by difficulty
+    by_diff: dict[str, list] = {"easy": [], "medium": [], "hard": []}
+    for q in all_qs:
+        d = (q.difficulty or "medium").lower()
+        bucket = d if d in by_diff else "medium"
+        by_diff[bucket].append(q)
+
+    # Pick 2 of each (or as many as available)
+    selected = []
+    for diff in ("easy", "medium", "hard"):
+        pool = by_diff[diff]
+        random.shuffle(pool)
+        selected.extend(pool[:2])
+
+    # Pad if we didn't get 6
+    if len(selected) < 6:
+        remaining = [q for q in all_qs if q not in selected]
+        random.shuffle(remaining)
+        selected.extend(remaining[: 6 - len(selected)])
+
+    random.shuffle(selected)
+    selected = selected[:6]
+
+    return {
+        "questions": [
+            {
+                "id": str(q.id),
+                "question": q.question,
+                "options": q.options,
+                "correct": q.correct,
+                "explanation": q.explanation or "",
+                "difficulty": q.difficulty or "medium",
+            }
+            for q in selected
+        ]
+    }
+
+
+@router.get("/onboarding/starter-plan")
+async def get_starter_plan(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return 3 recommended starter modules based on user level + specialties."""
+    prefs = user.preferences or {}
+    level_label = prefs.get("level", "beginner")
+    specialties = prefs.get("specialties", [])
+    is_free = user.subscription_tier == "free"
+
+    # Map level to module.level integer (1=beginner, 2=intermediate, 3=advanced)
+    level_int = {"beginner": 1, "intermediate": 2, "advanced": 3}.get(level_label, 1)
+
+    stmt = (
+        select(Module)
+        .where(Module.is_published == True)
+        .where(Module.is_veterinary == False)
+    )
+    if is_free:
+        stmt = stmt.where(Module.is_fundamental == True)
+
+    # Filter by specialty if provided
+    if specialties:
+        stmt = (
+            stmt
+            .join(Specialty, Module.specialty_id == Specialty.id, isouter=True)
+            .where(Specialty.code.in_(specialties))
+        )
+
+    # Prefer modules matching the level, then fall back
+    stmt_level = stmt.where(Module.level == level_int).order_by(Module.module_order).limit(3)
+    rows = (await db.execute(stmt_level)).scalars().all()
+
+    if len(rows) < 3:
+        # Top up from any level
+        existing_ids = [m.id for m in rows]
+        stmt_any = (
+            select(Module)
+            .where(Module.is_published == True)
+            .where(Module.is_veterinary == False)
+            .where(Module.id.notin_(existing_ids))
+        )
+        if is_free:
+            stmt_any = stmt_any.where(Module.is_fundamental == True)
+        stmt_any = stmt_any.order_by(Module.module_order).limit(3 - len(rows))
+        extra = (await db.execute(stmt_any)).scalars().all()
+        rows = list(rows) + extra
+
+    return {
+        "level": level_label,
+        "modules": [
+            {
+                "id": str(m.id),
+                "code": m.code,
+                "title": m.title,
+                "description": m.description or "",
+                "level": m.level or 1,
+                "duration_hours": float(m.duration_hours or 0),
+            }
+            for m in rows[:3]
+        ],
+    }
