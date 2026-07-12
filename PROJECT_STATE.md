@@ -6,9 +6,24 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V5 Phases 0–7 ✅. Тест-сьют: 685+ passed, 0 failed.
+**Phase:** V5 Phases 0–7 ✅ + debt fixes ✅. Тест-сьют: 685 passed, 0 failed. TypeScript: 0 errors.
 **Last Updated:** 2026-07-12
-**Next Action:** Phase 8 (Mobile / next roadmap item).
+**Next Action:** TBD — all roadmap phases complete.
+
+### Tech Debt Resolved ✅ (2026-07-12)
+- **TypeScript**: Fixed all 17 TS errors — was blocking clean `next build`
+  - `locales/ar|de|es|fr|tr`: added `veterinary`, `no_vet_modules`, `stats_drugs`, `mode_vet`, `mode_vet_desc` to 5 locales
+  - `admin/page.tsx`: removed nonexistent `token` field from AuthStore destructure
+  - `articles/category/[cat]/page.tsx`: cast `speciesCounts` to `Record<string,number>`
+- **Mobile Voice (V5 Phase 7.3)**: Complete
+  - Added `expo-speech` (~13.0.0) + `expo-speech-recognition` (~0.2.0) to `mobile/package.json`
+  - `mobile/app/(tabs)/ai.tsx` rewritten with voice mode:
+    - Voice mode toggle → auto-TTS for AI responses via `Speech.speak()`
+    - Mic button → `ExpoSpeechRecognitionModule.start()` STT
+    - `pendingVoice` confirmation banner before sending (medical safety: Edit / Send / Cancel)
+    - Graceful STT degradation if not available on device
+    - **Requires `cd mobile && npm install` on device build**
+- Commit: `69906e1`
 
 ### V5 Phase 7 — Voice Mode ✅ (2026-07-12)
 - **VoiceMicButton**: forwardRef + `VoiceMicHandle.startListening()` for programmatic mic restart
