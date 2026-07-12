@@ -845,3 +845,14 @@ export const telegramApi = {
   }>,
   unlink: () => api.delete("/telegram/unlink").then(r => r.data),
 };
+
+
+export const srsApi = {
+  enqueue: (entity_type: string, entity_id: string) =>
+    api.post("/srs/enqueue", { entity_type, entity_id }).then(r => r.data),
+  getQueue: () => api.get("/srs/queue").then(r => r.data),
+  review: (item_id: string, quality: number) =>
+    api.post(`/srs/review/${item_id}`, { quality }).then(r => r.data),
+  getStats: () => api.get("/srs/stats").then(r => r.data),
+  removeItem: (item_id: string) => api.delete(`/srs/items/${item_id}`).then(r => r.data),
+};

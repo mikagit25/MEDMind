@@ -1653,3 +1653,47 @@ class DeckCollaborator(Base):
         UniqueConstraint("deck_id", "user_id", name="uq_deck_collaborator"),
         Index("ix_deck_collab_deck_id", "deck_id"),
     )
+
+
+# ============================================================
+# SRS KNOWLEDGE ITEMS  (V5 Phase 5)
+# ============================================================
+
+class LessonSrsItem(Base):
+    """SM-2 spaced-repetition slot for a completed lesson or article."""
+    __tablename__ = "lesson_srs_items"
+
+    id              = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id         = Column(UUID(as_uuid=True),
+                            ForeignKey("users.id", ondelete="CASCADE"),
+                            nullable=False)
+    entity_type     = Column(String(20), nullable=False)   # "lesson" | "article"
+    entity_id       = Column(UUID(as_uuid=True), nullable=False)
+    ease_factor     = Column(Numeric(4, 2), nullable=False, default=2.5)
+    interval_days   = Column(Integer, nullable=False, default=1)
+    next_review_at  = Column(DateTime, nullable=False)
+    last_reviewed_at = Column(DateTime, nullable=True)
+    review_count    = Column(Integer, nullable=False, default=0)
+    created_at      = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "entity_type", "entity_id", name="uq_lesson_srs_item"),
+        Index("ix_lesson_srs_items_user_next", "user_id", "next_review_at"),
+    )
+
+
+class LessonMcqCache(Base):
+    """Cached AI-generated MCQs for a lesson or article (shared across all users)."""
+    __tablename__ = "lesson_mcq_cache"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    entity_type  = Column(String(20), nullable=False)
+    entity_id    = Column(UUID(as_uuid=True), nullable=False)
+    questions    = Column(_PGJSONB, nullable=False)   # list of {question, options, correct, explanation}
+    generated_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("entity_type", "entity_id", name="uq_lesson_mcq_cache"),
+    )

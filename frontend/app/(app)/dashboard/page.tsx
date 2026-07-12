@@ -589,21 +589,30 @@ function ContinueLearning({ modules }: { modules: any[] }) {
 }
 
 // ── Daily Goal ────────────────────────────────────────────────
-function DailyGoalWidget({ flashcardsDue, dailyGoalMinutes }: { flashcardsDue: number; dailyGoalMinutes: number }) {
+function DailyGoalWidget({ flashcardsDue, srsDue, dailyGoalMinutes }: { flashcardsDue: number; srsDue: number; dailyGoalMinutes: number }) {
   const t = useT();
+  const totalDue = flashcardsDue + srsDue;
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
         <span className="font-syne font-bold text-sm text-ink">{t("dashboard.adaptive_plan")}</span>
         <Link href="/settings" className="text-xs text-ink-3 font-syne hover:text-ink">{t("common.edit")} →</Link>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-2">
         <Link href="/flashcards" className={`p-3 rounded-lg border text-center transition-colors hover:border-ink-3 ${flashcardsDue > 0 ? "bg-amber-light border-amber/30" : "bg-green-light border-green/30"}`}>
           <div className={`font-syne font-black text-xl ${flashcardsDue > 0 ? "text-amber" : "text-green"}`}>
             {flashcardsDue > 0 ? flashcardsDue : "✓"}
           </div>
           <div className="font-serif text-[10px] text-ink-3 mt-0.5">
             {flashcardsDue > 0 ? t("dashboard.cards_due") : t("dashboard.cards_done")}
+          </div>
+        </Link>
+        <Link href="/srs-review" className={`p-3 rounded-lg border text-center transition-colors hover:border-ink-3 ${srsDue > 0 ? "bg-blue/10 border-blue/30" : "bg-green-light border-green/30"}`}>
+          <div className={`font-syne font-black text-xl ${srsDue > 0 ? "text-blue" : "text-green"}`}>
+            {srsDue > 0 ? srsDue : "✓"}
+          </div>
+          <div className="font-serif text-[10px] text-ink-3 mt-0.5">
+            {srsDue > 0 ? "lessons due" : "reviews done"}
           </div>
         </Link>
         <div className="p-3 rounded-lg border border-border text-center">
@@ -772,6 +781,7 @@ export default function DashboardPage() {
               <MyAssignments />
               <DailyGoalWidget
                 flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
+                srsDue={studentDashboard?.today_plan?.srs_due ?? stats?.srs_due ?? 0}
                 dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}
               />
               <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />

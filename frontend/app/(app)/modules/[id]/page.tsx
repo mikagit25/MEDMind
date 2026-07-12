@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib/api";
+import { contentApi, progressApi, notesApi, imagingApi, teacherApi, srsApi } from "@/lib/api";
 import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
 import { useI18n, useT } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
@@ -451,6 +451,8 @@ export default function ModuleDetailPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
   const [savingNote, setSavingNote] = useState(false);
+  const [showSrsPrompt, setShowSrsPrompt] = useState(false);
+  const [srsLessonId, setSrsLessonId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -542,6 +544,9 @@ export default function ModuleDetailPage() {
       ga.lessonComplete(activeLesson.title || "");
       analytics.lessonCompleted(activeLesson.id, mod?.id ?? "");
       setLessonDone((p) => new Set(Array.from(p).concat(activeLesson.id)));
+      // Show SRS reinforce prompt
+      setSrsLessonId(activeLesson.id);
+      setShowSrsPrompt(true);
       const idx = lessons.findIndex((l) => l.id === activeLesson.id);
       if (idx < lessons.length - 1) {
         setActiveLesson(lessons[idx + 1]);
@@ -550,6 +555,12 @@ export default function ModuleDetailPage() {
     } catch {/* ignore */} finally {
       setCompleting(false);
     }
+  };
+
+  const handleSrsEnqueue = async () => {
+    if (!srsLessonId) return;
+    try { await srsApi.enqueue("lesson", srsLessonId); } catch {/* ignore */}
+    setShowSrsPrompt(false);
   };
 
   const saveNote = async () => {
@@ -840,6 +851,29 @@ export default function ModuleDetailPage() {
                   </div>
                 );
               })()}
+
+              {showSrsPrompt && srsLessonId === activeLesson.id && (
+                <div className="mt-4 p-4 rounded-lg border border-blue/20 bg-blue/5 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="font-syne font-bold text-sm text-ink-1">Reinforce this lesson?</p>
+                    <p className="text-xs font-serif text-ink-3 mt-0.5">3 quick questions will be added to your spaced-repetition queue.</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <button
+                      onClick={handleSrsEnqueue}
+                      className="font-syne font-bold text-xs px-3 py-1.5 rounded bg-blue text-white hover:bg-blue/90 transition-colors"
+                    >
+                      Yes, add
+                    </button>
+                    <button
+                      onClick={() => setShowSrsPrompt(false)}
+                      className="font-syne text-xs px-3 py-1.5 rounded border border-ink-4 text-ink-3 hover:border-ink-3 transition-colors"
+                    >
+                      Skip
+                    </button>
+                  </div>
+                </div>
+              )}
 
               <div className="flex items-center justify-between">
                 <div className="text-xs font-serif text-ink-3">

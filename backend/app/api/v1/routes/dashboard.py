@@ -15,7 +15,7 @@ from app.core.database import get_db
 from app.core.cache import get_cached, set_cached, invalidate
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
-    Module, CMECredit, CourseEnrollment, Course, UserAchievement,
+    Module, CMECredit, CourseEnrollment, Course, UserAchievement, LessonSrsItem,
 )
 from app.core.encryption import decrypt_email
 
@@ -56,6 +56,13 @@ async def _base_stats(user: User, db: AsyncSession) -> Dict[str, Any]:
         .where(UserAchievement.user_id == user.id)
     )).scalar() or 0
 
+    srs_due = (await db.execute(
+        select(func.count()).select_from(LessonSrsItem).where(
+            LessonSrsItem.user_id == user.id,
+            LessonSrsItem.next_review_at <= datetime.utcnow(),
+        )
+    )).scalar() or 0
+
     return {
         "xp": user.xp,
         "level": user.level,
@@ -63,6 +70,7 @@ async def _base_stats(user: User, db: AsyncSession) -> Dict[str, Any]:
         "lessons_completed": lessons_done,
         "modules_started": int(modules_started),
         "flashcards_due": int(due_cards),
+        "srs_due": int(srs_due),
         "achievements_count": int(ach_count),
     }
 
@@ -157,6 +165,8 @@ async def student_dashboard(
         "weak_areas": weak_areas,
         "today_plan": {
             "flashcards_due": due_cards,
+            "srs_due": stats.get("srs_due", 0),
+            "reviews_due": due_cards + stats.get("srs_due", 0),
             "daily_goal_minutes": daily_goal,
             "suggested_action": "review_flashcards" if due_cards > 0 else "continue_module",
         },
