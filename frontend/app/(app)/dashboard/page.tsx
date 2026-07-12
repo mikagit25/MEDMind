@@ -4,7 +4,70 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
-import { contentApi, progressApi, adaptivePlanApi } from "@/lib/api";
+import { contentApi, progressApi, adaptivePlanApi, API_URL } from "@/lib/api";
+
+// ── My Assignments ────────────────────────────────────────────
+function MyAssignments() {
+  const [assignments, setAssignments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    fetch(`${API_URL}/courses/my-assignments-all`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => setAssignments(d?.assignments ?? []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Only show if there are non-completed assignments
+  const pending = assignments.filter((a) => a.status !== "completed");
+  if (loading || pending.length === 0) return null;
+
+  const statusColor: Record<string, string> = {
+    overdue:     "text-red bg-red/10 border-red/20",
+    due_soon:    "text-amber bg-amber/10 border-amber/20",
+    upcoming:    "text-ink-3 bg-surface-2 border-border",
+    no_deadline: "text-ink-3 bg-surface-2 border-border",
+  };
+  const statusLabel: Record<string, string> = {
+    overdue:     "Overdue",
+    due_soon:    "Due soon",
+    upcoming:    "Upcoming",
+    no_deadline: "No deadline",
+  };
+
+  return (
+    <div className="card p-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-syne font-bold text-sm text-ink">My Assignments</span>
+        <Link href="/teacher/courses" className="text-xs text-ink-3 font-syne hover:text-ink">All courses →</Link>
+      </div>
+      <div className="space-y-2">
+        {pending.slice(0, 4).map((a: any) => (
+          <div key={a.id} className="flex items-center gap-3 p-2.5 rounded-lg border border-border hover:bg-surface-2 transition-colors">
+            <div className="flex-1 min-w-0">
+              <div className="font-syne font-semibold text-xs text-ink truncate">{a.title}</div>
+              <div className="font-serif text-[10px] text-ink-3 truncate">{a.course_title}</div>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className={`text-[10px] font-syne font-semibold px-2 py-0.5 rounded-full border ${statusColor[a.status] ?? statusColor.upcoming}`}>
+                {statusLabel[a.status] ?? a.status}
+              </span>
+              {a.due_date && (
+                <span className="font-serif text-[10px] text-ink-3">
+                  {new Date(a.due_date).toLocaleDateString()}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 // ── Mini Leaderboard ──────────────────────────────────────────
 function MiniLeaderboard() {
@@ -706,6 +769,7 @@ export default function DashboardPage() {
                 </div>
               )}
               <ContinueLearning modules={recentModules} />
+              <MyAssignments />
               <DailyGoalWidget
                 flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
                 dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}

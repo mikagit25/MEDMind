@@ -10,7 +10,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.models.models import UserFlashcard, SharedDeck
+from app.models.models import UserFlashcard, SharedDeck, DeckCollaborator
 from app.api.deps import get_current_user
 from app.models.models import User
 
@@ -473,3 +473,97 @@ async def deactivate_shared_deck(
     deck.is_active = False
     await db.commit()
     return {"message": "Deck link deactivated"}
+
+
+# ── V5 Phase 4: deck collaborators ────────────────────────────────────────────
+
+class CollaboratorAdd(BaseModel):
+    email: str
+
+
+@router.post("/decks/share/{token}/collaborators", status_code=201)
+async def add_deck_collaborator(
+    token: str,
+    body: CollaboratorAdd,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Deck owner invites a co-editor by email."""
+    deck = (await db.execute(
+        select(SharedDeck).where(SharedDeck.token == token, SharedDeck.owner_id == user.id, SharedDeck.is_active == True)
+    )).scalar_one_or_none()
+    if not deck:
+        raise HTTPException(status_code=404, detail="Deck not found")
+
+    invitee = (await db.execute(
+        select(User).where(User.email == body.email)
+    )).scalar_one_or_none()
+    if not invitee:
+        raise HTTPException(status_code=404, detail="User not found with that email")
+    if str(invitee.id) == str(user.id):
+        raise HTTPException(status_code=400, detail="Cannot add yourself as collaborator")
+
+    existing = (await db.execute(
+        select(DeckCollaborator).where(DeckCollaborator.deck_id == deck.id, DeckCollaborator.user_id == invitee.id)
+    )).scalar_one_or_none()
+    if existing:
+        return {"message": "Already a collaborator", "user_id": str(invitee.id)}
+
+    db.add(DeckCollaborator(deck_id=deck.id, user_id=invitee.id, role="editor"))
+    await db.commit()
+    return {
+        "message": "Collaborator added",
+        "user_id": str(invitee.id),
+        "name": f"{invitee.first_name or ''} {invitee.last_name or ''}".strip() or invitee.email,
+    }
+
+
+@router.get("/decks/share/{token}/collaborators")
+async def list_deck_collaborators(
+    token: str,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """List co-editors of a shared deck (owner only)."""
+    deck = (await db.execute(
+        select(SharedDeck).where(SharedDeck.token == token, SharedDeck.owner_id == user.id)
+    )).scalar_one_or_none()
+    if not deck:
+        raise HTTPException(status_code=404, detail="Deck not found")
+
+    collabs = (await db.execute(
+        select(DeckCollaborator).where(DeckCollaborator.deck_id == deck.id)
+    )).scalars().all()
+
+    result = []
+    for c in collabs:
+        result.append({
+            "user_id": str(c.user_id),
+            "name": f"{c.user.first_name or ''} {c.user.last_name or ''}".strip() or "User",
+            "role": c.role,
+            "added_at": c.added_at.isoformat() if c.added_at else None,
+        })
+    return {"collaborators": result}
+
+
+@router.delete("/decks/share/{token}/collaborators/{user_id}", status_code=204)
+async def remove_deck_collaborator(
+    token: str,
+    user_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Remove a co-editor (owner only)."""
+    deck = (await db.execute(
+        select(SharedDeck).where(SharedDeck.token == token, SharedDeck.owner_id == user.id)
+    )).scalar_one_or_none()
+    if not deck:
+        raise HTTPException(status_code=404, detail="Deck not found")
+
+    collab = (await db.execute(
+        select(DeckCollaborator).where(DeckCollaborator.deck_id == deck.id, DeckCollaborator.user_id == user_id)
+    )).scalar_one_or_none()
+    if not collab:
+        raise HTTPException(status_code=404, detail="Collaborator not found")
+    await db.delete(collab)
+    await db.commit()

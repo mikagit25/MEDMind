@@ -28,7 +28,7 @@ from app.models.models import Comment, CommentLike, CommentReport, User
 
 router = APIRouter(prefix="/comments", tags=["comments"])
 
-CONTENT_TYPES = {"article", "news"}
+CONTENT_TYPES = {"article", "news", "module", "lesson"}
 AUTO_HIDE_THRESHOLD = 5  # reports needed to auto-hide
 
 
@@ -105,6 +105,188 @@ async def _build_out(
         liked_by_me=liked_by_me,
         reported_by_me=reported_by_me,
     )
+
+
+# ── V5 Phase 4: Module/Lesson Q&A — MUST be before generic /{content_type}/{slug} ──
+
+class QACreate(BaseModel):
+    body: constr(min_length=5, max_length=2000)  # type: ignore[valid-type]
+    comment_type: str = "comment"   # "comment" | "question"
+    parent_id: Optional[uuid.UUID] = None
+
+
+@router.get("/module/{entity_id}")
+async def list_module_qa(
+    entity_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: Optional[User] = Depends(get_current_user_optional),
+):
+    """List Q&A (questions + comments) for a module or lesson."""
+    rows = (await db.execute(
+        select(Comment)
+        .where(
+            Comment.entity_id == entity_id,
+            Comment.is_hidden == False,
+            Comment.parent_id == None,  # noqa: E711
+        )
+        .order_by(
+            Comment.comment_type.desc(),
+            Comment.upvotes.desc(),
+            Comment.created_at.asc(),
+        )
+    )).scalars().all()
+
+    result = []
+    for c in rows:
+        answers = []
+        if c.comment_type == "question":
+            ans_rows = (await db.execute(
+                select(Comment).where(
+                    Comment.parent_id == c.id,
+                    Comment.is_hidden == False,
+                ).order_by(Comment.created_at.asc())
+            )).scalars().all()
+            for a in ans_rows:
+                answers.append({
+                    "id": str(a.id),
+                    "user_id": str(a.user_id),
+                    "user_name": f"{a.user.first_name or ''} {a.user.last_name or ''}".strip() or "User",
+                    "body": a.body,
+                    "comment_type": a.comment_type,
+                    "upvotes": a.upvotes,
+                    "accepted_answer_id": str(c.accepted_answer_id) if c.accepted_answer_id else None,
+                    "is_accepted": str(a.id) == str(c.accepted_answer_id) if c.accepted_answer_id else False,
+                    "parent_id": str(a.parent_id),
+                    "created_at": _fmt(a.created_at),
+                })
+        result.append({
+            "id": str(c.id),
+            "user_id": str(c.user_id),
+            "user_name": f"{c.user.first_name or ''} {c.user.last_name or ''}".strip() or "User",
+            "body": c.body,
+            "comment_type": c.comment_type,
+            "upvotes": c.upvotes,
+            "accepted_answer_id": str(c.accepted_answer_id) if c.accepted_answer_id else None,
+            "is_accepted": False,
+            "parent_id": None,
+            "created_at": _fmt(c.created_at),
+            "answers": answers,
+        })
+    return {"items": result, "total": len(result)}
+
+
+@router.post("/module/{entity_id}", status_code=201)
+async def post_module_qa(
+    entity_id: uuid.UUID,
+    body: QACreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Post a question or comment on a module/lesson."""
+    if body.comment_type not in ("comment", "question"):
+        raise HTTPException(status_code=422, detail="comment_type must be 'comment' or 'question'")
+
+    comment = Comment(
+        user_id=current_user.id,
+        content_type="module",
+        content_slug=str(entity_id),
+        body=body.body,
+        entity_id=entity_id,
+        comment_type=body.comment_type,
+        parent_id=body.parent_id,
+    )
+    db.add(comment)
+    await db.commit()
+    await db.refresh(comment)
+    return {"id": str(comment.id), "status": "created"}
+
+
+@router.post("/module/{comment_id}/upvote")
+async def upvote_comment(
+    comment_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Upvote a question or comment."""
+    comment = (await db.execute(
+        select(Comment).where(Comment.id == comment_id, Comment.is_hidden == False)
+    )).scalar_one_or_none()
+    if not comment:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    comment.upvotes += 1
+    await db.commit()
+    return {"upvotes": comment.upvotes}
+
+
+@router.post("/module/{question_id}/accept/{answer_id}")
+async def accept_answer(
+    question_id: uuid.UUID,
+    answer_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Teacher or question author marks an answer as accepted."""
+    question = (await db.execute(
+        select(Comment).where(Comment.id == question_id, Comment.comment_type == "question")
+    )).scalar_one_or_none()
+    if not question:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    is_author = str(question.user_id) == str(current_user.id)
+    is_privileged = current_user.role in ("teacher", "admin")
+    if not (is_author or is_privileged):
+        raise HTTPException(status_code=403, detail="Only question author or teacher can accept answers")
+
+    answer = (await db.execute(
+        select(Comment).where(Comment.id == answer_id, Comment.parent_id == question_id)
+    )).scalar_one_or_none()
+    if not answer:
+        raise HTTPException(status_code=404, detail="Answer not found under this question")
+
+    question.accepted_answer_id = answer_id
+    await db.commit()
+    return {"accepted_answer_id": str(answer_id)}
+
+
+@router.get("/module/{comment_id}/ai-hint")
+async def get_ai_answer_hint(
+    comment_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Teacher gets an AI-drafted answer hint for a question (not auto-posted)."""
+    if current_user.role not in ("teacher", "admin"):
+        raise HTTPException(status_code=403, detail="Teacher role required")
+
+    question = (await db.execute(
+        select(Comment).where(Comment.id == comment_id, Comment.comment_type == "question")
+    )).scalar_one_or_none()
+    if not question:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    try:
+        import anthropic
+        from app.core.config import settings
+        client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+        msg = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=400,
+            messages=[{
+                "role": "user",
+                "content": (
+                    f"A student asked this medical education question:\n\n"
+                    f"{question.body}\n\n"
+                    "Draft a concise, accurate answer in 2-4 sentences. "
+                    "Be factual and cite mechanism where relevant. "
+                    "This is a draft for a teacher to review and edit before posting."
+                ),
+            }],
+        )
+        hint = msg.content[0].text
+    except Exception:
+        hint = "AI hint unavailable. Please draft your answer manually."
+
+    return {"question": question.body, "ai_hint": hint}
 
 
 # ── Public ────────────────────────────────────────────────────────────────────
@@ -257,3 +439,4 @@ async def hide_comment(
     comment.is_hidden = True
     await db.commit()
     return {"hidden": True}
+

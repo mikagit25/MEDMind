@@ -1339,17 +1339,23 @@ class ContentFeedback(Base):
 # ── Comments ──────────────────────────────────────────────────────────────────
 
 class Comment(Base):
-    """User comment on an article or news item."""
+    """User comment on an article, news item, module, or lesson."""
     __tablename__ = "comments"
 
-    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    content_type = Column(String(10),  nullable=False, index=True)  # "article" | "news"
-    content_slug = Column(String(400), nullable=False, index=True)
-    body         = Column(Text,  nullable=False)
-    created_at   = Column(DateTime(timezone=True), server_default=func.now())
-    is_hidden    = Column(Boolean, default=False, nullable=False)
-    report_count = Column(Integer, default=0,     nullable=False)
+    id               = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id          = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    content_type     = Column(String(10),  nullable=False, index=True)  # "article" | "news" | "module" | "lesson"
+    content_slug     = Column(String(400), nullable=False, index=True)
+    body             = Column(Text,  nullable=False)
+    created_at       = Column(DateTime(timezone=True), server_default=func.now())
+    is_hidden        = Column(Boolean, default=False, nullable=False)
+    report_count     = Column(Integer, default=0,     nullable=False)
+    # V5 Phase 4: Q&A support
+    comment_type     = Column(String(20), nullable=False, default="comment")  # "comment" | "question"
+    entity_id        = Column(UUID(as_uuid=True), nullable=True, index=True)  # module/lesson UUID
+    accepted_answer_id = Column(UUID(as_uuid=True), nullable=True)            # FK set by teacher/author
+    upvotes          = Column(Integer, nullable=False, default=0)
+    parent_id        = Column(UUID(as_uuid=True), nullable=True)              # answer to a question
 
     user = relationship("User", lazy="joined", foreign_keys=[user_id])
 
@@ -1594,3 +1600,56 @@ class ClinicalAlgorithm(Base):
     verification_status = Column(String(30), nullable=False, default="passed")
     created_at          = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at          = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+
+# ============================================================
+# SOCIAL LEARNING  (V5 Phase 4)
+# ============================================================
+
+class AssignmentStatus(Base):
+    """Per-student, per-assignment completion tracking."""
+    __tablename__ = "assignment_statuses"
+
+    id            = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    assignment_id = Column(UUID(as_uuid=True),
+                          ForeignKey("course_assignments.id", ondelete="CASCADE"),
+                          nullable=False)
+    user_id       = Column(UUID(as_uuid=True),
+                          ForeignKey("users.id", ondelete="CASCADE"),
+                          nullable=False)
+    status        = Column(String(20), nullable=False, default="pending")  # pending|in_progress|completed|overdue
+    score         = Column(Numeric(5, 2), nullable=True)
+    submitted_at  = Column(DateTime, nullable=True)
+    completed_at  = Column(DateTime, nullable=True)
+
+    assignment    = relationship("CourseAssignment")
+    user          = relationship("User", foreign_keys=[user_id])
+
+    __table_args__ = (
+        UniqueConstraint("assignment_id", "user_id", name="uq_assignment_status"),
+        Index("ix_as_assignment_id", "assignment_id"),
+        Index("ix_as_user_id", "user_id"),
+    )
+
+
+class DeckCollaborator(Base):
+    """Co-editor on a shared flashcard deck."""
+    __tablename__ = "deck_collaborators"
+
+    id       = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    deck_id  = Column(UUID(as_uuid=True),
+                     ForeignKey("shared_decks.id", ondelete="CASCADE"),
+                     nullable=False)
+    user_id  = Column(UUID(as_uuid=True),
+                     ForeignKey("users.id", ondelete="CASCADE"),
+                     nullable=False)
+    role     = Column(String(20), nullable=False, default="editor")  # editor | viewer
+    added_at = Column(DateTime, default=datetime.utcnow)
+
+    deck = relationship("SharedDeck")
+    user = relationship("User", foreign_keys=[user_id])
+
+    __table_args__ = (
+        UniqueConstraint("deck_id", "user_id", name="uq_deck_collaborator"),
+        Index("ix_deck_collab_deck_id", "deck_id"),
+    )

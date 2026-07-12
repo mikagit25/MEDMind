@@ -31,7 +31,10 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+import csv
+import io
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Response, status
 from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -41,7 +44,7 @@ from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import (
     Course, CourseModule, CourseEnrollment, CourseAssignment,
-    CourseAccessRequest, Module, User, UserProgress,
+    CourseAccessRequest, Module, User, UserProgress, AssignmentStatus,
 )
 
 router = APIRouter(prefix="/courses", tags=["courses"])
@@ -432,6 +435,73 @@ async def list_my_courses(
     )
     courses = result.scalars().all()
     return [CourseOut.from_orm_obj(c, len(c.enrollments)) for c in courses]
+
+
+@router.get("/my-assignments-all")
+async def get_all_my_assignments(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """All pending/upcoming assignments across all enrolled courses."""
+    enrollments = (await db.execute(
+        select(CourseEnrollment).where(
+            CourseEnrollment.student_id == user.id,
+            CourseEnrollment.status == "active",
+        )
+    )).scalars().all()
+    course_ids = [e.course_id for e in enrollments]
+    if not course_ids:
+        return {"assignments": []}
+
+    rows = (await db.execute(
+        select(
+            CourseAssignment,
+            Course.title.label("course_title"),
+            Module.title.label("module_title"),
+        )
+        .join(Course, Course.id == CourseAssignment.course_id)
+        .outerjoin(Module, Module.id == CourseAssignment.module_id)
+        .where(CourseAssignment.course_id.in_(course_ids))
+        .order_by(CourseAssignment.due_date.asc().nullslast())
+    )).all()
+
+    assignment_ids = [r.CourseAssignment.id for r in rows]
+    status_map: dict = {}
+    if assignment_ids:
+        statuses = (await db.execute(
+            select(AssignmentStatus).where(
+                AssignmentStatus.assignment_id.in_(assignment_ids),
+                AssignmentStatus.user_id == user.id,
+            )
+        )).scalars().all()
+        status_map = {s.assignment_id: s for s in statuses}
+
+    now = datetime.utcnow()
+    result = []
+    for r in rows:
+        a = r.CourseAssignment
+        st = status_map.get(a.id)
+        if st and st.status == "completed":
+            computed_status = "completed"
+        elif a.due_date and a.due_date < now:
+            computed_status = "overdue"
+        elif a.due_date and (a.due_date - now).days <= 3:
+            computed_status = "due_soon"
+        else:
+            computed_status = "upcoming"
+        result.append({
+            "id": str(a.id),
+            "course_id": str(a.course_id),
+            "course_title": r.course_title,
+            "module_id": str(a.module_id),
+            "module_title": r.module_title or "",
+            "title": a.title or r.module_title or "Assignment",
+            "due_date": a.due_date.isoformat() if a.due_date else None,
+            "status": computed_status,
+            "score": float(st.score) if st and st.score is not None else None,
+            "max_score": a.max_score,
+        })
+    return {"assignments": result}
 
 
 @router.get("/{course_id}", response_model=CourseOut)
@@ -1047,3 +1117,193 @@ async def get_my_assignments(
             "max_score": a.max_score,
         })
     return {"assignments": result}
+
+
+# ── V5 Phase 4: student self-submit assignment ─────────────────────────────
+
+class AssignmentSubmitIn(BaseModel):
+    score: Optional[float] = None
+
+
+@router.post("/assignments/{assignment_id}/submit", status_code=200)
+async def submit_assignment(
+    assignment_id: UUID,
+    body: AssignmentSubmitIn,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Student marks an assignment as completed with an optional self-assessed score."""
+    assignment = (await db.execute(
+        select(CourseAssignment).where(CourseAssignment.id == assignment_id)
+    )).scalar_one_or_none()
+    if not assignment:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+
+    # Must be enrolled in the course
+    enrollment = (await db.execute(
+        select(CourseEnrollment).where(
+            CourseEnrollment.course_id == assignment.course_id,
+            CourseEnrollment.student_id == user.id,
+            CourseEnrollment.status == "active",
+        )
+    )).scalar_one_or_none()
+    if not enrollment:
+        raise HTTPException(status_code=403, detail="Not enrolled in this course")
+
+    now = datetime.utcnow()
+    existing = (await db.execute(
+        select(AssignmentStatus).where(
+            AssignmentStatus.assignment_id == assignment_id,
+            AssignmentStatus.user_id == user.id,
+        )
+    )).scalar_one_or_none()
+
+    if existing:
+        existing.status = "completed"
+        existing.score = body.score
+        existing.submitted_at = now
+        existing.completed_at = now
+    else:
+        db.add(AssignmentStatus(
+            assignment_id=assignment_id,
+            user_id=user.id,
+            status="completed",
+            score=body.score,
+            submitted_at=now,
+            completed_at=now,
+        ))
+    await db.commit()
+    return {"status": "completed", "assignment_id": str(assignment_id)}
+
+
+# ── V5 Phase 4: cross-course "my assignments" ─────────────────────────────
+
+# ── V5 Phase 4: group aggregate progress ─────────────────────────────────
+
+@router.get("/{course_id}/group-progress")
+async def get_group_progress(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Aggregated class progress per module. Visible to enrolled students and teacher."""
+    course = await _get_course_or_404(course_id, db)
+    is_teacher = str(course.teacher_id) == str(user.id) or user.role == "admin"
+    if not is_teacher:
+        enrollment = (await db.execute(
+            select(CourseEnrollment).where(
+                CourseEnrollment.course_id == course_id,
+                CourseEnrollment.student_id == user.id,
+                CourseEnrollment.status == "active",
+            )
+        )).scalar_one_or_none()
+        if not enrollment:
+            raise HTTPException(status_code=403, detail="Not enrolled in this course")
+
+    total_students = (await db.execute(
+        select(func.count()).where(
+            CourseEnrollment.course_id == course_id,
+            CourseEnrollment.status == "active",
+        )
+    )).scalar_one() or 0
+
+    module_ids = [cm.module_id for cm in course.course_modules]
+    sorted_cms = sorted(course.course_modules, key=lambda x: x.module_order)
+
+    # Average completion per module
+    result = []
+    for cm in sorted_cms:
+        if total_students == 0:
+            avg_pct = 0.0
+        else:
+            avg_pct_row = (await db.execute(
+                select(func.avg(UserProgress.completion_percent)).where(
+                    UserProgress.module_id == cm.module_id,
+                )
+            )).scalar_one()
+            avg_pct = float(avg_pct_row or 0.0)
+
+        completed_count = (await db.execute(
+            select(func.count()).where(
+                UserProgress.module_id == cm.module_id,
+                UserProgress.completion_percent >= 100,
+            )
+        )).scalar_one() or 0
+
+        result.append({
+            "module_id": str(cm.module_id),
+            "module_title": cm.module.title,
+            "avg_completion_pct": round(avg_pct, 1),
+            "completed_count": completed_count,
+            "total_students": total_students,
+        })
+
+    return {
+        "course_id": str(course_id),
+        "total_students": total_students,
+        "modules": result,
+    }
+
+
+# ── V5 Phase 4: CSV export ────────────────────────────────────────────────
+
+@router.get("/{course_id}/progress-csv")
+async def export_progress_csv(
+    course_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Teacher exports student progress as CSV."""
+    _require_teacher(user)
+    course = await _get_course_or_404(course_id, db)
+    if str(course.teacher_id) != str(user.id) and user.role != "admin":
+        raise HTTPException(status_code=403, detail="Not your course")
+
+    enrollments = (await db.execute(
+        select(CourseEnrollment)
+        .options(selectinload(CourseEnrollment.student))
+        .where(CourseEnrollment.course_id == course_id)
+        .order_by(CourseEnrollment.enrolled_at)
+    )).scalars().all()
+
+    module_ids = [cm.module_id for cm in course.course_modules]
+    sorted_cms = sorted(course.course_modules, key=lambda x: x.module_order)
+    student_ids = [e.student_id for e in enrollments]
+
+    prog_map: dict = {}
+    if student_ids and module_ids:
+        prog_rows = (await db.execute(
+            select(UserProgress).where(
+                UserProgress.user_id.in_(student_ids),
+                UserProgress.module_id.in_(module_ids),
+            )
+        )).scalars().all()
+        for p in prog_rows:
+            prog_map[(p.user_id, p.module_id)] = p
+
+    # Build CSV
+    output = io.StringIO()
+    fieldnames = ["name", "email", "enrolled_at"] + [cm.module.title for cm in sorted_cms]
+    writer = csv.DictWriter(output, fieldnames=fieldnames)
+    writer.writeheader()
+
+    for enr in enrollments:
+        s = enr.student
+        row: dict = {
+            "name": f"{s.first_name or ''} {s.last_name or ''}".strip() or s.email,
+            "email": s.email,
+            "enrolled_at": enr.enrolled_at.strftime("%Y-%m-%d") if enr.enrolled_at else "",
+        }
+        for cm in sorted_cms:
+            prog = prog_map.get((s.id, cm.module_id))
+            pct = float(prog.completion_percent) if prog else 0.0
+            row[cm.module.title] = f"{pct:.0f}%"
+        writer.writerow(row)
+
+    csv_content = output.getvalue()
+    safe_title = "".join(c if c.isalnum() or c in " -_" else "_" for c in course.title)
+    return Response(
+        content=csv_content,
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{safe_title}_progress.csv"'},
+    )
