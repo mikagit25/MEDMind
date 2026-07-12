@@ -34,7 +34,7 @@ export function DrugPageTitle({ serverLang, total }: { serverLang: string; total
         {SEO_TITLES[lang] ?? SEO_TITLES.en}
       </h1>
       <p className="font-serif text-ink-3 text-sm mb-6">
-        {total > 0 ? `${total.toLocaleString()} ` : "833+ "}
+        {total > 0 ? `${total.toLocaleString()} ` : ""}
         {SEO_SUBS[lang] ?? SEO_SUBS.en}
       </p>
     </>

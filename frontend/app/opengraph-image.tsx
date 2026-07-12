@@ -5,7 +5,23 @@ export const alt = "MedMind AI — Medical Education Platform";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const API_URL =
+  process.env.INTERNAL_API_URL ??
+  process.env.NEXT_PUBLIC_API_URL ??
+  "https://medmind.pro/api/v1";
+
 export default async function OGImage() {
+  let modules = 124, drugs = 300, languages = 7;
+  try {
+    const res = await fetch(`${API_URL}/public/stats`, { next: { revalidate: 21600 } });
+    if (res.ok) {
+      const s = await res.json();
+      modules = s.modules ?? modules;
+      drugs = s.drugs ?? drugs;
+      languages = s.languages ?? languages;
+    }
+  } catch { /* use defaults */ }
+
   return new ImageResponse(
     (
       <div
@@ -107,9 +123,9 @@ export default async function OGImage() {
 
           <div style={{ display: "flex", gap: "32px" }}>
             {[
-              { val: "97+", label: "Modules" },
-              { val: "7", label: "Languages" },
-              { val: "500+", label: "Flashcards" },
+              { val: `${modules}+`, label: "Modules" },
+              { val: `${drugs}+`, label: "Drugs" },
+              { val: `${languages}`, label: "Languages" },
             ].map((s) => (
               <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <span style={{ fontSize: 28, fontWeight: 900, color: "#f5f0e8" }}>{s.val}</span>

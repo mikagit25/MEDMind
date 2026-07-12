@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.redis_client import get_redis
-from app.models.models import Article, Lesson, Module, Drug, Specialty, PublicQuiz, SharedDeck, ModuleTranslation, LessonTranslation
+from app.models.models import Article, Lesson, Module, Drug, Flashcard, Specialty, PublicQuiz, SharedDeck, ModuleTranslation, LessonTranslation
 from fastapi import Depends
 
 logger = logging.getLogger(__name__)
@@ -1161,11 +1161,18 @@ async def get_public_stats(
             Article.verification_status.in_(["passed", "human_reviewed"]),
         )
     ) or 0
-
     module_count = await db.scalar(
         select(func.count(Module.id)).where(Module.is_published == True)
     ) or 0
+    drug_count = await db.scalar(select(func.count(Drug.id))) or 0
+    flashcard_count = await db.scalar(select(func.count(Flashcard.id))) or 0
 
-    result = {"articles": article_count, "modules": module_count, "languages": 7}
-    await _cache_set(cache_key, result, ttl=1800)
+    result = {
+        "articles": article_count,
+        "modules": module_count,
+        "drugs": drug_count,
+        "flashcards": flashcard_count,
+        "languages": 7,
+    }
+    await _cache_set(cache_key, result, ttl=21600)  # 6h
     return result

@@ -1,7 +1,9 @@
 # MedMind AI — Medical Education Platform
 
 **For medical students, physicians, veterinarians — and everyone who wants to understand medicine.**  
-AI-powered learning with 833+ drugs, 80+ clinical modules, and a patient-friendly mode that explains medicine in plain language.
+<!-- stats:start -->
+AI-powered learning with **307 drugs**, **124 clinical modules**, **12,193 articles**, **1,365 flashcards** in **7 languages** — and a patient-friendly mode that explains medicine in plain language.
+<!-- stats:end -->
 
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](backend/tests/)
 [![PG15](https://img.shields.io/badge/PostgreSQL-15%20%2B%20pgvector-blue)](docs/PG15_MIGRATION.md)

@@ -35,7 +35,7 @@ type ArticlePreview = {
   category: string; reading_time_minutes: number;
   cover_image: string | null; published_at: string | null;
 };
-type PlatformStats = { articles: number; modules: number; languages: number };
+type PlatformStats = { articles: number; modules: number; drugs: number; flashcards: number; languages: number };
 type QuizData = { slug: string; questions: MiniQuizQuestion[] } | null;
 
 async function fetchAll(locale: Locale): Promise<{
@@ -59,7 +59,7 @@ async function fetchAll(locale: Locale): Promise<{
   }
 
   // Stats
-  let stats: PlatformStats = { articles: 600, modules: 82, languages: 7 };
+  let stats: PlatformStats = { articles: 600, modules: 82, drugs: 800, flashcards: 1000, languages: 7 };
   if (statsRes.status === "fulfilled" && statsRes.value.ok) {
     stats = await statsRes.value.json();
   }

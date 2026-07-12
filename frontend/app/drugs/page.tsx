@@ -34,12 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: DRUGS_TITLES[validLocale] ?? DRUGS_TITLES.en,
     description:
-      "Browse 833+ drugs with mechanisms, dosing, side effects, interactions and monitoring. Available in 7 languages for medical students, residents, and physicians.",
+      "Browse 300+ drugs with mechanisms, dosing, side effects, interactions and monitoring. Available in 7 languages for medical students, residents, and physicians.",
     keywords:
       "drug database, pharmacology, medication reference, drug interactions, clinical pharmacology, dosing calculator",
     openGraph: {
       title: DRUGS_TITLES[validLocale] ?? DRUGS_TITLES.en,
-      description: "Comprehensive pharmacology reference: 833+ drugs in 7 languages.",
+      description: "Comprehensive pharmacology reference: 300+ drugs in 7 languages.",
       type: "website",
       url: canonical,
     },

@@ -43,13 +43,13 @@ const LANGS = [
   { value: "es", flag: "🇪🇸" },
 ] as const;
 
-type PlatformStats = { articles: number; modules: number; languages: number };
+type PlatformStats = { articles: number; modules: number; drugs: number; flashcards: number; languages: number };
 
 const RTL_LOCALES = new Set(["ar"]);
 
 export default function LandingPage({
   articles: initialArticles = [],
-  stats = { articles: 600, modules: 82, languages: 7 },
+  stats = { articles: 600, modules: 82, drugs: 800, flashcards: 1000, languages: 7 },
   miniQuiz = null,
   initialLocale,
 }: {
@@ -269,9 +269,9 @@ export default function LandingPage({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
           {[
             { val: `${stats.articles > 0 ? `${stats.articles}+` : "600+"}`, label: t("landing.pipeline_stat_articles") as string },
-            { val: `${stats.languages}`, label: t("landing.stats_langs") as string },
             { val: `${stats.modules > 0 ? `${stats.modules}+` : "82+"}`, label: t("landing.stats_modules") as string },
-            { val: "500+", label: t("landing.stats_flashcards") as string },
+            { val: `${stats.drugs > 0 ? `${stats.drugs}+` : "800+"}`, label: t("landing.stats_drugs") as string },
+            { val: `${stats.flashcards > 0 ? `${stats.flashcards}+` : "1000+"}`, label: t("landing.stats_flashcards") as string },
           ].map((s, i) => (
             <div key={i}>
               <div className="font-syne font-extrabold text-xl sm:text-2xl text-ink">{s.val}</div>
@@ -619,6 +619,7 @@ export default function LandingPage({
               {[
                 { val: `${stats.articles > 0 ? `${stats.articles}+` : "600+"}`, label: t("landing.pipeline_stat_articles") as string },
                 { val: `${stats.modules > 0 ? `${stats.modules}+` : "82+"}`, label: t("landing.pipeline_stat_modules") as string },
+                { val: `${stats.drugs > 0 ? `${stats.drugs}+` : "800+"}`, label: t("landing.stats_drugs") as string },
                 { val: `${stats.languages}`, label: t("landing.pipeline_stat_langs") as string },
               ].map((s) => (
                 <div key={s.label}>

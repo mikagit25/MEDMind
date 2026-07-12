@@ -1651,6 +1651,7 @@ const ru: Translations = {
     nav_register: "Начать бесплатно",
     stats_modules: "Клинических модулей",
     stats_langs: "Языков",
+    stats_drugs: "Препаратов в базе",
     stats_flashcards: "Флешкарт",
     stats_realtime: "В реальном времени",
     stats_realtime_label: "Поиск PubMed",

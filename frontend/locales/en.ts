@@ -1681,6 +1681,7 @@ const en = {
     nav_register: "Start free",
     stats_modules: "Clinical modules",
     stats_langs: "Languages",
+    stats_drugs: "Drugs in database",
     stats_flashcards: "Flashcards",
     stats_realtime: "Real-time",
     stats_realtime_label: "PubMed search",
