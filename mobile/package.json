@@ -31,7 +31,9 @@
     "react-native-vector-icons": "^10.2.0",
     "@expo/vector-icons": "^14.0.0",
     "react-native-markdown-display": "^7.0.2",
-    "event-source-polyfill": "^1.0.31"
+    "event-source-polyfill": "^1.0.31",
+    "expo-speech": "~13.0.0",
+    "expo-speech-recognition": "~0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

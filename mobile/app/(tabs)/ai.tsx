@@ -1,7 +1,10 @@
 /**
- * AI Tutor screen — streaming SSE chat with Claude
+ * AI Tutor screen — streaming SSE chat with Claude + Voice mode (V5 Phase 7.3)
+ *
+ * TTS: expo-speech  — native device TTS, auto-speaks AI responses in voice mode.
+ * STT: expo-speech-recognition — confirmation step before sending (medical safety).
  */
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { isOffline, getOfflineAIResponse } from '@/lib/offlineAI';
 import {
   View, Text, ScrollView, TextInput, TouchableOpacity,
@@ -9,10 +12,20 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as SecureStore from 'expo-secure-store';
+import * as Speech from 'expo-speech';
+import {
+  ExpoSpeechRecognitionModule,
+  useSpeechRecognitionEvent,
+} from 'expo-speech-recognition';
 
 interface Message { id: string; role: 'user' | 'assistant'; content: string; }
 
-const COLORS = { bg: '#F5F0E8', ink: '#1A1A1A', ink2: '#6B6B6B', surface: '#FFFFFF', border: '#E8E3D9', blue: '#3B82F6', userBubble: '#1A1A1A', aiBubble: '#FFFFFF' };
+const COLORS = {
+  bg: '#F5F0E8', ink: '#1A1A1A', ink2: '#6B6B6B',
+  surface: '#FFFFFF', border: '#E8E3D9',
+  blue: '#3B82F6', red: '#C0392B',
+  userBubble: '#1A1A1A', aiBubble: '#FFFFFF',
+};
 
 const QUICK_PROMPTS = [
   'Explain the cardiac action potential',
@@ -22,19 +35,63 @@ const QUICK_PROMPTS = [
 ];
 
 export default function AIScreen() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [streaming, setStreaming] = useState(false);
-  const scrollRef = useRef<ScrollView>(null);
-  const conversationId = useRef<string | null>(null);
-  const abortRef = useRef<(() => void) | null>(null);
+  const [messages, setMessages]         = useState<Message[]>([]);
+  const [input, setInput]               = useState('');
+  const [streaming, setStreaming]       = useState(false);
+  const [voiceMode, setVoiceMode]       = useState(false);
+  const [listening, setListening]       = useState(false);
+  const [pendingVoice, setPendingVoice] = useState<string | null>(null);
+  const [sttSupported, setSttSupported] = useState(true);
+
+  const scrollRef               = useRef<ScrollView>(null);
+  const conversationId          = useRef<string | null>(null);
+  const abortRef                = useRef<(() => void) | null>(null);
+  const lastAssistantContent    = useRef('');
+  const voiceModeRef            = useRef(voiceMode);
+
+  useEffect(() => { voiceModeRef.current = voiceMode; }, [voiceMode]);
+
+  // Check STT availability on mount
+  useEffect(() => {
+    ExpoSpeechRecognitionModule.isRecognitionAvailable()
+      .then((ok: boolean) => setSttSupported(ok))
+      .catch(() => setSttSupported(false));
+  }, []);
+
+  // STT event listeners
+  useSpeechRecognitionEvent('result', (event: any) => {
+    const transcript = event.results?.[event.resultIndex ?? 0]?.[0]?.transcript ?? '';
+    if (transcript) setPendingVoice(transcript);
+  });
+  useSpeechRecognitionEvent('end', () => setListening(false));
+  useSpeechRecognitionEvent('error', () => setListening(false));
 
   const scrollToBottom = () => {
     setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100);
   };
 
+  const startListening = async () => {
+    try {
+      const perm = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
+      if (!perm.granted) return;
+      setListening(true);
+      setPendingVoice(null);
+      ExpoSpeechRecognitionModule.start({ lang: 'en-US', interimResults: false });
+    } catch {
+      setListening(false);
+    }
+  };
+
+  const stopListening = () => {
+    try { ExpoSpeechRecognitionModule.stop(); } catch {}
+    setListening(false);
+  };
+
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || streaming) return;
+    setPendingVoice(null);
+    lastAssistantContent.current = '';
+
     const userMsg: Message = { id: Date.now().toString(), role: 'user', content: text.trim() };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
@@ -48,15 +105,16 @@ export default function AIScreen() {
     abortRef.current = () => controller.abort();
 
     try {
-      // Offline check — use canned response instead of hitting the network
       const offline = await isOffline();
       if (offline) {
         const { reply } = await getOfflineAIResponse(text.trim(), 'General Medicine', 'tutor');
         setMessages((prev) =>
           prev.map((m) => (m.id === aiMsgId ? { ...m, content: reply } : m))
         );
+        lastAssistantContent.current = reply;
         setStreaming(false);
         scrollToBottom();
+        if (voiceModeRef.current) Speech.speak(reply.slice(0, 500));
         return;
       }
 
@@ -79,9 +137,7 @@ export default function AIScreen() {
         signal: controller.signal,
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
@@ -102,9 +158,12 @@ export default function AIScreen() {
               conversationId.current = event.conversation_id;
             } else if (event.type === 'text') {
               setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === aiMsgId ? { ...m, content: m.content + event.text } : m
-                )
+                prev.map((m) => {
+                  if (m.id !== aiMsgId) return m;
+                  const next = m.content + event.text;
+                  lastAssistantContent.current = next;
+                  return { ...m, content: next };
+                })
               );
               scrollToBottom();
             } else if (event.type === 'error') {
@@ -117,16 +176,19 @@ export default function AIScreen() {
           } catch {}
         }
       }
-      setStreaming(false);
-      scrollToBottom();
     } catch (err: any) {
-      setStreaming(false);
-      if (err?.name === 'AbortError') return; // user stopped — keep partial content
+      if (err?.name === 'AbortError') return;
       setMessages((prev) =>
         prev.map((m) =>
           m.id === aiMsgId && m.content === '' ? { ...m, content: '⚠️ Failed to connect to AI.' } : m
         )
       );
+    } finally {
+      setStreaming(false);
+      scrollToBottom();
+      if (voiceModeRef.current && lastAssistantContent.current) {
+        Speech.speak(lastAssistantContent.current.slice(0, 500), { language: 'en-US' });
+      }
     }
   }, [streaming]);
 
@@ -138,8 +200,22 @@ export default function AIScreen() {
   return (
     <SafeAreaView style={s.container}>
       <View style={s.header}>
-        <Text style={s.headerTitle}>🤖 AI Tutor</Text>
-        <Text style={s.headerSub}>Powered by Claude</Text>
+        <View>
+          <Text style={s.headerTitle}>🤖 AI Tutor</Text>
+          <Text style={s.headerSub}>Powered by Claude</Text>
+        </View>
+        {/* Voice mode toggle */}
+        <TouchableOpacity
+          style={[s.voiceToggle, voiceMode && s.voiceToggleActive]}
+          onPress={() => {
+            if (voiceMode) Speech.stop();
+            setVoiceMode((v) => !v);
+          }}
+        >
+          <Text style={[s.voiceToggleText, voiceMode && s.voiceToggleTextActive]}>
+            {voiceMode ? '🔊 ON' : '🔇 Voice'}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <KeyboardAvoidingView
@@ -184,12 +260,48 @@ export default function AIScreen() {
           ))}
         </ScrollView>
 
+        {/* Voice confirmation banner */}
+        {pendingVoice && (
+          <View style={s.voiceBanner}>
+            <Text style={s.voiceBannerLabel}>🎙️ Heard:</Text>
+            <Text style={s.voiceBannerText} numberOfLines={2}>{pendingVoice}</Text>
+            <View style={s.voiceBannerActions}>
+              <TouchableOpacity
+                style={s.voiceBannerEdit}
+                onPress={() => { setInput(pendingVoice); setPendingVoice(null); }}
+              >
+                <Text style={s.voiceBannerEditText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={s.voiceBannerSend}
+                onPress={() => sendMessage(pendingVoice)}
+              >
+                <Text style={s.voiceBannerSendText}>Send</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setPendingVoice(null)}>
+                <Text style={s.voiceBannerDismiss}>✕</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
         <View style={s.inputBar}>
+          {/* Mic button — only if STT is supported */}
+          {sttSupported && (
+            <TouchableOpacity
+              style={[s.micBtn, listening && s.micBtnActive]}
+              onPress={listening ? stopListening : startListening}
+              disabled={streaming}
+            >
+              <Text style={s.micIcon}>{listening ? '⏹' : '🎙️'}</Text>
+            </TouchableOpacity>
+          )}
+
           <TextInput
             style={s.input}
             value={input}
             onChangeText={setInput}
-            placeholder="Ask a medical question…"
+            placeholder={listening ? 'Listening…' : 'Ask a medical question…'}
             placeholderTextColor={COLORS.ink2}
             multiline
             maxLength={2000}
@@ -215,31 +327,49 @@ export default function AIScreen() {
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.bg },
-  flex: { flex: 1 },
-  header: { paddingHorizontal: 20, paddingTop: 8, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: COLORS.border, backgroundColor: COLORS.bg },
-  headerTitle: { fontSize: 18, fontWeight: '800', color: COLORS.ink },
-  headerSub: { fontSize: 12, color: COLORS.ink2, marginTop: 2 },
-  messages: { flex: 1 },
+  container:    { flex: 1, backgroundColor: COLORS.bg },
+  flex:         { flex: 1 },
+  header:       { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingTop: 8, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: COLORS.border, backgroundColor: COLORS.bg },
+  headerTitle:  { fontSize: 18, fontWeight: '800', color: COLORS.ink },
+  headerSub:    { fontSize: 12, color: COLORS.ink2, marginTop: 2 },
+  voiceToggle:  { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.surface },
+  voiceToggleActive: { backgroundColor: COLORS.blue, borderColor: COLORS.blue },
+  voiceToggleText:   { fontSize: 12, fontWeight: '600', color: COLORS.ink2 },
+  voiceToggleTextActive: { color: '#fff' },
+  messages:     { flex: 1 },
   messagesContent: { padding: 16, gap: 12 },
-  bubble: { maxWidth: '85%', borderRadius: 16, padding: 12 },
-  userBubble: { alignSelf: 'flex-end', backgroundColor: COLORS.userBubble },
-  aiBubble: { alignSelf: 'flex-start', backgroundColor: COLORS.aiBubble, borderWidth: 1, borderColor: COLORS.border, shadowColor: '#000', shadowOpacity: 0.04, shadowRadius: 8, elevation: 1 },
-  bubbleText: { fontSize: 15, lineHeight: 22 },
-  userText: { color: '#FFF' },
-  aiText: { color: COLORS.ink },
-  empty: { alignItems: 'center', paddingVertical: 40 },
-  emptyIcon: { fontSize: 48, marginBottom: 12 },
-  emptyTitle: { fontSize: 20, fontWeight: '800', color: COLORS.ink, marginBottom: 8 },
-  emptySub: { fontSize: 13, color: COLORS.ink2, textAlign: 'center', marginBottom: 24, paddingHorizontal: 20 },
+  bubble:       { maxWidth: '85%', borderRadius: 16, padding: 12 },
+  userBubble:   { alignSelf: 'flex-end', backgroundColor: COLORS.userBubble },
+  aiBubble:     { alignSelf: 'flex-start', backgroundColor: COLORS.aiBubble, borderWidth: 1, borderColor: COLORS.border, shadowColor: '#000', shadowOpacity: 0.04, shadowRadius: 8, elevation: 1 },
+  bubbleText:   { fontSize: 15, lineHeight: 22 },
+  userText:     { color: '#FFF' },
+  aiText:       { color: COLORS.ink },
+  empty:        { alignItems: 'center', paddingVertical: 40 },
+  emptyIcon:    { fontSize: 48, marginBottom: 12 },
+  emptyTitle:   { fontSize: 20, fontWeight: '800', color: COLORS.ink, marginBottom: 8 },
+  emptySub:     { fontSize: 13, color: COLORS.ink2, textAlign: 'center', marginBottom: 24, paddingHorizontal: 20 },
   quickPrompts: { gap: 8, width: '100%' },
-  quickBtn: { backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border, borderRadius: 10, padding: 12 },
+  quickBtn:     { backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border, borderRadius: 10, padding: 12 },
   quickBtnText: { fontSize: 13, color: COLORS.ink, fontWeight: '500' },
-  inputBar: { flexDirection: 'row', alignItems: 'flex-end', gap: 10, padding: 12, borderTopWidth: 1, borderTopColor: COLORS.border, backgroundColor: COLORS.bg },
-  input: { flex: 1, backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 15, color: COLORS.ink, maxHeight: 100 },
-  sendBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: COLORS.ink, justifyContent: 'center', alignItems: 'center' },
+  // Voice confirmation banner
+  voiceBanner:  { margin: 10, padding: 12, backgroundColor: '#EFF6FF', borderRadius: 12, borderWidth: 1, borderColor: '#BFDBFE' },
+  voiceBannerLabel: { fontSize: 11, color: '#6B7280', marginBottom: 4 },
+  voiceBannerText:  { fontSize: 14, color: COLORS.ink, fontWeight: '500', marginBottom: 8 },
+  voiceBannerActions: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  voiceBannerEdit:    { paddingHorizontal: 12, paddingVertical: 5, borderRadius: 8, borderWidth: 1, borderColor: COLORS.border },
+  voiceBannerEditText: { fontSize: 13, color: COLORS.ink2 },
+  voiceBannerSend:    { paddingHorizontal: 12, paddingVertical: 5, borderRadius: 8, backgroundColor: COLORS.ink },
+  voiceBannerSendText: { fontSize: 13, color: '#fff', fontWeight: '600' },
+  voiceBannerDismiss:  { fontSize: 18, color: COLORS.ink2, paddingHorizontal: 4 },
+  // Input bar
+  inputBar:     { flexDirection: 'row', alignItems: 'flex-end', gap: 8, padding: 12, borderTopWidth: 1, borderTopColor: COLORS.border, backgroundColor: COLORS.bg },
+  micBtn:       { width: 40, height: 40, borderRadius: 20, borderWidth: 1, borderColor: COLORS.border, backgroundColor: COLORS.surface, justifyContent: 'center', alignItems: 'center' },
+  micBtnActive: { backgroundColor: '#FEE2E2', borderColor: COLORS.red },
+  micIcon:      { fontSize: 18 },
+  input:        { flex: 1, backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 15, color: COLORS.ink, maxHeight: 100 },
+  sendBtn:      { width: 40, height: 40, borderRadius: 20, backgroundColor: COLORS.ink, justifyContent: 'center', alignItems: 'center' },
   sendBtnDisabled: { opacity: 0.3 },
-  sendIcon: { color: '#FFF', fontSize: 20, fontWeight: '700' },
-  stopBtn: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#EF4444', justifyContent: 'center', alignItems: 'center' },
-  stopIcon: { color: '#FFF', fontSize: 16 },
+  sendIcon:     { color: '#FFF', fontSize: 20, fontWeight: '700' },
+  stopBtn:      { width: 40, height: 40, borderRadius: 20, backgroundColor: '#EF4444', justifyContent: 'center', alignItems: 'center' },
+  stopIcon:     { color: '#FFF', fontSize: 16 },
 });

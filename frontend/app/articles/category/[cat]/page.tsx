@@ -198,10 +198,11 @@ export default async function CategoryPage({
   const speciesKey = searchParams?.species ?? "";
   const isVet      = params.cat === "veterinary";
 
-  const [result, speciesCounts] = await Promise.all([
+  const [result, speciesCountsRaw] = await Promise.all([
     fetchCategory(params.cat, page, locale, speciesKey || undefined),
     isVet ? fetchSpeciesCounts(locale) : Promise.resolve({}),
   ]);
+  const speciesCounts = speciesCountsRaw as Record<string, number>;
   if (!result) notFound();
 
   const { articles, total } = result;

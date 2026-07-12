@@ -2978,14 +2978,13 @@ type Lead = {
 };
 
 function EnterpriseLeadsPanel() {
-  const { token } = useAuthStore();
   const [leads,        setLeads]        = useState<Lead[]>([]);
   const [total,        setTotal]        = useState(0);
   const [statusFilter, setStatusFilter] = useState<string>("");
   const [loading,      setLoading]      = useState(false);
   const [selected,     setSelected]     = useState<Lead | null>(null);
   const [updating,     setUpdating]     = useState(false);
-  const H = { Authorization: `Bearer ${token}` };
+  const H = { Authorization: `Bearer ${typeof window !== "undefined" ? localStorage.getItem("access_token") ?? "" : ""}` };
 
   async function load(status?: string) {
     setLoading(true);
