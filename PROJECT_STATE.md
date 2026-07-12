@@ -6,9 +6,25 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V5 Phases 0–6 ✅. Тест-сьют: 685 passed, 9 skipped, 0 failed.
+**Phase:** V5 Phases 0–7 ✅. Тест-сьют: 685+ passed, 0 failed.
 **Last Updated:** 2026-07-12
-**Next Action:** Phase 7 (Voice mode).
+**Next Action:** Phase 8 (Mobile / next roadmap item).
+
+### V5 Phase 7 — Voice Mode ✅ (2026-07-12)
+- **VoiceMicButton**: forwardRef + `VoiceMicHandle.startListening()` for programmatic mic restart
+- **VoiceMicButton**: `interimResults=true` — interim text shown in tooltip while recognizing
+- **VoiceMicButton**: `patientMode` prop — blocks STT with explanatory tooltip (medical safety)
+- **VoiceMicButton**: `autoStart` prop — re-starts on mount for conversation loop
+- **VoiceMicButton**: visible "not supported" fallback (shows grayed icon instead of null)
+- **VoiceSpeakButton**: `onEnded` callback for post-TTS actions (mic restart)
+- **ConversationModeToggle**: new component; "Loop ON/OFF" button in header
+- **ai-tutor page**: `pendingVoice` state — transcript shown for CONFIRMATION before sending
+  (safety: avoids auto-sending mishears like "prednisone" vs "prednisolone")
+- **Confirmation banner**: Heard → Edit / Send / Cancel UX
+- **Auto-TTS**: after AI response streams, `ttsApi.speakBlob` plays audio when voiceMode active
+- **Conversation loop**: `audio.onended` → `micRef.current.startListening()` when conversationMode active
+- **voiceModeRef / conversationModeRef**: synced refs to avoid stale closure in async send()
+- Commit: `ca417f0`
 
 ### V5 Phase 6 — Certificates ✅ (2026-07-12)
 - **Certificate** model + migration 0041; unique per (user, module); verification_code 24-char hex
