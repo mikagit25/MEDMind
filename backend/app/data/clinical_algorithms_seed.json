@@ -1,0 +1,206 @@
+[
+  {
+    "slug": "anaphylaxis",
+    "title": "Anaphylaxis Management",
+    "specialty": "emergency",
+    "description": "Immediate management of anaphylactic reaction. Time-critical — epinephrine first.",
+    "source": "EAACI Anaphylaxis Guidelines 2021; UpToDate 2024",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "emergency,allergy,epinephrine",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Suspect anaphylaxis? (urticaria + hypotension/bronchospasm/laryngeal edema after trigger)", "children": [{"label": "Yes", "next": "2"}]},
+      {"id": "2", "type": "action",  "text": "EPINEPHRINE 0.3 mg (0.3 mL of 1:1000) IM into outer thigh. Repeat q5–10 min if no improvement.", "note": "Do NOT delay — epinephrine is first-line. Antihistamines/steroids are adjuncts, NOT substitutes."},
+      {"id": "3", "type": "action",  "text": "Call emergency services (112/911). Lay patient flat, legs elevated. If unconscious + no pulse: start CPR."},
+      {"id": "4", "type": "decision","text": "Response to epinephrine?", "children": [{"label": "Yes — improving", "next": "5"}, {"label": "No — refractory", "next": "6"}]},
+      {"id": "5", "type": "action",  "text": "Monitor 4–8h (biphasic reaction risk). IV access. O2 by mask. Consider: methylprednisolone 125mg IV, diphenhydramine 25–50mg IV."},
+      {"id": "6", "type": "action",  "text": "REFRACTORY: Epinephrine infusion 0.1–1 mcg/kg/min IV. Vasopressors. Intubate if airway threatened. ICU transfer."},
+      {"id": "7", "type": "info",    "text": "Discharge criteria (after ≥4h obs, no symptoms): prescribe EpiPen × 2, allergy referral, anaphylaxis action plan."}
+    ]
+  },
+  {
+    "slug": "hypoglycemia",
+    "title": "Hypoglycemia Management",
+    "specialty": "endocrinology",
+    "description": "Acute management of blood glucose <70 mg/dL (3.9 mmol/L).",
+    "source": "ADA Standards of Medical Care in Diabetes 2024",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "diabetes,glucose,emergency",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Blood glucose <70 mg/dL (3.9 mmol/L) OR symptomatic hypoglycemia?"},
+      {"id": "2", "type": "decision","text": "Patient conscious and able to swallow?", "children": [{"label": "Yes", "next": "3"}, {"label": "No", "next": "5"}]},
+      {"id": "3", "type": "action",  "text": "RULE OF 15: Give 15g fast-acting carbs (4 glucose tabs, 150mL juice, 150mL regular soda). Wait 15 min, recheck BG."},
+      {"id": "4", "type": "decision","text": "BG still <70 after 15 min?", "children": [{"label": "Yes — repeat", "next": "3"}, {"label": "No — resolved", "next": "8"}]},
+      {"id": "5", "type": "action",  "text": "UNCONSCIOUS/UNABLE TO SWALLOW: Glucagon 1mg IM/SC (or nasal glucagon 3mg). If no IV — use glucagon. Call EMS."},
+      {"id": "6", "type": "action",  "text": "IV access available: 50% Dextrose 50mL IV bolus (D50W). Repeat if no improvement in 5 min."},
+      {"id": "7", "type": "action",  "text": "Maintain: D10W infusion to keep BG 100–180. Monitor q30 min until stable ×2h."},
+      {"id": "8", "type": "info",    "text": "Once stable: eat full meal. Review insulin dose, timing, diet. Adjust if recurrent. Educate on hypoglycemia prevention."},
+      {"id": "9", "type": "info",    "text": "Severe (BG <40 or loss of consciousness): hospitalize, investigate cause (insulin dose error, infection, adrenal insufficiency)."}
+    ]
+  },
+  {
+    "slug": "cardiac-arrest-bls",
+    "title": "Cardiac Arrest — BLS Algorithm",
+    "specialty": "emergency",
+    "description": "Basic Life Support algorithm for adult cardiac arrest (ILCOR 2020).",
+    "source": "AHA/ILCOR BLS Guidelines 2020",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "CPR,cardiac,emergency,BLS",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Unresponsive + not breathing normally?"},
+      {"id": "2", "type": "action",  "text": "CALL EMS (112/911). Get AED. Note time of collapse."},
+      {"id": "3", "type": "action",  "text": "START CPR: 30 compressions (5–6 cm depth, 100–120/min) + 2 rescue breaths. Minimise interruptions (<10 sec)."},
+      {"id": "4", "type": "decision","text": "AED arrived?", "children": [{"label": "Yes", "next": "5"}, {"label": "No — continue CPR", "next": "3"}]},
+      {"id": "5", "type": "action",  "text": "Power on AED → place pads (right clavicle, left flank) → analyse rhythm."},
+      {"id": "6", "type": "decision","text": "Shockable rhythm (VF/pVT)?", "children": [{"label": "Yes", "next": "7"}, {"label": "No (PEA/asystole)", "next": "9"}]},
+      {"id": "7", "type": "action",  "text": "SHOCK: Clear patient → deliver shock → immediately resume 5 cycles CPR (2 min) → reanalyse."},
+      {"id": "8", "type": "action",  "text": "After ROSC: place in recovery position, O2 12–15 L/min, IV access, vitals q5 min. Transfer to ACLS-capable facility."},
+      {"id": "9", "type": "action",  "text": "Non-shockable (PEA/Asystole): Continue CPR 2 min, treat reversible causes (4H4T: hypoxia, hypovolemia, hypothermia, H+ [acidosis]; tension pneumo, tamponade, thrombosis, toxins)."}
+    ]
+  },
+  {
+    "slug": "stroke-fast",
+    "title": "Acute Ischemic Stroke — FAST + tPA Decision",
+    "specialty": "neurology",
+    "description": "Acute stroke recognition and IV thrombolysis eligibility assessment.",
+    "source": "ASA/AHA Stroke Guidelines 2019 (updated 2023)",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "stroke,tPA,neurology,emergency",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Sudden onset: Face drooping, Arm weakness, Speech difficulty? → FAST positive? → Activate stroke team."},
+      {"id": "2", "type": "action",  "text": "Time is brain: door-to-CT goal <25 min. NPO, IV access, O2 if SpO2 <94%, glucose check, 12-lead ECG."},
+      {"id": "3", "type": "action",  "text": "NIHSS score. Non-contrast CT head — rule out hemorrhage. CT angio if large vessel occlusion suspected."},
+      {"id": "4", "type": "decision","text": "Hemorrhage on CT?", "children": [{"label": "Yes", "next": "9"}, {"label": "No — ischemic", "next": "5"}]},
+      {"id": "5", "type": "decision","text": "Within 4.5h of symptom onset AND no contraindications to IV tPA?", "children": [{"label": "Yes", "next": "6"}, {"label": "No", "next": "7"}]},
+      {"id": "6", "type": "action",  "text": "IV ALTEPLASE 0.9 mg/kg (max 90mg): 10% bolus over 1 min, remainder over 60 min. No anticoagulants/antiplatelets for 24h. ICU monitoring."},
+      {"id": "7", "type": "action",  "text": "Consider mechanical thrombectomy if LVO on CTA + NIHSS ≥6 + within 24h (selected patients up to 24h with perfusion imaging)."},
+      {"id": "8", "type": "info",    "text": "Door-to-needle goal: <60 min. BP management: maintain <185/110 before tPA; <180/105 during/after. Admit stroke unit."},
+      {"id": "9", "type": "action",  "text": "HEMORRHAGIC STROKE: Neurosurgery consult. BP control (target <140 systolic), reverse anticoagulation if applicable, ICU."}
+    ]
+  },
+  {
+    "slug": "sepsis-qsofa",
+    "title": "Sepsis — Screening & Initial Management",
+    "specialty": "emergency",
+    "description": "qSOFA screening + Sepsis-3 management bundle (1-hour bundle).",
+    "source": "Surviving Sepsis Campaign Guidelines 2021",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "sepsis,infection,emergency,ICU",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Suspected infection + ≥2 qSOFA criteria? (RR ≥22, altered mentation, SBP ≤100)", "note": "qSOFA is a rapid bedside screen — not diagnostic."},
+      {"id": "2", "type": "action",  "text": "FULL ASSESSMENT: SOFA score, lactate, blood cultures ×2 (before antibiotics if feasible <45 min delay)."},
+      {"id": "3", "type": "decision","text": "Septic Shock? (MAP <65 despite fluids, Lactate >2 mmol/L)", "children": [{"label": "Yes — shock", "next": "6"}, {"label": "No — sepsis", "next": "4"}]},
+      {"id": "4", "type": "action",  "text": "1-HOUR BUNDLE: Blood cultures → Broad-spectrum antibiotics (within 1h) → 30 mL/kg IV crystalloid if hypotensive or lactate ≥4 → Measure lactate."},
+      {"id": "5", "type": "action",  "text": "ANTIBIOTICS: Choose based on suspected source (e.g., piperacillin/tazobactam + vancomycin for unknown source). De-escalate per culture results."},
+      {"id": "6", "type": "action",  "text": "SEPTIC SHOCK: Norepinephrine (vasopressor of choice, target MAP ≥65). IV hydrocortisone 200mg/day if refractory. ICU transfer."},
+      {"id": "7", "type": "info",    "text": "Source control within 6–12h (e.g., drain abscess, remove infected catheter). Procalcitonin-guided antibiotic duration. Daily reassessment."}
+    ]
+  },
+  {
+    "slug": "hypertensive-crisis",
+    "title": "Hypertensive Emergency vs Urgency",
+    "specialty": "cardiology",
+    "description": "Differentiation and management of severe hypertension with/without end-organ damage.",
+    "source": "ESC/ESH Hypertension Guidelines 2023",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "hypertension,cardiac,emergency",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "BP >180/120 mmHg?"},
+      {"id": "2", "type": "action",  "text": "Assess for end-organ damage: chest pain (ACS/dissection), dyspnea/rales (HF), headache+vision changes (encephalopathy), focal neurology (stroke), oliguria (AKI)."},
+      {"id": "3", "type": "decision","text": "Evidence of end-organ damage?", "children": [{"label": "Yes — EMERGENCY", "next": "4"}, {"label": "No — URGENCY", "next": "7"}]},
+      {"id": "4", "type": "action",  "text": "EMERGENCY: IV antihypertensives. Target: reduce MAP by ≤25% in 1h, then to 160/100 over next 2–6h. ICU admission."},
+      {"id": "5", "type": "action",  "text": "IV options: Labetalol 20mg IV q10min (avoid in HF/asthma), Nicardipine 5mg/h infusion, Sodium nitroprusside (for encephalopathy/dissection), Esmolol (for dissection)."},
+      {"id": "6", "type": "info",    "text": "AORTIC DISSECTION: Target SBP 100–120 + HR <60. Esmolol + Nicardipine. Urgent CT angio → Surgery for Type A."},
+      {"id": "7", "type": "action",  "text": "URGENCY (no end-organ damage): Oral antihypertensives (captopril 25mg, amlodipine, labetalol). Lower BP over 24–48h. Outpatient follow-up. Do NOT treat too aggressively."},
+      {"id": "8", "type": "info",    "text": "Recheck BP after 30 min of oral meds. If no response or new symptoms → reassess as Emergency. Avoid sublingual nifedipine (rapid drop risk)."}
+    ]
+  },
+  {
+    "slug": "asthma-exacerbation",
+    "title": "Acute Asthma Exacerbation",
+    "specialty": "respiratory",
+    "description": "Emergency assessment and stepwise management of acute asthma attack.",
+    "source": "GINA Global Strategy for Asthma Management 2024",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "asthma,respiratory,bronchospasm,emergency",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Dyspnea, wheeze, chest tightness? Assess severity: SpO2, speech, RR, HR, accessory muscles, PEFR."},
+      {"id": "2", "type": "decision","text": "Severity?", "children": [{"label": "Mild-Moderate (talks, SpO2 ≥92%, PEFR ≥50%)", "next": "3"}, {"label": "Severe/Life-threatening", "next": "6"}]},
+      {"id": "3", "type": "action",  "text": "MILD-MODERATE: SABA (albuterol) 4–8 puffs MDI q20 min × 3 in 1h (or 2.5mg nebulized). Add ipratropium 4 puffs."},
+      {"id": "4", "type": "action",  "text": "Systemic corticosteroids (prednisolone 40–50mg oral or methylprednisolone 125mg IV). O2 titrated to SpO2 94–98%."},
+      {"id": "5", "type": "decision","text": "Response after 1h (PEFR >70%, SpO2 ≥94%)?", "children": [{"label": "Good — discharge criteria met", "next": "9"}, {"label": "Poor", "next": "6"}]},
+      {"id": "6", "type": "action",  "text": "SEVERE: Continuous SABA nebs + ipratropium. IV corticosteroids. O2 high-flow. IV Mg sulfate 2g over 20 min (reduces hospitalization)."},
+      {"id": "7", "type": "action",  "text": "LIFE-THREATENING (silent chest, cyanosis, exhaustion, altered consciousness): Intubation, ICU. Avoid ketamine caution in tachycardic patients."},
+      {"id": "8", "type": "action",  "text": "Consider IV aminophylline if no response to above (elderly/severe): loading 5mg/kg over 20 min (if not on theophylline), then 0.5mg/kg/h."},
+      {"id": "9", "type": "info",    "text": "Discharge: PEFR >70% predicted, SpO2 ≥94% on room air, symptoms well-controlled. Prescribe: ICS, SABA rescue, written action plan. Review in 2 days."}
+    ]
+  },
+  {
+    "slug": "chest-pain-triage",
+    "title": "Chest Pain — Emergency Triage",
+    "specialty": "cardiology",
+    "description": "Rapid systematic approach to acute chest pain in the ED.",
+    "source": "ESC Acute Chest Pain Guidelines 2023; AHA NSTEMI Guidelines 2023",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "chest pain,ACS,ECG,emergency,STEMI",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Acute chest pain. IMMEDIATE: 12-lead ECG within 10 min of presentation. IV access, O2 if SpO2 <90%, vitals."},
+      {"id": "2", "type": "decision","text": "ST elevation on ECG? (≥1mm in ≥2 contiguous leads, or new LBBB)", "children": [{"label": "Yes — STEMI", "next": "3"}, {"label": "No", "next": "5"}]},
+      {"id": "3", "type": "action",  "text": "STEMI: Activate cathlab NOW. Aspirin 300mg + P2Y12 inhibitor (ticagrelor 180mg). Target: primary PCI within 90 min of first medical contact."},
+      {"id": "4", "type": "action",  "text": "If PCI not available within 120 min: fibrinolysis (tenecteplase/alteplase) if no contraindications."},
+      {"id": "5", "type": "action",  "text": "NON-STEMI/UNSTABLE ANGINA: hs-Troponin at presentation + 1h (or 3h). Risk stratify with GRACE/TIMI score."},
+      {"id": "6", "type": "decision","text": "Troponin elevated (above 99th percentile)?", "children": [{"label": "Yes — NSTEMI", "next": "7"}, {"label": "No — further work-up", "next": "8"}]},
+      {"id": "7", "type": "action",  "text": "NSTEMI: Anticoagulation (fondaparinux 2.5mg SC or enoxaparin). Aspirin + P2Y12. Early invasive strategy if high-risk (GRACE >140, refractory ischemia)."},
+      {"id": "8", "type": "action",  "text": "If troponin negative × 2: consider other diagnoses (PE — Wells score, aortic dissection — D-dimer/CT, pericarditis, GERD, MSK)."},
+      {"id": "9", "type": "info",    "text": "ALL ACS: Dual antiplatelet therapy, beta-blocker (if no contraindication), high-intensity statin. Cardiology follow-up. ECHO before discharge."}
+    ]
+  },
+  {
+    "slug": "status-epilepticus",
+    "title": "Status Epilepticus Management",
+    "specialty": "neurology",
+    "description": "Time-based algorithm for adult convulsive status epilepticus.",
+    "source": "Neurocritical Care Society Guidelines 2023; EAN Guidelines 2023",
+    "is_veterinary": false,
+    "verification_status": "passed",
+    "tags": "seizure,epilepsy,neurology,emergency",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Seizure >5 min OR ≥2 seizures without return to baseline? → Status epilepticus. Start clock. ABC: airway, O2, IV access, glucose check."},
+      {"id": "2", "type": "action",  "text": "PHASE 1 (0–5 min): IV lorazepam 0.1 mg/kg (max 4mg, repeat once if no IV: IM midazolam 10mg or rectal diazepam 10mg)."},
+      {"id": "3", "type": "decision","text": "Seizure stopped after benzodiazepine?", "children": [{"label": "Yes", "next": "8"}, {"label": "No (>10 min)", "next": "4"}]},
+      {"id": "4", "type": "action",  "text": "PHASE 2 (10–20 min): Choose ONE: IV levetiracetam 60 mg/kg (max 4.5g) over 10 min; OR IV valproate 40 mg/kg over 10 min; OR IV phenytoin 20 mg/kg over 20 min."},
+      {"id": "5", "type": "decision","text": "Seizure stopped?", "children": [{"label": "Yes", "next": "8"}, {"label": "No (>30 min — refractory)", "next": "6"}]},
+      {"id": "6", "type": "action",  "text": "REFRACTORY (>30 min): ICU, intubation, EEG monitoring. IV propofol 1–2 mg/kg bolus then 2–10 mg/kg/h; OR midazolam infusion 0.05–0.4 mg/kg/h; OR IV phenobarbital 20 mg/kg."},
+      {"id": "7", "type": "action",  "text": "SUPER-REFRACTORY (>24h): Consider ketamine, isoflurane (general anesthesia), ketogenic diet, immunotherapy (if autoimmune cause suspected)."},
+      {"id": "8", "type": "info",    "text": "Post-ictal care: Find and treat cause (hyponatremia, meningitis, hypoglycemia, toxic, structural). Brain MRI, LP if meningitis suspected. AED continuation."}
+    ]
+  },
+  {
+    "slug": "vet-poisoning",
+    "title": "Acute Toxin Ingestion — Dogs & Cats",
+    "specialty": "veterinary",
+    "description": "Emergency management of common household toxin ingestion in small animals.",
+    "source": "Merck Veterinary Manual 2023; ASPCA Animal Poison Control Center",
+    "is_veterinary": true,
+    "verification_status": "passed",
+    "tags": "veterinary,toxicology,emergency,dog,cat",
+    "steps": [
+      {"id": "1", "type": "start",   "text": "Known or suspected toxin ingestion in dog or cat? Identify toxin + time of ingestion + amount (if known)."},
+      {"id": "2", "type": "action",  "text": "Call APCC (888-426-4435) or local vet emergency. Stabilize ABCs: airway, breathing, circulation. IV access."},
+      {"id": "3", "type": "decision","text": "Ingestion within 1–2 hours + patient conscious + no seizures/aspiration risk?", "children": [{"label": "Yes — induce emesis", "next": "4"}, {"label": "No — skip emesis", "next": "5"}]},
+      {"id": "4", "type": "action",  "text": "EMESIS (dogs only, NOT cats with most protocols): 3% H₂O₂ 2.2 mL/kg PO (max 45 mL). OR apomorphine 0.04 mg/kg IV. Wait 15 min. Never induce emesis for caustics, hydrocarbons, or unconscious animals."},
+      {"id": "5", "type": "action",  "text": "ACTIVATED CHARCOAL (if appropriate toxin, within 4h): 1–4 g/kg PO with cathartic (sorbitol). Not for ethanol, heavy metals, corrosives."},
+      {"id": "6", "type": "decision","text": "Specific toxin antidote available?", "children": [{"label": "Yes", "next": "7"}, {"label": "No", "next": "8"}]},
+      {"id": "7", "type": "info",    "text": "ANTIDOTES: Xylitol/hypoglycemia → dextrose IV; Acetaminophen (cats) → N-acetylcysteine; Rodenticide (anticoag) → Vitamin K1; Opioids → Naloxone; Organophosphates → Atropine + pralidoxime."},
+      {"id": "8", "type": "action",  "text": "SUPPORTIVE CARE: Control seizures (diazepam), treat hyperthermia (cooling), IV fluids for hypotension, monitor ECG/urine output, liver/kidney panels q4h."},
+      {"id": "9", "type": "info",    "text": "Common toxins: Xylitol (dogs, severe hypoglycemia + hepatotoxic), grapes/raisins (renal failure dogs), NSAIDs (GI/renal), chocolate (theobromine, tachyarrhythmia), metaldehyde (slugs, seizures)."}
+    ]
+  }
+]

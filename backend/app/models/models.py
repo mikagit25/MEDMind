@@ -1573,3 +1573,24 @@ class AnalyticsDailyAgg(Base):
     platform    = Column(String(16), primary_key=True)
     event_count = Column(Integer, nullable=False, default=0)
     unique_users = Column(Integer, nullable=False, default=0)
+
+
+# ============================================================
+# CLINICAL ALGORITHMS  (V5 Phase 3 — Point-of-Care)
+# ============================================================
+class ClinicalAlgorithm(Base):
+    """Step-based clinical decision algorithm (anaphylaxis, cardiac arrest, etc.)."""
+    __tablename__ = "clinical_algorithms"
+
+    id                  = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    slug                = Column(String(100), unique=True, nullable=False, index=True)
+    title               = Column(String(300), nullable=False)
+    specialty           = Column(String(100), nullable=True)
+    description         = Column(Text, nullable=True)
+    steps               = Column(_PGJSONB, nullable=False)  # [{id,type,text,children,note}]
+    tags                = Column(String(500), nullable=True)
+    source              = Column(Text, nullable=True)
+    is_veterinary       = Column(Boolean, nullable=False, default=False)
+    verification_status = Column(String(30), nullable=False, default="passed")
+    created_at          = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at          = Column(DateTime, default=datetime.utcnow, nullable=False)
