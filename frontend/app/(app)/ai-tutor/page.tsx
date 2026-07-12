@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { aiApi, contentApi, API_URL, myFlashcardsApi } from "@/lib/api";
+import { aiApi, contentApi, API_URL, myFlashcardsApi, ttsApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT, useI18n } from "@/lib/i18n";
@@ -9,7 +9,8 @@ import { ga } from "@/lib/gtag";
 import { analytics } from "@/lib/analytics";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/ui/VoiceTutor";
+import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle, ConversationModeToggle } from "@/components/ui/VoiceTutor";
+import type { VoiceMicHandle } from "@/components/ui/VoiceTutor";
 import { DifferentialPanel } from "@/components/ui/DifferentialPanel";
 import { PatientHandout } from "@/components/ui/PatientHandout";
 import { DocumentAnalyzer } from "@/components/ui/DocumentAnalyzer";
@@ -158,8 +159,17 @@ export default function AiTutorPage() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [pubmedPanel, setPubmedPanel] = useState<any[]>([]);
   const [voiceMode, setVoiceMode] = useState(false);
+  const [pendingVoice, setPendingVoice] = useState<string | null>(null);
+  const [conversationMode, setConversationMode] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const micRef = useRef<VoiceMicHandle>(null);
+  const lastAssistantContentRef = useRef<string>("");
+  const voiceModeRef = useRef(voiceMode);
+  const conversationModeRef = useRef(conversationMode);
+
+  useEffect(() => { voiceModeRef.current = voiceMode; }, [voiceMode]);
+  useEffect(() => { conversationModeRef.current = conversationMode; }, [conversationMode]);
 
   useEffect(() => {
     contentApi.getSpecialties().then((r) => {
@@ -180,10 +190,12 @@ export default function AiTutorPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  const send = async () => {
-    const text = input.trim();
+  const send = async (overrideText?: string) => {
+    const text = (overrideText !== undefined ? overrideText : input).trim();
     if (!text || loading) return;
-    setInput("");
+    if (overrideText === undefined) setInput("");
+    setPendingVoice(null);
+    lastAssistantContentRef.current = "";
     setMessages((p) => [...p, { role: "user", content: text }]);
     ga.aiTutorMessage(specialty);
     analytics.aiQuestion(mode, specialty || undefined);
@@ -272,7 +284,9 @@ export default function AiTutorPage() {
                 const updated = [...p];
                 const last = updated[updated.length - 1];
                 if (last.role === "assistant") {
-                  updated[updated.length - 1] = { ...last, content: last.content + event.text };
+                  const newContent = last.content + event.text;
+                  lastAssistantContentRef.current = newContent;
+                  updated[updated.length - 1] = { ...last, content: newContent };
                 }
                 return updated;
               });
@@ -313,6 +327,18 @@ export default function AiTutorPage() {
       });
     } finally {
       setLoading(false);
+      if (voiceModeRef.current && lastAssistantContentRef.current) {
+        try {
+          const blob = await ttsApi.speakBlob(lastAssistantContentRef.current.slice(0, 2000), locale, "female");
+          const url = URL.createObjectURL(blob);
+          const audio = new Audio(url);
+          audio.onended = () => {
+            URL.revokeObjectURL(url);
+            if (conversationModeRef.current) micRef.current?.startListening();
+          };
+          audio.play().catch(() => {});
+        } catch { /* TTS failure is non-fatal */ }
+      }
     }
   };
 
@@ -425,6 +451,7 @@ export default function AiTutorPage() {
 
           {/* Voice mode toggle */}
           <VoiceModeToggle active={voiceMode} onToggle={() => setVoiceMode(v => !v)} />
+          <ConversationModeToggle active={conversationMode} onToggle={() => setConversationMode(v => !v)} />
 
           {conversationId && messages.length > 0 && (
             <button
@@ -632,12 +659,33 @@ export default function AiTutorPage() {
         {/* Input — hidden for dedicated tool modes */}
         {mode !== "differential" && mode !== "handout" && mode !== "analyze" && (
         <div className="px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-surface flex-shrink-0">
+          {/* Voice confirmation banner */}
+          {pendingVoice && (
+            <div className="mb-2 flex items-center gap-2 px-3 py-2 bg-blue/10 border border-blue/30 rounded-xl">
+              <span className="text-ink-3 font-syne text-xs shrink-0">🎙️ Heard:</span>
+              <span className="flex-1 font-serif text-ink text-sm truncate">{pendingVoice}</span>
+              <button
+                onClick={() => { setInput(pendingVoice); setPendingVoice(null); }}
+                className="text-xs font-syne text-ink-3 border border-border rounded px-2 py-0.5 hover:text-ink shrink-0"
+              >Edit</button>
+              <button
+                onClick={() => send(pendingVoice)}
+                className="text-xs font-syne bg-ink text-white rounded px-2 py-0.5 hover:bg-ink-2 shrink-0"
+              >Send</button>
+              <button
+                onClick={() => setPendingVoice(null)}
+                className="text-ink-3 hover:text-red shrink-0 text-base leading-none px-1"
+              >✕</button>
+            </div>
+          )}
           <div className="flex gap-2 items-end">
             {/* Voice mic button — STT via Web Speech API */}
             <VoiceMicButton
-              onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
+              ref={micRef}
+              onTranscript={(text) => setPendingVoice(text)}
               disabled={loading}
               locale={locale}
+              patientMode={mode === "patient"}
             />
             <textarea
               ref={inputRef}
@@ -650,7 +698,7 @@ export default function AiTutorPage() {
               style={{ maxHeight: "100px", overflowY: "auto" }}
             />
             <button
-              onClick={send}
+              onClick={() => send()}
               disabled={loading || !input.trim()}
               className="btn-primary px-4 py-2.5 h-10 flex-shrink-0 disabled:opacity-40 rounded-xl"
             >
