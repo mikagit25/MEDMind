@@ -482,6 +482,10 @@ async def browse_drugs(
     user = Depends(get_current_user_optional),
 ):
     """Browse all drugs with pagination and optional filters."""
+    cache_key = f"drugs:browse:{page}:{limit}:{drug_class or ''}:{vet}:{high_yield}:{lang}"
+    if cached := await get_cached(cache_key):
+        return cached
+
     from sqlalchemy import func
     q = select(Drug)
     if drug_class:
@@ -497,13 +501,15 @@ async def browse_drugs(
     drugs_q = q.order_by(Drug.name).offset((page - 1) * limit).limit(limit)
     drugs = (await db.execute(drugs_q)).scalars().all()
 
-    return {
+    result = {
         "items": [_drug_to_dict(d, lang) for d in drugs],
         "total": total,
         "page": page,
         "pages": max(1, (total + limit - 1) // limit),
         "limit": limit,
     }
+    await set_cached(cache_key, result, ttl=120)
+    return result
 
 
 @router.get("/drugs/classes")

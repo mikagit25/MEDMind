@@ -210,6 +210,12 @@ async def list_articles(
     locale: Optional[str] = Query(None, description="Return translated titles/excerpts: ru|ar|tr|de|fr|es"),
     db: AsyncSession = Depends(get_db),
 ):
+    # Search results are not cached (highly variable); browse list is cached 2 min
+    cache_key = f"articles:list:{category or ''}:{page}:{limit}:{locale or 'en'}"
+    if not search:
+        if cached := await get_cached(cache_key):
+            return cached
+
     q = select(Article).where(Article.is_published == True, Article.review_status == "published", _verified_only())
     if category:
         q = q.where(Article.category == category)
@@ -246,7 +252,10 @@ async def list_articles(
                 item["title"] = tr.title
                 item["excerpt"] = tr.excerpt
 
-    return {"total": total, "page": page, "limit": limit, "articles": items}
+    result = {"total": total, "page": page, "limit": limit, "articles": items}
+    if not search:
+        await set_cached(cache_key, result, ttl=120)
+    return result
 
 
 @router.get("/sitemap-data")
@@ -282,13 +291,17 @@ async def sitemap_data(db: AsyncSession = Depends(get_db)):
 
 @router.get("/categories")
 async def list_categories(db: AsyncSession = Depends(get_db)):
+    if cached := await get_cached("articles:categories"):
+        return cached
     rows = await db.execute(
         select(Article.category, func.count(Article.id).label("count"))
         .where(Article.is_published == True, Article.review_status == "published", _verified_only())
         .group_by(Article.category)
         .order_by(desc("count"))
     )
-    return [{"category": r.category, "count": r.count} for r in rows.all()]
+    result = [{"category": r.category, "count": r.count} for r in rows.all()]
+    await set_cached("articles:categories", result, ttl=600)
+    return result
 
 
 class ContentFeedbackRequest(BaseModel):
