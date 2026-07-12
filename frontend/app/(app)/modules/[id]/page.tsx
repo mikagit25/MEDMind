@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { contentApi, progressApi, notesApi, imagingApi, teacherApi, srsApi } from "@/lib/api";
+import { contentApi, progressApi, notesApi, imagingApi, teacherApi, srsApi, certificatesApi } from "@/lib/api";
 import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
 import { useI18n, useT } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
@@ -453,6 +453,7 @@ export default function ModuleDetailPage() {
   const [savingNote, setSavingNote] = useState(false);
   const [showSrsPrompt, setShowSrsPrompt] = useState(false);
   const [srsLessonId, setSrsLessonId] = useState<string | null>(null);
+  const [certCode, setCertCode] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -543,7 +544,8 @@ export default function ModuleDetailPage() {
       progressApi.recordLessonCompletion(activeLesson.id, { time_spent_seconds: timeSpent });
       ga.lessonComplete(activeLesson.title || "");
       analytics.lessonCompleted(activeLesson.id, mod?.id ?? "");
-      setLessonDone((p) => new Set(Array.from(p).concat(activeLesson.id)));
+      const newDone = new Set(Array.from(lessonDone).concat(activeLesson.id));
+      setLessonDone(newDone);
       // Show SRS reinforce prompt
       setSrsLessonId(activeLesson.id);
       setShowSrsPrompt(true);
@@ -551,6 +553,12 @@ export default function ModuleDetailPage() {
       if (idx < lessons.length - 1) {
         setActiveLesson(lessons[idx + 1]);
         lessonStartRef.current = Date.now();
+      }
+      // Auto-issue certificate when all lessons done
+      if (newDone.size >= lessons.length && mod?.id && !certCode) {
+        certificatesApi.issue(mod.id)
+          .then((c: any) => { if (c?.verification_code) setCertCode(c.verification_code); })
+          .catch(() => {/* not yet eligible — ignore */});
       }
     } catch {/* ignore */} finally {
       setCompleting(false);
@@ -851,6 +859,31 @@ export default function ModuleDetailPage() {
                   </div>
                 );
               })()}
+
+              {certCode && (
+                <div className="mt-4 p-4 rounded-lg border border-green/30 bg-green-light/30 space-y-2">
+                  <p className="font-syne font-bold text-sm text-green">Certificate earned!</p>
+                  <p className="font-serif text-xs text-green/80">
+                    You completed this module. Your certificate is ready.
+                  </p>
+                  <div className="flex gap-2">
+                    <a
+                      href="/settings"
+                      className="font-syne font-bold text-xs px-3 py-1.5 rounded bg-green text-white hover:bg-green/90 transition-colors"
+                    >
+                      View in Settings →
+                    </a>
+                    <a
+                      href={`/verify/${certCode}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-green/30 text-green hover:bg-green-light transition-colors"
+                    >
+                      Verify
+                    </a>
+                  </div>
+                </div>
+              )}
 
               {showSrsPrompt && srsLessonId === activeLesson.id && (
                 <div className="mt-4 p-4 rounded-lg border border-blue/20 bg-blue/5 flex items-center justify-between gap-4">

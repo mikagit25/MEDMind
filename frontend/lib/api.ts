@@ -856,3 +856,13 @@ export const srsApi = {
   getStats: () => api.get("/srs/stats").then(r => r.data),
   removeItem: (item_id: string) => api.delete(`/srs/items/${item_id}`).then(r => r.data),
 };
+
+export const certificatesApi = {
+  issue: (module_id: string) =>
+    api.post(`/certificates/issue/${module_id}`).then(r => r.data),
+  list: () => api.get("/certificates/my").then(r => r.data),
+  download: (cert_id: string) =>
+    api.get(`/certificates/${cert_id}/download`, { responseType: "blob" }).then(r => r.data),
+  toggleHideName: (cert_id: string) =>
+    api.patch(`/certificates/${cert_id}/hide-name`).then(r => r.data),
+};

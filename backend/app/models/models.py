@@ -1697,3 +1697,32 @@ class LessonMcqCache(Base):
     __table_args__ = (
         UniqueConstraint("entity_type", "entity_id", name="uq_lesson_mcq_cache"),
     )
+
+
+# ============================================================
+# CERTIFICATES  (V5 Phase 6)
+# ============================================================
+
+class Certificate(Base):
+    """Module completion certificate with a unique verification code."""
+    __tablename__ = "certificates"
+
+    id                = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id           = Column(UUID(as_uuid=True),
+                               ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    module_id         = Column(UUID(as_uuid=True),
+                               ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
+    verification_code = Column(String(32), unique=True, nullable=False)
+    score             = Column(Numeric(5, 2), nullable=True)
+    issued_at         = Column(DateTime, default=datetime.utcnow, nullable=False)
+    language          = Column(String(10), nullable=False, default="en")
+    hide_name         = Column(Boolean, nullable=False, default=False)
+
+    user   = relationship("User", foreign_keys=[user_id])
+    module = relationship("Module", foreign_keys=[module_id])
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "module_id", name="uq_certificate_user_module"),
+        Index("ix_certificates_user_id", "user_id"),
+        Index("ix_certificates_verification_code", "verification_code"),
+    )

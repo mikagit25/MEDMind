@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
-import { authApi, complianceApi, progressApi } from "@/lib/api";
+import { authApi, complianceApi, progressApi, certificatesApi } from "@/lib/api";
 import { useI18n, useT } from "@/lib/i18n";
 
 const TIER_COLORS: Record<string, string> = {
@@ -357,6 +357,9 @@ export default function SettingsPage() {
         )}
       </section>
 
+      {/* Certificates */}
+      <CertificatesSection />
+
       {/* GDPR / Privacy */}
       <GDPRSection />
 
@@ -550,6 +553,113 @@ function LeaderboardSection() {
           {saving ? t("common.saving") : saveOk ? t("common.saved") : t("common.save")}
         </button>
       </div>
+    </section>
+  );
+}
+
+function CertificatesSection() {
+  const [certs, setCerts] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [toggling, setToggling] = useState<string | null>(null);
+
+  const load = () => {
+    setLoading(true);
+    certificatesApi.list()
+      .then((d: any) => setCerts(d.certificates ?? []))
+      .catch(() => setCerts([]))
+      .finally(() => setLoading(false));
+  };
+
+  const downloadPdf = async (certId: string, title: string) => {
+    try {
+      const blob = await certificatesApi.download(certId);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `MedMind_Certificate_${title.replace(/\s+/g, "_")}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {/* ignore */}
+  };
+
+  const toggleHideName = async (certId: string) => {
+    setToggling(certId);
+    try {
+      const res = await certificatesApi.toggleHideName(certId);
+      setCerts((prev) => prev?.map((c) => c.id === certId ? { ...c, hide_name: res.hide_name } : c) ?? prev);
+    } catch {/* ignore */}
+    finally { setToggling(null); }
+  };
+
+  return (
+    <section className="card p-6 mb-5">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-syne font-bold text-base text-ink">My Certificates</h2>
+        {certs === null && !loading && (
+          <button onClick={load} className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-ink-4 text-ink-3 hover:border-ink-2 transition-colors">
+            Load
+          </button>
+        )}
+      </div>
+
+      {loading && <p className="font-serif text-sm text-ink-3">Loading…</p>}
+
+      {certs !== null && certs.length === 0 && (
+        <p className="font-serif text-sm text-ink-3">
+          No certificates yet. Complete a module with ≥ 70% MCQ score or 100% lesson completion to earn one.
+        </p>
+      )}
+
+      {certs && certs.length > 0 && (
+        <div className="space-y-3">
+          {certs.map((c: any) => (
+            <div key={c.id} className="border border-border rounded-lg p-4 space-y-2">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-syne font-bold text-sm text-ink-1">{c.module_title}</p>
+                  <p className="font-serif text-xs text-ink-4 mt-0.5">
+                    Issued {c.issued_at ? new Date(c.issued_at).toLocaleDateString() : "—"}
+                    {c.score !== null ? ` · Score: ${Math.round(c.score)}%` : ""}
+                    {c.duration_hours ? ` · ${c.duration_hours}h` : ""}
+                  </p>
+                </div>
+                <span className="font-mono text-[10px] text-ink-4 shrink-0">{c.verification_code}</span>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <button
+                  onClick={() => downloadPdf(c.id, c.module_title)}
+                  className="font-syne font-bold text-xs px-3 py-1.5 rounded bg-blue text-white hover:bg-blue/90 transition-colors"
+                >
+                  Download PDF
+                </button>
+                <a
+                  href={c.linkedin_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-blue/30 text-blue hover:bg-blue-light transition-colors"
+                >
+                  Share on LinkedIn
+                </a>
+                <a
+                  href={`/verify/${c.verification_code}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-ink-4 text-ink-3 hover:border-ink-3 transition-colors"
+                >
+                  Verify
+                </a>
+                <button
+                  onClick={() => toggleHideName(c.id)}
+                  disabled={toggling === c.id}
+                  className="font-syne text-xs px-3 py-1.5 rounded border border-ink-4 text-ink-4 hover:border-ink-3 hover:text-ink-3 transition-colors"
+                >
+                  {c.hide_name ? "Show name on verify" : "Hide name on verify"}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
