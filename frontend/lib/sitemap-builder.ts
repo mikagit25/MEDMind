@@ -520,7 +520,6 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/pricing",            priority: 0.9, changefreq: "monthly" },
       { path: "/investors",          priority: 0.6, changefreq: "monthly" },
       { path: "/symptoms",           priority: 0.9, changefreq: "monthly" },
-      { path: "/news",               priority: 0.9, changefreq: "hourly"  },
       { path: "/register",           priority: 0.7, changefreq: "monthly" },
       // Trust pages (V4 Phase 3)
       { path: "/about",              priority: 0.7, changefreq: "monthly" },

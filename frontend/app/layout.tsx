@@ -185,8 +185,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* hreflang is set per-page via generateMetadata alternates.languages,
             NOT here — layout-level hreflang would appear on every page and
             create duplicate/conflicting tags on article and drug pages. */}
-        {/* PWA */}
-        <link rel="manifest" href="/manifest.json" />
+        {/* PWA — manifest injected automatically by app/manifest.ts as /manifest.webmanifest */}
         <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#1a1814" media="(prefers-color-scheme: light)" />
         <meta name="mobile-web-app-capable" content="yes" />
