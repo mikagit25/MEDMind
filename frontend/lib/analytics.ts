@@ -1,64 +1,175 @@
 /**
- * PostHog analytics wrapper.
- * All calls are no-ops when NEXT_PUBLIC_POSTHOG_KEY is not set,
- * so analytics is purely opt-in and never crashes the app.
- * posthog-js is an optional dependency — gracefully absent in dev.
+ * Product analytics — self-hosted, privacy-first. No third-party trackers.
+ *
+ * Privacy rules (mirrors backend validation):
+ * - meta MUST NOT contain free-form user text (prompts, queries, answers)
+ * - Only structured metadata: mode, specialty, step, score, etc.
+ * - Events are batched and sent via sendBeacon (survives page unload)
+ * - IP never stored on backend
  */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let ph: any = null;
-let initialized = false;
+const TRACK_URL = `${process.env.NEXT_PUBLIC_API_URL ?? "/api/v1"}/analytics/track`;
 
-function getPosthog() {
-  if (ph !== null) return ph;
+export type EventType =
+  | "signup"
+  | "onboarding_step"
+  | "onboarding_completed"
+  | "lesson_started"
+  | "lesson_completed"
+  | "module_started"
+  | "module_completed"
+  | "flashcard_review"
+  | "ai_question"
+  | "quiz_completed"
+  | "public_page_view"
+  | "search"
+  | "app_open";
+
+export interface AnalyticsEvent {
+  event_type: EventType;
+  entity_type?: string;
+  entity_id?: string;
+  /** Structured only — no free-form user text */
+  meta?: Record<string, string | number | boolean>;
+  locale?: string;
+  platform?: "web" | "mobile";
+  anon_id?: string;
+}
+
+// ── Stable anon ID (no PII — just a random UUID per browser) ─────────────────
+
+function getAnonId(): string {
+  if (typeof window === "undefined") return "";
   try {
-    // Dynamic require so TS doesn't error if package is absent
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    ph = require("posthog-js").default;
+    let id = localStorage.getItem("_mm_anon");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("_mm_anon", id);
+    }
+    return id;
   } catch {
-    ph = undefined;
+    return "";
   }
-  return ph;
 }
 
-export function initAnalytics() {
-  if (initialized || typeof window === "undefined") return;
-  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  if (!key) return;
+// ── Queue & flush ─────────────────────────────────────────────────────────────
 
-  const posthog = getPosthog();
-  if (!posthog) return;
+let _queue: AnalyticsEvent[] = [];
+let _timer: ReturnType<typeof setTimeout> | null = null;
 
-  posthog.init(key, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com",
-    capture_pageview: false,
-    capture_pageleave: true,
-    autocapture: false,
-    persistence: "localStorage+cookie",
-    sanitize_properties: (props: Record<string, unknown>) => {
-      delete props.$ip;
-      return props;
-    },
+function _flush() {
+  if (_queue.length === 0) return;
+  const batch = _queue.splice(0, 20);
+  const anonId = getAnonId();
+  const payload = JSON.stringify({
+    events: batch.map((e) => ({ ...e, anon_id: e.anon_id ?? anonId })),
   });
-  initialized = true;
+
+  if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+    const sent = navigator.sendBeacon(
+      TRACK_URL,
+      new Blob([payload], { type: "application/json" }),
+    );
+    if (!sent) {
+      fetch(TRACK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+        keepalive: true,
+      }).catch(() => {});
+    }
+  } else {
+    fetch(TRACK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    }).catch(() => {});
+  }
 }
 
-export function identifyUser(userId: string, traits?: Record<string, unknown>) {
-  if (!initialized) return;
-  getPosthog()?.identify(userId, traits);
+function _scheduleFlush() {
+  if (_timer) return;
+  _timer = setTimeout(() => {
+    _timer = null;
+    _flush();
+  }, 2000);
 }
 
-export function trackEvent(event: string, properties?: Record<string, unknown>) {
-  if (!initialized) return;
-  getPosthog()?.capture(event, properties);
+if (typeof window !== "undefined") {
+  window.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") _flush();
+  });
+  window.addEventListener("beforeunload", () => _flush());
 }
 
-export function trackPageView(path: string) {
-  if (!initialized) return;
-  getPosthog()?.capture("$pageview", { $current_url: path });
+// ── Core track function ───────────────────────────────────────────────────────
+
+export function track(event: AnalyticsEvent): void {
+  if (typeof window === "undefined") return;
+  _queue.push(event);
+  if (_queue.length >= 20) {
+    if (_timer) { clearTimeout(_timer); _timer = null; }
+    _flush();
+  } else {
+    _scheduleFlush();
+  }
 }
 
-export function resetUser() {
-  if (!initialized) return;
-  getPosthog()?.reset();
+// ── Convenience wrappers ──────────────────────────────────────────────────────
+
+export const analytics = {
+  signup: (role: string) =>
+    track({ event_type: "signup", meta: { role } }),
+
+  onboardingStep: (step: number) =>
+    track({ event_type: "onboarding_step", meta: { step } }),
+
+  onboardingCompleted: (role: string, specialty?: string) =>
+    track({ event_type: "onboarding_completed", meta: { role, ...(specialty ? { specialty } : {}) } }),
+
+  lessonStarted: (lessonId: string, moduleId: string, locale?: string) =>
+    track({ event_type: "lesson_started", entity_type: "lesson", entity_id: lessonId, meta: { module_id: moduleId }, locale }),
+
+  lessonCompleted: (lessonId: string, moduleId: string, locale?: string) =>
+    track({ event_type: "lesson_completed", entity_type: "lesson", entity_id: lessonId, meta: { module_id: moduleId }, locale }),
+
+  moduleStarted: (moduleId: string, specialty?: string) =>
+    track({ event_type: "module_started", entity_type: "module", entity_id: moduleId, meta: specialty ? { specialty } : undefined }),
+
+  moduleCompleted: (moduleId: string, specialty?: string) =>
+    track({ event_type: "module_completed", entity_type: "module", entity_id: moduleId, meta: specialty ? { specialty } : undefined }),
+
+  aiQuestion: (mode: string, specialty?: string) =>
+    track({ event_type: "ai_question", meta: { mode, ...(specialty ? { specialty } : {}) } }),
+
+  flashcardReview: (cardId: string, rating: number) =>
+    track({ event_type: "flashcard_review", entity_type: "flashcard", entity_id: cardId, meta: { rating } }),
+
+  quizCompleted: (moduleId: string, score: number, total: number) =>
+    track({ event_type: "quiz_completed", entity_type: "module", entity_id: moduleId, meta: { score, total } }),
+
+  pageView: (slug: string, entityType?: string) =>
+    track({ event_type: "public_page_view", entity_type: entityType ?? "page", entity_id: slug }),
+
+  search: (entityType: string) =>
+    track({ event_type: "search", entity_type: entityType }),
+};
+
+// ── Legacy shims (AnalyticsProvider uses these — kept as no-ops) ──────────────
+
+/** @deprecated Use analytics.* helpers instead */
+export function initAnalytics(): void {}
+
+/** @deprecated No-op: user identity tracked server-side via JWT */
+export function identifyUser(_userId: string, _traits?: Record<string, unknown>): void {}
+
+/** @deprecated Use analytics.pageView() instead */
+export function trackEvent(_event: string, _props?: Record<string, unknown>): void {}
+
+/** @deprecated Use analytics.pageView() instead */
+export function trackPageView(path: string): void {
+  analytics.pageView(path);
 }
+
+/** @deprecated No-op */
+export function resetUser(): void {}

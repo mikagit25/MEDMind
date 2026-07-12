@@ -1727,3 +1727,185 @@ async def resolve_feedback(
     item.resolved = True
     await db.commit()
     return {"id": feedback_id, "resolved": True}
+
+
+# ── Product Analytics Dashboard (V5 Phase 1) ──────────────────────────────────
+
+@router.get("/analytics/overview")
+async def get_analytics_overview(
+    db: AsyncSession = Depends(get_db),
+    _user: User = Depends(require_admin()),
+):
+    """DAU/WAU/MAU + 4-block retention dashboard."""
+    import json
+    from datetime import date, timedelta
+
+    redis = None
+    try:
+        from app.core.redis_client import get_redis
+        redis = await get_redis()
+        cached = await redis.get("admin_analytics_overview")
+        if cached:
+            return json.loads(cached)
+    except Exception:
+        pass
+
+    _empty = {
+        "dau_series": [], "wau_series": [], "mau_series": [],
+        "cohorts": [],
+        "funnel": [
+            {"step": "Signup",                "count": 0},
+            {"step": "Onboarding completed",  "count": 0},
+            {"step": "First lesson started",  "count": 0},
+            {"step": "First lesson completed","count": 0},
+        ],
+        "abandoned_modules": [],
+    }
+
+    try:
+        # ── DAU/WAU/MAU (last 90 days) ────────────────────────────────────────
+        dau_rows = await db.execute(text("""
+            SELECT DATE(created_at) AS day, COUNT(DISTINCT user_id) AS dau
+            FROM analytics_events
+            WHERE created_at >= NOW() - INTERVAL '90 days'
+              AND user_id IS NOT NULL
+            GROUP BY day
+            ORDER BY day
+        """))
+        dau_series = [{"date": str(r.day), "dau": r.dau} for r in dau_rows]
+
+        wau_rows = await db.execute(text("""
+            SELECT DATE_TRUNC('week', created_at)::date AS week,
+                   COUNT(DISTINCT user_id) AS wau
+            FROM analytics_events
+            WHERE created_at >= NOW() - INTERVAL '90 days'
+              AND user_id IS NOT NULL
+            GROUP BY week ORDER BY week
+        """))
+        wau_series = [{"week": str(r.week), "wau": r.wau} for r in wau_rows]
+
+        mau_rows = await db.execute(text("""
+            SELECT DATE_TRUNC('month', created_at)::date AS month,
+                   COUNT(DISTINCT user_id) AS mau
+            FROM analytics_events
+            WHERE created_at >= NOW() - INTERVAL '90 days'
+              AND user_id IS NOT NULL
+            GROUP BY month ORDER BY month
+        """))
+        mau_series = [{"month": str(r.month), "mau": r.mau} for r in mau_rows]
+
+        # ── Cohort retention (D1/D7/D30) ──────────────────────────────────────
+        cohort_rows = await db.execute(text("""
+            SELECT
+                DATE_TRUNC('week', u.created_at)::date AS cohort_week,
+                COUNT(DISTINCT u.id) AS cohort_size,
+                COUNT(DISTINCT CASE WHEN ae1.user_id IS NOT NULL THEN u.id END) AS d1,
+                COUNT(DISTINCT CASE WHEN ae7.user_id IS NOT NULL THEN u.id END) AS d7,
+                COUNT(DISTINCT CASE WHEN ae30.user_id IS NOT NULL THEN u.id END) AS d30
+            FROM users u
+            LEFT JOIN analytics_events ae1
+                ON ae1.user_id = u.id
+                AND ae1.created_at BETWEEN u.created_at + INTERVAL '12 hours'
+                                       AND u.created_at + INTERVAL '48 hours'
+            LEFT JOIN analytics_events ae7
+                ON ae7.user_id = u.id
+                AND ae7.created_at BETWEEN u.created_at + INTERVAL '6 days'
+                                       AND u.created_at + INTERVAL '8 days'
+            LEFT JOIN analytics_events ae30
+                ON ae30.user_id = u.id
+                AND ae30.created_at BETWEEN u.created_at + INTERVAL '29 days'
+                                        AND u.created_at + INTERVAL '31 days'
+            WHERE u.created_at >= NOW() - INTERVAL '12 weeks'
+            GROUP BY cohort_week
+            ORDER BY cohort_week DESC
+        """))
+        cohorts = []
+        for r in cohort_rows:
+            sz = r.cohort_size or 1
+            cohorts.append({
+                "week": str(r.cohort_week),
+                "size": r.cohort_size,
+                "d1_pct": round(100 * (r.d1 or 0) / sz, 1),
+                "d7_pct": round(100 * (r.d7 or 0) / sz, 1),
+                "d30_pct": round(100 * (r.d30 or 0) / sz, 1),
+            })
+
+        # ── Onboarding funnel ──────────────────────────────────────────────────
+        funnel_rows = await db.execute(text("""
+            SELECT event_type, COUNT(DISTINCT COALESCE(user_id::text, anon_id)) AS cnt
+            FROM analytics_events
+            WHERE event_type IN (
+                'signup','onboarding_completed','lesson_started','lesson_completed'
+            )
+            AND created_at >= NOW() - INTERVAL '30 days'
+            GROUP BY event_type
+        """))
+        funnel_map = {r.event_type: r.cnt for r in funnel_rows}
+        funnel = [
+            {"step": "Signup",                "count": funnel_map.get("signup", 0)},
+            {"step": "Onboarding completed",  "count": funnel_map.get("onboarding_completed", 0)},
+            {"step": "First lesson started",  "count": funnel_map.get("lesson_started", 0)},
+            {"step": "First lesson completed","count": funnel_map.get("lesson_completed", 0)},
+        ]
+
+        # ── Abandoned modules (top 10 started but not completed, 30d) ─────────
+        abandoned_rows = await db.execute(text("""
+            SELECT
+                ae_s.entity_id AS module_id,
+                COUNT(DISTINCT ae_s.user_id) AS started,
+                COUNT(DISTINCT ae_c.user_id) AS completed
+            FROM analytics_events ae_s
+            LEFT JOIN analytics_events ae_c
+                ON ae_c.user_id = ae_s.user_id
+                AND ae_c.entity_id = ae_s.entity_id
+                AND ae_c.event_type = 'module_completed'
+            WHERE ae_s.event_type = 'module_started'
+              AND ae_s.created_at >= NOW() - INTERVAL '30 days'
+              AND ae_s.user_id IS NOT NULL
+            GROUP BY ae_s.entity_id
+            HAVING COUNT(DISTINCT ae_s.user_id) > 0
+            ORDER BY (COUNT(DISTINCT ae_s.user_id) - COUNT(DISTINCT ae_c.user_id)) DESC
+            LIMIT 10
+        """))
+        from app.models.models import Module as ModModel
+        abandoned = []
+        for r in abandoned_rows:
+            title = r.module_id
+            try:
+                mod_row = (await db.execute(
+                    select(ModModel.title).where(ModModel.id == r.module_id)
+                )).scalar_one_or_none()
+                if mod_row:
+                    title = mod_row
+            except Exception:
+                pass
+            pct_abandoned = round(100 * (r.started - (r.completed or 0)) / max(r.started, 1), 1)
+            abandoned.append({
+                "module_id": r.module_id,
+                "title": title,
+                "started": r.started,
+                "completed": r.completed or 0,
+                "abandoned_pct": pct_abandoned,
+            })
+
+        result = {
+            "dau_series": dau_series,
+            "wau_series": wau_series,
+            "mau_series": mau_series,
+            "cohorts": cohorts,
+            "funnel": funnel,
+            "abandoned_modules": abandoned,
+        }
+    except Exception as exc:
+        # Graceful degradation: return empty scaffold (e.g., SQLite in tests, DB unavailable)
+        import logging as _log
+        _log.getLogger(__name__).warning("Analytics overview query failed: %s", exc)
+        result = _empty
+
+    if redis:
+        try:
+            await redis.setex("admin_analytics_overview", 3600, json.dumps(result, default=str))
+        except Exception:
+            pass
+
+    return result

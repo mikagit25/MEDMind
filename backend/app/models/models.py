@@ -1538,3 +1538,38 @@ class EnterpriseLead(Base):
         Index("ix_enterprise_leads_status",     "status"),
         Index("ix_enterprise_leads_created_at", "created_at"),
     )
+
+
+# ── Product Analytics (V5 Phase 1) ───────────────────────────────────────────
+
+class AnalyticsEvent(Base):
+    """Structured product analytics event. No free-form user text in meta."""
+    __tablename__ = "analytics_events"
+
+    id          = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id     = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"),
+                         nullable=True)
+    anon_id     = Column(String(64), nullable=True)
+    event_type  = Column(String(64), nullable=False)
+    entity_type = Column(String(64), nullable=True)
+    entity_id   = Column(String(128), nullable=True)
+    meta        = Column(_PGJSONB, nullable=True)   # structured only — no free-form user text
+    locale      = Column(String(8), nullable=True)
+    platform    = Column(String(16), nullable=True, default="web")
+    created_at  = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    __table_args__ = (
+        Index("ix_ae_event_type_created", "event_type", "created_at"),
+        Index("ix_ae_user_created", "user_id", "created_at"),
+    )
+
+
+class AnalyticsDailyAgg(Base):
+    """Daily aggregates kept after raw events are purged (>12 months)."""
+    __tablename__ = "analytics_daily_agg"
+
+    date        = Column(_SQLJSON, primary_key=True)   # Date stored as string "YYYY-MM-DD"
+    event_type  = Column(String(64), primary_key=True)
+    platform    = Column(String(16), primary_key=True)
+    event_count = Column(Integer, nullable=False, default=0)
+    unique_users = Column(Integer, nullable=False, default=0)

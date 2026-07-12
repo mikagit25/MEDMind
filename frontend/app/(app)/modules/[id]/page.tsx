@@ -7,6 +7,7 @@ import { contentApi, progressApi, notesApi, imagingApi, teacherApi } from "@/lib
 import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
 import { useI18n, useT } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
+import { analytics } from "@/lib/analytics";
 
 type LessonContent = {
   intro?: string;
@@ -500,10 +501,13 @@ export default function ModuleDetailPage() {
     if (showNotes && activeLesson) loadNotes();
   }, [showNotes, activeLesson, loadNotes]);
 
-  // Reset lesson timer whenever the active lesson changes
+  // Reset lesson timer and fire lesson_started whenever the active lesson changes
   useEffect(() => {
     lessonStartRef.current = Date.now();
-  }, [activeLesson?.id]);
+    if (activeLesson?.id && mod?.id) {
+      analytics.lessonStarted(activeLesson.id, mod.id);
+    }
+  }, [activeLesson?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Persist lay mode preference
   useEffect(() => {
@@ -536,6 +540,7 @@ export default function ModuleDetailPage() {
       await progressApi.completeLesson(activeLesson.id);
       progressApi.recordLessonCompletion(activeLesson.id, { time_spent_seconds: timeSpent });
       ga.lessonComplete(activeLesson.title || "");
+      analytics.lessonCompleted(activeLesson.id, mod?.id ?? "");
       setLessonDone((p) => new Set(Array.from(p).concat(activeLesson.id)));
       const idx = lessons.findIndex((l) => l.id === activeLesson.id);
       if (idx < lessons.length - 1) {

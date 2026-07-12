@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authApi, aiApi } from "@/lib/api";
+import { analytics } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 
@@ -107,6 +108,7 @@ export default function OnboardingPage() {
         daily_minutes: data.daily_minutes,
       });
       updateUser(res.data);
+      analytics.onboardingCompleted(data.role, data.specialties[0]);
       router.replace("/dashboard");
     } catch {
       router.replace("/dashboard");
@@ -167,7 +169,7 @@ export default function OnboardingPage() {
               ))}
             </div>
             <button
-              onClick={() => setStep(2)}
+              onClick={() => { analytics.onboardingStep(2); setStep(2); }}
               disabled={!data.role}
               className="btn-primary w-full py-2.5 disabled:opacity-40"
             >

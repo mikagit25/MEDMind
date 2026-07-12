@@ -411,6 +411,38 @@ async def _weekly_reviewer_digest():
         logger.error("Weekly reviewer digest job failed: %s", e)
 
 
+async def _analytics_retention_job():
+    """First of month 03:00 UTC — aggregate analytics_events older than 12 months into
+    analytics_daily_agg, then delete the raw events. Keeps dashboard working on old data."""
+    try:
+        async with AsyncSessionLocal() as db:
+            # Aggregate into daily_agg
+            await db.execute(text("""
+                INSERT INTO analytics_daily_agg (date, event_type, platform, event_count, unique_users)
+                SELECT
+                    DATE(created_at) AS date,
+                    event_type,
+                    COALESCE(platform, 'web') AS platform,
+                    COUNT(*) AS event_count,
+                    COUNT(DISTINCT user_id) AS unique_users
+                FROM analytics_events
+                WHERE created_at < NOW() - INTERVAL '12 months'
+                GROUP BY DATE(created_at), event_type, COALESCE(platform, 'web')
+                ON CONFLICT (date, event_type, platform) DO UPDATE
+                    SET event_count  = analytics_daily_agg.event_count  + EXCLUDED.event_count,
+                        unique_users = analytics_daily_agg.unique_users + EXCLUDED.unique_users
+            """))
+            result = await db.execute(text("""
+                DELETE FROM analytics_events
+                WHERE created_at < NOW() - INTERVAL '12 months'
+            """))
+            await db.commit()
+            deleted = result.rowcount if hasattr(result, "rowcount") else "?"
+            logger.info("Analytics retention: deleted %s raw events (>12 months)", deleted)
+    except Exception as e:
+        logger.error("Analytics retention job failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -503,6 +535,15 @@ def start_scheduler():
         _tg_weekly_digest_job,
         trigger=CronTrigger(day_of_week="sun", hour=18, minute=0, timezone="UTC"),
         id="tg_weekly_digest",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # 1st of each month 03:00 UTC — aggregate + purge analytics events >12 months
+    scheduler.add_job(
+        _analytics_retention_job,
+        trigger=CronTrigger(day=1, hour=3, minute=0, timezone="UTC"),
+        id="analytics_retention",
         replace_existing=True,
         misfire_grace_time=3600,
     )

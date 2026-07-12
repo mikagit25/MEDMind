@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
 import { useT, useI18n } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
+import { analytics } from "@/lib/analytics";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { VoiceMicButton, VoiceSpeakButton, VoiceModeToggle } from "@/components/ui/VoiceTutor";
@@ -185,6 +186,7 @@ export default function AiTutorPage() {
     setInput("");
     setMessages((p) => [...p, { role: "user", content: text }]);
     ga.aiTutorMessage(specialty);
+    analytics.aiQuestion(mode, specialty || undefined);
     setLoading(true);
 
     // Add empty assistant message that will be filled by stream
