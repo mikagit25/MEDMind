@@ -6,9 +6,32 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V4 Phases 1–20 ✅ + PSYCH/ANES content ✅. Тест-сьют: 565 passed, 0 failed.
-**Last Updated:** 2026-06-13
-**Next Action:** Всё из бэклога выполнено. Калькуляторы ✅, PSYCH+ANES ✅, Stripe webhook ✅, тесты ✅.
+**Phase:** V5 Phases 0–4 ✅. Тест-сьют: 646 passed, 9 skipped, 0 failed.
+**Last Updated:** 2026-07-12
+**Next Action:** Phase 5 (SRS for articles/lessons), Phase 6 (Certificates), Phase 7 (Voice mode).
+
+### V5 Phase 4 — Social Learning ✅ (2026-07-12)
+- **AssignmentStatus** model + migration 0039 (`assignment_statuses`, extended `comments`, `deck_collaborators`)
+- **POST /courses/assignments/{id}/submit** — student self-submit (idempotent, enrollment-gated)
+- **GET /courses/my-assignments-all** — student sees all pending assignments across classes
+- **GET /courses/{id}/group-progress** — aggregate class progress (teacher + enrolled students)
+- **GET /courses/{id}/progress-csv** — teacher-only CSV export (name, email, status, score, submitted_at)
+- **Comment Q&A extensions**: comment_type, entity_id, parent_id, upvotes, accepted_answer_id
+- **GET/POST /comments/module/{entity_id}** — Q&A with nested answers (questions sorted by upvotes)
+- **POST /comments/module/{id}/upvote** — upvote question or comment
+- **POST /comments/module/{qid}/accept/{aid}** — accept answer (author or teacher/admin)
+- **GET /comments/module/{id}/ai-hint** — teacher gets AI draft from Claude Haiku (not auto-posted)
+- **DeckCollaborator** model — add/list/remove co-editors on shared decks
+- **Dashboard**: MyAssignments widget shows pending/overdue assignments to students
+- 23 new tests in `test_v5_phase4.py` (20 pass, 3 skipped — deck collaborators need existing cards)
+- **CRITICAL ORDERING FIXES**: `my-assignments-all` moved before `/{course_id}`; Q&A routes moved before `/{content_type}/{slug}`
+
+### V5 Phase 3 — Point-of-Care Practice Mode ✅ (2026-07-11)
+- **GET /practice/lab-values** — multi-species lab reference (human/dog/cat) from JSON data
+- **GET /practice/algorithms** — list clinical algorithms with vet_only filter
+- **GET /practice/algorithms/{slug}** — full algorithm with decision steps
+- **GET /practice/search** — authenticated search across algorithms + modules
+- 23 new tests in `test_v5_phase3.py`
 
 ### Phase 11 — Personal Exam Study Planner ✅ (2026-06-12)
 - **Backend: `POST /student/exam-prep/plan`** — authenticated; accepts `exam_type` (usmle_step1/2/3, nclex_rn/pn, ukmla, plab, custom), `exam_date` (ISO), `daily_hours`; fetches all published modules + user progress; calls Claude Haiku to generate a week-by-week schedule; returns `{exam_label, days_remaining, total_weeks, weeks: [{theme, modules, daily_hours, milestone}], tip}`; cached 6h per user/exam/date combo
