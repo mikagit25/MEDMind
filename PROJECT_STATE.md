@@ -6,9 +6,21 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V5 Phases 0–4 ✅. Тест-сьют: 646 passed, 9 skipped, 0 failed.
+**Phase:** V5 Phases 0–5 ✅. Тест-сьют: 668 passed, 9 skipped, 0 failed.
 **Last Updated:** 2026-07-12
-**Next Action:** Phase 5 (SRS for articles/lessons), Phase 6 (Certificates), Phase 7 (Voice mode).
+**Next Action:** Phase 6 (Certificates), Phase 7 (Voice mode).
+
+### V5 Phase 5 — Spaced Repetition System ✅ (2026-07-12)
+- **LessonSrsItem** + **LessonMcqCache** models; migration 0040
+- **POST /srs/enqueue** — opt lesson or article into SM-2 queue (idempotent; honors `srs_enabled` preference)
+- **GET /srs/queue** — due items with cached MCQs (AI-generated per lesson, shared across users)
+- **POST /srs/review/{id}** — quality 0-5 → SM-2 updates interval/ease_factor/next_review_at
+- **GET /srs/stats** — total_enrolled + due_today per user
+- **DELETE /srs/items/{id}** — individual opt-out
+- **Dashboard**: `srs_due` in base stats + today_plan; DailyGoalWidget now 3-col (flashcards · SRS lessons · goal)
+- **/srs-review page**: MCQ quiz flow → quality rating → SM-2 scheduling; empty-state with CTA to modules
+- **Lesson page**: "Reinforce?" prompt appears after marking lesson complete (calls enqueue, dismissable)
+- 22 new tests in `test_v5_phase5.py`
 
 ### V5 Phase 4 — Social Learning ✅ (2026-07-12)
 - **AssignmentStatus** model + migration 0039 (`assignment_statuses`, extended `comments`, `deck_collaborators`)
