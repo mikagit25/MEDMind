@@ -6,9 +6,21 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V5 Phases 0–5 ✅. Тест-сьют: 668 passed, 9 skipped, 0 failed.
+**Phase:** V5 Phases 0–6 ✅. Тест-сьют: 685 passed, 9 skipped, 0 failed.
 **Last Updated:** 2026-07-12
-**Next Action:** Phase 6 (Certificates), Phase 7 (Voice mode).
+**Next Action:** Phase 7 (Voice mode).
+
+### V5 Phase 6 — Certificates ✅ (2026-07-12)
+- **Certificate** model + migration 0041; unique per (user, module); verification_code 24-char hex
+- **POST /certificates/issue/{module_id}** — idempotent; requires 100% completion OR MCQ ≥ 70%
+- **GET /certificates/my** — list all earned certs with LinkedIn share URL
+- **GET /certificates/verify/{code}** — public, no auth; respects hide_name opt-out
+- **GET /certificates/{id}/download** — PDF via reportlab (name, module, hours, score, verify link)
+- **PATCH /certificates/{id}/hide-name** — toggle name visibility on public verify page
+- **/verify/[code]** SSR page — green valid badge / red not-found; no auth required
+- **Settings page**: "My Certificates" section — download, LinkedIn share, verify, hide-name toggle
+- **Module page**: auto-issues cert when all lessons complete; shows banner with verify link
+- 17 new tests in `test_v5_phase6.py`
 
 ### V5 Phase 5 — Spaced Repetition System ✅ (2026-07-12)
 - **LessonSrsItem** + **LessonMcqCache** models; migration 0040
