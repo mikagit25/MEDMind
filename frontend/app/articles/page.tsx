@@ -156,7 +156,7 @@ export default async function ArticlesPage({
         </div>
 
         {/* ── Veterinary section banner ── */}
-        {(() => {
+        {!search && (() => {
           const vetCount = categories.find(c => c.category === "veterinary")?.count ?? 0;
           if (vetCount === 0) return null;
           const VET_LABEL: Record<string, string> = {
@@ -220,7 +220,7 @@ export default async function ArticlesPage({
         })()}
 
         {/* Category grid */}
-        {categories.length > 0 && (
+        {!search && categories.length > 0 && (
           <section className="mb-12">
             <h2 className="font-syne font-bold text-sm text-ink-3 uppercase tracking-wider mb-4">
               {t.browse_by_cat}

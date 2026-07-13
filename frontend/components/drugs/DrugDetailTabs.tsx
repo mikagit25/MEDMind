@@ -44,6 +44,17 @@ const T: Record<string, Record<string, string>> = {
   sameClass:     { en: "Same pharmacological class or related mechanism of action", ru: "Тот же фармакологический класс или схожий механизм действия", ar: "نفس الفئة الدوائية أو آلية عمل مماثلة", de: "Gleiche pharmakologische Klasse oder verwandter Wirkungsmechanismus", fr: "Même classe pharmacologique ou mécanisme d'action similaire", es: "Misma clase farmacológica o mecanismo de acción relacionado", tr: "Aynı farmakolojik sınıf veya ilgili etki mekanizması" },
   caution:       { en: "Caution: Risk for", ru: "Осторожно: риск для", ar: "تحذير: خطر على", de: "Vorsicht: Risiko für", fr: "Attention : risque pour", es: "Precaución: riesgo para", tr: "Dikkat: Risk var:" },
   safe:          { en: "Generally safe for", ru: "Как правило, безопасен для", ar: "آمن عمومًا لـ", de: "Im Allgemeinen sicher für", fr: "Généralement sûr pour", es: "Generalmente seguro para", tr: "Genellikle güvenli:" },
+  mechanism:     { en: "Mechanism of Action", ru: "Механизм действия", ar: "آلية العمل", de: "Wirkmechanismus", fr: "Mécanisme d'action", es: "Mecanismo de acción", tr: "Etki Mekanizması" },
+  indications:   { en: "Indications", ru: "Показания", ar: "المؤشرات", de: "Indikationen", fr: "Indications", es: "Indicaciones", tr: "Endikasyonlar" },
+  contraindications: { en: "Contraindications", ru: "Противопоказания", ar: "موانع الاستخدام", de: "Kontraindikationen", fr: "Contre-indications", es: "Contraindicaciones", tr: "Kontrendikasyonlar" },
+  drugInteractions:  { en: "Drug Interactions", ru: "Лекарственные взаимодействия", ar: "التفاعلات الدوائية", de: "Wechselwirkungen", fr: "Interactions médicamenteuses", es: "Interacciones farmacológicas", tr: "İlaç Etkileşimleri" },
+  dosingSection: { en: "Dosing", ru: "Дозировка", ar: "الجرعات", de: "Dosierung", fr: "Posologie", es: "Dosificación", tr: "Dozaj" },
+  monitoring:    { en: "Monitoring Parameters", ru: "Параметры мониторинга", ar: "معايير المراقبة", de: "Überwachungsparameter", fr: "Paramètres de surveillance", es: "Parámetros de monitoreo", tr: "İzleme Parametreleri" },
+  ntiWarning:    { en: "⚠ Narrow Therapeutic Index (NTI) drug — close monitoring and precise dosing required.", ru: "⚠ Препарат с узким терапевтическим индексом (NTI) — необходим тщательный мониторинг.", ar: "⚠ دواء ذو نطاق علاجي ضيق — يتطلب مراقبة دقيقة وجرعات محددة.", de: "⚠ Arzneimittel mit engem therapeutischem Index (NTI) — genaue Überwachung erforderlich.", fr: "⚠ Médicament à index thérapeutique étroit (NTI) — surveillance étroite requise.", es: "⚠ Medicamento de índice terapéutico estrecho (NTI) — se requiere monitoreo cercano.", tr: "⚠ Dar Terapötik İndeksli (NTI) ilaç — yakın izleme gereklidir." },
+  noDosingInfo:  { en: "No dosing information available.", ru: "Информация о дозировке отсутствует.", ar: "لا تتوفر معلومات عن الجرعة.", de: "Keine Dosierungsinformationen verfügbar.", fr: "Aucune information de dosage disponible.", es: "No hay información de dosificación disponible.", tr: "Dozaj bilgisi mevcut değil." },
+  noAdverseInfo: { en: "No adverse effects data available.", ru: "Данные о побочных эффектах отсутствуют.", ar: "لا تتوفر بيانات عن الآثار الجانبية.", de: "Keine Daten zu Nebenwirkungen verfügbar.", fr: "Aucune donnée sur les effets indésirables.", es: "No hay datos de efectos adversos disponibles.", tr: "Advers etki verisi mevcut değil." },
+  noDetailedInfo: { en: "Detailed information not yet available for this drug.", ru: "Подробная информация об этом препарате пока отсутствует.", ar: "التفاصيل غير متوفرة لهذا الدواء بعد.", de: "Detaillierte Informationen für dieses Medikament noch nicht verfügbar.", fr: "Informations détaillées pas encore disponibles pour ce médicament.", es: "Información detallada aún no disponible para este medicamento.", tr: "Bu ilaç için ayrıntılı bilgi henüz mevcut değil." },
+  foundCount:    { en: "{n} found", ru: "Найдено: {n}", ar: "تم العثور على {n}", de: "{n} gefunden", fr: "{n} trouvé(s)", es: "{n} encontrado(s)", tr: "{n} bulundu" },
 };
 const t = (key: string, lang: string) => T[key]?.[lang] ?? T[key]?.["en"] ?? key;
 
@@ -62,16 +73,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function OverviewTab({ drug }: { drug: Drug }) {
+function OverviewTab({ drug, lang }: { drug: Drug; lang: string }) {
   return (
     <div className="space-y-5">
       {drug.mechanism && (
-        <Section title="Mechanism of Action">
+        <Section title={t("mechanism", lang)}>
           <p className="font-serif text-sm text-ink leading-relaxed">{drug.mechanism}</p>
         </Section>
       )}
       {drug.indications && drug.indications.length > 0 && (
-        <Section title="Indications">
+        <Section title={t("indications", lang)}>
           <ul className="space-y-1">
             {drug.indications.map((item, i) => (
               <li key={i} className="font-serif text-sm text-ink flex gap-2">
@@ -82,7 +93,7 @@ function OverviewTab({ drug }: { drug: Drug }) {
         </Section>
       )}
       {drug.contraindications && drug.contraindications.length > 0 && (
-        <Section title="Contraindications">
+        <Section title={t("contraindications", lang)}>
           <ul className="space-y-1">
             {drug.contraindications.map((item, i) => (
               <li key={i} className="font-serif text-sm text-ink flex gap-2">
@@ -93,7 +104,7 @@ function OverviewTab({ drug }: { drug: Drug }) {
         </Section>
       )}
       {drug.interactions && drug.interactions.length > 0 && (
-        <Section title="Drug Interactions">
+        <Section title={t("drugInteractions", lang)}>
           <ul className="space-y-1">
             {drug.interactions.map((item, i) => (
               <li key={i} className="font-serif text-sm text-ink flex gap-2">
@@ -105,27 +116,27 @@ function OverviewTab({ drug }: { drug: Drug }) {
       )}
       {!drug.mechanism && !drug.indications?.length && !drug.contraindications?.length && (
         <div className="bg-surface border border-border rounded-xl p-8 text-center">
-          <p className="font-serif text-ink-3 text-sm">Detailed information not yet available for this drug.</p>
+          <p className="font-serif text-ink-3 text-sm">{t("noDetailedInfo", lang)}</p>
         </div>
       )}
     </div>
   );
 }
 
-function DosingTab({ drug }: { drug: Drug }) {
+function DosingTab({ drug, lang }: { drug: Drug; lang: string }) {
   const hasDosingData = drug.dosing && Object.keys(drug.dosing).length > 0;
   const hasMonitoring = drug.monitoring && drug.monitoring.length > 0;
   if (!hasDosingData && !hasMonitoring) {
     return (
       <div className="bg-surface border border-border rounded-xl p-8 text-center">
-        <p className="font-serif text-ink-3 text-sm">No dosing information available.</p>
+        <p className="font-serif text-ink-3 text-sm">{t("noDosingInfo", lang)}</p>
       </div>
     );
   }
   return (
     <div className="space-y-5">
       {hasDosingData && (
-        <Section title="Dosing">
+        <Section title={t("dosingSection", lang)}>
           <div className="divide-y divide-border">
             {Object.entries(drug.dosing!).map(([route, dose]) => (
               <div key={route} className="py-2.5 flex gap-4 items-start">
@@ -137,7 +148,7 @@ function DosingTab({ drug }: { drug: Drug }) {
         </Section>
       )}
       {hasMonitoring && (
-        <Section title="Monitoring Parameters">
+        <Section title={t("monitoring", lang)}>
           <ul className="space-y-1.5">
             {drug.monitoring!.map((item, i) => (
               <li key={i} className="font-serif text-sm text-ink flex gap-2">
@@ -149,18 +160,18 @@ function DosingTab({ drug }: { drug: Drug }) {
       )}
       {drug.is_nti && (
         <div className="p-3 rounded-lg bg-amber-light border border-amber/30 font-serif text-xs text-amber">
-          ⚠ Narrow Therapeutic Index (NTI) drug — close monitoring and precise dosing required.
+          {t("ntiWarning", lang)}
         </div>
       )}
     </div>
   );
 }
 
-function AdverseTab({ drug }: { drug: Drug }) {
+function AdverseTab({ drug, lang }: { drug: Drug; lang: string }) {
   if (!drug.adverse_effects || Object.keys(drug.adverse_effects).length === 0) {
     return (
       <div className="bg-surface border border-border rounded-xl p-8 text-center">
-        <p className="font-serif text-ink-3 text-sm">No adverse effects data available.</p>
+        <p className="font-serif text-ink-3 text-sm">{t("noAdverseInfo", lang)}</p>
       </div>
     );
   }
@@ -333,19 +344,19 @@ export function DrugDetailTabs({
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="flex gap-1 mb-6 bg-surface border border-border p-1 rounded-xl overflow-x-auto">
+      {/* Tabs — horizontal scroll on narrow screens, hidden scrollbar */}
+      <div className="flex gap-1 mb-6 bg-surface border border-border p-1 rounded-xl overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map(t => (
           <button key={t.key} onClick={() => setTab(t.key)}
-            className={`px-3 py-1.5 rounded-lg font-syne font-semibold text-xs transition-all whitespace-nowrap ${tab === t.key ? "bg-ink text-white shadow" : "text-ink-3 hover:text-ink"}`}>
+            className={`flex-1 min-w-fit px-2 sm:px-3 py-1.5 rounded-lg font-syne font-semibold text-xs transition-all whitespace-nowrap text-center ${tab === t.key ? "bg-ink text-white shadow" : "text-ink-3 hover:text-ink"}`}>
             {t.label}
           </button>
         ))}
       </div>
 
-      {tab === "overview" && <OverviewTab drug={drug} />}
-      {tab === "dosing"   && <DosingTab drug={drug} />}
-      {tab === "adverse"  && <AdverseTab drug={drug} />}
+      {tab === "overview" && <OverviewTab drug={drug} lang={lang} />}
+      {tab === "dosing"   && <DosingTab drug={drug} lang={lang} />}
+      {tab === "adverse"  && <AdverseTab drug={drug} lang={lang} />}
       {tab === "vet"      && <VetTab drug={drug} allSpecies={allSpecies} lang={lang} />}
 
       {/* Related drugs */}
@@ -353,7 +364,7 @@ export function DrugDetailTabs({
         <div className="mt-10">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-syne font-bold text-base text-ink">{t("similarDrugs", lang)}</h2>
-            <span className="font-serif text-ink-3 text-xs">{alternatives.length} found</span>
+            <span className="font-serif text-ink-3 text-xs">{t("foundCount", lang).replace("{n}", String(alternatives.length))}</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {alternatives.map(alt => (

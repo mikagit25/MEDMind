@@ -344,7 +344,7 @@ export default function LandingPage({
                   </span>
                 </div>
                 <span className="text-xs font-syne font-semibold text-red uppercase tracking-wide mb-2">
-                  {item.category.replace(/-/g, " ")}
+                  {getCategoryLabel(item.category, locale) || item.category.replace(/-/g, " ")}
                 </span>
                 <h3 className="font-syne font-bold text-sm text-ink group-hover:text-red transition-colors leading-snug mb-2 line-clamp-3">
                   {item.title}

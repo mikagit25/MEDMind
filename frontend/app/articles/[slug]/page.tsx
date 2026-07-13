@@ -509,13 +509,13 @@ function renderBlock(
 
 // Simple server-side labels (SSR can't use useT hook)
 const SERVER_LABELS: Record<string, Record<string, string>> = {
-  en: { faq: "{ui.faq}", refs: "References", disclaimer: "Medical Disclaimer", related: "Related Articles", read_in: "Read in", module: "Study this topic in-depth", open_module: "Open module →", related_news: "Latest News on This Topic" },
-  ru: { faq: "Часто задаваемые вопросы", refs: "Источники", disclaimer: "Медицинский дисклеймер", related: "Похожие статьи", read_in: "Читать на", module: "Изучить тему подробнее", open_module: "Открыть модуль →", related_news: "Последние новости по теме" },
-  de: { faq: "Häufig gestellte Fragen", refs: "Referenzen", disclaimer: "Medizinischer Haftungsausschluss", related: "Verwandte Artikel", read_in: "Lesen auf", module: "Dieses Thema vertiefen", open_module: "Modul öffnen →", related_news: "Aktuelle Nachrichten zu diesem Thema" },
-  fr: { faq: "Questions fréquemment posées", refs: "Références", disclaimer: "Avertissement médical", related: "Articles connexes", read_in: "Lire en", module: "Approfondir ce sujet", open_module: "Ouvrir le module →", related_news: "Dernières actualités sur ce sujet" },
-  ar: { faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة", related_news: "آخر الأخبار حول هذا الموضوع" },
-  tr: { faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →", related_news: "Bu Konuyla İlgili Son Haberler" },
-  es: { faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →", related_news: "Últimas noticias sobre este tema" },
+  en: { articles: "Articles", more_articles: "More Articles", all_articles: "← All articles", faq: "{ui.faq}", refs: "References", disclaimer: "Medical Disclaimer", related: "Related Articles", read_in: "Read in", module: "Study this topic in-depth", open_module: "Open module →", related_news: "Latest News on This Topic" },
+  ru: { articles: "Статьи", more_articles: "Другие статьи", all_articles: "← Все статьи", faq: "Часто задаваемые вопросы", refs: "Источники", disclaimer: "Медицинский дисклеймер", related: "Похожие статьи", read_in: "Читать на", module: "Изучить тему подробнее", open_module: "Открыть модуль →", related_news: "Последние новости по теме" },
+  de: { articles: "Artikel", more_articles: "Weitere Artikel", all_articles: "← Alle Artikel", faq: "Häufig gestellte Fragen", refs: "Referenzen", disclaimer: "Medizinischer Haftungsausschluss", related: "Verwandte Artikel", read_in: "Lesen auf", module: "Dieses Thema vertiefen", open_module: "Modul öffnen →", related_news: "Aktuelle Nachrichten zu diesem Thema" },
+  fr: { articles: "Articles", more_articles: "Autres articles", all_articles: "← Tous les articles", faq: "Questions fréquemment posées", refs: "Références", disclaimer: "Avertissement médical", related: "Articles connexes", read_in: "Lire en", module: "Approfondir ce sujet", open_module: "Ouvrir le module →", related_news: "Dernières actualités sur ce sujet" },
+  ar: { articles: "المقالات", more_articles: "مقالات أخرى", all_articles: "→ كل المقالات", faq: "الأسئلة الشائعة", refs: "المراجع", disclaimer: "إخلاء المسؤولية الطبية", related: "مقالات ذات صلة", read_in: "اقرأ بـ", module: "ادرس هذا الموضوع بعمق", open_module: "→ فتح الوحدة", related_news: "آخر الأخبار حول هذا الموضوع" },
+  tr: { articles: "Makaleler", more_articles: "Daha Fazla Makale", all_articles: "← Tüm makaleler", faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →", related_news: "Bu Konuyla İlgili Son Haberler" },
+  es: { articles: "Artículos", more_articles: "Más artículos", all_articles: "← Todos los artículos", faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →", related_news: "Últimas noticias sobre este tema" },
 };
 
 export default async function ArticlePage({
@@ -577,7 +577,7 @@ export default async function ArticlePage({
         <main>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs font-serif text-ink-3 mb-6" aria-label="Breadcrumb">
-            <Link href="/articles" className="hover:text-ink">Articles</Link>
+            <Link href="/articles" className="hover:text-ink">{ui.articles}</Link>
             <span>/</span>
             <Link href={`/articles/category/${article.category}`} className="hover:text-ink capitalize">
               {getCategoryLabel(article.category, locale)}
@@ -1010,9 +1010,9 @@ export default async function ArticlePage({
 
           {/* Browse more */}
           <div className="bg-surface border border-border rounded-xl p-5">
-            <div className="font-syne font-semibold text-xs text-ink-2 uppercase tracking-wider mb-3">More Articles</div>
+            <div className="font-syne font-semibold text-xs text-ink-2 uppercase tracking-wider mb-3">{ui.more_articles}</div>
             <Link href="/articles" className="text-sm font-serif text-ink-2 hover:text-ink flex items-center gap-1">
-              ← All articles
+              {ui.all_articles}
             </Link>
             <Link href={`/articles/category/${article.category}`} className="mt-2 text-sm font-serif text-ink-2 hover:text-ink flex items-center gap-1">
               {getMoreIn(locale)} {getCategoryLabel(article.category, locale)}

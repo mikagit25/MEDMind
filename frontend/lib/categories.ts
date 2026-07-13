@@ -117,6 +117,11 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Men's Health",
     "lab-medicine": "Laboratory Medicine",
     "clinical-nutrition": "Clinical Nutrition",
+    // News category aliases
+    "infectious-disease": "Infectious Diseases",
+    gastroenterology: "Gastroenterology",
+    obstetrics: "Obstetrics",
+    "general-medicine": "General Medicine",
   },
 
   ru: {
@@ -184,6 +189,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Мужское здоровье",
     "lab-medicine": "Лабораторная медицина",
     "clinical-nutrition": "Клиническое питание",
+    "infectious-disease": "Инфекционные болезни",
+    gastroenterology: "Гастроэнтерология",
+    obstetrics: "Акушерство",
+    "general-medicine": "Общая медицина",
   },
 
   de: {
@@ -251,6 +260,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Männergesundheit",
     "lab-medicine": "Labormedizin",
     "clinical-nutrition": "Klinische Ernährung",
+    "infectious-disease": "Infektionskrankheiten",
+    gastroenterology: "Gastroenterologie",
+    obstetrics: "Geburtshilfe",
+    "general-medicine": "Allgemeinmedizin",
   },
 
   fr: {
@@ -318,6 +331,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Santé masculine",
     "lab-medicine": "Biologie médicale",
     "clinical-nutrition": "Nutrition clinique",
+    "infectious-disease": "Maladies infectieuses",
+    gastroenterology: "Gastroentérologie",
+    obstetrics: "Obstétrique",
+    "general-medicine": "Médecine générale",
   },
 
   es: {
@@ -385,6 +402,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Salud Masculina",
     "lab-medicine": "Medicina de Laboratorio",
     "clinical-nutrition": "Nutrición Clínica",
+    "infectious-disease": "Enfermedades Infecciosas",
+    gastroenterology: "Gastroenterología",
+    obstetrics: "Obstetricia",
+    "general-medicine": "Medicina General",
   },
 
   tr: {
@@ -452,6 +473,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "Erkek Sağlığı",
     "lab-medicine": "Laboratuvar Tıbbı",
     "clinical-nutrition": "Klinik Beslenme",
+    "infectious-disease": "Enfeksiyon Hastalıkları",
+    gastroenterology: "Gastroenteroloji",
+    obstetrics: "Obstetri",
+    "general-medicine": "Genel Tıp",
   },
 
   ar: {
@@ -519,6 +544,10 @@ const STATIC_LABELS: Record<string, Record<string, string>> = {
     "mens-health": "صحة الرجل",
     "lab-medicine": "الطب المختبري",
     "clinical-nutrition": "التغذية السريرية",
+    "infectious-disease": "الأمراض المعدية",
+    gastroenterology: "أمراض الجهاز الهضمي",
+    obstetrics: "التوليد",
+    "general-medicine": "الطب العام",
   },
 };
 
@@ -611,3 +640,41 @@ export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   "lab-medicine": "Laboratory medicine: reference ranges, test interpretation, and quality control.",
   "clinical-nutrition": "Nutritional assessment, parenteral nutrition, malnutrition, and therapeutic diets.",
 };
+
+/** Locale-aware descriptions for categories that have translations. Falls back to CATEGORY_DESCRIPTIONS (English). */
+const CATEGORY_DESCRIPTIONS_I18N: Partial<Record<string, Record<string, string>>> = {
+  veterinary: {
+    en: "Veterinary medicine: animal diseases, pharmacology, and clinical techniques.",
+    ru: "Ветеринарная медицина: болезни животных, фармакология и клинические методы.",
+    de: "Veterinärmedizin: Tierkrankheiten, Pharmakologie und klinische Techniken.",
+    fr: "Médecine vétérinaire : maladies animales, pharmacologie et techniques cliniques.",
+    es: "Medicina veterinaria: enfermedades animales, farmacología y técnicas clínicas.",
+    tr: "Veteriner hekimlik: hayvan hastalıkları, farmakoloji ve klinik teknikler.",
+    ar: "الطب البيطري: أمراض الحيوانات والصيدلة والتقنيات السريرية.",
+  },
+  diseases: {
+    en: "Evidence-based articles on medical conditions, pathophysiology, diagnosis, and treatment.",
+    ru: "Доказательные статьи о заболеваниях, патофизиологии, диагностике и лечении.",
+    de: "Evidenzbasierte Artikel zu Erkrankungen, Pathophysiologie, Diagnose und Therapie.",
+    fr: "Articles fondés sur des preuves sur les maladies, la physiopathologie, le diagnostic et le traitement.",
+    es: "Artículos basados en evidencia sobre enfermedades, fisiopatología, diagnóstico y tratamiento.",
+    tr: "Hastalıklar, patofizyoloji, tanı ve tedavi hakkında kanıta dayalı makaleler.",
+    ar: "مقالات مستندة إلى الأدلة حول الأمراض والفيزيولوجيا المرضية والتشخيص والعلاج.",
+  },
+  drugs: {
+    en: "Drug monographs: mechanisms of action, dosing, contraindications, and interactions.",
+    ru: "Монографии препаратов: механизм действия, дозировка, противопоказания и взаимодействия.",
+    de: "Arzneimittelmonografien: Wirkmechanismen, Dosierung, Kontraindikationen und Wechselwirkungen.",
+    fr: "Monographies de médicaments : mécanismes d'action, posologie, contre-indications et interactions.",
+    es: "Monografías de fármacos: mecanismos de acción, dosificación, contraindicaciones e interacciones.",
+    tr: "İlaç monografileri: etki mekanizmaları, dozaj, kontrendikasyonlar ve etkileşimler.",
+    ar: "مونوجرافات الأدوية: آليات العمل والجرعات وموانع الاستخدام والتفاعلات.",
+  },
+};
+
+export function getCategoryDescription(cat: string, locale: string): string {
+  return CATEGORY_DESCRIPTIONS_I18N[cat]?.[locale]
+    ?? CATEGORY_DESCRIPTIONS_I18N[cat]?.["en"]
+    ?? CATEGORY_DESCRIPTIONS[cat]
+    ?? "";
+}

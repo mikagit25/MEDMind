@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-import { getCategoryLabel, CATEGORY_DESCRIPTIONS } from "@/lib/categories";
+import { getCategoryLabel, CATEGORY_DESCRIPTIONS, getCategoryDescription } from "@/lib/categories";
 import { CategoryIcon } from "@/lib/medical-icons";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { getArticlesT } from "@/lib/articles-i18n";
@@ -263,7 +263,7 @@ export default async function CategoryPage({
             <h1 className="font-syne font-black text-3xl text-ink">{label}</h1>
           </div>
           <p className="text-ink-2 font-serif text-base max-w-2xl">
-            {CATEGORY_DESCRIPTIONS[params.cat]}
+            {getCategoryDescription(params.cat, locale)}
           </p>
           <p className="text-ink-3 font-serif text-sm mt-2">
             {t.n_articles.replace("{n}", String(total))}
@@ -354,7 +354,7 @@ export default async function CategoryPage({
                     <div className="relative h-40 overflow-hidden bg-surface-2">
                       <img
                         src={a.cover_image}
-                        alt={a.title}
+                        alt=""
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />

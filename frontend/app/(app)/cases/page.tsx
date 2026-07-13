@@ -106,10 +106,26 @@ function CasesInner() {
     hard: t("cases.diff_advanced") as string || "Hard",
   };
 
+  // Map DB specialty values (stored in Russian + "Veterinary") to locale labels
+  const SPECIALTY_I18N: Record<string, Record<string, string>> = {
+    "Veterinary":                  { en: "Veterinary",        ru: "Ветеринария",                de: "Veterinärmedizin",          fr: "Médecine vétérinaire", es: "Veterinaria",                      tr: "Veterinerlik",                ar: "الطب البيطري" },
+    "Кардиология":                 { en: "Cardiology",        ru: "Кардиология",                de: "Kardiologie",               fr: "Cardiologie",           es: "Cardiología",                      tr: "Kardiyoloji",                 ar: "أمراض القلب" },
+    "Неврология":                  { en: "Neurology",         ru: "Неврология",                 de: "Neurologie",                fr: "Neurologie",            es: "Neurología",                       tr: "Nöroloji",                    ar: "علم الأعصاب" },
+    "Терапия":                     { en: "Internal Medicine", ru: "Терапия",                    de: "Innere Medizin",            fr: "Médecine interne",      es: "Medicina interna",                 tr: "İç Hastalıkları",             ar: "الطب الباطني" },
+    "Хирургия":                    { en: "Surgery",           ru: "Хирургия",                   de: "Chirurgie",                 fr: "Chirurgie",             es: "Cirugía",                          tr: "Cerrahi",                     ar: "الجراحة" },
+    "Педиатрия":                   { en: "Pediatrics",        ru: "Педиатрия",                  de: "Pädiatrie",                 fr: "Pédiatrie",             es: "Pediatría",                        tr: "Pediatri",                    ar: "طب الأطفال" },
+    "Онкология":                   { en: "Oncology",          ru: "Онкология",                  de: "Onkologie",                 fr: "Oncologie",             es: "Oncología",                        tr: "Onkoloji",                    ar: "علم الأورام" },
+    "Психиатрия":                  { en: "Psychiatry",        ru: "Психиатрия",                 de: "Psychiatrie",               fr: "Psychiatrie",           es: "Psiquiatría",                      tr: "Psikiyatri",                  ar: "الطب النفسي" },
+    "Дерматология":                { en: "Dermatology",       ru: "Дерматология",               de: "Dermatologie",              fr: "Dermatologie",          es: "Dermatología",                     tr: "Dermatoloji",                 ar: "الأمراض الجلدية" },
+    "Анестезиология":              { en: "Anesthesiology",    ru: "Анестезиология",             de: "Anästhesiologie",           fr: "Anesthésiologie",       es: "Anestesiología",                   tr: "Anesteziyoloji",              ar: "التخدير" },
+    "Акушерство и гинекология":    { en: "OB/GYN",            ru: "Акушерство и гинекология",   de: "Geburtshilfe & Gynäkologie",fr: "Obstétrique & Gynécologie", es: "Obstetricia y Ginecología",    tr: "Kadın Hastalıkları",          ar: "التوليد وأمراض النساء" },
+    "Базовые дисциплины":          { en: "Basic Sciences",    ru: "Базовые дисциплины",         de: "Grundlagenwissenschaften",  fr: "Sciences fondamentales", es: "Ciencias básicas",                tr: "Temel Bilimler",              ar: "العلوم الأساسية" },
+  };
   const SPECIALTY_LABEL: Record<string, string> = {
     Veterinary: t("cases.specialty_veterinary") as string || "Veterinary",
   };
-  const translateSpecialty = (s: string) => SPECIALTY_LABEL[s] ?? s;
+  const translateSpecialty = (s: string) =>
+    SPECIALTY_I18N[s]?.[locale] ?? SPECIALTY_I18N[s]?.["en"] ?? SPECIALTY_LABEL[s] ?? s;
 
   const [cases, setCases] = useState<Case[]>([]);
   const [loadingList, setLoadingList] = useState(true);
