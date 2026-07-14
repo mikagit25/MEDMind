@@ -184,7 +184,18 @@ function BrowseTab({ initial, classes, lang }: { initial: BrowseResult; classes:
   );
 }
 
-function DoseCalculator() {
+const DOSE_UI: Record<string, Record<string, string>> = {
+  en: { title: "Dose Calculator", drug_name: "Drug name *", weight: "Weight (kg) *", age: "Age (years)", dose_per_kg: "Dose per kg", unit: "Unit", max_dose: "Max single dose", renal: "Renal GFR (mL/min)", optional: "optional", calculate: "Calculate dose", calculating: "Calculating…", result: "Result", calc_dose: "Calculated dose", renal_adj: "Renal adjustment", disclaimer: "⚕️ Educational estimate only." },
+  ru: { title: "Калькулятор дозы", drug_name: "Название препарата *", weight: "Масса (кг) *", age: "Возраст (лет)", dose_per_kg: "Доза на кг", unit: "Единица", max_dose: "Макс. разовая доза", renal: "СКФ (мл/мин)", optional: "необязательно", calculate: "Рассчитать дозу", calculating: "Расчёт…", result: "Результат", calc_dose: "Рассчитанная доза", renal_adj: "Корректировка по почкам", disclaimer: "⚕️ Только в образовательных целях." },
+  ar: { title: "حاسبة الجرعة", drug_name: "اسم الدواء *", weight: "الوزن (كجم) *", age: "العمر (سنوات)", dose_per_kg: "الجرعة لكل كجم", unit: "الوحدة", max_dose: "أقصى جرعة منفردة", renal: "معدل الترشيح الكلوي", optional: "اختياري", calculate: "احسب الجرعة", calculating: "جارٍ الحساب…", result: "النتيجة", calc_dose: "الجرعة المحسوبة", renal_adj: "تعديل كلوي", disclaimer: "⚕️ للأغراض التعليمية فقط." },
+  de: { title: "Dosisrechner", drug_name: "Arzneimittelname *", weight: "Gewicht (kg) *", age: "Alter (Jahre)", dose_per_kg: "Dosis pro kg", unit: "Einheit", max_dose: "Max. Einzeldosis", renal: "GFR (mL/min)", optional: "optional", calculate: "Dosis berechnen", calculating: "Berechne…", result: "Ergebnis", calc_dose: "Berechnete Dosis", renal_adj: "Nierenkorrektur", disclaimer: "⚕️ Nur zu Bildungszwecken." },
+  fr: { title: "Calculateur de dose", drug_name: "Nom du médicament *", weight: "Poids (kg) *", age: "Âge (ans)", dose_per_kg: "Dose par kg", unit: "Unité", max_dose: "Dose unitaire max.", renal: "DFG (mL/min)", optional: "facultatif", calculate: "Calculer la dose", calculating: "Calcul…", result: "Résultat", calc_dose: "Dose calculée", renal_adj: "Ajustement rénal", disclaimer: "⚕️ À des fins éducatives uniquement." },
+  es: { title: "Calculadora de dosis", drug_name: "Nombre del fármaco *", weight: "Peso (kg) *", age: "Edad (años)", dose_per_kg: "Dosis por kg", unit: "Unidad", max_dose: "Dosis única máx.", renal: "TFG (mL/min)", optional: "opcional", calculate: "Calcular dosis", calculating: "Calculando…", result: "Resultado", calc_dose: "Dosis calculada", renal_adj: "Ajuste renal", disclaimer: "⚕️ Solo con fines educativos." },
+  tr: { title: "Doz Hesaplayıcı", drug_name: "İlaç adı *", weight: "Ağırlık (kg) *", age: "Yaş (yıl)", dose_per_kg: "kg başına doz", unit: "Birim", max_dose: "Maks. tek doz", renal: "GFR (mL/dak)", optional: "isteğe bağlı", calculate: "Dozu hesapla", calculating: "Hesaplanıyor…", result: "Sonuç", calc_dose: "Hesaplanan doz", renal_adj: "Böbrek ayarlaması", disclaimer: "⚕️ Yalnızca eğitim amaçlıdır." },
+};
+
+function DoseCalculator({ lang }: { lang: string }) {
+  const ui = DOSE_UI[lang] ?? DOSE_UI.en;
   const [form, setForm] = useState({ drug_name: "", weight_kg: "", age_years: "", renal_gfr: "", dose_per_kg: "", unit: "mg", max_dose: "" });
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -203,39 +214,39 @@ function DoseCalculator() {
   return (
     <div className="max-w-lg">
       <form onSubmit={calculate} className="bg-surface border border-border rounded-xl p-6 space-y-4">
-        <h2 className="font-syne font-bold text-base text-ink">Dose Calculator</h2>
-        <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Drug name *</label><input required type="text" value={form.drug_name} onChange={set("drug_name")} placeholder="e.g. Amoxicillin" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+        <h2 className="font-syne font-bold text-base text-ink">{ui.title}</h2>
+        <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.drug_name}</label><input required type="text" value={form.drug_name} onChange={set("drug_name")} placeholder="e.g. Amoxicillin" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
         <div className="grid grid-cols-2 gap-3">
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Weight (kg) *</label><input required type="number" min="0.5" max="300" step="0.1" value={form.weight_kg} onChange={set("weight_kg")} placeholder="70" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Age (years)</label><input type="number" min="0" max="120" value={form.age_years} onChange={set("age_years")} placeholder="optional" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.weight}</label><input required type="number" min="0.5" max="300" step="0.1" value={form.weight_kg} onChange={set("weight_kg")} placeholder="70" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.age}</label><input type="number" min="0" max="120" value={form.age_years} onChange={set("age_years")} placeholder={ui.optional} className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Dose per kg</label><input type="number" min="0" step="0.01" value={form.dose_per_kg} onChange={set("dose_per_kg")} placeholder="e.g. 25" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Unit</label><select value={form.unit} onChange={set("unit")} className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink">{["mg","mcg","g","mg/kg","mcg/kg"].map(u => <option key={u} value={u}>{u}</option>)}</select></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.dose_per_kg}</label><input type="number" min="0" step="0.01" value={form.dose_per_kg} onChange={set("dose_per_kg")} placeholder="e.g. 25" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.unit}</label><select value={form.unit} onChange={set("unit")} className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink">{["mg","mcg","g","mg/kg","mcg/kg"].map(u => <option key={u} value={u}>{u}</option>)}</select></div>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Max single dose</label><input type="number" min="0" step="0.1" value={form.max_dose} onChange={set("max_dose")} placeholder="optional" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
-          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">Renal GFR (mL/min)</label><input type="number" min="0" max="120" value={form.renal_gfr} onChange={set("renal_gfr")} placeholder="optional" className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.max_dose}</label><input type="number" min="0" step="0.1" value={form.max_dose} onChange={set("max_dose")} placeholder={ui.optional} className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
+          <div><label className="block font-syne font-semibold text-xs text-ink-2 mb-1">{ui.renal}</label><input type="number" min="0" max="120" value={form.renal_gfr} onChange={set("renal_gfr")} placeholder={ui.optional} className="w-full border border-border rounded-lg px-3 py-2 text-sm font-serif bg-bg text-ink focus:outline-none focus:border-ink" /></div>
         </div>
         {error && <p className="font-serif text-red text-xs">{error}</p>}
-        <button type="submit" disabled={loading} className="w-full bg-ink text-white font-syne font-bold text-sm py-2.5 rounded-xl hover:bg-ink/80 transition-colors disabled:opacity-40">{loading ? "Calculating…" : "Calculate dose"}</button>
+        <button type="submit" disabled={loading} className="w-full bg-ink text-white font-syne font-bold text-sm py-2.5 rounded-xl hover:bg-ink/80 transition-colors disabled:opacity-40">{loading ? ui.calculating : ui.calculate}</button>
       </form>
       {result && (
         <div className="bg-surface border border-border rounded-xl p-5 mt-4">
-          <h3 className="font-syne font-bold text-sm text-ink mb-3">Result — {result.drug_name}</h3>
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">{ui.result} — {result.drug_name}</h3>
           <div className="space-y-2">
             <div className="flex items-center justify-between py-1.5 border-b border-border">
-              <span className="font-serif text-xs text-ink-3">Calculated dose</span>
+              <span className="font-serif text-xs text-ink-3">{ui.calc_dose}</span>
               <span className="font-syne font-bold text-base text-ink">{result.calculated_dose} {result.unit}</span>
             </div>
             {result.renal_adjustment && result.renal_adjustment !== "none" && (
               <div className="flex items-center justify-between py-1.5 border-b border-border">
-                <span className="font-serif text-xs text-ink-3">Renal adjustment</span>
+                <span className="font-serif text-xs text-ink-3">{ui.renal_adj}</span>
                 <span className="font-syne font-bold text-sm text-amber">{result.renal_adjustment}</span>
               </div>
             )}
           </div>
-          <p className="font-serif text-ink-3 text-xs mt-3">⚕️ Educational estimate only.</p>
+          <p className="font-serif text-ink-3 text-xs mt-3">{ui.disclaimer}</p>
         </div>
       )}
     </div>
@@ -289,13 +300,35 @@ export function DrugBrowserClient({
 
       {tab === "browse"       && <BrowseTab initial={initial} classes={classes} lang={lang} />}
       {tab === "interactions" && <InteractionChecker />}
-      {tab === "dose"         && <DoseCalculator />}
-      {tab === "vet"          && <VetDosing />}
+      {tab === "dose"         && <DoseCalculator lang={lang} />}
+      {tab === "vet"          && <VetDosing lang={lang} />}
     </>
   );
 }
 
-function VetDosing() {
+const VET_UI: Record<string, Record<string, string>> = {
+  en: { title: "Veterinary Drug Dosing", species: "Species", search_placeholder: "Search drug…", loading: "Loading dosing data…", dosing_for: "Dosing", caution: "Caution: Potential toxicity", safe: "Generally safe", edu_only: "🐾 For educational use only." },
+  ru: { title: "Дозирование ветеринарных препаратов", species: "Вид животного", search_placeholder: "Поиск препарата…", loading: "Загрузка данных о дозировке…", dosing_for: "Дозировка", caution: "Осторожно: возможная токсичность", safe: "Как правило, безопасен", edu_only: "🐾 Только в образовательных целях." },
+  ar: { title: "جرعات الأدوية البيطرية", species: "النوع", search_placeholder: "البحث عن دواء…", loading: "جارٍ تحميل بيانات الجرعة…", dosing_for: "الجرعة", caution: "تحذير: سمية محتملة", safe: "آمن بشكل عام", edu_only: "🐾 للأغراض التعليمية فقط." },
+  de: { title: "Veterinäre Dosierung", species: "Tierart", search_placeholder: "Medikament suchen…", loading: "Dosierdaten laden…", dosing_for: "Dosierung", caution: "Achtung: Potenzielle Toxizität", safe: "Im Allgemeinen sicher", edu_only: "🐾 Nur zu Bildungszwecken." },
+  fr: { title: "Dosage vétérinaire", species: "Espèce", search_placeholder: "Rechercher un médicament…", loading: "Chargement des données de dosage…", dosing_for: "Posologie", caution: "Attention : toxicité potentielle", safe: "Généralement sûr", edu_only: "🐾 À des fins éducatives uniquement." },
+  es: { title: "Dosificación veterinaria", species: "Especie", search_placeholder: "Buscar medicamento…", loading: "Cargando datos de dosificación…", dosing_for: "Dosificación", caution: "Precaución: toxicidad potencial", safe: "Generalmente seguro", edu_only: "🐾 Solo con fines educativos." },
+  tr: { title: "Veteriner İlaç Dozajı", species: "Tür", search_placeholder: "İlaç ara…", loading: "Dozaj verileri yükleniyor…", dosing_for: "Dozaj", caution: "Dikkat: Potansiyel toksisite", safe: "Genellikle güvenli", edu_only: "🐾 Yalnızca eğitim amaçlıdır." },
+};
+
+const VET_FALLBACK_SPECIES: Record<string, string[]> = {
+  en: ["🐕 Dog", "🐈 Cat", "🐎 Horse", "🐄 Cattle", "🦜 Bird", "🐇 Rabbit"],
+  ru: ["🐕 Собака", "🐈 Кошка", "🐎 Лошадь", "🐄 Корова", "🦜 Птица", "🐇 Кролик"],
+  ar: ["🐕 كلب", "🐈 قط", "🐎 حصان", "🐄 بقرة", "🦜 طائر", "🐇 أرنب"],
+  de: ["🐕 Hund", "🐈 Katze", "🐎 Pferd", "🐄 Rind", "🦜 Vogel", "🐇 Kaninchen"],
+  fr: ["🐕 Chien", "🐈 Chat", "🐎 Cheval", "🐄 Bovin", "🦜 Oiseau", "🐇 Lapin"],
+  es: ["🐕 Perro", "🐈 Gato", "🐎 Caballo", "🐄 Ganado", "🦜 Ave", "🐇 Conejo"],
+  tr: ["🐕 Köpek", "🐈 Kedi", "🐎 At", "🐄 Sığır", "🦜 Kuş", "🐇 Tavşan"],
+};
+
+function VetDosing({ lang }: { lang: string }) {
+  const ui = VET_UI[lang] ?? VET_UI.en;
+  const fallbackSpecies = VET_FALLBACK_SPECIES[lang] ?? VET_FALLBACK_SPECIES.en;
   const [species, setSpecies] = useState<any[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState("");
   const [drugQuery, setDrugQuery] = useState("");
@@ -339,28 +372,28 @@ function VetDosing() {
   return (
     <div className="space-y-5 max-w-2xl">
       <div className="bg-surface border border-border rounded-xl p-5">
-        <h2 className="font-syne font-bold text-sm text-ink mb-4">Veterinary Drug Dosing</h2>
-        <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">Species</label>
+        <h2 className="font-syne font-bold text-sm text-ink mb-4">{ui.title}</h2>
+        <label className="block font-syne font-semibold text-xs text-ink-2 mb-2">{ui.species}</label>
         <div className="flex flex-wrap gap-2 mb-4">
           {species.length > 0 ? species.map((s: any) => (
             <button key={s.id} onClick={() => setSelectedSpecies(s.id)}
               className={`px-3 py-1.5 rounded-lg border font-syne font-semibold text-xs transition-all ${selectedSpecies === s.id ? "border-ink bg-ink text-white" : "border-border text-ink-2 hover:border-ink-3"}`}>
-              {s.icon && <span className="mr-1">{s.icon}</span>}{s.name}
+              {s.icon && <span className="mr-1">{s.icon}</span>}{lang !== "en" && s.name_ru ? s.name_ru : s.name}
             </button>
-          )) : ["🐕 Dog", "🐈 Cat", "🐎 Horse", "🐄 Cattle"].map(s => (
+          )) : fallbackSpecies.map(s => (
             <span key={s} className="px-3 py-1.5 rounded-lg border border-border font-syne font-semibold text-xs text-ink-3">{s}</span>
           ))}
         </div>
         <div className="relative">
           <input type="text" value={drugQuery} onChange={e => { setDrugQuery(e.target.value); setSelectedDrug(null); }} onFocus={() => setShowSugg(true)}
-            placeholder="Search drug…" className="w-full px-3 py-2 rounded-lg border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink" />
+            placeholder={ui.search_placeholder} className="w-full px-3 py-2 rounded-lg border border-border bg-bg text-ink font-serif text-sm focus:outline-none focus:border-ink" />
           {showSugg && drugResults.length > 0 && (
             <div className="absolute top-full left-0 right-0 z-10 bg-surface border border-border rounded-xl shadow-lg mt-1">
               {drugResults.map(d => (
                 <button key={d.id} onClick={() => selectDrug(d)}
                   className="w-full text-left px-3 py-2 font-serif text-sm text-ink hover:bg-bg transition-colors first:rounded-t-xl last:rounded-b-xl">
                   <span className="font-syne font-semibold">{d.name}</span>
-                  <span className="text-ink-3 ml-2 text-xs">{d.drug_class}</span>{/* VetDosing always searches in EN, class shown as-is */}
+                  <span className="text-ink-3 ml-2 text-xs">{d.drug_class}</span>
                 </button>
               ))}
             </div>
@@ -371,15 +404,15 @@ function VetDosing() {
         <div className={`rounded-xl p-4 border flex gap-3 ${safety.is_toxic ? "border-red/30 bg-red-light" : "border-green/20 bg-green-light"}`}>
           <span className="text-xl">{safety.is_toxic ? "⚠️" : "✅"}</span>
           <div>
-            <div className={`font-syne font-bold text-sm ${safety.is_toxic ? "text-red" : "text-green"}`}>{safety.is_toxic ? "Caution: Potential toxicity" : "Generally safe"}</div>
+            <div className={`font-syne font-bold text-sm ${safety.is_toxic ? "text-red" : "text-green"}`}>{safety.is_toxic ? ui.caution : ui.safe}</div>
             {safety.toxicity_note && <div className="font-serif text-xs mt-0.5 text-ink-2">{safety.toxicity_note}</div>}
           </div>
         </div>
       )}
-      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">Loading dosing data…</div>}
+      {loading && <div className="text-center py-6 font-serif text-ink-3 text-sm">{ui.loading}</div>}
       {!loading && dosing.length > 0 && (
         <div className="bg-surface border border-border rounded-xl p-5">
-          <h3 className="font-syne font-bold text-sm text-ink mb-3">Dosing: {selectedDrug?.name}</h3>
+          <h3 className="font-syne font-bold text-sm text-ink mb-3">{ui.dosing_for}: {selectedDrug?.name}</h3>
           <div className="space-y-3">
             {dosing.map((d: any, i: number) => (
               <div key={i} className="p-3 rounded-lg bg-bg space-y-1">
@@ -394,7 +427,7 @@ function VetDosing() {
           </div>
         </div>
       )}
-      <p className="font-serif text-ink-3 text-xs text-center">🐾 For educational use only.</p>
+      <p className="font-serif text-ink-3 text-xs text-center">{ui.edu_only}</p>
     </div>
   );
 }

@@ -42,6 +42,7 @@ const T: Record<string, Record<string, string>> = {
   vetEduOnly:    { en: "🐾 For educational use only.", ru: "🐾 Только в образовательных целях.", ar: "🐾 للاستخدام التعليمي فقط.", de: "🐾 Nur zu Bildungszwecken.", fr: "🐾 À des fins éducatives uniquement.", es: "🐾 Solo para uso educativo.", tr: "🐾 Yalnızca eğitim amaçlıdır." },
   similarDrugs:  { en: "Similar Drugs — Same Class", ru: "Похожие препараты — тот же класс", ar: "أدوية مماثلة — نفس الفئة", de: "Ähnliche Medikamente — gleiche Klasse", fr: "Médicaments similaires — même classe", es: "Medicamentos similares — misma clase", tr: "Benzer İlaçlar — Aynı Sınıf" },
   sameClass:     { en: "Same pharmacological class or related mechanism of action", ru: "Тот же фармакологический класс или схожий механизм действия", ar: "نفس الفئة الدوائية أو آلية عمل مماثلة", de: "Gleiche pharmakologische Klasse oder verwandter Wirkungsmechanismus", fr: "Même classe pharmacologique ou mécanisme d'action similaire", es: "Misma clase farmacológica o mecanismo de acción relacionado", tr: "Aynı farmakolojik sınıf veya ilgili etki mekanizması" },
+  sameDrugClass: { en: "Same drug class", ru: "Тот же класс", ar: "نفس الفئة", de: "Gleiche Klasse", fr: "Même classe", es: "Misma clase", tr: "Aynı sınıf" },
   caution:       { en: "Caution: Risk for", ru: "Осторожно: риск для", ar: "تحذير: خطر على", de: "Vorsicht: Risiko für", fr: "Attention : risque pour", es: "Precaución: riesgo para", tr: "Dikkat: Risk var:" },
   safe:          { en: "Generally safe for", ru: "Как правило, безопасен для", ar: "آمن عمومًا لـ", de: "Im Allgemeinen sicher für", fr: "Généralement sûr pour", es: "Generalmente seguro para", tr: "Genellikle güvenli:" },
   mechanism:     { en: "Mechanism of Action", ru: "Механизм действия", ar: "آلية العمل", de: "Wirkmechanismus", fr: "Mécanisme d'action", es: "Mecanismo de acción", tr: "Etki Mekanizması" },
@@ -57,6 +58,30 @@ const T: Record<string, Record<string, string>> = {
   foundCount:    { en: "{n} found", ru: "Найдено: {n}", ar: "تم العثور على {n}", de: "{n} gefunden", fr: "{n} trouvé(s)", es: "{n} encontrado(s)", tr: "{n} bulundu" },
 };
 const t = (key: string, lang: string) => T[key]?.[lang] ?? T[key]?.["en"] ?? key;
+
+// Translate common English dosing route/population labels stored in DB
+const DOSING_ROUTE_I18N: Record<string, Record<string, string>> = {
+  "adult (usual)":        { ru: "Взрослые (стандартно)", de: "Erwachsene (Standard)", fr: "Adultes (standard)", es: "Adultos (estándar)", tr: "Yetişkin (standart)", ar: "بالغون (معتاد)" },
+  "adult":                { ru: "Взрослые", de: "Erwachsene", fr: "Adultes", es: "Adultos", tr: "Yetişkin", ar: "بالغون" },
+  "pediatric":            { ru: "Педиатрия", de: "Pädiatrie", fr: "Pédiatrie", es: "Pediátrico", tr: "Pediatrik", ar: "أطفال" },
+  "children":             { ru: "Дети", de: "Kinder", fr: "Enfants", es: "Niños", tr: "Çocuklar", ar: "أطفال" },
+  "renal impairment":     { ru: "Нарушение функции почек", de: "Niereninsuffizienz", fr: "Insuffisance rénale", es: "Insuficiencia renal", tr: "Böbrek yetmezliği", ar: "قصور كلوي" },
+  "hepatic impairment":   { ru: "Нарушение функции печени", de: "Leberinsuffizienz", fr: "Insuffisance hépatique", es: "Insuficiencia hepática", tr: "Karaciğer yetmezliği", ar: "قصور كبدي" },
+  "elderly":              { ru: "Пожилые", de: "Ältere", fr: "Personnes âgées", es: "Ancianos", tr: "Yaşlı", ar: "كبار السن" },
+  "intravenous":          { ru: "Внутривенно", de: "Intravenös", fr: "Intraveineux", es: "Intravenoso", tr: "Damar içi", ar: "وريدي" },
+  "oral":                 { ru: "Перорально", de: "Oral", fr: "Oral", es: "Oral", tr: "Oral", ar: "فموي" },
+  "intramuscular":        { ru: "Внутримышечно", de: "Intramuskulär", fr: "Intramusculaire", es: "Intramuscular", tr: "Kas içi", ar: "عضلي" },
+  "subcutaneous":         { ru: "Подкожно", de: "Subkutan", fr: "Sous-cutané", es: "Subcutáneo", tr: "Deri altı", ar: "تحت الجلد" },
+  "topical":              { ru: "Местно", de: "Topisch", fr: "Topique", es: "Tópico", tr: "Topikal", ar: "موضعي" },
+  "maximum dose":         { ru: "Максимальная доза", de: "Maximaldosis", fr: "Dose maximale", es: "Dosis máxima", tr: "Maksimum doz", ar: "الجرعة القصوى" },
+  "loading dose":         { ru: "Нагрузочная доза", de: "Ladedosis", fr: "Dose de charge", es: "Dosis de carga", tr: "Yükleme dozu", ar: "جرعة التحميل" },
+  "maintenance":          { ru: "Поддерживающая", de: "Erhaltungsdosis", fr: "Entretien", es: "Mantenimiento", tr: "İdame", ar: "جرعة الصيانة" },
+};
+function translateDosingRoute(route: string, lang: string): string {
+  if (lang === "en") return route;
+  const key = route.toLowerCase();
+  return DOSING_ROUTE_I18N[key]?.[lang] ?? route;
+}
 
 const FALLBACK_SPECIES = [
   { id: "canine", name: "Canine", icon: "🐕" }, { id: "feline", name: "Feline", icon: "🐈" },
@@ -140,7 +165,7 @@ function DosingTab({ drug, lang }: { drug: Drug; lang: string }) {
           <div className="divide-y divide-border">
             {Object.entries(drug.dosing!).map(([route, dose]) => (
               <div key={route} className="py-2.5 flex gap-4 items-start">
-                <span className="font-syne font-bold text-xs text-ink-2 uppercase w-24 flex-shrink-0 pt-0.5">{route}</span>
+                <span className="font-syne font-bold text-xs text-ink-2 uppercase w-24 flex-shrink-0 pt-0.5">{translateDosingRoute(route, lang)}</span>
                 <span className="font-serif text-sm text-ink">{String(dose)}</span>
               </div>
             ))}
@@ -348,7 +373,7 @@ export function DrugDetailTabs({
       <div className="flex gap-1 mb-6 bg-surface border border-border p-1 rounded-xl overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map(t => (
           <button key={t.key} onClick={() => setTab(t.key)}
-            className={`flex-1 min-w-fit px-2 sm:px-3 py-1.5 rounded-lg font-syne font-semibold text-xs transition-all whitespace-nowrap text-center ${tab === t.key ? "bg-ink text-white shadow" : "text-ink-3 hover:text-ink"}`}>
+            className={`flex-none sm:flex-1 px-2 sm:px-3 py-1.5 rounded-lg font-syne font-semibold text-xs transition-all whitespace-nowrap text-center ${tab === t.key ? "bg-ink text-white shadow" : "text-ink-3 hover:text-ink"}`}>
             {t.label}
           </button>
         ))}
@@ -378,7 +403,7 @@ export function DrugDetailTabs({
                   <div className="font-serif text-ink-3 text-xs mt-0.5 line-clamp-1">{alt.generic_name}</div>
                 )}
                 <div className="flex items-center justify-between mt-1.5">
-                  <span className="font-serif text-ink-3 text-xs">{alt.reason}</span>
+                  <span className="font-serif text-ink-3 text-xs">{alt.reason === "Same drug class" ? t("sameDrugClass", lang) : alt.reason}</span>
                   {alt.is_high_yield && <span className="px-1.5 py-0.5 rounded-full bg-amber-light text-amber font-syne font-bold text-xs">⭐</span>}
                 </div>
               </Link>

@@ -158,6 +158,10 @@ function CasesInner() {
       // Collect unique specialties
       const specs = Array.from(new Set((res ?? []).map((c: Case) => c.specialty).filter(Boolean))) as string[];
       setSpecialties(specs.sort());
+    } catch (err) {
+      console.error("Failed to load cases:", err);
+      setCases([]);
+      setSpecialties([]);
     } finally {
       setLoadingList(false);
     }

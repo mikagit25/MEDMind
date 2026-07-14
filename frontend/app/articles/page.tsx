@@ -315,7 +315,7 @@ function ArticleCard({
         <div className="relative h-44 overflow-hidden bg-surface-2">
           <img
             src={article.cover_image}
-            alt={article.title}
+            alt=""
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />

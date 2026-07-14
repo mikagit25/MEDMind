@@ -560,7 +560,7 @@ async def search_drugs(
     q: str = Query(None, min_length=1, max_length=100),
     lang: str = Query("en", max_length=5),
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user = Depends(get_current_user_optional),
 ):
     from sqlalchemy import or_
     if not q:
