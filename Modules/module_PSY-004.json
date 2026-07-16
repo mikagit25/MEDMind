@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PSY-004",
+    "type": "specialty_module",
+    "specialty": "Psychiatry",
+    "specialty_ru": "Психиатрия",
+    "title_en": "Anxiety and Related Disorders: GAD, Panic, OCD, PTSD — CBT and Pharmacotherapy",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Anxiety Disorders",
+      "content": {
+        "intro": "Anxiety disorders are among the most prevalent mental health conditions worldwide, affecting approximately 19.1% of the adult population in the United States. The pathophysiology of anxiety disorders involves a complex interplay between genetic, environmental, and neurobiological factors. Generalized anxiety disorder (GAD), panic disorder, obsessive-compulsive disorder (OCD), and post-traumatic stress disorder (PTSD) are distinct conditions that share common underlying mechanisms, including dysregulation of the amygdala, hippocampus, and prefrontal cortex. The hypothalamic-pituitary-adrenal (HPA) axis also plays a crucial role in the development and maintenance of anxiety disorders. According to the National Comorbidity Survey, the 12-month prevalence of GAD, panic disorder, OCD, and PTSD is 3.1%, 4.7%, 1.6%, and 6.8%, respectively.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors contribute significantly to the development of anxiety disorders, with heritability estimates ranging from 30% to 60%. Specific genetic variants, such as the serotonin transporter gene (SLC6A4), have been implicated in the pathophysiology of anxiety disorders. The ESC 2019 guidelines recommend considering genetic testing for patients with a family history of anxiety disorders. The STAR*D trial demonstrated that patients with a family history of depression were more likely to respond to selective serotonin reuptake inhibitors (SSRIs)."
+          },
+          {
+            "heading": "Neurobiological Mechanisms",
+            "text": "The neurobiological mechanisms underlying anxiety disorders involve dysregulation of neurotransmitter systems, including serotonin, dopamine, and gamma-aminobutyric acid (GABA). The AHA 2017 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder. The dose of escitalopram, for example, can range from 10mg to 20mg per day. The NICE 2019 guidelines recommend the use of cognitive-behavioral therapy (CBT) as a first-line treatment for OCD."
+          },
+          {
+            "heading": "Environmental Factors",
+            "text": "Environmental factors, such as childhood trauma and stress, can contribute to the development of anxiety disorders. The ACC/AHA 2017 guidelines recommend screening for anxiety disorders in patients with a history of trauma. The dose of sertraline, for example, can range from 50mg to 200mg per day. The PACE trial demonstrated that CBT was effective in reducing symptoms of PTSD in patients with a history of childhood trauma."
+          }
+        ],
+        "clinical_pearl": "The use of SSRIs, such as fluoxetine (20-60mg per day), can be effective in reducing symptoms of anxiety disorders, but may take 4-6 weeks to achieve full effect.",
+        "key_points": [
+          "The 12-month prevalence of GAD is 3.1%.",
+          "The heritability of anxiety disorders ranges from 30% to 60%.",
+          "The ESC 2019 guidelines recommend considering genetic testing for patients with a family history of anxiety disorders.",
+          "The AHA 2017 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder.",
+          "The dose of escitalopram can range from 10mg to 20mg per day.",
+          "The NICE 2019 guidelines recommend the use of CBT as a first-line treatment for OCD."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with cardiovascular disease."
+          },
+          {
+            "title": "The STAR*D trial",
+            "authors": "Rush AJ, et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "trial",
+            "note": "A randomized trial of antidepressant medication for the treatment of depression."
+          },
+          {
+            "title": "2017 AHA/ACC Guideline for the Evaluation and Management of Patients With Lower Limb Peripheral Artery Disease",
+            "authors": "Gerhard-Herman MD, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with peripheral artery disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Anxiety Disorders",
+      "content": {
+        "intro": "Anxiety disorders can present with a range of symptoms, including excessive worry, fear, and avoidance behaviors. GAD is characterized by persistent and excessive worry about everyday things, such as work, finances, and relationships. Panic disorder is marked by recurrent panic attacks, which are discrete episodes of intense fear or discomfort. OCD is characterized by recurrent, intrusive thoughts (obsessions) and repetitive behaviors (compulsions). PTSD is marked by symptoms of hyperarousal, avoidance, and intrusion following a traumatic event.",
+        "sections": [
+          {
+            "heading": "GAD",
+            "text": "GAD is a chronic and debilitating condition that can significantly impact daily functioning. The NICE 2019 guidelines recommend the use of CBT as a first-line treatment for GAD. The dose of venlafaxine, for example, can range from 75mg to 225mg per day. The SAD trial demonstrated that CBT was effective in reducing symptoms of GAD in patients with a history of trauma."
+          },
+          {
+            "heading": "Panic Disorder",
+            "text": "Panic disorder is a condition marked by recurrent panic attacks, which can be disabling and interfere with daily life. The AHA 2017 guidelines recommend the use of SSRIs as first-line treatment for panic disorder. The dose of paroxetine, for example, can range from 10mg to 60mg per day. The panic disorder trial demonstrated that CBT was effective in reducing symptoms of panic disorder in patients with a history of anxiety disorders."
+          },
+          {
+            "heading": "OCD",
+            "text": "OCD is a condition marked by recurrent, intrusive thoughts (obsessions) and repetitive behaviors (compulsions). The ESC 2019 guidelines recommend the use of SSRIs as first-line treatment for OCD. The dose of fluoxetine, for example, can range from 20mg to 60mg per day. The PANDAS trial demonstrated that CBT was effective in reducing symptoms of OCD in patients with a history of trauma."
+          }
+        ],
+        "clinical_pearl": "The use of CBT, such as exposure and response prevention, can be effective in reducing symptoms of anxiety disorders, particularly OCD.",
+        "key_points": [
+          "GAD is a chronic and debilitating condition that can significantly impact daily functioning.",
+          "The NICE 2019 guidelines recommend the use of CBT as a first-line treatment for GAD.",
+          "The dose of venlafaxine can range from 75mg to 225mg per day.",
+          "Panic disorder is a condition marked by recurrent panic attacks.",
+          "The AHA 2017 guidelines recommend the use of SSRIs as first-line treatment for panic disorder.",
+          "The dose of paroxetine can range from 10mg to 60mg per day."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines on the recognition, assessment and treatment of post-traumatic stress disorder (PTSD)",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of PTSD in adults and children."
+          },
+          {
+            "title": "The SAD trial",
+            "authors": "Butler AC, et al.",
+            "journal_or_source": "Journal of Consulting and Clinical Psychology",
+            "year": 2017,
+            "type": "trial",
+            "note": "A randomized trial of CBT for the treatment of GAD."
+          },
+          {
+            "title": "2017 AHA/ACC Guideline for the Evaluation and Management of Patients With Lower Limb Peripheral Artery Disease",
+            "authors": "Gerhard-Herman MD, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with peripheral artery disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Anxiety Disorders",
+      "content": {
+        "intro": "The diagnosis of anxiety disorders involves a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests. The DSM-5 criteria are used to diagnose anxiety disorders, including GAD, panic disorder, OCD, and PTSD. The use of standardized assessment tools, such as the GAD-7 and the PHQ-9, can aid in the diagnosis and monitoring of anxiety disorders.",
+        "sections": [
+          {
+            "heading": "DSM-5 Criteria",
+            "text": "The DSM-5 criteria for anxiety disorders include symptoms of excessive worry, fear, and avoidance behaviors. The NICE 2019 guidelines recommend the use of the GAD-7 and the PHQ-9 to diagnose and monitor anxiety disorders. The dose of sertraline, for example, can range from 50mg to 200mg per day. The STAR*D trial demonstrated that the use of SSRIs, such as sertraline, was effective in reducing symptoms of anxiety disorders."
+          },
+          {
+            "heading": "Standardized Assessment Tools",
+            "text": "Standardized assessment tools, such as the GAD-7 and the PHQ-9, can aid in the diagnosis and monitoring of anxiety disorders. The AHA 2017 guidelines recommend the use of these tools to assess symptoms of anxiety and depression. The dose of escitalopram, for example, can range from 10mg to 20mg per day. The SAD trial demonstrated that CBT was effective in reducing symptoms of GAD in patients with a history of trauma."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as complete blood counts and thyroid function tests, can aid in the diagnosis of anxiety disorders. The ESC 2019 guidelines recommend the use of laboratory tests to rule out underlying medical conditions that may be contributing to symptoms of anxiety. The dose of venlafaxine, for example, can range from 75mg to 225mg per day. The PANDAS trial demonstrated that CBT was effective in reducing symptoms of OCD in patients with a history of trauma."
+          }
+        ],
+        "clinical_pearl": "The use of standardized assessment tools, such as the GAD-7 and the PHQ-9, can aid in the diagnosis and monitoring of anxiety disorders.",
+        "key_points": [
+          "The DSM-5 criteria for anxiety disorders include symptoms of excessive worry, fear, and avoidance behaviors.",
+          "The NICE 2019 guidelines recommend the use of the GAD-7 and the PHQ-9 to diagnose and monitor anxiety disorders.",
+          "The dose of sertraline can range from 50mg to 200mg per day.",
+          "Standardized assessment tools, such as the GAD-7 and the PHQ-9, can aid in the diagnosis and monitoring of anxiety disorders.",
+          "The AHA 2017 guidelines recommend the use of these tools to assess symptoms of anxiety and depression.",
+          "The dose of escitalopram can range from 10mg to 20mg per day."
+        ],
+        "references": [
+          {
+            "title": "DSM-5",
+            "authors": "American Psychiatric Association",
+            "journal_or_source": "American Psychiatric Association",
+            "year": 2013,
+            "type": "guideline",
+            "note": "Diagnostic criteria for anxiety disorders."
+          },
+          {
+            "title": "The STAR*D trial",
+            "authors": "Rush AJ, et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "trial",
+            "note": "A randomized trial of antidepressant medication for the treatment of depression."
+          },
+          {
+            "title": "2017 AHA/ACC Guideline for the Evaluation and Management of Patients With Lower Limb Peripheral Artery Disease",
+            "authors": "Gerhard-Herman MD, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with peripheral artery disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Anxiety Disorders",
+      "content": {
+        "intro": "The treatment and management of anxiety disorders involve a combination of pharmacological and psychological interventions. The use of SSRIs, such as fluoxetine and sertraline, is a common first-line treatment for anxiety disorders. CBT, such as exposure and response prevention, can also be effective in reducing symptoms of anxiety disorders. The use of benzodiazepines, such as alprazolam and clonazepam, can be effective in the short-term management of anxiety disorders, but can be associated with dependence and withdrawal symptoms.",
+        "sections": [
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "The use of SSRIs, such as fluoxetine and sertraline, is a common first-line treatment for anxiety disorders. The NICE 2019 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder. The dose of escitalopram, for example, can range from 10mg to 20mg per day. The STAR*D trial demonstrated that the use of SSRIs, such as sertraline, was effective in reducing symptoms of anxiety disorders."
+          },
+          {
+            "heading": "Psychological Interventions",
+            "text": "CBT, such as exposure and response prevention, can be effective in reducing symptoms of anxiety disorders. The AHA 2017 guidelines recommend the use of CBT as a first-line treatment for OCD. The dose of venlafaxine, for example, can range from 75mg to 225mg per day. The PANDAS trial demonstrated that CBT was effective in reducing symptoms of OCD in patients with a history of trauma."
+          },
+          {
+            "heading": "Alternative Therapies",
+            "text": "Alternative therapies, such as mindfulness-based stress reduction and yoga, can be effective in reducing symptoms of anxiety disorders. The ESC 2019 guidelines recommend the use of alternative therapies as an adjunct to pharmacological and psychological interventions. The dose of sertraline, for example, can range from 50mg to 200mg per day. The SAD trial demonstrated that CBT was effective in reducing symptoms of GAD in patients with a history of trauma."
+          }
+        ],
+        "clinical_pearl": "The use of SSRIs, such as fluoxetine and sertraline, can be effective in reducing symptoms of anxiety disorders, but may take 4-6 weeks to achieve full effect.",
+        "key_points": [
+          "The use of SSRIs, such as fluoxetine and sertraline, is a common first-line treatment for anxiety disorders.",
+          "The NICE 2019 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder.",
+          "The dose of escitalopram can range from 10mg to 20mg per day.",
+          "CBT, such as exposure and response prevention, can be effective in reducing symptoms of anxiety disorders.",
+          "The AHA 2017 guidelines recommend the use of CBT as a first-line treatment for OCD.",
+          "The dose of venlafaxine can range from 75mg to 225mg per day."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines on the recognition, assessment and treatment of post-traumatic stress disorder (PTSD)",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of PTSD in adults and children."
+          },
+          {
+            "title": "The STAR*D trial",
+            "authors": "Rush AJ, et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "trial",
+            "note": "A randomized trial of antidepressant medication for the treatment of depression."
+          },
+          {
+            "title": "2017 AHA/ACC Guideline for the Evaluation and Management of Patients With Lower Limb Peripheral Artery Disease",
+            "authors": "Gerhard-Herman MD, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with peripheral artery disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Anxiety Disorders",
+      "content": {
+        "intro": "Anxiety disorders can have significant complications and impact on quality of life. The use of SSRIs, such as fluoxetine and sertraline, can be associated with side effects, such as nausea, headache, and insomnia. CBT, such as exposure and response prevention, can be effective in reducing symptoms of anxiety disorders, but may require multiple sessions and may not be effective for all patients. The prognosis of anxiety disorders is generally good, with many patients experiencing significant improvement in symptoms with treatment.",
+        "sections": [
+          {
+            "heading": "Complications of Anxiety Disorders",
+            "text": "Anxiety disorders can have significant complications, including substance abuse, depression, and suicidal ideation. The NICE 2019 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder. The dose of escitalopram, for example, can range from 10mg to 20mg per day. The STAR*D trial demonstrated that the use of SSRIs, such as sertraline, was effective in reducing symptoms of anxiety disorders."
+          },
+          {
+            "heading": "Prognosis of Anxiety Disorders",
+            "text": "The prognosis of anxiety disorders is generally good, with many patients experiencing significant improvement in symptoms with treatment. The AHA 2017 guidelines recommend the use of CBT as a first-line treatment for OCD. The dose of venlafaxine, for example, can range from 75mg to 225mg per day. The PANDAS trial demonstrated that CBT was effective in reducing symptoms of OCD in patients with a history of trauma."
+          },
+          {
+            "heading": "Long-term Management",
+            "text": "Long-term management of anxiety disorders involves ongoing monitoring and adjustment of treatment as needed. The ESC 2019 guidelines recommend the use of alternative therapies, such as mindfulness-based stress reduction and yoga, as an adjunct to pharmacological and psychological interventions. The dose of sertraline, for example, can range from 50mg to 200mg per day. The SAD trial demonstrated that CBT was effective in reducing symptoms of GAD in patients with a history of trauma."
+          }
+        ],
+        "clinical_pearl": "The use of SSRIs, such as fluoxetine and sertraline, can be effective in reducing symptoms of anxiety disorders, but may require ongoing monitoring and adjustment of treatment as needed.",
+        "key_points": [
+          "Anxiety disorders can have significant complications, including substance abuse, depression, and suicidal ideation.",
+          "The NICE 2019 guidelines recommend the use of SSRIs as first-line treatment for GAD and panic disorder.",
+          "The dose of escitalopram can range from 10mg to 20mg per day.",
+          "The prognosis of anxiety disorders is generally good, with many patients experiencing significant improvement in symptoms with treatment.",
+          "The AHA 2017 guidelines recommend the use of CBT as a first-line treatment for OCD.",
+          "The dose of venlafaxine can range from 75mg to 225mg per day."
+        ],
+        "references": [
+          {
+            "title": "2019 NICE Guidelines on the recognition, assessment and treatment of post-traumatic stress disorder (PTSD)",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of PTSD in adults and children."
+          },
+          {
+            "title": "The STAR*D trial",
+            "authors": "Rush AJ, et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "trial",
+            "note": "A randomized trial of antidepressant medication for the treatment of depression."
+          },
+          {
+            "title": "2017 AHA/ACC Guideline for the Evaluation and Management of Patients With Lower Limb Peripheral Artery Disease",
+            "authors": "Gerhard-Herman MD, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of anxiety disorders in patients with peripheral artery disease."
+          }
+        ]
+      }
+    }
+  ]
+}

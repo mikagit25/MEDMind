@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ONC-006",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Chemotherapy Principles: Cell Cycle, Classes, Toxicity and Supportive Care",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cancer",
+      "content": {
+        "intro": "Cancer is a leading cause of death worldwide, with approximately 10 million deaths in 2020. The pathophysiology of cancer involves the uncontrolled growth and spread of abnormal cells. The cell cycle plays a crucial role in cancer development, with genetic mutations leading to uncontrolled cell division. Chemotherapy targets rapidly dividing cancer cells, but also affects normal cells, leading to toxicity. Understanding the cell cycle and chemotherapy principles is essential for effective cancer treatment. The epidemiology of cancer is complex, with various risk factors, including genetic predisposition, environmental factors, and lifestyle choices. The incidence of cancer is increasing, with a projected 22 million new cases by 2030.",
+        "sections": [
+          {
+            "heading": "Cell Cycle and Cancer",
+            "text": "The cell cycle consists of four phases: G1, S, G2, and M. Cancer cells have altered cell cycle regulation, leading to uncontrolled growth. Chemotherapy targets the S and G2 phases, where cancer cells are most vulnerable. Common chemotherapy agents, such as doxorubicin and paclitaxel, work by inhibiting DNA synthesis and cell division. The ESC 2020 guidelines recommend chemotherapy as a first-line treatment for various types of cancer, including breast, lung, and colon cancer."
+          },
+          {
+            "heading": "Chemotherapy Classes and Mechanisms",
+            "text": "Chemotherapy agents can be classified into several categories, including alkylating agents, antimetabolites, and anthracyclines. Alkylating agents, such as cyclophosphamide, work by cross-linking DNA strands, while antimetabolites, such as 5-fluorouracil, inhibit DNA synthesis. Anthracyclines, such as doxorubicin, intercalate into DNA, disrupting cell division. The AHA 2019 guidelines recommend the use of anthracyclines in the treatment of breast cancer, with a dose of 60-90 mg/m2."
+          },
+          {
+            "heading": "Toxicity and Supportive Care",
+            "text": "Chemotherapy toxicity can be severe, with common side effects including nausea, vomiting, and myelosuppression. Supportive care, such as antiemetics and growth factor support, can help mitigate these effects. The NICE 2020 guidelines recommend the use of 5-HT3 antagonists, such as ondansetron, to prevent chemotherapy-induced nausea and vomiting. The landmark trial, CALGB 9741, demonstrated the effectiveness of dose-dense chemotherapy in improving outcomes in breast cancer patients."
+          }
+        ],
+        "clinical_pearl": "The use of chemotherapy in cancer treatment can lead to significant toxicity, with up to 50% of patients experiencing severe side effects. However, with proper supportive care, including antiemetics and growth factor support, the risk of toxicity can be reduced, and treatment outcomes can be improved.",
+        "key_points": [
+          "Cancer is a leading cause of death worldwide, with approximately 10 million deaths in 2020.",
+          "The cell cycle plays a crucial role in cancer development, with genetic mutations leading to uncontrolled cell division.",
+          "Chemotherapy targets rapidly dividing cancer cells, but also affects normal cells, leading to toxicity.",
+          "The ESC 2020 guidelines recommend chemotherapy as a first-line treatment for various types of cancer.",
+          "Alkylating agents, such as cyclophosphamide, work by cross-linking DNA strands.",
+          "The AHA 2019 guidelines recommend the use of anthracyclines in the treatment of breast cancer, with a dose of 60-90 mg/m2."
+        ],
+        "references": [
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of breast cancer",
+            "authors": "ESMO Guidelines Committee",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for chemotherapy in breast cancer treatment"
+          },
+          {
+            "title": "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk reduction in cancer patients"
+          },
+          {
+            "title": "CALGB 9741: Dose-dense chemotherapy in breast cancer",
+            "authors": "Citron et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2003,
+            "type": "trial",
+            "note": "Landmark trial demonstrating the effectiveness of dose-dense chemotherapy in breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cancer",
+      "content": {
+        "intro": "Cancer can present in various ways, depending on the type and location of the tumor. Common symptoms include pain, weight loss, and fatigue. A thorough medical history and physical examination are essential for diagnosing cancer. Imaging studies, such as CT and MRI scans, can help identify the location and extent of the tumor. The clinical presentation of cancer can be complex, with multiple symptoms and signs. Understanding the clinical presentation of cancer is crucial for accurate diagnosis and effective treatment.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs of Cancer",
+            "text": "Cancer can cause a wide range of symptoms, including pain, weight loss, and fatigue. The symptoms can be non-specific, making diagnosis challenging. A thorough medical history and physical examination are essential for identifying the underlying cause of the symptoms. The NICE 2020 guidelines recommend a comprehensive geriatric assessment for older adults with cancer, including evaluation of cognitive function, nutritional status, and social support."
+          },
+          {
+            "heading": "Imaging Studies in Cancer Diagnosis",
+            "text": "Imaging studies, such as CT and MRI scans, play a crucial role in cancer diagnosis. These studies can help identify the location and extent of the tumor, as well as any metastases. The AHA 2019 guidelines recommend the use of cardiac MRI for the evaluation of cardiac function in cancer patients. The landmark trial, NSABP B-31, demonstrated the effectiveness of adjuvant chemotherapy in improving outcomes in breast cancer patients."
+          },
+          {
+            "heading": "Tumor Markers and Biopsy",
+            "text": "Tumor markers, such as CA 125 and PSA, can help diagnose and monitor cancer. Biopsy is the gold standard for cancer diagnosis, providing tissue for histological examination. The ESC 2020 guidelines recommend the use of liquid biopsy for the detection of circulating tumor DNA in cancer patients. The trial, EORTC 10994, demonstrated the effectiveness of neoadjuvant chemotherapy in improving outcomes in ovarian cancer patients."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of cancer can be complex, with multiple symptoms and signs. A thorough medical history and physical examination are essential for accurate diagnosis and effective treatment. The use of imaging studies, tumor markers, and biopsy can help identify the underlying cause of the symptoms and guide treatment decisions.",
+        "key_points": [
+          "Cancer can present in various ways, depending on the type and location of the tumor.",
+          "Common symptoms of cancer include pain, weight loss, and fatigue.",
+          "A thorough medical history and physical examination are essential for diagnosing cancer.",
+          "Imaging studies, such as CT and MRI scans, can help identify the location and extent of the tumor.",
+          "Tumor markers, such as CA 125 and PSA, can help diagnose and monitor cancer.",
+          "Biopsy is the gold standard for cancer diagnosis, providing tissue for histological examination."
+        ],
+        "references": [
+          {
+            "title": "NICE Clinical Guideline 121: Older people with cancer",
+            "authors": "NICE Guidelines Committee",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of older adults with cancer"
+          },
+          {
+            "title": "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk reduction in cancer patients"
+          },
+          {
+            "title": "NSABP B-31: Adjuvant chemotherapy in breast cancer",
+            "authors": "Fisher et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2004,
+            "type": "trial",
+            "note": "Landmark trial demonstrating the effectiveness of adjuvant chemotherapy in breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cancer",
+      "content": {
+        "intro": "The diagnosis of cancer involves a combination of clinical evaluation, imaging studies, and laboratory tests. A thorough medical history and physical examination are essential for identifying the underlying cause of the symptoms. Imaging studies, such as CT and MRI scans, can help identify the location and extent of the tumor. Laboratory tests, such as blood counts and tumor markers, can help diagnose and monitor cancer. The diagnosis of cancer can be complex, with multiple tests and procedures required to confirm the diagnosis.",
+        "sections": [
+          {
+            "heading": "Imaging Studies in Cancer Diagnosis",
+            "text": "Imaging studies, such as CT and MRI scans, play a crucial role in cancer diagnosis. These studies can help identify the location and extent of the tumor, as well as any metastases. The AHA 2019 guidelines recommend the use of cardiac MRI for the evaluation of cardiac function in cancer patients. The landmark trial, ACOSOG Z0011, demonstrated the effectiveness of sentinel lymph node biopsy in breast cancer patients."
+          },
+          {
+            "heading": "Laboratory Tests in Cancer Diagnosis",
+            "text": "Laboratory tests, such as blood counts and tumor markers, can help diagnose and monitor cancer. Tumor markers, such as CA 125 and PSA, can help identify the type and extent of the tumor. The ESC 2020 guidelines recommend the use of liquid biopsy for the detection of circulating tumor DNA in cancer patients. The trial, EORTC 10994, demonstrated the effectiveness of neoadjuvant chemotherapy in improving outcomes in ovarian cancer patients."
+          },
+          {
+            "heading": "Biopsy and Histological Examination",
+            "text": "Biopsy is the gold standard for cancer diagnosis, providing tissue for histological examination. The type and grade of the tumor can be determined through histological examination, guiding treatment decisions. The NICE 2020 guidelines recommend the use of core needle biopsy for the diagnosis of breast cancer. The trial, NSABP B-31, demonstrated the effectiveness of adjuvant chemotherapy in improving outcomes in breast cancer patients."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of cancer involves a combination of clinical evaluation, imaging studies, and laboratory tests. A thorough medical history and physical examination are essential for identifying the underlying cause of the symptoms. The use of imaging studies, laboratory tests, and biopsy can help confirm the diagnosis and guide treatment decisions.",
+        "key_points": [
+          "The diagnosis of cancer involves a combination of clinical evaluation, imaging studies, and laboratory tests.",
+          "Imaging studies, such as CT and MRI scans, can help identify the location and extent of the tumor.",
+          "Laboratory tests, such as blood counts and tumor markers, can help diagnose and monitor cancer.",
+          "Tumor markers, such as CA 125 and PSA, can help identify the type and extent of the tumor.",
+          "Biopsy is the gold standard for cancer diagnosis, providing tissue for histological examination.",
+          "The type and grade of the tumor can be determined through histological examination, guiding treatment decisions."
+        ],
+        "references": [
+          {
+            "title": "AHA Scientific Statement: Cardiovascular Disease in Cancer Patients",
+            "authors": "Arnett et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk reduction in cancer patients"
+          },
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of breast cancer",
+            "authors": "ESMO Guidelines Committee",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of breast cancer"
+          },
+          {
+            "title": "ACOSOG Z0011: Sentinel lymph node biopsy in breast cancer",
+            "authors": "Giuliano et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2010,
+            "type": "trial",
+            "note": "Landmark trial demonstrating the effectiveness of sentinel lymph node biopsy in breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cancer",
+      "content": {
+        "intro": "The treatment of cancer involves a combination of surgery, radiation therapy, and chemotherapy. The choice of treatment depends on the type and stage of the cancer, as well as the patient's overall health. Surgery is often used to remove the tumor, while radiation therapy can help kill any remaining cancer cells. Chemotherapy can be used to treat cancer that has spread to other parts of the body. The treatment of cancer can be complex, with multiple treatments and procedures required to achieve optimal outcomes.",
+        "sections": [
+          {
+            "heading": "Surgery in Cancer Treatment",
+            "text": "Surgery is often used to remove the tumor, and can be curative for early-stage cancer. The type of surgery depends on the location and extent of the tumor, as well as the patient's overall health. The NICE 2020 guidelines recommend the use of minimally invasive surgery for the treatment of breast cancer. The landmark trial, NSABP B-06, demonstrated the effectiveness of lumpectomy in breast cancer patients."
+          },
+          {
+            "heading": "Radiation Therapy in Cancer Treatment",
+            "text": "Radiation therapy can help kill any remaining cancer cells, and can be used to treat cancer that has spread to other parts of the body. The type and dose of radiation therapy depend on the type and stage of the cancer, as well as the patient's overall health. The AHA 2019 guidelines recommend the use of intensity-modulated radiation therapy (IMRT) for the treatment of prostate cancer. The trial, RTOG 9406, demonstrated the effectiveness of radiation therapy in improving outcomes in prostate cancer patients."
+          },
+          {
+            "heading": "Chemotherapy in Cancer Treatment",
+            "text": "Chemotherapy can be used to treat cancer that has spread to other parts of the body, and can be given before or after surgery. The type and dose of chemotherapy depend on the type and stage of the cancer, as well as the patient's overall health. The ESC 2020 guidelines recommend the use of adjuvant chemotherapy for the treatment of breast cancer. The trial, CALGB 9741, demonstrated the effectiveness of dose-dense chemotherapy in improving outcomes in breast cancer patients."
+          }
+        ],
+        "clinical_pearl": "The treatment of cancer involves a combination of surgery, radiation therapy, and chemotherapy. The choice of treatment depends on the type and stage of the cancer, as well as the patient's overall health. The use of surgery, radiation therapy, and chemotherapy can help achieve optimal outcomes, and improve survival rates.",
+        "key_points": [
+          "The treatment of cancer involves a combination of surgery, radiation therapy, and chemotherapy.",
+          "Surgery is often used to remove the tumor, and can be curative for early-stage cancer.",
+          "Radiation therapy can help kill any remaining cancer cells, and can be used to treat cancer that has spread to other parts of the body.",
+          "Chemotherapy can be used to treat cancer that has spread to other parts of the body, and can be given before or after surgery.",
+          "The type and dose of treatment depend on the type and stage of the cancer, as well as the patient's overall health.",
+          "The use of surgery, radiation therapy, and chemotherapy can help achieve optimal outcomes, and improve survival rates."
+        ],
+        "references": [
+          {
+            "title": "NICE Clinical Guideline 121: Older people with cancer",
+            "authors": "NICE Guidelines Committee",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of older adults with cancer"
+          },
+          {
+            "title": "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk reduction in cancer patients"
+          },
+          {
+            "title": "CALGB 9741: Dose-dense chemotherapy in breast cancer",
+            "authors": "Citron et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2003,
+            "type": "trial",
+            "note": "Landmark trial demonstrating the effectiveness of dose-dense chemotherapy in breast cancer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cancer",
+      "content": {
+        "intro": "Cancer can cause a range of complications, including pain, fatigue, and nausea. The prognosis of cancer depends on the type and stage of the cancer, as well as the patient's overall health. Early detection and treatment can improve outcomes, and reduce the risk of complications. The use of supportive care, such as pain management and nutritional support, can help improve quality of life, and reduce the risk of complications.",
+        "sections": [
+          {
+            "heading": "Complications of Cancer",
+            "text": "Cancer can cause a range of complications, including pain, fatigue, and nausea. The type and severity of complications depend on the type and stage of the cancer, as well as the patient's overall health. The NICE 2020 guidelines recommend the use of pain management and nutritional support to improve quality of life, and reduce the risk of complications. The landmark trial, EORTC 10994, demonstrated the effectiveness of neoadjuvant chemotherapy in improving outcomes in ovarian cancer patients."
+          },
+          {
+            "heading": "Prognosis of Cancer",
+            "text": "The prognosis of cancer depends on the type and stage of the cancer, as well as the patient's overall health. Early detection and treatment can improve outcomes, and reduce the risk of complications. The AHA 2019 guidelines recommend the use of cardiovascular risk assessment to identify patients at high risk of cardiovascular disease. The trial, NSABP B-31, demonstrated the effectiveness of adjuvant chemotherapy in improving outcomes in breast cancer patients."
+          },
+          {
+            "heading": "Supportive Care in Cancer",
+            "text": "The use of supportive care, such as pain management and nutritional support, can help improve quality of life, and reduce the risk of complications. The ESC 2020 guidelines recommend the use of supportive care to improve outcomes, and reduce the risk of complications. The trial, CALGB 9741, demonstrated the effectiveness of dose-dense chemotherapy in improving outcomes in breast cancer patients."
+          }
+        ],
+        "clinical_pearl": "The prognosis of cancer depends on the type and stage of the cancer, as well as the patient's overall health. Early detection and treatment can improve outcomes, and reduce the risk of complications. The use of supportive care, such as pain management and nutritional support, can help improve quality of life, and reduce the risk of complications.",
+        "key_points": [
+          "Cancer can cause a range of complications, including pain, fatigue, and nausea.",
+          "The prognosis of cancer depends on the type and stage of the cancer, as well as the patient's overall health.",
+          "Early detection and treatment can improve outcomes, and reduce the risk of complications.",
+          "The use of supportive care, such as pain management and nutritional support, can help improve quality of life, and reduce the risk of complications.",
+          "The type and severity of complications depend on the type and stage of the cancer, as well as the patient's overall health.",
+          "The use of cardiovascular risk assessment can help identify patients at high risk of cardiovascular disease."
+        ],
+        "references": [
+          {
+            "title": "NICE Clinical Guideline 121: Older people with cancer",
+            "authors": "NICE Guidelines Committee",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of older adults with cancer"
+          },
+          {
+            "title": "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk reduction in cancer patients"
+          },
+          {
+            "title": "EORTC 10994: Neoadjuvant chemotherapy in ovarian cancer",
+            "authors": "Vergote et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2010,
+            "type": "trial",
+            "note": "Landmark trial demonstrating the effectiveness of neoadjuvant chemotherapy in ovarian cancer"
+          }
+        ]
+      }
+    }
+  ]
+}

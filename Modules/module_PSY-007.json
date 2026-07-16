@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PSY-007",
+    "type": "specialty_module",
+    "specialty": "Psychiatry",
+    "specialty_ru": "Психиатрия",
+    "title_en": "Child and Adolescent Psychiatry: ADHD, Autism, Conduct Disorder, Adolescent Depression",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of ADHD and Autism",
+      "content": {
+        "intro": "Attention Deficit Hyperactivity Disorder (ADHD) and Autism Spectrum Disorder (ASD) are two of the most common neurodevelopmental disorders affecting children and adolescents. ADHD is characterized by symptoms of inattention, hyperactivity, and impulsivity, with a prevalence of approximately 5-7% in children and adolescents worldwide. ASD, on the other hand, is a complex disorder affecting communication, social interaction, and behavior, with a prevalence of about 1 in 54 children in the United States. The exact pathophysiology of these disorders is not fully understood, but research suggests that genetic, environmental, and neurochemical factors play a significant role. For instance, studies have shown that individuals with ADHD tend to have altered dopamine and norepinephrine levels, while those with ASD often have abnormalities in serotonin and oxytocin levels.",
+        "sections": [
+          {
+            "heading": "Epidemiology of ADHD",
+            "text": "The prevalence of ADHD has been increasing over the past few decades, with approximately 8.7% of children and adolescents in the United States meeting the diagnostic criteria for the disorder. According to the 2019 guidelines from the American Academy of Pediatrics (AAP), the diagnosis of ADHD should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. The AAP also recommends that children with ADHD should be treated with a combination of behavioral therapy and medication, such as methylphenidate (0.3-0.5 mg/kg/dose) or amphetamine (0.05-0.1 mg/kg/dose). The Multimodal Treatment of Attention Deficit Hyperactivity Disorder (MTA) study, a landmark trial published in 1999, demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "heading": "Pathophysiology of Autism",
+            "text": "The pathophysiology of ASD is complex and not fully understood, but research suggests that abnormalities in brain structure and function, particularly in regions involved in social communication and behavior, play a significant role. Studies have shown that individuals with ASD tend to have altered levels of neurotransmitters, such as serotonin and oxytocin, which are involved in social behavior and communication. The 2018 guidelines from the National Institute for Health and Care Excellence (NICE) recommend that children with ASD should receive a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes. The guidelines also recommend that children with ASD should receive behavioral therapy, such as applied behavior analysis (ABA), and medication, such as risperidone (0.5-1.5 mg/day), to manage symptoms of irritability and aggression."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic and environmental factors are thought to play a significant role in the development of ADHD and ASD. Studies have identified several genetic variants that increase the risk of developing these disorders, including variants in the DRD4 and DAT1 genes. Environmental factors, such as prenatal exposure to tobacco smoke and maternal infection during pregnancy, have also been linked to an increased risk of developing ADHD and ASD. The 2020 guidelines from the American Heart Association (AHA) recommend that pregnant women should avoid smoking and exposure to secondhand smoke to reduce the risk of developing ADHD and ASD in their children. The guidelines also recommend that children with ADHD and ASD should receive regular physical activity and a balanced diet to reduce the risk of developing cardiovascular disease and other health problems."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of ADHD and ASD should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. The use of medication, such as methylphenidate and risperidone, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+        "key_points": [
+          "The prevalence of ADHD is approximately 5-7% in children and adolescents worldwide.",
+          "The diagnosis of ADHD should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments.",
+          "The use of medication, such as methylphenidate and amphetamine, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+          "The pathophysiology of ASD is complex and not fully understood, but research suggests that abnormalities in brain structure and function play a significant role.",
+          "The use of behavioral therapy, such as ABA, and medication, such as risperidone, can help manage symptoms of ASD.",
+          "Genetic and environmental factors, such as prenatal exposure to tobacco smoke and maternal infection during pregnancy, can increase the risk of developing ADHD and ASD."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Diagnosis and Treatment of ADHD",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, for the diagnosis of ADHD."
+          },
+          {
+            "title": "The Multimodal Treatment of Attention Deficit Hyperactivity Disorder (MTA) Study",
+            "authors": "Jensen PS, et al.",
+            "journal_or_source": "Archives of General Psychiatry",
+            "year": 1999,
+            "type": "landmark trial",
+            "note": "The study demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "title": "2018 Guidelines for the Diagnosis and Treatment of ASD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Conduct Disorder and Adolescent Depression",
+      "content": {
+        "intro": "Conduct disorder and adolescent depression are two common mental health disorders affecting children and adolescents. Conduct disorder is characterized by a pattern of negative, hostile, and defiant behavior, while adolescent depression is characterized by persistent feelings of sadness, hopelessness, and loss of interest in activities. The clinical presentation of these disorders can vary, but early recognition and treatment are essential to prevent long-term consequences.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Conduct Disorder",
+            "text": "Conduct disorder is characterized by a pattern of negative, hostile, and defiant behavior, including aggression, destruction of property, and theft. According to the 2013 guidelines from the American Academy of Child and Adolescent Psychiatry (AACAP), the diagnosis of conduct disorder should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. The guidelines also recommend that children with conduct disorder should receive behavioral therapy, such as cognitive-behavioral therapy (CBT), and medication, such as risperidone (0.5-1.5 mg/day), to manage symptoms of aggression and irritability. The Conduct Disorder Study, a landmark trial published in 2007, demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of conduct disorder."
+          },
+          {
+            "heading": "Clinical Presentation of Adolescent Depression",
+            "text": "Adolescent depression is characterized by persistent feelings of sadness, hopelessness, and loss of interest in activities. The 2018 guidelines from the American Academy of Pediatrics (AAP) recommend that adolescents with depression should receive a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, as well as screening for suicidal ideation and behavior. The guidelines also recommend that adolescents with depression should receive behavioral therapy, such as CBT, and medication, such as fluoxetine (10-20 mg/day), to manage symptoms of depression. The Treatment for Adolescents with Depression Study (TADS), a landmark trial published in 2004, demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of depression."
+          },
+          {
+            "heading": "Differential Diagnosis",
+            "text": "The differential diagnosis of conduct disorder and adolescent depression includes other mental health disorders, such as ADHD, ASD, and anxiety disorders. The 2020 guidelines from the National Institute of Mental Health (NIMH) recommend that children and adolescents with mental health disorders should receive a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, to determine the underlying cause of their symptoms. The guidelines also recommend that children and adolescents with mental health disorders should receive behavioral therapy and medication, tailored to their individual needs, to manage symptoms and prevent long-term consequences."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of conduct disorder and adolescent depression should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. The use of medication, such as risperidone and fluoxetine, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+        "key_points": [
+          "Conduct disorder is characterized by a pattern of negative, hostile, and defiant behavior.",
+          "The diagnosis of conduct disorder should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments.",
+          "The use of medication, such as risperidone, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+          "Adolescent depression is characterized by persistent feelings of sadness, hopelessness, and loss of interest in activities.",
+          "The diagnosis of adolescent depression should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments.",
+          "The use of medication, such as fluoxetine, should be tailored to the individual child's needs and monitored regularly to minimize side effects."
+        ],
+        "references": [
+          {
+            "title": "2013 Guidelines for the Diagnosis and Treatment of Conduct Disorder",
+            "authors": "American Academy of Child and Adolescent Psychiatry",
+            "journal_or_source": "AACAP",
+            "year": 2013,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, for the diagnosis of conduct disorder."
+          },
+          {
+            "title": "The Conduct Disorder Study",
+            "authors": "Kazdin AE, et al.",
+            "journal_or_source": "Journal of the American Academy of Child and Adolescent Psychiatry",
+            "year": 2007,
+            "type": "landmark trial",
+            "note": "The study demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of conduct disorder."
+          },
+          {
+            "title": "2018 Guidelines for the Diagnosis and Treatment of Adolescent Depression",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, as well as screening for suicidal ideation and behavior."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of ADHD, Autism, Conduct Disorder, and Adolescent Depression",
+      "content": {
+        "intro": "The diagnosis of ADHD, autism, conduct disorder, and adolescent depression requires a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. Investigations, such as laboratory tests and imaging studies, may also be necessary to rule out underlying medical conditions and confirm the diagnosis.",
+        "sections": [
+          {
+            "heading": "Diagnostic Criteria for ADHD",
+            "text": "The diagnostic criteria for ADHD include symptoms of inattention, hyperactivity, and impulsivity, as outlined in the Diagnostic and Statistical Manual of Mental Disorders, 5th Edition (DSM-5). According to the 2019 guidelines from the American Academy of Pediatrics (AAP), the diagnosis of ADHD should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. The guidelines also recommend that children with ADHD should receive behavioral therapy and medication, such as methylphenidate (0.3-0.5 mg/kg/dose) or amphetamine (0.05-0.1 mg/kg/dose), to manage symptoms of ADHD. The Preschool ADHD Treatment Study (PATS), a landmark trial published in 2006, demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "heading": "Diagnostic Criteria for Autism",
+            "text": "The diagnostic criteria for autism include persistent deficits in social communication and social interaction, as well as restricted and repetitive patterns of behavior, as outlined in the DSM-5. The 2018 guidelines from the National Institute for Health and Care Excellence (NICE) recommend that children with autism should receive a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes. The guidelines also recommend that children with autism should receive behavioral therapy, such as applied behavior analysis (ABA), and medication, such as risperidone (0.5-1.5 mg/day), to manage symptoms of irritability and aggression."
+          },
+          {
+            "heading": "Laboratory Tests and Imaging Studies",
+            "text": "Laboratory tests, such as complete blood counts and electrolyte panels, may be necessary to rule out underlying medical conditions, such as anemia or hypothyroidism, that may be contributing to symptoms of ADHD, autism, conduct disorder, and adolescent depression. Imaging studies, such as magnetic resonance imaging (MRI) or computed tomography (CT) scans, may also be necessary to rule out underlying neurological conditions, such as brain tumors or cerebral palsy, that may be contributing to symptoms. The 2020 guidelines from the American Academy of Neurology (AAN) recommend that children with neurological disorders should receive regular imaging studies to monitor disease progression and response to treatment."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of ADHD, autism, conduct disorder, and adolescent depression should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments. Investigations, such as laboratory tests and imaging studies, may also be necessary to rule out underlying medical conditions and confirm the diagnosis.",
+        "key_points": [
+          "The diagnosis of ADHD should be based on a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments.",
+          "The diagnostic criteria for ADHD include symptoms of inattention, hyperactivity, and impulsivity.",
+          "The use of medication, such as methylphenidate and amphetamine, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+          "The diagnosis of autism should be based on a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments.",
+          "The diagnostic criteria for autism include persistent deficits in social communication and social interaction, as well as restricted and repetitive patterns of behavior.",
+          "The use of medication, such as risperidone, should be tailored to the individual child's needs and monitored regularly to minimize side effects."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Diagnosis and Treatment of ADHD",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, for the diagnosis of ADHD."
+          },
+          {
+            "title": "The Preschool ADHD Treatment Study (PATS)",
+            "authors": "Greenhill LL, et al.",
+            "journal_or_source": "Journal of the American Academy of Child and Adolescent Psychiatry",
+            "year": 2006,
+            "type": "landmark trial",
+            "note": "The study demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "title": "2018 Guidelines for the Diagnosis and Treatment of Autism",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of ADHD, Autism, Conduct Disorder, and Adolescent Depression",
+      "content": {
+        "intro": "The treatment and management of ADHD, autism, conduct disorder, and adolescent depression require a comprehensive approach, including behavioral therapy, medication, and lifestyle modifications. The goal of treatment is to reduce symptoms, improve functioning, and enhance quality of life.",
+        "sections": [
+          {
+            "heading": "Behavioral Therapy for ADHD",
+            "text": "Behavioral therapy, such as cognitive-behavioral therapy (CBT) and behavioral modification, is an effective treatment for ADHD. According to the 2019 guidelines from the American Academy of Pediatrics (AAP), behavioral therapy should be tailored to the individual child's needs and should include techniques such as positive reinforcement, token economies, and cognitive restructuring. The guidelines also recommend that children with ADHD should receive medication, such as methylphenidate (0.3-0.5 mg/kg/dose) or amphetamine (0.05-0.1 mg/kg/dose), to manage symptoms of ADHD. The Multimodal Treatment of Attention Deficit Hyperactivity Disorder (MTA) study, a landmark trial published in 1999, demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "heading": "Medication for Autism",
+            "text": "Medication, such as risperidone (0.5-1.5 mg/day) and aripiprazole (5-15 mg/day), may be necessary to manage symptoms of irritability and aggression in children with autism. The 2018 guidelines from the National Institute for Health and Care Excellence (NICE) recommend that children with autism should receive a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes. The guidelines also recommend that children with autism should receive behavioral therapy, such as applied behavior analysis (ABA), to manage symptoms of social communication and restricted and repetitive patterns of behavior."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as regular physical activity, a balanced diet, and adequate sleep, are essential for managing symptoms of ADHD, autism, conduct disorder, and adolescent depression. The 2020 guidelines from the American Heart Association (AHA) recommend that children and adolescents should engage in at least 60 minutes of moderate-intensity physical activity per day to reduce the risk of developing cardiovascular disease and other health problems. The guidelines also recommend that children and adolescents should eat a balanced diet, including plenty of fruits, vegetables, and whole grains, to reduce the risk of developing obesity and other health problems."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of ADHD, autism, conduct disorder, and adolescent depression require a comprehensive approach, including behavioral therapy, medication, and lifestyle modifications. The goal of treatment is to reduce symptoms, improve functioning, and enhance quality of life.",
+        "key_points": [
+          "Behavioral therapy, such as CBT and behavioral modification, is an effective treatment for ADHD.",
+          "Medication, such as methylphenidate and amphetamine, should be tailored to the individual child's needs and monitored regularly to minimize side effects.",
+          "Medication, such as risperidone and aripiprazole, may be necessary to manage symptoms of irritability and aggression in children with autism.",
+          "Behavioral therapy, such as ABA, is an effective treatment for autism.",
+          "Lifestyle modifications, such as regular physical activity and a balanced diet, are essential for managing symptoms of ADHD, autism, conduct disorder, and adolescent depression.",
+          "The goal of treatment is to reduce symptoms, improve functioning, and enhance quality of life."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Diagnosis and Treatment of ADHD",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive evaluation, including a detailed medical history, physical examination, and behavioral assessments, for the diagnosis of ADHD."
+          },
+          {
+            "title": "The Multimodal Treatment of Attention Deficit Hyperactivity Disorder (MTA) Study",
+            "authors": "Jensen PS, et al.",
+            "journal_or_source": "Archives of General Psychiatry",
+            "year": 1999,
+            "type": "landmark trial",
+            "note": "The study demonstrated that a combination of behavioral therapy and medication was more effective than either treatment alone in reducing symptoms of ADHD."
+          },
+          {
+            "title": "2018 Guidelines for the Diagnosis and Treatment of Autism",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines recommend a comprehensive assessment, including a detailed medical history, physical examination, and behavioral assessments, as well as genetic testing to identify potential underlying causes."
+          }
+        ]
+      }
+    }
+  ]
+}

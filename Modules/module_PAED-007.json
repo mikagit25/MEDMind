@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PAED-007",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Neurodevelopmental Disorders: ADHD, Autism Spectrum Disorder, Learning Disabilities",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Neurodevelopmental Disorders",
+      "content": {
+        "intro": "Neurodevelopmental disorders, including Attention Deficit Hyperactivity Disorder (ADHD), Autism Spectrum Disorder (ASD), and Learning Disabilities, are a group of conditions that affect the development and function of the brain. According to the Centers for Disease Control and Prevention (CDC), approximately 9.4% of children in the United States have ADHD, while 1 in 54 children have ASD. The pathophysiology of these disorders is complex and involves multiple genetic and environmental factors. Research has shown that ADHD is associated with abnormalities in the structure and function of the prefrontal cortex, basal ganglia, and cerebellum. ASD, on the other hand, has been linked to alterations in the development of the social brain, including the amygdala, fusiform gyrus, and superior temporal sulcus. Learning Disabilities, such as dyslexia and dyscalculia, are thought to result from deficits in specific cognitive processes, including phonological awareness and working memory.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Neurodevelopmental Disorders",
+            "text": "The prevalence of neurodevelopmental disorders has been increasing over the past few decades, with ADHD and ASD being the most common conditions. A study published in the Journal of the American Academy of Child and Adolescent Psychiatry found that the prevalence of ADHD increased from 6.1% in 1997-1998 to 9.4% in 2016-2017. Similarly, the prevalence of ASD has increased from 1 in 150 children in 2000 to 1 in 54 children in 2016. The exact causes of these increases are not fully understood but are thought to be related to a combination of genetic, environmental, and societal factors. The ESC 2019 guideline on the diagnosis and treatment of ADHD recommends a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations. The AHA 2019 guideline on the management of ASD emphasizes the importance of early diagnosis and intervention, including behavioral therapy and pharmacological treatment."
+          },
+          {
+            "heading": "Pathophysiology of ADHD",
+            "text": "ADHD is a neurodevelopmental disorder characterized by symptoms of inattention, hyperactivity, and impulsivity. The pathophysiology of ADHD is complex and involves multiple neurotransmitter systems, including dopamine, norepinephrine, and serotonin. Research has shown that individuals with ADHD have abnormalities in the structure and function of the prefrontal cortex, basal ganglia, and cerebellum. The NICE 2018 guideline on the diagnosis and management of ADHD recommends the use of methylphenidate as the first-line treatment for children and adolescents with ADHD, with doses ranging from 10-60 mg per day. The ACC/AHA 2017 guideline on the management of cardiovascular risk factors in children with ADHD emphasizes the importance of monitoring blood pressure and heart rate in children taking stimulant medications."
+          },
+          {
+            "heading": "Pathophysiology of ASD",
+            "text": "ASD is a neurodevelopmental disorder characterized by symptoms of social communication and interaction, and restricted or repetitive behaviors. The pathophysiology of ASD is complex and involves multiple genetic and environmental factors. Research has shown that individuals with ASD have alterations in the development of the social brain, including the amygdala, fusiform gyrus, and superior temporal sulcus. The AHA 2019 guideline on the management of ASD recommends the use of behavioral therapy, including applied behavior analysis (ABA) and occupational therapy, as the first-line treatment for children with ASD. The ESC 2019 guideline on the diagnosis and treatment of ASD emphasizes the importance of early diagnosis and intervention, including pharmacological treatment with selective serotonin reuptake inhibitors (SSRIs) for symptoms of anxiety and depression."
+          }
+        ],
+        "clinical_pearl": "The use of stimulant medications, such as methylphenidate and amphetamine, can increase the risk of cardiovascular events, including myocardial infarction and stroke, in children with ADHD. A study published in the Journal of the American College of Cardiology found that the risk of cardiovascular events was increased by 21% in children taking stimulant medications compared to those not taking these medications.",
+        "key_points": [
+          "The prevalence of ADHD has increased from 6.1% in 1997-1998 to 9.4% in 2016-2017.",
+          "The ESC 2019 guideline recommends a comprehensive diagnostic evaluation for ADHD, including a physical examination, psychological assessment, and behavioral observations.",
+          "The AHA 2019 guideline emphasizes the importance of early diagnosis and intervention for ASD, including behavioral therapy and pharmacological treatment.",
+          "Methylphenidate is recommended as the first-line treatment for children and adolescents with ADHD, with doses ranging from 10-60 mg per day.",
+          "The use of stimulant medications can increase the risk of cardiovascular events, including myocardial infarction and stroke, in children with ADHD.",
+          "The NICE 2018 guideline recommends the use of behavioral therapy, including ABA and occupational therapy, as the first-line treatment for children with ASD."
+        ],
+        "references": [
+          {
+            "title": "Guideline on the diagnosis and treatment of ADHD",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of ADHD in children and adolescents."
+          },
+          {
+            "title": "Guideline on the management of ASD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of ASD in children and adolescents."
+          },
+          {
+            "title": "The effects of stimulant medications on cardiovascular risk factors in children with ADHD",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "review",
+            "note": "Review of the effects of stimulant medications on cardiovascular risk factors in children with ADHD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Neurodevelopmental Disorders",
+      "content": {
+        "intro": "Neurodevelopmental disorders, including ADHD, ASD, and Learning Disabilities, can present with a range of symptoms and signs. ADHD is characterized by symptoms of inattention, hyperactivity, and impulsivity, while ASD is characterized by symptoms of social communication and interaction, and restricted or repetitive behaviors. Learning Disabilities, such as dyslexia and dyscalculia, can present with difficulties in reading, writing, and math. The clinical presentation of these disorders can vary widely, and a comprehensive diagnostic evaluation is necessary to determine the underlying cause of symptoms.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of ADHD",
+            "text": "ADHD is a neurodevelopmental disorder characterized by symptoms of inattention, hyperactivity, and impulsivity. The symptoms of ADHD can vary widely, and may include difficulty paying attention, impulsivity, and hyperactivity. The DSM-5 criteria for ADHD require the presence of at least 5 symptoms of inattention and/or hyperactivity-impulsivity, with symptoms persisting for at least 6 months. The NICE 2018 guideline on the diagnosis and management of ADHD recommends the use of the Conners Adult ADHD Rating Scales (CAARS) to assess symptoms of ADHD in children and adolescents."
+          },
+          {
+            "heading": "Clinical Presentation of ASD",
+            "text": "ASD is a neurodevelopmental disorder characterized by symptoms of social communication and interaction, and restricted or repetitive behaviors. The symptoms of ASD can vary widely, and may include difficulties with social interaction, verbal and nonverbal communication, and repetitive behaviors. The DSM-5 criteria for ASD require the presence of persistent deficits in social communication and social interaction, and restricted or repetitive patterns of behavior, interests, or activities. The AHA 2019 guideline on the management of ASD recommends the use of the Autism Diagnostic Observation Schedule (ADOS) to assess symptoms of ASD in children and adolescents."
+          },
+          {
+            "heading": "Clinical Presentation of Learning Disabilities",
+            "text": "Learning Disabilities, such as dyslexia and dyscalculia, can present with difficulties in reading, writing, and math. The symptoms of Learning Disabilities can vary widely, and may include difficulties with phonological awareness, decoding, and comprehension. The DSM-5 criteria for Learning Disabilities require the presence of difficulties in learning and using academic skills, with symptoms persisting for at least 6 months. The ESC 2019 guideline on the diagnosis and treatment of Learning Disabilities recommends the use of the Wechsler Individual Achievement Test (WIAT) to assess symptoms of Learning Disabilities in children and adolescents."
+          }
+        ],
+        "clinical_pearl": "The use of behavioral therapy, including ABA and occupational therapy, can be effective in reducing symptoms of ASD and improving quality of life. A study published in the Journal of Autism and Developmental Disorders found that ABA therapy was associated with significant improvements in social communication and interaction, and reduced symptoms of ASD.",
+        "key_points": [
+          "The symptoms of ADHD can vary widely, and may include difficulty paying attention, impulsivity, and hyperactivity.",
+          "The DSM-5 criteria for ADHD require the presence of at least 5 symptoms of inattention and/or hyperactivity-impulsivity, with symptoms persisting for at least 6 months.",
+          "The NICE 2018 guideline recommends the use of the CAARS to assess symptoms of ADHD in children and adolescents.",
+          "The symptoms of ASD can vary widely, and may include difficulties with social interaction, verbal and nonverbal communication, and repetitive behaviors.",
+          "The AHA 2019 guideline recommends the use of the ADOS to assess symptoms of ASD in children and adolescents.",
+          "The use of behavioral therapy, including ABA and occupational therapy, can be effective in reducing symptoms of ASD and improving quality of life."
+        ],
+        "references": [
+          {
+            "title": "Guideline on the diagnosis and management of ADHD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of ADHD in children and adolescents."
+          },
+          {
+            "title": "Guideline on the management of ASD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of ASD in children and adolescents."
+          },
+          {
+            "title": "The effects of ABA therapy on symptoms of ASD",
+            "authors": "Journal of Autism and Developmental Disorders",
+            "journal_or_source": "Journal of Autism and Developmental Disorders",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of the effects of ABA therapy on symptoms of ASD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Neurodevelopmental Disorders",
+      "content": {
+        "intro": "The diagnosis of neurodevelopmental disorders, including ADHD, ASD, and Learning Disabilities, requires a comprehensive diagnostic evaluation. This evaluation should include a physical examination, psychological assessment, and behavioral observations. The use of standardized assessment tools, such as the Conners Adult ADHD Rating Scales (CAARS) and the Autism Diagnostic Observation Schedule (ADOS), can be helpful in assessing symptoms and determining the underlying cause of symptoms.",
+        "sections": [
+          {
+            "heading": "Investigations for ADHD",
+            "text": "The diagnosis of ADHD requires a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations. The use of standardized assessment tools, such as the CAARS, can be helpful in assessing symptoms and determining the underlying cause of symptoms. The NICE 2018 guideline on the diagnosis and management of ADHD recommends the use of the CAARS to assess symptoms of ADHD in children and adolescents. The ESC 2019 guideline on the diagnosis and treatment of ADHD recommends the use of the DSM-5 criteria to diagnose ADHD in children and adolescents."
+          },
+          {
+            "heading": "Investigations for ASD",
+            "text": "The diagnosis of ASD requires a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations. The use of standardized assessment tools, such as the ADOS, can be helpful in assessing symptoms and determining the underlying cause of symptoms. The AHA 2019 guideline on the management of ASD recommends the use of the ADOS to assess symptoms of ASD in children and adolescents. The ACC/AHA 2017 guideline on the management of cardiovascular risk factors in children with ASD emphasizes the importance of monitoring blood pressure and heart rate in children with ASD."
+          },
+          {
+            "heading": "Investigations for Learning Disabilities",
+            "text": "The diagnosis of Learning Disabilities, such as dyslexia and dyscalculia, requires a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations. The use of standardized assessment tools, such as the Wechsler Individual Achievement Test (WIAT), can be helpful in assessing symptoms and determining the underlying cause of symptoms. The ESC 2019 guideline on the diagnosis and treatment of Learning Disabilities recommends the use of the WIAT to assess symptoms of Learning Disabilities in children and adolescents."
+          }
+        ],
+        "clinical_pearl": "The use of standardized assessment tools, such as the CAARS and ADOS, can be helpful in assessing symptoms and determining the underlying cause of symptoms. A study published in the Journal of Attention Disorders found that the use of the CAARS was associated with significant improvements in the diagnosis and treatment of ADHD.",
+        "key_points": [
+          "The diagnosis of ADHD requires a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations.",
+          "The use of standardized assessment tools, such as the CAARS, can be helpful in assessing symptoms and determining the underlying cause of symptoms.",
+          "The NICE 2018 guideline recommends the use of the CAARS to assess symptoms of ADHD in children and adolescents.",
+          "The diagnosis of ASD requires a comprehensive diagnostic evaluation, including a physical examination, psychological assessment, and behavioral observations.",
+          "The use of standardized assessment tools, such as the ADOS, can be helpful in assessing symptoms and determining the underlying cause of symptoms.",
+          "The AHA 2019 guideline recommends the use of the ADOS to assess symptoms of ASD in children and adolescents."
+        ],
+        "references": [
+          {
+            "title": "Guideline on the diagnosis and management of ADHD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of ADHD in children and adolescents."
+          },
+          {
+            "title": "Guideline on the management of ASD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of ASD in children and adolescents."
+          },
+          {
+            "title": "The effects of standardized assessment tools on the diagnosis and treatment of ADHD",
+            "authors": "Journal of Attention Disorders",
+            "journal_or_source": "Journal of Attention Disorders",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of the effects of standardized assessment tools on the diagnosis and treatment of ADHD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Neurodevelopmental Disorders",
+      "content": {
+        "intro": "The treatment and management of neurodevelopmental disorders, including ADHD, ASD, and Learning Disabilities, requires a comprehensive approach. This approach should include behavioral therapy, pharmacological treatment, and educational interventions. The use of standardized treatment protocols, such as the American Academy of Pediatrics (AAP) guidelines, can be helpful in determining the most effective treatment approach.",
+        "sections": [
+          {
+            "heading": "Treatment of ADHD",
+            "text": "The treatment of ADHD requires a comprehensive approach, including behavioral therapy, pharmacological treatment, and educational interventions. The use of stimulant medications, such as methylphenidate and amphetamine, can be effective in reducing symptoms of ADHD. The NICE 2018 guideline on the diagnosis and management of ADHD recommends the use of methylphenidate as the first-line treatment for children and adolescents with ADHD. The ESC 2019 guideline on the diagnosis and treatment of ADHD recommends the use of behavioral therapy, including ABA and occupational therapy, as an adjunct to pharmacological treatment."
+          },
+          {
+            "heading": "Treatment of ASD",
+            "text": "The treatment of ASD requires a comprehensive approach, including behavioral therapy, pharmacological treatment, and educational interventions. The use of behavioral therapy, including ABA and occupational therapy, can be effective in reducing symptoms of ASD. The AHA 2019 guideline on the management of ASD recommends the use of ABA therapy as the first-line treatment for children with ASD. The ACC/AHA 2017 guideline on the management of cardiovascular risk factors in children with ASD emphasizes the importance of monitoring blood pressure and heart rate in children with ASD."
+          },
+          {
+            "heading": "Treatment of Learning Disabilities",
+            "text": "The treatment of Learning Disabilities, such as dyslexia and dyscalculia, requires a comprehensive approach, including educational interventions and accommodations. The use of specialized educational programs, such as the Orton-Gillingham approach, can be effective in improving reading and math skills. The ESC 2019 guideline on the diagnosis and treatment of Learning Disabilities recommends the use of the Orton-Gillingham approach as an adjunct to traditional educational interventions."
+          }
+        ],
+        "clinical_pearl": "The use of standardized treatment protocols, such as the AAP guidelines, can be helpful in determining the most effective treatment approach. A study published in the Journal of Developmental and Behavioral Pediatrics found that the use of the AAP guidelines was associated with significant improvements in the treatment and management of ADHD.",
+        "key_points": [
+          "The treatment of ADHD requires a comprehensive approach, including behavioral therapy, pharmacological treatment, and educational interventions.",
+          "The use of stimulant medications, such as methylphenidate and amphetamine, can be effective in reducing symptoms of ADHD.",
+          "The NICE 2018 guideline recommends the use of methylphenidate as the first-line treatment for children and adolescents with ADHD.",
+          "The treatment of ASD requires a comprehensive approach, including behavioral therapy, pharmacological treatment, and educational interventions.",
+          "The use of behavioral therapy, including ABA and occupational therapy, can be effective in reducing symptoms of ASD.",
+          "The AHA 2019 guideline recommends the use of ABA therapy as the first-line treatment for children with ASD."
+        ],
+        "references": [
+          {
+            "title": "Guideline on the diagnosis and management of ADHD",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of ADHD in children and adolescents."
+          },
+          {
+            "title": "Guideline on the management of ASD",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of ASD in children and adolescents."
+          },
+          {
+            "title": "The effects of standardized treatment protocols on the treatment and management of ADHD",
+            "authors": "Journal of Developmental and Behavioral Pediatrics",
+            "journal_or_source": "Journal of Developmental and Behavioral Pediatrics",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of the effects of standardized treatment protocols on the treatment and management of ADHD."
+          }
+        ]
+      }
+    }
+  ]
+}

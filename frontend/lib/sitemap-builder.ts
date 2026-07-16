@@ -527,6 +527,9 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/medical-disclaimer", priority: 0.6, changefreq: "yearly"  },
       { path: "/contact",            priority: 0.6, changefreq: "monthly" },
       { path: "/enterprise",         priority: 0.8, changefreq: "monthly" },
+      { path: "/nurses",             priority: 0.9, changefreq: "monthly" },
+      { path: "/nurses/nclex",       priority: 0.9, changefreq: "weekly"  },
+      { path: "/dose-calc",          priority: 0.8, changefreq: "monthly" },
     ];
     for (const s of statics) {
       entries.push(

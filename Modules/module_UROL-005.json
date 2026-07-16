@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "UROL-005",
+    "type": "specialty_module",
+    "specialty": "Urology",
+    "specialty_ru": "Урология",
+    "title_en": "Male Sexual Health: Erectile Dysfunction, Peyronie's Disease and Male Infertility",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Male Sexual Health Issues",
+      "content": {
+        "intro": "Male sexual health issues, including erectile dysfunction (ED), Peyronie's disease, and male infertility, are common problems that affect a significant proportion of the male population. ED, for example, affects approximately 30 million men in the United States alone, with the prevalence increasing with age. The pathophysiology of ED involves a complex interplay of vascular, neurological, and hormonal factors. Peyronie's disease, on the other hand, is characterized by the formation of scar tissue in the penis, leading to painful erections and curvature of the penis. Male infertility, which affects approximately 7% of all men, can be caused by a variety of factors, including low sperm count, poor sperm motility, and obstructive disorders.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Male Sexual Health Issues",
+            "text": "The epidemiology of male sexual health issues is complex and multifactorial. ED, for example, has been shown to be associated with a range of cardiovascular risk factors, including hypertension, diabetes, and hyperlipidemia. The prevalence of ED increases with age, with approximately 40% of men aged 40-49 years and 70% of men aged 70 years or older experiencing some degree of ED. Peyronie's disease, on the other hand, affects approximately 1-3% of all men, with the majority of cases occurring in men aged 40-60 years. Male infertility, as mentioned earlier, affects approximately 7% of all men, with the majority of cases being caused by low sperm count or poor sperm motility."
+          },
+          {
+            "heading": "Pathophysiology of Erectile Dysfunction",
+            "text": "The pathophysiology of ED involves a complex interplay of vascular, neurological, and hormonal factors. The erection process involves the release of nitric oxide from the endothelial cells of the penis, which stimulates the production of cyclic guanosine monophosphate (cGMP) and leads to smooth muscle relaxation and increased blood flow to the penis. In men with ED, this process is disrupted, leading to reduced blood flow to the penis and impaired erection. The use of phosphodiesterase type 5 (PDE5) inhibitors, such as sildenafil (50-100mg) and tadalafil (10-20mg), can help to improve erectile function by increasing the levels of cGMP and enhancing blood flow to the penis."
+          },
+          {
+            "heading": "Risk Factors for Male Sexual Health Issues",
+            "text": "A range of risk factors have been identified for male sexual health issues, including ED, Peyronie's disease, and male infertility. These risk factors include cardiovascular disease, diabetes, hypertension, hyperlipidemia, smoking, and obesity. The use of certain medications, such as beta-blockers and selective serotonin reuptake inhibitors (SSRIs), can also contribute to the development of ED. The European Society of Cardiology (ESC) and the American Heart Association (AHA) recommend that all men with ED undergo a comprehensive cardiovascular risk assessment, including measurement of blood pressure, lipid profile, and fasting glucose."
+          }
+        ],
+        "clinical_pearl": "The use of PDE5 inhibitors, such as sildenafil and tadalafil, can help to improve erectile function in men with ED, but may be contraindicated in men with certain cardiovascular conditions, such as unstable angina or recent myocardial infarction.",
+        "key_points": [
+          "ED affects approximately 30 million men in the United States alone.",
+          "The prevalence of ED increases with age, with approximately 40% of men aged 40-49 years and 70% of men aged 70 years or older experiencing some degree of ED.",
+          "Peyronie's disease affects approximately 1-3% of all men, with the majority of cases occurring in men aged 40-60 years.",
+          "Male infertility affects approximately 7% of all men, with the majority of cases being caused by low sperm count or poor sperm motility.",
+          "The use of PDE5 inhibitors, such as sildenafil and tadalafil, can help to improve erectile function in men with ED.",
+          "The ESC and AHA recommend that all men with ED undergo a comprehensive cardiovascular risk assessment."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on cardiovascular disease prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for cardiovascular risk assessment in men with ED."
+          },
+          {
+            "title": "AHA Scientific Statement on erectile dysfunction and cardiovascular disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of ED in men with cardiovascular disease."
+          },
+          {
+            "title": "The efficacy and safety of tadalafil for the treatment of erectile dysfunction",
+            "authors": "Porst H, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Results of a randomized controlled trial evaluating the efficacy and safety of tadalafil for the treatment of ED."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Male Sexual Health Issues",
+      "content": {
+        "intro": "The clinical presentation of male sexual health issues can vary depending on the underlying condition. ED, for example, can present with a range of symptoms, including reduced erectile function, decreased libido, and premature ejaculation. Peyronie's disease, on the other hand, is characterized by the formation of scar tissue in the penis, leading to painful erections and curvature of the penis. Male infertility can present with a range of symptoms, including low sperm count, poor sperm motility, and obstructive disorders.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Erectile Dysfunction",
+            "text": "The clinical presentation of ED can vary depending on the underlying cause. Men with ED may experience reduced erectile function, decreased libido, and premature ejaculation. The International Index of Erectile Function (IIEF) is a widely used questionnaire that can help to assess the severity of ED. The IIEF consists of 15 questions that evaluate the domains of erectile function, orgasmic function, sexual desire, intercourse satisfaction, and overall satisfaction."
+          },
+          {
+            "heading": "Clinical Presentation of Peyronie's Disease",
+            "text": "The clinical presentation of Peyronie's disease is characterized by the formation of scar tissue in the penis, leading to painful erections and curvature of the penis. The disease can be divided into two phases: the acute phase, which is characterized by inflammation and pain, and the chronic phase, which is characterized by the formation of scar tissue. The use of oral medications, such as vitamin E and potassium aminobenzoate, can help to reduce the symptoms of Peyronie's disease."
+          },
+          {
+            "heading": "Clinical Presentation of Male Infertility",
+            "text": "The clinical presentation of male infertility can vary depending on the underlying cause. Men with male infertility may experience a range of symptoms, including low sperm count, poor sperm motility, and obstructive disorders. The use of semen analysis can help to evaluate the quality of the semen and identify any underlying abnormalities. The National Institute for Health and Care Excellence (NICE) recommends that all men with male infertility undergo a comprehensive evaluation, including semen analysis and hormone testing."
+          }
+        ],
+        "clinical_pearl": "The use of the IIEF questionnaire can help to assess the severity of ED and monitor the response to treatment.",
+        "key_points": [
+          "The clinical presentation of ED can vary depending on the underlying cause.",
+          "The IIEF questionnaire is a widely used tool for assessing the severity of ED.",
+          "Peyronie's disease is characterized by the formation of scar tissue in the penis, leading to painful erections and curvature of the penis.",
+          "Male infertility can present with a range of symptoms, including low sperm count, poor sperm motility, and obstructive disorders.",
+          "The use of semen analysis can help to evaluate the quality of the semen and identify any underlying abnormalities.",
+          "The NICE recommends that all men with male infertility undergo a comprehensive evaluation, including semen analysis and hormone testing."
+        ],
+        "references": [
+          {
+            "title": "The International Index of Erectile Function (IIEF)",
+            "authors": "Rosen RC, et al.",
+            "journal_or_source": "Urology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Description of the IIEF questionnaire and its use in clinical practice."
+          },
+          {
+            "title": "Peyronie's disease: a review of the current evidence",
+            "authors": "Levy J, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of Peyronie's disease."
+          },
+          {
+            "title": "Male infertility: a review of the current evidence",
+            "authors": "Kumar N, et al.",
+            "journal_or_source": "Fertility and Sterility",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of male infertility."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Male Sexual Health Issues",
+      "content": {
+        "intro": "The diagnosis of male sexual health issues requires a comprehensive evaluation, including a medical history, physical examination, and laboratory tests. ED, for example, can be diagnosed using a range of tests, including the IIEF questionnaire, nocturnal penile tumescence (NPT) testing, and duplex ultrasound. Peyronie's disease can be diagnosed using a range of tests, including penile ultrasound and magnetic resonance imaging (MRI). Male infertility can be diagnosed using a range of tests, including semen analysis and hormone testing.",
+        "sections": [
+          {
+            "heading": "Investigations for Erectile Dysfunction",
+            "text": "The diagnosis of ED requires a comprehensive evaluation, including a medical history, physical examination, and laboratory tests. The IIEF questionnaire is a widely used tool for assessing the severity of ED. NPT testing can help to evaluate the quality of erections during sleep, while duplex ultrasound can help to evaluate the blood flow to the penis. The use of laboratory tests, such as lipid profile and fasting glucose, can help to identify any underlying cardiovascular risk factors."
+          },
+          {
+            "heading": "Investigations for Peyronie's Disease",
+            "text": "The diagnosis of Peyronie's disease requires a comprehensive evaluation, including a medical history, physical examination, and laboratory tests. Penile ultrasound can help to evaluate the extent of scar tissue in the penis, while MRI can help to evaluate the extent of curvature. The use of laboratory tests, such as urine analysis and blood tests, can help to identify any underlying infections or inflammation."
+          },
+          {
+            "heading": "Investigations for Male Infertility",
+            "text": "The diagnosis of male infertility requires a comprehensive evaluation, including a medical history, physical examination, and laboratory tests. Semen analysis is a widely used tool for evaluating the quality of the semen. Hormone testing, including follicle-stimulating hormone (FSH) and luteinizing hormone (LH), can help to evaluate the function of the testes. The use of genetic testing, such as karyotyping and Y chromosome microdeletion analysis, can help to identify any underlying genetic abnormalities."
+          }
+        ],
+        "clinical_pearl": "The use of the IIEF questionnaire can help to assess the severity of ED and monitor the response to treatment.",
+        "key_points": [
+          "The diagnosis of ED requires a comprehensive evaluation, including a medical history, physical examination, and laboratory tests.",
+          "The IIEF questionnaire is a widely used tool for assessing the severity of ED.",
+          "Peyronie's disease can be diagnosed using a range of tests, including penile ultrasound and MRI.",
+          "Male infertility can be diagnosed using a range of tests, including semen analysis and hormone testing.",
+          "The use of laboratory tests, such as lipid profile and fasting glucose, can help to identify any underlying cardiovascular risk factors.",
+          "The use of genetic testing, such as karyotyping and Y chromosome microdeletion analysis, can help to identify any underlying genetic abnormalities."
+        ],
+        "references": [
+          {
+            "title": "The diagnosis and treatment of erectile dysfunction",
+            "authors": "Hatzichristou D, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Review of the current evidence on the diagnosis and treatment of ED."
+          },
+          {
+            "title": "Peyronie's disease: a review of the current evidence",
+            "authors": "Levy J, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of Peyronie's disease."
+          },
+          {
+            "title": "Male infertility: a review of the current evidence",
+            "authors": "Kumar N, et al.",
+            "journal_or_source": "Fertility and Sterility",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of male infertility."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Male Sexual Health Issues",
+      "content": {
+        "intro": "The treatment and management of male sexual health issues requires a comprehensive approach, including lifestyle modifications, pharmacological therapy, and surgical interventions. ED, for example, can be treated using a range of medications, including PDE5 inhibitors, such as sildenafil and tadalafil. Peyronie's disease can be treated using a range of medications, including vitamin E and potassium aminobenzoate. Male infertility can be treated using a range of medications, including clomiphene citrate and human chorionic gonadotropin (hCG).",
+        "sections": [
+          {
+            "heading": "Treatment of Erectile Dysfunction",
+            "text": "The treatment of ED requires a comprehensive approach, including lifestyle modifications, pharmacological therapy, and surgical interventions. The use of PDE5 inhibitors, such as sildenafil and tadalafil, can help to improve erectile function. The use of vacuum erection devices (VEDs) and penile implants can also help to improve erectile function. The American Urological Association (AUA) recommends that all men with ED undergo a comprehensive evaluation, including a medical history, physical examination, and laboratory tests."
+          },
+          {
+            "heading": "Treatment of Peyronie's Disease",
+            "text": "The treatment of Peyronie's disease requires a comprehensive approach, including lifestyle modifications, pharmacological therapy, and surgical interventions. The use of oral medications, such as vitamin E and potassium aminobenzoate, can help to reduce the symptoms of Peyronie's disease. The use of injectable medications, such as collagenase, can also help to reduce the symptoms of Peyronie's disease. The use of surgical interventions, such as penile plication and plaque incision, can also help to reduce the symptoms of Peyronie's disease."
+          },
+          {
+            "heading": "Treatment of Male Infertility",
+            "text": "The treatment of male infertility requires a comprehensive approach, including lifestyle modifications, pharmacological therapy, and surgical interventions. The use of medications, such as clomiphene citrate and hCG, can help to improve sperm count and motility. The use of assisted reproductive technologies (ART), such as in vitro fertilization (IVF) and intracytoplasmic sperm injection (ICSI), can also help to improve fertility. The use of surgical interventions, such as varicocele repair and vasectomy reversal, can also help to improve fertility."
+          }
+        ],
+        "clinical_pearl": "The use of PDE5 inhibitors, such as sildenafil and tadalafil, can help to improve erectile function in men with ED.",
+        "key_points": [
+          "The treatment of ED requires a comprehensive approach, including lifestyle modifications, pharmacological therapy, and surgical interventions.",
+          "The use of PDE5 inhibitors, such as sildenafil and tadalafil, can help to improve erectile function.",
+          "Peyronie's disease can be treated using a range of medications, including vitamin E and potassium aminobenzoate.",
+          "Male infertility can be treated using a range of medications, including clomiphene citrate and hCG.",
+          "The use of ART, such as IVF and ICSI, can help to improve fertility.",
+          "The use of surgical interventions, such as varicocele repair and vasectomy reversal, can also help to improve fertility."
+        ],
+        "references": [
+          {
+            "title": "The treatment of erectile dysfunction",
+            "authors": "Hatzichristou D, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Review of the current evidence on the treatment of ED."
+          },
+          {
+            "title": "Peyronie's disease: a review of the current evidence",
+            "authors": "Levy J, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2019,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of Peyronie's disease."
+          },
+          {
+            "title": "Male infertility: a review of the current evidence",
+            "authors": "Kumar N, et al.",
+            "journal_or_source": "Fertility and Sterility",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the current evidence on the diagnosis and treatment of male infertility."
+          }
+        ]
+      }
+    }
+  ]
+}

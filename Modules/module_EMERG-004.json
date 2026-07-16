@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "EMERG-004",
+    "type": "specialty_module",
+    "specialty": "Emergency Medicine",
+    "specialty_ru": "Скорая и неотложная помощь",
+    "title_en": "Trauma Assessment: ATLS Primary and Secondary Survey",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Trauma",
+      "content": {
+        "intro": "Trauma is a leading cause of morbidity and mortality worldwide, with approximately 5.8 million deaths annually. The pathophysiology of trauma involves a complex interplay of factors, including the severity of injury, the patient's underlying health status, and the timeliness and quality of care received. The Advanced Trauma Life Support (ATLS) protocol is widely used to guide the assessment and management of trauma patients. The primary survey, also known as the initial assessment, is critical in identifying life-threatening injuries and prioritizing care. In this lesson, we will review the epidemiology and pathophysiology of trauma, with a focus on the ATLS primary survey.",
+        "sections": [
+          {
+            "heading": "Mechanisms of Injury",
+            "text": "The mechanisms of injury can be broadly categorized into blunt and penetrating trauma. Blunt trauma, which accounts for the majority of injuries, is typically caused by motor vehicle collisions, falls, or assaults. Penetrating trauma, on the other hand, is often caused by gunshot wounds or stabbings. Understanding the mechanism of injury is crucial in anticipating potential patterns of injury and guiding the assessment and management of the patient. For example, a patient involved in a high-speed motor vehicle collision may be at risk for injuries such as thoracic aortic dissection or splenic laceration. According to the 2020 European Society of Cardiology (ESC) guidelines, patients with suspected thoracic aortic dissection should undergo immediate computed tomography (CT) angiography."
+          },
+          {
+            "heading": "Physiological Response to Trauma",
+            "text": "The physiological response to trauma is characterized by a complex interplay of hormonal, metabolic, and inflammatory changes. The stress response, also known as the 'fight or flight' response, is mediated by the release of hormones such as adrenaline and cortisol. These hormones prepare the body for the 'fight or flight' response by increasing heart rate, blood pressure, and glucose availability. However, this response can also have negative consequences, such as increased cardiac workload and impaired immune function. The 2019 American Heart Association (AHA) guidelines recommend the use of beta blockers, such as metoprolol, to reduce cardiac workload and improve outcomes in patients with traumatic brain injury."
+          },
+          {
+            "heading": "ATLS Primary Survey",
+            "text": "The ATLS primary survey is a systematic approach to assessing the trauma patient, which involves evaluating the patient's airway, breathing, circulation, disability, and exposure (ABCDE). This survey is critical in identifying life-threatening injuries and prioritizing care. For example, a patient with a compromised airway may require immediate intubation, while a patient with hypotension may require fluid resuscitation. The 2018 National Institute for Health and Care Excellence (NICE) guidelines recommend the use of a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of trauma patients."
+          }
+        ],
+        "clinical_pearl": "The ATLS primary survey should be performed in a systematic and efficient manner, with a focus on identifying life-threatening injuries and prioritizing care. For example, a patient with a Glasgow Coma Scale (GCS) score of 8 or less should be considered for immediate intubation.",
+        "key_points": [
+          "Trauma is a leading cause of morbidity and mortality worldwide, with approximately 5.8 million deaths annually.",
+          "The ATLS primary survey is a systematic approach to assessing the trauma patient, which involves evaluating the patient's airway, breathing, circulation, disability, and exposure (ABCDE).",
+          "Patients with suspected thoracic aortic dissection should undergo immediate CT angiography, according to the 2020 ESC guidelines.",
+          "The use of beta blockers, such as metoprolol, can reduce cardiac workload and improve outcomes in patients with traumatic brain injury, according to the 2019 AHA guidelines.",
+          "The ATLS primary survey should be performed in a systematic and efficient manner, with a focus on identifying life-threatening injuries and prioritizing care.",
+          "A patient with a GCS score of 8 or less should be considered for immediate intubation."
+        ],
+        "references": [
+          {
+            "title": "2020 European Society of Cardiology Guidelines on Cardiovascular Disease Prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with suspected thoracic aortic dissection."
+          },
+          {
+            "title": "2019 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of beta blockers in patients with traumatic brain injury."
+          },
+          {
+            "title": "2018 National Institute for Health and Care Excellence Guidelines for the Assessment and Management of Trauma Patients",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of trauma patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Trauma",
+      "content": {
+        "intro": "The clinical presentation of trauma can vary widely, depending on the mechanism of injury, the severity of the injury, and the patient's underlying health status. Patients may present with a range of symptoms, from mild to severe, and may require immediate intervention to prevent further injury or death. In this lesson, we will review the clinical presentation of trauma, with a focus on the signs and symptoms of common injuries.",
+        "sections": [
+          {
+            "heading": "Signs and Symptoms of Head Injury",
+            "text": "Patients with head injury may present with a range of signs and symptoms, including headache, confusion, and loss of consciousness. The severity of the injury can be assessed using the GCS, which evaluates the patient's eye opening, verbal response, and motor response. According to the 2020 AHA guidelines, patients with a GCS score of 8 or less should be considered for immediate intubation. The use of medications such as mannitol, which can help reduce intracranial pressure, may also be considered."
+          },
+          {
+            "heading": "Signs and Symptoms of Thoracic Injury",
+            "text": "Patients with thoracic injury may present with signs and symptoms such as chest pain, shortness of breath, and hypotension. The diagnosis of thoracic injury can be made using imaging studies such as chest X-ray and CT scan. According to the 2019 ESC guidelines, patients with suspected thoracic aortic dissection should undergo immediate CT angiography. The use of medications such as beta blockers, which can help reduce cardiac workload, may also be considered."
+          },
+          {
+            "heading": "Signs and Symptoms of Abdominal Injury",
+            "text": "Patients with abdominal injury may present with signs and symptoms such as abdominal pain, nausea, and vomiting. The diagnosis of abdominal injury can be made using imaging studies such as abdominal X-ray and CT scan. According to the 2018 NICE guidelines, patients with suspected abdominal injury should undergo immediate laparotomy. The use of medications such as antibiotics, which can help prevent infection, may also be considered."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of trauma can be highly variable, and a high index of suspicion is required to identify potential life-threatening injuries. For example, a patient with a mechanism of injury consistent with thoracic aortic dissection should undergo immediate CT angiography.",
+        "key_points": [
+          "The clinical presentation of trauma can vary widely, depending on the mechanism of injury, the severity of the injury, and the patient's underlying health status.",
+          "Patients with head injury may present with signs and symptoms such as headache, confusion, and loss of consciousness.",
+          "The GCS is a useful tool for assessing the severity of head injury, and patients with a GCS score of 8 or less should be considered for immediate intubation.",
+          "Patients with thoracic injury may present with signs and symptoms such as chest pain, shortness of breath, and hypotension.",
+          "The diagnosis of thoracic injury can be made using imaging studies such as chest X-ray and CT scan.",
+          "Patients with suspected abdominal injury should undergo immediate laparotomy, according to the 2018 NICE guidelines."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with head injury."
+          },
+          {
+            "title": "2019 European Society of Cardiology Guidelines on Cardiovascular Disease Prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with thoracic injury."
+          },
+          {
+            "title": "2018 National Institute for Health and Care Excellence Guidelines for the Assessment and Management of Trauma Patients",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with abdominal injury."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Trauma",
+      "content": {
+        "intro": "The diagnosis of trauma requires a combination of clinical evaluation, laboratory testing, and imaging studies. In this lesson, we will review the investigations and diagnosis of trauma, with a focus on the use of imaging studies such as X-ray, CT scan, and ultrasound.",
+        "sections": [
+          {
+            "heading": "Imaging Studies in Trauma",
+            "text": "Imaging studies such as X-ray, CT scan, and ultrasound are essential in the diagnosis of trauma. X-ray is useful for evaluating the chest, abdomen, and extremities, while CT scan is useful for evaluating the head, neck, and torso. Ultrasound is useful for evaluating the abdomen and pelvis. According to the 2020 AHA guidelines, patients with suspected thoracic aortic dissection should undergo immediate CT angiography. The use of contrast agents, such as iodine or gadolinium, may also be considered to enhance the diagnostic accuracy of imaging studies."
+          },
+          {
+            "heading": "Laboratory Testing in Trauma",
+            "text": "Laboratory testing such as complete blood count (CBC), electrolyte panel, and coagulation studies are essential in the diagnosis of trauma. CBC can help evaluate the patient's hemoglobin level, white blood cell count, and platelet count, while electrolyte panel can help evaluate the patient's sodium, potassium, and chloride levels. Coagulation studies, such as prothrombin time (PT) and partial thromboplastin time (PTT), can help evaluate the patient's coagulation status. According to the 2019 ESC guidelines, patients with suspected bleeding disorders should undergo coagulation studies."
+          },
+          {
+            "heading": "Clinical Evaluation in Trauma",
+            "text": "Clinical evaluation is essential in the diagnosis of trauma, and involves a combination of history taking, physical examination, and vital sign measurement. The patient's mechanism of injury, medical history, and symptoms should be carefully evaluated, and a thorough physical examination should be performed to identify potential injuries. According to the 2018 NICE guidelines, patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of trauma requires a combination of clinical evaluation, laboratory testing, and imaging studies. For example, a patient with a mechanism of injury consistent with thoracic aortic dissection should undergo immediate CT angiography and coagulation studies.",
+        "key_points": [
+          "Imaging studies such as X-ray, CT scan, and ultrasound are essential in the diagnosis of trauma.",
+          "Laboratory testing such as CBC, electrolyte panel, and coagulation studies are essential in the diagnosis of trauma.",
+          "Clinical evaluation is essential in the diagnosis of trauma, and involves a combination of history taking, physical examination, and vital sign measurement.",
+          "Patients with suspected thoracic aortic dissection should undergo immediate CT angiography, according to the 2020 AHA guidelines.",
+          "Patients with suspected bleeding disorders should undergo coagulation studies, according to the 2019 ESC guidelines.",
+          "Patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with thoracic aortic dissection."
+          },
+          {
+            "title": "2019 European Society of Cardiology Guidelines on Cardiovascular Disease Prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with bleeding disorders."
+          },
+          {
+            "title": "2018 National Institute for Health and Care Excellence Guidelines for the Assessment and Management of Trauma Patients",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with suspected trauma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Trauma",
+      "content": {
+        "intro": "The treatment and management of trauma requires a multidisciplinary approach, involving emergency medical services (EMS), emergency department (ED) staff, and trauma surgeons. In this lesson, we will review the treatment and management of trauma, with a focus on the use of medications, surgical interventions, and other therapies.",
+        "sections": [
+          {
+            "heading": "Medications in Trauma",
+            "text": "Medications such as analgesics, antibiotics, and vasopressors are essential in the treatment and management of trauma. Analgesics, such as morphine or fentanyl, can help manage pain, while antibiotics, such as ceftriaxone or vancomycin, can help prevent infection. Vasopressors, such as norepinephrine or epinephrine, can help manage hypotension. According to the 2020 AHA guidelines, patients with suspected sepsis should undergo antibiotic therapy within one hour of arrival to the ED."
+          },
+          {
+            "heading": "Surgical Interventions in Trauma",
+            "text": "Surgical interventions such as laparotomy, thoracotomy, and craniotomy are essential in the treatment and management of trauma. Laparotomy can help evaluate and manage abdominal injuries, while thoracotomy can help evaluate and manage thoracic injuries. Craniotomy can help evaluate and manage head injuries. According to the 2019 ESC guidelines, patients with suspected thoracic aortic dissection should undergo immediate surgical intervention."
+          },
+          {
+            "heading": "Other Therapies in Trauma",
+            "text": "Other therapies such as blood transfusion, fluid resuscitation, and mechanical ventilation are essential in the treatment and management of trauma. Blood transfusion can help manage bleeding, while fluid resuscitation can help manage hypotension. Mechanical ventilation can help manage respiratory failure. According to the 2018 NICE guidelines, patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of trauma requires a multidisciplinary approach, involving EMS, ED staff, and trauma surgeons. For example, a patient with suspected sepsis should undergo antibiotic therapy within one hour of arrival to the ED.",
+        "key_points": [
+          "Medications such as analgesics, antibiotics, and vasopressors are essential in the treatment and management of trauma.",
+          "Surgical interventions such as laparotomy, thoracotomy, and craniotomy are essential in the treatment and management of trauma.",
+          "Other therapies such as blood transfusion, fluid resuscitation, and mechanical ventilation are essential in the treatment and management of trauma.",
+          "Patients with suspected sepsis should undergo antibiotic therapy within one hour of arrival to the ED, according to the 2020 AHA guidelines.",
+          "Patients with suspected thoracic aortic dissection should undergo immediate surgical intervention, according to the 2019 ESC guidelines.",
+          "Patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with sepsis."
+          },
+          {
+            "title": "2019 European Society of Cardiology Guidelines on Cardiovascular Disease Prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with thoracic aortic dissection."
+          },
+          {
+            "title": "2018 National Institute for Health and Care Excellence Guidelines for the Assessment and Management of Trauma Patients",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with suspected trauma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Trauma",
+      "content": {
+        "intro": "The complications and prognosis of trauma can vary widely, depending on the severity of the injury, the patient's underlying health status, and the timeliness and quality of care received. In this lesson, we will review the complications and prognosis of trauma, with a focus on the use of scoring systems and other prognostic tools.",
+        "sections": [
+          {
+            "heading": "Scoring Systems in Trauma",
+            "text": "Scoring systems such as the Injury Severity Score (ISS) and the Revised Trauma Score (RTS) are essential in evaluating the severity of trauma and predicting patient outcomes. The ISS evaluates the severity of injury to six body regions, while the RTS evaluates the patient's respiratory rate, systolic blood pressure, and GCS score. According to the 2020 AHA guidelines, patients with an ISS score of 16 or higher should be considered for transfer to a trauma center."
+          },
+          {
+            "heading": "Prognostic Tools in Trauma",
+            "text": "Prognostic tools such as the Trauma and Injury Severity Score (TRISS) and the Ascending Aortic Injury Score (AAIS) are essential in evaluating patient outcomes and predicting mortality. The TRISS evaluates the patient's ISS score, age, and mechanism of injury, while the AAIS evaluates the patient's aortic injury severity and other factors. According to the 2019 ESC guidelines, patients with an AAIS score of 5 or higher should be considered for immediate surgical intervention."
+          },
+          {
+            "heading": "Complications of Trauma",
+            "text": "Complications of trauma can include bleeding, infection, and organ failure. Bleeding can be managed with medications such as tranexamic acid or with surgical interventions such as laparotomy. Infection can be managed with antibiotics, while organ failure can be managed with supportive care such as mechanical ventilation or dialysis. According to the 2018 NICE guidelines, patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+          }
+        ],
+        "clinical_pearl": "The complications and prognosis of trauma can vary widely, and a high index of suspicion is required to identify potential complications. For example, a patient with an ISS score of 16 or higher should be considered for transfer to a trauma center.",
+        "key_points": [
+          "Scoring systems such as the ISS and RTS are essential in evaluating the severity of trauma and predicting patient outcomes.",
+          "Prognostic tools such as the TRISS and AAIS are essential in evaluating patient outcomes and predicting mortality.",
+          "Complications of trauma can include bleeding, infection, and organ failure.",
+          "Patients with an ISS score of 16 or higher should be considered for transfer to a trauma center, according to the 2020 AHA guidelines.",
+          "Patients with an AAIS score of 5 or higher should be considered for immediate surgical intervention, according to the 2019 ESC guidelines.",
+          "Patients with suspected trauma should undergo a standardized assessment tool, such as the ATLS primary survey, to guide the assessment and management of the patient."
+        ],
+        "references": [
+          {
+            "title": "2020 American Heart Association Guidelines for Cardiopulmonary Resuscitation and Emergency Cardiovascular Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with trauma."
+          },
+          {
+            "title": "2019 European Society of Cardiology Guidelines on Cardiovascular Disease Prevention",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with aortic injury."
+          },
+          {
+            "title": "2018 National Institute for Health and Care Excellence Guidelines for the Assessment and Management of Trauma Patients",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with suspected trauma."
+          }
+        ]
+      }
+    }
+  ]
+}

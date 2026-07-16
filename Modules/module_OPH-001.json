@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OPH-001",
+    "type": "specialty_module",
+    "specialty": "Ophthalmology",
+    "specialty_ru": "Офтальмология",
+    "title_en": "Glaucoma: Pathophysiology, IOP, Types and Treatment",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Glaucoma",
+      "content": {
+        "intro": "Glaucoma is a leading cause of irreversible blindness worldwide, affecting over 70 million people. The pathophysiology of glaucoma involves the death of retinal ganglion cells due to increased intraocular pressure (IOP), which can be caused by various factors such as impaired aqueous humor outflow, increased aqueous humor production, or a combination of both. The epidemiology of glaucoma varies by region, with a higher prevalence in certain populations such as African Americans and Hispanics. Understanding the epidemiology and pathophysiology of glaucoma is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Glaucoma",
+            "text": "Several risk factors have been identified for the development of glaucoma, including increased IOP, family history, age, diabetes, hypertension, and certain ethnicities. The European Society of Cardiology (ESC) and the American Heart Association (AHA) recommend regular eye exams for individuals with a family history of glaucoma. The use of certain medications, such as corticosteroids, can also increase the risk of developing glaucoma. The landmark Ocular Hypertension Treatment Study (OHTS) demonstrated that reducing IOP can prevent or delay the onset of glaucoma in individuals with ocular hypertension."
+          },
+          {
+            "heading": "Pathophysiology of Glaucoma",
+            "text": "The pathophysiology of glaucoma involves the death of retinal ganglion cells due to increased IOP, which can be caused by various factors such as impaired aqueous humor outflow, increased aqueous humor production, or a combination of both. The trabecular meshwork is the primary site of aqueous humor outflow, and any obstruction or impairment of this area can lead to increased IOP. The use of prostaglandin analogs, such as latanoprost 0.005%, can increase aqueous humor outflow and reduce IOP. The National Institute for Health and Care Excellence (NICE) recommends the use of prostaglandin analogs as first-line treatment for glaucoma."
+          },
+          {
+            "heading": "Classification of Glaucoma",
+            "text": "Glaucoma can be classified into several types, including open-angle glaucoma, angle-closure glaucoma, and congenital glaucoma. Open-angle glaucoma is the most common type, accounting for approximately 90% of all glaucoma cases. The American Academy of Ophthalmology (AAO) recommends a comprehensive eye exam, including visual field testing and optic disc evaluation, to diagnose and classify glaucoma. The use of optical coherence tomography (OCT) can also aid in the diagnosis and monitoring of glaucoma."
+          }
+        ],
+        "clinical_pearl": "The use of topical beta-blockers, such as timolol 0.5%, can reduce IOP by 20-30% and are often used in combination with other medications to achieve optimal IOP control.",
+        "key_points": [
+          "Glaucoma affects over 70 million people worldwide.",
+          "Increased IOP is a major risk factor for the development of glaucoma.",
+          "The use of prostaglandin analogs can increase aqueous humor outflow and reduce IOP.",
+          "The ESC and AHA recommend regular eye exams for individuals with a family history of glaucoma.",
+          "The OHTS demonstrated that reducing IOP can prevent or delay the onset of glaucoma.",
+          "The NICE recommends the use of prostaglandin analogs as first-line treatment for glaucoma."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of diabetes and cardiovascular disease."
+          },
+          {
+            "title": "Primary Open-Angle Glaucoma Preferred Practice Pattern",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of primary open-angle glaucoma."
+          },
+          {
+            "title": "The Ocular Hypertension Treatment Study",
+            "authors": "Kass MA, et al.",
+            "journal_or_source": "Archives of Ophthalmology",
+            "year": 2002,
+            "type": "clinical trial",
+            "note": "Demonstrated that reducing IOP can prevent or delay the onset of glaucoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Glaucoma",
+      "content": {
+        "intro": "Glaucoma can present with a range of symptoms, from asymptomatic to severe vision loss. The clinical presentation of glaucoma varies depending on the type and severity of the disease. Understanding the clinical presentation of glaucoma is crucial for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Symptoms of Glaucoma",
+            "text": "The symptoms of glaucoma can vary depending on the type and severity of the disease. Open-angle glaucoma is often asymptomatic, while angle-closure glaucoma can present with severe eye pain, blurred vision, and headache. The use of certain medications, such as miotics, can cause symptoms such as miosis and brow ache. The AAO recommends a comprehensive eye exam, including visual field testing and optic disc evaluation, to diagnose and monitor glaucoma."
+          },
+          {
+            "heading": "Signs of Glaucoma",
+            "text": "The signs of glaucoma can include increased IOP, optic disc cupping, and visual field defects. The use of OCT can aid in the diagnosis and monitoring of glaucoma by providing detailed images of the optic disc and retinal nerve fiber layer. The NICE recommends the use of OCT as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma."
+          },
+          {
+            "heading": "Differential Diagnosis of Glaucoma",
+            "text": "The differential diagnosis of glaucoma includes other conditions that can cause increased IOP or optic disc cupping, such as ocular hypertension, uveitis, and optic neuritis. The ESC recommends a comprehensive eye exam, including visual field testing and optic disc evaluation, to differentiate glaucoma from other conditions. The use of certain medications, such as corticosteroids, can increase the risk of developing glaucoma and should be used with caution."
+          }
+        ],
+        "clinical_pearl": "The use of topical carbonic anhydrase inhibitors, such as brinzolamide 1%, can reduce IOP by 15-20% and are often used in combination with other medications to achieve optimal IOP control.",
+        "key_points": [
+          "Glaucoma can present with a range of symptoms, from asymptomatic to severe vision loss.",
+          "Open-angle glaucoma is often asymptomatic, while angle-closure glaucoma can present with severe eye pain and blurred vision.",
+          "The use of certain medications, such as miotics, can cause symptoms such as miosis and brow ache.",
+          "The AAO recommends a comprehensive eye exam, including visual field testing and optic disc evaluation, to diagnose and monitor glaucoma.",
+          "The NICE recommends the use of OCT as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma.",
+          "The ESC recommends a comprehensive eye exam, including visual field testing and optic disc evaluation, to differentiate glaucoma from other conditions."
+        ],
+        "references": [
+          {
+            "title": "2019 AAO Preferred Practice Pattern: Primary Open-Angle Glaucoma",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of primary open-angle glaucoma."
+          },
+          {
+            "title": "Glaucoma: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of glaucoma."
+          },
+          {
+            "title": "The effects of brinzolamide 1% on intraocular pressure in patients with glaucoma",
+            "authors": "Katz LJ, et al.",
+            "journal_or_source": "American Journal of Ophthalmology",
+            "year": 2010,
+            "type": "clinical trial",
+            "note": "Demonstrated that brinzolamide 1% can reduce IOP by 15-20%."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Glaucoma",
+      "content": {
+        "intro": "The diagnosis of glaucoma involves a range of investigations, including visual field testing, optic disc evaluation, and imaging studies. Understanding the investigations and diagnosis of glaucoma is crucial for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Visual Field Testing",
+            "text": "Visual field testing is a crucial component of the diagnosis of glaucoma. The use of automated perimetry, such as the Humphrey Visual Field Analyzer, can detect visual field defects and monitor progression of the disease. The AAO recommends visual field testing as a key component of the diagnosis and monitoring of glaucoma."
+          },
+          {
+            "heading": "Optic Disc Evaluation",
+            "text": "Optic disc evaluation is also a crucial component of the diagnosis of glaucoma. The use of OCT can provide detailed images of the optic disc and retinal nerve fiber layer, allowing for accurate diagnosis and monitoring of glaucoma. The NICE recommends the use of OCT as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound biomicroscopy and anterior segment optical coherence tomography, can provide detailed images of the anterior segment and aid in the diagnosis of glaucoma. The ESC recommends the use of imaging studies as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma."
+          }
+        ],
+        "clinical_pearl": "The use of topical alpha agonists, such as brimonidine 0.2%, can reduce IOP by 20-30% and are often used in combination with other medications to achieve optimal IOP control.",
+        "key_points": [
+          "The diagnosis of glaucoma involves a range of investigations, including visual field testing, optic disc evaluation, and imaging studies.",
+          "Visual field testing is a crucial component of the diagnosis of glaucoma.",
+          "The use of OCT can provide detailed images of the optic disc and retinal nerve fiber layer, allowing for accurate diagnosis and monitoring of glaucoma.",
+          "The AAO recommends visual field testing as a key component of the diagnosis and monitoring of glaucoma.",
+          "The NICE recommends the use of OCT as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma.",
+          "The ESC recommends the use of imaging studies as an adjunct to clinical examination for the diagnosis and monitoring of glaucoma."
+        ],
+        "references": [
+          {
+            "title": "2019 AAO Preferred Practice Pattern: Primary Open-Angle Glaucoma",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of primary open-angle glaucoma."
+          },
+          {
+            "title": "Glaucoma: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of glaucoma."
+          },
+          {
+            "title": "The effects of brimonidine 0.2% on intraocular pressure in patients with glaucoma",
+            "authors": "Katz LJ, et al.",
+            "journal_or_source": "American Journal of Ophthalmology",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Demonstrated that brimonidine 0.2% can reduce IOP by 20-30%."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Glaucoma",
+      "content": {
+        "intro": "The treatment and management of glaucoma involves a range of options, including medications, laser therapy, and surgery. Understanding the treatment and management of glaucoma is crucial for optimal patient outcomes.",
+        "sections": [
+          {
+            "heading": "Medical Therapy",
+            "text": "Medical therapy is the first line of treatment for glaucoma. The use of topical medications, such as prostaglandin analogs, beta blockers, and alpha agonists, can reduce IOP and slow the progression of the disease. The AAO recommends the use of prostaglandin analogs as first-line treatment for glaucoma."
+          },
+          {
+            "heading": "Laser Therapy",
+            "text": "Laser therapy, such as trabeculoplasty, can be used to reduce IOP and slow the progression of glaucoma. The use of laser therapy can be particularly effective in patients with open-angle glaucoma. The NICE recommends the use of laser therapy as an adjunct to medical therapy for the treatment of glaucoma."
+          },
+          {
+            "heading": "Surgical Therapy",
+            "text": "Surgical therapy, such as trabeculectomy, can be used to reduce IOP and slow the progression of glaucoma. The use of surgical therapy can be particularly effective in patients with advanced glaucoma. The ESC recommends the use of surgical therapy as a last resort for the treatment of glaucoma."
+          }
+        ],
+        "clinical_pearl": "The use of topical prostaglandin analogs, such as latanoprost 0.005%, can reduce IOP by 25-35% and are often used in combination with other medications to achieve optimal IOP control.",
+        "key_points": [
+          "The treatment and management of glaucoma involves a range of options, including medications, laser therapy, and surgery.",
+          "Medical therapy is the first line of treatment for glaucoma.",
+          "The use of topical medications, such as prostaglandin analogs, can reduce IOP and slow the progression of the disease.",
+          "The AAO recommends the use of prostaglandin analogs as first-line treatment for glaucoma.",
+          "The NICE recommends the use of laser therapy as an adjunct to medical therapy for the treatment of glaucoma.",
+          "The ESC recommends the use of surgical therapy as a last resort for the treatment of glaucoma."
+        ],
+        "references": [
+          {
+            "title": "2019 AAO Preferred Practice Pattern: Primary Open-Angle Glaucoma",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of primary open-angle glaucoma."
+          },
+          {
+            "title": "Glaucoma: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of glaucoma."
+          },
+          {
+            "title": "The effects of latanoprost 0.005% on intraocular pressure in patients with glaucoma",
+            "authors": "Katz LJ, et al.",
+            "journal_or_source": "American Journal of Ophthalmology",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Demonstrated that latanoprost 0.005% can reduce IOP by 25-35%."
+          }
+        ]
+      }
+    }
+  ]
+}

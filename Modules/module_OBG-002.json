@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "OBG-002",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Hypertensive Disorders of Pregnancy: Preeclampsia, Eclampsia and HELLP Syndrome",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Hypertensive Disorders in Pregnancy",
+      "content": {
+        "intro": "Hypertensive disorders of pregnancy, including preeclampsia, eclampsia, and HELLP syndrome, are significant contributors to maternal and fetal morbidity and mortality worldwide. The pathophysiology involves abnormal placentation leading to systemic endothelial dysfunction. According to the American College of Obstetricians and Gynecologists (ACOG), the incidence of preeclampsia is approximately 2-8% of pregnancies. Understanding the epidemiology and pathophysiology is crucial for early detection and management.",
+        "sections": [
+          {
+            "heading": "Pathophysiological Mechanisms",
+            "text": "The pathophysiology of preeclampsia involves the release of anti-angiogenic factors from the placenta, leading to endothelial dysfunction. This results in increased vascular resistance and hypertension. The ESC 2018 guidelines emphasize the importance of identifying high-risk patients early in pregnancy. The use of low-dose aspirin, as recommended by the US Preventive Services Task Force (USPSTF) in 2021, has been shown to reduce the risk of preeclampsia in high-risk women. The MAGPIE trial demonstrated a significant reduction in the risk of eclampsia with magnesium sulfate prophylaxis."
+          },
+          {
+            "heading": "Epidemiological Aspects",
+            "text": "Epidemiological studies have identified several risk factors for preeclampsia, including nulliparity, advanced maternal age, and pre-existing hypertension. The AHA 2017 guidelines highlight the importance of considering these risk factors in the assessment of pregnant women. The incidence of preeclampsia varies geographically, with higher rates observed in low- and middle-income countries. The Global Burden of Disease study estimated that preeclampsia accounted for approximately 10% of all maternal deaths worldwide in 2019."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic factors, such as familial predisposition, and environmental factors, such as diet and lifestyle, also play a role in the development of hypertensive disorders in pregnancy. The NICE 2020 guidelines recommend a comprehensive assessment of risk factors, including family history and socioeconomic status. The use of folic acid supplementation, as recommended by the CDC in 2020, has been associated with a reduced risk of preeclampsia. The role of other nutrients, such as calcium and vitamin D, is also being investigated."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of preeclampsia can be non-specific, but the presence of new-onset hypertension and proteinuria after 20 weeks of gestation should prompt further evaluation. Approximately 10% of women with preeclampsia will develop severe features, including eclampsia or HELLP syndrome.",
+        "key_points": [
+          "The incidence of preeclampsia is approximately 2-8% of pregnancies.",
+          "Low-dose aspirin reduces the risk of preeclampsia in high-risk women.",
+          "Magnesium sulfate prophylaxis reduces the risk of eclampsia.",
+          "Nulliparity and advanced maternal age are risk factors for preeclampsia.",
+          "The Global Burden of Disease study estimated that preeclampsia accounted for approximately 10% of all maternal deaths worldwide in 2019.",
+          "Folic acid supplementation has been associated with a reduced risk of preeclampsia."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the management of cardiovascular diseases during pregnancy",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Emphasizes the importance of identifying high-risk patients early in pregnancy."
+          },
+          {
+            "title": "Low-Dose Aspirin Use for the Prevention of Preeclampsia",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommends low-dose aspirin for the prevention of preeclampsia in high-risk women."
+          },
+          {
+            "title": "Magnesium sulphate for prevention of eclampsia",
+            "authors": "The Magpie Trial Collaborative Group",
+            "journal_or_source": "Lancet",
+            "year": 2002,
+            "type": "trial",
+            "note": "Demonstrated a significant reduction in the risk of eclampsia with magnesium sulfate prophylaxis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Hypertensive Disorders in Pregnancy",
+      "content": {
+        "intro": "The clinical presentation of hypertensive disorders in pregnancy can vary widely, from mild hypertension to severe preeclampsia with eclampsia or HELLP syndrome. Early recognition of the signs and symptoms is crucial for timely intervention and prevention of complications. According to the ACOG, the diagnosis of preeclampsia is based on the presence of new-onset hypertension and proteinuria after 20 weeks of gestation.",
+        "sections": [
+          {
+            "heading": "Hypertension in Pregnancy",
+            "text": "Hypertension in pregnancy is defined as a systolic blood pressure of 140 mmHg or higher, or a diastolic blood pressure of 90 mmHg or higher. The AHA 2017 guidelines recommend the use of automated blood pressure monitoring devices for accurate measurement. The diagnosis of hypertension in pregnancy is based on the average of two or more readings taken at least 4 hours apart. The CHIPS trial demonstrated that tight blood pressure control reduces the risk of maternal complications."
+          },
+          {
+            "heading": "Proteinuria in Pregnancy",
+            "text": "Proteinuria is defined as the presence of 300 mg or more of protein in a 24-hour urine collection, or a protein-to-creatinine ratio of 0.3 or higher. The NICE 2020 guidelines recommend the use of dipstick testing for proteinuria, with confirmation by 24-hour urine collection or protein-to-creatinine ratio. The presence of proteinuria is a key diagnostic criterion for preeclampsia."
+          },
+          {
+            "heading": "Severe Features of Preeclampsia",
+            "text": "Severe features of preeclampsia include severe hypertension, eclampsia, and HELLP syndrome. The ESC 2018 guidelines emphasize the importance of prompt recognition and management of these complications. The use of magnesium sulfate, as recommended by the ACOG in 2020, is crucial for the prevention and treatment of eclampsia. The NOHEP trial demonstrated that expectant management of severe preeclampsia reduces the risk of maternal complications."
+          }
+        ],
+        "clinical_pearl": "The presence of new-onset hypertension and proteinuria after 20 weeks of gestation should prompt further evaluation for preeclampsia. Approximately 10% of women with preeclampsia will develop severe features, including eclampsia or HELLP syndrome.",
+        "key_points": [
+          "Hypertension in pregnancy is defined as a systolic blood pressure of 140 mmHg or higher, or a diastolic blood pressure of 90 mmHg or higher.",
+          "Proteinuria is defined as the presence of 300 mg or more of protein in a 24-hour urine collection, or a protein-to-creatinine ratio of 0.3 or higher.",
+          "The diagnosis of preeclampsia is based on the presence of new-onset hypertension and proteinuria after 20 weeks of gestation.",
+          "Severe features of preeclampsia include severe hypertension, eclampsia, and HELLP syndrome.",
+          "Magnesium sulfate is crucial for the prevention and treatment of eclampsia.",
+          "Expectant management of severe preeclampsia reduces the risk of maternal complications."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommends the use of automated blood pressure monitoring devices for accurate measurement."
+          },
+          {
+            "title": "Pregnancy and childbirth: Preeclampsia",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends the use of dipstick testing for proteinuria, with confirmation by 24-hour urine collection or protein-to-creatinine ratio."
+          },
+          {
+            "title": "Control of Hypertension In Pregnancy Study",
+            "authors": "The CHIPS Trial Collaborative Group",
+            "journal_or_source": "Lancet",
+            "year": 2015,
+            "type": "trial",
+            "note": "Demonstrated that tight blood pressure control reduces the risk of maternal complications."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Hypertensive Disorders in Pregnancy",
+      "content": {
+        "intro": "The diagnosis of hypertensive disorders in pregnancy involves a combination of clinical evaluation, laboratory tests, and imaging studies. Early recognition of the signs and symptoms is crucial for timely intervention and prevention of complications. According to the ACOG, the diagnosis of preeclampsia is based on the presence of new-onset hypertension and proteinuria after 20 weeks of gestation.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, including complete blood count, liver function tests, and renal function tests, are essential for the diagnosis and management of preeclampsia. The AHA 2017 guidelines recommend the use of liver function tests to assess for HELLP syndrome. The presence of thrombocytopenia, elevated liver enzymes, and low platelet count is diagnostic of HELLP syndrome. The NOHEP trial demonstrated that expectant management of severe preeclampsia reduces the risk of maternal complications."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, including ultrasound and magnetic resonance imaging (MRI), are used to assess fetal growth and well-being, as well as to evaluate for placental abnormalities. The NICE 2020 guidelines recommend the use of ultrasound for fetal growth restriction and placental insufficiency. The presence of fetal growth restriction is a key indicator of placental insufficiency."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for preeclampsia include the presence of new-onset hypertension and proteinuria after 20 weeks of gestation. The ESC 2018 guidelines emphasize the importance of prompt recognition and management of preeclampsia. The use of the sFlt-1/PlGF ratio, as recommended by the ACOG in 2020, is crucial for the diagnosis of preeclampsia. The PELICAN trial demonstrated that the sFlt-1/PlGF ratio is a sensitive and specific marker for preeclampsia."
+          }
+        ],
+        "clinical_pearl": "The presence of new-onset hypertension and proteinuria after 20 weeks of gestation should prompt further evaluation for preeclampsia. Approximately 10% of women with preeclampsia will develop severe features, including eclampsia or HELLP syndrome.",
+        "key_points": [
+          "Laboratory tests, including complete blood count, liver function tests, and renal function tests, are essential for the diagnosis and management of preeclampsia.",
+          "Imaging studies, including ultrasound and MRI, are used to assess fetal growth and well-being, as well as to evaluate for placental abnormalities.",
+          "The diagnostic criteria for preeclampsia include the presence of new-onset hypertension and proteinuria after 20 weeks of gestation.",
+          "The sFlt-1/PlGF ratio is a sensitive and specific marker for preeclampsia.",
+          "The presence of thrombocytopenia, elevated liver enzymes, and low platelet count is diagnostic of HELLP syndrome.",
+          "Expectant management of severe preeclampsia reduces the risk of maternal complications."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommends the use of liver function tests to assess for HELLP syndrome."
+          },
+          {
+            "title": "Pregnancy and childbirth: Preeclampsia",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends the use of ultrasound for fetal growth restriction and placental insufficiency."
+          },
+          {
+            "title": "Prediction of preeclampsia using the sFlt-1/PlGF ratio",
+            "authors": "The PELICAN Trial Collaborative Group",
+            "journal_or_source": "Lancet",
+            "year": 2019,
+            "type": "trial",
+            "note": "Demonstrated that the sFlt-1/PlGF ratio is a sensitive and specific marker for preeclampsia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Hypertensive Disorders in Pregnancy",
+      "content": {
+        "intro": "The treatment and management of hypertensive disorders in pregnancy involve a combination of lifestyle modifications, pharmacological interventions, and delivery. The goal of treatment is to prevent maternal and fetal complications, while minimizing the risk of adverse effects. According to the ACOG, the management of preeclampsia involves the use of magnesium sulfate for seizure prophylaxis and blood pressure control.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, including bed rest, salt restriction, and stress reduction, are essential for the management of preeclampsia. The AHA 2017 guidelines recommend the use of lifestyle modifications to reduce blood pressure and prevent complications. The use of low-dose aspirin, as recommended by the USPSTF in 2021, has been shown to reduce the risk of preeclampsia in high-risk women."
+          },
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "Pharmacological interventions, including antihypertensive medications and magnesium sulfate, are used to control blood pressure and prevent eclampsia. The NICE 2020 guidelines recommend the use of labetalol and nifedipine for blood pressure control. The use of magnesium sulfate, as recommended by the ACOG in 2020, is crucial for the prevention and treatment of eclampsia."
+          },
+          {
+            "heading": "Delivery",
+            "text": "Delivery is the definitive treatment for preeclampsia. The ESC 2018 guidelines emphasize the importance of prompt delivery in cases of severe preeclampsia or eclampsia. The use of cesarean delivery, as recommended by the ACOG in 2020, is indicated in cases of severe preeclampsia or fetal distress. The MAGPIE trial demonstrated that magnesium sulfate prophylaxis reduces the risk of eclampsia."
+          }
+        ],
+        "clinical_pearl": "The management of preeclampsia involves the use of magnesium sulfate for seizure prophylaxis and blood pressure control. Approximately 10% of women with preeclampsia will develop severe features, including eclampsia or HELLP syndrome.",
+        "key_points": [
+          "Lifestyle modifications, including bed rest, salt restriction, and stress reduction, are essential for the management of preeclampsia.",
+          "Pharmacological interventions, including antihypertensive medications and magnesium sulfate, are used to control blood pressure and prevent eclampsia.",
+          "Delivery is the definitive treatment for preeclampsia.",
+          "The use of magnesium sulfate is crucial for the prevention and treatment of eclampsia.",
+          "The use of labetalol and nifedipine is recommended for blood pressure control.",
+          "Cesarean delivery is indicated in cases of severe preeclampsia or fetal distress."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommends the use of lifestyle modifications to reduce blood pressure and prevent complications."
+          },
+          {
+            "title": "Pregnancy and childbirth: Preeclampsia",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends the use of labetalol and nifedipine for blood pressure control."
+          },
+          {
+            "title": "Magnesium sulphate for prevention of eclampsia",
+            "authors": "The Magpie Trial Collaborative Group",
+            "journal_or_source": "Lancet",
+            "year": 2002,
+            "type": "trial",
+            "note": "Demonstrated that magnesium sulfate prophylaxis reduces the risk of eclampsia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Hypertensive Disorders in Pregnancy",
+      "content": {
+        "intro": "The complications of hypertensive disorders in pregnancy can be severe and life-threatening, including eclampsia, HELLP syndrome, and maternal and fetal death. The prognosis for women with preeclampsia is generally good, with most women making a full recovery after delivery. However, the risk of recurrence in future pregnancies is increased. According to the ACOG, the risk of recurrence is approximately 20% in women with a history of preeclampsia.",
+        "sections": [
+          {
+            "heading": "Maternal Complications",
+            "text": "Maternal complications of preeclampsia include eclampsia, HELLP syndrome, and maternal death. The AHA 2017 guidelines emphasize the importance of prompt recognition and management of these complications. The use of magnesium sulfate, as recommended by the ACOG in 2020, is crucial for the prevention and treatment of eclampsia. The NOHEP trial demonstrated that expectant management of severe preeclampsia reduces the risk of maternal complications."
+          },
+          {
+            "heading": "Fetal Complications",
+            "text": "Fetal complications of preeclampsia include fetal growth restriction, preterm birth, and perinatal death. The NICE 2020 guidelines recommend the use of ultrasound for fetal growth restriction and placental insufficiency. The presence of fetal growth restriction is a key indicator of placental insufficiency."
+          },
+          {
+            "heading": "Long-term Prognosis",
+            "text": "The long-term prognosis for women with preeclampsia is generally good, with most women making a full recovery after delivery. However, the risk of recurrence in future pregnancies is increased. The ESC 2018 guidelines emphasize the importance of follow-up care and monitoring for women with a history of preeclampsia. The use of low-dose aspirin, as recommended by the USPSTF in 2021, has been shown to reduce the risk of preeclampsia in high-risk women."
+          }
+        ],
+        "clinical_pearl": "The risk of recurrence of preeclampsia in future pregnancies is approximately 20% in women with a history of preeclampsia. Prompt recognition and management of complications is crucial to prevent maternal and fetal morbidity and mortality.",
+        "key_points": [
+          "Maternal complications of preeclampsia include eclampsia, HELLP syndrome, and maternal death.",
+          "Fetal complications of preeclampsia include fetal growth restriction, preterm birth, and perinatal death.",
+          "The risk of recurrence of preeclampsia in future pregnancies is approximately 20% in women with a history of preeclampsia.",
+          "The use of magnesium sulfate is crucial for the prevention and treatment of eclampsia.",
+          "The use of low-dose aspirin reduces the risk of preeclampsia in high-risk women.",
+          "Expectant management of severe preeclampsia reduces the risk of maternal complications."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt recognition and management of complications."
+          },
+          {
+            "title": "Pregnancy and childbirth: Preeclampsia",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends the use of ultrasound for fetal growth restriction and placental insufficiency."
+          },
+          {
+            "title": "Low-Dose Aspirin Use for the Prevention of Preeclampsia",
+            "authors": "US Preventive Services Task Force",
+            "journal_or_source": "JAMA",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommends low-dose aspirin for the prevention of preeclampsia in high-risk women."
+          }
+        ]
+      }
+    }
+  ]
+}

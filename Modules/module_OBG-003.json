@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OBG-003",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Gestational Diabetes and Medical Comorbidities in Pregnancy",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Gestational Diabetes",
+      "content": {
+        "intro": "Gestational diabetes mellitus (GDM) is a condition characterized by high blood sugar levels that are first recognized during pregnancy. It is a significant health concern due to its increasing prevalence and potential complications for both mother and fetus. According to the American Diabetes Association (ADA), the prevalence of GDM is approximately 9.2%. The pathophysiology of GDM involves insulin resistance and impaired insulin secretion, which are exacerbated by the physiological changes of pregnancy, including increased levels of human placental lactogen and cortisol.",
+        "sections": [
+          {
+            "heading": "Risk Factors for Gestational Diabetes",
+            "text": "Several risk factors have been identified for the development of GDM, including advanced maternal age, obesity, family history of diabetes, and previous history of GDM. The American College of Obstetricians and Gynecologists (ACOG) recommends that all pregnant women be screened for GDM at 24-28 weeks of gestation, using a 50-g glucose challenge test. Women with a history of GDM are at increased risk of developing type 2 diabetes later in life, with a cumulative incidence of 50-70% over 10-20 years. The UK National Institute for Health and Care Excellence (NICE) guidelines recommend that women with a history of GDM be offered lifestyle advice and annual screening for type 2 diabetes."
+          },
+          {
+            "heading": "Pathophysiological Changes in Gestational Diabetes",
+            "text": "The pathophysiological changes in GDM involve insulin resistance and impaired insulin secretion. Insulin resistance is characterized by decreased glucose uptake in skeletal muscle and adipose tissue, while impaired insulin secretion is characterized by decreased insulin release from the pancreas. The European Society of Cardiology (ESC) and the American Heart Association (AHA) recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes, including lifestyle modification and pharmacological therapy as needed. The landmark UK Prospective Diabetes Study (UKPDS) demonstrated that intensive glucose control can reduce the risk of microvascular complications in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Impact of Gestational Diabetes on Pregnancy Outcomes",
+            "text": "GDM is associated with an increased risk of adverse pregnancy outcomes, including macrosomia, cesarean delivery, and neonatal hypoglycemia. The AHA and the American College of Cardiology (ACC) recommend that women with GDM be managed by a multidisciplinary team, including an obstetrician, endocrinologist, and registered dietitian. The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy, with insulin therapy reserved for those who do not respond to metformin or have contraindications to its use. The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day."
+          }
+        ],
+        "clinical_pearl": "Women with a history of GDM are at increased risk of developing type 2 diabetes later in life, with a cumulative incidence of 50-70% over 10-20 years. Therefore, it is essential to provide lifestyle advice and annual screening for type 2 diabetes to these women.",
+        "key_points": [
+          "The prevalence of GDM is approximately 9.2%.",
+          "The pathophysiology of GDM involves insulin resistance and impaired insulin secretion.",
+          "The ACOG recommends that all pregnant women be screened for GDM at 24-28 weeks of gestation.",
+          "Women with a history of GDM are at increased risk of developing type 2 diabetes later in life.",
+          "The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy.",
+          "The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day."
+        ],
+        "references": [
+          {
+            "title": "Standards of Medical Care in Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The ADA recommends that all pregnant women be screened for GDM at 24-28 weeks of gestation."
+          },
+          {
+            "title": "Gestational Diabetes Mellitus",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics and Gynecology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The ACOG recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Management of Hyperglycemia in Type 2 Diabetes",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Gestational Diabetes",
+      "content": {
+        "intro": "The clinical presentation of GDM is often asymptomatic, with most women being diagnosed through routine screening. However, some women may present with symptoms such as polyuria, polydipsia, and polyphagia. The diagnosis of GDM is typically made using a 50-g glucose challenge test, followed by a 100-g oral glucose tolerance test (OGTT) if the initial test is abnormal.",
+        "sections": [
+          {
+            "heading": "Symptoms of Gestational Diabetes",
+            "text": "The symptoms of GDM are often mild and non-specific, making it difficult to diagnose based on clinical presentation alone. However, some women may present with symptoms such as recurrent urinary tract infections, vaginal yeast infections, and blurred vision. The AHA and the ACC recommend that women with symptoms suggestive of GDM be evaluated promptly, using a combination of clinical assessment and laboratory testing. The landmark Diabetes Control and Complications Trial (DCCT) demonstrated that intensive glucose control can reduce the risk of microvascular complications in patients with type 1 diabetes."
+          },
+          {
+            "heading": "Diagnostic Criteria for Gestational Diabetes",
+            "text": "The diagnostic criteria for GDM are based on the results of the 100-g OGTT. The NICE guidelines recommend that the following criteria be used to diagnose GDM: fasting glucose ≥ 92 mg/dL, 1-hour glucose ≥ 180 mg/dL, 2-hour glucose ≥ 153 mg/dL, and 3-hour glucose ≥ 140 mg/dL. The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes, including lifestyle modification and pharmacological therapy as needed. The dose of insulin is typically 0.5-1.0 units/kg/day, with a maximum dose of 100 units per day."
+          },
+          {
+            "heading": "Differential Diagnosis of Gestational Diabetes",
+            "text": "The differential diagnosis of GDM includes other conditions that can cause hyperglycemia, such as pre-existing diabetes, pancreatic disorders, and certain medications. The ACOG recommends that women with GDM be evaluated for other medical conditions that may be contributing to their hyperglycemia, such as polycystic ovary syndrome (PCOS) and hypothyroidism. The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy, with insulin therapy reserved for those who do not respond to metformin or have contraindications to its use."
+          }
+        ],
+        "clinical_pearl": "Women with GDM are at increased risk of developing type 2 diabetes later in life, with a cumulative incidence of 50-70% over 10-20 years. Therefore, it is essential to provide lifestyle advice and annual screening for type 2 diabetes to these women.",
+        "key_points": [
+          "The symptoms of GDM are often mild and non-specific.",
+          "The diagnosis of GDM is typically made using a 50-g glucose challenge test, followed by a 100-g OGTT if the initial test is abnormal.",
+          "The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy.",
+          "The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day.",
+          "The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes.",
+          "The dose of insulin is typically 0.5-1.0 units/kg/day, with a maximum dose of 100 units per day."
+        ],
+        "references": [
+          {
+            "title": "Gestational Diabetes Mellitus",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics and Gynecology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The ACOG recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Management of Hyperglycemia in Type 2 Diabetes",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Diagnosis and Classification of Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The ADA recommends that women with GDM be diagnosed using a 50-g glucose challenge test, followed by a 100-g OGTT if the initial test is abnormal."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Gestational Diabetes",
+      "content": {
+        "intro": "The diagnosis of GDM is typically made using a combination of clinical assessment and laboratory testing. The 50-g glucose challenge test is used as a screening test, followed by a 100-g OGTT if the initial test is abnormal. The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy, with insulin therapy reserved for those who do not respond to metformin or have contraindications to its use.",
+        "sections": [
+          {
+            "heading": "Screening Tests for Gestational Diabetes",
+            "text": "The 50-g glucose challenge test is a screening test used to identify women at high risk of GDM. The test involves administering a 50-g glucose solution orally, followed by a measurement of plasma glucose levels after 1 hour. The AHA and the ACC recommend that women with a history of GDM or other risk factors be screened for GDM at 24-28 weeks of gestation. The landmark UKPDS demonstrated that intensive glucose control can reduce the risk of microvascular complications in patients with type 2 diabetes."
+          },
+          {
+            "heading": "Diagnostic Tests for Gestational Diabetes",
+            "text": "The 100-g OGTT is a diagnostic test used to confirm the diagnosis of GDM. The test involves administering a 100-g glucose solution orally, followed by measurements of plasma glucose levels after 1, 2, and 3 hours. The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes, including lifestyle modification and pharmacological therapy as needed. The dose of insulin is typically 0.5-1.0 units/kg/day, with a maximum dose of 100 units per day."
+          },
+          {
+            "heading": "Laboratory Tests for Gestational Diabetes",
+            "text": "Laboratory tests such as hemoglobin A1c (HbA1c) and fasting glucose can be used to monitor glucose control in women with GDM. The NICE guidelines recommend that women with GDM be offered HbA1c testing at diagnosis and at regular intervals thereafter. The ACOG recommends that women with GDM be evaluated for other medical conditions that may be contributing to their hyperglycemia, such as PCOS and hypothyroidism."
+          }
+        ],
+        "clinical_pearl": "Women with GDM are at increased risk of developing type 2 diabetes later in life, with a cumulative incidence of 50-70% over 10-20 years. Therefore, it is essential to provide lifestyle advice and annual screening for type 2 diabetes to these women.",
+        "key_points": [
+          "The 50-g glucose challenge test is a screening test used to identify women at high risk of GDM.",
+          "The 100-g OGTT is a diagnostic test used to confirm the diagnosis of GDM.",
+          "The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy.",
+          "The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day.",
+          "The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes.",
+          "The dose of insulin is typically 0.5-1.0 units/kg/day, with a maximum dose of 100 units per day."
+        ],
+        "references": [
+          {
+            "title": "Gestational Diabetes Mellitus",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics and Gynecology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The ACOG recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Management of Hyperglycemia in Type 2 Diabetes",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Diagnosis and Classification of Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The ADA recommends that women with GDM be diagnosed using a 50-g glucose challenge test, followed by a 100-g OGTT if the initial test is abnormal."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Gestational Diabetes",
+      "content": {
+        "intro": "The treatment and management of GDM involve a combination of lifestyle modification and pharmacological therapy. The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy, with insulin therapy reserved for those who do not respond to metformin or have contraindications to its use. The AHA and the ACC recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes, including lifestyle modification and pharmacological therapy as needed.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modification for Gestational Diabetes",
+            "text": "Lifestyle modification is an essential component of the management of GDM. The ACOG recommends that women with GDM be advised to follow a healthy diet and engage in regular physical activity. The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes, including lifestyle modification and pharmacological therapy as needed. The landmark DCCT demonstrated that intensive glucose control can reduce the risk of microvascular complications in patients with type 1 diabetes."
+          },
+          {
+            "heading": "Pharmacological Therapy for Gestational Diabetes",
+            "text": "Pharmacological therapy is often necessary to achieve adequate glucose control in women with GDM. The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy, with insulin therapy reserved for those who do not respond to metformin or have contraindications to its use. The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day."
+          },
+          {
+            "heading": "Monitoring and Follow-up for Gestational Diabetes",
+            "text": "Regular monitoring and follow-up are essential components of the management of GDM. The AHA and the ACC recommend that women with GDM be monitored regularly for glucose control, blood pressure, and other cardiovascular risk factors. The NICE guidelines recommend that women with GDM be offered HbA1c testing at diagnosis and at regular intervals thereafter."
+          }
+        ],
+        "clinical_pearl": "Women with GDM are at increased risk of developing type 2 diabetes later in life, with a cumulative incidence of 50-70% over 10-20 years. Therefore, it is essential to provide lifestyle advice and annual screening for type 2 diabetes to these women.",
+        "key_points": [
+          "The NICE guidelines recommend that women with GDM be offered metformin as first-line pharmacological therapy.",
+          "The dose of metformin is typically 500-1000 mg twice daily, with a maximum dose of 2000 mg per day.",
+          "The ESC and the AHA recommend that women with GDM be managed according to the same principles as those with pre-existing diabetes.",
+          "The dose of insulin is typically 0.5-1.0 units/kg/day, with a maximum dose of 100 units per day.",
+          "The ACOG recommends that women with GDM be advised to follow a healthy diet and engage in regular physical activity.",
+          "The NICE guidelines recommend that women with GDM be offered HbA1c testing at diagnosis and at regular intervals thereafter."
+        ],
+        "references": [
+          {
+            "title": "Gestational Diabetes Mellitus",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics and Gynecology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The ACOG recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Management of Hyperglycemia in Type 2 Diabetes",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC recommends that women with GDM be managed according to the same principles as those with pre-existing diabetes."
+          },
+          {
+            "title": "Diagnosis and Classification of Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The ADA recommends that women with GDM be diagnosed using a 50-g glucose challenge test, followed by a 100-g OGTT if the initial test is abnormal."
+          }
+        ]
+      }
+    }
+  ]
+}

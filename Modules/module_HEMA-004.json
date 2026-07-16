@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "HEMA-004",
+    "type": "specialty_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Coagulation Disorders: Haemophilia, vWD, DIC — Pathophysiology and Management",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Coagulation Disorders",
+      "content": {
+        "intro": "Coagulation disorders, including haemophilia, von Willebrand disease (vWD), and disseminated intravascular coagulation (DIC), are significant causes of morbidity and mortality worldwide. Haemophilia A and B are X-linked recessive disorders affecting approximately 1 in 5,000 to 1 in 10,000 males, with haemophilia A being four times more common than haemophilia B. vWD is the most common inherited bleeding disorder, affecting up to 1% of the population. DIC, on the other hand, is an acquired condition that can arise from various causes, including sepsis, trauma, and malignancy. Understanding the epidemiology and pathophysiology of these disorders is crucial for their diagnosis and management.",
+        "sections": [
+          {
+            "heading": "Genetic Basis of Haemophilia",
+            "text": "Haemophilia A and B are caused by mutations in the F8 and F9 genes, respectively, which encode for factor VIII and factor IX. These factors are essential for the intrinsic pathway of blood coagulation. The deficiency or dysfunction of these factors leads to impaired coagulation and increased bleeding risk. The genetic basis of haemophilia is well understood, with over 1,000 mutations identified in the F8 gene alone. This knowledge has led to the development of genetic testing for carrier detection and prenatal diagnosis."
+          },
+          {
+            "heading": "Pathophysiology of vWD",
+            "text": "vWD is caused by a deficiency or dysfunction of von Willebrand factor (VWF), a protein that plays a critical role in platelet adhesion and aggregation. VWF also serves as a carrier protein for factor VIII, protecting it from degradation. The pathophysiology of vWD involves impaired platelet function and reduced factor VIII levels, leading to increased bleeding risk. The diagnosis of vWD is based on laboratory tests, including VWF antigen and activity assays, as well as factor VIII levels."
+          },
+          {
+            "heading": "DIC Pathophysiology",
+            "text": "DIC is characterized by the simultaneous activation of coagulation and fibrinolysis, leading to the formation of microthrombi in small blood vessels. This process consumes platelets and coagulation factors, resulting in a paradoxical increase in bleeding risk. The pathophysiology of DIC involves a complex interplay between inflammatory mediators, endothelial damage, and coagulation factor activation. The diagnosis of DIC is based on laboratory tests, including platelet count, prothrombin time, activated partial thromboplastin time, and fibrin degradation products."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of coagulation disorders requires a combination of clinical evaluation, laboratory tests, and genetic analysis. A key clinical insight is that patients with haemophilia A and B may have a normal prothrombin time but a prolonged activated partial thromboplastin time.",
+        "key_points": [
+          "Haemophilia A affects approximately 1 in 5,000 to 1 in 10,000 males.",
+          "vWD is the most common inherited bleeding disorder, affecting up to 1% of the population.",
+          "DIC can arise from various causes, including sepsis, trauma, and malignancy.",
+          "The genetic basis of haemophilia is well understood, with over 1,000 mutations identified in the F8 gene.",
+          "VWF serves as a carrier protein for factor VIII, protecting it from degradation.",
+          "The diagnosis of DIC is based on laboratory tests, including platelet count and fibrin degradation products."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Hemophilia",
+            "authors": "World Federation of Hemophilia",
+            "journal_or_source": "Haemophilia",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of haemophilia."
+          },
+          {
+            "title": "Von Willebrand Disease: A Review",
+            "authors": "Lillicrap D",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of vWD, including diagnosis and management."
+          },
+          {
+            "title": "Disseminated Intravascular Coagulation: A Review",
+            "authors": "Levi M",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of DIC, including pathophysiology and management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Coagulation Disorders",
+      "content": {
+        "intro": "The clinical presentation of coagulation disorders can vary widely, depending on the underlying condition and severity of the disorder. Haemophilia A and B typically present with joint and muscle bleeding, while vWD may present with mucocutaneous bleeding, such as nosebleeds and heavy menstrual bleeding. DIC can present with a wide range of symptoms, including bleeding, thrombosis, and organ dysfunction.",
+        "sections": [
+          {
+            "heading": "Clinical Features of Haemophilia",
+            "text": "Haemophilia A and B are characterized by recurrent joint and muscle bleeding, which can lead to chronic pain and disability. The frequency and severity of bleeding episodes can vary widely, depending on the severity of the factor deficiency. Patients with mild haemophilia may only experience bleeding after trauma or surgery, while those with severe haemophilia may experience spontaneous bleeding episodes."
+          },
+          {
+            "heading": "Clinical Features of vWD",
+            "text": "vWD is characterized by mucocutaneous bleeding, such as nosebleeds, heavy menstrual bleeding, and easy bruising. Patients with vWD may also experience gastrointestinal bleeding, such as hematemesis and melena. The severity of bleeding can vary widely, depending on the severity of the VWF deficiency."
+          },
+          {
+            "heading": "Clinical Features of DIC",
+            "text": "DIC can present with a wide range of symptoms, including bleeding, thrombosis, and organ dysfunction. Patients with DIC may experience bleeding from multiple sites, including the skin, mucous membranes, and internal organs. Thrombosis can occur in both arterial and venous systems, leading to organ dysfunction and failure."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that patients with coagulation disorders may have a normal physical examination between bleeding episodes, making diagnosis and management challenging.",
+        "key_points": [
+          "Haemophilia A and B typically present with joint and muscle bleeding.",
+          "vWD may present with mucocutaneous bleeding, such as nosebleeds and heavy menstrual bleeding.",
+          "DIC can present with a wide range of symptoms, including bleeding, thrombosis, and organ dysfunction.",
+          "The frequency and severity of bleeding episodes can vary widely, depending on the severity of the factor deficiency.",
+          "Patients with vWD may experience gastrointestinal bleeding, such as hematemesis and melena.",
+          "Thrombosis can occur in both arterial and venous systems, leading to organ dysfunction and failure."
+        ],
+        "references": [
+          {
+            "title": "Clinical Features of Hemophilia",
+            "authors": "World Federation of Hemophilia",
+            "journal_or_source": "Haemophilia",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of haemophilia."
+          },
+          {
+            "title": "Von Willebrand Disease: A Review",
+            "authors": "Lillicrap D",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of vWD, including diagnosis and management."
+          },
+          {
+            "title": "Disseminated Intravascular Coagulation: A Review",
+            "authors": "Levi M",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of DIC, including pathophysiology and management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Coagulation Disorders",
+      "content": {
+        "intro": "The diagnosis of coagulation disorders requires a combination of clinical evaluation, laboratory tests, and genetic analysis. Laboratory tests, such as prothrombin time, activated partial thromboplastin time, and fibrinogen levels, can help identify coagulation factor deficiencies. Genetic analysis, such as factor VIII and factor IX gene sequencing, can confirm the diagnosis of haemophilia A and B.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Coagulation Disorders",
+            "text": "Laboratory tests, such as prothrombin time, activated partial thromboplastin time, and fibrinogen levels, can help identify coagulation factor deficiencies. The prothrombin time is used to evaluate the extrinsic coagulation pathway, while the activated partial thromboplastin time is used to evaluate the intrinsic coagulation pathway. Fibrinogen levels can help diagnose fibrinogen deficiency or dysfunction."
+          },
+          {
+            "heading": "Genetic Analysis for Haemophilia",
+            "text": "Genetic analysis, such as factor VIII and factor IX gene sequencing, can confirm the diagnosis of haemophilia A and B. Genetic testing can also identify carriers of haemophilia, allowing for prenatal diagnosis and family planning. The genetic basis of haemophilia is well understood, with over 1,000 mutations identified in the F8 gene alone."
+          },
+          {
+            "heading": "Diagnostic Criteria for DIC",
+            "text": "The diagnosis of DIC is based on a combination of clinical and laboratory criteria, including platelet count, prothrombin time, activated partial thromboplastin time, and fibrin degradation products. The International Society on Thrombosis and Haemostasis (ISTH) has developed a scoring system to diagnose DIC, which includes a combination of these laboratory tests and clinical criteria."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that the diagnosis of coagulation disorders requires a combination of clinical evaluation, laboratory tests, and genetic analysis.",
+        "key_points": [
+          "Laboratory tests, such as prothrombin time and activated partial thromboplastin time, can help identify coagulation factor deficiencies.",
+          "Genetic analysis, such as factor VIII and factor IX gene sequencing, can confirm the diagnosis of haemophilia A and B.",
+          "The diagnosis of DIC is based on a combination of clinical and laboratory criteria, including platelet count and fibrin degradation products.",
+          "The prothrombin time is used to evaluate the extrinsic coagulation pathway.",
+          "The activated partial thromboplastin time is used to evaluate the intrinsic coagulation pathway.",
+          "Fibrinogen levels can help diagnose fibrinogen deficiency or dysfunction."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Diagnosis and Management of Hemophilia",
+            "authors": "World Federation of Hemophilia",
+            "journal_or_source": "Haemophilia",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of haemophilia."
+          },
+          {
+            "title": "Von Willebrand Disease: A Review",
+            "authors": "Lillicrap D",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of vWD, including diagnosis and management."
+          },
+          {
+            "title": "Disseminated Intravascular Coagulation: A Review",
+            "authors": "Levi M",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of DIC, including pathophysiology and management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Coagulation Disorders",
+      "content": {
+        "intro": "The treatment and management of coagulation disorders depend on the underlying condition and severity of the disorder. Haemophilia A and B are typically treated with factor VIII and factor IX replacement therapy, respectively. vWD is treated with desmopressin or VWF replacement therapy, depending on the severity of the disorder. DIC is treated with a combination of supportive care, anticoagulation therapy, and fibrinolytic therapy.",
+        "sections": [
+          {
+            "heading": "Factor Replacement Therapy for Haemophilia",
+            "text": "Factor VIII and factor IX replacement therapy are used to treat haemophilia A and B, respectively. The goal of treatment is to increase factor levels to a safe range, allowing for normal coagulation and preventing bleeding episodes. Factor replacement therapy can be administered on-demand or as prophylaxis, depending on the severity of the disorder and the patient's lifestyle."
+          },
+          {
+            "heading": "Treatment of vWD",
+            "text": "vWD is treated with desmopressin or VWF replacement therapy, depending on the severity of the disorder. Desmopressin is used to increase VWF levels and factor VIII levels, while VWF replacement therapy is used to replace VWF in patients with severe vWD. The goal of treatment is to increase VWF levels to a safe range, allowing for normal coagulation and preventing bleeding episodes."
+          },
+          {
+            "heading": "Management of DIC",
+            "text": "DIC is treated with a combination of supportive care, anticoagulation therapy, and fibrinolytic therapy. Supportive care includes fluid resuscitation, blood transfusion, and organ support, as needed. Anticoagulation therapy, such as heparin or low-molecular-weight heparin, is used to prevent thrombosis and reduce the risk of bleeding. Fibrinolytic therapy, such as tissue plasminogen activator, is used to dissolve fibrin clots and restore blood flow."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that the treatment and management of coagulation disorders require a multidisciplinary approach, including hematologists, orthopedic surgeons, and physical therapists.",
+        "key_points": [
+          "Factor VIII and factor IX replacement therapy are used to treat haemophilia A and B, respectively.",
+          "vWD is treated with desmopressin or VWF replacement therapy, depending on the severity of the disorder.",
+          "DIC is treated with a combination of supportive care, anticoagulation therapy, and fibrinolytic therapy.",
+          "The goal of treatment is to increase factor levels to a safe range, allowing for normal coagulation and preventing bleeding episodes.",
+          "Desmopressin is used to increase VWF levels and factor VIII levels.",
+          "VWF replacement therapy is used to replace VWF in patients with severe vWD."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Hemophilia",
+            "authors": "World Federation of Hemophilia",
+            "journal_or_source": "Haemophilia",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of haemophilia."
+          },
+          {
+            "title": "Von Willebrand Disease: A Review",
+            "authors": "Lillicrap D",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of vWD, including diagnosis and management."
+          },
+          {
+            "title": "Disseminated Intravascular Coagulation: A Review",
+            "authors": "Levi M",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of DIC, including pathophysiology and management."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Coagulation Disorders",
+      "content": {
+        "intro": "The complications and prognosis of coagulation disorders depend on the underlying condition and severity of the disorder. Haemophilia A and B can lead to chronic joint disease and disability, while vWD can lead to heavy menstrual bleeding and reproductive complications. DIC can lead to organ dysfunction and failure, including renal failure, respiratory failure, and cardiac failure.",
+        "sections": [
+          {
+            "heading": "Complications of Haemophilia",
+            "text": "Haemophilia A and B can lead to chronic joint disease and disability, due to recurrent joint bleeding. Patients with haemophilia may also experience muscle bleeding, which can lead to muscle atrophy and weakness. In addition, patients with haemophilia may be at increased risk of infections, such as HIV and hepatitis, due to blood transfusions."
+          },
+          {
+            "heading": "Complications of vWD",
+            "text": "vWD can lead to heavy menstrual bleeding and reproductive complications, such as menorrhagia and postpartum hemorrhage. Patients with vWD may also experience gastrointestinal bleeding, such as hematemesis and melena. In addition, patients with vWD may be at increased risk of bleeding complications during surgery or trauma."
+          },
+          {
+            "heading": "Prognosis of DIC",
+            "text": "DIC can lead to organ dysfunction and failure, including renal failure, respiratory failure, and cardiac failure. The prognosis of DIC depends on the underlying cause and the severity of the disorder. Patients with DIC may require intensive care unit (ICU) admission and supportive care, including mechanical ventilation and dialysis."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that the complications and prognosis of coagulation disorders require a multidisciplinary approach, including hematologists, orthopedic surgeons, and physical therapists.",
+        "key_points": [
+          "Haemophilia A and B can lead to chronic joint disease and disability.",
+          "vWD can lead to heavy menstrual bleeding and reproductive complications.",
+          "DIC can lead to organ dysfunction and failure, including renal failure, respiratory failure, and cardiac failure.",
+          "Patients with haemophilia may be at increased risk of infections, such as HIV and hepatitis.",
+          "Patients with vWD may be at increased risk of bleeding complications during surgery or trauma.",
+          "The prognosis of DIC depends on the underlying cause and the severity of the disorder."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Hemophilia",
+            "authors": "World Federation of Hemophilia",
+            "journal_or_source": "Haemophilia",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of haemophilia."
+          },
+          {
+            "title": "Von Willebrand Disease: A Review",
+            "authors": "Lillicrap D",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "review",
+            "note": "Comprehensive review of vWD, including diagnosis and management."
+          },
+          {
+            "title": "Disseminated Intravascular Coagulation: A Review",
+            "authors": "Levi M",
+            "journal_or_source": "Journal of Thrombosis and Haemostasis",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of DIC, including pathophysiology and management."
+          }
+        ]
+      }
+    }
+  ]
+}

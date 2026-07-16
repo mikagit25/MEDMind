@@ -304,11 +304,23 @@ export const progressApi = {
     api.post(`/lessons/${lessonId}/complete`, data).then(r => r.data).catch(() => null), // non-fatal
   reviewFlashcard: (flashcardId: string, quality: number) =>
     api.post("/progress/flashcard/review", { flashcard_id: flashcardId, quality }).then(r => r.data),
-  answerMCQ: (questionId: string, selectedOption: string) =>
-    api.post(`/progress/mcq/${questionId}/answer`, {
-      question_id: questionId,
-      selected_option: selectedOption,
-    }).then(r => r.data),
+  answerMCQ: (
+    questionId: string,
+    answer: string | string[] | number,
+    questionType: string = "mcq"
+  ) => {
+    const body: Record<string, unknown> = { question_id: questionId };
+    if (questionType === "sata" && Array.isArray(answer)) {
+      body.selected_options = answer;
+    } else if (questionType === "ordered" && Array.isArray(answer)) {
+      body.ordered_options = answer;
+    } else if (questionType === "calculation" && typeof answer === "number") {
+      body.numeric_value = answer;
+    } else {
+      body.selected_option = answer as string;
+    }
+    return api.post(`/progress/mcq/${questionId}/answer`, body).then(r => r.data);
+  },
   completeCase: (caseId: string, answer: string) =>
     api.post(`/progress/cases/${caseId}/complete`, { answer }).then(r => r.data),
   getStats: () => api.get("/progress/stats").then(r => r.data),
@@ -788,15 +800,29 @@ export const teamApi = {
 // ── Exam API ───────────────────────────────────────────────────────────────────
 export const examApi = {
   getModes: () => api.get("/exam/modes").then(r => r.data),
-  createSession: (mode_id: string, specialty_filter?: string) =>
-    api.post("/exam/sessions", { mode_id, specialty_filter }).then(r => r.data),
+  getNCLEXCategories: () => api.get("/exam/nclex/categories").then(r => r.data),
+  getNCLEXAnalytics: () => api.get("/exam/nclex/analytics").then(r => r.data),
+  createSession: (
+    mode_id: string,
+    options?: { specialty_filter?: string; nclex_category?: string }
+  ) =>
+    api.post("/exam/sessions", { mode_id, ...options }).then(r => r.data),
   getSession: (sessionId: string) => api.get(`/exam/sessions/${sessionId}`).then(r => r.data),
-  submitAnswer: (sessionId: string, question_index: number, selected_option: string) =>
-    api.post(`/exam/sessions/${sessionId}/answer`, { question_index, selected_option }).then(r => r.data),
+  submitAnswer: (
+    sessionId: string,
+    question_index: number,
+    answer: {
+      selected_option?: string;
+      selected_options?: string[];
+      ordered_options?: string[];
+      numeric_value?: number;
+    }
+  ) =>
+    api.post(`/exam/sessions/${sessionId}/answer`, { question_index, ...answer }).then(r => r.data),
   finalizeSession: (sessionId: string) =>
     api.post(`/exam/sessions/${sessionId}/submit`).then(r => r.data),
   getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
-  getHistory: () => api.get("/exam/history").then(r => r.data),
+  getHistory: (limit = 20) => api.get(`/exam/history?limit=${limit}`).then(r => r.data),
 };
 
 // ── FHIR Learning Record Export ───────────────────────────────────────────────

@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEUR-005",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Peripheral Neuropathies: Diabetic PN, Guillain-Barré Syndrome, CIDP — EMG and Treatment",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Peripheral Neuropathies",
+      "content": {
+        "intro": "Peripheral neuropathies encompass a broad spectrum of disorders affecting the peripheral nerves, with diabetic neuropathy being the most common form, affecting approximately 50% of patients with diabetes. The pathophysiology involves damage to the nerve fibers, which can be due to metabolic derangements in diabetes, autoimmune responses in conditions like Guillain-Barré Syndrome, or demyelination in Chronic Inflammatory Demyelinating Polyneuropathy (CIDP). Understanding the epidemiology and pathophysiology is crucial for diagnosis and management. The global prevalence of peripheral neuropathy is significant, with variations depending on the underlying cause. For instance, diabetic neuropathy is expected to rise with the increasing prevalence of diabetes worldwide.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Diabetic Neuropathy",
+            "text": "Diabetic neuropathy affects a significant portion of the diabetic population, with studies suggesting that nearly 50% of patients with diabetes will develop some form of neuropathy. The risk factors include the duration of diabetes, the level of glycemic control, and the presence of other diabetic complications. According to the American Diabetes Association (ADA) 2022 guidelines, early detection and management of diabetic neuropathy are critical to prevent its progression. The epidemiology of diabetic neuropathy highlights the importance of tight glycemic control, with an HbA1c target of less than 7% as recommended by the ADA."
+          },
+          {
+            "heading": "Pathophysiology of Guillain-Barré Syndrome",
+            "text": "Guillain-Barré Syndrome is an autoimmune disorder characterized by rapid-onset muscle weakness caused by the immune system damaging the peripheral nervous system. The pathophysiology involves an immune response triggered by a recent infection, leading to the production of antibodies that cross-react with the peripheral nerve components. Treatment involves plasma exchange or intravenous immunoglobulin, as per the 2019 guidelines from the European Academy of Neurology. The dose of intravenous immunoglobulin is typically 2 grams per kilogram of body weight over 2-5 days. Early treatment is crucial, as it can significantly improve outcomes."
+          },
+          {
+            "heading": "Pathophysiology of CIDP",
+            "text": "Chronic Inflammatory Demyelinating Polyneuropathy (CIDP) is characterized by progressive weakness and impaired sensory function in the legs and arms. The pathophysiology involves an autoimmune response leading to demyelination of the peripheral nerves. The treatment for CIDP includes corticosteroids, with a typical starting dose of prednisone 60 mg/day, as recommended by the 2020 NICE guidelines. Other treatments may include immunomodulatory therapies. The diagnosis of CIDP is based on clinical presentation, electrophysiological studies, and sometimes nerve biopsy. The ICE trial demonstrated the efficacy of intravenous immunoglobulin in CIDP, supporting its use as a first-line treatment."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of peripheral neuropathies can significantly improve patient outcomes. For instance, in diabetic neuropathy, achieving an HbA1c of less than 7% can reduce the risk of neuropathy by 60%.",
+        "key_points": [
+          "Diabetic neuropathy affects approximately 50% of patients with diabetes.",
+          "The risk factors for diabetic neuropathy include the duration of diabetes and the level of glycemic control.",
+          "Guillain-Barré Syndrome is treated with plasma exchange or intravenous immunoglobulin at a dose of 2 grams per kilogram over 2-5 days.",
+          "CIDP is characterized by progressive weakness and impaired sensory function.",
+          "The treatment for CIDP includes corticosteroids with a starting dose of prednisone 60 mg/day.",
+          "Intravenous immunoglobulin is a first-line treatment for CIDP, as supported by the ICE trial."
+        ],
+        "references": [
+          {
+            "title": "2022 ADA Guidelines",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early detection and management of diabetic neuropathy."
+          },
+          {
+            "title": "European Academy of Neurology Guidelines",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the treatment of Guillain-Barré Syndrome, including intravenous immunoglobulin dosing."
+          },
+          {
+            "title": "ICE Trial",
+            "authors": "Hughes et al.",
+            "journal_or_source": "Lancet Neurology",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of intravenous immunoglobulin in the treatment of CIDP."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Peripheral Neuropathies",
+      "content": {
+        "intro": "The clinical presentation of peripheral neuropathies can vary widely depending on the underlying cause. Symptoms can range from mild numbness or tingling in the extremities to severe pain, weakness, and autonomic dysfunction. A thorough clinical evaluation is essential for diagnosing the specific type of neuropathy and guiding treatment. The clinical presentation of diabetic neuropathy often includes symptoms of distal symmetric polyneuropathy, such as pain, numbness, and tingling in the feet and hands.",
+        "sections": [
+          {
+            "heading": "Symptoms of Diabetic Neuropathy",
+            "text": "Patients with diabetic neuropathy may present with a variety of symptoms, including pain, numbness, tingling, and weakness in the distal extremities. The symptoms can be symmetric or asymmetric and may involve both sensory and motor fibers. According to the 2022 ADA guidelines, the diagnosis of diabetic neuropathy is based on a combination of clinical evaluation, including history and physical examination, and electrophysiological tests. The early recognition of diabetic neuropathy is crucial, as it can lead to significant morbidity if left untreated, including foot ulcers and amputations."
+          },
+          {
+            "heading": "Clinical Features of Guillain-Barré Syndrome",
+            "text": "Guillain-Barré Syndrome is characterized by rapidly progressive muscle weakness, which can lead to paralysis within days to weeks. The weakness typically starts in the lower extremities and ascends to the upper limbs and face. The diagnosis is based on clinical presentation, cerebrospinal fluid analysis showing elevated protein levels with minimal pleocytosis, and electrophysiological studies. Treatment should be initiated promptly, as per the 2019 European Academy of Neurology guidelines, which recommend intravenous immunoglobulin or plasma exchange as first-line treatments."
+          },
+          {
+            "heading": "Presentation of CIDP",
+            "text": "Chronic Inflammatory Demyelinating Polyneuropathy (CIDP) presents with progressive weakness and sensory loss in the limbs, which can be symmetric or asymmetric. The diagnosis is based on clinical evaluation, electrophysiological studies showing demyelination, and sometimes nerve biopsy. The treatment of CIDP involves immunomodulatory therapies, with corticosteroids being a common first-line treatment, as recommended by the 2020 NICE guidelines. The dose of prednisone is typically started at 60 mg/day and tapered based on clinical response."
+          }
+        ],
+        "clinical_pearl": "A thorough clinical evaluation, including a detailed history and physical examination, is essential for diagnosing peripheral neuropathies. The early recognition of specific symptoms can guide the diagnostic workup and treatment plan.",
+        "key_points": [
+          "Diabetic neuropathy presents with symptoms of distal symmetric polyneuropathy, including pain, numbness, and tingling.",
+          "Guillain-Barré Syndrome is characterized by rapidly progressive muscle weakness.",
+          "CIDP presents with progressive weakness and sensory loss in the limbs.",
+          "The diagnosis of diabetic neuropathy is based on clinical evaluation and electrophysiological tests.",
+          "The treatment of Guillain-Barré Syndrome includes intravenous immunoglobulin or plasma exchange.",
+          "CIDP is treated with immunomodulatory therapies, including corticosteroids."
+        ],
+        "references": [
+          {
+            "title": "2022 ADA Guidelines",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of diabetic neuropathy."
+          },
+          {
+            "title": "European Academy of Neurology Guidelines",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of Guillain-Barré Syndrome."
+          },
+          {
+            "title": "NICE Guidelines for CIDP",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of CIDP, including the use of corticosteroids."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Peripheral Neuropathies",
+      "content": {
+        "intro": "The diagnosis of peripheral neuropathies involves a combination of clinical evaluation, electrophysiological studies, and sometimes laboratory tests or nerve biopsy. Electrophysiological studies, including nerve conduction studies (NCS) and electromyography (EMG), are crucial for diagnosing and characterizing the type of neuropathy. The choice of investigations depends on the clinical presentation and suspected underlying cause.",
+        "sections": [
+          {
+            "heading": "Electrophysiological Studies in Diabetic Neuropathy",
+            "text": "Nerve conduction studies (NCS) and electromyography (EMG) are essential for diagnosing diabetic neuropathy. These studies can show evidence of axonal degeneration and demyelination, which are characteristic of diabetic neuropathy. According to the 2022 ADA guidelines, electrophysiological studies should be used to confirm the diagnosis and assess the severity of neuropathy. The studies can also help in monitoring the progression of neuropathy and the response to treatment."
+          },
+          {
+            "heading": "Diagnostic Approach to Guillain-Barré Syndrome",
+            "text": "The diagnosis of Guillain-Barré Syndrome is based on clinical presentation, cerebrospinal fluid analysis, and electrophysiological studies. The cerebrospinal fluid typically shows elevated protein levels with minimal pleocytosis, a finding known as albuminocytological dissociation. Electrophysiological studies may show evidence of demyelination, which supports the diagnosis. The 2019 European Academy of Neurology guidelines recommend prompt treatment with intravenous immunoglobulin or plasma exchange based on clinical suspicion, even before all diagnostic tests are completed."
+          },
+          {
+            "heading": "Investigations for CIDP",
+            "text": "The diagnosis of CIDP involves a combination of clinical evaluation, electrophysiological studies, and sometimes nerve biopsy. Electrophysiological studies typically show evidence of demyelination, which can be widespread or multifocal. The 2020 NICE guidelines recommend the use of corticosteroids as a first-line treatment for CIDP, based on the diagnosis confirmed by electrophysiological studies and clinical presentation. Nerve biopsy may be considered in atypical cases or when the diagnosis is uncertain."
+          }
+        ],
+        "clinical_pearl": "Electrophysiological studies are crucial for the diagnosis of peripheral neuropathies, as they can provide specific information about the type and severity of nerve damage.",
+        "key_points": [
+          "Electrophysiological studies are essential for diagnosing diabetic neuropathy.",
+          "The diagnosis of Guillain-Barré Syndrome is based on clinical presentation, cerebrospinal fluid analysis, and electrophysiological studies.",
+          "CIDP is diagnosed based on clinical evaluation, electrophysiological studies, and sometimes nerve biopsy.",
+          "Nerve conduction studies and EMG can show evidence of axonal degeneration and demyelination in diabetic neuropathy.",
+          "The cerebrospinal fluid in Guillain-Barré Syndrome typically shows albuminocytological dissociation.",
+          "Electrophysiological studies in CIDP show evidence of demyelination."
+        ],
+        "references": [
+          {
+            "title": "2022 ADA Guidelines",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis of diabetic neuropathy using electrophysiological studies."
+          },
+          {
+            "title": "European Academy of Neurology Guidelines",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of Guillain-Barré Syndrome."
+          },
+          {
+            "title": "NICE Guidelines for CIDP",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of CIDP, including the use of electrophysiological studies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Peripheral Neuropathies",
+      "content": {
+        "intro": "The treatment of peripheral neuropathies depends on the underlying cause and may involve a combination of pharmacological and non-pharmacological approaches. For diabetic neuropathy, tight glycemic control is essential, along with the use of medications for pain management. Guillain-Barré Syndrome and CIDP are treated with immunomodulatory therapies, including intravenous immunoglobulin and corticosteroids.",
+        "sections": [
+          {
+            "heading": "Treatment of Diabetic Neuropathy",
+            "text": "The management of diabetic neuropathy involves tight glycemic control, lifestyle modifications, and pharmacological treatment for pain. According to the 2022 ADA guidelines, the goal of glycemic control is to achieve an HbA1c level of less than 7%. Pain management may involve the use of antidepressants, anticonvulsants, or topical agents. The choice of medication depends on the severity of pain and the presence of other symptoms."
+          },
+          {
+            "heading": "Immunomodulatory Therapy for Guillain-Barré Syndrome",
+            "text": "Guillain-Barré Syndrome is treated with intravenous immunoglobulin or plasma exchange, as recommended by the 2019 European Academy of Neurology guidelines. The dose of intravenous immunoglobulin is typically 2 grams per kilogram of body weight over 2-5 days. Treatment should be initiated promptly to improve outcomes. The response to treatment can be monitored clinically and with electrophysiological studies."
+          },
+          {
+            "heading": "Treatment of CIDP",
+            "text": "The treatment of CIDP involves immunomodulatory therapies, with corticosteroids being a common first-line treatment. The dose of prednisone is typically started at 60 mg/day and tapered based on clinical response, as per the 2020 NICE guidelines. Other treatments may include intravenous immunoglobulin or immunosuppressive agents. The choice of treatment depends on the severity of symptoms and the response to initial therapy."
+          }
+        ],
+        "clinical_pearl": "The treatment of peripheral neuropathies should be tailored to the individual patient, considering the underlying cause, severity of symptoms, and response to treatment.",
+        "key_points": [
+          "Tight glycemic control is essential for the management of diabetic neuropathy.",
+          "Pain management in diabetic neuropathy may involve the use of antidepressants or anticonvulsants.",
+          "Guillain-Barré Syndrome is treated with intravenous immunoglobulin or plasma exchange.",
+          "CIDP is treated with immunomodulatory therapies, including corticosteroids.",
+          "The dose of intravenous immunoglobulin for Guillain-Barré Syndrome is 2 grams per kilogram over 2-5 days.",
+          "The initial dose of prednisone for CIDP is typically 60 mg/day."
+        ],
+        "references": [
+          {
+            "title": "2022 ADA Guidelines",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides recommendations for the management of diabetic neuropathy, including glycemic control and pain management."
+          },
+          {
+            "title": "European Academy of Neurology Guidelines",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the treatment of Guillain-Barré Syndrome, including intravenous immunoglobulin dosing."
+          },
+          {
+            "title": "NICE Guidelines for CIDP",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of CIDP, including the use of corticosteroids."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Peripheral Neuropathies",
+      "content": {
+        "intro": "Peripheral neuropathies can lead to significant complications, including chronic pain, mobility impairment, and autonomic dysfunction. The prognosis varies depending on the underlying cause and the effectiveness of treatment. Early recognition and management of complications are crucial to improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Complications of Diabetic Neuropathy",
+            "text": "Diabetic neuropathy can lead to several complications, including foot ulcers, amputations, and autonomic dysfunction. The risk of these complications can be reduced with tight glycemic control and regular foot care. According to the 2022 ADA guidelines, patients with diabetic neuropathy should undergo regular foot examinations to detect early signs of ulcers or infections."
+          },
+          {
+            "heading": "Prognosis of Guillain-Barré Syndrome",
+            "text": "The prognosis of Guillain-Barré Syndrome is generally good, with most patients achieving significant recovery. However, some patients may experience residual weakness or disability. The outcome can be improved with prompt treatment, as recommended by the 2019 European Academy of Neurology guidelines. Electrophysiological studies can be used to monitor recovery and guide rehabilitation."
+          },
+          {
+            "heading": "Outcome of CIDP",
+            "text": "The prognosis of CIDP varies, with some patients experiencing significant improvement with treatment, while others may have a more chronic course. The 2020 NICE guidelines recommend ongoing monitoring and adjustment of treatment based on clinical response. Patients with CIDP should be followed up regularly to assess the effectiveness of treatment and to manage any complications that may arise."
+          }
+        ],
+        "clinical_pearl": "Early recognition and management of complications are crucial to improve patient outcomes in peripheral neuropathies.",
+        "key_points": [
+          "Diabetic neuropathy can lead to complications such as foot ulcers and amputations.",
+          "The prognosis of Guillain-Barré Syndrome is generally good with prompt treatment.",
+          "CIDP has a variable prognosis, with some patients experiencing significant improvement with treatment.",
+          "Regular foot care is essential for patients with diabetic neuropathy to prevent complications.",
+          "Electrophysiological studies can be used to monitor recovery in Guillain-Barré Syndrome.",
+          "Ongoing monitoring and adjustment of treatment are necessary for managing CIDP."
+        ],
+        "references": [
+          {
+            "title": "2022 ADA Guidelines",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides recommendations for the management of diabetic neuropathy, including prevention of complications."
+          },
+          {
+            "title": "European Academy of Neurology Guidelines",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the treatment and prognosis of Guillain-Barré Syndrome."
+          },
+          {
+            "title": "NICE Guidelines for CIDP",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management and prognosis of CIDP, including ongoing monitoring and treatment adjustment."
+          }
+        ]
+      }
+    }
+  ]
+}

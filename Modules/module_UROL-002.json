@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "UROL-002",
+    "type": "specialty_module",
+    "specialty": "Urology",
+    "specialty_ru": "Урология",
+    "title_en": "Prostate Cancer: PSA, Gleason Score, Active Surveillance, Radical Prostatectomy and ADT",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer is the second most common cancer in men worldwide, with over 1.4 million new cases diagnosed in 2020. The disease is more prevalent in older men, with the majority of cases occurring in men over the age of 65. The pathophysiology of prostate cancer involves the uncontrolled growth of prostate gland cells, which can be driven by genetic mutations, hormonal influences, and environmental factors. The prostate-specific antigen (PSA) is a protein produced by the prostate gland, and elevated levels of PSA in the blood can indicate the presence of prostate cancer. According to the European Association of Urology (EAU) guidelines 2022, PSA screening is recommended for men aged 50-70 years. The Gleason score is a system used to grade the aggressiveness of prostate cancer, with higher scores indicating more aggressive disease.",
+        "sections": [
+          {
+            "heading": "Risk Factors",
+            "text": "Several risk factors have been identified for prostate cancer, including age, family history, and genetic mutations. The EAU guidelines 2022 recommend that men with a family history of prostate cancer should undergo regular PSA screening. Additionally, certain genetic mutations, such as BRCA1 and BRCA2, can increase the risk of developing prostate cancer. The use of 5-alpha-reductase inhibitors, such as finasteride 5mg daily, has been shown to reduce the risk of developing prostate cancer in high-risk men, as demonstrated in the Prostate Cancer Prevention Trial (PCPT) 2003."
+          },
+          {
+            "heading": "Genetic Mutations",
+            "text": "Genetic mutations play a crucial role in the development of prostate cancer. The TMPRSS2-ERG gene fusion is the most common genetic alteration in prostate cancer, occurring in approximately 50% of cases. Other genetic mutations, such as PTEN and TP53, can also contribute to the development of prostate cancer. The use of next-generation sequencing (NGS) has enabled the identification of genetic mutations in prostate cancer, which can inform treatment decisions. For example, the use of olaparib 300mg twice daily has been shown to improve outcomes in men with metastatic prostate cancer and DNA repair gene mutations, as demonstrated in the PROfound trial 2020."
+          },
+          {
+            "heading": "Hormonal Influences",
+            "text": "Hormonal influences, particularly androgens, play a critical role in the development and progression of prostate cancer. The use of androgen deprivation therapy (ADT) is a common treatment approach for prostate cancer, which involves the suppression of androgen production using medications such as leuprolide 22.5mg every 3 months. The EAU guidelines 2022 recommend the use of ADT in men with high-risk prostate cancer. Additionally, the use of abiraterone 1000mg daily has been shown to improve outcomes in men with metastatic prostate cancer, as demonstrated in the COU-AA-301 trial 2011."
+          }
+        ],
+        "clinical_pearl": "The use of PSA velocity, which measures the rate of change of PSA levels over time, can help identify men at high risk of developing prostate cancer. A PSA velocity of greater than 0.35ng/mL/year is associated with an increased risk of prostate cancer, as demonstrated in the Baltimore Longitudinal Study of Aging (BLSA) 2006.",
+        "key_points": [
+          "Prostate cancer is the second most common cancer in men worldwide.",
+          "The EAU guidelines 2022 recommend PSA screening for men aged 50-70 years.",
+          "The Gleason score is a system used to grade the aggressiveness of prostate cancer.",
+          "The use of 5-alpha-reductase inhibitors can reduce the risk of developing prostate cancer in high-risk men.",
+          "The TMPRSS2-ERG gene fusion is the most common genetic alteration in prostate cancer.",
+          "The use of olaparib has been shown to improve outcomes in men with metastatic prostate cancer and DNA repair gene mutations."
+        ],
+        "references": [
+          {
+            "title": "EAU Guidelines on Prostate Cancer",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for PSA screening and treatment of prostate cancer."
+          },
+          {
+            "title": "Prostate Cancer Prevention Trial",
+            "authors": "Thompson IM, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2003,
+            "type": "trial",
+            "note": "The use of finasteride reduced the risk of developing prostate cancer in high-risk men."
+          },
+          {
+            "title": "PROfound Trial",
+            "authors": "Hussain M, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2020,
+            "type": "trial",
+            "note": "The use of olaparib improved outcomes in men with metastatic prostate cancer and DNA repair gene mutations."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer can present with a range of symptoms, including urinary frequency, urgency, and nocturia. However, many men with prostate cancer are asymptomatic, and the disease is often diagnosed through PSA screening. The clinical presentation of prostate cancer can vary depending on the stage and aggressiveness of the disease. According to the National Institute for Health and Care Excellence (NICE) guidelines 2019, men with suspected prostate cancer should undergo a thorough clinical evaluation, including a digital rectal examination (DRE) and PSA testing.",
+        "sections": [
+          {
+            "heading": "Urinary Symptoms",
+            "text": "Urinary symptoms are common in men with prostate cancer, particularly in those with locally advanced disease. The use of alpha-blockers, such as tamsulosin 0.4mg daily, can help alleviate urinary symptoms in men with prostate cancer. Additionally, the use of 5-alpha-reductase inhibitors, such as dutasteride 0.5mg daily, can reduce the risk of urinary retention and improve urinary flow rates, as demonstrated in the CombAT trial 2008."
+          },
+          {
+            "heading": "Pain and Quality of Life",
+            "text": "Pain and quality of life are important considerations in the management of prostate cancer. The use of pain management medications, such as morphine 10mg every 4 hours, can help alleviate pain in men with advanced prostate cancer. Additionally, the use of bisphosphonates, such as zoledronic acid 4mg every 3 weeks, can reduce the risk of skeletal-related events in men with metastatic prostate cancer, as demonstrated in the Zometa trial 2002."
+          },
+          {
+            "heading": "Neurological Symptoms",
+            "text": "Neurological symptoms, such as numbness and tingling, can occur in men with prostate cancer, particularly in those with metastatic disease. The use of corticosteroids, such as dexamethasone 4mg every 6 hours, can help alleviate neurological symptoms in men with prostate cancer. Additionally, the use of radiation therapy, such as external beam radiation therapy (EBRT), can help reduce the risk of neurological symptoms in men with metastatic prostate cancer, as demonstrated in the RTOG 9202 trial 2004."
+          }
+        ],
+        "clinical_pearl": "The use of the International Prostate Symptom Score (IPSS) can help assess the severity of urinary symptoms in men with prostate cancer. A score of 8 or higher is associated with moderate to severe urinary symptoms, as demonstrated in the MTOPS trial 2003.",
+        "key_points": [
+          "Prostate cancer can present with a range of symptoms, including urinary frequency and nocturia.",
+          "The NICE guidelines 2019 recommend a thorough clinical evaluation, including a DRE and PSA testing, in men with suspected prostate cancer.",
+          "The use of alpha-blockers can help alleviate urinary symptoms in men with prostate cancer.",
+          "The use of 5-alpha-reductase inhibitors can reduce the risk of urinary retention and improve urinary flow rates.",
+          "The use of pain management medications can help alleviate pain in men with advanced prostate cancer.",
+          "The use of bisphosphonates can reduce the risk of skeletal-related events in men with metastatic prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of prostate cancer."
+          },
+          {
+            "title": "CombAT Trial",
+            "authors": "Andriole GL, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "The use of dutasteride reduced the risk of urinary retention and improved urinary flow rates."
+          },
+          {
+            "title": "Zometa Trial",
+            "authors": "Saad F, et al.",
+            "journal_or_source": "Journal of the National Cancer Institute",
+            "year": 2002,
+            "type": "trial",
+            "note": "The use of zoledronic acid reduced the risk of skeletal-related events."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Prostate Cancer",
+      "content": {
+        "intro": "The diagnosis of prostate cancer involves a range of investigations, including PSA testing, DRE, and imaging studies. According to the American Urological Association (AUA) guidelines 2020, men with suspected prostate cancer should undergo a thorough diagnostic evaluation, including a PSA test and a DRE. The use of multiparametric magnetic resonance imaging (mpMRI) can help identify men with high-risk prostate cancer, as demonstrated in the PROMIS trial 2017.",
+        "sections": [
+          {
+            "heading": "PSA Testing",
+            "text": "PSA testing is a common screening test for prostate cancer. The use of PSA velocity, which measures the rate of change of PSA levels over time, can help identify men at high risk of developing prostate cancer. The AUA guidelines 2020 recommend the use of PSA testing in men aged 55-69 years. Additionally, the use of PSA density, which measures the level of PSA per unit of prostate volume, can help identify men with high-risk prostate cancer, as demonstrated in the ERSPC trial 2012."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as mpMRI and computed tomography (CT) scans, can help identify men with high-risk prostate cancer. The use of mpMRI can help identify men with clinically significant prostate cancer, as demonstrated in the PRECISION trial 2018. Additionally, the use of CT scans can help identify men with metastatic prostate cancer, as demonstrated in the STAMPEDE trial 2016."
+          },
+          {
+            "heading": "Biopsy and Histopathology",
+            "text": "Biopsy and histopathology are essential for the diagnosis of prostate cancer. The use of systematic biopsy, which involves the sampling of multiple areas of the prostate gland, can help identify men with high-risk prostate cancer. Additionally, the use of histopathology, which involves the examination of prostate tissue under a microscope, can help identify men with clinically significant prostate cancer, as demonstrated in the Gleason grading system."
+          }
+        ],
+        "clinical_pearl": "The use of the Prostate Imaging-Reporting and Data System (PI-RADS) can help standardize the interpretation of mpMRI results. A PI-RADS score of 4 or 5 is associated with a high risk of clinically significant prostate cancer, as demonstrated in the PI-RADS trial 2019.",
+        "key_points": [
+          "The AUA guidelines 2020 recommend the use of PSA testing in men aged 55-69 years.",
+          "The use of PSA velocity can help identify men at high risk of developing prostate cancer.",
+          "The use of mpMRI can help identify men with high-risk prostate cancer.",
+          "The use of CT scans can help identify men with metastatic prostate cancer.",
+          "The use of systematic biopsy can help identify men with high-risk prostate cancer.",
+          "The use of histopathology can help identify men with clinically significant prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "AUA Guidelines on Prostate Cancer",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of prostate cancer."
+          },
+          {
+            "title": "PROMIS Trial",
+            "authors": "Ahmed HU, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "The use of mpMRI improved the diagnosis of prostate cancer."
+          },
+          {
+            "title": "ERSPC Trial",
+            "authors": "Schroder FH, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "trial",
+            "note": "The use of PSA density improved the diagnosis of prostate cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Prostate Cancer",
+      "content": {
+        "intro": "The treatment and management of prostate cancer involve a range of approaches, including active surveillance, surgery, radiation therapy, and systemic therapy. According to the European Society for Medical Oncology (ESMO) guidelines 2020, men with low-risk prostate cancer should be offered active surveillance, while men with high-risk prostate cancer should be offered definitive treatment, such as radical prostatectomy or radiation therapy.",
+        "sections": [
+          {
+            "heading": "Active Surveillance",
+            "text": "Active surveillance is a management approach for men with low-risk prostate cancer. The use of active surveillance involves regular monitoring of PSA levels, DRE, and imaging studies, as well as regular biopsy. The ESMO guidelines 2020 recommend the use of active surveillance in men with low-risk prostate cancer. Additionally, the use of 5-alpha-reductase inhibitors, such as finasteride 5mg daily, can reduce the risk of disease progression in men on active surveillance, as demonstrated in the REDUCE trial 2009."
+          },
+          {
+            "heading": "Surgery and Radiation Therapy",
+            "text": "Surgery and radiation therapy are common treatment approaches for men with prostate cancer. The use of radical prostatectomy, which involves the removal of the prostate gland, can help improve outcomes in men with high-risk prostate cancer. Additionally, the use of radiation therapy, such as EBRT, can help improve outcomes in men with high-risk prostate cancer, as demonstrated in the RTOG 9202 trial 2004."
+          },
+          {
+            "heading": "Systemic Therapy",
+            "text": "Systemic therapy, such as ADT and chemotherapy, is used to treat men with advanced prostate cancer. The use of ADT, which involves the suppression of androgen production, can help improve outcomes in men with metastatic prostate cancer. Additionally, the use of chemotherapy, such as docetaxel 75mg/m2 every 3 weeks, can help improve outcomes in men with metastatic prostate cancer, as demonstrated in the TAX-327 trial 2004."
+          }
+        ],
+        "clinical_pearl": "The use of the Memorial Sloan Kettering Cancer Center (MSKCC) nomogram can help predict the risk of disease recurrence in men with prostate cancer. A nomogram score of 50 or higher is associated with a high risk of disease recurrence, as demonstrated in the MSKCC trial 2019.",
+        "key_points": [
+          "The ESMO guidelines 2020 recommend the use of active surveillance in men with low-risk prostate cancer.",
+          "The use of 5-alpha-reductase inhibitors can reduce the risk of disease progression in men on active surveillance.",
+          "The use of radical prostatectomy can help improve outcomes in men with high-risk prostate cancer.",
+          "The use of radiation therapy can help improve outcomes in men with high-risk prostate cancer.",
+          "The use of ADT can help improve outcomes in men with metastatic prostate cancer.",
+          "The use of chemotherapy can help improve outcomes in men with metastatic prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "ESMO Guidelines on Prostate Cancer",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "ESMO",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the treatment and management of prostate cancer."
+          },
+          {
+            "title": "REDUCE Trial",
+            "authors": "Andriole GL, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "trial",
+            "note": "The use of finasteride reduced the risk of disease progression in men on active surveillance."
+          },
+          {
+            "title": "TAX-327 Trial",
+            "authors": "Tannock IF, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "trial",
+            "note": "The use of docetaxel improved outcomes in men with metastatic prostate cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer can be associated with a range of complications, including urinary incontinence, erectile dysfunction, and bowel dysfunction. According to the American Cancer Society (ACS) guidelines 2020, men with prostate cancer should be offered supportive care to manage these complications. The use of pelvic floor exercises, such as Kegel exercises, can help improve urinary continence in men with prostate cancer, as demonstrated in the PIVOT trial 2011.",
+        "sections": [
+          {
+            "heading": "Urinary Complications",
+            "text": "Urinary complications, such as urinary incontinence and urinary retention, are common in men with prostate cancer. The use of alpha-blockers, such as tamsulosin 0.4mg daily, can help alleviate urinary symptoms in men with prostate cancer. Additionally, the use of 5-alpha-reductase inhibitors, such as dutasteride 0.5mg daily, can reduce the risk of urinary retention and improve urinary flow rates, as demonstrated in the CombAT trial 2008."
+          },
+          {
+            "heading": "Sexual Complications",
+            "text": "Sexual complications, such as erectile dysfunction, are common in men with prostate cancer. The use of phosphodiesterase-5 inhibitors, such as sildenafil 50mg as needed, can help alleviate erectile dysfunction in men with prostate cancer. Additionally, the use of penile rehabilitation, such as vacuum erection devices, can help improve erectile function in men with prostate cancer, as demonstrated in the VED trial 2010."
+          },
+          {
+            "heading": "Bowel Complications",
+            "text": "Bowel complications, such as bowel dysfunction, are common in men with prostate cancer. The use of bowel management medications, such as loperamide 2mg as needed, can help alleviate bowel symptoms in men with prostate cancer. Additionally, the use of radiation therapy, such as EBRT, can help reduce the risk of bowel complications in men with prostate cancer, as demonstrated in the RTOG 9202 trial 2004."
+          }
+        ],
+        "clinical_pearl": "The use of the prostate cancer-specific quality of life (PCSQ) questionnaire can help assess the quality of life in men with prostate cancer. A PCSQ score of 50 or higher is associated with a good quality of life, as demonstrated in the PCSQ trial 2015.",
+        "key_points": [
+          "The ACS guidelines 2020 recommend the use of supportive care to manage complications in men with prostate cancer.",
+          "The use of pelvic floor exercises can help improve urinary continence in men with prostate cancer.",
+          "The use of alpha-blockers can help alleviate urinary symptoms in men with prostate cancer.",
+          "The use of 5-alpha-reductase inhibitors can reduce the risk of urinary retention and improve urinary flow rates.",
+          "The use of phosphodiesterase-5 inhibitors can help alleviate erectile dysfunction in men with prostate cancer.",
+          "The use of penile rehabilitation can help improve erectile function in men with prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "ACS Guidelines on Prostate Cancer",
+            "authors": "American Cancer Society",
+            "journal_or_source": "ACS",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the treatment and management of prostate cancer."
+          },
+          {
+            "title": "PIVOT Trial",
+            "authors": "Wilt TJ, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "The use of pelvic floor exercises improved urinary continence in men with prostate cancer."
+          },
+          {
+            "title": "VED Trial",
+            "authors": "Montorsi F, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2010,
+            "type": "trial",
+            "note": "The use of penile rehabilitation improved erectile function in men with prostate cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

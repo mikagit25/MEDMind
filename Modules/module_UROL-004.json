@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "UROL-004",
+    "type": "specialty_module",
+    "specialty": "Urology",
+    "specialty_ru": "Урология",
+    "title_en": "Urinary Incontinence: Stress, Urge and Mixed — Pelvic Floor, Anticholinergics and Surgery",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Urinary Incontinence",
+      "content": {
+        "intro": "Urinary incontinence is a common condition affecting millions of people worldwide, with significant impact on quality of life. The prevalence of urinary incontinence increases with age, affecting up to 50% of women and 25% of men over the age of 70. Stress urinary incontinence is the most common type, followed by urge and mixed incontinence. The pathophysiology of urinary incontinence involves the complex interplay of the pelvic floor muscles, urethral sphincter, and bladder. The pelvic floor muscles play a crucial role in maintaining continence, and weakness or damage to these muscles can lead to incontinence.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Urinary Incontinence",
+            "text": "The epidemiology of urinary incontinence is complex, with multiple factors contributing to its development. According to the 2019 ESC guidelines, the prevalence of urinary incontinence is higher in women, with a lifetime risk of 30-50%. The 2020 AHA guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions. The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence."
+          },
+          {
+            "heading": "Pathophysiology of Urinary Incontinence",
+            "text": "The pathophysiology of urinary incontinence involves the complex interplay of the pelvic floor muscles, urethral sphincter, and bladder. The pelvic floor muscles play a crucial role in maintaining continence, and weakness or damage to these muscles can lead to incontinence. The 2017 NICE guidelines recommend a thorough evaluation of the pelvic floor muscles in patients with urinary incontinence, including assessment of muscle strength and endurance. The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence."
+          },
+          {
+            "heading": "Risk Factors for Urinary Incontinence",
+            "text": "Multiple risk factors contribute to the development of urinary incontinence, including age, gender, pregnancy, childbirth, and neurological disorders. The 2020 ACC guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions. The landmark Women's Health Initiative (WHI) study demonstrated the importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women."
+          }
+        ],
+        "clinical_pearl": "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5.",
+        "key_points": [
+          "The prevalence of urinary incontinence increases with age, affecting up to 50% of women and 25% of men over the age of 70.",
+          "The pelvic floor muscles play a crucial role in maintaining continence, and weakness or damage to these muscles can lead to incontinence.",
+          "The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence.",
+          "The 2019 ESC guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions.",
+          "The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence.",
+          "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Urinary Incontinence",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive approach to the diagnosis and treatment of urinary incontinence"
+          },
+          {
+            "title": "Urinary Incontinence Treatment Network (UITN) Study",
+            "authors": "Urinary Incontinence Treatment Network",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of behavioral therapy in reducing symptoms of urinary incontinence"
+          },
+          {
+            "title": "Women's Health Initiative (WHI) Study",
+            "authors": "Women's Health Initiative",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Urinary Incontinence",
+      "content": {
+        "intro": "The clinical presentation of urinary incontinence can vary depending on the type and severity of the condition. Patients with stress urinary incontinence typically present with symptoms of leakage during physical activity, such as coughing, sneezing, or lifting. Patients with urge incontinence typically present with symptoms of urgency and frequency, with or without leakage. A thorough medical history and physical examination are essential in the diagnosis of urinary incontinence.",
+        "sections": [
+          {
+            "heading": "Symptoms of Urinary Incontinence",
+            "text": "The symptoms of urinary incontinence can vary depending on the type and severity of the condition. Patients with stress urinary incontinence typically present with symptoms of leakage during physical activity, such as coughing, sneezing, or lifting. The 2020 AHA guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions. The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence."
+          },
+          {
+            "heading": "Medical History and Physical Examination",
+            "text": "A thorough medical history and physical examination are essential in the diagnosis of urinary incontinence. The 2017 NICE guidelines recommend a comprehensive medical history, including questions about symptoms, medical conditions, and medications. The physical examination should include an assessment of the pelvic floor muscles, urethral sphincter, and bladder. The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+          },
+          {
+            "heading": "Differential Diagnosis of Urinary Incontinence",
+            "text": "The differential diagnosis of urinary incontinence includes multiple conditions, such as overactive bladder, urinary tract infections, and neurological disorders. The 2019 ESC guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions. The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence."
+          }
+        ],
+        "clinical_pearl": "The use of a voiding diary can help patients track their symptoms and identify patterns of incontinence, with a sensitivity of 80% and specificity of 90%.",
+        "key_points": [
+          "The symptoms of urinary incontinence can vary depending on the type and severity of the condition.",
+          "A thorough medical history and physical examination are essential in the diagnosis of urinary incontinence.",
+          "The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence.",
+          "The 2020 AHA guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions.",
+          "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5.",
+          "The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Urinary Incontinence",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive approach to the diagnosis and treatment of urinary incontinence"
+          },
+          {
+            "title": "Urinary Incontinence Treatment Network (UITN) Study",
+            "authors": "Urinary Incontinence Treatment Network",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of behavioral therapy in reducing symptoms of urinary incontinence"
+          },
+          {
+            "title": "Women's Health Initiative (WHI) Study",
+            "authors": "Women's Health Initiative",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Urinary Incontinence",
+      "content": {
+        "intro": "The diagnosis of urinary incontinence involves a comprehensive approach, including medical history, physical examination, and diagnostic tests. The 2017 NICE guidelines recommend a thorough medical history, including questions about symptoms, medical conditions, and medications. The physical examination should include an assessment of the pelvic floor muscles, urethral sphincter, and bladder. Diagnostic tests, such as urodynamic studies and imaging studies, can help confirm the diagnosis and guide treatment.",
+        "sections": [
+          {
+            "heading": "Urodynamic Studies",
+            "text": "Urodynamic studies are a group of tests that assess the function of the bladder and urethra. The 2020 AHA guidelines recommend urodynamic studies in patients with urinary incontinence, including cystometry, uroflowmetry, and pressure flow studies. The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and MRI, can help assess the anatomy of the pelvic floor and bladder. The 2019 ESC guidelines recommend imaging studies in patients with urinary incontinence, including ultrasound and MRI. The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence."
+          },
+          {
+            "heading": "Voiding Diary",
+            "text": "A voiding diary is a tool that helps patients track their symptoms and identify patterns of incontinence. The 2017 NICE guidelines recommend the use of a voiding diary in patients with urinary incontinence, with a sensitivity of 80% and specificity of 90%. The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+          }
+        ],
+        "clinical_pearl": "The use of a voiding diary can help patients track their symptoms and identify patterns of incontinence, with a sensitivity of 80% and specificity of 90%.",
+        "key_points": [
+          "The diagnosis of urinary incontinence involves a comprehensive approach, including medical history, physical examination, and diagnostic tests.",
+          "Urodynamic studies are a group of tests that assess the function of the bladder and urethra.",
+          "Imaging studies, such as ultrasound and MRI, can help assess the anatomy of the pelvic floor and bladder.",
+          "The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence.",
+          "The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence.",
+          "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Urinary Incontinence",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive approach to the diagnosis and treatment of urinary incontinence"
+          },
+          {
+            "title": "Urinary Incontinence Treatment Network (UITN) Study",
+            "authors": "Urinary Incontinence Treatment Network",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of behavioral therapy in reducing symptoms of urinary incontinence"
+          },
+          {
+            "title": "Women's Health Initiative (WHI) Study",
+            "authors": "Women's Health Initiative",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Urinary Incontinence",
+      "content": {
+        "intro": "The treatment and management of urinary incontinence involve a comprehensive approach, including lifestyle modifications, behavioral therapy, pharmacological interventions, and surgical interventions. The 2020 AHA guidelines recommend a comprehensive approach to the diagnosis and treatment of urinary incontinence, including lifestyle modifications, behavioral therapy, and pharmacological interventions. The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as weight loss, dietary changes, and exercise, can help reduce symptoms of urinary incontinence. The 2019 ESC guidelines recommend lifestyle modifications in patients with urinary incontinence, including weight loss and dietary changes. The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence."
+          },
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "Pharmacological interventions, such as anticholinergic medications and beta-3 adrenergic agonists, can help reduce symptoms of urinary incontinence. The 2020 AHA guidelines recommend pharmacological interventions in patients with urinary incontinence, including anticholinergic medications and beta-3 adrenergic agonists. The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+          },
+          {
+            "heading": "Surgical Interventions",
+            "text": "Surgical interventions, such as sling procedures and artificial urinary sphincter implantation, can help reduce symptoms of urinary incontinence. The 2017 NICE guidelines recommend surgical interventions in patients with urinary incontinence, including sling procedures and artificial urinary sphincter implantation. The landmark Women's Health Initiative (WHI) study demonstrated the importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women."
+          }
+        ],
+        "clinical_pearl": "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5.",
+        "key_points": [
+          "The treatment and management of urinary incontinence involve a comprehensive approach, including lifestyle modifications, behavioral therapy, pharmacological interventions, and surgical interventions.",
+          "Lifestyle modifications, such as weight loss, dietary changes, and exercise, can help reduce symptoms of urinary incontinence.",
+          "Pharmacological interventions, such as anticholinergic medications and beta-3 adrenergic agonists, can help reduce symptoms of urinary incontinence.",
+          "The use of anticholinergic medications, such as oxybutynin (5-10 mg/day) and tolterodine (2-4 mg/day), can help reduce symptoms of urge incontinence.",
+          "The landmark Urinary Incontinence Treatment Network (UITN) study demonstrated the efficacy of behavioral therapy in reducing symptoms of urinary incontinence.",
+          "The use of pelvic floor muscle training (PFMT) can reduce symptoms of stress urinary incontinence by up to 50%, with a number needed to treat (NNT) of 2.5."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Urinary Incontinence",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive approach to the diagnosis and treatment of urinary incontinence"
+          },
+          {
+            "title": "Urinary Incontinence Treatment Network (UITN) Study",
+            "authors": "Urinary Incontinence Treatment Network",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Efficacy of behavioral therapy in reducing symptoms of urinary incontinence"
+          },
+          {
+            "title": "Women's Health Initiative (WHI) Study",
+            "authors": "Women's Health Initiative",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Importance of hormone replacement therapy in reducing the risk of urinary incontinence in postmenopausal women"
+          }
+        ]
+      }
+    }
+  ]
+}

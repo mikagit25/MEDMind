@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ICU-003",
+    "type": "specialty_module",
+    "specialty": "Critical Care",
+    "specialty_ru": "Реаниматология и ИТ",
+    "title_en": "Vasopressors and Inotropes: Pharmacology, Targets and Clinical Use",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Vasopressor and Inotrope Use",
+      "content": {
+        "intro": "The use of vasopressors and inotropes is a critical aspect of managing patients with circulatory shock. According to the 2020 Surviving Sepsis Campaign guidelines, the early recognition and management of shock are essential to improve patient outcomes. The pathophysiology of shock involves a complex interplay between hypovolemia, distributive vasodilation, and cardiac dysfunction. Vasopressors, such as norepinephrine, are commonly used to support blood pressure, while inotropes, such as dobutamine, are used to enhance cardiac contractility. The choice of vasopressor or inotrope depends on the underlying cause of shock and the patient's individual hemodynamic profile. Recent studies have highlighted the importance of personalized medicine in the management of circulatory shock, with the use of biomarkers and hemodynamic monitoring to guide therapy.",
+        "sections": [
+          {
+            "heading": "Vasopressor Pharmacology",
+            "text": "Vasopressors, such as norepinephrine, epinephrine, and vasopressin, work by stimulating adrenergic receptors to increase vascular tone and cardiac contractility. The 2019 ESC guidelines recommend the use of norepinephrine as the first-line vasopressor for the management of septic shock, with a dose range of 0.1-1.5 mcg/kg/min. The landmark Vasopressin and Septic Shock Trial (VASST) demonstrated that the addition of vasopressin to norepinephrine improved outcomes in patients with septic shock. In contrast, the use of epinephrine is generally reserved for patients with severe cardiac dysfunction or anaphylactic shock, due to its potential to increase tachycardia and myocardial oxygen demand."
+          },
+          {
+            "heading": "Inotrope Pharmacology",
+            "text": "Inotropes, such as dobutamine and milrinone, work by increasing cardiac contractility and reducing systemic vascular resistance. The 2020 AHA guidelines recommend the use of dobutamine for the management of acute heart failure, with a dose range of 2.5-10 mcg/kg/min. The use of milrinone is generally reserved for patients with severe cardiac dysfunction or those who are refractory to dobutamine. The OPTIME-CHF trial demonstrated that the use of milrinone in patients with acute heart failure reduced the risk of hospitalization and improved symptoms."
+          },
+          {
+            "heading": "Clinical Applications",
+            "text": "The clinical application of vasopressors and inotropes requires a thorough understanding of the underlying pathophysiology of shock and the individual patient's hemodynamic profile. The use of biomarkers, such as lactate and central venous oxygen saturation, can help guide therapy and monitor response to treatment. The 2018 NICE guidelines recommend the use of a multimodal approach to the management of circulatory shock, including the use of vasopressors, inotropes, and fluid resuscitation."
+          }
+        ],
+        "clinical_pearl": "The use of vasopressors and inotropes should be guided by a thorough understanding of the underlying pathophysiology of shock and the individual patient's hemodynamic profile, with a focus on personalized medicine and the use of biomarkers to guide therapy.",
+        "key_points": [
+          "The use of norepinephrine is recommended as the first-line vasopressor for the management of septic shock, with a dose range of 0.1-1.5 mcg/kg/min.",
+          "The addition of vasopressin to norepinephrine may improve outcomes in patients with septic shock, as demonstrated by the VASST trial.",
+          "The use of dobutamine is recommended for the management of acute heart failure, with a dose range of 2.5-10 mcg/kg/min.",
+          "The use of milrinone is generally reserved for patients with severe cardiac dysfunction or those who are refractory to dobutamine.",
+          "The OPTIME-CHF trial demonstrated that the use of milrinone in patients with acute heart failure reduced the risk of hospitalization and improved symptoms.",
+          "The use of biomarkers, such as lactate and central venous oxygen saturation, can help guide therapy and monitor response to treatment."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Acute Heart Failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of acute heart failure, including the use of vasopressors and inotropes."
+          },
+          {
+            "title": "Vasopressin and Septic Shock Trial (VASST)",
+            "authors": "Russell JA, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "clinical trial",
+            "note": "Demonstrated that the addition of vasopressin to norepinephrine improved outcomes in patients with septic shock."
+          },
+          {
+            "title": "OPTIME-CHF Trial",
+            "authors": "Cuffe MS, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2002,
+            "type": "clinical trial",
+            "note": "Demonstrated that the use of milrinone in patients with acute heart failure reduced the risk of hospitalization and improved symptoms."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Vasopressor and Inotrope Use",
+      "content": {
+        "intro": "The clinical presentation of patients requiring vasopressor and inotrope support can vary widely, depending on the underlying cause of shock and the individual patient's hemodynamic profile. Patients with septic shock may present with hypotension, tachycardia, and signs of organ dysfunction, such as acute kidney injury and respiratory failure. In contrast, patients with cardiogenic shock may present with signs of cardiac dysfunction, such as pulmonary edema and decreased cardiac output.",
+        "sections": [
+          {
+            "heading": "Septic Shock",
+            "text": "Septic shock is a life-threatening condition that requires prompt recognition and management. The 2020 Surviving Sepsis Campaign guidelines recommend the use of the quick Sepsis-related Organ Failure Assessment (qSOFA) score to identify patients at high risk of septic shock. The use of vasopressors, such as norepinephrine, is recommended to support blood pressure and improve organ perfusion. The PROWESS trial demonstrated that the use of drotrecogin alfa (activated) in patients with septic shock reduced the risk of mortality."
+          },
+          {
+            "heading": "Cardiogenic Shock",
+            "text": "Cardiogenic shock is a condition characterized by decreased cardiac output and increased systemic vascular resistance. The 2017 AHA guidelines recommend the use of inotropes, such as dobutamine, to increase cardiac contractility and reduce systemic vascular resistance. The use of mechanical circulatory support, such as intra-aortic balloon pump counterpulsation, may also be necessary to support cardiac function."
+          },
+          {
+            "heading": "Hemodynamic Monitoring",
+            "text": "Hemodynamic monitoring is essential to guide the use of vasopressors and inotropes. The use of invasive hemodynamic monitoring, such as pulmonary artery catheterization, can provide valuable information on cardiac output, systemic vascular resistance, and pulmonary artery pressure. The 2016 ESC guidelines recommend the use of non-invasive hemodynamic monitoring, such as echocardiography, to guide therapy and monitor response to treatment."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of patients requiring vasopressor and inotrope support can vary widely, and a thorough understanding of the underlying cause of shock and the individual patient's hemodynamic profile is essential to guide therapy.",
+        "key_points": [
+          "The use of the qSOFA score can help identify patients at high risk of septic shock.",
+          "The use of vasopressors, such as norepinephrine, is recommended to support blood pressure and improve organ perfusion in patients with septic shock.",
+          "The use of inotropes, such as dobutamine, is recommended to increase cardiac contractility and reduce systemic vascular resistance in patients with cardiogenic shock.",
+          "The use of mechanical circulatory support, such as intra-aortic balloon pump counterpulsation, may be necessary to support cardiac function in patients with cardiogenic shock.",
+          "The use of invasive hemodynamic monitoring, such as pulmonary artery catheterization, can provide valuable information on cardiac output, systemic vascular resistance, and pulmonary artery pressure.",
+          "The use of non-invasive hemodynamic monitoring, such as echocardiography, can guide therapy and monitor response to treatment."
+        ],
+        "references": [
+          {
+            "title": "2020 Surviving Sepsis Campaign Guidelines",
+            "authors": "Seymour CW, et al.",
+            "journal_or_source": "Critical Care Medicine",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of septic shock, including the use of vasopressors and inotropes."
+          },
+          {
+            "title": "PROWESS Trial",
+            "authors": "Bernard GR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2001,
+            "type": "clinical trial",
+            "note": "Demonstrated that the use of drotrecogin alfa (activated) in patients with septic shock reduced the risk of mortality."
+          },
+          {
+            "title": "2017 AHA Guidelines for the Management of Cardiogenic Shock",
+            "authors": "van Diepen S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of cardiogenic shock, including the use of inotropes and mechanical circulatory support."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Vasopressor and Inotrope Use",
+      "content": {
+        "intro": "The diagnosis of patients requiring vasopressor and inotrope support involves a combination of clinical evaluation, laboratory testing, and hemodynamic monitoring. The use of biomarkers, such as lactate and central venous oxygen saturation, can help guide therapy and monitor response to treatment. The diagnosis of septic shock, for example, requires the presence of hypotension, tachycardia, and signs of organ dysfunction, such as acute kidney injury and respiratory failure.",
+        "sections": [
+          {
+            "heading": "Laboratory Testing",
+            "text": "Laboratory testing is essential to diagnose and manage patients requiring vasopressor and inotrope support. The use of complete blood counts, electrolyte panels, and coagulation studies can help identify underlying causes of shock, such as sepsis or bleeding. The use of biomarkers, such as lactate and central venous oxygen saturation, can help guide therapy and monitor response to treatment."
+          },
+          {
+            "heading": "Hemodynamic Monitoring",
+            "text": "Hemodynamic monitoring is critical to guide the use of vasopressors and inotropes. The use of invasive hemodynamic monitoring, such as pulmonary artery catheterization, can provide valuable information on cardiac output, systemic vascular resistance, and pulmonary artery pressure. The use of non-invasive hemodynamic monitoring, such as echocardiography, can guide therapy and monitor response to treatment."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest radiography and computed tomography, can help diagnose underlying causes of shock, such as pneumonia or acute respiratory distress syndrome. The use of echocardiography can help diagnose cardiac dysfunction and guide the use of inotropes and mechanical circulatory support."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of patients requiring vasopressor and inotrope support involves a combination of clinical evaluation, laboratory testing, and hemodynamic monitoring, with a focus on identifying underlying causes of shock and guiding therapy.",
+        "key_points": [
+          "The use of biomarkers, such as lactate and central venous oxygen saturation, can help guide therapy and monitor response to treatment.",
+          "The use of laboratory testing, such as complete blood counts and electrolyte panels, can help identify underlying causes of shock.",
+          "The use of hemodynamic monitoring, such as pulmonary artery catheterization, can provide valuable information on cardiac output, systemic vascular resistance, and pulmonary artery pressure.",
+          "The use of non-invasive hemodynamic monitoring, such as echocardiography, can guide therapy and monitor response to treatment.",
+          "The use of imaging studies, such as chest radiography and computed tomography, can help diagnose underlying causes of shock.",
+          "The use of echocardiography can help diagnose cardiac dysfunction and guide the use of inotropes and mechanical circulatory support."
+        ],
+        "references": [
+          {
+            "title": "2016 ESC Guidelines for the Diagnosis and Treatment of Acute Heart Failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of acute heart failure, including the use of vasopressors and inotropes."
+          },
+          {
+            "title": "2017 AHA Guidelines for the Management of Cardiogenic Shock",
+            "authors": "van Diepen S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of cardiogenic shock, including the use of inotropes and mechanical circulatory support."
+          },
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Acute Heart Failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of acute heart failure, including the use of vasopressors and inotropes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Vasopressor and Inotrope Use",
+      "content": {
+        "intro": "The treatment and management of patients requiring vasopressor and inotrope support involves a combination of pharmacological and non-pharmacological interventions. The use of vasopressors, such as norepinephrine, is recommended to support blood pressure and improve organ perfusion, while the use of inotropes, such as dobutamine, is recommended to increase cardiac contractility and reduce systemic vascular resistance.",
+        "sections": [
+          {
+            "heading": "Vasopressor Therapy",
+            "text": "Vasopressor therapy is critical to support blood pressure and improve organ perfusion in patients with septic shock. The use of norepinephrine is recommended as the first-line vasopressor, with a dose range of 0.1-1.5 mcg/kg/min. The addition of vasopressin to norepinephrine may be necessary to support blood pressure and improve organ perfusion."
+          },
+          {
+            "heading": "Inotrope Therapy",
+            "text": "Inotrope therapy is essential to increase cardiac contractility and reduce systemic vascular resistance in patients with cardiogenic shock. The use of dobutamine is recommended as the first-line inotrope, with a dose range of 2.5-10 mcg/kg/min. The use of milrinone may be necessary to support cardiac function and improve symptoms."
+          },
+          {
+            "heading": "Mechanical Circulatory Support",
+            "text": "Mechanical circulatory support, such as intra-aortic balloon pump counterpulsation, may be necessary to support cardiac function and improve symptoms in patients with cardiogenic shock. The use of extracorporeal membrane oxygenation (ECMO) may also be necessary to support cardiac and respiratory function in patients with severe cardiac dysfunction."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of patients requiring vasopressor and inotrope support involves a combination of pharmacological and non-pharmacological interventions, with a focus on supporting blood pressure, improving organ perfusion, and increasing cardiac contractility.",
+        "key_points": [
+          "The use of norepinephrine is recommended as the first-line vasopressor to support blood pressure and improve organ perfusion in patients with septic shock.",
+          "The addition of vasopressin to norepinephrine may be necessary to support blood pressure and improve organ perfusion.",
+          "The use of dobutamine is recommended as the first-line inotrope to increase cardiac contractility and reduce systemic vascular resistance in patients with cardiogenic shock.",
+          "The use of milrinone may be necessary to support cardiac function and improve symptoms in patients with cardiogenic shock.",
+          "The use of mechanical circulatory support, such as intra-aortic balloon pump counterpulsation, may be necessary to support cardiac function and improve symptoms in patients with cardiogenic shock.",
+          "The use of ECMO may be necessary to support cardiac and respiratory function in patients with severe cardiac dysfunction."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Acute Heart Failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of acute heart failure, including the use of vasopressors and inotropes."
+          },
+          {
+            "title": "2017 AHA Guidelines for the Management of Cardiogenic Shock",
+            "authors": "van Diepen S, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of cardiogenic shock, including the use of inotropes and mechanical circulatory support."
+          },
+          {
+            "title": "2016 ESC Guidelines for the Diagnosis and Treatment of Acute Heart Failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of acute heart failure, including the use of vasopressors and inotropes."
+          }
+        ]
+      }
+    }
+  ]
+}

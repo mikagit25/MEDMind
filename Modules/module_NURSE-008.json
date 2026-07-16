@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "id": "NURSE-008",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Patient Communication, Family Engagement, and SBAR Handoff",
+    "title_en": "Patient Communication, Family Engagement, and SBAR Handoff",
+    "order_in_specialty": 8,
+    "level": "beginner",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 3,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["Joint Commission Communication Standards", "WHO Patient Engagement Guide 2016", "Schwartz Center for Compassionate Care", "TeamSTEPPS 2.0 AHRQ 2019"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Therapeutic Communication Techniques",
+      "order": 1,
+      "lay_summary": "Therapeutic communication is a set of specific techniques nurses use to build trust, gather information, and support patients emotionally. It is different from social conversation.",
+      "content": {
+        "intro": "Communication failures are the leading root cause of sentinel events. Effective nurse-patient communication improves adherence, safety, and patient experience. It is a clinical skill, not a personality trait.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "Core Therapeutic Techniques",
+            "body": "Active listening: maintain eye contact; avoid interrupting; use therapeutic silence (allow pauses of 5–10 seconds).\nOpen-ended questions: 'Tell me about your pain' yields more than 'Is your pain bad?' Use 'what' and 'how' over 'why' (why = defensive).\nReflection: mirror back what the patient said. 'You said you're worried about going home.'\nClarification: 'Could you explain what you mean by...?' Remove assumptions.\nEmpathy vs sympathy: empathy = 'I hear how frightening that must be' (validates feeling). Sympathy = 'I know how you feel' (centres your experience).\nTherapeutic touch: brief, appropriate touch on hand or arm can reduce anxiety — assess cultural appropriateness first.\nSilence: therapeutic silence communicates presence and gives the patient time to process and speak."
+          },
+          {
+            "title": "Barriers to Effective Communication",
+            "body": "Nurse-generated barriers: using medical jargon; closed questions; false reassurance ('Everything will be fine'); changing the subject when uncomfortable topics arise; charting while talking to patient; distraction.\nEnvironmental barriers: noise, lack of privacy, frequent interruptions.\nPatient barriers: anxiety (narrowed attention), pain, hearing impairment, language barrier, health literacy, cognitive impairment.\nSolutions: plain language (sixth-grade reading level for verbal and written); health literacy universal precautions (teach-back method); professional interpreter — NEVER use family members as interpreters for clinical information; face the patient (lip-reading aid); private space."
+          },
+          {
+            "title": "Teach-Back Method",
+            "body": "Evidence-based technique to verify patient understanding. Do NOT ask 'Do you understand?' (answer is always yes).\nInstead: 'I want to make sure I explained this clearly. Can you show me how you would use this inhaler when you get home?' or 'In your own words, what are the three warning signs that would make you call the clinic?'\nIf the patient cannot demonstrate or explain correctly, re-teach in a different way and use teach-back again. Document that teach-back was performed and the patient's response."
+          }
+        ],
+        "clinical_pearl": "The 'AIDET' framework (Acknowledge, Introduce, Duration, Explanation, Thank You) is used in many hospitals to standardise nurse-patient interactions. Studies show it reduces anxiety, improves satisfaction, and reduces call-bell use. Five minutes of intentional communication at the start of your interaction saves more total time than it costs.",
+        "key_points": [
+          "Open-ended questions gather more information: 'Tell me about...' not 'Is it...?'",
+          "Teach-back confirms understanding — never rely on 'Yes I understand'",
+          "Never use family members as clinical interpreters — use professional interpreter services",
+          "Therapeutic silence is a technique, not a gap — allow 5–10 s pauses",
+          "Empathy validates the patient's experience; sympathy centres yours"
+        ],
+        "references": ["Wittenberg E et al. Health Literacy in Nursing, 2018", "AHRQ TeamSTEPPS 2.0, 2019"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "SBAR Handoff and Shift Communication",
+      "order": 2,
+      "content": {
+        "intro": "The shift handoff is the highest-risk communication in nursing — most errors occur at transitions of care. SBAR provides a structured framework that ensures critical information is not lost.",
+        "estimated_minutes": 20,
+        "sections": [
+          {
+            "title": "SBAR Framework for Handoff",
+            "body": "Situation: patient name, age, MRN, bed, diagnosis, reason for contact/handoff. 'This is Mr. Hassan, 67y, bed 12, admitted today for COPD exacerbation. I'm calling because his breathing has worsened.'\nBackground: relevant history, current medications, recent procedures. 'He has a 30 pack-year smoking history, on 3 inhalers at home. Arrived with SpO2 84% on room air, now 92% on 2L O2. Last ABG 2 hours ago: pH 7.32, pCO2 56.'\nAssessment: your clinical impression. 'I think he may be retaining CO2 — he seems more drowsy than earlier and RR has increased to 28.'\nRecommendation: what you need. 'I'd like you to review him now and consider a repeat ABG. I've already increased the O2 to 4L but I'm concerned about giving more without review.'"
+          },
+          {
+            "title": "Bedside Shift Report",
+            "body": "Bedside shift report (BSR) involves the oncoming nurse receiving handoff at the patient's bedside, with the patient present. Evidence shows BSR: improves patient safety (patient can correct errors), improves patient satisfaction, reduces fall risk (patient sees new nurse), improves accountability.\nStructure: brief SBAR summary at bedside; visual skin check (sacrum, heels); verify IV sites and infusions; check call bell and equipment; patient introduces any new concerns.\nDocument: last vital signs; last pain score and what was given; last bowel movement; any outstanding tasks for next shift."
+          },
+          {
+            "title": "Difficult Conversations: Breaking Bad News Support",
+            "body": "Nurses are often present when bad news is delivered by physicians, and are with the patient and family afterward. Key role: presence and support, not information delivery (unless within scope and protocol). Strategies: sit down at eye level; do not rush; allow silence; validate emotions ('This is incredibly difficult'); avoid clichés ('Everything happens for a reason'); check what the family already knows before adding information; know the facility's palliative care and chaplaincy resources. If asked questions beyond your scope: 'That's something Dr Smith can explain — I'll make sure you get that chance to ask.'"
+          }
+        ],
+        "clinical_pearl": "Read-back is critical for verbal orders. When a physician gives a verbal medication order, repeat it back completely: 'I am reading back: metoprolol 25 mg oral once now for HR 118 — is that correct?' This catches errors in dosage and drug name before they reach the patient.",
+        "key_points": [
+          "SBAR: Situation, Background, Assessment, Recommendation — use for every clinical handoff and physician notification",
+          "Bedside shift report improves safety and satisfaction — patient is present and can correct errors",
+          "Read-back all verbal orders — repeat the complete order back to the prescriber for confirmation",
+          "After difficult news: sit, listen, validate, provide presence — do not rush the family",
+          "Document that patient/family education was provided and teach-back was completed"
+        ],
+        "references": ["Joint Commission NPSG 02.03.01 — Verbal Orders", "Jeffs L et al. Bedside Shift Report, 2013"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "What is the teach-back method and why is it used?", "answer": "Asking patients to explain or demonstrate in their own words what they learned, to verify understanding. 'Do you understand?' is unreliable — teach-back identifies knowledge gaps.", "difficulty": "easy"},
+    {"question": "Why must professional interpreters be used instead of family members?", "answer": "Family members may omit, edit, or misinterpret clinical information (intentionally or not), compromising informed consent and clinical safety. Professional interpreters are trained in medical terminology and neutral translation.", "difficulty": "medium"},
+    {"question": "SBAR: what does 'R' (Recommendation) mean in practice?", "answer": "Clearly state what you need from the person you are calling: 'I need you to come and review the patient now' or 'I recommend we repeat the blood cultures before starting the next antibiotic dose.'", "difficulty": "easy"},
+    {"question": "What is read-back for verbal orders?", "answer": "After receiving a verbal or telephone medication order, repeat the complete order back to the prescriber for confirmation before hanging up/ending the call. Required by Joint Commission.", "difficulty": "easy"},
+    {"question": "What is an open-ended question and give an example?", "answer": "A question that invites a full response rather than yes/no. Example: 'Tell me what your pain feels like and what makes it worse' — not 'Is your pain bad?'", "difficulty": "easy"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse is discharging a patient with newly prescribed warfarin. After explaining the medication, she asks 'Do you have any questions?' The patient says 'No, I understand fine.' Which is the most appropriate next step?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Document that patient education was provided and patient verbalized understanding",
+        "B": "Use teach-back: ask the patient to explain in their own words what foods to avoid and when to seek help",
+        "C": "Provide a printed information sheet and consider the teaching complete",
+        "D": "Ask if the patient's family can confirm they understand the instructions"
+      },
+      "correct": "B",
+      "explanation": "Teach-back is the evidence-based standard to verify understanding. Asking 'Do you have questions?' or 'Do you understand?' reliably produces 'No/Yes' responses that do not confirm comprehension. Teach-back asks the patient to demonstrate or explain the information in their own words, revealing gaps the nurse can address before discharge.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Select ALL components that should be included in a complete SBAR handoff when calling a physician about a deteriorating patient.",
+      "question_type": "sata",
+      "options": {
+        "A": "Patient name, age, and location",
+        "B": "Current vital signs and recent trend",
+        "C": "Your personal clinical assessment of the situation",
+        "D": "Your specific recommendation or request",
+        "E": "A complete list of all the patient's medications",
+        "F": "Relevant past medical history and current treatment"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "B", "C", "D", "F"],
+      "explanation": "SBAR handoff includes: Situation (A, B — who and what is happening), Background (F — relevant history), Assessment (C — your clinical impression), Recommendation (D — what you need). A complete medication list (E) is not a SBAR component — include only relevant current medications in Background, not the entire list.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A physician gives a telephone order for 'morphine 4 mg IV PRN pain'. What is the correct nursing response before hanging up?",
+      "question_type": "ordered",
+      "options": {
+        "A": "Ask the physician to spell their name",
+        "B": "Read back the complete order for confirmation",
+        "C": "Record the order in the patient's chart",
+        "D": "Write down the order as received"
+      },
+      "correct": "D",
+      "correct_order": ["D", "B", "C", "A"],
+      "explanation": "Write down the order first (D) so you have it accurately. Read it back to the physician for confirmation (B). Then chart the order as a verbal/telephone order with the prescriber's name and your name (C). Spelling the physician's name can be done at any point (A) but is less critical than the read-back for safety.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is caring for a patient whose family is asking detailed questions about a terminal cancer prognosis that the physician has not yet discussed with the patient. What is the most appropriate nursing response?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Explain the prognosis to the family in detail so they can support the patient",
+        "B": "Decline to answer and leave the room immediately",
+        "C": "Acknowledge the family's concern and facilitate a meeting with the physician: 'These are important questions — I'll make sure Dr. Lee meets with you today to discuss them directly'",
+        "D": "Tell the family the prognosis but ask them not to tell the patient"
+      },
+      "correct": "C",
+      "explanation": "Breaking bad news about prognosis is the physician's responsibility. The nurse's role is to acknowledge the family's distress, validate their need for information, and facilitate the conversation with the appropriate provider — not to withhold or deliver information outside their scope. Options A and D violate the patient's right to receive information first. Option B is dismissive and unhelpful.",
+      "difficulty": "medium"
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "The Worried Family: Paediatric Fever",
+      "specialty": "Nursing",
+      "difficulty": "medium",
+      "presentation": "It is 2 AM. You are the night nurse caring for Amara, 4 years old, admitted with a UTI and fever. She is clinically stable (T 38.2°C after paracetamol 2 hours ago, HR 104, RR 24, SpO2 99%, well-perfused). Her mother, Mrs. Diop, approaches you in tears, saying the doctor 'hasn't told them anything', she is scared the fever means something 'really serious', and demands you explain 'everything about her condition'. She does not speak English fluently — her husband has been translating informally.",
+      "vitals": {"temp": 38.2, "hr": 104, "rr": 24, "spo2": 99},
+      "diagnosis": "Paediatric UTI with fever — clinically stable",
+      "management": ["Acknowledge concern", "Assess language needs", "Provide therapeutic presence", "Facilitate physician communication", "Secure professional interpreter"],
+      "teaching_points": [
+        "Family members must not be used as clinical interpreters — request professional interpreter services",
+        "Acknowledging the family's concern before providing information reduces anxiety and improves communication",
+        "Nurses do not deliver medical diagnoses or prognosis — facilitate appropriate physician communication",
+        "Provide reassurance about current clinical stability without making promises about the future",
+        "Document communication needs (language barrier, interpreter arranged) in the nursing notes"
+      ],
+      "steps": [
+        {
+          "id": "S1",
+          "title": "Initial Encounter",
+          "description": "Mrs. Diop is distressed and speaking rapidly. What is your first nursing action?",
+          "choices": [
+            {"id": "C1a", "text": "Explain the UTI diagnosis and reassure her that UTIs are not serious", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10},
+            {"id": "C1b", "text": "Acknowledge her distress, invite her to sit down, and listen to her concerns without interrupting", "next_step": "S2", "outcome": "correct", "score_delta": 20},
+            {"id": "C1c", "text": "Remind her it is 2 AM and ask her to wait until morning to speak with the physician", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C1d", "text": "Call the physician immediately to come and speak to the family", "next_step": "S2", "outcome": "partial", "score_delta": 10}
+          ]
+        },
+        {
+          "id": "S2",
+          "title": "Language and Interpreter",
+          "description": "After listening, you notice Mrs. Diop is struggling to express herself clearly in English. Her husband is present. What do you do?",
+          "choices": [
+            {"id": "C2a", "text": "Ask the husband to continue translating — he seems to understand well enough", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C2b", "text": "Arrange a professional medical interpreter (phone/in-person service) before continuing the clinical discussion", "next_step": "S3", "outcome": "correct", "score_delta": 25},
+            {"id": "C2c", "text": "Use simple English words and pictures to explain the situation yourself", "next_step": "S3", "outcome": "partial", "score_delta": 10},
+            {"id": "C2d", "text": "Document 'language barrier' and inform the day team", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+          ]
+        },
+        {
+          "id": "S3",
+          "title": "Providing Information",
+          "description": "With the interpreter connected, Mrs. Diop asks: 'Is my daughter's kidney going to be damaged?' How do you respond?",
+          "choices": [
+            {"id": "C3a", "text": "Tell her exactly what the risks of UTI-related kidney damage are based on your knowledge", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -15},
+            {"id": "C3b", "text": "Acknowledge her worry; share what you can observe now (Amara is comfortable and stable); explain you will arrange for the paediatrician to discuss her specific question in the morning", "next_step": "S4", "outcome": "correct", "score_delta": 20},
+            {"id": "C3c", "text": "Say 'I'm not allowed to give medical information' and end the conversation", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C3d", "text": "Reassure her that Amara will be fine and there is nothing to worry about", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10}
+          ]
+        },
+        {
+          "id": "S4",
+          "title": "Documentation and Follow-Up",
+          "description": "What do you document about this interaction?",
+          "choices": [
+            {"id": "C4a", "text": "Family expressed concerns about prognosis; professional interpreter arranged; family updated on Amara's current clinical stability; paediatrician informed and will meet family at morning rounds", "next_step": null, "outcome": "correct", "score_delta": 15},
+            {"id": "C4b", "text": "Family anxious — noted", "next_step": null, "outcome": "partial", "score_delta": 3}
+          ]
+        },
+        {
+          "id": "S_wrong1",
+          "title": "Scope of Practice Exceeded",
+          "description": "Explaining prognosis, reassuring about outcomes you cannot guarantee, or using family members as medical interpreters are all outside safe nursing practice. These actions can mislead the family, create false expectations, and may violate informed consent principles. Acknowledge, support, and facilitate.",
+          "choices": []
+        },
+        {
+          "id": "S_wrong2",
+          "title": "Dismissive Response",
+          "description": "Asking a distressed parent to wait or refusing to engage with communication needs does not meet the standard of compassionate, patient-centred care. Address the communication need now — arrange an interpreter, provide presence, and facilitate a physician conversation.",
+          "choices": []
+        }
+      ],
+      "initial_step_id": "S1",
+      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "max_score": 80
+    }
+  ]
+}

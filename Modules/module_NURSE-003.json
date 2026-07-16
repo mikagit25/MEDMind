@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "id": "NURSE-003",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Dose Calculations and Infusion Therapy",
+    "title_en": "Dose Calculations and Infusion Therapy",
+    "order_in_specialty": 3,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-002"],
+    "duration_hours": 5,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["WHO Essential Medicines List", "RCN IV Therapy Standards 2016", "Nursing Math Handbook (Ogden, 2014)"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Essential Calculation Formulas for Nurses",
+      "order": 1,
+      "lay_summary": "Nurses use four core formulas to calculate drug doses safely. Practice these until they become automatic — they are tested on NCLEX and used every shift.",
+      "content": {
+        "intro": "Medication calculation errors are a leading cause of patient harm. Competence in dose calculation is a fundamental nursing skill, not optional.",
+        "estimated_minutes": 40,
+        "sections": [
+          {
+            "title": "The Basic Dose Formula",
+            "body": "Dose ordered ÷ Dose on hand × Vehicle = Volume to administer.\nExample: Order: amoxicillin 375 mg. Available: 250 mg/5 mL suspension.\n375 ÷ 250 × 5 mL = 7.5 mL\nAlways label your units. The vehicle (mL, tablet) must match what you have."
+          },
+          {
+            "title": "Weight-Based Dosing (mg/kg)",
+            "body": "1. Calculate total dose: weight (kg) × dose (mg/kg) = total dose (mg).\n2. Convert to volume: total dose ÷ concentration (mg/mL) = mL to administer.\nExample: Patient 70 kg, order gentamicin 5 mg/kg IV. Stock: 40 mg/mL.\nStep 1: 70 × 5 = 350 mg.\nStep 2: 350 ÷ 40 = 8.75 mL.\nAlways verify that the calculated dose is within the safe therapeutic range."
+          },
+          {
+            "title": "Infusion Rate: mL/h",
+            "body": "mL/h = Total volume (mL) ÷ Time (hours).\nExample: 1000 mL NS over 8 hours → 1000 ÷ 8 = 125 mL/h.\nFor IV pumps this is all you need to set. Programme the pump — never estimate gravity drip rate without calculating drops/min."
+          },
+          {
+            "title": "Drip Rate: Drops per Minute (Gravity Infusion)",
+            "body": "Drops/min = (Volume mL × Drop factor) ÷ (Time in hours × 60 min).\nDrop factors: macrodrip 10 or 15 gtt/mL (blood, viscous fluids); 20 gtt/mL (standard); microdrip 60 gtt/mL (paediatrics, critical drugs).\nExample: 500 mL over 6 h, drop factor 20 gtt/mL:\n(500 × 20) ÷ (6 × 60) = 10 000 ÷ 360 = 27.8 → round to 28 gtt/min.\nCount drops for 15 seconds × 4 to confirm at the bedside."
+          },
+          {
+            "title": "Unit Conversion Reference",
+            "body": "Weight: 1 g = 1000 mg; 1 mg = 1000 mcg (μg); 1 kg = 2.2 lb.\nVolume: 1 L = 1000 mL.\nTime: 1 h = 60 min.\nCommon error: mcg/kg/min infusions — ensure all units are consistent before calculating pump rate."
+          }
+        ],
+        "clinical_pearl": "Dimensional analysis (factor-label method) is the safest approach: arrange units so they cancel until only the answer unit remains. Example: 5 mg/kg × 70 kg × (1 mL/40 mg) = 8.75 mL. Units cancel cleanly → if they don't cancel, the formula is wrong.",
+        "key_points": [
+          "Basic formula: Ordered ÷ On hand × Vehicle = Volume",
+          "Weight-based: kg × mg/kg = mg total, then mg ÷ concentration = mL",
+          "Infusion rate: Total mL ÷ hours = mL/h",
+          "Drip rate: (Volume × Drop factor) ÷ (Hours × 60) = gtt/min",
+          "Always include units in your calculation to catch errors"
+        ],
+        "references": ["Ogden SJ. Calculation of Drug Dosages, 2014", "RCN Standards for Infusion Therapy, 2016"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "IV Therapy: Access, Compatibility, and Complications",
+      "order": 2,
+      "lay_summary": "IV lines provide direct access to the bloodstream — the fastest but most dangerous route. Nurses must know how to choose and maintain IV access and recognise complications early.",
+      "content": {
+        "intro": "Intravenous therapy is the most direct drug delivery route. Speed of onset means errors act quickly. Nursing responsibilities include insertion (peripheral), maintenance, monitoring, and complication recognition.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Peripheral IV Access",
+            "body": "Choose the smallest gauge catheter that delivers the required therapy. Larger gauge = faster flow rate but more vein trauma. 18 G for blood/trauma; 20–22 G routine medications; 24 G paediatrics/fragile veins. Preferred sites: forearm veins (cephalic, basilic, median cubital). Avoid: dominant hand if possible, wrist, antecubital (mobility limits), lower extremities (thrombosis risk). Change peripheral IVs per policy (72–96 h or clinical indication)."
+          },
+          {
+            "title": "Drug Compatibility",
+            "body": "Never assume drugs are compatible. Precipitate formation can cause emboli. Key incompatibility examples: phenytoin + dextrose (precipitates); furosemide + gentamicin (same line without flush); TPN + medications (most incompatible). Resources: Trissel's Handbook on Injectable Drugs, Micromedex. When in doubt: flush with 0.9% NaCl before and after each drug; use separate lumens on multi-lumen catheters; contact pharmacy."
+          },
+          {
+            "title": "IV Complications: Recognition and Response",
+            "body": "Phlebitis: redness, warmth, pain along vein. Assess 1–8 scale (Visual Infusion Phlebitis score). Discontinue IV; restart in opposite arm above the problem site.\nInfiltration: non-vesicant fluid leaking into tissue. Swelling, coolness, pallor around site. Discontinue; elevate limb; warm compress.\nExtravasation: vesicant drug leaking. Same signs but tissue necrosis possible. STOP infusion immediately; leave catheter in temporarily to aspirate; notify physician; apply antidote if available (e.g. hyaluronidase for vinca alkaloids); document site map with photo.\nAir embolism: air in IV tubing entering bloodstream. Symptoms: dyspnoea, chest pain, 'millwheel' murmur, altered consciousness. Turn patient left lateral Trendelenburg; call for emergency help; O2 100%; aspiration of air via central catheter if accessible.\nSepsis: fever, chills, rigors during infusion. Remove IV; send tip for culture; blood cultures; notify physician."
+          }
+        ],
+        "clinical_pearl": "Extravasation of vesicants (especially chemotherapy) is a time-critical emergency. The most critical step is to STOP the infusion immediately while leaving the IV in place so as much drug as possible can be aspirated before removing the catheter. Applying warmth worsens extravasation — cold is typically used for cytotoxics, warm for vinca alkaloids.",
+        "key_points": [
+          "IV gauge selection: larger gauge = faster flow; smaller gauge = less vein trauma",
+          "Never co-administer incompatible drugs without flushing",
+          "Extravasation of vesicant: stop infusion, leave catheter to aspirate, notify MD immediately",
+          "Air embolism: left lateral Trendelenburg position, 100% O2"
+        ],
+        "references": ["RCN Standards for Infusion Therapy 2016", "INS Infusion Therapy Standards of Practice 2021"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "Basic dose formula for volume to administer?", "answer": "(Dose ordered ÷ Dose on hand) × Vehicle = Volume to give.", "difficulty": "easy"},
+    {"question": "Formula for IV infusion rate in mL/h?", "answer": "Total volume (mL) ÷ Time (hours) = mL/h", "difficulty": "easy"},
+    {"question": "Formula for gravity drip rate (drops/min)?", "answer": "(Volume mL × Drop factor gtt/mL) ÷ (Hours × 60 min) = gtt/min", "difficulty": "medium"},
+    {"question": "1 mg = how many mcg?", "answer": "1 mg = 1000 mcg (micrograms)", "difficulty": "easy"},
+    {"question": "First action when vesicant extravasation is suspected?", "answer": "Stop the infusion immediately; leave the catheter in place to aspirate residual drug before removal.", "difficulty": "hard"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "Order: metronidazole 500 mg IV. Available: metronidazole 5 mg/mL in 100 mL NS. How many mL should the nurse administer?",
+      "question_type": "calculation",
+      "options": {},
+      "correct": "A",
+      "numeric_answer": 100.0,
+      "numeric_tolerance": 1.0,
+      "numeric_unit": "mL",
+      "explanation": "500 mg ÷ 5 mg/mL = 100 mL. The entire 100 mL bag contains exactly 500 mg at 5 mg/mL concentration.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A patient weighing 80 kg is ordered gentamicin 5 mg/kg IV. The available concentration is 40 mg/mL. How many mL should be administered?",
+      "question_type": "calculation",
+      "options": {},
+      "correct": "A",
+      "numeric_answer": 10.0,
+      "numeric_tolerance": 0.1,
+      "numeric_unit": "mL",
+      "explanation": "Step 1: 80 kg × 5 mg/kg = 400 mg. Step 2: 400 mg ÷ 40 mg/mL = 10 mL.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Order: infuse 500 mL of normal saline over 4 hours via gravity drip. Drop factor: 15 gtt/mL. What is the required drip rate in gtt/min? (Round to nearest whole number.)",
+      "question_type": "calculation",
+      "options": {},
+      "correct": "A",
+      "numeric_answer": 31.0,
+      "numeric_tolerance": 1.0,
+      "numeric_unit": "gtt/min",
+      "explanation": "(500 mL × 15 gtt/mL) ÷ (4 h × 60 min) = 7500 ÷ 240 = 31.25 → rounded to 31 gtt/min.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Select ALL signs that indicate IV site phlebitis rather than extravasation.",
+      "question_type": "sata",
+      "options": {
+        "A": "Redness and warmth tracking along the vein",
+        "B": "Swelling and coolness around the IV site",
+        "C": "Pain along the vessel tract",
+        "D": "Infusate leaking into subcutaneous tissue visible as puffiness",
+        "E": "Induration (hardening) along the vein"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "C", "E"],
+      "explanation": "Phlebitis signs: redness + warmth along vein (A), pain along vessel (C), induration/cord-like vein (E). Swelling with coolness (B) and puffiness from fluid leaking into tissue (D) indicate infiltration or extravasation, not phlebitis.",
+      "difficulty": "hard"
+    }
+  ],
+  "clinical_cases": []
+}

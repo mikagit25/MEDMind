@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ONC-003",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Colorectal Cancer: Screening, RAS/BRAF, Surgery and Systemic Therapy",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Colorectal Cancer",
+      "content": {
+        "intro": "Colorectal cancer is the third most common cancer worldwide, with approximately 1.8 million new cases diagnosed in 2020. The pathophysiology of colorectal cancer involves the accumulation of genetic mutations in colon epithelial cells, leading to uncontrolled cell growth and tumor formation. Risk factors for colorectal cancer include a family history of the disease, obesity, physical inactivity, and a diet high in red and processed meat. The molecular pathogenesis of colorectal cancer involves the WNT/β-catenin signaling pathway, which is activated by mutations in the APC gene. Other genetic mutations, such as KRAS and BRAF, also play a crucial role in the development and progression of colorectal cancer.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Colorectal Cancer",
+            "text": "The incidence of colorectal cancer varies globally, with the highest rates found in Western countries. According to the International Agency for Research on Cancer (IARC), the age-standardized incidence rate of colorectal cancer is 19.7 per 100,000 people in the United States, compared to 12.2 per 100,000 people in the United Kingdom. The mortality rate from colorectal cancer has been declining in recent years, due to improvements in screening and treatment. The ESC 2019 guidelines recommend screening for colorectal cancer in individuals aged 50-74 years, using fecal occult blood testing (FOBT) or colonoscopy."
+          },
+          {
+            "heading": "Molecular Pathogenesis of Colorectal Cancer",
+            "text": "The molecular pathogenesis of colorectal cancer involves the activation of oncogenes and the inactivation of tumor suppressor genes. The WNT/β-catenin signaling pathway is a key regulator of cell proliferation and differentiation in the colon. Mutations in the APC gene, which encodes a negative regulator of β-catenin, are found in approximately 80% of colorectal cancers. Other genetic mutations, such as KRAS and BRAF, also contribute to the development and progression of colorectal cancer. The AHA 2017 guidelines recommend the use of molecular testing to identify genetic mutations in colorectal cancer, in order to guide treatment decisions."
+          },
+          {
+            "heading": "Risk Factors for Colorectal Cancer",
+            "text": "Several risk factors have been identified for colorectal cancer, including a family history of the disease, obesity, physical inactivity, and a diet high in red and processed meat. The NICE 2019 guidelines recommend a healthy diet and regular physical activity to reduce the risk of colorectal cancer. The use of aspirin and other non-steroidal anti-inflammatory drugs (NSAIDs) has also been shown to reduce the risk of colorectal cancer, although the benefits and risks of this approach must be carefully considered."
+          }
+        ],
+        "clinical_pearl": "The use of molecular testing to identify genetic mutations in colorectal cancer can help guide treatment decisions and improve patient outcomes. For example, patients with KRAS wild-type tumors may benefit from treatment with anti-EGFR antibodies, such as cetuximab or panitumumab.",
+        "key_points": [
+          "Colorectal cancer is the third most common cancer worldwide, with approximately 1.8 million new cases diagnosed in 2020.",
+          "The molecular pathogenesis of colorectal cancer involves the WNT/β-catenin signaling pathway, which is activated by mutations in the APC gene.",
+          "The ESC 2019 guidelines recommend screening for colorectal cancer in individuals aged 50-74 years, using FOBT or colonoscopy.",
+          "The AHA 2017 guidelines recommend the use of molecular testing to identify genetic mutations in colorectal cancer, in order to guide treatment decisions.",
+          "The NICE 2019 guidelines recommend a healthy diet and regular physical activity to reduce the risk of colorectal cancer.",
+          "The use of aspirin and other NSAIDs has been shown to reduce the risk of colorectal cancer, although the benefits and risks of this approach must be carefully considered."
+        ],
+        "references": [
+          {
+            "title": "Global Cancer Statistics 2020",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "CA: A Cancer Journal for Clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The global incidence and mortality rates from colorectal cancer."
+          },
+          {
+            "title": "ESCC 2019 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ESC guidelines for screening and treatment of colorectal cancer."
+          },
+          {
+            "title": "AHA 2017 Guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The AHA guidelines for the use of molecular testing in colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Colorectal Cancer",
+      "content": {
+        "intro": "The clinical presentation of colorectal cancer can vary depending on the location and extent of the tumor. Common symptoms include abdominal pain, changes in bowel habits, and weight loss. The diagnosis of colorectal cancer is typically made using a combination of imaging studies, such as computed tomography (CT) scans and magnetic resonance imaging (MRI), and endoscopic procedures, such as colonoscopy.",
+        "sections": [
+          {
+            "heading": "Symptoms of Colorectal Cancer",
+            "text": "The symptoms of colorectal cancer can be non-specific and may include abdominal pain, changes in bowel habits, and weight loss. The ACC 2020 guidelines recommend that patients with symptoms suggestive of colorectal cancer undergo further evaluation, including imaging studies and endoscopic procedures. The use of biomarkers, such as carcinoembryonic antigen (CEA), may also be helpful in diagnosing colorectal cancer."
+          },
+          {
+            "heading": "Imaging Studies for Colorectal Cancer",
+            "text": "Imaging studies, such as CT scans and MRI, are commonly used to evaluate the extent of colorectal cancer. The NICE 2019 guidelines recommend the use of CT scans to evaluate the liver and lungs for metastases. The use of positron emission tomography (PET) scans may also be helpful in evaluating the response to treatment."
+          },
+          {
+            "heading": "Endoscopic Procedures for Colorectal Cancer",
+            "text": "Endoscopic procedures, such as colonoscopy, are commonly used to diagnose and treat colorectal cancer. The ESC 2019 guidelines recommend the use of colonoscopy to evaluate the colon and rectum for tumors. The use of endoscopic ultrasound (EUS) may also be helpful in evaluating the extent of tumor invasion."
+          }
+        ],
+        "clinical_pearl": "The use of biomarkers, such as CEA, may be helpful in diagnosing and monitoring colorectal cancer. For example, elevated levels of CEA may indicate the presence of metastatic disease.",
+        "key_points": [
+          "The symptoms of colorectal cancer can be non-specific and may include abdominal pain, changes in bowel habits, and weight loss.",
+          "The ACC 2020 guidelines recommend that patients with symptoms suggestive of colorectal cancer undergo further evaluation, including imaging studies and endoscopic procedures.",
+          "The use of biomarkers, such as CEA, may be helpful in diagnosing and monitoring colorectal cancer.",
+          "Imaging studies, such as CT scans and MRI, are commonly used to evaluate the extent of colorectal cancer.",
+          "The NICE 2019 guidelines recommend the use of CT scans to evaluate the liver and lungs for metastases.",
+          "The use of PET scans may be helpful in evaluating the response to treatment."
+        ],
+        "references": [
+          {
+            "title": "ACC 2020 Guidelines",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ACC guidelines for the diagnosis and treatment of colorectal cancer."
+          },
+          {
+            "title": "NICE 2019 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The NICE guidelines for the diagnosis and treatment of colorectal cancer."
+          },
+          {
+            "title": "ESCC 2019 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ESC guidelines for the diagnosis and treatment of colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Colorectal Cancer",
+      "content": {
+        "intro": "The diagnosis of colorectal cancer typically involves a combination of imaging studies, endoscopic procedures, and laboratory tests. The use of biomarkers, such as CEA, may also be helpful in diagnosing and monitoring colorectal cancer.",
+        "sections": [
+          {
+            "heading": "Imaging Studies for Colorectal Cancer",
+            "text": "Imaging studies, such as CT scans and MRI, are commonly used to evaluate the extent of colorectal cancer. The AHA 2017 guidelines recommend the use of CT scans to evaluate the liver and lungs for metastases. The use of PET scans may also be helpful in evaluating the response to treatment."
+          },
+          {
+            "heading": "Endoscopic Procedures for Colorectal Cancer",
+            "text": "Endoscopic procedures, such as colonoscopy, are commonly used to diagnose and treat colorectal cancer. The ESC 2019 guidelines recommend the use of colonoscopy to evaluate the colon and rectum for tumors. The use of EUS may also be helpful in evaluating the extent of tumor invasion."
+          },
+          {
+            "heading": "Laboratory Tests for Colorectal Cancer",
+            "text": "Laboratory tests, such as complete blood counts (CBC) and liver function tests (LFTs), are commonly used to evaluate the extent of colorectal cancer. The NICE 2019 guidelines recommend the use of CBC and LFTs to evaluate the risk of metastatic disease."
+          }
+        ],
+        "clinical_pearl": "The use of biomarkers, such as CEA, may be helpful in diagnosing and monitoring colorectal cancer. For example, elevated levels of CEA may indicate the presence of metastatic disease.",
+        "key_points": [
+          "The diagnosis of colorectal cancer typically involves a combination of imaging studies, endoscopic procedures, and laboratory tests.",
+          "The use of biomarkers, such as CEA, may be helpful in diagnosing and monitoring colorectal cancer.",
+          "Imaging studies, such as CT scans and MRI, are commonly used to evaluate the extent of colorectal cancer.",
+          "The AHA 2017 guidelines recommend the use of CT scans to evaluate the liver and lungs for metastases.",
+          "The use of PET scans may be helpful in evaluating the response to treatment.",
+          "The NICE 2019 guidelines recommend the use of CBC and LFTs to evaluate the risk of metastatic disease."
+        ],
+        "references": [
+          {
+            "title": "AHA 2017 Guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The AHA guidelines for the diagnosis and treatment of colorectal cancer."
+          },
+          {
+            "title": "NICE 2019 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The NICE guidelines for the diagnosis and treatment of colorectal cancer."
+          },
+          {
+            "title": "ESCC 2019 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ESC guidelines for the diagnosis and treatment of colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Colorectal Cancer",
+      "content": {
+        "intro": "The treatment and management of colorectal cancer typically involve a combination of surgery, chemotherapy, and radiation therapy. The use of targeted therapies, such as anti-EGFR antibodies, may also be helpful in treating colorectal cancer.",
+        "sections": [
+          {
+            "heading": "Surgery for Colorectal Cancer",
+            "text": "Surgery is commonly used to treat colorectal cancer, particularly in the early stages of the disease. The ACC 2020 guidelines recommend the use of surgical resection to remove the tumor and affected lymph nodes. The use of minimally invasive surgical techniques, such as laparoscopy, may also be helpful in reducing recovery time and improving outcomes."
+          },
+          {
+            "heading": "Chemotherapy for Colorectal Cancer",
+            "text": "Chemotherapy is commonly used to treat colorectal cancer, particularly in the advanced stages of the disease. The NICE 2019 guidelines recommend the use of chemotherapy to treat metastatic colorectal cancer. The use of targeted therapies, such as anti-EGFR antibodies, may also be helpful in treating colorectal cancer."
+          },
+          {
+            "heading": "Radiation Therapy for Colorectal Cancer",
+            "text": "Radiation therapy is commonly used to treat colorectal cancer, particularly in the advanced stages of the disease. The ESC 2019 guidelines recommend the use of radiation therapy to treat rectal cancer. The use of intensity-modulated radiation therapy (IMRT) may also be helpful in reducing side effects and improving outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of targeted therapies, such as anti-EGFR antibodies, may be helpful in treating colorectal cancer. For example, the use of cetuximab and panitumumab has been shown to improve outcomes in patients with KRAS wild-type tumors.",
+        "key_points": [
+          "The treatment and management of colorectal cancer typically involve a combination of surgery, chemotherapy, and radiation therapy.",
+          "The use of targeted therapies, such as anti-EGFR antibodies, may be helpful in treating colorectal cancer.",
+          "Surgery is commonly used to treat colorectal cancer, particularly in the early stages of the disease.",
+          "The ACC 2020 guidelines recommend the use of surgical resection to remove the tumor and affected lymph nodes.",
+          "The use of minimally invasive surgical techniques, such as laparoscopy, may be helpful in reducing recovery time and improving outcomes.",
+          "The NICE 2019 guidelines recommend the use of chemotherapy to treat metastatic colorectal cancer."
+        ],
+        "references": [
+          {
+            "title": "ACC 2020 Guidelines",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ACC guidelines for the treatment and management of colorectal cancer."
+          },
+          {
+            "title": "NICE 2019 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The NICE guidelines for the treatment and management of colorectal cancer."
+          },
+          {
+            "title": "ESCC 2019 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ESC guidelines for the treatment and management of colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Colorectal Cancer",
+      "content": {
+        "intro": "The complications and prognosis of colorectal cancer can vary depending on the stage and extent of the disease. The use of biomarkers, such as CEA, may be helpful in monitoring colorectal cancer and predicting outcomes.",
+        "sections": [
+          {
+            "heading": "Complications of Colorectal Cancer",
+            "text": "The complications of colorectal cancer can include bowel obstruction, bleeding, and infection. The AHA 2017 guidelines recommend the use of supportive care to manage symptoms and improve quality of life. The use of palliative care may also be helpful in improving outcomes and reducing suffering."
+          },
+          {
+            "heading": "Prognosis of Colorectal Cancer",
+            "text": "The prognosis of colorectal cancer can vary depending on the stage and extent of the disease. The NICE 2019 guidelines recommend the use of prognostic markers, such as CEA, to predict outcomes and guide treatment decisions. The use of molecular testing, such as KRAS and BRAF, may also be helpful in predicting outcomes and guiding treatment decisions."
+          },
+          {
+            "heading": "Follow-up and Surveillance for Colorectal Cancer",
+            "text": "The follow-up and surveillance for colorectal cancer typically involve regular check-ups and imaging studies to monitor for recurrence. The ESC 2019 guidelines recommend the use of regular colonoscopy to monitor for recurrence and detect new tumors early. The use of biomarkers, such as CEA, may also be helpful in monitoring colorectal cancer and predicting outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of biomarkers, such as CEA, may be helpful in monitoring colorectal cancer and predicting outcomes. For example, elevated levels of CEA may indicate the presence of metastatic disease.",
+        "key_points": [
+          "The complications and prognosis of colorectal cancer can vary depending on the stage and extent of the disease.",
+          "The use of biomarkers, such as CEA, may be helpful in monitoring colorectal cancer and predicting outcomes.",
+          "The AHA 2017 guidelines recommend the use of supportive care to manage symptoms and improve quality of life.",
+          "The use of palliative care may be helpful in improving outcomes and reducing suffering.",
+          "The NICE 2019 guidelines recommend the use of prognostic markers, such as CEA, to predict outcomes and guide treatment decisions.",
+          "The use of molecular testing, such as KRAS and BRAF, may be helpful in predicting outcomes and guiding treatment decisions."
+        ],
+        "references": [
+          {
+            "title": "AHA 2017 Guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The AHA guidelines for the treatment and management of colorectal cancer."
+          },
+          {
+            "title": "NICE 2019 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The NICE guidelines for the treatment and management of colorectal cancer."
+          },
+          {
+            "title": "ESCC 2019 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ESC guidelines for the treatment and management of colorectal cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

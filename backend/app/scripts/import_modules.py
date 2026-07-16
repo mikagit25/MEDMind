@@ -64,6 +64,7 @@ SPECIALTY_CODE_MAP = {
     "ЛОР-болезни": "ent",
     "Ортопедия и травматология": "orthopedics",
     "Ветеринария": "veterinary",
+    "Сестринское дело": "nursing",
     # English names (from generated modules)
     "Internal Medicine": "therapy",
     "Foundations": "pharmacology",
@@ -83,6 +84,8 @@ SPECIALTY_CODE_MAP = {
     "Otorhinolaryngology": "ent",
     "Orthopedics": "orthopedics",
     "Veterinary": "veterinary",
+    "Nursing": "nursing",
+    "Nursing Education": "nursing",
     "Cardiology": "cardiology",
     "Neurology": "neurology",
     "Surgery": "surgery",
@@ -166,6 +169,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
 
         is_fundamental = module_code.startswith("BASE-")
         is_vet = module_code.startswith("VET-") or module_code.startswith("PET-")
+        is_nursing = module_code.startswith("NURSE-")
         # "patient_guide" | "disease_module" | "specialty_module"
         module_type = meta.get("type", "specialty_module")
 
@@ -188,6 +192,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
         module.duration_hours = meta.get("duration_hours", 0)
         module.is_fundamental = is_fundamental
         module.is_veterinary = is_vet
+        module.is_nursing = is_nursing
         module.module_type = module_type
         module.language = meta.get("language", "en")
         module.prerequisite_codes = meta.get("prerequisite_modules", [])
@@ -241,6 +246,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
             if isinstance(options, list):
                 options = {chr(65 + i): opt for i, opt in enumerate(options)}
 
+            qtype = mcq_data.get("question_type", "mcq")
             mcq = MCQQuestion(
                 module_id=module.id,
                 question=mcq_data.get("question", ""),
@@ -248,6 +254,13 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 correct=str(mcq_data.get("correct", "A")).upper(),
                 explanation=mcq_data.get("explanation", ""),
                 difficulty=mcq_data.get("difficulty", "medium"),
+                question_type=qtype,
+                correct_answers=mcq_data.get("correct_answers"),
+                correct_order=mcq_data.get("correct_order"),
+                numeric_answer=mcq_data.get("numeric_answer"),
+                numeric_tolerance=mcq_data.get("numeric_tolerance", 0.01),
+                numeric_unit=mcq_data.get("numeric_unit"),
+                partial_scoring=mcq_data.get("partial_scoring", False),
             )
             db.add(mcq)
 

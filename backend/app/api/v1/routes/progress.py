@@ -312,7 +312,42 @@ async def answer_mcq(
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
 
-    is_correct = data.selected_option.upper() == question.correct.upper()
+    qtype = getattr(question, "question_type", "mcq") or "mcq"
+    is_correct = False
+    partial_score: float | None = None
+    correct_answer_display = question.correct
+
+    if qtype == "sata":
+        selected = sorted(s.upper() for s in data.selected_options)
+        correct = sorted(s.upper() for s in (question.correct_answers or []))
+        correct_answer_display = ",".join(correct)
+        if question.partial_scoring:
+            total = len(correct)
+            right = len(set(selected) & set(correct))
+            wrong = len(set(selected) - set(correct))
+            raw = max(0, right - wrong) / total if total else 0
+            partial_score = round(raw, 2)
+            is_correct = partial_score >= 1.0
+        else:
+            is_correct = selected == correct
+
+    elif qtype == "ordered":
+        submitted = [s.upper() for s in data.ordered_options]
+        correct = [s.upper() for s in (question.correct_order or [])]
+        correct_answer_display = ",".join(correct)
+        is_correct = submitted == correct
+
+    elif qtype == "calculation":
+        if data.numeric_value is not None and question.numeric_answer is not None:
+            tol = question.numeric_tolerance or 0.01
+            is_correct = abs(data.numeric_value - question.numeric_answer) <= tol
+        correct_answer_display = (
+            f"{question.numeric_answer} {question.numeric_unit or ''}".strip()
+        )
+
+    else:  # mcq
+        is_correct = data.selected_option.upper() == question.correct.upper()
+
     xp = XP_MCQ_HARD_CORRECT if (is_correct and question.difficulty == "hard") else (XP_MCQ_CORRECT if is_correct else 0)
 
     if xp:
@@ -323,10 +358,11 @@ async def answer_mcq(
 
     return MCQAnswerResponse(
         correct=is_correct,
-        correct_answer=question.correct,
+        correct_answer=correct_answer_display,
         explanation=question.explanation or "",
         xp_earned=xp,
         newly_unlocked=newly_unlocked,
+        partial_score=partial_score,
     )
 
 

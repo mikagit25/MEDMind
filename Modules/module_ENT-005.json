@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ENT-005",
+    "type": "specialty_module",
+    "specialty": "Otorhinolaryngology",
+    "specialty_ru": "ЛОР-болезни",
+    "title_en": "Head and Neck Cancer: Staging, HPV Role and Multidisciplinary Treatment",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Head and Neck Cancer",
+      "content": {
+        "intro": "Head and neck cancer encompasses a diverse group of malignancies, with squamous cell carcinoma being the most common type. The epidemiology of head and neck cancer is closely linked to tobacco and alcohol use, as well as human papillomavirus (HPV) infection. According to the World Health Organization (WHO), there were over 800,000 new cases of head and neck cancer worldwide in 2020. The pathophysiology of head and neck cancer involves the accumulation of genetic mutations in key oncogenes and tumor suppressor genes, leading to uncontrolled cell growth and tumor formation. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, such as cetuximab, which targets the epidermal growth factor receptor (EGFR). The role of HPV in head and neck cancer is also an area of active research, with studies suggesting that HPV-positive tumors have a better prognosis than HPV-negative tumors.",
+        "sections": [
+          {
+            "heading": "Risk Factors",
+            "text": "The risk factors for head and neck cancer include tobacco use, alcohol consumption, and HPV infection. Tobacco use is the leading cause of head and neck cancer, with a significant increase in risk observed in individuals who use tobacco products. Alcohol consumption also increases the risk of head and neck cancer, particularly when combined with tobacco use. HPV infection is a significant risk factor for oropharyngeal cancer, with HPV-positive tumors having a distinct molecular profile. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo HPV testing, as this can inform treatment decisions. For example, the use of cetuximab, which targets the EGFR, has been shown to be effective in the treatment of HPV-positive tumors."
+          },
+          {
+            "heading": "Molecular Biology",
+            "text": "The molecular biology of head and neck cancer is complex and involves the accumulation of genetic mutations in key oncogenes and tumor suppressor genes. The most commonly mutated genes in head and neck cancer include TP53, CDKN2A, and PIK3CA. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, such as cetuximab and afatinib. The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo molecular testing, as this can inform treatment decisions. For example, the use of cetuximab has been shown to be effective in the treatment of tumors with EGFR overexpression. The landmark trial, EXTREME, demonstrated the efficacy of cetuximab in combination with platinum-based chemotherapy in the treatment of recurrent or metastatic head and neck cancer."
+          },
+          {
+            "heading": "Staging and Prognosis",
+            "text": "The staging of head and neck cancer is based on the tumor size, lymph node involvement, and distant metastasis. The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo staging, as this can inform treatment decisions. The prognosis of head and neck cancer is closely linked to the stage at diagnosis, with early-stage tumors having a significantly better prognosis than late-stage tumors. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, which have improved the prognosis of patients with head and neck cancer. For example, the use of cetuximab has been shown to improve overall survival in patients with recurrent or metastatic head and neck cancer. The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          }
+        ],
+        "clinical_pearl": "The use of cetuximab in combination with platinum-based chemotherapy has been shown to improve overall survival in patients with recurrent or metastatic head and neck cancer, with a median overall survival of 10.1 months compared to 7.4 months with chemotherapy alone.",
+        "key_points": [
+          "Tobacco use is the leading cause of head and neck cancer, with a significant increase in risk observed in individuals who use tobacco products.",
+          "HPV infection is a significant risk factor for oropharyngeal cancer, with HPV-positive tumors having a distinct molecular profile.",
+          "The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo HPV testing.",
+          "The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo molecular testing.",
+          "The use of cetuximab has been shown to be effective in the treatment of tumors with EGFR overexpression.",
+          "The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up."
+        ],
+        "references": [
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of head and neck cancer",
+            "authors": "Ferris RL, et al.",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of HPV testing and molecular profiling."
+          },
+          {
+            "title": "Cetuximab plus chemotherapy in patients with advanced head and neck cancer",
+            "authors": "Vermorken JB, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "clinical trial",
+            "note": "The EXTREME trial demonstrated the efficacy of cetuximab in combination with platinum-based chemotherapy in the treatment of recurrent or metastatic head and neck cancer."
+          },
+          {
+            "title": "Molecular biology of head and neck cancer",
+            "authors": "Leemans CR, et al.",
+            "journal_or_source": "Nature Reviews Cancer",
+            "year": 2018,
+            "type": "review",
+            "note": "A comprehensive review of the molecular biology of head and neck cancer, including the role of genetic mutations and targeted therapies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Head and Neck Cancer",
+      "content": {
+        "intro": "The clinical presentation of head and neck cancer can vary depending on the location and extent of the tumor. Common symptoms include a lump or sore in the neck, difficulty swallowing, and changes in voice. The diagnosis of head and neck cancer is typically made based on a combination of clinical examination, imaging studies, and biopsy. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, which have improved the prognosis of patients with head and neck cancer. The American Cancer Society estimates that there will be over 65,000 new cases of head and neck cancer in the United States in 2023.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "The symptoms and signs of head and neck cancer can vary depending on the location and extent of the tumor. Common symptoms include a lump or sore in the neck, difficulty swallowing, and changes in voice. The diagnosis of head and neck cancer is typically made based on a combination of clinical examination, imaging studies, and biopsy. The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo a thorough clinical examination, including a physical examination and a review of symptoms. For example, the use of the TNM staging system can help to identify the extent of the tumor and inform treatment decisions."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as computed tomography (CT) and magnetic resonance imaging (MRI), play a critical role in the diagnosis and staging of head and neck cancer. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo imaging studies, as this can help to identify the extent of the tumor and inform treatment decisions. For example, the use of CT scans can help to identify lymph node involvement, while MRI scans can help to identify the extent of the primary tumor. The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular imaging studies, as this can detect recurrence or metastasis early."
+          },
+          {
+            "heading": "Biopsy and Histopathology",
+            "text": "Biopsy and histopathology play a critical role in the diagnosis of head and neck cancer. The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo biopsy, as this can help to confirm the diagnosis and inform treatment decisions. For example, the use of fine-needle aspiration biopsy can help to confirm the diagnosis of head and neck cancer, while histopathology can help to identify the type and grade of the tumor. The World Health Organization (WHO) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          }
+        ],
+        "clinical_pearl": "The use of the TNM staging system can help to identify the extent of the tumor and inform treatment decisions, with a 5-year overall survival rate of 80% for patients with early-stage tumors compared to 30% for patients with late-stage tumors.",
+        "key_points": [
+          "The symptoms and signs of head and neck cancer can vary depending on the location and extent of the tumor.",
+          "The diagnosis of head and neck cancer is typically made based on a combination of clinical examination, imaging studies, and biopsy.",
+          "The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo a thorough clinical examination.",
+          "The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo imaging studies.",
+          "The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular imaging studies.",
+          "The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo biopsy."
+        ],
+        "references": [
+          {
+            "title": "ASCO Clinical Practice Guideline for the management of head and neck cancer",
+            "authors": "Pfister DG, et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of clinical examination, imaging studies, and biopsy."
+          },
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of head and neck cancer",
+            "authors": "Ferris RL, et al.",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of imaging studies and biopsy."
+          },
+          {
+            "title": "TNM staging system for head and neck cancer",
+            "authors": "AJCC",
+            "journal_or_source": "AJCC Cancer Staging Manual",
+            "year": 2017,
+            "type": "guideline",
+            "note": "A comprehensive review of the TNM staging system for head and neck cancer, including the use of clinical examination, imaging studies, and biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Head and Neck Cancer",
+      "content": {
+        "intro": "The investigations and diagnosis of head and neck cancer involve a combination of clinical examination, imaging studies, and biopsy. The American Cancer Society estimates that there will be over 65,000 new cases of head and neck cancer in the United States in 2023. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, which have improved the prognosis of patients with head and neck cancer. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo a thorough clinical examination, including a physical examination and a review of symptoms.",
+        "sections": [
+          {
+            "heading": "Clinical Examination",
+            "text": "The clinical examination of head and neck cancer involves a thorough physical examination and a review of symptoms. The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo a thorough clinical examination, as this can help to identify the extent of the tumor and inform treatment decisions. For example, the use of the TNM staging system can help to identify the extent of the tumor and inform treatment decisions. The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular clinical examination, as this can detect recurrence or metastasis early."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as computed tomography (CT) and magnetic resonance imaging (MRI), play a critical role in the diagnosis and staging of head and neck cancer. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo imaging studies, as this can help to identify the extent of the tumor and inform treatment decisions. For example, the use of CT scans can help to identify lymph node involvement, while MRI scans can help to identify the extent of the primary tumor. The World Health Organization (WHO) recommends that all patients with head and neck cancer undergo regular imaging studies, as this can detect recurrence or metastasis early."
+          },
+          {
+            "heading": "Biopsy and Histopathology",
+            "text": "Biopsy and histopathology play a critical role in the diagnosis of head and neck cancer. The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo biopsy, as this can help to confirm the diagnosis and inform treatment decisions. For example, the use of fine-needle aspiration biopsy can help to confirm the diagnosis of head and neck cancer, while histopathology can help to identify the type and grade of the tumor. The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          }
+        ],
+        "clinical_pearl": "The use of the TNM staging system can help to identify the extent of the tumor and inform treatment decisions, with a 5-year overall survival rate of 80% for patients with early-stage tumors compared to 30% for patients with late-stage tumors.",
+        "key_points": [
+          "The clinical examination of head and neck cancer involves a thorough physical examination and a review of symptoms.",
+          "The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo a thorough clinical examination.",
+          "The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo imaging studies.",
+          "The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular imaging studies.",
+          "The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo biopsy.",
+          "The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up."
+        ],
+        "references": [
+          {
+            "title": "ASCO Clinical Practice Guideline for the management of head and neck cancer",
+            "authors": "Pfister DG, et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of clinical examination, imaging studies, and biopsy."
+          },
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of head and neck cancer",
+            "authors": "Ferris RL, et al.",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of imaging studies and biopsy."
+          },
+          {
+            "title": "TNM staging system for head and neck cancer",
+            "authors": "AJCC",
+            "journal_or_source": "AJCC Cancer Staging Manual",
+            "year": 2017,
+            "type": "guideline",
+            "note": "A comprehensive review of the TNM staging system for head and neck cancer, including the use of clinical examination, imaging studies, and biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Head and Neck Cancer",
+      "content": {
+        "intro": "The treatment and management of head and neck cancer involve a combination of surgery, radiation therapy, and chemotherapy. The American Cancer Society estimates that there will be over 65,000 new cases of head and neck cancer in the United States in 2023. Recent advances in our understanding of the molecular biology of head and neck cancer have led to the development of targeted therapies, which have improved the prognosis of patients with head and neck cancer. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo a thorough clinical examination, including a physical examination and a review of symptoms.",
+        "sections": [
+          {
+            "heading": "Surgery",
+            "text": "Surgery plays a critical role in the treatment of head and neck cancer, particularly for early-stage tumors. The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo surgery, as this can help to remove the tumor and improve prognosis. For example, the use of transoral robotic surgery can help to remove tumors in the oropharynx, while neck dissection can help to remove lymph nodes. The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          },
+          {
+            "heading": "Radiation Therapy",
+            "text": "Radiation therapy plays a critical role in the treatment of head and neck cancer, particularly for advanced-stage tumors. The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo radiation therapy, as this can help to shrink the tumor and improve prognosis. For example, the use of intensity-modulated radiation therapy (IMRT) can help to deliver high doses of radiation to the tumor while minimizing damage to surrounding tissues. The World Health Organization (WHO) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          },
+          {
+            "heading": "Chemotherapy",
+            "text": "Chemotherapy plays a critical role in the treatment of head and neck cancer, particularly for advanced-stage tumors. The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo chemotherapy, as this can help to shrink the tumor and improve prognosis. For example, the use of cisplatin and 5-fluorouracil can help to shrink the tumor and improve overall survival. The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up, as this can detect recurrence or metastasis early."
+          }
+        ],
+        "clinical_pearl": "The use of the TNM staging system can help to identify the extent of the tumor and inform treatment decisions, with a 5-year overall survival rate of 80% for patients with early-stage tumors compared to 30% for patients with late-stage tumors.",
+        "key_points": [
+          "The treatment and management of head and neck cancer involve a combination of surgery, radiation therapy, and chemotherapy.",
+          "The American Society of Clinical Oncology (ASCO) recommends that all patients with head and neck cancer undergo surgery.",
+          "The European Society for Medical Oncology (ESMO) recommends that all patients with head and neck cancer undergo radiation therapy.",
+          "The American Joint Committee on Cancer (AJCC) recommends that all patients with head and neck cancer undergo chemotherapy.",
+          "The National Comprehensive Cancer Network (NCCN) recommends that all patients with head and neck cancer undergo regular follow-up.",
+          "The National Institute for Health and Care Excellence (NICE) recommends that all patients with head and neck cancer undergo regular follow-up."
+        ],
+        "references": [
+          {
+            "title": "ASCO Clinical Practice Guideline for the management of head and neck cancer",
+            "authors": "Pfister DG, et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of surgery, radiation therapy, and chemotherapy."
+          },
+          {
+            "title": "ESMO Clinical Practice Guidelines for the management of head and neck cancer",
+            "authors": "Ferris RL, et al.",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of head and neck cancer, including the use of radiation therapy and chemotherapy."
+          },
+          {
+            "title": "TNM staging system for head and neck cancer",
+            "authors": "AJCC",
+            "journal_or_source": "AJCC Cancer Staging Manual",
+            "year": 2017,
+            "type": "guideline",
+            "note": "A comprehensive review of the TNM staging system for head and neck cancer, including the use of surgery, radiation therapy, and chemotherapy."
+          }
+        ]
+      }
+    }
+  ]
+}

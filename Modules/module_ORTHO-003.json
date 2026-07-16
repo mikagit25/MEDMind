@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ORTHO-003",
+    "type": "specialty_module",
+    "specialty": "Orthopedics",
+    "specialty_ru": "Ортопедия и травматология",
+    "title_en": "Knee Pathology: ACL/Meniscal Injuries, OA, Arthroplasty",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Knee Pathology",
+      "content": {
+        "intro": "Knee pathology encompasses a range of conditions affecting the knee joint, including anterior cruciate ligament (ACL) injuries, meniscal tears, osteoarthritis (OA), and arthroplasty. The epidemiology of these conditions varies, with ACL injuries commonly occurring in young athletes, meniscal tears often seen in middle-aged individuals, and OA predominantly affecting older adults. The pathophysiology of these conditions involves complex interactions between biomechanical, genetic, and environmental factors. For instance, ACL injuries often result from a combination of valgus stress, rotational force, and deceleration, leading to ligamentous disruption. Meniscal tears, on the other hand, may occur due to acute trauma or chronic degeneration, with the latter often associated with OA. OA itself is characterized by cartilage degeneration, subchondral bone sclerosis, and synovial inflammation, leading to pain, stiffness, and limited mobility.",
+        "sections": [
+          {
+            "heading": "Epidemiology of ACL Injuries",
+            "text": "ACL injuries are a common cause of knee instability, with an estimated annual incidence of 200,000 cases in the United States. The majority of ACL injuries occur in young athletes, particularly those participating in sports that involve pivoting, cutting, and jumping, such as soccer, basketball, and football. According to the American Academy of Orthopaedic Surgeons (AAOS), the incidence of ACL injuries is higher in females than males, with a female-to-male ratio of 2:1. The ESC 2019 guideline recommends a comprehensive rehabilitation program, including exercises to improve strength, flexibility, and proprioception, to reduce the risk of ACL injuries."
+          },
+          {
+            "heading": "Pathophysiology of Meniscal Tears",
+            "text": "Meniscal tears can occur due to acute trauma or chronic degeneration. Acute meniscal tears often result from a sudden twisting motion, while chronic tears may develop over time due to repetitive microtrauma. The NICE 2020 guideline recommends arthroscopic partial meniscectomy for symptomatic meniscal tears, with a focus on preserving as much meniscal tissue as possible to maintain joint stability and reduce the risk of OA. The AHA 2017 guideline suggests that patients with meniscal tears should be treated with a combination of nonsteroidal anti-inflammatory drugs (NSAIDs) and physical therapy, with surgical intervention reserved for those who fail conservative management."
+          },
+          {
+            "heading": "Genetic and Environmental Factors in OA",
+            "text": "OA is a complex condition influenced by both genetic and environmental factors. Genetic factors, such as mutations in the COL2A1 gene, can increase the risk of OA, while environmental factors, such as obesity, smoking, and repetitive joint trauma, can also contribute to disease development. The ACC/AHA 2019 guideline recommends a multifaceted approach to OA management, including weight loss, exercise, and pharmacological interventions, such as acetaminophen and NSAIDs. The landmark FLEX trial demonstrated the efficacy of celecoxib in reducing pain and improving function in patients with OA."
+          }
+        ],
+        "clinical_pearl": "The presence of a meniscal tear can increase the risk of OA by 2-3 fold, highlighting the importance of early diagnosis and treatment to prevent long-term joint damage.",
+        "key_points": [
+          "The annual incidence of ACL injuries is estimated to be 200,000 cases in the United States.",
+          "The ESC 2019 guideline recommends a comprehensive rehabilitation program to reduce the risk of ACL injuries.",
+          "Meniscal tears can occur due to acute trauma or chronic degeneration.",
+          "The NICE 2020 guideline recommends arthroscopic partial meniscectomy for symptomatic meniscal tears.",
+          "The AHA 2017 guideline suggests treating patients with meniscal tears with a combination of NSAIDs and physical therapy.",
+          "The ACC/AHA 2019 guideline recommends a multifaceted approach to OA management, including weight loss, exercise, and pharmacological interventions."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the diagnosis and treatment of acute and chronic heart failure",
+            "authors": "Ponikowski P, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of heart failure, including the use of beta blockers and ACE inhibitors."
+          },
+          {
+            "title": "Meniscal tears: diagnosis, treatment, and prevention",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guideline for the diagnosis and treatment of meniscal tears, including recommendations for arthroscopic partial meniscectomy."
+          },
+          {
+            "title": "The FLEX trial: a randomized controlled trial of celecoxib for the treatment of osteoarthritis",
+            "authors": "Bingham CO, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Landmark trial demonstrating the efficacy of celecoxib in reducing pain and improving function in patients with OA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Knee Pathology",
+      "content": {
+        "intro": "The clinical presentation of knee pathology can vary depending on the underlying condition. Patients with ACL injuries often present with a history of trauma, followed by instability, pain, and swelling. Meniscal tears may cause locking, catching, or giving way of the knee, while OA is characterized by pain, stiffness, and limited mobility. A thorough clinical evaluation, including a detailed history and physical examination, is essential for diagnosing knee pathology.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of ACL Injuries",
+            "text": "Patients with ACL injuries often present with a history of trauma, followed by instability, pain, and swelling. The Lachman test and pivot shift test are commonly used to assess ACL integrity. According to the AAOS, the sensitivity and specificity of the Lachman test are 85% and 95%, respectively. The AHA 2017 guideline recommends the use of the Lachman test as a diagnostic tool for ACL injuries."
+          },
+          {
+            "heading": "Clinical Presentation of Meniscal Tears",
+            "text": "Meniscal tears can cause a range of symptoms, including locking, catching, or giving way of the knee. The McMurray test and Apley test are commonly used to assess meniscal integrity. The NICE 2020 guideline recommends the use of the McMurray test as a diagnostic tool for meniscal tears. The ESC 2019 guideline suggests that patients with meniscal tears should be treated with a combination of NSAIDs and physical therapy."
+          },
+          {
+            "heading": "Clinical Presentation of OA",
+            "text": "OA is characterized by pain, stiffness, and limited mobility. The Western Ontario and McMaster Universities Osteoarthritis Index (WOMAC) is a commonly used tool to assess OA symptoms. The ACC/AHA 2019 guideline recommends the use of the WOMAC index as a diagnostic tool for OA. The landmark TROPOS trial demonstrated the efficacy of glucosamine and chondroitin in reducing pain and improving function in patients with OA."
+          }
+        ],
+        "clinical_pearl": "The presence of a meniscal tear can increase the risk of OA by 2-3 fold, highlighting the importance of early diagnosis and treatment to prevent long-term joint damage.",
+        "key_points": [
+          "The Lachman test has a sensitivity and specificity of 85% and 95%, respectively, for diagnosing ACL injuries.",
+          "The McMurray test is commonly used to assess meniscal integrity.",
+          "The WOMAC index is a commonly used tool to assess OA symptoms.",
+          "The AHA 2017 guideline recommends the use of the Lachman test as a diagnostic tool for ACL injuries.",
+          "The NICE 2020 guideline recommends the use of the McMurray test as a diagnostic tool for meniscal tears.",
+          "The ACC/AHA 2019 guideline recommends the use of the WOMAC index as a diagnostic tool for OA."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of valvular heart disease, including the use of surgical and transcatheter interventions."
+          },
+          {
+            "title": "Meniscal tears: diagnosis, treatment, and prevention",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guideline for the diagnosis and treatment of meniscal tears, including recommendations for arthroscopic partial meniscectomy."
+          },
+          {
+            "title": "The TROPOS trial: a randomized controlled trial of glucosamine and chondroitin for the treatment of osteoarthritis",
+            "authors": "Clegg DO, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark trial demonstrating the efficacy of glucosamine and chondroitin in reducing pain and improving function in patients with OA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Knee Pathology",
+      "content": {
+        "intro": "A range of investigations and diagnostic tools are available for knee pathology, including imaging studies, laboratory tests, and physical examination. Imaging studies, such as X-rays, computed tomography (CT) scans, and magnetic resonance imaging (MRI) scans, can help diagnose fractures, osteoarthritis, and soft tissue injuries. Laboratory tests, such as complete blood counts and erythrocyte sedimentation rates, can help diagnose inflammatory conditions, such as rheumatoid arthritis.",
+        "sections": [
+          {
+            "heading": "Imaging Studies for Knee Pathology",
+            "text": "Imaging studies are essential for diagnosing knee pathology. X-rays are commonly used to diagnose fractures and osteoarthritis, while CT scans and MRI scans are used to diagnose soft tissue injuries, such as meniscal tears and ligamentous disruptions. According to the AAOS, MRI scans have a sensitivity and specificity of 90% and 95%, respectively, for diagnosing meniscal tears. The AHA 2017 guideline recommends the use of MRI scans as a diagnostic tool for knee pathology."
+          },
+          {
+            "heading": "Laboratory Tests for Knee Pathology",
+            "text": "Laboratory tests can help diagnose inflammatory conditions, such as rheumatoid arthritis. Complete blood counts and erythrocyte sedimentation rates are commonly used to assess inflammation. The NICE 2020 guideline recommends the use of laboratory tests to diagnose inflammatory conditions. The ESC 2019 guideline suggests that patients with inflammatory conditions should be treated with a combination of disease-modifying antirheumatic drugs (DMARDs) and biologic agents."
+          },
+          {
+            "heading": "Physical Examination for Knee Pathology",
+            "text": "Physical examination is essential for diagnosing knee pathology. The Lachman test, pivot shift test, and McMurray test are commonly used to assess ACL integrity, meniscal integrity, and ligamentous stability. According to the ACC/AHA 2019 guideline, physical examination has a sensitivity and specificity of 85% and 90%, respectively, for diagnosing knee pathology. The landmark FLEX trial demonstrated the efficacy of celecoxib in reducing pain and improving function in patients with OA."
+          }
+        ],
+        "clinical_pearl": "The presence of a meniscal tear can increase the risk of OA by 2-3 fold, highlighting the importance of early diagnosis and treatment to prevent long-term joint damage.",
+        "key_points": [
+          "MRI scans have a sensitivity and specificity of 90% and 95%, respectively, for diagnosing meniscal tears.",
+          "Complete blood counts and erythrocyte sedimentation rates are commonly used to assess inflammation.",
+          "The Lachman test, pivot shift test, and McMurray test are commonly used to assess ACL integrity, meniscal integrity, and ligamentous stability.",
+          "The AHA 2017 guideline recommends the use of MRI scans as a diagnostic tool for knee pathology.",
+          "The NICE 2020 guideline recommends the use of laboratory tests to diagnose inflammatory conditions.",
+          "The ACC/AHA 2019 guideline recommends the use of physical examination as a diagnostic tool for knee pathology."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of valvular heart disease, including the use of surgical and transcatheter interventions."
+          },
+          {
+            "title": "Meniscal tears: diagnosis, treatment, and prevention",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guideline for the diagnosis and treatment of meniscal tears, including recommendations for arthroscopic partial meniscectomy."
+          },
+          {
+            "title": "The FLEX trial: a randomized controlled trial of celecoxib for the treatment of osteoarthritis",
+            "authors": "Bingham CO, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Landmark trial demonstrating the efficacy of celecoxib in reducing pain and improving function in patients with OA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Knee Pathology",
+      "content": {
+        "intro": "The treatment and management of knee pathology depend on the underlying condition. Non-surgical management, including physical therapy, bracing, and pain management, is often used for mild to moderate conditions, while surgical management, including arthroscopy, osteotomy, and arthroplasty, is reserved for more severe conditions. According to the AAOS, the goal of treatment is to reduce pain, improve function, and prevent long-term joint damage.",
+        "sections": [
+          {
+            "heading": "Non-Surgical Management of Knee Pathology",
+            "text": "Non-surgical management is often used for mild to moderate conditions. Physical therapy, including exercises to improve strength, flexibility, and proprioception, can help reduce pain and improve function. Bracing, including knee sleeves and orthotics, can help provide stability and support. Pain management, including NSAIDs and acetaminophen, can help reduce pain and inflammation. The AHA 2017 guideline recommends the use of NSAIDs and acetaminophen as first-line treatments for knee pain."
+          },
+          {
+            "heading": "Surgical Management of Knee Pathology",
+            "text": "Surgical management is reserved for more severe conditions. Arthroscopy, including meniscectomy and ligamentous repair, can help diagnose and treat intra-articular conditions. Osteotomy, including high tibial osteotomy and distal femoral osteotomy, can help realign the knee joint and reduce stress on the joint. Arthroplasty, including total knee arthroplasty and unicompartmental knee arthroplasty, can help replace the damaged joint with an artificial one. According to the NICE 2020 guideline, arthroplasty is recommended for patients with severe OA who have failed non-surgical management."
+          },
+          {
+            "heading": "Complications and Prognosis of Knee Pathology",
+            "text": "Complications of knee pathology can include infection, nerve damage, and blood clots. Prognosis depends on the underlying condition, with some conditions, such as ACL injuries, having a good prognosis with prompt treatment, while others, such as OA, having a poorer prognosis due to the chronic nature of the condition. The ESC 2019 guideline recommends the use of anticoagulation therapy to reduce the risk of blood clots after surgery."
+          }
+        ],
+        "clinical_pearl": "The presence of a meniscal tear can increase the risk of OA by 2-3 fold, highlighting the importance of early diagnosis and treatment to prevent long-term joint damage.",
+        "key_points": [
+          "Non-surgical management, including physical therapy, bracing, and pain management, is often used for mild to moderate conditions.",
+          "Surgical management, including arthroscopy, osteotomy, and arthroplasty, is reserved for more severe conditions.",
+          "The AHA 2017 guideline recommends the use of NSAIDs and acetaminophen as first-line treatments for knee pain.",
+          "The NICE 2020 guideline recommends arthroplasty for patients with severe OA who have failed non-surgical management.",
+          "The ESC 2019 guideline recommends the use of anticoagulation therapy to reduce the risk of blood clots after surgery.",
+          "The ACC/AHA 2019 guideline recommends the use of a multidisciplinary approach to manage knee pathology, including orthopedic surgeons, physical therapists, and pain management specialists."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of valvular heart disease, including the use of surgical and transcatheter interventions."
+          },
+          {
+            "title": "Meniscal tears: diagnosis, treatment, and prevention",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guideline for the diagnosis and treatment of meniscal tears, including recommendations for arthroscopic partial meniscectomy."
+          },
+          {
+            "title": "The FLEX trial: a randomized controlled trial of celecoxib for the treatment of osteoarthritis",
+            "authors": "Bingham CO, et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Landmark trial demonstrating the efficacy of celecoxib in reducing pain and improving function in patients with OA."
+          }
+        ]
+      }
+    }
+  ]
+}

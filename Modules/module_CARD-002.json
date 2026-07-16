@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "CARD-002",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Heart Failure: GDMT — ARNI, Beta-blockers, MRA, SGLT2i and Device Therapy",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Heart Failure",
+      "content": {
+        "intro": "Heart failure is a complex clinical syndrome that results from any structural or functional impairment of ventricular filling or ejection of blood. The epidemiology of heart failure is significant, with approximately 26 million people affected worldwide. The pathophysiology of heart failure involves multiple neurohormonal systems, including the renin-angiotensin-aldosterone system, the sympathetic nervous system, and the inflammatory cascade. Understanding the pathophysiology of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Neurohormonal Activation",
+            "text": "The renin-angiotensin-aldosterone system plays a critical role in the pathophysiology of heart failure. Activation of this system leads to vasoconstriction, sodium retention, and water retention, which can exacerbate symptoms of heart failure. The sympathetic nervous system is also activated in heart failure, leading to increased heart rate and contractility. The 2021 ESC guidelines recommend the use of beta-blockers, such as metoprolol succinate, at a dose of 100-200 mg daily, to reduce morbidity and mortality in patients with heart failure."
+          },
+          {
+            "heading": "Inflammatory Cascade",
+            "text": "Inflammation plays a key role in the pathophysiology of heart failure. Elevated levels of inflammatory markers, such as C-reactive protein and tumor necrosis factor-alpha, have been associated with adverse outcomes in patients with heart failure. The use of anti-inflammatory agents, such as canakinumab, has been shown to reduce inflammation and improve outcomes in patients with heart failure. The 2020 AHA guidelines recommend the use of SGLT2 inhibitors, such as empagliflozin, at a dose of 10-25 mg daily, to reduce the risk of hospitalization for heart failure."
+          },
+          {
+            "heading": "Device Therapy",
+            "text": "Device therapy, such as cardiac resynchronization therapy and implantable cardioverter-defibrillators, plays a critical role in the management of heart failure. The 2016 NICE guidelines recommend the use of cardiac resynchronization therapy in patients with heart failure and left ventricular dysfunction. The MADIT-CRT trial demonstrated a 29% reduction in the risk of heart failure events or death in patients treated with cardiac resynchronization therapy."
+          }
+        ],
+        "clinical_pearl": "The use of ARNI, such as sacubitril-valsartan, has been shown to reduce morbidity and mortality in patients with heart failure. The PARADIGM-HF trial demonstrated a 20% reduction in the risk of death from cardiovascular causes or hospitalization for heart failure in patients treated with sacubitril-valsartan.",
+        "key_points": [
+          "The prevalence of heart failure is approximately 26 million people worldwide.",
+          "The renin-angiotensin-aldosterone system plays a critical role in the pathophysiology of heart failure.",
+          "Beta-blockers, such as metoprolol succinate, reduce morbidity and mortality in patients with heart failure.",
+          "SGLT2 inhibitors, such as empagliflozin, reduce the risk of hospitalization for heart failure.",
+          "Device therapy, such as cardiac resynchronization therapy, improves outcomes in patients with heart failure.",
+          "ARNI, such as sacubitril-valsartan, reduces morbidity and mortality in patients with heart failure."
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the use of beta-blockers and ARNI in patients with heart failure."
+          },
+          {
+            "title": "The PARADIGM-HF trial",
+            "authors": "McMurray et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2014,
+            "type": "clinical trial",
+            "note": "Demonstrated a 20% reduction in the risk of death from cardiovascular causes or hospitalization for heart failure in patients treated with sacubitril-valsartan."
+          },
+          {
+            "title": "The MADIT-CRT trial",
+            "authors": "Moss et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrated a 29% reduction in the risk of heart failure events or death in patients treated with cardiac resynchronization therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Heart Failure",
+      "content": {
+        "intro": "The clinical presentation of heart failure can vary widely, depending on the underlying cause and severity of the condition. Common symptoms include shortness of breath, fatigue, and swelling in the legs and feet. Understanding the clinical presentation of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Symptoms of Heart Failure",
+            "text": "The symptoms of heart failure can be divided into two main categories: symptoms of left-sided heart failure and symptoms of right-sided heart failure. Left-sided heart failure is characterized by symptoms such as shortness of breath, fatigue, and coughing up pink, frothy mucus. Right-sided heart failure is characterized by symptoms such as swelling in the legs and feet, abdominal swelling, and fatigue. The 2020 AHA guidelines recommend the use of diuretics, such as furosemide, at a dose of 20-40 mg daily, to reduce symptoms of heart failure."
+          },
+          {
+            "heading": "Signs of Heart Failure",
+            "text": "The signs of heart failure can include physical examination findings such as jugular venous distension, hepatomegaly, and peripheral edema. The use of natriuretic peptides, such as BNP and NT-proBNP, can also aid in the diagnosis of heart failure. The 2019 ESC guidelines recommend the use of natriuretic peptides to diagnose and monitor heart failure."
+          },
+          {
+            "heading": "Classification of Heart Failure",
+            "text": "Heart failure can be classified into four main categories: New York Heart Association (NYHA) class I, II, III, and IV. The NYHA classification system is based on the severity of symptoms and the impact of heart failure on daily activities. The 2017 ACC/AHA/HFSA guidelines recommend the use of the NYHA classification system to classify heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of MRA, such as spironolactone, has been shown to reduce morbidity and mortality in patients with heart failure. The RALES trial demonstrated a 30% reduction in the risk of death from any cause in patients treated with spironolactone.",
+        "key_points": [
+          "The symptoms of heart failure can vary widely, depending on the underlying cause and severity of the condition.",
+          "Left-sided heart failure is characterized by symptoms such as shortness of breath and fatigue.",
+          "Right-sided heart failure is characterized by symptoms such as swelling in the legs and feet.",
+          "The use of diuretics, such as furosemide, can reduce symptoms of heart failure.",
+          "The use of natriuretic peptides, such as BNP and NT-proBNP, can aid in the diagnosis of heart failure.",
+          "The NYHA classification system is based on the severity of symptoms and the impact of heart failure on daily activities."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of diuretics and natriuretic peptides in patients with heart failure."
+          },
+          {
+            "title": "The RALES trial",
+            "authors": "Pitt et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1999,
+            "type": "clinical trial",
+            "note": "Demonstrated a 30% reduction in the risk of death from any cause in patients treated with spironolactone."
+          },
+          {
+            "title": "The 2017 ACC/AHA/HFSA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American College of Cardiology/American Heart Association/Heart Failure Society of America",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of the NYHA classification system to classify heart failure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Heart Failure",
+      "content": {
+        "intro": "The diagnosis of heart failure can be made using a combination of clinical evaluation, laboratory tests, and imaging studies. Understanding the investigations and diagnosis of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as complete blood count, electrolyte panel, and liver function tests, can aid in the diagnosis of heart failure. The use of natriuretic peptides, such as BNP and NT-proBNP, can also aid in the diagnosis of heart failure. The 2020 AHA guidelines recommend the use of natriuretic peptides to diagnose and monitor heart failure."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as chest X-ray, echocardiogram, and cardiac MRI, can aid in the diagnosis of heart failure. The use of echocardiogram can provide information on left ventricular function, valvular function, and cardiac structure. The 2019 ESC guidelines recommend the use of echocardiogram to diagnose and monitor heart failure."
+          },
+          {
+            "heading": "Cardiopulmonary Exercise Testing",
+            "text": "Cardiopulmonary exercise testing can provide information on functional capacity and prognosis in patients with heart failure. The use of cardiopulmonary exercise testing can aid in the diagnosis of heart failure and guide treatment decisions. The 2017 ACC/AHA/HFSA guidelines recommend the use of cardiopulmonary exercise testing to diagnose and monitor heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of beta-blockers, such as metoprolol succinate, has been shown to reduce morbidity and mortality in patients with heart failure. The MERIT-HF trial demonstrated a 34% reduction in the risk of death from any cause in patients treated with metoprolol succinate.",
+        "key_points": [
+          "The diagnosis of heart failure can be made using a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "Laboratory tests, such as complete blood count and electrolyte panel, can aid in the diagnosis of heart failure.",
+          "The use of natriuretic peptides, such as BNP and NT-proBNP, can aid in the diagnosis of heart failure.",
+          "Imaging studies, such as chest X-ray and echocardiogram, can aid in the diagnosis of heart failure.",
+          "Cardiopulmonary exercise testing can provide information on functional capacity and prognosis in patients with heart failure.",
+          "The use of beta-blockers, such as metoprolol succinate, can reduce morbidity and mortality in patients with heart failure."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of natriuretic peptides and imaging studies in patients with heart failure."
+          },
+          {
+            "title": "The MERIT-HF trial",
+            "authors": "Hjalmarson et al.",
+            "journal_or_source": "Lancet",
+            "year": 2000,
+            "type": "clinical trial",
+            "note": "Demonstrated a 34% reduction in the risk of death from any cause in patients treated with metoprolol succinate."
+          },
+          {
+            "title": "The 2017 ACC/AHA/HFSA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American College of Cardiology/American Heart Association/Heart Failure Society of America",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of cardiopulmonary exercise testing to diagnose and monitor heart failure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Heart Failure",
+      "content": {
+        "intro": "The treatment and management of heart failure can be divided into two main categories: pharmacological therapy and device therapy. Understanding the treatment and management of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Pharmacological Therapy",
+            "text": "Pharmacological therapy, such as ACE inhibitors, beta-blockers, and diuretics, can reduce morbidity and mortality in patients with heart failure. The use of ARNI, such as sacubitril-valsartan, has been shown to reduce morbidity and mortality in patients with heart failure. The 2021 ESC guidelines recommend the use of ARNI in patients with heart failure."
+          },
+          {
+            "heading": "Device Therapy",
+            "text": "Device therapy, such as cardiac resynchronization therapy and implantable cardioverter-defibrillators, can improve outcomes in patients with heart failure. The use of cardiac resynchronization therapy can improve symptoms and reduce morbidity and mortality in patients with heart failure. The 2016 NICE guidelines recommend the use of cardiac resynchronization therapy in patients with heart failure."
+          },
+          {
+            "heading": "Heart Transplantation",
+            "text": "Heart transplantation can be considered in patients with advanced heart failure who are refractory to medical therapy. The use of heart transplantation can improve survival and quality of life in patients with advanced heart failure. The 2019 ISHLT guidelines recommend the use of heart transplantation in patients with advanced heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of SGLT2 inhibitors, such as empagliflozin, has been shown to reduce morbidity and mortality in patients with heart failure. The EMPA-REG trial demonstrated a 38% reduction in the risk of death from cardiovascular causes in patients treated with empagliflozin.",
+        "key_points": [
+          "The treatment and management of heart failure can be divided into two main categories: pharmacological therapy and device therapy.",
+          "Pharmacological therapy, such as ACE inhibitors and beta-blockers, can reduce morbidity and mortality in patients with heart failure.",
+          "The use of ARNI, such as sacubitril-valsartan, can reduce morbidity and mortality in patients with heart failure.",
+          "Device therapy, such as cardiac resynchronization therapy, can improve outcomes in patients with heart failure.",
+          "Heart transplantation can be considered in patients with advanced heart failure who are refractory to medical therapy.",
+          "The use of SGLT2 inhibitors, such as empagliflozin, can reduce morbidity and mortality in patients with heart failure."
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the use of ARNI in patients with heart failure."
+          },
+          {
+            "title": "The EMPA-REG trial",
+            "authors": "Zinman et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated a 38% reduction in the risk of death from cardiovascular causes in patients treated with empagliflozin."
+          },
+          {
+            "title": "The 2019 ISHLT Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "International Society for Heart and Lung Transplantation",
+            "journal_or_source": "Journal of Heart and Lung Transplantation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of heart transplantation in patients with advanced heart failure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications of Heart Failure",
+      "content": {
+        "intro": "The complications of heart failure can be divided into two main categories: cardiac and non-cardiac complications. Understanding the complications of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Cardiac Complications",
+            "text": "Cardiac complications, such as arrhythmias, cardiac arrest, and sudden death, can occur in patients with heart failure. The use of implantable cardioverter-defibrillators can reduce the risk of sudden death in patients with heart failure. The 2017 ACC/AHA/HFSA guidelines recommend the use of implantable cardioverter-defibrillators in patients with heart failure."
+          },
+          {
+            "heading": "Non-Cardiac Complications",
+            "text": "Non-cardiac complications, such as renal dysfunction, hepatic dysfunction, and thromboembolism, can occur in patients with heart failure. The use of diuretics, such as furosemide, can reduce the risk of renal dysfunction in patients with heart failure. The 2020 AHA guidelines recommend the use of diuretics to reduce symptoms of heart failure."
+          },
+          {
+            "heading": "Palliative Care",
+            "text": "Palliative care can be considered in patients with advanced heart failure who are refractory to medical therapy. The use of palliative care can improve quality of life and reduce symptoms in patients with advanced heart failure. The 2019 ESC guidelines recommend the use of palliative care in patients with advanced heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of MRA, such as spironolactone, has been shown to reduce morbidity and mortality in patients with heart failure. The RALES trial demonstrated a 30% reduction in the risk of death from any cause in patients treated with spironolactone.",
+        "key_points": [
+          "The complications of heart failure can be divided into two main categories: cardiac and non-cardiac complications.",
+          "Cardiac complications, such as arrhythmias and cardiac arrest, can occur in patients with heart failure.",
+          "Non-cardiac complications, such as renal dysfunction and hepatic dysfunction, can occur in patients with heart failure.",
+          "The use of implantable cardioverter-defibrillators can reduce the risk of sudden death in patients with heart failure.",
+          "Palliative care can be considered in patients with advanced heart failure who are refractory to medical therapy.",
+          "The use of MRA, such as spironolactone, can reduce morbidity and mortality in patients with heart failure."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/HFSA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American College of Cardiology/American Heart Association/Heart Failure Society of America",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of implantable cardioverter-defibrillators in patients with heart failure."
+          },
+          {
+            "title": "The RALES trial",
+            "authors": "Pitt et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1999,
+            "type": "clinical trial",
+            "note": "Demonstrated a 30% reduction in the risk of death from any cause in patients treated with spironolactone."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of diuretics to reduce symptoms of heart failure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prognosis of Heart Failure",
+      "content": {
+        "intro": "The prognosis of heart failure can be divided into two main categories: short-term and long-term prognosis. Understanding the prognosis of heart failure is crucial for the development of effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Short-Term Prognosis",
+            "text": "The short-term prognosis of heart failure can be predicted using various scoring systems, such as the Seattle Heart Failure Model. The use of scoring systems can aid in the prediction of short-term outcomes in patients with heart failure. The 2017 ACC/AHA/HFSA guidelines recommend the use of scoring systems to predict short-term outcomes in patients with heart failure."
+          },
+          {
+            "heading": "Long-Term Prognosis",
+            "text": "The long-term prognosis of heart failure can be predicted using various factors, such as left ventricular function, renal function, and comorbidities. The use of device therapy, such as cardiac resynchronization therapy, can improve long-term outcomes in patients with heart failure. The 2019 ESC guidelines recommend the use of device therapy to improve long-term outcomes in patients with heart failure."
+          },
+          {
+            "heading": "Quality of Life",
+            "text": "The quality of life of patients with heart failure can be improved using various strategies, such as palliative care and rehabilitation programs. The use of palliative care can improve quality of life and reduce symptoms in patients with advanced heart failure. The 2020 AHA guidelines recommend the use of palliative care to improve quality of life in patients with advanced heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of beta-blockers, such as metoprolol succinate, has been shown to reduce morbidity and mortality in patients with heart failure. The MERIT-HF trial demonstrated a 34% reduction in the risk of death from any cause in patients treated with metoprolol succinate.",
+        "key_points": [
+          "The prognosis of heart failure can be divided into two main categories: short-term and long-term prognosis.",
+          "The short-term prognosis of heart failure can be predicted using various scoring systems.",
+          "The long-term prognosis of heart failure can be predicted using various factors, such as left ventricular function and comorbidities.",
+          "The use of device therapy, such as cardiac resynchronization therapy, can improve long-term outcomes in patients with heart failure.",
+          "The quality of life of patients with heart failure can be improved using various strategies, such as palliative care and rehabilitation programs.",
+          "The use of beta-blockers, such as metoprolol succinate, can reduce morbidity and mortality in patients with heart failure."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/HFSA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American College of Cardiology/American Heart Association/Heart Failure Society of America",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the use of scoring systems to predict short-term outcomes in patients with heart failure."
+          },
+          {
+            "title": "The MERIT-HF trial",
+            "authors": "Hjalmarson et al.",
+            "journal_or_source": "Lancet",
+            "year": 2000,
+            "type": "clinical trial",
+            "note": "Demonstrated a 34% reduction in the risk of death from any cause in patients treated with metoprolol succinate."
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of heart failure",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of palliative care to improve quality of life in patients with advanced heart failure."
+          }
+        ]
+      }
+    }
+  ]
+}

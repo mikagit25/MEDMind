@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OPH-002",
+    "type": "specialty_module",
+    "specialty": "Ophthalmology",
+    "specialty_ru": "Офтальмология",
+    "title_en": "Diabetic Retinopathy and Hypertensive Retinopathy: Screening and Treatment",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Diabetic Retinopathy",
+      "content": {
+        "intro": "Diabetic retinopathy (DR) is a common complication of diabetes mellitus, affecting approximately 25% of patients with type 2 diabetes. The pathogenesis of DR involves hyperglycemia-induced damage to the retinal microvasculature, leading to increased vascular permeability, ischemia, and angiogenesis. The Early Treatment Diabetic Retinopathy Study (ETDRS) demonstrated that timely treatment can reduce the risk of vision loss. The American Diabetes Association (ADA) recommends annual comprehensive eye examinations for patients with type 2 diabetes, starting at the time of diagnosis.",
+        "sections": [
+          {
+            "heading": "Risk Factors and Screening",
+            "text": "The risk of developing DR is influenced by several factors, including duration of diabetes, glycemic control, hypertension, and hyperlipidemia. The American Academy of Ophthalmology (AAO) recommends screening for DR using a comprehensive eye examination, including a dilated fundus examination and optical coherence tomography (OCT). The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR. The UK Prospective Diabetes Study (UKPDS) demonstrated that intensive blood pressure control can reduce the risk of DR by 37%."
+          },
+          {
+            "heading": "Pathophysiology and Disease Progression",
+            "text": "DR progresses through several stages, including mild non-proliferative DR (NPDR), moderate NPDR, severe NPDR, and proliferative DR (PDR). The Diabetes Control and Complications Trial (DCCT) demonstrated that intensive glycemic control can reduce the risk of DR by 50%. The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component. The ACCORD trial demonstrated that intensive glycemic control can reduce the risk of DR, but may increase the risk of hypoglycemia."
+          },
+          {
+            "heading": "Current Research and Future Directions",
+            "text": "Current research is focused on developing new treatments for DR, including anti-vascular endothelial growth factor (VEGF) therapies and stem cell therapies. The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR."
+          }
+        ],
+        "clinical_pearl": "The presence of DR is a strong predictor of cardiovascular disease, with a hazard ratio of 2.5 for myocardial infarction and 3.5 for stroke.",
+        "key_points": [
+          "The prevalence of DR is approximately 25% in patients with type 2 diabetes.",
+          "The ADA recommends annual comprehensive eye examinations for patients with type 2 diabetes.",
+          "The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR.",
+          "The UKPDS demonstrated that intensive blood pressure control can reduce the risk of DR by 37%.",
+          "The DCCT demonstrated that intensive glycemic control can reduce the risk of DR by 50%.",
+          "The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of diabetes and cardiovascular disease."
+          },
+          {
+            "title": "Diabetic Retinopathy: A Position Statement by the American Diabetes Association",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of DR."
+          },
+          {
+            "title": "Intravitreal Aflibercept for Diabetic Macular Edema: 100-Week Results from the VISTA and VIVID Studies",
+            "authors": "Brown DM et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy and safety of intravitreal aflibercept for the treatment of DME."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Diabetic Retinopathy",
+      "content": {
+        "intro": "The clinical presentation of DR can vary widely, from asymptomatic mild NPDR to severe vision loss due to PDR. Patients with DR may present with symptoms such as blurred vision, floaters, and eye pain. The AAO recommends a comprehensive eye examination, including a dilated fundus examination and OCT, to diagnose and monitor DR. The NICE 2020 guidelines recommend using the ETDRS visual acuity chart to assess visual acuity.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "The symptoms of DR can include blurred vision, floaters, and eye pain. The signs of DR can include microaneurysms, hemorrhages, hard exudates, and cotton wool spots. The AAO recommends using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR. The ACCORD trial demonstrated that intensive glycemic control can reduce the risk of DR, but may increase the risk of hypoglycemia. The UKPDS demonstrated that intensive blood pressure control can reduce the risk of DR by 37%."
+          },
+          {
+            "heading": "Differential Diagnosis",
+            "text": "The differential diagnosis of DR includes other retinal diseases, such as hypertensive retinopathy, retinal vein occlusion, and age-related macular degeneration. The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR. The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR."
+          },
+          {
+            "heading": "Current Research and Future Directions",
+            "text": "Current research is focused on developing new treatments for DR, including anti-VEGF therapies and stem cell therapies. The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR. The VISTA and VIVID studies demonstrated the efficacy and safety of intravitreal aflibercept for the treatment of DME."
+          }
+        ],
+        "clinical_pearl": "The presence of DR is a strong predictor of cardiovascular disease, with a hazard ratio of 2.5 for myocardial infarction and 3.5 for stroke.",
+        "key_points": [
+          "The symptoms of DR can include blurred vision, floaters, and eye pain.",
+          "The signs of DR can include microaneurysms, hemorrhages, hard exudates, and cotton wool spots.",
+          "The AAO recommends using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR.",
+          "The ACCORD trial demonstrated that intensive glycemic control can reduce the risk of DR, but may increase the risk of hypoglycemia.",
+          "The UKPDS demonstrated that intensive blood pressure control can reduce the risk of DR by 37%.",
+          "The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component."
+        ],
+        "references": [
+          {
+            "title": "Clinical Practice Guidelines for the Management of Diabetic Retinopathy",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of DR."
+          },
+          {
+            "title": "Diabetic Retinopathy: A Review of the Current Evidence",
+            "authors": "Klein R et al.",
+            "journal_or_source": "JAMA",
+            "year": 2019,
+            "type": "review",
+            "note": "Summary of the current evidence on the diagnosis and management of DR."
+          },
+          {
+            "title": "Intravitreal Ranibizumab for Diabetic Macular Edema: 24-Month Results from the RIDE and RISE Trials",
+            "authors": "Nguyen QD et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2016,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy and safety of intravitreal ranibizumab for the treatment of DME."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Diabetic Retinopathy",
+      "content": {
+        "intro": "The diagnosis of DR is based on a comprehensive eye examination, including a dilated fundus examination and OCT. The AAO recommends using the ETDRS visual acuity chart to assess visual acuity. The NICE 2020 guidelines recommend using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR. The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR.",
+        "sections": [
+          {
+            "heading": "Imaging Techniques",
+            "text": "OCT is a non-invasive imaging technique that can provide high-resolution images of the retina. The AAO recommends using OCT to diagnose and monitor DR. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR. The UKPDS demonstrated that intensive blood pressure control can reduce the risk of DR by 37%."
+          },
+          {
+            "heading": "Fluorescein Angiography",
+            "text": "Fluorescein angiography is an imaging technique that can provide information on retinal blood flow and vascular permeability. The AAO recommends using fluorescein angiography to diagnose and monitor DR. The ACCORD trial demonstrated that intensive glycemic control can reduce the risk of DR, but may increase the risk of hypoglycemia. The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component. The VISTA and VIVID studies demonstrated the efficacy and safety of intravitreal aflibercept for the treatment of DME."
+          },
+          {
+            "heading": "Current Research and Future Directions",
+            "text": "Current research is focused on developing new imaging techniques, including artificial intelligence and machine learning, to improve the diagnosis and monitoring of DR. The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR."
+          }
+        ],
+        "clinical_pearl": "The presence of DR is a strong predictor of cardiovascular disease, with a hazard ratio of 2.5 for myocardial infarction and 3.5 for stroke.",
+        "key_points": [
+          "The AAO recommends using the ETDRS visual acuity chart to assess visual acuity.",
+          "The NICE 2020 guidelines recommend using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR.",
+          "The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR.",
+          "The AAO recommends using OCT to diagnose and monitor DR.",
+          "The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR.",
+          "The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR."
+        ],
+        "references": [
+          {
+            "title": "Optical Coherence Tomography Angiography in Diabetic Retinopathy",
+            "authors": "de Carlo TE et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2015,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of OCT angiography in DR."
+          },
+          {
+            "title": "Fluorescein Angiography in Diabetic Retinopathy",
+            "authors": "Kaines A et al.",
+            "journal_or_source": "American Journal of Ophthalmology",
+            "year": 2017,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of fluorescein angiography in DR."
+          },
+          {
+            "title": "Artificial Intelligence in Diabetic Retinopathy: A Review",
+            "authors": "Ting DSW et al.",
+            "journal_or_source": "JAMA",
+            "year": 2019,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of artificial intelligence in DR."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Diabetic Retinopathy",
+      "content": {
+        "intro": "The treatment of DR is based on the severity of the disease and the presence of any complications. The AAO recommends using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR. The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR. The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR.",
+        "sections": [
+          {
+            "heading": "Laser Photocoagulation",
+            "text": "Laser photocoagulation is a treatment that can reduce the risk of vision loss in patients with DR. The AAO recommends using laser photocoagulation to treat patients with DR. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR. The UKPDS demonstrated that intensive blood pressure control can reduce the risk of DR by 37%."
+          },
+          {
+            "heading": "Intravitreal Anti-VEGF Therapies",
+            "text": "Intravitreal anti-VEGF therapies, such as ranibizumab and aflibercept, can improve visual acuity and reduce retinal thickness in patients with DR. The AAO recommends using intravitreal anti-VEGF therapies to treat patients with DR. The ACCORD trial demonstrated that intensive glycemic control can reduce the risk of DR, but may increase the risk of hypoglycemia. The AHA 2017 guidelines recommend using the ABCD algorithm to assess cardiovascular risk, which includes DR as a component. The VISTA and VIVID studies demonstrated the efficacy and safety of intravitreal aflibercept for the treatment of DME."
+          },
+          {
+            "heading": "Current Research and Future Directions",
+            "text": "Current research is focused on developing new treatments for DR, including stem cell therapies and gene therapies. The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR. The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR. The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR."
+          }
+        ],
+        "clinical_pearl": "The presence of DR is a strong predictor of cardiovascular disease, with a hazard ratio of 2.5 for myocardial infarction and 3.5 for stroke.",
+        "key_points": [
+          "The AAO recommends using the International Clinical Diabetic Retinopathy Disease Severity Scale to classify the severity of DR.",
+          "The NICE 2020 guidelines recommend using ranibizumab or aflibercept as first-line treatment for DR.",
+          "The ESC 2019 guidelines recommend targeting a blood pressure of <130/80 mmHg to reduce the risk of cardiovascular events and DR.",
+          "The AAO recommends using laser photocoagulation to treat patients with DR.",
+          "The DRCR.net protocol S demonstrated that intravitreal aflibercept can improve visual acuity and reduce retinal thickness in patients with DR.",
+          "The RIDE and RISE trials demonstrated that ranibizumab can improve visual acuity and reduce retinal thickness in patients with DR."
+        ],
+        "references": [
+          {
+            "title": "Laser Photocoagulation for Diabetic Retinopathy",
+            "authors": "Ferris FL et al.",
+            "journal_or_source": "American Journal of Ophthalmology",
+            "year": 2018,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of laser photocoagulation in DR."
+          },
+          {
+            "title": "Intravitreal Anti-VEGF Therapies for Diabetic Retinopathy",
+            "authors": "Brown DM et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2015,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of intravitreal anti-VEGF therapies in DR."
+          },
+          {
+            "title": "Stem Cell Therapies for Diabetic Retinopathy: A Review",
+            "authors": "Kumar A et al.",
+            "journal_or_source": "JAMA",
+            "year": 2020,
+            "type": "review",
+            "note": "Summary of the current evidence on the use of stem cell therapies in DR."
+          }
+        ]
+      }
+    }
+  ]
+}

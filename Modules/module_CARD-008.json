@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "CARD-008",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Dyslipidaemia: LDL Biology, Statins, Ezetimibe, PCSK9 Inhibitors and Risk Targets",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Dyslipidaemia",
+      "content": {
+        "intro": "Dyslipidaemia is a major risk factor for cardiovascular disease, affecting millions of people worldwide. The pathophysiology of dyslipidaemia involves an imbalance in lipid metabolism, leading to elevated levels of low-density lipoprotein (LDL) cholesterol. LDL cholesterol is a key contributor to the development of atherosclerosis, a condition characterized by the buildup of plaque in the arterial walls. The epidemiology of dyslipidaemia is complex, with multiple factors contributing to its development, including genetics, diet, and lifestyle. According to the European Society of Cardiology (ESC) guidelines (2021), dyslipidaemia is a major modifiable risk factor for cardiovascular disease.",
+        "sections": [
+          {
+            "heading": "LDL Biology and Atherosclerosis",
+            "text": "LDL cholesterol plays a central role in the development of atherosclerosis. Elevated levels of LDL cholesterol lead to the formation of foam cells, which are lipid-laden macrophages that contribute to the growth of atherosclerotic plaques. The ESC guidelines (2021) recommend targeting LDL cholesterol levels to reduce the risk of cardiovascular disease. Statins, such as atorvastatin (40-80 mg/day) and rosuvastatin (10-20 mg/day), are effective in reducing LDL cholesterol levels and have been shown to reduce the risk of cardiovascular events in numerous landmark trials, including the ASTEROID trial (2006) and the IMPROVE-IT trial (2015)."
+          },
+          {
+            "heading": "Genetic Factors and Dyslipidaemia",
+            "text": "Genetic factors play a significant role in the development of dyslipidaemia. Certain genetic mutations, such as those affecting the LDL receptor, can lead to elevated levels of LDL cholesterol. The AHA guidelines (2019) recommend genetic testing for individuals with a family history of dyslipidaemia. Ezetimibe (10 mg/day) is a useful adjunct to statin therapy in individuals with genetic dyslipidaemia, as it has been shown to reduce LDL cholesterol levels by inhibiting the intestinal absorption of cholesterol."
+          },
+          {
+            "heading": "Lifestyle Factors and Dyslipidaemia",
+            "text": "Lifestyle factors, such as diet and physical activity, also contribute to the development of dyslipidaemia. The NICE guidelines (2019) recommend a healthy diet and regular physical activity to reduce the risk of cardiovascular disease. A diet low in saturated fats and high in fruits and vegetables can help to reduce LDL cholesterol levels. Regular physical activity, such as walking or jogging, can also help to improve lipid profiles and reduce the risk of cardiovascular disease."
+          }
+        ],
+        "clinical_pearl": "The use of statins has been shown to reduce the risk of cardiovascular events by 25-30% in individuals with elevated LDL cholesterol levels (Cholesterol Treatment Trialists' Collaboration, 2010).",
+        "key_points": [
+          "Dyslipidaemia is a major risk factor for cardiovascular disease.",
+          "LDL cholesterol is a key contributor to the development of atherosclerosis.",
+          "Statins are effective in reducing LDL cholesterol levels and have been shown to reduce the risk of cardiovascular events.",
+          "Ezetimibe is a useful adjunct to statin therapy in individuals with genetic dyslipidaemia.",
+          "Lifestyle factors, such as diet and physical activity, contribute to the development of dyslipidaemia.",
+          "The ESC guidelines (2021) recommend targeting LDL cholesterol levels to reduce the risk of cardiovascular disease."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC/EAS Guidelines for the management of dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias."
+          },
+          {
+            "title": "ASTEROID trial",
+            "authors": "Nissen SE et al.",
+            "journal_or_source": "Journal of the American Medical Association",
+            "year": 2006,
+            "type": "trial",
+            "note": "Reduction in LDL cholesterol levels with intensive statin therapy."
+          },
+          {
+            "title": "IMPROVE-IT trial",
+            "authors": "Cannon CP et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "trial",
+            "note": "Reduction in cardiovascular events with ezetimibe added to statin therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Dyslipidaemia",
+      "content": {
+        "intro": "Dyslipidaemia can present with a range of symptoms, from asymptomatic to severe cardiovascular disease. The clinical presentation of dyslipidaemia depends on the severity of the lipid abnormality and the presence of other cardiovascular risk factors. According to the AHA guidelines (2019), individuals with dyslipidaemia should be evaluated for other cardiovascular risk factors, such as hypertension and diabetes mellitus.",
+        "sections": [
+          {
+            "heading": "Asymptomatic Dyslipidaemia",
+            "text": "Many individuals with dyslipidaemia are asymptomatic, and the condition is often detected during routine lipid screening. The ESC guidelines (2021) recommend routine lipid screening for all adults aged 40-75 years. Asymptomatic dyslipidaemia can be managed with lifestyle modifications, such as diet and exercise, and pharmacotherapy, such as statins."
+          },
+          {
+            "heading": "Symptomatic Dyslipidaemia",
+            "text": "Symptomatic dyslipidaemia can present with a range of symptoms, including chest pain, shortness of breath, and fatigue. The AHA guidelines (2019) recommend that individuals with symptomatic dyslipidaemia be evaluated for coronary artery disease and other cardiovascular conditions. PCSK9 inhibitors, such as alirocumab (75-150 mg every 2 weeks) and evolocumab (140 mg every 2 weeks), are effective in reducing LDL cholesterol levels in individuals with symptomatic dyslipidaemia."
+          },
+          {
+            "heading": "Dyslipidaemia in Special Populations",
+            "text": "Dyslipidaemia can occur in special populations, such as children and pregnant women. The NICE guidelines (2019) recommend that children with a family history of dyslipidaemia be screened for lipid abnormalities. Pregnant women with dyslipidaemia should be managed with lifestyle modifications and pharmacotherapy, as needed, to reduce the risk of cardiovascular disease."
+          }
+        ],
+        "clinical_pearl": "The use of PCSK9 inhibitors has been shown to reduce the risk of cardiovascular events by 15-20% in individuals with symptomatic dyslipidaemia (ODYSSEY OUTCOMES trial, 2018).",
+        "key_points": [
+          "Dyslipidaemia can present with a range of symptoms, from asymptomatic to severe cardiovascular disease.",
+          "Asymptomatic dyslipidaemia can be managed with lifestyle modifications and pharmacotherapy.",
+          "Symptomatic dyslipidaemia can present with chest pain, shortness of breath, and fatigue.",
+          "PCSK9 inhibitors are effective in reducing LDL cholesterol levels in individuals with symptomatic dyslipidaemia.",
+          "Dyslipidaemia can occur in special populations, such as children and pregnant women.",
+          "The AHA guidelines (2019) recommend that individuals with dyslipidaemia be evaluated for other cardiovascular risk factors."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "ODYSSEY OUTCOMES trial",
+            "authors": "Schwartz GG et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "trial",
+            "note": "Reduction in cardiovascular events with alirocumab."
+          },
+          {
+            "title": "FOURIER trial",
+            "authors": "Sabatine MS et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "Reduction in cardiovascular events with evolocumab."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Dyslipidaemia",
+      "content": {
+        "intro": "The diagnosis of dyslipidaemia involves a range of investigations, including lipid profiling and cardiovascular risk assessment. According to the ESC guidelines (2021), lipid profiling should include measurement of total cholesterol, LDL cholesterol, high-density lipoprotein (HDL) cholesterol, and triglycerides.",
+        "sections": [
+          {
+            "heading": "Lipid Profiling",
+            "text": "Lipid profiling is a critical component of the diagnosis of dyslipidaemia. The AHA guidelines (2019) recommend that lipid profiles be measured in all adults aged 20-75 years. Lipid profiling can be used to diagnose dyslipidaemia and to monitor the effectiveness of treatment. The NICE guidelines (2019) recommend that lipid profiles be measured at least annually in individuals with dyslipidaemia."
+          },
+          {
+            "heading": "Cardiovascular Risk Assessment",
+            "text": "Cardiovascular risk assessment is an important component of the diagnosis of dyslipidaemia. The ESC guidelines (2021) recommend that cardiovascular risk be assessed using a risk calculator, such as the Systematic Coronary Risk Evaluation (SCORE) system. Cardiovascular risk assessment can be used to identify individuals at high risk of cardiovascular disease and to guide treatment decisions."
+          },
+          {
+            "heading": "Genetic Testing",
+            "text": "Genetic testing can be used to diagnose genetic dyslipidaemia. The AHA guidelines (2019) recommend that genetic testing be considered in individuals with a family history of dyslipidaemia. Genetic testing can be used to identify genetic mutations that affect lipid metabolism and to guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The use of lipid profiling and cardiovascular risk assessment can help to identify individuals at high risk of cardiovascular disease and to guide treatment decisions (European Heart Journal, 2019).",
+        "key_points": [
+          "Lipid profiling is a critical component of the diagnosis of dyslipidaemia.",
+          "Cardiovascular risk assessment is an important component of the diagnosis of dyslipidaemia.",
+          "Genetic testing can be used to diagnose genetic dyslipidaemia.",
+          "Lipid profiling can be used to monitor the effectiveness of treatment.",
+          "The ESC guidelines (2021) recommend that lipid profiles be measured in all adults aged 40-75 years.",
+          "The AHA guidelines (2019) recommend that cardiovascular risk be assessed using a risk calculator."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC/EAS Guidelines for the management of dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "Systematic Coronary Risk Evaluation (SCORE) system",
+            "authors": "Conroy RM et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2003,
+            "type": "article",
+            "note": "Development of the SCORE system for cardiovascular risk assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Dyslipidaemia",
+      "content": {
+        "intro": "The treatment and management of dyslipidaemia involve a range of strategies, including lifestyle modifications, pharmacotherapy, and cardiovascular risk reduction. According to the AHA guidelines (2019), the primary goal of treatment is to reduce the risk of cardiovascular disease.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications are an important component of the treatment and management of dyslipidaemia. The ESC guidelines (2021) recommend a healthy diet, regular physical activity, and weight management to reduce the risk of cardiovascular disease. Lifestyle modifications can be used to reduce LDL cholesterol levels and to improve overall cardiovascular health."
+          },
+          {
+            "heading": "Pharmacotherapy",
+            "text": "Pharmacotherapy is a critical component of the treatment and management of dyslipidaemia. The AHA guidelines (2019) recommend the use of statins, such as atorvastatin (40-80 mg/day) and rosuvastatin (10-20 mg/day), to reduce LDL cholesterol levels. PCSK9 inhibitors, such as alirocumab (75-150 mg every 2 weeks) and evolocumab (140 mg every 2 weeks), can be used in individuals who are intolerant of statins or who require additional LDL cholesterol reduction."
+          },
+          {
+            "heading": "Cardiovascular Risk Reduction",
+            "text": "Cardiovascular risk reduction is an important component of the treatment and management of dyslipidaemia. The ESC guidelines (2021) recommend that individuals with dyslipidaemia be evaluated for other cardiovascular risk factors, such as hypertension and diabetes mellitus. Cardiovascular risk reduction can be achieved through lifestyle modifications, pharmacotherapy, and other interventions, such as aspirin therapy and blood pressure management."
+          }
+        ],
+        "clinical_pearl": "The use of statins has been shown to reduce the risk of cardiovascular events by 25-30% in individuals with elevated LDL cholesterol levels (Cholesterol Treatment Trialists' Collaboration, 2010).",
+        "key_points": [
+          "Lifestyle modifications are an important component of the treatment and management of dyslipidaemia.",
+          "Pharmacotherapy is a critical component of the treatment and management of dyslipidaemia.",
+          "Cardiovascular risk reduction is an important component of the treatment and management of dyslipidaemia.",
+          "Statins are effective in reducing LDL cholesterol levels and have been shown to reduce the risk of cardiovascular events.",
+          "PCSK9 inhibitors can be used in individuals who are intolerant of statins or who require additional LDL cholesterol reduction.",
+          "The AHA guidelines (2019) recommend that individuals with dyslipidaemia be evaluated for other cardiovascular risk factors."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "Cholesterol Treatment Trialists' Collaboration",
+            "authors": "Cholesterol Treatment Trialists' Collaboration",
+            "journal_or_source": "Lancet",
+            "year": 2010,
+            "type": "article",
+            "note": "Meta-analysis of statin therapy for the prevention of cardiovascular disease."
+          },
+          {
+            "title": "FOURIER trial",
+            "authors": "Sabatine MS et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2017,
+            "type": "trial",
+            "note": "Reduction in cardiovascular events with evolocumab."
+          }
+        ]
+      }
+    }
+  ]
+}

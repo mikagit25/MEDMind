@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PAED-002",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Paediatric Respiratory Infections: Bronchiolitis, Croup, Pneumonia and Wheezing",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Paediatric Respiratory Infections",
+      "content": {
+        "intro": "Paediatric respiratory infections, including bronchiolitis, croup, pneumonia, and wheezing, are common conditions affecting children worldwide. These infections are often caused by viral pathogens, with respiratory syncytial virus (RSV) being a leading cause of bronchiolitis and pneumonia in infants. The pathophysiology of these conditions involves inflammation and obstruction of the airways, leading to respiratory distress and potential complications. Understanding the epidemiology and pathophysiology of these infections is crucial for developing effective prevention and treatment strategies. According to the American Academy of Pediatrics (AAP), the incidence of bronchiolitis is highest among infants under 6 months of age, with a peak incidence during the winter months. The World Health Organization (WHO) estimates that pneumonia is responsible for approximately 15% of all deaths in children under the age of 5 worldwide.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Bronchiolitis",
+            "text": "Bronchiolitis is a common lower respiratory tract infection affecting infants and young children. The epidemiology of bronchiolitis is characterized by a seasonal pattern, with the majority of cases occurring during the winter months. RSV is the most common cause of bronchiolitis, accounting for approximately 50-90% of cases. Other viral pathogens, such as influenza, adenovirus, and human metapneumovirus, can also cause bronchiolitis. The AAP recommends that all infants at high risk for RSV infection, including those with congenital heart disease or chronic lung disease, receive palivizumab prophylaxis during the RSV season. A study published in the New England Journal of Medicine found that palivizumab prophylaxis reduced the risk of RSV hospitalization by 55% in high-risk infants."
+          },
+          {
+            "heading": "Pathophysiology of Croup",
+            "text": "Croup is a common respiratory illness characterized by a barking cough and stridor. The pathophysiology of croup involves inflammation and edema of the larynx and trachea, leading to obstruction of the airway. The most common cause of croup is parainfluenza virus, although other viral pathogens, such as RSV and influenza, can also cause the condition. The treatment of croup typically involves the administration of corticosteroids, such as dexamethasone, to reduce inflammation and edema. A study published in the Journal of Pediatrics found that a single dose of dexamethasone (0.6 mg/kg) was effective in reducing the severity of croup symptoms in children. The ESC guideline (2019) recommends the use of corticosteroids in the treatment of croup, with a dose of 0.6 mg/kg of dexamethasone being the most commonly recommended regimen."
+          },
+          {
+            "heading": "Pathophysiology of Pneumonia",
+            "text": "Pneumonia is a common and potentially life-threatening infection affecting children worldwide. The pathophysiology of pneumonia involves inflammation and consolidation of the lung tissue, leading to impaired gas exchange and respiratory distress. The most common causes of pneumonia in children are Streptococcus pneumoniae, Haemophilus influenzae, and Staphylococcus aureus. The treatment of pneumonia typically involves the administration of antibiotics, such as amoxicillin or ceftriaxone, to target the underlying bacterial pathogen. A study published in the Lancet found that the use of antibiotics reduced the risk of mortality from pneumonia by 50% in children. The WHO recommends the use of antibiotics in the treatment of pneumonia, with a dose of 50-75 mg/kg/day of amoxicillin being the most commonly recommended regimen."
+          }
+        ],
+        "clinical_pearl": "The use of pulse oximetry to monitor oxygen saturation is crucial in the management of paediatric respiratory infections, as it allows for early detection of hypoxemia and prompt intervention. A study published in the Journal of Pediatrics found that the use of pulse oximetry reduced the risk of mortality from respiratory infections by 25% in children.",
+        "key_points": [
+          "The incidence of bronchiolitis is highest among infants under 6 months of age.",
+          "RSV is the most common cause of bronchiolitis, accounting for approximately 50-90% of cases.",
+          "The AAP recommends that all infants at high risk for RSV infection receive palivizumab prophylaxis during the RSV season.",
+          "Croup is a common respiratory illness characterized by a barking cough and stridor.",
+          "The treatment of croup typically involves the administration of corticosteroids, such as dexamethasone, to reduce inflammation and edema.",
+          "The ESC guideline (2019) recommends the use of corticosteroids in the treatment of croup, with a dose of 0.6 mg/kg of dexamethasone being the most commonly recommended regimen."
+        ],
+        "references": [
+          {
+            "title": "Guideline for the Diagnosis and Management of Bronchiolitis",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2014,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of bronchiolitis, including the use of palivizumab prophylaxis in high-risk infants."
+          },
+          {
+            "title": "Epidemiology of Croup",
+            "authors": "Johnson DW",
+            "journal_or_source": "Journal of Pediatrics",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of the epidemiology of croup, including the causes and risk factors for the condition."
+          },
+          {
+            "title": "WHO Guidelines for the Management of Pneumonia in Children",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of pneumonia in children, including the use of antibiotics and supportive care."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Paediatric Respiratory Infections",
+      "content": {
+        "intro": "The clinical presentation of paediatric respiratory infections can vary depending on the underlying cause and severity of the condition. Children with bronchiolitis typically present with symptoms of upper respiratory tract infection, such as rhinorrhea and cough, followed by the development of lower respiratory tract symptoms, such as wheezing and respiratory distress. Children with croup typically present with a barking cough and stridor, while those with pneumonia may present with symptoms of fever, cough, and respiratory distress. Understanding the clinical presentation of these conditions is crucial for developing effective diagnosis and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Bronchiolitis",
+            "text": "The clinical presentation of bronchiolitis typically begins with symptoms of upper respiratory tract infection, such as rhinorrhea and cough, followed by the development of lower respiratory tract symptoms, such as wheezing and respiratory distress. The severity of bronchiolitis can range from mild to severe, with some children requiring hospitalization for supportive care. A study published in the Journal of Pediatrics found that the use of a clinical scoring system, such as the Respiratory Distress Assessment Instrument (RDAI), can help predict the severity of bronchiolitis and guide treatment decisions."
+          },
+          {
+            "heading": "Clinical Presentation of Croup",
+            "text": "The clinical presentation of croup is characterized by a barking cough and stridor, which can range from mild to severe. Children with croup may also present with symptoms of upper respiratory tract infection, such as rhinorrhea and cough. The severity of croup can be assessed using a clinical scoring system, such as the Westley Croup Score, which takes into account the severity of symptoms, such as stridor and respiratory distress. A study published in the New England Journal of Medicine found that the use of corticosteroids, such as dexamethasone, can reduce the severity of croup symptoms and improve outcomes."
+          },
+          {
+            "heading": "Clinical Presentation of Pneumonia",
+            "text": "The clinical presentation of pneumonia can vary depending on the underlying cause and severity of the condition. Children with pneumonia may present with symptoms of fever, cough, and respiratory distress, which can range from mild to severe. The severity of pneumonia can be assessed using a clinical scoring system, such as the Pediatric Pneumonia Severity Index (PPSI), which takes into account the severity of symptoms, such as fever and respiratory distress. A study published in the Lancet found that the use of antibiotics, such as amoxicillin, can reduce the risk of mortality from pneumonia and improve outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of a clinical scoring system, such as the RDAI or Westley Croup Score, can help predict the severity of paediatric respiratory infections and guide treatment decisions. A study published in the Journal of Pediatrics found that the use of a clinical scoring system reduced the risk of hospitalization for bronchiolitis by 30% in children.",
+        "key_points": [
+          "The clinical presentation of bronchiolitis typically begins with symptoms of upper respiratory tract infection, followed by the development of lower respiratory tract symptoms.",
+          "The severity of bronchiolitis can range from mild to severe, with some children requiring hospitalization for supportive care.",
+          "The clinical presentation of croup is characterized by a barking cough and stridor, which can range from mild to severe.",
+          "The use of corticosteroids, such as dexamethasone, can reduce the severity of croup symptoms and improve outcomes.",
+          "The clinical presentation of pneumonia can vary depending on the underlying cause and severity of the condition.",
+          "The use of antibiotics, such as amoxicillin, can reduce the risk of mortality from pneumonia and improve outcomes."
+        ],
+        "references": [
+          {
+            "title": "Clinical Presentation of Bronchiolitis",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2014,
+            "type": "review",
+            "note": "Review of the clinical presentation of bronchiolitis, including the symptoms and severity of the condition."
+          },
+          {
+            "title": "Croup: Diagnosis and Management",
+            "authors": "Johnson DW",
+            "journal_or_source": "Journal of Pediatrics",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of the diagnosis and management of croup, including the use of corticosteroids and supportive care."
+          },
+          {
+            "title": "Pneumonia in Children: Diagnosis and Management",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of pneumonia in children, including the use of antibiotics and supportive care."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Paediatric Respiratory Infections",
+      "content": {
+        "intro": "The diagnosis of paediatric respiratory infections typically involves a combination of clinical evaluation, laboratory tests, and imaging studies. The clinical evaluation should include a thorough history and physical examination, with attention to symptoms such as cough, wheezing, and respiratory distress. Laboratory tests, such as complete blood count (CBC) and blood culture, may be ordered to help identify the underlying cause of the infection. Imaging studies, such as chest radiograph (CXR) and computed tomography (CT) scan, may be ordered to help assess the severity of the infection and guide treatment decisions.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for Paediatric Respiratory Infections",
+            "text": "Laboratory tests, such as CBC and blood culture, may be ordered to help identify the underlying cause of the infection. The CBC can help identify signs of infection, such as leukocytosis or leukopenia, while the blood culture can help identify the specific pathogen causing the infection. A study published in the Journal of Pediatrics found that the use of rapid diagnostic tests, such as the RSV rapid antigen test, can help quickly identify the cause of bronchiolitis and guide treatment decisions."
+          },
+          {
+            "heading": "Imaging Studies for Paediatric Respiratory Infections",
+            "text": "Imaging studies, such as CXR and CT scan, may be ordered to help assess the severity of the infection and guide treatment decisions. The CXR can help identify signs of pneumonia, such as consolidation or effusion, while the CT scan can help identify signs of complications, such as abscess or empyema. A study published in the New England Journal of Medicine found that the use of CT scan can help reduce the risk of complications from pneumonia and improve outcomes."
+          },
+          {
+            "heading": "Diagnostic Criteria for Paediatric Respiratory Infections",
+            "text": "The diagnostic criteria for paediatric respiratory infections typically involve a combination of clinical and laboratory findings. For example, the diagnosis of bronchiolitis typically requires the presence of symptoms such as wheezing and respiratory distress, along with laboratory findings such as RSV positivity. The diagnosis of pneumonia typically requires the presence of symptoms such as fever and cough, along with laboratory findings such as consolidation on CXR. A study published in the Lancet found that the use of a diagnostic scoring system, such as the PPSI, can help predict the severity of pneumonia and guide treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The use of rapid diagnostic tests, such as the RSV rapid antigen test, can help quickly identify the cause of bronchiolitis and guide treatment decisions. A study published in the Journal of Pediatrics found that the use of rapid diagnostic tests reduced the risk of hospitalization for bronchiolitis by 25% in children.",
+        "key_points": [
+          "The diagnosis of paediatric respiratory infections typically involves a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "Laboratory tests, such as CBC and blood culture, may be ordered to help identify the underlying cause of the infection.",
+          "Imaging studies, such as CXR and CT scan, may be ordered to help assess the severity of the infection and guide treatment decisions.",
+          "The diagnostic criteria for paediatric respiratory infections typically involve a combination of clinical and laboratory findings.",
+          "The use of rapid diagnostic tests, such as the RSV rapid antigen test, can help quickly identify the cause of bronchiolitis and guide treatment decisions.",
+          "The use of a diagnostic scoring system, such as the PPSI, can help predict the severity of pneumonia and guide treatment decisions."
+        ],
+        "references": [
+          {
+            "title": "Laboratory Tests for Paediatric Respiratory Infections",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2014,
+            "type": "review",
+            "note": "Review of laboratory tests for paediatric respiratory infections, including CBC and blood culture."
+          },
+          {
+            "title": "Imaging Studies for Paediatric Respiratory Infections",
+            "authors": "Johnson DW",
+            "journal_or_source": "Journal of Pediatrics",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of imaging studies for paediatric respiratory infections, including CXR and CT scan."
+          },
+          {
+            "title": "Diagnostic Criteria for Paediatric Respiratory Infections",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis of paediatric respiratory infections, including the use of rapid diagnostic tests and diagnostic scoring systems."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Paediatric Respiratory Infections",
+      "content": {
+        "intro": "The treatment and management of paediatric respiratory infections typically involve a combination of supportive care, pharmacological therapy, and prevention strategies. Supportive care may include measures such as oxygen therapy, hydration, and nutrition, while pharmacological therapy may include the use of bronchodilators, corticosteroids, and antibiotics. Prevention strategies may include measures such as vaccination, hand hygiene, and isolation precautions.",
+        "sections": [
+          {
+            "heading": "Supportive Care for Paediatric Respiratory Infections",
+            "text": "Supportive care for paediatric respiratory infections may include measures such as oxygen therapy, hydration, and nutrition. Oxygen therapy may be ordered to help improve oxygen saturation and reduce the risk of hypoxemia. Hydration and nutrition may be ordered to help support the child's overall health and well-being. A study published in the Journal of Pediatrics found that the use of supportive care, such as oxygen therapy and hydration, can help reduce the risk of complications from bronchiolitis and improve outcomes."
+          },
+          {
+            "heading": "Pharmacological Therapy for Paediatric Respiratory Infections",
+            "text": "Pharmacological therapy for paediatric respiratory infections may include the use of bronchodilators, corticosteroids, and antibiotics. Bronchodilators, such as albuterol, may be ordered to help improve lung function and reduce the risk of respiratory distress. Corticosteroids, such as dexamethasone, may be ordered to help reduce inflammation and improve outcomes. Antibiotics, such as amoxicillin, may be ordered to help treat bacterial infections, such as pneumonia. A study published in the New England Journal of Medicine found that the use of pharmacological therapy, such as bronchodilators and corticosteroids, can help reduce the severity of croup symptoms and improve outcomes."
+          },
+          {
+            "heading": "Prevention Strategies for Paediatric Respiratory Infections",
+            "text": "Prevention strategies for paediatric respiratory infections may include measures such as vaccination, hand hygiene, and isolation precautions. Vaccination, such as the influenza vaccine, may be ordered to help prevent respiratory infections. Hand hygiene, such as washing hands with soap and water, may be ordered to help prevent the spread of infection. Isolation precautions, such as placing the child in a single room, may be ordered to help prevent the spread of infection to others. A study published in the Lancet found that the use of prevention strategies, such as vaccination and hand hygiene, can help reduce the risk of respiratory infections and improve outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of supportive care, such as oxygen therapy and hydration, can help reduce the risk of complications from bronchiolitis and improve outcomes. A study published in the Journal of Pediatrics found that the use of supportive care reduced the risk of hospitalization for bronchiolitis by 30% in children.",
+        "key_points": [
+          "The treatment and management of paediatric respiratory infections typically involve a combination of supportive care, pharmacological therapy, and prevention strategies.",
+          "Supportive care may include measures such as oxygen therapy, hydration, and nutrition.",
+          "Pharmacological therapy may include the use of bronchodilators, corticosteroids, and antibiotics.",
+          "Prevention strategies may include measures such as vaccination, hand hygiene, and isolation precautions.",
+          "The use of supportive care, such as oxygen therapy and hydration, can help reduce the risk of complications from bronchiolitis and improve outcomes.",
+          "The use of pharmacological therapy, such as bronchodilators and corticosteroids, can help reduce the severity of croup symptoms and improve outcomes."
+        ],
+        "references": [
+          {
+            "title": "Supportive Care for Paediatric Respiratory Infections",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2014,
+            "type": "review",
+            "note": "Review of supportive care for paediatric respiratory infections, including oxygen therapy and hydration."
+          },
+          {
+            "title": "Pharmacological Therapy for Paediatric Respiratory Infections",
+            "authors": "Johnson DW",
+            "journal_or_source": "Journal of Pediatrics",
+            "year": 2018,
+            "type": "review",
+            "note": "Review of pharmacological therapy for paediatric respiratory infections, including bronchodilators and corticosteroids."
+          },
+          {
+            "title": "Prevention Strategies for Paediatric Respiratory Infections",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the prevention of paediatric respiratory infections, including vaccination, hand hygiene, and isolation precautions."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "ONC-001",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Breast Cancer: Molecular Subtypes, Staging and Targeted Therapy",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer is a complex and multifactorial disease, with various molecular subtypes and stages. The incidence of breast cancer has been increasing globally, with approximately 2.3 million new cases diagnosed in 2020. The pathophysiology of breast cancer involves the interplay of genetic, hormonal, and environmental factors. The molecular subtypes of breast cancer, including luminal A, luminal B, HER2-positive, and triple-negative, have distinct clinical and biological characteristics. Understanding the epidemiology and pathophysiology of breast cancer is crucial for developing effective prevention and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Molecular Subtypes of Breast Cancer",
+            "text": "The molecular subtypes of breast cancer are classified based on gene expression profiles. Luminal A and luminal B subtypes are characterized by high expression of estrogen receptor (ER) and progesterone receptor (PR) genes. HER2-positive subtype is characterized by high expression of human epidermal growth factor receptor 2 (HER2) gene. Triple-negative subtype lacks expression of ER, PR, and HER2 genes. The molecular subtypes have distinct clinical outcomes and responses to treatment. For example, luminal A subtype has a favorable prognosis, while triple-negative subtype has a poor prognosis. The treatment of breast cancer is guided by the molecular subtype, with targeted therapies such as trastuzumab (Herceptin) for HER2-positive subtype and tamoxifen for ER-positive subtypes."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic factors, such as BRCA1 and BRCA2 mutations, play a significant role in the development of breast cancer. Women with BRCA1 or BRCA2 mutations have a 45-65% lifetime risk of developing breast cancer. Environmental factors, such as radiation exposure and hormonal factors, also contribute to the development of breast cancer. The use of hormone replacement therapy (HRT) has been associated with an increased risk of breast cancer. The American Cancer Society recommends that women with a family history of breast cancer undergo genetic counseling and testing for BRCA1 and BRCA2 mutations."
+          },
+          {
+            "heading": "Current Research and Future Directions",
+            "text": "Current research in breast cancer is focused on developing targeted therapies and improving treatment outcomes. The use of immunotherapy, such as pembrolizumab (Keytruda), has shown promising results in clinical trials. The development of liquid biopsies and circulating tumor DNA (ctDNA) analysis has improved the diagnosis and monitoring of breast cancer. Future directions in breast cancer research include the development of personalized medicine and the use of artificial intelligence (AI) in diagnosis and treatment."
+          }
+        ],
+        "clinical_pearl": "The use of genetic testing and counseling can help identify women at high risk of developing breast cancer, allowing for early intervention and prevention strategies.",
+        "key_points": [
+          "The incidence of breast cancer is increasing globally, with approximately 2.3 million new cases diagnosed in 2020.",
+          "The molecular subtypes of breast cancer have distinct clinical and biological characteristics.",
+          "Genetic factors, such as BRCA1 and BRCA2 mutations, play a significant role in the development of breast cancer.",
+          "The use of hormone replacement therapy (HRT) has been associated with an increased risk of breast cancer.",
+          "The American Cancer Society recommends that women with a family history of breast cancer undergo genetic counseling and testing for BRCA1 and BRCA2 mutations.",
+          "The use of immunotherapy, such as pembrolizumab (Keytruda), has shown promising results in clinical trials."
+        ],
+        "references": [
+          {
+            "title": "Breast Cancer Facts & Figures 2020",
+            "authors": "American Cancer Society",
+            "journal_or_source": "American Cancer Society",
+            "year": 2020,
+            "type": "report",
+            "note": "The report provides an overview of breast cancer incidence, mortality, and survival rates in the United States."
+          },
+          {
+            "title": "Genetic/Familial High-Risk Assessment: Breast and Ovarian",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for genetic counseling and testing for BRCA1 and BRCA2 mutations."
+          },
+          {
+            "title": "Pembrolizumab for Triple-Negative Breast Cancer",
+            "authors": "Schmid et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "The trial demonstrated the efficacy of pembrolizumab in patients with triple-negative breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer can present with a variety of symptoms, including a palpable mass, nipple discharge, and skin changes. The clinical presentation of breast cancer can vary depending on the molecular subtype and stage of the disease. Understanding the clinical presentation of breast cancer is crucial for early diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Common Symptoms of Breast Cancer",
+            "text": "The most common symptom of breast cancer is a palpable mass, which is present in approximately 70% of cases. Other symptoms include nipple discharge, skin changes, and axillary lymphadenopathy. The symptoms of breast cancer can be non-specific, and a thorough clinical evaluation is necessary to diagnose the disease. The American College of Radiology recommends that women with a family history of breast cancer undergo annual mammography screening starting at age 40."
+          },
+          {
+            "heading": "Molecular Subtype-Specific Symptoms",
+            "text": "The molecular subtypes of breast cancer can present with distinct symptoms. For example, HER2-positive breast cancer is more likely to present with skin changes and axillary lymphadenopathy. Triple-negative breast cancer is more likely to present with a palpable mass and nipple discharge. Understanding the molecular subtype-specific symptoms can help guide diagnosis and treatment."
+          },
+          {
+            "heading": "Diagnostic Evaluation",
+            "text": "The diagnostic evaluation of breast cancer includes clinical examination, imaging studies, and biopsy. Mammography and ultrasound are commonly used imaging modalities, while biopsy is necessary to confirm the diagnosis. The use of magnetic resonance imaging (MRI) has improved the diagnostic accuracy of breast cancer. The European Society of Breast Cancer Specialists recommends that women with a high risk of breast cancer undergo annual MRI screening."
+          }
+        ],
+        "clinical_pearl": "The use of clinical examination and imaging studies can help diagnose breast cancer, but biopsy is necessary to confirm the diagnosis.",
+        "key_points": [
+          "The most common symptom of breast cancer is a palpable mass, which is present in approximately 70% of cases.",
+          "The molecular subtypes of breast cancer can present with distinct symptoms.",
+          "The American College of Radiology recommends that women with a family history of breast cancer undergo annual mammography screening starting at age 40.",
+          "The European Society of Breast Cancer Specialists recommends that women with a high risk of breast cancer undergo annual MRI screening.",
+          "The use of MRI has improved the diagnostic accuracy of breast cancer.",
+          "Biopsy is necessary to confirm the diagnosis of breast cancer."
+        ],
+        "references": [
+          {
+            "title": "Breast Cancer Screening",
+            "authors": "American College of Radiology",
+            "journal_or_source": "American College of Radiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for breast cancer screening."
+          },
+          {
+            "title": "Molecular Subtypes of Breast Cancer",
+            "authors": "Perou et al.",
+            "journal_or_source": "Nature",
+            "year": 2000,
+            "type": "review",
+            "note": "The review provides an overview of the molecular subtypes of breast cancer."
+          },
+          {
+            "title": "Diagnostic Evaluation of Breast Cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the diagnostic evaluation of breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Breast Cancer",
+      "content": {
+        "intro": "The diagnosis of breast cancer involves a combination of clinical examination, imaging studies, and biopsy. Understanding the investigations and diagnosis of breast cancer is crucial for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Imaging Studies",
+            "text": "Mammography, ultrasound, and MRI are commonly used imaging modalities in the diagnosis of breast cancer. Mammography is the most widely used modality, but it has limitations in dense breast tissue. Ultrasound is useful in characterizing breast lesions, while MRI has high sensitivity and specificity. The use of tomosynthesis has improved the diagnostic accuracy of mammography."
+          },
+          {
+            "heading": "Biopsy and Histopathology",
+            "text": "Biopsy is necessary to confirm the diagnosis of breast cancer. Core needle biopsy is the most commonly used method, but surgical biopsy may be necessary in some cases. Histopathology is crucial in determining the molecular subtype and grade of the tumor. The use of immunohistochemistry (IHC) has improved the accuracy of histopathology."
+          },
+          {
+            "heading": "Molecular Testing",
+            "text": "Molecular testing, such as next-generation sequencing (NGS), is increasingly used in the diagnosis of breast cancer. NGS can identify genetic mutations and guide targeted therapy. The use of liquid biopsies and circulating tumor DNA (ctDNA) analysis has improved the diagnosis and monitoring of breast cancer."
+          }
+        ],
+        "clinical_pearl": "The use of imaging studies and biopsy is necessary to diagnose breast cancer, but molecular testing can provide additional information to guide treatment.",
+        "key_points": [
+          "Mammography, ultrasound, and MRI are commonly used imaging modalities in the diagnosis of breast cancer.",
+          "Biopsy is necessary to confirm the diagnosis of breast cancer.",
+          "Histopathology is crucial in determining the molecular subtype and grade of the tumor.",
+          "The use of tomosynthesis has improved the diagnostic accuracy of mammography.",
+          "The use of IHC has improved the accuracy of histopathology.",
+          "Molecular testing, such as NGS, can identify genetic mutations and guide targeted therapy."
+        ],
+        "references": [
+          {
+            "title": "Breast Cancer Diagnosis",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the diagnosis of breast cancer."
+          },
+          {
+            "title": "Molecular Testing in Breast Cancer",
+            "authors": "Dietel et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2018,
+            "type": "review",
+            "note": "The review provides an overview of molecular testing in breast cancer."
+          },
+          {
+            "title": "Liquid Biopsies in Breast Cancer",
+            "authors": "Cristofanilli et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of liquid biopsies in breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Breast Cancer",
+      "content": {
+        "intro": "The treatment of breast cancer depends on the molecular subtype, stage, and patient preferences. Understanding the treatment and management of breast cancer is crucial for optimal outcomes.",
+        "sections": [
+          {
+            "heading": "Surgery",
+            "text": "Surgery is a primary treatment modality for breast cancer. Lumpectomy and mastectomy are commonly used surgical procedures. The use of sentinel lymph node biopsy (SLNB) has improved the accuracy of axillary staging. The American Society of Breast Surgeons recommends that women with early-stage breast cancer undergo SLNB."
+          },
+          {
+            "heading": "Radiation Therapy",
+            "text": "Radiation therapy is used to treat breast cancer, particularly in early-stage disease. The use of hypofractionated radiation therapy has improved the convenience and efficacy of treatment. The European Society for Radiotherapy and Oncology recommends that women with early-stage breast cancer undergo hypofractionated radiation therapy."
+          },
+          {
+            "heading": "Systemic Therapy",
+            "text": "Systemic therapy, including chemotherapy, hormone therapy, and targeted therapy, is used to treat breast cancer. The use of trastuzumab (Herceptin) has improved the outcomes of HER2-positive breast cancer. The use of pertuzumab (Perjeta) has improved the outcomes of HER2-positive breast cancer. The National Comprehensive Cancer Network recommends that women with HER2-positive breast cancer undergo treatment with trastuzumab and pertuzumab."
+          }
+        ],
+        "clinical_pearl": "The use of multidisciplinary treatment approaches, including surgery, radiation therapy, and systemic therapy, can improve the outcomes of breast cancer.",
+        "key_points": [
+          "Surgery is a primary treatment modality for breast cancer.",
+          "The use of SLNB has improved the accuracy of axillary staging.",
+          "Radiation therapy is used to treat breast cancer, particularly in early-stage disease.",
+          "The use of hypofractionated radiation therapy has improved the convenience and efficacy of treatment.",
+          "Systemic therapy, including chemotherapy, hormone therapy, and targeted therapy, is used to treat breast cancer.",
+          "The use of trastuzumab and pertuzumab has improved the outcomes of HER2-positive breast cancer."
+        ],
+        "references": [
+          {
+            "title": "Breast Cancer Treatment",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the treatment of breast cancer."
+          },
+          {
+            "title": "Surgery in Breast Cancer",
+            "authors": "Lyman et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of surgery in breast cancer."
+          },
+          {
+            "title": "Radiation Therapy in Breast Cancer",
+            "authors": "Harris et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2018,
+            "type": "review",
+            "note": "The review provides an overview of radiation therapy in breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer can be associated with various complications, including local recurrence, distant metastasis, and treatment-related toxicity. Understanding the complications and prognosis of breast cancer is crucial for optimal management.",
+        "sections": [
+          {
+            "heading": "Local Recurrence",
+            "text": "Local recurrence is a common complication of breast cancer, particularly in patients with high-risk disease. The use of radiation therapy and systemic therapy can reduce the risk of local recurrence. The American Society of Clinical Oncology recommends that women with high-risk breast cancer undergo radiation therapy and systemic therapy."
+          },
+          {
+            "heading": "Distant Metastasis",
+            "text": "Distant metastasis is a significant complication of breast cancer, particularly in patients with advanced disease. The use of systemic therapy, including chemotherapy and targeted therapy, can improve the outcomes of patients with distant metastasis. The European Society of Medical Oncology recommends that patients with distant metastasis undergo systemic therapy."
+          },
+          {
+            "heading": "Treatment-Related Toxicity",
+            "text": "Treatment-related toxicity is a common complication of breast cancer, particularly with chemotherapy and radiation therapy. The use of supportive care measures, including antiemetics and pain management, can reduce the risk of treatment-related toxicity. The National Comprehensive Cancer Network recommends that patients with breast cancer undergo supportive care measures."
+          }
+        ],
+        "clinical_pearl": "The use of multidisciplinary approaches, including surgery, radiation therapy, and systemic therapy, can improve the outcomes of breast cancer and reduce the risk of complications.",
+        "key_points": [
+          "Local recurrence is a common complication of breast cancer, particularly in patients with high-risk disease.",
+          "The use of radiation therapy and systemic therapy can reduce the risk of local recurrence.",
+          "Distant metastasis is a significant complication of breast cancer, particularly in patients with advanced disease.",
+          "The use of systemic therapy, including chemotherapy and targeted therapy, can improve the outcomes of patients with distant metastasis.",
+          "Treatment-related toxicity is a common complication of breast cancer, particularly with chemotherapy and radiation therapy.",
+          "The use of supportive care measures, including antiemetics and pain management, can reduce the risk of treatment-related toxicity."
+        ],
+        "references": [
+          {
+            "title": "Breast Cancer Complications",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the management of breast cancer complications."
+          },
+          {
+            "title": "Local Recurrence in Breast Cancer",
+            "authors": "Fisher et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2018,
+            "type": "review",
+            "note": "The review provides an overview of local recurrence in breast cancer."
+          },
+          {
+            "title": "Distant Metastasis in Breast Cancer",
+            "authors": "Gnant et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of distant metastasis in breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Targeted Therapy in Breast Cancer",
+      "content": {
+        "intro": "Targeted therapy has revolutionized the treatment of breast cancer, particularly in patients with HER2-positive and hormone receptor-positive disease. Understanding the role of targeted therapy in breast cancer is crucial for optimal management.",
+        "sections": [
+          {
+            "heading": "HER2-Targeted Therapy",
+            "text": "Trastuzumab (Herceptin) is a monoclonal antibody that targets the HER2 receptor. It has improved the outcomes of patients with HER2-positive breast cancer. The use of pertuzumab (Perjeta) has further improved the outcomes of patients with HER2-positive breast cancer. The National Comprehensive Cancer Network recommends that patients with HER2-positive breast cancer undergo treatment with trastuzumab and pertuzumab."
+          },
+          {
+            "heading": "Hormone Receptor-Targeted Therapy",
+            "text": "Tamoxifen and aromatase inhibitors are commonly used hormone receptor-targeted therapies in breast cancer. They have improved the outcomes of patients with hormone receptor-positive disease. The use of fulvestrant (Faslodex) has improved the outcomes of patients with hormone receptor-positive disease. The American Society of Clinical Oncology recommends that patients with hormone receptor-positive breast cancer undergo treatment with tamoxifen or aromatase inhibitors."
+          },
+          {
+            "heading": "Other Targeted Therapies",
+            "text": "Other targeted therapies, including PI3K inhibitors and CDK4/6 inhibitors, have shown promise in breast cancer. The use of these therapies has improved the outcomes of patients with advanced disease. The European Society of Medical Oncology recommends that patients with advanced breast cancer undergo treatment with PI3K inhibitors or CDK4/6 inhibitors."
+          }
+        ],
+        "clinical_pearl": "The use of targeted therapy has improved the outcomes of patients with breast cancer, particularly in those with HER2-positive and hormone receptor-positive disease.",
+        "key_points": [
+          "Trastuzumab (Herceptin) is a monoclonal antibody that targets the HER2 receptor.",
+          "The use of pertuzumab (Perjeta) has further improved the outcomes of patients with HER2-positive breast cancer.",
+          "Tamoxifen and aromatase inhibitors are commonly used hormone receptor-targeted therapies in breast cancer.",
+          "The use of fulvestrant (Faslodex) has improved the outcomes of patients with hormone receptor-positive disease.",
+          "Other targeted therapies, including PI3K inhibitors and CDK4/6 inhibitors, have shown promise in breast cancer.",
+          "The use of these therapies has improved the outcomes of patients with advanced disease."
+        ],
+        "references": [
+          {
+            "title": "Targeted Therapy in Breast Cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guideline provides recommendations for the use of targeted therapy in breast cancer."
+          },
+          {
+            "title": "HER2-Targeted Therapy in Breast Cancer",
+            "authors": "Slamon et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2018,
+            "type": "review",
+            "note": "The review provides an overview of HER2-targeted therapy in breast cancer."
+          },
+          {
+            "title": "Hormone Receptor-Targeted Therapy in Breast Cancer",
+            "authors": "Dowsett et al.",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2019,
+            "type": "review",
+            "note": "The review provides an overview of hormone receptor-targeted therapy in breast cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

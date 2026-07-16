@@ -82,6 +82,7 @@ class Module(Base):
     content = Column(JSONB)
     is_published = Column(Boolean, default=False)
     is_veterinary = Column(Boolean, default=False)
+    is_nursing = Column(Boolean, default=False)
     language = Column(String(10), nullable=False, server_default="en")
     # "specialty_module" | "disease_module" | "patient_guide"
     module_type = Column(String(30), nullable=False, server_default="specialty_module")
@@ -212,10 +213,33 @@ class MCQQuestion(Base):
     module_id = Column(UUID(as_uuid=True), ForeignKey("modules.id", ondelete="CASCADE"), nullable=False)
     question = Column(Text, nullable=False)
     options = Column(JSONB, nullable=False)
-    correct = Column(String(5), nullable=False)
+    # mcq: single correct letter e.g. "A"
+    # sata: unused (use correct_answers)
+    # ordered: unused (use correct_order)
+    # calculation: unused (use numeric_answer)
+    correct = Column(String(5), nullable=False, server_default="A")
     explanation = Column(Text)
     difficulty = Column(String(20), default="medium")
     tags = Column(ARRAY(String))
+    # "mcq" | "sata" | "ordered" | "calculation"
+    question_type = Column(String(20), nullable=False, server_default="mcq")
+    # SATA: list of correct option keys e.g. ["A", "C", "D"]
+    correct_answers = Column(JSONB, nullable=True)
+    # ordered: correct sequence of option keys e.g. ["B", "D", "A", "C"]
+    correct_order = Column(JSONB, nullable=True)
+    # calculation
+    numeric_answer = Column(Float, nullable=True)
+    numeric_tolerance = Column(Float, nullable=False, server_default="0.01")
+    numeric_unit = Column(String(50), nullable=True)
+    # SATA scoring: False = all-or-nothing (NCLEX default)
+    partial_scoring = Column(Boolean, nullable=False, server_default="false")
+    # NCLEX tagging
+    nclex_client_needs = Column(String(60), nullable=True)
+    cjmm_skill = Column(String(60), nullable=True)
+    # NGN: None = standard; "bowtie" | "matrix" | "trend" | "cloze"
+    ngn_type = Column(String(20), nullable=True)
+    bowtie_data = Column(JSONB, nullable=True)
+    matrix_data = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="mcq_questions")
@@ -248,6 +272,34 @@ class ClinicalCase(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="clinical_cases")
+
+
+class ExamSession(Base):
+    """Persistent board-exam / NCLEX practice session."""
+    __tablename__ = "exam_sessions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    mode_id = Column(String(50), nullable=False)
+    mode_name = Column(String(100), nullable=False)
+    status = Column(String(20), nullable=False, default="active")  # active|completed|expired
+    question_ids = Column(JSONB, nullable=False, default=list)
+    answers = Column(JSONB, nullable=False, default=dict)
+    total_questions = Column(Integer, nullable=False)
+    duration_min = Column(Integer, nullable=False)
+    starts_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    ends_at = Column(DateTime, nullable=False)
+    correct = Column(Integer, nullable=True)
+    wrong = Column(Integer, nullable=True)
+    score_pct = Column(Float, nullable=True)
+    passed = Column(Boolean, nullable=True)
+    time_taken_min = Column(Float, nullable=True)
+    per_question = Column(JSONB, nullable=True)
+    current_difficulty = Column(String(20), nullable=False, default="medium")
+    cat_enabled = Column(Boolean, nullable=False, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])
 
 
 class ClinicalCaseSession(Base):

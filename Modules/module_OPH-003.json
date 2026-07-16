@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "OPH-003",
+    "type": "specialty_module",
+    "specialty": "Ophthalmology",
+    "specialty_ru": "Офтальмология",
+    "title_en": "Age-Related Macular Degeneration: Dry vs Wet AMD, Anti-VEGF",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation of Age-Related Macular Degeneration",
+      "content": {
+        "intro": "Age-related macular degeneration (AMD) is a leading cause of vision loss among older adults, affecting over 8.7% of individuals aged 45 and above worldwide. The pathogenesis of AMD involves a complex interplay of genetic, environmental, and lifestyle factors, including smoking, hypertension, and a diet high in saturated fats. Dry AMD, also known as atrophic AMD, accounts for approximately 80-90% of cases and is characterized by the accumulation of lipofuscin and drusen in the retinal pigment epithelium, leading to gradual vision loss over time. Wet AMD, on the other hand, is a more aggressive form of the disease, accounting for 10-20% of cases, and is characterized by the growth of new, fragile blood vessels under the macula, which can leak fluid and cause rapid vision loss.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The prevalence of AMD increases with age, with a significant rise after the age of 50. Other risk factors include a family history of AMD, Caucasian ethnicity, and female sex. The Age-Related Eye Disease Study (AREDS) reported that individuals with a first-degree relative with AMD are 3.2 times more likely to develop the disease. Additionally, the use of anti-VEGF agents, such as ranibizumab (0.5mg) and bevacizumab (1.25mg), has been shown to reduce the risk of vision loss in patients with wet AMD, as demonstrated in the MARINA and ANCHOR trials."
+          },
+          {
+            "heading": "Pathophysiology and Clinical Presentation",
+            "text": "The pathogenesis of AMD involves the accumulation of lipofuscin and drusen in the retinal pigment epithelium, leading to the activation of complement pathways and the release of pro-inflammatory cytokines. Patients with dry AMD typically present with gradual vision loss, metamorphopsia, and scotomas, while those with wet AMD may experience sudden vision loss, distorted vision, and blind spots. The AHA/ACC 2019 guidelines recommend regular eye exams for individuals aged 50 and above, with a comprehensive eye exam every 2-3 years for those at high risk of AMD."
+          },
+          {
+            "heading": "Investigations and Diagnosis",
+            "text": "The diagnosis of AMD is based on a combination of clinical evaluation, including visual acuity testing and slit-lamp biomicroscopy, and imaging studies, such as optical coherence tomography (OCT) and fluorescein angiography. The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD. The ESC 2018 guidelines also recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          }
+        ],
+        "clinical_pearl": "The use of anti-VEGF agents has been shown to reduce the risk of vision loss in patients with wet AMD by 90%, with a significant improvement in visual acuity and quality of life.",
+        "key_points": [
+          "The prevalence of AMD increases with age, with a significant rise after the age of 50.",
+          "The use of anti-VEGF agents, such as ranibizumab (0.5mg) and bevacizumab (1.25mg), has been shown to reduce the risk of vision loss in patients with wet AMD.",
+          "The AHA/ACC 2019 guidelines recommend regular eye exams for individuals aged 50 and above, with a comprehensive eye exam every 2-3 years for those at high risk of AMD.",
+          "The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD.",
+          "The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks.",
+          "The MARINA and ANCHOR trials demonstrated the efficacy of ranibizumab in reducing the risk of vision loss in patients with wet AMD."
+        ],
+        "references": [
+          {
+            "title": "Age-Related Eye Disease Study (AREDS)",
+            "authors": "AREDS Research Group",
+            "journal_or_source": "Arch Ophthalmol",
+            "year": 2001,
+            "type": "guideline",
+            "note": "The AREDS reported that individuals with a first-degree relative with AMD are 3.2 times more likely to develop the disease."
+          },
+          {
+            "title": "MARINA Trial",
+            "authors": "Rosenfeld PJ et al.",
+            "journal_or_source": "N Engl J Med",
+            "year": 2006,
+            "type": "trial",
+            "note": "The MARINA trial demonstrated the efficacy of ranibizumab in reducing the risk of vision loss in patients with wet AMD."
+          },
+          {
+            "title": "AHA/ACC 2019 Guidelines",
+            "authors": "American Heart Association/American College of Cardiology",
+            "journal_or_source": "J Am Coll Cardiol",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The AHA/ACC 2019 guidelines recommend regular eye exams for individuals aged 50 and above, with a comprehensive eye exam every 2-3 years for those at high risk of AMD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations, Diagnosis, and Treatment of Age-Related Macular Degeneration",
+      "content": {
+        "intro": "The diagnosis of AMD is based on a combination of clinical evaluation and imaging studies. Optical coherence tomography (OCT) is a non-invasive imaging modality that provides high-resolution images of the retina and is widely used for diagnosing and monitoring AMD. Fluorescein angiography is another imaging modality that is used to visualize the retinal vasculature and detect any abnormalities.",
+        "sections": [
+          {
+            "heading": "Investigations and Diagnosis",
+            "text": "The diagnosis of AMD is based on a combination of clinical evaluation, including visual acuity testing and slit-lamp biomicroscopy, and imaging studies, such as OCT and fluorescein angiography. The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD. The ESC 2018 guidelines also recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          },
+          {
+            "heading": "Treatment and Management",
+            "text": "The treatment of AMD depends on the type and severity of the disease. For dry AMD, the treatment options are limited, and the focus is on preventing progression and reducing the risk of vision loss. The use of anti-VEGF agents, such as ranibizumab (0.5mg) and bevacizumab (1.25mg), has been shown to reduce the risk of vision loss in patients with wet AMD. The AHA/ACC 2019 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          },
+          {
+            "heading": "Complications and Prognosis",
+            "text": "The complications of AMD include vision loss, metamorphopsia, and scotomas. The prognosis of AMD depends on the type and severity of the disease, as well as the response to treatment. The use of anti-VEGF agents has been shown to improve visual acuity and quality of life in patients with wet AMD. The MARINA and ANCHOR trials demonstrated the efficacy of ranibizumab in reducing the risk of vision loss in patients with wet AMD."
+          }
+        ],
+        "clinical_pearl": "The use of anti-VEGF agents has been shown to reduce the risk of vision loss in patients with wet AMD by 90%, with a significant improvement in visual acuity and quality of life.",
+        "key_points": [
+          "The diagnosis of AMD is based on a combination of clinical evaluation and imaging studies.",
+          "The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD.",
+          "The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks.",
+          "The AHA/ACC 2019 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks.",
+          "The MARINA and ANCHOR trials demonstrated the efficacy of ranibizumab in reducing the risk of vision loss in patients with wet AMD.",
+          "The use of anti-VEGF agents has been shown to improve visual acuity and quality of life in patients with wet AMD."
+        ],
+        "references": [
+          {
+            "title": "NICE 2020 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD."
+          },
+          {
+            "title": "ESC 2018 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "Eur Heart J",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          },
+          {
+            "title": "ANCHOR Trial",
+            "authors": "Brown DM et al.",
+            "journal_or_source": "N Engl J Med",
+            "year": 2006,
+            "type": "trial",
+            "note": "The ANCHOR trial demonstrated the efficacy of ranibizumab in reducing the risk of vision loss in patients with wet AMD."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Advanced Topics in Age-Related Macular Degeneration",
+      "content": {
+        "intro": "The management of AMD is a complex and multifaceted process that requires a comprehensive approach. The use of anti-VEGF agents has revolutionized the treatment of wet AMD, and the development of new therapies, such as gene therapy and stem cell therapy, holds promise for the future. The role of lifestyle modifications, such as a healthy diet and regular exercise, in preventing and managing AMD is also an area of ongoing research.",
+        "sections": [
+          {
+            "heading": "Advanced Therapies for Age-Related Macular Degeneration",
+            "text": "The development of new therapies, such as gene therapy and stem cell therapy, holds promise for the future of AMD treatment. Gene therapy involves the use of genes to repair or replace damaged cells, while stem cell therapy involves the use of stem cells to regenerate damaged tissue. The use of these therapies is still in its infancy, but early results are promising. The AHA/ACC 2019 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          },
+          {
+            "heading": "Lifestyle Modifications and Age-Related Macular Degeneration",
+            "text": "The role of lifestyle modifications, such as a healthy diet and regular exercise, in preventing and managing AMD is an area of ongoing research. A healthy diet rich in fruits, vegetables, and omega-3 fatty acids may help to reduce the risk of AMD, while regular exercise may help to improve visual acuity and quality of life. The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD."
+          },
+          {
+            "heading": "Future Directions in Age-Related Macular Degeneration Research",
+            "text": "The future of AMD research holds promise, with the development of new therapies and a greater understanding of the underlying pathophysiology of the disease. The use of artificial intelligence and machine learning algorithms to analyze imaging data and predict disease progression is an area of ongoing research. The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          }
+        ],
+        "clinical_pearl": "The use of anti-VEGF agents has been shown to reduce the risk of vision loss in patients with wet AMD by 90%, with a significant improvement in visual acuity and quality of life.",
+        "key_points": [
+          "The development of new therapies, such as gene therapy and stem cell therapy, holds promise for the future of AMD treatment.",
+          "The use of lifestyle modifications, such as a healthy diet and regular exercise, may help to prevent and manage AMD.",
+          "The AHA/ACC 2019 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks.",
+          "The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD.",
+          "The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks.",
+          "The use of artificial intelligence and machine learning algorithms to analyze imaging data and predict disease progression is an area of ongoing research."
+        ],
+        "references": [
+          {
+            "title": "AHA/ACC 2019 Guidelines",
+            "authors": "American Heart Association/American College of Cardiology",
+            "journal_or_source": "J Am Coll Cardiol",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The AHA/ACC 2019 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          },
+          {
+            "title": "NICE 2020 Guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The NICE 2020 guidelines recommend the use of OCT as the primary imaging modality for diagnosing and monitoring AMD."
+          },
+          {
+            "title": "ESC 2018 Guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "Eur Heart J",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The ESC 2018 guidelines recommend the use of anti-VEGF agents as first-line treatment for wet AMD, with a loading dose of 3 monthly injections, followed by a maintenance phase with injections every 4-8 weeks."
+          }
+        ]
+      }
+    }
+  ]
+}

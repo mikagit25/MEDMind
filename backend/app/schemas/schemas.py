@@ -221,21 +221,27 @@ class MCQQuestionOut(BaseModel):
     question: str
     options: Dict[str, str]
     difficulty: str
+    question_type: str = "mcq"
+    numeric_unit: Optional[str] = None
 
     model_config = {"from_attributes": True}
 
 
 class MCQAnswerRequest(BaseModel):
     question_id: UUID
-    selected_option: str  # "A", "B", "C", "D", "E"
+    selected_option: str = ""          # "A"/"B"/... for mcq
+    selected_options: List[str] = []   # ["A","C"] for sata
+    ordered_options: List[str] = []    # ["B","D","A"] for ordered
+    numeric_value: Optional[float] = None  # for calculation
 
 
 class MCQAnswerResponse(BaseModel):
     correct: bool
-    correct_answer: str
+    correct_answer: str              # letter for mcq; JSON-encoded for others
     explanation: str
     xp_earned: int
     newly_unlocked: List[str] = []
+    partial_score: Optional[float] = None  # 0.0–1.0 for partial SATA
 
 
 # ============================================================

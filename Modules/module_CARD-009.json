@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "CARD-009",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Cardiovascular Prevention: Risk Scores (SCORE2), Lifestyle and Secondary Prevention",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cardiovascular Disease",
+      "content": {
+        "intro": "Cardiovascular disease (CVD) is a leading cause of morbidity and mortality worldwide. The pathophysiology of CVD involves a complex interplay of genetic, environmental, and lifestyle factors. The SCORE2 risk score is a widely used tool for assessing the risk of CVD. It takes into account factors such as age, sex, systolic blood pressure, total cholesterol, and smoking status. According to the 2019 ESC guidelines, the SCORE2 risk score should be used to guide primary prevention strategies. Lifestyle modifications, such as a healthy diet and regular physical activity, are essential for reducing the risk of CVD. The 2017 AHA guidelines recommend at least 150 minutes of moderate-intensity aerobic physical activity per week.",
+        "sections": [
+          {
+            "heading": "Risk Factors for CVD",
+            "text": "The risk factors for CVD can be broadly categorized into modifiable and non-modifiable factors. Modifiable risk factors include hypertension, hyperlipidemia, diabetes mellitus, and smoking. Non-modifiable risk factors include age, sex, and family history. The 2018 NICE guidelines recommend that all adults aged 40-74 years should be offered a CVD risk assessment. The risk assessment should include a calculation of the 10-year CVD risk using a validated risk score, such as the SCORE2 risk score. The 2019 ESC guidelines recommend that individuals with a high CVD risk should be offered intensive lifestyle modification and, if necessary, pharmacological therapy."
+          },
+          {
+            "heading": "Lifestyle Modifications for CVD Prevention",
+            "text": "Lifestyle modifications are essential for reducing the risk of CVD. A healthy diet, such as the Mediterranean diet, can help to lower blood pressure and cholesterol levels. Regular physical activity, such as brisk walking, can help to improve cardiovascular health. The 2017 AHA guidelines recommend that adults should aim to do at least 150 minutes of moderate-intensity aerobic physical activity per week. Smoking cessation is also crucial for reducing the risk of CVD. The 2019 ESC guidelines recommend that all smokers should be offered smoking cessation therapy, including nicotine replacement therapy and counseling."
+          },
+          {
+            "heading": "Pharmacological Therapy for CVD Prevention",
+            "text": "Pharmacological therapy is often necessary for individuals with a high CVD risk. Statins, such as atorvastatin 20-80 mg/day, are widely used to lower cholesterol levels. Beta-blockers, such as metoprolol 50-200 mg/day, are used to lower blood pressure and reduce the risk of cardiovascular events. The 2019 ESC guidelines recommend that individuals with a high CVD risk should be offered aspirin 75-100 mg/day, unless contraindicated. The 2018 NICE guidelines recommend that individuals with a high CVD risk should be offered a combination of lifestyle modification and pharmacological therapy."
+          }
+        ],
+        "clinical_pearl": "The SCORE2 risk score is a useful tool for assessing the risk of CVD. However, it should be used in conjunction with clinical judgment and other risk factors, such as family history and social determinants of health.",
+        "key_points": [
+          "The SCORE2 risk score is a widely used tool for assessing the risk of CVD.",
+          "Lifestyle modifications, such as a healthy diet and regular physical activity, are essential for reducing the risk of CVD.",
+          "The 2019 ESC guidelines recommend that individuals with a high CVD risk should be offered intensive lifestyle modification and, if necessary, pharmacological therapy.",
+          "Statins, such as atorvastatin 20-80 mg/day, are widely used to lower cholesterol levels.",
+          "Beta-blockers, such as metoprolol 50-200 mg/day, are used to lower blood pressure and reduce the risk of cardiovascular events.",
+          "The 2019 ESC guidelines recommend that individuals with a high CVD risk should be offered aspirin 75-100 mg/day, unless contraindicated."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on cardiovascular disease prevention in clinical practice",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD prevention, including risk assessment and management."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American Heart Association",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of hypertension management, including lifestyle modifications and pharmacological therapy."
+          },
+          {
+            "title": "Cardiovascular disease: risk assessment and reduction, including lipid modification",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD risk assessment and management, including lifestyle modifications and pharmacological therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cardiovascular Disease",
+      "content": {
+        "intro": "Cardiovascular disease (CVD) can present in various ways, depending on the underlying pathology. The most common presentations of CVD include chest pain, shortness of breath, and fatigue. According to the 2019 ESC guidelines, a thorough medical history and physical examination are essential for diagnosing CVD. The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo a 12-lead electrocardiogram (ECG) and a chest X-ray.",
+        "sections": [
+          {
+            "heading": "Symptoms of CVD",
+            "text": "The symptoms of CVD can vary depending on the underlying pathology. Chest pain, also known as angina, is a common symptom of CVD. It is usually described as a squeezing or pressure sensation in the chest, and it can radiate to the arms, neck, or jaw. Shortness of breath, also known as dyspnea, is another common symptom of CVD. It can occur at rest or with exertion, and it can be accompanied by other symptoms such as fatigue and wheezing. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a thorough medical history and physical examination."
+          },
+          {
+            "heading": "Signs of CVD",
+            "text": "The signs of CVD can also vary depending on the underlying pathology. A thorough physical examination can help to identify signs of CVD, such as a systolic murmur or a diastolic murmur. The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo a 12-lead ECG and a chest X-ray. The ECG can help to identify signs of ischemia or infarction, while the chest X-ray can help to identify signs of heart failure or pulmonary edema."
+          },
+          {
+            "heading": "Diagnosis of CVD",
+            "text": "The diagnosis of CVD is based on a combination of medical history, physical examination, and diagnostic tests. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a thorough medical history and physical examination. The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo a 12-lead ECG and a chest X-ray. Other diagnostic tests, such as echocardiography or cardiac catheterization, may also be necessary to confirm the diagnosis of CVD."
+          }
+        ],
+        "clinical_pearl": "A thorough medical history and physical examination are essential for diagnosing CVD. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a thorough medical history and physical examination.",
+        "key_points": [
+          "The symptoms of CVD can vary depending on the underlying pathology.",
+          "A thorough medical history and physical examination are essential for diagnosing CVD.",
+          "The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo a 12-lead ECG and a chest X-ray.",
+          "The ECG can help to identify signs of ischemia or infarction.",
+          "The chest X-ray can help to identify signs of heart failure or pulmonary edema.",
+          "Other diagnostic tests, such as echocardiography or cardiac catheterization, may also be necessary to confirm the diagnosis of CVD."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on cardiovascular disease prevention in clinical practice",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD prevention, including risk assessment and management."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American Heart Association",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of hypertension management, including lifestyle modifications and pharmacological therapy."
+          },
+          {
+            "title": "Cardiovascular disease: assessment and management of risk",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD risk assessment and management, including lifestyle modifications and pharmacological therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cardiovascular Disease",
+      "content": {
+        "intro": "The diagnosis of cardiovascular disease (CVD) involves a combination of medical history, physical examination, and diagnostic tests. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a thorough medical history and physical examination. The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo a 12-lead electrocardiogram (ECG) and a chest X-ray.",
+        "sections": [
+          {
+            "heading": "Electrocardiogram (ECG)",
+            "text": "The ECG is a non-invasive test that measures the electrical activity of the heart. It can help to identify signs of ischemia or infarction, such as ST-segment elevation or Q-waves. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a 12-lead ECG. The ECG can also help to identify signs of arrhythmias, such as atrial fibrillation or ventricular tachycardia."
+          },
+          {
+            "heading": "Echocardiography",
+            "text": "Echocardiography is a non-invasive test that uses ultrasound waves to produce images of the heart. It can help to identify signs of heart failure, such as left ventricular dysfunction or valvular disease. The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo echocardiography. Echocardiography can also help to identify signs of cardiac tamponade or constrictive pericarditis."
+          },
+          {
+            "heading": "Cardiac Catheterization",
+            "text": "Cardiac catheterization is an invasive test that involves inserting a catheter into the heart to measure blood pressure and flow. It can help to identify signs of coronary artery disease, such as stenosis or occlusion. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo cardiac catheterization if they have a high risk of coronary artery disease. Cardiac catheterization can also help to identify signs of cardiac dysfunction, such as left ventricular dysfunction or valvular disease."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of CVD involves a combination of medical history, physical examination, and diagnostic tests. The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a thorough medical history and physical examination.",
+        "key_points": [
+          "The ECG is a non-invasive test that measures the electrical activity of the heart.",
+          "Echocardiography is a non-invasive test that uses ultrasound waves to produce images of the heart.",
+          "Cardiac catheterization is an invasive test that involves inserting a catheter into the heart to measure blood pressure and flow.",
+          "The 2019 ESC guidelines recommend that all patients with suspected CVD should undergo a 12-lead ECG.",
+          "The 2017 AHA guidelines recommend that all patients with suspected CVD should undergo echocardiography.",
+          "Cardiac catheterization can help to identify signs of coronary artery disease, such as stenosis or occlusion."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on cardiovascular disease prevention in clinical practice",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD prevention, including risk assessment and management."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American Heart Association",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of hypertension management, including lifestyle modifications and pharmacological therapy."
+          },
+          {
+            "title": "Cardiovascular disease: assessment and management of risk",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD risk assessment and management, including lifestyle modifications and pharmacological therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cardiovascular Disease",
+      "content": {
+        "intro": "The treatment and management of cardiovascular disease (CVD) involve a combination of lifestyle modifications, pharmacological therapy, and invasive procedures. The 2019 ESC guidelines recommend that all patients with CVD should undergo a thorough medical history and physical examination to guide treatment and management. The 2017 AHA guidelines recommend that all patients with CVD should undergo a 12-lead electrocardiogram (ECG) and a chest X-ray to guide treatment and management.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications are essential for managing CVD. The 2019 ESC guidelines recommend that all patients with CVD should undergo lifestyle modifications, such as a healthy diet, regular physical activity, and smoking cessation. The 2017 AHA guidelines recommend that all patients with CVD should undergo lifestyle modifications, such as weight loss and stress reduction. Lifestyle modifications can help to reduce the risk of cardiovascular events, such as myocardial infarction or stroke."
+          },
+          {
+            "heading": "Pharmacological Therapy",
+            "text": "Pharmacological therapy is often necessary for managing CVD. The 2019 ESC guidelines recommend that all patients with CVD should undergo pharmacological therapy, such as statins, beta-blockers, and angiotensin-converting enzyme (ACE) inhibitors. The 2017 AHA guidelines recommend that all patients with CVD should undergo pharmacological therapy, such as antiplatelet agents and anticoagulants. Pharmacological therapy can help to reduce the risk of cardiovascular events, such as myocardial infarction or stroke."
+          },
+          {
+            "heading": "Invasive Procedures",
+            "text": "Invasive procedures, such as percutaneous coronary intervention (PCI) or coronary artery bypass grafting (CABG), may be necessary for managing CVD. The 2019 ESC guidelines recommend that all patients with CVD should undergo invasive procedures if they have a high risk of cardiovascular events. The 2017 AHA guidelines recommend that all patients with CVD should undergo invasive procedures if they have a high risk of cardiovascular events. Invasive procedures can help to reduce the risk of cardiovascular events, such as myocardial infarction or stroke."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of CVD involve a combination of lifestyle modifications, pharmacological therapy, and invasive procedures. The 2019 ESC guidelines recommend that all patients with CVD should undergo a thorough medical history and physical examination to guide treatment and management.",
+        "key_points": [
+          "Lifestyle modifications are essential for managing CVD.",
+          "Pharmacological therapy is often necessary for managing CVD.",
+          "Invasive procedures, such as PCI or CABG, may be necessary for managing CVD.",
+          "The 2019 ESC guidelines recommend that all patients with CVD should undergo lifestyle modifications, such as a healthy diet and regular physical activity.",
+          "The 2017 AHA guidelines recommend that all patients with CVD should undergo pharmacological therapy, such as statins and beta-blockers.",
+          "Invasive procedures can help to reduce the risk of cardiovascular events, such as myocardial infarction or stroke."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on cardiovascular disease prevention in clinical practice",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD prevention, including risk assessment and management."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "American Heart Association",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of hypertension management, including lifestyle modifications and pharmacological therapy."
+          },
+          {
+            "title": "Cardiovascular disease: assessment and management of risk",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of CVD risk assessment and management, including lifestyle modifications and pharmacological therapy."
+          }
+        ]
+      }
+    }
+  ]
+}

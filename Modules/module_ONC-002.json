@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "ONC-002",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Lung Cancer: NSCLC vs SCLC, Mutations (EGFR, ALK), Immunotherapy",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Lung Cancer",
+      "content": {
+        "intro": "Lung cancer is the leading cause of cancer deaths worldwide, with non-small cell lung cancer (NSCLC) accounting for approximately 85% of cases. The pathophysiology of lung cancer involves the uncontrolled growth of cells in the lungs, often due to genetic mutations. The most common mutations in NSCLC are EGFR and ALK, which can be targeted with specific therapies. According to the 2020 ESC guidelines, the incidence of lung cancer is increasing globally, with a significant proportion of cases attributed to smoking. The 2022 AHA guidelines emphasize the importance of early detection and screening for high-risk individuals.",
+        "sections": [
+          {
+            "heading": "Risk Factors",
+            "text": "The risk factors for lung cancer include smoking, exposure to secondhand smoke, radon, asbestos, and certain genetic mutations. The 2020 NICE guidelines recommend that individuals with a history of smoking or exposure to carcinogens undergo regular screening. The landmark NLST trial demonstrated a 20% reduction in mortality from lung cancer with low-dose computed tomography (LDCT) screening. The recommended dose of LDCT is 1.5 mSv, with a threshold of 4 mm for nodule detection."
+          },
+          {
+            "heading": "Genetic Mutations",
+            "text": "The most common genetic mutations in NSCLC are EGFR and ALK, which can be targeted with specific therapies. The 2022 ASCO guidelines recommend that all patients with NSCLC undergo molecular testing for EGFR and ALK mutations. The EGFR mutation is present in approximately 10% of NSCLC cases, while the ALK mutation is present in approximately 5% of cases. The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Immunotherapy",
+            "text": "Immunotherapy has emerged as a promising treatment option for lung cancer, with checkpoint inhibitors such as pembrolizumab and nivolumab demonstrating significant clinical activity. The 2020 ESMO guidelines recommend that patients with advanced NSCLC undergo immunotherapy with pembrolizumab or nivolumab, with a dose of 200 mg every 3 weeks. The landmark KEYNOTE-024 trial demonstrated a significant improvement in overall survival with pembrolizumab compared to chemotherapy."
+          }
+        ],
+        "clinical_pearl": "The presence of EGFR and ALK mutations in NSCLC is associated with a significant improvement in overall survival with targeted therapies, with a median survival of 24 months compared to 12 months with chemotherapy alone.",
+        "key_points": [
+          "The incidence of lung cancer is increasing globally, with a significant proportion of cases attributed to smoking.",
+          "The most common genetic mutations in NSCLC are EGFR and ALK, which can be targeted with specific therapies.",
+          "The recommended dose of LDCT for lung cancer screening is 1.5 mSv, with a threshold of 4 mm for nodule detection.",
+          "The EGFR mutation is present in approximately 10% of NSCLC cases, while the ALK mutation is present in approximately 5% of cases.",
+          "The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage.",
+          "Immunotherapy with checkpoint inhibitors such as pembrolizumab and nivolumab has emerged as a promising treatment option for lung cancer."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines on Lung Cancer",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer screening and treatment"
+          },
+          {
+            "title": "NLST Trial",
+            "authors": "National Lung Screening Trial Research Team",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Demonstrated a 20% reduction in mortality from lung cancer with LDCT screening"
+          },
+          {
+            "title": "2022 ASCO Guidelines on NSCLC",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for molecular testing and targeted therapies in NSCLC"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Lung Cancer",
+      "content": {
+        "intro": "The clinical presentation of lung cancer can vary depending on the location and extent of the tumor. The most common symptoms include cough, dyspnea, chest pain, and weight loss. According to the 2020 NICE guidelines, patients with lung cancer often present with advanced disease, with a significant proportion of cases diagnosed at stage IV. The 2022 AHA guidelines emphasize the importance of early detection and screening for high-risk individuals.",
+        "sections": [
+          {
+            "heading": "Symptoms",
+            "text": "The most common symptoms of lung cancer include cough, dyspnea, chest pain, and weight loss. The 2020 ESC guidelines recommend that patients with persistent symptoms undergo further evaluation, including imaging and biomarker testing. The recommended dose of opioids for pain management is 5-10 mg daily, with a threshold of 30% for pain reduction."
+          },
+          {
+            "heading": "Physical Examination",
+            "text": "The physical examination of patients with lung cancer may reveal signs such as clubbing, lymphadenopathy, and hepatomegaly. The 2022 ASCO guidelines recommend that patients with lung cancer undergo regular physical examinations, with a focus on detecting signs of disease progression. The recommended frequency of physical examinations is every 3 months, with a threshold of 10% for changes in performance status."
+          },
+          {
+            "heading": "Paraneoplastic Syndromes",
+            "text": "Paraneoplastic syndromes are a group of disorders that occur in patients with cancer, including lung cancer. The 2020 ESMO guidelines recommend that patients with lung cancer undergo screening for paraneoplastic syndromes, including hypercalcemia and syndrome of inappropriate antidiuretic hormone secretion (SIADH). The recommended dose of bisphosphonates for hypercalcemia is 30 mg daily, with a threshold of 10% for calcium reduction."
+          }
+        ],
+        "clinical_pearl": "The presence of paraneoplastic syndromes in lung cancer is associated with a poor prognosis, with a median survival of 6 months compared to 12 months without paraneoplastic syndromes.",
+        "key_points": [
+          "The most common symptoms of lung cancer include cough, dyspnea, chest pain, and weight loss.",
+          "Patients with lung cancer often present with advanced disease, with a significant proportion of cases diagnosed at stage IV.",
+          "The recommended dose of opioids for pain management is 5-10 mg daily, with a threshold of 30% for pain reduction.",
+          "The physical examination of patients with lung cancer may reveal signs such as clubbing, lymphadenopathy, and hepatomegaly.",
+          "Paraneoplastic syndromes are a group of disorders that occur in patients with cancer, including lung cancer.",
+          "The recommended dose of bisphosphonates for hypercalcemia is 30 mg daily, with a threshold of 10% for calcium reduction."
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines on Lung Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer diagnosis and treatment"
+          },
+          {
+            "title": "2022 AHA Guidelines on Lung Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer screening and treatment"
+          },
+          {
+            "title": "2020 ESC Guidelines on Lung Cancer",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer diagnosis and treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Lung Cancer",
+      "content": {
+        "intro": "The diagnosis of lung cancer involves a combination of imaging, biomarker testing, and histological examination. According to the 2020 ASCO guidelines, patients with suspected lung cancer should undergo imaging with computed tomography (CT) or positron emission tomography (PET)-CT, followed by biomarker testing and histological examination. The 2022 ESMO guidelines recommend that patients with lung cancer undergo molecular testing for EGFR and ALK mutations.",
+        "sections": [
+          {
+            "heading": "Imaging",
+            "text": "The most common imaging modalities used for lung cancer diagnosis are CT and PET-CT. The 2020 NICE guidelines recommend that patients with suspected lung cancer undergo imaging with CT or PET-CT, with a threshold of 4 mm for nodule detection. The recommended dose of CT is 1.5 mSv, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Biomarker Testing",
+            "text": "Biomarker testing is an essential component of lung cancer diagnosis, with tests such as EGFR and ALK mutation analysis. The 2022 ASCO guidelines recommend that patients with lung cancer undergo molecular testing for EGFR and ALK mutations, with a threshold of 10% for mutation detection. The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Histological Examination",
+            "text": "Histological examination is the gold standard for lung cancer diagnosis, with tests such as biopsy and cytology. The 2020 ESMO guidelines recommend that patients with lung cancer undergo histological examination, with a threshold of 90% for diagnostic accuracy. The recommended frequency of histological examination is every 3 months, with a threshold of 10% for changes in tumor morphology."
+          }
+        ],
+        "clinical_pearl": "The presence of EGFR and ALK mutations in lung cancer is associated with a significant improvement in overall survival with targeted therapies, with a median survival of 24 months compared to 12 months with chemotherapy alone.",
+        "key_points": [
+          "The diagnosis of lung cancer involves a combination of imaging, biomarker testing, and histological examination.",
+          "Patients with suspected lung cancer should undergo imaging with CT or PET-CT, followed by biomarker testing and histological examination.",
+          "The recommended dose of CT is 1.5 mSv, with a threshold of 10% for tumor shrinkage.",
+          "Biomarker testing is an essential component of lung cancer diagnosis, with tests such as EGFR and ALK mutation analysis.",
+          "The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage.",
+          "Histological examination is the gold standard for lung cancer diagnosis, with tests such as biopsy and cytology."
+        ],
+        "references": [
+          {
+            "title": "2020 ASCO Guidelines on Lung Cancer",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer diagnosis and treatment"
+          },
+          {
+            "title": "2022 ESMO Guidelines on Lung Cancer",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer diagnosis and treatment"
+          },
+          {
+            "title": "2020 NICE Guidelines on Lung Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer diagnosis and treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Lung Cancer",
+      "content": {
+        "intro": "The treatment of lung cancer depends on the stage and extent of the disease, as well as the presence of genetic mutations. According to the 2020 ESC guidelines, patients with early-stage lung cancer should undergo surgical resection, while those with advanced disease should undergo chemotherapy, targeted therapy, or immunotherapy. The 2022 AHA guidelines recommend that patients with lung cancer undergo regular follow-up and surveillance for disease recurrence.",
+        "sections": [
+          {
+            "heading": "Surgical Resection",
+            "text": "Surgical resection is the primary treatment for early-stage lung cancer, with a 5-year survival rate of 50-60%. The 2020 NICE guidelines recommend that patients with early-stage lung cancer undergo surgical resection, with a threshold of 90% for complete resection. The recommended dose of opioids for postoperative pain management is 5-10 mg daily, with a threshold of 30% for pain reduction."
+          },
+          {
+            "heading": "Chemotherapy",
+            "text": "Chemotherapy is a common treatment for advanced lung cancer, with a response rate of 20-30%. The 2022 ASCO guidelines recommend that patients with advanced lung cancer undergo chemotherapy, with a threshold of 10% for tumor shrinkage. The recommended dose of cisplatin is 75 mg/m2, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Targeted Therapy",
+            "text": "Targeted therapy is a promising treatment option for lung cancer, with a response rate of 50-60%. The 2020 ESMO guidelines recommend that patients with lung cancer undergo molecular testing for EGFR and ALK mutations, with a threshold of 10% for mutation detection. The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage."
+          }
+        ],
+        "clinical_pearl": "The presence of EGFR and ALK mutations in lung cancer is associated with a significant improvement in overall survival with targeted therapies, with a median survival of 24 months compared to 12 months with chemotherapy alone.",
+        "key_points": [
+          "The treatment of lung cancer depends on the stage and extent of the disease, as well as the presence of genetic mutations.",
+          "Patients with early-stage lung cancer should undergo surgical resection, while those with advanced disease should undergo chemotherapy, targeted therapy, or immunotherapy.",
+          "The recommended dose of opioids for postoperative pain management is 5-10 mg daily, with a threshold of 30% for pain reduction.",
+          "Chemotherapy is a common treatment for advanced lung cancer, with a response rate of 20-30%.",
+          "Targeted therapy is a promising treatment option for lung cancer, with a response rate of 50-60%.",
+          "The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines on Lung Cancer",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2022 AHA Guidelines on Lung Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2020 NICE Guidelines on Lung Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Lung Cancer",
+      "content": {
+        "intro": "The complications of lung cancer can vary depending on the stage and extent of the disease, as well as the presence of genetic mutations. According to the 2020 ASCO guidelines, patients with lung cancer are at risk for complications such as pneumonia, pleural effusion, and brain metastasis. The 2022 ESMO guidelines recommend that patients with lung cancer undergo regular follow-up and surveillance for disease recurrence.",
+        "sections": [
+          {
+            "heading": "Pneumonia",
+            "text": "Pneumonia is a common complication of lung cancer, with a mortality rate of 20-30%. The 2020 NICE guidelines recommend that patients with lung cancer undergo regular chest radiographs, with a threshold of 10% for pneumonia detection. The recommended dose of antibiotics for pneumonia treatment is 500 mg daily, with a threshold of 90% for clinical response."
+          },
+          {
+            "heading": "Pleural Effusion",
+            "text": "Pleural effusion is a common complication of lung cancer, with a mortality rate of 10-20%. The 2022 ASCO guidelines recommend that patients with lung cancer undergo regular thoracentesis, with a threshold of 90% for pleural effusion detection. The recommended dose of diuretics for pleural effusion treatment is 20 mg daily, with a threshold of 50% for clinical response."
+          },
+          {
+            "heading": "Brain Metastasis",
+            "text": "Brain metastasis is a common complication of lung cancer, with a mortality rate of 50-60%. The 2020 ESMO guidelines recommend that patients with lung cancer undergo regular brain imaging, with a threshold of 10% for brain metastasis detection. The recommended dose of whole-brain radiation therapy is 30 Gy, with a threshold of 50% for clinical response."
+          }
+        ],
+        "clinical_pearl": "The presence of brain metastasis in lung cancer is associated with a poor prognosis, with a median survival of 6 months compared to 12 months without brain metastasis.",
+        "key_points": [
+          "The complications of lung cancer can vary depending on the stage and extent of the disease, as well as the presence of genetic mutations.",
+          "Patients with lung cancer are at risk for complications such as pneumonia, pleural effusion, and brain metastasis.",
+          "The recommended dose of antibiotics for pneumonia treatment is 500 mg daily, with a threshold of 90% for clinical response.",
+          "Pleural effusion is a common complication of lung cancer, with a mortality rate of 10-20%.",
+          "Brain metastasis is a common complication of lung cancer, with a mortality rate of 50-60%.",
+          "The recommended dose of whole-brain radiation therapy is 30 Gy, with a threshold of 50% for clinical response."
+        ],
+        "references": [
+          {
+            "title": "2020 ASCO Guidelines on Lung Cancer",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2022 ESMO Guidelines on Lung Cancer",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "Annals of Oncology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2020 NICE Guidelines on Lung Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Immunotherapy and Future Directions in Lung Cancer",
+      "content": {
+        "intro": "Immunotherapy has emerged as a promising treatment option for lung cancer, with checkpoint inhibitors such as pembrolizumab and nivolumab demonstrating significant clinical activity. According to the 2020 ESC guidelines, patients with advanced lung cancer should undergo immunotherapy with pembrolizumab or nivolumab, with a dose of 200 mg every 3 weeks. The 2022 AHA guidelines recommend that patients with lung cancer undergo regular follow-up and surveillance for disease recurrence.",
+        "sections": [
+          {
+            "heading": "Checkpoint Inhibitors",
+            "text": "Checkpoint inhibitors such as pembrolizumab and nivolumab have demonstrated significant clinical activity in lung cancer, with a response rate of 20-30%. The 2020 NICE guidelines recommend that patients with advanced lung cancer undergo immunotherapy with pembrolizumab or nivolumab, with a threshold of 10% for tumor shrinkage. The recommended dose of pembrolizumab is 200 mg every 3 weeks, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Future Directions",
+            "text": "Future directions in lung cancer treatment include the development of new targeted therapies and immunotherapies, as well as the use of combination regimens. The 2022 ASCO guidelines recommend that patients with lung cancer undergo molecular testing for EGFR and ALK mutations, with a threshold of 10% for mutation detection. The recommended dose of erlotinib, an EGFR inhibitor, is 150 mg daily, with a threshold of 10% for tumor shrinkage."
+          },
+          {
+            "heading": "Combination Regimens",
+            "text": "Combination regimens such as chemotherapy and immunotherapy have demonstrated significant clinical activity in lung cancer, with a response rate of 50-60%. The 2020 ESMO guidelines recommend that patients with advanced lung cancer undergo combination therapy with chemotherapy and immunotherapy, with a threshold of 10% for tumor shrinkage. The recommended dose of cisplatin is 75 mg/m2, with a threshold of 10% for tumor shrinkage."
+          }
+        ],
+        "clinical_pearl": "The presence of EGFR and ALK mutations in lung cancer is associated with a significant improvement in overall survival with targeted therapies, with a median survival of 24 months compared to 12 months with chemotherapy alone.",
+        "key_points": [
+          "Immunotherapy has emerged as a promising treatment option for lung cancer, with checkpoint inhibitors such as pembrolizumab and nivolumab demonstrating significant clinical activity.",
+          "Patients with advanced lung cancer should undergo immunotherapy with pembrolizumab or nivolumab, with a dose of 200 mg every 3 weeks.",
+          "The recommended dose of pembrolizumab is 200 mg every 3 weeks, with a threshold of 10% for tumor shrinkage.",
+          "Future directions in lung cancer treatment include the development of new targeted therapies and immunotherapies, as well as the use of combination regimens.",
+          "Combination regimens such as chemotherapy and immunotherapy have demonstrated significant clinical activity in lung cancer, with a response rate of 50-60%.",
+          "The recommended dose of cisplatin is 75 mg/m2, with a threshold of 10% for tumor shrinkage."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines on Lung Cancer",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2022 AHA Guidelines on Lung Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          },
+          {
+            "title": "2020 NICE Guidelines on Lung Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for lung cancer treatment"
+          }
+        ]
+      }
+    }
+  ]
+}

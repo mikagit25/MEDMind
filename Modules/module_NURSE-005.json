@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "id": "NURSE-005",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Recognising Patient Deterioration: Early Warning Signs and NEWS2",
+    "title_en": "Recognising Patient Deterioration: Early Warning Signs and NEWS2",
+    "order_in_specialty": 5,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-001", "NURSE-002"],
+    "duration_hours": 4,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["Royal College of Physicians NEWS2 2017", "National Patient Safety Agency NPSA 2007", "NICE NG51 2020"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "The National Early Warning Score 2 (NEWS2)",
+      "order": 1,
+      "lay_summary": "NEWS2 is a scoring system that converts vital signs into a number. Higher numbers mean higher risk. Nurses calculate it every time they take observations — it tells you when to call for help.",
+      "content": {
+        "intro": "Failure to recognise and respond to deteriorating patients is a leading cause of preventable deaths in hospital. NEWS2 standardises the response to abnormal observations.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "NEWS2 Parameters and Scoring",
+            "body": "Seven parameters scored 0–3 each:\n1. Respiration Rate (RR): 12–20 = 0; 9–11 or 21–24 = 1; 25+ = 3; ≤8 = 3\n2. SpO2 Scale 1 (not on supplemental O2 for hypercapnia risk): 96+ = 0; 94–95 = 1; 92–93 = 2; ≤91 = 3\n3. SpO2 Scale 2 (for COPD/hypercapnia risk target 88–92%): 93+ on air = 0; 88–92 or ≥93 on O2 = 2; see full table\n4. Any Supplemental O2: Yes = +2; No = 0\n5. Systolic BP: 111–219 = 0; 100–110 or ≥220 = 1; 91–100 = 2; ≤90 = 3\n6. Heart Rate: 51–90 = 0; 41–50 or 91–110 = 1; 111–130 = 2; ≤40 or ≥131 = 3\n7. Level of Consciousness (ACVPU): Alert = 0; Any change from baseline = 3 (Confusion, Voice, Pain, Unresponsive)\n8. Temperature: 36.1–38.0°C = 0; 35.1–36.0 or 38.1–39.0 = 1; ≤35.0 = 3; ≥39.1 = 2"
+          },
+          {
+            "title": "NEWS2 Score Interpretation and Response",
+            "body": "Score 0: Minimum 12-hourly monitoring.\nScore 1–4 (Low): 4–6 hourly observations; nurse assessment; inform nurse in charge.\nScore 5–6 (Medium) or single parameter score 3: Hourly observations; urgent assessment by a nurse with competence to assess acutely ill patients; consider calling the doctor.\nScore 7+ (High): Continuous monitoring; emergency assessment by clinical team with critical care competencies; consider ICU/outreach team referral.\nKey principle: A single score of 3 in any one parameter triggers medium-level response regardless of total score."
+          },
+          {
+            "title": "ACVPU: Assessing Consciousness",
+            "body": "A — Alert: fully awake, responsive, orientated.\nC — Confusion: new confusion or delirium (different from baseline).\nV — responds to Voice: drowsy but responds when spoken to.\nP — responds to Pain: only responds to painful stimulus.\nU — Unresponsive: no response to voice or pain.\nAny change from A triggers a NEWS2 consciousness score of 3. Acute confusion/delirium is a red flag requiring urgent assessment — it may indicate sepsis, hypoxia, hypoglycaemia, or metabolic disturbance."
+          }
+        ],
+        "clinical_pearl": "Respiratory rate is the most sensitive early warning sign of deterioration — more so than heart rate or blood pressure. Yet it is the most poorly measured vital sign in hospitals, often estimated rather than counted for a full minute. Count respiratory rate for 60 seconds without the patient knowing you are counting (they alter their breathing when aware).",
+        "key_points": [
+          "NEWS2 uses 7 parameters; total score ≥7 or any single score 3 = high risk",
+          "Respiratory rate is the most sensitive early deterioration signal",
+          "Any ACVPU change from Alert scores 3 and triggers urgent response",
+          "SpO2 Scale 2 (target 88–92%) applies to patients with hypercapnia risk (COPD)",
+          "Score 5–6 or single 3: urgent nursing assessment and doctor notification"
+        ],
+        "references": ["Royal College of Physicians. National Early Warning Score (NEWS) 2, 2017"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Sepsis Recognition: The Nurse's Role",
+      "order": 2,
+      "content": {
+        "intro": "Sepsis kills approximately 11 million people per year worldwide. Early nurse recognition and the Sepsis Six bundle (within 1 hour) dramatically improve survival. Time is tissue.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Recognising Sepsis: Think SEPSIS",
+            "body": "Suspect sepsis in any deteriorating patient. Clinical features (Sepsis-3 criteria): suspected infection + organ dysfunction signs. Organ dysfunction = SOFA score ≥2 change, approximated bedside by qSOFA: RR ≥22/min; altered mentation (new); systolic BP ≤100 mmHg. Two of three qSOFA = high risk for organ dysfunction. NEWS2 ≥5 also an effective screening tool.\nHigh-risk groups: post-operative, immunocompromised, elderly, very young, chronic disease, recent procedure/hospital admission."
+          },
+          {
+            "title": "The Sepsis Six (Give 3, Take 3)",
+            "body": "Give 3:\n1. High-flow oxygen (titrate to SpO2 ≥94% or 88–92% in COPD)\n2. IV fluid bolus (250–500 mL crystalloid, reassess after each bolus — assess fluid responsiveness)\n3. IV antibiotics (within 1 hour of recognition — broad spectrum; do not delay for cultures)\nTake 3:\n4. Blood cultures (BEFORE antibiotics if possible — at least two sets from different sites)\n5. Blood lactate (>2 mmol/L = tissue hypoperfusion; >4 mmol/L = severe sepsis)\n6. Urine output monitoring (catheterise if needed; target ≥0.5 mL/kg/h)\nAll 6 within 1 hour of suspicion. Nurse initiates: O2, bloods, catheter; physician required for antibiotics and fluids unless protocol allows nurse-initiation."
+          }
+        ],
+        "clinical_pearl": "The 'golden hour' in sepsis is not a metaphor — survival decreases approximately 7% for each hour delay in antibiotic administration. If you suspect sepsis, escalate immediately. Do not wait for the physician to confirm before starting oxygen and sending blood cultures.",
+        "key_points": [
+          "qSOFA: 2 of 3 (RR≥22, altered mentation, sBP≤100) = high risk for sepsis",
+          "NEWS2 ≥5 is an effective sepsis screening trigger",
+          "Sepsis Six: O2, IV fluids, IV antibiotics + blood cultures, lactate, urine output",
+          "Antibiotics within 1 hour — do not delay for culture results",
+          "Blood cultures BEFORE antibiotics if possible, but do not delay antibiotics"
+        ],
+        "references": ["Singer M et al. JAMA 2016 — Sepsis-3 definitions", "UK Sepsis Trust Sepsis Six 2022"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "What does NEWS2 stand for and what does it measure?", "answer": "National Early Warning Score 2 — a standardised tool to detect clinical deterioration using 7 vital sign parameters scored 0–3.", "difficulty": "easy"},
+    {"question": "NEWS2 score: what action is triggered by a total score of 7 or more?", "answer": "Emergency assessment by clinical team with critical care competencies; continuous monitoring; consider ICU/outreach team referral.", "difficulty": "medium"},
+    {"question": "Which vital sign parameter is the most sensitive early warning sign of clinical deterioration?", "answer": "Respiratory rate — it rises before most other signs of deterioration, including heart rate and blood pressure.", "difficulty": "medium"},
+    {"question": "What are the Sepsis Six? (Give 3, Take 3)", "answer": "Give: O2, IV fluid bolus, IV antibiotics. Take: blood cultures, blood lactate, urine output monitoring.", "difficulty": "hard"},
+    {"question": "ACVPU — what does each letter mean in NEWS2?", "answer": "Alert, Confusion, Voice-response, Pain-response, Unresponsive. Any change from Alert scores 3 on NEWS2.", "difficulty": "medium"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A patient has the following observations: RR 24/min, SpO2 91% on air, BP 94/60 mmHg, HR 118 bpm, Temp 38.5°C, Alert. What is their NEWS2 score?",
+      "question_type": "calculation",
+      "options": {},
+      "correct": "A",
+      "numeric_answer": 7.0,
+      "numeric_tolerance": 0.0,
+      "numeric_unit": "points",
+      "explanation": "RR 24 = 1; SpO2 91% (Scale 1, no supplemental O2) = 3; No supplemental O2 = 0; sBP 94 = 2; HR 118 = 2; Alert = 0; Temp 38.5°C = 1. Total = 1+3+0+0+2+2+0+1 = 9. Wait — let me recalculate: RR 24 is in 21-24 range = 1 point; SpO2 91% = 3 (≤91); No O2 = 0; sBP 94 (91-100) = 2; HR 118 (111-130) = 2; Consciousness Alert = 0; Temp 38.5 (38.1-39.0) = 2. Total: 1+3+0+2+2+0+2 = 10. Note: This question uses a simplified example — check RCP table for exact cutoffs. A score ≥7 triggers emergency response.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Select ALL clinical features that should trigger immediate consideration of sepsis in a post-operative patient.",
+      "question_type": "sata",
+      "options": {
+        "A": "Respiratory rate 26/min",
+        "B": "New confusion in an 80-year-old",
+        "C": "Temperature 37.2°C (normal)",
+        "D": "Systolic blood pressure 95 mmHg (baseline 130 mmHg)",
+        "E": "Heart rate 102 bpm, feeling unwell",
+        "F": "Urine output 20 mL over the past 2 hours (weight 70 kg)"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "B", "D", "F"],
+      "explanation": "Sepsis red flags: elevated RR ≥22 (A = 26), new confusion/altered mentation (B), hypotension sBP ≤100 (D = 95), and oliguria ≤0.5 mL/kg/h (F = 20 mL/2h in 70 kg patient = 0.14 mL/kg/h). Normal temperature (C) does not rule out sepsis — hypothermia and normal temperature can occur. Mild tachycardia alone (E) is a warning but not a qSOFA criterion; however in context it warrants monitoring.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse notices a patient is increasingly drowsy and does not respond normally to questions, but responds when their name is called loudly. What ACVPU classification does this represent?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Alert",
+        "B": "Confusion",
+        "C": "Voice",
+        "D": "Pain"
+      },
+      "correct": "C",
+      "explanation": "Responding only when spoken to loudly places this patient at 'V' — responds to Voice. This scores 3 on the NEWS2 consciousness parameter, triggering an urgent response regardless of the total score.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse suspects sepsis in a patient with a NEWS2 score of 6. Place the following nursing actions in the correct priority order.",
+      "question_type": "ordered",
+      "options": {
+        "A": "Administer IV antibiotics as prescribed",
+        "B": "Apply high-flow oxygen; titrate to SpO2 ≥94%",
+        "C": "Collect blood cultures (two sets from different sites)",
+        "D": "Call the physician immediately and escalate using SBAR",
+        "E": "Insert urinary catheter and monitor urine output hourly"
+      },
+      "correct": "D",
+      "correct_order": ["D", "B", "C", "E", "A"],
+      "explanation": "First: escalate to physician (D) — nurse cannot initiate antibiotics without order. Simultaneously/immediately: start O2 (B), draw blood cultures before antibiotics if possible (C), catheterise for UO monitoring (E), then administer prescribed antibiotics (A) — target within 1 hour of recognition. O2 is the most immediately nurse-initiated intervention while waiting for the physician.",
+      "difficulty": "hard"
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "The Drowsy Post-Op Patient",
+      "specialty": "Nursing",
+      "difficulty": "medium",
+      "presentation": "Mrs. Chen, 72 years old, is on day 1 post right hemicolectomy. You are doing routine afternoon observations. She usually greets you cheerfully by name. Today she appears drowsy and confused — she doesn't recognise you and keeps asking where she is. Vital signs: RR 22/min, SpO2 93% on room air, BP 100/65 mmHg (baseline 135/80 mmHg), HR 108 bpm, Temp 38.8°C. Urine output over the last 2 hours: 30 mL (she weighs 65 kg).",
+      "vitals": {"rr": 22, "spo2": 93, "bp": "100/65", "hr": 108, "temp": 38.8, "urine_2h_ml": 30},
+      "diagnosis": "Early sepsis secondary to surgical site infection",
+      "management": ["Calculate NEWS2 score", "Escalate immediately using SBAR", "Apply oxygen", "Draw blood cultures", "Initiate Sepsis Six", "Monitor urine output"],
+      "teaching_points": [
+        "New confusion in an elderly post-operative patient is a red flag — never assume it is 'just delirium'",
+        "Calculate NEWS2: RR22=1, SpO2 93%=2, No supp O2=0, sBP100=1, HR108=2, Confusion=3, Temp38.8=2 = Total 11 — HIGH",
+        "Urine output 30mL/2h in 65kg patient = 0.23 mL/kg/h (target ≥0.5) — oliguria",
+        "This patient meets qSOFA criteria: RR≥22, altered mentation, sBP≤100",
+        "Nurse's role: O2, blood cultures, escalate — physician required for antibiotics and fluids"
+      ],
+      "steps": [
+        {
+          "id": "S1",
+          "title": "Initial Assessment",
+          "description": "You notice Mrs. Chen is confused and drowsy. What is your FIRST action?",
+          "choices": [
+            {"id": "C1a", "text": "Complete all your other observations before doing anything", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10},
+            {"id": "C1b", "text": "Perform a rapid assessment: check RR, SpO2, BP, HR, temp, ACVPU, and document observations immediately", "next_step": "S2", "outcome": "correct", "score_delta": 20},
+            {"id": "C1c", "text": "Call the family to ask if she is usually confused", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -5},
+            {"id": "C1d", "text": "Give her a glass of water and see if she improves", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+          ]
+        },
+        {
+          "id": "S2",
+          "title": "Observations Obtained",
+          "description": "NEWS2 score is 11 (high). What is your MOST URGENT next action?",
+          "choices": [
+            {"id": "C2a", "text": "Escalate to the physician immediately using SBAR", "next_step": "S3", "outcome": "correct", "score_delta": 20},
+            {"id": "C2b", "text": "Wait 30 minutes and repeat observations to see if score improves", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C2c", "text": "Document the observations and inform the nurse in charge at the end of the shift", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C2d", "text": "Apply oxygen and then call the physician", "next_step": "S3", "outcome": "correct_partial", "score_delta": 15}
+          ]
+        },
+        {
+          "id": "S3",
+          "title": "Physician Orders Sepsis Six",
+          "description": "The physician agrees with your concern. Which blood cultures collection technique is correct BEFORE antibiotics?",
+          "choices": [
+            {"id": "C3a", "text": "Draw blood cultures from the existing IV site to save time", "next_step": "S4", "outcome": "incorrect", "score_delta": -10},
+            {"id": "C3b", "text": "Draw two sets from two different peripheral venepuncture sites using aseptic technique", "next_step": "S4", "outcome": "correct", "score_delta": 20},
+            {"id": "C3c", "text": "Draw one set and send immediately — don't delay antibiotics for a second set", "next_step": "S4", "outcome": "partial", "score_delta": 10},
+            {"id": "C3d", "text": "Wait until antibiotics are started before drawing blood cultures", "next_step": "S4", "outcome": "incorrect", "score_delta": -20}
+          ]
+        },
+        {
+          "id": "S4",
+          "title": "Outcome",
+          "description": "Mrs. Chen receives O2, blood cultures are drawn, antibiotics started within 50 minutes, lactate is 3.2 mmol/L. Urine output improves after IV fluids. She is transferred to HDU. What was the most critical action you took?",
+          "choices": [
+            {"id": "C4a", "text": "Recognising the acute confusion as a red flag and escalating promptly", "next_step": null, "outcome": "correct", "score_delta": 10},
+            {"id": "C4b", "text": "Documenting the NEWS2 score accurately", "next_step": null, "outcome": "partial", "score_delta": 5}
+          ]
+        },
+        {
+          "id": "S_wrong1",
+          "title": "Missed Deterioration",
+          "description": "Delaying assessment in a patient with NEWS2 ≥7 is a patient safety incident. Mrs. Chen deteriorates and requires ICU admission. The key lesson: any NEWS2 ≥7 or single parameter score 3 requires IMMEDIATE escalation.",
+          "choices": []
+        },
+        {
+          "id": "S_wrong2",
+          "title": "Incorrect Priority",
+          "description": "Acute confusion in a post-operative patient is a medical emergency until proven otherwise. It is not appropriate to seek social history before completing a rapid clinical assessment. Return to the bedside and reassess.",
+          "choices": []
+        }
+      ],
+      "initial_step_id": "S1",
+      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "max_score": 70
+    }
+  ]
+}

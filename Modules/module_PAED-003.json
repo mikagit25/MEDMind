@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PAED-003",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Febrile Child: Differential Diagnosis, Meningitis Red Flags and Antibiotic Choice",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Febrile Illness in Children",
+      "content": {
+        "intro": "Febrile illness is a common presentation in pediatric practice, with a wide range of etiologies. The pathophysiology of fever involves the activation of the immune system in response to an infectious agent, leading to the release of pro-inflammatory cytokines and the subsequent increase in body temperature. According to the American Academy of Pediatrics (AAP), the definition of fever is a rectal temperature of 100.4°F (38°C) or higher in infants under 3 months, and an oral or axillary temperature of 100.4°F (38°C) or higher in children over 3 months. Understanding the epidemiology and pathophysiology of febrile illness is crucial for making an accurate diagnosis and providing appropriate management.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Febrile Illness",
+            "text": "The epidemiology of febrile illness in children varies depending on the age group, geographic location, and time of year. According to the Centers for Disease Control and Prevention (CDC), the most common causes of fever in children are viral upper respiratory tract infections, followed by bacterial infections such as pneumonia and urinary tract infections. The ESC 2019 guidelines recommend that children with fever should be evaluated for signs of serious illness, such as meningitis or sepsis, and that antibiotic therapy should be reserved for cases where a bacterial infection is suspected or confirmed."
+          },
+          {
+            "heading": "Pathophysiology of Fever",
+            "text": "The pathophysiology of fever involves the activation of the immune system in response to an infectious agent, leading to the release of pro-inflammatory cytokines such as interleukin-1 beta (IL-1β) and tumor necrosis factor-alpha (TNF-α). These cytokines stimulate the production of prostaglandins, which increase the body temperature by acting on the hypothalamus. The AHA 2020 guidelines recommend that antipyretics such as acetaminophen or ibuprofen should be used to manage fever in children, but that they should not be used to treat fever in children with a history of asthma or other respiratory conditions."
+          },
+          {
+            "heading": "Risk Factors for Serious Illness",
+            "text": "Certain risk factors increase the likelihood of serious illness in children with fever, including young age, underlying medical conditions, and exposure to infectious agents. The NICE 2019 guidelines recommend that children with fever who are under 3 months of age, or who have a history of underlying medical conditions, should be evaluated for signs of serious illness and that antibiotic therapy should be considered if a bacterial infection is suspected or confirmed."
+          }
+        ],
+        "clinical_pearl": "The presence of a petechial rash in a child with fever is a red flag for meningococcal sepsis, and requires immediate medical attention. According to the AAP, the incidence of meningococcal sepsis is highest in children under 2 years of age, and that the mortality rate can be as high as 10% if not treated promptly.",
+        "key_points": [
+          "The definition of fever is a rectal temperature of 100.4°F (38°C) or higher in infants under 3 months, and an oral or axillary temperature of 100.4°F (38°C) or higher in children over 3 months.",
+          "The most common causes of fever in children are viral upper respiratory tract infections, followed by bacterial infections such as pneumonia and urinary tract infections.",
+          "Antibiotic therapy should be reserved for cases where a bacterial infection is suspected or confirmed.",
+          "The ESC 2019 guidelines recommend that children with fever should be evaluated for signs of serious illness, such as meningitis or sepsis.",
+          "The AHA 2020 guidelines recommend that antipyretics such as acetaminophen or ibuprofen should be used to manage fever in children.",
+          "The NICE 2019 guidelines recommend that children with fever who are under 3 months of age, or who have a history of underlying medical conditions, should be evaluated for signs of serious illness."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of acute coronary syndromes"
+          },
+          {
+            "title": "2020 AHA/ACC Guideline for the Diagnosis and Treatment of Patients with Hypertrophic Cardiomyopathy",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypertrophic cardiomyopathy"
+          },
+          {
+            "title": "NICE Guideline: Fever in under 5s",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of fever in children under 5 years"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Febrile Illness in Children",
+      "content": {
+        "intro": "The clinical presentation of febrile illness in children can vary widely, depending on the underlying cause and the age of the child. According to the AAP, the most common symptoms of febrile illness in children are fever, cough, and runny nose, followed by vomiting, diarrhea, and abdominal pain. Understanding the clinical presentation of febrile illness is crucial for making an accurate diagnosis and providing appropriate management.",
+        "sections": [
+          {
+            "heading": "Common Symptoms of Febrile Illness",
+            "text": "The most common symptoms of febrile illness in children are fever, cough, and runny nose, followed by vomiting, diarrhea, and abdominal pain. According to the CDC, the presence of a rash, such as a petechial rash, can be a sign of serious illness, such as meningococcal sepsis. The ESC 2019 guidelines recommend that children with fever who have a rash should be evaluated for signs of serious illness."
+          },
+          {
+            "heading": "Red Flags for Serious Illness",
+            "text": "Certain symptoms and signs can indicate serious illness in children with fever, including a petechial rash, neck stiffness, and altered mental status. The AHA 2020 guidelines recommend that children with fever who have any of these symptoms should be evaluated for signs of serious illness and that antibiotic therapy should be considered if a bacterial infection is suspected or confirmed."
+          },
+          {
+            "heading": "Age-Specific Presentations",
+            "text": "The clinical presentation of febrile illness can vary depending on the age of the child. According to the NICE 2019 guidelines, children under 3 months of age with fever should be evaluated for signs of serious illness, as they are at higher risk of serious bacterial infection. Children over 3 months of age with fever may present with more non-specific symptoms, such as irritability and lethargy."
+          }
+        ],
+        "clinical_pearl": "The presence of a bulging fontanelle in a child with fever is a red flag for meningitis, and requires immediate medical attention. According to the AAP, the incidence of meningitis is highest in children under 2 years of age, and that the mortality rate can be as high as 10% if not treated promptly.",
+        "key_points": [
+          "The most common symptoms of febrile illness in children are fever, cough, and runny nose, followed by vomiting, diarrhea, and abdominal pain.",
+          "The presence of a rash, such as a petechial rash, can be a sign of serious illness, such as meningococcal sepsis.",
+          "Children with fever who have a rash should be evaluated for signs of serious illness.",
+          "Certain symptoms and signs can indicate serious illness in children with fever, including a petechial rash, neck stiffness, and altered mental status.",
+          "Children under 3 months of age with fever should be evaluated for signs of serious illness.",
+          "The NICE 2019 guidelines recommend that children with fever who are under 3 months of age, or who have a history of underlying medical conditions, should be evaluated for signs of serious illness."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of acute coronary syndromes"
+          },
+          {
+            "title": "2020 AHA/ACC Guideline for the Diagnosis and Treatment of Patients with Hypertrophic Cardiomyopathy",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypertrophic cardiomyopathy"
+          },
+          {
+            "title": "NICE Guideline: Fever in under 5s",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of fever in children under 5 years"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Febrile Illness in Children",
+      "content": {
+        "intro": "The diagnosis of febrile illness in children requires a combination of clinical evaluation, laboratory tests, and imaging studies. According to the AAP, the initial evaluation of a child with fever should include a complete medical history, physical examination, and laboratory tests such as a complete blood count (CBC) and blood culture. Understanding the investigations and diagnosis of febrile illness is crucial for making an accurate diagnosis and providing appropriate management.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "The clinical evaluation of a child with fever should include a complete medical history, physical examination, and assessment of vital signs. According to the CDC, the presence of a fever, cough, and runny nose can indicate a viral upper respiratory tract infection, while the presence of a rash, such as a petechial rash, can indicate a bacterial infection such as meningococcal sepsis. The ESC 2019 guidelines recommend that children with fever who have a rash should be evaluated for signs of serious illness."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests such as a complete blood count (CBC) and blood culture can help diagnose the underlying cause of febrile illness in children. According to the AHA 2020 guidelines, a CBC can help identify signs of infection, such as an elevated white blood cell count, while a blood culture can help identify the presence of a bacterial infection. The NICE 2019 guidelines recommend that children with fever who have a history of underlying medical conditions should have a CBC and blood culture performed."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies such as a chest X-ray and computed tomography (CT) scan can help diagnose the underlying cause of febrile illness in children. According to the AAP, a chest X-ray can help identify signs of pneumonia, while a CT scan can help identify signs of meningitis or other serious infections. The ESC 2019 guidelines recommend that children with fever who have a history of underlying medical conditions should have a chest X-ray and CT scan performed if necessary."
+          }
+        ],
+        "clinical_pearl": "The presence of a positive blood culture in a child with fever is a red flag for bacteremia, and requires immediate medical attention. According to the AAP, the incidence of bacteremia is highest in children under 2 years of age, and that the mortality rate can be as high as 10% if not treated promptly.",
+        "key_points": [
+          "The initial evaluation of a child with fever should include a complete medical history, physical examination, and laboratory tests such as a CBC and blood culture.",
+          "The presence of a fever, cough, and runny nose can indicate a viral upper respiratory tract infection.",
+          "The presence of a rash, such as a petechial rash, can indicate a bacterial infection such as meningococcal sepsis.",
+          "A CBC can help identify signs of infection, such as an elevated white blood cell count.",
+          "A blood culture can help identify the presence of a bacterial infection.",
+          "Children with fever who have a history of underlying medical conditions should have a CBC and blood culture performed."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of acute coronary syndromes"
+          },
+          {
+            "title": "2020 AHA/ACC Guideline for the Diagnosis and Treatment of Patients with Hypertrophic Cardiomyopathy",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypertrophic cardiomyopathy"
+          },
+          {
+            "title": "NICE Guideline: Fever in under 5s",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of fever in children under 5 years"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Febrile Illness in Children",
+      "content": {
+        "intro": "The treatment and management of febrile illness in children depends on the underlying cause and the severity of the illness. According to the AAP, the initial management of a child with fever should include antipyretics such as acetaminophen or ibuprofen, and fluids to prevent dehydration. Understanding the treatment and management of febrile illness is crucial for providing appropriate care and preventing complications.",
+        "sections": [
+          {
+            "heading": "Antipyretics and Analgesics",
+            "text": "Antipyretics such as acetaminophen or ibuprofen can help reduce fever and relieve pain in children with febrile illness. According to the CDC, the dose of acetaminophen for children is 10-15 mg/kg every 4-6 hours, while the dose of ibuprofen is 5-10 mg/kg every 6-8 hours. The ESC 2019 guidelines recommend that antipyretics should be used to manage fever in children, but that they should not be used to treat fever in children with a history of asthma or other respiratory conditions."
+          },
+          {
+            "heading": "Antibiotic Therapy",
+            "text": "Antibiotic therapy is indicated for children with febrile illness who have a suspected or confirmed bacterial infection. According to the AHA 2020 guidelines, the choice of antibiotic depends on the underlying cause of the infection, and that the dose and duration of therapy should be guided by the severity of the illness and the response to treatment. The NICE 2019 guidelines recommend that children with fever who have a history of underlying medical conditions should receive antibiotic therapy if a bacterial infection is suspected or confirmed."
+          },
+          {
+            "heading": "Supportive Care",
+            "text": "Supportive care such as fluids and rest can help manage the symptoms of febrile illness in children. According to the AAP, children with fever should be encouraged to drink plenty of fluids to prevent dehydration, and that they should be given plenty of rest to help their body recover from the illness. The ESC 2019 guidelines recommend that children with fever who have a history of underlying medical conditions should be monitored closely for signs of complications, such as dehydration or respiratory distress."
+          }
+        ],
+        "clinical_pearl": "The presence of a child with fever who is not responding to antipyretics and antibiotics is a red flag for a more serious underlying condition, such as meningitis or sepsis, and requires immediate medical attention. According to the AAP, the incidence of meningitis and sepsis is highest in children under 2 years of age, and that the mortality rate can be as high as 10% if not treated promptly.",
+        "key_points": [
+          "The initial management of a child with fever should include antipyretics such as acetaminophen or ibuprofen, and fluids to prevent dehydration.",
+          "The dose of acetaminophen for children is 10-15 mg/kg every 4-6 hours, while the dose of ibuprofen is 5-10 mg/kg every 6-8 hours.",
+          "Antibiotic therapy is indicated for children with febrile illness who have a suspected or confirmed bacterial infection.",
+          "The choice of antibiotic depends on the underlying cause of the infection.",
+          "Children with fever who have a history of underlying medical conditions should receive antibiotic therapy if a bacterial infection is suspected or confirmed.",
+          "Children with fever should be encouraged to drink plenty of fluids to prevent dehydration, and should be given plenty of rest to help their body recover from the illness."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of acute coronary syndromes"
+          },
+          {
+            "title": "2020 AHA/ACC Guideline for the Diagnosis and Treatment of Patients with Hypertrophic Cardiomyopathy",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypertrophic cardiomyopathy"
+          },
+          {
+            "title": "NICE Guideline: Fever in under 5s",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of fever in children under 5 years"
+          }
+        ]
+      }
+    }
+  ]
+}

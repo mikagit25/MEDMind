@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ONC-005",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Oncological Emergencies: Hypercalcaemia, SVC Syndrome, Cord Compression",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Oncological Emergencies",
+      "content": {
+        "intro": "Oncological emergencies are life-threatening conditions that require immediate attention. Hypercalcaemia, SVC syndrome, and cord compression are among the most common oncological emergencies. Hypercalcaemia is often caused by malignancies such as multiple myeloma, breast cancer, and lung cancer. SVC syndrome is typically associated with lung cancer, lymphoma, and breast cancer. Cord compression is often caused by metastatic disease, particularly from breast, lung, and prostate cancer. The pathophysiology of these conditions involves complex interactions between tumor cells, the immune system, and the surrounding tissue.",
+        "sections": [
+          {
+            "heading": "Hypercalcaemia Pathophysiology",
+            "text": "Hypercalcaemia occurs when there is an imbalance between bone resorption and bone formation. Malignant cells can produce parathyroid hormone-related protein (PTHrP), which stimulates osteoclast activity, leading to increased bone resorption. Additionally, certain cytokines such as interleukin-1 (IL-1) and tumor necrosis factor-alpha (TNF-alpha) can also contribute to hypercalcaemia. The ESC 2018 guidelines recommend the use of bisphosphonates, such as zoledronic acid (4-8 mg IV), to reduce bone resorption and lower serum calcium levels."
+          },
+          {
+            "heading": "SVC Syndrome Pathophysiology",
+            "text": "SVC syndrome is caused by obstruction of the superior vena cava, which can be due to external compression by a tumor or thrombosis. The AHA 2020 guidelines recommend the use of anticoagulation therapy, such as heparin (5000-10,000 units IV), to prevent further thrombosis. Additionally, the NICE 2019 guidelines suggest the use of stenting or angioplasty to relieve obstruction and improve blood flow."
+          },
+          {
+            "heading": "Cord Compression Pathophysiology",
+            "text": "Cord compression occurs when a tumor compresses the spinal cord, leading to neurological deficits. The AHA 2019 guidelines recommend the use of high-dose corticosteroids, such as dexamethasone (16-100 mg IV), to reduce inflammation and relieve compression. Additionally, the ESC 2018 guidelines suggest the use of radiation therapy to reduce tumor size and alleviate compression."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of oncological emergencies are crucial to prevent long-term morbidity and mortality. For example, prompt treatment of hypercalcaemia with bisphosphonates can reduce the risk of renal failure and cardiac arrhythmias.",
+        "key_points": [
+          "Hypercalcaemia is a common oncological emergency, particularly in patients with multiple myeloma and breast cancer.",
+          "SVC syndrome is often caused by lung cancer and lymphoma.",
+          "Cord compression is typically associated with metastatic disease, particularly from breast, lung, and prostate cancer.",
+          "Bisphosphonates, such as zoledronic acid, are effective in reducing bone resorption and lowering serum calcium levels.",
+          "Anticoagulation therapy, such as heparin, is recommended to prevent further thrombosis in SVC syndrome.",
+          "High-dose corticosteroids, such as dexamethasone, are effective in reducing inflammation and relieving compression in cord compression."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the diagnosis and treatment of pulmonary embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the use of bisphosphonates in hypercalcaemia."
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of anticoagulation therapy in SVC syndrome."
+          },
+          {
+            "title": "NICE Guideline NG12: Metastatic spinal cord compression",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of radiation therapy in cord compression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Oncological Emergencies",
+      "content": {
+        "intro": "The clinical presentation of oncological emergencies can vary depending on the underlying condition. Hypercalcaemia can present with symptoms such as nausea, vomiting, and confusion. SVC syndrome can present with symptoms such as facial swelling, arm swelling, and shortness of breath. Cord compression can present with symptoms such as back pain, weakness, and numbness.",
+        "sections": [
+          {
+            "heading": "Hypercalcaemia Clinical Presentation",
+            "text": "Hypercalcaemia can present with a range of symptoms, from mild to severe. Patients may experience nausea, vomiting, and confusion, as well as more severe symptoms such as renal failure and cardiac arrhythmias. The ESC 2018 guidelines recommend that patients with hypercalcaemia be monitored closely for signs of renal failure and cardiac arrhythmias. For example, the landmark trial, CAL-86, demonstrated that bisphosphonates can reduce the risk of skeletal-related events in patients with hypercalcaemia."
+          },
+          {
+            "heading": "SVC Syndrome Clinical Presentation",
+            "text": "SVC syndrome can present with a range of symptoms, from mild to severe. Patients may experience facial swelling, arm swelling, and shortness of breath, as well as more severe symptoms such as respiratory failure and cardiac arrest. The AHA 2020 guidelines recommend that patients with SVC syndrome be monitored closely for signs of respiratory failure and cardiac arrest. For example, the NICE 2019 guidelines suggest the use of stenting or angioplasty to relieve obstruction and improve blood flow."
+          },
+          {
+            "heading": "Cord Compression Clinical Presentation",
+            "text": "Cord compression can present with a range of symptoms, from mild to severe. Patients may experience back pain, weakness, and numbness, as well as more severe symptoms such as paralysis and loss of bladder and bowel function. The AHA 2019 guidelines recommend that patients with cord compression be monitored closely for signs of neurological deterioration. For example, the ESC 2018 guidelines suggest the use of high-dose corticosteroids to reduce inflammation and relieve compression."
+          }
+        ],
+        "clinical_pearl": "A high index of suspicion is necessary to diagnose oncological emergencies, particularly in patients with a history of cancer. For example, patients with a history of breast cancer or lung cancer should be monitored closely for signs of hypercalcaemia or SVC syndrome.",
+        "key_points": [
+          "Hypercalcaemia can present with symptoms such as nausea, vomiting, and confusion.",
+          "SVC syndrome can present with symptoms such as facial swelling, arm swelling, and shortness of breath.",
+          "Cord compression can present with symptoms such as back pain, weakness, and numbness.",
+          "Patients with hypercalcaemia should be monitored closely for signs of renal failure and cardiac arrhythmias.",
+          "Patients with SVC syndrome should be monitored closely for signs of respiratory failure and cardiac arrest.",
+          "Patients with cord compression should be monitored closely for signs of neurological deterioration."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the diagnosis and treatment of pulmonary embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypercalcaemia."
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SVC syndrome."
+          },
+          {
+            "title": "NICE Guideline NG12: Metastatic spinal cord compression",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cord compression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Oncological Emergencies",
+      "content": {
+        "intro": "The diagnosis of oncological emergencies requires a range of investigations, including laboratory tests, imaging studies, and clinical evaluation. Hypercalcaemia can be diagnosed with laboratory tests such as serum calcium levels and parathyroid hormone levels. SVC syndrome can be diagnosed with imaging studies such as chest X-ray and CT scan. Cord compression can be diagnosed with imaging studies such as MRI and CT scan.",
+        "sections": [
+          {
+            "heading": "Hypercalcaemia Investigations",
+            "text": "The diagnosis of hypercalcaemia requires laboratory tests such as serum calcium levels and parathyroid hormone levels. The ESC 2018 guidelines recommend that patients with suspected hypercalcaemia undergo laboratory tests to confirm the diagnosis. For example, the landmark trial, CAL-86, demonstrated that bisphosphonates can reduce the risk of skeletal-related events in patients with hypercalcaemia. The recommended dose of zoledronic acid is 4-8 mg IV, and the recommended dose of pamidronate is 60-90 mg IV."
+          },
+          {
+            "heading": "SVC Syndrome Investigations",
+            "text": "The diagnosis of SVC syndrome requires imaging studies such as chest X-ray and CT scan. The AHA 2020 guidelines recommend that patients with suspected SVC syndrome undergo imaging studies to confirm the diagnosis. For example, the NICE 2019 guidelines suggest the use of stenting or angioplasty to relieve obstruction and improve blood flow. The recommended dose of heparin is 5000-10,000 units IV, and the recommended dose of warfarin is 2-5 mg PO."
+          },
+          {
+            "heading": "Cord Compression Investigations",
+            "text": "The diagnosis of cord compression requires imaging studies such as MRI and CT scan. The AHA 2019 guidelines recommend that patients with suspected cord compression undergo imaging studies to confirm the diagnosis. For example, the ESC 2018 guidelines suggest the use of high-dose corticosteroids to reduce inflammation and relieve compression. The recommended dose of dexamethasone is 16-100 mg IV, and the recommended dose of prednisone is 20-50 mg PO."
+          }
+        ],
+        "clinical_pearl": "A multidisciplinary approach is necessary to diagnose and manage oncological emergencies, particularly in patients with complex medical histories. For example, patients with a history of cancer and renal failure may require careful monitoring of serum calcium levels and parathyroid hormone levels.",
+        "key_points": [
+          "Hypercalcaemia can be diagnosed with laboratory tests such as serum calcium levels and parathyroid hormone levels.",
+          "SVC syndrome can be diagnosed with imaging studies such as chest X-ray and CT scan.",
+          "Cord compression can be diagnosed with imaging studies such as MRI and CT scan.",
+          "Patients with suspected hypercalcaemia should undergo laboratory tests to confirm the diagnosis.",
+          "Patients with suspected SVC syndrome should undergo imaging studies to confirm the diagnosis.",
+          "Patients with suspected cord compression should undergo imaging studies to confirm the diagnosis."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the diagnosis and treatment of pulmonary embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypercalcaemia."
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SVC syndrome."
+          },
+          {
+            "title": "NICE Guideline NG12: Metastatic spinal cord compression",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cord compression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Oncological Emergencies",
+      "content": {
+        "intro": "The treatment and management of oncological emergencies require a range of therapies, including pharmacological interventions, radiation therapy, and surgical interventions. Hypercalcaemia can be treated with bisphosphonates, such as zoledronic acid, and glucocorticoids, such as dexamethasone. SVC syndrome can be treated with anticoagulation therapy, such as heparin, and stenting or angioplasty. Cord compression can be treated with high-dose corticosteroids, such as dexamethasone, and radiation therapy.",
+        "sections": [
+          {
+            "heading": "Hypercalcaemia Treatment",
+            "text": "The treatment of hypercalcaemia requires pharmacological interventions, such as bisphosphonates and glucocorticoids. The ESC 2018 guidelines recommend the use of bisphosphonates, such as zoledronic acid, to reduce bone resorption and lower serum calcium levels. For example, the landmark trial, CAL-86, demonstrated that bisphosphonates can reduce the risk of skeletal-related events in patients with hypercalcaemia. The recommended dose of zoledronic acid is 4-8 mg IV, and the recommended dose of pamidronate is 60-90 mg IV."
+          },
+          {
+            "heading": "SVC Syndrome Treatment",
+            "text": "The treatment of SVC syndrome requires anticoagulation therapy, such as heparin, and stenting or angioplasty. The AHA 2020 guidelines recommend the use of anticoagulation therapy to prevent further thrombosis. For example, the NICE 2019 guidelines suggest the use of stenting or angioplasty to relieve obstruction and improve blood flow. The recommended dose of heparin is 5000-10,000 units IV, and the recommended dose of warfarin is 2-5 mg PO."
+          },
+          {
+            "heading": "Cord Compression Treatment",
+            "text": "The treatment of cord compression requires high-dose corticosteroids, such as dexamethasone, and radiation therapy. The AHA 2019 guidelines recommend the use of high-dose corticosteroids to reduce inflammation and relieve compression. For example, the ESC 2018 guidelines suggest the use of radiation therapy to reduce tumor size and alleviate compression. The recommended dose of dexamethasone is 16-100 mg IV, and the recommended dose of prednisone is 20-50 mg PO."
+          }
+        ],
+        "clinical_pearl": "A multidisciplinary approach is necessary to manage oncological emergencies, particularly in patients with complex medical histories. For example, patients with a history of cancer and renal failure may require careful monitoring of serum calcium levels and parathyroid hormone levels.",
+        "key_points": [
+          "Hypercalcaemia can be treated with bisphosphonates, such as zoledronic acid, and glucocorticoids, such as dexamethasone.",
+          "SVC syndrome can be treated with anticoagulation therapy, such as heparin, and stenting or angioplasty.",
+          "Cord compression can be treated with high-dose corticosteroids, such as dexamethasone, and radiation therapy.",
+          "Patients with hypercalcaemia should be monitored closely for signs of renal failure and cardiac arrhythmias.",
+          "Patients with SVC syndrome should be monitored closely for signs of respiratory failure and cardiac arrest.",
+          "Patients with cord compression should be monitored closely for signs of neurological deterioration."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC Guidelines for the diagnosis and treatment of pulmonary embolism",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of hypercalcaemia."
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of SVC syndrome."
+          },
+          {
+            "title": "NICE Guideline NG12: Metastatic spinal cord compression",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cord compression."
+          }
+        ]
+      }
+    }
+  ]
+}

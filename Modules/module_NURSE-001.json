@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "id": "NURSE-001",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Nursing Process & Documentation",
+    "title_en": "Nursing Process & Documentation",
+    "order_in_specialty": 1,
+    "level": "beginner",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["WHO Patient Safety Curriculum", "NANDA-I 2021-2023", "ANA Nursing Scope & Standards"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "The Five Steps of the Nursing Process",
+      "order": 1,
+      "lay_summary": "The nursing process is a systematic five-step method that nurses use to plan and deliver patient care: Assess, Diagnose, Plan, Implement, Evaluate. Think of it as a continuous loop, not a checklist.",
+      "content": {
+        "intro": "The nursing process (ADPIE) is the foundation of evidence-based nursing practice. Unlike a physician's diagnostic process, it focuses on the patient's response to illness and nursing interventions.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "Assessment",
+            "body": "Systematic collection of subjective data (what the patient tells you) and objective data (what you observe/measure). Includes: health history, physical examination, vital signs, review of labs and medications, psychosocial assessment. A head-to-toe approach is standard for new admissions; focused assessment for ongoing care."
+          },
+          {
+            "title": "Nursing Diagnosis",
+            "body": "Not a medical diagnosis. A nursing diagnosis describes the human response to a health problem that nurses are licensed to treat. NANDA-I format: Problem + Etiology + Signs/Symptoms (PES). Example: 'Acute Pain related to surgical incision as evidenced by patient rating pain 8/10 and guarding behavior.' The nursing diagnosis drives the care plan."
+          },
+          {
+            "title": "Planning",
+            "body": "Setting measurable, patient-centred goals with a time frame. Use SMART criteria: Specific, Measurable, Achievable, Relevant, Time-bound. Identify nursing interventions — actions within the nurse's scope. Prioritise using Maslow's hierarchy: physiological needs first, then safety, then psychosocial. Collaborate with the patient and family."
+          },
+          {
+            "title": "Implementation",
+            "body": "Carrying out the plan: performing nursing interventions, coordinating care, delegating appropriate tasks to nursing assistants (while retaining accountability), educating the patient and family, documenting actions taken."
+          },
+          {
+            "title": "Evaluation",
+            "body": "Comparing the patient's actual outcomes to expected outcomes. Ask: Was the goal met? Partially met? Not met? If not met, reassess and modify the plan. Evaluation is continuous, not a single event. All five steps are documented in the nursing record."
+          }
+        ],
+        "clinical_pearl": "Nurses are not 'mini-doctors' — the nursing diagnosis focuses on what YOU can independently treat. 'Risk for Falls' is a nursing diagnosis; 'Osteoporosis' is a medical diagnosis. Both inform the plan, but they are distinct.",
+        "key_points": [
+          "ADPIE: Assess, Diagnose, Plan, Implement, Evaluate",
+          "Nursing diagnosis = patient's response to health problem, not the disease",
+          "Goals must be patient-centred, measurable, and time-bound",
+          "Evaluation is continuous and feeds back into assessment",
+          "Documentation must reflect each step — if it isn't written, it wasn't done"
+        ],
+        "references": ["NANDA International, 2021-2023 Nursing Diagnoses", "Doenges ME et al. Nursing Care Plans, 2022"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Nursing Documentation: Legal and Clinical Standards",
+      "order": 2,
+      "lay_summary": "Nursing documentation is a legal record of care provided. Accurate, timely, and complete charting protects patients and nurses.",
+      "content": {
+        "intro": "Documentation is both a communication tool and a legal document. It must reflect the care given, the patient's response, and clinical reasoning.",
+        "estimated_minutes": 20,
+        "sections": [
+          {
+            "title": "Principles of Documentation",
+            "body": "Accurate: record facts, not interpretations unless clearly labelled as such. Complete: all assessments, interventions, evaluations. Timely: document as soon as possible after the event. Legible: clear handwriting or typed entries. No blank spaces — draw a line through unused space. Never chart in advance."
+          },
+          {
+            "title": "SBAR Communication",
+            "body": "SBAR (Situation, Background, Assessment, Recommendation) is the gold standard for nurse-to-physician and nurse-to-nurse handoff communication. Situation: What is happening now? Background: Relevant history. Assessment: What do you think is going on? Recommendation: What do you need? Example: 'Dr Smith, this is RN Jones re: Mr. Brown in Room 5 (Situation: BP dropped to 80/50, now 88/60 after 500 mL fluid). Background: 70yo post-op day 1 colectomy, was stable this morning. Assessment: I think he may be bleeding internally. Recommendation: I need you to come and assess him now.'"
+          },
+          {
+            "title": "Common Documentation Errors to Avoid",
+            "body": "1. Late entries: clearly label as 'late entry' with reason. 2. Leaving blanks — sign and date all entries. 3. Using non-approved abbreviations. 4. Altering records — never. 5. Charting by exception incorrectly — if something is abnormal it must be documented specifically. 6. Copying and pasting in EHR — creates error propagation."
+          }
+        ],
+        "clinical_pearl": "The nursing record is a legal document. In a lawsuit, care that is not documented is considered care that was not provided. Document objectively: 'Patient states pain 8/10' — not 'Patient seems uncomfortable.'",
+        "key_points": [
+          "SBAR is the standard framework for clinical handoff communication",
+          "Document facts — avoid subjective interpretations without evidence",
+          "Late entries must be labelled; records must never be altered",
+          "EHR copy-paste errors are a patient safety risk"
+        ],
+        "references": ["ISBAR 2019 WHO Patient Safety Curriculum", "ANA Principles for Nursing Documentation, 2010"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "What does ADPIE stand for?", "answer": "Assess, Diagnose, Plan, Implement, Evaluate — the five steps of the nursing process.", "difficulty": "easy"},
+    {"question": "Difference between nursing diagnosis and medical diagnosis?", "answer": "Medical diagnosis: identifies the disease (e.g. pneumonia). Nursing diagnosis: identifies the patient's response to the illness that nurses can independently treat (e.g. Ineffective Airway Clearance).", "difficulty": "medium"},
+    {"question": "What is a SMART goal?", "answer": "Specific, Measurable, Achievable, Relevant, Time-bound. Example: 'Patient will ambulate 50 m independently by day 3 post-op.'", "difficulty": "easy"},
+    {"question": "SBAR stands for?", "answer": "Situation, Background, Assessment, Recommendation — structured communication tool for clinical handoff.", "difficulty": "easy"},
+    {"question": "What is Maslow's hierarchy of needs (order for care prioritisation)?", "answer": "1. Physiological (airway, breathing, circulation, nutrition). 2. Safety. 3. Love/belonging. 4. Esteem. 5. Self-actualisation. Address physiological needs first.", "difficulty": "medium"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse is writing a care plan for a patient admitted after a hip fracture. Which of the following is a correctly formatted nursing diagnosis?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Hip fracture related to fall",
+        "B": "Risk for Impaired Physical Mobility related to hip fracture",
+        "C": "Osteoporosis related to calcium deficiency",
+        "D": "Acute Pain related to surgical incision as evidenced by patient rating pain 8/10 and guarding"
+      },
+      "correct": "D",
+      "explanation": "Option D follows the PES format (Problem + Etiology + Signs/Symptoms) correctly. Option A is a medical diagnosis restated. Option B is missing the 'as evidenced by' signs for a NANDA actual diagnosis. Option C describes the disease cause, not the nursing problem.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "During handoff report, the oncoming nurse needs critical information about a deteriorating patient. Which communication framework should be used?",
+      "question_type": "mcq",
+      "options": {
+        "A": "ADPIE",
+        "B": "SBAR",
+        "C": "NANDA-I",
+        "D": "SMART"
+      },
+      "correct": "B",
+      "explanation": "SBAR (Situation, Background, Assessment, Recommendation) is the gold standard for structured clinical communication, endorsed by WHO and Joint Commission. ADPIE is the nursing process; NANDA-I is a nursing diagnosis taxonomy; SMART is for goal-setting.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Select ALL nursing actions that are legally and ethically required when making a documentation error in a paper chart.",
+      "question_type": "sata",
+      "options": {
+        "A": "Draw a single line through the error",
+        "B": "Write 'error', sign, and date the correction",
+        "C": "Use correction fluid (Wite-Out) to cover the error",
+        "D": "Use black or blue ink only",
+        "E": "Re-copy the entire page to remove the error"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "B", "D"],
+      "explanation": "Correct procedure: single line through error, write 'error', sign and date. Wite-Out and recopying are prohibited because they could be construed as record falsification. Using the correct ink colour is also required.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Place the nursing process steps in the correct order for a newly admitted patient complaining of chest pain.",
+      "question_type": "ordered",
+      "options": {
+        "A": "Plan nursing interventions and goals",
+        "B": "Evaluate patient's response to interventions",
+        "C": "Implement the care plan",
+        "D": "Formulate nursing diagnoses",
+        "E": "Perform systematic assessment including vital signs and pain characteristics"
+      },
+      "correct": "E",
+      "correct_order": ["E", "D", "A", "C", "B"],
+      "explanation": "ADPIE sequence: Assessment (E) → Diagnosis (D) → Planning (A) → Implementation (C) → Evaluation (B). You cannot diagnose before assessing, plan before diagnosing, or evaluate before implementing.",
+      "difficulty": "medium"
+    }
+  ],
+  "clinical_cases": []
+}

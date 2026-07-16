@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PAED-001",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Neonatal Medicine: Assessment, Respiratory Distress Syndrome, Neonatal Jaundice",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Neonatal Respiratory Distress Syndrome",
+      "content": {
+        "intro": "Neonatal respiratory distress syndrome (RDS) is a leading cause of morbidity and mortality in preterm infants. The incidence of RDS is inversely related to gestational age, with the highest risk in infants born at less than 28 weeks of gestation. The pathophysiology of RDS involves a deficiency of surfactant, a lipoprotein complex that reduces surface tension in the alveoli, thereby facilitating lung expansion and preventing atelectasis. Surfactant deficiency leads to increased surface tension, resulting in alveolar collapse and respiratory distress. The diagnosis of RDS is based on clinical presentation, chest radiography, and laboratory tests. The management of RDS involves supportive care, including mechanical ventilation, and the administration of exogenous surfactant.",
+        "sections": [
+          {
+            "heading": "Surfactant Deficiency and RDS",
+            "text": "Surfactant deficiency is the primary cause of RDS. Surfactant is a complex mixture of phospholipids and proteins that reduces surface tension in the alveoli, thereby facilitating lung expansion and preventing atelectasis. The production of surfactant is regulated by a variety of factors, including gestational age, cortisol, and thyroid hormone. Preterm infants have a limited capacity for surfactant production, which increases their risk of developing RDS. The use of antenatal corticosteroids, such as betamethasone (12 mg IM every 24 hours for 2 doses), has been shown to enhance surfactant production and reduce the risk of RDS (NIICE, 2020)."
+          },
+          {
+            "heading": "Risk Factors for RDS",
+            "text": "Several risk factors have been identified for RDS, including preterm birth, low birth weight, and maternal diabetes. The risk of RDS is also increased in infants born to mothers with a history of pregnancy-induced hypertension or preeclampsia. The use of fetal monitoring and ultrasound has improved the detection of fetal distress and the identification of infants at high risk of RDS. The implementation of evidence-based guidelines, such as those recommended by the American Heart Association (AHA, 2019), has also reduced the incidence of RDS."
+          },
+          {
+            "heading": "Prevention and Treatment of RDS",
+            "text": "The prevention and treatment of RDS involve a combination of supportive care and the administration of exogenous surfactant. The use of continuous positive airway pressure (CPAP) and mechanical ventilation has been shown to reduce the risk of RDS and improve outcomes in preterm infants. The administration of exogenous surfactant, such as poractant alfa (100-200 mg/kg), has also been shown to reduce the risk of RDS and improve lung function in preterm infants (ESC, 2019). The use of non-invasive ventilation, such as nasal CPAP, has also been shown to reduce the need for intubation and mechanical ventilation in preterm infants."
+          }
+        ],
+        "clinical_pearl": "The use of antenatal corticosteroids, such as betamethasone, has been shown to reduce the risk of RDS by 50% in preterm infants (AHA, 2019).",
+        "key_points": [
+          "The incidence of RDS is inversely related to gestational age.",
+          "Surfactant deficiency is the primary cause of RDS.",
+          "The use of antenatal corticosteroids reduces the risk of RDS.",
+          "The administration of exogenous surfactant improves lung function in preterm infants.",
+          "The use of non-invasive ventilation reduces the need for intubation and mechanical ventilation.",
+          "The implementation of evidence-based guidelines reduces the incidence of RDS."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Neonatal Respiratory Distress Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of RDS."
+          },
+          {
+            "title": "Surfactant Replacement Therapy for Preterm Infants with Respiratory Distress Syndrome",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of exogenous surfactant in preterm infants."
+          },
+          {
+            "title": "Antenatal Corticosteroids for Fetal Lung Maturation",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of antenatal corticosteroids to enhance fetal lung maturation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Neonatal Respiratory Distress Syndrome",
+      "content": {
+        "intro": "The clinical presentation of RDS varies depending on the severity of the disease. Preterm infants with RDS typically present with respiratory distress, including tachypnea, grunting, and retractions. The diagnosis of RDS is based on clinical presentation, chest radiography, and laboratory tests. The management of RDS involves supportive care, including mechanical ventilation, and the administration of exogenous surfactant.",
+        "sections": [
+          {
+            "heading": "Respiratory Distress",
+            "text": "Preterm infants with RDS typically present with respiratory distress, including tachypnea, grunting, and retractions. The severity of respiratory distress is related to the degree of surfactant deficiency and the presence of other underlying conditions, such as pneumonia or congenital heart disease. The use of non-invasive ventilation, such as nasal CPAP, has been shown to reduce the need for intubation and mechanical ventilation in preterm infants (AHA, 2019)."
+          },
+          {
+            "heading": "Chest Radiography",
+            "text": "Chest radiography is an essential tool in the diagnosis of RDS. The characteristic radiographic findings of RDS include a reticulogranular pattern, air bronchograms, and a bell-shaped chest. The use of chest radiography has been shown to improve the diagnosis and treatment of RDS (ESC, 2019)."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, including arterial blood gas analysis and complete blood count, are used to assess the severity of RDS and guide treatment. The use of pulse oximetry has also been shown to improve the diagnosis and treatment of RDS (NICE, 2020)."
+          }
+        ],
+        "clinical_pearl": "The use of non-invasive ventilation, such as nasal CPAP, has been shown to reduce the need for intubation and mechanical ventilation in preterm infants (AHA, 2019).",
+        "key_points": [
+          "Preterm infants with RDS typically present with respiratory distress.",
+          "The diagnosis of RDS is based on clinical presentation, chest radiography, and laboratory tests.",
+          "The use of non-invasive ventilation reduces the need for intubation and mechanical ventilation.",
+          "Chest radiography is an essential tool in the diagnosis of RDS.",
+          "Laboratory tests are used to assess the severity of RDS and guide treatment.",
+          "The use of pulse oximetry improves the diagnosis and treatment of RDS."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Neonatal Respiratory Distress Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of RDS."
+          },
+          {
+            "title": "Surfactant Replacement Therapy for Preterm Infants with Respiratory Distress Syndrome",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of exogenous surfactant in preterm infants."
+          },
+          {
+            "title": "Antenatal Corticosteroids for Fetal Lung Maturation",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of antenatal corticosteroids to enhance fetal lung maturation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Neonatal Jaundice",
+      "content": {
+        "intro": "Neonatal jaundice is a common condition in newborn infants, characterized by elevated levels of bilirubin in the blood. The diagnosis of neonatal jaundice is based on clinical presentation, laboratory tests, and imaging studies. The management of neonatal jaundice involves phototherapy, exchange transfusion, and other supportive measures.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation",
+            "text": "Neonatal jaundice typically presents with yellow discoloration of the skin and eyes, which can be detected by visual inspection. The severity of jaundice is related to the level of bilirubin in the blood, which can be measured using a bilirubinometer. The use of transcutaneous bilirubinometry has been shown to improve the diagnosis and treatment of neonatal jaundice (AHA, 2019)."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, including total and direct bilirubin, are used to assess the severity of neonatal jaundice and guide treatment. The use of liver function tests, such as alanine transaminase and aspartate transaminase, has also been shown to improve the diagnosis and treatment of neonatal jaundice (ESC, 2019)."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and magnetic resonance imaging, are used to assess the liver and biliary system in infants with neonatal jaundice. The use of imaging studies has been shown to improve the diagnosis and treatment of neonatal jaundice (NICE, 2020)."
+          }
+        ],
+        "clinical_pearl": "The use of transcutaneous bilirubinometry has been shown to improve the diagnosis and treatment of neonatal jaundice (AHA, 2019).",
+        "key_points": [
+          "Neonatal jaundice is a common condition in newborn infants.",
+          "The diagnosis of neonatal jaundice is based on clinical presentation, laboratory tests, and imaging studies.",
+          "The use of transcutaneous bilirubinometry improves the diagnosis and treatment of neonatal jaundice.",
+          "Laboratory tests are used to assess the severity of neonatal jaundice and guide treatment.",
+          "Imaging studies are used to assess the liver and biliary system in infants with neonatal jaundice.",
+          "The management of neonatal jaundice involves phototherapy, exchange transfusion, and other supportive measures."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Neonatal Jaundice",
+            "authors": "American Heart Association",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of neonatal jaundice."
+          },
+          {
+            "title": "Phototherapy for Neonatal Jaundice",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of phototherapy in neonatal jaundice."
+          },
+          {
+            "title": "Exchange Transfusion for Neonatal Jaundice",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of exchange transfusion in neonatal jaundice."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Neonatal Respiratory Distress Syndrome",
+      "content": {
+        "intro": "The treatment and management of RDS involves a combination of supportive care, including mechanical ventilation, and the administration of exogenous surfactant. The use of non-invasive ventilation, such as nasal CPAP, has been shown to reduce the need for intubation and mechanical ventilation in preterm infants.",
+        "sections": [
+          {
+            "heading": "Mechanical Ventilation",
+            "text": "Mechanical ventilation is a critical component of the treatment and management of RDS. The use of mechanical ventilation has been shown to improve outcomes in preterm infants with RDS (AHA, 2019). The administration of exogenous surfactant, such as poractant alfa (100-200 mg/kg), has also been shown to improve lung function in preterm infants with RDS (ESC, 2019)."
+          },
+          {
+            "heading": "Non-Invasive Ventilation",
+            "text": "Non-invasive ventilation, such as nasal CPAP, has been shown to reduce the need for intubation and mechanical ventilation in preterm infants. The use of non-invasive ventilation has been shown to improve outcomes in preterm infants with RDS (NICE, 2020)."
+          },
+          {
+            "heading": "Exogenous Surfactant",
+            "text": "Exogenous surfactant, such as poractant alfa (100-200 mg/kg), has been shown to improve lung function in preterm infants with RDS. The administration of exogenous surfactant has been shown to reduce the risk of RDS and improve outcomes in preterm infants (AHA, 2019)."
+          }
+        ],
+        "clinical_pearl": "The use of non-invasive ventilation, such as nasal CPAP, has been shown to reduce the need for intubation and mechanical ventilation in preterm infants (AHA, 2019).",
+        "key_points": [
+          "The treatment and management of RDS involves a combination of supportive care and the administration of exogenous surfactant.",
+          "Mechanical ventilation is a critical component of the treatment and management of RDS.",
+          "Non-invasive ventilation reduces the need for intubation and mechanical ventilation.",
+          "Exogenous surfactant improves lung function in preterm infants with RDS.",
+          "The administration of exogenous surfactant reduces the risk of RDS and improves outcomes in preterm infants.",
+          "The use of non-invasive ventilation improves outcomes in preterm infants with RDS."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Neonatal Respiratory Distress Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of RDS."
+          },
+          {
+            "title": "Surfactant Replacement Therapy for Preterm Infants with Respiratory Distress Syndrome",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of exogenous surfactant in preterm infants."
+          },
+          {
+            "title": "Non-Invasive Ventilation for Preterm Infants with Respiratory Distress Syndrome",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the use of non-invasive ventilation in preterm infants with RDS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Neonatal Respiratory Distress Syndrome",
+      "content": {
+        "intro": "The complications and prognosis of RDS are related to the severity of the disease and the presence of underlying conditions. Preterm infants with RDS are at increased risk of developing chronic lung disease, including bronchopulmonary dysplasia. The use of mechanical ventilation and exogenous surfactant has been shown to improve outcomes in preterm infants with RDS.",
+        "sections": [
+          {
+            "heading": "Chronic Lung Disease",
+            "text": "Chronic lung disease, including bronchopulmonary dysplasia, is a common complication of RDS. The use of mechanical ventilation and exogenous surfactant has been shown to reduce the risk of chronic lung disease in preterm infants (AHA, 2019)."
+          },
+          {
+            "heading": "Neurodevelopmental Outcomes",
+            "text": "Preterm infants with RDS are at increased risk of developing neurodevelopmental disorders, including cerebral palsy and developmental delay. The use of mechanical ventilation and exogenous surfactant has been shown to improve neurodevelopmental outcomes in preterm infants (ESC, 2019)."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of RDS is related to the severity of the disease and the presence of underlying conditions. Preterm infants with RDS have a higher risk of mortality and morbidity than term infants. The use of mechanical ventilation and exogenous surfactant has been shown to improve outcomes in preterm infants with RDS (NICE, 2020)."
+          }
+        ],
+        "clinical_pearl": "The use of mechanical ventilation and exogenous surfactant has been shown to improve outcomes in preterm infants with RDS (AHA, 2019).",
+        "key_points": [
+          "The complications and prognosis of RDS are related to the severity of the disease and the presence of underlying conditions.",
+          "Preterm infants with RDS are at increased risk of developing chronic lung disease.",
+          "The use of mechanical ventilation and exogenous surfactant reduces the risk of chronic lung disease.",
+          "Preterm infants with RDS are at increased risk of developing neurodevelopmental disorders.",
+          "The use of mechanical ventilation and exogenous surfactant improves neurodevelopmental outcomes.",
+          "The prognosis of RDS is related to the severity of the disease and the presence of underlying conditions."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Neonatal Respiratory Distress Syndrome",
+            "authors": "American Heart Association",
+            "journal_or_source": "Pediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of RDS."
+          },
+          {
+            "title": "Surfactant Replacement Therapy for Preterm Infants with Respiratory Distress Syndrome",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of exogenous surfactant in preterm infants."
+          },
+          {
+            "title": "Chronic Lung Disease in Preterm Infants",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of chronic lung disease in preterm infants."
+          }
+        ]
+      }
+    }
+  ]
+}

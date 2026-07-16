@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "CARD-005",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Cardiac Arrhythmias: SVT, VT, WPW — ECG Interpretation and Ablation",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cardiac Arrhythmias",
+      "content": {
+        "intro": "Cardiac arrhythmias, including supraventricular tachycardia (SVT), ventricular tachycardia (VT), and Wolff-Parkinson-White (WPW) syndrome, are significant concerns in cardiology. The epidemiology of these conditions varies, with SVT affecting approximately 2.25 per 1000 person-years, VT occurring in about 1 in 1000 people per year, and WPW syndrome found in roughly 1.5 to 3 per 1000 individuals. Understanding the pathophysiology behind these arrhythmias is crucial for effective management. SVT often involves the atrioventricular (AV) node, while VT originates from the ventricles, and WPW syndrome is characterized by an accessory electrical pathway between the atria and ventricles.",
+        "sections": [
+          {
+            "heading": "Mechanisms of Arrhythmias",
+            "text": "The mechanisms behind SVT, VT, and WPW syndrome involve abnormalities in the heart's electrical conduction system. For SVT, this often includes re-entry circuits involving the AV node. VT, on the other hand, can be due to re-entry or abnormal automaticity within the ventricles. WPW syndrome's accessory pathway can lead to pre-excitation of the ventricles, causing tachycardia. The 2020 ESC guidelines emphasize the importance of understanding these mechanisms for appropriate diagnosis and treatment."
+          },
+          {
+            "heading": "Risk Factors and Associations",
+            "text": "Several risk factors and associations are linked with the development of these arrhythmias. For instance, WPW syndrome is associated with a higher risk of sudden cardiac death, particularly if left untreated. The 2019 AHA/ACC/HRS guideline highlights the importance of identifying and managing such risk factors to prevent complications. Additionally, conditions like hypertension and heart failure can predispose individuals to arrhythmias by altering the heart's structure and function."
+          },
+          {
+            "heading": "Genetic Considerations",
+            "text": "Genetic factors play a significant role in the predisposition to certain arrhythmias. For example, WPW syndrome can be familial, and genetic testing may be recommended for first-degree relatives of affected individuals. The NICE 2019 guideline suggests that genetic evaluation should be considered in the context of familial arrhythmia syndromes. Understanding the genetic basis can aid in early identification and management of at-risk individuals."
+          }
+        ],
+        "clinical_pearl": "Early recognition and intervention in cardiac arrhythmias can significantly improve outcomes. For instance, catheter ablation has been shown to be highly effective in treating WPW syndrome, with success rates exceeding 95% in some studies.",
+        "key_points": [
+          "SVT affects approximately 2.25 per 1000 person-years.",
+          "VT occurs in about 1 in 1000 people per year.",
+          "WPW syndrome is found in roughly 1.5 to 3 per 1000 individuals.",
+          "The 2020 ESC guidelines emphasize understanding the mechanisms of arrhythmias for diagnosis and treatment.",
+          "Risk factors like hypertension and heart failure can predispose to arrhythmias.",
+          "Genetic factors are significant in the predisposition to certain arrhythmias, such as WPW syndrome."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the management of supraventricular tachycardia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of understanding arrhythmia mechanisms"
+          },
+          {
+            "title": "Genetic Basis of Arrhythmias",
+            "authors": "HRS",
+            "journal_or_source": "HeartRhythm",
+            "year": 2022,
+            "type": "review",
+            "note": "Highlights the role of genetics in arrhythmia predisposition"
+          },
+          {
+            "title": "Ablation for WPW Syndrome",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Supports the use of catheter ablation for WPW syndrome treatment"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cardiac Arrhythmias",
+      "content": {
+        "intro": "The clinical presentation of cardiac arrhythmias can vary significantly, from asymptomatic to life-threatening. Symptoms may include palpitations, shortness of breath, chest pain, and in severe cases, syncope or cardiac arrest. The presentation depends on the type of arrhythmia, the underlying heart disease, and the individual's overall health status. Accurate diagnosis and management are critical to prevent complications and improve outcomes.",
+        "sections": [
+          {
+            "heading": "Symptoms and Signs",
+            "text": "Patients with SVT may present with palpitations, anxiety, and shortness of breath. VT can cause more severe symptoms, including chest pain, syncope, and cardiac arrest. WPW syndrome may present with symptoms similar to SVT but can also lead to atrial fibrillation with rapid ventricular response, which can be life-threatening. The 2017 ACC/AHA/HRS guideline emphasizes the importance of a thorough clinical evaluation to guide further testing and management."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "Physical examination may reveal irregular heart rhythms, and in some cases, signs of heart failure. The presence of an accessory pathway in WPW syndrome can lead to characteristic physical examination findings, such as a short PR interval on the ECG. The ESC 2019 guideline suggests that physical examination findings should be used in conjunction with ECG interpretation for diagnosis."
+          },
+          {
+            "heading": "Differential Diagnosis",
+            "text": "The differential diagnosis for cardiac arrhythmias includes other conditions that can mimic arrhythmia symptoms, such as panic disorder, hyperthyroidism, and pulmonary embolism. A thorough diagnostic approach, including ECG, Holter monitoring, and sometimes electrophysiological studies, is necessary to establish the correct diagnosis. The AHA 2020 guideline recommends a step-wise approach to diagnosis, starting with non-invasive tests."
+          }
+        ],
+        "clinical_pearl": "A high index of suspicion for cardiac arrhythmias is crucial, especially in patients with known heart disease or those presenting with severe symptoms.",
+        "key_points": [
+          "Symptoms of cardiac arrhythmias can range from mild to life-threatening.",
+          "SVT, VT, and WPW syndrome have distinct presentations but can overlap.",
+          "A thorough clinical evaluation is essential for guiding further testing and management.",
+          "Physical examination findings can aid in diagnosis, especially in WPW syndrome.",
+          "Differential diagnosis should consider other conditions mimicking arrhythmia symptoms.",
+          "A step-wise diagnostic approach is recommended, starting with non-invasive tests."
+        ],
+        "references": [
+          {
+            "title": "2017 ACC/AHA/HRS Guideline for the Evaluation and Management of Patients With Syncope",
+            "authors": "ACC/AHA/HRS",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Emphasizes thorough clinical evaluation"
+          },
+          {
+            "title": "Physical Examination in Cardiac Arrhythmias",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "review",
+            "note": "Highlights the role of physical examination in diagnosis"
+          },
+          {
+            "title": "Differential Diagnosis of Cardiac Arrhythmias",
+            "authors": "AHA",
+            "journal_or_source": "Journal of the American Heart Association",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Supports a step-wise approach to diagnosis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cardiac Arrhythmias",
+      "content": {
+        "intro": "The diagnosis of cardiac arrhythmias involves a combination of clinical evaluation, electrocardiography (ECG), and sometimes more advanced tests like Holter monitoring, event monitors, or electrophysiological studies. The choice of diagnostic test depends on the suspected arrhythmia, the frequency and severity of symptoms, and the patient's overall health status.",
+        "sections": [
+          {
+            "heading": "Electrocardiography (ECG)",
+            "text": "ECG is the first-line diagnostic tool for cardiac arrhythmias. It can diagnose arrhythmias like SVT, VT, and WPW syndrome by analyzing the heart's electrical activity. The 2020 ESC guideline recommends that all patients with suspected arrhythmia should undergo a 12-lead ECG. Specific patterns on the ECG, such as the delta wave in WPW syndrome, can be diagnostic."
+          },
+          {
+            "heading": "Holter Monitoring and Event Monitors",
+            "text": "For patients with intermittent symptoms, Holter monitoring (24-hour ECG monitoring) or event monitors (which can record ECG over longer periods) can be used to capture the arrhythmia. These tests are particularly useful for diagnosing arrhythmias that occur less frequently. The AHA 2019 guideline suggests that these tests should be used based on the clinical suspicion and the frequency of symptoms."
+          },
+          {
+            "heading": "Electrophysiological Studies",
+            "text": "Electrophysiological studies (EPS) involve the insertion of catheters into the heart to directly record the heart's electrical activity and to induce arrhythmias. EPS is useful for diagnosing and treating certain arrhythmias, especially those that are life-threatening or resistant to medical therapy. The 2018 HRS guideline recommends EPS for the diagnosis and treatment of complex arrhythmias."
+          }
+        ],
+        "clinical_pearl": "The choice of diagnostic test should be guided by the clinical presentation and the suspected arrhythmia, with ECG being the first-line investigation.",
+        "key_points": [
+          "ECG is the first-line diagnostic tool for cardiac arrhythmias.",
+          "Holter monitoring and event monitors are useful for intermittent symptoms.",
+          "Electrophysiological studies are used for complex or resistant arrhythmias.",
+          "The choice of diagnostic test depends on the clinical presentation and suspected arrhythmia.",
+          "ECG patterns can be diagnostic for certain arrhythmias, like WPW syndrome.",
+          "Advanced diagnostic tests should be used judiciously based on clinical suspicion and guidelines."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the management of supraventricular tachycardia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommends ECG as the first-line diagnostic tool"
+          },
+          {
+            "title": "Holter Monitoring in Arrhythmia Diagnosis",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "review",
+            "note": "Highlights the use of Holter monitoring for intermittent symptoms"
+          },
+          {
+            "title": "Electrophysiological Studies for Arrhythmia Diagnosis and Treatment",
+            "authors": "HRS",
+            "journal_or_source": "HeartRhythm",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Supports the use of EPS for complex arrhythmias"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cardiac Arrhythmias",
+      "content": {
+        "intro": "The treatment and management of cardiac arrhythmias depend on the type of arrhythmia, the severity of symptoms, and the presence of underlying heart disease. Management strategies include lifestyle modifications, medications, catheter ablation, and in some cases, implantable devices like pacemakers or defibrillators.",
+        "sections": [
+          {
+            "heading": "Medical Therapy",
+            "text": "Medical therapy for arrhythmias includes anti-arrhythmic drugs, which can be used to prevent or terminate arrhythmias. The choice of drug depends on the type of arrhythmia and the patient's health status. For example, adenosine is often used for acute termination of SVT, while beta-blockers can be used for long-term prevention of arrhythmias. The 2020 AHA/ACC/HRS guideline provides recommendations for the use of anti-arrhythmic drugs in various arrhythmias."
+          },
+          {
+            "heading": "Catheter Ablation",
+            "text": "Catheter ablation is a minimally invasive procedure used to destroy the abnormal electrical pathways in the heart that cause arrhythmias. It is highly effective for treating SVT, VT, and WPW syndrome, with success rates exceeding 90% for some conditions. The ESC 2019 guideline supports the use of catheter ablation as a first-line treatment for certain arrhythmias."
+          },
+          {
+            "heading": "Implantable Devices",
+            "text": "For patients with life-threatening arrhythmias or those who have not responded to other treatments, implantable devices like pacemakers or implantable cardioverter-defibrillators (ICDs) may be necessary. These devices can prevent sudden cardiac death by automatically detecting and correcting life-threatening arrhythmias. The 2018 HRS guideline recommends the use of ICDs in patients at high risk of sudden cardiac death."
+          }
+        ],
+        "clinical_pearl": "The choice of treatment should be individualized based on the patient's specific condition, symptoms, and response to initial therapies.",
+        "key_points": [
+          "Medical therapy includes anti-arrhythmic drugs tailored to the arrhythmia type.",
+          "Catheter ablation is highly effective for certain arrhythmias, including SVT and WPW syndrome.",
+          "Implantable devices like pacemakers and ICDs are used for life-threatening arrhythmias or when other treatments fail.",
+          "The choice of treatment depends on the arrhythmia type, symptom severity, and underlying heart disease.",
+          "Lifestyle modifications, such as avoiding triggers, can be beneficial for some patients.",
+          "Treatment should be guided by current guidelines and clinical expertise."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA/ACC/HRS Guideline for the Management of Patients With Atrial Fibrillation",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides recommendations for anti-arrhythmic drug use"
+          },
+          {
+            "title": "Catheter Ablation for Arrhythmias",
+            "authors": "ESC",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Supports catheter ablation as a first-line treatment for certain arrhythmias"
+          },
+          {
+            "title": "Implantable Devices for Arrhythmia Management",
+            "authors": "HRS",
+            "journal_or_source": "HeartRhythm",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommends the use of ICDs in high-risk patients"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cardiac Arrhythmias",
+      "content": {
+        "intro": "Cardiac arrhythmias can lead to significant complications, including heart failure, stroke, and sudden cardiac death. The prognosis varies depending on the type of arrhythmia, the presence of underlying heart disease, and the effectiveness of treatment. Understanding the potential complications and prognosis is crucial for managing patients with cardiac arrhythmias.",
+        "sections": [
+          {
+            "heading": "Heart Failure and Arrhythmias",
+            "text": "Certain arrhythmias, such as atrial fibrillation, can increase the risk of heart failure by reducing the heart's efficiency and leading to structural changes. The 2020 ESC guideline emphasizes the importance of managing heart failure in patients with arrhythmias. Treatment of the arrhythmia and heart failure simultaneously can improve outcomes."
+          },
+          {
+            "heading": "Stroke Risk and Arrhythmias",
+            "text": "Atrial fibrillation, in particular, significantly increases the risk of stroke due to the formation of blood clots in the atria. The use of anticoagulants, as recommended by the 2019 AHA/ACC/HRS guideline, can reduce this risk. The decision to use anticoagulation should be based on the patient's stroke risk and bleeding risk."
+          },
+          {
+            "heading": "Sudden Cardiac Death",
+            "text": "Life-threatening arrhythmias like VT can lead to sudden cardiac death if not treated promptly and effectively. The use of implantable cardioverter-defibrillators (ICDs) in high-risk patients, as recommended by the 2018 HRS guideline, can significantly reduce the risk of sudden cardiac death. Regular follow-up and monitoring are crucial for patients at risk."
+          }
+        ],
+        "clinical_pearl": "Early recognition and management of cardiac arrhythmias can significantly reduce the risk of complications and improve prognosis.",
+        "key_points": [
+          "Cardiac arrhythmias can lead to heart failure, stroke, and sudden cardiac death.",
+          "The prognosis varies depending on the arrhythmia type and underlying heart disease.",
+          "Effective treatment of arrhythmias and underlying conditions can improve outcomes.",
+          "Anticoagulation can reduce stroke risk in atrial fibrillation.",
+          "ICDs can reduce the risk of sudden cardiac death in high-risk patients.",
+          "Regular follow-up and monitoring are crucial for managing arrhythmia complications."
+        ],
+        "references": [
+          {
+            "title": "2020 ESC Guidelines for the management of heart failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes managing heart failure in patients with arrhythmias"
+          },
+          {
+            "title": "Stroke Risk in Atrial Fibrillation",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Supports the use of anticoagulants to reduce stroke risk"
+          },
+          {
+            "title": "Sudden Cardiac Death Prevention",
+            "authors": "HRS",
+            "journal_or_source": "HeartRhythm",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommends ICDs for high-risk patients"
+          }
+        ]
+      }
+    }
+  ]
+}

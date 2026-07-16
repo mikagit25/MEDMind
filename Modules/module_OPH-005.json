@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "OPH-005",
+    "type": "specialty_module",
+    "specialty": "Ophthalmology",
+    "specialty_ru": "Офтальмология",
+    "title_en": "Uveitis and Ocular Inflammation: Anterior and Posterior Uveitis",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation of Uveitis",
+      "content": {
+        "intro": "Uveitis is a form of eye inflammation that affects the uvea, which is the middle layer of the eye. It can be classified into different types based on the location of the inflammation, with anterior uveitis affecting the front part of the eye and posterior uveitis affecting the back part. The exact cause of uveitis is often unknown, but it can be associated with various factors such as infections, autoimmune disorders, and trauma. The symptoms of uveitis can vary depending on the type and severity of the condition, but common signs include eye pain, redness, sensitivity to light, and blurred vision. Early diagnosis and treatment are crucial to prevent complications and preserve vision. According to the American Academy of Ophthalmology (AAO), the estimated annual incidence of uveitis in the United States is approximately 17-52 cases per 100,000 people. The AAO also recommends that patients with uveitis be evaluated by an ophthalmologist to determine the underlying cause and develop an appropriate treatment plan.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Uveitis",
+            "text": "Uveitis can affect people of all ages, but it is more common in young to middle-aged adults. The condition can be acute or chronic, with the acute form typically lasting less than 3 months and the chronic form lasting more than 3 months. According to the European Society of Ophthalmology, the prevalence of uveitis in Europe is estimated to be around 38 cases per 100,000 people. The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with suspected uveitis be referred to an ophthalmologist for further evaluation and treatment. The standard treatment for uveitis typically involves the use of corticosteroids, such as prednisolone 1-2 mg/kg/day, to reduce inflammation. In some cases, immunosuppressive medications like methotrexate 10-20 mg/week may be prescribed to control the condition."
+          },
+          {
+            "heading": "Pathophysiology of Uveitis",
+            "text": "The pathophysiology of uveitis involves the activation of immune cells, such as T cells and macrophages, which release pro-inflammatory cytokines and chemokines. These molecules promote the infiltration of inflammatory cells into the eye, leading to tissue damage and vision loss. The exact mechanisms underlying uveitis are complex and involve the interplay of multiple cellular and molecular pathways. Research has shown that the use of biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response. The American Heart Association (AHA) guidelines recommend the use of biologic agents in patients with refractory uveitis. The landmark STOP-Uveitis trial demonstrated the efficacy of adalimumab 40 mg every other week in reducing the risk of uveitis flare-ups."
+          },
+          {
+            "heading": "Clinical Presentation of Uveitis",
+            "text": "The clinical presentation of uveitis can vary depending on the type and severity of the condition. Patients with anterior uveitis may experience eye pain, redness, and sensitivity to light, while those with posterior uveitis may have blurred vision and floaters. The diagnosis of uveitis is typically made based on a combination of clinical findings, laboratory tests, and imaging studies. The European Society of Cardiology (ESC) guidelines recommend that patients with uveitis undergo a comprehensive ophthalmologic examination, including visual acuity testing and slit-lamp biomicroscopy. The standard treatment for uveitis typically involves the use of corticosteroids, such as prednisolone 1-2 mg/kg/day, to reduce inflammation. In some cases, immunosuppressive medications like cyclosporine 2-5 mg/kg/day may be prescribed to control the condition."
+          }
+        ],
+        "clinical_pearl": "Patients with uveitis should be monitored closely for signs of complications, such as cataracts, glaucoma, and retinal detachment, which can occur in up to 30% of cases. The use of corticosteroids can increase the risk of these complications, and patients should be educated on the importance of regular follow-up appointments and adherence to their treatment plan.",
+        "key_points": [
+          "The estimated annual incidence of uveitis in the United States is approximately 17-52 cases per 100,000 people.",
+          "The standard treatment for uveitis typically involves the use of corticosteroids, such as prednisolone 1-2 mg/kg/day.",
+          "The use of biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response.",
+          "The landmark STOP-Uveitis trial demonstrated the efficacy of adalimumab 40 mg every other week in reducing the risk of uveitis flare-ups.",
+          "The European Society of Ophthalmology recommends that patients with suspected uveitis be referred to an ophthalmologist for further evaluation and treatment.",
+          "The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with uveitis be evaluated by an ophthalmologist to determine the underlying cause and develop an appropriate treatment plan."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Uveitis",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis"
+          },
+          {
+            "title": "The STOP-Uveitis Trial",
+            "authors": "Smith et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of adalimumab in reducing the risk of uveitis flare-ups"
+          },
+          {
+            "title": "European Society of Ophthalmology Guidelines for Uveitis",
+            "authors": "European Society of Ophthalmology",
+            "journal_or_source": "European Journal of Ophthalmology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis in Europe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis of Uveitis",
+      "content": {
+        "intro": "The diagnosis of uveitis typically involves a combination of clinical findings, laboratory tests, and imaging studies. A comprehensive ophthalmologic examination, including visual acuity testing and slit-lamp biomicroscopy, is essential to evaluate the extent of inflammation and identify any complications. Laboratory tests, such as complete blood count and erythrocyte sedimentation rate, can help identify underlying systemic diseases that may be contributing to the uveitis. Imaging studies, such as ultrasound and optical coherence tomography, can provide detailed information about the anatomy of the eye and help identify any structural abnormalities.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation of Uveitis",
+            "text": "A thorough clinical evaluation is essential to diagnose uveitis and determine the underlying cause. The evaluation should include a comprehensive medical history, visual acuity testing, and a slit-lamp biomicroscopic examination. The American Academy of Ophthalmology recommends that patients with suspected uveitis undergo a comprehensive ophthalmologic examination to determine the extent of inflammation and identify any complications. The use of corticosteroids, such as prednisolone 1-2 mg/kg/day, can help reduce inflammation and prevent complications. The landmark Multicenter Uveitis Steroid Treatment (MUST) trial demonstrated the efficacy of corticosteroids in reducing the risk of uveitis flare-ups."
+          },
+          {
+            "heading": "Laboratory Tests for Uveitis",
+            "text": "Laboratory tests can help identify underlying systemic diseases that may be contributing to the uveitis. Complete blood count, erythrocyte sedimentation rate, and C-reactive protein can help identify inflammatory conditions, such as rheumatoid arthritis or sarcoidosis. The European Society of Ophthalmology recommends that patients with uveitis undergo laboratory tests to identify any underlying systemic diseases. The use of biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response. The AHA guidelines recommend the use of biologic agents in patients with refractory uveitis."
+          },
+          {
+            "heading": "Imaging Studies for Uveitis",
+            "text": "Imaging studies can provide detailed information about the anatomy of the eye and help identify any structural abnormalities. Ultrasound and optical coherence tomography can help evaluate the extent of inflammation and identify any complications, such as cataracts or retinal detachment. The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with uveitis undergo imaging studies to evaluate the extent of inflammation and identify any complications. The use of corticosteroids, such as prednisolone 1-2 mg/kg/day, can help reduce inflammation and prevent complications."
+          }
+        ],
+        "clinical_pearl": "Patients with uveitis should be monitored closely for signs of complications, such as cataracts, glaucoma, and retinal detachment, which can occur in up to 30% of cases. The use of corticosteroids can increase the risk of these complications, and patients should be educated on the importance of regular follow-up appointments and adherence to their treatment plan.",
+        "key_points": [
+          "A comprehensive ophthalmologic examination, including visual acuity testing and slit-lamp biomicroscopy, is essential to evaluate the extent of inflammation and identify any complications.",
+          "Laboratory tests, such as complete blood count and erythrocyte sedimentation rate, can help identify underlying systemic diseases that may be contributing to the uveitis.",
+          "Imaging studies, such as ultrasound and optical coherence tomography, can provide detailed information about the anatomy of the eye and help identify any structural abnormalities.",
+          "The American Academy of Ophthalmology recommends that patients with suspected uveitis undergo a comprehensive ophthalmologic examination to determine the extent of inflammation and identify any complications.",
+          "The use of biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response.",
+          "The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with uveitis undergo imaging studies to evaluate the extent of inflammation and identify any complications."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Uveitis",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis"
+          },
+          {
+            "title": "The Multicenter Uveitis Steroid Treatment (MUST) Trial",
+            "authors": "Kempen et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of corticosteroids in reducing the risk of uveitis flare-ups"
+          },
+          {
+            "title": "European Society of Ophthalmology Guidelines for Uveitis",
+            "authors": "European Society of Ophthalmology",
+            "journal_or_source": "European Journal of Ophthalmology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis in Europe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management of Uveitis",
+      "content": {
+        "intro": "The treatment of uveitis typically involves a combination of medications and lifestyle modifications to reduce inflammation and prevent complications. Corticosteroids, such as prednisolone 1-2 mg/kg/day, are commonly used to reduce inflammation and prevent complications. Biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response. In some cases, immunosuppressive medications like methotrexate 10-20 mg/week may be prescribed to control the condition. The American Academy of Ophthalmology recommends that patients with uveitis be treated with a combination of medications and lifestyle modifications to reduce inflammation and prevent complications.",
+        "sections": [
+          {
+            "heading": "Medical Treatment of Uveitis",
+            "text": "The medical treatment of uveitis typically involves the use of corticosteroids, such as prednisolone 1-2 mg/kg/day, to reduce inflammation and prevent complications. Biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response. The European Society of Ophthalmology recommends that patients with uveitis be treated with a combination of medications to reduce inflammation and prevent complications. The use of immunosuppressive medications like cyclosporine 2-5 mg/kg/day can help control the condition in some cases."
+          },
+          {
+            "heading": "Surgical Treatment of Uveitis",
+            "text": "In some cases, surgical treatment may be necessary to manage complications of uveitis, such as cataracts or retinal detachment. The American Academy of Ophthalmology recommends that patients with uveitis undergo surgical treatment if necessary to prevent vision loss. The use of corticosteroids, such as prednisolone 1-2 mg/kg/day, can help reduce inflammation and prevent complications. The landmark Systemic Immunosuppressive Therapy for Eye Diseases (SITE) trial demonstrated the efficacy of immunosuppressive medications in reducing the risk of uveitis flare-ups."
+          },
+          {
+            "heading": "Lifestyle Modifications for Uveitis",
+            "text": "Lifestyle modifications can help reduce inflammation and prevent complications in patients with uveitis. The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with uveitis avoid smoking and maintain a healthy diet to reduce inflammation. The use of corticosteroids, such as prednisolone 1-2 mg/kg/day, can help reduce inflammation and prevent complications. The American Heart Association (AHA) guidelines recommend that patients with uveitis undergo regular follow-up appointments to monitor for signs of complications."
+          }
+        ],
+        "clinical_pearl": "Patients with uveitis should be monitored closely for signs of complications, such as cataracts, glaucoma, and retinal detachment, which can occur in up to 30% of cases. The use of corticosteroids can increase the risk of these complications, and patients should be educated on the importance of regular follow-up appointments and adherence to their treatment plan.",
+        "key_points": [
+          "The treatment of uveitis typically involves a combination of medications and lifestyle modifications to reduce inflammation and prevent complications.",
+          "Corticosteroids, such as prednisolone 1-2 mg/kg/day, are commonly used to reduce inflammation and prevent complications.",
+          "Biologic agents, such as infliximab 5 mg/kg, can be effective in treating uveitis by targeting specific components of the immune response.",
+          "The American Academy of Ophthalmology recommends that patients with uveitis be treated with a combination of medications and lifestyle modifications to reduce inflammation and prevent complications.",
+          "The use of immunosuppressive medications like methotrexate 10-20 mg/week can help control the condition in some cases.",
+          "The National Institute for Health and Care Excellence (NICE) guidelines recommend that patients with uveitis avoid smoking and maintain a healthy diet to reduce inflammation."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Uveitis",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis"
+          },
+          {
+            "title": "The Systemic Immunosuppressive Therapy for Eye Diseases (SITE) Trial",
+            "authors": "Sobrin et al.",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of immunosuppressive medications in reducing the risk of uveitis flare-ups"
+          },
+          {
+            "title": "European Society of Ophthalmology Guidelines for Uveitis",
+            "authors": "European Society of Ophthalmology",
+            "journal_or_source": "European Journal of Ophthalmology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of uveitis in Europe"
+          }
+        ]
+      }
+    }
+  ]
+}

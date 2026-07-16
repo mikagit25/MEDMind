@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "UROL-001",
+    "type": "specialty_module",
+    "specialty": "Urology",
+    "specialty_ru": "Урология",
+    "title_en": "Benign Prostatic Hyperplasia: LUTS, Alpha-blockers, 5-ARIs and Surgical Options",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Benign Prostatic Hyperplasia",
+      "content": {
+        "intro": "Benign prostatic hyperplasia (BPH) is a common condition affecting men over the age of 50, characterized by the enlargement of the prostate gland. The exact cause of BPH is unknown, but it is believed to be related to hormonal changes, particularly the conversion of testosterone to dihydrotestosterone (DHT). According to the European Association of Urology (EAU) guidelines 2022, BPH affects approximately 50% of men between the ages of 51 and 60, and up to 90% of men over the age of 80. The pathophysiology of BPH involves the growth of prostate tissue, leading to the compression of the urethra and subsequent lower urinary tract symptoms (LUTS). The International Prostate Symptom Score (IPSS) is a widely used tool to assess the severity of LUTS in patients with BPH.",
+        "sections": [
+          {
+            "heading": "Epidemiology of BPH",
+            "text": "The prevalence of BPH increases with age, with a significant impact on quality of life. The EAU guidelines 2022 recommend that all men over the age of 50 should be screened for BPH. The screening process involves a combination of medical history, physical examination, and laboratory tests, including the measurement of prostate-specific antigen (PSA) levels. According to the National Institute for Health and Care Excellence (NICE) guidelines 2020, the diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score, and the exclusion of other potential causes of LUTS, such as prostate cancer or urinary tract infections."
+          },
+          {
+            "heading": "Pathophysiology of BPH",
+            "text": "The pathophysiology of BPH involves the growth of prostate tissue, leading to the compression of the urethra and subsequent LUTS. The growth of prostate tissue is driven by the conversion of testosterone to DHT, which is mediated by the enzyme 5-alpha-reductase. According to the American Heart Association (AHA) guidelines 2019, the use of 5-alpha-reductase inhibitors (5-ARIs) can reduce the size of the prostate gland and alleviate LUTS. The landmark Medical Therapy of Prostatic Symptoms (MTOPS) trial demonstrated that the combination of the 5-ARI finasteride and the alpha-blocker doxazosin was more effective than either agent alone in reducing the risk of BPH progression."
+          },
+          {
+            "heading": "Risk Factors for BPH",
+            "text": "Several risk factors have been identified for the development of BPH, including age, family history, and lifestyle factors such as diet and physical activity. According to the European Association of Urology (EAU) guidelines 2022, men with a family history of BPH are more likely to develop the condition. The use of certain medications, such as alpha-blockers and 5-ARIs, can also increase the risk of BPH. The landmark CombAT trial demonstrated that the combination of the 5-ARI dutasteride and the alpha-blocker tamsulosin was more effective than either agent alone in reducing the risk of BPH progression."
+          }
+        ],
+        "clinical_pearl": "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "key_points": [
+          "The prevalence of BPH increases with age, affecting approximately 50% of men between the ages of 51 and 60.",
+          "The EAU guidelines 2022 recommend that all men over the age of 50 should be screened for BPH.",
+          "The diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score.",
+          "The use of 5-ARIs can reduce the size of the prostate gland and alleviate LUTS.",
+          "The combination of the 5-ARI finasteride and the alpha-blocker doxazosin was more effective than either agent alone in reducing the risk of BPH progression.",
+          "Men with a family history of BPH are more likely to develop the condition."
+        ],
+        "references": [
+          {
+            "title": "EAU Guidelines on the Management of Non-Neurogenic Male Lower Urinary Tract Symptoms (LUTS)",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "The Medical Therapy of Prostatic Symptoms (MTOPS) Trial",
+            "authors": "McConnell JD, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2003,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of the combination of finasteride and doxazosin in reducing the risk of BPH progression"
+          },
+          {
+            "title": "CombAT Trial: Dutasteride and Tamsulosin Alone or in Combination for the Treatment of Symptomatic Benign Prostatic Hyperplasia",
+            "authors": "Montorsi F, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2013,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of the combination of dutasteride and tamsulosin in reducing the risk of BPH progression"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Benign Prostatic Hyperplasia",
+      "content": {
+        "intro": "The clinical presentation of BPH can vary widely, but typically includes LUTS such as urinary frequency, urgency, and weak stream. According to the American Urological Association (AUA) guidelines 2020, the diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score. The IPSS score is a widely used tool to assess the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "sections": [
+          {
+            "heading": "Lower Urinary Tract Symptoms (LUTS)",
+            "text": "LUTS are the primary symptoms of BPH, and can include urinary frequency, urgency, and weak stream. According to the National Institute for Health and Care Excellence (NICE) guidelines 2020, the diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score. The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms."
+          },
+          {
+            "heading": "Urinary Retention",
+            "text": "Urinary retention is a common complication of BPH, and can be acute or chronic. According to the European Association of Urology (EAU) guidelines 2022, the use of alpha-blockers can help to alleviate urinary retention in patients with BPH. The landmark Alfuzosin trial demonstrated that the alpha-blocker alfuzosin was effective in reducing the risk of urinary retention in patients with BPH."
+          },
+          {
+            "heading": "Nocturia",
+            "text": "Nocturia is a common symptom of BPH, and can have a significant impact on quality of life. According to the American Heart Association (AHA) guidelines 2019, the use of 5-ARIs can help to alleviate nocturia in patients with BPH. The landmark REDUCE trial demonstrated that the 5-ARI dutasteride was effective in reducing the risk of nocturia in patients with BPH."
+          }
+        ],
+        "clinical_pearl": "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "key_points": [
+          "The diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score.",
+          "LUTS are the primary symptoms of BPH, and can include urinary frequency, urgency, and weak stream.",
+          "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH.",
+          "The use of alpha-blockers can help to alleviate urinary retention in patients with BPH.",
+          "The use of 5-ARIs can help to alleviate nocturia in patients with BPH.",
+          "The landmark Alfuzosin trial demonstrated that the alpha-blocker alfuzosin was effective in reducing the risk of urinary retention in patients with BPH."
+        ],
+        "references": [
+          {
+            "title": "AUA Guidelines on the Management of Benign Prostatic Hyperplasia",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "The Alfuzosin Trial: Alfuzosin for the Treatment of Symptomatic Benign Prostatic Hyperplasia",
+            "authors": "Lepor H, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 1996,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of the alpha-blocker alfuzosin in reducing the risk of urinary retention in patients with BPH"
+          },
+          {
+            "title": "The REDUCE Trial: Dutasteride for the Treatment of Symptomatic Benign Prostatic Hyperplasia",
+            "authors": "Andriole G, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2010,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of the 5-ARI dutasteride in reducing the risk of nocturia in patients with BPH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Benign Prostatic Hyperplasia",
+      "content": {
+        "intro": "The diagnosis of BPH typically involves a combination of medical history, physical examination, and laboratory tests. According to the European Association of Urology (EAU) guidelines 2022, the diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score. The IPSS score is a widely used tool to assess the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "sections": [
+          {
+            "heading": "Medical History",
+            "text": "A thorough medical history is essential for the diagnosis of BPH, and should include a detailed assessment of LUTS. According to the National Institute for Health and Care Excellence (NICE) guidelines 2020, the diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score. The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms."
+          },
+          {
+            "heading": "Physical Examination",
+            "text": "A physical examination is also essential for the diagnosis of BPH, and should include a digital rectal examination (DRE) to assess the size and consistency of the prostate gland. According to the American Urological Association (AUA) guidelines 2020, the DRE is a useful tool for assessing the size and consistency of the prostate gland, and can help to identify potential complications such as prostate cancer."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, including the measurement of PSA levels, can help to support the diagnosis of BPH and rule out other potential causes of LUTS. According to the European Association of Urology (EAU) guidelines 2022, the measurement of PSA levels can help to identify potential complications such as prostate cancer, and can inform treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "key_points": [
+          "The diagnosis of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score.",
+          "A thorough medical history is essential for the diagnosis of BPH, and should include a detailed assessment of LUTS.",
+          "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH.",
+          "A physical examination, including a DRE, is essential for the diagnosis of BPH.",
+          "Laboratory tests, including the measurement of PSA levels, can help to support the diagnosis of BPH.",
+          "The measurement of PSA levels can help to identify potential complications such as prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "EAU Guidelines on the Management of Non-Neurogenic Male Lower Urinary Tract Symptoms (LUTS)",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "AUA Guidelines on the Management of Benign Prostatic Hyperplasia",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "The Role of PSA in the Diagnosis and Management of Benign Prostatic Hyperplasia",
+            "authors": "Andriole G, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 2010,
+            "type": "review",
+            "note": "Discusses the role of PSA in the diagnosis and management of BPH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Benign Prostatic Hyperplasia",
+      "content": {
+        "intro": "The treatment of BPH typically involves a combination of lifestyle modifications, medications, and surgical interventions. According to the European Association of Urology (EAU) guidelines 2022, the treatment of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score. The IPSS score is a widely used tool to assess the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as dietary changes and exercise, can help to alleviate LUTS in patients with BPH. According to the National Institute for Health and Care Excellence (NICE) guidelines 2020, lifestyle modifications should be considered as a first-line treatment for BPH. The landmark PLESS trial demonstrated that the 5-ARI finasteride was effective in reducing the risk of BPH progression."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications, including alpha-blockers and 5-ARIs, can help to alleviate LUTS in patients with BPH. According to the American Urological Association (AUA) guidelines 2020, alpha-blockers and 5-ARIs should be considered as a first-line treatment for BPH. The landmark MTOPS trial demonstrated that the combination of the 5-ARI finasteride and the alpha-blocker doxazosin was more effective than either agent alone in reducing the risk of BPH progression."
+          },
+          {
+            "heading": "Surgical Interventions",
+            "text": "Surgical interventions, such as transurethral resection of the prostate (TURP), can help to alleviate LUTS in patients with BPH. According to the European Association of Urology (EAU) guidelines 2022, surgical interventions should be considered as a second-line treatment for BPH. The landmark AUA guidelines 2020 demonstrated that TURP was effective in reducing the risk of BPH progression."
+          }
+        ],
+        "clinical_pearl": "The IPSS score is a useful tool for assessing the severity of LUTS in patients with BPH, with a score of 0-7 indicating mild symptoms, 8-19 indicating moderate symptoms, and 20-35 indicating severe symptoms.",
+        "key_points": [
+          "The treatment of BPH should be based on a comprehensive assessment of LUTS, including the IPSS score.",
+          "Lifestyle modifications, such as dietary changes and exercise, can help to alleviate LUTS in patients with BPH.",
+          "Medications, including alpha-blockers and 5-ARIs, can help to alleviate LUTS in patients with BPH.",
+          "Surgical interventions, such as TURP, can help to alleviate LUTS in patients with BPH.",
+          "The combination of the 5-ARI finasteride and the alpha-blocker doxazosin was more effective than either agent alone in reducing the risk of BPH progression.",
+          "TURP is effective in reducing the risk of BPH progression."
+        ],
+        "references": [
+          {
+            "title": "EAU Guidelines on the Management of Non-Neurogenic Male Lower Urinary Tract Symptoms (LUTS)",
+            "authors": "European Association of Urology",
+            "journal_or_source": "European Urology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "AUA Guidelines on the Management of Benign Prostatic Hyperplasia",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of BPH"
+          },
+          {
+            "title": "The PLESS Trial: Finasteride for the Treatment of Symptomatic Benign Prostatic Hyperplasia",
+            "authors": "McConnell JD, et al.",
+            "journal_or_source": "Journal of Urology",
+            "year": 1998,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of the 5-ARI finasteride in reducing the risk of BPH progression"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEUR-007",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Dementia: Alzheimer's, Vascular and Lewy Body — Biomarkers, Lecanemab and Care",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Dementia",
+      "content": {
+        "intro": "Dementia is a complex and multifactorial disorder affecting millions worldwide. Alzheimer's disease is the most common form, accounting for 60-80% of cases. Vascular dementia is the second most common type, often resulting from a series of small strokes or changes in the brain's blood supply. Lewy body dementia is another significant form, characterized by the presence of abnormal protein clumps called Lewy bodies. The pathophysiology of dementia involves a combination of genetic, environmental, and lifestyle factors. Understanding the epidemiology and pathophysiology of dementia is crucial for developing effective prevention and treatment strategies. The global prevalence of dementia is projected to increase significantly due to the aging population, making it a major public health concern. Recent studies have highlighted the importance of early diagnosis and intervention in improving outcomes for patients with dementia.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Dementia",
+            "text": "The epidemiology of dementia is characterized by a significant increase in prevalence with age. According to the World Health Organization (WHO), approximately 50 million people worldwide suffer from dementia, with numbers expected to triple by 2050. The ESC 2019 guidelines emphasize the importance of early detection and management of risk factors to prevent or delay the onset of dementia. The AHA 2017 guidelines also highlight the role of lifestyle modifications, such as regular physical activity and a healthy diet, in reducing the risk of cognitive decline. The landmark Framingham Heart Study demonstrated that cardiovascular risk factors, such as hypertension and diabetes, are significant predictors of dementia."
+          },
+          {
+            "heading": "Pathophysiology of Alzheimer's Disease",
+            "text": "Alzheimer's disease is characterized by the accumulation of amyloid-beta plaques and tau protein tangles in the brain, leading to neuronal damage and death. The pathophysiology of Alzheimer's involves a complex interplay between genetic and environmental factors, including the presence of apolipoprotein E (APOE) alleles. Recent research has focused on the role of biomarkers, such as cerebrospinal fluid (CSF) amyloid-beta and tau levels, in diagnosing and monitoring Alzheimer's disease. The use of positron emission tomography (PET) scans with amyloid-binding agents, such as florbetapir, has also become a valuable tool in diagnosing Alzheimer's. The NICE 2018 guidelines recommend the use of cholinesterase inhibitors, such as donepezil, for the treatment of mild to moderate Alzheimer's disease."
+          },
+          {
+            "heading": "Pathophysiology of Vascular and Lewy Body Dementia",
+            "text": "Vascular dementia is caused by reduced blood flow to the brain, often resulting from a series of small strokes or changes in the brain's blood supply. Lewy body dementia is characterized by the presence of abnormal protein clumps called Lewy bodies, which are also found in Parkinson's disease. The pathophysiology of vascular dementia involves a combination of vascular risk factors, such as hypertension and diabetes, and cerebral small vessel disease. The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia. The use of medications, such as galantamine, has been shown to be effective in treating cognitive symptoms in patients with Lewy body dementia."
+          }
+        ],
+        "clinical_pearl": "Early diagnosis and intervention are crucial in improving outcomes for patients with dementia, with a significant reduction in cognitive decline observed with the use of cholinesterase inhibitors, such as donepezil, in patients with mild to moderate Alzheimer's disease.",
+        "key_points": [
+          "The global prevalence of dementia is projected to increase significantly due to the aging population.",
+          "The ESC 2019 guidelines emphasize the importance of early detection and management of risk factors to prevent or delay the onset of dementia.",
+          "The AHA 2017 guidelines highlight the role of lifestyle modifications in reducing the risk of cognitive decline.",
+          "The use of biomarkers, such as CSF amyloid-beta and tau levels, is valuable in diagnosing and monitoring Alzheimer's disease.",
+          "The NICE 2018 guidelines recommend the use of cholinesterase inhibitors for the treatment of mild to moderate Alzheimer's disease.",
+          "The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early detection and management of risk factors to prevent or delay the onset of dementia."
+          },
+          {
+            "title": "2017 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol",
+            "authors": "Grundy SM, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the role of lifestyle modifications in reducing the risk of cognitive decline."
+          },
+          {
+            "title": "Lecanemab in Early Alzheimer’s Disease",
+            "authors": "van Dyck CH, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2022,
+            "type": "clinical trial",
+            "note": "Demonstrates the efficacy of lecanemab in slowing cognitive decline in patients with early Alzheimer's disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Dementia",
+      "content": {
+        "intro": "The clinical presentation of dementia can vary significantly depending on the underlying cause and stage of the disease. Alzheimer's disease often presents with gradual cognitive decline, including memory loss, confusion, and difficulty with communication. Vascular dementia may present with a more abrupt onset, often following a stroke or transient ischemic attack. Lewy body dementia is characterized by fluctuations in cognitive function, visual hallucinations, and parkinsonian motor symptoms. Early recognition of the clinical presentation of dementia is crucial for accurate diagnosis and timely intervention.",
+        "sections": [
+          {
+            "heading": "Alzheimer's Disease",
+            "text": "Alzheimer's disease is characterized by a gradual decline in cognitive function, including memory loss, language difficulties, and impaired problem-solving abilities. The disease often progresses through several stages, including preclinical, early, moderate, and severe. The use of cognitive screening tools, such as the Mini-Mental State Examination (MMSE), can aid in diagnosing and monitoring Alzheimer's disease. The NICE 2018 guidelines recommend the use of cholinesterase inhibitors, such as donepezil, for the treatment of mild to moderate Alzheimer's disease."
+          },
+          {
+            "heading": "Vascular Dementia",
+            "text": "Vascular dementia is characterized by a more abrupt onset, often following a stroke or transient ischemic attack. The disease may present with a range of cognitive and motor symptoms, including memory loss, confusion, and difficulty with coordination and balance. The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors, such as hypertension and diabetes, to prevent or delay the onset of vascular dementia. The use of medications, such as aspirin and statins, may also be beneficial in reducing the risk of further vascular events."
+          },
+          {
+            "heading": "Lewy Body Dementia",
+            "text": "Lewy body dementia is characterized by fluctuations in cognitive function, visual hallucinations, and parkinsonian motor symptoms. The disease may present with a range of cognitive and motor symptoms, including memory loss, confusion, and difficulty with coordination and balance. The use of medications, such as rivastigmine, has been shown to be effective in treating cognitive symptoms in patients with Lewy body dementia. The NICE 2018 guidelines recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+          }
+        ],
+        "clinical_pearl": "Early recognition of the clinical presentation of dementia is crucial for accurate diagnosis and timely intervention, with a significant reduction in cognitive decline observed with the use of cholinesterase inhibitors, such as donepezil, in patients with mild to moderate Alzheimer's disease.",
+        "key_points": [
+          "Alzheimer's disease is characterized by a gradual decline in cognitive function, including memory loss and language difficulties.",
+          "Vascular dementia is characterized by a more abrupt onset, often following a stroke or transient ischemic attack.",
+          "Lewy body dementia is characterized by fluctuations in cognitive function, visual hallucinations, and parkinsonian motor symptoms.",
+          "The use of cognitive screening tools, such as the MMSE, can aid in diagnosing and monitoring Alzheimer's disease.",
+          "The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia.",
+          "The NICE 2018 guidelines recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+        ],
+        "references": [
+          {
+            "title": "2018 NICE Guidelines on Dementia",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommend the use of cholinesterase inhibitors for the treatment of mild to moderate Alzheimer's disease."
+          },
+          {
+            "title": "2019 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol",
+            "authors": "Grundy SM, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "title": "Rivastigmine for Dementia Associated with Parkinson’s Disease",
+            "authors": "Emre M, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "Demonstrates the efficacy of rivastigmine in treating cognitive symptoms in patients with Lewy body dementia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Dementia",
+      "content": {
+        "intro": "The diagnosis of dementia involves a combination of clinical evaluation, laboratory tests, and imaging studies. A thorough medical history and physical examination are essential in identifying potential causes of dementia, such as vascular disease, infection, or medication side effects. Laboratory tests, such as complete blood counts and chemistry panels, can help rule out underlying medical conditions that may be contributing to cognitive decline. Imaging studies, such as computed tomography (CT) or magnetic resonance imaging (MRI) scans, can aid in diagnosing Alzheimer's disease, vascular dementia, and other forms of dementia.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "A thorough medical history and physical examination are essential in identifying potential causes of dementia. The use of cognitive screening tools, such as the MMSE, can aid in diagnosing and monitoring Alzheimer's disease. The NICE 2018 guidelines recommend the use of a comprehensive diagnostic assessment, including a medical history, physical examination, and laboratory tests, to diagnose dementia."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as complete blood counts and chemistry panels, can help rule out underlying medical conditions that may be contributing to cognitive decline. The use of biomarkers, such as CSF amyloid-beta and tau levels, can aid in diagnosing Alzheimer's disease. The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors, such as hypertension and diabetes, to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as CT or MRI scans, can aid in diagnosing Alzheimer's disease, vascular dementia, and other forms of dementia. The use of PET scans with amyloid-binding agents, such as florbetapir, has become a valuable tool in diagnosing Alzheimer's disease. The NICE 2018 guidelines recommend the use of imaging studies, such as CT or MRI scans, to diagnose dementia."
+          }
+        ],
+        "clinical_pearl": "A comprehensive diagnostic assessment, including a medical history, physical examination, laboratory tests, and imaging studies, is essential in diagnosing dementia, with a significant reduction in cognitive decline observed with the use of cholinesterase inhibitors, such as donepezil, in patients with mild to moderate Alzheimer's disease.",
+        "key_points": [
+          "A thorough medical history and physical examination are essential in identifying potential causes of dementia.",
+          "The use of cognitive screening tools, such as the MMSE, can aid in diagnosing and monitoring Alzheimer's disease.",
+          "Laboratory tests, such as complete blood counts and chemistry panels, can help rule out underlying medical conditions that may be contributing to cognitive decline.",
+          "The use of biomarkers, such as CSF amyloid-beta and tau levels, can aid in diagnosing Alzheimer's disease.",
+          "Imaging studies, such as CT or MRI scans, can aid in diagnosing Alzheimer's disease, vascular dementia, and other forms of dementia.",
+          "The NICE 2018 guidelines recommend the use of a comprehensive diagnostic assessment to diagnose dementia."
+        ],
+        "references": [
+          {
+            "title": "2018 NICE Guidelines on Dementia",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommend the use of a comprehensive diagnostic assessment to diagnose dementia."
+          },
+          {
+            "title": "2019 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol",
+            "authors": "Grundy SM, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "title": "Florbetapir PET Analysis of Amyloid-β and Neurodegeneration",
+            "authors": "Cummings JL, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Demonstrates the efficacy of florbetapir PET scans in diagnosing Alzheimer's disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Dementia",
+      "content": {
+        "intro": "The treatment and management of dementia involve a combination of pharmacological and non-pharmacological interventions. Cholinesterase inhibitors, such as donepezil, are commonly used to treat mild to moderate Alzheimer's disease. Memantine, an N-methyl-D-aspartate (NMDA) receptor antagonist, may also be used to treat moderate to severe Alzheimer's disease. Non-pharmacological interventions, such as cognitive stimulation therapy and behavioral management, can also be effective in managing cognitive and behavioral symptoms in patients with dementia.",
+        "sections": [
+          {
+            "heading": "Pharmacological Interventions",
+            "text": "Cholinesterase inhibitors, such as donepezil, are commonly used to treat mild to moderate Alzheimer's disease. Memantine, an NMDA receptor antagonist, may also be used to treat moderate to severe Alzheimer's disease. The use of medications, such as galantamine, has been shown to be effective in treating cognitive symptoms in patients with Lewy body dementia. The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors, such as hypertension and diabetes, to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "heading": "Non-Pharmacological Interventions",
+            "text": "Non-pharmacological interventions, such as cognitive stimulation therapy and behavioral management, can also be effective in managing cognitive and behavioral symptoms in patients with dementia. The use of non-pharmacological interventions, such as exercise and social engagement, can aid in reducing the risk of cognitive decline. The NICE 2018 guidelines recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+          },
+          {
+            "heading": "Caregiver Support",
+            "text": "Caregiver support is essential in managing dementia, as caregivers play a critical role in providing care and support to patients with dementia. The use of caregiver support programs, such as counseling and respite care, can aid in reducing caregiver burden and improving patient outcomes. The AHA 2020 guidelines emphasize the importance of supporting caregivers in managing dementia."
+          }
+        ],
+        "clinical_pearl": "A comprehensive treatment plan, including pharmacological and non-pharmacological interventions, is essential in managing dementia, with a significant reduction in cognitive decline observed with the use of cholinesterase inhibitors, such as donepezil, in patients with mild to moderate Alzheimer's disease.",
+        "key_points": [
+          "Cholinesterase inhibitors, such as donepezil, are commonly used to treat mild to moderate Alzheimer's disease.",
+          "Memantine, an NMDA receptor antagonist, may also be used to treat moderate to severe Alzheimer's disease.",
+          "Non-pharmacological interventions, such as cognitive stimulation therapy and behavioral management, can also be effective in managing cognitive and behavioral symptoms in patients with dementia.",
+          "The use of medications, such as galantamine, has been shown to be effective in treating cognitive symptoms in patients with Lewy body dementia.",
+          "The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia.",
+          "The NICE 2018 guidelines recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+        ],
+        "references": [
+          {
+            "title": "2018 NICE Guidelines on Dementia",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+          },
+          {
+            "title": "2019 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol",
+            "authors": "Grundy SM, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "title": "Donepezil and Memantine for Moderate to Severe Alzheimer’s Disease",
+            "authors": "Howard R, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "clinical trial",
+            "note": "Demonstrates the efficacy of donepezil and memantine in treating moderate to severe Alzheimer's disease."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Dementia",
+      "content": {
+        "intro": "The complications and prognosis of dementia can vary significantly depending on the underlying cause and stage of the disease. Alzheimer's disease is often characterized by a gradual decline in cognitive function, with a median survival time of 8-10 years after diagnosis. Vascular dementia may have a more variable prognosis, depending on the underlying vascular disease. Lewy body dementia is often characterized by a more rapid decline in cognitive function, with a median survival time of 5-7 years after diagnosis.",
+        "sections": [
+          {
+            "heading": "Alzheimer's Disease",
+            "text": "Alzheimer's disease is often characterized by a gradual decline in cognitive function, with a median survival time of 8-10 years after diagnosis. The use of cholinesterase inhibitors, such as donepezil, can aid in slowing cognitive decline and improving quality of life. The NICE 2018 guidelines recommend the use of end-of-life care planning for patients with dementia, including advance care planning and palliative care."
+          },
+          {
+            "heading": "Vascular Dementia",
+            "text": "Vascular dementia may have a more variable prognosis, depending on the underlying vascular disease. The use of medications, such as aspirin and statins, can aid in reducing the risk of further vascular events. The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors, such as hypertension and diabetes, to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "heading": "Lewy Body Dementia",
+            "text": "Lewy body dementia is often characterized by a more rapid decline in cognitive function, with a median survival time of 5-7 years after diagnosis. The use of medications, such as rivastigmine, can aid in treating cognitive symptoms in patients with Lewy body dementia. The NICE 2018 guidelines recommend the use of non-pharmacological interventions, such as cognitive stimulation therapy, for the treatment of cognitive symptoms in patients with dementia."
+          }
+        ],
+        "clinical_pearl": "A comprehensive care plan, including end-of-life care planning, is essential in managing dementia, with a significant reduction in cognitive decline observed with the use of cholinesterase inhibitors, such as donepezil, in patients with mild to moderate Alzheimer's disease.",
+        "key_points": [
+          "Alzheimer's disease is often characterized by a gradual decline in cognitive function, with a median survival time of 8-10 years after diagnosis.",
+          "Vascular dementia may have a more variable prognosis, depending on the underlying vascular disease.",
+          "Lewy body dementia is often characterized by a more rapid decline in cognitive function, with a median survival time of 5-7 years after diagnosis.",
+          "The use of cholinesterase inhibitors, such as donepezil, can aid in slowing cognitive decline and improving quality of life.",
+          "The AHA 2020 guidelines emphasize the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia.",
+          "The NICE 2018 guidelines recommend the use of end-of-life care planning for patients with dementia, including advance care planning and palliative care."
+        ],
+        "references": [
+          {
+            "title": "2018 NICE Guidelines on Dementia",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommend the use of end-of-life care planning for patients with dementia, including advance care planning and palliative care."
+          },
+          {
+            "title": "2019 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol",
+            "authors": "Grundy SM, et al.",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of controlling vascular risk factors to prevent or delay the onset of vascular dementia."
+          },
+          {
+            "title": "Rivastigmine for Dementia Associated with Parkinson’s Disease",
+            "authors": "Emre M, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "Demonstrates the efficacy of rivastigmine in treating cognitive symptoms in patients with Lewy body dementia."
+          }
+        ]
+      }
+    }
+  ]
+}

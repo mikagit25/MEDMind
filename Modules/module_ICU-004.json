@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "ICU-004",
+    "type": "specialty_module",
+    "specialty": "Critical Care",
+    "specialty_ru": "Реаниматология и ИТ",
+    "title_en": "ICU Nutrition: Enteral vs Parenteral, Caloric Targets, Refeeding Syndrome",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation of Malnutrition in ICU",
+      "content": {
+        "intro": "Malnutrition is a significant concern in the intensive care unit (ICU), affecting up to 50% of patients. It is associated with increased morbidity, mortality, and length of stay. The pathophysiology of malnutrition in the ICU is complex, involving a catabolic state, inflammation, and oxidative stress. Early identification and intervention are crucial to prevent malnutrition and its complications. The clinical presentation of malnutrition in the ICU can be subtle, with signs including weight loss, muscle wasting, and decreased albumin levels. A thorough nutritional assessment is essential to identify patients at risk and guide nutritional therapy.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Malnutrition in ICU",
+            "text": "The prevalence of malnutrition in the ICU varies widely, ranging from 20% to 50%. A study published in the Journal of Parenteral and Enteral Nutrition found that malnutrition was present in 45% of ICU patients. The European Society for Clinical Nutrition and Metabolism (ESPEN) guidelines recommend routine nutritional screening of all ICU patients. The American Society for Parenteral and Enteral Nutrition (ASPEN) also emphasizes the importance of early nutritional assessment and intervention. The use of validated screening tools, such as the Nutritional Risk Screening (NRS) 2002, can help identify patients at risk of malnutrition."
+          },
+          {
+            "heading": "Pathophysiology of Malnutrition in ICU",
+            "text": "The pathophysiology of malnutrition in the ICU is complex and multifactorial. It involves a catabolic state, characterized by increased protein breakdown and decreased protein synthesis. Inflammation and oxidative stress also play a significant role, leading to muscle wasting and decreased albumin levels. The use of corticosteroids, such as methylprednisolone (1-2 mg/kg/day), can exacerbate muscle wasting and malnutrition. The ESPEN guidelines recommend the use of anti-catabolic agents, such as oxandrolone (10-20 mg/day), to promote protein synthesis and reduce muscle wasting."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis of Malnutrition in ICU",
+            "text": "The clinical presentation of malnutrition in the ICU can be subtle, with signs including weight loss, muscle wasting, and decreased albumin levels. A thorough nutritional assessment is essential to identify patients at risk and guide nutritional therapy. The NICE guidelines recommend the use of a combination of anthropometric, biochemical, and clinical parameters to diagnose malnutrition. The use of validated assessment tools, such as the Malnutrition Universal Screening Tool (MUST), can help identify patients at risk of malnutrition. The AHA guidelines recommend the use of enteral nutrition as the preferred route of nutrition support in ICU patients, with parenteral nutrition reserved for patients with contraindications to enteral nutrition."
+          }
+        ],
+        "clinical_pearl": "Early identification and intervention are crucial to prevent malnutrition and its complications in the ICU. A thorough nutritional assessment should be performed on all ICU patients, and nutritional therapy should be guided by the results of this assessment.",
+        "key_points": [
+          "Malnutrition affects up to 50% of ICU patients and is associated with increased morbidity and mortality.",
+          "The pathophysiology of malnutrition in the ICU involves a catabolic state, inflammation, and oxidative stress.",
+          "Early identification and intervention are crucial to prevent malnutrition and its complications.",
+          "The NRS 2002 is a validated screening tool that can help identify patients at risk of malnutrition.",
+          "The ESPEN guidelines recommend the use of anti-catabolic agents, such as oxandrolone, to promote protein synthesis and reduce muscle wasting.",
+          "The AHA guidelines recommend the use of enteral nutrition as the preferred route of nutrition support in ICU patients."
+        ],
+        "references": [
+          {
+            "title": "ESPEN Guidelines on Enteral Nutrition",
+            "authors": "ESPEN",
+            "journal_or_source": "Clinical Nutrition",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESPEN guidelines provide recommendations for the use of enteral nutrition in ICU patients."
+          },
+          {
+            "title": "AHA Guidelines for the Management of Malnutrition in ICU",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The AHA guidelines provide recommendations for the management of malnutrition in ICU patients."
+          },
+          {
+            "title": "NICE Guidelines for the Assessment and Management of Malnutrition",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The NICE guidelines provide recommendations for the assessment and management of malnutrition in adults."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis of Malnutrition in ICU",
+      "content": {
+        "intro": "The diagnosis of malnutrition in the ICU requires a combination of clinical, biochemical, and anthropometric parameters. A thorough nutritional assessment should be performed on all ICU patients, and nutritional therapy should be guided by the results of this assessment. The use of validated assessment tools, such as the Malnutrition Universal Screening Tool (MUST), can help identify patients at risk of malnutrition. Laboratory investigations, such as serum albumin and prealbumin levels, can also help diagnose malnutrition.",
+        "sections": [
+          {
+            "heading": "Clinical Assessment of Malnutrition in ICU",
+            "text": "A thorough clinical assessment is essential to diagnose malnutrition in the ICU. This includes a medical history, physical examination, and review of laboratory results. The use of validated assessment tools, such as the MUST, can help identify patients at risk of malnutrition. The MUST is a simple, easy-to-use tool that can be used to screen patients for malnutrition. The ESPEN guidelines recommend the use of the MUST as a screening tool for malnutrition in ICU patients."
+          },
+          {
+            "heading": "Biochemical Markers of Malnutrition in ICU",
+            "text": "Biochemical markers, such as serum albumin and prealbumin levels, can help diagnose malnutrition in the ICU. Serum albumin levels < 30 g/L and prealbumin levels < 150 mg/L are indicative of malnutrition. The use of other biochemical markers, such as transferrin and retinol-binding protein, can also help diagnose malnutrition. The AHA guidelines recommend the use of serum albumin levels as a marker of malnutrition in ICU patients."
+          },
+          {
+            "heading": "Anthropometric Parameters of Malnutrition in ICU",
+            "text": "Anthropometric parameters, such as body mass index (BMI) and mid-arm circumference, can help diagnose malnutrition in the ICU. A BMI < 18.5 kg/m2 and mid-arm circumference < 23.5 cm are indicative of malnutrition. The use of other anthropometric parameters, such as skinfold thickness and waist circumference, can also help diagnose malnutrition. The NICE guidelines recommend the use of BMI as a marker of malnutrition in adults."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of malnutrition in the ICU requires a combination of clinical, biochemical, and anthropometric parameters. A thorough nutritional assessment should be performed on all ICU patients, and nutritional therapy should be guided by the results of this assessment.",
+        "key_points": [
+          "The MUST is a validated screening tool that can help identify patients at risk of malnutrition.",
+          "Serum albumin levels < 30 g/L and prealbumin levels < 150 mg/L are indicative of malnutrition.",
+          "A BMI < 18.5 kg/m2 and mid-arm circumference < 23.5 cm are indicative of malnutrition.",
+          "The ESPEN guidelines recommend the use of the MUST as a screening tool for malnutrition in ICU patients.",
+          "The AHA guidelines recommend the use of serum albumin levels as a marker of malnutrition in ICU patients.",
+          "The NICE guidelines recommend the use of BMI as a marker of malnutrition in adults."
+        ],
+        "references": [
+          {
+            "title": "MUST",
+            "authors": "Stratton et al.",
+            "journal_or_source": "Journal of Human Nutrition and Dietetics",
+            "year": 2004,
+            "type": "article",
+            "note": "The MUST is a validated screening tool that can help identify patients at risk of malnutrition."
+          },
+          {
+            "title": "ESPEN Guidelines on Enteral Nutrition",
+            "authors": "ESPEN",
+            "journal_or_source": "Clinical Nutrition",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESPEN guidelines provide recommendations for the use of enteral nutrition in ICU patients."
+          },
+          {
+            "title": "AHA Guidelines for the Management of Malnutrition in ICU",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The AHA guidelines provide recommendations for the management of malnutrition in ICU patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management of Malnutrition in ICU",
+      "content": {
+        "intro": "The treatment and management of malnutrition in the ICU require a multidisciplinary approach. Enteral nutrition is the preferred route of nutrition support, with parenteral nutrition reserved for patients with contraindications to enteral nutrition. The use of nutritional supplements, such as protein and vitamin supplements, can also help manage malnutrition. The ESPEN guidelines recommend the use of a combination of enteral and parenteral nutrition to manage malnutrition in ICU patients.",
+        "sections": [
+          {
+            "heading": "Enteral Nutrition in ICU",
+            "text": "Enteral nutrition is the preferred route of nutrition support in the ICU. It is associated with fewer complications and improved outcomes compared to parenteral nutrition. The use of enteral nutrition tubes, such as nasogastric and orogastric tubes, can help deliver nutrition to patients who are unable to eat. The AHA guidelines recommend the use of enteral nutrition as the preferred route of nutrition support in ICU patients."
+          },
+          {
+            "heading": "Parenteral Nutrition in ICU",
+            "text": "Parenteral nutrition is reserved for patients with contraindications to enteral nutrition. It is associated with a higher risk of complications, such as catheter-related bloodstream infections and metabolic disturbances. The use of parenteral nutrition should be carefully considered and monitored in ICU patients. The NICE guidelines recommend the use of parenteral nutrition only in patients with contraindications to enteral nutrition."
+          },
+          {
+            "heading": "Nutritional Supplements in ICU",
+            "text": "Nutritional supplements, such as protein and vitamin supplements, can help manage malnutrition in the ICU. The use of supplements, such as glutamine and arginine, can help promote protein synthesis and reduce muscle wasting. The ESPEN guidelines recommend the use of nutritional supplements to manage malnutrition in ICU patients."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of malnutrition in the ICU require a multidisciplinary approach. Enteral nutrition is the preferred route of nutrition support, with parenteral nutrition reserved for patients with contraindications to enteral nutrition.",
+        "key_points": [
+          "Enteral nutrition is the preferred route of nutrition support in the ICU.",
+          "Parenteral nutrition is reserved for patients with contraindications to enteral nutrition.",
+          "Nutritional supplements, such as protein and vitamin supplements, can help manage malnutrition in the ICU.",
+          "The ESPEN guidelines recommend the use of a combination of enteral and parenteral nutrition to manage malnutrition in ICU patients.",
+          "The AHA guidelines recommend the use of enteral nutrition as the preferred route of nutrition support in ICU patients.",
+          "The NICE guidelines recommend the use of parenteral nutrition only in patients with contraindications to enteral nutrition."
+        ],
+        "references": [
+          {
+            "title": "ESPEN Guidelines on Enteral Nutrition",
+            "authors": "ESPEN",
+            "journal_or_source": "Clinical Nutrition",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESPEN guidelines provide recommendations for the use of enteral nutrition in ICU patients."
+          },
+          {
+            "title": "AHA Guidelines for the Management of Malnutrition in ICU",
+            "authors": "AHA",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The AHA guidelines provide recommendations for the management of malnutrition in ICU patients."
+          },
+          {
+            "title": "NICE Guidelines for the Assessment and Management of Malnutrition",
+            "authors": "NICE",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The NICE guidelines provide recommendations for the assessment and management of malnutrition in adults."
+          }
+        ]
+      }
+    }
+  ]
+}

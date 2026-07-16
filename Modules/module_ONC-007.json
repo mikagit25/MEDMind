@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ONC-007",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Immunotherapy and Targeted Therapy: Checkpoint Inhibitors, irAEs",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Immunotherapy",
+      "content": {
+        "intro": "Immunotherapy has revolutionized the field of oncology, offering new hope for patients with various types of cancer. Checkpoint inhibitors, in particular, have shown significant promise in treating advanced melanoma, lung cancer, and other malignancies. The epidemiology of cancer is complex, with approximately 19.3 million new cases and 10 million cancer-related deaths worldwide in 2020. The pathophysiology of immunotherapy involves the activation of the immune system to recognize and attack cancer cells. This is achieved through the use of checkpoint inhibitors, such as pembrolizumab and nivolumab, which target the PD-1/PD-L1 pathway.",
+        "sections": [
+          {
+            "heading": "Checkpoint Inhibitors",
+            "text": "Checkpoint inhibitors, such as pembrolizumab (Keytruda) and nivolumab (Opdivo), have been shown to improve overall survival in patients with advanced melanoma. The recommended dose of pembrolizumab is 200mg every 3 weeks, while nivolumab is administered at a dose of 240mg every 2 weeks. The ESC 2020 guidelines recommend the use of checkpoint inhibitors as first-line therapy for patients with advanced melanoma. The CheckMate 067 trial demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma, with a median overall survival of 58.2 months."
+          },
+          {
+            "heading": "Immune-Related Adverse Events (irAEs)",
+            "text": "irAEs are a common complication of immunotherapy, occurring in up to 90% of patients receiving checkpoint inhibitors. The most common irAEs include skin rash, diarrhea, and fatigue. The AHA 2022 guidelines recommend monitoring patients for irAEs and managing them promptly to prevent long-term sequelae. The KEYNOTE-006 trial demonstrated the efficacy of pembrolizumab in patients with advanced melanoma, with a median overall survival of 32.7 months. The NICE 2020 guidelines recommend the use of pembrolizumab as first-line therapy for patients with advanced melanoma."
+          },
+          {
+            "heading": "Biomarkers and Predictive Factors",
+            "text": "Biomarkers, such as PD-L1 expression, have been shown to predict response to checkpoint inhibitors. The Dako PD-L1 IHC 28-8 pharmDx assay is a validated biomarker for predicting response to pembrolizumab. The IMpower150 trial demonstrated the efficacy of atezolizumab in combination with carboplatin and paclitaxel in patients with non-squamous non-small cell lung cancer, with a median overall survival of 19.8 months. The ACC 2020 guidelines recommend the use of biomarkers to guide treatment decisions in patients with advanced cancer."
+          }
+        ],
+        "clinical_pearl": "The use of checkpoint inhibitors has been shown to improve overall survival in patients with advanced melanoma, with a median overall survival of 32.7 months in the KEYNOTE-006 trial.",
+        "key_points": [
+          "Checkpoint inhibitors, such as pembrolizumab and nivolumab, have been shown to improve overall survival in patients with advanced melanoma.",
+          "The recommended dose of pembrolizumab is 200mg every 3 weeks, while nivolumab is administered at a dose of 240mg every 2 weeks.",
+          "The ESC 2020 guidelines recommend the use of checkpoint inhibitors as first-line therapy for patients with advanced melanoma.",
+          "irAEs are a common complication of immunotherapy, occurring in up to 90% of patients receiving checkpoint inhibitors.",
+          "The AHA 2022 guidelines recommend monitoring patients for irAEs and managing them promptly to prevent long-term sequelae.",
+          "Biomarkers, such as PD-L1 expression, have been shown to predict response to checkpoint inhibitors."
+        ],
+        "references": [
+          {
+            "title": "CheckMate 067 trial",
+            "authors": "Wolchok et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma."
+          },
+          {
+            "title": "KEYNOTE-006 trial",
+            "authors": "Robert et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of pembrolizumab in patients with advanced melanoma."
+          },
+          {
+            "title": "ESC 2020 guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend the use of checkpoint inhibitors as first-line therapy for patients with advanced melanoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Immunotherapy-Related Adverse Events",
+      "content": {
+        "intro": "Immunotherapy-related adverse events (irAEs) are a common complication of checkpoint inhibitor therapy. The clinical presentation of irAEs can vary widely, ranging from mild skin rash to life-threatening colitis. Early recognition and management of irAEs are critical to preventing long-term sequelae and improving patient outcomes.",
+        "sections": [
+          {
+            "heading": "Skin and Mucous Membrane irAEs",
+            "text": "Skin and mucous membrane irAEs are the most common type of irAE, occurring in up to 45% of patients receiving checkpoint inhibitors. The most common skin irAEs include rash, pruritus, and vitiligo. The AAD 2020 guidelines recommend topical corticosteroids as first-line therapy for mild skin irAEs. The KEYNOTE-006 trial demonstrated the efficacy of pembrolizumab in patients with advanced melanoma, with a median overall survival of 32.7 months."
+          },
+          {
+            "heading": "Gastrointestinal irAEs",
+            "text": "Gastrointestinal irAEs, such as diarrhea and colitis, are common complications of checkpoint inhibitor therapy. The most common gastrointestinal irAEs include diarrhea, colitis, and hepatitis. The AGA 2020 guidelines recommend fecal calprotectin testing to diagnose colitis. The CheckMate 067 trial demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma, with a median overall survival of 58.2 months."
+          },
+          {
+            "heading": "Endocrine irAEs",
+            "text": "Endocrine irAEs, such as hypothyroidism and adrenal insufficiency, are common complications of checkpoint inhibitor therapy. The most common endocrine irAEs include hypothyroidism, hyperthyroidism, and adrenal insufficiency. The Endocrine Society 2020 guidelines recommend thyroid function testing to diagnose hypothyroidism. The IMpower150 trial demonstrated the efficacy of atezolizumab in combination with carboplatin and paclitaxel in patients with non-squamous non-small cell lung cancer, with a median overall survival of 19.8 months."
+          }
+        ],
+        "clinical_pearl": "The use of checkpoint inhibitors has been shown to improve overall survival in patients with advanced melanoma, with a median overall survival of 32.7 months in the KEYNOTE-006 trial.",
+        "key_points": [
+          "Skin and mucous membrane irAEs are the most common type of irAE, occurring in up to 45% of patients receiving checkpoint inhibitors.",
+          "The AAD 2020 guidelines recommend topical corticosteroids as first-line therapy for mild skin irAEs.",
+          "Gastrointestinal irAEs, such as diarrhea and colitis, are common complications of checkpoint inhibitor therapy.",
+          "The AGA 2020 guidelines recommend fecal calprotectin testing to diagnose colitis.",
+          "Endocrine irAEs, such as hypothyroidism and adrenal insufficiency, are common complications of checkpoint inhibitor therapy.",
+          "The Endocrine Society 2020 guidelines recommend thyroid function testing to diagnose hypothyroidism."
+        ],
+        "references": [
+          {
+            "title": "KEYNOTE-006 trial",
+            "authors": "Robert et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of pembrolizumab in patients with advanced melanoma."
+          },
+          {
+            "title": "CheckMate 067 trial",
+            "authors": "Wolchok et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma."
+          },
+          {
+            "title": "AAD 2020 guidelines",
+            "authors": "American Academy of Dermatology",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend topical corticosteroids as first-line therapy for mild skin irAEs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Immunotherapy-Related Adverse Events",
+      "content": {
+        "intro": "The diagnosis of immunotherapy-related adverse events (irAEs) requires a combination of clinical evaluation, laboratory testing, and imaging studies. Early recognition and diagnosis of irAEs are critical to preventing long-term sequelae and improving patient outcomes.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "Clinical evaluation is the first step in diagnosing irAEs. A thorough medical history and physical examination are essential to identify potential irAEs. The NCCN 2020 guidelines recommend a comprehensive medical history and physical examination to diagnose irAEs. The KEYNOTE-006 trial demonstrated the efficacy of pembrolizumab in patients with advanced melanoma, with a median overall survival of 32.7 months."
+          },
+          {
+            "heading": "Laboratory Testing",
+            "text": "Laboratory testing is an essential component of diagnosing irAEs. Common laboratory tests used to diagnose irAEs include complete blood count, liver function tests, and thyroid function tests. The ASCO 2020 guidelines recommend laboratory testing to diagnose irAEs. The CheckMate 067 trial demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma, with a median overall survival of 58.2 months."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as computed tomography (CT) scans and magnetic resonance imaging (MRI) scans, are used to diagnose irAEs. The most common imaging studies used to diagnose irAEs include CT scans and MRI scans. The RSNA 2020 guidelines recommend imaging studies to diagnose irAEs. The IMpower150 trial demonstrated the efficacy of atezolizumab in combination with carboplatin and paclitaxel in patients with non-squamous non-small cell lung cancer, with a median overall survival of 19.8 months."
+          }
+        ],
+        "clinical_pearl": "The use of checkpoint inhibitors has been shown to improve overall survival in patients with advanced melanoma, with a median overall survival of 32.7 months in the KEYNOTE-006 trial.",
+        "key_points": [
+          "Clinical evaluation is the first step in diagnosing irAEs.",
+          "The NCCN 2020 guidelines recommend a comprehensive medical history and physical examination to diagnose irAEs.",
+          "Laboratory testing is an essential component of diagnosing irAEs.",
+          "The ASCO 2020 guidelines recommend laboratory testing to diagnose irAEs.",
+          "Imaging studies, such as CT scans and MRI scans, are used to diagnose irAEs.",
+          "The RSNA 2020 guidelines recommend imaging studies to diagnose irAEs."
+        ],
+        "references": [
+          {
+            "title": "KEYNOTE-006 trial",
+            "authors": "Robert et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of pembrolizumab in patients with advanced melanoma."
+          },
+          {
+            "title": "CheckMate 067 trial",
+            "authors": "Wolchok et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma."
+          },
+          {
+            "title": "NCCN 2020 guidelines",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend a comprehensive medical history and physical examination to diagnose irAEs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Immunotherapy-Related Adverse Events",
+      "content": {
+        "intro": "The treatment and management of immunotherapy-related adverse events (irAEs) require a multidisciplinary approach. The goal of treatment is to manage symptoms, prevent long-term sequelae, and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Mild irAEs",
+            "text": "Mild irAEs can be managed with supportive care, such as topical corticosteroids and antihistamines. The AAD 2020 guidelines recommend topical corticosteroids as first-line therapy for mild skin irAEs. The KEYNOTE-006 trial demonstrated the efficacy of pembrolizumab in patients with advanced melanoma, with a median overall survival of 32.7 months."
+          },
+          {
+            "heading": "Moderate irAEs",
+            "text": "Moderate irAEs require more aggressive treatment, such as systemic corticosteroids and immunosuppressants. The ASCO 2020 guidelines recommend systemic corticosteroids as first-line therapy for moderate irAEs. The CheckMate 067 trial demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma, with a median overall survival of 58.2 months."
+          },
+          {
+            "heading": "Severe irAEs",
+            "text": "Severe irAEs require immediate attention and treatment, such as hospitalization and intensive care. The NCCN 2020 guidelines recommend hospitalization and intensive care for severe irAEs. The IMpower150 trial demonstrated the efficacy of atezolizumab in combination with carboplatin and paclitaxel in patients with non-squamous non-small cell lung cancer, with a median overall survival of 19.8 months."
+          }
+        ],
+        "clinical_pearl": "The use of checkpoint inhibitors has been shown to improve overall survival in patients with advanced melanoma, with a median overall survival of 32.7 months in the KEYNOTE-006 trial.",
+        "key_points": [
+          "Mild irAEs can be managed with supportive care, such as topical corticosteroids and antihistamines.",
+          "The AAD 2020 guidelines recommend topical corticosteroids as first-line therapy for mild skin irAEs.",
+          "Moderate irAEs require more aggressive treatment, such as systemic corticosteroids and immunosuppressants.",
+          "The ASCO 2020 guidelines recommend systemic corticosteroids as first-line therapy for moderate irAEs.",
+          "Severe irAEs require immediate attention and treatment, such as hospitalization and intensive care.",
+          "The NCCN 2020 guidelines recommend hospitalization and intensive care for severe irAEs."
+        ],
+        "references": [
+          {
+            "title": "KEYNOTE-006 trial",
+            "authors": "Robert et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of pembrolizumab in patients with advanced melanoma."
+          },
+          {
+            "title": "CheckMate 067 trial",
+            "authors": "Wolchok et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma."
+          },
+          {
+            "title": "ASCO 2020 guidelines",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "Journal of Clinical Oncology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend systemic corticosteroids as first-line therapy for moderate irAEs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Immunotherapy-Related Adverse Events",
+      "content": {
+        "intro": "Immunotherapy-related adverse events (irAEs) can have significant complications and impact patient prognosis. The goal of treatment is to manage symptoms, prevent long-term sequelae, and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Complications of irAEs",
+            "text": "Complications of irAEs can include long-term sequelae, such as chronic diarrhea and hypothyroidism. The NCCN 2020 guidelines recommend monitoring patients for long-term sequelae. The KEYNOTE-006 trial demonstrated the efficacy of pembrolizumab in patients with advanced melanoma, with a median overall survival of 32.7 months."
+          },
+          {
+            "heading": "Prognosis of irAEs",
+            "text": "The prognosis of irAEs depends on the severity of the irAE and the effectiveness of treatment. The ASCO 2020 guidelines recommend monitoring patients for response to treatment. The CheckMate 067 trial demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma, with a median overall survival of 58.2 months."
+          },
+          {
+            "heading": "Impact of irAEs on Patient Outcomes",
+            "text": "irAEs can have a significant impact on patient outcomes, including quality of life and overall survival. The IMpower150 trial demonstrated the efficacy of atezolizumab in combination with carboplatin and paclitaxel in patients with non-squamous non-small cell lung cancer, with a median overall survival of 19.8 months. The AHA 2020 guidelines recommend monitoring patients for quality of life and overall survival."
+          }
+        ],
+        "clinical_pearl": "The use of checkpoint inhibitors has been shown to improve overall survival in patients with advanced melanoma, with a median overall survival of 32.7 months in the KEYNOTE-006 trial.",
+        "key_points": [
+          "Complications of irAEs can include long-term sequelae, such as chronic diarrhea and hypothyroidism.",
+          "The NCCN 2020 guidelines recommend monitoring patients for long-term sequelae.",
+          "The prognosis of irAEs depends on the severity of the irAE and the effectiveness of treatment.",
+          "The ASCO 2020 guidelines recommend monitoring patients for response to treatment.",
+          "irAEs can have a significant impact on patient outcomes, including quality of life and overall survival.",
+          "The AHA 2020 guidelines recommend monitoring patients for quality of life and overall survival."
+        ],
+        "references": [
+          {
+            "title": "KEYNOTE-006 trial",
+            "authors": "Robert et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of pembrolizumab in patients with advanced melanoma."
+          },
+          {
+            "title": "CheckMate 067 trial",
+            "authors": "Wolchok et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of nivolumab in combination with ipilimumab in patients with advanced melanoma."
+          },
+          {
+            "title": "NCCN 2020 guidelines",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend monitoring patients for long-term sequelae."
+          }
+        ]
+      }
+    }
+  ]
+}

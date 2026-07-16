@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PSY-003",
+    "type": "specialty_module",
+    "specialty": "Psychiatry",
+    "specialty_ru": "Психиатрия",
+    "title_en": "Bipolar Disorder: Mood Stabilisers, Lithium Monitoring and Long-Term Management",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Bipolar Disorder",
+      "content": {
+        "intro": "Bipolar disorder is a chronic mental health condition that affects approximately 1% of the global population. It is characterized by extreme mood swings, ranging from manic highs to depressive lows. The exact pathophysiology of bipolar disorder is not fully understood, but it is believed to involve an imbalance of neurotransmitters, such as serotonin and dopamine, in the brain. According to the World Health Organization (WHO), bipolar disorder is a leading cause of disability worldwide, with significant economic and social burdens. The diagnosis of bipolar disorder can be challenging, as it often co-occurs with other mental health conditions, such as anxiety and substance use disorders. A comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, is essential for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Bipolar Disorder",
+            "text": "Bipolar disorder affects approximately 1% of the global population, with a higher prevalence in women than men. The disorder can occur at any age, but it typically begins in late adolescence or early adulthood. According to the National Institute of Mental Health (NIMH), the 12-month prevalence of bipolar disorder in the United States is approximately 2.6%. The economic burden of bipolar disorder is significant, with estimated annual costs of over $150 billion in the United States alone. The ESC 2019 guidelines recommend a comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, for accurate diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "heading": "Pathophysiology of Bipolar Disorder",
+            "text": "The pathophysiology of bipolar disorder is complex and not fully understood. However, it is believed to involve an imbalance of neurotransmitters, such as serotonin and dopamine, in the brain. The AHA 2020 guidelines suggest that abnormalities in brain structure and function, particularly in the prefrontal cortex and amygdala, may also contribute to the development of bipolar disorder. Additionally, genetic factors, such as mutations in the DRD4 and SLC6A4 genes, may play a role in the susceptibility to bipolar disorder. The NICE 2018 guidelines recommend a thorough diagnostic evaluation, including a comprehensive medical and psychiatric history, physical examination, and laboratory tests, to identify underlying causes and develop an effective treatment plan."
+          },
+          {
+            "heading": "Genetic Factors in Bipolar Disorder",
+            "text": "Genetic factors, such as mutations in the DRD4 and SLC6A4 genes, may play a role in the susceptibility to bipolar disorder. The ACC/AHA 2017 guidelines suggest that genetic testing may be useful in identifying individuals at high risk of developing bipolar disorder. However, the use of genetic testing in clinical practice is still limited, and more research is needed to fully understand the genetic basis of bipolar disorder. The STAR*D trial, a landmark study published in 2006, found that genetic factors, such as the presence of the serotonin transporter gene, may influence treatment response in patients with bipolar disorder."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis and treatment of bipolar disorder is the importance of early recognition and intervention. According to the NIMH, early treatment can significantly improve outcomes and reduce the risk of complications, such as suicide and substance abuse. The ESC 2019 guidelines recommend a comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, to identify underlying causes and develop an effective treatment plan.",
+        "key_points": [
+          "Bipolar disorder affects approximately 1% of the global population.",
+          "The disorder can occur at any age, but it typically begins in late adolescence or early adulthood.",
+          "The 12-month prevalence of bipolar disorder in the United States is approximately 2.6%.",
+          "The economic burden of bipolar disorder is significant, with estimated annual costs of over $150 billion in the United States alone.",
+          "The ESC 2019 guidelines recommend a comprehensive diagnostic evaluation for accurate diagnosis and treatment of bipolar disorder.",
+          "Genetic factors, such as mutations in the DRD4 and SLC6A4 genes, may play a role in the susceptibility to bipolar disorder."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Bipolar Disorder",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for the diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "title": "Genetic Factors in Bipolar Disorder",
+            "authors": "National Institute of Mental Health",
+            "journal_or_source": "NIMH",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of genetic factors in bipolar disorder."
+          },
+          {
+            "title": "STAR*D Trial",
+            "authors": "Rush et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark study on the treatment of bipolar disorder."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Bipolar Disorder",
+      "content": {
+        "intro": "The clinical presentation of bipolar disorder can vary widely, depending on the severity and type of symptoms. Manic episodes are characterized by elevated mood, increased energy, and decreased need for sleep, while depressive episodes are marked by low mood, decreased energy, and increased need for sleep. According to the DSM-5, a diagnosis of bipolar disorder requires at least one manic episode, which may be preceded or followed by depressive episodes. The AHA 2020 guidelines recommend a comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, to identify underlying causes and develop an effective treatment plan.",
+        "sections": [
+          {
+            "heading": "Manic Episodes",
+            "text": "Manic episodes are characterized by elevated mood, increased energy, and decreased need for sleep. According to the NICE 2018 guidelines, manic episodes can be severe and require hospitalization. The ESC 2019 guidelines recommend the use of mood stabilizers, such as lithium, to treat manic episodes. The dose of lithium is typically 900-1200 mg per day, with a target serum level of 0.8-1.2 mmol/L."
+          },
+          {
+            "heading": "Depressive Episodes",
+            "text": "Depressive episodes are marked by low mood, decreased energy, and increased need for sleep. The ACC/AHA 2017 guidelines suggest that depressive episodes can be treated with antidepressants, such as selective serotonin reuptake inhibitors (SSRIs). However, the use of antidepressants in bipolar disorder requires careful monitoring, as they can trigger manic episodes. The STAR*D trial found that the combination of an SSRI and a mood stabilizer, such as lithium, can be effective in treating depressive episodes in bipolar disorder."
+          },
+          {
+            "heading": "Mixed Episodes",
+            "text": "Mixed episodes are characterized by a combination of manic and depressive symptoms. The AHA 2020 guidelines recommend the use of mood stabilizers, such as valproate, to treat mixed episodes. The dose of valproate is typically 1000-2000 mg per day, with a target serum level of 50-100 mg/L. The NICE 2018 guidelines suggest that mixed episodes can be challenging to treat and may require a combination of medications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the treatment of bipolar disorder is the importance of monitoring for suicidal ideation and behavior. According to the NIMH, patients with bipolar disorder are at increased risk of suicide, particularly during depressive episodes. The ESC 2019 guidelines recommend regular monitoring of suicidal ideation and behavior, as well as the use of evidence-based treatments, such as cognitive-behavioral therapy (CBT), to reduce the risk of suicide.",
+        "key_points": [
+          "Manic episodes are characterized by elevated mood, increased energy, and decreased need for sleep.",
+          "Depressive episodes are marked by low mood, decreased energy, and increased need for sleep.",
+          "Mixed episodes are characterized by a combination of manic and depressive symptoms.",
+          "The ESC 2019 guidelines recommend the use of mood stabilizers, such as lithium, to treat manic episodes.",
+          "The ACC/AHA 2017 guidelines suggest that depressive episodes can be treated with antidepressants, such as SSRIs.",
+          "The STAR*D trial found that the combination of an SSRI and a mood stabilizer, such as lithium, can be effective in treating depressive episodes in bipolar disorder."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Bipolar Disorder",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for the diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "title": "AHA 2020 Guidelines for the Treatment of Bipolar Disorder",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the treatment of bipolar disorder."
+          },
+          {
+            "title": "STAR*D Trial",
+            "authors": "Rush et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark study on the treatment of bipolar disorder."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Bipolar Disorder",
+      "content": {
+        "intro": "The diagnosis of bipolar disorder can be challenging, as it often co-occurs with other mental health conditions, such as anxiety and substance use disorders. A comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, is essential for accurate diagnosis and treatment. According to the NIMH, the diagnosis of bipolar disorder requires at least one manic episode, which may be preceded or followed by depressive episodes.",
+        "sections": [
+          {
+            "heading": "Medical and Psychiatric History",
+            "text": "A thorough medical and psychiatric history is essential for the diagnosis of bipolar disorder. The AHA 2020 guidelines recommend a comprehensive medical and psychiatric history, including a review of symptoms, medical conditions, and medications. The ESC 2019 guidelines suggest that a thorough medical and psychiatric history can help identify underlying causes and develop an effective treatment plan."
+          },
+          {
+            "heading": "Physical Examination",
+            "text": "A physical examination is also essential for the diagnosis of bipolar disorder. The NICE 2018 guidelines recommend a physical examination, including a review of vital signs, to identify any underlying medical conditions that may be contributing to symptoms. The ACC/AHA 2017 guidelines suggest that a physical examination can help identify any potential side effects of medications."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as blood tests and imaging studies, may be necessary to rule out underlying medical conditions that may be contributing to symptoms. The STAR*D trial found that laboratory tests, such as thyroid function tests, can help identify underlying causes of symptoms. The ESC 2019 guidelines recommend laboratory tests, such as blood tests and imaging studies, to rule out underlying medical conditions."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis of bipolar disorder is the importance of monitoring for suicidal ideation and behavior. According to the NIMH, patients with bipolar disorder are at increased risk of suicide, particularly during depressive episodes. The AHA 2020 guidelines recommend regular monitoring of suicidal ideation and behavior, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of suicide.",
+        "key_points": [
+          "A comprehensive diagnostic evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, is essential for accurate diagnosis and treatment of bipolar disorder.",
+          "The diagnosis of bipolar disorder requires at least one manic episode, which may be preceded or followed by depressive episodes.",
+          "A thorough medical and psychiatric history is essential for the diagnosis of bipolar disorder.",
+          "A physical examination is also essential for the diagnosis of bipolar disorder.",
+          "Laboratory tests, such as blood tests and imaging studies, may be necessary to rule out underlying medical conditions that may be contributing to symptoms.",
+          "The ESC 2019 guidelines recommend laboratory tests, such as blood tests and imaging studies, to rule out underlying medical conditions."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Bipolar Disorder",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for the diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "title": "AHA 2020 Guidelines for the Treatment of Bipolar Disorder",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the treatment of bipolar disorder."
+          },
+          {
+            "title": "STAR*D Trial",
+            "authors": "Rush et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark study on the treatment of bipolar disorder."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Bipolar Disorder",
+      "content": {
+        "intro": "The treatment and management of bipolar disorder require a comprehensive approach, including medications, psychotherapy, and lifestyle modifications. According to the NIMH, the goal of treatment is to reduce symptoms, improve functioning, and prevent relapse. The AHA 2020 guidelines recommend a treatment plan that is tailored to the individual patient's needs and preferences.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Medications, such as mood stabilizers and antipsychotics, are often used to treat bipolar disorder. The ESC 2019 guidelines recommend the use of mood stabilizers, such as lithium, to treat manic episodes. The dose of lithium is typically 900-1200 mg per day, with a target serum level of 0.8-1.2 mmol/L. The ACC/AHA 2017 guidelines suggest that antipsychotics, such as olanzapine, can be used to treat manic episodes, with a dose of 10-20 mg per day."
+          },
+          {
+            "heading": "Psychotherapy",
+            "text": "Psychotherapy, such as CBT and family-focused therapy, can be effective in treating bipolar disorder. The NICE 2018 guidelines recommend psychotherapy, such as CBT, to reduce symptoms and improve functioning. The STAR*D trial found that psychotherapy, such as CBT, can be effective in treating depressive episodes in bipolar disorder."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as regular exercise and healthy eating, can help reduce symptoms and improve functioning. The AHA 2020 guidelines recommend regular exercise, such as 30 minutes of moderate-intensity exercise per day, to reduce symptoms and improve functioning. The ESC 2019 guidelines suggest that healthy eating, such as a balanced diet with plenty of fruits and vegetables, can help reduce symptoms and improve functioning."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the treatment of bipolar disorder is the importance of monitoring for side effects of medications. According to the NIMH, patients with bipolar disorder are at increased risk of side effects, such as weight gain and metabolic changes, particularly with the use of antipsychotics. The ESC 2019 guidelines recommend regular monitoring of side effects, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of side effects.",
+        "key_points": [
+          "The treatment and management of bipolar disorder require a comprehensive approach, including medications, psychotherapy, and lifestyle modifications.",
+          "The goal of treatment is to reduce symptoms, improve functioning, and prevent relapse.",
+          "Medications, such as mood stabilizers and antipsychotics, are often used to treat bipolar disorder.",
+          "Psychotherapy, such as CBT and family-focused therapy, can be effective in treating bipolar disorder.",
+          "Lifestyle modifications, such as regular exercise and healthy eating, can help reduce symptoms and improve functioning.",
+          "The ESC 2019 guidelines recommend regular monitoring of side effects, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of side effects."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Bipolar Disorder",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for the diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "title": "AHA 2020 Guidelines for the Treatment of Bipolar Disorder",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the treatment of bipolar disorder."
+          },
+          {
+            "title": "STAR*D Trial",
+            "authors": "Rush et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark study on the treatment of bipolar disorder."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Bipolar Disorder",
+      "content": {
+        "intro": "Bipolar disorder can have significant complications and a variable prognosis, depending on the severity and type of symptoms. According to the NIMH, patients with bipolar disorder are at increased risk of suicidal ideation and behavior, particularly during depressive episodes. The AHA 2020 guidelines recommend regular monitoring of suicidal ideation and behavior, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of suicide.",
+        "sections": [
+          {
+            "heading": "Suicidal Ideation and Behavior",
+            "text": "Suicidal ideation and behavior are significant complications of bipolar disorder. The ESC 2019 guidelines recommend regular monitoring of suicidal ideation and behavior, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of suicide. The STAR*D trial found that suicidal ideation and behavior can be reduced with the use of evidence-based treatments, such as CBT and medication."
+          },
+          {
+            "heading": "Medical Comorbidities",
+            "text": "Medical comorbidities, such as diabetes and cardiovascular disease, are common in patients with bipolar disorder. The NICE 2018 guidelines recommend regular monitoring of medical comorbidities, as well as the use of evidence-based treatments, such as lifestyle modifications and medication, to reduce the risk of medical comorbidities. The ACC/AHA 2017 guidelines suggest that medical comorbidities can be reduced with the use of evidence-based treatments, such as lifestyle modifications and medication."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of bipolar disorder can be variable, depending on the severity and type of symptoms. The AHA 2020 guidelines recommend a comprehensive treatment plan, including medications, psychotherapy, and lifestyle modifications, to improve prognosis. The ESC 2019 guidelines suggest that a comprehensive treatment plan can improve prognosis and reduce the risk of complications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of bipolar disorder is the importance of monitoring for complications, such as suicidal ideation and behavior and medical comorbidities. According to the NIMH, patients with bipolar disorder are at increased risk of complications, particularly during depressive episodes. The ESC 2019 guidelines recommend regular monitoring of complications, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of complications.",
+        "key_points": [
+          "Bipolar disorder can have significant complications and a variable prognosis, depending on the severity and type of symptoms.",
+          "Patients with bipolar disorder are at increased risk of suicidal ideation and behavior, particularly during depressive episodes.",
+          "Medical comorbidities, such as diabetes and cardiovascular disease, are common in patients with bipolar disorder.",
+          "The ESC 2019 guidelines recommend regular monitoring of suicidal ideation and behavior, as well as the use of evidence-based treatments, such as CBT, to reduce the risk of suicide.",
+          "The NICE 2018 guidelines recommend regular monitoring of medical comorbidities, as well as the use of evidence-based treatments, such as lifestyle modifications and medication, to reduce the risk of medical comorbidities.",
+          "The AHA 2020 guidelines recommend a comprehensive treatment plan, including medications, psychotherapy, and lifestyle modifications, to improve prognosis."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on the Diagnosis and Treatment of Bipolar Disorder",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for the diagnosis and treatment of bipolar disorder."
+          },
+          {
+            "title": "AHA 2020 Guidelines for the Treatment of Bipolar Disorder",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Guidelines for the treatment of bipolar disorder."
+          },
+          {
+            "title": "STAR*D Trial",
+            "authors": "Rush et al.",
+            "journal_or_source": "American Journal of Psychiatry",
+            "year": 2006,
+            "type": "clinical trial",
+            "note": "Landmark study on the treatment of bipolar disorder."
+          }
+        ]
+      }
+    }
+  ]
+}

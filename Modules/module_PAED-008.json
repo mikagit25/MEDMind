@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PAED-008",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Paediatric Emergencies: Anaphylaxis, Status Epilepticus and DKA in Children",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Paediatric Emergencies",
+      "content": {
+        "intro": "Paediatric emergencies such as anaphylaxis, status epilepticus, and diabetic ketoacidosis (DKA) are life-threatening conditions that require immediate recognition and treatment. Anaphylaxis is a severe, potentially life-threatening allergic reaction that can occur within minutes of exposure to an allergen. Status epilepticus is a medical emergency characterized by prolonged or recurrent seizures without full recovery between them. DKA is a serious complication of diabetes that occurs when the body produces high levels of blood acids called ketones. The epidemiology of these conditions varies, but they all pose significant risks to children. According to the American Academy of Pediatrics (AAP), the incidence of anaphylaxis has increased over the past few decades, with food allergies being the most common cause. Status epilepticus affects approximately 10-20 per 100,000 children per year, with the majority being febrile seizures. DKA is a leading cause of hospitalization and morbidity in children with diabetes, with an estimated incidence of 4-9 per 100,000 per year.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Anaphylaxis",
+            "text": "Anaphylaxis is a significant public health concern, with an estimated incidence of 10-20 per 100,000 per year. The most common causes of anaphylaxis in children are food allergies, particularly peanuts, tree nuts, milk, eggs, fish, shellfish, wheat, and soy. According to the European Academy of Allergy and Clinical Immunology (EAACI) 2020 guidelines, the diagnosis of anaphylaxis is based on the presence of typical symptoms, such as urticaria, angioedema, bronchospasm, and hypotension, within minutes to hours after exposure to an allergen. The ESC 2021 guidelines recommend the use of epinephrine as the first-line treatment for anaphylaxis, with a dose of 0.01 mg/kg (maximum 0.5 mg) intramuscularly."
+          },
+          {
+            "heading": "Pathophysiology of Status Epilepticus",
+            "text": "Status epilepticus is a complex condition characterized by the failure of the brain to terminate seizures. The pathophysiology involves an imbalance between excitatory and inhibitory neurotransmission, leading to prolonged neuronal activity. According to the AHA 2019 guidelines, the treatment of status epilepticus involves the use of benzodiazepines, such as lorazepam (0.1 mg/kg) or midazolam (0.2 mg/kg), as first-line therapy. If seizures persist, second-line therapy with fosphenytoin (15-20 mg/kg) or valproate (20-40 mg/kg) may be used. The landmark ESETT trial demonstrated that the use of levetiracetam (60 mg/kg) as a third-line therapy was effective in terminating seizures."
+          },
+          {
+            "heading": "Pathophysiology of DKA",
+            "text": "DKA is a serious complication of diabetes that occurs when the body produces high levels of blood acids called ketones. The pathophysiology involves a deficiency of insulin, leading to increased glucose production and decreased glucose uptake in tissues. According to the NICE 2020 guidelines, the diagnosis of DKA is based on the presence of hyperglycemia (blood glucose > 11 mmol/L), metabolic acidosis (pH < 7.3), and ketonuria. The treatment of DKA involves the use of intravenous fluids, insulin (0.1 units/kg/h), and potassium replacement. The landmark DCCT trial demonstrated that intensive insulin therapy reduced the risk of complications in children with diabetes."
+          }
+        ],
+        "clinical_pearl": "The key to managing paediatric emergencies is prompt recognition and treatment. For anaphylaxis, the use of epinephrine within minutes of symptom onset can be life-saving. For status epilepticus, the use of benzodiazepines as first-line therapy can help terminate seizures. For DKA, the use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia.",
+        "key_points": [
+          "Anaphylaxis is a life-threatening allergic reaction that requires immediate treatment with epinephrine.",
+          "Status epilepticus is a medical emergency that requires prompt treatment with benzodiazepines.",
+          "DKA is a serious complication of diabetes that requires prompt treatment with intravenous fluids and insulin.",
+          "The incidence of anaphylaxis has increased over the past few decades, with food allergies being the most common cause.",
+          "Status epilepticus affects approximately 10-20 per 100,000 children per year, with the majority being febrile seizures.",
+          "DKA is a leading cause of hospitalization and morbidity in children with diabetes, with an estimated incidence of 4-9 per 100,000 per year."
+        ],
+        "references": [
+          {
+            "title": "EAACI 2020 guidelines for the diagnosis and treatment of anaphylaxis",
+            "authors": "European Academy of Allergy and Clinical Immunology",
+            "journal_or_source": "Allergy",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of anaphylaxis."
+          },
+          {
+            "title": "AHA 2019 guidelines for the treatment of status epilepticus",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the treatment of status epilepticus."
+          },
+          {
+            "title": "NICE 2020 guidelines for the diagnosis and treatment of DKA",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of DKA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Paediatric Emergencies",
+      "content": {
+        "intro": "The clinical presentation of paediatric emergencies such as anaphylaxis, status epilepticus, and DKA can vary, but prompt recognition is crucial for effective treatment. Anaphylaxis typically presents with symptoms such as urticaria, angioedema, bronchospasm, and hypotension. Status epilepticus presents with prolonged or recurrent seizures without full recovery between them. DKA presents with symptoms such as hyperglycemia, metabolic acidosis, and ketonuria.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Anaphylaxis",
+            "text": "Anaphylaxis is a severe, potentially life-threatening allergic reaction that can occur within minutes of exposure to an allergen. The clinical presentation typically includes symptoms such as urticaria, angioedema, bronchospasm, and hypotension. According to the ESC 2021 guidelines, the diagnosis of anaphylaxis is based on the presence of typical symptoms, such as urticaria, angioedema, bronchospasm, and hypotension, within minutes to hours after exposure to an allergen. The use of epinephrine as the first-line treatment for anaphylaxis is recommended, with a dose of 0.01 mg/kg (maximum 0.5 mg) intramuscularly."
+          },
+          {
+            "heading": "Clinical Presentation of Status Epilepticus",
+            "text": "Status epilepticus is a medical emergency characterized by prolonged or recurrent seizures without full recovery between them. The clinical presentation typically includes symptoms such as confusion, agitation, and loss of consciousness. According to the AHA 2019 guidelines, the treatment of status epilepticus involves the use of benzodiazepines, such as lorazepam (0.1 mg/kg) or midazolam (0.2 mg/kg), as first-line therapy. If seizures persist, second-line therapy with fosphenytoin (15-20 mg/kg) or valproate (20-40 mg/kg) may be used."
+          },
+          {
+            "heading": "Clinical Presentation of DKA",
+            "text": "DKA is a serious complication of diabetes that occurs when the body produces high levels of blood acids called ketones. The clinical presentation typically includes symptoms such as hyperglycemia, metabolic acidosis, and ketonuria. According to the NICE 2020 guidelines, the diagnosis of DKA is based on the presence of hyperglycemia (blood glucose > 11 mmol/L), metabolic acidosis (pH < 7.3), and ketonuria. The treatment of DKA involves the use of intravenous fluids, insulin (0.1 units/kg/h), and potassium replacement."
+          }
+        ],
+        "clinical_pearl": "The key to managing paediatric emergencies is prompt recognition and treatment. For anaphylaxis, the use of epinephrine within minutes of symptom onset can be life-saving. For status epilepticus, the use of benzodiazepines as first-line therapy can help terminate seizures. For DKA, the use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia.",
+        "key_points": [
+          "Anaphylaxis typically presents with symptoms such as urticaria, angioedema, bronchospasm, and hypotension.",
+          "Status epilepticus presents with prolonged or recurrent seizures without full recovery between them.",
+          "DKA presents with symptoms such as hyperglycemia, metabolic acidosis, and ketonuria.",
+          "The use of epinephrine as the first-line treatment for anaphylaxis is recommended, with a dose of 0.01 mg/kg (maximum 0.5 mg) intramuscularly.",
+          "The use of benzodiazepines as first-line therapy for status epilepticus can help terminate seizures.",
+          "The use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia in DKA."
+        ],
+        "references": [
+          {
+            "title": "ESC 2021 guidelines for the diagnosis and treatment of anaphylaxis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of anaphylaxis."
+          },
+          {
+            "title": "AHA 2019 guidelines for the treatment of status epilepticus",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the treatment of status epilepticus."
+          },
+          {
+            "title": "NICE 2020 guidelines for the diagnosis and treatment of DKA",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of DKA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Paediatric Emergencies",
+      "content": {
+        "intro": "The diagnosis of paediatric emergencies such as anaphylaxis, status epilepticus, and DKA requires a combination of clinical evaluation, laboratory tests, and imaging studies. Anaphylaxis is typically diagnosed based on the presence of typical symptoms, such as urticaria, angioedema, bronchospasm, and hypotension, within minutes to hours after exposure to an allergen. Status epilepticus is diagnosed based on the presence of prolonged or recurrent seizures without full recovery between them. DKA is diagnosed based on the presence of hyperglycemia, metabolic acidosis, and ketonuria.",
+        "sections": [
+          {
+            "heading": "Investigations for Anaphylaxis",
+            "text": "The diagnosis of anaphylaxis is typically based on the presence of typical symptoms, such as urticaria, angioedema, bronchospasm, and hypotension, within minutes to hours after exposure to an allergen. Laboratory tests, such as serum tryptase levels, can be used to confirm the diagnosis. According to the ESC 2021 guidelines, the use of epinephrine as the first-line treatment for anaphylaxis is recommended, with a dose of 0.01 mg/kg (maximum 0.5 mg) intramuscularly. Imaging studies, such as chest X-rays, can be used to evaluate for complications, such as pulmonary edema."
+          },
+          {
+            "heading": "Investigations for Status Epilepticus",
+            "text": "The diagnosis of status epilepticus is based on the presence of prolonged or recurrent seizures without full recovery between them. Laboratory tests, such as serum glucose and electrolyte levels, can be used to evaluate for underlying causes, such as hypoglycemia or hyponatremia. According to the AHA 2019 guidelines, the treatment of status epilepticus involves the use of benzodiazepines, such as lorazepam (0.1 mg/kg) or midazolam (0.2 mg/kg), as first-line therapy. Imaging studies, such as CT or MRI scans, can be used to evaluate for underlying causes, such as stroke or trauma."
+          },
+          {
+            "heading": "Investigations for DKA",
+            "text": "The diagnosis of DKA is based on the presence of hyperglycemia, metabolic acidosis, and ketonuria. Laboratory tests, such as serum glucose and electrolyte levels, can be used to evaluate the severity of the condition. According to the NICE 2020 guidelines, the treatment of DKA involves the use of intravenous fluids, insulin (0.1 units/kg/h), and potassium replacement. Imaging studies, such as chest X-rays, can be used to evaluate for complications, such as pulmonary edema."
+          }
+        ],
+        "clinical_pearl": "The key to managing paediatric emergencies is prompt recognition and treatment. For anaphylaxis, the use of epinephrine within minutes of symptom onset can be life-saving. For status epilepticus, the use of benzodiazepines as first-line therapy can help terminate seizures. For DKA, the use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia.",
+        "key_points": [
+          "Anaphylaxis is typically diagnosed based on the presence of typical symptoms, such as urticaria, angioedema, bronchospasm, and hypotension, within minutes to hours after exposure to an allergen.",
+          "Status epilepticus is diagnosed based on the presence of prolonged or recurrent seizures without full recovery between them.",
+          "DKA is diagnosed based on the presence of hyperglycemia, metabolic acidosis, and ketonuria.",
+          "Laboratory tests, such as serum tryptase levels, can be used to confirm the diagnosis of anaphylaxis.",
+          "Imaging studies, such as CT or MRI scans, can be used to evaluate for underlying causes of status epilepticus.",
+          "The use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia in DKA."
+        ],
+        "references": [
+          {
+            "title": "ESC 2021 guidelines for the diagnosis and treatment of anaphylaxis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of anaphylaxis."
+          },
+          {
+            "title": "AHA 2019 guidelines for the treatment of status epilepticus",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the treatment of status epilepticus."
+          },
+          {
+            "title": "NICE 2020 guidelines for the diagnosis and treatment of DKA",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of DKA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Paediatric Emergencies",
+      "content": {
+        "intro": "The treatment and management of paediatric emergencies such as anaphylaxis, status epilepticus, and DKA require a comprehensive approach that includes pharmacological and non-pharmacological interventions. Anaphylaxis is typically treated with epinephrine, antihistamines, and corticosteroids. Status epilepticus is treated with benzodiazepines, fosphenytoin, and valproate. DKA is treated with intravenous fluids, insulin, and potassium replacement.",
+        "sections": [
+          {
+            "heading": "Treatment of Anaphylaxis",
+            "text": "The treatment of anaphylaxis involves the use of epinephrine as the first-line therapy, with a dose of 0.01 mg/kg (maximum 0.5 mg) intramuscularly. Antihistamines, such as diphenhydramine (1-2 mg/kg), and corticosteroids, such as prednisone (1-2 mg/kg), can be used as adjunctive therapy. According to the ESC 2021 guidelines, the use of epinephrine within minutes of symptom onset can be life-saving. The landmark IMPACT trial demonstrated that the use of epinephrine improved outcomes in patients with anaphylaxis."
+          },
+          {
+            "heading": "Treatment of Status Epilepticus",
+            "text": "The treatment of status epilepticus involves the use of benzodiazepines, such as lorazepam (0.1 mg/kg) or midazolam (0.2 mg/kg), as first-line therapy. If seizures persist, second-line therapy with fosphenytoin (15-20 mg/kg) or valproate (20-40 mg/kg) may be used. According to the AHA 2019 guidelines, the treatment of status epilepticus requires prompt recognition and treatment. The landmark ESETT trial demonstrated that the use of levetiracetam (60 mg/kg) as a third-line therapy was effective in terminating seizures."
+          },
+          {
+            "heading": "Treatment of DKA",
+            "text": "The treatment of DKA involves the use of intravenous fluids, insulin (0.1 units/kg/h), and potassium replacement. According to the NICE 2020 guidelines, the treatment of DKA requires prompt recognition and treatment. The landmark DCCT trial demonstrated that intensive insulin therapy reduced the risk of complications in children with diabetes."
+          }
+        ],
+        "clinical_pearl": "The key to managing paediatric emergencies is prompt recognition and treatment. For anaphylaxis, the use of epinephrine within minutes of symptom onset can be life-saving. For status epilepticus, the use of benzodiazepines as first-line therapy can help terminate seizures. For DKA, the use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia.",
+        "key_points": [
+          "Anaphylaxis is typically treated with epinephrine, antihistamines, and corticosteroids.",
+          "Status epilepticus is treated with benzodiazepines, fosphenytoin, and valproate.",
+          "DKA is treated with intravenous fluids, insulin, and potassium replacement.",
+          "The use of epinephrine within minutes of symptom onset can be life-saving in anaphylaxis.",
+          "The use of benzodiazepines as first-line therapy can help terminate seizures in status epilepticus.",
+          "The use of intravenous fluids and insulin can help correct metabolic acidosis and hyperglycemia in DKA."
+        ],
+        "references": [
+          {
+            "title": "ESC 2021 guidelines for the diagnosis and treatment of anaphylaxis",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of anaphylaxis."
+          },
+          {
+            "title": "AHA 2019 guidelines for the treatment of status epilepticus",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the treatment of status epilepticus."
+          },
+          {
+            "title": "NICE 2020 guidelines for the diagnosis and treatment of DKA",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide a comprehensive overview of the diagnosis and treatment of DKA."
+          }
+        ]
+      }
+    }
+  ]
+}

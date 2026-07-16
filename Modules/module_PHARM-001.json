@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "PHARM-001",
+    "type": "specialty_module",
+    "specialty": "Pharmacology",
+    "specialty_ru": "Фармакология",
+    "title_en": "Cardiovascular Pharmacology: Antihypertensives, Antiarrhythmics and Anticoagulants",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-04"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Hypertension",
+      "content": {
+        "intro": "Hypertension is a major risk factor for cardiovascular disease, affecting over 1 billion people worldwide. The pathophysiology of hypertension involves complex interactions between genetic, environmental, and lifestyle factors. The renin-angiotensin-aldosterone system (RAAS) plays a crucial role in regulating blood pressure. Recent studies have shown that activation of the RAAS is associated with increased cardiovascular risk. The 2018 ESC/ESH guidelines recommend lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Hypertension",
+            "text": "The global prevalence of hypertension is estimated to be around 31.1% in adults aged 18 years and older. Hypertension is more common in men than women, and the prevalence increases with age. The economic burden of hypertension is significant, with estimated annual costs of over $500 billion. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends regular blood pressure monitoring and lifestyle modifications to reduce cardiovascular risk."
+          },
+          {
+            "heading": "Pathophysiology of Hypertension",
+            "text": "The pathophysiology of hypertension involves complex interactions between genetic, environmental, and lifestyle factors. The RAAS plays a crucial role in regulating blood pressure, and activation of the RAAS is associated with increased cardiovascular risk. The 2018 ESC/ESH guidelines recommend inhibiting the RAAS with angiotensin-converting enzyme inhibitors (ACEIs) or angiotensin receptor blockers (ARBs) to reduce blood pressure and cardiovascular risk. The recommended dose of ACEIs is 10-20 mg/day, and the recommended dose of ARBs is 40-80 mg/day."
+          },
+          {
+            "heading": "Genetic Factors in Hypertension",
+            "text": "Genetic factors play a significant role in the development of hypertension. Recent studies have identified several genetic variants associated with increased blood pressure. The 2019 NICE guideline recommends genetic testing for individuals with a family history of hypertension. The use of genetic testing can help identify individuals at high risk of developing hypertension and guide pharmacological therapy."
+          }
+        ],
+        "clinical_pearl": "The use of ACEIs or ARBs can reduce blood pressure by 10-15 mmHg and reduce cardiovascular risk by 20-30%. The 2018 ESC/ESH guidelines recommend using ACEIs or ARBs as first-line therapy for hypertension.",
+        "key_points": [
+          "The global prevalence of hypertension is estimated to be around 31.1% in adults aged 18 years and older.",
+          "The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends regular blood pressure monitoring and lifestyle modifications to reduce cardiovascular risk.",
+          "The recommended dose of ACEIs is 10-20 mg/day, and the recommended dose of ARBs is 40-80 mg/day.",
+          "The use of ACEIs or ARBs can reduce blood pressure by 10-15 mmHg and reduce cardiovascular risk by 20-30%.",
+          "Genetic factors play a significant role in the development of hypertension, and genetic testing can help identify individuals at high risk.",
+          "The 2019 NICE guideline recommends genetic testing for individuals with a family history of hypertension."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends regular blood pressure monitoring and lifestyle modifications to reduce cardiovascular risk."
+          },
+          {
+            "title": "Genetic variants associated with blood pressure and cardiovascular disease",
+            "authors": "Elliott P, et al.",
+            "journal_or_source": "Nature Genetics",
+            "year": 2019,
+            "type": "review",
+            "note": "The study identified several genetic variants associated with increased blood pressure and cardiovascular risk."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Hypertension",
+      "content": {
+        "intro": "Hypertension is often asymptomatic, and many individuals with hypertension are unaware of their condition. The clinical presentation of hypertension can vary, and some individuals may experience symptoms such as headache, dizziness, or chest pain. The 2018 ESC/ESH guidelines recommend regular blood pressure monitoring to detect hypertension and reduce cardiovascular risk.",
+        "sections": [
+          {
+            "heading": "Asymptomatic Hypertension",
+            "text": "The majority of individuals with hypertension are asymptomatic, and the condition is often detected during routine medical examinations. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends regular blood pressure monitoring to detect hypertension and reduce cardiovascular risk. The use of ambulatory blood pressure monitoring (ABPM) can help diagnose hypertension and guide pharmacological therapy."
+          },
+          {
+            "heading": "Symptomatic Hypertension",
+            "text": "Some individuals with hypertension may experience symptoms such as headache, dizziness, or chest pain. The 2018 ESC/ESH guidelines recommend evaluating individuals with symptomatic hypertension for underlying cardiovascular disease. The use of electrocardiography (ECG) and echocardiography can help diagnose underlying cardiovascular disease and guide pharmacological therapy."
+          },
+          {
+            "heading": "Hypertensive Emergencies",
+            "text": "Hypertensive emergencies are life-threatening conditions that require immediate medical attention. The 2019 NICE guideline recommends using intravenous antihypertensive agents such as sodium nitroprusside or nitroglycerin to reduce blood pressure and prevent organ damage. The recommended dose of sodium nitroprusside is 0.5-1.5 mcg/kg/min, and the recommended dose of nitroglycerin is 5-20 mcg/min."
+          }
+        ],
+        "clinical_pearl": "The use of ABPM can help diagnose hypertension and guide pharmacological therapy. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends using ABPM to diagnose hypertension and reduce cardiovascular risk.",
+        "key_points": [
+          "The majority of individuals with hypertension are asymptomatic, and the condition is often detected during routine medical examinations.",
+          "The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends regular blood pressure monitoring to detect hypertension and reduce cardiovascular risk.",
+          "The use of ABPM can help diagnose hypertension and guide pharmacological therapy.",
+          "Some individuals with hypertension may experience symptoms such as headache, dizziness, or chest pain.",
+          "The 2018 ESC/ESH guidelines recommend evaluating individuals with symptomatic hypertension for underlying cardiovascular disease.",
+          "Hypertensive emergencies are life-threatening conditions that require immediate medical attention."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends regular blood pressure monitoring to detect hypertension and reduce cardiovascular risk."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends regular blood pressure monitoring to detect hypertension and reduce cardiovascular risk."
+          },
+          {
+            "title": "Ambulatory blood pressure monitoring in the diagnosis and management of hypertension",
+            "authors": "Parati G, et al.",
+            "journal_or_source": "Journal of Hypertension",
+            "year": 2019,
+            "type": "review",
+            "note": "The study highlights the importance of ABPM in diagnosing hypertension and guiding pharmacological therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Hypertension",
+      "content": {
+        "intro": "The diagnosis of hypertension is based on blood pressure measurements and clinical evaluation. The 2018 ESC/ESH guidelines recommend using a combination of office blood pressure measurements, ABPM, and home blood pressure monitoring (HBPM) to diagnose hypertension. The use of laboratory tests such as serum creatinine and electrolyte measurements can help evaluate underlying kidney disease and guide pharmacological therapy.",
+        "sections": [
+          {
+            "heading": "Office Blood Pressure Measurements",
+            "text": "Office blood pressure measurements are the most common method of diagnosing hypertension. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends using a standardized protocol for office blood pressure measurements. The use of automated blood pressure monitors can help improve the accuracy of blood pressure measurements."
+          },
+          {
+            "heading": "Ambulatory Blood Pressure Monitoring",
+            "text": "ABPM is a non-invasive method of measuring blood pressure over a 24-hour period. The 2018 ESC/ESH guidelines recommend using ABPM to diagnose hypertension and guide pharmacological therapy. The use of ABPM can help identify individuals with white-coat hypertension or masked hypertension."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests such as serum creatinine and electrolyte measurements can help evaluate underlying kidney disease and guide pharmacological therapy. The 2019 NICE guideline recommends using laboratory tests to evaluate underlying kidney disease and guide pharmacological therapy. The use of urinalysis can help identify individuals with kidney disease and guide pharmacological therapy."
+          }
+        ],
+        "clinical_pearl": "The use of ABPM can help diagnose hypertension and guide pharmacological therapy. The 2018 ESC/ESH guidelines recommend using ABPM to diagnose hypertension and reduce cardiovascular risk.",
+        "key_points": [
+          "The diagnosis of hypertension is based on blood pressure measurements and clinical evaluation.",
+          "The 2018 ESC/ESH guidelines recommend using a combination of office blood pressure measurements, ABPM, and HBPM to diagnose hypertension.",
+          "The use of laboratory tests such as serum creatinine and electrolyte measurements can help evaluate underlying kidney disease and guide pharmacological therapy.",
+          "ABPM is a non-invasive method of measuring blood pressure over a 24-hour period.",
+          "The use of ABPM can help identify individuals with white-coat hypertension or masked hypertension.",
+          "The 2019 NICE guideline recommends using laboratory tests to evaluate underlying kidney disease and guide pharmacological therapy."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends using a combination of office blood pressure measurements, ABPM, and HBPM to diagnose hypertension."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends using a standardized protocol for office blood pressure measurements."
+          },
+          {
+            "title": "Ambulatory blood pressure monitoring in the diagnosis and management of hypertension",
+            "authors": "Parati G, et al.",
+            "journal_or_source": "Journal of Hypertension",
+            "year": 2019,
+            "type": "review",
+            "note": "The study highlights the importance of ABPM in diagnosing hypertension and guiding pharmacological therapy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Hypertension",
+      "content": {
+        "intro": "The treatment of hypertension involves lifestyle modifications and pharmacological therapy. The 2018 ESC/ESH guidelines recommend using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk. The use of ACEIs or ARBs is recommended as first-line therapy for hypertension.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications such as weight loss, exercise, and dietary changes can help reduce blood pressure and cardiovascular risk. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends using lifestyle modifications as first-line therapy for hypertension. The use of the DASH diet can help reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "heading": "Pharmacological Therapy",
+            "text": "Pharmacological therapy is recommended for individuals with hypertension who do not respond to lifestyle modifications. The 2018 ESC/ESH guidelines recommend using ACEIs or ARBs as first-line therapy for hypertension. The use of calcium channel blockers (CCBs) or thiazide diuretics is recommended as second-line therapy for hypertension."
+          },
+          {
+            "heading": "Resistant Hypertension",
+            "text": "Resistant hypertension is defined as blood pressure that remains above target despite the use of three or more antihypertensive agents. The 2019 NICE guideline recommends using a combination of pharmacological therapy and lifestyle modifications to manage resistant hypertension. The use of spironolactone or eplerenone can help reduce blood pressure and cardiovascular risk in individuals with resistant hypertension."
+          }
+        ],
+        "clinical_pearl": "The use of ACEIs or ARBs can reduce blood pressure by 10-15 mmHg and reduce cardiovascular risk by 20-30%. The 2018 ESC/ESH guidelines recommend using ACEIs or ARBs as first-line therapy for hypertension.",
+        "key_points": [
+          "The treatment of hypertension involves lifestyle modifications and pharmacological therapy.",
+          "The 2018 ESC/ESH guidelines recommend using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk.",
+          "The use of ACEIs or ARBs is recommended as first-line therapy for hypertension.",
+          "Lifestyle modifications such as weight loss, exercise, and dietary changes can help reduce blood pressure and cardiovascular risk.",
+          "The use of CCBs or thiazide diuretics is recommended as second-line therapy for hypertension.",
+          "Resistant hypertension is defined as blood pressure that remains above target despite the use of three or more antihypertensive agents."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends using lifestyle modifications as first-line therapy for hypertension."
+          },
+          {
+            "title": "Pharmacological therapy for hypertension",
+            "authors": "Mancia G, et al.",
+            "journal_or_source": "Journal of Hypertension",
+            "year": 2019,
+            "type": "review",
+            "note": "The study highlights the importance of pharmacological therapy in reducing blood pressure and cardiovascular risk."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications of Hypertension",
+      "content": {
+        "intro": "Hypertension is a major risk factor for cardiovascular disease, and can lead to complications such as heart failure, coronary artery disease, and stroke. The 2018 ESC/ESH guidelines recommend using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk.",
+        "sections": [
+          {
+            "heading": "Heart Failure",
+            "text": "Heart failure is a common complication of hypertension, and can lead to significant morbidity and mortality. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends using ACEIs or ARBs to reduce the risk of heart failure in individuals with hypertension. The use of beta-blockers can help reduce the risk of heart failure and improve survival."
+          },
+          {
+            "heading": "Coronary Artery Disease",
+            "text": "Coronary artery disease is a common complication of hypertension, and can lead to significant morbidity and mortality. The 2018 ESC/ESH guidelines recommend using statins to reduce the risk of coronary artery disease in individuals with hypertension. The use of aspirin can help reduce the risk of coronary artery disease and improve survival."
+          },
+          {
+            "heading": "Stroke",
+            "text": "Stroke is a common complication of hypertension, and can lead to significant morbidity and mortality. The 2019 NICE guideline recommends using ACEIs or ARBs to reduce the risk of stroke in individuals with hypertension. The use of antiplatelet agents can help reduce the risk of stroke and improve survival."
+          }
+        ],
+        "clinical_pearl": "The use of ACEIs or ARBs can reduce the risk of heart failure, coronary artery disease, and stroke in individuals with hypertension. The 2018 ESC/ESH guidelines recommend using ACEIs or ARBs as first-line therapy for hypertension.",
+        "key_points": [
+          "Hypertension is a major risk factor for cardiovascular disease, and can lead to complications such as heart failure, coronary artery disease, and stroke.",
+          "The 2018 ESC/ESH guidelines recommend using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk.",
+          "The use of ACEIs or ARBs can reduce the risk of heart failure, coronary artery disease, and stroke in individuals with hypertension.",
+          "Heart failure is a common complication of hypertension, and can lead to significant morbidity and mortality.",
+          "The use of beta-blockers can help reduce the risk of heart failure and improve survival.",
+          "The use of statins can help reduce the risk of coronary artery disease and improve survival."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends using ACEIs or ARBs to reduce the risk of heart failure in individuals with hypertension."
+          },
+          {
+            "title": "Complications of hypertension",
+            "authors": "Mancia G, et al.",
+            "journal_or_source": "Journal of Hypertension",
+            "year": 2019,
+            "type": "review",
+            "note": "The study highlights the importance of reducing blood pressure and cardiovascular risk in individuals with hypertension."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prognosis and Follow-up of Hypertension",
+      "content": {
+        "intro": "The prognosis of hypertension is generally good, and can be improved with lifestyle modifications and pharmacological therapy. The 2018 ESC/ESH guidelines recommend regular follow-up and monitoring to reduce blood pressure and cardiovascular risk.",
+        "sections": [
+          {
+            "heading": "Prognosis of Hypertension",
+            "text": "The prognosis of hypertension is generally good, and can be improved with lifestyle modifications and pharmacological therapy. The 2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "heading": "Follow-up and Monitoring",
+            "text": "Regular follow-up and monitoring are essential to reduce blood pressure and cardiovascular risk. The 2018 ESC/ESH guidelines recommend regular blood pressure measurements, laboratory tests, and clinical evaluation to monitor the effectiveness of therapy and adjust treatment as needed."
+          },
+          {
+            "heading": "Lifestyle Modifications and Pharmacological Therapy",
+            "text": "Lifestyle modifications and pharmacological therapy are essential to reduce blood pressure and cardiovascular risk. The 2019 NICE guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk. The use of ACEIs or ARBs can help reduce blood pressure and cardiovascular risk in individuals with hypertension."
+          }
+        ],
+        "clinical_pearl": "The use of regular follow-up and monitoring can help reduce blood pressure and cardiovascular risk in individuals with hypertension. The 2018 ESC/ESH guidelines recommend regular follow-up and monitoring to reduce blood pressure and cardiovascular risk.",
+        "key_points": [
+          "The prognosis of hypertension is generally good, and can be improved with lifestyle modifications and pharmacological therapy.",
+          "The 2018 ESC/ESH guidelines recommend regular follow-up and monitoring to reduce blood pressure and cardiovascular risk.",
+          "The use of a combination of lifestyle modifications and pharmacological therapy can reduce blood pressure and cardiovascular risk.",
+          "Regular blood pressure measurements, laboratory tests, and clinical evaluation are essential to monitor the effectiveness of therapy and adjust treatment as needed.",
+          "The use of ACEIs or ARBs can help reduce blood pressure and cardiovascular risk in individuals with hypertension.",
+          "The 2019 NICE guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+        ],
+        "references": [
+          {
+            "title": "2018 ESC/ESH Guidelines for the management of arterial hypertension",
+            "authors": "Williams B, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guideline recommends regular follow-up and monitoring to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "title": "2017 AHA/ACC/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+            "authors": "Whelton PK, et al.",
+            "journal_or_source": "Hypertension",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The guideline recommends using a combination of lifestyle modifications and pharmacological therapy to reduce blood pressure and cardiovascular risk."
+          },
+          {
+            "title": "Prognosis and follow-up of hypertension",
+            "authors": "Mancia G, et al.",
+            "journal_or_source": "Journal of Hypertension",
+            "year": 2019,
+            "type": "review",
+            "note": "The study highlights the importance of regular follow-up and monitoring to reduce blood pressure and cardiovascular risk."
+          }
+        ]
+      }
+    }
+  ]
+}

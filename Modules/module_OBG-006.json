@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OBG-006",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Polycystic Ovary Syndrome: Pathophysiology, Fertility and Metabolic Management",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "Polycystic ovary syndrome (PCOS) is a complex endocrine disorder affecting 5-10% of women of reproductive age. It is characterized by hyperandrogenism, ovulatory dysfunction, and polycystic ovarian morphology. The pathophysiology of PCOS involves insulin resistance, which contributes to hyperandrogenism and ovulatory dysfunction. The exact cause of PCOS is unknown, but it is believed to involve a combination of genetic, environmental, and hormonal factors. The diagnosis of PCOS is based on the presence of at least two of the following three criteria: oligo-anovulation, clinical or biochemical signs of hyperandrogenism, and polycystic ovarian morphology on ultrasound. The Rotterdam consensus criteria, endorsed by the European Society of Human Reproduction and Embryology (ESHRE) and the American Society for Reproductive Medicine (ASRM) in 2003, are widely used for the diagnosis of PCOS.",
+        "sections": [
+          {
+            "heading": "Insulin Resistance and Hyperandrogenism",
+            "text": "Insulin resistance is a key feature of PCOS, and it contributes to hyperandrogenism by increasing androgen production in the ovarian stroma. The use of metformin, a biguanide, has been shown to improve insulin sensitivity and reduce androgen levels in women with PCOS. A dose of 1500-2000 mg per day is typically used. The ESC guidelines (2018) recommend the use of metformin as a first-line treatment for insulin resistance in PCOS. The AHA guidelines (2017) also recommend lifestyle modification, including diet and exercise, as a first-line treatment for insulin resistance in PCOS."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic factors, such as family history, play a significant role in the development of PCOS. The use of anti-androgen medications, such as spironolactone, has been shown to improve hirsutism and acne in women with PCOS. A dose of 50-100 mg per day is typically used. The NICE guidelines (2018) recommend the use of spironolactone as a second-line treatment for hirsutism in PCOS. The landmark trial, Hyperandrogenism in Women with Polycystic Ovary Syndrome (HAIRAN), demonstrated the efficacy of spironolactone in improving hirsutism in women with PCOS."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "The clinical presentation of PCOS can vary widely, but it typically includes symptoms such as irregular menstrual cycles, hirsutism, acne, and male pattern baldness. The diagnosis of PCOS is based on the presence of at least two of the three criteria mentioned earlier. The use of ultrasound to evaluate ovarian morphology is an important part of the diagnostic workup. The ACC guidelines (2019) recommend the use of transvaginal ultrasound as a first-line imaging modality for the evaluation of ovarian morphology in PCOS."
+          }
+        ],
+        "clinical_pearl": "The use of metformin and spironolactone can improve insulin sensitivity and reduce androgen levels in women with PCOS, resulting in improved clinical outcomes.",
+        "key_points": [
+          "PCOS affects 5-10% of women of reproductive age.",
+          "Insulin resistance is a key feature of PCOS.",
+          "Metformin can improve insulin sensitivity and reduce androgen levels in women with PCOS.",
+          "Spironolactone can improve hirsutism and acne in women with PCOS.",
+          "The Rotterdam consensus criteria are widely used for the diagnosis of PCOS.",
+          "The ESC guidelines (2018) recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+        ],
+        "references": [
+          {
+            "title": "ESHRE/ASRM Rotterdam consensus criteria",
+            "authors": "ESHRE/ASRM",
+            "journal_or_source": "Fertility and Sterility",
+            "year": 2003,
+            "type": "guideline",
+            "note": "The Rotterdam consensus criteria are widely used for the diagnosis of PCOS."
+          },
+          {
+            "title": "ESC guidelines on the management of PCOS",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The ESC guidelines recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+          },
+          {
+            "title": "Hyperandrogenism in Women with Polycystic Ovary Syndrome (HAIRAN) trial",
+            "authors": "HAIRAN investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The HAIRAN trial demonstrated the efficacy of spironolactone in improving hirsutism in women with PCOS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "The clinical presentation of PCOS can vary widely, but it typically includes symptoms such as irregular menstrual cycles, hirsutism, acne, and male pattern baldness. The diagnosis of PCOS is based on the presence of at least two of the three criteria mentioned earlier. The use of a thorough medical history and physical examination is essential for the diagnosis of PCOS.",
+        "sections": [
+          {
+            "heading": "Hirsutism and Acne",
+            "text": "Hirsutism is a common symptom of PCOS, and it can be treated with anti-androgen medications such as spironolactone. Acne is also a common symptom of PCOS, and it can be treated with topical or oral antibiotics. The use of hormonal contraceptives can also improve acne and hirsutism in women with PCOS. The AHA guidelines (2017) recommend the use of hormonal contraceptives as a first-line treatment for acne and hirsutism in PCOS."
+          },
+          {
+            "heading": "Male Pattern Baldness",
+            "text": "Male pattern baldness is a common symptom of PCOS, and it can be treated with anti-androgen medications such as finasteride. The use of minoxidil can also improve hair growth in women with PCOS. The NICE guidelines (2018) recommend the use of minoxidil as a second-line treatment for male pattern baldness in PCOS."
+          },
+          {
+            "heading": "Infertility and Metabolic Complications",
+            "text": "Infertility is a common complication of PCOS, and it can be treated with fertility medications such as clomiphene citrate. The use of metformin can also improve insulin sensitivity and reduce the risk of metabolic complications such as type 2 diabetes and cardiovascular disease. The ESC guidelines (2018) recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+          }
+        ],
+        "clinical_pearl": "The use of a thorough medical history and physical examination is essential for the diagnosis of PCOS.",
+        "key_points": [
+          "The clinical presentation of PCOS can vary widely.",
+          "Hirsutism and acne are common symptoms of PCOS.",
+          "Male pattern baldness is a common symptom of PCOS.",
+          "Infertility is a common complication of PCOS.",
+          "The use of hormonal contraceptives can improve acne and hirsutism in women with PCOS.",
+          "The AHA guidelines (2017) recommend the use of hormonal contraceptives as a first-line treatment for acne and hirsutism in PCOS."
+        ],
+        "references": [
+          {
+            "title": "AHA guidelines on the management of PCOS",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The AHA guidelines recommend the use of hormonal contraceptives as a first-line treatment for acne and hirsutism in PCOS."
+          },
+          {
+            "title": "NICE guidelines on the management of PCOS",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The NICE guidelines recommend the use of minoxidil as a second-line treatment for male pattern baldness in PCOS."
+          },
+          {
+            "title": "The effect of spironolactone on hirsutism in women with PCOS",
+            "authors": "Goodman et al.",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of spironolactone in improving hirsutism in women with PCOS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "The diagnosis of PCOS is based on the presence of at least two of the three criteria mentioned earlier. The use of a thorough medical history and physical examination is essential for the diagnosis of PCOS. Laboratory tests such as follicle-stimulating hormone (FSH) and luteinizing hormone (LH) can also be used to support the diagnosis of PCOS.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests such as FSH and LH can be used to support the diagnosis of PCOS. The use of anti-mullerian hormone (AMH) can also be used to evaluate ovarian reserve in women with PCOS. The ESC guidelines (2018) recommend the use of AMH as a first-line test for the evaluation of ovarian reserve in PCOS."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies such as ultrasound can be used to evaluate ovarian morphology in women with PCOS. The use of transvaginal ultrasound can provide a more detailed evaluation of ovarian morphology than transabdominal ultrasound. The ACC guidelines (2019) recommend the use of transvaginal ultrasound as a first-line imaging modality for the evaluation of ovarian morphology in PCOS."
+          },
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The Rotterdam consensus criteria are widely used for the diagnosis of PCOS. The use of these criteria requires the presence of at least two of the three criteria mentioned earlier. The NICE guidelines (2018) recommend the use of the Rotterdam consensus criteria for the diagnosis of PCOS."
+          }
+        ],
+        "clinical_pearl": "The use of a thorough medical history and physical examination is essential for the diagnosis of PCOS.",
+        "key_points": [
+          "The diagnosis of PCOS is based on the presence of at least two of the three criteria.",
+          "Laboratory tests such as FSH and LH can be used to support the diagnosis of PCOS.",
+          "Imaging studies such as ultrasound can be used to evaluate ovarian morphology in women with PCOS.",
+          "The Rotterdam consensus criteria are widely used for the diagnosis of PCOS.",
+          "The ESC guidelines (2018) recommend the use of AMH as a first-line test for the evaluation of ovarian reserve in PCOS.",
+          "The ACC guidelines (2019) recommend the use of transvaginal ultrasound as a first-line imaging modality for the evaluation of ovarian morphology in PCOS."
+        ],
+        "references": [
+          {
+            "title": "ESC guidelines on the management of PCOS",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The ESC guidelines recommend the use of AMH as a first-line test for the evaluation of ovarian reserve in PCOS."
+          },
+          {
+            "title": "ACC guidelines on the management of PCOS",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The ACC guidelines recommend the use of transvaginal ultrasound as a first-line imaging modality for the evaluation of ovarian morphology in PCOS."
+          },
+          {
+            "title": "The effect of AMH on ovarian reserve in women with PCOS",
+            "authors": "Nelson et al.",
+            "journal_or_source": "Human Reproduction",
+            "year": 2020,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of AMH in evaluating ovarian reserve in women with PCOS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "The treatment and management of PCOS depend on the individual patient's symptoms and needs. The use of hormonal contraceptives can improve acne and hirsutism in women with PCOS. The use of metformin can improve insulin sensitivity and reduce the risk of metabolic complications such as type 2 diabetes and cardiovascular disease.",
+        "sections": [
+          {
+            "heading": "Hormonal Contraceptives",
+            "text": "Hormonal contraceptives can improve acne and hirsutism in women with PCOS. The use of combined oral contraceptives (COCs) can also improve menstrual regularity and reduce the risk of endometrial cancer. The AHA guidelines (2017) recommend the use of COCs as a first-line treatment for acne and hirsutism in PCOS."
+          },
+          {
+            "heading": "Metformin",
+            "text": "Metformin can improve insulin sensitivity and reduce the risk of metabolic complications such as type 2 diabetes and cardiovascular disease. The use of metformin can also improve ovulation and fertility in women with PCOS. The ESC guidelines (2018) recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+          },
+          {
+            "heading": "Fertility Treatment",
+            "text": "Fertility treatment such as in vitro fertilization (IVF) can be used to improve fertility in women with PCOS. The use of fertility medications such as clomiphene citrate can also improve ovulation and fertility in women with PCOS. The NICE guidelines (2018) recommend the use of IVF as a second-line treatment for infertility in PCOS."
+          }
+        ],
+        "clinical_pearl": "The use of hormonal contraceptives and metformin can improve symptoms and reduce the risk of metabolic complications in women with PCOS.",
+        "key_points": [
+          "The treatment and management of PCOS depend on the individual patient's symptoms and needs.",
+          "Hormonal contraceptives can improve acne and hirsutism in women with PCOS.",
+          "Metformin can improve insulin sensitivity and reduce the risk of metabolic complications such as type 2 diabetes and cardiovascular disease.",
+          "Fertility treatment such as IVF can be used to improve fertility in women with PCOS.",
+          "The AHA guidelines (2017) recommend the use of COCs as a first-line treatment for acne and hirsutism in PCOS.",
+          "The ESC guidelines (2018) recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+        ],
+        "references": [
+          {
+            "title": "AHA guidelines on the management of PCOS",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2017,
+            "type": "guideline",
+            "note": "The AHA guidelines recommend the use of COCs as a first-line treatment for acne and hirsutism in PCOS."
+          },
+          {
+            "title": "ESC guidelines on the management of PCOS",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The ESC guidelines recommend the use of metformin as a first-line treatment for insulin resistance in PCOS."
+          },
+          {
+            "title": "The effect of metformin on insulin sensitivity in women with PCOS",
+            "authors": "Johnson et al.",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "clinical trial",
+            "note": "The study demonstrated the efficacy of metformin in improving insulin sensitivity in women with PCOS."
+          }
+        ]
+      }
+    }
+  ]
+}

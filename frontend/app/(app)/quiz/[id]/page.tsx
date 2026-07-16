@@ -11,6 +11,8 @@ type MCQQuestion = {
   question: string;
   options: Record<string, string>;
   difficulty: "easy" | "medium" | "hard";
+  question_type?: "mcq" | "sata" | "ordered" | "calculation";
+  numeric_unit?: string;
 };
 
 type AnswerResult = {
@@ -18,6 +20,7 @@ type AnswerResult = {
   correct_answer: string;
   explanation: string;
   xp_earned: number;
+  partial_score?: number;
 };
 
 const DIFFICULTY_COLOR: Record<string, string> = {
@@ -45,6 +48,9 @@ export default function QuizPage() {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectedMultiple, setSelectedMultiple] = useState<string[]>([]); // sata
+  const [orderedSelection, setOrderedSelection] = useState<string[]>([]); // ordered
+  const [numericValue, setNumericValue] = useState<string>(""); // calculation
   const [result, setResult] = useState<AnswerResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0, xp: 0 });
@@ -127,20 +133,52 @@ export default function QuizPage() {
     if (timeExpired) { finishExam(); }
   }, [timeExpired, finishExam]);
 
+  const resetQuestionState = () => {
+    setSelected(null);
+    setSelectedMultiple([]);
+    setOrderedSelection([]);
+    setNumericValue("");
+    setResult(null);
+  };
+
   // Normal quiz handlers
   const handleSelect = (letter: string) => {
     if (result) return;
-    setSelected(letter);
-    if (examMode) {
-      setExamAnswers(prev => ({ ...prev, [questions[current].id]: letter }));
+    const qtype = questions[current]?.question_type ?? "mcq";
+    if (qtype === "sata") {
+      setSelectedMultiple(prev =>
+        prev.includes(letter) ? prev.filter(l => l !== letter) : [...prev, letter]
+      );
+    } else if (qtype === "ordered") {
+      setOrderedSelection(prev => {
+        if (prev.includes(letter)) return prev.filter(l => l !== letter);
+        return [...prev, letter];
+      });
+    } else {
+      setSelected(letter);
+      if (examMode) {
+        setExamAnswers(prev => ({ ...prev, [questions[current].id]: letter }));
+      }
     }
   };
 
   const handleSubmit = async () => {
-    if (!selected || !questions[current] || submitting) return;
+    const q = questions[current];
+    if (!q || submitting) return;
+    const qtype = q.question_type ?? "mcq";
+    if (qtype === "mcq" && !selected) return;
+    if (qtype === "sata" && selectedMultiple.length === 0) return;
+    if (qtype === "ordered" && orderedSelection.length === 0) return;
+    if (qtype === "calculation" && numericValue === "") return;
+
     setSubmitting(true);
     try {
-      const res = await progressApi.answerMCQ(questions[current].id, selected);
+      let answer: string | string[] | number = selected ?? "";
+      if (qtype === "sata") answer = selectedMultiple;
+      else if (qtype === "ordered") answer = orderedSelection;
+      else if (qtype === "calculation") answer = parseFloat(numericValue);
+
+      const res = await progressApi.answerMCQ(q.id, answer, qtype);
       const ans: AnswerResult = res;
       setResult(ans);
       setScore((s) => ({
@@ -160,8 +198,7 @@ export default function QuizPage() {
       setFinished(true);
     } else {
       setCurrent((c) => c + 1);
-      setSelected(null);
-      setResult(null);
+      resetQuestionState();
     }
   };
 
@@ -371,6 +408,7 @@ export default function QuizPage() {
 
   // ── Question screen ─────────────────────────────────────────
   const q = questions[current];
+  const qtype = q.question_type ?? "mcq";
   const optionLetters = Object.keys(q.options).sort();
   const isLastQuestion = current + 1 >= questions.length;
   const answeredCount = Object.keys(examAnswers).length;
@@ -436,40 +474,141 @@ export default function QuizPage() {
           </p>
         </div>
 
+        {/* Question type hint */}
+        {qtype !== "mcq" && (
+          <div className="mb-3 flex items-center gap-2">
+            <span className={`text-xs font-syne font-semibold px-2.5 py-1 rounded-full border ${
+              qtype === "sata" ? "bg-blue-50 border-blue-200 text-blue-700" :
+              qtype === "ordered" ? "bg-purple-50 border-purple-200 text-purple-700" :
+              "bg-orange-50 border-orange-200 text-orange-700"
+            }`}>
+              {qtype === "sata" ? "Select All That Apply" :
+               qtype === "ordered" ? "Put in Correct Order" :
+               "Enter Numeric Answer"}
+            </span>
+          </div>
+        )}
+
         {/* Options */}
         <div className="space-y-2.5 mb-5">
-          {optionLetters.map((letter) => {
+          {/* MCQ — standard single-select */}
+          {qtype === "mcq" && optionLetters.map((letter) => {
             let cls = "w-full text-left px-4 py-3 rounded-lg border transition-all font-serif text-sm text-ink ";
-
             if (examMode) {
-              // In exam mode: show selected answer (no result feedback until end)
               cls += selected === letter
                 ? "border-amber bg-amber-light text-amber font-semibold"
                 : "border-border hover:border-ink/50 bg-surface";
             } else if (!result) {
-              cls += selected === letter
-                ? "border-ink bg-ink text-white"
-                : "border-border hover:border-ink/50 bg-surface";
+              cls += selected === letter ? "border-ink bg-ink text-white" : "border-border hover:border-ink/50 bg-surface";
             } else {
-              if (letter === result.correct_answer) {
-                cls += "border-green bg-green-light text-green font-semibold";
-              } else if (letter === selected && !result.correct) {
-                cls += "border-red bg-red-light text-red";
-              } else {
-                cls += "border-border bg-surface text-ink-3 opacity-60";
-              }
+              const correctLetters = result.correct_answer.split(",");
+              if (correctLetters.includes(letter)) cls += "border-green bg-green-light text-green font-semibold";
+              else if (letter === selected && !result.correct) cls += "border-red bg-red-light text-red";
+              else cls += "border-border bg-surface text-ink-3 opacity-60";
             }
-
             return (
-              <button key={letter} onClick={() => handleSelect(letter)}
-                disabled={!examMode && !!result}
-                className={cls}
-              >
-                <span className="font-syne font-bold mr-3">{letter}.</span>
-                {q.options[letter]}
+              <button key={letter} onClick={() => handleSelect(letter)} disabled={!examMode && !!result} className={cls}>
+                <span className="font-syne font-bold mr-3">{letter}.</span>{q.options[letter]}
               </button>
             );
           })}
+
+          {/* SATA — multi-select checkboxes */}
+          {qtype === "sata" && optionLetters.map((letter) => {
+            const isChecked = selectedMultiple.includes(letter);
+            const correctLetters = result ? result.correct_answer.split(",") : [];
+            let cls = "w-full text-left px-4 py-3 rounded-lg border transition-all font-serif text-sm flex items-center gap-3 ";
+            if (result) {
+              if (correctLetters.includes(letter)) cls += "border-green bg-green-light text-green font-semibold";
+              else if (isChecked && !correctLetters.includes(letter)) cls += "border-red bg-red-light text-red";
+              else cls += "border-border bg-surface text-ink-3 opacity-60";
+            } else {
+              cls += isChecked ? "border-ink bg-ink text-white" : "border-border hover:border-ink/50 bg-surface text-ink";
+            }
+            return (
+              <button key={letter} onClick={() => handleSelect(letter)} disabled={!!result} className={cls}>
+                <span className={`flex-shrink-0 w-4 h-4 rounded border-2 flex items-center justify-center ${isChecked ? "border-current bg-current" : "border-current/50"}`}>
+                  {isChecked && <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 10 8" fill="currentColor"><path d="M1 4l3 3 5-6"/></svg>}
+                </span>
+                <span className="font-syne font-bold flex-shrink-0">{letter}.</span>
+                <span>{q.options[letter]}</span>
+              </button>
+            );
+          })}
+
+          {/* Ordered — tap to sequence */}
+          {qtype === "ordered" && (
+            <div className="space-y-2">
+              {result && (
+                <p className="text-xs font-syne text-ink-3 mb-2">Correct order: {result.correct_answer.split(",").map(l => `${l}. ${q.options[l] ?? l}`).join(" → ")}</p>
+              )}
+              {orderedSelection.length > 0 && (
+                <div className="mb-3 p-3 bg-surface border border-border rounded-lg">
+                  <p className="text-xs font-syne text-ink-3 mb-2">Your order:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {orderedSelection.map((l, i) => (
+                      <span key={l} className="font-syne font-bold text-xs bg-ink text-white px-2 py-1 rounded">
+                        {i+1}. {l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {optionLetters.map((letter) => {
+                const pos = orderedSelection.indexOf(letter);
+                const placed = pos !== -1;
+                const cls = `w-full text-left px-4 py-3 rounded-lg border transition-all font-serif text-sm flex items-center gap-3 ${
+                  result
+                    ? result.correct_answer.split(",")[pos] === letter && placed
+                      ? "border-green bg-green-light text-green"
+                      : placed ? "border-red bg-red-light text-red" : "border-border bg-surface text-ink-3 opacity-60"
+                    : placed
+                      ? "border-ink bg-ink/5 text-ink"
+                      : "border-border hover:border-ink/50 bg-surface text-ink"
+                }`;
+                return (
+                  <button key={letter} onClick={() => handleSelect(letter)} disabled={!!result} className={cls}>
+                    <span className="font-syne font-bold w-6 flex-shrink-0 text-center">
+                      {placed ? `${pos+1}.` : letter + "."}
+                    </span>
+                    <span>{q.options[letter]}</span>
+                    {placed && !result && (
+                      <span className="ml-auto text-ink-3 text-xs">(#{pos+1})</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Calculation — numeric input */}
+          {qtype === "calculation" && (
+            <div className="space-y-3">
+              <div className="flex gap-2 items-center">
+                <input
+                  type="number"
+                  step="any"
+                  value={numericValue}
+                  onChange={e => setNumericValue(e.target.value)}
+                  disabled={!!result}
+                  placeholder="Enter your answer..."
+                  className="flex-1 px-4 py-3 rounded-lg border border-border bg-surface text-ink font-mono text-lg focus:outline-none focus:border-ink transition-colors disabled:opacity-60"
+                />
+                {q.numeric_unit && (
+                  <span className="font-syne font-semibold text-ink-2 text-sm px-3 py-3 bg-surface-2 border border-border rounded-lg flex-shrink-0">
+                    {q.numeric_unit}
+                  </span>
+                )}
+              </div>
+              {result && (
+                <div className={`rounded-lg p-3 border text-sm font-serif ${result.correct ? "border-green/30 bg-green-light text-green" : "border-red/30 bg-red-light text-red"}`}>
+                  {result.correct
+                    ? `✓ Correct! Answer: ${result.correct_answer}`
+                    : `✗ Incorrect. Correct answer: ${result.correct_answer}`}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Exam mode navigation */}
@@ -501,18 +640,31 @@ export default function QuizPage() {
         ) : (
           // Normal quiz submit/next
           !result ? (
-            <button onClick={handleSubmit} disabled={!selected || submitting} className="btn-primary w-full">
+            <button
+              onClick={handleSubmit}
+              disabled={submitting ||
+                (qtype === "mcq" && !selected) ||
+                (qtype === "sata" && selectedMultiple.length === 0) ||
+                (qtype === "ordered" && orderedSelection.length !== optionLetters.length) ||
+                (qtype === "calculation" && numericValue === "")
+              }
+              className="btn-primary w-full"
+            >
               {submitting ? t("common.loading") : t("quiz.submit_answer")}
             </button>
           ) : (
             <div>
-              <div className={`rounded-lg border p-4 mb-4 ${result.correct ? "border-green/30 bg-green-light" : "border-red/30 bg-red-light"}`}>
+              <div className={`rounded-lg border p-4 mb-4 ${result.correct ? "border-green/30 bg-green-light" : (result.partial_score && result.partial_score > 0) ? "border-amber/30 bg-amber-light" : "border-red/30 bg-red-light"}`}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-lg">{result.correct ? "✅" : "❌"}</span>
-                  <span className={`font-syne font-bold text-sm ${result.correct ? "text-green" : "text-red"}`}>
+                  <span className="text-lg">{result.correct ? "✅" : result.partial_score && result.partial_score > 0 ? "⚠️" : "❌"}</span>
+                  <span className={`font-syne font-bold text-sm ${result.correct ? "text-green" : result.partial_score && result.partial_score > 0 ? "text-amber" : "text-red"}`}>
                     {result.correct
                       ? `${t("quiz.correct")} +${result.xp_earned} XP`
-                      : `${t("quiz.incorrect")} — ${t("quiz.explanation")}: ${result.correct_answer}`}
+                      : result.partial_score != null && result.partial_score > 0
+                        ? `Partial credit (${Math.round(result.partial_score * 100)}%) — Correct: ${result.correct_answer}`
+                        : qtype === "calculation"
+                          ? `Incorrect — Correct answer: ${result.correct_answer}`
+                          : `${t("quiz.incorrect")} — Correct: ${result.correct_answer}`}
                   </span>
                 </div>
                 <p className="font-serif text-sm text-ink leading-relaxed">{result.explanation}</p>

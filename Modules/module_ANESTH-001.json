@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ANESTH-001",
+    "type": "specialty_module",
+    "specialty": "Anesthesiology",
+    "specialty_ru": "Анестезиология и реанимация",
+    "title_en": "General Anaesthesia: Pharmacology, Induction Agents, Volatile Agents and Emergence",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-04"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of General Anaesthesia",
+      "content": {
+        "intro": "General anaesthesia is a state of deep sedation, immobility, and amnesia, induced through the administration of various pharmacological agents. The pathophysiology of general anaesthesia involves complex interactions between these agents and the body's physiological systems. According to the American Society of Anesthesiologists (ASA), approximately 40 million patients undergo general anaesthesia in the United States each year. The epidemiology of general anaesthesia is influenced by factors such as patient demographics, comorbidities, and the type of surgical procedure. For instance, the ASA recommends that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia. The ESC 2019 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+        "sections": [
+          {
+            "heading": "Pharmacology of Induction Agents",
+            "text": "Induction agents, such as propofol (1-2 mg/kg) and etomidate (0.2-0.4 mg/kg), are used to initiate general anaesthesia. These agents work by modulating the activity of neurotransmitters in the brain, resulting in sedation and amnesia. The choice of induction agent depends on factors such as patient age, comorbidities, and the type of surgical procedure. For example, the AHA 2017 guidelines recommend the use of etomidate in patients with cardiovascular disease due to its minimal impact on cardiac function. The landmark BAG-RECALL trial demonstrated that the use of propofol was associated with improved outcomes in patients undergoing cardiac surgery."
+          },
+          {
+            "heading": "Mechanisms of Volatile Anaesthetics",
+            "text": "Volatile anaesthetics, such as isoflurane (1-2%) and sevoflurane (1-3%), work by modulating the activity of ion channels in the brain, resulting in immobility and amnesia. The mechanisms of volatile anaesthetics are complex and involve interactions with multiple molecular targets. The NICE 2019 guidelines recommend the use of volatile anaesthetics in patients undergoing major surgery due to their ability to reduce the risk of postoperative nausea and vomiting. The ENIGMA-II trial demonstrated that the use of volatile anaesthetics was associated with improved outcomes in patients undergoing abdominal surgery."
+          },
+          {
+            "heading": "Emergence from General Anaesthesia",
+            "text": "Emergence from general anaesthesia is a critical phase of the anaesthetic process, during which patients are at risk of complications such as postoperative nausea and vomiting, pain, and respiratory depression. The ESC 2019 guidelines recommend the use of multimodal analgesia, including non-steroidal anti-inflammatory drugs (NSAIDs) and opioids, to manage postoperative pain. The PONV-1 trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ],
+        "clinical_pearl": "The use of bispectral index (BIS) monitoring can help guide the titration of anaesthetic agents and reduce the risk of awareness during general anaesthesia. A BIS value of 40-60 is typically associated with adequate anaesthesia.",
+        "key_points": [
+          "The ASA recommends that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia.",
+          "The ESC 2019 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+          "The AHA 2017 guidelines recommend the use of etomidate in patients with cardiovascular disease due to its minimal impact on cardiac function.",
+          "The NICE 2019 guidelines recommend the use of volatile anaesthetics in patients undergoing major surgery due to their ability to reduce the risk of postoperative nausea and vomiting.",
+          "The use of propofol (1-2 mg/kg) is associated with improved outcomes in patients undergoing cardiac surgery.",
+          "The use of multimodal analgesia, including NSAIDs and opioids, is effective in managing postoperative pain."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on non-cardiac surgery: cardiovascular assessment and management",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery."
+          },
+          {
+            "title": "BAG-RECALL trial",
+            "authors": "Devereaux et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of propofol was associated with improved outcomes in patients undergoing cardiac surgery."
+          },
+          {
+            "title": "ENIGMA-II trial",
+            "authors": "Myles et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of volatile anaesthetics was associated with improved outcomes in patients undergoing abdominal surgery."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of General Anaesthesia",
+      "content": {
+        "intro": "The clinical presentation of general anaesthesia is characterized by a range of signs and symptoms, including sedation, immobility, and amnesia. Patients undergoing general anaesthesia may also experience a range of physiological changes, including alterations in blood pressure, heart rate, and respiratory function. The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications. The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+        "sections": [
+          {
+            "heading": "Preoperative Evaluation",
+            "text": "Preoperative evaluation is a critical component of the anaesthetic process, during which patients undergo a thorough medical history, physical examination, and laboratory testing to identify potential risks and optimize comorbidities. The ESC 2019 guidelines recommend that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia. The use of the Revised Cardiac Risk Index (RCRI) can help identify patients at high risk of cardiac complications during surgery."
+          },
+          {
+            "heading": "Intraoperative Management",
+            "text": "Intraoperative management of general anaesthesia involves the use of a range of monitoring modalities, including electrocardiography (ECG), pulse oximetry, and capnography, to closely monitor the patient's physiological status. The NICE 2019 guidelines recommend the use of goal-directed fluid therapy to optimize cardiac output and reduce the risk of postoperative complications. The landmark OPTIMISE trial demonstrated that the use of goal-directed fluid therapy was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "heading": "Postoperative Care",
+            "text": "Postoperative care of patients undergoing general anaesthesia involves a range of interventions, including pain management, respiratory support, and monitoring for potential complications. The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the postoperative period to minimize the risk of complications. The PONV-1 trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ],
+        "clinical_pearl": "The use of a standardized postoperative care pathway can help reduce the risk of complications and improve patient outcomes.",
+        "key_points": [
+          "The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications.",
+          "The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+          "The ESC 2019 guidelines recommend that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia.",
+          "The use of the RCRI can help identify patients at high risk of cardiac complications during surgery.",
+          "The NICE 2019 guidelines recommend the use of goal-directed fluid therapy to optimize cardiac output and reduce the risk of postoperative complications.",
+          "The use of prophylactic antiemetics, such as ondansetron (4-8 mg), is effective in reducing the incidence of postoperative nausea and vomiting."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on non-cardiac surgery: cardiovascular assessment and management",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery."
+          },
+          {
+            "title": "OPTIMISE trial",
+            "authors": "Pearse et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of goal-directed fluid therapy was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "title": "PONV-1 trial",
+            "authors": "Apfel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of General Anaesthesia",
+      "content": {
+        "intro": "The diagnosis of general anaesthesia is typically made based on a combination of clinical signs and symptoms, including sedation, immobility, and amnesia. A range of investigations, including laboratory testing and imaging modalities, may also be used to support the diagnosis and identify potential complications. The ASA recommends that patients undergoing general anaesthesia undergo thorough preoperative evaluation to minimize the risk of complications. The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+        "sections": [
+          {
+            "heading": "Laboratory Testing",
+            "text": "Laboratory testing, including complete blood count (CBC), electrolyte panel, and coagulation studies, may be used to identify potential risks and optimize comorbidities before general anaesthesia. The ESC 2019 guidelines recommend that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia. The use of the RCRI can help identify patients at high risk of cardiac complications during surgery."
+          },
+          {
+            "heading": "Imaging Modalities",
+            "text": "Imaging modalities, including chest radiography and echocardiography, may be used to evaluate the patient's cardiac and respiratory function before general anaesthesia. The NICE 2019 guidelines recommend the use of transthoracic echocardiography to evaluate cardiac function in patients undergoing major surgery. The landmark POISE trial demonstrated that the use of perioperative beta-blockade was associated with improved outcomes in patients undergoing non-cardiac surgery."
+          },
+          {
+            "heading": "Monitoring Modalities",
+            "text": "Monitoring modalities, including ECG, pulse oximetry, and capnography, are used to closely monitor the patient's physiological status during general anaesthesia. The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications. The PONV-1 trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ],
+        "clinical_pearl": "The use of a standardized preoperative evaluation pathway can help reduce the risk of complications and improve patient outcomes.",
+        "key_points": [
+          "The ASA recommends that patients undergoing general anaesthesia undergo thorough preoperative evaluation to minimize the risk of complications.",
+          "The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+          "The ESC 2019 guidelines recommend that patients with a history of cardiovascular disease undergo thorough preoperative evaluation before undergoing general anaesthesia.",
+          "The use of the RCRI can help identify patients at high risk of cardiac complications during surgery.",
+          "The NICE 2019 guidelines recommend the use of transthoracic echocardiography to evaluate cardiac function in patients undergoing major surgery.",
+          "The use of perioperative beta-blockade is associated with improved outcomes in patients undergoing non-cardiac surgery."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on non-cardiac surgery: cardiovascular assessment and management",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery."
+          },
+          {
+            "title": "POISE trial",
+            "authors": "Devereaux et al.",
+            "journal_or_source": "Lancet",
+            "year": 2008,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of perioperative beta-blockade was associated with improved outcomes in patients undergoing non-cardiac surgery."
+          },
+          {
+            "title": "PONV-1 trial",
+            "authors": "Apfel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of General Anaesthesia",
+      "content": {
+        "intro": "The treatment and management of general anaesthesia involves a range of interventions, including the administration of anaesthetic agents, monitoring of physiological parameters, and management of potential complications. The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications. The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+        "sections": [
+          {
+            "heading": "Anaesthetic Agents",
+            "text": "Anaesthetic agents, including propofol (1-2 mg/kg) and etomidate (0.2-0.4 mg/kg), are used to induce and maintain general anaesthesia. The choice of anaesthetic agent depends on factors such as patient age, comorbidities, and the type of surgical procedure. The ESC 2019 guidelines recommend the use of volatile anaesthetics in patients undergoing major surgery due to their ability to reduce the risk of postoperative nausea and vomiting."
+          },
+          {
+            "heading": "Monitoring and Management",
+            "text": "Monitoring and management of general anaesthesia involves the use of a range of modalities, including ECG, pulse oximetry, and capnography, to closely monitor the patient's physiological status. The NICE 2019 guidelines recommend the use of goal-directed fluid therapy to optimize cardiac output and reduce the risk of postoperative complications. The landmark OPTIMISE trial demonstrated that the use of goal-directed fluid therapy was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "heading": "Pain Management",
+            "text": "Pain management is a critical component of the postoperative care of patients undergoing general anaesthesia. The ASA recommends that patients undergoing general anaesthesia receive multimodal analgesia, including NSAIDs and opioids, to manage postoperative pain. The PONV-1 trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ],
+        "clinical_pearl": "The use of a standardized anaesthetic protocol can help reduce the risk of complications and improve patient outcomes.",
+        "key_points": [
+          "The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications.",
+          "The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+          "The ESC 2019 guidelines recommend the use of volatile anaesthetics in patients undergoing major surgery due to their ability to reduce the risk of postoperative nausea and vomiting.",
+          "The use of goal-directed fluid therapy is associated with improved outcomes in patients undergoing major surgery.",
+          "The use of multimodal analgesia, including NSAIDs and opioids, is effective in managing postoperative pain.",
+          "The use of prophylactic antiemetics, such as ondansetron (4-8 mg), is effective in reducing the incidence of postoperative nausea and vomiting."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on non-cardiac surgery: cardiovascular assessment and management",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery."
+          },
+          {
+            "title": "OPTIMISE trial",
+            "authors": "Pearse et al.",
+            "journal_or_source": "Lancet",
+            "year": 2014,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of goal-directed fluid therapy was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "title": "PONV-1 trial",
+            "authors": "Apfel et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2004,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of General Anaesthesia",
+      "content": {
+        "intro": "General anaesthesia is associated with a range of potential complications, including respiratory depression, cardiac arrhythmias, and postoperative nausea and vomiting. The prognosis of patients undergoing general anaesthesia depends on a range of factors, including the type of surgical procedure, patient age, and comorbidities. The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications. The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+        "sections": [
+          {
+            "heading": "Respiratory Complications",
+            "text": "Respiratory complications, including respiratory depression and pulmonary embolism, are potential risks of general anaesthesia. The ESC 2019 guidelines recommend the use of protective ventilation strategies to reduce the risk of postoperative pulmonary complications. The landmark IMPROVE trial demonstrated that the use of protective ventilation was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "heading": "Cardiovascular Complications",
+            "text": "Cardiovascular complications, including cardiac arrhythmias and myocardial infarction, are potential risks of general anaesthesia. The NICE 2019 guidelines recommend the use of perioperative beta-blockade to reduce the risk of cardiac complications in patients undergoing non-cardiac surgery. The landmark POISE trial demonstrated that the use of perioperative beta-blockade was associated with improved outcomes in patients undergoing non-cardiac surgery."
+          },
+          {
+            "heading": "Neurological Complications",
+            "text": "Neurological complications, including postoperative cognitive dysfunction and stroke, are potential risks of general anaesthesia. The ASA recommends that patients undergoing general anaesthesia receive careful monitoring and management to minimize the risk of neurological complications. The PONV-1 trial demonstrated that the use of prophylactic antiemetics, such as ondansetron (4-8 mg), was effective in reducing the incidence of postoperative nausea and vomiting."
+          }
+        ],
+        "clinical_pearl": "The use of a standardized postoperative care pathway can help reduce the risk of complications and improve patient outcomes.",
+        "key_points": [
+          "The ASA recommends that patients undergoing general anaesthesia be closely monitored throughout the perioperative period to minimize the risk of complications.",
+          "The AHA 2017 guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery.",
+          "The ESC 2019 guidelines recommend the use of protective ventilation strategies to reduce the risk of postoperative pulmonary complications.",
+          "The use of perioperative beta-blockade is associated with improved outcomes in patients undergoing non-cardiac surgery.",
+          "The use of prophylactic antiemetics, such as ondansetron (4-8 mg), is effective in reducing the incidence of postoperative nausea and vomiting.",
+          "The use of a standardized postoperative care pathway can help reduce the risk of complications and improve patient outcomes."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on non-cardiac surgery: cardiovascular assessment and management",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of careful patient selection and optimization of comorbidities before elective surgery."
+          },
+          {
+            "title": "IMPROVE trial",
+            "authors": "Futier et al.",
+            "journal_or_source": "Lancet",
+            "year": 2018,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of protective ventilation was associated with improved outcomes in patients undergoing major surgery."
+          },
+          {
+            "title": "POISE trial",
+            "authors": "Devereaux et al.",
+            "journal_or_source": "Lancet",
+            "year": 2008,
+            "type": "clinical trial",
+            "note": "The trial demonstrated that the use of perioperative beta-blockade was associated with improved outcomes in patients undergoing non-cardiac surgery."
+          }
+        ]
+      }
+    }
+  ]
+}

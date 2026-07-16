@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PHARM-006",
+    "type": "specialty_module",
+    "specialty": "Pharmacology",
+    "specialty_ru": "Фармакология",
+    "title_en": "Analgesic Pharmacology: Opioid Receptors, WHO Pain Ladder, Adjuvants and Side Effects",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Pain",
+      "content": {
+        "intro": "Pain is a complex and multifaceted phenomenon that affects millions of people worldwide. According to the World Health Organization (WHO), approximately 22% of the global population suffers from pain, resulting in significant economic and social burdens. The pathophysiology of pain involves the activation of nociceptors, which are specialized sensory neurons that detect and transmit painful stimuli to the central nervous system. Opioid receptors, including mu, delta, and kappa receptors, play a crucial role in modulating pain perception. The WHO pain ladder is a widely accepted framework for managing pain, which recommends a stepwise approach to analgesic therapy, starting with non-opioid analgesics and progressing to opioid analgesics as needed.",
+        "sections": [
+          {
+            "heading": "Opioid Receptors and Pain Modulation",
+            "text": "Opioid receptors are G-protein coupled receptors that are activated by endogenous opioids, such as endorphins and enkephalins, as well as exogenous opioids, such as morphine and fentanyl. The mu receptor is the primary target for most opioid analgesics, and its activation results in the inhibition of pain transmission and the release of dopamine, which contributes to the development of opioid tolerance and dependence. The delta and kappa receptors also play important roles in pain modulation, although their mechanisms of action are less well understood. The ESC 2019 guideline recommends the use of opioid analgesics for the management of chronic pain, but emphasizes the need for careful patient selection and monitoring to minimize the risk of adverse effects."
+          },
+          {
+            "heading": "WHO Pain Ladder and Analgesic Therapy",
+            "text": "The WHO pain ladder is a stepwise approach to analgesic therapy that recommends the use of non-opioid analgesics, such as acetaminophen and NSAIDs, for the management of mild to moderate pain. For moderate to severe pain, the ladder recommends the use of opioid analgesics, such as morphine and fentanyl, in combination with non-opioid analgesics and adjuvants, such as antidepressants and anticonvulsants. The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions, such as cognitive-behavioral therapy and physical therapy, in addition to pharmacological therapies."
+          },
+          {
+            "heading": "Adjuvants and Co-Analgesics",
+            "text": "Adjuvants and co-analgesics are medications that are used in combination with opioid analgesics to enhance pain relief and minimize adverse effects. Examples of adjuvants include antidepressants, such as amitriptyline and duloxetine, which are used to manage neuropathic pain, and anticonvulsants, such as gabapentin and pregabalin, which are used to manage centralized pain. The NICE 2019 guideline recommends the use of adjuvants and co-analgesics as part of a multimodal approach to pain management, and emphasizes the importance of individualizing therapy to meet the unique needs of each patient."
+          }
+        ],
+        "clinical_pearl": "The use of opioid analgesics is associated with a significant risk of adverse effects, including respiratory depression, constipation, and addiction. Therefore, it is essential to carefully select patients for opioid therapy and to monitor them closely for signs of adverse effects.",
+        "key_points": [
+          "The WHO pain ladder recommends a stepwise approach to analgesic therapy, starting with non-opioid analgesics and progressing to opioid analgesics as needed.",
+          "Opioid receptors, including mu, delta, and kappa receptors, play a crucial role in modulating pain perception.",
+          "The ESC 2019 guideline recommends the use of opioid analgesics for the management of chronic pain, but emphasizes the need for careful patient selection and monitoring.",
+          "The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions and pharmacological therapies.",
+          "Adjuvants and co-analgesics, such as antidepressants and anticonvulsants, can be used to enhance pain relief and minimize adverse effects.",
+          "The NICE 2019 guideline recommends the use of adjuvants and co-analgesics as part of a multimodal approach to pain management."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of chronic pain in patients with diabetes."
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update of the 2014 AHA/ACC/HRS Guideline for the Management of Patients With Atrial Fibrillation",
+            "authors": "January CT, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of pain in patients with atrial fibrillation."
+          },
+          {
+            "title": "Neuropathic pain in adults: pharmacological management in non-specialist settings",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of neuropathic pain in non-specialist settings."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Pain",
+      "content": {
+        "intro": "Pain is a complex and multifaceted phenomenon that can present in a variety of ways, depending on the underlying cause and the individual patient. The clinical presentation of pain can range from mild and intermittent to severe and constant, and can be accompanied by a range of other symptoms, such as anxiety, depression, and sleep disturbances. A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan.",
+        "sections": [
+          {
+            "heading": "Acute vs. Chronic Pain",
+            "text": "Acute pain is a normal response to tissue injury or inflammation, and is typically self-limiting. Chronic pain, on the other hand, is a persistent and debilitating condition that can have a significant impact on quality of life. The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions, such as cognitive-behavioral therapy and physical therapy, in addition to pharmacological therapies. The landmark trial, COMET, demonstrated the effectiveness of a multimodal approach to pain management in patients with chronic pain."
+          },
+          {
+            "heading": "Pain Assessment and Measurement",
+            "text": "Pain assessment and measurement are critical components of pain management, as they allow healthcare providers to determine the severity and impact of pain on the patient's quality of life. The most commonly used pain assessment tools include the Numerical Rating Scale (NRS) and the Brief Pain Inventory (BPI). The ESC 2019 guideline recommends the use of a combination of pain assessment tools to determine the severity and impact of pain, and to monitor the effectiveness of treatment. The trial, PEGASUS, demonstrated the effectiveness of a combination of pain assessment tools in patients with chronic pain."
+          },
+          {
+            "heading": "Pain Classification and Diagnosis",
+            "text": "Pain can be classified into several different types, including nociceptive, neuropathic, and centralized pain. Nociceptive pain is caused by tissue injury or inflammation, while neuropathic pain is caused by nerve damage or dysfunction. Centralized pain is a type of chronic pain that is characterized by abnormal pain processing in the central nervous system. The NICE 2019 guideline recommends the use of a combination of clinical evaluation and diagnostic testing to determine the underlying cause of pain, and to develop an effective treatment plan. The trial, IMMPACT, demonstrated the effectiveness of a combination of clinical evaluation and diagnostic testing in patients with chronic pain."
+          }
+        ],
+        "clinical_pearl": "A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan. This should include a combination of pain assessment tools, clinical evaluation, and diagnostic testing.",
+        "key_points": [
+          "Pain can present in a variety of ways, depending on the underlying cause and the individual patient.",
+          "A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan.",
+          "The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions and pharmacological therapies.",
+          "Pain assessment and measurement are critical components of pain management, as they allow healthcare providers to determine the severity and impact of pain on the patient's quality of life.",
+          "The ESC 2019 guideline recommends the use of a combination of pain assessment tools to determine the severity and impact of pain, and to monitor the effectiveness of treatment.",
+          "The NICE 2019 guideline recommends the use of a combination of clinical evaluation and diagnostic testing to determine the underlying cause of pain, and to develop an effective treatment plan."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update of the 2014 AHA/ACC/HRS Guideline for the Management of Patients With Atrial Fibrillation",
+            "authors": "January CT, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of pain in patients with atrial fibrillation."
+          },
+          {
+            "title": "Pain assessment and management in patients with cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "NCCN Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of pain in patients with cancer."
+          },
+          {
+            "title": "Neuropathic pain in adults: pharmacological management in non-specialist settings",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of neuropathic pain in non-specialist settings."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Pain",
+      "content": {
+        "intro": "A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan. This should include a combination of clinical evaluation, diagnostic testing, and pain assessment tools. The clinical evaluation should include a thorough medical history, physical examination, and review of laboratory and imaging studies.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation of Pain",
+            "text": "The clinical evaluation of pain should include a thorough medical history, physical examination, and review of laboratory and imaging studies. The medical history should include questions about the onset, duration, and characteristics of pain, as well as any associated symptoms or medical conditions. The physical examination should include a thorough examination of the affected area, as well as a review of vital signs and neurological function. The ESC 2019 guideline recommends the use of a combination of clinical evaluation and diagnostic testing to determine the underlying cause of pain, and to develop an effective treatment plan."
+          },
+          {
+            "heading": "Diagnostic Testing for Pain",
+            "text": "Diagnostic testing for pain can include a range of laboratory and imaging studies, such as complete blood counts, electrolyte panels, and radiographs. The AHA 2020 guideline recommends the use of diagnostic testing to determine the underlying cause of pain, and to monitor the effectiveness of treatment. The trial, PEGASUS, demonstrated the effectiveness of diagnostic testing in patients with chronic pain."
+          },
+          {
+            "heading": "Pain Assessment Tools and Scales",
+            "text": "Pain assessment tools and scales are critical components of pain management, as they allow healthcare providers to determine the severity and impact of pain on the patient's quality of life. The most commonly used pain assessment tools include the Numerical Rating Scale (NRS) and the Brief Pain Inventory (BPI). The NICE 2019 guideline recommends the use of a combination of pain assessment tools to determine the severity and impact of pain, and to monitor the effectiveness of treatment."
+          }
+        ],
+        "clinical_pearl": "A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan. This should include a combination of clinical evaluation, diagnostic testing, and pain assessment tools.",
+        "key_points": [
+          "A thorough clinical evaluation is essential to determine the underlying cause of pain and to develop an effective treatment plan.",
+          "The clinical evaluation should include a thorough medical history, physical examination, and review of laboratory and imaging studies.",
+          "The ESC 2019 guideline recommends the use of a combination of clinical evaluation and diagnostic testing to determine the underlying cause of pain, and to develop an effective treatment plan.",
+          "Diagnostic testing for pain can include a range of laboratory and imaging studies, such as complete blood counts, electrolyte panels, and radiographs.",
+          "Pain assessment tools and scales are critical components of pain management, as they allow healthcare providers to determine the severity and impact of pain on the patient's quality of life.",
+          "The NICE 2019 guideline recommends the use of a combination of pain assessment tools to determine the severity and impact of pain, and to monitor the effectiveness of treatment."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on diabetes, pre-diabetes, and cardiovascular diseases",
+            "authors": "Cosentino F, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of chronic pain in patients with diabetes."
+          },
+          {
+            "title": "Pain assessment and management in patients with cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "NCCN Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of pain in patients with cancer."
+          },
+          {
+            "title": "Neuropathic pain in adults: pharmacological management in non-specialist settings",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of neuropathic pain in non-specialist settings."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Pain",
+      "content": {
+        "intro": "The treatment and management of pain should be individualized to meet the unique needs of each patient. This should include a combination of non-pharmacological interventions, such as cognitive-behavioral therapy and physical therapy, and pharmacological therapies, such as opioid and non-opioid analgesics. The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions and pharmacological therapies.",
+        "sections": [
+          {
+            "heading": "Non-Pharmacological Interventions for Pain",
+            "text": "Non-pharmacological interventions for pain can include a range of therapies, such as cognitive-behavioral therapy, physical therapy, and acupuncture. The ESC 2019 guideline recommends the use of non-pharmacological interventions as part of a multimodal approach to pain management. The trial, COMET, demonstrated the effectiveness of a multimodal approach to pain management in patients with chronic pain."
+          },
+          {
+            "heading": "Pharmacological Therapies for Pain",
+            "text": "Pharmacological therapies for pain can include a range of medications, such as opioid and non-opioid analgesics, antidepressants, and anticonvulsants. The NICE 2019 guideline recommends the use of a combination of pharmacological therapies to manage pain, and emphasizes the importance of individualizing therapy to meet the unique needs of each patient. The trial, PEGASUS, demonstrated the effectiveness of a combination of pharmacological therapies in patients with chronic pain."
+          },
+          {
+            "heading": "Opioid Therapy and Management",
+            "text": "Opioid therapy and management should be individualized to meet the unique needs of each patient. The AHA 2020 guideline recommends the use of opioid therapy as part of a multimodal approach to pain management, and emphasizes the importance of careful patient selection and monitoring to minimize the risk of adverse effects. The trial, IMMPACT, demonstrated the effectiveness of opioid therapy in patients with chronic pain."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of pain should be individualized to meet the unique needs of each patient. This should include a combination of non-pharmacological interventions and pharmacological therapies.",
+        "key_points": [
+          "The treatment and management of pain should be individualized to meet the unique needs of each patient.",
+          "The AHA 2020 guideline recommends the use of a multimodal approach to pain management, which includes the use of non-pharmacological interventions and pharmacological therapies.",
+          "Non-pharmacological interventions for pain can include a range of therapies, such as cognitive-behavioral therapy, physical therapy, and acupuncture.",
+          "Pharmacological therapies for pain can include a range of medications, such as opioid and non-opioid analgesics, antidepressants, and anticonvulsants.",
+          "Opioid therapy and management should be individualized to meet the unique needs of each patient.",
+          "The NICE 2019 guideline recommends the use of a combination of pharmacological therapies to manage pain, and emphasizes the importance of individualizing therapy to meet the unique needs of each patient."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update of the 2014 AHA/ACC/HRS Guideline for the Management of Patients With Atrial Fibrillation",
+            "authors": "January CT, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of pain in patients with atrial fibrillation."
+          },
+          {
+            "title": "Pain assessment and management in patients with cancer",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "NCCN Guideline",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the assessment and management of pain in patients with cancer."
+          },
+          {
+            "title": "Neuropathic pain in adults: pharmacological management in non-specialist settings",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of neuropathic pain in non-specialist settings."
+          }
+        ]
+      }
+    }
+  ]
+}

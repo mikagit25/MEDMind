@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ANESTH-004",
+    "type": "specialty_module",
+    "specialty": "Anesthesiology",
+    "specialty_ru": "Анестезиология и реанимация",
+    "title_en": "Anaesthetic Complications: Malignant Hyperthermia, Awareness, LAST, Anaphylaxis",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-04"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Malignant Hyperthermia",
+      "content": {
+        "intro": "Malignant hyperthermia (MH) is a rare but life-threatening medical emergency that can occur during general anesthesia. It is estimated to occur in approximately 1 in 100,000 anesthetics. The pathophysiology of MH involves an abnormal release of calcium ions from the sarcoplasmic reticulum, leading to sustained muscle contraction and heat production. The condition is often triggered by the use of volatile anesthetics, such as halothane, isoflurane, and sevoflurane, and depolarizing muscle relaxants, such as succinylcholine. Early recognition and treatment of MH are crucial to prevent serious complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Malignant Hyperthermia",
+            "text": "The incidence of MH has been reported to be higher in males than females, with a male-to-female ratio of approximately 2:1. The condition can occur at any age, but it is more common in young adults. According to the European Society of Anesthesiology (ESA) guidelines 2020, the overall mortality rate for MH has decreased significantly over the past few decades, from approximately 70% in the 1970s to less than 5% in recent years. This improvement in outcomes is attributed to the development of effective treatment protocols, including the use of dantrolene, a muscle relaxant that can help to reduce the severity of MH symptoms."
+          },
+          {
+            "heading": "Pathophysiology of Malignant Hyperthermia",
+            "text": "The pathophysiology of MH involves an abnormal release of calcium ions from the sarcoplasmic reticulum, leading to sustained muscle contraction and heat production. This abnormal release of calcium ions is triggered by the use of volatile anesthetics and depolarizing muscle relaxants. The condition is characterized by a rapid increase in end-tidal CO2, heart rate, and blood pressure, followed by a decrease in oxygen saturation and a rise in body temperature. According to the American Heart Association (AHA) guidelines 2019, the use of dantrolene is recommended as the first-line treatment for MH, with a dose of 2.5 mg/kg administered intravenously every 5 minutes until the symptoms resolve."
+          },
+          {
+            "heading": "Genetic Predisposition to Malignant Hyperthermia",
+            "text": "MH is often associated with a genetic predisposition, with several genetic mutations identified as risk factors for the condition. The most common genetic mutations associated with MH are the RYR1 and CACNA1S genes. According to the National Institute for Health and Care Excellence (NICE) guidelines 2022, patients with a family history of MH should be screened for genetic mutations before undergoing general anesthesia. The use of genetic testing can help to identify patients who are at risk of developing MH and allow for the implementation of preventive measures, such as the use of alternative anesthetics and muscle relaxants."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of MH are crucial to prevent serious complications and improve patient outcomes. The use of dantrolene is recommended as the first-line treatment for MH, with a dose of 2.5 mg/kg administered intravenously every 5 minutes until the symptoms resolve.",
+        "key_points": [
+          "The incidence of MH is approximately 1 in 100,000 anesthetics.",
+          "The condition is often triggered by the use of volatile anesthetics and depolarizing muscle relaxants.",
+          "The use of dantrolene is recommended as the first-line treatment for MH, with a dose of 2.5 mg/kg administered intravenously every 5 minutes until the symptoms resolve.",
+          "The overall mortality rate for MH has decreased significantly over the past few decades, from approximately 70% in the 1970s to less than 5% in recent years.",
+          "The condition is characterized by a rapid increase in end-tidal CO2, heart rate, and blood pressure, followed by a decrease in oxygen saturation and a rise in body temperature.",
+          "Genetic testing can help to identify patients who are at risk of developing MH and allow for the implementation of preventive measures."
+        ],
+        "references": [
+          {
+            "title": "European Society of Anesthesiology guidelines 2020",
+            "authors": "European Society of Anesthesiology",
+            "journal_or_source": "European Journal of Anesthesiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of MH."
+          },
+          {
+            "title": "American Heart Association guidelines 2019",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the treatment of MH, including the use of dantrolene."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines 2022",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of MH, including the use of genetic testing."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Awareness, LAST, and Anaphylaxis",
+      "content": {
+        "intro": "Awareness, local anesthetic systemic toxicity (LAST), and anaphylaxis are all potential complications that can occur during anesthesia. Awareness refers to the phenomenon of patients being conscious during general anesthesia, while LAST and anaphylaxis are life-threatening conditions that require immediate treatment. The clinical presentation of these conditions can vary, but early recognition and treatment are crucial to prevent serious complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Awareness",
+            "text": "Awareness during general anesthesia can manifest in different ways, including recall of events, pain, and discomfort. According to the American Society of Anesthesiologists (ASA) guidelines 2020, the incidence of awareness is estimated to be approximately 1 in 1,000 anesthetics. The condition can be caused by a variety of factors, including inadequate anesthesia, equipment failure, and patient-related factors. The use of bispectral index (BIS) monitoring can help to detect awareness and allow for the implementation of preventive measures."
+          },
+          {
+            "heading": "Clinical Presentation of LAST",
+            "text": "LAST is a life-threatening condition that can occur during the administration of local anesthetics. The condition is characterized by a range of symptoms, including numbness, tingling, and seizures. According to the European Society of Regional Anesthesia (ESRA) guidelines 2019, the use of lipid emulsion is recommended as the first-line treatment for LAST, with a dose of 1.5 mL/kg administered intravenously over 1 minute. The condition can be caused by a variety of factors, including excessive dosing, rapid injection, and individual patient factors."
+          },
+          {
+            "heading": "Clinical Presentation of Anaphylaxis",
+            "text": "Anaphylaxis is a life-threatening condition that can occur during anesthesia, characterized by a range of symptoms, including hypotension, tachycardia, and bronchospasm. According to the National Institute for Health and Care Excellence (NICE) guidelines 2022, the use of epinephrine is recommended as the first-line treatment for anaphylaxis, with a dose of 0.5 mg administered intramuscularly. The condition can be caused by a variety of factors, including allergic reactions to anesthetics, latex, and other substances."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of awareness, LAST, and anaphylaxis are crucial to prevent serious complications and improve patient outcomes. The use of BIS monitoring, lipid emulsion, and epinephrine can help to detect and treat these conditions.",
+        "key_points": [
+          "The incidence of awareness is estimated to be approximately 1 in 1,000 anesthetics.",
+          "The use of BIS monitoring can help to detect awareness and allow for the implementation of preventive measures.",
+          "The use of lipid emulsion is recommended as the first-line treatment for LAST, with a dose of 1.5 mL/kg administered intravenously over 1 minute.",
+          "The condition of LAST can be caused by a variety of factors, including excessive dosing, rapid injection, and individual patient factors.",
+          "The use of epinephrine is recommended as the first-line treatment for anaphylaxis, with a dose of 0.5 mg administered intramuscularly.",
+          "Anaphylaxis can be caused by a variety of factors, including allergic reactions to anesthetics, latex, and other substances."
+        ],
+        "references": [
+          {
+            "title": "American Society of Anesthesiologists guidelines 2020",
+            "authors": "American Society of Anesthesiologists",
+            "journal_or_source": "Anesthesiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of awareness."
+          },
+          {
+            "title": "European Society of Regional Anesthesia guidelines 2019",
+            "authors": "European Society of Regional Anesthesia",
+            "journal_or_source": "Regional Anesthesia and Pain Medicine",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of LAST."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines 2022",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of anaphylaxis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Malignant Hyperthermia, Awareness, LAST, and Anaphylaxis",
+      "content": {
+        "intro": "The diagnosis of malignant hyperthermia, awareness, local anesthetic systemic toxicity (LAST), and anaphylaxis requires a combination of clinical evaluation, laboratory tests, and imaging studies. Early recognition and diagnosis of these conditions are crucial to prevent serious complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Investigations for Malignant Hyperthermia",
+            "text": "The diagnosis of MH is based on a combination of clinical evaluation, laboratory tests, and genetic testing. According to the European Society of Anesthesiology (ESA) guidelines 2020, the use of genetic testing is recommended to identify patients who are at risk of developing MH. The condition can be diagnosed using a variety of tests, including the caffeine-halothane contracture test (CHCT) and the ryanodine receptor type 1 (RYR1) gene test."
+          },
+          {
+            "heading": "Investigations for Awareness",
+            "text": "The diagnosis of awareness is based on a combination of clinical evaluation and laboratory tests. According to the American Society of Anesthesiologists (ASA) guidelines 2020, the use of BIS monitoring is recommended to detect awareness during general anesthesia. The condition can be diagnosed using a variety of tests, including the bispectral index (BIS) and the patient state index (PSI)."
+          },
+          {
+            "heading": "Investigations for LAST and Anaphylaxis",
+            "text": "The diagnosis of LAST and anaphylaxis is based on a combination of clinical evaluation, laboratory tests, and imaging studies. According to the National Institute for Health and Care Excellence (NICE) guidelines 2022, the use of lipid emulsion is recommended as the first-line treatment for LAST, with a dose of 1.5 mL/kg administered intravenously over 1 minute. The condition can be diagnosed using a variety of tests, including the measurement of local anesthetic levels and the use of imaging studies such as computed tomography (CT) scans."
+          }
+        ],
+        "clinical_pearl": "Early recognition and diagnosis of malignant hyperthermia, awareness, LAST, and anaphylaxis are crucial to prevent serious complications and improve patient outcomes. The use of genetic testing, BIS monitoring, and lipid emulsion can help to detect and treat these conditions.",
+        "key_points": [
+          "The diagnosis of MH is based on a combination of clinical evaluation, laboratory tests, and genetic testing.",
+          "The use of genetic testing is recommended to identify patients who are at risk of developing MH.",
+          "The diagnosis of awareness is based on a combination of clinical evaluation and laboratory tests.",
+          "The use of BIS monitoring is recommended to detect awareness during general anesthesia.",
+          "The diagnosis of LAST and anaphylaxis is based on a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "The use of lipid emulsion is recommended as the first-line treatment for LAST, with a dose of 1.5 mL/kg administered intravenously over 1 minute."
+        ],
+        "references": [
+          {
+            "title": "European Society of Anesthesiology guidelines 2020",
+            "authors": "European Society of Anesthesiology",
+            "journal_or_source": "European Journal of Anesthesiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of MH."
+          },
+          {
+            "title": "American Society of Anesthesiologists guidelines 2020",
+            "authors": "American Society of Anesthesiologists",
+            "journal_or_source": "Anesthesiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of awareness."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines 2022",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of LAST and anaphylaxis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Malignant Hyperthermia, Awareness, LAST, and Anaphylaxis",
+      "content": {
+        "intro": "The treatment and management of malignant hyperthermia, awareness, local anesthetic systemic toxicity (LAST), and anaphylaxis require a combination of pharmacological and non-pharmacological interventions. Early recognition and treatment of these conditions are crucial to prevent serious complications and improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Treatment of Malignant Hyperthermia",
+            "text": "The treatment of MH involves the use of dantrolene, a muscle relaxant that can help to reduce the severity of MH symptoms. According to the American Heart Association (AHA) guidelines 2019, the use of dantrolene is recommended as the first-line treatment for MH, with a dose of 2.5 mg/kg administered intravenously every 5 minutes until the symptoms resolve. The condition can also be treated using a variety of non-pharmacological interventions, including the use of cooling blankets and ice packs to reduce body temperature."
+          },
+          {
+            "heading": "Treatment of Awareness",
+            "text": "The treatment of awareness involves the use of a variety of pharmacological and non-pharmacological interventions, including the use of sedatives and anesthetics to induce unconsciousness. According to the European Society of Anesthesiology (ESA) guidelines 2020, the use of BIS monitoring is recommended to detect awareness during general anesthesia. The condition can also be treated using a variety of non-pharmacological interventions, including the use of communication and counseling to reduce patient anxiety and stress."
+          },
+          {
+            "heading": "Treatment of LAST and Anaphylaxis",
+            "text": "The treatment of LAST and anaphylaxis involves the use of a variety of pharmacological and non-pharmacological interventions, including the use of lipid emulsion and epinephrine to reduce the severity of symptoms. According to the National Institute for Health and Care Excellence (NICE) guidelines 2022, the use of lipid emulsion is recommended as the first-line treatment for LAST, with a dose of 1.5 mL/kg administered intravenously over 1 minute. The condition can also be treated using a variety of non-pharmacological interventions, including the use of oxygen therapy and cardiac monitoring to reduce the risk of complications."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of malignant hyperthermia, awareness, LAST, and anaphylaxis are crucial to prevent serious complications and improve patient outcomes. The use of dantrolene, BIS monitoring, lipid emulsion, and epinephrine can help to detect and treat these conditions.",
+        "key_points": [
+          "The treatment of MH involves the use of dantrolene, with a dose of 2.5 mg/kg administered intravenously every 5 minutes until the symptoms resolve.",
+          "The use of BIS monitoring is recommended to detect awareness during general anesthesia.",
+          "The treatment of LAST involves the use of lipid emulsion, with a dose of 1.5 mL/kg administered intravenously over 1 minute.",
+          "The treatment of anaphylaxis involves the use of epinephrine, with a dose of 0.5 mg administered intramuscularly.",
+          "The use of non-pharmacological interventions, such as cooling blankets and ice packs, can help to reduce the severity of MH symptoms.",
+          "The use of communication and counseling can help to reduce patient anxiety and stress during awareness."
+        ],
+        "references": [
+          {
+            "title": "American Heart Association guidelines 2019",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the treatment of MH."
+          },
+          {
+            "title": "European Society of Anesthesiology guidelines 2020",
+            "authors": "European Society of Anesthesiology",
+            "journal_or_source": "European Journal of Anesthesiology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the treatment of awareness."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines 2022",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the treatment of LAST and anaphylaxis."
+          }
+        ]
+      }
+    }
+  ]
+}

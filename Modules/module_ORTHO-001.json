@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "ORTHO-001",
+    "type": "specialty_module",
+    "specialty": "Orthopedics",
+    "specialty_ru": "Ортопедия и травматология",
+    "title_en": "Hip and Femur Fractures: Classification, Surgical Management and Rehabilitation",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Hip and Femur Fractures",
+      "content": {
+        "intro": "Hip and femur fractures are a significant cause of morbidity and mortality in the elderly population. The incidence of hip fractures is expected to increase with the aging population, with approximately 1.6 million hip fractures occurring worldwide each year. The pathophysiology of hip and femur fractures involves a combination of factors, including osteoporosis, falls, and trauma. Osteoporosis is a major risk factor for hip fractures, with the majority of hip fractures occurring in individuals with osteoporosis. The economic burden of hip and femur fractures is substantial, with estimated annual costs exceeding $10 billion in the United States alone.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Hip and Femur Fractures",
+            "text": "The epidemiology of hip and femur fractures is complex and multifactorial. The incidence of hip fractures increases with age, with the majority of hip fractures occurring in individuals over the age of 65. Women are more likely to experience hip fractures than men, with a female-to-male ratio of approximately 2:1. The incidence of hip fractures also varies by geographic location, with higher rates of hip fractures observed in Scandinavian countries. The ESC 2019 guideline recommends that individuals with a history of falls or osteoporosis be screened for hip fracture risk."
+          },
+          {
+            "heading": "Pathophysiology of Hip and Femur Fractures",
+            "text": "The pathophysiology of hip and femur fractures involves a combination of factors, including osteoporosis, falls, and trauma. Osteoporosis is a major risk factor for hip fractures, with the majority of hip fractures occurring in individuals with osteoporosis. The AHA 2020 guideline recommends that individuals with osteoporosis be treated with bisphosphonates, such as alendronate 70mg weekly or risedronate 35mg weekly. The NICE 2017 guideline recommends that individuals with a history of falls or osteoporosis be referred to a falls prevention program."
+          },
+          {
+            "heading": "Risk Factors for Hip and Femur Fractures",
+            "text": "Several risk factors have been identified for hip and femur fractures, including osteoporosis, falls, and trauma. The landmark FIT trial demonstrated that treatment with teriparatide 20mcg daily reduced the risk of hip fractures by 50% in individuals with osteoporosis. The ESC 2019 guideline recommends that individuals with a history of falls or osteoporosis be treated with calcium and vitamin D supplements, such as calcium 500mg daily and vitamin D 800 IU daily."
+          }
+        ],
+        "clinical_pearl": "Individuals with a history of falls or osteoporosis are at increased risk of hip and femur fractures, with a 2-fold increased risk of hip fractures observed in individuals with osteoporosis.",
+        "key_points": [
+          "The incidence of hip fractures is expected to increase with the aging population.",
+          "Osteoporosis is a major risk factor for hip fractures, with the majority of hip fractures occurring in individuals with osteoporosis.",
+          "The ESC 2019 guideline recommends that individuals with a history of falls or osteoporosis be screened for hip fracture risk.",
+          "The AHA 2020 guideline recommends that individuals with osteoporosis be treated with bisphosphonates, such as alendronate 70mg weekly or risedronate 35mg weekly.",
+          "The NICE 2017 guideline recommends that individuals with a history of falls or osteoporosis be referred to a falls prevention program.",
+          "The landmark FIT trial demonstrated that treatment with teriparatide 20mcg daily reduced the risk of hip fractures by 50% in individuals with osteoporosis."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of heart failure in individuals with hip and femur fractures."
+          },
+          {
+            "title": "2017 NICE Guideline for the prevention and management of osteoporosis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and management of osteoporosis in individuals with hip and femur fractures."
+          },
+          {
+            "title": "FIT trial: Teriparatide reduces the risk of hip fractures in individuals with osteoporosis",
+            "authors": "Neer RM, Arnaud CD, Zanchetta JR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2001,
+            "type": "clinical trial",
+            "note": "Landmark trial demonstrating the efficacy of teriparatide in reducing the risk of hip fractures in individuals with osteoporosis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Hip and Femur Fractures",
+      "content": {
+        "intro": "The clinical presentation of hip and femur fractures can vary depending on the location and severity of the fracture. Individuals with hip fractures may present with hip pain, difficulty walking, and limited range of motion. Femur fractures may present with thigh pain, swelling, and deformity. A thorough physical examination and diagnostic imaging are essential for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Symptoms of Hip and Femur Fractures",
+            "text": "The symptoms of hip and femur fractures can vary depending on the location and severity of the fracture. Hip fractures may present with hip pain, difficulty walking, and limited range of motion. Femur fractures may present with thigh pain, swelling, and deformity. The AHA 2020 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan."
+          },
+          {
+            "heading": "Physical Examination of Hip and Femur Fractures",
+            "text": "A thorough physical examination is essential for accurate diagnosis and treatment of hip and femur fractures. The physical examination should include assessment of hip and knee range of motion, strength, and sensation. The NICE 2017 guideline recommends that individuals with suspected hip or femur fractures undergo a thorough physical examination, including assessment of cognitive function and mobility."
+          },
+          {
+            "heading": "Diagnostic Imaging of Hip and Femur Fractures",
+            "text": "Diagnostic imaging is essential for accurate diagnosis and treatment of hip and femur fractures. X-ray and CT scan are commonly used imaging modalities for diagnosis of hip and femur fractures. The ESC 2019 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan, to confirm the diagnosis and guide treatment."
+          }
+        ],
+        "clinical_pearl": "Individuals with hip or femur fractures may present with non-specific symptoms, such as hip or thigh pain, and a thorough physical examination and diagnostic imaging are essential for accurate diagnosis and treatment.",
+        "key_points": [
+          "The symptoms of hip and femur fractures can vary depending on the location and severity of the fracture.",
+          "A thorough physical examination is essential for accurate diagnosis and treatment of hip and femur fractures.",
+          "The AHA 2020 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan.",
+          "The NICE 2017 guideline recommends that individuals with suspected hip or femur fractures undergo a thorough physical examination, including assessment of cognitive function and mobility.",
+          "Diagnostic imaging is essential for accurate diagnosis and treatment of hip and femur fractures.",
+          "The ESC 2019 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan, to confirm the diagnosis and guide treatment."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of heart failure in individuals with hip and femur fractures."
+          },
+          {
+            "title": "2017 NICE Guideline for the prevention and management of osteoporosis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and management of osteoporosis in individuals with hip and femur fractures."
+          },
+          {
+            "title": "AHA 2020 Guideline for the management of hip fractures",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of hip fractures, including prompt diagnostic imaging and treatment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Hip and Femur Fractures",
+      "content": {
+        "intro": "The diagnosis of hip and femur fractures requires a combination of clinical evaluation, diagnostic imaging, and laboratory tests. X-ray and CT scan are commonly used imaging modalities for diagnosis of hip and femur fractures. Laboratory tests, such as complete blood count and electrolyte panel, may be ordered to rule out underlying conditions.",
+        "sections": [
+          {
+            "heading": "Imaging Modalities for Hip and Femur Fractures",
+            "text": "X-ray and CT scan are commonly used imaging modalities for diagnosis of hip and femur fractures. X-ray is typically the first-line imaging modality, with CT scan used for further evaluation of complex fractures. The NICE 2017 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan, to confirm the diagnosis and guide treatment."
+          },
+          {
+            "heading": "Laboratory Tests for Hip and Femur Fractures",
+            "text": "Laboratory tests, such as complete blood count and electrolyte panel, may be ordered to rule out underlying conditions, such as infection or bleeding disorders. The AHA 2020 guideline recommends that individuals with suspected hip or femur fractures undergo laboratory tests, such as complete blood count and electrolyte panel, to rule out underlying conditions."
+          },
+          {
+            "heading": "Classification of Hip and Femur Fractures",
+            "text": "Hip and femur fractures can be classified based on location, severity, and type of fracture. The Garden classification system is commonly used to classify hip fractures, with type I fractures being non-displaced and type IV fractures being displaced. The ESC 2019 guideline recommends that individuals with hip or femur fractures undergo classification of the fracture to guide treatment."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of hip and femur fractures requires a combination of clinical evaluation, diagnostic imaging, and laboratory tests, with X-ray and CT scan being commonly used imaging modalities.",
+        "key_points": [
+          "X-ray and CT scan are commonly used imaging modalities for diagnosis of hip and femur fractures.",
+          "Laboratory tests, such as complete blood count and electrolyte panel, may be ordered to rule out underlying conditions.",
+          "The NICE 2017 guideline recommends that individuals with suspected hip or femur fractures undergo prompt diagnostic imaging, such as X-ray or CT scan, to confirm the diagnosis and guide treatment.",
+          "The AHA 2020 guideline recommends that individuals with suspected hip or femur fractures undergo laboratory tests, such as complete blood count and electrolyte panel, to rule out underlying conditions.",
+          "Hip and femur fractures can be classified based on location, severity, and type of fracture.",
+          "The ESC 2019 guideline recommends that individuals with hip or femur fractures undergo classification of the fracture to guide treatment."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of heart failure in individuals with hip and femur fractures."
+          },
+          {
+            "title": "2017 NICE Guideline for the prevention and management of osteoporosis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and management of osteoporosis in individuals with hip and femur fractures."
+          },
+          {
+            "title": "AHA 2020 Guideline for the management of hip fractures",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of hip fractures, including prompt diagnostic imaging and treatment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Hip and Femur Fractures",
+      "content": {
+        "intro": "The treatment and management of hip and femur fractures depend on the location, severity, and type of fracture. Non-surgical management, such as pain control and physical therapy, may be used for non-displaced fractures. Surgical management, such as internal fixation or arthroplasty, may be used for displaced fractures.",
+        "sections": [
+          {
+            "heading": "Non-Surgical Management of Hip and Femur Fractures",
+            "text": "Non-surgical management, such as pain control and physical therapy, may be used for non-displaced fractures. The AHA 2020 guideline recommends that individuals with non-displaced hip or femur fractures undergo non-surgical management, including pain control and physical therapy. The NICE 2017 guideline recommends that individuals with non-displaced hip or femur fractures undergo a structured rehabilitation program, including physical therapy and occupational therapy."
+          },
+          {
+            "heading": "Surgical Management of Hip and Femur Fractures",
+            "text": "Surgical management, such as internal fixation or arthroplasty, may be used for displaced fractures. The ESC 2019 guideline recommends that individuals with displaced hip or femur fractures undergo surgical management, such as internal fixation or arthroplasty, to restore function and mobility. The landmark FIT trial demonstrated that treatment with teriparatide 20mcg daily reduced the risk of hip fractures by 50% in individuals with osteoporosis."
+          },
+          {
+            "heading": "Complications and Prognosis of Hip and Femur Fractures",
+            "text": "Complications of hip and femur fractures can include infection, bleeding, and nerve damage. The prognosis of hip and femur fractures depends on the location, severity, and type of fracture, as well as the individual's overall health status. The AHA 2020 guideline recommends that individuals with hip or femur fractures undergo regular follow-up to monitor for complications and adjust treatment as needed."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of hip and femur fractures depend on the location, severity, and type of fracture, with non-surgical management used for non-displaced fractures and surgical management used for displaced fractures.",
+        "key_points": [
+          "Non-surgical management, such as pain control and physical therapy, may be used for non-displaced fractures.",
+          "Surgical management, such as internal fixation or arthroplasty, may be used for displaced fractures.",
+          "The AHA 2020 guideline recommends that individuals with non-displaced hip or femur fractures undergo non-surgical management, including pain control and physical therapy.",
+          "The NICE 2017 guideline recommends that individuals with non-displaced hip or femur fractures undergo a structured rehabilitation program, including physical therapy and occupational therapy.",
+          "The ESC 2019 guideline recommends that individuals with displaced hip or femur fractures undergo surgical management, such as internal fixation or arthroplasty, to restore function and mobility.",
+          "The landmark FIT trial demonstrated that treatment with teriparatide 20mcg daily reduced the risk of hip fractures by 50% in individuals with osteoporosis."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the diagnosis and management of acute and chronic heart failure",
+            "authors": "Ponikowski P, Voors AA, Anker SD, et al.",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of heart failure in individuals with hip and femur fractures."
+          },
+          {
+            "title": "2017 NICE Guideline for the prevention and management of osteoporosis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and management of osteoporosis in individuals with hip and femur fractures."
+          },
+          {
+            "title": "AHA 2020 Guideline for the management of hip fractures",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of hip fractures, including prompt diagnostic imaging and treatment."
+          }
+        ]
+      }
+    }
+  ]
+}

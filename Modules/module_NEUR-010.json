@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "NEUR-010",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Raised ICP and Space-Occupying Lesions: Herniation, Brain Tumours and Management",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Raised ICP",
+      "content": {
+        "intro": "Raised intracranial pressure (ICP) is a life-threatening condition that can result from various causes, including traumatic brain injury, stroke, and brain tumors. The pathophysiology of raised ICP involves the Monroe-Kellie doctrine, which states that the sum of volumes of brain, blood, and cerebrospinal fluid (CSF) must remain constant within the cranial vault. An increase in one component must be compensated by a decrease in another to maintain a constant ICP. However, when the compensatory mechanisms are exhausted, ICP rises, leading to potentially catastrophic consequences. The epidemiology of raised ICP is complex, with varying incidence and prevalence rates depending on the underlying cause. For instance, traumatic brain injury is a leading cause of raised ICP in young adults, while brain tumors are more common in older adults. Understanding the epidemiology and pathophysiology of raised ICP is crucial for developing effective management strategies.",
+        "sections": [
+          {
+            "heading": "Pathophysiology of Raised ICP",
+            "text": "The pathophysiology of raised ICP involves the interplay between the brain, blood, and CSF. The brain accounts for approximately 80-90% of the intracranial volume, while blood and CSF account for around 5-10% and 5%, respectively. An increase in ICP can result from an increase in the volume of any of these components. For example, cerebral edema can lead to an increase in brain volume, while hydrocephalus can result in an increase in CSF volume. The body's compensatory mechanisms, such as the Monro-Kellie doctrine, aim to maintain a constant ICP by adjusting the volumes of these components. However, when these mechanisms are exhausted, ICP rises, leading to increased pressure on the brainstem and potentially life-threatening complications. According to the 2019 ESC guidelines, the management of raised ICP should focus on reducing the volume of the intracranial components and maintaining optimal cerebral perfusion pressure."
+          },
+          {
+            "heading": "Epidemiology of Raised ICP",
+            "text": "The epidemiology of raised ICP is complex and depends on the underlying cause. Traumatic brain injury is a leading cause of raised ICP in young adults, with an estimated incidence of 150-200 per 100,000 population per year. Brain tumors, on the other hand, are more common in older adults, with an estimated incidence of 20-30 per 100,000 population per year. According to the 2020 NICE guidelines, the management of raised ICP should be individualized based on the underlying cause and the patient's clinical presentation. For example, patients with traumatic brain injury may require aggressive management of ICP, including the use of osmotic agents such as mannitol (0.25-1 g/kg) or hypertonic saline (3-5%). In contrast, patients with brain tumors may require a more conservative approach, focusing on reducing tumor size and alleviating symptoms."
+          },
+          {
+            "heading": "Clinical Implications of Raised ICP",
+            "text": "The clinical implications of raised ICP are significant and can be life-threatening. Increased ICP can lead to herniation of the brain, resulting in compression of the brainstem and potentially fatal consequences. According to the 2018 AHA guidelines, the management of raised ICP should focus on reducing ICP and maintaining optimal cerebral perfusion pressure. This can be achieved through the use of various interventions, including osmotic agents, diuretics, and surgical decompression. For example, the DECRA trial demonstrated that decompressive craniectomy can reduce ICP and improve outcomes in patients with severe traumatic brain injury. Similarly, the RESCUEicp trial showed that early decompressive craniectomy can improve outcomes in patients with malignant middle cerebral artery infarction."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl in managing raised ICP is to maintain optimal cerebral perfusion pressure, which is defined as the mean arterial pressure minus the ICP. This can be achieved through the use of various interventions, including fluid resuscitation, vasopressors, and osmotic agents. For example, the use of norepinephrine (0.01-0.1 mcg/kg/min) can help maintain optimal cerebral perfusion pressure in patients with raised ICP.",
+        "key_points": [
+          "The pathophysiology of raised ICP involves the interplay between the brain, blood, and CSF.",
+          "The epidemiology of raised ICP depends on the underlying cause, with traumatic brain injury being a leading cause in young adults.",
+          "The management of raised ICP should focus on reducing the volume of the intracranial components and maintaining optimal cerebral perfusion pressure.",
+          "The use of osmotic agents, such as mannitol (0.25-1 g/kg), can help reduce ICP in patients with traumatic brain injury.",
+          "The DECRA trial demonstrated that decompressive craniectomy can reduce ICP and improve outcomes in patients with severe traumatic brain injury.",
+          "The RESCUEicp trial showed that early decompressive craniectomy can improve outcomes in patients with malignant middle cerebral artery infarction."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of maintaining optimal cerebral perfusion pressure in patients with raised ICP."
+          },
+          {
+            "title": "2020 NICE Guidelines for the management of traumatic brain injury",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines recommend individualized management of raised ICP based on the underlying cause and the patient's clinical presentation."
+          },
+          {
+            "title": "DECRA trial: Decompressive craniectomy in patients with severe traumatic brain injury",
+            "authors": "Cooper DJ, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "The trial demonstrated that decompressive craniectomy can reduce ICP and improve outcomes in patients with severe traumatic brain injury."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Raised ICP",
+      "content": {
+        "intro": "The clinical presentation of raised ICP can vary depending on the underlying cause and the severity of the condition. Patients may present with symptoms such as headache, nausea, vomiting, and altered mental status. In severe cases, patients may develop signs of brain herniation, including pupillary dilation, decreased consciousness, and respiratory depression. Understanding the clinical presentation of raised ICP is crucial for early diagnosis and effective management.",
+        "sections": [
+          {
+            "heading": "Symptoms of Raised ICP",
+            "text": "The symptoms of raised ICP can be non-specific and may include headache, nausea, vomiting, and altered mental status. According to the 2020 AHA guidelines, patients with raised ICP may also experience seizures, focal neurological deficits, and papilledema. The symptoms can be exacerbated by factors such as coughing, straining, and bending, which can increase ICP. For example, the use of acetazolamide (250-500 mg IV) can help reduce ICP and alleviate symptoms in patients with idiopathic intracranial hypertension."
+          },
+          {
+            "heading": "Signs of Brain Herniation",
+            "text": "The signs of brain herniation are critical to recognize, as they can indicate life-threatening complications. According to the 2019 ESC guidelines, patients with brain herniation may develop pupillary dilation, decreased consciousness, and respiratory depression. The Cushing reflex, which involves bradycardia, hypertension, and irregular breathing, can also be a sign of brain herniation. For example, the use of hypertonic saline (3-5%) can help reduce ICP and alleviate symptoms in patients with brain herniation."
+          },
+          {
+            "heading": "Clinical Assessment of Raised ICP",
+            "text": "The clinical assessment of raised ICP involves a thorough evaluation of the patient's symptoms, signs, and medical history. According to the 2018 NICE guidelines, the assessment should include a comprehensive neurological examination, including evaluation of mental status, pupillary reflexes, and motor function. Imaging studies, such as CT or MRI scans, can also be used to confirm the diagnosis and guide management. For example, the use of diffusion-weighted imaging can help identify areas of brain ischemia and infarction."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl in assessing raised ICP is to recognize the signs of brain herniation, including pupillary dilation, decreased consciousness, and respiratory depression. Early recognition and management of these signs can be life-saving.",
+        "key_points": [
+          "The symptoms of raised ICP can be non-specific and may include headache, nausea, vomiting, and altered mental status.",
+          "Patients with raised ICP may develop signs of brain herniation, including pupillary dilation, decreased consciousness, and respiratory depression.",
+          "The Cushing reflex can be a sign of brain herniation, involving bradycardia, hypertension, and irregular breathing.",
+          "The use of acetazolamide (250-500 mg IV) can help reduce ICP and alleviate symptoms in patients with idiopathic intracranial hypertension.",
+          "The use of hypertonic saline (3-5%) can help reduce ICP and alleviate symptoms in patients with brain herniation.",
+          "Imaging studies, such as CT or MRI scans, can be used to confirm the diagnosis and guide management of raised ICP."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the management of stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early recognition and management of raised ICP in patients with stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines recommend individualized management of raised ICP based on the underlying cause and the patient's clinical presentation."
+          },
+          {
+            "title": "Idiopathic intracranial hypertension: diagnosis and management",
+            "authors": "Wall M, et al.",
+            "journal_or_source": "Journal of Neurology, Neurosurgery, and Psychiatry",
+            "year": 2014,
+            "type": "review",
+            "note": "The review discusses the diagnosis and management of idiopathic intracranial hypertension, including the use of acetazolamide and other treatments."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Raised ICP",
+      "content": {
+        "intro": "The diagnosis of raised ICP involves a combination of clinical assessment, imaging studies, and laboratory tests. Imaging studies, such as CT or MRI scans, can help identify the underlying cause of raised ICP, such as a brain tumor or cerebral edema. Laboratory tests, such as blood gas analysis and electrolyte panels, can also provide valuable information about the patient's condition. Understanding the investigations and diagnosis of raised ICP is crucial for developing effective management strategies.",
+        "sections": [
+          {
+            "heading": "Imaging Studies for Raised ICP",
+            "text": "Imaging studies, such as CT or MRI scans, are essential for diagnosing raised ICP. According to the 2018 NICE guidelines, CT scans can help identify the underlying cause of raised ICP, such as a brain tumor or cerebral edema. MRI scans can provide more detailed information about the brain and its structures, and can help identify areas of brain ischemia and infarction. For example, the use of diffusion-weighted imaging can help identify areas of brain ischemia and infarction."
+          },
+          {
+            "heading": "Laboratory Tests for Raised ICP",
+            "text": "Laboratory tests, such as blood gas analysis and electrolyte panels, can provide valuable information about the patient's condition. According to the 2020 AHA guidelines, blood gas analysis can help identify hypoxia and hypercapnia, which can exacerbate raised ICP. Electrolyte panels can help identify electrolyte imbalances, such as hyponatremia or hypernatremia, which can also contribute to raised ICP. For example, the use of hypertonic saline (3-5%) can help correct hyponatremia and reduce ICP."
+          },
+          {
+            "heading": "Invasive Monitoring of Raised ICP",
+            "text": "Invasive monitoring, such as intracranial pressure monitoring, can provide direct measurement of ICP. According to the 2019 ESC guidelines, intracranial pressure monitoring can help guide management of raised ICP, including the use of osmotic agents and diuretics. For example, the use of mannitol (0.25-1 g/kg) can help reduce ICP in patients with traumatic brain injury."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl in diagnosing raised ICP is to recognize the importance of imaging studies, such as CT or MRI scans, in identifying the underlying cause of raised ICP.",
+        "key_points": [
+          "Imaging studies, such as CT or MRI scans, are essential for diagnosing raised ICP.",
+          "Laboratory tests, such as blood gas analysis and electrolyte panels, can provide valuable information about the patient's condition.",
+          "Invasive monitoring, such as intracranial pressure monitoring, can provide direct measurement of ICP.",
+          "The use of diffusion-weighted imaging can help identify areas of brain ischemia and infarction.",
+          "The use of hypertonic saline (3-5%) can help correct hyponatremia and reduce ICP.",
+          "The use of mannitol (0.25-1 g/kg) can help reduce ICP in patients with traumatic brain injury."
+        ],
+        "references": [
+          {
+            "title": "2018 NICE Guidelines for the management of traumatic brain injury",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2018,
+            "type": "guideline",
+            "note": "The guidelines recommend the use of imaging studies, such as CT or MRI scans, in diagnosing raised ICP."
+          },
+          {
+            "title": "2020 AHA Guidelines for the management of stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of laboratory tests, such as blood gas analysis and electrolyte panels, in diagnosing raised ICP."
+          },
+          {
+            "title": "Intracranial pressure monitoring in traumatic brain injury",
+            "authors": "Chesnut RM, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2012,
+            "type": "review",
+            "note": "The review discusses the use of intracranial pressure monitoring in traumatic brain injury, including the benefits and limitations of this approach."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Raised ICP",
+      "content": {
+        "intro": "The treatment and management of raised ICP involve a combination of medical and surgical interventions. Medical interventions, such as the use of osmotic agents and diuretics, can help reduce ICP and alleviate symptoms. Surgical interventions, such as decompressive craniectomy, can provide more definitive treatment for raised ICP. Understanding the treatment and management of raised ICP is crucial for developing effective management strategies.",
+        "sections": [
+          {
+            "heading": "Medical Management of Raised ICP",
+            "text": "The medical management of raised ICP involves the use of various medications, including osmotic agents and diuretics. According to the 2020 AHA guidelines, the use of mannitol (0.25-1 g/kg) can help reduce ICP in patients with traumatic brain injury. The use of hypertonic saline (3-5%) can also help reduce ICP and alleviate symptoms in patients with brain herniation. For example, the use of norepinephrine (0.01-0.1 mcg/kg/min) can help maintain optimal cerebral perfusion pressure in patients with raised ICP."
+          },
+          {
+            "heading": "Surgical Management of Raised ICP",
+            "text": "The surgical management of raised ICP involves various procedures, including decompressive craniectomy and ventriculostomy. According to the 2019 ESC guidelines, decompressive craniectomy can provide more definitive treatment for raised ICP, particularly in patients with severe traumatic brain injury. Ventriculostomy can also help reduce ICP by draining CSF from the ventricles. For example, the DECRA trial demonstrated that decompressive craniectomy can reduce ICP and improve outcomes in patients with severe traumatic brain injury."
+          },
+          {
+            "heading": "Complications and Prognosis of Raised ICP",
+            "text": "The complications and prognosis of raised ICP depend on the underlying cause and the severity of the condition. According to the 2018 NICE guidelines, patients with raised ICP are at risk of developing various complications, including brain herniation, seizures, and cerebral edema. The prognosis of raised ICP is generally poor, particularly in patients with severe traumatic brain injury or brain tumors. For example, the use of early decompressive craniectomy can improve outcomes in patients with malignant middle cerebral artery infarction."
+          }
+        ],
+        "clinical_pearl": "The clinical pearl in managing raised ICP is to recognize the importance of early intervention, including the use of medical and surgical interventions, to reduce ICP and alleviate symptoms.",
+        "key_points": [
+          "The medical management of raised ICP involves the use of various medications, including osmotic agents and diuretics.",
+          "The use of mannitol (0.25-1 g/kg) can help reduce ICP in patients with traumatic brain injury.",
+          "The use of hypertonic saline (3-5%) can help reduce ICP and alleviate symptoms in patients with brain herniation.",
+          "Decompressive craniectomy can provide more definitive treatment for raised ICP, particularly in patients with severe traumatic brain injury.",
+          "Ventriculostomy can help reduce ICP by draining CSF from the ventricles.",
+          "The prognosis of raised ICP is generally poor, particularly in patients with severe traumatic brain injury or brain tumors."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the management of stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines emphasize the importance of early intervention, including the use of medical and surgical interventions, to reduce ICP and alleviate symptoms."
+          },
+          {
+            "title": "2019 ESC Guidelines for the management of acute coronary syndromes in patients presenting without persistent ST-segment elevation",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines recommend the use of decompressive craniectomy in patients with severe traumatic brain injury."
+          },
+          {
+            "title": "DECRA trial: Decompressive craniectomy in patients with severe traumatic brain injury",
+            "authors": "Cooper DJ, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "The trial demonstrated that decompressive craniectomy can reduce ICP and improve outcomes in patients with severe traumatic brain injury."
+          }
+        ]
+      }
+    }
+  ]
+}

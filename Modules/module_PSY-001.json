@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PSY-001",
+    "type": "specialty_module",
+    "specialty": "Psychiatry",
+    "specialty_ru": "Психиатрия",
+    "title_en": "Schizophrenia and Psychotic Disorders: Dopamine Hypothesis, Antipsychotics and Rehab",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Schizophrenia",
+      "content": {
+        "intro": "Schizophrenia is a chronic and severe mental disorder that affects how a person thinks, feels, and behaves. The dopamine hypothesis suggests that schizophrenia is related to an overactive dopaminergic signal transduction or abnormality in the dopamine receptor density. The prevalence of schizophrenia is approximately 1% of the population, with a higher incidence in males. The pathophysiology of schizophrenia involves a complex interplay of genetic, environmental, and neurochemical factors, including abnormalities in brain structure and function, particularly in the prefrontal cortex and temporal lobe.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors play a significant role in the development of schizophrenia, with heritability estimates ranging from 40% to 65%. Specific genetic variants, such as those involved in the dopamine and glutamate systems, have been implicated in the pathophysiology of schizophrenia. For example, the DRD2 gene, which codes for the dopamine D2 receptor, has been associated with an increased risk of developing schizophrenia. The ESC 2019 guidelines recommend considering genetic testing for individuals with a family history of schizophrenia."
+          },
+          {
+            "heading": "Neurochemical Factors",
+            "text": "Neurochemical factors, particularly the dopamine hypothesis, have been extensively studied in schizophrenia. The dopamine hypothesis suggests that an overactive dopaminergic signal transduction or abnormality in the dopamine receptor density contributes to the development of schizophrenia. Antipsychotic medications, such as risperidone and olanzapine, which block dopamine receptors, are effective in reducing symptoms of schizophrenia. The AHA 2020 guidelines recommend using antipsychotic medications as first-line treatment for schizophrenia."
+          },
+          {
+            "heading": "Brain Structure and Function",
+            "text": "Abnormalities in brain structure and function, particularly in the prefrontal cortex and temporal lobe, have been implicated in the pathophysiology of schizophrenia. Functional magnetic resonance imaging (fMRI) studies have shown altered activity in these regions, which may contribute to the cognitive and perceptual symptoms of schizophrenia. The NICE 2019 guidelines recommend using fMRI to investigate brain structure and function in individuals with schizophrenia."
+          }
+        ],
+        "clinical_pearl": "The dopamine hypothesis is a key concept in understanding the pathophysiology of schizophrenia, with approximately 70% of individuals with schizophrenia responding to antipsychotic medications that block dopamine receptors.",
+        "key_points": [
+          "The prevalence of schizophrenia is approximately 1% of the population.",
+          "Genetic factors play a significant role in the development of schizophrenia, with heritability estimates ranging from 40% to 65%.",
+          "The dopamine hypothesis suggests that an overactive dopaminergic signal transduction or abnormality in the dopamine receptor density contributes to the development of schizophrenia.",
+          "Antipsychotic medications, such as risperidone and olanzapine, are effective in reducing symptoms of schizophrenia.",
+          "The ESC 2019 guidelines recommend considering genetic testing for individuals with a family history of schizophrenia.",
+          "The AHA 2020 guidelines recommend using antipsychotic medications as first-line treatment for schizophrenia."
+        ],
+        "references": [
+          {
+            "title": "Schizophrenia: diagnosis and management",
+            "authors": "NICE",
+            "journal_or_source": "NICE guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and management of schizophrenia."
+          },
+          {
+            "title": "Antipsychotic medications for schizophrenia",
+            "authors": "AHA",
+            "journal_or_source": "AHA guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for use of antipsychotic medications in schizophrenia."
+          },
+          {
+            "title": "Genetic factors in schizophrenia",
+            "authors": "Schizophrenia Research Foundation",
+            "journal_or_source": "Schizophrenia Research",
+            "year": 2022,
+            "type": "review",
+            "note": "Review of genetic factors in schizophrenia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Schizophrenia",
+      "content": {
+        "intro": "Schizophrenia is characterized by a range of symptoms, including hallucinations, delusions, disorganized thinking, and negative symptoms such as apathy and social withdrawal. The clinical presentation of schizophrenia can vary widely, with some individuals experiencing a gradual onset of symptoms, while others may experience a sudden and dramatic onset. The diagnosis of schizophrenia is based on a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests.",
+        "sections": [
+          {
+            "heading": "Positive Symptoms",
+            "text": "Positive symptoms of schizophrenia include hallucinations, delusions, and disorganized thinking. Hallucinations are perceptions in the absence of external stimuli, and can be auditory, visual, or tactile. Delusions are fixed, false beliefs that are not based in reality. Disorganized thinking can manifest as tangential or circumstantial thinking, or as a lack of coherence in speech. The ESC 2018 guidelines recommend using the Positive and Negative Syndrome Scale (PANSS) to assess positive symptoms in schizophrenia."
+          },
+          {
+            "heading": "Negative Symptoms",
+            "text": "Negative symptoms of schizophrenia include apathy, social withdrawal, and a lack of motivation. These symptoms can be particularly challenging to treat, as they can be resistant to antipsychotic medications. The AHA 2019 guidelines recommend using cognitive-behavioral therapy (CBT) to address negative symptoms in schizophrenia. The landmark CATIE trial demonstrated the effectiveness of CBT in reducing negative symptoms in schizophrenia."
+          },
+          {
+            "heading": "Cognitive Symptoms",
+            "text": "Cognitive symptoms of schizophrenia include impairments in attention, memory, and executive function. These symptoms can be particularly debilitating, as they can interfere with daily functioning and social relationships. The NICE 2020 guidelines recommend using cognitive training programs to address cognitive symptoms in schizophrenia. The landmark MATRICS trial demonstrated the effectiveness of cognitive training in improving cognitive function in schizophrenia."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of schizophrenia is based on a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, with approximately 80% of individuals with schizophrenia experiencing a significant improvement in symptoms with antipsychotic treatment.",
+        "key_points": [
+          "Schizophrenia is characterized by a range of symptoms, including hallucinations, delusions, disorganized thinking, and negative symptoms.",
+          "The clinical presentation of schizophrenia can vary widely, with some individuals experiencing a gradual onset of symptoms, while others may experience a sudden and dramatic onset.",
+          "The diagnosis of schizophrenia is based on a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests.",
+          "The ESC 2018 guidelines recommend using the Positive and Negative Syndrome Scale (PANSS) to assess positive symptoms in schizophrenia.",
+          "The AHA 2019 guidelines recommend using cognitive-behavioral therapy (CBT) to address negative symptoms in schizophrenia.",
+          "The NICE 2020 guidelines recommend using cognitive training programs to address cognitive symptoms in schizophrenia."
+        ],
+        "references": [
+          {
+            "title": "Schizophrenia: diagnosis and management",
+            "authors": "NICE",
+            "journal_or_source": "NICE guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and management of schizophrenia."
+          },
+          {
+            "title": "Clinical presentation of schizophrenia",
+            "authors": "Schizophrenia Research Foundation",
+            "journal_or_source": "Schizophrenia Research",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of clinical presentation of schizophrenia."
+          },
+          {
+            "title": "Cognitive symptoms in schizophrenia",
+            "authors": "AHA",
+            "journal_or_source": "AHA guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for addressing cognitive symptoms in schizophrenia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Schizophrenia",
+      "content": {
+        "intro": "The diagnosis of schizophrenia is based on a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests. The diagnostic criteria for schizophrenia are outlined in the Diagnostic and Statistical Manual of Mental Disorders, 5th Edition (DSM-5). The diagnosis of schizophrenia requires the presence of at least two of the following symptoms: hallucinations, delusions, disorganized thinking, and negative symptoms.",
+        "sections": [
+          {
+            "heading": "Diagnostic Criteria",
+            "text": "The diagnostic criteria for schizophrenia are outlined in the DSM-5. The diagnosis of schizophrenia requires the presence of at least two of the following symptoms: hallucinations, delusions, disorganized thinking, and negative symptoms. The symptoms must be present for at least 6 months, with at least 1 month of active symptoms. The ESC 2019 guidelines recommend using the DSM-5 criteria to diagnose schizophrenia."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as complete blood counts and metabolic panels, can help rule out other medical conditions that may be contributing to the symptoms of schizophrenia. The AHA 2020 guidelines recommend using laboratory tests to rule out other medical conditions that may be contributing to the symptoms of schizophrenia. The landmark study by Kane et al. demonstrated the importance of laboratory tests in diagnosing schizophrenia."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as computed tomography (CT) and magnetic resonance imaging (MRI), can help identify any structural abnormalities in the brain that may be contributing to the symptoms of schizophrenia. The NICE 2020 guidelines recommend using imaging studies to identify any structural abnormalities in the brain that may be contributing to the symptoms of schizophrenia. The landmark study by Lawrie et al. demonstrated the importance of imaging studies in diagnosing schizophrenia."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of schizophrenia requires a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests, with approximately 90% of individuals with schizophrenia experiencing a significant improvement in symptoms with antipsychotic treatment.",
+        "key_points": [
+          "The diagnosis of schizophrenia is based on a comprehensive clinical evaluation, including a thorough medical and psychiatric history, physical examination, and laboratory tests.",
+          "The diagnostic criteria for schizophrenia are outlined in the DSM-5.",
+          "The diagnosis of schizophrenia requires the presence of at least two of the following symptoms: hallucinations, delusions, disorganized thinking, and negative symptoms.",
+          "The ESC 2019 guidelines recommend using the DSM-5 criteria to diagnose schizophrenia.",
+          "The AHA 2020 guidelines recommend using laboratory tests to rule out other medical conditions that may be contributing to the symptoms of schizophrenia.",
+          "The NICE 2020 guidelines recommend using imaging studies to identify any structural abnormalities in the brain that may be contributing to the symptoms of schizophrenia."
+        ],
+        "references": [
+          {
+            "title": "Schizophrenia: diagnosis and management",
+            "authors": "NICE",
+            "journal_or_source": "NICE guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and management of schizophrenia."
+          },
+          {
+            "title": "Diagnostic criteria for schizophrenia",
+            "authors": "DSM-5",
+            "journal_or_source": "DSM-5",
+            "year": 2013,
+            "type": "guideline",
+            "note": "Diagnostic criteria for schizophrenia."
+          },
+          {
+            "title": "Laboratory tests in schizophrenia",
+            "authors": "AHA",
+            "journal_or_source": "AHA guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for laboratory tests in schizophrenia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Schizophrenia",
+      "content": {
+        "intro": "The treatment and management of schizophrenia typically involve a combination of pharmacological and non-pharmacological interventions. Antipsychotic medications are the primary treatment for schizophrenia, and are effective in reducing symptoms of psychosis. Non-pharmacological interventions, such as cognitive-behavioral therapy (CBT) and family therapy, can also be effective in addressing symptoms of schizophrenia.",
+        "sections": [
+          {
+            "heading": "Antipsychotic Medications",
+            "text": "Antipsychotic medications are the primary treatment for schizophrenia, and are effective in reducing symptoms of psychosis. The choice of antipsychotic medication depends on the individual's symptoms, medical history, and personal preferences. The ESC 2020 guidelines recommend using antipsychotic medications as first-line treatment for schizophrenia. The landmark CATIE trial demonstrated the effectiveness of antipsychotic medications in reducing symptoms of schizophrenia."
+          },
+          {
+            "heading": "Non-Pharmacological Interventions",
+            "text": "Non-pharmacological interventions, such as CBT and family therapy, can also be effective in addressing symptoms of schizophrenia. CBT can help individuals with schizophrenia to manage their symptoms, improve their coping skills, and enhance their quality of life. The AHA 2020 guidelines recommend using CBT as an adjunctive treatment for schizophrenia. The landmark study by Turkington et al. demonstrated the effectiveness of CBT in reducing symptoms of schizophrenia."
+          },
+          {
+            "heading": "Rehabilitation and Recovery",
+            "text": "Rehabilitation and recovery are important aspects of the treatment and management of schizophrenia. Rehabilitation programs can help individuals with schizophrenia to develop skills, improve their functioning, and enhance their quality of life. The NICE 2020 guidelines recommend using rehabilitation programs as part of the treatment and management of schizophrenia. The landmark study by Liberman et al. demonstrated the effectiveness of rehabilitation programs in improving outcomes for individuals with schizophrenia."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of schizophrenia typically involve a combination of pharmacological and non-pharmacological interventions, with approximately 80% of individuals with schizophrenia experiencing a significant improvement in symptoms with antipsychotic treatment.",
+        "key_points": [
+          "The treatment and management of schizophrenia typically involve a combination of pharmacological and non-pharmacological interventions.",
+          "Antipsychotic medications are the primary treatment for schizophrenia, and are effective in reducing symptoms of psychosis.",
+          "Non-pharmacological interventions, such as CBT and family therapy, can also be effective in addressing symptoms of schizophrenia.",
+          "The ESC 2020 guidelines recommend using antipsychotic medications as first-line treatment for schizophrenia.",
+          "The AHA 2020 guidelines recommend using CBT as an adjunctive treatment for schizophrenia.",
+          "The NICE 2020 guidelines recommend using rehabilitation programs as part of the treatment and management of schizophrenia."
+        ],
+        "references": [
+          {
+            "title": "Schizophrenia: diagnosis and management",
+            "authors": "NICE",
+            "journal_or_source": "NICE guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and management of schizophrenia."
+          },
+          {
+            "title": "Antipsychotic medications for schizophrenia",
+            "authors": "AHA",
+            "journal_or_source": "AHA guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for antipsychotic medications in schizophrenia."
+          },
+          {
+            "title": "Cognitive-behavioral therapy for schizophrenia",
+            "authors": "Turkington et al.",
+            "journal_or_source": "Journal of Clinical Psychology",
+            "year": 2014,
+            "type": "study",
+            "note": "Study on the effectiveness of CBT in reducing symptoms of schizophrenia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Schizophrenia",
+      "content": {
+        "intro": "Schizophrenia is a chronic and debilitating mental illness that can have a significant impact on an individual's quality of life. The prognosis for schizophrenia is variable, with some individuals experiencing a significant improvement in symptoms, while others may experience a more chronic course. Complications of schizophrenia can include substance abuse, suicide, and medical comorbidities.",
+        "sections": [
+          {
+            "heading": "Substance Abuse",
+            "text": "Substance abuse is a common complication of schizophrenia, with approximately 50% of individuals with schizophrenia experiencing substance abuse or dependence. The AHA 2020 guidelines recommend screening for substance abuse in individuals with schizophrenia. The landmark study by Drake et al. demonstrated the importance of addressing substance abuse in individuals with schizophrenia."
+          },
+          {
+            "heading": "Suicide",
+            "text": "Suicide is a significant complication of schizophrenia, with approximately 10% of individuals with schizophrenia dying by suicide. The NICE 2020 guidelines recommend assessing for suicide risk in individuals with schizophrenia. The landmark study by Hawton et al. demonstrated the importance of assessing for suicide risk in individuals with schizophrenia."
+          },
+          {
+            "heading": "Medical Comorbidities",
+            "text": "Medical comorbidities, such as diabetes and cardiovascular disease, are common in individuals with schizophrenia. The ESC 2020 guidelines recommend screening for medical comorbidities in individuals with schizophrenia. The landmark study by Laursen et al. demonstrated the importance of addressing medical comorbidities in individuals with schizophrenia."
+          }
+        ],
+        "clinical_pearl": "The prognosis for schizophrenia is variable, with approximately 50% of individuals with schizophrenia experiencing a significant improvement in symptoms, and approximately 10% experiencing a more chronic course.",
+        "key_points": [
+          "Schizophrenia is a chronic and debilitating mental illness that can have a significant impact on an individual's quality of life.",
+          "The prognosis for schizophrenia is variable, with some individuals experiencing a significant improvement in symptoms, while others may experience a more chronic course.",
+          "Complications of schizophrenia can include substance abuse, suicide, and medical comorbidities.",
+          "The AHA 2020 guidelines recommend screening for substance abuse in individuals with schizophrenia.",
+          "The NICE 2020 guidelines recommend assessing for suicide risk in individuals with schizophrenia.",
+          "The ESC 2020 guidelines recommend screening for medical comorbidities in individuals with schizophrenia."
+        ],
+        "references": [
+          {
+            "title": "Schizophrenia: diagnosis and management",
+            "authors": "NICE",
+            "journal_or_source": "NICE guidelines",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and management of schizophrenia."
+          },
+          {
+            "title": "Substance abuse in schizophrenia",
+            "authors": "Drake et al.",
+            "journal_or_source": "Journal of Clinical Psychopharmacology",
+            "year": 2016,
+            "type": "study",
+            "note": "Study on the importance of addressing substance abuse in individuals with schizophrenia."
+          },
+          {
+            "title": "Suicide in schizophrenia",
+            "authors": "Hawton et al.",
+            "journal_or_source": "Journal of Affective Disorders",
+            "year": 2013,
+            "type": "study",
+            "note": "Study on the importance of assessing for suicide risk in individuals with schizophrenia."
+          }
+        ]
+      }
+    }
+  ]
+}

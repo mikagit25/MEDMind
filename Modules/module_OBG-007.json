@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OBG-007",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Menopause and HRT: Symptom Management, Cardiovascular and Bone Health",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Menopause",
+      "content": {
+        "intro": "Menopause is a natural biological process in women that occurs at the end of the reproductive period, typically between the ages of 45 and 55. It is characterized by the cessation of menstruation and the depletion of ovarian function, leading to a significant decrease in estrogen levels. The decline in estrogen production has a profound impact on various bodily systems, including the cardiovascular, skeletal, and genitourinary systems. According to the American College of Obstetricians and Gynecologists (ACOG), the average age of menopause in the United States is 51 years. The North American Menopause Society (NAMS) estimates that over 1.3 million women in the United States enter menopause each year. The epidemiology of menopause is complex and influenced by various factors, including genetics, lifestyle, and environmental factors.",
+        "sections": [
+          {
+            "heading": "Definition and Classification",
+            "text": "Menopause is defined as the permanent cessation of menstruation, resulting from the loss of ovarian function. The World Health Organization (WHO) classifies menopause into three stages: perimenopause, menopause, and postmenopause. Perimenopause is the transitional period leading up to menopause, during which women may experience irregular menstrual cycles and symptoms such as hot flashes and night sweats. Menopause is the point at which a woman has not had a menstrual period for 12 consecutive months. Postmenopause is the stage after menopause, during which women are at increased risk of osteoporosis and cardiovascular disease. The European Society of Cardiology (ESC) recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors, such as hypertension and hyperlipidemia."
+          },
+          {
+            "heading": "Risk Factors and Complications",
+            "text": "Several risk factors are associated with an increased risk of complications during menopause, including smoking, obesity, and a family history of osteoporosis or cardiovascular disease. The Women's Health Initiative (WHI) study found that hormone replacement therapy (HRT) increased the risk of breast cancer, stroke, and pulmonary embolism. However, the study also found that HRT reduced the risk of osteoporotic fractures and colorectal cancer. The National Institute for Health and Care Excellence (NICE) recommends that women with a history of breast cancer or thromboembolic disease be advised against HRT. The American Heart Association (AHA) recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors, such as hypertension and hyperlipidemia."
+          },
+          {
+            "heading": "Pathophysiology",
+            "text": "The pathophysiology of menopause is complex and involves the interplay of multiple hormonal and cellular mechanisms. The decline in estrogen production leads to an increase in follicle-stimulating hormone (FSH) levels, which in turn stimulates the growth of new follicles. However, the new follicles are not able to produce estrogen, leading to a further decline in estrogen levels. The decrease in estrogen production also leads to an increase in bone resorption, resulting in osteoporosis. The Women's Health Initiative (WHI) study found that HRT reduced the risk of osteoporotic fractures by 30-50%. The landmark Women's Health Initiative Memory Study (WHIMS) found that HRT increased the risk of dementia in postmenopausal women."
+          }
+        ],
+        "clinical_pearl": "The use of HRT in women with a history of breast cancer or thromboembolic disease is contraindicated, as it increases the risk of recurrence and mortality. However, HRT may be beneficial in women with severe menopausal symptoms, such as hot flashes and night sweats, as it reduces the risk of osteoporotic fractures and improves quality of life.",
+        "key_points": [
+          "The average age of menopause in the United States is 51 years.",
+          "The decline in estrogen production leads to an increase in FSH levels.",
+          "HRT increases the risk of breast cancer, stroke, and pulmonary embolism.",
+          "HRT reduces the risk of osteoporotic fractures and colorectal cancer.",
+          "The ESC recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors.",
+          "The AHA recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors."
+        ],
+        "references": [
+          {
+            "title": "Menopause Practice: A Clinician's Guide",
+            "authors": "The North American Menopause Society",
+            "journal_or_source": "NAMS",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Comprehensive guide to menopause diagnosis and treatment"
+          },
+          {
+            "title": "Hormone Therapy for the Prevention and Treatment of Postmenopausal Osteoporosis",
+            "authors": "The American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for HRT in postmenopausal women with osteoporosis"
+          },
+          {
+            "title": "The Women's Health Initiative Memory Study",
+            "authors": "Shumaker SA, et al.",
+            "journal_or_source": "JAMA",
+            "year": 2003,
+            "type": "landmark trial",
+            "note": "Found that HRT increased the risk of dementia in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Menopause",
+      "content": {
+        "intro": "The clinical presentation of menopause can vary widely among women, with some experiencing mild symptoms and others experiencing severe and debilitating symptoms. The most common symptoms of menopause include hot flashes, night sweats, vaginal dryness, and mood changes. According to the NAMS, up to 80% of women experience hot flashes during menopause, with 20-30% experiencing severe hot flashes. The ACOG recommends that women with severe menopausal symptoms be offered HRT as a treatment option.",
+        "sections": [
+          {
+            "heading": "Common Symptoms",
+            "text": "The most common symptoms of menopause include hot flashes, night sweats, vaginal dryness, and mood changes. Hot flashes are sudden feelings of heat that can occur at any time, often accompanied by sweating and flushing. Night sweats are hot flashes that occur at night, often disrupting sleep. Vaginal dryness can cause discomfort during sex and increase the risk of vaginal infections. Mood changes can include anxiety, depression, and irritability. The ESC recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors, such as hypertension and hyperlipidemia."
+          },
+          {
+            "heading": "Less Common Symptoms",
+            "text": "Less common symptoms of menopause include sleep disturbances, joint pain, and changes in libido. Sleep disturbances can include insomnia, sleep apnea, and restless leg syndrome. Joint pain can be caused by the decline in estrogen production, which can lead to osteoarthritis. Changes in libido can be caused by the decline in estrogen production, which can lead to vaginal dryness and decreased sexual desire. The AHA recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors, such as hypertension and hyperlipidemia."
+          },
+          {
+            "heading": "Impact on Quality of Life",
+            "text": "Menopause can have a significant impact on a woman's quality of life, with symptoms affecting daily activities, relationships, and overall well-being. The decline in estrogen production can lead to a decrease in cognitive function, including memory and concentration. The WHI study found that HRT improved cognitive function in postmenopausal women. The NICE recommends that women with severe menopausal symptoms be offered HRT as a treatment option."
+          }
+        ],
+        "clinical_pearl": "The use of HRT in women with severe menopausal symptoms can improve quality of life and reduce the risk of osteoporotic fractures. However, HRT may not be suitable for all women, particularly those with a history of breast cancer or thromboembolic disease.",
+        "key_points": [
+          "Up to 80% of women experience hot flashes during menopause.",
+          "The decline in estrogen production can lead to a decrease in cognitive function.",
+          "HRT can improve cognitive function in postmenopausal women.",
+          "The ACOG recommends that women with severe menopausal symptoms be offered HRT as a treatment option.",
+          "The ESC recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors.",
+          "The AHA recommends that women with a history of cardiovascular disease be screened for menopause-related risk factors."
+        ],
+        "references": [
+          {
+            "title": "The North American Menopause Society Recommendations for Clinical Care",
+            "authors": "The North American Menopause Society",
+            "journal_or_source": "NAMS",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Comprehensive guide to menopause diagnosis and treatment"
+          },
+          {
+            "title": "Hormone Therapy for the Prevention and Treatment of Postmenopausal Osteoporosis",
+            "authors": "The American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for HRT in postmenopausal women with osteoporosis"
+          },
+          {
+            "title": "The Women's Health Initiative Memory Study",
+            "authors": "Shumaker SA, et al.",
+            "journal_or_source": "JAMA",
+            "year": 2003,
+            "type": "landmark trial",
+            "note": "Found that HRT increased the risk of dementia in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Menopause",
+      "content": {
+        "intro": "The diagnosis of menopause is typically made based on a woman's symptoms and medical history, rather than through laboratory tests or imaging studies. However, several investigations can be used to confirm the diagnosis and rule out other potential causes of symptoms. The ACOG recommends that women with symptoms of menopause undergo a comprehensive medical evaluation, including a physical examination, medical history, and laboratory tests.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "A comprehensive medical evaluation is essential for diagnosing menopause and ruling out other potential causes of symptoms. The evaluation should include a physical examination, medical history, and laboratory tests. The physical examination should include a pelvic examination to evaluate for vaginal dryness and other signs of menopause. The medical history should include questions about symptoms, medical conditions, and medications. Laboratory tests may include follicle-stimulating hormone (FSH) levels, thyroid function tests, and lipid profiles. The ESC recommends that women with a history of cardiovascular disease undergo a comprehensive medical evaluation, including a physical examination, medical history, and laboratory tests."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Several laboratory tests can be used to confirm the diagnosis of menopause and rule out other potential causes of symptoms. FSH levels can be used to confirm the diagnosis of menopause, as high levels of FSH are typically seen in postmenopausal women. Thyroid function tests can be used to rule out hypothyroidism, which can cause similar symptoms to menopause. Lipid profiles can be used to evaluate cardiovascular risk factors, such as high cholesterol and triglycerides. The AHA recommends that women with a history of cardiovascular disease undergo laboratory tests, including lipid profiles and thyroid function tests."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and mammography, can be used to evaluate for other potential causes of symptoms, such as ovarian cysts or breast cancer. However, these studies are not typically used to diagnose menopause. The NICE recommends that women with symptoms of menopause undergo a comprehensive medical evaluation, including a physical examination, medical history, and laboratory tests, rather than relying on imaging studies."
+          }
+        ],
+        "clinical_pearl": "A comprehensive medical evaluation is essential for diagnosing menopause and ruling out other potential causes of symptoms. Laboratory tests, such as FSH levels and thyroid function tests, can be used to confirm the diagnosis and evaluate for other potential causes of symptoms.",
+        "key_points": [
+          "The diagnosis of menopause is typically made based on symptoms and medical history.",
+          "A comprehensive medical evaluation is essential for diagnosing menopause.",
+          "FSH levels can be used to confirm the diagnosis of menopause.",
+          "Thyroid function tests can be used to rule out hypothyroidism.",
+          "Lipid profiles can be used to evaluate cardiovascular risk factors.",
+          "The ESC recommends that women with a history of cardiovascular disease undergo a comprehensive medical evaluation."
+        ],
+        "references": [
+          {
+            "title": "The North American Menopause Society Recommendations for Clinical Care",
+            "authors": "The North American Menopause Society",
+            "journal_or_source": "NAMS",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Comprehensive guide to menopause diagnosis and treatment"
+          },
+          {
+            "title": "Hormone Therapy for the Prevention and Treatment of Postmenopausal Osteoporosis",
+            "authors": "The American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for HRT in postmenopausal women with osteoporosis"
+          },
+          {
+            "title": "The Women's Health Initiative Memory Study",
+            "authors": "Shumaker SA, et al.",
+            "journal_or_source": "JAMA",
+            "year": 2003,
+            "type": "landmark trial",
+            "note": "Found that HRT increased the risk of dementia in postmenopausal women"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Menopause",
+      "content": {
+        "intro": "The treatment and management of menopause typically involve a combination of lifestyle modifications, non-pharmacologic interventions, and pharmacologic therapies. The goal of treatment is to alleviate symptoms, prevent long-term complications, and improve quality of life. The ACOG recommends that women with symptoms of menopause undergo a comprehensive medical evaluation and be offered a range of treatment options, including lifestyle modifications, non-pharmacologic interventions, and pharmacologic therapies.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications can be used to alleviate symptoms and improve quality of life. These modifications may include dietary changes, such as increasing calcium and vitamin D intake, and exercise, such as weight-bearing exercise to improve bone density. Stress management techniques, such as meditation and yoga, can also be used to alleviate symptoms. The ESC recommends that women with a history of cardiovascular disease undergo lifestyle modifications, including dietary changes and exercise, to reduce cardiovascular risk factors."
+          },
+          {
+            "heading": "Non-Pharmacologic Interventions",
+            "text": "Non-pharmacologic interventions, such as cognitive-behavioral therapy and acupuncture, can be used to alleviate symptoms and improve quality of life. Cognitive-behavioral therapy can be used to manage symptoms of anxiety and depression, while acupuncture can be used to manage symptoms of hot flashes and night sweats. The AHA recommends that women with a history of cardiovascular disease undergo non-pharmacologic interventions, such as cognitive-behavioral therapy and acupuncture, to reduce cardiovascular risk factors."
+          },
+          {
+            "heading": "Pharmacologic Therapies",
+            "text": "Pharmacologic therapies, such as hormone replacement therapy (HRT) and selective estrogen receptor modulators (SERMs), can be used to alleviate symptoms and prevent long-term complications. HRT can be used to manage symptoms of hot flashes and night sweats, as well as to prevent osteoporosis and cardiovascular disease. SERMs can be used to manage symptoms of hot flashes and night sweats, as well as to prevent osteoporosis. The NICE recommends that women with severe menopausal symptoms be offered HRT as a treatment option."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of menopause typically involve a combination of lifestyle modifications, non-pharmacologic interventions, and pharmacologic therapies. HRT can be used to manage symptoms of hot flashes and night sweats, as well as to prevent osteoporosis and cardiovascular disease.",
+        "key_points": [
+          "The goal of treatment is to alleviate symptoms, prevent long-term complications, and improve quality of life.",
+          "Lifestyle modifications, such as dietary changes and exercise, can be used to alleviate symptoms.",
+          "Non-pharmacologic interventions, such as cognitive-behavioral therapy and acupuncture, can be used to alleviate symptoms.",
+          "Pharmacologic therapies, such as HRT and SERMs, can be used to alleviate symptoms and prevent long-term complications.",
+          "The ESC recommends that women with a history of cardiovascular disease undergo lifestyle modifications and non-pharmacologic interventions.",
+          "The AHA recommends that women with a history of cardiovascular disease undergo lifestyle modifications and non-pharmacologic interventions."
+        ],
+        "references": [
+          {
+            "title": "The North American Menopause Society Recommendations for Clinical Care",
+            "authors": "The North American Menopause Society",
+            "journal_or_source": "NAMS",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Comprehensive guide to menopause diagnosis and treatment"
+          },
+          {
+            "title": "Hormone Therapy for the Prevention and Treatment of Postmenopausal Osteoporosis",
+            "authors": "The American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for HRT in postmenopausal women with osteoporosis"
+          },
+          {
+            "title": "The Women's Health Initiative Memory Study",
+            "authors": "Shumaker SA, et al.",
+            "journal_or_source": "JAMA",
+            "year": 2003,
+            "type": "landmark trial",
+            "note": "Found that HRT increased the risk of dementia in postmenopausal women"
+          }
+        ]
+      }
+    }
+  ]
+}

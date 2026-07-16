@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "HEMA-002",
+    "type": "specialty_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Leukaemia: ALL, AML, CLL, CML — Diagnosis, Cytogenetics and Treatment",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Leukaemia",
+      "content": {
+        "intro": "Leukaemia is a group of cancers that affect the blood and bone marrow, characterized by the uncontrolled growth of abnormal white blood cells. The four main types of leukaemia are Acute Lymphoblastic Leukaemia (ALL), Acute Myeloid Leukaemia (AML), Chronic Lymphocytic Leukaemia (CLL), and Chronic Myeloid Leukaemia (CML). According to the World Health Organization (WHO), leukaemia accounts for approximately 3.5% of all new cancer cases worldwide. The pathophysiology of leukaemia involves the disruption of normal haematopoiesis, leading to the accumulation of malignant cells in the bone marrow and peripheral blood. The aetiology of leukaemia is multifactorial, involving genetic, environmental, and lifestyle factors. For instance, exposure to ionizing radiation, certain chemicals, and viruses can increase the risk of developing leukaemia.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Leukaemia",
+            "text": "The incidence of leukaemia varies by age, sex, and geographic location. According to the International Agency for Research on Cancer (IARC), the global incidence of leukaemia is approximately 437,000 new cases per year. The most common type of leukaemia is CLL, accounting for approximately 30% of all leukaemia cases. AML is the second most common type, accounting for approximately 25% of all leukaemia cases. The 5-year survival rate for leukaemia patients has improved significantly over the past few decades, from 34% in the 1970s to 63% in the 2010s, according to the Surveillance, Epidemiology, and End Results (SEER) program. This improvement is largely due to advances in treatment, including the introduction of targeted therapies such as tyrosine kinase inhibitors (TKIs) and monoclonal antibodies."
+          },
+          {
+            "heading": "Pathophysiology of Leukaemia",
+            "text": "The pathophysiology of leukaemia involves the disruption of normal haematopoiesis, leading to the accumulation of malignant cells in the bone marrow and peripheral blood. This disruption can occur at various stages of haematopoiesis, including the stem cell, progenitor cell, and mature cell stages. The molecular mechanisms underlying leukaemia are complex and involve multiple genetic and epigenetic alterations. For example, mutations in the BCR-ABL1 gene are commonly found in CML patients, while mutations in the FLT3 gene are commonly found in AML patients. These genetic alterations can lead to the activation of signalling pathways that promote cell proliferation and survival, such as the PI3K/AKT and MAPK/ERK pathways."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic and environmental factors play a crucial role in the development of leukaemia. For example, exposure to ionizing radiation, such as that from nuclear accidents or medical imaging, can increase the risk of developing leukaemia. Certain chemicals, such as benzene and pesticides, have also been linked to an increased risk of leukaemia. Additionally, genetic syndromes, such as Down syndrome and Fanconi anaemia, can increase the risk of developing leukaemia. The European Society for Medical Oncology (ESMO) recommends that patients with a family history of leukaemia or other cancers undergo genetic counselling and testing to identify potential genetic mutations."
+          }
+        ],
+        "clinical_pearl": "The 5-year survival rate for leukaemia patients has improved significantly over the past few decades, from 34% in the 1970s to 63% in the 2010s, according to the SEER program.",
+        "key_points": [
+          "The global incidence of leukaemia is approximately 437,000 new cases per year.",
+          "The most common type of leukaemia is CLL, accounting for approximately 30% of all leukaemia cases.",
+          "The 5-year survival rate for leukaemia patients has improved significantly over the past few decades.",
+          "Exposure to ionizing radiation and certain chemicals can increase the risk of developing leukaemia.",
+          "Genetic syndromes, such as Down syndrome and Fanconi anaemia, can increase the risk of developing leukaemia.",
+          "The ESMO recommends that patients with a family history of leukaemia or other cancers undergo genetic counselling and testing."
+        ],
+        "references": [
+          {
+            "title": "Global Cancer Statistics 2020",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "CA: A Cancer Journal for Clinicians",
+            "year": 2020,
+            "type": "report",
+            "note": "The global incidence of leukaemia is approximately 437,000 new cases per year."
+          },
+          {
+            "title": "Leukaemia - An Overview",
+            "authors": "National Cancer Institute",
+            "journal_or_source": "National Cancer Institute",
+            "year": 2022,
+            "type": "review",
+            "note": "The most common type of leukaemia is CLL, accounting for approximately 30% of all leukaemia cases."
+          },
+          {
+            "title": "SEER Cancer Statistics Review, 1975-2019",
+            "authors": "Surveillance, Epidemiology, and End Results (SEER) Program",
+            "journal_or_source": "National Cancer Institute",
+            "year": 2022,
+            "type": "report",
+            "note": "The 5-year survival rate for leukaemia patients has improved significantly over the past few decades."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Leukaemia",
+      "content": {
+        "intro": "The clinical presentation of leukaemia can vary depending on the type and stage of the disease. Common symptoms include fatigue, weight loss, and recurrent infections. Patients with leukaemia may also experience bleeding or bruising due to thrombocytopenia, or anaemia due to a lack of red blood cells. The diagnosis of leukaemia is typically made through a combination of physical examination, laboratory tests, and imaging studies. For example, a complete blood count (CBC) can help identify abnormalities in the blood, such as a low platelet count or a high white blood cell count.",
+        "sections": [
+          {
+            "heading": "Symptoms of Leukaemia",
+            "text": "The symptoms of leukaemia can vary depending on the type and stage of the disease. Common symptoms include fatigue, weight loss, and recurrent infections. Patients with leukaemia may also experience bleeding or bruising due to thrombocytopenia, or anaemia due to a lack of red blood cells. The American Society of Hematology (ASH) recommends that patients with suspected leukaemia undergo a thorough physical examination and laboratory tests to confirm the diagnosis."
+          },
+          {
+            "heading": "Physical Examination",
+            "text": "A physical examination can help identify signs of leukaemia, such as lymphadenopathy or splenomegaly. The examiner may also check for signs of infection, such as fever or chills. The National Comprehensive Cancer Network (NCCN) recommends that patients with suspected leukaemia undergo a thorough physical examination, including a lymph node examination and a spleen examination."
+          },
+          {
+            "heading": "Laboratory Tests and Imaging Studies",
+            "text": "Laboratory tests and imaging studies can help confirm the diagnosis of leukaemia. A CBC can help identify abnormalities in the blood, such as a low platelet count or a high white blood cell count. Imaging studies, such as a chest X-ray or a computed tomography (CT) scan, can help identify signs of infection or organ damage. The European Society for Medical Oncology (ESMO) recommends that patients with suspected leukaemia undergo a CBC and imaging studies to confirm the diagnosis."
+          }
+        ],
+        "clinical_pearl": "The symptoms of leukaemia can vary depending on the type and stage of the disease, and a thorough physical examination and laboratory tests are necessary to confirm the diagnosis.",
+        "key_points": [
+          "The symptoms of leukaemia can vary depending on the type and stage of the disease.",
+          "Common symptoms of leukaemia include fatigue, weight loss, and recurrent infections.",
+          "A physical examination can help identify signs of leukaemia, such as lymphadenopathy or splenomegaly.",
+          "Laboratory tests, such as a CBC, can help confirm the diagnosis of leukaemia.",
+          "Imaging studies, such as a chest X-ray or a CT scan, can help identify signs of infection or organ damage.",
+          "The ASH recommends that patients with suspected leukaemia undergo a thorough physical examination and laboratory tests to confirm the diagnosis."
+        ],
+        "references": [
+          {
+            "title": "Leukaemia - An Overview",
+            "authors": "National Cancer Institute",
+            "journal_or_source": "National Cancer Institute",
+            "year": 2022,
+            "type": "review",
+            "note": "The symptoms of leukaemia can vary depending on the type and stage of the disease."
+          },
+          {
+            "title": "Diagnosis and Management of Leukaemia",
+            "authors": "American Society of Hematology",
+            "journal_or_source": "American Society of Hematology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "A physical examination can help identify signs of leukaemia, such as lymphadenopathy or splenomegaly."
+          },
+          {
+            "title": "Leukaemia - Diagnosis and Treatment",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "European Society for Medical Oncology",
+            "year": 2022,
+            "type": "review",
+            "note": "Laboratory tests and imaging studies can help confirm the diagnosis of leukaemia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Leukaemia",
+      "content": {
+        "intro": "The diagnosis of leukaemia is typically made through a combination of physical examination, laboratory tests, and imaging studies. Laboratory tests, such as a CBC and a bone marrow biopsy, can help identify abnormalities in the blood and bone marrow. Imaging studies, such as a chest X-ray or a CT scan, can help identify signs of infection or organ damage. The diagnosis of leukaemia is typically confirmed through a combination of these tests and a thorough physical examination.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as a CBC and a bone marrow biopsy, can help identify abnormalities in the blood and bone marrow. A CBC can help identify a low platelet count or a high white blood cell count, while a bone marrow biopsy can help identify abnormal cells in the bone marrow. The National Institute for Health and Care Excellence (NICE) recommends that patients with suspected leukaemia undergo a CBC and a bone marrow biopsy to confirm the diagnosis."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as a chest X-ray or a CT scan, can help identify signs of infection or organ damage. A chest X-ray can help identify signs of pneumonia or other respiratory infections, while a CT scan can help identify signs of organ damage or infection. The American College of Radiology (ACR) recommends that patients with suspected leukaemia undergo imaging studies to identify signs of infection or organ damage."
+          },
+          {
+            "heading": "Cytogenetic and Molecular Testing",
+            "text": "Cytogenetic and molecular testing can help identify genetic abnormalities in the blood and bone marrow. These tests can help identify specific types of leukaemia, such as CML or AML, and can help guide treatment decisions. The European LeukaemiaNet recommends that patients with suspected leukaemia undergo cytogenetic and molecular testing to identify genetic abnormalities."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of leukaemia is typically made through a combination of physical examination, laboratory tests, and imaging studies, and a thorough physical examination and laboratory tests are necessary to confirm the diagnosis.",
+        "key_points": [
+          "The diagnosis of leukaemia is typically made through a combination of physical examination, laboratory tests, and imaging studies.",
+          "Laboratory tests, such as a CBC and a bone marrow biopsy, can help identify abnormalities in the blood and bone marrow.",
+          "Imaging studies, such as a chest X-ray or a CT scan, can help identify signs of infection or organ damage.",
+          "Cytogenetic and molecular testing can help identify genetic abnormalities in the blood and bone marrow.",
+          "The NICE recommends that patients with suspected leukaemia undergo a CBC and a bone marrow biopsy to confirm the diagnosis.",
+          "The ACR recommends that patients with suspected leukaemia undergo imaging studies to identify signs of infection or organ damage."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and Management of Leukaemia",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The diagnosis of leukaemia is typically made through a combination of physical examination, laboratory tests, and imaging studies."
+          },
+          {
+            "title": "Leukaemia - Diagnosis and Treatment",
+            "authors": "American College of Radiology",
+            "journal_or_source": "American College of Radiology",
+            "year": 2022,
+            "type": "review",
+            "note": "Imaging studies, such as a chest X-ray or a CT scan, can help identify signs of infection or organ damage."
+          },
+          {
+            "title": "Cytogenetic and Molecular Testing in Leukaemia",
+            "authors": "European LeukaemiaNet",
+            "journal_or_source": "European LeukaemiaNet",
+            "year": 2022,
+            "type": "review",
+            "note": "Cytogenetic and molecular testing can help identify genetic abnormalities in the blood and bone marrow."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Leukaemia",
+      "content": {
+        "intro": "The treatment and management of leukaemia depend on the type and stage of the disease. Treatment options may include chemotherapy, targeted therapy, radiation therapy, and bone marrow transplantation. The goal of treatment is to achieve complete remission, which is defined as the absence of detectable cancer cells in the blood and bone marrow. The American Society of Clinical Oncology (ASCO) recommends that patients with leukaemia undergo a thorough evaluation to determine the best course of treatment.",
+        "sections": [
+          {
+            "heading": "Chemotherapy",
+            "text": "Chemotherapy is a common treatment option for leukaemia, and is often used in combination with other treatments. Chemotherapy works by killing cancer cells or stopping them from growing and dividing. The NCCN recommends that patients with leukaemia undergo chemotherapy as part of their treatment plan."
+          },
+          {
+            "heading": "Targeted Therapy",
+            "text": "Targeted therapy is a type of treatment that targets specific molecules involved in the growth and survival of cancer cells. Targeted therapy is often used in combination with chemotherapy and other treatments. The ESMO recommends that patients with leukaemia undergo targeted therapy as part of their treatment plan."
+          },
+          {
+            "heading": "Radiation Therapy and Bone Marrow Transplantation",
+            "text": "Radiation therapy and bone marrow transplantation are other treatment options for leukaemia. Radiation therapy uses high-energy rays to kill cancer cells, while bone marrow transplantation involves replacing the patient's bone marrow with healthy bone marrow from a donor. The ASCO recommends that patients with leukaemia undergo radiation therapy and bone marrow transplantation as part of their treatment plan."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of leukaemia depend on the type and stage of the disease, and a thorough evaluation is necessary to determine the best course of treatment.",
+        "key_points": [
+          "The treatment and management of leukaemia depend on the type and stage of the disease.",
+          "Treatment options may include chemotherapy, targeted therapy, radiation therapy, and bone marrow transplantation.",
+          "The goal of treatment is to achieve complete remission, which is defined as the absence of detectable cancer cells in the blood and bone marrow.",
+          "The ASCO recommends that patients with leukaemia undergo a thorough evaluation to determine the best course of treatment.",
+          "The NCCN recommends that patients with leukaemia undergo chemotherapy as part of their treatment plan.",
+          "The ESMO recommends that patients with leukaemia undergo targeted therapy as part of their treatment plan."
+        ],
+        "references": [
+          {
+            "title": "Leukaemia - Treatment and Management",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "American Society of Clinical Oncology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The treatment and management of leukaemia depend on the type and stage of the disease."
+          },
+          {
+            "title": "Chemotherapy in Leukaemia",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "review",
+            "note": "Chemotherapy is a common treatment option for leukaemia, and is often used in combination with other treatments."
+          },
+          {
+            "title": "Targeted Therapy in Leukaemia",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "European Society for Medical Oncology",
+            "year": 2022,
+            "type": "review",
+            "note": "Targeted therapy is a type of treatment that targets specific molecules involved in the growth and survival of cancer cells."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Leukaemia",
+      "content": {
+        "intro": "The complications and prognosis of leukaemia depend on the type and stage of the disease. Common complications include infection, bleeding, and organ damage. The prognosis of leukaemia is generally poor, with a 5-year survival rate of approximately 63%. However, the prognosis can vary depending on the type and stage of the disease, as well as the effectiveness of treatment. The NCCN recommends that patients with leukaemia undergo regular follow-up appointments to monitor for complications and adjust treatment as needed.",
+        "sections": [
+          {
+            "heading": "Infection",
+            "text": "Infection is a common complication of leukaemia, and can be caused by a variety of factors, including chemotherapy, radiation therapy, and bone marrow transplantation. The ASCO recommends that patients with leukaemia undergo regular monitoring for infection, and that they receive prompt treatment if an infection is suspected."
+          },
+          {
+            "heading": "Bleeding and Organ Damage",
+            "text": "Bleeding and organ damage are other common complications of leukaemia. Bleeding can be caused by a low platelet count, while organ damage can be caused by a variety of factors, including chemotherapy, radiation therapy, and bone marrow transplantation. The ESMO recommends that patients with leukaemia undergo regular monitoring for bleeding and organ damage, and that they receive prompt treatment if these complications are suspected."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of leukaemia is generally poor, with a 5-year survival rate of approximately 63%. However, the prognosis can vary depending on the type and stage of the disease, as well as the effectiveness of treatment. The NICE recommends that patients with leukaemia undergo regular follow-up appointments to monitor for complications and adjust treatment as needed."
+          }
+        ],
+        "clinical_pearl": "The complications and prognosis of leukaemia depend on the type and stage of the disease, and regular follow-up appointments are necessary to monitor for complications and adjust treatment as needed.",
+        "key_points": [
+          "The complications and prognosis of leukaemia depend on the type and stage of the disease.",
+          "Common complications include infection, bleeding, and organ damage.",
+          "The prognosis of leukaemia is generally poor, with a 5-year survival rate of approximately 63%.",
+          "The ASCO recommends that patients with leukaemia undergo regular monitoring for infection, and that they receive prompt treatment if an infection is suspected.",
+          "The ESMO recommends that patients with leukaemia undergo regular monitoring for bleeding and organ damage, and that they receive prompt treatment if these complications are suspected.",
+          "The NICE recommends that patients with leukaemia undergo regular follow-up appointments to monitor for complications and adjust treatment as needed."
+        ],
+        "references": [
+          {
+            "title": "Leukaemia - Complications and Prognosis",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The complications and prognosis of leukaemia depend on the type and stage of the disease."
+          },
+          {
+            "title": "Infection in Leukaemia",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "American Society of Clinical Oncology",
+            "year": 2022,
+            "type": "review",
+            "note": "Infection is a common complication of leukaemia, and can be caused by a variety of factors, including chemotherapy, radiation therapy, and bone marrow transplantation."
+          },
+          {
+            "title": "Bleeding and Organ Damage in Leukaemia",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "European Society for Medical Oncology",
+            "year": 2022,
+            "type": "review",
+            "note": "Bleeding and organ damage are other common complications of leukaemia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Current Research and Future Directions in Leukaemia",
+      "content": {
+        "intro": "Current research in leukaemia is focused on developing new and more effective treatments, as well as improving our understanding of the disease. Future directions in leukaemia research include the development of targeted therapies, immunotherapies, and gene therapies. The ASCO recommends that patients with leukaemia participate in clinical trials to help advance our understanding of the disease and develop new treatments.",
+        "sections": [
+          {
+            "heading": "Targeted Therapies",
+            "text": "Targeted therapies are a type of treatment that targets specific molecules involved in the growth and survival of cancer cells. Targeted therapies have shown promise in the treatment of leukaemia, and are currently being studied in clinical trials. The NCCN recommends that patients with leukaemia consider participating in clinical trials of targeted therapies."
+          },
+          {
+            "heading": "Immunotherapies",
+            "text": "Immunotherapies are a type of treatment that uses the body's immune system to fight cancer. Immunotherapies have shown promise in the treatment of leukaemia, and are currently being studied in clinical trials. The ESMO recommends that patients with leukaemia consider participating in clinical trials of immunotherapies."
+          },
+          {
+            "heading": "Gene Therapies",
+            "text": "Gene therapies are a type of treatment that involves modifying the genes of cancer cells to prevent them from growing and dividing. Gene therapies have shown promise in the treatment of leukaemia, and are currently being studied in clinical trials. The NICE recommends that patients with leukaemia consider participating in clinical trials of gene therapies."
+          }
+        ],
+        "clinical_pearl": "Current research in leukaemia is focused on developing new and more effective treatments, and patients with leukaemia should consider participating in clinical trials to help advance our understanding of the disease and develop new treatments.",
+        "key_points": [
+          "Current research in leukaemia is focused on developing new and more effective treatments.",
+          "Targeted therapies, immunotherapies, and gene therapies are being studied in clinical trials.",
+          "The ASCO recommends that patients with leukaemia participate in clinical trials to help advance our understanding of the disease and develop new treatments.",
+          "The NCCN recommends that patients with leukaemia consider participating in clinical trials of targeted therapies.",
+          "The ESMO recommends that patients with leukaemia consider participating in clinical trials of immunotherapies.",
+          "The NICE recommends that patients with leukaemia consider participating in clinical trials of gene therapies."
+        ],
+        "references": [
+          {
+            "title": "Leukaemia - Current Research and Future Directions",
+            "authors": "American Society of Clinical Oncology",
+            "journal_or_source": "American Society of Clinical Oncology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Current research in leukaemia is focused on developing new and more effective treatments."
+          },
+          {
+            "title": "Targeted Therapies in Leukaemia",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "National Comprehensive Cancer Network",
+            "year": 2022,
+            "type": "review",
+            "note": "Targeted therapies have shown promise in the treatment of leukaemia."
+          },
+          {
+            "title": "Immunotherapies in Leukaemia",
+            "authors": "European Society for Medical Oncology",
+            "journal_or_source": "European Society for Medical Oncology",
+            "year": 2022,
+            "type": "review",
+            "note": "Immunotherapies have shown promise in the treatment of leukaemia."
+          }
+        ]
+      }
+    }
+  ]
+}

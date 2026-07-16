@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "id": "NURSE-006",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Emergency Situations: The Nurse's Role Before the Doctor Arrives",
+    "title_en": "Emergency Situations: The Nurse's Role Before the Doctor Arrives",
+    "order_in_specialty": 6,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-005"],
+    "duration_hours": 4,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["AHA ACLS/BLS Guidelines 2020", "Resuscitation Council UK 2021", "WHO Basic Emergency Care 2018"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Basic Life Support and Calling for Help",
+      "order": 1,
+      "lay_summary": "When a patient collapses, nurses act immediately: check for response, call for help, begin CPR. Every second matters — brain damage begins within 4 minutes without CPR.",
+      "content": {
+        "intro": "Nurses are the most likely healthcare professional to witness a patient collapse. The first five minutes of response determine outcomes. BLS with early defibrillation is the foundation.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "The Chain of Survival — In-Hospital",
+            "body": "1. Prevention and early recognition (NEWS2). 2. In-hospital cardiac arrest call — activate emergency response system immediately. 3. Early CPR — minimise interruptions. 4. Rapid defibrillation — for VF/pVT, each minute without defibrillation reduces survival by 7–10%. 5. Advanced life support — medical team. 6. Post-resuscitation care.\nNurses control links 1 and 2 and begin link 3 before medical team arrives."
+          },
+          {
+            "title": "BLS Sequence (Hospital, Adult)",
+            "body": "D — Danger: safe to approach? Remove electrical hazards, body fluids.\nR — Response: shout 'Are you alright?' and shake shoulders (not head if trauma suspected). No response → go to S.\nS — Shout for help: call out, press emergency call button, send someone to call cardiac arrest team.\nA — Airway: head-tilt/chin-lift. If trauma — jaw thrust only. Look for foreign body.\nB — Breathing: look/listen/feel for 10 seconds. No breathing (or only agonal gasps) = arrest.\nC — Chest compressions: 100–120/min, 5–6 cm depth, full recoil, hard surface. 30:2 ratio with rescue breaths. Do not stop except for AED analysis and defibrillation (<5 s pause).\nD — Defibrillation: apply AED as soon as available. Follow prompts. Resume CPR immediately after shock delivery."
+          },
+          {
+            "title": "Key Nursing Responsibilities During Resuscitation",
+            "body": "Before team arrives: commence CPR; apply AED if available.\nWhen team arrives: give brief handover (SBAR), continue your assigned role. Typical nursing roles: chest compressions (rotate every 2 min to prevent fatigue), IV access and drug administration, documentation (time of collapse, CPR start, drug administration, rhythm changes), monitoring/defibrillator operation, family support and communication, preparation of resuscitation drugs (adrenaline 1 mg IV, amiodarone), crowd management."
+          }
+        ],
+        "clinical_pearl": "Chest compression quality is the single most modifiable factor in CPR outcomes. Rate 100–120/min and depth 5–6 cm must be maintained. Compressions get shallow after 60–90 seconds due to fatigue — rotate every 2 minutes. Minimising hands-off time (interruptions) is equally critical.",
+        "key_points": [
+          "BLS sequence: D-R-S-A-B-C-D (Danger, Response, Shout, Airway, Breathing, CPR, Defibrillation)",
+          "Call the cardiac arrest team BEFORE starting CPR if you are alone — unless a second person is available",
+          "Compressions: 100–120/min, 5–6 cm depth, ratio 30:2",
+          "Rotate compressors every 2 minutes; pause only for AED analysis/shock (<5 s)",
+          "Document time of arrest, CPR start, rhythm, drugs, and team arrival"
+        ],
+        "references": ["Resuscitation Council UK BLS Algorithm 2021", "AHA CPR & ECC Guidelines Update 2020"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Common In-Hospital Emergencies: Hypoglycaemia, Anaphylaxis, Airway Obstruction",
+      "order": 2,
+      "content": {
+        "intro": "Three common emergencies nurses manage before and alongside medical teams: hypoglycaemia (time-critical, nurse-managed), anaphylaxis (adrenaline within 5 minutes), and choking (immediate Heimlich/back blows).",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Hypoglycaemia",
+            "body": "Recognition: blood glucose <4 mmol/L (<72 mg/dL) with symptoms: sweating, tremor, anxiety, pallor, palpitations, confusion, seizure, coma. Can be asymptomatic (unawareness).\nConscious patient who can swallow: 15–20 g fast-acting carbohydrates (4 glucose tablets; 150 mL fruit juice; 5–6 Dextrogel sachets). Recheck BG in 15 min. Repeat if still <4. Then give long-acting carbohydrate (toast, biscuits) once stabilised.\nUnconscious or unable to swallow: IV dextrose (10% 200 mL or 50% 50 mL) OR IM glucagon 1 mg. Glucagon is less effective in severe malnutrition or post-alcohol. Recheck BG in 10 min; target >4 mmol/L."
+          },
+          {
+            "title": "Anaphylaxis",
+            "body": "Recognition: acute onset after trigger (drug, food, latex, insect sting) with any of: airway threat (stridor, throat swelling), breathing threat (wheeze, bronchospasm, hypoxia), circulation compromise (hypotension, tachycardia, loss of consciousness), plus skin/mucosal changes (urticaria, angioedema) often present but not always.\nTreatment (immediate, nurse can initiate):\n1. Remove trigger if possible. 2. Call for help. 3. Position: flat with legs elevated (if unconscious/low BP); semi-recumbent if breathing difficulty; recovery position if unconscious. 4. ADRENALINE (epinephrine) 0.5 mg IM (adults) — anterolateral mid-thigh. Can be repeated every 5 min. This is the priority drug. 5. High-flow O2. 6. IV access; crystalloid bolus 500–1000 mL. 7. Antihistamines and hydrocortisone are SECOND-LINE — give after adrenaline, do not substitute."
+          },
+          {
+            "title": "Foreign Body Airway Obstruction (Choking)",
+            "body": "Conscious adult with severe obstruction (cannot speak, cough, breathe; cyanosis): 5 back blows (between shoulder blades, heel of hand, lean forward). If ineffective: 5 abdominal thrusts (Heimlich manoeuvre — upward thrust below xiphoid). Alternate 5+5 until object expelled or consciousness lost.\nConscious: encourage coughing if mild obstruction (can cough, speak). Do NOT perform back blows for mild obstruction.\nUnconscious: start BLS; look in mouth before each breath for visible object; remove only if visible.\nPregnant/obese: chest thrusts instead of abdominal thrusts."
+          }
+        ],
+        "clinical_pearl": "In anaphylaxis, adrenaline (epinephrine) IM is the ONLY first-line treatment. Antihistamines (chlorphenamine) and hydrocortisone are second-line adjuncts — they do NOT treat the life-threatening features. Giving an antihistamine alone while the patient deteriorates from bronchospasm or hypotension is a fatal error.",
+        "key_points": [
+          "Hypoglycaemia <4 mmol/L conscious: 15–20g fast carbs, recheck in 15 min; unconscious: IV dextrose or IM glucagon",
+          "Anaphylaxis: adrenaline 0.5 mg IM anterolateral thigh is first-line and can be given by nurses",
+          "Antihistamines are second-line in anaphylaxis — never substitute for adrenaline",
+          "Choking: 5 back blows then 5 abdominal thrusts; alternate until resolved or unconscious",
+          "Pregnancy/obesity: chest thrusts replace abdominal thrusts in choking"
+        ],
+        "references": ["Resuscitation Council UK Anaphylaxis Guidelines 2021", "ADA Hypoglycaemia Management Standards 2023"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "BLS compression rate and depth for adults?", "answer": "100–120 per minute; 5–6 cm depth; allow full chest recoil.", "difficulty": "easy"},
+    {"question": "How often should you rotate chest compressors during CPR?", "answer": "Every 2 minutes (or sooner if fatigue is evident) to maintain compression quality.", "difficulty": "easy"},
+    {"question": "First-line drug for anaphylaxis and dose?", "answer": "Adrenaline (epinephrine) 0.5 mg IM, anterolateral mid-thigh. Can repeat every 5 minutes.", "difficulty": "medium"},
+    {"question": "Treatment for a conscious patient with blood glucose 2.8 mmol/L?", "answer": "15–20g fast-acting carbohydrates (e.g. 4 glucose tablets or 150 mL fruit juice); recheck glucose in 15 min; follow with long-acting carbohydrate once ≥4 mmol/L.", "difficulty": "medium"},
+    {"question": "Technique for adult severe choking (cannot cough or speak)?", "answer": "5 back blows (heel of hand, between shoulder blades) alternating with 5 abdominal thrusts (Heimlich). Continue until expelled or unconscious.", "difficulty": "medium"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "You find a patient unresponsive in bed. You shake their shoulders — no response. You are alone. What is the correct NEXT action?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Begin chest compressions immediately",
+        "B": "Press the emergency call button and shout for help before returning to the patient to start CPR",
+        "C": "Check for breathing for 10 seconds, then call for help",
+        "D": "Apply the AED immediately"
+      },
+      "correct": "B",
+      "explanation": "The sequence is D-R-S (Danger, Response, Shout/Send for help). When alone in hospital, activate the emergency response system BEFORE starting CPR because defibrillation by the arrest team is critical and cannot be delayed. In BLS the 30:2 ratio begins after help is summoned. In out-of-hospital with no responders expected, start CPR first then call.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient develops urticaria, stridor, and hypotension 10 minutes after receiving IV penicillin. What is the correct IMMEDIATE priority treatment?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer IV chlorphenamine (antihistamine) 10 mg",
+        "B": "Administer IV hydrocortisone 200 mg",
+        "C": "Administer adrenaline 0.5 mg IM into the anterolateral thigh",
+        "D": "Apply high-flow oxygen and wait for the physician"
+      },
+      "correct": "C",
+      "explanation": "Adrenaline IM is the only first-line treatment for anaphylaxis. It treats all life-threatening features: stridor (airway), bronchospasm (breathing), and hypotension (circulation). Antihistamines and hydrocortisone are second-line and do not reverse acute anaphylaxis. Oxygen is important but not the priority over adrenaline.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Select ALL of the nurse's responsibilities during a witnessed in-hospital cardiac arrest BEFORE the medical team arrives.",
+      "question_type": "sata",
+      "options": {
+        "A": "Start chest compressions immediately",
+        "B": "Activate the cardiac arrest team",
+        "C": "Administer adrenaline 1 mg IV",
+        "D": "Apply the AED if available",
+        "E": "Document time of collapse",
+        "F": "Establish IV access"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "B", "D", "E"],
+      "explanation": "Before the team arrives: start CPR immediately (A), activate the team (B — if two people, one calls while other starts CPR), apply AED (D), document time (E). IV adrenaline 1 mg (C) is an advanced life support drug given by the medical team after IV access is secured — not a nurse-initiation pre-arrest role in most settings. IV access (F) is done when possible but not at the expense of compressions.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Place the following nursing actions in the correct priority order for a patient with suspected anaphylaxis to IV contrast dye.",
+      "question_type": "ordered",
+      "options": {
+        "A": "Administer IV chlorphenamine and hydrocortisone",
+        "B": "Stop the IV contrast infusion",
+        "C": "Administer adrenaline 0.5 mg IM anterolateral thigh",
+        "D": "Call for help and activate the emergency response",
+        "E": "Apply high-flow oxygen"
+      },
+      "correct": "B",
+      "correct_order": ["B", "D", "C", "E", "A"],
+      "explanation": "First: remove the trigger (B — stop contrast). Simultaneously call for help (D). Administer adrenaline IM immediately (C — first-line drug). Apply oxygen (E). Antihistamines and hydrocortisone (A) are given after adrenaline as second-line adjuncts.",
+      "difficulty": "hard"
+    }
+  ],
+  "clinical_cases": [
+    {
+      "title": "Anaphylaxis to IV Antibiotic",
+      "specialty": "Nursing",
+      "difficulty": "hard",
+      "presentation": "Mr. Okafor, 45 years old, is receiving IV cefazolin for a surgical wound infection. Ten minutes after you start the infusion he rings his call bell. You find him: flushed, anxious, saying 'I feel like something is wrong'. On assessment: HR 130 bpm, BP 80/50 mmHg, RR 28/min, SpO2 90%, widespread urticaria on trunk. He is struggling to breathe.",
+      "vitals": {"hr": 130, "bp": "80/50", "rr": 28, "spo2": 90},
+      "diagnosis": "Anaphylaxis to IV cephalosporin",
+      "management": ["Stop infusion", "Call for help", "Adrenaline IM", "O2", "IV fluids", "Second-line drugs"],
+      "teaching_points": [
+        "Anaphylaxis triad: airway (stridor/angioedema) + breathing (bronchospasm/hypoxia) + circulation (hypotension/tachycardia) — plus skin changes",
+        "Stop the trigger immediately — do not continue the infusion",
+        "Adrenaline IM (not IV unless trained) 0.5 mg in anterolateral thigh is first and priority action",
+        "Do not delay adrenaline to wait for a physician — it is a nurse-administrable emergency drug",
+        "Antihistamines do not treat life-threatening anaphylaxis — they are adjuncts only"
+      ],
+      "steps": [
+        {
+          "id": "S1",
+          "title": "Initial Recognition",
+          "description": "Mr. Okafor is deteriorating rapidly. What is the FIRST action?",
+          "choices": [
+            {"id": "C1a", "text": "Stop the IV cefazolin infusion immediately", "next_step": "S2", "outcome": "correct", "score_delta": 25},
+            {"id": "C1b", "text": "Slow the infusion rate and observe for 5 minutes", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -25},
+            {"id": "C1c", "text": "Call the physician and wait for instructions", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C1d", "text": "Administer IV chlorphenamine immediately", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20}
+          ]
+        },
+        {
+          "id": "S2",
+          "title": "Infusion Stopped",
+          "description": "Infusion is stopped. Mr. Okafor's BP is now 75/45 mmHg, SpO2 88%. What is the priority drug?",
+          "choices": [
+            {"id": "C2a", "text": "Adrenaline 0.5 mg IM anterolateral thigh", "next_step": "S3", "outcome": "correct", "score_delta": 30},
+            {"id": "C2b", "text": "IV hydrocortisone 200 mg", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C2c", "text": "IV chlorphenamine 10 mg", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
+            {"id": "C2d", "text": "IV salbutamol for bronchospasm", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+          ]
+        },
+        {
+          "id": "S3",
+          "title": "After Adrenaline",
+          "description": "Adrenaline given. What are your next concurrent nursing actions? (Select the best combination.)",
+          "choices": [
+            {"id": "C3a", "text": "Apply 15 L/min O2 via non-rebreather mask; ensure IV access; call for emergency help", "next_step": "S4", "outcome": "correct", "score_delta": 20},
+            {"id": "C3b", "text": "Position patient sitting upright and wait for physician", "next_step": "S4", "outcome": "partial", "score_delta": 5},
+            {"id": "C3c", "text": "Administer IV chlorphenamine and hydrocortisone now", "next_step": "S4", "outcome": "partial", "score_delta": 10}
+          ]
+        },
+        {
+          "id": "S4",
+          "title": "Outcome",
+          "description": "Mr. Okafor responds to adrenaline. BP improves to 100/70 mmHg, SpO2 95% on O2. The medical team arrives. What documentation is essential?",
+          "choices": [
+            {"id": "C4a", "text": "Time of reaction onset, drugs given (name, dose, route, time), vital signs before and after, physician notification time", "next_step": null, "outcome": "correct", "score_delta": 10},
+            {"id": "C4b", "text": "Only document that adrenaline was given", "next_step": null, "outcome": "partial", "score_delta": 3}
+          ]
+        },
+        {
+          "id": "S_wrong1",
+          "title": "Delayed Recognition",
+          "description": "Continuing or slowing the cefazolin infusion in a suspected anaphylaxis reaction delays trigger removal and worsens the reaction. Mr. Okafor deteriorates to cardiorespiratory arrest. The most important first step is always to stop the causative agent.",
+          "choices": []
+        },
+        {
+          "id": "S_wrong2",
+          "title": "Wrong Drug Priority",
+          "description": "Antihistamines (chlorphenamine) and corticosteroids (hydrocortisone) are second-line drugs in anaphylaxis. They do NOT treat bronchospasm, angioedema, or circulatory collapse. Only adrenaline (epinephrine) treats all life-threatening features of anaphylaxis. Administer adrenaline first.",
+          "choices": []
+        }
+      ],
+      "initial_step_id": "S1",
+      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "max_score": 85
+    }
+  ]
+}

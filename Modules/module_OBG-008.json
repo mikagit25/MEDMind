@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "OBG-008",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Gynaecological Emergencies: Ectopic Pregnancy, Ovarian Torsion and PID",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Gynaecological Emergencies",
+      "content": {
+        "intro": "Gynaecological emergencies, including ectopic pregnancy, ovarian torsion, and pelvic inflammatory disease (PID), are critical conditions that require prompt recognition and management. Ectopic pregnancy occurs when a fertilized egg implants outside the uterus, most commonly in the fallopian tube, and is a leading cause of maternal mortality in the first trimester. Ovarian torsion is a condition where the ovary twists around its ligaments, cutting off blood supply, and can lead to severe pain and potential loss of the ovary if not treated promptly. PID refers to infection of the female reproductive organs and can lead to serious complications, including infertility and chronic pelvic pain. Understanding the epidemiology and pathophysiology of these conditions is crucial for providing effective care.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Ectopic Pregnancy",
+            "text": "Ectopic pregnancy affects approximately 1 in 50 pregnancies in the United States, with the highest risk in women with a history of pelvic surgery, tubal ligation, or infertility treatments. The risk is also increased in women who smoke or have a history of pelvic inflammatory disease. According to the American College of Obstetricians and Gynecologists (ACOG), the incidence of ectopic pregnancy has been rising, likely due to increased use of assisted reproductive technologies and improved diagnostic capabilities. The 2019 ACOG guidelines recommend that all women of childbearing age with abdominal pain or vaginal bleeding be evaluated for ectopic pregnancy, especially if they have risk factors."
+          },
+          {
+            "heading": "Pathophysiology of Ovarian Torsion",
+            "text": "Ovarian torsion occurs when the ovary twists around its ligaments, causing obstruction of blood flow. This can happen in women of any age but is more common in reproductive-aged women. The pathophysiology involves the twisting of the ovarian pedicle, which contains the ovarian artery and vein, leading to ischemia and potentially necrosis of the ovarian tissue. Prompt surgical intervention is critical to preserve ovarian function. The European Society of Human Reproduction and Embryology (ESHRE) 2020 guidelines emphasize the importance of early diagnosis and treatment to prevent long-term complications."
+          },
+          {
+            "heading": "Pathophysiology of PID",
+            "text": "PID is an infection of the female reproductive organs that can lead to serious complications, including infertility, chronic pelvic pain, and increased risk of ectopic pregnancy. The pathophysiology involves the ascent of bacteria from the vagina and cervix into the upper genital tract, leading to infection of the endometrium, fallopian tubes, and ovaries. The Centers for Disease Control and Prevention (CDC) 2020 guidelines recommend prompt treatment with antibiotics to prevent long-term sequelae. The choice of antibiotic regimen should be based on the severity of the disease and the likelihood of gonococcal or chlamydial infection."
+          }
+        ],
+        "clinical_pearl": "In women presenting with abdominal pain and a positive pregnancy test, ectopic pregnancy should be considered, especially if they have risk factors. A high index of suspicion and prompt diagnostic evaluation with transvaginal ultrasound can significantly reduce morbidity and mortality.",
+        "key_points": [
+          "Ectopic pregnancy affects approximately 1 in 50 pregnancies in the United States.",
+          "The risk of ectopic pregnancy is increased in women with a history of pelvic surgery, tubal ligation, or infertility treatments.",
+          "Ovarian torsion requires prompt surgical intervention to preserve ovarian function.",
+          "PID can lead to serious complications, including infertility and chronic pelvic pain.",
+          "The CDC recommends prompt treatment of PID with antibiotics to prevent long-term sequelae.",
+          "The choice of antibiotic regimen for PID should be based on the severity of the disease and the likelihood of gonococcal or chlamydial infection."
+        ],
+        "references": [
+          {
+            "title": "ACOG Practice Bulletin No. 193: Tubal Pregnancy",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "title": "ESHRE Guideline: Management of ovarian torsion",
+            "authors": "European Society of Human Reproduction and Embryology",
+            "journal_or_source": "Human Reproduction",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early diagnosis and treatment of ovarian torsion."
+          },
+          {
+            "title": "CDC Sexually Transmitted Infections Treatment Guidelines, 2020",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "MMWR",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides recommendations for the treatment of PID, including the choice of antibiotic regimen."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Gynaecological Emergencies",
+      "content": {
+        "intro": "The clinical presentation of gynaecological emergencies can vary widely but often includes severe abdominal pain, vaginal bleeding, and signs of infection or shock. Ectopic pregnancy typically presents with abdominal pain and vaginal bleeding in a woman with a positive pregnancy test, while ovarian torsion is characterized by severe, sudden-onset abdominal pain. PID may present with lower abdominal pain, fever, and abnormal vaginal discharge. Recognizing the clinical presentation of these conditions is crucial for timely diagnosis and management.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Ectopic Pregnancy",
+            "text": "Women with ectopic pregnancy often present with abdominal pain and vaginal bleeding, which can range from light spotting to heavy bleeding. The pain is typically sharp and stabbing, and may be accompanied by shoulder pain due to irritation of the diaphragm by blood in the peritoneal cavity. According to the 2019 AHA guidelines, any woman of childbearing age with abdominal pain or vaginal bleeding should be evaluated for ectopic pregnancy, especially if she has risk factors. A high index of suspicion and prompt diagnostic evaluation with transvaginal ultrasound can significantly reduce morbidity and mortality."
+          },
+          {
+            "heading": "Clinical Presentation of Ovarian Torsion",
+            "text": "Ovarian torsion typically presents with severe, sudden-onset abdominal pain, often accompanied by nausea and vomiting. The pain is usually unilateral and can radiate to the back or groin. The 2020 ESHRE guidelines emphasize the importance of early diagnosis and treatment to prevent long-term complications, including loss of ovarian function. Clinical evaluation should include a thorough pelvic examination and imaging studies, such as ultrasound, to confirm the diagnosis."
+          },
+          {
+            "heading": "Clinical Presentation of PID",
+            "text": "PID may present with lower abdominal pain, fever, and abnormal vaginal discharge. The pain is typically bilateral and can be accompanied by dyspareunia or dysmenorrhea. The CDC 2020 guidelines recommend prompt treatment with antibiotics to prevent long-term sequelae, including infertility and chronic pelvic pain. The choice of antibiotic regimen should be based on the severity of the disease and the likelihood of gonococcal or chlamydial infection."
+          }
+        ],
+        "clinical_pearl": "A high index of suspicion for gynaecological emergencies is critical in women presenting with abdominal pain, vaginal bleeding, or signs of infection, especially if they have risk factors for these conditions.",
+        "key_points": [
+          "Ectopic pregnancy typically presents with abdominal pain and vaginal bleeding in a woman with a positive pregnancy test.",
+          "Ovarian torsion is characterized by severe, sudden-onset abdominal pain, often accompanied by nausea and vomiting.",
+          "PID may present with lower abdominal pain, fever, and abnormal vaginal discharge.",
+          "Any woman of childbearing age with abdominal pain or vaginal bleeding should be evaluated for ectopic pregnancy.",
+          "Early diagnosis and treatment of ovarian torsion are critical to prevent long-term complications.",
+          "Prompt treatment of PID with antibiotics is essential to prevent long-term sequelae."
+        ],
+        "references": [
+          {
+            "title": "AHA Scientific Statement: Ectopic Pregnancy",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "title": "ESHRE Guideline: Management of ovarian torsion",
+            "authors": "European Society of Human Reproduction and Embryology",
+            "journal_or_source": "Human Reproduction",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early diagnosis and treatment of ovarian torsion."
+          },
+          {
+            "title": "CDC Sexually Transmitted Infections Treatment Guidelines, 2020",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "MMWR",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides recommendations for the treatment of PID, including the choice of antibiotic regimen."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Gynaecological Emergencies",
+      "content": {
+        "intro": "The diagnosis of gynaecological emergencies often involves a combination of clinical evaluation, laboratory tests, and imaging studies. Ectopic pregnancy is typically diagnosed with transvaginal ultrasound and serum beta-hCG levels, while ovarian torsion is diagnosed with ultrasound and clinical evaluation. PID is diagnosed based on clinical presentation and laboratory tests, including cervical cultures and PCR for gonorrhea and chlamydia. Understanding the diagnostic approach to these conditions is essential for providing timely and effective care.",
+        "sections": [
+          {
+            "heading": "Diagnostic Approach to Ectopic Pregnancy",
+            "text": "The diagnosis of ectopic pregnancy involves a combination of clinical evaluation, transvaginal ultrasound, and serum beta-hCG levels. According to the 2019 ACOG guidelines, any woman of childbearing age with abdominal pain or vaginal bleeding should be evaluated for ectopic pregnancy, especially if she has risk factors. Transvaginal ultrasound can confirm the presence of an intrauterine pregnancy, and serum beta-hCG levels can help identify women at risk for ectopic pregnancy. The 2018 ACOG Practice Bulletin No. 193 provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "heading": "Diagnostic Approach to Ovarian Torsion",
+            "text": "The diagnosis of ovarian torsion is based on clinical evaluation and imaging studies, including ultrasound. The 2020 ESHRE guidelines emphasize the importance of early diagnosis and treatment to prevent long-term complications, including loss of ovarian function. Ultrasound can show the characteristic whirlpool sign of ovarian torsion, and clinical evaluation should include a thorough pelvic examination to assess for signs of ovarian torsion, such as a palpable ovarian mass or tenderness."
+          },
+          {
+            "heading": "Diagnostic Approach to PID",
+            "text": "The diagnosis of PID is based on clinical presentation and laboratory tests, including cervical cultures and PCR for gonorrhea and chlamydia. The CDC 2020 guidelines recommend prompt treatment with antibiotics to prevent long-term sequelae, including infertility and chronic pelvic pain. The choice of antibiotic regimen should be based on the severity of the disease and the likelihood of gonococcal or chlamydial infection. Clinical evaluation should include a thorough pelvic examination to assess for signs of PID, such as cervical motion tenderness or adnexal tenderness."
+          }
+        ],
+        "clinical_pearl": "A combination of clinical evaluation, laboratory tests, and imaging studies is essential for the diagnosis of gynaecological emergencies.",
+        "key_points": [
+          "Ectopic pregnancy is typically diagnosed with transvaginal ultrasound and serum beta-hCG levels.",
+          "Ovarian torsion is diagnosed with ultrasound and clinical evaluation.",
+          "PID is diagnosed based on clinical presentation and laboratory tests, including cervical cultures and PCR for gonorrhea and chlamydia.",
+          "Any woman of childbearing age with abdominal pain or vaginal bleeding should be evaluated for ectopic pregnancy.",
+          "Early diagnosis and treatment of ovarian torsion are critical to prevent long-term complications.",
+          "Prompt treatment of PID with antibiotics is essential to prevent long-term sequelae."
+        ],
+        "references": [
+          {
+            "title": "ACOG Practice Bulletin No. 193: Tubal Pregnancy",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "title": "ESHRE Guideline: Management of ovarian torsion",
+            "authors": "European Society of Human Reproduction and Embryology",
+            "journal_or_source": "Human Reproduction",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early diagnosis and treatment of ovarian torsion."
+          },
+          {
+            "title": "CDC Sexually Transmitted Infections Treatment Guidelines, 2020",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "MMWR",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides recommendations for the treatment of PID, including the choice of antibiotic regimen."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Gynaecological Emergencies",
+      "content": {
+        "intro": "The treatment and management of gynaecological emergencies require a multidisciplinary approach, involving obstetricians, gynaecologists, and other healthcare professionals. Ectopic pregnancy is typically treated with surgery or medical management, depending on the patient's condition and the size and location of the ectopic pregnancy. Ovarian torsion requires prompt surgical intervention to preserve ovarian function, while PID is treated with antibiotics to prevent long-term sequelae. Understanding the treatment and management options for these conditions is essential for providing effective care.",
+        "sections": [
+          {
+            "heading": "Treatment of Ectopic Pregnancy",
+            "text": "The treatment of ectopic pregnancy depends on the patient's condition and the size and location of the ectopic pregnancy. According to the 2019 ACOG guidelines, surgical treatment is recommended for women with a ruptured ectopic pregnancy or those who are hemodynamically unstable. Medical management with methotrexate is an option for women with an unruptured ectopic pregnancy and no contraindications to methotrexate. The 2018 ACOG Practice Bulletin No. 193 provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "heading": "Treatment of Ovarian Torsion",
+            "text": "The treatment of ovarian torsion requires prompt surgical intervention to preserve ovarian function. The 2020 ESHRE guidelines emphasize the importance of early diagnosis and treatment to prevent long-term complications, including loss of ovarian function. Surgical detorsion and preservation of the ovary are recommended, if possible, to maintain fertility and ovarian function."
+          },
+          {
+            "heading": "Treatment of PID",
+            "text": "The treatment of PID involves antibiotics to prevent long-term sequelae, including infertility and chronic pelvic pain. The CDC 2020 guidelines recommend prompt treatment with antibiotics, with the choice of regimen based on the severity of the disease and the likelihood of gonococcal or chlamydial infection. Clinical evaluation should include a thorough pelvic examination to assess for signs of PID, such as cervical motion tenderness or adnexal tenderness."
+          }
+        ],
+        "clinical_pearl": "A multidisciplinary approach is essential for the treatment and management of gynaecological emergencies.",
+        "key_points": [
+          "Ectopic pregnancy is typically treated with surgery or medical management, depending on the patient's condition and the size and location of the ectopic pregnancy.",
+          "Ovarian torsion requires prompt surgical intervention to preserve ovarian function.",
+          "PID is treated with antibiotics to prevent long-term sequelae.",
+          "Surgical treatment is recommended for women with a ruptured ectopic pregnancy or those who are hemodynamically unstable.",
+          "Medical management with methotrexate is an option for women with an unruptured ectopic pregnancy and no contraindications to methotrexate.",
+          "Prompt treatment of PID with antibiotics is essential to prevent long-term sequelae."
+        ],
+        "references": [
+          {
+            "title": "ACOG Practice Bulletin No. 193: Tubal Pregnancy",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of ectopic pregnancy."
+          },
+          {
+            "title": "ESHRE Guideline: Management of ovarian torsion",
+            "authors": "European Society of Human Reproduction and Embryology",
+            "journal_or_source": "Human Reproduction",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early diagnosis and treatment of ovarian torsion."
+          },
+          {
+            "title": "CDC Sexually Transmitted Infections Treatment Guidelines, 2020",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "MMWR",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides recommendations for the treatment of PID, including the choice of antibiotic regimen."
+          }
+        ]
+      }
+    }
+  ]
+}

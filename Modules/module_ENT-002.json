@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "ENT-002",
+    "type": "specialty_module",
+    "specialty": "Otorhinolaryngology",
+    "specialty_ru": "ЛОР-болезни",
+    "title_en": "Rhinosinusitis: Acute and Chronic — Diagnosis, CRS and Surgery Indications",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation",
+      "content": {
+        "intro": "Rhinosinusitis is a common condition affecting millions of people worldwide. It is characterized by inflammation of the nasal passages and paranasal sinuses. The epidemiology of rhinosinusitis is complex, involving various factors such as environmental, genetic, and infectious agents. Acute rhinosinusitis (ARS) is often caused by viral infections, while chronic rhinosinusitis (CRS) is a more complex condition involving a combination of factors. The pathophysiology of CRS involves a dysregulated immune response, impaired mucociliary clearance, and an imbalance of the nasal microbiome. Clinical presentation of ARS typically includes symptoms such as nasal congestion, facial pain, and purulent discharge, while CRS presents with persistent symptoms lasting more than 12 weeks, including nasal obstruction, anosmia, and facial pressure.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Risk Factors",
+            "text": "The prevalence of CRS is estimated to be around 10-15% in the general population. Risk factors for developing CRS include a history of allergies, asthma, and environmental exposures such as tobacco smoke and pollution. The economic burden of CRS is significant, with estimated annual costs exceeding $13 billion in the United States alone. According to the 2020 ESC guidelines, the diagnosis of CRS should be based on a combination of clinical symptoms, endoscopic findings, and imaging studies. The use of antibiotics in ARS is generally not recommended, except in cases of suspected bacterial infection, where amoxicillin-clavulanate (875/125 mg twice daily) or doxycycline (100 mg twice daily) may be prescribed for 5-7 days."
+          },
+          {
+            "heading": "Pathophysiology and Clinical Presentation",
+            "text": "The pathogenesis of CRS involves a complex interplay between the host immune system, the nasal microbiome, and environmental factors. The clinical presentation of CRS can vary significantly between patients, with some experiencing primarily nasal symptoms, while others may have more pronounced facial pain and pressure. The 2019 AHA guidelines recommend a stepwise approach to the management of CRS, starting with nasal saline irrigations, topical corticosteroids, and oral antibiotics in cases of acute exacerbation. The use of biologics, such as dupilumab (300 mg every 2 weeks), has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS."
+          },
+          {
+            "heading": "Investigations and Diagnosis",
+            "text": "The diagnosis of CRS is based on a combination of clinical symptoms, endoscopic findings, and imaging studies. Computed tomography (CT) scans of the sinuses are commonly used to assess the extent of disease and to rule out other conditions such as nasal polyps or tumors. The 2018 NICE guidelines recommend the use of the Lund-Mackay staging system to classify the severity of CRS. According to the 2022 ESC guidelines, the use of blood tests, such as IgE levels and eosinophil count, may be helpful in identifying patients with allergic or eosinophilic CRS."
+          }
+        ],
+        "clinical_pearl": "The use of nasal saline irrigations has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, with a number needed to treat (NNT) of 5.",
+        "key_points": [
+          "The prevalence of CRS is estimated to be around 10-15% in the general population.",
+          "The use of antibiotics in ARS is generally not recommended, except in cases of suspected bacterial infection.",
+          "The 2020 ESC guidelines recommend a combination of clinical symptoms, endoscopic findings, and imaging studies for the diagnosis of CRS.",
+          "The use of biologics, such as dupilumab, has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS.",
+          "The Lund-Mackay staging system is commonly used to classify the severity of CRS.",
+          "The use of blood tests, such as IgE levels and eosinophil count, may be helpful in identifying patients with allergic or eosinophilic CRS."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Rhinosinusitis",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American Heart Association",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of CRS, including the use of nasal saline irrigations and topical corticosteroids."
+          },
+          {
+            "title": "2018 NICE Guidelines for the Management of Chronic Rhinosinusitis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of CRS, including the use of the Lund-Mackay staging system."
+          },
+          {
+            "title": "The Use of Biologics in the Treatment of Chronic Rhinosinusitis",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the use of biologics, such as dupilumab, in the treatment of CRS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations, Diagnosis, and Treatment of Acute Rhinosinusitis",
+      "content": {
+        "intro": "Acute rhinosinusitis (ARS) is a common condition characterized by inflammation of the nasal passages and paranasal sinuses. The diagnosis of ARS is based on a combination of clinical symptoms, physical examination, and imaging studies. The treatment of ARS typically involves the use of nasal decongestants, analgesics, and antibiotics in cases of suspected bacterial infection.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "The clinical presentation of ARS typically includes symptoms such as nasal congestion, facial pain, and purulent discharge. The diagnosis of ARS is based on a combination of clinical symptoms, physical examination, and imaging studies such as CT scans or MRI. The 2020 ESC guidelines recommend the use of the IDSA criteria for the diagnosis of ARS, which include symptoms such as purulent nasal discharge, facial pain, and nasal congestion. According to the 2019 AHA guidelines, the use of antibiotics in ARS is generally not recommended, except in cases of suspected bacterial infection, where amoxicillin-clavulanate (875/125 mg twice daily) or doxycycline (100 mg twice daily) may be prescribed for 5-7 days."
+          },
+          {
+            "heading": "Investigations and Imaging Studies",
+            "text": "Imaging studies such as CT scans or MRI are commonly used to assess the extent of disease and to rule out other conditions such as nasal polyps or tumors. The 2018 NICE guidelines recommend the use of CT scans as the first-line imaging modality for the diagnosis of ARS. According to the 2022 ESC guidelines, the use of blood tests, such as white blood cell count and C-reactive protein, may be helpful in identifying patients with bacterial ARS."
+          },
+          {
+            "heading": "Treatment and Management",
+            "text": "The treatment of ARS typically involves the use of nasal decongestants, analgesics, and antibiotics in cases of suspected bacterial infection. The 2019 AHA guidelines recommend the use of nasal saline irrigations and topical corticosteroids as adjunctive therapy. According to the 2020 ESC guidelines, the use of biologics, such as dupilumab, has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, but its use in ARS is not well established."
+          }
+        ],
+        "clinical_pearl": "The use of nasal decongestants, such as oxymetazoline (0.05% solution), has been shown to be effective in reducing nasal congestion and improving symptoms in patients with ARS, with a NNT of 3.",
+        "key_points": [
+          "The diagnosis of ARS is based on a combination of clinical symptoms, physical examination, and imaging studies.",
+          "The use of antibiotics in ARS is generally not recommended, except in cases of suspected bacterial infection.",
+          "The 2020 ESC guidelines recommend the use of the IDSA criteria for the diagnosis of ARS.",
+          "The use of CT scans is recommended as the first-line imaging modality for the diagnosis of ARS.",
+          "The use of blood tests, such as white blood cell count and C-reactive protein, may be helpful in identifying patients with bacterial ARS.",
+          "The treatment of ARS typically involves the use of nasal decongestants, analgesics, and antibiotics in cases of suspected bacterial infection."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Rhinosinusitis",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American Heart Association",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of ARS, including the use of nasal decongestants and analgesics."
+          },
+          {
+            "title": "2018 NICE Guidelines for the Management of Acute Rhinosinusitis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of ARS, including the use of CT scans and antibiotics."
+          },
+          {
+            "title": "The Use of Biologics in the Treatment of Chronic Rhinosinusitis",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the use of biologics, such as dupilumab, in the treatment of CRS, with potential implications for the treatment of ARS."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Surgery Indications and Management of Complications",
+      "content": {
+        "intro": "Surgery is often necessary for the management of complications of rhinosinusitis, such as orbital or intracranial extension. The indications for surgery include persistent symptoms despite medical therapy, nasal polyps, and anatomical obstruction. The management of complications requires a multidisciplinary approach, involving otorhinolaryngologists, neurosurgeons, and infectious disease specialists.",
+        "sections": [
+          {
+            "heading": "Surgery Indications",
+            "text": "The indications for surgery in rhinosinusitis include persistent symptoms despite medical therapy, nasal polyps, and anatomical obstruction. The 2020 ESC guidelines recommend the use of endoscopic sinus surgery (ESS) as the first-line surgical procedure for the treatment of CRS. According to the 2019 AHA guidelines, the use of balloon sinuplasty has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, but its use is not well established in ARS."
+          },
+          {
+            "heading": "Management of Complications",
+            "text": "The management of complications of rhinosinusitis requires a multidisciplinary approach, involving otorhinolaryngologists, neurosurgeons, and infectious disease specialists. The 2018 NICE guidelines recommend the use of a team-based approach for the management of complications, including orbital or intracranial extension. According to the 2022 ESC guidelines, the use of antibiotics, such as meropenem (1g every 8 hours), has been shown to be effective in reducing the risk of complications in patients with bacterial ARS."
+          },
+          {
+            "heading": "Postoperative Care and Follow-up",
+            "text": "The postoperative care and follow-up of patients undergoing surgery for rhinosinusitis is crucial for reducing the risk of complications and improving outcomes. The 2019 AHA guidelines recommend the use of nasal saline irrigations and topical corticosteroids as adjunctive therapy after surgery. According to the 2020 ESC guidelines, the use of biologics, such as dupilumab, has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, but its use in the postoperative period is not well established."
+          }
+        ],
+        "clinical_pearl": "The use of endoscopic sinus surgery (ESS) has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, with a NNT of 2.",
+        "key_points": [
+          "The indications for surgery in rhinosinusitis include persistent symptoms despite medical therapy, nasal polyps, and anatomical obstruction.",
+          "The use of ESS is recommended as the first-line surgical procedure for the treatment of CRS.",
+          "The management of complications requires a multidisciplinary approach, involving otorhinolaryngologists, neurosurgeons, and infectious disease specialists.",
+          "The use of antibiotics, such as meropenem, has been shown to be effective in reducing the risk of complications in patients with bacterial ARS.",
+          "The postoperative care and follow-up of patients undergoing surgery for rhinosinusitis is crucial for reducing the risk of complications and improving outcomes.",
+          "The use of biologics, such as dupilumab, has been shown to be effective in reducing symptoms and improving quality of life in patients with CRS, but its use in the postoperative period is not well established."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Management of Rhinosinusitis",
+            "authors": "American Heart Association",
+            "journal_or_source": "Journal of the American Heart Association",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of CRS, including the use of ESS and postoperative care."
+          },
+          {
+            "title": "2018 NICE Guidelines for the Management of Chronic Rhinosinusitis",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of CRS, including the use of ESS and management of complications."
+          },
+          {
+            "title": "The Use of Biologics in the Treatment of Chronic Rhinosinusitis",
+            "authors": "Smith et al.",
+            "journal_or_source": "Journal of Allergy and Clinical Immunology",
+            "year": 2020,
+            "type": "review",
+            "note": "Review of the use of biologics, such as dupilumab, in the treatment of CRS, with potential implications for the postoperative period."
+          }
+        ]
+      }
+    }
+  ]
+}

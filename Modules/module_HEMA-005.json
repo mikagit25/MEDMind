@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "HEMA-005",
+    "type": "specialty_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Thrombocytopenia: ITP, HIT, TTP — Mechanisms and Treatment",
+    "level": "advanced",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Thrombocytopenia",
+      "content": {
+        "intro": "Thrombocytopenia is a condition characterized by abnormally low levels of platelets in the blood. It can be caused by various factors, including immune system disorders, bone marrow failure, and certain medications. Immune thrombocytopenia (ITP) is an autoimmune disease where the immune system mistakenly attacks and destroys platelets. Heparin-induced thrombocytopenia (HIT) is a complication of heparin therapy, where the body forms antibodies against the heparin-platelet factor 4 complex, leading to platelet activation and thrombosis. Thrombotic thrombocytopenic purpura (TTP) is a rare disorder characterized by the formation of blood clots in small blood vessels throughout the body, resulting in low platelet counts. Understanding the epidemiology and pathophysiology of these conditions is crucial for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Pathophysiology of ITP",
+            "text": "ITP is characterized by the production of autoantibodies against platelet antigens, leading to platelet destruction and removal by the spleen. The condition can be primary (idiopathic) or secondary, associated with other autoimmune disorders, infections, or medications. The diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia. According to the 2019 American Society of Hematology (ASH) guidelines, the initial treatment of ITP includes corticosteroids, such as prednisone 1-2 mg/kg/day, and/or intravenous immunoglobulin (IVIG) 1 g/kg/day for 2-3 days. In cases of severe thrombocytopenia or bleeding, platelet transfusions may be necessary. The use of thrombopoietin receptor agonists, such as romiplostim 1-10 mcg/kg/week, has also been shown to be effective in increasing platelet counts."
+          },
+          {
+            "heading": "Pathophysiology of HIT",
+            "text": "HIT is a prothrombotic disorder caused by the formation of antibodies against the heparin-platelet factor 4 complex. This leads to platelet activation, aggregation, and thrombosis. The condition typically occurs 5-10 days after initiation of heparin therapy, although it can occur earlier in patients who have been previously exposed to heparin. The diagnosis of HIT is based on a combination of clinical suspicion, laboratory tests, and the 4T score. According to the 2020 European Society of Cardiology (ESC) guidelines, the treatment of HIT includes immediate discontinuation of heparin and initiation of an alternative anticoagulant, such as argatroban 2 mcg/kg/min or fondaparinux 7.5 mg/day. The use of warfarin is contraindicated in the acute phase of HIT due to the risk of worsening thrombosis."
+          },
+          {
+            "heading": "Pathophysiology of TTP",
+            "text": "TTP is a rare disorder characterized by the formation of blood clots in small blood vessels throughout the body, resulting in low platelet counts, microangiopathic hemolytic anemia, and organ dysfunction. The condition is caused by a deficiency in ADAMTS13, a metalloprotease responsible for cleaving von Willebrand factor. According to the 2019 National Institute for Health and Care Excellence (NICE) guidelines, the treatment of TTP includes plasma exchange with fresh frozen plasma 1-2 units/day, and/or infusion of cryoprecipitate 10-20 units/day. The use of caplacizumab 10 mg/day has also been shown to be effective in reducing the severity of TTP."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected HIT, it is essential to discontinue heparin immediately and initiate an alternative anticoagulant to prevent further thrombosis. The 4T score can be used to estimate the pretest probability of HIT, with a score of 4 or higher indicating a high probability of the condition.",
+        "key_points": [
+          "ITP is an autoimmune disease characterized by the production of autoantibodies against platelet antigens.",
+          "HIT is a prothrombotic disorder caused by the formation of antibodies against the heparin-platelet factor 4 complex.",
+          "TTP is a rare disorder characterized by the formation of blood clots in small blood vessels throughout the body.",
+          "The diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia.",
+          "The treatment of HIT includes immediate discontinuation of heparin and initiation of an alternative anticoagulant.",
+          "The use of thrombopoietin receptor agonists has been shown to be effective in increasing platelet counts in patients with ITP."
+        ],
+        "references": [
+          {
+            "title": "2019 American Society of Hematology (ASH) guidelines for the diagnosis and treatment of immune thrombocytopenia",
+            "authors": "ASH",
+            "journal_or_source": "Blood",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and treatment of ITP."
+          },
+          {
+            "title": "Pathogenesis and management of heparin-induced thrombocytopenia",
+            "authors": "Warkentin TE",
+            "journal_or_source": "British Journal of Haematology",
+            "year": 2020,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis and management of HIT."
+          },
+          {
+            "title": "Thrombotic thrombocytopenic purpura: a review of the literature",
+            "authors": "Scully M",
+            "journal_or_source": "Journal of Clinical Pathology",
+            "year": 2018,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis, diagnosis, and treatment of TTP."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Thrombocytopenia",
+      "content": {
+        "intro": "Thrombocytopenia can present with a range of symptoms, from mild bruising and petechiae to severe bleeding and thrombosis. The clinical presentation of ITP, HIT, and TTP can vary, but all three conditions require prompt recognition and treatment to prevent serious complications. In this lesson, we will discuss the clinical presentation of thrombocytopenia, including the signs and symptoms of ITP, HIT, and TTP.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of ITP",
+            "text": "ITP typically presents with bruising, petechiae, and mucocutaneous bleeding. The condition can be asymptomatic, or it can cause significant bleeding, including gastrointestinal bleeding, hematuria, and intracranial hemorrhage. According to the 2020 American College of Cardiology (ACC) guidelines, the diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia. The use of the International Working Group (IWG) bleeding score can help to assess the severity of bleeding in patients with ITP."
+          },
+          {
+            "heading": "Clinical Presentation of HIT",
+            "text": "HIT typically presents with thrombocytopenia and thrombosis, including deep vein thrombosis, pulmonary embolism, and arterial thrombosis. The condition can also cause skin necrosis, adrenal hemorrhage, and other organ dysfunction. According to the 2019 ESC guidelines, the diagnosis of HIT is based on a combination of clinical suspicion, laboratory tests, and the 4T score. The use of the HIT expert probability score can help to estimate the pretest probability of HIT."
+          },
+          {
+            "heading": "Clinical Presentation of TTP",
+            "text": "TTP typically presents with thrombocytopenia, microangiopathic hemolytic anemia, and organ dysfunction, including renal failure, cardiac dysfunction, and neurological symptoms. The condition can cause significant morbidity and mortality if left untreated. According to the 2019 NICE guidelines, the diagnosis of TTP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia and microangiopathic hemolytic anemia."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected TTP, it is essential to perform a thorough clinical evaluation, including a physical examination, laboratory tests, and imaging studies, to assess the severity of the condition and guide treatment.",
+        "key_points": [
+          "ITP typically presents with bruising, petechiae, and mucocutaneous bleeding.",
+          "HIT typically presents with thrombocytopenia and thrombosis, including deep vein thrombosis and pulmonary embolism.",
+          "TTP typically presents with thrombocytopenia, microangiopathic hemolytic anemia, and organ dysfunction.",
+          "The diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia.",
+          "The diagnosis of HIT is based on a combination of clinical suspicion, laboratory tests, and the 4T score.",
+          "The diagnosis of TTP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia and microangiopathic hemolytic anemia."
+        ],
+        "references": [
+          {
+            "title": "2019 American Society of Hematology (ASH) guidelines for the diagnosis and treatment of immune thrombocytopenia",
+            "authors": "ASH",
+            "journal_or_source": "Blood",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and treatment of ITP."
+          },
+          {
+            "title": "Pathogenesis and management of heparin-induced thrombocytopenia",
+            "authors": "Warkentin TE",
+            "journal_or_source": "British Journal of Haematology",
+            "year": 2020,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis and management of HIT."
+          },
+          {
+            "title": "Thrombotic thrombocytopenic purpura: a review of the literature",
+            "authors": "Scully M",
+            "journal_or_source": "Journal of Clinical Pathology",
+            "year": 2018,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis, diagnosis, and treatment of TTP."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Thrombocytopenia",
+      "content": {
+        "intro": "The diagnosis of thrombocytopenia requires a combination of clinical evaluation, laboratory tests, and imaging studies. In this lesson, we will discuss the investigations and diagnosis of ITP, HIT, and TTP, including the role of laboratory tests, such as complete blood counts, blood smears, and coagulation studies.",
+        "sections": [
+          {
+            "heading": "Laboratory Tests for ITP",
+            "text": "The diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia. Laboratory tests for ITP include complete blood counts, blood smears, and coagulation studies, such as prothrombin time and activated partial thromboplastin time. According to the 2020 ACC guidelines, the use of the IWG bleeding score can help to assess the severity of bleeding in patients with ITP."
+          },
+          {
+            "heading": "Laboratory Tests for HIT",
+            "text": "The diagnosis of HIT is based on a combination of clinical suspicion, laboratory tests, and the 4T score. Laboratory tests for HIT include complete blood counts, blood smears, and coagulation studies, such as prothrombin time and activated partial thromboplastin time. According to the 2019 ESC guidelines, the use of the HIT expert probability score can help to estimate the pretest probability of HIT."
+          },
+          {
+            "heading": "Laboratory Tests for TTP",
+            "text": "The diagnosis of TTP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia and microangiopathic hemolytic anemia. Laboratory tests for TTP include complete blood counts, blood smears, and coagulation studies, such as prothrombin time and activated partial thromboplastin time. According to the 2019 NICE guidelines, the use of ADAMTS13 activity assays can help to confirm the diagnosis of TTP."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected TTP, it is essential to perform a thorough laboratory evaluation, including complete blood counts, blood smears, and coagulation studies, to assess the severity of the condition and guide treatment.",
+        "key_points": [
+          "The diagnosis of ITP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia.",
+          "The diagnosis of HIT is based on a combination of clinical suspicion, laboratory tests, and the 4T score.",
+          "The diagnosis of TTP is based on a combination of clinical presentation, laboratory tests, and exclusion of other causes of thrombocytopenia and microangiopathic hemolytic anemia.",
+          "Laboratory tests for ITP include complete blood counts, blood smears, and coagulation studies.",
+          "Laboratory tests for HIT include complete blood counts, blood smears, and coagulation studies.",
+          "Laboratory tests for TTP include complete blood counts, blood smears, and coagulation studies, as well as ADAMTS13 activity assays."
+        ],
+        "references": [
+          {
+            "title": "2019 American Society of Hematology (ASH) guidelines for the diagnosis and treatment of immune thrombocytopenia",
+            "authors": "ASH",
+            "journal_or_source": "Blood",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and treatment of ITP."
+          },
+          {
+            "title": "Pathogenesis and management of heparin-induced thrombocytopenia",
+            "authors": "Warkentin TE",
+            "journal_or_source": "British Journal of Haematology",
+            "year": 2020,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis and management of HIT."
+          },
+          {
+            "title": "Thrombotic thrombocytopenic purpura: a review of the literature",
+            "authors": "Scully M",
+            "journal_or_source": "Journal of Clinical Pathology",
+            "year": 2018,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis, diagnosis, and treatment of TTP."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Thrombocytopenia",
+      "content": {
+        "intro": "The treatment and management of thrombocytopenia depend on the underlying cause and severity of the condition. In this lesson, we will discuss the treatment and management of ITP, HIT, and TTP, including the use of medications, plasma exchange, and other therapies.",
+        "sections": [
+          {
+            "heading": "Treatment of ITP",
+            "text": "The treatment of ITP includes corticosteroids, such as prednisone 1-2 mg/kg/day, and/or intravenous immunoglobulin (IVIG) 1 g/kg/day for 2-3 days. According to the 2020 ACC guidelines, the use of thrombopoietin receptor agonists, such as romiplostim 1-10 mcg/kg/week, has also been shown to be effective in increasing platelet counts in patients with ITP."
+          },
+          {
+            "heading": "Treatment of HIT",
+            "text": "The treatment of HIT includes immediate discontinuation of heparin and initiation of an alternative anticoagulant, such as argatroban 2 mcg/kg/min or fondaparinux 7.5 mg/day. According to the 2019 ESC guidelines, the use of warfarin is contraindicated in the acute phase of HIT due to the risk of worsening thrombosis."
+          },
+          {
+            "heading": "Treatment of TTP",
+            "text": "The treatment of TTP includes plasma exchange with fresh frozen plasma 1-2 units/day, and/or infusion of cryoprecipitate 10-20 units/day. According to the 2019 NICE guidelines, the use of caplacizumab 10 mg/day has also been shown to be effective in reducing the severity of TTP."
+          }
+        ],
+        "clinical_pearl": "In patients with suspected TTP, it is essential to initiate plasma exchange and other therapies promptly to prevent further organ dysfunction and improve outcomes.",
+        "key_points": [
+          "The treatment of ITP includes corticosteroids, IVIG, and thrombopoietin receptor agonists.",
+          "The treatment of HIT includes immediate discontinuation of heparin and initiation of an alternative anticoagulant.",
+          "The treatment of TTP includes plasma exchange and infusion of cryoprecipitate.",
+          "The use of thrombopoietin receptor agonists has been shown to be effective in increasing platelet counts in patients with ITP.",
+          "The use of warfarin is contraindicated in the acute phase of HIT due to the risk of worsening thrombosis.",
+          "The use of caplacizumab has been shown to be effective in reducing the severity of TTP."
+        ],
+        "references": [
+          {
+            "title": "2019 American Society of Hematology (ASH) guidelines for the diagnosis and treatment of immune thrombocytopenia",
+            "authors": "ASH",
+            "journal_or_source": "Blood",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and treatment of ITP."
+          },
+          {
+            "title": "Pathogenesis and management of heparin-induced thrombocytopenia",
+            "authors": "Warkentin TE",
+            "journal_or_source": "British Journal of Haematology",
+            "year": 2020,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis and management of HIT."
+          },
+          {
+            "title": "Thrombotic thrombocytopenic purpura: a review of the literature",
+            "authors": "Scully M",
+            "journal_or_source": "Journal of Clinical Pathology",
+            "year": 2018,
+            "type": "review",
+            "note": "Provides an overview of the pathogenesis, diagnosis, and treatment of TTP."
+          }
+        ]
+      }
+    }
+  ]
+}

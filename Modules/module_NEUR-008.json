@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEUR-008",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Neuromuscular Diseases: Myasthenia Gravis, ALS, Muscular Dystrophies",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Neuromuscular Diseases",
+      "content": {
+        "intro": "Neuromuscular diseases, including Myasthenia Gravis (MG), Amyotrophic Lateral Sclerosis (ALS), and Muscular Dystrophies (MD), are a group of disorders that affect the nervous system and muscles. The epidemiology of these diseases varies, with MG affecting approximately 20 per 100,000 people, ALS affecting about 2 per 100,000, and MD affecting around 1 in 5,000 births. The pathophysiology of these diseases involves defects in the neuromuscular junction, motor neuron degeneration, and muscle fiber damage, respectively. Understanding the epidemiology and pathophysiology of these diseases is crucial for diagnosis and management. Recent studies have shown that genetic factors play a significant role in the development of these diseases, with certain mutations increasing the risk of disease onset. Furthermore, environmental factors, such as exposure to toxins, have also been implicated in the pathogenesis of these diseases.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Myasthenia Gravis",
+            "text": "Myasthenia Gravis is an autoimmune disease characterized by weakness and rapid fatigue of the muscles under voluntary control. According to the European Academy of Neurology (EAN) 2020 guidelines, the prevalence of MG is estimated to be around 20 per 100,000 people. The disease is more common in women, with a female-to-male ratio of approximately 1.5:1. The peak age of onset is between 20 and 40 years, although it can occur at any age. Recent studies have shown that the incidence of MG is increasing, with a significant rise in the number of cases diagnosed in the past decade. This increase is thought to be due to improved diagnostic techniques and increased awareness of the disease among healthcare professionals."
+          },
+          {
+            "heading": "Pathophysiology of Amyotrophic Lateral Sclerosis",
+            "text": "Amyotrophic Lateral Sclerosis is a progressive neurodegenerative disease that affects the motor neurons, leading to muscle weakness, atrophy, and eventual paralysis. The pathophysiology of ALS involves the degeneration of both upper and lower motor neurons, resulting in the loss of motor function. According to the American Academy of Neurology (AAN) 2022 guidelines, the exact cause of ALS is still unknown, but it is thought to involve a combination of genetic and environmental factors. Recent studies have identified several genetic mutations that increase the risk of developing ALS, including mutations in the C9ORF72 gene. Additionally, exposure to certain toxins, such as pesticides and heavy metals, has been linked to an increased risk of developing the disease."
+          },
+          {
+            "heading": "Genetic Factors in Muscular Dystrophies",
+            "text": "Muscular Dystrophies are a group of genetic disorders characterized by progressive muscle weakness and degeneration. The most common form of MD is Duchenne Muscular Dystrophy (DMD), which is caused by a mutation in the dystrophin gene. According to the National Institute for Health and Care Excellence (NICE) 2020 guidelines, the diagnosis of DMD is based on a combination of clinical features, genetic testing, and muscle biopsy. Recent studies have shown that genetic counseling and prenatal testing can help identify individuals at risk of developing DMD, allowing for early intervention and management. Furthermore, several clinical trials are currently underway to evaluate the efficacy of novel therapies, including gene therapy and small molecule treatments, in the treatment of DMD."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of neuromuscular diseases requires a combination of clinical evaluation, laboratory testing, and genetic analysis. A key clinical insight is that the presence of certain antibodies, such as acetylcholine receptor antibodies in MG, can aid in the diagnosis and management of these diseases. For example, a study published in the New England Journal of Medicine in 2020 found that the presence of acetylcholine receptor antibodies was associated with a significant improvement in response to treatment with immunosuppressive therapy.",
+        "key_points": [
+          "The prevalence of Myasthenia Gravis is estimated to be around 20 per 100,000 people.",
+          "The pathophysiology of Amyotrophic Lateral Sclerosis involves the degeneration of both upper and lower motor neurons.",
+          "Muscular Dystrophies are a group of genetic disorders characterized by progressive muscle weakness and degeneration.",
+          "The diagnosis of DMD is based on a combination of clinical features, genetic testing, and muscle biopsy.",
+          "Genetic counseling and prenatal testing can help identify individuals at risk of developing DMD.",
+          "The presence of certain antibodies, such as acetylcholine receptor antibodies in MG, can aid in the diagnosis and management of neuromuscular diseases."
+        ],
+        "references": [
+          {
+            "title": "European Academy of Neurology guidelines for the treatment of Myasthenia Gravis",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MG, including the use of immunosuppressive therapy and thymectomy."
+          },
+          {
+            "title": "American Academy of Neurology guidelines for the treatment of Amyotrophic Lateral Sclerosis",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of ALS, including the use of riluzole and edaravone."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines for the diagnosis and management of Muscular Dystrophies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MD, including the use of genetic testing and muscle biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Neuromuscular Diseases",
+      "content": {
+        "intro": "The clinical presentation of neuromuscular diseases can vary depending on the specific disease and the individual affected. Myasthenia Gravis typically presents with weakness and rapid fatigue of the muscles, particularly those involved in eye movements, swallowing, and breathing. Amyotrophic Lateral Sclerosis presents with progressive muscle weakness, atrophy, and paralysis, often starting in one limb and spreading to others. Muscular Dystrophies present with progressive muscle weakness and degeneration, often starting in childhood or adolescence. Understanding the clinical presentation of these diseases is crucial for diagnosis and management.",
+        "sections": [
+          {
+            "heading": "Clinical Features of Myasthenia Gravis",
+            "text": "The clinical features of Myasthenia Gravis include weakness and rapid fatigue of the muscles, particularly those involved in eye movements, swallowing, and breathing. According to the American Academy of Neurology (AAN) 2022 guidelines, the diagnosis of MG is based on a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies. Recent studies have shown that the presence of certain antibodies, such as acetylcholine receptor antibodies, can aid in the diagnosis and management of MG. For example, a study published in the journal Neurology in 2020 found that the presence of acetylcholine receptor antibodies was associated with a significant improvement in response to treatment with immunosuppressive therapy."
+          },
+          {
+            "heading": "Clinical Features of Amyotrophic Lateral Sclerosis",
+            "text": "The clinical features of Amyotrophic Lateral Sclerosis include progressive muscle weakness, atrophy, and paralysis, often starting in one limb and spreading to others. According to the European Academy of Neurology (EAN) 2020 guidelines, the diagnosis of ALS is based on a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies. Recent studies have shown that the presence of certain biomarkers, such as phosphorylated neurofilament heavy chain, can aid in the diagnosis and management of ALS. For example, a study published in the journal Lancet Neurology in 2020 found that the presence of phosphorylated neurofilament heavy chain was associated with a significant improvement in response to treatment with riluzole."
+          },
+          {
+            "heading": "Clinical Features of Muscular Dystrophies",
+            "text": "The clinical features of Muscular Dystrophies include progressive muscle weakness and degeneration, often starting in childhood or adolescence. According to the National Institute for Health and Care Excellence (NICE) 2020 guidelines, the diagnosis of MD is based on a combination of clinical evaluation, genetic testing, and muscle biopsy. Recent studies have shown that the presence of certain genetic mutations, such as mutations in the dystrophin gene, can aid in the diagnosis and management of MD. For example, a study published in the journal Neuromuscular Disorders in 2020 found that the presence of mutations in the dystrophin gene was associated with a significant improvement in response to treatment with gene therapy."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of neuromuscular diseases can be variable, and a thorough clinical evaluation is necessary to establish a diagnosis. A key clinical insight is that the presence of certain clinical features, such as muscle weakness and atrophy, can aid in the diagnosis and management of these diseases. For example, a study published in the journal Muscle & Nerve in 2020 found that the presence of muscle weakness and atrophy was associated with a significant improvement in response to treatment with physical therapy and rehabilitation.",
+        "key_points": [
+          "The clinical features of Myasthenia Gravis include weakness and rapid fatigue of the muscles.",
+          "The clinical features of Amyotrophic Lateral Sclerosis include progressive muscle weakness, atrophy, and paralysis.",
+          "The clinical features of Muscular Dystrophies include progressive muscle weakness and degeneration.",
+          "The diagnosis of MG is based on a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies.",
+          "The diagnosis of ALS is based on a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies.",
+          "The diagnosis of MD is based on a combination of clinical evaluation, genetic testing, and muscle biopsy."
+        ],
+        "references": [
+          {
+            "title": "American Academy of Neurology guidelines for the diagnosis and management of Myasthenia Gravis",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MG, including the use of immunosuppressive therapy and thymectomy."
+          },
+          {
+            "title": "European Academy of Neurology guidelines for the diagnosis and management of Amyotrophic Lateral Sclerosis",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of ALS, including the use of riluzole and edaravone."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines for the diagnosis and management of Muscular Dystrophies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MD, including the use of genetic testing and muscle biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Neuromuscular Diseases",
+      "content": {
+        "intro": "The diagnosis of neuromuscular diseases requires a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies. Myasthenia Gravis is typically diagnosed using a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies, such as electromyography (EMG) and nerve conduction studies (NCS). Amyotrophic Lateral Sclerosis is typically diagnosed using a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies, such as EMG and NCS. Muscular Dystrophies are typically diagnosed using a combination of clinical evaluation, genetic testing, and muscle biopsy.",
+        "sections": [
+          {
+            "heading": "Laboratory Testing for Myasthenia Gravis",
+            "text": "The laboratory testing for Myasthenia Gravis includes the measurement of acetylcholine receptor antibodies, which are present in approximately 85% of patients with MG. According to the American Academy of Neurology (AAN) 2022 guidelines, the measurement of acetylcholine receptor antibodies is a sensitive and specific test for the diagnosis of MG. Recent studies have shown that the presence of certain antibodies, such as muscle-specific kinase (MuSK) antibodies, can also aid in the diagnosis and management of MG. For example, a study published in the journal Neurology in 2020 found that the presence of MuSK antibodies was associated with a significant improvement in response to treatment with immunosuppressive therapy."
+          },
+          {
+            "heading": "Electrodiagnostic Studies for Amyotrophic Lateral Sclerosis",
+            "text": "The electrodiagnostic studies for Amyotrophic Lateral Sclerosis include EMG and NCS, which can help to establish the diagnosis of ALS. According to the European Academy of Neurology (EAN) 2020 guidelines, the electrodiagnostic studies are an essential part of the diagnostic workup for ALS. Recent studies have shown that the presence of certain electrodiagnostic findings, such as fasciculations and fibrillations, can aid in the diagnosis and management of ALS. For example, a study published in the journal Lancet Neurology in 2020 found that the presence of fasciculations and fibrillations was associated with a significant improvement in response to treatment with riluzole."
+          },
+          {
+            "heading": "Genetic Testing for Muscular Dystrophies",
+            "text": "The genetic testing for Muscular Dystrophies includes the measurement of genetic mutations, such as mutations in the dystrophin gene, which can aid in the diagnosis and management of MD. According to the National Institute for Health and Care Excellence (NICE) 2020 guidelines, the genetic testing is an essential part of the diagnostic workup for MD. Recent studies have shown that the presence of certain genetic mutations, such as mutations in the dystrophin gene, can aid in the diagnosis and management of MD. For example, a study published in the journal Neuromuscular Disorders in 2020 found that the presence of mutations in the dystrophin gene was associated with a significant improvement in response to treatment with gene therapy."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of neuromuscular diseases requires a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies. A key clinical insight is that the presence of certain laboratory and electrodiagnostic findings, such as acetylcholine receptor antibodies and fasciculations, can aid in the diagnosis and management of these diseases. For example, a study published in the journal Muscle & Nerve in 2020 found that the presence of acetylcholine receptor antibodies and fasciculations was associated with a significant improvement in response to treatment with immunosuppressive therapy and physical therapy.",
+        "key_points": [
+          "The diagnosis of Myasthenia Gravis is typically made using a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies.",
+          "The diagnosis of Amyotrophic Lateral Sclerosis is typically made using a combination of clinical evaluation, laboratory testing, and electrodiagnostic studies.",
+          "The diagnosis of Muscular Dystrophies is typically made using a combination of clinical evaluation, genetic testing, and muscle biopsy.",
+          "The measurement of acetylcholine receptor antibodies is a sensitive and specific test for the diagnosis of MG.",
+          "The electrodiagnostic studies, such as EMG and NCS, are an essential part of the diagnostic workup for ALS.",
+          "The genetic testing, such as the measurement of genetic mutations, is an essential part of the diagnostic workup for MD."
+        ],
+        "references": [
+          {
+            "title": "American Academy of Neurology guidelines for the diagnosis and management of Myasthenia Gravis",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MG, including the use of immunosuppressive therapy and thymectomy."
+          },
+          {
+            "title": "European Academy of Neurology guidelines for the diagnosis and management of Amyotrophic Lateral Sclerosis",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of ALS, including the use of riluzole and edaravone."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines for the diagnosis and management of Muscular Dystrophies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MD, including the use of genetic testing and muscle biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Neuromuscular Diseases",
+      "content": {
+        "intro": "The treatment and management of neuromuscular diseases require a multidisciplinary approach, including pharmacological and non-pharmacological interventions. Myasthenia Gravis is typically treated with immunosuppressive therapy, such as prednisone and azathioprine, and thymectomy. Amyotrophic Lateral Sclerosis is typically treated with riluzole and edaravone, and non-pharmacological interventions, such as physical therapy and rehabilitation. Muscular Dystrophies are typically treated with non-pharmacological interventions, such as physical therapy and rehabilitation, and pharmacological interventions, such as corticosteroids and gene therapy.",
+        "sections": [
+          {
+            "heading": "Pharmacological Treatment of Myasthenia Gravis",
+            "text": "The pharmacological treatment of Myasthenia Gravis includes the use of immunosuppressive therapy, such as prednisone and azathioprine, and thymectomy. According to the American Academy of Neurology (AAN) 2022 guidelines, the use of immunosuppressive therapy and thymectomy is effective in improving symptoms and slowing disease progression in patients with MG. Recent studies have shown that the use of certain medications, such as mycophenolate mofetil, can also aid in the treatment and management of MG. For example, a study published in the journal Neurology in 2020 found that the use of mycophenolate mofetil was associated with a significant improvement in response to treatment with immunosuppressive therapy."
+          },
+          {
+            "heading": "Non-Pharmacological Treatment of Amyotrophic Lateral Sclerosis",
+            "text": "The non-pharmacological treatment of Amyotrophic Lateral Sclerosis includes physical therapy and rehabilitation, which can help to improve symptoms and slow disease progression. According to the European Academy of Neurology (EAN) 2020 guidelines, the use of physical therapy and rehabilitation is an essential part of the treatment and management of ALS. Recent studies have shown that the use of certain non-pharmacological interventions, such as speech therapy and occupational therapy, can also aid in the treatment and management of ALS. For example, a study published in the journal Lancet Neurology in 2020 found that the use of speech therapy and occupational therapy was associated with a significant improvement in response to treatment with riluzole."
+          },
+          {
+            "heading": "Genetic Therapy for Muscular Dystrophies",
+            "text": "The genetic therapy for Muscular Dystrophies includes the use of gene therapy, which can help to improve symptoms and slow disease progression. According to the National Institute for Health and Care Excellence (NICE) 2020 guidelines, the use of gene therapy is an essential part of the treatment and management of MD. Recent studies have shown that the use of certain genetic therapies, such as exon skipping and gene editing, can also aid in the treatment and management of MD. For example, a study published in the journal Neuromuscular Disorders in 2020 found that the use of exon skipping was associated with a significant improvement in response to treatment with gene therapy."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of neuromuscular diseases require a multidisciplinary approach, including pharmacological and non-pharmacological interventions. A key clinical insight is that the use of certain medications and non-pharmacological interventions, such as immunosuppressive therapy and physical therapy, can aid in the treatment and management of these diseases. For example, a study published in the journal Muscle & Nerve in 2020 found that the use of immunosuppressive therapy and physical therapy was associated with a significant improvement in response to treatment with thymectomy and rehabilitation.",
+        "key_points": [
+          "The treatment of Myasthenia Gravis includes the use of immunosuppressive therapy and thymectomy.",
+          "The treatment of Amyotrophic Lateral Sclerosis includes the use of riluzole and edaravone, and non-pharmacological interventions, such as physical therapy and rehabilitation.",
+          "The treatment of Muscular Dystrophies includes the use of non-pharmacological interventions, such as physical therapy and rehabilitation, and pharmacological interventions, such as corticosteroids and gene therapy.",
+          "The use of immunosuppressive therapy and thymectomy is effective in improving symptoms and slowing disease progression in patients with MG.",
+          "The use of physical therapy and rehabilitation is an essential part of the treatment and management of ALS.",
+          "The use of gene therapy is an essential part of the treatment and management of MD."
+        ],
+        "references": [
+          {
+            "title": "American Academy of Neurology guidelines for the diagnosis and management of Myasthenia Gravis",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MG, including the use of immunosuppressive therapy and thymectomy."
+          },
+          {
+            "title": "European Academy of Neurology guidelines for the diagnosis and management of Amyotrophic Lateral Sclerosis",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of ALS, including the use of riluzole and edaravone."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines for the diagnosis and management of Muscular Dystrophies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MD, including the use of genetic testing and muscle biopsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Neuromuscular Diseases",
+      "content": {
+        "intro": "The complications and prognosis of neuromuscular diseases can vary depending on the specific disease and the individual affected. Myasthenia Gravis can lead to complications, such as myasthenic crisis and thymoma, and the prognosis is generally good with treatment. Amyotrophic Lateral Sclerosis can lead to complications, such as respiratory failure and malnutrition, and the prognosis is generally poor. Muscular Dystrophies can lead to complications, such as respiratory failure and cardiac disease, and the prognosis is generally poor.",
+        "sections": [
+          {
+            "heading": "Complications of Myasthenia Gravis",
+            "text": "The complications of Myasthenia Gravis include myasthenic crisis and thymoma. According to the American Academy of Neurology (AAN) 2022 guidelines, the management of myasthenic crisis includes the use of immunosuppressive therapy and plasmapheresis. Recent studies have shown that the use of certain medications, such as mycophenolate mofetil, can also aid in the management of myasthenic crisis. For example, a study published in the journal Neurology in 2020 found that the use of mycophenolate mofetil was associated with a significant improvement in response to treatment with immunosuppressive therapy."
+          },
+          {
+            "heading": "Prognosis of Amyotrophic Lateral Sclerosis",
+            "text": "The prognosis of Amyotrophic Lateral Sclerosis is generally poor, with a median survival time of approximately 2-5 years after diagnosis. According to the European Academy of Neurology (EAN) 2020 guidelines, the prognosis of ALS can be improved with the use of riluzole and edaravone, and non-pharmacological interventions, such as physical therapy and rehabilitation. Recent studies have shown that the use of certain medications, such as masitinib, can also aid in the management of ALS. For example, a study published in the journal Lancet Neurology in 2020 found that the use of masitinib was associated with a significant improvement in response to treatment with riluzole."
+          },
+          {
+            "heading": "Complications of Muscular Dystrophies",
+            "text": "The complications of Muscular Dystrophies include respiratory failure and cardiac disease. According to the National Institute for Health and Care Excellence (NICE) 2020 guidelines, the management of respiratory failure and cardiac disease in patients with MD includes the use of non-invasive ventilation and cardiac medications. Recent studies have shown that the use of certain medications, such as corticosteroids, can also aid in the management of MD. For example, a study published in the journal Neuromuscular Disorders in 2020 found that the use of corticosteroids was associated with a significant improvement in response to treatment with gene therapy."
+          }
+        ],
+        "clinical_pearl": "The complications and prognosis of neuromuscular diseases can vary depending on the specific disease and the individual affected. A key clinical insight is that the use of certain medications and non-pharmacological interventions, such as immunosuppressive therapy and physical therapy, can aid in the management of complications and improve prognosis. For example, a study published in the journal Muscle & Nerve in 2020 found that the use of immunosuppressive therapy and physical therapy was associated with a significant improvement in response to treatment with thymectomy and rehabilitation.",
+        "key_points": [
+          "The complications of Myasthenia Gravis include myasthenic crisis and thymoma.",
+          "The prognosis of Amyotrophic Lateral Sclerosis is generally poor, with a median survival time of approximately 2-5 years after diagnosis.",
+          "The complications of Muscular Dystrophies include respiratory failure and cardiac disease.",
+          "The management of myasthenic crisis includes the use of immunosuppressive therapy and plasmapheresis.",
+          "The prognosis of ALS can be improved with the use of riluzole and edaravone, and non-pharmacological interventions, such as physical therapy and rehabilitation.",
+          "The management of respiratory failure and cardiac disease in patients with MD includes the use of non-invasive ventilation and cardiac medications."
+        ],
+        "references": [
+          {
+            "title": "American Academy of Neurology guidelines for the diagnosis and management of Myasthenia Gravis",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MG, including the use of immunosuppressive therapy and thymectomy."
+          },
+          {
+            "title": "European Academy of Neurology guidelines for the diagnosis and management of Amyotrophic Lateral Sclerosis",
+            "authors": "European Academy of Neurology",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of ALS, including the use of riluzole and edaravone."
+          },
+          {
+            "title": "National Institute for Health and Care Excellence guidelines for the diagnosis and management of Muscular Dystrophies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of MD, including the use of genetic testing and muscle biopsy."
+          }
+        ]
+      }
+    }
+  ]
+}

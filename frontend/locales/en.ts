@@ -2175,7 +2175,7 @@ const en = {
     for_whom_vet:   "Veterinary companies",
     for_whom_vet_d: "Train field reps, medical liaisons, and distributor networks on your therapeutic areas",
     for_whom_clinic: "Clinics & hospitals",
-    for_whom_clinic_d: "Structured CPD for your entire clinical team — tracked and reported",
+    for_whom_clinic_d: "Structured CPD for your entire clinical team — doctors, nurses, and allied health — tracked and reported",
     for_whom_uni:   "Universities & schools",
     for_whom_uni_d: "Supplement curricula with AI tutoring and clinical case simulations",
     for_whom_assoc: "Medical associations",

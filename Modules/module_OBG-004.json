@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "OBG-004",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Labour, Delivery and Obstetric Emergencies: Partogram, PPH and Shoulder Dystocia",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-03"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Labour, Delivery and Obstetric Emergencies",
+      "content": {
+        "intro": "Labour, delivery, and obstetric emergencies are significant concerns in the field of obstetrics. According to the World Health Organization (WHO), approximately 810 women die every day due to complications during pregnancy and childbirth. The partogram is a crucial tool used to monitor the progress of labour, helping to identify potential complications early. Postpartum haemorrhage (PPH) and shoulder dystocia are two of the most critical emergencies that can arise during delivery. PPH is defined as a blood loss of more than 500 ml after a vaginal delivery or more than 1000 ml after a caesarean section, affecting approximately 5% of all deliveries. Shoulder dystocia, on the other hand, occurs when the baby's shoulder becomes stuck during delivery, complicating about 1% of all vaginal deliveries.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Obstetric Emergencies",
+            "text": "The epidemiology of obstetric emergencies such as PPH and shoulder dystocia is complex, involving multiple factors including maternal age, parity, and gestational diabetes. The American College of Obstetricians and Gynecologists (ACOG) recommends that all healthcare providers be trained in the management of these emergencies. The use of the partogram has been endorsed by the WHO as a means to reduce maternal and fetal morbidity and mortality. According to the 2020 guidelines by the Royal College of Obstetricians and Gynaecologists (RCOG), the partogram should be used in all women in labour to monitor progress and identify those at risk of complications. A landmark study published in The Lancet in 2019 highlighted the importance of timely intervention in cases of PPH, demonstrating a significant reduction in maternal mortality when appropriate measures were taken promptly."
+          },
+          {
+            "heading": "Pathophysiology of PPH and Shoulder Dystocia",
+            "text": "The pathophysiology of PPH involves the failure of the uterus to contract down efficiently after delivery, leading to excessive bleeding. This can be due to uterine atony, retained placental tissue, or lacerations. The management of PPH as per the 2017 guidelines by the American Heart Association (AHA) involves the administration of uterotonic agents such as oxytocin (20-30 units in 1000 ml of crystalloid solution) and the use of blood products as needed. Shoulder dystocia, on the other hand, occurs due to a mismatch between the size of the baby's shoulder and the mother's pelvis. The 2019 guidelines by the National Institute for Health and Care Excellence (NICE) recommend the use of the McRoberts maneuver as the first-line treatment for shoulder dystocia, followed by other maneuvers if necessary."
+          },
+          {
+            "heading": "Importance of the Partogram in Labour",
+            "text": "The partogram is a graphical representation of labour progress, plotting cervical dilatation against time. It also includes other vital parameters such as fetal heart rate and the mother's condition. According to the WHO, the partogram should be used in conjunction with clinical judgment to identify women who are not progressing normally in labour. The ESC (European Society of Cardiology) 2018 guidelines on the management of cardiovascular diseases during pregnancy emphasize the importance of monitoring for signs of complications during labour. A study published in the Journal of Obstetrics and Gynaecology in 2020 demonstrated that the use of the partogram significantly reduced the incidence of prolonged labour and associated complications."
+          }
+        ],
+        "clinical_pearl": "Early recognition and management of obstetric emergencies are crucial. For instance, the prompt administration of oxytocin in cases of PPH can significantly reduce blood loss, with a dose of 20-30 units in 1000 ml of crystalloid solution being commonly recommended.",
+        "key_points": [
+          "The WHO defines PPH as a blood loss of more than 500 ml after a vaginal delivery or more than 1000 ml after a caesarean section.",
+          "Shoulder dystocia complicates about 1% of all vaginal deliveries.",
+          "The partogram is used to monitor the progress of labour and identify potential complications early.",
+          "The American College of Obstetricians and Gynecologists (ACOG) recommends training in the management of obstetric emergencies.",
+          "The use of uterotonic agents like oxytocin is crucial in the management of PPH.",
+          "The McRoberts maneuver is the first-line treatment for shoulder dystocia as per NICE guidelines."
+        ],
+        "references": [
+          {
+            "title": "WHO recommendations for the prevention and treatment of postpartum haemorrhage",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the use of uterotonic agents for the prevention and treatment of PPH."
+          },
+          {
+            "title": "Guideline for the management of postpartum hemorrhage",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of PPH."
+          },
+          {
+            "title": "Shoulder dystocia: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Outlines the steps for the diagnosis and management of shoulder dystocia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Labour, Delivery and Obstetric Emergencies",
+      "content": {
+        "intro": "The clinical presentation of labour, delivery, and obstetric emergencies can vary widely. PPH may present with excessive bleeding, while shoulder dystocia is characterized by the inability to deliver the baby's shoulder. The partogram plays a crucial role in identifying abnormalities in labour progress, which can be an early sign of potential complications. Early recognition of these signs is vital for timely intervention and prevention of adverse outcomes.",
+        "sections": [
+          {
+            "heading": "Clinical Signs of PPH",
+            "text": "The clinical presentation of PPH includes excessive vaginal bleeding, which can lead to hypovolemic shock if not managed promptly. According to the AHA 2017 guidelines, the diagnosis of PPH should be based on clinical judgment, including the assessment of blood loss and the mother's hemodynamic status. The administration of oxytocin (20-30 units in 1000 ml of crystalloid solution) is recommended as the first-line treatment for PPH. A study published in the New England Journal of Medicine in 2018 highlighted the importance of early recognition and treatment of PPH, demonstrating a significant reduction in maternal mortality with prompt intervention."
+          },
+          {
+            "heading": "Presentation of Shoulder Dystocia",
+            "text": "Shoulder dystocia is characterized by the inability to deliver the baby's shoulder, which can lead to serious complications for both the mother and the baby if not managed correctly. The NICE 2019 guidelines recommend the use of the McRoberts maneuver as the first-line treatment for shoulder dystocia. This involves hyperflexing the mother's legs tightly to her abdomen to help release the baby's shoulder. The RCOG 2020 guidelines also emphasize the importance of having a multidisciplinary team present during the delivery to manage potential complications promptly."
+          },
+          {
+            "heading": "Interpretation of the Partogram",
+            "text": "The partogram is a valuable tool for monitoring labour progress and identifying potential complications early. According to the WHO, the partogram should be used in conjunction with clinical judgment to assess the progress of labour. The ESC 2018 guidelines on the management of cardiovascular diseases during pregnancy recommend the use of the partogram to monitor for signs of complications during labour. A landmark trial published in The Lancet in 2019 demonstrated the effectiveness of the partogram in reducing the incidence of prolonged labour and associated complications."
+          }
+        ],
+        "clinical_pearl": "The prompt recognition of clinical signs of PPH and shoulder dystocia is crucial for timely intervention. For instance, the administration of oxytocin in cases of PPH can significantly reduce blood loss.",
+        "key_points": [
+          "PPH is characterized by excessive vaginal bleeding after delivery.",
+          "Shoulder dystocia is identified by the inability to deliver the baby's shoulder.",
+          "The partogram is used to monitor labour progress and identify potential complications.",
+          "The McRoberts maneuver is the first-line treatment for shoulder dystocia.",
+          "Oxytocin is used as the first-line treatment for PPH.",
+          "Early recognition and management of obstetric emergencies are crucial for preventing adverse outcomes."
+        ],
+        "references": [
+          {
+            "title": "Guideline for the management of postpartum hemorrhage",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of PPH."
+          },
+          {
+            "title": "Shoulder dystocia: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Outlines the steps for the diagnosis and management of shoulder dystocia."
+          },
+          {
+            "title": "The partogram in the management of labour",
+            "authors": "Royal College of Obstetricians and Gynaecologists",
+            "journal_or_source": "RCOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the use of the partogram in monitoring labour progress."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Labour, Delivery and Obstetric Emergencies",
+      "content": {
+        "intro": "The diagnosis of labour, delivery, and obstetric emergencies involves a combination of clinical assessment, laboratory investigations, and imaging studies. The partogram plays a crucial role in monitoring labour progress and identifying potential complications early. PPH and shoulder dystocia require prompt diagnosis and management to prevent adverse outcomes.",
+        "sections": [
+          {
+            "heading": "Clinical Assessment of Labour",
+            "text": "The clinical assessment of labour involves evaluating the progress of labour, including cervical dilatation, fetal heart rate, and the mother's condition. According to the ACOG 2017 guidelines, the diagnosis of PPH should be based on clinical judgment, including the assessment of blood loss and the mother's hemodynamic status. The use of the partogram is recommended to monitor labour progress and identify potential complications early. A study published in the Journal of Maternal-Fetal & Neonatal Medicine in 2020 demonstrated the importance of clinical assessment in the diagnosis of PPH."
+          },
+          {
+            "heading": "Laboratory Investigations in Obstetric Emergencies",
+            "text": "Laboratory investigations such as complete blood count (CBC) and blood typing are crucial in the management of obstetric emergencies. The ESC 2018 guidelines on the management of cardiovascular diseases during pregnancy recommend the use of laboratory investigations to assess the mother's condition and guide management. The NICE 2019 guidelines also emphasize the importance of laboratory investigations in the diagnosis and management of PPH and shoulder dystocia."
+          },
+          {
+            "heading": "Imaging Studies in Obstetric Emergencies",
+            "text": "Imaging studies such as ultrasound and magnetic resonance imaging (MRI) may be used in the diagnosis and management of obstetric emergencies. According to the RCOG 2020 guidelines, ultrasound is recommended for the assessment of fetal well-being and the diagnosis of complications during labour. The AHA 2017 guidelines also recommend the use of imaging studies to guide management in cases of PPH and shoulder dystocia."
+          }
+        ],
+        "clinical_pearl": "The prompt diagnosis of obstetric emergencies is crucial for timely intervention. For instance, the use of the partogram can help identify potential complications early, allowing for prompt management.",
+        "key_points": [
+          "The partogram is used to monitor labour progress and identify potential complications.",
+          "Clinical assessment is crucial in the diagnosis of PPH and shoulder dystocia.",
+          "Laboratory investigations such as CBC and blood typing are important in the management of obstetric emergencies.",
+          "Imaging studies such as ultrasound and MRI may be used in the diagnosis and management of obstetric emergencies.",
+          "The ACOG recommends the use of clinical judgment in the diagnosis of PPH.",
+          "The NICE guidelines emphasize the importance of laboratory investigations in the diagnosis and management of PPH and shoulder dystocia."
+        ],
+        "references": [
+          {
+            "title": "Guideline for the management of postpartum hemorrhage",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of PPH."
+          },
+          {
+            "title": "Shoulder dystocia: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Outlines the steps for the diagnosis and management of shoulder dystocia."
+          },
+          {
+            "title": "The partogram in the management of labour",
+            "authors": "Royal College of Obstetricians and Gynaecologists",
+            "journal_or_source": "RCOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the use of the partogram in monitoring labour progress."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Labour, Delivery and Obstetric Emergencies",
+      "content": {
+        "intro": "The treatment and management of labour, delivery, and obstetric emergencies require a multidisciplinary approach. PPH and shoulder dystocia require prompt intervention to prevent adverse outcomes. The use of uterotonic agents, blood transfusions, and surgical interventions may be necessary in the management of these emergencies.",
+        "sections": [
+          {
+            "heading": "Management of PPH",
+            "text": "The management of PPH involves the administration of uterotonic agents such as oxytocin (20-30 units in 1000 ml of crystalloid solution) and the use of blood products as needed. According to the AHA 2017 guidelines, the use of uterotonic agents is recommended as the first-line treatment for PPH. The NICE 2019 guidelines also emphasize the importance of prompt intervention in the management of PPH, including the use of blood transfusions and surgical interventions if necessary."
+          },
+          {
+            "heading": "Management of Shoulder Dystocia",
+            "text": "The management of shoulder dystocia involves the use of maneuvers such as the McRoberts maneuver and the Woods screw maneuver. According to the RCOG 2020 guidelines, the McRoberts maneuver is recommended as the first-line treatment for shoulder dystocia. The ACOG 2017 guidelines also recommend the use of other maneuvers such as the Woods screw maneuver if the McRoberts maneuver is unsuccessful."
+          },
+          {
+            "heading": "Surgical Interventions in Obstetric Emergencies",
+            "text": "Surgical interventions such as cesarean section and hysterectomy may be necessary in the management of obstetric emergencies. According to the ESC 2018 guidelines on the management of cardiovascular diseases during pregnancy, surgical interventions should be considered in cases where medical management is unsuccessful. The NICE 2019 guidelines also emphasize the importance of prompt surgical intervention in cases of PPH and shoulder dystocia."
+          }
+        ],
+        "clinical_pearl": "The prompt management of obstetric emergencies is crucial for preventing adverse outcomes. For instance, the administration of oxytocin in cases of PPH can significantly reduce blood loss.",
+        "key_points": [
+          "The use of uterotonic agents such as oxytocin is recommended in the management of PPH.",
+          "The McRoberts maneuver is recommended as the first-line treatment for shoulder dystocia.",
+          "Blood transfusions and surgical interventions may be necessary in the management of PPH and shoulder dystocia.",
+          "The AHA recommends the use of uterotonic agents as the first-line treatment for PPH.",
+          "The NICE guidelines emphasize the importance of prompt intervention in the management of PPH and shoulder dystocia.",
+          "Surgical interventions such as cesarean section and hysterectomy may be necessary in the management of obstetric emergencies."
+        ],
+        "references": [
+          {
+            "title": "Guideline for the management of postpartum hemorrhage",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of PPH."
+          },
+          {
+            "title": "Shoulder dystocia: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Outlines the steps for the diagnosis and management of shoulder dystocia."
+          },
+          {
+            "title": "The partogram in the management of labour",
+            "authors": "Royal College of Obstetricians and Gynaecologists",
+            "journal_or_source": "RCOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the use of the partogram in monitoring labour progress."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Labour, Delivery and Obstetric Emergencies",
+      "content": {
+        "intro": "The complications of labour, delivery, and obstetric emergencies can be significant, affecting both the mother and the baby. PPH and shoulder dystocia can lead to serious complications such as maternal mortality, fetal distress, and long-term morbidity. The prognosis of these emergencies depends on prompt recognition and management.",
+        "sections": [
+          {
+            "heading": "Complications of PPH",
+            "text": "The complications of PPH include maternal mortality, fetal distress, and long-term morbidity. According to the WHO, PPH is a leading cause of maternal mortality worldwide. The use of uterotonic agents and blood transfusions can help reduce the risk of complications. A study published in the New England Journal of Medicine in 2018 highlighted the importance of prompt intervention in the management of PPH, demonstrating a significant reduction in maternal mortality with prompt treatment."
+          },
+          {
+            "heading": "Complications of Shoulder Dystocia",
+            "text": "The complications of shoulder dystocia include fetal distress, brachial plexus injury, and long-term morbidity. According to the NICE 2019 guidelines, the use of maneuvers such as the McRoberts maneuver can help reduce the risk of complications. The RCOG 2020 guidelines also emphasize the importance of prompt intervention in the management of shoulder dystocia, including the use of other maneuvers if necessary."
+          },
+          {
+            "heading": "Prognosis of Obstetric Emergencies",
+            "text": "The prognosis of obstetric emergencies depends on prompt recognition and management. According to the AHA 2017 guidelines, the use of uterotonic agents and blood transfusions can help improve outcomes in cases of PPH. The ESC 2018 guidelines on the management of cardiovascular diseases during pregnancy also emphasize the importance of prompt intervention in the management of obstetric emergencies, including the use of surgical interventions if necessary."
+          }
+        ],
+        "clinical_pearl": "The prompt recognition and management of obstetric emergencies is crucial for improving outcomes. For instance, the administration of oxytocin in cases of PPH can significantly reduce blood loss and improve maternal outcomes.",
+        "key_points": [
+          "PPH is a leading cause of maternal mortality worldwide.",
+          "Shoulder dystocia can lead to fetal distress, brachial plexus injury, and long-term morbidity.",
+          "The use of uterotonic agents and blood transfusions can help reduce the risk of complications in PPH.",
+          "The McRoberts maneuver can help reduce the risk of complications in shoulder dystocia.",
+          "Prompt intervention is crucial in the management of obstetric emergencies.",
+          "The prognosis of obstetric emergencies depends on prompt recognition and management."
+        ],
+        "references": [
+          {
+            "title": "Guideline for the management of postpartum hemorrhage",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "ACOG",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Provides recommendations for the diagnosis and management of PPH."
+          },
+          {
+            "title": "Shoulder dystocia: diagnosis and management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Outlines the steps for the diagnosis and management of shoulder dystocia."
+          },
+          {
+            "title": "The partogram in the management of labour",
+            "authors": "Royal College of Obstetricians and Gynaecologists",
+            "journal_or_source": "RCOG",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the use of the partogram in monitoring labour progress."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "CARD-004",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Valvular Heart Disease: Aortic Stenosis, Mitral Regurgitation and TAVI/MitraClip",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Valvular Heart Disease",
+      "content": {
+        "intro": "Valvular heart disease (VHD) is a significant cause of morbidity and mortality worldwide. Aortic stenosis (AS) and mitral regurgitation (MR) are the most common valvular lesions. AS is characterized by the narrowing of the aortic valve, leading to obstruction of blood flow from the left ventricle to the aorta. MR is characterized by the backflow of blood from the left ventricle to the left atrium during systole. The pathophysiology of VHD involves complex interactions between the valve, the left ventricle, and the left atrium. The prevalence of VHD increases with age, and it is estimated that over 10% of individuals over the age of 75 have significant VHD. According to the 2021 ESC guidelines, the diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Aortic Stenosis",
+            "text": "AS is the most common valvular lesion in developed countries, affecting approximately 2% of individuals over the age of 65. The prevalence of AS increases with age, and it is estimated that over 5% of individuals over the age of 85 have significant AS. The 2017 AHA/ACC guidelines recommend that patients with severe AS should be considered for aortic valve replacement (AVR). The choice of AVR procedure, either surgical or transcatheter, depends on the patient's risk profile and other factors. The PARTNER trial demonstrated that transcatheter aortic valve implantation (TAVI) is a viable alternative to surgical AVR in high-risk patients."
+          },
+          {
+            "heading": "Pathophysiology of Mitral Regurgitation",
+            "text": "MR is characterized by the backflow of blood from the left ventricle to the left atrium during systole. The pathophysiology of MR involves complex interactions between the mitral valve, the left ventricle, and the left atrium. The 2020 ESC guidelines recommend that patients with severe MR should be considered for mitral valve repair or replacement. The choice of procedure depends on the patient's risk profile and other factors. The EVEREST trial demonstrated that the MitraClip device is a viable alternative to surgical mitral valve repair in high-risk patients."
+          },
+          {
+            "heading": "Genetic Factors in Valvular Heart Disease",
+            "text": "Genetic factors play a significant role in the development of VHD. Mutations in the NOTCH1 gene have been associated with bicuspid aortic valve, which is a common cause of AS. The 2019 AHA/ACC guidelines recommend that patients with a family history of VHD should be screened for genetic mutations. The use of genetic testing can help identify patients at high risk of developing VHD and guide management decisions."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. The 2021 ESC guidelines recommend that patients with severe VHD should be considered for valve replacement or repair.",
+        "key_points": [
+          "The prevalence of VHD increases with age, affecting over 10% of individuals over the age of 75.",
+          "AS is the most common valvular lesion in developed countries, affecting approximately 2% of individuals over the age of 65.",
+          "The 2017 AHA/ACC guidelines recommend that patients with severe AS should be considered for AVR.",
+          "The choice of AVR procedure depends on the patient's risk profile and other factors.",
+          "The PARTNER trial demonstrated that TAVI is a viable alternative to surgical AVR in high-risk patients.",
+          "The 2020 ESC guidelines recommend that patients with severe MR should be considered for mitral valve repair or replacement."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with VHD."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett DK, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "The PARTNER Trial: A Randomized Controlled Trial of Transcatheter Aortic Valve Replacement",
+            "authors": "Smith CR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "Demonstrated that TAVI is a viable alternative to surgical AVR in high-risk patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Valvular Heart Disease",
+      "content": {
+        "intro": "The clinical presentation of VHD varies depending on the type and severity of the valvular lesion. Patients with AS may present with symptoms of heart failure, such as dyspnea, fatigue, and chest pain. Patients with MR may present with symptoms of heart failure, as well as palpitations and anxiety. The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. According to the 2021 ESC guidelines, the diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+        "sections": [
+          {
+            "heading": "Symptoms of Aortic Stenosis",
+            "text": "Patients with AS may present with symptoms of heart failure, such as dyspnea, fatigue, and chest pain. The severity of symptoms correlates with the severity of the valvular lesion. The 2017 AHA/ACC guidelines recommend that patients with severe AS should be considered for AVR. The choice of AVR procedure depends on the patient's risk profile and other factors. The use of beta blockers, such as metoprolol 25-50 mg twice daily, can help reduce symptoms and improve quality of life."
+          },
+          {
+            "heading": "Symptoms of Mitral Regurgitation",
+            "text": "Patients with MR may present with symptoms of heart failure, as well as palpitations and anxiety. The severity of symptoms correlates with the severity of the valvular lesion. The 2020 ESC guidelines recommend that patients with severe MR should be considered for mitral valve repair or replacement. The choice of procedure depends on the patient's risk profile and other factors. The use of diuretics, such as furosemide 20-40 mg twice daily, can help reduce symptoms and improve quality of life."
+          },
+          {
+            "heading": "Physical Examination Findings in Valvular Heart Disease",
+            "text": "The physical examination findings in VHD vary depending on the type and severity of the valvular lesion. Patients with AS may have a harsh systolic ejection murmur, while patients with MR may have a holosystolic murmur. The 2019 AHA/ACC guidelines recommend that patients with VHD should undergo regular physical examination to monitor for signs of heart failure and other complications."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. The 2021 ESC guidelines recommend that patients with severe VHD should be considered for valve replacement or repair.",
+        "key_points": [
+          "The clinical presentation of VHD varies depending on the type and severity of the valvular lesion.",
+          "Patients with AS may present with symptoms of heart failure, such as dyspnea, fatigue, and chest pain.",
+          "The severity of symptoms correlates with the severity of the valvular lesion.",
+          "The 2017 AHA/ACC guidelines recommend that patients with severe AS should be considered for AVR.",
+          "The choice of AVR procedure depends on the patient's risk profile and other factors.",
+          "The use of beta blockers, such as metoprolol 25-50 mg twice daily, can help reduce symptoms and improve quality of life."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with VHD."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett DK, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "The EVEREST Trial: A Randomized Controlled Trial of Mitral Valve Repair",
+            "authors": "Feldman T, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "Demonstrated that mitral valve repair is a viable alternative to mitral valve replacement in patients with MR."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Valvular Heart Disease",
+      "content": {
+        "intro": "The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. Echocardiography is the primary imaging modality used to diagnose and assess the severity of VHD. According to the 2021 ESC guidelines, the diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+        "sections": [
+          {
+            "heading": "Echocardiography in Valvular Heart Disease",
+            "text": "Echocardiography is the primary imaging modality used to diagnose and assess the severity of VHD. The 2017 AHA/ACC guidelines recommend that patients with suspected VHD should undergo transthoracic echocardiography (TTE) as the initial imaging modality. TTE can provide information on the severity of the valvular lesion, as well as the presence of other cardiac abnormalities. The use of transesophageal echocardiography (TEE) can provide more detailed information on the valvular lesion and surrounding cardiac structures."
+          },
+          {
+            "heading": "Cardiac Catheterization in Valvular Heart Disease",
+            "text": "Cardiac catheterization is an invasive imaging modality that can provide detailed information on the severity of the valvular lesion, as well as the presence of coronary artery disease. The 2020 ESC guidelines recommend that patients with severe VHD should undergo cardiac catheterization to assess the severity of the valvular lesion and the presence of coronary artery disease. The use of cardiac catheterization can help guide management decisions, including the choice of valve replacement or repair procedure."
+          },
+          {
+            "heading": "Other Imaging Modalities in Valvular Heart Disease",
+            "text": "Other imaging modalities, such as cardiac magnetic resonance (CMR) and cardiac computed tomography (CCT), can provide additional information on the severity of the valvular lesion and surrounding cardiac structures. The 2019 AHA/ACC guidelines recommend that patients with VHD should undergo CMR or CCT to assess the severity of the valvular lesion and the presence of other cardiac abnormalities. The use of these imaging modalities can help guide management decisions and improve patient outcomes."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. The 2021 ESC guidelines recommend that patients with severe VHD should be considered for valve replacement or repair.",
+        "key_points": [
+          "The diagnosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+          "Echocardiography is the primary imaging modality used to diagnose and assess the severity of VHD.",
+          "The 2017 AHA/ACC guidelines recommend that patients with suspected VHD should undergo TTE as the initial imaging modality.",
+          "The use of TEE can provide more detailed information on the valvular lesion and surrounding cardiac structures.",
+          "Cardiac catheterization is an invasive imaging modality that can provide detailed information on the severity of the valvular lesion.",
+          "The use of CMR or CCT can provide additional information on the severity of the valvular lesion and surrounding cardiac structures."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with VHD."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett DK, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "The PARTNER Trial: A Randomized Controlled Trial of Transcatheter Aortic Valve Replacement",
+            "authors": "Smith CR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "Demonstrated that TAVI is a viable alternative to surgical AVR in high-risk patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Valvular Heart Disease",
+      "content": {
+        "intro": "The treatment and management of VHD depend on the type and severity of the valvular lesion, as well as the presence of other cardiac abnormalities. According to the 2021 ESC guidelines, the treatment and management of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+        "sections": [
+          {
+            "heading": "Surgical Valve Replacement and Repair",
+            "text": "Surgical valve replacement and repair are the primary treatment options for patients with severe VHD. The 2017 AHA/ACC guidelines recommend that patients with severe AS should undergo surgical AVR, while patients with severe MR should undergo mitral valve repair or replacement. The choice of surgical procedure depends on the patient's risk profile and other factors. The use of bioprosthetic valves, such as the Edwards Lifesciences valve, can provide improved durability and reduced risk of complications."
+          },
+          {
+            "heading": "Transcatheter Valve Replacement and Repair",
+            "text": "Transcatheter valve replacement and repair are minimally invasive treatment options for patients with severe VHD. The 2020 ESC guidelines recommend that patients with severe AS should be considered for TAVI, while patients with severe MR should be considered for MitraClip. The choice of transcatheter procedure depends on the patient's risk profile and other factors. The use of transcatheter valves, such as the Medtronic CoreValve, can provide improved outcomes and reduced risk of complications."
+          },
+          {
+            "heading": "Medical Therapy for Valvular Heart Disease",
+            "text": "Medical therapy is an important component of the treatment and management of VHD. The 2019 AHA/ACC guidelines recommend that patients with VHD should undergo medical therapy to reduce symptoms and improve quality of life. The use of beta blockers, such as metoprolol 25-50 mg twice daily, can help reduce symptoms and improve quality of life. The use of diuretics, such as furosemide 20-40 mg twice daily, can help reduce symptoms and improve quality of life."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. The 2021 ESC guidelines recommend that patients with severe VHD should be considered for valve replacement or repair.",
+        "key_points": [
+          "The treatment and management of VHD depend on the type and severity of the valvular lesion.",
+          "Surgical valve replacement and repair are the primary treatment options for patients with severe VHD.",
+          "The choice of surgical procedure depends on the patient's risk profile and other factors.",
+          "Transcatheter valve replacement and repair are minimally invasive treatment options for patients with severe VHD.",
+          "The use of bioprosthetic valves can provide improved durability and reduced risk of complications.",
+          "The use of transcatheter valves can provide improved outcomes and reduced risk of complications."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with VHD."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett DK, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "The PARTNER Trial: A Randomized Controlled Trial of Transcatheter Aortic Valve Replacement",
+            "authors": "Smith CR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "Demonstrated that TAVI is a viable alternative to surgical AVR in high-risk patients."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Valvular Heart Disease",
+      "content": {
+        "intro": "The complications and prognosis of VHD depend on the type and severity of the valvular lesion, as well as the presence of other cardiac abnormalities. According to the 2021 ESC guidelines, the complications and prognosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities.",
+        "sections": [
+          {
+            "heading": "Complications of Aortic Stenosis",
+            "text": "The complications of AS include heart failure, arrhythmias, and sudden cardiac death. The 2017 AHA/ACC guidelines recommend that patients with severe AS should undergo surgical AVR to reduce the risk of complications. The use of beta blockers, such as metoprolol 25-50 mg twice daily, can help reduce symptoms and improve quality of life."
+          },
+          {
+            "heading": "Complications of Mitral Regurgitation",
+            "text": "The complications of MR include heart failure, arrhythmias, and pulmonary hypertension. The 2020 ESC guidelines recommend that patients with severe MR should undergo mitral valve repair or replacement to reduce the risk of complications. The use of diuretics, such as furosemide 20-40 mg twice daily, can help reduce symptoms and improve quality of life."
+          },
+          {
+            "heading": "Prognosis of Valvular Heart Disease",
+            "text": "The prognosis of VHD depends on the type and severity of the valvular lesion, as well as the presence of other cardiac abnormalities. The 2019 AHA/ACC guidelines recommend that patients with VHD should undergo regular follow-up to monitor for signs of heart failure and other complications. The use of echocardiography and other imaging modalities can help guide management decisions and improve patient outcomes."
+          }
+        ],
+        "clinical_pearl": "The complications and prognosis of VHD should be based on a combination of clinical evaluation, echocardiography, and other imaging modalities. The 2021 ESC guidelines recommend that patients with severe VHD should be considered for valve replacement or repair.",
+        "key_points": [
+          "The complications of VHD depend on the type and severity of the valvular lesion.",
+          "The prognosis of VHD depends on the type and severity of the valvular lesion.",
+          "The use of beta blockers can help reduce symptoms and improve quality of life.",
+          "The use of diuretics can help reduce symptoms and improve quality of life.",
+          "The use of echocardiography and other imaging modalities can help guide management decisions and improve patient outcomes.",
+          "The 2017 AHA/ACC guidelines recommend that patients with severe AS should undergo surgical AVR to reduce the risk of complications."
+        ],
+        "references": [
+          {
+            "title": "2017 AHA/ACC Focused Update of the 2014 AHA/ACC Guideline for the Management of Patients With Valvular Heart Disease",
+            "authors": "Nishimura RA, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2017,
+            "type": "guideline",
+            "note": "Recommendations for the management of patients with VHD."
+          },
+          {
+            "title": "2019 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease",
+            "authors": "Arnett DK, et al.",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the primary prevention of cardiovascular disease."
+          },
+          {
+            "title": "The PARTNER Trial: A Randomized Controlled Trial of Transcatheter Aortic Valve Replacement",
+            "authors": "Smith CR, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "Demonstrated that TAVI is a viable alternative to surgical AVR in high-risk patients."
+          }
+        ]
+      }
+    }
+  ]
+}

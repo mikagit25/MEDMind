@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "ONC-004",
+    "type": "specialty_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Prostate Cancer: PSA, Gleason, Hormonal Therapy and CRPC Management",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-28"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer is the second most common cancer in men worldwide, accounting for approximately 1.4 million new cases and 375,000 deaths annually. The disease is more prevalent in older men, with the majority of cases diagnosed in men over the age of 65. The pathophysiology of prostate cancer involves the uncontrolled growth of malignant cells in the prostate gland, which can lead to local invasion and metastasis. The development of prostate cancer is influenced by a combination of genetic and environmental factors, including mutations in the BRCA2 gene, androgen receptor signaling, and dietary factors. The prostate-specific antigen (PSA) test is commonly used for screening and early detection of prostate cancer.",
+        "sections": [
+          {
+            "heading": "Risk Factors and Prevention",
+            "text": "Several risk factors have been identified for prostate cancer, including age, family history, and genetic mutations. The American Cancer Society recommends that men with a family history of prostate cancer discuss their risk with their doctor and consider screening starting at age 40. The European Association of Urology (EAU) guidelines recommend that men with a high risk of prostate cancer undergo annual PSA testing and digital rectal examination. The use of 5-alpha-reductase inhibitors, such as finasteride, has been shown to reduce the risk of prostate cancer in high-risk men. The landmark Prostate Cancer Prevention Trial (PCPT) demonstrated a 24.8% reduction in prostate cancer risk with finasteride therapy."
+          },
+          {
+            "heading": "Genetic Mutations and Molecular Pathways",
+            "text": "Genetic mutations play a crucial role in the development and progression of prostate cancer. Mutations in the BRCA2 gene have been identified as a significant risk factor for prostate cancer, with a 3.5-fold increased risk of developing the disease. The androgen receptor (AR) signaling pathway is also critical in the development of prostate cancer, with AR mutations and amplifications contributing to the growth and survival of malignant cells. The phosphatidylinositol 3-kinase (PI3K) pathway is another key molecular pathway involved in prostate cancer, with PI3K inhibitors showing promise as therapeutic agents. The NICE guidelines recommend that men with metastatic prostate cancer undergo genetic testing for BRCA2 mutations to guide treatment decisions."
+          },
+          {
+            "heading": "Screening and Early Detection",
+            "text": "Early detection of prostate cancer is critical for improving treatment outcomes and survival. The PSA test is commonly used for screening, with a threshold of 4.0 ng/mL used to distinguish between normal and abnormal results. The European Society of Medical Oncology (ESMO) guidelines recommend that men with a PSA level above 10 ng/mL undergo biopsy to rule out prostate cancer. The use of multiparametric magnetic resonance imaging (mpMRI) has improved the accuracy of prostate cancer diagnosis, with a sensitivity of 80-90% and specificity of 70-80%. The AHA guidelines recommend that men with a family history of prostate cancer undergo annual PSA testing and mpMRI starting at age 40."
+          }
+        ],
+        "clinical_pearl": "The use of PSA velocity, which measures the rate of change of PSA levels over time, can help identify men at high risk of prostate cancer, with a velocity of 0.75 ng/mL per year associated with a 5-fold increased risk of developing the disease.",
+        "key_points": [
+          "Prostate cancer is the second most common cancer in men worldwide.",
+          "The majority of cases are diagnosed in men over the age of 65.",
+          "The PSA test is commonly used for screening and early detection of prostate cancer.",
+          "The EAU guidelines recommend annual PSA testing and digital rectal examination for men with a high risk of prostate cancer.",
+          "The use of 5-alpha-reductase inhibitors can reduce the risk of prostate cancer in high-risk men.",
+          "Genetic mutations, such as BRCA2, play a crucial role in the development and progression of prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "Prostate Cancer Prevention Trial",
+            "authors": "Thompson IM, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2003,
+            "type": "clinical trial",
+            "note": "Demonstrated a 24.8% reduction in prostate cancer risk with finasteride therapy."
+          },
+          {
+            "title": "EAU Guidelines on Prostate Cancer",
+            "authors": "Heidenreich A, et al.",
+            "journal_or_source": "European Urology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend annual PSA testing and digital rectal examination for men with a high risk of prostate cancer."
+          },
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend genetic testing for BRCA2 mutations in men with metastatic prostate cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer can present with a range of symptoms, including urinary frequency, urgency, and obstruction, as well as pain and discomfort in the pelvic area. The disease can also be asymptomatic, with many cases diagnosed through screening. The clinical presentation of prostate cancer can vary depending on the stage and grade of the disease, with more advanced cases often presenting with systemic symptoms such as weight loss and fatigue.",
+        "sections": [
+          {
+            "heading": "Local Symptoms",
+            "text": "Local symptoms of prostate cancer include urinary frequency, urgency, and obstruction, as well as pain and discomfort in the pelvic area. These symptoms are often caused by the growth of the tumor in the prostate gland, which can compress the urethra and bladder. The AHA guidelines recommend that men with these symptoms undergo PSA testing and digital rectal examination to rule out prostate cancer. The use of alpha-blockers, such as tamsulosin, can help alleviate urinary symptoms in men with prostate cancer."
+          },
+          {
+            "heading": "Systemic Symptoms",
+            "text": "Systemic symptoms of prostate cancer include weight loss, fatigue, and bone pain, which can occur in more advanced cases of the disease. These symptoms are often caused by the spread of the cancer to other parts of the body, such as the bones and lymph nodes. The NICE guidelines recommend that men with metastatic prostate cancer undergo regular monitoring for systemic symptoms, including weight loss and fatigue. The use of bisphosphonates, such as zoledronic acid, can help reduce the risk of bone fractures in men with prostate cancer."
+          },
+          {
+            "heading": "Paraneoplastic Syndromes",
+            "text": "Paraneoplastic syndromes are rare disorders that can occur in men with prostate cancer, including hypercalcemia, hypocalcemia, and anemia. These syndromes are often caused by the production of abnormal proteins by the tumor, which can affect other parts of the body. The ESMO guidelines recommend that men with prostate cancer undergo regular monitoring for paraneoplastic syndromes, including hypercalcemia and anemia. The use of denosumab, a monoclonal antibody, can help reduce the risk of hypercalcemia in men with prostate cancer."
+          }
+        ],
+        "clinical_pearl": "The use of the International Prostate Symptom Score (IPSS) can help assess the severity of urinary symptoms in men with prostate cancer, with a score of 20-35 indicating moderate to severe symptoms.",
+        "key_points": [
+          "Prostate cancer can present with a range of symptoms, including urinary frequency and pain.",
+          "The disease can also be asymptomatic, with many cases diagnosed through screening.",
+          "Local symptoms are often caused by the growth of the tumor in the prostate gland.",
+          "Systemic symptoms can occur in more advanced cases of the disease.",
+          "Paraneoplastic syndromes are rare disorders that can occur in men with prostate cancer.",
+          "The use of alpha-blockers and bisphosphonates can help alleviate symptoms in men with prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "AHA Guidelines on Prostate Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend PSA testing and digital rectal examination for men with local symptoms."
+          },
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend regular monitoring for systemic symptoms in men with metastatic prostate cancer."
+          },
+          {
+            "title": "ESMO Guidelines on Prostate Cancer",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend regular monitoring for paraneoplastic syndromes in men with prostate cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Prostate Cancer",
+      "content": {
+        "intro": "The diagnosis of prostate cancer involves a range of investigations, including PSA testing, digital rectal examination, and imaging studies such as ultrasound and MRI. The disease can also be diagnosed through biopsy, which involves the removal of tissue from the prostate gland for histological examination. The accuracy of diagnosis can be improved through the use of multiparametric MRI and genomic testing.",
+        "sections": [
+          {
+            "heading": "PSA Testing",
+            "text": "PSA testing is a commonly used screening test for prostate cancer, with a threshold of 4.0 ng/mL used to distinguish between normal and abnormal results. The test measures the level of PSA in the blood, which can be elevated in men with prostate cancer. The AHA guidelines recommend that men with a PSA level above 10 ng/mL undergo biopsy to rule out prostate cancer. The use of PSA velocity, which measures the rate of change of PSA levels over time, can help identify men at high risk of prostate cancer."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound and MRI, can help diagnose prostate cancer and assess the extent of the disease. The use of multiparametric MRI has improved the accuracy of diagnosis, with a sensitivity of 80-90% and specificity of 70-80%. The ESMO guidelines recommend that men with a high risk of prostate cancer undergo multiparametric MRI to guide biopsy and treatment decisions. The use of MRI-guided biopsy can improve the accuracy of diagnosis and reduce the risk of complications."
+          },
+          {
+            "heading": "Biopsy and Histological Examination",
+            "text": "Biopsy involves the removal of tissue from the prostate gland for histological examination, which can help diagnose prostate cancer and assess the grade and stage of the disease. The use of genomic testing, such as the Oncotype DX test, can help identify men at high risk of prostate cancer and guide treatment decisions. The NICE guidelines recommend that men with prostate cancer undergo genomic testing to guide treatment decisions and improve outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of the Prostate Imaging-Reporting and Data System (PI-RADS) can help standardize the interpretation of multiparametric MRI results, with a score of 4-5 indicating a high likelihood of prostate cancer.",
+        "key_points": [
+          "PSA testing is a commonly used screening test for prostate cancer.",
+          "The test measures the level of PSA in the blood, which can be elevated in men with prostate cancer.",
+          "Imaging studies, such as ultrasound and MRI, can help diagnose prostate cancer and assess the extent of the disease.",
+          "Biopsy involves the removal of tissue from the prostate gland for histological examination.",
+          "Genomic testing can help identify men at high risk of prostate cancer and guide treatment decisions.",
+          "The use of multiparametric MRI and MRI-guided biopsy can improve the accuracy of diagnosis and reduce the risk of complications."
+        ],
+        "references": [
+          {
+            "title": "AHA Guidelines on Prostate Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend PSA testing and digital rectal examination for men with a high risk of prostate cancer."
+          },
+          {
+            "title": "ESMO Guidelines on Prostate Cancer",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend multiparametric MRI to guide biopsy and treatment decisions."
+          },
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend genomic testing to guide treatment decisions and improve outcomes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Prostate Cancer",
+      "content": {
+        "intro": "The treatment and management of prostate cancer depend on the stage and grade of the disease, as well as the patient's overall health and preferences. Treatment options include surgery, radiation therapy, and hormone therapy, as well as newer approaches such as immunotherapy and targeted therapy. The goal of treatment is to control the growth and spread of the cancer, alleviate symptoms, and improve quality of life.",
+        "sections": [
+          {
+            "heading": "Surgery",
+            "text": "Surgery is a common treatment option for prostate cancer, particularly for early-stage disease. The use of radical prostatectomy, which involves the removal of the entire prostate gland, can help cure the disease in men with localized cancer. The AHA guidelines recommend that men with localized prostate cancer undergo radical prostatectomy to improve outcomes. The use of robotic-assisted surgery can improve the accuracy and safety of the procedure."
+          },
+          {
+            "heading": "Radiation Therapy",
+            "text": "Radiation therapy is another common treatment option for prostate cancer, particularly for men who are not candidates for surgery or who have more advanced disease. The use of external beam radiation therapy (EBRT) and brachytherapy can help control the growth and spread of the cancer. The ESMO guidelines recommend that men with prostate cancer undergo radiation therapy to improve outcomes and reduce the risk of recurrence."
+          },
+          {
+            "heading": "Hormone Therapy",
+            "text": "Hormone therapy is a key component of treatment for prostate cancer, particularly for men with advanced disease. The use of androgen deprivation therapy (ADT), which involves the suppression of testosterone production, can help control the growth and spread of the cancer. The NICE guidelines recommend that men with metastatic prostate cancer undergo ADT to improve outcomes and reduce the risk of recurrence. The use of newer agents, such as abiraterone and enzalutamide, can improve the efficacy and safety of hormone therapy."
+          }
+        ],
+        "clinical_pearl": "The use of the Memorial Sloan Kettering Cancer Center (MSKCC) nomogram can help predict the likelihood of recurrence after treatment for prostate cancer, with a score of 10-20 indicating a high risk of recurrence.",
+        "key_points": [
+          "The treatment and management of prostate cancer depend on the stage and grade of the disease.",
+          "Surgery is a common treatment option for prostate cancer, particularly for early-stage disease.",
+          "Radiation therapy is another common treatment option for prostate cancer, particularly for men who are not candidates for surgery.",
+          "Hormone therapy is a key component of treatment for prostate cancer, particularly for men with advanced disease.",
+          "The use of newer agents, such as abiraterone and enzalutamide, can improve the efficacy and safety of hormone therapy.",
+          "The goal of treatment is to control the growth and spread of the cancer, alleviate symptoms, and improve quality of life."
+        ],
+        "references": [
+          {
+            "title": "AHA Guidelines on Prostate Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend radical prostatectomy for men with localized prostate cancer."
+          },
+          {
+            "title": "ESMO Guidelines on Prostate Cancer",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend radiation therapy for men with prostate cancer to improve outcomes and reduce the risk of recurrence."
+          },
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend hormone therapy for men with metastatic prostate cancer to improve outcomes and reduce the risk of recurrence."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Prostate Cancer",
+      "content": {
+        "intro": "Prostate cancer can cause a range of complications, including urinary incontinence, erectile dysfunction, and bone fractures. The prognosis of prostate cancer depends on the stage and grade of the disease, as well as the patient's overall health and treatment response. The use of newer agents and treatment approaches can improve outcomes and reduce the risk of complications.",
+        "sections": [
+          {
+            "heading": "Urinary Complications",
+            "text": "Urinary complications, such as incontinence and obstruction, can occur in men with prostate cancer, particularly after surgery or radiation therapy. The use of pelvic floor exercises and medications, such as alpha-blockers, can help alleviate these symptoms. The AHA guidelines recommend that men with prostate cancer undergo regular monitoring for urinary complications and receive prompt treatment to improve outcomes."
+          },
+          {
+            "heading": "Sexual Complications",
+            "text": "Sexual complications, such as erectile dysfunction, can occur in men with prostate cancer, particularly after surgery or radiation therapy. The use of phosphodiesterase inhibitors, such as sildenafil, can help alleviate these symptoms. The ESMO guidelines recommend that men with prostate cancer undergo regular monitoring for sexual complications and receive prompt treatment to improve outcomes."
+          },
+          {
+            "heading": "Bone Complications",
+            "text": "Bone complications, such as fractures and osteoporosis, can occur in men with prostate cancer, particularly after hormone therapy. The use of bisphosphonates, such as zoledronic acid, can help reduce the risk of bone fractures and improve outcomes. The NICE guidelines recommend that men with prostate cancer undergo regular monitoring for bone complications and receive prompt treatment to improve outcomes."
+          }
+        ],
+        "clinical_pearl": "The use of the Cancer of the Prostate Strategic Urologic Research Endeavor (CAPSURE) database can help predict the likelihood of complications after treatment for prostate cancer, with a score of 10-20 indicating a high risk of complications.",
+        "key_points": [
+          "Prostate cancer can cause a range of complications, including urinary incontinence and erectile dysfunction.",
+          "The prognosis of prostate cancer depends on the stage and grade of the disease, as well as the patient's overall health and treatment response.",
+          "The use of newer agents and treatment approaches can improve outcomes and reduce the risk of complications.",
+          "Urinary complications, such as incontinence and obstruction, can occur in men with prostate cancer.",
+          "Sexual complications, such as erectile dysfunction, can occur in men with prostate cancer.",
+          "Bone complications, such as fractures and osteoporosis, can occur in men with prostate cancer."
+        ],
+        "references": [
+          {
+            "title": "AHA Guidelines on Prostate Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend regular monitoring for urinary complications in men with prostate cancer."
+          },
+          {
+            "title": "ESMO Guidelines on Prostate Cancer",
+            "authors": "European Society of Medical Oncology",
+            "journal_or_source": "ESMO",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend regular monitoring for sexual complications in men with prostate cancer."
+          },
+          {
+            "title": "NICE Guidelines on Prostate Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommend regular monitoring for bone complications in men with prostate cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

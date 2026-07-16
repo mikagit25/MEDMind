@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "PAED-005",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Paediatric Endocrinology: Type 1 DM, Growth Disorders, Congenital Hypothyroidism",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-04"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Paediatric Endocrine Disorders",
+      "content": {
+        "intro": "Paediatric endocrine disorders encompass a range of conditions affecting the endocrine system in children. Type 1 diabetes mellitus (T1DM) is an autoimmune condition leading to the destruction of pancreatic beta cells, resulting in insulin deficiency. Growth disorders, including growth hormone deficiency, can significantly impact a child's development. Congenital hypothyroidism, if untreated, can lead to severe intellectual disability and growth retardation. Understanding the epidemiology and pathophysiology of these conditions is crucial for their management. The incidence of T1DM has been increasing globally, with variations by geographic location and ethnicity. Growth disorders and congenital hypothyroidism also have distinct epidemiological patterns, influenced by genetic, environmental, and socioeconomic factors.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Type 1 Diabetes Mellitus",
+            "text": "The global incidence of T1DM has been rising, with an estimated annual increase of 2-3%. According to the International Diabetes Federation (IDF), the prevalence of T1DM in children under 15 years of age varies significantly across different regions, with the highest rates found in Europe and North America. The pathophysiology involves an autoimmune destruction of the pancreatic beta cells, leading to absolute insulin deficiency. This process is influenced by genetic predisposition, with certain HLA genotypes conferring increased risk, as well as environmental triggers such as viral infections."
+          },
+          {
+            "heading": "Pathophysiology of Growth Disorders",
+            "text": "Growth disorders in children can result from a variety of causes, including growth hormone deficiency, hypothyroidism, and Turner syndrome. Growth hormone deficiency can be congenital or acquired, resulting from conditions such as pituitary tumors or cranial radiation. The diagnosis involves growth velocity assessment and hormonal evaluations, including insulin-like growth factor 1 (IGF-1) and IGF-binding protein 3 (IGFBP-3) levels. Treatment with recombinant human growth hormone (rhGH) is effective in promoting growth in these children, with dosages typically ranging from 0.16 to 0.24 mg/kg/week, as recommended by the Growth Hormone Research Society and the Pediatric Endocrine Society."
+          },
+          {
+            "heading": "Congenital Hypothyroidism",
+            "text": "Congenital hypothyroidism is a condition where the thyroid gland does not produce enough thyroid hormone, essential for growth and brain development. If untreated, it can lead to cretinism, characterized by severe intellectual disability and growth retardation. Neonatal screening programs have significantly improved the outcomes for these children. The condition can be due to thyroid dysgenesis, dyshormonogenesis, or maternal factors. Treatment involves thyroid hormone replacement therapy, with levothyroxine (L-T4) being the drug of choice, initiated at a dose of 10-15 mcg/kg/day, as per the American Academy of Pediatrics (AAP) and the European Society for Paediatric Endocrinology (ESPE) guidelines."
+          }
+        ],
+        "clinical_pearl": "Early diagnosis and treatment of paediatric endocrine disorders can significantly improve outcomes. For instance, initiating insulin therapy promptly in T1DM and starting growth hormone replacement in growth hormone deficiency can prevent long-term complications.",
+        "key_points": [
+          "The incidence of T1DM is increasing globally, with a 2-3% annual rise.",
+          "Growth hormone deficiency can be treated with rhGH at dosages of 0.16 to 0.24 mg/kg/week.",
+          "Congenital hypothyroidism requires prompt treatment with L-T4 at 10-15 mcg/kg/day.",
+          "The ESC 2019 guidelines recommend an HbA1c target of <7.5% for children with T1DM.",
+          "The NICE 2020 guidelines suggest considering rhGH treatment in children with growth hormone deficiency and a height SDS below -2.5.",
+          "The AHA 2019 guidelines emphasize the importance of cardiovascular risk factor management in children with T1DM."
+        ],
+        "references": [
+          {
+            "title": "Global estimates of diabetes prevalence for 2013 and projections for 2035",
+            "authors": "International Diabetes Federation",
+            "journal_or_source": "Diabetes Research and Clinical Practice",
+            "year": 2014,
+            "type": "guideline",
+            "note": "Provides global estimates and projections for diabetes prevalence."
+          },
+          {
+            "title": "Growth Hormone Research Society and Pediatric Endocrine Society Workshop: Growth Hormone Deficiency in Children",
+            "authors": "Growth Hormone Research Society and Pediatric Endocrine Society",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of growth hormone deficiency in children."
+          },
+          {
+            "title": "Neonatal screening for congenital hypothyroidism",
+            "authors": "American Academy of Pediatrics",
+            "journal_or_source": "Pediatrics",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for neonatal screening and treatment of congenital hypothyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Paediatric Endocrine Disorders",
+      "content": {
+        "intro": "The clinical presentation of paediatric endocrine disorders can vary widely, from asymptomatic to severe symptoms. Type 1 diabetes mellitus often presents with classic symptoms of hyperglycemia, including polyuria, polydipsia, and weight loss. Growth disorders may present with short stature or growth failure, while congenital hypothyroidism can be asymptomatic at birth but lead to developmental delays if untreated. Recognizing these presentations is crucial for timely diagnosis and intervention.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of Type 1 Diabetes Mellitus",
+            "text": "Children with T1DM may present with acute symptoms such as polyuria, polydipsia, and weight loss due to hyperglycemia. Other symptoms can include blurred vision, fatigue, and recurrent infections. In some cases, T1DM can present with diabetic ketoacidosis (DKA), a life-threatening complication requiring immediate medical attention. The diagnosis of T1DM is based on clinical presentation, blood glucose levels, and autoantibody tests. The 2020 ADA guidelines recommend using HbA1c levels for diagnosis, with a threshold of ≥6.5%."
+          },
+          {
+            "heading": "Growth Disorders: Clinical Presentation",
+            "text": "Growth disorders in children can present with short stature, growth failure, or delayed puberty. The evaluation involves assessing growth velocity, bone age, and pubertal stage. Hormonal evaluations, including IGF-1 and IGFBP-3 levels, are crucial for diagnosing growth hormone deficiency. The diagnosis of Turner syndrome, a common cause of short stature in girls, involves karyotyping and physical examination for characteristic features such as webbed neck and shield chest."
+          },
+          {
+            "heading": "Congenital Hypothyroidism: Clinical Presentation",
+            "text": "Congenital hypothyroidism is often asymptomatic at birth, but if untreated, it can lead to developmental delays, growth retardation, and characteristic physical features such as a large tongue, umbilical hernia, and dry skin. Neonatal screening programs have significantly improved the detection and outcomes of this condition. The clinical presentation can also include feeding difficulties, constipation, and hypotonia. The diagnosis is confirmed by thyroid function tests, including TSH and free T4 levels."
+          }
+        ],
+        "clinical_pearl": "A high index of suspicion for endocrine disorders is essential in children presenting with non-specific symptoms such as fatigue or growth failure.",
+        "key_points": [
+          "T1DM often presents with polyuria, polydipsia, and weight loss.",
+          "Growth disorders can present with short stature or growth failure.",
+          "Congenital hypothyroidism can be asymptomatic at birth but lead to developmental delays if untreated.",
+          "The ADA 2020 guidelines recommend using HbA1c for T1DM diagnosis.",
+          "The ESPE 2019 guidelines suggest considering growth hormone treatment in children with growth hormone deficiency.",
+          "The AHA 2019 guidelines emphasize the importance of early detection and treatment of congenital hypothyroidism."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and treatment of type 1 diabetes in children",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides guidelines for the diagnosis and treatment of T1DM in children."
+          },
+          {
+            "title": "Growth hormone deficiency in children",
+            "authors": "Growth Hormone Research Society",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of growth hormone deficiency in children."
+          },
+          {
+            "title": "Congenital hypothyroidism: diagnosis and treatment",
+            "authors": "European Society for Paediatric Endocrinology",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of congenital hypothyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Paediatric Endocrine Disorders",
+      "content": {
+        "intro": "The diagnosis of paediatric endocrine disorders involves a combination of clinical evaluation, laboratory tests, and sometimes imaging studies. For Type 1 diabetes mellitus, the diagnosis is based on clinical presentation and laboratory confirmation of hyperglycemia. Growth disorders require assessment of growth velocity, bone age, and hormonal evaluations. Congenital hypothyroidism is diagnosed through neonatal screening programs and confirmed by thyroid function tests. Understanding the diagnostic approach is essential for accurate diagnosis and management.",
+        "sections": [
+          {
+            "heading": "Diagnostic Approach to Type 1 Diabetes Mellitus",
+            "text": "The diagnosis of T1DM involves clinical evaluation for symptoms of hyperglycemia and laboratory confirmation. Fasting plasma glucose, oral glucose tolerance test (OGTT), and HbA1c levels are used for diagnosis. Autoantibody tests, such as GAD and IA-2, can help confirm the autoimmune nature of the disease. The 2020 ADA guidelines recommend using HbA1c levels for diagnosis, with a threshold of ≥6.5%. In children, the diagnosis of T1DM is often made in the context of DKA, requiring immediate medical attention."
+          },
+          {
+            "heading": "Diagnostic Approach to Growth Disorders",
+            "text": "The evaluation of growth disorders involves assessing growth velocity over time, bone age, and pubertal stage. Hormonal evaluations, including IGF-1 and IGFBP-3 levels, are crucial for diagnosing growth hormone deficiency. Thyroid function tests are also important, as hypothyroidism can cause growth failure. Genetic testing may be considered in certain cases, such as Turner syndrome or other syndromic growth disorders. The diagnosis of growth hormone deficiency involves demonstrating a subnormal growth hormone response to stimulation tests."
+          },
+          {
+            "heading": "Diagnostic Approach to Congenital Hypothyroidism",
+            "text": "Congenital hypothyroidism is primarily diagnosed through neonatal screening programs, which measure TSH or T4 levels in heel prick blood samples. Infants with abnormal screening results undergo confirmatory testing, including TSH and free T4 levels. Thyroid ultrasound and scintigraphy may be used to assess thyroid gland anatomy and function. The diagnosis is confirmed by elevated TSH levels and low free T4 levels. Early diagnosis and treatment are critical to prevent long-term neurological and developmental sequelae."
+          }
+        ],
+        "clinical_pearl": "Interpreting laboratory results in the context of clinical presentation is crucial for accurate diagnosis of paediatric endocrine disorders.",
+        "key_points": [
+          "T1DM diagnosis involves clinical evaluation and laboratory confirmation of hyperglycemia.",
+          "Growth disorders require assessment of growth velocity, bone age, and hormonal evaluations.",
+          "Congenital hypothyroidism is diagnosed through neonatal screening and confirmed by thyroid function tests.",
+          "The ADA 2020 guidelines recommend HbA1c ≥6.5% for T1DM diagnosis.",
+          "The ESPE 2019 guidelines suggest using IGF-1 and IGFBP-3 levels for diagnosing growth hormone deficiency.",
+          "The AAP 2020 guidelines recommend thyroid function tests for diagnosing congenital hypothyroidism."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and treatment of type 1 diabetes in children",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides guidelines for the diagnosis and treatment of T1DM in children."
+          },
+          {
+            "title": "Growth hormone deficiency in children",
+            "authors": "Growth Hormone Research Society",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of growth hormone deficiency in children."
+          },
+          {
+            "title": "Congenital hypothyroidism: diagnosis and treatment",
+            "authors": "European Society for Paediatric Endocrinology",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of congenital hypothyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Paediatric Endocrine Disorders",
+      "content": {
+        "intro": "The management of paediatric endocrine disorders requires a comprehensive approach, including medical therapy, lifestyle modifications, and sometimes surgical interventions. Type 1 diabetes mellitus management involves insulin therapy, blood glucose monitoring, and lifestyle adjustments. Growth disorders may require growth hormone replacement therapy, while congenital hypothyroidism is treated with thyroid hormone replacement. Understanding the treatment options and their implications is essential for optimal management and outcomes.",
+        "sections": [
+          {
+            "heading": "Treatment of Type 1 Diabetes Mellitus",
+            "text": "The management of T1DM involves insulin therapy, with the goal of achieving near-normoglycemia to prevent long-term complications. Insulin regimens can include multiple daily injections or continuous subcutaneous insulin infusion (CSII) pumps. Blood glucose monitoring is crucial for adjusting insulin doses and preventing hypoglycemia. Lifestyle modifications, including a balanced diet and regular physical activity, are also important. The 2020 ADA guidelines recommend an HbA1c target of <7.5% for children with T1DM."
+          },
+          {
+            "heading": "Treatment of Growth Disorders",
+            "text": "The treatment of growth disorders depends on the underlying cause. Growth hormone deficiency is treated with recombinant human growth hormone (rhGH) replacement therapy, with dosages adjusted based on growth response and IGF-1 levels. Turner syndrome may require additional treatments, such as estrogen replacement therapy for inducing puberty. The goal of treatment is to achieve a normal adult height and improve quality of life. The ESPE 2019 guidelines suggest considering rhGH treatment in children with growth hormone deficiency and a height SDS below -2.5."
+          },
+          {
+            "heading": "Treatment of Congenital Hypothyroidism",
+            "text": "The treatment of congenital hypothyroidism involves thyroid hormone replacement therapy, with the goal of achieving euthyroidism and preventing long-term neurological and developmental sequelae. Levothyroxine (L-T4) is the drug of choice, initiated at a dose of 10-15 mcg/kg/day, as per the AAP and ESPE guidelines. Regular monitoring of TSH and free T4 levels is essential to adjust the dose and ensure adequate treatment. The treatment should be lifelong, with regular follow-up to assess growth, development, and thyroid function."
+          }
+        ],
+        "clinical_pearl": "Regular monitoring and adjustments of treatment are crucial for optimal management of paediatric endocrine disorders.",
+        "key_points": [
+          "T1DM management involves insulin therapy and lifestyle modifications.",
+          "Growth hormone deficiency is treated with rhGH replacement therapy.",
+          "Congenital hypothyroidism is treated with L-T4 replacement therapy.",
+          "The ADA 2020 guidelines recommend an HbA1c target of <7.5% for children with T1DM.",
+          "The ESPE 2019 guidelines suggest considering rhGH treatment in children with growth hormone deficiency.",
+          "The AAP 2020 guidelines recommend L-T4 replacement therapy for congenital hypothyroidism."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and treatment of type 1 diabetes in children",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Provides guidelines for the diagnosis and treatment of T1DM in children."
+          },
+          {
+            "title": "Growth hormone deficiency in children",
+            "authors": "Growth Hormone Research Society",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis and treatment of growth hormone deficiency in children."
+          },
+          {
+            "title": "Congenital hypothyroidism: diagnosis and treatment",
+            "authors": "European Society for Paediatric Endocrinology",
+            "journal_or_source": "Hormone Research in Paediatrics",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of congenital hypothyroidism."
+          }
+        ]
+      }
+    }
+  ]
+}

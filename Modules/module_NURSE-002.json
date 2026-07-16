@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "id": "NURSE-002",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Medication Safety: The Five Rights and Administration Errors",
+    "title_en": "Medication Safety: The Five Rights and Administration Errors",
+    "order_in_specialty": 2,
+    "level": "beginner",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 4,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["WHO Medication Without Harm 2017", "ISMP Safe Medication Practices", "Joint Commission NPSGs"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "The Five (and Ten) Rights of Medication Administration",
+      "order": 1,
+      "lay_summary": "Before giving any medicine, nurses check five basic rights: Right Patient, Right Drug, Right Dose, Right Route, Right Time. Modern practice adds five more rights to prevent harm.",
+      "content": {
+        "intro": "Medication errors are the most preventable cause of patient harm. The 'Five Rights' are a minimum safety check — not a guarantee of safety by themselves.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "The Five Core Rights",
+            "body": "1. Right Patient: Use two patient identifiers (name + DOB or MRN) — never room number alone. 2. Right Drug: Compare MAR order to medication label three times (when retrieving, when preparing, at bedside). 3. Right Dose: Calculate and double-check; for high-alert medications get a second nurse to verify. 4. Right Route: Oral vs IV vs IM vs SQ vs topical — never substitute; IV push vs IV piggyback are different. 5. Right Time: within 30 min before/after scheduled time is acceptable; PRN medications require current indication."
+          },
+          {
+            "title": "The Additional Five Rights",
+            "body": "6. Right Documentation: Chart immediately after administration, not before. 7. Right Reason: Is this drug appropriate for this patient's current condition? 8. Right Patient Education: Explain what the drug is for and expected effects. 9. Right to Refuse: Patient has the right to refuse; document and notify prescriber. 10. Right Assessment: Check relevant parameters before giving (e.g. pulse before digoxin; BP before antihypertensives; breath sounds before diuretics)."
+          },
+          {
+            "title": "High-Alert Medications (HAMs)",
+            "body": "High-alert medications require special precautions because errors with them cause disproportionate harm. ISMP list includes: insulin, anticoagulants (heparin, warfarin, DOACs), concentrated electrolytes (KCl >10 mEq), opioids, chemotherapy agents, neuromuscular blocking agents. Strategies: independent double-check by two nurses, standardised concentrations, restricted floor stock, barcode scanning."
+          },
+          {
+            "title": "Look-Alike / Sound-Alike (LASA) Drugs",
+            "body": "Common LASA pairs that cause errors: hydroxyzine/hydralazine; metformin/metronidazole; Celebrex/Celexa; NovoLog/Novolin. Strategies: Tall Man Lettering (hydrOXYzine vs hydrALAzine), separate storage, computerised alerts, verbal orders spell-out for drug name."
+          }
+        ],
+        "clinical_pearl": "The three checks: (1) when removing medication from storage, (2) when preparing/drawing up, (3) at the bedside before administering. Checking only once is not safe practice even if the drug looks familiar.",
+        "key_points": [
+          "Two patient identifiers mandatory before every medication administration",
+          "High-alert medications require independent double-check by a second nurse",
+          "Chart after administration, never before",
+          "Patients have the right to refuse any medication",
+          "Pre-administration assessment is a safety right (pulse, BP, labs as appropriate)"
+        ],
+        "references": ["WHO Medication Without Harm 2017", "ISMP High-Alert Medication List 2024"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Types of Medication Errors and Reporting",
+      "order": 2,
+      "lay_summary": "When a medication error occurs, nurses must report it promptly. Understanding error types helps prevent them from happening again.",
+      "content": {
+        "intro": "A medication error is any preventable event that may cause or lead to inappropriate medication use or patient harm. Most errors are system failures, not individual failures.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "Classification of Medication Errors",
+            "body": "By stage: prescribing errors (wrong dose ordered), transcription errors (order transcribed incorrectly), dispensing errors (pharmacy), administration errors (nurse). By severity: near-miss (caught before patient harm), adverse drug event (ADE, harm reached patient), sentinel event (severe harm or death). By type: wrong patient, wrong drug, wrong dose, omission error, extra dose, wrong route, wrong time, wrong rate (IV), deteriorated drug."
+          },
+          {
+            "title": "What to Do After a Medication Error",
+            "body": "1. Assess the patient immediately — monitor for adverse effects. 2. Notify the prescribing physician promptly. 3. Implement prescribed interventions. 4. Complete an incident report (IR) — this is NOT punitive; it is for quality improvement. 5. Document in the patient chart: what was given, when, patient status, prescriber notification, actions taken. Do NOT document that an IR was filed in the chart. 6. Notify family/patient as appropriate per facility policy and state law."
+          },
+          {
+            "title": "Prevention Strategies",
+            "body": "System-level: barcode medication administration (BCMA), computerised physician order entry (CPOE), pharmacist review of all orders, standardised concentrations, smart pumps with dose-error reduction software. Nurse-level: avoid distractions during preparation (medication preparation zone), never prepare medications for multiple patients simultaneously, use unit-dose packaging, always perform three checks."
+          }
+        ],
+        "clinical_pearl": "The most dangerous time for medication errors is the 6–8 AM rush (shift change + multiple medications due). This is when barcode scanning compliance drops and shortcuts creep in. Protect this time: complete your three checks regardless of workload.",
+        "key_points": [
+          "Report all medication errors including near-misses through the incident reporting system",
+          "Patient chart documents the error and patient response; IR is a separate system document",
+          "Most medication errors are system failures — reporting improves systems, not blames individuals",
+          "BCMA and smart pumps reduce but do not eliminate errors — they still require nurse vigilance"
+        ],
+        "references": ["Institute of Medicine: To Err Is Human, 1999", "ISMP Medication Error Reporting Program"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "Name the Five Rights of Medication Administration.", "answer": "Right Patient, Right Drug, Right Dose, Right Route, Right Time. (Plus 5 additional: Documentation, Reason, Education, Refusal, Assessment)", "difficulty": "easy"},
+    {"question": "Two patient identifiers — give two acceptable examples.", "answer": "Patient name and date of birth; Patient name and medical record number (MRN). Room number alone is NEVER acceptable.", "difficulty": "easy"},
+    {"question": "Name 3 high-alert medications (HAMs).", "answer": "Insulin, heparin/anticoagulants, concentrated KCl, opioids, neuromuscular blocking agents, chemotherapy. Any 3 qualify.", "difficulty": "medium"},
+    {"question": "What is a LASA drug pair? Give one example.", "answer": "Look-Alike Sound-Alike drugs that are easily confused. Example: hydroxyzine (antihistamine) vs hydralazine (antihypertensive).", "difficulty": "medium"},
+    {"question": "After a medication error, what is the first priority action?", "answer": "Assess the patient immediately for adverse effects and harm.", "difficulty": "easy"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse is preparing to administer morning medications. She compares the medication label to the MAR at the bedside but did not check it when retrieving from the medication cart. Which safety practice was missed?",
+      "question_type": "mcq",
+      "options": {
+        "A": "The nurse should have used two patient identifiers",
+        "B": "The three-check process requires verification at retrieval, preparation, and bedside",
+        "C": "She should have checked the route of administration",
+        "D": "The medication should have been checked against the pharmacy receipt"
+      },
+      "correct": "B",
+      "explanation": "The three-check rule requires comparing the medication label to the MAR: (1) when removing from storage, (2) when preparing/drawing up, (3) at the bedside. Checking only at the bedside misses two opportunities to catch an error.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Select ALL actions the nurse must take after discovering she administered 20 mg of furosemide IV to the wrong patient (the correct patient in the next bed did not receive the dose).",
+      "question_type": "sata",
+      "options": {
+        "A": "Assess the patient who received the wrong medication",
+        "B": "Notify the prescribing physician",
+        "C": "Complete an incident report",
+        "D": "Document in the chart that an incident report was filed",
+        "E": "Administer the correct dose to the correct patient after physician review",
+        "F": "Monitor urine output and electrolytes in the wrong-medication patient"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "B", "C", "E", "F"],
+      "explanation": "The nurse must: assess the wrong-patient immediately (A), notify the physician (B), file an IR (C), administer the missed dose after physician authorisation (E), and monitor the wrong-patient for diuresis and electrolyte changes (F). Option D is incorrect — do NOT document the IR in the patient chart; these are separate documents.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Place the following steps in the correct order when administering a scheduled IV medication from the medication cart to a patient.",
+      "question_type": "ordered",
+      "options": {
+        "A": "Verify medication label against MAR at the bedside",
+        "B": "Check medication label against MAR when retrieving from cart",
+        "C": "Verify two patient identifiers",
+        "D": "Document administration on the MAR",
+        "E": "Draw up or prepare the medication and recheck label against MAR"
+      },
+      "correct": "B",
+      "correct_order": ["B", "E", "C", "A", "D"],
+      "explanation": "Correct sequence: First check (retrieve, B) → Prepare with second check (E) → Verify patient identity at bedside (C) → Third check label at bedside (A) → Administer → Document immediately after (D).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which of the following medications is classified as a high-alert medication (HAM) by ISMP?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Acetaminophen 500 mg oral",
+        "B": "Amoxicillin 500 mg oral",
+        "C": "Concentrated potassium chloride (KCl) for injection",
+        "D": "Normal saline 0.9% IV flush 10 mL"
+      },
+      "correct": "C",
+      "explanation": "Concentrated potassium chloride for injection is a classic high-alert medication — IV KCl overdose can cause fatal cardiac arrest. The other options are standard medications with lower risk profiles. HAMs also include insulin, anticoagulants, opioids, and neuromuscular blocking agents.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which of the following best describes the difference between an incident report (IR) and the patient's nursing notes after a medication error?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Both documents should contain identical information about the error",
+        "B": "The IR goes in the chart; the nursing notes describe the error for future nurses",
+        "C": "The nursing notes describe patient status and actions taken; the IR is a quality improvement document filed separately",
+        "D": "The IR is only required for errors that cause patient harm"
+      },
+      "correct": "C",
+      "explanation": "The nursing notes document the clinical facts: what was given, patient response, physician notification, and interventions. The IR is a system-level quality and safety document filed separately — it is NOT included in the patient chart and is NOT only for harmful errors (near-misses should also be reported).",
+      "difficulty": "medium"
+    }
+  ],
+  "clinical_cases": []
+}

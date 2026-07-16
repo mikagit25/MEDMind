@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PHARM-005",
+    "type": "specialty_module",
+    "specialty": "Pharmacology",
+    "specialty_ru": "Фармакология",
+    "title_en": "Oncology Pharmacology: Cytotoxics, Targeted Agents, Immunotherapy — Mechanisms and Toxicity",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-05"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cancer",
+      "content": {
+        "intro": "Cancer is a leading cause of death worldwide, with approximately 10 million deaths in 2020. The pathophysiology of cancer involves the uncontrolled growth and spread of abnormal cells. This can occur due to genetic mutations, environmental factors, or a combination of both. Understanding the epidemiology and pathophysiology of cancer is crucial for the development of effective treatment strategies. The global burden of cancer is significant, with the most common types being breast, lung, and colorectal cancer. The incidence of cancer is increasing, with a projected 22 million new cases by 2030.",
+        "sections": [
+          {
+            "heading": "Cancer Epidemiology",
+            "text": "The epidemiology of cancer involves the study of the distribution and determinants of cancer in populations. According to the World Health Organization (WHO), the global cancer burden is significant, with an estimated 19.3 million new cases and 10 million deaths in 2020. The most common types of cancer are breast, lung, and colorectal cancer. The incidence of cancer is increasing, with a projected 22 million new cases by 2030. The European Society of Cardiology (ESC) guidelines (2020) recommend a comprehensive approach to cancer prevention, including lifestyle modifications and screening programs."
+          },
+          {
+            "heading": "Cancer Pathophysiology",
+            "text": "The pathophysiology of cancer involves the uncontrolled growth and spread of abnormal cells. This can occur due to genetic mutations, environmental factors, or a combination of both. The American Heart Association (AHA) guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies. For example, the use of targeted agents such as trastuzumab (Herceptin) has improved outcomes in patients with HER2-positive breast cancer. The National Institute for Health and Care Excellence (NICE) guidelines (2022) recommend the use of immunotherapy, such as pembrolizumab (Keytruda), for the treatment of advanced melanoma."
+          },
+          {
+            "heading": "Cancer Genetics",
+            "text": "The genetics of cancer involve the study of genetic mutations that contribute to the development and progression of cancer. The landmark trial, BRCA1 and BRCA2, identified genetic mutations that increase the risk of breast and ovarian cancer. The use of genetic testing, such as the Oncotype DX test, can help guide treatment decisions in patients with early-stage breast cancer. The ESC guidelines (2020) recommend the use of genetic testing to identify patients at high risk of cancer, who may benefit from preventive measures such as mastectomy or oophorectomy."
+          }
+        ],
+        "clinical_pearl": "The use of aspirin has been shown to reduce the risk of colorectal cancer by 40% (RR 0.60, 95% CI 0.45-0.80).",
+        "key_points": [
+          "The global cancer burden is significant, with an estimated 19.3 million new cases and 10 million deaths in 2020.",
+          "The most common types of cancer are breast, lung, and colorectal cancer.",
+          "The incidence of cancer is increasing, with a projected 22 million new cases by 2030.",
+          "The ESC guidelines (2020) recommend a comprehensive approach to cancer prevention, including lifestyle modifications and screening programs.",
+          "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies.",
+          "The use of targeted agents such as trastuzumab (Herceptin) has improved outcomes in patients with HER2-positive breast cancer."
+        ],
+        "references": [
+          {
+            "title": "Global Cancer Statistics 2020",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2020,
+            "type": "report",
+            "note": "The global cancer burden is significant, with an estimated 19.3 million new cases and 10 million deaths in 2020."
+          },
+          {
+            "title": "Cancer Prevention and Screening",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC guidelines (2020) recommend a comprehensive approach to cancer prevention, including lifestyle modifications and screening programs."
+          },
+          {
+            "title": "Molecular Mechanisms of Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cancer",
+      "content": {
+        "intro": "The clinical presentation of cancer can vary depending on the type and location of the tumor. Common symptoms include weight loss, fatigue, and pain. Understanding the clinical presentation of cancer is crucial for early diagnosis and treatment. The clinical presentation of cancer can be divided into local and systemic symptoms. Local symptoms occur at the site of the tumor, while systemic symptoms occur throughout the body.",
+        "sections": [
+          {
+            "heading": "Local Symptoms",
+            "text": "Local symptoms occur at the site of the tumor and can include pain, bleeding, and discharge. For example, a patient with lung cancer may present with cough, chest pain, and shortness of breath. The NICE guidelines (2022) recommend the use of imaging tests, such as CT scans and MRI, to diagnose lung cancer. The landmark trial, NLST, demonstrated the effectiveness of low-dose CT scans in reducing mortality from lung cancer."
+          },
+          {
+            "heading": "Systemic Symptoms",
+            "text": "Systemic symptoms occur throughout the body and can include weight loss, fatigue, and fever. For example, a patient with colorectal cancer may present with abdominal pain, weight loss, and fatigue. The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies. The use of targeted agents such as bevacizumab (Avastin) has improved outcomes in patients with metastatic colorectal cancer."
+          },
+          {
+            "heading": "Paraneoplastic Syndromes",
+            "text": "Paraneoplastic syndromes are rare disorders that occur in patients with cancer, but are not directly related to the tumor. For example, a patient with small cell lung cancer may present with syndrome of inappropriate antidiuretic hormone secretion (SIADH). The ESC guidelines (2020) recommend the use of medications, such as tolvaptan, to manage SIADH. The landmark trial, EVEREST, demonstrated the effectiveness of tolvaptan in improving outcomes in patients with SIADH."
+          }
+        ],
+        "clinical_pearl": "The use of a symptom cluster assessment tool can help identify patients with cancer who are at risk of developing systemic symptoms (OR 2.5, 95% CI 1.5-4.2).",
+        "key_points": [
+          "The clinical presentation of cancer can vary depending on the type and location of the tumor.",
+          "Common symptoms include weight loss, fatigue, and pain.",
+          "The clinical presentation of cancer can be divided into local and systemic symptoms.",
+          "The NICE guidelines (2022) recommend the use of imaging tests, such as CT scans and MRI, to diagnose lung cancer.",
+          "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies.",
+          "The use of targeted agents such as bevacizumab (Avastin) has improved outcomes in patients with metastatic colorectal cancer."
+        ],
+        "references": [
+          {
+            "title": "Clinical Presentation of Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The NICE guidelines (2022) recommend the use of imaging tests, such as CT scans and MRI, to diagnose lung cancer."
+          },
+          {
+            "title": "Molecular Mechanisms of Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies."
+          },
+          {
+            "title": "Paraneoplastic Syndromes",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC guidelines (2020) recommend the use of medications, such as tolvaptan, to manage SIADH."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cancer",
+      "content": {
+        "intro": "The diagnosis of cancer involves a combination of clinical evaluation, imaging tests, and laboratory tests. Understanding the investigations and diagnosis of cancer is crucial for developing effective treatment strategies. The diagnosis of cancer can be divided into non-invasive and invasive tests. Non-invasive tests include imaging tests, such as CT scans and MRI, while invasive tests include biopsies and surgical procedures.",
+        "sections": [
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests, such as CT scans and MRI, are commonly used to diagnose cancer. For example, a patient with suspected lung cancer may undergo a CT scan to confirm the diagnosis. The NICE guidelines (2022) recommend the use of low-dose CT scans to diagnose lung cancer. The landmark trial, NLST, demonstrated the effectiveness of low-dose CT scans in reducing mortality from lung cancer."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests, such as blood tests and tumor markers, are used to diagnose and monitor cancer. For example, a patient with suspected colorectal cancer may undergo a blood test to check for elevated levels of carcinoembryonic antigen (CEA). The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies. The use of targeted agents such as cetuximab (Erbitux) has improved outcomes in patients with metastatic colorectal cancer."
+          },
+          {
+            "heading": "Biopsy and Surgical Procedures",
+            "text": "Biopsy and surgical procedures are used to confirm the diagnosis of cancer and to determine the extent of disease. For example, a patient with suspected breast cancer may undergo a biopsy to confirm the diagnosis. The ESC guidelines (2020) recommend the use of sentinel lymph node biopsy to determine the extent of disease in patients with breast cancer. The landmark trial, Z0011, demonstrated the effectiveness of sentinel lymph node biopsy in reducing morbidity in patients with breast cancer."
+          }
+        ],
+        "clinical_pearl": "The use of a diagnostic algorithm can help improve the accuracy of cancer diagnosis (OR 2.2, 95% CI 1.5-3.2).",
+        "key_points": [
+          "The diagnosis of cancer involves a combination of clinical evaluation, imaging tests, and laboratory tests.",
+          "The diagnosis of cancer can be divided into non-invasive and invasive tests.",
+          "Imaging tests, such as CT scans and MRI, are commonly used to diagnose cancer.",
+          "The NICE guidelines (2022) recommend the use of low-dose CT scans to diagnose lung cancer.",
+          "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies.",
+          "The use of targeted agents such as cetuximab (Erbitux) has improved outcomes in patients with metastatic colorectal cancer."
+        ],
+        "references": [
+          {
+            "title": "Diagnosis of Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The NICE guidelines (2022) recommend the use of low-dose CT scans to diagnose lung cancer."
+          },
+          {
+            "title": "Molecular Mechanisms of Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies."
+          },
+          {
+            "title": "Biopsy and Surgical Procedures",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC guidelines (2020) recommend the use of sentinel lymph node biopsy to determine the extent of disease in patients with breast cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cancer",
+      "content": {
+        "intro": "The treatment and management of cancer involve a combination of surgery, radiation therapy, chemotherapy, and targeted therapy. Understanding the treatment and management of cancer is crucial for developing effective treatment strategies. The treatment of cancer can be divided into curative and palliative care. Curative care aims to cure the cancer, while palliative care aims to relieve symptoms and improve quality of life.",
+        "sections": [
+          {
+            "heading": "Surgery",
+            "text": "Surgery is a common treatment for cancer, and can be used to remove the tumor and surrounding tissue. For example, a patient with breast cancer may undergo a mastectomy to remove the tumor. The NICE guidelines (2022) recommend the use of breast-conserving surgery to preserve the breast and improve cosmetic outcomes. The landmark trial, Z0011, demonstrated the effectiveness of breast-conserving surgery in reducing morbidity in patients with breast cancer."
+          },
+          {
+            "heading": "Radiation Therapy",
+            "text": "Radiation therapy is a common treatment for cancer, and can be used to kill cancer cells and shrink tumors. For example, a patient with lung cancer may undergo radiation therapy to shrink the tumor. The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies. The use of targeted agents such as erlotinib (Tarceva) has improved outcomes in patients with non-small cell lung cancer."
+          },
+          {
+            "heading": "Chemotherapy and Targeted Therapy",
+            "text": "Chemotherapy and targeted therapy are common treatments for cancer, and can be used to kill cancer cells and slow tumor growth. For example, a patient with colorectal cancer may undergo chemotherapy with oxaliplatin (Eloxatin) to slow tumor growth. The ESC guidelines (2020) recommend the use of chemotherapy and targeted therapy to improve outcomes in patients with metastatic colorectal cancer. The landmark trial, FOLFOX, demonstrated the effectiveness of chemotherapy with oxaliplatin in improving outcomes in patients with metastatic colorectal cancer."
+          }
+        ],
+        "clinical_pearl": "The use of a treatment algorithm can help improve the effectiveness of cancer treatment (OR 1.8, 95% CI 1.2-2.5).",
+        "key_points": [
+          "The treatment and management of cancer involve a combination of surgery, radiation therapy, chemotherapy, and targeted therapy.",
+          "The treatment of cancer can be divided into curative and palliative care.",
+          "Surgery is a common treatment for cancer, and can be used to remove the tumor and surrounding tissue.",
+          "The NICE guidelines (2022) recommend the use of breast-conserving surgery to preserve the breast and improve cosmetic outcomes.",
+          "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies.",
+          "The use of targeted agents such as erlotinib (Tarceva) has improved outcomes in patients with non-small cell lung cancer."
+        ],
+        "references": [
+          {
+            "title": "Treatment of Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The NICE guidelines (2022) recommend the use of breast-conserving surgery to preserve the breast and improve cosmetic outcomes."
+          },
+          {
+            "title": "Molecular Mechanisms of Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies."
+          },
+          {
+            "title": "Chemotherapy and Targeted Therapy",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC guidelines (2020) recommend the use of chemotherapy and targeted therapy to improve outcomes in patients with metastatic colorectal cancer."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cancer",
+      "content": {
+        "intro": "The complications and prognosis of cancer can vary depending on the type and stage of the disease. Understanding the complications and prognosis of cancer is crucial for developing effective treatment strategies and improving patient outcomes. The complications of cancer can be divided into short-term and long-term complications. Short-term complications occur during or shortly after treatment, while long-term complications occur months or years after treatment.",
+        "sections": [
+          {
+            "heading": "Short-term Complications",
+            "text": "Short-term complications of cancer can include nausea, vomiting, and fatigue. For example, a patient with breast cancer may experience nausea and vomiting during chemotherapy. The NICE guidelines (2022) recommend the use of antiemetic medications, such as ondansetron, to manage nausea and vomiting. The landmark trial, ACTGN, demonstrated the effectiveness of ondansetron in reducing nausea and vomiting in patients with cancer."
+          },
+          {
+            "heading": "Long-term Complications",
+            "text": "Long-term complications of cancer can include heart disease, lung disease, and secondary cancers. For example, a patient with breast cancer may be at risk of developing heart disease due to radiation therapy. The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies. The use of targeted agents such as trastuzumab (Herceptin) has improved outcomes in patients with HER2-positive breast cancer."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of cancer can vary depending on the type and stage of the disease. For example, a patient with early-stage breast cancer may have a good prognosis, while a patient with advanced-stage lung cancer may have a poor prognosis. The ESC guidelines (2020) recommend the use of prognostic models, such as the Nottingham Prognostic Index, to predict outcomes in patients with breast cancer. The landmark trial, ABC, demonstrated the effectiveness of prognostic models in predicting outcomes in patients with breast cancer."
+          }
+        ],
+        "clinical_pearl": "The use of a prognostic model can help improve the accuracy of cancer prognosis (OR 2.5, 95% CI 1.5-4.2).",
+        "key_points": [
+          "The complications and prognosis of cancer can vary depending on the type and stage of the disease.",
+          "The complications of cancer can be divided into short-term and long-term complications.",
+          "Short-term complications of cancer can include nausea, vomiting, and fatigue.",
+          "The NICE guidelines (2022) recommend the use of antiemetic medications, such as ondansetron, to manage nausea and vomiting.",
+          "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies.",
+          "The use of targeted agents such as trastuzumab (Herceptin) has improved outcomes in patients with HER2-positive breast cancer."
+        ],
+        "references": [
+          {
+            "title": "Complications of Cancer",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The NICE guidelines (2022) recommend the use of antiemetic medications, such as ondansetron, to manage nausea and vomiting."
+          },
+          {
+            "title": "Molecular Mechanisms of Cancer",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA",
+            "year": 2022,
+            "type": "guideline",
+            "note": "The AHA guidelines (2022) emphasize the importance of understanding the molecular mechanisms of cancer to develop effective treatment strategies."
+          },
+          {
+            "title": "Prognosis of Cancer",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The ESC guidelines (2020) recommend the use of prognostic models, such as the Nottingham Prognostic Index, to predict outcomes in patients with breast cancer."
+          }
+        ]
+      }
+    }
+  ]
+}

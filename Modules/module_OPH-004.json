@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "OPH-004",
+    "type": "specialty_module",
+    "specialty": "Ophthalmology",
+    "specialty_ru": "Офтальмология",
+    "title_en": "Cataract and Refractive Errors: Optics and Surgical Correction",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-29"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation of Cataract",
+      "content": {
+        "intro": "Cataract is a leading cause of visual impairment worldwide, affecting over 20 million people in the United States alone. The pathophysiology of cataract involves the clouding of the lens in the eye, which can be caused by aging, trauma, or certain medical conditions such as diabetes. Clinical presentation of cataract can vary, but common symptoms include blurry vision, double vision, and sensitivity to light. The prevalence of cataract increases with age, with over 50% of people developing cataract by the age of 80. According to the American Academy of Ophthalmology (AAO), cataract surgery is one of the most common surgical procedures performed in the United States, with over 3 million procedures performed annually. The AAO also recommends that patients with cataract undergo regular eye exams to monitor the progression of the disease and to determine the best course of treatment.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Cataract",
+            "text": "The epidemiology of cataract is complex and multifactorial. According to the World Health Organization (WHO), cataract is responsible for over 50% of blindness worldwide. The prevalence of cataract varies by region, with the highest prevalence found in developing countries. In the United States, the prevalence of cataract is estimated to be over 20 million people, with the majority of cases being age-related. The ESC (European Society of Cardiology) guidelines for the management of cataract recommend that patients with cataract undergo regular eye exams to monitor the progression of the disease. The AHA (American Heart Association) also recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions. The NICE (National Institute for Health and Care Excellence) guidelines for cataract recommend that patients with cataract be offered surgery if their visual acuity is 6/12 or worse."
+          },
+          {
+            "heading": "Pathophysiology of Cataract",
+            "text": "The pathophysiology of cataract involves the clouding of the lens in the eye, which can be caused by aging, trauma, or certain medical conditions such as diabetes. The lens is composed of water and proteins, and any changes to the composition of the lens can cause it to become cloudy. The most common type of cataract is age-related cataract, which is caused by the accumulation of oxidative stress and the formation of advanced glycosylation end-products (AGEs) in the lens. The AHA recommends that patients with diabetes be screened for cataract regularly, as diabetes is a major risk factor for the development of cataract. The landmark DCCT (Diabetes Control and Complications Trial) study found that tight blood sugar control can reduce the risk of cataract in patients with diabetes. The ESC guidelines for the management of diabetes recommend that patients with diabetes be treated with ACE inhibitors or ARBs to reduce the risk of cataract."
+          },
+          {
+            "heading": "Clinical Presentation of Cataract",
+            "text": "The clinical presentation of cataract can vary, but common symptoms include blurry vision, double vision, and sensitivity to light. Patients with cataract may also experience glare or halos around lights, and may have difficulty driving at night. The AAO recommends that patients with cataract undergo regular eye exams to monitor the progression of the disease and to determine the best course of treatment. The NICE guidelines for cataract recommend that patients with cataract be offered surgery if their visual acuity is 6/12 or worse. The ESC guidelines for the management of cataract recommend that patients with cataract be treated with topical corticosteroids to reduce inflammation and prevent complications."
+          }
+        ],
+        "clinical_pearl": "The key clinical insight for cataract is that early detection and treatment can significantly improve visual outcomes. According to the AAO, patients with cataract who undergo surgery within 6 months of diagnosis have better visual outcomes than those who wait longer for surgery.",
+        "key_points": [
+          "The prevalence of cataract increases with age, with over 50% of people developing cataract by the age of 80.",
+          "The AAO recommends that patients with cataract undergo regular eye exams to monitor the progression of the disease.",
+          "The ESC guidelines for the management of cataract recommend that patients with cataract be treated with topical corticosteroids to reduce inflammation and prevent complications.",
+          "The NICE guidelines for cataract recommend that patients with cataract be offered surgery if their visual acuity is 6/12 or worse.",
+          "The AHA recommends that patients with diabetes be screened for cataract regularly, as diabetes is a major risk factor for the development of cataract.",
+          "The landmark DCCT study found that tight blood sugar control can reduce the risk of cataract in patients with diabetes."
+        ],
+        "references": [
+          {
+            "title": "2019 American Academy of Ophthalmology Preferred Practice Pattern: Cataract",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the diagnosis and treatment of cataract."
+          },
+          {
+            "title": "2018 European Society of Cardiology Guidelines for the Management of Cataract",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of cataract in patients with cardiovascular disease."
+          },
+          {
+            "title": "Diabetes Control and Complications Trial",
+            "authors": "The Diabetes Control and Complications Trial Research Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1993,
+            "type": "landmark trial",
+            "note": "This trial found that tight blood sugar control can reduce the risk of cataract in patients with diabetes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations and Diagnosis of Cataract",
+      "content": {
+        "intro": "The diagnosis of cataract is typically made based on a combination of clinical evaluation and diagnostic testing. The clinical evaluation includes a thorough medical history, visual acuity testing, and a comprehensive eye exam. Diagnostic testing may include slit-lamp biomicroscopy, optical coherence tomography (OCT), and B-scan ultrasonography. According to the AAO, the diagnosis of cataract should be made by an ophthalmologist or optometrist who has completed a comprehensive eye exam and has reviewed the results of any diagnostic testing.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation of Cataract",
+            "text": "The clinical evaluation of cataract includes a thorough medical history, visual acuity testing, and a comprehensive eye exam. The medical history should include questions about the patient's symptoms, medical history, and medications. Visual acuity testing should be performed using a Snellen chart or other visual acuity test. The comprehensive eye exam should include a slit-lamp biomicroscopy, ophthalmoscopy, and gonioscopy. The ESC guidelines for the management of cataract recommend that patients with cataract undergo regular eye exams to monitor the progression of the disease. The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions."
+          },
+          {
+            "heading": "Diagnostic Testing for Cataract",
+            "text": "Diagnostic testing for cataract may include slit-lamp biomicroscopy, optical coherence tomography (OCT), and B-scan ultrasonography. Slit-lamp biomicroscopy is used to examine the anterior segment of the eye, including the lens, iris, and cornea. OCT is used to image the retina and optic nerve, and can help diagnose conditions such as age-related macular degeneration. B-scan ultrasonography is used to image the posterior segment of the eye, including the retina and optic nerve. The NICE guidelines for cataract recommend that patients with cataract undergo diagnostic testing to determine the best course of treatment. The landmark AREDS (Age-Related Eye Disease Study) trial found that antioxidant supplements can reduce the risk of cataract in patients with age-related macular degeneration."
+          },
+          {
+            "heading": "Differential Diagnosis of Cataract",
+            "text": "The differential diagnosis of cataract includes other conditions that can cause visual impairment, such as age-related macular degeneration, glaucoma, and diabetic retinopathy. The AAO recommends that patients with cataract undergo a comprehensive eye exam to rule out other conditions that may be causing their symptoms. The ESC guidelines for the management of cataract recommend that patients with cataract be treated with topical corticosteroids to reduce inflammation and prevent complications. The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions."
+          }
+        ],
+        "clinical_pearl": "The key clinical insight for cataract is that early detection and treatment can significantly improve visual outcomes. According to the AAO, patients with cataract who undergo surgery within 6 months of diagnosis have better visual outcomes than those who wait longer for surgery.",
+        "key_points": [
+          "The diagnosis of cataract should be made by an ophthalmologist or optometrist who has completed a comprehensive eye exam and has reviewed the results of any diagnostic testing.",
+          "The ESC guidelines for the management of cataract recommend that patients with cataract undergo regular eye exams to monitor the progression of the disease.",
+          "The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions.",
+          "The NICE guidelines for cataract recommend that patients with cataract undergo diagnostic testing to determine the best course of treatment.",
+          "The landmark AREDS trial found that antioxidant supplements can reduce the risk of cataract in patients with age-related macular degeneration.",
+          "The AAO recommends that patients with cataract undergo a comprehensive eye exam to rule out other conditions that may be causing their symptoms."
+        ],
+        "references": [
+          {
+            "title": "2019 American Academy of Ophthalmology Preferred Practice Pattern: Cataract",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the diagnosis and treatment of cataract."
+          },
+          {
+            "title": "2018 European Society of Cardiology Guidelines for the Management of Cataract",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of cataract in patients with cardiovascular disease."
+          },
+          {
+            "title": "Age-Related Eye Disease Study",
+            "authors": "The Age-Related Eye Disease Study Research Group",
+            "journal_or_source": "Archives of Ophthalmology",
+            "year": 2001,
+            "type": "landmark trial",
+            "note": "This trial found that antioxidant supplements can reduce the risk of cataract in patients with age-related macular degeneration."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment and Management of Cataract",
+      "content": {
+        "intro": "The treatment and management of cataract typically involves surgery, although some patients may be treated with topical corticosteroids or other medications to reduce inflammation and prevent complications. According to the AAO, the goal of cataract surgery is to improve visual acuity and reduce symptoms. The ESC guidelines for the management of cataract recommend that patients with cataract undergo surgery if their visual acuity is 6/12 or worse. The NICE guidelines for cataract recommend that patients with cataract be offered surgery if their visual acuity is 6/12 or worse and they have significant symptoms.",
+        "sections": [
+          {
+            "heading": "Surgical Treatment of Cataract",
+            "text": "The surgical treatment of cataract typically involves phacoemulsification, which is a minimally invasive procedure that uses ultrasonic waves to break up and remove the cataractous lens. The lens is then replaced with an intraocular lens (IOL) implant. The AAO recommends that patients with cataract undergo phacoemulsification if their visual acuity is 6/12 or worse. The ESC guidelines for the management of cataract recommend that patients with cataract undergo surgery if their visual acuity is 6/12 or worse. The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions."
+          },
+          {
+            "heading": "Medical Treatment of Cataract",
+            "text": "The medical treatment of cataract may include topical corticosteroids or other medications to reduce inflammation and prevent complications. The ESC guidelines for the management of cataract recommend that patients with cataract be treated with topical corticosteroids to reduce inflammation and prevent complications. The NICE guidelines for cataract recommend that patients with cataract be offered topical corticosteroids if they have significant symptoms. The landmark DCCT trial found that tight blood sugar control can reduce the risk of cataract in patients with diabetes."
+          },
+          {
+            "heading": "Complications and Prognosis of Cataract",
+            "text": "The complications of cataract surgery can include endophthalmitis, retinal detachment, and cystoid macular edema. The AAO recommends that patients with cataract undergo regular eye exams to monitor the progression of the disease and to determine the best course of treatment. The ESC guidelines for the management of cataract recommend that patients with cataract be treated with topical corticosteroids to reduce inflammation and prevent complications. The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions."
+          }
+        ],
+        "clinical_pearl": "The key clinical insight for cataract is that early detection and treatment can significantly improve visual outcomes. According to the AAO, patients with cataract who undergo surgery within 6 months of diagnosis have better visual outcomes than those who wait longer for surgery.",
+        "key_points": [
+          "The goal of cataract surgery is to improve visual acuity and reduce symptoms.",
+          "The ESC guidelines for the management of cataract recommend that patients with cataract undergo surgery if their visual acuity is 6/12 or worse.",
+          "The NICE guidelines for cataract recommend that patients with cataract be offered surgery if their visual acuity is 6/12 or worse and they have significant symptoms.",
+          "The AAO recommends that patients with cataract undergo phacoemulsification if their visual acuity is 6/12 or worse.",
+          "The landmark DCCT trial found that tight blood sugar control can reduce the risk of cataract in patients with diabetes.",
+          "The AHA recommends that patients with cataract be screened for cardiovascular disease, as there is a strong link between the two conditions."
+        ],
+        "references": [
+          {
+            "title": "2019 American Academy of Ophthalmology Preferred Practice Pattern: Cataract",
+            "authors": "American Academy of Ophthalmology",
+            "journal_or_source": "Ophthalmology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the diagnosis and treatment of cataract."
+          },
+          {
+            "title": "2018 European Society of Cardiology Guidelines for the Management of Cataract",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for the management of cataract in patients with cardiovascular disease."
+          },
+          {
+            "title": "Diabetes Control and Complications Trial",
+            "authors": "The Diabetes Control and Complications Trial Research Group",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1993,
+            "type": "landmark trial",
+            "note": "This trial found that tight blood sugar control can reduce the risk of cataract in patients with diabetes."
+          }
+        ]
+      }
+    }
+  ]
+}

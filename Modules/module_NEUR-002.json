@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "NEUR-002",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Epilepsy: Seizure Classification, AED Selection and Status Epilepticus Management",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Epilepsy",
+      "content": {
+        "intro": "Epilepsy is a neurological disorder characterized by recurrent seizures, affecting approximately 50 million people worldwide. The pathophysiology of epilepsy involves an imbalance between excitatory and inhibitory neurotransmission, leading to abnormal electrical discharges in the brain. The epidemiology of epilepsy varies by region, with higher incidence rates in low- and middle-income countries. According to the World Health Organization (WHO), epilepsy accounts for approximately 0.5% of the global burden of disease. The economic burden of epilepsy is substantial, with estimated annual costs exceeding $15 billion in the United States alone.",
+        "sections": [
+          {
+            "heading": "Epilepsy Classification",
+            "text": "The International League Against Epilepsy (ILAE) has developed a classification system for seizures, which includes focal, generalized, and unknown onset seizures. Focal seizures, formerly known as partial seizures, originate from a specific region of the brain, while generalized seizures involve both hemispheres of the brain. The ILAE classification system also includes a category for unknown onset seizures, which are seizures for which the onset cannot be determined. The classification of seizures is crucial for determining the appropriate treatment and management strategy. For example, the use of antiepileptic drugs (AEDs) such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures, while valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be used for generalized seizures."
+          },
+          {
+            "heading": "Epilepsy Pathophysiology",
+            "text": "The pathophysiology of epilepsy involves an imbalance between excitatory and inhibitory neurotransmission, leading to abnormal electrical discharges in the brain. This imbalance can be caused by a variety of factors, including genetic mutations, head trauma, and infections. The use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) can help to restore the balance between excitatory and inhibitory neurotransmission, reducing the frequency and severity of seizures. According to the 2019 guidelines from the American Academy of Neurology (AAN), AEDs should be selected based on the type of seizure, the presence of comorbidities, and the potential for adverse effects."
+          },
+          {
+            "heading": "Epilepsy Diagnosis",
+            "text": "The diagnosis of epilepsy is based on a combination of clinical evaluation, electroencephalography (EEG), and imaging studies such as magnetic resonance imaging (MRI) or computed tomography (CT) scans. The EEG is a crucial tool for diagnosing epilepsy, as it can detect abnormal electrical activity in the brain. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), an EEG should be performed in all patients with suspected epilepsy. The use of imaging studies such as MRI or CT scans can also help to identify underlying structural abnormalities that may be contributing to the development of epilepsy."
+          }
+        ],
+        "clinical_pearl": "The use of AEDs can reduce the frequency and severity of seizures, but may also be associated with adverse effects such as drowsiness, dizziness, and nausea. Therefore, it is essential to carefully select the most appropriate AED and monitor patients closely for adverse effects.",
+        "key_points": [
+          "Epilepsy affects approximately 50 million people worldwide.",
+          "The pathophysiology of epilepsy involves an imbalance between excitatory and inhibitory neurotransmission.",
+          "The ILAE classification system includes focal, generalized, and unknown onset seizures.",
+          "AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures.",
+          "The use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) can help to restore the balance between excitatory and inhibitory neurotransmission.",
+          "The diagnosis of epilepsy is based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Management of Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of epilepsy."
+          },
+          {
+            "title": "Epilepsy: Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of epilepsy."
+          },
+          {
+            "title": "The Epidemiology of Epilepsy",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2019,
+            "type": "report",
+            "note": "The report provides an overview of the epidemiology of epilepsy worldwide."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Epilepsy",
+      "content": {
+        "intro": "The clinical presentation of epilepsy can vary widely, depending on the type of seizure and the individual patient. Focal seizures may present with symptoms such as numbness, tingling, or weakness in a specific area of the body, while generalized seizures may present with symptoms such as loss of consciousness, convulsions, or tonic-clonic movements. The clinical presentation of epilepsy can also be influenced by the presence of comorbidities such as depression, anxiety, or sleep disorders.",
+        "sections": [
+          {
+            "heading": "Focal Seizures",
+            "text": "Focal seizures, formerly known as partial seizures, originate from a specific region of the brain. The clinical presentation of focal seizures can vary widely, depending on the location and spread of the seizure activity. For example, a focal seizure originating from the motor cortex may present with symptoms such as numbness, tingling, or weakness in a specific area of the body. The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures. According to the 2019 guidelines from the American Academy of Neurology (AAN), the diagnosis of focal seizures should be based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans."
+          },
+          {
+            "heading": "Generalized Seizures",
+            "text": "Generalized seizures involve both hemispheres of the brain and can present with symptoms such as loss of consciousness, convulsions, or tonic-clonic movements. The clinical presentation of generalized seizures can also be influenced by the presence of comorbidities such as depression, anxiety, or sleep disorders. The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for generalized seizures. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), the diagnosis of generalized seizures should be based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans."
+          },
+          {
+            "heading": "Status Epilepticus",
+            "text": "Status epilepticus is a life-threatening condition characterized by prolonged or recurrent seizures without full recovery between seizures. The clinical presentation of status epilepticus can vary widely, depending on the type of seizure and the individual patient. The use of AEDs such as lorazepam (2-4 mg IV) or diazepam (5-10 mg IV) may be indicated for status epilepticus. According to the 2019 guidelines from the American Academy of Neurology (AAN), the diagnosis of status epilepticus should be based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans."
+          }
+        ],
+        "clinical_pearl": "The clinical presentation of epilepsy can be influenced by the presence of comorbidities such as depression, anxiety, or sleep disorders. Therefore, it is essential to carefully evaluate patients with epilepsy for these comorbidities and provide appropriate treatment.",
+        "key_points": [
+          "The clinical presentation of epilepsy can vary widely, depending on the type of seizure and the individual patient.",
+          "Focal seizures may present with symptoms such as numbness, tingling, or weakness in a specific area of the body.",
+          "Generalized seizures may present with symptoms such as loss of consciousness, convulsions, or tonic-clonic movements.",
+          "The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures.",
+          "The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for generalized seizures.",
+          "Status epilepticus is a life-threatening condition characterized by prolonged or recurrent seizures without full recovery between seizures."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Management of Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of epilepsy."
+          },
+          {
+            "title": "Epilepsy: Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of epilepsy."
+          },
+          {
+            "title": "Status Epilepticus: Diagnosis and Treatment",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of status epilepticus."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Epilepsy",
+      "content": {
+        "intro": "The diagnosis of epilepsy is based on a combination of clinical evaluation, electroencephalography (EEG), and imaging studies such as magnetic resonance imaging (MRI) or computed tomography (CT) scans. The EEG is a crucial tool for diagnosing epilepsy, as it can detect abnormal electrical activity in the brain. The use of imaging studies such as MRI or CT scans can also help to identify underlying structural abnormalities that may be contributing to the development of epilepsy.",
+        "sections": [
+          {
+            "heading": "Electroencephalography (EEG)",
+            "text": "The EEG is a non-invasive test that measures the electrical activity of the brain. The EEG can detect abnormal electrical activity, such as spikes or sharp waves, that are characteristic of epilepsy. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), an EEG should be performed in all patients with suspected epilepsy. The use of EEG can also help to classify the type of seizure and guide treatment decisions. For example, the use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures, while valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be used for generalized seizures."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies such as MRI or CT scans can help to identify underlying structural abnormalities that may be contributing to the development of epilepsy. According to the 2019 guidelines from the American Academy of Neurology (AAN), imaging studies should be performed in all patients with suspected epilepsy. The use of imaging studies can also help to guide treatment decisions, such as the use of AEDs or surgery. For example, the use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) may be indicated for patients with structural abnormalities such as hippocampal sclerosis."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests such as blood tests or lumbar puncture can help to identify underlying causes of epilepsy, such as infections or metabolic disorders. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), laboratory tests should be performed in all patients with suspected epilepsy. The use of laboratory tests can also help to guide treatment decisions, such as the use of AEDs or other medications. For example, the use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for patients with underlying metabolic disorders such as mitochondrial disease."
+          }
+        ],
+        "clinical_pearl": "The diagnosis of epilepsy should be based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans. Therefore, it is essential to carefully evaluate patients with suspected epilepsy and provide appropriate treatment.",
+        "key_points": [
+          "The diagnosis of epilepsy is based on a combination of clinical evaluation, EEG, and imaging studies such as MRI or CT scans.",
+          "The EEG is a crucial tool for diagnosing epilepsy, as it can detect abnormal electrical activity in the brain.",
+          "Imaging studies such as MRI or CT scans can help to identify underlying structural abnormalities that may be contributing to the development of epilepsy.",
+          "Laboratory tests such as blood tests or lumbar puncture can help to identify underlying causes of epilepsy, such as infections or metabolic disorders.",
+          "The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures.",
+          "The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for generalized seizures."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Management of Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of epilepsy."
+          },
+          {
+            "title": "Epilepsy: Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of epilepsy."
+          },
+          {
+            "title": "Electroencephalography (EEG) in Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of EEG in the diagnosis and management of epilepsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Epilepsy",
+      "content": {
+        "intro": "The treatment and management of epilepsy involve a combination of antiepileptic drugs (AEDs), lifestyle modifications, and surgery. The goal of treatment is to reduce the frequency and severity of seizures, while minimizing adverse effects. The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures, while valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be used for generalized seizures.",
+        "sections": [
+          {
+            "heading": "Antiepileptic Drugs (AEDs)",
+            "text": "AEDs are the primary treatment for epilepsy, and are used to reduce the frequency and severity of seizures. According to the 2019 guidelines from the American Academy of Neurology (AAN), AEDs should be selected based on the type of seizure, the presence of comorbidities, and the potential for adverse effects. The use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) may be indicated for patients with structural abnormalities such as hippocampal sclerosis. The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for patients with underlying metabolic disorders such as mitochondrial disease."
+          },
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications such as stress reduction, sleep hygiene, and avoidance of triggers can help to reduce the frequency and severity of seizures. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), lifestyle modifications should be recommended to all patients with epilepsy. The use of lifestyle modifications can also help to improve overall health and well-being, and can be used in conjunction with AEDs to achieve optimal seizure control."
+          },
+          {
+            "heading": "Surgery",
+            "text": "Surgery may be indicated for patients with epilepsy who have not responded to AEDs or lifestyle modifications. According to the 2019 guidelines from the American Academy of Neurology (AAN), surgery should be considered for patients with focal seizures who have a clear seizure focus and have not responded to AEDs. The use of surgery can help to reduce the frequency and severity of seizures, and can improve overall quality of life."
+          }
+        ],
+        "clinical_pearl": "The treatment and management of epilepsy should be individualized to each patient, taking into account the type of seizure, the presence of comorbidities, and the potential for adverse effects. Therefore, it is essential to carefully evaluate patients with epilepsy and provide appropriate treatment.",
+        "key_points": [
+          "The treatment and management of epilepsy involve a combination of AEDs, lifestyle modifications, and surgery.",
+          "AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures.",
+          "AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for generalized seizures.",
+          "Lifestyle modifications such as stress reduction, sleep hygiene, and avoidance of triggers can help to reduce the frequency and severity of seizures.",
+          "Surgery may be indicated for patients with epilepsy who have not responded to AEDs or lifestyle modifications.",
+          "The use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) may be indicated for patients with structural abnormalities such as hippocampal sclerosis."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Management of Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of epilepsy."
+          },
+          {
+            "title": "Epilepsy: Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of epilepsy."
+          },
+          {
+            "title": "Surgery for Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the use of surgery in the treatment of epilepsy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Epilepsy",
+      "content": {
+        "intro": "Epilepsy can be associated with a range of complications, including cognitive impairment, psychiatric disorders, and sudden unexpected death in epilepsy (SUDEP). The prognosis of epilepsy varies widely, depending on the type of seizure, the presence of comorbidities, and the effectiveness of treatment. The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures, while valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be used for generalized seizures.",
+        "sections": [
+          {
+            "heading": "Cognitive Impairment",
+            "text": "Cognitive impairment is a common complication of epilepsy, and can range from mild cognitive impairment to severe dementia. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), cognitive impairment should be assessed in all patients with epilepsy. The use of AEDs such as phenytoin (300-400 mg/day) or phenobarbital (60-120 mg/day) may be associated with cognitive impairment, and should be used with caution in patients with pre-existing cognitive impairment."
+          },
+          {
+            "heading": "Psychiatric Disorders",
+            "text": "Psychiatric disorders such as depression and anxiety are common complications of epilepsy, and can have a significant impact on quality of life. According to the 2019 guidelines from the American Academy of Neurology (AAN), psychiatric disorders should be assessed in all patients with epilepsy. The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for patients with psychiatric disorders, as they may have a beneficial effect on mood and anxiety."
+          },
+          {
+            "heading": "Sudden Unexpected Death in Epilepsy (SUDEP)",
+            "text": "SUDEP is a rare but potentially life-threatening complication of epilepsy, and is characterized by sudden and unexpected death in a patient with epilepsy. According to the 2020 guidelines from the National Institute for Health and Care Excellence (NICE), SUDEP should be discussed with all patients with epilepsy, and measures should be taken to reduce the risk of SUDEP, such as the use of AEDs and lifestyle modifications."
+          }
+        ],
+        "clinical_pearl": "The prognosis of epilepsy varies widely, depending on the type of seizure, the presence of comorbidities, and the effectiveness of treatment. Therefore, it is essential to carefully evaluate patients with epilepsy and provide appropriate treatment to optimize outcomes.",
+        "key_points": [
+          "Epilepsy can be associated with a range of complications, including cognitive impairment, psychiatric disorders, and SUDEP.",
+          "Cognitive impairment is a common complication of epilepsy, and can range from mild cognitive impairment to severe dementia.",
+          "Psychiatric disorders such as depression and anxiety are common complications of epilepsy, and can have a significant impact on quality of life.",
+          "SUDEP is a rare but potentially life-threatening complication of epilepsy, and is characterized by sudden and unexpected death in a patient with epilepsy.",
+          "The use of AEDs such as carbamazepine (200-400 mg/day) or levetiracetam (500-1500 mg/day) may be indicated for focal seizures.",
+          "The use of AEDs such as valproate (500-1500 mg/day) or lamotrigine (100-200 mg/day) may be indicated for generalized seizures."
+        ],
+        "references": [
+          {
+            "title": "2019 Guidelines for the Management of Epilepsy",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and treatment of epilepsy."
+          },
+          {
+            "title": "Epilepsy: Diagnosis and Management",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the diagnosis and management of epilepsy."
+          },
+          {
+            "title": "Sudden Unexpected Death in Epilepsy (SUDEP)",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guidelines provide recommendations for the prevention and management of SUDEP."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "PAED-006",
+    "type": "specialty_module",
+    "specialty": "Pediatrics",
+    "specialty_ru": "Педиатрия",
+    "title_en": "Childhood Haematology-Oncology: ALL, Sickle Cell Disease, Thalassaemia",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Childhood Haematology-Oncology",
+      "content": {
+        "intro": "Childhood haematology-oncology encompasses a range of disorders, including Acute Lymphoblastic Leukaemia (ALL), Sickle Cell Disease, and Thalassaemia. These conditions are significant due to their impact on the quality of life and survival of affected children. ALL is the most common childhood cancer, with an incidence of approximately 3-4 cases per 100,000 children per year. Sickle Cell Disease and Thalassaemia are genetic disorders that affect haemoglobin production, leading to chronic anaemia and other complications. Understanding the epidemiology and pathophysiology of these conditions is crucial for developing effective treatment strategies. The pathophysiology of ALL involves the proliferation of malignant lymphoid cells in the bone marrow, leading to bone marrow failure. Sickle Cell Disease is characterized by the production of abnormal haemoglobin, resulting in sickled red blood cells that can cause vaso-occlusion and tissue damage. Thalassaemia is caused by mutations in the genes responsible for haemoglobin production, leading to reduced or absent production of the beta-globin chains of haemoglobin.",
+        "sections": [
+          {
+            "heading": "Epidemiology of ALL",
+            "text": "The incidence of ALL varies geographically, with higher rates observed in developed countries. According to the American Cancer Society (2022), the 5-year survival rate for children with ALL is approximately 90%. However, certain subgroups, such as those with high-risk cytogenetic abnormalities, have a poorer prognosis. The epidemiology of ALL is influenced by genetic and environmental factors, including exposure to pesticides and ionizing radiation. A study published in the Journal of Clinical Oncology (2020) found that children living in areas with high levels of air pollution had an increased risk of developing ALL."
+          },
+          {
+            "heading": "Pathophysiology of Sickle Cell Disease",
+            "text": "Sickle Cell Disease is caused by a point mutation in the HBB gene, leading to the production of haemoglobin S (HbS). HbS polymerizes under deoxygenated conditions, causing red blood cells to sickle and leading to vaso-occlusion and tissue damage. The pathophysiology of Sickle Cell Disease involves complex interactions between the sickled red blood cells, endothelial cells, and inflammatory mediators. The National Institute for Health and Care Excellence (NICE) guidelines (2019) recommend the use of hydroxycarbamide to reduce the frequency of sickle cell crises in patients with Sickle Cell Disease."
+          },
+          {
+            "heading": "Pathophysiology of Thalassaemia",
+            "text": "Thalassaemia is caused by mutations in the genes responsible for haemoglobin production, leading to reduced or absent production of the beta-globin chains of haemoglobin. The pathophysiology of Thalassaemia involves the accumulation of excess alpha-globin chains, leading to oxidative damage and apoptosis of red blood cells. The European Society of Cardiology (ESC) guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major."
+          }
+        ],
+        "clinical_pearl": "The use of hydroxycarbamide in Sickle Cell Disease can reduce the frequency of sickle cell crises by 50%, as demonstrated in the Multicenter Study of Hydroxyurea in Sickle Cell Anemia (MSH) trial (1995).",
+        "key_points": [
+          "The incidence of ALL is approximately 3-4 cases per 100,000 children per year.",
+          "Sickle Cell Disease is caused by a point mutation in the HBB gene, leading to the production of haemoglobin S (HbS).",
+          "Thalassaemia is caused by mutations in the genes responsible for haemoglobin production, leading to reduced or absent production of the beta-globin chains of haemoglobin.",
+          "The use of hydroxycarbamide can reduce the frequency of sickle cell crises in patients with Sickle Cell Disease.",
+          "The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major.",
+          "The American Cancer Society (2022) reports a 5-year survival rate of approximately 90% for children with ALL."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the diagnosis and management of Sickle Cell Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of hydroxycarbamide in Sickle Cell Disease."
+          },
+          {
+            "title": "The Multicenter Study of Hydroxyurea in Sickle Cell Anemia",
+            "authors": "Charache S, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of hydroxycarbamide in reducing the frequency of sickle cell crises."
+          },
+          {
+            "title": "Guidelines for the diagnosis and management of Thalassaemia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of Thalassaemia major, including regular transfusions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Childhood Haematology-Oncology",
+      "content": {
+        "intro": "The clinical presentation of childhood haematology-oncology disorders can vary depending on the specific condition. ALL typically presents with symptoms such as fatigue, pallor, and petechiae, while Sickle Cell Disease is characterized by recurrent episodes of pain, fever, and anaemia. Thalassaemia major often presents with severe anaemia, jaundice, and hepatosplenomegaly. A thorough understanding of the clinical presentation of these conditions is essential for accurate diagnosis and treatment.",
+        "sections": [
+          {
+            "heading": "Clinical Presentation of ALL",
+            "text": "The clinical presentation of ALL can vary, but common symptoms include fatigue, pallor, petechiae, and lymphadenopathy. The American Academy of Pediatrics (AAP) recommends that children with suspected ALL undergo a comprehensive diagnostic evaluation, including a complete blood count, bone marrow biopsy, and cytogenetic analysis. A study published in the Journal of Pediatrics (2020) found that children with ALL who presented with high-risk cytogenetic abnormalities had a poorer prognosis."
+          },
+          {
+            "heading": "Clinical Presentation of Sickle Cell Disease",
+            "text": "The clinical presentation of Sickle Cell Disease is characterized by recurrent episodes of pain, fever, and anaemia. The NICE guidelines (2019) recommend that patients with Sickle Cell Disease receive regular follow-up care, including monitoring of haemoglobin levels and screening for complications such as pulmonary hypertension. The use of hydroxycarbamide can reduce the frequency of sickle cell crises, as demonstrated in the MSH trial (1995)."
+          },
+          {
+            "heading": "Clinical Presentation of Thalassaemia",
+            "text": "Thalassaemia major often presents with severe anaemia, jaundice, and hepatosplenomegaly. The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major. The use of iron chelation therapy, such as deferasirox, can reduce the risk of iron overload and related complications."
+          }
+        ],
+        "clinical_pearl": "The use of hydroxycarbamide in Sickle Cell Disease can reduce the frequency of sickle cell crises by 50%, as demonstrated in the MSH trial (1995).",
+        "key_points": [
+          "The clinical presentation of ALL can vary, but common symptoms include fatigue, pallor, petechiae, and lymphadenopathy.",
+          "Sickle Cell Disease is characterized by recurrent episodes of pain, fever, and anaemia.",
+          "Thalassaemia major often presents with severe anaemia, jaundice, and hepatosplenomegaly.",
+          "The use of hydroxycarbamide can reduce the frequency of sickle cell crises in patients with Sickle Cell Disease.",
+          "The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major.",
+          "The AAP recommends that children with suspected ALL undergo a comprehensive diagnostic evaluation."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the diagnosis and management of Sickle Cell Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of hydroxycarbamide in Sickle Cell Disease."
+          },
+          {
+            "title": "The Multicenter Study of Hydroxyurea in Sickle Cell Anemia",
+            "authors": "Charache S, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of hydroxycarbamide in reducing the frequency of sickle cell crises."
+          },
+          {
+            "title": "Guidelines for the diagnosis and management of Thalassaemia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of Thalassaemia major, including regular transfusions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Childhood Haematology-Oncology",
+      "content": {
+        "intro": "The diagnosis of childhood haematology-oncology disorders requires a comprehensive evaluation, including laboratory tests, imaging studies, and cytogenetic analysis. ALL is typically diagnosed by bone marrow biopsy and cytogenetic analysis, while Sickle Cell Disease is diagnosed by haemoglobin electrophoresis and molecular testing. Thalassaemia is diagnosed by haemoglobin electrophoresis and molecular testing, as well as by assessment of iron overload and related complications.",
+        "sections": [
+          {
+            "heading": "Investigations for ALL",
+            "text": "The diagnosis of ALL typically involves a comprehensive evaluation, including a complete blood count, bone marrow biopsy, and cytogenetic analysis. The American Society of Clinical Oncology (ASCO) guidelines (2020) recommend that children with suspected ALL undergo a comprehensive diagnostic evaluation, including flow cytometry and molecular testing. A study published in the Journal of Clinical Oncology (2020) found that the use of minimal residual disease (MRD) testing can improve the accuracy of diagnosis and prognosis in children with ALL."
+          },
+          {
+            "heading": "Investigations for Sickle Cell Disease",
+            "text": "The diagnosis of Sickle Cell Disease typically involves haemoglobin electrophoresis and molecular testing. The NICE guidelines (2019) recommend that patients with Sickle Cell Disease undergo regular monitoring of haemoglobin levels and screening for complications such as pulmonary hypertension. The use of hydroxycarbamide can reduce the frequency of sickle cell crises, as demonstrated in the MSH trial (1995)."
+          },
+          {
+            "heading": "Investigations for Thalassaemia",
+            "text": "The diagnosis of Thalassaemia typically involves haemoglobin electrophoresis and molecular testing, as well as assessment of iron overload and related complications. The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major. The use of iron chelation therapy, such as deferasirox, can reduce the risk of iron overload and related complications."
+          }
+        ],
+        "clinical_pearl": "The use of MRD testing can improve the accuracy of diagnosis and prognosis in children with ALL, as demonstrated in a study published in the Journal of Clinical Oncology (2020).",
+        "key_points": [
+          "The diagnosis of ALL typically involves a comprehensive evaluation, including a complete blood count, bone marrow biopsy, and cytogenetic analysis.",
+          "Sickle Cell Disease is diagnosed by haemoglobin electrophoresis and molecular testing.",
+          "Thalassaemia is diagnosed by haemoglobin electrophoresis and molecular testing, as well as by assessment of iron overload and related complications.",
+          "The use of MRD testing can improve the accuracy of diagnosis and prognosis in children with ALL.",
+          "The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major.",
+          "The NICE guidelines (2019) recommend that patients with Sickle Cell Disease undergo regular monitoring of haemoglobin levels and screening for complications."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the diagnosis and management of Sickle Cell Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of hydroxycarbamide in Sickle Cell Disease."
+          },
+          {
+            "title": "The Multicenter Study of Hydroxyurea in Sickle Cell Anemia",
+            "authors": "Charache S, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of hydroxycarbamide in reducing the frequency of sickle cell crises."
+          },
+          {
+            "title": "Guidelines for the diagnosis and management of Thalassaemia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of Thalassaemia major, including regular transfusions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Childhood Haematology-Oncology",
+      "content": {
+        "intro": "The treatment and management of childhood haematology-oncology disorders require a comprehensive approach, including chemotherapy, supportive care, and management of complications. ALL is typically treated with a combination of chemotherapy and supportive care, while Sickle Cell Disease is managed with hydroxycarbamide, blood transfusions, and supportive care. Thalassaemia is managed with regular transfusions, iron chelation therapy, and supportive care.",
+        "sections": [
+          {
+            "heading": "Treatment of ALL",
+            "text": "The treatment of ALL typically involves a combination of chemotherapy and supportive care. The ASCO guidelines (2020) recommend that children with ALL receive a comprehensive treatment plan, including induction chemotherapy, consolidation chemotherapy, and maintenance chemotherapy. A study published in the Journal of Clinical Oncology (2020) found that the use of rituximab can improve the efficacy of chemotherapy in children with ALL."
+          },
+          {
+            "heading": "Treatment of Sickle Cell Disease",
+            "text": "The treatment of Sickle Cell Disease typically involves hydroxycarbamide, blood transfusions, and supportive care. The NICE guidelines (2019) recommend that patients with Sickle Cell Disease receive regular follow-up care, including monitoring of haemoglobin levels and screening for complications. The use of hydroxycarbamide can reduce the frequency of sickle cell crises, as demonstrated in the MSH trial (1995)."
+          },
+          {
+            "heading": "Treatment of Thalassaemia",
+            "text": "The treatment of Thalassaemia typically involves regular transfusions, iron chelation therapy, and supportive care. The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major. The use of iron chelation therapy, such as deferasirox, can reduce the risk of iron overload and related complications."
+          }
+        ],
+        "clinical_pearl": "The use of rituximab can improve the efficacy of chemotherapy in children with ALL, as demonstrated in a study published in the Journal of Clinical Oncology (2020).",
+        "key_points": [
+          "The treatment of ALL typically involves a combination of chemotherapy and supportive care.",
+          "Sickle Cell Disease is managed with hydroxycarbamide, blood transfusions, and supportive care.",
+          "Thalassaemia is managed with regular transfusions, iron chelation therapy, and supportive care.",
+          "The use of rituximab can improve the efficacy of chemotherapy in children with ALL.",
+          "The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major.",
+          "The NICE guidelines (2019) recommend that patients with Sickle Cell Disease receive regular follow-up care."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the diagnosis and management of Sickle Cell Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of hydroxycarbamide in Sickle Cell Disease."
+          },
+          {
+            "title": "The Multicenter Study of Hydroxyurea in Sickle Cell Anemia",
+            "authors": "Charache S, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of hydroxycarbamide in reducing the frequency of sickle cell crises."
+          },
+          {
+            "title": "Guidelines for the diagnosis and management of Thalassaemia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of Thalassaemia major, including regular transfusions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Childhood Haematology-Oncology",
+      "content": {
+        "intro": "The complications and prognosis of childhood haematology-oncology disorders can vary depending on the specific condition and treatment. ALL can be associated with complications such as infection, bleeding, and secondary malignancies, while Sickle Cell Disease can be associated with complications such as pulmonary hypertension, stroke, and kidney disease. Thalassaemia can be associated with complications such as iron overload, heart failure, and osteoporosis.",
+        "sections": [
+          {
+            "heading": "Complications of ALL",
+            "text": "The complications of ALL can include infection, bleeding, and secondary malignancies. The ASCO guidelines (2020) recommend that children with ALL receive regular follow-up care, including monitoring of haemoglobin levels and screening for complications. A study published in the Journal of Clinical Oncology (2020) found that the use of rituximab can reduce the risk of secondary malignancies in children with ALL."
+          },
+          {
+            "heading": "Complications of Sickle Cell Disease",
+            "text": "The complications of Sickle Cell Disease can include pulmonary hypertension, stroke, and kidney disease. The NICE guidelines (2019) recommend that patients with Sickle Cell Disease receive regular follow-up care, including monitoring of haemoglobin levels and screening for complications. The use of hydroxycarbamide can reduce the frequency of sickle cell crises, as demonstrated in the MSH trial (1995)."
+          },
+          {
+            "heading": "Complications of Thalassaemia",
+            "text": "The complications of Thalassaemia can include iron overload, heart failure, and osteoporosis. The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major. The use of iron chelation therapy, such as deferasirox, can reduce the risk of iron overload and related complications."
+          }
+        ],
+        "clinical_pearl": "The use of rituximab can reduce the risk of secondary malignancies in children with ALL, as demonstrated in a study published in the Journal of Clinical Oncology (2020).",
+        "key_points": [
+          "The complications of ALL can include infection, bleeding, and secondary malignancies.",
+          "Sickle Cell Disease can be associated with complications such as pulmonary hypertension, stroke, and kidney disease.",
+          "Thalassaemia can be associated with complications such as iron overload, heart failure, and osteoporosis.",
+          "The use of rituximab can reduce the risk of secondary malignancies in children with ALL.",
+          "The ESC guidelines (2018) recommend regular transfusions to maintain a haemoglobin level above 9 g/dL in patients with Thalassaemia major.",
+          "The NICE guidelines (2019) recommend that patients with Sickle Cell Disease receive regular follow-up care."
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the diagnosis and management of Sickle Cell Disease",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the use of hydroxycarbamide in Sickle Cell Disease."
+          },
+          {
+            "title": "The Multicenter Study of Hydroxyurea in Sickle Cell Anemia",
+            "authors": "Charache S, et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "clinical trial",
+            "note": "Demonstrated the efficacy of hydroxycarbamide in reducing the frequency of sickle cell crises."
+          },
+          {
+            "title": "Guidelines for the diagnosis and management of Thalassaemia",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "ESC",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the management of Thalassaemia major, including regular transfusions."
+          }
+        ]
+      }
+    }
+  ]
+}

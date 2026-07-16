@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "id": "NURSE-004",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Infection Control and Hand Hygiene",
+    "title_en": "Infection Control and Hand Hygiene",
+    "order_in_specialty": 4,
+    "level": "beginner",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 3,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": ["WHO Hand Hygiene Guidelines 2009", "CDC Healthcare Infection Control Practices Advisory Committee (HICPAC)", "CDC Transmission-Based Precautions 2024"]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Hand Hygiene: The Single Most Important Infection Control Measure",
+      "order": 1,
+      "lay_summary": "Proper hand hygiene prevents more infections than any other single action. Nurses clean their hands before and after every patient contact. The WHO '5 Moments' tells you exactly when.",
+      "content": {
+        "intro": "Healthcare-associated infections (HAIs) affect approximately 1 in 10 hospitalised patients worldwide. Hand hygiene compliance by healthcare workers is the most effective and evidence-based intervention.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "WHO 5 Moments for Hand Hygiene",
+            "body": "Moment 1: BEFORE touching a patient (entering the zone). Moment 2: BEFORE a clean/aseptic procedure (IV insertion, wound care, urinary catheterisation). Moment 3: AFTER body fluid exposure risk (handling specimens, suction, wound dressings). Moment 4: AFTER touching a patient (leaving the zone). Moment 5: AFTER touching patient surroundings (bed rails, call light, IV pole).\nMoment 2 is often missed: hand hygiene must occur between caring for the same patient's dirty and clean sites."
+          },
+          {
+            "title": "Method: ABHR vs. Soap and Water",
+            "body": "Alcohol-Based Hand Rub (ABHR): 20–30 seconds, covers entire hand surface. Preferred for routine care. Works against most pathogens. Does NOT work against: Clostridioides difficile (C. diff), Norovirus spores.\nSoap and Water: 40–60 seconds, mechanical removal of soil. Required for: visibly soiled hands, C. diff patients, Norovirus outbreak, before eating.\nTechnique matters: cover all surfaces including backs of hands, between fingers, thumbs, fingertips, wrists."
+          },
+          {
+            "title": "Barriers to Hand Hygiene Compliance",
+            "body": "Workload and time pressure are the most cited barriers. Other barriers: skin irritation, inaccessible hand hygiene product, disagreement about guidelines, forgetfulness. Nurse-specific: gloves are NOT a substitute for hand hygiene. Gloves must be changed between patients and between dirty and clean tasks on the same patient. Artificial nails and long natural nails (>2 mm) are not permitted in clinical areas — they harbour pathogens under and around nails."
+          }
+        ],
+        "clinical_pearl": "Gloves create a false sense of security. Studies show healthcare workers are LESS likely to perform hand hygiene when wearing gloves than when not. Remember: hands must be cleaned before donning and after removing gloves.",
+        "key_points": [
+          "WHO 5 Moments: Before patient contact, Before aseptic procedure, After body fluid exposure, After patient contact, After touching surroundings",
+          "ABHR is standard; soap + water required for C. diff and visibly soiled hands",
+          "Gloves are not a substitute for hand hygiene",
+          "Artificial nails prohibited in clinical settings",
+          "Technique: 20–30 s ABHR; 40–60 s soap and water"
+        ],
+        "references": ["WHO Hand Hygiene Guidelines 2009", "WHO SAVE LIVES: Clean Your Hands campaign"]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Transmission-Based Precautions",
+      "order": 2,
+      "content": {
+        "intro": "Standard Precautions apply to ALL patients at ALL times. Transmission-Based Precautions are added for specific pathogens based on their route of transmission.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Standard Precautions (All Patients)",
+            "body": "Assume all body fluids (except sweat) are potentially infectious. Includes: hand hygiene, PPE appropriate to the task (gloves, gown, mask, eye protection), safe injection practices (never recap needles two-handed), safe handling of sharps, respiratory hygiene/cough etiquette, environmental cleaning, safe handling of linen."
+          },
+          {
+            "title": "Contact Precautions",
+            "body": "For pathogens spread by direct contact with skin or contaminated surfaces. Pathogens: MRSA, VRE, C. diff, wound infections, scabies. PPE: gown + gloves on entry. Private room or cohorting. Dedicated equipment (stethoscope, BP cuff). Visitors instructed on hand hygiene."
+          },
+          {
+            "title": "Droplet Precautions",
+            "body": "For large respiratory droplets (>5 microns, fall within 1 m). Pathogens: influenza, pertussis, meningococcal disease, COVID-19 (droplet + airborne). PPE: surgical mask on entry (within 1 m of patient). Patient wears mask during transport."
+          },
+          {
+            "title": "Airborne Precautions",
+            "body": "For pathogens carried on small particles (≤5 microns, can remain suspended and travel >1 m). Pathogens: TB (Mycobacterium tuberculosis), measles (rubeola), varicella-zoster (chickenpox), COVID-19 (aerosol-generating procedures). PPE: N95 respirator (fit-tested), negative-pressure room (AIIR — Airborne Infection Isolation Room). Patient transport: patient wears surgical mask; minimise transport."
+          }
+        ],
+        "clinical_pearl": "C. diff (Clostridioides difficile) is a special case: Contact Precautions required AND alcohol hand rubs are NOT effective against spores — must use soap and water. C. diff colitis presents with watery diarrhoea, often after antibiotic use. Early isolation and thorough environmental cleaning with sporicidal agents are essential.",
+        "key_points": [
+          "Standard Precautions apply to ALL patients at ALL times",
+          "Contact: MRSA, VRE, C. diff → gown + gloves on entry",
+          "Droplet: influenza, pertussis → surgical mask within 1 m",
+          "Airborne: TB, measles, varicella → N95 + negative-pressure room",
+          "C. diff requires soap and water for hand hygiene — ABHR insufficient against spores"
+        ],
+        "references": ["CDC 2007 Guideline for Isolation Precautions", "CDC HICPAC Recommendations 2024"]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "WHO 5 Moments for Hand Hygiene — list them.", "answer": "1. Before patient contact. 2. Before aseptic procedure. 3. After body fluid exposure risk. 4. After patient contact. 5. After touching patient surroundings.", "difficulty": "medium"},
+    {"question": "When MUST soap and water be used instead of ABHR?", "answer": "Visibly soiled hands; C. difficile patients; Norovirus outbreak; before eating.", "difficulty": "medium"},
+    {"question": "What PPE is required for a patient with active pulmonary TB?", "answer": "Fit-tested N95 respirator + airborne infection isolation room (negative pressure). Patient wears surgical mask during transport.", "difficulty": "medium"},
+    {"question": "What precaution type is required for a patient with MRSA wound infection?", "answer": "Contact Precautions: gown + gloves on entry to room. Private room or cohort.", "difficulty": "easy"},
+    {"question": "Why are artificial nails prohibited in clinical areas?", "answer": "They harbour pathogens (including gram-negative bacteria and fungi) under and around the nail, increasing infection transmission risk.", "difficulty": "easy"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse finishes changing a surgical wound dressing on a patient in an isolation room for MRSA. Before exiting the room, which sequence correctly reflects hand hygiene practice?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Remove gloves, exit room, perform hand hygiene at hallway dispenser",
+        "B": "Remove gown first, then gloves, then perform hand hygiene before touching door handle",
+        "C": "Perform hand hygiene with gloves still on, then remove gloves and exit",
+        "D": "Remove gloves and gown and exit — hand hygiene was completed before donning PPE"
+      },
+      "correct": "B",
+      "explanation": "Correct doffing sequence: gown first (contaminated outer layer), then gloves, then hand hygiene BEFORE touching the door handle to prevent contaminating the environment. Performing hand hygiene over gloves is not effective. Hand hygiene before donning is also required but not sufficient — must also perform after doffing.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Select ALL patients for whom soap and water hand hygiene is specifically required (not just recommended) over ABHR.",
+      "question_type": "sata",
+      "options": {
+        "A": "A patient with Clostridioides difficile colitis",
+        "B": "A patient with MRSA bacteraemia",
+        "C": "A patient with influenza A on droplet precautions",
+        "D": "Nurse's hands are visibly soiled with blood",
+        "E": "Nurse is about to have a meal in the break room",
+        "F": "Patient with vancomycin-resistant Enterococcus (VRE) on contact precautions"
+      },
+      "correct": "A",
+      "correct_answers": ["A", "D", "E"],
+      "explanation": "Soap and water is required for: C. diff patients (A — spores resist ABHR), visibly soiled hands (D), and before eating (E). MRSA (B), influenza (C), and VRE (F) do not specifically require soap — ABHR is effective for these pathogens.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse is assigned to care for a patient with suspected open pulmonary tuberculosis. Place these actions in the correct order before entering the patient's room.",
+      "question_type": "ordered",
+      "options": {
+        "A": "Don fit-tested N95 respirator",
+        "B": "Perform hand hygiene",
+        "C": "Confirm the patient is in a negative-pressure isolation room (AIIR)",
+        "D": "Don gloves and gown"
+      },
+      "correct": "C",
+      "correct_order": ["C", "B", "A", "D"],
+      "explanation": "First confirm the room meets airborne isolation requirements (negative pressure — C). Then perform hand hygiene (B). Don the N95 respirator before entering any area where airborne pathogens may be present (A). Then add other PPE as required — gown and gloves (D).",
+      "difficulty": "medium"
+    }
+  ],
+  "clinical_cases": []
+}

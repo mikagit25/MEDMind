@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "OBG-001",
+    "type": "specialty_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Normal Pregnancy: Antenatal Care, Physiological Changes and Screening",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-02"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Normal Pregnancy",
+      "content": {
+        "intro": "Normal pregnancy is a complex physiological process that involves significant changes in the maternal cardiovascular, respiratory, and renal systems. The epidemiology of pregnancy is influenced by various factors, including maternal age, parity, and socioeconomic status. According to the World Health Organization (WHO), approximately 140 million births occur worldwide each year, with the majority taking place in low- and middle-income countries. The pathophysiology of normal pregnancy involves a series of adaptations that enable the mother to support the growing fetus, including increased cardiac output, decreased systemic vascular resistance, and increased renal blood flow. Understanding these changes is essential for providing optimal antenatal care and identifying potential complications early.",
+        "sections": [
+          {
+            "heading": "Maternal Physiological Changes",
+            "text": "During pregnancy, the maternal cardiovascular system undergoes significant changes, including a 40-50% increase in cardiac output and a 20-30% decrease in systemic vascular resistance. The respiratory system also adapts, with an increase in tidal volume and a decrease in residual volume. The renal system experiences an increase in renal blood flow and glomerular filtration rate, which can lead to a decrease in serum creatinine levels. These changes are essential for supporting the growing fetus and preparing the mother for childbirth. The American College of Obstetricians and Gynecologists (ACOG) recommends that all pregnant women receive regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications."
+          },
+          {
+            "heading": "Fetal Development and Growth",
+            "text": "Fetal development and growth are critical components of a healthy pregnancy. The fetus undergoes rapid growth and development during the first trimester, with the formation of major organs and body systems. The second and third trimesters are characterized by continued growth and maturation, with the fetus developing fat layers, muscle mass, and nervous system function. The National Institute for Health and Care Excellence (NICE) recommends that all pregnant women receive fetal growth scans at 20-24 weeks and 32-34 weeks to monitor for potential growth restriction."
+          },
+          {
+            "heading": "Importance of Antenatal Care",
+            "text": "Antenatal care is essential for identifying potential complications early and providing optimal support for the mother and fetus. The American Heart Association (AHA) recommends that all pregnant women receive regular blood pressure checks and urine tests to monitor for signs of preeclampsia. The European Society of Cardiology (ESC) also recommends that all pregnant women with pre-existing medical conditions, such as hypertension or diabetes, receive regular monitoring and management to minimize the risk of complications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that pregnant women with a history of hypertension or preeclampsia are at increased risk of developing cardiovascular disease later in life, with a 2-3 fold increased risk of myocardial infarction and stroke.",
+        "key_points": [
+          "The maternal cardiovascular system undergoes significant changes during pregnancy, including a 40-50% increase in cardiac output.",
+          "The American College of Obstetricians and Gynecologists (ACOG) recommends regular prenatal care, including blood pressure checks and urine tests.",
+          "Fetal growth restriction is a significant complication of pregnancy, affecting approximately 10% of all pregnancies.",
+          "The National Institute for Health and Care Excellence (NICE) recommends fetal growth scans at 20-24 weeks and 32-34 weeks.",
+          "Pregnant women with a history of hypertension or preeclampsia are at increased risk of developing cardiovascular disease later in life.",
+          "The European Society of Cardiology (ESC) recommends regular monitoring and management for pregnant women with pre-existing medical conditions."
+        ],
+        "references": [
+          {
+            "title": "Hypertension in Pregnancy",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of hypertension in pregnancy."
+          },
+          {
+            "title": "Fetal Growth Restriction",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of fetal growth restriction."
+          },
+          {
+            "title": "Cardiovascular Disease in Pregnancy",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of cardiovascular disease in pregnancy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Normal Pregnancy",
+      "content": {
+        "intro": "The clinical presentation of normal pregnancy is characterized by a range of physical and emotional changes that occur in the mother. These changes can be divided into three trimesters, each with its own unique characteristics. The first trimester is marked by implantation of the fertilized egg, embryogenesis, and the development of the placenta. The second trimester is characterized by rapid fetal growth and development, while the third trimester is marked by preparation for childbirth and lactation.",
+        "sections": [
+          {
+            "heading": "First Trimester Changes",
+            "text": "During the first trimester, the mother may experience a range of physical and emotional changes, including nausea, vomiting, fatigue, and breast tenderness. These changes are caused by the rapid increase in human chorionic gonadotropin (hCG) and estrogen levels. The AHA recommends that all pregnant women receive regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications."
+          },
+          {
+            "heading": "Second Trimester Changes",
+            "text": "The second trimester is marked by rapid fetal growth and development, with the fetus developing fat layers, muscle mass, and nervous system function. The mother may experience a range of physical changes, including abdominal expansion, back pain, and pelvic pressure. The ESC recommends that all pregnant women with pre-existing medical conditions, such as hypertension or diabetes, receive regular monitoring and management to minimize the risk of complications."
+          },
+          {
+            "heading": "Third Trimester Changes",
+            "text": "The third trimester is characterized by preparation for childbirth and lactation, with the mother experiencing a range of physical and emotional changes. These changes include abdominal expansion, back pain, pelvic pressure, and breast engorgement. The NICE recommends that all pregnant women receive regular fetal growth scans to monitor for potential growth restriction."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that pregnant women who experience severe nausea and vomiting during the first trimester are at increased risk of developing hyperemesis gravidarum, a condition characterized by excessive vomiting and dehydration.",
+        "key_points": [
+          "The first trimester is marked by implantation of the fertilized egg, embryogenesis, and the development of the placenta.",
+          "The AHA recommends regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications.",
+          "The second trimester is characterized by rapid fetal growth and development, with the fetus developing fat layers, muscle mass, and nervous system function.",
+          "The ESC recommends regular monitoring and management for pregnant women with pre-existing medical conditions.",
+          "The third trimester is marked by preparation for childbirth and lactation, with the mother experiencing a range of physical and emotional changes.",
+          "Pregnant women who experience severe nausea and vomiting during the first trimester are at increased risk of developing hyperemesis gravidarum."
+        ],
+        "references": [
+          {
+            "title": "Prenatal Care",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for prenatal care, including blood pressure checks and urine tests."
+          },
+          {
+            "title": "Hyperemesis Gravidarum",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of hyperemesis gravidarum."
+          },
+          {
+            "title": "Pregnancy and Cardiovascular Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of cardiovascular disease in pregnancy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Normal Pregnancy",
+      "content": {
+        "intro": "The diagnosis of normal pregnancy is typically made through a combination of clinical evaluation, laboratory tests, and imaging studies. The initial evaluation includes a thorough medical history, physical examination, and laboratory tests, such as a pregnancy test and complete blood count. Imaging studies, such as ultrasound, are used to confirm the diagnosis and monitor fetal growth and development.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation",
+            "text": "The clinical evaluation of a pregnant woman includes a thorough medical history, physical examination, and laboratory tests. The medical history should include questions about the woman's reproductive history, medical conditions, and medications. The physical examination should include a pelvic examination, breast examination, and assessment of fetal heart rate. The ACOG recommends that all pregnant women receive regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications."
+          },
+          {
+            "heading": "Laboratory Tests",
+            "text": "Laboratory tests are used to confirm the diagnosis of pregnancy and monitor fetal growth and development. These tests include a pregnancy test, complete blood count, and blood type. The ESC recommends that all pregnant women with pre-existing medical conditions, such as hypertension or diabetes, receive regular monitoring and management to minimize the risk of complications."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as ultrasound, are used to confirm the diagnosis of pregnancy and monitor fetal growth and development. Ultrasound can detect fetal anomalies, such as congenital heart defects, and monitor fetal growth restriction. The NICE recommends that all pregnant women receive regular fetal growth scans to monitor for potential growth restriction."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that pregnant women who have a history of recurrent miscarriage or fetal loss are at increased risk of developing antiphospholipid syndrome, a condition characterized by the presence of antiphospholipid antibodies.",
+        "key_points": [
+          "The diagnosis of normal pregnancy is typically made through a combination of clinical evaluation, laboratory tests, and imaging studies.",
+          "The ACOG recommends regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications.",
+          "Laboratory tests, such as a pregnancy test and complete blood count, are used to confirm the diagnosis of pregnancy and monitor fetal growth and development.",
+          "The ESC recommends regular monitoring and management for pregnant women with pre-existing medical conditions.",
+          "Imaging studies, such as ultrasound, are used to confirm the diagnosis of pregnancy and monitor fetal growth and development.",
+          "Pregnant women who have a history of recurrent miscarriage or fetal loss are at increased risk of developing antiphospholipid syndrome."
+        ],
+        "references": [
+          {
+            "title": "Prenatal Diagnosis",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for prenatal diagnosis, including laboratory tests and imaging studies."
+          },
+          {
+            "title": "Antiphospholipid Syndrome",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of antiphospholipid syndrome."
+          },
+          {
+            "title": "Pregnancy and Cardiovascular Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of cardiovascular disease in pregnancy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Normal Pregnancy",
+      "content": {
+        "intro": "The treatment and management of normal pregnancy involve a range of interventions, including prenatal care, nutrition, and lifestyle modifications. Prenatal care is essential for monitoring fetal growth and development, as well as identifying potential complications early. Nutrition and lifestyle modifications, such as a balanced diet and regular exercise, are also important for supporting fetal growth and development.",
+        "sections": [
+          {
+            "heading": "Prenatal Care",
+            "text": "Prenatal care is essential for monitoring fetal growth and development, as well as identifying potential complications early. The ACOG recommends that all pregnant women receive regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications. The ESC recommends that all pregnant women with pre-existing medical conditions, such as hypertension or diabetes, receive regular monitoring and management to minimize the risk of complications."
+          },
+          {
+            "heading": "Nutrition and Lifestyle Modifications",
+            "text": "Nutrition and lifestyle modifications, such as a balanced diet and regular exercise, are important for supporting fetal growth and development. The NICE recommends that all pregnant women receive guidance on healthy eating and physical activity to minimize the risk of complications. The AHA recommends that all pregnant women receive regular counseling on breastfeeding and lactation to support maternal and infant health."
+          },
+          {
+            "heading": "Medications and Supplements",
+            "text": "Medications and supplements, such as folic acid and iron, are important for supporting fetal growth and development. The ACOG recommends that all pregnant women receive folic acid supplements to minimize the risk of neural tube defects. The ESC recommends that all pregnant women with pre-existing medical conditions, such as hypertension or diabetes, receive regular monitoring and management to minimize the risk of complications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that pregnant women who have a history of preeclampsia are at increased risk of developing cardiovascular disease later in life, with a 2-3 fold increased risk of myocardial infarction and stroke.",
+        "key_points": [
+          "Prenatal care is essential for monitoring fetal growth and development, as well as identifying potential complications early.",
+          "The ACOG recommends regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications.",
+          "Nutrition and lifestyle modifications, such as a balanced diet and regular exercise, are important for supporting fetal growth and development.",
+          "The NICE recommends guidance on healthy eating and physical activity to minimize the risk of complications.",
+          "Medications and supplements, such as folic acid and iron, are important for supporting fetal growth and development.",
+          "Pregnant women who have a history of preeclampsia are at increased risk of developing cardiovascular disease later in life."
+        ],
+        "references": [
+          {
+            "title": "Prenatal Care",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for prenatal care, including blood pressure checks and urine tests."
+          },
+          {
+            "title": "Nutrition and Pregnancy",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for nutrition and pregnancy, including guidance on healthy eating and physical activity."
+          },
+          {
+            "title": "Pregnancy and Cardiovascular Disease",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of cardiovascular disease in pregnancy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Normal Pregnancy",
+      "content": {
+        "intro": "Normal pregnancy can be complicated by a range of factors, including pre-existing medical conditions, fetal anomalies, and pregnancy-related complications. Pre-existing medical conditions, such as hypertension or diabetes, can increase the risk of complications during pregnancy. Fetal anomalies, such as congenital heart defects, can also increase the risk of complications during pregnancy. Pregnancy-related complications, such as preeclampsia or placental abruption, can also occur.",
+        "sections": [
+          {
+            "heading": "Pre-existing Medical Conditions",
+            "text": "Pre-existing medical conditions, such as hypertension or diabetes, can increase the risk of complications during pregnancy. The ACOG recommends that all pregnant women with pre-existing medical conditions receive regular monitoring and management to minimize the risk of complications. The ESC recommends that all pregnant women with pre-existing medical conditions receive regular counseling on the risks and benefits of pregnancy."
+          },
+          {
+            "heading": "Fetal Anomalies",
+            "text": "Fetal anomalies, such as congenital heart defects, can increase the risk of complications during pregnancy. The NICE recommends that all pregnant women receive regular fetal growth scans to monitor for potential growth restriction. The AHA recommends that all pregnant women receive regular counseling on the risks and benefits of pregnancy, including the risk of fetal anomalies."
+          },
+          {
+            "heading": "Pregnancy-related Complications",
+            "text": "Pregnancy-related complications, such as preeclampsia or placental abruption, can also occur. The ACOG recommends that all pregnant women receive regular prenatal care, including blood pressure checks and urine tests, to monitor for potential complications. The ESC recommends that all pregnant women with pre-existing medical conditions receive regular monitoring and management to minimize the risk of complications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight is that pregnant women who have a history of recurrent miscarriage or fetal loss are at increased risk of developing antiphospholipid syndrome, a condition characterized by the presence of antiphospholipid antibodies.",
+        "key_points": [
+          "Pre-existing medical conditions, such as hypertension or diabetes, can increase the risk of complications during pregnancy.",
+          "The ACOG recommends regular monitoring and management for pregnant women with pre-existing medical conditions.",
+          "Fetal anomalies, such as congenital heart defects, can increase the risk of complications during pregnancy.",
+          "The NICE recommends regular fetal growth scans to monitor for potential growth restriction.",
+          "Pregnancy-related complications, such as preeclampsia or placental abruption, can also occur.",
+          "Pregnant women who have a history of recurrent miscarriage or fetal loss are at increased risk of developing antiphospholipid syndrome."
+        ],
+        "references": [
+          {
+            "title": "Pregnancy and Pre-existing Medical Conditions",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the management of pre-existing medical conditions during pregnancy."
+          },
+          {
+            "title": "Fetal Anomalies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guideline",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of fetal anomalies."
+          },
+          {
+            "title": "Pregnancy-related Complications",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and management of pregnancy-related complications."
+          }
+        ]
+      }
+    }
+  ]
+}

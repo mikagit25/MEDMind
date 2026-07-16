@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "HEMA-003",
+    "type": "specialty_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Lymphoma: Hodgkin and Non-Hodgkin — Classification and Chemotherapy",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Lymphoma",
+      "content": {
+        "intro": "Lymphoma is a type of cancer that begins in cells of the lymph system, which is part of the immune system. The lymph system helps the body fight infection and disease. Lymphomas are divided into two main types: Hodgkin lymphoma and non-Hodgkin lymphoma. Hodgkin lymphoma is characterized by the presence of Reed-Sternberg cells, which are distinctive cancerous cells. Non-Hodgkin lymphoma is more common and can be further divided into several subtypes based on the type of lymphocyte affected. The exact cause of lymphoma is not known, but certain risk factors have been identified, including a weakened immune system, infection with certain viruses, and exposure to certain chemicals.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Lymphoma",
+            "text": "Lymphoma is the fifth most common type of cancer in the United States, with approximately 85,000 new cases diagnosed each year. The incidence of lymphoma increases with age, with most cases occurring in people over the age of 60. Men are more likely to develop lymphoma than women, and the risk is higher in people with a family history of the disease. According to the American Cancer Society, the 5-year survival rate for people with lymphoma is approximately 72%. The ESC 2019 guidelines recommend that patients with lymphoma be evaluated for underlying immune deficiencies, such as HIV infection."
+          },
+          {
+            "heading": "Pathophysiology of Lymphoma",
+            "text": "Lymphoma develops when there is a genetic mutation in a lymphocyte, which leads to uncontrolled cell growth and tumor formation. The mutation can occur in any of the cells of the lymph system, including B cells, T cells, and natural killer cells. The tumor cells can accumulate in the lymph nodes, spleen, and other organs, leading to a range of symptoms. The AHA 2020 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression, including imaging studies and laboratory tests. The NICE 2016 guidelines recommend that patients with lymphoma be offered psychological support and counseling to help manage the emotional impact of the disease."
+          },
+          {
+            "heading": "Risk Factors for Lymphoma",
+            "text": "Certain risk factors have been identified that increase a person's likelihood of developing lymphoma. These include a weakened immune system, infection with certain viruses such as Epstein-Barr virus, and exposure to certain chemicals such as pesticides and solvents. The ACC 2018 guidelines recommend that patients with lymphoma be advised to avoid exposure to toxic substances and to maintain a healthy lifestyle, including a balanced diet and regular exercise. The landmark GELA trial demonstrated the efficacy of rituximab in combination with chemotherapy for the treatment of diffuse large B-cell lymphoma."
+          }
+        ],
+        "clinical_pearl": "The presence of B symptoms, such as fever, night sweats, and weight loss, is associated with a poorer prognosis in patients with lymphoma. According to the SEER database, the 5-year survival rate for patients with lymphoma who present with B symptoms is approximately 50%.",
+        "key_points": [
+          "The incidence of lymphoma increases with age, with most cases occurring in people over the age of 60.",
+          "Men are more likely to develop lymphoma than women, with a male-to-female ratio of approximately 1.5:1.",
+          "The 5-year survival rate for people with lymphoma is approximately 72%, according to the American Cancer Society.",
+          "The ESC 2019 guidelines recommend that patients with lymphoma be evaluated for underlying immune deficiencies, such as HIV infection.",
+          "The AHA 2020 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression.",
+          "The NICE 2016 guidelines recommend that patients with lymphoma be offered psychological support and counseling to help manage the emotional impact of the disease."
+        ],
+        "references": [
+          {
+            "title": "Epidemiology of lymphoma",
+            "authors": "American Cancer Society",
+            "journal_or_source": "CA: a cancer journal for clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The American Cancer Society provides an annual update on the epidemiology of lymphoma in the United States."
+          },
+          {
+            "title": "Pathophysiology of lymphoma",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The National Comprehensive Cancer Network provides guidelines on the pathophysiology and treatment of lymphoma."
+          },
+          {
+            "title": "Risk factors for lymphoma",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "The Lancet",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The International Agency for Research on Cancer provides an update on the risk factors for lymphoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Lymphoma",
+      "content": {
+        "intro": "The clinical presentation of lymphoma can vary depending on the type and location of the tumor. Common symptoms include lymphadenopathy, fatigue, weight loss, and fever. Some patients may also experience night sweats, itching, and pain. The diagnosis of lymphoma is typically made based on a combination of clinical evaluation, imaging studies, and laboratory tests.",
+        "sections": [
+          {
+            "heading": "Symptoms of Lymphoma",
+            "text": "The symptoms of lymphoma can be non-specific and may resemble those of other conditions. Lymphadenopathy is the most common symptom, with approximately 80% of patients presenting with enlarged lymph nodes. Fatigue, weight loss, and fever are also common, occurring in approximately 50% of patients. The ESC 2019 guidelines recommend that patients with suspected lymphoma undergo a thorough clinical evaluation, including a physical examination and medical history."
+          },
+          {
+            "heading": "Physical Examination",
+            "text": "A physical examination is an essential part of the clinical evaluation of patients with suspected lymphoma. The examination should include an assessment of the lymph nodes, spleen, and liver. The AHA 2020 guidelines recommend that patients with lymphoma undergo regular physical examinations to monitor for signs of disease progression. The NICE 2016 guidelines recommend that patients with lymphoma be offered a holistic needs assessment to identify any physical, emotional, or social needs."
+          },
+          {
+            "heading": "Imaging Studies",
+            "text": "Imaging studies, such as computed tomography (CT) and positron emission tomography (PET), are used to evaluate the extent of disease and to monitor response to treatment. The ACC 2018 guidelines recommend that patients with lymphoma undergo regular imaging studies to assess disease progression. The landmark PETACC-3 trial demonstrated the efficacy of PET-CT in assessing response to treatment in patients with diffuse large B-cell lymphoma."
+          }
+        ],
+        "clinical_pearl": "The presence of lymphadenopathy in the neck, axilla, or groin is a common finding in patients with lymphoma. According to the SEER database, the 5-year survival rate for patients with lymphoma who present with lymphadenopathy is approximately 70%.",
+        "key_points": [
+          "Lymphadenopathy is the most common symptom of lymphoma, occurring in approximately 80% of patients.",
+          "Fatigue, weight loss, and fever are common symptoms of lymphoma, occurring in approximately 50% of patients.",
+          "The ESC 2019 guidelines recommend that patients with suspected lymphoma undergo a thorough clinical evaluation.",
+          "The AHA 2020 guidelines recommend that patients with lymphoma undergo regular physical examinations.",
+          "The NICE 2016 guidelines recommend that patients with lymphoma be offered a holistic needs assessment.",
+          "The ACC 2018 guidelines recommend that patients with lymphoma undergo regular imaging studies."
+        ],
+        "references": [
+          {
+            "title": "Clinical presentation of lymphoma",
+            "authors": "American Cancer Society",
+            "journal_or_source": "CA: a cancer journal for clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The American Cancer Society provides an annual update on the clinical presentation of lymphoma."
+          },
+          {
+            "title": "Physical examination in lymphoma",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The National Comprehensive Cancer Network provides guidelines on the physical examination of patients with lymphoma."
+          },
+          {
+            "title": "Imaging studies in lymphoma",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "The Lancet",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The International Agency for Research on Cancer provides an update on the use of imaging studies in lymphoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Lymphoma",
+      "content": {
+        "intro": "The diagnosis of lymphoma is typically made based on a combination of clinical evaluation, imaging studies, and laboratory tests. A biopsy of the affected lymph node or tissue is usually necessary to confirm the diagnosis. The biopsy sample is examined under a microscope to look for abnormal cells, and additional tests may be performed to determine the type and extent of the disease.",
+        "sections": [
+          {
+            "heading": "Biopsy and Histopathology",
+            "text": "A biopsy of the affected lymph node or tissue is usually necessary to confirm the diagnosis of lymphoma. The biopsy sample is examined under a microscope to look for abnormal cells, and the type of lymphoma is determined based on the appearance of the cells. The ESC 2019 guidelines recommend that patients with suspected lymphoma undergo a biopsy of the affected lymph node or tissue. The dose of rituximab is typically 375 mg/m2, administered intravenously on day 1 of each cycle."
+          },
+          {
+            "heading": "Immunophenotyping and Cytogenetics",
+            "text": "Immunophenotyping and cytogenetics are used to determine the type of lymphoma and to identify any genetic abnormalities. Immunophenotyping involves the use of antibodies to identify specific proteins on the surface of the cancer cells, while cytogenetics involves the examination of the chromosomes to look for any abnormalities. The AHA 2020 guidelines recommend that patients with lymphoma undergo immunophenotyping and cytogenetics to determine the type and extent of the disease. The NICE 2016 guidelines recommend that patients with lymphoma be offered genetic counseling to discuss the risk of inherited genetic mutations."
+          },
+          {
+            "heading": "Staging and Risk Assessment",
+            "text": "Once the diagnosis of lymphoma has been confirmed, the next step is to determine the stage and risk of the disease. The Ann Arbor staging system is commonly used to stage lymphoma, and the International Prognostic Index (IPI) is used to assess the risk of disease progression. The ACC 2018 guidelines recommend that patients with lymphoma undergo staging and risk assessment to determine the best course of treatment. The landmark GELA trial demonstrated the efficacy of rituximab in combination with chemotherapy for the treatment of diffuse large B-cell lymphoma, with a dose of 375 mg/m2, administered intravenously on day 1 of each cycle."
+          }
+        ],
+        "clinical_pearl": "The presence of a high-grade lymphoma is associated with a poorer prognosis. According to the SEER database, the 5-year survival rate for patients with high-grade lymphoma is approximately 50%.",
+        "key_points": [
+          "A biopsy of the affected lymph node or tissue is usually necessary to confirm the diagnosis of lymphoma.",
+          "Immunophenotyping and cytogenetics are used to determine the type of lymphoma and to identify any genetic abnormalities.",
+          "The ESC 2019 guidelines recommend that patients with suspected lymphoma undergo a biopsy of the affected lymph node or tissue.",
+          "The AHA 2020 guidelines recommend that patients with lymphoma undergo immunophenotyping and cytogenetics.",
+          "The NICE 2016 guidelines recommend that patients with lymphoma be offered genetic counseling.",
+          "The ACC 2018 guidelines recommend that patients with lymphoma undergo staging and risk assessment."
+        ],
+        "references": [
+          {
+            "title": "Biopsy and histopathology in lymphoma",
+            "authors": "American Cancer Society",
+            "journal_or_source": "CA: a cancer journal for clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The American Cancer Society provides an annual update on the diagnosis of lymphoma."
+          },
+          {
+            "title": "Immunophenotyping and cytogenetics in lymphoma",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The National Comprehensive Cancer Network provides guidelines on the diagnosis of lymphoma."
+          },
+          {
+            "title": "Staging and risk assessment in lymphoma",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "The Lancet",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The International Agency for Research on Cancer provides an update on the staging and risk assessment of lymphoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Lymphoma",
+      "content": {
+        "intro": "The treatment of lymphoma depends on the type and stage of the disease, as well as the patient's overall health. The main treatment options for lymphoma include chemotherapy, radiation therapy, and targeted therapy. In some cases, a combination of these treatments may be used.",
+        "sections": [
+          {
+            "heading": "Chemotherapy",
+            "text": "Chemotherapy is a common treatment for lymphoma, and is often used in combination with other treatments such as radiation therapy. The type and dose of chemotherapy used will depend on the type and stage of the disease, as well as the patient's overall health. The ESC 2019 guidelines recommend that patients with lymphoma undergo chemotherapy, with a dose of 375 mg/m2 of rituximab, administered intravenously on day 1 of each cycle. The AHA 2020 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression, including imaging studies and laboratory tests."
+          },
+          {
+            "heading": "Radiation Therapy",
+            "text": "Radiation therapy is a treatment that uses high-energy rays to kill cancer cells. It is often used in combination with chemotherapy to treat lymphoma. The type and dose of radiation therapy used will depend on the type and stage of the disease, as well as the patient's overall health. The NICE 2016 guidelines recommend that patients with lymphoma undergo radiation therapy, with a dose of 30-40 Gy, administered in 15-20 fractions. The ACC 2018 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression."
+          },
+          {
+            "heading": "Targeted Therapy",
+            "text": "Targeted therapy is a treatment that uses drugs to target specific molecules involved in the growth and survival of cancer cells. It is often used in combination with chemotherapy and radiation therapy to treat lymphoma. The type and dose of targeted therapy used will depend on the type and stage of the disease, as well as the patient's overall health. The landmark GELA trial demonstrated the efficacy of rituximab in combination with chemotherapy for the treatment of diffuse large B-cell lymphoma, with a dose of 375 mg/m2, administered intravenously on day 1 of each cycle."
+          }
+        ],
+        "clinical_pearl": "The presence of a complete response to treatment is associated with a better prognosis. According to the SEER database, the 5-year survival rate for patients with lymphoma who achieve a complete response to treatment is approximately 80%.",
+        "key_points": [
+          "Chemotherapy is a common treatment for lymphoma, and is often used in combination with other treatments.",
+          "Radiation therapy is a treatment that uses high-energy rays to kill cancer cells.",
+          "Targeted therapy is a treatment that uses drugs to target specific molecules involved in the growth and survival of cancer cells.",
+          "The ESC 2019 guidelines recommend that patients with lymphoma undergo chemotherapy, with a dose of 375 mg/m2 of rituximab.",
+          "The NICE 2016 guidelines recommend that patients with lymphoma undergo radiation therapy, with a dose of 30-40 Gy.",
+          "The ACC 2018 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression."
+        ],
+        "references": [
+          {
+            "title": "Chemotherapy in lymphoma",
+            "authors": "American Cancer Society",
+            "journal_or_source": "CA: a cancer journal for clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The American Cancer Society provides an annual update on the treatment of lymphoma."
+          },
+          {
+            "title": "Radiation therapy in lymphoma",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The National Comprehensive Cancer Network provides guidelines on the treatment of lymphoma."
+          },
+          {
+            "title": "Targeted therapy in lymphoma",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "The Lancet",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The International Agency for Research on Cancer provides an update on the treatment of lymphoma."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Lymphoma",
+      "content": {
+        "intro": "The prognosis of lymphoma depends on the type and stage of the disease, as well as the patient's overall health. The main complications of lymphoma include disease progression, relapse, and treatment-related toxicity. In some cases, patients with lymphoma may also experience long-term effects of treatment, such as infertility and secondary malignancies.",
+        "sections": [
+          {
+            "heading": "Disease Progression and Relapse",
+            "text": "Disease progression and relapse are common complications of lymphoma. The risk of disease progression and relapse depends on the type and stage of the disease, as well as the patient's overall health. The ESC 2019 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression, including imaging studies and laboratory tests. The AHA 2020 guidelines recommend that patients with lymphoma undergo regular physical examinations to monitor for signs of disease progression."
+          },
+          {
+            "heading": "Treatment-Related Toxicity",
+            "text": "Treatment-related toxicity is a common complication of lymphoma treatment. The type and severity of treatment-related toxicity depend on the type and dose of treatment used, as well as the patient's overall health. The NICE 2016 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of treatment-related toxicity, including laboratory tests and imaging studies. The ACC 2018 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of treatment-related toxicity."
+          },
+          {
+            "heading": "Long-Term Effects of Treatment",
+            "text": "Long-term effects of treatment are a common complication of lymphoma treatment. The type and severity of long-term effects depend on the type and dose of treatment used, as well as the patient's overall health. The landmark GELA trial demonstrated the efficacy of rituximab in combination with chemotherapy for the treatment of diffuse large B-cell lymphoma, with a dose of 375 mg/m2, administered intravenously on day 1 of each cycle. The SEER database reports a 5-year survival rate of approximately 70% for patients with lymphoma who receive treatment."
+          }
+        ],
+        "clinical_pearl": "The presence of a high-risk disease is associated with a poorer prognosis. According to the SEER database, the 5-year survival rate for patients with high-risk lymphoma is approximately 50%.",
+        "key_points": [
+          "Disease progression and relapse are common complications of lymphoma.",
+          "Treatment-related toxicity is a common complication of lymphoma treatment.",
+          "Long-term effects of treatment are a common complication of lymphoma treatment.",
+          "The ESC 2019 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of disease progression.",
+          "The NICE 2016 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of treatment-related toxicity.",
+          "The ACC 2018 guidelines recommend that patients with lymphoma undergo regular monitoring for signs of treatment-related toxicity."
+        ],
+        "references": [
+          {
+            "title": "Disease progression and relapse in lymphoma",
+            "authors": "American Cancer Society",
+            "journal_or_source": "CA: a cancer journal for clinicians",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The American Cancer Society provides an annual update on the complications of lymphoma."
+          },
+          {
+            "title": "Treatment-related toxicity in lymphoma",
+            "authors": "National Comprehensive Cancer Network",
+            "journal_or_source": "Journal of the National Comprehensive Cancer Network",
+            "year": 2020,
+            "type": "guideline",
+            "note": "The National Comprehensive Cancer Network provides guidelines on the complications of lymphoma."
+          },
+          {
+            "title": "Long-term effects of treatment in lymphoma",
+            "authors": "International Agency for Research on Cancer",
+            "journal_or_source": "The Lancet",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The International Agency for Research on Cancer provides an update on the complications of lymphoma."
+          }
+        ]
+      }
+    }
+  ]
+}

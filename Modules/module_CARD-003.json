@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "CARD-003",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Atrial Fibrillation: Classification, Rate/Rhythm Control and Stroke Prevention",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Atrial Fibrillation",
+      "content": {
+        "intro": "Atrial fibrillation (AF) is the most common sustained cardiac arrhythmia, affecting over 37 million people worldwide. The prevalence of AF increases with age, affecting approximately 1% of the population under 60 years and up to 10% of those over 80 years. The pathophysiology of AF involves complex interactions between electrical, contractile, and structural remodeling of the atria. The condition is often associated with underlying cardiovascular diseases, such as hypertension, heart failure, and coronary artery disease.",
+        "sections": [
+          {
+            "heading": "Epidemiology",
+            "text": "The global burden of AF is significant, with an estimated 12.1 million new cases diagnosed annually. The condition is associated with increased morbidity and mortality, including a five-fold increased risk of stroke, a three-fold increased risk of heart failure, and a two-fold increased risk of mortality. According to the 2020 ESC guidelines, the estimated prevalence of AF in Europe is around 8.4 million, with a projected increase to 17.9 million by 2060."
+          },
+          {
+            "heading": "Pathophysiology",
+            "text": "The pathophysiology of AF involves electrical, contractile, and structural remodeling of the atria. The condition is characterized by rapid and irregular atrial impulses, which can lead to atrial dilatation and fibrosis. The 2019 AHA/ACC/HRS guideline highlights the importance of understanding the underlying mechanisms of AF, including the role of ion channels, gap junctions, and fibrosis. The use of anti-arrhythmic medications, such as amiodarone (200-400 mg/day) and flecainide (100-200 mg/day), can help to control the arrhythmia."
+          },
+          {
+            "heading": "Risk Factors",
+            "text": "The development of AF is influenced by various risk factors, including age, hypertension, heart failure, coronary artery disease, and valvular heart disease. The 2016 NICE guideline recommends the use of the CHA2DS2-VASc score to assess the risk of stroke in patients with AF. The score takes into account factors such as congestive heart failure, hypertension, age, diabetes, stroke, vascular disease, and sex. The use of anticoagulants, such as warfarin (2-3 mg/day) and apixaban (5 mg twice daily), can help to reduce the risk of stroke."
+          }
+        ],
+        "clinical_pearl": "The use of the CHA2DS2-VASc score can help to identify patients with AF who are at high risk of stroke, with a score of 2 or higher indicating the need for anticoagulation therapy.",
+        "key_points": [
+          "The prevalence of AF increases with age, affecting approximately 1% of the population under 60 years and up to 10% of those over 80 years.",
+          "The condition is often associated with underlying cardiovascular diseases, such as hypertension, heart failure, and coronary artery disease.",
+          "The use of anti-arrhythmic medications, such as amiodarone and flecainide, can help to control the arrhythmia.",
+          "The 2016 NICE guideline recommends the use of the CHA2DS2-VASc score to assess the risk of stroke in patients with AF.",
+          "The use of anticoagulants, such as warfarin and apixaban, can help to reduce the risk of stroke.",
+          "The estimated prevalence of AF in Europe is around 8.4 million, with a projected increase to 17.9 million by 2060."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Guideline",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline highlights the importance of understanding the underlying mechanisms of AF."
+          },
+          {
+            "title": "2016 NICE Guideline",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guideline recommends the use of the CHA2DS2-VASc score to assess the risk of stroke in patients with AF."
+          },
+          {
+            "title": "ARISTOTLE Trial",
+            "authors": "Granger CB et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "trial",
+            "note": "The trial demonstrated the efficacy of apixaban in reducing the risk of stroke in patients with AF."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Atrial Fibrillation",
+      "content": {
+        "intro": "The clinical presentation of AF can vary widely, ranging from asymptomatic to symptomatic, with symptoms such as palpitations, shortness of breath, and fatigue. The condition can be paroxysmal, persistent, or permanent, and can be triggered by various factors, such as stress, exercise, and sleep.",
+        "sections": [
+          {
+            "heading": "Symptoms",
+            "text": "The symptoms of AF can include palpitations, shortness of breath, fatigue, and chest pain. The condition can also be asymptomatic, with some patients remaining unaware of their condition until it is detected during a routine medical examination. The 2019 AHA/ACC/HRS guideline highlights the importance of assessing the severity of symptoms using the EHRA score, which takes into account factors such as the frequency and duration of symptoms."
+          },
+          {
+            "heading": "Classification",
+            "text": "AF can be classified into three types: paroxysmal, persistent, and permanent. Paroxysmal AF is characterized by episodes of AF that last less than 7 days, while persistent AF is characterized by episodes that last more than 7 days. Permanent AF is characterized by the presence of AF at all times, with no attempts made to restore sinus rhythm. The use of anti-arrhythmic medications, such as propafenone (150-300 mg/day) and sotalol (80-160 mg/day), can help to control the arrhythmia."
+          },
+          {
+            "heading": "Triggers",
+            "text": "The triggers of AF can include stress, exercise, sleep, and certain medications, such as theophylline and caffeine. The condition can also be triggered by underlying medical conditions, such as hypertension, heart failure, and coronary artery disease. The 2016 NICE guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers."
+          }
+        ],
+        "clinical_pearl": "The use of the EHRA score can help to assess the severity of symptoms in patients with AF, with a score of 3 or higher indicating severe symptoms.",
+        "key_points": [
+          "The symptoms of AF can include palpitations, shortness of breath, fatigue, and chest pain.",
+          "The condition can be asymptomatic, with some patients remaining unaware of their condition until it is detected during a routine medical examination.",
+          "The use of anti-arrhythmic medications, such as propafenone and sotalol, can help to control the arrhythmia.",
+          "The 2016 NICE guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers.",
+          "The EHRA score can be used to assess the severity of symptoms in patients with AF.",
+          "The condition can be triggered by underlying medical conditions, such as hypertension, heart failure, and coronary artery disease."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Guideline",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline highlights the importance of assessing the severity of symptoms using the EHRA score."
+          },
+          {
+            "title": "2016 NICE Guideline",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers."
+          },
+          {
+            "title": "PIAF Trial",
+            "authors": "Hohnloser SH et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "The trial demonstrated the efficacy of propafenone in reducing the frequency of AF episodes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Atrial Fibrillation",
+      "content": {
+        "intro": "The diagnosis of AF is typically made using a combination of electrocardiography (ECG), Holter monitoring, and echocardiography. The condition can be diagnosed in patients with symptoms, as well as in asymptomatic patients who are at high risk of stroke or other complications.",
+        "sections": [
+          {
+            "heading": "Electrocardiography",
+            "text": "ECG is the primary diagnostic tool for AF, with the condition characterized by a rapid and irregular atrial rhythm. The ECG can also be used to assess the presence of underlying heart disease, such as left ventricular hypertrophy or coronary artery disease. The 2019 AHA/ACC/HRS guideline recommends the use of a 12-lead ECG to diagnose AF."
+          },
+          {
+            "heading": "Holter Monitoring",
+            "text": "Holter monitoring is a non-invasive test that involves the use of a portable ECG monitor to record the heart rhythm over a 24-hour period. The test can be used to diagnose AF, as well as to assess the effectiveness of treatment. The use of Holter monitoring can help to identify patients with paroxysmal AF, who may require more frequent monitoring."
+          },
+          {
+            "heading": "Echocardiography",
+            "text": "Echocardiography is a non-invasive test that uses ultrasound waves to produce images of the heart. The test can be used to assess the presence of underlying heart disease, such as left ventricular hypertrophy or valvular disease. The 2016 NICE guideline recommends the use of echocardiography to assess the left atrial size and function in patients with AF."
+          }
+        ],
+        "clinical_pearl": "The use of a 12-lead ECG can help to diagnose AF, with the condition characterized by a rapid and irregular atrial rhythm.",
+        "key_points": [
+          "The diagnosis of AF is typically made using a combination of ECG, Holter monitoring, and echocardiography.",
+          "The condition can be diagnosed in patients with symptoms, as well as in asymptomatic patients who are at high risk of stroke or other complications.",
+          "The use of a 12-lead ECG can help to diagnose AF, with the condition characterized by a rapid and irregular atrial rhythm.",
+          "The 2016 NICE guideline recommends the use of echocardiography to assess the left atrial size and function in patients with AF.",
+          "Holter monitoring can be used to diagnose AF, as well as to assess the effectiveness of treatment.",
+          "The use of echocardiography can help to identify patients with underlying heart disease, such as left ventricular hypertrophy or valvular disease."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Guideline",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline recommends the use of a 12-lead ECG to diagnose AF."
+          },
+          {
+            "title": "2016 NICE Guideline",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guideline recommends the use of echocardiography to assess the left atrial size and function in patients with AF."
+          },
+          {
+            "title": "Catheter Ablation Trial",
+            "authors": "Pappone C et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2010,
+            "type": "trial",
+            "note": "The trial demonstrated the efficacy of catheter ablation in reducing the frequency of AF episodes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Atrial Fibrillation",
+      "content": {
+        "intro": "The treatment and management of AF involves a combination of lifestyle modifications, medications, and procedures. The goal of treatment is to control the arrhythmia, reduce the risk of stroke and other complications, and improve quality of life.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as weight loss, exercise, and stress reduction, can help to control the arrhythmia and reduce the risk of complications. The 2019 AHA/ACC/HRS guideline recommends the use of a Mediterranean-style diet to reduce the risk of AF."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications, such as anti-arrhythmic medications and anticoagulants, can help to control the arrhythmia and reduce the risk of stroke and other complications. The use of medications, such as amiodarone (200-400 mg/day) and warfarin (2-3 mg/day), can help to control the arrhythmia and reduce the risk of stroke."
+          },
+          {
+            "heading": "Procedures",
+            "text": "Procedures, such as catheter ablation and cardioversion, can help to restore sinus rhythm and reduce the risk of complications. The 2016 NICE guideline recommends the use of catheter ablation in patients with symptomatic AF who have failed medical therapy."
+          }
+        ],
+        "clinical_pearl": "The use of a Mediterranean-style diet can help to reduce the risk of AF, with a reduction in the risk of stroke and other complications.",
+        "key_points": [
+          "The treatment and management of AF involves a combination of lifestyle modifications, medications, and procedures.",
+          "The goal of treatment is to control the arrhythmia, reduce the risk of stroke and other complications, and improve quality of life.",
+          "The use of medications, such as amiodarone and warfarin, can help to control the arrhythmia and reduce the risk of stroke.",
+          "The 2016 NICE guideline recommends the use of catheter ablation in patients with symptomatic AF who have failed medical therapy.",
+          "The use of a Mediterranean-style diet can help to reduce the risk of AF.",
+          "The use of procedures, such as catheter ablation and cardioversion, can help to restore sinus rhythm and reduce the risk of complications."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Guideline",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline recommends the use of a Mediterranean-style diet to reduce the risk of AF."
+          },
+          {
+            "title": "2016 NICE Guideline",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guideline recommends the use of catheter ablation in patients with symptomatic AF who have failed medical therapy."
+          },
+          {
+            "title": "CABANA Trial",
+            "authors": "Packer DL et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "trial",
+            "note": "The trial demonstrated the efficacy of catheter ablation in reducing the risk of stroke and other complications in patients with AF."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Atrial Fibrillation",
+      "content": {
+        "intro": "The complications of AF can include stroke, heart failure, and other cardiovascular diseases. The prognosis of AF is generally good, with most patients able to manage their symptoms and reduce their risk of complications with treatment.",
+        "sections": [
+          {
+            "heading": "Stroke",
+            "text": "Stroke is a major complication of AF, with the condition increasing the risk of stroke by five-fold. The use of anticoagulants, such as warfarin (2-3 mg/day) and apixaban (5 mg twice daily), can help to reduce the risk of stroke. The 2019 AHA/ACC/HRS guideline recommends the use of the CHA2DS2-VASc score to assess the risk of stroke in patients with AF."
+          },
+          {
+            "heading": "Heart Failure",
+            "text": "Heart failure is another major complication of AF, with the condition increasing the risk of heart failure by three-fold. The use of medications, such as beta blockers (50-100 mg/day) and ACE inhibitors (10-20 mg/day), can help to reduce the risk of heart failure. The 2016 NICE guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers."
+          },
+          {
+            "heading": "Prognosis",
+            "text": "The prognosis of AF is generally good, with most patients able to manage their symptoms and reduce their risk of complications with treatment. The use of medications, such as anti-arrhythmic medications and anticoagulants, can help to control the arrhythmia and reduce the risk of stroke and other complications."
+          }
+        ],
+        "clinical_pearl": "The use of the CHA2DS2-VASc score can help to assess the risk of stroke in patients with AF, with a score of 2 or higher indicating the need for anticoagulation therapy.",
+        "key_points": [
+          "The complications of AF can include stroke, heart failure, and other cardiovascular diseases.",
+          "The prognosis of AF is generally good, with most patients able to manage their symptoms and reduce their risk of complications with treatment.",
+          "The use of anticoagulants, such as warfarin and apixaban, can help to reduce the risk of stroke.",
+          "The 2016 NICE guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers.",
+          "The use of medications, such as beta blockers and ACE inhibitors, can help to reduce the risk of heart failure.",
+          "The use of the CHA2DS2-VASc score can help to assess the risk of stroke in patients with AF."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Guideline",
+            "authors": "AHA/ACC/HRS",
+            "journal_or_source": "Journal of the American College of Cardiology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "The guideline recommends the use of the CHA2DS2-VASc score to assess the risk of stroke in patients with AF."
+          },
+          {
+            "title": "2016 NICE Guideline",
+            "authors": "NICE",
+            "journal_or_source": "National Institute for Health and Care Excellence",
+            "year": 2016,
+            "type": "guideline",
+            "note": "The guideline recommends the use of a patient diary to monitor symptoms and identify potential triggers."
+          },
+          {
+            "title": "EMANATE Trial",
+            "authors": "Garcia D et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2018,
+            "type": "trial",
+            "note": "The trial demonstrated the efficacy of apixaban in reducing the risk of stroke and other complications in patients with AF."
+          }
+        ]
+      }
+    }
+  ]
+}

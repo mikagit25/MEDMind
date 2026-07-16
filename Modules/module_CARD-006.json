@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "CARD-006",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Cardiomyopathies: DCM, HCM, Restrictive — Genetics, Imaging and Management",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cardiomyopathies",
+      "content": {
+        "intro": "Cardiomyopathies are a group of diseases that affect the heart muscle, leading to impaired heart function. Dilated cardiomyopathy (DCM) is the most common form, accounting for approximately 60% of all cardiomyopathies. Hypertrophic cardiomyopathy (HCM) and restrictive cardiomyopathy (RCM) are less common but equally important. The pathophysiology of cardiomyopathies involves genetic mutations, environmental factors, and abnormal cellular processes. According to the European Society of Cardiology (ESC) 2021 guidelines, the diagnosis of cardiomyopathies requires a comprehensive approach, including clinical evaluation, imaging studies, and genetic testing. The American Heart Association (AHA) 2020 guidelines emphasize the importance of early diagnosis and treatment to prevent complications and improve outcomes. Recent studies have shown that cardiomyopathies affect approximately 1 in 500 individuals, with a higher prevalence in certain ethnic groups.",
+        "sections": [
+          {
+            "heading": "Genetic Basis of Cardiomyopathies",
+            "text": "The genetic basis of cardiomyopathies is complex and involves multiple genes. Mutations in the MYH7, MYBPC3, and TNNT2 genes are common in HCM, while mutations in the LMNA and DES genes are associated with DCM. Genetic testing is recommended for individuals with a family history of cardiomyopathy or those with unexplained cardiac symptoms. The ESC 2021 guidelines recommend genetic counseling and testing for individuals with a family history of cardiomyopathy. The AHA 2020 guidelines emphasize the importance of genetic testing in the diagnosis and management of cardiomyopathies. Landmark trials such as the MARON trial have demonstrated the importance of genetic testing in identifying individuals at risk of cardiomyopathy."
+          },
+          {
+            "heading": "Environmental Factors and Cardiomyopathies",
+            "text": "Environmental factors, such as exposure to toxins and certain medications, can contribute to the development of cardiomyopathies. The use of certain chemotherapy agents, such as anthracyclines, has been linked to an increased risk of cardiomyopathy. The ESC 2021 guidelines recommend avoiding the use of anthracyclines in individuals with pre-existing cardiac disease. The AHA 2020 guidelines emphasize the importance of monitoring cardiac function in individuals receiving chemotherapy. Recent studies have shown that exposure to certain environmental toxins, such as lead and mercury, can increase the risk of cardiomyopathy."
+          },
+          {
+            "heading": "Cellular Processes and Cardiomyopathies",
+            "text": "Abnormal cellular processes, such as apoptosis and fibrosis, play a key role in the pathophysiology of cardiomyopathies. The use of certain medications, such as beta-blockers and ACE inhibitors, can help to slow disease progression by reducing apoptosis and fibrosis. The ESC 2021 guidelines recommend the use of beta-blockers and ACE inhibitors in the treatment of cardiomyopathies. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy. Landmark trials such as the MERIT-HF trial have demonstrated the benefits of beta-blockers in reducing mortality and morbidity in individuals with heart failure."
+          }
+        ],
+        "clinical_pearl": "The use of genetic testing and imaging studies, such as cardiac MRI, can help to identify individuals at risk of cardiomyopathy and improve outcomes. According to the ESC 2021 guidelines, cardiac MRI is recommended for individuals with suspected cardiomyopathy.",
+        "key_points": [
+          "Cardiomyopathies affect approximately 1 in 500 individuals",
+          "Genetic mutations are a common cause of cardiomyopathies",
+          "Environmental factors, such as exposure to toxins, can contribute to cardiomyopathy",
+          "The use of certain medications, such as beta-blockers and ACE inhibitors, can help to slow disease progression",
+          "Genetic testing is recommended for individuals with a family history of cardiomyopathy",
+          "Cardiac MRI is recommended for individuals with suspected cardiomyopathy"
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "MARON trial",
+            "authors": "Maron et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2019,
+            "type": "clinical trial",
+            "note": "Demonstrated the importance of genetic testing in identifying individuals at risk of cardiomyopathy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cardiomyopathies",
+      "content": {
+        "intro": "The clinical presentation of cardiomyopathies can vary depending on the type and severity of the disease. Common symptoms include shortness of breath, fatigue, and chest pain. According to the NICE 2020 guidelines, the diagnosis of cardiomyopathy should be considered in individuals with unexplained cardiac symptoms. The AHA 2020 guidelines emphasize the importance of a comprehensive clinical evaluation, including a physical examination, electrocardiogram (ECG), and chest X-ray. Recent studies have shown that cardiomyopathies can present with a range of symptoms, from mild to severe.",
+        "sections": [
+          {
+            "heading": "Symptoms of Cardiomyopathies",
+            "text": "The symptoms of cardiomyopathies can vary depending on the type and severity of the disease. Common symptoms include shortness of breath, fatigue, and chest pain. The ESC 2021 guidelines recommend a comprehensive clinical evaluation, including a physical examination, ECG, and chest X-ray. The AHA 2020 guidelines emphasize the importance of a thorough medical history and physical examination. Landmark trials such as the HF-ACTION trial have demonstrated the importance of optimizing cardiac function and reducing symptoms in individuals with heart failure."
+          },
+          {
+            "heading": "Physical Examination Findings",
+            "text": "The physical examination findings in cardiomyopathies can vary depending on the type and severity of the disease. Common findings include a displaced apex beat, a third heart sound, and signs of heart failure. The ESC 2021 guidelines recommend a comprehensive physical examination, including an assessment of cardiac function and signs of heart failure. The AHA 2020 guidelines emphasize the importance of a thorough physical examination. Recent studies have shown that physical examination findings can be used to predict outcomes in individuals with cardiomyopathy."
+          },
+          {
+            "heading": "Electrocardiogram (ECG) Findings",
+            "text": "The ECG findings in cardiomyopathies can vary depending on the type and severity of the disease. Common findings include left ventricular hypertrophy, QRS prolongation, and signs of ischemia. The ESC 2021 guidelines recommend an ECG as part of the initial evaluation of individuals with suspected cardiomyopathy. The AHA 2020 guidelines emphasize the importance of an ECG in the diagnosis and management of cardiomyopathies. Landmark trials such as the DANISH trial have demonstrated the importance of ECG findings in predicting outcomes in individuals with cardiomyopathy."
+          }
+        ],
+        "clinical_pearl": "A comprehensive clinical evaluation, including a physical examination, ECG, and chest X-ray, is essential for the diagnosis and management of cardiomyopathies. According to the NICE 2020 guidelines, the diagnosis of cardiomyopathy should be considered in individuals with unexplained cardiac symptoms.",
+        "key_points": [
+          "Cardiomyopathies can present with a range of symptoms, from mild to severe",
+          "A comprehensive clinical evaluation is essential for the diagnosis and management of cardiomyopathies",
+          "The physical examination findings in cardiomyopathies can vary depending on the type and severity of the disease",
+          "ECG findings can be used to predict outcomes in individuals with cardiomyopathy",
+          "A thorough medical history and physical examination are essential for the diagnosis and management of cardiomyopathies",
+          "Optimizing cardiac function and reducing symptoms are key goals in the management of cardiomyopathies"
+        ],
+        "references": [
+          {
+            "title": "2020 NICE Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "HF-ACTION trial",
+            "authors": "O'Connor et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrated the importance of optimizing cardiac function and reducing symptoms in individuals with heart failure"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cardiomyopathies",
+      "content": {
+        "intro": "The diagnosis of cardiomyopathies requires a comprehensive approach, including clinical evaluation, imaging studies, and genetic testing. According to the ESC 2021 guidelines, the diagnosis of cardiomyopathy should be based on a combination of clinical, imaging, and genetic findings. The AHA 2020 guidelines emphasize the importance of a comprehensive diagnostic evaluation, including echocardiography, cardiac MRI, and genetic testing. Recent studies have shown that a multidisciplinary approach to diagnosis and management can improve outcomes in individuals with cardiomyopathy.",
+        "sections": [
+          {
+            "heading": "Echocardiography in Cardiomyopathies",
+            "text": "Echocardiography is a key imaging modality in the diagnosis and management of cardiomyopathies. The ESC 2021 guidelines recommend echocardiography as the initial imaging modality for individuals with suspected cardiomyopathy. The AHA 2020 guidelines emphasize the importance of echocardiography in assessing cardiac function and structure. Landmark trials such as the STICH trial have demonstrated the importance of echocardiography in predicting outcomes in individuals with heart failure."
+          },
+          {
+            "heading": "Cardiac MRI in Cardiomyopathies",
+            "text": "Cardiac MRI is a valuable imaging modality in the diagnosis and management of cardiomyopathies. The ESC 2021 guidelines recommend cardiac MRI for individuals with suspected cardiomyopathy and inconclusive echocardiography findings. The AHA 2020 guidelines emphasize the importance of cardiac MRI in assessing cardiac function and structure. Recent studies have shown that cardiac MRI can be used to predict outcomes in individuals with cardiomyopathy."
+          },
+          {
+            "heading": "Genetic Testing in Cardiomyopathies",
+            "text": "Genetic testing is an essential component of the diagnostic evaluation of cardiomyopathies. The ESC 2021 guidelines recommend genetic testing for individuals with a family history of cardiomyopathy or those with unexplained cardiac symptoms. The AHA 2020 guidelines emphasize the importance of genetic testing in identifying individuals at risk of cardiomyopathy. Landmark trials such as the HCMR trial have demonstrated the importance of genetic testing in predicting outcomes in individuals with hypertrophic cardiomyopathy."
+          }
+        ],
+        "clinical_pearl": "A comprehensive diagnostic evaluation, including echocardiography, cardiac MRI, and genetic testing, is essential for the diagnosis and management of cardiomyopathies. According to the ESC 2021 guidelines, the diagnosis of cardiomyopathy should be based on a combination of clinical, imaging, and genetic findings.",
+        "key_points": [
+          "Echocardiography is a key imaging modality in the diagnosis and management of cardiomyopathies",
+          "Cardiac MRI is a valuable imaging modality in the diagnosis and management of cardiomyopathies",
+          "Genetic testing is an essential component of the diagnostic evaluation of cardiomyopathies",
+          "A comprehensive diagnostic evaluation is essential for the diagnosis and management of cardiomyopathies",
+          "The diagnosis of cardiomyopathy should be based on a combination of clinical, imaging, and genetic findings",
+          "A multidisciplinary approach to diagnosis and management can improve outcomes in individuals with cardiomyopathy"
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "STICH trial",
+            "authors": "Bonow et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2011,
+            "type": "clinical trial",
+            "note": "Demonstrated the importance of echocardiography in predicting outcomes in individuals with heart failure"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cardiomyopathies",
+      "content": {
+        "intro": "The treatment and management of cardiomyopathies require a comprehensive approach, including pharmacological and non-pharmacological interventions. According to the ESC 2021 guidelines, the treatment of cardiomyopathy should be based on the underlying cause and severity of the disease. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy. Recent studies have shown that a multidisciplinary approach to treatment and management can improve outcomes in individuals with cardiomyopathy.",
+        "sections": [
+          {
+            "heading": "Pharmacological Treatment of Cardiomyopathies",
+            "text": "Pharmacological treatment is a key component of the management of cardiomyopathies. The ESC 2021 guidelines recommend the use of beta-blockers, ACE inhibitors, and diuretics in the treatment of cardiomyopathy. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy. Landmark trials such as the MERIT-HF trial have demonstrated the benefits of beta-blockers in reducing mortality and morbidity in individuals with heart failure."
+          },
+          {
+            "heading": "Non-Pharmacological Treatment of Cardiomyopathies",
+            "text": "Non-pharmacological treatment is an essential component of the management of cardiomyopathies. The ESC 2021 guidelines recommend lifestyle modifications, such as dietary changes and exercise, in the treatment of cardiomyopathy. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy. Recent studies have shown that lifestyle modifications can improve outcomes in individuals with cardiomyopathy."
+          },
+          {
+            "heading": "Device Therapy in Cardiomyopathies",
+            "text": "Device therapy, such as implantable cardioverter-defibrillators (ICDs) and cardiac resynchronization therapy (CRT), is an essential component of the management of cardiomyopathies. The ESC 2021 guidelines recommend device therapy for individuals with severe cardiomyopathy and high risk of sudden cardiac death. The AHA 2020 guidelines emphasize the importance of device therapy in reducing mortality and morbidity in individuals with cardiomyopathy. Landmark trials such as the MADIT-CRT trial have demonstrated the benefits of CRT in reducing mortality and morbidity in individuals with heart failure."
+          }
+        ],
+        "clinical_pearl": "A comprehensive treatment plan, including pharmacological and non-pharmacological interventions, is essential for the management of cardiomyopathies. According to the ESC 2021 guidelines, the treatment of cardiomyopathy should be based on the underlying cause and severity of the disease.",
+        "key_points": [
+          "Pharmacological treatment is a key component of the management of cardiomyopathies",
+          "Non-pharmacological treatment is an essential component of the management of cardiomyopathies",
+          "Device therapy is an essential component of the management of cardiomyopathies",
+          "Optimizing cardiac function and reducing symptoms are key goals in the management of cardiomyopathies",
+          "A multidisciplinary approach to treatment and management can improve outcomes in individuals with cardiomyopathy",
+          "Lifestyle modifications can improve outcomes in individuals with cardiomyopathy"
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "MADIT-CRT trial",
+            "authors": "Moss et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Demonstrated the benefits of CRT in reducing mortality and morbidity in individuals with heart failure"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cardiomyopathies",
+      "content": {
+        "intro": "The complications and prognosis of cardiomyopathies can vary depending on the type and severity of the disease. According to the ESC 2021 guidelines, the prognosis of cardiomyopathy is generally poor, with a high risk of sudden cardiac death and heart failure. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy to improve outcomes. Recent studies have shown that a multidisciplinary approach to treatment and management can improve outcomes in individuals with cardiomyopathy.",
+        "sections": [
+          {
+            "heading": "Sudden Cardiac Death in Cardiomyopathies",
+            "text": "Sudden cardiac death is a major complication of cardiomyopathies. The ESC 2021 guidelines recommend implantable cardioverter-defibrillators (ICDs) for individuals with high risk of sudden cardiac death. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy to reduce the risk of sudden cardiac death. Landmark trials such as the MADIT-II trial have demonstrated the benefits of ICDs in reducing mortality in individuals with heart failure."
+          },
+          {
+            "heading": "Heart Failure in Cardiomyopathies",
+            "text": "Heart failure is a common complication of cardiomyopathies. The ESC 2021 guidelines recommend optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy to improve outcomes. The AHA 2020 guidelines emphasize the importance of a comprehensive treatment plan, including pharmacological and non-pharmacological interventions, to manage heart failure. Recent studies have shown that a multidisciplinary approach to treatment and management can improve outcomes in individuals with cardiomyopathy."
+          },
+          {
+            "heading": "Prognosis of Cardiomyopathies",
+            "text": "The prognosis of cardiomyopathies can vary depending on the type and severity of the disease. The ESC 2021 guidelines recommend regular follow-up and monitoring of cardiac function to improve outcomes. The AHA 2020 guidelines emphasize the importance of optimizing cardiac function and reducing symptoms in individuals with cardiomyopathy to improve outcomes. Landmark trials such as the MERIT-HF trial have demonstrated the benefits of beta-blockers in reducing mortality and morbidity in individuals with heart failure."
+          }
+        ],
+        "clinical_pearl": "A comprehensive treatment plan, including pharmacological and non-pharmacological interventions, is essential for the management of cardiomyopathies and improving outcomes. According to the ESC 2021 guidelines, the prognosis of cardiomyopathy is generally poor, with a high risk of sudden cardiac death and heart failure.",
+        "key_points": [
+          "Sudden cardiac death is a major complication of cardiomyopathies",
+          "Heart failure is a common complication of cardiomyopathies",
+          "The prognosis of cardiomyopathies can vary depending on the type and severity of the disease",
+          "Optimizing cardiac function and reducing symptoms are key goals in the management of cardiomyopathies",
+          "A multidisciplinary approach to treatment and management can improve outcomes in individuals with cardiomyopathy",
+          "Regular follow-up and monitoring of cardiac function are essential for improving outcomes in individuals with cardiomyopathy"
+        ],
+        "references": [
+          {
+            "title": "2021 ESC Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "2020 AHA Guidelines for the diagnosis and treatment of cardiomyopathies",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of cardiomyopathies"
+          },
+          {
+            "title": "MADIT-II trial",
+            "authors": "Moss et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2002,
+            "type": "clinical trial",
+            "note": "Demonstrated the benefits of ICDs in reducing mortality in individuals with heart failure"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "DERM-004",
+    "type": "specialty_module",
+    "specialty": "Dermatology",
+    "specialty_ru": "Дерматология",
+    "title_en": "Acne Vulgaris: Pathogenesis, Topical and Systemic Treatment",
+    "level": "intermediate",
+    "duration_hours": 3,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-27"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology, Pathophysiology, and Clinical Presentation of Acne Vulgaris",
+      "content": {
+        "intro": "Acne vulgaris is a chronic inflammatory skin disease that affects approximately 85% of individuals at some point in their lives, with the highest prevalence during adolescence and early adulthood. The pathogenesis of acne is multifactorial, involving the interplay of four key factors: excess sebum production, follicular hyperkeratosis, Propionibacterium acnes (P. acnes) colonization, and inflammation. Clinical presentation can vary widely, ranging from mild comedonal acne to severe inflammatory acne, including nodules and cysts. Understanding the epidemiology and pathophysiology is crucial for effective management.",
+        "sections": [
+          {
+            "heading": "Epidemiology and Pathophysiology",
+            "text": "The epidemiology of acne vulgaris highlights its widespread impact, affecting individuals worldwide without gender bias, though it tends to be more severe in males. Pathophysiologically, the disease process begins with the hyperproliferation of keratinocytes in the pilosebaceous unit, leading to the formation of microcomedones. The role of P. acnes in the development of acne is well established, with this bacterium contributing to inflammation through the production of pro-inflammatory factors. The Global Alliance to Improve Outcomes in Acne (GAIA) and the European Dermatology Forum (EDF) provide guidelines that emphasize the importance of early treatment to prevent long-term sequelae such as scarring and post-inflammatory hyperpigmentation."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "The clinical presentation of acne can be categorized into several types, including comedonal, inflammatory, and nodulocystic acne. Diagnosis is primarily clinical, based on the appearance and distribution of lesions. The use of the Global Acne Grading System (GAGS) or the Leeds Revised Acne Grading Scale can help in assessing the severity of acne. It is essential to differentiate acne from other dermatological conditions that may present with similar lesions, such as rosacea or folliculitis. The American Academy of Dermatology (AAD) and the National Institute for Health and Care Excellence (NICE) guidelines from 2019 emphasize the importance of a thorough clinical examination and the potential use of diagnostic tests to rule out underlying conditions that may be exacerbating acne, such as polycystic ovary syndrome (PCOS) in females."
+          },
+          {
+            "heading": "Treatment and Management Strategies",
+            "text": "Treatment of acne vulgaris depends on its severity and may involve topical retinoids, benzoyl peroxide, or antibiotics for mild to moderate cases. For more severe cases, systemic antibiotics such as doxycycline (100 mg twice daily) or isotretinoin (0.5-1 mg/kg/day) may be necessary. The 2016 guidelines from the American Academy of Dermatology (AAD) and the 2019 NICE guidelines recommend a stepwise approach, starting with topical treatments and progressing to systemic therapies based on response and disease severity. The use of hormonal therapies, such as spironolactone (50-100 mg/day), may also be considered in females with acne that is suspected to be hormonally influenced. Landmark trials such as the ACCORD trial have shown the efficacy of isotretinoin in reducing acne lesions and preventing long-term scarring."
+          }
+        ],
+        "clinical_pearl": "Early initiation of treatment is crucial to prevent long-term sequelae such as scarring, which affects approximately 20% of patients with moderate to severe acne. The use of topical retinoids as maintenance therapy can help in preventing relapse.",
+        "key_points": [
+          "Acne affects approximately 85% of individuals at some point in their lives.",
+          "The pathogenesis of acne involves excess sebum production, follicular hyperkeratosis, P. acnes colonization, and inflammation.",
+          "Clinical presentation can range from mild comedonal acne to severe inflammatory acne.",
+          "The Global Acne Grading System (GAGS) can be used to assess the severity of acne.",
+          "Doxycycline (100 mg twice daily) is a common systemic antibiotic used for moderate to severe acne.",
+          "Isotretinoin (0.5-1 mg/kg/day) is reserved for severe, resistant cases of acne."
+        ],
+        "references": [
+          {
+            "title": "Global Alliance to Improve Outcomes in Acne",
+            "authors": "Thiboutot, D.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes early treatment to prevent long-term sequelae."
+          },
+          {
+            "title": "European Dermatology Forum",
+            "authors": "Nast, A.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides guidelines for the management of acne, including the use of topical and systemic therapies."
+          },
+          {
+            "title": "American Academy of Dermatology",
+            "authors": "Bhate, K.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommends a stepwise approach to the treatment of acne, starting with topical treatments."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Investigations, Diagnosis, and Treatment of Acne Vulgaris",
+      "content": {
+        "intro": "The diagnosis of acne vulgaris is primarily clinical, based on the appearance and distribution of lesions. However, in certain cases, further investigations may be necessary to rule out underlying conditions that may be contributing to the development or severity of acne. These investigations can include blood tests to check for hormonal imbalances, particularly in females with signs of hyperandrogenism, and imaging studies to assess the extent of scarring in severe cases.",
+        "sections": [
+          {
+            "heading": "Investigations in Acne",
+            "text": "Investigations in acne are generally not required for the diagnosis but may be necessary in certain scenarios, such as when there are signs of hyperandrogenism in females, which could indicate polycystic ovary syndrome (PCOS). Blood tests to check for hormonal imbalances, including testosterone and dehydroepiandrosterone sulfate (DHEAS) levels, may be ordered. Additionally, in cases where the acne is particularly severe or resistant to standard treatments, further evaluation may be needed to rule out underlying conditions that could be exacerbating the acne, such as thyroid dysfunction or glucocorticoid excess."
+          },
+          {
+            "heading": "Diagnosis and Classification of Acne",
+            "text": "The diagnosis of acne is based on the clinical appearance of the lesions. Classification systems such as the Global Acne Grading System (GAGS) can be useful in assessing the severity of acne and guiding treatment decisions. The GAGS evaluates the severity of acne based on the number and type of lesions (comedones, papules, pustules, nodules, and cysts) and their distribution on the face. This system helps in standardizing the assessment of acne severity and facilitates communication among healthcare providers."
+          },
+          {
+            "heading": "Treatment Options for Acne Vulgaris",
+            "text": "Treatment of acne vulgaris depends on the severity of the disease. For mild acne, topical treatments such as retinoids, benzoyl peroxide, and antibiotics are often sufficient. For moderate to severe acne, systemic treatments may be necessary, including oral antibiotics like doxycycline or minocycline, and in severe cases, isotretinoin. The choice of treatment should be individualized based on the patient's specific needs, including the severity of acne, presence of scarring, and potential for hyperpigmentation. The 2019 guidelines from the European Dermatology Forum (EDF) recommend considering the patient's quality of life and potential side effects of treatments when making treatment decisions."
+          }
+        ],
+        "clinical_pearl": "The use of combination therapy, such as a topical retinoid with benzoyl peroxide, can enhance efficacy and reduce the development of antibiotic resistance.",
+        "key_points": [
+          "Diagnosis of acne is primarily clinical, based on the appearance and distribution of lesions.",
+          "Investigations may be necessary to rule out underlying conditions contributing to acne, such as hormonal imbalances.",
+          "The Global Acne Grading System (GAGS) can be used to assess the severity of acne.",
+          "Topical retinoids are effective for comedonal acne and can help prevent scarring.",
+          "Doxycycline (100 mg twice daily) is commonly used for moderate to severe acne.",
+          "Isotretinoin is reserved for severe, resistant cases of acne due to its potential side effects."
+        ],
+        "references": [
+          {
+            "title": "European Dermatology Forum Guidelines",
+            "authors": "Nast, A.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the management of acne, including the use of topical and systemic treatments."
+          },
+          {
+            "title": "American Academy of Dermatology Guidelines",
+            "authors": "Bhate, K.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommends a stepwise approach to the treatment of acne, starting with topical treatments."
+          },
+          {
+            "title": "Global Alliance to Improve Outcomes in Acne",
+            "authors": "Thiboutot, D.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early treatment to prevent long-term sequelae such as scarring."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Complications, Prognosis, and Long-Term Management of Acne Vulgaris",
+      "content": {
+        "intro": "Acne vulgaris can lead to several complications, including physical scarring, post-inflammatory hyperpigmentation (PIH), and psychological distress. The prognosis of acne varies depending on the severity of the disease and the effectiveness of treatment. Long-term management strategies are crucial to prevent relapse and minimize the risk of complications. These strategies may include maintenance therapy with topical retinoids or other agents to reduce the occurrence of new lesions and prevent scarring.",
+        "sections": [
+          {
+            "heading": "Complications of Acne Vulgaris",
+            "text": "The complications of acne can be significant and long-lasting. Physical scarring, which can result from inflammatory lesions such as nodules and cysts, is a common complication. Post-inflammatory hyperpigmentation (PIH) is another frequent complication, particularly in individuals with darker skin types. Psychological distress, including depression and anxiety, can also occur due to the impact of acne on self-esteem and quality of life. Early and effective treatment of acne can help prevent these complications."
+          },
+          {
+            "heading": "Prognosis and Factors Influencing Outcome",
+            "text": "The prognosis of acne vulgaris depends on several factors, including the severity of the disease, the presence of scarring, and the response to treatment. Early initiation of therapy and adherence to treatment regimens are critical for a favorable outcome. The use of isotretinoin in severe cases can significantly improve the prognosis by reducing the risk of long-term scarring. However, the potential side effects of isotretinoin, such as teratogenicity and mood changes, must be carefully considered and monitored."
+          },
+          {
+            "heading": "Long-Term Management and Prevention of Relapse",
+            "text": "Long-term management of acne is essential to prevent relapse and minimize the risk of complications. Maintenance therapy with topical retinoids can help reduce the occurrence of new lesions and prevent scarring. The use of sunscreen and avoidance of picking or popping lesions can also help prevent PIH and scarring. In cases where hormonal imbalances are suspected to contribute to acne, such as in females with PCOS, hormonal therapies may be considered as part of long-term management. The 2019 guidelines from the American Academy of Dermatology (AAD) recommend individualizing treatment plans based on the patient's specific needs and responses to therapy."
+          }
+        ],
+        "clinical_pearl": "The use of maintenance therapy, such as topical retinoids, can significantly reduce the risk of relapse and prevent long-term complications such as scarring.",
+        "key_points": [
+          "Acne can lead to complications such as physical scarring, post-inflammatory hyperpigmentation (PIH), and psychological distress.",
+          "Early and effective treatment can help prevent complications and improve prognosis.",
+          "The prognosis of acne depends on the severity of the disease and the response to treatment.",
+          "Isotretinoin can significantly improve the prognosis in severe cases by reducing the risk of long-term scarring.",
+          "Maintenance therapy with topical retinoids can help prevent relapse and minimize the risk of complications.",
+          "Individualizing treatment plans based on the patient's specific needs and responses to therapy is crucial for long-term management."
+        ],
+        "references": [
+          {
+            "title": "American Academy of Dermatology Guidelines",
+            "authors": "Bhate, K.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2016,
+            "type": "guideline",
+            "note": "Recommends a stepwise approach to the treatment of acne, including long-term management strategies."
+          },
+          {
+            "title": "European Dermatology Forum Guidelines",
+            "authors": "Nast, A.",
+            "journal_or_source": "Journal of the European Academy of Dermatology and Venereology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Provides recommendations for the long-term management of acne, including the use of maintenance therapy."
+          },
+          {
+            "title": "Global Alliance to Improve Outcomes in Acne",
+            "authors": "Thiboutot, D.",
+            "journal_or_source": "Journal of the American Academy of Dermatology",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early treatment and long-term management to prevent complications and improve prognosis."
+          }
+        ]
+      }
+    }
+  ]
+}

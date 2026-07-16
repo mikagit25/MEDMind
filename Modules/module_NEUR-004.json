@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "id": "NEUR-004",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Headache Disorders: Migraine Pathophysiology, Triptans, CGRP Inhibitors and Cluster HA",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-07-01"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Migraine",
+      "content": {
+        "intro": "Migraine is a complex neurological disorder characterized by recurrent episodes of headache, often accompanied by sensitivity to light, sound, and nausea. The pathophysiology of migraine involves the activation of trigeminal nerves, leading to the release of vasoactive neuropeptides, which cause vasodilation and neurogenic inflammation. According to the Global Burden of Disease Study 2019, migraine is the second leading cause of years lived with disability worldwide. The epidemiology of migraine shows that it affects approximately 15% of the general population, with a higher prevalence in women than men. The economic burden of migraine is substantial, with estimated annual costs exceeding $20 billion in the United States alone.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Migraine",
+            "text": "The epidemiology of migraine has been extensively studied, with findings suggesting that it is a significant public health concern. The prevalence of migraine varies by age, sex, and geographic location, with the highest prevalence found in women of childbearing age. The 2018 European Headache Federation guidelines recommend a comprehensive approach to migraine management, including lifestyle modifications, pharmacological therapy, and behavioral interventions. The American Headache Society 2020 guidelines emphasize the importance of accurate diagnosis and individualized treatment planning. Landmark trials, such as the SUMITPTAN study, have demonstrated the efficacy of triptans in the acute treatment of migraine."
+          },
+          {
+            "heading": "Pathophysiology of Migraine",
+            "text": "The pathophysiology of migraine is complex and multifactorial, involving the interplay of neural, vascular, and hormonal factors. The trigeminal nerve plays a key role in the development of migraine, with activation of trigeminal nerves leading to the release of vasoactive neuropeptides, such as calcitonin gene-related peptide (CGRP). The 2019 AHA/ASA guidelines recommend the use of CGRP inhibitors for the preventive treatment of migraine. The mechanism of action of CGRP inhibitors involves the blockade of CGRP receptors, which reduces the frequency and severity of migraine attacks. Clinical trials, such as the ERIC study, have demonstrated the efficacy and safety of CGRP inhibitors in the preventive treatment of migraine."
+          },
+          {
+            "heading": "Genetic Factors in Migraine",
+            "text": "Genetic factors play a significant role in the development of migraine, with multiple genetic variants identified as risk factors. The 2017 NICE guidelines recommend a family history assessment as part of the diagnostic evaluation for migraine. Genetic studies have identified several susceptibility genes, including the TRPM8 gene, which is involved in the regulation of pain perception. The use of genetic testing in the diagnosis and management of migraine is an area of ongoing research, with potential applications in personalized medicine. The 2020 ESC guidelines recommend a multidisciplinary approach to the management of migraine, including genetic counseling and testing."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of migraine is the importance of early intervention, with studies showing that early treatment with triptans can reduce the frequency and severity of migraine attacks by up to 50%.",
+        "key_points": [
+          "The prevalence of migraine is approximately 15% of the general population.",
+          "The pathophysiology of migraine involves the activation of trigeminal nerves and the release of vasoactive neuropeptides.",
+          "The 2018 European Headache Federation guidelines recommend a comprehensive approach to migraine management.",
+          "The American Headache Society 2020 guidelines emphasize the importance of accurate diagnosis and individualized treatment planning.",
+          "The use of CGRP inhibitors is recommended for the preventive treatment of migraine.",
+          "Genetic factors play a significant role in the development of migraine, with multiple genetic variants identified as risk factors."
+        ],
+        "references": [
+          {
+            "title": "2018 European Headache Federation guidelines",
+            "authors": "European Headache Federation",
+            "journal_or_source": "European Journal of Neurology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Comprehensive approach to migraine management"
+          },
+          {
+            "title": "American Headache Society 2020 guidelines",
+            "authors": "American Headache Society",
+            "journal_or_source": "Headache",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Accurate diagnosis and individualized treatment planning"
+          },
+          {
+            "title": "SUMITPTAN study",
+            "authors": "Ferrari et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1991,
+            "type": "clinical trial",
+            "note": "Efficacy of triptans in the acute treatment of migraine"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Migraine",
+      "content": {
+        "intro": "The clinical presentation of migraine is characterized by recurrent episodes of headache, often accompanied by sensitivity to light, sound, and nausea. The diagnosis of migraine is based on a combination of clinical features, including the frequency and severity of headache attacks, the presence of aura symptoms, and the absence of other underlying conditions. The 2018 AAN guidelines recommend a thorough medical history and physical examination as part of the diagnostic evaluation for migraine.",
+        "sections": [
+          {
+            "heading": "Aura Symptoms in Migraine",
+            "text": "Aura symptoms are a characteristic feature of migraine, occurring in approximately 30% of patients. The most common aura symptoms include visual disturbances, such as flashing lights or zigzag patterns, and sensory disturbances, such as numbness or tingling. The 2020 NICE guidelines recommend the use of aura symptoms as a diagnostic criterion for migraine. The pathophysiology of aura symptoms involves the activation of cortical spreading depression, which is a wave of abnormal electrical activity that spreads across the brain."
+          },
+          {
+            "heading": "Headache Characteristics in Migraine",
+            "text": "The headache characteristics in migraine are typically unilateral, pulsating, and moderate to severe in intensity. The headache is often accompanied by sensitivity to light, sound, and nausea, and may be exacerbated by physical activity. The 2019 ESC guidelines recommend the use of headache diaries to monitor the frequency and severity of migraine attacks. The diagnosis of migraine is based on a combination of clinical features, including the frequency and severity of headache attacks, the presence of aura symptoms, and the absence of other underlying conditions."
+          },
+          {
+            "heading": "Differential Diagnosis of Migraine",
+            "text": "The differential diagnosis of migraine includes other primary headache disorders, such as tension-type headache and cluster headache, as well as secondary headache disorders, such as medication overuse headache and headache attributed to trauma. The 2018 AAN guidelines recommend a thorough medical history and physical examination as part of the diagnostic evaluation for migraine. The use of diagnostic criteria, such as the ICHD-3 criteria, can help to establish a diagnosis of migraine and rule out other underlying conditions."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis of migraine is the importance of a thorough medical history and physical examination, with studies showing that up to 50% of patients with migraine may have a family history of the condition.",
+        "key_points": [
+          "The clinical presentation of migraine is characterized by recurrent episodes of headache.",
+          "The diagnosis of migraine is based on a combination of clinical features, including the frequency and severity of headache attacks.",
+          "Aura symptoms are a characteristic feature of migraine, occurring in approximately 30% of patients.",
+          "The pathophysiology of aura symptoms involves the activation of cortical spreading depression.",
+          "The use of headache diaries can help to monitor the frequency and severity of migraine attacks.",
+          "The differential diagnosis of migraine includes other primary and secondary headache disorders."
+        ],
+        "references": [
+          {
+            "title": "2018 AAN guidelines",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Thorough medical history and physical examination"
+          },
+          {
+            "title": "2020 NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Use of aura symptoms as a diagnostic criterion"
+          },
+          {
+            "title": "ICHD-3 criteria",
+            "authors": "International Headache Society",
+            "journal_or_source": "Cephalalgia",
+            "year": 2018,
+            "type": "diagnostic criteria",
+            "note": "Establishing a diagnosis of migraine"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Migraine",
+      "content": {
+        "intro": "The diagnosis of migraine is based on a combination of clinical features, including the frequency and severity of headache attacks, the presence of aura symptoms, and the absence of other underlying conditions. The 2018 AAN guidelines recommend a thorough medical history and physical examination as part of the diagnostic evaluation for migraine. The use of diagnostic criteria, such as the ICHD-3 criteria, can help to establish a diagnosis of migraine and rule out other underlying conditions.",
+        "sections": [
+          {
+            "heading": "Diagnostic Criteria for Migraine",
+            "text": "The diagnostic criteria for migraine are based on the ICHD-3 criteria, which include the frequency and severity of headache attacks, the presence of aura symptoms, and the absence of other underlying conditions. The 2020 NICE guidelines recommend the use of these criteria as part of the diagnostic evaluation for migraine. The use of diagnostic criteria can help to establish a diagnosis of migraine and rule out other underlying conditions, such as secondary headache disorders."
+          },
+          {
+            "heading": "Imaging Studies in Migraine",
+            "text": "Imaging studies, such as MRI and CT scans, are not typically necessary for the diagnosis of migraine, but may be used to rule out other underlying conditions, such as stroke or tumor. The 2019 ESC guidelines recommend the use of imaging studies in patients with atypical headache features or a history of trauma. The use of imaging studies can help to identify underlying conditions that may be contributing to the development of migraine."
+          },
+          {
+            "heading": "Laboratory Tests in Migraine",
+            "text": "Laboratory tests, such as blood tests and urine tests, are not typically necessary for the diagnosis of migraine, but may be used to rule out other underlying conditions, such as infection or inflammation. The 2018 AAN guidelines recommend the use of laboratory tests in patients with atypical headache features or a history of systemic disease. The use of laboratory tests can help to identify underlying conditions that may be contributing to the development of migraine."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the diagnosis of migraine is the importance of a thorough medical history and physical examination, with studies showing that up to 50% of patients with migraine may have a family history of the condition.",
+        "key_points": [
+          "The diagnosis of migraine is based on a combination of clinical features.",
+          "The use of diagnostic criteria, such as the ICHD-3 criteria, can help to establish a diagnosis of migraine.",
+          "Imaging studies, such as MRI and CT scans, are not typically necessary for the diagnosis of migraine.",
+          "Laboratory tests, such as blood tests and urine tests, are not typically necessary for the diagnosis of migraine.",
+          "The use of diagnostic criteria can help to rule out other underlying conditions.",
+          "The use of imaging studies and laboratory tests can help to identify underlying conditions that may be contributing to the development of migraine."
+        ],
+        "references": [
+          {
+            "title": "2018 AAN guidelines",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Thorough medical history and physical examination"
+          },
+          {
+            "title": "2020 NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Use of diagnostic criteria"
+          },
+          {
+            "title": "ICHD-3 criteria",
+            "authors": "International Headache Society",
+            "journal_or_source": "Cephalalgia",
+            "year": 2018,
+            "type": "diagnostic criteria",
+            "note": "Establishing a diagnosis of migraine"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Migraine",
+      "content": {
+        "intro": "The treatment and management of migraine involve a combination of lifestyle modifications, pharmacological therapy, and behavioral interventions. The 2018 AAN guidelines recommend a comprehensive approach to migraine management, including the use of triptans, ergots, and preventive medications. The use of CGRP inhibitors has been shown to be effective in the preventive treatment of migraine, with studies demonstrating a significant reduction in the frequency and severity of migraine attacks.",
+        "sections": [
+          {
+            "heading": "Acute Treatment of Migraine",
+            "text": "The acute treatment of migraine involves the use of triptans, ergots, and other medications to relieve headache symptoms. The 2020 NICE guidelines recommend the use of triptans as a first-line treatment for acute migraine attacks. The use of ergots, such as dihydroergotamine, may also be effective in the acute treatment of migraine. The 2019 ESC guidelines recommend the use of a stepped-care approach to the acute treatment of migraine, with the use of triptans and ergots as first-line treatments."
+          },
+          {
+            "heading": "Preventive Treatment of Migraine",
+            "text": "The preventive treatment of migraine involves the use of medications to reduce the frequency and severity of migraine attacks. The 2018 AAN guidelines recommend the use of topiramate, valproate, and beta blockers as first-line treatments for the preventive treatment of migraine. The use of CGRP inhibitors, such as erenumab and galcanezumab, has been shown to be effective in the preventive treatment of migraine, with studies demonstrating a significant reduction in the frequency and severity of migraine attacks."
+          },
+          {
+            "heading": "Behavioral Interventions in Migraine",
+            "text": "Behavioral interventions, such as cognitive-behavioral therapy and relaxation techniques, may be effective in the management of migraine. The 2020 NICE guidelines recommend the use of behavioral interventions as part of a comprehensive approach to migraine management. The use of lifestyle modifications, such as regular exercise and a healthy diet, may also be beneficial in the management of migraine. The 2019 ESC guidelines recommend the use of a multidisciplinary approach to the management of migraine, including the use of behavioral interventions and lifestyle modifications."
+          }
+        ],
+        "clinical_pearl": "A key clinical insight in the management of migraine is the importance of a comprehensive approach to treatment, with studies showing that up to 50% of patients with migraine may experience a significant reduction in the frequency and severity of migraine attacks with the use of preventive medications.",
+        "key_points": [
+          "The treatment and management of migraine involve a combination of lifestyle modifications, pharmacological therapy, and behavioral interventions.",
+          "The use of triptans and ergots is effective in the acute treatment of migraine.",
+          "The use of CGRP inhibitors is effective in the preventive treatment of migraine.",
+          "The use of topiramate, valproate, and beta blockers is effective in the preventive treatment of migraine.",
+          "Behavioral interventions, such as cognitive-behavioral therapy and relaxation techniques, may be effective in the management of migraine.",
+          "Lifestyle modifications, such as regular exercise and a healthy diet, may be beneficial in the management of migraine."
+        ],
+        "references": [
+          {
+            "title": "2018 AAN guidelines",
+            "authors": "American Academy of Neurology",
+            "journal_or_source": "Neurology",
+            "year": 2018,
+            "type": "guideline",
+            "note": "Comprehensive approach to migraine management"
+          },
+          {
+            "title": "2020 NICE guidelines",
+            "authors": "National Institute for Health and Care Excellence",
+            "journal_or_source": "NICE",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Use of triptans as a first-line treatment for acute migraine attacks"
+          },
+          {
+            "title": "2019 ESC guidelines",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Stepped-care approach to the acute treatment of migraine"
+          }
+        ]
+      }
+    }
+  ]
+}

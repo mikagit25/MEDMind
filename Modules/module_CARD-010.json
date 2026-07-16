@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "id": "CARD-010",
+    "type": "specialty_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Cardiac Imaging: ECG Mastery, Echocardiography and CT Coronary Angiography",
+    "level": "advanced",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Cardiac Diseases",
+      "content": {
+        "intro": "Cardiac diseases are a leading cause of morbidity and mortality worldwide. The epidemiology of cardiac diseases is complex and multifactorial, involving genetic, environmental, and lifestyle factors. The pathophysiology of cardiac diseases involves the interplay of various cellular, molecular, and physiological mechanisms. For instance, atherosclerosis is a key process in the development of coronary artery disease, which can lead to myocardial infarction. The ESC 2019 guidelines emphasize the importance of early detection and management of risk factors, such as hypertension, diabetes, and hyperlipidemia, to prevent cardiac diseases.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Cardiac Diseases",
+            "text": "The global burden of cardiac diseases is significant, with an estimated 17.9 million deaths per year. The epidemiology of cardiac diseases varies by region, with higher rates in low- and middle-income countries. The most common types of cardiac diseases include coronary artery disease, heart failure, and arrhythmias. According to the AHA 2020 guidelines, the prevalence of cardiac diseases is increasing due to the rising burden of risk factors, such as obesity and physical inactivity. The landmark FOURIER trial demonstrated the importance of lipid-lowering therapy in reducing cardiovascular risk."
+          },
+          {
+            "heading": "Pathophysiology of Cardiac Diseases",
+            "text": "The pathophysiology of cardiac diseases involves the interplay of various cellular, molecular, and physiological mechanisms. For example, the development of atherosclerosis involves the accumulation of lipids, inflammatory cells, and fibrous tissue in the arterial wall. The NICE 2019 guidelines recommend the use of statins, such as atorvastatin 20-80 mg/day, to reduce the risk of cardiovascular events. The IMPROVE-IT trial demonstrated the benefits of ezetimibe 10 mg/day in reducing cardiovascular risk in patients with acute coronary syndrome."
+          },
+          {
+            "heading": "Genetic Factors in Cardiac Diseases",
+            "text": "Genetic factors play a significant role in the development of cardiac diseases. For instance, mutations in the SCN5A gene can increase the risk of arrhythmias, such as Brugada syndrome. The ESC 2019 guidelines recommend genetic testing for patients with a family history of cardiac diseases. The landmark DANISH trial demonstrated the importance of genetic testing in identifying patients at high risk of cardiac diseases."
+          }
+        ],
+        "clinical_pearl": "The use of cardiac imaging modalities, such as echocardiography and CT coronary angiography, can help identify patients at high risk of cardiac diseases. For example, the presence of coronary artery calcification on CT coronary angiography can indicate a high risk of cardiovascular events.",
+        "key_points": [
+          "The global burden of cardiac diseases is significant, with an estimated 17.9 million deaths per year.",
+          "The epidemiology of cardiac diseases varies by region, with higher rates in low- and middle-income countries.",
+          "The most common types of cardiac diseases include coronary artery disease, heart failure, and arrhythmias.",
+          "The use of statins, such as atorvastatin 20-80 mg/day, can reduce the risk of cardiovascular events.",
+          "The IMPROVE-IT trial demonstrated the benefits of ezetimibe 10 mg/day in reducing cardiovascular risk in patients with acute coronary syndrome.",
+          "Genetic testing can help identify patients at high risk of cardiac diseases, such as those with mutations in the SCN5A gene."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias"
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of atrial fibrillation"
+          },
+          {
+            "title": "IMPROVE-IT trial",
+            "authors": "Cannon CP et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2015,
+            "type": "clinical trial",
+            "note": "Benefits of ezetimibe in reducing cardiovascular risk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Cardiac Diseases",
+      "content": {
+        "intro": "The clinical presentation of cardiac diseases can vary widely, depending on the underlying condition and the individual patient. Common symptoms include chest pain, shortness of breath, and palpitations. The diagnosis of cardiac diseases requires a comprehensive evaluation, including a thorough medical history, physical examination, and diagnostic testing. The AHA 2020 guidelines emphasize the importance of early recognition and management of cardiac diseases to improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Symptoms of Cardiac Diseases",
+            "text": "The symptoms of cardiac diseases can vary widely, depending on the underlying condition. For example, patients with coronary artery disease may experience chest pain or shortness of breath, while those with arrhythmias may experience palpitations or dizziness. The NICE 2019 guidelines recommend the use of the HEART score to evaluate patients with chest pain, which includes factors such as history, electrocardiogram, age, risk factors, and troponin level."
+          },
+          {
+            "heading": "Physical Examination in Cardiac Diseases",
+            "text": "The physical examination is an essential component of the evaluation of cardiac diseases. The examination should include an assessment of the patient's vital signs, such as blood pressure and heart rate, as well as a thorough examination of the cardiovascular system. The ESC 2019 guidelines recommend the use of the Sgarbossa criteria to evaluate patients with suspected acute coronary syndrome."
+          },
+          {
+            "heading": "Diagnostic Testing in Cardiac Diseases",
+            "text": "Diagnostic testing is essential for the evaluation of cardiac diseases. Common tests include electrocardiography, echocardiography, and cardiac catheterization. The AHA 2020 guidelines recommend the use of cardiac troponin testing to evaluate patients with suspected acute coronary syndrome. The landmark PLATO trial demonstrated the benefits of ticagrelor 90 mg twice daily in reducing cardiovascular risk in patients with acute coronary syndrome."
+          }
+        ],
+        "clinical_pearl": "The use of cardiac biomarkers, such as troponin, can help diagnose cardiac diseases, such as acute coronary syndrome. For example, a troponin level above 0.1 ng/mL can indicate myocardial infarction.",
+        "key_points": [
+          "The symptoms of cardiac diseases can vary widely, depending on the underlying condition.",
+          "The HEART score can be used to evaluate patients with chest pain.",
+          "The physical examination is an essential component of the evaluation of cardiac diseases.",
+          "The Sgarbossa criteria can be used to evaluate patients with suspected acute coronary syndrome.",
+          "Cardiac troponin testing can be used to evaluate patients with suspected acute coronary syndrome.",
+          "Ticagrelor 90 mg twice daily can reduce cardiovascular risk in patients with acute coronary syndrome."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of atrial fibrillation"
+          },
+          {
+            "title": "2019 ESC Guidelines on Dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias"
+          },
+          {
+            "title": "PLATO trial",
+            "authors": "Wallentin L et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Benefits of ticagrelor in reducing cardiovascular risk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Cardiac Diseases",
+      "content": {
+        "intro": "The diagnosis of cardiac diseases requires a comprehensive evaluation, including a thorough medical history, physical examination, and diagnostic testing. Common diagnostic tests include electrocardiography, echocardiography, and cardiac catheterization. The ESC 2019 guidelines emphasize the importance of early diagnosis and management of cardiac diseases to improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Electrocardiography in Cardiac Diseases",
+            "text": "Electrocardiography is a non-invasive test that measures the electrical activity of the heart. It can be used to diagnose arrhythmias, such as atrial fibrillation, and to evaluate patients with suspected acute coronary syndrome. The AHA 2020 guidelines recommend the use of electrocardiography to evaluate patients with chest pain, which can help identify patients at high risk of cardiac diseases."
+          },
+          {
+            "heading": "Echocardiography in Cardiac Diseases",
+            "text": "Echocardiography is a non-invasive test that uses ultrasound to evaluate the structure and function of the heart. It can be used to diagnose conditions such as heart failure and valvular disease. The NICE 2019 guidelines recommend the use of echocardiography to evaluate patients with suspected heart failure, which can help identify patients at high risk of cardiac diseases."
+          },
+          {
+            "heading": "Cardiac Catheterization in Cardiac Diseases",
+            "text": "Cardiac catheterization is an invasive test that involves the insertion of a catheter into the heart to evaluate the coronary arteries and cardiac function. It can be used to diagnose conditions such as coronary artery disease and to evaluate patients with suspected acute coronary syndrome. The landmark SYNTAX trial demonstrated the benefits of cardiac catheterization in reducing cardiovascular risk in patients with complex coronary artery disease."
+          }
+        ],
+        "clinical_pearl": "The use of cardiac imaging modalities, such as echocardiography and cardiac catheterization, can help diagnose cardiac diseases, such as coronary artery disease. For example, the presence of coronary artery calcification on cardiac catheterization can indicate a high risk of cardiovascular events.",
+        "key_points": [
+          "Electrocardiography can be used to diagnose arrhythmias and evaluate patients with suspected acute coronary syndrome.",
+          "Echocardiography can be used to diagnose conditions such as heart failure and valvular disease.",
+          "Cardiac catheterization can be used to diagnose conditions such as coronary artery disease and evaluate patients with suspected acute coronary syndrome.",
+          "The SYNTAX trial demonstrated the benefits of cardiac catheterization in reducing cardiovascular risk in patients with complex coronary artery disease.",
+          "The use of cardiac biomarkers, such as troponin, can help diagnose cardiac diseases, such as acute coronary syndrome.",
+          "The ESC 2019 guidelines recommend the use of cardiac imaging modalities to evaluate patients with suspected cardiac diseases."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias"
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of atrial fibrillation"
+          },
+          {
+            "title": "SYNTAX trial",
+            "authors": "Serruys PW et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2009,
+            "type": "clinical trial",
+            "note": "Benefits of cardiac catheterization in reducing cardiovascular risk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Cardiac Diseases",
+      "content": {
+        "intro": "The treatment and management of cardiac diseases require a comprehensive approach, including lifestyle modifications, pharmacological therapy, and invasive interventions. The ESC 2019 guidelines emphasize the importance of early treatment and management of cardiac diseases to improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications in Cardiac Diseases",
+            "text": "Lifestyle modifications, such as diet and exercise, can help reduce the risk of cardiac diseases. The AHA 2020 guidelines recommend a diet rich in fruits, vegetables, and whole grains, and regular physical activity, such as walking or jogging, to reduce cardiovascular risk. The landmark DASH trial demonstrated the benefits of lifestyle modifications in reducing blood pressure and cardiovascular risk."
+          },
+          {
+            "heading": "Pharmacological Therapy in Cardiac Diseases",
+            "text": "Pharmacological therapy, such as statins and beta blockers, can help reduce the risk of cardiac diseases. The NICE 2019 guidelines recommend the use of statins, such as atorvastatin 20-80 mg/day, to reduce the risk of cardiovascular events. The IMPROVE-IT trial demonstrated the benefits of ezetimibe 10 mg/day in reducing cardiovascular risk in patients with acute coronary syndrome."
+          },
+          {
+            "heading": "Invasive Interventions in Cardiac Diseases",
+            "text": "Invasive interventions, such as percutaneous coronary intervention and coronary artery bypass grafting, can help reduce the risk of cardiac diseases. The ESC 2019 guidelines recommend the use of percutaneous coronary intervention to evaluate patients with suspected acute coronary syndrome. The landmark SYNTAX trial demonstrated the benefits of percutaneous coronary intervention in reducing cardiovascular risk in patients with complex coronary artery disease."
+          }
+        ],
+        "clinical_pearl": "The use of pharmacological therapy, such as statins and beta blockers, can help reduce the risk of cardiac diseases. For example, the use of atorvastatin 20-80 mg/day can reduce the risk of cardiovascular events by up to 30%.",
+        "key_points": [
+          "Lifestyle modifications, such as diet and exercise, can help reduce the risk of cardiac diseases.",
+          "Pharmacological therapy, such as statins and beta blockers, can help reduce the risk of cardiac diseases.",
+          "Invasive interventions, such as percutaneous coronary intervention and coronary artery bypass grafting, can help reduce the risk of cardiac diseases.",
+          "The DASH trial demonstrated the benefits of lifestyle modifications in reducing blood pressure and cardiovascular risk.",
+          "The IMPROVE-IT trial demonstrated the benefits of ezetimibe 10 mg/day in reducing cardiovascular risk in patients with acute coronary syndrome.",
+          "The SYNTAX trial demonstrated the benefits of percutaneous coronary intervention in reducing cardiovascular risk in patients with complex coronary artery disease."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias"
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of atrial fibrillation"
+          },
+          {
+            "title": "DASH trial",
+            "authors": "Appel LJ et al.",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1997,
+            "type": "clinical trial",
+            "note": "Benefits of lifestyle modifications in reducing blood pressure and cardiovascular risk"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Cardiac Diseases",
+      "content": {
+        "intro": "The complications and prognosis of cardiac diseases can vary widely, depending on the underlying condition and the individual patient. Common complications include heart failure, arrhythmias, and sudden cardiac death. The ESC 2019 guidelines emphasize the importance of early recognition and management of complications to improve patient outcomes.",
+        "sections": [
+          {
+            "heading": "Heart Failure in Cardiac Diseases",
+            "text": "Heart failure is a common complication of cardiac diseases, such as coronary artery disease and valvular disease. The AHA 2020 guidelines recommend the use of beta blockers, such as metoprolol 25-100 mg/day, to reduce the risk of heart failure. The landmark MERIT-HF trial demonstrated the benefits of beta blockers in reducing mortality in patients with heart failure."
+          },
+          {
+            "heading": "Arrhythmias in Cardiac Diseases",
+            "text": "Arrhythmias, such as atrial fibrillation, are a common complication of cardiac diseases. The NICE 2019 guidelines recommend the use of anticoagulants, such as warfarin 2-10 mg/day, to reduce the risk of stroke in patients with atrial fibrillation. The landmark ROCKET-AF trial demonstrated the benefits of rivaroxaban 15-20 mg/day in reducing stroke risk in patients with atrial fibrillation."
+          },
+          {
+            "heading": "Sudden Cardiac Death in Cardiac Diseases",
+            "text": "Sudden cardiac death is a common complication of cardiac diseases, such as coronary artery disease and arrhythmias. The ESC 2019 guidelines recommend the use of implantable cardioverter-defibrillators to reduce the risk of sudden cardiac death in patients with high-risk conditions. The landmark MADIT-II trial demonstrated the benefits of implantable cardioverter-defibrillators in reducing mortality in patients with coronary artery disease."
+          }
+        ],
+        "clinical_pearl": "The use of beta blockers, such as metoprolol 25-100 mg/day, can help reduce the risk of heart failure in patients with cardiac diseases. For example, the MERIT-HF trial demonstrated a 35% reduction in mortality in patients with heart failure treated with beta blockers.",
+        "key_points": [
+          "Heart failure is a common complication of cardiac diseases, such as coronary artery disease and valvular disease.",
+          "Arrhythmias, such as atrial fibrillation, are a common complication of cardiac diseases.",
+          "Sudden cardiac death is a common complication of cardiac diseases, such as coronary artery disease and arrhythmias.",
+          "The MERIT-HF trial demonstrated the benefits of beta blockers in reducing mortality in patients with heart failure.",
+          "The ROCKET-AF trial demonstrated the benefits of rivaroxaban 15-20 mg/day in reducing stroke risk in patients with atrial fibrillation.",
+          "The MADIT-II trial demonstrated the benefits of implantable cardioverter-defibrillators in reducing mortality in patients with coronary artery disease."
+        ],
+        "references": [
+          {
+            "title": "2019 ESC Guidelines on Dyslipidaemias",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of dyslipidaemias"
+          },
+          {
+            "title": "2019 AHA/ACC/HRS Focused Update on the Management of Patients With Atrial Fibrillation",
+            "authors": "American Heart Association",
+            "journal_or_source": "Circulation",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Recommendations for the management of atrial fibrillation"
+          },
+          {
+            "title": "MERIT-HF trial",
+            "authors": "Packer M et al.",
+            "journal_or_source": "Lancet",
+            "year": 1997,
+            "type": "clinical trial",
+            "note": "Benefits of beta blockers in reducing mortality in patients with heart failure"
+          }
+        ]
+      }
+    }
+  ]
+}

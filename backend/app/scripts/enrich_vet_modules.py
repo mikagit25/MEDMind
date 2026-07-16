@@ -49,45 +49,56 @@ GROQ_MODEL   = settings.GROQ_MODEL or "llama-3.3-70b-versatile"
 # ─── Key pool ────────────────────────────────────────────────────────────────
 
 def _get_keys() -> list[str]:
+    # GROQ_KEY_VET_MODULES / GROQ_KEY_MODULE* are dedicated to course generation.
+    # Never use article-generation keys (KEY_3/4/5) — those run separate crons.
     candidates = [
-        settings.GROQ_KEY_VET_MODULES,
-        settings.GROQ_API_KEY_3,
-        settings.GROQ_API_KEY_4,
-        settings.GROQ_API_KEY_5,
+        getattr(settings, "GROQ_KEY_VET_MODULES", ""),  # new .env name
+        getattr(settings, "GROQ_KEY_MODULE",      ""),  # fallback for older container
+        getattr(settings, "GROQ_KEY_MODULE_2",    ""),  # secondary module key
     ]
     keys = [k.strip() for k in candidates if k and k.strip()]
     if not keys:
-        log.error("No Groq keys available. Set GROQ_KEY_VET_MODULES in .env")
+        log.error("No Groq keys available. Set GROQ_KEY_VET_MODULES or GROQ_KEY_MODULE in .env")
         sys.exit(1)
     return keys
 
 
-async def _call_groq(prompt: str, system: str, keys: list[str], max_tokens: int = 4096) -> str | None:
-    for i, key in enumerate(keys):
-        try:
-            async with httpx.AsyncClient(timeout=120) as c:
-                r = await c.post(
-                    GROQ_API_URL,
-                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-                    json={
-                        "model": GROQ_MODEL,
-                        "max_tokens": max_tokens,
-                        "temperature": 0.4,
-                        "messages": [
-                            {"role": "system", "content": system},
-                            {"role": "user",   "content": prompt},
-                        ],
-                    },
-                )
-            if r.status_code == 429:
-                log.warning("Key %d rate-limited, trying next", i + 1)
-                continue
-            if r.status_code != 200:
-                log.warning("Key %d error %s: %s", i + 1, r.status_code, r.text[:200])
-                continue
-            return r.json()["choices"][0]["message"]["content"]
-        except Exception as e:
-            log.warning("Key %d exception: %s", i + 1, e)
+async def _call_groq(prompt: str, system: str, keys: list[str], max_tokens: int = 4096,
+                     _retries: int = 3) -> str | None:
+    for attempt in range(_retries):
+        all_rate_limited = True
+        for i, key in enumerate(keys):
+            try:
+                async with httpx.AsyncClient(timeout=120) as c:
+                    r = await c.post(
+                        GROQ_API_URL,
+                        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                        json={
+                            "model": GROQ_MODEL,
+                            "max_tokens": max_tokens,
+                            "temperature": 0.4,
+                            "messages": [
+                                {"role": "system", "content": system},
+                                {"role": "user",   "content": prompt},
+                            ],
+                        },
+                    )
+                if r.status_code == 429:
+                    log.warning("Key %d rate-limited, trying next", i + 1)
+                    continue
+                all_rate_limited = False
+                if r.status_code != 200:
+                    log.warning("Key %d error %s: %s", i + 1, r.status_code, r.text[:200])
+                    continue
+                return r.json()["choices"][0]["message"]["content"]
+            except Exception as e:
+                log.warning("Key %d exception: %s", i + 1, e)
+                all_rate_limited = False
+        # All keys rate-limited — wait for the window to reset before retrying
+        if all_rate_limited and attempt < _retries - 1:
+            wait = 65
+            log.info("All keys rate-limited, waiting %ds before retry %d/%d…", wait, attempt + 1, _retries - 1)
+            await asyncio.sleep(wait)
     return None
 
 

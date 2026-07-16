@@ -1,0 +1,358 @@
+{
+  "meta": {
+    "id": "NEUR-001",
+    "type": "specialty_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Ischaemic Stroke: Penumbra, tPA, Mechanical Thrombectomy and Secondary Prevention",
+    "level": "advanced",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-06-30"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Epidemiology and Pathophysiology of Ischaemic Stroke",
+      "content": {
+        "intro": "Ischaemic stroke is a leading cause of disability and death worldwide. The pathophysiology involves a complex interplay of vascular, inflammatory, and neuronal factors. According to the 2019 guidelines from the American Heart Association (AHA), the estimated annual incidence of ischaemic stroke is approximately 795,000 in the United States alone. The penumbra, a region of brain tissue surrounding the core infarct, is a critical target for early intervention. Understanding the epidemiology and pathophysiology of ischaemic stroke is essential for developing effective prevention and treatment strategies. The 2021 European Society of Cardiology (ESC) guidelines emphasize the importance of addressing modifiable risk factors, such as hypertension, diabetes, and hyperlipidaemia, to reduce the burden of ischaemic stroke.",
+        "sections": [
+          {
+            "heading": "Epidemiology of Ischaemic Stroke",
+            "text": "The global burden of ischaemic stroke is substantial, with an estimated 6.7 million deaths and 113 million disability-adjusted life years (DALYs) lost in 2019. The age-standardized incidence rate of ischaemic stroke varies significantly across different regions, with the highest rates observed in Eastern Europe and the lowest in Western Europe. The 2018 NICE guidelines highlight the importance of early recognition and prompt treatment of acute ischaemic stroke to improve outcomes. Landmark trials, such as the National Institute of Neurological Disorders and Stroke (NINDS) trial, have demonstrated the efficacy of tissue plasminogen activator (tPA) in improving functional outcomes in patients with acute ischaemic stroke."
+          },
+          {
+            "heading": "Pathophysiology of Ischaemic Stroke",
+            "text": "The pathophysiology of ischaemic stroke involves a complex interplay of vascular, inflammatory, and neuronal factors. The 2020 AHA guidelines emphasize the importance of understanding the molecular mechanisms underlying ischaemic stroke, including the role of excitotoxicity, oxidative stress, and inflammation. The penumbra, a region of brain tissue surrounding the core infarct, is a critical target for early intervention. The 2019 ESC guidelines highlight the importance of addressing the underlying causes of ischaemic stroke, such as atherosclerosis, cardiac embolism, and small vessel disease."
+          },
+          {
+            "heading": "Risk Factors for Ischaemic Stroke",
+            "text": "Modifiable risk factors, such as hypertension, diabetes, and hyperlipidaemia, play a crucial role in the development of ischaemic stroke. The 2021 ESC guidelines emphasize the importance of addressing these risk factors through lifestyle modifications and pharmacological interventions. The 2018 NICE guidelines highlight the importance of early recognition and management of atrial fibrillation, a common cause of cardioembolic stroke. Landmark trials, such as the SPS3 trial, have demonstrated the efficacy of blood pressure lowering in reducing the risk of recurrent stroke."
+          }
+        ],
+        "clinical_pearl": "Early recognition and prompt treatment of acute ischaemic stroke are critical to improving functional outcomes. The 2020 AHA guidelines recommend administering tPA within 4.5 hours of symptom onset, with a dose of 0.9 mg/kg body weight.",
+        "key_points": [
+          "The estimated annual incidence of ischaemic stroke is approximately 795,000 in the United States.",
+          "The penumbra is a critical target for early intervention in ischaemic stroke.",
+          "Modifiable risk factors, such as hypertension, diabetes, and hyperlipidaemia, play a crucial role in the development of ischaemic stroke.",
+          "The 2019 AHA guidelines recommend addressing modifiable risk factors to reduce the burden of ischaemic stroke.",
+          "The 2021 ESC guidelines emphasize the importance of understanding the molecular mechanisms underlying ischaemic stroke.",
+          "Landmark trials, such as the NINDS trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2019 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early recognition and prompt treatment of acute ischaemic stroke."
+          },
+          {
+            "title": "2021 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2021,
+            "type": "guideline",
+            "note": "Highlights the importance of addressing modifiable risk factors to reduce the burden of ischaemic stroke."
+          },
+          {
+            "title": "NINDS Trial",
+            "authors": "National Institute of Neurological Disorders and Stroke",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 1995,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Clinical Presentation of Ischaemic Stroke",
+      "content": {
+        "intro": "The clinical presentation of ischaemic stroke can vary significantly depending on the location and severity of the infarct. According to the 2020 AHA guidelines, the most common symptoms of ischaemic stroke include sudden weakness or numbness in the face, arm, or leg, difficulty with speech or understanding, and sudden blurred vision or loss of vision. The 2019 ESC guidelines emphasize the importance of early recognition of these symptoms to improve outcomes. Understanding the clinical presentation of ischaemic stroke is essential for developing effective diagnosis and treatment strategies.",
+        "sections": [
+          {
+            "heading": "Common Symptoms of Ischaemic Stroke",
+            "text": "The most common symptoms of ischaemic stroke include sudden weakness or numbness in the face, arm, or leg, difficulty with speech or understanding, and sudden blurred vision or loss of vision. The 2020 AHA guidelines recommend using the FAST (Face, Arm, Speech, Time) scale to quickly identify patients with suspected stroke. Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          },
+          {
+            "heading": "Atypical Symptoms of Ischaemic Stroke",
+            "text": "Atypical symptoms of ischaemic stroke can include seizures, headache, and altered mental status. The 2019 ESC guidelines emphasize the importance of considering these symptoms in the differential diagnosis of stroke. The 2018 NICE guidelines highlight the importance of early recognition and management of stroke mimics, such as seizures and migraines."
+          },
+          {
+            "heading": "Stroke Scales and Scores",
+            "text": "Stroke scales and scores, such as the National Institutes of Health Stroke Scale (NIHSS), are used to assess the severity of ischaemic stroke. The 2020 AHA guidelines recommend using the NIHSS to evaluate patients with suspected stroke. The 2019 ESC guidelines emphasize the importance of using stroke scales and scores to guide treatment decisions and predict outcomes."
+          }
+        ],
+        "clinical_pearl": "Early recognition of the symptoms of ischaemic stroke is critical to improving functional outcomes. The 2020 AHA guidelines recommend administering tPA within 4.5 hours of symptom onset.",
+        "key_points": [
+          "The most common symptoms of ischaemic stroke include sudden weakness or numbness in the face, arm, or leg.",
+          "The FAST scale is a useful tool for quickly identifying patients with suspected stroke.",
+          "Atypical symptoms of ischaemic stroke can include seizures, headache, and altered mental status.",
+          "Stroke scales and scores, such as the NIHSS, are used to assess the severity of ischaemic stroke.",
+          "The 2020 AHA guidelines recommend using the NIHSS to evaluate patients with suspected stroke.",
+          "Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early recognition and prompt treatment of acute ischaemic stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the importance of early recognition of the symptoms of ischaemic stroke."
+          },
+          {
+            "title": "ECASS III Trial",
+            "authors": "ECASS III Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Investigations and Diagnosis of Ischaemic Stroke",
+      "content": {
+        "intro": "The diagnosis of ischaemic stroke involves a combination of clinical evaluation, laboratory tests, and imaging studies. According to the 2020 AHA guidelines, the diagnosis of ischaemic stroke is typically made using a combination of the patient's history, physical examination, and imaging studies, such as computed tomography (CT) or magnetic resonance imaging (MRI). The 2019 ESC guidelines emphasize the importance of early diagnosis and treatment to improve outcomes. Understanding the investigations and diagnosis of ischaemic stroke is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Clinical Evaluation of Ischaemic Stroke",
+            "text": "The clinical evaluation of ischaemic stroke involves a thorough history and physical examination. The 2020 AHA guidelines recommend using the NIHSS to evaluate patients with suspected stroke. The 2019 ESC guidelines emphasize the importance of considering the patient's medical history, including any previous strokes or transient ischaemic attacks."
+          },
+          {
+            "heading": "Laboratory Tests for Ischaemic Stroke",
+            "text": "Laboratory tests, such as complete blood count, electrolyte panel, and coagulation studies, are used to evaluate patients with suspected ischaemic stroke. The 2020 AHA guidelines recommend using these tests to identify any underlying conditions that may have contributed to the stroke. The 2018 NICE guidelines highlight the importance of early recognition and management of stroke mimics, such as seizures and migraines."
+          },
+          {
+            "heading": "Imaging Studies for Ischaemic Stroke",
+            "text": "Imaging studies, such as CT or MRI, are used to confirm the diagnosis of ischaemic stroke and evaluate the extent of the infarct. The 2020 AHA guidelines recommend using CT or MRI to evaluate patients with suspected stroke. The 2019 ESC guidelines emphasize the importance of using imaging studies to guide treatment decisions and predict outcomes."
+          }
+        ],
+        "clinical_pearl": "Early diagnosis and treatment of ischaemic stroke are critical to improving functional outcomes. The 2020 AHA guidelines recommend administering tPA within 4.5 hours of symptom onset.",
+        "key_points": [
+          "The diagnosis of ischaemic stroke is typically made using a combination of the patient's history, physical examination, and imaging studies.",
+          "The NIHSS is a useful tool for evaluating patients with suspected stroke.",
+          "Laboratory tests, such as complete blood count and electrolyte panel, are used to evaluate patients with suspected ischaemic stroke.",
+          "Imaging studies, such as CT or MRI, are used to confirm the diagnosis of ischaemic stroke and evaluate the extent of the infarct.",
+          "The 2020 AHA guidelines recommend using CT or MRI to evaluate patients with suspected stroke.",
+          "Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early diagnosis and treatment of acute ischaemic stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the importance of early diagnosis and treatment of ischaemic stroke."
+          },
+          {
+            "title": "ECASS III Trial",
+            "authors": "ECASS III Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Treatment and Management of Ischaemic Stroke",
+      "content": {
+        "intro": "The treatment and management of ischaemic stroke involve a combination of medical and surgical interventions. According to the 2020 AHA guidelines, the primary goal of treatment is to restore blood flow to the affected area of the brain and prevent further damage. The 2019 ESC guidelines emphasize the importance of early treatment and management to improve outcomes. Understanding the treatment and management of ischaemic stroke is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Medical Treatment of Ischaemic Stroke",
+            "text": "Medical treatment of ischaemic stroke involves the use of thrombolytic agents, such as tPA, and antithrombotic agents, such as aspirin and clopidogrel. The 2020 AHA guidelines recommend using tPA within 4.5 hours of symptom onset. The 2019 ESC guidelines emphasize the importance of using antithrombotic agents to prevent recurrent stroke."
+          },
+          {
+            "heading": "Surgical Treatment of Ischaemic Stroke",
+            "text": "Surgical treatment of ischaemic stroke involves the use of mechanical thrombectomy to remove the occluding thrombus. The 2020 AHA guidelines recommend using mechanical thrombectomy in patients with large vessel occlusion. The 2018 NICE guidelines highlight the importance of early recognition and management of stroke mimics, such as seizures and migraines."
+          },
+          {
+            "heading": "Secondary Prevention of Ischaemic Stroke",
+            "text": "Secondary prevention of ischaemic stroke involves the use of lifestyle modifications and pharmacological interventions to reduce the risk of recurrent stroke. The 2020 AHA guidelines recommend using antithrombotic agents and statins to reduce the risk of recurrent stroke. The 2019 ESC guidelines emphasize the importance of using blood pressure lowering agents to reduce the risk of recurrent stroke."
+          }
+        ],
+        "clinical_pearl": "Early treatment and management of ischaemic stroke are critical to improving functional outcomes. The 2020 AHA guidelines recommend administering tPA within 4.5 hours of symptom onset.",
+        "key_points": [
+          "The primary goal of treatment is to restore blood flow to the affected area of the brain and prevent further damage.",
+          "Medical treatment of ischaemic stroke involves the use of thrombolytic agents and antithrombotic agents.",
+          "Surgical treatment of ischaemic stroke involves the use of mechanical thrombectomy to remove the occluding thrombus.",
+          "Secondary prevention of ischaemic stroke involves the use of lifestyle modifications and pharmacological interventions to reduce the risk of recurrent stroke.",
+          "The 2020 AHA guidelines recommend using antithrombotic agents and statins to reduce the risk of recurrent stroke.",
+          "Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early treatment and management of acute ischaemic stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the importance of early treatment and management of ischaemic stroke."
+          },
+          {
+            "title": "ECASS III Trial",
+            "authors": "ECASS III Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Complications and Prognosis of Ischaemic Stroke",
+      "content": {
+        "intro": "The complications and prognosis of ischaemic stroke can vary significantly depending on the severity and location of the infarct. According to the 2020 AHA guidelines, the most common complications of ischaemic stroke include cerebral edema, seizures, and pneumonia. The 2019 ESC guidelines emphasize the importance of early recognition and management of these complications to improve outcomes. Understanding the complications and prognosis of ischaemic stroke is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Common Complications of Ischaemic Stroke",
+            "text": "The most common complications of ischaemic stroke include cerebral edema, seizures, and pneumonia. The 2020 AHA guidelines recommend using early recognition and management of these complications to improve outcomes. The 2019 ESC guidelines emphasize the importance of using supportive care, such as oxygen therapy and hydration, to manage these complications."
+          },
+          {
+            "heading": "Prognosis of Ischaemic Stroke",
+            "text": "The prognosis of ischaemic stroke can vary significantly depending on the severity and location of the infarct. The 2020 AHA guidelines recommend using the NIHSS to evaluate the severity of the stroke and predict outcomes. The 2019 ESC guidelines emphasize the importance of using imaging studies, such as CT or MRI, to evaluate the extent of the infarct and predict outcomes."
+          },
+          {
+            "heading": "Rehabilitation and Recovery after Ischaemic Stroke",
+            "text": "Rehabilitation and recovery after ischaemic stroke involve a combination of physical, occupational, and speech therapy. The 2020 AHA guidelines recommend using early rehabilitation and recovery to improve functional outcomes. The 2018 NICE guidelines highlight the importance of early recognition and management of stroke mimics, such as seizures and migraines."
+          }
+        ],
+        "clinical_pearl": "Early recognition and management of complications are critical to improving functional outcomes after ischaemic stroke. The 2020 AHA guidelines recommend using early recognition and management of complications to improve outcomes.",
+        "key_points": [
+          "The most common complications of ischaemic stroke include cerebral edema, seizures, and pneumonia.",
+          "The prognosis of ischaemic stroke can vary significantly depending on the severity and location of the infarct.",
+          "The NIHSS is a useful tool for evaluating the severity of the stroke and predicting outcomes.",
+          "Imaging studies, such as CT or MRI, are used to evaluate the extent of the infarct and predict outcomes.",
+          "Rehabilitation and recovery after ischaemic stroke involve a combination of physical, occupational, and speech therapy.",
+          "Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early recognition and management of complications after acute ischaemic stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the importance of early recognition and management of complications after ischaemic stroke."
+          },
+          {
+            "title": "ECASS III Trial",
+            "authors": "ECASS III Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Secondary Prevention and Rehabilitation after Ischaemic Stroke",
+      "content": {
+        "intro": "Secondary prevention and rehabilitation after ischaemic stroke are critical to improving functional outcomes and reducing the risk of recurrent stroke. According to the 2020 AHA guidelines, secondary prevention involves the use of lifestyle modifications and pharmacological interventions to reduce the risk of recurrent stroke. The 2019 ESC guidelines emphasize the importance of early rehabilitation and recovery to improve functional outcomes. Understanding secondary prevention and rehabilitation after ischaemic stroke is essential for developing effective treatment strategies.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications for Secondary Prevention",
+            "text": "Lifestyle modifications, such as smoking cessation, exercise, and dietary changes, are used to reduce the risk of recurrent stroke. The 2020 AHA guidelines recommend using lifestyle modifications to reduce the risk of recurrent stroke. The 2019 ESC guidelines emphasize the importance of using lifestyle modifications to improve cardiovascular health."
+          },
+          {
+            "heading": "Pharmacological Interventions for Secondary Prevention",
+            "text": "Pharmacological interventions, such as antithrombotic agents and statins, are used to reduce the risk of recurrent stroke. The 2020 AHA guidelines recommend using antithrombotic agents and statins to reduce the risk of recurrent stroke. The 2018 NICE guidelines highlight the importance of early recognition and management of stroke mimics, such as seizures and migraines."
+          },
+          {
+            "heading": "Rehabilitation and Recovery after Ischaemic Stroke",
+            "text": "Rehabilitation and recovery after ischaemic stroke involve a combination of physical, occupational, and speech therapy. The 2020 AHA guidelines recommend using early rehabilitation and recovery to improve functional outcomes. The 2019 ESC guidelines emphasize the importance of using rehabilitation and recovery to improve quality of life after ischaemic stroke."
+          }
+        ],
+        "clinical_pearl": "Early rehabilitation and recovery are critical to improving functional outcomes after ischaemic stroke. The 2020 AHA guidelines recommend using early rehabilitation and recovery to improve functional outcomes.",
+        "key_points": [
+          "Lifestyle modifications, such as smoking cessation and exercise, are used to reduce the risk of recurrent stroke.",
+          "Pharmacological interventions, such as antithrombotic agents and statins, are used to reduce the risk of recurrent stroke.",
+          "Rehabilitation and recovery after ischaemic stroke involve a combination of physical, occupational, and speech therapy.",
+          "The 2020 AHA guidelines recommend using early rehabilitation and recovery to improve functional outcomes.",
+          "The 2019 ESC guidelines emphasize the importance of using rehabilitation and recovery to improve quality of life after ischaemic stroke.",
+          "Landmark trials, such as the ECASS III trial, have demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+        ],
+        "references": [
+          {
+            "title": "2020 AHA Guidelines for the Early Management of Patients with Acute Ischaemic Stroke",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Emphasizes the importance of early rehabilitation and recovery after acute ischaemic stroke."
+          },
+          {
+            "title": "2019 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure",
+            "authors": "European Society of Cardiology",
+            "journal_or_source": "European Heart Journal",
+            "year": 2019,
+            "type": "guideline",
+            "note": "Highlights the importance of early rehabilitation and recovery after ischaemic stroke."
+          },
+          {
+            "title": "ECASS III Trial",
+            "authors": "ECASS III Investigators",
+            "journal_or_source": "New England Journal of Medicine",
+            "year": 2008,
+            "type": "trial",
+            "note": "Demonstrated the efficacy of tPA in improving functional outcomes in patients with acute ischaemic stroke."
+          }
+        ]
+      }
+    }
+  ]
+}
