@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { examApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 import {
   HeartPulse,
   BookOpen,
@@ -106,6 +107,7 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
 // ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function NCLEXHubPage() {
+  const t = useT();
   const [modes, setModes] = useState<ExamMode[]>([]);
   const [nclex_modes, setNclexModes] = useState<ExamMode[]>([]);
   const [categories, setCategories] = useState<NCLEXCategory[]>([]);
@@ -149,7 +151,7 @@ export default function NCLEXHubPage() {
       window.location.href = `/exam?session=${session.session_id}`;
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail
-        || "Could not start session. Please try again.";
+        || t("nclex_hub.session_error");
       alert(msg);
     } finally {
       setStarting(null);
@@ -159,7 +161,7 @@ export default function NCLEXHubPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-bg flex items-center justify-center">
-        <div className="text-ink-3 font-serif">Loading NCLEX Hub...</div>
+        <div className="text-ink-3 font-serif">{t("nclex_hub.loading")}</div>
       </div>
     );
   }
@@ -170,6 +172,12 @@ export default function NCLEXHubPage() {
     : null;
   const last_score = nclex_history[0]?.score_pct ?? null;
 
+  const TABS: { id: "practice" | "history" | "analytics"; label: string }[] = [
+    { id: "practice",  label: t("nclex_hub.tab_practice") },
+    { id: "history",   label: t("nclex_hub.tab_history") },
+    { id: "analytics", label: t("nclex_hub.tab_analytics") },
+  ];
+
   return (
     <div className="min-h-screen bg-bg">
       {/* Header */}
@@ -178,12 +186,12 @@ export default function NCLEXHubPage() {
           <div className="flex items-center gap-3">
             <HeartPulse className="w-5 h-5 text-red" />
             <div>
-              <h1 className="font-syne font-black text-lg text-ink leading-none">NCLEX Prep Hub</h1>
-              <p className="text-ink-3 font-serif text-xs mt-0.5">Practice · Simulate · Analyze</p>
+              <h1 className="font-syne font-black text-lg text-ink leading-none">{t("nclex_hub.title")}</h1>
+              <p className="text-ink-3 font-serif text-xs mt-0.5">{t("nclex_hub.sub")}</p>
             </div>
           </div>
           <Link href="/nurses" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">
-            ← Nursing Home
+            {t("nclex_hub.back")}
           </Link>
         </div>
       </div>
@@ -195,25 +203,25 @@ export default function NCLEXHubPage() {
             {best_score !== null && (
               <div className="flex items-center gap-2">
                 <Trophy className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-syne">Best score: <strong>{best_score}%</strong></span>
+                <span className="text-xs font-syne">{t("nclex_hub.best_score")} <strong>{best_score}%</strong></span>
               </div>
             )}
             {last_score !== null && (
               <div className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-blue-400" />
-                <span className="text-xs font-syne">Last: <strong>{last_score}%</strong></span>
+                <span className="text-xs font-syne">{t("nclex_hub.last_score")} <strong>{last_score}%</strong></span>
               </div>
             )}
             {analytics && analytics.sessions_analyzed > 0 && (
               <div className="flex items-center gap-2">
                 <BarChart3 className="w-4 h-4 text-green" />
-                <span className="text-xs font-syne">{analytics.sessions_analyzed} sessions analyzed</span>
+                <span className="text-xs font-syne">{analytics.sessions_analyzed} {t("nclex_hub.sessions_analyzed")}</span>
               </div>
             )}
             {analytics?.weak_categories?.[0] && (
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-syne">Weakest: <strong>{analytics.weak_categories[0].label}</strong> ({analytics.weak_categories[0].pct}%)</span>
+                <span className="text-xs font-syne">{t("nclex_hub.weakest")} <strong>{analytics.weak_categories[0].label}</strong> ({analytics.weak_categories[0].pct}%)</span>
               </div>
             )}
           </div>
@@ -223,17 +231,17 @@ export default function NCLEXHubPage() {
       <div className="max-w-5xl mx-auto px-6 py-6">
         {/* Tabs */}
         <div className="flex gap-1 mb-6 border-b border-border">
-          {(["practice", "history", "analytics"] as const).map(tab => (
+          {TABS.map(tab => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-sm font-syne font-semibold capitalize transition-colors border-b-2 -mb-px ${
-                activeTab === tab
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 text-sm font-syne font-semibold transition-colors border-b-2 -mb-px ${
+                activeTab === tab.id
                   ? "border-ink text-ink"
                   : "border-transparent text-ink-3 hover:text-ink"
               }`}
             >
-              {tab}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -244,10 +252,8 @@ export default function NCLEXHubPage() {
             {/* NCLEX Simulation modes */}
             <section>
               <div className="mb-4">
-                <h2 className="font-syne font-black text-xl text-ink">NCLEX-RN Simulation</h2>
-                <p className="text-ink-2 font-serif text-sm mt-1">
-                  CAT-adaptive exam simulation — difficulty adjusts question by question, just like the real NCLEX.
-                </p>
+                <h2 className="font-syne font-black text-xl text-ink">{t("nclex_hub.sim_title")}</h2>
+                <p className="text-ink-2 font-serif text-sm mt-1">{t("nclex_hub.sim_sub")}</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {nclex_modes.filter(m => m.id !== "nclex_category").map(mode => {
@@ -263,7 +269,7 @@ export default function NCLEXHubPage() {
                         <Icon className="w-5 h-5 text-red" />
                         {mode.cat && (
                           <span className="text-xs font-syne font-bold bg-blue-50 text-blue-600 border border-blue-200 rounded-full px-2 py-0.5">
-                            CAT
+                            {t("nclex_hub.cat_badge")}
                           </span>
                         )}
                       </div>
@@ -271,7 +277,7 @@ export default function NCLEXHubPage() {
                       <p className="text-ink-3 font-serif text-xs leading-relaxed mb-3">{mode.description}</p>
                       <div className="flex items-center gap-3 text-xs text-ink-3 font-serif mb-4">
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> {mode.duration_min} min
+                          <Clock className="w-3 h-3" /> {mode.duration_min} {t("common.minutes")}
                         </span>
                         <span className="flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" /> Pass ≥{mode.pass_threshold}%
@@ -285,7 +291,7 @@ export default function NCLEXHubPage() {
                           disabled={starting === mode.id}
                           className="w-full font-syne font-bold text-xs bg-ink text-white px-4 py-2.5 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
                         >
-                          {starting === mode.id ? "Starting..." : "Start Simulation →"}
+                          {starting === mode.id ? t("nclex_hub.starting") : t("nclex_hub.start_sim")}
                         </button>
                       )}
                     </div>
@@ -297,10 +303,8 @@ export default function NCLEXHubPage() {
             {/* Category practice */}
             <section>
               <div className="mb-4">
-                <h2 className="font-syne font-black text-xl text-ink">Practice by Category</h2>
-                <p className="text-ink-2 font-serif text-sm mt-1">
-                  30 questions from one NCLEX client-needs category. Focus on your weak areas.
-                </p>
+                <h2 className="font-syne font-black text-xl text-ink">{t("nclex_hub.cat_prac_title")}</h2>
+                <p className="text-ink-2 font-serif text-sm mt-1">{t("nclex_hub.cat_prac_sub")}</p>
               </div>
               <div className="bg-surface border border-border rounded-xl p-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-4">
@@ -344,8 +348,8 @@ export default function NCLEXHubPage() {
                       className="font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-lg hover:bg-red transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       {selectedCategory
-                        ? `Practice ${categories.find(c => c.key === selectedCategory)?.label} →`
-                        : "Select a category above"}
+                        ? `${t("nclex_hub.practice_cat")} ${categories.find(c => c.key === selectedCategory)?.label} →`
+                        : t("nclex_hub.select_cat")}
                     </button>
                   );
                 })()}
@@ -354,7 +358,7 @@ export default function NCLEXHubPage() {
 
             {/* Quick links */}
             <section>
-              <h2 className="font-syne font-black text-xl text-ink mb-4">Other Tools</h2>
+              <h2 className="font-syne font-black text-xl text-ink mb-4">{t("nclex_hub.other_tools")}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Link
                   href="/learn"
@@ -362,8 +366,8 @@ export default function NCLEXHubPage() {
                 >
                   <BookOpen className="w-5 h-5 text-ink-3 group-hover:text-ink transition-colors" />
                   <div>
-                    <div className="font-syne font-bold text-sm text-ink">8 Nursing Modules</div>
-                    <div className="text-ink-3 font-serif text-xs">Study mode with lessons & flashcards</div>
+                    <div className="font-syne font-bold text-sm text-ink">{t("nclex_hub.modules_title")}</div>
+                    <div className="text-ink-3 font-serif text-xs">{t("nclex_hub.modules_sub")}</div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-ink-3 ml-auto" />
                 </Link>
@@ -373,8 +377,8 @@ export default function NCLEXHubPage() {
                 >
                   <Calculator className="w-5 h-5 text-ink-3 group-hover:text-ink transition-colors" />
                   <div>
-                    <div className="font-syne font-bold text-sm text-ink">Dose-Calc Trainer</div>
-                    <div className="text-ink-3 font-serif text-xs">Parametric calculation practice</div>
+                    <div className="font-syne font-bold text-sm text-ink">{t("nclex_hub.dose_title")}</div>
+                    <div className="text-ink-3 font-serif text-xs">{t("nclex_hub.dose_sub")}</div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-ink-3 ml-auto" />
                 </Link>
@@ -384,8 +388,8 @@ export default function NCLEXHubPage() {
                 >
                   <Zap className="w-5 h-5 text-ink-3 group-hover:text-ink transition-colors" />
                   <div>
-                    <div className="font-syne font-bold text-sm text-ink">Quick Quiz</div>
-                    <div className="text-ink-3 font-serif text-xs">SATA · Ordered · Calculation</div>
+                    <div className="font-syne font-bold text-sm text-ink">{t("nclex_hub.quiz_title")}</div>
+                    <div className="text-ink-3 font-serif text-xs">{t("nclex_hub.quiz_sub")}</div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-ink-3 ml-auto" />
                 </Link>
@@ -397,11 +401,11 @@ export default function NCLEXHubPage() {
         {/* ── History tab ── */}
         {activeTab === "history" && (
           <div>
-            <h2 className="font-syne font-black text-xl text-ink mb-4">Session History</h2>
+            <h2 className="font-syne font-black text-xl text-ink mb-4">{t("nclex_hub.history_title")}</h2>
             {nclex_history.length === 0 ? (
               <div className="text-center py-16 text-ink-3 font-serif">
                 <HeartPulse className="w-10 h-10 mx-auto mb-3 opacity-30" />
-                <p>No NCLEX sessions yet. Start your first simulation above.</p>
+                <p>{t("nclex_hub.history_empty")}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -423,9 +427,9 @@ export default function NCLEXHubPage() {
                       <div className="font-syne font-bold text-sm text-ink truncate">{s.mode}</div>
                       <div className="text-ink-3 font-serif text-xs">
                         {new Date(s.started_at).toLocaleDateString()} ·{" "}
-                        {s.total_questions} questions ·{" "}
-                        {s.time_taken_min != null ? `${s.time_taken_min} min` : "—"}
-                        {s.cat_enabled && " · CAT"}
+                        {s.total_questions} {t("common.questions")} ·{" "}
+                        {s.time_taken_min != null ? `${s.time_taken_min} ${t("common.minutes")}` : "—"}
+                        {s.cat_enabled && ` · ${t("nclex_hub.cat_badge")}`}
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
@@ -444,7 +448,7 @@ export default function NCLEXHubPage() {
                       href={`/exam?session=${s.session_id}&results=1`}
                       className="flex-shrink-0 text-xs font-syne font-semibold text-ink-3 hover:text-ink transition-colors"
                     >
-                      Review →
+                      {t("nclex_hub.review")}
                     </Link>
                   </div>
                 ))}
@@ -459,7 +463,7 @@ export default function NCLEXHubPage() {
             {!analytics || analytics.sessions_analyzed === 0 ? (
               <div className="text-center py-16 text-ink-3 font-serif">
                 <BarChart3 className="w-10 h-10 mx-auto mb-3 opacity-30" />
-                <p>Complete at least one NCLEX session to see analytics.</p>
+                <p>{t("nclex_hub.analytics_empty")}</p>
               </div>
             ) : (
               <>
@@ -467,19 +471,19 @@ export default function NCLEXHubPage() {
                 {analytics.overall_trend.length > 1 && (
                   <div className="bg-surface border border-border rounded-xl p-5">
                     <h3 className="font-syne font-bold text-sm text-ink mb-3 flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4" /> Score Trend
+                      <TrendingUp className="w-4 h-4" /> {t("nclex_hub.score_trend")}
                     </h3>
                     <div className="flex items-end gap-2 h-20">
-                      {analytics.overall_trend.slice().reverse().map((t, i) => (
+                      {analytics.overall_trend.slice().reverse().map((trend, i) => (
                         <div key={i} className="flex-1 flex flex-col items-center gap-1">
                           <div
                             className={`w-full rounded-t transition-all ${
-                              (t.score_pct ?? 0) >= 62 ? "bg-green" : "bg-red/60"
+                              (trend.score_pct ?? 0) >= 62 ? "bg-green" : "bg-red/60"
                             }`}
-                            style={{ height: `${Math.max(8, ((t.score_pct ?? 0) / 100) * 72)}px` }}
+                            style={{ height: `${Math.max(8, ((trend.score_pct ?? 0) / 100) * 72)}px` }}
                           />
                           <span className="text-[10px] font-syne text-ink-3">
-                            {t.score_pct ?? 0}%
+                            {trend.score_pct ?? 0}%
                           </span>
                         </div>
                       ))}
@@ -491,7 +495,7 @@ export default function NCLEXHubPage() {
                 {analytics.weak_categories.length > 0 && (
                   <div className="bg-red/5 border border-red/20 rounded-xl p-5">
                     <h3 className="font-syne font-bold text-sm text-red mb-3 flex items-center gap-2">
-                      <TrendingDown className="w-4 h-4" /> Weak Areas — Focus Here
+                      <TrendingDown className="w-4 h-4" /> {t("nclex_hub.weak_areas")}
                     </h3>
                     <div className="space-y-3">
                       {analytics.weak_categories.map(c => (
@@ -504,7 +508,7 @@ export default function NCLEXHubPage() {
                             }}
                             className="mt-1 text-xs font-syne text-red hover:underline"
                           >
-                            Practice this category →
+                            {t("nclex_hub.practice_this")}
                           </button>
                         </div>
                       ))}
@@ -515,7 +519,7 @@ export default function NCLEXHubPage() {
                 {/* All categories */}
                 <div className="bg-surface border border-border rounded-xl p-5">
                   <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
-                    <Layers className="w-4 h-4" /> NCLEX Client Needs — All Categories
+                    <Layers className="w-4 h-4" /> {t("nclex_hub.all_categories")}
                   </h3>
                   <div className="space-y-3">
                     {Object.entries(analytics.category_performance)
@@ -530,7 +534,7 @@ export default function NCLEXHubPage() {
                 {Object.keys(analytics.cjmm_performance).length > 0 && (
                   <div className="bg-surface border border-border rounded-xl p-5">
                     <h3 className="font-syne font-bold text-sm text-ink mb-4">
-                      Clinical Judgment (CJMM) — 6 Skills
+                      {t("nclex_hub.cjmm_title")}
                     </h3>
                     <div className="space-y-3">
                       {Object.entries(analytics.cjmm_performance)

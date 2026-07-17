@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { examApi } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
   ChevronLeft, ChevronRight, AlertTriangle, Layers,
@@ -124,6 +125,7 @@ function QuestionCard({
   locked: boolean;
   onChange: (a: AnswerState) => void;
 }) {
+  const t = useT();
   const qtype = question.question_type;
   const options = Object.entries(question.options || {});
 
@@ -143,7 +145,7 @@ function QuestionCard({
     return (
       <div className="space-y-2">
         <p className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-3">
-          Select All That Apply (SATA)
+          {t("exam_page.sata_label")}
         </p>
         {options.map(([key, text]) => {
           const checked = answer.selected_options.includes(key);
@@ -175,7 +177,7 @@ function QuestionCard({
     return (
       <div className="space-y-3">
         <p className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider">
-          Place in Correct Order — tap to add/remove
+          {t("exam_page.ordered_label")}
         </p>
         {ord.length > 0 && (
           <div className="space-y-1.5">
@@ -197,7 +199,7 @@ function QuestionCard({
         )}
         {remaining.length > 0 && !locked && (
           <div className="space-y-1.5 pt-2 border-t border-border">
-            <p className="text-xs font-serif text-ink-3">Tap to add to sequence:</p>
+            <p className="text-xs font-serif text-ink-3">{t("exam_page.ordered_tap")}</p>
             {remaining.map(([key, text]) => (
               <button
                 key={key}
@@ -223,7 +225,7 @@ function QuestionCard({
             value={answer.numeric_value}
             onChange={e => !locked && onChange({ ...answer, numeric_value: e.target.value })}
             disabled={locked}
-            placeholder="Enter your answer..."
+            placeholder={t("exam_page.enter_answer")}
             className="flex-1 bg-bg border border-border rounded-xl px-4 py-3 font-mono text-sm text-ink focus:outline-none focus:border-ink transition-colors disabled:opacity-60"
           />
           {question.numeric_unit && (
@@ -239,7 +241,7 @@ function QuestionCard({
     <div className="space-y-3">
       {question.ngn_type === "bowtie" && (
         <div className="text-xs font-syne font-bold text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 mb-2 inline-block">
-          NGN Bow-Tie — Clinical Judgment
+          {t("exam_page.bowtie_label")}
         </div>
       )}
       {options.map(([key, text]) => {
@@ -280,6 +282,7 @@ function ExamSession({
   session: Session;
   onFinish: (results: Results) => void;
 }) {
+  const t = useT();
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, AnswerState>>({});
   const [locked, setLocked] = useState<Record<number, boolean>>({});
@@ -321,7 +324,6 @@ function ExamSession({
 
   async function handleFinalize() {
     setSubmitting(true);
-    // Lock any unanswered that have partial answers
     for (const [idx, a] of Object.entries(answers)) {
       const i = parseInt(idx);
       if (!locked[i]) await recordAnswer(i, a, session.questions[i]);
@@ -345,7 +347,7 @@ function ExamSession({
       <div className="flex items-center justify-between mb-4 p-3 bg-surface border border-border rounded-xl">
         <div>
           <div className="font-syne font-bold text-sm text-ink">{session.mode}</div>
-          <div className="text-xs font-serif text-ink-3">{answeredCount}/{total} answered</div>
+          <div className="text-xs font-serif text-ink-3">{answeredCount}/{total} {t("exam_page.answered")}</div>
         </div>
         <Timer endsAt={session.ends_at} onExpire={handleExpire} />
         <button
@@ -353,7 +355,7 @@ function ExamSession({
           disabled={submitting}
           className="font-syne font-semibold text-xs px-4 py-2 rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
         >
-          {submitting ? "Submitting…" : "Submit"}
+          {submitting ? t("exam_page.submitting") : t("common.submit")}
         </button>
       </div>
 
@@ -381,7 +383,7 @@ function ExamSession({
             </span>
           )}
           {session.cat_enabled && (
-            <span className="text-xs font-syne font-bold text-blue-600 bg-blue-50 rounded px-1.5 py-0.5">CAT</span>
+            <span className="text-xs font-syne font-bold text-blue-600 bg-blue-50 rounded px-1.5 py-0.5">{t("nclex_hub.cat_badge")}</span>
           )}
         </div>
 
@@ -401,12 +403,12 @@ function ExamSession({
             disabled={!hasAnswer(ans, question)}
             className="mt-5 font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-xl hover:bg-red transition-colors disabled:opacity-40"
           >
-            Confirm Answer
+            {t("exam_page.confirm_answer")}
           </button>
         )}
         {locked[current] && (
           <div className="mt-4 text-xs font-serif text-green flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Answer recorded
+            <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
           </div>
         )}
       </div>
@@ -415,11 +417,11 @@ function ExamSession({
       <div className="flex items-center justify-between mt-4">
         <button onClick={() => setCurrent(Math.max(0, current - 1))} disabled={current === 0}
           className="flex items-center gap-1 font-syne font-semibold text-sm px-4 py-2 rounded-lg border border-border hover:bg-surface transition-colors disabled:opacity-30">
-          <ChevronLeft className="w-4 h-4" /> Previous
+          <ChevronLeft className="w-4 h-4" /> {t("exam_page.previous")}
         </button>
         <button onClick={() => setCurrent(Math.min(total - 1, current + 1))} disabled={current === total - 1}
           className="flex items-center gap-1 font-syne font-semibold text-sm px-4 py-2 rounded-lg border border-border hover:bg-surface transition-colors disabled:opacity-30">
-          Next <ChevronRight className="w-4 h-4" />
+          {t("exam_page.next")} <ChevronRight className="w-4 h-4" />
         </button>
       </div>
     </div>
@@ -445,7 +447,8 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
   );
 }
 
-function AITutorButton({ question, explanation }: { question: string; explanation?: string }) {
+function AITutorButton({ question }: { question: string }) {
+  const t = useT();
   const prompt = encodeURIComponent(
     `I just answered this NCLEX question incorrectly and need help understanding it:\n\n"${question}"\n\nPlease explain the underlying concept and why the correct answer is right.`
   );
@@ -455,12 +458,13 @@ function AITutorButton({ question, explanation }: { question: string; explanatio
       className="inline-flex items-center gap-2 text-xs font-syne font-bold border border-ink/30 text-ink px-3 py-1.5 rounded-lg hover:bg-ink hover:text-white transition-colors"
     >
       <MessageSquare className="w-3.5 h-3.5" />
-      Ask AI Tutor
+      {t("exam_page.ask_ai")}
     </Link>
   );
 }
 
 function ResultsView({ results, onRetry }: { results: Results; onRetry: () => void }) {
+  const t = useT();
   const [expandedQ, setExpandedQ] = useState<number | null>(null);
   const isNclex = results.mode_id?.includes("nclex");
   const hasCategories = Object.keys(results.nclex_category_breakdown || {}).length > 0;
@@ -473,15 +477,15 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
           {results.score_pct}%
         </div>
         <div className="font-syne font-bold text-lg text-ink mb-1">
-          {results.passed ? "Passed" : "Not Passed"} — {results.mode}
+          {results.passed ? t("exam_page.passed") : t("exam_page.not_passed")} — {results.mode}
         </div>
         <div className="font-serif text-sm text-ink-3 mb-4">{results.message}</div>
         <div className="flex flex-wrap items-center justify-center gap-4 text-sm font-syne">
-          <span><strong className="text-green">{results.correct}</strong> correct</span>
-          <span><strong className="text-red">{results.wrong}</strong> wrong</span>
+          <span><strong className="text-green">{results.correct}</strong> {t("exam_page.stat_correct")}</span>
+          <span><strong className="text-red">{results.wrong}</strong> {t("exam_page.stat_wrong")}</span>
           <span><strong className="text-ink">{results.time_taken_min}m</strong></span>
-          <span className="text-ink-3">Pass threshold: {results.pass_threshold}%</span>
-          {results.cat_enabled && <span className="text-blue-600 font-bold">CAT adaptive</span>}
+          <span className="text-ink-3">{t("exam_page.pass_threshold")} {results.pass_threshold}%</span>
+          {results.cat_enabled && <span className="text-blue-600 font-bold">{t("exam_page.cat_adaptive")}</span>}
         </div>
       </div>
 
@@ -489,7 +493,7 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
       {isNclex && hasCategories && (
         <div className="bg-surface border border-border rounded-xl p-5">
           <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
-            <Layers className="w-4 h-4" /> NCLEX Client Needs Breakdown
+            <Layers className="w-4 h-4" /> {t("exam_page.nclex_breakdown")}
           </h3>
           <div className="space-y-3">
             {Object.entries(results.nclex_category_breakdown)
@@ -501,7 +505,7 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
           {results.weak_categories.length > 0 && (
             <div className="mt-4 pt-4 border-t border-border">
               <div className="text-xs font-syne font-bold text-red mb-2 flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5" /> Focus Areas
+                <AlertTriangle className="w-3.5 h-3.5" /> {t("exam_page.focus_areas")}
               </div>
               <div className="flex flex-wrap gap-2">
                 {results.weak_categories.map(c => (
@@ -510,7 +514,7 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
                     href={`/nurses/nclex`}
                     className="text-xs font-syne px-2 py-1 rounded-lg bg-red/10 text-red border border-red/20 hover:bg-red/20 transition-colors"
                   >
-                    {c.label} ({c.pct}%) — Practice →
+                    {c.label} ({c.pct}%) — {t("nclex_hub.practice_cat")} →
                   </Link>
                 ))}
               </div>
@@ -523,7 +527,7 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
       {results.wrong_questions.length > 0 && (
         <div className="bg-surface border border-border rounded-xl p-5">
           <h3 className="font-syne font-bold text-sm text-ink mb-4">
-            Questions to Review ({results.wrong_questions.length})
+            {t("exam_page.to_review")} ({results.wrong_questions.length})
           </h3>
           <div className="space-y-3">
             {results.wrong_questions.map((q) => (
@@ -536,24 +540,25 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
                   <div className="flex flex-wrap items-center gap-3 text-xs font-syne">
                     {q.your_answer ? (
                       <span className="flex items-center gap-1 text-red">
-                        <XCircle className="w-3 h-3" /> Your: <strong>{String(q.your_answer)}</strong>
+                        <XCircle className="w-3 h-3" /> {t("exam_page.your_answer")} <strong>{String(q.your_answer)}</strong>
                       </span>
                     ) : (
-                      <span className="text-ink-3 italic">Not answered</span>
+                      <span className="text-ink-3 italic">{t("exam_page.not_answered")}</span>
                     )}
                     <span className="flex items-center gap-1 text-green">
-                      <CheckCircle2 className="w-3 h-3" /> Correct: <strong>{q.correct_answer}</strong>
+                      <CheckCircle2 className="w-3 h-3" /> {t("exam_page.correct_answer")} <strong>{q.correct_answer}</strong>
                     </span>
                     {q.nclex_client_needs && (
                       <span className="text-ink-3 bg-border/40 rounded px-1.5 py-0.5">
                         {q.nclex_client_needs.replace(/_/g, " ")}
                       </span>
                     )}
-                    <span className="text-ink-3 ml-auto">{expandedQ === q.index ? "▲ hide" : "▼ details"}</span>
+                    <span className="text-ink-3 ml-auto">
+                      {expandedQ === q.index ? t("exam_page.hide_details") : t("exam_page.show_details")}
+                    </span>
                   </div>
                 </button>
 
-                {/* Full consultation cycle — AI Tutor button */}
                 {expandedQ === q.index && (
                   <div className="mt-3 pt-3 border-t border-red/20">
                     <AITutorButton question={q.question} />
@@ -571,30 +576,31 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
           onClick={onRetry}
           className="font-syne font-semibold text-sm px-6 py-2.5 rounded-xl bg-ink text-white hover:bg-red transition-colors"
         >
-          Try Again
+          {t("exam_page.try_again")}
         </button>
         {isNclex && (
           <Link
             href="/nurses/nclex"
             className="font-syne font-semibold text-sm px-6 py-2.5 rounded-xl border border-border hover:bg-surface transition-colors flex items-center gap-2"
           >
-            <BarChart3 className="w-4 h-4" /> NCLEX Hub
+            <BarChart3 className="w-4 h-4" /> {t("exam_page.nclex_hub")}
           </Link>
         )}
         <Link
           href="/dashboard"
           className="font-syne font-semibold text-sm px-6 py-2.5 rounded-xl border border-border hover:bg-surface transition-colors"
         >
-          Dashboard
+          {t("common.back")}
         </Link>
       </div>
     </div>
   );
 }
 
-// ── Mode selector (kept simple — NCLEX Hub has the full UI) ───────────────────
+// ── Mode selector ──────────────────────────────────────────────────────────────
 
 function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> }) {
+  const t = useT();
   const [modes, setModes] = useState<{ id: string; name: string; description: string; questions: number; duration_min: number; locked: boolean; lock_reason: string | null }[]>([]);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
@@ -606,18 +612,18 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="text-center py-20 text-ink-3 font-serif">Loading…</div>;
+  if (loading) return <div className="text-center py-20 text-ink-3 font-serif">{t("common.loading")}</div>;
 
   return (
     <div className="space-y-6">
       <div className="bg-ink/5 border border-ink/10 rounded-xl p-4 flex items-center gap-3">
         <div className="text-2xl">🎓</div>
         <div>
-          <div className="font-syne font-bold text-sm text-ink">NCLEX Prep? Use the dedicated hub</div>
-          <div className="text-xs font-serif text-ink-3">Category practice, analytics, and CAT simulation</div>
+          <div className="font-syne font-bold text-sm text-ink">{t("exam_page.nclex_promo_title")}</div>
+          <div className="text-xs font-serif text-ink-3">{t("exam_page.nclex_promo_sub")}</div>
         </div>
         <Link href="/nurses/nclex" className="ml-auto font-syne font-bold text-xs bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors whitespace-nowrap">
-          NCLEX Hub →
+          {t("exam_page.nclex_hub_link")}
         </Link>
       </div>
 
@@ -629,8 +635,8 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
               <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
             </div>
             <div className="text-xs font-syne text-ink-3 flex gap-3">
-              <span>{mode.questions} questions</span>
-              <span>{mode.duration_min} min</span>
+              <span>{mode.questions} {t("common.questions")}</span>
+              <span>{mode.duration_min} {t("common.minutes")}</span>
             </div>
             {mode.locked ? (
               <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
@@ -640,7 +646,7 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
                 disabled={starting === mode.id}
                 className="w-full py-2 font-syne font-bold text-sm rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
               >
-                {starting === mode.id ? "Starting…" : "Start Exam"}
+                {starting === mode.id ? t("exam_page.starting") : t("exam_page.start_exam")}
               </button>
             )}
           </div>
@@ -649,7 +655,7 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
 
       {history.length > 0 && (
         <div>
-          <h2 className="font-syne font-bold text-sm text-ink mb-3">Recent Sessions</h2>
+          <h2 className="font-syne font-bold text-sm text-ink mb-3">{t("exam_page.recent_sessions")}</h2>
           <div className="space-y-2">
             {history.slice(0, 5).map(s => (
               <div key={s.session_id} className="flex items-center gap-3 bg-surface border border-border rounded-xl px-4 py-3">
@@ -673,6 +679,7 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
 // ── Main ───────────────────────────────────────────────────────────────────────
 
 function ExamPageInner() {
+  const t = useT();
   const searchParams = useSearchParams();
   const sessionParam = searchParams.get("session");
   const resultsParam = searchParams.get("results");
@@ -682,16 +689,15 @@ function ExamPageInner() {
   const [results, setResults] = useState<Results | null>(null);
   const [error, setError] = useState("");
 
-  // If ?session=xxx&results=1 → load results directly
   useEffect(() => {
     if (sessionParam && resultsParam) {
       examApi.getResults(sessionParam)
         .then(r => { setResults(r); setView("results"); })
-        .catch(() => setError("Could not load session results."));
+        .catch(() => setError(t("exam_page.err_results")));
     } else if (sessionParam) {
       examApi.getSession(sessionParam)
         .then(s => { setSession(s); setView("session"); })
-        .catch(() => setError("Could not load session."));
+        .catch(() => setError(t("exam_page.err_session")));
     }
   }, [sessionParam, resultsParam]);
 
@@ -702,7 +708,7 @@ function ExamPageInner() {
       setSession(sess);
       setView("session");
     } catch (e: unknown) {
-      setError((e as { response?: { data?: { detail?: string } } })?.response?.data?.detail ?? "Failed to start exam.");
+      setError((e as { response?: { data?: { detail?: string } } })?.response?.data?.detail ?? t("exam_page.err_start"));
     }
   };
 
@@ -711,12 +717,12 @@ function ExamPageInner() {
       <div className="mb-5 flex items-center gap-3">
         {view !== "modes" ? (
           <button onClick={() => { setView("modes"); setSession(null); setResults(null); }} className="text-ink-3 hover:text-ink font-syne text-sm">
-            ← Back
+            {t("exam_page.back")}
           </button>
         ) : (
-          <Link href="/dashboard" className="text-ink-3 hover:text-ink font-syne text-sm">← Dashboard</Link>
+          <Link href="/dashboard" className="text-ink-3 hover:text-ink font-syne text-sm">{t("exam_page.back_dashboard")}</Link>
         )}
-        <h1 className="font-syne font-black text-xl text-ink">Board Exam Prep</h1>
+        <h1 className="font-syne font-black text-xl text-ink">{t("exam_page.title")}</h1>
       </div>
 
       {error && (

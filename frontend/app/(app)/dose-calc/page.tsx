@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { useT } from "@/lib/i18n";
 import {
   Calculator,
   ChevronRight,
@@ -36,14 +37,6 @@ type CheckResult = {
   diff: number;
 };
 
-const CATEGORIES: { key: Category; label: string; icon: string; description: string }[] = [
-  { key: "weight_dose", label: "Weight-Based Dosing", icon: "⚖️", description: "mg/kg → mL, volume from concentration" },
-  { key: "infusion_rate", label: "Infusion Rates", icon: "💧", description: "mL/h and gtt/min calculation" },
-  { key: "dilution", label: "Dilution & Concentration", icon: "🧪", description: "C1V1=C2V2 — mixing and concentrations" },
-  { key: "unit_convert", label: "Unit Conversions", icon: "🔄", description: "mcg ↔ mg, mL ↔ L, g ↔ mg" },
-  { key: "pediatric_dose", label: "Paediatric Dosing", icon: "👶", description: "Weight-based dosing with suspension calc" },
-];
-
 // ── Dose-Calc API ──────────────────────────────────────────────────────────────
 
 const doseCalcApi = {
@@ -56,11 +49,11 @@ const doseCalcApi = {
 
 // ── Step Solution display ──────────────────────────────────────────────────────
 
-function StepSolution({ steps }: { steps: string[] }) {
+function StepSolution({ steps, title }: { steps: string[]; title: string }) {
   return (
     <div className="bg-surface border border-border rounded-xl p-4 space-y-2">
       <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-3">
-        Step-by-Step Solution
+        {title}
       </div>
       {steps.map((step, i) => (
         <div key={i} className="flex gap-3">
@@ -77,6 +70,7 @@ function StepSolution({ steps }: { steps: string[] }) {
 // ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function DoseCalcPage() {
+  const t = useT();
   const [selectedCategory, setSelectedCategory] = useState<Category>("weight_dose");
   const [problem, setProblem] = useState<Problem | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -86,6 +80,14 @@ export default function DoseCalcPage() {
   const [streak, setStreak] = useState(0);
   const [total, setTotal] = useState(0);
 
+  const CATEGORIES: { key: Category; icon: string; label: string; description: string }[] = [
+    { key: "weight_dose",    icon: "⚖️", label: t("dose_trainer.cat_weight_label"),    description: t("dose_trainer.cat_weight_desc") },
+    { key: "infusion_rate",  icon: "💧", label: t("dose_trainer.cat_infusion_label"),  description: t("dose_trainer.cat_infusion_desc") },
+    { key: "dilution",       icon: "🧪", label: t("dose_trainer.cat_dilution_label"),  description: t("dose_trainer.cat_dilution_desc") },
+    { key: "unit_convert",   icon: "🔄", label: t("dose_trainer.cat_convert_label"),   description: t("dose_trainer.cat_convert_desc") },
+    { key: "pediatric_dose", icon: "👶", label: t("dose_trainer.cat_pediatric_label"), description: t("dose_trainer.cat_pediatric_desc") },
+  ];
+
   const loadProblem = useCallback(async (cat: Category, seed?: number) => {
     setLoading(true);
     setResult(null);
@@ -94,26 +96,26 @@ export default function DoseCalcPage() {
       const p = await doseCalcApi.getProblem(cat, seed);
       setProblem(p);
     } catch {
-      alert("Could not load problem. Please try again.");
+      alert(t("dose_trainer.err_load"));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [t]);
 
   async function checkAnswer() {
     if (!problem || !inputValue.trim()) return;
     const val = parseFloat(inputValue.replace(",", "."));
-    if (isNaN(val)) { alert("Please enter a valid number."); return; }
+    if (isNaN(val)) { alert(t("dose_trainer.err_number")); return; }
 
     setChecking(true);
     try {
       const r: CheckResult = await doseCalcApi.checkAnswer(selectedCategory, problem.seed, val);
       setResult(r);
-      setTotal(t => t + 1);
+      setTotal(tot => tot + 1);
       if (r.correct) setStreak(s => s + 1);
       else setStreak(0);
     } catch {
-      alert("Could not check answer. Please try again.");
+      alert(t("dose_trainer.err_check"));
     } finally {
       setChecking(false);
     }
@@ -138,12 +140,12 @@ export default function DoseCalcPage() {
           <div className="flex items-center gap-3">
             <Calculator className="w-5 h-5 text-ink" />
             <div>
-              <h1 className="font-syne font-black text-lg text-ink leading-none">Dose-Calc Trainer</h1>
-              <p className="text-ink-3 font-serif text-xs mt-0.5">Unlimited parametric practice · step-by-step solutions</p>
+              <h1 className="font-syne font-black text-lg text-ink leading-none">{t("dose_trainer.title")}</h1>
+              <p className="text-ink-3 font-serif text-xs mt-0.5">{t("dose_trainer.sub")}</p>
             </div>
           </div>
           <Link href="/nurses/nclex" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">
-            ← NCLEX Hub
+            {t("dose_trainer.back")}
           </Link>
         </div>
       </div>
@@ -154,10 +156,10 @@ export default function DoseCalcPage() {
           <div className="max-w-3xl mx-auto px-6 py-2 flex gap-6">
             <span className="text-xs font-syne flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-amber-400" />
-              Streak: <strong>{streak}</strong>
+              {t("dose_trainer.streak")} <strong>{streak}</strong>
             </span>
             <span className="text-xs font-syne">
-              Score: <strong>{streak}/{total}</strong> ({Math.round((streak / total) * 100)}%)
+              {t("dose_trainer.score")} <strong>{streak}/{total}</strong> ({Math.round((streak / total) * 100)}%)
             </span>
           </div>
         </div>
@@ -167,7 +169,7 @@ export default function DoseCalcPage() {
         {/* Category selector */}
         <div>
           <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-3">
-            Choose Category
+            {t("dose_trainer.choose_category")}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {CATEGORIES.map(cat => (
@@ -199,10 +201,10 @@ export default function DoseCalcPage() {
               className="font-syne font-bold text-sm bg-ink text-white px-8 py-3.5 rounded-xl hover:bg-red transition-colors disabled:opacity-50 flex items-center gap-2 mx-auto"
             >
               <Calculator className="w-4 h-4" />
-              {loading ? "Generating problem..." : "Generate Problem"}
+              {loading ? t("dose_trainer.generating") : t("dose_trainer.generate")}
             </button>
             <p className="text-ink-3 font-serif text-xs mt-3">
-              Every problem is deterministic — same seed always gives same problem.
+              {t("dose_trainer.deterministic")}
             </p>
           </div>
         )}
@@ -221,7 +223,7 @@ export default function DoseCalcPage() {
                   disabled={loading}
                   className="text-xs font-syne text-ink-3 hover:text-ink transition-colors flex items-center gap-1"
                 >
-                  <RefreshCw className="w-3 h-3" /> New problem
+                  <RefreshCw className="w-3 h-3" /> {t("dose_trainer.new_problem")}
                 </button>
               </div>
 
@@ -237,7 +239,7 @@ export default function DoseCalcPage() {
                       value={inputValue}
                       onChange={e => setInputValue(e.target.value)}
                       onKeyDown={e => e.key === "Enter" && checkAnswer()}
-                      placeholder="Enter your answer..."
+                      placeholder={t("dose_trainer.enter_answer")}
                       className="w-full bg-bg border border-border rounded-xl px-4 py-3 font-mono text-sm text-ink focus:outline-none focus:border-ink transition-colors"
                     />
                     {problem.numeric_unit && (
@@ -251,7 +253,7 @@ export default function DoseCalcPage() {
                     disabled={checking || !inputValue.trim()}
                     className="font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors disabled:opacity-40"
                   >
-                    {checking ? "Checking..." : "Submit"}
+                    {checking ? t("dose_trainer.checking") : t("common.submit")}
                   </button>
                 </div>
               )}
@@ -267,23 +269,23 @@ export default function DoseCalcPage() {
                     <XCircle className="w-5 h-5 text-red" />
                   )}
                   <span className={`font-syne font-bold text-sm ${result.correct ? "text-green" : "text-red"}`}>
-                    {result.correct ? "Correct!" : "Incorrect"}
+                    {result.correct ? t("dose_trainer.correct") : t("dose_trainer.incorrect")}
                   </span>
                   {!result.correct && (
                     <span className="text-ink-2 font-serif text-sm">
-                      — Correct answer: <strong>{result.expected} {result.unit}</strong>
+                      — {t("dose_trainer.correct_answer")} <strong>{result.expected} {result.unit}</strong>
                       <span className="text-ink-3 text-xs"> (±{result.tolerance})</span>
                     </span>
                   )}
                 </div>
 
-                <StepSolution steps={result.steps} />
+                <StepSolution steps={result.steps} title={t("dose_trainer.steps_title")} />
 
                 <button
                   onClick={nextProblem}
                   className="mt-4 font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-xl hover:bg-red transition-colors flex items-center gap-2"
                 >
-                  Next Problem <ChevronRight className="w-4 h-4" />
+                  {t("dose_trainer.next_problem")} <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -291,9 +293,7 @@ export default function DoseCalcPage() {
             {/* Info */}
             <div className="flex items-start gap-2 text-xs font-serif text-ink-3">
               <Info className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-              <span>
-                Problems use deterministic clinical formulas — not AI-generated numbers. Every answer has an exact correct value within a small clinical tolerance.
-              </span>
+              <span>{t("dose_trainer.formula_note")}</span>
             </div>
           </div>
         )}
