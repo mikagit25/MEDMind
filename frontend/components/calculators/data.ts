@@ -722,19 +722,64 @@ export const CALCULATORS: CalcMeta[] = [
     ],
   },
 
+  // ── Ottawa Ankle Rules ────────────────────────────────────────────────────
+  {
+    slug: "ottawa-ankle",
+    name: "Ottawa Ankle Rules",
+    nameI18n: { en: "Ottawa Ankle Rules", ru: "Правила Оттавы (голеностоп)", ar: "قواعد أوتاوا للكاحل", tr: "Ottawa Ayak Bileği Kuralları", de: "Ottawa-Sprunggelenk-Regeln", fr: "Règles Ottawa cheville", es: "Reglas de Ottawa tobillo" },
+    subtitle: { en: "Ankle X-ray decision rule", ru: "Показания к рентгену голеностопа", ar: "قرار الأشعة السينية للكاحل", tr: "Ayak bileği röntgen karar kuralı", de: "Sprunggelenk-Röntgen-Entscheidungsregel", fr: "Indication radiographie cheville", es: "Regla de decisión radiografía tobillo" },
+    seoDescription: { en: "Ottawa Ankle Rules calculator — determine if ankle X-ray is needed after injury. Evidence-based decision tool.", ru: "Правила Оттавы для голеностопного сустава — нужна ли рентгенография.", ar: "قواعد أوتاوا للكاحل — هل تحتاج إلى أشعة سينية؟", tr: "Ottawa Ayak Bileği Kuralları — röntgen gerekli mi?", de: "Ottawa-Sprunggelenk-Regeln — Röntgen erforderlich?", fr: "Règles d'Ottawa cheville — radiographie nécessaire?", es: "Reglas de Ottawa tobillo — ¿se necesita radiografía?" },
+    category: "emergency",
+    categoryI18n: { en: "Emergency Medicine", ru: "Скорая помощь", ar: "طب الطوارئ", tr: "Acil Tıp", de: "Notfallmedizin", fr: "Médecine d'urgence", es: "Medicina de urgencias" },
+    icon: "🦶",
+    maxScore: 4,
+    reference: "Stiell IG et al. JAMA 1994; 271(11):827–832.",
+    fields: [
+      { type: "checkbox", points: 1, label: { en: "Bone tenderness at posterior edge or tip of lateral malleolus", ru: "Болезненность по заднему краю или на верхушке латеральной лодыжки", ar: "حساسية عظمية على الحافة الخلفية أو رأس الكعب الوحشي", tr: "Lateral malleolun arka kenarı veya ucunda kemik hassasiyeti", de: "Knochenschmerz am hinteren Rand oder der Spitze des Außenknöchels", fr: "Douleur osseuse au bord postérieur ou pointe de la malléole externe", es: "Sensibilidad ósea en borde posterior o punta del maléolo lateral" } },
+      { type: "checkbox", points: 1, label: { en: "Bone tenderness at posterior edge or tip of medial malleolus", ru: "Болезненность по заднему краю или на верхушке медиальной лодыжки", ar: "حساسية عظمية على الحافة الخلفية أو رأس الكعب الإنسي", tr: "Medial malleolun arka kenarı veya ucunda kemik hassasiyeti", de: "Knochenschmerz am hinteren Rand oder der Spitze des Innenknöchels", fr: "Douleur osseuse au bord postérieur ou pointe de la malléole interne", es: "Sensibilidad ósea en borde posterior o punta del maléolo medial" } },
+      { type: "checkbox", points: 1, label: { en: "Inability to bear weight immediately after injury (and in ED)", ru: "Невозможность опоры на ногу сразу после травмы и в приёмном покое", ar: "عدم القدرة على تحمل الوزن فوراً بعد الإصابة وفي الطوارئ", tr: "Yaralanmadan hemen sonra (ve acilde) ağırlık taşıyamama", de: "Unfähigkeit, unmittelbar nach der Verletzung (und in der Notaufnahme) zu belasten", fr: "Impossibilité d'appui immédiatement après la blessure (et aux urgences)", es: "Incapacidad para soportar peso inmediatamente tras la lesión (y en urgencias)" } },
+      { type: "checkbox", points: 1, label: { en: "Inability to walk 4 steps (both immediately and in ED)", ru: "Невозможность пройти 4 шага (сразу после травмы и в приёмном покое)", ar: "عدم القدرة على المشي 4 خطوات (فوراً وفي الطوارئ)", tr: "4 adım atamama (hemen sonra ve acilde)", de: "Unfähigkeit, 4 Schritte zu gehen (sofort und in der Notaufnahme)", fr: "Impossibilité de marcher 4 pas (immédiatement et aux urgences)", es: "Incapacidad para dar 4 pasos (inmediatamente y en urgencias)" } },
+    ],
+    risks: [
+      { minScore: 0, maxScore: 0, level: "low", labelKey: "low_risk", color: "green",
+        description: { en: "No Ottawa criteria met — ankle X-ray NOT required.", ru: "Критерии Оттавы отсутствуют — рентгенография голеностопа НЕ требуется.", ar: "لا تتوفر معايير أوتاوا — الأشعة السينية للكاحل غير مطلوبة.", tr: "Ottawa kriteri yok — ayak bileği röntgeni GEREKMİYOR.", de: "Keine Ottawa-Kriterien erfüllt — Sprunggelenk-Röntgen NICHT erforderlich.", fr: "Aucun critère Ottawa — radiographie de cheville NON requise.", es: "Sin criterios Ottawa — radiografía de tobillo NO requerida." },
+        recommendation: { en: "Clinical diagnosis of ankle sprain. RICE (Rest, Ice, Compression, Elevation). Analgesia as needed.", ru: "Клинический диагноз: растяжение голеностопного сустава. RICE. Обезболивание при необходимости.", ar: "تشخيص سريري بالتواء الكاحل. RICE. مسكنات الألم عند الحاجة.", tr: "Klinik ayak bileği burkulması tanısı. RICE. Gerektiğinde analjezi.", de: "Klinische Diagnose Sprunggelenksdistorsion. RICE. Analgesie nach Bedarf.", fr: "Diagnostic clinique d'entorse de cheville. RICE. Antalgiques si besoin.", es: "Diagnóstico clínico de esguince de tobillo. RICE. Analgesia si necesario." } },
+      { minScore: 1, maxScore: 4, level: "high", labelKey: "high_risk", color: "red",
+        description: { en: "≥1 Ottawa criterion met — ankle X-ray IS indicated.", ru: "≥1 критерия Оттавы — рентгенография голеностопа ПОКАЗАНА.", ar: "معيار أوتاوا ≥1 — الأشعة السينية للكاحل مطلوبة.", tr: "≥1 Ottawa kriteri var — ayak bileği röntgeni GEREKLİ.", de: "≥1 Ottawa-Kriterium erfüllt — Sprunggelenk-Röntgen INDIZIERT.", fr: "≥1 critère Ottawa — radiographie de cheville INDIQUÉE.", es: "≥1 criterio Ottawa — radiografía de tobillo INDICADA." },
+        recommendation: { en: "Obtain anteroposterior and lateral ankle X-rays. Rule out fracture of distal fibula, tibia, or base of 5th metatarsal.", ru: "Рентгенография голеностопа в прямой и боковой проекциях. Исключить перелом дистальной малоберцовой/большеберцовой кости и основания 5-й плюсневой.", ar: "إجراء أشعة سينية للكاحل في وضعَي AP واللاحقة. استبعاد كسر الشظية البعيدة أو الظنبوب أو قاعدة مشط القدم الخامس.", tr: "AP ve lateral ayak bileği röntgeni çekin. Distal fibula, tibia veya 5. metatars tabanı kırığını dışlayın.", de: "Sprunggelenk-Röntgen in a.p. und lateral. Fraktur der distalen Fibula, Tibia oder Basis des 5. Metatarsals ausschließen.", fr: "Radiographies cheville de face et profil. Éliminer fracture fibula distale, tibia ou base 5e métatarse.", es: "Radiografías de tobillo AP y lateral. Descartar fractura de fíbula distal, tibia o base del 5º metatarsiano." } },
+    ],
+  },
+
+  // ── Ottawa Knee Rules ─────────────────────────────────────────────────────
+  {
+    slug: "ottawa-knee",
+    name: "Ottawa Knee Rules",
+    nameI18n: { en: "Ottawa Knee Rules", ru: "Правила Оттавы (колено)", ar: "قواعد أوتاوا للركبة", tr: "Ottawa Diz Kuralları", de: "Ottawa-Knie-Regeln", fr: "Règles Ottawa genou", es: "Reglas de Ottawa rodilla" },
+    subtitle: { en: "Knee X-ray decision rule", ru: "Показания к рентгену коленного сустава", ar: "قرار الأشعة السينية للركبة", tr: "Diz röntgen karar kuralı", de: "Knie-Röntgen-Entscheidungsregel", fr: "Indication radiographie genou", es: "Regla de decisión radiografía rodilla" },
+    seoDescription: { en: "Ottawa Knee Rules calculator — determine if knee X-ray is needed after injury. Validated clinical decision tool.", ru: "Правила Оттавы для колена — нужна ли рентгенография после травмы.", ar: "قواعد أوتاوا للركبة — هل تحتاج إلى أشعة سينية بعد الإصابة؟", tr: "Ottawa Diz Kuralları — yaralanma sonrası röntgen gerekli mi?", de: "Ottawa-Knie-Regeln — Röntgen nach Verletzung erforderlich?", fr: "Règles d'Ottawa genou — radiographie après traumatisme nécessaire?", es: "Reglas de Ottawa rodilla — ¿se necesita radiografía tras lesión?" },
+    category: "emergency",
+    categoryI18n: { en: "Emergency Medicine", ru: "Скорая помощь", ar: "طب الطوارئ", tr: "Acil Tıp", de: "Notfallmedizin", fr: "Médecine d'urgence", es: "Medicina de urgencias" },
+    icon: "🦵",
+    maxScore: 5,
+    reference: "Stiell IG et al. Ann Emerg Med 1995; 26(4):422–433.",
+    fields: [
+      { type: "checkbox", points: 1, label: { en: "Age ≥ 55 years", ru: "Возраст ≥ 55 лет", ar: "العمر ≥ 55 سنة", tr: "Yaş ≥ 55", de: "Alter ≥ 55 Jahre", fr: "Âge ≥ 55 ans", es: "Edad ≥ 55 años" } },
+      { type: "checkbox", points: 1, label: { en: "Isolated patella tenderness (no other bony tenderness)", ru: "Изолированная болезненность надколенника (без другой костной болезненности)", ar: "حساسية الرضفة المعزولة (دون حساسية عظمية أخرى)", tr: "İzole patella hassasiyeti (başka kemik hassasiyeti yok)", de: "Isolierter Patellaklopfschmerz (kein anderer Knochenschmerz)", fr: "Douleur isolée de la rotule (sans autre douleur osseuse)", es: "Sensibilidad aislada de rótula (sin otra sensibilidad ósea)" } },
+      { type: "checkbox", points: 1, label: { en: "Tenderness at head of fibula", ru: "Болезненность в области головки малоберцовой кости", ar: "حساسية عند رأس الشظية", tr: "Fibula başında hassasiyet", de: "Druckschmerz am Fibulaköpfchen", fr: "Douleur à la tête du péroné", es: "Sensibilidad en la cabeza del peroné" } },
+      { type: "checkbox", points: 1, label: { en: "Inability to flex knee to 90°", ru: "Невозможность согнуть колено до 90°", ar: "عدم القدرة على ثني الركبة حتى 90 درجة", tr: "Dizi 90° bükememe", de: "Unfähigkeit, Knie auf 90° zu beugen", fr: "Impossibilité de fléchir le genou à 90°", es: "Incapacidad para flexionar la rodilla a 90°" } },
+      { type: "checkbox", points: 1, label: { en: "Inability to bear weight (4 steps, immediately and in ED)", ru: "Невозможность опоры (4 шага, сразу и в приёмном покое)", ar: "عدم القدرة على تحمل الوزن (4 خطوات، فوراً وفي الطوارئ)", tr: "Ağırlık taşıyamama (4 adım, hemen sonra ve acilde)", de: "Keine Belastungsfähigkeit (4 Schritte, sofort und in Notaufnahme)", fr: "Impossibilité d'appui (4 pas, immédiatement et aux urgences)", es: "Incapacidad de carga de peso (4 pasos, inmediatamente y en urgencias)" } },
+    ],
+    risks: [
+      { minScore: 0, maxScore: 0, level: "low", labelKey: "low_risk", color: "green",
+        description: { en: "No Ottawa criteria met — knee X-ray NOT required.", ru: "Критерии Оттавы отсутствуют — рентгенография колена НЕ требуется.", ar: "لا تتوفر معايير أوتاوا — الأشعة السينية للركبة غير مطلوبة.", tr: "Ottawa kriteri yok — diz röntgeni GEREKMİYOR.", de: "Keine Ottawa-Kriterien erfüllt — Knie-Röntgen NICHT erforderlich.", fr: "Aucun critère Ottawa — radiographie de genou NON requise.", es: "Sin criterios Ottawa — radiografía de rodilla NO requerida." },
+        recommendation: { en: "Clinical diagnosis of knee sprain/contusion. RICE. Analgesia. Reassess if symptoms worsen or persist > 5–7 days.", ru: "Растяжение/ушиб колена. RICE. Обезболивание. Повторный осмотр при ухудшении или через 5–7 дней.", ar: "تشخيص سريري بالتواء/كدمة الركبة. RICE. مسكنات. إعادة التقييم عند تفاقم الأعراض أو استمرارها أكثر من 5–7 أيام.", tr: "Diz burkulması/kontüzyonu tanısı. RICE. Analjezi. Semptomlar kötüleşirse veya 5–7 gün sürdüğünde yeniden değerlendirin.", de: "Kniegelenk-Distorsion/Kontusion. RICE. Analgesie. Wiedervorstellung bei Verschlimmerung oder nach 5–7 Tagen.", fr: "Entorse/contusion du genou. RICE. Antalgiques. Réévaluation si aggravation ou persistance > 5–7 jours.", es: "Esguince/contusión de rodilla. RICE. Analgesia. Reevaluar si empeora o persiste > 5–7 días." } },
+      { minScore: 1, maxScore: 5, level: "high", labelKey: "high_risk", color: "red",
+        description: { en: "≥1 Ottawa criterion met — knee X-ray IS indicated.", ru: "≥1 критерия Оттавы — рентгенография колена ПОКАЗАНА.", ar: "معيار أوتاوا ≥1 — الأشعة السينية للركبة مطلوبة.", tr: "≥1 Ottawa kriteri var — diz röntgeni GEREKLİ.", de: "≥1 Ottawa-Kriterium erfüllt — Knie-Röntgen INDIZIERT.", fr: "≥1 critère Ottawa — radiographie de genou INDIQUÉE.", es: "≥1 criterio Ottawa — radiografía de rodilla INDICADA." },
+        recommendation: { en: "Obtain AP, lateral, and skyline knee X-rays. Rule out fractures of distal femur, proximal tibia, and patella.", ru: "Рентгенография коленного сустава в прямой, боковой проекции и аксиальной проекции надколенника. Исключить переломы дистального бедра, проксимальной большеберцовой кости и надколенника.", ar: "إجراء أشعة سينية للركبة: AP وجانبية وسكايلاين. استبعاد كسور عظم الفخذ البعيد والظنبوب القريب والرضفة.", tr: "AP, lateral ve skyline diz röntgeni çekin. Distal femur, proksimal tibia ve patella kırıklarını dışlayın.", de: "Knie-Röntgen in a.p., lateral und axial. Frakturen des distalen Femurs, proximalen Tibia und Patella ausschließen.", fr: "Radiographies genou face, profil et incidence axiale. Éliminer fractures du fémur distal, tibia proximal et rotule.", es: "Radiografías de rodilla AP, lateral y axial. Descartar fracturas de fémur distal, tibia proximal y rótula." } },
+    ],
+  },
+
 ];
-
-export function getCalc(slug: string): CalcMeta | undefined {
-  return CALCULATORS.find(c => c.slug === slug);
-}
-
-export const CALC_SLUGS = [
-  "cha2ds2-vasc", "curb-65", "wells-dvt", "heart-score", "egfr-ckd-epi",
-  "gcs", "qsofa", "has-bled", "abcd2", "child-pugh",
-  "bmi", "corrected-calcium", "anion-gap", "meld", "cockcroft-gault", "aki",
-  "wells-pe", "sofa",
-  "pregnancy-due-date", "ideal-body-weight", "target-heart-rate", "daily-calories",
-] as const;
 
 // ── Index page translations ──────────────────────────────────────────────────
 
@@ -779,6 +824,13 @@ export const INDEX_T: Record<string, T> = {
   thr_sub:      { en: "Training heart rate zones using Karvonen method", ru: "Зоны ЧСС для тренировок по методу Карвонена", ar: "مناطق معدل ضربات القلب للتدريب بطريقة كارفونن", tr: "Karvonen yöntemiyle antrenman kalp hızı bölgeleri", de: "Trainings-HF-Zonen nach Karvonen-Methode", fr: "Zones de fréquence cardiaque d'entraînement (méthode Karvonen)", es: "Zonas de FC de entrenamiento (método Karvonen)" },
   cal_name:     { en: "Daily Calorie Needs", ru: "Суточная потребность в калориях", ar: "احتياجات السعرات الحرارية اليومية", tr: "Günlük Kalori İhtiyacı", de: "Täglicher Kalorienbedarf", fr: "Besoins caloriques quotidiens", es: "Necesidades calóricas diarias" },
   cal_sub:      { en: "BMR and TDEE using Mifflin-St Jeor equation", ru: "BMR и TDEE по формуле Миффлина-Сент-Жора", ar: "BMR و TDEE باستخدام معادلة ميفلين-سانت جيور", tr: "Mifflin-St Jeor denklemi ile BMR ve TDEE", de: "BMR und TDEE nach Mifflin-St-Jeor-Gleichung", fr: "BMR et TDEE selon l'équation de Mifflin-St Jeor", es: "TMB y TDEE usando ecuación de Mifflin-St Jeor" },
+  emergency:       { en: "Emergency Medicine", ru: "Скорая помощь", ar: "طب الطوارئ", tr: "Acil Tıp", de: "Notfallmedizin", fr: "Médecine d'urgence", es: "Medicina de urgencias" },
+  ottawa_ankle_name: { en: "Ottawa Ankle Rules", ru: "Правила Оттавы (голеностоп)", ar: "قواعد أوتاوا للكاحل", tr: "Ottawa Ayak Bileği Kuralları", de: "Ottawa-Sprunggelenk-Regeln", fr: "Règles Ottawa cheville", es: "Reglas de Ottawa tobillo" },
+  ottawa_ankle_sub:  { en: "Ankle X-ray decision rule", ru: "Показания к рентгену голеностопа", ar: "قرار الأشعة السينية للكاحل", tr: "Ayak bileği röntgen karar kuralı", de: "Sprunggelenk-Röntgen-Entscheidungsregel", fr: "Indication radiographie cheville", es: "Regla de decisión radiografía tobillo" },
+  ottawa_knee_name:  { en: "Ottawa Knee Rules", ru: "Правила Оттавы (колено)", ar: "قواعد أوتاوا للركبة", tr: "Ottawa Diz Kuralları", de: "Ottawa-Knie-Regeln", fr: "Règles Ottawa genou", es: "Reglas de Ottawa rodilla" },
+  ottawa_knee_sub:   { en: "Knee X-ray decision rule", ru: "Показания к рентгену колена", ar: "قرار الأشعة السينية للركبة", tr: "Diz röntgen karar kuralı", de: "Knie-Röntgen-Entscheidungsregel", fr: "Indication radiographie genou", es: "Regla de decisión radiografía rodilla" },
+  framingham_name:   { en: "Framingham Risk Score", ru: "Шкала риска Фрамингема", ar: "درجة خطر فرامينغهام", tr: "Framingham Risk Skoru", de: "Framingham-Risiko-Score", fr: "Score de risque de Framingham", es: "Puntuación de riesgo de Framingham" },
+  framingham_sub:    { en: "10-year cardiovascular disease risk (NCEP ATP III)", ru: "10-летний риск сердечно-сосудистых событий (NCEP ATP III)", ar: "خطر أمراض القلب والأوعية الدموية خلال 10 سنوات (NCEP ATP III)", tr: "10 yıllık kardiyovasküler hastalık riski (NCEP ATP III)", de: "10-Jahres-Kardiovaskuläres Risiko (NCEP ATP III)", fr: "Risque cardiovasculaire à 10 ans (NCEP ATP III)", es: "Riesgo cardiovascular a 10 años (NCEP ATP III)" },
   open_calculator: { en: "Open calculator →", ru: "Открыть калькулятор →", ar: "فتح الآلة الحاسبة →", tr: "Hesap makinesini aç →", de: "Rechner öffnen →", fr: "Ouvrir le calculateur →", es: "Abrir calculadora →" },
   footer_note: {
     en: "These calculators are for educational purposes only. Clinical decisions must account for the full clinical picture. Always use your professional judgement.",
@@ -790,3 +842,16 @@ export const INDEX_T: Record<string, T> = {
     es: "Estas calculadoras son solo para fines educativos. Las decisiones clínicas deben tener en cuenta el cuadro clínico completo.",
   },
 };
+
+export function getCalc(slug: string): CalcMeta | undefined {
+  return CALCULATORS.find(c => c.slug === slug);
+}
+
+export const CALC_SLUGS = [
+  "cha2ds2-vasc", "curb-65", "wells-dvt", "heart-score", "egfr-ckd-epi",
+  "gcs", "qsofa", "has-bled", "abcd2", "child-pugh",
+  "bmi", "corrected-calcium", "anion-gap", "meld", "cockcroft-gault", "aki",
+  "wells-pe", "sofa",
+  "pregnancy-due-date", "ideal-body-weight", "target-heart-rate", "daily-calories",
+  "ottawa-ankle", "ottawa-knee", "framingham-risk",
+] as const;

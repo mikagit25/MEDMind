@@ -34,13 +34,13 @@ export default function CalculatorsPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 pb-10 text-center">
         <div className="inline-flex items-center gap-2 bg-surface border border-border px-3 py-1.5 rounded-full font-syne font-semibold text-xs text-ink-2 mb-6">
           <span className="w-2 h-2 rounded-full bg-green-2 inline-block" />
-          {locale === "ru" ? "Открытый доступ · 5 инструментов · 7 языков" :
-           locale === "ar" ? "وصول مفتوح · 5 أدوات · 7 لغات" :
-           locale === "de" ? "Kostenlos · 5 Werkzeuge · 7 Sprachen" :
-           locale === "fr" ? "Accès libre · 5 outils · 7 langues" :
-           locale === "es" ? "Acceso libre · 5 herramientas · 7 idiomas" :
-           locale === "tr" ? "Açık erişim · 5 araç · 7 dil" :
-           "Open access · 5 tools · 7 languages"}
+          {locale === "ru" ? "Открытый доступ · 25+ инструментов · 7 языков" :
+           locale === "ar" ? "وصول مفتوح · 25+ أداة · 7 لغات" :
+           locale === "de" ? "Kostenlos · 25+ Werkzeuge · 7 Sprachen" :
+           locale === "fr" ? "Accès libre · 25+ outils · 7 langues" :
+           locale === "es" ? "Acceso libre · 25+ herramientas · 7 idiomas" :
+           locale === "tr" ? "Açık erişim · 25+ araç · 7 dil" :
+           "Open access · 25+ tools · 7 languages"}
         </div>
         <h1 className="font-syne font-extrabold text-4xl md:text-5xl text-ink leading-tight tracking-tight mb-4">
           {t(INDEX_T.hero_title, lang)}

@@ -57,6 +57,9 @@ const RELATED_CALCS: Record<string, string[]> = {
   "ideal-body-weight":   ["bmi", "cockcroft-gault", "daily-calories"],
   "target-heart-rate":   ["bmi", "daily-calories", "ideal-body-weight"],
   "daily-calories":      ["bmi", "ideal-body-weight", "target-heart-rate"],
+  "ottawa-ankle":        ["ottawa-knee", "wells-dvt", "gcs"],
+  "ottawa-knee":         ["ottawa-ankle", "wells-dvt", "gcs"],
+  "framingham-risk":     ["cha2ds2-vasc", "has-bled", "heart-score"],
 };
 
 // ── Specialty → article category for related articles fetch ───────────────────
@@ -83,6 +86,9 @@ const CALC_SPECIALTY: Record<string, string> = {
   "ideal-body-weight":  "endocrinology",
   "target-heart-rate":  "cardiology",
   "daily-calories":     "endocrinology",
+  "ottawa-ankle":       "emergency-medicine",
+  "ottawa-knee":        "emergency-medicine",
+  "framingham-risk":    "cardiology",
 };
 
 // ── Numeric calculator metadata ───────────────────────────────────────────────
@@ -171,6 +177,13 @@ const NUMERIC_CALCS: Record<string, NumericCalcMeta> = {
     category: { en: "General", ru: "Общее", ar: "عام", tr: "Genel", de: "Allgemein", fr: "Général", es: "General" },
     icon: "🍎",
     seoDescription: "Daily calorie needs calculator using Mifflin-St Jeor equation. Calculates BMR and TDEE with 5 activity levels. Free, multilingual.",
+  },
+  "framingham-risk": {
+    name:     { en: "Framingham Risk Score", ru: "Шкала риска Фрамингема", ar: "درجة خطر فرامينغهام", tr: "Framingham Risk Skoru", de: "Framingham-Risiko-Score", fr: "Score de risque de Framingham", es: "Puntuación de riesgo de Framingham" },
+    subtitle: { en: "10-year cardiovascular disease risk (NCEP ATP III)", ru: "10-летний риск сердечно-сосудистых событий (NCEP ATP III)", ar: "خطر أمراض القلب والأوعية الدموية خلال 10 سنوات (NCEP ATP III)", tr: "10 yıllık kardiyovasküler hastalık riski (NCEP ATP III)", de: "10-Jahres-Kardiovaskuläres Risiko (NCEP ATP III)", fr: "Risque cardiovasculaire à 10 ans (NCEP ATP III)", es: "Riesgo cardiovascular a 10 años (NCEP ATP III)" },
+    category: { en: "Cardiology", ru: "Кардиология", ar: "أمراض القلب", tr: "Kardiyoloji", de: "Kardiologie", fr: "Cardiologie", es: "Cardiología" },
+    icon: "🫀",
+    seoDescription: "Framingham Risk Score calculator for 10-year cardiovascular disease risk. Uses NCEP ATP III 2001 algorithm. Free, multilingual.",
   },
 };
 
@@ -371,10 +384,11 @@ function ResultArticles({ calcSlug, band, lang, readLabel }: {
 
 // ── Footer link groups ────────────────────────────────────────────────────────
 const FOOTER_CALCS = [
-  { group: "Cardiology",    slugs: ["cha2ds2-vasc", "has-bled", "heart-score", "wells-dvt", "wells-pe", "target-heart-rate"] },
-  { group: "Nephrology",    slugs: ["egfr-ckd-epi", "cockcroft-gault", "aki", "corrected-calcium"] },
-  { group: "Critical Care", slugs: ["sofa", "qsofa", "gcs", "curb-65", "abcd2"] },
-  { group: "General",       slugs: ["bmi", "ideal-body-weight", "daily-calories", "pregnancy-due-date", "meld", "child-pugh", "anion-gap"] },
+  { group: "Cardiology",        slugs: ["cha2ds2-vasc", "has-bled", "heart-score", "wells-dvt", "wells-pe", "target-heart-rate", "framingham-risk"] },
+  { group: "Nephrology",        slugs: ["egfr-ckd-epi", "cockcroft-gault", "aki", "corrected-calcium"] },
+  { group: "Critical Care",     slugs: ["sofa", "qsofa", "gcs", "curb-65", "abcd2"] },
+  { group: "Emergency",         slugs: ["ottawa-ankle", "ottawa-knee"] },
+  { group: "General",           slugs: ["bmi", "ideal-body-weight", "daily-calories", "pregnancy-due-date", "meld", "child-pugh", "anion-gap"] },
 ];
 
 // ── Page ──────────────────────────────────────────────────────────────────────

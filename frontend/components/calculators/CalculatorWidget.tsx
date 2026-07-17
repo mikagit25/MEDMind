@@ -1589,6 +1589,198 @@ function CalorieCalc({ lang }: { lang: string }) {
   );
 }
 
+// ── Framingham Risk Score (NCEP ATP III 2001) ────────────────────────────────
+
+const FR = {
+  title:   { en: "Framingham Risk Score", ru: "Шкала Фрамингема", ar: "درجة خطر فرامينغهام", tr: "Framingham Risk Skoru", de: "Framingham-Risiko-Score", fr: "Score de Framingham", es: "Puntuación Framingham" },
+  sex:     { en: "Biological sex", ru: "Биологический пол", ar: "الجنس البيولوجي", tr: "Biyolojik cinsiyet", de: "Biologisches Geschlecht", fr: "Sexe biologique", es: "Sexo biológico" },
+  age:     { en: "Age (years)", ru: "Возраст (лет)", ar: "العمر (سنوات)", tr: "Yaş (yıl)", de: "Alter (Jahre)", fr: "Âge (années)", es: "Edad (años)" },
+  tc:      { en: "Total cholesterol (mg/dL)", ru: "Общий холестерин (мг/дл)", ar: "الكوليسترول الكلي (ملغ/ديسيلتر)", tr: "Toplam kolesterol (mg/dL)", de: "Gesamtcholesterin (mg/dl)", fr: "Cholestérol total (mg/dL)", es: "Colesterol total (mg/dL)" },
+  hdl:     { en: "HDL cholesterol (mg/dL)", ru: "ЛПВП-холестерин (мг/дл)", ar: "كوليسترول HDL (ملغ/ديسيلتر)", tr: "HDL kolesterol (mg/dL)", de: "HDL-Cholesterin (mg/dl)", fr: "Cholestérol HDL (mg/dL)", es: "Colesterol HDL (mg/dL)" },
+  sbp:     { en: "Systolic blood pressure (mmHg)", ru: "Систолическое АД (мм рт. ст.)", ar: "ضغط الدم الانقباضي (ملم زئبق)", tr: "Sistolik kan basıncı (mmHg)", de: "Systolischer Blutdruck (mmHg)", fr: "Pression artérielle systolique (mmHg)", es: "Presión arterial sistólica (mmHg)" },
+  treated: { en: "On blood pressure treatment", ru: "Принимает гипотензивные препараты", ar: "يتلقى علاجاً لضغط الدم", tr: "Kan basıncı tedavisi altında", de: "Unter Blutdrucktherapie", fr: "Traitement antihypertenseur", es: "En tratamiento antihipertensivo" },
+  smoker:  { en: "Current smoker", ru: "Курит в настоящее время", ar: "مدخن حالياً", tr: "Aktif içici", de: "Aktiver Raucher", fr: "Fumeur actuel", es: "Fumador activo" },
+  diabetes:{ en: "Diabetes mellitus", ru: "Сахарный диабет", ar: "مرض السكري", tr: "Diabetes mellitus", de: "Diabetes mellitus", fr: "Diabète sucré", es: "Diabetes mellitus" },
+  calc:    { en: "Calculate", ru: "Вычислить", ar: "احسب", tr: "Hesapla", de: "Berechnen", fr: "Calculer", es: "Calcular" },
+  reset:   { en: "Reset", ru: "Сбросить", ar: "إعادة تعيين", tr: "Sıfırla", de: "Zurücksetzen", fr: "Réinitialiser", es: "Reiniciar" },
+  risk10:  { en: "10-year CVD risk", ru: "10-летний риск ССЗ", ar: "خطر القلب والأوعية الدموية خلال 10 سنوات", tr: "10 yıllık KVH riski", de: "10-Jahres-Kardiovaskuläres Risiko", fr: "Risque cardiovasculaire à 10 ans", es: "Riesgo cardiovascular a 10 años" },
+  optimal: { en: "Optimal risk (same age)", ru: "Оптимальный риск (тот же возраст)", ar: "الخطر الأمثل (نفس العمر)", tr: "Optimal risk (aynı yaş)", de: "Optimales Risiko (gleiches Alter)", fr: "Risque optimal (même âge)", es: "Riesgo óptimo (misma edad)" },
+  low_r:   { en: "Low Risk (< 10%)", ru: "Низкий риск (< 10%)", ar: "خطر منخفض (< 10%)", tr: "Düşük Risk (< %10)", de: "Niedriges Risiko (< 10 %)", fr: "Risque faible (< 10 %)", es: "Riesgo bajo (< 10 %)" },
+  mod_r:   { en: "Intermediate Risk (10–20%)", ru: "Умеренный риск (10–20%)", ar: "خطر متوسط (10–20%)", tr: "Orta Risk (%10–20)", de: "Mittleres Risiko (10–20 %)", fr: "Risque intermédiaire (10–20 %)", es: "Riesgo intermedio (10–20 %)" },
+  high_r:  { en: "High Risk (> 20%)", ru: "Высокий риск (> 20%)", ar: "خطر مرتفع (> 20%)", tr: "Yüksek Risk (> %20)", de: "Hohes Risiko (> 20 %)", fr: "Risque élevé (> 20 %)", es: "Riesgo alto (> 20 %)" },
+  rec_low:  { en: "Lifestyle modification. LDL-C target < 160 mg/dL. Recheck in 5 years.", ru: "Изменение образа жизни. Целевой ХС-ЛПНП < 160 мг/дл. Контроль через 5 лет.", ar: "تعديل نمط الحياة. هدف LDL-C < 160 ملغ/ديسيلتر. إعادة الفحص بعد 5 سنوات.", tr: "Yaşam tarzı değişikliği. LDL-K hedefi < 160 mg/dL. 5 yılda bir kontrol.", de: "Lebensstilmodifikation. LDL-C-Ziel < 160 mg/dl. Kontrolle in 5 Jahren.", fr: "Modification du mode de vie. Objectif LDL-C < 160 mg/dL. Contrôle dans 5 ans.", es: "Modificación de estilo de vida. Objetivo LDL-C < 160 mg/dL. Revisión en 5 años." },
+  rec_mod:  { en: "Lifestyle modification + consider statin. LDL-C target < 130 mg/dL. Recheck in 2 years.", ru: "Изменение образа жизни + статин (обсудить). Целевой ХС-ЛПНП < 130 мг/дл. Контроль через 2 года.", ar: "تعديل نمط الحياة + النظر في ستاتين. هدف LDL-C < 130 ملغ/ديسيلتر. إعادة الفحص بعد عامين.", tr: "Yaşam tarzı değişikliği + statin düşünün. LDL-K hedefi < 130 mg/dL. 2 yılda kontrol.", de: "Lebensstilmodifikation + Statin erwägen. LDL-C-Ziel < 130 mg/dl. Kontrolle in 2 Jahren.", fr: "Mode de vie + statine à envisager. Objectif LDL-C < 130 mg/dL. Contrôle dans 2 ans.", es: "Estilo de vida + considerar estatina. Objetivo LDL-C < 130 mg/dL. Revisión en 2 años." },
+  rec_high: { en: "Statin therapy strongly recommended. LDL-C target < 100 mg/dL. Annual review.", ru: "Статинотерапия настоятельно рекомендована. Целевой ХС-ЛПНП < 100 мг/дл. Ежегодный контроль.", ar: "يُوصى بشدة بعلاج الستاتين. هدف LDL-C < 100 ملغ/ديسيلتر. مراجعة سنوية.", tr: "Statin tedavisi kesinlikle önerilir. LDL-K hedefi < 100 mg/dL. Yıllık takip.", de: "Statintherapie dringend empfohlen. LDL-C-Ziel < 100 mg/dl. Jährliche Kontrolle.", fr: "Statine fortement recommandée. Objectif LDL-C < 100 mg/dL. Bilan annuel.", es: "Estatina fuertemente recomendada. Objetivo LDL-C < 100 mg/dL. Revisión anual." },
+  reference:{ en: "Wilson PW et al. Circulation 1998;97:1837–1847. NCEP ATP III 2001.", ru: "", ar: "", tr: "", de: "", fr: "", es: "" },
+  disclaimer:{ en: "For educational use only. Always apply clinical judgement.", ru: "Только для образовательных целей.", ar: "للأغراض التعليمية فقط.", tr: "Yalnızca eğitim amaçlıdır.", de: "Nur zu Bildungszwecken.", fr: "Usage éducatif uniquement.", es: "Solo uso educativo." },
+} as const satisfies Record<string, Record<string, string>>;
+
+function getAgePoints(age: number, sex: "male"|"female"): number {
+  if (sex === "male") {
+    if (age < 35) return -9; if (age < 40) return -4; if (age < 45) return 0;
+    if (age < 50) return 3;  if (age < 55) return 6;  if (age < 60) return 8;
+    if (age < 65) return 10; if (age < 70) return 11; if (age < 75) return 12;
+    return 13;
+  } else {
+    if (age < 35) return -7; if (age < 40) return -3; if (age < 45) return 0;
+    if (age < 50) return 3;  if (age < 55) return 6;  if (age < 60) return 8;
+    if (age < 65) return 10; if (age < 70) return 12; if (age < 75) return 14;
+    return 16;
+  }
+}
+
+function getTCPoints(tc: number, age: number, sex: "male"|"female"): number {
+  const ageGroup = age < 40 ? 0 : age < 50 ? 1 : age < 60 ? 2 : age < 70 ? 3 : 4;
+  const male   = [[0,4,7,9,11],[0,3,5,6,8],[0,2,3,4,5],[0,1,1,2,3],[0,0,0,1,1]];
+  const female = [[0,4,8,11,13],[0,3,6,8,10],[0,2,4,5,7],[0,1,2,3,4],[0,1,1,2,2]];
+  const band = tc < 160 ? 0 : tc < 200 ? 1 : tc < 240 ? 2 : tc < 280 ? 3 : 4;
+  return (sex === "male" ? male : female)[ageGroup][band];
+}
+
+function getHDLPoints(hdl: number): number {
+  if (hdl >= 60) return -1; if (hdl >= 50) return 0;
+  if (hdl >= 40) return 1;  return 2;
+}
+
+function getSBPPoints(sbp: number, treated: boolean, sex: "male"|"female"): number {
+  if (sex === "male") {
+    if (!treated) { return sbp < 120 ? 0 : sbp < 130 ? 0 : sbp < 140 ? 1 : sbp < 160 ? 1 : 2; }
+    else          { return sbp < 120 ? 0 : sbp < 130 ? 1 : sbp < 140 ? 2 : sbp < 160 ? 2 : 3; }
+  } else {
+    if (!treated) { return sbp < 120 ? -3 : sbp < 130 ? 0 : sbp < 140 ? 1 : sbp < 150 ? 2 : sbp < 160 ? 4 : 5; }
+    else          { return sbp < 120 ? -1 : sbp < 130 ? 2 : sbp < 140 ? 3 : sbp < 150 ? 5 : sbp < 160 ? 6 : 7; }
+  }
+}
+
+function getSmokerPoints(smoker: boolean, age: number, sex: "male"|"female"): number {
+  if (!smoker) return 0;
+  if (sex === "male")   return age < 40 ? 8 : age < 50 ? 5 : age < 60 ? 3 : age < 70 ? 1 : 1;
+  else                  return age < 40 ? 9 : age < 50 ? 7 : age < 60 ? 4 : age < 70 ? 2 : 1;
+}
+
+function scoreToRisk(pts: number, sex: "male"|"female"): number {
+  const male   = [-1,-1,-1,-1,-1,2,2,3,4,5,6,8,10,12,16,20,25,30,30];
+  const female = [-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,2,2,3,4,5,6,8,11,14,17,22,27,30];
+  const arr = sex === "male" ? male : female;
+  const offset = sex === "male" ? 0 : -8;
+  const idx = Math.max(0, Math.min(arr.length - 1, pts - offset));
+  return Math.max(1, arr[idx]);
+}
+
+function getOptimalRisk(age: number, sex: "male"|"female"): number {
+  const male   = [2,3,4,6,8,12]; // 30–34, 35–39, 40–44, 45–49, 50–54, 55–59, 60–64
+  const female = [1,2,2,3,4,7];
+  const idx = Math.min(5, Math.max(0, Math.floor((age - 30) / 5)));
+  return (sex === "male" ? male : female)[idx];
+}
+
+function FraminghamCalc({ lang, onResult }: { lang: string; onResult?: (c: "green"|"amber"|"red"|"red-dark"|null) => void }) {
+  const tf = (k: keyof typeof FR) => (FR[k] as Record<string, string>)[lang] ?? (FR[k] as Record<string, string>).en;
+  const [sex, setSex] = useState<"male"|"female">("male");
+  const [age, setAge] = useState(50);
+  const [tc, setTc] = useState(200);
+  const [hdl, setHdl] = useState(50);
+  const [sbp, setSbp] = useState(130);
+  const [treated, setTreated] = useState(false);
+  const [smoker, setSmoker] = useState(false);
+  const [diabetes, setDiabetes] = useState(false);
+  const [result, setResult] = useState<{ risk: number; pts: number; optimal: number } | null>(null);
+
+  const calculate = () => {
+    let pts = getAgePoints(age, sex) + getTCPoints(tc, age, sex) + getHDLPoints(hdl)
+      + getSBPPoints(sbp, treated, sex) + getSmokerPoints(smoker, age, sex) + (diabetes ? 2 : 0);
+    const risk = scoreToRisk(pts, sex);
+    const optimal = getOptimalRisk(age, sex);
+    setResult({ risk, pts, optimal });
+    onResult?.(risk < 10 ? "green" : risk < 20 ? "amber" : "red");
+  };
+
+  const riskColor = result ? (result.risk < 10 ? "text-green-2" : result.risk < 20 ? "text-amber-500" : "text-red") : "";
+  const riskLabel = result ? (result.risk < 10 ? tf("low_r") : result.risk < 20 ? tf("mod_r") : tf("high_r")) : "";
+  const rec = result ? (result.risk < 10 ? tf("rec_low") : result.risk < 20 ? tf("rec_mod") : tf("rec_high")) : "";
+
+  return (
+    <div className="space-y-5">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-syne font-semibold text-ink-2 mb-1">{tf("sex")}</label>
+          <div className="flex gap-2">
+            {(["male","female"] as const).map(s => (
+              <button key={s} onClick={() => setSex(s)}
+                className={`flex-1 py-2 px-3 rounded-lg border text-sm font-syne font-semibold transition-colors ${sex===s?"bg-ink text-white border-ink":"bg-bg border-border text-ink-2 hover:border-border-2"}`}>
+                {s === "male" ? (lang==="ru"?"Мужской":lang==="ar"?"ذكر":lang==="de"?"Männlich":lang==="fr"?"Masculin":lang==="es"?"Masculino":lang==="tr"?"Erkek":"Male")
+                              : (lang==="ru"?"Женский":lang==="ar"?"أنثى":lang==="de"?"Weiblich":lang==="fr"?"Féminin":lang==="es"?"Femenino":lang==="tr"?"Kadın":"Female")}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label className="block text-xs font-syne font-semibold text-ink-2 mb-1">{tf("age")}</label>
+          <input type="number" min={30} max={79} value={age} onChange={e=>setAge(+e.target.value)}
+            className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-bg text-ink focus:outline-none focus:border-border-2"/>
+        </div>
+        <div>
+          <label className="block text-xs font-syne font-semibold text-ink-2 mb-1">{tf("tc")}</label>
+          <input type="number" min={100} max={400} value={tc} onChange={e=>setTc(+e.target.value)}
+            className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-bg text-ink focus:outline-none focus:border-border-2"/>
+        </div>
+        <div>
+          <label className="block text-xs font-syne font-semibold text-ink-2 mb-1">{tf("hdl")}</label>
+          <input type="number" min={20} max={100} value={hdl} onChange={e=>setHdl(+e.target.value)}
+            className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-bg text-ink focus:outline-none focus:border-border-2"/>
+        </div>
+        <div>
+          <label className="block text-xs font-syne font-semibold text-ink-2 mb-1">{tf("sbp")}</label>
+          <input type="number" min={90} max={200} value={sbp} onChange={e=>setSbp(+e.target.value)}
+            className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-bg text-ink focus:outline-none focus:border-border-2"/>
+        </div>
+        <div className="flex flex-col gap-2 pt-1">
+          {([["treated", treated, setTreated], ["smoker", smoker, setSmoker], ["diabetes", diabetes, setDiabetes]] as const).map(([key, val, set]) => (
+            <label key={key} className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked={val} onChange={e=>(set as (v:boolean)=>void)(e.target.checked)}
+                className="w-4 h-4 accent-red rounded"/>
+              <span className="text-sm font-syne text-ink">{tf(key as keyof typeof FR)}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex gap-3">
+        <button onClick={calculate}
+          className="flex-1 py-2.5 bg-ink text-white rounded-lg font-syne font-bold text-sm hover:bg-red transition-colors">
+          {tf("calc")}
+        </button>
+        <button onClick={()=>{setResult(null);onResult?.(null);}}
+          className="px-4 py-2.5 border border-border rounded-lg font-syne text-sm text-ink-2 hover:border-border-2 transition-colors">
+          {tf("reset")}
+        </button>
+      </div>
+
+      {result && (
+        <div className="space-y-3 border-t border-border pt-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface border border-border rounded-lg p-4 text-center">
+              <p className="text-xs font-syne text-ink-3 mb-1">{tf("risk10")}</p>
+              <p className={`font-syne font-extrabold text-3xl ${riskColor}`}>{result.risk}%</p>
+              <p className={`text-xs font-syne font-semibold mt-1 ${riskColor}`}>{riskLabel}</p>
+            </div>
+            <div className="bg-surface border border-border rounded-lg p-4 text-center">
+              <p className="text-xs font-syne text-ink-3 mb-1">{tf("optimal")}</p>
+              <p className="font-syne font-extrabold text-3xl text-green-2">{result.optimal}%</p>
+              <p className="text-xs font-syne text-ink-3 mt-1">pts: {result.pts}</p>
+            </div>
+          </div>
+          <div className="bg-surface border border-border rounded-lg p-3">
+            <p className="text-xs font-syne font-semibold text-ink-2 mb-1">{lang==="ru"?"Рекомендация":lang==="ar"?"التوصية":lang==="de"?"Empfehlung":lang==="fr"?"Recommandation":lang==="es"?"Recomendación":lang==="tr"?"Öneri":"Recommendation"}</p>
+            <p className="text-sm text-ink leading-relaxed">{rec}</p>
+          </div>
+          <p className="text-xs text-ink-3 leading-relaxed">{tf("reference")} {tf("disclaimer")}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main widget exported ─────────────────────────────────────────────────────
 
 export function CalculatorWidget({ slug, onResult }: { slug: string; onResult?: (color: "green"|"amber"|"red"|"red-dark"|null) => void }) {
@@ -1606,6 +1798,7 @@ export function CalculatorWidget({ slug, onResult }: { slug: string; onResult?: 
   if (slug === "ideal-body-weight") return <IBWCalc lang={lang} />;
   if (slug === "target-heart-rate") return <TargetHeartRateCalc lang={lang} />;
   if (slug === "daily-calories") return <CalorieCalc lang={lang} />;
+  if (slug === "framingham-risk") return <FraminghamCalc lang={lang} onResult={onResult} />;
 
   const calc = getCalc(slug);
   if (!calc) return (
@@ -1636,8 +1829,11 @@ export function CalculatorsIndex() {
     { slug: "cockcroft-gault",       name: tIdx("cg_name"),       subtitle: tIdx("cg_sub"),         category: tIdx("nephrology"),    icon: "💊" },
     { slug: "pregnancy-due-date",    name: tIdx("preg_name"),     subtitle: tIdx("preg_sub"),       category: tIdx("obstetrics"),    icon: "🤰" },
     { slug: "ideal-body-weight",     name: tIdx("ibw_name"),      subtitle: tIdx("ibw_sub"),        category: tIdx("general"),       icon: "⚖️" },
-    { slug: "target-heart-rate",     name: tIdx("thr_name"),      subtitle: tIdx("thr_sub"),        category: tIdx("cardiology"),    icon: "💓" },
-    { slug: "daily-calories",        name: tIdx("cal_name"),      subtitle: tIdx("cal_sub"),        category: tIdx("general"),       icon: "🍎" },
+    { slug: "target-heart-rate",     name: tIdx("thr_name"),         subtitle: tIdx("thr_sub"),           category: tIdx("cardiology"),    icon: "💓" },
+    { slug: "daily-calories",        name: tIdx("cal_name"),         subtitle: tIdx("cal_sub"),           category: tIdx("general"),       icon: "🍎" },
+    { slug: "framingham-risk",       name: tIdx("framingham_name"),  subtitle: tIdx("framingham_sub"),    category: tIdx("cardiology"),    icon: "🫀" },
+    { slug: "ottawa-ankle",          name: tIdx("ottawa_ankle_name"),subtitle: tIdx("ottawa_ankle_sub"),  category: tIdx("emergency"),     icon: "🦶" },
+    { slug: "ottawa-knee",           name: tIdx("ottawa_knee_name"), subtitle: tIdx("ottawa_knee_sub"),   category: tIdx("emergency"),     icon: "🦵" },
   ];
 
   const allCalcs = [
