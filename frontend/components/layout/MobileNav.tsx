@@ -307,9 +307,9 @@ export function MobileNavWrapper({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       )}
-      <main className="flex-1 flex flex-col overflow-hidden min-h-0">
+      <div className="flex-1 flex flex-col overflow-hidden min-h-0">
         {children}
-      </main>
+      </div>
       <MobileBottomNav />
     </>
   );

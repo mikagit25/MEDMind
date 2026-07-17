@@ -29,11 +29,11 @@ type Problem = {
 
 type CheckResult = {
   correct: boolean;
-  your_answer: number;
-  correct_answer: number;
+  expected: number;
   tolerance: number;
   unit: string;
   steps: string[];
+  diff: number;
 };
 
 const CATEGORIES: { key: Category; label: string; icon: string; description: string }[] = [
@@ -271,7 +271,7 @@ export default function DoseCalcPage() {
                   </span>
                   {!result.correct && (
                     <span className="text-ink-2 font-serif text-sm">
-                      — Correct answer: <strong>{result.correct_answer} {result.unit}</strong>
+                      — Correct answer: <strong>{result.expected} {result.unit}</strong>
                       <span className="text-ink-3 text-xs"> (±{result.tolerance})</span>
                     </span>
                   )}

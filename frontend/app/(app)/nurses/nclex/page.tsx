@@ -189,7 +189,7 @@ export default function NCLEXHubPage() {
       </div>
 
       {/* Stats strip */}
-      {(best_score !== null || analytics?.sessions_analyzed) && (
+      {(best_score !== null || (analytics?.sessions_analyzed ?? 0) > 0) && (
         <div className="bg-ink text-white">
           <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap gap-6">
             {best_score !== null && (

@@ -180,7 +180,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Desktop: children directly in main */}
-      <main className="hidden md:flex flex-1 flex-col overflow-hidden">{children}</main>
+      <main className="hidden md:flex flex-1 flex-col overflow-y-auto">{children}</main>
 
       <AchievementToast achievement={toast} onDismiss={() => setToast(null)} />
       <GlobalSearch />
