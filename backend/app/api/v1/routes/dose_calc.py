@@ -2,15 +2,21 @@
 
 GET  /dose-calc/categories          — list available problem categories
 GET  /dose-calc/problem/{category}  — get a single random problem (no answer)
-POST /dose-calc/check               — submit numeric answer, get result + steps
+POST /dose-calc/check               — submit numeric answer, get result + steps + updated stats
+GET  /dose-calc/stats               — per-category + overall aggregate stats for current user
 GET  /dose-calc/series/{category}   — get a series of 5 problems (progressive)
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel
+from datetime import datetime
 from typing import Optional
 
+from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.api.deps import get_current_user
-from app.models.models import User
+from app.core.database import get_db
+from app.models.models import DoseCalcStat, User
 from app.services.dose_calc_generator import (
     CATEGORIES, Category, generate_problem, generate_series,
 )
@@ -22,15 +28,6 @@ class CheckRequest(BaseModel):
     category: str
     seed: int
     numeric_value: float
-
-
-class CheckResponse(BaseModel):
-    correct: bool
-    expected: float
-    tolerance: float
-    unit: str
-    steps: list[str]
-    diff: float
 
 
 @router.get("/categories")
@@ -64,25 +61,83 @@ async def get_problem(
     }
 
 
-@router.post("/check", response_model=CheckResponse)
+@router.post("/check")
 async def check_answer(
     body: CheckRequest,
-    _: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
     if body.category not in CATEGORIES:
-        raise HTTPException(400, f"Unknown category")
+        raise HTTPException(400, "Unknown category")
+
     prob = generate_problem(body.category, seed=body.seed)  # type: ignore[arg-type]
     expected = prob["numeric_answer"]
     tol = prob["numeric_tolerance"]
     diff = abs(body.numeric_value - expected)
-    return CheckResponse(
-        correct=diff <= tol,
-        expected=expected,
-        tolerance=tol,
-        unit=prob["numeric_unit"],
-        steps=prob["steps"],
-        diff=round(diff, 4),
+    is_correct = diff <= tol
+    now = datetime.utcnow()
+
+    # Upsert stats for the specific category and _overall
+    for cat_key in [body.category, "_overall"]:
+        row = await db.get(DoseCalcStat, (user.id, cat_key))
+        if row is None:
+            row = DoseCalcStat(
+                user_id=user.id,
+                category=cat_key,
+                total_attempts=0,
+                total_correct=0,
+                current_streak=0,
+                best_streak=0,
+            )
+            db.add(row)
+        row.total_attempts += 1
+        if is_correct:
+            row.total_correct += 1
+            row.current_streak += 1
+            row.best_streak = max(row.best_streak, row.current_streak)
+        else:
+            row.current_streak = 0
+        row.last_attempted_at = now
+
+    await db.commit()
+
+    overall = await db.get(DoseCalcStat, (user.id, "_overall"))
+    cat_stat = await db.get(DoseCalcStat, (user.id, body.category))
+
+    return {
+        "correct": is_correct,
+        "expected": expected,
+        "tolerance": tol,
+        "unit": prob["numeric_unit"],
+        "steps": prob["steps"],
+        "diff": round(diff, 4),
+        "overall_streak": overall.current_streak if overall else 0,
+        "overall_total": overall.total_attempts if overall else 0,
+        "overall_correct": overall.total_correct if overall else 0,
+        "cat_total": cat_stat.total_attempts if cat_stat else 0,
+        "cat_correct": cat_stat.total_correct if cat_stat else 0,
+    }
+
+
+@router.get("/stats")
+async def get_stats(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(DoseCalcStat).where(DoseCalcStat.user_id == user.id)
     )
+    rows = result.scalars().all()
+    stats: dict[str, dict] = {}
+    for row in rows:
+        stats[row.category] = {
+            "total": row.total_attempts,
+            "correct": row.total_correct,
+            "pct": round(row.total_correct / row.total_attempts * 100) if row.total_attempts else 0,
+            "streak": row.current_streak,
+            "best_streak": row.best_streak,
+        }
+    return stats
 
 
 @router.get("/series/{category}")

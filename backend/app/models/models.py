@@ -1778,3 +1778,20 @@ class Certificate(Base):
         Index("ix_certificates_user_id", "user_id"),
         Index("ix_certificates_verification_code", "verification_code"),
     )
+
+
+class DoseCalcStat(Base):
+    """Per-user per-category aggregate stats for the Dose-Calc Trainer."""
+    __tablename__ = "dose_calc_stats"
+
+    user_id         = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    category        = Column(String(50), primary_key=True)   # e.g. 'weight_dose' or '_overall'
+    total_attempts  = Column(Integer, nullable=False, default=0, server_default="0")
+    total_correct   = Column(Integer, nullable=False, default=0, server_default="0")
+    current_streak  = Column(Integer, nullable=False, default=0, server_default="0")
+    best_streak     = Column(Integer, nullable=False, default=0, server_default="0")
+    last_attempted_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("ix_dose_calc_stats_user", "user_id"),
+    )

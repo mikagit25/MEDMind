@@ -2261,6 +2261,9 @@ const tr: Translations = {
     timer_off: "Zamanlayıcı",
     timer_enable: "90s geri sayım zamanlayıcısı",
     timer_disable: "Zamanlayıcıyı kapat",
+    stats_btn: "İstatistik",
+    stats_toggle: "Kategoriye göre istatistik",
+    stats_title: "Kategoriye Göre Performans",
   },
 
   exam_page: {

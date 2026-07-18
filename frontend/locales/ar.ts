@@ -2261,6 +2261,9 @@ const ar: Translations = {
     timer_off: "مؤقت",
     timer_enable: "تفعيل عداد 90 ثانية",
     timer_disable: "إيقاف المؤقت",
+    stats_btn: "إحصائيات",
+    stats_toggle: "إحصائيات حسب الفئة",
+    stats_title: "الأداء حسب الفئة",
   },
 
   exam_page: {

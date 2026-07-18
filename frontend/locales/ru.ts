@@ -2299,6 +2299,9 @@ const ru: Translations = {
     timer_off: "Таймер",
     timer_enable: "Включить таймер 90 секунд",
     timer_disable: "Выключить таймер",
+    stats_btn: "Статистика",
+    stats_toggle: "Статистика по категориям",
+    stats_title: "Результаты по категориям",
   },
 
   exam_page: {

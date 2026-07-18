@@ -2276,6 +2276,9 @@ const fr: Translations = {
     timer_off: "Minuteur",
     timer_enable: "Activer le minuteur 90s",
     timer_disable: "Désactiver le minuteur",
+    stats_btn: "Statistiques",
+    stats_toggle: "Statistiques par catégorie",
+    stats_title: "Performances par catégorie",
   },
 
   exam_page: {

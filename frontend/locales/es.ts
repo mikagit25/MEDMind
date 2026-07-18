@@ -2276,6 +2276,9 @@ const es: Translations = {
     timer_off: "Temporizador",
     timer_enable: "Activar temporizador de 90s",
     timer_disable: "Desactivar temporizador",
+    stats_btn: "Estadísticas",
+    stats_toggle: "Ver estadísticas por categoría",
+    stats_title: "Rendimiento por categoría",
   },
 
   exam_page: {

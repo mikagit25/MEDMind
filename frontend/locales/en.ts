@@ -2332,6 +2332,9 @@ const en = {
     timer_off: "Timer",
     timer_enable: "Enable 90s countdown timer",
     timer_disable: "Disable timer",
+    stats_btn: "Stats",
+    stats_toggle: "Toggle per-category stats",
+    stats_title: "Per-Category Performance",
   },
 
   // ── Exam Page ─────────────────────────────────────────────────────────────────
