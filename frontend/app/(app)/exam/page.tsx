@@ -275,6 +275,21 @@ const BLANK_ANSWER: AnswerState = {
   numeric_value: "",
 };
 
+const DIFF_CONFIG: Record<string, { label: string; cls: string }> = {
+  easy:   { label: "Easy",   cls: "bg-green/10 text-green border-green/30" },
+  medium: { label: "Medium", cls: "bg-amber-50 text-amber-600 border-amber-200" },
+  hard:   { label: "Hard",   cls: "bg-red/10 text-red border-red/30" },
+};
+
+function DifficultyBadge({ level }: { level: string }) {
+  const cfg = DIFF_CONFIG[level] ?? DIFF_CONFIG.medium;
+  return (
+    <span className={`text-xs font-syne font-bold border rounded-full px-2 py-0.5 ${cfg.cls}`}>
+      {cfg.label}
+    </span>
+  );
+}
+
 function ExamSession({
   session,
   onFinish,
@@ -287,6 +302,7 @@ function ExamSession({
   const [answers, setAnswers] = useState<Record<number, AnswerState>>({});
   const [locked, setLocked] = useState<Record<number, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [currentDifficulty, setCurrentDifficulty] = useState("medium");
 
   const question = session.questions[current];
   const ans = answers[current] ?? BLANK_ANSWER;
@@ -308,9 +324,12 @@ function ExamSession({
         qtype === "ordered" ? { ordered_options: a.ordered_options } :
         qtype === "calculation" ? { numeric_value: parseFloat(a.numeric_value) } :
         { selected_option: a.selected_option };
-      await examApi.submitAnswer(session.session_id, idx, payload);
+      const res = await examApi.submitAnswer(session.session_id, idx, payload);
+      if (session.cat_enabled && res?.current_difficulty) {
+        setCurrentDifficulty(res.current_difficulty);
+      }
     } catch {}
-  }, [session.session_id]);
+  }, [session.session_id, session.cat_enabled]);
 
   function handleChange(a: AnswerState) {
     if (locked[current]) return;
@@ -340,23 +359,42 @@ function ExamSession({
 
   const answeredCount = Object.keys(locked).length;
   const total = session.questions.length;
+  const progressPct = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
 
   return (
     <div>
       {/* Header bar */}
-      <div className="flex items-center justify-between mb-4 p-3 bg-surface border border-border rounded-xl">
-        <div>
-          <div className="font-syne font-bold text-sm text-ink">{session.mode}</div>
-          <div className="text-xs font-serif text-ink-3">{answeredCount}/{total} {t("exam_page.answered")}</div>
+      <div className="mb-4 p-3 bg-surface border border-border rounded-xl">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="font-syne font-bold text-sm text-ink truncate">{session.mode}</span>
+            {session.cat_enabled && (
+              <span className="text-xs font-syne font-bold text-blue-600 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5 flex-shrink-0">
+                CAT
+              </span>
+            )}
+          </div>
+          <Timer endsAt={session.ends_at} onExpire={handleExpire} />
+          <button
+            onClick={handleFinalize}
+            disabled={submitting}
+            className="font-syne font-semibold text-xs px-4 py-2 rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50 flex-shrink-0"
+          >
+            {submitting ? t("exam_page.submitting") : t("common.submit")}
+          </button>
         </div>
-        <Timer endsAt={session.ends_at} onExpire={handleExpire} />
-        <button
-          onClick={handleFinalize}
-          disabled={submitting}
-          className="font-syne font-semibold text-xs px-4 py-2 rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
-        >
-          {submitting ? t("exam_page.submitting") : t("common.submit")}
-        </button>
+        {/* Progress bar */}
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-1.5 bg-border rounded-full overflow-hidden">
+            <div
+              className="h-full bg-green rounded-full transition-all duration-300"
+              style={{ width: `${progressPct}%` }}
+            />
+          </div>
+          <span className="text-xs font-syne text-ink-3 flex-shrink-0">
+            {answeredCount}/{total}
+          </span>
+        </div>
       </div>
 
       {/* Progress dots */}
@@ -375,15 +413,22 @@ function ExamSession({
 
       {/* Question card */}
       <div className="bg-surface border border-border rounded-xl p-6">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xs font-syne text-ink-3">Q{current + 1} / {total}</span>
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="text-xs font-syne font-bold text-ink-3">
+            Q{current + 1} / {total}
+          </span>
+          {session.cat_enabled && (
+            <DifficultyBadge level={currentDifficulty} />
+          )}
           {question.nclex_client_needs && (
-            <span className="text-xs font-syne text-ink-3 bg-border/40 rounded px-1.5 py-0.5">
+            <span className="text-xs font-syne text-ink-3 bg-border/40 rounded px-1.5 py-0.5 capitalize">
               {question.nclex_client_needs.replace(/_/g, " ")}
             </span>
           )}
-          {session.cat_enabled && (
-            <span className="text-xs font-syne font-bold text-blue-600 bg-blue-50 rounded px-1.5 py-0.5">{t("nclex_hub.cat_badge")}</span>
+          {question.cjmm_skill && (
+            <span className="text-xs font-syne text-ink-3 bg-blue-50 text-blue-600 rounded px-1.5 py-0.5">
+              {question.cjmm_skill.replace(/_/g, " ")}
+            </span>
           )}
         </div>
 
