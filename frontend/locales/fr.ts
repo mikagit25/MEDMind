@@ -2233,6 +2233,9 @@ const fr: Translations = {
     all_categories: "Besoins clients NCLEX — Toutes les catégories",
     cjmm_title: "Jugement clinique (CJMM) — 6 compétences",
     session_error: "Impossible de démarrer la session. Veuillez réessayer.",
+    demo_title: "Essayez NCLEX — Gratuit",
+    demo_sub: "10 questions de soins infirmiers, sans abonnement. Évaluez vos connaissances.",
+    demo_cta: "Commencer la démo gratuite →",
   },
 
   dose_trainer: {
@@ -2310,6 +2313,10 @@ const fr: Translations = {
     err_results: "Impossible de charger les résultats de la session.",
     err_session: "Impossible de charger la session.",
     err_start: "Échec du démarrage de l'examen.",
+    demo_upsell_title: "Prêt pour la simulation NCLEX complète ?",
+    demo_upsell_body: "Accédez à des examens de 75–145 questions avec CAT adaptatif, analyses complètes et répartition par catégories.",
+    demo_upsell_cta: "Voir les offres →",
+    demo_back_to_hub: "Retour au Hub NCLEX",
   },
 };
 

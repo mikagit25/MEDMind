@@ -19,6 +19,7 @@ import {
   Layers,
   TrendingUp,
   TrendingDown,
+  Gift,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -35,6 +36,7 @@ type ExamMode = {
   lock_reason: string | null;
   icon: string;
   pass_threshold: number;
+  demo?: boolean;
 };
 
 type NCLEXCategory = {
@@ -249,6 +251,32 @@ export default function NCLEXHubPage() {
         {/* ── Practice tab ── */}
         {activeTab === "practice" && (
           <div className="space-y-8">
+            {/* Free Demo banner */}
+            {(() => {
+              const demo = modes.find(m => m.id === "nclex_demo");
+              if (!demo) return null;
+              return (
+                <div className="bg-green/5 border border-green/30 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-green/10 flex items-center justify-center flex-shrink-0">
+                      <Gift className="w-5 h-5 text-green" />
+                    </div>
+                    <div>
+                      <div className="font-syne font-black text-base text-ink leading-snug">{t("nclex_hub.demo_title")}</div>
+                      <p className="text-ink-2 font-serif text-xs mt-0.5">{t("nclex_hub.demo_sub")}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => startSession("nclex_demo")}
+                    disabled={starting === "nclex_demo"}
+                    className="sm:ml-auto font-syne font-bold text-sm bg-green text-white px-6 py-2.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 flex-shrink-0"
+                  >
+                    {starting === "nclex_demo" ? t("nclex_hub.starting") : t("nclex_hub.demo_cta")}
+                  </button>
+                </div>
+              );
+            })()}
+
             {/* NCLEX Simulation modes */}
             <section>
               <div className="mb-4">

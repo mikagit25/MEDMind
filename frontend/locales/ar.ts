@@ -2218,6 +2218,9 @@ const ar: Translations = {
     all_categories: "جميع فئات احتياجات عميل NCLEX",
     cjmm_title: "الحكم السريري (CJMM) — 6 مهارات",
     session_error: "تعذر بدء الجلسة. يرجى المحاولة مرة أخرى.",
+    demo_title: "جرّب NCLEX — مجانًا",
+    demo_sub: "١٠ أسئلة تمريضية، لا حاجة لاشتراك. اختبر مستواك.",
+    demo_cta: "ابدأ العرض التجريبي المجاني ←",
   },
 
   dose_trainer: {
@@ -2295,6 +2298,10 @@ const ar: Translations = {
     err_results: "تعذر تحميل نتائج الجلسة.",
     err_session: "تعذر تحميل الجلسة.",
     err_start: "فشل بدء الامتحان.",
+    demo_upsell_title: "هل أنت مستعد للمحاكاة الكاملة لـ NCLEX؟",
+    demo_upsell_body: "افتح امتحانات من 75 إلى 145 سؤالًا مع تكيّف CAT وتحليل شامل وتفصيل حسب الفئات.",
+    demo_upsell_cta: "عرض الخطط ←",
+    demo_back_to_hub: "العودة إلى مركز NCLEX",
   },
 };
 

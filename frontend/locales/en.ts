@@ -2288,6 +2288,9 @@ const en = {
     all_categories: "NCLEX Client Needs — All Categories",
     cjmm_title: "Clinical Judgment (CJMM) — 6 Skills",
     session_error: "Could not start session. Please try again.",
+    demo_title: "Try NCLEX — Free",
+    demo_sub: "10 nursing questions, no subscription needed. See how you'd score.",
+    demo_cta: "Start Free Demo →",
   },
 
   // ── Dose-Calc Trainer ─────────────────────────────────────────────────────────
@@ -2367,6 +2370,10 @@ const en = {
     err_results: "Could not load session results.",
     err_session: "Could not load session.",
     err_start: "Failed to start exam.",
+    demo_upsell_title: "Ready for the full NCLEX simulation?",
+    demo_upsell_body: "Unlock 75–145 question CAT-adaptive exams, full analytics, and category breakdowns. Students and Pro plans available.",
+    demo_upsell_cta: "View Plans →",
+    demo_back_to_hub: "Back to NCLEX Hub",
   },
 } as const;
 

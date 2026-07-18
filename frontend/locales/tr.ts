@@ -2218,6 +2218,9 @@ const tr: Translations = {
     all_categories: "NCLEX Müşteri İhtiyaçları — Tüm Kategoriler",
     cjmm_title: "Klinik Yargı (CJMM) — 6 Beceri",
     session_error: "Oturum başlatılamadı. Lütfen tekrar deneyin.",
+    demo_title: "NCLEX'i Deneyin — Ücretsiz",
+    demo_sub: "10 hemşirelik sorusu, abonelik gerekmez. Seviyenizi ölçün.",
+    demo_cta: "Ücretsiz Demo Başlat →",
   },
 
   dose_trainer: {
@@ -2295,6 +2298,10 @@ const tr: Translations = {
     err_results: "Oturum sonuçları yüklenemedi.",
     err_session: "Oturum yüklenemedi.",
     err_start: "Sınav başlatılamadı.",
+    demo_upsell_title: "Tam NCLEX simülasyonuna hazır mısınız?",
+    demo_upsell_body: "CAT adaptif 75–145 soruluk sınavlara, tam analizlere ve kategori dağılımına erişin.",
+    demo_upsell_cta: "Planları Gör →",
+    demo_back_to_hub: "NCLEX Hub'a Dön",
   },
 };
 

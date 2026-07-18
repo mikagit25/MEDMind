@@ -2233,6 +2233,9 @@ const de: Translations = {
     all_categories: "NCLEX Kundenbedarf — Alle Kategorien",
     cjmm_title: "Klinisches Urteil (CJMM) — 6 Fähigkeiten",
     session_error: "Sitzung konnte nicht gestartet werden. Bitte erneut versuchen.",
+    demo_title: "NCLEX ausprobieren — kostenlos",
+    demo_sub: "10 Pflegefragen, kein Abo nötig. Teste dein Wissen.",
+    demo_cta: "Kostenloses Demo starten →",
   },
 
   dose_trainer: {
@@ -2310,6 +2313,10 @@ const de: Translations = {
     err_results: "Sitzungsergebnisse konnten nicht geladen werden.",
     err_session: "Sitzung konnte nicht geladen werden.",
     err_start: "Prüfung konnte nicht gestartet werden.",
+    demo_upsell_title: "Bereit für die vollständige NCLEX-Simulation?",
+    demo_upsell_body: "Zugang zu 75–145-Fragen-Prüfungen mit CAT-Anpassung, vollständiger Analyse und Kategorieaufschlüsselung.",
+    demo_upsell_cta: "Pläne ansehen →",
+    demo_back_to_hub: "Zurück zum NCLEX Hub",
   },
 };
 

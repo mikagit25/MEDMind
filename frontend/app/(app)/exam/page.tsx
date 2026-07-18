@@ -7,7 +7,7 @@ import { examApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
-  ChevronLeft, ChevronRight, AlertTriangle, Layers,
+  ChevronLeft, ChevronRight, AlertTriangle, Layers, Gift,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -533,6 +533,31 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
           {results.cat_enabled && <span className="text-blue-600 font-bold">{t("exam_page.cat_adaptive")}</span>}
         </div>
       </div>
+
+      {/* Demo upsell */}
+      {results.mode_id === "nclex_demo" && (
+        <div className="bg-ink text-white rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-3">
+            <Gift className="w-5 h-5 text-amber-400 flex-shrink-0" />
+            <span className="font-syne font-black text-base">{t("exam_page.demo_upsell_title")}</span>
+          </div>
+          <p className="font-serif text-sm text-white/70 mb-4">{t("exam_page.demo_upsell_body")}</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/pricing"
+              className="font-syne font-bold text-sm bg-white text-ink px-6 py-2.5 rounded-xl hover:bg-white/90 transition-colors text-center"
+            >
+              {t("exam_page.demo_upsell_cta")}
+            </Link>
+            <Link
+              href="/nurses/nclex"
+              className="font-syne text-sm text-white/60 hover:text-white transition-colors px-2 py-2.5 text-center"
+            >
+              {t("exam_page.demo_back_to_hub")}
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* NCLEX category breakdown */}
       {isNclex && hasCategories && (

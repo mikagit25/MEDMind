@@ -128,6 +128,19 @@ EXAM_MODES = [
         "icon": "zap",
         "pass_threshold": 60,
     },
+    {
+        "id": "nclex_demo",
+        "name": "NCLEX Demo (Free)",
+        "description": "Try 10 NCLEX-style nursing questions — no subscription needed.",
+        "questions": 10,
+        "duration_min": 15,
+        "nursing_only": True,
+        "difficulty": "medium",
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 60,
+        "demo": True,
+    },
 ]
 
 NCLEX_CLIENT_NEEDS = [
@@ -321,10 +334,11 @@ async def list_modes(user: User = Depends(get_current_user)):
     result = []
     is_free = user.subscription_tier == "free"
     for m in EXAM_MODES:
+        is_demo = m.get("demo", False)
         result.append({
             **m,
-            "locked": is_free,
-            "lock_reason": "Upgrade to Student or Pro to unlock board exams" if is_free else None,
+            "locked": is_free and not is_demo,
+            "lock_reason": "Upgrade to Student or Pro to unlock board exams" if (is_free and not is_demo) else None,
         })
     return result
 
@@ -344,12 +358,12 @@ async def create_session(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    if user.subscription_tier == "free":
-        raise HTTPException(403, "Board Exam mode requires a Student or Pro subscription.")
-
     mode = next((m for m in EXAM_MODES if m["id"] == body.mode_id), None)
     if not mode:
         raise HTTPException(404, f"Unknown exam mode: {body.mode_id}")
+
+    if not mode.get("demo", False) and user.subscription_tier == "free":
+        raise HTTPException(403, "Board Exam mode requires a Student or Pro subscription.")
 
     cat_mode = mode.get("cat", False)
     nursing_only = mode.get("nursing_only", False)

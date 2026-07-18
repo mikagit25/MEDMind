@@ -2233,6 +2233,9 @@ const es: Translations = {
     all_categories: "Necesidades del cliente NCLEX — Todas las categorías",
     cjmm_title: "Juicio clínico (CJMM) — 6 habilidades",
     session_error: "No se pudo iniciar la sesión. Por favor, inténtalo de nuevo.",
+    demo_title: "Prueba NCLEX — Gratis",
+    demo_sub: "10 preguntas de enfermería, sin suscripción. Comprueba tu nivel.",
+    demo_cta: "Iniciar demo gratuita →",
   },
 
   dose_trainer: {
@@ -2310,6 +2313,10 @@ const es: Translations = {
     err_results: "No se pudieron cargar los resultados de la sesión.",
     err_session: "No se pudo cargar la sesión.",
     err_start: "No se pudo iniciar el examen.",
+    demo_upsell_title: "¿Listo para la simulación NCLEX completa?",
+    demo_upsell_body: "Desbloquea exámenes de 75–145 preguntas con CAT adaptativo, análisis completo y desglose por categorías.",
+    demo_upsell_cta: "Ver planes →",
+    demo_back_to_hub: "Volver al Hub NCLEX",
   },
 };
 
