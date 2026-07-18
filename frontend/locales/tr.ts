@@ -2277,6 +2277,16 @@ const tr: Translations = {
     stats_btn: "İstatistik",
     stats_toggle: "Kategoriye göre istatistik",
     stats_title: "Kategoriye Göre Performans",
+    sprint_btn: "Sprint",
+    sprint_title: "Sprint Modu",
+    sprint_sub: "10 soru · her soru için 60 sn",
+    sprint_done_title: "Sprint tamamlandı!",
+    sprint_correct: "doğru",
+    sprint_retry: "Tekrar Dene",
+    sprint_exit: "Çık",
+    sprint_next: "İleri →",
+    sprint_results: "Sonuçları Gör",
+    sprint_avg: "ort",
   },
 
   promo: {

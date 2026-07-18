@@ -2277,6 +2277,16 @@ const ar: Translations = {
     stats_btn: "إحصائيات",
     stats_toggle: "إحصائيات حسب الفئة",
     stats_title: "الأداء حسب الفئة",
+    sprint_btn: "سباق",
+    sprint_title: "وضع السباق",
+    sprint_sub: "١٠ مسائل · ٦٠ ث لكل مسألة",
+    sprint_done_title: "اكتمل السباق!",
+    sprint_correct: "صحيح",
+    sprint_retry: "حاول مجدداً",
+    sprint_exit: "خروج",
+    sprint_next: "التالي ←",
+    sprint_results: "النتائج",
+    sprint_avg: "متوسط",
   },
 
   promo: {

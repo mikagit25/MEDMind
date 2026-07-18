@@ -2292,6 +2292,16 @@ const de: Translations = {
     stats_btn: "Statistik",
     stats_toggle: "Statistik nach Kategorie",
     stats_title: "Leistung nach Kategorie",
+    sprint_btn: "Sprint",
+    sprint_title: "Sprint-Modus",
+    sprint_sub: "10 Aufgaben · 60 s je Aufgabe",
+    sprint_done_title: "Sprint abgeschlossen!",
+    sprint_correct: "richtig",
+    sprint_retry: "Nochmal",
+    sprint_exit: "Beenden",
+    sprint_next: "Weiter →",
+    sprint_results: "Ergebnisse",
+    sprint_avg: "Ø",
   },
 
   promo: {

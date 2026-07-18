@@ -2348,6 +2348,16 @@ const en = {
     stats_btn: "Stats",
     stats_toggle: "Toggle per-category stats",
     stats_title: "Per-Category Performance",
+    sprint_btn: "Sprint",
+    sprint_title: "Sprint Mode",
+    sprint_sub: "10 problems · 60 s each",
+    sprint_done_title: "Sprint Complete!",
+    sprint_correct: "correct",
+    sprint_retry: "Retry Sprint",
+    sprint_exit: "Exit Sprint",
+    sprint_next: "Next →",
+    sprint_results: "See Results",
+    sprint_avg: "avg",
   },
 
   // ── Exam Page ─────────────────────────────────────────────────────────────────

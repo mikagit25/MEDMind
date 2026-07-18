@@ -2315,6 +2315,16 @@ const ru: Translations = {
     stats_btn: "Статистика",
     stats_toggle: "Статистика по категориям",
     stats_title: "Результаты по категориям",
+    sprint_btn: "Спринт",
+    sprint_title: "Режим Спринта",
+    sprint_sub: "10 задач · 60 с на каждую",
+    sprint_done_title: "Спринт завершён!",
+    sprint_correct: "верно",
+    sprint_retry: "Ещё раз",
+    sprint_exit: "Выйти",
+    sprint_next: "Дальше →",
+    sprint_results: "Итоги",
+    sprint_avg: "в среднем",
   },
 
   promo: {
