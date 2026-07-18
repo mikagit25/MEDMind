@@ -720,6 +720,7 @@ interface RegisterData {
   consent_terms: boolean;
   consent_data_processing: boolean;
   consent_marketing?: boolean;
+  ref_code?: string;
 }
 
 interface AIAskData {

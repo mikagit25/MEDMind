@@ -21,6 +21,7 @@ class UserRegister(BaseModel):
     consent_terms: bool
     consent_data_processing: bool
     consent_marketing: bool = False
+    ref_code: Optional[str] = None  # affiliate referral code from ?ref= cookie
 
     @field_validator("password")
     def password_strength(cls, v):

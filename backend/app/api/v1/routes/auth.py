@@ -127,6 +127,25 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
     db.add(refresh)
     await db.commit()
 
+    # Affiliate referral attribution
+    if data.ref_code:
+        try:
+            from app.api.v1.routes.affiliate import record_signup_conversion
+            from app.models.models import Affiliate
+            aff_result = await db.execute(
+                select(Affiliate).where(
+                    Affiliate.code == data.ref_code.strip().upper(),
+                    Affiliate.status == "active",
+                )
+            )
+            aff = aff_result.scalar_one_or_none()
+            if aff:
+                user.referred_by_affiliate_id = aff.id
+                await record_signup_conversion(aff.id, user.id, db)
+                await db.commit()
+        except Exception:
+            pass  # Never block registration on affiliate errors
+
     # Send welcome email (non-blocking) — decrypt email first (stored Fernet-encrypted in DB)
     from app.services.email_service import send_welcome_email
     from app.core.encryption import decrypt_email

@@ -202,6 +202,24 @@ async def _activate_subscription(user_id: str, tier: str, session: dict, db: Asy
 
     await db.commit()
 
+    # Affiliate commission: if user was referred, record subscription conversion
+    try:
+        if user.referred_by_affiliate_id:
+            from app.api.v1.routes.affiliate import record_subscription_conversion
+            amount_paid = float(session.get("amount_total", 0) or 0) / 100  # Stripe uses cents
+            invoice_id = session.get("payment_intent") or session.get("subscription")
+            await record_subscription_conversion(
+                affiliate_id=user.referred_by_affiliate_id,
+                user_id=user.id,
+                tier=tier,
+                amount_paid=amount_paid,
+                stripe_invoice_id=str(invoice_id) if invoice_id else None,
+                db=db,
+            )
+            await db.commit()
+    except Exception:
+        pass  # Never block payment activation on affiliate errors
+
 
 async def _handle_subscription_change(customer_id: str, status: str, subscription: dict, db: AsyncSession):
     """Handle subscription status changes (renewal, cancellation, etc.)."""

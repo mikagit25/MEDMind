@@ -365,9 +365,13 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Affiliate: which influencer brought this user (plain UUID, no FK to avoid circular)
+    referred_by_affiliate_id = Column(UUID(as_uuid=True), nullable=True, index=True)
+
     refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
     progress = relationship("UserProgress", back_populates="user", cascade="all, delete-orphan")
     conversations = relationship("AIConversation", back_populates="user", cascade="all, delete-orphan")
+    affiliate_profile = relationship("Affiliate", foreign_keys="[Affiliate.user_id]", back_populates="user", uselist=False)
 
 
 # ============================================================
@@ -1839,4 +1843,80 @@ class PromoCodeUse(Base):
     __table_args__ = (
         Index("ix_promo_uses_user", "user_id"),
         Index("ix_promo_uses_code", "code_id"),
+    )
+
+
+# ============================================================
+# AFFILIATE / INFLUENCER SYSTEM
+# ============================================================
+
+class Affiliate(Base):
+    """Influencer/affiliate partner profile — one per MedMind account."""
+    __tablename__ = "affiliates"
+
+    id               = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id          = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False)
+    code             = Column(String(50), unique=True, nullable=False, index=True)
+    status           = Column(String(20), nullable=False, default="pending")   # pending|active|suspended
+    commission_type  = Column(String(20), nullable=False, default="percent")   # percent|fixed
+    commission_value = Column(Float, nullable=False, default=20.0)
+    payout_info      = Column(JSONB, default=dict)   # {type:"paypal", address:"..."} or bank
+    cookie_days      = Column(Integer, nullable=False, default=30)
+    notes            = Column(Text, nullable=True)   # admin internal notes
+
+    total_clicks      = Column(Integer, nullable=False, default=0, server_default="0")
+    total_signups     = Column(Integer, nullable=False, default=0, server_default="0")
+    total_conversions = Column(Integer, nullable=False, default=0, server_default="0")
+    total_earned      = Column(Float, nullable=False, default=0.0, server_default="0")
+    total_paid        = Column(Float, nullable=False, default=0.0, server_default="0")
+
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    user        = relationship("User", back_populates="affiliate_profile", foreign_keys=[user_id])
+    clicks      = relationship("AffiliateClick", back_populates="affiliate", cascade="all, delete-orphan")
+    conversions = relationship("AffiliateConversion", back_populates="affiliate", cascade="all, delete-orphan")
+
+
+class AffiliateClick(Base):
+    """One row per click on an affiliate referral link."""
+    __tablename__ = "affiliate_clicks"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    affiliate_id = Column(UUID(as_uuid=True), ForeignKey("affiliates.id", ondelete="CASCADE"), nullable=False)
+    ip_hash      = Column(String(64), nullable=True)    # SHA-256(IP) — for dedup, GDPR-safe
+    user_agent   = Column(String(500), nullable=True)
+    referrer     = Column(String(500), nullable=True)
+    utm_source   = Column(String(100), nullable=True)
+    utm_medium   = Column(String(100), nullable=True)
+    utm_campaign = Column(String(100), nullable=True)
+    clicked_at   = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    affiliate = relationship("Affiliate", back_populates="clicks")
+
+    __table_args__ = (
+        Index("ix_aff_clicks_affiliate", "affiliate_id"),
+        Index("ix_aff_clicks_at", "clicked_at"),
+    )
+
+
+class AffiliateConversion(Base):
+    """Signup or paid-subscription event attributed to an affiliate."""
+    __tablename__ = "affiliate_conversions"
+
+    id                = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    affiliate_id      = Column(UUID(as_uuid=True), ForeignKey("affiliates.id", ondelete="CASCADE"), nullable=False)
+    user_id           = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    event_type        = Column(String(20), nullable=False)   # "signup" | "subscription"
+    tier              = Column(String(20), nullable=True)
+    amount_paid       = Column(Float, nullable=True)          # USD received by us (from Stripe)
+    commission_amount = Column(Float, nullable=True)          # USD owed to affiliate
+    is_paid_out       = Column(Boolean, nullable=False, default=False, server_default="false")
+    stripe_invoice_id = Column(String(100), nullable=True)
+    created_at        = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    affiliate = relationship("Affiliate", back_populates="conversions")
+
+    __table_args__ = (
+        Index("ix_aff_conv_affiliate", "affiliate_id"),
+        Index("ix_aff_conv_user", "user_id"),
     )

@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT, useI18n } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
+import { getCookie } from "@/components/AffiliateRefTracker";
 
 export default function RegisterPage() {
   const t = useT();
@@ -25,6 +26,11 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [refCode, setRefCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRefCode(getCookie("medmind_ref"));
+  }, []);
 
   const update = (field: string, value: any) =>
     setForm((p) => ({ ...p, [field]: value }));
@@ -38,7 +44,7 @@ export default function RegisterPage() {
     }
     setLoading(true);
     try {
-      const res = await authApi.register(form);
+      const res = await authApi.register({ ...form, ref_code: refCode || undefined });
       const data = res.data;
       setAuth(data.user, data.access_token, data.refresh_token);
       ga.signUp("email");

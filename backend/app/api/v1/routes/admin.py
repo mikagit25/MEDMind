@@ -18,6 +18,7 @@ from app.models.models import (
     AuditLog, LessonTranslation, AIConversation, SUPPORTED_LOCALES, MedicalImage, Drug,
     StripeEvent, CreditTransaction, AuthorCreditAccount,
     PromoCode, PromoCodeUse,
+    Affiliate, AffiliateConversion,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -2026,3 +2027,117 @@ async def deactivate_promo_code(
     promo.is_active = False
     await db.commit()
     return {"status": "deactivated"}
+
+
+# ═══════════════════════════════════════════════════════════════════
+# AFFILIATE ADMIN
+# ═══════════════════════════════════════════════════════════════════
+
+@router.get("/affiliates")
+async def list_affiliates(
+    _: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    rows = (await db.execute(
+        select(Affiliate, User).join(User, Affiliate.user_id == User.id)
+        .order_by(Affiliate.created_at.desc())
+    )).all()
+    result = []
+    for aff, u in rows:
+        result.append({
+            "id": str(aff.id),
+            "user_id": str(u.id),
+            "user_name": f"{u.first_name or ''} {u.last_name or ''}".strip() or u.email,
+            "code": aff.code,
+            "status": aff.status,
+            "commission_type": aff.commission_type,
+            "commission_value": aff.commission_value,
+            "payout_info": aff.payout_info,
+            "total_clicks": aff.total_clicks,
+            "total_signups": aff.total_signups,
+            "total_conversions": aff.total_conversions,
+            "total_earned": aff.total_earned,
+            "total_paid": aff.total_paid,
+            "pending_payout": round(aff.total_earned - aff.total_paid, 2),
+            "notes": aff.notes,
+            "created_at": aff.created_at.isoformat(),
+        })
+    return result
+
+
+class AffiliateUpdate(BaseModel):
+    status: Optional[str] = None
+    commission_type: Optional[str] = None
+    commission_value: Optional[float] = None
+    cookie_days: Optional[int] = None
+    notes: Optional[str] = None
+
+
+@router.patch("/affiliates/{affiliate_id}")
+async def update_affiliate(
+    affiliate_id: UUID,
+    body: AffiliateUpdate,
+    _: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    aff = await db.get(Affiliate, affiliate_id)
+    if not aff:
+        raise HTTPException(404, "Affiliate not found")
+
+    old_status = aff.status
+    if body.status is not None:
+        if body.status not in ("pending", "active", "suspended"):
+            raise HTTPException(400, "Invalid status")
+        aff.status = body.status
+    if body.commission_type is not None:
+        aff.commission_type = body.commission_type
+    if body.commission_value is not None:
+        aff.commission_value = body.commission_value
+    if body.cookie_days is not None:
+        aff.cookie_days = body.cookie_days
+    if body.notes is not None:
+        aff.notes = body.notes
+
+    # When approving: give the user affiliate role
+    if old_status != "active" and aff.status == "active":
+        user = await db.get(User, aff.user_id)
+        if user and user.role not in ("admin",):
+            user.role = "affiliate"
+
+    # When suspending: downgrade role back
+    if old_status == "active" and aff.status in ("suspended", "pending"):
+        user = await db.get(User, aff.user_id)
+        if user and user.role == "affiliate":
+            user.role = "student"
+
+    await db.commit()
+    return {"status": "updated"}
+
+
+@router.post("/affiliates/{affiliate_id}/mark-paid")
+async def mark_affiliate_paid(
+    affiliate_id: UUID,
+    _: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    """Mark all pending conversions as paid out and update total_paid."""
+    aff = await db.get(Affiliate, affiliate_id)
+    if not aff:
+        raise HTTPException(404, "Affiliate not found")
+
+    unpaid = (await db.execute(
+        select(AffiliateConversion).where(
+            AffiliateConversion.affiliate_id == affiliate_id,
+            AffiliateConversion.is_paid_out == False,
+            AffiliateConversion.commission_amount.isnot(None),
+        )
+    )).scalars().all()
+
+    total = 0.0
+    for conv in unpaid:
+        conv.is_paid_out = True
+        total += conv.commission_amount or 0.0
+
+    aff.total_paid = round(aff.total_paid + total, 2)
+    await db.commit()
+    return {"paid": round(total, 2), "conversions": len(unpaid)}

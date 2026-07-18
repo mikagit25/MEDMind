@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise" | "promo";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -219,6 +219,7 @@ export default function AdminPage() {
           ["feedback",     "🚨 Feedback"],
           ["enterprise",   "🏢 Enterprise Leads"],
           ["promo",        "🎁 Promo Codes"],
+          ["affiliates",   "🤝 Affiliates"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -654,6 +655,9 @@ export default function AdminPage() {
 
       {/* ── Promo Codes ── */}
       {tab === "promo" && <PromoCodesPanel />}
+
+      {/* ── Affiliates ── */}
+      {tab === "affiliates" && <AffiliatesPanel />}
 
       {/* ── User Detail Modal ── */}
       {selectedUser && (
@@ -3335,6 +3339,209 @@ function PromoCodesPanel() {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// AFFILIATES PANEL
+// ─────────────────────────────────────────────
+interface AffiliateRow {
+  id: string;
+  user_name: string;
+  code: string;
+  status: string;
+  commission_type: string;
+  commission_value: number;
+  total_clicks: number;
+  total_signups: number;
+  total_conversions: number;
+  total_earned: number;
+  total_paid: number;
+  pending_payout: number;
+  payout_info: { type: string; address: string };
+  notes: string | null;
+}
+
+function AffiliatesPanel() {
+  const [rows, setRows] = useState<AffiliateRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<string | null>(null);
+  const [patch, setPatch] = useState<Record<string, any>>({});
+  const [saving, setSaving] = useState(false);
+  const [markingPaid, setMarkingPaid] = useState<string | null>(null);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get("/admin/affiliates");
+      setRows(r.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const save = async (id: string) => {
+    setSaving(true);
+    try {
+      await api.patch(`/admin/affiliates/${id}`, patch);
+      setEditing(null);
+      setPatch({});
+      await load();
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const markPaid = async (id: string) => {
+    setMarkingPaid(id);
+    try {
+      const r = await api.post(`/admin/affiliates/${id}/mark-paid`);
+      alert(`Marked ${r.data.conversions} conversions paid — total $${r.data.paid.toFixed(2)}`);
+      await load();
+    } finally {
+      setMarkingPaid(null);
+    }
+  };
+
+  const statusColors: Record<string, string> = {
+    active: "bg-green-100 text-green-700",
+    pending: "bg-yellow-100 text-yellow-700",
+    suspended: "bg-red-100 text-red-700",
+  };
+
+  if (loading) return <div className="py-10 text-center text-ink-3">Loading...</div>;
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-syne font-bold text-ink">🤝 Affiliate Partners</h2>
+      {rows.length === 0 ? (
+        <p className="text-ink-3 text-sm">No affiliate applications yet.</p>
+      ) : (
+        <div className="space-y-4">
+          {rows.map((a) => (
+            <div key={a.id} className="bg-bg-2 rounded-xl p-5 border border-line">
+              <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div>
+                  <span className="font-syne font-bold text-ink">{a.user_name}</span>
+                  <span className="ml-2 font-mono text-red text-sm">?ref={a.code}</span>
+                </div>
+                <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[a.status] || ""}`}>
+                  {a.status}
+                </span>
+              </div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4 text-sm">
+                {[
+                  ["Clicks", a.total_clicks],
+                  ["Signups", a.total_signups],
+                  ["Paid subs", a.total_conversions],
+                  ["Earned", `$${a.total_earned.toFixed(2)}`],
+                  ["Paid out", `$${a.total_paid.toFixed(2)}`],
+                  ["Pending", `$${a.pending_payout.toFixed(2)}`],
+                ].map(([label, val]) => (
+                  <div key={label as string} className="bg-bg rounded-lg p-2 text-center">
+                    <div className="text-xs text-ink-3">{label}</div>
+                    <div className="font-semibold text-ink">{val}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-xs text-ink-3 mb-3">
+                Commission: {a.commission_value}{a.commission_type === "percent" ? "%" : "$"} •
+                Payout: {a.payout_info?.type} — {a.payout_info?.address}
+              </div>
+
+              {a.notes && (
+                <p className="text-xs text-ink-2 bg-bg rounded-lg p-2 mb-3 italic">{a.notes}</p>
+              )}
+
+              {editing === a.id ? (
+                <div className="space-y-3 border-t border-line pt-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-ink-3 mb-1 block">Status</label>
+                      <select
+                        value={patch.status ?? a.status}
+                        onChange={e => setPatch(p => ({...p, status: e.target.value}))}
+                        className="w-full bg-bg border border-line rounded px-2 py-1.5 text-sm text-ink"
+                      >
+                        <option value="pending">pending</option>
+                        <option value="active">active</option>
+                        <option value="suspended">suspended</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-ink-3 mb-1 block">Commission type</label>
+                      <select
+                        value={patch.commission_type ?? a.commission_type}
+                        onChange={e => setPatch(p => ({...p, commission_type: e.target.value}))}
+                        className="w-full bg-bg border border-line rounded px-2 py-1.5 text-sm text-ink"
+                      >
+                        <option value="percent">percent %</option>
+                        <option value="fixed">fixed $</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-ink-3 mb-1 block">Commission value</label>
+                      <input
+                        type="number"
+                        value={patch.commission_value ?? a.commission_value}
+                        onChange={e => setPatch(p => ({...p, commission_value: parseFloat(e.target.value)}))}
+                        className="w-full bg-bg border border-line rounded px-2 py-1.5 text-sm text-ink"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs text-ink-3 mb-1 block">Admin notes</label>
+                      <input
+                        value={patch.notes ?? (a.notes || "")}
+                        onChange={e => setPatch(p => ({...p, notes: e.target.value}))}
+                        className="w-full bg-bg border border-line rounded px-2 py-1.5 text-sm text-ink"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => save(a.id)}
+                      disabled={saving}
+                      className="flex items-center gap-1 px-3 py-1.5 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 disabled:opacity-50"
+                    >
+                      {saving ? "Saving..." : "Save"}
+                    </button>
+                    <button
+                      onClick={() => { setEditing(null); setPatch({}); }}
+                      className="px-3 py-1.5 bg-bg-3 text-ink text-sm rounded-lg hover:bg-line"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-2 flex-wrap">
+                  <button
+                    onClick={() => { setEditing(a.id); setPatch({}); }}
+                    className="px-3 py-1.5 bg-red text-white text-sm rounded-lg hover:bg-red/90"
+                  >
+                    Edit
+                  </button>
+                  {a.pending_payout > 0 && (
+                    <button
+                      onClick={() => markPaid(a.id)}
+                      disabled={markingPaid === a.id}
+                      className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 disabled:opacity-50"
+                    >
+                      {markingPaid === a.id ? "..." : `Mark $${a.pending_payout.toFixed(2)} Paid`}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
