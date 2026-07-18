@@ -2259,6 +2259,19 @@ const ru: Translations = {
     demo_title: "Попробуй NCLEX — бесплатно",
     demo_sub: "10 вопросов, подписка не нужна. Проверь свои знания.",
     demo_cta: "Начать демо →",
+    lock_reason: "Для доступа обновитесь до тарифа Student или Pro",
+    pass_label: "Порог прохождения ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 вопросов)",  desc: "Минимальная CAT-симуляция — 75 вопросов, 90 мин" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 вопросов)",  desc: "Стандартная CAT-симуляция — 85 вопросов, 105 мин" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 вопросов)", desc: "Максимальная CAT-симуляция — 145 вопросов, 210 мин" },
+      nclex_category: { name: "NCLEX по категориям",     desc: "30 вопросов из одной категории клиентских потребностей" },
+      nclex_demo:     { name: "NCLEX Демо (бесплатно)",  desc: "10 сестринских вопросов — подписка не нужна" },
+      quick_practice: { name: "Быстрая практика",        desc: "20 смешанных вопросов, 20 мин — любой уровень" },
+      ukmla:          { name: "UKMLA / MLA",             desc: "Лицензирование в Великобритании — 30 вопросов, 45 мин" },
+      usmle_step1:    { name: "USMLE Step 1",            desc: "Базовые науки — 40 вопросов, 60 мин" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",        desc: "Клинические знания — 40 вопросов, 60 мин" },
+    },
   },
 
   dose_trainer: {
@@ -2426,6 +2439,9 @@ const ru: Translations = {
     demo_upsell_body: "Открой доступ к экзаменам от 75 до 145 вопросов с адаптацией CAT, аналитикой и разбивкой по категориям.",
     demo_upsell_cta: "Смотреть тарифы →",
     demo_back_to_hub: "Обратно в NCLEX Hub",
+    difficulty_easy: "Лёгкий",
+    difficulty_medium: "Средний",
+    difficulty_hard: "Сложный",
   },
 };
 

@@ -2221,6 +2221,19 @@ const ar: Translations = {
     demo_title: "جرّب NCLEX — مجانًا",
     demo_sub: "١٠ أسئلة تمريضية، لا حاجة لاشتراك. اختبر مستواك.",
     demo_cta: "ابدأ العرض التجريبي المجاني ←",
+    lock_reason: "قم بالترقية إلى Student أو Pro للوصول",
+    pass_label: "النجاح ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 سؤالاً)",   desc: "محاكاة CAT الحد الأدنى — 75 سؤالاً، 90 دقيقة" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 سؤالاً)",   desc: "محاكاة CAT قياسية — 85 سؤالاً، 105 دقائق" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 سؤالاً)",  desc: "محاكاة CAT قصوى — 145 سؤالاً، 210 دقائق" },
+      nclex_category: { name: "NCLEX حسب الفئة",        desc: "30 سؤالاً من فئة احتياجات عميل واحدة" },
+      nclex_demo:     { name: "عرض NCLEX التجريبي (مجاني)", desc: "10 أسئلة تمريضية — لا يلزم اشتراك" },
+      quick_practice: { name: "ممارسة سريعة",           desc: "20 سؤالاً مختلطاً، 20 دقيقة — لجميع المستويات" },
+      ukmla:          { name: "UKMLA / MLA",             desc: "ترخيص المملكة المتحدة — 30 سؤالاً، 45 دقيقة" },
+      usmle_step1:    { name: "USMLE Step 1",            desc: "علوم أساسية — 40 سؤالاً، 60 دقيقة" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",        desc: "المعرفة السريرية — 40 سؤالاً، 60 دقيقة" },
+    },
   },
 
   dose_trainer: {
@@ -2369,6 +2382,9 @@ const ar: Translations = {
     demo_upsell_body: "افتح امتحانات من 75 إلى 145 سؤالًا مع تكيّف CAT وتحليل شامل وتفصيل حسب الفئات.",
     demo_upsell_cta: "عرض الخطط ←",
     demo_back_to_hub: "العودة إلى مركز NCLEX",
+    difficulty_easy: "سهل",
+    difficulty_medium: "متوسط",
+    difficulty_hard: "صعب",
   },
 };
 

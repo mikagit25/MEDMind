@@ -2236,6 +2236,19 @@ const de: Translations = {
     demo_title: "NCLEX ausprobieren — kostenlos",
     demo_sub: "10 Pflegefragen, kein Abo nötig. Teste dein Wissen.",
     demo_cta: "Kostenloses Demo starten →",
+    lock_reason: "Upgrade auf Student oder Pro erforderlich",
+    pass_label: "Bestehen ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 Fragen)",   desc: "Minimale CAT-Simulation — 75 Fragen, 90 Min" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 Fragen)",   desc: "Standard-CAT-Simulation — 85 Fragen, 105 Min" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 Fragen)",  desc: "Maximale CAT-Simulation — 145 Fragen, 210 Min" },
+      nclex_category: { name: "NCLEX nach Kategorie",   desc: "30 Fragen aus einer Bedarfskategorie" },
+      nclex_demo:     { name: "NCLEX Demo (kostenlos)", desc: "10 Pflegefragen — kein Abonnement erforderlich" },
+      quick_practice: { name: "Schnellübung",           desc: "20 gemischte Fragen, 20 Min — jedes Niveau" },
+      ukmla:          { name: "UKMLA / MLA",            desc: "UK-Zulassung — 30 Fragen, 45 Min" },
+      usmle_step1:    { name: "USMLE Step 1",           desc: "Grundwissenschaften — 40 Fragen, 60 Min" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",       desc: "Klinisches Wissen — 40 Fragen, 60 Min" },
+    },
   },
 
   dose_trainer: {
@@ -2384,6 +2397,9 @@ const de: Translations = {
     demo_upsell_body: "Zugang zu 75–145-Fragen-Prüfungen mit CAT-Anpassung, vollständiger Analyse und Kategorieaufschlüsselung.",
     demo_upsell_cta: "Pläne ansehen →",
     demo_back_to_hub: "Zurück zum NCLEX Hub",
+    difficulty_easy: "Leicht",
+    difficulty_medium: "Mittel",
+    difficulty_hard: "Schwer",
   },
 };
 

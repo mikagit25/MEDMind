@@ -2236,6 +2236,19 @@ const es: Translations = {
     demo_title: "Prueba NCLEX — Gratis",
     demo_sub: "10 preguntas de enfermería, sin suscripción. Comprueba tu nivel.",
     demo_cta: "Iniciar demo gratuita →",
+    lock_reason: "Actualiza a Student o Pro para desbloquear",
+    pass_label: "Aprobación ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 preguntas)",  desc: "Simulación CAT mínima — 75 preguntas, 90 min" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 preguntas)",  desc: "Simulación CAT estándar — 85 preguntas, 105 min" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 preguntas)", desc: "Simulación CAT máxima — 145 preguntas, 210 min" },
+      nclex_category: { name: "NCLEX por categoría",      desc: "30 preguntas de una categoría de necesidades del cliente" },
+      nclex_demo:     { name: "NCLEX Demo (gratis)",      desc: "10 preguntas de enfermería — sin suscripción" },
+      quick_practice: { name: "Práctica rápida",          desc: "20 preguntas mixtas, 20 min — cualquier nivel" },
+      ukmla:          { name: "UKMLA / MLA",              desc: "Licencia del Reino Unido — 30 preguntas, 45 min" },
+      usmle_step1:    { name: "USMLE Step 1",             desc: "Ciencias básicas — 40 preguntas, 60 min" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",         desc: "Conocimiento clínico — 40 preguntas, 60 min" },
+    },
   },
 
   dose_trainer: {
@@ -2384,6 +2397,9 @@ const es: Translations = {
     demo_upsell_body: "Desbloquea exámenes de 75–145 preguntas con CAT adaptativo, análisis completo y desglose por categorías.",
     demo_upsell_cta: "Ver planes →",
     demo_back_to_hub: "Volver al Hub NCLEX",
+    difficulty_easy: "Fácil",
+    difficulty_medium: "Medio",
+    difficulty_hard: "Difícil",
   },
 };
 

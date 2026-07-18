@@ -301,18 +301,22 @@ export default function NCLEXHubPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</h3>
-                      <p className="text-ink-3 font-serif text-xs leading-relaxed mb-3">{mode.description}</p>
+                      <h3 className="font-syne font-bold text-sm text-ink mb-1">
+                        {t(`nclex_hub.modes.${mode.id}.name`) !== `nclex_hub.modes.${mode.id}.name` ? t(`nclex_hub.modes.${mode.id}.name`) : mode.name}
+                      </h3>
+                      <p className="text-ink-3 font-serif text-xs leading-relaxed mb-3">
+                        {t(`nclex_hub.modes.${mode.id}.desc`) !== `nclex_hub.modes.${mode.id}.desc` ? t(`nclex_hub.modes.${mode.id}.desc`) : mode.description}
+                      </p>
                       <div className="flex items-center gap-3 text-xs text-ink-3 font-serif mb-4">
                         <span className="flex items-center gap-1">
                           <Clock className="w-3 h-3" /> {mode.duration_min} {t("common.minutes")}
                         </span>
                         <span className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> Pass ≥{mode.pass_threshold}%
+                          <CheckCircle2 className="w-3 h-3" /> {t("nclex_hub.pass_label")}{mode.pass_threshold}%
                         </span>
                       </div>
                       {mode.locked ? (
-                        <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
+                        <div className="text-xs font-serif text-ink-3 italic">{t("nclex_hub.lock_reason")}</div>
                       ) : (
                         <button
                           onClick={() => startSession(mode.id)}

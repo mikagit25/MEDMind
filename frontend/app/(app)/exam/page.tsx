@@ -275,17 +275,21 @@ const BLANK_ANSWER: AnswerState = {
   numeric_value: "",
 };
 
-const DIFF_CONFIG: Record<string, { label: string; cls: string }> = {
-  easy:   { label: "Easy",   cls: "bg-green/10 text-green border-green/30" },
-  medium: { label: "Medium", cls: "bg-amber-50 text-amber-600 border-amber-200" },
-  hard:   { label: "Hard",   cls: "bg-red/10 text-red border-red/30" },
+const DIFF_CLS: Record<string, string> = {
+  easy:   "bg-green/10 text-green border-green/30",
+  medium: "bg-amber-50 text-amber-600 border-amber-200",
+  hard:   "bg-red/10 text-red border-red/30",
 };
 
 function DifficultyBadge({ level }: { level: string }) {
-  const cfg = DIFF_CONFIG[level] ?? DIFF_CONFIG.medium;
+  const t = useT();
+  const cls = DIFF_CLS[level] ?? DIFF_CLS.medium;
+  const label = level === "easy" ? t("exam_page.difficulty_easy")
+              : level === "hard" ? t("exam_page.difficulty_hard")
+              : t("exam_page.difficulty_medium");
   return (
-    <span className={`text-xs font-syne font-bold border rounded-full px-2 py-0.5 ${cfg.cls}`}>
-      {cfg.label}
+    <span className={`text-xs font-syne font-bold border rounded-full px-2 py-0.5 ${cls}`}>
+      {label}
     </span>
   );
 }

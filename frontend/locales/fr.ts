@@ -2236,6 +2236,19 @@ const fr: Translations = {
     demo_title: "Essayez NCLEX — Gratuit",
     demo_sub: "10 questions de soins infirmiers, sans abonnement. Évaluez vos connaissances.",
     demo_cta: "Commencer la démo gratuite →",
+    lock_reason: "Passez à Student ou Pro pour débloquer",
+    pass_label: "Réussite ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 questions)",  desc: "Simulation CAT minimale — 75 questions, 90 min" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 questions)",  desc: "Simulation CAT standard — 85 questions, 105 min" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 questions)", desc: "Simulation CAT maximale — 145 questions, 210 min" },
+      nclex_category: { name: "NCLEX par catégorie",      desc: "30 questions d'une catégorie de besoins client" },
+      nclex_demo:     { name: "NCLEX Démo (gratuit)",     desc: "10 questions de soins infirmiers — sans abonnement" },
+      quick_practice: { name: "Pratique rapide",          desc: "20 questions mixtes, 20 min — tous niveaux" },
+      ukmla:          { name: "UKMLA / MLA",              desc: "Licence britannique — 30 questions, 45 min" },
+      usmle_step1:    { name: "USMLE Step 1",             desc: "Sciences fondamentales — 40 questions, 60 min" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",         desc: "Connaissances cliniques — 40 questions, 60 min" },
+    },
   },
 
   dose_trainer: {
@@ -2384,6 +2397,9 @@ const fr: Translations = {
     demo_upsell_body: "Accédez à des examens de 75–145 questions avec CAT adaptatif, analyses complètes et répartition par catégories.",
     demo_upsell_cta: "Voir les offres →",
     demo_back_to_hub: "Retour au Hub NCLEX",
+    difficulty_easy: "Facile",
+    difficulty_medium: "Moyen",
+    difficulty_hard: "Difficile",
   },
 };
 

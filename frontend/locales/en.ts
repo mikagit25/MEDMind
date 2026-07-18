@@ -2291,6 +2291,19 @@ const en = {
     demo_title: "Try NCLEX — Free",
     demo_sub: "10 nursing questions, no subscription needed. See how you'd score.",
     demo_cta: "Start Free Demo →",
+    lock_reason: "Upgrade to Student or Pro to unlock",
+    pass_label: "Pass ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 questions)",  desc: "Minimum-length CAT simulation — 75 questions, 90 min" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 questions)",  desc: "Standard CAT simulation — 85 questions, 105 min" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 questions)", desc: "Maximum-length CAT simulation — 145 questions, 210 min" },
+      nclex_category: { name: "NCLEX by Category",        desc: "30 questions from one client-needs category" },
+      nclex_demo:     { name: "NCLEX Demo (Free)",        desc: "10 nursing questions — no subscription needed" },
+      quick_practice: { name: "Quick Practice",           desc: "20 mixed questions, 20 min — any level" },
+      ukmla:          { name: "UKMLA / MLA",              desc: "UK licensing — 30 questions, 45 min" },
+      usmle_step1:    { name: "USMLE Step 1",             desc: "Basic sciences — 40 questions, 60 min" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",         desc: "Clinical knowledge — 40 questions, 60 min" },
+    },
   },
 
   // ── Dose-Calc Trainer ─────────────────────────────────────────────────────────
@@ -2460,6 +2473,9 @@ const en = {
     demo_upsell_body: "Unlock 75–145 question CAT-adaptive exams, full analytics, and category breakdowns. Students and Pro plans available.",
     demo_upsell_cta: "View Plans →",
     demo_back_to_hub: "Back to NCLEX Hub",
+    difficulty_easy: "Easy",
+    difficulty_medium: "Medium",
+    difficulty_hard: "Hard",
   },
 } as const;
 

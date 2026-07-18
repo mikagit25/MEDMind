@@ -2221,6 +2221,19 @@ const tr: Translations = {
     demo_title: "NCLEX'i Deneyin — Ücretsiz",
     demo_sub: "10 hemşirelik sorusu, abonelik gerekmez. Seviyenizi ölçün.",
     demo_cta: "Ücretsiz Demo Başlat →",
+    lock_reason: "Erişmek için Student veya Pro'ya yükseltin",
+    pass_label: "Geçme ≥",
+    modes: {
+      nclex_rn_75:    { name: "NCLEX-RN (75 soru)",    desc: "Minimum CAT simülasyonu — 75 soru, 90 dak" },
+      nclex_rn_85:    { name: "NCLEX-RN (85 soru)",    desc: "Standart CAT simülasyonu — 85 soru, 105 dak" },
+      nclex_rn_145:   { name: "NCLEX-RN (145 soru)",   desc: "Maksimum CAT simülasyonu — 145 soru, 210 dak" },
+      nclex_category: { name: "Kategoriye Göre NCLEX", desc: "Bir müşteri ihtiyaç kategorisinden 30 soru" },
+      nclex_demo:     { name: "NCLEX Demo (Ücretsiz)", desc: "10 hemşirelik sorusu — abonelik gerekmez" },
+      quick_practice: { name: "Hızlı Pratik",          desc: "20 karışık soru, 20 dak — her seviye" },
+      ukmla:          { name: "UKMLA / MLA",           desc: "Birleşik Krallık lisansı — 30 soru, 45 dak" },
+      usmle_step1:    { name: "USMLE Step 1",          desc: "Temel bilimler — 40 soru, 60 dak" },
+      usmle_step2ck:  { name: "USMLE Step 2 CK",      desc: "Klinik bilgi — 40 soru, 60 dak" },
+    },
   },
 
   dose_trainer: {
@@ -2369,6 +2382,9 @@ const tr: Translations = {
     demo_upsell_body: "CAT adaptif 75–145 soruluk sınavlara, tam analizlere ve kategori dağılımına erişin.",
     demo_upsell_cta: "Planları Gör →",
     demo_back_to_hub: "NCLEX Hub'a Dön",
+    difficulty_easy: "Kolay",
+    difficulty_medium: "Orta",
+    difficulty_hard: "Zor",
   },
 };
 
