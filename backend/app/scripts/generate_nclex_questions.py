@@ -40,6 +40,7 @@ OUTPUT_PREFIX = "nclex_qbank_"
 # ── NCLEX Metadata Maps ───────────────────────────────────────────────────────
 
 MODULE_META = {
+    # ── Original 8 modules ──────────────────────────────────────────────────────
     "NURSE-001": {
         "title": "Nursing Process & Documentation",
         "client_needs": ["safe_effective_care", "health_promotion"],
@@ -80,6 +81,107 @@ MODULE_META = {
         "client_needs": ["psychosocial", "safe_effective_care"],
         "tags": ["sbar_handoff", "therapeutic_communication", "teach_back", "family_care"],
     },
+    # ── Expansion batch: 20 new modules targeting thin NCLEX categories ─────────
+    "NURSE-009": {
+        "title": "Mental Health & Psychiatric Nursing",
+        "client_needs": ["psychosocial", "safe_effective_care"],
+        "tags": ["mental_health", "therapeutic_relationship", "psychiatric_disorders", "de_escalation", "milieu_therapy"],
+    },
+    "NURSE-010": {
+        "title": "Crisis Intervention, Abuse & Substance Use",
+        "client_needs": ["psychosocial", "reduction_risk"],
+        "tags": ["suicide_risk", "substance_withdrawal", "abuse_assessment", "crisis_intervention", "safety_planning"],
+    },
+    "NURSE-011": {
+        "title": "Maternal Nursing: Antepartum & Complications",
+        "client_needs": ["health_promotion", "physiological_adaptation"],
+        "tags": ["prenatal_care", "ectopic_pregnancy", "preeclampsia", "gestational_diabetes", "fetal_monitoring"],
+    },
+    "NURSE-012": {
+        "title": "Intrapartum, Postpartum & Newborn Care",
+        "client_needs": ["physiological_adaptation", "basic_care"],
+        "tags": ["labor_stages", "fetal_heart_rate", "postpartum_hemorrhage", "breastfeeding", "newborn_assessment"],
+    },
+    "NURSE-013": {
+        "title": "Pediatric Nursing & Child Development",
+        "client_needs": ["health_promotion", "basic_care"],
+        "tags": ["growth_development", "immunizations", "pediatric_vitals", "fever_management", "child_safety"],
+    },
+    "NURSE-014": {
+        "title": "Cardiovascular Nursing & Cardiac Pharmacology",
+        "client_needs": ["physiological_adaptation", "pharmacological"],
+        "tags": ["heart_failure", "myocardial_infarction", "arrhythmias", "cardiac_drugs", "hemodynamic_monitoring"],
+    },
+    "NURSE-015": {
+        "title": "Respiratory Nursing & Ventilator Management",
+        "client_needs": ["physiological_adaptation", "reduction_risk"],
+        "tags": ["asthma", "copd", "pneumonia", "mechanical_ventilation", "oxygen_therapy", "respiratory_failure"],
+    },
+    "NURSE-016": {
+        "title": "Neurological Nursing & Stroke Care",
+        "client_needs": ["physiological_adaptation", "reduction_risk"],
+        "tags": ["stroke", "traumatic_brain_injury", "seizures", "icp_management", "neuro_assessment", "glasgow"],
+    },
+    "NURSE-017": {
+        "title": "Endocrine Nursing & Diabetes Management",
+        "client_needs": ["pharmacological", "physiological_adaptation"],
+        "tags": ["insulin_management", "thyroid_disorders", "adrenal_crisis", "glucose_monitoring", "DKA", "HHS"],
+    },
+    "NURSE-018": {
+        "title": "Renal, Urinary & Fluid-Electrolyte Nursing",
+        "client_needs": ["physiological_adaptation", "reduction_risk"],
+        "tags": ["acute_kidney_injury", "CKD", "dialysis", "electrolyte_imbalance", "catheter_care", "fluid_balance"],
+    },
+    "NURSE-019": {
+        "title": "GI Nursing, Nutrition & Enteral Feeding",
+        "client_needs": ["basic_care", "physiological_adaptation"],
+        "tags": ["enteral_nutrition", "GI_bleeding", "bowel_obstruction", "stoma_care", "liver_disease", "ng_tube"],
+    },
+    "NURSE-020": {
+        "title": "Oncology Nursing & Palliative Care",
+        "client_needs": ["pharmacological", "psychosocial"],
+        "tags": ["chemotherapy", "neutropenic_precautions", "pain_management", "end_of_life", "cancer_care", "hospice"],
+    },
+    "NURSE-021": {
+        "title": "ICU & Critical Care Nursing",
+        "client_needs": ["physiological_adaptation", "safe_effective_care"],
+        "tags": ["hemodynamic_monitoring", "vasopressors", "septic_shock", "ARDS", "central_line", "arterial_line"],
+    },
+    "NURSE-022": {
+        "title": "Perioperative & Surgical Nursing",
+        "client_needs": ["reduction_risk", "safe_effective_care"],
+        "tags": ["preoperative_assessment", "surgical_safety_checklist", "anesthesia", "PACU", "postoperative_complications"],
+    },
+    "NURSE-023": {
+        "title": "Leadership, Delegation & Scope of Practice",
+        "client_needs": ["safe_effective_care", "psychosocial"],
+        "tags": ["delegation", "scope_of_practice", "prioritization", "management", "staffing", "chain_of_command"],
+    },
+    "NURSE-024": {
+        "title": "Ethics, Law, Patient Rights & Advocacy",
+        "client_needs": ["safe_effective_care", "psychosocial"],
+        "tags": ["informed_consent", "hipaa", "patient_rights", "advance_directives", "advocacy", "ethical_principles"],
+    },
+    "NURSE-025": {
+        "title": "Community Health, Public Health & Screening",
+        "client_needs": ["health_promotion", "safe_effective_care"],
+        "tags": ["community_health", "health_screening", "immunization_schedule", "epidemiology", "health_education"],
+    },
+    "NURSE-026": {
+        "title": "Pharmacology: High-Alert Drugs & Drug Classes",
+        "client_needs": ["pharmacological", "reduction_risk"],
+        "tags": ["anticoagulants", "antibiotics", "antihypertensives", "drug_interactions", "adverse_effects", "antidotes"],
+    },
+    "NURSE-027": {
+        "title": "Acid-Base Balance & Fluid Management",
+        "client_needs": ["physiological_adaptation", "pharmacological"],
+        "tags": ["ABG_interpretation", "metabolic_acidosis", "respiratory_alkalosis", "IV_fluids", "electrolytes"],
+    },
+    "NURSE-028": {
+        "title": "Gerontological Nursing & Long-Term Care",
+        "client_needs": ["health_promotion", "basic_care"],
+        "tags": ["aging_changes", "dementia_care", "polypharmacy", "fall_risk_elderly", "long_term_care", "restraints"],
+    },
 }
 
 CJMM_SKILLS = [
@@ -91,17 +193,17 @@ CJMM_SKILLS = [
     "evaluate_outcomes",
 ]
 
-# How many questions of each type per module (total 42)
+# How many questions of each type per module (~53 total for calc modules, ~48 for others)
 QUESTION_MIX = {
-    "mcq": 24,       # standard 4-option MCQ
-    "sata": 8,       # Select All That Apply (4-6 options, 2-4 correct)
-    "ordered": 4,    # Put-in-order (4-5 steps)
-    "calculation": 4, # numeric answer (only NURSE-002, 003, 005 have real calc)
-    "bowtie": 2,     # NGN bow-tie (clinical judgment)
+    "mcq": 30,        # standard 4-option MCQ
+    "sata": 10,       # Select All That Apply (4-6 options, 2-4 correct)
+    "ordered": 5,     # Put-in-order (4-5 steps)
+    "calculation": 5, # numeric answer (only for relevant modules)
+    "bowtie": 3,      # NGN bow-tie (clinical judgment)
 }
 
 # Modules with meaningful calculation questions
-CALC_MODULES = {"NURSE-002", "NURSE-003", "NURSE-005", "NURSE-006"}
+CALC_MODULES = {"NURSE-002", "NURSE-003", "NURSE-005", "NURSE-006", "NURSE-017", "NURSE-018", "NURSE-026", "NURSE-027"}
 
 # ── Prompts ───────────────────────────────────────────────────────────────────
 

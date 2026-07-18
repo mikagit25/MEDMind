@@ -37,14 +37,24 @@ async def import_module(module_code: str) -> tuple[int, int]:
     questions = data.get("questions", [])
 
     async with AsyncSessionLocal() as session:
-        # Find the module
+        # Find or create the module
         result = await session.execute(
             select(Module).where(Module.code == module_code)
         )
         module = result.scalar_one_or_none()
         if not module:
-            print(f"  ✗ Module {module_code} not found in DB — run import_modules.py first")
-            return 0, 0
+            title = data.get("module_title", module_code)
+            module = Module(
+                id=uuid.uuid4(),
+                code=module_code,
+                title=title,
+                description=f"NCLEX question bank: {title}",
+                specialty="nursing",
+                level="intermediate",
+            )
+            session.add(module)
+            await session.flush()
+            print(f"  ℹ Created module {module_code}: {title}")
 
         # Get existing question texts to avoid duplicates
         existing = await session.execute(

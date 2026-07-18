@@ -28,6 +28,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import ExamSession, MCQQuestion, Module, User
+from app.services.ai_router import call_claude_structured
 
 router = APIRouter(prefix="/exam", tags=["exam"])
 
@@ -263,9 +264,11 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
         if not is_correct:
             wrong_list.append({
                 "index": q["index"],
+                "id": q.get("id"),  # question UUID for AI explain endpoint
                 "question": q["question"],
                 "your_answer": answer,
                 "correct_answer": correct_display,
+                "explanation": q.get("explanation"),
                 "nclex_client_needs": cat,
                 "cjmm_skill": skill,
             })
@@ -415,6 +418,7 @@ async def create_session(
             "bowtie_data": getattr(mcq, "bowtie_data", None),
             "nclex_client_needs": getattr(mcq, "nclex_client_needs", None),
             "cjmm_skill": getattr(mcq, "cjmm_skill", None),
+            "explanation": getattr(mcq, "explanation", None),
             # private scoring fields
             "_correct": mcq.correct,
             "_correct_answers": getattr(mcq, "correct_answers", None),
@@ -712,3 +716,108 @@ async def _get_session(
     if not sess:
         raise HTTPException(404, "Session not found")
     return sess
+
+
+# ── AI Explanation Endpoint ────────────────────────────────────────────────────
+
+class ExplainRequest(BaseModel):
+    question_id: str
+    user_question: Optional[str] = None  # optional follow-up from user
+
+
+@router.post("/questions/{question_id}/explain")
+async def explain_question(
+    question_id: str,
+    body: ExplainRequest = ExplainRequest(question_id=""),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Generate an AI-powered deep explanation for a given MCQ question.
+
+    Uses Claude Haiku (fast + cheap). No AI quota deducted — educational feature.
+    """
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404, "Question not found")
+
+    result = await db.execute(select(MCQQuestion).where(MCQQuestion.id == qid))
+    q = result.scalar_one_or_none()
+    if not q:
+        raise HTTPException(404, "Question not found")
+
+    # Build options text
+    options = q.options or {}
+    options_text = "\n".join(f"  {k}. {v}" for k, v in options.items())
+
+    # Correct answer display
+    if q.question_type == "sata":
+        correct_display = ", ".join(q.correct_answers or [])
+        answer_label = f"Correct answers: {correct_display} (Select All That Apply)"
+    elif q.question_type == "ordered":
+        correct_display = " → ".join(q.correct_order or [])
+        answer_label = f"Correct order: {correct_display}"
+    elif q.question_type == "calculation":
+        answer_label = f"Correct answer: {q.numeric_answer} {q.numeric_unit or ''}"
+    else:
+        opt_text = options.get(q.correct or "", "")
+        answer_label = f"Correct answer: {q.correct}. {opt_text}"
+
+    nclex_cat = NCLEX_CLIENT_NEEDS_LABELS.get(q.nclex_client_needs or "", q.nclex_client_needs or "General Nursing")
+    cjmm = CJMM_LABELS.get(q.cjmm_skill or "", "")
+
+    follow_up = f"\n\nStudent's additional question: {body.user_question}" if body.user_question else ""
+
+    system_prompt = (
+        "You are an expert NCLEX-RN nursing educator with 20 years of clinical and teaching experience. "
+        "Your explanations are clear, clinically accurate, and help students deeply understand the reasoning — "
+        "not just memorize answers. Use plain English. Structure your response with clear sections."
+    )
+
+    user_msg = f"""A nursing student needs a detailed explanation for this NCLEX question.
+
+QUESTION:
+{q.question}
+
+OPTIONS:
+{options_text if options_text else '(Numeric entry question)'}
+
+{answer_label}
+
+NCLEX Category: {nclex_cat}
+{f'Clinical Judgment Skill: {cjmm}' if cjmm else ''}
+
+EXISTING EXPLANATION (brief):
+{q.explanation or 'None provided.'}
+{follow_up}
+
+Please provide a COMPREHENSIVE explanation covering:
+
+## Why the Correct Answer is Right
+Explain the clinical reasoning. What assessment data, pathophysiology, or nursing principle makes this the best choice?
+
+## Why Each Wrong Option is Incorrect
+Go through each distractor and explain the clinical error or reasoning flaw.
+
+## Key Nursing Concepts to Remember
+Mnemonics, frameworks, or clinical pearls relevant to this topic.
+
+## NCLEX Strategy Tip
+How to approach this type of question on the real exam."""
+
+    try:
+        explanation, _ = await call_claude_structured(
+            system=system_prompt,
+            user_message=user_msg,
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1500,
+        )
+    except Exception as e:
+        raise HTTPException(503, f"AI service temporarily unavailable: {str(e)[:100]}")
+
+    return {
+        "question_id": question_id,
+        "explanation": explanation,
+        "nclex_category": nclex_cat,
+        "cjmm_skill": cjmm,
+    }

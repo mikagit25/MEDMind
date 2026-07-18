@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { examApi } from "@/lib/api";
+import { api, examApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
   ChevronLeft, ChevronRight, AlertTriangle, Layers, Gift,
+  Sparkles, X, Loader2,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -51,6 +52,17 @@ type PerQuestion = {
   ngn_type?: string;
 };
 
+type WrongQuestion = {
+  index: number;
+  id?: string;
+  question: string;
+  your_answer: unknown;
+  correct_answer: string;
+  explanation?: string;
+  nclex_client_needs?: string;
+  cjmm_skill?: string;
+};
+
 type Results = {
   session_id: string;
   mode: string;
@@ -64,14 +76,7 @@ type Results = {
   time_taken_min: number;
   cat_enabled: boolean;
   per_question: PerQuestion[];
-  wrong_questions: {
-    index: number;
-    question: string;
-    your_answer: unknown;
-    correct_answer: string;
-    nclex_client_needs?: string;
-    cjmm_skill?: string;
-  }[];
+  wrong_questions: WrongQuestion[];
   nclex_category_breakdown: Record<string, { total: number; correct: number; pct: number; label: string }>;
   nclex_cjmm_breakdown: Record<string, { total: number; correct: number; pct: number; label: string }>;
   weak_categories: Array<{ key: string; label: string; pct: number }>;
@@ -456,8 +461,11 @@ function ExamSession({
           </button>
         )}
         {locked[current] && (
-          <div className="mt-4 text-xs font-serif text-green flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            <div className="text-xs font-serif text-green flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
+            </div>
+            <AIExplainButton questionId={question.id} questionText={question.question} />
           </div>
         )}
       </div>
@@ -496,19 +504,102 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
   );
 }
 
-function AITutorButton({ question }: { question: string }) {
+function AIExplainButton({ questionId, questionText }: { questionId?: string; questionText: string }) {
   const t = useT();
-  const prompt = encodeURIComponent(
-    `I just answered this NCLEX question incorrectly and need help understanding it:\n\n"${question}"\n\nPlease explain the underlying concept and why the correct answer is right.`
-  );
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [explanation, setExplanation] = useState<string | null>(null);
+  const [error, setError] = useState("");
+
+  async function fetchExplanation() {
+    if (!questionId) {
+      // Fallback: redirect to AI tutor
+      const prompt = encodeURIComponent(`I need help understanding this NCLEX question:\n\n"${questionText}"\n\nExplain why the correct answer is right and what nursing concepts apply.`);
+      window.open(`/ai-tutor?mode=tutor&prompt=${prompt}`, "_blank");
+      return;
+    }
+    setOpen(true);
+    if (explanation) return; // already fetched
+    setLoading(true);
+    setError("");
+    try {
+      const r = await api.post(`/exam/questions/${questionId}/explain`, {});
+      setExplanation(r.data.explanation);
+    } catch {
+      setError(t("common.error"));
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <Link
-      href={`/ai-tutor?mode=tutor&prompt=${prompt}`}
-      className="inline-flex items-center gap-2 text-xs font-syne font-bold border border-ink/30 text-ink px-3 py-1.5 rounded-lg hover:bg-ink hover:text-white transition-colors"
-    >
-      <MessageSquare className="w-3.5 h-3.5" />
-      {t("exam_page.ask_ai")}
-    </Link>
+    <>
+      <button
+        onClick={fetchExplanation}
+        className="inline-flex items-center gap-2 text-xs font-syne font-bold border border-ink/30 text-ink px-3 py-1.5 rounded-lg hover:bg-ink hover:text-white transition-colors"
+      >
+        <Sparkles className="w-3.5 h-3.5" />
+        {t("exam_page.ask_ai")}
+      </button>
+
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="bg-bg border border-border rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-xl">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-shrink-0">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-red" />
+                <span className="font-syne font-bold text-sm text-ink">{t("exam_page.ai_explain_title")}</span>
+              </div>
+              <button onClick={() => setOpen(false)} className="text-ink-3 hover:text-ink transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto p-5 flex-1">
+              <p className="font-serif text-sm text-ink-2 italic mb-4 border-l-2 border-border pl-3 leading-relaxed">
+                {questionText.length > 200 ? questionText.slice(0, 200) + "…" : questionText}
+              </p>
+
+              {loading && (
+                <div className="flex items-center gap-2 text-ink-3 font-serif text-sm py-4">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {t("exam_page.ai_explain_loading")}
+                </div>
+              )}
+              {error && <p className="text-red text-sm font-serif">{error}</p>}
+              {explanation && (
+                <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed space-y-3">
+                  {explanation.split("\n").map((line, i) => {
+                    if (line.startsWith("## ")) return <h3 key={i} className="font-syne font-bold text-sm text-ink mt-4 mb-1">{line.replace("## ", "")}</h3>;
+                    if (line.startsWith("# ")) return <h2 key={i} className="font-syne font-bold text-base text-ink mt-4 mb-1">{line.replace("# ", "")}</h2>;
+                    if (line.startsWith("**") && line.endsWith("**")) return <p key={i} className="font-syne font-bold text-sm">{line.replace(/\*\*/g, "")}</p>;
+                    if (!line.trim()) return null;
+                    return <p key={i} className="text-sm leading-relaxed">{line}</p>;
+                  })}
+                </div>
+              )}
+            </div>
+
+            <div className="px-5 py-4 border-t border-border flex items-center justify-between flex-shrink-0">
+              <Link
+                href={`/ai-tutor?mode=tutor&prompt=${encodeURIComponent(`Help me understand this NCLEX question: "${questionText}"`)}`}
+                target="_blank"
+                className="flex items-center gap-1.5 text-xs font-syne text-ink-3 hover:text-ink transition-colors"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                {t("exam_page.open_ai_tutor")}
+              </Link>
+              <button
+                onClick={() => setOpen(false)}
+                className="font-syne font-bold text-sm px-4 py-2 rounded-xl bg-ink text-white hover:bg-red transition-colors"
+              >
+                {t("common.close")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -634,8 +725,13 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
                 </button>
 
                 {expandedQ === q.index && (
-                  <div className="mt-3 pt-3 border-t border-red/20">
-                    <AITutorButton question={q.question} />
+                  <div className="mt-3 pt-3 border-t border-red/20 space-y-3">
+                    {q.explanation && (
+                      <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3">
+                        {q.explanation.length > 300 ? q.explanation.slice(0, 300) + "…" : q.explanation}
+                      </div>
+                    )}
+                    <AIExplainButton questionId={q.id} questionText={q.question} />
                   </div>
                 )}
               </div>
