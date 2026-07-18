@@ -2281,6 +2281,23 @@ const de: Translations = {
     stats_title: "Leistung nach Kategorie",
   },
 
+  promo: {
+    title: "Code einlösen",
+    sub: "Gib deinen Aktionscode ein, um Zugang zu erhalten.",
+    code_label: "Aktionscode",
+    code_placeholder: "CODE EINGEBEN",
+    apply_cta: "Code anwenden",
+    applying: "Wird angewendet…",
+    activated: "Zugang aktiviert",
+    valid_until: "Gültig bis",
+    go_dashboard: "Zum Dashboard",
+    err_generic: "Ungültiger oder abgelaufener Code.",
+    login_note: "Du musst eingeloggt sein, um einen Code einzulösen.",
+    login_link: "Anmelden",
+    view_plans: "Pläne ansehen",
+    go_home: "Startseite",
+  },
+
   exam_page: {
     title: "Prüfungsvorbereitung",
     back_dashboard: "← Dashboard",

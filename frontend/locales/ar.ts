@@ -2266,6 +2266,23 @@ const ar: Translations = {
     stats_title: "الأداء حسب الفئة",
   },
 
+  promo: {
+    title: "استرداد الرمز",
+    sub: "أدخل رمزك الترويجي لفتح الوصول.",
+    code_label: "الرمز الترويجي",
+    code_placeholder: "أدخل الرمز",
+    apply_cta: "تطبيق الرمز",
+    applying: "جارٍ التطبيق…",
+    activated: "تم تفعيل الوصول",
+    valid_until: "صالح حتى",
+    go_dashboard: "الذهاب للوحة التحكم",
+    err_generic: "رمز غير صالح أو منتهي الصلاحية.",
+    login_note: "يجب تسجيل الدخول لاسترداد الرمز.",
+    login_link: "تسجيل الدخول",
+    view_plans: "عرض الخطط",
+    go_home: "الرئيسية",
+  },
+
   exam_page: {
     title: "التحضير للامتحان",
     back_dashboard: "← لوحة التحكم",

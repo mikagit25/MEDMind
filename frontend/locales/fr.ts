@@ -2281,6 +2281,23 @@ const fr: Translations = {
     stats_title: "Performances par catégorie",
   },
 
+  promo: {
+    title: "Utiliser un code promo",
+    sub: "Entrez votre code promotionnel pour débloquer l'accès.",
+    code_label: "Code promo",
+    code_placeholder: "SAISIR LE CODE",
+    apply_cta: "Appliquer le code",
+    applying: "Application…",
+    activated: "Accès activé",
+    valid_until: "Valide jusqu'au",
+    go_dashboard: "Aller au tableau de bord",
+    err_generic: "Code invalide ou expiré.",
+    login_note: "Vous devez être connecté pour utiliser un code.",
+    login_link: "Se connecter",
+    view_plans: "Voir les offres",
+    go_home: "Accueil",
+  },
+
   exam_page: {
     title: "Préparation aux examens",
     back_dashboard: "← Tableau de bord",

@@ -2281,6 +2281,23 @@ const es: Translations = {
     stats_title: "Rendimiento por categoría",
   },
 
+  promo: {
+    title: "Canjear código",
+    sub: "Introduce tu código promocional para desbloquear el acceso.",
+    code_label: "Código promocional",
+    code_placeholder: "INTRODUCE EL CÓDIGO",
+    apply_cta: "Aplicar código",
+    applying: "Aplicando…",
+    activated: "Acceso activado",
+    valid_until: "Válido hasta",
+    go_dashboard: "Ir al panel",
+    err_generic: "Código inválido o caducado.",
+    login_note: "Debes iniciar sesión para canjear un código.",
+    login_link: "Iniciar sesión",
+    view_plans: "Ver planes",
+    go_home: "Inicio",
+  },
+
   exam_page: {
     title: "Preparación para el examen",
     back_dashboard: "← Panel de control",

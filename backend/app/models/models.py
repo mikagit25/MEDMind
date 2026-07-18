@@ -1795,3 +1795,48 @@ class DoseCalcStat(Base):
     __table_args__ = (
         Index("ix_dose_calc_stats_user", "user_id"),
     )
+
+
+class PromoCode(Base):
+    """Promotional codes — trial grants or Stripe discount coupons."""
+    __tablename__ = "promo_codes"
+
+    id              = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    code            = Column(String(50), unique=True, nullable=False, index=True)
+    description     = Column(String(255), nullable=True)
+
+    # "trial" | "percent" | "fixed"
+    discount_type   = Column(String(20), nullable=False, default="trial")
+    discount_value  = Column(Float, nullable=True)          # pct (0-100) or $ amount
+    trial_tier      = Column(String(20), nullable=True)     # student | pro | clinic
+    trial_days      = Column(Integer, nullable=True)        # days of access
+
+    max_uses        = Column(Integer, nullable=True)        # None = unlimited
+    used_count      = Column(Integer, nullable=False, default=0, server_default="0")
+    one_per_user    = Column(Boolean, nullable=False, default=True, server_default="true")
+
+    is_active       = Column(Boolean, nullable=False, default=True, server_default="true")
+    expires_at      = Column(DateTime, nullable=True)       # None = never
+    created_at      = Column(DateTime, nullable=False, default=datetime.utcnow)
+    created_by_id   = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+
+    uses            = relationship("PromoCodeUse", back_populates="code", cascade="all, delete-orphan")
+
+
+class PromoCodeUse(Base):
+    """Audit log of promo code redemptions."""
+    __tablename__ = "promo_code_uses"
+
+    id              = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    code_id         = Column(UUID(as_uuid=True), ForeignKey("promo_codes.id", ondelete="CASCADE"), nullable=False)
+    user_id         = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    used_at         = Column(DateTime, nullable=False, default=datetime.utcnow)
+    granted_tier    = Column(String(20), nullable=True)
+    granted_until   = Column(DateTime, nullable=True)
+
+    code            = relationship("PromoCode", back_populates="uses")
+
+    __table_args__ = (
+        Index("ix_promo_uses_user", "user_id"),
+        Index("ix_promo_uses_code", "code_id"),
+    )

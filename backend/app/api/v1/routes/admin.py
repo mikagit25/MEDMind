@@ -17,6 +17,7 @@ from app.models.models import (
     Specialty, User, ClinicalCase,
     AuditLog, LessonTranslation, AIConversation, SUPPORTED_LOCALES, MedicalImage, Drug,
     StripeEvent, CreditTransaction, AuthorCreditAccount,
+    PromoCode, PromoCodeUse,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -1909,3 +1910,119 @@ async def get_analytics_overview(
             pass
 
     return result
+
+
+# ── Promo Codes ───────────────────────────────────────────────────────────────
+
+import uuid as _uuid
+from datetime import timedelta as _td
+
+
+class PromoCodeCreate(BaseModel):
+    code: str
+    description: Optional[str] = None
+    discount_type: str = "trial"         # "trial" | "percent" | "fixed"
+    discount_value: Optional[float] = None
+    trial_tier: Optional[str] = None     # "student" | "pro" | "clinic"
+    trial_days: Optional[int] = 30
+    max_uses: Optional[int] = None
+    one_per_user: bool = True
+    expires_at: Optional[datetime] = None
+
+
+@router.get("/promo-codes")
+async def list_promo_codes(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    result = await db.execute(
+        select(PromoCode).order_by(PromoCode.created_at.desc())
+    )
+    codes = result.scalars().all()
+    out = []
+    for c in codes:
+        uses_res = await db.execute(
+            select(func.count()).where(PromoCodeUse.code_id == c.id)
+        )
+        out.append({
+            "id": str(c.id),
+            "code": c.code,
+            "description": c.description,
+            "discount_type": c.discount_type,
+            "discount_value": c.discount_value,
+            "trial_tier": c.trial_tier,
+            "trial_days": c.trial_days,
+            "max_uses": c.max_uses,
+            "used_count": c.used_count,
+            "one_per_user": c.one_per_user,
+            "is_active": c.is_active,
+            "expires_at": c.expires_at.isoformat() if c.expires_at else None,
+            "created_at": c.created_at.isoformat(),
+        })
+    return out
+
+
+@router.post("/promo-codes", status_code=201)
+async def create_promo_code(
+    body: PromoCodeCreate,
+    admin: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    normalized = body.code.strip().upper()
+    existing = await db.execute(
+        select(PromoCode).where(func.upper(PromoCode.code) == normalized)
+    )
+    if existing.scalar_one_or_none():
+        raise HTTPException(409, f"Code '{normalized}' already exists.")
+
+    promo = PromoCode(
+        id=_uuid.uuid4(),
+        code=normalized,
+        description=body.description,
+        discount_type=body.discount_type,
+        discount_value=body.discount_value,
+        trial_tier=body.trial_tier,
+        trial_days=body.trial_days,
+        max_uses=body.max_uses,
+        one_per_user=body.one_per_user,
+        is_active=True,
+        expires_at=body.expires_at,
+        created_at=datetime.utcnow(),
+        created_by_id=admin.id,
+    )
+    db.add(promo)
+    await db.commit()
+    await db.refresh(promo)
+    return {"id": str(promo.id), "code": promo.code, "status": "created"}
+
+
+@router.patch("/promo-codes/{code_id}")
+async def update_promo_code(
+    code_id: UUID,
+    body: dict,
+    _: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    promo = await db.get(PromoCode, code_id)
+    if not promo:
+        raise HTTPException(404, "Promo code not found.")
+    allowed = {"is_active", "max_uses", "expires_at", "description", "trial_days", "trial_tier"}
+    for key, val in body.items():
+        if key in allowed:
+            setattr(promo, key, val)
+    await db.commit()
+    return {"status": "updated"}
+
+
+@router.delete("/promo-codes/{code_id}")
+async def deactivate_promo_code(
+    code_id: UUID,
+    _: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    promo = await db.get(PromoCode, code_id)
+    if not promo:
+        raise HTTPException(404, "Promo code not found.")
+    promo.is_active = False
+    await db.commit()
+    return {"status": "deactivated"}

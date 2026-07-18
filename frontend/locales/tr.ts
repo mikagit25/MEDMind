@@ -2266,6 +2266,23 @@ const tr: Translations = {
     stats_title: "Kategoriye Göre Performans",
   },
 
+  promo: {
+    title: "Kodu Kullan",
+    sub: "Erişimi açmak için promosyon kodunuzu girin.",
+    code_label: "Promosyon Kodu",
+    code_placeholder: "KODU GİRİN",
+    apply_cta: "Kodu Uygula",
+    applying: "Uygulanıyor…",
+    activated: "Erişim Etkinleştirildi",
+    valid_until: "Geçerlilik tarihi",
+    go_dashboard: "Panele Git",
+    err_generic: "Geçersiz veya süresi dolmuş kod.",
+    login_note: "Kodu kullanmak için giriş yapmanız gerekiyor.",
+    login_link: "Giriş yap",
+    view_plans: "Planları Gör",
+    go_home: "Ana Sayfa",
+  },
+
   exam_page: {
     title: "Sınav Hazırlığı",
     back_dashboard: "← Kontrol Paneli",

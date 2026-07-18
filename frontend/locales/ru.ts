@@ -2304,6 +2304,23 @@ const ru: Translations = {
     stats_title: "Результаты по категориям",
   },
 
+  promo: {
+    title: "Ввести промокод",
+    sub: "Введи промокод, чтобы получить доступ.",
+    code_label: "Промокод",
+    code_placeholder: "ВВЕДИ КОД",
+    apply_cta: "Применить",
+    applying: "Применяем…",
+    activated: "Доступ активирован",
+    valid_until: "Действует до",
+    go_dashboard: "На главную",
+    err_generic: "Недействительный или просроченный промокод.",
+    login_note: "Нужно войти в аккаунт, чтобы использовать промокод.",
+    login_link: "Войти",
+    view_plans: "Тарифы",
+    go_home: "Главная",
+  },
+
   exam_page: {
     title: "Подготовка к экзамену",
     back_dashboard: "← Дашборд",

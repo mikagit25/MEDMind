@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { useT } from "@/lib/i18n";
 import { ArticleNav } from "@/components/layout/ArticleNav";
+import { Gift, CheckCircle2, XCircle, ChevronDown, Loader2 } from "lucide-react";
 
 type PlanData = {
   name: string; price: string; period: string; description: string;
@@ -19,6 +20,32 @@ export default function PricingPage() {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Promo code widget state
+  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoResult, setPromoResult] = useState<{ type: string; tier?: string; expires_at?: string; message: string } | null>(null);
+  const [promoError, setPromoError] = useState<string | null>(null);
+
+  async function handlePromoApply(e: React.FormEvent) {
+    e.preventDefault();
+    if (!promoCode.trim()) return;
+    if (!isAuthenticated) { router.push("/login"); return; }
+    setPromoLoading(true);
+    setPromoError(null);
+    setPromoResult(null);
+    try {
+      const res = await api.post("/promo/apply", { code: promoCode.trim() });
+      setPromoResult(res.data);
+      // subscription tier will refresh on next /auth/me call (navigation)
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setPromoError(msg || "Invalid or expired code.");
+    } finally {
+      setPromoLoading(false);
+    }
+  }
 
   const PLANS = t("pricing_page.plans") as unknown as PlanData[];
   const FAQ = t("pricing_page.faq") as unknown as FaqItem[];
@@ -131,6 +158,62 @@ export default function PricingPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Promo code widget */}
+      <section className="max-w-md mx-auto px-6 pb-12">
+        <button
+          onClick={() => setPromoOpen(o => !o)}
+          className="w-full flex items-center justify-center gap-2 text-sm font-syne text-ink-3 hover:text-ink transition-colors"
+        >
+          <Gift className="w-4 h-4" />
+          Have a promo code?
+          <ChevronDown className={`w-4 h-4 transition-transform ${promoOpen ? "rotate-180" : ""}`} />
+        </button>
+        {promoOpen && (
+          <div className="mt-4 bg-surface border border-border rounded-xl p-5">
+            {promoResult ? (
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-green flex-shrink-0" />
+                <div>
+                  <div className="font-syne font-bold text-sm text-ink">
+                    {promoResult.type === "trial" && promoResult.tier
+                      ? `${promoResult.tier.charAt(0).toUpperCase() + promoResult.tier.slice(1)} access activated!`
+                      : promoResult.message}
+                  </div>
+                  {promoResult.expires_at && (
+                    <div className="text-xs font-serif text-ink-3 mt-0.5">
+                      Valid until {new Date(promoResult.expires_at).toLocaleDateString()}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handlePromoApply} className="flex gap-2">
+                <input
+                  value={promoCode}
+                  onChange={e => setPromoCode(e.target.value.toUpperCase())}
+                  placeholder="ENTER CODE"
+                  className="flex-1 bg-bg border border-border rounded-lg px-3 py-2 font-mono text-sm text-ink tracking-widest focus:outline-none focus:border-ink transition-colors uppercase"
+                  disabled={promoLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={promoLoading || !promoCode.trim()}
+                  className="font-syne font-bold text-xs bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-40 flex items-center gap-1.5"
+                >
+                  {promoLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
+                  Apply
+                </button>
+              </form>
+            )}
+            {promoError && (
+              <div className="mt-2 flex items-center gap-2 text-red text-xs font-serif">
+                <XCircle className="w-3.5 h-3.5" /> {promoError}
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* Enterprise / Teams callout */}

@@ -2338,6 +2338,23 @@ const en = {
   },
 
   // ── Exam Page ─────────────────────────────────────────────────────────────────
+  promo: {
+    title: "Redeem Your Code",
+    sub: "Enter your promotional code to unlock access.",
+    code_label: "Promo Code",
+    code_placeholder: "ENTER CODE",
+    apply_cta: "Apply Code",
+    applying: "Applying…",
+    activated: "Access Activated",
+    valid_until: "Valid until",
+    go_dashboard: "Go to Dashboard",
+    err_generic: "Invalid or expired promo code.",
+    login_note: "You need to be logged in to redeem a code.",
+    login_link: "Log in",
+    view_plans: "View Plans",
+    go_home: "Home",
+  },
+
   exam_page: {
     title: "Board Exam Prep",
     back_dashboard: "← Dashboard",

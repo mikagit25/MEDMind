@@ -1,5 +1,6 @@
 """FastAPI dependency injectors."""
 import uuid
+from datetime import datetime
 from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -33,6 +34,18 @@ async def get_current_user(
     user = result.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    # Auto-expire trial subscriptions granted via promo codes
+    if (
+        user.subscription_tier != "free"
+        and user.subscription_expires is not None
+        and user.subscription_expires < datetime.utcnow()
+    ):
+        user.subscription_tier = "free"
+        user.subscription_expires = None
+        await db.commit()
+        await db.refresh(user)
+
     return user
 
 

@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise" | "promo";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -218,6 +218,7 @@ export default function AdminPage() {
           ["audit",        "🔍 Audit Log"],
           ["feedback",     "🚨 Feedback"],
           ["enterprise",   "🏢 Enterprise Leads"],
+          ["promo",        "🎁 Promo Codes"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -650,6 +651,9 @@ export default function AdminPage() {
 
       {/* ── Enterprise Leads ── */}
       {tab === "enterprise" && <EnterpriseLeadsPanel />}
+
+      {/* ── Promo Codes ── */}
+      {tab === "promo" && <PromoCodesPanel />}
 
       {/* ── User Detail Modal ── */}
       {selectedUser && (
@@ -3134,6 +3138,203 @@ function EnterpriseLeadsPanel() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Promo Codes Panel ─────────────────────────────────────────────────────────
+
+type PromoCodeRow = {
+  id: string; code: string; description: string | null;
+  discount_type: string; discount_value: number | null;
+  trial_tier: string | null; trial_days: number | null;
+  max_uses: number | null; used_count: number;
+  one_per_user: boolean; is_active: boolean;
+  expires_at: string | null; created_at: string;
+};
+
+function PromoCodesPanel() {
+  const [codes, setCodes] = useState<PromoCodeRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
+  const [form, setForm] = useState({
+    code: "", description: "", discount_type: "trial",
+    trial_tier: "pro", trial_days: 30,
+    discount_value: 0, max_uses: "", one_per_user: true, expires_at: "",
+  });
+  const [formError, setFormError] = useState<string | null>(null);
+  const [toast2, setToast2] = useState<string | null>(null);
+
+  async function load() {
+    try { const r = await api.get("/admin/promo-codes"); setCodes(r.data); }
+    catch { /* silently fail */ } finally { setLoading(false); }
+  }
+  useEffect(() => { load(); }, []);
+  useEffect(() => { if (toast2) { const t = setTimeout(() => setToast2(null), 2500); return () => clearTimeout(t); } }, [toast2]);
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    setFormError(null);
+    try {
+      await api.post("/admin/promo-codes", {
+        code: form.code,
+        description: form.description || null,
+        discount_type: form.discount_type,
+        trial_tier: form.discount_type === "trial" ? form.trial_tier : null,
+        trial_days: form.discount_type === "trial" ? form.trial_days : null,
+        discount_value: form.discount_type !== "trial" ? form.discount_value : null,
+        max_uses: form.max_uses ? parseInt(form.max_uses) : null,
+        one_per_user: form.one_per_user,
+        expires_at: form.expires_at || null,
+      });
+      setCreating(false);
+      setForm({ code: "", description: "", discount_type: "trial", trial_tier: "pro", trial_days: 30, discount_value: 0, max_uses: "", one_per_user: true, expires_at: "" });
+      setToast2("Code created ✓"); load();
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setFormError(msg || "Failed to create code.");
+    }
+  }
+
+  async function toggleActive(c: PromoCodeRow) {
+    await api.patch(`/admin/promo-codes/${c.id}`, { is_active: !c.is_active });
+    setToast2(c.is_active ? "Deactivated" : "Activated"); load();
+  }
+
+  const TIER_BADGE: Record<string, string> = {
+    student: "bg-blue-50 text-blue-600", pro: "bg-amber-50 text-amber-600", clinic: "bg-green/10 text-green",
+  };
+
+  if (loading) return <div className="text-center py-20 text-ink-3 font-serif">Loading…</div>;
+
+  return (
+    <div className="space-y-6">
+      {toast2 && (
+        <div className="fixed top-4 right-4 z-50 bg-ink text-white text-sm font-syne font-bold px-4 py-2.5 rounded-xl shadow-lg">{toast2}</div>
+      )}
+      <div className="flex items-center justify-between">
+        <h2 className="font-syne font-bold text-xl text-ink">Promo Codes ({codes.length})</h2>
+        <button onClick={() => setCreating(c => !c)} className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors">
+          {creating ? "Cancel" : "+ New Code"}
+        </button>
+      </div>
+
+      {creating && (
+        <form onSubmit={handleCreate} className="bg-surface border border-border rounded-xl p-5 space-y-4">
+          <h3 className="font-syne font-bold text-sm text-ink">New Promo Code</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Code *</label>
+              <input value={form.code} onChange={e => setForm(f => ({ ...f, code: e.target.value.toUpperCase() }))}
+                className="w-full bg-bg border border-border rounded-lg px-3 py-2 font-mono text-sm font-bold tracking-widest focus:outline-none focus:border-ink" placeholder="PROMO2026" required />
+            </div>
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Type</label>
+              <select value={form.discount_type} onChange={e => setForm(f => ({ ...f, discount_type: e.target.value }))}
+                className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink">
+                <option value="trial">Trial (grants tier)</option>
+                <option value="percent">% Discount</option>
+                <option value="fixed">Fixed $ Off</option>
+              </select>
+            </div>
+            {form.discount_type === "trial" ? (
+              <>
+                <div>
+                  <label className="text-xs font-syne text-ink-3 mb-1 block">Tier</label>
+                  <select value={form.trial_tier} onChange={e => setForm(f => ({ ...f, trial_tier: e.target.value }))}
+                    className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink">
+                    <option value="student">Student</option>
+                    <option value="pro">Pro</option>
+                    <option value="clinic">Clinic</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-syne text-ink-3 mb-1 block">Days</label>
+                  <input type="number" value={form.trial_days} onChange={e => setForm(f => ({ ...f, trial_days: parseInt(e.target.value) }))}
+                    className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink" min={1} max={365} />
+                </div>
+              </>
+            ) : (
+              <div>
+                <label className="text-xs font-syne text-ink-3 mb-1 block">{form.discount_type === "percent" ? "%" : "$"} Value</label>
+                <input type="number" value={form.discount_value} onChange={e => setForm(f => ({ ...f, discount_value: parseFloat(e.target.value) }))}
+                  className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink" />
+              </div>
+            )}
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Max Uses (blank = ∞)</label>
+              <input value={form.max_uses} onChange={e => setForm(f => ({ ...f, max_uses: e.target.value }))}
+                className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink" placeholder="∞" />
+            </div>
+            <div>
+              <label className="text-xs font-syne text-ink-3 mb-1 block">Expires At</label>
+              <input type="datetime-local" value={form.expires_at} onChange={e => setForm(f => ({ ...f, expires_at: e.target.value }))}
+                className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink" />
+            </div>
+          </div>
+          <div>
+            <label className="text-xs font-syne text-ink-3 mb-1 block">Internal Note</label>
+            <input value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+              className="w-full bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink" placeholder="Campaign, partner, test code…" />
+          </div>
+          <label className="flex items-center gap-2 text-sm font-syne cursor-pointer">
+            <input type="checkbox" checked={form.one_per_user} onChange={e => setForm(f => ({ ...f, one_per_user: e.target.checked }))} />
+            One use per user
+          </label>
+          {formError && <p className="text-red text-xs font-serif">{formError}</p>}
+          <button type="submit" className="font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-lg hover:bg-red transition-colors">Create Code</button>
+        </form>
+      )}
+
+      <div className="bg-surface border border-border rounded-xl overflow-hidden">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              {["Code", "Type", "Used", "Status", "Expires", ""].map(h => (
+                <th key={h} className="text-left text-xs font-syne font-bold text-ink-3 uppercase tracking-wider px-4 py-3">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {codes.map(c => (
+              <tr key={c.id} className="border-b border-border last:border-0 hover:bg-bg transition-colors">
+                <td className="px-4 py-3">
+                  <div className="font-mono font-bold text-sm text-ink">{c.code}</div>
+                  {c.description && <div className="text-xs text-ink-3 font-serif mt-0.5">{c.description}</div>}
+                </td>
+                <td className="px-4 py-3">
+                  {c.discount_type === "trial" ? (
+                    <span className={`text-xs font-syne font-bold px-2 py-0.5 rounded-full ${TIER_BADGE[c.trial_tier ?? ""] ?? "bg-surface text-ink-3"}`}>
+                      {c.trial_tier} · {c.trial_days}d
+                    </span>
+                  ) : (
+                    <span className="text-xs font-syne text-ink">
+                      {c.discount_type === "percent" ? `${c.discount_value}% off` : `$${c.discount_value} off`}
+                    </span>
+                  )}
+                </td>
+                <td className="px-4 py-3 font-syne text-sm">{c.used_count}{c.max_uses ? ` / ${c.max_uses}` : ""}</td>
+                <td className="px-4 py-3">
+                  <span className={`text-xs font-syne font-bold px-2 py-0.5 rounded-full border ${c.is_active ? "bg-green/10 text-green border-green/30" : "bg-surface text-ink-3 border-border"}`}>
+                    {c.is_active ? "Active" : "Inactive"}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-xs font-serif text-ink-3">
+                  {c.expires_at ? new Date(c.expires_at).toLocaleDateString() : "Never"}
+                </td>
+                <td className="px-4 py-3">
+                  <button onClick={() => toggleActive(c)} className={`text-xs font-syne font-semibold px-3 py-1 rounded-lg border transition-colors ${c.is_active ? "border-red/30 text-red hover:bg-red/5" : "border-green/30 text-green hover:bg-green/5"}`}>
+                    {c.is_active ? "Deactivate" : "Activate"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {codes.length === 0 && (
+              <tr><td colSpan={6} className="text-center py-12 text-ink-3 font-serif">No promo codes yet.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
