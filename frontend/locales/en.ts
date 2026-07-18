@@ -2301,6 +2301,8 @@ const en = {
     streak: "Streak:",
     score: "Score:",
     choose_category: "Choose Category",
+    cat_mixed_label: "Mixed — All Categories",
+    cat_mixed_desc: "Random problems from all 5 categories",
     cat_weight_label: "Weight-Based Dosing",
     cat_weight_desc: "mg/kg → mL, volume from concentration",
     cat_infusion_label: "Infusion Rates",
@@ -2326,6 +2328,10 @@ const en = {
     err_load: "Could not load problem. Please try again.",
     err_number: "Please enter a valid number.",
     err_check: "Could not check answer. Please try again.",
+    timer_on: "Timer ON",
+    timer_off: "Timer",
+    timer_enable: "Enable 90s countdown timer",
+    timer_disable: "Disable timer",
   },
 
   // ── Exam Page ─────────────────────────────────────────────────────────────────

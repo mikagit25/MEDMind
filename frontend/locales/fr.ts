@@ -2245,6 +2245,8 @@ const fr: Translations = {
     streak: "Série :",
     score: "Score :",
     choose_category: "Choisir une catégorie",
+    cat_mixed_label: "Mixte — Toutes les catégories",
+    cat_mixed_desc: "Problèmes aléatoires de toutes les 5 catégories",
     cat_weight_label: "Dosage selon le poids",
     cat_weight_desc: "mg/kg → mL, volume à partir de la concentration",
     cat_infusion_label: "Débits de perfusion",
@@ -2270,6 +2272,10 @@ const fr: Translations = {
     err_load: "Impossible de charger le problème. Veuillez réessayer.",
     err_number: "Veuillez entrer un nombre valide.",
     err_check: "Impossible de vérifier la réponse. Veuillez réessayer.",
+    timer_on: "Minuteur ON",
+    timer_off: "Minuteur",
+    timer_enable: "Activer le minuteur 90s",
+    timer_disable: "Désactiver le minuteur",
   },
 
   exam_page: {

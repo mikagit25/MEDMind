@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 import { useT } from "@/lib/i18n";
@@ -12,11 +12,19 @@ import {
   RefreshCw,
   Info,
   Zap,
+  Timer,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
-type Category = "weight_dose" | "infusion_rate" | "dilution" | "unit_convert" | "pediatric_dose";
+type BaseCategory = "weight_dose" | "infusion_rate" | "dilution" | "unit_convert" | "pediatric_dose";
+type Category = BaseCategory | "mixed";
+
+const BASE_CATEGORIES: BaseCategory[] = ["weight_dose", "infusion_rate", "dilution", "unit_convert", "pediatric_dose"];
+
+function pickRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 type Problem = {
   category: string;
@@ -67,7 +75,27 @@ function StepSolution({ steps, title }: { steps: string[]; title: string }) {
   );
 }
 
+// ── Timer display ──────────────────────────────────────────────────────────────
+
+function TimerDisplay({ seconds }: { seconds: number }) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  const label = `${m}:${String(s).padStart(2, "0")}`;
+  const cls =
+    seconds <= 10 ? "text-red border-red/30 bg-red/10" :
+    seconds <= 30 ? "text-amber-600 border-amber-200 bg-amber-50" :
+    "text-ink-3 border-border bg-surface";
+  return (
+    <span className={`flex items-center gap-1 text-xs font-syne font-bold border rounded-full px-2.5 py-0.5 transition-colors ${cls}`}>
+      <Timer className="w-3 h-3" />
+      {label}
+    </span>
+  );
+}
+
 // ── Main Page ──────────────────────────────────────────────────────────────────
+
+const TIMER_DURATION = 90;
 
 export default function DoseCalcPage() {
   const t = useT();
@@ -80,7 +108,59 @@ export default function DoseCalcPage() {
   const [streak, setStreak] = useState(0);
   const [total, setTotal] = useState(0);
 
+  // Timer state
+  const [timerEnabled, setTimerEnabled] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(TIMER_DURATION);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const inputValueRef = useRef(inputValue);
+  const problemRef = useRef(problem);
+  const checkingRef = useRef(false);
+
+  useEffect(() => { inputValueRef.current = inputValue; }, [inputValue]);
+  useEffect(() => { problemRef.current = problem; }, [problem]);
+  useEffect(() => { checkingRef.current = checking; }, [checking]);
+
+  // Reset/start timer when problem changes or timer toggled
+  useEffect(() => {
+    if (timerEnabled && problem && !result) {
+      setTimeLeft(TIMER_DURATION);
+      setTimerRunning(true);
+    } else {
+      setTimerRunning(false);
+      setTimeLeft(TIMER_DURATION);
+    }
+  }, [problem?.seed, timerEnabled]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Stop timer when result arrives
+  useEffect(() => {
+    if (result) setTimerRunning(false);
+  }, [result]);
+
+  // Countdown tick
+  useEffect(() => {
+    if (!timerRunning) return;
+    if (timeLeft <= 0) {
+      setTimerRunning(false);
+      const p = problemRef.current;
+      if (p && !checkingRef.current) {
+        const raw = parseFloat(inputValueRef.current.replace(",", "."));
+        const submitVal = isNaN(raw) ? 0 : raw;
+        // Fire-and-forget auto-submit using the actual category stored in the problem
+        doseCalcApi.checkAnswer(p.category as BaseCategory, p.seed, submitVal).then((r: CheckResult) => {
+          setResult(r);
+          setTotal(tot => tot + 1);
+          if (r.correct) setStreak(s => s + 1);
+          else setStreak(0);
+        }).catch(() => {});
+      }
+      return;
+    }
+    const id = setTimeout(() => setTimeLeft(t => t - 1), 1000);
+    return () => clearTimeout(id);
+  }, [timerRunning, timeLeft]);
+
   const CATEGORIES: { key: Category; icon: string; label: string; description: string }[] = [
+    { key: "mixed",          icon: "🎲", label: t("dose_trainer.cat_mixed_label"),     description: t("dose_trainer.cat_mixed_desc") },
     { key: "weight_dose",    icon: "⚖️", label: t("dose_trainer.cat_weight_label"),    description: t("dose_trainer.cat_weight_desc") },
     { key: "infusion_rate",  icon: "💧", label: t("dose_trainer.cat_infusion_label"),  description: t("dose_trainer.cat_infusion_desc") },
     { key: "dilution",       icon: "🧪", label: t("dose_trainer.cat_dilution_label"),  description: t("dose_trainer.cat_dilution_desc") },
@@ -88,12 +168,18 @@ export default function DoseCalcPage() {
     { key: "pediatric_dose", icon: "👶", label: t("dose_trainer.cat_pediatric_label"), description: t("dose_trainer.cat_pediatric_desc") },
   ];
 
+  // Resolve display label for the active problem (mixed mode shows actual category)
+  const activeCategoryLabel = problem
+    ? (CATEGORIES.find(c => c.key === problem.category)?.label ?? CATEGORIES.find(c => c.key === selectedCategory)?.label)
+    : CATEGORIES.find(c => c.key === selectedCategory)?.label;
+
   const loadProblem = useCallback(async (cat: Category, seed?: number) => {
     setLoading(true);
     setResult(null);
     setInputValue("");
     try {
-      const p = await doseCalcApi.getProblem(cat, seed);
+      const actualCat: BaseCategory = cat === "mixed" ? pickRandom(BASE_CATEGORIES) : cat;
+      const p = await doseCalcApi.getProblem(actualCat, seed);
       setProblem(p);
     } catch {
       alert(t("dose_trainer.err_load"));
@@ -109,7 +195,7 @@ export default function DoseCalcPage() {
 
     setChecking(true);
     try {
-      const r: CheckResult = await doseCalcApi.checkAnswer(selectedCategory, problem.seed, val);
+      const r: CheckResult = await doseCalcApi.checkAnswer(problem.category as BaseCategory, problem.seed, val);
       setResult(r);
       setTotal(tot => tot + 1);
       if (r.correct) setStreak(s => s + 1);
@@ -130,6 +216,8 @@ export default function DoseCalcPage() {
     setProblem(null);
     setResult(null);
     setInputValue("");
+    setTimerRunning(false);
+    setTimeLeft(TIMER_DURATION);
   }
 
   return (
@@ -144,9 +232,23 @@ export default function DoseCalcPage() {
               <p className="text-ink-3 font-serif text-xs mt-0.5">{t("dose_trainer.sub")}</p>
             </div>
           </div>
-          <Link href="/nurses/nclex" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">
-            {t("dose_trainer.back")}
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setTimerEnabled(e => !e)}
+              title={timerEnabled ? t("dose_trainer.timer_disable") : t("dose_trainer.timer_enable")}
+              className={`flex items-center gap-1.5 text-xs font-syne font-bold px-3 py-1.5 rounded-lg border transition-all ${
+                timerEnabled
+                  ? "bg-ink text-white border-ink"
+                  : "bg-surface text-ink-3 border-border hover:border-ink hover:text-ink"
+              }`}
+            >
+              <Timer className="w-3.5 h-3.5" />
+              {timerEnabled ? t("dose_trainer.timer_on") : t("dose_trainer.timer_off")}
+            </button>
+            <Link href="/nurses/nclex" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">
+              {t("dose_trainer.back")}
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -215,8 +317,11 @@ export default function DoseCalcPage() {
             {/* Question */}
             <div className="bg-surface border border-border rounded-xl p-6">
               <div className="flex items-start justify-between mb-4">
-                <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider">
-                  {CATEGORIES.find(c => c.key === selectedCategory)?.label}
+                <div className="flex items-center gap-3">
+                  <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider">
+                    {activeCategoryLabel}
+                  </div>
+                  {timerEnabled && !result && <TimerDisplay seconds={timeLeft} />}
                 </div>
                 <button
                   onClick={nextProblem}

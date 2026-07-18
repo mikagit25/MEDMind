@@ -2230,6 +2230,8 @@ const ar: Translations = {
     streak: "السلسلة:",
     score: "النتيجة:",
     choose_category: "اختر الفئة",
+    cat_mixed_label: "مختلط — جميع الفئات",
+    cat_mixed_desc: "مسائل عشوائية من جميع الفئات الخمس",
     cat_weight_label: "الجرعة حسب الوزن",
     cat_weight_desc: "mg/kg → mL، الحجم من التركيز",
     cat_infusion_label: "معدل التسريب",
@@ -2255,6 +2257,10 @@ const ar: Translations = {
     err_load: "تعذر تحميل المسألة. يرجى المحاولة مرة أخرى.",
     err_number: "يرجى إدخال رقم صالح.",
     err_check: "تعذر التحقق من الإجابة. يرجى المحاولة مرة أخرى.",
+    timer_on: "المؤقت: تشغيل",
+    timer_off: "مؤقت",
+    timer_enable: "تفعيل عداد 90 ثانية",
+    timer_disable: "إيقاف المؤقت",
   },
 
   exam_page: {

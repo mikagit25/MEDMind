@@ -2230,6 +2230,8 @@ const tr: Translations = {
     streak: "Seri:",
     score: "Puan:",
     choose_category: "Kategori Seç",
+    cat_mixed_label: "Karma — Tüm Kategoriler",
+    cat_mixed_desc: "5 kategoriden rastgele sorular",
     cat_weight_label: "Ağırlığa Dayalı Dozaj",
     cat_weight_desc: "mg/kg → mL, konsantrasyondan hacim",
     cat_infusion_label: "İnfüzyon Hızı",
@@ -2255,6 +2257,10 @@ const tr: Translations = {
     err_load: "Problem yüklenemedi. Lütfen tekrar deneyin.",
     err_number: "Lütfen geçerli bir sayı girin.",
     err_check: "Cevap kontrol edilemedi. Lütfen tekrar deneyin.",
+    timer_on: "Zamanlayıcı AÇIK",
+    timer_off: "Zamanlayıcı",
+    timer_enable: "90s geri sayım zamanlayıcısı",
+    timer_disable: "Zamanlayıcıyı kapat",
   },
 
   exam_page: {

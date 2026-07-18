@@ -2245,6 +2245,8 @@ const es: Translations = {
     streak: "Racha:",
     score: "Puntuación:",
     choose_category: "Elegir categoría",
+    cat_mixed_label: "Mixto — Todas las categorías",
+    cat_mixed_desc: "Problemas aleatorios de las 5 categorías",
     cat_weight_label: "Dosificación por peso",
     cat_weight_desc: "mg/kg → mL, volumen a partir de concentración",
     cat_infusion_label: "Tasas de infusión",
@@ -2270,6 +2272,10 @@ const es: Translations = {
     err_load: "No se pudo cargar el problema. Por favor, inténtalo de nuevo.",
     err_number: "Por favor, ingresa un número válido.",
     err_check: "No se pudo verificar la respuesta. Por favor, inténtalo de nuevo.",
+    timer_on: "Temporizador ON",
+    timer_off: "Temporizador",
+    timer_enable: "Activar temporizador de 90s",
+    timer_disable: "Desactivar temporizador",
   },
 
   exam_page: {

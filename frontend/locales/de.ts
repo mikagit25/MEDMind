@@ -2245,6 +2245,8 @@ const de: Translations = {
     streak: "Serie:",
     score: "Punktzahl:",
     choose_category: "Kategorie wählen",
+    cat_mixed_label: "Gemischt — Alle Kategorien",
+    cat_mixed_desc: "Zufällige Aufgaben aus allen 5 Kategorien",
     cat_weight_label: "Gewichtsbasierte Dosierung",
     cat_weight_desc: "mg/kg → mL, Volumen aus Konzentration",
     cat_infusion_label: "Infusionsraten",
@@ -2270,6 +2272,10 @@ const de: Translations = {
     err_load: "Aufgabe konnte nicht geladen werden. Bitte erneut versuchen.",
     err_number: "Bitte eine gültige Zahl eingeben.",
     err_check: "Antwort konnte nicht überprüft werden. Bitte erneut versuchen.",
+    timer_on: "Timer AN",
+    timer_off: "Timer",
+    timer_enable: "90s-Countdown aktivieren",
+    timer_disable: "Timer deaktivieren",
   },
 
   exam_page: {

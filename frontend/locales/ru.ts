@@ -2268,6 +2268,8 @@ const ru: Translations = {
     streak: "Серия:",
     score: "Счёт:",
     choose_category: "Выбрать категорию",
+    cat_mixed_label: "Смешанный — Все категории",
+    cat_mixed_desc: "Случайные задачи из всех 5 категорий",
     cat_weight_label: "Дозирование по весу",
     cat_weight_desc: "мг/кг → мл, объём из концентрации",
     cat_infusion_label: "Скорость инфузии",
@@ -2293,6 +2295,10 @@ const ru: Translations = {
     err_load: "Не удалось загрузить задачу. Попробуйте снова.",
     err_number: "Введите корректное число.",
     err_check: "Не удалось проверить ответ. Попробуйте снова.",
+    timer_on: "Таймер ВКЛ",
+    timer_off: "Таймер",
+    timer_enable: "Включить таймер 90 секунд",
+    timer_disable: "Выключить таймер",
   },
 
   exam_page: {
