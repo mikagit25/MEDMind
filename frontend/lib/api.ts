@@ -805,9 +805,10 @@ export const examApi = {
   getNCLEXAnalytics: () => api.get("/exam/nclex/analytics").then(r => r.data),
   createSession: (
     mode_id: string,
+    question_ids?: string[],
     options?: { specialty_filter?: string; nclex_category?: string }
   ) =>
-    api.post("/exam/sessions", { mode_id, ...options }).then(r => r.data),
+    api.post("/exam/sessions", { mode_id, question_ids: question_ids?.length ? question_ids : undefined, ...options }).then(r => r.data),
   getSession: (sessionId: string) => api.get(`/exam/sessions/${sessionId}`).then(r => r.data),
   submitAnswer: (
     sessionId: string,
@@ -824,6 +825,7 @@ export const examApi = {
     api.post(`/exam/sessions/${sessionId}/submit`).then(r => r.data),
   getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
   getHistory: (limit = 20) => api.get(`/exam/history?limit=${limit}`).then(r => r.data),
+  getReadiness: () => api.get("/exam/nclex/readiness").then(r => r.data),
 };
 
 // ── FHIR Learning Record Export ───────────────────────────────────────────────

@@ -13,6 +13,7 @@ POST /exam/sessions/{id}/submit          — finalize + results
 GET  /exam/sessions/{id}/results         — results + category breakdown
 GET  /exam/history                       — past sessions
 GET  /exam/nclex/analytics               — NCLEX category performance over time
+GET  /exam/nclex/readiness               — NCLEX Readiness Score (weighted estimate)
 """
 
 import uuid as uuid_lib
@@ -359,6 +360,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             "correct_answer": correct_display if not is_correct else None,
             "nclex_client_needs": cat,
             "cjmm_skill": skill,
+            "difficulty": q.get("difficulty", "medium") or "medium",
             "question_type": q.get("question_type", "mcq"),
             "ngn_type": q.get("ngn_type"),
         })
@@ -507,6 +509,7 @@ async def create_session(
             "bowtie_data": getattr(mcq, "bowtie_data", None),
             "nclex_client_needs": getattr(mcq, "nclex_client_needs", None),
             "cjmm_skill": getattr(mcq, "cjmm_skill", None),
+            "difficulty": getattr(mcq, "difficulty", "medium") or "medium",
             "explanation": getattr(mcq, "explanation", None),
             # private scoring fields (filtered from public session view)
             "_correct": mcq.correct,
@@ -679,6 +682,11 @@ async def finalize_session(
     sess.per_question = results["per_question"]
     await db.commit()
 
+    # Invalidate readiness cache so next GET /nclex/readiness reflects this session
+    if sess.mode_id.startswith("nclex_"):
+        from app.services.readiness import invalidate_readiness_cache
+        await invalidate_readiness_cache(user.id)
+
     return results
 
 
@@ -799,6 +807,23 @@ async def nclex_analytics(
             for s in sessions
         ],
     }
+
+
+@router.get("/nclex/readiness")
+async def get_nclex_readiness(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    NCLEX Readiness Score — weighted accuracy estimate across all practice sessions.
+
+    Weights: NCLEX category distribution × recency (7d/30d/older) × difficulty.
+    Minimum 50 answered questions to show a score.
+
+    Legal: this is a practice performance estimate, NOT a NCLEX exam outcome prediction.
+    """
+    from app.services.readiness import get_cached_readiness
+    return await get_cached_readiness(user.id, db)
 
 
 async def _get_session(

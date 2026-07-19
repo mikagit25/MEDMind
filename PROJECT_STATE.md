@@ -6,9 +6,30 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V6 Phase 2 ✅ — NCLEX Rationales. Backend: 734 passed. TypeScript: 0 errors. E2E: 11 passed, 0 failed.
+**Phase:** V6 Phase 3 ✅ — NCLEX Readiness Score. Backend: 743 passed. TypeScript: 0 errors. E2E: 11 passed, 0 failed.
 **Last Updated:** 2026-07-19
-**Next Action:** V6 Phase 3 — Core Web Vitals, ISR, structured data (SEO/performance).
+**Next Action:** V6 Phase 4 — Study Plan from exam date.
+
+### V6 Phase 3 — NCLEX Readiness Score ✅ (2026-07-19)
+- **`app/services/readiness.py`**: `compute_from_sessions()` + `compute_readiness()` + `get_cached_readiness()` + `invalidate_readiness_cache()`
+  - Weights: NCLEX category distribution × recency (7d×1.5 / 30d×1.0 / older×0.5) × difficulty (easy×0.8 / hard×1.2)
+  - Min threshold: 50 questions before score shown ("N more questions to go")
+  - Levels: Below Passing / Borderline / Passing Range / High (thresholds: 55/62/75)
+  - Weak categories: only pct < 75% with ≥5 questions, top-3
+  - Redis cache: 1-hour TTL, invalidated on NCLEX session completion
+- **API**: `GET /exam/nclex/readiness` — cached readiness + trend + category breakdown + disclaimer
+- **Snapshot + per_question**: added `difficulty` field to both (needed for readiness weighting)
+- **`finalize_session`**: invalidates readiness cache on NCLEX session submit
+- **UI** (`nurses/nclex/page.tsx`):
+  - New "Readiness" tab (2nd position after Practice)
+  - Pre-threshold: progress bar "X/50 questions" with count
+  - Post-threshold: 7xl score, level label, sparkline in score card, full 30-day bar chart with hover tooltips
+  - Weak categories: bars + "Train this category →" button → jumps to Practice tab with category pre-selected
+  - All category breakdown sorted ascending by pct, category labels clickable to train
+  - Stats strip: readiness score shown if threshold met, clickable → opens Readiness tab
+  - Disclaimer text on all states (legal: estimate, not NCLEX outcome prediction)
+- **i18n**: `tab_readiness` + `readiness_label` added to all 7 locales (en/ru/es/fr/tr/ar/de)
+- **Tests** `tests/test_v6_phase3.py`: 9 unit tests — threshold, weak category detection, recency weight, difficulty weight, trend sort, disclaimer
 
 ### V6 Phase 2 — NCLEX Rationales ✅ (2026-07-19)
 - **DB migration** `k7l8m9n0o1p2`: added `rationales JSONB`, `key_takeaway TEXT`, `test_taking_tip TEXT`, `is_flagged BOOL`, `flag_reason TEXT` to `mcq_questions`

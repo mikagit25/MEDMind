@@ -20,6 +20,7 @@ import {
   TrendingUp,
   TrendingDown,
   Gift,
+  Info,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -65,6 +66,19 @@ type Analytics = {
   overall_trend: Array<{ session_id: string; date: string; score_pct: number; mode: string }>;
 };
 
+type Readiness = {
+  score: number | null;
+  level: string | null;
+  level_label: string | null;
+  threshold_met: boolean;
+  questions_answered: number;
+  questions_to_threshold: number;
+  category_breakdown: Record<string, { label: string; pct: number; count: number }>;
+  weak_categories: Array<{ key: string; label: string; pct: number; count: number }>;
+  trend: Array<{ date: string; score_pct: number | null; correct: number; total: number }>;
+  disclaimer: string;
+};
+
 // ── Icon map ───────────────────────────────────────────────────────────────────
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -106,6 +120,220 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
   );
 }
 
+// ── Readiness Tab Component ────────────────────────────────────────────────────
+
+const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string }> = {
+  high:          { color: "text-green",      bg: "bg-green/5",   border: "border-green/30" },
+  passing_range: { color: "text-blue-600",   bg: "bg-blue-50",   border: "border-blue-200" },
+  borderline:    { color: "text-amber-600",  bg: "bg-amber-50",  border: "border-amber-200" },
+  below_passing: { color: "text-red",        bg: "bg-red/5",     border: "border-red/20" },
+};
+
+function ReadinessTab({
+  readiness,
+  onTrainCategory,
+}: {
+  readiness: Readiness | null;
+  onTrainCategory: (key: string) => void;
+}) {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  if (!readiness) {
+    return <div className="py-16 text-center text-ink-3 font-serif">Loading…</div>;
+  }
+
+  if (!readiness.threshold_met) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-surface border border-border rounded-xl p-8 text-center">
+          <Target className="w-12 h-12 mx-auto mb-4 text-ink-3 opacity-40" />
+          <h2 className="font-syne font-black text-xl text-ink mb-2">NCLEX Readiness Score</h2>
+          <p className="font-serif text-sm text-ink-3 mb-4 max-w-sm mx-auto">
+            Answer at least 50 NCLEX practice questions to unlock your readiness estimate.
+          </p>
+          <div className="inline-flex items-center gap-2 bg-border/40 rounded-full px-4 py-2">
+            <div className="h-1.5 w-32 bg-border rounded-full overflow-hidden">
+              <div
+                className="h-full bg-ink rounded-full transition-all"
+                style={{ width: `${Math.min(100, (readiness.questions_answered / 50) * 100)}%` }}
+              />
+            </div>
+            <span className="text-xs font-syne font-bold text-ink-2">
+              {readiness.questions_answered} / 50
+            </span>
+          </div>
+          <p className="text-xs font-serif text-ink-3 mt-3">
+            {readiness.questions_to_threshold} more questions to go
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const score = readiness.score!;
+  const level = readiness.level || "below_passing";
+  const lvlCfg = LEVEL_CONFIG[level] ?? LEVEL_CONFIG.below_passing;
+  const trendData = readiness.trend;
+
+  return (
+    <div className="space-y-6">
+      {/* Score card */}
+      <div className={`rounded-xl p-6 border ${lvlCfg.bg} ${lvlCfg.border}`}>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <h2 className="font-syne font-black text-sm text-ink uppercase tracking-wider">
+                NCLEX Readiness Score
+              </h2>
+              <button
+                onClick={() => setTooltipOpen(o => !o)}
+                className="text-ink-3 hover:text-ink transition-colors"
+              >
+                <Info className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            {tooltipOpen && (
+              <div className="bg-ink text-white rounded-xl px-4 py-3 text-xs font-serif max-w-sm mb-3 leading-relaxed">
+                {readiness.disclaimer}
+              </div>
+            )}
+          </div>
+          <div className="text-right">
+            <span className="text-xs font-syne text-ink-3">
+              {readiness.questions_answered} questions answered
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-end gap-6">
+          <div>
+            <div className={`font-syne font-black text-7xl leading-none mb-1 ${lvlCfg.color}`}>
+              {score}%
+            </div>
+            <div className={`font-syne font-bold text-sm ${lvlCfg.color}`}>
+              {readiness.level_label}
+            </div>
+          </div>
+
+          {/* Mini trend sparkline */}
+          {trendData.length > 1 && (
+            <div className="flex-1 flex items-end gap-1 h-16 pb-1">
+              {trendData.slice(-14).map((pt, i) => {
+                const h = Math.max(4, ((pt.score_pct ?? 0) / 100) * 56);
+                const color = (pt.score_pct ?? 0) >= 62 ? "bg-green/60" : "bg-red/40";
+                return (
+                  <div key={i} className="flex-1 flex flex-col justify-end">
+                    <div className={`rounded-sm ${color}`} style={{ height: `${h}px` }} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 30-day trend chart (larger) */}
+      {trendData.length > 1 && (
+        <div className="bg-surface border border-border rounded-xl p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
+            <TrendingUp className="w-4 h-4" /> Performance Trend (last 30 days)
+          </h3>
+          <div className="flex items-end gap-1.5 h-24">
+            {trendData.map((pt, i) => {
+              const h = Math.max(4, ((pt.score_pct ?? 0) / 100) * 88);
+              const color = (pt.score_pct ?? 0) >= 62 ? "bg-green" : "bg-red/60";
+              return (
+                <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
+                  <div className={`w-full rounded-t transition-all ${color}`} style={{ height: `${h}px` }} />
+                  <span className="text-[9px] font-syne text-ink-3">
+                    {(pt.score_pct ?? 0)}%
+                  </span>
+                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-ink text-white text-[10px] font-syne rounded px-1.5 py-0.5 whitespace-nowrap z-10">
+                    {pt.date}: {pt.correct}/{pt.total}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex justify-between text-[10px] font-syne text-ink-3 mt-1">
+            <span>{trendData[0]?.date}</span>
+            <span>{trendData[trendData.length - 1]?.date}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Weak categories */}
+      {readiness.weak_categories.length > 0 && (
+        <div className="bg-red/5 border border-red/20 rounded-xl p-5">
+          <h3 className="font-syne font-bold text-sm text-red mb-3 flex items-center gap-2">
+            <TrendingDown className="w-4 h-4" /> Focus Areas ({readiness.weak_categories.length})
+          </h3>
+          <div className="space-y-3">
+            {readiness.weak_categories.map(c => (
+              <div key={c.key}>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-xs font-serif text-ink-2 truncate pr-2">{c.label}</span>
+                  <span className="text-xs font-syne font-bold text-ink flex-shrink-0">
+                    {c.pct}% <span className="text-ink-3 font-normal">({c.count}q)</span>
+                  </span>
+                </div>
+                <div className="h-1.5 bg-border rounded-full overflow-hidden mb-1.5">
+                  <div className="h-full bg-red rounded-full" style={{ width: `${c.pct}%` }} />
+                </div>
+                <button
+                  onClick={() => onTrainCategory(c.key)}
+                  className="text-xs font-syne text-red hover:underline"
+                >
+                  Train this category →
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* All categories breakdown */}
+      {Object.keys(readiness.category_breakdown).length > 0 && (
+        <div className="bg-surface border border-border rounded-xl p-5">
+          <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
+            <Layers className="w-4 h-4" /> Category Breakdown
+          </h3>
+          <div className="space-y-3">
+            {Object.entries(readiness.category_breakdown)
+              .sort((a, b) => a[1].pct - b[1].pct)
+              .map(([key, c]) => {
+                const color = c.pct >= 75 ? "bg-green" : c.pct >= 62 ? "bg-amber-400" : "bg-red";
+                return (
+                  <div key={key}>
+                    <div className="flex justify-between items-center mb-1">
+                      <button
+                        onClick={() => onTrainCategory(key)}
+                        className="text-xs font-serif text-ink-2 hover:text-ink transition-colors truncate pr-2 text-left"
+                      >
+                        {c.label}
+                      </button>
+                      <span className="text-xs font-syne font-bold text-ink flex-shrink-0">
+                        {c.pct}% <span className="text-ink-3 font-normal">({c.count})</span>
+                      </span>
+                    </div>
+                    <div className="h-1.5 bg-border rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full ${color}`} style={{ width: `${c.pct}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
+      {/* Disclaimer */}
+      <p className="text-xs font-serif text-ink-3 text-center italic px-4">
+        {readiness.disclaimer}
+      </p>
+    </div>
+  );
+}
+
 // ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function NCLEXHubPage() {
@@ -115,24 +343,27 @@ export default function NCLEXHubPage() {
   const [categories, setCategories] = useState<NCLEXCategory[]>([]);
   const [history, setHistory] = useState<SessionHistory[]>([]);
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
+  const [readiness, setReadiness] = useState<Readiness | null>(null);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<"practice" | "history" | "analytics">("practice");
+  const [activeTab, setActiveTab] = useState<"practice" | "history" | "analytics" | "readiness">("practice");
 
   const load = useCallback(async () => {
     try {
-      const [modeList, catList, hist, analy] = await Promise.all([
+      const [modeList, catList, hist, analy, rdns] = await Promise.all([
         examApi.getModes(),
         examApi.getNCLEXCategories(),
         examApi.getHistory(10),
         examApi.getNCLEXAnalytics(),
+        examApi.getReadiness(),
       ]);
       setModes(modeList);
       setNclexModes(modeList.filter((m: ExamMode) => NCLEX_MODE_IDS.includes(m.id)));
       setCategories(catList);
       setHistory(hist);
       setAnalytics(analy);
+      setReadiness(rdns);
     } catch {
       // silently fail — locked state handled per-card
     } finally {
@@ -174,8 +405,9 @@ export default function NCLEXHubPage() {
     : null;
   const last_score = nclex_history[0]?.score_pct ?? null;
 
-  const TABS: { id: "practice" | "history" | "analytics"; label: string }[] = [
+  const TABS: { id: "practice" | "history" | "analytics" | "readiness"; label: string }[] = [
     { id: "practice",  label: t("nclex_hub.tab_practice") },
+    { id: "readiness", label: t("nclex_hub.tab_readiness") },
     { id: "history",   label: t("nclex_hub.tab_history") },
     { id: "analytics", label: t("nclex_hub.tab_analytics") },
   ];
@@ -199,9 +431,26 @@ export default function NCLEXHubPage() {
       </div>
 
       {/* Stats strip */}
-      {(best_score !== null || (analytics?.sessions_analyzed ?? 0) > 0) && (
+      {(best_score !== null || (analytics?.sessions_analyzed ?? 0) > 0 || readiness?.threshold_met) && (
         <div className="bg-ink text-white">
           <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap gap-6">
+            {readiness?.threshold_met && readiness.score !== null && (
+              <button
+                onClick={() => setActiveTab("readiness")}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <Target className="w-4 h-4 text-blue-400" />
+                <span className="text-xs font-syne">
+                  {t("nclex_hub.readiness_label")}{" "}
+                  <strong className={
+                    readiness.score >= 75 ? "text-green" :
+                    readiness.score >= 62 ? "text-amber-400" : "text-red"
+                  }>{readiness.score}%</strong>
+                  {" "}
+                  <span className="text-white/50">({readiness.level_label})</span>
+                </span>
+              </button>
+            )}
             {best_score !== null && (
               <div className="flex items-center gap-2">
                 <Trophy className="w-4 h-4 text-amber-400" />
@@ -210,14 +459,8 @@ export default function NCLEXHubPage() {
             )}
             {last_score !== null && (
               <div className="flex items-center gap-2">
-                <Target className="w-4 h-4 text-blue-400" />
-                <span className="text-xs font-syne">{t("nclex_hub.last_score")} <strong>{last_score}%</strong></span>
-              </div>
-            )}
-            {analytics && analytics.sessions_analyzed > 0 && (
-              <div className="flex items-center gap-2">
                 <BarChart3 className="w-4 h-4 text-green" />
-                <span className="text-xs font-syne">{analytics.sessions_analyzed} {t("nclex_hub.sessions_analyzed")}</span>
+                <span className="text-xs font-syne">{t("nclex_hub.last_score")} <strong>{last_score}%</strong></span>
               </div>
             )}
             {analytics?.weak_categories?.[0] && (
@@ -428,6 +671,14 @@ export default function NCLEXHubPage() {
               </div>
             </section>
           </div>
+        )}
+
+        {/* ── Readiness tab ── */}
+        {activeTab === "readiness" && (
+          <ReadinessTab
+            readiness={readiness}
+            onTrainCategory={(key) => { setSelectedCategory(key); setActiveTab("practice"); }}
+          />
         )}
 
         {/* ── History tab ── */}
