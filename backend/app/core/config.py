@@ -25,8 +25,12 @@ class Settings(BaseSettings):
     # Anthropic / Claude
     ANTHROPIC_API_KEY: str = ""
 
-    # Google Gemini Flash (free fallback — aistudio.google.com)
+    # Google Gemini Flash (free fallback — aistudio.google.com, 5-key rotation)
     GEMINI_API_KEY: str = ""
+    GEMINI_API_KEY_2: str = ""
+    GEMINI_API_KEY_3: str = ""
+    GEMINI_API_KEY_4: str = ""
+    GEMINI_API_KEY_5: str = ""
     GEMINI_MODEL: str = "gemini-2.0-flash"
 
     # Groq (free fallback — console.groq.com, 14400 req/day)
@@ -160,7 +164,10 @@ class Settings(BaseSettings):
     def __repr__(self) -> str:
         """Never expose secrets in logs or tracebacks."""
         _SECRET_FIELDS = {
-            "JWT_SECRET_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "GROQ_API_KEY",
+            "JWT_SECRET_KEY", "ANTHROPIC_API_KEY",
+            "GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3",
+            "GEMINI_API_KEY_4", "GEMINI_API_KEY_5",
+            "GROQ_API_KEY",
             "GOOGLE_CLIENT_SECRET", "STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET",
             "SMTP_PASSWORD", "ENCRYPTION_KEY",
         }

@@ -25,14 +25,26 @@ EMBED_TASK_TYPE = "RETRIEVAL_DOCUMENT"
 EMBED_DIMENSIONS = 768  # text-embedding-004 native dimension
 
 
+def _gemini_keys() -> list[str]:
+    keys = []
+    for attr in ("GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3",
+                 "GEMINI_API_KEY_4", "GEMINI_API_KEY_5"):
+        val = getattr(settings, attr, "")
+        if val:
+            keys.append(val)
+    return keys
+
+
 async def generate_embedding(text: str) -> Optional[list[float]]:
     """Return a 768-dim embedding vector or None if unavailable.
 
+    Tries all configured Gemini keys in sequence; skips 429 rate-limited keys.
     Truncates input to 3000 chars (model limit is ~2048 tokens).
     Silently returns None on any error so callers don't need to handle failures.
     """
-    if not settings.GEMINI_API_KEY:
-        logger.debug("GEMINI_API_KEY not set — skipping embedding generation")
+    keys = _gemini_keys()
+    if not keys:
+        logger.debug("No GEMINI_API_KEY configured — skipping embedding generation")
         return None
 
     text = text.strip()[:3000]
@@ -44,19 +56,24 @@ async def generate_embedding(text: str) -> Optional[list[float]]:
         "content": {"parts": [{"text": text}]},
         "taskType": EMBED_TASK_TYPE,
     }
-    try:
-        async with httpx.AsyncClient(timeout=15) as http:
-            resp = await http.post(
-                GEMINI_EMBED_URL,
-                params={"key": settings.GEMINI_API_KEY},
-                json=payload,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            return data["embedding"]["values"]
-    except Exception as exc:
-        logger.warning("Embedding generation failed (non-fatal): %s", exc)
-        return None
+    async with httpx.AsyncClient(timeout=15) as http:
+        for key in keys:
+            try:
+                resp = await http.post(
+                    GEMINI_EMBED_URL,
+                    params={"key": key},
+                    json=payload,
+                )
+                if resp.status_code == 429:
+                    continue
+                resp.raise_for_status()
+                data = resp.json()
+                return data["embedding"]["values"]
+            except Exception as exc:
+                logger.warning("Embedding key failed (non-fatal): %s", exc)
+                continue
+    logger.warning("All Gemini keys exhausted for embedding — skipping")
+    return None
 
 
 async def reembed_lesson(lesson_id, content: dict) -> None:

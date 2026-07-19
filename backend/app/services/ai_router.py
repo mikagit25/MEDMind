@@ -189,9 +189,21 @@ def _to_gemini_contents(messages: list) -> list:
     return contents
 
 
+def _gemini_keys() -> list[str]:
+    """Return all configured Gemini API keys for round-robin rotation."""
+    keys = []
+    for attr in ("GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3",
+                 "GEMINI_API_KEY_4", "GEMINI_API_KEY_5"):
+        val = getattr(settings, attr, "")
+        if val:
+            keys.append(val)
+    return keys
+
+
 async def _call_gemini(messages: list, system_prompt: str) -> str:
-    """Call Google Gemini Flash (FREE tier — aistudio.google.com). Returns text."""
-    if not settings.GEMINI_API_KEY:
+    """Call Gemini Flash with key rotation. Tries each key until one succeeds."""
+    keys = _gemini_keys()
+    if not keys:
         raise ValueError("No GEMINI_API_KEY configured")
 
     url = (
@@ -203,15 +215,29 @@ async def _call_gemini(messages: list, system_prompt: str) -> str:
         "contents": _to_gemini_contents(messages),
         "generationConfig": {"maxOutputTokens": 1200, "temperature": 0.7},
     }
+    last_exc: Exception = RuntimeError("No keys tried")
     async with httpx.AsyncClient(timeout=30) as http:
-        resp = await http.post(url, params={"key": settings.GEMINI_API_KEY}, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
-        return data["candidates"][0]["content"]["parts"][0]["text"]
+        for key in keys:
+            try:
+                resp = await http.post(url, params={"key": key}, json=payload)
+                if resp.status_code == 429:
+                    last_exc = Exception(f"Gemini key rate-limited (429)")
+                    continue
+                resp.raise_for_status()
+                data = resp.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception as e:
+                last_exc = e
+                continue
+    raise last_exc
 
 
 async def _stream_gemini(messages: list, system_prompt: str):
-    """Stream from Google Gemini Flash via SSE. Yields text chunks."""
+    """Stream from Gemini Flash with key rotation. Yields text chunks."""
+    keys = _gemini_keys()
+    if not keys:
+        raise ValueError("No GEMINI_API_KEY configured")
+
     url = (
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{settings.GEMINI_MODEL}:streamGenerateContent"
@@ -221,27 +247,38 @@ async def _stream_gemini(messages: list, system_prompt: str):
         "contents": _to_gemini_contents(messages),
         "generationConfig": {"maxOutputTokens": 1200, "temperature": 0.7},
     }
-    async with httpx.AsyncClient(timeout=60) as http:
-        async with http.stream(
-            "POST",
-            url,
-            params={"key": settings.GEMINI_API_KEY, "alt": "sse"},
-            json=payload,
-        ) as resp:
-            resp.raise_for_status()
-            async for line in resp.aiter_lines():
-                if not line.startswith("data: "):
-                    continue
-                data_str = line[6:].strip()
-                if not data_str or data_str == "[DONE]":
-                    continue
-                try:
-                    chunk = json.loads(data_str)
-                    text = chunk["candidates"][0]["content"]["parts"][0].get("text", "")
-                    if text:
-                        yield text
-                except (json.JSONDecodeError, KeyError, IndexError):
-                    pass
+    last_exc: Exception = RuntimeError("No keys tried")
+    for key in keys:
+        try:
+            async with httpx.AsyncClient(timeout=60) as http:
+                async with http.stream(
+                    "POST",
+                    url,
+                    params={"key": key, "alt": "sse"},
+                    json=payload,
+                ) as resp:
+                    if resp.status_code == 429:
+                        last_exc = Exception("Gemini key rate-limited (429)")
+                        continue
+                    resp.raise_for_status()
+                    async for line in resp.aiter_lines():
+                        if not line.startswith("data: "):
+                            continue
+                        data_str = line[6:].strip()
+                        if not data_str or data_str == "[DONE]":
+                            continue
+                        try:
+                            chunk = json.loads(data_str)
+                            text = chunk["candidates"][0]["content"]["parts"][0].get("text", "")
+                            if text:
+                                yield text
+                        except Exception:
+                            continue
+                    return  # streamed successfully
+        except Exception as e:
+            last_exc = e
+            continue
+    raise last_exc
 
 
 def _groq_user_keys() -> list[str]:
