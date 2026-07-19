@@ -20,7 +20,7 @@ type ApplyResult = {
 export default function PromoPage() {
   const t = useT();
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ApplyResult | null>(null);
@@ -35,7 +35,9 @@ export default function PromoPage() {
     try {
       const res = await api.post("/promo/apply", { code: code.trim() });
       setResult(res.data);
-      // tier refreshes on next navigation / /auth/me call
+      // Immediately refresh auth store so all components see the new tier
+      const me = await api.get("/auth/me");
+      updateUser(me.data);
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
       setError(msg || t("promo.err_generic"));

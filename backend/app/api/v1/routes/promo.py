@@ -8,12 +8,14 @@ import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import PromoCode, PromoCodeUse, User
+from app.services.billing import audit_log
 
 router = APIRouter(prefix="/promo", tags=["promo"])
 
@@ -50,7 +52,9 @@ async def apply_promo(
 
     _validate_code(promo, user.id)
 
-    # one_per_user check
+    # one_per_user check — race-safe: DB unique constraint on (code_id, user_id)
+    # We still do a pre-check for a friendly error message, but the constraint
+    # guards against concurrent requests as the final safety net.
     if promo.one_per_user:
         existing = await db.execute(
             select(PromoCodeUse).where(
@@ -61,21 +65,36 @@ async def apply_promo(
         if existing.scalar_one_or_none():
             raise HTTPException(409, "You have already used this promo code.")
 
+    # Race-safe max_uses increment: atomic UPDATE with a conditional check
+    if promo.max_uses is not None:
+        stmt = (
+            update(PromoCode)
+            .where(PromoCode.id == promo.id, PromoCode.used_count < promo.max_uses)
+            .values(used_count=PromoCode.used_count + 1)
+            .returning(PromoCode.used_count)
+        )
+        result = await db.execute(stmt)
+        row = result.fetchone()
+        if row is None:
+            raise HTTPException(400, "This promo code has reached its usage limit.")
+    else:
+        promo.used_count += 1
+
     granted_tier = None
     granted_until = None
+    old_tier = user.subscription_tier
 
     if promo.discount_type == "trial":
         if not promo.trial_tier or promo.trial_tier not in VALID_TRIAL_TIERS:
             raise HTTPException(500, "Invalid trial configuration.")
 
         days = promo.trial_days or 30
-        # Don't downgrade an active paid subscription
         current_is_paid = (
             user.subscription_tier != "free"
             and (user.subscription_expires is None or user.subscription_expires > datetime.utcnow())
         )
         if current_is_paid:
-            # Extend existing subscription by trial_days instead of downgrading
+            # Extend existing subscription without downgrading
             base = user.subscription_expires or datetime.utcnow()
             user.subscription_expires = base + timedelta(days=days)
         else:
@@ -85,7 +104,7 @@ async def apply_promo(
         granted_tier = promo.trial_tier
         granted_until = user.subscription_expires
 
-    # Log the use
+    # Log the use — unique constraint prevents race-condition duplicates
     use = PromoCodeUse(
         id=uuid.uuid4(),
         code_id=promo.id,
@@ -95,8 +114,23 @@ async def apply_promo(
         granted_until=granted_until,
     )
     db.add(use)
-    promo.used_count += 1
-    await db.commit()
+
+    await audit_log(
+        db,
+        event_type="promo_applied",
+        source="promo",
+        user_id=user.id,
+        old_tier=old_tier,
+        new_tier=granted_tier or user.subscription_tier,
+        reason=f"code={promo.code} type={promo.discount_type}",
+        meta={"code_id": str(promo.id), "trial_days": promo.trial_days},
+    )
+
+    try:
+        await db.commit()
+    except IntegrityError:
+        await db.rollback()
+        raise HTTPException(409, "You have already used this promo code.")
     await db.refresh(user)
 
     if promo.discount_type == "trial":

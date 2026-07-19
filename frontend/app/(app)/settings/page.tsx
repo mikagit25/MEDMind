@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store";
-import { authApi, complianceApi, progressApi, certificatesApi } from "@/lib/api";
+import { authApi, complianceApi, progressApi, certificatesApi, lifecycleApi } from "@/lib/api";
 import { useI18n, useT } from "@/lib/i18n";
 
 const TIER_COLORS: Record<string, string> = {
@@ -360,6 +360,9 @@ export default function SettingsPage() {
       {/* Certificates */}
       <CertificatesSection />
 
+      {/* Email campaigns */}
+      <EmailCampaignsSection />
+
       {/* GDPR / Privacy */}
       <GDPRSection />
 
@@ -660,6 +663,102 @@ function CertificatesSection() {
           ))}
         </div>
       )}
+    </section>
+  );
+}
+
+const CAMPAIGN_LABELS: Record<string, string> = {
+  onboarding_d1:    "Day 1 welcome tips",
+  onboarding_d3:    "Day 3 feature suggestions",
+  onboarding_d7:    "First-week recap",
+  reactivation_7d:  "7-day inactivity reminder",
+  reactivation_21d: "3-week content digest",
+  reactivation_45d: "45-day re-engagement (last email)",
+  streak_risk:      "Streak-at-risk alerts",
+  readiness_weekly: "Weekly NCLEX readiness update",
+  exam_countdown_7d:"Exam countdown (7 days out)",
+  exam_countdown_1d:"Exam countdown (1 day out)",
+};
+
+function EmailCampaignsSection() {
+  const [globalOn, setGlobalOn] = useState(true);
+  const [unsubs, setUnsubs] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    lifecycleApi.getPrefs().then(d => {
+      setGlobalOn(d.email_notifications ?? true);
+      setUnsubs(d.email_unsubscribes ?? []);
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  function toggle(campaign: string) {
+    setUnsubs(prev =>
+      prev.includes(campaign) ? prev.filter(c => c !== campaign) : [...prev, campaign]
+    );
+  }
+
+  async function save() {
+    setSaving(true);
+    try {
+      await lifecycleApi.updatePrefs({ email_notifications: globalOn, email_unsubscribes: unsubs });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch { /* ignore */ } finally { setSaving(false); }
+  }
+
+  if (loading) return null;
+
+  return (
+    <section className="card p-6 mb-5">
+      <h2 className="font-syne font-bold text-base text-ink mb-1">✉️ Email Campaigns</h2>
+      <p className="font-serif text-ink-3 text-sm mb-4">
+        Control which automated emails you receive from MedMind AI.
+      </p>
+
+      {/* Global toggle */}
+      <div className="flex items-center justify-between mb-4 pb-4 border-b border-border">
+        <div>
+          <div className="font-syne font-semibold text-sm text-ink">All email campaigns</div>
+          <div className="font-serif text-xs text-ink-3">Master switch — turns off all campaign emails</div>
+        </div>
+        <div
+          onClick={() => setGlobalOn(v => !v)}
+          className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer ${globalOn ? "bg-green" : "bg-border-2"}`}
+        >
+          <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${globalOn ? "translate-x-6" : "translate-x-1"}`} />
+        </div>
+      </div>
+
+      {/* Per-campaign */}
+      {globalOn && (
+        <div className="space-y-3 mb-4">
+          {Object.entries(CAMPAIGN_LABELS).map(([key, label]) => {
+            const subscribed = !unsubs.includes(key);
+            return (
+              <div key={key} className="flex items-center justify-between">
+                <span className="font-serif text-sm text-ink-2">{label}</span>
+                <div
+                  onClick={() => toggle(key)}
+                  className={`relative w-9 h-5 rounded-full transition-colors cursor-pointer flex-shrink-0 ${subscribed ? "bg-green" : "bg-border-2"}`}
+                >
+                  <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${subscribed ? "translate-x-4" : "translate-x-0.5"}`} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <button
+        onClick={save}
+        disabled={saving}
+        className="btn-primary text-sm"
+      >
+        {saved ? "Saved ✓" : saving ? "Saving…" : "Save preferences"}
+      </button>
     </section>
   );
 }

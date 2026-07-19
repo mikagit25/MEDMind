@@ -936,6 +936,66 @@ export default function LandingPage({
         </div>
       </section>
 
+      {/* ── NCLEX Hub teaser ─────────────────────────────────────────────────── */}
+      <section className="bg-surface border-y border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left: copy */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-red/10 border border-red/20 px-3 py-1 rounded-full font-syne font-semibold text-xs text-red mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-red inline-block" />
+                {locale === "ru" ? "Подготовка к NCLEX-RN" : locale === "es" ? "Preparación NCLEX-RN" : locale === "de" ? "NCLEX-RN Vorbereitung" : locale === "fr" ? "Préparation NCLEX-RN" : locale === "ar" ? "التحضير لـ NCLEX-RN" : locale === "tr" ? "NCLEX-RN Hazırlık" : "NCLEX-RN Prep"}
+              </div>
+              <h2 className="font-syne font-extrabold text-2xl sm:text-3xl text-ink mb-3 leading-tight">
+                {locale === "ru" ? "Сдайте NCLEX-RN\nс первого раза." : locale === "es" ? "Aprueba el NCLEX-RN\na la primera." : locale === "de" ? "NCLEX-RN beim\nersten Versuch bestehen." : locale === "fr" ? "Réussissez le NCLEX-RN\ndès le premier essai." : locale === "ar" ? "اجتز NCLEX-RN\nمن المحاولة الأولى." : locale === "tr" ? "NCLEX-RN'yi\nilk denemede geçin." : "Pass NCLEX-RN\non your first attempt."}
+              </h2>
+              <p className="text-ink-2 text-sm leading-relaxed mb-6 max-w-md">
+                {locale === "ru" ? "Адаптивные симуляции (CAT), разбор ошибок с ИИ, аналитика по 7 категориям NCLEX Client Needs и 6 навыкам CJMM. 600+ вопросов, включая SATA, расчёты и NGN-формат." : locale === "es" ? "Simulaciones adaptativas (CAT), análisis de errores con IA, analytics por 7 categorías NCLEX y 6 habilidades CJMM. 600+ preguntas incluyendo SATA, cálculos y formato NGN." : locale === "de" ? "Adaptive Simulationen (CAT), KI-gestützte Fehleranalyse, Analytics für 7 NCLEX-Kategorien und 6 CJMM-Kompetenzen. 600+ Fragen inkl. SATA, Berechnungen und NGN-Format." : locale === "fr" ? "Simulations adaptatives (CAT), analyse des erreurs par IA, analytics sur 7 catégories NCLEX et 6 compétences CJMM. 600+ questions dont SATA, calculs et format NGN." : locale === "ar" ? "محاكاة تكيفية (CAT)، تحليل الأخطاء بالذكاء الاصطناعي، تحليلات لـ 7 فئات NCLEX و6 مهارات CJMM. أكثر من 600 سؤال." : locale === "tr" ? "Uyarlanabilir simülasyonlar (CAT), yapay zeka ile hata analizi, 7 NCLEX kategorisi ve 6 CJMM becerisi analitikleri. SATA, hesaplama ve NGN formatı dahil 600+ soru." : "Adaptive CAT simulations, AI-powered error analysis, analytics across 7 NCLEX Client Needs categories and 6 CJMM clinical judgment skills. 600+ questions including SATA, calculations, and NGN format."}
+              </p>
+              <ul className="space-y-2.5 mb-8">
+                {[
+                  locale === "ru" ? "Адаптивный экзамен (CAT): 75–145 вопросов, как на реальном NCLEX" : "Adaptive CAT exam: 75–145 questions, just like the real NCLEX",
+                  locale === "ru" ? "Разбор каждого вопроса с ИИ-объяснением и клинической логикой" : "AI explanation for every question with full clinical reasoning",
+                  locale === "ru" ? "Персональная аналитика: где вы слабее по категориям и навыкам" : "Personal analytics: spot weak areas by category and CJMM skill",
+                  locale === "ru" ? "Бесплатный демо-режим — без регистрации" : "Free demo mode — no sign-up required",
+                ].map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-ink-2">
+                    <span className="text-red font-bold mt-0.5 flex-shrink-0">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/nurses/nclex"
+                  className="inline-block font-syne font-bold text-sm bg-red text-white px-6 py-3 rounded-xl hover:bg-ink transition-colors">
+                  {locale === "ru" ? "Попробовать демо →" : locale === "es" ? "Probar demo →" : locale === "de" ? "Demo starten →" : locale === "fr" ? "Essayer le démo →" : locale === "ar" ? "جرب العرض التجريبي →" : locale === "tr" ? "Demo'yu dene →" : "Try demo →"}
+                </Link>
+                <Link href="/nclex"
+                  className="inline-block font-syne font-semibold text-sm border border-border text-ink-2 px-6 py-3 rounded-xl hover:border-ink hover:text-ink transition-colors">
+                  {locale === "ru" ? "Подробнее" : locale === "es" ? "Saber más" : locale === "de" ? "Mehr erfahren" : locale === "fr" ? "En savoir plus" : locale === "ar" ? "اعرف المزيد" : locale === "tr" ? "Daha fazla" : "Learn more"}
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: visual stat cards */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { value: "600+", label: locale === "ru" ? "NCLEX вопросов" : "NCLEX questions", sub: "SATA · CAT · NGN" },
+                { value: "12", label: locale === "ru" ? "учебных модулей" : "nursing modules", sub: locale === "ru" ? "сестринское дело" : "evidence-based" },
+                { value: "7", label: locale === "ru" ? "категорий NCLEX" : "NCLEX categories", sub: "Client Needs" },
+                { value: "6", label: locale === "ru" ? "навыков CJMM" : "CJMM skills", sub: locale === "ru" ? "клиническое суждение" : "clinical judgment" },
+              ].map((s) => (
+                <div key={s.label} className="bg-bg border border-border rounded-xl p-5 flex flex-col gap-1">
+                  <span className="font-syne font-extrabold text-3xl text-ink">{s.value}</span>
+                  <span className="font-syne font-semibold text-sm text-ink leading-tight">{s.label}</span>
+                  <span className="text-xs text-ink-3">{s.sub}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ────────────────────────────────────────────────────────── */}
       <section className="bg-ink text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">

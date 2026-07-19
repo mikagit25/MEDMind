@@ -17,7 +17,7 @@ GET  /exam/nclex/readiness               — NCLEX Readiness Score (weighted est
 """
 
 import uuid as uuid_lib
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date as date_type
 from typing import Any, Dict, List, Optional
 from uuid import UUID
 
@@ -28,8 +28,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
-from app.models.models import ExamSession, MCQQuestion, Module, User
+from app.models.models import ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, User
 from app.services.ai_router import call_claude_structured, call_ollama_structured
+from app.services import study_planner as planner
 
 router = APIRouter(prefix="/exam", tags=["exam"])
 
@@ -1015,3 +1016,201 @@ async def resolve_flagged_question(
     q.flag_reason = None
     await db.commit()
     return {"resolved": True, "question_id": question_id}
+
+
+# ── Study Plan endpoints (V6 Phase 4) ─────────────────────────────────────────
+
+class CreatePlanBody(BaseModel):
+    exam_date: str           # "YYYY-MM-DD"
+    daily_minutes: int = 30  # 15 | 30 | 60
+    exam_type: str = "nclex"
+
+
+class CompleteTodayBody(BaseModel):
+    task_type: str = "practice"
+
+
+def _plan_to_response(plan_row: ExamPlan, completions: list) -> dict:
+    completed_dates = [c.task_date.date().isoformat() for c in completions]
+    tasks = plan_row.plan_cache or planner.generate_plan(
+        plan_row.exam_date.date(),
+        plan_row.daily_minutes,
+    )
+    today_task = planner.get_today_task(tasks)
+    week_tasks = planner.get_week_tasks(tasks)
+    progress = planner.compute_progress(tasks, completed_dates)
+    return {
+        "id": str(plan_row.id),
+        "exam_type": plan_row.exam_type,
+        "exam_date": plan_row.exam_date.date().isoformat(),
+        "daily_minutes": plan_row.daily_minutes,
+        "status": plan_row.status,
+        "today_task": today_task,
+        "week_tasks": week_tasks,
+        "full_plan": tasks,
+        "completed_dates": completed_dates,
+        "progress": progress,
+    }
+
+
+@router.get("/plan")
+async def get_plan(
+    exam_type: str = "nclex",
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(ExamPlan)
+        .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == exam_type,
+               ExamPlan.status == "active")
+    )
+    plan_row = result.scalar_one_or_none()
+    if not plan_row:
+        return {"plan": None}
+
+    comps = await db.execute(
+        select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == plan_row.id)
+    )
+    completions = comps.scalars().all()
+    return {"plan": _plan_to_response(plan_row, completions)}
+
+
+@router.post("/plan")
+async def create_plan(
+    body: CreatePlanBody,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    try:
+        exam_date = date_type.fromisoformat(body.exam_date)
+    except ValueError:
+        raise HTTPException(400, "exam_date must be YYYY-MM-DD")
+
+    if exam_date <= date_type.today():
+        raise HTTPException(400, "exam_date must be in the future")
+
+    if body.daily_minutes not in (15, 30, 60):
+        raise HTTPException(400, "daily_minutes must be 15, 30, or 60")
+
+    # Abandon any existing active plan for this exam_type
+    existing = await db.execute(
+        select(ExamPlan)
+        .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == body.exam_type,
+               ExamPlan.status == "active")
+    )
+    for old in existing.scalars().all():
+        old.status = "abandoned"
+
+    tasks = planner.generate_plan(exam_date, body.daily_minutes)
+    plan_row = ExamPlan(
+        user_id=user.id,
+        exam_type=body.exam_type,
+        exam_date=datetime.combine(exam_date, datetime.min.time()),
+        daily_minutes=body.daily_minutes,
+        status="active",
+        plan_cache=tasks,
+    )
+    db.add(plan_row)
+    await db.flush()
+    await db.commit()
+    await db.refresh(plan_row)
+
+    comps = await db.execute(
+        select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == plan_row.id)
+    )
+    return {"plan": _plan_to_response(plan_row, comps.scalars().all())}
+
+
+@router.post("/plan/complete-today")
+async def complete_today(
+    body: CompleteTodayBody,
+    exam_type: str = Query("nclex"),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(ExamPlan)
+        .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == exam_type,
+               ExamPlan.status == "active")
+    )
+    plan_row = result.scalar_one_or_none()
+    if not plan_row:
+        raise HTTPException(404, "No active plan found")
+
+    today = datetime.combine(date_type.today(), datetime.min.time())
+
+    # Idempotent — ignore duplicate
+    existing = await db.execute(
+        select(ExamPlanCompletion)
+        .where(ExamPlanCompletion.plan_id == plan_row.id,
+               ExamPlanCompletion.task_date == today)
+    )
+    if existing.scalar_one_or_none():
+        return {"already_completed": True}
+
+    comp = ExamPlanCompletion(
+        plan_id=plan_row.id,
+        task_date=today,
+        task_type=body.task_type,
+    )
+    db.add(comp)
+    await db.commit()
+    return {"completed": True, "date": date_type.today().isoformat()}
+
+
+@router.delete("/plan")
+async def delete_plan(
+    exam_type: str = Query("nclex"),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(ExamPlan)
+        .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == exam_type,
+               ExamPlan.status == "active")
+    )
+    plan_row = result.scalar_one_or_none()
+    if not plan_row:
+        raise HTTPException(404, "No active plan found")
+
+    plan_row.status = "abandoned"
+    await db.commit()
+    return {"deleted": True}
+
+
+@router.patch("/plan")
+async def update_plan_date(
+    body: CreatePlanBody,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Reschedule: update exam_date (and optionally daily_minutes) on active plan."""
+    try:
+        new_date = date_type.fromisoformat(body.exam_date)
+    except ValueError:
+        raise HTTPException(400, "exam_date must be YYYY-MM-DD")
+
+    if new_date <= date_type.today():
+        raise HTTPException(400, "exam_date must be in the future")
+
+    if body.daily_minutes not in (15, 30, 60):
+        raise HTTPException(400, "daily_minutes must be 15, 30, or 60")
+
+    result = await db.execute(
+        select(ExamPlan)
+        .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == body.exam_type,
+               ExamPlan.status == "active")
+    )
+    plan_row = result.scalar_one_or_none()
+    if not plan_row:
+        raise HTTPException(404, "No active plan found")
+
+    plan_row.exam_date = datetime.combine(new_date, datetime.min.time())
+    plan_row.daily_minutes = body.daily_minutes
+    plan_row.plan_cache = planner.generate_plan(new_date, body.daily_minutes)
+    await db.commit()
+
+    comps = await db.execute(
+        select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == plan_row.id)
+    )
+    return {"plan": _plan_to_response(plan_row, comps.scalars().all())}

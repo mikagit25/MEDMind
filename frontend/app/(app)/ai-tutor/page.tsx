@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { aiApi, contentApi, API_URL, myFlashcardsApi, ttsApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import PubMedPanel from "@/components/ui/PubMedPanel";
@@ -113,6 +114,7 @@ export default function AiTutorPage() {
   const t = useT();
   const { locale } = useI18n();
   const { user } = useAuthStore();
+  const searchParams = useSearchParams();
 
   const MODES = [
     { value: "tutor",    label: `🎓 ${t("ai_tutor.mode_tutor")}`,    desc: t("ai_tutor.mode_tutor_desc") },
@@ -150,11 +152,11 @@ export default function AiTutorPage() {
       desc: t("ai_tutor.mode_vet_desc") || "Species-specific pharmacology and clinical reasoning for veterinary students and practitioners",
     },
   ];
-  const [mode, setMode] = useState("tutor");
+  const [mode, setMode] = useState(() => searchParams.get("mode") || "tutor");
   const [specialty, setSpecialty] = useState("");
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(() => searchParams.get("prompt") || "");
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [pubmedPanel, setPubmedPanel] = useState<any[]>([]);

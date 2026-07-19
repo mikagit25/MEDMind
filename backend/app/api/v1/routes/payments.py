@@ -3,15 +3,18 @@ import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Header
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Header
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from pydantic import BaseModel
 
+from sqlalchemy.exc import IntegrityError
+
 from app.core.database import get_db
 from app.core.config import settings
-from app.models.models import User
+from app.models.models import BillingEvent, StripeWebhookEvent, User
 from app.api.deps import get_current_user
+from app.services.billing import audit_log, start_dunning
 
 logger = logging.getLogger(__name__)
 
@@ -39,16 +42,22 @@ class PortalRequest(BaseModel):
     return_url: str = ""    # defaults to settings.FRONTEND_URL at request time
 
 
+_PLACEHOLDER_KEYS = ("placeholder", "sk_test_your", "sk_live_your", "your_stripe")
+
 def get_stripe():
-    """Get stripe module, raise if not configured."""
+    """Return configured stripe module or raise a clean 503."""
     try:
         import stripe  # type: ignore
-        if not settings.STRIPE_SECRET_KEY or settings.STRIPE_SECRET_KEY.startswith("sk_test_your"):
-            raise HTTPException(status_code=503, detail="Stripe not configured. Add STRIPE_SECRET_KEY to .env")
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        return stripe
     except ImportError:
-        raise HTTPException(status_code=503, detail="stripe package not installed")
+        raise HTTPException(status_code=503, detail="Payment processing unavailable. Contact support.")
+    key = settings.STRIPE_SECRET_KEY or ""
+    if not key or any(p in key.lower() for p in _PLACEHOLDER_KEYS):
+        raise HTTPException(
+            status_code=503,
+            detail="Payment processing is not configured yet. Please contact support or try a promo code."
+        )
+    stripe.api_key = key
+    return stripe
 
 
 @router.post("/create-checkout")
@@ -63,35 +72,42 @@ async def create_checkout(
 
     stripe = get_stripe()
 
-    # Get or create Stripe customer
-    customer_id = user.stripe_customer_id
-    if not customer_id:
-        customer = stripe.Customer.create(
-            email=user.email,
-            metadata={"user_id": str(user.id)},
-        )
-        customer_id = customer.id
-        user.stripe_customer_id = customer_id
-        await db.commit()
+    try:
+        # Get or create Stripe customer
+        customer_id = user.stripe_customer_id
+        if not customer_id:
+            customer = stripe.Customer.create(
+                email=user.email,
+                metadata={"user_id": str(user.id)},
+            )
+            customer_id = customer.id
+            user.stripe_customer_id = customer_id
+            await db.commit()
 
-    price_id = PRICE_IDS[data.tier]
-    is_lifetime = data.tier == "lifetime"
+        price_id = PRICE_IDS[data.tier]
+        is_lifetime = data.tier == "lifetime"
 
-    frontend = settings.FRONTEND_URL.rstrip("/")
-    success_url = (data.success_url or f"{frontend}/settings?payment=success") + "&session_id={CHECKOUT_SESSION_ID}"
-    cancel_url = data.cancel_url or f"{frontend}/settings?payment=cancelled"
+        frontend = settings.FRONTEND_URL.rstrip("/")
+        success_url = (data.success_url or f"{frontend}/settings?payment=success") + "&session_id={CHECKOUT_SESSION_ID}"
+        cancel_url = data.cancel_url or f"{frontend}/settings?payment=cancelled"
 
-    session_params = {
-        "customer": customer_id,
-        "line_items": [{"price": price_id, "quantity": 1}],
-        "mode": "payment" if is_lifetime else "subscription",
-        "success_url": success_url,
-        "cancel_url": cancel_url,
-        "metadata": {"user_id": str(user.id), "tier": data.tier},
-    }
+        session_params = {
+            "customer": customer_id,
+            "line_items": [{"price": price_id, "quantity": 1}],
+            "mode": "payment" if is_lifetime else "subscription",
+            "success_url": success_url,
+            "cancel_url": cancel_url,
+            "metadata": {"user_id": str(user.id), "tier": data.tier},
+        }
 
-    session = stripe.checkout.Session.create(**session_params)
-    return {"url": session.url, "session_id": session.id}
+        session = stripe.checkout.Session.create(**session_params)
+        return {"url": session.url, "session_id": session.id}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Stripe checkout error: %s", e)
+        raise HTTPException(status_code=503, detail="Could not start checkout. Please try again later.")
 
 
 @router.post("/portal")
@@ -145,34 +161,74 @@ async def stripe_webhook(
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+    event_id = event.get("id", "")
     event_type = event["type"]
 
-    if event_type == "checkout.session.completed":
-        session = event["data"]["object"]
-        user_id = session.get("metadata", {}).get("user_id")
-        tier = session.get("metadata", {}).get("tier")
-        if user_id and tier:
-            await _activate_subscription(user_id, tier, session, db)
+    # ── Idempotency: skip if already processed ────────────────────────────────
+    existing = await db.execute(
+        select(StripeWebhookEvent).where(StripeWebhookEvent.event_id == event_id)
+    )
+    if existing.scalar_one_or_none():
+        logger.info("Webhook duplicate skipped: %s", event_id)
+        return {"received": True, "duplicate": True}
 
-    elif event_type in ("customer.subscription.updated", "customer.subscription.deleted"):
-        subscription = event["data"]["object"]
-        customer_id = subscription.get("customer")
-        status = subscription.get("status")
-        if customer_id:
-            await _handle_subscription_change(customer_id, status, subscription, db)
+    # Record event (will raise IntegrityError on true race — both return 200 to Stripe)
+    webhook_row = StripeWebhookEvent(event_id=event_id, event_type=event_type)
+    db.add(webhook_row)
+    try:
+        await db.flush()
+    except IntegrityError:
+        await db.rollback()
+        return {"received": True, "duplicate": True}
 
-    elif event_type == "invoice.payment_failed":
-        invoice = event["data"]["object"]
-        customer_id = invoice.get("customer")
-        if customer_id:
-            result = await db.execute(select(User).where(User.stripe_customer_id == customer_id))
-            user = result.scalar_one_or_none()
-            if user:
-                try:
-                    from app.services.email_service import send_payment_failed_email
-                    await send_payment_failed_email(user.email, user.first_name or "User")
-                except Exception as e:
-                    logger.error("Failed to send payment failure email to %s: %s", user.email, e)
+    try:
+        if event_type == "checkout.session.completed":
+            session = event["data"]["object"]
+            user_id = session.get("metadata", {}).get("user_id")
+            tier = session.get("metadata", {}).get("tier")
+            if user_id and tier:
+                await _activate_subscription(user_id, tier, session, db)
+
+        elif event_type in ("customer.subscription.updated", "customer.subscription.deleted"):
+            subscription = event["data"]["object"]
+            customer_id = subscription.get("customer")
+            status = subscription.get("status")
+            if customer_id:
+                await _handle_subscription_change(customer_id, status, subscription, db)
+
+        elif event_type == "invoice.payment_failed":
+            invoice = event["data"]["object"]
+            customer_id = invoice.get("customer")
+            invoice_id = invoice.get("id")
+            if customer_id:
+                result = await db.execute(select(User).where(User.stripe_customer_id == customer_id))
+                user = result.scalar_one_or_none()
+                if user:
+                    await start_dunning(db, user, stripe_invoice_id=invoice_id)
+                    try:
+                        from app.services.email_service import send_payment_failed_email
+                        await send_payment_failed_email(user.email, user.first_name or "User")
+                    except Exception as e:
+                        logger.error("Failed to send payment failure email to %s: %s", user.email, e)
+
+        webhook_row.status = "ok"
+        await db.commit()
+
+    except Exception as exc:
+        webhook_row.status = "error"
+        webhook_row.error_msg = str(exc)[:500]
+        await db.commit()
+        logger.error("Webhook handler error [%s %s]: %s", event_type, event_id, exc)
+        # Telegram alert
+        try:
+            from app.services.telegram_service import send_telegram_message
+            await send_telegram_message(
+                f"⚠️ Stripe webhook error\n"
+                f"Event: {event_type} ({event_id})\n"
+                f"Error: {exc}"
+            )
+        except Exception:
+            pass
 
     return {"received": True}
 
@@ -189,17 +245,32 @@ async def _activate_subscription(user_id: str, tier: str, session: dict, db: Asy
     if not user:
         return
 
+    old_tier = user.subscription_tier
     user.subscription_tier = tier
     if tier == "lifetime":
         user.subscription_expires = None  # never expires
     else:
-        # Set expiry 1 month from now (Stripe will handle renewals via webhooks)
         user.subscription_expires = datetime.utcnow() + timedelta(days=35)
 
-    # Save customer ID from checkout session
     if not user.stripe_customer_id and session.get("customer"):
         user.stripe_customer_id = session["customer"]
 
+    # Clear dunning state if payment succeeded
+    prefs: dict = dict(user.preferences or {})
+    prefs.pop("dunning_started_at", None)
+    user.preferences = prefs
+
+    amount = float(session.get("amount_total", 0) or 0) / 100
+    await audit_log(
+        db,
+        event_type="subscription_activated",
+        source="webhook",
+        user_id=user.id,
+        old_tier=old_tier,
+        new_tier=tier,
+        amount=amount,
+        stripe_invoice_id=session.get("payment_intent"),
+    )
     await db.commit()
 
     # Affiliate commission: if user was referred, record subscription conversion
@@ -221,6 +292,36 @@ async def _activate_subscription(user_id: str, tier: str, session: dict, db: Asy
         pass  # Never block payment activation on affiliate errors
 
 
+@router.get("/billing-events")
+async def list_billing_events(
+    limit: int = Query(50, le=200),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    result = await db.execute(
+        select(BillingEvent).order_by(BillingEvent.created_at.desc()).limit(limit)
+    )
+    events = result.scalars().all()
+    return {"events": [
+        {
+            "id": str(e.id),
+            "event_type": e.event_type,
+            "source": e.source,
+            "user_id": str(e.user_id) if e.user_id else None,
+            "old_tier": e.old_tier,
+            "new_tier": e.new_tier,
+            "amount": e.amount,
+            "stripe_invoice_id": e.stripe_invoice_id,
+            "reason": e.reason,
+            "meta": e.meta,
+            "created_at": e.created_at.isoformat(),
+        }
+        for e in events
+    ]}
+
+
 async def _handle_subscription_change(customer_id: str, status: str, subscription: dict, db: AsyncSession):
     """Handle subscription status changes (renewal, cancellation, etc.)."""
     result = await db.execute(select(User).where(User.stripe_customer_id == customer_id))
@@ -228,14 +329,19 @@ async def _handle_subscription_change(customer_id: str, status: str, subscriptio
     if not user:
         return
 
+    old_tier = user.subscription_tier
     if status == "active":
-        # Subscription renewed — extend expiry
         period_end = subscription.get("current_period_end")
         if period_end:
             user.subscription_expires = datetime.utcfromtimestamp(period_end)
+        await audit_log(db, event_type="subscription_renewed", source="webhook",
+                        user_id=user.id, old_tier=old_tier, new_tier=old_tier,
+                        reason=f"Stripe status={status}")
     elif status in ("canceled", "unpaid", "past_due"):
-        # Downgrade to free
         user.subscription_tier = "free"
         user.subscription_expires = None
+        await audit_log(db, event_type="subscription_downgraded", source="webhook",
+                        user_id=user.id, old_tier=old_tier, new_tier="free",
+                        reason=f"Stripe status={status}")
 
     await db.commit()

@@ -443,6 +443,76 @@ async def _analytics_retention_job():
         logger.error("Analytics retention job failed: %s", e)
 
 
+async def _study_plan_morning_reminder():
+    """Daily 08:00 UTC — notify users with an active exam plan about today's task."""
+    from app.models.models import ExamPlan, ExamPlanCompletion, Notification, User
+    from app.services.study_planner import generate_plan, get_today_task
+    try:
+        async with AsyncSessionLocal() as db:
+            now = datetime.utcnow()
+            today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+            today_end = today_start + timedelta(days=1)
+
+            plans_result = await db.execute(
+                select(ExamPlan).where(
+                    ExamPlan.status == "active",
+                    ExamPlan.exam_date >= today_start,
+                )
+            )
+            plans = plans_result.scalars().all()
+
+            notified = 0
+            for plan in plans:
+                # Skip if already completed today
+                comp = await db.execute(
+                    select(ExamPlanCompletion).where(
+                        ExamPlanCompletion.plan_id == plan.id,
+                        ExamPlanCompletion.task_date >= today_start,
+                        ExamPlanCompletion.task_date < today_end,
+                    )
+                )
+                if comp.scalar_one_or_none():
+                    continue
+
+                tasks = plan.plan_cache or generate_plan(plan.exam_date.date(), plan.daily_minutes)
+                today_task = get_today_task(tasks)
+                if not today_task or today_task["task_type"] in ("exam_day",):
+                    continue
+
+                # Skip if already notified today
+                existing = await db.execute(
+                    select(Notification).where(
+                        Notification.user_id == plan.user_id,
+                        Notification.type == "study_plan_reminder",
+                        Notification.created_at >= today_start,
+                    )
+                )
+                if existing.scalar_one_or_none():
+                    continue
+
+                task_label = today_task["task_type"].replace("_", " ").title()
+                body = (
+                    f"Today's task: {task_label}"
+                    + (f" — {today_task['questions']} questions" if today_task["questions"] > 0 else "")
+                    + f" ({today_task['days_to_exam']} days to exam)"
+                )
+                notif = Notification(
+                    user_id=plan.user_id,
+                    type="study_plan_reminder",
+                    title="Study Plan — Today's Task",
+                    body=body,
+                    data={"link": "/nurses/nclex?tab=plan", "task_type": today_task["task_type"]},
+                )
+                db.add(notif)
+                notified += 1
+
+            await db.commit()
+            if notified:
+                logger.info("Study plan reminders sent: %d", notified)
+    except Exception as e:
+        logger.error("Study plan morning reminder failed: %s", e)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -453,6 +523,54 @@ def start_scheduler():
         _daily_streak_update,
         trigger=CronTrigger(hour=0, minute=5, timezone="UTC"),
         id="daily_streak_reset",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Daily 05:00 UTC — dunning check (grace-period emails + downgrades)
+    async def _dunning_wrapper():
+        from app.services.billing import run_dunning_check
+        await run_dunning_check()
+
+    scheduler.add_job(
+        _dunning_wrapper,
+        trigger=CronTrigger(hour=5, minute=0, timezone="UTC"),
+        id="dunning_check",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Weekly Sunday 03:30 UTC — Stripe subscription reconciliation
+    async def _reconciliation_wrapper():
+        from app.services.billing import run_subscription_reconciliation
+        await run_subscription_reconciliation()
+
+    scheduler.add_job(
+        _reconciliation_wrapper,
+        trigger=CronTrigger(day_of_week="sun", hour=3, minute=30, timezone="UTC"),
+        id="stripe_reconciliation",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Daily 06:00 UTC — lifecycle email campaigns
+    async def _lifecycle_wrapper():
+        from app.services.lifecycle import run_all_campaigns
+        await run_all_campaigns()
+
+    scheduler.add_job(
+        _lifecycle_wrapper,
+        trigger=CronTrigger(hour=6, minute=0, timezone="UTC"),
+        id="lifecycle_campaigns",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Daily 08:00 UTC — study plan morning reminder
+    scheduler.add_job(
+        _study_plan_morning_reminder,
+        trigger=CronTrigger(hour=8, minute=0, timezone="UTC"),
+        id="study_plan_morning_reminder",
         replace_existing=True,
         misfire_grace_time=3600,
     )

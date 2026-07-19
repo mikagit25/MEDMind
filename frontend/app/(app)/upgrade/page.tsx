@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { api } from "@/lib/api";
 import { useT } from "@/lib/i18n";
+import { Loader2 } from "lucide-react";
 
 const PLANS = [
   {
@@ -49,9 +50,12 @@ export default function UpgradePage() {
   }, [user, router]);
 
   const [error, setError] = useState("");
+  const [loadingTier, setLoadingTier] = useState<string | null>(null);
   const currentTier = user?.subscription_tier || "free";
 
   const handleUpgrade = async (tier: string) => {
+    setError("");
+    setLoadingTier(tier);
     try {
       const res = await api.post("/payments/create-checkout", {
         tier,
@@ -59,8 +63,11 @@ export default function UpgradePage() {
         cancel_url: `${window.location.origin}/upgrade`,
       });
       window.location.href = res.data.url;
-    } catch {
-      setError("Could not start checkout. Please try again.");
+    } catch (e: unknown) {
+      const detail = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setError(detail || "Could not start checkout. Please try again later.");
+    } finally {
+      setLoadingTier(null);
     }
   };
 
@@ -72,6 +79,13 @@ export default function UpgradePage() {
           {t("upgrade.subtitle")}
         </p>
       </div>
+
+      {error && (
+        <div className="mb-6 p-4 rounded-xl bg-red/5 border border-red/20 text-sm font-serif text-red flex items-start gap-2">
+          <span className="mt-0.5">⚠</span>
+          <span>{error}</span>
+        </div>
+      )}
 
       <div className="space-y-4">
         {PLANS.filter(p => {
@@ -97,8 +111,10 @@ export default function UpgradePage() {
               <div className="font-syne font-bold text-xl text-ink mb-2">{plan.price}</div>
               <button
                 onClick={() => handleUpgrade(plan.tier)}
-                className="btn-primary text-sm px-5 py-2 whitespace-nowrap"
+                disabled={loadingTier !== null}
+                className="btn-primary text-sm px-5 py-2 whitespace-nowrap disabled:opacity-50 flex items-center gap-2"
               >
+                {loadingTier === plan.tier && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 {plan.cta}
               </button>
             </div>

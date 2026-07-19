@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { api, adminApi } from "@/lib/api";
+import { api, adminApi, lifecycleApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 
 type Stats = {
@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "nclex_flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "nclex_flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates" | "lifecycle" | "billing";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -221,6 +221,8 @@ export default function AdminPage() {
           ["enterprise",   "🏢 Enterprise Leads"],
           ["promo",        "🎁 Promo Codes"],
           ["affiliates",   "🤝 Affiliates"],
+          ["lifecycle",   "📧 Lifecycle"],
+          ["billing",     "💳 Billing Audit"],
         ] as [Tab, string][]).map(([t, label]) => (
           <button
             key={t}
@@ -662,6 +664,12 @@ export default function AdminPage() {
 
       {/* ── Affiliates ── */}
       {tab === "affiliates" && <AffiliatesPanel />}
+
+      {/* ── Lifecycle Campaigns ── */}
+      {tab === "lifecycle" && <LifecycleStatsPanel />}
+
+      {/* ── Billing Audit ── */}
+      {tab === "billing" && <BillingAuditPanel />}
 
       {/* ── User Detail Modal ── */}
       {selectedUser && (
@@ -3633,6 +3641,271 @@ function AffiliatesPanel() {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Lifecycle Stats Panel ──────────────────────────────────────────────────────
+
+type CampaignStat = {
+  campaign: string;
+  sent: number;
+  opens: number;
+  open_rate_pct: number;
+};
+
+function LifecycleStatsPanel() {
+  const [stats, setStats] = useState<CampaignStat[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    lifecycleApi.adminStats()
+      .then(d => setStats(d.campaigns))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const CAMPAIGN_LABELS: Record<string, string> = {
+    onboarding_d1:    "Day 1 welcome",
+    onboarding_d3:    "Day 3 feature tips",
+    onboarding_d7:    "Day 7 recap",
+    reactivation_7d:  "Reactivation 7d",
+    reactivation_21d: "Reactivation 21d",
+    reactivation_45d: "Reactivation 45d",
+    streak_risk:      "Streak at risk",
+    readiness_weekly: "NCLEX readiness weekly",
+    exam_countdown_7d:"Exam countdown 7d",
+    exam_countdown_1d:"Exam countdown 1d",
+  };
+
+  if (loading) return <div className="py-8 text-center font-serif text-ink-3">Loading…</div>;
+
+  const totalSent = stats.reduce((s, c) => s + c.sent, 0);
+  const totalOpens = stats.reduce((s, c) => s + c.opens, 0);
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-surface border border-border rounded-xl p-5 text-center">
+          <div className="font-syne font-black text-3xl text-ink">{totalSent.toLocaleString()}</div>
+          <div className="font-serif text-xs text-ink-3 mt-1">Total emails sent</div>
+        </div>
+        <div className="bg-surface border border-border rounded-xl p-5 text-center">
+          <div className="font-syne font-black text-3xl text-ink">
+            {totalSent > 0 ? Math.round(totalOpens / totalSent * 100) : 0}%
+          </div>
+          <div className="font-serif text-xs text-ink-3 mt-1">Overall open rate</div>
+        </div>
+      </div>
+
+      <div className="bg-surface border border-border rounded-xl overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-ink text-white">
+            <tr>
+              <th className="text-left px-4 py-3 font-syne font-bold text-xs">Campaign</th>
+              <th className="text-right px-4 py-3 font-syne font-bold text-xs">Sent</th>
+              <th className="text-right px-4 py-3 font-syne font-bold text-xs">Opens</th>
+              <th className="text-right px-4 py-3 font-syne font-bold text-xs">Open rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stats.map((row, i) => (
+              <tr key={row.campaign} className={i % 2 === 0 ? "bg-surface" : "bg-bg"}>
+                <td className="px-4 py-3 font-serif text-ink-2">
+                  {CAMPAIGN_LABELS[row.campaign] ?? row.campaign}
+                </td>
+                <td className="px-4 py-3 text-right font-syne font-bold text-ink">
+                  {row.sent.toLocaleString()}
+                </td>
+                <td className="px-4 py-3 text-right font-syne text-ink-2">
+                  {row.opens.toLocaleString()}
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <span className={`font-syne font-bold text-xs px-2 py-0.5 rounded-full ${
+                    row.open_rate_pct >= 30 ? "bg-green/10 text-green" :
+                    row.open_rate_pct >= 15 ? "bg-amber-50 text-amber-600" :
+                    "bg-red/5 text-ink-3"
+                  }`}>
+                    {row.open_rate_pct}%
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ── Billing Audit Panel ────────────────────────────────────────────────────────
+
+type BillingEventRow = {
+  id: string;
+  event_type: string;
+  source: string;
+  old_tier: string | null;
+  new_tier: string | null;
+  amount: number | null;
+  reason: string | null;
+  created_at: string;
+};
+
+type SuspiciousConversion = {
+  id: string;
+  affiliate_id: string;
+  event_type: string;
+  tier: string | null;
+  commission_amount: number | null;
+  commission_status: string;
+  clearance_date: string | null;
+  created_at: string;
+};
+
+function BillingAuditPanel() {
+  const [events, setEvents] = useState<BillingEventRow[]>([]);
+  const [suspicious, setSuspicious] = useState<SuspiciousConversion[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [acting, setActing] = useState<string | null>(null);
+
+  async function load() {
+    try {
+      const [evRes, suspRes] = await Promise.all([
+        api.get("/billing-events?limit=50").then(r => r.data),
+        api.get("/affiliate/admin/suspicious-conversions").then(r => r.data),
+      ]);
+      setEvents(evRes.events ?? []);
+      setSuspicious(suspRes);
+    } catch { /* ignore */ } finally { setLoading(false); }
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function handleConversion(id: string, action: "approve" | "reject") {
+    setActing(id);
+    try {
+      await api.post(`/affiliate/admin/conversions/${id}/${action}`);
+      await load();
+    } catch { /* ignore */ } finally { setActing(null); }
+  }
+
+  if (loading) return <div className="py-8 text-center font-serif text-ink-3">Loading…</div>;
+
+  return (
+    <div className="space-y-6">
+      {/* Suspicious conversions */}
+      {suspicious.length > 0 && (
+        <div>
+          <h3 className="font-syne font-bold text-base text-ink mb-3">
+            Suspicious Conversions ({suspicious.length})
+          </h3>
+          <div className="bg-surface border border-border rounded-xl overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-red/10 text-red">
+                <tr>
+                  <th className="text-left px-4 py-3 font-syne font-bold text-xs">Type</th>
+                  <th className="text-left px-4 py-3 font-syne font-bold text-xs">Tier</th>
+                  <th className="text-right px-4 py-3 font-syne font-bold text-xs">Commission</th>
+                  <th className="text-left px-4 py-3 font-syne font-bold text-xs">Status</th>
+                  <th className="text-left px-4 py-3 font-syne font-bold text-xs">Clearance</th>
+                  <th className="px-4 py-3 font-syne font-bold text-xs">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {suspicious.map(c => (
+                  <tr key={c.id} className="border-t border-border">
+                    <td className="px-4 py-3 font-serif text-ink-2 text-xs">{c.event_type}</td>
+                    <td className="px-4 py-3 font-serif text-ink-2 text-xs">{c.tier ?? "—"}</td>
+                    <td className="px-4 py-3 text-right font-syne font-bold text-ink text-xs">
+                      ${c.commission_amount?.toFixed(2) ?? "0.00"}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs font-syne font-bold px-2 py-0.5 rounded-full ${
+                        c.commission_status === "hold" ? "bg-amber-50 text-amber-600" :
+                        c.commission_status === "approved" ? "bg-green/10 text-green" :
+                        "bg-red/5 text-red"
+                      }`}>{c.commission_status}</span>
+                    </td>
+                    <td className="px-4 py-3 text-xs font-serif text-ink-3">
+                      {c.clearance_date ? new Date(c.clearance_date).toLocaleDateString() : "—"}
+                    </td>
+                    <td className="px-4 py-3">
+                      {c.commission_status === "hold" && (
+                        <div className="flex gap-2">
+                          <button
+                            disabled={acting === c.id}
+                            onClick={() => handleConversion(c.id, "approve")}
+                            className="font-syne font-bold text-xs px-2 py-1 rounded border border-green text-green hover:bg-green hover:text-white transition-colors"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            disabled={acting === c.id}
+                            onClick={() => handleConversion(c.id, "reject")}
+                            className="font-syne font-bold text-xs px-2 py-1 rounded border border-red text-red hover:bg-red hover:text-white transition-colors"
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Billing event log */}
+      <div>
+        <h3 className="font-syne font-bold text-base text-ink mb-3">
+          Billing Event Log (last 50)
+        </h3>
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-ink text-white">
+              <tr>
+                <th className="text-left px-4 py-3 font-syne font-bold text-xs">Event</th>
+                <th className="text-left px-4 py-3 font-syne font-bold text-xs">Source</th>
+                <th className="text-left px-4 py-3 font-syne font-bold text-xs">Tier change</th>
+                <th className="text-right px-4 py-3 font-syne font-bold text-xs">Amount</th>
+                <th className="text-left px-4 py-3 font-syne font-bold text-xs">Reason</th>
+                <th className="text-right px-4 py-3 font-syne font-bold text-xs">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {events.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="px-4 py-8 text-center font-serif text-ink-3 text-sm">
+                    No billing events yet
+                  </td>
+                </tr>
+              )}
+              {events.map((ev, i) => (
+                <tr key={ev.id} className={i % 2 === 0 ? "bg-surface" : "bg-bg"}>
+                  <td className="px-4 py-2.5 font-syne text-xs text-ink">{ev.event_type}</td>
+                  <td className="px-4 py-2.5 text-xs">
+                    <span className="font-syne text-ink-3 border border-border rounded px-1.5 py-0.5">{ev.source}</span>
+                  </td>
+                  <td className="px-4 py-2.5 text-xs font-serif text-ink-2">
+                    {ev.old_tier && ev.new_tier ? `${ev.old_tier} → ${ev.new_tier}` : "—"}
+                  </td>
+                  <td className="px-4 py-2.5 text-right font-syne text-xs text-ink">
+                    {ev.amount != null ? `$${ev.amount.toFixed(2)}` : "—"}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs font-serif text-ink-3 max-w-xs truncate">
+                    {ev.reason ?? "—"}
+                  </td>
+                  <td className="px-4 py-2.5 text-right text-xs font-syne text-ink-3">
+                    {new Date(ev.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

@@ -100,7 +100,7 @@ def _groq_keys() -> list[str]:
     """Return Groq keys reserved for content generation (KEY_3, KEY_4, KEY_5).
     KEY_1 and KEY_2 are reserved exclusively for user-facing AI tutor."""
     keys = []
-    for attr in ("GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"):
+    for attr in ("GROQ_API_KEY_4", "GROQ_API_KEY_5"):
         k = getattr(settings, attr, "")
         if k:
             keys.append(k)

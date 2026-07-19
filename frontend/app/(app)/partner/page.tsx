@@ -51,11 +51,19 @@ export default function PartnerPage() {
   const isAffiliate = user?.role === "affiliate" || user?.role === "admin";
 
   useEffect(() => {
-    if (!isAffiliate) { setLoading(false); setNoAffiliate(true); return; }
-    Promise.all([
-      api.get("/affiliate/me").then((r: { data: AffiliateProfile }) => setProfile(r.data)).catch(() => setNoAffiliate(true)),
-      api.get("/affiliate/conversions").then((r: { data: Conversion[] }) => setConversions(r.data)).catch(() => {}),
-    ]).finally(() => setLoading(false));
+    // Always check affiliate status — pending applicants have role=user but do have an Affiliate record.
+    api.get("/affiliate/me")
+      .then((r: { data: AffiliateProfile }) => {
+        setProfile(r.data);
+        // If active, also fetch conversions
+        if (isAffiliate) {
+          api.get("/affiliate/conversions")
+            .then((cr: { data: Conversion[] }) => setConversions(cr.data))
+            .catch(() => {});
+        }
+      })
+      .catch(() => setNoAffiliate(true))
+      .finally(() => setLoading(false));
   }, [isAffiliate]);
 
   const copyLink = () => {

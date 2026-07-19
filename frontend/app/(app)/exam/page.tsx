@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
+import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { api, examApi } from "@/lib/api";
@@ -807,14 +808,19 @@ function AIExplainButton({ questionId, questionText }: { questionId?: string; qu
               )}
               {error && <p className="text-red text-sm font-serif">{error}</p>}
               {explanation && (
-                <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed space-y-3">
-                  {explanation.split("\n").map((line, i) => {
-                    if (line.startsWith("## ")) return <h3 key={i} className="font-syne font-bold text-sm text-ink mt-4 mb-1">{line.replace("## ", "")}</h3>;
-                    if (line.startsWith("# ")) return <h2 key={i} className="font-syne font-bold text-base text-ink mt-4 mb-1">{line.replace("# ", "")}</h2>;
-                    if (line.startsWith("**") && line.endsWith("**")) return <p key={i} className="font-syne font-bold text-sm">{line.replace(/\*\*/g, "")}</p>;
-                    if (!line.trim()) return null;
-                    return <p key={i} className="text-sm leading-relaxed">{line}</p>;
-                  })}
+                <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ children }) => <h2 className="font-syne font-bold text-base text-ink mt-4 mb-1">{children}</h2>,
+                      h2: ({ children }) => <h3 className="font-syne font-bold text-sm text-ink mt-3 mb-1">{children}</h3>,
+                      h3: ({ children }) => <h4 className="font-syne font-semibold text-sm text-ink mt-2 mb-0.5">{children}</h4>,
+                      p: ({ children }) => <p className="text-sm leading-relaxed mb-2">{children}</p>,
+                      strong: ({ children }) => <strong className="font-syne font-bold">{children}</strong>,
+                      li: ({ children }) => <li className="text-sm leading-relaxed">{children}</li>,
+                    }}
+                  >
+                    {explanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
+                  </ReactMarkdown>
                 </div>
               )}
             </div>
@@ -1002,11 +1008,24 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
                         selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
                         options={q.options || {}}
                       />
-                    ) : q.explanation ? (
-                      <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3">
-                        {q.explanation.length > 300 ? q.explanation.slice(0, 300) + "…" : q.explanation}
-                      </div>
-                    ) : null}
+                    ) : (
+                      <>
+                        {q.key_takeaway && (
+                          <div className="flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2.5">
+                            <Lightbulb className="w-3.5 h-3.5 text-amber-500 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">Key Takeaway</span>
+                              <p className="font-serif text-xs text-amber-800 leading-relaxed">{q.key_takeaway}</p>
+                            </div>
+                          </div>
+                        )}
+                        {q.explanation && (
+                          <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3 whitespace-pre-line">
+                            {q.explanation}
+                          </div>
+                        )}
+                      </>
+                    )}
                     <div className="flex items-center gap-3 flex-wrap">
                       <AIExplainButton questionId={q.id} questionText={q.question} />
                       <FlagButton questionId={q.id} />

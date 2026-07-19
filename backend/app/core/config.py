@@ -61,13 +61,19 @@ class Settings(BaseSettings):
     CEREBRAS_API_KEY_3: str = ""
     CEREBRAS_API_KEY_4: str = ""
     CEREBRAS_API_KEY_5: str = ""
-    CEREBRAS_MODEL: str = "llama-3.3-70b"
+    CEREBRAS_API_KEY_6: str = ""
+    CEREBRAS_MODEL: str = "gemma-4-31b"
 
     # SambaNova (free tier — cloud.sambanova.ai, OpenAI-compatible)
     SAMBANOVA_API_KEY: str = ""
     SAMBANOVA_API_KEY_2: str = ""
     SAMBANOVA_API_KEY_3: str = ""
     SAMBANOVA_MODEL: str = "Meta-Llama-3.1-70B-Instruct"
+
+    # OpenRouter (openrouter.ai — OpenAI-compatible, many free models)
+    OPENROUTER_API_KEY: str = ""
+    OPENROUTER_API_KEY_2: str = ""
+    OPENROUTER_MODEL: str = "qwen/qwen3-8b"  # free tier model
 
     # Ollama (primary free AI — local, zero cost, no API key)
     OLLAMA_URL: str = "http://localhost:11434"

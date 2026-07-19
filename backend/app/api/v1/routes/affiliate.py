@@ -145,7 +145,8 @@ async def get_me(
     user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    _require_affiliate(user)
+    # Any authenticated user can check their own affiliate/application status.
+    # _require_affiliate not used here so pending applicants (role=user) can see their status.
     result = await db.execute(select(Affiliate).where(Affiliate.user_id == user.id))
     affiliate = result.scalar_one_or_none()
     if not affiliate:
@@ -234,32 +235,71 @@ async def payout_request(
 # ── utility used by auth.py and payments.py ──────────────────────────────────
 
 async def record_signup_conversion(
-    affiliate_id, user_id, db: AsyncSession
+    affiliate_id, user_id, db: AsyncSession, ip_hash: Optional[str] = None
 ):
     """Called from auth register when user has a valid ref cookie."""
+    from app.services.billing import is_self_referral, check_ip_suspicious, audit_log
     result = await db.execute(select(Affiliate).where(Affiliate.id == affiliate_id))
     affiliate = result.scalar_one_or_none()
     if not affiliate or affiliate.status != "active":
         return
+
+    # Anti-fraud: block self-referral
+    if is_self_referral(affiliate.user_id, user_id):
+        return
+
+    suspicious = await check_ip_suspicious(db, affiliate_id, ip_hash)
+    status = "hold" if suspicious else "pending"
+
     conv = AffiliateConversion(
         affiliate_id=affiliate.id,
         user_id=user_id,
         event_type="signup",
+        commission_status=status,
+        is_suspicious=suspicious,
     )
     db.add(conv)
     affiliate.total_signups += 1
+    if suspicious:
+        await audit_log(db, event_type="commission_hold", source="system",
+                        user_id=user_id, reason="Suspicious IP pattern on signup",
+                        meta={"affiliate_id": str(affiliate_id)})
 
 
 async def record_subscription_conversion(
     affiliate_id, user_id, tier: str, amount_paid: float,
     stripe_invoice_id: Optional[str], db: AsyncSession
 ):
-    """Called from Stripe webhook when referred user completes a paid subscription."""
+    """Called from Stripe webhook when referred user completes a paid subscription.
+    Commission only counts after 14-day clearance period (return window).
+    """
+    from datetime import timedelta
+    from app.services.billing import is_self_referral, audit_log
+
     result = await db.execute(select(Affiliate).where(Affiliate.id == affiliate_id))
     affiliate = result.scalar_one_or_none()
     if not affiliate or affiliate.status != "active":
         return
+
+    if is_self_referral(affiliate.user_id, user_id):
+        return
+
     commission = _calc_commission(affiliate, amount_paid)
+    now = datetime.utcnow()
+    clearance = now + timedelta(days=14)
+
+    # Check if signup conversion was flagged suspicious
+    signup_conv_result = await db.execute(
+        select(AffiliateConversion).where(
+            AffiliateConversion.affiliate_id == affiliate_id,
+            AffiliateConversion.user_id == user_id,
+            AffiliateConversion.event_type == "signup",
+        )
+    )
+    signup_conv = signup_conv_result.scalar_one_or_none()
+    is_suspicious = signup_conv.is_suspicious if signup_conv else False
+    status = "hold" if is_suspicious else "pending"
+
     conv = AffiliateConversion(
         affiliate_id=affiliate.id,
         user_id=user_id,
@@ -268,7 +308,97 @@ async def record_subscription_conversion(
         amount_paid=amount_paid,
         commission_amount=commission,
         stripe_invoice_id=stripe_invoice_id,
+        commission_status=status,
+        is_suspicious=is_suspicious,
+        clearance_date=clearance,
     )
     db.add(conv)
     affiliate.total_conversions += 1
-    affiliate.total_earned = round(affiliate.total_earned + commission, 2)
+    # Only add to earned if not suspicious (counted after clearance in real payout flow)
+    if not is_suspicious:
+        affiliate.total_earned = round(affiliate.total_earned + commission, 2)
+
+    await audit_log(db, event_type="commission_created", source="webhook",
+                    user_id=user_id, amount=commission,
+                    stripe_invoice_id=stripe_invoice_id,
+                    reason=f"tier={tier} status={status}",
+                    meta={"affiliate_id": str(affiliate_id), "clearance_date": clearance.isoformat()})
+
+
+# ── Admin: approve / reject suspicious conversions ────────────────────────────
+
+@router.post("/admin/conversions/{conversion_id}/approve")
+async def approve_conversion(
+    conversion_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    from app.services.billing import set_conversion_status
+    result = await db.execute(
+        select(AffiliateConversion).where(AffiliateConversion.id == conversion_id)
+    )
+    conv = result.scalar_one_or_none()
+    if not conv:
+        raise HTTPException(404)
+    await set_conversion_status(db, conv, "approved", reason=f"Admin {user.email}")
+    # Add to affiliate earned if not already counted
+    if conv.commission_amount:
+        aff_result = await db.execute(select(Affiliate).where(Affiliate.id == conv.affiliate_id))
+        aff = aff_result.scalar_one_or_none()
+        if aff:
+            aff.total_earned = round(aff.total_earned + conv.commission_amount, 2)
+    await db.commit()
+    return {"ok": True, "status": "approved"}
+
+
+@router.post("/admin/conversions/{conversion_id}/reject")
+async def reject_conversion(
+    conversion_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    from app.services.billing import set_conversion_status
+    result = await db.execute(
+        select(AffiliateConversion).where(AffiliateConversion.id == conversion_id)
+    )
+    conv = result.scalar_one_or_none()
+    if not conv:
+        raise HTTPException(404)
+    await set_conversion_status(db, conv, "rejected", reason=f"Admin {user.email}")
+    await db.commit()
+    return {"ok": True, "status": "rejected"}
+
+
+@router.get("/admin/suspicious-conversions")
+async def list_suspicious_conversions(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    result = await db.execute(
+        select(AffiliateConversion)
+        .where(AffiliateConversion.is_suspicious == True)
+        .order_by(AffiliateConversion.created_at.desc())
+        .limit(100)
+    )
+    convs = result.scalars().all()
+    return [
+        {
+            "id": str(c.id),
+            "affiliate_id": str(c.affiliate_id),
+            "user_id": str(c.user_id),
+            "event_type": c.event_type,
+            "tier": c.tier,
+            "amount_paid": c.amount_paid,
+            "commission_amount": c.commission_amount,
+            "commission_status": c.commission_status,
+            "clearance_date": c.clearance_date.isoformat() if c.clearance_date else None,
+            "created_at": c.created_at.isoformat(),
+        }
+        for c in convs
+    ]

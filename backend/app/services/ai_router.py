@@ -54,6 +54,67 @@ async def call_claude_structured(system: str, user_message: str, model: str = "c
     return text, model
 
 
+async def call_ollama_structured(system: str, user_message: str, max_tokens: int = 1500) -> tuple[str, str]:
+    """Cascade: Cerebras KEY_6 (dedicated) → Claude → Ollama (local). Returns (text, model_label).
+    Uses only CEREBRAS_API_KEY_6 — keys 1-5 are reserved for user AI tutor and news pipeline."""
+    # 1. Cerebras: KEY_6 (dedicated) + KEY_3/KEY_4 as fallback while KEY_6 is a paid account
+    cerebras_keys = [k for k in [
+        settings.CEREBRAS_API_KEY_6,
+        settings.CEREBRAS_API_KEY_3,
+        settings.CEREBRAS_API_KEY_4,
+    ] if k]
+    for _key in cerebras_keys:
+        try:
+            async with httpx.AsyncClient(timeout=30) as http:
+                resp = await http.post(
+                    "https://api.cerebras.ai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {_key}"},
+                    json={
+                        "model": settings.CEREBRAS_MODEL,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user_message},
+                        ],
+                        "max_tokens": max_tokens,
+                    },
+                )
+                resp.raise_for_status()
+                text = resp.json()["choices"][0]["message"]["content"].strip()
+                return text, f"cerebras/{settings.CEREBRAS_MODEL}"
+        except Exception as e:
+            logger.warning(f"Cerebras key failed: {e}")
+
+    # 2. Claude (paid — works when credits available)
+    try:
+        return await call_claude_structured(system, user_message, max_tokens=max_tokens)
+    except Exception as e:
+        logger.warning(f"Claude unavailable ({e}), falling back to Ollama")
+
+    # 3. Ollama — local, always available, slowest
+    # qwen3:1.7b is faster than qwen3:8b on CPU (~5 tok/s vs much slower for 8b loading).
+    # Cap tokens at 280 so response completes in ~54s, safely within nginx timeout.
+    _ollama_model = "qwen3:1.7b"
+    _ollama_tokens = min(max_tokens, 280)
+    async with httpx.AsyncClient(timeout=90) as http:
+        resp = await http.post(
+            f"{settings.OLLAMA_URL}/api/chat",
+            json={
+                "model": _ollama_model,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user_message},
+                ],
+                "stream": False,
+                "think": False,
+                "options": {"num_predict": _ollama_tokens},
+            },
+        )
+        resp.raise_for_status()
+        content = resp.json()["message"]["content"]
+        text = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
+        return text, _ollama_model
+
+
 async def call_claude_vision(
     system: str,
     image_data: bytes,

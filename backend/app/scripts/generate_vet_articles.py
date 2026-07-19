@@ -288,9 +288,7 @@ def generate_together_image(slug: str, title: str, species: list[str]) -> str | 
 def _get_keys() -> list[str]:
     candidates = [
         settings.GROQ_KEY_VET_ARTICLES,
-        settings.GROQ_API_KEY_3,
         settings.GROQ_API_KEY_4,
-        settings.GROQ_API_KEY_6,
     ]
     keys = [k.strip() for k in candidates if k and k.strip()]
     if not keys:

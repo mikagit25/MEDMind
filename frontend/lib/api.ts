@@ -826,6 +826,22 @@ export const examApi = {
   getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
   getHistory: (limit = 20) => api.get(`/exam/history?limit=${limit}`).then(r => r.data),
   getReadiness: () => api.get("/exam/nclex/readiness").then(r => r.data),
+  getPlan: (examType = "nclex") => api.get(`/exam/plan?exam_type=${examType}`).then(r => r.data),
+  createPlan: (body: { exam_date: string; daily_minutes: number; exam_type?: string }) =>
+    api.post("/exam/plan", body).then(r => r.data),
+  updatePlan: (body: { exam_date: string; daily_minutes: number; exam_type?: string }) =>
+    api.patch("/exam/plan", body).then(r => r.data),
+  deletePlan: (examType = "nclex") => api.delete(`/exam/plan?exam_type=${examType}`).then(r => r.data),
+  completeTodayTask: (taskType: string, examType = "nclex") =>
+    api.post(`/exam/plan/complete-today?exam_type=${examType}`, { task_type: taskType }).then(r => r.data),
+};
+
+// ── Lifecycle / Notification Prefs ────────────────────────────────────────────
+export const lifecycleApi = {
+  getPrefs: () => api.get("/lifecycle/notification-prefs").then(r => r.data),
+  updatePrefs: (body: { email_notifications?: boolean; email_unsubscribes?: string[] }) =>
+    api.patch("/lifecycle/notification-prefs", body).then(r => r.data),
+  adminStats: () => api.get("/lifecycle/admin/stats").then(r => r.data),
 };
 
 // ── FHIR Learning Record Export ───────────────────────────────────────────────

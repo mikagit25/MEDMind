@@ -380,6 +380,7 @@ class User(Base):
     progress = relationship("UserProgress", back_populates="user", cascade="all, delete-orphan")
     conversations = relationship("AIConversation", back_populates="user", cascade="all, delete-orphan")
     affiliate_profile = relationship("Affiliate", foreign_keys="[Affiliate.user_id]", back_populates="user", uselist=False)
+    exam_plans = relationship("ExamPlan", back_populates="user", cascade="all, delete-orphan")
 
 
 # ============================================================
@@ -1851,6 +1852,8 @@ class PromoCodeUse(Base):
     __table_args__ = (
         Index("ix_promo_uses_user", "user_id"),
         Index("ix_promo_uses_code", "code_id"),
+        # DB-level guard against race condition on one_per_user codes (Phase 6)
+        UniqueConstraint("code_id", "user_id", name="uq_promo_one_use_per_user"),
     )
 
 
@@ -1918,6 +1921,11 @@ class AffiliateConversion(Base):
     tier              = Column(String(20), nullable=True)
     amount_paid       = Column(Float, nullable=True)          # USD received by us (from Stripe)
     commission_amount = Column(Float, nullable=True)          # USD owed to affiliate
+    # Phase 6 anti-fraud fields
+    commission_status = Column(String(20), nullable=False, default="pending", server_default="pending")
+                                                             # pending|approved|hold|rejected
+    is_suspicious     = Column(Boolean, nullable=False, default=False, server_default="false")
+    clearance_date    = Column(DateTime, nullable=True)       # 14d after created_at; payout only after this
     is_paid_out       = Column(Boolean, nullable=False, default=False, server_default="false")
     stripe_invoice_id = Column(String(100), nullable=True)
     created_at        = Column(DateTime, nullable=False, default=datetime.utcnow)
@@ -1927,4 +1935,109 @@ class AffiliateConversion(Base):
     __table_args__ = (
         Index("ix_aff_conv_affiliate", "affiliate_id"),
         Index("ix_aff_conv_user", "user_id"),
+    )
+
+
+# ============================================================
+# LIFECYCLE EMAIL CAMPAIGNS (V6 Phase 5)
+# ============================================================
+class LifecycleSend(Base):
+    """Idempotency record — one row per (user, campaign, step) ever sent."""
+    __tablename__ = "lifecycle_sends"
+
+    id         = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id    = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    campaign   = Column(String(60), nullable=False)   # e.g. "onboarding_d1"
+    step       = Column(String(60), nullable=False, default="email")
+    sent_at    = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "campaign", "step", name="uq_lifecycle_one_per_step"),
+        Index("ix_lifecycle_user", "user_id"),
+        Index("ix_lifecycle_campaign", "campaign"),
+    )
+
+
+# ============================================================
+# EXAM STUDY PLANS (V6 Phase 4)
+# ============================================================
+class ExamPlan(Base):
+    """Study plan anchored to a user's exam date."""
+    __tablename__ = "exam_plans"
+
+    id           = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id      = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    exam_type    = Column(String(50), nullable=False, default="nclex")  # nclex | usmle | ...
+    exam_date    = Column(DateTime, nullable=False)
+    daily_minutes= Column(Integer, nullable=False, default=30)  # 15 | 30 | 60
+    status       = Column(String(20), nullable=False, default="active")  # active | completed | abandoned
+    plan_cache   = Column(JSONB, nullable=True)   # cached generated day list
+    created_at   = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at   = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user          = relationship("User", back_populates="exam_plans")
+    completions   = relationship("ExamPlanCompletion", back_populates="plan", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        Index("ix_exam_plans_user", "user_id"),
+        UniqueConstraint("user_id", "exam_type", "status",
+                         name="uq_exam_plans_one_active_per_type"),
+    )
+
+
+class ExamPlanCompletion(Base):
+    """Records which study-plan tasks the user has marked as done."""
+    __tablename__ = "exam_plan_completions"
+
+    id         = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    plan_id    = Column(UUID(as_uuid=True), ForeignKey("exam_plans.id", ondelete="CASCADE"), nullable=False)
+    task_date  = Column(DateTime, nullable=False)   # the calendar day this task belongs to
+    task_type  = Column(String(50), nullable=False)  # "practice" | "mock_exam" | "review" | "rest"
+    completed_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    plan = relationship("ExamPlan", back_populates="completions")
+
+    __table_args__ = (
+        Index("ix_epc_plan", "plan_id"),
+        UniqueConstraint("plan_id", "task_date", name="uq_epc_one_per_day"),
+    )
+
+
+# ============================================================
+# BILLING HARDENING (V6 Phase 6)
+# ============================================================
+
+class StripeWebhookEvent(Base):
+    """Idempotency record — one row per Stripe event_id ever processed."""
+    __tablename__ = "stripe_webhook_events"
+
+    id         = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    event_id   = Column(String(100), unique=True, nullable=False, index=True)  # evt_xxx
+    event_type = Column(String(100), nullable=False)
+    status     = Column(String(20), nullable=False, default="ok")  # ok | error | retrying
+    error_msg  = Column(Text, nullable=True)
+    processed_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+
+class BillingEvent(Base):
+    """Immutable audit log — every billing state change."""
+    __tablename__ = "billing_events"
+
+    id               = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id          = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    event_type       = Column(String(60), nullable=False)   # subscription_activated | subscription_downgraded |
+                                                            # promo_applied | commission_created |
+                                                            # dunning_started | dunning_downgrade | ...
+    source           = Column(String(30), nullable=False)   # webhook | admin | system | promo
+    old_tier         = Column(String(30), nullable=True)
+    new_tier         = Column(String(30), nullable=True)
+    amount           = Column(Float, nullable=True)
+    stripe_invoice_id= Column(String(100), nullable=True)
+    reason           = Column(Text, nullable=True)
+    meta             = Column(JSONB, nullable=True)
+    created_at       = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_billing_events_user", "user_id"),
+        Index("ix_billing_events_type_created", "event_type", "created_at"),
     )

@@ -21,6 +21,10 @@ import {
   TrendingDown,
   Gift,
   Info,
+  Calendar,
+  Flame,
+  RefreshCw,
+  Trash2,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -77,6 +81,27 @@ type Readiness = {
   weak_categories: Array<{ key: string; label: string; pct: number; count: number }>;
   trend: Array<{ date: string; score_pct: number | null; correct: number; total: number }>;
   disclaimer: string;
+};
+
+type PlanTask = {
+  date: string;
+  task_type: "practice" | "mock_exam" | "review" | "rest" | "exam_day";
+  questions: number;
+  day_number: number;
+  days_to_exam: number;
+};
+
+type StudyPlan = {
+  id: string;
+  exam_type: string;
+  exam_date: string;
+  daily_minutes: number;
+  status: string;
+  today_task: PlanTask | null;
+  week_tasks: PlanTask[];
+  full_plan: PlanTask[];
+  completed_dates: string[];
+  progress: { total_days: number; completed_days: number; completion_pct: number };
 };
 
 // ── Icon map ───────────────────────────────────────────────────────────────────
@@ -334,6 +359,345 @@ function ReadinessTab({
   );
 }
 
+// ── Plan Tab Component ────────────────────────────────────────────────────────
+
+const TASK_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
+  practice:  { label: "Practice",  color: "text-blue-600",  bg: "bg-blue-50",   border: "border-blue-200" },
+  mock_exam: { label: "Mock Exam", color: "text-red",       bg: "bg-red/5",     border: "border-red/20" },
+  review:    { label: "Review",    color: "text-amber-600", bg: "bg-amber-50",  border: "border-amber-200" },
+  rest:      { label: "Rest Day",  color: "text-green",     bg: "bg-green/5",   border: "border-green/20" },
+  exam_day:  { label: "Exam Day!", color: "text-ink",       bg: "bg-ink",       border: "border-ink" },
+};
+
+function TaskPill({ type, small }: { type: string; small?: boolean }) {
+  const cfg = TASK_CONFIG[type] ?? TASK_CONFIG.practice;
+  return (
+    <span className={`inline-block font-syne font-bold rounded-full border ${small ? "text-[10px] px-2 py-0.5" : "text-xs px-3 py-1"} ${cfg.color} ${cfg.bg} ${cfg.border}`}>
+      {cfg.label}
+    </span>
+  );
+}
+
+function PlanTab({
+  plan,
+  onPlanChange,
+}: {
+  plan: StudyPlan | null;
+  onPlanChange: () => void;
+}) {
+  const [wizardDate, setWizardDate] = useState("");
+  const [wizardMinutes, setWizardMinutes] = useState(30);
+  const [saving, setSaving] = useState(false);
+  const [completing, setCompleting] = useState(false);
+  const [error, setError] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const today = new Date().toISOString().split("T")[0];
+
+  async function handleCreate() {
+    if (!wizardDate) { setError("Please pick your exam date."); return; }
+    setSaving(true);
+    setError("");
+    try {
+      await examApi.createPlan({ exam_date: wizardDate, daily_minutes: wizardMinutes });
+      onPlanChange();
+    } catch {
+      setError("Could not create plan. Try again.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleCompleteToday() {
+    if (!plan?.today_task) return;
+    setCompleting(true);
+    try {
+      await examApi.completeTodayTask(plan.today_task.task_type);
+      onPlanChange();
+    } catch {
+      // silently ignore duplicate
+    } finally {
+      setCompleting(false);
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await examApi.deletePlan();
+      onPlanChange();
+      setConfirmDelete(false);
+    } catch { /* ignore */ }
+  }
+
+  // ── No plan yet: wizard ────────────────────────────────────────────────────
+  if (!plan) {
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 2);
+    const minDateStr = minDate.toISOString().split("T")[0];
+
+    return (
+      <div className="max-w-md mx-auto py-8">
+        <div className="text-center mb-8">
+          <Calendar className="w-12 h-12 mx-auto mb-4 text-ink-3 opacity-40" />
+          <h2 className="font-syne font-black text-2xl text-ink mb-2">Create Your Study Plan</h2>
+          <p className="font-serif text-sm text-ink-3">
+            Set your exam date and we&apos;ll build a personalised day-by-day schedule.
+          </p>
+        </div>
+
+        <div className="bg-surface border border-border rounded-xl p-6 space-y-5">
+          <div>
+            <label className="block font-syne font-bold text-xs text-ink mb-2 uppercase tracking-wider">
+              Exam Date
+            </label>
+            <input
+              type="date"
+              min={minDateStr}
+              value={wizardDate}
+              onChange={e => setWizardDate(e.target.value)}
+              className="w-full border border-border rounded-lg px-4 py-2.5 font-serif text-sm text-ink bg-bg focus:outline-none focus:ring-2 focus:ring-ink"
+            />
+          </div>
+
+          <div>
+            <label className="block font-syne font-bold text-xs text-ink mb-2 uppercase tracking-wider">
+              Daily Study Time
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {([15, 30, 60] as const).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setWizardMinutes(m)}
+                  className={`py-2.5 rounded-lg border font-syne font-bold text-sm transition-all ${
+                    wizardMinutes === m
+                      ? "border-ink bg-ink text-white"
+                      : "border-border text-ink hover:border-ink"
+                  }`}
+                >
+                  {m} min
+                </button>
+              ))}
+            </div>
+            <p className="text-xs font-serif text-ink-3 mt-2">
+              {wizardMinutes === 15 ? "10 questions/day"
+               : wizardMinutes === 30 ? "20 questions/day"
+               : "40 questions/day"}
+            </p>
+          </div>
+
+          {error && (
+            <p className="text-xs font-serif text-red">{error}</p>
+          )}
+
+          <button
+            onClick={handleCreate}
+            disabled={saving || !wizardDate}
+            className="w-full font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors disabled:opacity-40"
+          >
+            {saving ? "Creating…" : "Build My Plan →"}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Plan exists: calendar view ─────────────────────────────────────────────
+  const todayDone = plan.completed_dates.includes(today);
+  const daysLeft = plan.today_task?.days_to_exam ?? 0;
+
+  return (
+    <div className="space-y-6">
+      {/* Header strip */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h2 className="font-syne font-black text-xl text-ink">Study Plan</h2>
+          <p className="font-serif text-xs text-ink-3 mt-0.5">
+            NCLEX · {plan.exam_date} · {plan.daily_minutes} min/day
+            {daysLeft > 0 && <> · <strong className="text-ink">{daysLeft} days to go</strong></>}
+          </p>
+        </div>
+        <button
+          onClick={() => setConfirmDelete(true)}
+          className="text-ink-3 hover:text-red transition-colors"
+          title="Delete plan"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
+
+      {confirmDelete && (
+        <div className="bg-red/5 border border-red/20 rounded-xl p-4 flex items-center gap-4">
+          <p className="text-sm font-serif text-ink flex-1">Delete this study plan?</p>
+          <button
+            onClick={handleDelete}
+            className="font-syne font-bold text-xs text-red border border-red/30 px-3 py-1.5 rounded-lg hover:bg-red hover:text-white transition-colors"
+          >
+            Yes, delete
+          </button>
+          <button
+            onClick={() => setConfirmDelete(false)}
+            className="font-syne font-bold text-xs text-ink-3 hover:text-ink"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
+      {/* Progress bar */}
+      <div className="bg-surface border border-border rounded-xl p-5">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-syne font-bold text-sm text-ink">Overall Progress</span>
+          <span className="font-syne font-bold text-sm text-ink">{plan.progress.completion_pct}%</span>
+        </div>
+        <div className="h-2 bg-border rounded-full overflow-hidden">
+          <div
+            className="h-full bg-green rounded-full transition-all"
+            style={{ width: `${plan.progress.completion_pct}%` }}
+          />
+        </div>
+        <p className="text-xs font-serif text-ink-3 mt-2">
+          {plan.progress.completed_days} of {plan.progress.total_days} days completed
+        </p>
+      </div>
+
+      {/* Today's task */}
+      {plan.today_task && plan.today_task.task_type !== "exam_day" && (
+        <div className="bg-surface border-2 border-ink rounded-xl p-5">
+          <div className="flex items-start justify-between mb-3">
+            <div>
+              <p className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-1">Today</p>
+              <TaskPill type={plan.today_task.task_type} />
+            </div>
+            {todayDone && (
+              <div className="flex items-center gap-1 text-green">
+                <CheckCircle2 className="w-5 h-5" />
+                <span className="text-xs font-syne font-bold">Done!</span>
+              </div>
+            )}
+          </div>
+          {plan.today_task.questions > 0 && (
+            <p className="font-serif text-sm text-ink-2 mb-4">
+              {plan.today_task.questions} questions
+              {plan.today_task.task_type === "mock_exam" && " · Full 75-question simulation"}
+            </p>
+          )}
+          {plan.today_task.task_type === "rest" && (
+            <p className="font-serif text-sm text-ink-2 mb-4">
+              Rest and review your notes. Your exam is tomorrow — you&apos;re ready!
+            </p>
+          )}
+          {!todayDone ? (
+            <div className="flex gap-3">
+              {plan.today_task.task_type !== "rest" && (
+                <button
+                  onClick={() => {
+                    const modeId = plan.today_task?.task_type === "mock_exam" ? "nclex_rn_75" : "nclex_demo";
+                    window.location.href = `/exam?session_mode=${modeId}`;
+                  }}
+                  className="font-syne font-bold text-sm bg-ink text-white px-5 py-2.5 rounded-lg hover:bg-red transition-colors"
+                >
+                  Start →
+                </button>
+              )}
+              <button
+                onClick={handleCompleteToday}
+                disabled={completing}
+                className="font-syne font-bold text-sm border border-border text-ink px-5 py-2.5 rounded-lg hover:border-ink transition-colors disabled:opacity-50"
+              >
+                {completing ? "…" : "Mark Done"}
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-green">
+              <Flame className="w-4 h-4" />
+              <span className="text-sm font-syne font-bold">Keep the streak going!</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {plan.today_task?.task_type === "exam_day" && (
+        <div className="bg-ink rounded-xl p-6 text-center text-white">
+          <Trophy className="w-10 h-10 mx-auto mb-3 text-amber-400" />
+          <h3 className="font-syne font-black text-xl mb-2">Exam Day!</h3>
+          <p className="font-serif text-sm opacity-80">Good luck today. You&apos;ve prepared well.</p>
+        </div>
+      )}
+
+      {/* This week */}
+      <div className="bg-surface border border-border rounded-xl p-5">
+        <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
+          <Calendar className="w-4 h-4" /> This Week
+        </h3>
+        <div className="space-y-2">
+          {plan.week_tasks.map(task => {
+            const done = plan.completed_dates.includes(task.date);
+            const isToday = task.date === today;
+            const d = new Date(task.date + "T12:00:00");
+            const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
+            const dayNum = d.getDate();
+            return (
+              <div
+                key={task.date}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
+                  isToday ? "bg-ink/5 border border-ink/20" : ""
+                }`}
+              >
+                <div className={`w-10 text-center flex-shrink-0 ${isToday ? "text-ink" : "text-ink-3"}`}>
+                  <div className="text-[10px] font-syne font-bold uppercase">{dayName}</div>
+                  <div className={`text-lg font-syne font-black leading-none ${isToday ? "text-ink" : "text-ink-3"}`}>{dayNum}</div>
+                </div>
+                <div className="flex-1">
+                  <TaskPill type={task.task_type} small />
+                  {task.questions > 0 && (
+                    <span className="ml-2 text-[10px] font-serif text-ink-3">{task.questions}q</span>
+                  )}
+                </div>
+                {done ? (
+                  <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
+                ) : task.days_to_exam < 0 ? (
+                  <span className="text-[10px] font-syne text-ink-3">missed</span>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Reschedule */}
+      <div className="bg-surface border border-border rounded-xl p-5">
+        <h3 className="font-syne font-bold text-sm text-ink mb-3 flex items-center gap-2">
+          <RefreshCw className="w-4 h-4" /> Reschedule Exam Date
+        </h3>
+        <div className="flex gap-3">
+          <input
+            type="date"
+            min={new Date(Date.now() + 2 * 86400000).toISOString().split("T")[0]}
+            defaultValue={plan.exam_date}
+            id="reschedule-date"
+            className="flex-1 border border-border rounded-lg px-3 py-2 font-serif text-sm text-ink bg-bg focus:outline-none focus:ring-2 focus:ring-ink"
+          />
+          <button
+            onClick={async () => {
+              const el = document.getElementById("reschedule-date") as HTMLInputElement;
+              if (!el?.value) return;
+              setSaving(true);
+              try {
+                await examApi.updatePlan({ exam_date: el.value, daily_minutes: plan.daily_minutes });
+                onPlanChange();
+              } catch { /* ignore */ } finally { setSaving(false); }
+            }}
+            disabled={saving}
+            className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
+          >
+            {saving ? "…" : "Update"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function NCLEXHubPage() {
@@ -344,19 +708,21 @@ export default function NCLEXHubPage() {
   const [history, setHistory] = useState<SessionHistory[]>([]);
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [readiness, setReadiness] = useState<Readiness | null>(null);
+  const [plan, setPlan] = useState<StudyPlan | null>(null);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<"practice" | "history" | "analytics" | "readiness">("practice");
+  const [activeTab, setActiveTab] = useState<"practice" | "history" | "analytics" | "readiness" | "plan">("practice");
 
   const load = useCallback(async () => {
     try {
-      const [modeList, catList, hist, analy, rdns] = await Promise.all([
+      const [modeList, catList, hist, analy, rdns, planRes] = await Promise.all([
         examApi.getModes(),
         examApi.getNCLEXCategories(),
         examApi.getHistory(10),
         examApi.getNCLEXAnalytics(),
         examApi.getReadiness(),
+        examApi.getPlan(),
       ]);
       setModes(modeList);
       setNclexModes(modeList.filter((m: ExamMode) => NCLEX_MODE_IDS.includes(m.id)));
@@ -364,12 +730,20 @@ export default function NCLEXHubPage() {
       setHistory(hist);
       setAnalytics(analy);
       setReadiness(rdns);
+      setPlan(planRes.plan ?? null);
     } catch {
       // silently fail — locked state handled per-card
     } finally {
       setLoading(false);
     }
   }, []);
+
+  async function reloadPlan() {
+    try {
+      const res = await examApi.getPlan();
+      setPlan(res.plan ?? null);
+    } catch { /* ignore */ }
+  }
 
   useEffect(() => { load(); }, [load]);
 
@@ -405,8 +779,9 @@ export default function NCLEXHubPage() {
     : null;
   const last_score = nclex_history[0]?.score_pct ?? null;
 
-  const TABS: { id: "practice" | "history" | "analytics" | "readiness"; label: string }[] = [
+  const TABS: { id: "practice" | "history" | "analytics" | "readiness" | "plan"; label: string }[] = [
     { id: "practice",  label: t("nclex_hub.tab_practice") },
+    { id: "plan",      label: "Plan" },
     { id: "readiness", label: t("nclex_hub.tab_readiness") },
     { id: "history",   label: t("nclex_hub.tab_history") },
     { id: "analytics", label: t("nclex_hub.tab_analytics") },
@@ -431,9 +806,27 @@ export default function NCLEXHubPage() {
       </div>
 
       {/* Stats strip */}
-      {(best_score !== null || (analytics?.sessions_analyzed ?? 0) > 0 || readiness?.threshold_met) && (
+      {(best_score !== null || (analytics?.sessions_analyzed ?? 0) > 0 || readiness?.threshold_met || plan) && (
         <div className="bg-ink text-white">
           <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap gap-6">
+            {plan?.today_task && plan.today_task.task_type !== "exam_day" && (
+              <button
+                onClick={() => setActiveTab("plan")}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <Calendar className="w-4 h-4 text-amber-400" />
+                <span className="text-xs font-syne">
+                  Today:{" "}
+                  <strong className="text-amber-400">
+                    {TASK_CONFIG[plan.today_task.task_type]?.label ?? plan.today_task.task_type}
+                    {plan.today_task.questions > 0 && ` (${plan.today_task.questions}q)`}
+                  </strong>
+                  {plan.completed_dates.includes(new Date().toISOString().split("T")[0]) && (
+                    <span className="text-green ml-1">✓</span>
+                  )}
+                </span>
+              </button>
+            )}
             {readiness?.threshold_met && readiness.score !== null && (
               <button
                 onClick={() => setActiveTab("readiness")}
@@ -671,6 +1064,11 @@ export default function NCLEXHubPage() {
               </div>
             </section>
           </div>
+        )}
+
+        {/* ── Plan tab ── */}
+        {activeTab === "plan" && (
+          <PlanTab plan={plan} onPlanChange={reloadPlan} />
         )}
 
         {/* ── Readiness tab ── */}

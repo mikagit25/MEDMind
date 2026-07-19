@@ -16,7 +16,7 @@ type FaqItem = { q: string; a: string };
 
 export default function PricingPage() {
   const t = useT();
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, updateUser } = useAuthStore();
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +38,9 @@ export default function PricingPage() {
     try {
       const res = await api.post("/promo/apply", { code: promoCode.trim() });
       setPromoResult(res.data);
-      // subscription tier will refresh on next /auth/me call (navigation)
+      // Immediately refresh auth store so all components reflect the new tier
+      const me = await api.get("/auth/me");
+      updateUser(me.data);
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
       setPromoError(msg || "Invalid or expired code.");
