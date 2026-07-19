@@ -1020,8 +1020,19 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
                           </div>
                         )}
                         {q.explanation && (
-                          <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3 whitespace-pre-line">
-                            {q.explanation}
+                          <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3">
+                            <ReactMarkdown
+                              components={{
+                                h1: ({ children }) => <p className="font-syne font-bold text-xs text-ink mb-1">{children}</p>,
+                                h2: ({ children }) => <p className="font-syne font-bold text-xs text-ink mb-1">{children}</p>,
+                                h3: ({ children }) => <p className="font-syne font-semibold text-xs text-ink mb-0.5">{children}</p>,
+                                p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                strong: ({ children }) => <strong className="font-syne font-bold text-ink">{children}</strong>,
+                                li: ({ children }) => <li className="ml-3">{children}</li>,
+                              }}
+                            >
+                              {q.explanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
+                            </ReactMarkdown>
                           </div>
                         )}
                       </>

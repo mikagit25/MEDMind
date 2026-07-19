@@ -4,6 +4,14 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
+  // react-markdown v9+ is ESM-only; transpile so webpack can bundle it
+  transpilePackages: [
+    "react-markdown", "remark", "remark-parse", "unified",
+    "bail", "is-plain-obj", "trough", "vfile", "vfile-message",
+    "unist-util-stringify-position", "mdast-util-from-markdown",
+    "mdast-util-to-string", "micromark", "decode-named-character-reference",
+    "character-entities",
+  ],
   typescript: {
     ignoreBuildErrors: true,  // skip tsc during build — handled separately
   },

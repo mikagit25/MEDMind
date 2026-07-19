@@ -51,12 +51,15 @@ export default function PartnerPage() {
   const isAffiliate = user?.role === "affiliate" || user?.role === "admin";
 
   useEffect(() => {
-    // Always check affiliate status — pending applicants have role=user but do have an Affiliate record.
+    // Wait for auth store to hydrate before making authenticated request.
+    // Dependency on user?.id ensures this re-runs once the user is loaded.
+    if (!user?.id) return;
+
     api.get("/affiliate/me")
       .then((r: { data: AffiliateProfile }) => {
         setProfile(r.data);
-        // If active, also fetch conversions
-        if (isAffiliate) {
+        // Fetch conversions for active affiliates and admins
+        if (r.data.status === "active" || user.role === "admin") {
           api.get("/affiliate/conversions")
             .then((cr: { data: Conversion[] }) => setConversions(cr.data))
             .catch(() => {});
@@ -64,7 +67,7 @@ export default function PartnerPage() {
       })
       .catch(() => setNoAffiliate(true))
       .finally(() => setLoading(false));
-  }, [isAffiliate]);
+  }, [user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const copyLink = () => {
     if (!profile) return;

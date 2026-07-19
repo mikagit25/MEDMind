@@ -1092,14 +1092,20 @@ async def create_plan(
     if body.daily_minutes not in (15, 30, 60):
         raise HTTPException(400, "daily_minutes must be 15, 30, or 60")
 
-    # Abandon any existing active plan for this exam_type
-    existing = await db.execute(
+    # Upsert: return existing active plan if one already exists for this user+exam_type.
+    # This makes POST idempotent — repeated calls don't create duplicates.
+    # To change exam_date / daily_minutes use PATCH /plan.
+    existing_result = await db.execute(
         select(ExamPlan)
         .where(ExamPlan.user_id == user.id, ExamPlan.exam_type == body.exam_type,
                ExamPlan.status == "active")
     )
-    for old in existing.scalars().all():
-        old.status = "abandoned"
+    existing_plan = existing_result.scalar_one_or_none()
+    if existing_plan:
+        comps = await db.execute(
+            select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == existing_plan.id)
+        )
+        return {"plan": _plan_to_response(existing_plan, comps.scalars().all())}
 
     tasks = planner.generate_plan(exam_date, body.daily_minutes)
     plan_row = ExamPlan(
@@ -1111,7 +1117,6 @@ async def create_plan(
         plan_cache=tasks,
     )
     db.add(plan_row)
-    await db.flush()
     await db.commit()
     await db.refresh(plan_row)
 
