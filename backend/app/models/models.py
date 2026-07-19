@@ -240,6 +240,14 @@ class MCQQuestion(Base):
     ngn_type = Column(String(20), nullable=True)
     bowtie_data = Column(JSONB, nullable=True)
     matrix_data = Column(JSONB, nullable=True)
+    # Phase 2: per-option rationales + key takeaway
+    # rationales: {A: {text: "...", why: "correct"|"incorrect"}, ...}
+    rationales = Column(JSONB, nullable=True)
+    key_takeaway = Column(Text, nullable=True)
+    test_taking_tip = Column(Text, nullable=True)
+    # Phase 2: user flagging
+    is_flagged = Column(Boolean, nullable=False, server_default="false")
+    flag_reason = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="mcq_questions")

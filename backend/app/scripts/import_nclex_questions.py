@@ -49,8 +49,8 @@ async def import_module(module_code: str) -> tuple[int, int]:
                 code=module_code,
                 title=title,
                 description=f"NCLEX question bank: {title}",
-                specialty="nursing",
-                level="intermediate",
+                level=1,
+                module_type="specialty_module",
             )
             session.add(module)
             await session.flush()
@@ -100,6 +100,10 @@ async def import_module(module_code: str) -> tuple[int, int]:
                 ngn_type=q.get("ngn_type"),
                 bowtie_data=q.get("bowtie_data"),
                 matrix_data=q.get("matrix_data"),
+                # Phase 2: rationales
+                rationales=q.get("rationales"),
+                key_takeaway=q.get("key_takeaway"),
+                test_taking_tip=q.get("test_taking_tip"),
             )
             session.add(mcq)
             existing_texts.add(qtext)

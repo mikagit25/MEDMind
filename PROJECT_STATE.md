@@ -6,9 +6,28 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V6 Phase 1 ✅ — E2E smoke tests + frontend monitoring. Backend: 0 failed. TypeScript: 0 errors.
+**Phase:** V6 Phase 2 ✅ — NCLEX Rationales. Backend: 734 passed. TypeScript: 0 errors. E2E: 11 passed, 0 failed.
 **Last Updated:** 2026-07-19
-**Next Action:** V6 Phase 2 — performance & SEO (Core Web Vitals, ISR, structured data).
+**Next Action:** V6 Phase 3 — Core Web Vitals, ISR, structured data (SEO/performance).
+
+### V6 Phase 2 — NCLEX Rationales ✅ (2026-07-19)
+- **DB migration** `k7l8m9n0o1p2`: added `rationales JSONB`, `key_takeaway TEXT`, `test_taking_tip TEXT`, `is_flagged BOOL`, `flag_reason TEXT` to `mcq_questions`
+- **Generation**: MCQ + SATA prompts updated to return structured per-option rationales `{A: {text, why}}` + `key_takeaway` + `test_taking_tip`
+- **Import script** updated to persist new fields
+- **Backfill script**: `app/scripts/backfill_rationales.py --max N` (idempotent, batched, Groq content keys)
+- **API**:
+  - `POST /exam/sessions/{id}/answer` now returns `rationales`, `key_takeaway`, `test_taking_tip` for the answered question
+  - `_build_results` includes rationales in `wrong_questions`
+  - `POST /exam/questions/{id}/flag` — user flag endpoint (reason text)
+  - `GET /exam/admin/flagged-questions` — admin list (admin role required)
+  - `POST /exam/admin/flagged-questions/{id}/resolve` — clear flag
+- **UI (exam/page.tsx)**:
+  - `RationalePanel`: selected-option rationale always visible; other options collapsible; key_takeaway in amber callout; test_taking_tip in collapsed section
+  - Practice mode (`nclex_demo`): rationale shown immediately after confirming answer
+  - Timed exam modes: rationale only in results review
+  - `FlagButton`: opens modal with optional reason text → POST flag endpoint
+  - `ResultsView`: wrong questions show full `RationalePanel` in expanded view
+- **Admin panel** (`admin/page.tsx`): new "🏴 NCLEX Flags" tab → `NclexFlaggedQuestionsPanel`
 
 ### V6 Phase 1 — Страховочная сетка ✅ (2026-07-19)
 - **Playwright E2E** (11 passed, 1 skipped): `frontend/e2e/`, system Chromium, PLAYWRIGHT_BASE_URL

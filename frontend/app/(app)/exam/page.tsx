@@ -8,10 +8,13 @@ import { useT } from "@/lib/i18n";
 import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
   ChevronLeft, ChevronRight, AlertTriangle, Layers, Gift,
-  Sparkles, X, Loader2,
+  Sparkles, X, Loader2, Flag, ChevronDown, ChevronUp, Lightbulb,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
+
+type OptionRationale = { text: string; why: "correct" | "incorrect" };
+type Rationales = Record<string, OptionRationale>;
 
 type Question = {
   index: number;
@@ -56,9 +59,13 @@ type WrongQuestion = {
   index: number;
   id?: string;
   question: string;
+  options?: Record<string, string>;
   your_answer: unknown;
   correct_answer: string;
   explanation?: string;
+  rationales?: Rationales;
+  key_takeaway?: string;
+  test_taking_tip?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
 };
@@ -278,6 +285,166 @@ function QuestionCard({
   );
 }
 
+// ── Rationale panel ───────────────────────────────────────────────────────────
+
+function RationalePanel({
+  rationales,
+  keyTakeaway,
+  testTakingTip,
+  selectedOption,
+  selectedOptions,
+  options,
+}: {
+  rationales?: Rationales;
+  keyTakeaway?: string;
+  testTakingTip?: string;
+  selectedOption?: string;
+  selectedOptions?: string[];
+  options: Record<string, string>;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  if (!rationales && !keyTakeaway) return null;
+
+  const selected = selectedOption || (selectedOptions && selectedOptions[0]) || "";
+  const selectedRationale = rationales?.[selected];
+  const otherEntries = rationales
+    ? Object.entries(rationales).filter(([k]) => k !== selected)
+    : [];
+
+  return (
+    <div className="rounded-xl border border-border bg-surface overflow-hidden text-sm">
+      {/* Selected option rationale — always visible */}
+      {selectedRationale && (
+        <div className={`px-4 pt-4 pb-3 ${selectedRationale.why === "correct" ? "bg-green/5 border-b border-green/20" : "bg-red/5 border-b border-red/20"}`}>
+          <div className="flex items-center gap-2 mb-1.5">
+            {selectedRationale.why === "correct"
+              ? <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
+              : <XCircle className="w-4 h-4 text-red flex-shrink-0" />}
+            <span className="font-syne font-bold text-xs text-ink">
+              Option {selected}: {selectedRationale.why === "correct" ? "Correct" : "Incorrect"}
+            </span>
+          </div>
+          <p className="font-serif text-xs text-ink-2 leading-relaxed">{selectedRationale.text}</p>
+        </div>
+      )}
+
+      {/* Key takeaway */}
+      {keyTakeaway && (
+        <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-start gap-2">
+          <Lightbulb className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+          <div>
+            <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">Key Takeaway</span>
+            <p className="font-serif text-xs text-amber-800 leading-relaxed">{keyTakeaway}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Other options — collapsible */}
+      {otherEntries.length > 0 && (
+        <div>
+          <button
+            onClick={() => setExpanded(e => !e)}
+            className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-syne font-semibold text-ink-3 hover:text-ink hover:bg-surface-2 transition-colors"
+          >
+            <span>Explain other options ({otherEntries.length})</span>
+            {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+          {expanded && (
+            <div className="px-4 pb-3 space-y-2.5 border-t border-border pt-2.5">
+              {otherEntries.map(([key, r]) => (
+                <div key={key} className="flex items-start gap-2">
+                  <span className={`w-5 h-5 rounded-full text-[10px] font-syne font-bold flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                    r.why === "correct" ? "bg-green text-white" : "bg-ink/10 text-ink-3"
+                  }`}>{key}</span>
+                  <p className="font-serif text-xs text-ink-2 leading-relaxed flex-1">{r.text}</p>
+                </div>
+              ))}
+              {testTakingTip && (
+                <div className="pt-2 border-t border-border">
+                  <span className="font-syne font-bold text-xs text-ink-3 block mb-0.5">Test-Taking Tip</span>
+                  <p className="font-serif text-xs text-ink-3 italic leading-relaxed">{testTakingTip}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Flag button ────────────────────────────────────────────────────────────────
+
+function FlagButton({ questionId }: { questionId?: string }) {
+  const [flagged, setFlagged] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [reason, setReason] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  if (!questionId || flagged) {
+    return flagged ? (
+      <span className="inline-flex items-center gap-1 text-xs font-syne text-ink-3">
+        <Flag className="w-3 h-3" /> Flagged
+      </span>
+    ) : null;
+  }
+
+  async function submit() {
+    setLoading(true);
+    try {
+      await api.post(`/exam/questions/${questionId}/flag`, { reason });
+      setFlagged(true);
+      setOpen(false);
+    } catch {
+      // silent
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="inline-flex items-center gap-1.5 text-xs font-syne text-ink-3 hover:text-red transition-colors"
+        title="Flag this question"
+      >
+        <Flag className="w-3 h-3" /> Flag
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="bg-bg border border-border rounded-2xl p-5 max-w-sm w-full shadow-xl">
+            <h3 className="font-syne font-bold text-sm text-ink mb-2">Flag this question</h3>
+            <p className="font-serif text-xs text-ink-3 mb-3">Report an error or unclear content for admin review.</p>
+            <textarea
+              value={reason}
+              onChange={e => setReason(e.target.value)}
+              placeholder="Describe the issue (optional)"
+              rows={3}
+              className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs font-serif text-ink resize-none focus:outline-none focus:border-ink mb-3"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={submit}
+                disabled={loading}
+                className="flex-1 font-syne font-bold text-xs bg-ink text-white px-4 py-2 rounded-xl hover:bg-red transition-colors disabled:opacity-50"
+              >
+                {loading ? "Submitting…" : "Submit Flag"}
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="flex-1 font-syne font-semibold text-xs border border-border px-4 py-2 rounded-xl hover:bg-surface transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 // ── Exam session ───────────────────────────────────────────────────────────────
 
 const BLANK_ANSWER: AnswerState = {
@@ -306,6 +473,13 @@ function DifficultyBadge({ level }: { level: string }) {
   );
 }
 
+// isPracticeMode: show rationale immediately after answering (not for timed full exams)
+function isPracticeMode(modeId: string): boolean {
+  return modeId === "nclex_demo" || !modeId.includes("nclex_");
+}
+
+type QuestionRationale = { rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string };
+
 function ExamSession({
   session,
   onFinish,
@@ -317,9 +491,11 @@ function ExamSession({
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<number, AnswerState>>({});
   const [locked, setLocked] = useState<Record<number, boolean>>({});
+  const [questionRationales, setQuestionRationales] = useState<Record<number, QuestionRationale>>({});
   const [submitting, setSubmitting] = useState(false);
   const [currentDifficulty, setCurrentDifficulty] = useState("medium");
   const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const showRationale = isPracticeMode(session.mode_id);
 
   const question = session.questions[current];
   const ans = answers[current] ?? BLANK_ANSWER;
@@ -344,6 +520,13 @@ function ExamSession({
       const res = await examApi.submitAnswer(session.session_id, idx, payload);
       if (session.cat_enabled && res?.current_difficulty) {
         setCurrentDifficulty(res.current_difficulty);
+      }
+      // Capture rationales returned by the server for practice mode display
+      if (res?.rationales || res?.key_takeaway) {
+        setQuestionRationales(prev => ({
+          ...prev,
+          [idx]: { rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip },
+        }));
       }
     } catch {}
   }, [session.session_id, session.cat_enabled]);
@@ -504,11 +687,24 @@ function ExamSession({
           </button>
         )}
         {locked[current] && (
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            <div className="text-xs font-serif text-green flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="text-xs font-serif text-green flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
+              </div>
+              <AIExplainButton questionId={question.id} questionText={question.question} />
+              <FlagButton questionId={question.id} />
             </div>
-            <AIExplainButton questionId={question.id} questionText={question.question} />
+            {showRationale && questionRationales[current] && (
+              <RationalePanel
+                rationales={questionRationales[current].rationales}
+                keyTakeaway={questionRationales[current].key_takeaway}
+                testTakingTip={questionRationales[current].test_taking_tip}
+                selectedOption={answers[current]?.selected_option}
+                selectedOptions={answers[current]?.selected_options}
+                options={question.options}
+              />
+            )}
           </div>
         )}
       </div>
@@ -796,12 +992,25 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
 
                 {expandedQ === q.index && (
                   <div className="mt-3 pt-3 border-t border-red/20 space-y-3">
-                    {q.explanation && (
+                    {/* Per-option rationales (review mode) */}
+                    {q.rationales ? (
+                      <RationalePanel
+                        rationales={q.rationales}
+                        keyTakeaway={q.key_takeaway}
+                        testTakingTip={q.test_taking_tip}
+                        selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
+                        selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
+                        options={q.options || {}}
+                      />
+                    ) : q.explanation ? (
                       <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3">
                         {q.explanation.length > 300 ? q.explanation.slice(0, 300) + "…" : q.explanation}
                       </div>
-                    )}
-                    <AIExplainButton questionId={q.id} questionText={q.question} />
+                    ) : null}
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <AIExplainButton questionId={q.id} questionText={q.question} />
+                      <FlagButton questionId={q.id} />
+                    </div>
                   </div>
                 )}
               </div>

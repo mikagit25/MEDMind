@@ -28,7 +28,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import ExamSession, MCQQuestion, Module, User
-from app.services.ai_router import call_claude_structured
+from app.services.ai_router import call_claude_structured, call_ollama_structured
 
 router = APIRouter(prefix="/exam", tags=["exam"])
 
@@ -155,6 +155,7 @@ NCLEX_CLIENT_NEEDS = [
 ]
 
 NCLEX_CLIENT_NEEDS_LABELS = {
+    # ── Canonical 7 NCLEX client-needs categories ──────────────────────────────
     "safe_effective_care": "Safe & Effective Care Environment",
     "health_promotion": "Health Promotion & Maintenance",
     "psychosocial": "Psychosocial Integrity",
@@ -162,6 +163,28 @@ NCLEX_CLIENT_NEEDS_LABELS = {
     "pharmacological": "Pharmacological & Parenteral Therapies",
     "reduction_risk": "Reduction of Risk Potential",
     "physiological_adaptation": "Physiological Adaptation",
+    # ── Common aliases found in generated question banks ────────────────────────
+    "safe_effective_care_environment": "Safe & Effective Care Environment",
+    "safety": "Safe & Effective Care Environment",
+    "safety_infection_control": "Safe & Effective Care Environment",
+    "management_of_care": "Safe & Effective Care Environment",
+    "psychological": "Psychosocial Integrity",
+    "psychological_integrity": "Psychosocial Integrity",
+    "psychosocial_integrity": "Psychosocial Integrity",
+    "communication": "Psychosocial Integrity",
+    "physiological": "Physiological Adaptation",
+    "physiological_integrity": "Physiological Adaptation",
+    "basic_care_and_comfort": "Basic Care & Comfort",
+    "pharmacological_therapies": "Pharmacological & Parenteral Therapies",
+    "pharmacological_and_parenteral": "Pharmacological & Parenteral Therapies",
+    "reduction_of_risk": "Reduction of Risk Potential",
+    "reduction_of_risk_potential": "Reduction of Risk Potential",
+    "health_promotion_and_maintenance": "Health Promotion & Maintenance",
+    "health_promotion_maintenance": "Health Promotion & Maintenance",
+    "safe_effective": "Safe & Effective Care Environment",
+    "psychological_adaptation": "Physiological Adaptation",
+    "communication_and_documentation": "Psychosocial Integrity",
+    "comfort": "Basic Care & Comfort",
 }
 
 CJMM_LABELS = {
@@ -173,6 +196,51 @@ CJMM_LABELS = {
     "evaluate_outcomes": "Evaluate Outcomes",
 }
 
+# Aliases found in AI-generated question banks → canonical CJMM key
+_CJMM_ALIAS_TO_CANONICAL: dict[str, str] = {
+    # recognize_cues
+    "assess": "recognize_cues",
+    "assess_client": "recognize_cues",
+    "assess_situations": "recognize_cues",
+    "recognize_deterioration": "recognize_cues",
+    # analyze_cues
+    "analyze_data": "analyze_cues",
+    "analyze": "analyze_cues",
+    # prioritize_hypotheses
+    "diagnose": "prioritize_hypotheses",
+    "prioritize": "prioritize_hypotheses",
+    "develop_plan": "generate_solutions",
+    "develop_care_plan": "generate_solutions",
+    # generate_solutions
+    "plan": "generate_solutions",
+    "apply_knowledge": "generate_solutions",
+    "calculate_doses": "generate_solutions",
+    "teach_patient": "generate_solutions",
+    # take_actions
+    "intervene": "take_actions",
+    "administer_medication": "take_actions",
+    "maintain_function": "take_actions",
+    "follow_policies": "take_actions",
+    "communicate": "take_actions",
+    "communicate_effectively": "take_actions",
+    "report": "take_actions",
+    "document": "take_actions",
+    "document_client_info": "take_actions",
+    "inform_client": "take_actions",
+    "inform": "take_actions",
+    # evaluate_outcomes
+    "evaluate": "evaluate_outcomes",
+}
+
+# Alias → canonical NCLEX key (built automatically from NCLEX_CLIENT_NEEDS_LABELS)
+_ALIAS_TO_CANONICAL: dict[str, str] = {}
+for _alias, _label in NCLEX_CLIENT_NEEDS_LABELS.items():
+    if _alias not in NCLEX_CLIENT_NEEDS:
+        for _canonical in NCLEX_CLIENT_NEEDS:
+            if NCLEX_CLIENT_NEEDS_LABELS[_canonical] == _label:
+                _ALIAS_TO_CANONICAL[_alias] = _canonical
+                break
+
 # CAT difficulty levels in order
 CAT_DIFFICULTY_LADDER = ["easy", "medium", "hard"]
 
@@ -182,6 +250,7 @@ CAT_DIFFICULTY_LADDER = ["easy", "medium", "hard"]
 class StartSession(BaseModel):
     mode_id: str
     nclex_category: Optional[str] = None  # for nclex_category mode
+    question_ids: Optional[List[str]] = None  # for retry-wrong sessions
 
 
 class AnswerBody(BaseModel):
@@ -190,6 +259,10 @@ class AnswerBody(BaseModel):
     selected_options: List[str] = []
     ordered_options: List[str] = []
     numeric_value: Optional[float] = None
+
+
+class FlagBody(BaseModel):
+    reason: str = ""
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -243,18 +316,20 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
         if is_correct:
             correct_count += 1
 
-        # Category tracking
+        # Category tracking (normalize aliases to canonical key)
         cat = q.get("nclex_client_needs")
         if cat:
+            cat = _ALIAS_TO_CANONICAL.get(cat, cat)
             if cat not in category_stats:
                 category_stats[cat] = {"total": 0, "correct": 0, "label": NCLEX_CLIENT_NEEDS_LABELS.get(cat, cat)}
             category_stats[cat]["total"] += 1
             if is_correct:
                 category_stats[cat]["correct"] += 1
 
-        # CJMM tracking
+        # CJMM tracking (normalize aliases to canonical skill)
         skill = q.get("cjmm_skill")
         if skill:
+            skill = _CJMM_ALIAS_TO_CANONICAL.get(skill, skill)
             if skill not in cjmm_stats:
                 cjmm_stats[skill] = {"total": 0, "correct": 0, "label": CJMM_LABELS.get(skill, skill)}
             cjmm_stats[skill]["total"] += 1
@@ -266,9 +341,13 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
                 "index": q["index"],
                 "id": q.get("id"),  # question UUID for AI explain endpoint
                 "question": q["question"],
+                "options": q.get("options"),
                 "your_answer": answer,
                 "correct_answer": correct_display,
                 "explanation": q.get("explanation"),
+                "rationales": q.get("_rationales"),
+                "key_takeaway": q.get("_key_takeaway"),
+                "test_taking_tip": q.get("_test_taking_tip"),
                 "nclex_client_needs": cat,
                 "cjmm_skill": skill,
             })
@@ -318,7 +397,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
         "time_taken_min": time_taken_min,
         "cat_enabled": sess.cat_enabled,
         "per_question": per_q,
-        "wrong_questions": wrong_list[:15],
+        "wrong_questions": wrong_list,
         "nclex_category_breakdown": category_stats,
         "nclex_cjmm_breakdown": cjmm_stats,
         "weak_categories": weak_categories,
@@ -350,8 +429,8 @@ async def list_modes(user: User = Depends(get_current_user)):
 async def nclex_categories():
     """Return NCLEX client-needs categories for the category-practice mode."""
     return [
-        {"key": k, "label": v}
-        for k, v in NCLEX_CLIENT_NEEDS_LABELS.items()
+        {"key": k, "label": NCLEX_CLIENT_NEEDS_LABELS[k]}
+        for k in NCLEX_CLIENT_NEEDS
     ]
 
 
@@ -372,30 +451,40 @@ async def create_session(
     nursing_only = mode.get("nursing_only", False)
     start_difficulty = "medium"
 
-    # Build query
-    q = select(MCQQuestion)
+    # Retry-wrong mode: fetch specific question IDs directly
+    if body.question_ids:
+        try:
+            qid_uuids = [uuid_lib.UUID(qid) for qid in body.question_ids]
+        except ValueError:
+            raise HTTPException(400, "Invalid question ID format")
+        mcqs = (await db.execute(
+            select(MCQQuestion).where(MCQQuestion.id.in_(qid_uuids))
+        )).scalars().all()
+        cat_mode = False
+    else:
+        # Build query normally
+        q = select(MCQQuestion)
 
-    if nursing_only:
-        q = q.join(Module, Module.id == MCQQuestion.module_id).where(
-            Module.is_nursing == True,
-            Module.is_published == True,
-        )
+        if nursing_only:
+            q = q.join(Module, Module.id == MCQQuestion.module_id).where(
+                Module.is_nursing == True,
+                Module.is_published == True,
+            )
 
-    if body.mode_id == "nclex_category" and body.nclex_category:
-        if body.nclex_category not in NCLEX_CLIENT_NEEDS:
-            raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
-        q = q.where(MCQQuestion.nclex_client_needs == body.nclex_category)
-    elif not cat_mode and mode.get("difficulty"):
-        q = q.where(MCQQuestion.difficulty == mode["difficulty"])
+        if body.mode_id == "nclex_category" and body.nclex_category:
+            if body.nclex_category not in NCLEX_CLIENT_NEEDS:
+                raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
+            q = q.where(MCQQuestion.nclex_client_needs == body.nclex_category)
+        elif not cat_mode and mode.get("difficulty"):
+            q = q.where(MCQQuestion.difficulty == mode["difficulty"])
 
-    if cat_mode:
-        # CAT starts at medium
-        q = q.where(MCQQuestion.difficulty == start_difficulty)
+        if cat_mode:
+            q = q.where(MCQQuestion.difficulty == start_difficulty)
 
-    q = q.order_by(func.random()).limit(mode["questions"])
-    mcqs = (await db.execute(q)).scalars().all()
+        q = q.order_by(func.random()).limit(mode["questions"])
+        mcqs = (await db.execute(q)).scalars().all()
 
-    if len(mcqs) < 5:
+    if len(mcqs) < 1:
         raise HTTPException(
             503,
             "Not enough questions available for this exam mode. "
@@ -419,12 +508,16 @@ async def create_session(
             "nclex_client_needs": getattr(mcq, "nclex_client_needs", None),
             "cjmm_skill": getattr(mcq, "cjmm_skill", None),
             "explanation": getattr(mcq, "explanation", None),
-            # private scoring fields
+            # private scoring fields (filtered from public session view)
             "_correct": mcq.correct,
             "_correct_answers": getattr(mcq, "correct_answers", None),
             "_correct_order": getattr(mcq, "correct_order", None),
             "_numeric_answer": getattr(mcq, "numeric_answer", None),
             "_numeric_tolerance": getattr(mcq, "numeric_tolerance", 0.5) or 0.5,
+            # private until session completed (reveals correct option via 'why' field)
+            "_rationales": getattr(mcq, "rationales", None),
+            "_key_takeaway": getattr(mcq, "key_takeaway", None),
+            "_test_taking_tip": getattr(mcq, "test_taking_tip", None),
         }
         for i, mcq in enumerate(mcqs)
     ]
@@ -465,7 +558,7 @@ async def create_session(
         "mode_id": body.mode_id,
         "total_questions": len(mcqs),
         "duration_min": mode["duration_min"],
-        "ends_at": ends_at.isoformat(),
+        "ends_at": ends_at.isoformat() + "Z",
         "cat_enabled": cat_mode,
         "questions": public_questions,
         "nclex_category_filter": body.nclex_category,
@@ -497,9 +590,11 @@ async def get_session(
         "questions": public_questions,
         "answered_indices": answered_indices,
         "time_left_seconds": time_left,
-        "ends_at": sess.ends_at.isoformat(),
+        "ends_at": sess.ends_at.isoformat() + "Z",
         "cat_enabled": sess.cat_enabled,
         "current_difficulty": sess.current_difficulty,
+        "total_questions": sess.total_questions,
+        "duration_min": sess.duration_min,
     }
 
 
@@ -547,10 +642,15 @@ async def submit_answer(
     sess.answers = answers
     await db.commit()
 
+    # Return rationale for the answered question (safe: user already answered)
+    q_snap = snapshot[idx]
     return {
         "recorded": True,
         "question_index": idx,
         "current_difficulty": new_difficulty if sess.cat_enabled else None,
+        "rationales": q_snap.get("_rationales"),
+        "key_takeaway": q_snap.get("_key_takeaway"),
+        "test_taking_tip": q_snap.get("_test_taking_tip"),
     }
 
 
@@ -661,6 +761,7 @@ async def nclex_analytics(
             is_correct = pq.get("correct", False)
 
             if cat:
+                cat = _ALIAS_TO_CANONICAL.get(cat, cat)
                 if cat not in category_totals:
                     category_totals[cat] = {"total": 0, "correct": 0, "label": NCLEX_CLIENT_NEEDS_LABELS.get(cat, cat)}
                 category_totals[cat]["total"] += 1
@@ -668,6 +769,7 @@ async def nclex_analytics(
                     category_totals[cat]["correct"] += 1
 
             if skill:
+                skill = _CJMM_ALIAS_TO_CANONICAL.get(skill, skill)
                 if skill not in cjmm_totals:
                     cjmm_totals[skill] = {"total": 0, "correct": 0, "label": CJMM_LABELS.get(skill, skill)}
                 cjmm_totals[skill]["total"] += 1
@@ -721,7 +823,7 @@ async def _get_session(
 # ── AI Explanation Endpoint ────────────────────────────────────────────────────
 
 class ExplainRequest(BaseModel):
-    question_id: str
+    question_id: Optional[str] = None   # ignored — id comes from URL path
     user_question: Optional[str] = None  # optional follow-up from user
 
 
@@ -774,43 +876,27 @@ async def explain_question(
         "not just memorize answers. Use plain English. Structure your response with clear sections."
     )
 
-    user_msg = f"""A nursing student needs a detailed explanation for this NCLEX question.
+    user_msg = f"""NCLEX question explanation request.
 
-QUESTION:
-{q.question}
+QUESTION: {q.question}
 
-OPTIONS:
-{options_text if options_text else '(Numeric entry question)'}
+OPTIONS: {options_text if options_text else '(Numeric entry)'}
 
 {answer_label}
 
-NCLEX Category: {nclex_cat}
-{f'Clinical Judgment Skill: {cjmm}' if cjmm else ''}
-
-EXISTING EXPLANATION (brief):
-{q.explanation or 'None provided.'}
+Category: {nclex_cat}{f' | Skill: {cjmm}' if cjmm else ''}
+Base explanation: {q.explanation or 'None.'}
 {follow_up}
 
-Please provide a COMPREHENSIVE explanation covering:
-
-## Why the Correct Answer is Right
-Explain the clinical reasoning. What assessment data, pathophysiology, or nursing principle makes this the best choice?
-
-## Why Each Wrong Option is Incorrect
-Go through each distractor and explain the clinical error or reasoning flaw.
-
-## Key Nursing Concepts to Remember
-Mnemonics, frameworks, or clinical pearls relevant to this topic.
-
-## NCLEX Strategy Tip
-How to approach this type of question on the real exam."""
+Explain concisely:
+1. Why the correct answer is right (clinical reasoning).
+2. Why each wrong option is incorrect (one sentence each)."""
 
     try:
-        explanation, _ = await call_claude_structured(
+        explanation, _ = await call_ollama_structured(
             system=system_prompt,
             user_message=user_msg,
-            model="claude-haiku-4-5-20251001",
-            max_tokens=1500,
+            max_tokens=400,
         )
     except Exception as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {str(e)[:100]}")
@@ -821,3 +907,86 @@ How to approach this type of question on the real exam."""
         "nclex_category": nclex_cat,
         "cjmm_skill": cjmm,
     }
+
+
+@router.post("/questions/{question_id}/flag")
+async def flag_question(
+    question_id: str,
+    body: FlagBody,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Flag a question as unclear or containing an error."""
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404, "Question not found")
+
+    result = await db.execute(select(MCQQuestion).where(MCQQuestion.id == qid))
+    q = result.scalar_one_or_none()
+    if not q:
+        raise HTTPException(404, "Question not found")
+
+    q.is_flagged = True
+    q.flag_reason = (body.reason.strip() or None)
+    await db.commit()
+    return {"flagged": True, "question_id": question_id}
+
+
+@router.get("/admin/flagged-questions")
+async def list_flagged_questions(
+    limit: int = Query(50, le=200),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: list questions flagged by users."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+
+    result = await db.execute(
+        select(MCQQuestion)
+        .where(MCQQuestion.is_flagged.is_(True))
+        .order_by(MCQQuestion.created_at.desc())
+        .limit(limit)
+    )
+    questions = result.scalars().all()
+
+    return [
+        {
+            "id": str(q.id),
+            "question": q.question[:200],
+            "question_type": q.question_type,
+            "flag_reason": q.flag_reason,
+            "module_id": str(q.module_id),
+            "difficulty": q.difficulty,
+            "nclex_client_needs": q.nclex_client_needs,
+            "has_rationales": q.rationales is not None,
+        }
+        for q in questions
+    ]
+
+
+@router.post("/admin/flagged-questions/{question_id}/resolve")
+async def resolve_flagged_question(
+    question_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: clear the flag on a question."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404, "Question not found")
+
+    result = await db.execute(select(MCQQuestion).where(MCQQuestion.id == qid))
+    q = result.scalar_one_or_none()
+    if not q:
+        raise HTTPException(404, "Question not found")
+
+    q.is_flagged = False
+    q.flag_reason = None
+    await db.commit()
+    return {"resolved": True, "question_id": question_id}

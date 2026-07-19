@@ -22,12 +22,17 @@ from pathlib import Path
 import httpx
 
 # ── Config ────────────────────────────────────────────────────────────────────
-# Use only keys not claimed by scheduler (news/article pipelines use KEY_3/4/5/1/2/6)
-# GROQ_KEY_MODULE_2 and GROQ_KEY_CASES are dedicated to one-off generation scripts
+# Generation keys: dedicated module-gen keys + VET_MODULES reserve key
+# Never use GROQ_API_KEY / GROQ_API_KEY_2 (user tutor) or the news/articles keys
 GROQ_KEYS = [k for k in [
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
+    os.getenv("GROQ_KEY_VET_MODULES", ""),
+    os.getenv("GROQ_API_KEY_3", ""),
 ] if k]
+# Deduplicate
+_seen: set = set()
+GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 MODULES_DIR = (
@@ -219,6 +224,7 @@ Rules:
 - Difficulty distribution: {easy} easy, {medium} medium, {hard} hard
 - Cover these NCLEX client needs categories as specified per question
 - Question stem must be at least 2 sentences with a clinical scenario
+- For rationales: apply nursing priority logic (ABC, Maslow, nursing process)
 
 Return ONLY valid JSON array, no markdown, no extra text:
 [
@@ -227,6 +233,14 @@ Return ONLY valid JSON array, no markdown, no extra text:
     "options": {{"A": "...", "B": "...", "C": "...", "D": "..."}},
     "correct": "B",
     "explanation": "B is correct because... A is wrong because... C is wrong because...",
+    "rationales": {{
+      "A": {{"text": "Why A is incorrect — specific clinical reasoning.", "why": "incorrect"}},
+      "B": {{"text": "Why B is correct — specific clinical reasoning with nursing principle.", "why": "correct"}},
+      "C": {{"text": "Why C is incorrect — specific clinical reasoning.", "why": "incorrect"}},
+      "D": {{"text": "Why D is incorrect — specific clinical reasoning.", "why": "incorrect"}}
+    }},
+    "key_takeaway": "One sentence summarizing the core nursing principle tested.",
+    "test_taking_tip": "One sentence tip for eliminating distractors on the NCLEX.",
     "difficulty": "medium",
     "nclex_client_needs": "pharmacological",
     "cjmm_skill": "take_actions",
@@ -254,6 +268,15 @@ Return ONLY valid JSON array:
     "options": {{"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."}},
     "correct_answers": ["A", "C", "E"],
     "explanation": "A is correct: ... B is incorrect: ... C is correct: ...",
+    "rationales": {{
+      "A": {{"text": "Why A should be selected — clinical evidence.", "why": "correct"}},
+      "B": {{"text": "Why B should NOT be selected — clinical reasoning.", "why": "incorrect"}},
+      "C": {{"text": "Why C should be selected — clinical evidence.", "why": "correct"}},
+      "D": {{"text": "Why D should NOT be selected — clinical reasoning.", "why": "incorrect"}},
+      "E": {{"text": "Why E should be selected — clinical evidence.", "why": "correct"}}
+    }},
+    "key_takeaway": "One sentence summarizing the core nursing principle tested.",
+    "test_taking_tip": "One sentence tip for SATA elimination strategy on the NCLEX.",
     "difficulty": "medium",
     "nclex_client_needs": "safe_effective_care",
     "cjmm_skill": "generate_solutions",
@@ -279,6 +302,8 @@ Return ONLY valid JSON array:
     "options": {{"A": "Step text", "B": "Step text", "C": "Step text", "D": "Step text"}},
     "correct_order": ["C", "A", "D", "B"],
     "explanation": "The correct sequence is C→A→D→B because...",
+    "key_takeaway": "One sentence summarizing the sequencing principle tested.",
+    "test_taking_tip": "One sentence tip — e.g., always assess before intervening.",
     "difficulty": "medium",
     "nclex_client_needs": "safe_effective_care",
     "cjmm_skill": "take_actions",
@@ -325,24 +350,61 @@ Return ONLY valid JSON array:
 # ── Groq Client ───────────────────────────────────────────────────────────────
 
 class GroqClient:
+    """
+    Smart key-pool client: tracks per-key rate-limit reset times from Groq
+    response headers and sleeps exactly as long as needed — no blind backoff.
+    """
+
     def __init__(self):
-        self._key_idx = 0
+        if not GROQ_KEYS:
+            raise RuntimeError("No Groq API keys configured")
+        # epoch-second timestamp when each key becomes usable again (0 = now)
+        self._reset_at: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
 
-    def _next_key(self) -> str:
-        key = GROQ_KEYS[self._key_idx % len(GROQ_KEYS)]
-        self._key_idx += 1
-        return key
+    def _best_key(self) -> tuple[str, float]:
+        """Return (key, seconds_to_wait) for the soonest-available key."""
+        now = time.time()
+        key = min(GROQ_KEYS, key=lambda k: self._reset_at[k])
+        wait = max(0.0, self._reset_at[key] - now)
+        return key, wait
 
-    async def generate(self, prompt: str, max_tokens: int = 4000) -> str:
-        for attempt in range(3):
-            key = self._next_key()
-            if not key:
-                raise RuntimeError("No Groq API key configured (GROQ_API_KEY_3 or GROQ_API_KEY_4)")
+    def _parse_reset(self, headers: dict, fallback: float = 62.0) -> float:
+        """Extract wait seconds from Groq rate-limit headers."""
+        for h in ("retry-after", "x-ratelimit-reset-tokens", "x-ratelimit-reset-requests"):
+            v = headers.get(h)
+            if v is None:
+                continue
+            try:
+                # Value may be "1.234" seconds or an integer
+                return float(v) + 1.0   # +1s buffer
+            except ValueError:
+                pass
+        return fallback
+
+    async def generate(self, prompt: str, max_tokens: int = 3000,
+                       max_wait: float = 90.0) -> str:
+        """
+        max_wait: if ALL keys need to wait longer than this, raise RateLimitExhausted
+        so the caller can exit cleanly and let cron retry later.
+        """
+        for attempt in range(len(GROQ_KEYS) * 4):
+            key, wait = self._best_key()
+            if wait > max_wait:
+                raise RateLimitExhausted(
+                    f"All {len(GROQ_KEYS)} keys rate-limited for >{max_wait:.0f}s "
+                    f"(soonest reset in {wait:.0f}s). Exiting — cron will retry."
+                )
+            if wait > 0:
+                print(f"  Keys limited — sleeping {wait:.0f}s until reset "
+                      f"(within {max_wait:.0f}s budget)...")
+                await asyncio.sleep(wait)
+
             try:
                 async with httpx.AsyncClient(timeout=90) as client:
                     resp = await client.post(
                         GROQ_URL,
-                        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                        headers={"Authorization": f"Bearer {key}",
+                                 "Content-Type": "application/json"},
                         json={
                             "model": GROQ_MODEL,
                             "messages": [{"role": "user", "content": prompt}],
@@ -350,16 +412,30 @@ class GroqClient:
                             "temperature": 0.7,
                         },
                     )
-                    resp.raise_for_status()
-                    return resp.json()["choices"][0]["message"]["content"]
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 429:
-                    wait = 15 * (attempt + 1)
-                    print(f"  Rate limited, waiting {wait}s...")
-                    await asyncio.sleep(wait)
-                else:
-                    raise
-        raise RuntimeError("Groq API failed after 3 attempts")
+
+                if resp.status_code == 429:
+                    reset_in = self._parse_reset(dict(resp.headers))
+                    self._reset_at[key] = time.time() + reset_in
+                    print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, "
+                          f"resets in {reset_in:.0f}s — switching key")
+                    continue
+
+                resp.raise_for_status()
+                await asyncio.sleep(2)  # polite gap after a successful call
+                return resp.json()["choices"][0]["message"]["content"]
+
+            except httpx.HTTPStatusError:
+                raise
+            except Exception as e:
+                print(f"  Request error: {e} — retrying")
+                self._reset_at[key] = time.time() + 5
+                continue
+
+        raise RuntimeError(f"Groq API failed after {len(GROQ_KEYS) * 4} attempts")
+
+
+class RateLimitExhausted(Exception):
+    """All keys rate-limited beyond acceptable wait — exit and retry next cron run."""
 
 
 # ── Parsers ───────────────────────────────────────────────────────────────────
@@ -479,54 +555,68 @@ async def generate_for_module(module_code: str, groq: GroqClient) -> list:
     all_questions = []
     cjmm_cycle = list(CJMM_SKILLS)
 
-    # 1. Standard MCQ
-    print(f"  → MCQ ({QUESTION_MIX['mcq']} questions)...")
-    prompt = MCQ_PROMPT.format(
-        count=QUESTION_MIX["mcq"],
-        topic=f"{title} — covering {', '.join(tags)}",
-        module_title=title,
-        easy=6, medium=12, hard=6,
-    )
-    try:
-        raw = await groq.generate(prompt)
-        questions = extract_json(raw)
-        valid = [q for q in questions if validate_mcq(q)]
-        for i, q in enumerate(valid):
-            q["question_type"] = "mcq"
-            q.setdefault("nclex_client_needs", client_needs_list[i % len(client_needs_list)])
-            q.setdefault("cjmm_skill", cjmm_cycle[i % len(cjmm_cycle)])
-            q.setdefault("tags", tags[:2])
-            if not q.get("correct"):
-                q["correct"] = list(q["options"].keys())[0]
-        all_questions.extend(valid)
-        print(f"     ✓ {len(valid)}/{len(questions)} valid MCQ")
-    except Exception as e:
-        print(f"     ✗ MCQ generation failed: {e}")
-    await asyncio.sleep(1)
+    # 1. Standard MCQ — split into 2 batches of 15 to avoid token-limit 429s
+    mcq_total = QUESTION_MIX["mcq"]
+    batch_size = 15
+    print(f"  → MCQ ({mcq_total} questions in batches of {batch_size})...")
+    for batch_idx, offset in enumerate(range(0, mcq_total, batch_size)):
+        count_this = min(batch_size, mcq_total - offset)
+        prompt = MCQ_PROMPT.format(
+            count=count_this,
+            topic=f"{title} — covering {', '.join(tags)}",
+            module_title=title,
+            easy=max(1, count_this // 5),
+            medium=count_this // 2,
+            hard=max(1, count_this // 5),
+        )
+        try:
+            raw = await groq.generate(prompt)
+            questions = extract_json(raw)
+            valid = [q for q in questions if validate_mcq(q)]
+            base_i = len(all_questions)
+            for i, q in enumerate(valid):
+                q["question_type"] = "mcq"
+                q.setdefault("nclex_client_needs", client_needs_list[(base_i + i) % len(client_needs_list)])
+                q.setdefault("cjmm_skill", cjmm_cycle[(base_i + i) % len(cjmm_cycle)])
+                q.setdefault("tags", tags[:2])
+                if not q.get("correct"):
+                    q["correct"] = list(q["options"].keys())[0]
+            all_questions.extend(valid)
+            print(f"     ✓ batch {batch_idx+1}: {len(valid)}/{len(questions)} valid MCQ")
+        except RateLimitExhausted:
+            raise
+        except Exception as e:
+            print(f"     ✗ MCQ batch {batch_idx+1} failed: {e}")
 
-    # 2. SATA
-    print(f"  → SATA ({QUESTION_MIX['sata']} questions)...")
-    prompt = SATA_PROMPT.format(
-        count=QUESTION_MIX["sata"],
-        topic=f"{title} — clinical nursing scenarios",
-        module_title=title,
-    )
-    try:
-        raw = await groq.generate(prompt)
-        questions = extract_json(raw)
-        valid = [q for q in questions if validate_sata(q)]
-        for i, q in enumerate(valid):
-            q["question_type"] = "sata"
-            q.setdefault("nclex_client_needs", client_needs_list[i % len(client_needs_list)])
-            q.setdefault("cjmm_skill", cjmm_cycle[(i + 2) % len(cjmm_cycle)])
-            q.setdefault("tags", tags[:2])
-            q.setdefault("correct", list(q["options"].keys())[0])
-            q["partial_scoring"] = False
-        all_questions.extend(valid)
-        print(f"     ✓ {len(valid)}/{len(questions)} valid SATA")
-    except Exception as e:
-        print(f"     ✗ SATA generation failed: {e}")
-    await asyncio.sleep(1)
+    # 2. SATA — split into 2 batches of 5
+    sata_total = QUESTION_MIX["sata"]
+    sata_batch = 5
+    print(f"  → SATA ({sata_total} questions in batches of {sata_batch})...")
+    for batch_idx, offset in enumerate(range(0, sata_total, sata_batch)):
+        count_this = min(sata_batch, sata_total - offset)
+        prompt = SATA_PROMPT.format(
+            count=count_this,
+            topic=f"{title} — clinical nursing scenarios",
+            module_title=title,
+        )
+        try:
+            raw = await groq.generate(prompt)
+            questions = extract_json(raw)
+            valid = [q for q in questions if validate_sata(q)]
+            base_i = len(all_questions)
+            for i, q in enumerate(valid):
+                q["question_type"] = "sata"
+                q.setdefault("nclex_client_needs", client_needs_list[(base_i + i) % len(client_needs_list)])
+                q.setdefault("cjmm_skill", cjmm_cycle[(base_i + i + 2) % len(cjmm_cycle)])
+                q.setdefault("tags", tags[:2])
+                q.setdefault("correct", list(q["options"].keys())[0])
+                q["partial_scoring"] = False
+            all_questions.extend(valid)
+            print(f"     ✓ SATA batch {batch_idx+1}: {len(valid)}/{len(questions)} valid")
+        except RateLimitExhausted:
+            raise
+        except Exception as e:
+            print(f"     ✗ SATA batch {batch_idx+1} failed: {e}")
 
     # 3. Ordered
     print(f"  → Ordered ({QUESTION_MIX['ordered']} questions)...")
@@ -547,6 +637,8 @@ async def generate_for_module(module_code: str, groq: GroqClient) -> list:
             q.setdefault("correct", list(q["options"].keys())[0])
         all_questions.extend(valid)
         print(f"     ✓ {len(valid)}/{len(questions)} valid Ordered")
+    except RateLimitExhausted:
+        raise
     except Exception as e:
         print(f"     ✗ Ordered generation failed: {e}")
     await asyncio.sleep(2)
@@ -574,6 +666,8 @@ async def generate_for_module(module_code: str, groq: GroqClient) -> list:
                 q["options"] = {"A": "See bow-tie diagram"}
         all_questions.extend(valid)
         print(f"     ✓ {len(valid)}/{len(questions)} valid Bow-tie")
+    except RateLimitExhausted:
+        raise
     except Exception as e:
         print(f"     ✗ Bow-tie generation failed: {e}")
     await asyncio.sleep(2)
@@ -618,6 +712,8 @@ Return ONLY valid JSON array:
                 q["numeric_answer"] = float(q["numeric_answer"])
             all_questions.extend(valid)
             print(f"     ✓ {len(valid)}/{len(questions)} valid Calculation")
+        except RateLimitExhausted:
+            raise
         except Exception as e:
             print(f"     ✗ Calculation generation failed: {e}")
         await asyncio.sleep(2)
@@ -628,8 +724,46 @@ Return ONLY valid JSON array:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def _pending_modules() -> list[str]:
+    """Return modules that don't yet have an output file with ≥20 questions."""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    pending = []
+    for code in MODULE_META.keys():
+        path = OUTPUT_DIR / f"{OUTPUT_PREFIX}{code}.json"
+        if not path.exists():
+            pending.append(code)
+            continue
+        try:
+            data = json.loads(path.read_text())
+            if data.get("total", 0) < 20:  # too few — regenerate
+                pending.append(code)
+        except Exception:
+            pending.append(code)
+    return pending
+
+
 async def main():
-    target_modules = sys.argv[1:] if len(sys.argv) > 1 else list(MODULE_META.keys())
+    args = sys.argv[1:]
+
+    # --next flag: pick the single next pending module (for cron)
+    cron_mode = "--next" in args
+    if cron_mode:
+        args = [a for a in args if a != "--next"]
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    if cron_mode and not args:
+        pending = _pending_modules()
+        if not pending:
+            print("✓ All modules already generated — nothing to do.")
+            print(f"  Run: python -m app.scripts.import_nclex_questions")
+            return
+        target_modules = [pending[0]]
+        print(f"[CRON] Picking next pending module: {target_modules[0]}")
+        print(f"       Remaining after this: {len(pending) - 1} modules")
+    else:
+        target_modules = args if args else list(MODULE_META.keys())
+
     invalid = [m for m in target_modules if m not in MODULE_META]
     if invalid:
         print(f"Unknown modules: {invalid}")
@@ -638,10 +772,13 @@ async def main():
     groq = GroqClient()
     total_generated = 0
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
     for module_code in target_modules:
-        questions = await generate_for_module(module_code, groq)
+        try:
+            questions = await generate_for_module(module_code, groq)
+        except RateLimitExhausted as e:
+            print(f"\n  ⚠ {e}")
+            print(f"  Cron will retry this module on the next run.")
+            break  # exit loop cleanly; cron picks it up next time
 
         output_path = OUTPUT_DIR / f"{OUTPUT_PREFIX}{module_code}.json"
         if not questions:
@@ -658,9 +795,13 @@ async def main():
         print(f"  Saved → {output_path}")
         total_generated += len(questions)
 
+    remaining = len(_pending_modules())
     print(f"\n{'='*60}")
-    print(f"  DONE: {total_generated} questions across {len(target_modules)} modules")
-    print(f"  Next: python -m app.scripts.import_nclex_questions")
+    print(f"  DONE: {total_generated} questions generated this run")
+    if remaining > 0:
+        print(f"  Remaining modules: {remaining} — cron will handle them")
+    else:
+        print(f"  All modules complete! Run: python -m app.scripts.import_nclex_questions")
     print(f"{'='*60}")
 
 

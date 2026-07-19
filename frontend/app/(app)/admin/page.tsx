@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "nclex_flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -214,6 +214,7 @@ export default function AdminPage() {
           ["drugs",       "💊 Drugs"],
           ["revenue",     "💰 Revenue"],
           ["flags",        "🚩 Flags"],
+          ["nclex_flags",  "🏴 NCLEX Flags"],
           ["system",       "⚙️ System"],
           ["audit",        "🔍 Audit Log"],
           ["feedback",     "🚨 Feedback"],
@@ -640,6 +641,9 @@ export default function AdminPage() {
 
       {/* ── Feature Flags ── */}
       {tab === "flags" && <FeatureFlagsPanel showToast={showToast} />}
+
+      {/* ── NCLEX Flagged Questions ── */}
+      {tab === "nclex_flags" && <NclexFlaggedQuestionsPanel showToast={showToast} />}
 
       {/* ── System Health ── */}
       {tab === "system" && <SystemHealthPanel />}
@@ -2838,6 +2842,93 @@ const PROBLEM_COLOR: Record<string, string> = {
   wrong_translation: "bg-purple-100 text-purple-700 border-purple-200",
   other: "bg-surface-2 text-ink-2 border-border",
 };
+
+// ── NCLEX Flagged Questions Panel ─────────────────────────────────────────────
+
+type FlaggedQuestion = {
+  id: string;
+  question: string;
+  question_type: string;
+  flag_reason?: string;
+  module_id: string;
+  difficulty?: string;
+  nclex_client_needs?: string;
+  has_rationales: boolean;
+};
+
+function NclexFlaggedQuestionsPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "err") => void }) {
+  const [questions, setQuestions] = useState<FlaggedQuestion[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    setLoading(true);
+    api.get("/exam/admin/flagged-questions")
+      .then(r => setQuestions(r.data))
+      .catch(() => showToast("Failed to load flagged questions", "err"))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const resolve = async (id: string) => {
+    try {
+      await api.post(`/exam/admin/flagged-questions/${id}/resolve`);
+      setQuestions(prev => prev.filter(q => q.id !== id));
+      showToast("Question resolved");
+    } catch {
+      showToast("Failed to resolve", "err");
+    }
+  };
+
+  if (loading) return <div className="py-10 text-center text-ink-3 font-serif">Loading…</div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-syne font-bold text-sm text-ink">Flagged NCLEX Questions ({questions.length})</h2>
+        <button onClick={load} className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">Refresh</button>
+      </div>
+      {questions.length === 0 ? (
+        <div className="py-10 text-center font-serif text-ink-3">No flagged questions.</div>
+      ) : (
+        <div className="space-y-3">
+          {questions.map(q => (
+            <div key={q.id} className="bg-surface border border-border rounded-xl p-4">
+              <div className="flex items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <p className="font-serif text-sm text-ink leading-relaxed mb-1.5">{q.question}</p>
+                  <div className="flex flex-wrap gap-2 text-xs font-syne text-ink-3">
+                    <span className="bg-border/40 rounded px-1.5 py-0.5">{q.question_type}</span>
+                    {q.difficulty && <span className="bg-border/40 rounded px-1.5 py-0.5">{q.difficulty}</span>}
+                    {q.nclex_client_needs && (
+                      <span className="bg-border/40 rounded px-1.5 py-0.5">{q.nclex_client_needs.replace(/_/g, " ")}</span>
+                    )}
+                    {q.has_rationales ? (
+                      <span className="text-green">✓ has rationales</span>
+                    ) : (
+                      <span className="text-amber-600">⚠ no rationales</span>
+                    )}
+                  </div>
+                  {q.flag_reason && (
+                    <div className="mt-2 text-xs font-serif text-red bg-red/5 border border-red/20 rounded-lg px-3 py-2">
+                      <strong>Reason:</strong> {q.flag_reason}
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={() => resolve(q.id)}
+                  className="flex-shrink-0 text-xs font-syne font-bold text-green border border-green/30 px-3 py-1.5 rounded-lg hover:bg-green/10 transition-colors"
+                >
+                  Resolve
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function FeedbackPanel() {
   const [items, setItems] = useState<FeedbackItem[]>([]);
