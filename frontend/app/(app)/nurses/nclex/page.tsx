@@ -682,10 +682,13 @@ function PlanTab({
               const el = document.getElementById("reschedule-date") as HTMLInputElement;
               if (!el?.value) return;
               setSaving(true);
+              setError("");
               try {
                 await examApi.updatePlan({ exam_date: el.value, daily_minutes: plan.daily_minutes });
                 onPlanChange();
-              } catch { /* ignore */ } finally { setSaving(false); }
+              } catch {
+                setError("Could not update exam date. Please try again.");
+              } finally { setSaving(false); }
             }}
             disabled={saving}
             className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
@@ -693,6 +696,9 @@ function PlanTab({
             {saving ? "…" : "Update"}
           </button>
         </div>
+        {error && (
+          <p className="text-xs font-serif text-red mt-2">{error}</p>
+        )}
       </div>
     </div>
   );

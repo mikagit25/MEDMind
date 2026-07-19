@@ -125,7 +125,8 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       if (typeof val !== "string") return val as unknown as string;
       if (!vars) return val;
       return Object.entries(vars).reduce(
-        (s, [k, v]) => s.replace(new RegExp(`\\{${k}\\}`, "g"), String(v)),
+        // Support both {{key}} (double-brace) and {key} (single-brace) interpolation
+        (s, [k, v]) => s.replace(new RegExp(`\\{\\{${k}\\}\\}|\\{${k}\\}`, "g"), String(v)),
         val
       );
     },

@@ -25,6 +25,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy import select, func, and_
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm.attributes import flag_modified
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
@@ -1213,7 +1214,11 @@ async def update_plan_date(
     plan_row.exam_date = datetime.combine(new_date, datetime.min.time())
     plan_row.daily_minutes = body.daily_minutes
     plan_row.plan_cache = planner.generate_plan(new_date, body.daily_minutes)
+    # flag_modified is required for JSONB columns so SQLAlchemy detects the mutation
+    flag_modified(plan_row, "plan_cache")
     await db.commit()
+    # refresh required — without it, expired attributes cause MissingGreenlet in async context
+    await db.refresh(plan_row)
 
     comps = await db.execute(
         select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == plan_row.id)
