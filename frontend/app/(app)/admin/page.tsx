@@ -3268,9 +3268,12 @@ function PromoCodesPanel() {
   const [formError, setFormError] = useState<string | null>(null);
   const [toast2, setToast2] = useState<string | null>(null);
 
-  async function load() {
+  const [refreshing, setRefreshing] = useState(false);
+  async function load(quiet = false) {
+    if (!quiet) setLoading(true);
+    else setRefreshing(true);
     try { const r = await api.get("/admin/promo-codes"); setCodes(r.data); }
-    catch { /* silently fail */ } finally { setLoading(false); }
+    catch { /* silently fail */ } finally { setLoading(false); setRefreshing(false); }
   }
   useEffect(() => { load(); }, []);
   useEffect(() => { if (toast2) { const t = setTimeout(() => setToast2(null), 2500); return () => clearTimeout(t); } }, [toast2]);
@@ -3317,9 +3320,14 @@ function PromoCodesPanel() {
       )}
       <div className="flex items-center justify-between">
         <h2 className="font-syne font-bold text-xl text-ink">Promo Codes ({codes.length})</h2>
-        <button onClick={() => setCreating(c => !c)} className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors">
-          {creating ? "Cancel" : "+ New Code"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={() => load(true)} disabled={refreshing} className="font-syne font-bold text-sm border border-border text-ink-2 px-4 py-2 rounded-lg hover:bg-surface transition-colors disabled:opacity-50">
+            {refreshing ? "…" : "↺ Refresh"}
+          </button>
+          <button onClick={() => setCreating(c => !c)} className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors">
+            {creating ? "Cancel" : "+ New Code"}
+          </button>
+        </div>
       </div>
 
       {creating && (
@@ -3733,6 +3741,133 @@ function LifecycleStatsPanel() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <LifecycleQATools campaignLabels={CAMPAIGN_LABELS} />
+    </div>
+  );
+}
+
+const LIFECYCLE_CAMPAIGNS = [
+  "onboarding_d1", "onboarding_d3", "onboarding_d7",
+  "reactivation_7d", "reactivation_21d", "reactivation_45d",
+  "streak_risk", "readiness_weekly", "exam_countdown_7d", "exam_countdown_1d",
+];
+
+function LifecycleQATools({ campaignLabels }: { campaignLabels: Record<string, string> }) {
+  const [refCode, setRefCode] = useState("");
+  const [refResult, setRefResult] = useState<Record<string, unknown> | null>(null);
+  const [refLoading, setRefLoading] = useState(false);
+  const [refError, setRefError] = useState<string | null>(null);
+
+  const [campaign, setCampaign] = useState(LIFECYCLE_CAMPAIGNS[0]);
+  const [emailResult, setEmailResult] = useState<Record<string, unknown> | null>(null);
+  const [emailLoading, setEmailLoading] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+
+  async function simulateReferral() {
+    if (!refCode.trim()) return;
+    setRefLoading(true); setRefResult(null); setRefError(null);
+    try {
+      const r = await api.post("/admin/qa/simulate-referral", { affiliate_code: refCode.trim().toUpperCase() });
+      setRefResult(r.data);
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setRefError(msg || "Request failed");
+    } finally { setRefLoading(false); }
+  }
+
+  async function sendTestEmail() {
+    setEmailLoading(true); setEmailResult(null); setEmailError(null);
+    try {
+      const r = await api.post("/admin/qa/send-test-email", { campaign });
+      setEmailResult(r.data);
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
+      setEmailError(msg || "SMTP error");
+    } finally { setEmailLoading(false); }
+  }
+
+  return (
+    <div className="space-y-4">
+      <h3 className="font-syne font-bold text-base text-ink border-t border-border pt-4">QA Tools</h3>
+
+      {/* Simulate referral */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-3">
+        <div>
+          <p className="font-syne font-bold text-sm text-ink">Simulate Referral Signup</p>
+          <p className="font-serif text-xs text-ink-3 mt-0.5">Checks self-referral protection without creating real accounts or Stripe events.</p>
+        </div>
+        <div className="flex gap-2">
+          <input
+            value={refCode}
+            onChange={e => setRefCode(e.target.value.toUpperCase())}
+            placeholder="Affiliate code (e.g. JOHN123)"
+            className="flex-1 bg-white border border-border rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:border-ink"
+          />
+          <button onClick={simulateReferral} disabled={refLoading || !refCode.trim()}
+            className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50">
+            {refLoading ? "…" : "Run"}
+          </button>
+        </div>
+        {refError && <p className="text-red text-xs font-serif">{refError}</p>}
+        {refResult && (
+          <div className="bg-white border border-border rounded-lg p-3 space-y-2 text-xs font-serif">
+            <div>
+              <span className="font-syne font-bold text-ink">Affiliate:</span>{" "}
+              <span className="font-mono">{refResult.affiliate_code as string}</span>{" "}
+              <span className="text-ink-3">({refResult.affiliate_owner as string})</span>{" "}
+              <span className={`font-syne font-bold px-1.5 py-0.5 rounded ${refResult.affiliate_status === "active" ? "bg-green/10 text-green" : "bg-red/10 text-red"}`}>
+                {refResult.affiliate_status as string}
+              </span>
+            </div>
+            {([["self_referral_check", "Self-referral (admin → own code)"],
+               ["cross_user_check",    "Cross-user (different account)"]] as [string, string][]).map(([key, label]) => {
+              const check = refResult[key] as { tested_with?: string; result: string; blocked?: boolean; would_be_accepted?: boolean };
+              const ok = key === "self_referral_check" ? check.blocked : check.would_be_accepted;
+              return (
+                <div key={key} className="flex items-start gap-2">
+                  <span className={`mt-0.5 font-syne font-bold text-xs px-1.5 py-0.5 rounded ${ok ? "bg-green/10 text-green" : "bg-red/10 text-red"}`}>
+                    {ok ? "✓" : "✗"}
+                  </span>
+                  <div>
+                    <span className="font-syne font-bold text-ink">{label}</span>
+                    {check.tested_with && <span className="text-ink-3"> — {check.tested_with}</span>}
+                    <br />{check.result}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Send test lifecycle email */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 space-y-3">
+        <div>
+          <p className="font-syne font-bold text-sm text-ink">Send Test Lifecycle Email</p>
+          <p className="font-serif text-xs text-ink-3 mt-0.5">Delivers a preview email to your admin address. Idempotency and unsubscribe rules are bypassed.</p>
+        </div>
+        <div className="flex gap-2">
+          <select value={campaign} onChange={e => setCampaign(e.target.value)}
+            className="flex-1 bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-ink">
+            {LIFECYCLE_CAMPAIGNS.map(c => (
+              <option key={c} value={c}>{campaignLabels[c] ?? c}</option>
+            ))}
+          </select>
+          <button onClick={sendTestEmail} disabled={emailLoading}
+            className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50">
+            {emailLoading ? "…" : "Send"}
+          </button>
+        </div>
+        {emailError && <p className="text-red text-xs font-serif">{emailError}</p>}
+        {emailResult && (
+          <div className="bg-white border border-green/30 rounded-lg p-3 text-xs font-serif">
+            <span className="font-syne font-bold text-green">✓ Sent</span>
+            {" — "}{emailResult.subject as string}<br />
+            <span className="text-ink-3">To: {emailResult.recipient as string}</span>
+          </div>
+        )}
       </div>
     </div>
   );

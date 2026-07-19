@@ -2141,3 +2141,137 @@ async def mark_affiliate_paid(
     aff.total_paid = round(aff.total_paid + total, 2)
     await db.commit()
     return {"paid": round(total, 2), "conversions": len(unpaid)}
+
+
+# ── QA Tools ─────────────────────────────────────────────────────────────────
+
+class SimulateReferralBody(BaseModel):
+    affiliate_code: str
+
+
+class SendTestEmailBody(BaseModel):
+    campaign: str
+
+
+@router.post("/qa/simulate-referral", tags=["admin"])
+async def qa_simulate_referral(
+    body: SimulateReferralBody,
+    admin: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    """Simulate a referral signup for QA — tests self-referral protection.
+    Returns whether the conversion would be blocked or recorded."""
+    from app.services.billing import is_self_referral, check_ip_suspicious
+
+    result = await db.execute(select(Affiliate).where(Affiliate.code == body.affiliate_code))
+    affiliate = result.scalar_one_or_none()
+    if not affiliate:
+        raise HTTPException(404, f"No affiliate with code '{body.affiliate_code}'")
+
+    aff_owner = await db.get(User, affiliate.user_id)
+
+    # Test 1: admin refers themselves (self-referral)
+    self_ref_blocked = is_self_referral(affiliate.user_id, admin.id)
+
+    # Test 2: would a different user be accepted? (pick any non-owner user)
+    other_result = await db.execute(
+        select(User).where(User.id != affiliate.user_id, User.id != admin.id).limit(1)
+    )
+    other_user = other_result.scalar_one_or_none()
+    other_would_be_accepted = other_user is not None and not is_self_referral(
+        affiliate.user_id, other_user.id
+    )
+
+    return {
+        "affiliate_code": body.affiliate_code,
+        "affiliate_owner": aff_owner.email if aff_owner else str(affiliate.user_id),
+        "affiliate_status": affiliate.status,
+        "self_referral_check": {
+            "tested_with": admin.email,
+            "blocked": self_ref_blocked,
+            "result": "BLOCKED (correct)" if self_ref_blocked else "NOT BLOCKED (bug!)",
+        },
+        "cross_user_check": {
+            "tested_with": other_user.email if other_user else None,
+            "would_be_accepted": other_would_be_accepted,
+            "result": "ACCEPTED (correct)" if other_would_be_accepted else "BLOCKED (check logic)",
+        },
+    }
+
+
+CAMPAIGN_SUBJECTS: dict[str, str] = {
+    "onboarding_d1":     "Your MedMind AI account is ready",
+    "onboarding_d3":     "Day 3: have you tried the AI Tutor?",
+    "onboarding_d7":     "Your first week on MedMind AI",
+    "reactivation_7d":   "We miss you — come back to MedMind AI",
+    "reactivation_21d":  "New content added since your last visit",
+    "reactivation_45d":  "Still here for you — MedMind AI",
+    "streak_risk":       "Keep your streak alive tonight",
+    "readiness_weekly":  "Your NCLEX readiness update",
+    "exam_countdown_7d": "7 days until your NCLEX exam",
+    "exam_countdown_1d": "Tomorrow is your NCLEX exam — you've got this",
+}
+
+
+@router.post("/qa/send-test-email", tags=["admin"])
+async def qa_send_test_email(
+    body: SendTestEmailBody,
+    admin: User = _admin,
+    db: AsyncSession = Depends(get_db),
+):
+    """Send a test lifecycle email to the requesting admin, bypassing idempotency and unsubscribe.
+    Useful for previewing email content without waiting for cron triggers."""
+    from app.core.email import _base_template, _send_smtp
+    from app.services.lifecycle import _build, _unsub_url
+
+    campaign = body.campaign
+    if campaign not in CAMPAIGN_SUBJECTS:
+        raise HTTPException(
+            422,
+            f"Unknown campaign '{campaign}'. Valid: {', '.join(CAMPAIGN_SUBJECTS)}",
+        )
+
+    name = admin.first_name or "Admin"
+    subject = f"[TEST] {CAMPAIGN_SUBJECTS[campaign]}"
+    frontend = __import__("app.core.config", fromlist=["settings"]).settings.FRONTEND_URL
+
+    preview_body = f"""
+      <p style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;
+                font-size:13px;color:#856404;margin:0 0 16px;">
+        ⚠️ This is a <strong>test send</strong> triggered from the admin panel. Idempotency and
+        unsubscribe rules are bypassed. Campaign: <code>{campaign}</code>
+      </p>
+      <p style="color:#4a453e;font-size:15px;line-height:1.6;margin:0 0 12px;">
+        Hi {name}, this is a preview of the <strong>{campaign}</strong> lifecycle email.
+      </p>
+      <p style="color:#4a453e;font-size:14px;line-height:1.6;margin:0;">
+        In production, this email is sent to users who match the campaign criteria
+        (e.g. signed up ~1 day ago, inactive for 7 days, etc.). The full content
+        varies per user. This preview uses your admin account as the recipient.
+      </p>"""
+
+    html, text = _build(
+        f"[TEST] {CAMPAIGN_SUBJECTS[campaign]}",
+        preview_body,
+        "Open Dashboard",
+        f"{frontend}/dashboard",
+        campaign,
+    )
+
+    # Replace placeholder unsubscribe URL for preview
+    unsub = _unsub_url(str(admin.id), campaign)
+    html = html.replace("{unsub_url}", unsub)
+    text = text.replace("{unsub_url}", unsub)
+
+    try:
+        _send_smtp(admin.email, subject, html, text)
+    except Exception as exc:
+        raise HTTPException(500, f"SMTP error: {exc}")
+
+    return {
+        "sent": True,
+        "campaign": campaign,
+        "recipient": admin.email,
+        "subject": subject,
+        "note": "Idempotency and unsubscribe rules bypassed for this test send.",
+    }

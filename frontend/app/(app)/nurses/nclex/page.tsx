@@ -388,6 +388,7 @@ function PlanTab({
   const [wizardDate, setWizardDate] = useState("");
   const [wizardMinutes, setWizardMinutes] = useState(30);
   const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [completing, setCompleting] = useState(false);
   const [error, setError] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -683,17 +684,22 @@ function PlanTab({
               if (!el?.value) return;
               setSaving(true);
               setError("");
+              setSaved(false);
               try {
                 await examApi.updatePlan({ exam_date: el.value, daily_minutes: plan.daily_minutes });
+                setSaved(true);
+                setTimeout(() => setSaved(false), 2000);
                 onPlanChange();
               } catch {
                 setError("Could not update exam date. Please try again.");
               } finally { setSaving(false); }
             }}
             disabled={saving}
-            className="font-syne font-bold text-sm bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
+            className={`font-syne font-bold text-sm px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${
+              saved ? "bg-green text-white" : "bg-ink text-white hover:bg-red"
+            }`}
           >
-            {saving ? "…" : "Update"}
+            {saving ? "…" : saved ? "Saved ✓" : "Update"}
           </button>
         </div>
         {error && (
