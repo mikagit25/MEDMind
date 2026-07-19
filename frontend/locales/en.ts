@@ -2489,6 +2489,11 @@ const en = {
     difficulty_easy: "Easy",
     difficulty_medium: "Medium",
     difficulty_hard: "Hard",
+    submit_confirm_title: "Submit exam?",
+    submit_confirm_body: "answered. Submit and see results?",
+    submit_confirm_cancel: "Continue Exam",
+    retry_wrong: "Retry Wrong",
+    print_results: "Print",
   },
 } as const;
 

@@ -2455,6 +2455,11 @@ const ru: Translations = {
     difficulty_easy: "Лёгкий",
     difficulty_medium: "Средний",
     difficulty_hard: "Сложный",
+    submit_confirm_title: "Завершить экзамен?",
+    submit_confirm_body: "отвечено. Завершить и посмотреть результаты?",
+    submit_confirm_cancel: "Продолжить",
+    retry_wrong: "Повторить неверные",
+    print_results: "Распечатать",
   },
 };
 

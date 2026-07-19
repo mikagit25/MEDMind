@@ -6,11 +6,12 @@
     "dev": "NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS='--max-old-space-size=1536' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "e2e": "PLAYWRIGHT_CHROMIUM_PATH=$(which chromium-browser || which chromium) playwright test",
+    "e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@sentry/nextjs": "^8.7.0",
-    "posthog-js": "^1.131.0",
     "@stripe/stripe-js": "^3.5.0",
     "@tanstack/react-query": "^5.37.1",
     "axios": "^1.7.2",
@@ -18,6 +19,7 @@
     "framer-motion": "^11.2.6",
     "lucide-react": "^0.383.0",
     "next": "14.2.3",
+    "posthog-js": "^1.131.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
@@ -28,6 +30,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

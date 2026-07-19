@@ -76,7 +76,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   "zap": Zap,
 };
 
-const NCLEX_MODE_IDS = ["nclex_rn_75", "nclex_rn_85", "nclex_rn_145", "nclex_category"];
+const NCLEX_MODE_IDS = ["nclex_rn_75", "nclex_rn_85", "nclex_rn_145", "nclex_category", "nclex_demo"];
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -145,11 +145,11 @@ export default function NCLEXHubPage() {
   async function startSession(modeId: string) {
     setStarting(modeId);
     try {
-      const opts: Record<string, string> = {};
+      const opts: { nclex_category?: string } = {};
       if (modeId === "nclex_category" && selectedCategory) {
         opts.nclex_category = selectedCategory;
       }
-      const session = await examApi.createSession(modeId, opts);
+      const session = await examApi.createSession(modeId, undefined, opts);
       window.location.href = `/exam?session=${session.session_id}`;
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail

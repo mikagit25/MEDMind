@@ -44,8 +44,7 @@ export default function RegisterPage() {
     }
     setLoading(true);
     try {
-      const res = await authApi.register({ ...form, ref_code: refCode || undefined });
-      const data = res.data;
+      const data = await authApi.register({ ...form, ref_code: refCode || undefined });
       setAuth(data.user, data.access_token, data.refresh_token);
       ga.signUp("email");
       router.replace("/onboarding");

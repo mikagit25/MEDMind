@@ -6,9 +6,23 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V5 Phases 0–7 ✅ + debt fixes ✅. Тест-сьют: 685 passed, 0 failed. TypeScript: 0 errors.
-**Last Updated:** 2026-07-12
-**Next Action:** TBD — all roadmap phases complete.
+**Phase:** V6 Phase 1 ✅ — E2E smoke tests + frontend monitoring. Backend: 0 failed. TypeScript: 0 errors.
+**Last Updated:** 2026-07-19
+**Next Action:** V6 Phase 2 — performance & SEO (Core Web Vitals, ISR, structured data).
+
+### V6 Phase 1 — Страховочная сетка ✅ (2026-07-19)
+- **Playwright E2E** (11 passed, 1 skipped): `frontend/e2e/`, system Chromium, PLAYWRIGHT_BASE_URL
+  - 10 smoke scenarios: register, lesson-complete, nclex-demo, dose-calc, flashcards(skip), ai-tutor-disclaimer, promo-checkout, public-contour(×3), search, language-switch
+  - `global-setup.ts` seeds e2e_test@example.com user via `scripts/e2e_seed.py`
+  - Root cause fixes found during E2E:
+    - **register page bug** (`const res.data` double-unwrap) — register was broken for ALL users; fixed to `const data = await authApi.register(...)`
+    - **double-render** in AppLayout (children rendered in both mobile + desktop containers) — fixed all E2E selectors by scoping to `main`
+    - **helpers.ts API URL** — derived from PLAYWRIGHT_BASE_URL when NEXT_PUBLIC_API_URL not set
+  - `npm run e2e` script added to package.json
+- **Sentry frontend monitoring** — already configured in sentry.client/server/edge.config.ts ✅
+- **Uptime monitor** — `scripts/ops/uptime_check.py`, Telegram alerts on state transitions
+- **CI integration** — `.github/workflows/ci.yml` e2e job gates deploy on green tests
+- **docs/MEDMIND_ROADMAP_V6.md** — full 6-phase roadmap created
 
 ### Tech Debt Resolved ✅ (2026-07-12)
 - **TypeScript**: Fixed all 17 TS errors — was blocking clean `next build`

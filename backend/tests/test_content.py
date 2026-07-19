@@ -33,6 +33,7 @@ async def test_module_not_found(client):
 
 
 @pytest.mark.asyncio
-async def test_drugs_requires_auth(client):
+async def test_drugs_public_access(client):
+    # Drugs search is public (no auth required) for SEO
     r = await client.get("/api/v1/drugs?q=aspirin")
-    assert r.status_code == 401
+    assert r.status_code == 200

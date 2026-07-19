@@ -86,14 +86,21 @@ type Results = {
 // ── Timer ──────────────────────────────────────────────────────────────────────
 
 function Timer({ endsAt, onExpire }: { endsAt: string; onExpire: () => void }) {
-  const [secs, setSecs] = useState(0);
+  const [secs, setSecs] = useState(9999);
   const expired = useRef(false);
+  const mountedAt = useRef(Date.now());
 
   useEffect(() => {
     const tick = () => {
       const left = Math.max(0, Math.floor((new Date(endsAt).getTime() - Date.now()) / 1000));
       setSecs(left);
-      if (left === 0 && !expired.current) { expired.current = true; onExpire(); }
+      // Grace period: never fire onExpire within the first 5 seconds of mount
+      // (guards against timezone parse issues on initial render)
+      const elapsed = Date.now() - mountedAt.current;
+      if (left === 0 && !expired.current && elapsed > 5000) {
+        expired.current = true;
+        onExpire();
+      }
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -312,6 +319,7 @@ function ExamSession({
   const [locked, setLocked] = useState<Record<number, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
   const [currentDifficulty, setCurrentDifficulty] = useState("medium");
+  const [confirmSubmit, setConfirmSubmit] = useState(false);
 
   const question = session.questions[current];
   const ans = answers[current] ?? BLANK_ANSWER;
@@ -364,14 +372,49 @@ function ExamSession({
     }
   }
 
-  const handleExpire = useCallback(() => { handleFinalize(); }, []);
+  // Always reference the latest handleFinalize to avoid stale-closure on timer expiry
+  const handleFinalizeRef = useRef(handleFinalize);
+  handleFinalizeRef.current = handleFinalize;
+  const handleExpire = useCallback(() => { handleFinalizeRef.current(); }, []);
 
   const answeredCount = Object.keys(locked).length;
   const total = session.questions.length;
   const progressPct = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
 
+  if (!question) {
+    return (
+      <div className="text-center py-20 text-ink-3 font-serif">{t("common.loading")}</div>
+    );
+  }
+
   return (
     <div>
+      {/* Submit confirmation dialog */}
+      {confirmSubmit && !submitting && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="bg-bg border border-border rounded-2xl p-6 max-w-sm w-full shadow-xl">
+            <h3 className="font-syne font-bold text-base text-ink mb-2">{t("exam_page.submit_confirm_title")}</h3>
+            <p className="font-serif text-sm text-ink-3 mb-5">
+              {answeredCount}/{total} {t("exam_page.answered")} — {t("exam_page.submit_confirm_body")}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setConfirmSubmit(false); handleFinalize(); }}
+                className="flex-1 font-syne font-bold text-sm bg-ink text-white px-4 py-2.5 rounded-xl hover:bg-red transition-colors"
+              >
+                {t("common.submit")}
+              </button>
+              <button
+                onClick={() => setConfirmSubmit(false)}
+                className="flex-1 font-syne font-semibold text-sm border border-border px-4 py-2.5 rounded-xl hover:bg-surface transition-colors"
+              >
+                {t("exam_page.submit_confirm_cancel")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header bar */}
       <div className="mb-4 p-3 bg-surface border border-border rounded-xl">
         <div className="flex items-center justify-between mb-2">
@@ -385,7 +428,7 @@ function ExamSession({
           </div>
           <Timer endsAt={session.ends_at} onExpire={handleExpire} />
           <button
-            onClick={handleFinalize}
+            onClick={() => setConfirmSubmit(true)}
             disabled={submitting}
             className="font-syne font-semibold text-xs px-4 py-2 rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50 flex-shrink-0"
           >
@@ -581,14 +624,14 @@ function AIExplainButton({ questionId, questionText }: { questionId?: string; qu
             </div>
 
             <div className="px-5 py-4 border-t border-border flex items-center justify-between flex-shrink-0">
-              <Link
-                href={`/ai-tutor?mode=tutor&prompt=${encodeURIComponent(`Help me understand this NCLEX question: "${questionText}"`)}`}
-                target="_blank"
+              <button
+                type="button"
+                onClick={() => window.open(`/ai-tutor?mode=tutor&prompt=${encodeURIComponent(`Help me understand this NCLEX question: "${questionText.slice(0, 300)}"`)}`,"_blank","noopener,noreferrer")}
                 className="flex items-center gap-1.5 text-xs font-syne text-ink-3 hover:text-ink transition-colors"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 {t("exam_page.open_ai_tutor")}
-              </Link>
+              </button>
               <button
                 onClick={() => setOpen(false)}
                 className="font-syne font-bold text-sm px-4 py-2 rounded-xl bg-ink text-white hover:bg-red transition-colors"
@@ -603,7 +646,34 @@ function AIExplainButton({ questionId, questionText }: { questionId?: string; qu
   );
 }
 
-function ResultsView({ results, onRetry }: { results: Results; onRetry: () => void }) {
+const CATEGORY_LABELS: Record<string, string> = {
+  safe_effective_care: "Safe & Effective Care Environment",
+  safe_effective_care_environment: "Safe & Effective Care Environment",
+  safety: "Safe & Effective Care Environment",
+  health_promotion: "Health Promotion & Maintenance",
+  health_promotion_and_maintenance: "Health Promotion & Maintenance",
+  psychosocial: "Psychosocial Integrity",
+  psychosocial_integrity: "Psychosocial Integrity",
+  psychological: "Psychosocial Integrity",
+  communication: "Psychosocial Integrity",
+  basic_care: "Basic Care & Comfort",
+  basic_care_and_comfort: "Basic Care & Comfort",
+  pharmacological: "Pharmacological & Parenteral Therapies",
+  pharmacological_therapies: "Pharmacological & Parenteral Therapies",
+  reduction_risk: "Reduction of Risk Potential",
+  reduction_of_risk: "Reduction of Risk Potential",
+  reduction_of_risk_potential: "Reduction of Risk Potential",
+  physiological_adaptation: "Physiological Adaptation",
+  physiological: "Physiological Adaptation",
+  physiological_integrity: "Physiological Adaptation",
+};
+
+function nclexLabel(raw: string, serverLabel?: string): string {
+  if (serverLabel && !serverLabel.includes("_")) return serverLabel; // already human-readable from server
+  return CATEGORY_LABELS[raw] ?? raw.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onRetry: () => void; onRetryWrong: (ids: string[]) => void }) {
   const t = useT();
   const [expandedQ, setExpandedQ] = useState<number | null>(null);
   const isNclex = results.mode_id?.includes("nclex");
@@ -664,7 +734,7 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
             {Object.entries(results.nclex_category_breakdown)
               .sort((a, b) => a[1].pct - b[1].pct)
               .map(([key, c]) => (
-                <CategoryBar key={key} label={c.label} pct={c.pct} total={c.total} />
+                <CategoryBar key={key} label={nclexLabel(key, c.label)} pct={c.pct} total={c.total} />
               ))}
           </div>
           {results.weak_categories.length > 0 && (
@@ -748,6 +818,15 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
         >
           {t("exam_page.try_again")}
         </button>
+        {results.wrong_questions.length > 0 && (
+          <button
+            onClick={() => onRetryWrong(results.wrong_questions.map(q => q.id!).filter(Boolean))}
+            className="font-syne font-semibold text-sm px-6 py-2.5 rounded-xl border border-red/40 text-red hover:bg-red/10 transition-colors flex items-center gap-2"
+          >
+            <XCircle className="w-4 h-4" />
+            {t("exam_page.retry_wrong")} ({results.wrong_questions.length})
+          </button>
+        )}
         {isNclex && (
           <Link
             href="/nurses/nclex"
@@ -756,6 +835,13 @@ function ResultsView({ results, onRetry }: { results: Results; onRetry: () => vo
             <BarChart3 className="w-4 h-4" /> {t("exam_page.nclex_hub")}
           </Link>
         )}
+        <button
+          onClick={() => window.print()}
+          className="font-syne font-semibold text-sm px-4 py-2.5 rounded-xl border border-border hover:bg-surface transition-colors text-ink-3"
+          title="Print results"
+        >
+          ⎙ {t("exam_page.print_results")}
+        </button>
         <Link
           href="/dashboard"
           className="font-syne font-semibold text-sm px-6 py-2.5 rounded-xl border border-border hover:bg-surface transition-colors"
@@ -866,7 +952,17 @@ function ExamPageInner() {
         .catch(() => setError(t("exam_page.err_results")));
     } else if (sessionParam) {
       examApi.getSession(sessionParam)
-        .then(s => { setSession(s); setView("session"); })
+        .then(s => {
+          if (s.status === "completed" || s.status === "expired") {
+            // Session already finalized — go straight to results
+            examApi.getResults(sessionParam)
+              .then(r => { setResults(r); setView("results"); })
+              .catch(() => setError(t("exam_page.err_results")));
+          } else {
+            setSession(s);
+            setView("session");
+          }
+        })
         .catch(() => setError(t("exam_page.err_session")));
     }
   }, [sessionParam, resultsParam]);
@@ -876,6 +972,19 @@ function ExamPageInner() {
     try {
       const sess = await examApi.createSession(modeId);
       setSession(sess);
+      setView("session");
+    } catch (e: unknown) {
+      setError((e as { response?: { data?: { detail?: string } } })?.response?.data?.detail ?? t("exam_page.err_start"));
+    }
+  };
+
+  const handleRetryWrong = async (questionIds: string[]) => {
+    if (!questionIds.length || !results) return;
+    setError("");
+    try {
+      const sess = await examApi.createSession(results.mode_id, questionIds);
+      setSession(sess);
+      setResults(null);
       setView("session");
     } catch (e: unknown) {
       setError((e as { response?: { data?: { detail?: string } } })?.response?.data?.detail ?? t("exam_page.err_start"));
@@ -904,7 +1013,11 @@ function ExamPageInner() {
         <ExamSession session={session} onFinish={res => { setResults(res); setView("results"); }} />
       )}
       {view === "results" && results && (
-        <ResultsView results={results} onRetry={() => { setSession(null); setResults(null); setView("modes"); }} />
+        <ResultsView
+          results={results}
+          onRetry={() => { setSession(null); setResults(null); setView("modes"); }}
+          onRetryWrong={handleRetryWrong}
+        />
       )}
     </div>
   );
