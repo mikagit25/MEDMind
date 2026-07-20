@@ -45,7 +45,8 @@ GET /api/v1/exam/definitions/dha
 For each, verify:
 - ✅ HTTP 200
 - ✅ Fields present: `slug`, `name`, `country`, `regulatory_body`, `question_count`, `duration_min`, `pass_threshold`, `blueprint_source`, `status`
-- ✅ `status = "draft"` for all 7 exams (Gulf not activated until blueprint verified)
+- ✅ `status = "active"` for all 7 exams (activated 2026-07-20, blueprint verified)
+- ✅ `blueprint_verified_at` is not null
 - ✅ Family endpoint returns exactly 7 records
 
 Non-existent slug:
@@ -54,12 +55,12 @@ GET /api/v1/exam/definitions/nonexistent
 ```
 - ✅ HTTP 404
 
-### 1.2 Public landing pages
+### 1.2 Public landing pages (English)
 
 | URL | Check |
 |-----|-------|
 | `/exams` | Hub with links to NCLEX, Gulf, UK families |
-| `/exams/gulf` | Comparison table of 7 exams (country / authority / Q count / duration / pass%) |
+| `/exams/gulf` | Comparison table of 7 exams (country / authority / Q count / duration / pass%) — must NOT show «Exam data loading…» |
 | `/exams/snle` | Landing: name, country, exam params, blueprint categories |
 | `/exams/dha` | Same |
 | `/exams/qchp` | Same |
@@ -73,10 +74,41 @@ On every exam landing, verify:
 - ✅ Link to official source (regulatory body) opens in a new tab
 - ✅ Gulf Bundle CTA section is present
 - ✅ `<title>` meta tag contains the exam name
+- ✅ `<link rel="alternate" hreflang="ar">` present in `<head>` (check DevTools → Elements)
 
-### 1.3 Exam access control
+### 1.3 Multilingual Gulf landing pages
 
-| Account type | Expected access to Gulf exam |
+All pages below must work **without authentication**. Test in a private/incognito window.
+
+| URL | Language | Direction | Must contain |
+|-----|----------|-----------|--------------|
+| `/ar/gulf` | Arabic | RTL (`dir="rtl"`) | «امتحانات التمريض في دول الخليج», 7 exam cards, disclaimer in Arabic |
+| `/ar/nclex-snle` | Arabic | RTL | «SNLE», «الهيئة السعودية للتخصصات الصحية», 8 category cards |
+| `/ru/gulf` | Russian | LTR | «Экзамены по сестринскому делу в странах Залива», 7 экзаменов |
+| `/tr/gulf` | Turkish | LTR | «Körfez Hemşirelik Sınavları», 7 sınav kartı |
+| `/de/gulf` | German | LTR | «Pflegeprüfungen der Golfstaaten», 7 Prüfungen |
+| `/fr/gulf` | French | LTR | «Examens infirmiers du Golfe», 7 examens |
+| `/es/gulf` | Spanish | LTR | «Exámenes de Enfermería del Golfo», 7 exámenes |
+
+For **each** page verify:
+- ✅ HTTP 200, no blank screen, no «Exam data loading…» placeholder
+- ✅ All UI text is in the correct language (no English fragments except exam acronyms: SNLE, DHA, QCHP…)
+- ✅ Arabic pages: text aligned right, layout mirrored correctly
+- ✅ «English» button links to `/exams/gulf`
+- ✅ CTA buttons link to `/register`
+- ✅ Exam cards (7 entries) are all present and clickable → each goes to `/exams/<slug>`
+- ✅ Disclaimer text present at the bottom
+- ✅ `<html lang="ar">` on Arabic pages; `lang="ru"` / `lang="tr"` etc. on others
+- ✅ `<link rel="alternate" hreflang="en">` points to `/exams/gulf` (check DevTools → Elements → `<head>`)
+
+**Regression:** verify that the generic locale landing pages still work correctly after the middleware fix:
+- `/ru` → ✅ loads Russian landing page (MedMind homepage in Russian)
+- `/ar` → ✅ loads Arabic landing page
+- `/tr` → ✅ loads Turkish landing page
+
+### 1.4 Exam access control
+
+| Account type | Expected access to Gulf exam (authenticated) |
 |---|---|
 | free | ❌ no access (demo only) |
 | student | ❌ no access to Gulf (NCLEX only) |
@@ -212,15 +244,29 @@ curl -H "CF-IPCountry: XX" /api/v1/pricing/regional
 
 ## Block 4 — Sitemap
 
+**English sitemap** — must contain all Gulf exam and multilingual hub pages:
 ```bash
-curl https://medmind.pro/sitemap-en.xml | grep -E "es/nclex|exams/"
+curl https://medmind.pro/sitemap-en.xml | grep -E "es/nclex|exams/|ar/gulf|ru/gulf|tr/gulf|de/gulf|fr/gulf|es/gulf"
 ```
 
-✅ URLs present:
+✅ URLs present in `sitemap-en.xml`:
+- `/exams`, `/exams/gulf`
+- `/exams/snle`, `/exams/dha`, `/exams/qchp`, `/exams/omsb`, `/exams/nhra`, `/exams/moh-uae`, `/exams/haad`
 - `/es/nclex`
-- `/exams`
-- `/exams/gulf`
-- `/exams/snle` (and the other 6 Gulf exam slugs)
+- `/ar/gulf`, `/ar/nclex-snle`
+- `/ru/gulf`, `/tr/gulf`, `/de/gulf`, `/fr/gulf`, `/es/gulf`
+
+**Language sitemaps** — each locale's Gulf hub page must appear in its own sitemap:
+```bash
+curl https://medmind.pro/sitemap-ru.xml | grep gulf   # → /ru/gulf
+curl https://medmind.pro/sitemap-ar.xml | grep gulf   # → /ar/gulf
+curl https://medmind.pro/sitemap-tr.xml | grep gulf   # → /tr/gulf
+curl https://medmind.pro/sitemap-de.xml | grep gulf   # → /de/gulf
+curl https://medmind.pro/sitemap-fr.xml | grep gulf   # → /fr/gulf
+curl https://medmind.pro/sitemap-es.xml | grep gulf   # → /es/gulf
+```
+
+✅ Each language sitemap entry must include `<xhtml:link hreflang="en">` pointing to `/exams/gulf`
 
 ---
 
@@ -245,4 +291,4 @@ For each item, record:
 - Browser, OS
 - Specific URL and reproduction steps for any bug
 
-**Priority order:** 3.2 (price matrix) → 2.3 (ES toggle) → 1.2 (Gulf landings) → 0.x (fix regression) → 5 (NCLEX regression)
+**Priority order:** 3.2 (price matrix) → 2.3 (ES toggle) → 1.3 (multilingual Gulf) → 1.2 (Gulf EN landings) → 0.x (fix regression) → 5 (NCLEX regression)
