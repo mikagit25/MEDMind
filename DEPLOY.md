@@ -358,6 +358,26 @@ docker compose -f docker-compose.prod.yml restart backend
 docker compose -f docker-compose.prod.yml up -d --build backend
 ```
 
+### ⚠️ Frontend rebuild — always use prod-compose
+
+**Never** rebuild or restart the frontend with the plain `docker compose` (dev compose).
+The dev compose puts the container on `medmind_default` network; nginx expects it on
+`medmind_internal`. Using the wrong compose causes a 502 Bad Gateway on the whole site.
+
+```bash
+# ✅ Correct — frontend joins medmind_internal, nginx resolves 'frontend' via Docker DNS
+docker compose -f docker-compose.prod.yml up -d --build frontend
+
+# ❌ Wrong — frontend lands on medmind_default, nginx gets SERVFAIL → 502
+docker compose up -d --build frontend
+docker compose build frontend && docker compose up -d frontend
+```
+
+If you accidentally started the frontend with the dev compose, fix it with:
+```bash
+docker compose -f docker-compose.prod.yml up -d --build frontend
+```
+
 ---
 
 ## 7. Ollama AI setup
