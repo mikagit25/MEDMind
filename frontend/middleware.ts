@@ -4,6 +4,19 @@ import { NextRequest, NextResponse } from "next/server";
 const LOCALES = ["es", "ru", "ar", "tr", "de", "fr"];
 const LOCALE_RE = new RegExp(`^/(${LOCALES.join("|")})(\/|$)`);
 
+// SYNC-GROUP: gulf-landing + other dedicated locale pages
+// Paths that have their own page.tsx under app/<locale>/ and must NOT be
+// rewritten by the generic locale-prefix middleware (Case 1).
+// Add new entries here whenever a new /<locale>/<slug>/page.tsx is created.
+const LOCALE_BYPASS_PATHS = new Set([
+  "/ar/gulf", "/ar/nclex-snle",
+  "/ru/gulf",
+  "/tr/gulf",
+  "/de/gulf",
+  "/fr/gulf",
+  "/es/gulf", "/es/nclex",
+]);
+
 // Public paths that should be indexed by search engines
 const PUBLIC_PREFIXES = [
   "/articles",
@@ -63,7 +76,8 @@ export function middleware(request: NextRequest) {
   }
 
   // ── Case 1: Path-prefixed locale (/es/articles/slug) ──────────────────────
-  const localeMatch = pathname.match(LOCALE_RE);
+  // Skip rewrite for dedicated locale pages that have their own page.tsx files.
+  const localeMatch = !LOCALE_BYPASS_PATHS.has(pathname) && pathname.match(LOCALE_RE);
   if (localeMatch) {
     const locale = localeMatch[1];
     const rest = pathname.slice(locale.length + 1) || "/";

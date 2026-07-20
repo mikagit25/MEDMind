@@ -1,5 +1,15 @@
+// SYNC-GROUP: gulf-landing
+// This page is part of a multilingual set. When content changes here,
+// update all sibling pages to stay in sync:
+//   /exams/gulf (EN) ← you are here
+//   /ar/gulf  (AR)   /ru/gulf  (RU)   /tr/gulf  (TR)
+//   /de/gulf  (DE)   /fr/gulf  (FR)   /es/gulf  (ES)
+// TODO: replace with next-intl server routing when the project migrates to SSR i18n.
+
 import type { Metadata } from "next";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 import type { ExamDefinition } from "@/components/exam/ExamLandingTemplate";
@@ -14,7 +24,14 @@ export const metadata: Metadata = {
   title: "Gulf Nursing Exam Comparison 2025 — SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD | MedMind AI",
   description:
     "Compare all 7 Gulf Prometric nursing licensing exams side by side: questions, duration, pass mark, and regulatory body. One Gulf Bundle opens practice for all exams.",
-  alternates: { canonical: `${SITE_URL}/exams/gulf` },
+  alternates: {
+    canonical: `${SITE_URL}/exams/gulf`,
+    languages: {
+      "en": `${SITE_URL}/exams/gulf`,
+      "ar": `${SITE_URL}/ar/gulf`,
+      "x-default": `${SITE_URL}/exams/gulf`,
+    },
+  },
   openGraph: {
     title: "Gulf Nursing Exam Comparison — MedMind AI",
     description: "SNLE vs DHA vs QCHP vs OMSB vs NHRA vs MOH UAE vs HAAD — all in one place.",

@@ -498,8 +498,6 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   // ── Localized landing pages (/ru, /de, /fr, /es, /tr, /ar) ───────────────
   // Only emit the current locale's own landing page (avoid duplicates in each sitemap)
   if (locale !== "en") {
-    const lp = localizedUrl("/", locale);
-    // Use localizedUrl which produces /<locale> for non-en
     const locLanding = `${SITE_URL}/${locale}`;
     entries.push(
       urlEntry({
@@ -508,6 +506,22 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         priority: 1.0,
         changefreq: "weekly",
         hreflang: hreflangTags("/", [...LOCALES]),
+      })
+    );
+    // SYNC-GROUP: gulf-landing — each non-EN sitemap includes its own Gulf hub
+    entries.push(
+      urlEntry({
+        url: `${SITE_URL}/${locale}/gulf`,
+        lastmod: now,
+        priority: 0.9,
+        changefreq: "monthly",
+        hreflang: [
+          `      <xhtml:link rel="alternate" hreflang="x-default" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
+          `      <xhtml:link rel="alternate" hreflang="en" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
+          ...["ru", "ar", "tr", "de", "fr", "es"].map(
+            (l) => `      <xhtml:link rel="alternate" hreflang="${l}" href="${esc(`${SITE_URL}/${l}/gulf`)}"/>`
+          ),
+        ].join("\n"),
       })
     );
   }
@@ -542,6 +556,14 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/exams/haad",         priority: 0.8, changefreq: "monthly" },
       // G2 — Spanish NCLEX landing
       { path: "/es/nclex",           priority: 0.9, changefreq: "monthly" },
+      // SYNC-GROUP: gulf-landing — all language Gulf hubs (update together)
+      { path: "/ar/gulf",            priority: 0.9, changefreq: "monthly" },
+      { path: "/ar/nclex-snle",      priority: 0.8, changefreq: "monthly" },
+      { path: "/ru/gulf",            priority: 0.9, changefreq: "monthly" },
+      { path: "/tr/gulf",            priority: 0.9, changefreq: "monthly" },
+      { path: "/de/gulf",            priority: 0.9, changefreq: "monthly" },
+      { path: "/fr/gulf",            priority: 0.9, changefreq: "monthly" },
+      { path: "/es/gulf",            priority: 0.9, changefreq: "monthly" },
     ];
     for (const s of statics) {
       entries.push(

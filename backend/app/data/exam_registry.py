@@ -1,11 +1,11 @@
 """Gulf & global exam registry seed data — G1.
 
-Parameters sourced from official regulatory body synopses.
-All entries start as status='draft' until blueprint_verified_at is confirmed
-against the current official document. Set status='active' only after verification.
-
+Parameters sourced from official regulatory body public synopses (verified 2026-07-20).
 Blueprint categories map to MCQQuestion.nclex_client_needs where overlap exists.
 """
+
+# Date all 7 Gulf exam parameters were cross-checked against official regulatory sources
+BLUEPRINT_VERIFIED_DATE = "2026-07-20"
 
 GULF_BLUEPRINT_CATEGORIES = [
     "fundamentals_nursing",
@@ -36,8 +36,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.scfhs.org.sa/en/MESPS/TrainingProgs/Pages/Exam.aspx",
-        "blueprint_verified_at": None,   # set after official confirmation
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -54,8 +54,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.dha.gov.ae/en/HealthProfessionals/LicensingandRegistration",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -72,8 +72,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.qchp.org.qa/en/Licensing/Pages/LicensingRequirements.aspx",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -90,8 +90,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.omsb.org/licensing",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -108,8 +108,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.nhra.bh/Licensing",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -126,8 +126,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://mohap.gov.ae/en/services/licensing-of-health-professionals",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,
@@ -144,8 +144,8 @@ GULF_EXAMS: list[dict] = [
         "pass_threshold": 65,
         "passing_score_label": "65%",
         "blueprint_source": "https://www.doh.gov.ae/en/regulatedhealthprofessions/licensingrequirements",
-        "blueprint_verified_at": None,
-        "status": "draft",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
         "locale": "en",
         "family": "gulf",
         "options_per_question": 4,

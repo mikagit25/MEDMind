@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ExamLandingTemplate, type ExamDefinition } from "@/components/exam/ExamLandingTemplate";
 
+export const dynamic = "force-dynamic";
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const BACKEND_URL =
   process.env.BACKEND_URL ??
@@ -46,11 +48,17 @@ export async function generateMetadata({
   const exam = await fetchExam(params.slug);
   if (!exam) return { title: "Exam Not Found" };
 
+  const arSlug = params.slug === "snle" ? "/ar/nclex-snle" : "/ar/gulf";
   return {
     title: `${exam.name} Prep 2025 — Practice Questions & AI Explanations | MedMind AI`,
     description: `Prepare for the ${exam.name} with ${exam.question_count} exam-format questions, AI explanations, and a study plan. ${exam.regulatory_body} — ${exam.country}.`,
     alternates: {
       canonical: `${SITE_URL}/exams/${params.slug}`,
+      languages: {
+        "en": `${SITE_URL}/exams/${params.slug}`,
+        "ar": `${SITE_URL}${arSlug}`,
+        "x-default": `${SITE_URL}/exams/${params.slug}`,
+      },
     },
     openGraph: {
       title: `${exam.name} Prep — MedMind AI`,
