@@ -15,6 +15,8 @@ from app.core.config import settings
 from app.models.models import BillingEvent, StripeWebhookEvent, User
 from app.api.deps import get_current_user
 from app.services.billing import audit_log, start_dunning
+from app.data.regional_pricing import get_price, get_tier, BASE_PRICES_USD
+from app.services.region_service import resolve_pricing_tier
 
 logger = logging.getLogger(__name__)
 
@@ -62,11 +64,16 @@ def get_stripe():
 
 @router.post("/create-checkout")
 async def create_checkout(
+    request: Request,
     data: CheckoutRequest,
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-    """Create a Stripe Checkout Session for subscription or one-time payment."""
+    """Create a Stripe Checkout Session for subscription or one-time payment.
+
+    G3: Regional pricing applied via dynamic price_data when user is in Tier B/C.
+    Stripe always charges in USD; local-currency equivalents are informational only.
+    """
     if data.tier not in PRICE_IDS:
         raise HTTPException(status_code=400, detail=f"Unknown tier: {data.tier}")
 
@@ -84,24 +91,57 @@ async def create_checkout(
             user.stripe_customer_id = customer_id
             await db.commit()
 
-        price_id = PRICE_IDS[data.tier]
         is_lifetime = data.tier == "lifetime"
+
+        # G3: resolve regional tier and price
+        tier, country, source = await resolve_pricing_tier(request, user)
+        regional_price = get_price(data.tier, tier)
+        base_price = BASE_PRICES_USD.get(data.tier, 0.0)
+        use_regional = tier != "A" and regional_price < base_price
 
         frontend = settings.FRONTEND_URL.rstrip("/")
         success_url = (data.success_url or f"{frontend}/settings?payment=success") + "&session_id={CHECKOUT_SESSION_ID}"
         cancel_url = data.cancel_url or f"{frontend}/settings?payment=cancelled"
 
+        if use_regional:
+            # Dynamic price — Stripe charges this exact amount in USD
+            unit_amount = int(regional_price * 100)  # cents
+            line_item = {
+                "price_data": {
+                    "currency": "usd",
+                    "unit_amount": unit_amount,
+                    "product_data": {
+                        "name": f"MedMind AI — {data.tier.title()} Plan",
+                        "metadata": {"tier": data.tier},
+                    },
+                    **({"recurring": {"interval": "month"}} if not is_lifetime else {}),
+                },
+                "quantity": 1,
+            }
+        else:
+            line_item = {"price": PRICE_IDS[data.tier], "quantity": 1}
+
         session_params = {
             "customer": customer_id,
-            "line_items": [{"price": price_id, "quantity": 1}],
+            "line_items": [line_item],
             "mode": "payment" if is_lifetime else "subscription",
             "success_url": success_url,
             "cancel_url": cancel_url,
-            "metadata": {"user_id": str(user.id), "tier": data.tier},
+            "metadata": {
+                "user_id": str(user.id),
+                "tier": data.tier,
+                "billing_region": tier,      # G3: stored in meta for webhook
+                "billing_country": country,
+            },
         }
 
         session = stripe.checkout.Session.create(**session_params)
-        return {"url": session.url, "session_id": session.id}
+        return {
+            "url": session.url,
+            "session_id": session.id,
+            "regional_price": regional_price,
+            "billing_tier": tier,
+        }
 
     except HTTPException:
         raise
@@ -260,6 +300,14 @@ async def _activate_subscription(user_id: str, tier: str, session: dict, db: Asy
     prefs.pop("dunning_started_at", None)
     user.preferences = prefs
 
+    # G3: capture billing country & region from checkout metadata (authoritative source)
+    meta = session.get("metadata") or {}
+    stripe_country = meta.get("billing_country")
+    stripe_region  = meta.get("billing_region")
+    if stripe_country and not user.billing_country:
+        user.billing_country = stripe_country.upper()[:2]
+        user.billing_region  = stripe_region or get_tier(stripe_country)
+
     amount = float(session.get("amount_total", 0) or 0) / 100
     await audit_log(
         db,
@@ -270,6 +318,7 @@ async def _activate_subscription(user_id: str, tier: str, session: dict, db: Asy
         new_tier=tier,
         amount=amount,
         stripe_invoice_id=session.get("payment_intent"),
+        meta={"billing_region": stripe_region, "billing_country": stripe_country},
     )
     await db.commit()
 

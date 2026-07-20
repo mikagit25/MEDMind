@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -14,12 +14,38 @@ type PlanData = {
 };
 type FaqItem = { q: string; a: string };
 
+type RegionalPricing = {
+  tier: string;
+  country: string;
+  source: string;
+  prices: Record<string, number>;
+  base_prices: Record<string, number>;
+  discount_pct: number;
+  currency: string;
+};
+
+// Plan tier → API plan key mapping
+const TIER_TO_PLAN: Record<string, string> = {
+  student: "student",
+  pro: "pro",
+  clinic: "clinic",
+  lifetime: "lifetime",
+  gulf_bundle: "gulf_bundle",
+};
+
 export default function PricingPage() {
   const t = useT();
   const { isAuthenticated, updateUser } = useAuthStore();
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [regional, setRegional] = useState<RegionalPricing | null>(null);
+
+  useEffect(() => {
+    api.get("/pricing/regional").then(res => {
+      if (res.data?.discount_pct > 0) setRegional(res.data);
+    }).catch(() => {});
+  }, []);
 
   // Promo code widget state
   const [promoOpen, setPromoOpen] = useState(false);
@@ -91,6 +117,23 @@ export default function PricingPage() {
         </p>
       </section>
 
+      {/* G3 — Regional pricing banner */}
+      {regional && regional.discount_pct > 0 && (
+        <div className="max-w-6xl mx-auto px-6 mb-6">
+          <div className="bg-green/10 border border-green/30 rounded-xl px-5 py-3.5 flex items-center gap-3">
+            <span className="text-xl">🌍</span>
+            <div>
+              <span className="font-syne font-bold text-sm text-green">
+                {regional.discount_pct}% regional discount applied
+              </span>
+              <span className="text-xs text-ink-2 font-serif ml-2">
+                Prices below reflect purchasing power parity for your region (charged in USD).
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Error banner */}
       {error && (
         <div className="max-w-6xl mx-auto px-6 mb-6">
@@ -119,8 +162,22 @@ export default function PricingPage() {
             <div className="mb-4">
               <div className="font-syne font-extrabold text-lg text-ink">{plan.name}</div>
               <div className="flex items-baseline gap-1 mt-1">
-                <span className="font-syne font-black text-3xl text-ink">{plan.price}</span>
-                <span className="text-ink-3 text-sm font-syne">{plan.period}</span>
+                {regional && TIER_TO_PLAN[plan.tier] && regional.prices[TIER_TO_PLAN[plan.tier]] ? (
+                  <>
+                    <span className="font-syne font-black text-3xl text-ink">
+                      ${regional.prices[TIER_TO_PLAN[plan.tier]].toFixed(0)}
+                    </span>
+                    <span className="text-ink-3 text-sm font-syne">{plan.period}</span>
+                    <span className="text-ink-3 text-xs font-syne line-through ml-1">
+                      ${regional.base_prices[TIER_TO_PLAN[plan.tier]]?.toFixed(0)}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-syne font-black text-3xl text-ink">{plan.price}</span>
+                    <span className="text-ink-3 text-sm font-syne">{plan.period}</span>
+                  </>
+                )}
               </div>
               <p className="text-ink-3 text-xs mt-1 font-syne">{plan.description}</p>
             </div>

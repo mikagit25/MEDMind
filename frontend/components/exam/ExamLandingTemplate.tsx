@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
+import { RegionalPriceBadge } from "@/components/exam/RegionalPriceBadge";
 
 export interface ExamDefinition {
   slug: string;
@@ -177,10 +178,13 @@ export function ExamLandingTemplate({ exam }: { exam: ExamDefinition }) {
               Many nurses sit multiple exams depending on which country accepts them.
             </div>
           </div>
-          <Link href="/exams/gulf"
-            className="font-syne font-bold text-sm bg-ink text-white px-5 py-2.5 rounded-xl hover:bg-red transition-colors flex-shrink-0">
-            View Gulf Bundle →
-          </Link>
+          <div className="flex flex-col gap-2 flex-shrink-0">
+            <RegionalPriceBadge plan="gulf_bundle" />
+            <Link href="/exams/gulf"
+              className="font-syne font-bold text-sm bg-ink text-white px-5 py-2.5 rounded-xl hover:bg-red transition-colors text-center">
+              View Gulf Bundle →
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -97,6 +97,14 @@ class Settings(BaseSettings):
     STRIPE_PRICE_LIFETIME: str = "price_lifetime_once"
     STRIPE_PRICE_GULF_BUNDLE: str = "price_gulf_bundle_monthly"  # G1 — all Gulf Prometric exams
 
+    # G3 — Payment coverage expansion (feature flags)
+    # PayPal: covers Egypt, Pakistan, Philippines — markets where Stripe cards often decline.
+    # Set PAYPAL_ENABLED=true + credentials when ready to activate.
+    PAYPAL_ENABLED: bool = False
+    PAYPAL_CLIENT_ID: str = ""
+    PAYPAL_CLIENT_SECRET: str = ""
+    PAYPAL_MODE: str = "sandbox"  # "sandbox" | "live"
+
     # PubMed
     PUBMED_API_KEY: str = ""
     PUBMED_RATE_LIMIT: int = 3  # req/sec without key, 10/sec with key

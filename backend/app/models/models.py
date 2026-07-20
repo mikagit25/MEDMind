@@ -414,6 +414,11 @@ class User(Base):
     # Affiliate: which influencer brought this user (plain UUID, no FK to avoid circular)
     referred_by_affiliate_id = Column(UUID(as_uuid=True), nullable=True, index=True)
 
+    # G3 — Regional pricing: set from Stripe billing address on first payment
+    billing_country = Column(String(2), nullable=True)   # ISO-2, e.g. "PH"
+    billing_region  = Column(String(1), nullable=True)   # "A" | "B" | "C"
+    billing_region_changed_at = Column(DateTime, nullable=True)  # anti-abuse: 1 change max
+
     refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
     progress = relationship("UserProgress", back_populates="user", cascade="all, delete-orphan")
     conversations = relationship("AIConversation", back_populates="user", cascade="all, delete-orphan")
