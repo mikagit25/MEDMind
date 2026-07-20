@@ -6,9 +6,23 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V6 Phase 3 ✅ — NCLEX Readiness Score. Backend: 743 passed. TypeScript: 0 errors. E2E: 11 passed, 0 failed.
-**Last Updated:** 2026-07-19
-**Next Action:** V6 Phase 4 — Study Plan from exam date.
+**Phase:** EXAMS-GLOBAL G1 ✅ — Gulf Prometric Exam Registry. Tests: 50 passed. TypeScript: 0 errors.
+**Last Updated:** 2026-07-20
+**Next Action:** EXAMS-GLOBAL G2 — Spanish NCLEX layer.
+
+### Exams Registry (G1) ✅ (2026-07-20)
+| Exam | Bank (Q) | Status | Blueprint verified |
+|------|----------|--------|--------------------|
+| SNLE (Saudi Arabia) | 0* | draft | pending |
+| DHA (Dubai UAE) | 0* | draft | pending |
+| QCHP (Qatar) | 0* | draft | pending |
+| OMSB (Oman) | 0* | draft | pending |
+| NHRA (Bahrain) | 0* | draft | pending |
+| MOH UAE (N. Emirates) | 0* | draft | pending |
+| DOH/HAAD (Abu Dhabi) | 0* | draft | pending |
+*Questions shared from NCLEX bank via map_gulf_questions.py; Gulf-specific generation via generate_gulf_questions.py (300Q target/exam). All status='draft' until blueprint_verified_at confirmed manually.
+
+**⚠️ NOTE:** To activate Gulf exam landing pages, verify parameters against official sources and set `status='active'` + `blueprint_verified_at` via `seed_exam_registry.py` or admin panel.
 
 ### V6 Phase 3 — NCLEX Readiness Score ✅ (2026-07-19)
 - **`app/services/readiness.py`**: `compute_from_sessions()` + `compute_readiness()` + `get_cached_readiness()` + `invalidate_readiness_cache()`
