@@ -513,6 +513,24 @@ async def _study_plan_morning_reminder():
         logger.error("Study plan morning reminder failed: %s", e)
 
 
+async def _enrich_nclex_rationales_job() -> None:
+    """Enrich NCLEX questions missing rationales (50 per run)."""
+    try:
+        from app.scripts.enrich_nclex_rationales import run as enrich_run
+        await enrich_run(max_questions=50)
+    except Exception as exc:
+        logger.error("enrich_nclex_rationales cron error: %s", exc)
+
+
+async def _translate_nclex_es_job() -> None:
+    """Translate enriched NCLEX rationales to Spanish (50 per run)."""
+    try:
+        from app.scripts.translate_nclex_rationales import run as translate_run
+        await translate_run(max_questions=50)
+    except Exception as exc:
+        logger.error("translate_nclex_rationales cron error: %s", exc)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -664,6 +682,24 @@ def start_scheduler():
         id="analytics_retention",
         replace_existing=True,
         misfire_grace_time=3600,
+    )
+
+    # Every 30 min — enrich NCLEX questions missing rationales (50 per run, all key pools)
+    scheduler.add_job(
+        _enrich_nclex_rationales_job,
+        trigger=CronTrigger(minute="*/30", timezone="UTC"),
+        id="enrich_nclex_rationales",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
+    # Every 30 min (offset +15) — translate enriched NCLEX rationales to Spanish
+    scheduler.add_job(
+        _translate_nclex_es_job,
+        trigger=CronTrigger(minute="15,45", timezone="UTC"),
+        id="translate_nclex_es",
+        replace_existing=True,
+        misfire_grace_time=600,
     )
 
     scheduler.start()
