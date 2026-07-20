@@ -10,11 +10,12 @@ BLUEPRINT_VERIFIED_DATE = "2026-07-20"
 GULF_BLUEPRINT_CATEGORIES = [
     "fundamentals_nursing",
     "medical_surgical",
+    "critical_care",       # SNLE: explicit subsection of Adult Nursing (40%)
     "pharmacology",
     "maternal_newborn",
     "pediatrics",
     "mental_health",
-    "community_public_health",
+    "community_public_health",  # includes gerontology (OMSB: 15%)
     "leadership_management",
 ]
 
@@ -31,11 +32,12 @@ GULF_EXAMS: list[dict] = [
         "name": "SNLE — Saudi Nursing Licensing Exam",
         "country": "Saudi Arabia",
         "regulatory_body": "Saudi Commission for Health Specialties (SCHS)",
-        "question_count": 100,
-        "duration_min": 180,
-        "pass_threshold": 65,
-        "passing_score_label": "65%",
-        "blueprint_source": "https://www.scfhs.org.sa/en/MESPS/TrainingProgs/Pages/Exam.aspx",
+        # Source: SCFHS Applicant Guide 2024 — 2 parts × 100 questions + 30 min break
+        "question_count": 200,
+        "duration_min": 270,  # 2 × 120 min + 30 min break
+        "pass_threshold": 65,  # Passing score 500/800 scale ≈ 65%
+        "passing_score_label": "500/800",
+        "blueprint_source": "https://scfhs.org.sa/sites/default/files/2024-10/SNLE%20Applicant%20Guide%202024.pdf",
         "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
         "status": "active",
         "locale": "en",
@@ -89,7 +91,7 @@ GULF_EXAMS: list[dict] = [
         "duration_min": 180,
         "pass_threshold": 65,
         "passing_score_label": "65%",
-        "blueprint_source": "https://www.omsb.org/licensing",
+        "blueprint_source": "https://omsb.gov.om/ContentFiles/OEN%20BookletYYYY11DD1311SS.pdf",
         "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
         "status": "active",
         "locale": "en",
