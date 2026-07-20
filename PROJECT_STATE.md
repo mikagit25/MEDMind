@@ -6,11 +6,11 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** EXAMS-GLOBAL G1 ✅ — Gulf Prometric Exam Registry. Tests: 50 passed. TypeScript: 0 errors.
+**Phase:** EXAMS-GLOBAL Транш 1 ЗАВЕРШЁН ✅ — G1 (Gulf Registry) + G2 (ES Layer) + G3 (Regional Pricing)
 **Last Updated:** 2026-07-20
-**Next Action:** EXAMS-GLOBAL G2 — Spanish NCLEX layer.
+**Next Action:** ВОРОТА ТРАНША 2 — ждать ≥100 платящих или ≥1000 активных по Gulf+ES. До этого: маркетинг Транша 1.
 
-### Exams Registry (G1) ✅ (2026-07-20)
+### Exams Registry — Gulf (G1) ✅ (2026-07-20)
 | Exam | Bank (Q) | Status | Blueprint verified |
 |------|----------|--------|--------------------|
 | SNLE (Saudi Arabia) | 0* | draft | pending |
@@ -23,6 +23,28 @@
 *Questions shared from NCLEX bank via map_gulf_questions.py; Gulf-specific generation via generate_gulf_questions.py (300Q target/exam). All status='draft' until blueprint_verified_at confirmed manually.
 
 **⚠️ NOTE:** To activate Gulf exam landing pages, verify parameters against official sources and set `status='active'` + `blueprint_verified_at` via `seed_exam_registry.py` or admin panel.
+
+### Spanish NCLEX Layer (G2) ✅ (2026-07-20)
+- DB: 4 ES columns on mcq_questions (explanation_es, rationales_es, key_takeaway_es, test_taking_tip_es)
+- Translation cron: `python -m app.scripts.translate_nclex_rationales [--max N] [--dry-run]`
+- API: POST /exam/sessions/{id}/answers/{idx} returns ES fields alongside EN
+- UI: RationalePanel language toggle 🇺🇸↔🇪🇸, localStorage persistence
+- Public landing: `/es/nclex` — SEO Spanish NCLEX prep page
+- Tests: 28 passed
+
+### Regional Pricing (G3) ✅ (2026-07-20)
+| Tier | Countries | Discount | Student | Pro | Gulf Bundle |
+|------|-----------|----------|---------|-----|-------------|
+| A | US/EU/GCC | — | $15 | $40 | $29 |
+| B | TR/LatAm/CIS | 50% | $7.5 | $20 | $14.5 |
+| C | IN/PH/EG/NG/PK | 70% | $4.5 | $12 | $8.7 |
+- Region detection: CF-IPCountry → ip-api.com fallback; billing_country from Stripe = authoritative
+- Anti-abuse: billing_country locked after first payment; unknown country defaults to Tier A
+- Stripe: dynamic price_data used for Tier B/C; billing metadata stored in webhook
+- PayPal: feature flag ready (PAYPAL_ENABLED=false), activate per-market when needed
+- API: GET /pricing/regional — tier, country, source, prices, discount_pct
+- UI: pricing page shows regional banner + crossed-out base price; exam landings show RegionalPriceBadge
+- Tests: 43 passed
 
 ### V6 Phase 3 — NCLEX Readiness Score ✅ (2026-07-19)
 - **`app/services/readiness.py`**: `compute_from_sessions()` + `compute_readiness()` + `get_cached_readiness()` + `invalidate_readiness_cache()`
