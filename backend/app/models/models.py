@@ -245,6 +245,11 @@ class MCQQuestion(Base):
     rationales = Column(JSONB, nullable=True)
     key_takeaway = Column(Text, nullable=True)
     test_taking_tip = Column(Text, nullable=True)
+    # G2: Spanish translations of explanations (null = not yet translated)
+    explanation_es = Column(Text, nullable=True)
+    rationales_es = Column(JSONB, nullable=True)
+    key_takeaway_es = Column(Text, nullable=True)
+    test_taking_tip_es = Column(Text, nullable=True)
     # Phase 2: user flagging
     is_flagged = Column(Boolean, nullable=False, server_default="false")
     flag_reason = Column(Text, nullable=True)

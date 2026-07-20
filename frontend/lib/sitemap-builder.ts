@@ -540,6 +540,8 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/exams/nhra",         priority: 0.8, changefreq: "monthly" },
       { path: "/exams/moh-uae",      priority: 0.8, changefreq: "monthly" },
       { path: "/exams/haad",         priority: 0.8, changefreq: "monthly" },
+      // G2 — Spanish NCLEX landing
+      { path: "/es/nclex",           priority: 0.9, changefreq: "monthly" },
     ];
     for (const s of statics) {
       entries.push(

@@ -292,6 +292,12 @@ function RationalePanel({
   rationales,
   keyTakeaway,
   testTakingTip,
+  rationalesEs,
+  keyTakeawayEs,
+  testTakingTipEs,
+  showSpanish,
+  hasSpanish,
+  onToggleSpanish,
   selectedOption,
   selectedOptions,
   options,
@@ -299,21 +305,49 @@ function RationalePanel({
   rationales?: Rationales;
   keyTakeaway?: string;
   testTakingTip?: string;
+  rationalesEs?: Rationales;
+  keyTakeawayEs?: string;
+  testTakingTipEs?: string;
+  showSpanish: boolean;
+  hasSpanish: boolean;
+  onToggleSpanish: () => void;
   selectedOption?: string;
   selectedOptions?: string[];
   options: Record<string, string>;
 }) {
   const [expanded, setExpanded] = useState(false);
-  if (!rationales && !keyTakeaway) return null;
+
+  const activeRationales = showSpanish && rationalesEs ? rationalesEs : rationales;
+  const activeKeyTakeaway = showSpanish && keyTakeawayEs ? keyTakeawayEs : keyTakeaway;
+  const activeTestTakingTip = showSpanish && testTakingTipEs ? testTakingTipEs : testTakingTip;
+
+  if (!activeRationales && !activeKeyTakeaway) return null;
 
   const selected = selectedOption || (selectedOptions && selectedOptions[0]) || "";
-  const selectedRationale = rationales?.[selected];
-  const otherEntries = rationales
-    ? Object.entries(rationales).filter(([k]) => k !== selected)
+  const selectedRationale = activeRationales?.[selected];
+  const otherEntries = activeRationales
+    ? Object.entries(activeRationales).filter(([k]) => k !== selected)
     : [];
 
   return (
     <div className="rounded-xl border border-border bg-surface overflow-hidden text-sm">
+      {/* Language toggle — only shown when ES translation is available */}
+      {hasSpanish && (
+        <div className="flex items-center justify-end px-4 py-2 border-b border-border bg-surface-2">
+          <button
+            onClick={onToggleSpanish}
+            className={`flex items-center gap-1.5 text-[11px] font-syne font-semibold px-2.5 py-1 rounded-md transition-colors ${
+              showSpanish
+                ? "bg-ink text-white"
+                : "bg-border text-ink-3 hover:text-ink hover:bg-border/80"
+            }`}
+          >
+            <span>{showSpanish ? "🇪🇸 Español" : "🇺🇸 English"}</span>
+            <span className="opacity-60">↔</span>
+          </button>
+        </div>
+      )}
+
       {/* Selected option rationale — always visible */}
       {selectedRationale && (
         <div className={`px-4 pt-4 pb-3 ${selectedRationale.why === "correct" ? "bg-green/5 border-b border-green/20" : "bg-red/5 border-b border-red/20"}`}>
@@ -322,7 +356,9 @@ function RationalePanel({
               ? <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
               : <XCircle className="w-4 h-4 text-red flex-shrink-0" />}
             <span className="font-syne font-bold text-xs text-ink">
-              Option {selected}: {selectedRationale.why === "correct" ? "Correct" : "Incorrect"}
+              {showSpanish
+                ? `Opción ${selected}: ${selectedRationale.why === "correct" ? "Correcta" : "Incorrecta"}`
+                : `Option ${selected}: ${selectedRationale.why === "correct" ? "Correct" : "Incorrect"}`}
             </span>
           </div>
           <p className="font-serif text-xs text-ink-2 leading-relaxed">{selectedRationale.text}</p>
@@ -330,12 +366,14 @@ function RationalePanel({
       )}
 
       {/* Key takeaway */}
-      {keyTakeaway && (
+      {activeKeyTakeaway && (
         <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-start gap-2">
           <Lightbulb className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
           <div>
-            <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">Key Takeaway</span>
-            <p className="font-serif text-xs text-amber-800 leading-relaxed">{keyTakeaway}</p>
+            <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">
+              {showSpanish ? "Punto Clave" : "Key Takeaway"}
+            </span>
+            <p className="font-serif text-xs text-amber-800 leading-relaxed">{activeKeyTakeaway}</p>
           </div>
         </div>
       )}
@@ -347,7 +385,9 @@ function RationalePanel({
             onClick={() => setExpanded(e => !e)}
             className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-syne font-semibold text-ink-3 hover:text-ink hover:bg-surface-2 transition-colors"
           >
-            <span>Explain other options ({otherEntries.length})</span>
+            <span>
+              {showSpanish ? `Explicar otras opciones (${otherEntries.length})` : `Explain other options (${otherEntries.length})`}
+            </span>
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
           {expanded && (
@@ -360,10 +400,12 @@ function RationalePanel({
                   <p className="font-serif text-xs text-ink-2 leading-relaxed flex-1">{r.text}</p>
                 </div>
               ))}
-              {testTakingTip && (
+              {activeTestTakingTip && (
                 <div className="pt-2 border-t border-border">
-                  <span className="font-syne font-bold text-xs text-ink-3 block mb-0.5">Test-Taking Tip</span>
-                  <p className="font-serif text-xs text-ink-3 italic leading-relaxed">{testTakingTip}</p>
+                  <span className="font-syne font-bold text-xs text-ink-3 block mb-0.5">
+                    {showSpanish ? "Consejo para el Examen" : "Test-Taking Tip"}
+                  </span>
+                  <p className="font-serif text-xs text-ink-3 italic leading-relaxed">{activeTestTakingTip}</p>
                 </div>
               )}
             </div>
@@ -479,7 +521,11 @@ function isPracticeMode(modeId: string): boolean {
   return modeId === "nclex_demo" || !modeId.includes("nclex_");
 }
 
-type QuestionRationale = { rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string };
+type QuestionRationale = {
+  rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string;
+  rationales_es?: Rationales; key_takeaway_es?: string; test_taking_tip_es?: string;
+  explanation_es?: string;
+};
 
 function ExamSession({
   session,
@@ -496,7 +542,21 @@ function ExamSession({
   const [submitting, setSubmitting] = useState(false);
   const [currentDifficulty, setCurrentDifficulty] = useState("medium");
   const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const [showSpanish, setShowSpanish] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("nclex_rationale_lang") === "es";
+    }
+    return false;
+  });
   const showRationale = isPracticeMode(session.mode_id);
+
+  function toggleSpanish() {
+    setShowSpanish(prev => {
+      const next = !prev;
+      localStorage.setItem("nclex_rationale_lang", next ? "es" : "en");
+      return next;
+    });
+  }
 
   const question = session.questions[current];
   const ans = answers[current] ?? BLANK_ANSWER;
@@ -526,7 +586,11 @@ function ExamSession({
       if (res?.rationales || res?.key_takeaway) {
         setQuestionRationales(prev => ({
           ...prev,
-          [idx]: { rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip },
+          [idx]: {
+            rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip,
+            rationales_es: res.rationales_es, key_takeaway_es: res.key_takeaway_es,
+            test_taking_tip_es: res.test_taking_tip_es, explanation_es: res.explanation_es,
+          },
         }));
       }
     } catch {}
@@ -701,6 +765,12 @@ function ExamSession({
                 rationales={questionRationales[current].rationales}
                 keyTakeaway={questionRationales[current].key_takeaway}
                 testTakingTip={questionRationales[current].test_taking_tip}
+                rationalesEs={questionRationales[current].rationales_es}
+                keyTakeawayEs={questionRationales[current].key_takeaway_es}
+                testTakingTipEs={questionRationales[current].test_taking_tip_es}
+                showSpanish={showSpanish}
+                hasSpanish={!!questionRationales[current].rationales_es}
+                onToggleSpanish={toggleSpanish}
                 selectedOption={answers[current]?.selected_option}
                 selectedOptions={answers[current]?.selected_options}
                 options={question.options}

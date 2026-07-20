@@ -526,6 +526,11 @@ async def create_session(
             "_rationales": getattr(mcq, "rationales", None),
             "_key_takeaway": getattr(mcq, "key_takeaway", None),
             "_test_taking_tip": getattr(mcq, "test_taking_tip", None),
+            # G2: Spanish translations (null if not yet translated)
+            "_rationales_es": getattr(mcq, "rationales_es", None),
+            "_key_takeaway_es": getattr(mcq, "key_takeaway_es", None),
+            "_test_taking_tip_es": getattr(mcq, "test_taking_tip_es", None),
+            "_explanation_es": getattr(mcq, "explanation_es", None),
         }
         for i, mcq in enumerate(mcqs)
     ]
@@ -659,6 +664,11 @@ async def submit_answer(
         "rationales": q_snap.get("_rationales"),
         "key_takeaway": q_snap.get("_key_takeaway"),
         "test_taking_tip": q_snap.get("_test_taking_tip"),
+        # G2: Spanish translations (null when not yet translated)
+        "rationales_es": q_snap.get("_rationales_es"),
+        "key_takeaway_es": q_snap.get("_key_takeaway_es"),
+        "test_taking_tip_es": q_snap.get("_test_taking_tip_es"),
+        "explanation_es": q_snap.get("_explanation_es"),
     }
 
 
