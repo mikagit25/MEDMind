@@ -275,3 +275,38 @@ async def run_subscription_reconciliation() -> None:
                 pass
         else:
             logger.info("Stripe reconciliation: all subscriptions consistent")
+
+
+# ── Exam access helpers (G1) ──────────────────────────────────────────────────
+
+from app.data.exam_registry import GULF_EXAMS as _GULF_EXAMS
+
+_GULF_SLUGS: frozenset[str] = frozenset(e["slug"] for e in _GULF_EXAMS)
+
+# Tiers with full access to all exams (no per-exam gate)
+_FULL_ACCESS_TIERS = frozenset({"pro", "clinic", "lifetime"})
+# Gulf Bundle tier gives access specifically to Gulf family
+_GULF_BUNDLE_TIER = "gulf_bundle"
+
+
+def user_has_exam_access(user, exam_slug: str) -> bool:
+    """Return True if the user may take full (non-demo) sessions for exam_slug.
+
+    Rules:
+    - pro / clinic / lifetime → all exams
+    - gulf_bundle → Gulf family only
+    - student → NCLEX and other non-Gulf exams (no Gulf Bundle upsell)
+    - free → demo only (caller must check separately)
+    """
+    tier = getattr(user, "subscription_tier", "free") or "free"
+    if tier in _FULL_ACCESS_TIERS:
+        return True
+    if tier == _GULF_BUNDLE_TIER and exam_slug in _GULF_SLUGS:
+        return True
+    if tier == "student" and exam_slug not in _GULF_SLUGS:
+        return True
+    return False
+
+
+def is_gulf_exam(exam_slug: str) -> bool:
+    return exam_slug in _GULF_SLUGS

@@ -248,9 +248,42 @@ class MCQQuestion(Base):
     # Phase 2: user flagging
     is_flagged = Column(Boolean, nullable=False, server_default="false")
     flag_reason = Column(Text, nullable=True)
+    # G1: which exam slugs use this question e.g. ["snle", "dha", "qchp"]
+    exam_slugs = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="mcq_questions")
+
+
+# ============================================================
+# EXAM REGISTRY — G1
+# ============================================================
+class ExamDefinition(Base):
+    """Authoritative registry of every licensing exam MedMind supports.
+    Parameters must come from official sources; blueprint_verified_at must be set.
+    status='draft' means the entry is not shown publicly until parameters are confirmed.
+    """
+    __tablename__ = "exam_definitions"
+
+    slug               = Column(String(60),  primary_key=True)   # "dha" | "snle" | "qchp" …
+    name               = Column(String(200), nullable=False)
+    country            = Column(String(100), nullable=False)
+    regulatory_body    = Column(String(200), nullable=False)
+    question_count     = Column(Integer,     nullable=False)
+    duration_min       = Column(Integer,     nullable=False)
+    pass_threshold     = Column(Integer,     nullable=False)       # percentage, e.g. 65
+    passing_score_label= Column(String(30),  nullable=False, server_default="65%")
+    blueprint_source   = Column(String(500), nullable=False)       # official URL
+    blueprint_verified_at = Column(String(20), nullable=True)      # ISO date "2026-01-01"
+    status             = Column(String(20),  nullable=False, server_default="draft")  # active|draft
+    locale             = Column(String(10),  nullable=False, server_default="en")
+    family             = Column(String(50),  nullable=False, server_default="gulf")   # gulf|nclex|uk
+    options_per_question = Column(Integer,   nullable=False, server_default="4")
+    categories         = Column(JSONB,       nullable=True)   # list of blueprint category strings
+    exam_date_fixed    = Column(String(20),  nullable=True)   # ISO date — annual exams (KPSS)
+    disclaimer         = Column(Text,        nullable=True)
+    created_at         = Column(DateTime,    default=datetime.utcnow)
+    updated_at         = Column(DateTime,    default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 # ============================================================

@@ -95,6 +95,7 @@ class Settings(BaseSettings):
     STRIPE_PRICE_PRO: str = "price_pro_monthly"
     STRIPE_PRICE_CLINIC: str = "price_clinic_monthly"
     STRIPE_PRICE_LIFETIME: str = "price_lifetime_once"
+    STRIPE_PRICE_GULF_BUNDLE: str = "price_gulf_bundle_monthly"  # G1 — all Gulf Prometric exams
 
     # PubMed
     PUBMED_API_KEY: str = ""

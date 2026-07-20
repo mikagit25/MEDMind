@@ -1,4 +1,4 @@
-"""Board Exam Prep Mode — USMLE / NCLEX / UKMLA.
+"""Board Exam Prep Mode — USMLE / NCLEX / UKMLA / Gulf Prometric.
 
 Timed sessions with DB-persisted state, CAT-lite difficulty adaptation,
 and NCLEX category analytics.
@@ -14,6 +14,9 @@ GET  /exam/sessions/{id}/results         — results + category breakdown
 GET  /exam/history                       — past sessions
 GET  /exam/nclex/analytics               — NCLEX category performance over time
 GET  /exam/nclex/readiness               — NCLEX Readiness Score (weighted estimate)
+GET  /exam/definitions                   — exam registry (public, active only)
+GET  /exam/definitions/{slug}            — single exam definition
+GET  /exam/definitions/family/{family}   — all exams in a family (e.g. gulf)
 """
 
 import uuid as uuid_lib
@@ -29,7 +32,7 @@ from sqlalchemy.orm.attributes import flag_modified
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
-from app.models.models import ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, User
+from app.models.models import ExamDefinition, ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, User
 from app.services.ai_router import call_claude_structured, call_ollama_structured
 from app.services import study_planner as planner
 
@@ -1224,3 +1227,85 @@ async def update_plan_date(
         select(ExamPlanCompletion).where(ExamPlanCompletion.plan_id == plan_row.id)
     )
     return {"plan": _plan_to_response(plan_row, comps.scalars().all())}
+
+
+# ── Exam Registry endpoints (G1) ──────────────────────────────────────────────
+
+def _exam_def_to_dict(e: ExamDefinition) -> dict:
+    return {
+        "slug":                 e.slug,
+        "name":                 e.name,
+        "country":              e.country,
+        "regulatory_body":      e.regulatory_body,
+        "question_count":       e.question_count,
+        "duration_min":         e.duration_min,
+        "pass_threshold":       e.pass_threshold,
+        "passing_score_label":  e.passing_score_label,
+        "blueprint_source":     e.blueprint_source,
+        "blueprint_verified_at": e.blueprint_verified_at,
+        "status":               e.status,
+        "locale":               e.locale,
+        "family":               e.family,
+        "options_per_question": e.options_per_question,
+        "categories":           e.categories or [],
+        "exam_date_fixed":      e.exam_date_fixed,
+        "disclaimer":           e.disclaimer,
+        "stale_blueprint":      _is_stale_blueprint(e.blueprint_verified_at),
+    }
+
+
+def _is_stale_blueprint(verified_at: str | None) -> bool:
+    """True if blueprint_verified_at is older than 12 months or missing."""
+    if not verified_at:
+        return True
+    try:
+        from datetime import date
+        v = date.fromisoformat(verified_at)
+        return (date.today() - v).days > 365
+    except ValueError:
+        return True
+
+
+@router.get("/definitions", tags=["exam"])
+async def list_exam_definitions(
+    family: Optional[str] = None,
+    include_draft: bool = False,
+    db: AsyncSession = Depends(get_db),
+):
+    """Public exam registry. By default returns only active entries.
+    Pass include_draft=true (admin use) to see draft entries too."""
+    q = select(ExamDefinition)
+    if family:
+        q = q.where(ExamDefinition.family == family)
+    if not include_draft:
+        q = q.where(ExamDefinition.status == "active")
+    result = await db.execute(q)
+    exams = result.scalars().all()
+    return [_exam_def_to_dict(e) for e in exams]
+
+
+@router.get("/definitions/family/{family}", tags=["exam"])
+async def list_exam_family(
+    family: str,
+    include_draft: bool = False,
+    db: AsyncSession = Depends(get_db),
+):
+    """All exams in a family (e.g. 'gulf'). Active only by default."""
+    q = select(ExamDefinition).where(ExamDefinition.family == family)
+    if not include_draft:
+        q = q.where(ExamDefinition.status == "active")
+    result = await db.execute(q)
+    exams = result.scalars().all()
+    return [_exam_def_to_dict(e) for e in exams]
+
+
+@router.get("/definitions/{slug}", tags=["exam"])
+async def get_exam_definition(
+    slug: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Single exam definition by slug. Returns active OR draft (public info)."""
+    exam = await db.get(ExamDefinition, slug)
+    if not exam:
+        raise HTTPException(404, f"Exam '{slug}' not found in registry")
+    return _exam_def_to_dict(exam)
