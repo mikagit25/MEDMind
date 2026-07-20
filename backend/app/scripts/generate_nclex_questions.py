@@ -20,6 +20,11 @@ import time
 from pathlib import Path
 
 import httpx
+from sqlalchemy import func, select
+
+from app.core.database import AsyncSessionLocal
+from app.models.models import MCQQuestion, Module
+from app.scripts._mcq_db_writer import NCLEX_SOURCES, get_nclex_module_id, save_questions_to_db
 
 # ── Config ────────────────────────────────────────────────────────────────────
 # Generation keys: dedicated module-gen keys + VET_MODULES reserve key
@@ -35,12 +40,6 @@ _seen: set = set()
 GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-MODULES_DIR = (
-    Path("/app/data/modules") if Path("/app/data/modules").exists()
-    else Path(__file__).parents[4] / "Modules"
-)
-OUTPUT_DIR = Path("/tmp/nclex_output")
-OUTPUT_PREFIX = "nclex_qbank_"
 
 # ── NCLEX Metadata Maps ───────────────────────────────────────────────────────
 
@@ -724,21 +723,22 @@ Return ONLY valid JSON array:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def _pending_modules() -> list[str]:
-    """Return modules that don't yet have an output file with ≥20 questions."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+async def _pending_modules() -> list[str]:
+    """Return modules with fewer than 20 questions in DB."""
     pending = []
-    for code in MODULE_META.keys():
-        path = OUTPUT_DIR / f"{OUTPUT_PREFIX}{code}.json"
-        if not path.exists():
-            pending.append(code)
-            continue
-        try:
-            data = json.loads(path.read_text())
-            if data.get("total", 0) < 20:  # too few — regenerate
+    async with AsyncSessionLocal() as db:
+        for code in MODULE_META.keys():
+            mod_result = await db.execute(select(Module.id).where(Module.code == code))
+            module_id = mod_result.scalar_one_or_none()
+            if module_id is None:
                 pending.append(code)
-        except Exception:
-            pending.append(code)
+                continue
+            count_result = await db.execute(
+                select(func.count(MCQQuestion.id)).where(MCQQuestion.module_id == module_id)
+            )
+            count = count_result.scalar() or 0
+            if count < 20:
+                pending.append(code)
     return pending
 
 
@@ -750,13 +750,10 @@ async def main():
     if cron_mode:
         args = [a for a in args if a != "--next"]
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
     if cron_mode and not args:
-        pending = _pending_modules()
+        pending = await _pending_modules()
         if not pending:
-            print("✓ All modules already generated — nothing to do.")
-            print(f"  Run: python -m app.scripts.import_nclex_questions")
+            print("✓ All modules have ≥20 questions in DB — nothing to do.")
             return
         target_modules = [pending[0]]
         print(f"[CRON] Picking next pending module: {target_modules[0]}")
@@ -770,7 +767,7 @@ async def main():
         sys.exit(1)
 
     groq = GroqClient()
-    total_generated = 0
+    total_saved = 0
 
     for module_code in target_modules:
         try:
@@ -778,30 +775,31 @@ async def main():
         except RateLimitExhausted as e:
             print(f"\n  ⚠ {e}")
             print(f"  Cron will retry this module on the next run.")
-            break  # exit loop cleanly; cron picks it up next time
+            break
 
-        output_path = OUTPUT_DIR / f"{OUTPUT_PREFIX}{module_code}.json"
         if not questions:
-            print(f"  ✗ No valid questions generated for {module_code} — skipping write")
+            print(f"  ✗ No valid questions generated for {module_code} — skipping")
             continue
-        output = {
-            "module_code": module_code,
-            "module_title": MODULE_META[module_code]["title"],
-            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "total": len(questions),
-            "questions": questions,
-        }
-        output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2))
-        print(f"  Saved → {output_path}")
-        total_generated += len(questions)
 
-    remaining = len(_pending_modules())
+        module_id = await get_nclex_module_id(module_code)
+        if module_id is None:
+            print(f"  ✗ Module {module_code} not found in DB — run import_modules first")
+            continue
+
+        saved, skipped = await save_questions_to_db(
+            questions, module_id, NCLEX_SOURCES,
+            run_verification=True, print_fn=print,
+        )
+        print(f"  ✓ {saved} saved, {skipped} skipped for {module_code}")
+        total_saved += saved
+
+    remaining = len(await _pending_modules())
     print(f"\n{'='*60}")
-    print(f"  DONE: {total_generated} questions generated this run")
+    print(f"  DONE: {total_saved} questions saved this run")
     if remaining > 0:
         print(f"  Remaining modules: {remaining} — cron will handle them")
     else:
-        print(f"  All modules complete! Run: python -m app.scripts.import_nclex_questions")
+        print(f"  All modules have ≥20 questions in DB.")
     print(f"{'='*60}")
 
 

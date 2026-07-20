@@ -19,6 +19,11 @@ import time
 from pathlib import Path
 
 import httpx
+from sqlalchemy import func, select
+
+from app.core.database import AsyncSessionLocal
+from app.models.models import MCQQuestion, Module
+from app.scripts._mcq_db_writer import get_gulf_sources, get_or_create_gulf_module, save_questions_to_db
 
 # ── Config ────────────────────────────────────────────────────────────────────
 GROQ_KEYS = [k for k in [
@@ -31,11 +36,6 @@ _seen: set = set()
 GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-
-OUTPUT_DIR = Path("/tmp/gulf_qbank")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-TRACKING_FILE = Path("/app/data/modules/gulf_qbank_progress.json") if \
-    Path("/app/data/modules").exists() else Path("/tmp/gulf_qbank_progress.json")
 
 TARGET_PER_EXAM = 300
 BATCH_SIZE = 15
@@ -94,26 +94,18 @@ GULF_EXAM_TOPICS = [
 ]
 
 
-def _load_progress() -> dict:
-    if TRACKING_FILE.exists():
-        with open(TRACKING_FILE) as f:
-            return json.load(f)
-    return {}
-
-
-def _save_progress(progress: dict) -> None:
-    TRACKING_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(TRACKING_FILE, "w") as f:
-        json.dump(progress, f, indent=2)
-
-
-def _count_existing(slug: str) -> int:
-    """Count questions already in the output file for this slug."""
-    out = OUTPUT_DIR / f"gulf_qbank_{slug}.json"
-    if not out.exists():
-        return 0
-    with open(out) as f:
-        return len(json.load(f))
+async def _count_existing_db(slug: str) -> int:
+    """Count questions already in DB for this Gulf exam slug."""
+    module_code = f"GULF-{slug.upper()}"
+    async with AsyncSessionLocal() as db:
+        mod_result = await db.execute(select(Module.id).where(Module.code == module_code))
+        module_id = mod_result.scalar_one_or_none()
+        if module_id is None:
+            return 0
+        count_result = await db.execute(
+            select(func.count(MCQQuestion.id)).where(MCQQuestion.module_id == module_id)
+        )
+        return count_result.scalar() or 0
 
 
 class RateLimiter:
@@ -207,24 +199,19 @@ def _parse_questions(raw: str) -> list[dict]:
         return []
 
 
-async def generate_for_slug(slug: str) -> int:
+async def generate_for_slug(slug: str, exam_name: str) -> int:
     limiter = RateLimiter()
-    existing = _count_existing(slug)
+    existing = await _count_existing_db(slug)
     needed = max(0, TARGET_PER_EXAM - existing)
     if needed == 0:
-        print(f"  {slug}: already at {existing}/{TARGET_PER_EXAM} — skipping")
+        print(f"  {slug}: already at {existing}/{TARGET_PER_EXAM} in DB — skipping")
         return 0
 
     print(f"\n{'='*60}")
     print(f"  Generating for {slug.upper()}: {existing}/{TARGET_PER_EXAM} — need {needed} more")
     print(f"{'='*60}")
 
-    out_file = OUTPUT_DIR / f"gulf_qbank_{slug}.json"
-    all_questions: list[dict] = []
-    if out_file.exists():
-        with open(out_file) as f:
-            all_questions = json.load(f)
-
+    new_questions: list[dict] = []
     generated = 0
     for topic in GULF_EXAM_TOPICS:
         if generated >= needed:
@@ -238,20 +225,28 @@ async def generate_for_slug(slug: str) -> int:
         qs = _parse_questions(raw)
         for q in qs:
             q["exam_slugs"] = [slug]
-        all_questions.extend(qs)
+        new_questions.extend(qs)
         generated += len(qs)
-        print(f"    ✓ {len(qs)} generated (total {len(all_questions)})")
+        print(f"    ✓ {len(qs)} generated")
         await asyncio.sleep(1)
 
-    with open(out_file, "w") as f:
-        json.dump(all_questions, f, indent=2, ensure_ascii=False)
+    if new_questions:
+        module_id = await get_or_create_gulf_module(slug, exam_name)
+        source_refs = get_gulf_sources(slug)
+        saved, skipped = await save_questions_to_db(
+            new_questions, module_id, source_refs,
+            run_verification=True, print_fn=print,
+        )
+        print(f"  ✓ {saved} saved, {skipped} skipped for {slug}")
+        return saved
 
-    return generated
+    return 0
 
 
 async def main() -> None:
     from app.data.exam_registry import GULF_EXAMS
-    gulf_slugs = [e["slug"] for e in GULF_EXAMS]
+    gulf_exams = {e["slug"]: e["name"] for e in GULF_EXAMS}
+    gulf_slugs = list(gulf_exams.keys())
 
     target_slug: str | None = None
     if "--slug" in sys.argv:
@@ -263,28 +258,29 @@ async def main() -> None:
 
     if not run_next and not target_slug:
         # Status report
-        print("\nGulf question bank status:")
+        print("\nGulf question bank status (DB):")
         for slug in gulf_slugs:
-            count = _count_existing(slug)
+            count = await _count_existing_db(slug)
             status = "✓" if count >= TARGET_PER_EXAM else f"{count}/{TARGET_PER_EXAM}"
             print(f"  {slug:<12} {status}")
         return
 
     if target_slug:
-        total = await generate_for_slug(target_slug)
-        print(f"\nDone: {total} questions generated for {target_slug}")
+        exam_name = gulf_exams.get(target_slug, target_slug.upper())
+        total = await generate_for_slug(target_slug, exam_name)
+        print(f"\nDone: {total} questions saved for {target_slug}")
         return
 
     # --next: pick first slug under target
     for slug in gulf_slugs:
-        if _count_existing(slug) < TARGET_PER_EXAM:
-            total = await generate_for_slug(slug)
-            print(f"\nDone: {total} questions generated for {slug}")
-            remaining = sum(1 for s in gulf_slugs if _count_existing(s) < TARGET_PER_EXAM)
-            print(f"Remaining slugs below target: {remaining}")
+        if await _count_existing_db(slug) < TARGET_PER_EXAM:
+            exam_name = gulf_exams[slug]
+            total = await generate_for_slug(slug, exam_name)
+            print(f"\nDone: {total} questions saved for {slug}")
+            print(f"Run without --next to see updated DB counts per slug.")
             return
 
-    print("All Gulf exam slugs at target! Run import_gulf_questions when ready.")
+    print("All Gulf exam slugs at target in DB.")
 
 
 if __name__ == "__main__":

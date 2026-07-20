@@ -255,6 +255,13 @@ class MCQQuestion(Base):
     flag_reason = Column(Text, nullable=True)
     # G1: which exam slugs use this question e.g. ["snle", "dha", "qchp"]
     exam_slugs = Column(JSONB, nullable=True)
+    # Content quality & traceability
+    # source_refs: [{name, url, section}] — official references used for this question
+    source_refs = Column(JSONB, nullable=True)
+    # verification_status: "pending" | "ai_verified" | "flagged" | "human_reviewed"
+    verification_status = Column(String(30), nullable=False, server_default="pending")
+    # verification_report: [{claim, result, confidence, issues}] from second LLM pass
+    verification_report = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     module = relationship("Module", back_populates="mcq_questions")
