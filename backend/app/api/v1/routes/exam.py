@@ -791,6 +791,7 @@ async def submit_answer(
         "recorded": True,
         "question_index": idx,
         "current_difficulty": new_difficulty if sess.cat_enabled else None,
+        "explanation": q_snap.get("explanation"),
         "rationales": q_snap.get("_rationales"),
         "key_takeaway": q_snap.get("_key_takeaway"),
         "test_taking_tip": q_snap.get("_test_taking_tip"),

@@ -295,9 +295,11 @@ function RationalePanel({
   rationales,
   keyTakeaway,
   testTakingTip,
+  explanation,
   rationalesEs,
   keyTakeawayEs,
   testTakingTipEs,
+  explanationEs,
   showSpanish,
   hasSpanish,
   onToggleSpanish,
@@ -308,9 +310,11 @@ function RationalePanel({
   rationales?: Rationales;
   keyTakeaway?: string;
   testTakingTip?: string;
+  explanation?: string;
   rationalesEs?: Rationales;
   keyTakeawayEs?: string;
   testTakingTipEs?: string;
+  explanationEs?: string;
   showSpanish: boolean;
   hasSpanish: boolean;
   onToggleSpanish: () => void;
@@ -323,8 +327,9 @@ function RationalePanel({
   const activeRationales = showSpanish && rationalesEs ? rationalesEs : rationales;
   const activeKeyTakeaway = showSpanish && keyTakeawayEs ? keyTakeawayEs : keyTakeaway;
   const activeTestTakingTip = showSpanish && testTakingTipEs ? testTakingTipEs : testTakingTip;
+  const activeExplanation = showSpanish && explanationEs ? explanationEs : explanation;
 
-  if (!activeRationales && !activeKeyTakeaway) return null;
+  if (!activeRationales && !activeKeyTakeaway && !activeExplanation) return null;
 
   const selected = selectedOption || (selectedOptions && selectedOptions[0]) || "";
   const selectedRationale = activeRationales?.[selected];
@@ -378,6 +383,13 @@ function RationalePanel({
             </span>
             <p className="font-serif text-xs text-amber-800 leading-relaxed">{activeKeyTakeaway}</p>
           </div>
+        </div>
+      )}
+
+      {/* Explanation fallback — shown when per-option rationales are unavailable */}
+      {!activeRationales && activeExplanation && (
+        <div className="px-4 py-3 text-xs font-serif text-ink-2 leading-relaxed">
+          {activeExplanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
         </div>
       )}
 
@@ -530,7 +542,7 @@ function isPracticeMode(modeId: string): boolean {
 type QuestionRationale = {
   rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string;
   rationales_es?: Rationales; key_takeaway_es?: string; test_taking_tip_es?: string;
-  explanation_es?: string;
+  explanation?: string; explanation_es?: string;
 };
 
 function ExamSession({
@@ -589,13 +601,13 @@ function ExamSession({
         setCurrentDifficulty(res.current_difficulty);
       }
       // Capture rationales returned by the server for practice mode display
-      if (res?.rationales || res?.key_takeaway) {
+      if (res?.rationales || res?.key_takeaway || res?.explanation) {
         setQuestionRationales(prev => ({
           ...prev,
           [idx]: {
             rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip,
             rationales_es: res.rationales_es, key_takeaway_es: res.key_takeaway_es,
-            test_taking_tip_es: res.test_taking_tip_es, explanation_es: res.explanation_es,
+            test_taking_tip_es: res.test_taking_tip_es, explanation: res.explanation, explanation_es: res.explanation_es,
           },
         }));
       }
@@ -771,9 +783,11 @@ function ExamSession({
                 rationales={questionRationales[current].rationales}
                 keyTakeaway={questionRationales[current].key_takeaway}
                 testTakingTip={questionRationales[current].test_taking_tip}
+                explanation={questionRationales[current].explanation}
                 rationalesEs={questionRationales[current].rationales_es}
                 keyTakeawayEs={questionRationales[current].key_takeaway_es}
                 testTakingTipEs={questionRationales[current].test_taking_tip_es}
+                explanationEs={questionRationales[current].explanation_es}
                 showSpanish={showSpanish}
                 hasSpanish={!!questionRationales[current].rationales_es}
                 onToggleSpanish={toggleSpanish}
