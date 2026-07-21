@@ -268,3 +268,178 @@ async def invalidate_readiness_cache(user_id: UUID) -> None:
     from app.core.cache import invalidate
 
     await invalidate(f"readiness:{user_id}*")
+
+
+# ── Gulf Prometric Readiness ──────────────────────────────────────────────────
+
+# Blueprint weights derived from SCFHS Applicant Guide 2024 (SNLE) and OMSB exam booklet.
+# Applied to all 7 Gulf Prometric exams (shared blueprint consensus).
+GULF_CATEGORY_WEIGHTS: dict[str, float] = {
+    "medical_surgical":       0.23,
+    "critical_care":          0.10,
+    "fundamentals_nursing":   0.15,
+    "pharmacology":           0.08,
+    "maternal_newborn":       0.15,
+    "pediatrics":             0.10,
+    "mental_health":          0.07,
+    "community_public_health": 0.07,
+    "leadership_management":  0.05,
+    # NCLEX-mapped questions (shared pool) — use equal weight per category
+    "safe_effective_care":    0.10,
+    "physiological_adaptation": 0.10,
+    "psychosocial":           0.10,
+    "pharmacological":        0.08,
+    "health_promotion":       0.07,
+    "basic_care":             0.07,
+    "reduction_risk":         0.07,
+}
+
+GULF_CATEGORY_LABELS: dict[str, str] = {
+    "medical_surgical":       "Adult Medical-Surgical Nursing",
+    "critical_care":          "Critical Care Nursing",
+    "fundamentals_nursing":   "Nursing Fundamentals",
+    "pharmacology":           "Pharmacology for Nurses",
+    "maternal_newborn":       "Maternal, Newborn & Gynecological",
+    "pediatrics":             "Pediatric Nursing",
+    "mental_health":          "Mental Health & Psychiatric Nursing",
+    "community_public_health": "Community & Gerontological Health",
+    "leadership_management":  "Nursing Leadership & Management",
+    "safe_effective_care":    "Safe & Effective Care Environment",
+    "physiological_adaptation": "Physiological Adaptation",
+    "psychosocial":           "Psychosocial Integrity",
+    "pharmacological":        "Pharmacological Therapies",
+    "health_promotion":       "Health Promotion & Maintenance",
+    "basic_care":             "Basic Care & Comfort",
+    "reduction_risk":         "Reduction of Risk Potential",
+}
+
+GULF_READINESS_THRESHOLD = 30  # lower than NCLEX since Gulf sessions are shorter
+
+
+def compute_gulf_from_sessions(sessions: list[Any], now: datetime | None = None) -> dict:
+    """Compute Gulf readiness from completed Gulf exam sessions."""
+    if now is None:
+        now = datetime.utcnow()
+
+    cat_stats: dict[str, dict] = {}
+    total_answered = 0
+    weighted_correct = 0.0
+    weighted_total = 0.0
+
+    for sess in sessions:
+        recency = _recency_weight(sess.starts_at, now)
+        for pq in (sess.per_question or []):
+            cat = pq.get("nclex_client_needs") or "unknown"
+            is_correct = pq.get("correct", False)
+            difficulty = pq.get("difficulty", "medium")
+            diff_w = _difficulty_weight(difficulty)
+            cat_w = GULF_CATEGORY_WEIGHTS.get(cat, 0.10)
+            w = recency * diff_w * cat_w
+
+            weighted_total += w
+            if is_correct:
+                weighted_correct += w
+            total_answered += 1
+
+            if cat not in cat_stats:
+                cat_stats[cat] = {"total": 0, "correct": 0, "label": GULF_CATEGORY_LABELS.get(cat, cat)}
+            cat_stats[cat]["total"] += 1
+            if is_correct:
+                cat_stats[cat]["correct"] += 1
+
+    threshold_met = total_answered >= GULF_READINESS_THRESHOLD
+    score = round((weighted_correct / weighted_total) * 100) if weighted_total > 0 and threshold_met else None
+
+    # Category percentages
+    category_breakdown = {}
+    for cat, stats in cat_stats.items():
+        pct = round(stats["correct"] / stats["total"] * 100) if stats["total"] else 0
+        category_breakdown[cat] = {**stats, "pct": pct}
+
+    weak_categories = sorted(
+        [
+            {"key": k, "label": GULF_CATEGORY_LABELS.get(k, k), "pct": v["pct"]}
+            for k, v in category_breakdown.items()
+            if v["pct"] < 60 and v["total"] >= 3
+        ],
+        key=lambda x: x["pct"],
+    )[:3]
+
+    level = "unknown"
+    level_label = "Not enough data"
+    if score is not None:
+        for threshold, key, label in [(75, "high", "Exam Ready"), (65, "passing_range", "On Track"), (55, "borderline", "Borderline"), (0, "below_passing", "Needs More Practice")]:
+            if score >= threshold:
+                level, level_label = key, label
+                break
+
+    return {
+        "score": score,
+        "threshold_met": threshold_met,
+        "questions_answered": total_answered,
+        "questions_needed": max(0, GULF_READINESS_THRESHOLD - total_answered),
+        "level": level,
+        "level_label": level_label,
+        "category_breakdown": category_breakdown,
+        "weak_categories": weak_categories,
+        "disclaimer": "Readiness estimate based on practice performance. Not a prediction of Gulf Prometric exam outcome.",
+    }
+
+
+async def compute_gulf_readiness(user_id: UUID, exam_slug: str, db: AsyncSession) -> dict:
+    """Load user's completed Gulf sessions for a specific exam slug and compute readiness."""
+    from app.models.models import ExamSession
+
+    # Match both practice and full simulation modes for this slug
+    result = await db.execute(
+        select(ExamSession)
+        .where(
+            ExamSession.user_id == user_id,
+            ExamSession.status == "completed",
+            ExamSession.mode_id.like(f"%{exam_slug.replace('-', '')}%") |
+            ExamSession.mode_id.like(f"%gulf%") |
+            ExamSession.mode_id.in_([
+                f"{exam_slug.replace('-', '')}_practice",
+                f"{exam_slug.replace('-', '')}_full",
+            ]),
+        )
+        .order_by(ExamSession.starts_at.asc())
+    )
+    sessions = result.scalars().all()
+
+    # If no slug-specific sessions, include all Gulf sessions
+    if not sessions:
+        result = await db.execute(
+            select(ExamSession)
+            .where(
+                ExamSession.user_id == user_id,
+                ExamSession.status == "completed",
+                ExamSession.mode_id.in_([
+                    "snle_practice", "snle_full",
+                    "dha_practice", "dha_full",
+                    "qchp_practice", "qchp_full",
+                    "omsb_practice", "omsb_full",
+                    "nhra_practice", "nhra_full",
+                    "mohuae_practice", "mohuae_full",
+                    "haad_practice", "haad_full",
+                ]),
+            )
+            .order_by(ExamSession.starts_at.asc())
+        )
+        sessions = result.scalars().all()
+
+    return compute_gulf_from_sessions(sessions)
+
+
+async def get_cached_gulf_readiness(user_id: UUID, exam_slug: str, db: AsyncSession) -> dict:
+    """Return Gulf readiness from Redis cache (1-hour TTL) or compute fresh."""
+    from app.core.cache import get_cached, set_cached
+
+    cache_key = f"gulf_readiness:{user_id}:{exam_slug}"
+    cached = await get_cached(cache_key)
+    if cached is not None:
+        return cached
+
+    data = await compute_gulf_readiness(user_id, exam_slug, db)
+    await set_cached(cache_key, data, ttl=3600)
+    return data

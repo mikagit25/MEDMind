@@ -56,13 +56,14 @@ type PerQuestion = {
   ngn_type?: string;
 };
 
-type WrongQuestion = {
+type ReviewQuestion = {
   index: number;
   id?: string;
   question: string;
   options?: Record<string, string>;
   your_answer: unknown;
   correct_answer: string;
+  correct?: boolean;
   explanation?: string;
   rationales?: Rationales;
   key_takeaway?: string;
@@ -71,9 +72,13 @@ type WrongQuestion = {
   key_takeaway_es?: string;
   test_taking_tip_es?: string;
   explanation_es?: string;
+  explanation_ar?: string;
+  rationales_ar?: Rationales;
+  key_takeaway_ar?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
 };
+type WrongQuestion = ReviewQuestion;
 
 type Results = {
   session_id: string;
@@ -89,6 +94,7 @@ type Results = {
   cat_enabled: boolean;
   per_question: PerQuestion[];
   wrong_questions: WrongQuestion[];
+  all_questions: ReviewQuestion[];
   nclex_category_breakdown: Record<string, { total: number; correct: number; pct: number; label: string }>;
   nclex_cjmm_breakdown: Record<string, { total: number; correct: number; pct: number; label: string }>;
   weak_categories: Array<{ key: string; label: string; pct: number }>;
@@ -301,9 +307,13 @@ function RationalePanel({
   keyTakeawayEs,
   testTakingTipEs,
   explanationEs,
-  showSpanish,
+  explanationAr,
+  rationalesAr,
+  keyTakeawayAr,
+  lang,
   hasSpanish,
-  onToggleSpanish,
+  hasArabic,
+  onSetLang,
   selectedOption,
   selectedOptions,
   options,
@@ -316,19 +326,34 @@ function RationalePanel({
   keyTakeawayEs?: string;
   testTakingTipEs?: string;
   explanationEs?: string;
-  showSpanish: boolean;
+  explanationAr?: string;
+  rationalesAr?: Rationales;
+  keyTakeawayAr?: string;
+  lang: ReviewLang;
   hasSpanish: boolean;
-  onToggleSpanish: () => void;
+  hasArabic: boolean;
+  onSetLang: (l: ReviewLang) => void;
   selectedOption?: string;
   selectedOptions?: string[];
   options: Record<string, string>;
 }) {
   const [expanded, setExpanded] = useState(false);
 
-  const activeRationales = showSpanish && rationalesEs ? rationalesEs : rationales;
-  const activeKeyTakeaway = showSpanish && keyTakeawayEs ? keyTakeawayEs : keyTakeaway;
-  const activeTestTakingTip = showSpanish && testTakingTipEs ? testTakingTipEs : testTakingTip;
-  const activeExplanation = showSpanish && explanationEs ? explanationEs : explanation;
+  const activeRationales =
+    lang === "es" && rationalesEs ? rationalesEs :
+    lang === "ar" && rationalesAr ? rationalesAr :
+    rationales;
+  const activeKeyTakeaway =
+    lang === "es" && keyTakeawayEs ? keyTakeawayEs :
+    lang === "ar" && keyTakeawayAr ? keyTakeawayAr :
+    keyTakeaway;
+  const activeExplanation =
+    lang === "es" && explanationEs ? explanationEs :
+    lang === "ar" && explanationAr ? explanationAr :
+    explanation;
+  const activeTestTakingTip =
+    lang === "es" && testTakingTipEs ? testTakingTipEs :
+    testTakingTip;
 
   if (!activeRationales && !activeKeyTakeaway && !activeExplanation) return null;
 
@@ -338,35 +363,45 @@ function RationalePanel({
     ? Object.entries(activeRationales).filter(([k]) => k !== selected)
     : [];
 
+  const isRTL = lang === "ar";
+
   return (
     <div className="rounded-xl border border-border bg-surface overflow-hidden text-sm">
-      {/* Language toggle — only shown when ES translation is available */}
-      {hasSpanish && (
-        <div className="flex items-center justify-end px-4 py-2 border-b border-border bg-surface-2">
+      {/* Language toggle — shown when translations available */}
+      {(hasSpanish || hasArabic) && (
+        <div className="flex items-center justify-end gap-1 px-4 py-2 border-b border-border bg-surface-2">
           <button
-            onClick={onToggleSpanish}
-            className={`flex items-center gap-1.5 text-[11px] font-syne font-semibold px-2.5 py-1 rounded-md transition-colors ${
-              showSpanish
-                ? "bg-ink text-white"
-                : "bg-border text-ink-3 hover:text-ink hover:bg-border/80"
-            }`}
-          >
-            <span>{showSpanish ? "🇪🇸 Español" : "🇺🇸 English"}</span>
-            <span className="opacity-60">↔</span>
-          </button>
+            onClick={() => onSetLang("en")}
+            className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "en" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
+          >🇺🇸 EN</button>
+          {hasSpanish && (
+            <button
+              onClick={() => onSetLang("es")}
+              className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "es" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
+            >🇪🇸 ES</button>
+          )}
+          {hasArabic && (
+            <button
+              onClick={() => onSetLang("ar")}
+              className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "ar" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
+            >🇸🇦 AR</button>
+          )}
         </div>
       )}
 
       {/* Selected option rationale — always visible */}
       {selectedRationale && (
-        <div className={`px-4 pt-4 pb-3 ${selectedRationale.why === "correct" ? "bg-green/5 border-b border-green/20" : "bg-red/5 border-b border-red/20"}`}>
+        <div className={`px-4 pt-4 pb-3 ${selectedRationale.why === "correct" ? "bg-green/5 border-b border-green/20" : "bg-red/5 border-b border-red/20"}`}
+          dir={isRTL ? "rtl" : undefined}>
           <div className="flex items-center gap-2 mb-1.5">
             {selectedRationale.why === "correct"
               ? <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
               : <XCircle className="w-4 h-4 text-red flex-shrink-0" />}
             <span className="font-syne font-bold text-xs text-ink">
-              {showSpanish
+              {lang === "es"
                 ? `Opción ${selected}: ${selectedRationale.why === "correct" ? "Correcta" : "Incorrecta"}`
+                : lang === "ar"
+                ? `الخيار ${selected}: ${selectedRationale.why === "correct" ? "صحيح" : "خطأ"}`
                 : `Option ${selected}: ${selectedRationale.why === "correct" ? "Correct" : "Incorrect"}`}
             </span>
           </div>
@@ -376,11 +411,12 @@ function RationalePanel({
 
       {/* Key takeaway */}
       {activeKeyTakeaway && (
-        <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-start gap-2">
+        <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-start gap-2"
+          dir={isRTL ? "rtl" : undefined}>
           <Lightbulb className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
           <div>
             <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">
-              {showSpanish ? "Punto Clave" : "Key Takeaway"}
+              {lang === "es" ? "Punto Clave" : lang === "ar" ? "النقطة الرئيسية" : "Key Takeaway"}
             </span>
             <p className="font-serif text-xs text-amber-800 leading-relaxed">{activeKeyTakeaway}</p>
           </div>
@@ -389,7 +425,8 @@ function RationalePanel({
 
       {/* Explanation fallback — shown when per-option rationales are unavailable */}
       {!activeRationales && activeExplanation && (
-        <div className="px-4 py-3 text-xs font-serif text-ink-2 leading-relaxed">
+        <div className="px-4 py-3 text-xs font-serif text-ink-2 leading-relaxed"
+          dir={isRTL ? "rtl" : undefined}>
           {activeExplanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
         </div>
       )}
@@ -402,7 +439,7 @@ function RationalePanel({
             className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-syne font-semibold text-ink-3 hover:text-ink hover:bg-surface-2 transition-colors"
           >
             <span>
-              {showSpanish ? `Explicar otras opciones (${otherEntries.length})` : `Explain other options (${otherEntries.length})`}
+              {lang === "es" ? `Explicar otras opciones (${otherEntries.length})` : `Explain other options (${otherEntries.length})`}
             </span>
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
@@ -419,7 +456,7 @@ function RationalePanel({
               {activeTestTakingTip && (
                 <div className="pt-2 border-t border-border">
                   <span className="font-syne font-bold text-xs text-ink-3 block mb-0.5">
-                    {showSpanish ? "Consejo para el Examen" : "Test-Taking Tip"}
+                    {lang === "es" ? "Consejo para el Examen" : "Test-Taking Tip"}
                   </span>
                   <p className="font-serif text-xs text-ink-3 italic leading-relaxed">{activeTestTakingTip}</p>
                 </div>
@@ -544,14 +581,17 @@ type QuestionRationale = {
   rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string;
   rationales_es?: Rationales; key_takeaway_es?: string; test_taking_tip_es?: string;
   explanation?: string; explanation_es?: string;
+  explanation_ar?: string; rationales_ar?: Rationales; key_takeaway_ar?: string;
 };
+
+type ReviewLang = "en" | "es" | "ar";
 
 function ExamSession({
   session,
   onFinish,
 }: {
   session: Session;
-  onFinish: (results: Results) => void;
+  onFinish: (results: Results, bookmarks: Set<number>) => void;
 }) {
   const t = useT();
   const [current, setCurrent] = useState(0);
@@ -561,21 +601,53 @@ function ExamSession({
   const [submitting, setSubmitting] = useState(false);
   const [currentDifficulty, setCurrentDifficulty] = useState("medium");
   const [confirmSubmit, setConfirmSubmit] = useState(false);
-  const [showSpanish, setShowSpanish] = useState<boolean>(() => {
+  const [reviewLang, setReviewLang] = useState<ReviewLang>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("nclex_rationale_lang") === "es";
+      return (localStorage.getItem("exam_rationale_lang") as ReviewLang) || "en";
     }
-    return false;
+    return "en";
   });
+  const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
+  const [timerWarning, setTimerWarning] = useState<string | null>(null);
+  const timerWarned = useRef<Set<string>>(new Set());
   const showRationale = isPracticeMode(session.mode_id);
+  const isGulfSession = session.mode_id.includes("snle") || session.mode_id.includes("dha") ||
+    session.mode_id.includes("qchp") || session.mode_id.includes("omsb") ||
+    session.mode_id.includes("nhra") || session.mode_id.includes("mohuae") ||
+    session.mode_id.includes("haad");
 
-  function toggleSpanish() {
-    setShowSpanish(prev => {
-      const next = !prev;
-      localStorage.setItem("nclex_rationale_lang", next ? "es" : "en");
+  function setLang(l: ReviewLang) {
+    setReviewLang(l);
+    localStorage.setItem("exam_rationale_lang", l);
+  }
+
+  function toggleBookmark(idx: number) {
+    setBookmarked(prev => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx); else next.add(idx);
       return next;
     });
   }
+
+  // Timer warning toasts
+  useEffect(() => {
+    const endsMs = new Date(session.ends_at).getTime();
+    const checkWarnings = () => {
+      const secsLeft = Math.floor((endsMs - Date.now()) / 1000);
+      if (secsLeft <= 1800 && secsLeft > 1790 && !timerWarned.current.has("30")) {
+        timerWarned.current.add("30");
+        setTimerWarning("30 minutes remaining");
+        setTimeout(() => setTimerWarning(null), 5000);
+      }
+      if (secsLeft <= 600 && secsLeft > 590 && !timerWarned.current.has("10")) {
+        timerWarned.current.add("10");
+        setTimerWarning("10 minutes remaining — wrap up!");
+        setTimeout(() => setTimerWarning(null), 6000);
+      }
+    };
+    const id = setInterval(checkWarnings, 5000);
+    return () => clearInterval(id);
+  }, [session.ends_at]);
 
   const question = session.questions[current];
   const ans = answers[current] ?? BLANK_ANSWER;
@@ -609,6 +681,7 @@ function ExamSession({
             rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip,
             rationales_es: res.rationales_es, key_takeaway_es: res.key_takeaway_es,
             test_taking_tip_es: res.test_taking_tip_es, explanation: res.explanation, explanation_es: res.explanation_es,
+            explanation_ar: res.explanation_ar, rationales_ar: res.rationales_ar, key_takeaway_ar: res.key_takeaway_ar,
           },
         }));
       }
@@ -633,7 +706,7 @@ function ExamSession({
     }
     try {
       const results = await examApi.finalizeSession(session.session_id);
-      onFinish(results);
+      onFinish(results, bookmarked);
     } catch {
       setSubmitting(false);
     }
@@ -656,6 +729,14 @@ function ExamSession({
 
   return (
     <div>
+      {/* Timer warning toast */}
+      {timerWarning && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-amber-500 text-white font-syne font-bold text-sm px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+          <Clock className="w-4 h-4" />
+          {timerWarning}
+        </div>
+      )}
+
       {/* Submit confirmation dialog */}
       {confirmSubmit && !submitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
@@ -716,12 +797,13 @@ function ExamSession({
         </div>
       </div>
 
-      {/* Progress dots */}
+      {/* Progress dots — green=answered, amber=draft, purple=bookmarked */}
       <div className="flex flex-wrap gap-1 mb-4">
         {session.questions.map((_, i) => (
           <button key={i} onClick={() => setCurrent(i)}
             className={`w-6 h-6 rounded text-[10px] font-syne font-bold transition-colors ${
               i === current ? "bg-ink text-white" :
+              bookmarked.has(i) ? "bg-purple-500 text-white" :
               locked[i] ? "bg-green/80 text-white" :
               answers[i] ? "bg-amber-200 text-amber-800" :
               "bg-surface border border-border text-ink-3"
@@ -749,6 +831,16 @@ function ExamSession({
               {question.cjmm_skill.replace(/_/g, " ")}
             </span>
           )}
+          {/* Bookmark button */}
+          <button
+            onClick={() => toggleBookmark(current)}
+            className={`ml-auto p-1 rounded transition-colors ${bookmarked.has(current) ? "text-purple-500" : "text-ink-3 hover:text-ink"}`}
+            title={bookmarked.has(current) ? "Remove bookmark" : "Bookmark for review"}
+          >
+            <svg className="w-4 h-4" fill={bookmarked.has(current) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+            </svg>
+          </button>
         </div>
 
         <p className="font-serif text-ink text-base leading-relaxed mb-6">{question.question}</p>
@@ -789,9 +881,13 @@ function ExamSession({
                 keyTakeawayEs={questionRationales[current].key_takeaway_es}
                 testTakingTipEs={questionRationales[current].test_taking_tip_es}
                 explanationEs={questionRationales[current].explanation_es}
-                showSpanish={showSpanish}
+                explanationAr={questionRationales[current].explanation_ar}
+                rationalesAr={questionRationales[current].rationales_ar}
+                keyTakeawayAr={questionRationales[current].key_takeaway_ar}
+                lang={reviewLang}
                 hasSpanish={!!(questionRationales[current].rationales_es || questionRationales[current].explanation_es)}
-                onToggleSpanish={toggleSpanish}
+                hasArabic={!!(questionRationales[current].rationales_ar || questionRationales[current].explanation_ar)}
+                onSetLang={setLang}
                 selectedOption={answers[current]?.selected_option}
                 selectedOptions={answers[current]?.selected_options}
                 options={question.options}
@@ -966,25 +1062,45 @@ function nclexLabel(raw: string, serverLabel?: string): string {
   return CATEGORY_LABELS[raw] ?? raw.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 }
 
-function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onRetry: () => void; onRetryWrong: (ids: string[]) => void }) {
+function ResultsView({
+  results, onRetry, onRetryWrong, bookmarkedIndices,
+}: {
+  results: Results;
+  onRetry: () => void;
+  onRetryWrong: (ids: string[]) => void;
+  bookmarkedIndices?: Set<number>;
+}) {
   const t = useT();
   const [expandedQ, setExpandedQ] = useState<number | null>(null);
-  const [showSpanish, setShowSpanish] = useState<boolean>(() => {
+  const [reviewTab, setReviewTab] = useState<"wrong" | "all" | "bookmarked">("wrong");
+  const [reviewLang, setReviewLang] = useState<ReviewLang>(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("nclex_rationale_lang") === "es";
+      return (localStorage.getItem("exam_rationale_lang") as ReviewLang) || "en";
     }
-    return false;
+    return "en";
   });
   const isNclex = results.mode_id?.includes("nclex");
+  const isGulf = results.mode_id?.includes("snle") || results.mode_id?.includes("dha") ||
+    results.mode_id?.includes("qchp") || results.mode_id?.includes("omsb") ||
+    results.mode_id?.includes("nhra") || results.mode_id?.includes("mohuae") ||
+    results.mode_id?.includes("haad");
   const hasCategories = Object.keys(results.nclex_category_breakdown || {}).length > 0;
 
-  function toggleSpanish() {
-    setShowSpanish(prev => {
-      const next = !prev;
-      localStorage.setItem("nclex_rationale_lang", next ? "es" : "en");
-      return next;
-    });
+  function setLang(l: ReviewLang) {
+    setReviewLang(l);
+    localStorage.setItem("exam_rationale_lang", l);
   }
+
+  const allQs = results.all_questions || [];
+  const wrongQs = results.wrong_questions || [];
+  const bookmarkedQs = bookmarkedIndices
+    ? allQs.filter(q => bookmarkedIndices.has(q.index))
+    : [];
+
+  const reviewList =
+    reviewTab === "all" ? allQs :
+    reviewTab === "bookmarked" ? bookmarkedQs :
+    wrongQs;
 
   return (
     <div className="space-y-5">
@@ -1065,69 +1181,112 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
         </div>
       )}
 
-      {/* Wrong questions with AI tutor integration */}
-      {results.wrong_questions.length > 0 && (
+      {/* Question Review Section with tabs */}
+      {(wrongQs.length > 0 || allQs.length > 0) && (
         <div className="bg-surface border border-border rounded-xl p-5">
-          <h3 className="font-syne font-bold text-sm text-ink mb-4">
-            {t("exam_page.to_review")} ({results.wrong_questions.length})
-          </h3>
-          <div className="space-y-3">
-            {results.wrong_questions.map((q) => (
-              <div key={q.index} className="border border-red/20 rounded-xl p-4 bg-red/5">
-                <button
-                  onClick={() => setExpandedQ(expandedQ === q.index ? null : q.index)}
-                  className="w-full text-left"
-                >
-                  <p className="font-serif text-sm text-ink leading-relaxed mb-2">{q.question}</p>
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-syne">
-                    {q.your_answer ? (
-                      <span className="flex items-center gap-1 text-red">
-                        <XCircle className="w-3 h-3" /> {t("exam_page.your_answer")} <strong>{String(q.your_answer)}</strong>
-                      </span>
-                    ) : (
-                      <span className="text-ink-3 italic">{t("exam_page.not_answered")}</span>
-                    )}
-                    <span className="flex items-center gap-1 text-green">
-                      <CheckCircle2 className="w-3 h-3" /> {t("exam_page.correct_answer")} <strong>{q.correct_answer}</strong>
-                    </span>
-                    {q.nclex_client_needs && (
-                      <span className="text-ink-3 bg-border/40 rounded px-1.5 py-0.5">
-                        {q.nclex_client_needs.replace(/_/g, " ")}
-                      </span>
-                    )}
-                    <span className="text-ink-3 ml-auto">
-                      {expandedQ === q.index ? t("exam_page.hide_details") : t("exam_page.show_details")}
-                    </span>
-                  </div>
-                </button>
-
-                {expandedQ === q.index && (
-                  <div className="mt-3 pt-3 border-t border-red/20 space-y-3">
-                    <RationalePanel
-                      rationales={q.rationales}
-                      keyTakeaway={q.key_takeaway}
-                      testTakingTip={q.test_taking_tip}
-                      explanation={q.explanation}
-                      rationalesEs={q.rationales_es}
-                      keyTakeawayEs={q.key_takeaway_es}
-                      testTakingTipEs={q.test_taking_tip_es}
-                      explanationEs={q.explanation_es}
-                      showSpanish={showSpanish}
-                      hasSpanish={!!(q.rationales_es || q.explanation_es)}
-                      onToggleSpanish={toggleSpanish}
-                      selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
-                      selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
-                      options={q.options || {}}
-                    />
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <AIExplainButton questionId={q.id} questionText={q.question} />
-                      <FlagButton questionId={q.id} />
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* Tab bar */}
+          <div className="flex gap-1 mb-4 bg-bg rounded-lg p-1">
+            <button
+              onClick={() => setReviewTab("wrong")}
+              className={`flex-1 font-syne font-semibold text-xs px-3 py-1.5 rounded-md transition-colors ${reviewTab === "wrong" ? "bg-red text-white" : "text-ink-3 hover:text-ink"}`}
+            >
+              Wrong ({wrongQs.length})
+            </button>
+            <button
+              onClick={() => setReviewTab("all")}
+              className={`flex-1 font-syne font-semibold text-xs px-3 py-1.5 rounded-md transition-colors ${reviewTab === "all" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
+            >
+              All ({allQs.length})
+            </button>
+            {bookmarkedQs.length > 0 && (
+              <button
+                onClick={() => setReviewTab("bookmarked")}
+                className={`flex-1 font-syne font-semibold text-xs px-3 py-1.5 rounded-md transition-colors ${reviewTab === "bookmarked" ? "bg-purple-500 text-white" : "text-ink-3 hover:text-ink"}`}
+              >
+                Bookmarked ({bookmarkedQs.length})
+              </button>
+            )}
           </div>
+
+          {reviewList.length === 0 ? (
+            <p className="text-center text-sm font-serif text-ink-3 py-4">
+              {reviewTab === "wrong" ? "All answers correct!" : "No questions to show."}
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {reviewList.map((q) => {
+                const isCorrect = q.correct !== false && !wrongQs.some(w => w.index === q.index);
+                const borderColor = isCorrect ? "border-green/20" : "border-red/20";
+                const bgColor = isCorrect ? "bg-green/3" : "bg-red/5";
+                return (
+                  <div key={q.index} className={`border ${borderColor} rounded-xl p-4 ${bgColor}`}>
+                    <button
+                      onClick={() => setExpandedQ(expandedQ === q.index ? null : q.index)}
+                      className="w-full text-left"
+                    >
+                      <div className="flex items-start gap-2 mb-2">
+                        {isCorrect
+                          ? <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0 mt-0.5" />
+                          : <XCircle className="w-4 h-4 text-red flex-shrink-0 mt-0.5" />}
+                        <p className="font-serif text-sm text-ink leading-relaxed">{q.question}</p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-3 text-xs font-syne pl-6">
+                        {q.your_answer ? (
+                          <span className={`flex items-center gap-1 ${isCorrect ? "text-green" : "text-red"}`}>
+                            {t("exam_page.your_answer")} <strong>{String(q.your_answer)}</strong>
+                          </span>
+                        ) : (
+                          <span className="text-ink-3 italic">{t("exam_page.not_answered")}</span>
+                        )}
+                        {!isCorrect && (
+                          <span className="flex items-center gap-1 text-green">
+                            <CheckCircle2 className="w-3 h-3" /> {t("exam_page.correct_answer")} <strong>{q.correct_answer}</strong>
+                          </span>
+                        )}
+                        {q.nclex_client_needs && (
+                          <span className="text-ink-3 bg-border/40 rounded px-1.5 py-0.5">
+                            {q.nclex_client_needs.replace(/_/g, " ")}
+                          </span>
+                        )}
+                        <span className="text-ink-3 ml-auto">
+                          {expandedQ === q.index ? t("exam_page.hide_details") : t("exam_page.show_details")}
+                        </span>
+                      </div>
+                    </button>
+
+                    {expandedQ === q.index && (
+                      <div className="mt-3 pt-3 border-t border-border/40 space-y-3">
+                        <RationalePanel
+                          rationales={q.rationales}
+                          keyTakeaway={q.key_takeaway}
+                          testTakingTip={q.test_taking_tip}
+                          explanation={q.explanation}
+                          rationalesEs={q.rationales_es}
+                          keyTakeawayEs={q.key_takeaway_es}
+                          testTakingTipEs={q.test_taking_tip_es}
+                          explanationEs={q.explanation_es}
+                          explanationAr={q.explanation_ar}
+                          rationalesAr={q.rationales_ar}
+                          keyTakeawayAr={q.key_takeaway_ar}
+                          lang={reviewLang}
+                          hasSpanish={!!(q.rationales_es || q.explanation_es)}
+                          hasArabic={!!(q.rationales_ar || q.explanation_ar)}
+                          onSetLang={setLang}
+                          selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
+                          selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
+                          options={q.options || {}}
+                        />
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <AIExplainButton questionId={q.id} questionText={q.question} />
+                          <FlagButton questionId={q.id} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
@@ -1264,6 +1423,7 @@ function ExamPageInner() {
   const [view, setView] = useState<"modes" | "session" | "results">("modes");
   const [session, setSession] = useState<Session | null>(null);
   const [results, setResults] = useState<Results | null>(null);
+  const [sessionBookmarks, setSessionBookmarks] = useState<Set<number>>(new Set());
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -1331,13 +1491,17 @@ function ExamPageInner() {
 
       {view === "modes" && <ModeSelector onStart={handleStart} />}
       {view === "session" && session && (
-        <ExamSession session={session} onFinish={res => { setResults(res); setView("results"); }} />
+        <ExamSession
+          session={session}
+          onFinish={(res, bookmarks) => { setResults(res); setSessionBookmarks(bookmarks); setView("results"); }}
+        />
       )}
       {view === "results" && results && (
         <ResultsView
           results={results}
-          onRetry={() => { setSession(null); setResults(null); setView("modes"); }}
+          onRetry={() => { setSession(null); setResults(null); setSessionBookmarks(new Set()); setView("modes"); }}
           onRetryWrong={handleRetryWrong}
+          bookmarkedIndices={sessionBookmarks}
         />
       )}
     </div>

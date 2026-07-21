@@ -826,6 +826,7 @@ export const examApi = {
   getResults: (sessionId: string) => api.get(`/exam/sessions/${sessionId}/results`).then(r => r.data),
   getHistory: (limit = 20) => api.get(`/exam/history?limit=${limit}`).then(r => r.data),
   getReadiness: () => api.get("/exam/nclex/readiness").then(r => r.data),
+  getGulfReadiness: (examSlug = "snle") => api.get(`/exam/gulf/readiness?exam_slug=${examSlug}`).then(r => r.data),
   getPlan: (examType = "nclex") => api.get(`/exam/plan?exam_type=${examType}`).then(r => r.data),
   createPlan: (body: { exam_date: string; daily_minutes: number; exam_type?: string }) =>
     api.post("/exam/plan", body).then(r => r.data),

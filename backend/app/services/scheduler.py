@@ -531,6 +531,15 @@ async def _translate_nclex_es_job() -> None:
         logger.error("translate_nclex_rationales cron error: %s", exc)
 
 
+async def _translate_gulf_ar_job() -> None:
+    """Translate Gulf exam question rationales to Arabic (10 per run, every 30 min)."""
+    try:
+        from app.scripts.translate_rationales_ar import run as translate_run
+        await translate_run(max_questions=10)
+    except Exception as exc:
+        logger.error("translate_rationales_ar cron error: %s", exc)
+
+
 async def _generate_gulf_questions_job() -> None:
     """Generate Gulf-specific exam questions (15 per run, every 30 min, cycles slugs)."""
     try:
@@ -724,6 +733,15 @@ def start_scheduler():
         _generate_gulf_questions_job,
         trigger=CronTrigger(minute="5,35", timezone="UTC"),
         id="generate_gulf_questions",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
+    # Every 30 min (offset +20) — translate Gulf questions to Arabic (10 per run)
+    scheduler.add_job(
+        _translate_gulf_ar_job,
+        trigger=CronTrigger(minute="20,50", timezone="UTC"),
+        id="translate_gulf_ar",
         replace_existing=True,
         misfire_grace_time=600,
     )

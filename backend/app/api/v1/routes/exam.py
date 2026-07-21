@@ -249,6 +249,113 @@ EXAM_MODES = [
         "gulf": True,
         "exam_slug": "haad",
     },
+    # ── Gulf Full Simulations (official exam length) ───────────────────────────
+    # SNLE: 200 questions, 3 hours (source: SCFHS Applicant Guide 2024)
+    {
+        "id": "snle_full",
+        "name": "SNLE Full Simulation",
+        "description": "Saudi Nursing Licensing Exam — Full 200-question simulation, 3 hours. Matches real exam format.",
+        "questions": 200,
+        "duration_min": 180,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "snle",
+        "full_simulation": True,
+    },
+    {
+        "id": "dha_full",
+        "name": "DHA Full Simulation",
+        "description": "Dubai Health Authority — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "dha",
+        "full_simulation": True,
+    },
+    {
+        "id": "qchp_full",
+        "name": "QCHP Full Simulation",
+        "description": "Qatar Council for Healthcare Practitioners — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "qchp",
+        "full_simulation": True,
+    },
+    {
+        "id": "omsb_full",
+        "name": "OMSB Full Simulation",
+        "description": "Oman Medical Specialty Board — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "omsb",
+        "full_simulation": True,
+    },
+    {
+        "id": "nhra_full",
+        "name": "NHRA Full Simulation",
+        "description": "National Health Regulatory Authority Bahrain — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "nhra",
+        "full_simulation": True,
+    },
+    {
+        "id": "mohuae_full",
+        "name": "MOH UAE Full Simulation",
+        "description": "Ministry of Health UAE — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "moh-uae",
+        "full_simulation": True,
+    },
+    {
+        "id": "haad_full",
+        "name": "DOH/HAAD Full Simulation",
+        "description": "Department of Health Abu Dhabi — Full 100-question simulation, 2 hours.",
+        "questions": 100,
+        "duration_min": 120,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "haad",
+        "full_simulation": True,
+    },
 ]
 
 NCLEX_CLIENT_NEEDS = [
@@ -411,6 +518,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
     total = len(questions_data)
     correct_count = 0
     wrong_list = []
+    all_questions_list = []
     per_q = []
     category_stats: dict[str, dict] = {}
     cjmm_stats: dict[str, dict] = {}
@@ -443,26 +551,31 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             if is_correct:
                 cjmm_stats[skill]["correct"] += 1
 
+        q_full = {
+            "index": q["index"],
+            "id": q.get("id"),
+            "question": q["question"],
+            "options": q.get("options"),
+            "your_answer": answer,
+            "correct_answer": correct_display,
+            "correct": is_correct,
+            "explanation": q.get("explanation"),
+            "rationales": q.get("_rationales"),
+            "key_takeaway": q.get("_key_takeaway"),
+            "test_taking_tip": q.get("_test_taking_tip"),
+            "rationales_es": q.get("_rationales_es"),
+            "key_takeaway_es": q.get("_key_takeaway_es"),
+            "test_taking_tip_es": q.get("_test_taking_tip_es"),
+            "explanation_es": q.get("_explanation_es"),
+            "explanation_ar": q.get("_explanation_ar"),
+            "rationales_ar": q.get("_rationales_ar"),
+            "key_takeaway_ar": q.get("_key_takeaway_ar"),
+            "nclex_client_needs": cat,
+            "cjmm_skill": skill,
+        }
+        all_questions_list.append(q_full)
         if not is_correct:
-            wrong_list.append({
-                "index": q["index"],
-                "id": q.get("id"),  # question UUID for AI explain endpoint
-                "question": q["question"],
-                "options": q.get("options"),
-                "your_answer": answer,
-                "correct_answer": correct_display,
-                "explanation": q.get("explanation"),
-                "rationales": q.get("_rationales"),
-                "key_takeaway": q.get("_key_takeaway"),
-                "test_taking_tip": q.get("_test_taking_tip"),
-                # G2: Spanish translations for results review panel
-                "rationales_es": q.get("_rationales_es"),
-                "key_takeaway_es": q.get("_key_takeaway_es"),
-                "test_taking_tip_es": q.get("_test_taking_tip_es"),
-                "explanation_es": q.get("_explanation_es"),
-                "nclex_client_needs": cat,
-                "cjmm_skill": skill,
-            })
+            wrong_list.append(q_full)
 
         per_q.append({
             "index": q["index"],
@@ -511,6 +624,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
         "cat_enabled": sess.cat_enabled,
         "per_question": per_q,
         "wrong_questions": wrong_list,
+        "all_questions": all_questions_list,
         "nclex_category_breakdown": category_stats,
         "nclex_cjmm_breakdown": cjmm_stats,
         "weak_categories": weak_categories,
@@ -602,7 +716,13 @@ async def create_session(
                 Module.is_published == True,
             )
 
-        if body.mode_id == "nclex_category" and body.nclex_category:
+        # Gulf mode: prefer exam-specific questions first; fall back to shared Gulf pool
+        if mode.get("gulf") and (exam_slug := mode.get("exam_slug")):
+            from sqlalchemy import text as sql_text
+            q = q.where(
+                MCQQuestion.exam_slugs.op("@>")(f'["{exam_slug}"]')
+            )
+        elif body.mode_id == "nclex_category" and body.nclex_category:
             if body.nclex_category not in NCLEX_CLIENT_NEEDS:
                 raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
             # Include all alias values that map to this canonical category so that
@@ -662,6 +782,10 @@ async def create_session(
             "_key_takeaway_es": getattr(mcq, "key_takeaway_es", None),
             "_test_taking_tip_es": getattr(mcq, "test_taking_tip_es", None),
             "_explanation_es": getattr(mcq, "explanation_es", None),
+            # Arabic translations for Gulf exams (null if not yet translated)
+            "_explanation_ar": getattr(mcq, "explanation_ar", None),
+            "_rationales_ar": getattr(mcq, "rationales_ar", None),
+            "_key_takeaway_ar": getattr(mcq, "key_takeaway_ar", None),
         }
         for i, mcq in enumerate(mcqs)
     ]
@@ -801,6 +925,10 @@ async def submit_answer(
         "key_takeaway_es": q_snap.get("_key_takeaway_es"),
         "test_taking_tip_es": q_snap.get("_test_taking_tip_es"),
         "explanation_es": q_snap.get("_explanation_es"),
+        # Arabic translations for Gulf exams (null when not yet translated)
+        "explanation_ar": q_snap.get("_explanation_ar"),
+        "rationales_ar": q_snap.get("_rationales_ar"),
+        "key_takeaway_ar": q_snap.get("_key_takeaway_ar"),
     }
 
 
@@ -971,6 +1099,29 @@ async def get_nclex_readiness(
     """
     from app.services.readiness import get_cached_readiness
     return await get_cached_readiness(user.id, db)
+
+
+@router.get("/gulf/readiness")
+async def get_gulf_readiness(
+    exam_slug: str = "snle",
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Gulf Prometric Readiness Score — weighted accuracy estimate for Gulf nursing exams.
+
+    Based on Gulf Prometric blueprint category weights (Med-Surg 23%, Fundamentals 15%, etc.)
+    Minimum 30 answered questions to show a score.
+
+    Legal: this is a practice performance estimate, NOT a Gulf exam outcome prediction.
+    """
+    valid_slugs = {"snle", "dha", "qchp", "omsb", "nhra", "moh-uae", "haad"}
+    if exam_slug not in valid_slugs:
+        raise HTTPException(400, f"Unknown Gulf exam slug. Valid: {', '.join(valid_slugs)}")
+    if not user_has_exam_access(user, exam_slug):
+        raise HTTPException(403, "Gulf exam readiness requires a Gulf Bundle or Pro subscription.")
+    from app.services.readiness import get_cached_gulf_readiness
+    return await get_cached_gulf_readiness(user.id, exam_slug, db)
 
 
 async def _get_session(
