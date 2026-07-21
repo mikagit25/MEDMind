@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
@@ -6,6 +7,8 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { PWAInstallPrompt } from "@/components/ui/PWAInstallPrompt";
 import { Suspense } from "react";
 import AffiliateRefTracker from "@/components/AffiliateRefTracker";
+
+const RTL_LOCALES = ["ar"];
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es"];
@@ -172,8 +175,12 @@ const JSON_LD_EDUCATIONAL = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Read locale injected by middleware (x-locale header) for bypass paths like /ar/gulf.
+  // Falls back to "en" for all other routes.
+  const locale = headers().get("x-locale") ?? "en";
+  const dir = RTL_LOCALES.includes(locale) ? "rtl" : "ltr";
   return (
-    <html lang="en">
+    <html lang={locale} dir={dir}>
       <head>
         {/* Anti-FOUC: apply dark class before first paint from localStorage */}
         <script dangerouslySetInnerHTML={{ __html: `

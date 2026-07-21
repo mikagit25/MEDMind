@@ -53,8 +53,9 @@ async def run() -> None:
                 # Update mutable fields (not slug)
                 changed = False
                 for field in ("name", "country", "regulatory_body", "question_count",
-                              "duration_min", "pass_threshold", "blueprint_source",
-                              "blueprint_verified_at", "status", "categories", "disclaimer"):
+                              "duration_min", "pass_threshold", "passing_score_label",
+                              "blueprint_source", "blueprint_verified_at", "status",
+                              "categories", "disclaimer"):
                     new_val = data.get(field)
                     if getattr(existing, field) != new_val:
                         setattr(existing, field, new_val)

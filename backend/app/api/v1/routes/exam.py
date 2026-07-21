@@ -34,6 +34,7 @@ from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.models import ExamDefinition, ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, User
 from app.services.ai_router import call_claude_structured, call_ollama_structured
+from app.services.billing import user_has_exam_access, is_gulf_exam
 from app.services import study_planner as planner
 
 router = APIRouter(prefix="/exam", tags=["exam"])
@@ -147,6 +148,106 @@ EXAM_MODES = [
         "icon": "heart-pulse",
         "pass_threshold": 60,
         "demo": True,
+    },
+    # ── Gulf Prometric exam modes (G1) ─────────────────────────────────────────
+    # Requires gulf_bundle, pro, clinic, or lifetime tier. Free/student = locked.
+    {
+        "id": "snle_practice",
+        "name": "SNLE Practice",
+        "description": "Saudi Nursing Licensing Exam — 50 blueprint-weighted questions, 75 min.",
+        "questions": 50,
+        "duration_min": 75,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "snle",
+    },
+    {
+        "id": "dha_practice",
+        "name": "DHA Practice",
+        "description": "Dubai Health Authority Nursing Exam — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "dha",
+    },
+    {
+        "id": "qchp_practice",
+        "name": "QCHP Practice",
+        "description": "Qatar Council for Healthcare Practitioners — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "qchp",
+    },
+    {
+        "id": "omsb_practice",
+        "name": "OMSB Practice",
+        "description": "Oman Medical Specialty Board Nursing Exam — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "omsb",
+    },
+    {
+        "id": "nhra_practice",
+        "name": "NHRA Practice",
+        "description": "National Health Regulatory Authority (Bahrain) — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "nhra",
+    },
+    {
+        "id": "mohuae_practice",
+        "name": "MOH UAE Practice",
+        "description": "Ministry of Health UAE Nursing Exam — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "moh-uae",
+    },
+    {
+        "id": "haad_practice",
+        "name": "DOH/HAAD Practice",
+        "description": "Department of Health Abu Dhabi Nursing Exam — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "haad",
     },
 ]
 
@@ -354,6 +455,10 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
                 "rationales": q.get("_rationales"),
                 "key_takeaway": q.get("_key_takeaway"),
                 "test_taking_tip": q.get("_test_taking_tip"),
+                # G2: Spanish translations for results review panel
+                "rationales_es": q.get("_rationales_es"),
+                "key_takeaway_es": q.get("_key_takeaway_es"),
+                "test_taking_tip_es": q.get("_test_taking_tip_es"),
                 "nclex_client_needs": cat,
                 "cjmm_skill": skill,
             })
@@ -424,11 +529,19 @@ async def list_modes(user: User = Depends(get_current_user)):
     is_free = user.subscription_tier == "free"
     for m in EXAM_MODES:
         is_demo = m.get("demo", False)
-        result.append({
-            **m,
-            "locked": is_free and not is_demo,
-            "lock_reason": "Upgrade to Student or Pro to unlock board exams" if (is_free and not is_demo) else None,
-        })
+        is_gulf = m.get("gulf", False)
+        exam_slug = m.get("exam_slug")
+        if is_gulf and exam_slug:
+            has_access = user_has_exam_access(user, exam_slug)
+            locked = not has_access
+            lock_reason = (
+                "Gulf Bundle or Pro subscription required to access Gulf Prometric exams."
+                if locked else None
+            )
+        else:
+            locked = is_free and not is_demo
+            lock_reason = "Upgrade to Student or Pro to unlock board exams" if locked else None
+        result.append({**m, "locked": locked, "lock_reason": lock_reason})
     return result
 
 
@@ -453,6 +566,16 @@ async def create_session(
 
     if not mode.get("demo", False) and user.subscription_tier == "free":
         raise HTTPException(403, "Board Exam mode requires a Student or Pro subscription.")
+
+    # Gulf exam access control: requires gulf_bundle, pro, clinic, or lifetime tier
+    if mode.get("gulf", False):
+        exam_slug = mode.get("exam_slug", "")
+        if not user_has_exam_access(user, exam_slug):
+            raise HTTPException(
+                403,
+                "Gulf Prometric exams require a Gulf Bundle or Pro subscription. "
+                "Upgrade at /pricing to unlock all 7 Gulf exams."
+            )
 
     cat_mode = mode.get("cat", False)
     nursing_only = mode.get("nursing_only", False)
@@ -481,7 +604,14 @@ async def create_session(
         if body.mode_id == "nclex_category" and body.nclex_category:
             if body.nclex_category not in NCLEX_CLIENT_NEEDS:
                 raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
-            q = q.where(MCQQuestion.nclex_client_needs == body.nclex_category)
+            # Include all alias values that map to this canonical category so that
+            # questions tagged with e.g. "psychosocial_integrity" are returned when
+            # the canonical key "psychosocial" is requested.
+            canonical = body.nclex_category
+            all_values = [canonical] + [
+                alias for alias, canon in _ALIAS_TO_CANONICAL.items() if canon == canonical
+            ]
+            q = q.where(MCQQuestion.nclex_client_needs.in_(all_values))
         elif not cat_mode and mode.get("difficulty"):
             q = q.where(MCQQuestion.difficulty == mode["difficulty"])
 

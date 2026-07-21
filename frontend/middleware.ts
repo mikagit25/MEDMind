@@ -99,7 +99,21 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // ── Case 3: noindex for non-public pages ───────────────────────────────────
+  // ── Case 3: bypass locale paths — pass through but inject x-locale header
+  // These paths have their own page.tsx (no middleware rewrite) but still need
+  // the locale forwarded so the root layout can set <html lang> and dir="rtl".
+  if (LOCALE_BYPASS_PATHS.has(pathname)) {
+    const bypassLocale = pathname.match(LOCALE_RE)?.[1];
+    if (bypassLocale) {
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set("x-locale", bypassLocale);
+      const response = NextResponse.next({ request: { headers: requestHeaders } });
+      // Bypass paths are public SEO pages — always indexable
+      return response;
+    }
+  }
+
+  // ── Case 4: noindex for non-public pages ───────────────────────────────────
   // Authenticated app pages and auth forms have no unique SEO value.
   // The server renders HTML before client-side redirect, so crawlers see them.
   const response = NextResponse.next();

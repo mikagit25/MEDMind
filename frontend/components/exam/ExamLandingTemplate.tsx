@@ -25,6 +25,7 @@ export interface ExamDefinition {
 const CATEGORY_LABELS: Record<string, string> = {
   fundamentals_nursing:    "Fundamentals of Nursing",
   medical_surgical:        "Medical-Surgical Nursing",
+  critical_care:           "Critical Care Nursing",
   pharmacology:            "Pharmacology & Medications",
   maternal_newborn:        "Maternal & Newborn Nursing",
   pediatrics:              "Pediatric Nursing",

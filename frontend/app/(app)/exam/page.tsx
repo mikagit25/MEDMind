@@ -67,6 +67,9 @@ type WrongQuestion = {
   rationales?: Rationales;
   key_takeaway?: string;
   test_taking_tip?: string;
+  rationales_es?: Rationales;
+  key_takeaway_es?: string;
+  test_taking_tip_es?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
 };
@@ -516,9 +519,12 @@ function DifficultyBadge({ level }: { level: string }) {
   );
 }
 
-// isPracticeMode: show rationale immediately after answering (not for timed full exams)
+// isPracticeMode: show rationale immediately after answering.
+// Timed full-length NCLEX simulations (75/85/145Q) are excluded — all other modes
+// (demo, category, Gulf practice, USMLE, quick) show rationale immediately.
+const TIMED_EXAM_MODES = new Set(["nclex_rn_75", "nclex_rn_85", "nclex_rn_145"]);
 function isPracticeMode(modeId: string): boolean {
-  return modeId === "nclex_demo" || !modeId.includes("nclex_");
+  return !TIMED_EXAM_MODES.has(modeId);
 }
 
 type QuestionRationale = {
@@ -948,8 +954,22 @@ function nclexLabel(raw: string, serverLabel?: string): string {
 function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onRetry: () => void; onRetryWrong: (ids: string[]) => void }) {
   const t = useT();
   const [expandedQ, setExpandedQ] = useState<number | null>(null);
+  const [showSpanish, setShowSpanish] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("nclex_rationale_lang") === "es";
+    }
+    return false;
+  });
   const isNclex = results.mode_id?.includes("nclex");
   const hasCategories = Object.keys(results.nclex_category_breakdown || {}).length > 0;
+
+  function toggleSpanish() {
+    setShowSpanish(prev => {
+      const next = !prev;
+      localStorage.setItem("nclex_rationale_lang", next ? "es" : "en");
+      return next;
+    });
+  }
 
   return (
     <div className="space-y-5">
@@ -1074,6 +1094,12 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
                         rationales={q.rationales}
                         keyTakeaway={q.key_takeaway}
                         testTakingTip={q.test_taking_tip}
+                        rationalesEs={q.rationales_es}
+                        keyTakeawayEs={q.key_takeaway_es}
+                        testTakingTipEs={q.test_taking_tip_es}
+                        showSpanish={showSpanish}
+                        hasSpanish={!!q.rationales_es}
+                        onToggleSpanish={toggleSpanish}
                         selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
                         selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
                         options={q.options || {}}

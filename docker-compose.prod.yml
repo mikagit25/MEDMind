@@ -110,6 +110,7 @@ services:
       NEXT_PUBLIC_API_URL: https://medmind.pro/api/v1
       NEXT_PUBLIC_GA_ID: G-GPK32JQ0NJ
       INTERNAL_API_URL: http://medmind_backend:8000/api/v1
+      BACKEND_URL: http://medmind_backend:8000/api/v1
       NODE_ENV: production
       HOSTNAME: "0.0.0.0"
     depends_on:
