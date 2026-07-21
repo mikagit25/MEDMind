@@ -233,7 +233,7 @@ EXAM_MODES = [
         "icon": "heart-pulse",
         "pass_threshold": 65,
         "gulf": True,
-        "exam_slug": "moh-uae",
+        "exam_slug": "mohuae",
     },
     {
         "id": "haad_practice",
@@ -338,7 +338,7 @@ EXAM_MODES = [
         "icon": "heart-pulse",
         "pass_threshold": 65,
         "gulf": True,
-        "exam_slug": "moh-uae",
+        "exam_slug": "mohuae",
         "full_simulation": True,
     },
     {
@@ -1115,7 +1115,7 @@ async def get_gulf_readiness(
 
     Legal: this is a practice performance estimate, NOT a Gulf exam outcome prediction.
     """
-    valid_slugs = {"snle", "dha", "qchp", "omsb", "nhra", "moh-uae", "haad"}
+    valid_slugs = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"}
     if exam_slug not in valid_slugs:
         raise HTTPException(400, f"Unknown Gulf exam slug. Valid: {', '.join(valid_slugs)}")
     if not user_has_exam_access(user, exam_slug):

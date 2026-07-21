@@ -119,7 +119,7 @@ GULF_EXAMS: list[dict] = [
         "disclaimer": NONAFFILIATION_DISCLAIMER,
     },
     {
-        "slug": "moh-uae",
+        "slug": "mohuae",
         "name": "MOH UAE Nursing Licensing Exam",
         "country": "UAE — Northern Emirates",
         "regulatory_body": "Ministry of Health and Prevention (MOHAP)",

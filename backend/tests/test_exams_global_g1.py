@@ -67,7 +67,7 @@ def test_gulf_exam_count():
 
 
 def test_gulf_exam_slugs():
-    expected = {"snle", "dha", "qchp", "omsb", "nhra", "moh-uae", "haad"}
+    expected = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"}
     actual = {e["slug"] for e in GULF_EXAMS}
     assert actual == expected
 
@@ -139,7 +139,7 @@ def test_lifetime_user_can_access_gulf_exam():
 
 
 def test_gulf_bundle_accesses_gulf_exams():
-    for slug in ["snle", "dha", "qchp", "omsb", "nhra", "moh-uae", "haad"]:
+    for slug in ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"]:
         assert user_has_exam_access(_user("gulf_bundle"), slug) is True, f"Failed for {slug}"
 
 
@@ -161,7 +161,7 @@ def test_free_user_denied_all_exams():
 # ── is_gulf_exam helper ───────────────────────────────────────────────────────
 
 def test_is_gulf_exam_true():
-    for slug in ["snle", "dha", "qchp", "omsb", "nhra", "moh-uae", "haad"]:
+    for slug in ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"]:
         assert is_gulf_exam(slug) is True
 
 

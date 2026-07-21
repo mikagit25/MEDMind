@@ -24,18 +24,37 @@ from sqlalchemy import select, or_
 from app.core.database import AsyncSessionLocal
 from app.models.models import MCQQuestion
 
-GROQ_KEYS = [k for k in [
+def _dedup(keys: list) -> list:
+    seen: set = set()
+    return [k for k in keys if k and not (k in seen or seen.add(k))]
+
+_GROQ_KEYS = _dedup([
     os.getenv("GROQ_API_KEY_3", ""),
     os.getenv("GROQ_API_KEY_6", ""),
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
     os.getenv("GROQ_KEY_VET_MODULES", ""),
-] if k]
-_seen: set = set()
-GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
+])
+_CEREBRAS_KEYS = _dedup([
+    os.getenv("CEREBRAS_API_KEY", ""),
+    os.getenv("CEREBRAS_API_KEY_2", ""),
+    os.getenv("CEREBRAS_API_KEY_3", ""),
+    os.getenv("CEREBRAS_API_KEY_4", ""),
+    os.getenv("CEREBRAS_API_KEY_5", ""),
+])
 
-GROQ_MODEL = "llama-3.3-70b-versatile"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
+
+# Unified slot pool: (key, url, model)
+ALL_LLM_SLOTS = (
+    [(k, GROQ_URL, "llama-3.3-70b-versatile") for k in _GROQ_KEYS] +
+    [(k, CEREBRAS_URL, "llama-3.3-70b") for k in _CEREBRAS_KEYS]
+)
+
+# Legacy aliases for logging
+GROQ_KEYS = [s[0] for s in ALL_LLM_SLOTS]
+GROQ_MODEL = "llama-3.3-70b-versatile"
 BATCH_SIZE = 5
 
 AR_MEDICAL_GLOSSARY = {
@@ -85,10 +104,10 @@ def _parse_response(raw: str) -> list[dict] | None:
 
 class GroqClient:
     def __init__(self):
-        self._reset_at: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
+        self._reset_at: dict[str, float] = {slot[0]: 0.0 for slot in ALL_LLM_SLOTS}
 
-    def _best_key(self) -> str:
-        return min(GROQ_KEYS, key=lambda k: self._reset_at[k])
+    def _best_slot(self) -> tuple:
+        return min(ALL_LLM_SLOTS, key=lambda s: self._reset_at[s[0]])
 
     def mark_limited(self, key: str, reset_in: float) -> None:
         self._reset_at[key] = time.time() + reset_in
@@ -106,20 +125,21 @@ class GroqClient:
 
     async def call(self, prompt: str, max_wait: int = 3600) -> str | None:
         while True:
-            key = self._best_key()
+            key, url, model = self._best_slot()
             wait = self._reset_at[key] - time.time()
             if wait > max_wait:
-                print(f"  All keys limited >{max_wait//60}min. Exiting — cron will retry.")
+                print(f"  All {len(ALL_LLM_SLOTS)} LLM slots limited >{max_wait//60}min. Exiting — cron will retry.")
                 return None
             if wait > 0:
-                print(f"  Waiting {wait:.0f}s for key rotation…")
+                provider = "Groq" if "groq" in url else "Cerebras"
+                print(f"  Waiting {wait:.0f}s for [{provider}] slot rotation…")
                 await asyncio.sleep(wait + 1)
             try:
                 async with httpx.AsyncClient(timeout=60) as client:
                     resp = await client.post(
-                        GROQ_URL,
+                        url,
                         headers={"Authorization": f"Bearer {key}"},
-                        json={"model": GROQ_MODEL,
+                        json={"model": model,
                               "messages": [{"role": "user", "content": prompt}],
                               "max_tokens": 4000, "temperature": 0.2},
                     )
@@ -127,7 +147,9 @@ class GroqClient:
                     retry_after = self._parse_retry_after(
                         resp.json().get("error", {}).get("message", "")
                     )
-                    print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, resets in {retry_after:.0f}s")
+                    provider = "Groq" if "groq" in url else "Cerebras"
+                    idx = ALL_LLM_SLOTS.index((key, url, model)) + 1
+                    print(f"  [{provider} slot {idx}/{len(ALL_LLM_SLOTS)}] limited {retry_after:.0f}s")
                     self.mark_limited(key, retry_after)
                     continue
                 resp.raise_for_status()

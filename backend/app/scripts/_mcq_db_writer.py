@@ -96,7 +96,7 @@ GULF_SOURCES: dict[str, list[dict]] = {
         {"name": "NHRA Health Professionals Classification",
          "url": "https://www.nhra.bh/health-professionals", "type": "regulatory"},
     ],
-    "moh-uae": [
+    "mohuae": [
         {"name": "MOH UAE Health Professional Licensing",
          "url": "https://www.mohap.gov.ae/en/services/Pages/226.aspx", "type": "regulatory"},
     ],

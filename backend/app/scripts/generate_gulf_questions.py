@@ -26,16 +26,37 @@ from app.models.models import MCQQuestion, Module
 from app.scripts._mcq_db_writer import get_gulf_sources, get_or_create_gulf_module, save_questions_to_db
 
 # ── Config ────────────────────────────────────────────────────────────────────
-GROQ_KEYS = [k for k in [
+# Each slot: (api_key, api_url, model_name)
+def _dedup(keys: list) -> list:
+    seen: set = set()
+    return [k for k in keys if k and not (k in seen or seen.add(k))]
+
+_GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
     os.getenv("GROQ_KEY_VET_MODULES", ""),
     os.getenv("GROQ_API_KEY_3", ""),
-] if k]
-_seen: set = set()
-GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
-GROQ_MODEL = "llama-3.3-70b-versatile"
+])
+_CEREBRAS_KEYS = _dedup([
+    os.getenv("CEREBRAS_API_KEY", ""),
+    os.getenv("CEREBRAS_API_KEY_2", ""),
+    os.getenv("CEREBRAS_API_KEY_3", ""),
+    os.getenv("CEREBRAS_API_KEY_4", ""),
+    os.getenv("CEREBRAS_API_KEY_5", ""),
+])
+
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
+
+# Build unified key pool: (key, url, model)
+ALL_LLM_SLOTS = (
+    [(k, GROQ_URL, "llama-3.3-70b-versatile") for k in _GROQ_KEYS] +
+    [(k, CEREBRAS_URL, "llama-3.3-70b") for k in _CEREBRAS_KEYS]
+)
+
+# Legacy alias for logging
+GROQ_KEYS = [s[0] for s in ALL_LLM_SLOTS]  # used only for len() in logs
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 TARGET_PER_EXAM = 300
 BATCH_SIZE = 15
@@ -148,40 +169,46 @@ async def _count_existing_db(slug: str) -> int:
 
 class RateLimiter:
     def __init__(self):
-        self._reset_at: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
+        self._reset_at: dict[str, float] = {slot[0]: 0.0 for slot in ALL_LLM_SLOTS}
 
-    def _best_key(self) -> str:
-        return min(GROQ_KEYS, key=lambda k: self._reset_at[k])
+    def _best_slot(self) -> tuple:
+        return min(ALL_LLM_SLOTS, key=lambda s: self._reset_at[s[0]])
 
     def mark_limited(self, key: str, reset_in: float) -> None:
         self._reset_at[key] = time.time() + reset_in
 
+    @staticmethod
+    def _parse_retry_after(resp_json: dict) -> float:
+        try:
+            msg = resp_json.get("error", {}).get("message", "")
+            part = msg.split("in ")[-1].strip()
+            m = re.match(r"(?:(\d+)m)?(\d+(?:\.\d+)?)s?", part)
+            return float(m.group(1) or 0) * 60 + float(m.group(2) or 0) if m else 120.0
+        except Exception:
+            return 120.0
+
     async def generate(self, prompt: str, max_tokens: int = 3000, max_wait: int = 90) -> str | None:
-        for attempt in range(len(GROQ_KEYS) * 4):
-            key = self._best_key()
+        for _attempt in range(len(ALL_LLM_SLOTS) * 4):
+            key, url, model = self._best_slot()
             wait = self._reset_at[key] - time.time()
             if wait > max_wait:
-                print(f"  ⚠ All {len(GROQ_KEYS)} keys limited >{max_wait}s. Exiting — cron will retry.")
+                print(f"  ⚠ All {len(ALL_LLM_SLOTS)} LLM slots limited >{max_wait}s. Exiting — cron will retry.")
                 return None
             if wait > 0:
                 await asyncio.sleep(wait + 1)
             try:
                 async with httpx.AsyncClient(timeout=60) as client:
                     resp = await client.post(
-                        GROQ_URL,
+                        url,
                         headers={"Authorization": f"Bearer {key}"},
-                        json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
+                        json={"model": model, "messages": [{"role": "user", "content": prompt}],
                               "max_tokens": max_tokens, "temperature": 0.7},
                     )
                 if resp.status_code == 429:
-                    try:
-                        msg = resp.json()["error"]["message"]
-                        part = msg.split("in ")[-1].strip()
-                        m = re.match(r"(?:(\d+)m)?(\d+(?:\.\d+)?)s?", part)
-                        retry_after = float(m.group(1) or 0) * 60 + float(m.group(2) or 0) if m else 120.0
-                    except Exception:
-                        retry_after = 120.0
-                    print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, resets in {retry_after:.0f}s — switching")
+                    retry_after = self._parse_retry_after(resp.json())
+                    provider = "Groq" if "groq" in url else "Cerebras"
+                    idx = ALL_LLM_SLOTS.index((key, url, model)) + 1
+                    print(f"  [{provider} slot {idx}/{len(ALL_LLM_SLOTS)}] limited {retry_after:.0f}s — switching")
                     self.mark_limited(key, retry_after)
                     continue
                 resp.raise_for_status()

@@ -58,10 +58,20 @@ GEMINI_KEYS = _dedup([
     os.getenv("GEMINI_API_KEY_5", ""),
 ])
 
+CEREBRAS_KEYS = _dedup([
+    os.getenv("CEREBRAS_API_KEY", ""),
+    os.getenv("CEREBRAS_API_KEY_2", ""),
+    os.getenv("CEREBRAS_API_KEY_3", ""),
+    os.getenv("CEREBRAS_API_KEY_4", ""),
+    os.getenv("CEREBRAS_API_KEY_5", ""),
+])
+
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 GEMINI_URL   = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+CEREBRAS_URL   = "https://api.cerebras.ai/v1/chat/completions"
+CEREBRAS_MODEL = "llama-3.3-70b"
 
 BATCH_SIZE = 3    # questions per LLM call (rationale prompts are long)
 MAX_TOKENS = 4000
@@ -137,6 +147,7 @@ class MultiProviderClient:
         # reset_at[key] = epoch when key becomes available again
         self._groq_reset: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
         self._gemini_reset: dict[str, float] = {k: 0.0 for k in GEMINI_KEYS}
+        self._cerebras_reset: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
 
     # ── Groq ──────────────────────────────────────────────────────────────────
 
@@ -149,6 +160,11 @@ class MultiProviderClient:
         if not GEMINI_KEYS:
             return None
         return min(GEMINI_KEYS, key=lambda k: self._gemini_reset[k])
+
+    def _best_cerebras(self) -> str | None:
+        if not CEREBRAS_KEYS:
+            return None
+        return min(CEREBRAS_KEYS, key=lambda k: self._cerebras_reset[k])
 
     async def _call_groq(self, prompt: str, key: str) -> str | None:
         try:
@@ -177,6 +193,30 @@ class MultiProviderClient:
             return resp.json()["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"    Groq error: {e}")
+            return None
+
+    async def _call_cerebras(self, prompt: str, key: str) -> str | None:
+        try:
+            async with httpx.AsyncClient(timeout=60) as c:
+                resp = await c.post(
+                    CEREBRAS_URL,
+                    headers={"Authorization": f"Bearer {key}"},
+                    json={
+                        "model": CEREBRAS_MODEL,
+                        "messages": [{"role": "user", "content": prompt}],
+                        "max_tokens": MAX_TOKENS,
+                        "temperature": 0.3,
+                    },
+                )
+            if resp.status_code == 429:
+                self._cerebras_reset[key] = time.time() + 60.0
+                idx = CEREBRAS_KEYS.index(key) + 1
+                print(f"    Cerebras key {idx}/{len(CEREBRAS_KEYS)} rate-limited 60s")
+                return None
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"    Cerebras error: {e}")
             return None
 
     async def _call_gemini(self, prompt: str, key: str) -> str | None:
@@ -208,24 +248,32 @@ class MultiProviderClient:
             return None
 
     async def call(self, prompt: str, max_wait: int = 90) -> str | None:
-        """Try Groq pool first, then Gemini pool. Returns None if all exhausted."""
-        total_keys = len(GROQ_KEYS) + len(GEMINI_KEYS)
+        """Try Groq → Cerebras → Gemini pools. Returns None if all exhausted."""
+        total_keys = len(GROQ_KEYS) + len(CEREBRAS_KEYS) + len(GEMINI_KEYS)
         if total_keys == 0:
             print("ERROR: No API keys configured.")
             return None
 
-        attempts = (len(GROQ_KEYS) + len(GEMINI_KEYS)) * 3
+        attempts = total_keys * 3
 
         for _ in range(attempts):
-            groq_key  = self._best_groq()
-            gemini_key = self._best_gemini()
+            groq_key     = self._best_groq()
+            cerebras_key = self._best_cerebras()
+            gemini_key   = self._best_gemini()
 
-            groq_wait   = (self._groq_reset.get(groq_key, 0)   - time.time()) if groq_key   else float("inf")
-            gemini_wait = (self._gemini_reset.get(gemini_key, 0) - time.time()) if gemini_key else float("inf")
+            groq_wait     = (self._groq_reset.get(groq_key, 0)     - time.time()) if groq_key     else float("inf")
+            cerebras_wait = (self._cerebras_reset.get(cerebras_key, 0) - time.time()) if cerebras_key else float("inf")
+            gemini_wait   = (self._gemini_reset.get(gemini_key, 0)   - time.time()) if gemini_key   else float("inf")
 
             # Pick the soonest-available provider
             if groq_key and groq_wait <= 0:
                 result = await self._call_groq(prompt, groq_key)
+                if result is not None:
+                    return result
+                continue
+
+            if cerebras_key and cerebras_wait <= 0:
+                result = await self._call_cerebras(prompt, cerebras_key)
                 if result is not None:
                     return result
                 continue
@@ -237,8 +285,7 @@ class MultiProviderClient:
                 continue
 
             # All keys rate-limited — wait for the soonest one
-            soonest_wait = min(groq_wait if groq_key else float("inf"),
-                               gemini_wait if gemini_key else float("inf"))
+            soonest_wait = min(groq_wait, cerebras_wait, gemini_wait)
             if soonest_wait > max_wait:
                 print(f"  All {total_keys} keys limited >{max_wait}s — stopping this run.")
                 return None
@@ -256,10 +303,10 @@ async def run(
     dry_run: bool = False,
     only_type: str | None = None,
 ) -> None:
-    total_keys = len(GROQ_KEYS) + len(GEMINI_KEYS)
-    print(f"Keys: {len(GROQ_KEYS)} Groq + {len(GEMINI_KEYS)} Gemini = {total_keys} total")
+    total_keys = len(GROQ_KEYS) + len(CEREBRAS_KEYS) + len(GEMINI_KEYS)
+    print(f"Keys: {len(GROQ_KEYS)} Groq + {len(CEREBRAS_KEYS)} Cerebras + {len(GEMINI_KEYS)} Gemini = {total_keys} total")
     if total_keys == 0:
-        print("ERROR: No API keys configured — set at least one GROQ_API_KEY or GEMINI_API_KEY")
+        print("ERROR: No API keys configured — set at least one GROQ_API_KEY, CEREBRAS_API_KEY, or GEMINI_API_KEY")
         sys.exit(1)
 
     client = MultiProviderClient()
