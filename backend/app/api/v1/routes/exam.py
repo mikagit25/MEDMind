@@ -459,6 +459,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
                 "rationales_es": q.get("_rationales_es"),
                 "key_takeaway_es": q.get("_key_takeaway_es"),
                 "test_taking_tip_es": q.get("_test_taking_tip_es"),
+                "explanation_es": q.get("_explanation_es"),
                 "nclex_client_needs": cat,
                 "cjmm_skill": skill,
             })

@@ -93,14 +93,27 @@ class GroqClient:
     def mark_limited(self, key: str, reset_in: float) -> None:
         self._reset_at[key] = time.time() + reset_in
 
-    async def call(self, prompt: str, max_wait: int = 90) -> str | None:
-        for _ in range(len(GROQ_KEYS) * 4):
+    @staticmethod
+    def _parse_retry_after(msg: str) -> float:
+        """Parse Groq retry-after from message like '44m47.04s', '90s', '1m30s'."""
+        try:
+            part = msg.split("in ")[-1].strip()
+            m = re.match(r"(?:(\d+)m)?(\d+(?:\.\d+)?)s?", part)
+            if m:
+                return float(m.group(1) or 0) * 60 + float(m.group(2) or 0)
+        except Exception:
+            pass
+        return 120.0  # safe default
+
+    async def call(self, prompt: str, max_wait: int = 3600) -> str | None:
+        while True:
             key = self._best_key()
             wait = self._reset_at[key] - time.time()
             if wait > max_wait:
-                print(f"  ⚠ All keys limited >{max_wait}s. Exiting — cron will retry.")
+                print(f"  ⚠ All keys limited >{max_wait//60}min. Exiting — cron will retry.")
                 return None
             if wait > 0:
+                print(f"  Waiting {wait:.0f}s for key rotation…")
                 await asyncio.sleep(wait + 1)
             try:
                 async with httpx.AsyncClient(timeout=60) as client:
@@ -112,10 +125,9 @@ class GroqClient:
                               "max_tokens": 4000, "temperature": 0.3},
                     )
                 if resp.status_code == 429:
-                    try:
-                        retry_after = float(resp.json()["error"]["message"].split("in ")[-1].split("s")[0])
-                    except Exception:
-                        retry_after = 60.0
+                    retry_after = self._parse_retry_after(
+                        resp.json().get("error", {}).get("message", "")
+                    )
                     print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, resets in {retry_after:.0f}s")
                     self.mark_limited(key, retry_after)
                     continue
@@ -124,7 +136,6 @@ class GroqClient:
             except Exception as e:
                 print(f"  Error: {e}")
                 await asyncio.sleep(2)
-        return None
 
 
 async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
@@ -135,9 +146,10 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
     client = GroqClient()
 
     async with AsyncSessionLocal() as db:
-        # Fetch questions that have rationales but no Spanish translation yet
+        # Fetch NCLEX questions (not vet) that have rationales but no Spanish translation yet
         q = select(MCQQuestion).where(
             MCQQuestion.rationales.isnot(None),
+            MCQQuestion.nclex_client_needs.isnot(None),
             or_(
                 MCQQuestion.rationales_es.is_(None),
                 MCQQuestion.key_takeaway_es.is_(None),
@@ -202,7 +214,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
 
             await db.commit()
             print(f"    ✓ {translated} translated so far")
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(20)  # avoid per-minute token limits between batches
 
         remaining = len(untranslated) - translated
         print(f"\nDone — translated: {translated} | remaining: {remaining}")

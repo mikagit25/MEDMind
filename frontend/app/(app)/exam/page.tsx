@@ -70,6 +70,7 @@ type WrongQuestion = {
   rationales_es?: Rationales;
   key_takeaway_es?: string;
   test_taking_tip_es?: string;
+  explanation_es?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
 };
@@ -789,7 +790,7 @@ function ExamSession({
                 testTakingTipEs={questionRationales[current].test_taking_tip_es}
                 explanationEs={questionRationales[current].explanation_es}
                 showSpanish={showSpanish}
-                hasSpanish={!!questionRationales[current].rationales_es}
+                hasSpanish={!!(questionRationales[current].rationales_es || questionRationales[current].explanation_es)}
                 onToggleSpanish={toggleSpanish}
                 selectedOption={answers[current]?.selected_option}
                 selectedOptions={answers[current]?.selected_options}
@@ -1102,51 +1103,22 @@ function ResultsView({ results, onRetry, onRetryWrong }: { results: Results; onR
 
                 {expandedQ === q.index && (
                   <div className="mt-3 pt-3 border-t border-red/20 space-y-3">
-                    {/* Per-option rationales (review mode) */}
-                    {q.rationales ? (
-                      <RationalePanel
-                        rationales={q.rationales}
-                        keyTakeaway={q.key_takeaway}
-                        testTakingTip={q.test_taking_tip}
-                        rationalesEs={q.rationales_es}
-                        keyTakeawayEs={q.key_takeaway_es}
-                        testTakingTipEs={q.test_taking_tip_es}
-                        showSpanish={showSpanish}
-                        hasSpanish={!!q.rationales_es}
-                        onToggleSpanish={toggleSpanish}
-                        selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
-                        selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
-                        options={q.options || {}}
-                      />
-                    ) : (
-                      <>
-                        {q.key_takeaway && (
-                          <div className="flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2.5">
-                            <Lightbulb className="w-3.5 h-3.5 text-amber-500 flex-shrink-0 mt-0.5" />
-                            <div>
-                              <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">Key Takeaway</span>
-                              <p className="font-serif text-xs text-amber-800 leading-relaxed">{q.key_takeaway}</p>
-                            </div>
-                          </div>
-                        )}
-                        {q.explanation && (
-                          <div className="text-xs font-serif text-ink-2 leading-relaxed bg-ink/5 rounded-lg p-3">
-                            <ReactMarkdown
-                              components={{
-                                h1: ({ children }) => <p className="font-syne font-bold text-xs text-ink mb-1">{children}</p>,
-                                h2: ({ children }) => <p className="font-syne font-bold text-xs text-ink mb-1">{children}</p>,
-                                h3: ({ children }) => <p className="font-syne font-semibold text-xs text-ink mb-0.5">{children}</p>,
-                                p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
-                                strong: ({ children }) => <strong className="font-syne font-bold text-ink">{children}</strong>,
-                                li: ({ children }) => <li className="ml-3">{children}</li>,
-                              }}
-                            >
-                              {q.explanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
-                            </ReactMarkdown>
-                          </div>
-                        )}
-                      </>
-                    )}
+                    <RationalePanel
+                      rationales={q.rationales}
+                      keyTakeaway={q.key_takeaway}
+                      testTakingTip={q.test_taking_tip}
+                      explanation={q.explanation}
+                      rationalesEs={q.rationales_es}
+                      keyTakeawayEs={q.key_takeaway_es}
+                      testTakingTipEs={q.test_taking_tip_es}
+                      explanationEs={q.explanation_es}
+                      showSpanish={showSpanish}
+                      hasSpanish={!!(q.rationales_es || q.explanation_es)}
+                      onToggleSpanish={toggleSpanish}
+                      selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
+                      selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
+                      options={q.options || {}}
+                    />
                     <div className="flex items-center gap-3 flex-wrap">
                       <AIExplainButton questionId={q.id} questionText={q.question} />
                       <FlagButton questionId={q.id} />
