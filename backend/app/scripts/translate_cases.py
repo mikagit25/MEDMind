@@ -139,9 +139,9 @@ async def _call_groq(system: str, user: str) -> str:
 
 
 def _get_groq_keys() -> list[str]:
-    """Return all available Groq keys for case translation (GROQ_KEY_CASES takes priority)."""
+    """Content pipeline pool — KEY_4 reserved for articles, KEY_5 for news."""
     keys = []
-    for attr in ("GROQ_KEY_CASES", "GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5"):
+    for attr in ("GROQ_KEY_CASES", "GROQ_API_KEY_3", "GROQ_API_KEY_6", "GROQ_KEY_MODULE_2", "GROQ_KEY_VET_MODULES"):
         k = getattr(settings, attr, "")
         if k:
             keys.append(k)

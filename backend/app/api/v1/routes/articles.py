@@ -814,8 +814,7 @@ ANSWER:"""
         try:
             import httpx as _httpx
             _groq_keys = [
-                settings.GROQ_API_KEY,
-                *[os.environ.get(f"GROQ_API_KEY_{i}", "") for i in range(2, 6)],
+                os.environ.get("GROQ_API_KEY_4", ""),  # dedicated to article chat fallback
             ]
             _groq_keys = [k for k in _groq_keys if k]
             for _key in _groq_keys:

@@ -40,17 +40,14 @@ def _dedup(keys: list[str]) -> list[str]:
     return [k for k in keys if k and not (k in seen or seen.add(k))]  # type: ignore[func-returns-value]
 
 GROQ_KEYS = _dedup([
-    # User tutor keys — free when no active user sessions
-    os.getenv("GROQ_API_KEY", ""),
-    os.getenv("GROQ_API_KEY_2", ""),
-    os.getenv("GROQ_API_KEY_6", ""),
-    # Content pipeline keys
+    # Content pipeline pool — KEY_4 reserved for articles, KEY_5 for news
     os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
     os.getenv("GROQ_KEY_MODULE", ""),
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
     os.getenv("GROQ_KEY_VET_MODULES", ""),
-    # NOT included: GROQ_API_KEY_4, GROQ_KEY_VET_ARTICLES (used for articles/news)
+    # NOT included: KEY_1/KEY_2 (user tutor), KEY_4 (articles), KEY_5 (news), VET_ARTICLES
 ])
 
 GEMINI_KEYS = _dedup([

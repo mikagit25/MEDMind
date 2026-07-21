@@ -26,10 +26,12 @@ from app.models.models import MCQQuestion
 
 # Content pipeline keys only — never GROQ_API_KEY / GROQ_API_KEY_2 (user tutor)
 GROQ_KEYS = [k for k in [
+    os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
     os.getenv("GROQ_KEY_VET_MODULES", ""),
-    os.getenv("GROQ_API_KEY_3", ""),
+    # KEY_4 reserved for articles, KEY_5 for news, KEY_1/KEY_2 for user tutor
 ] if k]
 _seen: set = set()
 GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
