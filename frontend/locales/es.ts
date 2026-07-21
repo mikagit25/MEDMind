@@ -1653,7 +1653,7 @@ const es: Translations = {
     // V4 Phase 4
     hero_v4_title: "Medicina, entendida por todos.",
     hero_v4_title2: "La profundidad en la que confían los especialistas.",
-    hero_v4_sub: "Contenido médico basado en evidencia en 7 idiomas — para estudiantes, médicos, pacientes y veterinarios.",
+    hero_v4_sub: "Tutor médico IA · preparación NCLEX y exámenes del Golfo · 600+ artículos basados en evidencia en 7 idiomas. Para estudiantes, médicos y pacientes.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",

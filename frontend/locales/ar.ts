@@ -1645,7 +1645,7 @@ const ar: Translations = {
     // V4 Phase 4
     hero_v4_title: "الطب، مفهوم للجميع.",
     hero_v4_title2: "العمق الذي يثق به المتخصصون.",
-    hero_v4_sub: "محتوى طبي قائم على الأدلة بـ 7 لغات — للطلاب والأطباء والمرضى والبيطريين.",
+    hero_v4_sub: "مُدرِّس طبي بالذكاء الاصطناعي · التحضير لـ NCLEX وامتحانات الخليج · أكثر من 600 مقالة طبية بـ 7 لغات. للطلاب والأطباء والمرضى.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",

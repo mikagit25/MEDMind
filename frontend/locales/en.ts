@@ -1774,7 +1774,7 @@ const en = {
     // V4 Phase 4 — bifurcation hero
     hero_v4_title: "Medicine, understood by everyone.",
     hero_v4_title2: "Depth trusted by specialists.",
-    hero_v4_sub: "Evidence-based medical content in 7 languages — for students, doctors, patients, and veterinarians.",
+    hero_v4_sub: "AI medical tutor · NCLEX & Gulf exam prep · 600+ evidence-based articles in 7 languages. For students, doctors, and patients.",
     audience_pro_title: "I'm studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",

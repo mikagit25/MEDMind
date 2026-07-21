@@ -1645,7 +1645,7 @@ const tr: Translations = {
     // V4 Phase 4
     hero_v4_title: "Tıp, herkes tarafından anlaşılır.",
     hero_v4_title2: "Uzmanların güvendiği derinlik.",
-    hero_v4_sub: "7 dilde kanıta dayalı tıbbi içerik — öğrenciler, doktorlar, hastalar ve veterinerler için.",
+    hero_v4_sub: "Yapay zeka tıp öğreticisi · NCLEX ve Körfez sınavı hazırlığı · 7 dilde 600+ kanıta dayalı makale. Öğrenciler, doktorlar ve hastalar için.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",

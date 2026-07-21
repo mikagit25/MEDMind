@@ -1653,7 +1653,7 @@ const de: Translations = {
     // V4 Phase 4
     hero_v4_title: "Medizin, verständlich für alle.",
     hero_v4_title2: "Tiefe, der Spezialisten vertrauen.",
-    hero_v4_sub: "Evidenzbasierter medizinischer Inhalt in 7 Sprachen — für Studenten, Ärzte, Patienten und Tierärzte.",
+    hero_v4_sub: "KI-Medizin-Tutor · NCLEX & Gulf-Prüfungsvorbereitung · 600+ evidenzbasierte Artikel in 7 Sprachen. Für Studenten, Ärzte und Patienten.",
     audience_pro_title: "I am studying medicine",
     audience_pro_sub: "Doctors · Residents · Students",
     audience_pro_cta: "Start learning free →",
