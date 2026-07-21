@@ -175,9 +175,12 @@ class RateLimiter:
                     )
                 if resp.status_code == 429:
                     try:
-                        retry_after = float(resp.json()["error"]["message"].split("in ")[-1].split("s")[0])
+                        msg = resp.json()["error"]["message"]
+                        part = msg.split("in ")[-1].strip()
+                        m = re.match(r"(?:(\d+)m)?(\d+(?:\.\d+)?)s?", part)
+                        retry_after = float(m.group(1) or 0) * 60 + float(m.group(2) or 0) if m else 120.0
                     except Exception:
-                        retry_after = 60.0
+                        retry_after = 120.0
                     print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, resets in {retry_after:.0f}s — switching")
                     self.mark_limited(key, retry_after)
                     continue
@@ -296,7 +299,7 @@ async def generate_for_slug(slug: str, exam_name: str) -> int:
         new_questions.extend(qs)
         generated += len(qs)
         print(f"    ✓ {len(qs)} generated")
-        await asyncio.sleep(1)
+        await asyncio.sleep(5)
 
     if new_questions:
         module_id = await get_or_create_gulf_module(slug, exam_name)

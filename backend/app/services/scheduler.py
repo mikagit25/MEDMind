@@ -531,6 +531,23 @@ async def _translate_nclex_es_job() -> None:
         logger.error("translate_nclex_rationales cron error: %s", exc)
 
 
+async def _generate_gulf_questions_job() -> None:
+    """Generate Gulf-specific exam questions (15 per run, every 30 min, cycles slugs)."""
+    try:
+        from app.scripts.generate_gulf_questions import generate_for_slug, _count_existing_db, TARGET_PER_EXAM
+        from app.data.exam_registry import GULF_EXAMS
+        gulf_exams = {e["slug"]: e["name"] for e in GULF_EXAMS}
+        for slug, name in gulf_exams.items():
+            count = await _count_existing_db(slug)
+            if count < TARGET_PER_EXAM:
+                logger.info("Gulf cron: generating for %s (%d/%d)", slug, count, TARGET_PER_EXAM)
+                await generate_for_slug(slug, name)
+                return  # one slug per run to stay within rate limits
+        logger.info("Gulf cron: all slugs at target — nothing to do")
+    except Exception as exc:
+        logger.error("generate_gulf_questions cron error: %s", exc)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -698,6 +715,15 @@ def start_scheduler():
         _translate_nclex_es_job,
         trigger=CronTrigger(minute="15,45", timezone="UTC"),
         id="translate_nclex_es",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
+    # Every 30 min (offset +05) — generate Gulf-specific exam questions (one slug per run)
+    scheduler.add_job(
+        _generate_gulf_questions_job,
+        trigger=CronTrigger(minute="5,35", timezone="UTC"),
+        id="generate_gulf_questions",
         replace_existing=True,
         misfire_grace_time=600,
     )
