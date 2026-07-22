@@ -888,20 +888,22 @@ function ExamSession({
         </div>
       </div>
 
-      {/* Progress dots — green=answered, amber=draft, purple=bookmarked */}
-      <div className="flex flex-wrap gap-1 mb-4">
-        {session.questions.map((_, i) => (
-          <button key={i} onClick={() => setCurrent(i)}
-            className={`w-6 h-6 rounded text-[10px] font-syne font-bold transition-colors ${
-              i === current ? "bg-ink text-white" :
-              bookmarked.has(i) ? "bg-purple-500 text-white" :
-              locked[i] ? "bg-green/80 text-white" :
-              answers[i] ? "bg-amber-200 text-amber-800" :
-              "bg-surface border border-border text-ink-3"
-            }`}
-          >{i + 1}</button>
-        ))}
-      </div>
+      {/* Progress dots — show for ≤75 questions; for longer exams the bar above is sufficient */}
+      {total <= 75 && (
+        <div className="flex flex-wrap gap-1 mb-4">
+          {session.questions.map((_, i) => (
+            <button key={i} onClick={() => setCurrent(i)}
+              className={`w-6 h-6 rounded text-[10px] font-syne font-bold transition-colors ${
+                i === current ? "bg-ink text-white" :
+                bookmarked.has(i) ? "bg-purple-500 text-white" :
+                locked[i] ? "bg-green/80 text-white" :
+                answers[i] ? "bg-amber-200 text-amber-800" :
+                "bg-surface border border-border text-ink-3"
+              }`}
+            >{i + 1}</button>
+          ))}
+        </div>
+      )}
 
       {/* Question card */}
       <div className="bg-surface border border-border rounded-xl p-6">
