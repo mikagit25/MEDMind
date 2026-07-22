@@ -517,6 +517,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
     answers = sess.answers or {}
     total = len(questions_data)
     correct_count = 0
+    answered_count = 0
     wrong_list = []
     all_questions_list = []
     per_q = []
@@ -526,25 +527,69 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
     for q in questions_data:
         idx = str(q["index"])
         answer = answers.get(idx)
+
+        # Normalize category/skill early (used for both answered and unanswered)
+        cat = q.get("nclex_client_needs")
+        if cat:
+            cat = _ALIAS_TO_CANONICAL.get(cat, cat)
+        skill = q.get("cjmm_skill")
+        if skill:
+            skill = _CJMM_ALIAS_TO_CANONICAL.get(skill, skill)
+
+        if answer is None:
+            # Unanswered (skipped) — show in All tab as neutral, exclude from score
+            all_questions_list.append({
+                "index": q["index"],
+                "id": q.get("id"),
+                "question": q["question"],
+                "options": q.get("options"),
+                "your_answer": None,
+                "correct_answer": q.get("_correct") or "",
+                "correct": None,  # null = skipped, distinct from False = wrong
+                "explanation": q.get("explanation"),
+                "rationales": q.get("_rationales"),
+                "key_takeaway": q.get("_key_takeaway"),
+                "test_taking_tip": q.get("_test_taking_tip"),
+                "rationales_es": q.get("_rationales_es"),
+                "key_takeaway_es": q.get("_key_takeaway_es"),
+                "test_taking_tip_es": q.get("_test_taking_tip_es"),
+                "explanation_es": q.get("_explanation_es"),
+                "explanation_ar": q.get("_explanation_ar"),
+                "rationales_ar": q.get("_rationales_ar"),
+                "key_takeaway_ar": q.get("_key_takeaway_ar"),
+                "nclex_client_needs": cat,
+                "cjmm_skill": skill,
+                "source_refs": q.get("_source_refs") or [],
+            })
+            per_q.append({
+                "index": q["index"],
+                "correct": None,
+                "selected": None,
+                "correct_answer": None,
+                "nclex_client_needs": cat,
+                "cjmm_skill": skill,
+                "difficulty": q.get("difficulty", "medium") or "medium",
+                "question_type": q.get("question_type", "mcq"),
+                "ngn_type": q.get("ngn_type"),
+            })
+            continue
+
+        answered_count += 1
         is_correct, correct_display = _score_question(q, answer)
 
         if is_correct:
             correct_count += 1
 
-        # Category tracking (normalize aliases to canonical key)
-        cat = q.get("nclex_client_needs")
+        # Category tracking (only for answered questions)
         if cat:
-            cat = _ALIAS_TO_CANONICAL.get(cat, cat)
             if cat not in category_stats:
                 category_stats[cat] = {"total": 0, "correct": 0, "label": NCLEX_CLIENT_NEEDS_LABELS.get(cat, cat)}
             category_stats[cat]["total"] += 1
             if is_correct:
                 category_stats[cat]["correct"] += 1
 
-        # CJMM tracking (normalize aliases to canonical skill)
-        skill = q.get("cjmm_skill")
+        # CJMM tracking (only for answered questions)
         if skill:
-            skill = _CJMM_ALIAS_TO_CANONICAL.get(skill, skill)
             if skill not in cjmm_stats:
                 cjmm_stats[skill] = {"total": 0, "correct": 0, "label": CJMM_LABELS.get(skill, skill)}
             cjmm_stats[skill]["total"] += 1
@@ -592,7 +637,9 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
 
     mode = next((m for m in EXAM_MODES if m["id"] == sess.mode_id), {})
     pass_threshold = mode.get("pass_threshold", 60)
-    score_pct = round((correct_count / total) * 100) if total else 0
+    unanswered_count = total - answered_count
+    # Score is based only on answered questions (skipped don't penalize)
+    score_pct = round((correct_count / answered_count) * 100) if answered_count else 0
     passed = score_pct >= pass_threshold
 
     # Category pct
@@ -616,8 +663,10 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
         "mode": sess.mode_name,
         "mode_id": sess.mode_id,
         "total_questions": total,
+        "answered": answered_count,
+        "unanswered": unanswered_count,
         "correct": correct_count,
-        "wrong": total - correct_count,
+        "wrong": answered_count - correct_count,
         "score_pct": score_pct,
         "passed": passed,
         "pass_threshold": pass_threshold,
@@ -934,6 +983,8 @@ async def submit_answer(
         "key_takeaway_ar": q_snap.get("_key_takeaway_ar"),
         # Source references for clinical verification
         "source_refs": q_snap.get("_source_refs") or [],
+        # Correct answer letter — used for option color highlighting in practice mode
+        "correct_answer": q_snap.get("_correct"),
     }
 
 

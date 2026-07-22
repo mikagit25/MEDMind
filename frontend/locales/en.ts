@@ -68,6 +68,7 @@ const en = {
     search_placeholder: "Search modules…",
     sections: {
       learning: "Learning",
+      nursing_exams: "Nursing Exams",
       visual_medicine: "Visual Medicine",
       tools: "Tools",
       account: "Account",
@@ -76,6 +77,8 @@ const en = {
     },
     items: {
       dashboard: "Dashboard",
+      gulf_exams: "Gulf Prometric",
+      nclex_prep: "NCLEX Prep",
       modules: "Modules",
       my_courses: "My Courses",
       ai_tutor: "AI Tutor",

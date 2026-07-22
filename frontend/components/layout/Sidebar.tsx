@@ -13,7 +13,7 @@ import {
   Pill, PawPrint, TrendingUp, Trophy, Target, Award, Bookmark, Bell,
   Shield, Settings, Settings2, PenLine, BarChart2, CreditCard,
   Search, Sun, Moon, LogOut, FileText, FileJson, Radio, Gift, CalendarCheck, Users, Globe, Shuffle, Calculator,
-  HeartPulse, HelpCircle, Activity,
+  HeartPulse, HelpCircle, Activity, MapPin,
   type LucideProps,
 } from "lucide-react";
 
@@ -39,6 +39,13 @@ export function Sidebar() {
   const { locale, setLocale } = useI18n();
 
   const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
+    {
+      label: t("nav.sections.nursing_exams"),
+      items: [
+        { icon: MapPin,          label: t("nav.items.gulf_exams"),  href: "/nurses/gulf" },
+        { icon: ClipboardList,   label: t("nav.items.nclex_prep"),  href: "/nurses/nclex" },
+      ],
+    },
     {
       label: t("nav.sections.learning"),
       items: [

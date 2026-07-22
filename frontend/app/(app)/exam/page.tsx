@@ -94,6 +94,8 @@ type Results = {
   mode: string;
   mode_id: string;
   total_questions: number;
+  answered?: number;
+  unanswered?: number;
   correct: number;
   wrong: number;
   score_pct: number;
@@ -158,11 +160,13 @@ function QuestionCard({
   answer,
   locked,
   onChange,
+  correctAnswer,
 }: {
   question: Question;
   answer: AnswerState;
   locked: boolean;
   onChange: (a: AnswerState) => void;
+  correctAnswer?: string;
 }) {
   const t = useT();
   const qtype = question.question_type;
@@ -285,18 +289,34 @@ function QuestionCard({
       )}
       {options.map(([key, text]) => {
         const isSelected = answer.selected_option === key;
+        const isCorrectKey = correctAnswer && key === correctAnswer;
+        const isWrongSelected = locked && correctAnswer && isSelected && !isCorrectKey;
+        const optClass = locked && correctAnswer
+          ? isCorrectKey
+            ? "border-green bg-green/10 cursor-default"
+            : isWrongSelected
+              ? "border-red bg-red/10 cursor-default opacity-90"
+              : "border-border bg-surface cursor-default opacity-50"
+          : isSelected
+            ? "border-ink bg-ink/5"
+            : "border-border hover:border-ink-3 bg-surface";
+        const dotClass = locked && correctAnswer
+          ? isCorrectKey
+            ? "border-green bg-green text-white"
+            : isWrongSelected
+              ? "border-red bg-red text-white"
+              : "border-ink-3 text-ink-3"
+          : isSelected
+            ? "border-ink bg-ink text-white"
+            : "border-ink-3 text-ink-3";
         return (
           <button
             key={key}
             onClick={() => !locked && onChange({ ...answer, selected_option: key })}
             disabled={locked}
-            className={`w-full text-left flex items-start gap-3 p-4 rounded-lg border-2 transition-colors disabled:cursor-default ${
-              isSelected ? "border-ink bg-ink/5" : "border-border hover:border-ink-3 bg-surface"
-            }`}
+            className={`w-full text-left flex items-start gap-3 p-4 rounded-lg border-2 transition-colors disabled:cursor-default ${optClass}`}
           >
-            <span className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-syne font-bold mt-0.5 ${
-              isSelected ? "border-ink bg-ink text-white" : "border-ink-3 text-ink-3"
-            }`}>{key}</span>
+            <span className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 text-xs font-syne font-bold mt-0.5 ${dotClass}`}>{key}</span>
             <span className="font-serif text-sm text-ink leading-relaxed">{text}</span>
           </button>
         );
@@ -656,6 +676,7 @@ type QuestionRationale = {
   explanation?: string; explanation_es?: string;
   explanation_ar?: string; rationales_ar?: Rationales; key_takeaway_ar?: string;
   source_refs?: SourceRef[];
+  correct_answer?: string;
 };
 
 type ReviewLang = "en" | "es" | "ar";
@@ -742,7 +763,7 @@ function ExamSession({
         setCurrentDifficulty(res.current_difficulty);
       }
       // Capture rationales returned by the server for practice mode display
-      if (res?.rationales || res?.key_takeaway || res?.explanation) {
+      if (res?.rationales || res?.key_takeaway || res?.explanation || res?.correct_answer) {
         setQuestionRationales(prev => ({
           ...prev,
           [idx]: {
@@ -751,6 +772,7 @@ function ExamSession({
             test_taking_tip_es: res.test_taking_tip_es, explanation: res.explanation, explanation_es: res.explanation_es,
             explanation_ar: res.explanation_ar, rationales_ar: res.rationales_ar, key_takeaway_ar: res.key_takeaway_ar,
             source_refs: res.source_refs || [],
+            correct_answer: res.correct_answer,
           },
         }));
       }
@@ -919,6 +941,7 @@ function ExamSession({
           answer={ans}
           locked={!!locked[current]}
           onChange={handleChange}
+          correctAnswer={locked[current] ? questionRationales[current]?.correct_answer : undefined}
         />
 
         {/* Confirm answer button */}
@@ -1180,6 +1203,9 @@ function ResultsView({
         <div className="flex flex-wrap items-center justify-center gap-4 text-sm font-syne">
           <span><strong className="text-green">{results.correct}</strong> {t("exam_page.stat_correct")}</span>
           <span><strong className="text-red">{results.wrong}</strong> {t("exam_page.stat_wrong")}</span>
+          {(results.unanswered ?? 0) > 0 && (
+            <span><strong className="text-ink-3">{results.unanswered}</strong> skipped</span>
+          )}
           <span><strong className="text-ink">{results.time_taken_min}m</strong></span>
           <span className="text-ink-3">{t("exam_page.pass_threshold")} {results.pass_threshold}%</span>
           {results.cat_enabled && <span className="text-blue-600 font-bold">{t("exam_page.cat_adaptive")}</span>}
@@ -1279,9 +1305,10 @@ function ResultsView({
           ) : (
             <div className="space-y-3">
               {reviewList.map((q) => {
-                const isCorrect = q.correct !== false && !wrongQs.some(w => w.index === q.index);
-                const borderColor = isCorrect ? "border-green/20" : "border-red/20";
-                const bgColor = isCorrect ? "bg-green/3" : "bg-red/5";
+                const isSkipped = q.correct === null || q.correct === undefined;
+                const isCorrect = !isSkipped && q.correct === true;
+                const borderColor = isSkipped ? "border-border" : isCorrect ? "border-green/20" : "border-red/20";
+                const bgColor = isSkipped ? "bg-surface opacity-75" : isCorrect ? "bg-green/3" : "bg-red/5";
                 return (
                   <div key={q.index} className={`border ${borderColor} rounded-xl p-4 ${bgColor}`}>
                     <button
@@ -1459,16 +1486,20 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
           <h2 className="font-syne font-bold text-sm text-ink mb-3">{t("exam_page.recent_sessions")}</h2>
           <div className="space-y-2">
             {history.slice(0, 5).map(s => (
-              <div key={s.session_id} className="flex items-center gap-3 bg-surface border border-border rounded-xl px-4 py-3">
+              <Link
+                key={s.session_id}
+                href={`/exam?session=${s.session_id}&results=1`}
+                className="flex items-center gap-3 bg-surface border border-border rounded-xl px-4 py-3 hover:border-ink-3 hover:bg-surface-2 transition-colors"
+              >
                 <div className="flex-1 min-w-0">
                   <div className="font-syne font-semibold text-xs text-ink truncate">{s.mode}</div>
                   <div className="text-ink-3 font-serif text-xs">{new Date(s.started_at).toLocaleDateString()}</div>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-shrink-0">
                   <div className={`font-syne font-bold text-sm ${s.passed ? "text-green" : "text-red"}`}>{s.score_pct}%</div>
-                  <div className="text-ink-3 text-xs">{s.total_questions}Q</div>
+                  <div className="text-ink-3 text-xs">{s.total_questions}Q · View →</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
