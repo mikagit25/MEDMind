@@ -81,12 +81,15 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
             "privacyStatus":         "public",
             "selfDeclaredMadeForKids": False,
         },
+        "contentRating": {
+            "ytRating": "ytAgeRestricted",
+        },
     }
 
     media = googleapiclient.http.MediaFileUpload(
         mp4, chunksize=-1, resumable=True, mimetype="video/mp4"
     )
-    req = yt.videos().insert(part="snippet,status", body=body, media_body=media)
+    req = yt.videos().insert(part="snippet,status,contentRating", body=body, media_body=media)
 
     response = None
     while response is None:

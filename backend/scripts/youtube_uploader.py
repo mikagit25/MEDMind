@@ -42,6 +42,7 @@ VIDEO_SCRIPT   = Path(__file__).parent / "article_to_video.py"
 # YouTube category IDs: 27 = Education, 25 = News & Politics, 26 = Howto & Style
 YT_CATEGORY    = "27"   # Education
 YT_PRIVACY     = "public"   # public | unlisted | private
+YT_AGE_RESTRICT = True  # proactively age-restrict — prevents YouTube auto-flagging medical content
 
 CHANNEL_DESCRIPTIONS = {
     "en": {
@@ -446,12 +447,15 @@ def upload_to_youtube(
             "privacyStatus":          YT_PRIVACY,
             "selfDeclaredMadeForKids": False,
         },
+        "contentRating": {
+            "ytRating": "ytAgeRestricted" if YT_AGE_RESTRICT else "",
+        },
     }
 
     file_size = mp4_path.stat().st_size
     init_resp = httpx.post(
         "https://www.googleapis.com/upload/youtube/v3/videos"
-        "?uploadType=resumable&part=snippet,status",
+        "?uploadType=resumable&part=snippet,status,contentRating",
         headers={
             "Authorization":           f"Bearer {access_token}",
             "Content-Type":            "application/json",
