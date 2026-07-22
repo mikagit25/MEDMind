@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
-import { contentApi, progressApi, adaptivePlanApi, API_URL } from "@/lib/api";
+import { contentApi, progressApi, adaptivePlanApi, examApi, API_URL } from "@/lib/api";
 
 // ── My Assignments ────────────────────────────────────────────
 function MyAssignments() {
@@ -634,6 +634,7 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<any>(null);
   const [studentDashboard, setStudentDashboard] = useState<any>(null);
   const [recentModules, setRecentModules] = useState<any[]>([]);
+  const [nclexReadiness, setNclexReadiness] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -648,7 +649,8 @@ export default function DashboardPage() {
       progressApi.getStats().catch(() => null),
       contentApi.getDashboard().catch(() => null),
       roleSpecific,
-    ]).then(([modRes, statsRes, overviewRes, roleRes]) => {
+      examApi.getReadiness().catch(() => null),
+    ]).then(([modRes, statsRes, overviewRes, roleRes, readiness]) => {
       setSpecialties(modRes?.slice(0, 3) ?? []);
       setStats(statsRes);
       setRecentModules(overviewRes?.recent_modules ?? []);
@@ -661,6 +663,9 @@ export default function DashboardPage() {
           cme_credits: roleRes?.cme?.total_credits ?? 0,
           cme_credits_this_year: roleRes?.cme?.credits_this_year ?? 0,
         }));
+      }
+      if (readiness?.score !== undefined || readiness?.questions_until_threshold !== undefined) {
+        setNclexReadiness(readiness);
       }
       setLoading(false);
     });
@@ -776,6 +781,39 @@ export default function DashboardPage() {
                   <StatCard value={stats.cards_reviewed ?? 0} label={t("flashcards.my_cards")} />
                   <StatCard value={stats.mcqs_answered ?? 0} label={t("quiz.title")} />
                 </div>
+              )}
+              {/* NCLEX Readiness mini-card */}
+              {nclexReadiness && nclexReadiness.score !== undefined && (
+                <Link href="/nurses/nclex" className="block mb-4">
+                  <div className="card p-4 border border-border hover:border-ink-3 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center font-syne font-black text-lg
+                          ${nclexReadiness.score >= 75 ? "bg-green-light text-green" : nclexReadiness.score >= 62 ? "bg-amber-light text-amber" : "bg-red-light text-red"}`}>
+                          {Math.round(nclexReadiness.score)}
+                        </div>
+                        <div>
+                          <div className="font-syne font-bold text-sm text-ink">NCLEX Readiness</div>
+                          <div className="font-serif text-xs text-ink-3">{nclexReadiness.level ?? "Borderline"}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        {user?.preferences?.exam_date && (() => {
+                          const days = Math.ceil((new Date(user.preferences.exam_date as string).getTime() - Date.now()) / 86400000);
+                          return days > 0 ? (
+                            <div>
+                              <div className="font-syne font-black text-base text-ink">{days}</div>
+                              <div className="font-serif text-[10px] text-ink-3">days left</div>
+                            </div>
+                          ) : null;
+                        })()}
+                        {!user?.preferences?.exam_date && (
+                          <span className="font-syne text-xs text-ink-3">Practice →</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               )}
               <ContinueLearning modules={recentModules} />
               <MyAssignments />
