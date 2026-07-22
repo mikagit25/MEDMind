@@ -1503,26 +1503,45 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
       </div>
 
       {/* Gulf modes — quick access */}
-      {gulfModes.length > 0 && (
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider">Gulf Prometric</h2>
-            <Link href="/nurses/gulf" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">Full Gulf Hub →</Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {gulfModes.map((mode) => (
-              <div key={mode.id} className={`bg-surface border border-border rounded-xl p-4 flex flex-col gap-3 ${mode.locked ? "opacity-60" : ""}`}>
-                <div>
-                  <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
-                  <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
-                </div>
-                <div className="text-xs font-syne text-ink-3 flex gap-3">
-                  <span>{mode.questions} {t("common.questions")}</span>
-                  <span>{mode.duration_min} {t("common.minutes")}</span>
-                </div>
-                {mode.locked ? (
-                  <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
-                ) : (
+      {gulfModes.length > 0 && (() => {
+        const unlockedGulf = gulfModes.filter(m => !m.locked);
+        const allLocked = unlockedGulf.length === 0;
+        if (allLocked) {
+          return (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-4">
+              <div className="text-3xl flex-shrink-0">🌍</div>
+              <div className="flex-1">
+                <h3 className="font-syne font-black text-sm text-ink mb-1">Gulf Prometric Exams</h3>
+                <p className="font-serif text-xs text-ink-3 mb-3">
+                  SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD — practice and full simulations (40–200Q).
+                </p>
+                <p className="font-serif text-xs text-amber-700 mb-3">
+                  Gulf Bundle or Pro subscription required.
+                </p>
+                <Link href="/pricing" className="inline-block font-syne font-bold text-xs bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors">
+                  Upgrade to unlock →
+                </Link>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider">Gulf Prometric</h2>
+              <Link href="/nurses/gulf" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">Full Gulf Hub →</Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {unlockedGulf.map((mode) => (
+                <div key={mode.id} className="bg-surface border border-border rounded-xl p-4 flex flex-col gap-3">
+                  <div>
+                    <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
+                    <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
+                  </div>
+                  <div className="text-xs font-syne text-ink-3 flex gap-3">
+                    <span>{mode.questions} {t("common.questions")}</span>
+                    <span>{mode.duration_min} {t("common.minutes")}</span>
+                  </div>
                   <button
                     onClick={() => { setStarting(mode.id); onStart(mode.id).finally(() => setStarting(null)); }}
                     disabled={starting === mode.id}
@@ -1530,12 +1549,12 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
                   >
                     {starting === mode.id ? t("exam_page.starting") : t("exam_page.start_exam")}
                   </button>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {history.length > 0 && (
         <div>
