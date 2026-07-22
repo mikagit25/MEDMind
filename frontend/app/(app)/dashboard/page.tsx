@@ -798,18 +798,18 @@ export default function DashboardPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        {user?.preferences?.exam_date && (() => {
-                          const days = Math.ceil((new Date(user.preferences.exam_date as string).getTime() - Date.now()) / 86400000);
-                          return days > 0 ? (
-                            <div>
-                              <div className="font-syne font-black text-base text-ink">{days}</div>
-                              <div className="font-serif text-[10px] text-ink-3">days left</div>
-                            </div>
-                          ) : null;
-                        })()}
-                        {!user?.preferences?.exam_date && (
-                          <span className="font-syne text-xs text-ink-3">Practice →</span>
-                        )}
+                        {user?.preferences?.exam_date
+                          ? (() => {
+                              const days = Math.ceil((new Date(user.preferences.exam_date as string).getTime() - Date.now()) / 86400000);
+                              return days > 0 ? (
+                                <div>
+                                  <div className="font-syne font-black text-base text-ink">{days}</div>
+                                  <div className="font-serif text-[10px] text-ink-3">days left</div>
+                                </div>
+                              ) : null;
+                            })()
+                          : <span className="font-syne text-xs text-ink-3">Practice →</span>
+                        }
                       </div>
                     </div>
                   </div>
