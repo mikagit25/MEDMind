@@ -68,6 +68,7 @@ const es: Translations = {
     search_placeholder: "Buscar módulos…",
     sections: {
       learning: "Aprendizaje",
+      nursing_exams: "Exámenes de enfermería",
       visual_medicine: "Medicina visual",
       tools: "Herramientas",
       account: "Cuenta",
@@ -76,6 +77,8 @@ const es: Translations = {
     },
     items: {
       dashboard: "Panel principal",
+      gulf_exams: "Gulf Prometric",
+      nclex_prep: "Preparación NCLEX",
       modules: "Módulos",
       my_courses: "Mis cursos",
       ai_tutor: "Tutor IA",

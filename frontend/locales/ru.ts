@@ -68,6 +68,7 @@ const ru: Translations = {
     search_placeholder: "Поиск модулей…",
     sections: {
       learning: "Обучение",
+      nursing_exams: "Сестринские экзамены",
       visual_medicine: "Визуальная медицина",
       tools: "Инструменты",
       account: "Аккаунт",
@@ -76,6 +77,8 @@ const ru: Translations = {
     },
     items: {
       dashboard: "Главная",
+      gulf_exams: "Gulf Prometric",
+      nclex_prep: "NCLEX Подготовка",
       modules: "Модули",
       my_courses: "Мои курсы",
       ai_tutor: "ИИ-репетитор",

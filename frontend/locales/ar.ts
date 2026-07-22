@@ -68,6 +68,7 @@ const ar: Translations = {
     search_placeholder: "البحث في الوحدات…",
     sections: {
       learning: "التعلم",
+      nursing_exams: "امتحانات التمريض",
       visual_medicine: "الطب المرئي",
       tools: "الأدوات",
       account: "الحساب",
@@ -76,6 +77,8 @@ const ar: Translations = {
     },
     items: {
       dashboard: "الرئيسية",
+      gulf_exams: "اختبارات الخليج",
+      nclex_prep: "تحضير NCLEX",
       modules: "الوحدات",
       my_courses: "دوراتي",
       ai_tutor: "المعلم الذكي",

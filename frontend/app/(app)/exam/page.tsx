@@ -71,7 +71,7 @@ type ReviewQuestion = {
   options?: Record<string, string>;
   your_answer: unknown;
   correct_answer: string;
-  correct?: boolean;
+  correct?: boolean | null;
   explanation?: string;
   rationales?: Rationales;
   key_takeaway?: string;
@@ -663,11 +663,11 @@ function DifficultyBadge({ level }: { level: string }) {
 }
 
 // isPracticeMode: show rationale immediately after answering.
-// Timed full-length NCLEX simulations (75/85/145Q) are excluded — all other modes
-// (demo, category, Gulf practice, USMLE, quick) show rationale immediately.
-const TIMED_EXAM_MODES = new Set(["nclex_rn_75", "nclex_rn_85", "nclex_rn_145"]);
+// Excluded: NCLEX timed simulations and Gulf Full Simulations (real exam conditions).
 function isPracticeMode(modeId: string): boolean {
-  return !TIMED_EXAM_MODES.has(modeId);
+  if (["nclex_rn_75", "nclex_rn_85", "nclex_rn_145"].includes(modeId)) return false;
+  if (modeId.endsWith("_full")) return false;  // Gulf Full Simulations
+  return true;
 }
 
 type QuestionRationale = {

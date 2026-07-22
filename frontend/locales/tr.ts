@@ -68,6 +68,7 @@ const tr: Translations = {
     search_placeholder: "Modüllerde ara…",
     sections: {
       learning: "Öğrenme",
+      nursing_exams: "Hemşirelik Sınavları",
       visual_medicine: "Görsel Tıp",
       tools: "Araçlar",
       account: "Hesap",
@@ -76,6 +77,8 @@ const tr: Translations = {
     },
     items: {
       dashboard: "Ana Sayfa",
+      gulf_exams: "Gulf Prometric",
+      nclex_prep: "NCLEX Hazırlık",
       modules: "Modüller",
       my_courses: "Kurslarım",
       ai_tutor: "YZ Öğretmen",

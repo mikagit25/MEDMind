@@ -62,9 +62,10 @@ const GULF_EXAM_INFO: Record<GulfSlug, { name: string; country: string; flag: st
 };
 
 const GULF_MODE_IDS = [
-  "snle_full", "dha_full", "qchp_full", "omsb_full",
-  "nhra_full", "mohuae_full", "haad_full",
-  "gulf_practice",
+  "snle_practice",  "dha_practice",  "qchp_practice", "omsb_practice",
+  "nhra_practice",  "mohuae_practice", "haad_practice",
+  "snle_full",      "dha_full",      "qchp_full",     "omsb_full",
+  "nhra_full",      "mohuae_full",   "haad_full",
 ];
 
 const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string }> = {
@@ -302,9 +303,8 @@ export default function GulfHubPage() {
   const gulfHistory = history;
   const bestScore = gulfHistory.length ? Math.max(...gulfHistory.map(s => s.score_pct ?? 0)) : null;
 
-  // Separate full-simulation modes from general practice
-  const fullSimModes = modes.filter(m => m.id !== "gulf_practice");
-  const practiceModes = modes.filter(m => m.id === "gulf_practice");
+  const fullSimModes = modes.filter(m => m.id.endsWith("_full"));
+  const practiceByExam = modes.filter(m => m.id.endsWith("_practice"));
 
   const TABS = [
     { id: "practice" as const, label: "Exam Simulations" },
@@ -431,81 +431,72 @@ export default function GulfHubPage() {
               )}
             </div>
 
-            {/* Full simulation for selected exam */}
+            {/* Practice + Full Simulation for selected exam */}
             {(() => {
-              const modeId = `${selectedSlug}_full`;
-              const mode = fullSimModes.find(m => m.id === modeId);
-              if (!mode) return null;
               const info = GULF_EXAM_INFO[selectedSlug];
+              const practiceMode = practiceByExam.find(m => m.id === `${selectedSlug}_practice`);
+              const fullMode = fullSimModes.find(m => m.id === `${selectedSlug}_full`);
               return (
-                <div className="bg-surface border-2 border-ink rounded-xl p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">{info.flag}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Practice card */}
+                  {practiceMode && (
+                    <div className={`bg-surface border border-border rounded-xl p-5 flex flex-col gap-4 ${practiceMode.locked ? "opacity-60" : ""}`}>
                       <div>
-                        <div className="font-syne font-black text-base text-ink">{info.name} Full Simulation</div>
-                        <div className="text-ink-3 font-serif text-xs">{info.full}</div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs font-syne font-bold bg-green/10 text-green border border-green/30 rounded-full px-2 py-0.5">Practice</span>
+                        </div>
+                        <div className="font-syne font-bold text-sm text-ink">{info.name} Practice</div>
+                        <div className="font-serif text-xs text-ink-3 mt-0.5">With explanations after each answer</div>
                       </div>
+                      <div className="flex gap-4 text-xs font-syne text-ink-3">
+                        <span className="flex items-center gap-1"><Star className="w-3 h-3" /> {practiceMode.questions} questions</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {practiceMode.duration_min} min</span>
+                      </div>
+                      {practiceMode.locked ? (
+                        <div className="text-xs font-serif text-ink-3 italic">{practiceMode.lock_reason}</div>
+                      ) : (
+                        <button
+                          onClick={() => startSession(practiceMode.id)}
+                          disabled={starting === practiceMode.id}
+                          className="font-syne font-bold text-sm border-2 border-ink text-ink px-5 py-2.5 rounded-xl hover:bg-ink hover:text-white transition-colors disabled:opacity-50"
+                        >
+                          {starting === practiceMode.id ? "Starting…" : "Start Practice →"}
+                        </button>
+                      )}
                     </div>
-                    <span className="text-xs font-syne font-bold bg-ink/5 border border-ink/20 rounded-full px-2 py-0.5 text-ink">
-                      Official Format
-                    </span>
-                  </div>
-                  <div className="flex gap-6 text-xs font-syne text-ink-3 mb-5">
-                    <span className="flex items-center gap-1">
-                      <Star className="w-3 h-3" /> {mode.questions} questions
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {mode.duration_min} minutes
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> Pass: 60%
-                    </span>
-                  </div>
-                  {mode.locked ? (
-                    <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
-                  ) : (
-                    <button
-                      onClick={() => startSession(mode.id)}
-                      disabled={starting === mode.id}
-                      className="font-syne font-bold text-sm bg-ink text-white px-8 py-3 rounded-xl hover:bg-red transition-colors disabled:opacity-50"
-                    >
-                      {starting === mode.id ? "Starting…" : `Start ${info.name} Simulation →`}
-                    </button>
+                  )}
+
+                  {/* Full Simulation card */}
+                  {fullMode && (
+                    <div className={`bg-ink text-white rounded-xl p-5 flex flex-col gap-4 ${fullMode.locked ? "opacity-60" : ""}`}>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs font-syne font-bold bg-white/10 text-white/80 border border-white/20 rounded-full px-2 py-0.5">Official Format</span>
+                        </div>
+                        <div className="font-syne font-bold text-sm text-white">{info.name} Full Simulation</div>
+                        <div className="font-serif text-xs text-white/60 mt-0.5">No explanations until review — real exam conditions</div>
+                      </div>
+                      <div className="flex gap-4 text-xs font-syne text-white/60">
+                        <span className="flex items-center gap-1"><Star className="w-3 h-3" /> {fullMode.questions} questions</span>
+                        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {fullMode.duration_min} min</span>
+                        <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Pass: 65%</span>
+                      </div>
+                      {fullMode.locked ? (
+                        <div className="text-xs font-serif text-white/60 italic">{fullMode.lock_reason}</div>
+                      ) : (
+                        <button
+                          onClick={() => startSession(fullMode.id)}
+                          disabled={starting === fullMode.id}
+                          className="font-syne font-bold text-sm bg-white text-ink px-5 py-2.5 rounded-xl hover:bg-amber-50 transition-colors disabled:opacity-50"
+                        >
+                          {starting === fullMode.id ? "Starting…" : `Start ${info.name} Simulation →`}
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
               );
             })()}
-
-            {/* General Gulf Practice */}
-            {practiceModes.length > 0 && (
-              <section>
-                <h2 className="font-syne font-black text-xl text-ink mb-3">Gulf Practice</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {practiceModes.map(mode => (
-                    <div key={mode.id} className={`bg-surface border border-border rounded-xl p-5 ${mode.locked ? "opacity-60" : ""}`}>
-                      <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
-                      <div className="font-serif text-xs text-ink-3 leading-relaxed mb-3">{mode.description}</div>
-                      <div className="flex gap-4 text-xs font-syne text-ink-3 mb-4">
-                        <span>{mode.questions} questions</span>
-                        <span>{mode.duration_min} min</span>
-                      </div>
-                      {mode.locked ? (
-                        <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
-                      ) : (
-                        <button
-                          onClick={() => startSession(mode.id)}
-                          disabled={starting === mode.id}
-                          className="font-syne font-bold text-sm bg-ink text-white px-5 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
-                        >
-                          {starting === mode.id ? "Starting…" : "Start Practice"}
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
 
             {/* All exams quick launch */}
             <section>
@@ -513,31 +504,40 @@ export default function GulfHubPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {GULF_EXAM_SLUGS.map(slug => {
                   const info = GULF_EXAM_INFO[slug];
-                  const modeId = `${slug}_full`;
-                  const mode = fullSimModes.find(m => m.id === modeId);
+                  const practiceMode = practiceByExam.find(m => m.id === `${slug}_practice`);
+                  const fullMode = fullSimModes.find(m => m.id === `${slug}_full`);
                   return (
-                    <div key={slug} className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3">
-                      <span className="text-xl flex-shrink-0">{info.flag}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-syne font-bold text-sm text-ink">{info.name}</div>
-                        <div className="font-serif text-xs text-ink-3 truncate">{info.full}</div>
-                        {mode && (
-                          <div className="text-[10px] font-syne text-ink-3 mt-0.5">
-                            {mode.questions}Q · {mode.duration_min}min
-                          </div>
+                    <div key={slug} className="bg-surface border border-border rounded-xl p-4">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="text-xl flex-shrink-0">{info.flag}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-syne font-bold text-sm text-ink">{info.name}</div>
+                          <div className="font-serif text-xs text-ink-3 truncate">{info.country}</div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        {practiceMode && !practiceMode.locked && (
+                          <button
+                            onClick={() => startSession(practiceMode.id)}
+                            disabled={!!starting}
+                            className="flex-1 font-syne font-bold text-xs border border-ink text-ink px-2 py-1.5 rounded-lg hover:bg-ink hover:text-white transition-colors disabled:opacity-50"
+                          >
+                            {starting === practiceMode.id ? "…" : `Practice (${practiceMode.questions}Q)`}
+                          </button>
+                        )}
+                        {fullMode && !fullMode.locked && (
+                          <button
+                            onClick={() => startSession(fullMode.id)}
+                            disabled={!!starting}
+                            className="flex-1 font-syne font-bold text-xs bg-ink text-white px-2 py-1.5 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
+                          >
+                            {starting === fullMode.id ? "…" : `Full Sim (${fullMode.questions}Q)`}
+                          </button>
+                        )}
+                        {!practiceMode && !fullMode && (
+                          <ChevronRight className="w-4 h-4 text-ink-3" />
                         )}
                       </div>
-                      {mode && !mode.locked ? (
-                        <button
-                          onClick={() => startSession(modeId)}
-                          disabled={starting === modeId}
-                          className="flex-shrink-0 font-syne font-bold text-xs bg-ink text-white px-3 py-2 rounded-lg hover:bg-red transition-colors disabled:opacity-50"
-                        >
-                          {starting === modeId ? "…" : "Start"}
-                        </button>
-                      ) : (
-                        <ChevronRight className="w-4 h-4 text-ink-3 flex-shrink-0" />
-                      )}
                     </div>
                   );
                 })}
