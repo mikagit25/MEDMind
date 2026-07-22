@@ -1429,7 +1429,7 @@ function ResultsView({
 
 function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> }) {
   const t = useT();
-  const [modes, setModes] = useState<{ id: string; name: string; description: string; questions: number; duration_min: number; locked: boolean; lock_reason: string | null }[]>([]);
+  const [modes, setModes] = useState<{ id: string; name: string; description: string; questions: number; duration_min: number; locked: boolean; lock_reason: string | null; gulf?: boolean }[]>([]);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [history, setHistory] = useState<{ session_id: string; mode: string; started_at: string; score_pct: number; passed: boolean; total_questions: number; time_taken_min: number }[]>([]);
@@ -1442,44 +1442,100 @@ function ModeSelector({ onStart }: { onStart: (modeId: string) => Promise<void> 
 
   if (loading) return <div className="text-center py-20 text-ink-3 font-serif">{t("common.loading")}</div>;
 
+  // Separate gulf modes from general modes
+  const gulfModes = modes.filter(m => m.gulf);
+  const generalModes = modes.filter(m => !m.gulf);
+
   return (
     <div className="space-y-6">
-      <div className="bg-ink/5 border border-ink/10 rounded-xl p-4 flex items-center gap-3">
-        <div className="text-2xl">🎓</div>
-        <div>
-          <div className="font-syne font-bold text-sm text-ink">{t("exam_page.nclex_promo_title")}</div>
-          <div className="text-xs font-serif text-ink-3">{t("exam_page.nclex_promo_sub")}</div>
+      {/* Nursing Hub promos */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="bg-ink/5 border border-ink/10 rounded-xl p-4 flex items-center gap-3">
+          <div className="text-2xl">🎓</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-syne font-bold text-sm text-ink">{t("exam_page.nclex_promo_title")}</div>
+            <div className="text-xs font-serif text-ink-3">{t("exam_page.nclex_promo_sub")}</div>
+          </div>
+          <Link href="/nurses/nclex" className="ml-auto font-syne font-bold text-xs bg-ink text-white px-3 py-2 rounded-lg hover:bg-red transition-colors whitespace-nowrap flex-shrink-0">
+            {t("exam_page.nclex_hub_link")}
+          </Link>
         </div>
-        <Link href="/nurses/nclex" className="ml-auto font-syne font-bold text-xs bg-ink text-white px-4 py-2 rounded-lg hover:bg-red transition-colors whitespace-nowrap">
-          {t("exam_page.nclex_hub_link")}
-        </Link>
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center gap-3">
+          <div className="text-2xl">🌍</div>
+          <div className="flex-1 min-w-0">
+            <div className="font-syne font-bold text-sm text-ink">Gulf Prometric? Use the Gulf Hub</div>
+            <div className="text-xs font-serif text-ink-3">SNLE · DHA · QCHP · OMSB · NHRA · HAAD</div>
+          </div>
+          <Link href="/nurses/gulf" className="ml-auto font-syne font-bold text-xs bg-amber-700 text-white px-3 py-2 rounded-lg hover:bg-amber-800 transition-colors whitespace-nowrap flex-shrink-0">
+            Gulf Hub →
+          </Link>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {modes.map((mode) => (
-          <div key={mode.id} className={`bg-surface border border-border rounded-xl p-4 flex flex-col gap-3 ${mode.locked ? "opacity-60" : ""}`}>
-            <div>
-              <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
-              <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
+      {/* General exam modes */}
+      <div>
+        <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider mb-3">General Practice</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {generalModes.map((mode) => (
+            <div key={mode.id} className={`bg-surface border border-border rounded-xl p-4 flex flex-col gap-3 ${mode.locked ? "opacity-60" : ""}`}>
+              <div>
+                <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
+                <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
+              </div>
+              <div className="text-xs font-syne text-ink-3 flex gap-3">
+                <span>{mode.questions} {t("common.questions")}</span>
+                <span>{mode.duration_min} {t("common.minutes")}</span>
+              </div>
+              {mode.locked ? (
+                <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
+              ) : (
+                <button
+                  onClick={() => { setStarting(mode.id); onStart(mode.id).finally(() => setStarting(null)); }}
+                  disabled={starting === mode.id}
+                  className="w-full py-2 font-syne font-bold text-sm rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
+                >
+                  {starting === mode.id ? t("exam_page.starting") : t("exam_page.start_exam")}
+                </button>
+              )}
             </div>
-            <div className="text-xs font-syne text-ink-3 flex gap-3">
-              <span>{mode.questions} {t("common.questions")}</span>
-              <span>{mode.duration_min} {t("common.minutes")}</span>
-            </div>
-            {mode.locked ? (
-              <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
-            ) : (
-              <button
-                onClick={() => { setStarting(mode.id); onStart(mode.id).finally(() => setStarting(null)); }}
-                disabled={starting === mode.id}
-                className="w-full py-2 font-syne font-bold text-sm rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
-              >
-                {starting === mode.id ? t("exam_page.starting") : t("exam_page.start_exam")}
-              </button>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
+      {/* Gulf modes — quick access */}
+      {gulfModes.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wider">Gulf Prometric</h2>
+            <Link href="/nurses/gulf" className="text-xs font-syne text-ink-3 hover:text-ink transition-colors">Full Gulf Hub →</Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {gulfModes.map((mode) => (
+              <div key={mode.id} className={`bg-surface border border-border rounded-xl p-4 flex flex-col gap-3 ${mode.locked ? "opacity-60" : ""}`}>
+                <div>
+                  <div className="font-syne font-bold text-sm text-ink mb-1">{mode.name}</div>
+                  <div className="font-serif text-xs text-ink-3 leading-relaxed">{mode.description}</div>
+                </div>
+                <div className="text-xs font-syne text-ink-3 flex gap-3">
+                  <span>{mode.questions} {t("common.questions")}</span>
+                  <span>{mode.duration_min} {t("common.minutes")}</span>
+                </div>
+                {mode.locked ? (
+                  <div className="text-xs font-serif text-ink-3 italic">{mode.lock_reason}</div>
+                ) : (
+                  <button
+                    onClick={() => { setStarting(mode.id); onStart(mode.id).finally(() => setStarting(null)); }}
+                    disabled={starting === mode.id}
+                    className="w-full py-2 font-syne font-bold text-sm rounded-lg bg-ink text-white hover:bg-red transition-colors disabled:opacity-50"
+                  >
+                    {starting === mode.id ? t("exam_page.starting") : t("exam_page.start_exam")}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {history.length > 0 && (
         <div>
