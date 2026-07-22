@@ -83,6 +83,7 @@ type ReviewQuestion = {
   explanation_ar?: string;
   rationales_ar?: Rationales;
   key_takeaway_ar?: string;
+  test_taking_tip_ar?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
   source_refs?: SourceRef[];
@@ -339,6 +340,7 @@ function RationalePanel({
   explanationAr,
   rationalesAr,
   keyTakeawayAr,
+  testTakingTipAr,
   lang,
   hasSpanish,
   hasArabic,
@@ -359,6 +361,7 @@ function RationalePanel({
   explanationAr?: string;
   rationalesAr?: Rationales;
   keyTakeawayAr?: string;
+  testTakingTipAr?: string;
   lang: ReviewLang;
   hasSpanish: boolean;
   hasArabic: boolean;
@@ -403,6 +406,7 @@ function RationalePanel({
     explanation;
   const activeTestTakingTip =
     lang === "es" && testTakingTipEs ? testTakingTipEs :
+    lang === "ar" && testTakingTipAr ? testTakingTipAr :
     testTakingTip;
 
   if (!activeRationales && !activeKeyTakeaway && !activeExplanation) return null;
@@ -674,7 +678,7 @@ type QuestionRationale = {
   rationales?: Rationales; key_takeaway?: string; test_taking_tip?: string;
   rationales_es?: Rationales; key_takeaway_es?: string; test_taking_tip_es?: string;
   explanation?: string; explanation_es?: string;
-  explanation_ar?: string; rationales_ar?: Rationales; key_takeaway_ar?: string;
+  explanation_ar?: string; rationales_ar?: Rationales; key_takeaway_ar?: string; test_taking_tip_ar?: string;
   source_refs?: SourceRef[];
   correct_answer?: string;
 };
@@ -770,7 +774,7 @@ function ExamSession({
             rationales: res.rationales, key_takeaway: res.key_takeaway, test_taking_tip: res.test_taking_tip,
             rationales_es: res.rationales_es, key_takeaway_es: res.key_takeaway_es,
             test_taking_tip_es: res.test_taking_tip_es, explanation: res.explanation, explanation_es: res.explanation_es,
-            explanation_ar: res.explanation_ar, rationales_ar: res.rationales_ar, key_takeaway_ar: res.key_takeaway_ar,
+            explanation_ar: res.explanation_ar, rationales_ar: res.rationales_ar, key_takeaway_ar: res.key_takeaway_ar, test_taking_tip_ar: res.test_taking_tip_ar,
             source_refs: res.source_refs || [],
             correct_answer: res.correct_answer,
           },
@@ -978,6 +982,7 @@ function ExamSession({
                 explanationAr={questionRationales[current].explanation_ar}
                 rationalesAr={questionRationales[current].rationales_ar}
                 keyTakeawayAr={questionRationales[current].key_takeaway_ar}
+                testTakingTipAr={questionRationales[current].test_taking_tip_ar}
                 lang={reviewLang}
                 hasSpanish={!!(questionRationales[current].rationales_es || questionRationales[current].explanation_es)}
                 hasArabic={!!(questionRationales[current].rationales_ar || questionRationales[current].explanation_ar)}
@@ -1361,6 +1366,7 @@ function ResultsView({
                           explanationAr={q.explanation_ar}
                           rationalesAr={q.rationales_ar}
                           keyTakeawayAr={q.key_takeaway_ar}
+                          testTakingTipAr={q.test_taking_tip_ar}
                           lang={reviewLang}
                           hasSpanish={!!(q.rationales_es || q.explanation_es)}
                           hasArabic={!!(q.rationales_ar || q.explanation_ar)}

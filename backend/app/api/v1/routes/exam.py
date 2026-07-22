@@ -557,6 +557,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
                 "explanation_ar": q.get("_explanation_ar"),
                 "rationales_ar": q.get("_rationales_ar"),
                 "key_takeaway_ar": q.get("_key_takeaway_ar"),
+                "test_taking_tip_ar": q.get("_test_taking_tip_ar"),
                 "nclex_client_needs": cat,
                 "cjmm_skill": skill,
                 "source_refs": q.get("_source_refs") or [],
@@ -615,6 +616,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             "explanation_ar": q.get("_explanation_ar"),
             "rationales_ar": q.get("_rationales_ar"),
             "key_takeaway_ar": q.get("_key_takeaway_ar"),
+            "test_taking_tip_ar": q.get("_test_taking_tip_ar"),
             "nclex_client_needs": cat,
             "cjmm_skill": skill,
             "source_refs": q.get("_source_refs") or [],
@@ -836,6 +838,7 @@ async def create_session(
             "_explanation_ar": getattr(mcq, "explanation_ar", None),
             "_rationales_ar": getattr(mcq, "rationales_ar", None),
             "_key_takeaway_ar": getattr(mcq, "key_takeaway_ar", None),
+            "_test_taking_tip_ar": getattr(mcq, "test_taking_tip_ar", None),
             # Source references — shown in rationale panel after answering
             "_source_refs": getattr(mcq, "source_refs", None) or [],
         }
@@ -981,6 +984,7 @@ async def submit_answer(
         "explanation_ar": q_snap.get("_explanation_ar"),
         "rationales_ar": q_snap.get("_rationales_ar"),
         "key_takeaway_ar": q_snap.get("_key_takeaway_ar"),
+        "test_taking_tip_ar": q_snap.get("_test_taking_tip_ar"),
         # Source references for clinical verification
         "source_refs": q_snap.get("_source_refs") or [],
         # Correct answer letter — used for option color highlighting in practice mode
