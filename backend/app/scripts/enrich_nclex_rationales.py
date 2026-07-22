@@ -71,7 +71,7 @@ GROQ_MODEL = "llama-3.3-70b-versatile"
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 GEMINI_URL   = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 CEREBRAS_URL   = "https://api.cerebras.ai/v1/chat/completions"
-CEREBRAS_MODEL = "llama-3.3-70b"
+CEREBRAS_MODEL = "gpt-oss-120b"
 
 BATCH_SIZE = 3    # questions per LLM call (rationale prompts are long)
 MAX_TOKENS = 4000

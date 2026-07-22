@@ -51,7 +51,7 @@ CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 # Build unified key pool: (key, url, model)
 ALL_LLM_SLOTS = (
     [(k, GROQ_URL, "llama-3.3-70b-versatile") for k in _GROQ_KEYS] +
-    [(k, CEREBRAS_URL, "llama-3.3-70b") for k in _CEREBRAS_KEYS]
+    [(k, CEREBRAS_URL, "gpt-oss-120b") for k in _CEREBRAS_KEYS]
 )
 
 # Legacy alias for logging
