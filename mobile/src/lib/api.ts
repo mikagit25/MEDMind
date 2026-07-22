@@ -110,6 +110,7 @@ export const progressApi = {
     api.post(`/progress/mcq/${questionId}/answer`, { selected_option: selectedOption }),
   getStats: () => api.get('/progress/stats'),
   getHistory: (days = 30) => api.get(`/progress/history?days=${days}`),
+  getQuizWeeklyTrend: () => api.get('/progress/quiz/weekly-trend'),
   getDueFlashcards: () => api.get('/progress/flashcards/due'),
   getLeaderboard: (period: 'week' | 'month' | 'all' = 'week', limit = 50) =>
     api.get(`/progress/leaderboard?period=${period}&limit=${limit}`),

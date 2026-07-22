@@ -14,6 +14,7 @@ import { syncModules } from '@/lib/database';
 
 interface DayHistory { date: string; xp_gained: number; lessons: number; cards: number; }
 interface Stats { xp: number; level: number; streak_days: number; lessons_completed: number; cards_reviewed: number; }
+interface WeekTrend { week_start: string; accuracy_pct: number; total_questions: number; session_count: number; }
 
 const COLORS = { bg: '#F5F0E8', ink: '#1A1A1A', ink2: '#6B6B6B', surface: '#FFFFFF', border: '#E8E3D9', green: '#22C55E', amber: '#F59E0B', blue: '#3B82F6' };
 
@@ -21,17 +22,20 @@ export default function DashboardScreen() {
   const { user, loadUser } = useAuthStore();
   const [stats, setStats] = useState<Stats | null>(null);
   const [history, setHistory] = useState<DayHistory[]>([]);
+  const [weeklyTrend, setWeeklyTrend] = useState<WeekTrend[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const load = async () => {
     try {
-      const [statsRes, histRes] = await Promise.all([
+      const [statsRes, histRes, trendRes] = await Promise.all([
         progressApi.getStats(),
         progressApi.getHistory(14),
+        progressApi.getQuizWeeklyTrend().catch(() => null),
       ]);
       setStats(statsRes.data);
       setHistory(histRes.data);
+      if (trendRes?.data?.weeks) setWeeklyTrend(trendRes.data.weeks);
     } catch {}
     finally { setLoading(false); setRefreshing(false); }
   };
@@ -108,6 +112,27 @@ export default function DashboardScreen() {
                   <Text style={s.barLabel}>{d.date.slice(8)}</Text>
                 </View>
               ))}
+            </View>
+          </View>
+        )}
+
+        {/* Weekly Quiz Accuracy */}
+        {weeklyTrend.length > 0 && (
+          <View style={s.chartCard}>
+            <Text style={s.cardTitle}>Quiz Accuracy (8 weeks)</Text>
+            <View style={s.chart}>
+              {weeklyTrend.map((w) => {
+                const pct = w.accuracy_pct;
+                const barH = Math.max(4, (pct / 100) * 60);
+                const barColor = pct >= 75 ? COLORS.green : pct >= 50 ? COLORS.amber : '#EF4444';
+                const label = w.week_start.slice(5, 10).replace('-', '/');
+                return (
+                  <View key={w.week_start} style={s.barWrapper}>
+                    <View style={[s.bar, { height: barH, backgroundColor: barColor }]} />
+                    <Text style={s.barLabel}>{label}</Text>
+                  </View>
+                );
+              })}
             </View>
           </View>
         )}
