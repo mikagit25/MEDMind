@@ -1237,11 +1237,11 @@ function ResultsView({
         </div>
       )}
 
-      {/* NCLEX category breakdown */}
-      {isNclex && hasCategories && (
+      {/* Category breakdown — shows for NCLEX and Gulf exams (both use nclex_client_needs) */}
+      {(isNclex || isGulf) && hasCategories && (
         <div className="bg-surface border border-border rounded-xl p-5">
           <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
-            <Layers className="w-4 h-4" /> {t("exam_page.nclex_breakdown")}
+            <Layers className="w-4 h-4" /> {isGulf ? "Topic Breakdown" : t("exam_page.nclex_breakdown")}
           </h3>
           <div className="space-y-3">
             {Object.entries(results.nclex_category_breakdown)
@@ -1259,10 +1259,10 @@ function ResultsView({
                 {results.weak_categories.map(c => (
                   <Link
                     key={c.key}
-                    href={`/nurses/nclex`}
+                    href={isGulf ? `/nurses/gulf` : `/nurses/nclex`}
                     className="text-xs font-syne px-2 py-1 rounded-lg bg-red/10 text-red border border-red/20 hover:bg-red/20 transition-colors"
                   >
-                    {c.label} ({c.pct}%) — {t("nclex_hub.practice_cat")} →
+                    {c.label} ({c.pct}%) — Practice →
                   </Link>
                 ))}
               </div>
