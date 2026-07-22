@@ -12,7 +12,7 @@ from sqlalchemy import select, func, update
 from app.core.database import get_db
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
-    Module, MCQQuestion, ClinicalCase, CMECredit, XPEvent, Specialty
+    Module, MCQQuestion, ClinicalCase, CMECredit, XPEvent, Specialty, ExamSession
 )
 from app.schemas.schemas import (
     LessonCompleteRequest, LessonCompleteResponse,
@@ -679,6 +679,54 @@ async def get_quiz_performance(
         })
 
     return {"by_specialty": specialties, "by_module": modules}
+
+
+@router.get("/quiz/weekly-trend")
+async def get_quiz_weekly_trend(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return quiz/NCLEX accuracy trend by ISO week for the last 8 weeks."""
+    from datetime import timedelta
+
+    eight_weeks_ago = datetime.utcnow() - timedelta(weeks=8)
+
+    rows = await db.execute(
+        select(
+            func.date_trunc("week", ExamSession.created_at).label("week_start"),
+            func.coalesce(func.sum(ExamSession.correct), 0).label("total_correct"),
+            func.coalesce(func.sum(ExamSession.total_questions), 0).label("total_questions"),
+            func.count(ExamSession.id).label("session_count"),
+        )
+        .where(
+            ExamSession.user_id == user.id,
+            ExamSession.status == "completed",
+            ExamSession.created_at >= eight_weeks_ago,
+            ExamSession.correct.isnot(None),
+        )
+        .group_by(func.date_trunc("week", ExamSession.created_at))
+        .order_by(func.date_trunc("week", ExamSession.created_at))
+    )
+
+    weeks = []
+    for row in rows.all():
+        total_q = int(row.total_questions or 0)
+        total_c = int(row.total_correct or 0)
+        accuracy = round((total_c / total_q) * 100, 1) if total_q > 0 else 0.0
+        ws = row.week_start
+        # PostgreSQL returns datetime; SQLite (tests) returns an ISO string
+        if hasattr(ws, "date"):
+            week_date = ws.date().isoformat()
+        else:
+            week_date = str(ws)[:10]
+        weeks.append({
+            "week_start": week_date,
+            "accuracy_pct": accuracy,
+            "total_questions": total_q,
+            "session_count": int(row.session_count),
+        })
+
+    return {"weeks": weeks}
 
 
 # ============================================================

@@ -79,6 +79,7 @@ export default function ProgressPage() {
   const [achievements, setAchievements] = useState<any[]>([]);
   const [modulesProgress, setModulesProgress] = useState<any[]>([]);
   const [quizPerformance, setQuizPerformance] = useState<{ by_specialty: any[]; by_module: any[] } | null>(null);
+  const [weeklyTrend, setWeeklyTrend] = useState<{ weeks: { week_start: string; accuracy_pct: number; total_questions: number; session_count: number }[] } | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Courses & Memory
@@ -98,13 +99,15 @@ export default function ProgressPage() {
       studentCoursesApi.getEnrolled().catch(() => []),
       memoryApi.stats().catch(() => null),
       progressApi.getQuizPerformance().catch(() => null),
-    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats, quizPerf]) => {
+      progressApi.getQuizWeeklyTrend().catch(() => null),
+    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats, quizPerf, weekTrend]) => {
       setStats(statsRes);
       setHistory(histRes ?? []);
       setWeaknesses(weakRes?.weaknesses ?? []);
       setAchievements(achRes ?? []);
       setModulesProgress(modProgRes ?? []);
       setQuizPerformance(quizPerf);
+      setWeeklyTrend(weekTrend);
       setEnrolledCourses(Array.isArray(courses) ? courses : courses?.courses ?? []);
       setMemoryStats(mStats);
       setLoading(false);
@@ -300,6 +303,42 @@ export default function ProgressPage() {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Weekly Accuracy Trend */}
+      {weeklyTrend && weeklyTrend.weeks.length > 0 && (
+        <div className="mb-8">
+          <h2 className="font-syne font-bold text-base text-ink mb-4">📈 Weekly Quiz Accuracy</h2>
+          <div className="card p-5">
+            <div className="flex items-end gap-2 h-28">
+              {weeklyTrend.weeks.map((w) => {
+                const pct = w.accuracy_pct;
+                const barH = Math.max(pct, 4);
+                const color = pct >= 75 ? "bg-green" : pct >= 50 ? "bg-amber" : "bg-red";
+                const label = new Date(w.week_start + "T00:00:00Z").toLocaleDateString(undefined, { month: "short", day: "numeric" });
+                return (
+                  <div key={w.week_start} className="flex-1 flex flex-col items-center gap-1 group relative">
+                    <div className="absolute -top-7 left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col items-center z-10 pointer-events-none">
+                      <div className="bg-ink text-white text-[10px] font-syne px-1.5 py-0.5 rounded whitespace-nowrap">
+                        {pct.toFixed(0)}% · {w.total_questions}Q
+                      </div>
+                      <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-ink" />
+                    </div>
+                    <div className="w-full rounded-t-sm transition-all duration-500" style={{ height: `${barH}%`, maxHeight: "100%" }}>
+                      <div className={`w-full h-full rounded-t-sm ${color}`} />
+                    </div>
+                    <span className="font-syne text-[9px] text-ink-3 text-center leading-tight">{label}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-3 pt-3 border-t border-border flex gap-4 text-[10px] font-syne text-ink-3">
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-green inline-block" />≥75% Good</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-amber inline-block" />50–74% Review</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-red inline-block" />&lt;50% Focus</span>
+            </div>
           </div>
         </div>
       )}

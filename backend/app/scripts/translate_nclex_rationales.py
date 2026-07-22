@@ -134,14 +134,15 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
     client = CerebrasClient()
 
     async with AsyncSessionLocal() as db:
-        # Fetch NCLEX questions (not vet) that have rationales but no Spanish translation yet
+        # Fetch NCLEX questions (not vet) that need Spanish translation.
+        # Includes ordered/calculation questions that have key_takeaway but NULL rationales.
         q = select(MCQQuestion).where(
-            MCQQuestion.rationales.isnot(None),
             MCQQuestion.nclex_client_needs.isnot(None),
             or_(
-                MCQQuestion.rationales_es.is_(None),
-                MCQQuestion.key_takeaway_es.is_(None),
+                MCQQuestion.rationales.isnot(None),   # MCQ/SATA with per-option rationales
+                MCQQuestion.key_takeaway.isnot(None),  # ordered/calculation with only key_takeaway
             ),
+            MCQQuestion.key_takeaway_es.is_(None),
         )
         if max_questions:
             q = q.limit(max_questions * 2)  # fetch extra to account for skips
@@ -151,7 +152,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
 
         untranslated = [
             q for q in questions
-            if q.rationales_es is None
+            if q.key_takeaway_es is None
         ]
         if max_questions:
             untranslated = untranslated[:max_questions]

@@ -151,9 +151,35 @@ def _patch_all_redis(monkeypatch, fake_redis):
     monkeypatch.setattr(_sched, "stop_scheduler", lambda: None)
 
 
+def _register_sqlite_functions(dbapi_conn, _rec):
+    """Register PostgreSQL-compatible functions on SQLite connections used in tests."""
+    import datetime as _dt
+
+    def date_trunc(part: str, val: str) -> str | None:
+        if val is None:
+            return None
+        try:
+            d = _dt.datetime.fromisoformat(str(val))
+            if part == "week":
+                start = d - _dt.timedelta(days=d.weekday())
+                return start.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+            if part == "day":
+                return d.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+            if part == "month":
+                return d.replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
+            return val
+        except Exception:
+            return val
+
+    dbapi_conn.create_function("date_trunc", 2, date_trunc)
+
+
 @pytest_asyncio.fixture
 async def engine():
+    from sqlalchemy import event as _sa_event
+
     eng = create_async_engine(TEST_DB_URL, echo=False)
+    _sa_event.listen(eng.sync_engine, "connect", _register_sqlite_functions)
     async with eng.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield eng

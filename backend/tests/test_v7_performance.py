@@ -109,3 +109,66 @@ async def test_quiz_performance_with_data(client: AsyncClient, db_session: Async
     assert mod is not None
     assert mod["attempts"] == 10
     assert mod["accuracy_pct"] == 80.0
+
+
+# ── Weekly Trend ──────────────────────────────────────────────────────────────
+
+@pytest.mark.anyio
+async def test_quiz_weekly_trend_requires_auth(client: AsyncClient):
+    r = await client.get("/api/v1/progress/quiz/weekly-trend")
+    assert r.status_code == 401
+
+
+@pytest.mark.anyio
+async def test_quiz_weekly_trend_empty_when_no_sessions(client: AsyncClient):
+    token = await _register_and_login(client, "_wt")
+    r = await client.get(
+        "/api/v1/progress/quiz/weekly-trend",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert "weeks" in body
+    assert body["weeks"] == []
+
+
+@pytest.mark.anyio
+async def test_quiz_weekly_trend_with_sessions(client: AsyncClient, db_session: AsyncSession):
+    token = await _register_and_login(client, "_wt2")
+    me = await client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
+    user_id = me.json()["id"]
+
+    from app.models.models import ExamSession
+    import datetime
+
+    session = ExamSession(
+        id=uuid.uuid4(),
+        user_id=uuid.UUID(user_id),
+        mode_id="nclex_demo",
+        mode_name="NCLEX Practice",
+        status="completed",
+        question_ids=[],
+        answers={},
+        total_questions=10,
+        duration_min=15,
+        starts_at=datetime.datetime.utcnow(),
+        ends_at=datetime.datetime.utcnow(),
+        correct=8,
+        wrong=2,
+        score_pct=80.0,
+    )
+    db_session.add(session)
+    await db_session.commit()
+
+    r = await client.get(
+        "/api/v1/progress/quiz/weekly-trend",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert len(body["weeks"]) >= 1
+    week = body["weeks"][0]
+    assert "week_start" in week
+    assert "accuracy_pct" in week
+    assert week["total_questions"] == 10
+    assert week["accuracy_pct"] == 80.0
