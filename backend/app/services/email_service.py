@@ -330,3 +330,103 @@ async def send_enterprise_lead_notification(
         logger.info("=" * 60)
         logger.info("DEV MODE — New enterprise lead: %s <%s> @ %s", first_name, email, company)
         logger.info("=" * 60)
+
+
+async def send_flashcard_reminder(to_email: str, first_name: str, due_count: int, streak_days: int = 0) -> None:
+    """Send daily flashcard due reminder email."""
+    dashboard_url = f"{settings.FRONTEND_URL}/flashcards"
+    name = first_name or "there"
+
+    streak_line = ""
+    if streak_days > 0:
+        streak_line = f'<p style="color:#e67e22;font-size:14px;font-weight:600;margin:0 0 16px;">🔥 Keep your {streak_days}-day streak going!</p>'
+
+    subject = f"📚 {due_count} flashcard{'s' if due_count != 1 else ''} ready for review"
+    html = f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:Georgia,serif;background:#f0ede8;margin:0;padding:40px 20px;">
+  <div style="max-width:480px;margin:0 auto;background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:40px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:900;font-size:22px;color:#1a1814;margin:0 0 24px;">
+      Med<span style="color:#c0392b;">Mind</span>
+    </div>
+    <h1 style="font-family:'Syne',sans-serif;color:#1a1814;font-size:20px;margin:0 0 12px;">
+      Hi {name}, your flashcards are waiting
+    </h1>
+    <p style="color:#4a453e;font-size:15px;line-height:1.6;margin:0 0 16px;">
+      You have <strong>{due_count} card{'s' if due_count != 1 else ''}</strong> scheduled for review today using
+      spaced repetition. Reviewing them now locks them into long-term memory.
+    </p>
+    {streak_line}
+    <a href="{dashboard_url}"
+       style="display:inline-block;background:#c0392b;color:#fff;text-decoration:none;
+              font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+              padding:13px 28px;border-radius:6px;margin-bottom:24px;">
+      Review {due_count} card{'s' if due_count != 1 else ''} now →
+    </a>
+    <p style="color:#8a8278;font-size:11px;margin:0;">
+      MedMind AI · <a href="{settings.FRONTEND_URL}/settings" style="color:#8a8278;">Manage notifications</a>
+    </p>
+  </div>
+</body></html>"""
+    text = (
+        f"Hi {name},\n\nYou have {due_count} flashcard(s) ready for spaced-repetition review.\n"
+        + (f"Keep your {streak_days}-day streak going!\n" if streak_days else "")
+        + f"\nReview now: {dashboard_url}\n\nMedMind AI"
+    )
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Flashcard reminder sent to %s (%d due)", to_email, due_count)
+        except Exception as e:
+            logger.error("Failed to send flashcard reminder to %s: %s", to_email, e)
+    else:
+        logger.info("DEV MODE — flashcard reminder for %s: %d cards due", to_email, due_count)
+
+
+async def send_streak_at_risk(to_email: str, first_name: str, streak_days: int) -> None:
+    """Send evening streak-at-risk warning email."""
+    dashboard_url = f"{settings.FRONTEND_URL}/dashboard"
+    name = first_name or "there"
+
+    subject = f"🔥 Don't break your {streak_days}-day streak!"
+    html = f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:Georgia,serif;background:#f0ede8;margin:0;padding:40px 20px;">
+  <div style="max-width:480px;margin:0 auto;background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:40px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:900;font-size:22px;color:#1a1814;margin:0 0 24px;">
+      Med<span style="color:#c0392b;">Mind</span>
+    </div>
+    <h1 style="font-family:'Syne',sans-serif;color:#e67e22;font-size:22px;margin:0 0 12px;">
+      🔥 {streak_days}-day streak at risk!
+    </h1>
+    <p style="color:#4a453e;font-size:15px;line-height:1.6;margin:0 0 20px;">
+      Hi {name}! You haven't studied yet today. Your {streak_days}-day streak will reset at midnight.
+      Just 5 minutes of review will keep it alive.
+    </p>
+    <a href="{dashboard_url}"
+       style="display:inline-block;background:#e67e22;color:#fff;text-decoration:none;
+              font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+              padding:13px 28px;border-radius:6px;margin-bottom:24px;">
+      Study now — keep your streak →
+    </a>
+    <p style="color:#8a8278;font-size:11px;margin:0;">
+      MedMind AI · <a href="{settings.FRONTEND_URL}/settings" style="color:#8a8278;">Manage notifications</a>
+    </p>
+  </div>
+</body></html>"""
+    text = (
+        f"Hi {name}!\n\nYour {streak_days}-day streak will reset at midnight if you don't study today.\n"
+        f"Just 5 minutes of review will keep it alive.\n\nStudy now: {dashboard_url}\n\nMedMind AI"
+    )
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Streak-at-risk email sent to %s (streak=%d)", to_email, streak_days)
+        except Exception as e:
+            logger.error("Failed to send streak email to %s: %s", to_email, e)
+    else:
+        logger.info("DEV MODE — streak-at-risk email for %s: %d days", to_email, streak_days)

@@ -99,6 +99,10 @@ async def _daily_flashcard_reminders():
                 .having(func.count(FlashcardReview.flashcard_id) > 0)
             )
 
+            # Also fetch user details for email sending
+            user_rows = await db.execute(select(User).where(User.is_active == True))
+            users_map = {str(u.id): u for u in user_rows.scalars().all()}
+
             notified = 0
             for user_id, due_count in rows.all():
                 # Skip if already sent a flashcard notification today
@@ -114,6 +118,20 @@ async def _daily_flashcard_reminders():
 
                 await notify_flashcards_due(db, user_id, due_count)
                 notified += 1
+
+                # Send email reminder if user has email_notifications enabled
+                u = users_map.get(str(user_id))
+                if u and u.email and (u.preferences or {}).get("email_notifications", True):
+                    from app.services.email_service import send_flashcard_reminder
+                    try:
+                        await send_flashcard_reminder(
+                            to_email=u.email,
+                            first_name=u.first_name or "",
+                            due_count=due_count,
+                            streak_days=u.streak_days or 0,
+                        )
+                    except Exception as email_err:
+                        logger.warning("Flashcard email failed for %s: %s", u.email, email_err)
 
             if notified:
                 await db.commit()
@@ -187,6 +205,18 @@ async def _evening_streak_reminder():
                     body=f"You have a {u.streak_days}-day streak — study something today to keep it going.",
                 ))
                 notified += 1
+
+                # Email reminder if enabled
+                if u.email and (u.preferences or {}).get("email_notifications", True):
+                    from app.services.email_service import send_streak_at_risk
+                    try:
+                        await send_streak_at_risk(
+                            to_email=u.email,
+                            first_name=u.first_name or "",
+                            streak_days=u.streak_days or 0,
+                        )
+                    except Exception as email_err:
+                        logger.warning("Streak email failed for %s: %s", u.email, email_err)
 
             if notified:
                 await db.commit()
