@@ -223,6 +223,7 @@ class MCQQuestionOut(BaseModel):
     options: Dict[str, str]
     difficulty: str
     question_type: str = "mcq"
+    ngn_type: Optional[str] = None
     numeric_unit: Optional[str] = None
 
     model_config = {"from_attributes": True}

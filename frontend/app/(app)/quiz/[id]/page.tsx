@@ -12,6 +12,7 @@ type MCQQuestion = {
   options: Record<string, string>;
   difficulty: "easy" | "medium" | "hard";
   question_type?: "mcq" | "sata" | "ordered" | "calculation";
+  ngn_type?: string;
   numeric_unit?: string;
 };
 
@@ -474,18 +475,25 @@ export default function QuizPage() {
           </p>
         </div>
 
-        {/* Question type hint */}
-        {qtype !== "mcq" && (
-          <div className="mb-3 flex items-center gap-2">
-            <span className={`text-xs font-syne font-semibold px-2.5 py-1 rounded-full border ${
-              qtype === "sata" ? "bg-blue-50 border-blue-200 text-blue-700" :
-              qtype === "ordered" ? "bg-purple-50 border-purple-200 text-purple-700" :
-              "bg-orange-50 border-orange-200 text-orange-700"
-            }`}>
-              {qtype === "sata" ? "Select All That Apply" :
-               qtype === "ordered" ? "Put in Correct Order" :
-               "Enter Numeric Answer"}
-            </span>
+        {/* Question type / NGN hint */}
+        {(qtype !== "mcq" || q.ngn_type) && (
+          <div className="mb-3 flex items-center gap-2 flex-wrap">
+            {qtype !== "mcq" && (
+              <span className={`text-xs font-syne font-semibold px-2.5 py-1 rounded-full border ${
+                qtype === "sata" ? "bg-blue-50 border-blue-200 text-blue-700" :
+                qtype === "ordered" ? "bg-purple-50 border-purple-200 text-purple-700" :
+                "bg-orange-50 border-orange-200 text-orange-700"
+              }`}>
+                {qtype === "sata" ? "Select All That Apply" :
+                 qtype === "ordered" ? "Put in Correct Order" :
+                 "Enter Numeric Answer"}
+              </span>
+            )}
+            {q.ngn_type && (
+              <span className="text-xs font-syne font-semibold px-2.5 py-1 rounded-full border bg-violet-50 border-violet-200 text-violet-700">
+                NGN: {q.ngn_type.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+              </span>
+            )}
           </div>
         )}
 
@@ -669,9 +677,25 @@ export default function QuizPage() {
                 </div>
                 <p className="font-serif text-sm text-ink leading-relaxed">{result.explanation}</p>
               </div>
-              <button onClick={handleNext} className="btn-primary w-full">
-                {isLastQuestion ? t("quiz.finish") : t("quiz.next_question")}
-              </button>
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <button
+                  onClick={() => {
+                    const prompt = !result.correct
+                      ? `I got this question wrong. Please explain:\n\n"${q.question}"\n\nCorrect answer: ${result.correct_answer}${q.options[result.correct_answer] ? ` — ${q.options[result.correct_answer]}` : ""}.\n\nExplanation given: ${result.explanation}`
+                      : `Help me understand more about this topic:\n\n"${q.question}"`;
+                    window.open(`/ai-tutor?mode=tutor&prompt=${encodeURIComponent(prompt)}`, "_blank", "noopener,noreferrer");
+                  }}
+                  className="flex items-center gap-1.5 text-xs font-syne text-ink-3 hover:text-ink transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  Ask AI Tutor
+                </button>
+                <button onClick={handleNext} className="btn-primary flex-1">
+                  {isLastQuestion ? t("quiz.finish") : t("quiz.next_question")}
+                </button>
+              </div>
             </div>
           )
         )}

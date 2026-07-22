@@ -4,6 +4,17 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
+  // Proxy /api/* to the backend when running directly (dev/E2E without nginx).
+  // INTERNAL_API_BASE is set as a build ARG so it's baked in at build time.
+  async rewrites() {
+    const backendBase = process.env.INTERNAL_API_BASE || "http://localhost:8000";
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${backendBase}/api/:path*`,
+      },
+    ];
+  },
   // react-markdown v9+ is ESM-only; transpile so webpack can bundle it
   transpilePackages: [
     "react-markdown", "remark", "remark-parse", "unified",
