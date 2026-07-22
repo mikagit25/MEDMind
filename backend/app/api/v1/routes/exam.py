@@ -572,6 +572,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             "key_takeaway_ar": q.get("_key_takeaway_ar"),
             "nclex_client_needs": cat,
             "cjmm_skill": skill,
+            "source_refs": q.get("_source_refs") or [],
         }
         all_questions_list.append(q_full)
         if not is_correct:
@@ -786,6 +787,8 @@ async def create_session(
             "_explanation_ar": getattr(mcq, "explanation_ar", None),
             "_rationales_ar": getattr(mcq, "rationales_ar", None),
             "_key_takeaway_ar": getattr(mcq, "key_takeaway_ar", None),
+            # Source references — shown in rationale panel after answering
+            "_source_refs": getattr(mcq, "source_refs", None) or [],
         }
         for i, mcq in enumerate(mcqs)
     ]
@@ -929,6 +932,8 @@ async def submit_answer(
         "explanation_ar": q_snap.get("_explanation_ar"),
         "rationales_ar": q_snap.get("_rationales_ar"),
         "key_takeaway_ar": q_snap.get("_key_takeaway_ar"),
+        # Source references for clinical verification
+        "source_refs": q_snap.get("_source_refs") or [],
     }
 
 

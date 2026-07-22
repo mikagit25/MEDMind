@@ -540,6 +540,15 @@ async def _translate_gulf_ar_job() -> None:
         logger.error("translate_rationales_ar cron error: %s", exc)
 
 
+async def _enrich_pubmed_refs_job() -> None:
+    """Add per-question PubMed source references (30 per run, every hour at :25)."""
+    try:
+        from app.scripts.enrich_pubmed_refs import run as pubmed_run
+        await pubmed_run(max_questions=30)
+    except Exception as exc:
+        logger.error("enrich_pubmed_refs cron error: %s", exc)
+
+
 async def _generate_gulf_questions_job() -> None:
     """Generate Gulf-specific exam questions (15 per run, every 30 min, cycles slugs)."""
     try:
@@ -744,6 +753,15 @@ def start_scheduler():
         id="translate_gulf_ar",
         replace_existing=True,
         misfire_grace_time=600,
+    )
+
+    # Every hour (offset :25) — enrich questions with per-question PubMed source refs
+    scheduler.add_job(
+        _enrich_pubmed_refs_job,
+        trigger=CronTrigger(minute="25", timezone="UTC"),
+        id="enrich_pubmed_refs",
+        replace_existing=True,
+        misfire_grace_time=1800,
     )
 
     scheduler.start()

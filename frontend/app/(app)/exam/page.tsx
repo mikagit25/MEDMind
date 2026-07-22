@@ -17,6 +17,14 @@ import {
 type OptionRationale = { text: string; why: "correct" | "incorrect" };
 type Rationales = Record<string, OptionRationale>;
 
+type SourceRef = {
+  name: string;
+  url: string;
+  type: "pubmed" | "textbook" | "regulatory" | "guideline";
+  pmid?: string;
+  journal?: string;
+};
+
 type Question = {
   index: number;
   id: string;
@@ -77,6 +85,7 @@ type ReviewQuestion = {
   key_takeaway_ar?: string;
   nclex_client_needs?: string;
   cjmm_skill?: string;
+  source_refs?: SourceRef[];
 };
 type WrongQuestion = ReviewQuestion;
 
@@ -317,6 +326,7 @@ function RationalePanel({
   selectedOption,
   selectedOptions,
   options,
+  sourceRefs,
 }: {
   rationales?: Rationales;
   keyTakeaway?: string;
@@ -336,6 +346,7 @@ function RationalePanel({
   selectedOption?: string;
   selectedOptions?: string[];
   options: Record<string, string>;
+  sourceRefs?: SourceRef[];
 }) {
   const [expanded, setExpanded] = useState(false);
   const { locale } = useI18n();
@@ -494,6 +505,39 @@ function RationalePanel({
           )}
         </div>
       )}
+
+      {/* Sources */}
+      {sourceRefs && sourceRefs.length > 0 && (
+        <div className="px-4 py-3 border-t border-border bg-surface-2">
+          <p className="font-syne font-bold text-[10px] uppercase tracking-wider text-ink-4 mb-2">
+            {lang === "ar" ? "المصادر" : lang === "es" ? "Fuentes" : "Sources"}
+          </p>
+          <ul className="space-y-1">
+            {sourceRefs.map((ref, i) => {
+              const icon =
+                ref.type === "pubmed" ? "🔬" :
+                ref.type === "textbook" ? "📚" :
+                "📋";
+              return (
+                <li key={i} className="flex items-start gap-1.5">
+                  <span className="text-[11px] mt-0.5 flex-shrink-0">{icon}</span>
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-serif text-blue-600 hover:text-blue-800 hover:underline leading-snug break-words"
+                  >
+                    {ref.name}
+                    {ref.journal && (
+                      <span className="text-ink-4 not-italic"> — {ref.journal}</span>
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
@@ -611,6 +655,7 @@ type QuestionRationale = {
   rationales_es?: Rationales; key_takeaway_es?: string; test_taking_tip_es?: string;
   explanation?: string; explanation_es?: string;
   explanation_ar?: string; rationales_ar?: Rationales; key_takeaway_ar?: string;
+  source_refs?: SourceRef[];
 };
 
 type ReviewLang = "en" | "es" | "ar";
@@ -705,6 +750,7 @@ function ExamSession({
             rationales_es: res.rationales_es, key_takeaway_es: res.key_takeaway_es,
             test_taking_tip_es: res.test_taking_tip_es, explanation: res.explanation, explanation_es: res.explanation_es,
             explanation_ar: res.explanation_ar, rationales_ar: res.rationales_ar, key_takeaway_ar: res.key_takeaway_ar,
+            source_refs: res.source_refs || [],
           },
         }));
       }
@@ -914,6 +960,7 @@ function ExamSession({
                 selectedOption={answers[current]?.selected_option}
                 selectedOptions={answers[current]?.selected_options}
                 options={question.options}
+                sourceRefs={questionRationales[current].source_refs}
               />
             )}
           </div>
@@ -1292,6 +1339,7 @@ function ResultsView({
                           selectedOption={typeof q.your_answer === "string" ? q.your_answer : undefined}
                           selectedOptions={Array.isArray(q.your_answer) ? q.your_answer : undefined}
                           options={q.options || {}}
+                          sourceRefs={q.source_refs}
                         />
                         <div className="flex items-center gap-3 flex-wrap">
                           <AIExplainButton questionId={q.id} questionText={q.question} />
