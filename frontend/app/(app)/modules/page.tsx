@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { contentApi, progressApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT, useI18n } from "@/lib/i18n";
@@ -132,12 +133,15 @@ function ModulesInner() {
   const { user } = useAuthStore();
   const t = useT();
   const { locale } = useI18n();
+  const searchParams = useSearchParams();
 
   const [allModules, setAllModules]     = useState<Module[]>([]);
   const [myProgress, setMyProgress]     = useState<ModuleProgress[]>([]);
   const [loading, setLoading]           = useState(true);
   const [loadError, setLoadError]       = useState(false);
-  const [activeSpecialty, setActiveSpecialty] = useState<string>("all");
+  const [activeSpecialty, setActiveSpecialty] = useState<string>(
+    searchParams.get("specialty") ?? "all"
+  );
   const [showVet, setShowVet]           = useState(false);
   const [vetModules, setVetModules]     = useState<Module[]>([]);
   const [vetLoading, setVetLoading]     = useState(false);

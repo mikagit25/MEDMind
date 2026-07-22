@@ -361,7 +361,17 @@ export default function ProgressPage() {
                         <span className="font-syne font-semibold text-sm text-ink">{s.specialty_name}</span>
                         <span className="font-serif text-xs text-ink-3">{s.total_attempts} Qs</span>
                       </div>
-                      <span className={`font-syne font-bold text-sm ${textColor}`}>{pct.toFixed(0)}%</span>
+                      <div className="flex items-center gap-2">
+                        <span className={`font-syne font-bold text-sm ${textColor}`}>{pct.toFixed(0)}%</span>
+                        {pct < 75 && (
+                          <Link
+                            href={`/modules?specialty=${encodeURIComponent(s.specialty_name)}`}
+                            className="font-syne text-[10px] text-ink-3 hover:text-ink underline"
+                          >
+                            Study →
+                          </Link>
+                        )}
+                      </div>
                     </div>
                     <div className="h-2 bg-bg-2 rounded-full overflow-hidden">
                       <div
