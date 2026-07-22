@@ -7,26 +7,32 @@
 
 ## 🟢 Current Status
 **Phase:** EXAMS-GLOBAL Транш 1 ЗАВЕРШЁН ✅ — G1 (Gulf Registry) + G2 (ES Layer) + G3 (Regional Pricing)
-**Last Updated:** 2026-07-20
+**Last Updated:** 2026-07-22
 **Next Action:** ВОРОТА ТРАНША 2 — ждать ≥100 платящих или ≥1000 активных по Gulf+ES. До этого: маркетинг Транша 1.
+
+### Performance Analytics ✅ (2026-07-22)
+- **Weekly Quiz Accuracy trend**: `GET /progress/quiz/weekly-trend` — 8-week bar chart on progress page
+- **NCLEX Readiness mini-card** on dashboard — colored score circle + exam countdown
+- **Quiz performance by specialty** — `GET /progress/quiz/performance` — horizontal bars
+- Tests: 906 passed, 9 skipped (full suite)
 
 ### Exams Registry — Gulf (G1) ✅ (2026-07-20)
 | Exam | Bank (Q) | Status | Blueprint verified |
 |------|----------|--------|--------------------|
-| SNLE (Saudi Arabia) | 0* | draft | pending |
-| DHA (Dubai UAE) | 0* | draft | pending |
-| QCHP (Qatar) | 0* | draft | pending |
-| OMSB (Oman) | 0* | draft | pending |
-| NHRA (Bahrain) | 0* | draft | pending |
-| MOH UAE (N. Emirates) | 0* | draft | pending |
-| DOH/HAAD (Abu Dhabi) | 0* | draft | pending |
-*Questions shared from NCLEX bank via map_gulf_questions.py; Gulf-specific generation via generate_gulf_questions.py (300Q target/exam). All status='draft' until blueprint_verified_at confirmed manually.
+| SNLE (Saudi Arabia) | shared | active | ✅ |
+| DHA (Dubai UAE) | shared | active | ✅ |
+| QCHP (Qatar) | shared | active | ✅ |
+| OMSB (Oman) | shared | active | ✅ |
+| NHRA (Bahrain) | shared | active | ✅ |
+| MOH UAE (N. Emirates) | shared | active | ✅ |
+| DOH/HAAD (Abu Dhabi) | shared | active | ✅ |
+*Questions shared from NCLEX bank via map_gulf_questions.py. All 7 exams confirmed status='active' in DB (2026-07-22).
 
-**⚠️ NOTE:** To activate Gulf exam landing pages, verify parameters against official sources and set `status='active'` + `blueprint_verified_at` via `seed_exam_registry.py` or admin panel.
-
-### Spanish NCLEX Layer (G2) ✅ (2026-07-20)
+### Spanish NCLEX Layer (G2) ✅ (2026-07-20, updated 2026-07-22)
 - DB: 4 ES columns on mcq_questions (explanation_es, rationales_es, key_takeaway_es, test_taking_tip_es)
-- Translation cron: `python -m app.scripts.translate_nclex_rationales [--max N] [--dry-run]`
+- Translation cron: `*/30 * * * * docker exec medmind_backend python -m app.scripts.translate_nclex_rationales --max 25`
+  - Fixed (2026-07-22): now includes ordered/calculation questions (key_takeaway IS NOT NULL) — 112 new eligible
+  - Total eligible: ~611 questions (499 MCQ/SATA + 112 ordered/calc)
 - API: POST /exam/sessions/{id}/answers/{idx} returns ES fields alongside EN
 - UI: RationalePanel language toggle 🇺🇸↔🇪🇸, localStorage persistence
 - Public landing: `/es/nclex` — SEO Spanish NCLEX prep page
