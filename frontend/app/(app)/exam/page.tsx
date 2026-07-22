@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { api, examApi } from "@/lib/api";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
   ChevronLeft, ChevronRight, AlertTriangle, Layers, Gift,
@@ -338,6 +338,25 @@ function RationalePanel({
   options: Record<string, string>;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const { locale } = useI18n();
+
+  // Map UI locale → the ReviewLang we support (es or ar only for now)
+  const nativeLang: ReviewLang | null =
+    locale === "es" ? "es" :
+    locale === "ar" ? "ar" :
+    null;
+
+  // Does this specific question have a translation for the user's language?
+  const hasNativeTranslation =
+    nativeLang === "es" ? hasSpanish :
+    nativeLang === "ar" ? hasArabic :
+    false;
+
+  // Label + flag for the toggle button
+  const nativeLabel =
+    locale === "ar" ? "اقرأ بالعربية 🇸🇦" :
+    locale === "es" ? "Leer en Español 🇪🇸" :
+    null;
 
   const activeRationales =
     lang === "es" && rationalesEs ? rationalesEs :
@@ -364,30 +383,40 @@ function RationalePanel({
     : [];
 
   const isRTL = lang === "ar";
+  const isShowingNative = lang !== "en";
 
   return (
     <div className="rounded-xl border border-border bg-surface overflow-hidden text-sm">
-      {/* Language toggle — shown when translations available */}
-      {(hasSpanish || hasArabic) && (
-        <div className="flex items-center justify-end gap-1 px-4 py-2 border-b border-border bg-surface-2">
+      {/* Language toggle — single smart button based on user's UI locale */}
+      <div className="flex items-center justify-end px-4 py-1.5 border-b border-border bg-surface-2">
+        {isShowingNative ? (
           <button
             onClick={() => onSetLang("en")}
-            className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "en" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
-          >🇺🇸 EN</button>
-          {hasSpanish && (
+            className="text-[11px] font-syne font-semibold text-ink-3 hover:text-ink transition-colors flex items-center gap-1"
+          >
+            🇺🇸 Read in English
+          </button>
+        ) : nativeLabel ? (
+          hasNativeTranslation ? (
             <button
-              onClick={() => onSetLang("es")}
-              className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "es" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
-            >🇪🇸 ES</button>
-          )}
-          {hasArabic && (
-            <button
-              onClick={() => onSetLang("ar")}
-              className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${lang === "ar" ? "bg-ink text-white" : "text-ink-3 hover:text-ink"}`}
-            >🇸🇦 AR</button>
-          )}
-        </div>
-      )}
+              onClick={() => onSetLang(nativeLang!)}
+              className="text-[11px] font-syne font-semibold text-blue-500 hover:text-blue-700 transition-colors"
+            >
+              {nativeLabel}
+            </button>
+          ) : (
+            <span
+              className="text-[11px] font-syne text-ink-4 cursor-default select-none"
+              title="Translation in progress — check back soon"
+            >
+              {nativeLabel} · coming soon
+            </span>
+          )
+        ) : (
+          // Locale not yet translated (ru, de, fr, tr) — show nothing
+          <span className="text-[11px] font-syne text-ink-4 select-none">EN</span>
+        )}
+      </div>
 
       {/* Selected option rationale — always visible */}
       {selectedRationale && (
@@ -398,10 +427,10 @@ function RationalePanel({
               ? <CheckCircle2 className="w-4 h-4 text-green flex-shrink-0" />
               : <XCircle className="w-4 h-4 text-red flex-shrink-0" />}
             <span className="font-syne font-bold text-xs text-ink">
-              {lang === "es"
-                ? `Opción ${selected}: ${selectedRationale.why === "correct" ? "Correcta" : "Incorrecta"}`
-                : lang === "ar"
+              {lang === "ar"
                 ? `الخيار ${selected}: ${selectedRationale.why === "correct" ? "صحيح" : "خطأ"}`
+                : lang === "es"
+                ? `Opción ${selected}: ${selectedRationale.why === "correct" ? "Correcta" : "Incorrecta"}`
                 : `Option ${selected}: ${selectedRationale.why === "correct" ? "Correct" : "Incorrect"}`}
             </span>
           </div>
@@ -416,7 +445,7 @@ function RationalePanel({
           <Lightbulb className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
           <div>
             <span className="font-syne font-bold text-xs text-amber-700 block mb-0.5">
-              {lang === "es" ? "Punto Clave" : lang === "ar" ? "النقطة الرئيسية" : "Key Takeaway"}
+              {lang === "ar" ? "النقطة الرئيسية" : lang === "es" ? "Punto Clave" : "Key Takeaway"}
             </span>
             <p className="font-serif text-xs text-amber-800 leading-relaxed">{activeKeyTakeaway}</p>
           </div>
@@ -439,7 +468,7 @@ function RationalePanel({
             className="w-full flex items-center justify-between px-4 py-2.5 text-xs font-syne font-semibold text-ink-3 hover:text-ink hover:bg-surface-2 transition-colors"
           >
             <span>
-              {lang === "es" ? `Explicar otras opciones (${otherEntries.length})` : `Explain other options (${otherEntries.length})`}
+              {lang === "ar" ? `شرح الخيارات الأخرى (${otherEntries.length})` : lang === "es" ? `Explicar otras opciones (${otherEntries.length})` : `Explain other options (${otherEntries.length})`}
             </span>
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
@@ -456,7 +485,7 @@ function RationalePanel({
               {activeTestTakingTip && (
                 <div className="pt-2 border-t border-border">
                   <span className="font-syne font-bold text-xs text-ink-3 block mb-0.5">
-                    {lang === "es" ? "Consejo para el Examen" : "Test-Taking Tip"}
+                    {lang === "ar" ? "نصيحة للاختبار" : lang === "es" ? "Consejo para el Examen" : "Test-Taking Tip"}
                   </span>
                   <p className="font-serif text-xs text-ink-3 italic leading-relaxed">{activeTestTakingTip}</p>
                 </div>
@@ -601,12 +630,7 @@ function ExamSession({
   const [submitting, setSubmitting] = useState(false);
   const [currentDifficulty, setCurrentDifficulty] = useState("medium");
   const [confirmSubmit, setConfirmSubmit] = useState(false);
-  const [reviewLang, setReviewLang] = useState<ReviewLang>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("exam_rationale_lang") as ReviewLang) || "en";
-    }
-    return "en";
-  });
+  const [reviewLang, setReviewLang] = useState<ReviewLang>("en");
   const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
   const [timerWarning, setTimerWarning] = useState<string | null>(null);
   const timerWarned = useRef<Set<string>>(new Set());
@@ -618,7 +642,6 @@ function ExamSession({
 
   function setLang(l: ReviewLang) {
     setReviewLang(l);
-    localStorage.setItem("exam_rationale_lang", l);
   }
 
   function toggleBookmark(idx: number) {
@@ -1073,12 +1096,7 @@ function ResultsView({
   const t = useT();
   const [expandedQ, setExpandedQ] = useState<number | null>(null);
   const [reviewTab, setReviewTab] = useState<"wrong" | "all" | "bookmarked">("wrong");
-  const [reviewLang, setReviewLang] = useState<ReviewLang>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("exam_rationale_lang") as ReviewLang) || "en";
-    }
-    return "en";
-  });
+  const [reviewLang, setReviewLang] = useState<ReviewLang>("en");
   const isNclex = results.mode_id?.includes("nclex");
   const isGulf = results.mode_id?.includes("snle") || results.mode_id?.includes("dha") ||
     results.mode_id?.includes("qchp") || results.mode_id?.includes("omsb") ||
@@ -1088,7 +1106,6 @@ function ResultsView({
 
   function setLang(l: ReviewLang) {
     setReviewLang(l);
-    localStorage.setItem("exam_rationale_lang", l);
   }
 
   const allQs = results.all_questions || [];
