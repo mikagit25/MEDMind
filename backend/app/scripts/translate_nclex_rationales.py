@@ -2,7 +2,7 @@
 
 Idempotent: skips questions that already have rationales_es.
 Prioritises questions with highest session view counts (most-seen first).
-Uses Groq content pipeline keys (KEY_3/KEY_4/CASES/MODULE_2).
+Uses Cerebras keys (separate rate pool from Groq enrichment pipeline).
 
 Usage:
   python -m app.scripts.translate_nclex_rationales            # all untranslated
@@ -16,28 +16,27 @@ import os
 import re
 import sys
 import time
-from pathlib import Path
 
 import httpx
-from sqlalchemy import select, func, or_, text
+from sqlalchemy import select, or_
 
 from app.core.database import AsyncSessionLocal
 from app.models.models import MCQQuestion
 
-# Content pipeline keys only — never GROQ_API_KEY / GROQ_API_KEY_2 (user tutor)
-GROQ_KEYS = [k for k in [
-    os.getenv("GROQ_API_KEY_3", ""),
-    os.getenv("GROQ_API_KEY_6", ""),
-    os.getenv("GROQ_KEY_MODULE_2", ""),
-    os.getenv("GROQ_KEY_CASES", ""),
-    os.getenv("GROQ_KEY_VET_MODULES", ""),
-    # KEY_4 reserved for articles, KEY_5 for news, KEY_1/KEY_2 for user tutor
-] if k]
-_seen: set = set()
-GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
+def _dedup(keys: list) -> list:
+    seen: set = set()
+    return [k for k in keys if k and not (k in seen or seen.add(k))]
 
-GROQ_MODEL = "llama-3.3-70b-versatile"
-GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+CEREBRAS_KEYS = _dedup([
+    os.getenv("CEREBRAS_API_KEY", ""),
+    os.getenv("CEREBRAS_API_KEY_2", ""),
+    os.getenv("CEREBRAS_API_KEY_3", ""),
+    os.getenv("CEREBRAS_API_KEY_4", ""),
+    os.getenv("CEREBRAS_API_KEY_5", ""),
+])
+
+CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
+CEREBRAS_MODEL = "gemma-4-31b"
 BATCH_SIZE = 5
 
 # Spanish medical glossary overrides — critical terms that must NOT be auto-translated
@@ -85,67 +84,54 @@ def _parse_response(raw: str) -> list[dict] | None:
         return None
 
 
-class GroqClient:
+class CerebrasClient:
     def __init__(self):
-        self._reset_at: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
+        self._reset_at: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
 
     def _best_key(self) -> str:
-        return min(GROQ_KEYS, key=lambda k: self._reset_at[k])
+        return min(CEREBRAS_KEYS, key=lambda k: self._reset_at[k])
 
     def mark_limited(self, key: str, reset_in: float) -> None:
         self._reset_at[key] = time.time() + reset_in
-
-    @staticmethod
-    def _parse_retry_after(msg: str) -> float:
-        """Parse Groq retry-after from message like '44m47.04s', '90s', '1m30s'."""
-        try:
-            part = msg.split("in ")[-1].strip()
-            m = re.match(r"(?:(\d+)m)?(\d+(?:\.\d+)?)s?", part)
-            if m:
-                return float(m.group(1) or 0) * 60 + float(m.group(2) or 0)
-        except Exception:
-            pass
-        return 120.0  # safe default
 
     async def call(self, prompt: str, max_wait: int = 3600) -> str | None:
         while True:
             key = self._best_key()
             wait = self._reset_at[key] - time.time()
             if wait > max_wait:
-                print(f"  ⚠ All keys limited >{max_wait//60}min. Exiting — cron will retry.")
+                print(f"  ⚠ All Cerebras keys limited >{max_wait//60}min. Exiting — cron will retry.")
                 return None
             if wait > 0:
-                print(f"  Waiting {wait:.0f}s for key rotation…")
+                print(f"  Waiting {wait:.0f}s for Cerebras key rotation…")
                 await asyncio.sleep(wait + 1)
             try:
-                async with httpx.AsyncClient(timeout=60) as client:
+                async with httpx.AsyncClient(timeout=90) as client:
                     resp = await client.post(
-                        GROQ_URL,
-                        headers={"Authorization": f"Bearer {key}"},
-                        json={"model": GROQ_MODEL,
+                        CEREBRAS_URL,
+                        headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
+                        json={"model": CEREBRAS_MODEL,
                               "messages": [{"role": "user", "content": prompt}],
-                              "max_tokens": 4000, "temperature": 0.3},
+                              "max_tokens": 4096},
                     )
                 if resp.status_code == 429:
-                    retry_after = self._parse_retry_after(
-                        resp.json().get("error", {}).get("message", "")
-                    )
-                    print(f"  Key {GROQ_KEYS.index(key)+1}/{len(GROQ_KEYS)} limited, resets in {retry_after:.0f}s")
+                    retry_after = float(resp.headers.get("retry-after", "60"))
+                    idx = CEREBRAS_KEYS.index(key) + 1
+                    print(f"  Cerebras key {idx}/{len(CEREBRAS_KEYS)} limited {retry_after:.0f}s")
                     self.mark_limited(key, retry_after)
                     continue
                 resp.raise_for_status()
                 return resp.json()["choices"][0]["message"]["content"]
             except Exception as e:
                 print(f"  Error: {e}")
-                await asyncio.sleep(2)
+                await asyncio.sleep(3)
 
 
 async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
-    if not GROQ_KEYS:
-        print("ERROR: No Groq content pipeline keys configured")
+    if not CEREBRAS_KEYS:
+        print("ERROR: No Cerebras keys configured")
         sys.exit(1)
 
-    client = GroqClient()
+    client = CerebrasClient()
 
     async with AsyncSessionLocal() as db:
         # Fetch NCLEX questions (not vet) that have rationales but no Spanish translation yet
@@ -170,7 +156,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
         if max_questions:
             untranslated = untranslated[:max_questions]
 
-        print(f"Found {len(untranslated)} questions to translate to Spanish")
+        print(f"Found {len(untranslated)} questions to translate to Spanish (using Cerebras {CEREBRAS_MODEL})")
         if dry_run:
             print("[DRY RUN] No writes will be made.")
             for q in untranslated[:5]:
@@ -202,21 +188,20 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
                 print(f"  Parse error (got {len(parsed) if parsed else 0} items, expected {len(batch_qs)}) — skipping batch")
                 continue
 
-            # Map by id
             by_id = {item["id"]: item for item in parsed}
             for q in batch_qs:
                 item = by_id.get(str(q.id))
                 if not item:
                     continue
-                q.explanation_es    = item.get("explanation") or None
-                q.rationales_es     = item.get("rationales") or None
-                q.key_takeaway_es   = item.get("key_takeaway") or None
+                q.explanation_es     = item.get("explanation") or None
+                q.rationales_es      = item.get("rationales") or None
+                q.key_takeaway_es    = item.get("key_takeaway") or None
                 q.test_taking_tip_es = item.get("test_taking_tip") or None
                 translated += 1
 
             await db.commit()
             print(f"    ✓ {translated} translated so far")
-            await asyncio.sleep(20)  # avoid per-minute token limits between batches
+            await asyncio.sleep(5)
 
         remaining = len(untranslated) - translated
         print(f"\nDone — translated: {translated} | remaining: {remaining}")

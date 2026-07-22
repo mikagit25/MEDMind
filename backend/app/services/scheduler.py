@@ -523,19 +523,19 @@ async def _enrich_nclex_rationales_job() -> None:
 
 
 async def _translate_nclex_es_job() -> None:
-    """Translate enriched NCLEX rationales to Spanish (10 per run, every 30 min)."""
+    """Translate enriched NCLEX rationales to Spanish (25 per run, every 30 min, using Cerebras)."""
     try:
         from app.scripts.translate_nclex_rationales import run as translate_run
-        await translate_run(max_questions=10)
+        await translate_run(max_questions=25)
     except Exception as exc:
         logger.error("translate_nclex_rationales cron error: %s", exc)
 
 
 async def _translate_gulf_ar_job() -> None:
-    """Translate Gulf exam question rationales to Arabic (10 per run, every 30 min)."""
+    """Translate Gulf exam question rationales to Arabic (25 per run, every 30 min, using Cerebras)."""
     try:
         from app.scripts.translate_rationales_ar import run as translate_run
-        await translate_run(max_questions=10)
+        await translate_run(max_questions=25)
     except Exception as exc:
         logger.error("translate_rationales_ar cron error: %s", exc)
 
