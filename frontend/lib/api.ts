@@ -326,6 +326,7 @@ export const progressApi = {
   getStats: () => api.get("/progress/stats").then(r => r.data),
   getHistory: (days?: number) => api.get("/progress/history", { params: days ? { days } : undefined }).then(r => r.data),
   getWeaknesses: () => api.get("/progress/weaknesses").then(r => r.data),
+  getQuizPerformance: () => api.get("/progress/quiz/performance").then(r => r.data),
   getModulesProgress: () => api.get("/progress/modules").then(r => r.data),
   getStreak: () => api.get("/progress/streak").then(r => r.data),
   getAchievements: () => api.get("/achievements").then(r => r.data),

@@ -78,6 +78,7 @@ export default function ProgressPage() {
   const [weaknesses, setWeaknesses] = useState<any[]>([]);
   const [achievements, setAchievements] = useState<any[]>([]);
   const [modulesProgress, setModulesProgress] = useState<any[]>([]);
+  const [quizPerformance, setQuizPerformance] = useState<{ by_specialty: any[]; by_module: any[] } | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Courses & Memory
@@ -96,12 +97,14 @@ export default function ProgressPage() {
       progressApi.getModulesProgress().catch(() => []),
       studentCoursesApi.getEnrolled().catch(() => []),
       memoryApi.stats().catch(() => null),
-    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats]) => {
+      progressApi.getQuizPerformance().catch(() => null),
+    ]).then(([statsRes, histRes, weakRes, achRes, modProgRes, courses, mStats, quizPerf]) => {
       setStats(statsRes);
       setHistory(histRes ?? []);
       setWeaknesses(weakRes?.weaknesses ?? []);
       setAchievements(achRes ?? []);
       setModulesProgress(modProgRes ?? []);
+      setQuizPerformance(quizPerf);
       setEnrolledCourses(Array.isArray(courses) ? courses : courses?.courses ?? []);
       setMemoryStats(mStats);
       setLoading(false);
@@ -297,6 +300,47 @@ export default function ProgressPage() {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Quiz Performance by Specialty */}
+      {quizPerformance && quizPerformance.by_specialty.length > 0 && (
+        <div className="mb-8">
+          <h2 className="font-syne font-bold text-base text-ink mb-4">🎯 Quiz Performance by Specialty</h2>
+          <div className="card p-5">
+            <div className="space-y-3">
+              {quizPerformance.by_specialty.map((s: any) => {
+                const pct = s.accuracy_pct as number;
+                const color = pct >= 75 ? "bg-green" : pct >= 50 ? "bg-amber" : "bg-red";
+                const textColor = pct >= 75 ? "text-green" : pct >= 50 ? "text-amber" : "text-red";
+                return (
+                  <div key={s.specialty_code}>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{s.specialty_icon}</span>
+                        <span className="font-syne font-semibold text-sm text-ink">{s.specialty_name}</span>
+                        <span className="font-serif text-xs text-ink-3">{s.total_attempts} Qs</span>
+                      </div>
+                      <span className={`font-syne font-bold text-sm ${textColor}`}>{pct.toFixed(0)}%</span>
+                    </div>
+                    <div className="h-2 bg-bg-2 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${color}`}
+                        style={{ width: `${Math.min(pct, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {quizPerformance.by_specialty.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-border flex gap-4 text-[10px] font-syne text-ink-3">
+                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-green inline-block" />≥75% Good</span>
+                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-amber inline-block" />50–74% Review</span>
+                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-red inline-block" />&lt;50% Focus here</span>
+              </div>
+            )}
           </div>
         </div>
       )}

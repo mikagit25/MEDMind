@@ -12,7 +12,7 @@ from sqlalchemy import select, func, update
 from app.core.database import get_db
 from app.models.models import (
     User, UserProgress, FlashcardReview, Flashcard, Lesson,
-    Module, MCQQuestion, ClinicalCase, CMECredit, XPEvent
+    Module, MCQQuestion, ClinicalCase, CMECredit, XPEvent, Specialty
 )
 from app.schemas.schemas import (
     LessonCompleteRequest, LessonCompleteResponse,
@@ -605,6 +605,80 @@ async def get_weaknesses(
             seen.add(mid)
 
     return {"weaknesses": weaknesses}
+
+
+# ============================================================
+# QUIZ PERFORMANCE BY SPECIALTY
+# ============================================================
+@router.get("/quiz/performance")
+async def get_quiz_performance(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return MCQ accuracy broken down by specialty, plus per-module detail."""
+    # Join UserProgress → Module → Specialty to get per-module MCQ stats
+    rows = await db.execute(
+        select(
+            Specialty.code.label("specialty_code"),
+            Specialty.name.label("specialty_name"),
+            Specialty.icon.label("specialty_icon"),
+            func.sum(UserProgress.mcq_attempts).label("total_attempts"),
+            func.sum(
+                func.round(UserProgress.mcq_score * UserProgress.mcq_attempts / 100.0)
+            ).label("total_correct"),
+        )
+        .join(Module, Module.id == UserProgress.module_id)
+        .join(Specialty, Specialty.id == Module.specialty_id)
+        .where(
+            UserProgress.user_id == user.id,
+            UserProgress.mcq_attempts > 0,
+        )
+        .group_by(Specialty.code, Specialty.name, Specialty.icon)
+        .order_by(func.sum(UserProgress.mcq_attempts).desc())
+    )
+    specialties = []
+    for r in rows.all():
+        attempts = int(r.total_attempts or 0)
+        correct = int(r.total_correct or 0)
+        accuracy = round(correct / attempts * 100, 1) if attempts > 0 else 0.0
+        specialties.append({
+            "specialty_code": r.specialty_code,
+            "specialty_name": r.specialty_name,
+            "specialty_icon": r.specialty_icon or "📚",
+            "total_attempts": attempts,
+            "total_correct": correct,
+            "accuracy_pct": accuracy,
+        })
+
+    # Per-module breakdown (top 10 by attempts)
+    mod_rows = await db.execute(
+        select(
+            Module.title.label("module_title"),
+            Module.code.label("module_code"),
+            Specialty.name.label("specialty_name"),
+            UserProgress.mcq_attempts,
+            UserProgress.mcq_score,
+        )
+        .join(Module, Module.id == UserProgress.module_id)
+        .outerjoin(Specialty, Specialty.id == Module.specialty_id)
+        .where(
+            UserProgress.user_id == user.id,
+            UserProgress.mcq_attempts > 0,
+        )
+        .order_by(UserProgress.mcq_attempts.desc())
+        .limit(10)
+    )
+    modules = []
+    for r in mod_rows.all():
+        modules.append({
+            "module_title": r.module_title,
+            "module_code": r.module_code,
+            "specialty_name": r.specialty_name or "General",
+            "attempts": int(r.mcq_attempts or 0),
+            "accuracy_pct": float(r.mcq_score or 0),
+        })
+
+    return {"by_specialty": specialties, "by_module": modules}
 
 
 # ============================================================
