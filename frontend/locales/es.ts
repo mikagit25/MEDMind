@@ -2202,7 +2202,7 @@ const es: Translations = {
     loading: "Cargando el hub de NCLEX...",
     title: "Hub de preparación NCLEX",
     sub: "Práctica · Simulación · Análisis",
-    back: "← Inicio enfermería",
+    back: "← Nurses Hub",
     best_score: "Mejor puntuación:",
     last_score: "Última:",
     sessions_analyzed: "sesiones analizadas",

@@ -2187,7 +2187,7 @@ const tr: Translations = {
     loading: "NCLEX Hub yükleniyor...",
     title: "NCLEX Hazırlık Merkezi",
     sub: "Pratik · Simülasyon · Analiz",
-    back: "← Hemşirelik Ana Sayfası",
+    back: "← Nurses Hub",
     best_score: "En iyi puan:",
     last_score: "Son:",
     sessions_analyzed: "oturum analiz edildi",

@@ -2257,7 +2257,7 @@ const en = {
     loading: "Loading NCLEX Hub...",
     title: "NCLEX Prep Hub",
     sub: "Practice · Simulate · Analyze",
-    back: "← Nursing Home",
+    back: "← Nurses Hub",
     best_score: "Best score:",
     last_score: "Last:",
     sessions_analyzed: "sessions analyzed",

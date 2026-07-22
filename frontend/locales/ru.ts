@@ -2225,7 +2225,7 @@ const ru: Translations = {
     loading: "Загрузка NCLEX Hub...",
     title: "Центр подготовки к NCLEX",
     sub: "Практика · Симуляция · Аналитика",
-    back: "← Сестринское дело",
+    back: "← Nurses Hub",
     best_score: "Лучший результат:",
     last_score: "Последний:",
     sessions_analyzed: "сессий проанализировано",

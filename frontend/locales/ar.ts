@@ -2187,7 +2187,7 @@ const ar: Translations = {
     loading: "جارٍ تحميل مركز NCLEX...",
     title: "مركز التحضير لـ NCLEX",
     sub: "تدريب · محاكاة · تحليل",
-    back: "← الرعاية التمريضية",
+    back: "← Nurses Hub",
     best_score: "أفضل نتيجة:",
     last_score: "الأخير:",
     sessions_analyzed: "جلسات محللة",
