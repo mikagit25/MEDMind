@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
-  ActivityIndicator, RefreshControl,
+  ActivityIndicator, RefreshControl, Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -19,7 +19,7 @@ interface WeekTrend { week_start: string; accuracy_pct: number; total_questions:
 const COLORS = { bg: '#F5F0E8', ink: '#1A1A1A', ink2: '#6B6B6B', surface: '#FFFFFF', border: '#E8E3D9', green: '#22C55E', amber: '#F59E0B', blue: '#3B82F6' };
 
 export default function DashboardScreen() {
-  const { user, loadUser } = useAuthStore();
+  const { user, loadUser, logout } = useAuthStore();
   const [stats, setStats] = useState<Stats | null>(null);
   const [history, setHistory] = useState<DayHistory[]>([]);
   const [weeklyTrend, setWeeklyTrend] = useState<WeekTrend[]>([]);
@@ -65,10 +65,25 @@ export default function DashboardScreen() {
       >
         {/* Header */}
         <View style={s.header}>
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={s.greeting}>Good {greeting()}, {user?.first_name ?? 'Doctor'} 👋</Text>
             <Text style={s.subGreeting}>Keep up the great work!</Text>
           </View>
+          <TouchableOpacity
+            style={s.avatarBtn}
+            onPress={() =>
+              Alert.alert(
+                user?.first_name ?? 'Account',
+                user?.email ?? '',
+                [
+                  { text: 'Sign Out', style: 'destructive', onPress: async () => { await logout(); router.replace('/auth/login'); } },
+                  { text: 'Cancel', style: 'cancel' },
+                ]
+              )
+            }
+          >
+            <Text style={s.avatarText}>{(user?.first_name?.[0] ?? 'U').toUpperCase()}</Text>
+          </TouchableOpacity>
         </View>
 
         {/* XP / Level / Streak row */}
@@ -185,6 +200,8 @@ const s = StyleSheet.create({
   center: { justifyContent: 'center', alignItems: 'center' },
   scroll: { padding: 20, paddingBottom: 40 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
+  avatarBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: COLORS.ink, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  avatarText: { color: '#FFFFFF', fontSize: 14, fontWeight: '800' },
   greeting: { fontSize: 22, fontWeight: '700', color: COLORS.ink },
   subGreeting: { fontSize: 13, color: COLORS.ink2, marginTop: 2 },
   statsRow: { flexDirection: 'row', gap: 10, marginBottom: 16 },
