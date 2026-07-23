@@ -546,6 +546,15 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/nurses/nclex",       priority: 0.9, changefreq: "weekly"  },
       { path: "/bots",               priority: 0.7, changefreq: "monthly" },
       { path: "/dose-calc",          priority: 0.8, changefreq: "monthly" },
+      // High-traffic content hubs
+      { path: "/articles",           priority: 0.9, changefreq: "daily"   },
+      { path: "/calculators",        priority: 0.9, changefreq: "monthly" },
+      { path: "/drugs",              priority: 0.9, changefreq: "weekly"  },
+      { path: "/news",               priority: 0.8, changefreq: "daily"   },
+      { path: "/learn",              priority: 0.8, changefreq: "monthly" },
+      { path: "/learn/glossary",     priority: 0.7, changefreq: "monthly" },
+      { path: "/learn/topics",       priority: 0.7, changefreq: "monthly" },
+      { path: "/learn/drugs",        priority: 0.7, changefreq: "monthly" },
       // G1 — Exam hub + Gulf family
       { path: "/exams",              priority: 0.9, changefreq: "monthly" },
       { path: "/exams/gulf",         priority: 0.9, changefreq: "monthly" },
