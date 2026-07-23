@@ -555,6 +555,9 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/learn/glossary",     priority: 0.7, changefreq: "monthly" },
       { path: "/learn/topics",       priority: 0.7, changefreq: "monthly" },
       { path: "/learn/drugs",        priority: 0.7, changefreq: "monthly" },
+      { path: "/learn/pets",         priority: 0.6, changefreq: "monthly" },
+      { path: "/learn/vet",          priority: 0.6, changefreq: "monthly" },
+      { path: "/quiz/public",        priority: 0.7, changefreq: "weekly"  },
       // G1 — Exam hub + Gulf family
       { path: "/exams",              priority: 0.9, changefreq: "monthly" },
       { path: "/exams/gulf",         priority: 0.9, changefreq: "monthly" },
