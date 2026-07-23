@@ -143,7 +143,7 @@ export default function DashboardScreen() {
           <ActionCard icon="⚡" label="Review Cards" color="#EFF6FF" onPress={() => router.push('/(tabs)/flashcards')} />
           <ActionCard icon="🤖" label="Ask AI" color="#F0FFF4" onPress={() => router.push('/(tabs)/ai')} />
           <ActionCard icon="📚" label="Browse Library" color="#FFFBEB" onPress={() => router.push('/(tabs)/modules')} />
-          <ActionCard icon="📊" label="Progress" color="#FFF5F5" onPress={() => {}} />
+          <ActionCard icon="📊" label="Progress" color="#FFF5F5" onPress={() => router.push('/progress')} />
         </View>
       </ScrollView>
     </SafeAreaView>
