@@ -783,7 +783,7 @@ export default function DashboardPage() {
                 </div>
               )}
               {/* NCLEX Readiness mini-card */}
-              {nclexReadiness && nclexReadiness.score !== undefined && (
+              {nclexReadiness && nclexReadiness.score !== undefined ? (
                 <Link href="/nurses/nclex" className="block mb-4">
                   <div className="card p-4 border border-border hover:border-ink-3 transition-colors">
                     <div className="flex items-center justify-between">
@@ -810,6 +810,24 @@ export default function DashboardPage() {
                             })()
                           : <span className="font-syne text-xs text-ink-3">Practice →</span>
                         }
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ) : nclexReadiness && nclexReadiness.questions_to_threshold > 0 && (
+                <Link href="/nurses/nclex" className="block mb-4">
+                  <div className="card p-4 border border-dashed border-border hover:border-ink-3 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center flex-shrink-0">
+                        <span className="font-syne font-black text-sm text-ink-3">
+                          {nclexReadiness.questions_to_threshold}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-syne font-bold text-sm text-ink">Unlock Readiness Score</div>
+                        <div className="font-serif text-xs text-ink-3">
+                          {nclexReadiness.questions_to_threshold} more practice questions to go
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { TrendingUp, Target, AlertTriangle } from "lucide-react";
 import { progressApi, achievementsApi, memoryApi, studentCoursesApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
@@ -310,7 +311,7 @@ export default function ProgressPage() {
       {/* Weekly Accuracy Trend */}
       {weeklyTrend && weeklyTrend.weeks.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-syne font-bold text-base text-ink mb-4">📈 Weekly Quiz Accuracy</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-4 flex items-center gap-2"><TrendingUp size={15} strokeWidth={1.75} className="text-ink-3" />Weekly Quiz Accuracy</h2>
           <div className="card p-5">
             <div className="flex items-end gap-2 h-28">
               {weeklyTrend.weeks.map((w) => {
@@ -346,7 +347,7 @@ export default function ProgressPage() {
       {/* Quiz Performance by Specialty */}
       {quizPerformance && quizPerformance.by_specialty.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-syne font-bold text-base text-ink mb-4">🎯 Quiz Performance by Specialty</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-4 flex items-center gap-2"><Target size={15} strokeWidth={1.75} className="text-ink-3" />Quiz Performance by Specialty</h2>
           <div className="card p-5">
             <div className="space-y-3">
               {quizPerformance.by_specialty.map((s: any) => {
@@ -397,7 +398,7 @@ export default function ProgressPage() {
       {/* Weaknesses */}
       {weaknesses.length > 0 && (
         <div className="mb-8">
-          <h2 className="font-syne font-bold text-base text-ink mb-3">⚠️ Areas to Improve</h2>
+          <h2 className="font-syne font-bold text-base text-ink mb-3 flex items-center gap-2"><AlertTriangle size={15} strokeWidth={1.75} className="text-ink-3" />Areas to Improve</h2>
           <div className="space-y-2">
             {weaknesses.map((w: any, i: number) => {
               const isFlashcard = w.reason === "low_flashcard_score";
