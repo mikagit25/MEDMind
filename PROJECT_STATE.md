@@ -10,12 +10,15 @@
 **Last Updated:** 2026-07-23
 **Next Action:** ВОРОТА ТРАНША 2 — ждать ≥100 платящих или ≥1000 активных по Gulf+ES. До этого: маркетинг Транша 1.
 
-### Mobile UX Polish ✅ (2026-07-23)
+### Mobile UX Polish + SEO + i18n ✅ (2026-07-23)
 - **Inline MCQ quiz in lesson screen**: after completing a lesson, users tap "Practice Quiz" to get a random MCQ from that module. Answer submitted to progress API (XP awarded, SM-2 tracked), explanation shown on reveal. Next question button cycles through more.
+- **Standalone mobile quiz screen** (`/quiz`): pick specialty → 10 shuffled MCQs from modules → answer with reveal → score screen. Connected from dashboard "Quick Quiz" quick action.
 - **Mobile dashboard avatar + logout**: tapping user initial shows native Alert with Sign Out (calls logout() + redirects to /auth/login)
 - **Mobile progress screen**: stats grid (lessons/cards/MCQs/accuracy), 14-day activity chart, weekly quiz accuracy chart (colour-coded green/amber/red)
 - **Nav fixes**: Sidebar + MobileNav "Calc History" link corrected to /calculator-history (was /calculators)
-- **SEO**: /nclex and /bots added to sitemap-builder.ts
+- **SEO**: /articles, /calculators, /drugs, /news, /learn and sub-pages, /quiz/public, /nclex, /bots — all added to sitemap
+- **i18n**: exam submit_confirm_title/body/cancel + retry_wrong + print_results translated in AR/ES/FR/TR/DE (were English placeholders)
+- **TypeScript**: 0 errors on full frontend check
 - **Tests**: 911 passed, 9 skipped, 0 failed ✅
 
 ### Performance Analytics ✅ (2026-07-22)
