@@ -51,7 +51,7 @@ function InlineQuiz({ moduleId }: { moduleId: string }) {
     if (!selected || !question) return;
     setSubmitting(true);
     try {
-      const res = await progressApi.answerMcq(question.id, selected);
+      const res = await progressApi.answerMCQ(question.id, selected);
       setResult({
         correct: res.data.correct,
         explanation: res.data.explanation ?? question.explanation ?? '',
