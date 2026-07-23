@@ -7,8 +7,16 @@
 
 ## 🟢 Current Status
 **Phase:** EXAMS-GLOBAL Транш 1 ЗАВЕРШЁН ✅ — G1 (Gulf Registry) + G2 (ES Layer) + G3 (Regional Pricing)
-**Last Updated:** 2026-07-22
+**Last Updated:** 2026-07-23
 **Next Action:** ВОРОТА ТРАНША 2 — ждать ≥100 платящих или ≥1000 активных по Gulf+ES. До этого: маркетинг Транша 1.
+
+### Mobile UX Polish ✅ (2026-07-23)
+- **Inline MCQ quiz in lesson screen**: after completing a lesson, users tap "Practice Quiz" to get a random MCQ from that module. Answer submitted to progress API (XP awarded, SM-2 tracked), explanation shown on reveal. Next question button cycles through more.
+- **Mobile dashboard avatar + logout**: tapping user initial shows native Alert with Sign Out (calls logout() + redirects to /auth/login)
+- **Mobile progress screen**: stats grid (lessons/cards/MCQs/accuracy), 14-day activity chart, weekly quiz accuracy chart (colour-coded green/amber/red)
+- **Nav fixes**: Sidebar + MobileNav "Calc History" link corrected to /calculator-history (was /calculators)
+- **SEO**: /nclex and /bots added to sitemap-builder.ts
+- **Tests**: 911 passed, 9 skipped, 0 failed ✅
 
 ### Performance Analytics ✅ (2026-07-22)
 - **Weekly Quiz Accuracy trend**: `GET /progress/quiz/weekly-trend` — 8-week bar chart on progress page
