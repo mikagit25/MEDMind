@@ -2,10 +2,10 @@
  * Mobile Quiz screen — pick a specialty, then answer MCQs with immediate feedback.
  * Accessed via the dashboard quick actions grid.
  */
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
-  ActivityIndicator, SafeAreaView as RNSafeArea,
+  ActivityIndicator, Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -63,7 +63,7 @@ export default function QuizScreen() {
     finally { setLoadingSpecialties(false); }
   }, [specialties.length]);
 
-  useState(() => { loadSpecialties(); });
+  useEffect(() => { loadSpecialties(); }, [loadSpecialties]);
 
   const pickSpecialty = async (spec: Specialty) => {
     setSpecialtyName(spec.name);
@@ -85,6 +85,7 @@ export default function QuizScreen() {
       const shuffled = allQs.sort(() => Math.random() - 0.5).slice(0, 10);
       if (shuffled.length === 0) {
         setPhase('pick_specialty');
+        Alert.alert('No questions yet', `No MCQ questions are available for ${spec.name} yet. Try another specialty.`);
         return;
       }
       setQuestions(shuffled);
