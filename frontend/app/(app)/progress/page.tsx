@@ -309,10 +309,26 @@ export default function ProgressPage() {
       )}
 
       {/* Weekly Accuracy Trend */}
-      {weeklyTrend && weeklyTrend.weeks.length > 0 && (
+      {weeklyTrend && weeklyTrend.weeks.length > 0 && (() => {
+        const latestWeek = weeklyTrend.weeks[weeklyTrend.weeks.length - 1];
+        const prevWeek = weeklyTrend.weeks.length >= 2 ? weeklyTrend.weeks[weeklyTrend.weeks.length - 2] : null;
+        const trend = prevWeek ? latestWeek.accuracy_pct - prevWeek.accuracy_pct : 0;
+        return (
         <div className="mb-8">
           <h2 className="font-syne font-bold text-base text-ink mb-4 flex items-center gap-2"><TrendingUp size={15} strokeWidth={1.75} className="text-ink-3" />Weekly Quiz Accuracy</h2>
           <div className="card p-5">
+            {/* Summary strip */}
+            <div className="flex items-center gap-4 mb-4 pb-4 border-b border-border">
+              <div>
+                <div className="font-syne font-black text-2xl text-ink">{latestWeek.accuracy_pct.toFixed(0)}%</div>
+                <div className="font-serif text-xs text-ink-3">This week · {latestWeek.total_questions}Q</div>
+              </div>
+              {prevWeek && (
+                <div className={`font-syne font-bold text-sm ${trend >= 0 ? "text-green" : "text-red"}`}>
+                  {trend >= 0 ? "▲" : "▼"} {Math.abs(trend).toFixed(0)}pp vs last week
+                </div>
+              )}
+            </div>
             <div className="flex items-end gap-2 h-28">
               {weeklyTrend.weeks.map((w) => {
                 const pct = w.accuracy_pct;
@@ -342,7 +358,8 @@ export default function ProgressPage() {
             </div>
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* Quiz Performance by Specialty */}
       {quizPerformance && quizPerformance.by_specialty.length > 0 && (
