@@ -78,7 +78,7 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
         { Icon: Pill,       label: t("nav.items.drugs"),        href: "/drugs"           },
         { Icon: Shuffle,    label: t("nav.items.drug_checker"), href: "/drug-checker"    },
         { Icon: HeartPulse, label: t("nav.items.health_hub"),   href: "/health"          },
-        { Icon: Calculator, label: t("nav.items.calc_history"), href: "/calculators"     },
+        { Icon: Calculator, label: t("nav.items.calc_history"), href: "/calculator-history" },
         { Icon: PenLine,    label: t("nav.items.my_notes"),     href: "/my-notes"        },
         { Icon: PawPrint,   label: t("nav.items.veterinary"),  href: "/veterinary"      },
         { Icon: TrendingUp,  label: t("nav.items.progress"),     href: "/progress"        },
