@@ -1,5 +1,5 @@
 /**
- * Lesson reader screen — renders lesson content blocks and marks completion.
+ * Lesson reader screen — renders lesson content blocks, marks completion, and inline MCQ quiz.
  */
 import { useEffect, useState, useCallback } from 'react';
 import {
@@ -9,6 +9,131 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from 'expo-router';
 import { contentApi, progressApi } from '@/lib/api';
+
+// ── MCQ types ────────────────────────────────────────────────────────────────
+
+interface MCQOption { label: string; text: string; }
+interface MCQQuestion {
+  id: string;
+  question: string;
+  options: MCQOption[];
+  explanation?: string;
+  correct_option?: string;
+  module_id: string;
+}
+
+// ── Inline Quiz Component ────────────────────────────────────────────────────
+
+function InlineQuiz({ moduleId }: { moduleId: string }) {
+  const [question, setQuestion] = useState<MCQQuestion | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [result, setResult] = useState<{ correct: boolean; explanation: string; correct_option: string } | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+
+  const fetchQuestion = async () => {
+    setLoading(true);
+    setSelected(null);
+    setResult(null);
+    setRevealed(false);
+    try {
+      const res = await contentApi.getMCQ(moduleId);
+      const questions: MCQQuestion[] = res.data ?? [];
+      if (questions.length > 0) {
+        setQuestion(questions[Math.floor(Math.random() * questions.length)]);
+      }
+    } catch {}
+    finally { setLoading(false); }
+  };
+
+  const handleSubmit = async () => {
+    if (!selected || !question) return;
+    setSubmitting(true);
+    try {
+      const res = await progressApi.answerMcq(question.id, selected);
+      setResult({
+        correct: res.data.correct,
+        explanation: res.data.explanation ?? question.explanation ?? '',
+        correct_option: res.data.correct_option ?? question.correct_option ?? '',
+      });
+      setRevealed(true);
+    } catch {
+      setRevealed(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (!question && !loading) {
+    return (
+      <TouchableOpacity style={q.startBtn} onPress={fetchQuestion} activeOpacity={0.8}>
+        <Text style={q.startBtnText}>📝 Practice Quiz</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  if (loading) {
+    return <ActivityIndicator style={{ marginVertical: 16 }} color={C.blue} />;
+  }
+
+  if (!question) return null;
+
+  const optionStyle = (label: string) => {
+    if (!revealed) {
+      return selected === label ? q.optionSelected : q.option;
+    }
+    if (result?.correct_option === label) return q.optionCorrect;
+    if (selected === label && !result?.correct) return q.optionWrong;
+    return q.option;
+  };
+
+  return (
+    <View style={q.container}>
+      <Text style={q.title}>Practice Question</Text>
+      <Text style={q.questionText}>{question.question}</Text>
+
+      <View style={q.options}>
+        {question.options.map((opt) => (
+          <TouchableOpacity
+            key={opt.label}
+            style={optionStyle(opt.label)}
+            onPress={() => !revealed && setSelected(opt.label)}
+            activeOpacity={0.75}
+            disabled={revealed}
+          >
+            <Text style={q.optionLabel}>{opt.label}.</Text>
+            <Text style={q.optionText}>{opt.text}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {!revealed ? (
+        <TouchableOpacity
+          style={[q.submitBtn, !selected && q.submitDisabled]}
+          onPress={handleSubmit}
+          disabled={!selected || submitting}
+          activeOpacity={0.8}
+        >
+          {submitting ? <ActivityIndicator color="#fff" /> : <Text style={q.submitText}>Submit Answer</Text>}
+        </TouchableOpacity>
+      ) : (
+        <View>
+          <View style={[q.feedback, result?.correct ? q.feedbackCorrect : q.feedbackWrong]}>
+            <Text style={q.feedbackIcon}>{result?.correct ? '✓' : '✗'}</Text>
+            <Text style={q.feedbackText}>{result?.correct ? 'Correct!' : 'Incorrect'}</Text>
+          </View>
+          {!!result?.explanation && (
+            <Text style={q.explanation}>{result.explanation}</Text>
+          )}
+          <TouchableOpacity style={q.nextBtn} onPress={fetchQuestion} activeOpacity={0.8}>
+            <Text style={q.nextBtnText}>Next Question →</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  );
+}
 
 // ── Content block types ─────────────────────────────────────────────────────
 
@@ -30,6 +155,7 @@ interface LessonData {
   clinical_risk_level: string;
   requires_clinical_supervision: boolean;
   lay_summary?: string;
+  module_id?: string;
 }
 
 const C = {
@@ -217,6 +343,11 @@ export default function LessonReaderScreen() {
           )}
         </TouchableOpacity>
 
+        {/* Inline quiz */}
+        {lesson.module_id && (
+          <InlineQuiz moduleId={lesson.module_id} />
+        )}
+
         <View style={{ height: 32 }} />
       </ScrollView>
     </SafeAreaView>
@@ -256,6 +387,33 @@ const s = StyleSheet.create({
   },
   completeBtnDone: { backgroundColor: C.green },
   completeBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+});
+
+// Quiz styles
+const q = StyleSheet.create({
+  container: { marginTop: 24, backgroundColor: C.surface, borderRadius: 12, padding: 16, borderWidth: 1, borderColor: C.border },
+  title: { fontSize: 13, fontWeight: '700', color: C.ink2, marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.5 },
+  questionText: { fontSize: 15, fontWeight: '600', color: C.ink, lineHeight: 22, marginBottom: 16 },
+  options: { gap: 8, marginBottom: 16 },
+  option: { flexDirection: 'row', gap: 10, borderWidth: 1, borderColor: C.border, borderRadius: 10, padding: 12, backgroundColor: '#FAFAF9' },
+  optionSelected: { flexDirection: 'row', gap: 10, borderWidth: 2, borderColor: C.blue, borderRadius: 10, padding: 12, backgroundColor: '#EFF6FF' },
+  optionCorrect: { flexDirection: 'row', gap: 10, borderWidth: 2, borderColor: C.green, borderRadius: 10, padding: 12, backgroundColor: '#F0FFF4' },
+  optionWrong: { flexDirection: 'row', gap: 10, borderWidth: 2, borderColor: '#EF4444', borderRadius: 10, padding: 12, backgroundColor: '#FFF5F5' },
+  optionLabel: { fontSize: 14, fontWeight: '700', color: C.ink2, minWidth: 18 },
+  optionText: { flex: 1, fontSize: 14, color: C.ink, lineHeight: 20 },
+  submitBtn: { backgroundColor: C.blue, borderRadius: 10, padding: 14, alignItems: 'center' },
+  submitDisabled: { backgroundColor: C.ink2, opacity: 0.5 },
+  submitText: { color: '#fff', fontWeight: '700', fontSize: 14 },
+  feedback: { flexDirection: 'row', gap: 8, alignItems: 'center', padding: 12, borderRadius: 10, marginBottom: 10 },
+  feedbackCorrect: { backgroundColor: '#F0FFF4' },
+  feedbackWrong: { backgroundColor: '#FFF5F5' },
+  feedbackIcon: { fontSize: 18, fontWeight: '800' },
+  feedbackText: { fontSize: 15, fontWeight: '700', color: C.ink },
+  explanation: { fontSize: 13, color: C.ink2, lineHeight: 20, marginBottom: 14 },
+  nextBtn: { borderWidth: 1, borderColor: C.border, borderRadius: 10, padding: 12, alignItems: 'center' },
+  nextBtnText: { fontSize: 14, fontWeight: '600', color: C.blue },
+  startBtn: { marginTop: 24, borderWidth: 1, borderColor: C.blue, borderRadius: 12, padding: 14, alignItems: 'center' },
+  startBtnText: { fontSize: 14, fontWeight: '700', color: C.blue },
 });
 
 // Block-level styles separated for clarity
