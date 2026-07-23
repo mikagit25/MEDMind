@@ -542,7 +542,9 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/contact",            priority: 0.6, changefreq: "monthly" },
       { path: "/enterprise",         priority: 0.8, changefreq: "monthly" },
       { path: "/nurses",             priority: 0.9, changefreq: "monthly" },
+      { path: "/nclex",              priority: 1.0, changefreq: "weekly"  },
       { path: "/nurses/nclex",       priority: 0.9, changefreq: "weekly"  },
+      { path: "/bots",               priority: 0.7, changefreq: "monthly" },
       { path: "/dose-calc",          priority: 0.8, changefreq: "monthly" },
       // G1 — Exam hub + Gulf family
       { path: "/exams",              priority: 0.9, changefreq: "monthly" },
