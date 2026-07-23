@@ -23,7 +23,7 @@ from app.api.deps import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-AUTH_RATE_LIMIT = 10   # max failed attempts
+AUTH_RATE_LIMIT = 5    # max failed attempts before lockout
 AUTH_RATE_WINDOW = 300  # 5-minute sliding window (seconds)
 
 
@@ -417,6 +417,7 @@ async def forgot_password(
 
     if user:
         import secrets
+        from app.core.redis_client import get_redis
         raw_token = secrets.token_urlsafe(32)
         token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
 
