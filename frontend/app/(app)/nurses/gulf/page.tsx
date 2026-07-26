@@ -429,10 +429,10 @@ export default function GulfHubPage() {
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex gap-3">
               <AlertTriangle className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-syne font-bold text-xs text-amber-700 mb-0.5">Content in Progress</p>
+                <p className="font-syne font-bold text-xs text-amber-700 mb-0.5">Gulf Question Banks — Early Access</p>
                 <p className="font-serif text-xs text-amber-600 leading-relaxed">
-                  Gulf-specific question banks are being generated automatically. More questions are added every 30 minutes.
-                  Meanwhile, practice using the general Gulf Practice mode which uses our full NCLEX bank.
+                  Gulf-specific question banks are actively expanding. Practice and simulation modes require a Student or Pro plan.{" "}
+                  <a href="/pricing" className="underline font-semibold">See plans →</a>
                 </p>
               </div>
             </div>
