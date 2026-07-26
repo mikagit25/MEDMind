@@ -20,6 +20,7 @@ from app.core.audit import audit, get_ip, get_ua
 from pydantic import BaseModel
 from app.schemas.schemas import UserRegister, UserLogin, TokenResponse, RefreshRequest, UserOut
 from app.api.deps import get_current_user
+from app.core.redis_client import get_redis
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -38,7 +39,6 @@ def _client_ip(request: Request) -> str:
 
 async def check_auth_rate_limit(request: Request) -> None:
     """Block IPs with too many failed auth attempts (Redis-backed, survives restarts)."""
-    from app.core.redis_client import get_redis
     ip = _client_ip(request)
     key = f"auth_fails:{ip}"
     redis = await get_redis()
@@ -51,7 +51,6 @@ async def check_auth_rate_limit(request: Request) -> None:
 
 
 async def record_failed_attempt(request: Request) -> None:
-    from app.core.redis_client import get_redis
     ip = _client_ip(request)
     key = f"auth_fails:{ip}"
     redis = await get_redis()
@@ -423,7 +422,6 @@ async def forgot_password(
 
     if user:
         import secrets
-        from app.core.redis_client import get_redis
         raw_token = secrets.token_urlsafe(32)
         token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
 
