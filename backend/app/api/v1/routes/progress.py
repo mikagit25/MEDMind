@@ -363,6 +363,16 @@ async def answer_mcq(
         xp_earned=xp,
         newly_unlocked=newly_unlocked,
         partial_score=partial_score,
+        rationales=question.rationales,
+        key_takeaway=question.key_takeaway,
+        explanation_es=question.explanation_es,
+        rationales_es=question.rationales_es,
+        key_takeaway_es=question.key_takeaway_es,
+        explanation_ar=question.explanation_ar,
+        rationales_ar=question.rationales_ar,
+        key_takeaway_ar=question.key_takeaway_ar,
+        source_refs=question.source_refs or [],
+        verification_status=question.verification_status,
     )
 
 

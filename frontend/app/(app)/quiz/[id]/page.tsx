@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { contentApi, progressApi } from "@/lib/api";
-import { useT } from "@/lib/i18n";
+import { useT, useI18n } from "@/lib/i18n";
 
 type MCQQuestion = {
   id: string;
@@ -16,12 +16,32 @@ type MCQQuestion = {
   numeric_unit?: string;
 };
 
+type SourceRef = {
+  name: string;
+  url: string;
+  type: "pubmed" | "textbook" | "regulatory" | "guideline";
+  pmid?: string;
+  journal?: string;
+};
+
+type Rationales = Record<string, { text: string; why: string }>;
+
 type AnswerResult = {
   correct: boolean;
   correct_answer: string;
   explanation: string;
   xp_earned: number;
   partial_score?: number;
+  rationales?: Rationales;
+  key_takeaway?: string;
+  explanation_es?: string;
+  rationales_es?: Rationales;
+  key_takeaway_es?: string;
+  explanation_ar?: string;
+  rationales_ar?: Rationales;
+  key_takeaway_ar?: string;
+  source_refs?: SourceRef[];
+  verification_status?: string;
 };
 
 const DIFFICULTY_COLOR: Record<string, string> = {
@@ -41,6 +61,7 @@ export default function QuizPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useT();
+  const { locale } = useI18n();
 
   const examMode = searchParams.get("exam") === "1";
   const examCountParam = parseInt(searchParams.get("count") ?? "0") || 0;
@@ -679,8 +700,80 @@ export default function QuizPage() {
                           : `${t("quiz.incorrect")} — Correct: ${result.correct_answer}`}
                   </span>
                 </div>
-                <p className="font-serif text-sm text-ink leading-relaxed">{result.explanation}</p>
+                <p className="font-serif text-sm text-ink leading-relaxed">
+                  {locale === "es" && result.explanation_es
+                    ? result.explanation_es
+                    : locale === "ar" && result.explanation_ar
+                    ? result.explanation_ar
+                    : result.explanation}
+                </p>
               </div>
+              {/* Per-option rationales */}
+              {(() => {
+                const rats = locale === "es" && result.rationales_es
+                  ? result.rationales_es
+                  : locale === "ar" && result.rationales_ar
+                  ? result.rationales_ar
+                  : result.rationales;
+                if (!rats || Object.keys(rats).length === 0) return null;
+                const correctLetters = result.correct_answer.split(",");
+                return (
+                  <div className="mb-3 rounded-lg border border-border overflow-hidden">
+                    {Object.entries(rats).map(([letter, rat]) => {
+                      const isCorrect = correctLetters.includes(letter);
+                      return (
+                        <div key={letter} className={`p-3 text-xs font-serif border-b border-border last:border-0 ${isCorrect ? "bg-green-light/30" : "bg-surface"}`}>
+                          <span className={`font-syne font-bold mr-1.5 ${isCorrect ? "text-green" : "text-ink-3"}`}>{letter}.</span>
+                          <span className="text-ink leading-relaxed">{rat.why || rat.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+              {/* Key takeaway */}
+              {(() => {
+                const kt = locale === "es" && result.key_takeaway_es
+                  ? result.key_takeaway_es
+                  : locale === "ar" && result.key_takeaway_ar
+                  ? result.key_takeaway_ar
+                  : result.key_takeaway;
+                if (!kt) return null;
+                return (
+                  <div className="mb-3 rounded-lg border border-amber/30 bg-amber-light/20 p-3">
+                    <p className="font-syne font-bold text-[10px] uppercase tracking-wider text-amber mb-1">
+                      {locale === "ar" ? "النقطة الرئيسية" : locale === "es" ? "Punto clave" : "Key Takeaway"}
+                    </p>
+                    <p className="font-serif text-xs text-ink leading-relaxed">{kt}</p>
+                  </div>
+                );
+              })()}
+              {/* Sources */}
+              {result.source_refs && result.source_refs.length > 0 && (
+                <div className="mb-3 rounded-lg border border-border p-3 bg-surface-2">
+                  <p className="font-syne font-bold text-[10px] uppercase tracking-wider text-ink-4 mb-2">
+                    {locale === "ar" ? "المصادر" : locale === "es" ? "Fuentes" : "Sources"}
+                    {result.verification_status === "ai_verified" && (
+                      <span className="ml-2 text-[9px] text-green normal-case tracking-normal">✓ verified</span>
+                    )}
+                  </p>
+                  <ul className="space-y-1">
+                    {result.source_refs.map((ref, i) => {
+                      const icon = ref.type === "pubmed" ? "🔬" : ref.type === "textbook" ? "📚" : "📋";
+                      return (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-[11px] mt-0.5 flex-shrink-0">{icon}</span>
+                          <a href={ref.url} target="_blank" rel="noopener noreferrer"
+                             className="text-[11px] font-serif text-blue-600 hover:text-blue-800 hover:underline leading-snug break-words">
+                            {ref.name}
+                            {ref.journal && <span className="text-ink-4"> — {ref.journal}</span>}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
               <div className="flex items-center justify-between gap-3 mb-3">
                 <button
                   onClick={() => {

@@ -1,14 +1,13 @@
-"""Translate Gulf exam question rationales, explanations, key_takeaway to Arabic.
+"""Translate module MCQ question rationales, explanations, key_takeaway to Spanish.
 
-Idempotent: skips questions that already have explanation_ar.
-Targets Gulf exam questions only (exam_slugs IS NOT NULL).
-Uses Cerebras keys (separate rate pool from Groq enrichment pipeline).
+Targets module-linked questions (nclex_client_needs IS NULL AND exam_slugs IS NULL).
+These are VET, CARDIO, PULM, and other specialty module questions.
+Uses Cerebras keys (same pool as NCLEX ES translation).
 
 Usage:
-  python -m app.scripts.translate_rationales_ar            # all untranslated
-  python -m app.scripts.translate_rationales_ar --max 100  # limit per run
-  python -m app.scripts.translate_rationales_ar --dry-run  # preview only
-  python -m app.scripts.translate_rationales_ar --slug snle # only for one exam
+  python -m app.scripts.translate_module_rationales_es            # all untranslated
+  python -m app.scripts.translate_module_rationales_es --max 100  # limit per run
+  python -m app.scripts.translate_module_rationales_es --dry-run  # preview only
 """
 
 import asyncio
@@ -24,9 +23,11 @@ from sqlalchemy import select, or_
 from app.core.database import AsyncSessionLocal
 from app.models.models import MCQQuestion
 
+
 def _dedup(keys: list) -> list:
     seen: set = set()
     return [k for k in keys if k and not (k in seen or seen.add(k))]
+
 
 CEREBRAS_KEYS = _dedup([
     os.getenv("CEREBRAS_API_KEY", ""),
@@ -40,38 +41,42 @@ CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_MODEL = "gemma-4-31b"
 BATCH_SIZE = 5
 
-AR_MEDICAL_GLOSSARY = {
-    "NCLEX": "NCLEX",
+ES_GLOSSARY = {
     "IV": "IV",
     "PRN": "PRN",
     "NPO": "NPO",
     "STAT": "STAT",
-    "SBAR": "SBAR",
-    "SpO2": "SpO2",
     "ECG": "ECG",
+    "EKG": "EKG",
     "ICU": "ICU",
+    "SpO2": "SpO2",
     "ABCs": "ABCs",
+    "SBAR": "SBAR",
+    "NCLEX": "NCLEX",
+    "GOLD": "GOLD",
+    "GINA": "GINA",
+    "KDIGO": "KDIGO",
 }
 
 
 def _build_translate_prompt(batch: list[dict]) -> str:
     items_str = json.dumps(batch, ensure_ascii=False, indent=2)
-    glossary = ", ".join(f"{k}→{v}" for k, v in AR_MEDICAL_GLOSSARY.items())
-    return f"""Translate the following Gulf nursing exam question explanations into professional medical Arabic (اللغة العربية الطبية).
+    glossary = ", ".join(f"{k}→{v}" for k, v in ES_GLOSSARY.items())
+    return f"""Translate the following medical education question explanations into professional medical Spanish (español médico).
 
 Rules:
-- Translate all text fields to Modern Standard Arabic (فصحى) with medical terminology
+- Translate all text fields to Spanish
 - Preserve JSON structure exactly — same keys, same types
 - Keep medical abbreviations as-is: {glossary}
-- Use standard Gulf/Middle Eastern medical Arabic terminology
 - "correct"/"incorrect" values stay in English (they are code values)
 - Maintain clinical precision — do not simplify or omit any detail
-- Use RTL-appropriate sentence structure
+- Natural Latin American medical Spanish (not castellano)
+- If a field is already in Spanish, still return it as-is
 
 Input (JSON array of objects with fields: id, explanation, rationales, key_takeaway, test_taking_tip):
 {items_str}
 
-Return ONLY a valid JSON array with the same structure but all text translated to Arabic.
+Return ONLY a valid JSON array with the same structure but all text translated to Spanish.
 No markdown, no commentary, no extra text."""
 
 
@@ -127,7 +132,7 @@ class CerebrasClient:
                 await asyncio.sleep(3)
 
 
-async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug: str | None = None) -> None:
+async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
     if not CEREBRAS_KEYS:
         print("ERROR: No Cerebras keys configured")
         sys.exit(1)
@@ -136,32 +141,27 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
 
     async with AsyncSessionLocal() as db:
         q = select(MCQQuestion).where(
-            MCQQuestion.exam_slugs.isnot(None),
+            MCQQuestion.nclex_client_needs.is_(None),
+            MCQQuestion.exam_slugs.is_(None),
             MCQQuestion.explanation.isnot(None),
-            or_(
-                MCQQuestion.explanation_ar.is_(None),
-                MCQQuestion.rationales_ar.is_(None),
-                MCQQuestion.key_takeaway_ar.is_(None),
-            ),
+            MCQQuestion.explanation != "",
+            MCQQuestion.explanation_es.is_(None),
         )
-        if exam_slug:
-            q = q.where(MCQQuestion.exam_slugs.op("@>")(f'["{exam_slug}"]'))
         if max_questions:
             q = q.limit(max_questions * 2)
 
         result = await db.execute(q)
         questions = result.scalars().all()
 
-        untranslated = [q for q in questions if q.explanation_ar is None or q.rationales_ar is None]
+        untranslated = [q for q in questions if q.explanation_es is None]
         if max_questions:
             untranslated = untranslated[:max_questions]
 
-        print(f"Found {len(untranslated)} Gulf questions to translate to Arabic (using Cerebras {CEREBRAS_MODEL})"
-              + (f" (slug={exam_slug})" if exam_slug else ""))
+        print(f"Found {len(untranslated)} module MCQ questions to translate to Spanish (Cerebras {CEREBRAS_MODEL})")
         if dry_run:
-            print("[DRY RUN] No writes.")
+            print("[DRY RUN] No writes will be made.")
             for q in untranslated[:5]:
-                print(f"  Would translate: {str(q.id)[:8]}… — {(q.question or '')[:60]}")
+                print(f"  Would translate: {str(q.id)[:8]}… — {(q.explanation or '')[:60]}")
             return
 
         translated = 0
@@ -178,7 +178,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
                 for q in batch_qs
             ]
 
-            print(f"  Batch {i//BATCH_SIZE + 1}: translating {len(batch_qs)} questions to Arabic…")
+            print(f"  Batch {i//BATCH_SIZE + 1}: translating {len(batch_qs)} questions…")
             raw = await client.call(_build_translate_prompt(batch_input))
             if raw is None:
                 print("  All keys exhausted — stopping.")
@@ -186,7 +186,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
 
             parsed = _parse_response(raw)
             if not parsed or len(parsed) != len(batch_qs):
-                print(f"  Parse error (got {len(parsed) if parsed else 0} items, expected {len(batch_qs)}) — skipping")
+                print(f"  Parse error (got {len(parsed) if parsed else 0} items, expected {len(batch_qs)}) — skipping batch")
                 continue
 
             by_id = {item["id"]: item for item in parsed}
@@ -194,10 +194,11 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
                 item = by_id.get(str(q.id))
                 if not item:
                     continue
-                q.explanation_ar     = item.get("explanation") or None
-                q.rationales_ar      = item.get("rationales") or None
-                q.key_takeaway_ar    = item.get("key_takeaway") or None
-                q.test_taking_tip_ar = item.get("test_taking_tip") or None
+                q.explanation_es  = item.get("explanation") or None
+                q.rationales_es   = item.get("rationales") or None
+                q.key_takeaway_es = item.get("key_takeaway") or None
+                if hasattr(q, "test_taking_tip_es"):
+                    q.test_taking_tip_es = item.get("test_taking_tip") or None
                 translated += 1
 
             await db.commit()
@@ -211,16 +212,11 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
 def main() -> None:
     max_q = None
     dry_run = "--dry-run" in sys.argv
-    exam_slug = None
     if "--max" in sys.argv:
         idx = sys.argv.index("--max")
         if idx + 1 < len(sys.argv):
             max_q = int(sys.argv[idx + 1])
-    if "--slug" in sys.argv:
-        idx = sys.argv.index("--slug")
-        if idx + 1 < len(sys.argv):
-            exam_slug = sys.argv[idx + 1]
-    asyncio.run(run(max_questions=max_q, dry_run=dry_run, exam_slug=exam_slug))
+    asyncio.run(run(max_questions=max_q, dry_run=dry_run))
 
 
 if __name__ == "__main__":

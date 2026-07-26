@@ -244,6 +244,16 @@ class MCQAnswerResponse(BaseModel):
     xp_earned: int
     newly_unlocked: List[str] = []
     partial_score: Optional[float] = None  # 0.0–1.0 for partial SATA
+    rationales: Optional[Dict[str, Any]] = None
+    key_takeaway: Optional[str] = None
+    explanation_es: Optional[str] = None
+    rationales_es: Optional[Dict[str, Any]] = None
+    key_takeaway_es: Optional[str] = None
+    explanation_ar: Optional[str] = None
+    rationales_ar: Optional[Dict[str, Any]] = None
+    key_takeaway_ar: Optional[str] = None
+    source_refs: List[Dict[str, Any]] = []
+    verification_status: Optional[str] = None
 
 
 # ============================================================
