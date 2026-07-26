@@ -705,10 +705,10 @@ async def generate_lesson_quiz(
 
     prompt = lesson_mcq_prompt(lesson.title or "Medical Lesson", lesson_text, difficulty)
 
-    # Always use Haiku for MCQ generation — fast and sufficient
-    from app.services.ai_router import call_claude_structured
+    # MCQ generation: Cerebras → Claude → Ollama cascade for resilience
+    from app.services.ai_router import call_ollama_structured
     try:
-        raw, model_label = await call_claude_structured(
+        raw, model_label = await call_ollama_structured(
             system=LESSON_MCQ_SYSTEM,
             user_message=prompt,
         )
@@ -999,19 +999,17 @@ async def generate_handout(
 ):
     """Generate a plain-language patient education handout for a medical condition."""
     from app.prompts.tutor_prompts import HANDOUT_SYSTEM, handout_prompt
-    from app.services.ai_router import call_claude_structured
 
     data.condition = sanitize_ai_message(data.condition, "condition")
     await check_ai_rate_limit(user, db)
 
-    model = "claude-haiku-4-5-20251001"
     prompt = handout_prompt(data.condition, data.language or "en")
 
+    from app.services.ai_router import call_ollama_structured
     try:
-        raw, model_label = await call_claude_structured(
+        raw, model_label = await call_ollama_structured(
             system=HANDOUT_SYSTEM,
             user_message=prompt,
-            model=model,
             max_tokens=2000,
         )
     except Exception as e:
