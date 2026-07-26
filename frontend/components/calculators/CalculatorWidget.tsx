@@ -559,6 +559,16 @@ function EgfrCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"
           riskLabel={result ? `CKD stage ${result.stage.stage}` : ""}
         />
 
+        {result && (
+          <SaveResultPanel
+            slug="egfr-ckd-epi"
+            inputs={{ creatinine: parseFloat(creat), age: parseInt(age), sex: sex === "male" ? 1 : 0 }}
+            score={result.egfr}
+            riskLabel={`CKD stage ${result.stage.stage}`}
+            lang={lang}
+          />
+        )}
+
         <div className="text-ink-3 text-xs leading-relaxed">
           <span className="font-syne font-semibold">{tl("reference")}: </span>
           {tl("ref_text")}
@@ -674,6 +684,15 @@ function BmiCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"|
       <div className="space-y-4">
         <NumResult label={t(L.result, lang)} value={result ? String(result.bmi) : null} unit="kg/m²" description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
         <AiPanel lang={lang} calcName="BMI" score={result?.bmi ?? 0} riskLabel={result?.label ?? ""} />
+        {result && (
+          <SaveResultPanel
+            slug="bmi"
+            inputs={{ weight: parseFloat(weight), height: parseFloat(height) }}
+            score={result.bmi}
+            riskLabel={result.label}
+            lang={lang}
+          />
+        )}
         <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
       </div>
     </div>

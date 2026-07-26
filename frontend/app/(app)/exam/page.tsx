@@ -447,10 +447,7 @@ function RationalePanel({
               {nativeLabel} · coming soon
             </span>
           )
-        ) : (
-          // Locale not yet translated (ru, de, fr, tr) — show nothing
-          <span className="text-[11px] font-syne text-ink-4 select-none">EN</span>
-        )}
+        ) : null}
       </div>
 
       {/* Selected option rationale — always visible */}
@@ -869,7 +866,7 @@ function ExamSession({
               </span>
             )}
           </div>
-          <Timer endsAt={session.ends_at} onExpire={handleExpire} />
+          {session.mode_id !== "nclex_demo" && <Timer endsAt={session.ends_at} onExpire={handleExpire} />}
           <button
             onClick={() => setConfirmSubmit(true)}
             disabled={submitting}

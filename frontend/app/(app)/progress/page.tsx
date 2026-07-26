@@ -18,7 +18,7 @@ function LevelBar({ xp, level }: { xp: number; level: number }) {
       <div className="flex items-center justify-between mb-2">
         <div>
           <span className="font-syne font-black text-3xl text-ink">Level {level}</span>
-          <span className="text-ink-3 font-serif text-sm ml-3">{xp} XP total</span>
+          <div className="text-ink-3 font-serif text-sm mt-0.5">{xp} XP total</div>
         </div>
         <div className="text-right">
           <div className="font-syne font-bold text-sm text-ink-2">Next level</div>

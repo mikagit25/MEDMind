@@ -664,7 +664,7 @@ export default function DashboardPage() {
           cme_credits_this_year: roleRes?.cme?.credits_this_year ?? 0,
         }));
       }
-      if (readiness?.score !== undefined || readiness?.questions_until_threshold !== undefined) {
+      if (readiness?.score !== undefined || readiness?.questions_to_threshold !== undefined) {
         setNclexReadiness(readiness);
       }
       setLoading(false);

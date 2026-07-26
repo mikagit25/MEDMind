@@ -479,6 +479,12 @@ export default function ModuleDetailPage() {
       }
       setLoading(false);
     });
+
+    // Load existing certificate for this module (if already earned)
+    certificatesApi.list().then((certs: any[]) => {
+      const existing = certs?.find((c: any) => c.module_id === id);
+      if (existing?.verification_code) setCertCode(existing.verification_code);
+    }).catch(() => {});
   }, [id, locale]);
 
   // Load full lesson content when active lesson changes (no content yet)
