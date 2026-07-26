@@ -168,7 +168,7 @@ class Settings(BaseSettings):
     # Docs (disable in production by default)
     ENABLE_DOCS: bool = False
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
     def __repr__(self) -> str:
         """Never expose secrets in logs or tracebacks."""

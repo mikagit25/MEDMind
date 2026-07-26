@@ -116,7 +116,7 @@ class TestSnapshotESFields:
     def test_answer_response_keys_include_es(self):
         """Check that the submit_answer endpoint builds an ES-inclusive response dict."""
         import ast, pathlib
-        src = pathlib.Path("app/api/v1/routes/exam.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/exam.py").read_text()
         assert "rationales_es" in src, "rationales_es missing from exam.py response"
         assert "key_takeaway_es" in src, "key_takeaway_es missing from exam.py response"
         assert "test_taking_tip_es" in src, "test_taking_tip_es missing from exam.py response"
@@ -125,7 +125,7 @@ class TestSnapshotESFields:
     def test_snapshot_stores_es_fields(self):
         """Snapshot builder must persist _rationales_es alongside _rationales."""
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/exam.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/exam.py").read_text()
         assert "_rationales_es" in src
         assert "_key_takeaway_es" in src
 

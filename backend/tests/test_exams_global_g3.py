@@ -214,27 +214,27 @@ class TestPricingRouteStructure:
 class TestPaymentsRouteG3Integration:
     def test_payments_imports_regional_pricing(self):
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/payments.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/payments.py").read_text()
         assert "from app.data.regional_pricing import" in src
 
     def test_payments_imports_region_service(self):
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/payments.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/payments.py").read_text()
         assert "from app.services.region_service import" in src
 
     def test_payments_captures_billing_country_in_metadata(self):
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/payments.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/payments.py").read_text()
         assert "billing_country" in src
 
     def test_payments_captures_billing_region_in_metadata(self):
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/payments.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/payments.py").read_text()
         assert "billing_region" in src
 
     def test_activate_subscription_sets_billing_country(self):
         import pathlib
-        src = pathlib.Path("app/api/v1/routes/payments.py").read_text()
+        src = (pathlib.Path(__file__).parent.parent / "app/api/v1/routes/payments.py").read_text()
         assert "user.billing_country" in src
         assert "user.billing_region" in src
 

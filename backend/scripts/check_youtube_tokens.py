@@ -22,6 +22,29 @@ SCOPES = [
 ]
 
 ACCOUNTS = [
+    # ── Happy Bear Kids / Calm Classics ──────────────────────────────────────
+    {
+        "label":   "🐻 HappyBear EN (@HappyBearKids1)",
+        "token":   "/opt/kids_channel/credentials/youtube_token.json",
+        "secret":  None,   # client_id/secret embedded in token
+        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py",
+        "account": "lapidainvest@gmail.com",
+    },
+    {
+        "label":   "🐻🇸🇦 HappyBear AR (@happybearkidsar)",
+        "token":   "/opt/kids_channel/credentials/youtube_token_ar.json",
+        "secret":  None,
+        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py --channel ar",
+        "account": "kidsar6945071@gmail.com",
+    },
+    {
+        "label":   "🎵 Calm Classics (@happybearkidsin)",
+        "token":   "/opt/kids_channel/credentials/youtube_token_id.json",
+        "secret":  None,
+        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py --channel id",
+        "account": "kidain6945071@gmail.com",
+    },
+    # ── MedMind ──────────────────────────────────────────────────────────────
     {
         "label":   "🇬🇧 MedMind EN (account1)",
         "token":   "/opt/medmind/youtube_token.json",
@@ -46,15 +69,22 @@ ACCOUNTS = [
 ]
 
 
-def build_auth_url(secret_path: str, state: str) -> str | None:
+def build_auth_url(secret_path: str | None, state: str, token_path: str | None = None) -> str | None:
+    """Build OAuth URL from secret file, or fall back to client_id embedded in token."""
     try:
-        with open(secret_path) as f:
-            raw = json.load(f)
-        creds = raw.get("web") or raw.get("installed") or {}
-        client_id = creds.get("client_id")
+        import urllib.parse
+        client_id = None
+        # Try secret file first
+        if secret_path and Path(secret_path).exists():
+            raw = json.load(open(secret_path))
+            creds = raw.get("web") or raw.get("installed") or {}
+            client_id = creds.get("client_id")
+        # Fallback: client_id embedded in token (kids_channel style)
+        if not client_id and token_path and Path(token_path).exists():
+            tok = json.load(open(token_path))
+            client_id = tok.get("client_id")
         if not client_id:
             return None
-        import urllib.parse
         params = {
             "client_id":     client_id,
             "redirect_uri":  CALLBACK_URL,
@@ -62,7 +92,7 @@ def build_auth_url(secret_path: str, state: str) -> str | None:
             "scope":         " ".join(SCOPES),
             "access_type":   "offline",
             "prompt":        "consent",
-            "state":         state,
+            "state":         state or "kids",
         }
         return "https://accounts.google.com/o/oauth2/v2/auth?" + urllib.parse.urlencode(params)
     except Exception:
@@ -89,7 +119,7 @@ def curl_tg(msg: str) -> bool:
 def try_refresh_access_token(acc: dict) -> bool:
     """Try to refresh the access token using refresh_token. Returns True if successful."""
     token_path = Path(acc["token"])
-    secret_path = Path(acc.get("secret", ""))
+    secret_path = Path(acc["secret"]) if acc.get("secret") else Path("")
 
     if not token_path.exists() or token_path.stat().st_size == 0:
         return False
@@ -214,14 +244,21 @@ def main():
         s = check_account(acc)
         if s["status"] in ("dead", "expiring"):
             icon = "🔴" if s["status"] == "dead" else "🟡"
-            auth_url = build_auth_url(acc["secret"], acc["state"])
-            if auth_url:
+            # Kids channel: show reauth command; MedMind: show OAuth URL
+            if acc.get("reauth"):
                 link_line = (
-                    f'   <a href="{auth_url}">👉 Авторизовать {acc["label"]}</a>\n'
+                    f'   🖥 Команда: <code>{acc["reauth"]}</code>\n'
                     f'   Войди как: <b>{acc["account"]}</b>'
                 )
             else:
-                link_line = "   ⚠️ Не удалось построить ссылку (нет client_secret)"
+                auth_url = build_auth_url(acc.get("secret"), acc.get("state", ""), acc.get("token"))
+                if auth_url:
+                    link_line = (
+                        f'   <a href="{auth_url}">👉 Авторизовать {acc["label"]}</a>\n'
+                        f'   Войди как: <b>{acc["account"]}</b>'
+                    )
+                else:
+                    link_line = "   ⚠️ Не удалось построить ссылку (нет client_secret)"
             alerts.append(
                 f"{icon} <b>{s['label']}</b>\n"
                 f"   {s['message']}\n"

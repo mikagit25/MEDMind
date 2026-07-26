@@ -142,8 +142,11 @@ def get_access_token() -> str:
 def load_playlists() -> dict[str, str]:
     """Load {category: playlist_id} mapping."""
     if PLAYLISTS_FILE.exists():
-        with open(PLAYLISTS_FILE) as f:
-            return json.load(f)
+        try:
+            content = PLAYLISTS_FILE.read_text().strip()
+            return json.loads(content) if content else {}
+        except (json.JSONDecodeError, ValueError):
+            return {}
     return {}
 
 def save_playlists(data: dict[str, str]):
