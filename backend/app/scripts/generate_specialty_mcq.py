@@ -1,10 +1,11 @@
 """Generate MCQ questions for specialty modules (CARDIO, PULM, DERM, etc.) from existing content.
 
-Picks the next module with content but < 20 questions, generates 20 MCQ questions,
-saves to DB with verification and source_refs.
+Picks modules with content but < TARGET_QUESTIONS, generates up to TARGET_QUESTIONS per module,
+saves to DB with verification and source_refs. Idempotent — skips modules already at target.
 
 Usage:
   python -m app.scripts.generate_specialty_mcq          # next pending module
+  python -m app.scripts.generate_specialty_mcq --all    # all pending modules sequentially
   python -m app.scripts.generate_specialty_mcq CARDIO-002  # specific module
   python -m app.scripts.generate_specialty_mcq --status    # show counts
   python -m app.scripts.generate_specialty_mcq --dry-run   # preview only
@@ -37,8 +38,12 @@ GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"
-TARGET_QUESTIONS = 20
-MIN_THRESHOLD = 20  # generate for modules with fewer than this many questions
+TARGET_QUESTIONS = 80
+MIN_THRESHOLD = 80  # generate for modules with fewer than this many questions
+# Generate in batches of 20 per Groq call (fits within context + rate limits)
+BATCH_SIZE = 20
+# Delay between batches (seconds) to stay within ~6000 TPM Groq limit
+INTER_BATCH_DELAY = 15
 
 # Specialty→clinical guideline source map
 SPECIALTY_SOURCES: dict[str, list[dict]] = {
@@ -269,6 +274,17 @@ async def get_pending_modules(db) -> list[tuple[str, str, str, str]]:
     return result.fetchall()
 
 
+async def _current_question_count(module_id: str) -> int:
+    """How many questions this module already has."""
+    from sqlalchemy import text as _text
+    import uuid as _uuid
+    async with AsyncSessionLocal() as db:
+        r = await db.execute(_text(
+            "SELECT COUNT(*) FROM mcq_questions WHERE module_id = :mid"
+        ), {"mid": _uuid.UUID(module_id)})
+        return r.scalar() or 0
+
+
 async def generate_for_module(module_id: str, code: str, title: str, content_json: str,
                                dry_run: bool = False) -> tuple[int, int]:
     try:
@@ -281,44 +297,72 @@ async def generate_for_module(module_id: str, code: str, title: str, content_jso
         print(f"  [{code}] No extractable content — skipping")
         return 0, 0
 
+    existing = await _current_question_count(module_id)
+    needed = max(0, TARGET_QUESTIONS - existing)
+    if needed == 0:
+        print(f"  [{code}] Already has {existing} questions — skipping")
+        return 0, 0
+
     specialty = code.split("-")[0]
-    n = TARGET_QUESTIONS
-    prompt = MCQ_PROMPT.format(
-        count=n,
-        title=title,
-        specialty=specialty,
-        content_text=content_text,
-        easy=max(1, n // 4),
-        medium=max(1, n // 2),
-        hard=max(1, n // 4),
-    )
-
-    print(f"  [{code}] Generating {n} questions… (content: {len(content_text)} chars)")
-    raw = await _groq_call(prompt)
-    if not raw:
-        print(f"  [{code}] Generation failed")
-        return 0, 0
-
-    questions = _parse_questions(raw)
-    print(f"  [{code}] Parsed {len(questions)} questions")
-
-    if dry_run:
-        for q in questions[:2]:
-            print(f"    Q: {q.get('question', '')[:80]}")
-        return len(questions), 0
-
-    if not questions:
-        return 0, 0
-
     import uuid
     mod_uuid = uuid.UUID(module_id)
     source_refs = get_sources_for_module(code)
-    saved, skipped = await save_questions_to_db(questions, mod_uuid, source_refs)
-    print(f"  [{code}] Saved: {saved} | Skipped: {skipped}")
-    return saved, skipped
+
+    total_saved = total_skipped = 0
+    batch_num = 0
+
+    while needed > 0:
+        batch_count = min(BATCH_SIZE, needed)
+        batch_num += 1
+        prompt = MCQ_PROMPT.format(
+            count=batch_count,
+            title=title,
+            specialty=specialty,
+            content_text=content_text,
+            easy=max(1, batch_count // 4),
+            medium=max(1, batch_count // 2),
+            hard=max(1, batch_count // 4),
+        )
+
+        print(f"  [{code}] Batch {batch_num}: generating {batch_count} questions (need {needed} more)…")
+        raw = await _groq_call(prompt)
+        if raw is None:
+            print(f"  [{code}] Groq keys exhausted — stopping (saved {total_saved} so far)")
+            break
+
+        questions = _parse_questions(raw)
+        print(f"  [{code}] Batch {batch_num}: parsed {len(questions)} questions")
+
+        if dry_run:
+            for q in questions[:2]:
+                print(f"    Q: {q.get('question', '')[:80]}")
+            total_saved += len(questions)
+            needed -= batch_count
+            continue
+
+        if not questions:
+            print(f"  [{code}] Empty batch — stopping")
+            break
+
+        saved, skipped = await save_questions_to_db(questions, mod_uuid, source_refs)
+        total_saved += saved
+        total_skipped += skipped
+        needed -= saved + skipped  # count what was attempted
+        print(f"  [{code}] Batch {batch_num}: saved {saved} | skipped {skipped} | remaining target: {needed}")
+
+        if needed > 0:
+            await asyncio.sleep(INTER_BATCH_DELAY)
+
+    print(f"  [{code}] Done — total saved: {total_saved} | skipped: {total_skipped}")
+    return total_saved, total_skipped
 
 
-async def main_async(module_code: str | None = None, dry_run: bool = False, show_status: bool = False) -> None:
+async def main_async(
+    module_code: str | None = None,
+    dry_run: bool = False,
+    show_status: bool = False,
+    run_all: bool = False,
+) -> None:
     if not GROQ_KEYS:
         print("ERROR: No Groq generation keys configured (GROQ_KEY_MODULE_2, GROQ_KEY_CASES, GROQ_API_KEY_3)")
         sys.exit(1)
@@ -338,9 +382,7 @@ async def main_async(module_code: str | None = None, dry_run: bool = False, show
         row = next((r for r in pending if r[1] == module_code), None)
         if not row:
             async with AsyncSessionLocal() as db:
-                r = await db.execute(
-                    select(Module).where(Module.code == module_code)
-                )
+                r = await db.execute(select(Module).where(Module.code == module_code))
                 m = r.scalar_one_or_none()
             if not m:
                 print(f"Module {module_code!r} not found")
@@ -352,6 +394,23 @@ async def main_async(module_code: str | None = None, dry_run: bool = False, show
             mid, code, title, content_json = row
             saved, skipped = await generate_for_module(mid, code, title, content_json, dry_run)
         print(f"\nDone — saved: {saved} | skipped: {skipped}")
+
+    elif run_all:
+        if not pending:
+            print("No modules pending — all have enough questions")
+            return
+        print(f"Processing ALL {len(pending)} pending modules sequentially…")
+        grand_saved = grand_skipped = 0
+        for i, (mid, code, title, content_json) in enumerate(pending, 1):
+            print(f"\n[{i}/{len(pending)}] {code} — {title}")
+            saved, skipped = await generate_for_module(mid, code, title, content_json, dry_run)
+            grand_saved += saved
+            grand_skipped += skipped
+            # Brief pause between modules to avoid burst rate-limiting
+            if i < len(pending):
+                await asyncio.sleep(5)
+        print(f"\n=== ALL DONE — total saved: {grand_saved} | skipped: {grand_skipped} ===")
+
     else:
         if not pending:
             print("No modules pending — all have enough questions")
@@ -366,9 +425,10 @@ def main() -> None:
     args = sys.argv[1:]
     dry_run = "--dry-run" in args
     show_status = "--status" in args
+    run_all = "--all" in args
     args = [a for a in args if not a.startswith("--")]
     module_code = args[0].upper() if args else None
-    asyncio.run(main_async(module_code, dry_run, show_status))
+    asyncio.run(main_async(module_code, dry_run, show_status, run_all))
 
 
 if __name__ == "__main__":
