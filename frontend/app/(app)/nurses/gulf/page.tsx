@@ -110,15 +110,42 @@ function CategoryBar({ label, pct, count }: { label: string; pct: number; count:
 function ReadinessPanel({
   readiness,
   examSlug,
+  paywalled,
+  loading: isLoading,
 }: {
   readiness: GulfReadiness | null;
   examSlug: GulfSlug;
+  paywalled: boolean;
+  loading: boolean;
 }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const info = GULF_EXAM_INFO[examSlug];
 
-  if (!readiness) {
+  if (isLoading) {
     return <div className="py-12 text-center text-ink-3 font-serif">Loading readiness…</div>;
+  }
+
+  if (paywalled) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="max-w-sm w-full text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto text-3xl">🔒</div>
+          <div>
+            <h2 className="font-syne font-black text-xl text-ink mb-2">Upgrade to unlock Readiness Score</h2>
+            <p className="font-serif text-sm text-ink-3 leading-relaxed">
+              Gulf Readiness tracking is available on Student and Pro plans.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <a href="/pricing" className="btn-primary font-syne font-bold text-sm px-6 py-2.5 rounded-lg inline-block">View plans →</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!readiness) {
+    return <div className="py-12 text-center text-ink-3 font-serif">Could not load readiness data.</div>;
   }
 
   if (!readiness.threshold_met) {
@@ -247,17 +274,24 @@ export default function GulfHubPage() {
   const [modes, setModes] = useState<ExamMode[]>([]);
   const [history, setHistory] = useState<SessionHistory[]>([]);
   const [readiness, setReadiness] = useState<GulfReadiness | null>(null);
+  const [readinessPaywalled, setReadinessPaywalled] = useState(false);
+  const [readinessLoading, setReadinessLoading] = useState(true);
   const [selectedSlug, setSelectedSlug] = useState<GulfSlug>("snle");
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"practice" | "readiness" | "history">("practice");
 
   const loadReadiness = useCallback(async (slug: GulfSlug) => {
+    setReadinessLoading(true);
+    setReadinessPaywalled(false);
     try {
       const r = await examApi.getGulfReadiness(slug);
       setReadiness(r);
-    } catch {
+    } catch (e: any) {
       setReadiness(null);
+      if (e?.response?.status === 403) setReadinessPaywalled(true);
+    } finally {
+      setReadinessLoading(false);
     }
   }, []);
 
@@ -275,6 +309,7 @@ export default function GulfHubPage() {
   function handleSlugChange(slug: GulfSlug) {
     setSelectedSlug(slug);
     setReadiness(null);
+    setReadinessPaywalled(false);
     loadReadiness(slug);
   }
 
@@ -575,7 +610,7 @@ export default function GulfHubPage() {
               </div>
             </div>
 
-            <ReadinessPanel readiness={readiness} examSlug={selectedSlug} />
+            <ReadinessPanel readiness={readiness} examSlug={selectedSlug} paywalled={readinessPaywalled} loading={readinessLoading} />
 
             {/* Trend chart */}
             {readiness?.threshold_met && (readiness.trend?.length ?? 0) > 1 && (

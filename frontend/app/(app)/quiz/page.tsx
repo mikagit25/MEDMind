@@ -273,16 +273,22 @@ function ModuleQuizCard({
           )}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <button onClick={onStart} className="btn-primary text-xs">
-            {hasHistory ? t("quiz.retry") : t("quiz.start_quiz")}
-          </button>
-          <button
-            onClick={() => setShowExamPicker(p => !p)}
-            className="text-xs px-2.5 py-1.5 rounded border border-amber/50 text-amber hover:bg-amber-light transition-colors font-syne font-semibold"
-            title={t("quiz.exam_mode")}
-          >
-            ⏱
-          </button>
+          {(module.mcq_count ?? 0) > 0 ? (
+            <>
+              <button onClick={onStart} className="btn-primary text-xs">
+                {hasHistory ? t("quiz.retry") : t("quiz.start_quiz")}
+              </button>
+              <button
+                onClick={() => setShowExamPicker(p => !p)}
+                className="text-xs px-2.5 py-1.5 rounded border border-amber/50 text-amber hover:bg-amber-light transition-colors font-syne font-semibold"
+                title={t("quiz.exam_mode")}
+              >
+                ⏱
+              </button>
+            </>
+          ) : (
+            <span className="text-xs text-ink-3 font-serif italic">No questions yet</span>
+          )}
         </div>
       </div>
       {/* Inline exam count picker */}
