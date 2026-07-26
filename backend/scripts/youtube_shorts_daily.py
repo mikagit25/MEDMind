@@ -30,7 +30,7 @@ OUTPUT_DIR      = Path("/tmp/yt_shorts")
 TRACKING_FILE   = Path(os.environ.get("YT_TRACKING", "/opt/medmind/youtube_shorts_uploaded.json"))
 PLAYLISTS_FILE  = Path(os.environ.get("YT_PLAYLISTS", "/opt/medmind/youtube_playlists.json"))
 TOKEN_FILE      = Path(os.environ.get("YT_TOKEN",          "/opt/medmind/youtube_token.json"))
-SECRET_FILE     = Path(os.environ.get("YT_CLIENT_SECRET",  "/opt/medmind/client_secret.json"))
+SECRET_FILE     = Path(os.environ.get("YT_CLIENT_SECRET",  "/opt/medmind/client_secret_web.json"))
 API_URL         = "https://medmind.pro/api/v1"
 
 # Description templates per language
