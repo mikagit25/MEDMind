@@ -242,15 +242,12 @@ def upload_short(mp4: Path, title: str, description: str, access_token: str, lan
             "privacyStatus":          "public",
             "selfDeclaredMadeForKids": False,
         },
-        "contentRating": {
-            "ytRating": "ytAgeRestricted",
-        },
     }
 
     file_size = mp4.stat().st_size
     init = httpx.post(
         "https://www.googleapis.com/upload/youtube/v3/videos"
-        "?uploadType=resumable&part=snippet,status,contentRating",
+        "?uploadType=resumable&part=snippet,status",
         headers={
             "Authorization":           f"Bearer {access_token}",
             "Content-Type":            "application/json",

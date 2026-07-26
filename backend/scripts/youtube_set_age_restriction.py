@@ -32,7 +32,7 @@ from pathlib import Path
 import httpx
 
 TOKEN_FILE    = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token.json"))
-SECRET_FILE   = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret.json"))
+SECRET_FILE   = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret_web.json"))
 YT_API_BASE   = "https://www.googleapis.com/youtube/v3"
 
 
@@ -105,13 +105,13 @@ def get_channel_id(access_token: str) -> str:
 
 
 def list_all_videos(channel_id: str, access_token: str, max_results: int | None = None) -> list[dict]:
-    """Return list of {id, title, contentRating} for all videos on the channel."""
+    """Return list of {id, title} for all videos on the channel."""
     videos = []
     page_token = None
 
     while True:
         params: dict = {
-            "part":       "snippet,contentRating,status",
+            "part":       "snippet",
             "channelId":  channel_id,
             "type":       "video",
             "maxResults": 50,
@@ -133,22 +133,21 @@ def list_all_videos(channel_id: str, access_token: str, max_results: int | None 
         if not ids:
             break
 
-        # Fetch full details including contentRating
+        # Fetch full details
         det_resp = httpx.get(
             f"{YT_API_BASE}/videos",
-            params={"part": "snippet,contentRating,status", "id": ",".join(ids)},
+            params={"part": "snippet,status", "id": ",".join(ids)},
             headers={"Authorization": f"Bearer {access_token}"},
             timeout=15,
         )
         det_resp.raise_for_status()
 
         for item in det_resp.json().get("items", []):
-            cr = item.get("contentRating", {})
             videos.append({
-                "id":     item["id"],
-                "title":  item["snippet"]["title"][:70],
-                "restricted": cr.get("ytRating") == "ytAgeRestricted",
+                "id":         item["id"],
+                "title":      item["snippet"]["title"][:70],
                 "categoryId": item["snippet"].get("categoryId", "27"),
+                "privacy":    item.get("status", {}).get("privacyStatus", "unknown"),
             })
 
         if max_results and len(videos) >= max_results:
@@ -164,38 +163,16 @@ def list_all_videos(channel_id: str, access_token: str, max_results: int | None 
     return videos
 
 
-def set_age_restriction(video_id: str, title: str, category_id: str, access_token: str) -> bool:
-    """Update a single video to add ytAgeRestricted content rating."""
-    body = {
-        "id": video_id,
-        "contentRating": {
-            "ytRating": "ytAgeRestricted",
-        },
-    }
-    resp = httpx.put(
-        f"{YT_API_BASE}/videos",
-        params={"part": "contentRating"},
-        headers={
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type":  "application/json",
-        },
-        content=json.dumps(body).encode(),
-        timeout=15,
-    )
-    if resp.status_code in (200, 204):
-        return True
-    print(f"    ❌ Failed {video_id}: {resp.status_code} {resp.text[:150]}")
-    return False
-
-
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Set YouTube age restriction on all channel videos")
-    parser.add_argument("--dry-run", action="store_true", help="List videos without modifying")
+    # Note: YouTube Data API v3 no longer supports setting contentRating.ytRating via API.
+    # Age restriction must be managed in YouTube Studio UI.
+    # This script is now a channel video lister only.
+    parser = argparse.ArgumentParser(description="List YouTube channel videos (age restriction via API deprecated)")
+    parser.add_argument("--dry-run", action="store_true", help="List videos")
     parser.add_argument("--max",     type=int,  default=None, help="Limit to N most recent videos")
-    parser.add_argument("--skip-restricted", action="store_true",
-                        help="Skip videos already age-restricted (default: re-apply to all)")
+    parser.add_argument("--skip-restricted", action="store_true", help="(deprecated, no-op)")
     args = parser.parse_args()
 
     print(f"Token: {TOKEN_FILE}")
@@ -207,33 +184,13 @@ def main():
 
     print(f"Fetching video list{'(max ' + str(args.max) + ')' if args.max else ''}…")
     videos = list_all_videos(channel_id, access_token, args.max)
-    print(f"Found {len(videos)} videos")
+    print(f"Found {len(videos)} videos\n")
 
-    if args.dry_run:
-        print("\n[DRY RUN] Would restrict these videos:")
-        for v in videos:
-            status = "✅ already restricted" if v["restricted"] else "⚠️  not restricted"
-            print(f"  {v['id']} | {status} | {v['title']}")
-        return
+    for v in videos:
+        print(f"  {v['id']} | {v['privacy']:8s} | {v['title']}")
 
-    need_update = videos if not args.skip_restricted else [v for v in videos if not v["restricted"]]
-    already_ok  = len(videos) - len(need_update)
-
-    print(f"\n{already_ok} already restricted, updating {len(need_update)}…\n")
-
-    updated = 0
-    failed  = 0
-    for i, v in enumerate(need_update, 1):
-        print(f"  [{i}/{len(need_update)}] {v['id']} — {v['title']}", end=" ")
-        ok = set_age_restriction(v["id"], v["title"], v["categoryId"], access_token)
-        if ok:
-            print("✅")
-            updated += 1
-        else:
-            failed += 1
-        time.sleep(0.5)  # stay within quota (150 units/day free for videos.update)
-
-    print(f"\nDone — updated: {updated} | failed: {failed} | already restricted: {already_ok}")
+    print(f"\nNote: Age restriction via API is no longer supported by YouTube Data API v3.")
+    print(f"Manage age restriction in YouTube Studio: https://studio.youtube.com")
 
 
 if __name__ == "__main__":

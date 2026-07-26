@@ -129,7 +129,7 @@ async def test_generate_quiz_unknown_lesson(client: AsyncClient):
     """Returns 404 for a lesson that doesn't exist."""
     token = await _register_and_login(client, "quiz_404@test.medmind")
     fake_id = str(_uuid.uuid4())
-    with patch("app.services.ai_router.call_claude_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
+    with patch("app.services.ai_router.call_ollama_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
         resp = await client.post(f"/api/v1/ai/lessons/{fake_id}/generate-quiz", headers=_h(token))
     assert resp.status_code == 404
 
@@ -142,7 +142,7 @@ async def test_generate_quiz_returns_questions(client: AsyncClient):
     token = await _register_and_login(client, "quiz_happy@test.medmind")
     lesson_id = await _make_lesson(client, token)
 
-    with patch("app.services.ai_router.call_claude_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
+    with patch("app.services.ai_router.call_ollama_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
         resp = await client.post(
             f"/api/v1/ai/lessons/{lesson_id}/generate-quiz",
             headers=_h(token),
@@ -160,7 +160,7 @@ async def test_generate_quiz_question_structure(client: AsyncClient):
     token = await _register_and_login(client, "quiz_struct@test.medmind")
     lesson_id = await _make_lesson(client, token)
 
-    with patch("app.services.ai_router.call_claude_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
+    with patch("app.services.ai_router.call_ollama_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
         resp = await client.post(
             f"/api/v1/ai/lessons/{lesson_id}/generate-quiz",
             headers=_h(token),
@@ -183,7 +183,7 @@ async def test_generate_quiz_difficulty_param(client: AsyncClient):
     lesson_id = await _make_lesson(client, token)
 
     for diff in ("easy", "medium", "hard"):
-        with patch("app.services.ai_router.call_claude_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
+        with patch("app.services.ai_router.call_ollama_structured", new=AsyncMock(return_value=(FAKE_QUESTIONS_JSON, "claude-haiku-4-5-20251001"))):
             resp = await client.post(
                 f"/api/v1/ai/lessons/{lesson_id}/generate-quiz?difficulty={diff}",
                 headers=_h(token),
