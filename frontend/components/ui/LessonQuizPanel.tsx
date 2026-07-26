@@ -14,7 +14,7 @@ type Question = {
   explanation: string;
 };
 
-type QuizState = "idle" | "loading" | "ready" | "error";
+type QuizState = "idle" | "loading" | "ready" | "error" | "limit";
 
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
 
@@ -69,8 +69,8 @@ export default function LessonQuizPanel({
       const data = await aiApi.generateLessonQuiz(lessonId, difficulty);
       setQuestions(data.questions || []);
       setState("ready");
-    } catch {
-      setState("error");
+    } catch (e: any) {
+      setState(e?.response?.status === 429 ? "limit" : "error");
     }
   }
 
@@ -154,6 +154,16 @@ export default function LessonQuizPanel({
   }
 
   // ── Error ─────────────────────────────────────────────────────────────────
+  if (state === "limit") {
+    return (
+      <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
+        <p className="font-syne font-bold text-sm text-amber-700">Daily AI limit reached</p>
+        <p className="text-xs text-ink-3">You&apos;ve used all your AI questions for today. Upgrade for more.</p>
+        <a href="/pricing" className="inline-block text-xs font-syne font-semibold text-ink underline">View plans →</a>
+      </div>
+    );
+  }
+
   if (state === "error") {
     return (
       <div className="mt-6 bg-red-light border border-red/20 rounded-xl p-5 space-y-2">

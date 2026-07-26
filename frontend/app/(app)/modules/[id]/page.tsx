@@ -43,8 +43,12 @@ function ImageBlockRenderer({
     try {
       const res = await imagingApi.analyzeImage({ image_url: url, modality, image_id: imageId });
       setAnalysis(res.analysis);
-    } catch {
-      setAnalysis("AI analysis could not be completed. Please try again.");
+    } catch (e: any) {
+      setAnalysis(
+        e?.response?.status === 429
+          ? "Daily AI limit reached. Upgrade your plan for more access."
+          : "AI analysis could not be completed. Please try again."
+      );
     } finally {
       setAnalyzing(false);
     }

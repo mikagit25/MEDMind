@@ -152,18 +152,18 @@ function AiPanel({ lang, calcName, score, riskLabel }: {
   const { isAuthenticated } = useAuthStore();
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<"none" | "limit" | "generic">("none");
 
   async function fetchInterpretation() {
     setLoading(true);
-    setError(false);
+    setError("none");
     try {
       const prompt = AI_INTERPRET_PROMPT[lang as Lang]?.(calcName, score, riskLabel)
         ?? AI_INTERPRET_PROMPT.en(calcName, score, riskLabel);
       const res = await aiApi.ask({ message: prompt, specialty: "general", search_pubmed: false });
       setResponse(res.response ?? res.content ?? res.message ?? JSON.stringify(res));
-    } catch {
-      setError(true);
+    } catch (e: any) {
+      setError(e?.response?.status === 429 ? "limit" : "generic");
     } finally {
       setLoading(false);
     }
@@ -197,7 +197,13 @@ function AiPanel({ lang, calcName, score, riskLabel }: {
         <p className="text-ink-3 text-xs leading-relaxed">{t(UI.ai_cta_desc, lang)}</p>
       )}
 
-      {error && (
+      {error === "limit" && (
+        <p className="text-amber-600 text-xs font-syne font-semibold">
+          {lang === "ru" ? "Достигнут дневной лимит AI. Обновите план." : "Daily AI limit reached. Upgrade for more."}
+          {" "}<a href="/pricing" className="underline">{lang === "ru" ? "Планы →" : "View plans →"}</a>
+        </p>
+      )}
+      {error === "generic" && (
         <p className="text-red text-xs">{lang === "ru" ? "Ошибка. Попробуйте ещё раз." : "Error. Please try again."}</p>
       )}
 
