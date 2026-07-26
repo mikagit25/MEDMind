@@ -333,13 +333,16 @@ async def download_certificate(
         language=cert.language,
     )
 
-    safe_title = "".join(c if c.isalnum() or c in " _-" else "_" for c in module_title)[:50]
+    safe_title = "".join(c if (c.isalnum() and c.isascii()) or c in " _-" else "_" for c in module_title)[:50]
+    safe_title = safe_title.strip("_ -") or "Certificate"
     filename = f"MedMind_Certificate_{safe_title}.pdf"
+    from urllib.parse import quote as _quote
+    filename_star = _quote(filename, safe="")
 
     return Response(
         content=pdf_bytes,
         media_type="application/pdf",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        headers={"Content-Disposition": f"attachment; filename=\"{filename}\"; filename*=UTF-8''{filename_star}"},
     )
 
 
