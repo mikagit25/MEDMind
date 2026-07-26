@@ -38,7 +38,7 @@ DAILY_LIMIT    = 2
 WAIT_BETWEEN   = 45   # seconds between uploads
 
 TOKEN_FILE     = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token.json"))
-SECRET_FILE    = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret.json"))
+SECRET_FILE    = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret_web.json"))
 
 HASHTAGS = (
     "#NCLEX #NursingStudent #NursingSchool #NCLEXRN #NursingEducation "
@@ -57,12 +57,22 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
         return None
 
     creds_data = json.loads(token_file.read_text())
+
+    # client_id/secret may be in the token or in the separate secret file
+    client_id     = creds_data.get("client_id")
+    client_secret = creds_data.get("client_secret")
+    if (not client_id or not client_secret) and secret_file.exists():
+        raw = json.loads(secret_file.read_text())
+        sec = raw.get("web") or raw.get("installed") or {}
+        client_id     = client_id or sec.get("client_id")
+        client_secret = client_secret or sec.get("client_secret")
+
     creds = google.oauth2.credentials.Credentials(
-        token        = creds_data.get("token"),
-        refresh_token= creds_data.get("refresh_token"),
-        token_uri    = creds_data.get("token_uri", "https://oauth2.googleapis.com/token"),
-        client_id    = creds_data.get("client_id"),
-        client_secret= creds_data.get("client_secret"),
+        token         = creds_data.get("access_token") or creds_data.get("token"),
+        refresh_token = creds_data.get("refresh_token"),
+        token_uri     = creds_data.get("token_uri", "https://oauth2.googleapis.com/token"),
+        client_id     = client_id,
+        client_secret = client_secret,
     )
 
     yt = googleapiclient.discovery.build("youtube", "v3", credentials=creds)
@@ -94,9 +104,12 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
 
     vid_id = response.get("id")
 
-    # Refresh token if it was updated
-    if creds.token != creds_data.get("token"):
-        creds_data["token"] = creds.token
+    # Save refreshed access token if updated
+    orig_access = creds_data.get("access_token") or creds_data.get("token")
+    if creds.token and creds.token != orig_access:
+        creds_data["access_token"] = creds.token
+        import time as _time
+        creds_data["expires_at"] = _time.time() + 3600
         token_file.write_text(json.dumps(creds_data, indent=2))
 
     return vid_id

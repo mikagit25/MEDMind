@@ -130,6 +130,11 @@ def list_available_questions(limit: int = 20) -> list[dict]:
             LEFT JOIN modules m ON m.id = q.module_id
             WHERE q.key_takeaway IS NOT NULL
               AND q.question_type = 'mcq'
+              AND (
+                  q.exam_slugs IS NOT NULL
+                  OR m.code LIKE 'NURSE-%%'
+              )
+              AND q.question ~ '^[A-Za-z]'
             ORDER BY q.created_at ASC
             LIMIT %s
             """,
