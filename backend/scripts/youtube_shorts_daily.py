@@ -308,8 +308,8 @@ async def run(limit: int, dry_run: bool, lang: str = "en"):
     uploaded = load_uploaded()
     log(f"Already uploaded: {len(uploaded)} Shorts")
 
-    # Fetch images — API max per call is 100
-    all_images = fetch_images(limit=100)
+    # Fetch images — large pool so we always find new ones past already-uploaded batch
+    all_images = fetch_images(limit=500)
     queue = [img for img in all_images if img["id"] not in uploaded][:limit]
 
     if not queue:
