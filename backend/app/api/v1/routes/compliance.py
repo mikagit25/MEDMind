@@ -125,7 +125,7 @@ async def export_user_data(
             for b in bookmarks
         ],
         "achievements": [
-            {"achievement_code": a.achievement_code, "earned_at": a.earned_at.isoformat() if a.earned_at else None}
+            {"achievement_code": a.achievement_code, "earned_at": a.unlocked_at.isoformat() if a.unlocked_at else None}
             for a in achievements
         ],
         "consents": [
