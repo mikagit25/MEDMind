@@ -770,9 +770,11 @@ async def create_session(
 
         # Gulf mode: prefer exam-specific questions first; fall back to shared Gulf pool
         if mode.get("gulf") and (exam_slug := mode.get("exam_slug")):
-            from sqlalchemy import text as sql_text
+            import json as _json
+            from sqlalchemy import literal as sa_literal
+            from sqlalchemy.dialects.postgresql import JSONB
             q = q.where(
-                MCQQuestion.exam_slugs.op("@>")(f'["{exam_slug}"]')
+                MCQQuestion.exam_slugs.op("@>")(sa_literal(_json.dumps([exam_slug])).cast(JSONB))
             )
         elif body.mode_id == "nclex_category" and body.nclex_category:
             if body.nclex_category not in NCLEX_CLIENT_NEEDS:
