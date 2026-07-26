@@ -69,21 +69,25 @@ export default function QuizPage() {
 
   useEffect(() => {
     if (!id) return;
-    Promise.all([
-      contentApi.getMCQ(id),
-      contentApi.getModule(id),
-    ]).then(([mcqRes, modRes]) => {
-      let qs: MCQQuestion[] = (mcqRes ?? []).sort(() => Math.random() - 0.5);
-      if (examMode && examCountParam > 0) qs = qs.slice(0, examCountParam);
-      setQuestions(qs);
-      setModTitle(modRes?.title ?? "Module");
-      if (examMode) {
-        const totalSecs = qs.length * 120; // 2 min per question
-        setTimeLeft(totalSecs);
-        setStartTime(Date.now());
-      }
-      setLoading(false);
-    }).catch(() => setLoading(false));
+    // Fetch MCQ and module title independently so a 403 on getModule
+    // (specialty modules gated for free users) doesn't block the quiz.
+    contentApi.getMCQ(id)
+      .then((mcqRes: MCQQuestion[] | null) => {
+        let qs: MCQQuestion[] = (mcqRes ?? []).sort(() => Math.random() - 0.5);
+        if (examMode && examCountParam > 0) qs = qs.slice(0, examCountParam);
+        setQuestions(qs);
+        if (examMode) {
+          const totalSecs = qs.length * 120; // 2 min per question
+          setTimeLeft(totalSecs);
+          setStartTime(Date.now());
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+    // Module title is decorative — 403 for non-fundamental modules is expected for free users
+    contentApi.getModule(id)
+      .then((modRes: { title?: string } | null) => setModTitle(modRes?.title ?? "Quiz"))
+      .catch(() => setModTitle("Quiz"));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
