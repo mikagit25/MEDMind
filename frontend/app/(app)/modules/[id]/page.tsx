@@ -428,6 +428,7 @@ export default function ModuleDetailPage() {
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
   const [lessonDone, setLessonDone] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [paywalled, setPaywalled] = useState(false);
   const [completing, setCompleting] = useState(false);
   const [moduleComplete, setModuleComplete] = useState(false);
   const [completionXp, setCompletionXp] = useState(0);
@@ -470,6 +471,11 @@ export default function ModuleDetailPage() {
         contentApi.getLesson(ls[0].id, locale !== "en" ? locale : undefined).then((full: any) => {
           setActiveLesson({ ...ls[0], content: full?.content ?? null });
         }).catch(() => setActiveLesson(ls[0]));
+      }
+      setLoading(false);
+    }).catch((err: any) => {
+      if (err?.response?.status === 403) {
+        setPaywalled(true);
       }
       setLoading(false);
     });
@@ -599,6 +605,38 @@ export default function ModuleDetailPage() {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="font-serif text-ink-3 text-sm animate-pulse">Loading…</div>
+      </div>
+    );
+  }
+
+  if (paywalled) {
+    return (
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="max-w-sm w-full text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-amber-light border border-amber/30 flex items-center justify-center mx-auto text-3xl">
+            🔒
+          </div>
+          <div>
+            <h2 className="font-syne font-black text-xl text-ink mb-2">Upgrade to access this module</h2>
+            <p className="font-serif text-sm text-ink-3 leading-relaxed">
+              This is a specialty module available on Student and Pro plans. Free accounts can access all Foundation modules.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <a
+              href="/pricing"
+              className="btn-primary font-syne font-bold text-sm px-6 py-2.5 rounded-lg inline-block"
+            >
+              View plans →
+            </a>
+            <button
+              onClick={() => router.back()}
+              className="font-syne text-sm text-ink-3 hover:text-ink transition-colors"
+            >
+              ← Go back
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
