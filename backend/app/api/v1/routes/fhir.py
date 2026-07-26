@@ -46,9 +46,12 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def _fhir_date(dt: Optional[datetime]) -> Optional[str]:
+def _fhir_date(dt) -> Optional[str]:
     if not dt:
         return None
+    from datetime import date as _date
+    if isinstance(dt, _date) and not isinstance(dt, datetime):
+        dt = datetime(dt.year, dt.month, dt.day, tzinfo=timezone.utc)
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
