@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { TrendingUp, Target, AlertTriangle } from "lucide-react";
-import { progressApi, achievementsApi, memoryApi, studentCoursesApi } from "@/lib/api";
+import { progressApi, achievementsApi, memoryApi, studentCoursesApi, authApi } from "@/lib/api";
 import { useAuthStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 
@@ -73,7 +73,7 @@ function ExportPDFButton() {
 
 export default function ProgressPage() {
   const t = useT();
-  const { user } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
   const [stats, setStats] = useState<any>(null);
   const [history, setHistory] = useState<any[]>([]);
   const [weaknesses, setWeaknesses] = useState<any[]>([]);
@@ -91,6 +91,9 @@ export default function ProgressPage() {
   const [memoryLoading, setMemoryLoading] = useState(false);
 
   useEffect(() => {
+    // Always refresh user XP/level from server — Zustand store may have stale cached value
+    authApi.me().then((me: any) => updateUser(me)).catch(() => {});
+
     Promise.all([
       progressApi.getStats().catch(() => null),
       progressApi.getHistory().catch(() => []),

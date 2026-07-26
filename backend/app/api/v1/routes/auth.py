@@ -74,11 +74,17 @@ async def register(data: UserRegister, request: Request, db: AsyncSession = Depe
     email_lower = data.email.lower()
     search_hash = email_search_hash(email_lower)
 
-    # Check if email already exists (using search hash for encrypted lookup)
+    # Check if email already exists — search by hash (new users) and plain text (legacy users)
     existing = await db.execute(
         select(User).where(User.email_hash == search_hash)
     )
     if existing.scalar_one_or_none():
+        await record_failed_attempt(request)
+        raise HTTPException(status_code=400, detail="Email already registered")
+    existing_plain = await db.execute(
+        select(User).where(User.email == email_lower)
+    )
+    if existing_plain.scalar_one_or_none():
         await record_failed_attempt(request)
         raise HTTPException(status_code=400, detail="Email already registered")
 

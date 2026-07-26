@@ -219,7 +219,7 @@ export const contentApi = {
   getLessonLay: (id: string) => api.get(`/lessons/${id}?view=lay`).then(r => r.data),
   getFlashcards: (moduleId: string, dueOnly = false) =>
     api.get(`/modules/${moduleId}/flashcards${dueOnly ? "?due_only=true" : ""}`).then(r => r.data),
-  getMCQ: (moduleId: string) => api.get(`/modules/${moduleId}/mcq`).then(r => r.data),
+  getMCQ: (moduleId: string) => api.get(`/modules/${moduleId}/mcq?limit=50`).then(r => r.data),
   getAllCases: (params?: { locale?: string; specialty?: string; difficulty?: string; search?: string; limit?: number }) =>
     api.get("/cases", { params }).then(r => r.data),
   getCases: (moduleId: string, locale = "en") => api.get(`/modules/${moduleId}/cases`, { params: { locale } }).then(r => r.data),

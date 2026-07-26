@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
-import { contentApi, progressApi, adaptivePlanApi, examApi, API_URL } from "@/lib/api";
+import { contentApi, progressApi, adaptivePlanApi, examApi, authApi, API_URL } from "@/lib/api";
 
 // ── My Assignments ────────────────────────────────────────────
 function MyAssignments() {
@@ -628,7 +628,7 @@ function DailyGoalWidget({ flashcardsDue, srsDue, dailyGoalMinutes }: { flashcar
 export default function DashboardPage() {
   const t = useT();
   const { locale } = useI18n();
-  const { user } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
   const role = user?.role ?? "student";
   const [specialties, setSpecialties] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
@@ -638,6 +638,9 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Always refresh XP/level — Zustand store persists stale cached values across sessions
+    authApi.me().then((me: any) => updateUser(me)).catch(() => {});
+
     const roleSpecific = role === "doctor"
       ? contentApi.getDoctorDashboard().catch(() => null)
       : role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)
