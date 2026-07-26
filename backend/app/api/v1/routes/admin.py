@@ -1130,9 +1130,9 @@ async def get_analytics(
     _: User = _admin,
 ):
     """Content analytics: top articles, views by category, growth by day, generator stats."""
-    from datetime import timedelta, timezone
+    from datetime import timedelta
 
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     day_30 = now - timedelta(days=30)
     day_7  = now - timedelta(days=7)
 
@@ -1278,8 +1278,9 @@ async def pipeline_batch(
         except Exception as e:
             return {"topic": topic, "error": str(e), "ok": False}
 
-    # Fire and forget — don't await the whole batch
-    asyncio.create_task(asyncio.gather(*[_generate_one(t) for t in req.topics[:50]]))
+    # Fire and forget — create one task per topic (gather() returns a future, not a coroutine)
+    for t in req.topics[:50]:
+        asyncio.create_task(_generate_one(t))
     return {"queued": len(req.topics[:50]), "message": "Batch generation started in background"}
 
 
@@ -1398,8 +1399,8 @@ async def admin_list_imaging(
                 "title": r.title or "",
                 "modality": r.modality or "",
                 "anatomy_region": r.anatomy_region or "",
-                "file_path": r.file_path or "",
-                "thumbnail_path": r.thumbnail_path or "",
+                "image_url": r.image_url or "",
+                "thumbnail_url": r.thumbnail_url or "",
                 "view_count": r.view_count or 0,
                 "is_active": r.is_active,
                 "created_at": r.created_at.isoformat() if r.created_at else None,
