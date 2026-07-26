@@ -251,6 +251,7 @@ def gtranslate(text: str, locale: str) -> str:
 
 def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
     """Format article as Telegram-ready post with HTML markup."""
+    import html as _html
     slug     = article.get("slug", "")
     title    = article.get("title", "")
     excerpt  = article.get("excerpt", "")
@@ -292,9 +293,12 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
         read_more  = "📖 Полная статья + источники:"
         subscribe  = "📚 Бесплатная медплатформа: medmind.pro"
 
-    # Truncate excerpt
+    # Truncate excerpt, then escape HTML special chars in user content
     if len(excerpt) > 300:
         excerpt = excerpt[:297] + "…"
+    title      = _html.escape(title)
+    excerpt    = _html.escape(excerpt)
+    key_points = [_html.escape(pt) for pt in key_points]
 
     lines = [
         f"{emoji} <b>{title}</b>",
