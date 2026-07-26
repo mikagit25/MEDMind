@@ -28,22 +28,44 @@ from app.core.database import AsyncSessionLocal
 from app.models.models import MCQQuestion, Module
 from app.scripts._mcq_db_writer import save_questions_to_db
 
-GROQ_KEYS = [k for k in [
+def _dedup(keys: list) -> list:
+    seen: set = set()
+    return [k for k in keys if k and not (k in seen or seen.add(k))]
+
+# ── API provider pool — used in round-robin with automatic failover ───────────
+
+# Cerebras: 6 keys, no daily token cap
+CEREBRAS_KEYS = _dedup([os.getenv(f"CEREBRAS_API_KEY{'_' + str(i) if i else ''}", "") for i in range(7)])
+CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
+CEREBRAS_MODEL = "gemma-4-31b"  # same model used for NCLEX translations
+
+# SambaNova: fast inference, no daily cap issues with these dedicated keys
+SAMBANOVA_KEYS = _dedup([
+    os.getenv("SAMBANOVA_API_KEY_NEW_1", ""),
+    os.getenv("SAMBANOVA_API_KEY_NEW_2", ""),
+    os.getenv("SAMBANOVA_API_KEY", ""),
+    os.getenv("SAMBANOVA_API_KEY_2", ""),
+    os.getenv("SAMBANOVA_API_KEY_3", ""),
+    os.getenv("SAMBANOVA_API_KEY_4", ""),
+    os.getenv("SAMBANOVA_API_KEY_5", ""),
+])
+SAMBANOVA_URL = "https://api.sambanova.ai/v1/chat/completions"
+SAMBANOVA_MODEL = "Meta-Llama-3.3-70B-Instruct"
+
+# Groq fallback: llama-3.1-8b-instant has 500K TPD (5x higher limit than 70b)
+GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_MODULE_2", ""),
     os.getenv("GROQ_KEY_CASES", ""),
     os.getenv("GROQ_API_KEY_3", ""),
-] if k]
-_seen: set = set()
-GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
-
+])
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "llama-3.1-8b-instant"
+
 TARGET_QUESTIONS = 80
-MIN_THRESHOLD = 80  # generate for modules with fewer than this many questions
-# Generate in batches of 20 per Groq call (fits within context + rate limits)
+MIN_THRESHOLD = 80
 BATCH_SIZE = 20
-# Delay between batches (seconds) to stay within ~6000 TPM Groq limit
-INTER_BATCH_DELAY = 15
+INTER_BATCH_DELAY = 12  # seconds between batches — gives Cerebras TPM limit time to recover
+MAX_EMPTY_RETRIES = 2   # retry empty/failed parse before giving up on a batch
 
 # Specialty→clinical guideline source map
 SPECIALTY_SOURCES: dict[str, list[dict]] = {
@@ -190,55 +212,81 @@ def _extract_text(content: dict | list | str | None, max_chars: int = 4000) -> s
     return str(content)[:max_chars]
 
 
-def _extract_module_text(content: dict | None) -> str:
+def _extract_module_text(content: dict | None, max_chars: int = 3000) -> str:
     if not content:
         return ""
     lessons = content.get("lessons", [])
     texts = []
+    per_lesson = max_chars // max(len(lessons), 1)
     for lesson in lessons[:4]:  # max 4 lessons
         lesson_content = lesson.get("content", {}) or lesson.get("body", "")
-        texts.append(f"=== {lesson.get('title', 'Lesson')} ===\n{_extract_text(lesson_content, 800)}")
-    return "\n\n".join(texts)[:4000]
+        texts.append(f"=== {lesson.get('title', 'Lesson')} ===\n{_extract_text(lesson_content, per_lesson)}")
+    return "\n\n".join(texts)[:max_chars]
 
 
-_reset_at: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
+_reset_at: dict[str, float] = {}
+_call_idx: dict[str, int] = {}  # round-robin index per provider
+for k in CEREBRAS_KEYS + SAMBANOVA_KEYS + GROQ_KEYS:
+    _reset_at[k] = 0.0
+
+# Provider definitions: (name, keys, url, model, max_wait_s)
+PROVIDERS: list[tuple] = []
+if CEREBRAS_KEYS:
+    PROVIDERS.append(("Cerebras", CEREBRAS_KEYS, CEREBRAS_URL, CEREBRAS_MODEL, 60))
+    _call_idx["Cerebras"] = 0
+if SAMBANOVA_KEYS:
+    PROVIDERS.append(("SambaNova", SAMBANOVA_KEYS, SAMBANOVA_URL, SAMBANOVA_MODEL, 60))
+    _call_idx["SambaNova"] = 0
+if GROQ_KEYS:
+    PROVIDERS.append(("Groq", GROQ_KEYS, GROQ_URL, GROQ_MODEL, 30))
+    _call_idx["Groq"] = 0
 
 
-async def _groq_call(prompt: str, max_tokens: int = 6000) -> str | None:
-    while True:
-        if not GROQ_KEYS:
-            return None
-        key = min(GROQ_KEYS, key=lambda k: _reset_at[k])
-        wait = _reset_at[key] - time.time()
-        if wait > 120:
-            print(f"  ⚠ All Groq keys limited — exiting")
-            return None
-        if wait > 0:
-            print(f"  Waiting {wait:.0f}s for Groq key…")
-            await asyncio.sleep(wait + 1)
-        try:
-            async with httpx.AsyncClient(timeout=60) as c:
-                resp = await c.post(
-                    GROQ_URL,
-                    headers={"Authorization": f"Bearer {key}"},
-                    json={"model": GROQ_MODEL,
-                          "messages": [{"role": "user", "content": prompt}],
-                          "max_tokens": max_tokens, "temperature": 0.7},
-                )
-            if resp.status_code == 429:
-                try:
-                    wait_s = float(re.search(r"in ([\d.]+)s", resp.json()["error"]["message"]).group(1))
-                except Exception:
-                    wait_s = 60.0
-                _reset_at[key] = time.time() + wait_s
-                print(f"  Rate limited {wait_s:.0f}s")
+def _next_key(provider_name: str, keys: list[str]) -> str:
+    """Round-robin key selection — distributes load across all keys."""
+    idx = _call_idx.get(provider_name, 0) % len(keys)
+    _call_idx[provider_name] = idx + 1
+    return keys[idx]
+
+
+async def _api_call(prompt: str, max_tokens: int = 8192) -> str | None:
+    """Try Cerebras → Groq in round-robin, with 429 fallback between providers."""
+    for provider_name, keys, url, model, max_wait in PROVIDERS:
+        # Try up to len(keys) different keys for this provider
+        for attempt in range(len(keys)):
+            key = _next_key(provider_name, keys)
+            wait = _reset_at.get(key, 0.0) - time.time()
+            if wait > max_wait:
+                continue  # this key is exhausted, try next key in provider
+            if wait > 0:
+                print(f"  {provider_name}: waiting {wait:.0f}s…")
+                await asyncio.sleep(wait + 1)
+            try:
+                async with httpx.AsyncClient(timeout=90) as c:
+                    resp = await c.post(
+                        url,
+                        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                        json={"model": model,
+                              "messages": [{"role": "user", "content": prompt}],
+                              "max_tokens": max_tokens, "temperature": 0.7},
+                    )
+                if resp.status_code == 429:
+                    try:
+                        msg = resp.json().get("error", {}).get("message", "")
+                        wait_s = float(re.search(r"in ([\d.]+)s", msg).group(1))  # type: ignore
+                    except Exception:
+                        wait_s = 60.0
+                    _reset_at[key] = time.time() + wait_s
+                    print(f"  {provider_name} key {attempt+1}: rate limited {wait_s:.0f}s — rotating…")
+                    continue
+                resp.raise_for_status()
+                return resp.json()["choices"][0]["message"]["content"]
+            except Exception as e:
+                print(f"  {provider_name} key {attempt+1} error: {e}")
                 continue
-            resp.raise_for_status()
-            return resp.json()["choices"][0]["message"]["content"]
-        except Exception as e:
-            print(f"  Groq error: {e}")
-            await asyncio.sleep(3)
-            return None
+        print(f"  {provider_name}: all {len(keys)} keys exhausted, trying next provider…")
+    print("  ⚠ All providers exhausted — stopping")
+    return None
 
 
 def _parse_questions(raw: str) -> list[dict]:
@@ -324,10 +372,12 @@ async def generate_for_module(module_id: str, code: str, title: str, content_jso
             hard=max(1, batch_count // 4),
         )
 
+        # ~400 tokens per question, 20 q = 8000 tokens
+        max_tok = min(8192, max(4096, batch_count * 420))
         print(f"  [{code}] Batch {batch_num}: generating {batch_count} questions (need {needed} more)…")
-        raw = await _groq_call(prompt)
+        raw = await _api_call(prompt, max_tokens=max_tok)
         if raw is None:
-            print(f"  [{code}] Groq keys exhausted — stopping (saved {total_saved} so far)")
+            print(f"  [{code}] All providers exhausted — stopping (saved {total_saved} so far)")
             break
 
         questions = _parse_questions(raw)
@@ -341,13 +391,17 @@ async def generate_for_module(module_id: str, code: str, title: str, content_jso
             continue
 
         if not questions:
-            print(f"  [{code}] Empty batch — stopping")
+            if batch_num <= MAX_EMPTY_RETRIES:
+                print(f"  [{code}] Empty parse — retrying after delay…")
+                await asyncio.sleep(INTER_BATCH_DELAY * 2)
+                continue
+            print(f"  [{code}] Empty parse after retries — stopping")
             break
 
         saved, skipped = await save_questions_to_db(questions, mod_uuid, source_refs)
         total_saved += saved
         total_skipped += skipped
-        needed -= saved + skipped  # count what was attempted
+        needed -= saved + skipped
         print(f"  [{code}] Batch {batch_num}: saved {saved} | skipped {skipped} | remaining target: {needed}")
 
         if needed > 0:
@@ -363,9 +417,10 @@ async def main_async(
     show_status: bool = False,
     run_all: bool = False,
 ) -> None:
-    if not GROQ_KEYS:
-        print("ERROR: No Groq generation keys configured (GROQ_KEY_MODULE_2, GROQ_KEY_CASES, GROQ_API_KEY_3)")
+    if not PROVIDERS:
+        print("ERROR: No generation API keys found (need CEREBRAS_API_KEY*, SAMBANOVA_API_KEY*, or GROQ_KEY_MODULE_2)")
         sys.exit(1)
+    print(f"Providers available: {', '.join(f'{n}({len(k)})' for n,k,*_ in PROVIDERS)}")
 
     async with AsyncSessionLocal() as db:
         pending = await get_pending_modules(db)
