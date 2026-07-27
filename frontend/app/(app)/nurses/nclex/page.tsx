@@ -781,6 +781,7 @@ export default function NCLEXHubPage() {
   const [plan, setPlan] = useState<StudyPlan | null>(null);
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
+  const [startError, setStartError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [activeTab, setActiveTab] = useState<"practice" | "study" | "history" | "analytics" | "readiness" | "plan">("practice");
 
@@ -819,6 +820,7 @@ export default function NCLEXHubPage() {
 
   async function startSession(modeId: string) {
     setStarting(modeId);
+    setStartError(null);
     try {
       const opts: { nclex_category?: string } = {};
       if (modeId === "nclex_category" && selectedCategory) {
@@ -829,7 +831,7 @@ export default function NCLEXHubPage() {
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail
         || t("nclex_hub.session_error");
-      alert(msg);
+      setStartError(msg);
     } finally {
       setStarting(null);
     }
@@ -1081,15 +1083,20 @@ export default function NCLEXHubPage() {
                   return catMode.locked ? (
                     <div className="text-xs font-serif text-ink-3 italic">{catMode.lock_reason}</div>
                   ) : (
-                    <button
-                      onClick={() => startSession("nclex_category")}
-                      disabled={!selectedCategory || starting === "nclex_category"}
-                      className="font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-lg hover:bg-red transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                    >
-                      {selectedCategory
-                        ? `${t("nclex_hub.practice_cat")} ${categories.find(c => c.key === selectedCategory)?.label} →`
-                        : t("nclex_hub.select_cat")}
-                    </button>
+                    <div className="flex flex-col gap-2">
+                      <button
+                        onClick={() => { setStartError(null); startSession("nclex_category"); }}
+                        disabled={!selectedCategory || starting === "nclex_category"}
+                        className="font-syne font-bold text-sm bg-ink text-white px-6 py-2.5 rounded-lg hover:bg-red transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        {starting === "nclex_category" ? t("nclex_hub.starting") : selectedCategory
+                          ? `${t("nclex_hub.practice_cat")} ${categories.find(c => c.key === selectedCategory)?.label} →`
+                          : t("nclex_hub.select_cat")}
+                      </button>
+                      {startError && starting !== "nclex_category" && (
+                        <p className="text-xs font-serif text-red">{startError}</p>
+                      )}
+                    </div>
                   );
                 })()}
               </div>

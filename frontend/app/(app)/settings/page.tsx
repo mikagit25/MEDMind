@@ -677,7 +677,7 @@ function CertificatesSection() {
                   href={`/verify/${c.verification_code}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-ink-4 text-ink-3 hover:border-ink-3 transition-colors"
+                  className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-ink/30 text-ink-2 hover:border-ink hover:text-ink transition-colors"
                 >
                   Verify
                 </a>

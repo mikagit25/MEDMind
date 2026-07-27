@@ -240,6 +240,29 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
             db.add(fc)
 
         # Import MCQ questions
+        GULF_SLUGS = ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"]
+        NCLEX_CATEGORY_BY_MODULE = {
+            "NURSE-001": "safe_effective_care",
+            "NURSE-002": "pharmacological",
+            "NURSE-003": "pharmacological",
+            "NURSE-004": "safe_effective_care",
+            "NURSE-005": "reduction_risk",
+            "NURSE-006": "physiological_adaptation",
+            "NURSE-007": "basic_care",
+            "NURSE-008": "psychosocial",
+            "NURSE-009": "psychosocial",
+            "NURSE-010": "psychosocial",
+            "NURSE-011": "health_promotion",
+            "NURSE-012": "physiological_adaptation",
+            "NURSE-013": "reduction_risk",
+            "NURSE-014": "physiological_adaptation",
+            "NURSE-015": "health_promotion",
+            "NURSE-016": "reduction_risk",
+            "NURSE-017": "reduction_risk",
+            "NURSE-018": "physiological_adaptation",
+            "NURSE-019": "safe_effective_care",
+            "NURSE-020": "safe_effective_care",
+        }
         for mcq_data in data.get("mcq_questions", []):
             options = mcq_data.get("options", {})
             # Normalize options to dict if list
@@ -248,10 +271,11 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
 
             qtype = mcq_data.get("question_type", "mcq")
             # exam_slugs: from JSON if present; otherwise auto-tag nursing modules with all Gulf exams
-            GULF_SLUGS = ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"]
             exam_slugs = mcq_data.get("exam_slugs")
             if exam_slugs is None and is_nursing:
                 exam_slugs = GULF_SLUGS
+            # nclex_client_needs: from JSON if present; otherwise auto-assign by module code
+            nclex_client_needs = mcq_data.get("nclex_client_needs") or NCLEX_CATEGORY_BY_MODULE.get(module_code)
             mcq = MCQQuestion(
                 module_id=module.id,
                 question=mcq_data.get("question", ""),
@@ -267,6 +291,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 numeric_unit=mcq_data.get("numeric_unit"),
                 partial_scoring=mcq_data.get("partial_scoring", False),
                 exam_slugs=exam_slugs,
+                nclex_client_needs=nclex_client_needs,
             )
             db.add(mcq)
 
