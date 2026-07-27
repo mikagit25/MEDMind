@@ -61,6 +61,64 @@ const GULF_EXAM_INFO: Record<GulfSlug, { name: string; country: string; flag: st
   haad:   { name: "HAAD",   country: "Abu Dhabi",     flag: "🇦🇪", full: "Health Authority Abu Dhabi" },
 };
 
+// Nursing study modules linked to Gulf exam question banks
+const NURSING_STUDY_MODULES = [
+  {
+    id: "f0913cce-0e39-419f-9b71-e31ee68d7e62",
+    title: "Nursing Process & Documentation",
+    desc: "Assessment, diagnosis, planning, intervention, evaluation + legal documentation",
+    icon: "📋", lessons: 2, mcqs: 119,
+  },
+  {
+    id: "3e70e94e-72c2-48ef-a61b-843138f0952a",
+    title: "Medication Safety",
+    desc: "Five Rights, administration errors, high-alert medications",
+    icon: "💊", lessons: 2, mcqs: 115,
+  },
+  {
+    id: "ea06574b-a01a-4c03-bb32-836179f82698",
+    title: "Dose Calculations & Infusion Therapy",
+    desc: "Core formulas, IV drip rates, weight-based dosing",
+    icon: "🧮", lessons: 2, mcqs: 101,
+  },
+  {
+    id: "89529702-32b1-4f38-bc90-6a4441109000",
+    title: "Recognising Patient Deterioration",
+    desc: "Early warning signs, NEWS2 scoring, rapid response",
+    icon: "📈", lessons: 2, mcqs: 62,
+  },
+  {
+    id: "a708a327-4246-4448-b739-31c5f61a091e",
+    title: "Infection Control & Hand Hygiene",
+    desc: "Standard precautions, transmission-based isolation, PPE",
+    icon: "🦠", lessons: 2, mcqs: 58,
+  },
+  {
+    id: "30acf5f5-72da-45d6-8277-820d5308fa92",
+    title: "Emergency Situations",
+    desc: "Nurse's role before the doctor arrives — BLS, triage, deterioration",
+    icon: "🚨", lessons: 2, mcqs: 42,
+  },
+  {
+    id: "97b09cd4-f90a-488d-b263-bf37cfad37ef",
+    title: "Patient Care: Pressure Injuries & Mobility",
+    desc: "Braden scale, repositioning, wound staging, falls prevention",
+    icon: "🛏️", lessons: 2, mcqs: 31,
+  },
+  {
+    id: "3785087f-c853-4adb-a717-9ac66df89034",
+    title: "Mental Health & Psychiatric Nursing",
+    desc: "Psychopathology, therapeutic communication, crisis intervention",
+    icon: "🧠", lessons: 0, mcqs: 31,
+  },
+  {
+    id: "43dc8dd3-dab0-4730-932a-c64ddb73709c",
+    title: "Patient Communication & SBAR Handoff",
+    desc: "Therapeutic communication, family engagement, structured handoff",
+    icon: "💬", lessons: 2, mcqs: 16,
+  },
+] as const;
+
 const GULF_MODE_IDS = [
   "snle_practice",  "dha_practice",  "qchp_practice", "omsb_practice",
   "nhra_practice",  "mohuae_practice", "haad_practice",
@@ -279,7 +337,7 @@ export default function GulfHubPage() {
   const [selectedSlug, setSelectedSlug] = useState<GulfSlug>("snle");
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"practice" | "readiness" | "history">("practice");
+  const [activeTab, setActiveTab] = useState<"practice" | "study" | "readiness" | "history">("practice");
 
   const loadReadiness = useCallback(async (slug: GulfSlug) => {
     setReadinessLoading(true);
@@ -343,6 +401,7 @@ export default function GulfHubPage() {
 
   const TABS = [
     { id: "practice" as const, label: "Exam Simulations" },
+    { id: "study" as const, label: "Study Materials" },
     { id: "readiness" as const, label: "Readiness Score" },
     { id: "history" as const, label: `History (${gulfHistory.length})` },
   ];
@@ -643,6 +702,67 @@ export default function GulfHubPage() {
         )}
 
         {/* ── History tab ── */}
+        {/* ── Study Materials tab ── */}
+        {activeTab === "study" && (
+          <div className="space-y-6">
+            <div>
+              <h2 className="font-syne font-black text-xl text-ink mb-1">Study Before You Practice</h2>
+              <p className="font-serif text-sm text-ink-3 leading-relaxed">
+                These modules cover every topic tested on Gulf nursing licensing exams.
+                Work through the lessons, then return here to practice questions.
+              </p>
+            </div>
+
+            {/* Core nursing modules */}
+            <div>
+              <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">Core Nursing Modules</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NURSING_STUDY_MODULES.map(mod => (
+                  <Link
+                    key={mod.id}
+                    href={`/modules/${mod.id}`}
+                    className="group bg-surface border border-border hover:border-ink rounded-xl p-4 flex items-start gap-3 transition-colors"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-ink/5 group-hover:bg-ink group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors text-lg">
+                      {mod.icon}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-syne font-bold text-sm text-ink leading-snug group-hover:text-blue-600 transition-colors">
+                        {mod.title}
+                      </div>
+                      <div className="text-xs font-serif text-ink-3 mt-0.5">{mod.desc}</div>
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <span className="text-[10px] font-syne font-semibold bg-ink/5 text-ink-2 px-2 py-0.5 rounded-full">
+                          {mod.lessons} lessons
+                        </span>
+                        <span className="text-[10px] font-syne font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
+                          {mod.mcqs} MCQs
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-ink-3 group-hover:text-ink flex-shrink-0 mt-1 transition-colors" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Study tip */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
+              <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-syne font-bold text-xs text-blue-700 mb-0.5">Recommended study flow</p>
+                <p className="font-serif text-xs text-blue-600 leading-relaxed">
+                  Study a module → Practice its questions in{" "}
+                  <button onClick={() => setActiveTab("practice")} className="underline font-semibold">Exam Simulations</button>
+                  {" "}→ Check your{" "}
+                  <button onClick={() => setActiveTab("readiness")} className="underline font-semibold">Readiness Score</button>
+                  {" "}to see which topics need more work.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === "history" && (
           <div>
             <h2 className="font-syne font-black text-xl text-ink mb-4">Session History</h2>

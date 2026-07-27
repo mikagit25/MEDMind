@@ -117,6 +117,64 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const NCLEX_MODE_IDS = ["nclex_rn_75", "nclex_rn_85", "nclex_rn_145", "nclex_category", "nclex_demo"];
 
+// Nursing study modules covering NCLEX Client Needs categories
+const NCLEX_STUDY_MODULES = [
+  {
+    id: "f0913cce-0e39-419f-9b71-e31ee68d7e62",
+    title: "Nursing Process & Documentation",
+    category: "Management of Care · Safe & Effective Environment",
+    icon: "📋", lessons: 2, mcqs: 119,
+  },
+  {
+    id: "3e70e94e-72c2-48ef-a61b-843138f0952a",
+    title: "Medication Safety",
+    category: "Pharmacological Therapies · Physiological Integrity",
+    icon: "💊", lessons: 2, mcqs: 115,
+  },
+  {
+    id: "ea06574b-a01a-4c03-bb32-836179f82698",
+    title: "Dose Calculations & Infusion Therapy",
+    category: "Pharmacological Therapies — Calculations",
+    icon: "🧮", lessons: 2, mcqs: 101,
+  },
+  {
+    id: "89529702-32b1-4f38-bc90-6a4441109000",
+    title: "Recognising Patient Deterioration",
+    category: "Reduction of Risk Potential · Physiological Integrity",
+    icon: "📈", lessons: 2, mcqs: 62,
+  },
+  {
+    id: "a708a327-4246-4448-b739-31c5f61a091e",
+    title: "Infection Control & Hand Hygiene",
+    category: "Safety & Infection Control · Safe & Effective Environment",
+    icon: "🦠", lessons: 2, mcqs: 58,
+  },
+  {
+    id: "30acf5f5-72da-45d6-8277-820d5308fa92",
+    title: "Emergency Situations",
+    category: "Physiological Adaptation · Physiological Integrity",
+    icon: "🚨", lessons: 2, mcqs: 42,
+  },
+  {
+    id: "97b09cd4-f90a-488d-b263-bf37cfad37ef",
+    title: "Patient Care: Pressure Injuries & Mobility",
+    category: "Basic Care & Comfort · Physiological Integrity",
+    icon: "🛏️", lessons: 2, mcqs: 31,
+  },
+  {
+    id: "3785087f-c853-4adb-a717-9ac66df89034",
+    title: "Mental Health & Psychiatric Nursing",
+    category: "Psychosocial Integrity",
+    icon: "🧠", lessons: 0, mcqs: 31,
+  },
+  {
+    id: "43dc8dd3-dab0-4730-932a-c64ddb73709c",
+    title: "Patient Communication & SBAR Handoff",
+    category: "Management of Care — Communication",
+    icon: "💬", lessons: 2, mcqs: 16,
+  },
+] as const;
+
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 function ScoreBadge({ pct }: { pct: number }) {
@@ -724,7 +782,7 @@ export default function NCLEXHubPage() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [activeTab, setActiveTab] = useState<"practice" | "history" | "analytics" | "readiness" | "plan">("practice");
+  const [activeTab, setActiveTab] = useState<"practice" | "study" | "history" | "analytics" | "readiness" | "plan">("practice");
 
   const load = useCallback(async () => {
     try {
@@ -791,8 +849,9 @@ export default function NCLEXHubPage() {
     : null;
   const last_score = nclex_history[0]?.score_pct ?? null;
 
-  const TABS: { id: "practice" | "history" | "analytics" | "readiness" | "plan"; label: string }[] = [
+  const TABS: { id: "practice" | "study" | "history" | "analytics" | "readiness" | "plan"; label: string }[] = [
     { id: "practice",  label: t("nclex_hub.tab_practice") },
+    { id: "study",     label: "Study Materials" },
     { id: "plan",      label: "Plan" },
     { id: "readiness", label: t("nclex_hub.tab_readiness") },
     { id: "history",   label: t("nclex_hub.tab_history") },
@@ -1075,6 +1134,65 @@ export default function NCLEXHubPage() {
                 </Link>
               </div>
             </section>
+          </div>
+        )}
+
+        {/* ── Study Materials tab ── */}
+        {activeTab === "study" && (
+          <div className="space-y-6">
+            <div>
+              <h2 className="font-syne font-black text-xl text-ink mb-1">Study Materials</h2>
+              <p className="font-serif text-sm text-ink-3 leading-relaxed">
+                Master each topic before practicing NCLEX-style questions. All modules include
+                theory lessons and practice MCQs aligned to NCLEX Client Needs categories.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-syne font-bold text-sm text-ink-2 uppercase tracking-wider mb-3">Nursing Modules</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {NCLEX_STUDY_MODULES.map(mod => (
+                  <Link
+                    key={mod.id}
+                    href={`/modules/${mod.id}`}
+                    className="group bg-surface border border-border hover:border-ink rounded-xl p-4 flex items-start gap-3 transition-colors"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-ink/5 group-hover:bg-ink group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors text-lg">
+                      {mod.icon}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-syne font-bold text-sm text-ink leading-snug group-hover:text-blue-600 transition-colors">
+                        {mod.title}
+                      </div>
+                      <div className="text-xs font-serif text-ink-3 mt-0.5">{mod.category}</div>
+                      <div className="flex items-center gap-2 mt-1.5">
+                        {mod.lessons > 0 && (
+                          <span className="text-[10px] font-syne font-semibold bg-ink/5 text-ink-2 px-2 py-0.5 rounded-full">
+                            {mod.lessons} lessons
+                          </span>
+                        )}
+                        <span className="text-[10px] font-syne font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
+                          {mod.mcqs} MCQs
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-ink-3 group-hover:text-ink flex-shrink-0 mt-1 transition-colors" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
+              <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+              <p className="font-serif text-xs text-blue-600 leading-relaxed">
+                <span className="font-syne font-bold text-blue-700">Recommended flow: </span>
+                Study a module → Practice questions →{" "}
+                <button onClick={() => setActiveTab("readiness")} className="underline font-semibold">
+                  Check Readiness
+                </button>{" "}
+                to identify weak spots.
+              </p>
+            </div>
           </div>
         )}
 
