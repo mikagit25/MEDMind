@@ -1600,7 +1600,7 @@ function ArticlesPanel({ showToast }: { showToast: (msg: string, type?: "ok" | "
 
       {/* Stats */}
       <div className="text-xs text-ink-3 font-serif">
-        {total} articles — {articles.filter(a => a.is_published).length} published
+        {total} articles total
       </div>
 
       {/* Table */}

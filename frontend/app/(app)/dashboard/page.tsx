@@ -159,13 +159,15 @@ function NewUserWelcome({ firstName }: { firstName?: string }) {
 }
 import { useT, useI18n } from "@/lib/i18n";
 
-const LEVEL_THRESHOLDS = [0, 500, 2000, 5000, 12000, 25000];
+// Matches backend formula: level = floor(sqrt(xp/100)), so level N starts at N²×100 XP
+// Level 1: 0–399, Level 2: 400–899, Level 3: 900–1599, ...
+const LEVEL_THRESHOLDS = [0, 400, 900, 1600, 2500, 3600, 4900, 6400, 8100, 10000];
 
 function xpToNextLevel(xp: number, level: number) {
-  const start = LEVEL_THRESHOLDS[level - 1] ?? 0;
-  const end = LEVEL_THRESHOLDS[level] ?? LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
-  const current = xp - start;
-  const needed = end - start;
+  const start = LEVEL_THRESHOLDS[level - 1] ?? ((level - 1) ** 2) * 100;
+  const end = LEVEL_THRESHOLDS[level] ?? (level ** 2) * 100;
+  const current = Math.max(0, xp - start);
+  const needed = Math.max(1, end - start);
   return { current, needed, pct: Math.min((current / needed) * 100, 100) };
 }
 
@@ -775,7 +777,29 @@ export default function DashboardPage() {
       {(role === "student" || !["doctor", "professor", "teacher", "admin", "veterinarian"].includes(role)) && (
         <>
           {stats && (stats.lessons_completed ?? 0) === 0 ? (
-            <NewUserWelcome firstName={user?.first_name} />
+            <>
+              <NewUserWelcome firstName={user?.first_name} />
+              {/* NCLEX Readiness unlock card — shown even to new users to direct them to practice */}
+              {nclexReadiness && nclexReadiness.questions_to_threshold > 0 && (
+                <Link href="/nurses/nclex" className="block mb-4">
+                  <div className="card p-4 border border-dashed border-border hover:border-ink-3 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-surface-2 flex items-center justify-center flex-shrink-0">
+                        <span className="font-syne font-black text-sm text-ink-3">
+                          {nclexReadiness.questions_to_threshold}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-syne font-bold text-sm text-ink">Unlock Readiness Score</div>
+                        <div className="font-serif text-xs text-ink-3">
+                          {nclexReadiness.questions_to_threshold} NCLEX practice questions to unlock your score
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              )}
+            </>
           ) : (
             <>
               {stats && (
