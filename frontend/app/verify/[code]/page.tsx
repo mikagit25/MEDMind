@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+// Server-side fetch: prefer internal Docker network URL so SSR works inside the container.
+// NEXT_PUBLIC_API_URL is the public domain (medmind.pro) which is unreachable from within Docker.
+const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const dynamic = "force-dynamic";
 
