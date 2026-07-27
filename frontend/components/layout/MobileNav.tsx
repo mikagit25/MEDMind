@@ -214,11 +214,25 @@ function DrawerNav({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div className="flex gap-2">
-          {user?.subscription_tier === "free" && (
-            <button onClick={() => handleNav("/upgrade")} className="flex-1 bg-gold/20 border border-gold/40 text-gold text-xs font-syne font-bold py-2 rounded-lg">
-              {t("nav.upgrade_cta")}
-            </button>
-          )}
+          {(() => {
+            const tier = user?.subscription_tier ?? "free";
+            const expires = user?.subscription_expires ? new Date(user.subscription_expires) : null;
+            const daysLeft = expires ? Math.max(0, Math.ceil((expires.getTime() - Date.now()) / 86400000)) : null;
+            const isPromo = tier !== "free" && expires !== null;
+            if (isPromo) return (
+              <button onClick={() => handleNav(daysLeft !== null && daysLeft <= 7 ? "/upgrade" : "/settings")}
+                className="flex-1 flex items-center justify-center gap-1.5 bg-gold/20 border border-gold/30 text-gold text-xs font-syne font-bold py-2 rounded-lg">
+                <Gift size={12} strokeWidth={1.75} />
+                {daysLeft !== null && daysLeft > 0 ? `${daysLeft}d promo left` : "Promo expired"}
+              </button>
+            );
+            if (tier === "free") return (
+              <button onClick={() => handleNav("/upgrade")} className="flex-1 bg-gold/20 border border-gold/40 text-gold text-xs font-syne font-bold py-2 rounded-lg">
+                {t("nav.upgrade_cta")}
+              </button>
+            );
+            return null;
+          })()}
           <button onClick={handleLogout} className="flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white text-xs font-syne rounded-lg transition-colors">
             <LogOut size={12} strokeWidth={1.75} /> {t("nav.logout")}
           </button>
@@ -240,9 +254,20 @@ function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
         Med<span className="text-gold">Mind</span>
       </Link>
       <div className="ml-auto flex items-center gap-2">
-        {user?.subscription_tier === "free" && (
-          <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">Pro</Link>
-        )}
+        {(() => {
+          const tier = user?.subscription_tier ?? "free";
+          const expires = user?.subscription_expires ? new Date(user.subscription_expires) : null;
+          const daysLeft = expires ? Math.max(0, Math.ceil((expires.getTime() - Date.now()) / 86400000)) : null;
+          if (tier !== "free" && expires !== null) return (
+            <Link href="/settings" className="flex items-center gap-1 text-gold text-[10px] font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">
+              <Gift size={10} strokeWidth={2} />{daysLeft ?? 0}d
+            </Link>
+          );
+          if (tier === "free") return (
+            <Link href="/upgrade" className="text-gold text-xs font-syne font-bold px-2 py-1 rounded bg-gold/10 border border-gold/30">Pro</Link>
+          );
+          return null;
+        })()}
         <button
           onClick={() => window.dispatchEvent(new Event("search:open"))}
           className="text-white/70 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"

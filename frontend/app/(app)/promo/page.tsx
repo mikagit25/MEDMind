@@ -50,6 +50,7 @@ export default function PromoPage() {
     student: "Student",
     pro: "Pro",
     clinic: "Clinic",
+    lifetime: "Full",
   };
 
   return (

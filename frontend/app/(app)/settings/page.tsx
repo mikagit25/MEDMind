@@ -336,7 +336,27 @@ export default function SettingsPage() {
           <span className={`badge px-3 py-1 ${TIER_COLORS[sub] ?? TIER_COLORS.free}`}>
             {sub.charAt(0).toUpperCase() + sub.slice(1)}
           </span>
+          {user?.subscription_expires && sub !== "free" && (() => {
+            const expires = new Date(user.subscription_expires!);
+            const daysLeft = Math.max(0, Math.ceil((expires.getTime() - Date.now()) / 86400000));
+            return (
+              <span className={`text-xs font-syne font-semibold px-2 py-0.5 rounded-full ${daysLeft <= 7 ? "bg-red/10 text-red" : "bg-gold/10 text-gold"}`}>
+                {daysLeft > 0 ? `${daysLeft} days left` : "Expired"}
+              </span>
+            );
+          })()}
         </div>
+        {user?.subscription_expires && sub !== "free" && (
+          <p className="text-xs font-serif text-ink-3 mt-2">
+            {(() => {
+              const expires = new Date(user.subscription_expires!);
+              const daysLeft = Math.max(0, Math.ceil((expires.getTime() - Date.now()) / 86400000));
+              return daysLeft > 0
+                ? `Promo access active until ${expires.toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}`
+                : `Promo access expired on ${expires.toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })}`;
+            })()}
+          </p>
+        )}
         {sub === "free" && (
           <div className="mt-4">
             <Link href="/pricing" className="btn-primary inline-block">
@@ -344,7 +364,17 @@ export default function SettingsPage() {
             </Link>
           </div>
         )}
-        {sub !== "free" && sub !== "lifetime" && (
+        {sub !== "free" && user?.subscription_expires && (() => {
+          const daysLeft = Math.max(0, Math.ceil((new Date(user.subscription_expires!).getTime() - Date.now()) / 86400000));
+          return daysLeft <= 14 ? (
+            <div className="mt-4">
+              <Link href="/pricing" className="btn-primary inline-block text-sm">
+                Upgrade to keep access
+              </Link>
+            </div>
+          ) : null;
+        })()}
+        {sub !== "free" && sub !== "lifetime" && !user?.subscription_expires && (
           <div className="mt-4">
             <a
               href="/api/v1/payments/portal"

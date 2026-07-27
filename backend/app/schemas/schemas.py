@@ -69,6 +69,7 @@ class UserOut(BaseModel):
     last_name: Optional[str]
     role: str
     subscription_tier: str
+    subscription_expires: Optional[datetime] = None
     xp: int
     level: int
     streak_days: int

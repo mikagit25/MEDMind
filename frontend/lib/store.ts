@@ -9,6 +9,7 @@ interface User {
   last_name?: string;
   role: string;
   subscription_tier: string;
+  subscription_expires?: string | null;
   xp: number;
   level: number;
   streak_days: number;

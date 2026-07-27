@@ -258,13 +258,45 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* Upgrade CTA */}
-        {user?.subscription_tier === "free" && (
-          <Link href="/upgrade"
-            className="mt-3 w-full block text-center bg-gold/20 hover:bg-gold/30 border border-gold/40 text-gold text-xs font-syne font-bold py-1.5 rounded-lg transition-colors">
-            {t("nav.upgrade_cta")}
-          </Link>
-        )}
+        {/* Promo / Upgrade CTA */}
+        {(() => {
+          const tier = user?.subscription_tier ?? "free";
+          const expires = user?.subscription_expires ? new Date(user.subscription_expires) : null;
+          const now = new Date();
+          const daysLeft = expires ? Math.max(0, Math.ceil((expires.getTime() - now.getTime()) / 86400000)) : null;
+          const isPromo = tier !== "free" && expires !== null;
+          const expiringSoon = isPromo && daysLeft !== null && daysLeft <= 7;
+
+          if (isPromo) {
+            return (
+              <div className="mt-3 space-y-1.5">
+                <div className="flex items-center gap-1.5 bg-gold/10 border border-gold/30 rounded-lg px-2.5 py-1.5">
+                  <Gift size={12} className="text-gold flex-shrink-0" />
+                  <span className="text-gold text-[10px] font-syne font-bold leading-tight">
+                    {daysLeft !== null && daysLeft > 0
+                      ? `Promo: ${daysLeft}d left`
+                      : "Promo expired"}
+                  </span>
+                </div>
+                {expiringSoon && (
+                  <Link href="/upgrade"
+                    className="w-full block text-center bg-red/10 hover:bg-red/20 border border-red/30 text-red text-[10px] font-syne font-bold py-1.5 rounded-lg transition-colors">
+                    Upgrade to keep access
+                  </Link>
+                )}
+              </div>
+            );
+          }
+          if (tier === "free") {
+            return (
+              <Link href="/upgrade"
+                className="mt-3 w-full block text-center bg-gold/20 hover:bg-gold/30 border border-gold/40 text-gold text-xs font-syne font-bold py-1.5 rounded-lg transition-colors">
+                {t("nav.upgrade_cta")}
+              </Link>
+            );
+          }
+          return null;
+        })()}
       </div>
     </aside>
   );
