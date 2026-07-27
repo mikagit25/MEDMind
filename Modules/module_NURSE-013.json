@@ -127,7 +127,12 @@
     {
       "question": "A patient with COPD presents with SpO2 82%, RR 28, and is confused. ABG shows pH 7.30, PaCO2 62, PaO2 48. Which immediate oxygen delivery device is MOST appropriate?",
       "question_type": "mcq",
-      "options": {"A": "Non-rebreather mask at 15 L/min", "B": "Venturi mask at 28% FiO2, then reassess", "C": "Nasal cannula at 6 L/min", "D": "100% oxygen until SpO2 >98%"},
+      "options": {
+        "A": "Non-rebreather mask at 15 L/min",
+        "B": "Venturi mask at 28% FiO2, then reassess",
+        "C": "Nasal cannula at 6 L/min",
+        "D": "100% oxygen until SpO2 >98%"
+      },
       "correct": "B",
       "explanation": "COPD patients with hypercapnia (PaCO2 62) may rely on hypoxic drive. Target SpO2 is 88-92%. Venturi mask delivers precise FiO2 (start at 28%, titrate). NRB at 15 L/min can deliver >90% FiO2 causing further CO2 retention (Haldane effect). However, SpO2 82% with confusion requires prompt oxygen — start controlled oxygen and reassess. If pH remains <7.35 after oxygen, BiPAP is indicated.",
       "difficulty": "hard"
@@ -135,7 +140,12 @@
     {
       "question": "A nurse is caring for a patient admitted with acute severe asthma. After two nebulised salbutamol treatments, the patient's wheeze has disappeared but they remain severely dyspnoeic with SpO2 88%. What does absent wheeze indicate in this context?",
       "question_type": "mcq",
-      "options": {"A": "The patient is improving — wheeze resolved", "B": "Near-fatal asthma — impending respiratory arrest", "C": "Patient does not have asthma", "D": "Oxygen therapy is adequate"},
+      "options": {
+        "A": "The patient is improving — wheeze resolved",
+        "B": "Near-fatal asthma — impending respiratory arrest",
+        "C": "Patient does not have asthma",
+        "D": "Oxygen therapy is adequate"
+      },
       "correct": "B",
       "explanation": "Silent chest in an acutely dyspnoeic asthma patient indicates severely reduced airflow — not enough air movement to generate wheeze. This is an ominous sign of impending respiratory arrest. Immediate action: call resuscitation team, prepare for intubation, consider IV magnesium sulphate 2g. Patients who remain hypoxic after 3 bronchodilator treatments have life-threatening asthma.",
       "difficulty": "hard"
@@ -143,7 +153,12 @@
     {
       "question": "A post-operative patient develops sudden pleuritic chest pain, dyspnoea, tachycardia (HR 118), and SpO2 90% on room air on day 2. Leg DVT is suspected. After ordering imaging, the nurse's FIRST priority intervention is:",
       "question_type": "mcq",
-      "options": {"A": "Apply compression stockings and wait for CT result", "B": "Start anticoagulation immediately while awaiting imaging", "C": "Position patient flat to improve venous return", "D": "Administer thrombolysis before imaging"},
+      "options": {
+        "A": "Apply compression stockings and wait for CT result",
+        "B": "Start anticoagulation immediately while awaiting imaging",
+        "C": "Position patient flat to improve venous return",
+        "D": "Administer thrombolysis before imaging"
+      },
       "correct": "B",
       "explanation": "In high-probability or intermediate-high probability PE, anticoagulation (UFH or LMWH) should begin at the time of clinical suspicion — before CT results. The mortality reduction of early anticoagulation outweighs the small risk of starting treatment 30-60 minutes before imaging confirmation. Flat positioning worsens dyspnoea. Thrombolysis is reserved for haemodynamically unstable massive PE, not intermediate risk.",
       "difficulty": "medium"
@@ -151,7 +166,12 @@
     {
       "question": "A mechanically ventilated patient suddenly deteriorates: BP drops to 70/40, HR 130, SpO2 88%, and there is no chest rise on the right side. Peak airway pressure is 55 cmH2O. What is the IMMEDIATE nursing action?",
       "question_type": "mcq",
-      "options": {"A": "Order a portable chest X-ray", "B": "Increase FiO2 to 100%", "C": "Call for needle decompression of tension pneumothorax", "D": "Increase ventilator rate to 20 breaths/min"},
+      "options": {
+        "A": "Order a portable chest X-ray",
+        "B": "Increase FiO2 to 100%",
+        "C": "Call for needle decompression of tension pneumothorax",
+        "D": "Increase ventilator rate to 20 breaths/min"
+      },
       "correct": "C",
       "explanation": "This is tension pneumothorax: haemodynamic collapse + absent right-sided breath sounds + high airway pressure in a ventilated patient. Needle decompression (14-16G, 2nd ICS, MCL, right side) is an emergency clinical intervention. Do NOT wait for CXR — delay causes cardiac arrest. Followed by chest drain insertion. High FiO2 and ventilator rate changes will not address the mechanical obstruction.",
       "difficulty": "hard"
@@ -159,10 +179,78 @@
     {
       "question": "Which intervention is the MOST important component of the VAP prevention bundle for a mechanically ventilated patient?",
       "question_type": "mcq",
-      "options": {"A": "Prophylactic antibiotics for all ventilated patients", "B": "Daily spontaneous breathing trials and weaning assessment", "C": "Proning for all patients with SpO2 <95%", "D": "Ventilator circuit changes every 24 hours"},
+      "options": {
+        "A": "Prophylactic antibiotics for all ventilated patients",
+        "B": "Daily spontaneous breathing trials and weaning assessment",
+        "C": "Proning for all patients with SpO2 <95%",
+        "D": "Ventilator circuit changes every 24 hours"
+      },
       "correct": "B",
       "explanation": "VAP prevention bundles (CDC/SHEA/IDSA) include: HOB 30-45°, oral care with chlorhexidine, daily sedation vacation + SBT (most important — reduces ventilator days, the primary VAP risk factor), subglottic secretion suctioning, VTE/stress ulcer prophylaxis. Prophylactic antibiotics increase resistance and are NOT recommended. Circuit changes increase contamination risk and should only occur when visibly soiled. Proning is for severe ARDS (P/F <150), not general prevention.",
       "difficulty": "medium"
+    },
+    {
+      "question": "A patient with an oxygen mask is receiving 40% FiO₂. Their SpO₂ remains at 89%. What is the nurse's appropriate intervention?",
+      "options": {
+        "A": "Switch to a simple face mask at 8 L/min",
+        "B": "Increase to a non-rebreather mask (NRB) at 15 L/min to deliver up to 90% FiO₂",
+        "C": "Document the finding and reassess in 30 minutes",
+        "D": "Place the patient in the prone position"
+      },
+      "correct": "B",
+      "explanation": "SpO₂ 89% on 40% FiO₂ indicates inadequate oxygenation. Escalation to a non-rebreather mask at 10–15 L/min provides up to 90% FiO₂ and is the next step before considering CPAP or intubation. A simple face mask at 8 L/min delivers only 40–60% FiO₂ — less than the current therapy.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "When suctioning a tracheostomy tube, the nurse should limit each suction pass to a maximum of:",
+      "options": {
+        "A": "5 seconds",
+        "B": "10–15 seconds",
+        "C": "30 seconds",
+        "D": "60 seconds"
+      },
+      "correct": "B",
+      "explanation": "Suction passes must be limited to 10–15 seconds (per pass) to prevent hypoxia, trauma, and cardiac arrhythmias. Pre-oxygenate with 100% O₂ for 30 seconds before suctioning. Allow 20–30 seconds of recovery between passes. Use sterile technique throughout.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient with a chest drain (intercostal drain) on water-seal drainage is being transferred within the hospital. Which action is CONTRAINDICATED?",
+      "options": {
+        "A": "Keeping the drainage bottle below chest level",
+        "B": "Clamping the drain during transfer to prevent spillage",
+        "C": "Ensuring the drain tube is not kinked",
+        "D": "Monitoring for bubbling in the water-seal chamber"
+      },
+      "correct": "B",
+      "explanation": "Clamping a chest drain (except for brief moments approved by the physician) is contraindicated because it can cause tension pneumothorax if air is entering the pleural space. The bottle must always remain below chest level to prevent siphoning fluid back. Drains must not be clamped during transfers unless specifically ordered.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ]
 }

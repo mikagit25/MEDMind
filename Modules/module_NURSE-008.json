@@ -224,6 +224,153 @@
       "correct": "C",
       "explanation": "Breaking bad news about prognosis is the physician's responsibility. The nurse's role is to acknowledge the family's distress, validate their need for information, and facilitate the conversation with the appropriate provider — not to withhold or deliver information outside their scope. Options A and D violate the patient's right to receive information first. Option B is dismissive and unhelpful.",
       "difficulty": "medium"
+    },
+    {
+      "question": "Using SBAR, a nurse calls the physician about a patient with worsening breathlessness. Which component provides the nurse's clinical interpretation and proposed plan?",
+      "options": {
+        "A": "S — Situation",
+        "B": "B — Background",
+        "C": "A — Assessment",
+        "D": "R — Recommendation"
+      },
+      "correct": "D",
+      "explanation": "SBAR: S=Situation (current problem), B=Background (history/context), A=Assessment (clinical interpretation of what is happening), R=Recommendation (what the nurse is asking for — e.g., \"I recommend you come and assess the patient\" or \"I believe we need a chest X-ray and ABG\"). The Recommendation is the nurse's proposed action.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Therapeutic communication technique: a patient says \"I feel like nobody cares about me here.\" Which response by the nurse best demonstrates therapeutic communication?",
+      "options": {
+        "A": "\"Don't worry — the whole team cares deeply about you.\"",
+        "B": "\"That sounds really difficult. Can you tell me more about what's been happening?\"",
+        "C": "\"I understand — this hospital can be a lonely place.\"",
+        "D": "\"I'm sure you'll feel better once you go home.\""
+      },
+      "correct": "B",
+      "explanation": "Reflecting and open-ended questioning (B) invites the patient to explore their feelings without dismissing or minimising them. Options A and C offer false reassurance or premature empathy without exploration. Option D deflects with a projection about the future. Therapeutic communication requires active listening and exploring the patient's experience.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A newly admitted patient speaks only Arabic and no English. What is the nurse's best approach to obtain informed consent for a procedure?",
+      "options": {
+        "A": "Proceed with the procedure as planned — the patient's family can translate",
+        "B": "Use a professional medical interpreter (in-person or via phone)",
+        "C": "Ask the patient's adult son, who speaks some English, to translate",
+        "D": "Use a pictogram chart and proceed if the patient nods"
+      },
+      "correct": "B",
+      "explanation": "Professional medical interpreters (trained, certified) must be used for informed consent. Family members (including bilingual children or relatives) must not interpret for consent because: they may omit information, lack medical terminology, introduce bias, or the patient may not feel free to disclose concerns. This is a patient rights and legal standard in Gulf healthcare (CBAHI, JCI, DHA requirements).",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "During handover, the oncoming nurse notices the outgoing nurse did not mention a patient's newly elevated INR of 4.8 (therapeutic range 2.0–3.0 for AF). What should the oncoming nurse do?",
+      "options": {
+        "A": "Continue care and check the INR again at the next scheduled time",
+        "B": "Document the finding and escalate to the charge nurse and physician immediately",
+        "C": "Review the chart quietly and adjust the warfarin dose independently",
+        "D": "Ask the patient whether they feel any different"
+      },
+      "correct": "B",
+      "explanation": "INR 4.8 = significantly supratherapeutic — bleeding risk is high. The physician must be notified for warfarin dose adjustment and possible Vitamin K administration. Nurses must not independently adjust anticoagulant doses. Identifying a missed critical value during handover and escalating it promptly is a patient safety obligation.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which statement best describes the purpose of \"teach-back\" in patient education?",
+      "options": {
+        "A": "The nurse repeats key information three times for the patient",
+        "B": "The patient restates what they understood to confirm comprehension",
+        "C": "A written handout is given to the patient for home reference",
+        "D": "The nurse tests the patient with a quiz before discharge"
+      },
+      "correct": "B",
+      "explanation": "Teach-back (the \"show me\" method): after teaching, the nurse asks the patient to explain or demonstrate the information back in their own words. This confirms true understanding, not just passive listening. It identifies gaps immediately, allowing the nurse to re-teach. A quiz (D) is evaluative; a handout (C) supplements but does not confirm understanding.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient's family member demands to see the medical records of the patient without the patient's consent. The patient is a competent adult. What should the nurse do?",
+      "options": {
+        "A": "Provide the records to the family — they have a right to know",
+        "B": "Decline and explain that the patient's consent is required for disclosure",
+        "C": "Show only the nursing notes, not the physician's notes",
+        "D": "Refer the family to the physician without explanation"
+      },
+      "correct": "B",
+      "explanation": "Patient confidentiality and autonomy: a competent adult's medical information belongs to them. Disclosure to family requires the patient's explicit consent, even for close relatives. This is mandated by HIPAA equivalents in Gulf countries (UAE Federal Law No. 2/2019 on medical liability; Saudi Patient Rights Charter). Nurses must decline and explain the policy respectfully.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse receives a verbal order from a physician over the phone during an emergency. What should the nurse do after carrying out the order?",
+      "options": {
+        "A": "Document the verbal order in the chart and have the physician countersign it within the institution's required time frame",
+        "B": "Wait for the physician to arrive and write the order before acting",
+        "C": "Ask a colleague to witness the order verbally — no written record needed",
+        "D": "Only accept written orders — verbal orders are not allowed"
+      },
+      "correct": "A",
+      "explanation": "In emergencies, verbal telephone orders are acceptable if the nurse reads back the order (read-back technique) to confirm accuracy before executing. The order must be written verbatim in the chart by the nurse and countersigned by the prescribing physician within the facility's policy timeframe (typically 24 hours). Delaying action in an emergency (B) is unsafe.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": [

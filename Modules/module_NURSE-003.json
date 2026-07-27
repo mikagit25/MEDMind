@@ -249,6 +249,153 @@
       ],
       "explanation": "Phlebitis signs: redness + warmth along vein (A), pain along vessel (C), induration/cord-like vein (E). Swelling with coolness (B) and puffiness from fluid leaking into tissue (D) indicate infiltration or extravasation, not phlebitis.",
       "difficulty": "hard"
+    },
+    {
+      "question": "A patient requires an IV infusion of 1000 mL normal saline over 8 hours. The drip factor is 20 drops/mL. What is the correct drip rate in drops per minute?",
+      "options": {
+        "A": "20 drops/min",
+        "B": "42 drops/min",
+        "C": "60 drops/min",
+        "D": "125 drops/min"
+      },
+      "correct": "B",
+      "explanation": "Drip rate = (Volume × drip factor) ÷ time in minutes = (1000 × 20) ÷ 480 = 41.7 ≈ 42 drops/min. Using 125 mL/h confuses flow rate with drip rate. The drip factor must always be incorporated.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient weighing 60 kg is ordered dopamine at 5 mcg/kg/min. The available solution is dopamine 400 mg in 250 mL D5W. What is the infusion rate in mL/hour?",
+      "options": {
+        "A": "11.25 mL/h",
+        "B": "22.5 mL/h",
+        "C": "45 mL/h",
+        "D": "5 mL/h"
+      },
+      "correct": "A",
+      "explanation": "Step 1: dose = 5 mcg × 60 kg = 300 mcg/min. Step 2: concentration = 400,000 mcg ÷ 250 mL = 1600 mcg/mL. Step 3: rate = (300 mcg/min) ÷ (1600 mcg/mL) = 0.1875 mL/min × 60 = 11.25 mL/h.",
+      "difficulty": "hard",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "When priming an IV administration set, what is the nurse's main purpose?",
+      "options": {
+        "A": "To warm the fluid to body temperature",
+        "B": "To remove air from the tubing before connecting to the patient",
+        "C": "To check the expiry date of the IV bag",
+        "D": "To calculate the drip rate"
+      },
+      "correct": "B",
+      "explanation": "Priming (purging) the IV set removes air from the tubing to prevent air embolism. Air in peripheral IV lines is rarely fatal at small volumes, but IV air remains dangerous in central lines and in patients with patent foramen ovale. This step is mandatory before connecting to the patient.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient has an IV site showing redness, swelling, and warmth along the vein with no fluid leaking. This assessment finding most likely indicates:",
+      "options": {
+        "A": "Infiltration",
+        "B": "Phlebitis",
+        "C": "Air embolism",
+        "D": "Speed shock"
+      },
+      "correct": "B",
+      "explanation": "Phlebitis (inflammation of the vein wall) presents with redness, warmth, pain, and palpable cord along the vein without extravasation. Infiltration shows swelling and coolness from fluid in surrounding tissue. Speed shock causes systemic symptoms. The IV site should be discontinued and documented.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A physician orders heparin 5000 units subcutaneously. The available stock is heparin 10,000 units/mL. How many mL should the nurse administer?",
+      "options": {
+        "A": "0.25 mL",
+        "B": "0.5 mL",
+        "C": "1 mL",
+        "D": "2 mL"
+      },
+      "correct": "B",
+      "explanation": "5000 units ÷ 10,000 units/mL = 0.5 mL. Heparin is a high-alert anticoagulant — calculation must be double-checked. A 1 mL subcutaneous dose would deliver double the prescribed dose and risk significant haemorrhage.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse is preparing to administer an IV piggyback (IVPB) antibiotic over 30 minutes. The primary line is running at 75 mL/h. When the IVPB bag empties, what should happen?",
+      "options": {
+        "A": "The primary IV should be clamped",
+        "B": "The primary IV automatically resumes at its previous rate",
+        "C": "A new IVPB bag should be connected immediately",
+        "D": "The IV line should be flushed and removed"
+      },
+      "correct": "B",
+      "explanation": "After an IVPB empties, backpressure from the primary line (hung lower) resumes flow through the primary tubing at its set rate. This is the design of secondary IV systems — no manual intervention is needed unless using a pump without automatic secondary-to-primary switch.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient receiving a blood transfusion suddenly develops fever (38.8°C), chills, and urticaria 20 minutes after the start. What is the nurse's priority action?",
+      "options": {
+        "A": "Slow the transfusion rate and observe",
+        "B": "Stop the transfusion, keep the IV line open with normal saline, and notify the physician",
+        "C": "Administer paracetamol and continue the transfusion",
+        "D": "Increase the infusion rate to finish before the reaction worsens"
+      },
+      "correct": "B",
+      "explanation": "Any suspected transfusion reaction (fever, chills, urticaria) requires immediate cessation. The IV line is kept open with NS (not the blood tubing) to maintain access. The physician and blood bank are notified, and the unit is returned. Continuing or slowing the transfusion risks anaphylaxis or acute haemolytic reaction.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": []

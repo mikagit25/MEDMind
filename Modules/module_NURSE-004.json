@@ -245,6 +245,153 @@
       ],
       "explanation": "First confirm the room meets airborne isolation requirements (negative pressure — C). Then perform hand hygiene (B). Don the N95 respirator before entering any area where airborne pathogens may be present (A). Then add other PPE as required — gown and gloves (D).",
       "difficulty": "medium"
+    },
+    {
+      "question": "A patient with active pulmonary tuberculosis (TB) is admitted to the ward. Which type of isolation precautions should be implemented?",
+      "options": {
+        "A": "Standard precautions only",
+        "B": "Contact precautions",
+        "C": "Droplet precautions",
+        "D": "Airborne precautions with a negative-pressure room"
+      },
+      "correct": "D",
+      "explanation": "TB is transmitted by airborne nuclei (droplet nuclei <5 µm that remain suspended). Airborne precautions require: negative-pressure room with ≥12 air changes/hour, N95 respirator (not a surgical mask) for healthcare workers, and door kept closed. Droplet precautions are for organisms >5 µm (e.g., influenza).",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "After performing wound care with gloves, the nurse removes the gloves and touches the IV pump to adjust the rate. Which principle has been violated?",
+      "options": {
+        "A": "Use of PPE",
+        "B": "Hand hygiene after glove removal",
+        "C": "Sterile technique",
+        "D": "Aseptic technique for wound care"
+      },
+      "correct": "B",
+      "explanation": "Gloves can have microscopic tears and hands become contaminated during removal. WHO Hand Hygiene Guidelines require hand hygiene immediately after removing gloves (Moment 3: After body fluid exposure risk; Moment 4: After touching the patient). Touching equipment with contaminated hands spreads organisms.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient is placed on contact precautions for MRSA. Which PPE is required for the nurse entering the room to perform a bed bath?",
+      "options": {
+        "A": "N95 respirator and gloves",
+        "B": "Gloves and gown",
+        "C": "Surgical mask and gloves",
+        "D": "Standard precautions (gloves only)"
+      },
+      "correct": "B",
+      "explanation": "Contact precautions require gloves AND gown upon room entry because MRSA spreads by direct and indirect contact with skin or contaminated surfaces. N95 is for airborne pathogens. Surgical mask alone is for droplet. Standard precautions apply to all patients but MRSA/VRE needs enhanced contact precautions.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which of the WHO's Five Moments for Hand Hygiene applies BEFORE clean/aseptic procedures?",
+      "options": {
+        "A": "Moment 1",
+        "B": "Moment 2",
+        "C": "Moment 3",
+        "D": "Moment 5"
+      },
+      "correct": "B",
+      "explanation": "WHO Moment 2 is \"Before clean/aseptic procedure\" — e.g., before IV catheter insertion, wound dressing, or urinary catheterisation. Moment 1 is before touching the patient; Moment 3 is after body-fluid risk; Moment 4 is after touching the patient; Moment 5 is after touching the patient's surroundings.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "What is the MINIMUM duration for effective hand hygiene with an alcohol-based hand rub (ABHR)?",
+      "options": {
+        "A": "5 seconds",
+        "B": "10 seconds",
+        "C": "20 seconds",
+        "D": "60 seconds"
+      },
+      "correct": "C",
+      "explanation": "WHO guidelines recommend rubbing hands with ABHR for 20–30 seconds (6-step technique) until dry. Soap and water should be used for 40–60 seconds, especially if hands are visibly soiled or after caring for Clostridioides difficile patients (spores resist alcohol).",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse in Saudi Arabia cares for a patient with confirmed MERS-CoV infection. What level of isolation precautions is required?",
+      "options": {
+        "A": "Standard precautions only",
+        "B": "Contact precautions plus droplet precautions",
+        "C": "Airborne, contact, and droplet precautions (combined)",
+        "D": "Droplet precautions only"
+      },
+      "correct": "C",
+      "explanation": "Saudi MOH and WHO recommend combined airborne + contact + droplet precautions for MERS-CoV (N95 respirator, gown, gloves, eye protection). MERS-CoV is primarily droplet-borne but aerosol-generating procedures (intubation, bronchoscopy) produce airborne particles. Negative-pressure rooms are required where available.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which sharps disposal practice is CORRECT after administering an insulin injection?",
+      "options": {
+        "A": "Recap the needle before discarding",
+        "B": "Break the needle off the syringe at the hub",
+        "C": "Discard the uncapped needle directly into a rigid sharps container",
+        "D": "Place the uncapped needle in the patient's bin at the bedside"
+      },
+      "correct": "C",
+      "explanation": "Needlestick prevention: never recap (two-handed recapping is the leading cause of sharps injuries). Never bend or break needles (risk of aerosolised blood). Discard immediately into an approved rigid puncture-resistant sharps container at the point of use. Standard bedside bins are not approved for sharps.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": []

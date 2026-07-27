@@ -122,7 +122,12 @@
     {
       "question": "A nurse is assessing an 8-month-old who was brought in by parents after reportedly 'falling from the couch.' The infant has multiple bruises on the buttocks and a posterior rib fracture on X-ray. The parent's story changes twice. What is the nurse's PRIORITY action?",
       "question_type": "mcq",
-      "options": {"A": "Accept the parents' explanation — infants fall frequently", "B": "Confront the parents about the inconsistencies", "C": "Report suspected non-accidental injury to child protective services", "D": "Complete the current visit and flag for follow-up at the next appointment"},
+      "options": {
+        "A": "Accept the parents' explanation — infants fall frequently",
+        "B": "Confront the parents about the inconsistencies",
+        "C": "Report suspected non-accidental injury to child protective services",
+        "D": "Complete the current visit and flag for follow-up at the next appointment"
+      },
       "correct": "C",
       "explanation": "Posterior rib fractures, bruises in protected areas, an 8-month-old pre-mobile infant, and changing parental stories are all red flags for non-accidental injury. Nurses are mandated reporters — the threshold is 'reasonable suspicion,' not certainty. Report to CPS immediately. Do not confront the parents (escalates danger). Do not delay reporting.",
       "difficulty": "medium"
@@ -130,7 +135,12 @@
     {
       "question": "A 14-month-old presents with fever 39.1°C and inconsolable crying. The father reports tugging at the left ear. On assessment, the TM is erythematous and bulging. The nurse anticipates which initial treatment per AAP guidelines?",
       "question_type": "mcq",
-      "options": {"A": "Watchful waiting — no antibiotics for 48-72 hours", "B": "High-dose amoxicillin 80-90 mg/kg/day", "C": "Azithromycin — penicillin is never first-line in otitis", "D": "Ear drops only — systemic antibiotics are not needed"},
+      "options": {
+        "A": "Watchful waiting — no antibiotics for 48-72 hours",
+        "B": "High-dose amoxicillin 80-90 mg/kg/day",
+        "C": "Azithromycin — penicillin is never first-line in otitis",
+        "D": "Ear drops only — systemic antibiotics are not needed"
+      },
       "correct": "B",
       "explanation": "AAP AOM guidelines: children 6 months-2 years with bilateral AOM OR TM perforation → immediate antibiotics. This 14-month-old has unilateral AOM with bulging TM — antibiotics recommended. High-dose amoxicillin (80-90 mg/kg/day) is first-line (overcomes penicillin-intermediate Streptococcus pneumoniae). Watchful waiting is an option only for children ≥2 years with mild unilateral AOM.",
       "difficulty": "medium"
@@ -138,7 +148,12 @@
     {
       "question": "A 3-year-old presents with a barky, seal-like cough and inspiratory stridor that started 2 hours ago. Temperature is 38.2°C. SpO2 is 96%. Which treatment is MOST evidence-based?",
       "question_type": "mcq",
-      "options": {"A": "Admission and IV antibiotics for epiglottitis", "B": "Oral dexamethasone 0.6 mg/kg — single dose", "C": "Inhaled albuterol every 20 minutes", "D": "Humidified cool mist — observation only"},
+      "options": {
+        "A": "Admission and IV antibiotics for epiglottitis",
+        "B": "Oral dexamethasone 0.6 mg/kg — single dose",
+        "C": "Inhaled albuterol every 20 minutes",
+        "D": "Humidified cool mist — observation only"
+      },
       "correct": "B",
       "explanation": "This is classic croup (age 6 months-3 years, barky cough, stridor, low-grade fever). Oral dexamethasone 0.6 mg/kg single dose is the evidence-based first-line treatment — reduces return visits and hospitalisation (Cochrane systematic review). Cool mist has no proven efficacy in RCTs (though harmless). Albuterol treats bronchospasm, not laryngeal oedema. Epiglottitis presents with high fever, drooling, muffled voice, toxic appearance — tripod position; do NOT examine throat.",
       "difficulty": "medium"
@@ -146,7 +161,12 @@
     {
       "question": "A 6-week-old infant develops a temperature of 38.3°C (rectal). Parents report the infant has been feeding poorly for 12 hours. The nurse's PRIORITY action is:",
       "question_type": "mcq",
-      "options": {"A": "Administer paracetamol and recheck temperature in 1 hour", "B": "Notify the physician immediately — neonatal fever is a medical emergency", "C": "Encourage breastfeeding and monitor at home", "D": "Check vital signs and reassess in 30 minutes"},
+      "options": {
+        "A": "Administer paracetamol and recheck temperature in 1 hour",
+        "B": "Notify the physician immediately — neonatal fever is a medical emergency",
+        "C": "Encourage breastfeeding and monitor at home",
+        "D": "Check vital signs and reassess in 30 minutes"
+      },
       "correct": "B",
       "explanation": "Neonatal fever (≥38.0°C rectal, <28 days; or <3 months per some guidelines) is a medical emergency. Neonates cannot localise infection and are at risk for serious bacterial infection (SBI) — GBS meningitis, E. coli sepsis, HSV encephalitis. They require immediate full sepsis workup: CBC, blood culture, urine culture (catheter), LP (CSF culture/cell count), and empirical antibiotics within 1 hour. Never give antipyretics and 'watch' a febrile neonate.",
       "difficulty": "hard"
@@ -154,10 +174,78 @@
     {
       "question": "A nurse is preparing to administer ibuprofen to a 15 kg child. The prescribed dose is 10 mg/kg. The available suspension is 100 mg/5 mL. How many mL should be administered?",
       "question_type": "mcq",
-      "options": {"A": "5 mL", "B": "7.5 mL", "C": "10 mL", "D": "15 mL"},
+      "options": {
+        "A": "5 mL",
+        "B": "7.5 mL",
+        "C": "10 mL",
+        "D": "15 mL"
+      },
       "correct": "B",
       "explanation": "Dose = 10 mg/kg × 15 kg = 150 mg. Available: 100 mg/5 mL → 150 mg ÷ (100/5) = 150 × 5/100 = 7.5 mL. Always double-check pediatric medication calculations with a second nurse. Ibuprofen is appropriate for children ≥6 months (contraindicated in neonates). Do not give ibuprofen with active GI symptoms or dehydration (renal impairment risk).",
       "difficulty": "medium"
+    },
+    {
+      "question": "A 3-year-old child is admitted with suspected croup. The child has stridor at rest, moderate suprasternal retractions, and SpO₂ 94% on room air. What is the nurse's priority intervention?",
+      "options": {
+        "A": "Place the child in a mist tent with cool humidified air",
+        "B": "Administer nebulised adrenaline (epinephrine) and prepare for dexamethasone as ordered",
+        "C": "Encourage oral fluids and observe for 30 minutes",
+        "D": "Obtain blood cultures before starting any treatment"
+      },
+      "correct": "B",
+      "explanation": "Moderate-to-severe croup with stridor at rest and SpO₂ <95% requires nebulised adrenaline (racemic epinephrine or 1:1000 adrenaline 0.5 mL/kg up to 5 mL) for rapid bronchodilation and corticosteroids (dexamethasone 0.6 mg/kg) to reduce laryngeal oedema. Mist therapy lacks evidence. Oral fluids alone are for mild croup without distress.",
+      "difficulty": "hard",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "According to the Paediatric Early Warning Score (PEWS), which finding would immediately trigger urgent escalation?",
+      "options": {
+        "A": "RR 26/min, HR 110 bpm, CRT 2 seconds, child playing normally",
+        "B": "Grunting respirations, HR 165 bpm, CRT 4 seconds, child unresponsive to parents",
+        "C": "Mild fever 38.2°C, RR 24/min, child irritable but consolable",
+        "D": "Mild nasal flaring, SpO₂ 96%, child taking oral fluids"
+      },
+      "correct": "B",
+      "explanation": "Grunting (a sign of severe respiratory distress), extreme tachycardia (HR 165), CRT >3 seconds (poor perfusion), and altered consciousness are high PEWS indicators requiring immediate emergency escalation. These are signs of impending respiratory/cardiovascular failure in a child.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse is calculating the maintenance IV fluid rate for a 20 kg child using the Holliday-Segar method. What is the correct rate in mL/hour?",
+      "options": {
+        "A": "40 mL/h",
+        "B": "60 mL/h",
+        "C": "80 mL/h",
+        "D": "100 mL/h"
+      },
+      "correct": "B",
+      "explanation": "Holliday-Segar: 100 mL/kg/day for first 10 kg + 50 mL/kg/day for next 10 kg + 20 mL/kg/day for each kg above 20 = (100×10) + (50×10) = 1000 + 500 = 1500 mL/day for a 20 kg child. Rate = 1500 ÷ 24 = 62.5 ≈ 60 mL/h (standard textbook rounds to 60).",
+      "difficulty": "hard",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ]
 }

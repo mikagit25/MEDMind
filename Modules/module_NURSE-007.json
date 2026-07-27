@@ -231,6 +231,153 @@
       "correct": "B",
       "explanation": "Non-blanchable erythema of intact skin = Stage 1 pressure injury. It is reversible if pressure is relieved immediately. Stage 2 requires skin breakdown. Unstageable requires wound covered with slough/eschar. DTPI presents with persistent deep red/maroon/purple or blood-filled blister, usually over a bony prominence.",
       "difficulty": "medium"
+    },
+    {
+      "question": "A patient scores 14 on the Braden Scale. How would you interpret this score and what action is required?",
+      "options": {
+        "A": "No risk — no pressure injury prevention needed",
+        "B": "Mild risk — implement a repositioning schedule every 2 hours and moisture management",
+        "C": "Moderate risk — initiate full pressure injury prevention protocol",
+        "D": "High risk — place in ICU for continuous monitoring"
+      },
+      "correct": "C",
+      "explanation": "Braden Scale interpretation: 19–23 = no risk; 15–18 = mild risk; 13–14 = moderate risk; 10–12 = high risk; ≤9 = very high risk. A score of 14 = moderate risk, requiring a full prevention bundle: 2-hourly repositioning, pressure-redistributing mattress, moisture management, nutritional support, and wound assessment.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A Stage 2 pressure injury is characterised by:",
+      "options": {
+        "A": "Non-blanchable erythema of intact skin",
+        "B": "Partial-thickness skin loss with exposed dermis — no slough or eschar",
+        "C": "Full-thickness skin loss with visible fat",
+        "D": "Full-thickness skin loss reaching fascia, muscle, or bone"
+      },
+      "correct": "B",
+      "explanation": "NPIAP/EPUAP Pressure Injury Staging: Stage 1 = non-blanchable redness on intact skin; Stage 2 = partial-thickness loss exposing dermis (moist wound, intact or ruptured blister); Stage 3 = full-thickness loss with visible subcutaneous fat; Stage 4 = full-thickness loss reaching muscle/bone/tendon.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "An 80-year-old patient with a hip fracture is admitted to the orthopaedic ward. Which fall prevention intervention is the HIGHEST priority?",
+      "options": {
+        "A": "Place a fall-risk bracelet on the patient's wrist",
+        "B": "Keep the bed at the lowest position with side rails up and call bell within reach",
+        "C": "Tell the patient not to get up without calling for help",
+        "D": "Document the fall risk in the nursing notes"
+      },
+      "correct": "B",
+      "explanation": "Environmental safety modifications — lowest bed height, appropriate use of side rails, call bell within reach, non-slip footwear, and clear pathways — are the highest-priority physical interventions to prevent falls. Patient education (C) and documentation (D) are important but secondary to creating a safe environment.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "When repositioning a bedridden patient to prevent pressure injuries, how frequently should turns occur (minimum standard)?",
+      "options": {
+        "A": "Every 1 hour",
+        "B": "Every 2 hours",
+        "C": "Every 4 hours",
+        "D": "Every 6 hours"
+      },
+      "correct": "B",
+      "explanation": "Clinical guidelines (EPUAP/NPIAP/PPPIA 2019) recommend repositioning at least every 2 hours for patients at risk of pressure injury on standard mattresses. On high-specification foam mattresses, intervals may be extended to every 4 hours with monitoring. However, the universal standard minimum is every 2 hours.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which position should a nurse AVOID when repositioning a patient with a sacral pressure injury?",
+      "options": {
+        "A": "30° lateral tilt",
+        "B": "Prone position",
+        "C": "90° side-lying directly on the hip (greater trochanter)",
+        "D": "Semi-prone position"
+      },
+      "correct": "C",
+      "explanation": "90° side-lying places maximum pressure on the greater trochanter — a bony prominence highly prone to pressure injury. The 30° tilted lateral position redistributes pressure away from bony prominences and is the preferred alternative. Prone and semi-prone positions remove sacral pressure entirely.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse uses a gait belt to assist an elderly patient from the bed to a chair. The patient begins to feel faint and their knees buckle. What should the nurse do?",
+      "options": {
+        "A": "Lower the patient to the floor in a controlled manner",
+        "B": "Hold the patient upright until help arrives",
+        "C": "Drag the patient back to the bed",
+        "D": "Release the gait belt to call for help"
+      },
+      "correct": "A",
+      "explanation": "Controlled lowering to the floor protects both the patient from injury (a fall from height) and the nurse from back injury. Never attempt to hold a collapsing patient fully upright — doing so may cause both patient and nurse to fall. Once the patient is safely on the floor, call for assistance.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which heel protection strategy is most effective for preventing heel pressure injuries in bed-bound patients?",
+      "options": {
+        "A": "Foam heel rings (donut-shaped)",
+        "B": "Regular massage of the heels with lotion",
+        "C": "Heel elevation devices that float the heels off the bed surface",
+        "D": "Applying hydrocolloid dressings to heels"
+      },
+      "correct": "C",
+      "explanation": "Heel elevation devices (e.g., Heelift boots, pillows under the calf) completely offload pressure from the heel by suspending it above the mattress. Donut/ring devices paradoxically increase pressure at the wound margins. Massage is no longer recommended (can damage fragile tissue). Dressings protect but do not offload pressure.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": []

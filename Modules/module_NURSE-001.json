@@ -302,6 +302,153 @@
       ],
       "explanation": "ADPIE sequence: Assessment (E) → Diagnosis (D) → Planning (A) → Implementation (C) → Evaluation (B). You cannot diagnose before assessing, plan before diagnosing, or evaluate before implementing.",
       "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is planning care for a newly admitted patient. Which step of the nursing process involves identifying patient problems based on assessment data?",
+      "options": {
+        "A": "Assessment",
+        "B": "Nursing diagnosis",
+        "C": "Planning",
+        "D": "Evaluation"
+      },
+      "correct": "B",
+      "explanation": "Nursing diagnosis is the second step of the nursing process (ADPIE). It involves analysing assessment data and identifying actual or potential patient health problems. Assessment gathers data; planning sets goals; evaluation measures outcomes.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which documentation entry is most appropriate in a patient's medical record?",
+      "options": {
+        "A": "Patient appears to be in a bad mood today",
+        "B": "Patient refused lunch because he did not like the food",
+        "C": "Patient reported pain 7/10 in right lower quadrant; refuses analgesics",
+        "D": "Seems anxious — needs watching"
+      },
+      "correct": "C",
+      "explanation": "Objective, specific, measurable language is required. Option C uses direct quotes (patient-reported), a validated scale (numeric pain), site, and documents a refusal — all SBAR/legal standards. Options A and D are vague opinions; B lacks clinical detail.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient's goal states: \"Patient will ambulate 20 metres with a walking frame by Day 3.\" This is an example of which type of outcome?",
+      "options": {
+        "A": "Long-term outcome",
+        "B": "Nursing diagnosis",
+        "C": "SMART short-term outcome",
+        "D": "Medical order"
+      },
+      "correct": "C",
+      "explanation": "SMART outcomes are Specific (20 m with walking frame), Measurable (metres), Achievable, Relevant (mobility goal), and Time-bound (Day 3). This is a short-term nursing outcome — not a diagnosis, long-term goal, or medical order.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which component of the nursing care plan directly evaluates whether interventions are effective?",
+      "options": {
+        "A": "Assessment",
+        "B": "Implementation",
+        "C": "Evaluation",
+        "D": "Diagnosis"
+      },
+      "correct": "C",
+      "explanation": "Evaluation (E in ADPIE) compares the patient's actual outcomes against the expected outcomes set in the planning phase. If goals are unmet, the plan is revised. Assessment collects data; implementation carries out the plan; diagnosis names the problem.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "According to the NANDA framework, which nursing diagnosis is correctly written?",
+      "options": {
+        "A": "Hypertension related to non-compliance",
+        "B": "Impaired gas exchange related to alveolar-capillary membrane changes as evidenced by SpO₂ 88% and dyspnoea",
+        "C": "Patient has pneumonia",
+        "D": "Risk for infection because the wound is dirty"
+      },
+      "correct": "B",
+      "explanation": "A NANDA nursing diagnosis for an actual problem has three parts: problem (Impaired gas exchange), aetiology (related to alveolar-capillary changes), and defining characteristics (as evidenced by SpO₂ 88% + dyspnoea). Option A is a medical diagnosis; C is a medical diagnosis; D lacks the NANDA format.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse discovers a documentation error in a paper chart. What is the correct action?",
+      "options": {
+        "A": "Use correction fluid (Tipp-Ex) to cover the error",
+        "B": "Draw a single line through the error, write \"error\", initial and date it",
+        "C": "Tear out the page and rewrite the entry",
+        "D": "Leave the error and write the correct information below without marking it"
+      },
+      "correct": "B",
+      "explanation": "The correct method preserves the original entry (single line — still readable), identifies it as an error, and adds a name/date trail for legal accountability. White-out, tearing pages, or unmarked rewrites destroy the legal record and suggest tampering.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse is caring for a patient and identifies a new problem not addressed in the current care plan. What should the nurse do?",
+      "options": {
+        "A": "Proceed with the existing plan and document the new problem later",
+        "B": "Notify the physician immediately without updating the care plan",
+        "C": "Reassess, formulate a new nursing diagnosis, and update the care plan",
+        "D": "Ignore it if not life-threatening"
+      },
+      "correct": "C",
+      "explanation": "The nursing process is cyclical and dynamic. When new problems emerge, the nurse returns to assessment, identifies the new diagnosis, adds goals and interventions, and documents all changes. Delaying updates or ignoring new problems violates the standard of care.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": []

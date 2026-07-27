@@ -257,6 +257,153 @@
       ],
       "explanation": "First: remove the trigger (B — stop contrast). Simultaneously call for help (D). Administer adrenaline IM immediately (C — first-line drug). Apply oxygen (E). Antihistamines and hydrocortisone (A) are given after adrenaline as second-line adjuncts.",
       "difficulty": "hard"
+    },
+    {
+      "question": "A patient is found unresponsive and not breathing normally. After calling for help and activating the emergency response, what is the nurse's next action according to adult BLS guidelines?",
+      "options": {
+        "A": "Insert an oropharyngeal airway",
+        "B": "Begin 30 chest compressions at 100–120/min",
+        "C": "Give 2 rescue breaths first",
+        "D": "Check blood glucose"
+      },
+      "correct": "B",
+      "explanation": "Adult BLS (AHA/ERC): after confirming unresponsiveness, absence of normal breathing, and calling for help, begin 30 chest compressions at 100–120/min before rescue breaths (C-A-B sequence). Compression depth: 5–6 cm. Allow full chest recoil. Airway adjuncts and glucose checks come after initiating CPR.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient develops anaphylaxis after receiving IV contrast dye. Which medication should the nurse prepare FIRST?",
+      "options": {
+        "A": "Hydrocortisone 200 mg IV",
+        "B": "Chlorphenamine 10 mg IV",
+        "C": "Adrenaline (epinephrine) 0.5 mg IM",
+        "D": "Salbutamol nebuliser"
+      },
+      "correct": "C",
+      "explanation": "Adrenaline (epinephrine) 0.5 mg IM (0.5 mL of 1:1000) into the anterolateral thigh is the FIRST-LINE treatment for anaphylaxis — it is the only drug proven to reverse cardiovascular collapse and bronchospasm in anaphylaxis. Note the Gulf/INN name is adrenaline (not epinephrine). Antihistamines and corticosteroids are adjuncts given after adrenaline.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse witnesses a patient develop sudden loss of consciousness, becomes pulseless, and the cardiac monitor shows ventricular fibrillation (VF). What is the definitive treatment?",
+      "options": {
+        "A": "IV amiodarone 300 mg bolus",
+        "B": "Immediate defibrillation (unsynchronised shock)",
+        "C": "CPR only — defibrillation is the physician's role",
+        "D": "Precordial thump followed by CPR"
+      },
+      "correct": "B",
+      "explanation": "VF and pulseless VT are shockable rhythms — immediate defibrillation is the definitive treatment and every minute's delay reduces survival by ~10%. Nurses are trained and authorised to defibrillate. Amiodarone 300 mg is given IV after the third shock if VF persists. The precordial thump has limited evidence and is not standard first-line.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient reports sudden onset of severe crushing chest pain radiating to the left jaw. Their ECG shows ST-elevation in leads V1–V4. The nurse should IMMEDIATELY:",
+      "options": {
+        "A": "Give the patient a glass of cold water and reassure them",
+        "B": "Obtain 12-lead ECG, notify the physician, prepare for emergency PCI/thrombolysis",
+        "C": "Administer aspirin 300 mg oral and wait for the physician",
+        "D": "Prepare the patient for a chest X-ray"
+      },
+      "correct": "B",
+      "explanation": "ST-elevation myocardial infarction (STEMI) is a time-critical emergency — \"door-to-balloon\" time ≤90 minutes is the standard. The nurse must simultaneously notify the physician, keep the patient at rest with O₂ (if SpO₂ <90%), obtain IV access, collect bloods (troponin), and prepare for PCI or thrombolysis per protocol. Aspirin alone (C) is correct but incomplete — the full STEMI protocol must be activated.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient's blood glucose reads 2.1 mmol/L and they are conscious but confused. What is the nurse's priority intervention?",
+      "options": {
+        "A": "Call the physician and wait for an insulin order",
+        "B": "Give 150–200 mL of fruit juice or 15–20 g fast-acting glucose orally if able to swallow",
+        "C": "Administer glucagon 1 mg IM",
+        "D": "Prepare IV insulin infusion"
+      },
+      "correct": "B",
+      "explanation": "For conscious, cooperative patients with hypoglycaemia (blood glucose <3.9 mmol/L; Gulf units are mmol/L), first-line is 15–20 g oral fast-acting carbohydrate (juice, glucose tablets). Re-check glucose in 15 min (15-15 rule). Glucagon IM is for unconscious patients who cannot take oral glucose safely. IV dextrose is for unconscious/unable-to-swallow patients. Note: Gulf labs report in mmol/L (2.1 mmol/L = 38 mg/dL).",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient develops a grand mal seizure lasting more than 5 minutes. After ensuring airway safety and calling for help, what medication should the nurse prepare as first-line?",
+      "options": {
+        "A": "Phenytoin 15 mg/kg IV",
+        "B": "Diazepam 10 mg IV or lorazepam 4 mg IV",
+        "C": "Levetiracetam 1500 mg IV",
+        "D": "Phenobarbitone 100 mg IV"
+      },
+      "correct": "B",
+      "explanation": "Status epilepticus (seizure >5 minutes) first-line treatment: benzodiazepine — IV lorazepam 0.1 mg/kg (max 4 mg) or IV diazepam 0.15–0.2 mg/kg (max 10 mg). Rectal diazepam if no IV access. If seizure persists after 2 doses: second-line (phenytoin/levetiracetam/valproate). Phenobarbitone is now less commonly used as first-line.",
+      "difficulty": "hard",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "When performing the Heimlich manoeuvre on a conscious adult with a complete foreign body airway obstruction, the abdominal thrusts should be directed:",
+      "options": {
+        "A": "Downward toward the floor",
+        "B": "Inward and upward",
+        "C": "Laterally toward the ribs",
+        "D": "Straight inward against the sternum"
+      },
+      "correct": "B",
+      "explanation": "Sub-diaphragmatic abdominal thrusts (Heimlich manoeuvre) are directed inward AND upward to compress the diaphragm, increase intrathoracic pressure, and expel the obstruction. For pregnant or obese patients, use chest thrusts instead. A downward or lateral direction is ineffective.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": [

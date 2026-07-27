@@ -251,6 +251,153 @@
       ],
       "explanation": "First: escalate to physician (D) — nurse cannot initiate antibiotics without order. Simultaneously/immediately: start O2 (B), draw blood cultures before antibiotics if possible (C), catheterise for UO monitoring (E), then administer prescribed antibiotics (A) — target within 1 hour of recognition. O2 is the most immediately nurse-initiated intervention while waiting for the physician.",
       "difficulty": "hard"
+    },
+    {
+      "question": "A patient's NEWS2 score is calculated as 7 (high). What action does this score mandate?",
+      "options": {
+        "A": "Increase observations to every 4 hours",
+        "B": "Urgent review by a clinician — consider critical care team escalation",
+        "C": "Routine escalation to the ward doctor at the next opportunity",
+        "D": "No change — continue standard monitoring"
+      },
+      "correct": "B",
+      "explanation": "NEWS2 score ≥7 = HIGH risk. This mandates urgent (emergency) review by a clinician experienced in acute illness, continuous monitoring, and consideration of higher-level care (HDU/ICU). Scores 5–6 = medium risk (urgent review in 30 min). Score 0–4 = low/low-medium.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient's respiratory rate is 28 breaths/min. What NEWS2 score does this parameter contribute?",
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "3"
+      },
+      "correct": "D",
+      "explanation": "NEWS2 respiratory rate scoring: ≤8 = 3; 9–11 = 1; 12–20 = 0 (normal); 21–24 = 2; ≥25 = 3. A rate of 28 breaths/min falls into the ≥25 category = 3 points. Tachypnoea is one of the most sensitive early indicators of deterioration.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient has a NEW confusion onset. In the NEWS2 scoring system, this ACVPU level should be recorded as:",
+      "options": {
+        "A": "A (Alert)",
+        "B": "C (Confusion — new)",
+        "C": "V (Voice)",
+        "D": "U (Unresponsive)"
+      },
+      "correct": "B",
+      "explanation": "NEWS2 uses ACVPU: A=Alert (score 0), C=new Confusion (score 3), V=responds to Voice (score 3), P=responds to Pain (score 3), U=Unresponsive (score 3). New confusion carries the same weight as unresponsiveness and is a high-priority deterioration signal.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient with chronic obstructive pulmonary disease (COPD) has a usual SpO₂ of 88–92%. Using NEWS2, what SpO₂ range should trigger score 0 (normal) for this patient?",
+      "options": {
+        "A": "96–100%",
+        "B": "93–95%",
+        "C": "88–92% (COPD target range)",
+        "D": "85–87%"
+      },
+      "correct": "C",
+      "explanation": "NEWS2 has two SpO₂ scales. Scale 2 is for hypercapnic respiratory failure (e.g., COPD patients with target SpO₂ 88–92%): Score 0 = 88–92%; Score 1 = 86–87% or 93–94%; Score 2 = ≤85% or 95–96%; Score 3 = ≥97%. Scale 1 (standard) uses 96–100% as normal. The correct scale must be specified by the physician.",
+      "difficulty": "hard",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which vital sign trend is MOST suggestive of impending septic shock?",
+      "options": {
+        "A": "BP 130/80 mmHg, HR 72 bpm, RR 14/min, Temp 37.0°C",
+        "B": "BP 88/54 mmHg, HR 124 bpm, RR 26/min, Temp 39.5°C, new confusion",
+        "C": "BP 150/90 mmHg, HR 90 bpm, RR 18/min, Temp 38.1°C",
+        "D": "BP 110/70 mmHg, HR 100 bpm, RR 22/min, Temp 36.8°C"
+      },
+      "correct": "B",
+      "explanation": "Septic shock criteria (Sepsis-3): suspected infection + hypotension (MAP <65 mmHg despite resuscitation) + lactate >2 mmol/L, or vasopressor requirement. Option B shows hypotension (BP 88/54 = MAP ≈65), tachycardia, tachypnoea, fever, and new confusion — all sepsis qSOFA components met plus hypotension = septic shock.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse caring for a post-operative patient notices decreasing urine output (20 mL/h for 2 hours), HR 105 bpm, BP 96/60 mmHg. The most appropriate first action is:",
+      "options": {
+        "A": "Encourage oral fluid intake",
+        "B": "Reassess in 1 hour and document",
+        "C": "Apply oxygen and escalate immediately to the medical team",
+        "D": "Check if the urinary catheter is kinked, then report if not improved in 2 hours"
+      },
+      "correct": "C",
+      "explanation": "This patient shows signs of early hypovolaemic or haemorrhagic shock: oliguria (<0.5 mL/kg/h), tachycardia, and hypotension. Immediate escalation is required. Oxygen increases delivery during circulatory compromise. Waiting 1–2 hours delays life-saving intervention. Checking catheter kinking is part of assessment but NOT before escalating.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "What does the \"A\" stand for in the ABCDE systematic approach to the deteriorating patient?",
+      "options": {
+        "A": "Assessment",
+        "B": "Airway",
+        "C": "Alert level",
+        "D": "Abdomen"
+      },
+      "correct": "B",
+      "explanation": "ABCDE = Airway, Breathing, Circulation, Disability (neurological), Exposure. This structured approach ensures life-threatening problems are identified and treated in order of priority. Airway is always first — an obstructed airway kills in minutes. ACVPU and GCS are assessed under Disability (D).",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": [

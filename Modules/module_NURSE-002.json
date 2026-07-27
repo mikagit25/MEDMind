@@ -279,6 +279,153 @@
       "correct": "C",
       "explanation": "The nursing notes document the clinical facts: what was given, patient response, physician notification, and interventions. The IR is a system-level quality and safety document filed separately — it is NOT included in the patient chart and is NOT only for harmful errors (near-misses should also be reported).",
       "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is preparing to administer medications and notes the patient's wristband name does not match the MAR. What should the nurse do first?",
+      "options": {
+        "A": "Administer the medication and document the discrepancy",
+        "B": "Ask the patient to state their name and date of birth before proceeding",
+        "C": "Ask the patient's roommate to confirm the identity",
+        "D": "Check the previous nurse's notes"
+      },
+      "correct": "B",
+      "explanation": "Two independent patient identifiers (name + date of birth) are required per JCAHO/international safety standards before ANY medication administration. Never rely on the wristband alone. Never use a third party. Documenting without confirming is unsafe.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A patient is prescribed atenolol 50 mg orally. The ward stock is 25 mg tablets. How many tablets should the nurse administer?",
+      "options": {
+        "A": "0.5 tablet",
+        "B": "1 tablet",
+        "C": "2 tablets",
+        "D": "4 tablets"
+      },
+      "correct": "C",
+      "explanation": "Dose = desired / available: 50 mg ÷ 25 mg = 2 tablets. This is a straightforward oral dose calculation. Administering 0.5 or 4 tablets would be incorrect and potentially unsafe.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which \"right\" of medication administration requires the nurse to verify that the route prescribed is appropriate and available for the patient?",
+      "options": {
+        "A": "Right dose",
+        "B": "Right route",
+        "C": "Right time",
+        "D": "Right documentation"
+      },
+      "correct": "B",
+      "explanation": "The right route ensures the medication is given via the correct pathway (oral, IV, IM, etc.) as prescribed. For example, giving an IM injection to a patient on anticoagulants could cause haematoma. The five rights also include patient, drug, dose, and time.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse administers a medication to the wrong patient. What is the priority action after the error is discovered?",
+      "options": {
+        "A": "Complete an incident report and notify the charge nurse",
+        "B": "Assess the patient for adverse effects, notify the physician, and complete an incident report",
+        "C": "Document the error in the patient chart only",
+        "D": "Discuss with the patient and observe for 15 minutes"
+      },
+      "correct": "B",
+      "explanation": "Patient safety is the priority. First assess the patient who received the wrong medication, then notify the physician for further orders/monitoring, then complete an incident (adverse event) report. Hiding the error or only documenting it violates patient safety and professional standards.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "Which medication is classified as a HIGH-ALERT drug requiring special precautions before administration?",
+      "options": {
+        "A": "Paracetamol 1 g oral",
+        "B": "Concentrated potassium chloride injection",
+        "C": "Ibuprofen 400 mg oral",
+        "D": "Omeprazole 20 mg oral"
+      },
+      "correct": "B",
+      "explanation": "Concentrated potassium chloride (KCl) is an ISMP high-alert medication: if given undiluted IV it can cause fatal cardiac arrest. It must be diluted, never administered as a bolus, and double-checked by two nurses. The oral drugs listed have low lethality at standard doses.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "A nurse is about to administer an antibiotic IV when the patient reports a previous allergic reaction to penicillin. What is the nurse's best action?",
+      "options": {
+        "A": "Administer the antibiotic as ordered — allergy information is in the chart",
+        "B": "Hold the medication and contact the prescriber to review the order",
+        "C": "Give half the dose and monitor for reaction",
+        "D": "Ask the patient to take an antihistamine first"
+      },
+      "correct": "B",
+      "explanation": "A reported allergy is a contraindication until confirmed safe. The nurse must hold the drug, document the allergy, and contact the prescriber to confirm or change the antibiotic. Cross-reactivity between penicillins and some cephalosporins exists. Self-modifying dose or pre-medicating without physician order is outside nursing scope.",
+      "difficulty": "medium",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
+    },
+    {
+      "question": "In the Gulf region, which drug name is used for the medication also known internationally as acetaminophen?",
+      "options": {
+        "A": "Tylenol",
+        "B": "Paracetamol",
+        "C": "Calpol",
+        "D": "Aceta"
+      },
+      "correct": "B",
+      "explanation": "The Gulf Cooperation Council (GCC) and most of the world outside North America use the INN (International Nonproprietary Name) paracetamol. Acetaminophen is the USAN (US Adopted Name). Tylenol and Calpol are brand names. Gulf nurses must document and verify by INN to prevent duplication errors.",
+      "difficulty": "easy",
+      "exam_slugs": [
+        "snle",
+        "dha",
+        "qchp",
+        "omsb",
+        "nhra",
+        "mohuae",
+        "haad"
+      ]
     }
   ],
   "clinical_cases": []
