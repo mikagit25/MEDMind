@@ -372,25 +372,6 @@ function RationalePanel({
   sourceRefs?: SourceRef[];
 }) {
   const [expanded, setExpanded] = useState(false);
-  const { locale } = useI18n();
-
-  // Map UI locale → the ReviewLang we support (es or ar only for now)
-  const nativeLang: ReviewLang | null =
-    locale === "es" ? "es" :
-    locale === "ar" ? "ar" :
-    null;
-
-  // Does this specific question have a translation for the user's language?
-  const hasNativeTranslation =
-    nativeLang === "es" ? hasSpanish :
-    nativeLang === "ar" ? hasArabic :
-    false;
-
-  // Label + flag for the toggle button
-  const nativeLabel =
-    locale === "ar" ? "اقرأ بالعربية 🇸🇦" :
-    locale === "es" ? "Leer en Español 🇪🇸" :
-    null;
 
   const activeRationales =
     lang === "es" && rationalesEs ? rationalesEs :
@@ -418,37 +399,35 @@ function RationalePanel({
     : [];
 
   const isRTL = lang === "ar";
-  const isShowingNative = lang !== "en";
+
+  // Build available language tabs based on what translations exist for this question
+  const availableLangs: { value: ReviewLang; label: string }[] = [
+    { value: "en", label: "🇺🇸 EN" },
+    ...(hasSpanish ? [{ value: "es" as ReviewLang, label: "🇪🇸 ES" }] : []),
+    ...(hasArabic  ? [{ value: "ar" as ReviewLang, label: "🇸🇦 AR" }] : []),
+  ];
+  const showLangTabs = availableLangs.length > 1;
 
   return (
     <div className="rounded-xl border border-border bg-surface overflow-hidden text-sm">
-      {/* Language toggle — single smart button based on user's UI locale */}
-      <div className="flex items-center justify-end px-4 py-1.5 border-b border-border bg-surface-2">
-        {isShowingNative ? (
-          <button
-            onClick={() => onSetLang("en")}
-            className="text-[11px] font-syne font-semibold text-ink-3 hover:text-ink transition-colors flex items-center gap-1"
-          >
-            🇺🇸 Read in English
-          </button>
-        ) : nativeLabel ? (
-          hasNativeTranslation ? (
+      {/* Language tabs — visible whenever translations exist */}
+      {showLangTabs && (
+        <div className="flex items-center gap-1 px-3 py-1.5 border-b border-border bg-surface-2">
+          {availableLangs.map(({ value, label }) => (
             <button
-              onClick={() => onSetLang(nativeLang!)}
-              className="text-[11px] font-syne font-semibold text-blue-500 hover:text-blue-700 transition-colors"
+              key={value}
+              onClick={() => onSetLang(value)}
+              className={`text-[11px] font-syne font-semibold px-2 py-0.5 rounded transition-colors ${
+                lang === value
+                  ? "bg-gold/20 text-ink ring-1 ring-gold/40"
+                  : "text-ink-3 hover:text-ink hover:bg-surface-3"
+              }`}
             >
-              {nativeLabel}
+              {label}
             </button>
-          ) : (
-            <span
-              className="text-[11px] font-syne text-ink-4 cursor-default select-none"
-              title="Translation in progress — check back soon"
-            >
-              {nativeLabel} · coming soon
-            </span>
-          )
-        ) : null}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Selected option rationale — always visible */}
       {selectedRationale && (
@@ -719,8 +698,9 @@ function ExamSession({
     });
   }
 
-  // Timer warning toasts
+  // Timer warning toasts (not shown in demo mode)
   useEffect(() => {
+    if (session.mode_id === "nclex_demo") return;
     const endsMs = new Date(session.ends_at).getTime();
     const checkWarnings = () => {
       const secsLeft = Math.floor((endsMs - Date.now()) / 1000);

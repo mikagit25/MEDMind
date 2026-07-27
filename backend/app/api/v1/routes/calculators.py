@@ -55,6 +55,9 @@ CALC_CATALOG = [
     {"slug": "ideal-body-weight","name": "Ideal Body Weight",     "category": "General",       "icon": "⚖️"},
     {"slug": "daily-calories", "name": "Daily Calorie Needs",     "category": "General",       "icon": "🍎"},
     {"slug": "pregnancy-due-date","name": "Pregnancy Due Date",   "category": "Obstetrics",    "icon": "🤰"},
+    {"slug": "framingham-risk","name": "Framingham Risk Score",  "category": "Cardiology",    "icon": "🫀"},
+    {"slug": "ottawa-ankle",  "name": "Ottawa Ankle Rules",      "category": "Emergency",     "icon": "🦶"},
+    {"slug": "ottawa-knee",   "name": "Ottawa Knee Rules",       "category": "Emergency",     "icon": "🦵"},
 ]
 
 VALID_SLUGS = {c["slug"] for c in CALC_CATALOG}

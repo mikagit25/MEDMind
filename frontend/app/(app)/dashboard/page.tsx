@@ -786,7 +786,7 @@ export default function DashboardPage() {
                 </div>
               )}
               {/* NCLEX Readiness mini-card */}
-              {nclexReadiness && nclexReadiness.score !== undefined ? (
+              {nclexReadiness && nclexReadiness.score != null ? (
                 <Link href="/nurses/nclex" className="block mb-4">
                   <div className="card p-4 border border-border hover:border-ink-3 transition-colors">
                     <div className="flex items-center justify-between">

@@ -329,6 +329,7 @@ export const progressApi = {
   getQuizPerformance: () => api.get("/progress/quiz/performance").then(r => r.data),
   getQuizWeeklyTrend: () => api.get("/progress/quiz/weekly-trend").then(r => r.data),
   getModulesProgress: () => api.get("/progress/modules").then(r => r.data),
+  getModuleProgress: (moduleId: string) => api.get(`/progress/modules/${moduleId}`).then(r => r.data),
   getStreak: () => api.get("/progress/streak").then(r => r.data),
   getAchievements: () => api.get("/achievements").then(r => r.data),
   getLeaderboard: (period: string = "week", limit: number = 50) =>

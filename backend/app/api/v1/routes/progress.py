@@ -786,6 +786,38 @@ async def get_modules_progress(
     return output
 
 
+@router.get("/modules/{module_id}")
+async def get_module_progress(
+    module_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return progress for a single module, including completed lesson IDs."""
+    progress = (await db.execute(
+        select(UserProgress).where(
+            UserProgress.user_id == user.id,
+            UserProgress.module_id == module_id,
+        )
+    )).scalar_one_or_none()
+
+    if not progress:
+        return {
+            "module_id": str(module_id),
+            "completion_percent": 0.0,
+            "lessons_completed_ids": [],
+            "mcq_score": 0.0,
+            "mcq_attempts": 0,
+        }
+
+    return {
+        "module_id": str(module_id),
+        "completion_percent": float(progress.completion_percent or 0),
+        "lessons_completed_ids": [str(lid) for lid in (progress.lessons_completed or [])],
+        "mcq_score": float(progress.mcq_score or 0),
+        "mcq_attempts": int(progress.mcq_attempts or 0),
+    }
+
+
 # ============================================================
 # LEADERBOARD
 # ============================================================

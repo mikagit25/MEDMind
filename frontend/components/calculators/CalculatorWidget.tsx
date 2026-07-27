@@ -161,7 +161,7 @@ function AiPanel({ lang, calcName, score, riskLabel }: {
       const prompt = AI_INTERPRET_PROMPT[lang as Lang]?.(calcName, score, riskLabel)
         ?? AI_INTERPRET_PROMPT.en(calcName, score, riskLabel);
       const res = await aiApi.ask({ message: prompt, specialty: "general", search_pubmed: false });
-      setResponse(res.response ?? res.content ?? res.message ?? JSON.stringify(res));
+      setResponse(res.reply ?? res.response ?? res.content ?? res.message ?? JSON.stringify(res));
     } catch (e: any) {
       setError(e?.response?.status === 429 ? "limit" : "generic");
     } finally {
@@ -777,6 +777,7 @@ function CorrectedCalciumCalc({ lang }: { lang: string }) {
       <div className="space-y-4">
         <NumResult label={t(L.result, lang)} value={result ? String(result.value) : null} unit={unitLabel} description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
         <AiPanel lang={lang} calcName="Corrected Calcium" score={result?.value ?? 0} riskLabel={result?.label ?? ""} />
+        {result && <SaveResultPanel slug="corrected-calcium" inputs={{ albumin: parseFloat(albumin), calcium: parseFloat(calcium) }} score={result.value} riskLabel={result.label} lang={lang} />}
         <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
       </div>
     </div>
@@ -864,6 +865,7 @@ function AnionGapCalc({ lang, onResult }: { lang: string; onResult?: (color: "gr
           </div>
         )}
         <AiPanel lang={lang} calcName="Anion Gap" score={result?.ag ?? 0} riskLabel={result?.label ?? ""} />
+        {result && <SaveResultPanel slug="anion-gap" inputs={{ sodium: parseFloat(na), chloride: parseFloat(cl), bicarbonate: parseFloat(hco3) }} score={result.ag} riskLabel={result.label} lang={lang} />}
         <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
       </div>
     </div>
@@ -945,6 +947,7 @@ function MeldCalc({ lang, onResult }: { lang: string; onResult?: (color: "green"
           </div>
         )}
         <AiPanel lang={lang} calcName="MELD Score" score={result?.meld ?? 0} riskLabel={result?.label ?? ""} />
+        {result && <SaveResultPanel slug="meld" inputs={{ inr: parseFloat(inr), bilirubin: parseFloat(bili), creatinine: parseFloat(creat), sodium: parseFloat(sodium) }} score={result.meldNa ?? result.meld} riskLabel={result.label} lang={lang} />}
         <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
       </div>
     </div>
@@ -1041,6 +1044,7 @@ function CockcroftGaultCalc({ lang }: { lang: string }) {
       <div className="space-y-4">
         <NumResult label={t(L.result, lang)} value={result ? String(result.crcl) : null} unit="mL/min" description={result?.label} recommendation={result?.rec} color={result?.color ?? "green"} />
         <AiPanel lang={lang} calcName="Cockcroft-Gault" score={result?.crcl ?? 0} riskLabel={result?.label ?? ""} />
+        {result && <SaveResultPanel slug="cockcroft-gault" inputs={{ age: parseInt(age), weight: parseFloat(weight), creatinine: parseFloat(creat) }} score={result.crcl} riskLabel={result.label} lang={lang} />}
         <div className="text-ink-3 text-xs"><span className="font-syne font-semibold">{t({ en: "Reference", ru: "Источник", ar: "المرجع", tr: "Kaynak", de: "Referenz", fr: "Référence", es: "Referencia" }, lang)}: </span>{t(L.ref, lang)}</div>
       </div>
     </div>
@@ -1456,6 +1460,7 @@ function IBWCalc({ lang }: { lang: string }) {
             </div>
           )}
           <p className="text-ink-3 text-xs leading-relaxed border border-border rounded-lg p-3">{t(IL.devine, lang)}</p>
+          <SaveResultPanel slug="ideal-body-weight" inputs={{ height: parseFloat(height), weight: parseFloat(weight), sex: sex === "male" ? 1 : 0 }} score={result.ibw} riskLabel="IBW" lang={lang} />
         </div>
       )}
     </div>
@@ -1800,6 +1805,7 @@ function FraminghamCalc({ lang, onResult }: { lang: string; onResult?: (c: "gree
             <p className="text-sm text-ink leading-relaxed">{rec}</p>
           </div>
           <p className="text-xs text-ink-3 leading-relaxed">{tf("reference")} {tf("disclaimer")}</p>
+          <SaveResultPanel slug="framingham-risk" inputs={{ age, tc, hdl, sbp, treated: treated ? 1 : 0, smoker: smoker ? 1 : 0, diabetes: diabetes ? 1 : 0, sex: sex === "male" ? 1 : 0 }} score={result.risk} riskLabel={riskLabel} lang={lang} />
         </div>
       )}
     </div>
@@ -1857,8 +1863,6 @@ export function CalculatorsIndex() {
     { slug: "target-heart-rate",     name: tIdx("thr_name"),         subtitle: tIdx("thr_sub"),           category: tIdx("cardiology"),    icon: "💓" },
     { slug: "daily-calories",        name: tIdx("cal_name"),         subtitle: tIdx("cal_sub"),           category: tIdx("general"),       icon: "🍎" },
     { slug: "framingham-risk",       name: tIdx("framingham_name"),  subtitle: tIdx("framingham_sub"),    category: tIdx("cardiology"),    icon: "🫀" },
-    { slug: "ottawa-ankle",          name: tIdx("ottawa_ankle_name"),subtitle: tIdx("ottawa_ankle_sub"),  category: tIdx("emergency"),     icon: "🦶" },
-    { slug: "ottawa-knee",           name: tIdx("ottawa_knee_name"), subtitle: tIdx("ottawa_knee_sub"),   category: tIdx("emergency"),     icon: "🦵" },
   ];
 
   const allCalcs = [

@@ -489,6 +489,13 @@ export default function ModuleDetailPage() {
       const existing = certs?.find((c: any) => c.module_id === id);
       if (existing?.verification_code) setCertCode(existing.verification_code);
     }).catch(() => {});
+
+    // Restore already-completed lessons so cert check works across sessions
+    progressApi.getModuleProgress(id).then((prog: any) => {
+      if (prog?.lessons_completed_ids?.length) {
+        setLessonDone(new Set(prog.lessons_completed_ids));
+      }
+    }).catch(() => {});
   }, [id, locale]);
 
   // Load full lesson content when active lesson changes (no content yet)
