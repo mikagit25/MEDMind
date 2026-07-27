@@ -484,18 +484,28 @@ export default function ModuleDetailPage() {
       setLoading(false);
     });
 
-    // Load existing certificate for this module (if already earned)
-    certificatesApi.list().then((certs: any[]) => {
-      const existing = certs?.find((c: any) => c.module_id === id);
-      if (existing?.verification_code) setCertCode(existing.verification_code);
-    }).catch(() => {});
-
-    // Restore already-completed lessons so cert check works across sessions
-    progressApi.getModuleProgress(id).then((prog: any) => {
+    // Load cert list + progress in parallel, then auto-issue cert if 100% complete
+    Promise.all([
+      certificatesApi.list().catch(() => [] as any[]),
+      progressApi.getModuleProgress(id).catch(() => null),
+    ]).then(([certs, prog]) => {
+      // Restore already-completed lessons so in-session cert check works
       if (prog?.lessons_completed_ids?.length) {
         setLessonDone(new Set(prog.lessons_completed_ids));
       }
-    }).catch(() => {});
+      // Check for already-issued cert
+      const existing = (certs as any[])?.find((c: any) => c.module_id === id);
+      if (existing?.verification_code) {
+        setCertCode(existing.verification_code);
+        return;
+      }
+      // Auto-issue cert for modules that reached 100% before this session
+      if (prog?.completion_percent >= 100) {
+        certificatesApi.issue(id)
+          .then((c: any) => { if (c?.verification_code) setCertCode(c.verification_code); })
+          .catch(() => {});
+      }
+    });
   }, [id, locale]);
 
   // Load full lesson content when active lesson changes (no content yet)
