@@ -45,12 +45,12 @@ export function markMeChecked() {
   try { localStorage.setItem(LAST_ME_KEY, Date.now().toString()); } catch {}
 }
 
-/** Returns true if /auth/me was called within the last 30 minutes (across any tab). */
+/** Returns true if /auth/me was called within the last 5 minutes (across any tab). */
 export function wasMeCheckedRecently(): boolean {
   try {
     const ts = localStorage.getItem(LAST_ME_KEY);
     if (!ts) return false;
-    return Date.now() - parseInt(ts) < 30 * 60 * 1000;
+    return Date.now() - parseInt(ts) < 5 * 60 * 1000;
   } catch { return false; }
 }
 

@@ -90,7 +90,7 @@ export default function PricingPage() {
     setLoading(tier);
     setError(null);
     try {
-      const res = await api.post("/payments/checkout", {
+      const res = await api.post("/payments/create-checkout", {
         tier,
         success_url: `${window.location.origin}/settings?payment=success`,
         cancel_url: `${window.location.origin}/pricing`,

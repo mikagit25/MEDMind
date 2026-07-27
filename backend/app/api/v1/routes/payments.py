@@ -83,8 +83,9 @@ async def create_checkout(
         # Get or create Stripe customer
         customer_id = user.stripe_customer_id
         if not customer_id:
+            from app.core.encryption import decrypt_email
             customer = stripe.Customer.create(
-                email=user.email,
+                email=decrypt_email(user.email),
                 metadata={"user_id": str(user.id)},
             )
             customer_id = customer.id
@@ -247,7 +248,8 @@ async def stripe_webhook(
                     await start_dunning(db, user, stripe_invoice_id=invoice_id)
                     try:
                         from app.services.email_service import send_payment_failed_email
-                        await send_payment_failed_email(user.email, user.first_name or "User")
+                        from app.core.encryption import decrypt_email
+                        await send_payment_failed_email(decrypt_email(user.email), user.first_name or "User")
                     except Exception as e:
                         logger.error("Failed to send payment failure email to %s: %s", user.email, e)
 
