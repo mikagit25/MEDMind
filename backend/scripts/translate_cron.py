@@ -190,7 +190,14 @@ def build_system_prompt(locale: str) -> str:
 
 def extract_translatable(lesson: Lesson) -> dict:
     """Extract only text fields that need translation from a lesson."""
-    content = lesson.content or {}
+    raw = lesson.content or {}
+    # content column may be stored as a JSON string or a dict
+    if isinstance(raw, str):
+        try:
+            raw = json.loads(raw)
+        except Exception:
+            raw = {}
+    content = raw if isinstance(raw, dict) else {}
     result = {
         "title": lesson.title or "",
         "lay_summary": lesson.lay_summary or "",
@@ -200,6 +207,7 @@ def extract_translatable(lesson: Lesson) -> dict:
         "sections": [
             {"title": s.get("title", ""), "body": s.get("body", "")}
             for s in content.get("sections", [])
+            if isinstance(s, dict)
         ],
     }
     return result

@@ -11,6 +11,24 @@ import {
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
+type GulfAnalytics = {
+  sessions_analyzed: number;
+  difficulty_performance: Record<string, { label: string; pct: number; total: number; correct: number }>;
+  exam_performance: Record<string, { label: string; sessions: number; passed: number; avg_score: number }>;
+  weak_areas: Array<{ key: string; label: string; pct: number; total: number }>;
+  overall_trend: Array<{ session_id: string; date: string; score_pct: number | null; mode: string; passed: boolean | null }>;
+};
+
+type PlanTask = { task_type: string; topic: string; days_to_exam: number };
+type GulfStudyPlan = {
+  exam_type: string;
+  exam_date: string;
+  daily_minutes: number;
+  completed_dates: string[];
+  today_task: PlanTask | null;
+  week_tasks: PlanTask[];
+};
+
 type ExamMode = {
   id: string;
   name: string;
@@ -336,8 +354,13 @@ export default function GulfHubPage() {
   const [readinessLoading, setReadinessLoading] = useState(true);
   const [selectedSlug, setSelectedSlug] = useState<GulfSlug>("snle");
   const [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] = useState<GulfAnalytics | null>(null);
+  const [plan, setPlan] = useState<GulfStudyPlan | null>(null);
+  const [planSaving, setPlanSaving] = useState(false);
+  const [planWizardDate, setPlanWizardDate] = useState("");
+  const [planWizardMinutes, setPlanWizardMinutes] = useState(45);
   const [starting, setStarting] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"practice" | "study" | "readiness" | "history">("practice");
+  const [activeTab, setActiveTab] = useState<"practice" | "study" | "readiness" | "history" | "analytics" | "plan">("practice");
 
   const loadReadiness = useCallback(async (slug: GulfSlug) => {
     setReadinessLoading(true);
@@ -353,16 +376,30 @@ export default function GulfHubPage() {
     }
   }, []);
 
+  const reloadPlan = useCallback(async () => {
+    try {
+      const res = await examApi.getPlan("gulf");
+      setPlan(res.plan ?? null);
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
-    Promise.all([examApi.getModes(), examApi.getHistory(30)])
-      .then(([modeList, hist]) => {
+    Promise.all([
+      examApi.getModes(),
+      examApi.getHistory(30),
+      examApi.getGulfAnalytics(),
+      examApi.getPlan("gulf"),
+    ])
+      .then(([modeList, hist, anal, planRes]) => {
         const gulfModes = modeList.filter((m: ExamMode) => GULF_MODE_IDS.includes(m.id));
         setModes(gulfModes);
         setHistory(hist.filter((s: SessionHistory) => GULF_MODE_IDS.includes(s.mode_id)));
+        setAnalytics(anal);
+        setPlan(planRes.plan ?? null);
       })
       .finally(() => setLoading(false));
     loadReadiness("snle");
-  }, [loadReadiness]);
+  }, [loadReadiness, reloadPlan]);
 
   function handleSlugChange(slug: GulfSlug) {
     setSelectedSlug(slug);
@@ -399,11 +436,13 @@ export default function GulfHubPage() {
   const fullSimModes = modes.filter(m => m.id.endsWith("_full"));
   const practiceByExam = modes.filter(m => m.id.endsWith("_practice"));
 
-  const TABS = [
-    { id: "practice" as const, label: "Exam Simulations" },
-    { id: "study" as const, label: "Study Materials" },
-    { id: "readiness" as const, label: "Readiness Score" },
-    { id: "history" as const, label: `History (${gulfHistory.length})` },
+  const TABS: { id: "practice" | "study" | "plan" | "readiness" | "history" | "analytics"; label: string }[] = [
+    { id: "practice",  label: "Exam Simulations" },
+    { id: "study",     label: "Study Materials" },
+    { id: "plan",      label: "Plan" },
+    { id: "readiness", label: "Readiness Score" },
+    { id: "history",   label: `History (${gulfHistory.length})` },
+    { id: "analytics", label: "Analytics" },
   ];
 
   return (
@@ -760,6 +799,266 @@ export default function GulfHubPage() {
                 </p>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ── Plan tab ── */}
+        {activeTab === "plan" && (
+          <div className="space-y-6">
+            {!plan ? (
+              /* Plan wizard */
+              <div className="max-w-md mx-auto bg-surface border border-border rounded-xl p-6">
+                <h2 className="font-syne font-black text-xl text-ink mb-1">Create Your Study Plan</h2>
+                <p className="font-serif text-sm text-ink-3 mb-5">
+                  Set your Gulf exam date and daily study goal. We&apos;ll build a personalised schedule.
+                </p>
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-xs font-syne font-bold text-ink-2 uppercase tracking-wider block mb-1">
+                      Exam Date
+                    </label>
+                    <input
+                      type="date"
+                      value={planWizardDate}
+                      min={new Date().toISOString().split("T")[0]}
+                      onChange={e => setPlanWizardDate(e.target.value)}
+                      className="w-full border border-border rounded-lg px-3 py-2 text-sm font-syne bg-bg focus:outline-none focus:border-ink"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-syne font-bold text-ink-2 uppercase tracking-wider block mb-1">
+                      Daily Study Time
+                    </label>
+                    <div className="flex gap-2 flex-wrap">
+                      {[30, 45, 60, 90].map(m => (
+                        <button
+                          key={m}
+                          onClick={() => setPlanWizardMinutes(m)}
+                          className={`px-3 py-1.5 rounded-lg border text-xs font-syne font-semibold transition-all ${
+                            planWizardMinutes === m ? "border-ink bg-ink text-white" : "border-border text-ink hover:border-ink"
+                          }`}
+                        >
+                          {m} min
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <button
+                    disabled={!planWizardDate || planSaving}
+                    onClick={async () => {
+                      if (!planWizardDate) return;
+                      setPlanSaving(true);
+                      try {
+                        await examApi.createPlan({ exam_date: planWizardDate, daily_minutes: planWizardMinutes, exam_type: "gulf" });
+                        await reloadPlan();
+                      } catch { /* ignore */ } finally { setPlanSaving(false); }
+                    }}
+                    className="w-full bg-ink text-white rounded-xl py-3 font-syne font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-40"
+                  >
+                    {planSaving ? "Creating…" : "Build My Plan →"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* Plan exists */
+              <div className="space-y-4">
+                <div className="bg-surface border border-border rounded-xl p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h2 className="font-syne font-black text-xl text-ink">Study Plan</h2>
+                      <p className="text-xs font-syne text-ink-3 mt-0.5">
+                        Gulf Exams · {plan.exam_date} · {plan.daily_minutes} min/day
+                      </p>
+                    </div>
+                    <button
+                      onClick={async () => {
+                        if (!confirm("Delete this study plan?")) return;
+                        await examApi.deletePlan("gulf");
+                        setPlan(null);
+                      }}
+                      className="text-xs text-ink-3 hover:text-red transition-colors font-syne"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  {plan.today_task && (
+                    <div className="bg-ink/5 rounded-xl p-4 flex items-center justify-between">
+                      <div>
+                        <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-0.5">
+                          Today&apos;s Task
+                        </div>
+                        <div className="font-syne font-bold text-sm text-ink">{plan.today_task.topic}</div>
+                        <div className="text-xs font-serif text-ink-3 mt-0.5">
+                          {plan.today_task.days_to_exam} days to exam
+                        </div>
+                      </div>
+                      {plan.completed_dates.includes(new Date().toISOString().split("T")[0]) ? (
+                        <CheckCircle2 className="w-6 h-6 text-green flex-shrink-0" />
+                      ) : (
+                        <button
+                          onClick={async () => {
+                            await examApi.completeTodayTask(plan.today_task!.task_type, "gulf");
+                            await reloadPlan();
+                          }}
+                          className="flex-shrink-0 bg-ink text-white text-xs font-syne font-bold px-3 py-1.5 rounded-lg hover:opacity-90 transition-opacity"
+                        >
+                          Mark Done
+                        </button>
+                      )}
+                    </div>
+                  )}
+                  {/* Week calendar */}
+                  {plan.week_tasks.length > 0 && (
+                    <div className="mt-4">
+                      <div className="text-xs font-syne font-bold text-ink-3 uppercase tracking-wider mb-2">This Week</div>
+                      <div className="grid grid-cols-7 gap-1">
+                        {plan.week_tasks.map((t, i) => {
+                          const d = new Date(); d.setDate(d.getDate() + i);
+                          const dStr = d.toISOString().split("T")[0];
+                          const done = plan.completed_dates.includes(dStr);
+                          return (
+                            <div key={i} className={`rounded-lg p-1.5 text-center ${done ? "bg-green/10 border border-green/30" : "bg-border/30"}`}>
+                              <div className="text-[10px] font-syne text-ink-3">{["S","M","T","W","T","F","S"][d.getDay()]}</div>
+                              <div className={`text-[10px] font-syne font-bold mt-0.5 ${done ? "text-green" : "text-ink-2"}`}>
+                                {done ? "✓" : d.getDate()}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
+                  <Info className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <p className="font-serif text-xs text-blue-600 leading-relaxed">
+                    Follow the plan daily, then check your{" "}
+                    <button onClick={() => setActiveTab("readiness")} className="underline font-semibold">Readiness Score</button>
+                    {" "}to track progress toward your exam goal.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Analytics tab ── */}
+        {activeTab === "analytics" && (
+          <div className="space-y-6">
+            {!analytics || analytics.sessions_analyzed === 0 ? (
+              <div className="text-center py-16 text-ink-3 font-serif">
+                <BarChart3 className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                <p>Complete at least one Gulf exam simulation to see analytics.</p>
+              </div>
+            ) : (
+              <>
+                {/* Score trend */}
+                {analytics.overall_trend.length > 1 && (
+                  <div className="bg-surface border border-border rounded-xl p-5">
+                    <h3 className="font-syne font-bold text-sm text-ink mb-3 flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4" /> Score Trend
+                    </h3>
+                    <div className="flex items-end gap-2 h-20">
+                      {analytics.overall_trend.map((pt, i) => (
+                        <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
+                          <div
+                            className={`w-full rounded-t transition-all ${(pt.score_pct ?? 0) >= 60 ? "bg-green" : "bg-red/60"}`}
+                            style={{ height: `${Math.max(8, ((pt.score_pct ?? 0) / 100) * 72)}px` }}
+                          />
+                          <span className="text-[10px] font-syne text-ink-3">{pt.score_pct ?? 0}%</span>
+                          <div className="absolute -top-7 left-1/2 -translate-x-1/2 hidden group-hover:block bg-ink text-white text-[10px] font-syne rounded px-1.5 py-0.5 whitespace-nowrap z-10">
+                            {pt.date} · {pt.mode}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Performance by difficulty */}
+                {Object.keys(analytics.difficulty_performance).length > 0 && (
+                  <div className="bg-surface border border-border rounded-xl p-5">
+                    <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
+                      <Layers className="w-4 h-4" /> Performance by Difficulty
+                    </h3>
+                    <div className="space-y-3">
+                      {Object.entries(analytics.difficulty_performance)
+                        .sort((a, b) => (a[1].pct) - (b[1].pct))
+                        .map(([key, c]) => (
+                          <div key={key}>
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-xs font-syne font-semibold text-ink">{c.label}</span>
+                              <span className={`text-xs font-syne font-bold ${c.pct >= 60 ? "text-green" : "text-red"}`}>
+                                {c.pct}% <span className="text-ink-3 font-normal">({c.correct}/{c.total})</span>
+                              </span>
+                            </div>
+                            <div className="h-2 bg-border rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full transition-all ${c.pct >= 60 ? "bg-green" : "bg-red/60"}`}
+                                style={{ width: `${c.pct}%` }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Per-exam breakdown */}
+                {Object.keys(analytics.exam_performance).length > 0 && (
+                  <div className="bg-surface border border-border rounded-xl p-5">
+                    <h3 className="font-syne font-bold text-sm text-ink mb-4 flex items-center gap-2">
+                      <Globe className="w-4 h-4" /> Results by Exam
+                    </h3>
+                    <div className="space-y-2">
+                      {Object.entries(analytics.exam_performance).map(([slug, e]) => {
+                        const info = GULF_EXAM_INFO[slug as GulfSlug];
+                        return (
+                          <div key={slug} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-base">{info?.flag ?? "🌍"}</span>
+                              <span className="font-syne font-semibold text-sm text-ink">{e.label}</span>
+                            </div>
+                            <div className="flex items-center gap-4 text-xs font-syne">
+                              <span className="text-ink-3">{e.sessions} session{e.sessions !== 1 ? "s" : ""}</span>
+                              <span className={`font-bold ${e.avg_score >= 60 ? "text-green" : "text-red"}`}>
+                                avg {e.avg_score}%
+                              </span>
+                              <span className="text-ink-3">
+                                {e.passed}/{e.sessions} passed
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Weak areas */}
+                {analytics.weak_areas.length > 0 && (
+                  <div className="bg-red/5 border border-red/20 rounded-xl p-5">
+                    <h3 className="font-syne font-bold text-sm text-red mb-3 flex items-center gap-2">
+                      <TrendingDown className="w-4 h-4" /> Needs Work
+                    </h3>
+                    <div className="space-y-2">
+                      {analytics.weak_areas.map(w => (
+                        <div key={w.key} className="flex items-center justify-between">
+                          <span className="text-sm font-syne text-ink">{w.label}</span>
+                          <span className="text-xs font-syne font-bold text-red">{w.pct}%</span>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setActiveTab("practice")}
+                      className="mt-3 text-xs font-syne font-semibold text-red hover:underline"
+                    >
+                      Practice weak areas →
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         )}
 

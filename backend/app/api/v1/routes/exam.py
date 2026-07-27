@@ -1159,6 +1159,100 @@ async def nclex_analytics(
     }
 
 
+@router.get("/gulf/analytics")
+async def gulf_analytics(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Aggregate Gulf exam performance across all completed sessions — score trend, difficulty, per-exam breakdown."""
+    result = await db.execute(
+        select(ExamSession)
+        .where(
+            ExamSession.user_id == user.id,
+            ExamSession.status == "completed",
+            ExamSession.mode_id.like("gulf_%"),
+        )
+        .order_by(ExamSession.created_at.desc())
+        .limit(20)
+    )
+    sessions = result.scalars().all()
+
+    if not sessions:
+        return {
+            "sessions_analyzed": 0,
+            "difficulty_performance": {},
+            "exam_performance": {},
+            "weak_areas": [],
+            "overall_trend": [],
+        }
+
+    # Difficulty breakdown
+    diff_totals: dict[str, dict] = {}
+    # Per-exam-mode breakdown
+    exam_totals: dict[str, dict] = {}
+
+    GULF_EXAM_LABELS = {
+        "snle": "SNLE (Saudi)",
+        "dha": "DHA (Dubai)",
+        "qchp": "QCHP (Qatar)",
+        "omsb": "OMSB (Oman)",
+        "nhra": "NHRA (Bahrain)",
+        "mohuae": "MOH UAE",
+        "haad": "HAAD (Abu Dhabi)",
+    }
+    DIFF_LABELS = {"easy": "Easy", "medium": "Medium", "hard": "Hard"}
+
+    for sess in sessions:
+        # Per-exam aggregation using mode_id suffix
+        mode_parts = (sess.mode_id or "").split("_")
+        exam_slug = mode_parts[1] if len(mode_parts) >= 2 else "unknown"
+        label = GULF_EXAM_LABELS.get(exam_slug, exam_slug.upper())
+        if exam_slug not in exam_totals:
+            exam_totals[exam_slug] = {"total": 0, "passed": 0, "label": label, "sessions": 0, "avg_score": 0}
+        exam_totals[exam_slug]["sessions"] += 1
+        if sess.score_pct is not None:
+            exam_totals[exam_slug]["total"] += sess.score_pct
+            exam_totals[exam_slug]["passed"] += 1 if (sess.passed or False) else 0
+
+        # Difficulty from per_question
+        for pq in (sess.per_question or []):
+            if pq.get("correct") is None:
+                continue
+            diff = pq.get("difficulty", "medium") or "medium"
+            if diff not in diff_totals:
+                diff_totals[diff] = {"total": 0, "correct": 0, "label": DIFF_LABELS.get(diff, diff.title())}
+            diff_totals[diff]["total"] += 1
+            if pq.get("correct"):
+                diff_totals[diff]["correct"] += 1
+
+    for e in exam_totals.values():
+        e["avg_score"] = round(e["total"] / e["sessions"]) if e["sessions"] else 0
+        del e["total"]
+
+    for d in diff_totals.values():
+        d["pct"] = round(d["correct"] / d["total"] * 100) if d["total"] else 0
+
+    weak = [{"key": k, **v} for k, v in diff_totals.items() if v.get("pct", 100) < 60]
+    weak.sort(key=lambda x: x.get("pct", 0))
+
+    return {
+        "sessions_analyzed": len(sessions),
+        "difficulty_performance": diff_totals,
+        "exam_performance": exam_totals,
+        "weak_areas": weak,
+        "overall_trend": [
+            {
+                "session_id": str(s.id),
+                "date": (s.starts_at or s.created_at).strftime("%b %d"),
+                "score_pct": s.score_pct,
+                "mode": s.mode_name,
+                "passed": s.passed,
+            }
+            for s in reversed(sessions[:10])
+        ],
+    }
+
+
 @router.get("/nclex/readiness")
 async def get_nclex_readiness(
     user: User = Depends(get_current_user),
