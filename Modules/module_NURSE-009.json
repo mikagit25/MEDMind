@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "id": "NURSE-009",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Mental Health & Psychiatric Nursing",
+    "title_en": "Mental Health & Psychiatric Nursing",
+    "order_in_specialty": 9,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 6,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": [
+      "DSM-5-TR (APA, 2022)",
+      "NANDA-I Nursing Diagnoses 2021-2023",
+      "Townsend MC & Morgan KI. Psychiatric Mental Health Nursing, 9th ed, 2017",
+      "NICE Guideline NG185: Violence and aggression, 2015 updated 2022",
+      "SAMHSA. National Guidelines for Behavioral Health Crisis Care, 2020"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Mental Status Examination (MSE)",
+      "order": 1,
+      "lay_summary": "The Mental Status Examination is psychiatry's equivalent of the physical examination — a structured assessment of a patient's current psychological functioning.",
+      "content": {
+        "intro": "The Mental Status Examination (MSE) is a standardised, systematic assessment of a patient's cognitive, emotional, and behavioural functioning at a specific point in time. It is the foundation of all psychiatric nursing assessment and informs diagnosis, care planning, and risk stratification.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Appearance and Behaviour",
+            "body": "Observe: grooming, hygiene, dress (appropriate to weather/situation?), psychomotor activity (agitation, retardation, tremor, tics), eye contact, facial expression, attitude towards examiner (cooperative, guarded, hostile, seductive). Document objectively — 'dishevelled appearance, wearing winter coat in July, minimal eye contact' not 'looked strange'."
+          },
+          {
+            "title": "Speech",
+            "body": "Rate (fast/slow), volume (loud/soft/mute), rhythm (pressured, monotone), fluency, latency (delay before responding). Pressured speech = fast, difficult to interrupt; seen in mania. Poverty of speech = monosyllabic replies; seen in depression, schizophrenia."
+          },
+          {
+            "title": "Mood and Affect",
+            "body": "Mood = patient's subjective report ('I feel sad'). Affect = nurse's objective observation of emotional expression. Affect descriptors: range (full, restricted, blunted, flat), appropriateness to content, stability (labile = rapid fluctuation), quality (dysphoric, euphoric, anxious). Incongruent affect (laughing while describing death) suggests psychosis or dissociation."
+          },
+          {
+            "title": "Thought Process and Content",
+            "body": "Process: how thoughts are connected. Normal = linear and goal-directed. Abnormal: tangential (drifts off topic, never returns), circumstantial (arrives at point eventually via detours), flight of ideas (rapid topic shifts with loose connections), thought blocking (abrupt stop mid-sentence), perseveration (repetition of same phrase). Content: delusions (fixed false beliefs — persecutory, grandiose, somatic, referential), obsessions, suicidal ideation (passive wish vs active plan), homicidal ideation."
+          },
+          {
+            "title": "Perceptions",
+            "body": "Hallucinations: false perceptions without external stimulus. Auditory (most common in psychosis) — command hallucinations are high-risk if instructing self-harm. Visual (suggests organic aetiology — delirium, alcohol withdrawal, drugs). Tactile/olfactory — consider seizure disorder, substance use. Illusions = misperceptions of real stimuli; not pathognomonic of psychosis."
+          },
+          {
+            "title": "Cognition and Insight",
+            "body": "Screen: orientation (person, place, time, situation), attention (WORLD backwards), memory (3-word recall at 5 minutes), abstract thinking ('What do an apple and orange have in common?'). Use validated tools: MMSE, MoCA for cognitive impairment; PHQ-9 for depression severity; GAD-7 for anxiety. Insight: does the patient acknowledge they have a mental illness and need treatment? Poor insight = major barrier to engagement and medication adherence."
+          }
+        ],
+        "clinical_pearl": "The MSE captures a cross-sectional snapshot — it can change rapidly. Always date and time your MSE. A patient who is calm at 08:00 may be agitated by 14:00. Serial MSEs track trajectory and are more informative than a single assessment.",
+        "key_points": [
+          "MSE components: Appearance, Behaviour, Speech, Mood, Affect, Thought Process, Thought Content, Perception, Cognition, Insight",
+          "Mood = subjective; Affect = objective observation",
+          "Incongruent affect and command hallucinations require immediate safety assessment",
+          "Distinguish thought process abnormalities (how) from thought content (what)",
+          "Validated screening tools (PHQ-9, GAD-7, MoCA) supplement but do not replace clinical MSE"
+        ],
+        "references": [
+          "American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders, 5th ed, Text Revision (DSM-5-TR). Washington DC: APA, 2022",
+          "Trzepacz PT & Baker RW. The Psychiatric Mental Status Examination. Oxford University Press, 1993",
+          "Folstein MF et al. Mini-Mental State Examination. J Psychiatric Research, 1975;12(3):189-198"
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Therapeutic Nurse-Patient Relationship in Psychiatry",
+      "order": 2,
+      "lay_summary": "The therapeutic relationship is the most powerful tool a psychiatric nurse has. It is intentional, professional, and patient-centred — not friendship.",
+      "content": {
+        "intro": "In psychiatric nursing, the therapeutic relationship is itself a treatment modality. Hildegard Peplau's interpersonal theory (1952) defines nursing as an interpersonal process, with the nurse and patient working together to resolve health problems. Understanding the phases and boundaries of this relationship is fundamental to safe practice.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Peplau's Four Phases of the Therapeutic Relationship",
+            "body": "1. Orientation: Patient and nurse meet, establish trust, identify problems, and clarify roles. The nurse performs assessment; the patient expresses needs. 2. Identification: Patient identifies with the nurse and begins to feel supported. Working alliance forms. 3. Exploitation (Working): Patient uses available services and resources. The nurse acts as resource person, counsellor, surrogate, technical expert. 4. Resolution: Goals have been met; dependence decreases. Termination is planned, not abrupt. Premature termination (e.g. unexpected discharge) can be retraumatising for vulnerable patients."
+          },
+          {
+            "title": "Core Therapeutic Communication Skills",
+            "body": "Active listening: non-verbal engagement (SOLER — Sit squarely, Open posture, Lean in, Eye contact, Relax). Silence: therapeutic; do not fill every pause. Open-ended questions: 'Tell me more about that feeling.' Reflection: 'It sounds like you felt abandoned when...' Clarification: 'I want to make sure I understand — are you saying...?' Validation: 'That makes sense given what you've been through.' Summarising: closes sessions, checks understanding. Avoid: false reassurance ('Everything will be fine'), giving advice, asking 'why' questions (defensive), changing subject to avoid discomfort."
+          },
+          {
+            "title": "Professional Boundaries",
+            "body": "Boundaries define the nurse-patient relationship as professional, not personal. Boundary violations include: excessive self-disclosure, accepting gifts, maintaining contact outside the clinical setting, romantic involvement, favouritism, role reversal (patient comforting the nurse). Warning signs of boundary crossing: looking forward excessively to shifts with a specific patient, thinking about the patient outside work, keeping secrets with the patient, discussing other patients or staff. Report concerns to supervisor; this is a patient safety issue."
+          },
+          {
+            "title": "Countertransference",
+            "body": "Countertransference = emotional reactions the nurse has towards the patient, often unconsciously triggered by the patient's behaviour or the nurse's own unresolved issues. Examples: excessive sympathy → enabling behaviour; irritation → punitive care; attraction → boundary crossing. Recognition requires self-awareness and clinical supervision. Unmanaged countertransference compromises therapeutic neutrality and patient safety. Regular supervision/peer review is standard of care in psychiatric nursing."
+          }
+        ],
+        "clinical_pearl": "Patients with personality disorders (especially borderline) may idealise ('you're the only nurse who understands me') then devalue ('you're useless just like everyone else'). This is splitting — a defence mechanism, not a personal attack. Maintain consistent, boundaried responses regardless of the patient's affect.",
+        "key_points": [
+          "Peplau's four phases: Orientation → Identification → Exploitation → Resolution",
+          "Therapeutic communication ≠ social conversation; it has clinical intent",
+          "Boundaries protect both patient and nurse",
+          "Countertransference must be recognised and managed through supervision",
+          "Splitting (idealise/devalue) is characteristic of BPD; respond with consistency"
+        ],
+        "references": [
+          "Peplau HE. Interpersonal Relations in Nursing. New York: Putnam, 1952",
+          "Townsend MC & Morgan KI. Psychiatric Mental Health Nursing, 9th ed. FA Davis, 2017",
+          "ANAC. Psychiatric-Mental Health Nursing Scope and Standards of Practice, 3rd ed. ANA, 2022"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Psychotic Disorders: Schizophrenia Spectrum Nursing Care",
+      "order": 3,
+      "lay_summary": "Schizophrenia is a serious mental illness characterised by disruptions in thinking, perception, and behaviour. Nurses play a key role in medication management, safety monitoring, and recovery support.",
+      "content": {
+        "intro": "Schizophrenia spectrum disorders (DSM-5-TR) include schizophrenia, schizoaffective disorder, brief psychotic disorder, and schizophreniform disorder. They share features of psychosis — loss of contact with reality. Nursing care focuses on safety, symptom management, medication adherence, and supporting functional recovery.",
+        "estimated_minutes": 40,
+        "sections": [
+          {
+            "title": "Positive, Negative, and Cognitive Symptoms",
+            "body": "Positive symptoms (excess or distortion of normal function): hallucinations (most commonly auditory), delusions, disorganised speech, disorganised/catatonic behaviour. Negative symptoms (diminution of normal function): flat affect, alogia (poverty of speech), avolition (lack of motivation), anhedonia, social withdrawal. These are harder to treat and most impair quality of life. Cognitive symptoms: impaired working memory, attention, executive function — major barrier to employment and independent living. Nurses should assess all three domains at each interaction."
+          },
+          {
+            "title": "Antipsychotic Medications: Nursing Priorities",
+            "body": "First-generation (typical) antipsychotics (haloperidol, chlorpromazine): block D2 receptors; effective for positive symptoms. Key side effects: extrapyramidal symptoms (EPS) — akathisia (restlessness), dystonia (muscle spasms), parkinsonism, tardive dyskinesia (late-onset involuntary movements, often irreversible). Second-generation (atypical) antipsychotics (olanzapine, risperidone, clozapine, quetiapine): lower EPS risk; associated with metabolic syndrome — monitor weight, fasting glucose, lipids. Clozapine: reserved for treatment-resistant schizophrenia; requires weekly/fortnightly FBC monitoring for agranulocytosis. Teach patients: do not stop medication abruptly; relapse risk is high within 3-6 months of stopping."
+          },
+          {
+            "title": "Nursing Interventions for Active Psychosis",
+            "body": "Safety first: assess for command hallucinations instructing self-harm or harm to others. Do not leave acutely psychotic patients alone. Communication: speak calmly, simply, in short sentences. Do not argue with delusions or try to 'talk the patient out of them' — this increases agitation. Acknowledge the patient's distress: 'I can see you're frightened. I'm here to keep you safe.' Provide a low-stimulation environment: reduce noise, lighting, number of people. Orient frequently. Reality orientation: gently offer alternative interpretations without confrontation. Administer antipsychotics as prescribed; monitor for PRN indications (agitation, escalating behaviour)."
+          },
+          {
+            "title": "Monitoring for Neuroleptic Malignant Syndrome (NMS)",
+            "body": "NMS is a rare but life-threatening complication of antipsychotic therapy. Cardinal features (FALTER mnemonic): Fever (high, >38.5°C), Altered consciousness, Labile BP, Tachycardia, Elevated CK (markedly), Rigidity (lead-pipe). Additional: diaphoresis, urinary incontinence. Onset: usually within 2 weeks of starting or increasing antipsychotics. Management: stop all antipsychotics immediately, supportive care (IV fluids, cooling), transfer to medical ward, dantrolene or bromocriptine may be used. Do not restart antipsychotics until fully recovered (weeks-months)."
+          }
+        ],
+        "clinical_pearl": "Tardive dyskinesia (involuntary orofacial movements — lip smacking, tongue protrusion, grimacing) can develop after months to years of antipsychotic use. Use the AIMS (Abnormal Involuntary Movement Scale) every 6 months. Early detection is critical — TD may not resolve even after stopping the medication.",
+        "key_points": [
+          "Positive symptoms respond better to antipsychotics; negative symptoms are harder to treat",
+          "First-generation antipsychotics: D2 blockade, high EPS risk",
+          "Second-generation antipsychotics: metabolic side effects — monitor BMI, glucose, lipids",
+          "Clozapine: for treatment-resistant schizophrenia; mandatory FBC monitoring",
+          "NMS: stop antipsychotic immediately; FALTER = Fever, Altered consciousness, Labile BP, Tachycardia, Elevated CK, Rigidity"
+        ],
+        "references": [
+          "American Psychiatric Association. DSM-5-TR. APA, 2022",
+          "NICE. Guideline NG222: Psychosis and schizophrenia in adults. NICE, 2023",
+          "Leucht S et al. Comparative efficacy of 15 antipsychotic drugs. Lancet 2013;382(9896):951-962"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Mood Disorders: Depression and Bipolar Disorder",
+      "order": 4,
+      "lay_summary": "Mood disorders affect how people feel, think, and function. As a nurse, you will assess severity, monitor medications, and identify warning signs of relapse and suicide risk.",
+      "content": {
+        "intro": "Major depressive disorder (MDD) and bipolar disorder are among the most prevalent and disabling mental illnesses globally. Nursing care addresses safety (suicide risk), medication adherence, psychoeducation, and recognition of mood episodes across the spectrum.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Major Depressive Disorder: Assessment with PHQ-9",
+            "body": "DSM-5 requires 5+ symptoms for ≥2 weeks, with at least one being depressed mood or anhedonia. SIGECAPS mnemonic: Sleep disturbance (↑ or ↓), Interest loss (anhedonia), Guilt/worthlessness, Energy loss, Concentration difficulty, Appetite change (↑ or ↓), Psychomotor changes (retardation or agitation), Suicidal ideation. PHQ-9 scoring: 0-4 minimal, 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20-27 severe. Item 9 ('thoughts of being better off dead') must always be explored if answered positively."
+          },
+          {
+            "title": "Antidepressant Therapy: Nursing Role",
+            "body": "SSRIs (sertraline, fluoxetine, escitalopram) are first-line. Key nursing teaching: therapeutic effect takes 2-4 weeks; do not stop abruptly (discontinuation syndrome — dizziness, flu-like symptoms, 'brain zaps'). Monitor for serotonin syndrome (triad: hyperthermia, neuromuscular abnormality — tremor/clonus/hyperreflexia, altered mental status) — especially when combining SSRIs with tramadol, triptans, linezolid, St John's Wort. Black box warning: increased suicidality in children/adolescents/young adults (≤24 years) in first 4 weeks of treatment — increase monitoring frequency."
+          },
+          {
+            "title": "Bipolar Disorder: Recognising Manic Episodes",
+            "body": "Mania (DSM-5): ≥7 days of elevated/expansive/irritable mood + 3+ of DIGFAST — Distractibility, Impulsivity/indiscretion, Grandiosity, Flight of ideas, Activity increase, Sleep decreased (without fatigue), Talkativeness (pressured speech). Hypomania: same features, <4 days, not requiring hospitalisation. Nursing priorities in mania: safety (impulsive decisions — financial, sexual, dangerous), sleep promotion (sleep deprivation worsens mania), low stimulation environment, monitor food/fluid intake (hyperactive patients forget to eat), administer mood stabilisers as prescribed."
+          },
+          {
+            "title": "Mood Stabilisers: Monitoring Essentials",
+            "body": "Lithium: narrow therapeutic index (0.6-1.2 mEq/L maintenance). Toxicity signs: tremor, nausea, polyuria (early) → ataxia, confusion, coarse tremor (moderate) → seizures, coma, cardiac arrhythmia (severe). Check levels every 3-6 months when stable. Toxic level >1.5 mEq/L. Ensure adequate hydration; sodium depletion raises lithium levels (diuretics, vomiting, diarrhoea are risks). Valproate: monitor LFTs and FBC (hepatotoxicity, thrombocytopenia). Teratogenic — ensure contraception discussed. Lamotrigine: risk of Stevens-Johnson Syndrome (SJS) — educate about skin rash (stop immediately if rash develops)."
+          }
+        ],
+        "clinical_pearl": "Lithium toxicity can be precipitated by NSAIDs, ACE inhibitors, and thiazide diuretics — all of which raise serum lithium. Educate patients: no ibuprofen without checking with prescriber. Dehydration (gastroenteritis, hot weather, exercise) is another common trigger.",
+        "key_points": [
+          "PHQ-9 severity: 5-9 mild, 10-14 moderate, 15-19 moderately severe, 20+ severe; always explore item 9",
+          "SSRIs take 2-4 weeks for effect; black box warning: suicidality in ≤24yr in first 4 weeks",
+          "Mania: DIGFAST mnemonic; safety and sleep are nursing priorities",
+          "Lithium therapeutic range 0.6-1.2 mEq/L; toxicity >1.5; NSAIDs and dehydration are risks",
+          "Lamotrigine: stop immediately if skin rash develops (SJS risk)"
+        ],
+        "references": [
+          "American Psychiatric Association. DSM-5-TR. APA, 2022",
+          "NICE. Guideline NG222: Depression in adults. NICE, 2022",
+          "NICE. Guideline NG185: Bipolar disorder. NICE, 2014 updated 2020",
+          "Kroenke K et al. The PHQ-9: validity of a brief depression severity measure. J Gen Intern Med 2001;16:606-613"
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "title": "Anxiety Disorders, OCD, and PTSD",
+      "order": 5,
+      "lay_summary": "Anxiety disorders are the most common psychiatric conditions worldwide. Nurses must distinguish normal anxiety from pathological anxiety and recognise the specific patterns of OCD and PTSD.",
+      "content": {
+        "intro": "Anxiety disorders include generalised anxiety disorder (GAD), panic disorder, social anxiety disorder, specific phobias, and agoraphobia. OCD and PTSD have been reclassified in DSM-5 but share anxiety as a core feature. The GAD-7 is the validated screening tool used most widely in nursing practice.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Generalised Anxiety Disorder: Assessment and Nursing Care",
+            "body": "GAD: excessive, uncontrollable worry about multiple domains for ≥6 months. Associated with somatic symptoms: muscle tension, fatigue, irritability, sleep disturbance, difficulty concentrating. GAD-7 scoring: 0-4 minimal, 5-9 mild, 10-14 moderate, 15-21 severe. Nursing interventions: psychoeducation about the anxiety-adrenaline cycle; relaxation techniques (4-7-8 breathing, progressive muscle relaxation); limit caffeine; sleep hygiene; cognitive restructuring (challenge catastrophic thoughts); referral for CBT. First-line pharmacotherapy: SSRIs/SNRIs. Buspirone for GAD (non-addictive, takes 2-4 weeks). Short-term benzodiazepines for acute symptoms only — risk of dependence."
+          },
+          {
+            "title": "Panic Disorder and Acute Panic Attacks",
+            "body": "Panic attack: abrupt surge of intense fear peaking within minutes. Physical: palpitations, sweating, trembling, shortness of breath, chest pain, nausea, dizziness, paraesthesia, chills/heat. Cognitive: derealization, depersonalisation, fear of losing control or dying. Panic disorder = recurrent unexpected attacks + ≥1 month of anticipatory anxiety or maladaptive behaviour changes. Nursing during an acute panic attack: stay with the patient, calm voice ('You are safe, this will pass, I am with you'), ground with 5-4-3-2-1 technique (5 things you see, 4 hear, 3 touch, 2 smell, 1 taste), diaphragmatic breathing, do not leave alone. Distinguish from cardiac event — assess vital signs, ECG if indicated."
+          },
+          {
+            "title": "OCD: Obsessions, Compulsions, and Nursing Management",
+            "body": "OCD (now separate from anxiety disorders in DSM-5): obsessions = intrusive, unwanted, distressing thoughts/urges/images; compulsions = repetitive behaviours or mental acts performed to reduce obsession-related anxiety. Examples: contamination obsession → excessive handwashing; harm obsession → checking locks repeatedly. Ego-dystonic (patient recognises thoughts are excessive). Nursing: do not collude with compulsions (asking 'Did I wash my hands properly?' — reassurance maintains the cycle); set agreed limits on compulsion time; support exposure and response prevention (ERP) therapy; SSRIs (high doses often needed — fluoxetine, fluvoxamine)."
+          },
+          {
+            "title": "Post-Traumatic Stress Disorder (PTSD)",
+            "body": "PTSD develops after exposure to actual or threatened death, serious injury, or sexual violence (direct, witnessed, or learned of happening to close person). Four symptom clusters: 1. Intrusion (flashbacks, nightmares, intrusive memories). 2. Avoidance (of trauma-related stimuli). 3. Negative alterations in cognition/mood (persistent negative beliefs, emotional numbing, shame, guilt). 4. Hyperarousal/reactivity (hypervigilance, exaggerated startle, sleep disturbance, aggression). Nursing priorities: trauma-informed care — ask permission before physical contact; provide predictability (explain all procedures in advance); avoid power imbalances; believe the patient; do not push for trauma narrative prematurely."
+          }
+        ],
+        "clinical_pearl": "Trauma-informed care applies to ALL nursing settings, not just psychiatric wards. Many patients with chronic pain, heart disease, and cancer have underlying trauma histories that affect their healthcare engagement. Universal trauma precautions — like informed consent for physical examination — should be standard.",
+        "key_points": [
+          "GAD-7: 5-9 mild, 10-14 moderate, 15+ severe anxiety",
+          "Panic attacks: 5-4-3-2-1 grounding; rule out cardiac cause; do not leave alone",
+          "OCD: do not provide reassurance compulsively — it maintains the cycle; support ERP",
+          "PTSD: four clusters — intrusion, avoidance, negative cognition/mood, hyperarousal",
+          "Trauma-informed care: ask permission, explain procedures, believe the patient"
+        ],
+        "references": [
+          "American Psychiatric Association. DSM-5-TR. APA, 2022",
+          "NICE. Guideline NG197: Obsessive-compulsive disorder. NICE, 2005 updated 2021",
+          "NICE. Guideline NG116: Post-traumatic stress disorder. NICE, 2018",
+          "Spitzer RL et al. A brief measure for assessing GAD (GAD-7). Arch Intern Med 2006;166:1092-1097"
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "title": "Safe Management of the Agitated Patient",
+      "order": 6,
+      "lay_summary": "Aggression and agitation are clinical emergencies in psychiatric settings. The nurse's goal is de-escalation — using communication to reduce violence risk before it occurs.",
+      "content": {
+        "intro": "Aggression in inpatient psychiatric settings is a significant occupational hazard and patient safety issue. The evidence strongly supports de-escalation as the first-line intervention over physical restraint or rapid tranquillisation, which carry significant risks. The UK's NICE NG10 and international standards establish a hierarchy: prevention → de-escalation → rapid tranquillisation → restraint.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Recognising Escalating Aggression: Warning Signs",
+            "body": "Behavioural cues: pacing, clenching fists/jaw, raising voice, threatening posture (squared stance, finger-pointing), invasion of personal space, increased respiratory rate, flushing. Verbal cues: raised voice, profanity, threats, demands. Environmental triggers: long waiting times, perceived disrespect, denied requests, intoxication, pain, psychosis (command hallucinations), mania, frontal lobe disinhibition. Early identification allows early intervention — the window for de-escalation closes as arousal increases."
+          },
+          {
+            "title": "De-escalation Techniques (LOWLINE Framework)",
+            "body": "L — Listen actively; do not interrupt. O — Offer choices; agitation worsens when people feel out of control. W — Whisper/lower your voice (counterintuitive but effective — forces the patient to quieten to hear you). L — Look non-threatening: no direct eye contact staring, side-on posture, keep hands visible and open, do not cross arms. I — Identify needs ('What would help right now?'). N — Neutral tone: do not match the patient's affect. E — Exit route: ensure both you and the patient have a clear exit; never corner a patient. Additional: use the patient's name; acknowledge frustration ('I can see you're really angry right now'); agree with what you can; avoid threats or ultimatums."
+          },
+          {
+            "title": "Rapid Tranquillisation",
+            "body": "Used when de-escalation fails and there is imminent risk. Common regimens (check local policy): oral: lorazepam ± haloperidol; IM: lorazepam, haloperidol, olanzapine, or droperidol (not olanzapine + benzodiazepine IM simultaneously — respiratory depression risk). Post-administration monitoring: continuous observation, SpO2, RR, pulse, BP every 5-15 minutes for at least 1 hour. Equipment must be available: airway adjuncts, flumazenil (benzo reversal), oxygen. Document: time, medication, dose, route, indication, patient's response."
+          },
+          {
+            "title": "Physical Restraint and Post-Incident Care",
+            "body": "Physical restraint is a last resort when there is immediate risk of serious harm. Requires trained staff (minimum — usually 5 for full restraint), clear leadership, continuous monitoring of airway, breathing, and consciousness. Never apply pressure to neck, thorax, or abdomen. Prone restraint ('face-down') has caused deaths from positional asphyxia — avoid unless no alternative. Document duration, staff involved, patient's condition throughout. Post-incident: patient debrief (within 24 hours — 'What would have helped?'); staff debrief; incident report; review care plan. For patients: physical assessment (injury), psychological support."
+          }
+        ],
+        "clinical_pearl": "Your personal safety comes first — you cannot help a patient if you are injured. Know your unit's duress alarm system. At the first sign of escalation, call for support before the situation deteriorates. It is not a failure to call for help early; it is good clinical judgement.",
+        "key_points": [
+          "De-escalation first: LOWLINE framework — Listen, Offer choices, Whisper, Look non-threatening, Identify needs, Neutral tone, Exit route",
+          "Do not mix IM olanzapine + IM benzodiazepine — respiratory depression risk",
+          "Post-rapid tranquillisation: SpO2, RR, BP monitoring ×1 hour minimum",
+          "Prone restraint risks positional asphyxia — avoid",
+          "Post-incident debrief with both patient and staff is mandatory"
+        ],
+        "references": [
+          "NICE. Guideline NG10: Violence and aggression: short-term management in mental health, health and community settings. NICE, 2015 updated 2022",
+          "TRIPP G et al. De-escalation techniques. SAMHSA, 2020",
+          "Bowers L et al. Prevention and management of violence in mental health. Int J Mental Health Nursing, 2014"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "MSE components (mnemonic)?",
+      "answer": "Appearance, Behaviour, Speech, Mood, Affect, Thought Process, Thought Content, Perception, Cognition, Insight/Judgement",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What is the difference between mood and affect?",
+      "answer": "Mood = patient's subjective report of emotional state ('I feel sad'). Affect = nurse's objective observation of emotional expression. They may be congruent or incongruent.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "FALTER mnemonic for NMS?",
+      "answer": "Fever, Altered consciousness, Labile BP, Tachycardia, Elevated CK, Rigidity. Stop antipsychotic immediately.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Lithium therapeutic range and early toxicity signs?",
+      "answer": "Therapeutic: 0.6-1.2 mEq/L. Early toxicity (>1.5): nausea, tremor, polyuria. Severe (>2.0): ataxia, confusion, seizures, arrhythmia.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "DIGFAST mnemonic for mania?",
+      "answer": "Distractibility, Impulsivity/Indiscretion, Grandiosity, Flight of ideas, Activity increase, Sleep decreased (no fatigue), Talkativeness (pressured speech)",
+      "difficulty": "medium"
+    }
+  ],
+  "mcq_questions": [],
+  "clinical_cases": []
+}

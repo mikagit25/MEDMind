@@ -7,11 +7,17 @@
     "title_en": "Infection Control and Hand Hygiene",
     "order_in_specialty": 4,
     "level": "beginner",
-    "prerequisite_modules": ["NURSE-001"],
-    "duration_hours": 3,
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
+    "duration_hours": 6,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["WHO Hand Hygiene Guidelines 2009", "CDC Healthcare Infection Control Practices Advisory Committee (HICPAC)", "CDC Transmission-Based Precautions 2024"]
+    "sources": [
+      "WHO Hand Hygiene Guidelines 2009",
+      "CDC Healthcare Infection Control Practices Advisory Committee (HICPAC)",
+      "CDC Transmission-Based Precautions 2024"
+    ]
   },
   "lessons": [
     {
@@ -44,7 +50,10 @@
           "Artificial nails prohibited in clinical settings",
           "Technique: 20–30 s ABHR; 40–60 s soap and water"
         ],
-        "references": ["WHO Hand Hygiene Guidelines 2009", "WHO SAVE LIVES: Clean Your Hands campaign"]
+        "references": [
+          "WHO Hand Hygiene Guidelines 2009",
+          "WHO SAVE LIVES: Clean Your Hands campaign"
+        ]
       }
     },
     {
@@ -80,16 +89,109 @@
           "Airborne: TB, measles, varicella → N95 + negative-pressure room",
           "C. diff requires soap and water for hand hygiene — ABHR insufficient against spores"
         ],
-        "references": ["CDC 2007 Guideline for Isolation Precautions", "CDC HICPAC Recommendations 2024"]
+        "references": [
+          "CDC 2007 Guideline for Isolation Precautions",
+          "CDC HICPAC Recommendations 2024"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Surgical Asepsis and Sterile Technique",
+      "order": 3,
+      "lay_summary": "Surgical asepsis means zero micro-organisms on sterile fields and instruments. Any break in technique — however brief — requires starting over.",
+      "content": {
+        "intro": "Surgical asepsis (sterile technique) eliminates all micro-organisms from items and areas. It differs from medical asepsis (clean technique), which reduces micro-organism numbers. Surgical asepsis is required for: invasive procedures (central line insertion, lumbar puncture, chest drain, joint aspiration, wound closure), sterile wound dressing, urinary catheterisation, surgical environments. Maintaining sterile fields requires constant vigilance — most breaks occur from inattention, not ignorance.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Principles of Surgical Asepsis",
+            "body": "1. Only sterile items contact sterile items. 2. Sterile field is monitored continuously — never leave unattended. 3. Items below the level of the sterile field are considered contaminated (table surface is the border — anything hanging below is non-sterile). 4. Sterile persons do not reach across non-sterile areas. 5. Edges of sterile packaging and containers (1-inch border) are considered non-sterile. 6. Any item of questionable sterility is considered non-sterile ('when in doubt, throw it out'). 7. Airborne contamination: minimise talking, coughing, sneezing over sterile field; face away from field when speaking if necessary; minimise personnel movement near the field."
+          },
+          {
+            "title": "Surgical Hand Scrub vs ABHR",
+            "body": "WHO 2009 recommends: for invasive procedures with sterile gloves, surgical hand antisepsis is required (either traditional aqueous scrub or alcohol-based surgical hand rub [ABHR]). Traditional scrub: 2-5 minutes with chlorhexidine or povidone-iodine scrub brush, fingers to elbows; keep hands above elbows ('scrub up'). ABHR surgical rub: apply per manufacturer instructions (typically 3-5 min of rubbing until dry), no water; shown to be equivalent or superior for SSI prevention. Gloves: sterile gloves must be donned without contaminating the outside; open or closed glove technique. Perforation rate of surgical gloves: 18% after 1 hour — consider double-gloving for high-risk procedures."
+          },
+          {
+            "title": "Surgical Site Infection (SSI) Prevention Bundle",
+            "body": "SSIs account for 20% of all HAIs. Prevention bundle (evidence-based): 1. Pre-operative: antiseptic shower (chlorhexidine) night before; hair removal (clippers, not razors — razors increase SSI rate 2×); glycaemic control (target glucose <10 mmol/L perioperatively). 2. Intraoperative: prophylactic antibiotics (within 60 min before incision — nurse verifies timing); maintain normothermia (hypothermia impairs immune function, impairs wound healing); minimise operating room traffic; aseptic technique throughout. 3. Post-operative: wound assessment at each dressing change; document wound healing (PUSH tool for pressure injuries; HEALING criteria for surgical wounds); recognise SSI signs: warmth, erythema, swelling, purulent discharge, increased pain, dehiscence, fever."
+          }
+        ],
+        "clinical_pearl": "If you think the sterile field has been breached, it has been. The principle 'when in doubt, throw it out' is absolute. The cost of a new sterile pack is negligible compared to the cost of a surgical site infection — financially and in terms of patient harm. No one should feel pressured to continue with a contaminated field.",
+        "key_points": [
+          "Items below the sterile field level are contaminated; 1-inch border of sterile packaging = non-sterile",
+          "Sterile field is never left unattended",
+          "Surgical ABHR rub is equivalent to traditional aqueous scrub for SSI prevention",
+          "SSI bundle: chlorhexidine shower, clippers not razors, antibiotics within 60 min of incision, normothermia",
+          "When in doubt about sterility — throw it out"
+        ],
+        "references": [
+          "WHO. Guidelines for safe surgery. WHO, 2009",
+          "CDC. Guideline for the prevention of surgical site infection. 2017",
+          "NICE. Guideline NG125: Surgical site infections. NICE, 2019"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Healthcare-Associated Infections and Antimicrobial Stewardship",
+      "order": 4,
+      "lay_summary": "HAIs affect 1 in 10 hospitalised patients globally. Nurses are the first line of prevention — and responsible for recognising antimicrobial resistance.",
+      "content": {
+        "intro": "Healthcare-associated infections (HAIs) affect approximately 4 million patients annually in Europe alone and are a leading cause of preventable death. The four most common HAIs are: CAUTI (30-40%), pneumonia (15-20%), surgical site infection (15%), and central line-associated bloodstream infection (CLABSI). Antimicrobial resistance (AMR) — driven partly by inappropriate antibiotic use — is projected to cause 10 million deaths annually by 2050 (WHO, 2019).",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Multidrug-Resistant Organisms (MDROs): Key Pathogens",
+            "body": "MRSA (Methicillin-resistant Staphylococcus aureus): contact precautions; screen high-risk patients (previous MRSA, recent hospitalisation, care home residents). Decolonisation: chlorhexidine body wash + mupirocin nasal ointment × 5 days. Treatment of infection: vancomycin, teicoplanin, linezolid. VRE (Vancomycin-resistant Enterococci): contact precautions; can survive on surfaces for days — environmental decontamination is critical. C. difficile (CDI): use contact precautions AND apron AND gloves; strict hand hygiene with SOAP AND WATER (ABHR is not effective against C. diff spores). Private room preferred. Treatment: oral vancomycin or fidaxomicin. ESBL-producing Enterobacteriaceae and CRE (carbapenem-resistant): contact precautions; limited treatment options — carbapenem or new agents (ceftazidime-avibactam). Notify infection control team for all MDROs."
+          },
+          {
+            "title": "Antimicrobial Stewardship: The Nurse's Role",
+            "body": "Antimicrobial stewardship (AMS) = optimising antibiotic use to treat infections while minimising adverse effects and resistance development. Nurse contributions: 1. Obtain blood cultures BEFORE starting antibiotics (2 sets from 2 sites) — administration without cultures leads to uninterpretable results and untreatable bacteria. 2. Administer first antibiotic dose promptly (within 1 hour of order in sepsis). 3. Document allergy history accurately (true allergy vs intolerance — vomiting to penicillin is not an allergy; cross-reactivity penicillin-cephalosporin is <1-2%). 4. Monitor therapeutic drug monitoring (TDM) levels: gentamicin and vancomycin require pre-dose trough levels. 5. Escalate if patient not responding or worsening (fever persisting >72h, new organ dysfunction). 6. Support de-escalation/IV-to-oral switch conversations."
+          }
+        ],
+        "clinical_pearl": "Alcohol hand rub (ABHR) does NOT kill C. difficile spores. For any patient with diarrhoea, or known/suspected C. difficile, hand hygiene must use soap and water — not ABHR alone. This is one of the most commonly missed infection control actions. Educate all staff, visitors, and patients' families.",
+        "key_points": [
+          "MRSA: contact precautions + chlorhexidine/mupirocin decolonisation",
+          "C. diff: SOAP AND WATER only — ABHR does not kill spores; contact precautions",
+          "Blood cultures × 2 sets × 2 sites BEFORE first antibiotic dose",
+          "First antibiotic dose in sepsis: within 1 hour of order",
+          "Gentamicin and vancomycin: monitor pre-dose trough levels"
+        ],
+        "references": [
+          "NICE. Guideline NG15: Antimicrobial stewardship. NICE, 2015",
+          "WHO. Global action plan on antimicrobial resistance. WHO, 2015",
+          "Loveday HP et al. epic3 national evidence-based guidelines. J Hospital Infection 2014;86(S1):S1-S70"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "WHO 5 Moments for Hand Hygiene — list them.", "answer": "1. Before patient contact. 2. Before aseptic procedure. 3. After body fluid exposure risk. 4. After patient contact. 5. After touching patient surroundings.", "difficulty": "medium"},
-    {"question": "When MUST soap and water be used instead of ABHR?", "answer": "Visibly soiled hands; C. difficile patients; Norovirus outbreak; before eating.", "difficulty": "medium"},
-    {"question": "What PPE is required for a patient with active pulmonary TB?", "answer": "Fit-tested N95 respirator + airborne infection isolation room (negative pressure). Patient wears surgical mask during transport.", "difficulty": "medium"},
-    {"question": "What precaution type is required for a patient with MRSA wound infection?", "answer": "Contact Precautions: gown + gloves on entry to room. Private room or cohort.", "difficulty": "easy"},
-    {"question": "Why are artificial nails prohibited in clinical areas?", "answer": "They harbour pathogens (including gram-negative bacteria and fungi) under and around the nail, increasing infection transmission risk.", "difficulty": "easy"}
+    {
+      "question": "WHO 5 Moments for Hand Hygiene — list them.",
+      "answer": "1. Before patient contact. 2. Before aseptic procedure. 3. After body fluid exposure risk. 4. After patient contact. 5. After touching patient surroundings.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "When MUST soap and water be used instead of ABHR?",
+      "answer": "Visibly soiled hands; C. difficile patients; Norovirus outbreak; before eating.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What PPE is required for a patient with active pulmonary TB?",
+      "answer": "Fit-tested N95 respirator + airborne infection isolation room (negative pressure). Patient wears surgical mask during transport.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What precaution type is required for a patient with MRSA wound infection?",
+      "answer": "Contact Precautions: gown + gloves on entry to room. Private room or cohort.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Why are artificial nails prohibited in clinical areas?",
+      "answer": "They harbour pathogens (including gram-negative bacteria and fungi) under and around the nail, increasing infection transmission risk.",
+      "difficulty": "easy"
+    }
   ],
   "mcq_questions": [
     {
@@ -117,7 +219,11 @@
         "F": "Patient with vancomycin-resistant Enterococcus (VRE) on contact precautions"
       },
       "correct": "A",
-      "correct_answers": ["A", "D", "E"],
+      "correct_answers": [
+        "A",
+        "D",
+        "E"
+      ],
       "explanation": "Soap and water is required for: C. diff patients (A — spores resist ABHR), visibly soiled hands (D), and before eating (E). MRSA (B), influenza (C), and VRE (F) do not specifically require soap — ABHR is effective for these pathogens.",
       "difficulty": "hard"
     },
@@ -131,7 +237,12 @@
         "D": "Don gloves and gown"
       },
       "correct": "C",
-      "correct_order": ["C", "B", "A", "D"],
+      "correct_order": [
+        "C",
+        "B",
+        "A",
+        "D"
+      ],
       "explanation": "First confirm the room meets airborne isolation requirements (negative pressure — C). Then perform hand hygiene (B). Don the N95 respirator before entering any area where airborne pathogens may be present (A). Then add other PPE as required — gown and gloves (D).",
       "difficulty": "medium"
     }

@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "id": "NURSE-010",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Crisis Intervention, Abuse & Substance Use",
+    "title_en": "Crisis Intervention, Abuse & Substance Use",
+    "order_in_specialty": 10,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-009"],
+    "duration_hours": 5,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": [
+      "SAMHSA. National Guidelines for Behavioral Health Crisis Care. 2020",
+      "Columbia Suicide Severity Rating Scale (C-SSRS). Columbia University, 2008",
+      "WHO. Clinical guidelines for withdrawal management in closed settings. 2009",
+      "NICE. Guideline NG58: Domestic violence and abuse. 2014 updated 2023",
+      "ASAM. The ASAM Criteria, 3rd ed. 2013"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Crisis Theory and the Nursing Role in Crisis Intervention",
+      "order": 1,
+      "lay_summary": "A crisis is a temporary state of disequilibrium where usual coping mechanisms fail. Nurses are often the first clinical contact and have a critical role in stabilisation.",
+      "content": {
+        "intro": "Crisis intervention is a short-term, goal-directed therapeutic approach aimed at restoring the individual to at least their pre-crisis level of functioning. Gerald Caplan's crisis theory (1961) and Lindemann's grief work form the theoretical basis. Roberts' Seven-Stage Crisis Intervention Model provides a practical nursing framework.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Roberts' Seven-Stage Crisis Intervention Model",
+            "body": "Stage 1: Assess lethality — immediate safety assessment for suicidal/homicidal ideation and means. Stage 2: Establish rapport — non-judgmental presence, empathy, active listening. Stage 3: Identify the problem — what precipitated this crisis? (precipitating event). Stage 4: Deal with feelings — validate and explore emotional response. Stage 5: Explore alternatives — what has worked before? What resources are available? Stage 6: Develop an action plan — concrete, achievable steps, including safety planning if needed. Stage 7: Follow-up — schedule a follow-up contact or referral. The model is flexible — not always linear, but all stages must be addressed."
+          },
+          {
+            "title": "Maturational vs Situational Crisis",
+            "body": "Maturational crises arise from normal developmental transitions that temporarily overwhelm coping: adolescence and identity formation, marriage, parenthood, retirement, death of a spouse. These are predictable and anticipatory guidance can mitigate impact. Situational crises are unexpected, external events: sudden illness, job loss, divorce, accidents, natural disasters, assault. Adventitious crises = large-scale disasters (pandemics, mass casualty events). Nursing response differs: maturational crises may benefit from normalisation and psychoeducation; situational crises require immediate practical support and safety assessment."
+          },
+          {
+            "title": "Principles of Trauma-Informed Crisis Nursing",
+            "body": "SAMHSA's six principles: Safety (physical and emotional); Trustworthiness and transparency; Peer support; Collaboration and mutuality; Empowerment and choice; Cultural, historical, and gender sensitivity. Practical application: explain all actions before performing them; give choices wherever possible; do not use physical holds unnecessarily; avoid judgmental language about past behaviour; involve the patient in safety planning rather than imposing it. Avoid re-traumatisation: asking detailed questions about trauma history during acute crisis is contraindicated."
+          }
+        ],
+        "clinical_pearl": "The strongest predictor of a successful crisis intervention is the quality of the therapeutic alliance established in the first five minutes. Introduce yourself, sit at the patient's level, use their preferred name, and demonstrate that you have time — even if you don't feel like you do.",
+        "key_points": [
+          "Roberts' 7 stages: Lethality → Rapport → Problem → Feelings → Alternatives → Plan → Follow-up",
+          "Maturational = developmental transitions; situational = unexpected external events",
+          "Trauma-informed care: safety, transparency, empowerment, cultural sensitivity",
+          "Do NOT take a detailed trauma history during acute crisis — focus on stabilisation",
+          "Therapeutic alliance in the first 5 minutes is the strongest predictor of success"
+        ],
+        "references": [
+          "Roberts AR. Bossiere KJ. Crisis intervention handbook, 4th ed. Oxford University Press, 2015",
+          "SAMHSA. National Guidelines for Behavioral Health Crisis Care. 2020",
+          "SAMHSA. SAMHSA's Concept of Trauma and Guidance for a Trauma-Informed Approach. HHS Publication, 2014"
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Suicide Risk Assessment and Safety Planning",
+      "order": 2,
+      "lay_summary": "Suicide is a leading cause of preventable death. Every nurse — not just psychiatric nurses — must be able to assess suicide risk and initiate a safety plan.",
+      "content": {
+        "intro": "Suicide risk assessment is a core nursing competency across all specialties. The WHO estimates 700,000 suicide deaths annually globally. Many people who die by suicide had contact with a healthcare professional in the weeks before their death. The Columbia Suicide Severity Rating Scale (C-SSRS) is the validated, evidence-based tool endorsed by the FDA, Joint Commission, and WHO.",
+        "estimated_minutes": 40,
+        "sections": [
+          {
+            "title": "The Columbia Suicide Severity Rating Scale (C-SSRS)",
+            "body": "The C-SSRS assesses ideation intensity and behaviour separately. Ideation: 1 = Passive wish to be dead ('I wish I were dead'). 2 = Non-specific active ideation ('I want to kill myself' without plan). 3 = Active ideation with method (no plan or intent). 4 = Active ideation with plan. 5 = Active ideation with intent to act. Behaviour (lifetime/recent): preparatory actions, aborted attempts, interrupted attempts, actual attempts. High-acuity indicators: suicidal ideation type 4-5, recent attempt (last 3 months), specific plan, access to lethal means (especially firearms), male sex, older age, hopelessness (Beck Hopelessness Scale), impulsivity, intoxication, social isolation."
+          },
+          {
+            "title": "Asking About Suicide: Overcoming Barriers",
+            "body": "Common myth: asking about suicide 'plants the idea'. Evidence: this is false. Direct, compassionate questioning does NOT increase suicide risk and often provides relief ('Someone finally asked'). Recommended approach: 'Sometimes when people are going through difficult times, they have thoughts of hurting themselves or ending their life. Is that something you've been experiencing?' Follow up: 'Have you thought about how you would do it?' and 'Have you taken any steps to prepare?' Document exact responses, not paraphrases. If patient denies but has high risk indicators — trust clinical judgement over verbal denial."
+          },
+          {
+            "title": "Safety Planning (Stanley-Brown Safety Planning Intervention)",
+            "body": "The safety plan is a collaborative written document — not a 'no-suicide contract' (which lacks evidence and may deter honest disclosure). Six components: 1. Warning signs of an impending crisis (specific to this patient). 2. Internal coping strategies (distraction, self-soothing — what has helped before?). 3. Social contacts who can distract (people to call, places to go). 4. People to ask for help (friends, family who know about suicidal thoughts). 5. Professional and crisis contacts (psychiatrist, crisis line — e.g. 988 in USA, Samaritans 116 123 in UK). 6. Means restriction — remove/secure access to lethal means, especially firearms and stockpiled medications. Review and update at each contact."
+          },
+          {
+            "title": "Means Restriction Counselling",
+            "body": "Access to lethal means is the single most important modifiable risk factor for suicide completion. Most suicides involve impulsive decisions made during a short window of crisis — if the means are not immediately available, the crisis may pass. Firearms: account for ~50% of US suicide deaths. Ask directly about firearms in the home; recommend temporary removal or secure storage (gun lock, third-party storage). Medications: patients at risk should be prescribed limited quantities; involve family/carers in monitoring and securing medications. The nurse's role is to facilitate this conversation with the patient and family — not to make judgements about firearm ownership."
+          }
+        ],
+        "clinical_pearl": "Hopelessness, not depression severity, is the strongest predictor of suicide. The Beck Hopelessness Scale (BHS) correlates better with suicide completion than PHQ-9. A depressed patient who believes things can get better is at lower risk than one who says 'Nothing will ever change.'",
+        "key_points": [
+          "C-SSRS ideation 1-5: passive wish → active with intent; all level 4-5 require urgent intervention",
+          "Asking about suicide does NOT increase risk — it often provides relief",
+          "Safety plan ≠ no-suicide contract; must include means restriction",
+          "Hopelessness (BHS) is a stronger predictor of completion than depression severity",
+          "Firearms account for ~50% of suicide deaths; means restriction is the most impactful intervention"
+        ],
+        "references": [
+          "Columbia University Medical Center. Columbia Suicide Severity Rating Scale (C-SSRS). 2008",
+          "Stanley B, Brown GK. Safety Planning Intervention. Cognitive Behavioral Practices, 2012;19:256-263",
+          "Mann JJ et al. Suicide prevention strategies. JAMA 2005;294(16):2064-2074"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Substance Use Disorders: Recognition and Nursing Care",
+      "order": 3,
+      "lay_summary": "Substance use disorders affect millions worldwide. Nurses encounter patients with these disorders across all settings — not just psychiatric units. Stigma is a major barrier to care.",
+      "content": {
+        "intro": "Substance use disorder (SUD) is defined by the DSM-5 as a problematic pattern of substance use leading to clinically significant impairment or distress, manifesting as 2+ of 11 criteria within a 12-month period. SUD exists on a severity spectrum (mild: 2-3 criteria, moderate: 4-5, severe: 6+). The chronic brain disease model — not moral failing — underpins evidence-based treatment.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "DSM-5 SUD Criteria (11 criteria across 4 domains)",
+            "body": "Impaired control: 1. Taking more than intended / longer than intended. 2. Persistent desire or unsuccessful attempts to cut down. 3. Great deal of time obtaining/using/recovering. 4. Craving. Social impairment: 5. Failure to fulfil major role obligations. 6. Continued use despite persistent social/interpersonal problems. 7. Important activities given up. Risky use: 8. Recurrent use in hazardous situations. 9. Continued use despite physical or psychological harm. Pharmacological: 10. Tolerance (needing more to achieve same effect). 11. Withdrawal (characteristic syndrome or use to relieve/avoid withdrawal). Note: tolerance and withdrawal alone do not constitute SUD in patients taking medications as prescribed (e.g. opioids for pain, benzodiazepines for anxiety)."
+          },
+          {
+            "title": "CAGE and AUDIT Screening Tools",
+            "body": "CAGE (4 questions): Cut down ('Have you ever felt you should cut down?'), Annoyed ('Have people criticised your drinking?'), Guilty ('Have you felt guilty about your drinking?'), Eye-opener ('Have you ever had a drink first thing in the morning to steady your nerves?'). Score ≥2 = clinically significant; sensitivity 43-94% for alcohol dependence. AUDIT (Alcohol Use Disorders Identification Test): 10 questions; score 0-40. Recommended by WHO. Score 8-15 = hazardous use (brief intervention); 16-19 = harmful use (brief counselling + monitoring); ≥20 = probable dependence (referral). DAST-10 equivalent for drugs."
+          },
+          {
+            "title": "Medication-Assisted Treatment (MAT) for Opioid Use Disorder",
+            "body": "MAT is the evidence-based gold standard for opioid use disorder (OUD). Methadone: full opioid agonist; dispensed daily from licensed clinic; reduces cravings and prevents withdrawal; high overdose risk if diverted. Buprenorphine (Suboxone = buprenorphine/naloxone): partial agonist; ceiling effect reduces overdose risk; can be prescribed in office-based settings. Naltrexone (Vivitrol): opioid antagonist; blocks euphoria; must be opioid-free for 7-10 days before initiation or will precipitate withdrawal; IM injection monthly. Nursing role: administer medications, monitor for diversion, provide psychoeducation, support adherence, assess for continued use."
+          },
+          {
+            "title": "Harm Reduction Approach",
+            "body": "Harm reduction accepts that abstinence is not always immediately achievable and focuses on reducing the harms associated with substance use. Evidence-based interventions: needle and syringe programmes (reduce HIV, Hepatitis C transmission); naloxone distribution (opioid overdose reversal — every nurse should know how to administer nasal naloxone); supervised injection facilities; fentanyl test strips. Nurses should be familiar with naloxone: dose for opioid overdose = 0.4-2 mg IV/IM/SC/intranasal; repeat every 2-3 minutes if no response; naloxone half-life is shorter than most opioids — patient may re-narcotise after apparent recovery; observe for minimum 4 hours post-administration."
+          }
+        ],
+        "clinical_pearl": "Language matters in SUD care. 'Person with substance use disorder' reduces stigma compared to 'addict' or 'drug abuser'. Studies show healthcare providers who use stigmatising language provide lower quality care. Use person-first, non-judgmental language — it directly impacts clinical outcomes.",
+        "key_points": [
+          "DSM-5 SUD: 2+ of 11 criteria in 12 months; mild (2-3), moderate (4-5), severe (6+)",
+          "CAGE ≥2 and AUDIT ≥8 are positive screens for problematic alcohol use",
+          "MAT for OUD: methadone (full agonist), buprenorphine (partial agonist), naltrexone (antagonist)",
+          "Naloxone: 0.4-2 mg IV/IM/IN; repeat every 2-3 min; observe ≥4 hours post-dose",
+          "Person-first language ('person with SUD', not 'addict') improves care quality"
+        ],
+        "references": [
+          "American Psychiatric Association. DSM-5-TR. APA, 2022",
+          "WHO. The Alcohol Use Disorders Identification Test (AUDIT). WHO, 2001",
+          "SAMHSA. Medications for Opioid Use Disorder. Treatment Improvement Protocol (TIP) 63, 2021",
+          "Ashford RD et al. Stigma and addiction: how language affects clinical outcomes. J Addict Medicine, 2019"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Alcohol and Opioid Withdrawal: Clinical Management",
+      "order": 4,
+      "lay_summary": "Alcohol withdrawal is potentially fatal. Opioid withdrawal is very uncomfortable but rarely life-threatening. Nurses must recognise and escalate withdrawal syndromes promptly.",
+      "content": {
+        "intro": "Withdrawal syndromes occur when a physiologically dependent person abruptly reduces or stops substance use. The severity and timeline differ markedly between substances. The Clinical Institute Withdrawal Assessment (CIWA-Ar) for alcohol and COWS for opioids are the validated nursing tools for monitoring withdrawal severity and guiding treatment.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Alcohol Withdrawal: Timeline and Clinical Features",
+            "body": "Timeline (from last drink): 6-12h: autonomic hyperactivity — tremor, sweating, tachycardia, hypertension, anxiety. 12-24h: hallucinations (alcoholic hallucinosis) — visual, tactile ('formication' = sensation of insects on skin), usually with intact orientation. 24-48h: seizures (withdrawal seizures — generalised tonic-clonic; risk is higher with prior withdrawal seizures). 24-72h (peak): delirium tremens (DTs) — confusion, agitation, severe autonomic instability; 5-15% mortality if untreated. Mortality risk factors: concurrent illness, prior DTs, prolonged heavy use, older age."
+          },
+          {
+            "title": "CIWA-Ar: Clinical Institute Withdrawal Assessment for Alcohol",
+            "body": "CIWA-Ar assesses 10 items: Nausea/vomiting, Tremor, Paroxysmal sweats, Anxiety, Agitation, Tactile disturbances, Visual disturbances, Auditory disturbances, Headache, Orientation. Each scored 0-7 (except orientation 0-4). Maximum score: 67. Score <10: mild (monitor q1-4h). Score 10-15: moderate (consider pharmacotherapy). Score ≥15: severe (pharmacotherapy essential, consider ICU). Treatment: IV/PO benzodiazepines (chlordiazepoxide, diazepam, or lorazepam) — symptom-triggered dosing using CIWA is more effective and uses less medication than fixed-schedule dosing. Also: thiamine 100 mg IV before any dextrose (Wernicke's prevention), magnesium repletion."
+          },
+          {
+            "title": "Wernicke's Encephalopathy Prevention",
+            "body": "Wernicke's encephalopathy results from acute thiamine (B1) deficiency — common in alcohol dependence. Classic triad (all three present in <20% of cases): Confusion/delirium, Ophthalmoplegia (eye movement abnormalities — lateral gaze palsy, nystagmus), Ataxia. If untreated → Korsakoff's psychosis (permanent anterograde amnesia with confabulation). Critical nursing action: give IV thiamine BEFORE any IV dextrose/glucose in any patient with suspected alcohol dependence presenting to hospital. Glucose without thiamine can precipitate Wernicke's in a thiamine-depleted patient. Thiamine dose: 200-500 mg IV TDS × 3-5 days for treatment; 100 mg IV/IM for prophylaxis."
+          },
+          {
+            "title": "Opioid Withdrawal: COWS Assessment",
+            "body": "Opioid withdrawal is not life-threatening in healthy adults but is intensely uncomfortable. Timeline (short-acting opioids — heroin, oxycodone): onset 8-24h after last use, peak 36-72h, resolution 5-7 days. Symptoms: yawning, lacrimation, rhinorrhoea, piloerection ('goose flesh'), sweating, anxiety, restlessness, myalgia, abdominal cramps, nausea, vomiting, diarrhoea, dilated pupils, tachycardia. COWS (Clinical Opiate Withdrawal Scale): assesses 11 signs, score 5-12 mild, 13-24 moderate, 25-36 moderately severe, >36 severe. Treatment: buprenorphine (gold standard — reduces withdrawal and craving; initiate when COWS ≥8-12 and patient in mild-moderate withdrawal), methadone, clonidine (symptom relief — autonomic symptoms only), loperamide (diarrhoea), NSAIDs (myalgia)."
+          }
+        ],
+        "clinical_pearl": "Never give IV dextrose to a patient with suspected alcohol dependence without thiamine first. The mnemonic: 'Banana bag before bag' (Banana bag = IV thiamine + folate + multivitamin). This is one of the most important and most forgotten nursing actions in acute alcohol presentations.",
+        "key_points": [
+          "Alcohol withdrawal timeline: 6-12h tremor → 12-24h hallucinations → 24-48h seizures → 24-72h DTs",
+          "CIWA-Ar ≥15: severe withdrawal — pharmacotherapy mandatory, consider ICU",
+          "Wernicke's triad: confusion, ophthalmoplegia, ataxia — give thiamine BEFORE glucose",
+          "COWS ≥8: initiate buprenorphine; must be in mild-moderate withdrawal before first dose",
+          "Opioid withdrawal: not fatal in healthy adults; alcohol withdrawal can kill"
+        ],
+        "references": [
+          "Sullivan JT et al. Assessment of alcohol withdrawal: The CIWA-Ar. Br J Addiction 1989;84:1353-1357",
+          "WHO. Clinical guidelines for withdrawal management and treatment of drug dependence in closed settings. 2009",
+          "Weaver MF. Prescription sedative misuse and abuse. Yale J Biology Medicine 2015;88(3):247-256"
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "title": "Recognising and Responding to Abuse",
+      "order": 5,
+      "lay_summary": "Abuse — domestic, child, elder — is a public health crisis. Nurses are mandated reporters in most jurisdictions and are often the first professional a victim discloses to.",
+      "content": {
+        "intro": "Abuse encompasses physical, emotional/psychological, sexual, and financial harm, as well as neglect. Healthcare settings — emergency departments, antenatal clinics, paediatric wards — are key points of detection. Nurses must know their jurisdiction's mandatory reporting obligations and how to safely enquire about abuse without endangering the victim.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Domestic Violence and Abuse (DVA): SAFE Questioning",
+            "body": "DVA affects ~1 in 4 women and 1 in 6 men globally. It occurs across all socioeconomic, ethnic, and age groups. Warning signs: unexplained injuries (especially in distribution inconsistent with mechanism), delay between injury and seeking care, partner who attends and speaks for the patient, patient who is fearful, overly vigilant, or deferential. SAFE framework: Stress/Safety ('Do you feel safe at home?'), Afraid/Abused ('Have you been hit, kicked, or hurt by anyone?'), Friends/Family ('Do you have people you can turn to?'), Emergency plan ('If things escalate, do you have somewhere safe to go?'). Always ask in private — never in front of the suspected abuser."
+          },
+          {
+            "title": "Child Abuse: Recognition and Mandatory Reporting",
+            "body": "Types: physical (unexplained bruising — especially in non-mobile infants, ear/face/torso distribution, patterned injuries, multiple ages of bruising), sexual (genital injury, sexualised behaviour, STI in a child), emotional (failure to thrive, fearful behaviour), neglect (poor hygiene, hunger, untreated medical conditions). Highly suspicious: bruising in non-mobile infants (<6 months), fractures inconsistent with developmental stage, retinal haemorrhages (shaken baby), multiple fractures at different healing stages. Mandatory reporting: in most jurisdictions, all healthcare professionals must report suspected child abuse to child protective services. Your role is to report reasonable suspicion — not to investigate. Document factually: direct quotes, objective observations, body map of injuries."
+          },
+          {
+            "title": "Elder Abuse",
+            "body": "Elder abuse affects 1 in 6 people aged 60+ globally (WHO). Types: physical, psychological/emotional, sexual, financial/material, neglect (active or passive), abandonment. Risk factors: cognitive impairment (dementia), social isolation, dependence on caregiver, prior history of violence. Warning signs: poor hygiene, malnutrition, unexplained injuries, fear of caregiver, unexplained financial transactions, caregiver who refuses to leave the patient alone, caregiver who speaks for the patient. The Elder Assessment Instrument (EAI) can assist structured assessment. Reporting obligations vary by jurisdiction but most mandate report if the elder lacks capacity to protect themselves."
+          }
+        ],
+        "clinical_pearl": "Safety planning with DVA victims is complex. Never advise a victim to 'just leave' — the period of leaving is the most dangerous time for homicide risk. Collaborate with the patient on a safety plan: emergency bag packed, trusted contact, local shelter numbers. Your role is to offer resources and believe — not to rescue.",
+        "key_points": [
+          "SAFE questioning: Stress/Safety, Afraid/Abused, Friends/Family, Emergency plan; always in private",
+          "Bruising in non-mobile infants is highly suspicious — mandatory report",
+          "You report reasonable suspicion — you do not investigate child abuse",
+          "Elder abuse: 1 in 6 over-60s affected; cognitive impairment and isolation are risk factors",
+          "Leaving DVA is the highest-risk period; safety planning > 'just leave'"
+        ],
+        "references": [
+          "NICE. Guideline NG76: Domestic violence and abuse. NICE, 2014 updated 2023",
+          "WHO. Global status report on violence prevention. 2014",
+          "Pillemer K et al. Elder abuse: global situation, risk factors and prevention strategies. Gerontologist 2016;56(Suppl 2)"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "Roberts' 7 stages of crisis intervention?",
+      "answer": "1.Lethality assessment, 2.Rapport, 3.Identify problem, 4.Deal with feelings, 5.Explore alternatives, 6.Action plan, 7.Follow-up",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Alcohol withdrawal DTs: when and mortality?",
+      "answer": "24-72h after last drink; 5-15% mortality if untreated. Preceded by tremor (6-12h), hallucinations (12-24h), seizures (24-48h).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Why must thiamine precede IV dextrose in alcohol dependence?",
+      "answer": "Glucose metabolism requires thiamine. Giving glucose to a thiamine-depleted patient precipitates Wernicke's encephalopathy (confusion, ophthalmoplegia, ataxia → Korsakoff's if untreated).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "C-SSRS ideation levels 4 and 5?",
+      "answer": "Level 4: active ideation with specific plan. Level 5: active ideation with intent to act. Both require immediate intervention.",
+      "difficulty": "medium"
+    }
+  ],
+  "mcq_questions": [],
+  "clinical_cases": []
+}

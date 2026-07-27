@@ -7,11 +7,17 @@
     "title_en": "Medication Safety: The Five Rights and Administration Errors",
     "order_in_specialty": 2,
     "level": "beginner",
-    "prerequisite_modules": ["NURSE-001"],
-    "duration_hours": 4,
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
+    "duration_hours": 7,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["WHO Medication Without Harm 2017", "ISMP Safe Medication Practices", "Joint Commission NPSGs"]
+    "sources": [
+      "WHO Medication Without Harm 2017",
+      "ISMP Safe Medication Practices",
+      "Joint Commission NPSGs"
+    ]
   },
   "lessons": [
     {
@@ -48,7 +54,10 @@
           "Patients have the right to refuse any medication",
           "Pre-administration assessment is a safety right (pulse, BP, labs as appropriate)"
         ],
-        "references": ["WHO Medication Without Harm 2017", "ISMP High-Alert Medication List 2024"]
+        "references": [
+          "WHO Medication Without Harm 2017",
+          "ISMP High-Alert Medication List 2024"
+        ]
       }
     },
     {
@@ -80,16 +89,113 @@
           "Most medication errors are system failures — reporting improves systems, not blames individuals",
           "BCMA and smart pumps reduce but do not eliminate errors — they still require nurse vigilance"
         ],
-        "references": ["Institute of Medicine: To Err Is Human, 1999", "ISMP Medication Error Reporting Program"]
+        "references": [
+          "Institute of Medicine: To Err Is Human, 1999",
+          "ISMP Medication Error Reporting Program"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "High-Alert Medications: Safe Handling and Administration",
+      "order": 3,
+      "lay_summary": "High-alert medications cause the most harm when errors occur. These drugs demand extra vigilance at every step — ordering, dispensing, and administration.",
+      "content": {
+        "intro": "High-alert medications are drugs that bear a heightened risk of causing significant patient harm when used in error. The Institute for Safe Medication Practices (ISMP) maintains a regularly updated high-alert medication list. These are not necessarily the drugs most involved in errors — they are the drugs where errors are most catastrophic.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "ISMP High-Alert Medication Categories",
+            "body": "Classes (not exhaustive): Anticoagulants (heparin, warfarin, LMWH, direct oral anticoagulants — DOACs); concentrated electrolyte solutions (concentrated KCl — must NEVER be stored on wards; concentrated NaCl — must be diluted before administration); insulin (all formulations — look-alike/sound-alike [LASA] errors between insulin types are common); opioids (all routes); chemotherapy agents; neuromuscular blocking agents (NMBAs — must be stored separately from all other medications; patient must be intubated before administration); hypertonic saline (>0.9%); IV sedatives."
+          },
+          {
+            "title": "Independent Double-Check (IDC)",
+            "body": "IDC = two nurses independently (without communication) verify: the drug name, dose/concentration, route, rate, and patient identity before administration of high-alert medications. IDC is mandatory for: insulin (≥10 units or any IV insulin), heparin infusions, concentrated electrolytes, chemotherapy, opioid infusions, NMBAs. Process: Nurse A prepares and verifies alone; Nurse B independently performs same checks without input from Nurse A; both sign. IDC does not replace — it supplements — the standard five rights (right patient, drug, dose, route, time). Note: IDC increases workload but evidence shows it reduces high-alert medication errors by 60%."
+          },
+          {
+            "title": "Anticoagulant Safety: Heparin and DOAC Monitoring",
+            "body": "Unfractionated heparin (UFH): monitored by aPTT (target 60-100 seconds, or 1.5-2.5× control). Risk: HIT (heparin-induced thrombocytopenia) — paradoxical thrombosis; monitor platelet count every 2-3 days; if platelets fall >50% or to <150k, stop heparin immediately and report. Low-molecular-weight heparin (LMWH, enoxaparin): no routine monitoring in standard doses; anti-Xa levels in renal impairment, obesity, pregnancy. Warfarin: monitored by INR; therapeutic range varies by indication (AF: 2-3; mechanical heart valve: 2.5-3.5); significant food and drug interactions (vitamin K, antibiotics, amiodarone). DOACs (rivaroxaban, apixaban, dabigatran): no routine monitoring; no reliable reversal for some (idarucizumab reverses dabigatran; andexanet reverses Xa inhibitors); avoid in severe renal impairment."
+          },
+          {
+            "title": "Insulin Safety: Types, Administration, and Error Prevention",
+            "body": "Insulin types and onset (approximate): rapid-acting (aspart, lispro, glulisine): onset 10-20 min, peak 1-3h; short-acting (regular): onset 30-60 min, peak 2-4h; intermediate (NPH): onset 1-2h, peak 4-12h; long-acting (glargine, detemir, degludec): onset 1-4h, no pronounced peak, duration 20-42h. LASA errors: NovoLog vs NovoLog Mix; Humalog vs Humulin; Lantus vs Lente. Prevention: store insulins separately; always state both drug name AND formulation ('glargine' not 'insulin'); use insulin-specific syringes (U-100 syringe for U-100 insulin — never use tuberculin syringe). IV insulin: only regular insulin can be given IV; use standardised concentration and protocol; monitor glucose every hour; adjust infusion per sliding scale as ordered."
+          }
+        ],
+        "clinical_pearl": "Concentrated potassium chloride (KCl) has caused multiple patient deaths when administered undiluted as an IV bolus — it causes immediate cardiac arrest. Concentrated KCl ampoules must NEVER be stored in clinical areas or patient care units. This is a global patient safety goal (Joint Commission/WHO). If you ever find concentrated KCl on a ward, remove it and report immediately.",
+        "key_points": [
+          "ISMP high-alert drugs: anticoagulants, concentrated electrolytes, insulin, opioids, NMBAs, chemotherapy",
+          "Concentrated KCl must NEVER be stored on clinical wards — cardiac arrest risk",
+          "Independent double-check (IDC): mandatory for insulin, heparin infusions, concentrated electrolytes",
+          "HIT: platelet fall >50% on heparin → STOP heparin; paradoxical thrombosis risk",
+          "IV insulin: regular insulin only; monitor glucose hourly; use standardised protocol"
+        ],
+        "references": [
+          "ISMP. High-Alert Medications in Acute Care Settings. 2018",
+          "Joint Commission. National Patient Safety Goals — Medication Safety. 2024",
+          "WHO. High 5s project — medication safety. WHO, 2014"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Medication Reconciliation and Polypharmacy",
+      "order": 4,
+      "lay_summary": "Medication errors at care transitions (admission, transfer, discharge) are among the most common and harmful. Medication reconciliation is the process that catches them.",
+      "content": {
+        "intro": "Medication reconciliation (MedRec) is the process of creating the most accurate possible list of all medications a patient is taking — including prescription, OTC, herbal/supplement — and comparing this list to the medications ordered at care transitions. Discrepancies are identified and intentional or unintentional differences are resolved. The Joint Commission identifies MedRec as a National Patient Safety Goal.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "The Medication Reconciliation Process",
+            "body": "MARQUIS study identified that 60% of patients had ≥1 medication discrepancy at admission. Process: 1. Compile the BPMH (Best Possible Medication History) — interview patient and/or carer, review pharmacy dispensing records, contact community pharmacist, check medication adherence ('Which of these do you actually take?'). 2. Compare BPMH to admission medication orders. 3. Reconcile discrepancies with prescriber — document intentional omissions (e.g., holding anticoagulant pre-surgery) and unintentional omissions/errors. 4. Communicate reconciled list to next care team at every transition. 5. On discharge: provide patient with updated medication list; counsel on changes; reconcile against pre-admission list."
+          },
+          {
+            "title": "Polypharmacy and the Beers Criteria",
+            "body": "Polypharmacy = use of 5+ medications (some define as 10+). Prevalence: >60% of patients over 65 years. Risks: drug-drug interactions, adverse drug reactions (ADRs), non-adherence, falls, cognitive impairment. Beers Criteria (AGS, updated 2023): evidence-based list of potentially inappropriate medications (PIMs) in adults ≥65: benzodiazepines (fall/fracture risk), antihistamines (first generation, e.g. diphenhydramine — anticholinergic delirium), anticholinergic medications, NSAIDs (GI bleed, renal impairment, fluid retention), sulfonylureas (prolonged hypoglycaemia). Nurse's role: medication review at admission, flag Beers criteria medications to prescriber, assess for ADRs, support deprescribing conversations."
+          }
+        ],
+        "clinical_pearl": "Always ask about herbal and OTC medications — patients often do not consider these 'real medications'. St John's Wort induces CYP3A4 and reduces efficacy of warfarin, oral contraceptives, HIV antiretrovirals, and immunosuppressants. Fish oil, garlic, and ginkgo have antiplatelet effects. Herbal preparations can cause life-threatening interactions.",
+        "key_points": [
+          "MedRec: compile BPMH → compare to orders → reconcile discrepancies → communicate at every transition",
+          "60% of admitted patients have ≥1 medication discrepancy (MARQUIS study)",
+          "Beers Criteria: PIMs in ≥65yr — benzodiazepines, anticholinergics, NSAIDs, first-gen antihistamines",
+          "Always ask about herbal, OTC, and supplement use",
+          "Deprescribing: reviewing and stopping medications that no longer benefit the patient"
+        ],
+        "references": [
+          "Masnoon N et al. What is polypharmacy? Systematic review. BMC Geriatrics 2017;17:230",
+          "AGS Beers Criteria Update Expert Panel. American Geriatrics Society 2023 Updated AGS Beers Criteria. JAGS 2023",
+          "Cornish PL et al. Unintended medication discrepancies at admission. Arch Intern Med 2005;165:424-429"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "Name the Five Rights of Medication Administration.", "answer": "Right Patient, Right Drug, Right Dose, Right Route, Right Time. (Plus 5 additional: Documentation, Reason, Education, Refusal, Assessment)", "difficulty": "easy"},
-    {"question": "Two patient identifiers — give two acceptable examples.", "answer": "Patient name and date of birth; Patient name and medical record number (MRN). Room number alone is NEVER acceptable.", "difficulty": "easy"},
-    {"question": "Name 3 high-alert medications (HAMs).", "answer": "Insulin, heparin/anticoagulants, concentrated KCl, opioids, neuromuscular blocking agents, chemotherapy. Any 3 qualify.", "difficulty": "medium"},
-    {"question": "What is a LASA drug pair? Give one example.", "answer": "Look-Alike Sound-Alike drugs that are easily confused. Example: hydroxyzine (antihistamine) vs hydralazine (antihypertensive).", "difficulty": "medium"},
-    {"question": "After a medication error, what is the first priority action?", "answer": "Assess the patient immediately for adverse effects and harm.", "difficulty": "easy"}
+    {
+      "question": "Name the Five Rights of Medication Administration.",
+      "answer": "Right Patient, Right Drug, Right Dose, Right Route, Right Time. (Plus 5 additional: Documentation, Reason, Education, Refusal, Assessment)",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Two patient identifiers — give two acceptable examples.",
+      "answer": "Patient name and date of birth; Patient name and medical record number (MRN). Room number alone is NEVER acceptable.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Name 3 high-alert medications (HAMs).",
+      "answer": "Insulin, heparin/anticoagulants, concentrated KCl, opioids, neuromuscular blocking agents, chemotherapy. Any 3 qualify.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What is a LASA drug pair? Give one example.",
+      "answer": "Look-Alike Sound-Alike drugs that are easily confused. Example: hydroxyzine (antihistamine) vs hydralazine (antihypertensive).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "After a medication error, what is the first priority action?",
+      "answer": "Assess the patient immediately for adverse effects and harm.",
+      "difficulty": "easy"
+    }
   ],
   "mcq_questions": [
     {
@@ -117,7 +223,13 @@
         "F": "Monitor urine output and electrolytes in the wrong-medication patient"
       },
       "correct": "A",
-      "correct_answers": ["A", "B", "C", "E", "F"],
+      "correct_answers": [
+        "A",
+        "B",
+        "C",
+        "E",
+        "F"
+      ],
       "explanation": "The nurse must: assess the wrong-patient immediately (A), notify the physician (B), file an IR (C), administer the missed dose after physician authorisation (E), and monitor the wrong-patient for diuresis and electrolyte changes (F). Option D is incorrect — do NOT document the IR in the patient chart; these are separate documents.",
       "difficulty": "hard"
     },
@@ -132,7 +244,13 @@
         "E": "Draw up or prepare the medication and recheck label against MAR"
       },
       "correct": "B",
-      "correct_order": ["B", "E", "C", "A", "D"],
+      "correct_order": [
+        "B",
+        "E",
+        "C",
+        "A",
+        "D"
+      ],
       "explanation": "Correct sequence: First check (retrieve, B) → Prepare with second check (E) → Verify patient identity at bedside (C) → Third check label at bedside (A) → Administer → Document immediately after (D).",
       "difficulty": "medium"
     },

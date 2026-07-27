@@ -7,11 +7,17 @@
     "title_en": "Patient Care: Pressure Injuries, Falls, and Mobility",
     "order_in_specialty": 7,
     "level": "beginner",
-    "prerequisite_modules": ["NURSE-001"],
-    "duration_hours": 3,
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
+    "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["EPUAP/NPIAP/PPPIA Pressure Injury Guidelines 2019", "NICE NG15 Falls Prevention 2023", "ANA Safe Patient Handling Standards"]
+    "sources": [
+      "EPUAP/NPIAP/PPPIA Pressure Injury Guidelines 2019",
+      "NICE NG15 Falls Prevention 2023",
+      "ANA Safe Patient Handling Standards"
+    ]
   },
   "lessons": [
     {
@@ -44,7 +50,9 @@
           "Heels must be offloaded — they are the second most common pressure injury site after sacrum",
           "Document skin status on admission as legal baseline"
         ],
-        "references": ["EPUAP/NPIAP/PPPIA Prevention and Treatment of Pressure Ulcers 2019"]
+        "references": [
+          "EPUAP/NPIAP/PPPIA Prevention and Treatment of Pressure Ulcers 2019"
+        ]
       }
     },
     {
@@ -76,16 +84,105 @@
           "Use mechanical lift devices for fully dependent patients — never lift alone",
           "After any fall: assess, document, incident report, physician notification, team huddle"
         ],
-        "references": ["NICE NG15 Falls Prevention in Older People 2023", "ANA Safe Patient Handling and Mobility 2013"]
+        "references": [
+          "NICE NG15 Falls Prevention in Older People 2023",
+          "ANA Safe Patient Handling and Mobility 2013"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Wound Assessment and Evidence-Based Wound Care",
+      "order": 3,
+      "lay_summary": "Wound assessment guides dressing choice. Choosing the wrong dressing delays healing. Systematic documentation is also a medicolegal requirement.",
+      "content": {
+        "intro": "Wound management is one of the most common nursing activities, yet significant variation in practice exists. Evidence-based wound care requires systematic assessment using validated tools, appropriate dressing selection based on wound characteristics, and clear documentation that enables continuity of care.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Wound Assessment: TIME Framework",
+            "body": "TIME (Wound Bed Preparation framework, Dowsett & Newton 2000): T — Tissue: what types? Granulation (healthy, red, moist — promotes healing), Slough (yellow, soft — devitalised, inhibits healing), Eschar (black, hard — devitalised, remove unless dry/stable on diabetic foot), Epithelising (pink, at wound edge — indicates healing). I — Infection/Inflammation: signs of infection: increased pain, erythema extending >2 cm beyond wound edge, warmth, swelling, purulent exudate, malodour, friable granulation, failure to progress in 2+ weeks. Wound swab for culture (superficial swab often non-diagnostic — tissue biopsy or Levine technique preferred). M — Moisture: exudate level (none/dry, minimal, moderate, heavy) guides dressing absorbency. E — Edge: advancing (epithelialisation occurring), non-advancing (wound stalled), rolled/undermined (creates pocket — requires exploration)."
+          },
+          {
+            "title": "Dressing Selection Principles",
+            "body": "Dry wound: hydrate (hydrogel, hydrocolloid — maintain moist wound environment). Wet/high exudate: absorb (foam, alginate, hydrofibre — prevent maceration). Infected wound: antimicrobial (silver-containing dressings — silver sulfadiazine, silver foam; honey-impregnated — Medihoney; iodine — Inadine). Necrotic/sloughy: debridement (hydrogel for autolytic debridement; enzymatic; surgical/sharp — by trained clinician). Granulating wound: protect and maintain moisture (foam, non-adherent). Epithelialising wound: protect and minimise trauma (thin film, non-adherent). Key principle: moist wound environment (Winter 1962) accelerates healing 40% vs dry healing. Do NOT use: dry gauze on granulating wounds (damages healing tissue on removal), hydrogen peroxide (cytotoxic to healing cells), 'traditional' wound lotions without evidence base."
+          }
+        ],
+        "clinical_pearl": "A wound that is not progressing after 2-4 weeks of appropriate management needs reassessment — not just a different dressing. Consider: Is there underlying infection? Is perfusion adequate (check ABPIs in chronic leg ulcers)? Is the patient nutritionally replete? Are there systemic factors (diabetes, steroids)? Escalate to tissue viability specialist.",
+        "key_points": [
+          "TIME framework: Tissue, Infection/Inflammation, Moisture, Edge",
+          "Moist wound environment: accelerates healing 40% vs dry",
+          "Silver/honey/iodine dressings for infected wounds; hydrogel for dry/necrotic",
+          "Non-healing wound at 2-4 weeks: reassess for infection, perfusion, nutrition, systemic factors",
+          "Hydrogen peroxide and dry gauze on granulating tissue: evidence-based contraindications"
+        ],
+        "references": [
+          "Dowsett C & Newton H. Wound bed preparation: TIME in practice. Wounds UK 2005;1(3):58-70",
+          "NICE. Guideline NG19: Pressure ulcers prevention and management. NICE, 2014",
+          "Winter GD. Formation of scab and rate of epithelisation of superficial wounds. Nature 1962;193:293-294"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Nutritional Support and Malnutrition Screening",
+      "order": 4,
+      "lay_summary": "Malnutrition is present in up to 40% of hospitalised patients and is associated with delayed wound healing, higher infection rates, and longer hospital stays. Nurses screen, identify, and initiate nutritional support.",
+      "content": {
+        "intro": "Malnutrition is defined as a deficiency, excess, or imbalance of energy, protein, or other nutrients causing measurable adverse effects on body composition, function, or clinical outcomes. In hospitalised adults, it is associated with 3× higher mortality, increased infection rates, impaired wound healing, and prolonged hospital stay. The MUST (Malnutrition Universal Screening Tool) is the validated tool recommended by BAPEN and NICE.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "MUST Screening Tool",
+            "body": "MUST is a five-step screening tool recommended for screening in all healthcare settings (NICE CG32, BAPEN). Step 1: BMI score (>20 = 0; 18.5-20 = 1; <18.5 = 2). Step 2: unplanned weight loss in past 3-6 months (BMI) (5-10% = 1; >10% = 2). Step 3: acute disease effect score (if acutely ill and no or very little intake for >5 days likely = 2). Step 4: add scores (total 0 = low risk; 1 = medium risk; ≥2 = high risk). Step 5: management guideline. Low risk: routine screening. Medium risk: observe (document diet intake 3 days; dietitian referral if intake inadequate). High risk: treat (refer dietitian; supplemental nutrition support — ONS first, then enteral, then parenteral)."
+          },
+          {
+            "title": "Nutritional Support: Oral, Enteral, Parenteral",
+            "body": "Oral nutritional supplements (ONS): high-protein/calorie sip feeds if patient can eat and swallow safely. Enteral nutrition (EN): nasogastric (NG) or nasojejunal (NJ) tube feeding; gastrostomy (PEG/RIG) for long-term; preferred route when GI tract functional. Nursing NG tube care: confirm position before each feed and medication (pH ≤5.5 on aspirate, or CXR if no aspirate); head-of-bed elevation ≥30° during feeding (reduces aspiration); check residual volume (withhold feed if >200-250 mL); flush 30 mL water before and after medications and every 4-6h. Parenteral: see TPN module (NURSE-003). Benefits of enteral over parenteral: maintains gut mucosal integrity (prevents bacterial translocation), lower infection rate, lower cost, physiological."
+          }
+        ],
+        "clinical_pearl": "Confirm NG tube position before EVERY use — even if the tube hasn't been touched since the last confirmed check. Tube position can migrate without obvious signs. pH ≤5.5 from aspirate is the first-line method; X-ray is required when no aspirate can be obtained after appropriate manoeuvres. Feeding into a misplaced tube causes aspiration pneumonia — frequently fatal.",
+        "key_points": [
+          "MUST ≥2 = high risk; refer dietitian; supplement orally, then enteral, then parenteral",
+          "Enteral nutrition preferred when GI tract functional — maintains mucosal integrity",
+          "NG tube: confirm position with pH ≤5.5 before EVERY use, or CXR if no aspirate",
+          "HOB ≥30° during NG feeding; flush with 30 mL water q4-6h",
+          "Malnutrition in hospital: ×3 mortality, delayed wound healing, increased infections"
+        ],
+        "references": [
+          "BAPEN. The MUST Explanatory Booklet. BAPEN, 2011",
+          "NICE. Guideline NG22: Nutrition support for adults. NICE, 2006 updated 2017",
+          "NHS England. Patient safety alert: nasogastric tube misplacement. 2012, updated 2016"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "Name the 6 Braden Scale subscales.", "answer": "Sensory perception, Moisture, Activity, Mobility, Nutrition, Friction and shear. Higher score = lower pressure injury risk.", "difficulty": "medium"},
-    {"question": "What characterises a Stage 1 pressure injury?", "answer": "Non-blanchable erythema of intact skin. The red area does NOT turn white when pressed for 3 seconds. No break in skin.", "difficulty": "easy"},
-    {"question": "Repositioning frequency for a bed-bound patient?", "answer": "Minimum every 2 hours; 30-degree lateral tilt is preferred over 90-degree to reduce trochanter pressure.", "difficulty": "easy"},
-    {"question": "Morse Fall Scale score for high risk?", "answer": "≥45 points = high risk. Implement full falls prevention bundle.", "difficulty": "easy"},
-    {"question": "Two most common pressure injury sites in hospitalised patients?", "answer": "Sacrum/coccyx (most common) and heels (second most common). Both require dedicated offloading.", "difficulty": "medium"}
+    {
+      "question": "Name the 6 Braden Scale subscales.",
+      "answer": "Sensory perception, Moisture, Activity, Mobility, Nutrition, Friction and shear. Higher score = lower pressure injury risk.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What characterises a Stage 1 pressure injury?",
+      "answer": "Non-blanchable erythema of intact skin. The red area does NOT turn white when pressed for 3 seconds. No break in skin.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Repositioning frequency for a bed-bound patient?",
+      "answer": "Minimum every 2 hours; 30-degree lateral tilt is preferred over 90-degree to reduce trochanter pressure.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Morse Fall Scale score for high risk?",
+      "answer": "≥45 points = high risk. Implement full falls prevention bundle.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Two most common pressure injury sites in hospitalised patients?",
+      "answer": "Sacrum/coccyx (most common) and heels (second most common). Both require dedicated offloading.",
+      "difficulty": "medium"
+    }
   ],
   "mcq_questions": [
     {
@@ -113,7 +210,12 @@
         "F": "Clear unobstructed path to the bathroom"
       },
       "correct": "A",
-      "correct_answers": ["A", "C", "E", "F"],
+      "correct_answers": [
+        "A",
+        "C",
+        "E",
+        "F"
+      ],
       "explanation": "Universal bundle (all patients): call bell in reach (A), bed lowest and locked (C), non-slip footwear (E), clear path to bathroom (F). Yellow armband (B) and hourly rounding (D) are high-risk interventions, not universal.",
       "difficulty": "medium"
     },

@@ -8,10 +8,14 @@
     "order_in_specialty": 1,
     "level": "beginner",
     "prerequisite_modules": [],
-    "duration_hours": 3,
+    "duration_hours": 8,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["WHO Patient Safety Curriculum", "NANDA-I 2021-2023", "ANA Nursing Scope & Standards"]
+    "sources": [
+      "WHO Patient Safety Curriculum",
+      "NANDA-I 2021-2023",
+      "ANA Nursing Scope & Standards"
+    ]
   },
   "lessons": [
     {
@@ -52,7 +56,10 @@
           "Evaluation is continuous and feeds back into assessment",
           "Documentation must reflect each step — if it isn't written, it wasn't done"
         ],
-        "references": ["NANDA International, 2021-2023 Nursing Diagnoses", "Doenges ME et al. Nursing Care Plans, 2022"]
+        "references": [
+          "NANDA International, 2021-2023 Nursing Diagnoses",
+          "Doenges ME et al. Nursing Care Plans, 2022"
+        ]
       }
     },
     {
@@ -84,16 +91,150 @@
           "Late entries must be labelled; records must never be altered",
           "EHR copy-paste errors are a patient safety risk"
         ],
-        "references": ["ISBAR 2019 WHO Patient Safety Curriculum", "ANA Principles for Nursing Documentation, 2010"]
+        "references": [
+          "ISBAR 2019 WHO Patient Safety Curriculum",
+          "ANA Principles for Nursing Documentation, 2010"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Delegation and Supervision in Nursing Practice",
+      "order": 3,
+      "lay_summary": "Delegation is transferring the authority to perform a task to another person while retaining accountability. Done incorrectly, it endangers patients.",
+      "content": {
+        "intro": "Delegation is a complex skill that requires understanding scope of practice, individual competency, and patient stability. The NCSBN Five Rights of Delegation provide a structured framework. Nurses are accountable for tasks they delegate even when they do not perform them personally.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "NCSBN Five Rights of Delegation",
+            "body": "Right task: the task is delegable under law and policy (e.g., vital signs, personal hygiene, repositioning can be delegated to unlicensed assistive personnel — UAP; assessment, teaching, medication administration generally cannot). Right circumstances: patient condition is stable and predictable; if unstable or complex, do not delegate. Right person: the delegatee has the competency and training to perform this specific task for this specific patient. Right direction/communication: provide clear, specific instructions; confirm understanding. Right supervision/evaluation: monitor the delegatee, receive and act on feedback, evaluate patient outcomes."
+          },
+          {
+            "title": "What Cannot Be Delegated",
+            "body": "Core nursing functions that require professional judgement cannot be delegated to UAP: initial and ongoing nursing assessment, nursing diagnosis, care planning, patient and family teaching, medication administration (in most jurisdictions), insertion of IV cannulae and catheters, blood transfusion administration, complex wound care. These require the knowledge, judgement, and accountability of a registered nurse. LPNs/LVNs may perform additional tasks under RN supervision per state/jurisdiction law — know your local scope of practice guidelines."
+          },
+          {
+            "title": "Accountability vs Responsibility",
+            "body": "Responsibility = obligation to complete a task. Accountability = answering for the outcomes of a task, including tasks delegated to others. You can transfer responsibility to a delegatee; you CANNOT transfer accountability. If a UAP harms a patient by performing a delegated task incorrectly, the delegating RN shares accountability if delegation was inappropriate or supervision was inadequate. Document: what was delegated, to whom, what instructions were given, and the outcome of your supervision check."
+          }
+        ],
+        "clinical_pearl": "Never delegate a task you have not assessed the patient first for. Vital signs can be delegated to UAP, but if a patient is showing signs of deterioration, you must perform the assessment yourself. Delegation begins with nursing assessment — not with handing over a task.",
+        "key_points": [
+          "Five Rights of Delegation: Right task, circumstances, person, direction, supervision",
+          "Assessment, teaching, medication administration: cannot be delegated to UAP",
+          "You delegate responsibility; you cannot delegate accountability",
+          "Patient instability = do not delegate; reassess yourself",
+          "Document all delegations and supervision checks"
+        ],
+        "references": [
+          "NCSBN. National Guidelines for Nursing Delegation. Journal of Nursing Regulation 2016;7(1):5-14",
+          "ANA & NCSBN. Joint Statement on Delegation. 2019",
+          "Hansten RI & Jackson M. Clinical Delegation Skills, 4th ed. Jones & Bartlett, 2009"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Critical Thinking and Clinical Reasoning in Nursing",
+      "order": 4,
+      "lay_summary": "Critical thinking is not a soft skill — it is the engine of safe nursing practice. It is the difference between following a protocol and knowing when the protocol doesn't apply.",
+      "content": {
+        "intro": "Clinical reasoning is the cognitive process nurses use to gather and analyse information, make clinical judgements, and determine actions. It underpins the nursing process and is the foundation of the Next Generation NCLEX® (NGN) examination, which explicitly tests Clinical Judgement through the NCJMM (National Council of State Boards of Nursing Clinical Judgement Measurement Model).",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "NCSBN Clinical Judgement Measurement Model (NCJMM)",
+            "body": "The NCJMM describes six cognitive skills measured in clinical judgement: 1. Recognize Cues — identify relevant data from the clinical situation (which findings are significant?). 2. Analyze Cues — connect clinical data to the patient's condition (what do these cues mean?). 3. Prioritize Hypotheses — rank possible explanations by probability and urgency (what is most likely and most dangerous?). 4. Generate Solutions — identify evidence-based interventions for each hypothesis. 5. Take Action — implement the highest priority interventions. 6. Evaluate Outcomes — assess whether interventions achieved the expected outcomes. This model explicitly guides NGN question formats: bow-tie, matrix, extended drag-and-drop questions."
+          },
+          {
+            "title": "Recognising and Responding to Unexpected Change",
+            "body": "Clinical deterioration often occurs gradually with subtle early signs. SBAR is used to communicate concerns. Failure to Rescue: the failure of nurses to recognise and respond to patient deterioration is a key concept in patient safety. Contributing factors: alarm fatigue, excessive workload, inadequate assessment frequency, normalisation of deviance ('he's always like this'). The nurse's responsibility: perform regular, systematic assessments; do not dismiss subtle changes; escalate early and persistently using the ISBAR framework (Identity, Situation, Background, Assessment, Recommendation); use institutional escalation pathways (rapid response team/MET)."
+          },
+          {
+            "title": "Cognitive Biases in Clinical Reasoning",
+            "body": "Availability bias: overestimating diagnoses that come to mind easily (e.g., the last patient with these symptoms had X, so this patient must have X). Anchoring: over-reliance on the first information received. Premature closure: stopping the diagnostic process once a diagnosis is found (missing comorbidities). Framing effect: how information is presented influences decision-making (a patient described as 'drug-seeker' vs 'patient with chronic pain'). Mitigation: systematic assessment (head-to-toe, every patient, every shift), questioning your own assumptions ('What else could this be?'), seeking a second opinion, critical reflection."
+          }
+        ],
+        "clinical_pearl": "The NGN tests clinical judgement, not just knowledge recall. A question may ask you to analyse a set of clinical data and identify which findings require immediate action — this mirrors real practice. Practice with matrix and bow-tie questions. The framework is: Cues → Hypotheses → Priorities → Actions → Evaluation.",
+        "key_points": [
+          "NCJMM: 6 skills — Recognize, Analyze, Prioritize, Generate, Take action, Evaluate",
+          "Failure to Rescue: inability to recognise and escalate deterioration; use ISBAR",
+          "Cognitive biases (anchoring, availability) compromise clinical reasoning — use systematic assessment",
+          "Escalate early and persistently; document your concerns and escalation",
+          "NGN exam tests clinical judgement — not just knowledge recall"
+        ],
+        "references": [
+          "NCSBN. Next Generation NCLEX (NGN) Fact Sheet. 2022",
+          "Tanner CA. Thinking like a nurse: a research-based model of clinical judgement. J Nursing Education 2006;45(6):204-211",
+          "Croskerry P. The importance of cognitive errors in diagnosis. Acad Emerg Med 2003;10(11):1187-1194"
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "title": "Nursing Ethics: Key Principles and Professional Boundaries",
+      "order": 5,
+      "lay_summary": "Ethical practice is not optional. Every nursing action has an ethical dimension. The four principles framework helps analyse and resolve ethical dilemmas.",
+      "content": {
+        "intro": "Nursing ethics is grounded in the ANA Code of Ethics (2015), ICN Code of Ethics for Nurses (2021), and the four principles bioethics framework (Beauchamp & Childress, Principles of Biomedical Ethics, 8th ed). Nurses encounter ethical dilemmas in every clinical setting — end-of-life care, informed consent, resource allocation, professional integrity.",
+        "estimated_minutes": 25,
+        "sections": [
+          {
+            "title": "The Four Principles (Beauchamp & Childress)",
+            "body": "Autonomy: respect for the patient's right to make informed decisions about their own care. Requires: decision-making capacity, information, voluntariness (freedom from coercion). Informed consent is an expression of autonomy. Beneficence: act in the patient's best interest. Distinguishing 'best interest' from 'what the nurse or family thinks is best' is crucial — patient-defined preferences must guide care. Non-maleficence: 'First, do no harm' — avoid actions that cause unnecessary harm; weigh risks vs benefits. Justice: fair distribution of resources, non-discriminatory care, equitable treatment. Tensions arise when principles conflict (autonomy vs beneficence in a patient refusing necessary treatment)."
+          },
+          {
+            "title": "Informed Consent: The Nurse's Role",
+            "body": "Informed consent requires: disclosure of relevant information (diagnosis, proposed treatment, alternatives, risks, benefits, right to refuse), understanding (health literacy appropriate explanation), capacity (ability to receive, process, and communicate a decision), voluntariness. The physician/prescriber obtains consent for procedures and treatments. The nurse's role: witness to signature (confirming voluntariness, not that information was understood or adequate), answering patient questions (clarification — refer to prescriber for complex questions), identifying when a patient does not understand and advocating for re-explanation, assessing capacity (refer to psychiatry or ethics if uncertain). Advance directives: POLST, DNR orders — must be available and followed."
+          },
+          {
+            "title": "Advocacy and Professional Accountability",
+            "body": "The nurse as patient advocate: speaking up when a patient's rights or safety are threatened, even when this creates conflict with the medical team. Strategies: use ISBAR to communicate concerns; use institutional channels (charge nurse, nurse manager, patient safety officer, ethics committee) when issues are not resolved. Moral distress: the painful experience of knowing the right action but being constrained from taking it. Common causes: futile treatment, inadequate pain management, perceived coercion of patients. Moral distress is associated with burnout and turnover. Address through peer support, clinical supervision, and institutional ethics consultation. Mandatory reporting: duty to report unsafe practice by colleagues (medication errors, impaired practice, patient abuse)."
+          }
+        ],
+        "clinical_pearl": "A patient has the right to refuse treatment — even life-saving treatment — if they have capacity. Your role is not to override their decision but to ensure it is truly informed and autonomous. Document the conversation, the patient's stated reasons, and that they were informed of the consequences of refusal. Then advocate for palliative and comfort-focused care.",
+        "key_points": [
+          "Four principles: Autonomy, Beneficence, Non-maleficence, Justice",
+          "Informed consent: disclosure + understanding + capacity + voluntariness; nurse witnesses signature",
+          "Competent patients have the right to refuse treatment — document thoroughly",
+          "Moral distress: knowing right action but being constrained; address via supervision and ethics consult",
+          "Mandatory reporting duty: unsafe practice, impaired colleagues, patient abuse"
+        ],
+        "references": [
+          "Beauchamp TL & Childress JF. Principles of Biomedical Ethics, 8th ed. Oxford University Press, 2019",
+          "ANA. Code of Ethics for Nurses with Interpretive Statements. ANA, 2015",
+          "ICN. ICN Code of Ethics for Nurses. International Council of Nurses, 2021"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "What does ADPIE stand for?", "answer": "Assess, Diagnose, Plan, Implement, Evaluate — the five steps of the nursing process.", "difficulty": "easy"},
-    {"question": "Difference between nursing diagnosis and medical diagnosis?", "answer": "Medical diagnosis: identifies the disease (e.g. pneumonia). Nursing diagnosis: identifies the patient's response to the illness that nurses can independently treat (e.g. Ineffective Airway Clearance).", "difficulty": "medium"},
-    {"question": "What is a SMART goal?", "answer": "Specific, Measurable, Achievable, Relevant, Time-bound. Example: 'Patient will ambulate 50 m independently by day 3 post-op.'", "difficulty": "easy"},
-    {"question": "SBAR stands for?", "answer": "Situation, Background, Assessment, Recommendation — structured communication tool for clinical handoff.", "difficulty": "easy"},
-    {"question": "What is Maslow's hierarchy of needs (order for care prioritisation)?", "answer": "1. Physiological (airway, breathing, circulation, nutrition). 2. Safety. 3. Love/belonging. 4. Esteem. 5. Self-actualisation. Address physiological needs first.", "difficulty": "medium"}
+    {
+      "question": "What does ADPIE stand for?",
+      "answer": "Assess, Diagnose, Plan, Implement, Evaluate — the five steps of the nursing process.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Difference between nursing diagnosis and medical diagnosis?",
+      "answer": "Medical diagnosis: identifies the disease (e.g. pneumonia). Nursing diagnosis: identifies the patient's response to the illness that nurses can independently treat (e.g. Ineffective Airway Clearance).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What is a SMART goal?",
+      "answer": "Specific, Measurable, Achievable, Relevant, Time-bound. Example: 'Patient will ambulate 50 m independently by day 3 post-op.'",
+      "difficulty": "easy"
+    },
+    {
+      "question": "SBAR stands for?",
+      "answer": "Situation, Background, Assessment, Recommendation — structured communication tool for clinical handoff.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What is Maslow's hierarchy of needs (order for care prioritisation)?",
+      "answer": "1. Physiological (airway, breathing, circulation, nutrition). 2. Safety. 3. Love/belonging. 4. Esteem. 5. Self-actualisation. Address physiological needs first.",
+      "difficulty": "medium"
+    }
   ],
   "mcq_questions": [
     {
@@ -133,7 +274,11 @@
         "E": "Re-copy the entire page to remove the error"
       },
       "correct": "A",
-      "correct_answers": ["A", "B", "D"],
+      "correct_answers": [
+        "A",
+        "B",
+        "D"
+      ],
       "explanation": "Correct procedure: single line through error, write 'error', sign and date. Wite-Out and recopying are prohibited because they could be construed as record falsification. Using the correct ink colour is also required.",
       "difficulty": "medium"
     },
@@ -148,7 +293,13 @@
         "E": "Perform systematic assessment including vital signs and pain characteristics"
       },
       "correct": "E",
-      "correct_order": ["E", "D", "A", "C", "B"],
+      "correct_order": [
+        "E",
+        "D",
+        "A",
+        "C",
+        "B"
+      ],
       "explanation": "ADPIE sequence: Assessment (E) → Diagnosis (D) → Planning (A) → Implementation (C) → Evaluation (B). You cannot diagnose before assessing, plan before diagnosing, or evaluate before implementing.",
       "difficulty": "medium"
     }

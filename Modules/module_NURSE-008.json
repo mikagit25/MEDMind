@@ -7,11 +7,18 @@
     "title_en": "Patient Communication, Family Engagement, and SBAR Handoff",
     "order_in_specialty": 8,
     "level": "beginner",
-    "prerequisite_modules": ["NURSE-001"],
-    "duration_hours": 3,
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
+    "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["Joint Commission Communication Standards", "WHO Patient Engagement Guide 2016", "Schwartz Center for Compassionate Care", "TeamSTEPPS 2.0 AHRQ 2019"]
+    "sources": [
+      "Joint Commission Communication Standards",
+      "WHO Patient Engagement Guide 2016",
+      "Schwartz Center for Compassionate Care",
+      "TeamSTEPPS 2.0 AHRQ 2019"
+    ]
   },
   "lessons": [
     {
@@ -44,7 +51,10 @@
           "Therapeutic silence is a technique, not a gap — allow 5–10 s pauses",
           "Empathy validates the patient's experience; sympathy centres yours"
         ],
-        "references": ["Wittenberg E et al. Health Literacy in Nursing, 2018", "AHRQ TeamSTEPPS 2.0, 2019"]
+        "references": [
+          "Wittenberg E et al. Health Literacy in Nursing, 2018",
+          "AHRQ TeamSTEPPS 2.0, 2019"
+        ]
       }
     },
     {
@@ -76,16 +86,76 @@
           "After difficult news: sit, listen, validate, provide presence — do not rush the family",
           "Document that patient/family education was provided and teach-back was completed"
         ],
-        "references": ["Joint Commission NPSG 02.03.01 — Verbal Orders", "Jeffs L et al. Bedside Shift Report, 2013"]
+        "references": [
+          "Joint Commission NPSG 02.03.01 — Verbal Orders",
+          "Jeffs L et al. Bedside Shift Report, 2013"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Health Literacy and Patient Education",
+      "order": 3,
+      "lay_summary": "Half of all adults have limited health literacy. Nurses who communicate clearly improve medication adherence, reduce readmissions, and save lives.",
+      "content": {
+        "intro": "Health literacy is the degree to which individuals can obtain, process, and understand basic health information and services to make appropriate health decisions. Approximately 50% of adults in high-income countries have limited health literacy. Limited health literacy is associated with worse medication adherence, higher emergency admission rates, poorer disease management, and higher mortality. Nurses are the primary patient educators in most healthcare settings.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Assessing Health Literacy",
+            "body": "Most patients with limited health literacy will not admit to it — they feel shame. Screening clues: incomplete forms ('I forgot my glasses'), inability to name medications or explain how they are taken, not filling prescriptions, repeated missed appointments, 'I'll have my daughter read this at home'. Brief validated screens: Single Item Literacy Screener ('How often do you need help reading hospital materials?'), REALM-SF (Rapid Estimate of Adult Literacy in Medicine). Universal precautions: because most patients with limited health literacy cannot be identified by appearance, education, or employment, use clear health communication with ALL patients — not just those who appear to struggle."
+          },
+          {
+            "title": "Teach-Back Method",
+            "body": "Teach-back is the most evidence-based patient education technique. Process: 1. Explain information in plain language (no jargon). 2. Ask the patient to explain it back in their own words ('Just to make sure I explained that clearly, could you tell me how you'll take this medication at home?'). 3. Clarify any misunderstanding. 4. Repeat until comprehension is confirmed. 5. Document teach-back was used and patient's response. Phrase teach-back as checking your own teaching ('I want to make sure I was clear'), not testing the patient. Studies show teach-back reduces 30-day hospital readmission by up to 30%. Chunk-and-Check: give one concept, teach-back, then move to the next — do not deliver all information then teach-back at the end."
+          },
+          {
+            "title": "Discharge Education: The 3 Core Questions",
+            "body": "Best practice discharge education addresses three key questions (Ask Me 3 / IHI): 1. What is my main problem? 2. What do I need to do about it? 3. Why is it important for me to do this? Plain language principles: use common words (heart attack, not myocardial infarction; blood thinner, not anticoagulant; once a day not 'once daily'). Active voice, short sentences. Limit to 3 key messages per session. Written materials: reading level ≤6th grade; use visuals/pictures; white space; large font. Involve carers/family with patient consent. Follow-up appointment: confirm patient knows when, where, why. Red flag symptoms: list 2-3 specific symptoms that should prompt return to hospital."
+          }
+        ],
+        "clinical_pearl": "The worst time to educate a patient is when they are being discharged: rushed, anxious, in pain, with family and paperwork competing for attention. Distribute education throughout the admission — small chunks with teach-back at every interaction. Discharge is the consolidation and confirmation of what was already taught.",
+        "key_points": [
+          "50% of adults have limited health literacy; use universal precautions with ALL patients",
+          "Teach-back: ask patient to explain back in own words; reduces readmission by up to 30%",
+          "Ask Me 3: What is my problem? What do I do? Why does it matter?",
+          "Written materials: ≤6th grade reading level, visuals, plain language",
+          "Distribute education throughout admission — not only at discharge"
+        ],
+        "references": [
+          "Stikes R & Barbero C. Teach-back: a proven method for reducing hospitalisation. Applied Nursing Research 2020;56",
+          "AHRQ. Health Literacy Universal Precautions Toolkit, 2nd ed. 2015",
+          "Berkman ND et al. Health literacy interventions and outcomes. AHRQ Evidence Report 2011"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "What is the teach-back method and why is it used?", "answer": "Asking patients to explain or demonstrate in their own words what they learned, to verify understanding. 'Do you understand?' is unreliable — teach-back identifies knowledge gaps.", "difficulty": "easy"},
-    {"question": "Why must professional interpreters be used instead of family members?", "answer": "Family members may omit, edit, or misinterpret clinical information (intentionally or not), compromising informed consent and clinical safety. Professional interpreters are trained in medical terminology and neutral translation.", "difficulty": "medium"},
-    {"question": "SBAR: what does 'R' (Recommendation) mean in practice?", "answer": "Clearly state what you need from the person you are calling: 'I need you to come and review the patient now' or 'I recommend we repeat the blood cultures before starting the next antibiotic dose.'", "difficulty": "easy"},
-    {"question": "What is read-back for verbal orders?", "answer": "After receiving a verbal or telephone medication order, repeat the complete order back to the prescriber for confirmation before hanging up/ending the call. Required by Joint Commission.", "difficulty": "easy"},
-    {"question": "What is an open-ended question and give an example?", "answer": "A question that invites a full response rather than yes/no. Example: 'Tell me what your pain feels like and what makes it worse' — not 'Is your pain bad?'", "difficulty": "easy"}
+    {
+      "question": "What is the teach-back method and why is it used?",
+      "answer": "Asking patients to explain or demonstrate in their own words what they learned, to verify understanding. 'Do you understand?' is unreliable — teach-back identifies knowledge gaps.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Why must professional interpreters be used instead of family members?",
+      "answer": "Family members may omit, edit, or misinterpret clinical information (intentionally or not), compromising informed consent and clinical safety. Professional interpreters are trained in medical terminology and neutral translation.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "SBAR: what does 'R' (Recommendation) mean in practice?",
+      "answer": "Clearly state what you need from the person you are calling: 'I need you to come and review the patient now' or 'I recommend we repeat the blood cultures before starting the next antibiotic dose.'",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What is read-back for verbal orders?",
+      "answer": "After receiving a verbal or telephone medication order, repeat the complete order back to the prescriber for confirmation before hanging up/ending the call. Required by Joint Commission.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "What is an open-ended question and give an example?",
+      "answer": "A question that invites a full response rather than yes/no. Example: 'Tell me what your pain feels like and what makes it worse' — not 'Is your pain bad?'",
+      "difficulty": "easy"
+    }
   ],
   "mcq_questions": [
     {
@@ -113,7 +183,13 @@
         "F": "Relevant past medical history and current treatment"
       },
       "correct": "A",
-      "correct_answers": ["A", "B", "C", "D", "F"],
+      "correct_answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F"
+      ],
       "explanation": "SBAR handoff includes: Situation (A, B — who and what is happening), Background (F — relevant history), Assessment (C — your clinical impression), Recommendation (D — what you need). A complete medication list (E) is not a SBAR component — include only relevant current medications in Background, not the entire list.",
       "difficulty": "medium"
     },
@@ -127,7 +203,12 @@
         "D": "Write down the order as received"
       },
       "correct": "D",
-      "correct_order": ["D", "B", "C", "A"],
+      "correct_order": [
+        "D",
+        "B",
+        "C",
+        "A"
+      ],
       "explanation": "Write down the order first (D) so you have it accurately. Read it back to the physician for confirmation (B). Then chart the order as a verbal/telephone order with the prescriber's name and your name (C). Spelling the physician's name can be done at any point (A) but is less critical than the read-back for safety.",
       "difficulty": "medium"
     },
@@ -151,9 +232,20 @@
       "specialty": "Nursing",
       "difficulty": "medium",
       "presentation": "It is 2 AM. You are the night nurse caring for Amara, 4 years old, admitted with a UTI and fever. She is clinically stable (T 38.2°C after paracetamol 2 hours ago, HR 104, RR 24, SpO2 99%, well-perfused). Her mother, Mrs. Diop, approaches you in tears, saying the doctor 'hasn't told them anything', she is scared the fever means something 'really serious', and demands you explain 'everything about her condition'. She does not speak English fluently — her husband has been translating informally.",
-      "vitals": {"temp": 38.2, "hr": 104, "rr": 24, "spo2": 99},
+      "vitals": {
+        "temp": 38.2,
+        "hr": 104,
+        "rr": 24,
+        "spo2": 99
+      },
       "diagnosis": "Paediatric UTI with fever — clinically stable",
-      "management": ["Acknowledge concern", "Assess language needs", "Provide therapeutic presence", "Facilitate physician communication", "Secure professional interpreter"],
+      "management": [
+        "Acknowledge concern",
+        "Assess language needs",
+        "Provide therapeutic presence",
+        "Facilitate physician communication",
+        "Secure professional interpreter"
+      ],
       "teaching_points": [
         "Family members must not be used as clinical interpreters — request professional interpreter services",
         "Acknowledging the family's concern before providing information reduces anxiety and improves communication",
@@ -167,10 +259,34 @@
           "title": "Initial Encounter",
           "description": "Mrs. Diop is distressed and speaking rapidly. What is your first nursing action?",
           "choices": [
-            {"id": "C1a", "text": "Explain the UTI diagnosis and reassure her that UTIs are not serious", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10},
-            {"id": "C1b", "text": "Acknowledge her distress, invite her to sit down, and listen to her concerns without interrupting", "next_step": "S2", "outcome": "correct", "score_delta": 20},
-            {"id": "C1c", "text": "Remind her it is 2 AM and ask her to wait until morning to speak with the physician", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C1d", "text": "Call the physician immediately to come and speak to the family", "next_step": "S2", "outcome": "partial", "score_delta": 10}
+            {
+              "id": "C1a",
+              "text": "Explain the UTI diagnosis and reassure her that UTIs are not serious",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -10
+            },
+            {
+              "id": "C1b",
+              "text": "Acknowledge her distress, invite her to sit down, and listen to her concerns without interrupting",
+              "next_step": "S2",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C1c",
+              "text": "Remind her it is 2 AM and ask her to wait until morning to speak with the physician",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C1d",
+              "text": "Call the physician immediately to come and speak to the family",
+              "next_step": "S2",
+              "outcome": "partial",
+              "score_delta": 10
+            }
           ]
         },
         {
@@ -178,10 +294,34 @@
           "title": "Language and Interpreter",
           "description": "After listening, you notice Mrs. Diop is struggling to express herself clearly in English. Her husband is present. What do you do?",
           "choices": [
-            {"id": "C2a", "text": "Ask the husband to continue translating — he seems to understand well enough", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C2b", "text": "Arrange a professional medical interpreter (phone/in-person service) before continuing the clinical discussion", "next_step": "S3", "outcome": "correct", "score_delta": 25},
-            {"id": "C2c", "text": "Use simple English words and pictures to explain the situation yourself", "next_step": "S3", "outcome": "partial", "score_delta": 10},
-            {"id": "C2d", "text": "Document 'language barrier' and inform the day team", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+            {
+              "id": "C2a",
+              "text": "Ask the husband to continue translating — he seems to understand well enough",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C2b",
+              "text": "Arrange a professional medical interpreter (phone/in-person service) before continuing the clinical discussion",
+              "next_step": "S3",
+              "outcome": "correct",
+              "score_delta": 25
+            },
+            {
+              "id": "C2c",
+              "text": "Use simple English words and pictures to explain the situation yourself",
+              "next_step": "S3",
+              "outcome": "partial",
+              "score_delta": 10
+            },
+            {
+              "id": "C2d",
+              "text": "Document 'language barrier' and inform the day team",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -15
+            }
           ]
         },
         {
@@ -189,10 +329,34 @@
           "title": "Providing Information",
           "description": "With the interpreter connected, Mrs. Diop asks: 'Is my daughter's kidney going to be damaged?' How do you respond?",
           "choices": [
-            {"id": "C3a", "text": "Tell her exactly what the risks of UTI-related kidney damage are based on your knowledge", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -15},
-            {"id": "C3b", "text": "Acknowledge her worry; share what you can observe now (Amara is comfortable and stable); explain you will arrange for the paediatrician to discuss her specific question in the morning", "next_step": "S4", "outcome": "correct", "score_delta": 20},
-            {"id": "C3c", "text": "Say 'I'm not allowed to give medical information' and end the conversation", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C3d", "text": "Reassure her that Amara will be fine and there is nothing to worry about", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10}
+            {
+              "id": "C3a",
+              "text": "Tell her exactly what the risks of UTI-related kidney damage are based on your knowledge",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -15
+            },
+            {
+              "id": "C3b",
+              "text": "Acknowledge her worry; share what you can observe now (Amara is comfortable and stable); explain you will arrange for the paediatrician to discuss her specific question in the morning",
+              "next_step": "S4",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C3c",
+              "text": "Say 'I'm not allowed to give medical information' and end the conversation",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C3d",
+              "text": "Reassure her that Amara will be fine and there is nothing to worry about",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -10
+            }
           ]
         },
         {
@@ -200,8 +364,20 @@
           "title": "Documentation and Follow-Up",
           "description": "What do you document about this interaction?",
           "choices": [
-            {"id": "C4a", "text": "Family expressed concerns about prognosis; professional interpreter arranged; family updated on Amara's current clinical stability; paediatrician informed and will meet family at morning rounds", "next_step": null, "outcome": "correct", "score_delta": 15},
-            {"id": "C4b", "text": "Family anxious — noted", "next_step": null, "outcome": "partial", "score_delta": 3}
+            {
+              "id": "C4a",
+              "text": "Family expressed concerns about prognosis; professional interpreter arranged; family updated on Amara's current clinical stability; paediatrician informed and will meet family at morning rounds",
+              "next_step": null,
+              "outcome": "correct",
+              "score_delta": 15
+            },
+            {
+              "id": "C4b",
+              "text": "Family anxious — noted",
+              "next_step": null,
+              "outcome": "partial",
+              "score_delta": 3
+            }
           ]
         },
         {
@@ -218,7 +394,12 @@
         }
       ],
       "initial_step_id": "S1",
-      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "ideal_path": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
       "max_score": 80
     }
   ]

@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "id": "NURSE-018",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Renal, Urinary & Fluid-Electrolyte Nursing",
+    "title_en": "Renal, Urinary & Fluid-Electrolyte Nursing",
+    "order_in_specialty": 18,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 5,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": [
+      "KDIGO Clinical Practice Guidelines — Acute Kidney Injury 2012, CKD 2012/2024",
+      "NICE. Guideline NG148: Acute kidney injury prevention, detection and management. 2019",
+      "NICE. Guideline NG203: Chronic kidney disease. 2021",
+      "Marieb EN & Hoehn K. Human Anatomy & Physiology, 12th ed. Pearson, 2022",
+      "EPIC3 National Evidence-Based Guidelines for Urinary Catheters. J Hospital Infection, 2014"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Fluid Balance: Assessment and Management",
+      "order": 1,
+      "lay_summary": "Accurate fluid balance monitoring is a fundamental nursing skill. Fluid overload and dehydration both cause serious harm. You are the first line of detection.",
+      "content": {
+        "intro": "Total body water (TBW) comprises ~60% of body weight in adult males, ~50% in females. Two-thirds is intracellular (ICF); one-third extracellular (ECF — plasma ~8%, interstitial ~20%, transcellular ~4%). Fluid compartment shifts cause distinct clinical syndromes. Accurate assessment and meticulous fluid balance recording are core nursing responsibilities.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Clinical Assessment of Fluid Status",
+            "body": "Dehydration indicators: dry mucous membranes, decreased skin turgor (test over sternum or inner forearm — not dorsum of hand in elderly), sunken eyes, concentrated urine (dark, ↑ specific gravity >1.020), ↑ HR, ↓ BP (postural drop ≥20 mmHg systolic indicates significant volume depletion), capillary refill >2 seconds, ↓ JVP, flat neck veins, oliguria (<0.5 mL/kg/h). Fluid overload indicators: pitting oedema (grade: 1+ trace → 4+ severe), crackles at lung bases (pulmonary oedema), raised JVP (>4 cm above sternal angle at 45°), S3 gallop, dyspnoea, weight gain (1 kg ≈ 1 litre of fluid). Anasarca = severe generalised oedema."
+          },
+          {
+            "title": "Fluid Balance Charts and Measurement",
+            "body": "Inputs (document): IV fluids, oral intake (including medicines), blood products, enteral feeds, flushes. Outputs (document): urine (catheter drainage or measured voiding), wound/drain output, vomiting, diarrhoea, nasogastric aspirate. Insensible losses: ~500-1000 mL/day (respiratory vapour, sweat) — increases with fever (add ~200 mL/°C above 37°C) and tachypnoea. Interpretation: daily fluid balance = total inputs minus total outputs. Positive balance = more in than out (accumulation). Negative balance = more out than in (depletion). Trend over 24-48h is more informative than single readings. Report: urine output <0.5 mL/kg/h for 2+ consecutive hours, balance significantly positive without clinical indication, unexplained negative balance."
+          },
+          {
+            "title": "IV Fluid Selection: Crystalloids vs Colloids",
+            "body": "Crystalloids (most common): Normal saline (0.9% NaCl) — isotonic, expands ECF; large volumes cause hyperchloraemic metabolic acidosis. Hartmann's/Ringer's Lactate — balanced; preferred for large volume resuscitation. 5% Dextrose — isotonic in bag but rapidly metabolised → effectively water; distributes throughout TBW; not for resuscitation. Dextrose-saline (0.18% NaCl + 4% dextrose) — hypotonic in practice; only for specific indications. Colloids (albumin, gelatin solutions): remain in intravascular space longer; limited evidence of superiority; higher cost; albumin 4.5% has a role in specific indications (spontaneous bacterial peritonitis, hepatic decompensation). Fluid challenge: 250-500 mL crystalloid bolus over 15-30 minutes → reassess response."
+          }
+        ],
+        "clinical_pearl": "Daily weight is the most sensitive indicator of fluid balance — more accurate than intake-output charts (which miss insensible losses and are prone to documentation errors). Weigh at the same time each day, same scales, same clothing. A 2 kg overnight weight gain = 2 litres of fluid retention. This is especially important in heart failure and renal patients.",
+        "key_points": [
+          "Dehydration: dry mucosa, tachycardia, postural hypotension (≥20 mmHg drop), oliguria <0.5 mL/kg/h",
+          "Fluid overload: oedema, bibasal crackles, raised JVP, weight gain",
+          "Daily weight is more accurate than fluid balance charts for fluid assessment",
+          "Normal saline → hyperchloraemic acidosis with large volumes; Hartmann's is preferred for resuscitation",
+          "Report urine output <0.5 mL/kg/h for ≥2 hours to the medical team"
+        ],
+        "references": [
+          "NICE. Intravenous fluid therapy in adults in hospital (CG174). NICE, 2013",
+          "Finfer S et al. SAFE study — albumin vs saline in ICU. NEJM 2004;350:2247-2256",
+          "National Patient Safety Agency. IV fluid alert. NPSA, 2007"
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Electrolyte Imbalances: Recognition and Nursing Management",
+      "order": 2,
+      "lay_summary": "Electrolyte disturbances can cause fatal arrhythmias and neurological emergencies. Nurses interpret results and take action — not just report them.",
+      "content": {
+        "intro": "Electrolytes — sodium, potassium, calcium, magnesium — are essential for membrane function, nerve conduction, and muscle contraction. Imbalances arise from inadequate intake, excessive loss, or aberrant distribution. Recognising critical values and their symptoms allows nurses to act before clinical deterioration.",
+        "estimated_minutes": 40,
+        "sections": [
+          {
+            "title": "Sodium Imbalances",
+            "body": "Hyponatraemia (Na+ <135 mEq/L): most common electrolyte disorder. Symptoms depend on rate of fall more than absolute level. Acute: headache, nausea → confusion, seizures, cerebral oedema, coma (Na+ <120 rapidly). Causes: SIADH (syndrome of inappropriate ADH — common post-surgery, with CNS lesions, lung cancer, SSRIs), heart failure, cirrhosis, hypothyroidism, excess hypotonic IV fluids. Management: fluid restriction (SIADH); hypertonic saline (3% NaCl) for symptomatic acute hyponatraemia — correction rate ≤10-12 mEq/L per 24h (too rapid → osmotic demyelination syndrome/central pontine myelinolysis). Hypernatraemia (Na+ >145 mEq/L): always reflects water deficit. Causes: diabetes insipidus, inadequate fluid intake, excessive sweating. Symptoms: extreme thirst, confusion, seizures, coma. Correct slowly with free water (oral or 5% dextrose IV)."
+          },
+          {
+            "title": "Potassium Imbalances",
+            "body": "Hypokalaemia (K+ <3.5 mEq/L): causes: diuretics (most common), vomiting, diarrhoea, hyperaldosteronism, insulin excess. Symptoms: muscle weakness/cramps, constipation, ileus, cardiac arrhythmias (PVCs, AF, digoxin toxicity potentiated). ECG: flattened T waves, U waves, prolonged QU interval. Management: oral K+ preferred (potassium chloride effervescent); IV K+ must NEVER be given as bolus (cardiac arrest). IV replacement: maximum 10-20 mEq/h, maximum concentration 40 mEq/L peripheral (60 mEq/L central), continuous cardiac monitoring required if >10 mEq/h. Hyperkalaemia (K+ >5.5 mEq/L): critical >6.0. Causes: AKI, CKD, ACE inhibitors, K+-sparing diuretics, haemolysis, rhabdomyolysis. ECG changes (order of progression): peaked T waves → prolonged PR → wide QRS → sine wave → VF/asystole. Management: calcium gluconate (membrane stabilisation, immediate but temporary), insulin + dextrose (shift K+ into cells, 20-30 min), nebulised salbutamol, sodium bicarbonate (alkalosis), furosemide, kayexalate, dialysis (definitive)."
+          },
+          {
+            "title": "Calcium and Magnesium Imbalances",
+            "body": "Hypocalcaemia (Ca2+ <2.12 mmol/L or ionised <1.1): causes: hypoparathyroidism, vitamin D deficiency, CKD, pancreatitis, massive transfusion. Clinical: Chvostek's sign (facial twitch on tapping facial nerve at the jaw), Trousseau's sign (carpal spasm with BP cuff inflated above systolic × 3 min), tetany, laryngospasm (stridor, airway emergency), seizures, prolonged QT. Management: IV calcium gluconate 10% for symptomatic; oral vitamin D and calcium for chronic. Hypercalcaemia (Ca2+ >2.6): causes: hyperparathyroidism (#1), malignancy (PTHrP), vitamin D toxicity. Symptoms: 'bones, stones, groans, thrones, psychic moans' (bone pain, renal stones, abdominal pain, polyuria, neuropsychiatric). Management: IV saline hydration (first step), bisphosphonates. Hypomagnesaemia: often co-exists with and causes refractory hypokalaemia and hypocalcaemia. Common in alcoholism, PPI use, diarrhoea. Replace magnesium first when multiple electrolyte deficiencies co-exist."
+          },
+          {
+            "title": "Critical Potassium Values: Nursing Action Algorithm",
+            "body": "K+ <3.0 mEq/L: assess symptoms, 12-lead ECG, inform medical team immediately, replace as ordered. K+ <2.5 mEq/L: urgent medical review, IV replacement with cardiac monitoring. K+ >5.5 mEq/L: repeat sample (rule out haemolysis — common cause of pseudohyperkalaemia), ECG, inform medical team, withhold K+-raising medications (ACE inhibitors, K+-sparing diuretics), check renal function. K+ >6.0 mEq/L with ECG changes: medical emergency — follow hyperkalaemia protocol, prepare calcium gluconate, prepare for potential dialysis."
+          }
+        ],
+        "clinical_pearl": "Hypomagnesaemia is the 'silent culprit' behind refractory hypokalaemia. If a patient's potassium keeps falling despite replacement, check magnesium. The renal tubule cannot retain potassium without adequate magnesium. Correct hypomagnesaemia first and the potassium will respond.",
+        "key_points": [
+          "Hyponatraemia correction: ≤10-12 mEq/L per 24h — too fast → central pontine myelinolysis",
+          "IV K+ never as bolus; max 20 mEq/h with cardiac monitoring",
+          "Hyperkalaemia ECG progression: peaked T → wide QRS → sine wave → VF",
+          "Hyperkalaemia management: calcium gluconate (membrane) → insulin+dextrose (shift) → dialysis (definitive)",
+          "Chvostek's + Trousseau's = hypocalcaemia; check and correct magnesium first in refractory hypokalaemia"
+        ],
+        "references": [
+          "Adrogue HJ & Madias NE. Hyponatraemia. NEJM 2000;342:1581-1589",
+          "Weiner ID et al. Disorders of potassium homeostasis. Clin J Am Soc Nephrol 2010;5(3):609-622",
+          "NICE. Clinical Knowledge Summary: Hyponatraemia. 2022"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Urinary Catheterisation: Indications, Technique, and CAUTI Prevention",
+      "order": 3,
+      "lay_summary": "Urinary catheters are the most common source of healthcare-associated infection. Most CAUTIs are preventable. Know when to insert and when to remove.",
+      "content": {
+        "intro": "Catheter-associated urinary tract infection (CAUTI) is the most common healthcare-associated infection globally, accounting for 30-40% of all nosocomial infections. Each day a urinary catheter remains in situ, the risk of bacteriuria increases by 3-7%. Most CAUTIs are preventable through evidence-based insertion technique and daily review of catheter necessity.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Indications and Contraindications",
+            "body": "Appropriate indications (EPIC3/HICPAC criteria): acute urinary retention, critical illness requiring accurate hourly output monitoring, perioperative (specific surgeries only, remove within 24h), facilitation of healing in sacral/perineal wounds, end-of-life comfort care, prolonged immobilisation (spinal fracture). Inappropriate indications: incontinence (use pads/external catheters instead), convenience, routine post-operative monitoring without specific indication. Before insertion: confirm indication is appropriate, obtain consent, assess for contraindications (urethral injury — suspect if blood at meatus or after pelvic trauma → urology consult first, catheter contraindicated until injury excluded)."
+          },
+          {
+            "title": "Insertion Technique: Aseptic Non-Touch Technique (ANTT)",
+            "body": "ANTT principles: identify 'key parts' (catheter tip, drainage port, inner catheter) and 'key sites' (urethral meatus, catheter-drainage system junction) — these must never be touched or contaminated. Before insertion: hand hygiene (ABHR), non-sterile gloves for genital cleansing, sterile gloves and sterile field for catheter insertion. Cleanse periurethral area: front to back, one wipe per swab (female); retract foreskin, cleanse glans penis in a spiral motion (male). Insert single-use lubricating anaesthetic gel (lignocaine gel): male — wait 3-5 minutes for anaesthetic effect; female — insufficient urethra length for reliable anaesthetic effect, use plain lubricant. Insert catheter until urine flows freely before inflating balloon. Inflate balloon with stated volume (usually 10 mL sterile water — not saline, which can crystallise)."
+          },
+          {
+            "title": "CAUTI Prevention Bundle",
+            "body": "Insert only when indicated (avoid). Remove as soon as possible (daily review). Maintain closed drainage system (never open without clinical indication). Keep drainage bag below the level of the bladder at all times (prevent retrograde flow — critical). Empty bag when ¾ full using clean technique; document output. Secure catheter to prevent traction (reduces mechanical trauma and infection risk). Maintain adequate hydration. Do not routinely change catheters (change only when blocked, infected, or leaking; or per local policy). Do not use bladder washouts or antibiotic prophylaxis routinely. Perineal hygiene: daily soap and water cleansing of meatus (no antiseptic cleanser unless infected)."
+          },
+          {
+            "title": "Post-Void Residual Assessment and Bladder Scanner Use",
+            "body": "Post-void residual (PVR) = urine remaining in bladder after voiding. Assessed by: ultrasound bladder scan (non-invasive, preferred) or in-out catheterisation (invasive, risk of CAUTI). Indications: urinary retention symptoms (weak stream, incomplete emptying, overflow incontinence, UTI), post-indwelling catheter removal, neurogenic bladder, BPH, post-spinal anaesthesia. Interpretation: PVR <50 mL: normal (adequate bladder emptying). PVR 50-150 mL: borderline (repeat assessment, monitor symptoms). PVR >150 mL: significant retention — consider intermittent catheterisation or indwelling catheter. PVR >300 mL with symptoms: urinary retention — catheterise immediately. Bladder scanning technique: ensure probe is placed in the suprapubic area, perpendicular to the skin, with adequate gel; take two readings and average."
+          }
+        ],
+        "clinical_pearl": "The drainage bag must always be below the level of the bladder — including during transfers. A bag left at the level of or above the bladder allows retrograde flow of colonised urine back into the bladder, directly causing CAUTI. Check bag position at every patient encounter.",
+        "key_points": [
+          "CAUTI risk: 3-7% per catheter-day; daily review for removal is the most effective prevention",
+          "ANTT: key parts (catheter tip, ports) and key sites (meatus) must never be contacted",
+          "Balloon inflation: 10 mL sterile water (not saline); inflate only after urine flows freely",
+          "Drainage bag must be below bladder level at all times — including during transfers",
+          "PVR >150 mL = significant retention; >300 mL with symptoms = catheterise immediately"
+        ],
+        "references": [
+          "Loveday HP et al. epic3: National evidence-based guidelines for preventing HCAI in NHS hospitals. J Hospital Infection 2014;86(S1):S1-S70",
+          "CDC HICPAC. Guidelines for prevention of CAUTI. 2009",
+          "NICE. Guideline NG113: Urinary tract infections in adults. 2018 updated 2022"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Acute Kidney Injury (AKI): Recognition and Nursing Management",
+      "order": 4,
+      "lay_summary": "AKI is common, serious, and often preventable. Early recognition and simple nursing actions — fluids, stopping nephrotoxins, monitoring — make a difference.",
+      "content": {
+        "intro": "Acute kidney injury (AKI) affects 13-18% of hospitalised patients and carries significant short- and long-term mortality. The KDIGO 2012 definition classifies AKI by serum creatinine (SCr) rise and urine output. Most hospital AKI is pre-renal (volume depletion) or nephrotoxic, both of which are largely preventable with good nursing care.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "KDIGO AKI Staging",
+            "body": "AKI diagnosis: rise in SCr ≥26.5 μmol/L within 48h OR rise to ≥1.5× baseline within 7 days OR urine output <0.5 mL/kg/h for ≥6h. Stage 1: SCr 1.5-1.9× baseline OR SCr rise ≥26.5 μmol/L; UO <0.5 mL/kg/h for 6-12h. Stage 2: SCr 2.0-2.9× baseline; UO <0.5 mL/kg/h for ≥12h. Stage 3: SCr ≥3.0× baseline OR SCr ≥354 μmol/L OR initiation of RRT; UO <0.3 mL/kg/h for ≥24h or anuria ≥12h. AKI is under-recognised because creatinine reflects GFR with a 24-48h lag — GFR may fall 50% before SCr rises significantly. Urine output is an earlier and more sensitive marker."
+          },
+          {
+            "title": "Causes: Pre-renal, Intrinsic, Post-renal",
+            "body": "Pre-renal (most common, ~70%): reduced renal perfusion → decreased GFR. Causes: hypovolaemia (haemorrhage, dehydration, burns), reduced cardiac output (heart failure, cardiogenic shock), sepsis (distributive shock), hepatorenal syndrome, medications (NSAIDs — constrict afferent arteriole; ACE inhibitors — dilate efferent arteriole, reduce GFR). Responds to volume restoration. Intrinsic (renal parenchymal damage): ATN (acute tubular necrosis) — most common intrinsic cause; results from prolonged pre-renal ischaemia or nephrotoxins (aminoglycosides, contrast agents, myoglobin in rhabdomyolysis). Other: GN, AIN (drug-induced — NSAIDs, PPIs, penicillins). Post-renal (obstruction): BPH, pelvic malignancy, bilateral ureteric obstruction, blocked urinary catheter. Check for blocked catheter first — common, easily remedied cause."
+          },
+          {
+            "title": "Nephrotoxin Prevention: The Nurse's Role",
+            "body": "THINK AKI — five categories of nephrotoxic medications nurses must recognise: 1. NSAIDs (ibuprofen, diclofenac): reduce renal prostaglandins → vasoconstriction → pre-renal AKI. Stop if AKI suspected. 2. ACE inhibitors/ARBs (lisinopril, ramipril, losartan): dilate efferent arteriole → reduce GFR in volume-depleted or renovascular disease patients. 3. Aminoglycosides (gentamicin, amikacin): direct tubular toxicity; monitor pre-dose trough levels; ensure adequate hydration. 4. IV contrast media: contrast-induced nephropathy — pre-hydrate with IV saline; hold metformin 48h before and after. 5. Metformin: does not cause AKI but accumulates in AKI → lactic acidosis risk. Hold at SCr ≥130 μmol/L or eGFR <30."
+          },
+          {
+            "title": "AKI Management: Nursing Priorities",
+            "body": "1. Identify and treat the cause (most important). 2. Optimise renal perfusion: IV fluid resuscitation for pre-renal AKI (250-500 mL crystalloid challenge, reassess after each bolus). 3. Strict fluid balance: hourly urine output, daily weight. 4. Stop nephrotoxins. 5. Monitor and manage complications: hyperkalaemia (K+ >5.5 → act), fluid overload (restrict if oliguric with overload), metabolic acidosis, uraemia (nausea, confusion, pericarditis — indication for dialysis). 6. Medication review: dose-adjust renally cleared medications (gentamicin, vancomycin, low-molecular-weight heparin, digoxin). 7. Indications for emergency dialysis (AEIOU): Acidosis (pH <7.1), Electrolyte disturbance (K+ >6.5 refractory), Intoxication, Overload (pulmonary oedema refractory), Uraemia (pericarditis, encephalopathy)."
+          }
+        ],
+        "clinical_pearl": "The first action for a patient with AKI and a urinary catheter: flush and check catheter patency. Blocked catheter is a common, easily remedied cause of post-renal AKI that causes unnecessary investigation and worsens outcomes when missed. If the catheter is patent and draining, proceed to assessing pre-renal and intrinsic causes.",
+        "key_points": [
+          "KDIGO AKI: SCr rise ≥26.5 μmol/L in 48h or ≥1.5× baseline in 7 days, or UO <0.5 mL/kg/h for ≥6h",
+          "Urine output is an earlier AKI marker than SCr (which lags 24-48h)",
+          "First action in AKI with catheter: check catheter patency",
+          "Nephrotoxins: stop NSAIDs, ACEi/ARBs, check aminoglycoside levels, pre-hydrate before contrast",
+          "Emergency dialysis: AEIOU — Acidosis, Electrolytes, Intoxication, Overload, Uraemia"
+        ],
+        "references": [
+          "KDIGO. Clinical Practice Guideline for Acute Kidney Injury. Kidney International Supplements 2012;2(1):1-138",
+          "NICE. Guideline NG148: Acute kidney injury prevention, detection and management. NICE, 2019",
+          "NHS England. Think Kidneys — AKI resources for clinicians. 2016"
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "title": "Chronic Kidney Disease and Dialysis Nursing",
+      "order": 5,
+      "lay_summary": "CKD is progressive and largely irreversible, but its complications are manageable. Dialysis patients require specialist nursing knowledge to avoid life-threatening complications.",
+      "content": {
+        "intro": "Chronic kidney disease (CKD) affects ~10% of the global adult population and is defined as abnormalities of kidney structure or function persisting for >3 months. The KDIGO CGA classification (Cause, GFR category, Albuminuria category) determines prognosis and guides management. Most CKD-related deaths are cardiovascular, not renal.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "CKD Staging (KDIGO 2012/2024)",
+            "body": "eGFR stages: G1 ≥90 mL/min/1.73m² (normal structure/function, may have markers of kidney damage); G2 60-89 (mildly decreased); G3a 45-59 (mild-moderate); G3b 30-44 (moderate-severe); G4 15-29 (severely decreased); G5 <15 (kidney failure — dialysis or transplant). Albuminuria categories: A1 <30 mg/g (normal); A2 30-300 (moderately increased — 'microalbuminuria'); A3 >300 (severely increased — 'macroalbuminuria'). Risk of progression increases with lower GFR AND higher albuminuria. G3b-G4: refer to nephrology. G5: renal replacement therapy (RRT) planning. eGFR from SCr, age, sex (CKD-EPI equation) — check the actual number, not just 'normal'."
+          },
+          {
+            "title": "CKD Complications: Nursing Assessment",
+            "body": "Anaemia of CKD: EPO deficiency + reduced iron absorption. Target Hb 100-120 g/L; managed with IV iron and erythropoiesis-stimulating agents (ESAs — epoetin, darbepoetin). Monitor BP with ESA therapy (hypertension common). CKD-mineral bone disease (CKD-MBD): retention of phosphate → ↓ calcium → secondary hyperparathyroidism → bone resorption → vascular calcification. Management: dietary phosphate restriction, phosphate binders (with meals), vitamin D analogues (calcitriol). Cardiovascular risk: CKD is an independent cardiovascular risk factor. Manage BP (target <130/80), dyslipidaemia (statins), diabetes, smoking. Fluid and electrolytes: restrict fluid (oliguric CKD), dietary potassium and sodium restriction. Uraemia (G4-5): fatigue, anorexia, nausea, pruritus, encephalopathy, pericarditis."
+          },
+          {
+            "title": "Haemodialysis (HD): Nursing Essentials",
+            "body": "HD removes waste products and excess fluid by passing blood through a dialyser (artificial kidney) via diffusion and ultrafiltration. Access: arteriovenous fistula (AVF) — preferred; created surgically, takes 6-8 weeks to mature. Feel for thrill (vibration = patent); listen for bruit. Never take BP, blood draws, or IVs in the fistula arm. Tunnelled central venous catheter (CVC) — higher infection risk, used when AVF not ready. Session: typically 3-4 hours, 3× per week. Complications to monitor: hypotension during dialysis (most common — due to ultrafiltration; treat with Trendelenburg, fluid bolus), muscle cramps, air embolism (rare but fatal — sit up, turn onto left side, call for help), dysequilibrium syndrome (cerebral oedema from rapid osmotic shift — headache, confusion, seizures, more common on first sessions)."
+          },
+          {
+            "title": "Peritoneal Dialysis (PD): Key Nursing Points",
+            "body": "PD uses the peritoneal membrane as a natural dialyser. Dialysate fluid is instilled via a Tenckhoff catheter into the peritoneal cavity, dwells for a prescribed time, then drains. Continuous ambulatory PD (CAPD): 3-5 exchanges per day; patient performs independently. Automated PD (APD): machine performs exchanges overnight. Nursing monitoring: weight before and after exchange (to monitor fluid removal), effluent appearance (clear = normal; cloudy = peritonitis), exit site care (weekly dressing, inspect for erythema/discharge). Peritonitis — most serious complication: cloudy effluent, abdominal pain, fever. Send effluent for cell count, culture, sensitivity; initiate intraperitoneal antibiotics per protocol; document and report."
+          }
+        ],
+        "clinical_pearl": "The AVF is the CKD patient's lifeline. Protect it aggressively: no blood pressure measurements, no venepuncture, no IV access in the fistula arm — ever. Label the bed and the patient's arm clearly. Brief nurses, phlebotomists, and junior doctors at every handover. Loss of AVF access can mean months of waiting for a new one, with high-risk CVC access in the interim.",
+        "key_points": [
+          "CKD stages G1-G5 by eGFR; G3b-G4 → nephrology referral; G5 → RRT planning",
+          "CKD anaemia: EPO deficiency → ESA + IV iron; target Hb 100-120 g/L",
+          "Protect AVF arm: no BP, no IV, no bloods — ever; check thrill and bruit each shift",
+          "HD complication: hypotension during dialysis is most common; treat with Trendelenburg + fluid",
+          "PD peritonitis: cloudy effluent + abdominal pain + fever → culture and intraperitoneal antibiotics"
+        ],
+        "references": [
+          "KDIGO. Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease. Kidney Int Suppl 2013;3:1-150",
+          "NICE. Guideline NG203: Chronic kidney disease. NICE, 2021",
+          "EDTNA/ERCA. European Renal Best Practice Guidelines. Nephrol Dial Transplant, 2015"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "KDIGO AKI Stage 1 criteria?",
+      "answer": "SCr rise 1.5-1.9× baseline OR ≥26.5 μmol/L in 48h; OR urine output <0.5 mL/kg/h for 6-12h.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Emergency dialysis indications (AEIOU)?",
+      "answer": "Acidosis (pH<7.1), Electrolytes (K+>6.5 refractory), Intoxication, Overload (refractory pulmonary oedema), Uraemia (pericarditis/encephalopathy)",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Why is hypomagnesaemia the 'silent culprit' in electrolyte disturbances?",
+      "answer": "Hypomagnesaemia causes refractory hypokalaemia and hypocalcaemia — the renal tubule cannot retain K+ without Mg2+. Replace magnesium first when multiple electrolyte deficiencies co-exist.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "CAUTI prevention: most critical nursing action?",
+      "answer": "Daily review of catheter necessity and removal as soon as possible. Also: drainage bag always below bladder level; closed drainage system.",
+      "difficulty": "easy"
+    }
+  ],
+  "mcq_questions": [],
+  "clinical_cases": []
+}

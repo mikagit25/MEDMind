@@ -7,11 +7,17 @@
     "title_en": "Emergency Situations: The Nurse's Role Before the Doctor Arrives",
     "order_in_specialty": 6,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-005"],
-    "duration_hours": 4,
+    "prerequisite_modules": [
+      "NURSE-005"
+    ],
+    "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["AHA ACLS/BLS Guidelines 2020", "Resuscitation Council UK 2021", "WHO Basic Emergency Care 2018"]
+    "sources": [
+      "AHA ACLS/BLS Guidelines 2020",
+      "Resuscitation Council UK 2021",
+      "WHO Basic Emergency Care 2018"
+    ]
   },
   "lessons": [
     {
@@ -44,7 +50,10 @@
           "Rotate compressors every 2 minutes; pause only for AED analysis/shock (<5 s)",
           "Document time of arrest, CPR start, rhythm, drugs, and team arrival"
         ],
-        "references": ["Resuscitation Council UK BLS Algorithm 2021", "AHA CPR & ECC Guidelines Update 2020"]
+        "references": [
+          "Resuscitation Council UK BLS Algorithm 2021",
+          "AHA CPR & ECC Guidelines Update 2020"
+        ]
       }
     },
     {
@@ -76,16 +85,109 @@
           "Choking: 5 back blows then 5 abdominal thrusts; alternate until resolved or unconscious",
           "Pregnancy/obesity: chest thrusts replace abdominal thrusts in choking"
         ],
-        "references": ["Resuscitation Council UK Anaphylaxis Guidelines 2021", "ADA Hypoglycaemia Management Standards 2023"]
+        "references": [
+          "Resuscitation Council UK Anaphylaxis Guidelines 2021",
+          "ADA Hypoglycaemia Management Standards 2023"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Stroke Recognition and Hyperacute Nursing Care",
+      "order": 3,
+      "lay_summary": "Stroke is a brain attack. 'Time is brain' — every minute of ischaemia destroys 1.9 million neurons. Nurses must recognise stroke and activate the pathway within minutes.",
+      "content": {
+        "intro": "Stroke is the second leading cause of death and first cause of acquired adult disability worldwide. Ischaemic stroke (85%) results from thrombotic or embolic occlusion of a cerebral artery. Haemorrhagic stroke (15%) results from intracerebral or subarachnoid haemorrhage. The treatment for ischaemic stroke (thrombolysis, thrombectomy) is time-critical — outcome depends on speed of recognition and treatment.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Stroke Recognition: FAST and BE-FAST",
+            "body": "FAST (community and nursing screening): Face drooping (unilateral — ask patient to smile; look for asymmetry); Arm weakness (ask to raise both arms; does one drift or fall?); Speech disturbance (slurred, absent, or inappropriate words); Time to call emergency services. BE-FAST adds Balance disturbance and Eye problems (sudden vision loss, double vision) — improves posterior circulation stroke detection (20% missed by FAST). ROSIER (Recognition of Stroke in the Emergency Room) adds seizure assessment and GCS change. Any sudden neurological deficit: unilateral weakness, facial drooping, aphasia, neglect, visual field defect, sudden severe headache ('thunderclap' = subarachnoid haemorrhage until proven otherwise), ataxia, diplopia — activate stroke pathway."
+          },
+          {
+            "title": "Stroke Care: Time-to-Treatment Targets",
+            "body": "Door-to-needle for IV thrombolysis (tPA/alteplase): ≤60 minutes (target ≤45 minutes in high-performing centres). Eligible window: ≤4.5 hours from symptom onset (or last seen well). Contraindications to thrombolysis: haemorrhagic stroke (CT/MRI must exclude before treatment), recent surgery or major trauma, haematological conditions, anticoagulation (INR >1.7), extreme BP (>185/110 despite treatment). Door-to-groin puncture for mechanical thrombectomy: ≤90 minutes; eligible window extended to 24h from onset in select patients (perfusion imaging). Nursing priorities: establish exact time of symptom onset or last known well; obtain IV access; 12-lead ECG; blood glucose (hypoglycaemia mimics stroke; correct if <4 mmol/L); CT/MRI — do not delay for other assessments."
+          },
+          {
+            "title": "Post-Stroke Nursing Care: Preventing Complications",
+            "body": "Swallowing assessment before any oral intake: aspiration risk is high in acute stroke (dysphagia in 50%). Use validated bedside tool (e.g., GUSS — Gugging Swallowing Screen): if failed, nil by mouth and NG tube feeding; refer to speech and language therapy. Positioning: 30-45° head-of-bed elevation for first 24h (reduces aspiration, ICP); use wedges and pillows to support affected limbs and prevent shoulder subluxation. Pressure injury prevention: high risk (immobility, sensory loss, incontinence); pressure-relieving mattress, 2-hourly repositioning. Urinary: avoid catheterisation unless essential; monitor for retention; incontinence is not a catheter indication. Glucose control: hyperglycaemia worsens ischaemic penumbra — target 6-10 mmol/L. VTE prophylaxis: mechanical (anti-embolism stockings, IPC) immediately; anticoagulation timing depends on stroke type and size."
+          }
+        ],
+        "clinical_pearl": "Hypoglycaemia mimics stroke perfectly — hemiplegia, aphasia, altered consciousness. Blood glucose must be checked IMMEDIATELY in any patient with sudden neurological deficit BEFORE activating the stroke pathway. Hypoglycaemia is easily treated; unnecessary thrombolysis causes haemorrhage.",
+        "key_points": [
+          "BE-FAST: Balance, Eyes, Face, Arms, Speech, Time — improves posterior stroke detection",
+          "IV thrombolysis: within 4.5h of onset; door-to-needle ≤60 min; exclude haemorrhage first",
+          "Swallowing assessment before ANY oral intake in acute stroke",
+          "Glucose check is IMMEDIATE in any acute neurological deficit",
+          "Aspiration risk: 50% of acute stroke patients; nil by mouth until GUSS assessment"
+        ],
+        "references": [
+          "NICE. Guideline NG128: Stroke and transient ischaemic attack in over 16s. NICE, 2019 updated 2023",
+          "Powers WJ et al. AHA/ASA Stroke Guidelines 2019. Stroke 2019;50(12)",
+          "Intercollegiate Stroke Working Party. National Clinical Guideline for Stroke, 6th ed. 2023"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Cardiac Emergencies: ACS and Arrhythmia Recognition",
+      "order": 4,
+      "lay_summary": "Chest pain and arrhythmias are among the most common emergency presentations. Nurses who recognise an MI or VF on the monitor and act immediately save lives.",
+      "content": {
+        "intro": "Acute coronary syndrome (ACS) encompasses STEMI, NSTEMI, and unstable angina. Timely recognition, ECG acquisition, and treatment initiation are nursing priorities. Lethal arrhythmias — VF, pulseless VT, complete heart block — require immediate identification and intervention.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "ACS Recognition and the MONA-B Framework",
+            "body": "Chest pain assessment: character (crushing, pressure, 'like an elephant on my chest'), radiation (left arm, jaw, epigastrium), onset, duration, associated symptoms (diaphoresis, nausea, dyspnoea). Atypical presentations (common in women, elderly, diabetics): jaw pain only, epigastric pain, fatigue, dyspnoea without chest pain. STEMI: ST-elevation ≥1 mm in ≥2 contiguous limb leads, ≥2 mm in ≥2 contiguous precordial leads, or new LBBB. Target: door-to-balloon time ≤90 minutes for primary PCI. MONA-B (per local guidelines, not all elements routinely used): Morphine (only if pain unrelieved by nitrates — may worsen outcomes in ACS), Oxygen (only if SpO2 <94%), Nitrates (sublingual GTN — contraindicated if RV infarction, recent phosphodiesterase inhibitor use, systolic BP <90), Aspirin (300 mg loading immediately), B-blocker (in stable patients without contraindications). Priority: 12-lead ECG within 10 minutes of presentation."
+          },
+          {
+            "title": "Cardiac Rhythm Recognition: Life-Threatening Arrhythmias",
+            "body": "Ventricular fibrillation (VF): chaotic, no identifiable QRS complexes, no cardiac output — IMMEDIATE defibrillation. Pulseless ventricular tachycardia (VT): wide-complex regular tachycardia, no pulse — IMMEDIATE defibrillation. Both require CPR while defibrillator charges. Asystole: no electrical activity, flat line — CPR + adrenaline (epinephrine) 1 mg IV every 3-5 min; identify reversible causes (4 Hs and 4 Ts). Pulseless electrical activity (PEA): organised rhythm, no pulse — CPR + adrenaline + identify and treat reversible causes. Non-shockable rhythms (asystole, PEA): CPR and reversible causes — no defibrillation. 4 Hs: Hypoxia, Hypovolaemia, Hypo/Hyperkalaemia, Hypothermia. 4 Ts: Tension pneumothorax, Tamponade, Thrombosis (PE or coronary), Toxins."
+          }
+        ],
+        "clinical_pearl": "Right ventricular (RV) infarction occurs in 40% of inferior STEMIs. Classic triad: inferior ST-elevation + hypotension + elevated JVP with clear lungs. These patients are dependent on preload — DO NOT give nitrates or diuretics (causes catastrophic BP drop). Fluid resuscitation is the treatment. Suspect RV infarction in any hypotensive inferior STEMI.",
+        "key_points": [
+          "12-lead ECG within 10 minutes of ACS presentation; door-to-balloon ≤90 min",
+          "Aspirin 300 mg: first-line for ACS; GTN contraindicated in RV infarction",
+          "VF/pulseless VT: IMMEDIATE defibrillation + CPR",
+          "4 Hs and 4 Ts: reversible causes in PEA/asystole",
+          "RV infarction: inferior STEMI + hypotension + raised JVP — fluid resuscitation, NO nitrates"
+        ],
+        "references": [
+          "NICE. Guideline NG185: Acute coronary syndromes. NICE, 2020",
+          "AHA. 2020 AHA Guidelines for CPR and ECC. Circulation 2020;142(Suppl 2)",
+          "Resuscitation Council UK. Advanced Life Support, 8th ed. RCUK, 2021"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "BLS compression rate and depth for adults?", "answer": "100–120 per minute; 5–6 cm depth; allow full chest recoil.", "difficulty": "easy"},
-    {"question": "How often should you rotate chest compressors during CPR?", "answer": "Every 2 minutes (or sooner if fatigue is evident) to maintain compression quality.", "difficulty": "easy"},
-    {"question": "First-line drug for anaphylaxis and dose?", "answer": "Adrenaline (epinephrine) 0.5 mg IM, anterolateral mid-thigh. Can repeat every 5 minutes.", "difficulty": "medium"},
-    {"question": "Treatment for a conscious patient with blood glucose 2.8 mmol/L?", "answer": "15–20g fast-acting carbohydrates (e.g. 4 glucose tablets or 150 mL fruit juice); recheck glucose in 15 min; follow with long-acting carbohydrate once ≥4 mmol/L.", "difficulty": "medium"},
-    {"question": "Technique for adult severe choking (cannot cough or speak)?", "answer": "5 back blows (heel of hand, between shoulder blades) alternating with 5 abdominal thrusts (Heimlich). Continue until expelled or unconscious.", "difficulty": "medium"}
+    {
+      "question": "BLS compression rate and depth for adults?",
+      "answer": "100–120 per minute; 5–6 cm depth; allow full chest recoil.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "How often should you rotate chest compressors during CPR?",
+      "answer": "Every 2 minutes (or sooner if fatigue is evident) to maintain compression quality.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "First-line drug for anaphylaxis and dose?",
+      "answer": "Adrenaline (epinephrine) 0.5 mg IM, anterolateral mid-thigh. Can repeat every 5 minutes.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Treatment for a conscious patient with blood glucose 2.8 mmol/L?",
+      "answer": "15–20g fast-acting carbohydrates (e.g. 4 glucose tablets or 150 mL fruit juice); recheck glucose in 15 min; follow with long-acting carbohydrate once ≥4 mmol/L.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Technique for adult severe choking (cannot cough or speak)?",
+      "answer": "5 back blows (heel of hand, between shoulder blades) alternating with 5 abdominal thrusts (Heimlich). Continue until expelled or unconscious.",
+      "difficulty": "medium"
+    }
   ],
   "mcq_questions": [
     {
@@ -126,7 +228,12 @@
         "F": "Establish IV access"
       },
       "correct": "A",
-      "correct_answers": ["A", "B", "D", "E"],
+      "correct_answers": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ],
       "explanation": "Before the team arrives: start CPR immediately (A), activate the team (B — if two people, one calls while other starts CPR), apply AED (D), document time (E). IV adrenaline 1 mg (C) is an advanced life support drug given by the medical team after IV access is secured — not a nurse-initiation pre-arrest role in most settings. IV access (F) is done when possible but not at the expense of compressions.",
       "difficulty": "hard"
     },
@@ -141,7 +248,13 @@
         "E": "Apply high-flow oxygen"
       },
       "correct": "B",
-      "correct_order": ["B", "D", "C", "E", "A"],
+      "correct_order": [
+        "B",
+        "D",
+        "C",
+        "E",
+        "A"
+      ],
       "explanation": "First: remove the trigger (B — stop contrast). Simultaneously call for help (D). Administer adrenaline IM immediately (C — first-line drug). Apply oxygen (E). Antihistamines and hydrocortisone (A) are given after adrenaline as second-line adjuncts.",
       "difficulty": "hard"
     }
@@ -152,9 +265,21 @@
       "specialty": "Nursing",
       "difficulty": "hard",
       "presentation": "Mr. Okafor, 45 years old, is receiving IV cefazolin for a surgical wound infection. Ten minutes after you start the infusion he rings his call bell. You find him: flushed, anxious, saying 'I feel like something is wrong'. On assessment: HR 130 bpm, BP 80/50 mmHg, RR 28/min, SpO2 90%, widespread urticaria on trunk. He is struggling to breathe.",
-      "vitals": {"hr": 130, "bp": "80/50", "rr": 28, "spo2": 90},
+      "vitals": {
+        "hr": 130,
+        "bp": "80/50",
+        "rr": 28,
+        "spo2": 90
+      },
       "diagnosis": "Anaphylaxis to IV cephalosporin",
-      "management": ["Stop infusion", "Call for help", "Adrenaline IM", "O2", "IV fluids", "Second-line drugs"],
+      "management": [
+        "Stop infusion",
+        "Call for help",
+        "Adrenaline IM",
+        "O2",
+        "IV fluids",
+        "Second-line drugs"
+      ],
       "teaching_points": [
         "Anaphylaxis triad: airway (stridor/angioedema) + breathing (bronchospasm/hypoxia) + circulation (hypotension/tachycardia) — plus skin changes",
         "Stop the trigger immediately — do not continue the infusion",
@@ -168,10 +293,34 @@
           "title": "Initial Recognition",
           "description": "Mr. Okafor is deteriorating rapidly. What is the FIRST action?",
           "choices": [
-            {"id": "C1a", "text": "Stop the IV cefazolin infusion immediately", "next_step": "S2", "outcome": "correct", "score_delta": 25},
-            {"id": "C1b", "text": "Slow the infusion rate and observe for 5 minutes", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -25},
-            {"id": "C1c", "text": "Call the physician and wait for instructions", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C1d", "text": "Administer IV chlorphenamine immediately", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20}
+            {
+              "id": "C1a",
+              "text": "Stop the IV cefazolin infusion immediately",
+              "next_step": "S2",
+              "outcome": "correct",
+              "score_delta": 25
+            },
+            {
+              "id": "C1b",
+              "text": "Slow the infusion rate and observe for 5 minutes",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -25
+            },
+            {
+              "id": "C1c",
+              "text": "Call the physician and wait for instructions",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C1d",
+              "text": "Administer IV chlorphenamine immediately",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -20
+            }
           ]
         },
         {
@@ -179,10 +328,34 @@
           "title": "Infusion Stopped",
           "description": "Infusion is stopped. Mr. Okafor's BP is now 75/45 mmHg, SpO2 88%. What is the priority drug?",
           "choices": [
-            {"id": "C2a", "text": "Adrenaline 0.5 mg IM anterolateral thigh", "next_step": "S3", "outcome": "correct", "score_delta": 30},
-            {"id": "C2b", "text": "IV hydrocortisone 200 mg", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C2c", "text": "IV chlorphenamine 10 mg", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C2d", "text": "IV salbutamol for bronchospasm", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+            {
+              "id": "C2a",
+              "text": "Adrenaline 0.5 mg IM anterolateral thigh",
+              "next_step": "S3",
+              "outcome": "correct",
+              "score_delta": 30
+            },
+            {
+              "id": "C2b",
+              "text": "IV hydrocortisone 200 mg",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C2c",
+              "text": "IV chlorphenamine 10 mg",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C2d",
+              "text": "IV salbutamol for bronchospasm",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -15
+            }
           ]
         },
         {
@@ -190,9 +363,27 @@
           "title": "After Adrenaline",
           "description": "Adrenaline given. What are your next concurrent nursing actions? (Select the best combination.)",
           "choices": [
-            {"id": "C3a", "text": "Apply 15 L/min O2 via non-rebreather mask; ensure IV access; call for emergency help", "next_step": "S4", "outcome": "correct", "score_delta": 20},
-            {"id": "C3b", "text": "Position patient sitting upright and wait for physician", "next_step": "S4", "outcome": "partial", "score_delta": 5},
-            {"id": "C3c", "text": "Administer IV chlorphenamine and hydrocortisone now", "next_step": "S4", "outcome": "partial", "score_delta": 10}
+            {
+              "id": "C3a",
+              "text": "Apply 15 L/min O2 via non-rebreather mask; ensure IV access; call for emergency help",
+              "next_step": "S4",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C3b",
+              "text": "Position patient sitting upright and wait for physician",
+              "next_step": "S4",
+              "outcome": "partial",
+              "score_delta": 5
+            },
+            {
+              "id": "C3c",
+              "text": "Administer IV chlorphenamine and hydrocortisone now",
+              "next_step": "S4",
+              "outcome": "partial",
+              "score_delta": 10
+            }
           ]
         },
         {
@@ -200,8 +391,20 @@
           "title": "Outcome",
           "description": "Mr. Okafor responds to adrenaline. BP improves to 100/70 mmHg, SpO2 95% on O2. The medical team arrives. What documentation is essential?",
           "choices": [
-            {"id": "C4a", "text": "Time of reaction onset, drugs given (name, dose, route, time), vital signs before and after, physician notification time", "next_step": null, "outcome": "correct", "score_delta": 10},
-            {"id": "C4b", "text": "Only document that adrenaline was given", "next_step": null, "outcome": "partial", "score_delta": 3}
+            {
+              "id": "C4a",
+              "text": "Time of reaction onset, drugs given (name, dose, route, time), vital signs before and after, physician notification time",
+              "next_step": null,
+              "outcome": "correct",
+              "score_delta": 10
+            },
+            {
+              "id": "C4b",
+              "text": "Only document that adrenaline was given",
+              "next_step": null,
+              "outcome": "partial",
+              "score_delta": 3
+            }
           ]
         },
         {
@@ -218,7 +421,12 @@
         }
       ],
       "initial_step_id": "S1",
-      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "ideal_path": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
       "max_score": 85
     }
   ]

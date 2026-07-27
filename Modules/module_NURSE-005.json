@@ -7,11 +7,18 @@
     "title_en": "Recognising Patient Deterioration: Early Warning Signs and NEWS2",
     "order_in_specialty": 5,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-001", "NURSE-002"],
-    "duration_hours": 4,
+    "prerequisite_modules": [
+      "NURSE-001",
+      "NURSE-002"
+    ],
+    "duration_hours": 6,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["Royal College of Physicians NEWS2 2017", "National Patient Safety Agency NPSA 2007", "NICE NG51 2020"]
+    "sources": [
+      "Royal College of Physicians NEWS2 2017",
+      "National Patient Safety Agency NPSA 2007",
+      "NICE NG51 2020"
+    ]
   },
   "lessons": [
     {
@@ -44,7 +51,9 @@
           "SpO2 Scale 2 (target 88–92%) applies to patients with hypercapnia risk (COPD)",
           "Score 5–6 or single 3: urgent nursing assessment and doctor notification"
         ],
-        "references": ["Royal College of Physicians. National Early Warning Score (NEWS) 2, 2017"]
+        "references": [
+          "Royal College of Physicians. National Early Warning Score (NEWS) 2, 2017"
+        ]
       }
     },
     {
@@ -72,16 +81,109 @@
           "Antibiotics within 1 hour — do not delay for culture results",
           "Blood cultures BEFORE antibiotics if possible, but do not delay antibiotics"
         ],
-        "references": ["Singer M et al. JAMA 2016 — Sepsis-3 definitions", "UK Sepsis Trust Sepsis Six 2022"]
+        "references": [
+          "Singer M et al. JAMA 2016 — Sepsis-3 definitions",
+          "UK Sepsis Trust Sepsis Six 2022"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Respiratory Assessment and Airway Management",
+      "order": 3,
+      "lay_summary": "Respiratory deterioration is often the earliest sign that a patient is becoming critically ill. Systematic respiratory assessment enables early escalation.",
+      "content": {
+        "intro": "Respiratory failure is the most common pathway to cardiac arrest in hospital. Recognising the early signs of respiratory compromise — before SpO2 drops significantly — allows intervention while the patient can still be saved by less invasive means. A systematic ABCDE approach to respiratory assessment is essential.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Systematic Respiratory Assessment",
+            "body": "Look: respiratory rate (counted for a FULL 60 seconds — the most important vital sign); use of accessory muscles (sternocleidomastoid, scalene, intercostals — indicates increased work of breathing); nasal flaring; tracheal position (tracheal deviation suggests tension pneumothorax or massive pleural effusion); chest wall movement (symmetry; paradoxical movement in flail chest). Listen: auscultate all zones anteriorly and posteriorly; wheeze (narrowed airways — asthma, COPD, anaphylaxis); crackles (fluid — LVF, pneumonia; fine in early LVF, coarser in pneumonia); stridor (upper airway obstruction — anaphylaxis, foreign body, epiglottitis — EMERGENCY). Feel: chest expansion (place thumbs at xiphisternum for lower zone assessment; asymmetry indicates reduced expansion on one side); tactile fremitus (increased in consolidation, reduced in effusion)."
+          },
+          {
+            "title": "Oxygen Therapy: Delivery Systems and Targets",
+            "body": "Nasal cannulae: 1-4 L/min → FiO2 24-36% (approximate); comfortable, allows eating/talking; limited at high flow. Simple face mask: 5-10 L/min → FiO2 35-50%; minimum 5 L/min to prevent CO2 rebreathing. Non-rebreather mask (NRBM): 10-15 L/min → FiO2 60-90%; reservoir bag must not deflate; for acute hypoxaemia not responding to lower flow. Venturi mask: delivers precise FiO2 (24%, 28%, 31%, 35%, 40%, 60%) regardless of respiratory rate; preferred in COPD (titrate to SpO2 88-92%). Oxygen targets: most patients: SpO2 94-98% (BTS 2017). COPD with known/suspected Type 2 respiratory failure: SpO2 88-92% — higher targets suppress hypoxic drive, worsen hypercapnia. Avoid unnecessary high-flow oxygen — hyperoxia causes harm in MI, stroke, post-cardiac arrest."
+          },
+          {
+            "title": "Deteriorating Respiratory Patient: ABCDE Response",
+            "body": "ABCDE: Airway — is it patent? (listen for stridor, gurgling — if compromised, call for immediate help); Breathing — RR, SpO2, work of breathing, auscultation; Circulation — HR, BP, capillary refill, skin (mottling, pallor, cyanosis); Disability — GCS, pupils, glucose; Exposure — temperature, rashes, wounds, drainage. Escalate: if RR >20 or <10, SpO2 <94%, accessory muscle use, altered consciousness — calculate NEWS2 score and escalate per response. Document: exact RR (not 'regular'), SpO2 with FiO2 specification, all assessment findings, time of escalation, response. High-flow nasal oxygen (HFNO): 40-60 L/min of heated humidified oxygen at up to FiO2 1.0; effective for hypoxaemic respiratory failure; better tolerated than NIV for some patients."
+          }
+        ],
+        "clinical_pearl": "Count respiratory rate for a FULL 60 seconds — not 15 or 30 seconds multiplied. Rapid breathing is often periodic; a 15-second count will miss the true rate. RR is the most sensitive early warning sign of patient deterioration — it changes before SpO2, BP, or HR in most conditions. And yet it is the vital sign most often estimated rather than counted.",
+        "key_points": [
+          "RR for 60 seconds is the most sensitive early deterioration indicator",
+          "Stridor = upper airway obstruction — EMERGENCY; call for help immediately",
+          "COPD oxygen target SpO2 88-92% (Venturi mask with precise FiO2)",
+          "NRBM: minimum 10 L/min; reservoir bag must not deflate",
+          "ABCDE: Airway → Breathing → Circulation → Disability → Exposure"
+        ],
+        "references": [
+          "BTS. Guideline for emergency oxygen use in adult patients. Thorax 2017;72:i1-i90",
+          "NICE. Guideline NG94: Acute respiratory distress in adults. NICE, 2022",
+          "Smith GB. In-hospital cardiac arrest: the past, the present, the future. Resuscitation 2010;81(10):1325"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Sepsis: Recognition and the Hour-1 Bundle",
+      "order": 4,
+      "lay_summary": "Sepsis kills over 11 million people annually. Every hour of delay in treatment increases mortality. Nurses must recognise it fast.",
+      "content": {
+        "intro": "Sepsis-3 definition (2016): life-threatening organ dysfunction caused by a dysregulated host response to infection. Organ dysfunction is identified by SOFA score increase ≥2. Septic shock = sepsis + vasopressor requirement + lactate >2 mmol/L despite adequate fluid resuscitation. Early recognition and the Hour-1 Bundle are the most impactful nursing interventions.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Quick SOFA (qSOFA) and SOFA Screening",
+            "body": "qSOFA (screening tool — 3 criteria): Altered mentation (GCS <15), Respiratory rate ≥22/min, Systolic BP ≤100 mmHg. qSOFA ≥2 in a patient with suspected infection: escalate immediately for full SOFA assessment and sepsis management. SOFA assesses 6 organ systems (respiratory, coagulation, hepatic, cardiovascular, renal, neurological). Sepsis = infection + SOFA ≥2 from baseline. Early warning: NEWS2 ≥5, acute deterioration, patient/family concern, suspected infection + organ dysfunction."
+          },
+          {
+            "title": "Sepsis Hour-1 Bundle (SSC 2018)",
+            "body": "Within 1 HOUR of sepsis recognition: 1. Measure lactate level (>2 mmol/L = organ hypoperfusion; >4 mmol/L = high mortality, treat as septic shock). 2. Blood cultures × 2 sets BEFORE antibiotics. 3. Administer broad-spectrum antibiotics (within 1 hour of recognition — every hour of delay increases mortality ~7%). 4. Administer 30 mL/kg crystalloid bolus for hypotension (MAP <65 mmHg) or lactate ≥4 mmol/L. 5. Apply vasopressors (norepinephrine) if MAP remains <65 mmHg after fluid — requires ICU/HDU. Reassess after fluid bolus: HR, BP, capillary refill, urine output, mental status. Document time of recognition, time of each bundle element."
+          }
+        ],
+        "clinical_pearl": "The most common reason for delayed antibiotic administration in sepsis is waiting for blood culture results. Blood cultures take only 3-5 minutes to collect — administer them immediately and start antibiotics simultaneously. The bundle requires cultures BEFORE antibiotics, but there should be no delay between collecting cultures and giving antibiotics.",
+        "key_points": [
+          "Sepsis-3: infection + SOFA ≥2; qSOFA ≥2 = escalate immediately",
+          "Hour-1 Bundle: Lactate, Blood cultures × 2, Antibiotics, 30 mL/kg fluid, Vasopressors if needed",
+          "Every hour of antibiotic delay = ~7% increased mortality",
+          "Lactate >4 mmol/L = septic shock; >2 mmol/L = organ hypoperfusion",
+          "Cultures take 3-5 min to collect; antibiotics immediately after"
+        ],
+        "references": [
+          "Singer M et al. Sepsis-3: The Third International Consensus Definitions for Sepsis and Septic Shock. JAMA 2016;315(8):801-810",
+          "Evans L et al. Surviving Sepsis Campaign: International Guidelines 2021. Intensive Care Medicine 2021;47(11):1181-1247",
+          "Seymour CW et al. Time to treatment and mortality during mandated emergency care for sepsis. NEJM 2017;376:2235-2244"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "What does NEWS2 stand for and what does it measure?", "answer": "National Early Warning Score 2 — a standardised tool to detect clinical deterioration using 7 vital sign parameters scored 0–3.", "difficulty": "easy"},
-    {"question": "NEWS2 score: what action is triggered by a total score of 7 or more?", "answer": "Emergency assessment by clinical team with critical care competencies; continuous monitoring; consider ICU/outreach team referral.", "difficulty": "medium"},
-    {"question": "Which vital sign parameter is the most sensitive early warning sign of clinical deterioration?", "answer": "Respiratory rate — it rises before most other signs of deterioration, including heart rate and blood pressure.", "difficulty": "medium"},
-    {"question": "What are the Sepsis Six? (Give 3, Take 3)", "answer": "Give: O2, IV fluid bolus, IV antibiotics. Take: blood cultures, blood lactate, urine output monitoring.", "difficulty": "hard"},
-    {"question": "ACVPU — what does each letter mean in NEWS2?", "answer": "Alert, Confusion, Voice-response, Pain-response, Unresponsive. Any change from Alert scores 3 on NEWS2.", "difficulty": "medium"}
+    {
+      "question": "What does NEWS2 stand for and what does it measure?",
+      "answer": "National Early Warning Score 2 — a standardised tool to detect clinical deterioration using 7 vital sign parameters scored 0–3.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "NEWS2 score: what action is triggered by a total score of 7 or more?",
+      "answer": "Emergency assessment by clinical team with critical care competencies; continuous monitoring; consider ICU/outreach team referral.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which vital sign parameter is the most sensitive early warning sign of clinical deterioration?",
+      "answer": "Respiratory rate — it rises before most other signs of deterioration, including heart rate and blood pressure.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "What are the Sepsis Six? (Give 3, Take 3)",
+      "answer": "Give: O2, IV fluid bolus, IV antibiotics. Take: blood cultures, blood lactate, urine output monitoring.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "ACVPU — what does each letter mean in NEWS2?",
+      "answer": "Alert, Confusion, Voice-response, Pain-response, Unresponsive. Any change from Alert scores 3 on NEWS2.",
+      "difficulty": "medium"
+    }
   ],
   "mcq_questions": [
     {
@@ -107,7 +209,12 @@
         "F": "Urine output 20 mL over the past 2 hours (weight 70 kg)"
       },
       "correct": "A",
-      "correct_answers": ["A", "B", "D", "F"],
+      "correct_answers": [
+        "A",
+        "B",
+        "D",
+        "F"
+      ],
       "explanation": "Sepsis red flags: elevated RR ≥22 (A = 26), new confusion/altered mentation (B), hypotension sBP ≤100 (D = 95), and oliguria ≤0.5 mL/kg/h (F = 20 mL/2h in 70 kg patient = 0.14 mL/kg/h). Normal temperature (C) does not rule out sepsis — hypothermia and normal temperature can occur. Mild tachycardia alone (E) is a warning but not a qSOFA criterion; however in context it warrants monitoring.",
       "difficulty": "hard"
     },
@@ -135,7 +242,13 @@
         "E": "Insert urinary catheter and monitor urine output hourly"
       },
       "correct": "D",
-      "correct_order": ["D", "B", "C", "E", "A"],
+      "correct_order": [
+        "D",
+        "B",
+        "C",
+        "E",
+        "A"
+      ],
       "explanation": "First: escalate to physician (D) — nurse cannot initiate antibiotics without order. Simultaneously/immediately: start O2 (B), draw blood cultures before antibiotics if possible (C), catheterise for UO monitoring (E), then administer prescribed antibiotics (A) — target within 1 hour of recognition. O2 is the most immediately nurse-initiated intervention while waiting for the physician.",
       "difficulty": "hard"
     }
@@ -146,9 +259,23 @@
       "specialty": "Nursing",
       "difficulty": "medium",
       "presentation": "Mrs. Chen, 72 years old, is on day 1 post right hemicolectomy. You are doing routine afternoon observations. She usually greets you cheerfully by name. Today she appears drowsy and confused — she doesn't recognise you and keeps asking where she is. Vital signs: RR 22/min, SpO2 93% on room air, BP 100/65 mmHg (baseline 135/80 mmHg), HR 108 bpm, Temp 38.8°C. Urine output over the last 2 hours: 30 mL (she weighs 65 kg).",
-      "vitals": {"rr": 22, "spo2": 93, "bp": "100/65", "hr": 108, "temp": 38.8, "urine_2h_ml": 30},
+      "vitals": {
+        "rr": 22,
+        "spo2": 93,
+        "bp": "100/65",
+        "hr": 108,
+        "temp": 38.8,
+        "urine_2h_ml": 30
+      },
       "diagnosis": "Early sepsis secondary to surgical site infection",
-      "management": ["Calculate NEWS2 score", "Escalate immediately using SBAR", "Apply oxygen", "Draw blood cultures", "Initiate Sepsis Six", "Monitor urine output"],
+      "management": [
+        "Calculate NEWS2 score",
+        "Escalate immediately using SBAR",
+        "Apply oxygen",
+        "Draw blood cultures",
+        "Initiate Sepsis Six",
+        "Monitor urine output"
+      ],
       "teaching_points": [
         "New confusion in an elderly post-operative patient is a red flag — never assume it is 'just delirium'",
         "Calculate NEWS2: RR22=1, SpO2 93%=2, No supp O2=0, sBP100=1, HR108=2, Confusion=3, Temp38.8=2 = Total 11 — HIGH",
@@ -162,10 +289,34 @@
           "title": "Initial Assessment",
           "description": "You notice Mrs. Chen is confused and drowsy. What is your FIRST action?",
           "choices": [
-            {"id": "C1a", "text": "Complete all your other observations before doing anything", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -10},
-            {"id": "C1b", "text": "Perform a rapid assessment: check RR, SpO2, BP, HR, temp, ACVPU, and document observations immediately", "next_step": "S2", "outcome": "correct", "score_delta": 20},
-            {"id": "C1c", "text": "Call the family to ask if she is usually confused", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -5},
-            {"id": "C1d", "text": "Give her a glass of water and see if she improves", "next_step": "S_wrong2", "outcome": "incorrect", "score_delta": -15}
+            {
+              "id": "C1a",
+              "text": "Complete all your other observations before doing anything",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -10
+            },
+            {
+              "id": "C1b",
+              "text": "Perform a rapid assessment: check RR, SpO2, BP, HR, temp, ACVPU, and document observations immediately",
+              "next_step": "S2",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C1c",
+              "text": "Call the family to ask if she is usually confused",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -5
+            },
+            {
+              "id": "C1d",
+              "text": "Give her a glass of water and see if she improves",
+              "next_step": "S_wrong2",
+              "outcome": "incorrect",
+              "score_delta": -15
+            }
           ]
         },
         {
@@ -173,10 +324,34 @@
           "title": "Observations Obtained",
           "description": "NEWS2 score is 11 (high). What is your MOST URGENT next action?",
           "choices": [
-            {"id": "C2a", "text": "Escalate to the physician immediately using SBAR", "next_step": "S3", "outcome": "correct", "score_delta": 20},
-            {"id": "C2b", "text": "Wait 30 minutes and repeat observations to see if score improves", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C2c", "text": "Document the observations and inform the nurse in charge at the end of the shift", "next_step": "S_wrong1", "outcome": "incorrect", "score_delta": -20},
-            {"id": "C2d", "text": "Apply oxygen and then call the physician", "next_step": "S3", "outcome": "correct_partial", "score_delta": 15}
+            {
+              "id": "C2a",
+              "text": "Escalate to the physician immediately using SBAR",
+              "next_step": "S3",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C2b",
+              "text": "Wait 30 minutes and repeat observations to see if score improves",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C2c",
+              "text": "Document the observations and inform the nurse in charge at the end of the shift",
+              "next_step": "S_wrong1",
+              "outcome": "incorrect",
+              "score_delta": -20
+            },
+            {
+              "id": "C2d",
+              "text": "Apply oxygen and then call the physician",
+              "next_step": "S3",
+              "outcome": "correct_partial",
+              "score_delta": 15
+            }
           ]
         },
         {
@@ -184,10 +359,34 @@
           "title": "Physician Orders Sepsis Six",
           "description": "The physician agrees with your concern. Which blood cultures collection technique is correct BEFORE antibiotics?",
           "choices": [
-            {"id": "C3a", "text": "Draw blood cultures from the existing IV site to save time", "next_step": "S4", "outcome": "incorrect", "score_delta": -10},
-            {"id": "C3b", "text": "Draw two sets from two different peripheral venepuncture sites using aseptic technique", "next_step": "S4", "outcome": "correct", "score_delta": 20},
-            {"id": "C3c", "text": "Draw one set and send immediately — don't delay antibiotics for a second set", "next_step": "S4", "outcome": "partial", "score_delta": 10},
-            {"id": "C3d", "text": "Wait until antibiotics are started before drawing blood cultures", "next_step": "S4", "outcome": "incorrect", "score_delta": -20}
+            {
+              "id": "C3a",
+              "text": "Draw blood cultures from the existing IV site to save time",
+              "next_step": "S4",
+              "outcome": "incorrect",
+              "score_delta": -10
+            },
+            {
+              "id": "C3b",
+              "text": "Draw two sets from two different peripheral venepuncture sites using aseptic technique",
+              "next_step": "S4",
+              "outcome": "correct",
+              "score_delta": 20
+            },
+            {
+              "id": "C3c",
+              "text": "Draw one set and send immediately — don't delay antibiotics for a second set",
+              "next_step": "S4",
+              "outcome": "partial",
+              "score_delta": 10
+            },
+            {
+              "id": "C3d",
+              "text": "Wait until antibiotics are started before drawing blood cultures",
+              "next_step": "S4",
+              "outcome": "incorrect",
+              "score_delta": -20
+            }
           ]
         },
         {
@@ -195,8 +394,20 @@
           "title": "Outcome",
           "description": "Mrs. Chen receives O2, blood cultures are drawn, antibiotics started within 50 minutes, lactate is 3.2 mmol/L. Urine output improves after IV fluids. She is transferred to HDU. What was the most critical action you took?",
           "choices": [
-            {"id": "C4a", "text": "Recognising the acute confusion as a red flag and escalating promptly", "next_step": null, "outcome": "correct", "score_delta": 10},
-            {"id": "C4b", "text": "Documenting the NEWS2 score accurately", "next_step": null, "outcome": "partial", "score_delta": 5}
+            {
+              "id": "C4a",
+              "text": "Recognising the acute confusion as a red flag and escalating promptly",
+              "next_step": null,
+              "outcome": "correct",
+              "score_delta": 10
+            },
+            {
+              "id": "C4b",
+              "text": "Documenting the NEWS2 score accurately",
+              "next_step": null,
+              "outcome": "partial",
+              "score_delta": 5
+            }
           ]
         },
         {
@@ -213,7 +424,12 @@
         }
       ],
       "initial_step_id": "S1",
-      "ideal_path": ["S1", "S2", "S3", "S4"],
+      "ideal_path": [
+        "S1",
+        "S2",
+        "S3",
+        "S4"
+      ],
       "max_score": 70
     }
   ]

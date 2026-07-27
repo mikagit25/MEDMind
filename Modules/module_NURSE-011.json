@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "id": "NURSE-011",
+    "type": "specialty_module",
+    "specialty": "Nursing",
+    "title": "Maternal Nursing: Antepartum & Complications",
+    "title_en": "Maternal Nursing: Antepartum & Complications",
+    "order_in_specialty": 11,
+    "level": "intermediate",
+    "prerequisite_modules": ["NURSE-001"],
+    "duration_hours": 5,
+    "version": "1.0",
+    "verification_status": "passed",
+    "sources": [
+      "ACOG Practice Bulletins (American College of Obstetricians and Gynecologists)",
+      "WHO. WHO recommendations for routine antenatal care. 2016",
+      "NICE. Guideline NG201: Antenatal care. 2021",
+      "NICE. Guideline NG133: Hypertension in pregnancy. 2019 updated 2023",
+      "RCOG Green-top Guidelines — Preterm Labour, Preeclampsia"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "Normal Pregnancy: Physiological Changes and Antenatal Assessment",
+      "order": 1,
+      "lay_summary": "Pregnancy causes profound changes in every body system. Understanding what is normal helps nurses identify what is abnormal.",
+      "content": {
+        "intro": "Pregnancy induces systematic physiological adaptations to support foetal growth and prepare for labour. These changes affect cardiovascular, respiratory, haematological, renal, gastrointestinal, and musculoskeletal systems. Recognising normal physiological changes prevents over-investigation and ensures genuine complications are not missed.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Cardiovascular and Haematological Changes",
+            "body": "Blood volume increases 40-50% by 32 weeks (plasma > red cell mass → physiological anaemia of pregnancy — Hb 10.5-11 g/dL is normal at term). Cardiac output increases 30-50% (↑ HR + ↑ stroke volume). Blood pressure: falls in first and second trimester (progesterone-mediated vasodilatation), returns to baseline by term. A BP rise above baseline in the third trimester is clinically significant. Heart rate: increases 10-20 bpm above baseline. Coagulation: hypercoagulable state (↑ fibrinogen, factors VII, VIII, X; ↓ protein S) — VTE risk ×5 vs non-pregnant. Physiological leucocytosis up to 12,000/μL is normal."
+          },
+          {
+            "title": "Respiratory and Renal Changes",
+            "body": "Respiratory: progesterone stimulates the respiratory centre → ↑ tidal volume (40%), ↑ minute ventilation, respiratory alkalosis (pCO2 ~30 mmHg normal in pregnancy). Dyspnoea in early-mid pregnancy is often physiological. Elevated diaphragm (by uterus) → ↓ functional residual capacity. Renal: GFR increases 50% by second trimester → serum creatinine and urea fall; values 'normal' outside pregnancy may indicate impairment in pregnancy (Cr >75 μmol/L, urea >4.5 mmol/L warrant investigation). Glycosuria is common (lower renal glucose threshold) — does not diagnose gestational diabetes. Ureteric dilatation (progesterone effect + uterine compression) → increased UTI risk."
+          },
+          {
+            "title": "Standard Antenatal Assessment",
+            "body": "WHO 2016 recommends minimum 8 antenatal contacts. First visit assessment: confirm pregnancy (hCG), baseline BP, weight/BMI, blood group and Rh, FBC (anaemia), rubella immunity, STI screen (HIV, syphilis, HBV, HCV, chlamydia), urine culture (screen for asymptomatic bacteriuria), HbA1c or OGTT (diabetes risk), Down's syndrome screening (combined first trimester: nuchal translucency + PAPP-A + beta-hCG at 11-13+6 weeks). At every visit: BP, urinalysis (protein), foetal heart rate (Doppler from 12 weeks), symphysis-fundal height (SFH from 24 weeks — cm ≈ gestational weeks ±3)."
+          },
+          {
+            "title": "Rhesus (Rh) Incompatibility and Anti-D Prophylaxis",
+            "body": "Rh-negative mothers (15% of population) are at risk of sensitisation if they carry an Rh-positive foetus. Sensitisation occurs when foetal RBCs cross the placenta (sensitising events: bleeding, amniocentesis, ectopic pregnancy, miscarriage, delivery). Once sensitised, subsequent Rh-positive pregnancies: maternal IgG anti-D crosses placenta → haemolytic disease of the foetus/newborn (HDFN) — hydrops fetalis, kernicterus, stillbirth. Prevention: anti-D immunoglobulin (Rho(D) Immune Globulin / RhoGAM): given IM within 72 hours of sensitising event AND routinely at 28-30 weeks gestation (UK: 500 IU at 28+34 weeks). Anti-D works by destroying foetal RBCs before maternal immune sensitisation occurs."
+          }
+        ],
+        "clinical_pearl": "Supine hypotension syndrome: after 20 weeks, the gravid uterus compresses the inferior vena cava when the mother lies flat → ↓ venous return → ↓ cardiac output → dizziness, nausea, pre-syncope. Treat by positioning in left lateral decubitus (tilts uterus off IVC). Always position pregnant patients beyond 20 weeks in left lateral tilt for procedures.",
+        "key_points": [
+          "Physiological anaemia of pregnancy: Hb 10.5-11 g/dL acceptable; plasma volume rises more than RBC mass",
+          "Serum creatinine is lower in pregnancy; 'normal' values may indicate impairment",
+          "Anti-D prophylaxis: within 72h of sensitising event + routine at 28-30 weeks for Rh-negative women",
+          "VTE risk is ×5 in pregnancy — assess risk at booking and each contact",
+          "Supine hypotension >20 weeks: left lateral tilt relieves IVC compression"
+        ],
+        "references": [
+          "WHO. WHO recommendations on antenatal care for a positive pregnancy experience. WHO, 2016",
+          "NICE. Guideline NG201: Antenatal care. NICE, 2021",
+          "RCOG. Green-top guideline No. 22: Use of Anti-D Immunoglobulin for Rhesus D Prophylaxis. 2011"
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "title": "Hypertensive Disorders of Pregnancy",
+      "order": 2,
+      "lay_summary": "Pre-eclampsia is a leading cause of maternal and perinatal mortality worldwide. Early recognition and prompt management save lives.",
+      "content": {
+        "intro": "Hypertensive disorders of pregnancy affect 5-10% of pregnancies globally and are a leading cause of maternal and perinatal mortality. The spectrum includes: chronic hypertension (pre-existing), gestational hypertension (new onset ≥20 weeks without proteinuria), pre-eclampsia, and eclampsia. The 2023 ACOG guidance redefines pre-eclampsia criteria to include severe features even without proteinuria.",
+        "estimated_minutes": 40,
+        "sections": [
+          {
+            "title": "Diagnostic Criteria for Pre-eclampsia",
+            "body": "Blood pressure: ≥140/90 mmHg on two occasions ≥4 hours apart after 20 weeks gestation (previously normotensive). PLUS any of: proteinuria ≥300 mg/24h or PCR ≥30 mg/mmol; OR severe features even without proteinuria. Severe features: BP ≥160/110 mmHg, thrombocytopaenia (<100,000/μL), renal insufficiency (Cr >96 μmol/L), impaired liver function (ALT/AST >2× upper limit), new-onset headache not responding to analgesia, pulmonary oedema, visual disturbance. HELLP syndrome (variant): Haemolysis, Elevated Liver enzymes, Low Platelets — associated with high maternal mortality."
+          },
+          {
+            "title": "Nursing Assessment and Monitoring",
+            "body": "At every antenatal contact: BP (correct technique: seated, arm at heart level, correct cuff size, 2 readings 2 minutes apart, use lower reading), urinalysis (protein dipstick → 2+ or more requires formal quantification). Assess for symptoms: headache (frontal, severe, not relieved by paracetamol), visual disturbance (flashing lights — scotomata, blurring), epigastric/RUQ pain (hepatic capsule stretching), nausea/vomiting, facial/hand oedema (sudden). Daily: assess DTRs (deep tendon reflexes) — hyperreflexia indicates CNS irritability. Foetal assessment: CTG, growth scan (IUGR common), liquor volume."
+          },
+          {
+            "title": "Management and Antihypertensive Therapy",
+            "body": "Mild-moderate hypertension (140-159/90-109): labetalol (first-line, oral), nifedipine (slow-release), methyldopa. Severe hypertension (≥160/110): treat within 30-60 minutes — IV labetalol (bolus then infusion), oral nifedipine (immediate-release), IV hydralazine. Target: 130-150/80-100 mmHg (avoid overcorrection → placental ischaemia). Magnesium sulphate: for seizure prophylaxis in severe pre-eclampsia and treatment of eclampsia. Loading dose: 4 g IV over 20 minutes; maintenance: 1 g/h infusion. Monitor for magnesium toxicity: loss of patellar reflexes (first sign → stop infusion), respiratory depression (RR <12/min), cardiac arrest. Antidote: calcium gluconate 1 g IV."
+          },
+          {
+            "title": "Eclampsia Management",
+            "body": "Eclampsia = new-onset grand mal seizures in a woman with pre-eclampsia (or without prior diagnosis). Medical emergency. ABCDE assessment: position left lateral, maintain airway (recovery position, do not insert biting block), oxygen, IV access. Magnesium sulphate: if not already started — load 4 g IV over 5-10 minutes; if on maintenance and re-seizures → 2 g bolus. Monitor foetal heart rate after maternal stabilisation. Plan delivery: after maternal stabilisation, delivery is the only cure — mode depends on cervical favourability and foetal status. Post-partum: pre-eclampsia/eclampsia can occur up to 6 weeks post-delivery; BP monitoring essential post-discharge."
+          }
+        ],
+        "clinical_pearl": "The patellar reflex is your real-time magnesium toxicity monitor. Check reflexes before each dose of maintenance MgSO4. If reflexes are absent — stop the infusion. Respiratory depression follows loss of reflexes. Keep calcium gluconate at the bedside whenever MgSO4 is running.",
+        "key_points": [
+          "Pre-eclampsia: BP ≥140/90 after 20 weeks + proteinuria or severe features",
+          "Severe hypertension (≥160/110) must be treated within 30-60 minutes to prevent stroke",
+          "MgSO4: 4 g loading dose; toxicity — absent reflexes → respiratory depression; antidote = calcium gluconate 1 g IV",
+          "HELLP: Haemolysis, Elevated Liver enzymes, Low Platelets — high maternal mortality",
+          "Pre-eclampsia can develop/worsen up to 6 weeks post-partum"
+        ],
+        "references": [
+          "ACOG Practice Bulletin No. 222: Gestational Hypertension and Preeclampsia. Obstetrics & Gynecology, 2020",
+          "NICE. Guideline NG133: Hypertension in pregnancy. NICE, 2019 updated 2023",
+          "Magee LA et al. CHIPS Trial — tight vs less tight BP control. NEJM 2015;372:407-417"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Preterm Labour and Fetal Surveillance",
+      "order": 3,
+      "lay_summary": "Preterm birth before 37 weeks is the leading cause of neonatal death. Nurses must recognise early signs, initiate appropriate monitoring, and support families.",
+      "content": {
+        "intro": "Preterm birth (PTB) occurs in 5-18% of pregnancies worldwide and is the leading cause of neonatal morbidity and mortality. Gestational age at delivery is the primary determinant of outcome: <28 weeks (extremely preterm) carries the highest mortality; 28-32 weeks (very preterm); 32-37 weeks (moderate to late preterm). Nursing care focuses on recognition, corticosteroid administration, tocolysis decisions, and foetal wellbeing monitoring.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Recognising Preterm Labour",
+            "body": "Preterm labour (PTL) = regular uterine contractions (≥4 in 20 minutes or ≥8 in 60 minutes) with progressive cervical change before 37 weeks. Symptoms: low back pain (constant or rhythmic), pelvic pressure, menstrual-like cramping, vaginal discharge or bleeding, rupture of membranes. Assessment: cervical length on transvaginal ultrasound (<25 mm at 24 weeks indicates high risk), fetal fibronectin (fFN) test (high negative predictive value — if negative, delivery within 2 weeks very unlikely), CTG for contraction pattern and foetal wellbeing, urinalysis (UTI is a common precipitant — treat immediately)."
+          },
+          {
+            "title": "Antenatal Corticosteroids (ACS)",
+            "body": "ACS significantly reduce neonatal morbidity and mortality by accelerating foetal lung maturation. Indication: threatened PTL between 24-34+6 weeks. Standard regimen: betamethasone 12 mg IM × 2 doses 24 hours apart (or dexamethasone 6 mg IM × 4 doses 12 hours apart). Maximum benefit: 24 hours to 7 days after first dose. Benefit beyond 34 weeks is debated. Nursing: administer promptly when ordered (every hour of delay reduces benefit), document time of each dose, monitor maternal blood glucose (corticosteroids cause transient hyperglycaemia — especially significant in diabetic pregnancies), prepare NICU team if delivery appears imminent."
+          },
+          {
+            "title": "Cardiotocography (CTG) Interpretation Essentials",
+            "body": "CTG monitors: foetal heart rate (FHR) baseline, variability, accelerations, decelerations. Normal (reassuring): baseline 110-160 bpm, variability 5-25 bpm, ≥2 accelerations in 20 min (15 bpm × 15 seconds), no decelerations. Variability: normal indicates intact CNS-cardiac axis. Reduced variability (<5 bpm for >50 min) is most sensitive indicator of foetal compromise. Accelerations: reassuring — absence alone is not pathological. Decelerations: Early (mirror contractions — benign, head compression); Variable (cord compression — occur at any point relative to contractions); Late (placental insufficiency — begin after contraction peak, most concerning). NICE FIGO classification: normal, suspicious, pathological — pathological CTG → action required."
+          },
+          {
+            "title": "Non-Stress Test (NST) and Biophysical Profile (BPP)",
+            "body": "NST: monitors FHR for 20-40 minutes. Reactive NST: ≥2 accelerations of ≥15 bpm lasting ≥15 seconds in 20 minutes (indicates foetal wellbeing). Non-reactive NST (<2 accelerations): requires further assessment (vibroacoustic stimulation, BPP, biophysical assessment). BPP: combines NST + ultrasound assessment of 4 parameters: foetal movement (≥3 discrete body/limb movements in 30 min), foetal tone (≥1 extension/flexion), foetal breathing movements (≥1 episode of ≥30 seconds in 30 min), amniotic fluid volume (deepest vertical pocket ≥2 cm). Score: 2 points each if normal. Score 8/8 (or 8/10 with normal AFI): reassuring; ≤4: delivery usually indicated."
+          }
+        ],
+        "clinical_pearl": "Magnesium sulphate for neuroprotection: at <32 weeks, MgSO4 given before anticipated preterm birth reduces cerebral palsy in survivors by ~30%. This is a different indication from eclampsia prophylaxis but the same drug. Ensure the order is present and administered before delivery when PTB <32 weeks is expected.",
+        "key_points": [
+          "PTL: ≥4 contractions/20 min + cervical change before 37 weeks; rule out UTI",
+          "Corticosteroids (betamethasone 12 mg IM × 2): optimal benefit 24h-7 days after first dose; give immediately when indicated",
+          "CTG: normal variability 5-25 bpm; late decelerations = placental insufficiency = most concerning",
+          "Reactive NST: ≥2 accelerations (15 bpm × 15s) in 20 minutes",
+          "MgSO4 <32 weeks: neuroprotection — reduces cerebral palsy by ~30%"
+        ],
+        "references": [
+          "ACOG Practice Bulletin No. 171: Management of Preterm Labor. Obstetrics & Gynecology, 2016",
+          "WHO. Antenatal corticosteroids for improving outcomes. WHO Recommendation, 2022",
+          "NICE. Guideline NG25: Preterm labour and birth. NICE, 2015 updated 2022"
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {
+      "question": "Pre-eclampsia diagnostic criteria?",
+      "answer": "BP ≥140/90 mmHg on 2 occasions ≥4h apart, after 20 weeks + proteinuria ≥300mg/24h or PCR ≥30, OR severe features (thrombocytopenia, renal/hepatic dysfunction, pulmonary oedema, visual disturbance, severe headache).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "MgSO4 toxicity: signs in order and antidote?",
+      "answer": "First: loss of patellar reflex → respiratory depression (RR <12) → cardiac arrest. Antidote: calcium gluconate 1g IV.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Antenatal corticosteroid regimen and indication?",
+      "answer": "Betamethasone 12mg IM × 2 doses 24h apart (or dexamethasone 6mg IM × 4 doses 12h apart). Indicated for threatened PTL at 24-34+6 weeks. Maximum benefit 24h-7 days post first dose.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Anti-D prophylaxis: when and why?",
+      "answer": "Rh-negative mothers: within 72h of sensitising event (bleeding, amniocentesis, delivery) + routine at 28-30 weeks. Prevents maternal sensitisation that would cause HDFN in future pregnancies.",
+      "difficulty": "medium"
+    }
+  ],
+  "mcq_questions": [],
+  "clinical_cases": []
+}

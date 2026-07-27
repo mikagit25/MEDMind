@@ -7,11 +7,17 @@
     "title_en": "Dose Calculations and Infusion Therapy",
     "order_in_specialty": 3,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-002"],
-    "duration_hours": 5,
+    "prerequisite_modules": [
+      "NURSE-002"
+    ],
+    "duration_hours": 7,
     "version": "1.0",
     "verification_status": "passed",
-    "sources": ["WHO Essential Medicines List", "RCN IV Therapy Standards 2016", "Nursing Math Handbook (Ogden, 2014)"]
+    "sources": [
+      "WHO Essential Medicines List",
+      "RCN IV Therapy Standards 2016",
+      "Nursing Math Handbook (Ogden, 2014)"
+    ]
   },
   "lessons": [
     {
@@ -52,7 +58,10 @@
           "Drip rate: (Volume × Drop factor) ÷ (Hours × 60) = gtt/min",
           "Always include units in your calculation to catch errors"
         ],
-        "references": ["Ogden SJ. Calculation of Drug Dosages, 2014", "RCN Standards for Infusion Therapy, 2016"]
+        "references": [
+          "Ogden SJ. Calculation of Drug Dosages, 2014",
+          "RCN Standards for Infusion Therapy, 2016"
+        ]
       }
     },
     {
@@ -84,16 +93,109 @@
           "Extravasation of vesicant: stop infusion, leave catheter to aspirate, notify MD immediately",
           "Air embolism: left lateral Trendelenburg position, 100% O2"
         ],
-        "references": ["RCN Standards for Infusion Therapy 2016", "INS Infusion Therapy Standards of Practice 2021"]
+        "references": [
+          "RCN Standards for Infusion Therapy 2016",
+          "INS Infusion Therapy Standards of Practice 2021"
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "title": "Weight-Based and Paediatric Dose Calculations",
+      "order": 3,
+      "lay_summary": "Paediatric medication errors are among the most serious. Weight-based dosing, decimal point errors, and unit confusion are the leading causes.",
+      "content": {
+        "intro": "Paediatric dosing is weight-based because children's pharmacokinetics differ fundamentally from adults. Dose errors in children cause disproportionate harm — tenfold dosing errors (decimal point misplacement) are a leading cause of paediatric medication fatalities. Nurses working with children must be proficient in weight-based calculations and understand the concept of ceiling dose.",
+        "estimated_minutes": 35,
+        "sections": [
+          {
+            "title": "Weight-Based Dosing: mg/kg Calculations",
+            "body": "Formula: Dose (mg) = Weight (kg) × Dose per kg (mg/kg). Example: paracetamol 15 mg/kg for a 12 kg child = 12 × 15 = 180 mg. Always verify: is the ordered dose within the recommended mg/kg range? Check maximum dose (ceiling). Example: ibuprofen 10 mg/kg in a 30 kg child = 300 mg per dose; adult maximum = 400 mg/dose; 300 mg is acceptable. Critical safety check: never exceed the adult maximum dose in any child, regardless of weight. Document the child's weight used for calculation. Reweigh children at each admission — using estimated or old weights is a frequent error source."
+          },
+          {
+            "title": "Decimal Point and Unit Errors",
+            "body": "Leading zero rule: ALWAYS write '0.5 mg' never '.5 mg' (a missing decimal point turns 0.5 into 5 — a tenfold error). Trailing zero rule: NEVER write '5.0 mg' — always write '5 mg' (trailing zero can be misread as 50 mg). NEVER abbreviate units in a way that causes ambiguity: write 'units' not 'U' for insulin (U looks like 0 → 10-fold error); write 'micrograms' not 'mcg' or 'μg' in handwriting. High-alert paediatric medications (morphine, potassium, insulin, concentrated solutions): require independent double-check of every calculation. Practical: always calculate and state the formula, the weight used, the calculation, and the final dose before preparing — say it aloud during IDC."
+          },
+          {
+            "title": "Neonatal Calculations and Special Considerations",
+            "body": "Neonates (0-28 days): immature hepatic and renal function → altered drug metabolism and elimination. Neonatal doses may be expressed per kg, per day, and divided into doses per day — be precise about the meaning. Common neonatal drugs: gentamicin (once daily, extended-interval dosing — check pre-dose trough, target <1 mg/L for standard dosing); caffeine citrate (apnoea of prematurity); surfactant (endotracheal instillation — calculated per kg birthweight). Always confirm: is this a preterm or term neonate? Is gestational age corrected? Are renal and hepatic functions known? Neonatal units have dedicated dosing references (Neofax, BNFc) — never apply adult or standard paediatric references."
+          }
+        ],
+        "clinical_pearl": "When a calculated paediatric dose looks surprisingly high or low, stop and verify before administering. A useful sanity check: consider the adult dose. If your paediatric dose for a 20 kg child exceeds the adult dose for a drug like paracetamol, you have made an error. Always ask: 'Does this make clinical sense for this size of child?'",
+        "key_points": [
+          "Paediatric dose = Weight (kg) × mg/kg; never exceed adult maximum dose",
+          "Leading zero always (0.5 mg), never trailing zero (5 mg, not 5.0 mg)",
+          "Write 'units' for insulin, 'micrograms' for mcg — abbreviation errors cause 10-fold overdoses",
+          "Neonates: immature metabolism; use NeoFax/BNFc, not adult/standard paediatric references",
+          "If the dose looks wrong — STOP, verify before administering"
+        ],
+        "references": [
+          "ISMP. Medication Safety Alert — paediatric medication errors. 2018",
+          "Joint Commission. Preventing paediatric medication errors. Sentinel Event Alert 39, 2008",
+          "BNF for Children (BNFc). RCPCH/NPPG/RPSGB. Annual edition"
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "title": "Total Parenteral Nutrition: Nursing Responsibilities",
+      "order": 4,
+      "lay_summary": "TPN delivers nutrients directly into the bloodstream. It is life-saving but carries serious risks — infection, metabolic complications, and refeeding syndrome.",
+      "content": {
+        "intro": "Total parenteral nutrition (TPN) provides all nutritional requirements intravenously when the gastrointestinal tract cannot be used. It is indicated in bowel obstruction, short bowel syndrome, severe malabsorption, prolonged ileus, and high-output intestinal fistulae. TPN requires specialist nutrition team oversight, central venous access, and meticulous nursing monitoring.",
+        "estimated_minutes": 30,
+        "sections": [
+          {
+            "title": "Central Venous Access and TPN Administration",
+            "body": "TPN is hypertonic and causes chemical phlebitis in peripheral veins — central venous access is required for long-term TPN (peripheral parenteral nutrition, PPN, with lower osmolarity is used short-term only). Dedicated catheter lumen: TPN should ideally have a dedicated lumen — nothing else administered through the TPN lumen (blood, medications, blood products). Risk of contamination and catheter-associated bloodstream infection (CABSI) with multiple uses. Filter: 0.22 μm in-line filter for standard TPN (removes particulates and air emboli); 1.2 μm filter if lipid-containing admixture. Rate: never change TPN rate abruptly — start at lower rate, titrate up; do not accelerate to 'catch up' missed volume (hyperglycaemia risk)."
+          },
+          {
+            "title": "Monitoring and Complications",
+            "body": "Metabolic monitoring: blood glucose 4-6 hourly initially (hyperglycaemia is the most common complication; target 6-10 mmol/L; insulin sliding scale or infusion often required). Daily: electrolytes, renal function (adjust TPN formulation). Twice weekly: LFTs (TPN-associated liver disease — cholestasis with prolonged use), calcium, magnesium, phosphate, FBC. Refeeding syndrome: occurs in malnourished patients on restarting nutrition (PO or TPN); profound hypophosphataemia, hypokalaemia, hypomagnesaemia as insulin drives intracellular shift; can cause cardiac arrhythmias, respiratory failure, neurological complications. Prevention: identify at-risk patients (prolonged starvation, low body weight, history of alcohol misuse, minimal intake >5 days); start TPN at no more than 50% target rate × 2 days; supplement electrolytes before and during initiation; thiamine supplementation. Infection: change TPN bag and IV tubing every 24 hours; report fever or rigors in patients on TPN — blood cultures from central line and peripheral site."
+          }
+        ],
+        "clinical_pearl": "Never run TPN through the same lumen as blood, medications, or blood products — and never piggyback onto the TPN line. The lipid-containing solution in TPN bags (Total Nutrient Admixture, TNA) is an excellent growth medium for micro-organisms. Strict aseptic technique at all connections is not optional — it prevents life-threatening CABSI.",
+        "key_points": [
+          "TPN requires central venous access; peripheral TPN only short-term",
+          "Dedicated TPN lumen — nothing else through TPN line",
+          "0.22 μm filter (or 1.2 μm if lipid admixture); change bag and line every 24h",
+          "Refeeding syndrome: start at ≤50% target rate; supplement phosphate, K+, Mg2+, thiamine",
+          "Blood glucose 4-6 hourly; target 6-10 mmol/L; insulin as needed"
+        ],
+        "references": [
+          "NICE. Guideline NG22: Nutrition support for adults. NICE, 2006 updated 2017",
+          "ASPEN. Safe practices for parenteral nutrition. J Parenteral & Enteral Nutrition 2004;28(6):S39-S70",
+          "Mehanna HM et al. Refeeding syndrome. BMJ 2008;336:1495-1498"
+        ]
       }
     }
   ],
   "flashcards": [
-    {"question": "Basic dose formula for volume to administer?", "answer": "(Dose ordered ÷ Dose on hand) × Vehicle = Volume to give.", "difficulty": "easy"},
-    {"question": "Formula for IV infusion rate in mL/h?", "answer": "Total volume (mL) ÷ Time (hours) = mL/h", "difficulty": "easy"},
-    {"question": "Formula for gravity drip rate (drops/min)?", "answer": "(Volume mL × Drop factor gtt/mL) ÷ (Hours × 60 min) = gtt/min", "difficulty": "medium"},
-    {"question": "1 mg = how many mcg?", "answer": "1 mg = 1000 mcg (micrograms)", "difficulty": "easy"},
-    {"question": "First action when vesicant extravasation is suspected?", "answer": "Stop the infusion immediately; leave the catheter in place to aspirate residual drug before removal.", "difficulty": "hard"}
+    {
+      "question": "Basic dose formula for volume to administer?",
+      "answer": "(Dose ordered ÷ Dose on hand) × Vehicle = Volume to give.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Formula for IV infusion rate in mL/h?",
+      "answer": "Total volume (mL) ÷ Time (hours) = mL/h",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Formula for gravity drip rate (drops/min)?",
+      "answer": "(Volume mL × Drop factor gtt/mL) ÷ (Hours × 60 min) = gtt/min",
+      "difficulty": "medium"
+    },
+    {
+      "question": "1 mg = how many mcg?",
+      "answer": "1 mg = 1000 mcg (micrograms)",
+      "difficulty": "easy"
+    },
+    {
+      "question": "First action when vesicant extravasation is suspected?",
+      "answer": "Stop the infusion immediately; leave the catheter in place to aspirate residual drug before removal.",
+      "difficulty": "hard"
+    }
   ],
   "mcq_questions": [
     {
@@ -140,7 +242,11 @@
         "E": "Induration (hardening) along the vein"
       },
       "correct": "A",
-      "correct_answers": ["A", "C", "E"],
+      "correct_answers": [
+        "A",
+        "C",
+        "E"
+      ],
       "explanation": "Phlebitis signs: redness + warmth along vein (A), pain along vessel (C), induration/cord-like vein (E). Swelling with coolness (B) and puffiness from fluid leaking into tissue (D) indicate infiltration or extravasation, not phlebitis.",
       "difficulty": "hard"
     }
