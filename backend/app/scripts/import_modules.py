@@ -247,6 +247,11 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 options = {chr(65 + i): opt for i, opt in enumerate(options)}
 
             qtype = mcq_data.get("question_type", "mcq")
+            # exam_slugs: from JSON if present; otherwise auto-tag nursing modules with all Gulf exams
+            GULF_SLUGS = ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"]
+            exam_slugs = mcq_data.get("exam_slugs")
+            if exam_slugs is None and is_nursing:
+                exam_slugs = GULF_SLUGS
             mcq = MCQQuestion(
                 module_id=module.id,
                 question=mcq_data.get("question", ""),
@@ -261,6 +266,7 @@ async def import_module(db: AsyncSession, file_path: Path) -> bool:
                 numeric_tolerance=mcq_data.get("numeric_tolerance", 0.01),
                 numeric_unit=mcq_data.get("numeric_unit"),
                 partial_scoring=mcq_data.get("partial_scoring", False),
+                exam_slugs=exam_slugs,
             )
             db.add(mcq)
 

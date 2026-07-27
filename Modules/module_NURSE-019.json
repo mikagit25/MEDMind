@@ -1,0 +1,345 @@
+{
+  "meta": {
+    "id": "NURSE-019",
+    "specialty": "Nursing",
+    "title": "Gulf Healthcare Systems: DHA, HAAD, MOH & Patient Rights",
+    "duration_hours": 2.5,
+    "sources": [
+      "Dubai Health Authority (DHA) Nursing Scope of Practice 2023",
+      "Department of Health Abu Dhabi (DOH/HAAD) Clinical Standards 2023",
+      "UAE Federal Ministry of Health & Prevention (MOHAP) Guidelines",
+      "Qatar Council for Healthcare Practitioners (QCHP) Standards 2023",
+      "Oman Medical Specialty Board (OMSB) Nursing Guidelines",
+      "NHRA Bahrain Healthcare Regulations 2023",
+      "UAE Patient Rights & Responsibilities Charter",
+      "Saudi Patient Rights & Responsibilities Charter (MOH KSA)"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-019-L01",
+      "title": "Gulf Healthcare Regulatory Bodies & Nurse Licensing",
+      "order": 1,
+      "lay_summary": "Each Gulf country has its own healthcare authority and licensing exam. Here's what nurses need to know about working legally in the Gulf region.",
+      "content": {
+        "intro": "The Gulf Cooperation Council (GCC) countries — Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman — each have distinct regulatory bodies governing nursing practice. For foreign-trained nurses, understanding which authority regulates their practice, what exams they must pass, and what scope of practice applies is essential before beginning work. Non-compliance carries serious legal consequences including licence revocation and deportation.",
+        "sections": [
+          {
+            "title": "UAE: Three Parallel Licensing Authorities",
+            "body": "The UAE uniquely has three separate health regulators operating in parallel, each covering different emirates. Dubai Health Authority (DHA): regulates healthcare in the Emirate of Dubai. DHA Nursing Licensing Exam: 100 MCQs, 180 minutes, 65% pass mark, administered by Prometric. Nurses must pass the DHA exam AND a licensing interview. DHA categories: fundamentals (20%), medical-surgical (30%), critical care (15%), pharmacology (10%), maternal/newborn (10%), paediatrics (5%), mental health (5%), community health (5%). Department of Health (DOH) — formerly HAAD: regulates Abu Dhabi Emirate. DOH/HAAD Nursing Licensing Exam: 100 MCQs, 180 minutes, same blueprint as DHA. Dataflow credential verification mandatory. Ministry of Health & Prevention (MOHAP/MOH-UAE): regulates Northern Emirates (Sharjah, Ajman, RAK, Fujairah, UAQ). MOH-UAE exam: same format but administered separately. Unified Licensing: DHA and DOH are working toward mutual recognition. DataFlow (primary source verification): all three UAE authorities require DataFlow verification of nursing qualifications — a mandatory background check of educational credentials directly from issuing institutions. Cost: ~USD 130, takes 4-8 weeks. Practice settings: UAE nurses practice in hospitals, polyclinics, home healthcare, and schools. Scope of practice is defined by DOH Policy No. 9/9 (Abu Dhabi) and DHA Scope of Practice for Registered Nurses. Key: nurses in UAE may NOT prescribe medications independently; drug administration requires physician order."
+          },
+          {
+            "title": "Saudi Arabia: SCHS/SCFHS and the SNLE",
+            "body": "The Saudi Commission for Health Specialties (SCHS, formerly SCFHS) is the single national body that licences all health professionals in Saudi Arabia, including nurses. Saudi Nursing Licensing Exam (SNLE): 200 MCQs, 270 minutes (4.5 hours), score reported as points/800, pass mark equivalent to ~65%. Blueprint: Medical-Surgical Nursing (30%), Fundamentals of Nursing (20%), Critical Care & Emergency (15%), Pharmacology (10%), Maternal & Newborn Nursing (10%), Paediatric Nursing (5%), Mental Health Nursing (5%), Community & Public Health (5%). Exam offered at Prometric centres worldwide. Eligibility: nursing degree from an accredited institution, minimum GPA requirements vary, credential evaluation by SCHS. Saudi Council Membership: after passing SNLE, nurses join the Saudi Council and receive membership number (mandatory for employment). Iqama (residency permit): foreign nurses require a Saudi employer sponsor (kafeel) for their Iqama. Without Iqama, no legal work rights. Nursing scope in KSA: Registered Nurses may administer medications, perform procedures as per physician orders, and carry out nursing assessments. Vision 2030 healthcare initiatives (discussed in NURSE-020) are actively expanding nursing roles. Saudi Patient Rights Charter: patients have the right to be treated with dignity, refuse treatment, have family presence, receive information in Arabic, and maintain privacy. Nurses must document consent and inform patients of rights on admission."
+          },
+          {
+            "title": "Qatar, Oman, and Bahrain: QCHP, OMSB, NHRA",
+            "body": "Qatar — QCHP (Qatar Council for Healthcare Practitioners): QCHP Nursing Licensing Exam: 100 MCQs, 180 minutes, 65% pass mark. DataFlow verification required. Qatar operates a tiered healthcare system: Hamad Medical Corporation (HMC) is the primary public health system. Primary Health Care Corporation (PHCC) manages community health. Many specialised hospitals are part of Sidra Medicine. Qatar's healthcare is heavily influenced by WHO Middle East regional standards. Oman — OMSB (Oman Medical Specialty Board): OMSB Nursing Licensing Exam: 100 MCQs, 180 minutes, 65% pass mark. Oman Council for Healthcare Specialties (OCHS) credential evaluation required. Oman's healthcare follows the 10th Five-Year National Plan with a focus on Omanisation (increasing percentage of Omani nurses). Bahrain — NHRA (National Health Regulatory Authority): NHRA Nursing Licensing Exam: 100 MCQs, 180 minutes, 65% pass mark. Kingdom of Bahrain has both government (Ministry of Health) and private hospitals. NHRA regulates all health professionals. Gulf Mutual Recognition: The GCC has aspirations for regional mutual recognition of health professional licences (similar to EU), but as of 2024, each country maintains independent licensing. Passing one Gulf exam does NOT automatically allow practice in another GCC country. Nurse-to-patient ratios: DHA standard: 1:4 general wards, 1:2 step-down, 1:1 ICU. Saudi MOH: 1:6 general, 1:3 step-down, 1:1 ICU. Ratios may be exceeded during staffing shortages — nurses must document unsafe staffing and follow escalation protocols."
+          },
+          {
+            "title": "Gulf Exam Preparation: Terminology Differences",
+            "body": "Foreign-trained nurses (particularly those trained in North America) must adapt to British/international medical terminology used in Gulf countries. Drug name differences (use INN — International Nonproprietary Names): US name → Gulf/INN name. Acetaminophen → Paracetamol. Albuterol → Salbutamol. Epinephrine → Adrenaline. Norepinephrine → Noradrenaline. Meperidine → Pethidine. Furosemide → Frusemide (older term). Diphenhydramine → Promethazine (different drug but often substituted). Ringer's Lactate → Hartmann's Solution. Unit differences: Gulf uses metric SI units — weight in kg, temperature in °C, blood glucose in mmol/L (not mg/dL). Conversion: glucose mg/dL ÷ 18 = mmol/L. ECG/EKG: called ECG in Gulf (not EKG). IV cannula sizing: Gauge system same (14G, 18G, 20G, 22G), but colour coding differs by brand — always verify gauge by number. Urinary catheter: Foley catheter called 'urethral catheter' in some Gulf documentation. Wound care: 'dressing change' = 'wound care' / 'wound dressing'. Common Gulf exam question pattern: clinical scenario with British spelling and INN drug names — practise reading 'paracetamol' and 'salbutamol' in scenarios. Gulf exams are computer-based (Prometric), 4 options, no negative marking."
+          }
+        ],
+        "clinical_pearl": "The most common reason Gulf-licensed nurses lose their registration is practising outside their documented scope of practice — specifically, verbally taking telephone orders without proper documentation, or performing procedures not listed in their facility's approved nursing scope. In Saudi Arabia, any nursing procedure must be explicitly authorised in writing by the Chief Nursing Officer or listed in the hospital's nursing policy manual. 'If it's not written, it didn't happen' applies both to patient care documentation and to scope of practice.",
+        "key_points": [
+          "UAE has 3 separate regulators: DHA (Dubai), DOH/HAAD (Abu Dhabi), MOHAP (Northern Emirates)",
+          "DataFlow primary source verification is mandatory for all UAE licensing",
+          "SNLE: 200 questions, 4.5 hours, scored /800 — largest Gulf nursing exam",
+          "Use INN drug names: paracetamol, salbutamol, adrenaline (not acetaminophen, albuterol, epinephrine)",
+          "Blood glucose in Gulf: mmol/L (divide mg/dL by 18)"
+        ],
+        "references": [
+          "DHA Nursing Scope of Practice 2023",
+          "DOH Abu Dhabi Policy No. 9/9: Scope of Practice for Nurses",
+          "SCHS SNLE Applicant Guide 2024",
+          "QCHP Nursing Licensing Handbook 2023"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-019-L02",
+      "title": "Patient Rights, Consent & Cultural Competency in Gulf Healthcare",
+      "order": 2,
+      "lay_summary": "Caring for patients in the Gulf means understanding Islamic values, family roles, and specific patient rights protected by law — this shapes how nurses communicate and get consent.",
+      "content": {
+        "intro": "Healthcare delivery in the Gulf region is shaped by Islamic values, strong family-centred care traditions, and specific legal frameworks for patient rights. Nurses must develop cultural competency to provide effective, respectful, and legally compliant care. This is not merely a courtesy — failure to respect patient rights and cultural practices is a disciplinary and legal matter in all GCC countries.",
+        "sections": [
+          {
+            "title": "Patient Rights Charters in the Gulf",
+            "body": "All GCC countries have enacted formal Patient Rights and Responsibilities Charters modelled partly on WHO and JCIA standards. Common rights across GCC charters (UAE, KSA, Qatar): Right to be treated with dignity and respect regardless of nationality, gender, religion, or economic status. Right to receive information about diagnosis, treatment options, prognosis, and alternatives — in a language and form the patient understands (interpreter services must be provided if needed). Right to informed consent: patient (or legal guardian for minors/incapacitated) must provide written consent before non-emergency procedures. Right to refuse treatment: competent adult may refuse treatment even if refusal leads to harm — nurse must document, inform provider, and ensure the patient understands consequences. Right to confidentiality: patient information is protected; disclosure requires written consent. Exception: communicable disease reporting to Ministry of Health is mandatory. Right to privacy during examination and treatment. Right to a second medical opinion. Right to receive emergency treatment regardless of ability to pay (UAE Federal Law No. 4/2016). Saudi Arabia: Royal Decree M/59 (1982) and subsequent MOH regulations codify patient rights. UAE: Federal Law No. 4/2016 on Medical Liability includes patient rights provisions. Qatar: Law No. 2/2013 — Healthcare Law. Nurse responsibilities: explain rights on admission (rights booklet in patient's language), document that rights were explained, report violations to patient advocate/nursing supervisor."
+          },
+          {
+            "title": "Informed Consent in Gulf Healthcare",
+            "body": "Informed consent in GCC countries requires: capacity (competent adult or legal guardian), disclosure (full information about procedure, risks, benefits, alternatives), voluntariness (no coercion), and documentation (written consent form, witnessed and signed). Who gives consent: Adult competent patient: signs consent themselves. Minor (<18 years): parent or legal guardian — in Saudi Arabia, father (as wali) is typically the legal guardian; mothers may give consent in father's absence. Incapacitated adult: next of kin hierarchy (spouse, then parents, then children, then siblings) OR court-appointed guardian. Emergency exception: implied consent — treatment may proceed without formal consent if delay would cause serious harm. Islamic perspective on consent: Islam generally supports seeking medical treatment (with some exceptions). Family-centred decision making is the norm — families are often heavily involved and may request that the patient not be told a serious diagnosis ('protective disclosure'). However, Gulf patient rights charters also uphold the individual's right to know their diagnosis. Navigate sensitively: ask the patient how much information they want and who they wish to involve. Nurses should NOT collude with family to actively deceive patients. If family requests non-disclosure of cancer diagnosis: inform the physician (who must navigate this medically and legally), document the request and the physician's decision, support the patient while respecting the physician's plan. Consent documentation: consent forms in Gulf hospitals are typically bilingual (Arabic + English). Always check that the correct patient name (matching ID), procedure, and date are on the form before the patient signs. Witness must be an uninvolved third party (not the treating team)."
+          },
+          {
+            "title": "Cultural Competency: Islamic Practices and Patient Care",
+            "body": "Understanding Islamic practices is essential for nursing care in Gulf countries where the majority of the population is Muslim (though Gulf hospitals also serve large non-Muslim expatriate populations). Ramadan fasting: during Ramadan, many Muslim patients fast from dawn to sunset (no food, drink, or oral medications). Nursing considerations: discuss medication timing adjustments with physician (shift medications to iftar/suhoor), monitor for hypoglycaemia in diabetics, dehydration in fasting patients admitted to hospital, document fasting status on the medication administration record. Islam does NOT prohibit fasting for those who are ill — a seriously ill patient has an exemption (rukhsah); advise patients that their physician will guide them on whether fasting is safe. Prayer times: Muslims pray 5 times daily (Fajr, Dhuhr, Asr, Maghrib, Isha). Wherever possible, schedule procedures and interventions to avoid interrupting prayer times. Many Gulf hospitals have designated prayer rooms and provide prayer times on the ward. Wudu (ritual washing): patients may need assistance to perform wudu before prayer. If wudu is not possible (IV line in dominant hand, wound, incontinence), tayammum (dry ablution) is permitted. Gender considerations: in conservative Gulf settings, many female patients prefer female nurses/physicians for intimate examinations. Male nurses caring for female patients may need a female chaperone. Always ask patient preference and document. Halal food: pork and alcohol are haram (forbidden); hospital food must be halal-certified. If parenteral nutrition contains pork-derived components, disclose and discuss alternatives (beef-derived or synthetic gelatin). Death and dying: in Islam, it is important for a dying patient to face Mecca (qibla), recite the Shahadah ('La ilaha illa Allah'), and have family present. Support family to be with the patient at end of life. After death: body should be handled with minimal unnecessary contact by non-Muslims; notify family immediately for preparation of the body (ghusl — ritual washing performed by family or Muslim hospital staff). Modesty: both male and female patients value modesty; always cover patients during procedures and knock before entering. Screen around the bed when performing intimate care."
+          }
+        ],
+        "clinical_pearl": "In Gulf hospitals, a family member who says 'don't tell my mother she has cancer' is making a request that creates a legal and ethical dilemma. Gulf patient rights charters give the individual patient the right to know their diagnosis — but Islamic culture traditionally protects family members from distressing news. The correct nursing response is to inform the physician immediately, document the family request, and NOT make any disclosure or non-disclosure decisions independently. The physician must navigate the patient's own expressed wishes (did the patient ask for information?), family wishes, and the legal framework.",
+        "key_points": [
+          "Emergency care is provided without consent — document 'emergency implied consent'",
+          "Diabetic patients fasting Ramadan: coordinate medication timing with physician",
+          "Request female chaperone for male nurses performing intimate care on female patients",
+          "Never collude to actively deceive a patient — document family non-disclosure requests and refer to physician",
+          "After Muslim death: notify family immediately, minimise unnecessary contact with body"
+        ],
+        "references": [
+          "UAE Federal Law No. 4/2016 on Medical Liability",
+          "Saudi MOH Patient Rights Charter (Royal Decree M/59 and amendments)",
+          "Qatar Healthcare Law No. 2/2013",
+          "DHA Patient Rights & Responsibilities Policy 2022"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-019-L03",
+      "title": "Gulf Infection Control, Documentation & Nursing Standards",
+      "order": 3,
+      "lay_summary": "Gulf hospitals follow international infection control standards with local requirements — and documentation rules that every nurse must know to stay legally protected.",
+      "content": {
+        "intro": "Infection control in Gulf hospitals follows international evidence-based guidelines (WHO, CDC, APIC) adapted to local regulatory requirements. All GCC countries have national infection prevention and control (IPC) programs, and most major hospitals seek Joint Commission International (JCI) accreditation, which requires strict IPC compliance. Documentation standards are similarly rigorous — and are the nurse's primary legal protection.",
+        "sections": [
+          {
+            "title": "Infection Prevention & Control in Gulf Hospitals",
+            "body": "All Gulf health authorities (DHA, DOH, SCHS, QCHP, OMSB, NHRA) mandate infection prevention and control programs based on WHO IPC core components. Standard Precautions (applied to ALL patients regardless of diagnosis): Hand hygiene: WHO 5 Moments — Before patient contact, Before aseptic task, After body fluid exposure, After patient contact, After contact with patient surroundings. Alcohol-based hand rub (ABHR) preferred for clean hands; soap and water required after Clostridium difficile (spores not killed by ABHR). Gloves: non-sterile for contact with blood/body fluids/non-intact skin/mucous membranes. Sterile gloves: invasive procedures. PPE: apron/gown, mask, eye protection — when splash risk. Sharp safety: never recap needles two-handed; use safety-engineered devices; dispose in sharps container immediately after use. Respiratory hygiene/cough etiquette: surgical mask + tissue for patients with respiratory symptoms. Gulf-specific IPC emphasis: MERS-CoV (Middle East Respiratory Syndrome): endemic in the Arabian Peninsula (Saudi Arabia, UAE, Qatar). Transmission: primarily from dromedary camels to humans; human-to-human in healthcare settings. Contact + droplet + airborne precautions (N95, eye protection, gown, gloves). Report suspected cases IMMEDIATELY to infection control team. All GCC countries have mandatory reporting for MERS-CoV. Healthcare-associated infection (HAI) surveillance: mandatory in all JCI-accredited Gulf hospitals. CLABSI (Central Line-Associated Bloodstream Infection), CAUTI, VAP, SSI rates are tracked and reported to the health authority. Bundle compliance (catheter care, central line care) is monitored by infection control nurses. Contact precautions in Gulf hospitals: patients with MRSA, VRE, CRE, ESBL — isolated in single room, contact precautions signage on door (colour-coded: yellow = contact; red = contact + droplet; blue = airborne). Decontamination levels: cleaning (remove visible dirt), disinfection (kill most pathogens), sterilisation (kill all including spores). Items classified as critical (invasive — sterile), semi-critical (mucous membrane — high-level disinfection), non-critical (intact skin — intermediate/low-level disinfection) — Spaulding Classification."
+          },
+          {
+            "title": "Nursing Documentation Standards in Gulf Countries",
+            "body": "Nursing documentation in Gulf healthcare settings is both a professional obligation and a legal record. DHA, DOH, SCHS, and other Gulf authorities explicitly require nursing records to be: accurate (factual, objective — document what is observed, not interpreted), timely (contemporaneous — document at the time of care or within defined hospital policy timeframe), complete (all assessments, interventions, responses, and communications), legible (if handwritten), and authenticated (nurse's full name, licence number, date, and time). Electronic Medical Records (EMR): most major Gulf hospitals use EMR systems (Epic, Cerner, Allscripts, Oracle Health). All entries are timestamped and audited. Never share your login credentials — each nurse is personally responsible for entries made under their ID. Legal record requirements: nursing records are routinely reviewed in medical liability cases (UAE Federal Law No. 4/2016). Incomplete or altered records are presumed to indicate substandard care. NEVER alter a written record — if a correction is needed, draw a single line through the error, write 'error,' sign, date, and enter the correction. In EMR: use the correction/addendum function, never delete. Handover documentation: SBAR (Situation, Background, Assessment, Recommendation) is the standard handover tool in most Gulf hospitals. Written SBAR is required in many facilities alongside verbal handover. Never give verbal handover without also completing written documentation. Medication records: Gulf hospitals use the MAR (Medication Administration Record) or its EMR equivalent. Three checks (before, during, after preparation), two patient identifiers (name + MRN or date of birth), document immediately after administration. Late entries: if documentation is delayed, write 'late entry' clearly, state the date/time of care, and the current date/time of documentation. Abbreviations: use only hospital-approved abbreviations. 'Do Not Use' list (ISMP and Joint Commission): never write 'U' for units (may be read as 0), 'IU' for international units, trailing zero (1.0 mg), lack of leading zero (.5 mg), MS/MSO4/MgSO4 (ambiguous)."
+          },
+          {
+            "title": "Medication Safety & Pharmacological Standards in Gulf",
+            "body": "Medication safety is a universal priority with Gulf-specific regulatory requirements. DHA, DOH, and SCHS all maintain their own formularies (approved drug lists). Nurses must understand: Formulary compliance: Gulf hospital formularies list approved drugs by INN. Branded medications may differ from home country. Physicians prescribe by INN; pharmacy dispenses available brand. High-alert medications (HAMs) in Gulf hospitals: ISMP High-Alert list applies; most Gulf hospitals add insulin (all types), concentrated electrolytes (concentrated KCl, hypertonic NaCl, concentrated MgSO4), anticoagulants (heparin, warfarin, LMWHs, DOACs), concentrated opioids, cytotoxic agents, neuromuscular blockers. HAMs require: double-check by two nurses, pharmacist verification, coloured labelling ('High Alert' sticker), storage restrictions (concentrated KCl never stored on ward — pharmacy only). Controlled substances: all GCC countries have strict narcotics regulations. Saudi Arabia: MOH Narcotics and Psychotropic Substances Regulations. UAE: Federal Law No. 14/1995 and subsequent amendments on narcotics. Controlled drugs (morphine, pethidine, fentanyl): double lock, double key, count at every shift change, two-nurse witnessed wastage, specific prescription requirements. Discrepancies must be reported immediately to pharmacy and nursing supervisor. Drug calculation: Gulf hospitals use weight in kg and metric doses. Calculate in mg/kg; verify with second nurse and pharmacy for high-risk infusions. Allergy documentation: document drug allergies on MAR, on patient's wristband (red allergy band is standard across most Gulf hospitals), and in EMR. Allergies to Aspirin and NSAIDs (important in Gulf populations where aspirin is widely available over the counter), penicillin, and latex are common. Latex-free care: Gulf hospitals increasingly stock latex-free equipment — flag latex allergy immediately."
+          }
+        ],
+        "clinical_pearl": "MERS-CoV is the Gulf region's most important endemic healthcare-acquired infection risk. Any patient presenting with fever, cough, and shortness of breath who has had contact with dromedary camels, or who works in a farm or market, or who has been in a MERS-affected ward — must be placed in airborne precautions (negative pressure room, N95 mask, full PPE) immediately, and the infection control team and Ministry of Health duty officer must be notified before diagnostic confirmation. Do not wait for PCR results to initiate precautions.",
+        "key_points": [
+          "MERS-CoV: airborne + contact + droplet precautions; mandatory immediate reporting to MOH",
+          "Gulf EMR documentation: never delete — use addendum/correction function",
+          "Red allergy wristband is standard across Gulf hospitals",
+          "Controlled substances: count at every shift change, two-nurse witnessed wastage",
+          "Do not write 'U' for units — always write 'units' in full (ISMP/JCI requirement)"
+        ],
+        "references": [
+          "WHO IPC Core Components 2016",
+          "DHA Infection Prevention & Control Standards 2023",
+          "ISMP High-Alert Medications List",
+          "UAE Federal Law No. 14/1995 on Narcotics and Psychotropics"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse in Dubai receives an order for 'acetaminophen 1g PO q6h.' The ward pharmacist corrects this to 'paracetamol 1g.' Which statement BEST explains this correction?",
+      "question_type": "mcq",
+      "options": {
+        "A": "The drugs are different — acetaminophen and paracetamol have different mechanisms",
+        "B": "Gulf hospitals use INN (International Nonproprietary Names) — paracetamol is the INN; acetaminophen is the US trade name equivalent",
+        "C": "Paracetamol is a stronger formulation than acetaminophen",
+        "D": "UAE law requires the Arabic name for all medications"
+      },
+      "correct": "B",
+      "explanation": "Paracetamol (INN) = acetaminophen (US brand-derived name). Gulf hospitals universally use International Nonproprietary Names (INN). Other equivalents nurses must know: albuterol → salbutamol; epinephrine → adrenaline; norepinephrine → noradrenaline; meperidine → pethidine. These are the SAME drugs — same mechanism, same dose. Gulf licensing exam questions exclusively use INN names.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A nurse working at a DHA-licensed hospital discovers a blood glucose result of 12.4 mmol/L in a diabetic patient's EMR. What is the equivalent value in mg/dL, and is it concerning?",
+      "question_type": "mcq",
+      "options": {
+        "A": "12.4 mg/dL — critically low, treat for hypoglycaemia",
+        "B": "223 mg/dL — elevated, notify provider for management",
+        "C": "1240 mg/dL — critically elevated, initiate DKA protocol",
+        "D": "12.4 mg/dL is already in mg/dL — within normal limits"
+      },
+      "correct": "B",
+      "explanation": "Gulf countries report blood glucose in mmol/L (SI units). Conversion: mg/dL = mmol/L × 18. So 12.4 × 18 = 223 mg/dL. This is elevated (target for most hospitalised diabetics: 7.8–10.0 mmol/L / 140–180 mg/dL). Normal fasting: 3.9–6.1 mmol/L (70–110 mg/dL). Hypoglycaemia: <4.0 mmol/L (<72 mg/dL). Memorise: a glucose of 10 mmol/L = 180 mg/dL as a reference point.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A Muslim patient in a Saudi hospital requests to delay their morning IV antibiotic dose until after Fajr prayer. The nurse's BEST response is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Refuse — IV antibiotics must be given at the prescribed times without exception",
+        "B": "Administer the antibiotic immediately without discussion",
+        "C": "Facilitate prayer before administration if a brief delay does not compromise treatment; notify the physician if a significant delay is needed",
+        "D": "Transfer religious accommodation requests to the hospital chaplain only"
+      },
+      "correct": "C",
+      "explanation": "Cultural and religious sensitivity is a professional and legal expectation in Gulf healthcare. A brief delay to allow prayer is generally acceptable for non-time-critical medications. If the antibiotic timing is critical (e.g., within 1 hour of a set interval for serious infection), inform the physician and document. Saudi Patient Rights Charter explicitly includes the right to religious practice during hospitalisation. Facilitating prayer when clinically safe demonstrates culturally competent care.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A family member asks a nurse in a Qatar hospital not to disclose a cancer diagnosis to the patient, saying 'it will destroy her will to live.' The nurse's CORRECT action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Agree to the request — family decisions take precedence in Islamic culture",
+        "B": "Disclose the diagnosis to the patient immediately — patient rights override family wishes",
+        "C": "Inform the physician of the family's request; do not independently disclose or actively conceal; document the request",
+        "D": "Ask the patient directly what they already know about their condition and explain everything"
+      },
+      "correct": "C",
+      "explanation": "This is a common ethical dilemma in Gulf healthcare. Qatar Healthcare Law upholds individual patient rights, including the right to information. However, the decision to disclose or withhold a diagnosis is a PHYSICIAN decision, not a nursing one. The nurse must: (1) notify the physician of the family request, (2) neither disclose nor actively deceive the patient, (3) document everything. Some Gulf physicians use a staged disclosure approach respecting both patient rights and family concern. The nurse must not make this clinical-ethical decision unilaterally.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse at an Abu Dhabi (DOH-licensed) hospital is caring for a patient transferred from a camel farm with fever 39.2°C, cough, and shortness of breath. The PRIORITY nursing action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer paracetamol and monitor temperature every 4 hours",
+        "B": "Place the patient in airborne + contact + droplet precautions and immediately notify infection control",
+        "C": "Obtain blood cultures and wait for results before initiating any precautions",
+        "D": "Place in standard contact precautions — this is most likely community-acquired pneumonia"
+      },
+      "correct": "B",
+      "explanation": "Camel farm exposure + fever + respiratory symptoms in the UAE = MERS-CoV (Middle East Respiratory Syndrome Coronavirus) until proven otherwise. MERS-CoV requires: airborne precautions (negative pressure room, N95 respirator), contact precautions (gown, gloves), and droplet precautions (eye protection). Immediate notification of the infection control team AND the Ministry of Health duty officer is mandatory in all GCC countries. Do NOT wait for PCR results before initiating maximum precautions.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse discovers that the unit has run out of morphine sulphate vials at the end of a shift. The controlled substance count shows 3 vials missing from the logbook. The CORRECT action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Document the discrepancy and inform the next shift to investigate",
+        "B": "Immediately report the discrepancy to the nurse supervisor and pharmacy; do not leave until the matter is resolved",
+        "C": "Assume the outgoing nurse made a documentation error — sign off the count as correct",
+        "D": "Check with the physicians if they administered any morphine off the ward"
+      },
+      "correct": "B",
+      "explanation": "Controlled substance discrepancies must be reported IMMEDIATELY to the nursing supervisor and pharmacy in all GCC countries. Under UAE Federal Law No. 14/1995 and Saudi Narcotics Regulations, unresolved discrepancies trigger a formal investigation. The nurse who discovers the discrepancy must not leave the shift until the report is made. Signing off an incorrect count is falsification of medical records — a criminal offence. Controlled substance accountability is the most strictly regulated area of nursing in Gulf countries.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which documentation entry is compliant with Gulf hospital standards (JCI and DHA/DOH requirements)?",
+      "question_type": "mcq",
+      "options": {
+        "A": "\"Patient was comfortable\" — RN Al-Hassan",
+        "B": "\"Patient rated pain 3/10. Paracetamol 1g PO administered per physician order. Patient reports pain reduced to 1/10 after 45 min. Will continue to monitor.\" — RN Al-Hassan, RN #DHA-45821, 14:30",
+        "C": "\"Pain meds given\" — 14:30",
+        "D": "\"Pt c/o pain, gave meds as ordered\" — RN Hassan"
+      },
+      "correct": "B",
+      "explanation": "JCI and Gulf regulatory standards require nursing documentation to be: specific (pain score, drug name, dose, route, time), objective (measurable outcomes), complete (assessment + intervention + response), and authenticated (full name, licence number, and exact time). Option A is vague and unauthenticated. C is dangerously incomplete. D uses an unapproved abbreviation ('Pt c/o'), lacks drug details, and uses an incomplete name. Only B meets all requirements.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A DHA-licensed nurse makes a documentation error in a paper nursing note. What is the CORRECT method to correct the error?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Use correction fluid (white-out) to cover the error and write the correct information",
+        "B": "Tear out the page and rewrite the note correctly",
+        "C": "Draw a single line through the error, write 'error,' sign, date/time, and enter the correct information",
+        "D": "Cross out the error completely so it cannot be read, then write the correct entry"
+      },
+      "correct": "C",
+      "explanation": "The only legally acceptable correction method for handwritten nursing records in Gulf hospitals: one line through the error (the original must remain legible), the word 'error' written alongside, the nurse's signature and the date/time of correction, then the correct information written. Obliterating, crossing out completely, or using correction fluid (whitener) implies tampering with a legal document — a serious disciplinary and potential criminal offence in all GCC countries under medical records laws.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A nurse working in a Bahrain (NHRA) hospital is assigned to a female patient from a conservative background. The patient needs a urinary catheter inserted. The nurse assigned is male. What is the MOST appropriate action?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Proceed with catheter insertion — clinical urgency overrides cultural preference",
+        "B": "Ask the patient if she has any preference and, if she requests a female nurse, arrange one if available; document the accommodation",
+        "C": "Refuse to insert the catheter — male nurses should never perform intimate procedures",
+        "D": "Ask the patient's husband for permission before proceeding"
+      },
+      "correct": "B",
+      "explanation": "Gulf patient rights charters guarantee the right to respectful care that considers cultural and religious values. The first step is to ask the patient her preference. If she requests a female nurse and one is available, arrange the handover. If unavailable (emergency), proceed with a female chaperone present, explain the necessity to the patient, and document the accommodation attempt. Male nurses are fully qualified to perform intimate procedures — the question is about patient preference, not capability. Asking the husband for permission treats the patient (who may be a competent adult) as unable to consent for herself.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "During a shift in a Saudi hospital, a nurse notices that a patient's POC blood glucose reading is 3.2 mmol/L and the patient is sweating and confused. The nurse's FIRST action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Notify the physician and wait for orders",
+        "B": "If the patient can swallow: give 15-20g fast-acting carbohydrate (e.g. 150-200mL fruit juice)",
+        "C": "Administer D50W 25mL IV immediately regardless of patient's ability to swallow",
+        "D": "Recheck glucose in 15 minutes before treating"
+      },
+      "correct": "B",
+      "explanation": "Blood glucose 3.2 mmol/L = approximately 58 mg/dL — symptomatic hypoglycaemia. Patient is confused but not unconscious. ADA/IDF 15-15 rule (used internationally including Gulf): if able to swallow → 15-20g oral fast-acting carbohydrate → recheck in 15 min. Confused but able to swallow can be given oral glucose with nurse present and patient upright. D50W IV is for unconscious patients. In Gulf hospitals, most hypoglycaemia protocols follow ADA guidelines adapted to local formulary (e.g. 150mL orange juice or 3-4 glucose tablets).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse completing the SNLE (Saudi Nursing Licensing Exam) encounters a question about a patient receiving 'salbutamol 5mg via nebuliser.' The nurse recognises this drug as equivalent to which US medication?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Salmeterol",
+        "B": "Albuterol",
+        "C": "Ipratropium",
+        "D": "Budesonide"
+      },
+      "correct": "B",
+      "explanation": "Salbutamol (INN) = albuterol (US name). Both are short-acting beta-2 agonists (SABAs) used for acute bronchospasm in asthma and COPD. Gulf exams exclusively use INN. Standard nebulised dose: salbutamol 2.5–5mg per dose. Do not confuse with salmeterol (long-acting beta-2 agonist — LABA, for maintenance only; not for acute bronchospasm). Ipratropium is a SAMA (anticholinergic), often combined with salbutamol in COPD exacerbation. Budesonide is an inhaled corticosteroid.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "The DHA Nursing Licensing Exam blueprint allocates 30% of questions to which category?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Critical Care Nursing",
+        "B": "Medical-Surgical Nursing",
+        "C": "Fundamentals of Nursing",
+        "D": "Pharmacology"
+      },
+      "correct": "B",
+      "explanation": "DHA Nursing Licensing Exam blueprint (same across all UAE authorities and most Gulf exams): Medical-Surgical Nursing 30% (largest category — prioritise this in study), Fundamentals of Nursing 20%, Critical Care 15%, Pharmacology 10%, Maternal & Newborn 10%, Paediatrics 5%, Mental Health 5%, Community & Public Health 5%. SNLE (Saudi) has the same distribution but 200 questions total. Study medical-surgical content most extensively — it comprises nearly one third of all Gulf exam questions.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse who passed the QCHP (Qatar) nursing exam and is licensed in Qatar wishes to begin working in Saudi Arabia. What is required?",
+      "question_type": "mcq",
+      "options": {
+        "A": "QCHP licence is mutually recognised across GCC — no additional exam needed",
+        "B": "The nurse must pass the SNLE (Saudi Nursing Licensing Exam) and obtain SCHS registration",
+        "C": "A letter from QCHP to the Saudi MOH is sufficient for automatic transfer",
+        "D": "Only 6 months of Gulf experience is needed to work in Saudi Arabia without an exam"
+      },
+      "correct": "B",
+      "explanation": "As of 2024, GCC countries do NOT have mutual recognition of nursing licences. Each country requires its own separate licensing exam and registration process. A nurse must: pass the SNLE (Saudi Nursing Licensing Exam, 200 MCQs), complete DataFlow primary source verification for Saudi requirements, register with SCHS (Saudi Commission for Health Specialties), and obtain a valid Saudi work visa (Iqama). The GCC has discussed regional mutual recognition, but it has not been implemented for nursing.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse in a UAE hospital is asked to administer concentrated potassium chloride (KCl) 15 mEq that the senior nurse has drawn up in an unlabelled syringe. The CORRECT action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer it — the senior nurse has verified the dose",
+        "B": "Refuse to administer an unlabelled syringe; request that the drug be labelled and the second nurse double-check performed",
+        "C": "Administer it after verifying the infusion rate with the physician",
+        "D": "Ask the patient to confirm the medication before administering"
+      },
+      "correct": "B",
+      "explanation": "Concentrated KCl is a High-Alert Medication (HAM) in all Gulf hospitals — never administered undiluted IV (can cause fatal cardiac arrhythmia). UAE and all Gulf hospital standards (per JCI and DHA/DOH): ALL medications must be labelled immediately on preparation; HAMs require double-nurse independent verification; unlabelled syringes MUST NOT be administered regardless of who prepared them. 'If it's not labelled, it's not safe.' Refuse politely, relabel if possible, or request fresh preparation.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient in an Oman (OMSB) hospital states: 'I do not want this blood transfusion — I am a Jehovah's Witness.' The patient is alert and competent. Which action is LEGALLY and ETHICALLY correct in the Gulf context?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer the transfusion — refusing blood is irrational and the nurse has a duty of care",
+        "B": "Document the refusal, notify the physician, ensure informed refusal is signed, and explore acceptable alternatives",
+        "C": "Call the patient's family to override the refusal",
+        "D": "Seek a court order before respecting the refusal"
+      },
+      "correct": "B",
+      "explanation": "A competent adult's right to refuse treatment is upheld by Gulf patient rights charters and international medical ethics, even in Islamic-majority countries where blood transfusion itself is not prohibited (it is Jehovah's Witness religious doctrine that prohibits it, not Islam). The nurse must: document the refusal clearly, ensure the patient has been fully informed of consequences, have the physician obtain a written informed refusal (signed by patient and witnessed), explore blood-conservation alternatives (iron, erythropoietin, cell salvage), and escalate to ethics committee if the case is complex (e.g. life-threatening and patient is alone). Contacting family does not override a competent adult's decision.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse is preparing to administer heparin infusion to a patient in a HAAD (Abu Dhabi)-licensed hospital. Per high-alert medication policy, what TWO independent checks are required before starting the infusion?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Physician order review and patient allergy check only",
+        "B": "Two nurses independently calculate the dose and verify the infusion rate, drug concentration, patient name, and pump settings",
+        "C": "One nurse verifies; pharmacist countersigns the MAR",
+        "D": "Nurse verifies dose; patient is asked to confirm they want the medication"
+      },
+      "correct": "B",
+      "explanation": "Heparin is a High-Alert Medication (HAM) per ISMP and Gulf hospital standards (DHA, DOH, SCHS). UAE DOH and DHA policies require TWO nurses independently (not together) to verify: drug name and concentration, ordered dose and calculated dose, patient weight (if weight-based), infusion rate (mL/hr), pump settings, and patient identity (two identifiers). Independent means each nurse calculates separately before comparing — one nurse dictating while the other checks is NOT independent verification. Document both nurses' names and licence numbers on the MAR.",
+      "difficulty": "medium"
+    }
+  ]
+}

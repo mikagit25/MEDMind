@@ -1,0 +1,288 @@
+{
+  "meta": {
+    "id": "NURSE-020",
+    "specialty": "Nursing",
+    "title": "Saudi MOH Clinical Standards & Vision 2030 Healthcare Reform",
+    "duration_hours": 2.5,
+    "sources": [
+      "Saudi Ministry of Health (MOH) Clinical Practice Guidelines 2023",
+      "CBAHI (Central Board for Accreditation of Healthcare Institutions) Standards 2023",
+      "Saudi Vision 2030 Health Sector Transformation Program",
+      "SCHS Saudi Nursing Scope of Practice 2024",
+      "Saudi Patient Safety Center (SPSC) Standards",
+      "WHO Eastern Mediterranean Regional Office (EMRO) Guidelines",
+      "Saudi Arabia National Clinical Practice Guidelines"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-020-L01",
+      "title": "Saudi MOH Healthcare System & CBAHI Accreditation Standards",
+      "order": 1,
+      "lay_summary": "Saudi Arabia has one of the largest healthcare systems in the Middle East — learn how it's organised and what quality standards nurses must follow.",
+      "content": {
+        "intro": "Saudi Arabia operates the largest healthcare system in the GCC, with the Ministry of Health (MOH) overseeing over 2,700 primary health care centres and 500+ hospitals across 13 administrative regions. Understanding the system's structure, accreditation standards, and Vision 2030 reforms is essential for nurses practising in the Kingdom, as policies directly affect nursing practice, patient safety protocols, and documentation requirements.",
+        "sections": [
+          {
+            "title": "Saudi Healthcare System Structure",
+            "body": "The Saudi healthcare system operates at three tiers: Primary Healthcare (PHC): over 2,700 MOH health centres providing preventive care, maternal and child health, chronic disease management, vaccinations, and first-contact care. Staffed primarily by general practitioners and nurses. Family medicine and community nursing are expanding under Vision 2030. Secondary Healthcare: general hospitals at regional and district level. Referral from PHC required except for emergencies. Nurses in secondary hospitals handle general ward care, surgery, obstetrics, and paediatrics. Tertiary Healthcare: specialist centres — King Faisal Specialist Hospital & Research Centre (KFSHRC), King Abdullah Medical City (KAMC), National Guard Health Affairs (NGHA), and university hospitals (King Saud University Medical City, etc.). Top nurses are employed at this level; scope of practice is broader. Non-MOH providers: Saudi Aramco Medical Services, Armed Forces Medical Services, National Guard Health Affairs, and a large private sector (comprising 40%+ of hospital beds). All operate under SCHS licensing but may have additional institutional standards. Emergency care: Saudi hospitals follow ACLS/BLS protocols (AHA-based). Saudi Red Crescent Authority (SRCA) provides pre-hospital EMS. Emergency nurses must hold BLS certification; ICU and ED nurses are expected to hold ACLS. Mandatory reporting: Saudi healthcare requires reporting of communicable diseases (MERS-CoV, tuberculosis, viral hepatitis, measles, cholera, etc.) to the MOH via Nizam Seha digital platform. Healthcare-associated infections (HAIs) reported to the Saudi Patient Safety Center."
+          },
+          {
+            "title": "CBAHI Accreditation: The Saudi Joint Commission",
+            "body": "CBAHI (Central Board for Accreditation of Healthcare Institutions) is the national accreditation body for Saudi healthcare, equivalent to Joint Commission International (JCI) but specifically Saudi. CBAHI accreditation is MANDATORY for all MOH-affiliated hospitals in Saudi Arabia (Royal Decree requirement). CBAHI standards cover: Patient and family rights, Patient assessment, Care of patients, Medication management, Prevention and control of infections, Governance, leadership and administration, Facility management and safety, Quality management and patient safety. CBAHI nursing-specific standards: Nursing care plan: every admitted patient must have a nursing care plan documented within 24 hours of admission. The care plan uses the nursing process (ADPIE: Assessment, Diagnosis, Planning, Implementation, Evaluation) and must be updated every 24 hours or with status change. Nursing assessment on admission: completed within 4 hours of admission to general ward; within 1 hour in emergency. Includes: physical assessment, pain assessment, nutritional screening (Malnutrition Universal Screening Tool — MUST or NRS-2002), fall risk (Morse Fall Scale or Hendrich II), pressure injury risk (Braden Scale), VTE risk, psychosocial assessment. Patient safety goals (Saudi National Patient Safety Goals — aligned with IPSG): Identify patients correctly (two identifiers). Improve effective communication (SBAR, critical value reporting). Improve safety of high-alert medications. Ensure correct-site, correct-procedure, correct-patient surgery. Reduce the risk of healthcare-associated infections. Reduce the risk of patient harm from falls. Nursing's role: implement and document all patient safety goal compliance. CBAHI surveys: conducted every 3 years; surveyors observe care directly and interview nurses about policies. Nurses must know their unit's policies. Tip: CBAHI surveyors commonly test nurses on 'hand hygiene 5 moments,' 'two patient identifiers,' and 'fall risk assessment.'."
+          },
+          {
+            "title": "Saudi MOH Clinical Practice Guidelines",
+            "body": "The Saudi MOH publishes national clinical practice guidelines across specialties. Nurses must follow the applicable guidelines for their practice area. Key guidelines relevant to nursing practice: Pain management: Saudi MOH Pain Policy (2019) requires: pain assessed and documented at every patient encounter using validated scales (NRS 0-10 for adults, FLACC for paediatrics, Abbey Pain Scale for cognitively impaired), pain reassessment after every intervention within 30-60 minutes, 'pain as fifth vital sign' integrated into vital sign documentation. Pressure injury prevention: Saudi MOH follows NPUAP/EPUAP/PPPIA International Guideline. Risk assessment on admission (Braden Scale), every 24 hours and after any status change. Prevention bundle: reposition minimum every 2 hours, moisture management, nutritional support, pressure-redistributing mattress (air-alternating for Braden <18), heel protection (floatation). All pressure injuries documented in PoCA (Patient Occurrence & Concern Application) system. Fall prevention: MOH National Falls Prevention Program. Risk assessment on admission (Morse Falls Scale: history of falls, secondary diagnosis, ambulatory aid, IV/heparin lock, gait, mental status — score ≥45 = high risk). Interventions: yellow fall-risk wristband, bed lowest position, call bell within reach, non-slip footwear, hourly rounding, bed alarm if needed. Post-fall management: assessment for injury, incident report in Nizam Seha, physician notification, family notification, care plan revision. Sepsis: Saudi MOH adopted Surviving Sepsis Campaign (SSC) Hour-1 Bundle: measure lactate, blood cultures ×2 before antibiotics, broad-spectrum antibiotics within 1 hour, 30 mL/kg crystalloid bolus for hypotension/lactate ≥4, vasopressors if MAP <65 after fluid. Nursing: recognise SIRS criteria (temperature >38°C or <36°C, HR >90, RR >20, WBC >12,000 or <4,000 or >10% bands), activate sepsis protocol, document time of recognition."
+          }
+        ],
+        "clinical_pearl": "CBAHI surveyors are highly trained and will directly observe nursing practice, check MAR documentation, and ask individual nurses to demonstrate or explain patient safety practices. The most commonly failed CBAHI standards on nursing units are: incomplete nursing assessment within the required timeframe, Braden Scale not documented for every admitted patient, fall-risk wristband not in place for high-risk patients, and HAM (High-Alert Medication) double-check not properly documented. Know your hospital's specific policies for each of these four areas — they are almost always surveyed.",
+        "key_points": [
+          "CBAHI accreditation is mandatory for all MOH-affiliated Saudi hospitals",
+          "Nursing care plan must be documented within 24 hours of admission, updated every 24h",
+          "Braden Scale on admission and every 24 hours — Braden <18 = pressure redistribution device",
+          "Morse Falls Scale ≥45 = high risk → yellow wristband + full falls prevention bundle",
+          "Sepsis Hour-1 Bundle: lactate, blood cultures ×2, antibiotics, fluids — all within 60 minutes"
+        ],
+        "references": [
+          "CBAHI Standards for Hospitals 2023",
+          "Saudi MOH Pain Management Policy 2019",
+          "Saudi National Falls Prevention Program",
+          "Surviving Sepsis Campaign Hour-1 Bundle 2018"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-020-L02",
+      "title": "Vision 2030 Health Transformation & Expanding Nursing Roles",
+      "order": 2,
+      "lay_summary": "Saudi Arabia's Vision 2030 is transforming healthcare — expanding what nurses can do, increasing Saudi nurses, and building a world-class health system.",
+      "content": {
+        "intro": "Saudi Vision 2030, launched in 2016 by Crown Prince Mohammed bin Salman, includes comprehensive health sector transformation. For nursing specifically, Vision 2030 means expanding nursing roles, increasing the proportion of Saudi nationals in nursing (Saudization/'Nitaqat'), implementing value-based healthcare, and digitalising health records. Nurses working in Saudi Arabia must understand this context — exam questions and practical expectations reflect these ongoing changes.",
+        "sections": [
+          {
+            "title": "Vision 2030 Health Sector Transformation Program",
+            "body": "The Health Sector Transformation Program (HSTP), one of Vision 2030's 12 Vision Realisation Programs, targets by 2030: increase life expectancy from 74 to 80 years, reduce maternal mortality, expand community and preventive care, achieve Universal Health Coverage (UHC), and privatise up to 290 MOH hospitals. Key reforms relevant to nursing: 1. National Health Insurance (NHI/NHIP): Saudi Arabia is implementing a national health insurance program that will replace the current direct MOH-funded model. Currently, only expatriates working in the private sector are mandatorily insured (CCHI — Council of Cooperative Health Insurance). Saudi nationals currently receive free MOH healthcare. By 2030, all residents will have health insurance. Nursing implication: insurance-based care requires detailed documentation for billing and outcome reporting — nurses must document everything precisely. 2. Preventive healthcare expansion: Vision 2030 shifts emphasis from curative to preventive care. PHC nurses now conduct chronic disease screening (diabetes, hypertension, obesity, mental health), immunisation drives, health education. MOH 'Sehhaty' app connects patients to PHC nurses for virtual consultation. 3. Digitalisation — Nizam Seha (formerly CERNER/AZURE): Saudi MOH is rolling out a unified electronic health record (EHR) — 'Nizam Seha.' Nurses document all patient encounters electronically. Reports, incident reporting, and quality indicators all feed into a national database. 4. Value-based healthcare: hospitals now compete on quality outcomes. Nurse-sensitive indicators (fall rates, HAPU rates, CAUTI, CLABSI, patient satisfaction) directly affect hospital ratings and funding. 5. Privatisation: 150+ MOH hospitals converted to semiautonomous entities ('Mawared' model) — operated commercially with KPIs."
+          },
+          {
+            "title": "Saudization (Nitaqat) and the Nursing Workforce",
+            "body": "Saudization (Nitaqat programme) mandates minimum percentages of Saudi nationals in the workforce across sectors. Healthcare is partially exempt from standard Nitaqat but has its own targets for Saudi healthcare professionals. Current state: approximately 35% of nurses in Saudi Arabia are Saudi nationals; 65% are expatriates (primarily Filipino, Indian, Egyptian, Sudanese, Jordanian). Vision 2030 nursing targets: increase proportion of Saudi nurses to 50% by 2030. Saudi Nursing Initiative: MOH partnerships with nursing colleges to increase graduates, nursing scholarship programs for Saudi students (KFSHRC scholarship, MOH scholarship abroad), establishment of Saudi Nursing Specialties board, expansion of specialist nursing roles (Nurse Practitioner, Clinical Nurse Specialist — previously these did not formally exist in KSA). Nurse Practitioner (NP) role in Saudi Arabia: Saudi Arabia officially recognising the NP role (previously practice was physician-only for prescribing). NPs can: diagnose and manage common conditions, order diagnostics and prescribe from a defined formulary, in designated settings (primary health care, specialist clinics). This is a MAJOR change from traditional KSA nursing scope. Clinical Nurse Specialist (CNS): experts in a specialty (oncology CNS, cardiac CNS, diabetes CNS) who provide advanced clinical consultation, education, and research. Previously informal, now being formalised through SCHS certification. Foreign nurse licensing trends: Saudi MOH is continuously updating SNLE content to reflect expanded scope. Exam questions now include NP-level clinical decision making for some content areas. Implications for expatriate nurses: advanced practice roles increasingly sought; nurses with specialty certifications (CCRN, CNOR, OCN) are preferred. Cultural competency and Arabic language proficiency are valued but not mandatory for most positions."
+          },
+          {
+            "title": "Critical National Health Priorities in Saudi Arabia",
+            "body": "Saudi Arabia's specific health burden shapes nursing practice priorities. Non-communicable diseases (NCDs): Saudi Arabia has among the highest rates of Type 2 diabetes globally (>24% prevalence, WHO), obesity (>35% of adults), and cardiovascular disease. Nursing implications: expert diabetes education (glucometers, insulin technique, hypoglycaemia management), cardiac rehabilitation, metabolic syndrome screening. Consanguineous marriage and genetic disease: Saudi Arabia has high rates of consanguineous (cousin) marriages (~57% historically), resulting in elevated rates of sickle cell disease, haemolytic anaemias, and genetic metabolic disorders. National Premarital Screening Program: mandatory blood tests before marriage in Saudi Arabia to detect sickle cell trait, thalassaemia trait, and certain infectious diseases (HIV, Hepatitis B, Hepatitis C). Nurses provide counselling and manage patients with haemoglobinopathies. Sickle cell disease management: hydroxyurea, transfusion support, pain crisis management, vaso-occlusive crisis nursing care (analgesics, hydration, oxygen). Mental health: historically underserved in Saudi Arabia due to stigma. Vision 2030 actively targets mental health destigmatisation. Saudi National Center for Mental Health Promotion. Nurses now expected to screen for depression (PHQ-9), anxiety (GAD-7), and substance use (increasingly relevant as Saudi Arabia combats rising rates of stimulant abuse — methamphetamine/captagon). MERS-CoV surveillance: remains an active concern. All Saudi healthcare workers complete annual MERS-CoV infection prevention training. Hajj and Umrah healthcare: Saudi Arabia hosts 2-3 million pilgrims annually (Hajj) plus year-round Umrah visitors. Hajj period creates surge demand for nursing care: heat stroke, crush injuries, meningococcal disease (vaccination mandatory for Hajj). Nurses in Mecca and Medina hospitals are trained in mass casualty and disaster nursing specific to pilgrimage medicine."
+          }
+        ],
+        "clinical_pearl": "Saudi Arabia has the highest per-capita rate of Type 2 diabetes in the world outside Pacific Island nations. Every nurse working in Saudi Arabia will encounter diabetic patients daily — in every setting from PHC to ICU. Master blood glucose monitoring, insulin administration, hypoglycaemia recognition and treatment, and patient education in diabetes self-management. Nurses who also understand HbA1c targets, the Saudi Diabetes Society guidelines (closely aligned with ADA), and the cultural factors affecting diabetes control (Ramadan fasting, diet, foot care in patients who walk barefoot) are invaluable.",
+        "key_points": [
+          "Vision 2030 targets 80-year life expectancy and 50% Saudi nursing workforce by 2030",
+          "Saudi NP role now formally recognised — can diagnose and prescribe from defined formulary",
+          "Mandatory Premarital Screening: sickle cell, thalassaemia, HIV, Hep B/C",
+          "Saudi Type 2 diabetes prevalence >24% — the most common clinical challenge for nurses",
+          "Hajj: meningococcal vaccination mandatory; surge nursing for heat stroke and crush injuries"
+        ],
+        "references": [
+          "Saudi Vision 2030 Health Sector Transformation Program",
+          "WHO Non-communicable Diseases Saudi Arabia Profile 2023",
+          "Saudi Diabetes Society Clinical Practice Guidelines 2023",
+          "SCHS Expanded Nursing Scope of Practice 2024"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-020-L03",
+      "title": "Saudi Clinical Nursing Standards: Pressure Injuries, VTE, Sepsis & Handover",
+      "order": 3,
+      "lay_summary": "Saudi hospitals follow specific clinical protocols for preventing pressure injuries, blood clots, sepsis, and safe patient handover — every nurse needs to know these.",
+      "content": {
+        "intro": "Saudi MOH clinical nursing standards define the minimum expected practice in areas with the greatest patient safety impact. These standards are assessed in CBAHI surveys, tracked as nurse-sensitive quality indicators, and examined in the SNLE. This lesson covers the four most commonly assessed clinical nursing standards in Saudi hospital settings.",
+        "sections": [
+          {
+            "title": "Pressure Injury Prevention: Saudi MOH Protocol",
+            "body": "Saudi Arabia adopted the International NPIAP/EPUAP/PPPIA Pressure Injury Prevention and Treatment Clinical Practice Guideline (2019) as the national standard. Staging (NPIAP 2016): Stage 1 — non-blanchable erythema of intact skin (does not blanch when pressed); Stage 2 — partial-thickness loss of dermis (shallow open ulcer, pink wound bed, or intact/open blister); Stage 3 — full-thickness skin loss (subcutaneous fat visible, no bone/tendon/muscle exposed); Stage 4 — full-thickness tissue loss (bone, tendon, or muscle exposed); Unstageable — full-thickness loss, base covered by slough or eschar; Deep Tissue Injury (DTI) — purple or maroon intact or non-intact skin from pressure/shear. Saudi nursing protocol steps: Admission: Braden Scale within 4 hours. Score ≤18 = at-risk; ≤13 = high risk; ≤9 = very high risk. Repositioning schedule: 2-hourly for at-risk patients, documented in turning chart. Heels: elevate using heel flotation boots (pillow under calf, not heel). Moisture management: barrier cream for incontinence, absorbent pads/diapers changed promptly. Nutrition: screen with MUST or NRS-2002 — refer to dietitian if score ≥2. Protein-rich diet, hydration. Pressure-redistributing devices: foam or air-alternating mattress (not standard hospital mattress) for Braden <18. Documentation: skin assessment documented every shift, injuries documented with stage, location, size (L×W×D in cm), wound bed characteristics, periwound condition, treatment applied. CBAHI requirement: all new pressure injuries acquired in hospital must be reported via PoCA (Patient Occurrence and Concern Application) within 24 hours. Saudi MOH 'Zero Preventable Pressure Injury' campaign is an active quality improvement initiative in all MOH hospitals."
+          },
+          {
+            "title": "VTE Prevention and Sepsis Recognition",
+            "body": "VTE (Venous Thromboembolism) Prevention: Saudi MOH VTE Prevention Protocol follows ACCP (American College of Chest Physicians) 9th Edition guidelines. Risk assessment: ALL admitted patients assessed using Caprini VTE Risk Assessment score on admission and after any status change. Caprini score: 0-1 = low risk; 2 = moderate risk; 3-4 = high risk; ≥5 = highest risk. Pharmacological prophylaxis: LMWH (enoxaparin) for moderate-high risk surgical and medical patients — prescribed by physician, administered by nurse. Timing: first dose typically 12 hours pre-operatively (elective surgery) or within 24 hours of medical admission. Mechanical prophylaxis: sequential compression devices (SCDs/anti-embolism stockings) for patients where pharmacological is contraindicated (bleeding risk). Both pharmacological AND mechanical may be used simultaneously in highest-risk patients. Nursing checks before LMWH: platelet count ≥100,000, renal function (hold if eGFR <30 for dose adjustment), bleeding risk (active haemorrhage is a contraindication), allergy (heparin-induced thrombocytopaenia history). Early mobilisation: ambulate patients within 24 hours of admission if clinically safe (most important single VTE prevention measure). Sepsis Recognition — Saudi MOH Sepsis Protocol (Surviving Sepsis Campaign-aligned): Trigger: any two SIRS criteria (temperature >38°C or <36°C, HR >90/min, RR >20/min, WBC >12,000 or <4,000) plus suspected infection → trigger Sepsis Alert. qSOFA (quick Sequential Organ Failure Assessment) for ward nurses: Respiratory rate ≥22, Altered mentation (GCS <15), Systolic BP ≤100 — score ≥2 = high risk for organ dysfunction → immediately escalate. Hour-1 Bundle (nurse-driven components): Draw blood cultures ×2 (different sites) BEFORE antibiotics. Measure serum lactate. Administer ordered antibiotics (broad-spectrum) within 1 hour of recognition. For hypotension or lactate ≥4 mmol/L: start IV crystalloid 30 mL/kg bolus. Reassess and notify physician if MAP <65 after fluid resuscitation → vasopressors needed."
+          },
+          {
+            "title": "Safe Patient Handover: SBAR and ISoBAR in Saudi Hospitals",
+            "body": "Patient handover (transfer of care) is the highest-risk moment in hospital care — approximately 70% of serious adverse events are linked to communication failures during handover (Joint Commission Sentinel Event Alert). Saudi MOH and CBAHI mandate a structured handover tool. SBAR (Situation, Background, Assessment, Recommendation) — standard in most Saudi hospitals: Situation: Who is the patient? What is happening NOW? ('Mr. Abdullah, 58-year-old post-op day 1 CABG, currently in sinus tachycardia HR 118.') Background: Why is the patient here? Relevant history, medications, allergies, recent procedures. Assessment: What do you think is going on? Current vital signs, recent lab changes, nursing concern. Recommendation: What action do you want? ('I need an ECG and a physician review within the next 30 minutes.') ISoBAR (used in some Saudi hospitals, common in Gulf): Introduction (identify yourself and patient), Situation (what's happening), Background, Assessment, Recommendation. Bedside handover: Saudi MOH recommends bedside handover where the outgoing nurse, incoming nurse, and the patient are all present. Advantages: patient can correct or add information, visual inspection of wounds/lines at handover, immediate introduction of new nurse. CBAHI surveys bedside handover compliance. Critical values: Saudi MOH requires that any critical lab value (e.g. K+ <3.0 or >6.5, Hb <7 g/dL, platelets <50,000, glucose <3.0 or >22 mmol/L, troponin elevated) be communicated to the responsible physician within a specified timeframe (typically ≤30 minutes). Document: time the value was received, time communicated to physician, physician name, action taken. Abbreviations in documentation: CBAHI follows JCI 'Do Not Use' list (same as ISMP): no 'U' for units, no 'IU', no trailing zeros, no medication name abbreviations, no QD/QOD (daily/every other day)."
+          }
+        ],
+        "clinical_pearl": "Saudi CBAHI surveyors will directly approach bedside nurses and ask: 'What is this patient's Braden score?' 'When was this patient last turned?' 'What is this patient's VTE risk?' If a nurse cannot answer these questions for their current patients, it is a major finding that can affect the hospital's accreditation rating. Know your patients' Braden scores, Morse falls scores, and VTE risk level for every admitted patient before you give handover — not just because CBAHI asks, but because these scores drive clinical decisions that prevent real harm.",
+        "key_points": [
+          "Braden ≤18 = at-risk; ≤13 = high-risk → pressure-redistributing mattress mandatory",
+          "All hospital-acquired pressure injuries → PoCA report within 24 hours",
+          "Caprini score ≥2 = VTE pharmacological prophylaxis indicated (if no contraindication)",
+          "qSOFA ≥2 on the ward = escalate immediately — sepsis until proven otherwise",
+          "SBAR bedside handover: patient present, visual inspection of lines/wounds at every handover"
+        ],
+        "references": [
+          "NPIAP/EPUAP/PPPIA Pressure Injury Clinical Practice Guideline 2019",
+          "Surviving Sepsis Campaign Hour-1 Bundle 2018",
+          "ACCP VTE Prevention Guidelines 9th ed.",
+          "CBAHI Standards for Hospitals 2023, Chapter: Patient Safety"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse in a Saudi MOH hospital completes a Braden Scale assessment for a newly admitted patient. The score is 14. What intervention is REQUIRED per Saudi MOH protocol?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Standard hospital mattress — Braden 14 is within acceptable range",
+        "B": "Pressure-redistributing mattress (foam or air-alternating), 2-hourly repositioning, heel protection, and nutritional assessment",
+        "C": "No action required — only Braden <10 triggers intervention",
+        "D": "Notify physician and wait for orders before implementing any prevention measures"
+      },
+      "correct": "B",
+      "explanation": "Saudi MOH Pressure Injury Protocol (NPIAP-based): Braden ≤18 = at-risk, triggers full prevention bundle. Braden 14 = high risk. Required actions: pressure-redistributing device (foam or air-alternating mattress, NOT standard hospital mattress), 2-hourly repositioning with turning chart documentation, heel elevation, moisture management, nutritional screening (MUST/NRS-2002), and dietitian referral if needed. The nurse implements the prevention bundle independently — no physician order is needed for standard prevention measures.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A ward nurse in Riyadh recognises that a patient has a temperature of 38.6°C, HR 104, RR 22, and WBC 14,200 following a urinary catheter insertion 48 hours ago. qSOFA score is 1. What is the nurse's PRIORITY action?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Give paracetamol 1g PO for fever and reassess in 2 hours",
+        "B": "Activate the sepsis protocol: draw blood cultures ×2, notify physician, prepare for Hour-1 Bundle",
+        "C": "Remove the urinary catheter and monitor temperature",
+        "D": "Increase oral fluid intake and reassess in 4 hours"
+      },
+      "correct": "B",
+      "explanation": "This patient meets SIRS criteria (temperature >38°C ✓, HR >90 ✓, RR >20 ✓) with a probable source of infection (CAUTI — catheter 48hrs). SIRS ≥2 criteria + suspected infection = Sepsis — activate the protocol regardless of qSOFA score. Saudi MOH Sepsis Protocol (SSC Hour-1 Bundle): blood cultures ×2 before antibiotics, notify physician immediately, prepare to administer ordered antibiotics within 60 min, check lactate, establish IV access. Giving antipyretics alone and waiting 2-4 hours delays treatment and increases mortality.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A CBAHI surveyor asks a nurse: 'When was this patient's VTE risk last assessed?' The patient was admitted 3 days ago, had abdominal surgery yesterday, and has no VTE assessment since admission. What does this indicate?",
+      "question_type": "mcq",
+      "options": {
+        "A": "This is acceptable — VTE assessment is only required on admission",
+        "B": "Non-compliance with CBAHI standard — VTE risk must be reassessed after any status change (including surgery)",
+        "C": "The physician is responsible for VTE assessment, not the nurse",
+        "D": "VTE assessment is only required for patients over 65 years old"
+      },
+      "correct": "B",
+      "explanation": "Saudi MOH and CBAHI standards require VTE risk reassessment on admission AND after any significant status change. Surgery significantly alters VTE risk (increases Caprini score substantially). Not reassessing the post-surgical patient is a CBAHI compliance failure and a patient safety risk — if the patient develops DVT/PE, this omission would be documented in any legal proceedings. CBAHI surveyors routinely audit VTE assessment compliance; it is one of the most commonly cited deficiencies.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse working in a Saudi hospital under Vision 2030 policies is told that the hospital has achieved 'Nurse Practitioner' status recognition. Per Saudi Vision 2030 NP scope of practice, which action is now within the NP's scope in designated settings?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Performing major surgical procedures independently",
+        "B": "Diagnosing and managing common conditions, ordering diagnostics, and prescribing from a defined formulary",
+        "C": "Admitting patients to ICU without physician involvement",
+        "D": "Administering controlled substances without physician orders"
+      },
+      "correct": "B",
+      "explanation": "Saudi Vision 2030 formally recognised the Nurse Practitioner (NP) role, a significant expansion from traditional Saudi nursing scope. In designated settings (primary healthcare centres, specialist clinics), NPs can: diagnose and manage common acute and chronic conditions, order laboratory and imaging investigations, prescribe medications from a defined formulary. This does NOT include independent surgical procedures, autonomous ICU admission decisions, or prescribing controlled substances without appropriate oversight. The NP role is a graduated expansion — scope is defined by SCHS NP curriculum and facility credentialing.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "During SBAR patient handover in a Saudi hospital, the outgoing nurse states: 'Mr. Khalid is a 62-year-old diabetic with post-CABG day 2. He has had a temperature spike to 38.8°C at 14:00 and his blood glucose has been running 12-15 mmol/L all day. I am concerned about possible wound infection or mediastinitis.' The nurse has completed the S, B, and A of SBAR. What completes the R (Recommendation)?",
+      "question_type": "mcq",
+      "options": {
+        "A": "\"Good luck with the shift\"",
+        "B": "\"I recommend a physician review within the next hour, wound inspection, blood cultures if ordered, and continuation of insulin sliding scale with target <10 mmol/L\"",
+        "C": "\"Document the temperature in the chart and see how he is in the morning\"",
+        "D": "\"His wife is worried — please speak to her when you get a chance\""
+      },
+      "correct": "B",
+      "explanation": "The Recommendation (R) in SBAR must be specific, actionable, and time-bound. A concern about possible mediastinitis post-CABG is serious — the recommendation should include urgency (review within 1 hour), specific assessments (wound inspection), investigations (blood cultures, inflammatory markers), and management parameters (glucose targets). CBAHI surveys will assess whether SBAR handovers contain all four components with appropriate clinical specificity. Vague handovers ('see how he is') are a patient safety risk and a CBAHI documentation deficiency.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which of the following is a mandatory requirement per Saudi MOH Premarital Screening Program?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Genetic counselling for all couples of different ethnic backgrounds",
+        "B": "Blood tests for sickle cell trait, thalassaemia trait, HIV, Hepatitis B, and Hepatitis C",
+        "C": "Psychological assessment for all couples before marriage",
+        "D": "Full blood count and metabolic panel as routine pre-marital investigations"
+      },
+      "correct": "B",
+      "explanation": "Saudi Arabia's National Premarital Screening Program (mandatory by law) screens for: sickle cell disease and trait, thalassaemia (alpha and beta), HIV, Hepatitis B (HBsAg), and Hepatitis C (anti-HCV). The rationale: high consanguineous marriage rates (~57%) result in elevated incidence of autosomal recessive genetic conditions. Nurses in PHC settings provide counselling to couples about screening results and implications for offspring risk. Results are provided to couples but do NOT legally prevent marriage — the law provides information and counselling, not prohibition.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse discovers a Stage 2 pressure injury on a patient's sacrum that was not present on admission. Per CBAHI and Saudi MOH standards, the nurse must:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Document in the nursing notes and continue standard care",
+        "B": "Photograph the wound, document stage and measurements, apply appropriate dressing, and file a PoCA report within 24 hours",
+        "C": "Notify the family and ask if the patient had this wound at home",
+        "D": "Increase repositioning frequency and reassess in 48 hours before reporting"
+      },
+      "correct": "B",
+      "explanation": "Any hospital-acquired pressure injury (HAPI) — a pressure injury that developed or worsened during the hospital stay — must be: (1) photographed, (2) documented with NPUAP staging, measurements (L×W×D), wound bed description, and treatment, (3) reported via PoCA (Patient Occurrence & Concern Application — Saudi MOH's incident reporting system) within 24 hours. CBAHI requires this reporting as part of the national patient safety indicators tracking. Failure to report is a CBAHI deficiency. Informing the family is appropriate but does not replace formal reporting.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is preparing to administer enoxaparin (LMWH) 40mg SC as VTE prophylaxis to a post-operative patient. The nurse checks the patient's latest labs: platelets 48,000/μL, eGFR 25 mL/min. What is the CORRECT action?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer the enoxaparin as ordered — LMWH is always safe in post-op patients",
+        "B": "Hold the enoxaparin, notify the physician, and document reason — platelets <50,000 and eGFR <30 are both contraindications requiring order review",
+        "C": "Administer half the dose — 20mg is safe in renal impairment",
+        "D": "Switch to unfractionated heparin without physician consultation"
+      },
+      "correct": "B",
+      "explanation": "Two contraindications present: (1) Platelets 48,000/μL (<50,000) — thrombocytopaenia is a relative/absolute contraindication for LMWH (bleeding risk); (2) eGFR 25 mL/min (<30) — enoxaparin accumulates in renal impairment, increasing haemorrhage risk. The nurse must hold the dose, immediately notify the physician with the lab values, and document the hold with reason. The physician may switch to UFH (safer in renal impairment as it is monitored by aPTT) or reduce enoxaparin dose with anti-Xa monitoring. Never administer without physician consultation in this scenario.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse in Jeddah is caring for a Hajj pilgrim from Indonesia who was brought to the hospital unconscious with a core temperature of 41.8°C, HR 132, BP 88/55, and sweating stopped. This presentation is MOST consistent with:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Febrile seizure — start antipyretics",
+        "B": "Classic heat stroke — initiate immediate cooling and IV fluid resuscitation",
+        "C": "Severe dehydration — give oral rehydration salts",
+        "D": "MERS-CoV — initiate airborne precautions"
+      },
+      "correct": "B",
+      "explanation": "Classic heat stroke: core temperature >40°C, CNS dysfunction (unconscious), anhidrosis (sweating stopped = thermoregulatory failure). This is a medical emergency with mortality of 60-70% without immediate cooling. Treatment: rapid cooling FIRST — remove clothing, ice packs to neck/axilla/groin, cooling blanket, cool IV fluids; target core temp <39°C within 30 minutes. IV fluid resuscitation for haemodynamic instability. Avoid antipyretics (not effective in heat stroke — hypothalamic failure, not pyrogenic fever). Hajj nurses are specifically trained for heat stroke — it is the primary mass casualty concern during Hajj in summer months.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A Saudi hospital under CBAHI accreditation requires nurses to use the 'Do Not Use' abbreviation list. Which entry is correctly identified as a 'Do Not Use' abbreviation?",
+      "question_type": "mcq",
+      "options": {
+        "A": "IV — intravenous",
+        "B": "U — for units (e.g. 'insulin 10 U')",
+        "C": "BP — blood pressure",
+        "D": "SC — subcutaneous"
+      },
+      "correct": "B",
+      "explanation": "CBAHI and JCI adopt the ISMP 'Do Not Use' abbreviation list. 'U' for units is the most commonly misread — handwritten 'U' is frequently misread as '0' (zero), turning '10 U insulin' into '100 units' — a 10-fold overdose error. ALWAYS write 'units' in full. Other 'Do Not Use' abbreviations: IU (International Units — write 'international units'), trailing zero after decimal (1.0 mg → write '1 mg'), bare decimal point (.5 mg → write '0.5 mg'), QD/QOD (daily/every other day — write 'daily' or 'every other day'), MS/MSO4/MgSO4 (ambiguous — write 'morphine sulfate' or 'magnesium sulfate').",
+      "difficulty": "easy"
+    },
+    {
+      "question": "Saudi Arabia's mandatory premarital screening program tests for sickle cell trait. A couple where BOTH partners carry sickle cell trait (Hb AS + Hb AS) is counselled by a PHC nurse. What is the correct information to provide?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Both partners have sickle cell disease — they should not have children",
+        "B": "Each pregnancy has a 25% chance of sickle cell disease (Hb SS), 50% chance of trait (Hb AS), 25% chance of normal (Hb AA)",
+        "C": "The children will all be carriers but none will have the disease",
+        "D": "Only female children are at risk — sickle cell is X-linked"
+      },
+      "correct": "B",
+      "explanation": "Sickle cell trait (Hb AS) is autosomal recessive. When both parents are carriers (AS × AS): Mendelian genetics gives 25% SS (sickle cell disease), 50% AS (carrier/trait), 25% AA (normal). This is the core genetic counselling message in Saudi premarital screening. Sickle cell is NOT X-linked — both males and females are equally affected. The law does not prevent marriage but provides information for informed reproductive decision-making. Prenatal diagnosis (CVS or amniocentesis) is available for at-risk couples.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse in a Saudi hospital who is preparing for their SNLE examination notes that the exam blueprint allocates the HIGHEST percentage to which category?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Critical Care Nursing — 35%",
+        "B": "Medical-Surgical Nursing — 30%",
+        "C": "Fundamentals of Nursing — 30%",
+        "D": "Pharmacology — 25%"
+      },
+      "correct": "B",
+      "explanation": "SNLE (Saudi Nursing Licensing Exam) blueprint: Medical-Surgical Nursing 30% (largest single category — this is why mastering cardiac, respiratory, renal, neurological, and endocrine nursing is essential for SNLE), Fundamentals of Nursing 20%, Critical Care & Emergency 15%, Pharmacology 10%, Maternal & Newborn Nursing 10%, Paediatric Nursing 5%, Mental Health Nursing 5%, Community & Public Health Nursing 5%. Total: 200 questions, 270 minutes. Study strategy: allocate 30% of your study time to medical-surgical nursing, as it directly maps to 60 of the 200 SNLE questions.",
+      "difficulty": "easy"
+    }
+  ]
+}

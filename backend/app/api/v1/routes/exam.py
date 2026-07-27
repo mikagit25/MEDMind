@@ -768,33 +768,46 @@ async def create_session(
                 Module.is_published == True,
             )
 
-        # Gulf mode: prefer exam-specific questions first; fall back to shared Gulf pool
+        # Gulf mode: filter by exam-specific slug; fall back to all nursing questions if insufficient
         if mode.get("gulf") and (exam_slug := mode.get("exam_slug")):
             import json as _json
             from sqlalchemy import literal as sa_literal
             from sqlalchemy.dialects.postgresql import JSONB
-            q = q.where(
+            q_gulf = q.where(
                 MCQQuestion.exam_slugs.op("@>")(sa_literal(_json.dumps([exam_slug])).cast(JSONB))
-            )
-        elif body.mode_id == "nclex_category" and body.nclex_category:
-            if body.nclex_category not in NCLEX_CLIENT_NEEDS:
-                raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
-            # Include all alias values that map to this canonical category so that
-            # questions tagged with e.g. "psychosocial_integrity" are returned when
-            # the canonical key "psychosocial" is requested.
-            canonical = body.nclex_category
-            all_values = [canonical] + [
-                alias for alias, canon in _ALIAS_TO_CANONICAL.items() if canon == canonical
-            ]
-            q = q.where(MCQQuestion.nclex_client_needs.in_(all_values))
-        elif not cat_mode and mode.get("difficulty"):
-            q = q.where(MCQQuestion.difficulty == mode["difficulty"])
+            ).order_by(func.random()).limit(mode["questions"])
+            gulf_mcqs = (await db.execute(q_gulf)).scalars().all()
+            if len(gulf_mcqs) >= mode["questions"]:
+                mcqs = gulf_mcqs
+                cat_mode = False
+                # skip remainder of query block
+                goto_session = True
+            else:
+                # Not enough exam-specific questions — fall back to full nursing pool
+                logger.warning("Gulf exam %s: only %d tagged questions, falling back to nursing pool",
+                               exam_slug, len(gulf_mcqs))
+                # q already has nursing_only filter applied above; just proceed
+                goto_session = False
+        else:
+            goto_session = False
 
-        if cat_mode:
-            q = q.where(MCQQuestion.difficulty == start_difficulty)
+        if not goto_session:
+            if body.mode_id == "nclex_category" and body.nclex_category:
+                if body.nclex_category not in NCLEX_CLIENT_NEEDS:
+                    raise HTTPException(400, f"Unknown NCLEX category: {body.nclex_category}")
+                canonical = body.nclex_category
+                all_values = [canonical] + [
+                    alias for alias, canon in _ALIAS_TO_CANONICAL.items() if canon == canonical
+                ]
+                q = q.where(MCQQuestion.nclex_client_needs.in_(all_values))
+            elif not cat_mode and mode.get("difficulty"):
+                q = q.where(MCQQuestion.difficulty == mode["difficulty"])
 
-        q = q.order_by(func.random()).limit(mode["questions"])
-        mcqs = (await db.execute(q)).scalars().all()
+            if cat_mode:
+                q = q.where(MCQQuestion.difficulty == start_difficulty)
+
+            q = q.order_by(func.random()).limit(mode["questions"])
+            mcqs = (await db.execute(q)).scalars().all()
 
     if len(mcqs) < 1:
         raise HTTPException(
