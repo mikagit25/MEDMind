@@ -7,7 +7,9 @@
     "title_en": "Crisis Intervention, Abuse & Substance Use",
     "order_in_specialty": 10,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-009"],
+    "prerequisite_modules": [
+      "NURSE-009"
+    ],
     "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
@@ -241,6 +243,176 @@
       "difficulty": "medium"
     }
   ],
-  "mcq_questions": [],
+  "mcq_questions": [
+    {
+      "question": "A nurse in the ED is caring for a woman with multiple bruises in various stages of healing. The patient's partner stays very close and answers questions on her behalf. The nurse's PRIORITY action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Treat the injuries and discharge without confrontation",
+        "B": "Ask the partner to wait outside and speak privately with the patient",
+        "C": "Document suspected abuse and continue the visit normally",
+        "D": "Confront the partner about the bruises"
+      },
+      "correct": "B",
+      "explanation": "Separating the potential victim from the suspected abuser is the priority — it allows private, safe disclosure. Abusers commonly control the narrative during healthcare visits. After separation, use validated screening (HITS or SAFE questions). Mandatory reporting varies by state for adult IPV but is required for child/elder abuse. Confronting the abuser can escalate danger.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient in alcohol withdrawal presents with HR 120, BP 160/100, temperature 38.2°C, and generalized tremors. Their CIWA-Ar score is 18. Which treatment is MOST appropriate?",
+      "question_type": "mcq",
+      "options": {
+        "A": "IV lorazepam per CIWA-Ar protocol",
+        "B": "IV haloperidol for agitation",
+        "C": "Oral naltrexone",
+        "D": "Oral thiamine only"
+      },
+      "correct": "A",
+      "explanation": "CIWA-Ar ≥10 indicates moderate-severe withdrawal requiring benzodiazepines. IV/IM lorazepam (or diazepam) is the first-line treatment — GABA-A agonists prevent seizures and DTs. Haloperidol lowers seizure threshold and worsens withdrawal. Naltrexone is for maintenance, not acute withdrawal. Thiamine is adjunct (given before dextrose) but does not treat withdrawal itself.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse using crisis intervention for a patient threatening self-harm should FIRST:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Assess the patient's usual coping mechanisms",
+        "B": "Establish rapport and ensure immediate safety",
+        "C": "Contact the patient's family",
+        "D": "Review the patient's psychiatric history"
+      },
+      "correct": "B",
+      "explanation": "Roberts' 7-Stage Crisis Intervention Model begins with: (1) assess lethality and immediate danger, (2) establish rapport. Safety is the foundation of all crisis intervention — without it, no therapeutic work can proceed. Coping assessment and history are important but secondary. Family contact may be appropriate but requires patient consent and comes after stabilization.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is assessing a 4-year-old child who presents with multiple bruises on the buttocks and inner thighs in various stages of healing. The parent's explanation is inconsistent with the injury pattern. The nurse MUST:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Document and report suspected child abuse to child protective services",
+        "B": "Ask the child directly if they were hurt by their parent",
+        "C": "Confront the parent about the inconsistency",
+        "D": "Wait for more evidence before reporting"
+      },
+      "correct": "A",
+      "explanation": "Nurses are mandated reporters. Suspected child abuse MUST be reported regardless of certainty — the threshold is reasonable suspicion, not proof. Injuries in protected areas (buttocks, inner thighs) with inconsistent explanation are highly concerning. Mandated reporters are protected from liability for good-faith reports. Direct forensic questioning of the child should be done by trained investigators to avoid contaminating testimony.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which assessment finding in an opioid-dependent patient who received naloxone 30 minutes ago is MOST concerning?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Mild agitation and diaphoresis",
+        "B": "Respiratory rate 14/min, SpO2 97%",
+        "C": "Return of pinpoint pupils and RR 8/min",
+        "D": "Requesting water and complaining of headache"
+      },
+      "correct": "C",
+      "explanation": "Naloxone has a shorter half-life (30–90 min) than most opioids. Renarcotization — return of opioid toxidrome (miosis, respiratory depression) after naloxone wears off — is the primary danger. RR 8 with pinpoint pupils after naloxone indicates renarcotization requiring repeat dosing and continuous monitoring. Mild agitation is expected (opioid withdrawal precipitation); requesting water is benign.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse performs a CAGE assessment. A patient answers 'yes' to 3 of 4 questions. This result suggests:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Alcohol dependence requiring further evaluation",
+        "B": "Safe alcohol consumption patterns",
+        "C": "Marijuana dependence",
+        "D": "Depression requiring antidepressant therapy"
+      },
+      "correct": "A",
+      "explanation": "CAGE: Cut down, Annoyed, Guilty, Eye-opener. ≥2 positive answers has 60–95% sensitivity for alcohol use disorder — requires further evaluation and intervention. 3-4 positives strongly suggests dependence. CAGE screens specifically for alcohol, not other substances. A positive screen initiates brief intervention, referral, and medical assessment for withdrawal risk.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A pregnant patient in her third trimester discloses she has been using heroin daily. The MOST appropriate initial intervention is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Immediate referral to detoxification (cold turkey withdrawal)",
+        "B": "Methadone or buprenorphine maintenance therapy with obstetric co-management",
+        "C": "Naltrexone to block opioid effects",
+        "D": "Encourage gradual self-tapering at home"
+      },
+      "correct": "B",
+      "explanation": "SAMHSA guidelines strongly recommend medication-assisted treatment (methadone or buprenorphine) in pregnancy — NOT abrupt withdrawal. Opioid withdrawal in pregnancy risks preterm labour, placental abruption, and fetal death. Methadone/buprenorphine stabilizes the fetus. Neonatal abstinence syndrome (NAS) is expected and manageable. Naltrexone is contraindicated in active opioid use (precipitates withdrawal).",
+      "difficulty": "hard"
+    },
+    {
+      "question": "An elderly patient presents with confusion, unexplained weight loss, poor hygiene, and fearful body language toward the adult son who is the caregiver. This presentation is MOST consistent with:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Normal age-related cognitive decline",
+        "B": "Elder abuse and neglect",
+        "C": "Early Alzheimer's disease",
+        "D": "Delirium from UTI"
+      },
+      "correct": "B",
+      "explanation": "Multiple red flags for elder abuse: weight loss (neglect), poor hygiene (neglect), fearful affect toward caregiver (possible physical/psychological abuse), and confusion that may be from malnutrition or fear. Elder abuse affects 1 in 10 elderly Americans. Assessment tools include the Elder Abuse Suspicion Index (EASI). Mandatory reporting applies in all US states for elder abuse in care settings.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "During a Motivational Interviewing session, a patient states: 'I know I should stop drinking, but I'm not sure I'm ready.' The BEST response using MI principles is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "\"You need to stop drinking now — it will kill you\"",
+        "B": "\"What would need to be different for you to feel ready?\"",
+        "C": "\"You've already tried before and failed — what makes this time different?\"",
+        "D": "\"I'll refer you to AA immediately\""
+      },
+      "correct": "B",
+      "explanation": "Motivational Interviewing uses open-ended questions, affirmations, reflective listening, and summaries (OARS). The patient is in the contemplation stage (Prochaska's TTM). Exploring what would build readiness honors autonomy and evokes the patient's own motivation (internal vs. external). Confrontation ('you'll die') creates reactance. MI is non-confrontational and collaborative.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient arrives in the ED after a suicide attempt by overdose. After medical stabilization, the psychiatry team recommends discharge. The nurse's PRIORITY before discharge is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Provide a list of crisis hotline numbers",
+        "B": "Ensure a safety plan is developed and the patient can verbalize it",
+        "C": "Contact the patient's employer about the absence",
+        "D": "Arrange a follow-up appointment in 30 days"
+      },
+      "correct": "B",
+      "explanation": "A safety plan (Stanley-Brown model) is evidence-based crisis planning: warning signs, coping strategies, social contacts, means restriction, and professional contacts. The patient must be able to verbalize and demonstrate understanding. Means counselling (removing firearms, medications) is critical. Follow-up within 24–72 hours, not 30 days. Hotline numbers alone are insufficient after a serious attempt.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which finding in a patient with cocaine intoxication requires IMMEDIATE intervention?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Elevated mood and increased energy",
+        "B": "Dilated pupils and mild tachycardia (HR 95)",
+        "C": "Chest pain with ST-segment elevation on ECG",
+        "D": "Mild diaphoresis and restlessness"
+      },
+      "correct": "C",
+      "explanation": "Cocaine causes coronary vasospasm and thrombosis leading to myocardial infarction — the most common cause of cocaine-related death. ST-elevation indicates STEMI requiring immediate cath lab activation. Note: nitroglycerin and calcium-channel blockers are used over beta-blockers (beta-blockers can worsen cocaine-induced vasospasm via unopposed alpha activity). Aspirin and benzodiazepines (for hypertension/agitation) are first-line.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse documents suspected child abuse. The parent threatens the nurse with a lawsuit if a report is made. The nurse's BEST response is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Delay the report until consulting hospital legal counsel",
+        "B": "Proceed with the mandatory report — nurses are legally protected for good-faith reports",
+        "C": "Document the parent's threat and wait for supervisor approval",
+        "D": "Transfer care to a physician to make the report"
+      },
+      "correct": "B",
+      "explanation": "All 50 US states grant immunity from civil and criminal liability for mandated reporters who make good-faith reports. Failing to report is a crime — penalties include license revocation and prosecution. The duty to report is the nurse's individual legal obligation and cannot be transferred. Threats from parents do not suspend mandated reporting requirements.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which nursing intervention BEST supports recovery for a patient with substance use disorder being discharged to the community?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Instruct the patient to avoid all social contact for 6 months",
+        "B": "Connect the patient with peer support, MAT continuation, and community recovery services",
+        "C": "Provide a list of inpatient detox programs only",
+        "D": "Advise the patient to rely solely on willpower"
+      },
+      "correct": "B",
+      "explanation": "Recovery is sustained by a continuum of care: medication-assisted treatment (MAT — buprenorphine/methadone for opioids, naltrexone for alcohol), peer support specialists, 12-step or SMART Recovery meetings, case management, and housing stability. Isolation increases relapse risk. Willpower-only approaches have the lowest evidence base. The SAMHSA 8 Dimensions of Wellness framework guides holistic recovery.",
+      "difficulty": "easy"
+    }
+  ],
   "clinical_cases": []
 }

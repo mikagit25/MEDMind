@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "id": "NURSE-014",
+    "specialty": "Nursing",
+    "title": "Neurological Nursing: Stroke, ICP & Seizures",
+    "duration_hours": 3,
+    "sources": [
+      "AHA/ASA 2019 Acute Ischemic Stroke Guidelines",
+      "AHA 2022 Intracerebral Hemorrhage Guidelines",
+      "Epilepsy Foundation Clinical Guidelines",
+      "AANN Neuroscience Nursing Practice Guidelines",
+      "Hickey JV. Clinical Practice of Neurological and Neurosurgical Nursing, 8th ed."
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-014-L01",
+      "title": "Neurological Assessment: GCS, Cranial Nerves & Pupil Response",
+      "order": 1,
+      "lay_summary": "Learn how nurses assess the brain and nervous system — the quick checks that detect early warning signs of serious neurological problems.",
+      "content": {
+        "intro": "Neurological assessment is the most sensitive tool for detecting early brain deterioration. A subtle change in GCS score, pupil reactivity, or motor response often precedes CT changes by hours. The nurse's ability to detect and communicate these changes rapidly can mean the difference between full recovery and permanent disability.",
+        "sections": [
+          {
+            "title": "Glasgow Coma Scale (GCS)",
+            "body": "The GCS is a standardised, reproducible measure of consciousness level. Three components: Eye Opening (E), Verbal Response (V), Motor Response (M). E: 4 = Spontaneous, 3 = To voice, 2 = To pain, 1 = None. V: 5 = Oriented (name, place, date), 4 = Confused, 3 = Inappropriate words, 2 = Incomprehensible sounds, 1 = None. M: 6 = Obeys commands, 5 = Localises to pain, 4 = Withdraws from pain, 3 = Abnormal flexion (decorticate — arms flex, legs extend), 2 = Abnormal extension (decerebrate — all four limbs extend), 1 = None. Total: 3 (deepest coma) to 15 (fully conscious). GCS ≤8 = 'Coma' — consider intubation for airway protection. Trend matters more than single value: a drop of 2 or more points is clinically significant and requires immediate physician notification. Decorticate posturing (flexion) = cortical/corticospinal tract injury; Decerebrate (extension) = brainstem injury — poorer prognosis. Document each component separately (E3V4M5 = 12) rather than just total score. Note: GCS is less reliable in intoxication, psychiatric disease, language barriers, and hearing impairment."
+          },
+          {
+            "title": "Pupil Assessment",
+            "body": "Pupils are a direct window to brainstem function. PERLA: Pupils Equal, Round, Reactive to Light, Accommodating. Size: measured in mm (2-6 mm normal). Document: size, equality, shape, and reactivity. Unequal pupils (anisocoria >1 mm difference): new anisocoria is a neurological emergency — suggests uncal herniation (ipsilateral CN III compression by transtentorial herniation). Approach the pupil from the side, not directly — shine light in one eye and observe both (direct and consensual reflex). Fixed and dilated pupils (blown pupils): CN III palsy from herniation — neurosurgical emergency. Pinpoint pupils (miosis <2 mm, bilateral): opioid toxicity, pontine haemorrhage, cholinergic toxidrome. Hippus: rhythmic constriction and dilation — may be normal variant. React to light: brisk (<1 sec) normal; sluggish (1-2 sec) concerning; non-reactive = severe pathology. Document: 'L 4mm, brisk; R 4mm, brisk' OR use standard notation. NPi (Neurological Pupil Index) on automated pupillometry: NPi <3 correlates with elevated ICP. Cushing's reflex (triad): hypertension + bradycardia + irregular respirations = severely elevated ICP → impending herniation → emergent intervention."
+          },
+          {
+            "title": "Cranial Nerve Assessment and Neuro Vital Signs",
+            "body": "Cranial nerve screening in acute neurological assessment: CN I (Olfactory): smell (rarely tested acutely). CN II (Optic): visual acuity, visual fields — test by confrontation. CN III, IV, VI (Oculomotor, Trochlear, Abducens): EOMs (extraocular movements — 'H-pattern'), ptosis, pupil reactivity. CN V (Trigeminal): facial sensation (3 divisions), corneal reflex (afferent CN V, efferent CN VII). CN VII (Facial): facial symmetry at rest and with movement (raise eyebrows, show teeth, close eyes). Central (UMN) facial palsy: forehead spared (contralateral innervation); Peripheral (LMN) = Bell's palsy: entire ipsilateral face affected. CN VIII (Vestibulocochlear): hearing, balance. CN IX/X (Glossopharyngeal/Vagus): gag reflex, uvula midline, voice quality. CN XI (Accessory): shoulder shrug, SCM strength. CN XII (Hypoglossal): tongue protrusion — deviates TOWARD side of lesion. Neurological vital signs frequency: stable neurological patient: q4h. Acute neurological event or post-procedure: q15-30 min for 2 hours, then q1h for 4 hours, then q2h if stable. Trending: document every assessment; communicate changes promptly (SBAR format to physician)."
+          }
+        ],
+        "clinical_pearl": "The earliest sign of increased ICP is often a subtle personality change or restlessness before any change in GCS score, pupil reactivity, or vital signs. A family member saying 'she's just not herself' deserves neurological assessment, not dismissal. Trust the family — they know the patient's baseline better than any nurse.",
+        "key_points": [
+          "GCS drop ≥2 points requires immediate physician notification",
+          "Decorticate = cortical injury; Decerebrate = brainstem injury (worse prognosis)",
+          "New unequal pupils = CN III compression from herniation — neurosurgical emergency",
+          "Cushing's triad (hypertension + bradycardia + irregular RR) = impending herniation",
+          "Central facial palsy: forehead spared; peripheral (Bell's): entire ipsilateral face"
+        ],
+        "references": [
+          "Teasdale G, Jennett B. Assessment of coma. Lancet 1974",
+          "AANN Neuroscience Nursing Practice Guidelines, 4th ed.",
+          "Hickey JV. Clinical Practice of Neurological and Neurosurgical Nursing, 8th ed."
+        ]
+      }
+    },
+    {
+      "id": "NURSE-014-L02",
+      "title": "Stroke: Ischemic Stroke and tPA Nursing Protocol",
+      "order": 2,
+      "lay_summary": "A stroke happens when blood stops reaching part of the brain — minutes matter, and nurses play a critical role in the response.",
+      "content": {
+        "intro": "Stroke is the second leading cause of death globally and the leading cause of adult disability (WHO). For ischaemic stroke, 'time is brain' — approximately 1.9 million neurons die every minute during a stroke (Saver, Stroke 2006). The nursing team is often first to recognise stroke symptoms, activate the stroke team, and implement time-critical protocols.",
+        "sections": [
+          {
+            "title": "Stroke Recognition and the FAST/BE-FAST Tool",
+            "body": "FAST: Face drooping (asymmetric smile), Arm weakness (arm drift test — hold both arms out, eyes closed — affected arm drifts downward), Speech difficulty (slurred, unable to repeat phrase), Time to call 911. BE-FAST (includes posterior circulation strokes): Balance loss (sudden), Eyes (sudden vision change — field loss, diplopia, blurred vision), + FAST. Symptoms by location: Anterior circulation (MCA — most common): contralateral hemiplegia/hemiparesis (arm > leg), contralateral hemisensory loss, homonymous hemianopia, aphasia (dominant hemisphere — usually left). ACA: contralateral leg > arm weakness. Posterior circulation (vertebrobasilar): cerebellar ataxia, vertigo, diplopia, dysphagia, dysarthria, crossed findings (ipsilateral CN palsy + contralateral body weakness), 'locked-in' syndrome (basilar artery). Transient Ischemic Attack (TIA): stroke symptoms that fully resolve <24 hrs (usually <60 min). HIGH RISK of early stroke: ABCD2 score predicts 2-day stroke risk. TIA is a medical emergency — 10% risk of stroke within 7 days → urgent evaluation, antiplatelet, risk factor management. Types of ischaemic stroke: thrombotic (in situ atherosclerosis), embolic (cardiogenic — AF #1, or artery-to-artery), lacunar (small vessel, deep brain structures)."
+          },
+          {
+            "title": "Acute Ischaemic Stroke: tPA Protocol and Nursing Responsibilities",
+            "body": "IV alteplase (tPA): proven to improve outcomes when given within 4.5 hours of symptom onset in eligible patients (NINDS trial, ECASS III). Door-to-needle time target: ≤60 minutes (AHA/ASA Class I recommendation). NURSING role in tPA administration: Pre-tPA checklist — confirm symptom onset time (or 'last known well'), BP <185/110 mmHg (essential before tPA; treat if higher with labetalol IV or nicardipine infusion), blood glucose 50-400 mg/dL (hypoglycaemia can mimic stroke), platelet count ≥100,000, PT ≤1.7. Absolute contraindications: haemorrhagic stroke or AIS in last 3 months, active internal bleeding, BP >185/110 unresponsive to treatment, recent major surgery (<14 days for intracranial; <3 months for serious trauma). Dose: 0.9 mg/kg IV (max 90 mg total): 10% bolus over 1 min, 90% infusion over 60 min. Post-tPA nursing: Neurological assessment q15 min × 2h, then q30 min × 6h, then q1h × 16h. BP control: maintain <180/105 mmHg for 24 hours post-tPA. NO anticoagulants or antiplatelets for 24 hours post-tPA. No NG tube, urinary catheter, or invasive lines during infusion unless essential. Signs of haemorrhagic transformation: sudden neurological deterioration, headache, new hypertension → STOP tPA, CT immediately, notify physician. Mechanical thrombectomy (MT): for large vessel occlusion (ICA, proximal MCA) within 6-24 hours in selected patients — significantly expands treatable window. Penumbra concept: core infarct (dead tissue) surrounded by ischaemic penumbra (salvageable tissue with reduced perfusion) — target of all reperfusion therapy."
+          },
+          {
+            "title": "Post-Stroke Nursing Care and Secondary Prevention",
+            "body": "Dysphagia screening: MANDATORY before any oral intake post-stroke (aspiration pneumonia is a leading cause of post-stroke death). Use validated screen (3-oz water test or bedside swallow assessment). If screen positive → NPO and speech therapy referral. Swallowing position: upright >60°, small bites, appropriate texture. Blood pressure management post-stroke: Ischaemic stroke (no tPA): allow permissive hypertension (BP up to 220/120 in first 24h) — reduces ischaemic penumbra damage. Treat only if BP >220/120 or end-organ damage. Haemorrhagic stroke: aggressive BP reduction (systolic target <140 mmHg — AHA 2022) shown to reduce haematoma expansion. Glucose management: avoid hypoglycaemia (<80 mg/dL) and hyperglycaemia (>180 mg/dL) — both worsen neurological outcomes. Temperature: treat fever (>38°C) aggressively — every degree Celsius of hyperthermia accelerates infarct growth. DVT prevention: prophylactic LMWH or UFH within 24-48 hours (can start immediately in haemorrhagic stroke if small/stable, per AHA 2022). Secondary prevention for ischaemic stroke: Antiplatelet: aspirin 81-325 mg (aspirin + clopidogrel for first 21 days in minor stroke/TIA — POINT trial), or aspirin + extended-release dipyridamole (Aggrenox). AF-related stroke → anticoagulation (DOAC preferred). Early statin therapy (atorvastatin 80mg). BP management target: <130/80 mmHg. Early mobilisation: upright positioning within 24h shown safe in mild-moderate stroke — improves functional outcomes. Rehabilitation: early multidisciplinary rehab improves outcomes — physiotherapy, occupational therapy, speech-language therapy."
+          }
+        ],
+        "clinical_pearl": "The most common reason tPA is not given to eligible stroke patients is delayed presentation — not clinical exclusion criteria. Teach the public: the onset time is the 'last known well' time, not when symptoms were first noticed. A patient who wakes up with stroke symptoms was 'last known well' at bedtime — so time zero is midnight, not 7 AM when they woke up.",
+        "key_points": [
+          "Door-to-needle for tPA: ≤60 minutes from hospital arrival",
+          "BP must be <185/110 before tPA — treat with labetalol IV if higher",
+          "No antiplatelets or anticoagulants for 24 hours post-tPA",
+          "Swallowing screen MANDATORY before ANY oral intake post-stroke",
+          "Post-ischaemic stroke: allow permissive hypertension up to 220/120 (no tPA)"
+        ],
+        "references": [
+          "Powers WJ et al. 2019 AHA/ASA Guideline for Early Management of AIS. Stroke 2019",
+          "NINDS tPA Stroke Study. N Engl J Med 1995;333:1581-1587",
+          "AHA 2022 Guideline for Intracerebral Hemorrhage"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-014-L03",
+      "title": "Increased Intracranial Pressure and Seizures",
+      "order": 3,
+      "lay_summary": "High pressure inside the skull and seizures are two neurological emergencies that can be fatal without quick nursing recognition and action.",
+      "content": {
+        "intro": "The skull is a rigid box. Normal ICP is 5-15 mmHg. When ICP rises above 20 mmHg, cerebral perfusion pressure (CPP = MAP − ICP) falls, causing secondary brain injury. The nurse's role is to recognise early signs of raised ICP and implement interventions that buy time for definitive treatment. Seizures are the most common neurological emergency — status epilepticus has a 20% mortality.",
+        "sections": [
+          {
+            "title": "Raised Intracranial Pressure: Recognition and Management",
+            "body": "Causes of raised ICP: traumatic brain injury (TBI), haemorrhagic or ischaemic stroke, subarachnoid haemorrhage, brain tumour, hydrocephalus, meningitis/encephalitis, hypertensive encephalopathy. Monroe-Kellie Doctrine: the skull contains three components — brain (80%), blood (10%), CSF (10%). An increase in one must be compensated by a decrease in another; when compensatory mechanisms fail, ICP rises rapidly. Early signs of raised ICP: progressive headache (worst in morning — lying flat increases ICP), nausea/vomiting (often projectile, without nausea), restlessness/agitation, subtle personality change, blurred vision (papilloedema — takes hours to develop), diplopia (CN VI palsy — 'false localising sign'). Late signs: GCS deterioration, Cushing's triad (hypertension + bradycardia + irregular/slow respirations — very late, impending herniation), fixed dilated pupil (ipsilateral CN III palsy). ICP monitoring: external ventricular drain (EVD/ventriculostomy) — most common device; measures ICP directly and can drain CSF therapeutically; target ICP ≤20 mmHg, CPP ≥60-70 mmHg. Nursing interventions for raised ICP: HOB 30° (reduces venous congestion, improves venous drainage — evidence supports 30-45°). Neutral head position (no neck flexion or rotation). Minimise stimulation (clustering care, dim lights, reduce noise). Prevent Valsalva (no constipation, avoid coughing straining). Adequate analgesia and sedation. Avoid hypotension (MAP must maintain CPP). Avoid hyperthermia. Avoid hyperglycaemia and hypoglycaemia. Avoid hypercarbia (PaCO2 35-45 ideal; brief hyperventilation to PaCO2 30-35 can rapidly reduce ICP as emergency bridge — NOT sustained, causes vasoconstriction). Hyperosmolar therapy: Mannitol 0.25-1 g/kg IV over 20 min — osmotic diuretic, reduces brain water; monitor serum osmolality (<320 mOsm). Hypertonic saline (3% or 23.4%) — raises osmolarity, reduces cerebral oedema, maintains vascular volume (preferred if hypovolaemic)."
+          },
+          {
+            "title": "Seizures and Status Epilepticus",
+            "body": "Seizure: abnormal, synchronised electrical discharge in the brain. Generalised: involves both hemispheres from onset (tonic-clonic, absence, myoclonic). Focal: one hemisphere (simple focal = aware; complex focal = impaired awareness; may secondarily generalise). Status epilepticus (SE): seizure lasting ≥5 minutes OR two consecutive seizures without return to baseline. Convulsive SE: >5 min → medical emergency. Mortality: 20% for refractory SE. Subtle/non-convulsive SE: may only show altered mental status, automatisms, or twitching — requires EEG to diagnose. Nursing: During a seizure — TIME IT from onset. NEVER restrain or put objects in mouth. Clear environment, protect from injury (side rails padded). Position lateral (recovery position if possible) to prevent aspiration. Suction available. Loosen tight clothing. O2 via face mask. Post-ictal assessment (after seizure): GCS/responsiveness, vital signs, SpO2, blood glucose, focal deficits (Todd's paralysis — temporary focal weakness after focal seizure, resolves in minutes to hours). Document: duration, type of movements, any incontinence, post-ictal state. Benzodiazepine administration: first-line for prolonged seizure or SE. IV lorazepam 0.1 mg/kg (max 4mg/dose) OR IV diazepam 5-10mg. If no IV: IM midazolam 10mg (RAMPART trial — as effective as IV lorazepam, easier to administer). Intranasal midazolam or diazepam rectal gel in community. If not resolved after 2 benzodiazepine doses (≥10 min): second-line: IV levetiracetam 60 mg/kg (max 4500mg) OR IV valproate 40 mg/kg OR IV fosphenytoin 20 mgPE/kg. Refractory SE (failed 2 drugs): ICU admission, intubation, continuous EEG monitoring, propofol or midazolam or barbiturate infusion."
+          }
+        ],
+        "clinical_pearl": "During a seizure, the most dangerous nursing error is restraining the patient. Forcible restraint can cause fractures (during active tonic-clonic phase, muscle contraction is extremely powerful) and worsens the patient's distress. Your job is to protect the environment from the patient, not the patient from themselves — clear the area, pad the bed rails, and time the seizure.",
+        "key_points": [
+          "ICP >20 mmHg: HOB 30°, neutral head, cluster care, avoid Valsalva",
+          "Cushing's triad = VERY LATE sign — intervene before this",
+          "Status epilepticus: ≥5 minutes → benzodiazepine immediately (IV lorazepam or IM midazolam)",
+          "Never restrain a seizing patient — protect environment, time the seizure",
+          "Todd's paralysis (post-ictal focal weakness) resolves in minutes to hours — document and report"
+        ],
+        "references": [
+          "Brain Trauma Foundation TBI Guidelines 4th ed., 2016",
+          "Brophy GM et al. Guidelines for Evaluation/Management of Status Epilepticus. NCC 2012",
+          "Neurocritical Care Society ICP Guidelines"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A patient with a traumatic brain injury has GCS 14 on admission. Two hours later, the GCS is 11 (E3V3M5). What is the PRIORITY nursing action?",
+      "question_type": "mcq",
+      "options": {"A": "Reposition the patient and reassess in 30 minutes", "B": "Notify the physician immediately — GCS has dropped 3 points", "C": "Administer PRN analgesic and assess pain score", "D": "Document the finding and continue routine monitoring"},
+      "correct": "B",
+      "explanation": "A GCS decline of ≥2 points is clinically significant and requires immediate physician notification. A drop from 14 to 11 (3 points) suggests progressive intracranial pathology — haemorrhage expansion, cerebral oedema, or herniation. Early intervention (repeat CT, ICP monitoring, osmotherapy) can prevent permanent injury.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient with acute ischaemic stroke is eligible for IV tPA. Their BP on arrival is 192/104 mmHg. What is the CORRECT nursing action?",
+      "question_type": "mcq",
+      "options": {"A": "Proceed with tPA — BP is acceptable for administration", "B": "Administer IV labetalol to bring BP below 185/110, then reassess eligibility", "C": "Wait 6 hours for BP to normalise before giving tPA", "D": "BP 192/104 is a contraindication — do not give tPA"},
+      "correct": "B",
+      "explanation": "tPA requires BP <185/110 mmHg before administration. BP 192/104 is above threshold but treatable. IV labetalol 10-20mg over 1-2 min (or nicardipine infusion) is used to lower BP. If BP comes down to <185/110 and remains stable, tPA can be given. If BP cannot be controlled, tPA is contraindicated. Waiting 6 hours would exceed the treatment window.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse assessing a patient post-cardiac arrest notes that while the left pupil is 4mm and brisk, the right pupil is 7mm and non-reactive. What does this indicate?",
+      "question_type": "mcq",
+      "options": {"A": "This is a normal post-arrest finding from medications", "B": "Right CN III compression from ipsilateral herniation — neurosurgical emergency", "C": "Left hemisphere stroke only", "D": "Opiate toxicity"},
+      "correct": "B",
+      "explanation": "A unilaterally fixed, dilated pupil (mydriasis) indicates CN III compression, most commonly from transtentorial herniation compressing the ipsilateral CN III against the tentorium cerebelli. This is a neurosurgical emergency — herniation will progress to bilateral fixed pupils and brainstem death without immediate intervention (osmotherapy, possible neurosurgery). Opiates cause bilateral pinpoint pupils (miosis), not unilateral dilation.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient on the epilepsy unit has a generalised tonic-clonic seizure. The nurse's FIRST action is:",
+      "question_type": "mcq",
+      "options": {"A": "Insert an oral airway to prevent tongue biting", "B": "Restrain the patient to prevent injury", "C": "Note the time, clear the environment, position the patient on their side", "D": "Administer lorazepam immediately"},
+      "correct": "C",
+      "explanation": "During a seizure: TIME the onset (determines if ≥5 min → status epilepticus requiring medication), clear environment, side-lying position (recovery position reduces aspiration risk). NEVER restrain (fracture risk) or insert objects in mouth (oral airway during tonic-clonic seizure risks injury to patient and nurse). Lorazepam is indicated for seizures lasting ≥5 minutes, not for every single seizure in an epilepsy patient.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which set of vital signs MOST strongly suggests impending transtentorial herniation in a patient with a head injury?",
+      "question_type": "mcq",
+      "options": {"A": "BP 140/90, HR 92, RR 18", "B": "BP 78/50, HR 120, RR 28", "C": "BP 210/60 (wide pulse pressure), HR 44, RR irregular and slow", "D": "BP 130/80, HR 105, RR 22"},
+      "correct": "C",
+      "explanation": "Cushing's triad: systolic hypertension with widened pulse pressure + bradycardia + irregular or slow respirations = the body's last-ditch attempt to maintain cerebral perfusion in the face of dramatically elevated ICP. This triad is a late, pre-terminal sign indicating brainstem compression. Immediate action: hyperventilation (PCO2 30-35 as bridge), mannitol or 3% saline, neurosurgery consultation, CT scan.",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "id": "NURSE-017",
+    "specialty": "Nursing",
+    "title": "Perioperative & Oncology Nursing",
+    "duration_hours": 2.5,
+    "sources": [
+      "ASPAN Perianesthesia Nursing Standards 2021-2022",
+      "AORN Perioperative Standards and Recommended Practices",
+      "ONS Chemotherapy and Biotherapy Guidelines, 5th ed.",
+      "ASCO Cancer Supportive Care Guidelines",
+      "WHO Surgical Safety Checklist"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-017-L01",
+      "title": "Preoperative Assessment and Intraoperative Safety",
+      "order": 1,
+      "lay_summary": "Surgery involves a whole team working together — nurses play a critical safety role before, during, and after the operation.",
+      "content": {
+        "intro": "Perioperative nursing encompasses three phases: preoperative (preparation), intraoperative (during surgery), and postoperative (recovery). Patient safety in surgery depends heavily on nursing assessment and the implementation of standardised safety protocols. The WHO Surgical Safety Checklist (2009) has been shown to reduce surgical mortality by 47% and complications by 36% when properly implemented.",
+        "sections": [
+          {
+            "title": "Preoperative Assessment and Patient Preparation",
+            "body": "Preoperative assessment goals: identify and mitigate modifiable risk factors, ensure informed consent, complete all safety checks, prepare the patient physically and psychologically. History: previous surgical/anaesthetic history (including malignant hyperthermia in family), allergies (medications, latex, iodine/contrast, tapes), current medications (anticoagulants, antiplatelets, antihypertensives, diabetic medications, herbal supplements — many affect bleeding, anaesthesia, electrolytes), bleeding history, last oral intake (NPO status). NPO guidelines (ASA 2017): Clear fluids: 2 hours before. Breast milk: 4 hours. Light meal/formula: 6 hours. Fatty meal: 8 hours. Required preoperative assessments: Baseline vital signs, height and weight. Allergy band applied and documented. Surgical site marked (if applicable) by surgical team. Consent: verified signed, patient understands procedure, risks, alternatives. Labs: CBC, metabolic panel (electrolytes, BUN, Cr), coagulation (PT/INR, aPTT) for high-risk patients. Blood type and screen/crossmatch if significant blood loss anticipated. ECG (>45 years or cardiac history). CXR if respiratory history. Anaesthesia risk: ASA Physical Status Classification: I (healthy), II (mild systemic disease), III (severe systemic disease), IV (severe systemic disease, constant threat to life), V (moribund, not expected to survive without surgery), VI (brain dead for organ donation). Preoperative medications: continue antihypertensives (morning of surgery with sip of water). Insulin: complex — follow specific protocol (usually hold morning dose of short-acting; reduce long-acting by 20-50%). Hold anticoagulants/antiplatelets per protocol. Anxiolytics (midazolam): administered in pre-op area. VTE prophylaxis: LMWH or UFH within 24 hours, compression stockings or sequential compression devices applied before anaesthesia induction."
+          },
+          {
+            "title": "Intraoperative Safety: WHO Checklist and Positioning",
+            "body": "WHO Surgical Safety Checklist — Three pauses: Sign In (before anaesthesia induction): Patient confirmed identity (two identifiers), surgical site confirmed, consent signed, allergies confirmed, anaesthetic machine checked, pulse oximeter in place. Time Out (before incision — most critical): ALL team members pause. Patient identity confirmed. Procedure confirmed. Surgical site confirmed and marked. Antibiotics given within 60 min (reduces SSI by 60%). Anticipated blood loss discussed. Imaging available. Sign Out (before patient leaves OR): procedure recorded, instrument/sponge/needle count correct (incorrect count → mandatory X-ray before closure), specimen labelled, any equipment concerns. WHO SSC has been shown to reduce in-hospital mortality 47% and surgical complications 36% (Haynes AB et al., NEJM 2009). Surgical positioning: Supine: most common; protect heels, occiput. Lithotomy: hip and knee flexion; common compartment syndrome risk; assess lower limb neurovascular status frequently. Prone: airway most vulnerable; protect eyes (corneal abrasion), breasts/genitalia, pressure points. Lateral: axillary roll (prevents brachial plexus injury). Every position: padding for bony prominences, neutral alignment, avoid stretching peripheral nerves >1 hour in fixed position. Electrosurgery safety: grounding pad placed on dry, intact, hair-free skin over well-perfused muscle; avoid placement over bony prominences or metal implants. Risk: patient burns from misplaced pad or faulty grounding. Fire safety: OR fires require fuel (surgical drapes, sponges, hair), oxidiser (O2 or N2O), and ignition source (electrocautery, laser). Reduce O2 concentration during head/neck surgery, minimise open alcohol-based preps before draping."
+          }
+        ],
+        "clinical_pearl": "The Time Out is the most critical component of the WHO Surgical Safety Checklist — and the most frequently rushed. Studies show that even when the Time Out is performed, it is often not a true pause of activity. The circulating nurse must have the authority and confidence to stop all activity, name each team member, and require verbal confirmation of all checklist items. A culture where junior staff fear speaking up is the most dangerous operating environment.",
+        "key_points": [
+          "NPO clear fluids: 2 hours; light meal: 6 hours; fatty meal: 8 hours",
+          "WHO Surgical Safety Checklist: Sign In → Time Out → Sign Out",
+          "Antibiotics within 60 min of incision reduces SSI by 60%",
+          "Lithotomy position: highest risk for compartment syndrome — assess neurovasculature",
+          "Incorrect sponge/needle/instrument count → mandatory intraoperative X-ray"
+        ],
+        "references": [
+          "Haynes AB et al. A Surgical Safety Checklist. NEJM 2009;360:491-499",
+          "ASA NPO Guidelines 2017",
+          "AORN Perioperative Standards 2023"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-017-L02",
+      "title": "Postoperative Care: PACU, Pain Management & Complications",
+      "order": 2,
+      "lay_summary": "The first hours after surgery are critical — nurses in recovery rooms watch for complications and manage pain to help patients heal safely.",
+      "content": {
+        "intro": "The Post-Anaesthesia Care Unit (PACU) is where patients recover from general, regional, or monitored anaesthesia care. The PACU nurse performs comprehensive assessment every 5-15 minutes during the initial recovery period. The most common postoperative complications — respiratory depression, haemodynamic instability, pain, nausea, and wound complications — are all detected and managed here.",
+        "sections": [
+          {
+            "title": "PACU Assessment and Aldrete Score",
+            "body": "On arrival to PACU: receive verbal handoff from anaesthesiologist (procedure performed, anaesthetic agents given, opioids administered, blood loss, IV sites, any complications). Immediate assessment: airway patency, respiratory rate and effort, SpO2, level of consciousness, vital signs, pain score, surgical site and drains. Aldrete Scoring System (Post-Anaesthesia Recovery Score): Activity (0-2): 2 = moves all 4 extremities voluntarily; 1 = 2 extremities; 0 = 0. Respiration (0-2): 2 = breathes deeply and coughs; 1 = dyspnoea/limited breathing; 0 = apnoeic. Circulation (0-2): 2 = BP ±20% preoperative; 1 = ±20-50%; 0 = >50% change. Consciousness (0-2): 2 = fully awake; 1 = arousable; 0 = unresponsive. SpO2 (0-2): 2 = ≥92% on room air; 1 = needs O2 to maintain ≥90%; 0 = <90% with O2. Score ≥9 = safe for discharge from PACU. Frequency of documentation: q5-15 min in first hour, then q15-30 min until discharge criteria met. Discharge from PACU: Aldrete ≥9 (or modified score if going to ICU), pain controlled, nausea controlled, no surgical complications, able to maintain airway. Children: Steward Score (similar format)."
+          },
+          {
+            "title": "Postoperative Pain Management: Multimodal Analgesia",
+            "body": "Effective postoperative pain management is a patient right, reduces complications (early mobilisation, deep breathing), and reduces opioid requirements. Multimodal analgesia (gold standard — ERAS protocols): combines different drug classes and routes to achieve maximum analgesia with minimum opioid use. Components: Paracetamol/acetaminophen (non-opioid, scheduled — most important baseline): 1g q6h PO/IV. NSAIDs (ketorolac IV or oral): add to paracetamol — reduces opioid requirement 30-40%. Caution: renal impairment, peptic ulcers, bleeding risk. Regional anaesthesia: epidural, nerve blocks (femoral block for TKA, TAP block for abdominal surgery, sciatic block for foot/ankle) — dramatically reduce systemic opioid requirements. Opioids (rescue for moderate-severe pain): morphine, hydromorphone, oxycodone — use lowest effective dose. PCA (Patient-Controlled Analgesia): patient-controlled IV bolus doses within prescribed limits — safer than nurse-administered (PRN) opioids, better patient satisfaction. Nurse role in PCA: programme pump per order, educate patient (no one else presses button), monitor for respiratory depression, assess pain with each vital sign set. Gabapentinoids (pregabalin, gabapentin): reduce opioid consumption, useful in neuropathic pain component. PONV (Postoperative Nausea and Vomiting): Apfel score risk factors: female sex, non-smoker, history of PONV/motion sickness, postoperative opioid use. Prevention: ondansetron (5-HT3 antagonist), dexamethasone, scopolamine patch, acupressure. Non-pharmacological: adequate hydration, regional anaesthesia preference."
+          },
+          {
+            "title": "Postoperative Complications: Recognition and Response",
+            "body": "Respiratory complications (most common cause of postoperative death): Respiratory depression (opioid-induced): RR <10, somnolence, SpO2 <90%. Stimulate patient (sternal rub, call name). Oxygen. Naloxone 0.04-0.4 mg IV titrated (avoid full reversal — precipitates pain crisis and withdrawal). Postoperative atelectasis: reduced deep breathing → microatelectasis → fever (>38°C on postop day 1-2), reduced breath sounds at bases. Treatment: deep breathing exercises, incentive spirometry (10 breaths/hr), early ambulation. Aspiration: high risk in emergency surgery, GERD, obesity, opioids (delayed gastric emptying). Prevention: adequate NPO, rapid sequence induction, HOB elevation. Pulmonary embolism: peak days 2-10. Haemodynamic complications: Hypovolemia/haemorrhage: tachycardia + hypotension + increased wound drainage. Check dressings, IV fluid rate, surgical site. Hypertension: pain, anxiety, urinary retention, inadequate analgesia, previous hypertension. Wound complications: Seroma: fluid collection under wound. Haematoma: blood collection — painful, expanding, may require evacuation. Wound dehiscence: partial or total separation of wound edges — cover with sterile saline-moistened gauze, call surgeon. Evisceration: bowel protrudes through wound — cover immediately with sterile saline-moistened gauze, keep patient supine with knees flexed, call surgeon IMMEDIATELY (surgical emergency). Urinary retention: most common after spinal/epidural anaesthesia, anticholinergic medications. Bladder scan >400 mL → straight catheterisation. DVT: early ambulation, compression stockings, LMWH prophylaxis. NCLEX tip: difference between dehiscence (covered with sterile saline dressing, call surgeon) vs. evisceration (saline dressing + knee flexion + immediate surgeon call)."
+          }
+        ],
+        "clinical_pearl": "Only the patient should press the PCA button — never a family member or nurse. PCA is designed so that if a patient is too sedated from opioids, they cannot press the button, preventing respiratory depression. Family members pressing the button 'to keep mum comfortable' defeats this safety mechanism entirely and has caused multiple fatalities. This is the most important PCA patient and family education point.",
+        "key_points": [
+          "Aldrete score ≥9 required for PACU discharge",
+          "Multimodal analgesia: paracetamol + NSAID + regional block ± opioid",
+          "PCA: patient presses button only — NEVER family or nurse",
+          "Evisceration: sterile saline dressing + knee flexion + immediate surgeon call",
+          "Postop fever day 1-2: atelectasis; day 3-5: wound/UTI; day 5+: DVT/PE"
+        ],
+        "references": [
+          "ASPAN Perianesthesia Nursing Standards 2021-2022",
+          "ERAS Society Guidelines 2023",
+          "Apfel CC et al. PONV risk score. Anesthesiology 1999"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-017-L03",
+      "title": "Oncology Nursing: Chemotherapy, Side Effects & Emergencies",
+      "order": 3,
+      "lay_summary": "Cancer treatment with chemotherapy is powerful but comes with serious side effects — oncology nurses are experts in managing these safely.",
+      "content": {
+        "intro": "Oncology nursing requires specialised knowledge of cancer pathophysiology, treatment modalities (chemotherapy, immunotherapy, targeted therapy, radiation), management of treatment-related side effects, and oncological emergencies. The ONS requires certification in chemotherapy administration before nurses can independently administer these high-risk medications.",
+        "sections": [
+          {
+            "title": "Chemotherapy Principles and Safe Handling",
+            "body": "Chemotherapy agents are cytotoxic — they destroy rapidly dividing cells (cancer cells, but also bone marrow, GI mucosa, hair follicles, gonads). Classification by mechanism: Alkylating agents (cyclophosphamide): bind DNA, preventing replication. Antimetabolites (methotrexate, 5-FU): interfere with DNA synthesis. Antitumour antibiotics (doxorubicin, bleomycin): intercalate DNA. Plant alkaloids (vincristine, paclitaxel): disrupt microtubule function. Targeted therapy (imatinib, trastuzumab): target specific molecular pathways. Immunotherapy (pembrolizumab, nivolumab): immune checkpoint inhibitors — activate T cells against cancer (unique immune-related adverse events). Safe handling — ONS/NIOSH guidelines: All antineoplastic agents are hazardous drugs. Preparation: pharmacy under laminar airflow hood, closed system transfer devices. Administration: PPE required — gloves (double), gown (lint-free, impermeable), face shield (if splash risk), goggles. Nurses must wear gloves when handling patient excretions for 48 hours post-chemotherapy (drugs excreted unchanged). Chemotherapy extravasation: leakage of vesicant (tissue-destroying) drug from vein into surrounding tissue. Vesicants: doxorubicin, vincristine, paclitaxel, nitrogen mustard. Signs: burning, swelling, redness at IV site, resistance to infusion. STOP infusion immediately. Do NOT remove the needle immediately — aspirate residual drug first, then remove. Apply ice (most vesicants) OR warm compress (vinca alkaloids — warm promotes dispersion). Antidotes: dexrazoxane for anthracyclines; hyaluronidase for vinca alkaloids. Document and photograph. Irritants (cause inflammation without necrosis): etoposide, carboplatin."
+          },
+          {
+            "title": "Chemotherapy Side Effects and Nursing Management",
+            "body": "Myelosuppression (most common dose-limiting toxicity): Bone marrow suppression → neutropaenia, thrombocytopaenia, anaemia. Nadir (lowest blood count point): typically 7-14 days post-chemotherapy. Neutropaenia: ANC (absolute neutrophil count) <1500. Severe neutropaenia: ANC <500. Neutropaenic fever (oncological emergency): single temperature ≥38.3°C OR ≥38.0°C sustained >1 hour in a neutropaenic patient. Management: blood cultures (2 sets) + broad-spectrum IV antibiotics within 60 MINUTES (mortality increases with delay). Common organisms: Gram-negative (Pseudomonas — most feared, rapid death), MRSA. Empirical therapy: piperacillin-tazobactam or cefepime ± vancomycin (if central line, MRSA risk). Neutropaenic precautions: private room, no fresh flowers/plants, restrict visitors with illness, meticulous hand hygiene. Thrombocytopaenia: platelets <100,000 → bruising; <50,000 → bleeding risk; <20,000 → spontaneous bleeding. Fall precautions (soft toothbrush, electric razor, avoid IM injections). Platelet transfusion threshold: typically <10,000 prophylactically or <50,000 for procedures. Anaemia: fatigue, dyspnoea. Erythropoiesis-stimulating agents (ESAs), iron supplementation, packed RBC transfusion. Nausea and vomiting (CINV): Highly emetogenic chemotherapy (cisplatin, cyclophosphamide >1.5g/m2): requires triple prophylaxis — 5-HT3 antagonist (ondansetron) + NK1 antagonist (aprepitant) + dexamethasone. Anticipatory N/V: conditioned response — treat with lorazepam + behavioural therapy. Mucositis: painful inflammation/ulceration of GI mucosa. Oral care: soft toothbrush, gentle mouthwash, saline rinse. Magic mouthwash for symptomatic relief. Alopecia: hair loss (follicle suppression) — typically begins 2-3 weeks after first cycle. Not all agents cause alopecia. Peripheral neuropathy: platinum compounds (cisplatin, oxaliplatin), vinca alkaloids, taxanes. Assess sensation, proprioception, fine motor."
+          },
+          {
+            "title": "Oncological Emergencies",
+            "body": "Tumour Lysis Syndrome (TLS): massive release of intracellular contents from dying cancer cells — most common after treatment of rapidly proliferating tumours (acute leukaemia, Burkitt's lymphoma, high-grade NHL). Lab criteria (Cairo-Bishop): uric acid >8 mg/dL or 25% increase; K+ >6 mEq/L or 25% increase; phosphate >4.5 mg/dL or 25% increase; calcium <7 mg/dL or 25% decrease. Clinical consequences: renal failure (uric acid crystals), cardiac arrhythmia (hyperkalaemia), seizures (hypocalcaemia), tetany. Prevention: aggressive hydration (3 L/m2/day), allopurinol or rasburicase (enzyme that converts uric acid) before treatment. Monitor electrolytes and uric acid q6-8h. Superior Vena Cava (SVC) Syndrome: compression of SVC by tumour or lymph nodes → impaired venous drainage from upper body. Presentation: facial oedema (worse in morning), periorbital oedema, arm oedema, JVD, headache (bending forward), dyspnoea, Pemberton's sign (arm elevation → flushing, increased JVD). Most common: lung cancer, lymphoma, central line thrombosis. Treatment: steroids (reduce inflammation), radiation, stenting, anticoagulation (if thrombus). Nursing: HOB 30-45°, no venipuncture in arms (use lower extremities or femoral access). Spinal Cord Compression (SCC): cancer metastases to vertebrae → compression of spinal cord. Back pain + neurological symptoms (limb weakness, sensory loss, bladder/bowel dysfunction) in a cancer patient = SCC until proven otherwise. Time-critical: neurological deficits <48 hours generally reversible; >48 hours often permanent. Emergency MRI whole spine. Treatment: dexamethasone 10-16mg IV immediately (reduces cord oedema), then radiation or surgery. Septic shock: as neutropaenic fever can rapidly progress — see above. Hypercalcaemia of malignancy: most common metabolic emergency in cancer. PTHrP secretion by tumour. Symptoms: 'Bones, groans, stones, moans, psychic overtones' — bone pain, nausea/constipation/abdominal pain, renal stones, polyuria, altered mental status. Treatment: IV saline (aggressive hydration), zoledronic acid (bisphosphonate), calcitonin (rapid but short-acting), dialysis if refractory."
+          }
+        ],
+        "clinical_pearl": "Vesicant extravasation is an oncological nursing emergency that requires decisive, protocol-driven action. The most common mistake is removing the IV needle immediately — this squeezes out any residual drug that could be aspirated. The correct sequence: STOP infusion → aspirate residual drug through existing needle → remove needle → elevate extremity → apply appropriate cold/warm compress → administer antidote per protocol → photograph and document thoroughly → refer to plastic surgery if tissue damage occurs.",
+        "key_points": [
+          "Neutropaenic fever: blood cultures + broad-spectrum IV antibiotics within 60 minutes",
+          "Vesicant extravasation: stop infusion, aspirate through needle BEFORE removing, cold pack (most), warm (vinca alkaloids)",
+          "TLS prevention: aggressive hydration + allopurinol or rasburicase before chemo",
+          "SVC syndrome: no arm venipuncture — use lower extremities",
+          "Spinal cord compression: back pain + neuro symptoms in cancer = MRI + dexamethasone immediately"
+        ],
+        "references": [
+          "ONS Chemotherapy and Biotherapy Guidelines, 5th ed.",
+          "ASCO Oncologic Emergencies Guidelines",
+          "Cairo MS, Bishop M. Tumour lysis syndrome. Br J Haematol 2004"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "During the WHO Surgical Safety Checklist 'Time Out,' a nurse realises the surgical site has not been marked and the surgeon is about to make the first incision. The nurse's CORRECT action is:",
+      "question_type": "mcq",
+      "options": {"A": "Quietly note the omission and complete it after the incision", "B": "Speak up and stop the procedure until the site is verified and marked", "C": "Check the consent form and proceed if it matches the planned incision", "D": "Ask the anaesthesiologist to verify the site"},
+      "correct": "B",
+      "explanation": "The Time Out is designed to prevent wrong-site surgery — stopping all activity before incision for explicit verification. Every team member has both the authority and the obligation to speak up if a checklist item is not confirmed. Wrong-site surgery is a 'never event.' The nurse must stop the procedure — this is supported by The Joint Commission and WHO. Consent form alone is insufficient verification.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A postoperative patient receiving IV PCA morphine has a respiratory rate of 8/min and SpO2 88%. The nurse is unable to arouse the patient. Which action is the PRIORITY?",
+      "question_type": "mcq",
+      "options": {"A": "Increase oxygen flow rate and monitor", "B": "Administer naloxone 0.04mg IV and titrate to adequate respiration", "C": "Turn off the PCA pump and wait for the opioid to clear", "D": "Call the physician and await orders"},
+      "correct": "B",
+      "explanation": "Opioid-induced respiratory depression with SpO2 88% and RR 8/min requires immediate naloxone (opioid reversal). IMPORTANT: titrate low doses (0.04-0.1mg IV q2-3 min) rather than the full 0.4mg bolus — full reversal causes acute pain, hypertension, and withdrawal, which is distressing and potentially dangerous. Stimulate first (sternal rub), apply oxygen, then naloxone. Turning off the PCA does not rapidly clear opioid already on board.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient receiving IV paclitaxel (a vesicant) reports burning and swelling at the IV site. The nurse observes clear swelling of the surrounding tissue. The FIRST nursing action is:",
+      "question_type": "mcq",
+      "options": {"A": "Slow the infusion rate and apply ice pack", "B": "Stop the infusion and aspirate residual drug through the existing catheter before removal", "C": "Remove the IV catheter immediately and flush the site with saline", "D": "Continue the infusion and notify the oncologist"},
+      "correct": "B",
+      "explanation": "Vesicant extravasation management: STOP infusion → do NOT remove the catheter immediately → aspirate as much residual drug as possible through the existing catheter → THEN remove catheter → elevate extremity → apply warm compress for vinca alkaloids (promotes dispersion); cold for most others. Removing the catheter first loses the opportunity to aspirate residual drug, worsening tissue damage. Continuing infusion causes further extravasation.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A cancer patient receiving cisplatin has the following post-treatment labs: K+ 6.8, phosphate 5.1, uric acid 9.2, calcium 6.5 mg/dL. The nurse recognises this as:",
+      "question_type": "mcq",
+      "options": {"A": "Hypercalcaemia of malignancy", "B": "Tumour lysis syndrome", "C": "SIADH from cisplatin", "D": "Paraneoplastic syndrome"},
+      "correct": "B",
+      "explanation": "Tumour lysis syndrome (Cairo-Bishop criteria): hyperkalaemia (K+ 6.8 ✓), hyperphosphataemia (5.1 ✓), hyperuricaemia (9.2 ✓), hypocalcaemia (6.5 ✓ — calcium precipitates with phosphate). All four abnormalities together = TLS. Risk: renal failure (uric acid crystals), arrhythmia (hyperkalaemia), seizures (hypocalcaemia). Treatment: aggressive hydration, rasburicase or allopurinol, cardiac monitoring, treat hyperkalaemia.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "An oncology patient with breast cancer metastases presents with confusion, polyuria, nausea, and constipation. Serum calcium is 13.5 mg/dL. The PRIORITY nursing intervention is:",
+      "question_type": "mcq",
+      "options": {"A": "Administer IV zoledronic acid immediately", "B": "Start aggressive IV normal saline hydration", "C": "Restrict oral fluid intake", "D": "Administer calcitonin alone"},
+      "correct": "B",
+      "explanation": "Hypercalcaemia of malignancy: calcium 13.5 mg/dL is severe (>12 mg/dL). Priority: aggressive IV normal saline hydration (200-300 mL/hr) to restore renal calcium excretion. Then: zoledronic acid (bisphosphonate — works in 24-48 hrs), calcitonin (rapid but short-acting — useful while waiting for bisphosphonate effect). Fluid restriction worsens hypercalcaemia. Zoledronic acid alone without hydration risks renal toxicity. 'Mnemo: Bones, Groans, Stones, Moans, Psychic overtones.'",
+      "difficulty": "medium"
+    }
+  ]
+}

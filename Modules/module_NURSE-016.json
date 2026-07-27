@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "id": "NURSE-016",
+    "specialty": "Nursing",
+    "title": "Endocrine Nursing: Diabetes, Thyroid & Adrenal Emergencies",
+    "duration_hours": 2.5,
+    "sources": [
+      "ADA Standards of Medical Care in Diabetes 2024",
+      "American Thyroid Association Guidelines 2023",
+      "Endocrine Society Clinical Practice Guidelines",
+      "Brunner & Suddarth's Medical-Surgical Nursing, 15th ed.",
+      "ISMP Insulin Safety Alerts"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-016-L01",
+      "title": "Diabetes Mellitus: Types, Insulin Management & Hypoglycaemia",
+      "order": 1,
+      "lay_summary": "Diabetes is the most common endocrine disorder nurses manage every day — from giving insulin safely to recognising a dangerous blood sugar crash.",
+      "content": {
+        "intro": "Diabetes mellitus affects over 537 million adults globally (IDF 2021) and is a leading cause of blindness, kidney failure, lower-limb amputation, heart attack, and stroke. Insulin errors are among the most common and most dangerous medication errors in hospitals (ISMP). Every nurse — regardless of specialty — must be proficient in diabetes assessment and safe insulin administration.",
+        "sections": [
+          {
+            "title": "Types of Diabetes and Key Differences",
+            "body": "Type 1 Diabetes (T1DM): autoimmune destruction of pancreatic beta cells → absolute insulin deficiency. Onset typically <30 years (but can occur at any age). Hallmarks: lean, rapid onset, DKA-prone. ALWAYS requires insulin — oral agents do not work. Type 2 Diabetes (T2DM): insulin resistance + progressive beta-cell dysfunction. 90-95% of diabetes cases. Risk factors: obesity, physical inactivity, family history, age, ethnicity (South Asian, African American, Hispanic). Managed initially with lifestyle + metformin, progressing to additional agents + insulin. Gestational Diabetes Mellitus (GDM): glucose intolerance first detected in pregnancy. Resolves after delivery in most cases. 50% develop T2DM within 10 years. Treat with MNT and insulin (metformin/glyburide used off-label). LADA (Latent Autoimmune Diabetes in Adults): autoimmune T1DM with slow progression — often initially misdiagnosed as T2DM. Dx: positive anti-GAD antibodies. Diagnosis criteria (ADA 2024): Fasting glucose ≥126 mg/dL (two occasions); 2-hr glucose ≥200 mg/dL during OGTT; Random glucose ≥200 mg/dL with symptoms; HbA1c ≥6.5% (two occasions). HbA1c: reflects average glucose over 2-3 months (lifespan of RBC). Target: <7% for most adults; <8% for frail elderly, limited life expectancy, severe hypoglycaemia risk. Each 1% decrease in HbA1c reduces microvascular complications by ~35% (UKPDS)."
+          },
+          {
+            "title": "Insulin Types, Timing, and Safe Administration",
+            "body": "Insulin types (ISMP high-alert medication): Rapid-acting (lispro, aspart, glulisine): onset 15 min, peak 30-90 min, duration 3-4 hrs. Given at meal time (cover the meal) or immediately after in uncertain eaters. Short-acting (regular insulin): onset 30-60 min, peak 2-4 hrs, duration 5-8 hrs. Used IV in DKA. Intermediate-acting (NPH): onset 2-4 hrs, peak 4-12 hrs, duration 12-18 hrs. Twice daily. Long-acting (glargine U-100/U-300, detemir, degludec): onset 1-2 hrs, no peak, duration 20-42 hrs. Once or twice daily basal insulin. Pre-mixed insulins (70/30, 75/25): contain both rapid and intermediate — do not confuse with other preparations. ISMP Safe Insulin Practices: Never abbreviate 'units' as 'U' (handwritten U misread as 0 → 10× overdose). Use insulin syringes ONLY (U-100 insulin must be drawn in U-100 syringe). Do not use insulin pens for more than one patient — even with needle change. Double-nurse check for insulin administration: two nurses independently verify dose, type, concentration, expiry. Blood glucose monitoring: before administration. Sliding scale insulin: falling out of favour — does not proactively prevent hyperglycaemia. Basal-bolus-correction regimen is preferred in hospitalised patients. Injection sites: abdomen (fastest absorption), thigh (slower), upper arm, buttock. Rotate sites to prevent lipohypertrophy (impairs absorption). Storage: unopened vials refrigerated (2-8°C); opened vials/pens at room temperature for 28-30 days."
+          },
+          {
+            "title": "Hypoglycaemia: Recognition and the 15-15 Rule",
+            "body": "Hypoglycaemia (<70 mg/dL; symptomatic) is the most common acute complication of diabetes management. Severe hypoglycaemia (<54 mg/dL or requiring assistance). Causes: excess insulin or sulfonylurea, delayed/missed meal, increased exercise, alcohol consumption, renal impairment (decreased insulin clearance). Symptoms: Mild-Moderate (adrenergic/autonomic): sweating, trembling, palpitations, anxiety, pallor, hunger. Moderate-Severe (neuroglycopenic): confusion, blurred vision, slurred speech, difficulty concentrating, personality change. Severe: inability to self-treat, seizure, loss of consciousness. Hypoglycaemia unawareness: repeated hypoglycaemic episodes blunt adrenergic response — patients lack warning symptoms. High-risk patients. Treatment — ADA 15-15 Rule: Conscious patient: 15g fast-acting carbohydrate (4 oz juice or regular soda, 4 glucose tablets, 1 tablespoon honey). Wait 15 minutes. Recheck blood glucose. If still <70 mg/dL, repeat. After resolution: eat a snack if next meal >1 hour away. Unconscious or unable to swallow: IV dextrose — D50W 25 mL (12.5g dextrose) IV push. OR Glucagon 1mg IM/SC/intranasal (GlucaGen, Baqsimi) — stimulates hepatic glycogenolysis. Glucagon ineffective in severe hepatic disease or malnutrition (depleted glycogen stores). Assess cause of hypoglycaemia and adjust insulin/oral agent regimen. Notify provider. Nursing documentation: blood glucose value, symptoms, treatment given, response, provider notified."
+          }
+        ],
+        "clinical_pearl": "The single most common insulin error in hospitals is administering the wrong type of insulin — giving long-acting glargine instead of short-acting regular for a meal, or vice versa. Glargine is CLEAR (no visible difference from short-acting regular to the eye) — this is why double-nurse checks and pharmacy barcoded systems are mandatory. Never rely on visual inspection to distinguish insulin types.",
+        "key_points": [
+          "Never abbreviate 'units' as U — write 'units' in full (ISMP requirement)",
+          "Insulin pens: one patient only — never share, even with needle change",
+          "15-15 rule: 15g fast carb, wait 15 min, recheck — repeat if still <70",
+          "Unconscious hypoglycaemia: D50W 25mL IV or glucagon 1mg IM",
+          "Glargine (long-acting) looks identical to regular insulin — always double-check label"
+        ],
+        "references": [
+          "ADA Standards of Medical Care in Diabetes 2024",
+          "ISMP Guidelines for Safe Use of Insulin",
+          "UKPDS Group. Intensive blood-glucose control. Lancet 1998"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-016-L02",
+      "title": "DKA, HHS & Thyroid/Adrenal Emergencies",
+      "order": 2,
+      "lay_summary": "Diabetic emergencies like DKA and HHS need fast recognition and careful fluid and insulin management — here's what nurses need to know.",
+      "content": {
+        "intro": "Diabetic ketoacidosis (DKA) and hyperosmolar hyperglycaemic state (HHS) are the two most dangerous acute complications of diabetes. Together they carry a mortality of 0.5-1% (DKA) and up to 20% (HHS). Both require systematic nursing assessment, aggressive but carefully monitored treatment, and vigilant electrolyte management.",
+        "sections": [
+          {
+            "title": "Diabetic Ketoacidosis (DKA)",
+            "body": "DKA: absolute insulin deficiency → lipolysis → ketone production → metabolic acidosis. Primarily T1DM but increasingly seen in T2DM. Triad: hyperglycaemia (>250 mg/dL), ketonaemia (positive ketones in blood/urine), metabolic acidosis (pH <7.3, HCO3 <18 mEq/L). Precipitants: infection (#1 — UTI, pneumonia), new-onset T1DM, insulin omission (including insulin pump failure), surgery/illness. Clinical presentation: Polyuria, polydipsia, polyphagia, nausea/vomiting, abdominal pain (can mimic acute abdomen), Kussmaul breathing (deep, rapid — compensatory respiratory alkalosis to blow off CO2), fruity breath (acetone). Mental status: alert to comatose depending on severity. Lab findings: Glucose typically 250-600 mg/dL (may be lower in 'euglycaemic DKA' — SGLT2 inhibitor use, starvation, pregnancy). Anion gap metabolic acidosis: AG = Na − (Cl + HCO3), normal 8-12, elevated in DKA (typically >20). Pseudohyponatraemia (corrected Na = measured Na + 1.6 × [(glucose-100)/100]). Hyperkalaemia initially (acidosis drives K+ out of cells) — but TOTAL body K+ depleted (osmotic diuresis). Serum K+ falls dramatically with insulin therapy — monitor closely. DKA Management (ADA/JBDS protocol): 1. IV fluid resuscitation: 0.9% NS 1L in first hour, then 250-500 mL/hr for 4-6 hrs, then reassess. 2. Insulin infusion: Regular insulin 0.1 unit/kg/hr IV (after confirming K+ ≥3.5 mEq/L — do NOT start insulin if K+ <3.5 → replace K+ first). 3. Potassium replacement: add KCl to IV fluids when K+ <5.5 mEq/L. Critical: K+ can drop precipitously with insulin → fatal arrhythmia. 4. Add dextrose to IV fluids when glucose reaches 200-250 mg/dL (allows insulin to continue clearing ketones without causing hypoglycaemia). 5. Bicarbonate: only if pH <6.9 (controversial). Resolution criteria: glucose <200 mg/dL AND bicarbonate ≥15 mEq/L AND pH >7.3 AND anion gap ≤12. Do NOT stop insulin infusion until patient has eaten and received subcutaneous insulin (2-4 hours before stopping infusion). Monitor: glucose q1h, electrolytes q2-4h, urine output."
+          },
+          {
+            "title": "Hyperosmolar Hyperglycaemic State (HHS)",
+            "body": "HHS: severe hyperglycaemia without significant ketoacidosis. Characteristic of T2DM. Glucose typically >600 mg/dL (can exceed 1200 mg/dL). Serum osmolality >320 mOsm/kg (normal 280-300). pH >7.3, minimal ketones (enough endogenous insulin to prevent ketogenesis). Mortality up to 20% — higher than DKA. Precipitants: acute illness in elderly T2DM patient who cannot maintain fluid intake, infection, inadequate insulin. Clinical presentation: Severe dehydration (may have lost 8-10 litres), altered mental status (focal neurological deficits, seizures, coma common — correlate with osmolality), tachycardia, hypotension. Typically older patient, days to weeks of symptoms (slower onset than DKA). HHS Management: Aggressive fluid resuscitation is the cornerstone (more so than insulin): 0.9% NS 1-2L in first hour, then 0.45-0.9% NS depending on Na level. Goal: replace fluid deficit over 24-48 hours (not too rapidly — risk of cerebral oedema, demyelination). Insulin: low-dose infusion (0.05-0.1 unit/kg/hr) — start only after adequate fluid resuscitation initiated. Goal glucose decline: 50-75 mg/dL/hr (not faster). Switch to D5W with saline when glucose reaches 300 mg/dL. Potassium: replace aggressively (total body K+ severely depleted — similar to DKA). Monitoring: hourly glucose, q2-4h electrolytes, strict fluid balance, neurological assessment."
+          },
+          {
+            "title": "Thyroid Emergencies and Addisonian Crisis",
+            "body": "Thyroid Storm (Thyrotoxic Crisis): extreme hyperthyroid state — life-threatening. Usually precipitated by surgery, infection, or iodinated contrast in uncontrolled hyperthyroidism (Graves' disease). Burch-Wartofsky Score: fever (>39°C), CNS effects (agitation, seizure, coma), GI effects (vomiting, diarrhoea, jaundice), cardiovascular (tachyarrhythmias, HF). Score ≥45 = thyroid storm likely. Treatment: Propylthiouracil (PTU) — blocks thyroid hormone synthesis AND peripheral T4→T3 conversion (advantage over methimazole). Iodine (Lugol's solution or SSKI) — given 1 hour AFTER PTU (not before — provides substrate for hormone synthesis). Propranolol — blocks adrenergic effects. Hydrocortisone — prevents relative adrenal insufficiency, blocks conversion. Cooling (do NOT use aspirin — displaces T4 from protein). Myxoedema Coma: extreme hypothyroidism. Precipitants: cold, infection, CNS depressants. Features: hypothermia (may be profoundly hypothermic), altered consciousness, bradycardia, hypotension, respiratory failure, hyponatraemia. Treatment: IV levothyroxine + IV hydrocortisone (adrenal insufficiency may coexist). Gradual rewarming (blankets — not external heat). Addisonian Crisis (Acute Primary Adrenal Insufficiency): life-threatening glucocorticoid deficiency. Precipitant: any physical stress in a patient with adrenal insufficiency (known or undetected — e.g., after bilateral adrenalectomy, prolonged steroid use then abrupt cessation, pituitary surgery). Features: severe hypotension/shock, abdominal pain, vomiting, altered consciousness. Hyponatraemia, hyperkalaemia, hypoglycaemia (classic triad). Treatment: hydrocortisone 100mg IV bolus + 200mg/24hrs. IV saline 1L bolus. Glucose replacement if hypoglycaemic. Do NOT delay treatment for diagnostic testing (may be fatal)."
+          }
+        ],
+        "clinical_pearl": "In DKA, the serum potassium may appear normal or even elevated on admission — but this is deceptive. The patient has TOTAL BODY potassium depletion from osmotic diuresis. As soon as insulin is started, potassium shifts back into cells and the serum K+ can plummet to life-threatening levels within 1-2 hours. Never start insulin in DKA without first checking potassium and ensuring it is ≥3.5 mEq/L.",
+        "key_points": [
+          "DKA: do NOT start insulin if K+ <3.5 — replace potassium first",
+          "Add dextrose to IV fluids when glucose reaches 200-250 mg/dL in DKA",
+          "HHS: aggressive fluid resuscitation is the priority over insulin",
+          "Thyroid storm: PTU first, then iodine 1 hour later — never iodine first",
+          "Addisonian crisis: hydrocortisone 100mg IV immediately — do not wait for labs"
+        ],
+        "references": [
+          "ADA DKA/HHS Management Consensus Statement 2009 (updated 2024)",
+          "Kitabchi AE et al. Hyperglycemic crises in adult patients. Diabetes Care 2009",
+          "Burch HB, Wartofsky L. Endocrinol Metab Clin North Am 1993"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A patient with T1DM is admitted with DKA. Initial labs: glucose 450 mg/dL, K+ 2.9 mEq/L, pH 7.22, bicarbonate 12. The physician orders an insulin infusion. The nurse's FIRST action is:",
+      "question_type": "mcq",
+      "options": {"A": "Start the insulin infusion immediately at 0.1 unit/kg/hr", "B": "Replace potassium IV first — do not start insulin until K+ ≥3.5", "C": "Give sodium bicarbonate to correct the acidosis first", "D": "Start insulin and add KCl to the bag simultaneously"},
+      "correct": "B",
+      "explanation": "K+ 2.9 mEq/L is below 3.5 — starting insulin will cause further cellular uptake of potassium, potentially dropping serum K+ to <2.5 mEq/L and causing fatal ventricular arrhythmia. The rule: do NOT start insulin if K+ <3.5. Replace potassium IV until K+ ≥3.5, then start insulin. Bicarbonate is indicated only if pH <6.9. Potassium replacement is the priority.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient with T2DM on insulin glargine receives their morning dose. One hour later, they report sweating, trembling, and their blood glucose is 58 mg/dL. They are alert and can swallow. What is the CORRECT intervention?",
+      "question_type": "mcq",
+      "options": {"A": "Give D50W 25mL IV push immediately", "B": "Give 15g fast-acting carbohydrate, wait 15 min, recheck glucose", "C": "Administer glucagon 1mg IM", "D": "Call the physician before treating"},
+      "correct": "B",
+      "explanation": "This is mild-moderate hypoglycaemia in a conscious patient who can swallow. ADA 15-15 rule: 15g fast-acting carbohydrate (4 oz juice, 4 glucose tablets), wait 15 minutes, recheck. If still <70, repeat. D50W and glucagon are reserved for patients who cannot swallow or are unconscious. Calling the physician before treating delays correction — treat first, then notify.",
+      "difficulty": "easy"
+    },
+    {
+      "question": "A nurse is preparing to give insulin. The insulin vial label reads 'glargine U-100'. The ordered dose is 24 units. How many mL should the nurse draw up in a standard U-100 insulin syringe?",
+      "question_type": "mcq",
+      "options": {"A": "2.4 mL", "B": "0.24 mL", "C": "24 mL", "D": "12 mL"},
+      "correct": "B",
+      "explanation": "U-100 insulin = 100 units/mL. 24 units ÷ 100 units/mL = 0.24 mL. In a U-100 syringe, the markings are in units — draw to the 24-unit mark. A standard U-100 insulin syringe holds 30, 50, or 100 units. Never use a regular (mL) syringe for U-100 insulin without a pharmacist calculation — concentration differences cause 10-fold errors.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A 72-year-old with T2DM develops confusion, glucose 720 mg/dL, serum osmolality 338, pH 7.37, bicarbonate 22 mEq/L, and minimal ketones. This is MOST consistent with:",
+      "question_type": "mcq",
+      "options": {"A": "DKA — treat with insulin infusion immediately", "B": "HHS — aggressive IV fluid resuscitation is the priority", "C": "Lactic acidosis", "D": "Hyperglycaemia from steroid use — oral hydration is sufficient"},
+      "correct": "B",
+      "explanation": "HHS criteria: glucose >600 (here 720), osmolality >320 (here 338), pH >7.3 (here normal at 7.37), minimal ketones, significant dehydration. Priority: IV fluid resuscitation (fluids before insulin). Start with 0.9% NS 1-2L/hr, then reassess. Low-dose insulin infusion is added after adequate fluid replacement. Glucose decline should be gradual (50-75 mg/dL/hr). Mortality up to 20% — primarily from the underlying precipitating illness.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient prescribed long-term oral prednisone for inflammatory bowel disease presents to the ED with severe hypotension, hyponatraemia, hyperkalaemia, and hypoglycaemia. The nurse suspects adrenal crisis. The IMMEDIATE priority is:",
+      "question_type": "mcq",
+      "options": {"A": "CT abdomen to assess adrenal glands", "B": "Cortisol stimulation test before starting treatment", "C": "Hydrocortisone 100mg IV bolus + 1L IV NS", "D": "Oral fludrocortisone replacement"},
+      "correct": "C",
+      "explanation": "Addisonian crisis is a life-threatening emergency. Prolonged exogenous steroid use causes HPA axis suppression — any stressor can precipitate acute adrenal insufficiency. Classic features: hypotension, hyponatraemia, hyperkalaemia, hypoglycaemia. Treatment must not be delayed for diagnostic testing — administer hydrocortisone 100mg IV immediately + saline resuscitation. Blood can be drawn for cortisol before hydrocortisone but treatment must not wait for results.",
+      "difficulty": "hard"
+    }
+  ]
+}

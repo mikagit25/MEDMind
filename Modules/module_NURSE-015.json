@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "id": "NURSE-015",
+    "specialty": "Nursing",
+    "title": "Pediatric Nursing: Growth, Development & Common Conditions",
+    "duration_hours": 3,
+    "sources": [
+      "AAP Bright Futures Guidelines, 4th ed.",
+      "Nelson Textbook of Pediatrics, 21st ed.",
+      "PALS (Pediatric Advanced Life Support) Guidelines 2020",
+      "WHO Child Growth Standards",
+      "CDC Developmental Milestones"
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-015-L01",
+      "title": "Pediatric Growth, Development & Assessment",
+      "order": 1,
+      "lay_summary": "Children are not small adults — their bodies, minds, and needs change dramatically from birth through adolescence. Here's how nurses approach care at every stage.",
+      "content": {
+        "intro": "Pediatric nursing requires knowledge of normal growth and development at each stage to distinguish normal from concerning, and to provide age-appropriate care, communication, and education. A one-year-old and a ten-year-old require fundamentally different assessment techniques, medications (weight-based dosing), and communication strategies.",
+        "sections": [
+          {
+            "title": "Developmental Milestones by Age Group",
+            "body": "Neonatal (0-1 month): Reflexes — Moro (startle), rooting, sucking, palmar/plantar grasp, Babinski. Fixates on faces. Cries as primary communication. Head control: none. Infant (1-12 months): 4 months — head control, social smile, coos. 6 months — rolls over, sits with support, babbles, stranger anxiety begins. 9 months — sits alone, crawls, pincer grasp developing, separation anxiety peaks. 12 months — pulls to stand, cruises, may walk. First words (1-2). Responds to name. Toddler (1-3 years): 18 months — walks independently, 10-25 word vocabulary, stacks blocks. 2 years — runs, two-word phrases, parallel play, toilet training readiness. 3 years — rides tricycle, 3-word sentences, associative play. Erikson: Autonomy vs. Shame/Doubt — offer limited choices. Preschool (3-6 years): Initiative vs. Guilt. Magical thinking, egocentrism (Piaget preoperational). Fears: body mutilation, darkness, animals — acknowledge fears, explain procedures. School-age (6-12 years): Industry vs. Inferiority (Erikson). Logical/concrete thinking (Piaget concrete operational). Peer relationships important. Can understand cause and effect of illness. Explain procedures in concrete terms — show equipment. Adolescent (12-18 years): Identity vs. Role Confusion. Abstract thinking develops. Ensure confidentiality for sensitive topics (sexual health, mental health, substance use). Assess for risk behaviours (HEADSSS screening: Home, Education/Employment, Activities, Drugs, Sexuality, Suicide/self-harm, Safety). Red flag developmental delays: no social smile at 3 months, no babbling at 12 months, no single words at 16 months, no 2-word phrases at 24 months, any loss of previously acquired skills at ANY age → immediate evaluation."
+          },
+          {
+            "title": "Pediatric Vital Signs and Weight-Based Dosing",
+            "body": "Normal vital signs vary dramatically by age — this is one of the most critical knowledge areas for NCLEX. RR (breaths/min): Newborn 30-60, Infant 30-50, Toddler 24-40, Preschool 22-34, School-age 18-30, Adolescent 12-20. HR (bpm): Newborn 100-180, Infant 100-160, Toddler 90-150, Preschool 80-140, School-age 70-120, Adolescent 60-100. BP: Systolic estimates: Newborn 60-90, Infant 70-100, Toddler 80-112, Preschool 80-115, School-age 85-120, Adolescent 100-135. Hypotension threshold (PALS): <70 + (2 × age in years) systolic for children 1-10 yrs. Temperature (rectal most accurate in infants): 36.5-37.5°C. Fever: >38.0°C rectal. Fever in neonate <28 days: ALWAYS report immediately — neonates cannot localise infection and may have GBS sepsis. Weight-based dosing: ALL pediatric medications must be weight-based (mg/kg). Weigh in kg ALWAYS (never lbs in clinical setting — conversion errors cause 2× overdose). Use Broselow tape if weight unknown in emergency. Therapeutic ranges can be very narrow — double-check with a second nurse and pharmacist. Common weight-based examples: Acetaminophen 15 mg/kg q4-6h PO. Ibuprofen 10 mg/kg q6-8h PO (only ≥6 months). Amoxicillin 40-90 mg/kg/day ÷ q8-12h."
+          },
+          {
+            "title": "Pediatric Assessment: PQRST Pain and FACES Scale",
+            "body": "Pain assessment tools by age: Neonates/infants: CRIES (Crying, Requires O2, Increased vital signs, Expression, Sleepless) or FLACC (Face, Legs, Activity, Cry, Consolability) — behavioural observation scales. Toddlers/preschool: FLACC or FACES pain scale (Wong-Baker FACES) — 6 faces from happy to crying (0, 2, 4, 6, 8, 10). Can be used from age 3. School-age: Numeric Rating Scale (NRS 0-10) — reliably used from age 8. Adolescents: NRS 0-10 (same as adults). Communication: Neonates — cry characteristics: high-pitched shrill cry = neurological problem; weak or absent cry = severe illness. Toddlers — approach calmly, use play, allow familiar toy/caregiver present. School-age — explain what will happen ('this will feel cold'), give some control. Adolescents — address them directly first (before parents), ensure confidentiality. Atraumatic care principles (Hockenberry and Wilson): primary goal is to prevent or minimise psychological and physical distress. Apply EMLA cream before venipuncture (minimum 60 min); use smallest gauge needle; cluster interventions; allow parent presence (unless infant calmer without). Restraint: use only when necessary for safety — never punitively. Document reason and duration."
+          }
+        ],
+        "clinical_pearl": "In infants under 3 months, rectal temperature >38.0°C is a medical emergency until proven otherwise. Neonates have immature immune systems and cannot mount the same responses as older children — a 6-week-old with a 38.2°C rectal temperature and a 'sick' appearance may have GBS meningitis or sepsis. They need a full sepsis workup (blood/urine/CSF cultures) and empirical antibiotics within 1 hour of fever recognition.",
+        "key_points": [
+          "Loss of any previously acquired skill at ANY age = immediate developmental evaluation",
+          "ALL pediatric medications: dose in mg/kg, weigh in KILOGRAMS",
+          "Neonatal fever >38°C rectally = medical emergency — full sepsis workup",
+          "FLACC scale for non-verbal pain; Wong-Baker FACES from age 3; NRS from age 8",
+          "Adolescents: address directly, ensure confidentiality before sensitive topics"
+        ],
+        "references": [
+          "AAP Bright Futures Guidelines 4th ed.",
+          "Nelson Textbook of Pediatrics 21st ed.",
+          "CDC Developmental Milestones"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-015-L02",
+      "title": "Pediatric Emergencies: Respiratory Distress, Dehydration & Febrile Seizures",
+      "order": 2,
+      "lay_summary": "Children can deteriorate faster than adults — learn to spot the warning signs and respond quickly to the most common pediatric emergencies.",
+      "content": {
+        "intro": "Pediatric emergencies differ from adult emergencies in several critical ways: children compensate remarkably well and then deteriorate rapidly and without warning; respiratory failure is the most common cause of cardiac arrest in children; and communication with both the child and the family is a nursing priority throughout.",
+        "sections": [
+          {
+            "title": "Pediatric Respiratory Distress Assessment",
+            "body": "Children have smaller airways (resistance = 1/r4 — small decrease in radius causes dramatic increase in resistance), faster respiratory rates, and compliant chest walls. Airway anatomy: infants have large occipital prominences (head flexion occludes airway), large tongues, anterior cords — these differences affect positioning and intubation. Signs of respiratory distress: Mild: nasal flaring, mild tachypnoea, subcostal/intercostal retractions. Moderate: significant retractions, grunting (auto-PEEP — keeps alveoli open), head bobbing, accessory muscle use, mild cyanosis. Severe: apnoeic episodes, gasping, cyanosis, altered consciousness, paradoxical breathing, poor tone. CRITICAL: a quiet/sleeping infant who was previously distressed may not be 'better' — exhaustion and impending respiratory failure present as decreasing work of breathing before collapse. Stridor (inspiratory): croup (#1 cause in 6 months-3 years), epiglottitis (emergency), foreign body. Wheeze (expiratory): bronchiolitis (RSV, children <2), asthma (older children). Grunting: pneumonia, pulmonary oedema, sepsis. Common pediatric respiratory conditions: Croup (laryngotracheobronchitis): barky cough, stridor, low-grade fever. Treatment: cool mist/humidity (comfort), oral dexamethasone 0.6 mg/kg (single dose, highly effective), nebulised racemic epinephrine for moderate-severe cases (monitor 4 hours after — rebound). Bronchiolitis: most common lower respiratory infection in infants (<2 yrs). Primarily RSV. Treatment is SUPPORTIVE only — nasal suctioning, supplemental O2 if SpO2 <90%, adequate hydration (nasogastric feeds if unable to bottle/breastfeed). Bronchodilators, steroids, and antibiotics are NOT recommended (AAP 2014 bronchiolitis guidelines — high quality evidence). Paediatric sepsis: life-threatening organ dysfunction from infection. PALS: <1 hour fluid resuscitation (20 mL/kg NS or LR boluses) + antibiotics. Consider septic shock if hypotension unresponsive to fluid."
+          },
+          {
+            "title": "Dehydration Assessment and Fluid Management",
+            "body": "Dehydration is the most common reason for emergency paediatric visits. Assessment: Mild (3-5% body weight loss): slightly dry mucous membranes, increased thirst. Moderate (6-9%): dry mucous membranes, sunken fontanelle (infants), reduced urine output, tachycardia, delayed CRT (2-3 sec). Severe (≥10%): very dry membranes, absent tears, sunken eyes/fontanelle, no urine output, severe tachycardia, hypotension (LATE in children — shock), mottling, poor tone. Fontanelle assessment: anterior fontanelle (diamond-shaped) — closes 9-18 months. Sunken = dehydration; bulging = raised ICP. Urine output monitoring: minimum 1 mL/kg/hr in children; 0.5 mL/kg/hr in adolescents. NICE dehydration criteria in children: not shocked but any 'red flag' (sunken fontanelle, abnormal drowsiness, severe clinical assessment) → immediate IV or NG rehydration. Oral rehydration therapy (ORT): preferred for mild-moderate dehydration. Use oral rehydration salts (ORS — WHO/UNICEF formula: 75 mEq/L Na, 75 mmol/L glucose) in small frequent amounts (5-10 mL q5 min initially). Avoid fruit juice, sports drinks, plain water (hypotonic — risk of hyponatraemia). IV fluid therapy (severe dehydration/shock): Normal saline or LR 20 mL/kg bolus over 5-15 min; repeat as needed. Monitor closely for fluid overload (unusual in dehydrated child but possible with repeated boluses). Maintenance fluids (Holliday-Segar formula): 100 mL/kg/day for first 10 kg, 50 mL/kg/day for next 10 kg, 20 mL/kg/day for each kg >20 kg. Important: use isotonic fluids (0.9% NS with or without glucose) for maintenance — NEVER hypotonic (risk of hyponatraemia from ADH secretion in illness)."
+          },
+          {
+            "title": "Febrile Seizures",
+            "body": "Febrile seizures occur in 2-5% of children aged 6 months to 5 years. Caused by rapid rise in body temperature (usually >38.5°C), not the absolute temperature. Simple febrile seizure: generalised, <15 min, single episode in 24 hrs, full recovery. Complex febrile seizure: focal, >15 min, recurrent within 24 hrs, or Todd's paralysis. Nursing care during seizure: timing, side-lying position, protect from injury, suction/O2 available, do NOT restrain. After seizure — post-ictal assessment, temperature measurement, glucose check. Management: most simple febrile seizures self-terminate in 2-3 minutes and require no medication. If >5 min: IV lorazepam 0.1 mg/kg. Cool the child after seizure: tepid sponging, remove excess clothing, antipyretics (paracetamol 15 mg/kg). Parent education (VERY important — this is terrifying for parents): Simple febrile seizures do NOT cause brain damage. Recurrence risk: 30% will have another febrile seizure. Long-term epilepsy risk: only slightly increased above baseline (~2-3%). DO NOT give antipyretics preventively — they do not prevent febrile seizures. When to worry: complex features (focal, >15 min), post-ictal period >30 min, infant <6 months, signs of meningitis (photophobia, neck stiffness, petechial rash, bulging fontanelle) → emergency LP evaluation. Lumbar puncture consideration: AAP recommends considering LP in any infant 6-12 months with first febrile seizure if vaccination status unknown, or any child with meningeal signs."
+          }
+        ],
+        "clinical_pearl": "A quiet, no-longer-struggling infant who was previously in severe respiratory distress is a DANGER SIGN, not a reassuring sign. Infants have limited respiratory reserves and exhaust their compensatory mechanisms rapidly. A breathing rate that decreases in a distressed infant may indicate impending respiratory arrest rather than improvement. Always reassess oxygen saturation and work of breathing together — not just the respiratory rate.",
+        "key_points": [
+          "Infants compensate well then deteriorate rapidly — reassess frequently",
+          "Bronchiolitis: supportive care ONLY — bronchodilators and steroids not effective",
+          "Sunken fontanelle = dehydration; bulging = raised ICP",
+          "ORT is first-line for mild-moderate dehydration — use ORS, not fruit juice",
+          "Simple febrile seizures do not cause brain damage — parent education is essential"
+        ],
+        "references": [
+          "AAP Clinical Practice Guideline: Bronchiolitis 2014",
+          "WHO Oral Rehydration Therapy Guidelines",
+          "PALS 2020 Guidelines"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-015-L03",
+      "title": "Child Safeguarding & Common Paediatric Conditions",
+      "order": 3,
+      "lay_summary": "Recognising child abuse and common childhood illnesses — what every nurse must know to keep children safe and healthy.",
+      "content": {
+        "intro": "Child safeguarding is a legal and ethical obligation for every nurse. Simultaneously, nurses must recognise and manage common paediatric conditions — from otitis media and urinary tract infections to congenital heart disease. This lesson bridges child protection and common clinical presentations.",
+        "sections": [
+          {
+            "title": "Child Safeguarding: Recognising Abuse and Neglect",
+            "body": "Child maltreatment includes physical abuse, sexual abuse, emotional abuse, and neglect. Prevalence: approximately 1 in 4 children experiences maltreatment in their lifetime (CDC). Nurses are mandatory reporters in all US states — report suspected abuse without needing certainty. Physical abuse red flags: Burns: stocking/glove distribution (immersion burns — no splash marks), cigarette burns, branding marks. Bruises: in infants who cannot yet pull to stand (pre-mobile infant bruises are suspicious), bruises in protected areas (ears, buttocks, abdomen, back, face), patterned bruises (belt, cord, hand). Fractures: posterior rib fractures (classic — not seen in accidental trauma), metaphyseal/corner fractures ('bucket handle' — classic shaken baby), spiral fractures in non-ambulatory child. Head injuries: subdural haemorrhage in infants without adequate explanation, retinal haemorrhages (shaken baby syndrome — AHT). Delay in seeking care or changing stories. Shaken Baby Syndrome / Abusive Head Trauma (AHT): triad — subdural haematoma, retinal haemorrhages, diffuse axonal injury. No visible external head injuries. Presents: unresponsive, seizures, vomiting, poor feeding. Sentinel injuries: bruising in a pre-mobile infant before the 'obvious' abusive event — check for these in ED visits for 'minor' complaints. Sexual abuse: STI in a child outside neonatal transmission, pregnancy, anal/genital trauma without adequate explanation, age-inappropriate sexual knowledge or behaviour. Neglect: most common form of maltreatment. Medical neglect, educational neglect, physical neglect. Nursing: use neutral language, document objectively (what patient/parent said and did, not interpretation), do not promise confidentiality, do not confront suspected abuser in front of child, report to CPS and document report."
+          },
+          {
+            "title": "Common Paediatric Conditions: Otitis Media, UTI, and Asthma",
+            "body": "Otitis Media (AOM): most common bacterial infection in children; peak incidence 6-12 months. Causative organisms: Streptococcus pneumoniae, Haemophilus influenzae, Moraxella catarrhalis. Symptoms: ear pulling/tugging, crying/irritability, fever, poor feeding, disturbed sleep. Diagnosis: tympanic membrane (TM) bulging, erythema, opacification, and reduced mobility on pneumatic otoscopy. Treatment (AAP 2013): children <6 months → always antibiotics; 6 months-2 years with bilateral AOM or TM perforation → antibiotics; ≥2 years with mild symptoms → watchful waiting for 48-72 hrs. First-line: amoxicillin 80-90 mg/kg/day (high dose overcomes penicillin-intermediate Strep). Penicillin allergy: azithromycin. UTI in Children: second most common bacterial infection. More common in girls (short urethra) and uncircumcised boys <12 months. Presentation varies with age: neonates/infants — fever without source, poor feeding, vomiting. Older children — dysuria, frequency, suprapubic pain. Diagnosis: urine dipstick (leukocyte esterase + nitrites) + urine culture for confirmation. Urine collection: catheter specimen in infants/young children (clean-catch unreliable). Treatment: oral antibiotics 3-7 days if lower UTI (trimethoprim-sulfamethoxazole or nitrofurantoin). IV antibiotics for pyelonephritis or infants. Renal ultrasound after first UTI in all children <2 years. Asthma in Children: commonest chronic disease in children. Presentation: recurrent wheeze, nocturnal cough, exercise limitation. Triggers: viral URTI (#1), allergens, smoke, exercise, cold air. Treatment follows GINA stepwise: Step 1 (intermittent) — SABA PRN only. Step 2 — low-dose ICS (preventer). Step 3 — low-dose ICS + LABA or moderate ICS. Nursing: inhaler technique education (most critical intervention — incorrect use of preventer = uncontrolled asthma), written asthma action plan, trigger avoidance, regular follow-up."
+          }
+        ],
+        "clinical_pearl": "A pre-mobile infant with ANY bruising requires immediate investigation for non-accidental injury. Infants who cannot yet pull to stand (typically <6-7 months) should not have bruises from accidental trauma. Any bruise in a pre-mobile infant — even if the parent has a plausible explanation — is a red flag that warrants a full skeletal survey (X-ray of entire skeleton), ophthalmology review (retinal haemorrhages), and non-accidental injury assessment. 'If in doubt, rule it out.'",
+        "key_points": [
+          "Posterior rib fractures and metaphyseal corner fractures = hallmarks of physical abuse",
+          "Pre-mobile infant with any bruise = mandatory investigation for non-accidental injury",
+          "Neonatal fever >38°C = full sepsis workup regardless of clinical appearance",
+          "First-line AOM antibiotic: high-dose amoxicillin 80-90 mg/kg/day",
+          "Inhaler technique education is the most important asthma nursing intervention"
+        ],
+        "references": [
+          "AAP Clinical Report: Child Physical Abuse 2021",
+          "AAP Clinical Practice Guideline: Otitis Media 2013",
+          "AAP Clinical Report: Febrile UTI 2011"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse is assessing an 8-month-old who was brought in by parents after reportedly 'falling from the couch.' The infant has multiple bruises on the buttocks and a posterior rib fracture on X-ray. The parent's story changes twice. What is the nurse's PRIORITY action?",
+      "question_type": "mcq",
+      "options": {"A": "Accept the parents' explanation — infants fall frequently", "B": "Confront the parents about the inconsistencies", "C": "Report suspected non-accidental injury to child protective services", "D": "Complete the current visit and flag for follow-up at the next appointment"},
+      "correct": "C",
+      "explanation": "Posterior rib fractures, bruises in protected areas, an 8-month-old pre-mobile infant, and changing parental stories are all red flags for non-accidental injury. Nurses are mandated reporters — the threshold is 'reasonable suspicion,' not certainty. Report to CPS immediately. Do not confront the parents (escalates danger). Do not delay reporting.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A 14-month-old presents with fever 39.1°C and inconsolable crying. The father reports tugging at the left ear. On assessment, the TM is erythematous and bulging. The nurse anticipates which initial treatment per AAP guidelines?",
+      "question_type": "mcq",
+      "options": {"A": "Watchful waiting — no antibiotics for 48-72 hours", "B": "High-dose amoxicillin 80-90 mg/kg/day", "C": "Azithromycin — penicillin is never first-line in otitis", "D": "Ear drops only — systemic antibiotics are not needed"},
+      "correct": "B",
+      "explanation": "AAP AOM guidelines: children 6 months-2 years with bilateral AOM OR TM perforation → immediate antibiotics. This 14-month-old has unilateral AOM with bulging TM — antibiotics recommended. High-dose amoxicillin (80-90 mg/kg/day) is first-line (overcomes penicillin-intermediate Streptococcus pneumoniae). Watchful waiting is an option only for children ≥2 years with mild unilateral AOM.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A 3-year-old presents with a barky, seal-like cough and inspiratory stridor that started 2 hours ago. Temperature is 38.2°C. SpO2 is 96%. Which treatment is MOST evidence-based?",
+      "question_type": "mcq",
+      "options": {"A": "Admission and IV antibiotics for epiglottitis", "B": "Oral dexamethasone 0.6 mg/kg — single dose", "C": "Inhaled albuterol every 20 minutes", "D": "Humidified cool mist — observation only"},
+      "correct": "B",
+      "explanation": "This is classic croup (age 6 months-3 years, barky cough, stridor, low-grade fever). Oral dexamethasone 0.6 mg/kg single dose is the evidence-based first-line treatment — reduces return visits and hospitalisation (Cochrane systematic review). Cool mist has no proven efficacy in RCTs (though harmless). Albuterol treats bronchospasm, not laryngeal oedema. Epiglottitis presents with high fever, drooling, muffled voice, toxic appearance — tripod position; do NOT examine throat.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A 6-week-old infant develops a temperature of 38.3°C (rectal). Parents report the infant has been feeding poorly for 12 hours. The nurse's PRIORITY action is:",
+      "question_type": "mcq",
+      "options": {"A": "Administer paracetamol and recheck temperature in 1 hour", "B": "Notify the physician immediately — neonatal fever is a medical emergency", "C": "Encourage breastfeeding and monitor at home", "D": "Check vital signs and reassess in 30 minutes"},
+      "correct": "B",
+      "explanation": "Neonatal fever (≥38.0°C rectal, <28 days; or <3 months per some guidelines) is a medical emergency. Neonates cannot localise infection and are at risk for serious bacterial infection (SBI) — GBS meningitis, E. coli sepsis, HSV encephalitis. They require immediate full sepsis workup: CBC, blood culture, urine culture (catheter), LP (CSF culture/cell count), and empirical antibiotics within 1 hour. Never give antipyretics and 'watch' a febrile neonate.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse is preparing to administer ibuprofen to a 15 kg child. The prescribed dose is 10 mg/kg. The available suspension is 100 mg/5 mL. How many mL should be administered?",
+      "question_type": "mcq",
+      "options": {"A": "5 mL", "B": "7.5 mL", "C": "10 mL", "D": "15 mL"},
+      "correct": "B",
+      "explanation": "Dose = 10 mg/kg × 15 kg = 150 mg. Available: 100 mg/5 mL → 150 mg ÷ (100/5) = 150 × 5/100 = 7.5 mL. Always double-check pediatric medication calculations with a second nurse. Ibuprofen is appropriate for children ≥6 months (contraindicated in neonates). Do not give ibuprofen with active GI symptoms or dehydration (renal impairment risk).",
+      "difficulty": "medium"
+    }
+  ]
+}

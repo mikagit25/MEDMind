@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "id": "NURSE-013",
+    "specialty": "Nursing",
+    "title": "Respiratory Nursing: Assessment, Oxygenation & Ventilation",
+    "duration_hours": 3,
+    "sources": [
+      "ATS/ERS Respiratory Society Guidelines",
+      "GOLD 2023 COPD Report",
+      "GINA 2023 Global Initiative for Asthma",
+      "ARDS Network Clinical Trials Network",
+      "AACN Essentials of Critical Care Nursing, 4th ed.",
+      "Brunner & Suddarth's Medical-Surgical Nursing, 15th ed."
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-013-L01",
+      "title": "Respiratory Assessment and Oxygenation Devices",
+      "order": 1,
+      "lay_summary": "Learn how nurses assess breathing problems — what you hear, see, and measure — and which oxygen devices to use for different situations.",
+      "content": {
+        "intro": "Respiratory failure is a leading cause of ICU admission and mortality worldwide. The nurse who recognises early signs of respiratory deterioration and responds appropriately can prevent intubation and death. Respiratory assessment must be rapid, systematic, and repeated frequently in any acutely ill patient.",
+        "sections": [
+          {
+            "title": "Systematic Respiratory Assessment",
+            "body": "A: Airway — is it patent? Any stridor (upper airway obstruction), snoring (pharyngeal obstruction), or gurgling (secretions/fluid)? B: Breathing — rate, depth, pattern, effort. Tachypnoea (RR >20) is often the earliest sign of deterioration. Accessory muscle use (SCM, scalenes) indicates increased work of breathing. Nasal flaring = significant distress. Paradoxical breathing (chest falls on inspiration) = diaphragmatic failure. C: Circulation — as it relates to oxygenation (skin colour, CRT, BP). Inspection: observe respiratory rate (count for a full minute — do not estimate), depth, symmetry of chest rise. Asymmetric rise: pneumothorax, haemothorax, splinting from pain. Barrel chest: air-trapping in COPD. Kyphoscoliosis: may restrict ventilation. Cyanosis: peripheral (cold extremities, local) vs. central (tongue/lips, systemic — late and unreliable sign; SpO2 has fallen below 85% before cyanosis appears). Percussion: resonant (normal air), hyperresonant (pneumothorax, emphysema), dull (consolidation, pleural effusion, atelectasis). Auscultation (listen posterior, lateral, and anterior; compare side to side): Normal breath sounds: vesicular (soft, rustling, heard throughout lung fields), bronchial (loud, tubular, over trachea normally). Abnormal: Crackles (discontinuous): fine (pulmonary oedema, fibrosis, early pneumonia) or coarse (secretions, bronchitis). Wheeze (high-pitched, continuous): asthma, bronchospasm. Rhonchi (low-pitched gurgling): secretions in large airways — clears with cough. Stridor (high-pitched, heard on inspiration): upper airway obstruction — medical emergency. Pleural friction rub: leathery sound on both inspiration and expiration — pleuritis."
+          },
+          {
+            "title": "Pulse Oximetry and Arterial Blood Gas Interpretation",
+            "body": "Pulse oximetry (SpO2): measures oxygen saturation of haemoglobin non-invasively. Target: SpO2 ≥94% in most adults (88-92% in COPD patients — hypercapnic drive at risk if over-oxygenated). Limitations: carboxyhaemoglobin (CO poisoning) reads as normal; methaemoglobinaemia reads ~85%; poor perfusion, nail polish, motion artifact cause inaccuracy; does not detect hypercapnia or acid-base disorders. Arterial Blood Gas (ABG) — normal values: pH 7.35-7.45, PaCO2 35-45 mmHg, PaO2 80-100 mmHg, HCO3 22-26 mEq/L, SpO2 ≥95%. Step-by-step ABG interpretation: Step 1: Is pH acidotic (<7.35) or alkalotic (>7.45)? Step 2: What is PaCO2 doing? Elevated CO2 → respiratory acidosis; low CO2 → respiratory alkalosis. Step 3: What is HCO3 doing? Elevated HCO3 → metabolic alkalosis; low HCO3 → metabolic acidosis. Step 4: Does the secondary parameter match (compensation) or oppose (mixed disorder)? Step 5: Assess oxygenation: PaO2 and P/F ratio (PaO2/FiO2; normal ≥400; ARDS: <300 mild, <200 moderate, <100 severe). Example: pH 7.28, PaCO2 55, HCO3 27, PaO2 60 → respiratory acidosis with partial metabolic compensation (HCO3 appropriately elevated) → hypercapnic respiratory failure."
+          },
+          {
+            "title": "Oxygen Delivery Devices",
+            "body": "Low-flow devices (variable FiO2 depending on respiratory rate and tidal volume): Nasal cannula: 1-6 L/min, FiO2 24-44%. Simple face mask: 6-10 L/min, FiO2 35-50%. Non-rebreather mask (NRB): 10-15 L/min, FiO2 60-90% — reservoir bag provides high FiO2; ensure bag inflated. High-flow devices (precise FiO2): Venturi mask: delivers accurate FiO2 (24%, 28%, 35%, 40%, 60%) regardless of breathing pattern — ideal for COPD (known hypercapnic drive). High-flow nasal cannula (HFNC): 10-60 L/min flow, FiO2 21-100%. Advantages: washes out nasopharyngeal dead space, provides ~1 cmH2O PEEP per 10 L/min flow, humidified/heated — reduces work of breathing, well-tolerated. Growing evidence for use in hypoxaemic respiratory failure, including COVID-19 ARDS. CPAP/BiPAP (Non-invasive ventilation): CPAP — one pressure level, keeps airways open (OSA, cardiogenic pulmonary oedema). BiPAP — two pressures (IPAP for inspiration, EPAP for expiration) — assists ventilation in COPD exacerbation and hypercapnic failure. BiPAP reduces intubation rate in COPD exacerbation by 50-60% (Brochard et al., 1995). Contraindications: inability to protect airway, haemodynamic instability, facial trauma, excessive secretions. Endotracheal intubation/invasive mechanical ventilation: when all other measures fail or emergent airway protection needed."
+          }
+        ],
+        "clinical_pearl": "In COPD patients, the SpO2 target is 88-92%, NOT the usual 94-98%. These patients may rely on hypoxic drive to breathe. Over-oxygenation causes CO2 retention (Haldane effect — oxygen displaces CO2 from haemoglobin) and worsens hypercapnia. A well-meaning nurse who gives 100% oxygen via NRB to a severely dyspnoeic COPD patient can precipitate hypercapnic coma.",
+        "key_points": [
+          "Tachypnoea (RR >20) is the earliest sign of respiratory deterioration",
+          "Stridor = upper airway obstruction — treat as an emergency",
+          "SpO2 target in COPD: 88-92%, not 94-98%",
+          "Venturi mask gives precise FiO2 — ideal for COPD",
+          "BiPAP reduces intubation rate in COPD exacerbation by 50-60%"
+        ],
+        "references": [
+          "GOLD 2023 Global Initiative for Chronic Obstructive Lung Disease",
+          "Brochard L et al. N Engl J Med 1995;333:817-822",
+          "AACN Essentials of Critical Care Nursing, 4th ed."
+        ]
+      }
+    },
+    {
+      "id": "NURSE-013-L02",
+      "title": "Asthma and COPD: Acute Exacerbation Management",
+      "order": 2,
+      "lay_summary": "Asthma and COPD both make breathing difficult — but they're different diseases with different emergency treatments that nurses need to know.",
+      "content": {
+        "intro": "Asthma and COPD are the two most common obstructive airway diseases globally. Together they account for millions of emergency visits and hospitalisations annually. Acute exacerbations are potentially life-threatening — rapid assessment and escalating intervention are key nursing competencies.",
+        "sections": [
+          {
+            "title": "Asthma: Acute Severe Exacerbation",
+            "body": "Asthma is characterised by chronic airway inflammation, reversible bronchoconstriction, and hyperresponsiveness. Triggers: allergens (dust mites, pollen, animal dander), respiratory infections, exercise, cold air, NSAIDs, beta-blockers, stress. GINA 2023 severity classification during acute episode: Mild-Moderate: can speak in sentences, SpO2 ≥90%, PEFR 40-69%. Severe: speaks in phrases/words, SpO2 <90%, PEFR <40%, HR >120, RR >30. Life-threatening: silent chest (no wheeze = no air movement), cyanosis, altered consciousness, exhaustion, SpO2 <92%. Immediate management (severe/life-threatening): Position upright. Oxygen: Venturi or NRB targeting SpO2 93-95%. Short-acting beta-2 agonist (SABA): salbutamol/albuterol 2.5-5mg nebulised every 20 min × 3 in first hour (MDI + spacer equally effective if cooperative: 4-8 puffs). Ipratropium bromide 0.5mg nebulised: added to SABA in severe exacerbation — reduces hospitalisation. Systemic corticosteroids: prednisolone 40-50mg oral OR methylprednisolone 125mg IV — must be given within 1 hour, reduces need for hospitalisation and rate of relapse (GINA evidence A). IV magnesium sulphate 2g IV over 20 min: in severe/life-threatening exacerbation unresponsive to above — bronchodilates via smooth muscle relaxation. Heliox (70:30 helium:oxygen): lower density gas reduces turbulent flow, may help in critical asthma. Intubation: LAST resort in asthma — high risk of air-trapping and dynamic hyperinflation. If intubated: use low respiratory rate (8-12/min), long expiratory time (I:E ratio 1:3 to 1:4), accept permissive hypercapnia. Warning signs: near-fatal (hypercapnic or silent chest) require immediate ICU. PEFR: measure on admission and after each treatment — improvement >50% predicted = good response."
+          },
+          {
+            "title": "COPD: Acute Exacerbations (AECOPD)",
+            "body": "COPD is characterised by progressive, not fully reversible airflow obstruction due to emphysema (loss of alveolar walls) and chronic bronchitis (airway inflammation and mucus hypersecretion). GOLD 2023 defines AECOPD as acute worsening of respiratory symptoms beyond normal day-to-day variation requiring change in therapy. Triggers: respiratory infections (50-70% — Haemophilus influenzae, Streptococcus pneumoniae, Moraxella catarrhalis; viral — rhinovirus, influenza, RSV), air pollution, non-adherence to inhalers. Assessment: Anthonisen criteria: increased dyspnoea + increased sputum volume + increased sputum purulence. Type I (all 3) → antibiotics. Type II (any 2) → consider antibiotics. Type III (1 criterion) → antibiotics not routinely recommended. Management: Controlled oxygen: target SpO2 88-92% (Venturi mask 28-35% FiO2). SABA ± SAMA (ipratropium): salbutamol + ipratropium nebulised. Systemic steroids: prednisolone 30-40mg × 5 days (equally effective to longer courses — REDUCE trial). Antibiotics: if purulent sputum + increased volume + increased dyspnoea (amoxicillin, doxycycline, or co-amoxiclav — based on local resistance patterns and prior culture). BiPAP/NIV: STRONGEST evidence for moderate-severe AECOPD with pH <7.35 and PaCO2 >45 mmHg — reduces mortality, intubation rate, and ICU stay. VTE prophylaxis: LMWH + compression stockings (immobile patients). Nutrition: consider NG/NJ feeding if unable to eat. Discharge criteria: stable on usual bronchodilators, ambulatory, able to sleep/eat. Discharge prescriptions: escalated inhaler therapy, short steroid course if appropriate, antibiotic if purulent, smoking cessation referral, pulmonary rehabilitation referral (reduces readmission by 25%, mortality by 21% — Cochrane 2021)."
+          },
+          {
+            "title": "Differentiating Asthma from COPD",
+            "body": "Nurses frequently care for patients with obstructive airway disease where the diagnosis is uncertain. Key distinguishing features: Onset: Asthma — often childhood, allergic; COPD — typically >40 years, heavy smoking history (>10 pack-years). Reversibility: Asthma — bronchodilator response reverses airflow obstruction (FEV1 improves ≥12%); COPD — airflow limitation is NOT fully reversible. Symptoms: Asthma — episodic, variable, nocturnal; COPD — progressive, daily, worse with exertion. Spirometry: Asthma — FEV1/FVC <70% (obstructive) with significant reversibility; COPD — FEV1/FVC <70% without significant reversibility (post-bronchodilator). Overlap (ACOS — Asthma-COPD Overlap Syndrome): some patients have features of both — managed with ICS + LABA + LAMA. Key medications: Asthma maintenance: ICS (essential anti-inflammatory) + LABA (not as monotherapy). COPD maintenance: LAMA alone (tiotropium) or LAMA + LABA (dual bronchodilation) ± ICS (add only if frequent exacerbations + eosinophil count ≥0.3 × 10⁹/L). CRITICAL difference: ICS is essential in asthma; in COPD it is added only for specific indications. Never use ICS as monotherapy in COPD."
+          }
+        ],
+        "clinical_pearl": "The silent chest in acute severe asthma is paradoxically more dangerous than loud wheeze. When airflow is severely reduced, there is not enough movement to generate wheeze — the absence of wheeze in a dyspnoeic asthma patient who was previously wheezing is an ominous sign of impending respiratory arrest. Prepare for immediate intubation and call the resuscitation team.",
+        "key_points": [
+          "IV magnesium sulphate 2g in severe asthma unresponsive to SABA + steroids",
+          "COPD oxygen target SpO2 88-92% — Venturi mask most precise",
+          "BiPAP strongest evidence for AECOPD with pH <7.35 and hypercapnia",
+          "Steroids in AECOPD: 5 days equally effective as longer courses",
+          "Silent chest in asthma = impending respiratory arrest — prepare for intubation"
+        ],
+        "references": [
+          "GINA 2023 Global Initiative for Asthma",
+          "GOLD 2023 Global Initiative for Chronic Obstructive Lung Disease",
+          "Brochard L et al. N Engl J Med 1995;333:817-822"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-013-L03",
+      "title": "Pneumonia, Pulmonary Embolism & Pneumothorax",
+      "order": 3,
+      "lay_summary": "Three serious lung emergencies nurses must recognise and act on quickly — a lung infection, a blood clot in the lung, and air trapped outside the lung.",
+      "content": {
+        "intro": "Pneumonia, pulmonary embolism (PE), and pneumothorax each present with dyspnoea but have distinct causes, presentations, and nursing priorities. Misidentifying these conditions delays life-saving treatment. This lesson provides a clinical framework for differentiating and managing each.",
+        "sections": [
+          {
+            "title": "Pneumonia: Community-Acquired and Hospital-Acquired",
+            "body": "Community-acquired pneumonia (CAP): most common — Streptococcus pneumoniae (#1), atypical pathogens (Mycoplasma, Legionella, Chlamydophila), viral (influenza, COVID-19). Hospital-acquired pneumonia (HAP): Gram-negative bacilli (Pseudomonas, Klebsiella, E. coli) and MRSA — typically more resistant and severe. Ventilator-associated pneumonia (VAP): develops ≥48 hrs after intubation. Clinical presentation: Productive cough (bacterial) or dry cough (atypical/viral), fever >38°C or hypothermia (<36°C in severe), pleuritic chest pain, consolidation signs on examination (dullness on percussion, bronchial breathing, increased tactile fremitus, egophony). Assessment: CURB-65 severity score (Confusion, Urea >7mmol/L, RR ≥30, BP systolic <90 or diastolic ≤60, Age ≥65). Score 0-1: outpatient. 2: consider hospitalisation. ≥3: hospital (ICU if ≥4-5). Nursing care: Positioning: HOB 30-45° (reduces aspiration, improves ventilation). Secretion clearance: encourage coughing, deep breathing, chest physiotherapy, early ambulation. Hydration: adequate hydration thins secretions. Suction only when needed. Antibiotics: administer first dose within 4 hours of diagnosis (time to first antibiotic associated with mortality). Monitor: daily assessment of clinical improvement (fever trending, WBC, oxygenation, sputum), treatment response expected within 48-72 hrs. VAP prevention bundle (CDC/AHRQ): HOB 30-45°, daily sedation interruption and spontaneous breathing trial (SBT), oral care with chlorhexidine q8h, subglottic secretion drainage ET tubes, enteral not parenteral nutrition, VTE prophylaxis."
+          },
+          {
+            "title": "Pulmonary Embolism",
+            "body": "PE occurs when thrombus (usually from DVT) occludes pulmonary arteries, increasing right heart afterload. Massive PE (>50% pulmonary vasculature) → acute RV failure → haemodynamic collapse → cardiac arrest. Risk factors: Virchow's triad — hypercoagulability (cancer, thrombophilia, oestrogens, COVID-19), venous stasis (immobility, long travel, heart failure), endothelial injury (surgery, trauma). Clinical presentation: Classic triad: dyspnoea + pleuritic chest pain + haemoptysis (only in 20% — pulmonary infarction). More commonly: unexplained tachycardia + dyspnoea + hypoxia. DVT symptoms in 50% (calf pain, swelling, erythema). Massive PE: haemodynamic instability (SBP <90 or drop ≥40 mmHg for >15 min not from other cause). Wells Score (pre-test probability): clinical signs of DVT (3 pts), PE most likely diagnosis (3 pts), HR >100 (1.5 pts), immobilisation/surgery in last 4 weeks (1.5 pts), previous DVT/PE (1.5 pts), haemoptysis (1 pt), malignancy (1 pt). Score ≤4: low probability; >4: high probability → CT pulmonary angiography. D-dimer: high sensitivity (99%); low specificity — rules OUT PE in low probability; elevated in infection, pregnancy, malignancy. ECG: sinus tachycardia (#1 finding), S1Q3T3 pattern (S wave in I, Q wave + inverted T wave in III — only 20% of cases), new RBBB, right heart strain. Management: Heparin: start immediately at high clinical suspicion (before imaging). Anticoagulation choices: Unfractionated heparin (UFH) IV: titrate to aPTT 60-100 sec; preferred in massive PE and renal failure. LMWH (enoxaparin): weight-based, no monitoring needed; not in severe renal impairment. DOACs (rivaroxaban, apixaban): preferred for non-massive PE — as effective as warfarin, fewer bleeds. Thrombolysis (alteplase): massive PE with haemodynamic instability — 100mg IV over 2 hrs. Contraindications: recent surgery, haemorrhagic stroke. Nursing: absolute bed rest initially, fall precautions (anticoagulation + vasovagal risk), DVT prevention in contralateral leg, emotional support (sudden life-threatening event)."
+          },
+          {
+            "title": "Pneumothorax",
+            "body": "Pneumothorax = air in the pleural space, causing lung collapse. Spontaneous (primary): young, tall, thin males — subpleural blebs rupture. Secondary: underlying lung disease (COPD, asthma, CF, TB). Iatrogenic: post-central line insertion, post-lung biopsy, post-intubation with high airway pressures. Traumatic: penetrating/blunt trauma. Tension pneumothorax: increasing air trapped under pressure — compresses mediastinum and contralateral lung → haemodynamic collapse (EMERGENCY). Classic clinical features: Sudden onset pleuritic chest pain + dyspnoea. Decreased/absent breath sounds on affected side. Decreased chest movement on affected side. Tracheal deviation AWAY from affected side (tension — late sign). Hypotension (tension). Hyperresonant percussion on affected side. Diagnosis: CXR (expiratory film increases sensitivity), CT (gold standard). For tension: diagnose and treat CLINICALLY — do not wait for CXR if haemodynamically unstable. Management: Small primary spontaneous pneumothorax (<2 cm rim on CXR): observation (100% O2 speeds reabsorption). Symptomatic/large: chest drain (underwater seal drain or Heimlich valve). Tension pneumothorax: IMMEDIATE needle decompression (14-16G cannula, 2nd ICS, MCL — immediate gush of air confirms) → definitive chest drain. Nursing: chest drain care — maintain underwater seal, ensure tube not kinked/clamped, observe for bubbling (indicates air leak) vs. swinging (indicates tube patent), suction if prescribed. Assess drainage (volume, colour — haemothorax if bloody). Pain management (pleuritic pain → reluctance to breathe → atelectasis)."
+          }
+        ],
+        "clinical_pearl": "Tension pneumothorax is a clinical diagnosis — you must decompress before getting a chest X-ray. If a mechanically ventilated patient suddenly develops high airway pressures, haemodynamic deterioration (dropping BP, rising HR), and unilateral decreased breath sounds, perform needle decompression immediately. The textbook triad of absent breath sounds + tracheal deviation + hypotension is a late presentation; many patients deteriorate before tracheal deviation appears.",
+        "key_points": [
+          "VAP bundle: HOB 30-45°, oral chlorhexidine, daily SBT, subglottic suction",
+          "Unexplained tachycardia + dyspnoea + hypoxia → think PE until proven otherwise",
+          "Massive PE with haemodynamic instability → systemic thrombolysis (alteplase)",
+          "Tension pneumothorax = clinical diagnosis → needle decompression immediately",
+          "In pneumothorax, tracheal deviation is a LATE sign — do not wait for it"
+        ],
+        "references": [
+          "AHA 2019 Scientific Statement on PE",
+          "BTS Guideline for Pleural Disease 2023",
+          "ATS/IDSA CAP Guidelines 2019"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A patient with COPD presents with SpO2 82%, RR 28, and is confused. ABG shows pH 7.30, PaCO2 62, PaO2 48. Which immediate oxygen delivery device is MOST appropriate?",
+      "question_type": "mcq",
+      "options": {"A": "Non-rebreather mask at 15 L/min", "B": "Venturi mask at 28% FiO2, then reassess", "C": "Nasal cannula at 6 L/min", "D": "100% oxygen until SpO2 >98%"},
+      "correct": "B",
+      "explanation": "COPD patients with hypercapnia (PaCO2 62) may rely on hypoxic drive. Target SpO2 is 88-92%. Venturi mask delivers precise FiO2 (start at 28%, titrate). NRB at 15 L/min can deliver >90% FiO2 causing further CO2 retention (Haldane effect). However, SpO2 82% with confusion requires prompt oxygen — start controlled oxygen and reassess. If pH remains <7.35 after oxygen, BiPAP is indicated.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse is caring for a patient admitted with acute severe asthma. After two nebulised salbutamol treatments, the patient's wheeze has disappeared but they remain severely dyspnoeic with SpO2 88%. What does absent wheeze indicate in this context?",
+      "question_type": "mcq",
+      "options": {"A": "The patient is improving — wheeze resolved", "B": "Near-fatal asthma — impending respiratory arrest", "C": "Patient does not have asthma", "D": "Oxygen therapy is adequate"},
+      "correct": "B",
+      "explanation": "Silent chest in an acutely dyspnoeic asthma patient indicates severely reduced airflow — not enough air movement to generate wheeze. This is an ominous sign of impending respiratory arrest. Immediate action: call resuscitation team, prepare for intubation, consider IV magnesium sulphate 2g. Patients who remain hypoxic after 3 bronchodilator treatments have life-threatening asthma.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A post-operative patient develops sudden pleuritic chest pain, dyspnoea, tachycardia (HR 118), and SpO2 90% on room air on day 2. Leg DVT is suspected. After ordering imaging, the nurse's FIRST priority intervention is:",
+      "question_type": "mcq",
+      "options": {"A": "Apply compression stockings and wait for CT result", "B": "Start anticoagulation immediately while awaiting imaging", "C": "Position patient flat to improve venous return", "D": "Administer thrombolysis before imaging"},
+      "correct": "B",
+      "explanation": "In high-probability or intermediate-high probability PE, anticoagulation (UFH or LMWH) should begin at the time of clinical suspicion — before CT results. The mortality reduction of early anticoagulation outweighs the small risk of starting treatment 30-60 minutes before imaging confirmation. Flat positioning worsens dyspnoea. Thrombolysis is reserved for haemodynamically unstable massive PE, not intermediate risk.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A mechanically ventilated patient suddenly deteriorates: BP drops to 70/40, HR 130, SpO2 88%, and there is no chest rise on the right side. Peak airway pressure is 55 cmH2O. What is the IMMEDIATE nursing action?",
+      "question_type": "mcq",
+      "options": {"A": "Order a portable chest X-ray", "B": "Increase FiO2 to 100%", "C": "Call for needle decompression of tension pneumothorax", "D": "Increase ventilator rate to 20 breaths/min"},
+      "correct": "C",
+      "explanation": "This is tension pneumothorax: haemodynamic collapse + absent right-sided breath sounds + high airway pressure in a ventilated patient. Needle decompression (14-16G, 2nd ICS, MCL, right side) is an emergency clinical intervention. Do NOT wait for CXR — delay causes cardiac arrest. Followed by chest drain insertion. High FiO2 and ventilator rate changes will not address the mechanical obstruction.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which intervention is the MOST important component of the VAP prevention bundle for a mechanically ventilated patient?",
+      "question_type": "mcq",
+      "options": {"A": "Prophylactic antibiotics for all ventilated patients", "B": "Daily spontaneous breathing trials and weaning assessment", "C": "Proning for all patients with SpO2 <95%", "D": "Ventilator circuit changes every 24 hours"},
+      "correct": "B",
+      "explanation": "VAP prevention bundles (CDC/SHEA/IDSA) include: HOB 30-45°, oral care with chlorhexidine, daily sedation vacation + SBT (most important — reduces ventilator days, the primary VAP risk factor), subglottic secretion suctioning, VTE/stress ulcer prophylaxis. Prophylactic antibiotics increase resistance and are NOT recommended. Circuit changes increase contamination risk and should only occur when visibly soiled. Proning is for severe ARDS (P/F <150), not general prevention.",
+      "difficulty": "medium"
+    }
+  ]
+}

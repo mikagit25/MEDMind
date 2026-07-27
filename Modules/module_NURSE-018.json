@@ -7,7 +7,9 @@
     "title_en": "Renal, Urinary & Fluid-Electrolyte Nursing",
     "order_in_specialty": 18,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-001"],
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
     "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
@@ -244,6 +246,163 @@
       "difficulty": "easy"
     }
   ],
-  "mcq_questions": [],
+  "mcq_questions": [
+    {
+      "question": "A patient in acute kidney injury (AKI) has the following lab values: K+ 6.4 mEq/L, ECG shows peaked T-waves. The nurse's PRIORITY intervention is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer oral sodium polystyrene sulfonate (Kayexalate)",
+        "B": "Obtain IV access and administer IV calcium gluconate",
+        "C": "Restrict dietary potassium intake",
+        "D": "Start haemodialysis immediately"
+      },
+      "correct": "B",
+      "explanation": "Peaked T-waves with K+ 6.4 indicate severe hyperkalaemia with cardiac toxicity. IV calcium gluconate is the FIRST intervention — it stabilises the myocardium within minutes (does not lower potassium, but protects the heart). Then: insulin + dextrose (shifts K+ into cells, works in 30 min), sodium bicarbonate (if acidosis), inhaled albuterol. Kayexalate removes potassium slowly and is not first-line in emergencies. Dialysis is definitive if refractory.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient on haemodialysis is found to have the following post-dialysis vitals: BP 85/55 mmHg, HR 118 bpm, dizziness. This MOST likely represents:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Hypertensive urgency",
+        "B": "Intradialytic hypotension",
+        "C": "Dialysis disequilibrium syndrome",
+        "D": "Air embolism"
+      },
+      "correct": "B",
+      "explanation": "Intradialytic hypotension (IDH) is the most common complication of haemodialysis — caused by rapid fluid removal exceeding compensatory mechanisms. Treatment: Trendelenburg position, saline bolus 100–200mL, reduce ultrafiltration rate. Dialysis disequilibrium presents with neurological symptoms (headache, nausea, seizure) in new dialysis patients from cerebral oedema. Air embolism presents with sudden chest pain and dyspnea.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is caring for a patient with SIADH. Which electrolyte imbalance and its CORRECT intervention are expected?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Hypernatraemia — give D5W IV",
+        "B": "Hyponatraemia — restrict free water intake",
+        "C": "Hyperkalaemia — administer furosemide",
+        "D": "Hyponatraemia — give IV 3% saline rapidly"
+      },
+      "correct": "B",
+      "explanation": "SIADH (Syndrome of Inappropriate ADH secretion) causes dilutional hyponatraemia from water retention. Mainstay treatment: fluid restriction 800–1000mL/day. IV 3% saline is reserved for severe symptomatic hyponatraemia (Na+ <120 with seizures) and must be infused SLOWLY (max correction 8-10 mEq/L in 24 hrs) to prevent osmotic demyelination syndrome (central pontine myelinolysis). D5W worsens dilutional hyponatraemia.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which assessment finding in a patient with nephrotic syndrome is expected?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Haematuria and oliguria",
+        "B": "Massive proteinuria, hypoalbuminaemia, oedema, and hyperlipidaemia",
+        "C": "Hypertension with elevated BUN/creatinine",
+        "D": "Polyuria and dilute urine"
+      },
+      "correct": "B",
+      "explanation": "Nephrotic syndrome triad: (1) massive proteinuria >3.5g/24hrs, (2) hypoalbuminaemia <3g/dL, (3) generalised oedema (periorbital, ascites, anasarca). Hyperlipidaemia and lipiduria are also classic. Haematuria and elevated BUN/creatinine suggest nephritic syndrome (inflammatory). Nursing: diuretics for oedema, low-sodium/high-protein diet, anticoagulation if albumin <2 (VTE risk), monitor for infections (loss of immunoglobulins).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient with CKD stage 4 has serum phosphate 6.2 mg/dL and complains of itching. The nurse anticipates which medication class?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Calcineurin inhibitors",
+        "B": "Phosphate binders (calcium carbonate or sevelamer)",
+        "C": "ACE inhibitors",
+        "D": "Loop diuretics"
+      },
+      "correct": "B",
+      "explanation": "In CKD, failing kidneys cannot excrete phosphate → hyperphosphataemia → calcium-phosphate product elevated → metastatic calcification and pruritus. KDIGO guidelines: phosphate binders taken with meals to bind dietary phosphate. Calcium-based binders (calcium carbonate): risk of hypercalcaemia and calcification if overused. Non-calcium binders (sevelamer) are preferred in advanced CKD. Dietary phosphate restriction is adjunct.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient with a urinary catheter develops fever 38.8°C, suprapubic pain, and cloudy malodorous urine. Which action is MOST appropriate?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Increase IV fluid rate and observe for 24 hours",
+        "B": "Obtain urine culture from catheter port, change catheter, and notify provider",
+        "C": "Remove catheter and send for urinalysis only",
+        "D": "Administer antipyretics and reassess in 4 hours"
+      },
+      "correct": "B",
+      "explanation": "CAUTI (Catheter-Associated UTI) diagnosis and management: obtain urine culture via the catheter sampling port (not the bag), replace the indwelling catheter before culturing to avoid biofilm contamination, notify provider for antibiotic prescription, and assess need for continued catheterisation. CAUTI prevention (CDC HICPAC): remove catheters as soon as clinically possible, use closed drainage system, hand hygiene.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient with a serum sodium of 120 mEq/L develops seizures. Which IV solution is CORRECT?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Lactated Ringer's (130 mEq/L Na)",
+        "B": "0.9% Normal saline (154 mEq/L Na)",
+        "C": "3% Hypertonic saline (513 mEq/L Na)",
+        "D": "D5W (0 mEq/L Na)"
+      },
+      "correct": "C",
+      "explanation": "Severe symptomatic hyponatraemia (Na <125 with seizures) requires 3% hypertonic saline to rapidly raise sodium and stop the seizure. Rate: 100mL IV bolus, then reassess. Target: raise Na by 4-6 mEq/L in the first hour to stop seizure, then slow the rate. Maximum safe correction: 8-10 mEq/L in 24 hours to prevent osmotic demyelination syndrome. D5W would worsen hyponatraemia; normal saline may not be concentrated enough for emergency correction.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient post-kidney transplant is on tacrolimus (FK506). Which finding suggests nephrotoxicity from the drug?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Blood pressure 140/90 mmHg",
+        "B": "Rising serum creatinine with supratherapeutic tacrolimus trough levels",
+        "C": "Mild tremors and headache",
+        "D": "Fasting blood glucose 130 mg/dL"
+      },
+      "correct": "B",
+      "explanation": "Calcineurin inhibitor (tacrolimus/cyclosporine) nephrotoxicity: rising creatinine + supratherapeutic drug trough levels. Tacrolimus trough target varies by time post-transplant (year 1: 8-12 ng/mL; maintenance: 5-8 ng/mL). Toxicity signs: decreased GFR, hyperkalemia. Must distinguish from acute rejection (also causes rising creatinine but with sub-therapeutic levels). Tremors and headache are side effects; hypertension and NODAT (new-onset diabetes) are common calcineurin inhibitor effects.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient with end-stage renal disease (ESRD) refuses dialysis. The nurse's BEST response is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Initiate dialysis anyway — ESRD is life-threatening",
+        "B": "Contact family members to override the decision",
+        "C": "Explore the patient's understanding, concerns, and goals; document the informed decision",
+        "D": "Refer immediately to psychiatry for competency evaluation"
+      },
+      "correct": "C",
+      "explanation": "Competent adults have the right to refuse life-sustaining treatment, including dialysis, even if it results in death. The nurse's role is to: ensure informed decision-making (patient understands consequences), explore values and concerns, document thoroughly, and refer to palliative care for symptom management and goals-of-care discussion. Overriding a competent patient's refusal is unethical and illegal. Psychiatric referral is appropriate only if competency is genuinely uncertain.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which dietary instruction is MOST appropriate for a patient with CKD stage 3b (eGFR 32 mL/min)?",
+      "question_type": "mcq",
+      "options": {
+        "A": "High protein diet (>1.5g/kg/day) to prevent muscle wasting",
+        "B": "Restrict protein (0.6-0.8g/kg/day), potassium, phosphate, and sodium",
+        "C": "Liberal fluid intake to maintain renal perfusion",
+        "D": "Increase dairy products for calcium supplementation"
+      },
+      "correct": "B",
+      "explanation": "KDIGO nutrition guidelines for non-dialysis CKD: protein restriction 0.6-0.8g/kg/day slows progression by reducing glomerular hyperfiltration and urea generation. Restrict potassium (impaired excretion → hyperkalaemia), phosphate (hyperphosphataemia → renal bone disease), and sodium (hypertension control). Fluid restriction is individualized. High protein accelerates CKD progression. Dairy is high in phosphorus and potassium — limit intake.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A post-operative patient receiving aggressive IV fluid resuscitation develops SpO2 88%, bilateral crackles, and a new S3 gallop. The nurse suspects fluid overload. FIRST nursing action:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Increase IV fluid rate to maintain urine output",
+        "B": "Stop or slow IV fluids and elevate head of bed 30-45°",
+        "C": "Administer morphine for anxiety",
+        "D": "Prepare for chest X-ray and observe"
+      },
+      "correct": "B",
+      "explanation": "Iatrogenic fluid overload causing pulmonary oedema: immediate priority is stopping the source (IV fluids), improving ventilation (HOB 30-45°), and applying supplemental oxygen. Then: IV furosemide, prepare for possible CPAP/NIV. S3 gallop + crackles + hypoxia = cardiogenic pulmonary oedema until proven otherwise. Increasing fluids is directly harmful. Chest X-ray is important but observation alone delays treatment.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient receiving peritoneal dialysis (PD) develops a cloudy, white peritoneal effluent with abdominal pain. This is MOST consistent with:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Normal fibrin in the dialysate",
+        "B": "Peritonitis — send dialysate for culture and administer intraperitoneal antibiotics",
+        "C": "Dialysate leakage requiring catheter replacement",
+        "D": "Ultrafiltration failure"
+      },
+      "correct": "B",
+      "explanation": "Peritonitis is the most serious complication of peritoneal dialysis. Cloudy effluent (WBC >100/μL with >50% neutrophils on dialysate microscopy) + abdominal pain is peritonitis until proven otherwise. Management: send effluent for cell count, Gram stain, and culture; start empirical intraperitoneal antibiotics (covering gram-positives and gram-negatives). Most PD peritonitis can be treated without catheter removal if caused by coagulase-negative Staph; persistent/fungal peritonitis requires catheter removal.",
+      "difficulty": "hard"
+    }
+  ],
   "clinical_cases": []
 }

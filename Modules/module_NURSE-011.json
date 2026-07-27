@@ -7,7 +7,9 @@
     "title_en": "Maternal Nursing: Antepartum & Complications",
     "order_in_specialty": 11,
     "level": "intermediate",
-    "prerequisite_modules": ["NURSE-001"],
+    "prerequisite_modules": [
+      "NURSE-001"
+    ],
     "duration_hours": 5,
     "version": "1.0",
     "verification_status": "passed",
@@ -166,6 +168,163 @@
       "difficulty": "medium"
     }
   ],
-  "mcq_questions": [],
+  "mcq_questions": [
+    {
+      "question": "A patient at 32 weeks gestation presents with sudden-onset bright red, painless vaginal bleeding. The nurse's PRIORITY action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Perform a vaginal exam to assess cervical dilation",
+        "B": "Place the patient in left lateral position and apply fetal monitor",
+        "C": "Prepare for immediate amniocentesis",
+        "D": "Encourage ambulation to stimulate labour"
+      },
+      "correct": "B",
+      "explanation": "Painless bright red bleeding at 32 weeks is placenta previa until proven otherwise. Vaginal exams are CONTRAINDICATED (can cause catastrophic haemorrhage). Priority: left lateral positioning (relieve aortocaval compression), continuous fetal monitoring, IV access, type and crossmatch, call provider. Diagnosis confirmed by ultrasound. Emergency C-section if haemodynamically unstable.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A primigravida at 38 weeks has BP 158/105 mmHg, 3+ proteinuria, and reports persistent severe headache and visual changes. Which diagnosis and intervention are CORRECT?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Gestational hypertension — start oral nifedipine and monitor",
+        "B": "Severe preeclampsia — initiate IV magnesium sulfate and prepare for delivery",
+        "C": "Chronic hypertension — continue home antihypertensives",
+        "D": "Mild preeclampsia — bed rest and repeat labs in 1 week"
+      },
+      "correct": "B",
+      "explanation": "Severe preeclampsia criteria (ACOG): BP ≥160/110 on two readings, severe symptoms (headache, visual changes, epigastric pain), plus proteinuria. IV magnesium sulfate 4-6g loading dose is given for seizure prophylaxis. Definitive treatment is delivery. Magnesium toxicity signs: loss of DTRs (first sign), RR <12, urinary output <25mL/hr. Calcium gluconate is the antidote.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A nurse is administering IV magnesium sulfate to a preeclamptic patient. Which finding requires the nurse to STOP the infusion immediately?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Flushing and mild diaphoresis",
+        "B": "Absent deep tendon reflexes and respiratory rate 10/min",
+        "C": "Urine output 30 mL/hr",
+        "D": "Serum magnesium level 5 mg/dL"
+      },
+      "correct": "B",
+      "explanation": "Absent DTRs (earliest clinical sign of toxicity) + RR <12 indicate severe magnesium toxicity. Stop infusion immediately and prepare calcium gluconate 1g IV (antidote). Therapeutic range: 4–7 mg/dL (2–3.5 mEq/L). Toxic: DTR loss at 7–10 mg/dL; respiratory arrest at 10–13 mg/dL. Mild flushing is an expected side effect, not toxicity.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient at 28 weeks is diagnosed with gestational diabetes mellitus (GDM). Which dietary instruction is CORRECT?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Follow a high-protein, carbohydrate-free diet",
+        "B": "Distribute carbohydrate intake evenly across 3 meals and 2–3 snacks daily",
+        "C": "Eliminate all fruit and dairy from the diet",
+        "D": "Follow the same diet as a non-pregnant diabetic patient"
+      },
+      "correct": "B",
+      "explanation": "ADA/ACOG recommendation: consistent carbohydrate distribution (175g/day minimum in pregnancy), not elimination. Three meals and 2-3 snacks prevent post-meal glucose spikes and fasting hypoglycaemia. Morning carbohydrate is limited (insulin resistance is highest in the morning). Blood glucose targets: fasting <95 mg/dL; 1-hr postprandial <140 mg/dL. Most GDM is managed with diet/exercise first.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "Which assessment finding in a postpartum patient at 12 hours after vaginal delivery requires IMMEDIATE nursing action?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Fundus firm, at umbilicus, slightly right of midline",
+        "B": "Saturating one perineal pad per hour for 3 consecutive hours",
+        "C": "Temperature 37.8°C on one reading",
+        "D": "Afterbirth pains rated 4/10 during breastfeeding"
+      },
+      "correct": "B",
+      "explanation": "Saturating >1 pad/hour is abnormal postpartum bleeding (PPH). Primary PPH occurs in the first 24 hours; most common cause is uterine atony. IMMEDIATE assessment: uterine tone (boggy uterus → fundal massage), bladder distension (full bladder displaces fundus, causes atony), vital signs. Notify provider, establish IV access, administer oxytocin. A single temperature of 37.8°C is not immediately concerning.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A nurse is teaching a breastfeeding patient about mastitis. Which statement by the patient indicates INCORRECT understanding?",
+      "question_type": "mcq",
+      "options": {
+        "A": "\"I should continue breastfeeding even when I have mastitis\"",
+        "B": "\"I need to stop breastfeeding immediately to let my breast heal\"",
+        "C": "\"I should complete the full antibiotic course even if I feel better\"",
+        "D": "\"Applying warm compresses before feeding may help drainage\""
+      },
+      "correct": "B",
+      "explanation": "Mastitis is an infection of breast tissue common in the first 6 weeks postpartum. WHO and ABM guidelines recommend CONTINUING breastfeeding (or pumping) — emptying the breast is therapeutic and does not harm the infant. Stopping breastfeeding increases risk of abscess formation. Treatment: antistaphylococcal antibiotics (dicloxacillin/cephalexin), supportive care, and continued emptying.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient at 36 weeks presents with severe abdominal pain described as 'tearing,' a rigid board-like abdomen, and minimal vaginal bleeding. Fetal heart tones are 80 bpm. This presentation is MOST consistent with:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Normal onset of labour",
+        "B": "Placenta previa",
+        "C": "Placental abruption (abruptio placentae)",
+        "D": "Braxton-Hicks contractions"
+      },
+      "correct": "C",
+      "explanation": "Placental abruption: sudden severe abdominal pain, rigid abdomen, dark vaginal bleeding (or concealed), fetal distress. Fetal bradycardia (80 bpm) indicates fetal compromise. This is an obstetric emergency: emergency C-section. Risk factors: hypertension, cocaine use, trauma, prior abruption. Distinct from placenta previa (painless bright red bleeding). DIC can complicate severe abruption.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which Rh-related nursing intervention is required for an Rh-negative mother who delivers an Rh-positive infant?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Administer Rh immunoglobulin (RhoGAM) within 72 hours of delivery",
+        "B": "No intervention is needed after delivery if RhoGAM was given at 28 weeks",
+        "C": "Give the infant RhoGAM to prevent haemolysis",
+        "D": "Perform exchange transfusion on the newborn"
+      },
+      "correct": "A",
+      "explanation": "Postpartum RhoGAM (300 mcg IM) must be given within 72 hours to an Rh-negative mother who delivers an Rh-positive infant. RhoGAM at 28 weeks is antenatal prophylaxis — postpartum dose is still required. Without it, the mother develops anti-D antibodies that attack Rh-positive fetuses in future pregnancies (erythroblastosis fetalis). RhoGAM is given to the mother, not the infant.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient who delivered 4 days ago calls the clinic reporting feeling 'sad and tearful' and occasionally overwhelmed. She is sleeping and eating adequately and is caring for her infant. This MOST likely represents:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Postpartum psychosis requiring immediate hospitalization",
+        "B": "Postpartum blues — a normal, self-limiting condition",
+        "C": "Postpartum depression requiring antidepressant therapy",
+        "D": "Normal adjustment that requires no follow-up"
+      },
+      "correct": "B",
+      "explanation": "Postpartum blues affect 50–75% of mothers, beginning day 2–3 and resolving by day 10–14 without treatment. Symptoms: tearfulness, mood swings, anxiety — while maintaining functional ability. Postpartum depression (PPD) persists >2 weeks, impairs functioning, and requires SSRI ± therapy. Postpartum psychosis is rare, rapid-onset (<72 hrs), with delusions/hallucinations — a psychiatric emergency. Edinburgh Postnatal Depression Scale (EPDS) screens at 2-week and 6-week visits.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A primigravida at 41 weeks undergoes labour induction with misoprostol (Cytotec). Twenty minutes after insertion, the fetal monitor shows a 7-minute contraction with late decelerations. The nurse's FIRST action is:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Increase the IV oxytocin infusion",
+        "B": "Remove the misoprostol insert and prepare for tocolysis",
+        "C": "Administer oxygen at 10L/min via non-rebreather mask",
+        "D": "Notify the provider and document"
+      },
+      "correct": "B",
+      "explanation": "Tachysystole (>5 contractions in 10 min) with late decelerations indicates uterine hyperstimulation causing uteroplacental insufficiency. For misoprostol: remove the vaginal insert immediately. For oxytocin: stop infusion. Then: lateral positioning, IV fluid bolus, supplemental oxygen. Tocolysis (terbutaline 0.25mg SQ) may be needed if tachysystole persists. NEVER increase oxytocin when tachysystole is occurring.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which TORCH infection transmitted during pregnancy causes periventricular calcifications and chorioretinitis in the newborn?",
+      "question_type": "mcq",
+      "options": {
+        "A": "Toxoplasmosis",
+        "B": "Cytomegalovirus (CMV)",
+        "C": "Rubella",
+        "D": "Herpes simplex virus (HSV)"
+      },
+      "correct": "B",
+      "explanation": "Congenital CMV is the most common congenital infection and the leading infectious cause of hearing loss and neurodevelopmental disability. Classic findings: periventricular calcifications, chorioretinitis, microcephaly, sensorineural hearing loss. CMV is transmitted via urine, saliva, breast milk. Toxoplasmosis causes diffuse intracranial calcifications. Rubella causes cataracts, cardiac defects, deafness (congenital rubella syndrome). HSV causes encephalitis.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient at 20 weeks is newly diagnosed with placenta previa. She is asymptomatic. The nurse should educate her to AVOID:",
+      "question_type": "mcq",
+      "options": {
+        "A": "Prenatal vitamins and iron supplementation",
+        "B": "Pelvic rest — no sexual intercourse, vaginal exams, or tampons",
+        "C": "Light walking and low-impact exercise",
+        "D": "All travel outside the home"
+      },
+      "correct": "B",
+      "explanation": "Placenta previa (placenta covering the cervical os) requires pelvic rest: no vaginal intercourse, vaginal exams, or anything inserted into the vagina. These can trigger catastrophic haemorrhage by disturbing the placenta overlying the os. Many placenta previas resolve by 28–32 weeks as the lower uterine segment develops. Ultrasound follow-up at 28-32 weeks is standard. Iron supplementation is recommended due to haemorrhage risk.",
+      "difficulty": "medium"
+    }
+  ],
   "clinical_cases": []
 }

@@ -1,0 +1,239 @@
+{
+  "meta": {
+    "id": "NURSE-012",
+    "specialty": "Nursing",
+    "title": "Cardiovascular Nursing: Assessment, Arrhythmias & ACS",
+    "duration_hours": 3,
+    "sources": [
+      "AHA/ACC 2023 Coronary Artery Disease Guidelines",
+      "AHA 2019 Focused Update on Advanced Cardiovascular Life Support",
+      "ESC 2023 Acute Coronary Syndrome Guidelines",
+      "AACN Essentials of Critical Care Nursing, 4th ed.",
+      "Brunner & Suddarth's Medical-Surgical Nursing, 15th ed."
+    ]
+  },
+  "lessons": [
+    {
+      "id": "NURSE-012-L01",
+      "title": "Cardiovascular Assessment: The Nurse's Systematic Approach",
+      "order": 1,
+      "lay_summary": "Learn how to assess the heart and circulation from head to toe — what to look for, listen for, and measure to catch problems early.",
+      "content": {
+        "intro": "Cardiovascular assessment is the cornerstone of nursing in any setting. Because cardiovascular disease remains the leading cause of death worldwide (WHO, 2023), every nurse must master a rapid, systematic approach that can detect deterioration before it becomes catastrophic. This lesson follows the IPPA framework — Inspection, Palpation, Percussion, Auscultation — adapted for the cardiovascular system.",
+        "sections": [
+          {
+            "title": "History and Risk Stratification",
+            "body": "Begin every cardiovascular assessment with a targeted history. Ask about chest pain (character, radiation, onset, duration, alleviating/aggravating factors — use PQRST: Provokes, Quality, Radiates, Severity 1-10, Timing). Identify modifiable risk factors: hypertension, dyslipidaemia, diabetes mellitus, smoking, obesity, physical inactivity, and diet. Non-modifiable: age (men >45, women >55), sex assigned at birth, family history of premature cardiovascular disease (<55 men, <65 women). Document current medications especially antiplatelets, anticoagulants, antihypertensives, and diuretics. Ask about previous cardiac events, procedures (CABG, PCI, valve replacement), and implanted devices (pacemaker, ICD)."
+          },
+          {
+            "title": "Vital Signs and Haemodynamic Assessment",
+            "body": "Blood pressure: measure in both arms (>15 mmHg difference suggests subclavian stenosis or aortic dissection). Orthostatic BPs (lying→sitting→standing, 3 min intervals): a drop >20 systolic or >10 diastolic indicates orthostatic hypotension. Normal BP: <120/80 mmHg (ACC/AHA 2017). Pulse: rate, rhythm (regular/irregular), strength (bounding in aortic regurgitation, weak/thready in shock). Check radial and bilateral pedal pulses simultaneously. Respiratory rate and SpO2: tachypnoea and hypoxia suggest heart failure. Temperature: fever with new murmur → think endocarditis. Note: in septic shock, fever + tachycardia + warm skin ('warm shock'); in cardiogenic shock, cool/clammy skin with hypotension."
+          },
+          {
+            "title": "Inspection and Palpation of the Chest",
+            "body": "Inspect: JVD (jugular venous distension — elevated in right heart failure, cardiac tamponade, constrictive pericarditis; estimate JVP with patient at 45°, normal <4 cm above sternal angle). Note: JVD at 45° + inspiratory increase (Kussmaul's sign) → constrictive pericarditis. Visible PMI (point of maximal impulse) displaced left of MCL: cardiomegaly. Peripheral oedema: bilateral pitting oedema in ankles/legs → right heart failure or venous insufficiency; unilateral → consider DVT. Skin changes: clubbing (chronic hypoxia), cyanosis (central vs. peripheral), xanthomas (hyperlipidaemia), splinter haemorrhages (endocarditis). Palpate the precordium: PMI at 5th ICS, MCL — >2.5 cm = ventricular enlargement. Thrill (palpable murmur): pathological. Heaves: RV heave at left lower sternal border."
+          },
+          {
+            "title": "Cardiac Auscultation",
+            "body": "Use the diaphragm for high-pitched sounds (S1, S2, murmurs); bell for low-pitched (S3, S4). Auscultate 4 areas systematically: Aortic (2nd ICS, RSB), Pulmonic (2nd ICS, LSB), Tricuspid (4th ICS, LSB), Mitral (5th ICS, MCL — apex). S1 ('lub'): closure of mitral and tricuspid valves; marks beginning of systole. S2 ('dub'): closure of aortic and pulmonic valves; marks end of systole. Splitting of S2: physiologic (widens with inspiration), fixed (ASD), paradoxical (LBBB, severe AS). Abnormal sounds: S3 (early diastole — 'Kentucky', sounds like S1-S2-S3): HF, dilated cardiomyopathy. S4 (late diastole — 'Tennessee'): stiff non-compliant ventricle in HTN, MI, HCM. Murmurs: systolic (between S1-S2) or diastolic (between S2-S1). Grade I-VI/VI intensity. Aortic stenosis: harsh crescendo-decrescendo systolic at aortic area radiating to neck. Mitral regurgitation: holosystolic at apex radiating to axilla. Mitral stenosis: low-pitched diastolic rumble at apex."
+          },
+          {
+            "title": "12-Lead ECG Interpretation Fundamentals",
+            "body": "The 12-lead ECG is the nurse's primary tool for cardiac rhythm and ischaemia assessment. Rate: 300÷large squares between R-waves (regular rhythm), or count R-waves in 6-second strip × 10. Normal: 60-100 bpm. Rhythm: regular vs. irregular; if irregular — is it regularly irregular (bigeminy) or irregularly irregular (AF)? P waves: present before every QRS? One-to-one? Upright in I, II, aVF? PR interval: 0.12-0.20 sec (3-5 small squares); prolonged → 1st degree AV block. QRS: <0.12 sec (3 small squares); wide → BBB, ventricular rhythm, hyperkalaemia, certain drugs. QT/QTc: normal <440 ms men, <460 ms women; prolonged → torsades risk (hypoMg, antipsychotics, fluoroquinolones). ST segment: elevation >1mm in 2 contiguous leads = STEMI until proven otherwise; depression = ischaemia/NSTEMI or digoxin effect. T waves: peaked (hyperkalaemia), inverted (ischaemia, PE — right heart strain). Localisation: Inferior (II, III, aVF — RCA), Lateral (I, aVL, V5-V6 — LCx), Anterior (V1-V4 — LAD)."
+          }
+        ],
+        "clinical_pearl": "The classic teaching that MI presents as crushing substernal chest pain radiating to the left arm is based on male presentations. Women, elderly, and diabetic patients frequently present with 'atypical' symptoms: nausea, fatigue, jaw pain, or diaphoresis without chest pain. Always maintain a high index of suspicion and obtain a 12-lead ECG within 10 minutes of first medical contact for any patient with unexplained diaphoresis, dyspnea, or new-onset weakness.",
+        "key_points": [
+          "Assess both arms for BP; >15 mmHg difference is clinically significant",
+          "JVD at 45° + Kussmaul's sign = constrictive pericarditis",
+          "S3 = heart failure in adults; S4 = stiff ventricle (HTN, MI)",
+          "12-lead ECG within 10 minutes of first medical contact in suspected ACS",
+          "Women, elderly, and diabetics often present with atypical MI symptoms"
+        ],
+        "references": [
+          "AHA/ACC 2023 Guideline for Coronary Artery Disease",
+          "Jarvis C. Physical Examination & Health Assessment, 8th ed. Elsevier, 2024",
+          "AACN Essentials of Critical Care Nursing, 4th ed."
+        ]
+      }
+    },
+    {
+      "id": "NURSE-012-L02",
+      "title": "Cardiac Arrhythmias: Recognition and Nursing Management",
+      "order": 2,
+      "lay_summary": "Understand why hearts beat irregularly and what nurses do about it — from simple skipped beats to dangerous rhythms that need immediate action.",
+      "content": {
+        "intro": "Cardiac arrhythmias range from benign premature beats requiring only reassurance to life-threatening ventricular fibrillation demanding immediate defibrillation. Every nurse must be able to recognise key rhythms on a monitor strip and implement the appropriate nursing response — often before a physician arrives.",
+        "sections": [
+          {
+            "title": "Bradyarrhythmias",
+            "body": "Sinus bradycardia (HR <60): common in athletes, on beta-blockers, or with hypothyroidism/hypothermia. Treat only if symptomatic (hypotension, syncope, chest pain): atropine 0.5mg IV (repeat q3-5 min, max 3mg); transcutaneous pacing for refractory cases. Sinus node dysfunction (sick sinus syndrome): alternating bradycardia and tachycardia; often requires permanent pacemaker. AV Blocks: 1st degree — prolonged PR (>0.20 sec), no treatment. 2nd degree Mobitz I (Wenckebach) — PR progressively lengthens until a QRS drops; usually benign. 2nd degree Mobitz II — constant PR with sudden dropped QRS; HIGH RISK for complete heart block; requires pacemaker. 3rd degree (complete AV block) — no relationship between P waves and QRS; junctional or ventricular escape rhythm; emergency pacing required. Nursing: atropine 0.5mg IV, prepare for transcutaneous pacing, prepare for transvenous pacing. Identify and treat reversible causes: Hs (hypoxia, hypovolaemia, hydrogen ion, hypo/hyperkalaemia, hypothermia) and Ts (tension pneumothorax, tamponade, toxins, thrombosis)."
+          },
+          {
+            "title": "Supraventricular Tachyarrhythmias",
+            "body": "Sinus tachycardia (HR >100): regular, P before every QRS. Treat the underlying cause (pain, fever, hypovolaemia, anxiety, anaemia) — never give rate-control agents without identifying the cause. Atrial Fibrillation (AF): irregularly irregular rhythm, no discrete P waves, f-waves at 350-600/min. Most common sustained arrhythmia; affects 2.7-6.1 million Americans (CDC). Rate control (goal HR <110 at rest): metoprolol, diltiazem, digoxin. Rhythm control: amiodarone, flecainide, cardioversion. Anticoagulation: CHA₂DS₂-VASc score ≥2 (men) or ≥3 (women) → DOAC or warfarin (INR 2-3) to prevent stroke (AF causes 20-30% of ischaemic strokes). New-onset AF <48 hrs: may cardiovert without anticoagulation; >48 hrs or unknown duration: anticoagulate ≥3 weeks before elective cardioversion or rule out LA thrombus by TOE. SVT/AVNRT: regular, narrow-complex tachycardia (HR 150-250); P buried in QRS. Vagal manoeuvres (Valsalva, carotid sinus massage — one side only). Adenosine 6mg rapid IV push + 20mL saline flush (increase to 12mg if needed); warn patient of brief chest tightness and 'feeling of doom'. Contraindicated: Wolff-Parkinson-White (risk of AF degeneration and VF). Atrial Flutter: 'sawtooth' flutter waves at 300/min; 2:1 conduction → ventricular rate 150. Anticoagulate as AF."
+          },
+          {
+            "title": "Ventricular Arrhythmias",
+            "body": "Premature Ventricular Contractions (PVCs): wide, bizarre QRS with compensatory pause. Occasional PVCs in structurally normal hearts: benign. Concerning patterns: R-on-T phenomenon (PVC falls on T wave of previous beat — can precipitate VF), couplets/triplets, multifocal PVCs in setting of MI. Ventricular Tachycardia (VT): ≥3 consecutive PVCs, rate >100. Monomorphic VT (regular, same QRS): if pulse present and stable → amiodarone 150mg IV over 10 min + electrical cardioversion on standby. If pulseless VT → defibrillate (same as VF). Polymorphic VT (varying QRS morphology, including Torsades de Pointes with twisting QRS): IV magnesium sulphate 1-2g IV is first-line; correct QTc-prolonging drugs and electrolytes; overdrive pacing for recurrent Torsades. Ventricular Fibrillation (VF): chaotic, disorganised electrical activity; no cardiac output; DEATH within minutes without intervention. IMMEDIATE unsynchronised defibrillation (200J biphasic). Begin CPR immediately if defibrillator not ready. AHA ACLS algorithm: CPR 2 min → defibrillate → CPR 2 min → epinephrine 1mg IV q3-5 min → CPR → defibrillate → CPR → amiodarone 300mg IV. Identify and treat Hs and Ts."
+          },
+          {
+            "title": "Pacemakers and ICDs: Nursing Considerations",
+            "body": "Pacemaker function: paces (generates impulse) and/or senses (detects intrinsic beats) in the atrium (A), ventricle (V), or both (D — dual chamber). ICHD nomenclature: VVI (paces and senses ventricle, inhibited by sensed beat — most common). DDD (senses and paces both chambers — most physiological). Assessing pacemaker function: check for pacing spikes on ECG; confirm capture (QRS follows spike); confirm sensing (no unnecessary pacing during intrinsic rhythm). Pacemaker failure: Loss of capture (spike without QRS): assess BP, may require increased output or lead replacement. Loss of sensing (pacing despite intrinsic beats = competition): dangerous if spike falls on T wave → VF risk. Runaway pacemaker (rare, very fast pacing): apply magnet to convert to fixed rate, urgent device interrogation. ICD (Implantable Cardioverter-Defibrillator): delivers shock for VT/VF. After shock delivery: therapeutic shock → normal; inappropriate shock (for AF, lead failure) → device interrogation. Magnet application: temporarily suspends ICD therapy (use only in hospital with resuscitation backup). Patient education: avoid strong electromagnetic fields (MRI — check device compatibility; airport security wands; large industrial motors). Pacemaker/ICD patients and CPR: compressions can be performed normally."
+          }
+        ],
+        "clinical_pearl": "When a patient is in narrow-complex tachycardia at exactly 150 bpm, always think atrial flutter with 2:1 block first. The flutter waves may be hidden in the QRS and T waves but become visible after adenosine transiently slows the ventricular rate, unmasking the characteristic sawtooth pattern.",
+        "key_points": [
+          "Mobitz II AV block → high risk for complete heart block → pacemaker urgently",
+          "AF: anticoagulate if CHA₂DS₂-VASc ≥2 (men) or ≥3 (women)",
+          "Pulseless VT and VF: IMMEDIATELY defibrillate, begin ACLS",
+          "Torsades de Pointes: IV magnesium sulphate 1-2g, stop QTc-prolonging drugs",
+          "Narrow tachycardia at 150 bpm → think atrial flutter 2:1 first"
+        ],
+        "references": [
+          "AHA 2020 ACLS Guidelines",
+          "ACC/AHA/HRS 2019 Atrial Fibrillation Guideline",
+          "AACN Procedure Manual for Critical Care, 7th ed."
+        ]
+      }
+    },
+    {
+      "id": "NURSE-012-L03",
+      "title": "Acute Coronary Syndrome: STEMI, NSTEMI & Unstable Angina",
+      "order": 3,
+      "lay_summary": "A heart attack happens when a blood vessel gets blocked — learn what to do in the first critical minutes and how to care for patients through recovery.",
+      "content": {
+        "intro": "Acute Coronary Syndrome (ACS) encompasses the spectrum from unstable angina to NSTEMI to STEMI, all caused by atheromatous plaque rupture and coronary thrombosis. ACS is a time-critical emergency — 'time is muscle.' Every minute of delay in STEMI reperfusion costs approximately 1.9 additional deaths per 1000 patients (Boersma et al., Lancet 1996 — still cited in current guidelines). The nurse is often the first clinician to identify ACS and initiate the response.",
+        "sections": [
+          {
+            "title": "Pathophysiology and Classification",
+            "body": "The common mechanism: rupture of a vulnerable atherosclerotic plaque exposes subendothelial collagen, activating platelets (adhesion → activation → aggregation) and the coagulation cascade, forming a thrombus. STEMI: complete occlusion → transmural ischaemia → ST elevation in contiguous leads → emergent reperfusion (PCI or fibrinolysis). NSTEMI: partial occlusion → subendothelial ischaemia → troponin elevation WITHOUT persistent ST elevation → early invasive strategy within 24 hours. Unstable Angina: partial occlusion or severe vasospasm → chest pain at rest or accelerating pattern → NO troponin elevation → same initial management as NSTEMI. ACS mnemonic: think of three C's — thrombus (Clot), ischaemia (Compromised flow), necrosis (Cell death). Biomarkers: Troponin I and T (cardiac-specific, rise within 3-6 hrs, peak 12-24 hrs, remain elevated 7-14 days — used for diagnosis). CK-MB (rises within 4-6 hrs, peaks 18-24 hrs, normalises in 3-4 days — used to detect reinfarction). BNP/NT-proBNP: elevated with concomitant heart failure."
+          },
+          {
+            "title": "Initial Nursing Assessment and Interventions",
+            "body": "Presentation: chest pain/pressure/tightness (may radiate to left arm, jaw, neck, epigastrium), diaphoresis, nausea, dyspnoea, palpitations. Atypical: women, diabetics, and elderly may present with fatigue, shortness of breath, or epigastric discomfort only. IMMEDIATE nursing actions (within 10 minutes): 1. 12-lead ECG — assess for ST changes, identify location of ischaemia. 2. IV access × 2 (large bore). 3. Cardiac monitor + pulse oximetry. 4. Vital signs. 5. Brief targeted history (symptom onset, allergies, last meal for PCI planning). 6. Medications: MONA-BASH mnemonic — Morphine (small IV doses for refractory pain, use cautiously as it may mask symptoms), Oxygen (only if SpO2 <90%), Nitrates (SL nitroglycerin q5 min ×3, then IV if ongoing pain; CONTRAINDICATED if SBP <90, HR <50, right ventricular infarction, or PDE5 inhibitor use within 24-48 hrs), Aspirin 325mg chewed (immediately, unless allergy). Beyond MONA: Beta-blocker (oral, if no contraindications: Killip class I-II, HR >60, no bronchospasm), Anticoagulation (heparin or bivalirudin for STEMI PCI), Statin (high-intensity), P2Y12 inhibitor (ticagrelor or clopidogrel in addition to aspirin = DAPT). STEMI: activate cath lab immediately ('Code STEMI'). Door-to-balloon time <90 minutes (PCI-capable hospital) or <120 minutes if transfer required (AHA/ACC target)."
+          },
+          {
+            "title": "Right Ventricular Infarction",
+            "body": "RV infarction complicates approximately 40% of inferior STEMIs (II, III, aVF elevation from RCA occlusion). Clinical triad: hypotension + clear lungs + elevated JVD (Beck's triad variant). Diagnosis: right-sided ECG leads (place V4R — ST elevation ≥1mm confirms RV MI). CRITICAL management difference: RV infarction requires VOLUME (fluid resuscitation 250-500mL boluses to maintain preload), NOT diuretics. Nitroglycerin and other preload-reducing agents are CONTRAINDICATED — they precipitate severe hypotension. Inotropic support (dobutamine) may be required. Avoid negative chronotropes — these patients are dependent on heart rate to maintain output. Maintain AV synchrony — AF in RV MI causes severe haemodynamic compromise requiring urgent cardioversion."
+          },
+          {
+            "title": "Post-ACS Nursing Care and Secondary Prevention",
+            "body": "Post-PCI care: vascular access site monitoring (radial: assess for haematoma, check Allen's test; femoral: apply pressure, monitor groin). Assess contrast nephropathy: creatinine at 24-48 hrs, maintain good hydration. Medications (ensure discharge prescription): Aspirin lifelong, P2Y12 inhibitor (ticagrelor/clopidogrel) for minimum 12 months after STEMI, Beta-blocker (reduces mortality post-MI, continue indefinitely if LVEF ≤40%), ACE inhibitor/ARB (reduce adverse remodelling, mandatory if LVEF ≤40% or DM), High-intensity statin (atorvastatin 40-80mg), Aldosterone antagonist (eplerenone if LVEF ≤40% + HF or DM), Anticoagulation if AF or LV thrombus. Secondary prevention education: smoking cessation (MOST effective single intervention — halves cardiovascular events), cardiac rehabilitation (reduces mortality 26%), dietary changes (Mediterranean diet reduces events 30% — PREDIMED trial), physical activity goal 150 min/week moderate intensity. Watch for complications: dysrhythmias (peak 24-48 hrs), pericarditis (days 2-5, friction rub, pleuritic chest pain), Dressler syndrome (weeks later, fever + pericarditis), ventricular aneurysm, cardiogenic shock."
+          }
+        ],
+        "clinical_pearl": "Right ventricular infarction is a trap for nurses who have not seen it before. The patient looks like heart failure (hypotension, JVD) but the lungs are CLEAR because the problem is on the right side. Giving IV nitroglycerin or furosemide — the usual response to a hypotensive patient with JVD — can cause cardiovascular collapse. Right-sided ECG leads are the key: if you see ST elevation in inferior leads, routinely check V4R.",
+        "key_points": [
+          "Door-to-balloon <90 min for STEMI — time is muscle",
+          "Aspirin 325mg chewed immediately in all suspected ACS",
+          "Nitroglycerin CONTRAINDICATED in RV infarction, SBP <90, PDE5 inhibitors",
+          "RV infarction: treat with VOLUME, not diuretics or nitrates",
+          "Cardiac rehab reduces post-MI mortality by 26% — always refer"
+        ],
+        "references": [
+          "AHA/ACC 2023 Guideline for Management of Patients with Acute Coronary Syndromes",
+          "O'Gara PT et al. 2013 ACCF/AHA STEMI Guideline. JACC 2013;61(4):e78-e140",
+          "Boersma E et al. Lancet 1996;348:771-775"
+        ]
+      }
+    },
+    {
+      "id": "NURSE-012-L04",
+      "title": "Heart Failure: Assessment, Classification & Management",
+      "order": 4,
+      "lay_summary": "Heart failure means the heart can't pump well enough — learn the warning signs, how to classify it, and the nursing care that keeps patients out of hospital.",
+      "content": {
+        "intro": "Heart failure (HF) affects over 6.7 million Americans aged ≥20 (AHA Heart Disease and Stroke Statistics 2023) and is the leading cause of hospitalisation in patients over 65. Critically, HF is a syndrome, not a diagnosis — it results from many underlying conditions including coronary artery disease, hypertension, valvular disease, and cardiomyopathy. Understanding HF phenotypes (HFrEF vs. HFpEF) is essential because management strategies differ significantly.",
+        "sections": [
+          {
+            "title": "Pathophysiology and Classification",
+            "body": "Heart failure with reduced ejection fraction (HFrEF): LVEF <40%; systolic dysfunction, impaired contractility. Primary treatment: ACEi/ARB, beta-blocker, MRA, SGLT2 inhibitor — the '4 pillars' of HFrEF therapy per ACC/AHA 2022. Heart failure with preserved ejection fraction (HFpEF): LVEF ≥50%; diastolic dysfunction, impaired relaxation, stiff ventricle. Common in older women with hypertension and obesity. Treatment: diuresis for congestion, blood pressure control, SGLT2 inhibitors now shown to reduce hospitalisation (EMPEROR-Preserved trial, 2021). NYHA Functional Classification: I — no symptoms with ordinary activity; II — mild symptoms with moderate exertion; III — marked limitation, comfortable at rest but symptoms with minimal exertion; IV — symptoms at rest, unable to perform any physical activity. ACC/AHA Staging: A (risk factors only, no structural disease) → B (structural disease, no symptoms) → C (structural disease + current or prior symptoms) → D (refractory HF, advanced therapies needed). Neurohormonal activation: decreased CO → RAAS activation (angiotensin II + aldosterone) → vasoconstriction + sodium/water retention → increased preload and afterload → worsening HF (vicious cycle). SNS activation → tachycardia + increased contractility (short-term compensation, long-term deleterious remodelling)."
+          },
+          {
+            "title": "Assessment: Distinguishing Wet vs. Dry, Cold vs. Warm",
+            "body": "The Stevenson classification (Forrester modification) guides HF management: Warm-Dry (compensated, goal state), Warm-Wet (congestion without hypoperfusion — diurese), Cold-Dry (low output without congestion — volume cautiously + inotrope), Cold-Wet (cardiogenic shock — most challenging, inotropes + diuresis). Assess congestion: dyspnoea (NYHA class), orthopnoea (SOB lying flat — ask: how many pillows?), paroxysmal nocturnal dyspnoea (waking from sleep gasping), bilateral leg oedema (pit or non-pitting, distribution), JVD, ascites, hepatomegaly (hepatojugular reflux), pulmonary crackles, weight gain (>2 kg in 3 days = fluid retention — key monitoring metric). Assess perfusion: BP (pulse pressure <25% suggests low CO), CRT >3 sec, cool extremities, altered mentation, oliguria, narrow pulse pressure, weak peripheral pulses. Haemodynamic monitoring: BNP >100 pg/mL or NT-proBNP >300 pg/mL supports HF diagnosis; correlates with severity. PCWP (pulmonary capillary wedge pressure) from pulmonary artery catheter: >18 mmHg = pulmonary congestion; CI <2.2 L/min/m² = low output."
+          },
+          {
+            "title": "Medical Management and the 4 Pillars of HFrEF",
+            "body": "The 4 pillars of HFrEF therapy reduce mortality and hospitalisation (ACC/AHA 2022 Guideline): 1. RAAS Blockade: ACE inhibitor (e.g., enalapril, lisinopril) or ARB (losartan) if ACEi intolerant. ARNI (Sacubitril/valsartan — Entresto) superior to ACEi alone in PARADIGM-HF trial — preferred in stable HFrEF. Nursing: monitor creatinine, potassium, BP. Avoid NSAIDs (counteract RAAS blockade, worsen renal function). 2. Beta-blockers: only carvedilol, metoprolol succinate, bisoprolol proven to reduce mortality. START low, go slow — initiate when euvolaemic (not in acute decompensation). Nursing: monitor HR, BP, signs of bronchospasm (contraindicated in reactive airway disease). 3. Mineralocorticoid receptor antagonists (MRAs): spironolactone or eplerenone — reduce mortality in HFrEF (RALES trial). Contraindicated if K+ >5.0 mEq/L or Cr >2.5 mg/dL. Monitor K+. 4. SGLT2 inhibitors: dapagliflozin (DAPA-HF), empagliflozin (EMPEROR-Reduced) — reduce HF hospitalisation and CV death regardless of DM status. Mechanism: osmotic diuresis + multiple cardioprotective effects. Monitor for DKA (rare but potentially euglycaemic), genital mycotic infections. Diuretics (loop diuretics — furosemide, torsemide): most effective for symptomatic relief of congestion. Not proven to reduce mortality. Dosing: oral furosemide bioavailability variable (40-60%); IV furosemide 0.5-1 mg/kg bolus in acute decompensation. Monitor urine output, electrolytes (hypokalaemia, hypomagnesaemia), creatinine."
+          },
+          {
+            "title": "Nursing Management and Patient Education",
+            "body": "Daily weight monitoring: weigh every morning after first void, before breakfast, in same clothing. Report to provider if weight increases >2 lbs (0.9 kg) in 1 day or >5 lbs (2.3 kg) in 1 week — this indicates fluid retention. Sodium restriction: <2g/day (2000 mg) — read food labels, avoid canned goods, processed foods, restaurant food. Fluid restriction: <1500-2000 mL/day for NYHA III-IV (all fluids including soups, ice cream). Medication adherence: never skip diuretics; never take NSAIDs (ibuprofen, naproxen) — cause sodium retention and renal impairment. Symptom monitoring: teach the 'HF symptom diary' — daily weight, oedema, dyspnoea, energy level. When to call: weight increase >2 lbs overnight, new/worsening ankle oedema, inability to lie flat, dyspnoea at rest. Activity: cardiac rehabilitation, moderate activity as tolerated; avoid heavy lifting and extreme temperatures. Immunisations: annual influenza vaccine (reduces HF hospitalisation), pneumococcal vaccine. Device therapy: CRT (cardiac resynchronisation therapy) for HFrEF with LBBB and QRS ≥150 ms; ICD if LVEF ≤35% and on optimal medical therapy ≥3 months (for sudden death prevention)."
+          }
+        ],
+        "clinical_pearl": "The single most powerful tool for preventing HF readmission is the daily weight log. One kilogram of weight gain represents approximately one litre of fluid retention — this typically precedes overt symptoms (dyspnoea, oedema) by 3-5 days, providing a critical window for intervention. Teach every HF patient: 'The scale tells you before your body does.'",
+        "key_points": [
+          "4 pillars of HFrEF: RAAS blockade, beta-blocker, MRA, SGLT2 inhibitor",
+          "Beta-blockers START when euvolaemic — never initiate in acute decompensation",
+          "Daily weight: >2 lbs/day or >5 lbs/week → call provider",
+          "NSAIDs are CONTRAINDICATED in HF — worsen fluid retention and renal function",
+          "SGLT2 inhibitors now reduce HF hospitalisation in both HFrEF and HFpEF"
+        ],
+        "references": [
+          "Heidenreich PA et al. 2022 AHA/ACC/HFSA Guideline for the Management of Heart Failure. JACC 2022;79(17):e263-e421",
+          "McMurray JJV et al. (PARADIGM-HF) N Engl J Med 2014;371:993-1004",
+          "Anker SD et al. (EMPEROR-Reduced) N Engl J Med 2020;383:1413-1424"
+        ]
+      }
+    }
+  ],
+  "mcq_questions": [
+    {
+      "question": "A patient presents with BP 85/60, elevated JVD, and clear lungs 6 hours after inferior STEMI. Right-sided ECG shows ST elevation in V4R. Which intervention is the PRIORITY?",
+      "question_type": "mcq",
+      "options": {"A": "IV furosemide 40mg", "B": "SL nitroglycerin", "C": "IV normal saline 250mL bolus", "D": "IV metoprolol"},
+      "correct": "C",
+      "explanation": "This presentation is classic right ventricular infarction (inferior STEMI + hypotension + clear lungs + elevated JVD + V4R ST elevation). RV infarction is preload-dependent — IV fluids are the treatment. Furosemide and nitroglycerin are CONTRAINDICATED (reduce preload, precipitate cardiovascular collapse). Negative chronotropes worsen RV output.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient with HFrEF (LVEF 30%) is euvolaemic on lisinopril and carvedilol. Per current ACC/AHA guidelines, what ADDITIONAL medications should be considered?",
+      "question_type": "mcq",
+      "options": {"A": "Digoxin and furosemide only", "B": "Spironolactone and an SGLT2 inhibitor", "C": "Amiodarone and aspirin", "D": "Calcium channel blocker and hydralazine"},
+      "correct": "B",
+      "explanation": "ACC/AHA 2022: HFrEF management requires 4 pillars — RAAS blocker (✓ lisinopril), beta-blocker (✓ carvedilol), MRA (spironolactone), and SGLT2 inhibitor (dapagliflozin or empagliflozin). All four reduce mortality/hospitalisation. Calcium channel blockers (non-dihydropyridines) are contraindicated in HFrEF. Digoxin has no mortality benefit.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "A patient on the cardiac monitor shows a regular narrow-complex tachycardia at exactly 150 bpm. After adenosine 6mg IV, the rate slows briefly and the nurse notes sawtooth flutter waves at 300/min. Which rhythm was present?",
+      "question_type": "mcq",
+      "options": {"A": "Sinus tachycardia", "B": "AVNRT (SVT)", "C": "Atrial flutter with 2:1 block", "D": "Ventricular tachycardia"},
+      "correct": "C",
+      "explanation": "Atrial flutter at 300/min with 2:1 conduction produces a ventricular rate of exactly 150 bpm. Flutter waves are often hidden in QRS and T waves at 2:1 conduction. Adenosine temporarily blocks the AV node, slowing ventricular rate and unmasking the sawtooth pattern. Management: rate control (diltiazem, beta-blocker) and anticoagulation (as per AF protocol).",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient with new AF (onset unknown) has a CHA₂DS₂-VASc score of 3. He is haemodynamically stable. Which anticoagulation plan is CORRECT?",
+      "question_type": "mcq",
+      "options": {"A": "Anticoagulate for 3 weeks before cardioversion or rule out LA thrombus by TOE", "B": "Cardiovert immediately — no anticoagulation needed", "C": "Anticoagulation is not needed at score 3", "D": "Aspirin alone is sufficient"},
+      "correct": "A",
+      "explanation": "AF of unknown duration or >48 hrs duration requires ≥3 weeks of therapeutic anticoagulation before elective cardioversion to allow any existing LA/LAA thrombus to lyse, OR TOE to rule out thrombus. CHA₂DS₂-VASc ≥2 (men) or ≥3 (women) = anticoagulation indicated. Score 3 is high risk — DOAC (rivaroxaban, apixaban, etc.) preferred over warfarin. Aspirin alone is not sufficient for stroke prevention in AF.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "Which assessment finding indicates a GOOD response to IV furosemide in a patient with acute decompensated heart failure?",
+      "question_type": "mcq",
+      "options": {"A": "Weight increase of 1 kg over 2 hours", "B": "Urine output 200 mL/hr, improvement in dyspnoea", "C": "Serum potassium rising to 6.0 mEq/L", "D": "Blood pressure decreasing to 70/40 mmHg"},
+      "correct": "B",
+      "explanation": "Goal of diuresis in acute HF: adequate urine output (0.5-1 mL/kg/hr minimum), symptom relief (reduced dyspnoea, orthopnoea), and weight loss of 0.5-1 kg/day. Hypokalaemia (not hyperkalaemia) is the electrolyte concern with loop diuretics. Severe hypotension after diuresis suggests over-diuresis or inadequate cardiac output. Weight should DECREASE with effective diuresis.",
+      "difficulty": "medium"
+    },
+    {
+      "question": "A patient has a wide-complex tachycardia at 180 bpm. He is confused, diaphoretic, and his BP is 70/40 mmHg. The IMMEDIATE priority is:",
+      "question_type": "mcq",
+      "options": {"A": "Adenosine 6mg IV rapid push", "B": "Synchronised cardioversion", "C": "Amiodarone 150mg IV over 10 minutes", "D": "12-lead ECG and call physician"},
+      "correct": "B",
+      "explanation": "Unstable wide-complex tachycardia (hypotension, confusion, haemodynamic compromise) = synchronised cardioversion immediately, regardless of cause (VT assumed until proven otherwise). Adenosine may be used for stable monomorphic regular wide-complex tachycardia IF SVT with aberrancy is suspected — NOT for unstable patients. Do not delay cardioversion for ECG or medications in an unstable patient.",
+      "difficulty": "hard"
+    },
+    {
+      "question": "An HF patient calls reporting a 3 lb weight gain overnight, new ankle swelling, and difficulty lying flat without two pillows. What is the nurse's BEST advice?",
+      "question_type": "mcq",
+      "options": {"A": "Continue current medications and reweigh tomorrow", "B": "Reduce sodium intake and drink more water", "C": "Contact the provider today — these are signs of acute decompensation", "D": "Take an extra furosemide tablet without consulting the provider"},
+      "correct": "C",
+      "explanation": "Weight gain >2 lbs/day or >5 lbs/week combined with worsening oedema and orthopnoea are the classic signs of HF decompensation requiring prompt provider contact and likely diuretic adjustment. Many HF programmes have nurse-led protocols allowing diuretic titration for weight gain — but this requires provider guidance and clear protocols. Self-increasing diuretics without guidance risks electrolyte imbalance.",
+      "difficulty": "easy"
+    }
+  ]
+}
