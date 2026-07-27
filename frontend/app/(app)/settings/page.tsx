@@ -673,14 +673,12 @@ function CertificatesSection() {
                 >
                   Share on LinkedIn
                 </a>
-                <a
-                  href={`/verify/${c.verification_code}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => { window.location.href = `/verify/${c.verification_code}`; }}
                   className="font-syne font-bold text-xs px-3 py-1.5 rounded border border-ink/30 text-ink-2 hover:border-ink hover:text-ink transition-colors"
                 >
                   Verify
-                </a>
+                </button>
                 <button
                   onClick={() => toggleHideName(c.id)}
                   disabled={toggling === c.id}
