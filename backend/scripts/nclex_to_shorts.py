@@ -47,7 +47,17 @@ TEXT_W   = (230, 237, 243)
 TEXT_M   = (148, 163, 184)
 GOLD     = (251, 191, 36)
 
-DB_URL = "postgresql://medmind:medmind_secret@localhost:5432/medmind"
+DB_URL = os.environ.get("DB_URL", "postgresql://medmind:medmind_secret@localhost:5432/medmind")
+
+def _ar_prep(text: str) -> str:
+    """Reshape Arabic text so PIL renders it correctly (shaping + RTL bidi)."""
+    try:
+        import arabic_reshaper
+        from bidi.algorithm import get_display
+        return get_display(arabic_reshaper.reshape(str(text)))
+    except Exception:
+        return text
+
 
 TRACKING_FILE = Path(os.environ.get(
     "YT_NCLEX_TRACKING", "/opt/medmind/youtube_shorts_nclex_uploaded.json"
@@ -399,13 +409,13 @@ def render_cta() -> np.ndarray:
 
 # ── TTS ───────────────────────────────────────────────────────────────────────
 
-async def tts(text: str, path: str) -> float:
+async def tts(text: str, path: str, voice: str | None = None) -> float:
     try:
         import edge_tts
     except ImportError:
         print("[error] edge-tts not installed: pip install edge-tts")
         sys.exit(1)
-    comm = edge_tts.Communicate(text[:1200], VOICE, rate=RATE)
+    comm = edge_tts.Communicate(text[:1200], voice or VOICE, rate=RATE)
     await comm.save(path)
     try:
         from moviepy.editor import AudioFileClip as _AFC
@@ -417,31 +427,45 @@ async def tts(text: str, path: str) -> float:
 
 # ── Video assembly ────────────────────────────────────────────────────────────
 
-async def build_video(q: dict, out_path: str, dry_run: bool = False) -> str:
-    """Render full NCLEX Short. Returns path to MP4."""
+async def build_video(
+    q: dict,
+    out_path: str,
+    dry_run: bool = False,
+    lang: str = "en",
+    tts_voice: str | None = None,
+) -> str:
+    """Render full NCLEX Short. Returns path to MP4.
+
+    For translated questions pass lang='es'|'ar' and tts_voice accordingly.
+    q["question"], q["options"], q["key_takeaway"] should already be in target lang.
+    """
     from moviepy.editor import (
         ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips,
     )
 
-    question  = q["question"]
-    options   = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
+    prep      = _ar_prep if lang == "ar" else (lambda x: x)
+    question  = prep(q["question"])
+    options_raw = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
+    options   = {k: prep(v) for k, v in options_raw.items()}
     correct   = q["correct"]
-    takeaway  = q["key_takeaway"]
-    module    = (q.get("module_title") or "NCLEX Prep")[:48]
+    takeaway  = prep(q["key_takeaway"])
+    module    = prep((q.get("module_title") or "NCLEX Prep")[:48])
     diff      = q.get("difficulty", "medium")
-    expl      = q.get("explanation") or ""
 
-    # TTS scripts
+    # TTS uses original (un-prepped) text — edge-tts handles Unicode natively
+    orig_options = options_raw
+    orig_q    = q["question"]
+    orig_kt   = q["key_takeaway"]
     spoken_q = (
-        f"Here is your NCLEX question. {question} "
-        f"Option A: {options.get('A', '')}. "
-        f"Option B: {options.get('B', '')}. "
-        f"Option C: {options.get('C', '')}. "
-        f"Option D: {options.get('D', '')}."
+        f"{orig_q} "
+        f"A: {orig_options.get('A', '')}. "
+        f"B: {orig_options.get('B', '')}. "
+        f"C: {orig_options.get('C', '')}. "
+        f"D: {orig_options.get('D', '')}."
     )
     spoken_a = (
-        f"The correct answer is {correct}. {options.get(correct, '')}. "
-        f"{takeaway}"
+        f"{orig_options.get(correct, '')}. "
+        f"{orig_kt}"
     )
 
     print(f"  → Rendering frames…")
@@ -462,9 +486,9 @@ async def build_video(q: dict, out_path: str, dry_run: bool = False) -> str:
         a_mp3 = f"{tmp}/answer.mp3"
 
         print(f"  → TTS question…")
-        q_dur = await tts(spoken_q, q_mp3)
+        q_dur = await tts(spoken_q, q_mp3, voice=tts_voice)
         print(f"  → TTS answer…")
-        a_dur = await tts(spoken_a, a_mp3)
+        a_dur = await tts(spoken_a, a_mp3, voice=tts_voice)
 
         HOOK_DUR  = 3.0
         PAUSE_DUR = 4.0
