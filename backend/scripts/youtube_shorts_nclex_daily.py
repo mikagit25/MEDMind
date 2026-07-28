@@ -34,7 +34,7 @@ from nclex_to_shorts import (
     TRACKING_FILE,
 )
 
-DAILY_LIMIT    = 2
+DAILY_LIMIT    = 4
 WAIT_BETWEEN   = 45   # seconds between uploads
 
 TOKEN_FILE     = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token.json"))
