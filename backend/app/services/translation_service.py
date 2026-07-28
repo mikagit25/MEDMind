@@ -1,7 +1,8 @@
 """Lesson & Module translation service.
 
-Uses Claude Haiku for high-quality medical translation.
-Falls back to Ollama (local) when Anthropic API key is not set.
+Uses a multi-provider key pool (Groq → Cerebras → Gemini → SambaNova) with
+round-robin rotation within each provider. Falls back to Ollama (local) when
+all cloud keys are exhausted or rate-limited.
 
 Supports 6 non-English locales: ru, ar, tr, de, fr, es
 English (en) is the source of truth — never translated.
@@ -18,11 +19,12 @@ Translation is done block-by-block so:
 import asyncio
 import json
 import logging
+import os
+import time
 from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-import anthropic
 import httpx
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -33,10 +35,47 @@ from app.models.models import Article, ArticleTranslation, Lesson, LessonTransla
 
 logger = logging.getLogger(__name__)
 
-_claude = anthropic.AsyncAnthropic(
-    api_key=settings.ANTHROPIC_API_KEY,
-    timeout=120.0,
-)
+
+def _g(name: str) -> str:
+    return os.getenv(name, getattr(settings, name, ""))
+
+def _dedup(lst: list[str]) -> list[str]:
+    seen: set[str] = set()
+    return [k for k in lst if k and k not in seen and not seen.add(k)]  # type: ignore[func-returns-value]
+
+
+# ── Provider config ───────────────────────────────────────────────────────────
+
+_GROQ_URL      = "https://api.groq.com/openai/v1/chat/completions"
+_CEREBRAS_URL  = "https://api.cerebras.ai/v1/chat/completions"
+_SAMBANOVA_URL = "https://fast-api.snova.ai/v1/chat/completions"
+_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+_GEMINI_URL    = f"https://generativelanguage.googleapis.com/v1beta/models/{_GEMINI_MODEL}:generateContent"
+
+_GROQ_KEYS = _dedup([
+    # Content pipeline pool — KEY_1/KEY_2 reserved for user tutor; KEY_5 for news
+    _g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
+    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
+    _g("GROQ_KEY_CASES"), _g("GROQ_KEY_VET_MODULES"),
+])
+_CEREBRAS_KEYS = _dedup([
+    _g("CEREBRAS_API_KEY_2"), _g("CEREBRAS_API_KEY_3"),
+    _g("CEREBRAS_API_KEY_4"), _g("CEREBRAS_API_KEY_5"),
+])
+_GEMINI_KEYS = _dedup([
+    _g("GEMINI_API_KEY"), _g("GEMINI_API_KEY_2"),
+    _g("GEMINI_API_KEY_3"), _g("GEMINI_API_KEY_4"),
+])
+_SAMBANOVA_KEYS = _dedup([
+    _g("SAMBANOVA_API_KEY_2"), _g("SAMBANOVA_API_KEY_3"),
+])
+
+# Per-key cooldown after 429 (seconds)
+_rate_limited_until: dict[str, float] = {}
+
+def _available(keys: list[str]) -> list[str]:
+    now = time.time()
+    return [k for k in keys if _rate_limited_until.get(k, 0) <= now]
 
 # ── Language metadata ─────────────────────────────────────────────────────────
 LOCALE_NAMES = {
@@ -298,35 +337,81 @@ Preserve all JSON keys. Return ONLY valid JSON with translated values."""
     return _parse_json_response(raw, texts)
 
 
-_claude_unavailable = False  # Set True after first credit error to skip future Claude calls
+async def _call_openai_compat(
+    url: str, key: str, model: str, system_prompt: str, user_content: str, timeout: int = 60
+) -> str | None:
+    """Call any OpenAI-compatible endpoint. Returns None on 429 (marks key), raises on other errors."""
+    async with httpx.AsyncClient(timeout=timeout) as c:
+        resp = await c.post(
+            url,
+            headers={"Authorization": f"Bearer {key}"},
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_content},
+                ],
+                "max_tokens": 4096,
+                "temperature": 0.1,
+            },
+        )
+    if resp.status_code == 429:
+        try:
+            import re
+            msg = resp.json().get("error", {}).get("message", "")
+            wait = float(re.search(r"in ([\d.]+)s", msg).group(1))  # type: ignore
+        except Exception:
+            wait = 65.0
+        _rate_limited_until[key] = time.time() + wait
+        return None
+    resp.raise_for_status()
+    return resp.json()["choices"][0]["message"]["content"]
+
+
+async def _call_gemini(key: str, system_prompt: str, user_content: str) -> str | None:
+    """Call Gemini API (different format). Returns None on 429."""
+    async with httpx.AsyncClient(timeout=60) as c:
+        resp = await c.post(
+            f"{_GEMINI_URL}?key={key}",
+            json={
+                "contents": [{"parts": [{"text": system_prompt + "\n\n" + user_content}]}],
+                "generationConfig": {"temperature": 0.1, "maxOutputTokens": 4096},
+            },
+        )
+    if resp.status_code == 429:
+        _rate_limited_until[key] = time.time() + 65.0
+        return None
+    resp.raise_for_status()
+    candidates = resp.json().get("candidates", [])
+    parts = candidates[0].get("content", {}).get("parts", []) if candidates else []
+    return parts[0].get("text") if parts else None
 
 
 async def _call_translation_api(system_prompt: str, user_content: str) -> str:
-    """Call Claude Haiku for translation. Falls back to Ollama on any error."""
-    global _claude_unavailable
-    if settings.ANTHROPIC_API_KEY and not _claude_unavailable:
-        try:
-            msg = await _claude.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=4096,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_content}],
-            )
-            return msg.content[0].text
-        except Exception as e:
-            err_str = str(e)
-            if "credit balance" in err_str or "insufficient_quota" in err_str:
-                _claude_unavailable = True
-                logger.warning("Claude credits exhausted — switching to Ollama for all translations")
-            else:
-                logger.warning("Claude translation failed, falling back to Ollama: %s", e)
+    """Try all provider pools in order; fall back to Ollama as last resort."""
+    providers = [
+        (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "llama-3.3-70b-versatile", system_prompt, user_content)),
+        (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gpt-oss-120b",            system_prompt, user_content)),
+        (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", system_prompt, user_content)),
+        (_GEMINI_KEYS,    lambda k: _call_gemini(k, system_prompt, user_content)),
+    ]
 
-    # Fallback: Ollama (local) — retry with smaller payload on timeout
+    for keys, caller in providers:
+        for key in _available(keys):
+            try:
+                result = await caller(key)
+                if result is not None:
+                    return result
+                # result is None → rate-limited, try next key in this pool
+            except Exception as e:
+                logger.warning("Provider call failed (key=...%s): %s", key[-6:], e)
+
+    # Final fallback: Ollama (local)
+    logger.warning("All cloud keys exhausted or rate-limited — falling back to Ollama")
     try:
         return await _call_ollama_translation(system_prompt, user_content)
     except Exception as e:
         if "Timeout" in type(e).__name__ and len(user_content) > 500:
-            # Retry with truncated content (first half)
             half = user_content[: len(user_content) // 2]
             logger.warning("Ollama timeout, retrying with truncated payload (%d chars)", len(half))
             return await _call_ollama_translation(system_prompt, half)

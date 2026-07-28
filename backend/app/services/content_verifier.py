@@ -5,7 +5,7 @@ Phase 1: Extracts medical claims from articles and checks each claim
 
 Phase 2: Translation QA — checks translated text for:
   - Number/unit preservation (regex)
-  - Negation preservation (Haiku)
+  - Negation preservation (Groq llama-3.3-70b)
   - Medical glossary canonical term usage
 
 Status machine (articles):
@@ -22,8 +22,10 @@ Public endpoints must NOT serve pending or failed content.
 from __future__ import annotations
 
 import hashlib
+import itertools
 import json
 import logging
+import os
 import re
 from datetime import datetime
 from functools import lru_cache
@@ -31,7 +33,6 @@ from pathlib import Path
 from typing import Any
 
 import httpx
-from anthropic import AsyncAnthropic
 
 from app.core.config import settings
 
@@ -41,19 +42,45 @@ logger = logging.getLogger(__name__)
 PUBLISHED_STATUSES = {"passed", "human_reviewed"}
 BLOCKED_STATUSES = {"pending", "failed"}
 
-_anthropic: AsyncAnthropic | None = None
+_GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
+_GROQ_MODEL = "llama-3.3-70b-versatile"
+
+def _dedup(lst: list[str]) -> list[str]:
+    seen: set[str] = set()
+    return [k for k in lst if k and k not in seen and not seen.add(k)]  # type: ignore
+
+def _g(name: str) -> str:
+    return os.getenv(name, getattr(settings, name, ""))
+
+_GROQ_KEYS = _dedup([
+    _g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
+    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
+])
+_groq_cycle = itertools.cycle(_GROQ_KEYS) if _GROQ_KEYS else None
 
 
-def _get_client() -> AsyncAnthropic:
-    global _anthropic
-    if _anthropic is None:
-        _anthropic = AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
-    return _anthropic
+async def _groq_call(prompt: str, max_tokens: int = 800) -> str:
+    """Call Groq with key rotation. Raises on failure."""
+    if not _groq_cycle:
+        raise RuntimeError("No Groq keys configured")
+    key = next(_groq_cycle)
+    async with httpx.AsyncClient(timeout=60) as c:
+        resp = await c.post(
+            _GROQ_URL,
+            headers={"Authorization": f"Bearer {key}"},
+            json={
+                "model": _GROQ_MODEL,
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": max_tokens,
+                "temperature": 0.1,
+            },
+        )
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]["content"]
 
 
 async def _extract_claims(article_text: str) -> list[str]:
-    """Extract verifiable medical claims from article text using Haiku."""
-    client = _get_client()
+    """Extract verifiable medical claims from article text using Groq."""
     prompt = (
         "Extract all verifiable medical claims from the following article text. "
         "A verifiable claim is a specific factual statement: a statistic, dosage mention, "
@@ -64,12 +91,10 @@ async def _extract_claims(article_text: str) -> list[str]:
         f"Article text:\n{article_text[:4000]}"
     )
     try:
-        resp = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=800,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = resp.content[0].text.strip()
+        raw = await _groq_call(prompt, max_tokens=800)
+        raw = raw.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
         claims = json.loads(raw)
         return claims if isinstance(claims, list) else []
     except Exception as exc:
@@ -78,11 +103,10 @@ async def _extract_claims(article_text: str) -> list[str]:
 
 
 async def _check_claim_against_source(claim: str, source_text: str) -> dict[str, Any]:
-    """Ask Haiku whether source_text supports the claim.
+    """Ask Groq whether source_text supports the claim.
 
-    Returns {"result": "yes"|"no"|"partial", "citation": str}
+    Returns {"result": "yes"|"no"|"partial"|"not_addressed", "citation": str}
     """
-    client = _get_client()
     prompt = (
         "Does the following source text support, contradict, or not address the given medical claim?\n\n"
         f"Claim: {claim}\n\n"
@@ -92,12 +116,10 @@ async def _check_claim_against_source(claim: str, source_text: str) -> dict[str,
         "Return ONLY the JSON object."
     )
     try:
-        resp = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=300,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = resp.content[0].text.strip()
+        raw = await _groq_call(prompt, max_tokens=300)
+        raw = raw.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
         data = json.loads(raw)
         return {
             "result": data.get("result", "not_addressed"),
@@ -332,7 +354,7 @@ def _check_glossary_terms(original_en: str, translated: str, lang: str) -> list[
 
 
 async def _check_negation_preserved(original: str, translated: str) -> dict:
-    """Ask Haiku whether negations in original are preserved in translation."""
+    """Ask Groq whether negations in original are preserved in translation."""
     negation_words = ["not", "no", "never", "without", "contraindicated", "avoid",
                       "do not", "should not", "must not", "don't", "isn't", "aren't",
                       "doesn't", "cannot", "can't"]
@@ -341,7 +363,6 @@ async def _check_negation_preserved(original: str, translated: str) -> dict:
     if not has_negation:
         return {"preserved": True, "note": "no negations detected"}
 
-    client = _get_client()
     prompt = (
         "Check whether the negation/contraindication meaning in the ORIGINAL English text "
         "is preserved in the TRANSLATION.\n\n"
@@ -352,12 +373,10 @@ async def _check_negation_preserved(original: str, translated: str) -> dict:
         "Return ONLY the JSON object."
     )
     try:
-        resp = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=150,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = resp.content[0].text.strip()
+        raw = await _groq_call(prompt, max_tokens=150)
+        raw = raw.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
         return json.loads(raw)
     except Exception as exc:
         logger.warning("negation check failed: %s", exc)

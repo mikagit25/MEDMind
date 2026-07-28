@@ -579,6 +579,103 @@ async def _enrich_pubmed_refs_job() -> None:
         logger.error("enrich_pubmed_refs cron error: %s", exc)
 
 
+async def _enrich_article_sources_job() -> None:
+    """Enrich articles without PubMed sources — 30 per run, every hour."""
+    try:
+        from app.scripts.enrich_article_sources import run as enrich_run
+        count = await enrich_run(max_articles=30)
+        if count:
+            logger.info("Article source enrichment: %d articles enriched", count)
+    except Exception as exc:
+        logger.error("enrich_article_sources cron error: %s", exc)
+
+
+async def _verify_articles_job() -> None:
+    """Verify articles that have sources but are still pending — 20 per run, every hour."""
+    try:
+        from app.services.content_verifier import verify_article
+        from app.models.models import Article
+        from sqlalchemy import select
+
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(Article)
+                .where(
+                    Article.is_published == True,
+                    Article.verification_status == "pending",
+                    Article.sources.isnot(None),
+                    Article.sources != "[]",
+                )
+                .limit(20)
+            )
+            articles = result.scalars().all()
+
+        if not articles:
+            return
+
+        logger.info("Article verification: processing %d articles", len(articles))
+        verified = 0
+        for article in articles:
+            try:
+                report = await verify_article(
+                    article_id=str(article.id),
+                    article_body=article.body or [],
+                    sources=article.sources or [],
+                )
+                async with AsyncSessionLocal() as db:
+                    a = await db.get(Article, article.id)
+                    if not a:
+                        continue
+                    from datetime import datetime
+                    a.verification_status = report["status"]
+                    a.verification_report = report.get("report")
+                    a.verified_at = datetime.utcnow()
+                    await db.commit()
+                verified += 1
+            except Exception as exc:
+                logger.error("Verification failed article=%s: %s", article.id, exc)
+
+        logger.info("Article verification done: %d/%d", verified, len(articles))
+    except Exception as exc:
+        logger.error("verify_articles cron error: %s", exc)
+
+
+async def _retry_pending_lesson_translations_job() -> None:
+    """Retry pending/failed lesson translations — 5 per run, every 30 min."""
+    from app.models.models import Lesson, LessonTranslation
+    from app.services.translation_service import _translate_lesson_one
+
+    try:
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(LessonTranslation.lesson_id, LessonTranslation.locale)
+                .where(LessonTranslation.status.in_(["pending", "failed"]))
+                .order_by(LessonTranslation.lesson_id, LessonTranslation.locale)
+                .limit(20)
+            )
+            pending_pairs = result.all()
+
+        if not pending_pairs:
+            return
+
+        logger.info("Lesson translation retry: %d pending records", len(pending_pairs))
+        done = 0
+        for lesson_id, locale in pending_pairs:
+            try:
+                async with AsyncSessionLocal() as db:
+                    lesson = await db.get(Lesson, lesson_id)
+                    if not lesson:
+                        continue
+                    await _translate_lesson_one(lesson, locale, db)
+                    done += 1
+            except Exception as exc:
+                logger.error("Retry failed lesson=%s locale=%s: %s", lesson_id, locale, exc)
+
+        logger.info("Lesson translation retry done: %d/%d — %d still pending", done, len(pending_pairs), len(pending_pairs) - done)
+    except Exception as exc:
+        logger.error("retry_pending_lesson_translations cron error: %s", exc)
+
+
 async def _generate_gulf_questions_job() -> None:
     """Generate Gulf-specific exam questions (15 per run, every 30 min, cycles slugs)."""
     try:
@@ -765,6 +862,33 @@ def start_scheduler():
         id="translate_nclex_es",
         replace_existing=True,
         misfire_grace_time=600,
+    )
+
+    # Every hour at :30 — enrich articles without PubMed sources (30 per run)
+    scheduler.add_job(
+        _enrich_article_sources_job,
+        trigger=CronTrigger(minute="30", timezone="UTC"),
+        id="enrich_article_sources",
+        replace_existing=True,
+        misfire_grace_time=1800,
+    )
+
+    # Every hour at :50 — verify articles that have sources (20 per run)
+    scheduler.add_job(
+        _verify_articles_job,
+        trigger=CronTrigger(minute="50", timezone="UTC"),
+        id="verify_articles",
+        replace_existing=True,
+        misfire_grace_time=1800,
+    )
+
+    # Every 10 min — retry pending/failed lesson translations (20 per run)
+    scheduler.add_job(
+        _retry_pending_lesson_translations_job,
+        trigger=IntervalTrigger(minutes=10),
+        id="retry_pending_lesson_translations",
+        replace_existing=True,
+        misfire_grace_time=300,
     )
 
     # Every 30 min (offset +05) — generate Gulf-specific exam questions (one slug per run)
