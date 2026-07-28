@@ -40,10 +40,18 @@ const PUBLIC_PREFIXES = [
   "/robots",
   "/opengraph",
   "/llms.txt",
+  "/exams",     // exam hub + /exams/gulf, /exams/snle, /exams/dha…
+  "/verify",    // /verify/CODE — certificate verification pages
+  "/bots",      // public AI-bots landing
+  "/reviewers", // reviewer profile pages
 ];
+
+// Exact-match public pages whose sub-paths are auth-protected
+const PUBLIC_EXACT_ONLY = new Set(["/nurses", "/nclex"]);
 
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/") return true;
+  if (PUBLIC_EXACT_ONLY.has(pathname)) return true;
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 

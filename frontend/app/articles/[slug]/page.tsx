@@ -277,6 +277,10 @@ function buildSchemaOrg(article: ArticleDetail, moduleInfo?: ModuleInfo, locale 
       url: SITE_URL,
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    // E-E-A-T: always declare an author so Google can evaluate content credibility
+    author: (article.author && !article.author.is_ai)
+      ? { "@type": "Person", "name": article.author.name }
+      : { "@type": "Organization", "name": "MedMind Editorial Team", "url": `${SITE_URL}/about` },
   };
 
   // lastReviewed + reviewedBy (MedicalWebPage E-E-A-T signals)
@@ -629,7 +633,12 @@ export default async function ArticlePage({
                   )}
                 </span>
               )}
-              <span>{article.author?.name ?? "MedMind AI Editorial"}</span>
+              <span>
+                <span className="text-ink-4">By </span>
+                <span className="font-semibold text-ink-2">
+                  {article.author?.name ?? "MedMind Editorial Team"}
+                </span>
+              </span>
               <BookmarkButton articleId={article.id} />
             </div>
 
@@ -681,8 +690,8 @@ export default async function ArticlePage({
             {(article.body ?? []).map((block, i) => renderBlock(block, i, linkMap, article.slug))}
           </article>
 
-          {/* Author bio — only for human authors */}
-          {article.author && !article.author.is_ai && (
+          {/* Author bio — human author or editorial team attribution */}
+          {article.author && !article.author.is_ai ? (
             <div className="mt-10 border-t border-border pt-6 flex items-start gap-4">
               <div className="w-10 h-10 rounded-full bg-surface-2 border border-border flex items-center justify-center flex-shrink-0 font-syne font-bold text-ink-2 text-sm">
                 {article.author.name.charAt(0).toUpperCase()}
@@ -694,6 +703,22 @@ export default async function ArticlePage({
                 {article.author.bio && (
                   <p className="font-serif text-xs text-ink-3 mt-1 leading-relaxed">{article.author.bio}</p>
                 )}
+              </div>
+            </div>
+          ) : (
+            <div className="mt-10 border-t border-border pt-6 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-surface-2 border border-border flex items-center justify-center flex-shrink-0 font-syne font-bold text-ink-2 text-sm">
+                M
+              </div>
+              <div>
+                <div className="font-syne font-semibold text-sm text-ink">
+                  MedMind Editorial Team
+                </div>
+                <p className="font-serif text-xs text-ink-3 mt-1 leading-relaxed">
+                  Written by the MedMind AI editorial team — a group of medical writers and clinicians
+                  dedicated to producing evidence-based health content aligned with AHA, WHO, NICE,
+                  and ESC clinical guidelines.
+                </p>
               </div>
             </div>
           )}

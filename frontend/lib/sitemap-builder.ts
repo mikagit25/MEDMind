@@ -543,9 +543,8 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/enterprise",         priority: 0.8, changefreq: "monthly" },
       { path: "/nurses",             priority: 0.9, changefreq: "monthly" },
       { path: "/nclex",              priority: 1.0, changefreq: "weekly"  },
-      { path: "/nurses/nclex",       priority: 0.9, changefreq: "weekly"  },
       { path: "/bots",               priority: 0.7, changefreq: "monthly" },
-      { path: "/dose-calc",          priority: 0.8, changefreq: "monthly" },
+      // dose-calc is an authenticated page — not indexed
       // High-traffic content hubs
       { path: "/articles",           priority: 0.9, changefreq: "daily"   },
       { path: "/calculators",        priority: 0.9, changefreq: "monthly" },
