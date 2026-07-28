@@ -126,7 +126,7 @@ export default function LandingPage({
 
           <div className="hidden md:flex items-center gap-1">
             {[
-              { href: "/nurses/nclex",    label: loc("Exams", "Экзамены", "Exámenes", "الامتحانات", "Prüfungen", "Examens", "Sınavlar") },
+              { href: "/nclex",            label: loc("Exams", "Экзамены", "Exámenes", "الامتحانات", "Prüfungen", "Examens", "Sınavlar") },
               { href: "/how-it-works",    label: t("landing.nav_how") },
               { href: "/articles",        label: t("landing.nav_articles") },
               { href: "/calculators",     label: t("landing.nav_calculators") },
@@ -176,7 +176,7 @@ export default function LandingPage({
         {menuOpen && (
           <div className="md:hidden border-t border-border bg-surface px-4 py-3 space-y-1">
             {[
-              { href: "/nurses/nclex", label: loc("Exams", "Экзамены", "Exámenes", "الامتحانات", "Prüfungen", "Examens", "Sınavlar") },
+              { href: "/nclex",        label: loc("Exams", "Экзамены", "Exámenes", "الامتحانات", "Prüfungen", "Examens", "Sınavlar") },
               { href: "/how-it-works", label: t("landing.nav_how") },
               { href: "/articles",     label: t("landing.nav_articles") },
               { href: "/news",         label: t("landing.nav_news") },
@@ -309,11 +309,11 @@ export default function LandingPage({
                 ))}
               </ul>
               <div className="flex flex-wrap gap-3">
-                <Link href="/nurses/nclex"
+                <Link href="/nclex"
                   className="inline-block font-syne font-bold text-sm bg-red text-white px-6 py-3 rounded-xl hover:bg-ink transition-colors">
                   {loc("NCLEX Practice →", "NCLEX практика →", "Práctica NCLEX →", "تدريب NCLEX →", "NCLEX Übung →", "Pratique NCLEX →", "NCLEX Pratik →")}
                 </Link>
-                <Link href="/nurses/gulf"
+                <Link href="/exams/gulf"
                   className="inline-block font-syne font-bold text-sm bg-surface border-2 border-ink text-ink px-6 py-3 rounded-xl hover:bg-ink hover:text-white transition-colors">
                   {loc("Gulf Exams 🇸🇦", "Gulf экзамены 🇸🇦", "Exámenes Gulf 🇸🇦", "امتحانات الخليج 🇸🇦", "Gulf Prüfungen 🇸🇦", "Examens Gulf 🇸🇦", "Gulf Sınavları 🇸🇦")}
                 </Link>
@@ -832,7 +832,7 @@ export default function LandingPage({
             </div>
             <div className="flex gap-4 sm:gap-6 flex-wrap">
               {[
-                { href: "/nurses/nclex", label: loc("Exams","Экзамены","Exámenes","الامتحانات","Prüfungen","Examens","Sınavlar") },
+                { href: "/nclex",        label: loc("Exams","Экзамены","Exámenes","الامتحانات","Prüfungen","Examens","Sınavlar") },
                 { href: "/how-it-works", label: t("landing.nav_how") },
                 { href: "/articles",     label: t("landing.nav_articles") },
                 { href: "/calculators",  label: t("landing.nav_calculators") },

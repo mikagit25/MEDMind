@@ -128,19 +128,19 @@ export default function NclexLandingPage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/nurses/nclex"
+                href="/register"
                 className="inline-block font-syne font-bold text-base bg-red text-white px-8 py-4 rounded-xl hover:bg-ink transition-colors"
               >
-                Try free demo →
+                Start free →
               </Link>
               <Link
-                href="/register"
+                href="/login"
                 className="inline-block font-syne font-semibold text-base border border-border text-ink-2 px-8 py-4 rounded-xl hover:border-ink hover:text-ink transition-colors"
               >
-                Create account
+                Sign in
               </Link>
             </div>
-            <p className="text-xs text-ink-3 mt-4 font-syne">Free demo · No sign-up required · Full AI explanations included</p>
+            <p className="text-xs text-ink-3 mt-4 font-syne">Free account · 5 AI questions/day · No credit card required</p>
           </div>
 
           {/* Stats grid */}
@@ -302,10 +302,10 @@ export default function NclexLandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/nurses/nclex"
+              href="/register"
               className="inline-block font-syne font-bold text-base bg-white text-ink px-8 py-4 rounded-xl hover:bg-red hover:text-white transition-colors"
             >
-              Try free demo →
+              Start free →
             </Link>
             <Link
               href="/register"
