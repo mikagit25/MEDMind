@@ -556,14 +556,21 @@ async def google_callback(
 
     # Upsert user — search by email_hash first, then plain email fallback
     # (plain fallback needed for accounts registered before email encryption was enabled)
+    # Use scalars().first() rather than scalar_one_or_none() to handle duplicate rows
+    # gracefully — duplicates can appear when an account was created before encryption
+    # was enabled and again afterwards; we prefer the oldest record (registered first).
     _search_hash = email_search_hash(email)
-    result = await db.execute(select(User).where(User.email_hash == _search_hash))
-    user = result.scalar_one_or_none()
+    result = await db.execute(
+        select(User).where(User.email_hash == _search_hash).order_by(User.created_at).limit(1)
+    )
+    user = result.scalars().first()
 
     if not user:
         # Fallback: search by plain-text email (accounts registered without ENCRYPTION_KEY)
-        result_plain = await db.execute(select(User).where(User.email == email))
-        user = result_plain.scalar_one_or_none()
+        result_plain = await db.execute(
+            select(User).where(User.email == email).order_by(User.created_at).limit(1)
+        )
+        user = result_plain.scalars().first()
         if user:
             # Migrate email_hash to current algorithm
             user.email_hash = _search_hash
@@ -589,11 +596,15 @@ async def google_callback(
         except IntegrityError:
             await db.rollback()
             # Race condition or email already exists with different hash
-            result2 = await db.execute(select(User).where(User.email_hash == _search_hash))
-            user = result2.scalar_one_or_none()
+            result2 = await db.execute(
+                select(User).where(User.email_hash == _search_hash).order_by(User.created_at).limit(1)
+            )
+            user = result2.scalars().first()
             if not user:
-                result3 = await db.execute(select(User).where(User.email == email))
-                user = result3.scalar_one_or_none()
+                result3 = await db.execute(
+                    select(User).where(User.email == email).order_by(User.created_at).limit(1)
+                )
+                user = result3.scalars().first()
                 if user:
                     user.email_hash = _search_hash
                     await db.commit()
