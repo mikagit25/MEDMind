@@ -10,6 +10,7 @@ import {
   Clock, CheckCircle2, XCircle, BarChart3, MessageSquare,
   ChevronLeft, ChevronRight, AlertTriangle, Layers, Gift,
   Sparkles, X, Loader2, Flag, ChevronDown, ChevronUp, Lightbulb,
+  BarChart2, Download,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -1245,6 +1246,117 @@ function nclexLabel(raw: string, serverLabel?: string): string {
   return CATEGORY_LABELS[raw] ?? raw.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 }
 
+function MockDebriefPanel({ sessionId }: { sessionId: string }) {
+  const [debrief, setDebrief] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    api.get(`/exam/sessions/${sessionId}/mock-debrief`)
+      .then(r => setDebrief(r.data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [sessionId]);
+
+  if (loading || !debrief) return null;
+
+  const patterns: any[] = debrief.patterns || [];
+  const timing = debrief.timing || {};
+  const cats: any[] = debrief.category_breakdown || [];
+
+  return (
+    <div className="rounded-xl border border-border bg-white overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-2 transition-colors"
+      >
+        <div className="flex items-center gap-2">
+          <BarChart2 className="w-4 h-4 text-red" />
+          <span className="font-syne font-bold text-sm text-ink">Mock Exam Debrief</span>
+          {patterns.length > 0 && (
+            <span className="text-xs font-syne font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+              {patterns.length} pattern{patterns.length !== 1 ? "s" : ""} detected
+            </span>
+          )}
+        </div>
+        <ChevronDown className={`w-4 h-4 text-ink-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="px-5 pb-5 border-t border-border space-y-4">
+          {/* Patterns */}
+          {patterns.length > 0 && (
+            <div className="pt-4">
+              <h3 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wide mb-2">Error Patterns</h3>
+              <div className="space-y-2">
+                {patterns.map((p: any) => (
+                  <div key={p.id} className="p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div className="font-syne font-bold text-xs text-amber-800 mb-1">{p.name}</div>
+                    <p className="font-serif text-xs text-amber-700 leading-relaxed">{p.description}</p>
+                    {p.error_rate_pct != null && (
+                      <span className="mt-1 inline-block text-[10px] font-syne font-semibold text-amber-600">
+                        {p.error_rate_pct}% error rate ({p.errors}/{p.count} questions)
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Timing */}
+          {timing.available && (
+            <div>
+              <h3 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wide mb-2">Timing</h3>
+              <div className="flex gap-4 text-xs font-syne">
+                <span>Avg: <strong>{Math.round(timing.avg_time_seconds)}s</strong>/question</span>
+                {timing.slow_questions?.length > 0 && (
+                  <span className="text-amber-600">{timing.slow_questions.length} slow questions (&gt;3 min)</span>
+                )}
+                {timing.would_exceed_time_limit && (
+                  <span className="text-red font-bold">⚠ Pace would exceed exam limit</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Category breakdown */}
+          {cats.length > 0 && (
+            <div>
+              <h3 className="font-syne font-bold text-xs text-ink-3 uppercase tracking-wide mb-2">Category vs Target (62%)</h3>
+              <div className="space-y-1">
+                {cats.slice(0, 6).map((c: any) => (
+                  <div key={c.category} className="flex items-center gap-2 text-xs">
+                    <span className="font-syne font-semibold text-ink min-w-0 flex-1 truncate">
+                      {c.category.replace(/_/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                    </span>
+                    <span className={`font-syne font-bold shrink-0 ${c.below_target ? "text-red" : "text-green"}`}>
+                      {c.accuracy_pct}%
+                    </span>
+                    <span className={`text-[10px] shrink-0 ${c.delta_to_target >= 0 ? "text-green" : "text-red"}`}>
+                      ({c.delta_to_target >= 0 ? "+" : ""}{c.delta_to_target}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* PDF download */}
+          <a
+            href={`${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/exam/sessions/${sessionId}/mock-debrief/pdf`}
+            download
+            className="inline-flex items-center gap-1.5 text-xs font-syne font-bold text-ink-3 hover:text-ink border border-border rounded-lg px-3 py-1.5 transition-colors"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Export PDF
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ResultsView({
   results, onRetry, onRetryWrong, bookmarkedIndices,
 }: {
@@ -1301,6 +1413,11 @@ function ResultsView({
           {results.cat_enabled && <span className="text-blue-600 font-bold">{t("exam_page.cat_adaptive")}</span>}
         </div>
       </div>
+
+      {/* Mock debrief CTA */}
+      {results.session_id && results.mode_id?.includes("nclex_rn") && (
+        <MockDebriefPanel sessionId={results.session_id} />
+      )}
 
       {/* Demo upsell */}
       {results.mode_id === "nclex_demo" && (

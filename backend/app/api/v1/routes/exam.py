@@ -2021,3 +2021,209 @@ async def get_nclex_community_percentile(
         ],
         "note": "Percentile vs community updated nightly.",
     }
+
+
+# ── V7 Phase 6: Mock Exam Debrief ────────────────────────────────────────────
+
+@router.get("/sessions/{session_id}/mock-debrief")
+async def get_mock_debrief(
+    session_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Comprehensive debrief for completed mock sessions.
+
+    Returns: score, timing analysis, pattern detectors, category delta,
+    and practice session link for weak areas.
+    """
+    from app.services.mock_debrief import run_detectors, analyze_timing
+    from app.models.models import ExamSession as _ExamSession
+
+    sess = await db.get(_ExamSession, uuid_lib.UUID(session_id))
+    if not sess or sess.user_id != user.id:
+        raise HTTPException(404, "Session not found")
+    if sess.status not in ("completed", "expired"):
+        raise HTTPException(400, "Session not yet completed")
+
+    per_q = sess.per_question or []
+    snapshot = (sess.answers or {}).get("_snapshot", [])
+
+    # Enrich per_q with question text for keyword detector
+    q_text_map = {str(q.get("id")): q.get("question", "") for q in snapshot}
+    for pq in per_q:
+        pq["question_text"] = q_text_map.get(str(pq.get("question_id") or ""), "")
+
+    patterns = run_detectors(per_q)
+    timing = analyze_timing(per_q)
+
+    # Category breakdown with delta to NCLEX pass threshold (62%)
+    cat_breakdown = {}
+    for pq in per_q:
+        if pq.get("correct") is None:
+            continue
+        cat = pq.get("nclex_client_needs") or "other"
+        if cat not in cat_breakdown:
+            cat_breakdown[cat] = {"correct": 0, "total": 0}
+        cat_breakdown[cat]["total"] += 1
+        if pq["correct"]:
+            cat_breakdown[cat]["correct"] += 1
+
+    TARGET_PCT = 62
+    cat_report = []
+    for cat, v in cat_breakdown.items():
+        accuracy = round(v["correct"] / v["total"] * 100, 1) if v["total"] > 0 else 0
+        cat_report.append({
+            "category": cat,
+            "accuracy_pct": accuracy,
+            "total": v["total"],
+            "delta_to_target": round(accuracy - TARGET_PCT, 1),
+            "below_target": accuracy < TARGET_PCT,
+        })
+    cat_report.sort(key=lambda x: x["accuracy_pct"])
+
+    weak_cats = [c["category"] for c in cat_report if c["below_target"]]
+
+    # Mode info for pass threshold
+    mode_data = next((m for m in EXAM_MODES if m["id"] == (sess.mode_id or "")), None)
+    pass_threshold = mode_data["pass_threshold"] if mode_data else 62
+    exam_slug = mode_data.get("exam_slug") if mode_data else None
+
+    # Emit analytics event (best-effort)
+    try:
+        from app.core.cache import set_cached
+        import datetime as _dt
+        event_key = f"mock_completed:{session_id}"
+        await set_cached(event_key, {
+            "session_id": session_id,
+            "user_id": str(user.id),
+            "score_pct": sess.score_pct,
+            "passed": sess.passed,
+            "patterns_fired": [p["id"] for p in patterns],
+            "at": _dt.datetime.utcnow().isoformat(),
+        }, ttl=86400 * 7)
+    except Exception:
+        pass
+
+    return {
+        "session_id": session_id,
+        "mode_id": sess.mode_id,
+        "score_pct": sess.score_pct,
+        "passed": sess.passed,
+        "pass_threshold": pass_threshold,
+        "total_questions": len(per_q),
+        "correct": sess.correct,
+        "wrong": sess.wrong,
+        "timing": timing,
+        "patterns": patterns,
+        "category_breakdown": cat_report,
+        "weak_categories": weak_cats,
+        "train_weak_available": len(weak_cats) > 0,
+        "exam_slug": exam_slug,
+    }
+
+
+@router.get("/sessions/{session_id}/mock-debrief/pdf")
+async def download_mock_debrief_pdf(
+    session_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Download mock exam debrief as PDF."""
+    from fastapi.responses import StreamingResponse
+    from io import BytesIO
+    from app.models.models import ExamSession as _ExamSession
+
+    sess = await db.get(_ExamSession, uuid_lib.UUID(session_id))
+    if not sess or sess.user_id != user.id:
+        raise HTTPException(404, "Session not found")
+    if sess.status not in ("completed", "expired"):
+        raise HTTPException(400, "Session not yet completed")
+
+    pdf_bytes = _generate_debrief_pdf(sess, user)
+    return StreamingResponse(
+        BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="mock-debrief-{session_id[:8]}.pdf"',
+        },
+    )
+
+
+def _generate_debrief_pdf(sess: Any, user: Any) -> bytes:
+    """Generate mock debrief PDF using reportlab."""
+    from io import BytesIO
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import ParagraphStyle
+    from reportlab.lib.units import mm
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+
+    buf = BytesIO()
+    doc = SimpleDocTemplate(buf, pagesize=A4, rightMargin=20*mm, leftMargin=20*mm,
+                            topMargin=20*mm, bottomMargin=20*mm)
+
+    styles = {
+        "title": ParagraphStyle("title", fontSize=20, fontName="Helvetica-Bold",
+                                spaceAfter=6, textColor=colors.HexColor("#c0392b")),
+        "subtitle": ParagraphStyle("subtitle", fontSize=12, fontName="Helvetica",
+                                   spaceAfter=4, textColor=colors.HexColor("#4a453e")),
+        "heading": ParagraphStyle("heading", fontSize=13, fontName="Helvetica-Bold",
+                                  spaceBefore=10, spaceAfter=4),
+        "body": ParagraphStyle("body", fontSize=10, fontName="Helvetica",
+                               spaceAfter=4, leading=14),
+    }
+
+    elements = []
+    elements.append(Paragraph("MedMind AI", styles["title"]))
+    elements.append(Paragraph(f"Mock Exam Debrief — {sess.mode_id or 'Exam'}", styles["subtitle"]))
+    elements.append(Paragraph(
+        f"Student: {user.first_name or ''} {user.last_name or ''}  |  Score: {sess.score_pct or 0:.1f}%  |  {'PASSED' if sess.passed else 'NOT PASSED'}",
+        styles["body"]
+    ))
+    elements.append(Spacer(1, 8*mm))
+
+    # Category breakdown table
+    per_q = sess.per_question or []
+    cat_breakdown: dict = {}
+    for pq in per_q:
+        if pq.get("correct") is None:
+            continue
+        cat = pq.get("nclex_client_needs") or "Other"
+        if cat not in cat_breakdown:
+            cat_breakdown[cat] = {"correct": 0, "total": 0}
+        cat_breakdown[cat]["total"] += 1
+        if pq["correct"]:
+            cat_breakdown[cat]["correct"] += 1
+
+    if cat_breakdown:
+        elements.append(Paragraph("Category Performance", styles["heading"]))
+        table_data = [["Category", "Score", "Status"]]
+        for cat, v in sorted(cat_breakdown.items()):
+            acc = v["correct"] / v["total"] * 100 if v["total"] > 0 else 0
+            table_data.append([
+                cat.replace("_", " ").title(),
+                f"{acc:.1f}% ({v['correct']}/{v['total']})",
+                "✓ Above target" if acc >= 62 else "⚠ Below target",
+            ])
+        tbl = Table(table_data, colWidths=[90*mm, 50*mm, 40*mm])
+        tbl.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1a1814")),
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f9f7f4")]),
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#d8d2c8")),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ]))
+        elements.append(tbl)
+        elements.append(Spacer(1, 6*mm))
+
+    elements.append(Paragraph(
+        "Generated by MedMind AI · medmindai.com",
+        ParagraphStyle("footer", fontSize=8, textColor=colors.HexColor("#8a8278"))
+    ))
+
+    doc.build(elements)
+    return buf.getvalue()
