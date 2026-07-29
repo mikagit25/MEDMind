@@ -152,6 +152,53 @@ def fetch_untranslated(lang: str, limit: int) -> list[dict]:
         return [dict(r) for r in cur.fetchall()]
 
 
+def _qa_check(original: dict, translated: dict, lang: str) -> tuple[bool, str]:
+    """Quick sanity checks on translated MCQ content before saving.
+    Returns (passed, reason_if_failed).
+    """
+    import re as _re
+
+    orig_q   = original.get("question", "")
+    orig_opts = original.get("options", {}) if isinstance(original.get("options"), dict) else {}
+    tr_q     = translated.get("question", "")
+    tr_opts  = translated.get("options", {}) if isinstance(translated.get("options"), dict) else {}
+    tr_kt    = translated.get("key_takeaway", "")
+
+    # 1. Translation must not be empty
+    if not tr_q.strip() or not tr_kt.strip():
+        return False, "empty translation"
+
+    # 2. All 4 options must be present
+    if set(tr_opts.keys()) < {"A", "B", "C", "D"}:
+        return False, f"missing options: {set('ABCD') - set(tr_opts.keys())}"
+
+    # 3. Length sanity (translated should be 40%–300% of original)
+    orig_len = max(1, len(orig_q))
+    tr_len   = len(tr_q)
+    if not (0.4 * orig_len <= tr_len <= 3.0 * orig_len):
+        return False, f"length ratio {tr_len/orig_len:.1f} out of range"
+
+    # 4. Numbers in original should appear in translation
+    nums = set(_re.findall(r"\b\d+(?:[.,]\d+)?\b", orig_q))
+    if nums:
+        tr_nums = set(_re.findall(r"\b\d+(?:[.,]\d+)?\b", tr_q + " ".join(tr_opts.values())))
+        missing = nums - tr_nums
+        if len(missing) > len(nums) * 0.5:
+            return False, f"numbers lost in translation: {missing}"
+
+    # 5. For Arabic: translation should contain Arabic characters
+    if lang == "ar":
+        ar_chars = sum(1 for c in tr_q if '؀' <= c <= 'ۿ')
+        if ar_chars < 5:
+            return False, "Arabic text contains too few Arabic characters"
+
+    # 6. Translation should not be identical to original (untranslated)
+    if tr_q.strip().lower() == orig_q.strip().lower():
+        return False, "translation identical to original"
+
+    return True, ""
+
+
 def save_translation(question_id: str, lang: str, translated: dict):
     sql = """
         INSERT INTO nclex_shorts_translations (question_id, lang, question, options, key_takeaway)
@@ -292,6 +339,12 @@ def run(lang: str, max_q: int, dry_run: bool) -> int:
         translated = _translate_one(q, lang, providers)
         if not translated:
             log.warning("  ✗ all providers failed, skipping")
+            time.sleep(DELAY)
+            continue
+
+        passed, reason = _qa_check(q, translated, lang)
+        if not passed:
+            log.warning("  ✗ QA failed (%s) — skipping", reason)
             time.sleep(DELAY)
             continue
 

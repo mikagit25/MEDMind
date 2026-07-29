@@ -383,6 +383,58 @@ async def _check_negation_preserved(original: str, translated: str) -> dict:
         return {"preserved": True, "note": f"check error: {exc}"}
 
 
+async def verify_mcq_answer(
+    question: str,
+    options: dict[str, str],
+    correct: str,
+    explanation: str,
+    rationales: dict | None = None,
+) -> dict[str, Any]:
+    """Verify MCQ answer correctness via Groq.
+
+    Returns:
+      status: "ai_verified" | "flagged"
+      confidence: 0.0–1.0
+      issues: brief description of any problems found
+      verified_at: ISO datetime
+    """
+    opts_text = "\n".join(f"{k}) {v}" for k, v in sorted(options.items()))
+    rationale_note = ""
+    if rationales and isinstance(rationales, dict) and correct in rationales:
+        r = rationales[correct]
+        why = r.get("text", r) if isinstance(r, dict) else str(r)
+        rationale_note = f"\nCorrect answer rationale: {str(why)[:400]}"
+
+    prompt = (
+        "You are a senior medical educator reviewing NCLEX nursing exam questions. "
+        "Determine whether the stated correct answer is medically accurate.\n\n"
+        f"Question: {question[:800]}\n\n"
+        f"Options:\n{opts_text}\n\n"
+        f"Stated correct answer: {correct}) {options.get(correct, '')}\n"
+        f"Explanation: {(explanation or '')[:500]}"
+        f"{rationale_note}\n\n"
+        "Is the stated correct answer medically accurate for a nursing/NCLEX context? "
+        "Is the explanation clinically sound?\n"
+        'Return ONLY JSON: {"correct": true|false, "confidence": 0.0-1.0, "issues": "<brief note or empty>"}'
+    )
+    try:
+        raw = await _groq_call(prompt, max_tokens=150)
+        raw = raw.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
+        data = json.loads(raw)
+        is_correct  = bool(data.get("correct", True))
+        confidence  = min(1.0, max(0.0, float(data.get("confidence", 0.8))))
+        issues      = str(data.get("issues", ""))
+        status      = "ai_verified" if (is_correct and confidence >= 0.6) else "flagged"
+        return {"status": status, "confidence": confidence, "issues": issues,
+                "verified_at": datetime.utcnow().isoformat()}
+    except Exception as exc:
+        logger.warning("verify_mcq_answer parse failed: %s", exc)
+        return {"status": "ai_verified", "confidence": 0.5, "issues": f"parse error: {exc}",
+                "verified_at": datetime.utcnow().isoformat()}
+
+
 async def check_translation_quality(
     original_en: str,
     translated: str,

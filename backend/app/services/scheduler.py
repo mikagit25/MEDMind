@@ -640,6 +640,116 @@ async def _verify_articles_job() -> None:
         logger.error("verify_articles cron error: %s", exc)
 
 
+async def _verify_mcq_job() -> None:
+    """Verify pending MCQ answers via Groq (30 per run, every 30 min)."""
+    from app.services.content_verifier import verify_mcq_answer
+    from app.models.models import MCQQuestion
+    from sqlalchemy import select
+
+    try:
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(MCQQuestion)
+                .where(MCQQuestion.verification_status == "pending")
+                .order_by(MCQQuestion.created_at)
+                .limit(30)
+            )
+            questions = result.scalars().all()
+
+        if not questions:
+            return
+
+        verified = flagged = 0
+        for q in questions:
+            try:
+                options = q.options if isinstance(q.options, dict) else {}
+                report = await verify_mcq_answer(
+                    question=q.question or "",
+                    options=options,
+                    correct=q.correct or "",
+                    explanation=q.explanation or "",
+                    rationales=q.rationales if isinstance(q.rationales, dict) else None,
+                )
+                async with AsyncSessionLocal() as db2:
+                    obj = await db2.get(MCQQuestion, q.id)
+                    if obj:
+                        obj.verification_status = report["status"]
+                        obj.verification_report = report
+                        await db2.commit()
+                if report["status"] == "flagged":
+                    flagged += 1
+                else:
+                    verified += 1
+            except Exception as exc:
+                logger.error("MCQ verify failed id=%s: %s", q.id, exc)
+
+        logger.info("MCQ verification: %d ai_verified, %d flagged", verified, flagged)
+    except Exception as exc:
+        logger.error("verify_mcq cron error: %s", exc)
+
+
+async def _qa_lesson_translations_job() -> None:
+    """Score quality of done lesson translations that have no quality score yet (20 per run)."""
+    from app.models.models import Lesson, LessonTranslation
+    from app.services.content_verifier import check_translation_quality, _article_to_text
+    from sqlalchemy import select
+
+    try:
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(LessonTranslation)
+                .where(
+                    LessonTranslation.status == "done",
+                    LessonTranslation.translation_quality.is_(None),
+                )
+                .order_by(LessonTranslation.lesson_id)
+                .limit(20)
+            )
+            translations = result.scalars().all()
+
+        if not translations:
+            return
+
+        scored = retranslate = 0
+        for lt in translations:
+            try:
+                async with AsyncSessionLocal() as db2:
+                    lesson = await db2.get(Lesson, lt.lesson_id)
+                    if not lesson:
+                        continue
+                    en_text  = _article_to_text(lesson.content or [])
+                    tr_blocks = lt.content_json if isinstance(lt.content_json, list) else []
+                    tr_text  = _article_to_text(tr_blocks)
+                    if not en_text.strip() or not tr_text.strip():
+                        continue
+                    qa = await check_translation_quality(
+                        original_en=en_text[:3000],
+                        translated=tr_text[:3000],
+                        lang=lt.locale[:2],
+                        article_id=str(lt.lesson_id),
+                    )
+                    quality = 0.0 if qa["failures"] else 1.0
+                    # Weight by failure count
+                    if qa["failures"]:
+                        quality = max(0.0, 1.0 - len(qa["failures"]) * 0.25)
+
+                    lt_obj = await db2.get(LessonTranslation, (lt.lesson_id, lt.locale))
+                    if lt_obj:
+                        lt_obj.translation_quality = quality
+                        if quality < 0.6:
+                            lt_obj.status = "pending"
+                            lt_obj.error_message = f"QA failed: {qa['failures']}"
+                            retranslate += 1
+                        await db2.commit()
+                    scored += 1
+            except Exception as exc:
+                logger.error("QA failed lesson=%s locale=%s: %s", lt.lesson_id, lt.locale, exc)
+
+        logger.info("Lesson translation QA: %d scored, %d sent back for re-translation", scored, retranslate)
+    except Exception as exc:
+        logger.error("qa_lesson_translations cron error: %s", exc)
+
+
 async def _retry_pending_lesson_translations_job() -> None:
     """Retry pending/failed lesson translations — 5 per run, every 30 min."""
     from app.models.models import Lesson, LessonTranslation
@@ -880,6 +990,24 @@ def start_scheduler():
         id="verify_articles",
         replace_existing=True,
         misfire_grace_time=1800,
+    )
+
+    # Every 30 min at :10/:40 — verify pending MCQ answers via Groq (30 per run)
+    scheduler.add_job(
+        _verify_mcq_job,
+        trigger=CronTrigger(minute="10,40", timezone="UTC"),
+        id="verify_mcq",
+        replace_existing=True,
+        misfire_grace_time=600,
+    )
+
+    # Every 30 min at :20/:50 — score translation quality for done lessons (20 per run)
+    scheduler.add_job(
+        _qa_lesson_translations_job,
+        trigger=CronTrigger(minute="20,50", timezone="UTC"),
+        id="qa_lesson_translations",
+        replace_existing=True,
+        misfire_grace_time=600,
     )
 
     # Every 10 min — retry pending/failed lesson translations (20 per run)
