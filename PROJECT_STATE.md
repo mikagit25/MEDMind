@@ -6,9 +6,74 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** EXAMS-GLOBAL Транш 1 ЗАВЕРШЁН ✅ — G1 (Gulf Registry) + G2 (ES Layer) + G3 (Regional Pricing)
-**Last Updated:** 2026-07-23
-**Next Action:** ВОРОТА ТРАНША 2 — ждать ≥100 платящих или ≥1000 активных по Gulf+ES. До этого: маркетинг Транша 1.
+**Phase:** V7 ROADMAP ЗАВЕРШЁН ✅ — все 6 фаз завершены и задеплоены
+**Last Updated:** 2026-07-29
+**Next Action:** Marketing Транша 1 (≥100 платящих или ≥1000 активных по Gulf+ES → Транш 2)
+
+---
+
+### V7 Roadmap — Bank Health + Psychometrics ✅ (2026-07-29)
+
+| Фаза | Название | Статус | Коммит |
+|------|----------|--------|--------|
+| Phase 1 | Психометрика вопросов | ✅ | feat(v7-phase-1) |
+| Phase 2 | Дашборд здоровья банка | ✅ | feat(v7-phase-2) |
+| Phase 3 | Пост-экзаменационная петля | ✅ | feat(v7-phase-3) |
+| Phase 4 | Вопрос ↔ AI-тьютор (follow-up chips) | ✅ | feat(v7-phase-4) |
+| Phase 5 | Сравнение с сообществом | ✅ | feat(v7-phase-5) |
+| Phase 6 | Разбор mock-экзамена | ✅ | feat(v7-phase-6) |
+
+**Tests:** 72/72 passed (all V7 tests green in full suite)
+
+#### Phase 1 — Psychometrics
+- `QuestionStats` model (p_value, discrimination, attempt_count, health)
+- `QuestionAttempt` model (per-user attempt log for discrimination calculation)
+- Alembic migration `t6u7v8w9x0y1`: `question_stats`, `question_attempts` tables
+- `psychometrics.py` service: p-value (proportion correct), discrimination (biserial), health classification
+- Nightly cron job: recalculates stats for all questions answered ≥40 times
+- Health labels: excellent / good / weak / key_suspect (flagged for review)
+- 10 tests: unit (p-value, discrimination, health thresholds) + HTTP (auth, snapshot, recalc)
+
+#### Phase 2 — Bank Health Dashboard
+- Admin endpoint `GET /exam/admin/bank-health` — distribution by health label + calibration stats
+- `ContentAuditLog` model: tracks all psychometric recalculations with before/after health
+- `MCQQuestion.status` field: draft / active / suspended / retired (lifecycle management)
+- Admin UI tab "Bank Health" in `/admin` page: health distribution bars, calibration chart
+- 12 tests (3 unit, 9 HTTP)
+
+#### Phase 3 — Post-Exam Survey Loop
+- `ExamOutcome` model + migration `v8w9x0y1z2a3`: tracks real exam results after NCLEX
+- Cron: `_readiness_snapshot_job` (22:00 UTC) — creates ExamOutcome rows for users whose exam is tomorrow
+- Cron: `_survey_reminder_job` (10:00 UTC) — sends survey emails at T+2d and T+7d
+- Cron: `_community_percentile_job` (03:00 UTC) — computes per-user category accuracy, caches in Redis
+- REST API: GET /exam-outcomes/pending, POST /exam-outcomes/{id}/submit, POST /exam-outcomes/{id}/unsubscribe
+- Admin: GET /admin/readiness-validation (correlation report), GET /admin/blueprint-calibration
+- Frontend: 3-step survey page `/survey/exam-outcome/[id]`, `ExamSurveyBanner` on dashboard
+- 10 tests
+
+#### Phase 4 — Follow-up Chips (Question ↔ AI Tutor)
+- `POST /exam/questions/{id}/followup` — 5 chip types: why_wrong, memory_tip, concept_review, clinical_apply, mnemonics
+- `question_followup.py` prompt service — builds (system_prompt, user_message) tuple per chip
+- AI quota enforced via `check_ai_rate_limit`; `follow_up_count` incremented; health escalated to `key_suspect` at threshold
+- Frontend: follow-up chip buttons appear after initial explanation in exam review mode
+- 7 tests
+
+#### Phase 5 — Community Comparison
+- `GET /exam/questions/{id}/community` — pass rate with strict privacy guard (sample_size_ok=True only when group ≥30)
+- `GET /exam/nclex/community-percentile` — user percentile rank vs all users (cached Redis, 26h TTL)
+- `CommunityPassRate` component in exam page — "N% get this right ← challenging" label
+- 6 tests
+
+#### Phase 6 — Mock Exam Debrief
+- `mock_debrief.py`: 7 rule-based pattern detectors (ordered_errors, calculation_errors, sata_errors, pharmacology_errors, priority_keyword_errors, infection_control_errors, slow_question_pattern)
+- `run_detectors(per_question)` — fires detectors, returns list of patterns with descriptions
+- `analyze_timing(per_question)` — avg/total time, slow questions, would_exceed_time_limit
+- `GET /exam/sessions/{id}/mock-debrief` — aggregates patterns + timing + category breakdown
+- `GET /exam/sessions/{id}/mock-debrief/pdf` — reportlab PDF export (name, score, patterns, category table)
+- `MockDebriefPanel` frontend component — expandable panel with patterns (amber alerts), timing stats, category breakdown, PDF download
+- 10 tests
+
+---
 
 ### Mobile UX Polish + SEO + i18n ✅ (2026-07-23)
 - **Inline MCQ quiz in lesson screen**: after completing a lesson, users tap "Practice Quiz" to get a random MCQ from that module. Answer submitted to progress API (XP awarded, SM-2 tracked), explanation shown on reveal. Next question button cycles through more.
