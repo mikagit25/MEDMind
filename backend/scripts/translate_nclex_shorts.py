@@ -3,7 +3,7 @@
 Translate EN NCLEX questions → ES / AR for YouTube Shorts.
 
 Creates table nclex_shorts_translations on first run.
-Uses Groq key pool loaded from /opt/medmind/backend/.env.prod.
+Provider chain: Groq → Cerebras → Gemini → SambaNova (key rotation within each).
 
 Usage:
     python3 translate_nclex_shorts.py --lang es --max 20
@@ -13,7 +13,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import itertools
 import json
 import logging
 import os
@@ -31,15 +30,11 @@ log = logging.getLogger(__name__)
 ENV_FILE = Path("/opt/medmind/backend/.env.prod")
 DB_URL   = os.environ.get("DB_URL", "postgresql://medmind:medmind_secret@localhost:5432/medmind")
 
-GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
-
 LANG_NAMES = {"es": "Spanish", "ar": "Arabic"}
+DELAY = 0.3
 
-DELAY = 0.5   # seconds between Groq calls
 
-
-# ── Env loading ───────────────────────────────────────────────────────────────
+# ── Env & key loading ─────────────────────────────────────────────────────────
 
 def _load_env():
     if not ENV_FILE.exists():
@@ -50,24 +45,61 @@ def _load_env():
             if not line or line.startswith("#") or "=" not in line:
                 continue
             k, _, v = line.partition("=")
-            k, v = k.strip(), v.strip().strip("\"'")
-            os.environ.setdefault(k, v)
+            os.environ.setdefault(k.strip(), v.strip().strip("\"'"))
 
 
 def _g(name: str) -> str:
     return os.environ.get(name, "")
 
 
-def _dedup(lst):
+def _dedup(lst: list[str]) -> list[str]:
     seen: set = set()
     return [x for x in lst if x and x not in seen and not seen.add(x)]  # type: ignore
 
 
-def _get_groq_keys() -> list[str]:
-    return _dedup([
-        _g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
-        _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
-    ])
+# Per-key cooldown for 429 handling
+_rate_limited_until: dict[str, float] = {}
+
+
+def _available(keys: list[str]) -> list[str]:
+    now = time.time()
+    return [k for k in keys if _rate_limited_until.get(k, 0) <= now]
+
+
+def _mark_limited(key: str, secs: int = 60):
+    _rate_limited_until[key] = time.time() + secs
+
+
+def _build_providers() -> list[dict]:
+    groq_keys      = _dedup([_g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
+                              _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2")])
+    cerebras_keys  = _dedup([_g("CEREBRAS_API_KEY_2"), _g("CEREBRAS_API_KEY_3"),
+                              _g("CEREBRAS_API_KEY_4"), _g("CEREBRAS_API_KEY_5")])
+    gemini_keys    = _dedup([_g("GEMINI_API_KEY"), _g("GEMINI_API_KEY_2"),
+                              _g("GEMINI_API_KEY_3"), _g("GEMINI_API_KEY_4")])
+    sambanova_keys = _dedup([_g("SAMBANOVA_API_KEY_2"), _g("SAMBANOVA_API_KEY_3")])
+
+    providers = []
+    if groq_keys:
+        providers.append({
+            "name": "groq", "url": "https://api.groq.com/openai/v1/chat/completions",
+            "model": "llama-3.3-70b-versatile", "keys": groq_keys,
+        })
+    if cerebras_keys:
+        providers.append({
+            "name": "cerebras", "url": "https://api.cerebras.ai/v1/chat/completions",
+            "model": "gpt-oss-120b", "keys": cerebras_keys,
+        })
+    if sambanova_keys:
+        providers.append({
+            "name": "sambanova", "url": "https://fast-api.snova.ai/v1/chat/completions",
+            "model": "Meta-Llama-3.3-70B-Instruct", "keys": sambanova_keys,
+        })
+    if gemini_keys:
+        providers.append({
+            "name": "gemini", "keys": gemini_keys,
+        })
+    return providers
 
 
 # ── DB helpers ────────────────────────────────────────────────────────────────
@@ -95,7 +127,6 @@ def ensure_table():
     with _conn() as conn, conn.cursor() as cur:
         cur.execute(CREATE_TABLE)
         conn.commit()
-    log.info("Table nclex_shorts_translations ready")
 
 
 def fetch_untranslated(lang: str, limit: int) -> list[dict]:
@@ -129,8 +160,7 @@ def save_translation(question_id: str, lang: str, translated: dict):
     """
     with _conn() as conn, conn.cursor() as cur:
         cur.execute(sql, (
-            question_id,
-            lang,
+            question_id, lang,
             translated["question"],
             json.dumps(translated["options"]),
             translated["key_takeaway"],
@@ -138,7 +168,7 @@ def save_translation(question_id: str, lang: str, translated: dict):
         conn.commit()
 
 
-# ── Groq translation ──────────────────────────────────────────────────────────
+# ── Translation API calls ─────────────────────────────────────────────────────
 
 _PROMPT = """\
 Translate the following NCLEX nursing exam question from English to {lang_name}.
@@ -152,47 +182,88 @@ Rules:
 Input JSON:
 {json_input}
 
-Return translated JSON with same keys: question, options (A/B/C/D), key_takeaway
-"""
+Return translated JSON with same keys: question, options (A/B/C/D), key_takeaway"""
 
 
-def _translate_via_groq(q: dict, lang: str, key_cycle) -> dict | None:
+def _parse_response(raw: str) -> dict | None:
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`").strip()
+    try:
+        data = json.loads(raw)
+        if "question" in data and "options" in data and "key_takeaway" in data:
+            return data
+    except json.JSONDecodeError:
+        pass
+    return None
+
+
+def _call_openai_compat(url: str, key: str, model: str, prompt: str) -> str | None:
+    try:
+        resp = httpx.post(
+            url,
+            headers={"Authorization": f"Bearer {key}"},
+            json={"model": model, "messages": [{"role": "user", "content": prompt}],
+                  "max_tokens": 600, "temperature": 0.1},
+            timeout=45,
+        )
+        if resp.status_code == 429:
+            _mark_limited(key, 65)
+            return None
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]["content"]
+    except Exception as exc:
+        log.debug("openai-compat error [%s]: %s", url.split("/")[2], exc)
+        return None
+
+
+def _call_gemini(key: str, prompt: str) -> str | None:
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={key}"
+    try:
+        resp = httpx.post(
+            url,
+            json={"contents": [{"parts": [{"text": prompt}]}],
+                  "generationConfig": {"maxOutputTokens": 600, "temperature": 0.1}},
+            timeout=45,
+        )
+        if resp.status_code == 429:
+            _mark_limited(key, 65)
+            return None
+        resp.raise_for_status()
+        candidates = resp.json().get("candidates", [])
+        if candidates:
+            return candidates[0]["content"]["parts"][0]["text"]
+    except Exception as exc:
+        log.debug("gemini error: %s", exc)
+    return None
+
+
+def _translate_one(q: dict, lang: str, providers: list[dict]) -> dict | None:
     lang_name = LANG_NAMES[lang]
-    options = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
-    payload = {
-        "question":    q["question"],
-        "options":     options,
-        "key_takeaway": q["key_takeaway"],
-    }
-    prompt = _PROMPT.format(lang_name=lang_name, json_input=json.dumps(payload, ensure_ascii=False))
+    options   = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
+    payload   = {"question": q["question"], "options": options, "key_takeaway": q["key_takeaway"]}
+    prompt    = _PROMPT.format(lang_name=lang_name, json_input=json.dumps(payload, ensure_ascii=False))
 
-    for attempt in range(3):
-        key = next(key_cycle)
-        try:
-            resp = httpx.post(
-                GROQ_URL,
-                headers={"Authorization": f"Bearer {key}"},
-                json={
-                    "model": GROQ_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": 600,
-                    "temperature": 0.1,
-                },
-                timeout=60,
-            )
-            resp.raise_for_status()
-            raw = resp.json()["choices"][0]["message"]["content"].strip()
-            if raw.startswith("```"):
-                raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`").strip()
-            data = json.loads(raw)
-            if "question" in data and "options" in data and "key_takeaway" in data:
-                return data
-            log.warning("Unexpected response structure: %s", list(data.keys()))
-        except json.JSONDecodeError as exc:
-            log.warning("JSON parse error (attempt %d): %s | raw: %.200s", attempt + 1, exc, raw)
-        except Exception as exc:
-            log.warning("Groq error (attempt %d): %s", attempt + 1, exc)
-            time.sleep(2)
+    for provider in providers:
+        avail = _available(provider["keys"])
+        if not avail:
+            log.debug("provider %s: all keys rate-limited, skipping", provider["name"])
+            continue
+
+        for key in avail:
+            if provider["name"] == "gemini":
+                raw = _call_gemini(key, prompt)
+            else:
+                raw = _call_openai_compat(provider["url"], key, provider["model"], prompt)
+
+            if raw is None:
+                continue
+            result = _parse_response(raw)
+            if result:
+                log.debug("  translated via %s", provider["name"])
+                return result
+            log.debug("  bad JSON from %s, trying next key", provider["name"])
+
     return None
 
 
@@ -200,12 +271,12 @@ def _translate_via_groq(q: dict, lang: str, key_cycle) -> dict | None:
 
 def run(lang: str, max_q: int, dry_run: bool) -> int:
     _load_env()
-    keys = _get_groq_keys()
-    if not keys:
-        log.error("No Groq keys found — check .env.prod")
+    providers = _build_providers()
+    if not providers:
+        log.error("No API keys found — check .env.prod")
         return 0
-    key_cycle = itertools.cycle(keys)
 
+    log.info("Providers available: %s", [p["name"] for p in providers])
     ensure_table()
     questions = fetch_untranslated(lang, max_q)
 
@@ -218,20 +289,18 @@ def run(lang: str, max_q: int, dry_run: bool) -> int:
 
     for q in questions:
         log.info("  [%s] %s…", q["id"][:8], q["question"][:60])
-        translated = _translate_via_groq(q, lang, key_cycle)
+        translated = _translate_one(q, lang, providers)
         if not translated:
-            log.warning("  ✗ failed, skipping")
+            log.warning("  ✗ all providers failed, skipping")
             time.sleep(DELAY)
             continue
 
         if dry_run:
             log.info("  [DRY] → %s", translated["question"][:80])
-            done += 1
         else:
             save_translation(q["id"], lang, translated)
             log.info("  ✓ saved")
-            done += 1
-
+        done += 1
         time.sleep(DELAY)
 
     log.info("Done: %d/%d translated for lang=%s", done, len(questions), lang)
