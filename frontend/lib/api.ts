@@ -841,6 +841,24 @@ export const examApi = {
     api.post(`/exam/plan/complete-today?exam_type=${examType}`, { task_type: taskType }).then(r => r.data),
 };
 
+// ── Exam Outcomes / Post-exam survey (V7 Phase 3) ─────────────────────────────
+export const examOutcomesApi = {
+  getPending: () => api.get("/exam-outcomes/pending").then(r => r.data),
+  submit: (
+    outcomeId: string,
+    body: {
+      result: "passed" | "failed" | "postponed" | "no_answer";
+      self_reported_score?: string;
+      harder_topics?: string[];
+      weaker_topics?: string[];
+      feedback_note?: string;
+      nps_score?: number;
+    }
+  ) => api.post(`/exam-outcomes/${outcomeId}/submit`, body).then(r => r.data),
+  unsubscribe: (outcomeId: string) =>
+    api.post(`/exam-outcomes/${outcomeId}/unsubscribe`).then(r => r.data),
+};
+
 // ── Lifecycle / Notification Prefs ────────────────────────────────────────────
 export const lifecycleApi = {
   getPrefs: () => api.get("/lifecycle/notification-prefs").then(r => r.data),

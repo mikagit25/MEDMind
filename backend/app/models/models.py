@@ -2193,3 +2193,41 @@ class ContentAuditLog(Base):
         Index("ix_audit_question", "question_id"),
         Index("ix_audit_created", "created_at"),
     )
+
+
+class ExamOutcome(Base):
+    """User-reported outcome of a real licensing exam sit.
+    Created by cron (with readiness_at_exam snapshot) and completed by user survey.
+    """
+    __tablename__ = "exam_outcomes"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    exam_plan_id = Column(UUID(as_uuid=True), ForeignKey("exam_plans.id", ondelete="SET NULL"), nullable=True)
+    exam_slug = Column(String(60), nullable=False)
+    exam_date = Column(_SQLJSON, nullable=False)  # stored as ISO date string
+    # Readiness snapshot taken by cron the day before exam_date
+    readiness_at_exam = Column(Float, nullable=True)
+    # Survey step 1
+    result = Column(String(20), nullable=True)  # passed|failed|postponed|no_answer
+    self_reported_score = Column(String(50), nullable=True)
+    # Survey step 2: blueprint topics (no verbatim questions per NDA)
+    harder_topics = Column(JSONB, nullable=True)   # list of category slugs
+    weaker_topics = Column(JSONB, nullable=True)   # list of category slugs
+    feedback_note = Column(Text, nullable=True)
+    # Survey step 3: NPS
+    nps_score = Column(Integer, nullable=True)
+    # Survey lifecycle tracking
+    survey_sent_count = Column(Integer, nullable=False, default=0)
+    last_survey_sent_at = Column(DateTime, nullable=True)
+    unsubscribed_from_survey = Column(Boolean, nullable=False, default=False)
+    reported_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    user = relationship("User", foreign_keys=[user_id])
+
+    __table_args__ = (
+        Index("ix_exam_outcomes_user", "user_id"),
+        Index("ix_exam_outcomes_exam_date", "exam_date"),
+        Index("ix_exam_outcomes_exam_slug", "exam_slug"),
+    )

@@ -867,6 +867,112 @@ async def _psychometrics_job() -> None:
         logger.error("psychometrics_job failed: %s", exc, exc_info=True)
 
 
+async def _readiness_snapshot_job() -> None:
+    """V7 Phase 3: snapshot readiness score for users whose exam is tomorrow."""
+    import datetime as _dt
+    from sqlalchemy import select
+    from app.models.models import ExamPlan, ExamOutcome
+    from app.services.readiness import compute_readiness
+
+    try:
+        tomorrow = (_dt.datetime.utcnow() + _dt.timedelta(days=1)).date()
+        async with AsyncSessionLocal() as db:
+            plans = (await db.execute(
+                select(ExamPlan).where(
+                    ExamPlan.status == "active",
+                    ExamPlan.exam_date >= str(tomorrow),
+                    ExamPlan.exam_date < str(tomorrow + _dt.timedelta(days=1)),
+                )
+            )).scalars().all()
+
+            for plan in plans:
+                # Check if we already have an outcome row for this plan
+                existing = (await db.execute(
+                    select(ExamOutcome).where(ExamOutcome.exam_plan_id == plan.id)
+                )).scalar_one_or_none()
+                if existing:
+                    continue
+
+                try:
+                    readiness_data = await compute_readiness(plan.user_id, db)
+                    score = readiness_data.get("score")
+                except Exception:
+                    score = None
+
+                exam_slug = plan.exam_type or "nclex"
+                outcome = ExamOutcome(
+                    user_id=plan.user_id,
+                    exam_plan_id=plan.id,
+                    exam_slug=exam_slug,
+                    exam_date=str(tomorrow),
+                    readiness_at_exam=score,
+                )
+                db.add(outcome)
+
+            await db.commit()
+            logger.info("readiness_snapshot_job: processed %d exam plans for %s", len(plans), tomorrow)
+    except Exception as exc:
+        logger.error("readiness_snapshot_job failed: %s", exc, exc_info=True)
+
+
+async def _survey_reminder_job() -> None:
+    """V7 Phase 3: send survey email to users 2 and 7 days after their exam date."""
+    import datetime as _dt
+    from sqlalchemy import select
+    from app.models.models import ExamOutcome, User
+    from app.services.email_service import send_exam_survey
+
+    try:
+        today = _dt.datetime.utcnow().date()
+        day2 = str(today - _dt.timedelta(days=2))
+        day7 = str(today - _dt.timedelta(days=7))
+
+        async with AsyncSessionLocal() as db:
+            # Find outcomes that need a survey reminder
+            outcomes = (await db.execute(
+                select(ExamOutcome).where(
+                    ExamOutcome.reported_at.is_(None),
+                    ExamOutcome.unsubscribed_from_survey == False,  # noqa: E712
+                    ExamOutcome.survey_sent_count < 2,
+                    ExamOutcome.exam_date.in_([day2, day7]),
+                )
+            )).scalars().all()
+
+            sent = 0
+            for outcome in outcomes:
+                # Load user
+                user = (await db.execute(
+                    select(User).where(User.id == outcome.user_id)
+                )).scalar_one_or_none()
+                if not user:
+                    continue
+
+                # Decrypt email for sending
+                try:
+                    email = user.email  # may be encrypted; decrypt via property
+                    first_name = user.first_name or ""
+                except Exception:
+                    continue
+
+                reminder_number = outcome.survey_sent_count + 1
+                await send_exam_survey(
+                    to_email=email,
+                    first_name=first_name,
+                    exam_outcome_id=str(outcome.id),
+                    exam_slug=outcome.exam_slug,
+                    reminder_number=reminder_number,
+                )
+                outcome.survey_sent_count = reminder_number
+                outcome.last_survey_sent_at = _dt.datetime.utcnow()
+                db.add(outcome)
+                sent += 1
+
+            await db.commit()
+            logger.info("survey_reminder_job: sent %d reminders", sent)
+    except Exception as exc:
+        logger.error("survey_reminder_job failed: %s", exc, exc_info=True)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -1117,6 +1223,24 @@ def start_scheduler():
         id="psychometrics_nightly",
         replace_existing=True,
         misfire_grace_time=7200,
+    )
+
+    # V7 Phase 3: readiness snapshot at 22:00 UTC (day before exam)
+    scheduler.add_job(
+        _readiness_snapshot_job,
+        trigger=CronTrigger(hour=22, minute=0, timezone="UTC"),
+        id="readiness_snapshot_daily",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # V7 Phase 3: survey reminder at 10:00 UTC (2 days + 7 days after exam_date)
+    scheduler.add_job(
+        _survey_reminder_job,
+        trigger=CronTrigger(hour=10, minute=0, timezone="UTC"),
+        id="survey_reminder_daily",
+        replace_existing=True,
+        misfire_grace_time=3600,
     )
 
     scheduler.start()

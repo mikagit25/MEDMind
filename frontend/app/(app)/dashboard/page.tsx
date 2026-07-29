@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store";
 import { contentApi, progressApi, adaptivePlanApi, examApi, authApi, API_URL } from "@/lib/api";
+import ExamSurveyBanner from "@/components/ExamSurveyBanner";
 
 // ── My Assignments ────────────────────────────────────────────
 function MyAssignments() {
@@ -860,6 +861,7 @@ export default function DashboardPage() {
                   </div>
                 </Link>
               )}
+              <ExamSurveyBanner />
               <ContinueLearning modules={recentModules} />
               <MyAssignments />
               <DailyGoalWidget

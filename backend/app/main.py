@@ -32,7 +32,7 @@ from app.middleware.correlation_id import CorrelationIdMiddleware
 from app.core.telemetry import setup_telemetry
 from app.core.database import engine, Base
 from app.core.redis_client import get_redis, close_redis
-from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles, fhir, credits, tts, referral, team, exam, symptoms, news, comments, public_content, reviewers, calculators, telegram, health_profile, enterprise, product_analytics, practice, srs, certificates, dose_calc, promo, affiliate, lifecycle, pricing
+from app.api.v1.routes import auth, content, progress, ai, payments, notes, bookmarks, achievements, admin, courses, veterinary, compliance, dashboard, notifications, memory, lessons, imaging, user_flashcards, simulation, adaptive, analytics, articles, fhir, credits, tts, referral, team, exam, symptoms, news, comments, public_content, reviewers, calculators, telegram, health_profile, enterprise, product_analytics, practice, srs, certificates, dose_calc, promo, affiliate, lifecycle, pricing, exam_outcomes
 from app.services.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO)
@@ -181,6 +181,7 @@ app.include_router(dose_calc.router, prefix=API_PREFIX)
 app.include_router(promo.router, prefix=API_PREFIX)
 app.include_router(affiliate.router, prefix=API_PREFIX)
 app.include_router(pricing.router, prefix=API_PREFIX)  # G3 — regional pricing
+app.include_router(exam_outcomes.router, prefix="")    # V7 Phase 3 — post-exam survey
 app.include_router(symptoms.router, prefix=API_PREFIX)
 app.include_router(news.router, prefix=API_PREFIX)
 app.include_router(enterprise.router, prefix=API_PREFIX)

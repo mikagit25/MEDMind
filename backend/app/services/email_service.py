@@ -430,3 +430,70 @@ async def send_streak_at_risk(to_email: str, first_name: str, streak_days: int) 
             logger.error("Failed to send streak email to %s: %s", to_email, e)
     else:
         logger.info("DEV MODE — streak-at-risk email for %s: %d days", to_email, streak_days)
+
+
+async def send_exam_survey(
+    to_email: str,
+    first_name: str,
+    exam_outcome_id: str,
+    exam_slug: str,
+    reminder_number: int = 1,
+) -> None:
+    """Send post-exam outcome survey email."""
+    name = first_name or "there"
+    exam_label = exam_slug.upper()
+    survey_url = f"{settings.FRONTEND_URL}/survey/exam-outcome/{exam_outcome_id}"
+    unsubscribe_url = f"{settings.FRONTEND_URL}/survey/exam-outcome/{exam_outcome_id}/unsubscribe"
+
+    reminder_note = ""
+    if reminder_number > 1:
+        reminder_note = '<p style="color:#8a8278;font-size:13px;margin:0 0 16px;">This is a gentle reminder — you can always opt out below.</p>'
+
+    subject = f"How did your {exam_label} exam go?" if reminder_number == 1 else f"Still time to share your {exam_label} exam experience"
+    html = f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:Georgia,serif;background:#f0ede8;margin:0;padding:40px 20px;">
+  <div style="max-width:480px;margin:0 auto;background:#fff;border:1px solid #d8d2c8;border-radius:12px;padding:40px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:900;font-size:22px;color:#1a1814;margin:0 0 24px;">
+      Med<span style="color:#c0392b;">Mind</span>
+    </div>
+    <h1 style="font-family:'Syne',sans-serif;color:#1a1814;font-size:20px;margin:0 0 12px;">
+      Hi {name}, how did your {exam_label} go?
+    </h1>
+    {reminder_note}
+    <p style="color:#4a453e;font-size:15px;line-height:1.6;margin:0 0 16px;">
+      It takes 2 minutes and helps us improve MedMind for everyone preparing for {exam_label}.
+    </p>
+    <div style="background:#fef9f0;border:1px solid #f5e8c8;border-radius:8px;padding:16px;margin:0 0 20px;">
+      <p style="color:#8a6a20;font-size:12px;margin:0;font-weight:600;">IMPORTANT — NDA NOTICE</p>
+      <p style="color:#8a6a20;font-size:12px;margin:6px 0 0;line-height:1.5;">
+        Please do not share verbatim exam questions. This violates your exam agreement.
+        We only ask about topic themes, not question content.
+      </p>
+    </div>
+    <a href="{survey_url}"
+       style="display:inline-block;background:#c0392b;color:#fff;text-decoration:none;
+              font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+              padding:13px 28px;border-radius:6px;margin-bottom:24px;">
+      Share my outcome →
+    </a>
+    <p style="color:#8a8278;font-size:11px;margin:0;">
+      MedMind AI · <a href="{unsubscribe_url}" style="color:#8a8278;">Don't ask me again</a>
+    </p>
+  </div>
+</body></html>"""
+    text = (
+        f"Hi {name},\n\nHow did your {exam_label} exam go? Share your experience (2 min):\n{survey_url}\n\n"
+        "IMPORTANT: Do not share verbatim exam questions — we only ask about topic themes.\n\n"
+        f"Opt out: {unsubscribe_url}\n\nMedMind AI"
+    )
+
+    if settings.SMTP_USER and settings.SMTP_PASSWORD:
+        try:
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, partial(_send_smtp, to_email, subject, html, text))
+            logger.info("Exam survey email sent to %s (exam=%s reminder=%d)", to_email, exam_slug, reminder_number)
+        except Exception as e:
+            logger.error("Failed to send exam survey to %s: %s", to_email, e)
+    else:
+        logger.info("DEV MODE — exam survey for %s: %s reminder #%d", to_email, exam_slug, reminder_number)
