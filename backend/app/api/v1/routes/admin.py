@@ -19,6 +19,7 @@ from app.models.models import (
     StripeEvent, CreditTransaction, AuthorCreditAccount,
     PromoCode, PromoCodeUse,
     Affiliate, AffiliateConversion,
+    QuestionStats, QuestionAttempt, ContentAuditLog,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -2276,3 +2277,259 @@ async def qa_send_test_email(
         "subject": subject,
         "note": "Idempotency and unsubscribe rules bypassed for this test send.",
     }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# V7 Phase 2 — Question Bank Health Dashboard
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class QuestionActionBody(BaseModel):
+    action: str                  # approve | retire | fix_key | send_regeneration
+    new_correct: Optional[str] = None   # for fix_key: new answer letter e.g. "B"
+    note: Optional[str] = None
+
+
+@router.get("/question-health/summary")
+async def bank_health_summary(
+    exam_slug: Optional[str] = None,
+    admin: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Bank-level summary: total questions, calibrated, health distribution, avg discrimination."""
+    from sqlalchemy import case as sa_case
+
+    total_q = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(MCQQuestion.status == "active")
+    )).scalar_one()
+
+    calibrated = (await db.execute(
+        select(func.count(QuestionStats.id)).where(QuestionStats.sample_size_ok == True)
+    )).scalar_one()
+
+    # Health distribution
+    q = select(QuestionStats.health, func.count(QuestionStats.id)).group_by(QuestionStats.health)
+    if exam_slug:
+        q = q.where(QuestionStats.exam_slug == exam_slug)
+    health_rows = (await db.execute(q)).all()
+    health_dist = {r.health: r[1] for r in health_rows}
+
+    # Avg discrimination on calibrated questions
+    avg_disc = (await db.execute(
+        select(func.avg(QuestionStats.discrimination))
+        .where(QuestionStats.sample_size_ok == True)
+    )).scalar_one()
+
+    return {
+        "total_active": total_q,
+        "calibrated": calibrated,
+        "calibration_pct": round(calibrated / max(total_q, 1) * 100, 1),
+        "health_distribution": health_dist,
+        "avg_discrimination": round(avg_disc, 3) if avg_disc else None,
+    }
+
+
+@router.get("/question-health/queue")
+async def bank_health_queue(
+    page: int = Query(1, ge=1),
+    per_page: int = Query(25, le=100),
+    health: Optional[str] = None,
+    exam_slug: Optional[str] = None,
+    admin: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Review queue: questions with health != ok, sorted by attempts desc (high-impact first)."""
+    q = (
+        select(MCQQuestion, QuestionStats)
+        .join(QuestionStats, QuestionStats.question_id == MCQQuestion.id, isouter=True)
+        .where(MCQQuestion.status != "retired")
+    )
+    if health:
+        q = q.where(QuestionStats.health == health)
+    else:
+        q = q.where(
+            (QuestionStats.health != "ok") | MCQQuestion.is_flagged.is_(True)
+        )
+    if exam_slug:
+        q = q.where(QuestionStats.exam_slug == exam_slug)
+
+    # Count
+    total_q = select(func.count()).select_from(q.subquery())
+    total = (await db.execute(total_q)).scalar_one()
+
+    # Paginate, order by attempts desc
+    q = q.order_by(desc(QuestionStats.attempts)).offset((page - 1) * per_page).limit(per_page)
+    rows = (await db.execute(q)).all()
+
+    items = []
+    for mcq, stats in rows:
+        items.append({
+            "id": str(mcq.id),
+            "question": mcq.question[:200],
+            "correct": mcq.correct,
+            "difficulty": mcq.difficulty,
+            "status": mcq.status,
+            "is_flagged": mcq.is_flagged,
+            "flag_reason": mcq.flag_reason,
+            "pending_regeneration": mcq.pending_regeneration,
+            "stats": {
+                "attempts": stats.attempts if stats else 0,
+                "p_value": stats.p_value if stats else None,
+                "discrimination": stats.discrimination if stats else None,
+                "computed_difficulty": stats.computed_difficulty if stats else None,
+                "avg_time_seconds": stats.avg_time_seconds if stats else None,
+                "health": stats.health if stats else "ok",
+                "sample_size_ok": stats.sample_size_ok if stats else False,
+                "option_distribution": stats.option_distribution if stats else None,
+            } if stats else None,
+        })
+
+    return {"total": total, "page": page, "per_page": per_page, "items": items}
+
+
+@router.get("/question-health/{question_id}")
+async def bank_health_question_detail(
+    question_id: UUID,
+    admin: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Full question detail for the review card."""
+    mcq = (await db.execute(
+        select(MCQQuestion).where(MCQQuestion.id == question_id)
+    )).scalar_one_or_none()
+    if not mcq:
+        raise HTTPException(404, "Question not found")
+
+    stats = (await db.execute(
+        select(QuestionStats).where(
+            QuestionStats.question_id == question_id,
+            QuestionStats.exam_slug == None,
+        )
+    )).scalar_one_or_none()
+
+    # Audit history
+    audit_rows = (await db.execute(
+        select(ContentAuditLog)
+        .where(ContentAuditLog.question_id == question_id)
+        .order_by(ContentAuditLog.created_at.desc())
+        .limit(20)
+    )).scalars().all()
+
+    return {
+        "id": str(mcq.id),
+        "question": mcq.question,
+        "options": mcq.options,
+        "correct": mcq.correct,
+        "difficulty": mcq.difficulty,
+        "status": mcq.status,
+        "key_takeaway": mcq.key_takeaway,
+        "rationales": mcq.rationales,
+        "is_flagged": mcq.is_flagged,
+        "flag_reason": mcq.flag_reason,
+        "pending_regeneration": mcq.pending_regeneration,
+        "verification_status": mcq.verification_status,
+        "stats": {
+            "attempts": stats.attempts,
+            "p_value": stats.p_value,
+            "discrimination": stats.discrimination,
+            "computed_difficulty": stats.computed_difficulty,
+            "avg_time_seconds": stats.avg_time_seconds,
+            "health": stats.health,
+            "sample_size_ok": stats.sample_size_ok,
+            "option_distribution": stats.option_distribution,
+            "last_computed_at": stats.last_computed_at.isoformat() if stats.last_computed_at else None,
+        } if stats else None,
+        "audit_log": [
+            {
+                "action": a.action,
+                "note": a.note,
+                "before": a.before,
+                "after": a.after,
+                "created_at": a.created_at.isoformat(),
+            }
+            for a in audit_rows
+        ],
+    }
+
+
+@router.post("/question-health/{question_id}/action")
+async def bank_health_action(
+    question_id: UUID,
+    body: QuestionActionBody,
+    admin: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Perform a review action: approve | retire | fix_key | send_regeneration."""
+    mcq = (await db.execute(
+        select(MCQQuestion).where(MCQQuestion.id == question_id)
+    )).scalar_one_or_none()
+    if not mcq:
+        raise HTTPException(404, "Question not found")
+
+    stats = (await db.execute(
+        select(QuestionStats).where(
+            QuestionStats.question_id == question_id,
+            QuestionStats.exam_slug == None,
+        )
+    )).scalar_one_or_none()
+
+    before: dict = {}
+    after: dict = {}
+
+    if body.action == "approve":
+        before = {"health": stats.health if stats else None}
+        if stats:
+            stats.health = "ok"
+        # Clear user flag
+        mcq.is_flagged = False
+        after = {"health": "ok"}
+
+    elif body.action == "retire":
+        before = {"status": mcq.status}
+        mcq.status = "retired"
+        after = {"status": "retired"}
+
+    elif body.action == "fix_key":
+        if not body.new_correct:
+            raise HTTPException(422, "new_correct is required for fix_key action")
+        if body.new_correct.upper() not in (mcq.options or {}):
+            raise HTTPException(422, f"Option {body.new_correct} not in question options")
+        before = {"correct": mcq.correct}
+        mcq.correct = body.new_correct.upper()
+        # Reset health so next psychometrics run re-evaluates
+        if stats:
+            stats.health = "ok"
+        after = {"correct": body.new_correct.upper()}
+
+    elif body.action == "send_regeneration":
+        before = {"pending_regeneration": mcq.pending_regeneration}
+        mcq.pending_regeneration = True
+        mcq.status = "pending_fix"
+        after = {"pending_regeneration": True, "status": "pending_fix"}
+
+    else:
+        raise HTTPException(422, f"Unknown action: {body.action}")
+
+    # Audit trail
+    db.add(ContentAuditLog(
+        question_id=question_id,
+        admin_id=admin.id,
+        action=body.action,
+        before=before,
+        after=after,
+        note=body.note,
+    ))
+
+    await db.commit()
+    return {"ok": True, "action": body.action, "question_id": str(question_id)}
+
+
+@router.post("/question-health/run-psychometrics")
+async def trigger_psychometrics(
+    dry_run: bool = Query(False),
+    admin: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Manually trigger psychometrics computation (admin only)."""
+    from app.services.psychometrics import compute_all_stats
+    report = await compute_all_stats(db, dry_run=dry_run)
+    return report

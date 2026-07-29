@@ -50,7 +50,7 @@ type AdminModule = {
   author_name?: string | null;
 };
 
-type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "nclex_flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates" | "lifecycle" | "billing";
+type Tab = "overview" | "users" | "teachers" | "modules" | "generate" | "articles" | "translations" | "analytics" | "imaging" | "drugs" | "revenue" | "flags" | "nclex_flags" | "system" | "audit" | "feedback" | "enterprise" | "promo" | "affiliates" | "lifecycle" | "billing" | "bank_health";
 
 const TIERS = ["free", "student", "pro", "clinic", "lifetime"];
 const ROLES = ["student", "teacher", "doctor", "admin"];
@@ -215,6 +215,7 @@ export default function AdminPage() {
           ["revenue",     "💰 Revenue"],
           ["flags",        "🚩 Flags"],
           ["nclex_flags",  "🏴 NCLEX Flags"],
+          ["bank_health",  "🔬 Bank Health"],
           ["system",       "⚙️ System"],
           ["audit",        "🔍 Audit Log"],
           ["feedback",     "🚨 Feedback"],
@@ -646,6 +647,23 @@ export default function AdminPage() {
 
       {/* ── NCLEX Flagged Questions ── */}
       {tab === "nclex_flags" && <NclexFlaggedQuestionsPanel showToast={showToast} />}
+
+      {/* ── V7 Bank Health ── */}
+      {tab === "bank_health" && (
+        <div className="py-4">
+          <a
+            href="/admin/question-health"
+            target="_blank"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 mb-4"
+          >
+            Open Bank Health Dashboard ↗
+          </a>
+          <p className="text-sm text-gray-500">
+            The Bank Health dashboard opens in a new tab. It shows psychometric stats, the review queue,
+            and lets you approve, retire, fix keys, or send questions to regeneration.
+          </p>
+        </div>
+      )}
 
       {/* ── System Health ── */}
       {tab === "system" && <SystemHealthPanel />}

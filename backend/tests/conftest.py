@@ -132,6 +132,9 @@ def _patch_all_redis(monkeypatch, fake_redis):
     """
     import app.core.redis_client as _rc
     import app.api.v1.routes.ai as _ai
+    import app.api.v1.routes.auth as _auth
+    import app.api.v1.routes.public_content as _pub
+    import app.api.v1.routes.symptoms as _sym
     import app.core.cache as _cache
     import app.core.feature_flags as _ff
     import app.services.scheduler as _sched
@@ -144,6 +147,9 @@ def _patch_all_redis(monkeypatch, fake_redis):
     monkeypatch.setattr(_rc, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_rc, "_redis_pool", None)
     monkeypatch.setattr(_ai, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_auth, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_pub, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_sym, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_cache, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_ff, "get_redis", _fake_get_redis)
     # Disable scheduler — it binds to the event loop and breaks across tests
