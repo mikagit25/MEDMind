@@ -641,10 +641,54 @@ async def _verify_articles_job() -> None:
 
 
 async def _verify_mcq_job() -> None:
-    """Verify pending MCQ answers via Groq (30 per run, every 30 min)."""
-    from app.services.content_verifier import verify_mcq_answer
+    """Verify pending MCQ answers via multi-provider LLM (30 per run, every 30 min).
+
+    Uses the same Groq→Cerebras→SambaNova→Gemini pool as translation_service
+    so Groq rate limits don't stall the queue.
+    """
+    from app.services.translation_service import (
+        _GROQ_KEYS, _CEREBRAS_KEYS, _SAMBANOVA_KEYS, _GEMINI_KEYS,
+        _available, _rate_limited_until,
+        _GROQ_URL, _CEREBRAS_URL, _SAMBANOVA_URL,
+        _call_openai_compat, _call_gemini,
+    )
     from app.models.models import MCQQuestion
     from sqlalchemy import select
+    import json, re
+    from datetime import datetime as _dt
+
+    async def _ask_llm(prompt: str) -> str | None:
+        """Single-question LLM call, provider chain Groq→Cerebras→SambaNova→Gemini."""
+        chains = [
+            (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "llama-3.3-70b-versatile", "", prompt)),
+            (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gpt-oss-120b",            "", prompt)),
+            (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", "", prompt)),
+            (_GEMINI_KEYS,    lambda k: _call_gemini(k, "", prompt)),
+        ]
+        for keys, caller in chains:
+            for key in _available(keys):
+                try:
+                    result = await caller(key)
+                    if result:
+                        return result
+                except Exception:
+                    pass
+        return None
+
+    def _build_prompt(q) -> str:
+        options = q.options if isinstance(q.options, dict) else {}
+        opts_text = "\n".join(f"{k}) {v}" for k, v in sorted(options.items()))
+        rationale = ""
+        if isinstance(q.rationales, dict) and q.correct in q.rationales:
+            r = q.rationales[q.correct]
+            rationale = f"\nRationale: {(r.get('text', r) if isinstance(r, dict) else str(r))[:400]}"
+        return (
+            "You are a senior medical educator. Is the stated correct answer accurate for this NCLEX question?\n\n"
+            f"Question: {(q.question or '')[:600]}\n\nOptions:\n{opts_text}\n\n"
+            f"Stated correct: {q.correct}) {options.get(q.correct, '')}\n"
+            f"Explanation: {(q.explanation or '')[:400]}{rationale}\n\n"
+            'Return ONLY JSON: {"correct": true|false, "confidence": 0.0-1.0, "issues": "<note or empty>"}'
+        )
 
     try:
         async with AsyncSessionLocal() as db:
@@ -662,21 +706,27 @@ async def _verify_mcq_job() -> None:
         verified = flagged = 0
         for q in questions:
             try:
-                options = q.options if isinstance(q.options, dict) else {}
-                report = await verify_mcq_answer(
-                    question=q.question or "",
-                    options=options,
-                    correct=q.correct or "",
-                    explanation=q.explanation or "",
-                    rationales=q.rationales if isinstance(q.rationales, dict) else None,
-                )
+                raw = await _ask_llm(_build_prompt(q))
+                if not raw:
+                    continue
+                raw = raw.strip()
+                if raw.startswith("```"):
+                    raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
+                data = json.loads(raw)
+                is_correct = bool(data.get("correct", True))
+                confidence = min(1.0, max(0.0, float(data.get("confidence", 0.8))))
+                issues     = str(data.get("issues", ""))
+                status     = "ai_verified" if (is_correct and confidence >= 0.6) else "flagged"
+                report     = {"status": status, "confidence": confidence,
+                              "issues": issues, "verified_at": _dt.utcnow().isoformat()}
+
                 async with AsyncSessionLocal() as db2:
                     obj = await db2.get(MCQQuestion, q.id)
                     if obj:
-                        obj.verification_status = report["status"]
+                        obj.verification_status = status
                         obj.verification_report = report
                         await db2.commit()
-                if report["status"] == "flagged":
+                if status == "flagged":
                     flagged += 1
                 else:
                     verified += 1

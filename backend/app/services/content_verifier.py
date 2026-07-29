@@ -54,7 +54,7 @@ def _g(name: str) -> str:
 
 _GROQ_KEYS = _dedup([
     _g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
-    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
+    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"), _g("GROQ_API_KEY_7"),
 ])
 _groq_cycle = itertools.cycle(_GROQ_KEYS) if _GROQ_KEYS else None
 

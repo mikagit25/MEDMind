@@ -72,7 +72,7 @@ def _mark_limited(key: str, secs: int = 60):
 
 def _build_providers() -> list[dict]:
     groq_keys      = _dedup([_g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
-                              _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2")])
+                              _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"), _g("GROQ_API_KEY_7")])
     cerebras_keys  = _dedup([_g("CEREBRAS_API_KEY_2"), _g("CEREBRAS_API_KEY_3"),
                               _g("CEREBRAS_API_KEY_4"), _g("CEREBRAS_API_KEY_5")])
     gemini_keys    = _dedup([_g("GEMINI_API_KEY"), _g("GEMINI_API_KEY_2"),

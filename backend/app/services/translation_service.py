@@ -55,7 +55,7 @@ _GEMINI_URL    = f"https://generativelanguage.googleapis.com/v1beta/models/{_GEM
 _GROQ_KEYS = _dedup([
     # Content pipeline pool — KEY_1/KEY_2 reserved for user tutor; KEY_5 for news
     _g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
-    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
+    _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"), _g("GROQ_API_KEY_7"),
     _g("GROQ_KEY_CASES"), _g("GROQ_KEY_VET_MODULES"),
 ])
 _CEREBRAS_KEYS = _dedup([

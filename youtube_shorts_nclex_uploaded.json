@@ -1,6 +1,15 @@
 {
   "uploaded": [
-    "b1f77a6e-d401-4a45-a90c-43ce59c67a64"
+    "b1f77a6e-d401-4a45-a90c-43ce59c67a64",
+    "e8396c78-e9c8-44c5-9709-feeea7da9c6a",
+    "4979fe2f-4731-4129-a145-e36f1f3e457c"
   ],
-  "details": {}
+  "details": {
+    "e8396c78-e9c8-44c5-9709-feeea7da9c6a": {
+      "yt_id": "KDvubQPrqkU"
+    },
+    "4979fe2f-4731-4129-a145-e36f1f3e457c": {
+      "yt_id": "s12ojeUTM04"
+    }
+  }
 }
