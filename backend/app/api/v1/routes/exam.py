@@ -1458,6 +1458,98 @@ Explain concisely:
     }
 
 
+class FollowupRequest(BaseModel):
+    chip: str = "explain_differently"  # explain_differently|why_not_distractor|mnemonic|beginner|clinical_story
+    selected_answer: Optional[str] = None  # what the student picked
+    language: Optional[str] = "en"
+
+
+FOLLOWUP_CHIPS = {
+    "explain_differently", "why_not_distractor", "mnemonic", "beginner", "clinical_story"
+}
+
+
+@router.post("/questions/{question_id}/followup")
+async def question_followup(
+    question_id: str,
+    body: FollowupRequest = FollowupRequest(),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """AI follow-up explanation for a question (Phase 4).
+
+    Counts against the user's daily AI quota. Uses Claude Haiku.
+    Tracks follow_up_count and flags questions that frequently need re-explanation.
+    """
+    from app.api.v1.routes.ai import check_ai_rate_limit
+    await check_ai_rate_limit(user, db)
+
+    if body.chip not in FOLLOWUP_CHIPS:
+        raise HTTPException(422, f"Unknown chip: {body.chip}. Valid: {sorted(FOLLOWUP_CHIPS)}")
+
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404, "Question not found")
+
+    result = await db.execute(select(MCQQuestion).where(MCQQuestion.id == qid))
+    q = result.scalar_one_or_none()
+    if not q:
+        raise HTTPException(404, "Question not found")
+
+    from app.prompts.question_followup import build_followup_prompt
+    from app.core.config import settings as _cfg
+
+    options = q.options or {}
+    correct_text = options.get(q.correct, "")
+    selected_text = options.get(body.selected_answer or "", "") if body.selected_answer else None
+    category = NCLEX_CLIENT_NEEDS_LABELS.get(q.nclex_client_needs or "", "General Nursing")
+
+    system_prompt, user_message = build_followup_prompt(
+        question=q.question,
+        options=options,
+        correct_answer=q.correct,
+        correct_text=correct_text,
+        selected_answer=body.selected_answer,
+        selected_text=selected_text,
+        base_explanation=q.explanation,
+        category=category,
+        chip=body.chip,
+        user_language=body.language or "en",
+    )
+
+    try:
+        explanation, _ = await call_ollama_structured(
+            system=system_prompt,
+            user_message=user_message,
+            max_tokens=350,
+        )
+    except Exception as e:
+        raise HTTPException(503, f"AI service temporarily unavailable: {str(e)[:100]}")
+
+    # Track follow-up count and flag if threshold exceeded
+    q.follow_up_count = (q.follow_up_count or 0) + 1
+    if q.follow_up_count >= _cfg.PSYCHO_FOLLOWUP_THRESHOLD:
+        # Import here to avoid circular import
+        from app.models.models import QuestionStats
+        stats_row = (await db.execute(
+            select(QuestionStats).where(QuestionStats.question_id == qid)
+        )).scalar_one_or_none()
+        if stats_row and stats_row.health not in ("retired", "key_suspect"):
+            stats_row.health = "key_suspect"
+            db.add(stats_row)
+
+    db.add(q)
+    await db.commit()
+
+    return {
+        "question_id": question_id,
+        "chip": body.chip,
+        "explanation": explanation,
+        "follow_up_count": q.follow_up_count,
+    }
+
+
 @router.post("/questions/{question_id}/flag")
 async def flag_question(
     question_id: str,

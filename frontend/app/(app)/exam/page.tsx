@@ -943,7 +943,7 @@ function ExamSession({
               <div className="text-xs font-serif text-green flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
               </div>
-              <AIExplainButton questionId={question.id} questionText={question.question} />
+              <AIExplainButton questionId={question.id} questionText={question.question} selectedAnswer={ans.selected_option || (ans.selected_options?.[0])} />
               <FlagButton questionId={question.id} />
             </div>
             {showRationale && questionRationales[current] && (
@@ -1008,12 +1008,49 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
   );
 }
 
-function AIExplainButton({ questionId, questionText }: { questionId?: string; questionText: string }) {
+const FOLLOWUP_CHIPS = [
+  { chip: "explain_differently", label: "Explain differently" },
+  { chip: "why_not_distractor", label: "Why my answer?" },
+  { chip: "mnemonic", label: "Give mnemonic" },
+  { chip: "beginner", label: "For beginners" },
+  { chip: "clinical_story", label: "Clinical story" },
+] as const;
+
+function AIExplainButton({
+  questionId,
+  questionText,
+  selectedAnswer,
+}: {
+  questionId?: string;
+  questionText: string;
+  selectedAnswer?: string;
+}) {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [explanation, setExplanation] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [followupLoading, setFollowupLoading] = useState(false);
+  const [followupText, setFollowupText] = useState<string | null>(null);
+  const [activeChip, setActiveChip] = useState<string | null>(null);
+
+  async function fetchFollowup(chip: string) {
+    if (!questionId) return;
+    setFollowupLoading(true);
+    setActiveChip(chip);
+    setFollowupText(null);
+    try {
+      const r = await api.post(`/exam/questions/${questionId}/followup`, {
+        chip,
+        selected_answer: selectedAnswer,
+      });
+      setFollowupText(r.data.explanation);
+    } catch {
+      setFollowupText("Could not load follow-up explanation. Please try again.");
+    } finally {
+      setFollowupLoading(false);
+    }
+  }
 
   async function fetchExplanation() {
     if (!questionId) {
@@ -1072,20 +1109,66 @@ function AIExplainButton({ questionId, questionText }: { questionId?: string; qu
               )}
               {error && <p className="text-red text-sm font-serif">{error}</p>}
               {explanation && (
-                <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed">
-                  <ReactMarkdown
-                    components={{
-                      h1: ({ children }) => <h2 className="font-syne font-bold text-base text-ink mt-4 mb-1">{children}</h2>,
-                      h2: ({ children }) => <h3 className="font-syne font-bold text-sm text-ink mt-3 mb-1">{children}</h3>,
-                      h3: ({ children }) => <h4 className="font-syne font-semibold text-sm text-ink mt-2 mb-0.5">{children}</h4>,
-                      p: ({ children }) => <p className="text-sm leading-relaxed mb-2">{children}</p>,
-                      strong: ({ children }) => <strong className="font-syne font-bold">{children}</strong>,
-                      li: ({ children }) => <li className="text-sm leading-relaxed">{children}</li>,
-                    }}
-                  >
-                    {explanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
-                  </ReactMarkdown>
-                </div>
+                <>
+                  <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed">
+                    <ReactMarkdown
+                      components={{
+                        h1: ({ children }) => <h2 className="font-syne font-bold text-base text-ink mt-4 mb-1">{children}</h2>,
+                        h2: ({ children }) => <h3 className="font-syne font-bold text-sm text-ink mt-3 mb-1">{children}</h3>,
+                        h3: ({ children }) => <h4 className="font-syne font-semibold text-sm text-ink mt-2 mb-0.5">{children}</h4>,
+                        p: ({ children }) => <p className="text-sm leading-relaxed mb-2">{children}</p>,
+                        strong: ({ children }) => <strong className="font-syne font-bold">{children}</strong>,
+                        li: ({ children }) => <li className="text-sm leading-relaxed">{children}</li>,
+                      }}
+                    >
+                      {explanation.replace(/\$\\rightarrow\$/g, "→").replace(/\$([^$]+)\$/g, "$1")}
+                    </ReactMarkdown>
+                  </div>
+
+                  {/* Follow-up chips */}
+                  <div className="mt-4 pt-3 border-t border-border">
+                    <p className="font-syne font-semibold text-xs text-ink-3 mb-2">Still unclear? Ask another way:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {FOLLOWUP_CHIPS.map(c => (
+                        <button
+                          key={c.chip}
+                          onClick={() => fetchFollowup(c.chip)}
+                          disabled={followupLoading}
+                          className={`text-xs font-syne font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                            activeChip === c.chip
+                              ? "border-red bg-red text-white"
+                              : "border-border text-ink-3 hover:border-red hover:text-red"
+                          }`}
+                        >
+                          {c.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Follow-up response */}
+                  {followupLoading && (
+                    <div className="flex items-center gap-2 text-ink-3 font-serif text-sm py-3 mt-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Thinking…
+                    </div>
+                  )}
+                  {followupText && !followupLoading && (
+                    <div className="mt-3 p-3 bg-surface-2 rounded-xl border border-border">
+                      <div className="prose prose-sm max-w-none font-serif text-ink leading-relaxed">
+                        <ReactMarkdown
+                          components={{
+                            p: ({ children }) => <p className="text-sm leading-relaxed mb-2">{children}</p>,
+                            strong: ({ children }) => <strong className="font-syne font-bold">{children}</strong>,
+                            li: ({ children }) => <li className="text-sm leading-relaxed">{children}</li>,
+                          }}
+                        >
+                          {followupText}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
