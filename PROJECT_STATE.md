@@ -12,6 +12,34 @@
 
 ---
 
+### BANK-SCALE B1 — Content Source Registry ✅ (2026-07-29)
+
+**Spec:** `docs/BANK_SCALE_SPEC.md`
+
+**Bank scale table** (current as of 2026-07-29):
+| Exam | Questions | human_reviewed | avg realism | Target |
+|------|-----------|---------------|-------------|--------|
+| NCLEX-RN (tagged) | 205 | 0 | — | 2000 |
+| SNLE | shared | 0 | — | 1200 |
+| DHA | shared | 0 | — | 900 |
+| Gulf others | shared | 0 | — | 500 each |
+| Total bank | ~6 021 | 0 | — | — |
+
+**B1 delivered:**
+- `ContentSource` model + migration `w9x0y1z2a3b4`
+- 10 sources seeded with manually-verified licenses (verified 2026-07-29):
+  - **text_reuse_allowed=True**: CDC (public domain US gov), MedlinePlus Health Topics (public domain US gov)
+  - **text_reuse_allowed=False**: StatPearls (CC BY-NC-ND 4.0), WHO (CC BY-NC-SA 3.0 IGO), NICE (unclear/403), NCSBN NCLEX blueprint (copyright NCSBN), SCFHS/SNLE + DHA + QCHP blueprints (unclear gov), MedlinePlus A.D.A.M. (copyrighted 3rd party)
+- `GET /api/v1/public/content-sources` — public endpoint with source_type filter
+- Public SSR page `/content-sources` — license legend, grouped table, E-E-A-T signal
+- `ContentAttribution` component — renders attribution only for text_reuse_allowed=True sources
+- `/content-sources` added to sitemap
+- 15/15 tests passing
+
+**B2–B5:** pending
+
+---
+
 ### V7 Roadmap — Bank Health + Psychometrics ✅ (2026-07-29)
 
 | Фаза | Название | Статус | Коммит |
