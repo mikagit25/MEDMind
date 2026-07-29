@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.redis_client import get_redis
-from app.models.models import Article, Lesson, Module, Drug, Flashcard, Specialty, PublicQuiz, SharedDeck, ModuleTranslation, LessonTranslation
+from app.models.models import Article, Lesson, Module, Drug, Flashcard, Specialty, PublicQuiz, SharedDeck, ModuleTranslation, LessonTranslation, ContentSource
 from fastapi import Depends
 
 logger = logging.getLogger(__name__)
@@ -82,6 +82,20 @@ def _slugify(text: str) -> str:
 
 
 # ── Schemas ───────────────────────────────────────────────────────────────────
+
+class ContentSourceOut(BaseModel):
+    slug: str
+    title: str
+    publisher: str
+    url: str
+    license: str
+    license_url: str | None
+    text_reuse_allowed: bool
+    attribution_template: str | None
+    source_type: str
+    verified_at: str | None
+    notes: str | None
+
 
 class PublicGlossaryTerm(BaseModel):
     term: str
@@ -1175,4 +1189,49 @@ async def get_public_stats(
         "languages": 7,
     }
     await _cache_set(cache_key, result, ttl=21600)  # 6h
+    return result
+
+
+# ── /public/content-sources ───────────────────────────────────────────────────
+
+@router.get("/content-sources", response_model=list[ContentSourceOut])
+async def list_content_sources(
+    source_type: str | None = None,
+    _: None = Depends(check_public_rate_limit),
+    db: AsyncSession = Depends(get_db),
+):
+    """List all verified content sources used by MedMind.
+
+    Public endpoint — no auth required.
+    Supports optional ?source_type= filter.
+    """
+    cache_key = f"pub_content_sources:{source_type or 'all'}"
+    cached = await _cache_get(cache_key)
+    if cached:
+        return cached
+
+    stmt = select(ContentSource).order_by(
+        ContentSource.source_type, ContentSource.title
+    )
+    if source_type:
+        stmt = stmt.where(ContentSource.source_type == source_type)
+
+    rows = (await db.execute(stmt)).scalars().all()
+    result = [
+        {
+            "slug": r.slug,
+            "title": r.title,
+            "publisher": r.publisher,
+            "url": r.url,
+            "license": r.license,
+            "license_url": r.license_url,
+            "text_reuse_allowed": r.text_reuse_allowed,
+            "attribution_template": r.attribution_template,
+            "source_type": r.source_type,
+            "verified_at": r.verified_at,
+            "notes": r.notes,
+        }
+        for r in rows
+    ]
+    await _cache_set(cache_key, result, ttl=CACHE_TTL)
     return result

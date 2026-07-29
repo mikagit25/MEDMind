@@ -540,6 +540,8 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/editorial-policy",   priority: 0.7, changefreq: "monthly" },
       { path: "/medical-disclaimer", priority: 0.6, changefreq: "yearly"  },
       { path: "/contact",            priority: 0.6, changefreq: "monthly" },
+      // Bank-Scale B1 — Source transparency page
+      { path: "/content-sources",    priority: 0.7, changefreq: "monthly" },
       { path: "/enterprise",         priority: 0.8, changefreq: "monthly" },
       { path: "/nurses",             priority: 0.9, changefreq: "monthly" },
       { path: "/nclex",              priority: 1.0, changefreq: "weekly"  },

@@ -2231,3 +2231,39 @@ class ExamOutcome(Base):
         Index("ix_exam_outcomes_exam_date", "exam_date"),
         Index("ix_exam_outcomes_exam_slug", "exam_slug"),
     )
+
+
+# ============================================================
+# BANK-SCALE B1 — Content Source Registry
+# ============================================================
+class ContentSource(Base):
+    """Authoritative registry of content sources used for question generation.
+
+    Each source has a verified license. text_reuse_allowed=True only for
+    public-domain / CC-BY sources. NC/ND/unclear → facts-only (no text copying).
+    """
+    __tablename__ = "content_sources"
+
+    slug = Column(String(80), primary_key=True)
+    title = Column(String(300), nullable=False)
+    publisher = Column(String(200), nullable=False)
+    url = Column(String(600), nullable=False)
+    # Exact license string: 'CC BY 4.0', 'public domain (US gov)', 'CC BY-NC-ND 4.0', 'unclear' …
+    license = Column(String(100), nullable=False)
+    license_url = Column(String(600), nullable=True)
+    # True only when license permits commercial text reuse (CC BY, public domain US gov)
+    text_reuse_allowed = Column(Boolean, nullable=False, default=False)
+    # Template for attribution line; use {title}, {publisher}, {url} placeholders
+    attribution_template = Column(Text, nullable=True)
+    # 'reference' | 'guideline' | 'gov_health' | 'official_exam_blueprint'
+    source_type = Column(String(40), nullable=False)
+    # ISO date string of last license verification e.g. "2026-07-29"
+    verified_at = Column(String(20), nullable=True)
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_content_sources_type", "source_type"),
+        Index("ix_content_sources_text_reuse", "text_reuse_allowed"),
+    )
