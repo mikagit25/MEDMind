@@ -268,8 +268,19 @@ class MCQQuestion(Base):
     # verification_report: [{claim, result, confidence, issues}] from second LLM pass
     verification_report = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+    # V7: bank health — status "active"|"retired"|"pending_fix"
+    status = Column(String(20), nullable=False, server_default="active")
+    # V7: count of AI follow-up requests (Phase 4 analytics)
+    follow_up_count = Column(Integer, nullable=False, server_default="0")
+    # V7: flag for regeneration queue (Phase 2)
+    pending_regeneration = Column(Boolean, nullable=False, server_default="false")
+    # V7: if this question replaced another, track lineage
+    replaces_question_id = Column(UUID(as_uuid=True), nullable=True)
 
     module = relationship("Module", back_populates="mcq_questions")
+    stats = relationship("QuestionStats", back_populates="question", uselist=False,
+                         primaryjoin="MCQQuestion.id == foreign(QuestionStats.question_id)",
+                         lazy="select")
 
 
 # ============================================================
@@ -2095,4 +2106,90 @@ class BillingEvent(Base):
     __table_args__ = (
         Index("ix_billing_events_user", "user_id"),
         Index("ix_billing_events_type_created", "event_type", "created_at"),
+    )
+
+
+# ============================================================
+# V7 PSYCHOMETRICS
+# ============================================================
+
+class QuestionAttempt(Base):
+    """One row per user answer to an MCQ. Only first attempt per user per question
+    is used in psychometric calculations (is_first_attempt=True).
+    SRS repetitions are excluded (session_type='srs').
+    """
+    __tablename__ = "question_attempts"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    question_id = Column(UUID(as_uuid=True), ForeignKey("mcq_questions.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    exam_slug = Column(String(100), nullable=True)
+    selected = Column(JSONB, nullable=True)       # what user submitted
+    is_correct = Column(Boolean, nullable=False)
+    time_seconds = Column(Float, nullable=True)   # null for historical backfill
+    session_id = Column(UUID(as_uuid=True), nullable=True)
+    # practice | exam | mock | srs — srs excluded from psychometrics
+    session_type = Column(String(20), nullable=False, server_default="practice")
+    is_first_attempt = Column(Boolean, nullable=False, server_default="true")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_qa_question_first", "question_id", "is_first_attempt"),
+        Index("ix_qa_user_question", "user_id", "question_id"),
+        Index("ix_qa_session", "session_id"),
+    )
+
+
+class QuestionStats(Base):
+    """Aggregated psychometric stats per question (optionally per exam_slug).
+    Recomputed nightly by psychometrics cron job.
+    """
+    __tablename__ = "question_stats"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    question_id = Column(UUID(as_uuid=True), ForeignKey("mcq_questions.id", ondelete="CASCADE"), nullable=False)
+    exam_slug = Column(String(100), nullable=True)   # None = aggregate across all exams
+    attempts = Column(Integer, nullable=False, server_default="0")
+    correct_count = Column(Integer, nullable=False, server_default="0")
+    p_value = Column(Float, nullable=True)           # correct_count / attempts
+    # {A: N, B: N, C: N, D: N, "sets": {"AB": N, ...} for SATA}
+    option_distribution = Column(JSONB, nullable=True)
+    # upper27_pct - lower27_pct group discrimination index
+    discrimination = Column(Float, nullable=True)
+    avg_time_seconds = Column(Float, nullable=True)
+    sample_size_ok = Column(Boolean, nullable=False, server_default="false")
+    # very_easy|easy|medium|hard|very_hard — derived from p_value when sample_size_ok
+    computed_difficulty = Column(String(20), nullable=True)
+    # ok|review_low_p|review_high_p|review_low_discrimination|review_dead_distractor|review_key_suspect
+    health = Column(String(50), nullable=False, server_default="ok")
+    last_computed_at = Column(DateTime, nullable=True)
+
+    question = relationship("MCQQuestion", back_populates="stats",
+                            foreign_keys=[question_id])
+
+    __table_args__ = (
+        UniqueConstraint("question_id", "exam_slug", name="uq_question_stats_q_exam"),
+        Index("ix_qs_health", "health"),
+        Index("ix_qs_sample_disc", "sample_size_ok", "discrimination"),
+    )
+
+
+class ContentAuditLog(Base):
+    """Audit trail for human changes to questions (key fix, retire, regeneration).
+    Append-only — never delete rows.
+    """
+    __tablename__ = "content_audit_log"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    question_id = Column(UUID(as_uuid=True), ForeignKey("mcq_questions.id", ondelete="SET NULL"), nullable=True)
+    admin_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    action = Column(String(50), nullable=False)   # fix_key|retire|approve|send_regeneration|regenerated
+    before = Column(JSONB, nullable=True)
+    after = Column(JSONB, nullable=True)
+    note = Column(Text, nullable=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("ix_audit_question", "question_id"),
+        Index("ix_audit_created", "created_at"),
     )

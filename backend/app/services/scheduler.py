@@ -853,6 +853,20 @@ async def _generate_gulf_questions_job() -> None:
         logger.error("generate_gulf_questions cron error: %s", exc)
 
 
+async def _psychometrics_job() -> None:
+    """V7: Nightly recompute of question stats from real user attempts."""
+    try:
+        from app.services.psychometrics import compute_all_stats
+        async with AsyncSessionLocal() as db:
+            report = await compute_all_stats(db)
+            logger.info(
+                "psychometrics_job: computed=%d health=%s",
+                report["computed"], report["health_distribution"]
+            )
+    except Exception as exc:
+        logger.error("psychometrics_job failed: %s", exc, exc_info=True)
+
+
 def start_scheduler():
     """Start the background scheduler. Call from lifespan startup."""
     if scheduler.running:
@@ -1094,6 +1108,15 @@ def start_scheduler():
         id="enrich_pubmed_refs",
         replace_existing=True,
         misfire_grace_time=1800,
+    )
+
+    # V7: Nightly 02:00 UTC — recompute psychometric stats for all questions
+    scheduler.add_job(
+        _psychometrics_job,
+        trigger=CronTrigger(hour=2, minute=0, timezone="UTC"),
+        id="psychometrics_nightly",
+        replace_existing=True,
+        misfire_grace_time=7200,
     )
 
     scheduler.start()

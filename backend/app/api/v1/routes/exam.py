@@ -473,6 +473,7 @@ class AnswerBody(BaseModel):
     selected_options: List[str] = []
     ordered_options: List[str] = []
     numeric_value: Optional[float] = None
+    time_seconds: Optional[float] = None   # V7: time spent on this question
 
 
 class FlagBody(BaseModel):
@@ -564,6 +565,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             })
             per_q.append({
                 "index": q["index"],
+                "question_id": q.get("id"),
                 "correct": None,
                 "selected": None,
                 "correct_answer": None,
@@ -572,6 +574,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
                 "difficulty": q.get("difficulty", "medium") or "medium",
                 "question_type": q.get("question_type", "mcq"),
                 "ngn_type": q.get("ngn_type"),
+                "time_seconds": answers.get(f"{q['index']}_time"),
             })
             continue
 
@@ -627,6 +630,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
 
         per_q.append({
             "index": q["index"],
+            "question_id": q.get("id"),
             "correct": is_correct,
             "selected": answer,
             "correct_answer": correct_display if not is_correct else None,
@@ -635,6 +639,7 @@ def _build_results(sess: ExamSession, questions_data: list) -> dict:
             "difficulty": q.get("difficulty", "medium") or "medium",
             "question_type": q.get("question_type", "mcq"),
             "ngn_type": q.get("ngn_type"),
+            "time_seconds": answers.get(f"{q['index']}_time"),
         })
 
     mode = next((m for m in EXAM_MODES if m["id"] == sess.mode_id), {})
@@ -759,8 +764,8 @@ async def create_session(
         )).scalars().all()
         cat_mode = False
     else:
-        # Build query normally
-        q = select(MCQQuestion)
+        # Build query normally — only active questions (V7: retired questions excluded)
+        q = select(MCQQuestion).where(MCQQuestion.status == "active")
 
         if nursing_only:
             q = q.join(Module, Module.id == MCQQuestion.module_id).where(
@@ -801,10 +806,33 @@ async def create_session(
                 ]
                 q = q.where(MCQQuestion.nclex_client_needs.in_(all_values))
             elif not cat_mode and mode.get("difficulty"):
-                q = q.where(MCQQuestion.difficulty == mode["difficulty"])
+                # V7: prefer computed_difficulty when calibrated, fall back to static difficulty
+                from app.models.models import QuestionStats
+                from sqlalchemy import case as sa_case, or_ as sa_or
+                target_diff = mode["difficulty"]
+                q = q.outerjoin(
+                    QuestionStats,
+                    (QuestionStats.question_id == MCQQuestion.id) & (QuestionStats.exam_slug == None)
+                ).where(
+                    sa_case(
+                        (QuestionStats.sample_size_ok == True, QuestionStats.computed_difficulty),
+                        else_=MCQQuestion.difficulty,
+                    ) == target_diff
+                )
 
             if cat_mode:
-                q = q.where(MCQQuestion.difficulty == start_difficulty)
+                # V7: CAT also uses effective difficulty
+                from app.models.models import QuestionStats
+                from sqlalchemy import case as sa_case
+                q = q.outerjoin(
+                    QuestionStats,
+                    (QuestionStats.question_id == MCQQuestion.id) & (QuestionStats.exam_slug == None)
+                ).where(
+                    sa_case(
+                        (QuestionStats.sample_size_ok == True, QuestionStats.computed_difficulty),
+                        else_=MCQQuestion.difficulty,
+                    ) == start_difficulty
+                )
 
             q = q.order_by(func.random()).limit(mode["questions"])
             mcqs = (await db.execute(q)).scalars().all()
@@ -975,6 +1003,8 @@ async def submit_answer(
     # Merge answer into the answers dict (keep _snapshot)
     answers = dict(sess.answers or {})
     answers[str(idx)] = answer
+    if body.time_seconds is not None:
+        answers[f"{idx}_time"] = round(body.time_seconds, 2)
     if sess.cat_enabled:
         sess.current_difficulty = new_difficulty
     sess.answers = answers
@@ -1036,6 +1066,33 @@ async def finalize_session(
     if sess.mode_id.startswith("nclex_"):
         from app.services.readiness import invalidate_readiness_cache
         await invalidate_readiness_cache(user.id)
+
+    # V7: record per-question attempts for psychometrics (best-effort, don't fail submit)
+    try:
+        from app.services.psychometrics import record_attempt
+        mode_obj = next((m for m in EXAM_MODES if m["id"] == sess.mode_id), {})
+        exam_slug = mode_obj.get("exam_slug")
+        session_type = "exam" if mode_obj.get("timed") else "practice"
+        if "mock" in sess.mode_id:
+            session_type = "mock"
+        for pq in (results.get("per_question") or []):
+            qid = pq.get("question_id")
+            if not qid or pq.get("correct") is None:
+                continue  # skip unanswered/skipped questions
+            await record_attempt(
+                db=db,
+                question_id=qid,
+                user_id=str(user.id),
+                is_correct=bool(pq["correct"]),
+                selected=pq.get("selected"),
+                session_id=str(sess.id),
+                session_type=session_type,
+                exam_slug=exam_slug,
+                time_seconds=pq.get("time_seconds"),
+            )
+        await db.commit()
+    except Exception as _e:
+        logger.warning("psychometrics record_attempt failed: %s", _e)
 
     return results
 

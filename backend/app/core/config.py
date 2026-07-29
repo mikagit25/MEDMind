@@ -156,6 +156,19 @@ class Settings(BaseSettings):
     AI_CACHE_TTL: int = 86400       # 24 hours
     PUBMED_CACHE_TTL: int = 604800  # 7 days
 
+    # V7 Psychometrics thresholds (all in config — never in service code)
+    PSYCHO_SAMPLE_THRESHOLD: int = 40         # min attempts before sample_size_ok=True
+    PSYCHO_P_VERY_EASY: float = 0.90          # p_value >0.90 → very_easy
+    PSYCHO_P_EASY: float = 0.75               # 0.75-0.90 → easy
+    PSYCHO_P_MEDIUM: float = 0.50             # 0.50-0.75 → medium
+    PSYCHO_P_HARD: float = 0.30               # 0.30-0.50 → hard (<0.30 → very_hard)
+    PSYCHO_HEALTH_LOW_P: float = 0.20         # p_value < this → review_low_p
+    PSYCHO_HEALTH_HIGH_P: float = 0.95        # p_value > this → review_high_p
+    PSYCHO_DISC_GOOD: float = 0.30            # discrimination ≥ this → good
+    PSYCHO_DISC_ACCEPTABLE: float = 0.15      # 0.15-0.30 → acceptable; 0.0-0.15 → weak; <0 → red flag
+    PSYCHO_COMMUNITY_MIN_GROUP: int = 30      # min users to show community percentile (Phase 5)
+    PSYCHO_FOLLOWUP_THRESHOLD: int = 5        # AI follow-up count to flag for rationale rewrite (Phase 4)
+
     # IndexNow — instant indexing for Bing, Yandex, Seznam, Naver
     # Generate key: python3 -c "import uuid; print(uuid.uuid4().hex)"
     # Place key file at https://medmind.pro/{key}.txt containing just the key
