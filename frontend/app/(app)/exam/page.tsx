@@ -943,6 +943,7 @@ function ExamSession({
               <div className="text-xs font-serif text-green flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5" /> {t("exam_page.answer_recorded")}
               </div>
+              <CommunityPassRate questionId={question.id} />
               <AIExplainButton questionId={question.id} questionText={question.question} selectedAnswer={ans.selected_option || (ans.selected_options?.[0])} />
               <FlagButton questionId={question.id} />
             </div>
@@ -1005,6 +1006,28 @@ function CategoryBar({ label, pct, total }: { label: string; pct: number; total:
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
+  );
+}
+
+function CommunityPassRate({ questionId }: { questionId?: string }) {
+  const [data, setData] = useState<{ available: boolean; pass_rate_pct?: number; attempts?: number } | null>(null);
+
+  useEffect(() => {
+    if (!questionId) return;
+    api.get(`/exam/questions/${questionId}/community`)
+      .then(r => setData(r.data))
+      .catch(() => {});
+  }, [questionId]);
+
+  if (!data?.available || data.pass_rate_pct == null) return null;
+
+  const pct = data.pass_rate_pct;
+  const isHard = pct < 50;
+  return (
+    <span className={`text-xs font-serif ${isHard ? "text-amber-600" : "text-ink-3"}`}>
+      {pct}% get this right
+      {isHard && " ← challenging"}
+    </span>
   );
 }
 

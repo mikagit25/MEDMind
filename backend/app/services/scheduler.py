@@ -915,6 +915,114 @@ async def _readiness_snapshot_job() -> None:
         logger.error("readiness_snapshot_job failed: %s", exc, exc_info=True)
 
 
+async def _community_percentile_job() -> None:
+    """V7 Phase 5: nightly computation of community percentile cache.
+
+    For each active user with ≥50 answers, compute accuracy per NCLEX category.
+    Then for each category with ≥30 users, cache per-user percentiles.
+    Cache key: community_pct:{exam_slug}:{user_id} (TTL 26 hours).
+    Privacy: only aggregates; no individual identification in cache.
+    """
+    from sqlalchemy import select, func
+    from collections import defaultdict
+    from app.models.models import QuestionAttempt, MCQQuestion, User
+    from app.core.cache import set_cached
+
+    MIN_USER_ANSWERS = 50
+    MIN_GROUP_SIZE = 30
+
+    try:
+        async with AsyncSessionLocal() as db:
+            # Fetch all first attempts grouped by user+question
+            rows = (await db.execute(
+                select(
+                    QuestionAttempt.user_id,
+                    QuestionAttempt.question_id,
+                    QuestionAttempt.is_correct,
+                ).where(
+                    QuestionAttempt.is_first_attempt == True,  # noqa: E712
+                    QuestionAttempt.session_type.in_(["practice", "exam", "mock"]),
+                )
+            )).all()
+
+            # Map question_id → category
+            qids = list({r.question_id for r in rows})
+            q_cats = (await db.execute(
+                select(MCQQuestion.id, MCQQuestion.nclex_client_needs).where(
+                    MCQQuestion.id.in_(qids)
+                )
+            )).all()
+            q_cat_map = {str(q.id): (q.nclex_client_needs or "other") for q in q_cats}
+
+            # Build per-user per-category accuracy: {user_id: {cat: {correct, total}}}
+            user_cat: dict = defaultdict(lambda: defaultdict(lambda: {"correct": 0, "total": 0}))
+            for r in rows:
+                cat = q_cat_map.get(str(r.question_id), "other")
+                user_cat[str(r.user_id)][cat]["total"] += 1
+                if r.is_correct:
+                    user_cat[str(r.user_id)][cat]["correct"] += 1
+
+            # Filter users with enough answers
+            qualified_users = {
+                uid: cats for uid, cats in user_cat.items()
+                if sum(v["total"] for v in cats.values()) >= MIN_USER_ANSWERS
+            }
+
+            if len(qualified_users) < MIN_GROUP_SIZE:
+                logger.info("community_percentile_job: not enough qualified users (%d)", len(qualified_users))
+                return
+
+            # For each category, compute sorted accuracy list and derive percentiles
+            all_cats = set()
+            for cats in qualified_users.values():
+                all_cats.update(cats.keys())
+
+            cat_accuracies: dict = {}
+            for cat in all_cats:
+                acc_list = sorted([
+                    (uid, cats[cat]["correct"] / cats[cat]["total"] * 100)
+                    for uid, cats in qualified_users.items()
+                    if cats.get(cat, {}).get("total", 0) >= 5
+                ], key=lambda x: x[1])
+                if len(acc_list) >= MIN_GROUP_SIZE:
+                    cat_accuracies[cat] = acc_list
+
+            # Cache per-user results
+            for uid, cats in qualified_users.items():
+                result_cats = []
+                for cat, v in cats.items():
+                    if v["total"] < 5:
+                        continue
+                    acc = v["correct"] / v["total"] * 100 if v["total"] > 0 else 0
+                    if cat in cat_accuracies:
+                        acc_list = cat_accuracies[cat]
+                        rank = sum(1 for _, a in acc_list if a < acc)
+                        pct = round(rank / len(acc_list) * 100, 1)
+                        result_cats.append({
+                            "category": cat,
+                            "accuracy_pct": round(acc, 1),
+                            "attempts": v["total"],
+                            "percentile": pct,
+                            "min_group_met": True,
+                        })
+                    else:
+                        result_cats.append({
+                            "category": cat,
+                            "accuracy_pct": round(acc, 1),
+                            "attempts": v["total"],
+                            "percentile": None,
+                            "min_group_met": False,
+                        })
+
+                payload = {"available": True, "categories": result_cats, "note": "Updated nightly."}
+                await set_cached(f"community_pct:nclex:{uid}", payload, ttl=93600)  # 26h
+
+            logger.info("community_percentile_job: cached percentiles for %d users across %d categories",
+                        len(qualified_users), len(cat_accuracies))
+    except Exception as exc:
+        logger.error("community_percentile_job failed: %s", exc, exc_info=True)
+
+
 async def _survey_reminder_job() -> None:
     """V7 Phase 3: send survey email to users 2 and 7 days after their exam date."""
     import datetime as _dt
@@ -1241,6 +1349,15 @@ def start_scheduler():
         id="survey_reminder_daily",
         replace_existing=True,
         misfire_grace_time=3600,
+    )
+
+    # V7 Phase 5: nightly community percentile cache at 03:00 UTC
+    scheduler.add_job(
+        _community_percentile_job,
+        trigger=CronTrigger(hour=3, minute=0, timezone="UTC"),
+        id="community_percentile_nightly",
+        replace_existing=True,
+        misfire_grace_time=7200,
     )
 
     scheduler.start()

@@ -32,7 +32,7 @@ from sqlalchemy.orm.attributes import flag_modified
 
 from app.api.deps import get_current_user
 from app.core.database import get_db
-from app.models.models import ExamDefinition, ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, User
+from app.models.models import ExamDefinition, ExamSession, ExamPlan, ExamPlanCompletion, MCQQuestion, Module, QuestionStats, QuestionAttempt, User
 from app.services.ai_router import call_claude_structured, call_ollama_structured
 from app.services.billing import user_has_exam_access, is_gulf_exam
 from app.services import study_planner as planner
@@ -1920,3 +1920,104 @@ async def get_exam_definition(
     if not exam:
         raise HTTPException(404, f"Exam '{slug}' not found in registry")
     return _exam_def_to_dict(exam)
+
+
+# ── V7 Phase 5: Community comparison ─────────────────────────────────────────
+
+@router.get("/questions/{question_id}/community")
+async def get_question_community_stats(
+    question_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return community pass rate for a question.
+
+    Only returned when sample_size_ok=True (min 40 attempts by default).
+    Returns {available: false} otherwise — privacy guard.
+    """
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404, "Question not found")
+
+    stats = (await db.execute(
+        select(QuestionStats).where(
+            QuestionStats.question_id == qid,
+            QuestionStats.exam_slug.is_(None),
+        )
+    )).scalar_one_or_none()
+
+    if not stats or not stats.sample_size_ok or stats.p_value is None:
+        return {"available": False}
+
+    pct = round(stats.p_value * 100, 1)
+    return {
+        "available": True,
+        "pass_rate_pct": pct,
+        "attempts": stats.attempts,
+    }
+
+
+@router.get("/nclex/community-percentile")
+async def get_nclex_community_percentile(
+    exam_slug: str = Query("nclex"),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return user's accuracy percentile per NCLEX category vs community.
+
+    Minimum: 30 users in the group, 50 answers per user.
+    Returns cached data computed nightly. {available: false} when data insufficient.
+    """
+    from app.core.cache import get_cached
+    cache_key = f"community_pct:{exam_slug}:{user.id}"
+    cached = await get_cached(cache_key)
+    if cached is not None:
+        return cached
+
+    # Compute on demand (expensive — will be cached by nightly job)
+    from app.core.config import settings as _cfg
+    MIN_USER_ANSWERS = 50
+    MIN_GROUP_SIZE = _cfg.PSYCHO_COMMUNITY_MIN_GROUP  # 30
+
+    # Get user's category accuracy
+    user_attempts = (await db.execute(
+        select(QuestionAttempt).where(
+            QuestionAttempt.user_id == user.id,
+            QuestionAttempt.is_first_attempt == True,  # noqa: E712
+            QuestionAttempt.session_type.in_(["practice", "exam", "mock"]),
+        )
+    )).scalars().all()
+
+    if len(user_attempts) < MIN_USER_ANSWERS:
+        return {"available": False, "reason": f"You need at least {MIN_USER_ANSWERS} answers to see your percentile."}
+
+    # For each attempt, get question category
+    qids = list({a.question_id for a in user_attempts})
+    questions = (await db.execute(
+        select(MCQQuestion.id, MCQQuestion.nclex_client_needs).where(MCQQuestion.id.in_(qids))
+    )).all()
+    q_category = {str(q.id): q.nclex_client_needs for q in questions}
+
+    from collections import defaultdict
+    user_cat: dict = defaultdict(lambda: {"correct": 0, "total": 0})
+    for a in user_attempts:
+        cat = q_category.get(str(a.question_id)) or "other"
+        user_cat[cat]["total"] += 1
+        if a.is_correct:
+            user_cat[cat]["correct"] += 1
+
+    return {
+        "available": True,
+        "categories": [
+            {
+                "category": cat,
+                "accuracy_pct": round(v["correct"] / v["total"] * 100, 1) if v["total"] > 0 else None,
+                "attempts": v["total"],
+                "percentile": None,  # nightly job fills this
+                "min_group_met": False,
+            }
+            for cat, v in user_cat.items() if v["total"] >= 5
+        ],
+        "note": "Percentile vs community updated nightly.",
+    }
