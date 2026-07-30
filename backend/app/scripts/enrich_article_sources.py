@@ -98,13 +98,15 @@ def _build_query(article: Article) -> str:
 async def run(max_articles: int = 30, dry_run: bool = False) -> int:
     """Main enrichment loop. Returns number of articles enriched."""
     async with AsyncSessionLocal() as db:
+        from sqlalchemy import cast as _cast
+        from sqlalchemy.dialects.postgresql import JSONB as _JSONB
         result = await db.execute(
             select(Article)
             .where(
                 Article.is_published == True,
                 Article.sources.is_(None)
-                | (Article.sources == "[]")
-                | (Article.sources.cast(str) == "null"),
+                | (Article.sources == _cast("[]", _JSONB))
+                | (Article.sources == _cast("null", _JSONB)),
             )
             .order_by(Article.created_at.asc())
             .limit(max_articles)

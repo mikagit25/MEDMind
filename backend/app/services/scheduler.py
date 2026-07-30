@@ -595,7 +595,8 @@ async def _verify_articles_job() -> None:
     try:
         from app.services.content_verifier import verify_article
         from app.models.models import Article
-        from sqlalchemy import select
+        from sqlalchemy import select, cast, func as sa_func
+        from sqlalchemy.dialects.postgresql import JSONB as _JSONB
 
         async with AsyncSessionLocal() as db:
             result = await db.execute(
@@ -604,7 +605,7 @@ async def _verify_articles_job() -> None:
                     Article.is_published == True,
                     Article.verification_status == "pending",
                     Article.sources.isnot(None),
-                    Article.sources != "[]",
+                    Article.sources != cast("[]", _JSONB),
                 )
                 .limit(20)
             )

@@ -377,7 +377,10 @@ async def _check_negation_preserved(original: str, translated: str) -> dict:
         raw = raw.strip()
         if raw.startswith("```"):
             raw = re.sub(r"```[a-z]*\n?", "", raw).strip().rstrip("`")
-        return json.loads(raw)
+        result = json.loads(raw)
+        if not isinstance(result, dict):
+            return {"preserved": True, "note": "unexpected response format"}
+        return result
     except Exception as exc:
         logger.warning("negation check failed: %s", exc)
         return {"preserved": True, "note": f"check error: {exc}"}

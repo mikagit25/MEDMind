@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.api.deps import get_current_user
 from app.core.audit import audit
+from app.core.encryption import decrypt_email
 from app.models.models import (
     User, UserProgress, AIConversation, AIConversationMessage,
     UserNote, UserBookmark, UserAchievement, FlashcardReview,
@@ -90,7 +91,7 @@ async def export_user_data(
         "export_generated_at": datetime.utcnow().isoformat(),
         "user": {
             "id": str(user.id),
-            "email": user.email,
+            "email": decrypt_email(user.email),
             "first_name": user.first_name,
             "last_name": user.last_name,
             "role": user.role,
