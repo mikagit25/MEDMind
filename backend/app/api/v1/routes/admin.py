@@ -19,7 +19,7 @@ from app.models.models import (
     StripeEvent, CreditTransaction, AuthorCreditAccount,
     PromoCode, PromoCodeUse,
     Affiliate, AffiliateConversion,
-    QuestionStats, QuestionAttempt, ContentAuditLog, GenerationQueue,
+    QuestionStats, QuestionAttempt, ContentAuditLog, GenerationQueue, QuestionReview,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -2721,4 +2721,107 @@ async def bank_coverage_queue(
             for r in rows
         ],
         "total": len(rows),
+    }
+
+
+# ── B4: Review Insights Report ────────────────────────────────────────────────
+
+@router.get("/review-insights")
+async def review_insights(
+    category: Optional[str] = Query(None, description="Filter by NCLEX category"),
+    days: int = Query(30, le=365, description="Lookback window in days"),
+    _: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Aggregate rubric scores and reject reasons from human reviews.
+
+    Returns:
+    - overall avg scores per rubric dimension
+    - per-category avg scores (for prompt calibration)
+    - reject reason distribution
+    - recent reviewer comments (for Groq clustering)
+    - prompt_version counts (tracks which generated questions score better)
+    """
+    from datetime import timedelta
+
+    cutoff = datetime.utcnow() - timedelta(days=days)
+    base = select(QuestionReview).where(QuestionReview.created_at >= cutoff)
+
+    # Join with MCQQuestion to get category
+    reviews_rows = await db.execute(
+        select(
+            QuestionReview.realism,
+            QuestionReview.clinical_accuracy,
+            QuestionReview.key_correct,
+            QuestionReview.rationale_quality,
+            QuestionReview.distractors_plausible,
+            QuestionReview.language_clarity,
+            QuestionReview.category_correct,
+            QuestionReview.decision,
+            QuestionReview.reject_reason,
+            QuestionReview.comment,
+            QuestionReview.created_at,
+            MCQQuestion.nclex_client_needs.label("nclex_category"),
+        )
+        .join(MCQQuestion, MCQQuestion.id == QuestionReview.question_id)
+        .where(QuestionReview.created_at >= cutoff)
+        .where(MCQQuestion.nclex_client_needs == category if category else True)
+        .order_by(QuestionReview.created_at.desc())
+    )
+    reviews = list(reviews_rows)
+
+    if not reviews:
+        return {
+            "total_reviews": 0,
+            "period_days": days,
+            "overall_avg": {},
+            "by_category": {},
+            "reject_reasons": {},
+            "decisions": {},
+            "comments": [],
+        }
+
+    _FIELDS = [
+        "realism", "clinical_accuracy", "key_correct",
+        "rationale_quality", "distractors_plausible",
+        "language_clarity", "category_correct",
+    ]
+
+    def _avg(rows, field):
+        vals = [getattr(r, field) for r in rows if getattr(r, field) is not None]
+        return round(sum(vals) / len(vals), 2) if vals else None
+
+    overall_avg = {f: _avg(reviews, f) for f in _FIELDS}
+
+    # Group by nclex_category
+    by_cat: dict[str, list] = {}
+    for r in reviews:
+        cat = r.nclex_category or "uncategorized"
+        by_cat.setdefault(cat, []).append(r)
+    by_category = {
+        cat: {f: _avg(rows, f) for f in _FIELDS}
+        for cat, rows in by_cat.items()
+    }
+
+    reject_reasons: dict[str, int] = {}
+    decisions: dict[str, int] = {}
+    for r in reviews:
+        decisions[r.decision] = decisions.get(r.decision, 0) + 1
+        if r.reject_reason:
+            reject_reasons[r.reject_reason] = reject_reasons.get(r.reject_reason, 0) + 1
+
+    recent_comments = [
+        {"comment": r.comment, "decision": r.decision, "category": r.nclex_category}
+        for r in reviews[:50]
+        if r.comment
+    ]
+
+    return {
+        "total_reviews": len(reviews),
+        "period_days": days,
+        "overall_avg": overall_avg,
+        "by_category": by_category,
+        "reject_reasons": reject_reasons,
+        "decisions": decisions,
+        "comments": recent_comments,
     }

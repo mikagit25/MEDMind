@@ -2299,6 +2299,52 @@ class SourceDocument(Base):
     )
 
 
+class QuestionReview(Base):
+    """Human reviewer rubric assessment of a generated question (B4).
+
+    Rubric fields are 1-5 Likert scales. decision determines next action:
+    - approve         → question.verification_status = 'human_reviewed'
+    - approve_with_edits → same, after applying edits via ContentAuditLog
+    - reject          → question retired + GenerationQueue entry created
+    """
+    __tablename__ = "question_reviews"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    question_id = Column(
+        UUID(as_uuid=True), ForeignKey("mcq_questions.id", ondelete="CASCADE"), nullable=False
+    )
+    reviewer_user_id = Column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
+    )
+    # Rubric scores 1-5
+    realism           = Column(Integer, nullable=False)    # clinical scenario realism
+    clinical_accuracy = Column(Integer, nullable=False)    # factual correctness
+    key_correct       = Column(Integer, nullable=False)    # correct answer is correct
+    rationale_quality = Column(Integer, nullable=False)    # explanation quality
+    distractors_plausible = Column(Integer, nullable=False) # wrong options are plausible
+    language_clarity  = Column(Integer, nullable=False)    # clear, unambiguous wording
+    category_correct  = Column(Integer, nullable=False)    # NCLEX category accurately tagged
+    # Free-text
+    comment = Column(Text, nullable=True)
+    # approve | approve_with_edits | reject
+    decision = Column(String(30), nullable=False)
+    # Edits applied when decision=approve_with_edits
+    edits = Column(JSONB, nullable=True)
+    # Reason code for reject: factual_error|poor_distractors|unclear|off_category|other
+    reject_reason = Column(String(50), nullable=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    question = relationship("MCQQuestion", foreign_keys=[question_id])
+    reviewer = relationship("User", foreign_keys=[reviewer_user_id])
+
+    __table_args__ = (
+        Index("ix_question_reviews_question_id", "question_id"),
+        Index("ix_question_reviews_reviewer", "reviewer_user_id"),
+        Index("ix_question_reviews_decision", "decision"),
+        Index("ix_question_reviews_created", "created_at"),
+    )
+
+
 class GenerationQueue(Base):
     """Pending generation tasks built by plan_generation.py from coverage deficits.
 
