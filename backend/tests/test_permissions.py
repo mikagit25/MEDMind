@@ -25,10 +25,11 @@ async def _create_user(client, email: str, password: str = "Str0ng!Pass") -> str
 
 async def _make_admin(db_session, email: str):
     """Promote a user to admin role directly in the DB."""
-    from sqlalchemy import select, update
+    from sqlalchemy import update
     from app.models.models import User
+    from app.core.encryption import email_search_hash
     await db_session.execute(
-        update(User).where(User.email == email).values(role="admin")
+        update(User).where(User.email_hash == email_search_hash(email)).values(role="admin")
     )
     await db_session.commit()
 
