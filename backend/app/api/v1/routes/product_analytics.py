@@ -30,6 +30,10 @@ ALLOWED_EVENTS = frozenset({
     "module_started", "module_completed",
     "flashcard_review", "ai_question", "quiz_completed",
     "public_page_view", "search", "app_open",
+    # B5 — Freemium
+    "paywall_hit",          # user hit a paid feature gate (meta: {feature, tier_required})
+    "anon_limit_hit",       # anonymous user exhausted daily question limit
+    "free_practice",        # anonymous question served (meta: {category})
 })
 
 # 60 events per minute per IP

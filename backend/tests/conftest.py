@@ -135,8 +135,10 @@ def _patch_all_redis(monkeypatch, fake_redis):
     import app.api.v1.routes.auth as _auth
     import app.api.v1.routes.public_content as _pub
     import app.api.v1.routes.symptoms as _sym
+    import app.api.v1.routes.product_analytics as _pa
     import app.core.cache as _cache
     import app.core.feature_flags as _ff
+    import app.core.freemium as _freemium
     import app.services.scheduler as _sched
 
     _f = fake_redis
@@ -150,8 +152,10 @@ def _patch_all_redis(monkeypatch, fake_redis):
     monkeypatch.setattr(_auth, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_pub, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_sym, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_pa, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_cache, "get_redis", _fake_get_redis)
     monkeypatch.setattr(_ff, "get_redis", _fake_get_redis)
+    monkeypatch.setattr(_freemium, "get_redis", _fake_get_redis)
     # Disable scheduler — it binds to the event loop and breaks across tests
     monkeypatch.setattr(_sched, "start_scheduler", lambda: None)
     monkeypatch.setattr(_sched, "stop_scheduler", lambda: None)

@@ -1235,3 +1235,130 @@ async def list_content_sources(
     ]
     await _cache_set(cache_key, result, ttl=CACHE_TTL)
     return result
+
+
+# ── B5: Anonymous Free Practice ───────────────────────────────────────────────
+
+@router.get("/practice/free")
+async def free_practice_questions(
+    request: Request,
+    category: Optional[str] = Query(None, description="NCLEX category filter"),
+    limit: int = Query(5, ge=1, le=20, description="Questions per batch (max 20)"),
+    db=Depends(get_db),
+):
+    """Serve up to N practice questions per day to anonymous users.
+
+    Daily limit enforced by IP (hashed — IP never stored raw).
+    Returns:
+        {
+            "questions": [...],
+            "used": int,
+            "limit": int,
+            "remaining": int,
+            "paywall": bool,  # True when limit exhausted
+        }
+    """
+    from datetime import date as _date
+    from app.core.freemium import check_anon_limit, increment_anon_usage, FREEMIUM_CONFIG
+    from app.models.models import MCQQuestion
+    import random
+
+    client_ip = (
+        request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        or (request.client.host if request.client else "unknown")
+    )
+    today = str(_date.today())
+    status = await check_anon_limit(client_ip, today)
+
+    if not status["allowed"]:
+        return {
+            "questions": [],
+            "used": status["used"],
+            "limit": status["limit"],
+            "remaining": 0,
+            "paywall": True,
+            "paywall_message": (
+                f"You've used your {status['limit']} free questions for today. "
+                "Register for free to save progress, or upgrade to practice without limits."
+            ),
+        }
+
+    remaining = status["remaining"]
+    serve_count = min(limit, remaining)
+
+    stmt = (
+        select(
+            MCQQuestion.id,
+            MCQQuestion.question,
+            MCQQuestion.options,
+            MCQQuestion.correct,
+            MCQQuestion.explanation,
+            MCQQuestion.rationales,
+            MCQQuestion.difficulty,
+            MCQQuestion.question_type,
+            MCQQuestion.nclex_client_needs,
+        )
+        .where(
+            MCQQuestion.status == "active",
+            MCQQuestion.is_flagged.is_(False),
+        )
+    )
+    if category:
+        stmt = stmt.where(MCQQuestion.nclex_client_needs == category)
+
+    stmt = stmt.order_by(func.random()).limit(serve_count * 3)
+    rows = (await db.execute(stmt)).all()
+
+    selected = rows[:serve_count]
+    for _ in selected:
+        await increment_anon_usage(client_ip, today)
+
+    new_status = await check_anon_limit(client_ip, today)
+
+    return {
+        "questions": [
+            {
+                "id": str(r.id),
+                "question": r.question,
+                "options": r.options,
+                "correct": r.correct,
+                "explanation": r.explanation,
+                "rationales": r.rationales,
+                "difficulty": r.difficulty,
+                "question_type": r.question_type,
+                "nclex_category": r.nclex_client_needs,
+            }
+            for r in selected
+        ],
+        "used": new_status["used"],
+        "limit": new_status["limit"],
+        "remaining": new_status["remaining"],
+        "paywall": not new_status["allowed"],
+    }
+
+
+@router.get("/practice/free/status")
+async def free_practice_status(request: Request):
+    """Return the anonymous user's current daily question usage status."""
+    from datetime import date as _date
+    from app.core.freemium import check_anon_limit
+
+    client_ip = (
+        request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        or (request.client.host if request.client else "unknown")
+    )
+    today = str(_date.today())
+    status = await check_anon_limit(client_ip, today)
+    return status
+
+
+@router.get("/freemium/config")
+async def freemium_config():
+    """Return the freemium feature configuration (public — shown in paywall UI)."""
+    from app.core.freemium import FREEMIUM_CONFIG
+    return {
+        "anon_daily_questions": FREEMIUM_CONFIG["anon_daily_questions"],
+        "anon_features": FREEMIUM_CONFIG["anon_features"],
+        "free_registered_features": FREEMIUM_CONFIG["free_registered_features"],
+        "paid_features": FREEMIUM_CONFIG["paid_features"],
+    }

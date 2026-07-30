@@ -26,6 +26,12 @@ DEFAULTS: dict[str, bool] = {
     "sentry_monitoring": True,     # Sentry error reporting
     "imaging_library": True,       # medical imaging library
     "anatomy_3d": True,            # 3D anatomy viewers
+    # B5 — Freemium layout
+    "freemium_anon_practice": True,    # anonymous practice with daily limit
+    "freemium_progress_save": True,    # registered users save progress
+    "freemium_mock_exam": True,        # 1 free mock exam per registered user
+    "freemium_full_readiness": False,  # full readiness report (paid only)
+    "freemium_unlimited_ai": False,    # unlimited AI explain (paid only)
 }
 
 
