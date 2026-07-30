@@ -80,6 +80,7 @@ function DemoForm() {
   const [form, setForm] = useState({
     first_name: "", last_name: "", email: "",
     company: "", job_title: "", team_size: "", use_case: "", message: "",
+    website: "",  // honeypot — humans leave this empty
   });
   const [errors,  setErrors]  = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -125,6 +126,7 @@ function DemoForm() {
           team_size:  form.team_size,
           use_case:   form.use_case,
           message:    form.message || undefined,
+          website:    form.website || undefined,
         }),
       });
       if (!resp.ok) {
@@ -223,6 +225,18 @@ function DemoForm() {
           value={form.message}
           onChange={ev => setForm(p => ({ ...p, message: ev.target.value }))}
           className="w-full border border-border rounded-lg px-3 py-2.5 text-sm bg-bg text-ink focus:outline-none focus:ring-2 focus:ring-red/40 resize-none"
+        />
+      </div>
+
+      {/* Honeypot — hidden from humans, bots fill it → rejected server-side */}
+      <div style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }} aria-hidden="true">
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website ?? ""}
+          onChange={ev => setForm(p => ({ ...p, website: ev.target.value }))}
         />
       </div>
 

@@ -25,6 +25,13 @@ PERSONAL_DOMAINS = {
     "protonmail.com", "proton.me", "aol.com", "live.com",
 }
 
+import re as _re
+# Bot/test email local-part patterns (case-insensitive prefix match)
+_BOT_EMAIL_RE = _re.compile(
+    r"^(test|check|demo|sample|fake|noreply|no-reply|rep\d+|user\d+|admin\d*|info\d+|bot|spam|abuse)[@+]",
+    _re.IGNORECASE,
+)
+
 TEAM_SIZES   = {"1-10", "11-25", "26-100", "100+"}
 USE_CASES    = {"Veterinary company", "Clinic or hospital", "University", "Association", "Other"}
 LEAD_STATUSES = {"new", "contacted", "qualified", "closed"}
@@ -44,12 +51,23 @@ class EnterpriseLeadIn(BaseModel):
     team_size:  str
     use_case:   str
     message:    Optional[str] = None
+    # Honeypot: must be empty/absent — bots fill it, humans don't see it
+    website:    Optional[str] = None
+
+    @field_validator("website")
+    @classmethod
+    def honeypot_must_be_empty(cls, v: Optional[str]) -> Optional[str]:
+        if v:
+            raise ValueError("Invalid submission")
+        return v
 
     @field_validator("email")
     @classmethod
     def reject_personal_email(cls, v: str) -> str:
         domain = v.split("@")[-1].lower()
         if domain in PERSONAL_DOMAINS:
+            raise ValueError("Please use your work email address")
+        if _BOT_EMAIL_RE.match(v):
             raise ValueError("Please use your work email address")
         return v
 
@@ -142,6 +160,17 @@ async def submit_lead(
     ip = _client_ip(request)
     ip_hash = hashlib.sha256(ip.encode()).hexdigest()
 
+    # Deduplicate: same email within 24h → silent 201, no duplicate email
+    from sqlalchemy import text as _text
+    from datetime import timedelta
+    recent = await db.execute(
+        select(EnterpriseLead.id).where(
+            EnterpriseLead.email == payload.email,
+            EnterpriseLead.created_at >= datetime.utcnow() - timedelta(hours=24),
+        ).limit(1)
+    )
+    is_duplicate = recent.scalar_one_or_none() is not None
+
     lead = EnterpriseLead(
         id         = uuid.uuid4(),
         first_name = payload.first_name,
@@ -160,7 +189,11 @@ async def submit_lead(
     db.add(lead)
     await db.commit()
 
-    # Send notification email (fire-and-forget)
+    # Send notification email only on first submission per email per 24h
+    if is_duplicate:
+        await _record_request(request)
+        return {"success": True}
+
     try:
         from app.services.email_service import send_enterprise_lead_notification
         await send_enterprise_lead_notification(
