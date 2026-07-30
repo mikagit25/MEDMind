@@ -6,37 +6,65 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** V7 ROADMAP ЗАВЕРШЁН ✅ — все 6 фаз завершены и задеплоены
-**Last Updated:** 2026-07-29
-**Next Action:** Marketing Транша 1 (≥100 платящих или ≥1000 активных по Gulf+ES → Транш 2)
+**Phase:** BANK_SCALE_SPEC.md — все 5 фаз (B1–B5) завершены и задеплоены ✅
+**Last Updated:** 2026-07-30
+**Next Action:** Запустить `plan_generation.py` для заполнения generation_queue, начать ревью вопросов через `/reviewer/queue`, мониторить покрытие через `/admin/bank-coverage`
 
 ---
 
-### BANK-SCALE B1 — Content Source Registry ✅ (2026-07-29)
+### BANK-SCALE — Масштабирование банка вопросов ✅ (2026-07-30)
 
 **Spec:** `docs/BANK_SCALE_SPEC.md`
+**Total tests:** 70 (B1: 15 + B2: 15 + B3: 12 + B4: 14 + B5: 14), все проходят
 
-**Bank scale table** (current as of 2026-07-29):
+**Bank scale table** (current as of 2026-07-30):
 | Exam | Questions | human_reviewed | avg realism | Target |
 |------|-----------|---------------|-------------|--------|
 | NCLEX-RN (tagged) | 205 | 0 | — | 2000 |
 | SNLE | shared | 0 | — | 1200 |
 | DHA | shared | 0 | — | 900 |
 | Gulf others | shared | 0 | — | 500 each |
-| Total bank | ~6 021 | 0 | — | — |
+| Total bank | ~6 021 + 15 B2-generated | 0 | — | — |
 
-**B1 delivered:**
+#### B1 — Content Source Registry ✅ (2026-07-29)
 - `ContentSource` model + migration `w9x0y1z2a3b4`
-- 10 sources seeded with manually-verified licenses (verified 2026-07-29):
+- 10 sources seeded с вручную проверенными лицензиями:
   - **text_reuse_allowed=True**: CDC (public domain US gov), MedlinePlus Health Topics (public domain US gov)
-  - **text_reuse_allowed=False**: StatPearls (CC BY-NC-ND 4.0), WHO (CC BY-NC-SA 3.0 IGO), NICE (unclear/403), NCSBN NCLEX blueprint (copyright NCSBN), SCFHS/SNLE + DHA + QCHP blueprints (unclear gov), MedlinePlus A.D.A.M. (copyrighted 3rd party)
-- `GET /api/v1/public/content-sources` — public endpoint with source_type filter
-- Public SSR page `/content-sources` — license legend, grouped table, E-E-A-T signal
-- `ContentAttribution` component — renders attribution only for text_reuse_allowed=True sources
-- `/content-sources` added to sitemap
-- 15/15 tests passing
+  - **text_reuse_allowed=False**: StatPearls (CC BY-NC-ND 4.0), WHO, NICE, NCSBN, SCFHS/SNLE, DHA, QCHP, MedlinePlus A.D.A.M.
+- `GET /api/v1/public/content-sources` — публичный endpoint
+- Публичная SSR-страница `/content-sources`, `ContentAttribution` компонент, sitemap
 
-**B2–B5:** pending
+#### B2 — Open Source Corpus Ingestion + Generation ✅ (2026-07-30)
+- `SourceDocument` model + migration `x0y1z2a3b4c5` (SHA-256 dedup)
+- `ingest_open_sources.py`: MedlinePlus + CDC (public domain) + StatPearls (facts only, CC BY-NC-ND)
+- `question_claim_check.py`: Groq-based extract-claims → check-vs-source → reject if contradicted
+- `generate_from_source_docs.py`: генератор NCLEX MCQ с claim-верификацией, `GENERATION_PROMPT_VERSION="b2-v1"`
+- Реальный ingest: 15 документов (pharmacological=4, safe_effective_care=9, physiological_adaptation=2)
+- Ключи Groq: KEY_3/KEY_4/KEY_MODULE_2/KEY_CASES — только для пайплайна генерации контента
+
+#### B3 — Gap Analysis Coverage ✅ (2026-07-30)
+- `GenerationQueue` model + migration `y1z2a3b4c5d6`
+- `GET /admin/bank-coverage`: покрытие по exam × category × type vs blueprint-таргеты
+- `GET /admin/bank-coverage/queue`: список заданий с фильтрами
+- `plan_generation.py`: вычисляет дефициты и заполняет generation_queue
+- Blueprint веса: NCSBN NCLEX-RN 2023 (только публичные категории, текст не копировался)
+- Volume targets: NCLEX-RN 2000, SNLE 1200, DHA 900, Gulf exams 500
+
+#### B4 — Reviewer Workplace ✅ (2026-07-30)
+- `QuestionReview` model + migration `z2a3b4c5d6e7` (рубрика 7 измерений 1-5)
+- `GET /reviewer/queue`: следующий вопрос приоритизирован: flagged→health!=ok→pending→follow_ups
+- `POST /reviewer/submit/{id}`: approve → `human_reviewed`; reject → retired + GenerationQueue entry
+- `GET /reviewer/stats`: личная статистика рецензента
+- `GET /admin/review-insights`: агрегаты по рубрике, reject reasons, комментарии для Groq-кластеризации
+
+#### B5 — Freemium Layout ✅ (2026-07-30)
+- `FREEMIUM_CONFIG` в `app/core/freemium.py` — единый источник правды (не в коде компонентов)
+- Анонимный лимит: 20 вопросов/день (по IP-хешу, Redis, TTL 25ч)
+- `GET /public/practice/free`: анонимная практика с paywall при исчерпании лимита
+- `GET /public/practice/free/status`: текущее использование/остаток
+- `GET /public/freemium/config`: публичный конфиг для UI пейволла
+- `paywall_hit`, `anon_limit_hit`, `free_practice` события в аналитику
+- B5 feature flags в `feature_flags.py` DEFAULTS
 
 ---
 
