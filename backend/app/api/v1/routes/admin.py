@@ -2546,7 +2546,7 @@ _VOLUME_TARGETS: dict[str, int] = {
     "kpss":      500,
 }
 
-_BLUEPRINT_WEIGHTS: dict[str, float] = {
+_NCLEX_RN_WEIGHTS: dict[str, float] = {
     "management_of_care":       17.0,
     "pharmacological":          15.0,
     "physiological_adaptation": 14.0,
@@ -2556,6 +2556,30 @@ _BLUEPRINT_WEIGHTS: dict[str, float] = {
     "psychosocial":              9.0,
     "basic_care":                9.0,
 }
+
+# SNLE blueprint weights (SCFHS Applicant Guide 2024, verified 2026-07-30).
+# Adult Nursing 40% | Maternal-Child 30% | Fundamentals 20% | Management 10%
+# Mapped to NCLEX nclex_client_needs tags used in question tagging.
+_SNLE_WEIGHTS: dict[str, float] = {
+    "physiological_adaptation": 20.0,
+    "pharmacological":          12.0,
+    "reduction_risk":            8.0,
+    "health_promotion":         16.0,
+    "basic_care":               14.0,
+    "safe_effective_care":      12.0,
+    "psychosocial":              8.0,
+    "management_of_care":       10.0,
+}
+
+_EXAM_BLUEPRINT_WEIGHTS: dict[str, dict[str, float]] = {
+    "nclex_rn": _NCLEX_RN_WEIGHTS,
+    "snle":     _SNLE_WEIGHTS,
+    # DHA, QCHP, HAAD, KPSS: official blueprints not yet verified — using NCLEX-RN approximation
+}
+
+
+def _exam_weights(exam_slug: str) -> dict[str, float]:
+    return _EXAM_BLUEPRINT_WEIGHTS.get(exam_slug, _NCLEX_RN_WEIGHTS)
 
 _TYPE_MIX: dict[str, dict[str, float]] = {
     "nclex_rn": {"mcq": 55.0, "sata": 30.0, "ordered": 8.0, "calculation": 7.0},
@@ -2569,7 +2593,8 @@ _TYPE_MIX: dict[str, dict[str, float]] = {
 
 def _cat_target(exam: str, category: str, q_type: str) -> int:
     total = _VOLUME_TARGETS.get(exam, 500)
-    cat_w = _BLUEPRINT_WEIGHTS.get(category, 100.0 / len(_BLUEPRINT_WEIGHTS))
+    weights = _exam_weights(exam)
+    cat_w = weights.get(category, 100.0 / len(weights))
     type_w = _TYPE_MIX.get(exam, {"mcq": 70.0}).get(q_type, 0.0)
     return max(1, round(total * cat_w / 100.0 * type_w / 100.0))
 
@@ -2638,7 +2663,7 @@ async def bank_coverage(
 
         categories_out = []
         exam_total_deficit = 0
-        for category, cat_weight in _BLUEPRINT_WEIGHTS.items():
+        for category, cat_weight in _exam_weights(exam).items():
             cat_counts = exam_counts.get(category, {})
             cat_actual = sum(cat_counts.values())
             cat_target = round(total_target * cat_weight / 100.0)

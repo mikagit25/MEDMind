@@ -12,10 +12,10 @@ Usage:
 Volume targets (B3.4):
   nclex_rn  2000 | snle 1200 | dha 900 | qchp 500 | haad 500 | kpss 500
 
-Blueprint weights used for target distribution:
-  pharmacological 15% | physiological_adaptation 14% | reduction_risk 12%
-  safe_effective_care 12% | management_of_care 17% | health_promotion 9%
-  psychosocial 9% | basic_care 9%  (approximately matches NCSBN NCLEX-RN 2023)
+SNLE weights corrected 2026-07-30 from SCFHS Applicant Guide 2024:
+  Adult Nursing 40% | Maternal-Child Nursing 30% | Nursing Fundamentals 20%
+  | Nursing Management & Leadership 10%
+  Mapped to NCLEX categories (which is how MCQQuestion.nclex_client_needs is tagged).
 """
 from __future__ import annotations
 
@@ -43,9 +43,8 @@ VOLUME_TARGETS: dict[str, int] = {
     "kpss":      500,
 }
 
-# Blueprint category weights (%) — must sum to ~100
-# Source: NCSBN NCLEX-RN 2023 test plan (publicly available categories, no text copied)
-BLUEPRINT_WEIGHTS: dict[str, float] = {
+# Default blueprint weights (NCLEX-RN 2023, public categories only, no text copied)
+_NCLEX_RN_WEIGHTS: dict[str, float] = {
     "management_of_care":       17.0,
     "pharmacological":          15.0,
     "physiological_adaptation": 14.0,
@@ -56,8 +55,34 @@ BLUEPRINT_WEIGHTS: dict[str, float] = {
     "basic_care":                9.0,
 }
 
-# For Gulf exams, apply same category weights (best approximation until official blueprints)
-# B3.3 (manual benchmark) will refine per-exam weights later.
+# SNLE blueprint weights (SCFHS Applicant Guide 2024, verified 2026-07-30).
+# Official categories: Adult Nursing 40% | Maternal-Child 30% | Fundamentals 20% | Management 10%
+# Mapped to NCLEX nclex_client_needs tags used in question tagging:
+_SNLE_WEIGHTS: dict[str, float] = {
+    # Adult Nursing (40%): medical-surgical, critical care, pharmacology
+    "physiological_adaptation": 20.0,
+    "pharmacological":          12.0,
+    "reduction_risk":            8.0,
+    # Maternal-Child Nursing (30%): OB, newborn, pediatrics — approximated via these NCLEX cats
+    "health_promotion":         16.0,
+    "basic_care":               14.0,
+    # Nursing Fundamentals (20%): fundamentals + safety
+    "safe_effective_care":      12.0,
+    "psychosocial":              8.0,
+    # Nursing Management & Leadership (10%)
+    "management_of_care":       10.0,
+}
+
+# Per-exam override: exams with officially verified blueprints use specific weights;
+# others fall back to _NCLEX_RN_WEIGHTS as best approximation.
+EXAM_BLUEPRINT_WEIGHTS: dict[str, dict[str, float]] = {
+    "nclex_rn": _NCLEX_RN_WEIGHTS,
+    "snle":     _SNLE_WEIGHTS,
+    # DHA, QCHP, HAAD, KPSS: official blueprints not yet verified — using NCLEX-RN approximation
+}
+
+# Public alias for tests and downstream code
+BLUEPRINT_WEIGHTS = _NCLEX_RN_WEIGHTS
 
 # Question type mix targets (%) per exam
 TYPE_MIX: dict[str, dict[str, float]] = {
@@ -73,9 +98,15 @@ TYPE_MIX: dict[str, dict[str, float]] = {
 DIFFICULTY_PRIORITY: list[str] = ["medium", "hard", "easy"]
 
 
+def _exam_weights(exam_slug: str) -> dict[str, float]:
+    """Return blueprint weights for an exam, falling back to NCLEX-RN."""
+    return EXAM_BLUEPRINT_WEIGHTS.get(exam_slug, _NCLEX_RN_WEIGHTS)
+
+
 def _target_count(exam_slug: str, category: str, q_type: str) -> int:
     total = VOLUME_TARGETS.get(exam_slug, 500)
-    cat_weight = BLUEPRINT_WEIGHTS.get(category, 100.0 / len(BLUEPRINT_WEIGHTS))
+    weights = _exam_weights(exam_slug)
+    cat_weight = weights.get(category, 100.0 / len(weights))
     type_mix = TYPE_MIX.get(exam_slug, {"mcq": 70.0, "sata": 20.0, "ordered": 5.0, "calculation": 5.0})
     type_weight = type_mix.get(q_type, 0.0)
     return max(1, round(total * cat_weight / 100.0 * type_weight / 100.0))
@@ -123,7 +154,7 @@ async def build_plan(
 
         for exam in target_exams:
             exam_counts = counts.get(exam, {})
-            for category, cat_weight in BLUEPRINT_WEIGHTS.items():
+            for category, cat_weight in _exam_weights(exam).items():
                 cat_counts = exam_counts.get(category, {})
                 for q_type in ["mcq", "sata", "ordered", "calculation"]:
                     target = _target_count(exam, category, q_type)

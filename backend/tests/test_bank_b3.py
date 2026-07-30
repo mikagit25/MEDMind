@@ -158,6 +158,39 @@ async def test_build_plan_filters_by_exam():
     assert all(e["exam_slug"] == "snle" for e in plan)
 
 
+def test_snle_blueprint_weights_sum_to_100():
+    """SNLE blueprint weights (SCFHS 2024) must sum to 100%."""
+    from app.scripts.plan_generation import _SNLE_WEIGHTS
+
+    total = sum(_SNLE_WEIGHTS.values())
+    assert abs(total - 100.0) < 0.01, f"SNLE weights sum to {total}, expected 100"
+
+
+def test_snle_weights_differ_from_nclex():
+    """SNLE must use SCFHS-specific weights, not NCLEX-RN weights."""
+    from app.scripts.plan_generation import _SNLE_WEIGHTS, _NCLEX_RN_WEIGHTS, _exam_weights
+
+    assert _exam_weights("snle") is _SNLE_WEIGHTS
+    assert _exam_weights("nclex_rn") is _NCLEX_RN_WEIGHTS
+    # Management is 10% for SNLE (vs 17% for NCLEX-RN)
+    assert _SNLE_WEIGHTS["management_of_care"] == 10.0
+    assert _NCLEX_RN_WEIGHTS["management_of_care"] == 17.0
+
+
+def test_snle_target_count_uses_snle_weights():
+    """_target_count must apply SNLE-specific weights when exam_slug=snle."""
+    from app.scripts.plan_generation import _target_count
+
+    # physiological_adaptation is 20% for SNLE (vs 14% for NCLEX-RN)
+    snle_target = _target_count("snle", "physiological_adaptation", "mcq")
+    nclex_target = _target_count("nclex_rn", "physiological_adaptation", "mcq")
+    # SNLE: 1200 * 20% * 75% = 180; NCLEX: 2000 * 14% * 55% = 154
+    assert snle_target > nclex_target, (
+        f"SNLE physiological_adaptation MCQ target ({snle_target}) should be "
+        f"higher than NCLEX-RN ({nclex_target}) due to 20% vs 14% weighting"
+    )
+
+
 # ── API: bank-coverage endpoint ───────────────────────────────────────────────
 
 @pytest.mark.asyncio
