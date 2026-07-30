@@ -19,7 +19,7 @@ from app.models.models import (
     StripeEvent, CreditTransaction, AuthorCreditAccount,
     PromoCode, PromoCodeUse,
     Affiliate, AffiliateConversion,
-    QuestionStats, QuestionAttempt, ContentAuditLog,
+    QuestionStats, QuestionAttempt, ContentAuditLog, GenerationQueue,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -2533,3 +2533,192 @@ async def trigger_psychometrics(
     from app.services.psychometrics import compute_all_stats
     report = await compute_all_stats(db, dry_run=dry_run)
     return report
+
+
+# ── B3: Bank Coverage Report ─────────────────────────────────────────────────
+
+_VOLUME_TARGETS: dict[str, int] = {
+    "nclex_rn": 2000,
+    "snle":     1200,
+    "dha":       900,
+    "qchp":      500,
+    "haad":      500,
+    "kpss":      500,
+}
+
+_BLUEPRINT_WEIGHTS: dict[str, float] = {
+    "management_of_care":       17.0,
+    "pharmacological":          15.0,
+    "physiological_adaptation": 14.0,
+    "reduction_risk":           12.0,
+    "safe_effective_care":      12.0,
+    "health_promotion":          9.0,
+    "psychosocial":              9.0,
+    "basic_care":                9.0,
+}
+
+_TYPE_MIX: dict[str, dict[str, float]] = {
+    "nclex_rn": {"mcq": 55.0, "sata": 30.0, "ordered": 8.0, "calculation": 7.0},
+    "snle":     {"mcq": 75.0, "sata": 15.0, "ordered": 5.0, "calculation": 5.0},
+    "dha":      {"mcq": 80.0, "sata": 10.0, "ordered": 5.0, "calculation": 5.0},
+    "qchp":     {"mcq": 80.0, "sata": 10.0, "ordered": 5.0, "calculation": 5.0},
+    "haad":     {"mcq": 80.0, "sata": 10.0, "ordered": 5.0, "calculation": 5.0},
+    "kpss":     {"mcq": 90.0, "sata":  5.0, "ordered": 2.5, "calculation": 2.5},
+}
+
+
+def _cat_target(exam: str, category: str, q_type: str) -> int:
+    total = _VOLUME_TARGETS.get(exam, 500)
+    cat_w = _BLUEPRINT_WEIGHTS.get(category, 100.0 / len(_BLUEPRINT_WEIGHTS))
+    type_w = _TYPE_MIX.get(exam, {"mcq": 70.0}).get(q_type, 0.0)
+    return max(1, round(total * cat_w / 100.0 * type_w / 100.0))
+
+
+@router.get("/bank-coverage")
+async def bank_coverage(
+    exam_slug: Optional[str] = Query(None, description="Filter to a single exam slug"),
+    _: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """Per-exam coverage report showing category × type counts vs blueprint targets.
+
+    Returns:
+      - exams: list of exam coverage objects
+      - each exam: {slug, volume_target, total_active, total_deficit, categories: [...]}
+      - each category: {name, weight_pct, types: [...], total_actual, total_target, deficit}
+      - each type: {question_type, actual, target, deficit}
+      - difficulty_breakdown: {easy, medium, hard, very_easy, very_hard} across all active
+      - generation_queue: {pending, in_progress, done} counts
+    """
+    target_exams = [exam_slug] if exam_slug else list(_VOLUME_TARGETS.keys())
+
+    # Fetch all active questions; process exam_slugs JSON array in Python
+    # (avoids PostgreSQL-only jsonb_array_elements_text, works in SQLite tests)
+    q_rows = await db.execute(
+        select(
+            MCQQuestion.exam_slugs,
+            MCQQuestion.nclex_client_needs,
+            MCQQuestion.question_type,
+            MCQQuestion.difficulty,
+        ).where(MCQQuestion.status == "active")
+    )
+    counts: dict[str, dict[str, dict[str, int]]] = {}
+    difficulty_breakdown: dict[str, int] = {}
+    for row in q_rows:
+        slugs = row.exam_slugs or []
+        if isinstance(slugs, str):
+            import json as _json
+            try:
+                slugs = _json.loads(slugs)
+            except Exception:
+                slugs = []
+        cat = row.nclex_client_needs or "uncategorized"
+        qtype = row.question_type or "mcq"
+        diff = row.difficulty or "medium"
+        difficulty_breakdown[diff] = difficulty_breakdown.get(diff, 0) + 1
+        for exam in slugs:
+            counts.setdefault(exam, {}).setdefault(cat, {})[qtype] = (
+                counts.get(exam, {}).get(cat, {}).get(qtype, 0) + 1
+            )
+
+    # Generation queue status counts
+    gq_rows = await db.execute(
+        select(GenerationQueue.status, func.count().label("cnt"))
+        .group_by(GenerationQueue.status)
+    )
+    queue_summary = {r.status: int(r.cnt) for r in gq_rows}
+
+    exams_out = []
+    for exam in target_exams:
+        exam_counts = counts.get(exam, {})
+        total_target = _VOLUME_TARGETS.get(exam, 500)
+        total_actual = sum(
+            sum(tc.values()) for tc in exam_counts.values()
+        )
+
+        categories_out = []
+        exam_total_deficit = 0
+        for category, cat_weight in _BLUEPRINT_WEIGHTS.items():
+            cat_counts = exam_counts.get(category, {})
+            cat_actual = sum(cat_counts.values())
+            cat_target = round(total_target * cat_weight / 100.0)
+
+            types_out = []
+            cat_type_deficit = 0
+            for q_type in ["mcq", "sata", "ordered", "calculation"]:
+                t_actual = cat_counts.get(q_type, 0)
+                t_target = _cat_target(exam, category, q_type)
+                t_deficit = max(0, t_target - t_actual)
+                cat_type_deficit += t_deficit
+                types_out.append({
+                    "question_type": q_type,
+                    "actual": t_actual,
+                    "target": t_target,
+                    "deficit": t_deficit,
+                })
+
+            actual_pct = round(cat_actual / total_target * 100, 1) if total_target else 0
+            categories_out.append({
+                "name": category,
+                "weight_pct": cat_weight,
+                "actual_pct": actual_pct,
+                "total_actual": cat_actual,
+                "total_target": cat_target,
+                "deficit": max(0, cat_target - cat_actual),
+                "types": types_out,
+            })
+            exam_total_deficit += max(0, cat_target - cat_actual)
+
+        progress_pct = round(total_actual / total_target * 100, 1) if total_target else 0
+        exams_out.append({
+            "slug": exam,
+            "volume_target": total_target,
+            "total_active": total_actual,
+            "total_deficit": exam_total_deficit,
+            "progress_pct": progress_pct,
+            "categories": categories_out,
+        })
+
+    return {
+        "exams": exams_out,
+        "difficulty_breakdown": difficulty_breakdown,
+        "generation_queue": queue_summary,
+        "generated_at": datetime.utcnow().isoformat(),
+    }
+
+
+@router.get("/bank-coverage/queue")
+async def bank_coverage_queue(
+    status: Optional[str] = Query(None, description="Filter by status: pending|in_progress|done|cancelled"),
+    exam_slug: Optional[str] = Query(None),
+    limit: int = Query(50, le=200),
+    _: User = Depends(require_admin()),
+    db: AsyncSession = Depends(get_db),
+):
+    """List generation queue entries with optional status and exam filters."""
+    stmt = select(GenerationQueue).order_by(GenerationQueue.created_at.desc()).limit(limit)
+    if status:
+        stmt = stmt.where(GenerationQueue.status == status)
+    if exam_slug:
+        stmt = stmt.where(GenerationQueue.exam_slug == exam_slug)
+    result = await db.execute(stmt)
+    rows = result.scalars().all()
+    return {
+        "items": [
+            {
+                "id": str(r.id),
+                "exam_slug": r.exam_slug,
+                "nclex_category": r.nclex_category,
+                "question_type": r.question_type,
+                "target_difficulty": r.target_difficulty,
+                "count_requested": r.count_requested,
+                "count_generated": r.count_generated,
+                "status": r.status,
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+                "started_at": r.started_at.isoformat() if r.started_at else None,
+                "completed_at": r.completed_at.isoformat() if r.completed_at else None,
+            }
+            for r in rows
+        ],
+        "total": len(rows),
+    }

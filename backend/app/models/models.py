@@ -2297,3 +2297,31 @@ class SourceDocument(Base):
         Index("ix_source_documents_nclex_category", "nclex_category"),
         Index("ix_source_documents_text_hash", "text_hash"),
     )
+
+
+class GenerationQueue(Base):
+    """Pending generation tasks built by plan_generation.py from coverage deficits.
+
+    Workers consume pending rows, generate questions via generate_from_source_docs,
+    and update status + generation_report on completion.
+    """
+    __tablename__ = "generation_queue"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    exam_slug = Column(String(60), nullable=False)          # e.g. "nclex_rn" | "snle"
+    nclex_category = Column(String(60), nullable=False)     # e.g. "pharmacological"
+    question_type = Column(String(20), nullable=False, server_default="mcq")
+    target_difficulty = Column(String(20), nullable=False, server_default="medium")
+    count_requested = Column(Integer, nullable=False)
+    count_generated = Column(Integer, nullable=False, server_default="0")
+    # pending | in_progress | done | cancelled
+    status = Column(String(20), nullable=False, server_default="pending")
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    started_at = Column(DateTime, nullable=True)
+    completed_at = Column(DateTime, nullable=True)
+    generation_report = Column(JSONB, nullable=True)
+
+    __table_args__ = (
+        Index("ix_genqueue_status", "status"),
+        Index("ix_genqueue_exam_cat", "exam_slug", "nclex_category"),
+    )

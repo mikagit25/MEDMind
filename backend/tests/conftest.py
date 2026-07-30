@@ -215,3 +215,43 @@ async def client(engine):
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         yield ac
     app.dependency_overrides.clear()
+
+
+@pytest_asyncio.fixture
+async def admin_client(engine):
+    """HTTP test client authenticated as an admin user."""
+    from sqlalchemy import update as _upd
+
+    session_factory = async_sessionmaker(engine, expire_on_commit=False)
+
+    async def override_get_db():
+        async with session_factory() as session:
+            yield session
+
+    app.dependency_overrides[get_db] = override_get_db
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        # Register + login
+        email = f"admin_fixture_{id(ac)}@test.com"
+        r = await ac.post("/api/v1/auth/register", json={
+            "email": email, "password": "Admin!Pass99",
+            "first_name": "Admin", "last_name": "Test",
+            "consent_terms": True, "consent_data_processing": True,
+        })
+        assert r.status_code == 201, r.text
+        r = await ac.post("/api/v1/auth/login", json={"email": email, "password": "Admin!Pass99"})
+        token = r.json()["access_token"]
+
+        # Elevate to admin via DB
+        me = await ac.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
+        from app.models.models import User as _User
+        import uuid as _uuid
+        user_id = _uuid.UUID(me.json()["id"])
+        async with session_factory() as session:
+            await session.execute(_upd(_User).where(_User.id == user_id).values(role="admin"))
+            await session.commit()
+
+        ac.headers.update({"Authorization": f"Bearer {token}"})
+        yield ac
+
+    app.dependency_overrides.clear()
