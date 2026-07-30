@@ -2267,3 +2267,33 @@ class ContentSource(Base):
         Index("ix_content_sources_type", "source_type"),
         Index("ix_content_sources_text_reuse", "text_reuse_allowed"),
     )
+
+
+class SourceDocument(Base):
+    """Downloaded reference document from a verified ContentSource.
+
+    Full text stored for fact-checking. text_hash (SHA-256) prevents duplicate ingest.
+    For NC/ND sources: used as factual context only — generator must not reproduce text.
+    """
+    __tablename__ = "source_documents"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    source_slug = Column(String(80), ForeignKey("content_sources.slug", ondelete="CASCADE"), nullable=False)
+    nclex_category = Column(String(60), nullable=True)   # e.g. "pharmacological"
+    title = Column(String(500), nullable=False)
+    url = Column(String(600), nullable=True)
+    section = Column(String(300), nullable=True)         # chapter / sub-section
+    full_text = Column(Text, nullable=False)
+    # SHA-256 of normalized full_text — unique constraint prevents duplicate ingest
+    text_hash = Column(String(64), nullable=False, unique=True)
+    word_count = Column(Integer, nullable=False, default=0)
+    doc_metadata = Column(JSONB, nullable=True)          # extra fields from source API
+    downloaded_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    source = relationship("ContentSource", foreign_keys=[source_slug])
+
+    __table_args__ = (
+        Index("ix_source_documents_source_slug", "source_slug"),
+        Index("ix_source_documents_nclex_category", "nclex_category"),
+        Index("ix_source_documents_text_hash", "text_hash"),
+    )
