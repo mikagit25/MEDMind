@@ -1,3 +1,7 @@
+// SYNC-GROUP: exams-hub
+// /exams (EN) · /ar/exams (AR) · /es/exams (ES) · /ru/exams (RU) · /de/exams (DE) · /fr/exams (FR) · /tr/exams (TR) ← you are here: ES
+// TODO: replace with next-intl server routing when the project migrates to SSR i18n.
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleNav } from "@/components/layout/ArticleNav";
@@ -6,11 +10,11 @@ import { PublicFooter } from "@/components/layout/PublicFooter";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 
 export const metadata: Metadata = {
-  title: "Nursing Licensing Exams — NCLEX, Gulf Prometric, UKMLA | MedMind AI",
+  title: "Preparación para Exámenes de Enfermería — NCLEX, Golfo, UKMLA | MedMind AI",
   description:
-    "Prepare for any nursing licensing exam: NCLEX-RN, SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD, and UKMLA. AI-powered questions, rationales, and personalised study plans.",
+    "Prepárate para cualquier examen de licencia de enfermería: NCLEX-RN, SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD y UKMLA. Preguntas con IA y planes de estudio personalizados.",
   alternates: {
-    canonical: `${SITE_URL}/exams`,
+    canonical: `${SITE_URL}/es/exams`,
     languages: {
       "en":        `${SITE_URL}/exams`,
       "ar":        `${SITE_URL}/ar/exams`,
@@ -23,9 +27,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Nursing Licensing Exam Prep — MedMind AI",
-    description: "All major nursing licensing exams in one platform.",
-    url: `${SITE_URL}/exams`,
+    title: "Preparación para Exámenes de Enfermería — MedMind AI",
+    description: "Una plataforma para todos los principales exámenes de licencia de enfermería.",
+    url: `${SITE_URL}/es/exams`,
     siteName: "MedMind AI",
     type: "website",
   },
@@ -36,19 +40,19 @@ const EXAM_FAMILIES = [
     family: "NCLEX",
     flag: "🇺🇸",
     headline: "NCLEX-RN / NCLEX-PN",
-    desc: "Adaptive CAT simulation (75–145 questions), SATA, NGN, AI explanations for all 7 Client Needs categories. The standard for US nursing licensure.",
-    href: "/nclex",
-    cta: "NCLEX Prep →",
+    desc: "Simulación CAT adaptativa (75–145 preguntas), SATA, NGN, explicaciones de IA para las 7 categorías Client Needs. El estándar americano para la licencia de enfermería.",
+    href: "/es/nclex",
+    cta: "Prep NCLEX →",
     color: "border-blue-200 bg-blue-50",
     exams: ["NCLEX-RN", "NCLEX-PN"],
   },
   {
     family: "Gulf",
     flag: "🌍",
-    headline: "Gulf Prometric — 7 Exams",
-    desc: "All Gulf Prometric nursing licensing exams: SNLE (Saudi), DHA (Dubai), QCHP (Qatar), OMSB (Oman), NHRA (Bahrain), MOH UAE, DOH/HAAD (Abu Dhabi). One bundle, all countries.",
-    href: "/exams/gulf",
-    cta: "Gulf Exams →",
+    headline: "Gulf Prometric — 7 Exámenes",
+    desc: "Todos los exámenes de licencia Prometric del Golfo: SNLE (Arabia Saudita), DHA (Dubái), QCHP (Qatar), OMSB (Omán), NHRA (Baréin), MOH UAE, DOH/HAAD (Abu Dabi). Un bundle, todos los países.",
+    href: "/es/gulf",
+    cta: "Exámenes del Golfo →",
     color: "border-amber-200 bg-amber-50",
     exams: ["SNLE", "DHA", "QCHP", "OMSB", "NHRA", "MOH UAE", "DOH/HAAD"],
   },
@@ -56,39 +60,37 @@ const EXAM_FAMILIES = [
     family: "UK",
     flag: "🇬🇧",
     headline: "UKMLA / MLA",
-    desc: "UK Medical Licensing Assessment — clinical knowledge questions aligned with the MLA blueprint. For nurses and internationally qualified doctors registering in the UK.",
+    desc: "UK Medical Licensing Assessment — preguntas de conocimiento clínico alineadas con el blueprint MLA. Para enfermeras y médicos con titulación extranjera que se registran en el Reino Unido.",
     href: "/nurses",
-    cta: "UK Prep →",
+    cta: "UKMLA →",
     color: "border-purple-200 bg-purple-50",
     exams: ["UKMLA", "MLA"],
   },
 ];
 
 const GULF_EXAMS = [
-  { slug: "snle",    label: "SNLE",     country: "Saudi Arabia" },
-  { slug: "dha",     label: "DHA",      country: "Dubai, UAE" },
-  { slug: "qchp",    label: "QCHP",     country: "Qatar" },
-  { slug: "omsb",    label: "OMSB",     country: "Oman" },
-  { slug: "nhra",    label: "NHRA",     country: "Bahrain" },
-  { slug: "moh-uae", label: "MOH UAE",  country: "UAE (Northern Emirates)" },
-  { slug: "haad",    label: "DOH/HAAD", country: "Abu Dhabi, UAE" },
+  { slug: "snle",    label: "SNLE",     country: "Arabia Saudita" },
+  { slug: "dha",     label: "DHA",      country: "Dubái, EAU" },
+  { slug: "qchp",   label: "QCHP",     country: "Qatar" },
+  { slug: "omsb",   label: "OMSB",     country: "Omán" },
+  { slug: "nhra",   label: "NHRA",     country: "Baréin" },
+  { slug: "moh-uae", label: "MOH UAE", country: "EAU (Emirates del Norte)" },
+  { slug: "haad",   label: "DOH/HAAD", country: "Abu Dabi, EAU" },
 ];
 
-export default function ExamsHubPage() {
+export default function SpanishExamsHubPage() {
   return (
     <div className="min-h-screen bg-bg font-serif text-ink">
       <ArticleNav />
 
       <section className="max-w-5xl mx-auto px-4 pt-16 pb-10">
         <h1 className="font-syne font-black text-3xl sm:text-4xl text-ink leading-tight mb-4">
-          Nursing Licensing Exam Prep
+          Preparación para Exámenes de Licencia de Enfermería
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-10 max-w-2xl">
-          One platform for every major nursing licensing exam — adaptive practice,
-          AI explanations, and study plans timed to your exam date.
+          Una plataforma para todos los principales exámenes de licencia de enfermería — práctica adaptativa, explicaciones de IA y planes de estudio timed.
         </p>
 
-        {/* Exam family cards */}
         <div className="space-y-5 mb-14">
           {EXAM_FAMILIES.map(f => (
             <div key={f.family} className={`border ${f.color} rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center gap-5`}>
@@ -114,8 +116,7 @@ export default function ExamsHubPage() {
           ))}
         </div>
 
-        {/* Quick links to individual Gulf exams */}
-        <h2 className="font-syne font-bold text-xl text-ink mb-5">Gulf Prometric — Individual Exams</h2>
+        <h2 className="font-syne font-bold text-xl text-ink mb-5">Gulf Prometric — Exámenes Individuales</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
           {GULF_EXAMS.map(e => (
             <Link key={e.slug} href={`/exams/${e.slug}`}
@@ -124,20 +125,19 @@ export default function ExamsHubPage() {
               <div className="text-xs text-ink-3 mt-0.5">{e.country}</div>
             </Link>
           ))}
-          <Link href="/exams/gulf"
+          <Link href="/es/gulf"
             className="bg-ink text-white rounded-xl p-4 hover:bg-red transition-colors">
-            <div className="font-syne font-bold text-sm">Compare All →</div>
+            <div className="font-syne font-bold text-sm">Comparar todo →</div>
             <div className="text-xs text-white/70 mt-0.5">Gulf Bundle</div>
           </Link>
         </div>
 
-        {/* CTA */}
         <div className="text-center">
           <Link href="/register"
             className="inline-block font-syne font-bold text-base bg-ink text-white px-8 py-4 rounded-xl hover:bg-red transition-colors">
-            Start Free — 10 Practice Questions →
+            Comenzar gratis — 10 preguntas de práctica →
           </Link>
-          <p className="text-xs font-serif text-ink-3 mt-3">No credit card required</p>
+          <p className="text-xs font-serif text-ink-3 mt-3">Sin tarjeta de crédito</p>
         </div>
       </section>
 

@@ -641,6 +641,92 @@ async def _verify_articles_job() -> None:
         logger.error("verify_articles cron error: %s", exc)
 
 
+async def _enrich_lesson_sources_job() -> None:
+    """Enrich published lessons with structured PubMed sources (20 per run, every 2 hours)."""
+    try:
+        from app.scripts.enrich_lesson_sources import run as enrich_run
+        count = await enrich_run(max_lessons=20)
+        if count:
+            logger.info("Lesson source enrichment: %d lessons enriched", count)
+    except Exception as exc:
+        logger.error("enrich_lesson_sources cron error: %s", exc)
+
+
+async def _verify_lessons_job() -> None:
+    """Verify lessons that have sources but are still pending (10 per run, every 2 hours)."""
+    try:
+        from app.services.content_verifier import verify_article
+        from app.models.models import Lesson
+        from sqlalchemy import select, cast
+        from sqlalchemy.dialects.postgresql import JSONB as _JSONB
+
+        def _lesson_to_text(content: dict) -> str:
+            """Convert lesson content JSONB to plain text for claim extraction."""
+            if not isinstance(content, dict):
+                return ""
+            parts: list[str] = []
+            intro = content.get("intro", "")
+            if isinstance(intro, str):
+                parts.append(intro)
+            for section in content.get("sections", []):
+                if isinstance(section, dict):
+                    heading = section.get("heading", "")
+                    body = section.get("body", "")
+                    if isinstance(heading, str):
+                        parts.append(heading)
+                    if isinstance(body, str):
+                        parts.append(body)
+            key_points = content.get("key_points", [])
+            if isinstance(key_points, list):
+                parts.extend(kp for kp in key_points if isinstance(kp, str))
+            return " ".join(parts)
+
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(Lesson)
+                .where(
+                    Lesson.status == "published",
+                    Lesson.verification_status == "pending",
+                    Lesson.sources.isnot(None),
+                    Lesson.sources != cast("[]", _JSONB),
+                )
+                .limit(10)
+            )
+            lessons = result.scalars().all()
+
+        if not lessons:
+            return
+
+        logger.info("Lesson verification: processing %d lessons", len(lessons))
+        verified = 0
+        for lesson in lessons:
+            try:
+                text = _lesson_to_text(lesson.content or {})
+                # Reuse article verifier — it accepts any body as blocks; we pass
+                # a single paragraph block to wrap the lesson text.
+                body_blocks = [{"type": "p", "content": text}] if text.strip() else []
+                report = await verify_article(
+                    article_id=str(lesson.id),
+                    article_body=body_blocks,
+                    sources=lesson.sources or [],
+                )
+                async with AsyncSessionLocal() as db:
+                    l = await db.get(Lesson, lesson.id)
+                    if not l:
+                        continue
+                    from datetime import datetime
+                    l.verification_status = report["status"]
+                    l.verified_at = datetime.utcnow()
+                    await db.commit()
+                verified += 1
+            except Exception as exc:
+                logger.error("Verification failed lesson=%s: %s", lesson.id, exc)
+
+        logger.info("Lesson verification done: %d/%d", verified, len(lessons))
+    except Exception as exc:
+        logger.error("verify_lessons cron error: %s", exc)
+
+
 async def _verify_mcq_job() -> None:
     """Verify pending MCQ answers via multi-provider LLM (30 per run, every 30 min).
 
@@ -1269,6 +1355,24 @@ def start_scheduler():
         id="verify_articles",
         replace_existing=True,
         misfire_grace_time=1800,
+    )
+
+    # Every 2 hours at :35 — enrich lessons with PubMed sources (20 per run)
+    scheduler.add_job(
+        _enrich_lesson_sources_job,
+        trigger=CronTrigger(minute="35", hour="*/2", timezone="UTC"),
+        id="enrich_lesson_sources",
+        replace_existing=True,
+        misfire_grace_time=3600,
+    )
+
+    # Every 2 hours at :55 — verify lessons that have sources (10 per run)
+    scheduler.add_job(
+        _verify_lessons_job,
+        trigger=CronTrigger(minute="55", hour="*/2", timezone="UTC"),
+        id="verify_lessons",
+        replace_existing=True,
+        misfire_grace_time=3600,
     )
 
     # Every 30 min at :10/:40 — verify pending MCQ answers via Groq (30 per run)

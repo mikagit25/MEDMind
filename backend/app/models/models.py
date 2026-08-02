@@ -137,6 +137,13 @@ class Lesson(Base):
     # When the lesson should be re-reviewed (protocols become outdated)
     next_review_due = Column(DateTime, nullable=True)
 
+    # ── Source verification (PubMed citations → LLM content check) ────────
+    # Structured sources [{pmid, title, url, authors, year, journal}]
+    sources = Column(JSONB, nullable=True)
+    # unverified | pending | passed | flagged
+    verification_status = Column(String(30), nullable=False, server_default="unverified")
+    verified_at = Column(DateTime, nullable=True)
+
     # ── Plain-language content for non-specialists (Phase 1) ───────────────
     # lay_summary: 150-300 word explanation at 8th-grade reading level
     lay_summary = Column(Text, nullable=True)

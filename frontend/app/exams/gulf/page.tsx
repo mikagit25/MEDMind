@@ -27,8 +27,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/exams/gulf`,
     languages: {
-      "en": `${SITE_URL}/exams/gulf`,
-      "ar": `${SITE_URL}/ar/gulf`,
+      "en":        `${SITE_URL}/exams/gulf`,
+      "ar":        `${SITE_URL}/ar/gulf`,
+      "es":        `${SITE_URL}/es/gulf`,
+      "ru":        `${SITE_URL}/ru/gulf`,
+      "de":        `${SITE_URL}/de/gulf`,
+      "fr":        `${SITE_URL}/fr/gulf`,
+      "tr":        `${SITE_URL}/tr/gulf`,
       "x-default": `${SITE_URL}/exams/gulf`,
     },
   },

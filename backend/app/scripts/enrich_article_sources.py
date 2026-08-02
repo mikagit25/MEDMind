@@ -20,7 +20,6 @@ import json
 import logging
 import os
 import sys
-import time
 from typing import Any
 
 import httpx
@@ -57,7 +56,7 @@ async def _pubmed_search(query: str, max_results: int = 3) -> list[dict[str, Any
             if not ids:
                 return []
 
-            time.sleep(_DELAY)
+            await asyncio.sleep(_DELAY)
             sum_params: dict[str, Any] = {"db": "pubmed", "id": ",".join(ids), "retmode": "json"}
             if PUBMED_API_KEY:
                 sum_params["api_key"] = PUBMED_API_KEY
@@ -126,7 +125,7 @@ async def run(max_articles: int = 30, dry_run: bool = False) -> int:
 
         if not sources:
             log.debug("No PubMed results for: %s", article.title[:60])
-            time.sleep(_DELAY)
+            await asyncio.sleep(_DELAY)
             continue
 
         if dry_run:
@@ -145,7 +144,7 @@ async def run(max_articles: int = 30, dry_run: bool = False) -> int:
 
         log.info("Enriched: %s → %d sources", article.slug[:60], len(sources))
         enriched += 1
-        time.sleep(_DELAY)
+        await asyncio.sleep(_DELAY)
 
     log.info("Done: enriched %d/%d articles", enriched, len(articles))
     return enriched

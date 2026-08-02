@@ -11,6 +11,16 @@ export const metadata: Metadata = {
     "Practice NCLEX-RN with adaptive CAT simulations (75–145 questions), SATA, NGN, and AI-powered explanations. Track your performance across all 7 NCLEX Client Needs categories and 6 CJMM clinical judgment skills. Free demo included.",
   alternates: {
     canonical: `${SITE_URL}/nclex`,
+    languages: {
+      "en":        `${SITE_URL}/nclex`,
+      "ar":        `${SITE_URL}/ar/nclex`,
+      "es":        `${SITE_URL}/es/nclex`,
+      "ru":        `${SITE_URL}/ru/nclex`,
+      "de":        `${SITE_URL}/de/nclex`,
+      "fr":        `${SITE_URL}/fr/nclex`,
+      "tr":        `${SITE_URL}/tr/nclex`,
+      "x-default": `${SITE_URL}/nclex`,
+    },
   },
   openGraph: {
     title: "NCLEX-RN Prep — Adaptive Simulations & AI Explanations | MedMind AI",
