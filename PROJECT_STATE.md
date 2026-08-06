@@ -171,7 +171,14 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Admin report: `GET /admin/jurisdiction-audit`
 - Classifier: `app/scripts/audit_jurisdiction_sensitivity.py` (re-run after question edits)
 - 205 questions tagged `origin='nclex_mapped'`
-- *Phases remaining: L3 (generator) → L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
+- *Phases remaining: L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
+
+**L3 — Locale-Aware Generator ✅ (2026-08-06)**
+- `prompts/jurisdiction_context.py`: builds JurisdictionContext from DB (verified rules only); formats prompt block with mandatory constraints + deficit domains
+- `services/locale_linter.py`: post-generation linter with 5 rule classes (us_911, us_regulatory, us_agency, non_si_units, us_brand_drug); returns LintResult; failed questions discarded
+- `generate_gulf_questions.py`: fetches jurisdiction context per exam slug; applies linter after generation; sets origin='gulf_native' on new questions; jurisdiction_verified_for=None (stays quarantined until L5)
+- Linter test: bad question with HIPAA/911/Narcan/mg/dL/CDC → 5 violations; good question (mmol/L/°C/paracetamol) → passes
+- Currently all rules are needs_human → prompt carries mandatory constraints only; verified norms will auto-appear once human reviewers confirm sources
 
 ### Exams Registry — Gulf (G1) ✅ (2026-07-20)
 | Exam | Bank (Q) | Status | Blueprint verified |

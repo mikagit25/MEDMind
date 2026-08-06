@@ -10,6 +10,8 @@ Usage:
   python -m app.scripts.generate_gulf_questions --slug dha # specific exam
 """
 
+from __future__ import annotations
+
 import asyncio
 import json
 import os
@@ -17,6 +19,10 @@ import re
 import sys
 import time
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.prompts.jurisdiction_context import JurisdictionContext
 
 import httpx
 from sqlalchemy import func, select
@@ -219,15 +225,25 @@ class RateLimiter:
         return None
 
 
-def _build_prompt(exam_slug: str, topic: dict, n: int) -> str:
+def _build_prompt(
+    exam_slug: str,
+    topic: dict,
+    n: int,
+    jurisdiction_ctx: "JurisdictionContext | None" = None,
+) -> str:
     # Rotate subtopics to maximize variety across batches
     import random
     subtopics = random.sample(topic["subtopics"], min(4, len(topic["subtopics"])))
     subtopic_str = ", ".join(subtopics)
+
+    jurisdiction_block = ""
+    if jurisdiction_ctx is not None:
+        jurisdiction_block = "\n" + jurisdiction_ctx.to_prompt_block() + "\n"
+
     return f"""You are a senior nursing educator writing exam questions for the {exam_slug.upper()} \
 Prometric nursing licensing exam. Your questions must match the style of Saunders Comprehensive \
 Review for the NCLEX-RN: clinical scenario first, then ask what the nurse does NEXT or FIRST.
-
+{jurisdiction_block}
 Topic: {topic['topic']}
 Subtopics to cover in this batch: {subtopic_str}
 Blueprint category: {topic['category']}
@@ -247,8 +263,8 @@ QUESTION WRITING RULES (Saunders / Prometric style):
 CLINICAL ACCURACY:
 - Use current evidence-based practice standards
 - Drug doses, lab values, and vital sign ranges must be clinically accurate
-- Reflect Gulf healthcare context where relevant (e.g., Ramadan fasting considerations,
-  cultural communication norms, heat-related illness in Middle East climate)
+- All units MUST be SI (mmol/L, °C, kg, kPa) — never mg/dL, °F, lb
+- Use generic drug names only — no brand names
 
 Return ONLY a valid JSON array of exactly {n} questions:
 [
@@ -288,6 +304,10 @@ def _parse_questions(raw: str) -> list[dict]:
 
 
 async def generate_for_slug(slug: str, exam_name: str) -> int:
+    from app.core.database import AsyncSessionLocal
+    from app.prompts.jurisdiction_context import build_jurisdiction_context
+    from app.services.locale_linter import lint_questions_batch
+
     limiter = RateLimiter()
     existing = await _count_existing_db(slug)
     needed = max(0, TARGET_PER_EXAM - existing)
@@ -298,6 +318,17 @@ async def generate_for_slug(slug: str, exam_name: str) -> int:
     print(f"\n{'='*60}")
     print(f"  Generating for {slug.upper()}: {existing}/{TARGET_PER_EXAM} — need {needed} more")
     print(f"{'='*60}")
+
+    # Fetch jurisdiction context (verified rules only)
+    async with AsyncSessionLocal() as db:
+        jurisdiction_ctx = await build_jurisdiction_context(db, exam_slug=slug)
+
+    if jurisdiction_ctx is not None:
+        print(f"  Jurisdiction context: {jurisdiction_ctx.country} ({jurisdiction_ctx.regulator})")
+        print(f"    Verified domains: {list(jurisdiction_ctx.verified_rules.keys()) or 'none'}")
+        print(f"    Deficit domains: {jurisdiction_ctx.deficit_domains}")
+    else:
+        print(f"  No jurisdiction context found for {slug} — generating without profile")
 
     # Build weighted topic queue proportional to blueprint weights
     import random
@@ -311,22 +342,37 @@ async def generate_for_slug(slug: str, exam_name: str) -> int:
 
     new_questions: list[dict] = []
     generated = 0
+    lint_rejected_total = 0
     for topic in topic_queue:
         if generated >= needed:
             break
         batch = min(BATCH_SIZE, needed - generated)
         print(f"  → {topic['topic']} (weight {topic['weight']}%, {batch} questions)...")
-        prompt = _build_prompt(slug, topic, batch)
+        prompt = _build_prompt(slug, topic, batch, jurisdiction_ctx=jurisdiction_ctx)
         raw = await limiter.generate(prompt)
         if raw is None:
             break
         qs = _parse_questions(raw)
-        for q in qs:
+
+        # L3.3 — Post-generation locale lint; discard questions that fail
+        passed, failed = lint_questions_batch(qs, exam_slug=slug)
+        if failed:
+            lint_rejected_total += len(failed)
+            for fq in failed:
+                print(f"    ✗ Lint rejected: {fq.get('_lint_violations')} — {fq.get('question', '')[:80]}")
+
+        for q in passed:
             q["exam_slugs"] = [slug]
-        new_questions.extend(qs)
-        generated += len(qs)
-        print(f"    ✓ {len(qs)} generated")
+            # L3.4: origin and status — pending_local_review until L5 reviewer confirms
+            q["origin"] = "gulf_native"
+            q["jurisdiction_verified_for"] = None  # stays quarantine until L5
+        new_questions.extend(passed)
+        generated += len(passed)
+        print(f"    ✓ {len(passed)} passed lint ({len(failed)} rejected)")
         await asyncio.sleep(5)
+
+    if lint_rejected_total:
+        print(f"  Total lint rejections for {slug}: {lint_rejected_total}")
 
     if new_questions:
         module_id = await get_or_create_gulf_module(slug, exam_name)
