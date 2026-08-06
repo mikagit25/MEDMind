@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "id": "REG-SA-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Saudi Arabia: SCFHS, Scope, Reporting & Consent",
+    "title_en": "Nursing Practice in Saudi Arabia: SCFHS, Scope, Reporting & Consent",
+    "order_in_specialty": 1,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["snle"],
+    "jurisdiction": "sa",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available SCFHS and Saudi MOH documentation. All local norms require verification by a nurse licensed in Saudi Arabia before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in Saudi Arabia under SCFHS, including scope of practice, documentation requirements, consent procedures, and the cultural considerations that shape nursing care in the Kingdom.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "SCFHS: Registration, Licensing, and Scope of Practice",
+      "content": {
+        "intro": "The Saudi Commission for Health Specialties (SCFHS) is the regulatory body for all health professionals in Saudi Arabia, including nurses. Understanding SCFHS requirements is essential for the SNLE licensing exam.",
+        "sections": [
+          {
+            "heading": "SCFHS Classification of Nurses",
+            "text": "SCFHS classifies nursing practice into four levels: Nurse Technician (diploma-level), General Nurse (BSN-level), Specialist Nurse, and Consultant Nurse. Each level carries defined competency boundaries. Higher-acuity interventions and supervisory functions require senior classification or physician order. Registration with SCFHS is mandatory to practise in Saudi Arabia."
+          },
+          {
+            "heading": "Scope of Practice: What Nurses Can Do Independently",
+            "text": "Registered nurses in Saudi Arabia may independently perform: patient assessment and care planning, medication administration per physician order, patient education, basic wound care, vital signs monitoring, and coordination of care. Independent prescribing of medications is not within standard RN scope — a physician order is required. Specialist nurses may have extended scope in specific clinical areas as defined by SCFHS credentialing."
+          },
+          {
+            "heading": "SNLE Exam Overview",
+            "text": "The SNLE (Saudi Nursing Licensing Exam) is administered by SCFHS and consists of 200 MCQ questions in two parts of 100 questions each (120 minutes per part, with a 30-minute break). The scale is 200–800 with a passing score of 500. Blueprint: Adult Nursing 40% | Maternal-Child Nursing 30% | Nursing Fundamentals 20% | Nursing Management & Leadership 10%. Source: SCFHS Applicant Guide 2024."
+          }
+        ],
+        "clinical_pearl": "On the SNLE, questions on scope of practice focus on what the nurse should do VERSUS what requires a physician order. Know which actions are independent (assessment, education, ADLs, standard medication administration) versus dependent (prescribing, surgical procedures, certain advanced interventions).",
+        "key_points": [
+          "SCFHS registration is mandatory to practise nursing in Saudi Arabia",
+          "Four nurse levels: Technician, General, Specialist, Consultant",
+          "Prescribing is not within standard RN scope",
+          "SNLE: 200 MCQ, scale 200-800, passing 500",
+          "Blueprint: Adult 40% | Maternal-Child 30% | Fundamentals 20% | Management 10%"
+        ],
+        "references": [
+          {
+            "title": "SCFHS Applicant Guide 2024 — SNLE",
+            "authors": "Saudi Commission for Health Specialties",
+            "journal_or_source": "SCFHS Official Publications",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://scfhs.org.sa/sites/default/files/2024-10/SNLE%20Applicant%20Guide%202024.pdf",
+            "note": "Primary source for SNLE blueprint and structure"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Consent, Documentation, and Mandatory Reporting in Saudi Arabia",
+      "content": {
+        "intro": "Saudi Arabia's legal and regulatory framework for informed consent, patient documentation, and mandatory incident reporting differs from US practice in several important ways relevant to the SNLE.",
+        "sections": [
+          {
+            "heading": "Informed Consent: Family Role and Patient Autonomy",
+            "text": "Informed consent in Saudi Arabia involves the patient and may involve family (wali/guardian) for major procedures. Legally competent adult patients have the right to consent independently. For incapacitated patients, the legal guardian provides consent. The role of the male head of household (mahram) is culturally significant but legally the competent patient's consent is required. Minors (under 18) require parental or guardian consent. Source: Saudi MOH Patient Rights and Responsibilities Charter."
+          },
+          {
+            "heading": "Incident Reporting: The Noor System",
+            "text": "Healthcare incidents in Saudi MOH facilities must be reported through the Noor electronic incident reporting system. Mandatory reports include: near-misses, sentinel events, adverse drug events, healthcare-associated infections, and patient falls. Nurses are legally obligated to document and report incidents. Non-reporting can result in professional disciplinary action. Source: Saudi MOH Patient Safety Program."
+          },
+          {
+            "heading": "Documentation Standards",
+            "text": "Documentation in Saudi healthcare facilities follows MOH standards: entries must be in black ink (or electronic), signed, dated, and timed. Error correction: single line through error, initials and date — no correction fluid. Documentation must be in the official language of the facility (Arabic or English as designated). Medical records are legally protected documents. All clinical observations, interventions, patient responses, and communications must be documented contemporaneously."
+          }
+        ],
+        "clinical_pearl": "SNLE questions on consent often test the difference between culturally expected family involvement and what is legally required. A competent adult patient has the legal right to consent independently — even if family disagrees. However, the nurse's role includes facilitating family communication where the patient wishes it.",
+        "key_points": [
+          "Competent adults consent independently regardless of family preference",
+          "Incapacitated patients: guardian provides consent",
+          "Minors under 18: parental or guardian consent required",
+          "Mandatory incident reporting via Noor system",
+          "Documentation: contemporaneous, signed, dated, timed"
+        ],
+        "references": [
+          {
+            "title": "Saudi MOH Patient Rights and Responsibilities Charter",
+            "authors": "Saudi Ministry of Health",
+            "journal_or_source": "Saudi MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.sa/en/HealthAwareness/EducationalContent/HealthTips/Pages/816.aspx",
+            "note": "Official patient rights framework"
+          },
+          {
+            "title": "Saudi MOH Patient Safety Program — Incident Reporting",
+            "authors": "Saudi Ministry of Health",
+            "journal_or_source": "Saudi MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.sa/en/Pages/Default.aspx",
+            "note": "Mandatory reporting requirements"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety and Infection Control in Saudi Arabia",
+      "content": {
+        "intro": "Medication administration safety and infection control in Saudi Arabia follow MOH standards that align with international best practice with some locally relevant additions.",
+        "sections": [
+          {
+            "heading": "Controlled Medication Double-Check",
+            "text": "Saudi MOH medication safety policy requires two-nurse independent double-check before administration of controlled and high-alert medications. Both nurses verify: patient identity (two identifiers), medication, dose, route, time, and rate. Both nurses sign the controlled drug register. This is mandatory in Saudi MOH facilities and most accredited hospitals."
+          },
+          {
+            "heading": "MERS-CoV: A Locally Significant Pathogen",
+            "text": "Middle East Respiratory Syndrome Coronavirus (MERS-CoV) is endemic to the Arabian Peninsula. Nurses must apply: Standard Precautions + Droplet Precautions + Contact Precautions for suspected or confirmed MERS-CoV cases. Risk factors include: camel contact, exposure to confirmed cases, healthcare setting exposure. Reporting: immediate notification to Weqaa (Saudi CDC) is mandatory. Source: Weqaa MERS-CoV guidelines for healthcare workers."
+          },
+          {
+            "heading": "National IPC Standards: Weqaa",
+            "text": "Saudi Arabia's infection prevention and control standards are set by Weqaa (Saudi Center for Disease Prevention and Control), aligned with WHO guidelines. Key requirements: hand hygiene per WHO 5 Moments, ICU MRSA screening on admission, healthcare-associated infection surveillance, and environmental cleaning standards. Weqaa issues alerts for emerging pathogens including respiratory viruses of regional significance. All units are measured in SI (°C for temperature, mmol/L for labs)."
+          }
+        ],
+        "clinical_pearl": "MERS-CoV is a unique consideration in Saudi Arabia that does NOT appear on NCLEX-RN. SNLE may test knowledge of precaution levels, reporting pathway, and patient placement. Always: standard + droplet + contact precautions, negative pressure room if available, N95 for aerosol-generating procedures.",
+        "key_points": [
+          "Two-nurse double-check required for controlled medications",
+          "MERS-CoV: standard + droplet + contact precautions",
+          "MERS risk factors: camel contact, healthcare exposure",
+          "Report MERS-CoV immediately to Weqaa",
+          "IPC standards set by Weqaa, aligned with WHO"
+        ],
+        "references": [
+          {
+            "title": "Weqaa MERS-CoV Guidelines for Healthcare Workers",
+            "authors": "Saudi Center for Disease Prevention and Control (Weqaa)",
+            "journal_or_source": "Weqaa Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.cdc.gov.sa/en/Pages/default.aspx",
+            "note": "Official MERS-CoV precaution and reporting guidelines"
+          }
+        ]
+      }
+    }
+  ]
+}

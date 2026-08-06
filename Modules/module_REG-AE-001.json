@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "REG-AE-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in the UAE: DHA, DOH, Scope, Documentation & Safety",
+    "title_en": "Nursing Practice in the UAE: DHA, DOH, Scope, Documentation & Safety",
+    "order_in_specialty": 3,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["dha", "haad", "doh"],
+    "jurisdiction": "ae_dubai",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available DHA, DOH, and UAE Federal Law documentation. Verification by nurses licensed in the UAE required before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in the UAE under the Dubai Health Authority (DHA) and Department of Health Abu Dhabi (DOH), including scope of practice, incident reporting, medication safety, and the legal framework under UAE Federal Law No. 4 of 2016 on Medical Liability.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "DHA and DOH: Dual Regulatory Structure in the UAE",
+      "content": {
+        "intro": "The UAE has two main health regulatory bodies for nursing: the Dubai Health Authority (DHA) for Dubai, and the Department of Health Abu Dhabi (DOH) for Abu Dhabi. Nurses must be licensed by the regulator of the emirate where they practise.",
+        "sections": [
+          {
+            "heading": "DHA — Dubai Health Authority",
+            "text": "DHA licenses health professionals practising in Dubai. Nursing scope of practice categories: General Nurse (BSN), Senior Nurse, Specialist Nurse (advanced practice), and Nurse Practitioner (prescribing authority). Standard RN scope includes patient assessment, medication administration (per physician order), care coordination, patient education, and wound care. The DHA exam (Dubai Health Authority Licensing Exam) tests these competencies across standard nursing categories."
+          },
+          {
+            "heading": "DOH — Department of Health Abu Dhabi",
+            "text": "DOH licenses health professionals in Abu Dhabi (including HAAD — Health Authority Abu Dhabi, now integrated into DOH). DOH Health Workforce Classification mirrors DHA categories: Nurse, Senior Nurse, Specialist Nurse, Consultant Nurse, Nurse Practitioner. Prescribing authority requires NP licensure from DOH. The DOH/HAAD exam covers the same clinical domains as DHA."
+          },
+          {
+            "heading": "UAE Federal Law No. 4 of 2016 on Medical Liability",
+            "text": "Federal Law No. 4 of 2016 governs medical liability across all UAE emirates. Key provisions for nurses: right to informed consent (documented), mandatory incident reporting, professional duty of care, liability for negligent practice. Documentation must be accurate, timely, and complete — the medical record is a legal document. Nurses are individually liable for their clinical decisions within their scope of practice."
+          }
+        ],
+        "clinical_pearl": "DHA and DOH exam questions on scope of practice test whether an action requires a physician order vs. can be performed independently. When in doubt: assessment is always within scope; prescribing never is for standard RN.",
+        "key_points": [
+          "DHA: Dubai | DOH/HAAD: Abu Dhabi — different licenses required",
+          "Standard RN scope: assessment, medication administration (per order), education",
+          "Prescribing requires NP licensure",
+          "UAE Federal Law 4/2016: individual nurse liability for negligent practice",
+          "Medical record is a legal document"
+        ],
+        "references": [
+          {
+            "title": "UAE Federal Law No. 4 of 2016 on Medical Liability",
+            "authors": "UAE Government",
+            "journal_or_source": "UAE Official Gazette",
+            "year": 2016,
+            "type": "official_regulatory",
+            "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law",
+            "note": "Primary legal framework for healthcare practice in UAE"
+          },
+          {
+            "title": "DHA Nursing and Midwifery Scope of Practice",
+            "authors": "Dubai Health Authority",
+            "journal_or_source": "DHA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.dha.gov.ae/en/HPSD/Nursing-and-Midwifery",
+            "note": "DHA nursing scope definition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Incident Reporting, Medication Safety, and Patient Rights in UAE",
+      "content": {
+        "intro": "UAE health regulators mandate specific incident reporting systems and patient safety standards. Understanding these is essential for the DHA and DOH nursing exams.",
+        "sections": [
+          {
+            "heading": "DHA Incident Reporting: Sheryan System",
+            "text": "DHA-licensed facilities use the Sheryan e-portal for incident reporting. Mandatory reports: adverse events, near-misses, sentinel events, medication errors, patient falls, pressure injuries (Stage 3+), healthcare-associated infections. Timeframe: serious adverse events (including sentinel events) within 24 hours. DHA Patient Safety and Risk Management Policy defines reportable events and timelines. Failure to report is a professional and legal violation."
+          },
+          {
+            "heading": "Medication Safety: UAE Standards",
+            "text": "UAE medication safety in DHA/DOH facilities requires: five rights of medication administration (patient, drug, dose, route, time), two-patient identifier verification before administration, dual nurse verification for controlled Schedule I/II medications, electronic medication administration record (MAR) where mandated, controlled drug register (paper or electronic) with witness signatures. UAE follows the same international narcotic conventions as other GCC states."
+          },
+          {
+            "heading": "Patient Rights in UAE Facilities",
+            "text": "DHA and DOH Patient Rights policies guarantee: right to information in an understood language (Arabic and English are the standard in UAE healthcare), right to informed consent and to refuse treatment, right to privacy and dignity, right to access medical records, right to complain through DHA/DOH Patient Relations. UAE is a multicultural healthcare environment — patient communication should account for language diversity (translation services must be available)."
+          }
+        ],
+        "clinical_pearl": "UAE exam questions frequently test the right process for handling medication errors. The nurse's responsibility: assess the patient, notify the physician immediately, document the error accurately, and report through the incident reporting system. Never falsify documentation — this is both illegal and an ethical violation.",
+        "key_points": [
+          "DHA: Sheryan system for incident reporting, 24-hour timeline for serious events",
+          "Two-nurse verification for controlled medications",
+          "Electronic MAR mandated in DHA/DOH licensed facilities",
+          "Patient has right to information, consent, privacy, and complaints",
+          "UAE is multilingual — translation services are a patient right"
+        ],
+        "references": [
+          {
+            "title": "DHA Patient Safety and Risk Management Policy",
+            "authors": "Dubai Health Authority",
+            "journal_or_source": "DHA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.dha.gov.ae/en/HPSD/Policies-Standards",
+            "note": "Incident reporting standards and timelines"
+          },
+          {
+            "title": "DHA Medication Management Policy",
+            "authors": "Dubai Health Authority",
+            "journal_or_source": "DHA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.dha.gov.ae/en/HPSD/Policies-Standards",
+            "note": "Medication safety standards"
+          }
+        ]
+      }
+    }
+  ]
+}

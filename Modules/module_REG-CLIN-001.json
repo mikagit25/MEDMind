@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "id": "REG-CLIN-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Regionally Significant Clinical Topics: Heat Illness, MERS-CoV, Mass Gatherings",
+    "title_en": "Regionally Significant Clinical Topics: Heat Illness, MERS-CoV, Mass Gatherings",
+    "order_in_specialty": 4,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["snle", "dha", "haad", "doh", "qchp", "omsb", "nhra", "moh_kw"],
+    "jurisdiction": "gulf",
+    "blueprint_categories": ["region_salient_clinical", "medical_surgical", "emergency_activation"],
+    "verification_status": "pending",
+    "source_note": "Clinical guidelines referenced from WHO, Saudi MOH (Weqaa), and DHA official sources. All clinical values in SI units as per Gulf standards."
+  },
+  "lay_summary": "This module covers clinical topics that are uniquely significant in the Gulf region and tested in all Gulf Prometric nursing licensing exams: heat-related illness management, MERS-CoV precautions, and mass gathering health (relevant to Hajj and large events in the region).",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Heat Exhaustion and Heat Stroke: Gulf Context",
+      "content": {
+        "intro": "Gulf countries experience some of the highest ambient temperatures in the world (up to 50°C in summer). Heat-related illness is a leading emergency in the region and is specifically tested in all Gulf Prometric exams. All measurements are in SI units.",
+        "sections": [
+          {
+            "heading": "Heat Exhaustion vs Heat Stroke: Key Distinction",
+            "text": "Heat Exhaustion: core temperature < 40°C, profuse sweating, pale/cool/clammy skin, weakness, nausea, headache, normal or mildly altered mental status. Treatment: move to cool environment, oral rehydration if conscious, IV isotonic fluids (0.9% NaCl) if severe, monitor temperature (Celsius). Heat Stroke: core temperature ≥ 40°C, absent sweating (classic) or sweating (exertional), hot/red/dry OR hot/wet skin, altered mental status (confusion to coma) — this is the distinguishing feature. Heat stroke is a medical emergency with significant mortality if not treated immediately."
+          },
+          {
+            "heading": "Heat Stroke Management: Cooling Protocol",
+            "text": "Target: reduce core temperature to < 38.5°C within 30–60 minutes. Priority: rapid external cooling. Methods (most effective first): (1) Cold-water immersion (ice bath) — most effective for exertional heat stroke; (2) Ice packs to axillae, groin, neck, and wrists (areas with superficial vasculature); (3) Evaporative cooling — remove clothing, spray tepid water, direct fan; (4) Cold IV fluids (1–2 L isotonic). Do NOT use antipyretics (paracetamol/ibuprofen) — heat stroke is NOT caused by pyrogenic cytokines. Fluids: 0.9% NaCl or Hartmann's (lactated Ringer's); rate guided by clinical response. Monitor: rectal or oesophageal temperature (not tympanic in heat stroke), SpO2, urine output (target 0.5–1 mL/kg/hr), electrolytes in SI units (Na mmol/L, K mmol/L)."
+          },
+          {
+            "heading": "Risk Factors and Prevention in the Gulf",
+            "text": "High-risk groups: outdoor workers (construction, agriculture — common in Gulf migrant workforce), elderly, pilgrims and worshippers (especially during Hajj season in Saudi Arabia), athletes, young children. Gulf-specific context: construction workers exposed to direct sun during Kuwaiti/Qatari/Saudi summers (up to 45–50°C); Hajj pilgrims — Saudi MOH deploys mass gathering health teams specifically for heat emergencies during Hajj. Prevention: work restriction during peak heat (10:00–15:00 in Saudi Arabia — enforced by law), hydration education (300–500 mL water/hour during activity), acclimatisation (10–14 days of graduated heat exposure), shade and cooling stations."
+          }
+        ],
+        "clinical_pearl": "Gulf exam question type: 'A 35-year-old construction worker arrives by ambulance with temperature 41.2°C, confusion, and hot dry skin.' This is classic heat stroke (not heat exhaustion — mental status is the key). Priority: immediately remove clothing, begin cooling (ice packs, evaporative), IV access, 0.9% NaCl, continuous temperature monitoring. Antipyretics are NOT indicated.",
+        "key_points": [
+          "Heat stroke: temperature ≥ 40°C + altered mental status — medical emergency",
+          "Distinguishing sign: mental status change (vs heat exhaustion)",
+          "Cooling target: < 38.5°C within 30–60 minutes",
+          "Antipyretics NOT used in heat stroke",
+          "All temperatures in °C, fluids in mL, electrolytes in mmol/L"
+        ],
+        "references": [
+          {
+            "title": "WHO Heat and Health: Fact Sheet",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+            "note": "International guidelines on heat illness management"
+          },
+          {
+            "title": "Saudi MOH Mass Gathering Health — Heat Illness Protocol",
+            "authors": "Saudi Ministry of Health",
+            "journal_or_source": "Saudi MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.sa/en/Pages/Default.aspx",
+            "note": "Hajj and mass gathering heat illness management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "MERS-CoV: Recognition, Precautions, and Reporting",
+      "content": {
+        "intro": "Middle East Respiratory Syndrome Coronavirus (MERS-CoV) is a zoonotic pathogen endemic to the Arabian Peninsula. It is tested in all Gulf Prometric nursing licensing exams and is a key differentiator from NCLEX-RN content.",
+        "sections": [
+          {
+            "heading": "MERS-CoV: Epidemiology and Transmission",
+            "text": "MERS-CoV was first identified in Saudi Arabia in 2012. Reservoir: dromedary camels (Camelus dromedarius) — primary animal host. Human infection: via direct or indirect contact with infected camels or their products (camel milk, meat, nasal secretions), or human-to-human transmission in healthcare settings. Healthcare-associated outbreaks have been documented in Saudi Arabia, UAE, and South Korea. Incubation period: 2–14 days (typically 5 days). Case fatality rate: approximately 35% (higher than most respiratory viruses). Source: WHO and Weqaa official data."
+          },
+          {
+            "heading": "Clinical Presentation and Diagnosis",
+            "text": "Presentation spectrum: asymptomatic to severe acute respiratory distress syndrome (ARDS). Typical: fever (temperature ≥ 38.0°C), cough, shortness of breath. Severe: pneumonia requiring ICU admission, multiorgan failure, renal failure (dialysis-dependent in many severe cases). Risk factors for severe disease: older age, diabetes mellitus, chronic renal disease, immunocompromised state. Diagnosis: RT-PCR from lower respiratory tract sample (BAL or endotracheal aspirate preferred over nasopharyngeal swab due to higher sensitivity)."
+          },
+          {
+            "heading": "Precautions and Reporting",
+            "text": "For suspected or confirmed MERS-CoV: Standard Precautions + Droplet Precautions + Contact Precautions. For aerosol-generating procedures (intubation, bronchoscopy, suction, nebulisation): add Airborne Precautions (N95 respirator, negative pressure room where available). PPE: N95 respirator, eye protection (goggles or face shield), gown, gloves — put on in correct sequence and doff carefully (doffing is when most contamination occurs). Patient placement: single room with closed door; negative pressure preferred. Reporting: immediate notification to the facility infection control team AND national health authority (Weqaa in Saudi Arabia, DHA/DOH in UAE, MOPH in Qatar). MERS-CoV is a notifiable disease in all GCC states."
+          }
+        ],
+        "clinical_pearl": "Key exam differentiator: MERS-CoV requires Droplet + Contact + Standard precautions (Airborne for aerosol-generating procedures). This is different from regular respiratory infections (Droplet only) and from TB (Airborne). Know your precaution levels and when to escalate. Also: N95 is required for aerosol-generating procedures — a surgical mask is not sufficient.",
+        "key_points": [
+          "MERS-CoV: endemic to Arabian Peninsula, camel reservoir",
+          "Precautions: Standard + Droplet + Contact; Airborne for aerosol procedures",
+          "N95 required for aerosol-generating procedures",
+          "Case fatality rate ~35% — high acuity pathogen",
+          "Mandatory reporting to national authority (Weqaa, DHA, etc.)"
+        ],
+        "references": [
+          {
+            "title": "Weqaa MERS-CoV Guidelines for Healthcare Workers",
+            "authors": "Saudi Center for Disease Prevention and Control (Weqaa)",
+            "journal_or_source": "Weqaa Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.cdc.gov.sa/en/Pages/default.aspx",
+            "note": "Official MERS-CoV IPC and reporting guidelines — Saudi Arabia"
+          },
+          {
+            "title": "WHO MERS-CoV Fact Sheet",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.who.int/news-room/fact-sheets/detail/middle-east-respiratory-syndrome-coronavirus-(mers-cov)",
+            "note": "International epidemiology and clinical guidance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Emergency Numbers and Mass Gathering Health",
+      "content": {
+        "intro": "Gulf Prometric exams test knowledge of local emergency activation, including correct emergency numbers and the unique context of mass gathering health events like Hajj.",
+        "sections": [
+          {
+            "heading": "Gulf Emergency Numbers",
+            "text": "Emergency numbers vary by country — using 911 (US number) is incorrect in all Gulf countries. Saudi Arabia: Ambulance 997, Fire 998, Police 999. UAE (Dubai and Abu Dhabi): Unified number 998. Qatar: 999 (all services). Oman: 9999 (all services). Bahrain: 999 (all services). Kuwait: 112 (all services). These numbers must be memorised for exam purposes. In healthcare facilities, internal emergency codes (Code Blue, Code Red) vary by facility and follow local policy — not a national standard in most Gulf countries."
+          },
+          {
+            "heading": "Hajj and Mass Gathering Health",
+            "text": "Hajj is the annual Islamic pilgrimage to Mecca, Saudi Arabia — the largest recurring mass gathering event in the world (2–3 million pilgrims annually). Saudi MOH deploys specialised mass gathering health infrastructure. Major health challenges at Hajj: heat illness (especially heat stroke — peak season can coincide with extreme summer heat), respiratory infections (respiratory viruses spread rapidly in dense crowds), traumatic injuries (crowd crush, stampede risk), chronic disease management (pilgrims often older, diabetic, hypertensive), and infectious disease surveillance. Nursing role in mass gathering: triage, rapid assessment, heat illness management, infectious disease surveillance, referral to hospital care, communication in multiple languages."
+          }
+        ],
+        "clinical_pearl": "SNLE question type: 'A pilgrim during Hajj collapses with temperature 41°C and confusion. What is the nurse's first action?' — Begin cooling immediately (the priority is reducing core temperature). Then call the local emergency number (997 for ambulance in Saudi Arabia), establish IV access, and continue monitoring. This tests both heat stroke management AND correct emergency activation.",
+        "key_points": [
+          "SA: Ambulance 997 | UAE: 998 | Qatar: 999 | Oman: 9999 | Bahrain: 999 | Kuwait: 112",
+          "Never use 911 in Gulf countries",
+          "Hajj: world's largest mass gathering — heat illness + respiratory infections + trauma",
+          "Saudi MOH deploys specialised Hajj health teams annually",
+          "Mass gathering nursing: triage, heat illness, surveillance, multilingual communication"
+        ],
+        "references": [
+          {
+            "title": "Saudi MOH Mass Gathering Health for Hajj",
+            "authors": "Saudi Ministry of Health",
+            "journal_or_source": "Saudi MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.sa/en/Pages/Default.aspx",
+            "note": "Official Hajj health planning and emergency protocols"
+          },
+          {
+            "title": "WHO Mass Gathering Events — Health Considerations",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Official Publications",
+            "year": 2022,
+            "type": "official_regulatory",
+            "url": "https://www.who.int/tools/mass-gatherings-toolkit",
+            "note": "International framework for mass gathering health"
+          }
+        ]
+      }
+    }
+  ]
+}

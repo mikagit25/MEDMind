@@ -327,6 +327,8 @@ class ExamDefinition(Base):
     categories         = Column(JSONB,       nullable=True)   # list of blueprint category strings
     exam_date_fixed    = Column(String(20),  nullable=True)   # ISO date — annual exams (KPSS)
     disclaimer         = Column(Text,        nullable=True)
+    # L6.2: controls noindex and paid traffic gate; set manually only when all 10 launch checks pass
+    marketing_ready    = Column(Boolean,     nullable=False, server_default="false")
     created_at         = Column(DateTime,    default=datetime.utcnow)
     updated_at         = Column(DateTime,    default=datetime.utcnow, onupdate=datetime.utcnow)
 

@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "CULT-GULF-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Culturally Congruent Care in the Gulf: Privacy, Family, Religion & Clinical Adaptation",
+    "title_en": "Culturally Congruent Care in the Gulf: Privacy, Family, Religion & Clinical Adaptation",
+    "order_in_specialty": 2,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 4,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["snle", "dha", "haad", "doh", "qchp", "omsb", "nhra", "moh_kw"],
+    "jurisdiction": "gulf",
+    "blueprint_categories": ["cultural_religious_care", "nursing_fundamentals", "nursing_management_leadership"],
+    "verification_status": "pending",
+    "source_note": "Cultural norms described reflect publicly documented Gulf healthcare practice standards. Local variation exists. Verification by nurses licensed in each jurisdiction is required before use in question generation."
+  },
+  "lay_summary": "Culturally competent care in the Gulf states requires understanding of Islamic principles influencing health decisions, gender norms, family involvement, Ramadan fasting, medication composition, and prayer times. This module prepares nurses for the cultural dimensions tested in Gulf Prometric licensing exams.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Gender Privacy and Same-Sex Care",
+      "content": {
+        "intro": "Gulf healthcare settings maintain gender-sensitive care standards that are an important part of culturally competent nursing practice and are regularly tested in Gulf licensing exams.",
+        "sections": [
+          {
+            "heading": "Gender Segregation in Care Settings",
+            "text": "Gulf healthcare facilities (particularly in Saudi Arabia, UAE, and Qatar) accommodate gender preferences in care delivery. Where staffing allows, female nurses care for female patients and male nurses for male patients. This is a preference of patients and cultural expectation — it is not an absolute rule, and emergency care always takes priority over gender preference. A female patient may request a female nurse or chaperone for intimate examinations and procedures. This right is documented in the patient rights charters of all GCC regulators (SCFHS, DHA, DOH, QCHP, OMSB, NHRA, MOH-KW)."
+          },
+          {
+            "heading": "Mahram and Family Presence",
+            "text": "In traditional Gulf families, a mahram (close male relative — husband, father, brother) may be expected to be present during examinations or important medical decisions. Legally, a competent adult female patient has the right to consent and make decisions independently. However, nurses should: respect the patient's own preference regarding family presence, offer a chaperone when requested, explain procedures clearly, and ensure the patient has the opportunity to speak privately. Never exclude the patient from her own care decisions."
+          },
+          {
+            "heading": "Chaperone Policy",
+            "text": "Providing a same-gender chaperone for intimate examinations (especially cross-gender clinician-patient) is mandatory when requested in all GCC facilities. The chaperone's role is: to provide patient comfort and support, to maintain patient dignity, and to be a witness — not to participate clinically. Document that a chaperone was offered and whether it was accepted or declined."
+          }
+        ],
+        "clinical_pearl": "Exam questions on gender and privacy test your understanding that patient dignity and safety are paramount. A patient's right to same-gender care is always facilitated where possible — but in an emergency, life-threatening care is never delayed due to gender of the provider.",
+        "key_points": [
+          "Same-gender care is preferred and facilitated in Gulf settings",
+          "Patient dignity and privacy rights are in all GCC patient rights charters",
+          "Competent female adults consent independently — mahram presence is their choice",
+          "Offer and document chaperone for intimate examinations",
+          "Emergency care takes priority over gender preference"
+        ],
+        "references": [
+          {
+            "title": "DHA Patient Rights and Responsibilities Policy",
+            "authors": "Dubai Health Authority",
+            "journal_or_source": "DHA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.dha.gov.ae/en/HPSD/Policies-Standards",
+            "note": "Chaperone and gender care policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Ramadan: Fasting, Medication Timing, and Nursing Care",
+      "content": {
+        "intro": "Ramadan is the Islamic month of fasting observed by Muslim patients across all Gulf countries. Understanding its clinical implications is essential for Gulf nursing practice.",
+        "sections": [
+          {
+            "heading": "Fasting Rules and Clinical Implications",
+            "text": "During Ramadan, observant Muslim adults fast from dawn (Fajr) to sunset (Maghrib), abstaining from food, drink, and oral medications. Fasting is one of the Five Pillars of Islam. Islamic jurisprudence permits breaking the fast for those who are ill, elderly, pregnant, or travelling — many observant patients choose to fast despite illness. The nurse's role: assess whether the patient is fasting, educate on medication options, and facilitate physician discussion for critical medications."
+          },
+          {
+            "heading": "Medication Adaptation During Ramadan",
+            "text": "Critical medications (antiepileptics, anticoagulants, insulin, cardiac medications) must never be withheld. Options for Ramadan adaptation include: once-daily dosing at Iftar (evening meal breaking the fast), twice-daily dosing (Iftar and Suhoor — pre-dawn meal), alternative routes (patches, injections, suppositories) where oral administration is problematic. Intravenous medications and injections are generally considered permissible (permitted) by most Islamic scholars. Always confirm with the patient their religious authority's guidance."
+          },
+          {
+            "heading": "Nurse Assessment and Education",
+            "text": "Key nursing assessments during Ramadan: fasting status and duration, signs of dehydration (urine colour, mucous membranes, orthostatic vital signs), hypoglycaemia risk (especially for diabetic patients on insulin or sulfonylureas), medication adherence. Patient education: importance of monitoring for warning signs, when to break the fast (emergency situations), hydration strategies between sunset and dawn. All clinical measurements in SI units: blood glucose in mmol/L (normal fasting: 3.9–5.6 mmol/L), fluid balance in mL."
+          }
+        ],
+        "clinical_pearl": "A key SNLE/DHA question type: a diabetic patient insists on fasting despite blood glucose of 3.1 mmol/L. The nurse's priority is patient safety — assess for hypoglycaemia symptoms, notify the physician, and educate about when Islamic scholars agree that fasting should be broken (severe illness, risk to life). Never make the religious decision for the patient.",
+        "key_points": [
+          "Ramadan: no food/drink/oral medications from dawn to sunset",
+          "Many patients choose to fast despite illness — assess and respect",
+          "Critical medications never withheld — adapt timing or route",
+          "IV medications are generally considered permissible",
+          "Blood glucose in mmol/L in Gulf settings (not mg/dL)"
+        ],
+        "references": [
+          {
+            "title": "Saudi MOH Ramadan Health Guidelines for Patients with Chronic Diseases",
+            "authors": "Saudi Ministry of Health",
+            "journal_or_source": "Saudi MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.sa/en/Pages/Default.aspx",
+            "note": "Official guidance on medication management during Ramadan"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Composition: Gelatin, Ethanol, and Halal Considerations",
+      "content": {
+        "intro": "Many medications contain substances (porcine gelatin, ethanol) that Muslim patients may consider haram (forbidden). Gulf nurses must be able to facilitate informed decision-making while maintaining clinical safety.",
+        "sections": [
+          {
+            "heading": "Porcine Gelatin in Medications",
+            "text": "Porcine (pig-derived) gelatin is used in: capsule shells (many soft and hard gel capsules), some vaccines (gelatin used as a stabiliser), some IV infusion solutions. Examples: some formulations of paracetamol/acetaminophen capsules, some calcium supplements, some vaccines. Islamic jurisprudence: consuming porcine products is haram. However, the concept of 'istihalah' (transformation) means that highly processed gelatin may be considered permissible by some scholars. Nurse's role: inform the patient, offer alternatives (tablet form, IV route), facilitate pharmacist consultation."
+          },
+          {
+            "heading": "Ethanol in Medications",
+            "text": "Ethanol (alcohol) is used as a solvent in: some oral liquid medications, some mouthwashes, some topical preparations. Many Gulf patients consider oral ethanol ingestion haram. Most Islamic scholars agree that: small amounts used as a solvent (< 1%) in medications are permissible under necessity, topical use (skin antiseptics) is permissible, and clinical necessity overrides dietary restrictions when no alternative exists. Nurse's role: be aware of formulations, inform patients, and facilitate dialogue — not make religious rulings."
+          },
+          {
+            "heading": "Practical Nursing Approach",
+            "text": "Steps for halal-sensitive medication administration: (1) Identify if the patient has expressed halal concerns regarding medications. (2) Check the medication's composition or ask the pharmacist. (3) Explore alternative formulations — tablet vs capsule, IV vs oral, different brand with different excipients. (4) Educate the patient about the clinical necessity principle: when no alternative exists and the condition is serious, most Islamic scholars permit use. (5) Document the discussion and the patient's decision. (6) Never delay critical treatment — if urgent, administer and document."
+          }
+        ],
+        "clinical_pearl": "The nurse's professional role is to provide information and facilitate decision-making — not to make religious judgments. When a patient asks 'does this medication contain pork?', the correct response is to check with the pharmacist, provide the information, and support the patient's autonomous decision-making while ensuring their safety.",
+        "key_points": [
+          "Porcine gelatin in capsules, some vaccines — offer tablet/IV alternatives",
+          "Ethanol in liquid medications — most scholars permit small amounts in necessity",
+          "Nurse's role: inform, explore alternatives, facilitate pharmacist consultation",
+          "Never delay critical treatment for halal concerns",
+          "Document discussions and patient decisions"
+        ],
+        "references": [
+          {
+            "title": "Islamic Fiqh Academy Resolutions on Medical Use of Prohibited Substances",
+            "authors": "Islamic Fiqh Academy (OIC)",
+            "journal_or_source": "Islamic Fiqh Academy Official Resolutions",
+            "year": 2021,
+            "type": "national_guideline",
+            "url": "https://www.iifa-aifi.org/en",
+            "note": "Religious authority guidance on medication composition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Prayer, End-of-Life Care, and Family in Gulf Healthcare",
+      "content": {
+        "intro": "Islamic practice shapes end-of-life care, family decision-making, and daily care routines in Gulf healthcare settings. These topics are regularly tested in Gulf licensing exams.",
+        "sections": [
+          {
+            "heading": "Prayer Times and Care Scheduling",
+            "text": "Muslims pray five times daily (Fajr — dawn, Dhuhr — midday, Asr — afternoon, Maghrib — sunset, Isha — night). Prayer requires: ritual purification (wudu — ablution with water), facing Mecca (southeast from most Gulf countries), clean space and clothing, approximately 5–10 minutes. Gulf healthcare facilities accommodate prayer: IV lines and catheters are not removed for prayer — nurses assist patients to maintain ritual cleanliness as possible, note prayer times in care schedules, avoid non-emergency procedures during prayer when patient is stable."
+          },
+          {
+            "heading": "End-of-Life Care: DNR and Islamic Principles",
+            "text": "Do-Not-Resuscitate (DNR) orders in Gulf healthcare are guided by Islamic bioethical principles: preservation of life is a primary Islamic value; however, futile treatment that prolongs suffering without benefit is not required. DNR in Gulf facilities: requires physician order, involves family consensus (especially male decision-makers in traditional families), may involve Islamic bioethics committee consultation, and must be documented clearly. Active euthanasia is illegal across all GCC states. Withdrawal of futile treatment is permitted with multidisciplinary team and family agreement."
+          },
+          {
+            "heading": "Family as Decision-Makers",
+            "text": "In Gulf cultures, family — particularly senior male relatives — are often expected to be central to major medical decisions. Legally: a competent patient has autonomous decision-making rights. In practice: many patients choose to defer to family. The nurse's approach: always speak directly to the competent patient, offer privacy, assess whether the patient wishes family involvement, facilitate family inclusion when the patient desires it, and document the patient's expressed wishes. Withholding a terminal diagnosis from the patient (at family request) is culturally common but requires careful ethical navigation — nurses should follow facility policy and escalate to the physician and ethics committee if needed."
+          }
+        ],
+        "clinical_pearl": "A common exam scenario: the family of a terminal patient asks the nurse not to tell the patient the diagnosis. The nurse's role is NOT to independently override family wishes — but to escalate to the physician, facilitate an ethical discussion, and ensure the patient's own wishes about disclosure are known. Patient autonomy exists even within family-centred cultures.",
+        "key_points": [
+          "Schedule non-urgent care around prayer times when patient is stable",
+          "DNR requires physician order + family involvement in Gulf facilities",
+          "Active euthanasia is illegal in all GCC states",
+          "Competent patients have autonomous decision-making rights",
+          "Withholding diagnosis: escalate to physician and ethics — never independently override"
+        ],
+        "references": [
+          {
+            "title": "Islamic Fiqh Academy Resolutions on Medical Ethics",
+            "authors": "Islamic Fiqh Academy (OIC)",
+            "journal_or_source": "Islamic Fiqh Academy Official Resolutions",
+            "year": 2021,
+            "type": "national_guideline",
+            "url": "https://www.iifa-aifi.org/en",
+            "note": "End-of-life and patient rights in Islamic bioethics"
+          }
+        ]
+      }
+    }
+  ]
+}

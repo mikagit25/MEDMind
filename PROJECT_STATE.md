@@ -171,7 +171,18 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Admin report: `GET /admin/jurisdiction-audit`
 - Classifier: `app/scripts/audit_jurisdiction_sensitivity.py` (re-run after question edits)
 - 205 questions tagged `origin='nclex_mapped'`
-- *Phases remaining: L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
+- *Phases remaining: L5 (reviewer gate) → L6 (launch readiness).*
+
+**L4 — Blueprint Weights & Regional Content ✅ (2026-08-06)**
+- Blueprint already verified in exam_registry.py: SNLE from SCFHS Guide 2024 (2026-07-30), all others (2026-07-20)
+- Target volumes lowered per spec: SNLE=600, DHA=450, others=300 (in `EXAM_TARGETS` dict in generate_gulf_questions.py)
+- `marketing_ready` field added to `exam_definitions` (migration c3d4e5f6a7b8); all exams default false
+- 4 regional content modules imported (12 lessons total):
+  - REG-SA-001: SCFHS scope, consent, MERS-CoV, medication safety (3 lessons)
+  - REG-AE-001: DHA/DOH dual structure, incident reporting, patient rights (2 lessons)
+  - CULT-GULF-001: gender privacy, Ramadan, gelatin/ethanol, prayer/EOL (4 lessons)
+  - REG-CLIN-001: heat stroke management, MERS-CoV, emergency numbers, Hajj health (3 lessons)
+- L4.5 Arabic translation: handled by existing `_translate_nclex_es_job` and `_qa_lesson_translations_job` crons
 
 **L3 — Locale-Aware Generator ✅ (2026-08-06)**
 - `prompts/jurisdiction_context.py`: builds JurisdictionContext from DB (verified rules only); formats prompt block with mandatory constraints + deficit domains

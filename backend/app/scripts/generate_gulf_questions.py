@@ -64,7 +64,18 @@ ALL_LLM_SLOTS = (
 GROQ_KEYS = [s[0] for s in ALL_LLM_SLOTS]  # used only for len() in logs
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
-TARGET_PER_EXAM = 300
+# L4.3: Target volumes per spec — 600 SNLE (2 non-overlapping mocks × 200 + practice),
+# 450 DHA, 300 for other Gulf exams.  Values in a config dict so they can be overridden.
+EXAM_TARGETS: dict[str, int] = {
+    "snle": 600,
+    "dha": 450,
+}
+DEFAULT_TARGET = 300   # all other Gulf exams until demand data arrives
+
+def _target_for(slug: str) -> int:
+    return EXAM_TARGETS.get(slug, DEFAULT_TARGET)
+
+TARGET_PER_EXAM = DEFAULT_TARGET  # kept for backward compat with status report
 BATCH_SIZE = 15
 
 # Blueprint weights derived from official regulatory documents:
@@ -310,13 +321,14 @@ async def generate_for_slug(slug: str, exam_name: str) -> int:
 
     limiter = RateLimiter()
     existing = await _count_existing_db(slug)
-    needed = max(0, TARGET_PER_EXAM - existing)
+    target = _target_for(slug)
+    needed = max(0, target - existing)
     if needed == 0:
-        print(f"  {slug}: already at {existing}/{TARGET_PER_EXAM} in DB — skipping")
+        print(f"  {slug}: already at {existing}/{target} in DB — skipping")
         return 0
 
     print(f"\n{'='*60}")
-    print(f"  Generating for {slug.upper()}: {existing}/{TARGET_PER_EXAM} — need {needed} more")
+    print(f"  Generating for {slug.upper()}: {existing}/{target} — need {needed} more")
     print(f"{'='*60}")
 
     # Fetch jurisdiction context (verified rules only)
@@ -405,7 +417,8 @@ async def main() -> None:
         print("\nGulf question bank status (DB):")
         for slug in gulf_slugs:
             count = await _count_existing_db(slug)
-            status = "✓" if count >= TARGET_PER_EXAM else f"{count}/{TARGET_PER_EXAM}"
+            target = _target_for(slug)
+            status = "✓" if count >= target else f"{count}/{target}"
             print(f"  {slug:<12} {status}")
         return
 
@@ -417,7 +430,7 @@ async def main() -> None:
 
     # --next: pick first slug under target
     for slug in gulf_slugs:
-        if await _count_existing_db(slug) < TARGET_PER_EXAM:
+        if await _count_existing_db(slug) < _target_for(slug):
             exam_name = gulf_exams[slug]
             total = await generate_for_slug(slug, exam_name)
             print(f"\nDone: {total} questions saved for {slug}")
