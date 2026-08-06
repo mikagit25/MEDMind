@@ -20,6 +20,7 @@ export interface ExamDefinition {
   options_per_question: number;
   categories: string[] | null;
   disclaimer: string | null;
+  marketing_ready?: boolean;
 }
 
 const CATEGORY_LABELS: Record<string, string> = {

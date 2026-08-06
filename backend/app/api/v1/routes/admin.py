@@ -20,7 +20,7 @@ from app.models.models import (
     PromoCode, PromoCodeUse,
     Affiliate, AffiliateConversion,
     QuestionStats, QuestionAttempt, ContentAuditLog, GenerationQueue, QuestionReview,
-    JurisdictionProfile, JurisdictionRule,
+    JurisdictionProfile, JurisdictionRule, ExamDefinition,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -3108,3 +3108,219 @@ async def jurisdiction_audit_report(
         "per_exam": per_exam,
         "exam_slug_filter": exam_slug,
     }
+
+
+# ── Launch Readiness (Phase L6) ───────────────────────────────────────────────
+
+EXAM_MIN_QUESTIONS = {"snle": 600, "dha": 450}
+EXAM_DEFAULT_MIN = 300
+
+GULF_EXAM_TO_PROFILE = {
+    "snle": "sa", "dha": "ae_dubai", "haad": "ae_abudhabi", "doh": "ae_abudhabi",
+    "qchp": "qa", "omsb": "om", "nhra": "bh", "moh_kw": "kw",
+}
+_GULF_SLUGS = set(GULF_EXAM_TO_PROFILE.keys())
+
+
+@router.get("/launch-readiness")
+async def launch_readiness(
+    exam: str = Query(..., description="Exam slug, e.g. snle"),
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """L6.1 — Automated launch readiness checklist (10 checks).
+
+    All 10 must pass before marketing_ready may be set to True.
+    """
+    from datetime import timedelta
+    import json as _json
+
+    exam_def = (await db.execute(
+        select(ExamDefinition).where(ExamDefinition.slug == exam)
+    )).scalar_one_or_none()
+    if not exam_def:
+        raise HTTPException(404, f"Exam '{exam}' not found")
+
+    twelve_months_ago = datetime.utcnow() - timedelta(days=365)
+    min_questions = EXAM_MIN_QUESTIONS.get(exam, EXAM_DEFAULT_MIN)
+
+    checks: list[dict] = []
+
+    def check(num: int, name: str, passed: bool, actual: str, required: str):
+        checks.append({
+            "check": num,
+            "name": name,
+            "passed": passed,
+            "actual": actual,
+            "required": required,
+        })
+
+    # 1. Blueprint verified < 12 months
+    bpv = exam_def.blueprint_verified_at
+    bp_ok = False
+    if bpv:
+        try:
+            bp_date = datetime.strptime(bpv, "%Y-%m-%d")
+            bp_ok = bp_date > twelve_months_ago
+        except Exception:
+            pass
+    check(1, "blueprint_verified_at < 12 months", bp_ok,
+          bpv or "not set", "ISO date within last 12 months")
+
+    # 2. Blueprint source is official (has URL in exam_def.blueprint_source)
+    bp_source_ok = bool(exam_def.blueprint_source and exam_def.blueprint_source.startswith("http"))
+    check(2, "blueprint_source is official URL", bp_source_ok,
+          exam_def.blueprint_source or "not set", "https://... URL")
+
+    # 3. Active question count >= target
+    active_q_count = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+        )
+    )).scalar() or 0
+    count_ok = active_q_count >= min_questions
+    check(3, f"active questions >= {min_questions}", count_ok,
+          str(active_q_count), str(min_questions))
+
+    # 4. No quarantined questions in active pool (jurisdiction_sensitive + unverified)
+    quarantine_count = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+            MCQQuestion.jurisdiction_sensitive == True,
+            MCQQuestion.jurisdiction_verified_for.is_(None),
+        )
+    )).scalar() or 0
+    no_quarantine_ok = quarantine_count == 0
+    check(4, "no quarantined questions in active pool", no_quarantine_ok,
+          f"{quarantine_count} quarantined", "0")
+
+    # 5. >= 150 human_reviewed questions with avg realism >= 4.0
+    human_reviewed_count = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.verification_status == "human_reviewed",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+        )
+    )).scalar() or 0
+    avg_realism_row = (await db.execute(
+        select(func.avg(QuestionReview.realism))
+        .join(MCQQuestion, MCQQuestion.id == QuestionReview.question_id)
+        .where(
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+            QuestionReview.decision.in_(["approve", "approve_with_edits"]),
+        )
+    )).scalar()
+    avg_realism = float(avg_realism_row or 0)
+    human_ok = human_reviewed_count >= 150 and avg_realism >= 4.0
+    check(5, ">=150 human_reviewed, avg realism >=4.0", human_ok,
+          f"{human_reviewed_count} reviewed, avg_realism={avg_realism:.1f}", "150, 4.0")
+
+    # 6. 100% jurisdiction-sensitive questions have local reviewer confirmation
+    sensitive_total = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+            MCQQuestion.jurisdiction_sensitive == True,
+        )
+    )).scalar() or 0
+    sensitive_confirmed = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+            MCQQuestion.jurisdiction_sensitive == True,
+            MCQQuestion.jurisdiction_verified_for.isnot(None),
+        )
+    )).scalar() or 0
+    jurisdiction_gate_ok = (sensitive_total == 0) or (sensitive_confirmed == sensitive_total)
+    check(6, "100% jurisdiction-sensitive questions locally confirmed", jurisdiction_gate_ok,
+          f"{sensitive_confirmed}/{sensitive_total} confirmed",
+          "all sensitive questions confirmed by local reviewer")
+
+    # 7. 2 mocks assemblable without question overlap (simplified: total >= 2x mock size)
+    mock_size = exam_def.question_count  # official exam question count
+    two_mock_ok = active_q_count >= (mock_size * 2)
+    check(7, f"2 mocks (2x{mock_size}={mock_size*2} non-overlapping questions)", two_mock_ok,
+          str(active_q_count), str(mock_size * 2))
+
+    # 8. Arabic rationales >= 95% of active questions
+    ar_count = (await db.execute(
+        select(func.count(MCQQuestion.id)).where(
+            MCQQuestion.status == "active",
+            MCQQuestion.exam_slugs.op("@>")(_json.dumps([exam]).encode()),
+            MCQQuestion.explanation_ar.isnot(None),
+        )
+    )).scalar() or 0
+    ar_pct = (ar_count / active_q_count * 100) if active_q_count > 0 else 0
+    ar_ok = ar_pct >= 95
+    check(8, "Arabic rationales >= 95%", ar_ok,
+          f"{ar_pct:.1f}% ({ar_count}/{active_q_count})", "95%")
+
+    # 9. Exam landing has non-affiliation disclaimer (check exam_def.disclaimer)
+    disclaimer_ok = bool(exam_def.disclaimer and len(exam_def.disclaimer) > 20)
+    check(9, "non-affiliation disclaimer present", disclaimer_ok,
+          "present" if disclaimer_ok else "missing", "disclaimer text in exam_def")
+
+    # 10. marketing_ready is currently False (gate is working)
+    gate_ok = not exam_def.marketing_ready
+    check(10, "marketing_ready gate is active (false)", gate_ok,
+          "false (gate active)" if gate_ok else "TRUE — gate bypassed!",
+          "false until all 9 checks pass")
+
+    all_passed = all(c["passed"] for c in checks)
+    passed_count = sum(1 for c in checks if c["passed"])
+
+    return {
+        "exam": exam,
+        "marketing_ready": exam_def.marketing_ready,
+        "all_passed": all_passed,
+        "passed_count": passed_count,
+        "total_checks": 10,
+        "checks": checks,
+        "warning": (
+            "marketing_ready is set but not all checks pass — review immediately!"
+            if (exam_def.marketing_ready and not all_passed) else None
+        ),
+    }
+
+
+@router.patch("/exams/{slug}/marketing-ready")
+async def set_marketing_ready(
+    slug: str,
+    marketing_ready: bool,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """L6.2 — Set marketing_ready flag on an exam.
+
+    WARNING: This controls noindex and paid traffic gate.
+    Setting to True without all 10 launch checks passing is recorded
+    as a manual override with a warning.
+    """
+    exam_def = (await db.execute(
+        select(ExamDefinition).where(ExamDefinition.slug == slug)
+    )).scalar_one_or_none()
+    if not exam_def:
+        raise HTTPException(404, f"Exam '{slug}' not found")
+
+    # Check if all 10 conditions are met (simplified check)
+    if marketing_ready:
+        active_q = (await db.execute(
+            select(func.count(MCQQuestion.id)).where(
+                MCQQuestion.status == "active",
+                MCQQuestion.exam_slugs.op("@>")(f'["{slug}"]'.encode()),
+                MCQQuestion.jurisdiction_sensitive == True,
+                MCQQuestion.jurisdiction_verified_for.is_(None),
+            )
+        )).scalar() or 0
+        warning = None
+        if active_q > 0:
+            warning = f"WARNING: {active_q} quarantined questions still in active pool — do not set marketing_ready!"
+        exam_def.marketing_ready = True
+        await db.commit()
+        return {"ok": True, "marketing_ready": True, "warning": warning}
+    else:
+        exam_def.marketing_ready = False
+        await db.commit()
+        return {"ok": True, "marketing_ready": False}

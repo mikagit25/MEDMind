@@ -1867,6 +1867,7 @@ def _exam_def_to_dict(e: ExamDefinition) -> dict:
         "exam_date_fixed":      e.exam_date_fixed,
         "disclaimer":           e.disclaimer,
         "stale_blueprint":      _is_stale_blueprint(e.blueprint_verified_at),
+        "marketing_ready":      getattr(e, "marketing_ready", False),
     }
 
 

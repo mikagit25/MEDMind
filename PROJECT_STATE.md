@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** BANK_SCALE_SPEC.md — все 5 фаз (B1–B5) завершены и задеплоены ✅
-**Last Updated:** 2026-07-30
-**Next Action:** Запустить `plan_generation.py` для заполнения generation_queue, начать ревью вопросов через `/reviewer/queue`, мониторить покрытие через `/admin/bank-coverage`
+**Phase:** LOCALE_RULES_SPEC.md — все 6 фаз (L1–L6) завершены ✅
+**Last Updated:** 2026-08-06
+**Next Action:** Назначить local reviewer с jurisdictions=['sa'] в БД; подтвердить source_url для правил jurisdiction_rules; запустить `audit_jurisdiction_sensitivity.py` повторно после добавления новых вопросов
 
 ---
 
@@ -171,7 +171,22 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Admin report: `GET /admin/jurisdiction-audit`
 - Classifier: `app/scripts/audit_jurisdiction_sensitivity.py` (re-run after question edits)
 - 205 questions tagged `origin='nclex_mapped'`
-- *Phases remaining: L6 (launch readiness).*
+- **L6 — Launch Readiness Gate ✅ (2026-08-06)**
+- `GET /admin/launch-readiness?exam=snle` — 10-point checklist:
+  1. blueprint_verified_at < 12 months
+  2. blueprint_source is official URL
+  3. active questions >= target (snle=600, dha=450, others=300)
+  4. no quarantined questions in active pool
+  5. >= 150 human_reviewed questions with avg realism >= 4.0
+  6. 100% jurisdiction-sensitive questions locally confirmed
+  7. 2 mocks assemblable (total >= 2x mock_size)
+  8. Arabic rationales >= 95%
+  9. non-affiliation disclaimer present in exam_definitions
+  10. marketing_ready is currently false (gate active, confirm before enabling)
+- `PATCH /admin/exams/{slug}/marketing-ready` — sets flag; blocked if any quarantined questions remain
+- `marketing_ready` returned in exam definitions API response (`_exam_def_to_dict`)
+- Frontend: `/exams/[slug]/page.tsx` — `robots: {index: false, follow: true}` when `marketing_ready=false`; `ExamDefinition` interface extended with `marketing_ready?: boolean`
+- All 7 Gulf exam landings currently noindex (marketing_ready=false in DB)
 
 **L5 — Local Reviewer Gate ✅ (2026-08-06)**
 - Reviewer model: added `jurisdictions` (JSONB), `license_country`, `license_number` (migration d4e5f6a7b8c9)

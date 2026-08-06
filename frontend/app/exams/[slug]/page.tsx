@@ -67,6 +67,9 @@ export async function generateMetadata({
       siteName: "MedMind AI",
       type: "website",
     },
+    robots: exam.marketing_ready
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
   };
 }
 

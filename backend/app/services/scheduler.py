@@ -591,7 +591,7 @@ async def _enrich_article_sources_job() -> None:
 
 
 async def _verify_articles_job() -> None:
-    """Verify articles that have sources but are still pending — 20 per run, every hour."""
+    """Verify articles that have sources but are still pending — 40 per run, every hour."""
     try:
         from app.services.content_verifier import verify_article
         from app.models.models import Article
@@ -607,7 +607,7 @@ async def _verify_articles_job() -> None:
                     Article.sources.isnot(None),
                     Article.sources != cast("[]", _JSONB),
                 )
-                .limit(20)
+                .limit(40)
             )
             articles = result.scalars().all()
 
@@ -1348,7 +1348,7 @@ def start_scheduler():
         misfire_grace_time=1800,
     )
 
-    # Every hour at :50 — verify articles that have sources (20 per run)
+    # Every hour at :50 — verify articles that have sources (40 per run)
     scheduler.add_job(
         _verify_articles_job,
         trigger=CronTrigger(minute="50", timezone="UTC"),
