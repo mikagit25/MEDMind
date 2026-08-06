@@ -171,7 +171,15 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Admin report: `GET /admin/jurisdiction-audit`
 - Classifier: `app/scripts/audit_jurisdiction_sensitivity.py` (re-run after question edits)
 - 205 questions tagged `origin='nclex_mapped'`
-- *Phases remaining: L5 (reviewer gate) → L6 (launch readiness).*
+- *Phases remaining: L6 (launch readiness).*
+
+**L5 — Local Reviewer Gate ✅ (2026-08-06)**
+- Reviewer model: added `jurisdictions` (JSONB), `license_country`, `license_number` (migration d4e5f6a7b8c9)
+- QuestionReview model: added `locally_correct`, `scope_ok`, `culturally_appropriate`, `local_note`, `jurisdiction_slug`
+- API: `GET /reviewer/queue/jurisdiction?jurisdiction=sa` — returns quarantined questions for authorized reviewers
+- API: `POST /reviewer/submit-jurisdiction/{id}` — locally_correct=yes+scope_ok=yes → exits quarantine; no → retired+regen; local_note → draft JurisdictionRule (needs_human)
+- Gate enforced: jurisdiction_verified_for only set by authorized human reviewer via API
+- L5.5: local_note auto-creates draft JurisdictionRule for later source confirmation
 
 **L4 — Blueprint Weights & Regional Content ✅ (2026-08-06)**
 - Blueprint already verified in exam_registry.py: SNLE from SCFHS Guide 2024 (2026-07-30), all others (2026-07-20)

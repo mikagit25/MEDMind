@@ -1374,6 +1374,11 @@ class Reviewer(Base):
     specialties = Column(JSONB, nullable=True)          # ["cardiology", "internal medicine"]
     linkedin_url = Column(String(500), nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
+    # L5.1: jurisdiction authorization — which profile slugs this reviewer may confirm
+    jurisdictions = Column(JSONB, nullable=True)        # e.g. ["sa", "ae_dubai"]
+    # L5.1: full license/credential for public reviewer profile
+    license_country = Column(String(100), nullable=True)
+    license_number = Column(String(100), nullable=True)  # stored; displayed as "Licensed RN"
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -2351,6 +2356,17 @@ class QuestionReview(Base):
     edits = Column(JSONB, nullable=True)
     # Reason code for reject: factual_error|poor_distractors|unclear|off_category|other
     reject_reason = Column(String(50), nullable=True)
+    # L5.3: jurisdiction rubric extension (Gulf questions only)
+    # locally_correct: "yes" | "no" | "uncertain"
+    locally_correct = Column(String(10), nullable=True)
+    # scope_ok: "yes" | "no" — is the described action within nursing scope for this country?
+    scope_ok = Column(String(5), nullable=True)
+    # culturally_appropriate: "yes" | "needs_edit"
+    culturally_appropriate = Column(String(20), nullable=True)
+    # local_note: how the correct answer differs from international/US practice
+    local_note = Column(Text, nullable=True)
+    # jurisdiction slug this review covers (e.g. "sa" for SNLE)
+    jurisdiction_slug = Column(String(30), nullable=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
     question = relationship("MCQQuestion", foreign_keys=[question_id])

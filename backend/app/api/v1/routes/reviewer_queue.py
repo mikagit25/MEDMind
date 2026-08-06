@@ -21,7 +21,8 @@ from app.api.deps import get_current_user, require_reviewer
 from app.core.database import get_db
 from app.models.models import (
     ContentAuditLog, GenerationQueue, MCQQuestion, Module,
-    QuestionReview, QuestionStats, User,
+    QuestionReview, QuestionStats, User, Reviewer,
+    JurisdictionRule,
 )
 
 router = APIRouter(prefix="/reviewer", tags=["reviewer"])
@@ -282,4 +283,246 @@ async def reviewer_stats(
             "rationale_quality": round(avg_scores.avg_rationale_quality or 0, 2),
             "language_clarity":  round(avg_scores.avg_language_clarity or 0, 2),
         },
+    }
+
+
+# ── L5: Jurisdiction reviewer queue ───────────────────────────────────────────
+
+GULF_SLUGS = {"snle", "dha", "haad", "doh", "qchp", "omsb", "nhra", "moh_kw"}
+EXAM_TO_JURISDICTION = {
+    "snle": "sa", "dha": "ae_dubai", "haad": "ae_abudhabi", "doh": "ae_abudhabi",
+    "qchp": "qa", "omsb": "om", "nhra": "bh", "moh_kw": "kw",
+}
+
+
+class JurisdictionReviewBody(BaseModel):
+    """L5.3 — Extended rubric for jurisdiction-sensitive question review."""
+    locally_correct: str = Field(..., pattern=r"^(yes|no|uncertain)$")
+    scope_ok: str = Field(..., pattern=r"^(yes|no)$")
+    culturally_appropriate: str = Field(..., pattern=r"^(yes|needs_edit)$")
+    local_note: Optional[str] = None
+    jurisdiction_slug: str   # must match one the reviewer is authorized for
+
+
+@router.get("/queue/jurisdiction")
+async def jurisdiction_queue(
+    jurisdiction: Optional[str] = Query(None, description="Filter by jurisdiction slug, e.g. 'sa'"),
+    limit: int = Query(20, ge=1, le=100),
+    reviewer: User = Depends(require_reviewer()),
+    db: AsyncSession = Depends(get_db),
+):
+    """L5.2 — Jurisdiction-sensitive questions awaiting local reviewer confirmation.
+
+    Returns questions that are:
+    - jurisdiction_sensitive=True
+    - jurisdiction_verified_for is NULL (quarantined)
+    - tagged to a Gulf exam matching the reviewer's authorized jurisdictions
+
+    Only returns questions the reviewer is authorized to review (by their
+    jurisdictions field on the Reviewer record, if exists).
+    """
+    # Find reviewer record for jurisdiction authorization
+    reviewer_record = (await db.execute(
+        select(Reviewer).where(Reviewer.slug == reviewer.email.split("@")[0])
+    )).scalar_one_or_none()
+
+    authorized_jurisdictions: list[str] = []
+    if reviewer_record and reviewer_record.jurisdictions:
+        authorized_jurisdictions = reviewer_record.jurisdictions
+    elif jurisdiction:
+        authorized_jurisdictions = [jurisdiction]
+    # Admins see all
+    if reviewer.role == "admin":
+        if jurisdiction:
+            authorized_jurisdictions = [jurisdiction]
+        else:
+            authorized_jurisdictions = list(EXAM_TO_JURISDICTION.values())
+
+    if not authorized_jurisdictions:
+        return {"questions": [], "total": 0, "note": "No jurisdiction authorization found — contact admin"}
+
+    # Determine which exam slugs match authorized jurisdictions
+    authorized_exams = [
+        slug for slug, jur in EXAM_TO_JURISDICTION.items()
+        if jur in authorized_jurisdictions
+    ]
+
+    # Query quarantined Gulf questions
+    from sqlalchemy import or_, literal as sa_literal
+    import json as _json
+    from sqlalchemy.dialects.postgresql import JSONB as _JSONB
+
+    q_stmt = (
+        select(MCQQuestion)
+        .where(
+            MCQQuestion.status == "active",
+            MCQQuestion.jurisdiction_sensitive == True,
+            MCQQuestion.jurisdiction_verified_for.is_(None),
+        )
+        .order_by(MCQQuestion.created_at.asc())
+        .limit(limit)
+    )
+
+    # Filter to questions tagged with authorized exam slugs
+    all_quarantined = (await db.execute(q_stmt)).scalars().all()
+    result = []
+    for q in all_quarantined:
+        q_exams = set(q.exam_slugs or [])
+        if q_exams & set(authorized_exams):
+            # Which jurisdictions apply?
+            applicable = [EXAM_TO_JURISDICTION[s] for s in q_exams & set(authorized_exams)]
+            result.append({
+                "id": str(q.id),
+                "question": q.question,
+                "options": q.options,
+                "correct": q.correct,
+                "explanation": q.explanation,
+                "rationales": q.rationales,
+                "key_takeaway": q.key_takeaway,
+                "nclex_client_needs": q.nclex_client_needs,
+                "exam_slugs": q.exam_slugs,
+                "applicable_jurisdictions": list(set(applicable)),
+                "jurisdiction_audit_notes": q.jurisdiction_audit_notes,
+                "origin": q.origin,
+            })
+
+    return {
+        "questions": result,
+        "total": len(result),
+        "authorized_jurisdictions": authorized_jurisdictions,
+    }
+
+
+@router.post("/submit-jurisdiction/{question_id}")
+async def submit_jurisdiction_review(
+    question_id: uuid.UUID,
+    body: JurisdictionReviewBody,
+    reviewer: User = Depends(require_reviewer()),
+    db: AsyncSession = Depends(get_db),
+):
+    """L5.4 — Submit local reviewer judgment for a jurisdiction-sensitive question.
+
+    - locally_correct=yes + scope_ok=yes → exits quarantine for this jurisdiction
+    - locally_correct=no OR scope_ok=no → question retired + regeneration queued
+    - local_note → creates draft JurisdictionRule (needs_human) for human source confirmation
+    - L5.6: verified_for updated on question
+    """
+    q = await db.get(MCQQuestion, question_id)
+    if not q:
+        raise HTTPException(404, "Question not found")
+
+    # Authorization check: reviewer must cover this jurisdiction
+    reviewer_record = (await db.execute(
+        select(Reviewer).where(Reviewer.slug == reviewer.email.split("@")[0])
+    )).scalar_one_or_none()
+
+    authorized = False
+    if reviewer.role == "admin":
+        authorized = True
+    elif reviewer_record and reviewer_record.jurisdictions:
+        authorized = body.jurisdiction_slug in reviewer_record.jurisdictions
+
+    if not authorized:
+        raise HTTPException(
+            403,
+            f"Reviewer not authorized for jurisdiction '{body.jurisdiction_slug}'"
+        )
+
+    # Verify question is tagged to an exam in this jurisdiction
+    exam_for_jur = [s for s, j in EXAM_TO_JURISDICTION.items() if j == body.jurisdiction_slug]
+    q_exams = set(q.exam_slugs or [])
+    if not (q_exams & set(exam_for_jur)):
+        raise HTTPException(
+            400,
+            f"Question is not tagged to any exam in jurisdiction '{body.jurisdiction_slug}'"
+        )
+
+    # Record the rubric
+    review = QuestionReview(
+        question_id=question_id,
+        reviewer_user_id=reviewer.id,
+        # Standard rubric — set neutral values for jurisdiction-only review
+        realism=3, clinical_accuracy=3, key_correct=3,
+        rationale_quality=3, distractors_plausible=3,
+        language_clarity=3, category_correct=3,
+        decision="approve" if (body.locally_correct == "yes" and body.scope_ok == "yes") else "reject",
+        comment=body.local_note,
+        locally_correct=body.locally_correct,
+        scope_ok=body.scope_ok,
+        culturally_appropriate=body.culturally_appropriate,
+        local_note=body.local_note,
+        jurisdiction_slug=body.jurisdiction_slug,
+    )
+    db.add(review)
+
+    action_taken = ""
+
+    if body.locally_correct == "yes" and body.scope_ok == "yes":
+        # L5.4: exit quarantine for this jurisdiction
+        existing_verified = list(q.jurisdiction_verified_for or [])
+        if body.jurisdiction_slug not in existing_verified:
+            existing_verified.append(body.jurisdiction_slug)
+        q.jurisdiction_verified_for = existing_verified
+        action_taken = "released_from_quarantine"
+    else:
+        # locally_correct=no or scope_ok=no → retire + regenerate
+        q.status = "retired"
+        q.verification_status = "flagged"
+        action_taken = "retired"
+        exam_slug = (q.exam_slugs or ["snle"])[0]
+        db.add(GenerationQueue(
+            exam_slug=exam_slug,
+            nclex_category=q.nclex_client_needs or "nursing_fundamentals",
+            question_type=q.question_type or "mcq",
+            target_difficulty=q.difficulty or "medium",
+            count_requested=1,
+            status="pending",
+            created_at=datetime.utcnow(),
+        ))
+
+    # L5.5: local_note creates draft JurisdictionRule
+    if body.local_note:
+        # Map jurisdiction to domain based on audit notes (rough heuristic)
+        audit_domains = []
+        if q.jurisdiction_audit_notes:
+            import json as _json2
+            try:
+                audit_domains = _json2.loads(q.jurisdiction_audit_notes)
+            except Exception:
+                pass
+        domain = audit_domains[0] if audit_domains else "scope_of_practice"
+
+        # Check if rule already exists
+        existing_rule = (await db.execute(
+            select(JurisdictionRule).where(
+                JurisdictionRule.profile_slug == body.jurisdiction_slug,
+                JurisdictionRule.domain == domain,
+                JurisdictionRule.rule_key == f"reviewer_note_{str(question_id)[:8]}",
+            )
+        )).scalar_one_or_none()
+
+        if not existing_rule:
+            db.add(JurisdictionRule(
+                profile_slug=body.jurisdiction_slug,
+                domain=domain,
+                rule_key=f"reviewer_note_{str(question_id)[:8]}",
+                statement=body.local_note,
+                source_title="Local reviewer note",
+                source_url=None,
+                source_type="regulator",
+                status="needs_human",  # needs source confirmation before verified
+                verified_by="human_reviewer",
+                divergence_from_us=(body.locally_correct != "yes"),
+            ))
+
+    await db.commit()
+
+    return {
+        "ok": True,
+        "question_id": str(question_id),
+        "jurisdiction_slug": body.jurisdiction_slug,
+        "locally_correct": body.locally_correct,
+        "scope_ok": body.scope_ok,
+        "action_taken": action_taken,
+        "local_note_rule_created": bool(body.local_note),
     }
