@@ -148,6 +148,21 @@
 - **Quiz performance by specialty** — `GET /progress/quiz/performance` — horizontal bars
 - Tests: 906 passed, 9 skipped (full suite)
 
+### Jurisdictions — Phase L1 ✅ (2026-08-06)
+| Profile | Regulator | Norms verified | Norms needs_human | In quarantine | Confirmed local | Launch readiness |
+|---------|-----------|---------------|-------------------|---------------|-----------------|-----------------|
+| sa | SCFHS | 0 | 11 | — | — | 0/10 |
+| ae_dubai | DHA | 0 | 10 | — | — | 0/10 |
+| ae_abudhabi | DOH | 0 | 10 | — | — | 0/10 |
+| qa | QCHP | 0 | 10 | — | — | 0/10 |
+| om | OMSB/MOH | 0 | 10 | — | — | 0/10 |
+| bh | NHRA | 0 | 10 | — | — | 0/10 |
+| kw | MOH-KW | 0 | 10 | — | — | 0/10 |
+
+*All 77 rules status=needs_human (correct: no norm may be verified without confirmed source_url + human check).
+DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdictions`. Seed: `app/scripts/seed_jurisdiction_profiles.py`.
+Phases remaining: L2 (audit/quarantine) → L3 (generator) → L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
+
 ### Exams Registry — Gulf (G1) ✅ (2026-07-20)
 | Exam | Bank (Q) | Status | Blueprint verified |
 |------|----------|--------|--------------------|

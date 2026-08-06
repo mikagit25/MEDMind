@@ -2378,3 +2378,80 @@ class GenerationQueue(Base):
         Index("ix_genqueue_status", "status"),
         Index("ix_genqueue_exam_cat", "exam_slug", "nclex_category"),
     )
+
+
+# ============================================================
+# JURISDICTION PROFILES (Phase L1)
+# ============================================================
+
+class JurisdictionProfile(Base):
+    """Per-country regulatory profile for Gulf exam jurisdictions.
+
+    Each profile captures which regulator governs nursing practice,
+    which exam slugs map to this jurisdiction, and ambient metadata
+    (emergency numbers, units, primary locale).  All norms live in
+    JurisdictionRule rows linked by slug.
+    """
+    __tablename__ = "jurisdiction_profiles"
+
+    # slug: sa | ae_dubai | ae_abudhabi | qa | om | bh | kw
+    slug            = Column(String(30), primary_key=True)
+    country         = Column(String(100), nullable=False)
+    regulator       = Column(String(100), nullable=False)   # SCFHS | DHA | DOH | QCHP | OMSB | NHRA | MOH-KW
+    exam_slugs      = Column(JSONB, nullable=False, server_default="[]")  # ["snle"] | ["dha"] …
+    locale_primary  = Column(String(10), nullable=False, server_default="ar")
+    emergency_numbers = Column(JSONB, nullable=True)        # {"ambulance": "997", "fire": "998", …}
+    units_system    = Column(String(10), nullable=False, server_default="SI")
+    verified_at     = Column(DateTime, nullable=True)
+    # unverified | active | archived
+    status          = Column(String(20), nullable=False, server_default="unverified")
+    created_at      = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at      = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    rules = relationship("JurisdictionRule", back_populates="profile",
+                         cascade="all, delete-orphan")
+
+    __table_args__ = (
+        Index("ix_jurisdiction_profiles_status", "status"),
+    )
+
+
+class JurisdictionRule(Base):
+    """Single regulatory norm for one domain within a jurisdiction.
+
+    Rules seed the locale-aware generator (only verified rules with source_url
+    enter prompts).  Rules without source_url must remain status='needs_human'.
+    """
+    __tablename__ = "jurisdiction_rules"
+
+    id              = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    profile_slug    = Column(String(30), ForeignKey("jurisdiction_profiles.slug", ondelete="CASCADE"),
+                             nullable=False)
+    # scope_of_practice | medication_administration | consent | end_of_life |
+    # documentation_reporting | infection_control | patient_rights |
+    # cultural_religious_care | region_salient_clinical | emergency_activation
+    domain          = Column(String(60), nullable=False)
+    rule_key        = Column(String(80), nullable=False)    # e.g. "rn_independent_iv_push"
+    statement       = Column(Text, nullable=False)          # plain-language norm
+    source_title    = Column(String(300), nullable=True)
+    source_url      = Column(String(600), nullable=True)
+    # regulator | ministry | national_guideline
+    source_type     = Column(String(30), nullable=True)
+    verified_at     = Column(DateTime, nullable=True)
+    # agent | human_reviewer
+    verified_by     = Column(String(30), nullable=True)
+    # unverified | verified | needs_human
+    status          = Column(String(20), nullable=False, server_default="needs_human")
+    divergence_from_us = Column(Boolean, nullable=False, server_default="false")
+    created_at      = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at      = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    profile = relationship("JurisdictionProfile", back_populates="rules")
+
+    __table_args__ = (
+        UniqueConstraint("profile_slug", "domain", "rule_key",
+                         name="uq_jurisdiction_rules_profile_domain_key"),
+        Index("ix_jurisdiction_rules_profile_domain", "profile_slug", "domain"),
+        Index("ix_jurisdiction_rules_status", "status"),
+        Index("ix_jurisdiction_rules_domain", "domain"),
+    )

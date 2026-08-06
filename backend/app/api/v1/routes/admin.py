@@ -20,6 +20,7 @@ from app.models.models import (
     PromoCode, PromoCodeUse,
     Affiliate, AffiliateConversion,
     QuestionStats, QuestionAttempt, ContentAuditLog, GenerationQueue, QuestionReview,
+    JurisdictionProfile, JurisdictionRule,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -2849,4 +2850,180 @@ async def review_insights(
         "reject_reasons": reject_reasons,
         "decisions": decisions,
         "comments": recent_comments,
+    }
+
+
+# ── Jurisdictions (Phase L1) ──────────────────────────────────────────────────
+
+JURISDICTION_DOMAINS = [
+    "scope_of_practice",
+    "medication_administration",
+    "consent",
+    "end_of_life",
+    "documentation_reporting",
+    "infection_control",
+    "patient_rights",
+    "cultural_religious_care",
+    "region_salient_clinical",
+    "emergency_activation",
+]
+
+
+class JurisdictionRulePatch(BaseModel):
+    statement: Optional[str] = None
+    source_title: Optional[str] = None
+    source_url: Optional[str] = None
+    source_type: Optional[str] = None
+    status: Optional[str] = None
+    divergence_from_us: Optional[bool] = None
+    verified_by: Optional[str] = None
+
+
+@router.get("/jurisdictions")
+async def list_jurisdictions(
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """List all jurisdiction profiles with rule status counts."""
+    profiles = (await db.execute(select(JurisdictionProfile).order_by(JurisdictionProfile.slug))).scalars().all()
+    result = []
+    twelve_months_ago = datetime.utcnow().replace(year=datetime.utcnow().year - 1)
+    for p in profiles:
+        rules = (await db.execute(
+            select(JurisdictionRule).where(JurisdictionRule.profile_slug == p.slug)
+        )).scalars().all()
+        status_counts = {"verified": 0, "needs_human": 0, "unverified": 0}
+        for r in rules:
+            status_counts[r.status] = status_counts.get(r.status, 0) + 1
+        covered_domains = {r.domain for r in rules}
+        missing_domains = [d for d in JURISDICTION_DOMAINS if d not in covered_domains]
+        result.append({
+            "slug": p.slug,
+            "country": p.country,
+            "regulator": p.regulator,
+            "exam_slugs": p.exam_slugs,
+            "locale_primary": p.locale_primary,
+            "emergency_numbers": p.emergency_numbers,
+            "units_system": p.units_system,
+            "status": p.status,
+            "verified_at": p.verified_at.isoformat() if p.verified_at else None,
+            "overdue": p.verified_at is not None and p.verified_at < twelve_months_ago,
+            "rule_counts": status_counts,
+            "total_rules": len(rules),
+            "missing_domains": missing_domains,
+        })
+    return result
+
+
+@router.get("/jurisdictions/{slug}")
+async def get_jurisdiction(
+    slug: str,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Get a single jurisdiction profile with all its rules grouped by domain."""
+    profile = (await db.execute(
+        select(JurisdictionProfile).where(JurisdictionProfile.slug == slug)
+    )).scalar_one_or_none()
+    if not profile:
+        raise HTTPException(status_code=404, detail="Jurisdiction not found")
+
+    rules = (await db.execute(
+        select(JurisdictionRule)
+        .where(JurisdictionRule.profile_slug == slug)
+        .order_by(JurisdictionRule.domain, JurisdictionRule.rule_key)
+    )).scalars().all()
+
+    by_domain: dict[str, list] = {d: [] for d in JURISDICTION_DOMAINS}
+    for r in rules:
+        domain_key = r.domain if r.domain in by_domain else r.domain
+        if r.domain not in by_domain:
+            by_domain[r.domain] = []
+        by_domain[r.domain].append({
+            "id": str(r.id),
+            "rule_key": r.rule_key,
+            "statement": r.statement,
+            "source_title": r.source_title,
+            "source_url": r.source_url,
+            "source_type": r.source_type,
+            "status": r.status,
+            "divergence_from_us": r.divergence_from_us,
+            "verified_at": r.verified_at.isoformat() if r.verified_at else None,
+            "verified_by": r.verified_by,
+        })
+
+    return {
+        "slug": profile.slug,
+        "country": profile.country,
+        "regulator": profile.regulator,
+        "exam_slugs": profile.exam_slugs,
+        "locale_primary": profile.locale_primary,
+        "emergency_numbers": profile.emergency_numbers,
+        "units_system": profile.units_system,
+        "status": profile.status,
+        "verified_at": profile.verified_at.isoformat() if profile.verified_at else None,
+        "rules_by_domain": by_domain,
+    }
+
+
+@router.patch("/jurisdictions/rules/{rule_id}")
+async def patch_jurisdiction_rule(
+    rule_id: UUID,
+    body: JurisdictionRulePatch,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Update a jurisdiction rule (status, source, statement)."""
+    rule = (await db.execute(
+        select(JurisdictionRule).where(JurisdictionRule.id == rule_id)
+    )).scalar_one_or_none()
+    if not rule:
+        raise HTTPException(status_code=404, detail="Rule not found")
+
+    update_data = body.model_dump(exclude_unset=True)
+
+    # Enforce: verified status requires source_url
+    new_status = update_data.get("status", rule.status)
+    new_source_url = update_data.get("source_url", rule.source_url)
+    if new_status == "verified" and not new_source_url:
+        raise HTTPException(
+            status_code=422,
+            detail="Cannot set status=verified without source_url",
+        )
+
+    for key, val in update_data.items():
+        setattr(rule, key, val)
+    if new_status == "verified" and rule.verified_at is None:
+        rule.verified_at = datetime.utcnow()
+    rule.updated_at = datetime.utcnow()
+
+    await db.commit()
+    return {"ok": True, "rule_id": str(rule_id), "status": rule.status}
+
+
+@router.post("/jurisdictions/{slug}/request-human-review")
+async def request_human_review(
+    slug: str,
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """Mark all needs_human rules for a jurisdiction as pending human review notification."""
+    profile = (await db.execute(
+        select(JurisdictionProfile).where(JurisdictionProfile.slug == slug)
+    )).scalar_one_or_none()
+    if not profile:
+        raise HTTPException(status_code=404, detail="Jurisdiction not found")
+
+    rules_needing_review = (await db.execute(
+        select(JurisdictionRule)
+        .where(JurisdictionRule.profile_slug == slug)
+        .where(JurisdictionRule.status == "needs_human")
+    )).scalars().all()
+
+    count = len(rules_needing_review)
+    return {
+        "ok": True,
+        "jurisdiction": slug,
+        "rules_needing_human_review": count,
+        "message": f"{count} rules require human reviewer verification for {profile.country}",
     }
