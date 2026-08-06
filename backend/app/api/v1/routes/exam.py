@@ -780,6 +780,11 @@ async def create_session(
             from sqlalchemy.dialects.postgresql import JSONB
             q_gulf = q.where(
                 MCQQuestion.exam_slugs.op("@>")(sa_literal(_json.dumps([exam_slug])).cast(JSONB))
+            ).where(
+                # L2 quarantine: exclude jurisdiction-sensitive questions not yet verified for any profile
+                (MCQQuestion.jurisdiction_sensitive.is_(False))
+                | (MCQQuestion.jurisdiction_sensitive.is_(None))
+                | (MCQQuestion.jurisdiction_verified_for.isnot(None))
             ).order_by(func.random()).limit(mode["questions"])
             gulf_mcqs = (await db.execute(q_gulf)).scalars().all()
             if len(gulf_mcqs) >= mode["questions"]:

@@ -160,8 +160,18 @@
 | kw | MOH-KW | 0 | 10 | — | — | 0/10 |
 
 *All 77 rules status=needs_human (correct: no norm may be verified without confirmed source_url + human check).
-DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdictions`. Seed: `app/scripts/seed_jurisdiction_profiles.py`.
-Phases remaining: L2 (audit/quarantine) → L3 (generator) → L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
+DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdictions`. Seed: `app/scripts/seed_jurisdiction_profiles.py`.*
+
+**L2 — Audit & Quarantine ✅ (2026-08-06)**
+- `mcq_questions`: added `jurisdiction_sensitive`, `jurisdiction_verified_for`, `origin`, `jurisdiction_audit_at`, `jurisdiction_audit_notes` (migration b2c3d4e5f6a7)
+- Audited 205 Gulf-tagged questions → 44 flagged jurisdiction_sensitive (21%), all quarantined
+- Breakdown: non_si_units 23, us_regulatory 8, us_agency 8, documentation_reporting 4, consent 3, us_911 1, us_trade_drug 1, scope_of_practice 1, cultural_religious 1
+- Quarantine enforced in exam.py query layer (L2.3)
+- `map_gulf_questions.py` blocks re-mapping sensitive questions (L2.4)
+- Admin report: `GET /admin/jurisdiction-audit`
+- Classifier: `app/scripts/audit_jurisdiction_sensitivity.py` (re-run after question edits)
+- 205 questions tagged `origin='nclex_mapped'`
+- *Phases remaining: L3 (generator) → L4 (weights+content) → L5 (reviewer gate) → L6 (launch readiness).*
 
 ### Exams Registry — Gulf (G1) ✅ (2026-07-20)
 | Exam | Bank (Q) | Status | Blueprint verified |

@@ -33,7 +33,14 @@ async def run() -> None:
 
         tagged = 0
         already = 0
+        blocked_sensitive = 0
         for q in questions:
+            # L2.4: refuse to map jurisdiction-sensitive questions without explicit confirmation
+            if getattr(q, "jurisdiction_sensitive", False) and not (q.jurisdiction_verified_for or []):
+                blocked_sensitive += 1
+                log.debug("Skipping jurisdiction-sensitive question %s (not yet verified)", q.id)
+                continue
+
             # Check if category maps to Gulf blueprint
             cat = (q.nclex_client_needs or "").lower().strip()
             if cat not in NCLEX_TO_GULF_CATEGORY_MAP:
@@ -49,8 +56,10 @@ async def run() -> None:
             tagged += 1
 
         await db.commit()
-        log.info("Done — tagged: %d new | %d already tagged | %d skipped (no NCLEX cat)",
-                 tagged, already, len(questions) - tagged - already)
+        log.info(
+            "Done — tagged: %d new | %d already tagged | %d skipped (no NCLEX cat) | %d blocked (jurisdiction_sensitive)",
+            tagged, already, len(questions) - tagged - already - blocked_sensitive, blocked_sensitive,
+        )
         log.info("Gulf slugs applied: %s", GULF_SLUGS)
 
 

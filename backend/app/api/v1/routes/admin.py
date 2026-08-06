@@ -3027,3 +3027,84 @@ async def request_human_review(
         "rules_needing_human_review": count,
         "message": f"{count} rules require human reviewer verification for {profile.country}",
     }
+
+
+# ── Jurisdiction Audit (Phase L2) ─────────────────────────────────────────────
+
+@router.get("/jurisdiction-audit")
+async def jurisdiction_audit_report(
+    exam_slug: Optional[str] = Query(None, description="Filter by exam slug"),
+    db: AsyncSession = Depends(get_db),
+    _: User = _admin,
+):
+    """L2.5 — Jurisdiction sensitivity audit report.
+
+    Shows how many Gulf questions are flagged, by domain, in quarantine,
+    and awaiting local reviewer confirmation.
+    """
+    from sqlalchemy import text as sa_text
+
+    # Count Gulf-tagged questions total
+    gulf_q = select(MCQQuestion).where(
+        MCQQuestion.exam_slugs.isnot(None),
+        MCQQuestion.status == "active",
+    )
+    if exam_slug:
+        from sqlalchemy import literal as sa_literal
+        import json as _json
+        from sqlalchemy.dialects.postgresql import JSONB as _JSONB
+        gulf_q = gulf_q.where(
+            MCQQuestion.exam_slugs.op("@>")(sa_literal(_json.dumps([exam_slug])).cast(_JSONB))
+        )
+
+    all_gulf = (await db.execute(gulf_q)).scalars().all()
+    gulf_slugs = {"snle", "dha", "haad", "doh", "qchp", "omsb", "nhra", "moh_kw"}
+
+    def is_gulf(q: MCQQuestion) -> bool:
+        return bool(set(q.exam_slugs or []) & gulf_slugs)
+
+    gulf_questions = [q for q in all_gulf if is_gulf(q)]
+
+    sensitive = [q for q in gulf_questions if q.jurisdiction_sensitive]
+    quarantined = [
+        q for q in sensitive
+        if not (q.jurisdiction_verified_for or [])
+    ]
+    verified = [
+        q for q in sensitive
+        if q.jurisdiction_verified_for
+    ]
+
+    # Domain breakdown from audit notes
+    domain_counts: dict[str, int] = {}
+    import json as _json2
+    for q in sensitive:
+        try:
+            domains = _json2.loads(q.jurisdiction_audit_notes or "[]")
+            for d in domains:
+                domain_counts[d] = domain_counts.get(d, 0) + 1
+        except Exception:
+            pass
+
+    # Per-exam breakdown
+    per_exam: dict[str, dict] = {}
+    for q in gulf_questions:
+        for slug in (q.exam_slugs or []):
+            if slug in gulf_slugs:
+                if slug not in per_exam:
+                    per_exam[slug] = {"total": 0, "sensitive": 0, "quarantined": 0}
+                per_exam[slug]["total"] += 1
+                if q.jurisdiction_sensitive:
+                    per_exam[slug]["sensitive"] += 1
+                    if not (q.jurisdiction_verified_for or []):
+                        per_exam[slug]["quarantined"] += 1
+
+    return {
+        "gulf_questions_total": len(gulf_questions),
+        "jurisdiction_sensitive": len(sensitive),
+        "quarantined": len(quarantined),
+        "locally_confirmed": len(verified),
+        "domain_breakdown": domain_counts,
+        "per_exam": per_exam,
+        "exam_slug_filter": exam_slug,
+    }

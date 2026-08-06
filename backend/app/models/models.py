@@ -283,6 +283,16 @@ class MCQQuestion(Base):
     pending_regeneration = Column(Boolean, nullable=False, server_default="false")
     # V7: if this question replaced another, track lineage
     replaces_question_id = Column(UUID(as_uuid=True), nullable=True)
+    # L2: jurisdiction sensitivity audit
+    # origin: "nclex_mapped" | "gulf_native" | "regional" | None (legacy)
+    origin = Column(String(20), nullable=True)
+    # jurisdiction_sensitive=True → excluded from Gulf exam sessions until verified
+    jurisdiction_sensitive = Column(Boolean, nullable=False, server_default="false")
+    # jurisdiction_verified_for: list of profile slugs that confirmed this question
+    jurisdiction_verified_for = Column(JSONB, nullable=True)
+    # audit fields
+    jurisdiction_audit_at = Column(DateTime, nullable=True)
+    jurisdiction_audit_notes = Column(Text, nullable=True)
 
     module = relationship("Module", back_populates="mcq_questions")
     stats = relationship("QuestionStats", back_populates="question", uselist=False,
