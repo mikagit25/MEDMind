@@ -748,7 +748,7 @@ async def _verify_mcq_job() -> None:
         """Single-question LLM call, provider chain Groq→Cerebras→SambaNova→Gemini."""
         chains = [
             (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "llama-3.3-70b-versatile", "", prompt)),
-            (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gpt-oss-120b",            "", prompt)),
+            (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gemma-4-31b",             "", prompt)),
             (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", "", prompt)),
             (_GEMINI_KEYS,    lambda k: _call_gemini(k, "", prompt)),
         ]
@@ -781,9 +781,12 @@ async def _verify_mcq_job() -> None:
         async with AsyncSessionLocal() as db:
             result = await db.execute(
                 select(MCQQuestion)
-                .where(MCQQuestion.verification_status == "pending")
+                .where(
+                    MCQQuestion.verification_status == "pending",
+                    MCQQuestion.status == "active",
+                )
                 .order_by(MCQQuestion.created_at)
-                .limit(30)
+                .limit(50)
             )
             questions = result.scalars().all()
 
@@ -1375,10 +1378,10 @@ def start_scheduler():
         misfire_grace_time=3600,
     )
 
-    # Every 30 min at :10/:40 — verify pending MCQ answers via Groq (30 per run)
+    # Every 15 min — verify pending MCQ answers via Groq/Cerebras (50 per run)
     scheduler.add_job(
         _verify_mcq_job,
-        trigger=CronTrigger(minute="10,40", timezone="UTC"),
+        trigger=CronTrigger(minute="5,20,35,50", timezone="UTC"),
         id="verify_mcq",
         replace_existing=True,
         misfire_grace_time=600,

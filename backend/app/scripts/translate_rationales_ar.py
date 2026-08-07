@@ -145,7 +145,9 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
             ),
         )
         if exam_slug:
-            q = q.where(MCQQuestion.exam_slugs.op("@>")(f'["{exam_slug}"]'))
+            from sqlalchemy import type_coerce
+            from sqlalchemy.dialects.postgresql import JSONB as _JSONB
+            q = q.where(MCQQuestion.exam_slugs.op("@>")(type_coerce([exam_slug], _JSONB)))
         if max_questions:
             q = q.limit(max_questions * 2)
 

@@ -7,8 +7,8 @@
 
 ## 🟢 Current Status
 **Phase:** LOCALE_RULES_SPEC.md — все 6 фаз (L1–L6) завершены ✅
-**Last Updated:** 2026-08-06
-**Next Action:** Назначить local reviewer с jurisdictions=['sa'] в БД; подтвердить source_url для правил jurisdiction_rules; запустить `audit_jurisdiction_sensitivity.py` повторно после добавления новых вопросов
+**Last Updated:** 2026-08-07
+**Next Action:** Назначить local reviewer с jurisdictions=['sa'] в БД; подтвердить source_url для правил jurisdiction_rules; запустить `audit_jurisdiction_sensitivity.py` на новых вопросах; дождаться завершения верификации+переводов для ~1235 новых вопросов
 
 ---
 
@@ -17,14 +17,36 @@
 **Spec:** `docs/BANK_SCALE_SPEC.md`
 **Total tests:** 70 (B1: 15 + B2: 15 + B3: 12 + B4: 14 + B5: 14), все проходят
 
-**Bank scale table** (current as of 2026-07-30):
-| Exam | Questions | human_reviewed | avg realism | Target |
-|------|-----------|---------------|-------------|--------|
-| NCLEX-RN (tagged) | 205 | 0 | — | 2000 |
-| SNLE | shared | 0 | — | 1200 |
-| DHA | shared | 0 | — | 900 |
-| Gulf others | shared | 0 | — | 500 each |
-| Total bank | ~6 021 + 15 B2-generated | 0 | — | — |
+**Bank scale table** (updated 2026-08-07):
+| Exam | Questions | Target | Status |
+|------|-----------|--------|--------|
+| SNLE | 821 | 600 | ✅ 137% |
+| DHA | 577 | 450 | ✅ 128% |
+| QCHP | 300 | 300 | ✅ 100% |
+| OMSB | 300 | 300 | ✅ 100% |
+| NHRA | 300 | 300 | ✅ 100% |
+| MOHUAE | 300 | 300 | ✅ 100% |
+| HAAD | 300 | 300 | ✅ 100% |
+| Total active | 2245 | — | 1008 ai_verified + ~1235 pending verification |
+
+**Final bank state (2026-08-07):**
+- total active: 2224 | ai_verified: 1766 (79.4%) | pending reverify: 458
+- Arabic translation: 2071/2224 (93.1%) | 25 remaining (run translate_rationales_ar again)
+- Quarantined (jurisdiction_sensitive=true): ~276 gulf questions → need L5 local reviewer
+- All flagged questions retired (53 total): clinical accuracy issues confirmed by AI verifier
+
+**To run when Groq resets:**
+```bash
+docker exec medmind_backend python3 -m app.scripts.reverify_pending_mcq  # 458 pending
+docker exec medmind_backend python3 -m app.scripts.translate_rationales_ar  # 25 remaining
+```
+
+**Generation pipeline fixes (2026-08-07):**
+- `_count_existing_db` → JSONB type_coerce containment (not module-based)
+- Cerebras model: `gpt-oss-120b` → `gemma-4-31b` (reasoning model returned no content)
+- `max_tokens` per batch: `batch × 700, min 4096` (was 3000 → JSON truncation)
+- `max_wait` 90s → 300s (handles 120s Cerebras rate-limit rotation)
+- `_mcq_db_writer.py`: now saves `origin`, `jurisdiction_sensitive`, `jurisdiction_verified_for`
 
 #### B1 — Content Source Registry ✅ (2026-07-29)
 - `ContentSource` model + migration `w9x0y1z2a3b4`

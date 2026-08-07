@@ -341,6 +341,9 @@ async def save_questions_to_db(
                 key_takeaway=q.get("key_takeaway") or None,
                 test_taking_tip=q.get("test_taking_tip") or None,
                 exam_slugs=q.get("exam_slugs") or None,
+                origin=q.get("origin") or None,
+                jurisdiction_sensitive=bool(q.get("jurisdiction_sensitive", False)),
+                jurisdiction_verified_for=q.get("jurisdiction_verified_for") or None,
                 # Traceability
                 source_refs=source_refs,
                 verification_status=db_status,

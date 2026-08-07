@@ -57,7 +57,7 @@ CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 # Build unified key pool: (key, url, model)
 ALL_LLM_SLOTS = (
     [(k, GROQ_URL, "llama-3.3-70b-versatile") for k in _GROQ_KEYS] +
-    [(k, CEREBRAS_URL, "gpt-oss-120b") for k in _CEREBRAS_KEYS]
+    [(k, CEREBRAS_URL, "gemma-4-31b") for k in _CEREBRAS_KEYS]
 )
 
 # Legacy alias for logging
@@ -171,15 +171,15 @@ _TOPIC_WEIGHTS = [t["weight"] for t in GULF_EXAM_TOPICS]
 
 
 async def _count_existing_db(slug: str) -> int:
-    """Count questions already in DB for this Gulf exam slug."""
-    module_code = f"GULF-{slug.upper()}"
+    """Count active questions tagged for this Gulf exam slug (JSONB containment)."""
+    from sqlalchemy import type_coerce
+    from sqlalchemy.dialects.postgresql import JSONB
     async with AsyncSessionLocal() as db:
-        mod_result = await db.execute(select(Module.id).where(Module.code == module_code))
-        module_id = mod_result.scalar_one_or_none()
-        if module_id is None:
-            return 0
         count_result = await db.execute(
-            select(func.count(MCQQuestion.id)).where(MCQQuestion.module_id == module_id)
+            select(func.count(MCQQuestion.id)).where(
+                MCQQuestion.status == "active",
+                MCQQuestion.exam_slugs.op("@>")(type_coerce([slug], JSONB)),
+            )
         )
         return count_result.scalar() or 0
 
@@ -204,7 +204,7 @@ class RateLimiter:
         except Exception:
             return 120.0
 
-    async def generate(self, prompt: str, max_tokens: int = 3000, max_wait: int = 90) -> str | None:
+    async def generate(self, prompt: str, max_tokens: int = 3000, max_wait: int = 300) -> str | None:
         for _attempt in range(len(ALL_LLM_SLOTS) * 4):
             key, url, model = self._best_slot()
             wait = self._reset_at[key] - time.time()
@@ -361,7 +361,9 @@ async def generate_for_slug(slug: str, exam_name: str) -> int:
         batch = min(BATCH_SIZE, needed - generated)
         print(f"  → {topic['topic']} (weight {topic['weight']}%, {batch} questions)...")
         prompt = _build_prompt(slug, topic, batch, jurisdiction_ctx=jurisdiction_ctx)
-        raw = await limiter.generate(prompt)
+        # ~640 tokens per question (question+options+rationales+explanation); reserve headroom
+        tokens_needed = max(4096, batch * 700)
+        raw = await limiter.generate(prompt, max_tokens=tokens_needed)
         if raw is None:
             break
         qs = _parse_questions(raw)
