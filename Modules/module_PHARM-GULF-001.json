@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "id": "PHARM-GULF-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Gulf Pharmacology: Generic Names, SI Units, High-Alert Drugs & Local Formulary",
+    "title_en": "Gulf Pharmacology: Generic Names, SI Units, High-Alert Drugs & Local Formulary",
+    "order_in_specialty": 9,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 4,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["snle", "dha", "haad", "doh", "qchp", "omsb", "nhra", "mohuae"],
+    "jurisdiction": "gulf",
+    "blueprint_categories": ["pharmacology", "nursing_fundamentals", "medical_surgical"],
+    "verification_status": "pending",
+    "source_note": "Drug name equivalences based on INN (WHO International Nonproprietary Names). SI unit conversions based on IUPAC standards. Gulf formulary notes are general — specific formulary availability varies by facility. Verification recommended."
+  },
+  "lay_summary": "Gulf nursing licensing exams use generic (INN) drug names and SI laboratory units — not the US trade names and mg/dL values familiar from NCLEX. This module bridges that gap, covering essential drug name equivalences, SI unit conversions, high-alert medication safety, and the key pharmacology knowledge tested across all Gulf Prometric exams.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "Generic Drug Names vs US Trade Names: The Gulf Standard",
+      "content": {
+        "intro": "All Gulf Prometric nursing exams (SNLE, DHA, HAAD, QCHP, OMSB, NHRA, MOHUAE) use International Nonproprietary Names (INN) — the WHO-approved generic drug names — rather than US trade names. Understanding these equivalences is essential for exam success and safe practice.",
+        "sections": [
+          {
+            "heading": "Analgesics and Antipyretics",
+            "text": "Paracetamol (INN) = Tylenol (US brand), Panadol (Gulf brand). Maximum adult dose: 1g every 4–6 hours, max 4g/24 hours (3g in hepatic impairment or alcohol use). Paracetamol is the first-line non-opioid analgesic and antipyretic in Gulf healthcare. Ibuprofen (INN) = Advil / Motrin (US brands), Brufen (Gulf brand common). NSAIDs: monitor renal function, GI risk, avoid in third trimester pregnancy and with known renal impairment. Diclofenac (INN) = Voltaren (brand). Tramadol is a weak opioid agonist used for moderate pain — controlled substance in all GCC states. Morphine sulfate (INN): strong opioid, Schedule I controlled — requires dual-nurse verification."
+          },
+          {
+            "heading": "Cardiovascular and Antihypertensive Drugs",
+            "text": "Atenolol, metoprolol, bisoprolol — beta-blockers. Key nursing: do not stop abruptly (rebound hypertension, angina). Hold if HR < 60/min or SBP < 90 mmHg — notify physician. Amlodipine — calcium channel blocker, common for hypertension. Ramipril/lisinopril/enalapril — ACE inhibitors: monitor K+ (hyperkalemia risk), monitor cough (dry cough = ACE inhibitor side effect). Furosemide — loop diuretic: monitor weight, urine output, electrolytes (K+, Na+, Mg2+). Spironolactone — K+-sparing diuretic: monitor hyperkalemia, avoid with ACE inhibitors unless monitored. Digoxin — cardiac glycoside: narrow therapeutic index, monitor for toxicity (bradycardia, nausea, visual disturbances — yellow halos), therapeutic level 0.5–2.0 ng/mL. Atorvastatin/simvastatin/rosuvastatin — statins: take evening dose, monitor LFTs."
+          },
+          {
+            "heading": "Antibiotics, Anticoagulants, and Controlled Drugs",
+            "text": "Amoxicillin / amoxicillin-clavulanate (co-amoxiclav) = Augmentin brand. Clarithromycin (INN) — macrolide; azithromycin is 5-day course for community infections. Ciprofloxacin (INN) = Cipro (US brand). Metronidazole (INN) = Flagyl brand — anaerobic/protozoal infections, avoid alcohol. Warfarin (INN) = Coumadin (US brand not used in Gulf — warfarin used): monitor INR, narrow therapeutic range. Heparin (unfractionated) and enoxaparin (LMWH) — anticoagulants: dual-nurse check required, monitor anti-Xa levels or aPTT. Methadone and morphine — Schedule I controlled substances in all GCC: dual-nurse verification, witness register, locked storage. Midazolam — benzodiazepine, controlled substance — monitor respiratory depression."
+          }
+        ],
+        "clinical_pearl": "Gulf exam pharmacology questions use generic names exclusively. If you see 'Tylenol' or 'Coumadin' on an exam, that is incorrect — the exam will say paracetamol and warfarin. More importantly, in clinical practice: always document the generic name. High-alert Gulf drugs that require dual-nurse check: insulin, heparin/enoxaparin, concentrated KCl, morphine, fentanyl, midazolam, chemotherapy.",
+        "key_points": [
+          "Gulf exams use INN generic names — NOT US trade names",
+          "Paracetamol (not Tylenol), ibuprofen (not Advil), warfarin (not Coumadin)",
+          "Beta-blockers: hold if HR <60 or SBP <90, never stop abruptly",
+          "ACE inhibitors: monitor K+ and dry cough",
+          "Dual-nurse check: insulin, heparin, concentrated KCl, opioids, chemotherapy"
+        ],
+        "references": [
+          {
+            "title": "WHO International Nonproprietary Names — INN Programme",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Publications",
+            "year": 2024,
+            "type": "clinical_guideline",
+            "url": "https://www.who.int/teams/health-product-and-policy-standards/inn",
+            "note": "Source of all INN generic drug names used in Gulf exams"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "SI Units in Gulf Healthcare: Laboratory Values and Clinical Thresholds",
+      "content": {
+        "intro": "Gulf healthcare uses the International System of Units (SI) for all laboratory measurements. Nurses coming from US-trained backgrounds must convert from US conventional units (mg/dL, mEq/L) to SI units (mmol/L, µmol/L). Gulf exam questions present values in SI units.",
+        "sections": [
+          {
+            "heading": "Glucose: mmol/L (not mg/dL)",
+            "text": "Conversion: glucose mmol/L × 18 = mg/dL (or divide mg/dL by 18 to get mmol/L). Normal fasting glucose: 3.9–5.6 mmol/L (70–100 mg/dL). Hypoglycaemia: < 3.9 mmol/L (< 70 mg/dL) — mild; < 2.8 mmol/L severe. Hyperglycaemia action threshold in most Gulf protocols: > 10 mmol/L (180 mg/dL). DKA: glucose typically > 13.9 mmol/L (250 mg/dL) with ketonaemia and acidosis. HHS: glucose typically > 33 mmol/L (600 mg/dL) with osmolality > 320 mOsm/kg. Target glucose in ICU: 6.0–10.0 mmol/L (WHO/IDF guidelines adopted in Gulf)."
+          },
+          {
+            "heading": "Electrolytes, Renal, and Haematology",
+            "text": "Sodium (Na+): normal 136–145 mmol/L (same as mEq/L — unit equivalent for monovalent ions). Potassium (K+): normal 3.5–5.0 mmol/L. Hypokalemia: < 3.5 mmol/L (ECG changes: U waves, flat T). Hyperkalemia: > 5.5 mmol/L (peaked T waves, risk of cardiac arrest > 6.5 mmol/L). Creatinine: normal ~44–97 µmol/L (women) / 62–115 µmol/L (men) — conversion: µmol/L ÷ 88.4 = mg/dL. Urea (not BUN): normal 2.5–7.5 mmol/L (Gulf labs report urea; BUN = urea × 0.467). Haemoglobin: g/dL — normal women 12–16 g/dL, men 13.5–18 g/dL. Haematocrit: % — normal women 36–46%, men 41–53%. Bilirubin: µmol/L — normal total < 21 µmol/L (conversion: µmol/L ÷ 17.1 = mg/dL)."
+          },
+          {
+            "heading": "Temperature, Vital Signs, and Paediatric Values",
+            "text": "Temperature: Celsius (°C) — always. Normal: 36.5–37.5°C. Fever: > 38°C (not 100.4°F). Hyperthermia (heat stroke): > 40°C. Hypothermia: < 35°C. Blood pressure targets in Gulf protocols: systolic < 140 mmHg for most adults; < 130 mmHg for diabetics and CKD per international guidelines. SpO2: % — normal ≥ 95% (≥ 88% acceptable for COPD patients on controlled oxygen). Paediatric normal values: neonatal HR 120–160, infant 100–160, toddler 90–150, school-age 70–120, adolescent 60–100 bpm. Neonatal weight: grams (not pounds) — normal term: 2500–4000g. Respiratory rate: adult normal 12–20/min; tachypnoea > 20/min (NEWS2 threshold: ≥ 25/min = high risk)."
+          }
+        ],
+        "clinical_pearl": "The most common SI conversion tested in Gulf exams is glucose. A question presenting glucose of 2.1 mmol/L is hypoglycaemia (= 38 mg/dL); 33 mmol/L is HHS-range (= 594 mg/dL). For sodium and potassium, mmol/L equals mEq/L numerically — no conversion needed. For creatinine, µmol/L is approximately 88 times larger than mg/dL.",
+        "key_points": [
+          "Glucose in mmol/L: normal 3.9–5.6, hypo < 3.9, DKA > 13.9, HHS > 33",
+          "Creatinine in µmol/L: normal 44–115 (divide by 88 to get mg/dL)",
+          "Urea (not BUN) in mmol/L: normal 2.5–7.5",
+          "Temperature in °C: fever > 38°C, not 100.4°F",
+          "Electrolytes mmol/L = mEq/L for Na+, K+, Cl- (monovalent ions)"
+        ],
+        "references": [
+          {
+            "title": "IUPAC–IFCC Recommendations on Quantities and Units in Clinical Chemistry",
+            "authors": "International Union of Pure and Applied Chemistry",
+            "journal_or_source": "Pure and Applied Chemistry",
+            "year": 2022,
+            "type": "clinical_guideline",
+            "url": "https://iupac.org/",
+            "note": "International standard for SI units in clinical laboratory"
+          },
+          {
+            "title": "IDF Diabetes Atlas — Clinical Guidelines for Glucose Management",
+            "authors": "International Diabetes Federation",
+            "journal_or_source": "IDF Publications",
+            "year": 2023,
+            "type": "clinical_guideline",
+            "url": "https://diabetesatlas.org/",
+            "note": "International glucose targets adopted in Gulf guidelines"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "High-Alert Medications and Controlled Drugs in Gulf Practice",
+      "content": {
+        "intro": "High-alert medications carry disproportionate risk of causing significant patient harm when used in error. All Gulf healthcare regulatory bodies mandate specific safety checks for these agents. Understanding high-alert drug protocols is heavily tested across all Gulf Prometric exams.",
+        "sections": [
+          {
+            "heading": "Insulin: The Highest-Alert Medication",
+            "text": "Insulin is the single most common cause of medication errors in hospital settings worldwide. Gulf protocols for insulin: independent dual-nurse verification before EVERY administration, correct insulin type (basal vs bolus vs rapid-acting), correct dose in units (U — never write 'U' alone, always 'units' to prevent misread as zero), correct route (subcutaneous or IV per order — never IM), correct timing relative to meals for meal-time insulin. Types: rapid-acting (aspart, lispro, glulisine) — give within 15 min of meal. Short-acting (regular/soluble) — give 30 min before meal. Intermediate (NPH) — once or twice daily. Long-acting (glargine, detemir, degludec) — no peak, once daily. Premixed (70/30, 50/50) — dual dosing window. Hypoglycaemia risk highest with rapid and regular insulin."
+          },
+          {
+            "heading": "Anticoagulants: Heparin and Warfarin",
+            "text": "Unfractionated heparin (UFH): dual-nurse verification required. Monitor aPTT (target typically 60–100 seconds = 1.5–2.5× normal). Antidote: protamine sulfate. Low molecular weight heparin (LMWH / enoxaparin): weight-based dosing (1 mg/kg SC twice daily or 1.5 mg/kg once daily for treatment). Monitor anti-Xa level in renal impairment. Antidote: partial reversal with protamine. Warfarin: monitor INR — therapeutic range typically 2.0–3.0 (2.5–3.5 for mechanical heart valves). Antidote: vitamin K (slow reversal) or fresh frozen plasma (rapid). Hold warfarin if INR > 3.5 (supratherapeutic) — notify physician. Warfarin interactions: antibiotics ↑ INR, NSAIDs ↑ bleeding risk, St John's Wort ↓ INR."
+          },
+          {
+            "heading": "Concentrated Electrolytes and Other High-Alert Agents",
+            "text": "Concentrated potassium chloride (KCl): NEVER administer IV bolus — fatal cardiac arrest. Must be diluted before administration. Maximum peripheral infusion rate: 10 mmol/hour (some protocols 20 mmol/hour with ECG monitoring). Central access required for > 20 mmol/hour. Dual-nurse verification mandatory. Concentrated sodium chloride (hypertonic saline 3%): restricted use for severe hyponatraemia under close monitoring — correct Na+ no faster than 8–10 mmol/L per 24 hours (risk of osmotic demyelination). Magnesium sulfate: used for eclampsia and severe asthma — monitor respiratory rate (< 12/min: hold, give calcium gluconate antidote), urine output (< 25 mL/hour: hold), DTRs (absent: hold). Calcium gluconate is the antidote for magnesium toxicity."
+          }
+        ],
+        "clinical_pearl": "The key question for any high-alert medication error on a Gulf exam: what is the FIRST action? Answer is always: assess the patient first (are they harmed?), then notify the physician, document accurately, and complete the incident report. For concentrated KCl bolus given IV: assess the patient → call rapid response → notify physician. Never delay assessment to complete paperwork.",
+        "key_points": [
+          "Insulin: dual-nurse check always, write 'units' not 'U', never IM",
+          "UFH: monitor aPTT; antidote protamine sulfate",
+          "Warfarin: monitor INR 2.0–3.0; antidote vitamin K or FFP",
+          "KCl IV: NEVER bolus — dilute always, max 10 mmol/hour peripheral",
+          "MgSO4 toxicity: RR <12, absent DTRs — antidote calcium gluconate"
+        ],
+        "references": [
+          {
+            "title": "ISMP List of High-Alert Medications in Acute Care Settings",
+            "authors": "Institute for Safe Medication Practices",
+            "journal_or_source": "ISMP Publications",
+            "year": 2023,
+            "type": "clinical_guideline",
+            "url": "https://www.ismp.org/recommendations/high-alert-medications-acute-list",
+            "note": "Internationally adopted list of high-alert medications — used in Gulf facilities"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Psychotropic Medications, Pain Management, and Ramadan Adjustments",
+      "content": {
+        "intro": "Psychiatric medications, opioid pain management, and Ramadan-related medication adjustments are clinically significant areas tested in Gulf nursing exams, particularly relevant to the Gulf healthcare context.",
+        "sections": [
+          {
+            "heading": "Psychotropic Medications in Gulf Practice",
+            "text": "Antidepressants: SSRIs (sertraline, fluoxetine, escitalopram) are first-line for depression and anxiety. Monitor: increased suicidal ideation in first weeks (especially < 25 years), serotonin syndrome (hyperthermia, agitation, myoclonus, tachycardia) if combined with MAOIs or other serotonergic drugs — MAOIs require 14-day washout before SSRI. TCAs (amitriptyline, imipramine): anticholinergic effects (dry mouth, urinary retention, constipation, blurred vision), cardiotoxic in overdose. Antipsychotics: haloperidol (typical), risperidone, olanzapine, quetiapine (atypical). Extrapyramidal side effects (EPS) with typicals: akathisia, dystonia, tardive dyskinesia — treat acute dystonia with benztropine IM. Clozapine: risk of agranulocytosis — mandatory weekly WBC monitoring. Lithium: narrow therapeutic index (0.6–1.2 mmol/L therapeutic), toxic > 1.5 mmol/L — signs: tremor, polyuria, nausea, ataxia, confusion. Monitor renal function (lithium is renally cleared)."
+          },
+          {
+            "heading": "Opioid Pain Management",
+            "text": "Opioids used in Gulf practice: morphine sulfate, fentanyl, tramadol, oxycodone, pethidine (meperidine — used in some Gulf facilities, especially for obstetric pain). All Schedule I controlled substances in GCC: dual-nurse verification, witness register, locked storage, wastage documentation with witness. Assessment before opioid administration: pain score (NRS 0–10 or Wong-Baker FACES for children), respiratory rate (hold if < 12/min), level of consciousness, BP/HR. Opioid overdose reversal: naloxone (Narcan) IV/IM/intranasal — 0.4 mg IV, repeat every 2–3 min, max 10 mg. Duration of naloxone shorter than most opioids — reassess, may need repeat doses or infusion. PCA (patient-controlled analgesia): only the patient presses the PCA button — a family member pressing it bypasses the safety mechanism."
+          },
+          {
+            "heading": "Medication Management During Ramadan",
+            "text": "During Ramadan, Muslim patients who choose to fast from sunrise to sunset require medication schedule adjustments. Key nursing responsibilities: identify fasting patients on admission, collaborate with the physician and pharmacist to review all medications for Ramadan safety. Medications that cannot be deferred: insulin (adjust type and dose with diabetic team — basal-bolus regimens are safer during Ramadan fasting), antiepileptics (timing adjustment needed, not deferral), immunosuppressants (organ transplant patients — individual consultation). Oral medications: permissible after sunset (Iftar) and before sunrise (Suhoor). IV, IM, inhaler, eye drop medications are debated — most Gulf Islamic scholars consider them permissible during fasting as they are not nutritive. Sublingual and transdermal formulations: generally permissible. Respect the patient's religious choice about fasting — do not pressure to break the fast without medical necessity."
+          }
+        ],
+        "clinical_pearl": "Ramadan medication management is uniquely tested in Gulf exams. The nurse's role: never unilaterally change a patient's medication schedule for Ramadan — always involve the physician and pharmacist. The correct nursing action when a fasting patient refuses morning medications: document the refusal, notify the physician, facilitate religious accommodation by reviewing whether medications can be safely rescheduled to evening.",
+        "key_points": [
+          "SSRI + MAOI: serotonin syndrome risk — mandatory 14-day washout",
+          "Clozapine: weekly WBC monitoring for agranulocytosis",
+          "Lithium: therapeutic 0.6–1.2 mmol/L; toxic > 1.5 mmol/L",
+          "Opioid reversal: naloxone 0.4 mg IV, repeat 2–3 min interval",
+          "Ramadan: involve physician and pharmacist — never unilaterally reschedule"
+        ],
+        "references": [
+          {
+            "title": "Diabetes and Ramadan International Alliance (DaR) Guidelines",
+            "authors": "International Diabetes Federation & Diabetes and Ramadan Alliance",
+            "journal_or_source": "IDF Publications",
+            "year": 2021,
+            "type": "clinical_guideline",
+            "url": "https://dar-alliance.org/",
+            "note": "International guidelines for diabetes management during Ramadan — adopted in Gulf practice"
+          },
+          {
+            "title": "BNF — British National Formulary (online)",
+            "authors": "Joint Formulary Committee",
+            "journal_or_source": "BMJ Group and Pharmaceutical Press",
+            "year": 2024,
+            "type": "clinical_reference",
+            "url": "https://bnf.nice.org.uk/",
+            "note": "Standard pharmacological reference used widely in Gulf healthcare alongside local formularies"
+          }
+        ]
+      }
+    }
+  ]
+}

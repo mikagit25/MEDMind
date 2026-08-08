@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "id": "REG-BH-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Bahrain: NHRA, Scope, Documentation & Patient Rights",
+    "title_en": "Nursing Practice in Bahrain: NHRA, Scope, Documentation & Patient Rights",
+    "order_in_specialty": 7,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["nhra"],
+    "jurisdiction": "bh",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available NHRA Bahrain documentation. All local norms require verification by a nurse licensed in Bahrain before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in Bahrain under the National Health Regulatory Authority (NHRA), including registration, scope of practice, patient rights, incident reporting, and cultural considerations relevant to the NHRA nursing licensing exam.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "NHRA: Registration, Licensing, and Scope of Practice in Bahrain",
+      "content": {
+        "intro": "The National Health Regulatory Authority (NHRA) is Bahrain's sole national regulatory body for all healthcare professionals, including nurses. NHRA registration is mandatory to legally practise nursing in Bahrain.",
+        "sections": [
+          {
+            "heading": "NHRA Nurse Classification",
+            "text": "NHRA classifies nurses into: Registered Nurse (RN), Senior Registered Nurse, Specialist Nurse, and Advanced Practice Nurse (APN). Standard RN scope of practice includes: patient assessment and care planning, medication administration per physician order, patient and family education, wound care, vital signs monitoring, and documentation. Prescribing medications is not within standard RN scope — Advanced Practice Nurse licensure is required for prescribing. NHRA verifies credentials from the nurse's country of origin and requires good standing certification before granting registration."
+          },
+          {
+            "heading": "NHRA Prometric Exam",
+            "text": "The NHRA nursing licensing examination is a computer-based Prometric exam consisting of 150 MCQ questions in a 3-hour sitting. The exam assesses core clinical nursing competencies across: Medical-Surgical Nursing, Maternal-Child Health, Mental Health, Paediatric Nursing, Community Health, Fundamentals of Nursing, and Nursing Management and Leadership. Candidates must achieve the NHRA passing score to obtain a healthcare practice licence. Source: NHRA Candidate Information Bulletin."
+          },
+          {
+            "heading": "Bahrain's Healthcare System",
+            "text": "Bahrain's healthcare is delivered through the Ministry of Health Bahrain (MoH), which operates the main public hospital network (Salmaniya Medical Complex, King Hamad University Hospital, and health centres), and private sector hospitals under NHRA regulation. Bahrain is a small, highly developed Gulf state with a bilingual (Arabic/English) healthcare environment. The Royal Medical Services (RMS) provides care for military personnel and their dependants. NHRA applies internationally recognised standards including elements of JCI accreditation in major hospitals."
+          }
+        ],
+        "clinical_pearl": "On the NHRA exam, scope of practice questions follow the same Gulf pattern: the nurse independently performs assessment, standard medication administration, and patient education. Any order for a new medication, procedure, or significant change in care requires physician authorisation. If a nurse receives a verbal order in an emergency, it must be written and countersigned by the physician as soon as possible.",
+        "key_points": [
+          "NHRA registration mandatory to practise in Bahrain",
+          "NHRA Prometric: 150 MCQ, 3 hours",
+          "Standard RN scope: assessment, medication (per order), education",
+          "Prescribing: APN licensure required",
+          "Verbal/phone orders: document immediately, physician countersigns ASAP"
+        ],
+        "references": [
+          {
+            "title": "NHRA Candidate Information Bulletin — Nursing",
+            "authors": "National Health Regulatory Authority Bahrain",
+            "journal_or_source": "NHRA Official Publications",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://www.nhra.bh/en/",
+            "note": "Primary source for NHRA exam and licensing requirements"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Patient Rights, Consent, and Incident Reporting in Bahrain",
+      "content": {
+        "intro": "Bahrain's NHRA establishes clear standards for patient rights, informed consent, and mandatory incident reporting. These are regularly tested in the NHRA nursing licensing exam.",
+        "sections": [
+          {
+            "heading": "Patient Rights in Bahrain",
+            "text": "NHRA and Bahrain MOH Patient Rights Charter guarantee: the right to dignified and equitable care without discrimination, the right to complete and accurate information about diagnosis and treatment, the right to give or refuse informed consent, the right to confidentiality and privacy of health information, the right to access medical records, and the right to complain through the NHRA patient complaint mechanism. In Bahrain's multicultural healthcare environment (significant expatriate population), patient information must be provided in Arabic or English, with translation services available for other languages."
+          },
+          {
+            "heading": "Informed Consent Framework",
+            "text": "Informed consent in Bahrain must be: voluntary (no coercion), informed (adequate information provided), and given by a competent patient or authorised substitute. Competent adults (18 and above) consent independently — family preference cannot override a competent patient's decision, though family involvement is culturally important and should be facilitated where the patient wishes it. For incapacitated patients, the nearest legal guardian or next of kin provides consent. Emergency exception: if the patient is incapacitated and no guardian is available, emergency care may proceed in the patient's best interest. Minors (under 18): parental or guardian consent required."
+          },
+          {
+            "heading": "Incident Reporting: NHRA Requirements",
+            "text": "NHRA mandates internal incident reporting for all healthcare facilities in Bahrain. Mandatory reportable events include: sentinel events (unexpected death, serious harm), adverse drug events, patient falls, healthcare-associated infections, and near-misses. Sentinel events must be reported to NHRA within specified timeframes. Nurses are obligated to: complete an internal incident report promptly, notify the treating physician, document clinical facts in the patient's medical record, and cooperate with root cause analysis. The incident report is confidential and is NOT a legal medical record document."
+          }
+        ],
+        "clinical_pearl": "NHRA exam questions on patient rights often combine cultural scenarios with legal rights. Example: a conservative Bahraini family insists a female patient must not be informed of her cancer diagnosis. The nurse's correct action: assess the patient's own wishes first — a competent patient has the right to both receive AND control who receives their health information. The nurse cannot withhold information from the patient on the family's request without the patient's own consent to that arrangement.",
+        "key_points": [
+          "Competent adults (18+) consent independently; family cannot override",
+          "Emergency: care proceeds in patient's best interest without guardian present",
+          "Incident report is NOT part of medical record — document facts in chart separately",
+          "Sentinel events: report to NHRA within required timeframe",
+          "Patient controls own health information — cannot be withheld at family request"
+        ],
+        "references": [
+          {
+            "title": "NHRA Patient Rights Charter",
+            "authors": "National Health Regulatory Authority Bahrain",
+            "journal_or_source": "NHRA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.nhra.bh/en/",
+            "note": "Official patient rights framework Bahrain"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety, Cultural Care, and Infection Control in Bahrain",
+      "content": {
+        "intro": "Bahrain's healthcare facilities follow NHRA medication safety standards and WHO infection control guidelines, with cultural adaptations relevant to the local patient population.",
+        "sections": [
+          {
+            "heading": "Medication Safety: NHRA Standards",
+            "text": "NHRA medication safety requirements: two-patient identifier verification before every medication administration (name + date of birth or medical record number), five rights of medication administration, independent dual-nurse verification for high-alert medications (insulin, heparin, concentrated potassium chloride, opioids, chemotherapy agents), controlled drug register with dual signatures and witnessed disposal. All medications in Bahrain are identified by generic (INN) names: paracetamol (not Tylenol/Panadol brand is used locally but generic name is essential), ibuprofen (Brufen), metformin, atorvastatin. Laboratory values use SI units exclusively: glucose mmol/L, creatinine µmol/L, haemoglobin g/dL, temperature °C."
+          },
+          {
+            "heading": "Cultural Care in Bahrain",
+            "text": "Bahrain has a mixed population of Bahraini nationals (Sunni and Shia Muslim majority), Arab expatriates, South Asian workers, and Western expatriates. Cultural considerations for nursing: gender-sensitive care (many Bahraini female patients prefer female healthcare providers — accommodate where possible with same-gender staff), Ramadan fasting accommodation (medication scheduling, IV hydration management for fasting patients), halal medication requirements (gelatin-containing capsules may be refused; alcohol-based excipients require checking), prayer time respect (5 daily prayers — allow reasonable accommodation within care plan), and modesty during physical examination (chaperone for cross-gender examinations). These cultural adaptations are tested in the NHRA exam as culturally congruent care."
+          },
+          {
+            "heading": "Infection Control in Bahrain",
+            "text": "Bahrain follows WHO and GCC infection control standards via NHRA. MERS-CoV precautions: Standard + Droplet + Contact, N95 for aerosol-generating procedures, mandatory reporting to Bahrain MOH. Bahrain participates in GCC infection surveillance networks. Standard precautions apply to ALL patients regardless of diagnosis. Hand hygiene: WHO 5 Moments model. In Bahrain's hospital setting: healthcare-associated infection rates are monitored by NHRA as quality indicators. Needlestick injury: wash immediately, report to occupational health, follow post-exposure prophylaxis protocol."
+          }
+        ],
+        "clinical_pearl": "Cultural care questions in the NHRA exam often present a scenario with a conservative patient and ask the nurse's BEST response. Correct approach: respect the patient's autonomy and cultural/religious preferences while ensuring safe, evidence-based care. Offering a same-gender nurse, allowing prayer accommodation, and checking medication composition (halal) are all appropriate nursing actions — not barriers to care.",
+        "key_points": [
+          "Two identifiers before every medication administration",
+          "Dual-nurse check for high-alert medications: insulin, heparin, concentrated KCl, opioids",
+          "Lab units SI: glucose mmol/L, creatinine µmol/L",
+          "Cultural care: gender preference, Ramadan, halal medication, prayer accommodation",
+          "MERS-CoV: standard + droplet + contact + report to Bahrain MOH"
+        ],
+        "references": [
+          {
+            "title": "NHRA Medication Management Standards",
+            "authors": "National Health Regulatory Authority Bahrain",
+            "journal_or_source": "NHRA Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.nhra.bh/en/",
+            "note": "Medication safety standards for Bahrain"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "id": "REG-QA-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Qatar: QCHP, Scope, Documentation & Patient Rights",
+    "title_en": "Nursing Practice in Qatar: QCHP, Scope, Documentation & Patient Rights",
+    "order_in_specialty": 5,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["qchp"],
+    "jurisdiction": "qa",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available QCHP and Qatar MOH documentation. All local norms require verification by a nurse licensed in Qatar before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in Qatar under the Qatar Council for Healthcare Practitioners (QCHP), including registration, scope of practice, patient rights, incident reporting, and the clinical environment of Qatar's healthcare system.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "QCHP: Registration, Licensing, and Scope of Practice",
+      "content": {
+        "intro": "The Qatar Council for Healthcare Practitioners (QCHP) is the national regulatory body responsible for licensing all healthcare professionals in Qatar, including nurses. QCHP registration is mandatory before any nurse may legally practise in Qatar.",
+        "sections": [
+          {
+            "heading": "QCHP Nurse Classification",
+            "text": "QCHP classifies nursing practice into four levels: Registered Nurse (RN), Senior Registered Nurse, Specialist Nurse (advanced clinical practice), and Nurse Practitioner. Each level has defined competency boundaries. Standard RN scope includes: patient assessment, care planning, medication administration per physician order, patient education, wound care, and care coordination. Independent prescribing is not within standard RN scope — NP licensure is required for prescribing authority."
+          },
+          {
+            "heading": "QCHP Prometric Exam Overview",
+            "text": "The QCHP nursing licensing exam is a computer-based Prometric examination. It consists of 150 MCQ questions with a 3-hour time limit. The exam tests core nursing competencies across: Medical-Surgical Nursing, Maternal-Child Health, Mental Health and Psychiatric Nursing, Paediatric Nursing, Community and Public Health, Nursing Fundamentals, and Leadership and Management. A passing score is required before obtaining a Qatar Health Practitioner Licence (QHPL). Source: QCHP Examination Guide."
+          },
+          {
+            "heading": "Qatar Healthcare Context",
+            "text": "Qatar's healthcare system is predominantly delivered through Hamad Medical Corporation (HMC) — the main public healthcare provider — and the Primary Health Care Corporation (PHCC). Private hospitals also operate under QCHP licensing. Qatar follows JCI (Joint Commission International) accreditation standards in major public facilities. The healthcare language is Arabic and English; nurses must communicate effectively in a multicultural patient environment where over 85% of Qatar's population are expatriates."
+          }
+        ],
+        "clinical_pearl": "QCHP exam questions on scope of practice test the same principle as other Gulf exams: assessment and standard medication administration (per physician order) are within RN scope; prescribing and advanced procedures require NP or physician. Qatar's JCI-accredited environment means quality and safety standards are applied rigorously.",
+        "key_points": [
+          "QCHP registration is mandatory to practise in Qatar",
+          "Four nurse levels: RN, Senior RN, Specialist Nurse, Nurse Practitioner",
+          "Prescribing: NP licensure required — not within standard RN scope",
+          "QCHP Prometric: 150 MCQ, 3 hours",
+          "Major provider: Hamad Medical Corporation (HMC), JCI-accredited"
+        ],
+        "references": [
+          {
+            "title": "QCHP Healthcare Practitioner Examination Guide",
+            "authors": "Qatar Council for Healthcare Practitioners",
+            "journal_or_source": "QCHP Official Publications",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://qchp.org.qa/en/Examinations",
+            "note": "Primary source for QCHP exam structure and licensing requirements"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Consent, Incident Reporting, and Patient Rights in Qatar",
+      "content": {
+        "intro": "Qatar's legal and regulatory framework for patient rights, informed consent, and mandatory incident reporting is governed by QCHP standards and Qatar National Health Strategy directives.",
+        "sections": [
+          {
+            "heading": "Informed Consent in Qatar",
+            "text": "All competent adult patients in Qatar have the right to give or withhold informed consent for any procedure or treatment. The patient must receive adequate information in a language they understand — Arabic and English are standard; translation services must be provided for other languages. For incapacitated adult patients, consent is obtained from the legally designated guardian or next of kin. For minors (under 18), parental or guardian consent is required. Jehovah's Witness refusal of blood products and similar religious refusals must be documented and respected for competent adult patients; the case is escalated to the treating physician and ethics committee if clinical risk is severe. Source: Qatar National Health Regulations."
+          },
+          {
+            "heading": "Mandatory Incident Reporting in Qatar",
+            "text": "All healthcare facilities in Qatar are required to maintain internal incident reporting systems aligned with QCHP and HMC standards. Mandatory reports include: sentinel events, adverse drug events, patient falls, healthcare-associated infections, near-misses, and any event causing patient harm. Serious incidents (sentinel events, patient deaths related to care) must be reported to QCHP within 24 hours. HMC uses an electronic incident reporting system internally. Nurses are professionally obligated to report incidents — non-reporting is a disciplinary violation."
+          },
+          {
+            "heading": "Patient Rights Charter (Qatar)",
+            "text": "The Qatar National Health Regulations and QCHP Patient Rights framework guarantee: right to respectful care, right to information about diagnosis and treatment, right to informed consent and refusal, right to privacy and confidentiality, right to access medical records, right to file complaints through the QCHP complaints mechanism. Qatar's multicultural patient population means nurses must be culturally sensitive and avoid assumptions based on nationality or religion."
+          }
+        ],
+        "clinical_pearl": "On the QCHP exam, questions on consent test whether the nurse correctly identifies who must consent and whether the patient is competent. Key rule: competent adult patient's own decision overrides family preference. The nurse's role is to ensure the patient receives full information and documents the consent process accurately.",
+        "key_points": [
+          "Competent adults consent independently; family preference does not override",
+          "Translation services are mandatory — a patient right in Qatar",
+          "Sentinel events reported to QCHP within 24 hours",
+          "Patient rights: information, consent, privacy, complaints",
+          "Minors under 18: parental/guardian consent required"
+        ],
+        "references": [
+          {
+            "title": "Qatar National Health Regulations",
+            "authors": "Qatar Ministry of Public Health",
+            "journal_or_source": "Qatar MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moph.gov.qa/english/Pages/default.aspx",
+            "note": "National health regulatory framework"
+          },
+          {
+            "title": "QCHP Patient Rights and Responsibilities",
+            "authors": "Qatar Council for Healthcare Practitioners",
+            "journal_or_source": "QCHP Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://qchp.org.qa/en/PatientRights",
+            "note": "Official patient rights framework"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety and Infection Control in Qatar",
+      "content": {
+        "intro": "Medication safety and infection control in Qatar follow QCHP standards aligned with JCI and WHO guidelines, with regional adaptations relevant to the QCHP exam.",
+        "sections": [
+          {
+            "heading": "Medication Safety Standards in Qatar",
+            "text": "Qatar healthcare facilities follow the QCHP Medication Management Standards. Key requirements: two-patient identifier verification before medication administration, five rights of administration (patient, drug, dose, route, time), independent double-check by two licensed nurses for high-alert medications (insulin, heparin, concentrated electrolytes, opioids), controlled drug register with dual signatures. Drug names in Qatar use International Nonproprietary Names (INN/generic names) — nurses must know generic names, not US trade names. Laboratory values use SI units: glucose in mmol/L, creatinine in µmol/L, temperature in °C."
+          },
+          {
+            "heading": "Infection Control: MERS-CoV and Other Regional Pathogens",
+            "text": "Qatar follows WHO and GCC infection control guidelines. MERS-CoV precautions in Qatar: Standard + Droplet + Contact Precautions, N95 respirator for aerosol-generating procedures, negative pressure room if available. Mandatory reporting of MERS-CoV to Qatar MOH is required. Mass gathering events (FIFA World Cup legacy infrastructure, Hajj preparations) require additional infection surveillance. Standard hand hygiene: WHO 5 Moments. Qatar participates in the GCC Infection Control Committee regional network."
+          },
+          {
+            "heading": "Controlled Substances in Qatar",
+            "text": "Controlled substances in Qatar are regulated by the Qatar Ministry of Public Health under the Controlled Drugs Regulations. Classification follows international INCB conventions (similar to GCC standards). Nurses must maintain accurate controlled drug registers with dual-nurse witnessing. Disposal of controlled drugs follows specific facility protocols with pharmacy involvement. Self-administration of controlled drugs is not permitted for nurses regardless of circumstance."
+          }
+        ],
+        "clinical_pearl": "QCHP exam questions on medication safety often involve high-alert medications. Remember: insulin, heparin, concentrated KCl, and opioids all require independent dual-nurse verification in Qatar's JCI-accredited hospitals. This is a patient safety standard, not optional protocol.",
+        "key_points": [
+          "Two identifiers before every medication administration",
+          "Dual-nurse check: insulin, heparin, concentrated electrolytes, opioids",
+          "Drug names: generic (INN) — not US brand names",
+          "Labs in SI units: glucose mmol/L, creatinine µmol/L, temp °C",
+          "MERS-CoV: standard + droplet + contact precautions, report to Qatar MOH"
+        ],
+        "references": [
+          {
+            "title": "QCHP Medication Management Standards",
+            "authors": "Qatar Council for Healthcare Practitioners",
+            "journal_or_source": "QCHP Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://qchp.org.qa/en/Standards",
+            "note": "Medication safety requirements"
+          },
+          {
+            "title": "WHO MERS-CoV Infection Prevention and Control Guidelines",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Publications",
+            "year": 2023,
+            "type": "clinical_guideline",
+            "url": "https://www.who.int/publications/i/item/10665-174652",
+            "note": "IPC guidelines for MERS-CoV adopted across GCC"
+          }
+        ]
+      }
+    }
+  ]
+}

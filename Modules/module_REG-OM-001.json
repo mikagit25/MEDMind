@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "id": "REG-OM-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Oman: OMSB, Scope, Documentation & Patient Rights",
+    "title_en": "Nursing Practice in Oman: OMSB, Scope, Documentation & Patient Rights",
+    "order_in_specialty": 6,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["omsb"],
+    "jurisdiction": "om",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available Oman MOH and OMSB documentation. All local norms require verification by a nurse licensed in Oman before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in Oman under the Oman Medical Specialty Board (OMSB) and the Ministry of Health Oman, including scope of practice, patient rights, documentation requirements, and infection control relevant to the OMSB nursing licensing exam.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "OMSB and Oman MOH: Nursing Registration and Scope of Practice",
+      "content": {
+        "intro": "Nursing practice in Oman is regulated by the Oman Medical Specialty Board (OMSB) and the Ministry of Health (MOH) Oman. All nurses wishing to practise in Oman must obtain Oman MOH registration and pass the OMSB Prometric licensing examination.",
+        "sections": [
+          {
+            "heading": "Nurse Registration in Oman",
+            "text": "Nurses in Oman register with the Ministry of Health Oman's Directorate General of Nursing Affairs. The OMSB administers the Prometric licensing examination that all foreign-trained nurses must pass. Oman MOH classifies nurses as: Registered Nurse (diploma or BSN), Senior Nurse, Specialist Nurse, and Nurse Consultant. Registration requires: verified academic credentials, good standing certificate from home country, passing the OMSB licensing exam, and a valid certificate of good health."
+          },
+          {
+            "heading": "Scope of Practice in Oman",
+            "text": "Standard RN scope in Oman includes: patient assessment and care planning, medication administration per physician order, patient and family education, wound care and dressing, vital signs monitoring, and documentation. Prescribing medications is not within the standard RN scope — a physician order is required for all medications. Advanced practice nurses (specialist/consultant) may have extended competencies in defined clinical areas per MOH approval. Oman's healthcare system is primarily delivered through MOH hospitals and polyclinics, supplemented by Royal Hospital (tertiary referral) and private facilities."
+          },
+          {
+            "heading": "OMSB Prometric Exam Overview",
+            "text": "The OMSB nursing exam is a computer-based Prometric examination of 150 MCQ questions completed in 3 hours. Blueprint topics: Medical-Surgical Nursing, Maternal and Child Health, Psychiatric and Mental Health Nursing, Paediatric Nursing, Community Health, Nursing Fundamentals, Leadership and Management. The passing threshold is set by OMSB and varies by cohort. Source: OMSB official candidate handbook."
+          }
+        ],
+        "clinical_pearl": "OMSB exam questions on delegation and scope of practice are common. Oman follows the international standard: the nurse who is delegating retains accountability for the outcome. Only tasks within the competency of the delegatee may be delegated — assessment cannot be delegated to an unregistered care assistant.",
+        "key_points": [
+          "Oman MOH registration required before practising",
+          "OMSB Prometric: 150 MCQ, 3 hours",
+          "Standard RN scope: assessment, medication administration (per order), education",
+          "Prescribing: physician order always required for standard RN",
+          "Delegation: nurse retains accountability; assessment cannot be delegated"
+        ],
+        "references": [
+          {
+            "title": "OMSB Candidate Handbook — Nursing",
+            "authors": "Oman Medical Specialty Board",
+            "journal_or_source": "OMSB Official Publications",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://www.omsb.org/",
+            "note": "Primary source for OMSB exam structure and scope"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Patient Rights, Consent, and Incident Reporting in Oman",
+      "content": {
+        "intro": "Oman's legal framework for patient rights and healthcare practitioner responsibilities is governed by the Law of the Practice of Human Medicine (Royal Decree 75/2009) and Oman MOH policies. Understanding these is essential for the OMSB exam.",
+        "sections": [
+          {
+            "heading": "Patient Rights in Oman",
+            "text": "Oman MOH Patient Rights Charter guarantees: the right to receive care without discrimination, the right to information about diagnosis and treatment in an understandable manner, the right to give or refuse informed consent, the right to privacy and confidentiality, the right to access medical records, and the right to lodge a complaint. In Oman, patient information must be communicated in Arabic or in the patient's language with translation assistance. The nurse is responsible for ensuring the patient understands the information provided."
+          },
+          {
+            "heading": "Informed Consent in Oman",
+            "text": "Oman follows the principle that a legally competent adult patient must provide informed consent before any procedure or treatment. Consent must be documented in the medical record with the patient's signature. For emergency situations where the patient is unable to consent and no guardian is present, emergency care may proceed in the patient's best interest. For minors (under 18) and incapacitated adults, a legal guardian or next of kin provides consent. Nurses must ensure the patient has received sufficient information to make an informed decision and that consent is voluntary — not obtained under duress."
+          },
+          {
+            "heading": "Incident Reporting in Oman",
+            "text": "Oman MOH mandates incident reporting for all adverse events, near-misses, and sentinel events. Hospitals use internal incident reporting systems. Sentinel events must be escalated to hospital management and reported to Oman MOH as required. Nurses must complete an incident report promptly following any adverse event, including patient falls, medication errors, and equipment failures. Documentation of the incident in the medical record is also required — separately from the incident report (which is an internal quality tool and NOT part of the legal medical record in most Oman MOH facilities)."
+          }
+        ],
+        "clinical_pearl": "A key OMSB exam concept: the incident report is NOT part of the patient's medical record — it is an internal quality improvement tool. The nurse must document the facts of what happened in the medical record separately. Never reference the incident report in the medical record entry.",
+        "key_points": [
+          "Competent adults: right to consent or refuse treatment",
+          "Emergency exception: care may proceed without consent if patient incapacitated and no guardian present",
+          "Incident report is NOT part of the medical record — document facts separately in chart",
+          "Sentinel events: report to Oman MOH",
+          "Minors under 18: parental/guardian consent required"
+        ],
+        "references": [
+          {
+            "title": "Oman Law of the Practice of Human Medicine — Royal Decree 75/2009",
+            "authors": "Sultanate of Oman",
+            "journal_or_source": "Official Gazette of Oman",
+            "year": 2009,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.om/en/web/guest/home",
+            "note": "Primary legal framework for healthcare practice in Oman"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety, Infection Control, and Regional Diseases in Oman",
+      "content": {
+        "intro": "Medication safety in Oman follows Oman MOH pharmacy standards and international best practice. Regional diseases relevant to Oman's nursing exam include MERS-CoV and tropical infections. All lab values use SI units.",
+        "sections": [
+          {
+            "heading": "Medication Safety in Oman",
+            "text": "Oman MOH medication safety standards require: two-patient identifier check before every administration, five rights verification (patient, drug, dose, route, time), independent dual-nurse verification for high-alert medications (concentrated electrolytes, insulin, heparin, opioids), accurate controlled drug register with dual witness signatures. Drug names in Oman use INN (International Nonproprietary Names/generic names): paracetamol (not Tylenol), ibuprofen (not Advil), metoclopramide (not Reglan). Lab units: glucose mmol/L, creatinine µmol/L, potassium mmol/L, temperature °C."
+          },
+          {
+            "heading": "Infection Control: Oman Context",
+            "text": "Oman MOH follows WHO and GCC infection control standards. MERS-CoV is regionally significant: apply Standard + Droplet + Contact Precautions, N95 for aerosol-generating procedures, report to Oman MOH mandatory. Brucellosis is relevant in Oman due to cattle and camel exposure — patients presenting with fever, sweats, and joint pain after animal contact should prompt consideration. Dengue fever cases occur in Oman, particularly in Dhofar governorate. Standard hand hygiene follows WHO 5 Moments. Oman participates in GCC-wide infection surveillance."
+          },
+          {
+            "heading": "Occupational Safety for Nurses in Oman",
+            "text": "Oman MOH facilities follow occupational health standards for healthcare workers: hepatitis B vaccination is mandatory for all clinical staff, annual TB screening is required, and needlestick injury protocols must be followed immediately (wash, report to occupational health, initiate post-exposure protocol as indicated). Personal protective equipment must be used per facility policy based on transmission-based precaution levels. Nurses have the right to report unsafe working conditions through facility occupational safety channels."
+          }
+        ],
+        "clinical_pearl": "OMSB questions on regional diseases often involve MERS-CoV precautions or Brucellosis presentation. MERS: standard + droplet + contact. Brucellosis: think undulant fever + joint pain + animal or unpasteurised dairy contact. Lab confirmation by serology (Brucella agglutination test). Treatment: combination antibiotics (doxycycline + rifampicin typically).",
+        "key_points": [
+          "High-alert medications: dual-nurse verification required",
+          "Drug names: generic (INN) — paracetamol not Tylenol, ibuprofen not Advil",
+          "Labs: SI units — glucose mmol/L, creatinine µmol/L",
+          "MERS-CoV: standard + droplet + contact + report to MOH",
+          "Brucellosis: undulant fever + joint pain + animal exposure"
+        ],
+        "references": [
+          {
+            "title": "Oman MOH Infection Prevention and Control Guidelines",
+            "authors": "Oman Ministry of Health",
+            "journal_or_source": "Oman MOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.om/en/web/guest/home",
+            "note": "IPC standards for Oman healthcare facilities"
+          }
+        ]
+      }
+    }
+  ]
+}

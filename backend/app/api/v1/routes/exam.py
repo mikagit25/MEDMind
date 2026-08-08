@@ -1928,6 +1928,54 @@ async def get_exam_definition(
     return _exam_def_to_dict(exam)
 
 
+@router.get("/study-modules/{exam_slug}", tags=["exam"])
+async def get_exam_study_modules(
+    exam_slug: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Return educational modules relevant to a Gulf exam slug.
+
+    Queries Module.content->meta->exam_slugs for the given slug.
+    Returns ordered list of modules with their lesson count.
+    """
+    import re
+    if not re.match(r"^[a-z0-9_-]{2,20}$", exam_slug):
+        raise HTTPException(400, "Invalid exam slug")
+
+    from sqlalchemy import text as sa_text
+
+    result = await db.execute(
+        sa_text("""
+            SELECT id, code, title, content
+            FROM modules
+            WHERE is_published = true
+              AND content->'meta'->'exam_slugs' @> (:slug)::jsonb
+            ORDER BY (content->'meta'->>'order_in_specialty')::int ASC NULLS LAST
+        """),
+        {"slug": f'["{exam_slug}"]'},
+    )
+    rows = result.mappings().all()
+
+    out = []
+    for row in rows:
+        content = row["content"] or {}
+        meta = content.get("meta", {})
+        lessons = content.get("lessons", [])
+        out.append({
+            "id": str(row["id"]),
+            "code": row["code"],
+            "title": row["title"],
+            "order": meta.get("order_in_specialty", 99),
+            "level": meta.get("level", "intermediate"),
+            "duration_hours": meta.get("duration_hours", 0),
+            "lesson_count": len(lessons),
+            "jurisdiction": meta.get("jurisdiction"),
+            "blueprint_categories": meta.get("blueprint_categories", []),
+        })
+
+    return out
+
+
 # ── V7 Phase 5: Community comparison ─────────────────────────────────────────
 
 @router.get("/questions/{question_id}/community")

@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "id": "REG-MOHUAE-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice under MOHAP UAE: Northern Emirates, Scope & Licensing",
+    "title_en": "Nursing Practice under MOHAP UAE: Northern Emirates, Scope & Licensing",
+    "order_in_specialty": 8,
+    "level": "intermediate",
+    "prerequisite_modules": ["REG-AE-001"],
+    "duration_hours": 2,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["mohuae"],
+    "jurisdiction": "ae_moh",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available UAE MOHAP documentation. All local norms require verification by a nurse licensed under MOHAP UAE before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses practising in the UAE's Northern Emirates (Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, Fujairah) under the UAE Ministry of Health and Prevention (MOHAP), distinguishing MOHAP from DHA (Dubai) and DOH (Abu Dhabi).",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "MOHAP UAE: Structure, Registration, and Scope",
+      "content": {
+        "intro": "The UAE Ministry of Health and Prevention (MOHAP, also known as MOH UAE) regulates healthcare professionals in the Northern Emirates — Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, and Fujairah. Nurses practising in these emirates must hold a MOHAP licence (not DHA or DOH).",
+        "sections": [
+          {
+            "heading": "UAE's Three-Authority Regulatory Structure",
+            "text": "The UAE has three health regulatory bodies: DHA (Dubai Health Authority) for Dubai, DOH (Department of Health Abu Dhabi) for Abu Dhabi, and MOHAP (Ministry of Health and Prevention) for the five Northern Emirates. Each authority issues its own professional licence — a DHA licence does not permit practice in Sharjah (MOHAP), and vice versa. Nurses must hold the appropriate licence for the emirate in which they practise. Federal-level health policies from MOHAP apply across all seven emirates, but licensing is emirate-specific."
+          },
+          {
+            "heading": "MOHAP Nurse Classification and Scope of Practice",
+            "text": "MOHAP classifies nurses as: Registered Nurse, Senior Registered Nurse, Specialist Nurse, and Nurse Practitioner. Standard RN scope under MOHAP mirrors DHA/DOH: patient assessment, medication administration per physician order, care coordination, patient education, wound care, and documentation. Prescribing medications requires NP licensure. MOHAP facilities include government hospitals in the Northern Emirates and the MOHAP-licensed private sector."
+          },
+          {
+            "heading": "MOHAP Prometric Exam",
+            "text": "Nurses seeking MOHAP licensure must pass the MOHAP Prometric computer-based examination: 150 MCQ questions in 3 hours. Blueprint follows the same nursing domains as DHA/DOH: Medical-Surgical, Maternal-Child, Mental Health, Paediatric, Community Health, Fundamentals, and Leadership. After passing, the nurse registers on the MOHAP licensing portal (Mohab) and receives a UAE Health Professional Licence for MOHAP jurisdictions. UAE Federal Law No. 4 of 2016 on Medical Liability applies to all MOHAP-regulated practitioners."
+          }
+        ],
+        "clinical_pearl": "In the MOHAP exam, questions about the UAE's dual or triple regulatory structure test whether the candidate understands that DHA, DOH, and MOHAP licences are NOT interchangeable. A nurse licensed by DHA (Dubai) cannot practise in Sharjah without a separate MOHAP licence. This is a legally significant distinction unique to the UAE.",
+        "key_points": [
+          "MOHAP covers Northern Emirates: Sharjah, Ajman, UAQ, RAK, Fujairah",
+          "DHA (Dubai), DOH (Abu Dhabi), MOHAP (Northern Emirates) — licences not interchangeable",
+          "MOHAP Prometric: 150 MCQ, 3 hours",
+          "UAE Federal Law 4/2016: medical liability applies to MOHAP practitioners",
+          "Prescribing: NP licensure required under MOHAP"
+        ],
+        "references": [
+          {
+            "title": "UAE MOHAP Health Professional Licensing",
+            "authors": "UAE Ministry of Health and Prevention",
+            "journal_or_source": "MOHAP Official Portal",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://mohap.gov.ae/en/services/health-professional-licensing",
+            "note": "MOHAP licensing requirements and exam information"
+          },
+          {
+            "title": "UAE Federal Law No. 4 of 2016 on Medical Liability",
+            "authors": "UAE Government",
+            "journal_or_source": "UAE Official Gazette",
+            "year": 2016,
+            "type": "official_regulatory",
+            "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law",
+            "note": "Federal medical liability law applicable to all UAE emirates"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Patient Safety, Documentation, and Medication Management under MOHAP",
+      "content": {
+        "intro": "MOHAP applies UAE federal medication safety and documentation standards to facilities in the Northern Emirates, consistent with DHA and DOH standards but with MOHAP-specific reporting pathways.",
+        "sections": [
+          {
+            "heading": "Medication Safety under MOHAP",
+            "text": "MOHAP medication management standards require: two-patient identifier verification before every medication administration, five rights compliance, independent dual-nurse verification for high-alert medications (concentrated electrolytes, insulin, heparin, opioids, anticoagulants), controlled drug register with dual signatures, electronic MAR where facility mandated. Drug names follow INN (generic): paracetamol, ibuprofen, metformin — not US trade names. Lab units are SI: glucose mmol/L, creatinine µmol/L, temperature °C. These standards are aligned with UAE federal pharmacy regulations."
+          },
+          {
+            "heading": "Incident Reporting under MOHAP",
+            "text": "MOHAP-licensed facilities maintain internal incident reporting systems. Serious adverse events and sentinel events must be reported to MOHAP within the mandated timeframe. MOHAP conducts facility audits and inspections. Nurses in MOHAP facilities follow the same reporting obligations as DHA/DOH: complete internal report, notify physician, document in medical record, cooperate with investigation. Non-reporting of mandatory events is a professional and legal violation under UAE Federal Law."
+          },
+          {
+            "heading": "Documentation Standards",
+            "text": "All clinical documentation in MOHAP-licensed facilities must be: accurate, contemporaneous, signed, dated, and timed. Error correction: single line through error, date and initials — no correction fluid or overwriting. Medical records are legal documents under UAE Federal Law 4/2016. Arabic and English are both used in Northern Emirates facilities; documentation language follows facility policy. Nurses are individually liable for documentation accuracy."
+          }
+        ],
+        "clinical_pearl": "MOHAP exam questions on medication errors follow a standard sequence: first assess the patient (is there harm?), then notify the physician, document accurately in the chart, and complete the incident report. Never alter the documentation after a medication error — this constitutes falsification of medical records, a serious legal violation under UAE law.",
+        "key_points": [
+          "Same five rights and dual-nurse check standards as DHA/DOH",
+          "Drug names: generic INN — not US brand names",
+          "Incident reporting to MOHAP for sentinel events",
+          "Medication error sequence: assess patient → notify physician → document → incident report",
+          "Never alter documentation — falsification is illegal under UAE Federal Law"
+        ],
+        "references": [
+          {
+            "title": "UAE MOHAP Medication Management Policy",
+            "authors": "UAE Ministry of Health and Prevention",
+            "journal_or_source": "MOHAP Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://mohap.gov.ae/en/",
+            "note": "Medication safety standards for Northern Emirates"
+          }
+        ]
+      }
+    }
+  ]
+}
