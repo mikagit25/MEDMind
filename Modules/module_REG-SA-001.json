@@ -151,5 +151,188 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "What is the regulatory body that licenses nurses in Saudi Arabia?", "answer": "SCFHS — Saudi Commission for Health Specialties. Registration with SCFHS is mandatory before any nurse may legally practise in the Kingdom.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "How many questions are on the SNLE, and what is the passing score?", "answer": "200 MCQ questions (two parts of 100 questions each, 120 minutes per part). Scale 200–800; passing score is 500.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What are the four SCFHS nurse classification levels?", "answer": "Nurse Technician (diploma-level), General Nurse (BSN-level), Specialist Nurse, and Consultant Nurse — each with defined competency boundaries.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What is the SNLE blueprint distribution across nursing domains?", "answer": "Adult Nursing 40% | Maternal-Child Nursing 30% | Nursing Fundamentals 20% | Nursing Management & Leadership 10%.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What system is used for mandatory incident reporting in Saudi MOH facilities?", "answer": "The Noor electronic incident reporting system. Reports are mandatory for near-misses, sentinel events, adverse drug events, HAIs, and patient falls.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "Who provides informed consent for a legally incapacitated adult patient in Saudi Arabia?", "answer": "The patient's legal guardian (wali). For competent adults, the patient themselves must consent — family preference does not override a competent patient's right.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What precautions are required for a suspected or confirmed MERS-CoV patient in Saudi Arabia?", "answer": "Standard Precautions + Droplet Precautions + Contact Precautions. An N95 respirator is required for aerosol-generating procedures. Negative pressure room if available.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "Which authority sets infection prevention and control standards in Saudi Arabia?", "answer": "Weqaa — the Saudi Center for Disease Prevention and Control. Standards are aligned with WHO guidelines.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "How should a documentation error be corrected in Saudi healthcare records?", "answer": "Draw a single line through the error, add initials and date. Correction fluid (whiteout) is prohibited. Entries must be contemporaneous, signed, dated, and timed.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "What is the dual-nurse check requirement for controlled medications in Saudi MOH facilities?", "answer": "Two nurses independently verify patient identity (two identifiers), medication, dose, route, time, and rate — then both sign the controlled drug register.", "difficulty": "medium", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse is preparing to administer a controlled analgesic to a post-operative patient in a Saudi MOH hospital. Which action is required before administration?",
+      "options": {
+        "A": "Administer the medication and document it after the shift",
+        "B": "Have a second nurse independently verify the patient, medication, dose, route, and time, and both sign the controlled drug register",
+        "C": "Obtain verbal confirmation from the ward pharmacist by phone",
+        "D": "Confirm the physician's verbal order and proceed without a witness"
+      },
+      "correct": "B",
+      "explanation": "Saudi MOH medication safety policy requires an independent dual-nurse verification before administration of all controlled and high-alert medications. Both nurses check two patient identifiers plus drug, dose, route, time, and rate, and both sign the controlled drug register.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "The SNLE (Saudi Nursing Licensing Exam) is administered by which regulatory body?",
+      "options": {
+        "A": "Saudi Ministry of Health (MOH)",
+        "B": "Weqaa — Saudi Center for Disease Prevention and Control",
+        "C": "SCFHS — Saudi Commission for Health Specialties",
+        "D": "Joint Commission International (JCI)"
+      },
+      "correct": "C",
+      "explanation": "The SNLE is administered by the Saudi Commission for Health Specialties (SCFHS), which is the mandatory regulatory body for all health professionals, including nurses, in Saudi Arabia.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A competent adult female patient in a Saudi hospital refuses a procedure that her male guardian (mahram) insists she must accept. What is the nurse's correct action?",
+      "options": {
+        "A": "Follow the guardian's instructions, as the mahram has legal authority over medical decisions",
+        "B": "Ask the physician to override the patient's refusal based on family agreement",
+        "C": "Respect the competent patient's decision to refuse, document the refusal, and notify the physician",
+        "D": "Delay the procedure and wait for the family to convince the patient"
+      },
+      "correct": "C",
+      "explanation": "Legally competent adult patients in Saudi Arabia have the right to consent independently, including the right to refuse treatment. While the mahram role is culturally significant, the competent patient's legal right to make her own healthcare decisions must be respected. The nurse documents the refusal and notifies the physician.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A nurse discovers a near-miss medication event (wrong drug drawn up but not administered) in a Saudi MOH hospital. What is the mandatory reporting action?",
+      "options": {
+        "A": "Report only to the charge nurse verbally — near-misses do not require formal reporting",
+        "B": "Document in the patient's medical record as an incident and report through the Noor system",
+        "C": "Report through the Noor system; document the clinical facts in the patient's chart separately",
+        "D": "Wait and report at the monthly patient safety meeting"
+      },
+      "correct": "C",
+      "explanation": "Saudi MOH Patient Safety Program mandates near-miss reporting through the Noor electronic system. Nurses must also document relevant clinical facts in the patient's medical record. The incident report itself is a quality tool and should not be referenced directly in the medical record entry.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A nurse assesses a patient in a Saudi hospital with a fever of 38.8 °C, dry cough, and a history of visiting a camel farm. Which infection control precautions should be initiated immediately?",
+      "options": {
+        "A": "Standard precautions only",
+        "B": "Standard + airborne precautions",
+        "C": "Standard + droplet + contact precautions",
+        "D": "Contact precautions alone while awaiting laboratory results"
+      },
+      "correct": "C",
+      "explanation": "MERS-CoV must be suspected given the fever, respiratory symptoms, and camel contact. Saudi Weqaa guidelines require Standard + Droplet + Contact precautions for suspected or confirmed MERS-CoV, with N95 respirators for aerosol-generating procedures. Immediate reporting to Weqaa is also mandatory.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "Which of the following actions is within the independent scope of practice for a General Nurse (BSN-level) registered with SCFHS?",
+      "options": {
+        "A": "Prescribing paracetamol 500 mg orally for a patient with mild pain",
+        "B": "Administering paracetamol 500 mg orally per an existing physician order",
+        "C": "Adjusting a physician-ordered insulin dose based on the nurse's clinical assessment",
+        "D": "Ordering a repeat chest X-ray for a deteriorating patient"
+      },
+      "correct": "B",
+      "explanation": "Medication administration per physician order is within standard RN scope in Saudi Arabia. Prescribing, adjusting orders, or independently ordering investigations are not within the standard General Nurse scope — these require physician authorisation or Specialist/Consultant Nurse credentials.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A patient's family member asks the nurse not to tell the patient about her newly diagnosed serious illness. The patient is alert and fully oriented. What is the nurse's best response?",
+      "options": {
+        "A": "Agree with the family and withhold the information to avoid distressing the patient",
+        "B": "Inform the patient immediately, disregarding the family's concern",
+        "C": "Assess the patient's own preferences for receiving health information, and document those wishes",
+        "D": "Refer the matter entirely to the physician without further action"
+      },
+      "correct": "C",
+      "explanation": "A competent patient has the right to receive their own health information. However, the nurse should first assess the patient's own wishes — the patient may choose to delegate information-sharing to the family. The nurse cannot unilaterally withhold information at the family's request without the patient's own documented consent to that arrangement.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "What is the SNLE passing score threshold on its 200–800 scale?",
+      "options": {
+        "A": "400",
+        "B": "450",
+        "C": "500",
+        "D": "600"
+      },
+      "correct": "C",
+      "explanation": "The SNLE uses a scaled score of 200–800. The passing score is 500 as defined in the SCFHS Applicant Guide 2024.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A nurse in a Saudi hospital makes a documentation error in the patient's paper chart. The correct way to correct this error is to:",
+      "options": {
+        "A": "Use correction fluid to cover the mistake and write the correct information above it",
+        "B": "Tear out the page and rewrite the entry",
+        "C": "Draw a single line through the error, add the nurse's initials and the date",
+        "D": "Overwrite the incorrect word with the correct one in different coloured ink"
+      },
+      "correct": "C",
+      "explanation": "Saudi MOH documentation standards require error correction by a single line through the error with initials and date. Correction fluid is prohibited, and pages must not be destroyed. Medical records are legal documents.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "Which of the following represents the correct sequence of actions after a nurse discovers they have administered the wrong dose of an oral medication to a patient?",
+      "options": {
+        "A": "Complete the incident report first, then assess the patient",
+        "B": "Assess the patient → notify the physician → document accurately in the chart → complete incident report via Noor",
+        "C": "Notify the family → document in chart → notify physician",
+        "D": "Correct the documentation to reflect the intended dose to avoid confusion"
+      },
+      "correct": "B",
+      "explanation": "The standard sequence for a medication error in Saudi MOH facilities: first assess the patient for harm, then notify the physician immediately, document the facts accurately in the medical record, and report via the Noor system. Never alter documentation after an error — falsification is illegal.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "Under SCFHS classification, which nurse level requires the highest level of qualification and has the broadest supervisory authority?",
+      "options": {
+        "A": "General Nurse",
+        "B": "Specialist Nurse",
+        "C": "Nurse Technician",
+        "D": "Consultant Nurse"
+      },
+      "correct": "D",
+      "explanation": "SCFHS classifies four levels: Nurse Technician (diploma), General Nurse (BSN), Specialist Nurse, and Consultant Nurse. The Consultant Nurse level carries the broadest competency boundaries and supervisory functions.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "A nurse is caring for a 15-year-old patient requiring a surgical procedure in Saudi Arabia. Who must provide informed consent?",
+      "options": {
+        "A": "The patient, as they are close to the age of majority and can consent independently",
+        "B": "Both the patient and the physician together",
+        "C": "The parent or legal guardian",
+        "D": "The SCFHS regional office"
+      },
+      "correct": "C",
+      "explanation": "In Saudi Arabia, minors under 18 require parental or legal guardian consent for medical procedures. The patient is 15, so a parent or guardian must provide consent. The patient's assent is good practice but is not legally sufficient alone.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle"]
+    },
+    {
+      "question": "Which organisation sets infection prevention and control standards for Saudi healthcare facilities, aligned with WHO guidelines?",
+      "options": {
+        "A": "SCFHS",
+        "B": "Saudi MOH Patient Safety Program",
+        "C": "Weqaa — Saudi Center for Disease Prevention and Control",
+        "D": "Joint Commission International"
+      },
+      "correct": "C",
+      "explanation": "Weqaa (Saudi Center for Disease Prevention and Control) sets national IPC standards aligned with WHO guidelines. Weqaa also issues alerts for emerging pathogens including MERS-CoV and manages mandatory reporting for communicable diseases.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle"]
+    }
   ]
 }

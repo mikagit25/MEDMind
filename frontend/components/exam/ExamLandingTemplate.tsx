@@ -3,6 +3,18 @@ import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 import { RegionalPriceBadge } from "@/components/exam/RegionalPriceBadge";
 
+export interface StudyModule {
+  id: string;
+  code: string;
+  title: string;
+  order: number;
+  level: string;
+  duration_hours: number;
+  lesson_count: number;
+  jurisdiction: string | null;
+  blueprint_categories: string[];
+}
+
 export interface ExamDefinition {
   slug: string;
   name: string;
@@ -75,7 +87,19 @@ const FEATURES = [
   },
 ];
 
-export function ExamLandingTemplate({ exam }: { exam: ExamDefinition }) {
+const LEVEL_LABELS: Record<string, string> = {
+  beginner:     "Foundation",
+  intermediate: "Core",
+  advanced:     "Advanced",
+};
+
+export function ExamLandingTemplate({
+  exam,
+  studyModules = [],
+}: {
+  exam: ExamDefinition;
+  studyModules?: StudyModule[];
+}) {
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
   const hours = Math.floor(exam.duration_min / 60);
   const mins = exam.duration_min % 60;
@@ -144,6 +168,53 @@ export function ExamLandingTemplate({ exam }: { exam: ExamDefinition }) {
                   {CATEGORY_LABELS[cat] ?? cat}
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Study modules */}
+      {exam.family === "gulf" && studyModules.length > 0 && (
+        <section className="max-w-4xl mx-auto px-4 py-10">
+          <h2 className="font-syne font-bold text-xl text-ink mb-2">Study Materials</h2>
+          <p className="text-sm text-ink-2 mb-5">
+            Free educational modules covering regulations, pharmacology, clinical practice, and cultural care —
+            mapped to the {exam.name} blueprint.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {studyModules.map(mod => (
+              <Link
+                key={mod.id}
+                href={`/modules/${mod.id}`}
+                className="group bg-surface border border-border rounded-xl p-4 hover:border-ink/30 hover:shadow-sm transition-all flex gap-4"
+              >
+                <div className="w-10 h-10 bg-ink/5 rounded-xl flex items-center justify-center flex-shrink-0 text-ink group-hover:bg-ink/10 transition-colors">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-syne font-bold text-sm text-ink mb-0.5 group-hover:text-red transition-colors truncate">
+                    {mod.title}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-ink-3">
+                    <span>{mod.lesson_count} lesson{mod.lesson_count !== 1 ? "s" : ""}</span>
+                    {mod.duration_hours > 0 && (
+                      <>
+                        <span>·</span>
+                        <span>{mod.duration_hours}h</span>
+                      </>
+                    )}
+                    <span>·</span>
+                    <span className="capitalize">{LEVEL_LABELS[mod.level] ?? mod.level}</span>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 text-ink-3 group-hover:text-ink transition-colors self-center">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
             ))}
           </div>
         </section>

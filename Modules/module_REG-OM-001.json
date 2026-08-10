@@ -142,5 +142,175 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "Which body administers the Prometric nursing licensing exam in Oman?", "answer": "OMSB — Oman Medical Specialty Board. All foreign-trained nurses must pass the OMSB Prometric exam before practising in Oman.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "How many questions are on the OMSB Prometric nursing exam?", "answer": "150 MCQ questions in 3 hours (computer-based Prometric format). The passing threshold is set by OMSB and varies by cohort.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "With which Ministry do nurses register to practise in Oman?", "answer": "The Directorate General of Nursing Affairs within the Oman Ministry of Health (MOH). Both MOH registration and passing the OMSB exam are required.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What OMSB exam principle applies to nursing delegation?", "answer": "The nurse who delegates retains accountability for the outcome. Assessment cannot be delegated to an unregistered care assistant — only tasks within the delegatee's competence may be assigned.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What is the key rule about the incident report and the medical record in Oman?", "answer": "The incident report is NOT part of the patient's legal medical record — it is an internal quality improvement tool. Clinical facts must be documented separately in the chart without referencing the incident report.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What regional disease should Oman nurses consider in a patient presenting with undulant fever, joint pain, and animal contact?", "answer": "Brucellosis. Lab confirmation by Brucella agglutination test. Treatment typically includes doxycycline + rifampicin. Distinct from MERS-CoV presentation.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "What precautions apply to a suspected MERS-CoV patient in Oman?", "answer": "Standard + Droplet + Contact Precautions. N95 for aerosol-generating procedures. Mandatory reporting to Oman MOH.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What are the high-alert medications requiring dual-nurse independent verification in Oman?", "answer": "Concentrated electrolytes (e.g., potassium chloride), insulin, heparin, and opioids. Both nurses verify two patient identifiers plus all medication details.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What occupational health measure is mandatory for all clinical nurses in Oman MOH facilities?", "answer": "Hepatitis B vaccination is mandatory for all clinical staff. Annual TB screening is also required. Needlestick injuries require immediate washing, reporting to occupational health, and initiating PEP.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What generic names should be used for common medications in the Oman context?", "answer": "INN generic names: paracetamol (not Tylenol), ibuprofen (not Advil), metoclopramide (not Reglan). All lab values use SI units: glucose mmol/L, creatinine µmol/L, temperature °C.", "difficulty": "easy", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "The OMSB (Oman Medical Specialty Board) Prometric nursing licensing exam consists of:",
+      "options": {
+        "A": "200 MCQ questions in 4 hours",
+        "B": "150 MCQ questions in 3 hours",
+        "C": "100 MCQ questions plus a practical OSCE",
+        "D": "120 MCQ questions in 2 hours"
+      },
+      "correct": "B",
+      "explanation": "The OMSB nursing exam is a computer-based Prometric exam of 150 MCQ questions completed in 3 hours. The passing threshold is set by OMSB and varies by cohort. Source: OMSB Candidate Handbook.",
+      "difficulty": "easy",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A Registered Nurse in Oman wishes to independently prescribe paracetamol for a patient with mild pain. Is this within standard RN scope under Oman MOH?",
+      "options": {
+        "A": "Yes — paracetamol is an over-the-counter drug and nurses may prescribe it",
+        "B": "Yes — prescribing is within RN scope for non-controlled medications",
+        "C": "No — prescribing is not within standard RN scope; a physician order is required",
+        "D": "Yes — after 3 years of experience, Oman RNs may prescribe selected drugs"
+      },
+      "correct": "C",
+      "explanation": "In Oman, prescribing medications is not within the standard RN scope of practice. A physician order is required for all medications. Only Specialist/Consultant Nurses may have extended competencies in defined areas with specific MOH approval.",
+      "difficulty": "easy",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "Following an adverse patient event (unexpected fall with injury) in an Oman MOH hospital, how should the nurse document this?",
+      "options": {
+        "A": "Write a detailed incident report and include a copy in the patient's medical record",
+        "B": "Document the clinical facts (what happened, assessment, interventions, outcome) in the patient's medical record AND complete a separate internal incident report; do not reference the incident report in the chart",
+        "C": "Notify the MOH directly and await further instructions before documenting",
+        "D": "Document only in the incident report — the medical record entry is optional"
+      },
+      "correct": "B",
+      "explanation": "Oman MOH requires that the incident report (an internal quality tool) is kept separate from the patient's medical record. The nurse must document clinical facts in the chart AND complete the incident report. The incident report is NOT part of the legal medical record and must never be referenced in the chart entry.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A nurse in Oman is delegating a task to an unregistered care assistant. Which task is appropriate to delegate?",
+      "options": {
+        "A": "Performing an initial patient assessment on a newly admitted patient",
+        "B": "Monitoring vital signs on a stable patient (collection, not interpretation)",
+        "C": "Administering oral medications per physician order",
+        "D": "Deciding whether a patient is ready for ambulation"
+      },
+      "correct": "B",
+      "explanation": "Vital sign collection (not interpretation or clinical decision-making) is within the competence of an unregistered care assistant. Assessment, medication administration, and clinical judgements are within RN scope and cannot be delegated to unlicensed personnel. The delegating nurse retains accountability for the outcome.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A patient in Oman presents with 3 weeks of intermittent fever, night sweats, joint pain, and a history of working with camels on a farm. Which condition should the nurse prioritise in the assessment?",
+      "options": {
+        "A": "MERS-CoV — initiate droplet and contact precautions immediately",
+        "B": "Brucellosis — a regionally significant zoonosis associated with animal contact",
+        "C": "Dengue fever — confirm travel history to Dhofar",
+        "D": "Malaria — arrange thick blood film immediately"
+      },
+      "correct": "B",
+      "explanation": "Brucellosis (undulant fever) is endemic in Oman and the GCC. Presentation: prolonged intermittent fever, night sweats, and joint pain in a patient with animal (camel, cattle) or unpasteurised dairy contact. Confirmed by Brucella agglutination test. Treatment typically includes doxycycline + rifampicin. MERS-CoV would also involve respiratory symptoms.",
+      "difficulty": "hard",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "What is the required precaution level for a confirmed MERS-CoV patient in an Oman hospital?",
+      "options": {
+        "A": "Standard precautions only",
+        "B": "Standard + Airborne precautions",
+        "C": "Standard + Droplet + Contact precautions",
+        "D": "Contact precautions alone"
+      },
+      "correct": "C",
+      "explanation": "Oman MOH guidelines follow WHO and GCC standards for MERS-CoV: Standard + Droplet + Contact precautions. An N95 respirator is required for aerosol-generating procedures (not a surgical mask). Reporting to Oman MOH is mandatory. Negative pressure room should be used if available.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "An Oman MOH nurse sustains a needlestick injury while recapping a needle. What is the immediate correct action?",
+      "options": {
+        "A": "Apply pressure to squeeze out blood from the wound to remove contamination",
+        "B": "Wash the wound immediately with soap and water, report to occupational health, and initiate post-exposure protocol",
+        "C": "Apply a sterile dressing and continue working — report at end of shift",
+        "D": "Suck the wound to remove any blood contamination"
+      },
+      "correct": "B",
+      "explanation": "Oman MOH occupational safety protocol for needlestick injury: immediately wash the wound with soap and water (do NOT squeeze or suck), report promptly to occupational health, and initiate post-exposure prophylaxis (PEP) as indicated per facility protocol. Document in an incident report.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A patient in Oman who is incapacitated following a road traffic accident requires emergency surgery. No family member is immediately available. What is the correct approach to consent?",
+      "options": {
+        "A": "Postpone surgery until a family member is contacted and provides consent",
+        "B": "Proceed with emergency surgery in the patient's best interest and document the emergency exception clearly in the medical record",
+        "C": "Transfer the patient to another facility where consent can be obtained",
+        "D": "Obtain telephone consent from the nearest family member"
+      },
+      "correct": "B",
+      "explanation": "Oman's legal framework allows emergency care to proceed without consent when the patient is incapacitated and no guardian is immediately present, provided it is in the patient's best interest. The emergency exception and rationale must be documented clearly in the medical record.",
+      "difficulty": "hard",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "Which vaccination is mandatory for all clinical nursing staff in Oman MOH facilities?",
+      "options": {
+        "A": "Influenza vaccine — annual",
+        "B": "Hepatitis A vaccine",
+        "C": "Hepatitis B vaccine",
+        "D": "Meningococcal vaccine"
+      },
+      "correct": "C",
+      "explanation": "Oman MOH occupational health standards mandate hepatitis B vaccination for all clinical healthcare staff. Annual TB screening is also required. These are mandatory occupational health requirements, not optional.",
+      "difficulty": "easy",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A nurse in Oman administers insulin to the wrong patient due to a patient identification failure. What is the correct sequence of actions?",
+      "options": {
+        "A": "Notify the physician, complete incident report, correct the documentation to show the intended patient",
+        "B": "Assess the patient for hypoglycaemia → notify the physician immediately → document accurately in the chart → complete the incident report",
+        "C": "Complete the incident report first, then notify the physician",
+        "D": "Notify the family first, then involve the physician"
+      },
+      "correct": "B",
+      "explanation": "The standard sequence for medication errors in Oman: first assess the patient for immediate harm (insulin error → risk of hypoglycaemia), then notify the physician immediately, document clinical facts accurately in the medical record, and complete a separate internal incident report. Never alter or falsify documentation.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "A nurse in Oman documents a patient's blood glucose reading. Which unit is correct?",
+      "options": {
+        "A": "mg/dL",
+        "B": "g/dL",
+        "C": "mmol/L",
+        "D": "mEq/L"
+      },
+      "correct": "C",
+      "explanation": "Oman and all GCC countries use SI units. Blood glucose is reported in mmol/L (not mg/dL, which is used in the United States). Creatinine is µmol/L; temperature is in °C; potassium is mmol/L.",
+      "difficulty": "easy",
+      "exam_slugs": ["omsb"]
+    },
+    {
+      "question": "What legal framework governs medical practice and healthcare practitioner responsibilities in Oman?",
+      "options": {
+        "A": "UAE Federal Law No. 4 of 2016",
+        "B": "Oman Royal Decree 75/2009 — Law of the Practice of Human Medicine",
+        "C": "Qatar National Health Regulations",
+        "D": "GCC Unified Health Professionals Law"
+      },
+      "correct": "B",
+      "explanation": "The primary legal framework for healthcare practice in Oman is Royal Decree 75/2009 — the Law of the Practice of Human Medicine. This establishes the rights and responsibilities of healthcare practitioners, including informed consent and patient rights obligations.",
+      "difficulty": "medium",
+      "exam_slugs": ["omsb"]
+    }
   ]
 }

@@ -160,6 +160,21 @@ export async function fetchPublicQuizzesSitemapData(): Promise<PublicQuizEntry[]
   }
 }
 
+export type GulfModuleEntry = { code: string };
+
+export async function fetchGulfModulesSitemapData(): Promise<GulfModuleEntry[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/exam/gulf-modules-sitemap`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) return [];
+    const data: { code: string; title: string }[] = await res.json();
+    return data.map((d) => ({ code: d.code }));
+  } catch {
+    return [];
+  }
+}
+
 // ── XML builders ─────────────────────────────────────────────────────────────
 
 function hreflangTags(path: string, availableLocales: string[]): string {
@@ -200,7 +215,7 @@ function urlEntry({
 
 export async function buildLanguageSitemap(locale: Locale): Promise<string> {
   const now = new Date().toISOString().split("T")[0];
-  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnLessons, learnDrugs, publicQuizzes, learnPets] = await Promise.all([
+  const [articles, drugs, newsItems, learnGlossary, learnTopics, learnLessons, learnDrugs, publicQuizzes, learnPets, gulfModules] = await Promise.all([
     fetchArticlesSitemapData(),
     fetchDrugsSitemapData(),
     fetchNewsSitemapData(),
@@ -210,6 +225,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
     fetchLearnDrugsSitemapData(),
     fetchPublicQuizzesSitemapData(),
     fetchLearnPetsSitemapData(),
+    fetchGulfModulesSitemapData(),
   ]);
 
   const entries: string[] = [];
@@ -432,6 +448,21 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         hreflang: hreflangTags(`/learn/pets/${pet.slug}`, LEARN_LOCALES),
       })
     );
+  }
+
+  // ── Gulf educational modules (EN only — high-intent SEO) ─────────────────
+  if (locale === "en") {
+    for (const mod of gulfModules) {
+      const path = `/learn/modules/${mod.code}`;
+      entries.push(
+        urlEntry({
+          url: `${SITE_URL}${path}`,
+          lastmod: now,
+          priority: 0.8,
+          changefreq: "monthly",
+        })
+      );
+    }
   }
 
   // Public quiz index + individual quizzes (EN only — not localized yet)

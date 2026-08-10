@@ -183,5 +183,113 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "A female Kuwaiti patient requests a female nurse for her physical examination. What is the correct response?", "answer": "Accommodate the request where clinically safe and feasible — gender-sensitive care is a patient right and cultural standard in all Gulf countries", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "During Ramadan, a Muslim patient with Type 2 diabetes wants to fast. Who must be consulted before adjusting medications?", "answer": "Both the physician (for clinical assessment and dose adjustment) AND the pharmacist (for medication timing and fasting compatibility)", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the term for medications that meet Islamic dietary law requirements?", "answer": "Halal medications — free from porcine gelatin, ethanol-based excipients, and other prohibited substances", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "How many daily prayers (Salah) do observant Muslims perform, and how should nurses accommodate them?", "answer": "5 daily prayers; allow reasonable accommodation within the care plan where patient condition and safety permit", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "A female Gulf patient refuses to be examined by a male doctor. The nurse should:", "answer": "Seek a female physician where possible; if not available, explain necessity; use adequate draping and a female chaperone", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is 'Iftar' and why is it clinically relevant for Gulf nurses?", "answer": "Iftar is the breaking of the Ramadan fast at sunset. Medication schedules, IV fluid orders, and dietary plans may need adjustment around iftar and suhoor (pre-dawn meal) times", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "In Gulf end-of-life care, what is the nurse's obligation regarding family involvement vs patient wishes?", "answer": "Facilitate family involvement, but a competent patient's own expressed wishes override family preferences. Assess what the patient wants first.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "A Muslim patient declines a capsule medication citing gelatin content. Nurse's action?", "answer": "Consult pharmacist for halal alternative (tablet, syrup, gelatin-free capsule); document refusal and consultation; do not force administration", "difficulty": "medium", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse in Saudi Arabia is caring for a female patient who is scheduled for an abdominal examination. The patient expresses strong preference for a female examiner. What is the BEST action?",
+      "options": {"A": "Explain that gender of the examiner is irrelevant to clinical care", "B": "Accommodate the request by arranging a female physician or senior nurse to perform the examination", "C": "Inform the patient that no female physician is available and proceed with the male physician", "D": "Document the refusal and cancel the examination"},
+      "correct": "B",
+      "explanation": "Gender-sensitive care is a patient right and a cultural standard across all Gulf countries. Where clinically safe and feasible, the patient's preference for a same-gender provider must be accommodated. Cancelling necessary examination is inappropriate — the nurse should actively seek an alternative.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "During Ramadan, a patient with Type 2 diabetes who is fasting asks the nurse to skip his morning metformin until iftar. What should the nurse do?",
+      "options": {"A": "Skip the morning dose as requested — patient autonomy must be respected", "B": "Administer the medication with a sip of water — fasting does not apply to medications", "C": "Notify the physician and pharmacist before any adjustment to the medication schedule", "D": "Double the evening dose to compensate for the missed morning dose"},
+      "correct": "C",
+      "explanation": "Nurses must NEVER unilaterally adjust medication schedules during Ramadan. The physician assesses clinical safety; the pharmacist advises on medication-fasting compatibility. Skipping metformin without guidance risks hyperglycaemia; doubling doses without an order is a medication error.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Muslim patient refuses a prescribed antibiotic capsule, stating he believes it contains porcine gelatin. What is the nurse's MOST appropriate action?",
+      "options": {"A": "Reassure the patient that medications are always halal and administer the capsule", "B": "Document the refusal, consult the pharmacist for a halal alternative, and notify the physician", "C": "Open the capsule and mix the powder into juice for the patient", "D": "Defer administration until after Ramadan when the patient will be more receptive"},
+      "correct": "B",
+      "explanation": "The patient's religious concern is valid. Some capsule shells contain porcine gelatin. The pharmacist verifies composition and identifies an alternative. Opening capsules without pharmacist guidance alters drug release properties and is unsafe.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Muslim patient asks to pause his wound dressing change for 10 minutes to perform Dhuhr prayer. His wound is non-bleeding and stable. What is the BEST response?",
+      "options": {"A": "Explain that clinical procedures cannot be interrupted for religious reasons", "B": "Perform the dressing change quickly before the patient can pray", "C": "Accommodate the request — pause the procedure, ensure the patient is safe, and return after prayer", "D": "Postpone the dressing change to the next shift to avoid conflict"},
+      "correct": "C",
+      "explanation": "Prayer accommodation is a Gulf-wide standard of culturally congruent care. If the patient's clinical condition permits a brief pause, the nurse accommodates the request, ensures safety (wound covered, call bell accessible), and returns after prayer.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Bahraini family insists their terminally ill mother must NOT be informed of her diagnosis. The patient herself has not expressed any preference. What is the nurse's PRIORITY action?",
+      "options": {"A": "Honour the family's wish — family decision-making is absolute in Gulf culture", "B": "Assess what the patient herself wants to know about her condition", "C": "Disclose the full diagnosis immediately to respect patient autonomy", "D": "Document the family's wish and ensure all staff withhold the diagnosis"},
+      "correct": "B",
+      "explanation": "The nurse must first assess the patient's OWN wishes. A competent adult has the right to receive health information OR to delegate that to family — but this is the patient's choice, not the family's. Cultural involvement does not override patient autonomy.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Qatar nurse is caring for a South Asian male patient who speaks minimal Arabic or English. Regarding communication of his care plan, what is the nurse's obligation?",
+      "options": {"A": "Provide information in Arabic only — it is the official language", "B": "Arrange for an interpreter service so the patient receives information in a language he understands", "C": "Ask a family member to interpret — this is the standard", "D": "Document that communication was attempted and proceed with the care plan"},
+      "correct": "B",
+      "explanation": "Patient rights in all Gulf jurisdictions include the right to receive health information in a language they understand. Professional interpreter services must be arranged, especially for consent discussions. Using untrained family members raises confidentiality and accuracy concerns.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A male nurse is assigned to perform personal hygiene for a female Omani patient who expresses discomfort. What is the BEST action?",
+      "options": {"A": "Explain that nursing care is professional and gender-neutral, then proceed", "B": "Request reassignment of the task to a female nurse and document the patient's preference", "C": "Ask the patient's husband to assist instead", "D": "Perform the procedure with the curtain drawn without further discussion"},
+      "correct": "B",
+      "explanation": "Intimate personal care for female patients should be performed by female nursing staff where possible across all Gulf countries. The patient's expressed discomfort confirms her preference. The nurse requests reassignment and documents the preference in the care plan for all future procedures.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Saudi patient on haemodialysis 3× weekly asks whether he can fast during Ramadan. The nurse's MOST appropriate response is:",
+      "options": {"A": "Tell the patient fasting is safe for all Muslims during Ramadan", "B": "Advise that dialysis patients must never fast during Ramadan", "C": "Refer the question to the nephrologist and encourage the patient to seek religious guidance", "D": "Document the query and take no further action"},
+      "correct": "C",
+      "explanation": "Ramadan fasting for a dialysis patient has complex medical implications requiring nephrologist input (fluid balance, electrolytes, dialysis scheduling). Religious guidance on whether haemodialysis constitutes a valid medical exemption is for a qualified religious advisor. The nurse facilitates these consultations.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Muslim patient in end-of-life care asks to be positioned facing Mecca (Qiblah) during his final hours. The patient is haemodynamically stable. What should the nurse do?",
+      "options": {"A": "Explain that bed positioning is determined solely by clinical need", "B": "Reposition the patient to face Mecca if clinically safe, and document the accommodation", "C": "Ask the family to handle this as a non-nursing matter", "D": "Seek physician approval before any repositioning"},
+      "correct": "B",
+      "explanation": "Facilitating religious practices during end-of-life care is within nursing scope and is standard compassionate practice across Gulf countries. If repositioning is clinically safe, the nurse accommodates this request, documents it in the care plan, and communicates it to all team members.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "Which of the following abbreviations is on the 'Do Not Use' list in Gulf medication practice because it can cause a 10-fold dosing error?",
+      "options": {"A": "IV (intravenous)", "B": "U (units) — can be misread as '0'", "C": "PO (per os, by mouth)", "D": "SC (subcutaneous)"},
+      "correct": "B",
+      "explanation": "The abbreviation 'U' for 'units' is prohibited across Gulf jurisdictions (NHRA, DHA, QCHP, OMSB, MOHAP, MOH-KW) because handwritten 'U' is easily misread as '0'. '10U insulin' can become '100 insulin' — a fatal 10-fold overdose. Always write 'units' in full.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "Which cultural care practice is INAPPROPRIATE in the Gulf nursing context?",
+      "options": {"A": "Offering a same-gender nurse for intimate procedures", "B": "Adjusting medication timing during Ramadan without physician input", "C": "Checking if capsule medications are halal before administration", "D": "Allowing reasonable prayer breaks during non-critical nursing activities"},
+      "correct": "B",
+      "explanation": "Adjusting medication schedules unilaterally without physician and pharmacist involvement is inappropriate and potentially dangerous regardless of the cultural reason. The other three options (same-gender care, halal medication check, prayer accommodation) are all appropriate, encouraged nursing actions in Gulf practice.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse colleague is overheard discussing a patient's HIV status with another colleague in the hospital corridor. What is the MOST appropriate action?",
+      "options": {"A": "Ignore the situation — the colleague likely knows the other person", "B": "Join the conversation to show support", "C": "Remind the colleague that patient health information is confidential and corridor discussions are inappropriate", "D": "File a formal complaint with the licensing authority immediately"},
+      "correct": "C",
+      "explanation": "Confidentiality of patient health information is a fundamental patient right across all Gulf jurisdictions. Discussing identifiable patient information in public spaces (corridors, cafeterias, elevators) breaches confidentiality. The nurse should address this promptly but professionally. Immediate licensing authority referral is disproportionate for a correctable workplace behaviour issue.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    }
   ]
 }

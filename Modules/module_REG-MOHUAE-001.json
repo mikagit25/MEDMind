@@ -110,5 +110,175 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "Which UAE regulatory body licenses nurses in the Northern Emirates (Sharjah, Ajman, UAQ, RAK, Fujairah)?", "answer": "MOHAP — UAE Ministry of Health and Prevention. A MOHAP licence is required for the five Northern Emirates and is NOT interchangeable with DHA (Dubai) or DOH (Abu Dhabi) licences.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "Name the three separate health regulatory authorities in the UAE and their respective jurisdictions.", "answer": "DHA (Dubai Health Authority) → Dubai; DOH (Department of Health Abu Dhabi) → Abu Dhabi; MOHAP (Ministry of Health and Prevention) → five Northern Emirates (Sharjah, Ajman, UAQ, RAK, Fujairah).", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "How many MCQ questions are on the MOHAP Prometric nursing exam?", "answer": "150 MCQ questions in 3 hours (computer-based Prometric). Blueprint covers the same nursing domains as DHA/DOH: Medical-Surgical, Maternal-Child, Mental Health, Paediatric, Community Health, Fundamentals, and Leadership.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What federal law governs medical liability for MOHAP-licensed practitioners?", "answer": "UAE Federal Law No. 4 of 2016 on Medical Liability — applies across all seven UAE emirates to all healthcare practitioners including MOHAP-licensed nurses.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What is the correct sequence of actions after a medication error in a MOHAP-licensed facility?", "answer": "Assess the patient for harm → notify the physician → document accurately in the patient's medical record → complete the internal incident report. Never alter documentation — falsification is illegal under UAE Federal Law.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What does the MOHAP licensing portal used for nurse registration in Northern Emirates?", "answer": "The Mohab portal — nurses register here after passing the MOHAP Prometric exam and receive a UAE Health Professional Licence valid in MOHAP-jurisdiction emirates.", "difficulty": "hard", "category": "nursing_management_leadership"},
+    {"question": "Can a nurse practise in Ras Al Khaimah with a DHA licence?", "answer": "No. Ras Al Khaimah is under MOHAP jurisdiction. A DHA licence only covers Dubai. A separate MOHAP licence is required.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What is the prescribing authority of a standard RN under MOHAP?", "answer": "None — prescribing requires Nurse Practitioner (NP) licensure. Standard RNs administer medications per physician order only.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "Which high-alert medications require dual-nurse verification in MOHAP-licensed facilities?", "answer": "Concentrated electrolytes (e.g., KCl), insulin, heparin, opioids, and anticoagulants. All five rights plus two patient identifiers must be verified by both nurses.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What documentation language standards apply in MOHAP-licensed Northern Emirates facilities?", "answer": "Documentation must be accurate, contemporaneous, signed, dated, and timed. Both Arabic and English are used; documentation language follows facility policy. Error correction: single line through error with date and initials — no correction fluid.", "difficulty": "easy", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse holds a current DHA (Dubai Health Authority) licence and is hired by a hospital in Ajman. Can the nurse begin working immediately?",
+      "options": {
+        "A": "Yes — a DHA licence is recognised across all UAE emirates",
+        "B": "Yes — UAE federal rules allow temporary practice with any UAE licence",
+        "C": "No — Ajman falls under MOHAP jurisdiction; a separate MOHAP licence is required",
+        "D": "No — but a 30-day DHA extension permit covers the Northern Emirates"
+      },
+      "correct": "C",
+      "explanation": "Ajman is one of the five Northern Emirates regulated by MOHAP (Ministry of Health and Prevention). A DHA licence is valid only in Dubai. DHA, DOH, and MOHAP licences are not interchangeable — a separate MOHAP licence is required to practise in Ajman.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "The UAE Ministry of Health and Prevention (MOHAP) has jurisdiction over which set of emirates?",
+      "options": {
+        "A": "Dubai and Abu Dhabi",
+        "B": "Abu Dhabi, Sharjah, and Ajman",
+        "C": "Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, and Fujairah",
+        "D": "All seven UAE emirates equally"
+      },
+      "correct": "C",
+      "explanation": "MOHAP covers the five Northern Emirates: Sharjah, Ajman, Umm Al Quwain (UAQ), Ras Al Khaimah (RAK), and Fujairah. Dubai is DHA jurisdiction; Abu Dhabi is DOH jurisdiction. Federal-level MOHAP health policies apply across all emirates, but licensing is emirate-specific.",
+      "difficulty": "easy",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A nurse administers the wrong dose of insulin to a patient in a MOHAP-licensed hospital in Sharjah. The patient is now diaphoretic and confused. What is the priority action?",
+      "options": {
+        "A": "Complete the incident report to protect the nurse legally",
+        "B": "Assess the patient, check blood glucose, and call the physician immediately",
+        "C": "Document the error in the medical record first",
+        "D": "Notify the MOHAP regulatory office before treating the patient"
+      },
+      "correct": "B",
+      "explanation": "Patient safety is the first priority. Insulin overdose causes hypoglycaemia — the nurse must immediately assess the patient, measure blood glucose (likely low, expressed in mmol/L), and notify the physician. Documentation and incident reporting follow stabilisation of the patient.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "What federal legislation governs individual nursing liability for negligent practice in MOHAP-regulated facilities?",
+      "options": {
+        "A": "SCFHS Registration Act 2019",
+        "B": "UAE Federal Law No. 4 of 2016 on Medical Liability",
+        "C": "Dubai Health Authority Nursing Act 2021",
+        "D": "GCC Unified Health Practitioners Law 2015"
+      },
+      "correct": "B",
+      "explanation": "UAE Federal Law No. 4 of 2016 on Medical Liability applies across all UAE emirates, including MOHAP-jurisdictions in the Northern Emirates. It establishes individual liability for nurses for negligent practice and mandates accurate documentation and informed consent.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A standard Registered Nurse (RN) licensed under MOHAP UAE wants to prescribe salbutamol inhaler for a patient with mild asthma. Is this within scope?",
+      "options": {
+        "A": "Yes — salbutamol is a commonly used drug that nurses may prescribe",
+        "B": "Yes — after 5 years of experience, MOHAP RNs may prescribe selected respiratory medications",
+        "C": "No — prescribing authority requires Nurse Practitioner (NP) licensure under MOHAP",
+        "D": "Yes — with verbal confirmation from the ward pharmacist"
+      },
+      "correct": "C",
+      "explanation": "Standard RNs cannot prescribe medications under MOHAP UAE — this mirrors DHA and DOH standards. Prescribing authority requires NP licensure from MOHAP. All medications require a valid physician order before administration.",
+      "difficulty": "easy",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A nurse in a MOHAP-licensed hospital in Fujairah discovers a documentation error in the patient's medical record. The correct approach is:",
+      "options": {
+        "A": "Delete the incorrect entry in the electronic system",
+        "B": "Draw a single line through the error, write initials and the date, and enter the correct information",
+        "C": "Apply correction fluid and rewrite the entry",
+        "D": "Leave it — correcting records creates legal risk"
+      },
+      "correct": "B",
+      "explanation": "MOHAP documentation standards (aligned with UAE Federal Law 4/2016) require error correction by a single line through the error with date and initials. Correction fluid is prohibited; deleting or overwriting is falsification. Medical records are legal documents under UAE federal law.",
+      "difficulty": "easy",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "Which of the following correctly describes how a MOHAP nurse licence differs from a DHA licence?",
+      "options": {
+        "A": "MOHAP licences are temporary; DHA licences are permanent",
+        "B": "MOHAP licences are valid in Dubai with a written application; DHA licences require MOHAP endorsement",
+        "C": "MOHAP licences permit practice in the Northern Emirates only; DHA licences permit practice in Dubai only",
+        "D": "MOHAP and DHA licences are equivalent under the UAE federal health framework"
+      },
+      "correct": "C",
+      "explanation": "Each UAE regulatory body issues its own independent professional licence for its emirate(s). A MOHAP licence covers the five Northern Emirates only; a DHA licence covers Dubai only. They are not transferable or equivalent — a nurse must hold the licence of the emirate where they practise.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A MOHAP-licensed facility in Ras Al Khaimah receives a sentinel event report from a nurse. What is the correct reporting pathway?",
+      "options": {
+        "A": "Report to DHA — as the UAE's main health authority",
+        "B": "Report to MOHAP within the mandated timeframe",
+        "C": "Report to the Joint Commission International office in the UAE",
+        "D": "Report to DOH Abu Dhabi as the federal-level health authority"
+      },
+      "correct": "B",
+      "explanation": "MOHAP-licensed facilities in the Northern Emirates report sentinel events to MOHAP within the mandated regulatory timeframe. DHA and DOH are separate authorities for their respective emirates. Non-reporting is a professional and legal violation under UAE federal law.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A MOHAP nurse is about to administer heparin IV and notes the blood glucose result is reported as 8.2. What unit is this value in?",
+      "options": {
+        "A": "mg/dL — the standard unit in UAE facilities",
+        "B": "mmol/L — the standard SI unit used across UAE healthcare",
+        "C": "mEq/L",
+        "D": "µmol/L"
+      },
+      "correct": "B",
+      "explanation": "UAE (all three regulatory bodies: DHA, DOH, and MOHAP) use SI units exclusively. Blood glucose is expressed in mmol/L; creatinine in µmol/L; temperature in °C. The value 8.2 mmol/L indicates slightly elevated glucose (normal fasting ~3.9–5.6 mmol/L).",
+      "difficulty": "easy",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "Under MOHAP, a patient is admitted to a Sharjah hospital and requires an invasive procedure. The patient's family requests the consent form be signed by the patient's husband, not the patient (who is alert and competent). What is the correct action?",
+      "options": {
+        "A": "Accept the husband's signature — this is legally valid in UAE",
+        "B": "Have both the husband and the patient sign the form",
+        "C": "Obtain consent from the competent patient directly; family signature does not replace a competent patient's own consent",
+        "D": "Defer to the physician to decide whether the husband's consent suffices"
+      },
+      "correct": "C",
+      "explanation": "UAE Federal Law No. 4 of 2016 requires informed consent from the competent patient. A competent adult patient (regardless of gender) must provide their own consent — a family member's signature is not a legal substitute for a competent patient's consent. The husband's involvement may be culturally important and facilitated, but the patient must consent independently.",
+      "difficulty": "hard",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "The MOHAP Prometric nursing exam has the same number of questions and duration as which other Gulf nursing exams?",
+      "options": {
+        "A": "SNLE (200 questions, 240 min)",
+        "B": "QCHP, OMSB, NHRA, and Kuwait MOH Prometric (all 150 questions, 3 hours)",
+        "C": "DHA only (100 questions, 2 hours)",
+        "D": "GCC Combined Exam (180 questions, 3.5 hours)"
+      },
+      "correct": "B",
+      "explanation": "The MOHAP Prometric exam (150 MCQ, 3 hours) shares the same format as the QCHP (Qatar), OMSB (Oman), NHRA (Bahrain), and Kuwait MOH Prometric exams. The SNLE (Saudi Arabia) is different: 200 questions in two 100-question parts with a separate scale.",
+      "difficulty": "medium",
+      "exam_slugs": ["mohuae"]
+    },
+    {
+      "question": "A nurse working in a MOHAP-licensed hospital needs to administer concentrated potassium chloride (KCl) for a hypokalaemic patient. What is the correct procedure?",
+      "options": {
+        "A": "Administer the concentrated KCl directly via IV push — it is faster",
+        "B": "Dilute the KCl as prescribed and administer through an infusion pump; two nurses independently verify the order, patient identity, concentration, rate, and both sign the register",
+        "C": "Administer without dual-nurse check if the physician is present at the bedside",
+        "D": "Concentrated KCl is safe to administer undiluted at slow rate"
+      },
+      "correct": "B",
+      "explanation": "Concentrated KCl is a high-alert medication that is never administered as a direct IV push — it must be diluted and infused at a controlled rate via infusion pump. MOHAP (aligned with DHA/DOH/UAE federal standards) requires dual-nurse independent verification before administration. Undiluted concentrated KCl given IV can cause fatal cardiac arrhythmia.",
+      "difficulty": "hard",
+      "exam_slugs": ["mohuae"]
+    }
   ]
 }

@@ -165,5 +165,103 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "Classic triad of heat stroke (not heat exhaustion)?", "answer": "Hyperthermia >40°C + neurological dysfunction (confusion/seizure) + anhidrosis (absent sweating). Emergency: immediate cooling, not waiting for labs.", "difficulty": "medium", "category": "medical_surgical"},
+    {"question": "MERS-CoV required PPE for aerosol-generating procedures?", "answer": "N95 respirator (not surgical mask) + eye protection + gown + gloves. Standard + Droplet + Contact precautions.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the emergency phone number in Saudi Arabia?", "answer": "911 (unified). UAE: 998 (ambulance). Qatar: 999. Kuwait: 112. Oman: 999. Bahrain: 999. Exam tip: use country-specific numbers — not universal '911'.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "Hajj health: most common cause of preventable death in pilgrims?", "answer": "Heat stroke — the combination of extreme heat, physical exertion, dehydration, and crowding. First action: immediate cooling (cold water immersion or evaporative cooling)", "difficulty": "medium", "category": "community_public_health"},
+    {"question": "Classic presentation of MERS-CoV?", "answer": "Fever + cough + shortness of breath; may progress to ARDS. Epidemiological link: camel contact or healthcare setting in Arabian Peninsula. Notify MOH immediately.", "difficulty": "medium", "category": "medical_surgical"},
+    {"question": "Heat exhaustion vs heat stroke — key differentiator?", "answer": "Heat exhaustion: normal or mildly elevated temp, heavy sweating, weakness, normal consciousness. Heat stroke: temp >40°C, neurological signs (confusion, seizure), skin may be dry (anhidrosis).", "difficulty": "hard", "category": "medical_surgical"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A pilgrim in Mecca during Hajj is brought to the first-aid tent with temperature 41.2°C, confusion, and dry skin despite the extreme heat. What is the PRIORITY nursing intervention?",
+      "options": {"A": "Administer paracetamol 1g orally for fever reduction", "B": "Begin immediate active cooling (ice packs, cool water, fanning) and call for emergency transport", "C": "Obtain IV access and begin normal saline infusion", "D": "Perform a neurological assessment and document findings"},
+      "correct": "B",
+      "explanation": "This presentation (temp >40°C + neurological dysfunction + anhidrosis) is classic heat stroke — a life-threatening emergency. Immediate active cooling is the priority: ice packs to axillae/groin/neck, cool water evaporation, and fanning. Organ damage progresses rapidly with persistent hyperthermia. Paracetamol is not effective for heat stroke (it works via hypothalamic mechanisms, not external cooling). IV access and assessment are important but secondary to cooling.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient presents with fever, dry cough, and shortness of breath after returning from a farm in Saudi Arabia where he had close contact with camels. Which isolation precautions should be initiated IMMEDIATELY?",
+      "options": {"A": "Standard precautions only — respiratory symptoms are common", "B": "Standard + Droplet precautions with surgical mask", "C": "Standard + Droplet + Contact precautions, with N95 for any aerosol-generating procedures", "D": "Reverse isolation — protect the immunocompromised patient"},
+      "correct": "C",
+      "explanation": "This presentation with camel contact in the Arabian Peninsula is MERS-CoV until proven otherwise. MERS-CoV requires Standard + Droplet + Contact precautions immediately. N95 respirators (not surgical masks) are required for aerosol-generating procedures (intubation, bronchoscopy, nebulisation). The case must be reported to the national MOH within mandatory timeframes. Do not wait for laboratory confirmation to initiate precautions.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse in Qatar witnesses a patient collapse in the hospital corridor with no pulse. What is the FIRST action?",
+      "options": {"A": "Call 999 (Qatar emergency number) on a personal mobile phone", "B": "Activate the hospital emergency response system (Code Blue/emergency call) and begin CPR", "C": "Run to get the crash cart from the nearest resuscitation room", "D": "Find the attending physician before starting any intervention"},
+      "correct": "B",
+      "explanation": "In a hospital setting, the nurse activates the INTERNAL emergency response (Code Blue call via internal phone/button) AND begins CPR simultaneously if alone, or delegates the call while starting CPR if help is available. The hospital's internal system dispatches the resuscitation team with the crash cart far faster than calling the national emergency number (999 in Qatar). Delaying CPR to find a physician is never correct.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A healthcare worker has a needlestick injury while drawing blood from a patient known to be HBsAg-positive. What is the CORRECT immediate sequence?",
+      "options": {"A": "Apply pressure to the wound → report to occupational health → initiate PEP protocol", "B": "Wash the wound thoroughly with soap and water → report to occupational health → initiate PEP protocol", "C": "Apply antiseptic → bandage the wound → continue working and report at end of shift", "D": "Squeeze the wound to remove contaminated blood → wash with bleach solution → report"},
+      "correct": "B",
+      "explanation": "Immediate action for needlestick: (1) Wash with soap and running water for at least 2–3 minutes — do NOT squeeze or suck the wound. (2) Report immediately to occupational health (or supervisor). (3) Initiate post-exposure prophylaxis (PEP) protocol per facility guidelines — for HBV, timing of hepatitis B immunoglobulin is critical. Squeezing the wound and using bleach are not recommended — they can damage tissue without improving protection.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "Which of the following distinguishes heat stroke from heat exhaustion?",
+      "options": {"A": "Presence of sweating — heat stroke causes excessive sweating, heat exhaustion does not", "B": "Core body temperature — heat exhaustion may have normal or mildly elevated temp; heat stroke causes temperature >40°C with neurological signs", "C": "Location — heat exhaustion only occurs outdoors; heat stroke occurs indoors", "D": "Age — heat exhaustion affects only the elderly; heat stroke affects only young adults"},
+      "correct": "B",
+      "explanation": "Heat exhaustion: normal or moderately elevated temperature (<40°C), heavy sweating, weakness, dizziness, normal consciousness. Heat stroke: temperature >40°C, neurological dysfunction (confusion, seizure, loss of consciousness), often anhidrosis (absence of sweating in classic heat stroke). Heat stroke is a life-threatening emergency requiring immediate active cooling. Both can occur at any age and in any environment.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient diagnosed with MERS-CoV requires intubation for respiratory failure. Which PPE must the nurse wear beyond standard gown, gloves, and eye protection?",
+      "options": {"A": "Surgical mask — sufficient for all respiratory procedures", "B": "N95 respirator — required for aerosol-generating procedures with MERS-CoV", "C": "Powered air-purifying respirator (PAPR) only in ICU settings", "D": "Disposable apron only — MERS is transmitted by contact only"},
+      "correct": "B",
+      "explanation": "Intubation is an aerosol-generating procedure (AGP). For MERS-CoV, N95 or higher-grade respirator is required for all AGPs. Surgical masks provide droplet protection only — insufficient for aerosol-generating procedures. Standard precautions for MERS-CoV: Standard + Droplet + Contact. For AGPs: add N95 respirator (or higher). Limit personnel in room during AGPs.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "An elderly patient is found on the floor of his hospital room unable to be roused. The nurse is alone. What is the CORRECT sequence?",
+      "options": {"A": "Assess responsiveness → call for help/activate emergency response → begin CPR if no pulse", "B": "Begin CPR immediately without assessment", "C": "Call the physician → wait for physician to assess → begin CPR if ordered", "D": "Move the patient to bed → apply oxygen → call for help"},
+      "correct": "A",
+      "explanation": "Basic Life Support sequence: (1) Ensure scene safety. (2) Assess responsiveness (tap shoulders, call name). (3) If unresponsive: call for help/activate emergency response (shout or use call bell/phone). (4) Check for breathing and pulse simultaneously (no more than 10 seconds). (5) If no pulse/no breathing: begin CPR. Starting CPR without assessment or waiting for physician order are both wrong — assessment guides whether CPR is indicated.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "During a MERS-CoV outbreak, a nurse who has had unprotected exposure to a confirmed MERS patient (no N95 during AGP) should:",
+      "options": {"A": "Continue working if asymptomatic — most healthcare workers do not develop MERS", "B": "Report exposure immediately, undergo health monitoring, and follow the facility's occupational exposure protocol", "C": "Self-isolate at home for 14 days without notifying the facility", "D": "Take prophylactic antiviral medication without reporting"},
+      "correct": "B",
+      "explanation": "Unprotected exposure to MERS-CoV is a reportable occupational health event. The nurse must report immediately to occupational health or the infection control team, undergo active health monitoring (temperature check, symptom surveillance for 14 days), and follow the facility's MERS exposure protocol. Self-isolating without reporting delays contact tracing and may compromise other patients and staff.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait is called to respond to a cardiac arrest. The automated external defibrillator (AED) is located 3 minutes away. What should the nurse do while someone fetches the AED?",
+      "options": {"A": "Wait for the AED before starting CPR — defibrillation is more important", "B": "Begin high-quality CPR immediately and continue until the AED arrives", "C": "Perform mouth-to-mouth resuscitation only until the AED arrives", "D": "Start CPR only if the patient is younger than 60 years"},
+      "correct": "B",
+      "explanation": "High-quality CPR must begin IMMEDIATELY in cardiac arrest regardless of AED availability. Each minute without CPR reduces survival by 7–10%. CPR maintains perfusion until defibrillation is possible. When the AED arrives, attach it and follow its prompts while minimising interruptions to chest compressions. CPR has no age restriction — all patients in cardiac arrest benefit.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A Hajj pilgrim develops profuse watery diarrhoea, vomiting, and severe dehydration after eating communal food. Which infection is MOST likely and what is the isolation requirement?",
+      "options": {"A": "MERS-CoV — Standard + Droplet + Contact precautions", "B": "Cholera or gastroenteritis (Vibrio/E. coli/Salmonella) — Standard + Contact precautions", "C": "Meningococcal meningitis — Droplet precautions for 24 hours after antibiotics", "D": "Influenza — Droplet precautions"},
+      "correct": "B",
+      "explanation": "Gastroenteritis outbreaks (cholera, salmonella, norovirus) are common in large Hajj gatherings due to communal food and crowded sanitation. Standard + Contact precautions are required (faecal-oral transmission). Oral rehydration or IV fluid replacement is the priority intervention. MERS-CoV presents with respiratory symptoms. Meningococcal disease is also Hajj-associated but presents with meningism, purpuric rash — droplet precautions are key for meningococcal.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A healthcare worker is about to perform a nebulisation treatment on a febrile patient with suspected MERS-CoV. Which statement is CORRECT regarding this procedure?",
+      "options": {"A": "Nebulisation requires only standard precautions as it is a non-invasive procedure", "B": "Nebulisation is an aerosol-generating procedure requiring N95 respirator in addition to standard + droplet + contact precautions", "C": "Nebulisation should be performed in an open ward to dilute the aerosol", "D": "Nebulisation is safe without additional precautions if the patient wears a surgical mask"},
+      "correct": "B",
+      "explanation": "Nebulisation is classified as an aerosol-generating procedure (AGP) — it produces small aerosolised particles that can remain airborne and carry MERS-CoV. AGPs require: N95 respirator (minimum), eye protection, gown, gloves, and ideally a negative-pressure room. The patient wearing a surgical mask does not protect the healthcare worker from aerosols generated during the procedure.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    }
   ]
 }

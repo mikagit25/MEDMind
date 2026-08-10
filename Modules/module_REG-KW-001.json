@@ -11,7 +11,7 @@
     "duration_hours": 3,
     "version": "1.0",
     "content_enriched": false,
-    "exam_slugs": ["mohuae"],
+    "exam_slugs": ["moh_kw"],
     "jurisdiction": "kw",
     "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
     "verification_status": "pending",
@@ -147,6 +147,189 @@
           }
         ]
       }
+    }
+  ],
+  "flashcards": [
+    {"question": "Which body issues the nursing practice licence in Kuwait?", "answer": "MOH-KW — the Kuwait Ministry of Health. Additionally, the Public Authority for Manpower issues the work permit. Both are required to practise legally in Kuwait.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "How many questions are on the Kuwait MOH Prometric nursing exam?", "answer": "150 MCQ questions in a 3-hour computer-based sitting, covering 7 nursing domains.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What are the 7 nursing domains covered by the Kuwait MOH Prometric exam?", "answer": "Medical-Surgical Nursing, Maternal-Child Health, Mental Health Nursing, Paediatric Nursing, Community Health, Fundamentals of Nursing, and Nursing Management and Leadership.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What two documents does a foreign nurse need to practise legally in Kuwait?", "answer": "A MOH-KW nursing practice licence AND a work permit from the Public Authority for Manpower (PAM). Both are mandatory.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "Is the incident report part of the patient's medical record in Kuwait?", "answer": "No. The incident report is a confidential internal quality document — it is NOT part of the legal medical record and must NOT be referenced in the chart. Clinical facts of the event must be documented separately in the patient's record.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What cultural considerations are tested in Kuwait MOH nursing exam scenarios?", "answer": "Gender-sensitive care (many Kuwaiti/Arab female patients prefer female providers), Ramadan fasting (medication timing adjustments via physician/pharmacist), halal medication compliance, prayer accommodation (5 daily prayers), and family-centred end-of-life communication.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the normal fasting blood glucose range in SI units for a healthy adult?", "answer": "3.9–5.6 mmol/L. DKA threshold: >13.9 mmol/L; HHS threshold: >33.3 mmol/L. Kuwait (GCC) uses mmol/L, not mg/dL.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "What MERS-CoV PPE is required for aerosol-generating procedures in Kuwait?", "answer": "N95 respirator (not surgical mask), eye protection, gown, and gloves. Standard + Droplet + Contact precautions apply. Mandatory reporting to Kuwait MOH.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the correct needlestick injury response in Kuwait MOH facilities?", "answer": "Immediately wash the wound with soap and water (do NOT squeeze or suck), report to occupational health, initiate PEP per facility protocol, and document in an incident report.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the delegating nurse's accountability when assigning a task to an unregistered care assistant in Kuwait?", "answer": "The delegating RN retains full accountability for the delegated task. Only tasks within the care assistant's competence may be delegated — patient assessment cannot be delegated to unlicensed auxiliary staff.", "difficulty": "medium", "category": "nursing_management_leadership"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "The Kuwait Ministry of Health (MOH-KW) Prometric nursing exam consists of:",
+      "options": {
+        "A": "200 MCQ questions in 4 hours across 5 domains",
+        "B": "150 MCQ questions in 3 hours across 7 nursing domains",
+        "C": "100 MCQ questions in 2 hours plus a clinical OSCE",
+        "D": "120 MCQ questions in 2.5 hours"
+      },
+      "correct": "B",
+      "explanation": "The Kuwait MOH Prometric nursing exam consists of 150 MCQ questions in a 3-hour computer-based sitting. The 7 domains are: Medical-Surgical, Maternal-Child Health, Mental Health, Paediatric, Community Health, Fundamentals, and Management and Leadership.",
+      "difficulty": "easy",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse has passed the Kuwait MOH Prometric exam. Which additional document is required before the nurse can legally begin working at a Kuwaiti hospital?",
+      "options": {
+        "A": "A DHA licence endorsed for Kuwait",
+        "B": "A work permit from the Public Authority for Manpower (PAM) in addition to the MOH-KW nursing licence",
+        "C": "SCFHS certification",
+        "D": "A GCC medical council membership card"
+      },
+      "correct": "B",
+      "explanation": "Both the MOH-KW nursing practice licence and a work permit from the Public Authority for Manpower (PAM) are required for a foreign nurse to legally work in Kuwait. Holding one without the other does not authorise practice.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A Kuwaiti male patient's family insists the physician and nurse must not inform the patient about his terminal cancer diagnosis. The patient is alert, oriented, and competent. What is the nurse's correct action?",
+      "options": {
+        "A": "Comply with the family's request to protect the patient from distress",
+        "B": "Inform the patient immediately, overriding the family's concern",
+        "C": "Assess the patient's own wishes about receiving his health information; the patient may choose to receive it himself or designate family to manage communication on his behalf",
+        "D": "Ask the hospital ethics committee to decide without involving the patient"
+      },
+      "correct": "C",
+      "explanation": "Under MOH-KW Patient Rights Policy, a competent patient has the right to receive their own health information. If the patient wishes to know, family cannot override this. However, the patient may also choose to have family manage that communication — this must be the patient's own documented choice. The nurse first assesses and documents the patient's preferences.",
+      "difficulty": "hard",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in a Kuwait MOH hospital measures a patient's fasting blood glucose and obtains a result of 14.2. What unit is used, and what does this value indicate?",
+      "options": {
+        "A": "mg/dL — a normal fasting glucose",
+        "B": "mmol/L — significantly elevated, above the threshold for likely diabetic ketoacidosis",
+        "C": "mEq/L — a critically low potassium reading",
+        "D": "mmol/L — a normal result (range 3.9–5.6)"
+      },
+      "correct": "B",
+      "explanation": "Kuwait (GCC) uses SI units. Blood glucose is measured in mmol/L. A value of 14.2 mmol/L is significantly elevated — above the DKA threshold of >13.9 mmol/L. Normal fasting glucose is 3.9–5.6 mmol/L. The nurse must notify the physician promptly.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait completes an incident report after a patient fall. The incident report should be:",
+      "options": {
+        "A": "Attached to the patient's medical record as a permanent document",
+        "B": "Sent directly to MOH-KW as the primary regulatory report",
+        "C": "Kept as a confidential internal quality document; clinical facts of the fall must be documented separately in the patient's medical record",
+        "D": "Shared with the patient's family as part of transparency obligations"
+      },
+      "correct": "C",
+      "explanation": "The incident report is an internal quality improvement tool — it is NOT part of the legal medical record and must NOT be copied into or referenced in the patient's chart. The nurse must separately document the clinical facts of the event (what happened, assessment, interventions, outcome) in the medical record.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "During Ramadan, a Muslim patient in Kuwait requires their usual oral medication twice daily (with food). The patient is fasting from dawn to sunset. What is the nurse's best action?",
+      "options": {
+        "A": "Administer medications at the usual times — the physician's order takes precedence",
+        "B": "Hold all medications for the entire month of Ramadan",
+        "C": "Consult the physician and pharmacist to adjust the medication schedule to align with suhoor and iftar, then document the change",
+        "D": "Ask the patient to break their fast to take medications at the scheduled times"
+      },
+      "correct": "C",
+      "explanation": "Cultural nursing in Kuwait includes Ramadan fasting accommodation. Medication timing may need adjustment to suhoor (pre-dawn) and iftar (sunset) meal times. This requires physician and pharmacist involvement — the nurse facilitates the consultation and documents the agreed change. Never unilaterally alter prescribed medication schedules.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait sustains a needlestick injury from a used needle. What is the correct immediate action?",
+      "options": {
+        "A": "Apply pressure and squeeze blood from the wound to remove contamination",
+        "B": "Apply a sterile dressing and report at the end of the shift",
+        "C": "Immediately wash the wound with soap and water, report to occupational health, and initiate post-exposure prophylaxis protocol",
+        "D": "Suck the wound to remove any blood, then apply antiseptic"
+      },
+      "correct": "C",
+      "explanation": "Kuwait MOH occupational safety protocol for needlestick injury: immediately wash the wound with soap and water (do NOT squeeze or suck), report promptly to occupational health, and initiate PEP as indicated per facility protocol. Document in an incident report. Prompt action is critical for hepatitis B and HIV PEP timelines.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A patient in Kuwait requires an emergency blood transfusion. She is unconscious following a road accident, and no family member is immediately available. What is the correct approach to consent?",
+      "options": {
+        "A": "Delay transfusion until a family member arrives to consent",
+        "B": "Proceed with the life-saving transfusion in the patient's best interest; document the emergency exception clearly in the medical record",
+        "C": "Contact the patient's embassy for guidance before acting",
+        "D": "Obtain MOH-KW approval before proceeding"
+      },
+      "correct": "B",
+      "explanation": "Kuwait's consent framework includes an emergency exception: when a patient is incapacitated and no guardian is immediately available, life-saving care may proceed in the patient's best interest. The emergency exception and clinical rationale must be clearly documented in the medical record. Delaying life-saving treatment while seeking consent would cause preventable harm.",
+      "difficulty": "hard",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A Kuwaiti female patient in hospital requests a female nurse for her physical examination. The unit has only male nurses available for the next two hours. What is the correct action?",
+      "options": {
+        "A": "Proceed with a male nurse immediately — clinical need outweighs cultural preferences",
+        "B": "Decline to perform the examination at all until a female nurse is available regardless of clinical urgency",
+        "C": "If clinically safe to wait, defer to a female nurse; if urgent, proceed with a male nurse with a chaperone and document the accommodation attempt",
+        "D": "Ask the physician to perform the assessment instead"
+      },
+      "correct": "C",
+      "explanation": "Kuwait MOH culturally congruent care recognises gender preferences for many Kuwaiti and Arab female patients. Where clinically safe, waiting for a female nurse is appropriate. In urgent clinical situations, a male nurse with a chaperone may proceed. The patient's preference must be documented along with the clinical rationale for any deviation. This balance is tested in the Kuwait Prometric exam.",
+      "difficulty": "hard",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait administers insulin to a patient using a dual-nurse verification process. Which medications also require this independent dual-nurse check in Kuwait MOH facilities?",
+      "options": {
+        "A": "Paracetamol and ibuprofen",
+        "B": "Heparin, concentrated potassium chloride, opioids, and anticoagulants",
+        "C": "Oral antibiotics and antihistamines",
+        "D": "All medications require dual-nurse verification"
+      },
+      "correct": "B",
+      "explanation": "Kuwait MOH (GCC-standard) high-alert medications requiring independent dual-nurse check include: insulin, heparin, concentrated potassium chloride (KCl), opioids, anticoagulants, and chemotherapy agents. Routine medications (paracetamol, antibiotics) do not require dual-nurse verification.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait is caring for a patient with suspected MERS-CoV who requires a nebulisation treatment (aerosol-generating procedure). Which PPE is required?",
+      "options": {
+        "A": "Standard surgical mask, gloves",
+        "B": "Gloves and apron only",
+        "C": "N95 respirator, eye protection (goggles or face shield), gown, and gloves",
+        "D": "N95 respirator alone is sufficient for AGPs"
+      },
+      "correct": "C",
+      "explanation": "MERS-CoV: Standard + Droplet + Contact precautions apply. Nebulisation is an aerosol-generating procedure (AGP) requiring an N95 (or FFP2/3) respirator instead of a surgical mask, plus eye protection, gown, and gloves. A negative pressure room should be used if available. Kuwait MOH mandates reporting to Kuwait MOH within specified timeframes.",
+      "difficulty": "medium",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "Which of the following is within the independent scope of practice of a standard Registered Nurse (RN) licensed by Kuwait MOH?",
+      "options": {
+        "A": "Prescribing salbutamol inhaler for a patient with mild wheezing",
+        "B": "Ordering a serum potassium level without a physician order",
+        "C": "Documenting vital signs and reporting abnormal findings to the physician",
+        "D": "Adjusting IV potassium infusion rate based on lab results without a physician order"
+      },
+      "correct": "C",
+      "explanation": "Monitoring, documenting vital signs, and reporting abnormal findings to the physician are core RN functions within Kuwait MOH scope. Prescribing medications, ordering investigations without physician order, and adjusting IV drug rates without a new physician order are outside standard RN scope.",
+      "difficulty": "easy",
+      "exam_slugs": ["moh_kw"]
+    },
+    {
+      "question": "A nurse in Kuwait receives a verbal telephone order from a physician to administer morphine 4 mg IV to a patient with severe post-operative pain. What is the correct process?",
+      "options": {
+        "A": "Administer immediately and document at the end of the shift",
+        "B": "Document the order immediately, read it back to confirm, arrange a second nurse to verify (as morphine is a controlled opioid), and ensure physician countersignature promptly",
+        "C": "Refuse the verbal order — opioids can only be administered from a written order",
+        "D": "Ask the pharmacist to countersign the verbal order before administration"
+      },
+      "correct": "B",
+      "explanation": "Verbal/telephone orders are accepted in urgent situations in Kuwait. The nurse must: document immediately, read it back for confirmation, perform dual-nurse verification (morphine is an opioid — a controlled high-alert medication), and ensure physician countersignature promptly. This satisfies both medication safety and Kuwait MOH documentation standards.",
+      "difficulty": "hard",
+      "exam_slugs": ["moh_kw"]
     }
   ]
 }

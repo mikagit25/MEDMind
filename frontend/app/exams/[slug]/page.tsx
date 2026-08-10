@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ExamLandingTemplate, type ExamDefinition } from "@/components/exam/ExamLandingTemplate";
+import { ExamLandingTemplate, type ExamDefinition, type StudyModule } from "@/components/exam/ExamLandingTemplate";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +19,18 @@ async function fetchExam(slug: string): Promise<ExamDefinition | null> {
     return await res.json();
   } catch {
     return null;
+  }
+}
+
+async function fetchStudyModules(slug: string): Promise<StudyModule[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/exam/study-modules/${slug}`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
   }
 }
 
@@ -74,7 +86,10 @@ export async function generateMetadata({
 }
 
 export default async function ExamPage({ params }: { params: { slug: string } }) {
-  const exam = await fetchExam(params.slug);
+  const [exam, studyModules] = await Promise.all([
+    fetchExam(params.slug),
+    fetchStudyModules(params.slug),
+  ]);
   if (!exam) notFound();
-  return <ExamLandingTemplate exam={exam} />;
+  return <ExamLandingTemplate exam={exam} studyModules={studyModules} />;
 }

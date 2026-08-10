@@ -1,0 +1,259 @@
+{
+  "meta": {
+    "id": "REG-HAAD-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Abu Dhabi: DOH, Scope, Tawteen & Patient Rights",
+    "title_en": "Nursing Practice in Abu Dhabi: DOH, Scope, Tawteen & Patient Rights",
+    "order_in_specialty": 10,
+    "level": "intermediate",
+    "prerequisite_modules": ["REG-AE-001"],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["haad"],
+    "jurisdiction": "ae_abudhabi",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available DOH Abu Dhabi documentation. All local norms require verification by a nurse licensed under DOH Abu Dhabi before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses practising in Abu Dhabi under the Department of Health Abu Dhabi (DOH), formerly known as HAAD (Health Authority Abu Dhabi). It covers DOH registration, scope of practice, the Malaffi health information exchange, patient rights, medication safety, and cultural considerations relevant to the DOH/HAAD nursing licensing exam.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "DOH Abu Dhabi: Registration, Scope, and the Abu Dhabi Health System",
+      "content": {
+        "intro": "The Department of Health Abu Dhabi (DOH) — formerly the Health Authority Abu Dhabi (HAAD) — is the regulatory body for healthcare professionals and facilities in the Emirate of Abu Dhabi, which includes the cities of Abu Dhabi, Al Ain, and Al Dhafra region. The DOH/HAAD Prometric exam is required for nursing licensure to practise in Abu Dhabi.",
+        "sections": [
+          {
+            "heading": "UAE Regulatory Structure: DOH vs DHA vs MOHAP",
+            "text": "The UAE has three health regulatory bodies, each covering a distinct jurisdiction: DHA (Dubai Health Authority) for Dubai, DOH (Department of Health Abu Dhabi, formerly HAAD) for Abu Dhabi, and MOHAP (Ministry of Health and Prevention) for the five Northern Emirates (Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, Fujairah). A DOH licence issued in Abu Dhabi does NOT permit practice in Dubai (DHA licence required) or the Northern Emirates (MOHAP required). Licences are emirate-specific and not interchangeable. The federal body, MOHAP, sets national health policies that apply across all seven emirates, but licensing is the responsibility of each emirate's own authority."
+          },
+          {
+            "heading": "DOH Nurse Classification and Scope of Practice",
+            "text": "DOH classifies nurses as: Registered Nurse (RN), Senior Registered Nurse, Specialist Nurse, and Nurse Practitioner. Standard RN scope under DOH includes: patient assessment and care planning, medication administration per physician order, patient and family education, wound care, IV therapy management, documentation, and coordination of care. Independent prescribing is not within standard RN scope — physician authorisation is required for medication orders. Nurse Practitioners (NPs) may have expanded prescribing rights under DOH NP scope guidelines. DOH-licensed nurses practise in SEHA (Abu Dhabi Health Services Company) public facilities, Cleveland Clinic Abu Dhabi, Burjeel, and other DOH-licensed private hospitals."
+          },
+          {
+            "heading": "DOH/HAAD Prometric Exam",
+            "text": "The DOH nursing licensing examination is a computer-based Prometric exam: 100 MCQ questions in 3 hours. The blueprint covers the same core domains as other Gulf Prometric exams: Medical-Surgical Nursing, Maternal-Child Health, Mental Health, Paediatric Nursing, Community Health, Fundamentals of Nursing, and Nursing Management and Leadership. The exam was formerly branded as 'HAAD exam' — candidates may see both 'HAAD' and 'DOH' used interchangeably in the community; they refer to the same Abu Dhabi examination. Source: DOH official licensing portal (doh.gov.ae)."
+          },
+          {
+            "heading": "Malaffi — Abu Dhabi Health Information Exchange",
+            "text": "Abu Dhabi operates Malaffi, a health information exchange (HIE) connecting all DOH-licensed public and private healthcare providers. Malaffi allows participating facilities to access a patient's complete health record (with consent) across different Abu Dhabi facilities. This improves care continuity and reduces duplicate testing. Nurses must understand that Malaffi access is subject to patient consent and data privacy regulations. Unauthorised access to patient records via Malaffi constitutes a breach of confidentiality under UAE Federal law and DOH policy."
+          }
+        ],
+        "clinical_pearl": "The most common exam question trap about Abu Dhabi: a nurse asks whether their DHA licence covers practice in Abu Dhabi hospitals. The answer is NO — a separate DOH licence is required for Abu Dhabi. Similarly, a DOH-licensed nurse cannot practise in Dubai without a DHA licence. This UAE three-authority licensing structure is a high-yield question in all UAE nursing exams (DHA, DOH/HAAD, and MOHAP).",
+        "key_points": [
+          "DOH (formerly HAAD) licences Abu Dhabi only — not valid in Dubai (DHA) or Northern Emirates (MOHAP)",
+          "DOH/HAAD Prometric: 100 MCQ, 3 hours",
+          "Malaffi: Abu Dhabi health information exchange — consent-based, confidentiality rules apply",
+          "SEHA: Abu Dhabi public hospital network under DOH",
+          "DHA ≠ DOH ≠ MOHAP — licences not interchangeable across UAE emirates"
+        ],
+        "references": [
+          {
+            "title": "DOH Abu Dhabi Health Professional Licensing",
+            "authors": "Department of Health Abu Dhabi",
+            "journal_or_source": "DOH Official Portal",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://www.doh.gov.ae/en/regulatedhealthprofessions/licensingrequirements",
+            "note": "DOH licensing requirements and exam information for Abu Dhabi"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Patient Rights, Informed Consent, and Incident Reporting under DOH",
+      "content": {
+        "intro": "DOH Abu Dhabi upholds a comprehensive patient rights framework aligned with international standards and UAE federal law. Patient rights and informed consent principles are regularly tested in the DOH/HAAD nursing licensing examination.",
+        "sections": [
+          {
+            "heading": "DOH Patient Rights Charter",
+            "text": "DOH's Patient Rights and Responsibilities framework guarantees: the right to respectful, dignified care without discrimination; the right to full information about diagnosis, treatment, and prognosis in a language the patient understands; the right to give or refuse informed consent; the right to confidentiality of health information; the right to access personal medical records; and the right to complain through the DOH patient complaint system. Abu Dhabi's population is highly diverse — over 85% are expatriates — making multilingual communication and language interpreter services essential, particularly for consent discussions."
+          },
+          {
+            "heading": "Informed Consent under DOH",
+            "text": "Valid informed consent under DOH must be: voluntary (free from coercion), informed (patient understands the nature, risks, alternatives, and expected outcomes of the proposed intervention), and given by a competent patient or an authorised substitute. Competent adults (18 and above) consent independently. Family preferences may be considered and families may be involved in discussions where the patient desires this — but family wishes cannot override a competent patient's own decision. For incapacitated patients, the legal guardian provides consent; in emergencies without a guardian, care proceeds in the patient's best interest with full documentation. Minors (under 18): parental or guardian consent required; for adolescents with sufficient understanding, assent is sought alongside parental consent."
+          },
+          {
+            "heading": "Incident Reporting: DOH Requirements",
+            "text": "DOH mandates that all licensed facilities maintain internal incident reporting systems. Mandatory reportable events include sentinel events (unexpected death or serious harm), adverse drug events, patient falls with injury, healthcare-associated infections, and near-misses. Sentinel events must be reported to DOH within specified timeframes. The nurse's obligations: immediately assess the patient, notify the attending physician, document clinical facts in the medical record (objective account of what happened, patient status, interventions, physician notification), and complete the internal incident report. Critical: the incident report is an internal quality-improvement document and is NOT part of the legal medical record. Incident report details must NOT be copied into or referenced in the patient's medical chart."
+          }
+        ],
+        "clinical_pearl": "DOH exam questions on informed consent frequently use the scenario of a family requesting that a patient not be told a serious diagnosis (cancer, terminal illness). The correct answer always starts with assessing the patient's own wishes. If the patient is competent, they have the right to receive information OR to delegate information management to a family member — but this is the patient's choice to make. The nurse cannot withhold information from a competent patient at the family's request without the patient's own explicit instruction to do so.",
+        "key_points": [
+          "Competent adults (18+) consent independently; family cannot override",
+          "Consent for incapacitated patients: legal guardian; emergency: proceed in patient's best interest",
+          "Incident report is NOT part of the medical record — document clinical event in the chart separately",
+          "DOH sentinel events must be reported within required timeframe",
+          "Malaffi record access requires patient consent — unauthorised access = confidentiality breach"
+        ],
+        "references": [
+          {
+            "title": "DOH Patient Rights and Responsibilities Policy",
+            "authors": "Department of Health Abu Dhabi",
+            "journal_or_source": "DOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.doh.gov.ae/en/",
+            "note": "Official patient rights framework Abu Dhabi DOH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety, Documentation, and Quality Standards under DOH",
+      "content": {
+        "intro": "DOH Abu Dhabi healthcare facilities follow rigorous medication safety standards aligned with JCI (Joint Commission International) accreditation requirements — many Abu Dhabi hospitals are JCI-accredited — along with UAE federal pharmacy regulations and WHO infection control guidelines.",
+        "sections": [
+          {
+            "heading": "Medication Safety: DOH / JCI Standards",
+            "text": "DOH medication safety requirements: two-patient identifier verification before every medication administration (patient name AND date of birth or medical record number — not bed number or room number), five rights of medication administration, independent dual-nurse verification for high-alert medications (concentrated electrolytes, insulin, heparin, opioids, chemotherapy agents), controlled substance (controlled drug) register with dual signatures and witnessed disposal. All medications in Abu Dhabi facilities follow INN (generic) nomenclature: paracetamol (not Tylenol), ibuprofen, warfarin, salbutamol. Laboratory values: SI units exclusively — glucose mmol/L, creatinine µmol/L, temperature °C, electrolytes mmol/L. High-alert medication error prevention: never give KCl IV bolus (fatal arrhythmia); write 'units' not 'U' (Do Not Use abbreviation); write 'international units' not 'IU'."
+          },
+          {
+            "heading": "Documentation Standards under DOH",
+            "text": "All clinical documentation in DOH-licensed facilities must be: accurate, timely (contemporaneous), legible, signed, dated, and timed. Error correction: draw a single line through the error, date and initial — never use correction fluid, never overwrite. Do not document care before it is given. Medical records are legal documents under UAE Federal Law No. 4 of 2016 on Medical Liability — nurses are individually liable for documentation accuracy. Electronic health records (EHR) are standard in most Abu Dhabi facilities; Malaffi integration means records may be accessible to authorised providers across facilities. Never share login credentials or access patient records without clinical justification."
+          },
+          {
+            "heading": "JCI and DOH Quality Standards",
+            "text": "Many DOH-licensed hospitals in Abu Dhabi (SEHA facilities, Cleveland Clinic Abu Dhabi, Burjeel) hold JCI accreditation. JCI National Patient Safety Goals relevant to nurses: correct patient identification (two identifiers), effective communication (read-back for verbal orders), high-alert medication management, surgical/procedure site marking, infection prevention (WHO hand hygiene), fall risk reduction. Hand hygiene: WHO 5 Moments (before patient contact, before aseptic procedure, after body fluid exposure, after patient contact, after touching patient surroundings). MERS-CoV: Standard + Droplet + Contact; N95 for aerosol-generating procedures; report to DOH."
+          }
+        ],
+        "clinical_pearl": "DOH/HAAD exam questions frequently combine documentation and medication error management. The sequence is always: (1) Assess the patient — is there harm? (2) Notify the physician immediately with full details. (3) Document in the medical record — objective clinical facts only (what happened, patient assessment, notification, interventions). (4) Complete the internal incident report — which is NOT referenced in the medical record. Never document 'incident report completed' in the medical chart — this makes the incident report discoverable in legal proceedings.",
+        "key_points": [
+          "Two identifiers before every medication: name + DOB or MRN — not bed or room number",
+          "Dual-nurse independent check: insulin, heparin, concentrated KCl, opioids",
+          "Error correction: single line, date, initials — no correction fluid",
+          "'incident report completed' must NOT appear in the medical record",
+          "KCl IV bolus: NEVER — fatal arrhythmia; peripheral max 10 mmol/hour",
+          "JCI accreditation common in Abu Dhabi — safety goals apply to all nurses in those facilities"
+        ],
+        "references": [
+          {
+            "title": "DOH Abu Dhabi Medication Safety Standards",
+            "authors": "Department of Health Abu Dhabi",
+            "journal_or_source": "DOH Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.doh.gov.ae/en/",
+            "note": "Medication safety and documentation standards for Abu Dhabi"
+          }
+        ]
+      }
+    }
+  ],
+  "flashcards": [
+    {"question": "Former name of DOH Abu Dhabi?", "answer": "HAAD — Health Authority Abu Dhabi. Changed to DOH (Department of Health Abu Dhabi). The Prometric exam may still be referred to as 'HAAD exam' by the nursing community.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "Can a DHA-licensed nurse work in Abu Dhabi hospitals?", "answer": "No — DHA licence covers Dubai only. A separate DOH licence is required for Abu Dhabi. DHA ≠ DOH ≠ MOHAP — never interchangeable.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "What is Malaffi?", "answer": "Abu Dhabi's Health Information Exchange (HIE) — connects all DOH-licensed facilities to share patient records with consent. Unauthorised access is a confidentiality breach under UAE Federal Law.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "DOH/HAAD Prometric exam format?", "answer": "100 MCQ questions, 3 hours. Domains: Medical-Surgical, Maternal-Child, Mental Health, Paediatrics, Community Health, Fundamentals, Management & Leadership.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "Under DOH, what must the nurse write instead of 'U' for units?", "answer": "'Units' — written in full. 'U' is on the Do Not Use list because it can be misread as '0', causing 10-fold dosing errors.", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Public hospital network in Abu Dhabi under DOH?", "answer": "SEHA — Abu Dhabi Health Services Company. Operates government hospitals across Abu Dhabi emirate.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "Maximum safe KCl IV infusion rate via peripheral line under DOH?", "answer": "10 mmol/hour maximum. Never give KCl as an IV bolus — fatal cardiac arrhythmia.", "difficulty": "hard", "category": "pharmacology"},
+    {"question": "Under DOH, when may a nurse NOT withhold a diagnosis from a patient?", "answer": "When the patient is competent — a competent adult has the right to receive health information; family wishes cannot override a competent patient without the patient's own explicit consent to that arrangement.", "difficulty": "hard", "category": "nursing_management_leadership"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse holds a DHA (Dubai Health Authority) licence and is offered a position at Cleveland Clinic Abu Dhabi. Can she begin practising with her DHA licence?",
+      "options": {"A": "Yes — all UAE licences are recognised across emirates", "B": "Yes — DHA and DOH have a mutual recognition agreement", "C": "No — she needs a separate DOH (Abu Dhabi) licence to practise in Abu Dhabi", "D": "No — she needs a MOHAP licence for any UAE private hospital"},
+      "correct": "C",
+      "explanation": "UAE licensing is emirate-specific. DHA licences cover Dubai only. DOH licences cover Abu Dhabi only. MOHAP licences cover the five Northern Emirates. Cleveland Clinic Abu Dhabi is in Abu Dhabi and requires a DOH licence. The nurse must apply to DOH separately — her DHA licence does not transfer.",
+      "difficulty": "easy",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse in Abu Dhabi accesses a patient's medical records on Malaffi out of personal curiosity, without a clinical reason. What is the consequence?",
+      "options": {"A": "No consequence — Malaffi records are accessible to all DOH-licensed nurses", "B": "A verbal warning from the charge nurse", "C": "A breach of patient confidentiality — subject to disciplinary action under DOH policy and UAE Federal Law", "D": "Allowed only if the nurse documents the reason for access"},
+      "correct": "C",
+      "explanation": "Malaffi access is governed by patient consent and data privacy under UAE Federal Law No. 2 of 2019 on the Use of Information and Communication Technology in Health. Accessing a patient's records without clinical justification constitutes an unauthorised breach of confidentiality — subject to DOH disciplinary action, and potentially criminal prosecution under UAE law.",
+      "difficulty": "medium",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse in a DOH-licensed facility is assigned to care for a patient she knows socially. The patient's HIV status is documented in the chart. What is the nurse's obligation?",
+      "options": {"A": "Inform close family of the diagnosis to protect them", "B": "Maintain strict confidentiality — the patient's HIV status is protected health information", "C": "Disclose to the ward team only to ensure appropriate precautions", "D": "Document that she knows the patient and request reassignment"},
+      "correct": "B",
+      "explanation": "Patient confidentiality applies regardless of the nurse's personal relationship with the patient. HIV status is especially sensitive protected health information. Disclosure to family without the patient's consent, or to colleagues beyond the treating team's clinical need-to-know, is a confidentiality breach under DOH policy and UAE Federal Law. The nurse should provide professional care and maintain confidentiality. Requesting reassignment due to personal relationship is optional but appropriate — but the reason for reassignment must not involve disclosing the diagnosis.",
+      "difficulty": "hard",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A physician in an Abu Dhabi DOH facility gives a verbal medication order over the phone during an emergency. What is the correct documentation practice?",
+      "options": {"A": "Administer the medication and document it only after the physician signs the order the next day", "B": "Refuse verbal orders — all orders must be written before administration", "C": "Write down the verbal order, read it back to the physician for confirmation, administer, and have the physician countersign the order as soon as possible", "D": "Document the order in the incident report as a non-standard practice"},
+      "correct": "C",
+      "explanation": "Verbal/telephone orders are accepted in emergencies under DOH guidelines with a specific protocol: (1) Write the order down immediately. (2) Read it back to the physician (read-back verification) to confirm accuracy. (3) Administer the medication. (4) The physician must countersign the order within the facility's specified timeframe (typically 24 hours). This is a JCI National Patient Safety Goal requirement. Refusing all verbal orders in emergencies would delay life-saving care.",
+      "difficulty": "medium",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "After a medication error in an Abu Dhabi hospital, the nurse documents the error in the medical record and adds: 'Incident report completed and filed.' Is this documentation correct?",
+      "options": {"A": "Yes — transparency requires documenting all quality actions in the chart", "B": "No — reference to the incident report must NOT appear in the medical record", "C": "Yes — DOH requires cross-referencing the incident report in the chart", "D": "No — the error itself should not be documented in the medical record"},
+      "correct": "B",
+      "explanation": "The medical record must contain an objective clinical account of what happened (the error), the patient's assessment findings, physician notification, and the interventions taken. However, the existence of, or reference to, the incident report must NEVER appear in the medical record. Documenting 'incident report completed' in the chart makes the internal quality document discoverable in legal proceedings, undermining its protected status.",
+      "difficulty": "hard",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse in a DOH/HAAD exam preparation centre reads that the exam was 'previously called HAAD exam but is now DOH exam.' Which statement is MOST accurate?",
+      "options": {"A": "HAAD and DOH are completely different organisations with different exams", "B": "HAAD was replaced by a federal exam; DOH is the new national nursing board", "C": "HAAD was the former name of the Abu Dhabi health authority — rebranded to DOH; both names refer to the same Abu Dhabi licensing examination", "D": "HAAD exams are for nurses; DOH exams are for physicians only"},
+      "correct": "C",
+      "explanation": "HAAD (Health Authority Abu Dhabi) was rebranded as DOH (Department of Health Abu Dhabi) as part of Abu Dhabi government restructuring. The Prometric nursing licensing examination for Abu Dhabi continues under the DOH name. Nurses who passed the HAAD exam hold a DOH-equivalent licence. The exam community still uses both names interchangeably — candidates must understand they are the same Abu Dhabi exam.",
+      "difficulty": "easy",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A patient in a SEHA hospital in Abu Dhabi is prescribed furosemide 40 mg IV. The nurse notes the patient is allergic to sulfonamide antibiotics. What is the CORRECT action?",
+      "options": {"A": "Administer furosemide — loop diuretics have no sulfonamide structure", "B": "Hold the medication and notify the physician — furosemide is a sulfonamide derivative and cross-reactivity is possible", "C": "Administer half the dose and monitor for allergic reaction", "D": "Switch to oral furosemide — IV route increases allergy risk"},
+      "correct": "B",
+      "explanation": "Furosemide contains a sulfonamide moiety and may cross-react in patients with sulfonamide allergy. The nurse must hold the dose and notify the physician before administration. The physician will assess allergy severity and determine whether to proceed with furosemide, switch to an alternative diuretic (e.g., ethacrynic acid), or pre-medicate. Clinical decisions of this type require physician input — the nurse should never administer without authorisation when a contraindication is noted.",
+      "difficulty": "hard",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "Which of the following describes the CORRECT error correction technique in a DOH-licensed facility?",
+      "options": {"A": "Use correction fluid (Tipp-Ex) to cover the error, then write the correct entry", "B": "Erase the error with a pencil eraser if the documentation was made in pencil", "C": "Draw a single line through the error, write the date and your initials, then write the correct entry", "D": "Block out the error with a black marker so it cannot be read"},
+      "correct": "C",
+      "explanation": "In all DOH-licensed facilities, error correction in paper medical records follows the single-line method: draw one line through the error (so it remains readable — errors must not be hidden), date and initial the correction, then write the correct entry. This preserves the integrity of the medical record as a legal document. Correction fluid, erasure, and blocking out are all prohibited — they imply concealment and can constitute tampering with a legal document.",
+      "difficulty": "easy",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse at an Abu Dhabi JCI-accredited hospital must administer IV insulin to a patient with diabetic ketoacidosis. What is the PRIORITY safety step before administration?",
+      "options": {"A": "Verify insulin dose against the prescription, then administer immediately given the emergency", "B": "Have a second nurse independently verify the insulin type, dose, concentration, and rate before starting the infusion", "C": "Call the pharmacy to confirm the insulin order before administration", "D": "Document the planned dose in the MAR before drawing up the insulin"},
+      "correct": "B",
+      "explanation": "Insulin is classified as a high-alert medication requiring independent dual-nurse verification in JCI-accredited facilities and all DOH-licensed hospitals. This applies even in emergencies — the verification process is brief and essential. Two nurses must independently check: correct insulin type, correct dose/concentration, correct infusion rate, and patient identity (two identifiers). Documentation in the MAR occurs after, not before, administration.",
+      "difficulty": "medium",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A female patient in Abu Dhabi refuses a mammography screening, stating it is against her conservative religious values. What is the nurse's BEST response?",
+      "options": {"A": "Educate the patient firmly about the life-saving importance of mammography and proceed", "B": "Respect the patient's decision, provide information about the benefits and risks of declining, and document her informed refusal", "C": "Involve the patient's husband — his consent overrides her refusal", "D": "Schedule the procedure for a later date without the patient's knowledge"},
+      "correct": "B",
+      "explanation": "A competent adult has the absolute right to refuse any medical procedure, including preventive screening, for any reason — including religious or cultural values. The nurse's role is to ensure the patient has sufficient information to make an informed decision (benefits, risks of declining), then respect and document the patient's informed refusal. Proceeding without consent is assault. Involving the husband to override the patient's decision violates her autonomy under DOH patient rights policy.",
+      "difficulty": "medium",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse is preparing to connect a new IV line for a patient in Abu Dhabi. Which MINIMUM identifiers must be verified using the patient's wristband?",
+      "options": {"A": "Bed number and room number", "B": "Full name and ward name", "C": "Full name AND date of birth (or medical record number)", "D": "Patient photograph and diagnosis"},
+      "correct": "C",
+      "explanation": "DOH/JCI standard: two patient identifiers must be verified against the wristband before any medication administration, blood transfusion, procedure, or specimen collection. Accepted identifiers: full name AND date of birth, OR full name AND medical record number. Bed number, room number, ward name, and diagnosis are NOT acceptable identifiers — patients can move between locations. The wristband is the authoritative identifier source.",
+      "difficulty": "easy",
+      "exam_slugs": ["haad"]
+    },
+    {
+      "question": "A nurse discovers that a colleague has been accessing patient records on Malaffi for patients who are not under their care. What is the MOST appropriate action?",
+      "options": {"A": "Assume there is a clinical reason and take no action", "B": "Inform the colleague informally and suggest they be more careful", "C": "Report the observed behaviour to the charge nurse or compliance officer — unauthorised Malaffi access is a reportable patient safety and confidentiality issue", "D": "Block the colleague's Malaffi access personally"},
+      "correct": "C",
+      "explanation": "Unauthorised access to Malaffi records is a patient confidentiality breach under UAE Federal Law and DOH policy. The nurse has a professional and legal obligation to report this — not address it informally or ignore it. The charge nurse or compliance/privacy officer must be informed. Taking personal action to block access is outside the nurse's authority and scope.",
+      "difficulty": "hard",
+      "exam_slugs": ["haad"]
+    }
+  ]
+}

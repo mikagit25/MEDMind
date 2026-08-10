@@ -160,5 +160,188 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "What is QCHP and what does it regulate in Qatar?", "answer": "Qatar Council for Healthcare Practitioners — the national body responsible for licensing all healthcare professionals in Qatar, including nurses. QCHP registration is mandatory before a nurse may legally practise.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "How many questions are on the QCHP Prometric nursing exam and what is the time limit?", "answer": "150 MCQ questions with a 3-hour time limit. Candidates must pass to obtain a Qatar Health Practitioner Licence (QHPL).", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What are the four QCHP nurse classification levels?", "answer": "Registered Nurse (RN), Senior Registered Nurse, Specialist Nurse (advanced clinical practice), and Nurse Practitioner. Prescribing authority requires NP licensure.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What is the main public healthcare provider in Qatar?", "answer": "Hamad Medical Corporation (HMC) — JCI-accredited. The Primary Health Care Corporation (PHCC) covers primary care.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "Within what timeframe must sentinel events be reported to QCHP in Qatar?", "answer": "Serious incidents including sentinel events must be reported to QCHP within 24 hours. Non-reporting is a disciplinary violation.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "Which high-alert medications require independent dual-nurse verification in Qatar (JCI-accredited hospitals)?", "answer": "Insulin, heparin, concentrated potassium chloride (KCl), and opioids. The dual-nurse check is a mandatory patient safety standard, not optional.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What unit is used for blood glucose in Qatar healthcare documentation?", "answer": "mmol/L (SI units). All laboratory values use SI: glucose mmol/L, creatinine µmol/L, temperature °C.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "What MERS-CoV precautions are required in Qatar healthcare facilities?", "answer": "Standard + Droplet + Contact Precautions. N95 respirator for aerosol-generating procedures, negative pressure room if available. Mandatory reporting to Qatar MOH.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What must a nurse do if a competent Jehovah's Witness patient in Qatar refuses a blood transfusion?", "answer": "Respect the refusal, document it thoroughly, notify the physician, and escalate to the ethics committee if severe clinical risk exists. A competent adult patient's refusal must be respected.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "What is the significance of Qatar's expatriate population percentage for nursing practice?", "answer": "Over 85% of Qatar's population are expatriates, making multilingual, culturally sensitive communication essential. Translation services are a patient right.", "difficulty": "medium", "category": "nursing_management_leadership"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "The QCHP Prometric nursing licensing exam consists of how many questions, delivered in what format?",
+      "options": {
+        "A": "200 MCQ questions in a paper-based exam over 4 hours",
+        "B": "150 MCQ questions in a computer-based Prometric exam over 3 hours",
+        "C": "100 MCQ questions plus an OSCE clinical station",
+        "D": "120 MCQ questions in a 2-hour computer-based exam"
+      },
+      "correct": "B",
+      "explanation": "The QCHP nursing licensing exam is a 150-MCQ computer-based Prometric examination with a 3-hour time limit. Passing is required before the nurse receives a Qatar Health Practitioner Licence (QHPL).",
+      "difficulty": "easy",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A nurse in Qatar is preparing to administer heparin IV to a patient. Which action is required before administration?",
+      "options": {
+        "A": "Administer and document immediately — heparin is a routine medication",
+        "B": "A second nurse independently verifies patient identity, medication, dose, route, and time before administration",
+        "C": "Obtain verbal approval from the ward supervisor only",
+        "D": "Administer after confirming with the pharmacist by phone"
+      },
+      "correct": "B",
+      "explanation": "In Qatar's JCI-accredited hospitals, heparin is classified as a high-alert medication requiring independent dual-nurse verification. Both nurses must check two patient identifiers plus medication details. This is a mandatory patient safety standard.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A patient in Qatar insists on receiving information about his diagnosis in his native language (neither Arabic nor English). What is the nurse's correct action?",
+      "options": {
+        "A": "Provide written information in Arabic and proceed — it is the standard language of care",
+        "B": "Ask the patient's family member to translate informally",
+        "C": "Arrange an official hospital translation service to provide the information in the patient's language",
+        "D": "Defer to the physician to handle the language barrier"
+      },
+      "correct": "C",
+      "explanation": "The QCHP Patient Rights framework guarantees patients the right to information in a language they understand. In Qatar's highly multicultural environment (>85% expatriate population), official translation services must be provided. Using untrained family as translators for complex clinical information is not an acceptable standard.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A Jehovah's Witness patient in a Qatar hospital, fully alert and oriented, refuses a blood transfusion recommended for severe anaemia. What is the nurse's best action?",
+      "options": {
+        "A": "Administer the transfusion as the physician has ordered it",
+        "B": "Ask the patient's family to persuade the patient to accept",
+        "C": "Respect the patient's refusal, document it thoroughly, notify the physician, and escalate to the ethics committee",
+        "D": "Defer the transfusion without notifying the physician and wait for the patient to change their mind"
+      },
+      "correct": "C",
+      "explanation": "Qatar National Health Regulations uphold the competent adult patient's right to refuse treatment, including for religious reasons. The nurse must document the refusal, notify the physician, and escalate to the ethics committee given severe clinical risk. Overriding a competent refusal violates patient autonomy.",
+      "difficulty": "hard",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A sentinel event occurs in a Hamad Medical Corporation (HMC) hospital in Qatar. Within what timeframe must it be reported to QCHP?",
+      "options": {
+        "A": "Within 7 days",
+        "B": "At the next monthly quality audit",
+        "C": "Within 24 hours",
+        "D": "Within 48 hours"
+      },
+      "correct": "C",
+      "explanation": "QCHP standards require serious incidents including sentinel events to be reported to QCHP within 24 hours. HMC also uses an internal electronic incident reporting system. Non-reporting is a professional disciplinary violation.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "Which action is within the independent scope of practice of a standard Registered Nurse (RN) licensed by QCHP?",
+      "options": {
+        "A": "Prescribing metformin 500 mg for a diabetic patient",
+        "B": "Performing a patient assessment and developing a care plan",
+        "C": "Ordering a blood glucose test without a physician order",
+        "D": "Adjusting insulin doses based on the nurse's own clinical judgement"
+      },
+      "correct": "B",
+      "explanation": "Patient assessment and care planning are core independent RN functions within QCHP scope. Prescribing, ordering investigations without physician order, and adjusting prescribed doses require either NP licensure or physician involvement.",
+      "difficulty": "easy",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A nurse in Qatar prescribes a drug name in an exam context. Which name should be used?",
+      "options": {
+        "A": "The US trade name (e.g., Tylenol)",
+        "B": "The INN generic name (e.g., paracetamol)",
+        "C": "The local Arabic brand name only",
+        "D": "Either trade or generic name — both are equally acceptable"
+      },
+      "correct": "B",
+      "explanation": "QCHP Medication Management Standards require INN (International Nonproprietary Names / generic names). The QCHP exam uses generic names exclusively. Paracetamol is used — not Tylenol (a US trade name).",
+      "difficulty": "easy",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A nurse discovers a vial of concentrated potassium chloride (KCl) stored on the general ward medication trolley in a Qatar hospital. What is the correct action?",
+      "options": {
+        "A": "Leave it in place — concentrated KCl is a routine ward medication",
+        "B": "Immediately remove it from the ward and return it to pharmacy; it must not be stored on general wards",
+        "C": "Lock it in the controlled drug cabinet alongside opioids",
+        "D": "Label it with a warning sticker and continue storage"
+      },
+      "correct": "B",
+      "explanation": "Concentrated potassium chloride (KCl) is a high-alert medication — a known cause of fatal medication errors. In Qatar's JCI-accredited hospitals, concentrated KCl must not be stored on general wards; it must be removed to pharmacy and is only available as a diluted prepared infusion at the ward level.",
+      "difficulty": "hard",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A nurse caring for a patient with suspected MERS-CoV in Qatar must perform oropharyngeal suctioning. Which PPE is required?",
+      "options": {
+        "A": "Surgical mask, gloves only",
+        "B": "N95 respirator, eye protection, gown, and gloves",
+        "C": "Standard precautions only — MERS-CoV is contact-transmitted only",
+        "D": "N95 respirator alone is sufficient"
+      },
+      "correct": "B",
+      "explanation": "MERS-CoV requires Standard + Droplet + Contact precautions. For aerosol-generating procedures (oropharyngeal suctioning, intubation, bronchoscopy), an N95 respirator replaces the surgical mask, and full PPE (eye protection, gown, gloves) is required. A negative pressure room should be used if available.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "An incident report is completed after a patient fall in a Qatar hospital. The incident report should be:",
+      "options": {
+        "A": "Copied verbatim into the patient's medical record for completeness",
+        "B": "Filed as a confidential quality document and NOT referenced or copied into the medical record",
+        "C": "Submitted to QCHP as the primary documentation of the event",
+        "D": "Signed by the patient as acknowledgment"
+      },
+      "correct": "B",
+      "explanation": "The incident report is an internal quality improvement document. It is NOT part of the legal medical record and must not be copied into or referenced in the patient's chart. The nurse must separately document the clinical facts of the event (what happened, assessment, intervention, outcome) in the medical record.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A 16-year-old patient in Qatar requires a surgical procedure. Informed consent must be obtained from:",
+      "options": {
+        "A": "The patient — 16-year-olds can consent independently in Qatar",
+        "B": "The patient's parent or legal guardian",
+        "C": "The senior nurse as patient advocate",
+        "D": "Both the patient and QCHP jointly"
+      },
+      "correct": "B",
+      "explanation": "In Qatar, minors under 18 require parental or guardian consent for medical procedures. While the patient's assent is good practice, it is not legally sufficient. The patient is 16, so a parent or legal guardian must sign the consent form.",
+      "difficulty": "medium",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "What is the primary public healthcare institution in Qatar and what accreditation standard does it follow?",
+      "options": {
+        "A": "Qatar MOH General Hospital — accredited by SCFHS",
+        "B": "Primary Health Care Corporation (PHCC) — JCI-accredited",
+        "C": "Hamad Medical Corporation (HMC) — JCI-accredited",
+        "D": "Qatar Red Crescent — WHO-accredited"
+      },
+      "correct": "C",
+      "explanation": "Hamad Medical Corporation (HMC) is the main public healthcare provider in Qatar and is JCI (Joint Commission International) accredited. PHCC covers primary care. JCI accreditation means rigorous quality and safety standards apply throughout HMC.",
+      "difficulty": "easy",
+      "exam_slugs": ["qchp"]
+    },
+    {
+      "question": "A nurse in Qatar receives a telephone order from a physician to administer morphine 5 mg IV. What is the correct action?",
+      "options": {
+        "A": "Administer immediately and document after the shift",
+        "B": "Document the verbal order, read it back to the physician for confirmation, arrange dual-nurse verification, and ensure physician countersigns as soon as possible",
+        "C": "Refuse to take any verbal or telephone orders for opioids",
+        "D": "Ask the charge nurse to verify the order by calling the physician back"
+      },
+      "correct": "B",
+      "explanation": "For telephone orders in Qatar, the nurse must document immediately, perform a read-back to confirm accuracy, carry out the dual-nurse verification required for opioids, and ensure physician countersignature promptly. This sequence satisfies both medication safety and medical liability standards.",
+      "difficulty": "hard",
+      "exam_slugs": ["qchp"]
+    }
   ]
 }

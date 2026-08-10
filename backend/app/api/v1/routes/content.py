@@ -120,6 +120,75 @@ async def list_specialty_modules(
 
 
 # ============================================================
+# MODULES — public preview (no auth, for SEO/learn pages)
+# ============================================================
+@router.get("/modules/{code}/public")
+async def get_module_public_preview(
+    code: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Return module meta + lesson list + first lesson content. No auth required."""
+    import re as _re
+    if not _re.match(r"^[A-Za-z0-9_-]{2,40}$", code):
+        raise HTTPException(status_code=400, detail="Invalid module code")
+
+    result = await db.execute(
+        select(Module).where(
+            Module.code == code.upper(),
+            Module.is_published == True,
+        )
+    )
+    module = result.scalar_one_or_none()
+    if not module:
+        raise HTTPException(status_code=404, detail="Module not found")
+
+    lessons_result = await db.execute(
+        select(Lesson)
+        .where(Lesson.module_id == module.id)
+        .order_by(Lesson.lesson_order)
+    )
+    lessons = lessons_result.scalars().all()
+
+    mcq_count_result = await db.execute(
+        select(func.count(MCQQuestion.id)).where(MCQQuestion.module_id == module.id)
+    )
+    fc_count_result = await db.execute(
+        select(func.count(Flashcard.id)).where(Flashcard.module_id == module.id)
+    )
+    mcq_count = mcq_count_result.scalar() or 0
+    fc_count = fc_count_result.scalar() or 0
+
+    meta = (module.content or {}).get("meta", {})
+
+    lesson_list = []
+    for i, lesson in enumerate(lessons):
+        item: dict = {
+            "id": str(lesson.id),
+            "title": lesson.title,
+            "lesson_order": lesson.lesson_order,
+            "estimated_minutes": lesson.estimated_minutes,
+        }
+        if i == 0:
+            item["content"] = lesson.content
+        lesson_list.append(item)
+
+    return {
+        "id": str(module.id),
+        "code": module.code,
+        "title": module.title,
+        "description": module.description,
+        "level_label": module.level_label,
+        "duration_hours": module.duration_hours,
+        "lesson_count": len(lessons),
+        "mcq_count": mcq_count,
+        "flashcard_count": fc_count,
+        "exam_slugs": meta.get("exam_slugs", []),
+        "jurisdiction": meta.get("jurisdiction"),
+        "lessons": lesson_list,
+    }
+
+
+# ============================================================
 # MODULES — public list (all published, for student browse page)
 # ============================================================
 @router.get("/modules", response_model=List[ModuleOut])

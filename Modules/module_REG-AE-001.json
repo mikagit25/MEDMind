@@ -119,5 +119,188 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "Which regulatory body licenses nurses practising in Dubai?", "answer": "DHA — Dubai Health Authority. A DHA licence is required for Dubai only and does not permit practice in Abu Dhabi or the Northern Emirates.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "Which regulatory body licenses nurses practising in Abu Dhabi?", "answer": "DOH — Department of Health Abu Dhabi (formerly HAAD — Health Authority Abu Dhabi, now integrated into DOH).", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "Are DHA and DOH nursing licences interchangeable?", "answer": "No. A DHA licence covers Dubai only; a DOH licence covers Abu Dhabi only. Nurses must hold the licence of the emirate in which they practise.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What UAE federal law governs medical liability for nurses in all emirates?", "answer": "UAE Federal Law No. 4 of 2016 on Medical Liability. It establishes individual nurse liability for negligent practice and mandates accurate documentation.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What system does DHA use for mandatory incident reporting?", "answer": "The Sheryan e-portal. Serious adverse events and sentinel events must be reported within 24 hours.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "Which medications require dual-nurse verification in DHA/DOH facilities?", "answer": "Controlled Schedule I/II medications. Both nurses verify five rights and sign the controlled drug register (paper or electronic).", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What are the five rights of medication administration?", "answer": "Right patient, right drug, right dose, right route, right time — verified before every administration using two patient identifiers.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "What prescribing authority does a standard RN have in UAE (DHA/DOH)?", "answer": "None. Standard RNs cannot prescribe medications. Prescribing authority requires Nurse Practitioner (NP) licensure from DHA or DOH.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What right do patients have regarding language of communication in UAE facilities?", "answer": "Patients have the right to information in an understood language. Arabic and English are standard; translation services must be available for other languages — this is a patient right under DHA/DOH policy.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What is the correct sequence after a nurse administers the wrong medication to a UAE patient?", "answer": "Assess the patient for harm → notify the physician immediately → document accurately in the medical record → report through the incident reporting system (Sheryan for DHA). Never falsify documentation.", "difficulty": "medium", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse holds a DHA (Dubai Health Authority) licence and is offered a job at a hospital in Sharjah. Can the nurse begin practising immediately with the DHA licence?",
+      "options": {
+        "A": "Yes, a DHA licence is valid across all UAE emirates",
+        "B": "Yes, because Sharjah is part of the UAE federal health system",
+        "C": "No, Sharjah requires a separate MOHAP licence — a DHA licence is not valid there",
+        "D": "No, but a temporary DHA permit can be used for 30 days in Sharjah"
+      },
+      "correct": "C",
+      "explanation": "Sharjah falls under the jurisdiction of MOHAP (UAE Ministry of Health and Prevention), not DHA. DHA, DOH, and MOHAP licences are NOT interchangeable — the nurse must obtain a MOHAP licence to practise in Sharjah.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "Which regulatory body replaced HAAD (Health Authority Abu Dhabi) as the licensing authority for nurses in Abu Dhabi?",
+      "options": {
+        "A": "DHA — Dubai Health Authority",
+        "B": "MOHAP — UAE Ministry of Health and Prevention",
+        "C": "DOH — Department of Health Abu Dhabi",
+        "D": "SCFHS — Saudi Commission for Health Specialties"
+      },
+      "correct": "C",
+      "explanation": "HAAD (Health Authority Abu Dhabi) has been integrated into DOH (Department of Health Abu Dhabi). DOH now licenses all healthcare professionals in Abu Dhabi. The exam may still be referenced as HAAD, but the licensing body is DOH.",
+      "difficulty": "easy",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A nurse administers a controlled opioid analgesic to a patient in a DHA-licensed hospital. Which action is required by UAE medication safety standards?",
+      "options": {
+        "A": "The nurse may administer independently if a valid physician order exists",
+        "B": "A second nurse must independently verify patient identity, medication, dose, route, and time, with both nurses signing the controlled drug register",
+        "C": "The ward pharmacist must be present at administration",
+        "D": "Verbal confirmation from the charge nurse is sufficient"
+      },
+      "correct": "B",
+      "explanation": "UAE DHA and DOH medication safety standards require dual-nurse independent verification before administration of controlled Schedule I/II medications. Both nurses sign the controlled drug register (paper or electronic).",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A serious adverse event (sentinel event) occurs in a DHA-licensed hospital. What is the mandatory reporting timeframe?",
+      "options": {
+        "A": "Report within 72 hours to DHA",
+        "B": "Report at the next monthly quality meeting",
+        "C": "Report to the NHRA Bahrain within 24 hours",
+        "D": "Report to DHA via the Sheryan system within 24 hours"
+      },
+      "correct": "D",
+      "explanation": "DHA Patient Safety and Risk Management Policy mandates that serious adverse events (including sentinel events) be reported through the Sheryan e-portal within 24 hours. Failure to report is a professional and legal violation.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A non-Arabic-speaking patient in a Dubai hospital does not understand the consent form presented in Arabic. What is the nurse's correct action?",
+      "options": {
+        "A": "Ask the patient's family member to translate the form and proceed",
+        "B": "Document that the patient was educated and proceed with the procedure",
+        "C": "Arrange for an official translation service to provide information in the patient's language before obtaining consent",
+        "D": "Obtain a physician signature in lieu of patient consent"
+      },
+      "correct": "C",
+      "explanation": "UAE DHA/DOH Patient Rights policies guarantee patients the right to receive information in a language they understand. UAE is multilingual; official translation services must be provided — using untrained family members for clinical translation is not an acceptable substitute for complex consent discussions.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "Under UAE Federal Law No. 4 of 2016 on Medical Liability, what is a nurse's individual liability status?",
+      "options": {
+        "A": "Nurses have no individual liability — only the hospital bears responsibility",
+        "B": "Nurses are individually liable for their clinical decisions within their scope of practice",
+        "C": "Nurses are liable only if a physician countersigns the order",
+        "D": "Liability applies only to DHA-licensed nurses, not DOH"
+      },
+      "correct": "B",
+      "explanation": "UAE Federal Law No. 4 of 2016 establishes individual liability for all healthcare professionals, including nurses, for negligent practice within their scope. The law applies across all UAE emirates.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A standard Registered Nurse (RN) working under a DHA licence wishes to start prescribing paracetamol for a patient's pain. What is required?",
+      "options": {
+        "A": "A verbal instruction from the charge nurse is sufficient",
+        "B": "The RN may prescribe common medications independently",
+        "C": "A physician order is required; prescribing is not within standard RN scope — NP licensure is needed",
+        "D": "The RN can prescribe after 5 years of clinical experience"
+      },
+      "correct": "C",
+      "explanation": "Prescribing authority is not within standard RN scope in the UAE under DHA or DOH. Only Nurse Practitioners (NPs) with specific NP licensure have prescribing authority. All other RNs require a physician order before administering any medication.",
+      "difficulty": "easy",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A nurse notices that a documentation error was made in a patient's electronic medical record in a DHA facility. The correct approach is to:",
+      "options": {
+        "A": "Delete the incorrect entry and retype it correctly",
+        "B": "Use the system's amendment/addendum function to correct the entry with date, time, and nurse's identifier",
+        "C": "Ask the physician to make the correction on the nurse's behalf",
+        "D": "Leave it unchanged to preserve the original record"
+      },
+      "correct": "B",
+      "explanation": "Under UAE Federal Law 4/2016, medical records are legal documents. Error corrections must be made transparently — in electronic records, this means using the system's amendment or addendum function that preserves the original entry and records who made the correction, when, and why. Deleting or overwriting is falsification.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A patient in a DOH-licensed (Abu Dhabi) hospital refuses a recommended blood transfusion on religious grounds. The patient is alert, oriented, and legally competent. What is the nurse's correct action?",
+      "options": {
+        "A": "Override the refusal as it is a life-threatening decision",
+        "B": "Contact the patient's family to persuade them to change the patient's mind",
+        "C": "Respect the patient's right to refuse, document the refusal thoroughly, notify the physician, and escalate to the ethics committee if needed",
+        "D": "Administer the transfusion while the patient is distracted"
+      },
+      "correct": "C",
+      "explanation": "A competent adult patient has the legal right to refuse treatment, including blood transfusions, under UAE patient rights frameworks. The nurse must document the refusal, notify the physician, and escalate as per facility policy (ethics committee). Overriding a competent refusal is a violation of patient autonomy and UAE law.",
+      "difficulty": "hard",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "Which of the following describes the DHA Senior Nurse classification compared to a General Nurse?",
+      "options": {
+        "A": "Senior Nurse may prescribe medications independently",
+        "B": "Senior Nurse has a higher level of clinical experience but prescribing still requires NP licensure",
+        "C": "Senior Nurse and General Nurse have identical scopes of practice",
+        "D": "Senior Nurse classification is no longer used under current DHA policy"
+      },
+      "correct": "B",
+      "explanation": "DHA nursing scope of practice categories (General Nurse, Senior Nurse, Specialist Nurse, Nurse Practitioner) each have progressively expanded clinical roles, but prescribing authority is only granted at the Nurse Practitioner level. Senior Nurses have greater experience and supervisory responsibility but cannot prescribe.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "In a DHA-licensed facility, a nurse receives a verbal order by phone from a physician. What is the correct action?",
+      "options": {
+        "A": "Implement the order immediately without documentation until the physician arrives",
+        "B": "Refuse all verbal orders as they are not permitted in UAE facilities",
+        "C": "Document the verbal order immediately, read it back to the physician for confirmation, and ensure the physician countersigns it as soon as possible",
+        "D": "Ask the charge nurse to verify and sign the verbal order"
+      },
+      "correct": "C",
+      "explanation": "While verbal and telephone orders are permitted in urgent situations in UAE facilities, the nurse must document the order immediately, perform a read-back to confirm accuracy, and ensure the physician countersigns the order promptly. This protects patient safety and complies with UAE medical liability standards.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "What patient identifiers are used before medication administration in DHA/DOH-licensed facilities?",
+      "options": {
+        "A": "Room number and bed number",
+        "B": "Patient name and date of birth or medical record number",
+        "C": "Patient name and diagnosis",
+        "D": "Wristband colour and physician name"
+      },
+      "correct": "B",
+      "explanation": "UAE DHA and DOH medication safety standards require two patient identifiers before every medication administration: patient name and date of birth, or patient name and medical record number. Room or bed number is NOT an acceptable patient identifier.",
+      "difficulty": "easy",
+      "exam_slugs": ["dha", "haad"]
+    },
+    {
+      "question": "A MERS-CoV-positive patient is admitted to a DHA hospital. The nurse must perform suctioning (aerosol-generating procedure). Which personal protective equipment is required?",
+      "options": {
+        "A": "Standard surgical mask and gloves",
+        "B": "N95 respirator, eye protection, gown, and gloves",
+        "C": "Surgical mask, eye shield, and apron only",
+        "D": "No additional PPE beyond standard precautions"
+      },
+      "correct": "B",
+      "explanation": "MERS-CoV requires Standard + Droplet + Contact precautions. For aerosol-generating procedures such as suctioning, an N95 (or FFP2/3) respirator must replace the surgical mask. Eye protection (goggles or face shield), gown, and gloves complete the PPE set. A negative pressure room should be used if available.",
+      "difficulty": "medium",
+      "exam_slugs": ["dha", "haad"]
+    }
   ]
 }

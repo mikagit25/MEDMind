@@ -1976,6 +1976,28 @@ async def get_exam_study_modules(
     return out
 
 
+@router.get("/gulf-modules-sitemap", tags=["exam"])
+async def get_gulf_modules_sitemap(db: AsyncSession = Depends(get_db)):
+    """Return all unique published Gulf educational modules for sitemap generation."""
+    from sqlalchemy import text as sa_text
+
+    gulf_slugs = ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    conditions = " OR ".join(
+        [f"content->'meta'->'exam_slugs' @> '[\"{ s }\"]'::jsonb" for s in gulf_slugs]
+    )
+    result = await db.execute(
+        sa_text(f"""
+            SELECT DISTINCT code, title
+            FROM modules
+            WHERE is_published = true
+              AND ({conditions})
+            ORDER BY code
+        """)
+    )
+    rows = result.mappings().all()
+    return [{"code": row["code"], "title": row["title"]} for row in rows]
+
+
 # ── V7 Phase 5: Community comparison ─────────────────────────────────────────
 
 @router.get("/questions/{question_id}/community")

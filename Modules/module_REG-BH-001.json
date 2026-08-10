@@ -142,5 +142,175 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "What is NHRA and what is its role in Bahrain?", "answer": "The National Health Regulatory Authority — Bahrain's sole national regulatory body for all healthcare professionals, including nurses. NHRA registration is mandatory to legally practise nursing in Bahrain.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "How many questions are on the NHRA Prometric nursing exam?", "answer": "150 MCQ questions in a 3-hour computer-based Prometric sitting. Candidates must achieve the NHRA passing score to obtain a healthcare practice licence.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What prescribing authority does a standard RN have under NHRA Bahrain?", "answer": "None. Prescribing requires Advanced Practice Nurse (APN) licensure. Standard RNs administer medications per physician order only.", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What is the status of an incident report relative to the patient's medical record in Bahrain?", "answer": "The incident report is confidential and is NOT a legal medical record document. The nurse must document clinical facts separately in the patient's chart, and must not reference the incident report in that entry.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What cultural care accommodations are tested in NHRA exam scenarios?", "answer": "Gender-sensitive care (female patients preferring female providers), Ramadan fasting (medication scheduling, IV management), halal medication requirements (gelatin capsules, alcohol excipients), and prayer time accommodation.", "difficulty": "medium", "category": "nursing_fundamentals"},
+    {"question": "What are the four NHRA nurse classification levels in Bahrain?", "answer": "Registered Nurse (RN), Senior Registered Nurse, Specialist Nurse, and Advanced Practice Nurse (APN).", "difficulty": "easy", "category": "nursing_management_leadership"},
+    {"question": "What verbal/phone order process is required in Bahrain under NHRA?", "answer": "Document the verbal order immediately, read it back to the physician for confirmation, and ensure the physician countersigns it as soon as possible.", "difficulty": "medium", "category": "nursing_management_leadership"},
+    {"question": "What patient right governs information sharing with a patient's family in Bahrain?", "answer": "The patient controls their own health information. A family cannot restrict information from a competent patient without the patient's own documented consent to that arrangement.", "difficulty": "hard", "category": "nursing_fundamentals"},
+    {"question": "What patient identity check is required before every medication administration in Bahrain?", "answer": "Two patient identifiers: patient name plus date of birth OR medical record number. Room or bed number is NOT an acceptable identifier.", "difficulty": "easy", "category": "nursing_fundamentals"},
+    {"question": "Which high-alert medications require dual-nurse independent verification in NHRA-licensed Bahraini hospitals?", "answer": "Insulin, heparin, concentrated potassium chloride (KCl), opioids, and chemotherapy agents. Both nurses verify and sign before administration.", "difficulty": "medium", "category": "nursing_fundamentals"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse registered with NHRA Bahrain wishes to administer a new medication not currently on the patient's prescription chart. What is the correct action?",
+      "options": {
+        "A": "Administer the medication based on nursing clinical judgement",
+        "B": "Obtain a valid physician order before administering — prescribing is not within standard RN scope",
+        "C": "Ask the pharmacist to authorise the medication verbally",
+        "D": "Check the previous medical record and administer if the drug was used before"
+      },
+      "correct": "B",
+      "explanation": "Under NHRA Bahrain, standard RNs do not have prescribing authority. All new medications require a valid physician order. Prescribing authority is restricted to Advanced Practice Nurses (APN) with specific NHRA APN licensure.",
+      "difficulty": "easy",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A Bahraini female patient tells the nurse she strongly prefers a female nurse to perform her physical examination. There is a male nurse available and the female nurse is busy with another patient. What is the nurse's best action?",
+      "options": {
+        "A": "Explain that the male nurse is equally competent and proceed",
+        "B": "Delay the examination and arrange for a female nurse to attend when available, accommodating the patient's preference where clinically safe",
+        "C": "Proceed with the male nurse to avoid delays — modesty concerns are secondary to clinical efficiency",
+        "D": "Obtain a physician order overriding the patient's preference"
+      },
+      "correct": "B",
+      "explanation": "NHRA culturally congruent care standards recognise that many Bahraini and Muslim female patients prefer female providers for physical examination. The nurse should accommodate this preference where clinically safe and feasible. Patient autonomy and cultural dignity are patient rights. This is also testable as a standard NHRA exam scenario.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A family member approaches the nurse and requests that the patient — a fully alert, competent adult woman — not be informed of her newly diagnosed cancer. What is the nurse's correct response?",
+      "options": {
+        "A": "Agree — family members are responsible for protecting patients from distressing news",
+        "B": "Assess the patient's own wishes about receiving health information; the patient controls her own health information, not the family",
+        "C": "Withhold information until the physician decides",
+        "D": "Inform the patient immediately without consulting anyone"
+      },
+      "correct": "B",
+      "explanation": "Under NHRA Patient Rights Charter, the competent patient controls her own health information. Family cannot restrict information from a competent patient without the patient's own documented consent to that arrangement. The nurse must first assess the patient's preferences, which may include choosing to have family manage communication — but this is the patient's choice, not the family's.",
+      "difficulty": "hard",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "During Ramadan, a fasting Muslim patient in a Bahrain hospital requires their usual oral metformin twice daily (with food). What is the nurse's most appropriate action?",
+      "options": {
+        "A": "Administer the medication at the usual times regardless of fasting — clinical need overrides religious practice",
+        "B": "Discontinue the medication until Ramadan ends without physician consultation",
+        "C": "Consult the physician and pharmacist to adjust the medication schedule to align with suhoor and iftar (pre-dawn and sunset meals)",
+        "D": "Ask the patient to break their fast to take the medication"
+      },
+      "correct": "C",
+      "explanation": "NHRA culturally congruent care includes Ramadan fasting accommodation. Medication schedules may need adjustment to align with suhoor (pre-dawn meal) and iftar (sunset meal) timing. This requires collaboration with the physician and pharmacist — the nurse facilitates but does not unilaterally change prescribed regimens.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A sentinel event occurs in an NHRA-licensed hospital in Bahrain. What is the nurse's mandatory reporting obligation?",
+      "options": {
+        "A": "Report the event at the next monthly quality meeting",
+        "B": "Notify the treating physician and complete an incident report within NHRA-specified timeframes; cooperate with root cause analysis",
+        "C": "Report only to the hospital CEO — NHRA need not be informed",
+        "D": "File a confidential police report first"
+      },
+      "correct": "B",
+      "explanation": "NHRA mandates that sentinel events be reported to NHRA within specified timeframes. Nurses must: complete an internal incident report, notify the physician, document clinical facts in the medical record, and cooperate with root cause analysis. Non-reporting is a professional violation.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "An NHRA Prometric candidate is asked about the number of exam questions and duration. The correct answer is:",
+      "options": {
+        "A": "200 questions in 4 hours",
+        "B": "100 questions in 2 hours with an OSCE",
+        "C": "150 MCQ questions in 3 hours",
+        "D": "120 questions in 2.5 hours"
+      },
+      "correct": "C",
+      "explanation": "The NHRA nursing licensing exam is a computer-based Prometric exam of 150 MCQ questions with a 3-hour time limit. Source: NHRA Candidate Information Bulletin 2024.",
+      "difficulty": "easy",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A nurse in a Bahrain hospital discovers that a concentrated potassium chloride infusion was administered at the wrong rate, delivering double the prescribed dose. The patient is now showing irregular heart rhythm on the monitor. What is the priority action?",
+      "options": {
+        "A": "Complete the incident report immediately",
+        "B": "Call the family to inform them of the error",
+        "C": "Assess and stabilise the patient, call the physician immediately, then document and complete the incident report",
+        "D": "Document the event in the medical record and await physician rounds"
+      },
+      "correct": "C",
+      "explanation": "Patient safety is the first priority. Concentrated KCl overdose is life-threatening — the nurse must immediately assess the patient, stop the infusion, and call the physician. Documentation in the chart and the incident report follow once the patient is stabilised. This is the standard Gulf medication error response sequence.",
+      "difficulty": "hard",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A nurse receives a telephone order from the on-call physician in a Bahrain NHRA-licensed hospital. What must happen before the medication is administered?",
+      "options": {
+        "A": "Administer the medication as instructed — a verbal order from a physician is sufficient",
+        "B": "Document the verbal order immediately, read it back to confirm, and ensure physician countersignature as soon as possible before administration",
+        "C": "Refuse verbal orders — only written orders are acceptable",
+        "D": "Ask the charge nurse to receive and verify all verbal orders"
+      },
+      "correct": "B",
+      "explanation": "NHRA and Gulf-wide practice: verbal and telephone orders must be documented immediately by the nurse, a read-back must be performed to confirm accuracy, and the physician must countersign as soon as possible. The nurse is accountable for accurately documenting the order and for patient safety in acting on it.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A patient in Bahrain informs the nurse that the gelatin capsule form of their prescribed medication is against their religious beliefs. What is the nurse's best action?",
+      "options": {
+        "A": "Insist the patient take the prescribed capsule — religious concerns are secondary to treatment",
+        "B": "Open the capsule and dissolve the contents in water",
+        "C": "Consult the pharmacist about available halal-compliant alternative formulations, and inform the physician",
+        "D": "Document the refusal and withhold the medication without further action"
+      },
+      "correct": "C",
+      "explanation": "Halal medication requirements are a legitimate cultural and religious consideration for Muslim patients in Bahrain. The nurse should consult the pharmacist to identify halal-compliant alternatives (e.g., tablet formulation, liquid, or a halal-certified capsule) and inform the physician. This demonstrates culturally congruent care — a key competency in the NHRA exam.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "What does NHRA require for the storage and administration of controlled opioid analgesics in Bahrain hospitals?",
+      "options": {
+        "A": "A single nurse may administer opioids independently if a physician order exists",
+        "B": "Two nurses must independently verify the patient, medication, dose, route, and time, with dual signatures on the controlled drug register",
+        "C": "Opioids may only be administered by a physician",
+        "D": "Controlled drug registers are optional if an electronic MAR is used"
+      },
+      "correct": "B",
+      "explanation": "NHRA medication safety standards require an independent dual-nurse verification and dual signatures on the controlled drug register before administration of opioids (and all other controlled medications). This is mandatory in all NHRA-licensed Bahrain facilities.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "Which of the following is NOT within the independent scope of practice of an NHRA-registered standard Registered Nurse in Bahrain?",
+      "options": {
+        "A": "Performing a head-to-toe patient assessment",
+        "B": "Administering IV paracetamol per physician order",
+        "C": "Prescribing ibuprofen 400 mg for a patient reporting mild pain",
+        "D": "Educating a patient about wound care"
+      },
+      "correct": "C",
+      "explanation": "Prescribing is not within standard RN scope under NHRA. Advanced Practice Nurse (APN) licensure is required for prescribing authority. Assessment, medication administration per physician order, and patient education are all within standard RN scope.",
+      "difficulty": "easy",
+      "exam_slugs": ["nhra"]
+    },
+    {
+      "question": "A nurse is caring for a patient with suspected MERS-CoV in a Bahrain hospital. Which infection control measure is mandatory?",
+      "options": {
+        "A": "Standard precautions only — MERS-CoV is not confirmed, so full precautions are premature",
+        "B": "Standard + Droplet + Contact precautions, N95 for aerosol-generating procedures, and mandatory reporting to Bahrain MOH",
+        "C": "Airborne precautions only",
+        "D": "Standard + Droplet precautions — contact precautions are not required for MERS-CoV"
+      },
+      "correct": "B",
+      "explanation": "NHRA follows WHO and GCC guidelines for MERS-CoV: Standard + Droplet + Contact precautions are required even for suspected cases. An N95 respirator (not a surgical mask) is mandatory for aerosol-generating procedures. Reporting to Bahrain MOH is legally required.",
+      "difficulty": "medium",
+      "exam_slugs": ["nhra"]
+    }
   ]
 }

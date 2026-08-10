@@ -201,5 +201,184 @@
         ]
       }
     }
+  ],
+  "flashcards": [
+    {"question": "Generic (INN) name for Tylenol / Panadol?", "answer": "Paracetamol (acetaminophen)", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Generic (INN) name for Brufen / Advil?", "answer": "Ibuprofen", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Generic (INN) name for Coumadin?", "answer": "Warfarin", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Generic (INN) name for Lasix?", "answer": "Furosemide", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Generic (INN) name for Salbutamol inhaler brand Ventolin?", "answer": "Salbutamol (albuterol)", "difficulty": "easy", "category": "pharmacology"},
+    {"question": "Normal fasting blood glucose in SI units (mmol/L)?", "answer": "3.9–5.6 mmol/L", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "DKA diagnosis threshold for blood glucose?", "answer": ">13.9 mmol/L (250 mg/dL)", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "HHS (Hyperosmolar Hyperglycaemic State) glucose threshold?", "answer": ">33.3 mmol/L (600 mg/dL)", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "Therapeutic INR range for standard anticoagulation (AF, DVT/PE)?", "answer": "2.0–3.0", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "Therapeutic aPTT range for unfractionated heparin (UFH)?", "answer": "60–100 seconds (1.5–2.5× control)", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "Therapeutic serum digoxin level?", "answer": "0.5–2.0 ng/mL (nmol/L in some labs: 0.6–2.6)", "difficulty": "medium", "category": "pharmacology"},
+    {"question": "Therapeutic lithium level (maintenance)?", "answer": "0.6–1.2 mmol/L; toxic >1.5 mmol/L", "difficulty": "hard", "category": "pharmacology"},
+    {"question": "Maximum safe IV KCl infusion rate (peripheral line)?", "answer": "10 mmol/hour; NEVER give KCl IV bolus — fatal arrhythmia", "difficulty": "hard", "category": "pharmacology"},
+    {"question": "MgSO₄ antidote and when to hold?", "answer": "Antidote: calcium gluconate IV. Hold if: RR <12/min, absent DTRs, urine output <25 mL/hr", "difficulty": "hard", "category": "pharmacology"},
+    {"question": "5 medications requiring independent dual-nurse verification in Gulf?", "answer": "Insulin, heparin, concentrated KCl, opioids, MgSO₄ (and chemotherapy)", "difficulty": "medium", "category": "pharmacology"}
+  ],
+  "mcq_questions": [
+    {
+      "question": "A nurse in Dubai (DHA) is preparing to administer pain relief. The physician has prescribed 'paracetamol 1g IV'. The medication label reads 'Perfalgan 1g/100mL'. What is the correct action?",
+      "options": {"A": "Refuse to administer — the label name does not match the prescription", "B": "Administer after confirming Perfalgan is a brand name for paracetamol", "C": "Contact the pharmacist to change the prescription to the brand name", "D": "Administer only if the pharmacy rewrites the label"},
+      "correct": "B",
+      "explanation": "Gulf exams use INN (generic) names on prescriptions. Perfalgan is a brand name for paracetamol (the INN). The nurse should verify the generic equivalence and administer after standard two-patient identifier check. Refusing to administer would delay care unnecessarily.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient's blood glucose is documented as 15.3 mmol/L. In mg/dL, what does this approximately equal?",
+      "options": {"A": "85 mg/dL", "B": "153 mg/dL", "C": "275 mg/dL", "D": "306 mg/dL"},
+      "correct": "C",
+      "explanation": "To convert mmol/L to mg/dL, multiply by 18. 15.3 × 18 = 275.4 mg/dL ≈ 275 mg/dL. Conversely, divide mg/dL by 18 to get mmol/L. Gulf labs use mmol/L exclusively.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient with Type 1 diabetes has a blood glucose of 3.2 mmol/L and is confused. What is this value in mg/dL and what condition does it indicate?",
+      "options": {"A": "57.6 mg/dL — hypoglycaemia", "B": "32 mg/dL — normal range", "C": "57.6 mg/dL — hyperglycaemia", "D": "576 mg/dL — DKA"},
+      "correct": "A",
+      "explanation": "3.2 mmol/L × 18 = 57.6 mg/dL. Normal fasting glucose is 3.9–5.6 mmol/L (70–100 mg/dL). Below 3.9 mmol/L indicates hypoglycaemia. Confusion is a sign of neuroglycopenia — treat immediately with fast-acting glucose.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse is preparing to administer insulin 12 units subcutaneously. Which action is essential BEFORE administration?",
+      "options": {"A": "Obtain a second nurse to independently check the insulin type, dose, and expiry", "B": "Ask the patient to verify the dose on the insulin pen", "C": "Document administration before drawing up the dose", "D": "Warm the insulin to body temperature before injection"},
+      "correct": "A",
+      "explanation": "Insulin is a high-alert medication requiring independent dual-nurse verification in all Gulf jurisdictions (DHA, QCHP, NHRA, OMSB, MOHAP, MOH-KW). The second nurse checks: correct insulin type, dose, expiry, and patient identity independently — not together, to avoid confirmation bias. Documentation is done after administration, not before.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse is preparing potassium chloride 40 mmol to be added to an IV bag. Which practice is MANDATORY?",
+      "options": {"A": "Administer KCl as an IV bolus over 2–3 minutes if the patient is critically low", "B": "Obtain a second nurse to independently verify the KCl before adding to the bag", "C": "Add KCl to the bag in the patient's room at the bedside", "D": "Use a 50 mmol/100 mL concentration for peripheral lines"},
+      "correct": "B",
+      "explanation": "Concentrated KCl is a high-alert medication requiring independent dual-nurse verification before preparation. IV KCl bolus is NEVER given — it causes fatal cardiac arrhythmia. Maximum peripheral infusion rate is 10 mmol/hour. KCl must never be added to bags in patient rooms; it must be prepared in the pharmacy or a designated clean area.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient on warfarin therapy has an INR of 4.8. The nurse notifies the physician. Which medication would the nurse anticipate administering?",
+      "options": {"A": "Protamine sulfate", "B": "Vitamin K (phytomenadione)", "C": "Calcium gluconate", "D": "Naloxone"},
+      "correct": "B",
+      "explanation": "Vitamin K (phytomenadione) is the antidote for warfarin toxicity. INR >3.0 is supratherapeutic; INR >4.0 carries high bleeding risk. Therapeutic INR for most indications is 2.0–3.0. Protamine sulfate reverses heparin (not warfarin). Calcium gluconate reverses MgSO₄ toxicity. Naloxone reverses opioid overdose.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient receiving unfractionated heparin (UFH) infusion has an aPTT result of 45 seconds (control 30 seconds). What is the correct interpretation?",
+      "options": {"A": "aPTT is therapeutic — continue current dose", "B": "aPTT is supratherapeutic — reduce the infusion rate", "C": "aPTT is subtherapeutic — notify physician to increase the dose", "D": "aPTT is within normal limits — no action needed"},
+      "correct": "C",
+      "explanation": "Therapeutic aPTT for UFH anticoagulation is 60–100 seconds (1.5–2.5× the control value). Control of 30 seconds × 1.5 = 45 seconds (lower therapeutic limit). A result of 45 seconds (1.5× control) is at the subtherapeutic boundary — the physician should be notified. The current value suggests insufficient anticoagulation.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse administering magnesium sulfate (MgSO₄) for pre-eclampsia checks the patient and finds: respiratory rate 10 breaths/min, absent patellar reflexes, blood pressure 130/85. What is the PRIORITY action?",
+      "options": {"A": "Slow the infusion rate and continue monitoring", "B": "Stop the infusion and administer calcium gluconate IV immediately", "C": "Increase the infusion rate to achieve therapeutic levels", "D": "Reassess in 30 minutes and document findings"},
+      "correct": "B",
+      "explanation": "MgSO₄ toxicity signs: RR <12/min (here: 10), absent DTRs, oliguria <25 mL/hr. RR of 10 and absent patellar reflexes are signs of toxicity — STOP the infusion immediately. The antidote is calcium gluconate 1g IV (10 mL of 10% solution) given slowly. This is a clinical emergency; reassessment in 30 minutes is not appropriate.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient with a Ramadan-related question asks the nurse whether he can skip his twice-daily metformin during fasting hours. What is the BEST response?",
+      "options": {"A": "Tell the patient it is safe to skip doses during fasting hours", "B": "Tell the patient to take both doses at iftar (breaking fast)", "C": "Advise the patient to consult his physician and pharmacist before changing his medication schedule", "D": "Document the request and inform the patient that medication cannot be adjusted during Ramadan"},
+      "correct": "C",
+      "explanation": "Nurses must NEVER unilaterally adjust medication schedules during Ramadan. The physician (to adjust dose/timing if needed) and pharmacist (for medication-specific guidance on fasting compatibility) must be involved. Metformin schedule during Ramadan is a clinical decision — some patients can take it with the evening meal, others may need a dose reduction. Self-discontinuation risks hyperglycaemia.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse discovers a medication error: a patient received 80 mg of furosemide instead of the prescribed 40 mg. What is the CORRECT sequence of actions?",
+      "options": {"A": "Notify the pharmacy → document error → inform physician → complete incident report", "B": "Assess the patient → notify the physician → document in the chart → complete incident report", "C": "Complete incident report → notify physician → document in chart → reassure patient", "D": "Document the error in the chart → alert the charge nurse → do not notify the patient"},
+      "correct": "B",
+      "explanation": "The priority sequence for a medication error is: (1) Assess the patient — is there harm? (2) Notify the treating physician with full details. (3) Document clinical facts in the medical record (what happened, patient status, physician notified). (4) Complete the facility incident report. The incident report is NOT part of the medical record. Never alter documentation after an error.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient prescribed a beta-blocker (metoprolol) has a resting heart rate of 52 beats/min and blood pressure of 88/55 mmHg. The next dose is due. What action should the nurse take?",
+      "options": {"A": "Administer the dose — bradycardia is an expected effect", "B": "Hold the dose and notify the physician immediately", "C": "Administer half the prescribed dose and reassess in 1 hour", "D": "Administer the dose with extra IV fluids to counteract hypotension"},
+      "correct": "B",
+      "explanation": "Standard Gulf nursing protocol: hold beta-blockers if HR <60 bpm OR systolic BP <90 mmHg, and notify the physician. HR of 52 and SBP of 88 both meet hold criteria. Administering any dose without physician authorisation when hold parameters are met is outside safe practice. Document findings and await physician order.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient started on an ACE inhibitor (enalapril) last week reports a persistent dry cough. What is the MOST appropriate nursing action?",
+      "options": {"A": "Reassure the patient that this is normal and will resolve in 2–3 days", "B": "Document the symptom and notify the physician — this is a known class effect that may require medication change", "C": "Advise the patient to take the medication at night to reduce cough", "D": "Stop the medication immediately and document in the chart"},
+      "correct": "B",
+      "explanation": "Persistent dry cough is a recognised class effect of ACE inhibitors (due to bradykinin accumulation) occurring in 10–20% of patients. It does NOT resolve spontaneously while the drug continues — the physician must be notified as the medication may need to be changed to an ARB (angiotensin receptor blocker). Nurses cannot stop medication without a physician order.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient's serum creatinine is reported as 180 µmol/L. Approximately what is this in mg/dL?",
+      "options": {"A": "0.20 mg/dL", "B": "1.59 mg/dL", "C": "2.04 mg/dL", "D": "20.4 mg/dL"},
+      "correct": "C",
+      "explanation": "To convert creatinine from µmol/L to mg/dL, divide by 88.4. 180 ÷ 88.4 = 2.04 mg/dL. Normal creatinine: approximately 45–90 µmol/L (0.5–1.0 mg/dL) for women; 60–110 µmol/L (0.7–1.2 mg/dL) for men. A value of 180 µmol/L indicates significantly elevated creatinine — assess for acute kidney injury.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient taking clozapine (antipsychotic) has been on the medication for 3 weeks. Which monitoring parameter is MANDATORY and why?",
+      "options": {"A": "Serum lithium levels — clozapine raises lithium to toxic levels", "B": "Weekly white blood cell (WBC) count — clozapine can cause life-threatening agranulocytosis", "C": "Monthly INR — clozapine increases bleeding risk", "D": "Weekly serum potassium — clozapine causes severe hypokalaemia"},
+      "correct": "B",
+      "explanation": "Clozapine carries a BLACK BOX warning for agranulocytosis (WBC can drop dangerously, leading to fatal infection). WBC must be monitored weekly for the first 6 months, then bi-weekly. If WBC falls below 3.0 × 10⁹/L or absolute neutrophil count below 1.5 × 10⁹/L, clozapine must be stopped immediately. This is a Gulf exam high-yield pharmacology point.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse is ordered to write 'insulin 10 U' in the medication administration record. What is the correct documentation practice?",
+      "options": {"A": "Write 'insulin 10 U' as abbreviated", "B": "Write 'insulin 10 units' — never abbreviate 'U' as it can be misread as '0'", "C": "Write 'insulin 10 IU' using the IU abbreviation", "D": "Write 'insulin 10U' without a space"},
+      "correct": "B",
+      "explanation": "The abbreviation 'U' for units is on the 'Do Not Use' list in all Gulf jurisdictions — it can be misread as '0', turning '10U' into '100 units', a 10-fold overdose error. Always write out 'units' in full. Similarly, 'IU' (international units) should be written as 'international units'. This is a patient safety standard across DHA, NHRA, QCHP, OMSB, and other Gulf bodies.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "Which of the following combinations is MOST dangerous due to risk of serotonin syndrome?",
+      "options": {"A": "Metformin + enalapril", "B": "SSRI (sertraline) + MAOI (phenelzine)", "C": "Furosemide + spironolactone", "D": "Atorvastatin + amlodipine"},
+      "correct": "B",
+      "explanation": "Combining an SSRI (selective serotonin reuptake inhibitor) with an MAOI (monoamine oxidase inhibitor) causes serotonin syndrome — a life-threatening condition with hyperthermia, agitation, muscle rigidity, and autonomic instability. An MAOI washout period of 14 days is required before starting an SSRI, and vice versa. This is a high-yield Gulf pharmacology and mental health nursing question.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient requires opioid analgesia via a patient-controlled analgesia (PCA) pump. The patient's daughter asks if she can press the button when her mother is asleep and in pain. What is the CORRECT response?",
+      "options": {"A": "Allow the daughter to press the button — family care is encouraged", "B": "Allow the daughter only when the nurse is present to monitor", "C": "Explain that ONLY the patient may press the PCA button — proxy activation is prohibited", "D": "Teach the daughter the correct technique and allow her to use it"},
+      "correct": "C",
+      "explanation": "The fundamental principle of PCA safety is that ONLY the patient presses the button. This prevents over-sedation — a patient who is too sedated to press the button is protected by not receiving additional opioid. Proxy PCA (family or nurse pressing on behalf of the patient) is prohibited in all Gulf jurisdictions and internationally. If the patient cannot self-administer, an alternative analgesic method must be prescribed.",
+      "difficulty": "medium",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient with heart failure requires furosemide 40 mg IV. The nurse notes the patient has a known sulfonamide allergy. What should the nurse do?",
+      "options": {"A": "Administer furosemide — loop diuretics do not contain sulfonamide", "B": "Hold the medication and notify the physician — furosemide is a sulfonamide derivative", "C": "Administer half the dose and observe for allergic reaction", "D": "Switch to oral furosemide — allergic reactions only occur with IV route"},
+      "correct": "B",
+      "explanation": "Furosemide (a loop diuretic) contains a sulfonamide moiety and may cross-react in patients with sulfonamide allergy. The nurse must hold the dose and notify the physician before administration. The physician will assess the severity of the sulfonamide allergy and determine whether to proceed, switch to an alternative diuretic (e.g., ethacrynic acid), or pre-medicate. Do not administer without physician authorisation.",
+      "difficulty": "hard",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A patient's temperature is documented as 38.6°C. What is the correct clinical interpretation?",
+      "options": {"A": "Normal body temperature — 38.6°C is within range", "B": "Hypothermia — patient requires warming measures", "C": "Fever — temperature exceeds 38.0°C threshold", "D": "Hyperthermia — life-threatening emergency requiring ice packs immediately"},
+      "correct": "C",
+      "explanation": "In Gulf practice, fever is defined as body temperature ≥38.0°C (100.4°F). Normal oral temperature is 36.1–37.2°C; axillary is 0.5°C lower. A temperature of 38.6°C is fever — notify the physician, obtain blood cultures if ordered, administer antipyretics as prescribed (paracetamol is first-line). Hyperthermia (>40°C / 104°F) is a separate, more severe condition requiring urgent cooling.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    },
+    {
+      "question": "A nurse is about to administer two medications to the same patient. Which information constitutes the MINIMUM two-patient identifiers required before administration in Gulf hospitals?",
+      "options": {"A": "Patient's bed number and room number", "B": "Patient's full name and date of birth (or medical record number)", "C": "Patient's diagnosis and physician name", "D": "Patient's wristband colour and ward name"},
+      "correct": "B",
+      "explanation": "Gulf-wide medication safety standard (DHA, NHRA, QCHP, OMSB, MOHAP, MOH-KW, SCFHS): verify at least two patient identifiers before every medication administration. Accepted identifiers: full name AND date of birth, OR full name AND medical record number. Bed number, room number, and diagnosis are NOT acceptable identifiers — patients can be moved between beds/rooms.",
+      "difficulty": "easy",
+      "exam_slugs": ["snle", "dha", "haad", "qchp", "omsb", "nhra", "mohuae", "moh_kw"]
+    }
   ]
 }

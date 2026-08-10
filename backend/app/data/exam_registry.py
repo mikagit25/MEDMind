@@ -170,6 +170,25 @@ GULF_EXAMS: list[dict] = [
         "categories": GULF_BLUEPRINT_CATEGORIES,
         "disclaimer": NONAFFILIATION_DISCLAIMER,
     },
+    {
+        "slug": "moh_kw",
+        "name": "MOH Kuwait Nursing Licensing Exam",
+        "country": "Kuwait",
+        "regulatory_body": "Ministry of Health Kuwait (MOH-KW)",
+        # Source: Kuwait MOH official portal — 150 MCQ, 3 hours, Prometric CBT
+        "question_count": 100,
+        "duration_min": 180,
+        "pass_threshold": 65,
+        "passing_score_label": "65%",
+        "blueprint_source": "https://www.moh.gov.kw/en/",
+        "blueprint_verified_at": BLUEPRINT_VERIFIED_DATE,
+        "status": "active",
+        "locale": "en",
+        "family": "gulf",
+        "options_per_question": 4,
+        "categories": GULF_BLUEPRINT_CATEGORIES,
+        "disclaimer": NONAFFILIATION_DISCLAIMER,
+    },
 ]
 
 # Complete registry — add non-Gulf entries here as phases G4–G6 land
