@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
-export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 type TermDetail = {
   term: string;

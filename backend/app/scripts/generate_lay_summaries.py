@@ -103,9 +103,9 @@ async def run(
 ):
     import anthropic
 
-    client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+    client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
-    engine = create_async_engine(settings.database_url, echo=False)
+    engine = create_async_engine(settings.DATABASE_URL, echo=False)
     async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
     async with async_session() as db:
@@ -114,7 +114,7 @@ async def run(
         if not force:
             stmt = stmt.where(Lesson.lay_summary.is_(None))
         if module_code:
-            stmt = stmt.where(Module.module_code == module_code)
+            stmt = stmt.where(Module.code == module_code)
         stmt = stmt.order_by(Lesson.created_at)
         if max_lessons:
             stmt = stmt.limit(max_lessons)

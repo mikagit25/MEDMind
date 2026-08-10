@@ -66,7 +66,7 @@ type GulfReadiness = {
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
-const GULF_EXAM_SLUGS = ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"] as const;
+const GULF_EXAM_SLUGS = ["snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad", "moh_kw"] as const;
 type GulfSlug = typeof GULF_EXAM_SLUGS[number];
 
 const GULF_EXAM_INFO: Record<GulfSlug, { name: string; country: string; flag: string; full: string }> = {
@@ -77,6 +77,7 @@ const GULF_EXAM_INFO: Record<GulfSlug, { name: string; country: string; flag: st
   nhra:   { name: "NHRA",   country: "Bahrain",       flag: "🇧🇭", full: "National Health Regulatory Authority" },
   mohuae: { name: "MOH UAE", country: "UAE",           flag: "🇦🇪", full: "Ministry of Health UAE" },
   haad:   { name: "HAAD",   country: "Abu Dhabi",     flag: "🇦🇪", full: "Health Authority Abu Dhabi" },
+  moh_kw: { name: "MOH-KW", country: "Kuwait",        flag: "🇰🇼", full: "Ministry of Health Kuwait" },
 };
 
 // Nursing study modules linked to Gulf exam question banks
@@ -139,9 +140,9 @@ const NURSING_STUDY_MODULES = [
 
 const GULF_MODE_IDS = [
   "snle_practice",  "dha_practice",  "qchp_practice", "omsb_practice",
-  "nhra_practice",  "mohuae_practice", "haad_practice",
+  "nhra_practice",  "mohuae_practice", "haad_practice", "moh_kw_practice",
   "snle_full",      "dha_full",      "qchp_full",     "omsb_full",
-  "nhra_full",      "mohuae_full",   "haad_full",
+  "nhra_full",      "mohuae_full",   "haad_full",     "moh_kw_full",
 ];
 
 const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string }> = {

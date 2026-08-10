@@ -7,7 +7,7 @@ import { getLearnT, interpolate } from "@/lib/learn-i18n";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
-export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 function localePath(path: string, locale: string) {
   return locale !== "en" ? `/${locale}${path}` : path;

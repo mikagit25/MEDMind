@@ -8,7 +8,20 @@
 ## 🟢 Current Status
 **Phase:** Gulf Pipeline — банки заполнены, образовательный контент создан, LLM re-audit завершён ✅
 **Last Updated:** 2026-08-10
-**Next Action:** Назначить local reviewer (`python -m app.scripts.assign_reviewer --email ... --jurisdictions sa`); подтвердить source_url для 77 jurisdiction_rules; добавить frontend компонент для `/exam/study-modules/{slug}`; дождаться завершения переводов (~3227 lesson translations pending)
+**Next Action:** Назначить local reviewer (`python -m app.scripts.assign_reviewer --email ... --jurisdictions sa`); подтвердить source_url для 77 jurisdiction_rules; дождаться завершения переводов (~3227 lesson translations pending)
+
+**Completed 2026-08-10 (latest session):**
+- `/learn/modules/[code]` — публичные SSR-страницы для Gulf модулей (SEO, schema.org Course, paywall после первого урока)
+- `GET /modules/{code}/public` — бэкенд эндпоинт для публичного просмотра модулей
+- `GET /exam/gulf-modules-sitemap` — эндпоинт для sitemap
+- Sitemap builder обновлён — Gulf модули добавлены (priority 0.8)
+- ExamLandingTemplate — блок "Study Materials" для Gulf страниц экзаменов
+- Kuwait (moh_kw): добавлены режимы `moh_kw_practice` (40Q/60min) и `moh_kw_full` (100Q/180min) в бэкенд EXAM_MODES и фронтенд GULF_MODE_IDS/GULF_EXAM_SLUGS/GULF_EXAM_INFO
+- Gulf analytics bug fix: фильтр `mode_id.like("gulf_%")` → `mode_id.in_(gulf_mode_ids)` (все сессии пользователей теперь корректно отображаются)
+- Gulf analytics bug fix: парсинг exam_slug (`mode_parts[1]` → `mode_to_slug` dict lookup)
+- Readiness endpoint: `valid_slugs` добавлен `moh_kw`
+- `generate_lay_summaries.py`: исправлено `Module.module_code` → `Module.code`, `settings.anthropic_api_key` → `settings.ANTHROPIC_API_KEY`, `settings.database_url` → `settings.DATABASE_URL`
+- Lay summaries: скрипт `generate_lay_summaries.py` исправлен (Module.code, ANTHROPIC_API_KEY, DATABASE_URL). Запуск пока не возможен — нет баланса Anthropic API. После пополнения: `docker exec medmind_backend bash -c "for code in CULT-GULF-001 PHARM-GULF-001 REG-AE-001 REG-BH-001 REG-CLIN-001 REG-HAAD-001 REG-KW-001 REG-MOHUAE-001 REG-OM-001 REG-QA-001 REG-SA-001; do python3 -m app.scripts.generate_lay_summaries --module-code \$code; done"`
 
 ---
 
@@ -189,7 +202,7 @@ docker exec medmind_backend python3 -m app.scripts.translate_rationales_ar  # 15
 *All 77 rules status=needs_human. Total quarantined: 0 (LLM re-audit cleared all on 2026-08-08).
 DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdictions`. Seed: `app/scripts/seed_jurisdiction_profiles.py`.*
 
-**Gulf educational modules (10 total, 2026-08-10):**
+**Gulf educational modules (11 total, 2026-08-10):**
 | Module | Jurisdiction | Lessons | Arabic |
 |--------|-------------|---------|--------|
 | REG-SA-001 | Saudi Arabia (SCFHS) | 3 | queued |
@@ -244,7 +257,7 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Blueprint already verified in exam_registry.py: SNLE from SCFHS Guide 2024 (2026-07-30), all others (2026-07-20)
 - Target volumes lowered per spec: SNLE=600, DHA=450, others=300 (in `EXAM_TARGETS` dict in generate_gulf_questions.py)
 - `marketing_ready` field added to `exam_definitions` (migration c3d4e5f6a7b8); all exams default false
-- 10 Gulf educational modules (28 lessons total, as of 2026-08-10):
+- 11 Gulf educational modules (33 lessons total, as of 2026-08-10):
   - REG-SA-001: SCFHS scope, consent, MERS-CoV, medication safety (3 lessons)
   - REG-AE-001: DHA/DOH dual structure, incident reporting, patient rights (2 lessons)
   - REG-QA-001: QCHP, Qatar, HMC context (3 lessons) ✅ imported + Arabic
@@ -264,7 +277,7 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Linter test: bad question with HIPAA/911/Narcan/mg/dL/CDC → 5 violations; good question (mmol/L/°C/paracetamol) → passes
 - Currently all rules are needs_human → prompt carries mandatory constraints only; verified norms will auto-appear once human reviewers confirm sources
 
-### Exams Registry — Gulf (G1) ✅ (2026-07-20)
+### Exams Registry — Gulf (G1) ✅ (2026-07-20, updated 2026-08-10)
 | Exam | Bank (Q) | Status | Blueprint verified |
 |------|----------|--------|--------------------|
 | SNLE (Saudi Arabia) | shared | active | ✅ |
@@ -274,7 +287,9 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 | NHRA (Bahrain) | shared | active | ✅ |
 | MOH UAE (N. Emirates) | shared | active | ✅ |
 | DOH/HAAD (Abu Dhabi) | shared | active | ✅ |
-*Questions shared from NCLEX bank via map_gulf_questions.py. All 7 exams confirmed status='active' in DB (2026-07-22).
+| MOH Kuwait (moh_kw) | 300 Q | active | ✅ |
+*Questions shared from NCLEX bank via map_gulf_questions.py. All 8 exams confirmed status='active' in DB.*
+*Kuwait added 2026-08-10: moh_kw_practice (40Q/60min) + moh_kw_full (100Q/180min) exam modes.*
 
 ### Spanish NCLEX Layer (G2) ✅ (2026-07-20, updated 2026-07-22)
 - DB: 4 ES columns on mcq_questions (explanation_es, rationales_es, key_takeaway_es, test_taking_tip_es)

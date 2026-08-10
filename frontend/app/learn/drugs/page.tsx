@@ -8,7 +8,7 @@ const API_URL =
   process.env.NEXT_PUBLIC_API_URL ??
   "http://localhost:8000/api/v1";
 
-export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Drug Guide — Plain Language Medication Information",

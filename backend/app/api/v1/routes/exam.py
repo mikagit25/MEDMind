@@ -249,6 +249,20 @@ EXAM_MODES = [
         "gulf": True,
         "exam_slug": "haad",
     },
+    {
+        "id": "moh_kw_practice",
+        "name": "MOH Kuwait Practice",
+        "description": "Ministry of Health Kuwait Nursing Licensing Exam — 40 questions, 60 min.",
+        "questions": 40,
+        "duration_min": 60,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "moh_kw",
+    },
     # ── Gulf Full Simulations (official exam length) ───────────────────────────
     # SNLE: 200 questions, 3 hours (source: SCFHS Applicant Guide 2024)
     {
@@ -354,6 +368,22 @@ EXAM_MODES = [
         "pass_threshold": 65,
         "gulf": True,
         "exam_slug": "haad",
+        "full_simulation": True,
+    },
+    # MOH Kuwait: 100 MCQ, 3 hours (source: Kuwait MOH official portal — Prometric CBT)
+    {
+        "id": "moh_kw_full",
+        "name": "MOH Kuwait Full Simulation",
+        "description": "Ministry of Health Kuwait — Full 100-question simulation, 3 hours. Matches real exam format.",
+        "questions": 100,
+        "duration_min": 180,
+        "nursing_only": True,
+        "difficulty": None,
+        "cat": False,
+        "icon": "heart-pulse",
+        "pass_threshold": 65,
+        "gulf": True,
+        "exam_slug": "moh_kw",
         "full_simulation": True,
     },
 ]
@@ -1227,12 +1257,13 @@ async def gulf_analytics(
     db: AsyncSession = Depends(get_db),
 ):
     """Aggregate Gulf exam performance across all completed sessions — score trend, difficulty, per-exam breakdown."""
+    gulf_mode_ids = [m["id"] for m in EXAM_MODES if m.get("gulf")]
     result = await db.execute(
         select(ExamSession)
         .where(
             ExamSession.user_id == user.id,
             ExamSession.status == "completed",
-            ExamSession.mode_id.like("gulf_%"),
+            ExamSession.mode_id.in_(gulf_mode_ids),
         )
         .order_by(ExamSession.created_at.desc())
         .limit(20)
@@ -1261,13 +1292,14 @@ async def gulf_analytics(
         "nhra": "NHRA (Bahrain)",
         "mohuae": "MOH UAE",
         "haad": "HAAD (Abu Dhabi)",
+        "moh_kw": "MOH Kuwait",
     }
     DIFF_LABELS = {"easy": "Easy", "medium": "Medium", "hard": "Hard"}
 
+    mode_to_slug = {m["id"]: m.get("exam_slug", "unknown") for m in EXAM_MODES if m.get("gulf")}
+
     for sess in sessions:
-        # Per-exam aggregation using mode_id suffix
-        mode_parts = (sess.mode_id or "").split("_")
-        exam_slug = mode_parts[1] if len(mode_parts) >= 2 else "unknown"
+        exam_slug = mode_to_slug.get(sess.mode_id or "", "unknown")
         label = GULF_EXAM_LABELS.get(exam_slug, exam_slug.upper())
         if exam_slug not in exam_totals:
             exam_totals[exam_slug] = {"total": 0, "passed": 0, "label": label, "sessions": 0, "avg_score": 0}
@@ -1346,9 +1378,9 @@ async def get_gulf_readiness(
 
     Legal: this is a practice performance estimate, NOT a Gulf exam outcome prediction.
     """
-    valid_slugs = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"}
+    valid_slugs = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad", "moh_kw"}
     if exam_slug not in valid_slugs:
-        raise HTTPException(400, f"Unknown Gulf exam slug. Valid: {', '.join(valid_slugs)}")
+        raise HTTPException(400, f"Unknown Gulf exam slug. Valid: {', '.join(sorted(valid_slugs))}")
     if not user_has_exam_access(user, exam_slug):
         raise HTTPException(403, "Gulf exam readiness requires a Gulf Bundle or Pro subscription.")
     from app.services.readiness import get_cached_gulf_readiness
