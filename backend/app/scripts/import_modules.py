@@ -101,6 +101,7 @@ SPECIALTY_CODE_MAP = {
     "Педиатрия": "pediatrics",
     "Кардиология": "cardiology",
     "Неврология": "neurology",
+    "Gulf Nursing Practice": "nursing",
 }
 
 

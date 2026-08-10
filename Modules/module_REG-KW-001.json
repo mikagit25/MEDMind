@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "id": "REG-KW-001",
+    "type": "regional_module",
+    "specialty": "Gulf Nursing Practice",
+    "title": "Nursing Practice in Kuwait: MOH-KW, Scope, Licensing & Patient Rights",
+    "title_en": "Nursing Practice in Kuwait: MOH-KW, Scope, Licensing & Patient Rights",
+    "order_in_specialty": 9,
+    "level": "intermediate",
+    "prerequisite_modules": [],
+    "duration_hours": 3,
+    "version": "1.0",
+    "content_enriched": false,
+    "exam_slugs": ["mohuae"],
+    "jurisdiction": "kw",
+    "blueprint_categories": ["nursing_management_leadership", "nursing_fundamentals"],
+    "verification_status": "pending",
+    "source_note": "Content references publicly available Kuwait Ministry of Health documentation. All local norms require verification by a nurse licensed in Kuwait before use in generation."
+  },
+  "lay_summary": "This module covers the regulatory framework for nurses working in Kuwait under the Ministry of Health Kuwait (MOH-KW), including registration requirements, scope of practice, patient rights, informed consent, incident reporting, medication safety, and cultural considerations relevant to the Kuwait nursing licensing examination.",
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "MOH Kuwait: Registration, Licensing, and Scope of Practice",
+      "content": {
+        "intro": "The Ministry of Health Kuwait (MOH-KW) is the primary regulatory body responsible for healthcare delivery and professional licensing in Kuwait. Nurses practising in Kuwait must hold a valid MOH-KW licence to work legally in public or licensed private health facilities.",
+        "sections": [
+          {
+            "heading": "Kuwait Healthcare System",
+            "text": "Kuwait's public healthcare system is administered by the Ministry of Health, which operates a network of general and specialised hospitals (including Mubarak Al-Kabeer Hospital, Al-Amiri Hospital, Al-Adan Hospital, and Jaber Al-Ahmad Hospital) along with primary health centres across the six governorates: Capital, Hawalli, Farwaniya, Ahmadi, Jahra, and Mubarak Al-Kabeer. Kuwait has a significant private healthcare sector regulated by MOH-KW. The Public Authority for Manpower issues work permits; MOH-KW issues the nursing practice licence — both are required to practise legally."
+          },
+          {
+            "heading": "MOH-KW Nurse Classification and Scope of Practice",
+            "text": "MOH-KW classifies nurses in public facilities according to grade levels aligned with qualifications: General Nurse (diploma), Registered Nurse (BSN or equivalent), Senior Registered Nurse, Specialist Nurse, and Nurse Practitioner. Standard RN scope under MOH-KW includes: patient assessment and care planning, medication administration per physician order, vital signs monitoring and documentation, patient and family education, wound care, intravenous therapy management, and coordination of care. Independent nurse prescribing is not within standard RN scope — physician authorisation is required for all medication orders. Delegation of nursing tasks to non-licensed auxiliary staff must remain within the auxiliary worker's competence; the delegating RN retains accountability."
+          },
+          {
+            "heading": "Kuwait MOH Prometric Nursing Exam",
+            "text": "Nurses seeking MOH-KW licensure must pass the Kuwait Ministry of Health computer-based Prometric examination. The exam consists of 150 MCQ questions in a 3-hour sitting. The blueprint covers core nursing domains: Medical-Surgical Nursing, Maternal-Child Health, Mental Health Nursing, Paediatric Nursing, Community Health, Fundamentals of Nursing, and Nursing Management and Leadership. Candidates must present original credentials with verified equivalency for non-Kuwaiti qualifications. After passing, the nurse registers with MOH-KW and receives a professional practice licence renewable annually. Source: Kuwait MOH Health Professional Licensing, official MOH-KW portal."
+          },
+          {
+            "heading": "Private Sector and MOH-KW Oversight",
+            "text": "Private hospitals and clinics in Kuwait must hold a MOH-KW operating licence. Nurses employed in private facilities are also subject to MOH-KW licensing requirements — a valid MOH-KW nursing licence is mandatory regardless of employer sector. MOH-KW conducts regular inspections of both public and private healthcare facilities. Violations of scope of practice, documentation requirements, or patient safety standards are subject to investigation and may result in licence suspension or revocation."
+          }
+        ],
+        "clinical_pearl": "On the Kuwait MOH Prometric exam, scope of practice questions follow the same Gulf pattern as DHA, QCHP, NHRA, and OMSB: the nurse independently performs patient assessment, standard medication administration per physician order, patient education, and documentation. Any clinical decision requiring a new order (new medication, procedure change, or discharge) must involve physician authorisation. If a nurse administers a medication without a valid written physician order (outside a documented emergency), this is outside scope regardless of prior verbal discussions.",
+        "key_points": [
+          "MOH-KW issues nursing practice licence — mandatory for all nurses in Kuwait (public and private)",
+          "Kuwait MOH Prometric: 150 MCQ, 3 hours, 7 nursing domains",
+          "Standard RN scope: assessment, medication (per physician order), education, documentation",
+          "Independent prescribing: not within RN scope — NP or physician required",
+          "Delegation: delegating nurse retains accountability for delegated tasks",
+          "Public Authority for Manpower work permit required in addition to MOH-KW licence"
+        ],
+        "references": [
+          {
+            "title": "Kuwait Ministry of Health — Health Professional Licensing",
+            "authors": "Kuwait Ministry of Health",
+            "journal_or_source": "MOH-KW Official Portal",
+            "year": 2024,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.kw/en/",
+            "note": "Primary source for MOH-KW nursing licensing and Prometric exam requirements"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Patient Rights, Informed Consent, and Incident Reporting in Kuwait",
+      "content": {
+        "intro": "Kuwait's healthcare system upholds a framework of patient rights grounded in Islamic principles of dignity and justice, international healthcare standards, and MOH-KW policy directives. These principles are regularly tested in the Kuwait nursing licensing examination.",
+        "sections": [
+          {
+            "heading": "Patient Rights in Kuwait",
+            "text": "MOH-KW Patient Rights Policy guarantees every patient: the right to receive dignified, non-discriminatory care regardless of nationality, religion, or social status; the right to be fully informed about their diagnosis, treatment plan, and prognosis in a language they understand; the right to give or refuse informed consent for any intervention; the right to confidentiality and privacy of health information; the right to access their own medical records upon request; and the right to complain through the MOH-KW patient complaint mechanism. Kuwait has a highly multicultural population — significant expatriate workforce — making language-appropriate communication (Arabic with translation available) a standard of care."
+          },
+          {
+            "heading": "Informed Consent Framework",
+            "text": "Valid informed consent in Kuwait must be: voluntary (given without coercion or undue influence), informed (patient has received adequate information about the procedure, risks, alternatives, and likely outcome), and given by a competent patient or authorised substitute. Competent adults (18 and above) may consent independently — a family member's preference cannot override a competent patient's decision, though family involvement is culturally important and should be facilitated where the patient desires. For incapacitated adults, the nearest legal guardian or next of kin provides consent. Emergency exception: life-saving care may proceed without consent if the patient is incapacitated and no guardian is immediately available — document clearly in the medical record. Minors (under 18): parental or guardian consent is required; where the minor has sufficient understanding (Gillick competency equivalent), their assent should be sought. Female patients: in Kuwait's cultural context, many female patients prefer female healthcare providers — accommodate where clinically safe and feasible."
+          },
+          {
+            "heading": "Incident Reporting: MOH-KW Requirements",
+            "text": "All MOH-KW-licensed facilities maintain mandatory internal incident reporting systems. Reportable events include: sentinel events (unexpected patient death or serious harm not related to the natural course of illness), adverse drug events, patient falls with injury, healthcare-associated infections, medication errors, surgical complications, and near-misses. Serious adverse events and sentinel events must be reported to MOH-KW within specified regulatory timeframes. Nurses are professionally and legally obligated to: complete an internal incident report promptly after the event, notify the treating physician and nursing supervisor, document clinical facts accurately in the patient's medical record, and cooperate fully with subsequent investigation and root cause analysis. Critical: the incident report is an internal quality document — it is NOT part of the patient's legal medical record and must NOT be referred to or copied into the medical record. Documentation of the clinical event in the medical record (what happened, assessment, intervention, outcome) is separate and required."
+          }
+        ],
+        "clinical_pearl": "Kuwait MOH Prometric exam questions on patient rights and consent often combine cultural and ethical scenarios. Example: a Kuwaiti male patient's family insists the patient must not be told about his terminal cancer diagnosis. The nurse's correct action is to first assess the patient's own wishes — a competent adult patient has the right to receive his own health information OR to designate that family manage that communication on his behalf. If the patient himself indicates he does not wish to know, that choice must be documented and respected. If the patient is competent and wants to know, family wishes cannot override him. The nurse cannot unilaterally withhold information at the family's request without the patient's own consent to that arrangement.",
+        "key_points": [
+          "Competent adults (18+) consent independently; family cannot override",
+          "Emergency: life-saving care proceeds without consent if guardian unavailable — document fully",
+          "Incident report is NOT part of medical record — document the clinical event in the record separately",
+          "Sentinel events: report to MOH-KW within required timeframe",
+          "Patient controls own health information — family cannot restrict information without patient's own consent"
+        ],
+        "references": [
+          {
+            "title": "Kuwait MOH Patient Rights Policy",
+            "authors": "Kuwait Ministry of Health",
+            "journal_or_source": "MOH-KW Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.kw/en/",
+            "note": "Official patient rights framework Kuwait"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Medication Safety, Cultural Care, and Infection Control in Kuwait",
+      "content": {
+        "intro": "Kuwait's healthcare facilities follow MOH-KW medication safety standards aligned with Gulf Cooperation Council (GCC) practice, WHO infection control guidelines, and cultural adaptations relevant to Kuwait's patient population.",
+        "sections": [
+          {
+            "heading": "Medication Safety: MOH-KW Standards",
+            "text": "MOH-KW medication safety requirements mirror GCC standards: two-patient identifier verification before every medication administration (patient name + date of birth or medical record number), five rights of medication administration (right patient, drug, dose, route, time), independent dual-nurse verification for high-alert medications (concentrated electrolytes including potassium chloride, insulin, heparin, opioids, anticoagulants, chemotherapy agents), controlled drug register with dual signatures and witnessed disposal. All medications in Kuwait follow generic (INN) nomenclature on prescriptions and labels: paracetamol (not Tylenol/Panadol brand context), ibuprofen, metformin, atorvastatin, salbutamol (not Ventolin in exam questions). Laboratory values use SI units exclusively: blood glucose mmol/L (normal fasting 3.9–5.6, DKA threshold >13.9, HHS threshold >33.3), creatinine µmol/L (divide by 88.4 to convert to mg/dL), haemoglobin g/dL, temperature °C (fever >38.0°C, hypothermia <35.0°C), electrolytes mmol/L."
+          },
+          {
+            "heading": "Cultural Care in Kuwait",
+            "text": "Kuwait has a mixed population of Kuwaiti nationals (Muslim majority, Sunni and Shia) and a large expatriate workforce (approximately 70% of the total population) from South Asia, the Arab world, and other regions. Cultural nursing considerations in Kuwait: gender-sensitive care — many Kuwaiti and Arab female patients strongly prefer female healthcare providers for physical examination and intimate care; accommodate with same-gender staff where safe and feasible. Ramadan fasting — approximately one month annually; nurses must coordinate with physicians and pharmacists to adjust medication schedules, IV fluid management for fasting patients with chronic conditions, and timing of oral medications (suhoor and iftar timing). Halal medication requirements — gelatin-containing capsules and medications with alcohol-based excipients may be refused; consult pharmacy for halal alternatives. Prayer accommodation — 5 daily prayers; allow reasonable accommodation within the care plan where patient condition permits. End-of-life care — in Kuwait's cultural context, family is deeply involved in end-of-life decisions; the patient's own expressed wishes must still be sought and documented per patient rights framework. These are tested in the Kuwait MOH exam as culturally congruent care."
+          },
+          {
+            "heading": "Infection Control in Kuwait",
+            "text": "Kuwait follows WHO infection control standards implemented through MOH-KW. MERS-CoV (Middle East Respiratory Syndrome Coronavirus): Kuwait applies standard + droplet + contact precautions, with N95 respirator (not surgical mask) required for aerosol-generating procedures (intubation, bronchoscopy, nebulisation); mandatory reporting to Kuwait MOH within specified timeframes; isolation in negative pressure room if available. Standard precautions apply to ALL patients regardless of known or suspected diagnosis. Hand hygiene: WHO 5 Moments model (before patient contact, before aseptic procedure, after body fluid exposure, after patient contact, after touching patient surroundings). Needlestick/sharps injury protocol: immediately wash the wound with soap and water (do not squeeze or suck), report to occupational health, initiate post-exposure prophylaxis (PEP) per facility protocol, document in incident report. Healthcare-associated infection rates are monitored by MOH-KW as quality indicators at all licensed facilities."
+          }
+        ],
+        "clinical_pearl": "Cultural care questions in the Kuwait MOH Prometric exam commonly present a scenario with a conservative Kuwaiti patient and ask for the nurse's BEST response. The correct approach is always: respect the patient's autonomy and cultural/religious preferences while delivering evidence-based, safe care. Offering a same-gender nurse, accommodating prayer time, checking medication composition for halal compliance, and adjusting medication timing during Ramadan (in consultation with the physician and pharmacist) are all appropriate, expected nursing actions — not optional extras. Never unilaterally adjust medication schedules without physician and pharmacist involvement.",
+        "key_points": [
+          "Two identifiers before every medication administration: name + date of birth or MRN",
+          "Dual-nurse independent check for high-alert medications: insulin, heparin, concentrated KCl, opioids",
+          "Lab units SI: glucose mmol/L, creatinine µmol/L, temperature °C",
+          "Cultural care: gender preference, Ramadan fasting, halal medications, prayer accommodation",
+          "MERS-CoV: standard + droplet + contact + N95 for AGPs + report to Kuwait MOH",
+          "Needlestick: wash immediately, report occupational health, initiate PEP"
+        ],
+        "references": [
+          {
+            "title": "Kuwait MOH Infection Control Guidelines",
+            "authors": "Kuwait Ministry of Health",
+            "journal_or_source": "MOH-KW Official Publications",
+            "year": 2023,
+            "type": "official_regulatory",
+            "url": "https://www.moh.gov.kw/en/",
+            "note": "Infection control and medication safety standards for Kuwait"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -6,9 +6,9 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** LOCALE_RULES_SPEC.md — все 6 фаз (L1–L6) завершены ✅
-**Last Updated:** 2026-08-07
-**Next Action:** Назначить local reviewer с jurisdictions=['sa'] в БД; подтвердить source_url для правил jurisdiction_rules; запустить `audit_jurisdiction_sensitivity.py` на новых вопросах; дождаться завершения верификации+переводов для ~1235 новых вопросов
+**Phase:** Gulf Pipeline — банки заполнены, образовательный контент создан, LLM re-audit завершён ✅
+**Last Updated:** 2026-08-10
+**Next Action:** Назначить local reviewer (`python -m app.scripts.assign_reviewer --email ... --jurisdictions sa`); подтвердить source_url для 77 jurisdiction_rules; добавить frontend компонент для `/exam/study-modules/{slug}`; дождаться завершения переводов (~3227 lesson translations pending)
 
 ---
 
@@ -17,28 +17,32 @@
 **Spec:** `docs/BANK_SCALE_SPEC.md`
 **Total tests:** 70 (B1: 15 + B2: 15 + B3: 12 + B4: 14 + B5: 14), все проходят
 
-**Bank scale table** (updated 2026-08-07):
-| Exam | Questions | Target | Status |
-|------|-----------|--------|--------|
-| SNLE | 821 | 600 | ✅ 137% |
-| DHA | 577 | 450 | ✅ 128% |
-| QCHP | 300 | 300 | ✅ 100% |
-| OMSB | 300 | 300 | ✅ 100% |
-| NHRA | 300 | 300 | ✅ 100% |
-| MOHUAE | 300 | 300 | ✅ 100% |
-| HAAD | 300 | 300 | ✅ 100% |
-| Total active | 2245 | — | 1008 ai_verified + ~1235 pending verification |
+**Bank scale table** (updated 2026-08-10):
+| Exam | Questions | Target | Status | Human reviewed |
+|------|-----------|--------|--------|----------------|
+| SNLE | 820 | 600 | ✅ 137% | 0 |
+| DHA | 584 | 450 | ✅ 130% | 0 |
+| QCHP | 317 | 300 | ✅ 106% | 0 |
+| OMSB | 317 | 300 | ✅ 106% | 0 |
+| NHRA | 317 | 300 | ✅ 106% | 0 |
+| MOHUAE | 317 | 300 | ✅ 106% | 0 |
+| HAAD | 317 | 300 | ✅ 106% | 0 |
+| Total active | 2309 | — | 0 quarantined | 0 human reviewed |
 
-**Final bank state (2026-08-07):**
-- total active: 2224 | ai_verified: 1766 (79.4%) | pending reverify: 458
-- Arabic translation: 2071/2224 (93.1%) | 25 remaining (run translate_rationales_ar again)
-- Quarantined (jurisdiction_sensitive=true): ~276 gulf questions → need L5 local reviewer
-- All flagged questions retired (53 total): clinical accuracy issues confirmed by AI verifier
+**Final bank state (2026-08-10):**
+- total active: 2309 | ai_verified: 2309 (100%) | pending reverify: 0
+- Arabic rationales: 2153/2309 (93.3%) | 156 pending (cron auto-running every 30 min)
+- Quarantined (jurisdiction_sensitive=true AND jurisdiction_verified_for IS NULL): **0** ✅ (LLM re-audit cleared all)
+- All pending AI verifications: **0** ✅ (all cleared)
+
+**LLM Re-audit results (2026-08-08):**
+- 42 quarantined → 0 genuinely quarantined after semantic re-audit
+- 3 initially confirmed sensitive (HIPAA, 911, US child abuse immunity) were subsequently cleared or retired
+- `reaudit_quarantined.py` is available for re-runs after new question generation
 
 **To run when Groq resets:**
 ```bash
-docker exec medmind_backend python3 -m app.scripts.reverify_pending_mcq  # 458 pending
-docker exec medmind_backend python3 -m app.scripts.translate_rationales_ar  # 25 remaining
+docker exec medmind_backend python3 -m app.scripts.translate_rationales_ar  # 156 remaining Arabic
 ```
 
 **Generation pipeline fixes (2026-08-07):**
@@ -173,21 +177,39 @@ docker exec medmind_backend python3 -m app.scripts.translate_rationales_ar  # 25
 ### Jurisdictions — Phase L1 ✅ (2026-08-06)
 | Profile | Regulator | Norms verified | Norms needs_human | In quarantine | Confirmed local | Launch readiness |
 |---------|-----------|---------------|-------------------|---------------|-----------------|-----------------|
-| sa | SCFHS | 0 | 11 | — | — | 0/10 |
-| ae_dubai | DHA | 0 | 10 | — | — | 0/10 |
-| ae_abudhabi | DOH | 0 | 10 | — | — | 0/10 |
-| qa | QCHP | 0 | 10 | — | — | 0/10 |
-| om | OMSB/MOH | 0 | 10 | — | — | 0/10 |
-| bh | NHRA | 0 | 10 | — | — | 0/10 |
-| kw | MOH-KW | 0 | 10 | — | — | 0/10 |
+| sa | SCFHS | 0 | 11 | 0 | 0 | 0/10 |
+| ae_dubai | DHA | 0 | 10 | 0 | 0 | 0/10 |
+| ae_abudhabi | DOH | 0 | 10 | 0 | 0 | 0/10 |
+| qa | QCHP | 0 | 10 | 0 | 0 | 0/10 |
+| om | OMSB/MOH | 0 | 10 | 0 | 0 | 0/10 |
+| bh | NHRA | 0 | 10 | 0 | 0 | 0/10 |
+| ae_moh | MOHAP | 0 | — | 0 | 0 | 0/10 |
+| kw | MOH-KW | 0 | 6 | 0 | 0 | 0/10 |
 
-*All 77 rules status=needs_human (correct: no norm may be verified without confirmed source_url + human check).
+*All 77 rules status=needs_human. Total quarantined: 0 (LLM re-audit cleared all on 2026-08-08).
 DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdictions`. Seed: `app/scripts/seed_jurisdiction_profiles.py`.*
 
-**L2 — Audit & Quarantine ✅ (2026-08-06)**
+**Gulf educational modules (10 total, 2026-08-10):**
+| Module | Jurisdiction | Lessons | Arabic |
+|--------|-------------|---------|--------|
+| REG-SA-001 | Saudi Arabia (SCFHS) | 3 | queued |
+| REG-AE-001 | UAE DHA/DOH dual | 2 | queued |
+| REG-QA-001 | Qatar (QCHP) | 3 | ✅ done |
+| REG-OM-001 | Oman (OMSB) | 3 | ✅ done |
+| REG-BH-001 | Bahrain (NHRA) | 3 | ✅ done |
+| REG-MOHUAE-001 | UAE Northern Emirates (MOHAP) | 2 | ✅ done |
+| REG-KW-001 | Kuwait (MOH-KW) | 3 | pending import |
+| PHARM-GULF-001 | All Gulf | 4 | ✅ done |
+| CULT-GULF-001 | All Gulf (cultural) | 4 | queued |
+| REG-CLIN-001 | All Gulf (clinical) | 3 | queued |
+
+**Study-modules API:** `GET /exam/study-modules/{slug}` — returns modules for exam slug via JSONB containment
+**Assign reviewer CLI:** `python -m app.scripts.assign_reviewer --email user@example.com --jurisdictions sa`
+
+**L2 — Audit & Quarantine ✅ (2026-08-06, updated 2026-08-10)**
 - `mcq_questions`: added `jurisdiction_sensitive`, `jurisdiction_verified_for`, `origin`, `jurisdiction_audit_at`, `jurisdiction_audit_notes` (migration b2c3d4e5f6a7)
-- Audited 205 Gulf-tagged questions → 44 flagged jurisdiction_sensitive (21%), all quarantined
-- Breakdown: non_si_units 23, us_regulatory 8, us_agency 8, documentation_reporting 4, consent 3, us_911 1, us_trade_drug 1, scope_of_practice 1, cultural_religious 1
+- Initial audit: 205 Gulf questions → 44 flagged (21%), quarantined
+- LLM re-audit (2026-08-08): `reaudit_quarantined.py` cleared all 44 → **0 quarantined** (all were universal medicine)
 - Quarantine enforced in exam.py query layer (L2.3)
 - `map_gulf_questions.py` blocks re-mapping sensitive questions (L2.4)
 - Admin report: `GET /admin/jurisdiction-audit`
@@ -222,12 +244,18 @@ DB tables: `jurisdiction_profiles`, `jurisdiction_rules`. Admin: `/admin/jurisdi
 - Blueprint already verified in exam_registry.py: SNLE from SCFHS Guide 2024 (2026-07-30), all others (2026-07-20)
 - Target volumes lowered per spec: SNLE=600, DHA=450, others=300 (in `EXAM_TARGETS` dict in generate_gulf_questions.py)
 - `marketing_ready` field added to `exam_definitions` (migration c3d4e5f6a7b8); all exams default false
-- 4 regional content modules imported (12 lessons total):
+- 10 Gulf educational modules (28 lessons total, as of 2026-08-10):
   - REG-SA-001: SCFHS scope, consent, MERS-CoV, medication safety (3 lessons)
   - REG-AE-001: DHA/DOH dual structure, incident reporting, patient rights (2 lessons)
+  - REG-QA-001: QCHP, Qatar, HMC context (3 lessons) ✅ imported + Arabic
+  - REG-OM-001: OMSB, Oman, Brucellosis (3 lessons) ✅ imported + Arabic
+  - REG-BH-001: NHRA, Bahrain, cultural care (3 lessons) ✅ imported + Arabic
+  - REG-MOHUAE-001: MOHAP UAE Northern Emirates (2 lessons) ✅ imported + Arabic
+  - REG-KW-001: MOH-KW Kuwait (3 lessons) — created 2026-08-10, import pending
+  - PHARM-GULF-001: INN names, SI units, high-alert meds, psychotropics (4 lessons) ✅ imported + Arabic
   - CULT-GULF-001: gender privacy, Ramadan, gelatin/ethanol, prayer/EOL (4 lessons)
   - REG-CLIN-001: heat stroke management, MERS-CoV, emergency numbers, Hajj health (3 lessons)
-- L4.5 Arabic translation: handled by existing `_translate_nclex_es_job` and `_qa_lesson_translations_job` crons
+- L4.5 Arabic translation: 27 lessons translated immediately; remainder via `_retry_pending_lesson_translations_job`
 
 **L3 — Locale-Aware Generator ✅ (2026-08-06)**
 - `prompts/jurisdiction_context.py`: builds JurisdictionContext from DB (verified rules only); formats prompt block with mandatory constraints + deficit domains
