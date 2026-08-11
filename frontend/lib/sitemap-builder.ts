@@ -598,8 +598,9 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
       { path: "/exams/qchp",         priority: 0.8, changefreq: "monthly" },
       { path: "/exams/omsb",         priority: 0.8, changefreq: "monthly" },
       { path: "/exams/nhra",         priority: 0.8, changefreq: "monthly" },
-      { path: "/exams/moh-uae",      priority: 0.8, changefreq: "monthly" },
+      { path: "/exams/mohuae",        priority: 0.8, changefreq: "monthly" },
       { path: "/exams/haad",         priority: 0.8, changefreq: "monthly" },
+      { path: "/exams/moh_kw",       priority: 0.8, changefreq: "monthly" },
       // G2 — Spanish NCLEX landing
       { path: "/es/nclex",           priority: 0.9, changefreq: "monthly" },
       // SYNC-GROUP: gulf-landing — all language Gulf hubs (update together)

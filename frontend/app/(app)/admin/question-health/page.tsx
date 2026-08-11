@@ -84,7 +84,7 @@ function OptionBar({ opt, count, total, isCorrect }: { opt: string; count: numbe
 // ── Main Component ────────────────────────────────────────────────────────────
 
 export default function QuestionHealthPage() {
-  const { token, user } = useAuthStore();
+  const { accessToken: token, user } = useAuthStore();
   const [summary, setSummary] = useState<HealthSummary | null>(null);
   const [queue, setQueue] = useState<QuestionItem[]>([]);
   const [total, setTotal] = useState(0);
