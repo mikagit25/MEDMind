@@ -138,7 +138,13 @@ async def run(
     failed = 0
     async with async_session() as db:
         for i, lesson in enumerate(lessons):
-            content_text = _extract_text_from_content(lesson.content or {})
+            raw_content = lesson.content or {}
+            if isinstance(raw_content, str):
+                try:
+                    raw_content = json.loads(raw_content)
+                except (json.JSONDecodeError, ValueError):
+                    raw_content = {"intro": raw_content}
+            content_text = _extract_text_from_content(raw_content)
             log.info("[%d/%d] %s", i + 1, len(lessons), lesson.title)
 
             result = await _generate_for_lesson(lesson.title, content_text)

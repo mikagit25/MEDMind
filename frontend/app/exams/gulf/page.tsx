@@ -170,6 +170,69 @@ export default async function GulfComparisonPage() {
           ))}
         </div>
 
+        {/* Blueprint categories shared by all Gulf exams */}
+        <div className="mb-10">
+          <h2 className="font-syne font-bold text-xl text-ink mb-2">Shared Blueprint Categories</h2>
+          <p className="text-sm font-serif text-ink-3 mb-5">
+            All Gulf Prometric nursing exams test these 9 clinical domains. Passing one prepares you for the others.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              "Fundamentals of Nursing",
+              "Medical-Surgical Nursing",
+              "Critical Care Nursing",
+              "Pharmacology & Medications",
+              "Maternal & Newborn Nursing",
+              "Pediatric Nursing",
+              "Mental Health Nursing",
+              "Community & Public Health",
+              "Leadership & Management",
+            ].map(cat => (
+              <div key={cat} className="bg-surface border border-border rounded-xl px-3 py-2.5 text-center">
+                <span className="font-syne font-semibold text-xs text-ink">{cat}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <div className="mb-12">
+          <h2 className="font-syne font-bold text-xl text-ink mb-5">Frequently Asked Questions</h2>
+          <div className="space-y-3">
+            {[
+              {
+                q: "Which Gulf exam should I prepare for first?",
+                a: "Most nurses apply to 2–3 countries simultaneously and take whichever position opens first. SNLE (Saudi Arabia) and DHA (Dubai) have the largest hiring volumes — start there if unsure.",
+              },
+              {
+                q: "Is the SNLE harder than DHA or QCHP?",
+                a: "SNLE has 200 questions (vs 100 for DHA/QCHP) and a scaled scoring system (500/800). The content blueprint is similar but SNLE emphasises Adult Nursing more heavily (40%). Preparation for any Gulf exam transfers directly to the others.",
+              },
+              {
+                q: "How long should I study before sitting a Gulf exam?",
+                a: "Most candidates with 2+ years of clinical experience need 4–8 weeks of focused practice. New graduates often need 8–12 weeks. MedMind AI builds a personalised study plan based on your exam date and progress.",
+              },
+              {
+                q: "Do I need to know local regulations for each country?",
+                a: "Yes. Each exam includes 5–10% questions on professional standards, patient rights, and the regulatory body's code of conduct. These are country-specific and often missed by candidates who only study clinical content.",
+              },
+            ].map(({ q, a }) => (
+              <details key={q} className="bg-surface border border-border rounded-xl overflow-hidden group">
+                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none">
+                  <span className="font-syne font-semibold text-sm text-ink">{q}</span>
+                  <svg className="w-4 h-4 text-ink-3 flex-shrink-0 ml-3 transition-transform group-open:rotate-180"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-5 pb-4">
+                  <p className="font-serif text-sm text-ink-2 leading-relaxed">{a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
         <div className="text-center">
           <Link href="/register"

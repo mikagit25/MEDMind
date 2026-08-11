@@ -45,6 +45,57 @@ const CATEGORY_LABELS: Record<string, string> = {
   mental_health:           "Mental Health Nursing",
   community_public_health: "Community & Public Health",
   leadership_management:   "Leadership & Management",
+  // SNLE-specific categories (SCFHS Applicant Guide 2024)
+  adult_nursing:                 "Adult Nursing",
+  maternal_child_nursing:        "Maternal-Child Nursing",
+  nursing_fundamentals:          "Nursing Fundamentals",
+  nursing_management_leadership: "Nursing Management & Leadership",
+};
+
+// SNLE official blueprint weights — verified from SCFHS Applicant Guide 2024
+// Source: https://scfhs.org.sa/sites/default/files/2024-10/SNLE%20Applicant%20Guide%202024.pdf
+// Verified: 2026-07-30. Do not update without re-checking the official source.
+const SNLE_CATEGORY_WEIGHTS: Record<string, number> = {
+  adult_nursing:                 40,
+  maternal_child_nursing:        30,
+  nursing_fundamentals:          20,
+  nursing_management_leadership: 10,
+};
+
+// Study tips per exam slug
+const EXAM_STUDY_TIPS: Record<string, { tip: string; focus: string[] }> = {
+  snle: {
+    tip: "SNLE is split into two 100-question parts (120 min each). Adult Nursing accounts for 40% of the exam — prioritise medical-surgical cases, medication calculations, and post-op care.",
+    focus: ["Adult & critical care scenarios", "Medication calculations & pharmacology", "OB nursing — normal and high-risk pregnancy", "Leadership, delegation, and Saudi nursing ethics"],
+  },
+  dha: {
+    tip: "The DHA exam covers the full spectrum of nursing practice. Questions often use clinical scenarios — practice identifying the nurse's priority action, not just knowledge recall.",
+    focus: ["Clinical priority & patient safety", "Pharmacology calculations", "Infection control (DHA protocol emphasis)", "UAE healthcare regulations & patient rights"],
+  },
+  qchp: {
+    tip: "QCHP nursing questions are scenario-based and follow the nursing process (ADPIE). Strong fundamentals and med-surg knowledge are the backbone of high scores.",
+    focus: ["Nursing process application", "Medical-surgical conditions", "Maternal & newborn care", "Qatar-specific health regulations"],
+  },
+  omsb: {
+    tip: "OMSB shares the same Prometric blueprint as DHA/QCHP. Community & public health gets 15% weight — higher than most other Gulf exams. Study Oman's Ministry of Health guidelines.",
+    focus: ["Community & public health (15% weight)", "Medical-surgical nursing", "Fundamental skills & safety", "Omani health system & patient rights"],
+  },
+  nhra: {
+    tip: "NHRA exam format mirrors DHA closely. Bahrain has a strong focus on patient safety and infection control. Practice applying Prometric-style clinical scenarios.",
+    focus: ["Patient safety & infection control", "Medical-surgical & critical care", "Pharmacology & medication administration", "Bahraini NHRA regulations"],
+  },
+  mohuae: {
+    tip: "MOH UAE covers Northern Emirates (outside Dubai and Abu Dhabi). The blueprint mirrors the standard Gulf Prometric format — build your core fundamentals and clinical reasoning first.",
+    focus: ["Fundamentals & basic nursing care", "Medical-surgical nursing", "Pharmacology & IV therapy", "UAE MOH regulations & professional ethics"],
+  },
+  haad: {
+    tip: "DOH/HAAD is Abu Dhabi's licensing authority and known for rigorous clinical scenarios. Abu Dhabi aligns closely with international best-practice guidelines (JCI).",
+    focus: ["Clinical reasoning & priority", "Critical care & emergency nursing", "Maternal-child health", "Abu Dhabi DOH standards & patient rights"],
+  },
+  moh_kw: {
+    tip: "Kuwait MOH exam follows the same Gulf Prometric blueprint. Arabic clinical context may appear — familiarise yourself with culturally competent care in Gulf settings.",
+    focus: ["Medical-surgical nursing", "Maternal & child nursing", "Pharmacology & therapeutic care", "Kuwait MOH professional standards"],
+  },
 };
 
 const FEATURES = [
@@ -160,15 +211,62 @@ export function ExamLandingTemplate({
       {/* Blueprint categories */}
       {exam.categories && exam.categories.length > 0 && (
         <section className="max-w-4xl mx-auto px-4 py-10">
-          <h2 className="font-syne font-bold text-xl text-ink mb-5">Exam Blueprint Categories</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {exam.categories.map(cat => (
-              <div key={cat} className="bg-surface border border-border rounded-xl p-3 text-center">
-                <div className="font-syne font-semibold text-xs text-ink">
-                  {CATEGORY_LABELS[cat] ?? cat}
+          <h2 className="font-syne font-bold text-xl text-ink mb-2">Exam Blueprint Categories</h2>
+          {exam.slug === "snle" && (
+            <p className="text-xs font-serif text-ink-3 mb-5">
+              Weights from SCFHS Applicant Guide 2024 (verified {exam.blueprint_verified_at ?? "2026-07-30"}).{" "}
+              <a href={exam.blueprint_source} target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">Official source ↗</a>
+            </p>
+          )}
+          {exam.slug !== "snle" && (
+            <p className="text-xs font-serif text-ink-3 mb-5">
+              Category distribution — specific weights not publicly disclosed by {exam.regulatory_body.split(" (")[0]}.
+            </p>
+          )}
+          <div className="space-y-3">
+            {exam.categories.map(cat => {
+              const weight = exam.slug === "snle" ? SNLE_CATEGORY_WEIGHTS[cat] : null;
+              const label = CATEGORY_LABELS[cat] ?? cat;
+              return (
+                <div key={cat} className="bg-surface border border-border rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-syne font-semibold text-sm text-ink">{label}</span>
+                    {weight != null && (
+                      <span className="font-syne font-black text-sm text-ink">{weight}%</span>
+                    )}
+                  </div>
+                  {weight != null && (
+                    <div className="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-ink rounded-full"
+                        style={{ width: `${weight}%` }}
+                      />
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Study tips */}
+      {EXAM_STUDY_TIPS[exam.slug] && (
+        <section className="max-w-4xl mx-auto px-4 py-10">
+          <h2 className="font-syne font-bold text-xl text-ink mb-5">How to Prepare for {exam.name.split(" — ")[0]}</h2>
+          <div className="bg-surface border border-border rounded-2xl p-6 mb-5">
+            <p className="font-serif text-sm text-ink-2 leading-relaxed mb-5">
+              {EXAM_STUDY_TIPS[exam.slug].tip}
+            </p>
+            <div className="font-syne font-bold text-xs text-ink-2 uppercase tracking-wider mb-3">Focus Areas</div>
+            <ul className="space-y-2">
+              {EXAM_STUDY_TIPS[exam.slug].focus.map((f, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-ink mt-1.5 flex-shrink-0" />
+                  <span className="font-serif text-sm text-ink-2">{f}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}
