@@ -6,6 +6,7 @@ import { DrugDetailTabs } from "@/components/drugs/DrugDetailTabs";
 import { DrugImage } from "@/components/drugs/DrugImage";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 const API_URL =
@@ -170,7 +171,7 @@ export default async function DrugDetailPage({
             {drug.drug_class && (
               <p className="font-serif text-ink-3 text-xs mt-1">{drug.drug_class}</p>
             )}
-            <div className="flex gap-2 flex-wrap mt-2">
+            <div className="flex items-center gap-2 flex-wrap mt-2">
               {drug.is_high_yield && (
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full font-syne font-semibold text-xs bg-amber-light text-amber">
                   ⭐ High Yield
@@ -186,6 +187,7 @@ export default async function DrugDetailPage({
                   🐾 Veterinary
                 </span>
               )}
+              <BookmarkButton contentType="drug" contentId={drug.id} />
             </div>
           </div>
         </div>

@@ -374,14 +374,14 @@ export const notesApi = {
 };
 
 export const bookmarksApi = {
-  list: (resource_type?: string) =>
-    api.get("/bookmarks", { params: resource_type ? { resource_type } : undefined }).then(r => r.data),
-  add: (resource_type: string, resource_id: string) =>
-    api.post(`/bookmarks/${resource_type}/${resource_id}`).then(r => r.data),
-  remove: (resource_type: string, resource_id: string) =>
-    api.delete(`/bookmarks/${resource_type}/${resource_id}`).then(r => r.data),
-  check: (resource_type: string, resource_id: string) =>
-    api.get(`/bookmarks/check/${resource_type}/${resource_id}`).then(r => r.data),
+  list: (content_type?: string) =>
+    api.get("/bookmarks", { params: content_type ? { content_type } : undefined }).then(r => r.data),
+  add: (content_type: string, content_id: string) =>
+    api.post(`/bookmarks/${content_type}/${content_id}`).then(r => r.data),
+  remove: (content_type: string, content_id: string) =>
+    api.delete(`/bookmarks/${content_type}/${content_id}`).then(r => r.data),
+  check: (content_type: string, content_id: string) =>
+    api.get(`/bookmarks/check/${content_type}/${content_id}`).then(r => r.data),
 };
 
 export const achievementsApi = {

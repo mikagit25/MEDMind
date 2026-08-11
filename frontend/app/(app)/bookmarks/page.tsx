@@ -5,21 +5,21 @@ import Link from "next/link";
 import { bookmarksApi } from "@/lib/api";
 import { useT } from "@/lib/i18n";
 
-type FilterType = "all" | "lesson" | "module" | "drug" | "case";
+type FilterType = "all" | "lesson" | "module" | "drug" | "case" | "article";
 
 interface Bookmark {
   id: string;
-  resource_type: string;
-  resource_id: string;
-  title: string | null;
+  content_type: string;
+  content_id: string;
   created_at: string;
 }
 
 const TYPE_META: Record<string, { icon: string; label: string; color: string; href: (id: string) => string }> = {
-  lesson: { icon: "📖", label: "Lessons", color: "bg-blue-light text-blue",   href: (id) => `/modules/${id}` },
-  module: { icon: "📚", label: "Modules", color: "bg-red-light text-red",     href: (id) => `/modules/${id}` },
-  drug:   { icon: "💊", label: "Drugs",   color: "bg-amber-light text-amber", href: (id) => `/drugs/${id}` },
-  case:   { icon: "🩺", label: "Cases",   color: "bg-green-light text-green", href: (id) => `/cases?id=${id}` },
+  lesson:  { icon: "📖", label: "Lessons",  color: "bg-blue-light text-blue",   href: (id) => `/modules/${id}` },
+  module:  { icon: "📚", label: "Modules",  color: "bg-red-light text-red",     href: (id) => `/modules/${id}` },
+  drug:    { icon: "💊", label: "Drugs",    color: "bg-amber-light text-amber", href: (id) => `/drugs/${id}` },
+  case:    { icon: "🩺", label: "Cases",    color: "bg-green-light text-green", href: (id) => `/cases?id=${id}` },
+  article: { icon: "📰", label: "Articles", color: "bg-purple-light text-purple", href: (id) => `/articles/${id}` },
 };
 
 const FILTER_LABELS: Record<FilterType, string> = {
@@ -28,6 +28,7 @@ const FILTER_LABELS: Record<FilterType, string> = {
   module: "Modules",
   drug: "Drugs",
   case: "Cases",
+  article: "Articles",
 };
 
 export default function BookmarksPage() {
@@ -38,31 +39,30 @@ export default function BookmarksPage() {
 
   useEffect(() => {
     bookmarksApi.list()
-      .then((data: any) => setBookmarks(data ?? []))
+      .then((data: any) => setBookmarks(data?.bookmarks ?? data ?? []))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
   const remove = async (b: Bookmark) => {
-    await bookmarksApi.remove(b.resource_type, b.resource_id).catch(() => {});
+    await bookmarksApi.remove(b.content_type, b.content_id).catch(() => {});
     setBookmarks((prev) => prev.filter((x) => x.id !== b.id));
   };
 
   const counts: Record<string, number> = { all: bookmarks.length };
   for (const b of bookmarks) {
-    counts[b.resource_type] = (counts[b.resource_type] ?? 0) + 1;
+    counts[b.content_type] = (counts[b.content_type] ?? 0) + 1;
   }
 
   const filtered = filter === "all"
     ? bookmarks
-    : bookmarks.filter((b) => b.resource_type === filter);
+    : bookmarks.filter((b) => b.content_type === filter);
 
-  // Group by week
   const now = Date.now();
   const recent = filtered.filter((b) => now - new Date(b.created_at).getTime() < 7 * 86400_000);
-  const older = filtered.filter((b) => now - new Date(b.created_at).getTime() >= 7 * 86400_000);
+  const older  = filtered.filter((b) => now - new Date(b.created_at).getTime() >= 7 * 86400_000);
 
-  const filters: FilterType[] = ["all", "lesson", "module", "drug", "case"];
+  const filters: FilterType[] = ["all", "article", "lesson", "module", "drug", "case"];
   const activeFilters = filters.filter((f) => f === "all" || counts[f]);
 
   return (
@@ -74,20 +74,19 @@ export default function BookmarksPage() {
         </div>
       </div>
 
-      {/* Filter tabs */}
       <div className="flex gap-1.5 flex-wrap mb-6">
-        {activeFilters.map((t) => (
+        {activeFilters.map((f) => (
           <button
-            key={t}
-            onClick={() => setFilter(t)}
+            key={f}
+            onClick={() => setFilter(f)}
             className={`px-3 py-1.5 rounded-full font-syne font-semibold text-xs transition-all border ${
-              filter === t
+              filter === f
                 ? "bg-ink text-white border-ink"
                 : "border-border text-ink-3 hover:border-ink hover:text-ink"
             }`}
           >
-            {t !== "all" && TYPE_META[t]?.icon} {FILTER_LABELS[t]}
-            {counts[t] ? ` (${counts[t]})` : ""}
+            {f !== "all" && TYPE_META[f]?.icon} {FILTER_LABELS[f]}
+            {counts[f] ? ` (${counts[f]})` : ""}
           </button>
         ))}
       </div>
@@ -129,8 +128,8 @@ export default function BookmarksPage() {
 }
 
 function BookmarkCard({ bookmark: b, onRemove }: { bookmark: Bookmark; onRemove: (b: Bookmark) => void }) {
-  const meta = TYPE_META[b.resource_type];
-  const href = meta?.href(b.resource_id) ?? "#";
+  const meta = TYPE_META[b.content_type];
+  const href = meta?.href(b.content_id) ?? "#";
   const date = new Date(b.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
 
   return (
@@ -143,10 +142,10 @@ function BookmarkCard({ bookmark: b, onRemove }: { bookmark: Bookmark; onRemove:
           href={href}
           className="font-syne font-bold text-sm text-ink hover:underline truncate block"
         >
-          {b.title || b.resource_id}
+          {meta?.label.slice(0, -1) ?? b.content_type} · {b.content_id.slice(0, 8)}…
         </Link>
         <div className="font-serif text-xs text-ink-3 mt-0.5 capitalize">
-          {meta?.label.slice(0, -1) ?? b.resource_type} · saved {date}
+          Saved {date}
         </div>
       </div>
       <Link

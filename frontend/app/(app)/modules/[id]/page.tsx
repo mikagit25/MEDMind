@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { contentApi, progressApi, notesApi, imagingApi, teacherApi, srsApi, certificatesApi } from "@/lib/api";
 import LessonQuizPanel from "@/components/ui/LessonQuizPanel";
+import { BookmarkButton } from "@/components/ui/BookmarkButton";
 import { useI18n, useT } from "@/lib/i18n";
 import { ga } from "@/lib/gtag";
 import { analytics } from "@/lib/analytics";
@@ -771,6 +772,7 @@ export default function ModuleDetailPage() {
                 >
                   📝 Notes {notes.length > 0 && !showNotes ? `(${notes.length})` : ""}
                 </button>
+                <BookmarkButton contentType="lesson" contentId={activeLesson.id} />
               </div>
             </div>
 
