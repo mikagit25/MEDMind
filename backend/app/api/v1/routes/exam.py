@@ -1670,6 +1670,126 @@ async def resolve_flagged_question(
     return {"resolved": True, "question_id": question_id}
 
 
+# ── AI-Flagged MCQ admin endpoints ────────────────────────────────────────────
+
+@router.get("/admin/ai-flagged-questions")
+async def list_ai_flagged_questions(
+    exam_slug: str | None = Query(None),
+    limit: int = Query(200, le=500),
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: list MCQ questions with verification_status='flagged' (AI-flagged, not user-flagged)."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+
+    stmt = (
+        select(MCQQuestion)
+        .where(
+            MCQQuestion.verification_status == "flagged",
+            MCQQuestion.status == "active",
+        )
+        .order_by(MCQQuestion.created_at.desc())
+        .limit(limit)
+    )
+    result = await db.execute(stmt)
+    questions = result.scalars().all()
+
+    out = []
+    for q in questions:
+        slugs = q.exam_slugs or []
+        if exam_slug and exam_slug not in slugs:
+            continue
+        report = q.verification_report or {}
+        out.append({
+            "id": str(q.id),
+            "question": q.question,
+            "options": q.options,
+            "correct": q.correct,
+            "explanation": q.explanation,
+            "rationales": q.rationales,
+            "key_takeaway": q.key_takeaway,
+            "difficulty": q.difficulty,
+            "question_type": q.question_type,
+            "nclex_client_needs": q.nclex_client_needs,
+            "exam_slugs": slugs,
+            "flag_reason": report.get("flag_reason") or report.get("issues") or q.flag_reason,
+            "verification_report": report,
+            "created_at": q.created_at.isoformat() if q.created_at else None,
+        })
+    return {"questions": out, "total": len(out)}
+
+
+class BulkFlaggedBody(BaseModel):
+    question_ids: list[str]
+
+
+@router.post("/admin/ai-flagged-questions/bulk-approve")
+async def bulk_approve_ai_flagged(
+    body: BulkFlaggedBody,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: bulk approve AI-flagged questions (set verification_status → ai_verified)."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+
+    updated = 0
+    for qid_str in body.question_ids:
+        try:
+            qid = uuid_lib.UUID(qid_str)
+        except ValueError:
+            continue
+        q = await db.get(MCQQuestion, qid)
+        if q and q.verification_status == "flagged":
+            q.verification_status = "ai_verified"
+            updated += 1
+    await db.commit()
+    return {"approved": updated, "total_submitted": len(body.question_ids)}
+
+
+@router.post("/admin/ai-flagged-questions/{question_id}/approve")
+async def approve_ai_flagged_question(
+    question_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: approve a single AI-flagged question."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404)
+    q = await db.get(MCQQuestion, qid)
+    if not q:
+        raise HTTPException(404)
+    q.verification_status = "ai_verified"
+    await db.commit()
+    return {"approved": True, "question_id": question_id}
+
+
+@router.post("/admin/ai-flagged-questions/{question_id}/retire")
+async def retire_ai_flagged_question(
+    question_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Admin: retire an AI-flagged question (removes from exam pools)."""
+    if user.role not in ("admin", "superadmin"):
+        raise HTTPException(403, "Admin access required")
+    try:
+        qid = uuid_lib.UUID(question_id)
+    except ValueError:
+        raise HTTPException(404)
+    q = await db.get(MCQQuestion, qid)
+    if not q:
+        raise HTTPException(404)
+    q.status = "retired"
+    await db.commit()
+    return {"retired": True, "question_id": question_id}
+
+
 # ── Study Plan endpoints (V6 Phase 4) ─────────────────────────────────────────
 
 class CreatePlanBody(BaseModel):

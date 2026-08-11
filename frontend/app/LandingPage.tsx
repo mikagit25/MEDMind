@@ -298,7 +298,7 @@ export default function LandingPage({
               <ul className="space-y-2.5 mb-8">
                 {[
                   loc("Adaptive CAT: 75–145 questions, just like the real NCLEX", "Адаптивный CAT: 75–145 вопросов, как на реальном NCLEX", "CAT adaptativo: 75–145 preguntas", "CAT تكيفي: 75–145 سؤال", "Adaptiver CAT: 75–145 Fragen", "CAT adaptatif: 75–145 questions", "Uyarlanabilir CAT: 75–145 soru"),
-                  loc("Gulf full simulations: SNLE 200q · DHA/QCHP/OMSB 100q", "Gulf полные симуляции: SNLE 200q · DHA/QCHP/OMSB 100q", "Simulaciones Gulf: SNLE 200q · DHA/QCHP 100q", "محاكاة الخليج: SNLE 200 سؤال · DHA/QCHP 100 سؤال", "Gulf-Simulationen: SNLE 200q · DHA/QCHP 100q", "Simulations Gulf: SNLE 200q · DHA/QCHP 100q", "Gulf simülasyonları: SNLE 200q · DHA/QCHP 100q"),
+                  loc("8 Gulf exams: SNLE · DHA · HAAD · QCHP · OMSB · NHRA · MOH UAE · MOH Kuwait", "8 экзаменов Gulf: SNLE · DHA · HAAD · QCHP · OMSB · NHRA · MOH UAE · MOH Kuwait", "8 exámenes Gulf: SNLE · DHA · HAAD · QCHP y más", "8 امتحانات خليجية: SNLE · DHA · HAAD · QCHP والمزيد", "8 Gulf-Prüfungen: SNLE · DHA · HAAD · QCHP und mehr", "8 examens Gulf: SNLE · DHA · HAAD · QCHP et plus", "8 Gulf sınavı: SNLE · DHA · HAAD · QCHP ve daha fazlası"),
                   loc("AI explanation for every wrong answer with clinical reasoning", "ИИ-объяснение к каждому ошибочному ответу с клинической логикой", "Explicación IA para cada error", "شرح ذكاء اصطناعي لكل خطأ", "KI-Erklärung für jede falsche Antwort", "Explication IA pour chaque erreur", "Her yanlış cevap için yapay zeka açıklaması"),
                   loc("Free demo — no sign-up required", "Бесплатный демо — без регистрации", "Demo gratuito — sin registro", "عرض تجريبي مجاني — بدون تسجيل", "Kostenloses Demo — ohne Anmeldung", "Démo gratuit — sans inscription", "Ücretsiz demo — kayıt gerekmez"),
                 ].map((f) => (
@@ -324,7 +324,7 @@ export default function LandingPage({
             <div className="grid grid-cols-2 gap-3">
               {[
                 { value: "600+", label: loc("NCLEX questions", "NCLEX вопросов", "preguntas NCLEX", "أسئلة NCLEX", "NCLEX-Fragen", "questions NCLEX", "NCLEX sorusu"), sub: "SATA · CAT · NGN" },
-                { value: "7",    label: loc("Gulf exams", "Gulf экзаменов", "exámenes Gulf", "امتحانات الخليج", "Gulf-Prüfungen", "examens Gulf", "Gulf sınavı"), sub: "SNLE · DHA · QCHP · OMSB" },
+                { value: "8",    label: loc("Gulf exams", "Gulf экзаменов", "exámenes Gulf", "امتحانات الخليج", "Gulf-Prüfungen", "examens Gulf", "Gulf sınavı"), sub: "SNLE · DHA · QCHP · MOH KW" },
                 { value: "7",    label: loc("NCLEX categories", "категорий NCLEX", "categorías NCLEX", "فئات NCLEX", "NCLEX-Kategorien", "catégories NCLEX", "NCLEX kategorisi"), sub: "Client Needs" },
                 { value: "6",    label: loc("CJMM skills", "навыков CJMM", "habilidades CJMM", "مهارات CJMM", "CJMM-Kompetenzen", "compétences CJMM", "CJMM becerileri"), sub: loc("Clinical Judgment", "Клиническое суждение", "Juicio clínico", "الحكم السريري", "Klinisches Urteil", "Jugement clinique", "Klinik Yargı") },
               ].map((s) => (

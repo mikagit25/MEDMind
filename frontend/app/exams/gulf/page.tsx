@@ -21,9 +21,9 @@ const BACKEND_URL =
   "http://localhost:8000/api/v1";
 
 export const metadata: Metadata = {
-  title: "Gulf Nursing Exam Comparison 2025 — SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD | MedMind AI",
+  title: "Gulf Nursing Exam Comparison 2025 — SNLE, DHA, QCHP, OMSB, NHRA, MOH UAE, HAAD, MOH Kuwait | MedMind AI",
   description:
-    "Compare all 7 Gulf Prometric nursing licensing exams side by side: questions, duration, pass mark, and regulatory body. One Gulf Bundle opens practice for all exams.",
+    "Compare all 8 Gulf Prometric nursing licensing exams side by side: questions, duration, pass mark, and regulatory body. One Gulf Bundle opens practice for all exams.",
   alternates: {
     canonical: `${SITE_URL}/exams/gulf`,
     languages: {
@@ -73,9 +73,9 @@ export default async function GulfComparisonPage() {
           Gulf Nursing Exams — Complete Comparison
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-8 max-w-2xl">
-          All 7 Gulf Prometric nursing licensing exams in one place. Many nurses prepare for
+          All 8 Gulf Prometric nursing licensing exams in one place. Many nurses prepare for
           multiple exams simultaneously — the country that accepts them first is where they go.
-          The Gulf Bundle opens practice access to all 7 at once.
+          The Gulf Bundle opens practice access to all 8 at once.
         </p>
 
         {/* Comparison table */}
@@ -144,7 +144,7 @@ export default async function GulfComparisonPage() {
             All Gulf Prometric nursing exams share the same blueprint categories — fundamentals,
             medical-surgical, pharmacology, maternal health, pediatrics, mental health, community
             health, and leadership. A nurse preparing for SNLE is already 80%+ ready for DHA, QCHP,
-            and the others. The Gulf Bundle in MedMind AI lets you track readiness across all 7
+            and the others. The Gulf Bundle in MedMind AI lets you track readiness across all 8
             simultaneously with one shared question bank.
           </p>
         </div>

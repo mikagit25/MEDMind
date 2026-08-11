@@ -69,7 +69,7 @@ export default function GermanGulfPage() {
           Pflegeprüfungen der Golfstaaten — Vollständiger Vergleich
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-6 max-w-3xl">
-          Alle 7 Gulf-Prometric-Pflegelizenzprüfungen an einem Ort. Viele Pflegekräfte bereiten sich gleichzeitig auf mehrere Prüfungen vor — das Land, das zuerst zusagt, wird zum Arbeitsort. Das Gulf Bundle öffnet den Zugang zu allen 7 auf einmal.
+          Alle 8 Gulf-Prometric-Pflegelizenzprüfungen an einem Ort. Viele Pflegekräfte bereiten sich gleichzeitig auf mehrere Prüfungen vor — das Land, das zuerst zusagt, wird zum Arbeitsort. Das Gulf Bundle öffnet den Zugang zu allen 8 auf einmal.
         </p>
         <div className="flex flex-wrap gap-3 mb-8">
           <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors">

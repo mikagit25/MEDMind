@@ -1707,7 +1707,7 @@ const en = {
     pricing_plans: [
       { name: "Free", price: "$0", period: "forever", features: ["8 base modules", "5 AI questions/day", "Basic flashcards", "Community support"], cta: "Get started", highlight: false },
       { name: "Student", price: "$15", period: "/month", features: ["All 82+ modules", "50 AI questions/day", "Full flashcards + SM-2", "PubMed citations"], cta: "Start Student", highlight: false },
-      { name: "Pro", price: "$20", period: "/month", features: ["Everything in Student", "Unlimited AI questions", "Veterinary content", "Drug database", "Priority support"], cta: "Start Pro", highlight: true },
+      { name: "Pro", price: "$40", period: "/month", features: ["Everything in Student", "Unlimited AI questions", "Gulf exam prep (all 8)", "Veterinary content", "Drug database", "Priority support"], cta: "Start Pro", highlight: true },
       { name: "Lifetime", price: "$299", period: "one-time", features: ["Everything in Pro", "All future modules", "Lifetime updates", "No recurring fee"], cta: "Get Lifetime", highlight: false },
     ],
     specialties_title: "Six core specialties",
@@ -1857,7 +1857,7 @@ const en = {
     plans: [
       { name: "Free",     price: "$0",   period: "forever",    description: "Start learning with core modules",    features: ["8 fundamental modules", "5 AI questions / day", "Basic flashcards", "Progress tracking"],                                                                                                                   cta: "Start free",    highlight: false, tier: "free" },
       { name: "Student",  price: "$15",  period: "/month",     description: "Full access for medical students",    features: ["All 82+ medical modules", "50 AI questions / day", "Spaced repetition flashcards", "Clinical case simulations", "PubMed search integration", "Progress analytics"],                                   cta: "Get Student",   highlight: false, tier: "student" },
-      { name: "Pro",      price: "$20",  period: "/month",     description: "For practicing physicians",           features: ["Everything in Student", "Unlimited AI questions", "Drug database access", "Veterinary modules", "Advanced AI modes (Socratic, Exam)", "Priority support"],                                             cta: "Get Pro",       highlight: true,  tier: "pro" },
+      { name: "Pro",      price: "$40",  period: "/month",     description: "For practicing physicians",           features: ["Everything in Student", "Unlimited AI questions", "All 8 Gulf Prometric exam banks", "Drug database access", "Veterinary modules", "Advanced AI modes (Socratic, Exam)", "Priority support"],  cta: "Get Pro",       highlight: true,  tier: "pro" },
       { name: "Clinic",   price: "$199", period: "/month",     description: "For teams & institutions",            features: ["Up to 10 users", "Everything in Pro", "Team analytics dashboard", "Custom module upload", "Dedicated support", "SCORM export"],                                                                         cta: "Get Clinic",    highlight: false, tier: "clinic" },
       { name: "Lifetime", price: "$299", period: "one-time",   description: "Unlimited access forever",            features: ["Everything in Pro", "Lifetime updates", "Early access to new features", "Unlimited AI forever", "All future specialties"],                                                                               cta: "Buy Lifetime",  highlight: false, tier: "lifetime" },
     ],
