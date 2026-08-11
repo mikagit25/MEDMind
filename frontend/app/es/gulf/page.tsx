@@ -69,7 +69,7 @@ export default function SpanishGulfPage() {
           Exámenes de Enfermería del Golfo — Comparativa Completa
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-6 max-w-3xl">
-          Los 7 exámenes de licencia de enfermería Prometric del Golfo en un solo lugar. Muchas enfermeras se preparan para varios exámenes simultáneamente — el país que acepta primero es donde van a trabajar. El Gulf Bundle abre el acceso a los 7 a la vez.
+          Los 7 exámenes de licencia de enfermería Prometric del Golfo en un solo lugar. Muchas enfermeras se preparan para varios exámenes simultáneamente — el país que acepta primero es donde van a trabajar. El Gulf Bundle abre el acceso a los 8 a la vez.
         </p>
         <div className="flex flex-wrap gap-3 mb-8">
           <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors">

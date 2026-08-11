@@ -48,14 +48,14 @@ export default function RussianGulfPage() {
           Экзамены по сестринскому делу в странах Залива
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-6 max-w-3xl">
-          Все 7 лицензионных экзаменов по системе Prometric в одном месте. Многие медсёстры сдают несколько экзаменов одновременно — та страна, которая принимает первой, и становится местом работы. Gulf Bundle открывает доступ ко всем 7 экзаменам сразу.
+          Все 8 лицензионных экзаменов по системе Prometric в одном месте. Многие медсёстры сдают несколько экзаменов одновременно — та страна, которая принимает первой, и становится местом работы. Gulf Bundle открывает доступ ко всем 8 экзаменам сразу.
         </p>
         <div className="flex flex-wrap gap-3 mb-8">
           <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors">Начать бесплатно →</Link>
           <Link href="/exams/gulf" className="font-syne font-bold text-sm border border-border text-ink px-6 py-3 rounded-xl hover:bg-surface transition-colors">English</Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-          {[{ num: "7", label: "экзаменов" }, { num: "608+", label: "вопросов" }, { num: "3 ч", label: "длительность" }, { num: "65%", label: "проходной балл" }].map(({ num, label }) => (
+          {[{ num: "8", label: "экзаменов" }, { num: "608+", label: "вопросов" }, { num: "3 ч", label: "длительность" }, { num: "65%", label: "проходной балл" }].map(({ num, label }) => (
             <div key={label} className="bg-surface border border-border rounded-2xl p-4 text-center">
               <div className="font-syne font-black text-2xl text-ink">{num}</div>
               <div className="text-xs font-syne text-ink-3 mt-1">{label}</div>
@@ -79,7 +79,7 @@ export default function RussianGulfPage() {
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
           <h2 className="font-syne font-bold text-base text-ink mb-2">Для медсестёр, стремящихся работать в Заливе</h2>
           <p className="text-sm text-ink-2 leading-relaxed mb-4">
-            Все экзамены Prometric в Заливе охватывают одинаковые 8 клинических категорий. Подготовка к SNLE на 80%+ готовит вас к DHA, QCHP и другим. Один план обучения — семь стран.
+            Все экзамены Prometric в Заливе охватывают одинаковые 8 клинических категорий. Подготовка к SNLE на 80%+ готовит вас к DHA, QCHP и другим. Один план обучения — восемь стран.
           </p>
           <Link href="/register" className="inline-block font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors">Зарегистрироваться бесплатно →</Link>
         </div>

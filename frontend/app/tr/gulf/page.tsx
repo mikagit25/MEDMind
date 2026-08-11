@@ -69,7 +69,7 @@ export default function TurkishGulfPage() {
           Körfez Hemşirelik Sınavları — Tam Karşılaştırma
         </h1>
         <p className="text-lg text-ink-2 leading-relaxed mb-6 max-w-3xl">
-          7 Körfez Prometric hemşirelik lisans sınavının tamamı tek bir yerde. Pek çok hemşire birden fazla sınava aynı anda hazırlanır — önce kabul eden ülke çalışma yeri olur. Gulf Bundle ile tüm 7 sınava aynı anda erişim sağlayabilirsiniz.
+          7 Körfez Prometric hemşirelik lisans sınavının tamamı tek bir yerde. Pek çok hemşire birden fazla sınava aynı anda hazırlanır — önce kabul eden ülke çalışma yeri olur. Gulf Bundle ile tüm 8 sınava aynı anda erişim sağlayabilirsiniz.
         </p>
         <div className="flex flex-wrap gap-3 mb-8">
           <Link href="/register" className="font-syne font-bold text-sm bg-ink text-white px-6 py-3 rounded-xl hover:bg-red transition-colors">
