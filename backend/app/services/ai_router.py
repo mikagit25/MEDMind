@@ -291,6 +291,180 @@ def _groq_user_keys() -> list[str]:
     return keys
 
 
+def _all_groq_keys() -> list[str]:
+    """All Groq keys for generation tasks (deduplicated, order: user keys first)."""
+    seen: set = set()
+    keys: list = []
+    for attr in (
+        "GROQ_API_KEY", "GROQ_API_KEY_2", "GROQ_API_KEY_6",
+        "GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5",
+        "GROQ_KEY_MODULE", "GROQ_KEY_MODULE_2",
+        "GROQ_KEY_CASES", "GROQ_KEY_VET_MODULES", "GROQ_KEY_VET_ARTICLES",
+    ):
+        k = getattr(settings, attr, "")
+        if k and k not in seen:
+            seen.add(k)
+            keys.append(k)
+    return keys
+
+
+def _all_cerebras_keys() -> list[str]:
+    """All Cerebras keys for generation tasks (KEY_1-6)."""
+    keys: list = []
+    for attr in (
+        "CEREBRAS_API_KEY", "CEREBRAS_API_KEY_2", "CEREBRAS_API_KEY_3",
+        "CEREBRAS_API_KEY_4", "CEREBRAS_API_KEY_5", "CEREBRAS_API_KEY_6",
+    ):
+        k = getattr(settings, attr, "")
+        if k:
+            keys.append(k)
+    return keys
+
+
+async def call_generation_ai(
+    system: str,
+    user_message: str,
+    max_tokens: int = 2000,
+) -> tuple[str, str]:
+    """Universal generation cascade — tries ALL providers/keys in order.
+
+    Priority: Claude → Gemini (5 keys) → Cerebras (6 keys) → SambaNova (3 keys)
+              → Groq (all 11 keys) → Ollama (local).
+    Returns (text, model_label). Raises RuntimeError if all providers fail.
+    """
+    # 1. Claude (best JSON/structured output quality)
+    if settings.ANTHROPIC_API_KEY:
+        try:
+            resp = await claude_client.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=max_tokens,
+                system=system,
+                messages=[{"role": "user", "content": user_message}],
+            )
+            text = resp.content[0].text if resp.content else ""
+            if text:
+                return text, "claude-haiku-4-5-20251001"
+        except Exception as e:
+            logger.warning("call_generation_ai: Claude failed (%s), trying Gemini", e)
+
+    # 2. Gemini Flash — 5-key rotation
+    gemini_keys = _gemini_keys()
+    if gemini_keys:
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"{settings.GEMINI_MODEL}:generateContent"
+        )
+        payload = {
+            "systemInstruction": {"parts": [{"text": system}]},
+            "contents": [{"role": "user", "parts": [{"text": user_message}]}],
+            "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.4},
+        }
+        async with httpx.AsyncClient(timeout=45) as http:
+            for key in gemini_keys:
+                try:
+                    resp = await http.post(url, params={"key": key}, json=payload)
+                    if resp.status_code == 429:
+                        continue
+                    resp.raise_for_status()
+                    text = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                    if text:
+                        return text, f"gemini/{settings.GEMINI_MODEL}"
+                except Exception as e:
+                    logger.debug("call_generation_ai: Gemini key failed: %s", e)
+
+    # 3. Cerebras — 6-key rotation
+    for key in _all_cerebras_keys():
+        try:
+            async with httpx.AsyncClient(timeout=40) as http:
+                resp = await http.post(
+                    "https://api.cerebras.ai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json={
+                        "model": settings.CEREBRAS_MODEL,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user_message},
+                        ],
+                        "max_tokens": max_tokens,
+                        "temperature": 0.4,
+                    },
+                )
+                if resp.status_code == 429:
+                    continue
+                resp.raise_for_status()
+                text = resp.json()["choices"][0]["message"]["content"]
+                if text:
+                    return text, f"cerebras/{settings.CEREBRAS_MODEL}"
+        except Exception as e:
+            logger.debug("call_generation_ai: Cerebras key failed: %s", e)
+
+    # 4. SambaNova — 3-key rotation
+    for key in _sambanova_keys():
+        try:
+            async with httpx.AsyncClient(timeout=40) as http:
+                resp = await http.post(
+                    "https://api.sambanova.ai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json={
+                        "model": settings.SAMBANOVA_MODEL,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user_message},
+                        ],
+                        "max_tokens": max_tokens,
+                        "temperature": 0.4,
+                    },
+                )
+                if resp.status_code == 429:
+                    continue
+                resp.raise_for_status()
+                text = resp.json()["choices"][0]["message"]["content"]
+                if text:
+                    return text, f"sambanova/{settings.SAMBANOVA_MODEL}"
+        except Exception as e:
+            logger.debug("call_generation_ai: SambaNova key failed: %s", e)
+
+    # 5. Groq — all keys (up to 11, deduplicated)
+    groq_payload = {
+        "model": settings.GROQ_MODEL,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": user_message},
+        ],
+        "max_tokens": max_tokens,
+        "temperature": 0.4,
+    }
+    async with httpx.AsyncClient(timeout=45) as http:
+        for key in _all_groq_keys():
+            try:
+                resp = await http.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                    json=groq_payload,
+                )
+                if resp.status_code == 429:
+                    continue
+                resp.raise_for_status()
+                text = resp.json()["choices"][0]["message"]["content"]
+                if text:
+                    return text, f"groq/{settings.GROQ_MODEL}"
+            except Exception as e:
+                logger.debug("call_generation_ai: Groq key failed: %s", e)
+
+    # 6. Ollama — local fallback (zero cost)
+    try:
+        text = await _call_ollama([{"role": "user", "content": user_message}], system)
+        if text:
+            return text, f"ollama/{settings.OLLAMA_MODEL}"
+    except Exception as e:
+        logger.debug("call_generation_ai: Ollama failed: %s", e)
+
+    raise RuntimeError(
+        "call_generation_ai: all providers exhausted. "
+        "Check API keys and billing at Anthropic / Google / Cerebras / Groq."
+    )
+
+
 async def _call_groq(messages: list, system_prompt: str) -> str:
     """Call Groq API with KEY_1/KEY_2 rotation (user-reserved keys)."""
     keys = _groq_user_keys()

@@ -13,6 +13,15 @@ const EXAM_LABELS: Record<string, string> = {
   nclex_pn:    "NCLEX-PN",
   ukmla:       "UKMLA",
   plab:        "PLAB",
+  // Gulf licensing exams
+  snle:        "SNLE (Saudi)",
+  dha:         "DHA (Dubai)",
+  haad:        "HAAD (Abu Dhabi)",
+  qchp:        "QCHP (Qatar)",
+  nhra:        "NHRA (Bahrain)",
+  omsb:        "OMSB (Oman)",
+  mohuae:      "MOH UAE",
+  moh_kw:      "MOH Kuwait",
   custom:      "Board Exam",
 };
 

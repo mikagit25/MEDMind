@@ -92,12 +92,12 @@ async def _ensure_mcq_cache(
         if lesson:
             try:
                 from app.prompts.tutor_prompts import LESSON_MCQ_SYSTEM, lesson_mcq_prompt
-                from app.services.ai_router import call_claude_structured
+                from app.services.ai_router import call_generation_ai
                 from app.services.content_sanitizer import sanitize_for_llm_context
 
                 text = sanitize_for_llm_context(lesson.content, max_chars=3000)
                 prompt = lesson_mcq_prompt(lesson.title or "Lesson", text, "medium")
-                raw, _ = await call_claude_structured(system=LESSON_MCQ_SYSTEM, user_message=prompt)
+                raw, _ = await call_generation_ai(system=LESSON_MCQ_SYSTEM, user_message=prompt, max_tokens=2000)
 
                 clean = raw.strip()
                 if clean.startswith("```"):

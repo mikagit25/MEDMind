@@ -1479,10 +1479,11 @@ Explain concisely:
 2. Why each wrong option is incorrect (one sentence each)."""
 
     try:
-        explanation, _ = await call_ollama_structured(
+        from app.services.ai_router import call_generation_ai
+        explanation, _ = await call_generation_ai(
             system=system_prompt,
             user_message=user_msg,
-            max_tokens=400,
+            max_tokens=600,
         )
     except Exception as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {str(e)[:100]}")
@@ -1556,10 +1557,11 @@ async def question_followup(
     )
 
     try:
-        explanation, _ = await call_ollama_structured(
+        from app.services.ai_router import call_generation_ai
+        explanation, _ = await call_generation_ai(
             system=system_prompt,
             user_message=user_message,
-            max_tokens=350,
+            max_tokens=500,
         )
     except Exception as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {str(e)[:100]}")

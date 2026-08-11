@@ -216,6 +216,15 @@ EXAM_LABELS: dict[str, str] = {
     "nclex_pn":    "NCLEX-PN",
     "ukmla":       "UKMLA",
     "plab":        "PLAB",
+    # Gulf licensing exams
+    "snle":        "SNLE (Saudi Commission for Health Specialties)",
+    "dha":         "DHA (Dubai Health Authority)",
+    "haad":        "HAAD (Health Authority Abu Dhabi)",
+    "qchp":        "QCHP (Qatar Council for Healthcare Practitioners)",
+    "nhra":        "NHRA (Bahrain National Health Regulatory Authority)",
+    "omsb":        "OMSB (Oman Medical Specialty Board)",
+    "mohuae":      "MOH UAE (Ministry of Health UAE)",
+    "moh_kw":      "MOH Kuwait (Ministry of Health Kuwait)",
     "custom":      "Board Exam",
 }
 
@@ -327,7 +336,12 @@ async def generate_exam_prep_plan(
     )
 
     try:
-        raw, _ = await call_claude_structured(system=system_prompt, user_message=user_message)
+        from app.services.ai_router import call_generation_ai
+        raw, _ = await call_generation_ai(
+            system=system_prompt,
+            user_message=user_message,
+            max_tokens=3000,
+        )
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
 

@@ -705,12 +705,13 @@ async def generate_lesson_quiz(
 
     prompt = lesson_mcq_prompt(lesson.title or "Medical Lesson", lesson_text, difficulty)
 
-    # MCQ generation: Cerebras → Claude → Ollama cascade for resilience
-    from app.services.ai_router import call_ollama_structured
+    # MCQ generation: full key cascade (Claude → Gemini → Cerebras → SambaNova → Groq → Ollama)
+    from app.services.ai_router import call_generation_ai
     try:
-        raw, model_label = await call_ollama_structured(
+        raw, model_label = await call_generation_ai(
             system=LESSON_MCQ_SYSTEM,
             user_message=prompt,
+            max_tokens=2500,
         )
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
@@ -917,7 +918,7 @@ async def differential_diagnosis(
 ):
     """Generate a structured differential diagnosis from a clinical case description."""
     from app.prompts.tutor_prompts import DIFFERENTIAL_SYSTEM, differential_prompt
-    from app.services.ai_router import call_claude_structured
+    from app.services.ai_router import call_claude_structured, call_generation_ai
 
     data.case_description = sanitize_ai_message(data.case_description)
     await check_ai_rate_limit(user, db)
@@ -927,14 +928,23 @@ async def differential_diagnosis(
     prompt = differential_prompt(data.case_description, data.language or "en")
 
     try:
+        # Try Claude first (highest quality for differential diagnosis)
         raw, model_label = await call_claude_structured(
             system=DIFFERENTIAL_SYSTEM,
             user_message=prompt,
             model=model,
             max_tokens=2500,
         )
-    except Exception as e:
-        raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
+    except Exception:
+        # Fall back to full provider cascade if Claude is unavailable/out of credits
+        try:
+            raw, model_label = await call_generation_ai(
+                system=DIFFERENTIAL_SYSTEM,
+                user_message=prompt,
+                max_tokens=2500,
+            )
+        except Exception as e:
+            raise HTTPException(status_code=503, detail=f"AI service unavailable: {e}")
 
     # Parse JSON
     try:
@@ -1005,9 +1015,9 @@ async def generate_handout(
 
     prompt = handout_prompt(data.condition, data.language or "en")
 
-    from app.services.ai_router import call_ollama_structured
+    from app.services.ai_router import call_generation_ai
     try:
-        raw, model_label = await call_ollama_structured(
+        raw, model_label = await call_generation_ai(
             system=HANDOUT_SYSTEM,
             user_message=prompt,
             max_tokens=2000,
