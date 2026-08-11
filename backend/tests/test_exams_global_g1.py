@@ -63,11 +63,11 @@ def test_gulf_slugs_unique():
 
 
 def test_gulf_exam_count():
-    assert len(GULF_EXAMS) == 7, f"Expected 7 Gulf exams, got {len(GULF_EXAMS)}"
+    assert len(GULF_EXAMS) == 8, f"Expected 8 Gulf exams, got {len(GULF_EXAMS)}"
 
 
 def test_gulf_exam_slugs():
-    expected = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad"}
+    expected = {"snle", "dha", "qchp", "omsb", "nhra", "mohuae", "haad", "moh_kw"}
     actual = {e["slug"] for e in GULF_EXAMS}
     assert actual == expected
 
