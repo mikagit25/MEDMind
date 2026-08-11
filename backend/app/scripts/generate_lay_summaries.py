@@ -1,5 +1,8 @@
 """
-Generate lay_summary + lay_glossary for lessons using Groq (llama-3.3-70b).
+Generate lay_summary + lay_glossary for lessons using full AI provider cascade.
+
+Cascade order: Claude → Gemini (5 keys) → Cerebras (6 keys)
+               → SambaNova (3 keys) → Groq (all keys) → Ollama (local)
 
 Usage:
   python -m app.scripts.generate_lay_summaries [OPTIONS]
@@ -9,18 +12,15 @@ Options:
   --force           Overwrite existing lay_summary (default: skip)
   --dry-run         Show what would be processed, do not call API or save
   --module-code X   Only process lessons from module with this code
-  --delay S         Seconds between requests to avoid rate limiting (default: 1.5)
+  --delay S         Seconds between requests (default: 1.0)
 """
 
 import argparse
 import asyncio
-import itertools
 import json
 import logging
-import os
 import re
 
-import httpx
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -32,29 +32,8 @@ from app.prompts.lay_summary import LAY_SUMMARY_SYSTEM, LAY_SUMMARY_USER
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
-_GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "llama-3.1-8b-instant"   # 500K+ TPD vs 100K for 70b
-
-
-def _g(name: str) -> str:
-    return os.getenv(name, getattr(settings, name, ""))
-
-
-def _build_key_cycle():
-    keys = [
-        _g("GROQ_API_KEY"), _g("GROQ_API_KEY_2"), _g("GROQ_API_KEY_3"),
-        _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_5"), _g("GROQ_API_KEY_6"),
-        _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
-    ]
-    deduped = list(dict.fromkeys(k for k in keys if k))
-    if not deduped:
-        raise RuntimeError("No Groq API keys configured. Set GROQ_API_KEY (and optionally GROQ_API_KEY_2, etc.) in .env")
-    log.info("Using %d Groq key(s) with round-robin rotation.", len(deduped))
-    return itertools.cycle(deduped)
-
 
 def _str(v) -> str:
-    """Safely coerce any value to string."""
     if isinstance(v, str):
         return v
     if isinstance(v, dict):
@@ -81,7 +60,6 @@ def _extract_text_from_content(content: dict) -> str:
                 parts.append(f"Key point: {_str(block.get('content'))}")
             elif btype == "definition":
                 parts.append(f"{_str(block.get('term'))}: {_str(block.get('definition'))}")
-    # Gulf module format: top-level intro + sections with title/text
     if not parts:
         intro = content.get("intro") or content.get("introduction", "")
         if intro:
@@ -104,42 +82,25 @@ def _parse_ai_response(raw: str) -> dict:
     return json.loads(raw)
 
 
-async def _call_groq(title: str, content_text: str, key_cycle, retries: int = 2) -> dict | None:
+async def _generate_for_lesson(title: str, content_text: str) -> dict | None:
+    """Call the full AI cascade. Returns parsed dict or None on failure."""
+    from app.services.ai_router import call_generation_ai
+
     prompt = LAY_SUMMARY_USER.format(title=title, content_text=content_text[:3500])
-    for attempt in range(retries + 1):
-        key = next(key_cycle)
-        try:
-            async with httpx.AsyncClient(timeout=60) as c:
-                resp = await c.post(
-                    _GROQ_URL,
-                    headers={"Authorization": f"Bearer {key}"},
-                    json={
-                        "model": _GROQ_MODEL,
-                        "messages": [
-                            {"role": "system", "content": LAY_SUMMARY_SYSTEM},
-                            {"role": "user", "content": prompt},
-                        ],
-                        "max_tokens": 1500,
-                        "temperature": 0.2,
-                    },
-                )
-                resp.raise_for_status()
-                raw = resp.json()["choices"][0]["message"]["content"]
-                return _parse_ai_response(raw)
-        except json.JSONDecodeError as e:
-            log.warning("JSON parse error for '%s' (attempt %d): %s", title, attempt + 1, e)
-            if attempt < retries:
-                await asyncio.sleep(5)
-        except httpx.HTTPStatusError as e:
-            log.error("Groq HTTP %s for '%s': %s", e.response.status_code, title, e.response.text[:200])
-            if e.response.status_code == 429 and attempt < retries:
-                await asyncio.sleep(30)
-            else:
-                return None
-        except Exception as e:
-            log.error("API error for '%s': %s", title, e)
-            return None
-    return None
+    try:
+        raw, model = await call_generation_ai(
+            system=LAY_SUMMARY_SYSTEM,
+            user_message=prompt,
+            max_tokens=1500,
+        )
+        log.debug("  model used: %s", model)
+        return _parse_ai_response(raw)
+    except json.JSONDecodeError as e:
+        log.warning("JSON parse error for '%s': %s", title, e)
+        return None
+    except Exception as e:
+        log.error("All providers failed for '%s': %s", title, e)
+        return None
 
 
 async def run(
@@ -149,8 +110,6 @@ async def run(
     module_code: str | None,
     delay: float,
 ):
-    key_cycle = _build_key_cycle()
-
     engine = create_async_engine(settings.DATABASE_URL, echo=False)
     async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
@@ -167,7 +126,7 @@ async def run(
         result = await db.execute(stmt)
         lessons = result.scalars().all()
 
-    log.info("Found %d lesson(s) to process.", len(lessons))
+    log.info("Found %d lesson(s) without lay_summary to process.", len(lessons))
 
     if dry_run:
         for lesson in lessons:
@@ -176,14 +135,16 @@ async def run(
         return
 
     processed = 0
+    failed = 0
     async with async_session() as db:
         for i, lesson in enumerate(lessons):
             content_text = _extract_text_from_content(lesson.content or {})
-            log.info("[%d/%d] Processing: %s", i + 1, len(lessons), lesson.title)
+            log.info("[%d/%d] %s", i + 1, len(lessons), lesson.title)
 
-            result = await _call_groq(lesson.title, content_text, key_cycle)
+            result = await _generate_for_lesson(lesson.title, content_text)
             if not result:
-                log.warning("Skipping '%s' — no valid response.", lesson.title)
+                log.warning("  Skipping — no valid response from any provider.")
+                failed += 1
             else:
                 db_lesson = await db.get(Lesson, lesson.id)
                 if db_lesson:
@@ -198,19 +159,22 @@ async def run(
             if delay > 0 and i < len(lessons) - 1:
                 await asyncio.sleep(delay)
 
-    log.info("Done. Processed %d / %d lessons.", processed, len(lessons))
+    log.info("Done. Processed %d / %d lessons. Failed: %d.", processed, len(lessons), failed)
     await engine.dispose()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate lay summaries for lessons via Groq")
+    parser = argparse.ArgumentParser(
+        description="Generate lay summaries for lessons via full AI cascade "
+                    "(Claude → Gemini → Cerebras → SambaNova → Groq → Ollama)"
+    )
     parser.add_argument("--max-lessons", type=int, default=None, metavar="N")
     parser.add_argument("--force", action="store_true", help="Overwrite existing lay_summary")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--module-code", type=str, default=None,
                         help="Only process lessons from this module code")
-    parser.add_argument("--delay", type=float, default=1.5,
-                        help="Seconds between requests (default: 1.5)")
+    parser.add_argument("--delay", type=float, default=1.0,
+                        help="Seconds between requests (default: 1.0)")
     args = parser.parse_args()
 
     asyncio.run(run(
