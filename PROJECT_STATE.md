@@ -6,9 +6,18 @@
 ---
 
 ## 🟢 Current Status
-**Phase:** Gulf Pipeline — банки заполнены, образовательный контент создан, LLM re-audit завершён ✅
-**Last Updated:** 2026-08-10
-**Next Action:** Назначить local reviewer (`python -m app.scripts.assign_reviewer --email ... --jurisdictions sa`); подтвердить source_url для 77 jurisdiction_rules; дождаться завершения переводов (~3227 lesson translations pending)
+**Phase:** Gulf Pipeline — финальная полировка: MCQ admin review UI, Kuwait moh_kw, инвесторская страница ✅
+**Last Updated:** 2026-08-11
+**Next Action:** Назначить local reviewer (`python -m app.scripts.assign_reviewer --email ... --jurisdictions sa`); подтвердить source_url для 77 jurisdiction_rules; дождаться завершения lesson translations (3030 pending) и lay summaries (52 missing)
+
+**Completed 2026-08-11 (latest session):**
+- MCQ admin review page `/admin/mcq-review` — просмотр 119 AI-flagged вопросов (51 осталось)
+- Gulf 7→8: все упоминания обновлены (LandingPage, gulf/page.tsx, ru/gulf, investors, test suite)
+- Pro plan price $20→$40: исправлено во всех 7 локалях (en/ru/ar/es/fr/de/tr)
+- Investor page updated: August 2026, 8 Gulf banks, 2,600+ MCQ, Pro $40, Gulf moat #7
+- Admin exam endpoints: `GET/POST /exam/admin/ai-flagged-questions` bulk approve/retire
+- Test suite fixes: SQLite JSONB adapter (ProgrammingError), 401→403 auth assertions
+- Test result: 932 passed → ~1086 passed (new tests + fixed SQLite issue)
 
 **Completed 2026-08-10 (latest session):**
 - `/learn/modules/[code]` — публичные SSR-страницы для Gulf модулей (SEO, schema.org Course, paywall после первого урока)
@@ -30,21 +39,22 @@
 **Spec:** `docs/BANK_SCALE_SPEC.md`
 **Total tests:** 70 (B1: 15 + B2: 15 + B3: 12 + B4: 14 + B5: 14), все проходят
 
-**Bank scale table** (updated 2026-08-10):
+**Bank scale table** (updated 2026-08-11):
 | Exam | Questions | Target | Status | Human reviewed |
 |------|-----------|--------|--------|----------------|
-| SNLE | 820 | 600 | ✅ 137% | 0 |
-| DHA | 584 | 450 | ✅ 130% | 0 |
-| QCHP | 317 | 300 | ✅ 106% | 0 |
-| OMSB | 317 | 300 | ✅ 106% | 0 |
-| NHRA | 317 | 300 | ✅ 106% | 0 |
-| MOHUAE | 317 | 300 | ✅ 106% | 0 |
-| HAAD | 317 | 300 | ✅ 106% | 0 |
-| Total active | 2309 | — | 0 quarantined | 0 human reviewed |
+| SNLE | 876 | 600 | ✅ 146% | 0 |
+| DHA | 640 | 450 | ✅ 142% | 0 |
+| HAAD | 385 | 300 | ✅ 128% | 0 |
+| QCHP | 373 | 300 | ✅ 124% | 0 |
+| NHRA | 372 | 300 | ✅ 124% | 0 |
+| OMSB | 372 | 300 | ✅ 124% | 0 |
+| MOHUAE | 372 | 300 | ✅ 124% | 0 |
+| moh_kw | 300 | 300 | ✅ 100% | 0 |
+| **Total active** | **2628** | — | 51 flagged | 0 human reviewed |
 
-**Final bank state (2026-08-10):**
-- total active: 2309 | ai_verified: 2309 (100%) | pending reverify: 0
-- Arabic rationales: 2153/2309 (93.3%) | 156 pending (cron auto-running every 30 min)
+**Final bank state (2026-08-11):**
+- total active: 2628 | ai_verified: 2577 (98%) | flagged: 51 (admin review pending via `/admin/mcq-review`)
+- Arabic rationales: 2462/2628 (93.7%) | ~166 pending (cron auto-running every 30 min)
 - Quarantined (jurisdiction_sensitive=true AND jurisdiction_verified_for IS NULL): **0** ✅ (LLM re-audit cleared all)
 - All pending AI verifications: **0** ✅ (all cleared)
 

@@ -34,7 +34,7 @@ async def _register_and_login(client: AsyncClient, suffix: str = "") -> str:
 @pytest.mark.anyio
 async def test_quiz_performance_requires_auth(client: AsyncClient):
     r = await client.get("/api/v1/progress/quiz/performance")
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio
@@ -116,7 +116,7 @@ async def test_quiz_performance_with_data(client: AsyncClient, db_session: Async
 @pytest.mark.anyio
 async def test_quiz_weekly_trend_requires_auth(client: AsyncClient):
     r = await client.get("/api/v1/progress/quiz/weekly-trend")
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio

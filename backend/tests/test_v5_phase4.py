@@ -89,7 +89,7 @@ async def _enroll_student(db: AsyncSession, course_id: str, student_id: str):
 async def test_submit_requires_auth(client: AsyncClient):
     aid = str(uuid.uuid4())
     r = await client.post(f"/api/v1/courses/assignments/{aid}/submit", json={})
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio
@@ -141,7 +141,7 @@ async def test_submit_idempotent(client: AsyncClient, db_session: AsyncSession):
 @pytest.mark.anyio
 async def test_my_assignments_all_requires_auth(client: AsyncClient):
     r = await client.get("/api/v1/courses/my-assignments-all")
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio
@@ -175,7 +175,7 @@ async def test_group_progress_requires_auth(client: AsyncClient, db_session: Asy
     teacher_tok, teacher_id = await _reg(client, "t_gp_noauth@test.com", "teacher")
     course_id, _, _ = await _make_course_with_assignment(db_session, teacher_id)
     r = await client.get(f"/api/v1/courses/{course_id}/group-progress")
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio

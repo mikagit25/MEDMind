@@ -14,9 +14,17 @@ os.environ.setdefault("ANTHROPIC_API_KEY", "sk-ant-test-key-for-ci-only")
 
 # ── SQLite compatibility: remap Postgres-only types to JSON/TEXT ──────────────
 # Must happen before any model imports so the compilers are registered first.
+import json as _json
+import sqlite3 as _sqlite3
 from sqlalchemy.ext.compiler import compiles  # noqa: E402
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB  # noqa: E402
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID  # noqa: E402
+
+# Register global adapters so SQLite can bind Python list/dict values (used by
+# JSONB/ARRAY columns). Without these, INSERT/UPDATE raises ProgrammingError:
+# "type 'list' is not supported".
+_sqlite3.register_adapter(list, _json.dumps)
+_sqlite3.register_adapter(dict, _json.dumps)
 
 
 @compiles(ARRAY, "sqlite")
@@ -188,7 +196,10 @@ def _register_sqlite_functions(dbapi_conn, _rec):
 async def engine():
     from sqlalchemy import event as _sa_event
 
-    eng = create_async_engine(TEST_DB_URL, echo=False)
+    eng = create_async_engine(
+        TEST_DB_URL, echo=False,
+        connect_args={"detect_types": _sqlite3.PARSE_DECLTYPES | _sqlite3.PARSE_COLNAMES},
+    )
     _sa_event.listen(eng.sync_engine, "connect", _register_sqlite_functions)
     async with eng.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

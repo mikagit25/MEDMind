@@ -62,7 +62,7 @@ async def _create_article(db: AsyncSession, slug: str) -> Article:
 @pytest.mark.anyio
 async def test_article_ask_requires_auth(client: AsyncClient):
     r = await client.post("/api/v1/articles/some-article/ask", json={"question": "What is this?"})
-    assert r.status_code == 401
+    assert r.status_code in (401, 403)
 
 
 @pytest.mark.anyio

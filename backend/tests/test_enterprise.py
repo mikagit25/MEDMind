@@ -99,13 +99,13 @@ async def test_submit_lead_rate_limit(client: AsyncClient):
     """4th request from the same IP is rate-limited (429)."""
     # Submit 3 valid leads (uses different emails to avoid conflicts)
     for i in range(3):
-        lead = {**VALID_LEAD, "email": f"rep{i}@elanco.com"}
+        lead = {**VALID_LEAD, "email": f"physician{i}@elanco.com"}
         r = await client.post("/api/v1/enterprise/leads", json=lead)
         # First 3 should succeed (or already be rate-limited in CI — just check not 500)
         assert r.status_code in (201, 429)
 
     # 4th request should be rate-limited
-    lead4 = {**VALID_LEAD, "email": "rep4@elanco.com"}
+    lead4 = {**VALID_LEAD, "email": "physician4@elanco.com"}
     r4 = await client.post("/api/v1/enterprise/leads", json=lead4)
     # If redis is available → 429; if not → 201 (rate limit skipped gracefully)
     assert r4.status_code in (201, 429)
@@ -124,7 +124,7 @@ async def test_list_leads_requires_admin(client: AsyncClient):
 async def test_update_status_invalid_value(client: AsyncClient):
     """Invalid status value rejected by admin endpoint."""
     # First submit a lead to get an ID
-    r = await client.post("/api/v1/enterprise/leads", json={**VALID_LEAD, "email": "check@idexx.com"})
+    r = await client.post("/api/v1/enterprise/leads", json={**VALID_LEAD, "email": "director@idexx.com"})
     assert r.status_code == 201
 
     # Need admin token — skip deep test (covered by unit logic)

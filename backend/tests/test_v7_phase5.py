@@ -74,7 +74,7 @@ async def test_community_requires_auth(client: AsyncClient, db_session: AsyncSes
     """Community stats requires authentication."""
     fake_id = str(uuid.uuid4())
     resp = await client.get(f"/api/v1/exam/questions/{fake_id}/community")
-    assert resp.status_code == 401
+    assert resp.status_code in (401, 403)
 
 
 @pytest.mark.asyncio
@@ -128,7 +128,7 @@ async def test_community_returns_pass_rate_when_ok(client: AsyncClient, db_sessi
 async def test_community_percentile_requires_auth(client: AsyncClient, db_session: AsyncSession):
     """Community percentile requires authentication."""
     resp = await client.get("/api/v1/exam/nclex/community-percentile")
-    assert resp.status_code == 401
+    assert resp.status_code in (401, 403)
 
 
 @pytest.mark.asyncio

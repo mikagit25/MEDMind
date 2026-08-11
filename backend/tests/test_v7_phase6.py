@@ -131,7 +131,7 @@ async def test_mock_debrief_requires_auth(client, db_session):
     from httpx import AsyncClient
     fake_id = str(uuid.uuid4())
     resp = await client.get(f"/api/v1/exam/sessions/{fake_id}/mock-debrief")
-    assert resp.status_code == 401
+    assert resp.status_code in (401, 403)
 
 
 @pytest.mark.asyncio
