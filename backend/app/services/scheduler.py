@@ -71,10 +71,10 @@ async def _weekly_stats_snapshot():
 
 async def _daily_flashcard_reminders():
     """
-    Run daily at 09:00 UTC — notify users who have flashcards due but haven't studied today.
-    Creates one notification per qualifying user.
+    Run daily at 09:00 UTC — notify users who have flashcards and/or SRS lesson
+    reviews due but haven't studied today. One notification per qualifying user.
     """
-    from app.models.models import User, FlashcardReview, Notification
+    from app.models.models import User, FlashcardReview, LessonSrsItem, Notification
     from app.services.notification_service import notify_flashcards_due
 
     try:
@@ -82,33 +82,63 @@ async def _daily_flashcard_reminders():
             now = datetime.utcnow()
             today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
 
-            # Find users with due flashcards who haven't been active today
-            rows = await db.execute(
+            # Active users who haven't studied today
+            inactive_users = await db.execute(
+                select(User.id)
+                .where(
+                    User.is_active == True,
+                    (User.last_active_date == None) | (User.last_active_date < today_start),
+                )
+            )
+            inactive_ids = [r[0] for r in inactive_users.all()]
+            if not inactive_ids:
+                return
+
+            # Flashcard due counts
+            fc_rows = await db.execute(
                 select(
                     FlashcardReview.user_id,
                     func.count(FlashcardReview.flashcard_id).label("due_count"),
                 )
-                .join(User, User.id == FlashcardReview.user_id)
                 .where(
+                    FlashcardReview.user_id.in_(inactive_ids),
                     FlashcardReview.next_review_at <= now,
-                    User.is_active == True,
-                    # Not already active today
-                    (User.last_active_date == None) | (User.last_active_date < today_start),
                 )
                 .group_by(FlashcardReview.user_id)
-                .having(func.count(FlashcardReview.flashcard_id) > 0)
             )
+            fc_map: dict = {str(r.user_id): r.due_count for r in fc_rows.all()}
 
-            # Also fetch user details for email sending
-            user_rows = await db.execute(select(User).where(User.is_active == True))
+            # SRS lesson due counts
+            srs_rows = await db.execute(
+                select(
+                    LessonSrsItem.user_id,
+                    func.count(LessonSrsItem.id).label("srs_count"),
+                )
+                .where(
+                    LessonSrsItem.user_id.in_(inactive_ids),
+                    LessonSrsItem.next_review_at <= now,
+                )
+                .group_by(LessonSrsItem.user_id)
+            )
+            srs_map: dict = {str(r.user_id): r.srs_count for r in srs_rows.all()}
+
+            # Union of users who have anything due
+            all_due_ids = set(fc_map) | set(srs_map)
+            if not all_due_ids:
+                return
+
+            # User details for email
+            user_rows = await db.execute(
+                select(User).where(User.id.in_(inactive_ids))
+            )
             users_map = {str(u.id): u for u in user_rows.scalars().all()}
 
             notified = 0
-            for user_id, due_count in rows.all():
-                # Skip if already sent a flashcard notification today
+            for uid_str in all_due_ids:
+                # Skip if already sent a study notification today
                 existing = await db.execute(
                     select(Notification).where(
-                        Notification.user_id == user_id,
+                        Notification.user_id == users_map[uid_str].id,
                         Notification.type == "flashcard_due",
                         Notification.created_at >= today_start,
                     )
@@ -116,11 +146,13 @@ async def _daily_flashcard_reminders():
                 if existing.scalar_one_or_none():
                     continue
 
-                await notify_flashcards_due(db, user_id, due_count)
+                due_count = fc_map.get(uid_str, 0)
+                srs_due   = srs_map.get(uid_str, 0)
+
+                await notify_flashcards_due(db, users_map[uid_str].id, due_count + srs_due)
                 notified += 1
 
-                # Send email reminder if user has email_notifications enabled
-                u = users_map.get(str(user_id))
+                u = users_map.get(uid_str)
                 if u and u.email and (u.preferences or {}).get("email_notifications", True):
                     from app.services.email_service import send_flashcard_reminder
                     try:
@@ -129,13 +161,14 @@ async def _daily_flashcard_reminders():
                             first_name=u.first_name or "",
                             due_count=due_count,
                             streak_days=u.streak_days or 0,
+                            srs_due=srs_due,
                         )
                     except Exception as email_err:
-                        logger.warning("Flashcard email failed for %s: %s", u.email, email_err)
+                        logger.warning("Study reminder email failed for %s: %s", u.email, email_err)
 
             if notified:
                 await db.commit()
-                logger.info("Flashcard reminders sent to %d users", notified)
+                logger.info("Study reminders sent to %d users", notified)
     except Exception as e:
         logger.error("Daily flashcard reminders failed: %s", e)
 
