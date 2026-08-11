@@ -204,6 +204,19 @@ export function Sidebar() {
             </Link>
           </div>
         )}
+
+        {/* Partner / Affiliate */}
+        {(user?.role === "affiliate" || user?.role === "admin") && (
+          <div className="mb-4">
+            <div className="text-white/30 font-syne font-bold text-[10px] tracking-widest uppercase px-2 mb-1.5">
+              Partner
+            </div>
+            <Link href="/partner" className={clsx("nav-item", pathname.startsWith("/partner") && "active")}>
+              <NavIcon Icon={TrendingUp} />
+              Affiliate Dashboard
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* User footer */}
