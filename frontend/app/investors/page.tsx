@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: { absolute: "Investors — MedMind AI" },
   description:
-    "MedMind AI — global AI-powered medical education platform. 11,600+ articles, 125 modules, 9 languages, Telegram bot. Pre-seed round open.",
+    "MedMind AI — global AI-powered medical education platform. 11,600+ articles, 8 Gulf Prometric exam banks, 2,600+ verified MCQ, 9 languages. Pre-seed round open.",
 };
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -17,19 +17,26 @@ const MARKET = [
 ];
 
 const METRICS = [
-  { val: "11,600+", label: "Published medical articles",    icon: "📄", color: "text-red" },
-  { val: "125+",    label: "Structured clinical modules",    icon: "📚", color: "text-blue-500" },
-  { val: "307",     label: "Drugs in database",             icon: "💊", color: "text-purple-500" },
-  { val: "39",      label: "Medical specialties covered",   icon: "🏥", color: "text-green-2" },
-  { val: "9",       label: "Languages (incl. Arabic)",      icon: "🌍", color: "text-amber-500" },
-  { val: "3",       label: "YouTube channels (EN·ES·AR)",   icon: "📹", color: "text-red" },
+  { val: "11,600+", label: "Published medical articles",       icon: "📄", color: "text-red" },
+  { val: "125+",    label: "Structured clinical modules",       icon: "📚", color: "text-blue-500" },
+  { val: "2,600+",  label: "Verified MCQ questions",           icon: "✅", color: "text-green-2" },
+  { val: "8",       label: "Gulf Prometric exam banks",        icon: "🏆", color: "text-amber-500" },
+  { val: "307",     label: "Drugs in database",                icon: "💊", color: "text-purple-500" },
+  { val: "9",       label: "Languages (incl. Arabic, Turkish)", icon: "🌍", color: "text-amber-500" },
 ];
 
 const PRODUCTS = [
   {
     name: "Web Platform",
     icon: "💻",
-    desc: "Full-stack SaaS at medmind.pro — AI tutor, modules, flashcards, calculators, drug DB, imaging, clinical cases, progress analytics.",
+    desc: "Full-stack SaaS at medmind.pro — AI tutor, modules, flashcards, calculators, drug DB, imaging, clinical cases, Gulf Prometric exam simulations, progress analytics.",
+    status: "Live",
+    statusColor: "bg-green-2/10 text-green-2 border-green-2/30",
+  },
+  {
+    name: "Gulf Prometric Prep",
+    icon: "🏆",
+    desc: "8 exam banks: SNLE (Saudi), DHA (Dubai), HAAD (Abu Dhabi), QCHP (Qatar), OMSB (Oman), NHRA (Bahrain), MOH UAE, MOH Kuwait. 2,600+ AI-verified MCQs with full 100Q timed simulations.",
     status: "Live",
     statusColor: "bg-green-2/10 text-green-2 border-green-2/30",
   },
@@ -75,8 +82,8 @@ const REVENUE_STREAMS = [
     name: "B2C Subscriptions",
     icon: "👤",
     tiers: [
-      { tier: "Student",  price: "$15/mo",    desc: "Full module access, 100 AI queries/day" },
-      { tier: "Pro",      price: "$20/mo",    desc: "Unlimited AI, all features, Claude Sonnet" },
+      { tier: "Student",  price: "$15/mo",    desc: "Full module access, 50 AI queries/day" },
+      { tier: "Pro",      price: "$40/mo",    desc: "Unlimited AI, all features, Claude Sonnet" },
       { tier: "Lifetime", price: "$299 once", desc: "All future content, permanent access" },
     ],
     note: "Primary growth engine. Near-zero CAC via SEO & YouTube flywheel.",
@@ -106,11 +113,11 @@ const REVENUE_STREAMS = [
     name: "Content & Licensing",
     icon: "📄",
     tiers: [
-      { tier: "YouTube",    price: "Ad revenue",   desc: "3 channels, daily upload pipeline" },
-      { tier: "SEO Affiliate", price: "Passive",   desc: "11,600+ indexed articles, growing daily" },
+      { tier: "YouTube",    price: "Ad revenue",   desc: "3 channels (EN/ES/AR), daily upload pipeline" },
+      { tier: "SEO Affiliate", price: "Passive",   desc: "11,600+ indexed articles + Gulf exam prep pages" },
       { tier: "API Access", price: "Usage-based",  desc: "Medical AI for EHR / health-tech" },
     ],
-    note: "Long-term diversification. SEO flywheel already generating organic traffic.",
+    note: "Long-term diversification. SEO flywheel already generating organic traffic. Gulf exam pages target high-intent search traffic.",
     color: "border-green-2/30 bg-green-2/5",
   },
 ];
@@ -120,6 +127,11 @@ const MOAT = [
     icon: "🌍",
     title: "9 Languages — structural advantage",
     desc: "Full multilingual support from day one including Arabic, Turkish, Indonesian. Every major competitor (Osmosis, Amboss, Anki) is English-first. We own the 80% of medical students outside English markets.",
+  },
+  {
+    icon: "🏆",
+    title: "Gulf Prometric — a vertical no one owns",
+    desc: "8 Gulf licensing exam banks (SNLE, DHA, HAAD, QCHP, OMSB, NHRA, MOH UAE, MOH Kuwait) with 2,600+ AI-verified MCQs and full timed simulations. 500,000+ nurses and doctors in GCC must pass these exams annually. No competitor covers all 8.",
   },
   {
     icon: "📱",
@@ -144,16 +156,16 @@ const MOAT = [
   {
     icon: "🏗️",
     title: "Complete platform, not a feature",
-    desc: "AI tutor + structured curriculum + flashcards + drug DB + calculators + imaging viewer + cases + analytics. Competitors offer one of these. We offer all. Switching cost is high.",
+    desc: "AI tutor + structured curriculum + flashcards + Gulf exam prep + drug DB + calculators + imaging viewer + cases + analytics. Competitors offer one of these. We offer all. Switching cost is high.",
   },
 ];
 
 const UNIT_ECONOMICS = [
   { label: "Student plan LTV (24 mo avg)",  val: "$360",    note: "$15/mo × 24" },
-  { label: "Pro plan LTV (18 mo avg)",      val: "$360",    note: "$20/mo × 18" },
+  { label: "Pro plan LTV (18 mo avg)",      val: "$720",    note: "$40/mo × 18" },
   { label: "Clinic LTV (12 mo contract)",   val: "$2,400+", note: "$199/mo × 12" },
   { label: "Organic CAC (SEO / YouTube)",   val: "< $5",    note: "Near-zero — content flywheel" },
-  { label: "Paid CAC target (social)",      val: "< $30",   note: "LTV/CAC ratio > 10×" },
+  { label: "Paid CAC target (social)",      val: "< $30",   note: "LTV/CAC ratio > 20×" },
   { label: "Gross margin (SaaS)",           val: "~85%",    note: "AI API costs declining" },
 ];
 
@@ -162,12 +174,16 @@ const TRACTION = [
   { done: true,  text: "11,600+ multilingual medical articles, Google-indexed" },
   { done: true,  text: "125+ clinical modules across 39 specialties" },
   { done: true,  text: "307-drug database with interactions & dosing" },
+  { done: true,  text: "8 Gulf Prometric exam banks — SNLE, DHA, HAAD, QCHP, OMSB, NHRA, MOH UAE, MOH Kuwait" },
+  { done: true,  text: "2,600+ AI-verified MCQ questions with full 100Q timed simulations" },
+  { done: true,  text: "Patient AI mode — plain-language explanations for non-specialists" },
   { done: true,  text: "3 YouTube channels (EN, ES, AR) — daily automated pipeline" },
   { done: true,  text: "Telegram bot launched — @Medmindpro_bot, 9 languages, live" },
   { done: true,  text: "9-language localisation (incl. Arabic, Turkish, Indonesian)" },
   { done: true,  text: "Stripe subscriptions — Student, Pro, Clinic, Lifetime tiers" },
   { done: true,  text: "B2B admin panel + team management fully implemented" },
   { done: true,  text: "Clinical calculators, imaging viewer, symptom checker deployed" },
+  { done: true,  text: "Public SEO module pages — /learn/modules/[code] indexed by Google" },
   { done: false, text: "Product Hunt launch — Q3 2026" },
   { done: false, text: "First 100 paying subscribers" },
   { done: false, text: "Mobile app (iOS + Android) — App Store listing" },
@@ -221,7 +237,7 @@ const COMPETITORS = [
   { name: "Amboss",     model: "Question bank", lang: "EN + DE", ai: "None",   price: "$$$", moat: "Q-bank depth" },
   { name: "Anki",       model: "Flashcards",  lang: "Any",    ai: "None",   price: "Free", moat: "User-generated" },
   { name: "ChatGPT",    model: "General AI",  lang: "Many",   ai: "Yes",    price: "$$",  moat: "Brand" },
-  { name: "MedMind AI", model: "Full platform", lang: "9 langs", ai: "Evidence-based", price: "$$", moat: "Multilingual + omnichannel + flywheel" },
+  { name: "MedMind AI", model: "Full platform", lang: "9 langs", ai: "Evidence-based", price: "$$", moat: "Multilingual + Gulf exam prep + omnichannel + flywheel" },
 ];
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -258,7 +274,7 @@ export default function InvestorsPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 bg-red/10 border border-red/30 px-3 py-1 rounded-full font-syne font-semibold text-xs text-red mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-red animate-pulse" />
-          Pre-seed round open · June 2026
+          Pre-seed round open · August 2026
         </div>
         <h1 className="font-syne font-extrabold text-4xl sm:text-6xl text-ink leading-tight tracking-tight mb-6">
           The global AI platform<br className="hidden sm:block" />
@@ -269,7 +285,7 @@ export default function InvestorsPage() {
           A complete, multilingual, AI-powered education platform for the world's 23 million medical students and clinicians.
         </p>
         <p className="text-ink-3 text-sm font-syne mb-10">
-          11,600+ articles · 125 modules · 9 languages · Telegram bot · 3 YouTube channels
+          11,600+ articles · 8 Gulf exam banks · 2,600+ verified MCQ · 9 languages · Telegram bot · 3 YouTube channels
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <a
@@ -335,7 +351,9 @@ export default function InvestorsPage() {
               {[
                 "9 languages including Arabic, Turkish, Indonesian — from day one",
                 "AI tutor + modules + flashcards + drug DB + calculators in one platform",
+                "8 Gulf Prometric exam banks — 2,600+ verified MCQs, the only platform covering all GCC licensing exams",
                 "PubMed-grounded AI — every answer has clinical evidence citations",
+                "Patient AI mode — plain-language explanations for non-specialists",
                 "Omnichannel: web + Telegram bot + mobile + YouTube (WhatsApp coming)",
                 "Content flywheel: 11,600+ SEO articles growing daily, near-zero CAC",
               ].map(p => (
@@ -475,7 +493,7 @@ export default function InvestorsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <div className="text-center mb-12">
             <h2 className="font-syne font-bold text-2xl sm:text-3xl text-ink mb-2">Why MedMind wins</h2>
-            <p className="text-ink-3 text-sm">Six structural advantages that compound over time.</p>
+            <p className="text-ink-3 text-sm">Seven structural advantages that compound over time.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {MOAT.map(m => (
