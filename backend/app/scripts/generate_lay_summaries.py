@@ -43,6 +43,7 @@ def _g(name: str) -> str:
 def _build_key_cycle():
     keys = [
         _g("GROQ_API_KEY"), _g("GROQ_API_KEY_2"), _g("GROQ_API_KEY_3"),
+        _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_5"), _g("GROQ_API_KEY_6"),
         _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
     ]
     deduped = list(dict.fromkeys(k for k in keys if k))
@@ -52,41 +53,45 @@ def _build_key_cycle():
     return itertools.cycle(deduped)
 
 
+def _str(v) -> str:
+    """Safely coerce any value to string."""
+    if isinstance(v, str):
+        return v
+    if isinstance(v, dict):
+        return v.get("text", "") or v.get("content", "") or ""
+    return str(v) if v else ""
+
+
 def _extract_text_from_content(content: dict) -> str:
     parts = []
-    # Handle both "sections" (Gulf modules) and "blocks" (older format)
     blocks = content.get("sections") or content.get("blocks") or []
     if isinstance(blocks, list):
         for block in blocks:
-            if isinstance(block, dict):
-                btype = block.get("type", "")
-                if btype in ("text", "paragraph", "intro"):
-                    parts.append(block.get("content", "") or block.get("text", ""))
-                elif btype == "heading":
-                    parts.append(block.get("text", ""))
-                elif btype in ("list", "bullet_list"):
-                    for item in block.get("items", []):
-                        if isinstance(item, str):
-                            parts.append(f"- {item}")
-                        elif isinstance(item, dict):
-                            parts.append(f"- {item.get('text', '')}")
-                elif btype == "key_point":
-                    parts.append(f"Key point: {block.get('content', '')}")
-                elif btype == "definition":
-                    parts.append(f"{block.get('term', '')}: {block.get('definition', '')}")
-    # Gulf module format: top-level intro + sections list
+            if not isinstance(block, dict):
+                continue
+            btype = block.get("type", "")
+            if btype in ("text", "paragraph", "intro"):
+                parts.append(_str(block.get("content") or block.get("text")))
+            elif btype == "heading":
+                parts.append(_str(block.get("text")))
+            elif btype in ("list", "bullet_list"):
+                for item in block.get("items", []):
+                    parts.append(f"- {_str(item)}")
+            elif btype == "key_point":
+                parts.append(f"Key point: {_str(block.get('content'))}")
+            elif btype == "definition":
+                parts.append(f"{_str(block.get('term'))}: {_str(block.get('definition'))}")
+    # Gulf module format: top-level intro + sections with title/text
     if not parts:
         intro = content.get("intro") or content.get("introduction", "")
         if intro:
-            parts.append(intro)
+            parts.append(_str(intro))
         for sec in content.get("sections", []):
             if isinstance(sec, dict):
-                if sec.get("title"):
-                    parts.append(sec["title"])
-                if sec.get("text"):
-                    parts.append(sec["text"])
-                if sec.get("content"):
-                    parts.append(sec["content"])
+                for field in ("title", "text", "content"):
+                    v = sec.get(field)
+                    if v:
+                        parts.append(_str(v))
     if not parts:
         parts.append(json.dumps(content)[:3000])
     return "\n".join(p for p in parts if p).strip()
@@ -99,36 +104,42 @@ def _parse_ai_response(raw: str) -> dict:
     return json.loads(raw)
 
 
-async def _call_groq(title: str, content_text: str, key_cycle) -> dict | None:
-    key = next(key_cycle)
-    prompt = LAY_SUMMARY_USER.format(title=title, content_text=content_text[:4000])
-    try:
-        async with httpx.AsyncClient(timeout=60) as c:
-            resp = await c.post(
-                _GROQ_URL,
-                headers={"Authorization": f"Bearer {key}"},
-                json={
-                    "model": _GROQ_MODEL,
-                    "messages": [
-                        {"role": "system", "content": LAY_SUMMARY_SYSTEM},
-                        {"role": "user", "content": prompt},
-                    ],
-                    "max_tokens": 1024,
-                    "temperature": 0.2,
-                },
-            )
-            resp.raise_for_status()
-            raw = resp.json()["choices"][0]["message"]["content"]
-            return _parse_ai_response(raw)
-    except json.JSONDecodeError as e:
-        log.warning("JSON parse error for '%s': %s", title, e)
-        return None
-    except httpx.HTTPStatusError as e:
-        log.error("Groq HTTP %s for '%s': %s", e.response.status_code, title, e.response.text[:200])
-        return None
-    except Exception as e:
-        log.error("API error for '%s': %s", title, e)
-        return None
+async def _call_groq(title: str, content_text: str, key_cycle, retries: int = 2) -> dict | None:
+    prompt = LAY_SUMMARY_USER.format(title=title, content_text=content_text[:3500])
+    for attempt in range(retries + 1):
+        key = next(key_cycle)
+        try:
+            async with httpx.AsyncClient(timeout=60) as c:
+                resp = await c.post(
+                    _GROQ_URL,
+                    headers={"Authorization": f"Bearer {key}"},
+                    json={
+                        "model": _GROQ_MODEL,
+                        "messages": [
+                            {"role": "system", "content": LAY_SUMMARY_SYSTEM},
+                            {"role": "user", "content": prompt},
+                        ],
+                        "max_tokens": 1500,
+                        "temperature": 0.2,
+                    },
+                )
+                resp.raise_for_status()
+                raw = resp.json()["choices"][0]["message"]["content"]
+                return _parse_ai_response(raw)
+        except json.JSONDecodeError as e:
+            log.warning("JSON parse error for '%s' (attempt %d): %s", title, attempt + 1, e)
+            if attempt < retries:
+                await asyncio.sleep(5)
+        except httpx.HTTPStatusError as e:
+            log.error("Groq HTTP %s for '%s': %s", e.response.status_code, title, e.response.text[:200])
+            if e.response.status_code == 429 and attempt < retries:
+                await asyncio.sleep(30)
+            else:
+                return None
+        except Exception as e:
+            log.error("API error for '%s': %s", title, e)
+            return None
+    return None
 
 
 async def run(
