@@ -592,16 +592,37 @@ function ContinueLearning({ modules }: { modules: any[] }) {
 }
 
 // ── Daily Goal ────────────────────────────────────────────────
-function DailyGoalWidget({ flashcardsDue, srsDue, dailyGoalMinutes }: { flashcardsDue: number; srsDue: number; dailyGoalMinutes: number }) {
+function DailyGoalWidget({ flashcardsDue, srsDue, daily }: { flashcardsDue: number; srsDue: number; daily: any }) {
   const t = useT();
-  const totalDue = flashcardsDue + srsDue;
+  const xpToday  = daily?.xp_today      ?? 0;
+  const goalXp   = daily?.daily_goal_xp ?? 50;
+  const goalPct  = daily?.goal_pct      ?? 0;
+  const goalMet  = daily?.goal_met      ?? false;
+
   return (
     <div className="card p-4 mb-4">
       <div className="flex items-center justify-between mb-3">
         <span className="font-syne font-bold text-sm text-ink">{t("dashboard.adaptive_plan")}</span>
         <Link href="/settings" className="text-xs text-ink-3 font-syne hover:text-ink">{t("common.edit")} →</Link>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+
+      {/* XP Daily Goal */}
+      <div className="mb-3">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="font-serif text-xs text-ink-3">{t("common.xp")} {t("dashboard.streak_title").toLowerCase().includes("streak") ? "today" : "today"}</span>
+          <span className={`font-syne font-bold text-xs ${goalMet ? "text-green" : "text-ink"}`}>
+            {xpToday} / {goalXp} {t("common.xp")} {goalMet ? "✓" : ""}
+          </span>
+        </div>
+        <div className="h-2.5 bg-bg-2 rounded-full overflow-hidden">
+          <div
+            className={`h-full rounded-full transition-all duration-700 ${goalMet ? "bg-green" : "bg-gradient-to-r from-red to-amber-2"}`}
+            style={{ width: `${goalPct}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2">
         <Link href="/flashcards" className={`p-3 rounded-lg border text-center transition-colors hover:border-ink-3 ${flashcardsDue > 0 ? "bg-amber-light border-amber/30" : "bg-green-light border-green/30"}`}>
           <div className={`font-syne font-black text-xl ${flashcardsDue > 0 ? "text-amber" : "text-green"}`}>
             {flashcardsDue > 0 ? flashcardsDue : "✓"}
@@ -615,13 +636,9 @@ function DailyGoalWidget({ flashcardsDue, srsDue, dailyGoalMinutes }: { flashcar
             {srsDue > 0 ? srsDue : "✓"}
           </div>
           <div className="font-serif text-[10px] text-ink-3 mt-0.5">
-            {srsDue > 0 ? "lessons due" : "reviews done"}
+            {srsDue > 0 ? t("flashcards.study_mode") : t("dashboard.cards_done")}
           </div>
         </Link>
-        <div className="p-3 rounded-lg border border-border text-center">
-          <div className="font-syne font-black text-xl text-ink">{dailyGoalMinutes}</div>
-          <div className="font-serif text-[10px] text-ink-3 mt-0.5">{t("settings.daily_goal_value", { goal: "" }).replace(" /", "").trim()} / {t("common.minutes")}</div>
-        </div>
       </div>
     </div>
   );
@@ -638,11 +655,13 @@ export default function DashboardPage() {
   const [studentDashboard, setStudentDashboard] = useState<any>(null);
   const [recentModules, setRecentModules] = useState<any[]>([]);
   const [nclexReadiness, setNclexReadiness] = useState<any>(null);
+  const [daily, setDaily] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Always refresh XP/level — Zustand store persists stale cached values across sessions
     authApi.me().then((me: any) => updateUser(me)).catch(() => {});
+    progressApi.getDaily().then(setDaily).catch(() => {});
 
     const roleSpecific = role === "doctor"
       ? contentApi.getDoctorDashboard().catch(() => null)
@@ -755,20 +774,20 @@ export default function DashboardPage() {
       {/* Role-specific panel */}
       {role === "doctor" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={daily?.goal_met ?? stats?.studied_today} />
           <TodaysPlan />
           <DoctorPanel stats={stats} />
         </>
       )}
       {(role === "professor" || role === "teacher" || role === "admin") && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={daily?.goal_met ?? stats?.studied_today} />
           <ProfessorPanel stats={stats} />
         </>
       )}
       {role === "veterinarian" && (
         <>
-          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
+          <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={daily?.goal_met ?? stats?.studied_today} />
           <TodaysPlan />
           <VeterinarianPanel stats={stats} />
         </>
@@ -867,9 +886,9 @@ export default function DashboardPage() {
               <DailyGoalWidget
                 flashcardsDue={studentDashboard?.today_plan?.flashcards_due ?? stats?.flashcards_due ?? 0}
                 srsDue={studentDashboard?.today_plan?.srs_due ?? stats?.srs_due ?? 0}
-                dailyGoalMinutes={studentDashboard?.today_plan?.daily_goal_minutes ?? 20}
+                daily={daily}
               />
-              <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={stats?.studied_today} />
+              <StreakCalendar streakDays={stats?.streak_days ?? 0} longestStreak={stats?.longest_streak ?? user?.longest_streak} studiedToday={daily?.goal_met ?? stats?.studied_today} />
               <TodaysPlan />
               <MiniLeaderboard />
             </>

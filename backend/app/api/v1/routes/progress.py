@@ -1211,3 +1211,59 @@ async def export_progress_pdf(
         media_type="application/pdf",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+# ── Daily Goal & Streak ──────────────────────────────────────────────────────
+
+_DEFAULT_DAILY_GOAL_XP = 50  # XP needed to "complete" a day
+
+
+@router.get("/daily")
+async def get_daily_streak(
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Return today's XP, streak info, and daily goal progress."""
+    from datetime import date as _date
+    from sqlalchemy import cast, Date as _Date
+
+    today = _date.today()
+
+    # XP earned today (sum of XP events created today)
+    xp_today_row = await db.execute(
+        select(func.coalesce(func.sum(XPEvent.amount), 0))
+        .where(
+            XPEvent.user_id == user.id,
+            cast(XPEvent.created_at, _Date) == today,
+        )
+    )
+    xp_today = int(xp_today_row.scalar() or 0)
+
+    goal_xp = int((user.preferences or {}).get("daily_goal_xp", _DEFAULT_DAILY_GOAL_XP))
+    pct = min(100, round(xp_today / max(goal_xp, 1) * 100))
+
+    return {
+        "streak_days":    user.streak_days or 0,
+        "longest_streak": user.longest_streak or 0,
+        "xp_today":       xp_today,
+        "daily_goal_xp":  goal_xp,
+        "goal_pct":       pct,
+        "goal_met":       xp_today >= goal_xp,
+        "xp_total":       user.xp or 0,
+        "level":          user.level or 1,
+    }
+
+
+@router.patch("/daily-goal")
+async def set_daily_goal(
+    goal_xp: int,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """Set user's daily XP goal (10–500 XP)."""
+    goal_xp = max(10, min(500, goal_xp))
+    prefs = dict(user.preferences or {})
+    prefs["daily_goal_xp"] = goal_xp
+    user.preferences = prefs
+    await db.commit()
+    return {"daily_goal_xp": goal_xp}

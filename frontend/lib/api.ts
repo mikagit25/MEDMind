@@ -341,6 +341,9 @@ export const progressApi = {
   getGamificationMe: () => api.get("/progress/gamification/me").then(r => r.data),
   exportPDF: () =>
     api.get("/progress/export/pdf", { responseType: "blob" }).then(r => r.data),
+  getDaily: () => api.get("/progress/daily").then(r => r.data),
+  setDailyGoal: (goal_xp: number) =>
+    api.patch(`/progress/daily-goal?goal_xp=${goal_xp}`).then(r => r.data),
 };
 
 export const aiApi = {
