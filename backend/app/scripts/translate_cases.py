@@ -115,7 +115,7 @@ async def _call_groq(system: str, user: str) -> str:
                 "https://api.groq.com/openai/v1/chat/completions",
                 headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
                 json={
-                    "model": settings.GROQ_MODEL,
+                    "model": "openai/gpt-oss-120b",
                     "messages": [
                         {"role": "system", "content": system},
                         {"role": "user", "content": user},
