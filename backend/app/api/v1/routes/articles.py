@@ -823,7 +823,7 @@ ANSWER:"""
                         "https://api.groq.com/openai/v1/chat/completions",
                         headers={"Authorization": f"Bearer {_key}", "Content-Type": "application/json"},
                         json={
-                            "model":    settings.GROQ_MODEL or "llama-3.3-70b-versatile",
+                            "model":    settings.GROQ_MODEL or "openai/gpt-oss-20b",
                             "messages": [{"role": "user", "content": prompt}],
                             "max_tokens": 512,
                             "temperature": 0.3,

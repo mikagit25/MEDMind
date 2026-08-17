@@ -780,7 +780,7 @@ async def _verify_mcq_job() -> None:
     async def _ask_llm(prompt: str) -> str | None:
         """Single-question LLM call, provider chain Groq→Cerebras→SambaNova→Gemini."""
         chains = [
-            (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "llama-3.3-70b-versatile", "", prompt)),
+            (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "openai/gpt-oss-20b", "", prompt)),
             (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gemma-4-31b",             "", prompt)),
             (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", "", prompt)),
             (_GEMINI_KEYS,    lambda k: _call_gemini(k, "", prompt)),

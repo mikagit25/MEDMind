@@ -751,7 +751,7 @@ async def call_ai(mode: str, user_message: str, history: list[dict], linked_user
                     "https://api.groq.com/openai/v1/chat/completions",
                     headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
                     json={
-                        "model":       getattr(_s, "GROQ_MODEL", "llama-3.3-70b-versatile"),
+                        "model":       getattr(_s, "GROQ_MODEL", "openai/gpt-oss-20b"),
                         "messages":    groq_messages,
                         "max_tokens":  800,
                         "temperature": 0.7,

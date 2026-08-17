@@ -49,7 +49,7 @@ def _dedup(lst: list[str]) -> list[str]:
 _GROQ_URL      = "https://api.groq.com/openai/v1/chat/completions"
 _CEREBRAS_URL  = "https://api.cerebras.ai/v1/chat/completions"
 _SAMBANOVA_URL = "https://fast-api.snova.ai/v1/chat/completions"
-_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-lite")
 _GEMINI_URL    = f"https://generativelanguage.googleapis.com/v1beta/models/{_GEMINI_MODEL}:generateContent"
 
 _GROQ_KEYS = _dedup([
@@ -390,8 +390,8 @@ async def _call_gemini(key: str, system_prompt: str, user_content: str) -> str |
 async def _call_translation_api(system_prompt: str, user_content: str) -> str:
     """Try all provider pools in order; fall back to Ollama as last resort."""
     providers = [
-        (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "llama-3.3-70b-versatile", system_prompt, user_content)),
-        (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gpt-oss-120b",            system_prompt, user_content)),
+        (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "openai/gpt-oss-20b",      system_prompt, user_content)),
+        (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gemma-4-31b",             system_prompt, user_content)),
         (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", system_prompt, user_content)),
         (_GEMINI_KEYS,    lambda k: _call_gemini(k, system_prompt, user_content)),
     ]

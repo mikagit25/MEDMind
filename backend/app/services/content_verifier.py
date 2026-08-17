@@ -43,7 +43,7 @@ PUBLISHED_STATUSES = {"passed", "human_reviewed"}
 BLOCKED_STATUSES = {"pending", "failed"}
 
 _GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "llama-3.3-70b-versatile"
+_GROQ_MODEL = "openai/gpt-oss-20b"
 
 def _dedup(lst: list[str]) -> list[str]:
     seen: set[str] = set()
