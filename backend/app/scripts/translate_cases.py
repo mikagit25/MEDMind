@@ -120,7 +120,7 @@ async def _call_groq(system: str, user: str) -> str:
                         {"role": "system", "content": system},
                         {"role": "user", "content": user},
                     ],
-                    "max_tokens": 4096,
+                    "max_tokens": 6000,
                     "temperature": 0.1,
                 },
             )
