@@ -129,7 +129,7 @@ async def _translate_case(case: ClinicalCase, locales: list[str]) -> dict[str, A
 
 async def _get_existing_locales(db: AsyncSession, case_id) -> list[str]:
     r = await db.execute(
-        sql_text("SELECT locale FROM clinical_case_translations WHERE case_id = :cid"),
+        sql_text("SELECT locale FROM clinical_case_translations WHERE case_id = CAST(:cid AS uuid)"),
         {"cid": str(case_id)},
     )
     return [row[0] for row in r.fetchall()]
@@ -152,7 +152,7 @@ async def _upsert_translation(
             "INSERT INTO clinical_case_translations "
             "    (id, case_id, locale, title, presentation, teaching_points, management, status) "
             "VALUES "
-            "    (uuid_generate_v4(), :cid, :loc, :title, "
+            "    (uuid_generate_v4(), CAST(:cid AS uuid), :loc, :title, "
             "     CAST(:pres_j AS jsonb), CAST(:tp_a AS text[]), CAST(:mg_a AS text[]), 'done') "
             "ON CONFLICT (case_id, locale) DO UPDATE SET "
             "    title=EXCLUDED.title, presentation=EXCLUDED.presentation, "
