@@ -94,6 +94,28 @@ def _get_groq_keys() -> list[str]:
 _key_index = 0
 
 
+async def _call_ollama(prompt: str) -> str | None:
+    try:
+        async with httpx.AsyncClient(timeout=300) as http:
+            resp = await http.post(
+                f"{getattr(settings, 'OLLAMA_URL', 'http://host-gateway:11434')}/api/chat",
+                json={
+                    "model": "qwen3:1.7b",
+                    "stream": False,
+                    "options": {"temperature": 0.1, "num_predict": 6000},
+                    "messages": [
+                        {"role": "system", "content": "/no_think\n" + SYSTEM_PROMPT},
+                        {"role": "user", "content": prompt},
+                    ],
+                },
+            )
+            resp.raise_for_status()
+            return resp.json()["message"]["content"]
+    except Exception as e:
+        log.error("Ollama fallback failed: %s", e)
+        return None
+
+
 async def _translate_case(case: ClinicalCase, locales: list[str]) -> dict[str, Any] | None:
     global _key_index
     keys = _get_groq_keys()
@@ -124,6 +146,10 @@ async def _translate_case(case: ClinicalCase, locales: list[str]) -> dict[str, A
             resp.raise_for_status()
             raw = resp.json()["choices"][0]["message"]["content"]
             return _parse_response(raw)
+    log.info("All Groq keys rate-limited — using local Ollama")
+    raw = await _call_ollama(prompt)
+    if raw:
+        return _parse_response(raw)
     return None
 
 
@@ -191,16 +217,27 @@ async def run(limit: int, dry_run: bool, force: bool) -> None:
             done += 1
             continue
 
-        translations = await _translate_case(case, needed)
-        if not translations:
-            log.error("  Translation failed — skipping case")
+        # Translate in batches of 3 to stay within the model's context window
+        batches = [needed[j:j + 3] for j in range(0, len(needed), 3)]
+        all_translations: dict[str, Any] = {}
+        batch_error = False
+        for batch in batches:
+            result = await _translate_case(case, batch)
+            if not result:
+                log.error("  Translation batch %s failed", batch)
+                batch_error = True
+                break
+            all_translations.update(result)
+            await asyncio.sleep(2)
+
+        if batch_error and not all_translations:
             errors += 1
             continue
 
         written = 0
         async with AsyncSessionLocal() as db:
             for locale in needed:
-                locale_data = translations.get(locale)
+                locale_data = all_translations.get(locale)
                 if not locale_data:
                     log.warning("  [%s] No data in response", locale)
                     continue
@@ -213,8 +250,6 @@ async def run(limit: int, dry_run: bool, force: bool) -> None:
                 done += 1
             else:
                 log.warning("  Nothing written for case %s", case.id)
-
-        await asyncio.sleep(2)
 
     log.info("Done. Translated: %d  Skipped: %d  Errors: %d", done, skipped, errors)
 
