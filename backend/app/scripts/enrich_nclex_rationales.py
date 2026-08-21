@@ -213,6 +213,11 @@ class MultiProviderClient:
                 idx = CEREBRAS_KEYS.index(key) + 1
                 print(f"    Cerebras key {idx}/{len(CEREBRAS_KEYS)} rate-limited 60s")
                 return None
+            if resp.status_code == 402:
+                self._cerebras_reset[key] = time.time() + 86400.0
+                idx = CEREBRAS_KEYS.index(key) + 1
+                print(f"    Cerebras key {idx}/{len(CEREBRAS_KEYS)} payment required — skipping for 24h")
+                return None
             resp.raise_for_status()
             return resp.json()["choices"][0]["message"]["content"]
         except Exception as e:

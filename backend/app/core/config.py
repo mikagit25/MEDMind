@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     GROQ_API_KEY_3: str = ""
     GROQ_API_KEY_4: str = ""
     GROQ_API_KEY_5: str = ""
-    GROQ_MODEL: str = "openai/gpt-oss-20b"
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
     # Dedicated key for module/course content generation scripts (not user AI)
     GROQ_KEY_MODULE: str = ""
     GROQ_KEY_MODULE_2: str = ""  # secondary key — extends TPM limit

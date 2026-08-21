@@ -25,7 +25,7 @@ import httpx
 logger = logging.getLogger(__name__)
 
 _GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "openai/gpt-oss-20b"
+_GROQ_MODEL = "llama-3.3-70b-versatile"
 
 
 def _dedup(lst: list[str]) -> list[str]:
