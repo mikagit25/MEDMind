@@ -404,7 +404,7 @@ Module:
 - Title: {title_en}
 - Specialty: {specialty}
 - Level: {level}
-- Lessons: {lessons_count}
+- Lesson count: {lessons_count}
 - Duration: {hours} hours
 
 Generate exactly {lessons_count} lessons covering: Epidemiology & Pathophysiology / Clinical Presentation / Investigations & Diagnosis / Treatment & Management / Complications & Prognosis (adjust to topic).
@@ -421,7 +421,7 @@ Disease Module:
 - Title: {title_en}
 - Specialty: {specialty}
 - Level: {level}
-- Lessons: {lessons_count}
+- Lesson count: {lessons_count}
 - Duration: {hours} hours
 {lesson_range_note}
 
@@ -445,7 +445,7 @@ Patient Guide:
 - ID: {module_id}
 - Title: {title_en}
 - Specialty: {specialty}
-- Lessons: {lessons_count}
+- Lesson count: {lessons_count}
 - Duration: {hours} hours
 {lesson_range_note}
 
@@ -670,6 +670,56 @@ def build_prompt(mod: dict, lesson_range: tuple[int,int] | None = None) -> str:
     )
 
 
+def normalize_module(data: dict, mod: dict) -> dict:
+    """Normalize model output to canonical import schema.
+
+    Handles two patterns:
+    - Flat (model skipped meta wrapper): top-level fields id/type/specialty/…
+    - Nested (correct): {"meta": {...}, "lessons": [...]}
+    """
+    # Wrap flat metadata into meta if missing
+    if "meta" not in data:
+        data["meta"] = {
+            "id": data.get("id", mod["id"]),
+            "type": data.get("type", mod.get("type", "specialty_module") + "_module").replace("disease", "disease_module").replace("patient_guide", "patient_guide_module"),
+            "specialty": data.get("specialty", mod["specialty"]),
+            "specialty_ru": data.get("specialty_ru", mod.get("specialty_ru", "")),
+            "title_en": data.get("title_en") or data.get("title", mod["title_en"]),
+            "level": data.get("level", mod["level"]),
+            "duration_hours": data.get("duration_hours") or data.get("duration", mod["hours"]),
+            "version": "1.0",
+            "generated_by": "ai",
+            "generated_at": datetime.now().strftime("%Y-%m-%d"),
+        }
+        # Ensure meta.type is correct
+        mtype_map = {"disease": "disease_module", "patient_guide": "patient_guide_module", "specialty": "specialty_module"}
+        data["meta"]["type"] = mtype_map.get(mod.get("type", "specialty"), data["meta"]["type"])
+
+    # Normalize lesson fields
+    for i, lesson in enumerate(data.get("lessons", [])):
+        # lesson_id → id
+        if "lesson_id" in lesson and "id" not in lesson:
+            lesson["id"] = lesson.pop("lesson_id")
+        # ensure order
+        if "order" not in lesson:
+            lesson["order"] = i + 1
+        # string content → dict
+        content = lesson.get("content")
+        if isinstance(content, str):
+            lesson["content"] = {
+                "intro": content,
+                "sections": [],
+                "key_points": lesson.pop("key_points", []) if "key_points" in lesson else [],
+                "references": [],
+            }
+        elif isinstance(content, dict):
+            # key_points may be at top level in some models
+            if not content.get("key_points") and "key_points" in lesson:
+                content["key_points"] = lesson.pop("key_points")
+
+    return data
+
+
 def validate_module(data: dict, mod: dict) -> list[str]:
     """
     Structural and basic content quality check.
@@ -750,34 +800,51 @@ def generate_module(mod: dict) -> dict:
     mtype = mod.get("type", "specialty")
     total = mod["lessons"]
 
+    def _call_and_extract(prompt: str, label: str, max_retries: int = 3) -> dict:
+        for attempt in range(max_retries):
+            text = call_openrouter(prompt) if OPENROUTER_KEY else call_groq(prompt)
+            try:
+                data = extract_json(text)
+            except (json.JSONDecodeError, ValueError) as e:
+                log(f"    ⚠ {label} JSON parse error (attempt {attempt+1}): {e}")
+                time.sleep(5)
+                continue
+            lessons = data.get("lessons", [])
+            if not isinstance(lessons, list) or len(lessons) == 0:
+                log(f"    ⚠ {label} malformed — lessons is {type(lessons).__name__} (attempt {attempt+1}), retrying")
+                time.sleep(5)
+                continue
+            return data
+        raise ValueError(f"{label}: failed to get valid lessons after {max_retries} attempts")
+
     # Split large modules (disease + patient guide) into 2 calls to stay within TPM
     if mtype in ("disease", "patient_guide") and total > 4:
         half = total // 2
-        # First half
         log(f"    → Part 1 (lessons 1–{half})")
-        text1 = call_openrouter(build_prompt(mod, (1, half))) if OPENROUTER_KEY else call_groq(build_prompt(mod, (1, half)))
-        data1 = extract_json(text1)
+        data1 = _call_and_extract(build_prompt(mod, (1, half)), "Part 1")
 
-        # Delay between the two parts
         log(f"    → Part 1 done. Waiting {INTER_CALL_DELAY}s before Part 2…")
         time.sleep(INTER_CALL_DELAY)
 
-        # Second half
         log(f"    → Part 2 (lessons {half+1}–{total})")
-        text2 = call_openrouter(build_prompt(mod, (half + 1, total))) if OPENROUTER_KEY else call_groq(build_prompt(mod, (half + 1, total)))
-        data2 = extract_json(text2)
+        data2 = _call_and_extract(build_prompt(mod, (half + 1, total)), "Part 2")
 
         # Merge
-        base = len(data1.get("lessons", []))
-        for i, lesson in enumerate(data2.get("lessons", [])):
+        lessons1 = data1["lessons"]
+        lessons2 = data2["lessons"]
+        base = len(lessons1)
+        for i, lesson in enumerate(lessons2):
             lesson["id"] = f"L{base + i + 1:03d}"
             lesson["order"] = base + i + 1
-        data1["lessons"] = data1.get("lessons", []) + data2.get("lessons", [])
-        data1["meta"]["duration_hours"] = mod["hours"]
+        data1["lessons"] = lessons1 + lessons2
+        # Use meta from either part; fall back to data2 if data1 is missing it
+        if "meta" not in data1 and "meta" in data2:
+            data1["meta"] = data2["meta"]
+        if "meta" in data1:
+            data1["meta"]["duration_hours"] = mod["hours"]
         return data1
 
-    text = call_openrouter(build_prompt(mod)) if OPENROUTER_KEY else call_groq(build_prompt(mod))
-    return extract_json(text)
+    return _call_and_extract(build_prompt(mod), "Single")
 
 
 def module_done(mod: dict) -> bool:
@@ -842,6 +909,7 @@ def main() -> None:
 
         try:
             data = generate_module(mod)
+            data = normalize_module(data, mod)
             n_lessons = len(data.get("lessons", []))
             # Validate content quality before saving
             issues = validate_module(data, mod)
@@ -866,7 +934,9 @@ def main() -> None:
             log(f"  ✗ JSON error: {e} — skipping")
             errors.append(mod["id"])
         except Exception as e:
+            import traceback as _tb
             log(f"  ✗ Error: {e} — skipping")
+            log(f"  Traceback: {_tb.format_exc()[-500:]}")
             errors.append(mod["id"])
 
         if i < len(todo) - 1:
