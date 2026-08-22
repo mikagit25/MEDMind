@@ -38,13 +38,16 @@ class TPDLimitError(Exception):
 
 # ── Config ────────────────────────────────────────────────────────────────────
 GROQ_KEY    = os.getenv("GROQ_KEY_MODULE", "")
-GROQ_MODEL  = "llama-3.3-70b-versatile"
+GROQ_MODEL  = "qwen/qwen3.6-27b"
+# OpenRouter: llama-3.3-70b has no 8K TPM cap that blocks large module requests
+OPENROUTER_KEY   = os.getenv("OPENROUTER_API_KEY", "")
+OPENROUTER_URL   = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
 OUTPUT_DIR  = Path(os.getenv("MODULES_DIR", "/opt/medmind/Modules"))
 LOG_FILE    = Path("/tmp/module_queue.log")
 
 # Between successful calls (seconds).
-# 12 000 TPM → each module ≈ 8 000-10 000 tokens → 1 call per 65s
-INTER_CALL_DELAY = 68
+INTER_CALL_DELAY = 30
 
 # ── Module registry (all 115) ─────────────────────────────────────────────────
 SPECIALTY_MODULES = [
@@ -528,6 +531,48 @@ def extract_json(text: str) -> dict:
     return json.loads(text[start:end])
 
 
+# ── OpenRouter call (primary for large requests) ──────────────────────────────
+
+def call_openrouter(prompt: str, max_retries: int = 5) -> str:
+    """Call OpenRouter API — no TPM cap on llama-3.3-70b-instruct."""
+    import httpx
+
+    if not OPENROUTER_KEY:
+        raise RuntimeError("OPENROUTER_API_KEY not set")
+
+    for attempt in range(max_retries):
+        try:
+            resp = httpx.post(
+                OPENROUTER_URL,
+                headers={"Authorization": f"Bearer {OPENROUTER_KEY}", "Content-Type": "application/json"},
+                json={
+                    "model": OPENROUTER_MODEL,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.3,
+                    "max_tokens": 10000,
+                    "response_format": {"type": "json_object"},
+                },
+                timeout=180.0,
+            )
+        except Exception as e:
+            log(f"  OpenRouter network error (attempt {attempt+1}): {e}")
+            time.sleep(30)
+            continue
+
+        if resp.status_code == 200:
+            return resp.json()["choices"][0]["message"]["content"]
+
+        if resp.status_code == 429:
+            wait = parse_retry_seconds(resp.text) + 10
+            log(f"  OpenRouter rate limit — waiting {wait:.0f}s")
+            time.sleep(wait)
+            continue
+
+        raise RuntimeError(f"OpenRouter {resp.status_code}: {resp.text[:300]}")
+
+    raise RuntimeError(f"OpenRouter max retries exceeded")
+
+
 # ── Groq call with full retry logic ──────────────────────────────────────────
 
 def call_groq(prompt: str, max_retries: int = 10) -> str:
@@ -551,6 +596,7 @@ def call_groq(prompt: str, max_retries: int = 10) -> str:
                     "temperature": 0.3,
                     "max_tokens": 10000,
                     "response_format": {"type": "json_object"},
+                    "reasoning_effort": "none",
                 },
                 timeout=180.0,
             )
@@ -654,19 +700,26 @@ def validate_module(data: dict, mod: dict) -> list[str]:
     for idx, lesson in enumerate(lessons):
         prefix = f"Lesson {idx+1}"
         content = lesson.get("content", {})
+        if not isinstance(content, dict):
+            issues.append(f"{prefix}: content is not a dict (got {type(content).__name__})")
+            continue
 
-        intro = content.get("intro", "")
+        intro = str(content.get("intro", "") or "")
         if len(intro) < 100:
             issues.append(f"{prefix}: intro too short ({len(intro)} chars)")
 
         sections = content.get("sections", [])
+        if not isinstance(sections, list):
+            issues.append(f"{prefix}: sections is not a list")
+            sections = []
         if len(sections) < 2:
             issues.append(f"{prefix}: only {len(sections)} sections (expected ≥2)")
         for si, sec in enumerate(sections):
-            text = sec.get("text", "")
+            if not isinstance(sec, dict):
+                continue
+            text = str(sec.get("text", "") or "")
             if len(text) < 150:
                 issues.append(f"{prefix} section {si+1}: text too short ({len(text)} chars)")
-            # Detect AI self-reference artifacts
             tl = text.lower()
             for artifact in AI_ARTIFACTS:
                 if artifact in tl:
@@ -674,10 +727,14 @@ def validate_module(data: dict, mod: dict) -> list[str]:
                     break
 
         key_points = content.get("key_points", [])
+        if not isinstance(key_points, list):
+            key_points = []
         if len(key_points) < 4:
             issues.append(f"{prefix}: only {len(key_points)} key_points (expected ≥4)")
 
         refs = content.get("references", [])
+        if not isinstance(refs, list):
+            refs = []
         if len(refs) < 1:
             issues.append(f"{prefix}: no references")
 
@@ -698,7 +755,7 @@ def generate_module(mod: dict) -> dict:
         half = total // 2
         # First half
         log(f"    → Part 1 (lessons 1–{half})")
-        text1 = call_groq(build_prompt(mod, (1, half)))
+        text1 = call_openrouter(build_prompt(mod, (1, half))) if OPENROUTER_KEY else call_groq(build_prompt(mod, (1, half)))
         data1 = extract_json(text1)
 
         # Delay between the two parts
@@ -707,7 +764,7 @@ def generate_module(mod: dict) -> dict:
 
         # Second half
         log(f"    → Part 2 (lessons {half+1}–{total})")
-        text2 = call_groq(build_prompt(mod, (half + 1, total)))
+        text2 = call_openrouter(build_prompt(mod, (half + 1, total))) if OPENROUTER_KEY else call_groq(build_prompt(mod, (half + 1, total)))
         data2 = extract_json(text2)
 
         # Merge
@@ -719,7 +776,7 @@ def generate_module(mod: dict) -> dict:
         data1["meta"]["duration_hours"] = mod["hours"]
         return data1
 
-    text = call_groq(build_prompt(mod))
+    text = call_openrouter(build_prompt(mod)) if OPENROUTER_KEY else call_groq(build_prompt(mod))
     return extract_json(text)
 
 

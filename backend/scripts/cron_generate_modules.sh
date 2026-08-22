@@ -10,6 +10,7 @@ ENV_FILE="/opt/medmind/backend/.env"
 # Load GROQ_KEY_MODULE from .env
 if [[ -f "$ENV_FILE" ]]; then
     export GROQ_KEY_MODULE=$(grep -E '^GROQ_KEY_MODULE=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"'"'" | head -1)
+    export OPENROUTER_API_KEY=$(grep -E '^OPENROUTER_API_KEY=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"'"'" | head -1)
 fi
 
 if [[ -z "${GROQ_KEY_MODULE:-}" ]]; then

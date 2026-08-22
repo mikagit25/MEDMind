@@ -39,6 +39,12 @@ CEREBRAS_KEYS = _dedup([
 
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_MODEL = "gemma-4-31b"
+
+# OpenRouter fallback when Cerebras returns 402
+OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY", "")
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
+
 BATCH_SIZE = 5
 
 ES_GLOSSARY = {
@@ -119,6 +125,12 @@ class CerebrasClient:
                               "messages": [{"role": "user", "content": prompt}],
                               "max_tokens": 4096},
                     )
+                if resp.status_code == 402:
+                    # Billing issue — fall through to OpenRouter fallback
+                    print(f"  Cerebras 402 (billing) — using OpenRouter fallback")
+                    if OPENROUTER_KEY:
+                        return await self._call_openrouter(prompt)
+                    return None
                 if resp.status_code == 429:
                     retry_after = float(resp.headers.get("retry-after", "60"))
                     idx = CEREBRAS_KEYS.index(key) + 1
@@ -131,10 +143,26 @@ class CerebrasClient:
                 print(f"  Error: {e}")
                 await asyncio.sleep(3)
 
+    async def _call_openrouter(self, prompt: str) -> str | None:
+        try:
+            async with httpx.AsyncClient(timeout=90) as client:
+                resp = await client.post(
+                    OPENROUTER_URL,
+                    headers={"Authorization": f"Bearer {OPENROUTER_KEY}", "content-type": "application/json"},
+                    json={"model": OPENROUTER_MODEL,
+                          "messages": [{"role": "user", "content": prompt}],
+                          "max_tokens": 4096},
+                )
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"  OpenRouter error: {e}")
+            return None
+
 
 async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
-    if not CEREBRAS_KEYS:
-        print("ERROR: No Cerebras keys configured")
+    if not CEREBRAS_KEYS and not OPENROUTER_KEY:
+        print("ERROR: No Cerebras or OpenRouter keys configured")
         sys.exit(1)
 
     client = CerebrasClient()
