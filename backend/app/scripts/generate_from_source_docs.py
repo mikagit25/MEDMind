@@ -62,7 +62,7 @@ GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_CASES", ""),
 ])
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 _key_reset: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
 _cycle = itertools.cycle(GROQ_KEYS) if GROQ_KEYS else None
 
@@ -159,6 +159,7 @@ async def _groq_generate(prompt: str) -> str | None:
                         "messages": [{"role": "user", "content": prompt}],
                         "max_tokens": 4000,
                         "temperature": 0.7,
+                        "reasoning_effort": "none",
                     },
                 )
             if r.status_code == 429:

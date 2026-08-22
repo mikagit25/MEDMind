@@ -43,7 +43,7 @@ PUBLISHED_STATUSES = {"passed", "human_reviewed"}
 BLOCKED_STATUSES = {"pending", "failed"}
 
 _GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "llama-3.3-70b-versatile"
+_GROQ_MODEL = "qwen/qwen3.6-27b"
 
 def _dedup(lst: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -73,6 +73,7 @@ async def _groq_call(prompt: str, max_tokens: int = 800) -> str:
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": max_tokens,
                 "temperature": 0.1,
+                "reasoning_effort": "none",
             },
         )
         resp.raise_for_status()

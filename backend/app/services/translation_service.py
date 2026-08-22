@@ -49,7 +49,7 @@ def _dedup(lst: list[str]) -> list[str]:
 _GROQ_URL      = "https://api.groq.com/openai/v1/chat/completions"
 _CEREBRAS_URL  = "https://api.cerebras.ai/v1/chat/completions"
 _SAMBANOVA_URL = "https://fast-api.snova.ai/v1/chat/completions"
-_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-lite")
+_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
 _GEMINI_URL    = f"https://generativelanguage.googleapis.com/v1beta/models/{_GEMINI_MODEL}:generateContent"
 
 _GROQ_KEYS = _dedup([

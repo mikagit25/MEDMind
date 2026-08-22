@@ -56,13 +56,13 @@ CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 
 # Build unified key pool: (key, url, model)
 ALL_LLM_SLOTS = (
-    [(k, GROQ_URL, "llama-3.3-70b-versatile") for k in _GROQ_KEYS] +
+    [(k, GROQ_URL, "qwen/qwen3.6-27b") for k in _GROQ_KEYS] +
     [(k, CEREBRAS_URL, "gemma-4-31b") for k in _CEREBRAS_KEYS]
 )
 
 # Legacy alias for logging
 GROQ_KEYS = [s[0] for s in ALL_LLM_SLOTS]  # used only for len() in logs
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 
 # L4.3: Target volumes per spec — 600 SNLE (2 non-overlapping mocks × 200 + practice),
 # 450 DHA, 300 for other Gulf exams.  Values in a config dict so they can be overridden.

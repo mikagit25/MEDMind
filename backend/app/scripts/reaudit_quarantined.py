@@ -116,7 +116,7 @@ async def _classify_with_llm(question: MCQQuestion) -> Optional[dict]:
 
     # Try Groq first (content pipeline keys)
     for key in _GROQ_KEYS:
-        result = await _call_llm(question.question or "", opts_str, rationale, key, _GROQ_URL, "llama-3.3-70b-versatile")
+        result = await _call_llm(question.question or "", opts_str, rationale, key, _GROQ_URL, "qwen/qwen3.6-27b")
         if result is not None:
             return result
         await asyncio.sleep(2)

@@ -128,7 +128,7 @@ VERIFY_GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_CASES", ""),
 ])
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 
 _reset_at: dict[str, float] = {k: 0.0 for k in VERIFY_GROQ_KEYS}
 
@@ -151,7 +151,8 @@ async def _groq_call(prompt: str, max_tokens: int = 2000) -> str | None:
                     headers={"Authorization": f"Bearer {key}"},
                     json={"model": GROQ_MODEL,
                           "messages": [{"role": "user", "content": prompt}],
-                          "max_tokens": max_tokens, "temperature": 0.1},
+                          "max_tokens": max_tokens, "temperature": 0.1,
+                          "reasoning_effort": "none"},
                 )
             if resp.status_code == 429:
                 try:

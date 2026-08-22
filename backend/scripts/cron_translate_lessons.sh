@@ -7,6 +7,11 @@
 
 set -euo pipefail
 
+# Prevent overlapping runs — skip if previous instance is still running
+LOCKFILE="/tmp/medmind_translate_lessons.lock"
+exec 200>"${LOCKFILE}"
+flock -n 200 || { echo "[$(date '+%Y-%m-%d %H:%M')] Already running, skipping."; exit 0; }
+
 CONTAINER="medmind_backend"
 SCRIPT="/app/scripts/translate_cron.py"
 BATCH=10   # lessons per run — each lesson × 6 locales = 60 API calls spread across providers

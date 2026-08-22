@@ -25,7 +25,7 @@ import httpx
 logger = logging.getLogger(__name__)
 
 _GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-_GROQ_MODEL = "llama-3.3-70b-versatile"
+_GROQ_MODEL = "qwen/qwen3.6-27b"
 
 
 def _dedup(lst: list[str]) -> list[str]:
@@ -61,7 +61,8 @@ async def _groq(prompt: str, max_tokens: int = 600) -> str | None:
                     headers={"Authorization": f"Bearer {key}"},
                     json={"model": _GROQ_MODEL,
                           "messages": [{"role": "user", "content": prompt}],
-                          "max_tokens": max_tokens, "temperature": 0.0},
+                          "max_tokens": max_tokens, "temperature": 0.0,
+                          "reasoning_effort": "none"},
                 )
             if r.status_code == 429:
                 m = re.search(r"in ([\d.]+)s", r.text)

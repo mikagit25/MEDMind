@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY_3: str = ""
     GEMINI_API_KEY_4: str = ""
     GEMINI_API_KEY_5: str = ""
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
 
     # Groq (free fallback — console.groq.com, 14400 req/day)
     # User AI tutor + Telegram bot — do NOT use in content generation scripts
@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     GROQ_API_KEY_3: str = ""
     GROQ_API_KEY_4: str = ""
     GROQ_API_KEY_5: str = ""
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "qwen/qwen3.6-27b"
     # Dedicated key for module/course content generation scripts (not user AI)
     GROQ_KEY_MODULE: str = ""
     GROQ_KEY_MODULE_2: str = ""  # secondary key — extends TPM limit

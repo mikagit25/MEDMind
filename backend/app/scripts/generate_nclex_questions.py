@@ -38,7 +38,7 @@ GROQ_KEYS = [k for k in [
 # Deduplicate
 _seen: set = set()
 GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 # ── NCLEX Metadata Maps ───────────────────────────────────────────────────────
@@ -409,6 +409,7 @@ class GroqClient:
                             "messages": [{"role": "user", "content": prompt}],
                             "max_tokens": max_tokens,
                             "temperature": 0.7,
+                            "reasoning_effort": "none",
                         },
                     )
 

@@ -43,7 +43,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 log = logging.getLogger(__name__)
 
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL   = settings.GROQ_MODEL or "llama-3.3-70b-versatile"
+GROQ_MODEL   = settings.GROQ_MODEL or "qwen/qwen3.6-27b"
 
 
 # ─── Key pool ────────────────────────────────────────────────────────────────
@@ -77,6 +77,7 @@ async def _call_groq(prompt: str, system: str, keys: list[str], max_tokens: int 
                             "model": GROQ_MODEL,
                             "max_tokens": max_tokens,
                             "temperature": 0.4,
+                        "reasoning_effort": "none",
                             "messages": [
                                 {"role": "system", "content": system},
                                 {"role": "user",   "content": prompt},

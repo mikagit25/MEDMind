@@ -67,8 +67,8 @@ CEREBRAS_KEYS = _dedup([
 ])
 
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+GROQ_MODEL = "qwen/qwen3.6-27b"
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 GEMINI_URL   = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 CEREBRAS_URL   = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_MODEL = "gpt-oss-120b"
@@ -177,6 +177,7 @@ class MultiProviderClient:
                         "messages": [{"role": "user", "content": prompt}],
                         "max_tokens": MAX_TOKENS,
                         "temperature": 0.3,
+                        "reasoning_effort": "none",
                     },
                 )
             if resp.status_code == 429:

@@ -34,7 +34,7 @@ GROQ_KEYS = [k for k in [
 _seen: set = set()
 GROQ_KEYS = [k for k in GROQ_KEYS if not (k in _seen or _seen.add(k))]
 
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 BATCH_SIZE = 5  # questions per Groq call
 
@@ -98,6 +98,7 @@ async def call_groq(prompt: str, reset_at: dict[str, float]) -> str:
                     "messages": [{"role": "user", "content": prompt}],
                     "max_tokens": 4000,
                     "temperature": 0.3,
+                    "reasoning_effort": "none",
                 },
             )
 
