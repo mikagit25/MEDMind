@@ -631,7 +631,7 @@ def call_groq(prompt: str, max_retries: int = 50) -> str:
                     "model": GROQ_MODEL,
                     "messages": [{"role": "user", "content": prompt}],
                     "temperature": 0.3,
-                    "max_tokens": 7500,
+                    "max_tokens": 6000,
                     "response_format": {"type": "json_object"},
                     "reasoning_effort": "none",
                 },
@@ -658,6 +658,12 @@ def call_groq(prompt: str, max_retries: int = 50) -> str:
             else:
                 _groq_key_reset[key] = time.time() + max(wait_secs, 60) + 10
                 log(f"  Key {key_idx}/{len(GROQ_KEYS)} rate limited {wait_secs:.0f}s")
+            continue
+
+        if resp.status_code == 413:
+            # Request too large — prompt exceeds TPM. Rotate key and continue.
+            log(f"  Key {key_idx}/{len(GROQ_KEYS)} 413 too large (prompt+output > TPM) — rotating key")
+            _groq_key_reset[key] = time.time() + 65  # wait 65s for this key's TPM window
             continue
 
         if resp.status_code in (500, 502, 503):
