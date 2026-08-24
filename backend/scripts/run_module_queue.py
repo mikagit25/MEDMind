@@ -37,17 +37,38 @@ class TPDLimitError(Exception):
 
 
 # ── Config ────────────────────────────────────────────────────────────────────
-GROQ_KEY    = os.getenv("GROQ_KEY_MODULE", "")
 GROQ_MODEL  = "qwen/qwen3.6-27b"
-# OpenRouter: llama-3.3-70b has no 8K TPM cap that blocks large module requests
+# OpenRouter: fallback when all Groq keys hit daily limit
 OPENROUTER_KEY   = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_URL   = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
 OUTPUT_DIR  = Path(os.getenv("MODULES_DIR", "/opt/medmind/Modules"))
 LOG_FILE    = Path("/tmp/module_queue.log")
 
-# Between successful calls (seconds).
-INTER_CALL_DELAY = 30
+def _dedup(keys: list[str]) -> list[str]:
+    seen: set[str] = set()
+    return [k for k in keys if k and k not in seen and not seen.add(k)]  # type: ignore
+
+# Pool of all content-pipeline Groq keys (KEY_1/KEY_2 reserved for user AI tutor)
+GROQ_KEYS: list[str] = _dedup([
+    os.getenv("GROQ_KEY_MODULE", ""),
+    os.getenv("GROQ_KEY_MODULE_2", ""),
+    os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_4", ""),
+    os.getenv("GROQ_API_KEY_5", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
+    os.getenv("GROQ_KEY_VET_ARTICLES", ""),
+    os.getenv("GROQ_KEY_VET_MODULES", ""),
+])
+# Legacy single-key alias (used in log header)
+GROQ_KEY = GROQ_KEYS[0] if GROQ_KEYS else ""
+
+# Per-key availability: key → unix timestamp when it becomes available again.
+# TPM limit: short wait (seconds). TPD limit: ~24h wait. 0.0 = available now.
+_groq_key_reset: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
+
+# Between successful calls (seconds). Short because multi-key pool spreads load.
+INTER_CALL_DELAY = 15
 
 # ── Module registry (all 115) ─────────────────────────────────────────────────
 SPECIALTY_MODULES = [
@@ -513,8 +534,6 @@ def log(msg: str) -> None:
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] {msg}"
     print(line, flush=True)
-    with open(LOG_FILE, "a") as f:
-        f.write(line + "\n")
 
 
 # ── JSON extraction ───────────────────────────────────────────────────────────
@@ -573,28 +592,46 @@ def call_openrouter(prompt: str, max_retries: int = 5) -> str:
     raise RuntimeError(f"OpenRouter max retries exceeded")
 
 
-# ── Groq call with full retry logic ──────────────────────────────────────────
+# ── Groq call with multi-key rotation ────────────────────────────────────────
 
-def call_groq(prompt: str, max_retries: int = 10) -> str:
-    """Call Groq API. Handles 429 TPM and TPD limits with exact waits."""
+def _best_groq_key() -> str:
+    """Return the Groq key with the earliest available time (waits if all are limited)."""
+    if not GROQ_KEYS:
+        raise RuntimeError("No Groq keys configured")
+    key = min(GROQ_KEYS, key=lambda k: _groq_key_reset.get(k, 0.0))
+    wait = _groq_key_reset.get(key, 0.0) - time.time()
+    if wait > 0:
+        key_idx = GROQ_KEYS.index(key) + 1
+        if wait > 3600:
+            log(f"  All keys limited. Best key {key_idx} resets in {wait/3600:.1f}h — waiting…")
+        else:
+            log(f"  All keys limited. Best key {key_idx} resets in {wait:.0f}s — waiting…")
+        time.sleep(wait + 2)
+    return key
+
+
+def call_groq(prompt: str, max_retries: int = 50) -> str:
+    """Call Groq with multi-key rotation.
+
+    - TPM (per-minute limit): mark key unavailable for retry-after seconds, rotate immediately.
+    - TPD (daily limit): mark key unavailable for 24h, rotate to next key (or wait for reset).
+    - Never raises TPDLimitError — waits for key rotation instead.
+    """
     import httpx
 
-    if not GROQ_KEY:
-        raise RuntimeError("GROQ_KEY_MODULE env var not set")
-
     for attempt in range(max_retries):
+        key = _best_groq_key()
+        key_idx = GROQ_KEYS.index(key) + 1
+
         try:
             resp = httpx.post(
                 "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {GROQ_KEY}",
-                    "Content-Type": "application/json",
-                },
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
                 json={
                     "model": GROQ_MODEL,
                     "messages": [{"role": "user", "content": prompt}],
                     "temperature": 0.3,
-                    "max_tokens": 10000,
+                    "max_tokens": 7500,
                     "response_format": {"type": "json_object"},
                     "reasoning_effort": "none",
                 },
@@ -602,7 +639,7 @@ def call_groq(prompt: str, max_retries: int = 10) -> str:
             )
         except Exception as e:
             log(f"  Network error (attempt {attempt+1}): {e}")
-            time.sleep(30)
+            time.sleep(15)
             continue
 
         if resp.status_code == 200:
@@ -610,25 +647,22 @@ def call_groq(prompt: str, max_retries: int = 10) -> str:
 
         if resp.status_code == 429:
             body = resp.text
-            wait = parse_retry_seconds(body)
-            if "tokens per day" in body or "TPD" in body:
-                # Daily limit hit — exit so cron can retry after reset
-                raise TPDLimitError(body)
+            wait_secs = parse_retry_seconds(body)
+            if "tokens per day" in body or "TPD" in body or "daily" in body.lower():
+                # Mark key as TPD-exhausted for 24h then rotate
+                _groq_key_reset[key] = time.time() + 86400
+                log(f"  Key {key_idx}/{len(GROQ_KEYS)} TPD exhausted — rotating (resets in 24h)")
             elif "tokens per minute" in body or "TPM" in body:
-                # Per-minute limit — add 10s buffer
-                wait = max(wait, 10) + 10
-                log(f"  TPM limit — waiting {wait:.0f}s")
-                time.sleep(wait)
+                _groq_key_reset[key] = time.time() + max(wait_secs, 10) + 5
+                log(f"  Key {key_idx}/{len(GROQ_KEYS)} TPM {wait_secs:.0f}s — rotating")
             else:
-                # Unknown 429
-                wait = max(wait, 120) + 60
-                log(f"  Rate limit (unknown) — waiting {wait:.0f}s")
-                time.sleep(wait)
+                _groq_key_reset[key] = time.time() + max(wait_secs, 60) + 10
+                log(f"  Key {key_idx}/{len(GROQ_KEYS)} rate limited {wait_secs:.0f}s")
             continue
 
         if resp.status_code in (500, 502, 503):
-            log(f"  Server error {resp.status_code} (attempt {attempt+1}) — waiting 60s")
-            time.sleep(60)
+            log(f"  Server error {resp.status_code} (attempt {attempt+1}) — waiting 30s")
+            time.sleep(30)
             continue
 
         raise RuntimeError(f"Groq {resp.status_code}: {resp.text[:300]}")
@@ -802,7 +836,8 @@ def generate_module(mod: dict) -> dict:
 
     def _call_and_extract(prompt: str, label: str, max_retries: int = 3) -> dict:
         for attempt in range(max_retries):
-            text = call_openrouter(prompt) if OPENROUTER_KEY else call_groq(prompt)
+            # call_groq handles key rotation and TPD waits internally
+            text = call_groq(prompt)
             try:
                 data = extract_json(text)
             except (json.JSONDecodeError, ValueError) as e:
@@ -892,7 +927,7 @@ def main() -> None:
     log(f"MedMind Module Queue started")
     log(f"Total: {len(mods)} | Done: {len(done)} | Remaining: {len(todo)}")
     log(f"Output: {OUTPUT_DIR}")
-    log(f"Model: {GROQ_MODEL} | Key: ...{GROQ_KEY[-8:] if GROQ_KEY else 'NOT SET'}")
+    log(f"Model: {GROQ_MODEL} | Keys: {len(GROQ_KEYS)} Groq keys loaded")
     log(f"Inter-call delay: {INTER_CALL_DELAY}s")
     log(f"{'='*60}")
 

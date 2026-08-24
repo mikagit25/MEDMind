@@ -7,10 +7,18 @@ set -euo pipefail
 
 ENV_FILE="/opt/medmind/backend/.env"
 
-# Load GROQ_KEY_MODULE from .env
+# Load all Groq content-pipeline keys + OpenRouter from .env
 if [[ -f "$ENV_FILE" ]]; then
-    export GROQ_KEY_MODULE=$(grep -E '^GROQ_KEY_MODULE=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"'"'" | head -1)
-    export OPENROUTER_API_KEY=$(grep -E '^OPENROUTER_API_KEY=' "$ENV_FILE" | cut -d'=' -f2- | tr -d '"'"'" | head -1)
+    _load() { grep -E "^${1}=" "$ENV_FILE" | cut -d'=' -f2- | tr -d '"'"'" | head -1; }
+    export GROQ_KEY_MODULE=$(_load GROQ_KEY_MODULE)
+    export GROQ_KEY_MODULE_2=$(_load GROQ_KEY_MODULE_2)
+    export GROQ_API_KEY_3=$(_load GROQ_API_KEY_3)
+    export GROQ_API_KEY_4=$(_load GROQ_API_KEY_4)
+    export GROQ_API_KEY_5=$(_load GROQ_API_KEY_5)
+    export GROQ_API_KEY_6=$(_load GROQ_API_KEY_6)
+    export GROQ_KEY_VET_ARTICLES=$(_load GROQ_KEY_VET_ARTICLES)
+    export GROQ_KEY_VET_MODULES=$(_load GROQ_KEY_VET_MODULES)
+    export OPENROUTER_API_KEY=$(_load OPENROUTER_API_KEY)
 fi
 
 if [[ -z "${GROQ_KEY_MODULE:-}" ]]; then
