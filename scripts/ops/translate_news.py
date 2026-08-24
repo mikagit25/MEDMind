@@ -66,7 +66,7 @@ def _load_keys(prefix: str) -> list[str]:
 PROVIDERS = {
     "cerebras": {
         "url": "https://api.cerebras.ai/v1/chat/completions",
-        "model": "gpt-oss-120b",
+        "model": "gemma-4-31b",
         "keys": _load_keys("CEREBRAS_API_KEY"),
     },
     "sambanova": {
@@ -76,7 +76,7 @@ PROVIDERS = {
     },
     "groq": {
         "url": "https://api.groq.com/openai/v1/chat/completions",
-        "model": "llama-3.3-70b-versatile",
+        "model": "qwen/qwen3.6-27b",
         # KEY_3/4/5 for content pipeline — KEY_1/KEY_2 reserved for user AI tutor
         "keys": [k for src in [_load_keys("GROQ_API_KEY_3"), _load_keys("GROQ_API_KEY_4"), _load_keys("GROQ_API_KEY_5")] for k in src],
     },
@@ -106,15 +106,20 @@ def _call(provider: str, system: str, user: str, max_tokens: int = 800) -> str:
                     ],
                     "max_tokens": max_tokens,
                     "temperature": 0.2,
+                    **({"reasoning_effort": "none"} if provider == "groq" else {}),
                 },
                 timeout=40,
             )
-            if resp.status_code == 429:
+            if resp.status_code in (402, 429):
                 _key_idx[provider] = (idx + 1) % len(keys)
                 time.sleep(2)
                 continue
             resp.raise_for_status()
-            return resp.json()["choices"][0]["message"]["content"].strip()
+            raw = resp.json()["choices"][0]["message"]["content"].strip()
+            # Strip <think>...</think> tags from reasoning models
+            import re as _re
+            raw = _re.sub(r"<think>.*?</think>", "", raw, flags=_re.DOTALL).strip()
+            return raw
         except Exception as e:
             log.debug("%s key[%d] failed: %s", provider, idx, e)
             _key_idx[provider] = (idx + 1) % len(keys)
