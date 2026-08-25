@@ -717,6 +717,16 @@ def normalize_module(data: dict, mod: dict) -> dict:
     - Flat (model skipped meta wrapper): top-level fields id/type/specialty/…
     - Nested (correct): {"meta": {...}, "lessons": [...]}
     """
+    def _to_int_hours(val, fallback: int) -> int:
+        if isinstance(val, int):
+            return val
+        if isinstance(val, float):
+            return int(val)
+        if isinstance(val, str):
+            m = re.search(r"\d+", val)
+            return int(m.group()) if m else fallback
+        return fallback
+
     # Wrap flat metadata into meta if missing
     if "meta" not in data:
         data["meta"] = {
@@ -726,7 +736,7 @@ def normalize_module(data: dict, mod: dict) -> dict:
             "specialty_ru": data.get("specialty_ru", mod.get("specialty_ru", "")),
             "title_en": data.get("title_en") or data.get("title", mod["title_en"]),
             "level": data.get("level", mod["level"]),
-            "duration_hours": data.get("duration_hours") or data.get("duration", mod["hours"]),
+            "duration_hours": _to_int_hours(data.get("duration_hours") or data.get("duration"), mod["hours"]),
             "version": "1.0",
             "generated_by": "ai",
             "generated_at": datetime.now().strftime("%Y-%m-%d"),
@@ -734,6 +744,10 @@ def normalize_module(data: dict, mod: dict) -> dict:
         # Ensure meta.type is correct
         mtype_map = {"disease": "disease_module", "patient_guide": "patient_guide_module", "specialty": "specialty_module"}
         data["meta"]["type"] = mtype_map.get(mod.get("type", "specialty"), data["meta"]["type"])
+
+    # Always coerce duration_hours to int (model may output "8 hours" or 8.0)
+    if "meta" in data:
+        data["meta"]["duration_hours"] = _to_int_hours(data["meta"].get("duration_hours"), mod["hours"])
 
     # Normalize lesson fields
     for i, lesson in enumerate(data.get("lessons", [])):
