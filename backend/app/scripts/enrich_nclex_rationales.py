@@ -68,10 +68,10 @@ CEREBRAS_KEYS = _dedup([
 
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "qwen/qwen3.6-27b"
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = "gemini-2.5-flash"
 GEMINI_URL   = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 CEREBRAS_URL   = "https://api.cerebras.ai/v1/chat/completions"
-CEREBRAS_MODEL = "gpt-oss-120b"
+CEREBRAS_MODEL = "gemma-4-31b"
 
 BATCH_SIZE = 3    # questions per LLM call (rationale prompts are long)
 MAX_TOKENS = 4000

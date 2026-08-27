@@ -49,7 +49,7 @@ def _dedup(lst: list[str]) -> list[str]:
 _GROQ_URL      = "https://api.groq.com/openai/v1/chat/completions"
 _CEREBRAS_URL  = "https://api.cerebras.ai/v1/chat/completions"
 _SAMBANOVA_URL = "https://fast-api.snova.ai/v1/chat/completions"
-_GEMINI_MODEL  = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
+_GEMINI_MODEL  = "gemini-2.5-flash"
 _GEMINI_URL    = f"https://generativelanguage.googleapis.com/v1beta/models/{_GEMINI_MODEL}:generateContent"
 
 _GROQ_KEYS = _dedup([
@@ -338,28 +338,32 @@ Preserve all JSON keys. Return ONLY valid JSON with translated values."""
 
 
 async def _call_openai_compat(
-    url: str, key: str, model: str, system_prompt: str, user_content: str, timeout: int = 60
+    url: str, key: str, model: str, system_prompt: str, user_content: str,
+    timeout: int = 60, extra_params: dict | None = None,
 ) -> str | None:
-    """Call any OpenAI-compatible endpoint. Returns None on 429 (marks key), raises on other errors."""
+    """Call any OpenAI-compatible endpoint. Returns None on 402/429 (marks key), raises on other errors."""
+    import re as _re
+    body: dict = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ],
+        "max_tokens": 4096,
+        "temperature": 0.1,
+    }
+    if extra_params:
+        body.update(extra_params)
     async with httpx.AsyncClient(timeout=timeout) as c:
-        resp = await c.post(
-            url,
-            headers={"Authorization": f"Bearer {key}"},
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_content},
-                ],
-                "max_tokens": 4096,
-                "temperature": 0.1,
-            },
-        )
+        resp = await c.post(url, headers={"Authorization": f"Bearer {key}"}, json=body)
+    if resp.status_code == 402:
+        _rate_limited_until[key] = time.time() + 86400  # billing exhausted — skip 24h
+        logger.warning("Billing limit (402) for key …%s — pausing 24h", key[-6:])
+        return None
     if resp.status_code == 429:
         try:
-            import re
             msg = resp.json().get("error", {}).get("message", "")
-            wait = float(re.search(r"in ([\d.]+)s", msg).group(1))  # type: ignore
+            wait = float(_re.search(r"in ([\d.]+)s", msg).group(1))  # type: ignore
         except Exception:
             wait = 65.0
         _rate_limited_until[key] = time.time() + wait
@@ -390,7 +394,7 @@ async def _call_gemini(key: str, system_prompt: str, user_content: str) -> str |
 async def _call_translation_api(system_prompt: str, user_content: str) -> str:
     """Try all provider pools in order; fall back to Ollama as last resort."""
     providers = [
-        (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "openai/gpt-oss-20b",      system_prompt, user_content)),
+        (_GROQ_KEYS,      lambda k: _call_openai_compat(_GROQ_URL,      k, "qwen/qwen3.6-27b",        system_prompt, user_content, extra_params={"reasoning_effort": "none"})),
         (_CEREBRAS_KEYS,  lambda k: _call_openai_compat(_CEREBRAS_URL,  k, "gemma-4-31b",             system_prompt, user_content)),
         (_SAMBANOVA_KEYS, lambda k: _call_openai_compat(_SAMBANOVA_URL, k, "Meta-Llama-3.3-70B-Instruct", system_prompt, user_content)),
         (_GEMINI_KEYS,    lambda k: _call_gemini(k, system_prompt, user_content)),

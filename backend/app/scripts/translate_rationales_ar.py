@@ -1,14 +1,22 @@
-"""Translate Gulf exam question rationales, explanations, key_takeaway to Arabic.
+"""Translate MCQ question rationales, explanations, key_takeaway to Arabic.
 
 Idempotent: skips questions that already have explanation_ar.
-Targets Gulf exam questions only (exam_slugs IS NOT NULL).
+Covers three question categories via --type flag:
+  gulf   — Gulf exam questions (exam_slugs IS NOT NULL)  [default]
+  nclex  — NCLEX questions (nclex_client_needs IS NOT NULL)
+  module — specialty module questions (no exam_slugs, no nclex_client_needs)
+  all    — all three categories combined
+
 Uses Cerebras keys (separate rate pool from Groq enrichment pipeline).
 
 Usage:
-  python -m app.scripts.translate_rationales_ar            # all untranslated
-  python -m app.scripts.translate_rationales_ar --max 100  # limit per run
-  python -m app.scripts.translate_rationales_ar --dry-run  # preview only
-  python -m app.scripts.translate_rationales_ar --slug snle # only for one exam
+  python -m app.scripts.translate_rationales_ar                    # Gulf only
+  python -m app.scripts.translate_rationales_ar --type nclex       # NCLEX
+  python -m app.scripts.translate_rationales_ar --type module      # modules
+  python -m app.scripts.translate_rationales_ar --type all         # everything
+  python -m app.scripts.translate_rationales_ar --max 100          # limit per run
+  python -m app.scripts.translate_rationales_ar --dry-run          # preview only
+  python -m app.scripts.translate_rationales_ar --slug snle        # one exam (gulf)
 """
 
 import asyncio
@@ -42,6 +50,22 @@ CEREBRAS_MODEL = "gemma-4-31b"
 OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
+
+# Groq: free tier, multiple keys, used as final fallback
+GROQ_KEYS = _dedup([
+    os.getenv("GROQ_KEY_MODULE", ""),
+    os.getenv("GROQ_KEY_MODULE_2", ""),
+    os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_4", ""),
+    os.getenv("GROQ_API_KEY_5", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
+    os.getenv("GROQ_API_KEY_7", ""),
+    os.getenv("GROQ_KEY_CASES", ""),
+    os.getenv("GROQ_KEY_VET_ARTICLES", ""),
+    os.getenv("GROQ_KEY_VET_MODULES", ""),
+])
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "qwen/qwen3.6-27b"
 
 BATCH_SIZE = 5
 
@@ -90,85 +114,179 @@ def _parse_response(raw: str) -> list[dict] | None:
         return None
 
 
-class CerebrasClient:
+class TranslationClient:
+    """Tries Cerebras → OpenRouter → Groq (multi-key rotation) in order."""
+
     def __init__(self):
-        self._reset_at: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
+        self._cerebras_reset: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
+        self._cerebras_billing_failed = False
+        self._openrouter_billing_failed = False
+        # Groq: track per-key TPM/TPD resets
+        self._groq_reset: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
 
-    def _best_key(self) -> str:
-        return min(CEREBRAS_KEYS, key=lambda k: self._reset_at[k])
+    async def call(self, prompt: str) -> str | None:
+        # 1. Try Cerebras
+        if CEREBRAS_KEYS and not self._cerebras_billing_failed:
+            result = await self._call_cerebras(prompt)
+            if result is not None:
+                return result
 
-    def mark_limited(self, key: str, reset_in: float) -> None:
-        self._reset_at[key] = time.time() + reset_in
+        # 2. Try OpenRouter
+        if OPENROUTER_KEY and not self._openrouter_billing_failed:
+            result = await self._call_openrouter(prompt)
+            if result is not None:
+                return result
 
-    async def call(self, prompt: str, max_wait: int = 3600) -> str | None:
-        while True:
-            key = self._best_key()
-            wait = self._reset_at[key] - time.time()
-            if wait > max_wait:
-                print(f"  ⚠ All Cerebras keys limited >{max_wait//60}min. Exiting — cron will retry.")
+        # 3. Try Groq (free, multi-key)
+        if GROQ_KEYS:
+            return await self._call_groq(prompt)
+
+        print("  All providers exhausted — stopping.")
+        return None
+
+    async def _call_cerebras(self, prompt: str) -> str | None:
+        key = min(self._cerebras_reset, key=lambda k: self._cerebras_reset[k])
+        wait = self._cerebras_reset[key] - time.time()
+        if wait > 600:
+            return None  # all keys long-limited, skip to next provider
+        if wait > 0:
+            await asyncio.sleep(wait + 1)
+        try:
+            async with httpx.AsyncClient(timeout=90) as c:
+                resp = await c.post(
+                    CEREBRAS_URL,
+                    headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
+                    json={"model": CEREBRAS_MODEL,
+                          "messages": [{"role": "user", "content": prompt}],
+                          "max_tokens": 4096},
+                )
+            if resp.status_code == 402:
+                print(f"  Cerebras 402 (billing) — switching to OpenRouter/Groq")
+                self._cerebras_billing_failed = True
                 return None
-            if wait > 0:
-                print(f"  Waiting {wait:.0f}s for Cerebras key rotation…")
-                await asyncio.sleep(wait + 1)
-            try:
-                async with httpx.AsyncClient(timeout=90) as client:
-                    resp = await client.post(
-                        CEREBRAS_URL,
-                        headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
-                        json={"model": CEREBRAS_MODEL,
-                              "messages": [{"role": "user", "content": prompt}],
-                              "max_tokens": 4096},
-                    )
-                if resp.status_code == 402:
-                    print(f"  Cerebras 402 (billing) — using OpenRouter fallback")
-                    if OPENROUTER_KEY:
-                        return await self._call_openrouter(prompt)
-                    return None
-                if resp.status_code == 429:
-                    retry_after = float(resp.headers.get("retry-after", "60"))
-                    idx = CEREBRAS_KEYS.index(key) + 1
-                    print(f"  Cerebras key {idx}/{len(CEREBRAS_KEYS)} limited {retry_after:.0f}s")
-                    self.mark_limited(key, retry_after)
-                    continue
-                resp.raise_for_status()
-                return resp.json()["choices"][0]["message"]["content"]
-            except Exception as e:
-                print(f"  Error: {e}")
-                await asyncio.sleep(3)
+            if resp.status_code == 429:
+                retry_after = float(resp.headers.get("retry-after", "60"))
+                self._cerebras_reset[key] = time.time() + retry_after
+                return None
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"  Cerebras error: {e}")
+            return None
 
     async def _call_openrouter(self, prompt: str) -> str | None:
         try:
-            async with httpx.AsyncClient(timeout=90) as client:
-                resp = await client.post(
+            async with httpx.AsyncClient(timeout=90) as c:
+                resp = await c.post(
                     OPENROUTER_URL,
                     headers={"Authorization": f"Bearer {OPENROUTER_KEY}", "content-type": "application/json"},
                     json={"model": OPENROUTER_MODEL,
                           "messages": [{"role": "user", "content": prompt}],
                           "max_tokens": 4096},
                 )
+            if resp.status_code == 402:
+                print(f"  OpenRouter 402 (billing) — switching to Groq")
+                self._openrouter_billing_failed = True
+                return None
             resp.raise_for_status()
             return resp.json()["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"  OpenRouter error: {e}")
             return None
 
+    async def _call_groq(self, prompt: str) -> str | None:
+        if not GROQ_KEYS:
+            return None
+        for attempt in range(len(GROQ_KEYS) * 3):
+            # Pick key with earliest reset time
+            key = min(GROQ_KEYS, key=lambda k: self._groq_reset.get(k, 0.0))
+            wait = self._groq_reset.get(key, 0.0) - time.time()
+            idx = GROQ_KEYS.index(key) + 1
+            # If the best key resets in >10min — all keys are heavily limited
+            if wait > 600:
+                print(f"  Groq: all keys limited >{wait/60:.0f}min — stopping (cron will retry)")
+                return None
+            if wait > 0:
+                print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPM {wait:.0f}s — waiting…")
+                await asyncio.sleep(wait + 2)
+            try:
+                async with httpx.AsyncClient(timeout=90) as c:
+                    resp = await c.post(
+                        GROQ_URL,
+                        headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
+                        json={"model": GROQ_MODEL,
+                              "messages": [{"role": "user", "content": prompt}],
+                              "max_tokens": 4096,
+                              "temperature": 0.2,
+                              "reasoning_effort": "none"},
+                    )
+                if resp.status_code == 429:
+                    body = resp.text
+                    m = re.search(r"in ([\d.]+)s", body)
+                    retry = float(m.group(1)) if m else 60
+                    if "per day" in body or "TPD" in body or "daily" in body.lower():
+                        self._groq_reset[key] = time.time() + 86400
+                        print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPD exhausted — rotating")
+                    else:
+                        self._groq_reset[key] = time.time() + retry + 5
+                        print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPM {retry:.0f}s — rotating")
+                    continue
+                if resp.status_code == 413:
+                    self._groq_reset[key] = time.time() + 65
+                    continue
+                resp.raise_for_status()
+                raw = resp.json()["choices"][0]["message"]["content"]
+                raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+                return raw
+            except Exception as e:
+                print(f"  Groq error: {e}")
+                return None
+        return None
 
-async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug: str | None = None) -> None:
-    if not CEREBRAS_KEYS and not OPENROUTER_KEY:
-        print("ERROR: No Cerebras or OpenRouter keys configured")
+
+# Keep old name as alias for backward compatibility with cron scripts
+CerebrasClient = TranslationClient
+
+
+async def run(
+    max_questions: int | None = None,
+    dry_run: bool = False,
+    exam_slug: str | None = None,
+    qtype: str = "gulf",
+) -> None:
+    if not CEREBRAS_KEYS and not OPENROUTER_KEY and not GROQ_KEYS:
+        print("ERROR: No API keys configured (Cerebras / OpenRouter / Groq)")
         sys.exit(1)
 
     client = CerebrasClient()
 
     async with AsyncSessionLocal() as db:
+        needs_ar = or_(
+            MCQQuestion.explanation_ar.is_(None),
+            MCQQuestion.rationales_ar.is_(None),
+            MCQQuestion.key_takeaway_ar.is_(None),
+        )
+
+        if qtype == "gulf":
+            base_filter = [MCQQuestion.exam_slugs.isnot(None)]
+            label = "Gulf"
+        elif qtype == "nclex":
+            base_filter = [MCQQuestion.nclex_client_needs.isnot(None)]
+            label = "NCLEX"
+        elif qtype == "module":
+            base_filter = [
+                MCQQuestion.nclex_client_needs.is_(None),
+                MCQQuestion.exam_slugs.is_(None),
+            ]
+            label = "Module"
+        else:  # all
+            base_filter = []
+            label = "All"
+
         q = select(MCQQuestion).where(
-            MCQQuestion.exam_slugs.isnot(None),
+            *base_filter,
             MCQQuestion.explanation.isnot(None),
-            or_(
-                MCQQuestion.explanation_ar.is_(None),
-                MCQQuestion.rationales_ar.is_(None),
-                MCQQuestion.key_takeaway_ar.is_(None),
-            ),
+            needs_ar,
         )
         if exam_slug:
             from sqlalchemy import type_coerce
@@ -184,7 +302,7 @@ async def run(max_questions: int | None = None, dry_run: bool = False, exam_slug
         if max_questions:
             untranslated = untranslated[:max_questions]
 
-        print(f"Found {len(untranslated)} Gulf questions to translate to Arabic (using Cerebras {CEREBRAS_MODEL})"
+        print(f"Found {len(untranslated)} {label} questions to translate to Arabic (using Cerebras {CEREBRAS_MODEL})"
               + (f" (slug={exam_slug})" if exam_slug else ""))
         if dry_run:
             print("[DRY RUN] No writes.")
@@ -240,6 +358,7 @@ def main() -> None:
     max_q = None
     dry_run = "--dry-run" in sys.argv
     exam_slug = None
+    qtype = "gulf"
     if "--max" in sys.argv:
         idx = sys.argv.index("--max")
         if idx + 1 < len(sys.argv):
@@ -248,7 +367,11 @@ def main() -> None:
         idx = sys.argv.index("--slug")
         if idx + 1 < len(sys.argv):
             exam_slug = sys.argv[idx + 1]
-    asyncio.run(run(max_questions=max_q, dry_run=dry_run, exam_slug=exam_slug))
+    if "--type" in sys.argv:
+        idx = sys.argv.index("--type")
+        if idx + 1 < len(sys.argv):
+            qtype = sys.argv[idx + 1]
+    asyncio.run(run(max_questions=max_q, dry_run=dry_run, exam_slug=exam_slug, qtype=qtype))
 
 
 if __name__ == "__main__":

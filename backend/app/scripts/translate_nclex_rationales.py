@@ -2,7 +2,7 @@
 
 Idempotent: skips questions that already have rationales_es.
 Prioritises questions with highest session view counts (most-seen first).
-Uses Cerebras keys (separate rate pool from Groq enrichment pipeline).
+Falls back through Cerebras → OpenRouter → Groq (multi-key).
 
 Usage:
   python -m app.scripts.translate_nclex_rationales            # all untranslated
@@ -37,6 +37,26 @@ CEREBRAS_KEYS = _dedup([
 
 CEREBRAS_URL = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_MODEL = "gemma-4-31b"
+
+OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY", "")
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
+
+GROQ_KEYS = _dedup([
+    os.getenv("GROQ_KEY_MODULE", ""),
+    os.getenv("GROQ_KEY_MODULE_2", ""),
+    os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_4", ""),
+    os.getenv("GROQ_API_KEY_5", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
+    os.getenv("GROQ_API_KEY_7", ""),
+    os.getenv("GROQ_KEY_CASES", ""),
+    os.getenv("GROQ_KEY_VET_ARTICLES", ""),
+    os.getenv("GROQ_KEY_VET_MODULES", ""),
+])
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "qwen/qwen3.6-27b"
+
 BATCH_SIZE = 5
 
 # Spanish medical glossary overrides — critical terms that must NOT be auto-translated
@@ -84,54 +104,136 @@ def _parse_response(raw: str) -> list[dict] | None:
         return None
 
 
-class CerebrasClient:
+class TranslationClient:
+    """Tries Cerebras → OpenRouter → Groq (multi-key rotation) in order."""
+
     def __init__(self):
-        self._reset_at: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
+        self._cerebras_reset: dict[str, float] = {k: 0.0 for k in CEREBRAS_KEYS}
+        self._cerebras_billing_failed = False
+        self._openrouter_billing_failed = False
+        self._groq_reset: dict[str, float] = {k: 0.0 for k in GROQ_KEYS}
 
-    def _best_key(self) -> str:
-        return min(CEREBRAS_KEYS, key=lambda k: self._reset_at[k])
+    async def call(self, prompt: str) -> str | None:
+        if CEREBRAS_KEYS and not self._cerebras_billing_failed:
+            result = await self._call_cerebras(prompt)
+            if result is not None:
+                return result
+        if OPENROUTER_KEY and not self._openrouter_billing_failed:
+            result = await self._call_openrouter(prompt)
+            if result is not None:
+                return result
+        if GROQ_KEYS:
+            return await self._call_groq(prompt)
+        print("  All providers exhausted — stopping.")
+        return None
 
-    def mark_limited(self, key: str, reset_in: float) -> None:
-        self._reset_at[key] = time.time() + reset_in
+    async def _call_cerebras(self, prompt: str) -> str | None:
+        key = min(self._cerebras_reset, key=lambda k: self._cerebras_reset[k])
+        wait = self._cerebras_reset[key] - time.time()
+        if wait > 600:
+            return None
+        if wait > 0:
+            await asyncio.sleep(wait + 1)
+        try:
+            async with httpx.AsyncClient(timeout=90) as c:
+                resp = await c.post(
+                    CEREBRAS_URL,
+                    headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
+                    json={"model": CEREBRAS_MODEL,
+                          "messages": [{"role": "user", "content": prompt}],
+                          "max_tokens": 4096},
+                )
+            if resp.status_code == 402:
+                print(f"  Cerebras 402 (billing) — switching to OpenRouter/Groq")
+                self._cerebras_billing_failed = True
+                return None
+            if resp.status_code == 429:
+                retry_after = float(resp.headers.get("retry-after", "60"))
+                self._cerebras_reset[key] = time.time() + retry_after
+                return None
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"  Cerebras error: {e}")
+            return None
 
-    async def call(self, prompt: str, max_wait: int = 3600) -> str | None:
-        while True:
-            key = self._best_key()
-            wait = self._reset_at[key] - time.time()
-            if wait > max_wait:
-                print(f"  ⚠ All Cerebras keys limited >{max_wait//60}min. Exiting — cron will retry.")
+    async def _call_openrouter(self, prompt: str) -> str | None:
+        try:
+            async with httpx.AsyncClient(timeout=90) as c:
+                resp = await c.post(
+                    OPENROUTER_URL,
+                    headers={"Authorization": f"Bearer {OPENROUTER_KEY}", "content-type": "application/json"},
+                    json={"model": OPENROUTER_MODEL,
+                          "messages": [{"role": "user", "content": prompt}],
+                          "max_tokens": 4096},
+                )
+            if resp.status_code == 402:
+                print(f"  OpenRouter 402 (billing) — switching to Groq")
+                self._openrouter_billing_failed = True
+                return None
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"  OpenRouter error: {e}")
+            return None
+
+    async def _call_groq(self, prompt: str) -> str | None:
+        if not GROQ_KEYS:
+            return None
+        for attempt in range(len(GROQ_KEYS) * 3):
+            key = min(GROQ_KEYS, key=lambda k: self._groq_reset.get(k, 0.0))
+            wait = self._groq_reset.get(key, 0.0) - time.time()
+            idx = GROQ_KEYS.index(key) + 1
+            if wait > 600:
+                print(f"  Groq: all keys limited >{wait/60:.0f}min — stopping (cron will retry)")
                 return None
             if wait > 0:
-                print(f"  Waiting {wait:.0f}s for Cerebras key rotation…")
-                await asyncio.sleep(wait + 1)
+                print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPM {wait:.0f}s — waiting…")
+                await asyncio.sleep(wait + 2)
             try:
-                async with httpx.AsyncClient(timeout=90) as client:
-                    resp = await client.post(
-                        CEREBRAS_URL,
+                async with httpx.AsyncClient(timeout=90) as c:
+                    resp = await c.post(
+                        GROQ_URL,
                         headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
-                        json={"model": CEREBRAS_MODEL,
+                        json={"model": GROQ_MODEL,
                               "messages": [{"role": "user", "content": prompt}],
-                              "max_tokens": 4096},
+                              "max_tokens": 4096,
+                              "temperature": 0.2,
+                              "reasoning_effort": "none"},
                     )
                 if resp.status_code == 429:
-                    retry_after = float(resp.headers.get("retry-after", "60"))
-                    idx = CEREBRAS_KEYS.index(key) + 1
-                    print(f"  Cerebras key {idx}/{len(CEREBRAS_KEYS)} limited {retry_after:.0f}s")
-                    self.mark_limited(key, retry_after)
+                    body = resp.text
+                    m = re.search(r"in ([\d.]+)s", body)
+                    retry = float(m.group(1)) if m else 60
+                    if "per day" in body or "TPD" in body or "daily" in body.lower():
+                        self._groq_reset[key] = time.time() + 86400
+                        print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPD exhausted — rotating")
+                    else:
+                        self._groq_reset[key] = time.time() + retry + 5
+                        print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPM {retry:.0f}s — rotating")
+                    continue
+                if resp.status_code == 413:
+                    self._groq_reset[key] = time.time() + 65
                     continue
                 resp.raise_for_status()
-                return resp.json()["choices"][0]["message"]["content"]
+                raw = resp.json()["choices"][0]["message"]["content"]
+                raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+                return raw
             except Exception as e:
-                print(f"  Error: {e}")
-                await asyncio.sleep(3)
+                print(f"  Groq error: {e}")
+                return None
+        return None
+
+
+CerebrasClient = TranslationClient
 
 
 async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
-    if not CEREBRAS_KEYS:
-        print("ERROR: No Cerebras keys configured")
+    if not CEREBRAS_KEYS and not OPENROUTER_KEY and not GROQ_KEYS:
+        print("ERROR: No API keys configured (Cerebras / OpenRouter / Groq)")
         sys.exit(1)
 
-    client = CerebrasClient()
+    client = TranslationClient()
 
     async with AsyncSessionLocal() as db:
         # Fetch NCLEX questions (not vet) that need Spanish translation.
