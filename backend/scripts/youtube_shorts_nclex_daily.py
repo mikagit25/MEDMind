@@ -79,7 +79,7 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
     body = {
         "snippet": {
             "title":       title[:100],
-            "description": description[:4900],
+            "description": description.replace("<", "＜").replace(">", "＞")[:4900],
             "tags":        [
                 "nclex", "nursing student", "nclex rn", "nursing school",
                 "nursing education", "medmind", "medical education",

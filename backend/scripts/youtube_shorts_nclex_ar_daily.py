@@ -117,7 +117,7 @@ def _yt_upload(mp4: str, title: str, description: str) -> str | None:
     body = {
         "snippet": {
             "title":      title[:100],
-            "description": description[:4900],
+            "description": description.replace("<", "＜").replace(">", "＞")[:4900],
             "tags":       ["nclex", "تمريض", "طلاب التمريض", "nursing", "medmind",
                            "تعليم طبي", "shorts", "اختبار تمريض"],
             "categoryId": "27",

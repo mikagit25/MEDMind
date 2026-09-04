@@ -71,28 +71,33 @@ def _mark_limited(key: str, secs: int = 60):
 
 
 def _build_providers() -> list[dict]:
-    groq_keys      = _dedup([_g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_6"),
-                              _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"), _g("GROQ_API_KEY_7")])
+    groq_keys      = _dedup([_g("GROQ_API_KEY_3"), _g("GROQ_API_KEY_4"), _g("GROQ_API_KEY_5"),
+                              _g("GROQ_API_KEY_6"), _g("GROQ_KEY_MODULE"), _g("GROQ_KEY_MODULE_2"),
+                              _g("GROQ_API_KEY_7")])
     cerebras_keys  = _dedup([_g("CEREBRAS_API_KEY_2"), _g("CEREBRAS_API_KEY_3"),
-                              _g("CEREBRAS_API_KEY_4"), _g("CEREBRAS_API_KEY_5")])
+                              _g("CEREBRAS_API_KEY_4"), _g("CEREBRAS_API_KEY_5"),
+                              _g("CEREBRAS_API_KEY_6")])
     gemini_keys    = _dedup([_g("GEMINI_API_KEY"), _g("GEMINI_API_KEY_2"),
-                              _g("GEMINI_API_KEY_3"), _g("GEMINI_API_KEY_4")])
-    sambanova_keys = _dedup([_g("SAMBANOVA_API_KEY_2"), _g("SAMBANOVA_API_KEY_3")])
+                              _g("GEMINI_API_KEY_3"), _g("GEMINI_API_KEY_4"),
+                              _g("GEMINI_API_KEY_5")])
+    sambanova_keys = _dedup([_g("SAMBANOVA_API_KEY"), _g("SAMBANOVA_API_KEY_2"),
+                              _g("SAMBANOVA_API_KEY_3"), _g("SAMBANOVA_API_KEY_4"),
+                              _g("SAMBANOVA_API_KEY_5")])
 
     providers = []
     if groq_keys:
         providers.append({
             "name": "groq", "url": "https://api.groq.com/openai/v1/chat/completions",
-            "model": "llama-3.3-70b-versatile", "keys": groq_keys,
+            "model": "qwen/qwen3.6-27b", "keys": groq_keys,
         })
     if cerebras_keys:
         providers.append({
             "name": "cerebras", "url": "https://api.cerebras.ai/v1/chat/completions",
-            "model": "gpt-oss-120b", "keys": cerebras_keys,
+            "model": "gemma-4-31b", "keys": cerebras_keys,
         })
     if sambanova_keys:
         providers.append({
-            "name": "sambanova", "url": "https://fast-api.snova.ai/v1/chat/completions",
+            "name": "sambanova", "url": "https://api.sambanova.ai/v1/chat/completions",
             "model": "Meta-Llama-3.3-70B-Instruct", "keys": sambanova_keys,
         })
     if gemini_keys:
@@ -181,7 +186,7 @@ def _qa_check(original: dict, translated: dict, lang: str) -> tuple[bool, str]:
     # 4. Numbers in original should appear in translation
     nums = set(_re.findall(r"\b\d+(?:[.,]\d+)?\b", orig_q))
     if nums:
-        tr_nums = set(_re.findall(r"\b\d+(?:[.,]\d+)?\b", tr_q + " ".join(tr_opts.values())))
+        tr_nums = set(_re.findall(r"\b\d+(?:[.,]\d+)?\b", tr_q + " ".join(str(v) for v in tr_opts.values())))
         missing = nums - tr_nums
         if len(missing) > len(nums) * 0.5:
             return False, f"numbers lost in translation: {missing}"
@@ -245,17 +250,30 @@ def _parse_response(raw: str) -> dict | None:
     return None
 
 
-def _call_openai_compat(url: str, key: str, model: str, prompt: str) -> str | None:
+def _call_openai_compat(url: str, key: str, model: str, prompt: str,
+                         extra_params: dict | None = None) -> str | None:
+    body = {"model": model, "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 600, "temperature": 0.1}
+    if extra_params:
+        body.update(extra_params)
     try:
         resp = httpx.post(
             url,
             headers={"Authorization": f"Bearer {key}"},
-            json={"model": model, "messages": [{"role": "user", "content": prompt}],
-                  "max_tokens": 600, "temperature": 0.1},
-            timeout=45,
+            json=body,
+            timeout=20,
         )
         if resp.status_code == 429:
-            _mark_limited(key, 65)
+            try:
+                msg = resp.json().get("error", {}).get("message", "")
+                import re as _re
+                wait = float(_re.search(r"in ([\d.]+)s", msg).group(1))
+            except Exception:
+                wait = 65.0
+            _mark_limited(key, int(wait) + 5)
+            return None
+        if resp.status_code == 402:
+            _mark_limited(key, 86400)
             return None
         resp.raise_for_status()
         return resp.json()["choices"][0]["message"]["content"]
@@ -265,7 +283,7 @@ def _call_openai_compat(url: str, key: str, model: str, prompt: str) -> str | No
 
 
 def _call_gemini(key: str, prompt: str) -> str | None:
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key}"
     try:
         resp = httpx.post(
             url,
@@ -300,6 +318,9 @@ def _translate_one(q: dict, lang: str, providers: list[dict]) -> dict | None:
         for key in avail:
             if provider["name"] == "gemini":
                 raw = _call_gemini(key, prompt)
+            elif provider["name"] == "groq":
+                raw = _call_openai_compat(provider["url"], key, provider["model"], prompt,
+                                          extra_params={"reasoning_effort": "none"})
             else:
                 raw = _call_openai_compat(provider["url"], key, provider["model"], prompt)
 
