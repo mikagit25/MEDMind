@@ -131,7 +131,7 @@ def load_question(question_id: str) -> dict | None:
 
 def list_available_questions(limit: int = 20) -> list[dict]:
     """Return English NCLEX questions with key_takeaway not yet uploaded."""
-    uploaded = _load_tracking()
+    uploaded = list(_load_tracking())
     with _db_conn() as conn, conn.cursor() as cur:
         cur.execute(
             """
@@ -146,15 +146,15 @@ def list_available_questions(limit: int = 20) -> list[dict]:
               )
               AND q.question ~ '^[A-Za-z]'
               AND q.question !~ '[А-яЁёА-ЯЙЮЭЫЪЬа-яёйюэыъь]'
+              AND q.id::text != ALL(%s)
             ORDER BY q.created_at ASC
             LIMIT %s
             """,
-            (limit * 3,),
+            (uploaded, limit),
         )
         rows = [dict(r) for r in cur.fetchall()]
     # Extra guard: skip any row with Cyrillic characters in the question
-    rows = [r for r in rows if not any('Ѐ' <= c <= 'ӿ' for c in r["question"])]
-    return [r for r in rows if r["id"] not in uploaded][:limit]
+    return [r for r in rows if not any('Ѐ' <= c <= 'ӿ' for c in r["question"])]
 
 
 # ── Tracking ──────────────────────────────────────────────────────────────────

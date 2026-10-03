@@ -70,7 +70,7 @@ def _save_es_tracking(question_id: str, yt_id: str | None = None):
 
 
 def fetch_questions(limit: int) -> list[dict]:
-    uploaded = _load_tracking()
+    uploaded = list(_load_tracking())
     sql = """
         SELECT t.question_id AS id, t.question, t.options, t.key_takeaway,
                q.correct, q.difficulty, m.title AS module_title
@@ -78,14 +78,14 @@ def fetch_questions(limit: int) -> list[dict]:
         JOIN mcq_questions q ON q.id::text = t.question_id
         LEFT JOIN modules m ON m.id = q.module_id
         WHERE t.lang = %s AND t.status = 'done'
+          AND t.question_id != ALL(%s)
         ORDER BY t.created_at ASC
         LIMIT %s
     """
     with psycopg2.connect(DB_URL, cursor_factory=psycopg2.extras.RealDictCursor) as conn:
         with conn.cursor() as cur:
-            cur.execute(sql, (LANG, limit * 3))
-            rows = [dict(r) for r in cur.fetchall()]
-    return [r for r in rows if r["id"] not in uploaded][:limit]
+            cur.execute(sql, (LANG, uploaded, limit))
+            return [dict(r) for r in cur.fetchall()]
 
 
 def _yt_upload(mp4: str, title: str, description: str) -> str | None:
