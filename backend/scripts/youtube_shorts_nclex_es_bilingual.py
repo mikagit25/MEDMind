@@ -64,18 +64,45 @@ TRACKING_FILE = Path(os.environ.get("YT_ES_BILINGUAL_TRACKING",
 
 # English module / NCLEX category → Spanish label for titles (fallback: English as is)
 TOPIC_ES = {
-    "pharmacology": "Farmacología", "cardiovascular": "Cardiovascular", "endocrine": "Endocrino",
-    "respiratory": "Respiratorio", "pediatrics": "Pediatría", "maternity": "Materno-infantil",
-    "obstetrics": "Obstetricia", "mental health": "Salud mental", "psychiatric": "Salud mental",
-    "neurology": "Neurología", "renal": "Renal", "gastrointestinal": "Gastrointestinal",
-    "infection control": "Control de infecciones", "safety": "Seguridad del paciente",
-    "fundamentals": "Fundamentos", "emergency": "Urgencias", "critical care": "Cuidados críticos",
-    "oncology": "Oncología", "management of care": "Gestión del cuidado",
-    "pharmacological and parenteral therapies": "Farmacología", "basic care and comfort": "Cuidados básicos",
-    "reduction of risk potential": "Reducción de riesgos", "physiological adaptation": "Adaptación fisiológica",
-    "safety and infection control": "Seguridad e infecciones",
+    # NCLEX client needs categories (full names — matched by substring)
+    "pharmacological and parenteral": "Farmacología",
+    "basic care and comfort":         "Cuidados básicos",
+    "reduction of risk potential":    "Reducción de riesgos",
+    "physiological adaptation":       "Adaptación fisiológica",
+    "safety and infection control":   "Seguridad e infecciones",
     "health promotion and maintenance": "Promoción de la salud",
-    "psychosocial integrity": "Integridad psicosocial",
+    "psychosocial integrity":         "Integridad psicosocial",
+    "management of care":             "Gestión del cuidado",
+    # Module / specialty keywords (order: longer keys first for substring matching)
+    "pharmacology":    "Farmacología",
+    "cardiovascular":  "Cardiovascular",
+    "cardiac":         "Cardiología",
+    "endocrine":       "Endocrinología",
+    "diabetes":        "Diabetes",
+    "respiratory":     "Respiratorio",
+    "pediatric":       "Pediatría",
+    "maternity":       "Materno-infantil",
+    "obstetric":       "Obstetricia",
+    "gynecol":         "Ginecología",
+    "mental health":   "Salud mental",
+    "psychiatric":     "Salud mental",
+    "neurology":       "Neurología",
+    "renal":           "Renal",
+    "kidney":          "Renal",
+    "gastrointestinal":"Gastrointestinal",
+    "infection":       "Infecciones",
+    "sepsis":          "Sepsis",
+    "hematology":      "Hematología",
+    "oncology":        "Oncología",
+    "orthopedic":      "Ortopedia",
+    "dermatology":     "Dermatología",
+    "nutrition":       "Nutrición",
+    "fundamentals":    "Fundamentos",
+    "emergency":       "Urgencias",
+    "critical care":   "Cuidados críticos",
+    "surgical":        "Quirúrgico",
+    "safety":          "Seguridad del paciente",
+    "management":      "Gestión del cuidado",
 }
 
 DEMO = [{
@@ -243,39 +270,57 @@ def fetch(limit: int) -> list[dict]:
 
 # ── Metadata ──────────────────────────────────────────────────────────────────
 
+_HASHTAGS_ES = (
+    "#NCLEX #NCLEXenEspañol #NCLEXRN #Enfermería #Enfermera "
+    "#EnfermeríaUSA #EnfermeríaHispana #ExamenNCLEX #PrepararNCLEX "
+    "#EnfermeraLatina #MedMindAI #Shorts"
+)
+
+_BASE_TAGS_ES = [
+    "nclex", "nclex rn", "nclex en español", "nclex-rn en español",
+    "preguntas nclex", "examen nclex", "preparación nclex", "nclex prep",
+    "enfermería", "enfermera", "enfermería usa", "enfermería hispana",
+    "enfermera latina", "nclex study", "medmind",
+]
+
+
 def meta(q: dict) -> dict:
     year = datetime.date.today().year
     t_es = topic_es(q)
     t_en = (q.get("nclex_category") or q.get("module_title") or "Nursing")[:30]
     o = q["options"]
     opts = "\n".join(f"{L}) {o[L]}" for L in "ABCD" if o.get(L))
-    title_es = f"🩺 Pregunta NCLEX en español {year} | {t_es} | Enfermería #Shorts"[:100]
-    title_en = f"🩺 NCLEX-RN Practice Question {year} | {t_en} | Spanish explanation #Shorts"[:100]
+    correct_txt = o.get(q["correct"], "")
+
+    # Title: NCLEX-RN keyword first — matches how nurses actually search
+    title_es = f"🩺 NCLEX-RN en español {year} | {t_es} | #Enfermería #Shorts"[:100]
+    title_en = f"🩺 NCLEX-RN Practice {year} | {t_en} | Spanish explanation #Shorts"[:100]
+
     desc_es = (
-        f"Pregunta de práctica NCLEX-RN: la pregunta en inglés, como en el examen real, "
-        f"y la explicación en español.\n"
-        f"¡Escribe tu respuesta en los comentarios antes de ver la solución! 👇\n\n"
-        f"❓ {q['question']}\n{opts}\n\n"
-        f"✅ Respuesta correcta: {q['correct']}\n"
+        f"Pregunta NCLEX-RN {year} — {t_es} | ¡Escribe tu respuesta antes de ver la solución! 👇\n"
+        f"Pregunta en inglés (igual que en el examen real) + explicación en español.\n\n"
+        f"❓ {q['question'][:200]}\n{opts}\n\n"
+        f"✅ Respuesta correcta: {q['correct']}) {correct_txt}\n"
         f"💡 {q['explanation_es']}\n\n"
-        f"📝 Practica gratis preguntas NCLEX con explicaciones en español:\n🔗 {SITE_ES}\n"
+        f"📝 Practica más de 1,000 preguntas NCLEX gratis con explicaciones en español:\n"
+        f"🔗 {SITE_ES}\n"
         f"🔗 English: {SITE_EN}\n\n"
-        f"Pregunta de práctica original basada en el plan oficial del NCLEX; no es una pregunta "
-        f"real del examen. Solo con fines educativos, no es consejo médico. Voz generada por IA.\n\n"
-        f"#NCLEX #NCLEXenEspañol #Enfermería #Enfermera #EnfermeríaUSA #NCLEXRN #MedMindAI #Shorts"
+        f"Pregunta original basada en el plan oficial del NCLEX-RN; no es una pregunta real del examen. "
+        f"Solo con fines educativos, no es consejo médico. Voz generada por IA.\n\n"
+        f"{_HASHTAGS_ES}"
     )
     desc_en = (
-        f"NCLEX-RN practice question in English with a Spanish explanation.\n\n"
-        f"❓ {q['question']}\n{opts}\n\n✅ Answer: {q['correct']}\n\n"
-        f"📝 Free practice: {SITE_EN}\n\n"
+        f"NCLEX-RN practice ({year}) — {t_en}. English question with a Spanish explanation.\n\n"
+        f"❓ {q['question'][:200]}\n{opts}\n\n"
+        f"✅ Answer: {q['correct']}) {correct_txt}\n\n"
+        f"📝 Free NCLEX practice: {SITE_EN}\n\n"
         f"Original practice question based on the NCLEX test plan — not an actual exam item. "
         f"Education only, not medical advice. AI-generated voice."
     )
+    tags = (_BASE_TAGS_ES + [f"nclex {year}", t_es.lower()])[:20]
     return {"title": title_es, "description": desc_es,
             "localizations": {"en": {"title": title_en, "description": desc_en}},
-            "tags": ["nclex", "nclex en español", "nclex rn", "enfermería", "enfermera",
-                     "examen nclex", "preguntas nclex", "enfermería en estados unidos",
-                     t_es.lower(), "medmind", "shorts"]}
+            "tags": tags}
 
 
 def upload(mp4: str, m: dict) -> str | None:
