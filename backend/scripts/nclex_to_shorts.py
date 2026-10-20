@@ -32,7 +32,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H   = 1080, 1920   # 9:16 vertical
 FPS    = 24
-VOICE  = "en-US-JennyNeural"   # warm, clear voice for nursing content
+VOICE  = os.environ.get("TTS_VOICE", "en-US-EmmaNeural")  # Copilot-grade 2024 voice
 RATE   = "-5%"                  # slightly slower for comprehension
 
 # Brand palette
@@ -392,25 +392,29 @@ def render_reveal(options: dict, correct: str, key_takeaway: str) -> np.ndarray:
     return np.array(img)
 
 
-def render_cta() -> np.ndarray:
+def render_cta(exam: str | None = None) -> np.ndarray:
+    """CTA slide. For Gulf exams shows exam-specific URL instead of /nclex."""
     img, draw = _base_canvas()
 
     cy = H // 2 - 100
     draw.text(((W - tw(draw, "🎓", fb(120))) // 2, cy - 60), "🎓",
               font=fb(120), fill=PINK)
 
-    lines = ["Practice 1,000+", "NCLEX questions", "for FREE"]
+    if exam:
+        lines = ["Free practice test", "at MedMind:", f"medmind.pro/exams"]
+        url = f"medmind.pro/exams/{exam}"
+    else:
+        lines = ["Practice 1,000+", "NCLEX questions", "for FREE"]
+        url = "medmind.pro/nclex"
+
     f_big = fb(72)
     for i, line in enumerate(lines):
         lw = tw(draw, line, f_big)
         col = PINK if i == 2 else TEXT_W
         draw.text(((W - lw) // 2, cy + 80 + i * 84), line, font=f_big, fill=col)
 
-    url = "medmind.pro/nclex"
     uw = tw(draw, url, fb(42))
     draw.text(((W - uw) // 2, cy + 380), url, font=fb(42), fill=ACCENT)
-
-    # Underline
     draw.line([(W // 2 - uw // 2, cy + 428), (W // 2 + uw // 2, cy + 428)],
               fill=ACCENT, width=3)
 
@@ -443,11 +447,12 @@ async def build_video(
     dry_run: bool = False,
     lang: str = "en",
     tts_voice: str | None = None,
+    exam: str | None = None,
 ) -> str:
     """Render full NCLEX Short. Returns path to MP4.
 
     For translated questions pass lang='es'|'ar' and tts_voice accordingly.
-    q["question"], q["options"], q["key_takeaway"] should already be in target lang.
+    Pass exam slug to get exam-specific CTA slide (Gulf exams).
     """
     from moviepy.editor import (
         ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips,
@@ -484,7 +489,7 @@ async def build_video(
         "question": render_question(question, options),
         "pause":    render_pause(),
         "reveal":   render_reveal(options, correct, takeaway),
-        "cta":      render_cta(),
+        "cta":      render_cta(exam=exam),
     }
 
     if dry_run:

@@ -46,7 +46,26 @@ HASHTAGS = (
 )
 
 
-def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_file: Path) -> str | None:
+_GULF_YT_TAGS: dict[str, list[str]] = {
+    "snle":   ["snle exam", "scfhs exam", "saudi nursing exam", "prometric nursing"],
+    "dha":    ["dha exam", "dha nursing", "dubai nurse", "prometric nursing"],
+    "haad":   ["haad exam", "doh exam", "abu dhabi nursing", "prometric nursing"],
+    "mohuae": ["moh uae exam", "uae nurse", "prometric nursing"],
+    "qchp":   ["qchp exam", "qatar nursing exam", "prometric nursing"],
+    "omsb":   ["omsb exam", "oman nursing exam", "prometric nursing"],
+    "nhra":   ["nhra exam", "bahrain nursing exam", "prometric nursing"],
+    "moh_kw": ["kuwait nursing exam", "prometric nursing"],
+}
+
+_BASE_NCLEX_TAGS = [
+    "nclex", "nursing student", "nclex rn", "nursing school",
+    "nursing education", "medmind", "medical education",
+    "nclex practice", "nursing quiz", "pass nclex",
+]
+
+
+def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_file: Path,
+               exam: str | None = None) -> str | None:
     """Upload MP4 to YouTube. Returns video ID or None."""
     try:
         import google.oauth2.credentials
@@ -80,11 +99,8 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
         "snippet": {
             "title":       title[:100],
             "description": description.replace("<", "＜").replace(">", "＞")[:4900],
-            "tags":        [
-                "nclex", "nursing student", "nclex rn", "nursing school",
-                "nursing education", "medmind", "medical education",
-                "nclex practice", "nursing quiz", "pass nclex",
-            ],
+            "tags":        (_GULF_YT_TAGS.get(exam, []) + _BASE_NCLEX_TAGS)[:15] if exam
+                           else _BASE_NCLEX_TAGS,
             "categoryId":  "27",   # Education
         },
         "status": {
@@ -204,7 +220,7 @@ async def run(limit: int, dry_run: bool, exam: str | None = None):
             mp4 = f"{tmp}/nclex_short.mp4"
 
             try:
-                await build_video(q, mp4, dry_run=dry_run)
+                await build_video(q, mp4, dry_run=dry_run, exam=exam)
             except Exception as e:
                 print(f"  ✗ Video build failed: {e}")
                 continue
@@ -219,7 +235,7 @@ async def run(limit: int, dry_run: bool, exam: str | None = None):
                 uploaded_count += 1
                 continue
 
-            yt_id = _yt_upload(mp4, title, desc, TOKEN_FILE, SECRET_FILE)
+            yt_id = _yt_upload(mp4, title, desc, TOKEN_FILE, SECRET_FILE, exam=exam)
             if yt_id:
                 print(f"  ✅ Uploaded: https://youtu.be/{yt_id}")
                 _save_tracking(q["id"], yt_id)
