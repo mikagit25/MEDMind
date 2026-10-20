@@ -48,11 +48,37 @@ from nclex_to_shorts import fb, fr, tw, wrap, _db_conn  # noqa: E402  (shared fo
 
 W, H        = 1920, 1080
 FPS         = 24
-VOICE       = "en-US-JennyNeural"
+# EmmaNeural = Microsoft Copilot-grade voice (2024), much more natural than Jenny/Aria.
+# Override with --voice or TTS_VOICE env var.
+VOICE       = os.environ.get("TTS_VOICE", "en-US-EmmaNeural")
 RATE        = "-5%"
 THINK_SECS  = 8          # countdown length per question
 INTRO_SECS  = 7
 OUTRO_SECS  = 10
+
+# OpenAI TTS (tts-1-hd) — best quality, ~$0.75 per 25-question video.
+# Set OPENAI_API_KEY in backend/.env to enable. Use --tts-provider openai.
+OPENAI_TTS_MODEL  = "tts-1-hd"
+OPENAI_TTS_VOICES = {
+    "female": "nova",   # warm, professional
+    "male":   "onyx",   # deep, authoritative
+}
+_OPENAI_KEY: str | None = None
+
+
+def _load_openai_key() -> str | None:
+    global _OPENAI_KEY
+    if _OPENAI_KEY:
+        return _OPENAI_KEY
+    key = os.environ.get("OPENAI_API_KEY", "")
+    if not key:
+        env_file = Path(__file__).parent.parent / ".env"
+        if env_file.exists():
+            for line in env_file.read_text().splitlines():
+                if line.startswith("OPENAI_API_KEY="):
+                    key = line.split("=", 1)[1].strip()
+    _OPENAI_KEY = key or None
+    return _OPENAI_KEY
 
 BG_DARK  = (10, 14, 20)
 BG_CARD  = (18, 26, 38)
@@ -303,9 +329,39 @@ def _ffprobe_dur(path: str) -> float:
         return 0.0
 
 
-async def tts(text: str, path: str, enabled: bool) -> float:
-    """Narrate text to MP3; returns duration. With enabled=False writes silence of estimated length."""
+async def tts(text: str, path: str, enabled: bool,
+              provider: str = "edge", voice_gender: str = "female") -> float:
+    """Narrate text to MP3; returns duration.
+
+    provider: "edge" (free, EmmaNeural) | "openai" (tts-1-hd, ~$0.03/1k chars)
+    With enabled=False writes silence of estimated length.
+    """
     if enabled:
+        if provider == "openai":
+            key = _load_openai_key()
+            if key:
+                try:
+                    import httpx as _hx
+                    voice_id = OPENAI_TTS_VOICES.get(voice_gender, "nova")
+                    r = _hx.post(
+                        "https://api.openai.com/v1/audio/speech",
+                        headers={"Authorization": f"Bearer {key}"},
+                        json={"model": OPENAI_TTS_MODEL, "input": text[:4096],
+                              "voice": voice_id, "response_format": "mp3"},
+                        timeout=60,
+                    )
+                    if r.status_code == 200:
+                        Path(path).write_bytes(r.content)
+                        dur = _ffprobe_dur(path)
+                        if dur > 0:
+                            return dur
+                    else:
+                        print(f"    [openai-tts] {r.status_code} — falling back to edge-tts")
+                except Exception as e:
+                    print(f"    [openai-tts] {e} — falling back to edge-tts")
+            else:
+                print("    [openai-tts] OPENAI_API_KEY not set — using edge-tts")
+        # edge-tts (default / fallback)
         import edge_tts
         await edge_tts.Communicate(text[:1500], VOICE, rate=RATE).save(path)
         dur = _ffprobe_dur(path)
@@ -313,7 +369,7 @@ async def tts(text: str, path: str, enabled: bool) -> float:
             return dur
     est = max(3.0, len(text.split()) / 150 * 60)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i",
-                    "anullsrc=r=24000:cl=mono", "-t", f"{est:.2f}", "-q:a", "9", path], check=True)
+                    "anullsrc=r=44100:cl=stereo", "-t", f"{est:.2f}", "-q:a", "9", path], check=True)
     return est
 
 
@@ -333,13 +389,13 @@ def _encode(parts: list[tuple[str, float, str | None]], out: str):
     filt = []
     for k, (_, secs, _) in enumerate(parts):
         # pad/trim each audio piece to exactly its picture length
-        filt.append(f"[{n + k}:a]aresample=24000,apad,atrim=0:{secs:.3f}[a{k}]")
+        filt.append(f"[{n + k}:a]aresample=44100,apad,atrim=0:{secs:.3f}[a{k}]")
     vcat = "".join(f"[{k}:v]" for k in range(n)) + f"concat=n={n}:v=1:a=0,format=yuv420p[v]"
     acat = "".join(f"[a{k}]" for k in range(n)) + f"concat=n={n}:v=0:a=1[a]"
     filt += [vcat, acat]
     cmd += ["-filter_complex", ";".join(filt), "-map", "[v]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-r", str(FPS),
-            "-c:a", "aac", "-b:a", "128k", "-ar", "24000", "-ac", "1", out]
+            "-c:a", "aac", "-b:a", "192k", "-ar", "44100", "-ac", "2", out]
     subprocess.run(cmd, check=True)
 
 
@@ -352,7 +408,8 @@ def _fmt_ts(sec: float) -> str:
 # ── Build ─────────────────────────────────────────────────────────────────────
 
 async def build_session(questions: list[dict], exam: str | None, topic: str | None,
-                        out_path: str, use_tts: bool) -> list[tuple[float, str]]:
+                        out_path: str, use_tts: bool,
+                        tts_provider: str = "edge") -> list[tuple[float, str]]:
     """Render the whole session. Returns chapters [(start_sec, label)]."""
     exam_name = EXAMS[exam][0] if exam else "Gulf Nursing Exams"
     n = len(questions)
@@ -366,7 +423,7 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
         a = f"{tmp}/intro.mp3"
         intro_text = (f"Welcome to MedMind. Here are {n} practice questions for the {exam_name} "
                       f"nursing exam. You have {THINK_SECS} seconds for each question. Let's begin.")
-        a_dur = await tts(intro_text, a, use_tts)
+        a_dur = await tts(intro_text, a, use_tts, provider=tts_provider)
         dur = max(INTRO_SECS, a_dur + 0.8)
         seg = f"{tmp}/s000.mp4"; _encode([(p, dur, a)], seg); segs.append(seg)
         chapters.append((0.0, "Introduction")); t += dur
@@ -379,8 +436,8 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
             spoken_a = (f"The correct answer is {q['correct']}: {opts.get(q['correct'], '')}. "
                         f"{q['key_takeaway']}")
             qa, aa = f"{tmp}/q{i}.mp3", f"{tmp}/a{i}.mp3"
-            qd = await tts(spoken_q, qa, use_tts)
-            ad = await tts(spoken_a, aa, use_tts)
+            qd = await tts(spoken_q, qa, use_tts, provider=tts_provider)
+            ad = await tts(spoken_a, aa, use_tts, provider=tts_provider)
 
             base = frame_question(q, i, n, exam_name)
             qp = f"{tmp}/q{i}.png"; base.save(qp)
@@ -401,7 +458,7 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
         a = f"{tmp}/outro.mp3"
         a_dur = await tts("How many did you get right? Tell us your score in the comments, "
                           "and try the free full practice test on MedMind. Good luck on your exam!",
-                          a, use_tts)
+                          a, use_tts, provider=tts_provider)
         seg = f"{tmp}/s999.mp4"; _encode([(p, max(OUTRO_SECS, a_dur + 1), a)], seg); segs.append(seg)
         chapters.append((t, "Your score & free practice test"))
 
@@ -474,7 +531,14 @@ async def main():
     ap.add_argument("--allow-reuse", action="store_true", help="allow questions from earlier sessions")
     ap.add_argument("--no-tts", action="store_true", help="silent audio (layout test)")
     ap.add_argument("--demo", action="store_true", help="3 built-in questions, no database")
+    ap.add_argument("--tts-provider", choices=["edge", "openai"], default="edge",
+                    help="edge = free EmmaNeural (default) | openai = tts-1-hd (requires OPENAI_API_KEY)")
+    ap.add_argument("--voice", default=None,
+                    help="Override edge-tts voice, e.g. en-US-AvaNeural (edge only)")
     a = ap.parse_args()
+    if a.voice:
+        global VOICE
+        VOICE = a.voice
 
     if not shutil.which("ffmpeg"):
         sys.exit("[error] ffmpeg not found")
@@ -487,7 +551,8 @@ async def main():
 
     out = a.out or f"/tmp/practice_{a.exam or 'gulf'}_{a.topic or 'mixed'}_{len(qs)}q.mp4".replace(" ", "_")
     print(f"🎬 Rendering {len(qs)} questions → {out}")
-    chapters = await build_session(qs, a.exam, a.topic, out, use_tts=not a.no_tts)
+    chapters = await build_session(qs, a.exam, a.topic, out, use_tts=not a.no_tts,
+                                    tts_provider=a.tts_provider)
     title, desc, tags = make_meta(qs, a.exam, a.topic, chapters)
     Path(out).with_suffix(".txt").write_text(f"{title}\n\n{desc}\n\nTAGS: {', '.join(tags)}\n")
     print(f"✅ Video: {out} ({_fmt_ts(_ffprobe_dur(out))})\n   Title: {title}\n   Meta:  {Path(out).with_suffix('.txt')}")
