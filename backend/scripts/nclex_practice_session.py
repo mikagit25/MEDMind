@@ -82,6 +82,15 @@ def _load_openai_key() -> str | None:
 
 BG_DARK  = (10, 14, 20)
 BG_CARD  = (18, 26, 38)
+
+# Animated background (video_backgrounds.py). None → classic flat dark background.
+BG_PATH: str | None = None
+BG_LOOP_SECS = 12
+
+
+def _card():
+    """Card fill: slightly see-through over an animated background, solid otherwise."""
+    return BG_CARD + (226,) if BG_PATH else BG_CARD
 ACCENT   = (99, 179, 237)
 PINK     = (236, 72, 153)
 GREEN    = (52, 211, 153)
@@ -195,7 +204,7 @@ def fetch_questions(exam: str | None, topic: str | None, count: int,
 # ── Frames (16:9) ─────────────────────────────────────────────────────────────
 
 def _canvas(badge: str, progress: tuple[int, int] | None = None):
-    img = Image.new("RGB", (W, H), BG_DARK)
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0)) if BG_PATH else Image.new("RGB", (W, H), BG_DARK)
     d = ImageDraw.Draw(img)
     d.rectangle([0, 0, W, 8], fill=PINK)
     d.text((60, 34), "MedMind", font=fb(40), fill=TEXT_W)
@@ -206,7 +215,7 @@ def _canvas(badge: str, progress: tuple[int, int] | None = None):
     d.text((W - bw - 42, 38), badge, font=fb(28), fill=(255, 255, 255))
     if progress:
         i, n = progress
-        d.rectangle([0, H - 10, W, H], fill=BG_CARD)
+        d.rectangle([0, H - 10, W, H], fill=_card())
         d.rectangle([0, H - 10, int(W * i / n), H], fill=ACCENT)
     return img, d
 
@@ -236,7 +245,7 @@ def frame_question(q: dict, i: int, n: int, exam_name: str) -> Image.Image:
                f"·  {q['module_title'][:60]}", font=fr(32), fill=TEXT_M)
     # question card
     # card leaves room on the right for the countdown timer
-    d.rounded_rectangle([60, 170, W - 240, 470], radius=22, fill=BG_CARD)
+    d.rounded_rectangle([60, 170, W - 240, 470], radius=22, fill=_card())
     lines = wrap(d, q["question"], fb(42), W - 380)
     size = 42 if len(lines) <= 5 else 34
     lines = wrap(d, q["question"], fb(size), W - 380)
@@ -258,7 +267,7 @@ def _options(d, options: dict, correct: str | None, y0: int = 500, ch: int = 230
         x = 60 + (k % 2) * (cw + 40)
         y = y0 + (k // 2) * (ch + 30)
         if correct is None:
-            fill, outline, col, tcol = BG_CARD, None, LETTER_COLORS[letter], TEXT_W
+            fill, outline, col, tcol = _card(), None, LETTER_COLORS[letter], TEXT_W
         elif letter == correct:
             fill, outline, col, tcol = (20, 60, 40), GREEN, GREEN, TEXT_W
         else:
@@ -373,8 +382,14 @@ async def tts(text: str, path: str, enabled: bool,
     return est
 
 
-def _encode(parts: list[tuple[str, float, str | None]], out: str):
-    """parts: [(png, seconds, audio_or_None)] → one MP4 segment with continuous AAC track."""
+def _encode(parts: list[tuple[str, float, str | None]], out: str,
+            bg: str | None = None, bg_offset: float = 0.0):
+    """parts: [(png, seconds, audio_or_None)] → one MP4 segment with continuous AAC track.
+
+    bg: looping background MP4 (video_backgrounds.bg_loop); the PNGs are then RGBA and are
+    overlaid on it. bg_offset = time of this segment inside the whole video, so the motion
+    continues smoothly across segments instead of restarting."""
+    bg = bg if bg is not None else BG_PATH
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     for png, secs, _ in parts:
         cmd += ["-loop", "1", "-framerate", str(FPS), "-t", f"{secs:.3f}", "-i", png]
@@ -390,13 +405,27 @@ def _encode(parts: list[tuple[str, float, str | None]], out: str):
     for k, (_, secs, _) in enumerate(parts):
         # pad/trim each audio piece to exactly its picture length
         filt.append(f"[{n + k}:a]aresample=44100,apad,atrim=0:{secs:.3f}[a{k}]")
-    vcat = "".join(f"[{k}:v]" for k in range(n)) + f"concat=n={n}:v=1:a=0,format=yuv420p[v]"
+    if bg:
+        cmd += ["-stream_loop", "-1", "-ss", f"{bg_offset % BG_LOOP_SECS:.3f}", "-i", bg]
+        vcat = ("".join(f"[{k}:v]" for k in range(n)) + f"concat=n={n}:v=1:a=0,format=rgba[fg];"
+                f"[{2 * n}:v]scale={_wh(parts)}:force_original_aspect_ratio=increase,"
+                f"crop={_wh(parts)},setsar=1,fps={FPS}[bgv];"
+                f"[bgv][fg]overlay=0:0:shortest=1:format=auto,format=yuv420p[v]")
+    else:
+        vcat = "".join(f"[{k}:v]" for k in range(n)) + f"concat=n={n}:v=1:a=0,format=yuv420p[v]"
     acat = "".join(f"[a{k}]" for k in range(n)) + f"concat=n={n}:v=0:a=1[a]"
     filt += [vcat, acat]
+    tune = [] if bg else ["-tune", "stillimage"]
     cmd += ["-filter_complex", ";".join(filt), "-map", "[v]", "-map", "[a]",
-            "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-r", str(FPS),
+            "-c:v", "libx264", "-preset", "veryfast", *tune, "-r", str(FPS),
             "-c:a", "aac", "-b:a", "192k", "-ar", "44100", "-ac", "2", out]
     subprocess.run(cmd, check=True)
+
+
+def _wh(parts) -> str:
+    """'W:H' of the PNGs being encoded (16:9 sessions and 9:16 Shorts share _encode)."""
+    with Image.open(parts[0][0]) as im:
+        return f"{im.width}:{im.height}"
 
 
 def _fmt_ts(sec: float) -> str:
@@ -425,7 +454,7 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
                       f"nursing exam. You have {THINK_SECS} seconds for each question. Let's begin.")
         a_dur = await tts(intro_text, a, use_tts, provider=tts_provider)
         dur = max(INTRO_SECS, a_dur + 0.8)
-        seg = f"{tmp}/s000.mp4"; _encode([(p, dur, a)], seg); segs.append(seg)
+        seg = f"{tmp}/s000.mp4"; _encode([(p, dur, a)], seg, bg_offset=0.0); segs.append(seg)
         chapters.append((0.0, "Introduction")); t += dur
 
         for i, q in enumerate(questions, 1):
@@ -448,7 +477,7 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
             ap = f"{tmp}/a{i}.png"; frame_answer(q, i, n, exam_name).save(ap)
             parts.append((ap, ad + 1.2, aa))
 
-            seg = f"{tmp}/s{i:03d}.mp4"; _encode(parts, seg); segs.append(seg)
+            seg = f"{tmp}/s{i:03d}.mp4"; _encode(parts, seg, bg_offset=t); segs.append(seg)
             label = f"Q{i}" + (f" — {q['module_title'][:40]}" if q.get("module_title") else "")
             chapters.append((t, label))
             t += sum(x[1] for x in parts)
@@ -459,7 +488,7 @@ async def build_session(questions: list[dict], exam: str | None, topic: str | No
         a_dur = await tts("How many did you get right? Tell us your score in the comments, "
                           "and try the free full practice test on MedMind. Good luck on your exam!",
                           a, use_tts, provider=tts_provider)
-        seg = f"{tmp}/s999.mp4"; _encode([(p, max(OUTRO_SECS, a_dur + 1), a)], seg); segs.append(seg)
+        seg = f"{tmp}/s999.mp4"; _encode([(p, max(OUTRO_SECS, a_dur + 1), a)], seg, bg_offset=t); segs.append(seg)
         chapters.append((t, "Your score & free practice test"))
 
         lst = f"{tmp}/list.txt"
@@ -535,10 +564,19 @@ async def main():
                     help="edge = free EmmaNeural (default) | openai = tts-1-hd (requires OPENAI_API_KEY)")
     ap.add_argument("--voice", default=None,
                     help="Override edge-tts voice, e.g. en-US-AvaNeural (edge only)")
+    ap.add_argument("--bg", default="auto",
+                    help="animated background: aurora|ecg|molecules|cells|auto (per exam)|random|none")
     a = ap.parse_args()
     if a.voice:
         global VOICE
         VOICE = a.voice
+    if a.bg != "none":
+        global BG_PATH
+        from video_backgrounds import bg_loop, pick_theme, THEMES
+        theme = (a.bg if a.bg in THEMES else
+                 pick_theme(None) if a.bg == "random" else pick_theme(f"{a.exam}-{a.topic}"))
+        print(f"🎨 Background: {theme}")
+        BG_PATH = bg_loop(theme, W, H, secs=BG_LOOP_SECS)
 
     if not shutil.which("ffmpeg"):
         sys.exit("[error] ffmpeg not found")

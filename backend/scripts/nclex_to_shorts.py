@@ -206,8 +206,14 @@ def _save_tracking(question_id: str, yt_id: str | None = None):
 
 # ── Frame renderers ───────────────────────────────────────────────────────────
 
+# Set True by scripts that composite frames over an animated background (video_backgrounds.py):
+# the canvas is then transparent instead of flat dark. Default False = unchanged behaviour.
+CANVAS_TRANSPARENT = False
+
+
 def _base_canvas(title_bar: str | None = None) -> tuple[Image.Image, ImageDraw.ImageDraw]:
-    img = Image.new("RGB", (W, H), BG_DARK)
+    img = (Image.new("RGBA", (W, H), (0, 0, 0, 0)) if CANVAS_TRANSPARENT
+           else Image.new("RGB", (W, H), BG_DARK))
     draw = ImageDraw.Draw(img)
     # Top accent strip
     draw.rectangle([0, 0, W, 6], fill=PINK)

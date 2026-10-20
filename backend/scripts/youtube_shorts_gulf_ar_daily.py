@@ -59,6 +59,7 @@ from nclex_to_shorts import (  # noqa: E402  shared brand, fonts, DB
     fb, fr, tw, wrap, _base_canvas, _db_conn,
 )
 from nclex_practice_session import _encode, _ffprobe_dur  # noqa: E402  ffmpeg pipeline
+import nclex_to_shorts  # noqa: E402  (CANVAS_TRANSPARENT switch for animated backgrounds)
 
 DAILY_LIMIT  = 2
 WAIT_BETWEEN = 45
@@ -327,7 +328,7 @@ async def say(text: str, path: str, voice: str, enabled: bool, rate: str = EN_RA
     return est
 
 
-async def build(q: dict, exam: str, out: str, use_tts: bool):
+async def build(q: dict, exam: str, out: str, use_tts: bool, bg: str | None = None):
     o = q["options"]
     spoken_q = q["question"] + " " + " ".join(f"{L}: {o[L]}." for L in "ABCD" if o.get(L))
     spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
@@ -347,7 +348,7 @@ async def build(q: dict, exam: str, out: str, use_tts: bool):
         parts += [(p("ans.png"), ad + 0.3, p("a.mp3")),
                   (p("ans.png"), ed + 1.2, p("e.mp3")),
                   (p("cta.png"), 3.5, None)]
-        _encode(parts, out)
+        _encode(parts, out, bg=bg, bg_offset=0.0)
 
 
 # ── Data ──────────────────────────────────────────────────────────────────────
@@ -484,7 +485,11 @@ async def main():
     ap.add_argument("--demo", action="store_true", help="built-in question, no DB")
     ap.add_argument("--no-tts", action="store_true", help="silent audio (layout test)")
     ap.add_argument("--out", default=None, help="output path (single video)")
+    ap.add_argument("--bg", default="auto",
+                    help="animated background: aurora|ecg|molecules|cells|auto (per question)|none")
     a = ap.parse_args()
+    if a.bg != "none":
+        nclex_to_shorts.CANVAS_TRANSPARENT = True
 
     qs = DEMO if a.demo else fetch(a.exam, a.limit)
     if not qs:
@@ -496,7 +501,13 @@ async def main():
         name = f"gulf_{a.exam}_{q['id'][:8]}_en-ar.mp4"
         out = a.out or str(Path(tempfile.gettempdir()) / name)
         print(f"\n[{i}/{len(qs)}] {q['question'][:70]}…  →  {name}")
-        await build(q, a.exam, out, use_tts=not a.no_tts)
+        bg = None
+        if a.bg != "none":
+            from video_backgrounds import bg_loop, pick_theme, THEMES
+            theme = a.bg if a.bg in THEMES else pick_theme(q["id"])   # varies per question
+            bg = bg_loop(theme, W, H)                                   # cached after first render
+            print(f"  🎨 background: {theme}")
+        await build(q, a.exam, out, use_tts=not a.no_tts, bg=bg)
         m = meta(q, a.exam)
         print(f"  Title (ar): {m['title']}\n  Title (en): {m['localizations']['en']['title']}"
               f"\n  Length: {_ffprobe_dur(out):.0f}s")
