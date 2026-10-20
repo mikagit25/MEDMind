@@ -50,7 +50,16 @@ GOLD     = (251, 191, 36)
 DB_URL = os.environ.get("DB_URL", "postgresql://medmind:medmind_secret@localhost:5432/medmind")
 
 def _ar_prep(text: str) -> str:
-    """Reshape Arabic text so PIL renders it correctly (shaping + RTL bidi)."""
+    """Reshape Arabic text for Pillow rendering.
+    With raqm (libraqm), Pillow already handles shaping + BiDi — pre-processing
+    would produce isolated letters and reversed order. Skip it in that case.
+    """
+    try:
+        from PIL import features as _pf
+        if _pf.check("raqm"):
+            return str(text)
+    except Exception:
+        pass
     try:
         import arabic_reshaper
         from bidi.algorithm import get_display
