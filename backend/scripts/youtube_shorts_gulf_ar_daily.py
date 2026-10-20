@@ -63,8 +63,9 @@ from nclex_practice_session import _encode, _ffprobe_dur  # noqa: E402  ffmpeg p
 DAILY_LIMIT  = 2
 WAIT_BETWEEN = 45
 EN_VOICE     = os.environ.get("TTS_VOICE_EN", "en-US-EmmaNeural")
-AR_VOICE     = os.environ.get("TTS_VOICE_AR", "ar-EG-SalmaNeural")   # Egyptian: widely understood
-RATE         = "-5%"
+AR_VOICE     = os.environ.get("TTS_VOICE_AR", "ar-SA-ZariyahNeural")  # Saudi Arabic: best for Gulf audience
+EN_RATE      = "-5%"
+AR_RATE      = "-15%"   # Arabic needs more breathing room: longer words, medical terms
 THINK_SECS   = 5
 
 TOKEN_FILE    = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token_ar.json"))
@@ -312,11 +313,11 @@ def f_cta(exam: str) -> Image.Image:
 
 # ── TTS (voice per call: EN for the question, AR for the explanation) ─────────
 
-async def say(text: str, path: str, voice: str, enabled: bool) -> float:
+async def say(text: str, path: str, voice: str, enabled: bool, rate: str = EN_RATE) -> float:
     import subprocess
     if enabled:
         import edge_tts
-        await edge_tts.Communicate(text[:1500], voice, rate=RATE).save(path)
+        await edge_tts.Communicate(text[:1500], voice, rate=rate).save(path)
         dur = _ffprobe_dur(path)
         if dur > 0:
             return dur
@@ -332,9 +333,9 @@ async def build(q: dict, exam: str, out: str, use_tts: bool):
     spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
     with tempfile.TemporaryDirectory() as tmp:
         p = lambda n: f"{tmp}/{n}"  # noqa: E731
-        qd = await say(spoken_q, p("q.mp3"), EN_VOICE, use_tts)
-        ad = await say(spoken_ans, p("a.mp3"), EN_VOICE, use_tts)
-        ed = await say(q["explanation_ar"], p("e.mp3"), AR_VOICE, use_tts)
+        qd = await say(spoken_q,           p("q.mp3"), EN_VOICE, use_tts, EN_RATE)
+        ad = await say(spoken_ans,         p("a.mp3"), EN_VOICE, use_tts, EN_RATE)
+        ed = await say(q["explanation_ar"], p("e.mp3"), AR_VOICE, use_tts, AR_RATE)
         f_hook(exam, q.get("module_title")).save(p("hook.png"))
         base = f_question(q, exam); base.save(p("q.png"))
         f_answer(q, exam).save(p("ans.png"))

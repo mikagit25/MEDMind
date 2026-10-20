@@ -28,7 +28,7 @@ from nclex_to_shorts import build_video  # noqa: E402
 DAILY_LIMIT  = 4
 WAIT_BETWEEN = 45
 LANG         = "ar"
-TTS_VOICE    = "ar-EG-SalmaNeural"
+TTS_VOICE    = "ar-SA-ZariyahNeural"
 
 TOKEN_FILE    = Path(os.environ.get("YT_TOKEN",         "/opt/medmind/youtube_token_ar.json"))
 SECRET_FILE   = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_secret_account3_web.json"))
