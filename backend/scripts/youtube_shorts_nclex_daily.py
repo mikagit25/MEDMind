@@ -115,19 +115,55 @@ def _yt_upload(mp4: str, title: str, description: str, token_file: Path, secret_
     return vid_id
 
 
-def _make_title(q: dict) -> str:
+# Gulf licensing exams: slug → (display name, hashtags)
+GULF_EXAMS = {
+    "snle":   ("Saudi SNLE (SCFHS)", "#SNLE #SCFHS #SaudiNursing #ProMetric"),
+    "dha":    ("DHA Dubai",          "#DHAExam #DubaiNurse #ProMetric"),
+    "haad":   ("DOH Abu Dhabi",      "#HAADExam #DOHExam #AbuDhabiNurse #ProMetric"),
+    "mohuae": ("MOH UAE",            "#MOHExam #UAENurse #ProMetric"),
+    "qchp":   ("QCHP Qatar",         "#QCHPExam #QatarNurse #ProMetric"),
+    "omsb":   ("OMSB Oman",          "#OMSBExam #OmanNurse #ProMetric"),
+    "nhra":   ("NHRA Bahrain",       "#NHRAExam #BahrainNurse #ProMetric"),
+    "moh_kw": ("Kuwait MOH",         "#KuwaitNurse #ProMetric"),
+}
+
+
+def _make_title(q: dict, exam: str | None = None) -> str:
+    module = (q.get("module_title") or "Nursing")[:40]
+    if exam and exam in GULF_EXAMS:
+        name = GULF_EXAMS[exam][0]
+        return f"🩺 {name} Nursing Exam Question: {module} #Shorts"[:100]
     diff = q.get("difficulty", "medium").capitalize()
-    module = (q.get("module_title") or "NCLEX")[:40]
     return f"🩺 NCLEX Challenge: {module} ({diff}) #Shorts"[:100]
 
 
-def _make_description(q: dict, correct: str) -> str:
+def _make_description(q: dict, correct: str, exam: str | None = None) -> str:
     question = q["question"][:200]
     options  = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
     takeaway = q.get("key_takeaway", "")[:300]
     module   = (q.get("module_title") or "NCLEX Prep")
 
-    desc = (
+    if exam and exam in GULF_EXAMS:
+        name, tags = GULF_EXAMS[exam]
+        desc = (
+            f"Can you answer this {name} nursing exam practice question?\n\n"
+            f"📋 Topic: {module}\n\n"
+            f"❓ {question}\n\n"
+            f"A) {options.get('A', '')}\n"
+            f"B) {options.get('B', '')}\n"
+            f"C) {options.get('C', '')}\n"
+            f"D) {options.get('D', '')}\n\n"
+            f"✅ Answer: {correct}\n\n"
+            f"💡 Key Takeaway: {takeaway}\n\n"
+            f"Free {name} practice test:\n"
+            f"🔗 https://medmind.pro/exams/{exam}\n\n"
+            f"{tags} #NursingExam #GulfNurse #MedMindAI #Shorts\n\n"
+            f"Practice question written to the official exam blueprint. "
+            f"Not an actual exam item. Voice: AI-generated."
+        )
+        return desc
+
+    return (
         f"Can you answer this NCLEX question? Test your nursing knowledge!\n\n"
         f"📋 Topic: {module}\n\n"
         f"❓ {question}\n\n"
@@ -141,14 +177,13 @@ def _make_description(q: dict, correct: str) -> str:
         f"🔗 https://medmind.pro/nclex\n\n"
         f"{HASHTAGS}"
     )
-    return desc
 
 
-async def run(limit: int, dry_run: bool):
-    questions = list_available_questions(limit)
+async def run(limit: int, dry_run: bool, exam: str | None = None):
+    questions = list_available_questions(limit, exam=exam)
     if not questions:
-        print("✅ No new NCLEX questions to upload today.")
-        return
+        print(f"⚠ Question pool is EMPTY (exam={exam or 'any'}) — nothing uploaded.")
+        sys.exit(2)
 
     print(f"📋 Found {len(questions)} question(s) to upload (limit={limit})")
 
@@ -174,13 +209,13 @@ async def run(limit: int, dry_run: bool):
                 print(f"  ✗ Video build failed: {e}")
                 continue
 
-            title = _make_title(q)
-            desc  = _make_description(q, q["correct"])
+            title = _make_title(q, exam)
+            desc  = _make_description(q, q["correct"], exam)
             print(f"  Title: {title}")
 
             if dry_run:
                 print(f"  [dry-run] would upload: {mp4}")
-                _save_tracking(q["id"])
+                # do NOT save tracking on dry-run (prevents burning questions)
                 uploaded_count += 1
                 continue
 
@@ -204,8 +239,10 @@ def main():
     parser = argparse.ArgumentParser(description="Daily NCLEX Shorts uploader")
     parser.add_argument("--limit", type=int, default=DAILY_LIMIT)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--exam", choices=sorted(GULF_EXAMS), default=None,
+                        help="Only questions for this Gulf exam (title/description/link adapt)")
     args = parser.parse_args()
-    asyncio.run(run(args.limit, args.dry_run))
+    asyncio.run(run(args.limit, args.dry_run, args.exam))
 
 
 if __name__ == "__main__":

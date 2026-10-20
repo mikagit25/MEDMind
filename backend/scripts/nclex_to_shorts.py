@@ -129,12 +129,21 @@ def load_question(question_id: str) -> dict | None:
         return dict(row) if row else None
 
 
-def list_available_questions(limit: int = 20) -> list[dict]:
-    """Return English NCLEX questions with key_takeaway not yet uploaded."""
-    uploaded = list(_load_tracking())
+def list_available_questions(limit: int = 20, exam: str | None = None) -> list[dict]:
+    """Return English MCQ questions with key_takeaway not yet uploaded.
+
+    exam: optional Gulf exam slug (snle, dha, haad, qchp, omsb, nhra, mohuae, moh_kw)
+          — filters to questions tagged with that slug in exam_slugs JSONB column.
+    """
+    uploaded = sorted(_load_tracking())
+    exam_sql = "AND q.exam_slugs @> %s::jsonb" if exam else ""
+    params: list = []
+    if exam:
+        params.append(json.dumps([exam]))
+    params += [uploaded, limit]
     with _db_conn() as conn, conn.cursor() as cur:
         cur.execute(
-            """
+            f"""
             SELECT q.id::text, q.question, q.difficulty, m.title AS module_title
             FROM mcq_questions q
             LEFT JOIN modules m ON m.id = q.module_id
@@ -144,13 +153,14 @@ def list_available_questions(limit: int = 20) -> list[dict]:
                   q.exam_slugs IS NOT NULL
                   OR m.code LIKE 'NURSE-%%'
               )
+              {exam_sql}
               AND q.question ~ '^[A-Za-z]'
               AND q.question !~ '[А-яЁёА-ЯЙЮЭЫЪЬа-яёйюэыъь]'
-              AND q.id::text != ALL(%s)
+              AND NOT (q.id::text = ANY(%s))
             ORDER BY q.created_at ASC
             LIMIT %s
             """,
-            (uploaded, limit),
+            params,
         )
         rows = [dict(r) for r in cur.fetchall()]
     # Extra guard: skip any row with Cyrillic characters in the question
