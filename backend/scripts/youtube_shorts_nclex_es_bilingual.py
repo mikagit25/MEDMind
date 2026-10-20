@@ -168,26 +168,30 @@ def f_cta() -> Image.Image:
 
 
 async def build(q: dict, out: str, use_tts: bool, bg: str | None = None):
-    o = q["options"]
-    spoken_q = q["question"] + " " + " ".join(f"{L}: {o[L]}." for L in "ABCD" if o.get(L))
-    spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
-    with tempfile.TemporaryDirectory() as tmp:
-        p = lambda n: f"{tmp}/{n}"  # noqa: E731
-        qd = await say(spoken_q, p("q.mp3"), EN_VOICE, use_tts, EN_RATE)
-        ad = await say(spoken_ans, p("a.mp3"), EN_VOICE, use_tts, EN_RATE)
-        ed = await say(q["explanation_es"], p("e.mp3"), ES_VOICE, use_tts, ES_RATE)
-        f_hook(q).save(p("hook.png"))
-        base = f_question(q); base.save(p("q.png"))
-        f_answer(q).save(p("ans.png"))
-        f_cta().save(p("cta.png"))
-        parts = [(p("hook.png"), 2.5, None), (p("q.png"), qd + 0.5, p("q.mp3"))]
-        for s in range(THINK_SECS, 0, -1):
-            f_think(base, s).save(p(f"t{s}.png"))
-            parts.append((p(f"t{s}.png"), 1.0, None))
-        parts += [(p("ans.png"), ad + 0.3, p("a.mp3")),
-                  (p("ans.png"), ed + 1.2, p("e.mp3")),
-                  (p("cta.png"), 3.5, None)]
-        _encode(parts, out, bg=bg, bg_offset=0.0)
+    nclex_to_shorts.CANVAS_TRANSPARENT = bg is not None
+    try:
+        o = q["options"]
+        spoken_q = q["question"] + " " + " ".join(f"{L}: {o[L]}." for L in "ABCD" if o.get(L))
+        spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
+        with tempfile.TemporaryDirectory() as tmp:
+            p = lambda n: f"{tmp}/{n}"  # noqa: E731
+            qd = await say(spoken_q, p("q.mp3"), EN_VOICE, use_tts, EN_RATE)
+            ad = await say(spoken_ans, p("a.mp3"), EN_VOICE, use_tts, EN_RATE)
+            ed = await say(q["explanation_es"], p("e.mp3"), ES_VOICE, use_tts, ES_RATE)
+            f_hook(q).save(p("hook.png"))
+            base = f_question(q); base.save(p("q.png"))
+            f_answer(q).save(p("ans.png"))
+            f_cta().save(p("cta.png"))
+            parts = [(p("hook.png"), 2.5, None), (p("q.png"), qd + 0.5, p("q.mp3"))]
+            for s in range(THINK_SECS, 0, -1):
+                f_think(base, s).save(p(f"t{s}.png"))
+                parts.append((p(f"t{s}.png"), 1.0, None))
+            parts += [(p("ans.png"), ad + 0.3, p("a.mp3")),
+                      (p("ans.png"), ed + 1.2, p("e.mp3")),
+                      (p("cta.png"), 3.5, None)]
+            _encode(parts, out, bg=bg)
+    finally:
+        nclex_to_shorts.CANVAS_TRANSPARENT = False
 
 
 # ── Data ──────────────────────────────────────────────────────────────────────
@@ -321,8 +325,6 @@ async def main():
     ap.add_argument("--bg", default="auto",
                     help="animated background: aurora|ecg|molecules|cells|auto (per question)|none")
     a = ap.parse_args()
-    if a.bg != "none":
-        nclex_to_shorts.CANVAS_TRANSPARENT = True
 
     qs = DEMO if a.demo else fetch(a.limit)
     if not qs:
