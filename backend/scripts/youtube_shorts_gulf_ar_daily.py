@@ -74,7 +74,7 @@ TRACKING_FILE = Path(os.environ.get("YT_GULF_AR_TRACKING",
 # slug → (English name, Arabic name, hashtags)
 EXAMS = {
     "snle":   ("Saudi SNLE",     "الهيئة السعودية SNLE", "#SNLE #هيئة_التخصصات_الصحية #تمريض_السعودية"),
-    "dha":    ("DHA Dubai",      "هيئة الصحة بدبي DHA",  "#DHA #تمريض_دبي #برومترك"),
+    "dha":    ("DHA Dubai",      "هيئة الصحة بدبي DHA",  "#DHA #تمريض_دبي"),
     "haad":   ("DOH Abu Dhabi",  "دائرة الصحة أبوظبي DOH", "#DOH #HAAD #تمريض_أبوظبي"),
     "mohuae": ("MOH UAE",        "وزارة الصحة الإماراتية MOH", "#MOH #تمريض_الإمارات"),
     "qchp":   ("QCHP Qatar",     "قطر QCHP",             "#QCHP #تمريض_قطر"),
