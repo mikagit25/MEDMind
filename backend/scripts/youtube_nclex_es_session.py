@@ -307,7 +307,12 @@ def make_meta_es(questions: list[dict], topic: str | None,
     t_es = topic or (topic_es(questions[0]) if questions else "Preguntas mixtas")
     t_en = (questions[0].get("nclex_category") or
             questions[0].get("module_title") or "Mixed")[:30] if questions else "Mixed"
-    chap = "\n".join(f"{_fmt_ts(s)} {label}" for s, label in chapters)
+    # Chapters: P1/P2... for Spanish viewers, Q1/Q2... for English viewers
+    chap_es = "\n".join(f"{_fmt_ts(s)} {label}" for s, label in chapters)
+    chap_en = "\n".join(
+        f"{_fmt_ts(s)} {label.replace('P', 'Q', 1) if label.startswith('P') else label}"
+        for s, label in chapters
+    )
 
     title_es = f"🩺 {n} Preguntas NCLEX-RN en español {year} | {t_es} | Con Explicaciones"[:100]
     title_en = f"🩺 {n} NCLEX-RN Practice Questions {year} | {t_en} | Spanish Explanations"[:100]
@@ -318,7 +323,7 @@ def make_meta_es(questions: list[dict], topic: str | None,
         f"¡Comenta cuántas acertaste! 👇\n\n"
         f"📝 Practica más de 1,000 preguntas NCLEX gratis con explicaciones en español:\n"
         f"🔗 https://medmind.pro/es/nclex\n\n"
-        f"⏱ Capítulos:\n{chap}\n\n"
+        f"⏱ Capítulos:\n{chap_es}\n\n"
         f"Preguntas originales basadas en el plan oficial del NCLEX-RN; no son preguntas reales "
         f"del examen. Solo con fines educativos, no son consejo médico. Voz generada por IA.\n\n"
         f"{_HASHTAGS_SESSION_ES}"
@@ -326,8 +331,9 @@ def make_meta_es(questions: list[dict], topic: str | None,
     desc_en = (
         f"{n} NCLEX-RN practice questions ({year}) — {t_en}.\n"
         f"Questions in English (as in the real exam), explanations in Spanish.\n\n"
-        f"📝 Free NCLEX practice: https://medmind.pro/nclex\n\n"
-        f"Chapters:\n{chap}\n\n"
+        f"📝 Free NCLEX practice: https://medmind.pro/nclex\n"
+        f"🔗 En español: https://medmind.pro/es/nclex\n\n"
+        f"Chapters:\n{chap_en}\n\n"
         f"Original practice questions based on the NCLEX test plan — not actual exam items. "
         f"Education only, not medical advice. AI-generated voice."
     )
