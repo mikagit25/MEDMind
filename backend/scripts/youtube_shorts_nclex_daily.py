@@ -32,6 +32,7 @@ from nclex_to_shorts import (
     load_question,
     _save_tracking,
     TRACKING_FILE,
+    W, H,
 )
 
 DAILY_LIMIT    = 4
@@ -195,7 +196,7 @@ def _make_description(q: dict, correct: str, exam: str | None = None) -> str:
     )
 
 
-async def run(limit: int, dry_run: bool, exam: str | None = None):
+async def run(limit: int, dry_run: bool, exam: str | None = None, bg_arg: str = "auto"):
     questions = list_available_questions(limit, exam=exam)
     if not questions:
         print(f"⚠ Question pool is EMPTY (exam={exam or 'any'}) — nothing uploaded.")
@@ -206,6 +207,11 @@ async def run(limit: int, dry_run: bool, exam: str | None = None):
     if not TOKEN_FILE.exists() and not dry_run:
         print(f"[error] YouTube token not found: {TOKEN_FILE}")
         sys.exit(1)
+
+    bg_fn = None
+    if bg_arg != "none":
+        from video_backgrounds import bg_loop, pick_theme
+        bg_fn = lambda qid: bg_loop(bg_arg if bg_arg != "auto" else pick_theme(qid), W, H)  # noqa: E731
 
     uploaded_count = 0
     for i, q_meta in enumerate(questions[:limit]):
@@ -218,9 +224,10 @@ async def run(limit: int, dry_run: bool, exam: str | None = None):
 
         with tempfile.TemporaryDirectory() as tmp:
             mp4 = f"{tmp}/nclex_short.mp4"
+            bg = bg_fn(q_meta["id"]) if bg_fn else None
 
             try:
-                await build_video(q, mp4, dry_run=dry_run, exam=exam)
+                await build_video(q, mp4, dry_run=dry_run, exam=exam, bg=bg)
             except Exception as e:
                 print(f"  ✗ Video build failed: {e}")
                 continue
@@ -257,8 +264,10 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--exam", choices=sorted(GULF_EXAMS), default=None,
                         help="Only questions for this Gulf exam (title/description/link adapt)")
+    parser.add_argument("--bg", default="auto", metavar="THEME|auto|none",
+                        help="animated background: auto (deterministic per question), a theme name, or none")
     args = parser.parse_args()
-    asyncio.run(run(args.limit, args.dry_run, args.exam))
+    asyncio.run(run(args.limit, args.dry_run, args.exam, args.bg))
 
 
 if __name__ == "__main__":

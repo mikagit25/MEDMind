@@ -58,6 +58,7 @@ from nclex_to_shorts import (  # noqa: E402  shared brand, fonts, DB
     W, H, BG_CARD, ACCENT, PINK, GREEN, AMBER, TEXT_W, TEXT_M,
     fb, fr, tw, wrap, _base_canvas, _db_conn,
 )
+import nclex_to_shorts as _nts  # noqa: E402  needed to toggle CANVAS_TRANSPARENT
 from nclex_practice_session import _encode, _ffprobe_dur  # noqa: E402  ffmpeg pipeline
 
 DAILY_LIMIT  = 2
@@ -327,27 +328,31 @@ async def say(text: str, path: str, voice: str, enabled: bool, rate: str = EN_RA
     return est
 
 
-async def build(q: dict, exam: str, out: str, use_tts: bool):
-    o = q["options"]
-    spoken_q = q["question"] + " " + " ".join(f"{L}: {o[L]}." for L in "ABCD" if o.get(L))
-    spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
-    with tempfile.TemporaryDirectory() as tmp:
-        p = lambda n: f"{tmp}/{n}"  # noqa: E731
-        qd = await say(spoken_q,           p("q.mp3"), EN_VOICE, use_tts, EN_RATE)
-        ad = await say(spoken_ans,         p("a.mp3"), EN_VOICE, use_tts, EN_RATE)
-        ed = await say(q["explanation_ar"], p("e.mp3"), AR_VOICE, use_tts, AR_RATE)
-        f_hook(exam, q.get("module_title")).save(p("hook.png"))
-        base = f_question(q, exam); base.save(p("q.png"))
-        f_answer(q, exam).save(p("ans.png"))
-        f_cta(exam).save(p("cta.png"))
-        parts = [(p("hook.png"), 2.5, None), (p("q.png"), qd + 0.5, p("q.mp3"))]
-        for s in range(THINK_SECS, 0, -1):
-            f_think(base, s).save(p(f"t{s}.png"))
-            parts.append((p(f"t{s}.png"), 1.0, None))
-        parts += [(p("ans.png"), ad + 0.3, p("a.mp3")),
-                  (p("ans.png"), ed + 1.2, p("e.mp3")),
-                  (p("cta.png"), 3.5, None)]
-        _encode(parts, out)
+async def build(q: dict, exam: str, out: str, use_tts: bool, bg: str | None = None):
+    _nts.CANVAS_TRANSPARENT = bg is not None
+    try:
+        o = q["options"]
+        spoken_q = q["question"] + " " + " ".join(f"{L}: {o[L]}." for L in "ABCD" if o.get(L))
+        spoken_ans = f"The correct answer is {q['correct']}: {o.get(q['correct'], '')}."
+        with tempfile.TemporaryDirectory() as tmp:
+            p = lambda n: f"{tmp}/{n}"  # noqa: E731
+            qd = await say(spoken_q,           p("q.mp3"), EN_VOICE, use_tts, EN_RATE)
+            ad = await say(spoken_ans,         p("a.mp3"), EN_VOICE, use_tts, EN_RATE)
+            ed = await say(q["explanation_ar"], p("e.mp3"), AR_VOICE, use_tts, AR_RATE)
+            f_hook(exam, q.get("module_title")).save(p("hook.png"))
+            base = f_question(q, exam); base.save(p("q.png"))
+            f_answer(q, exam).save(p("ans.png"))
+            f_cta(exam).save(p("cta.png"))
+            parts = [(p("hook.png"), 2.5, None), (p("q.png"), qd + 0.5, p("q.mp3"))]
+            for s in range(THINK_SECS, 0, -1):
+                f_think(base, s).save(p(f"t{s}.png"))
+                parts.append((p(f"t{s}.png"), 1.0, None))
+            parts += [(p("ans.png"), ad + 0.3, p("a.mp3")),
+                      (p("ans.png"), ed + 1.2, p("e.mp3")),
+                      (p("cta.png"), 3.5, None)]
+            _encode(parts, out, bg=bg)
+    finally:
+        _nts.CANVAS_TRANSPARENT = False
 
 
 # ── Data ──────────────────────────────────────────────────────────────────────
@@ -484,7 +489,14 @@ async def main():
     ap.add_argument("--demo", action="store_true", help="built-in question, no DB")
     ap.add_argument("--no-tts", action="store_true", help="silent audio (layout test)")
     ap.add_argument("--out", default=None, help="output path (single video)")
+    ap.add_argument("--bg", default="auto", metavar="THEME|auto|none",
+                    help="animated background: auto (deterministic per question), a theme name, or none")
     a = ap.parse_args()
+
+    bg_fn = None
+    if a.bg != "none":
+        from video_backgrounds import bg_loop, pick_theme
+        bg_fn = lambda qid: bg_loop(a.bg if a.bg != "auto" else pick_theme(qid), W, H)  # noqa: E731
 
     qs = DEMO if a.demo else fetch(a.exam, a.limit)
     if not qs:
@@ -495,8 +507,9 @@ async def main():
     for i, q in enumerate(qs, 1):
         name = f"gulf_{a.exam}_{q['id'][:8]}_en-ar.mp4"
         out = a.out or str(Path(tempfile.gettempdir()) / name)
+        bg = bg_fn(q["id"]) if bg_fn else None
         print(f"\n[{i}/{len(qs)}] {q['question'][:70]}…  →  {name}")
-        await build(q, a.exam, out, use_tts=not a.no_tts)
+        await build(q, a.exam, out, use_tts=not a.no_tts, bg=bg)
         m = meta(q, a.exam)
         print(f"  Title (ar): {m['title']}\n  Title (en): {m['localizations']['en']['title']}"
               f"\n  Length: {_ffprobe_dur(out):.0f}s")

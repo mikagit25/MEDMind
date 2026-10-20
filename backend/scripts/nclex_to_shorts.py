@@ -206,8 +206,14 @@ def _save_tracking(question_id: str, yt_id: str | None = None):
 
 # ── Frame renderers ───────────────────────────────────────────────────────────
 
+# Set True before rendering when compositing over an animated background.
+# Frames will be RGBA (transparent where background shows through).
+CANVAS_TRANSPARENT = False
+
+
 def _base_canvas(title_bar: str | None = None) -> tuple[Image.Image, ImageDraw.ImageDraw]:
-    img = Image.new("RGB", (W, H), BG_DARK)
+    img = (Image.new("RGBA", (W, H), (0, 0, 0, 0)) if CANVAS_TRANSPARENT
+           else Image.new("RGB", (W, H), BG_DARK))
     draw = ImageDraw.Draw(img)
     # Top accent strip
     draw.rectangle([0, 0, W, 6], fill=PINK)
@@ -450,6 +456,37 @@ async def tts(text: str, path: str, voice: str | None = None) -> float:
 
 # ── Video assembly ────────────────────────────────────────────────────────────
 
+def _encode_short(parts: list[tuple[str, float, str | None]], out: str,
+                  bg: str | None = None) -> None:
+    """Encode a Short from PNG paths. With bg (path to looping MP4) frames must be RGBA."""
+    cmd = ["ffmpeg", "-y", "-loglevel", "error"]
+    n = len(parts)
+    for png, secs, _ in parts:
+        cmd += ["-loop", "1", "-framerate", str(FPS), "-t", f"{secs:.3f}", "-i", png]
+    for _, _, audio in parts:
+        cmd += (["-i", audio] if audio
+                else ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"])
+    filt = [f"[{n+k}:a]aresample=44100,apad,atrim=0:{secs:.3f}[a{k}]"
+            for k, (_, secs, _) in enumerate(parts)]
+    if bg:
+        cmd += ["-stream_loop", "-1", "-i", bg]
+        vcat = ("".join(f"[{k}:v]" for k in range(n)) +
+                f"concat=n={n}:v=1:a=0,format=rgba[fg];"
+                f"[{2*n}:v]scale={W}:{H}:force_original_aspect_ratio=increase,"
+                f"crop={W}:{H},setsar=1,fps={FPS}[bgv];"
+                f"[bgv][fg]overlay=0:0:shortest=1:format=auto,format=yuv420p[v]")
+    else:
+        vcat = ("".join(f"[{k}:v]" for k in range(n)) +
+                f"concat=n={n}:v=1:a=0,format=yuv420p[v]")
+    acat = "".join(f"[a{k}]" for k in range(n)) + f"concat=n={n}:v=0:a=1[a]"
+    filt += [vcat, acat]
+    tune = [] if bg else ["-tune", "stillimage"]
+    cmd += ["-filter_complex", ";".join(filt), "-map", "[v]", "-map", "[a]",
+            "-c:v", "libx264", "-preset", "veryfast", *tune, "-r", str(FPS),
+            "-c:a", "aac", "-b:a", "192k", "-ar", "44100", "-ac", "2", out]
+    subprocess.run(cmd, check=True)
+
+
 async def build_video(
     q: dict,
     out_path: str,
@@ -457,15 +494,16 @@ async def build_video(
     lang: str = "en",
     tts_voice: str | None = None,
     exam: str | None = None,
+    bg: str | None = None,
 ) -> str:
     """Render full NCLEX Short. Returns path to MP4.
 
-    For translated questions pass lang='es'|'ar' and tts_voice accordingly.
-    Pass exam slug to get exam-specific CTA slide (Gulf exams).
+    lang='es'|'ar' + tts_voice for translated questions.
+    exam slug → exam-specific CTA slide.
+    bg = path to looping background MP4 from video_backgrounds.bg_loop().
     """
-    from moviepy.editor import (
-        ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips,
-    )
+    global CANVAS_TRANSPARENT
+    CANVAS_TRANSPARENT = bg is not None
 
     prep      = _ar_prep if lang == "ar" else (lambda x: x)
     question  = prep(q["question"])
@@ -502,7 +540,8 @@ async def build_video(
     }
 
     if dry_run:
-        print(f"  [dry-run] skipping TTS + moviepy assembly")
+        print(f"  [dry-run] skipping TTS + assembly")
+        CANVAS_TRANSPARENT = False
         return out_path
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -518,40 +557,44 @@ async def build_video(
         PAUSE_DUR = 4.0
         CTA_DUR   = 5.0
 
-        hook_clip = ImageClip(frames["hook"]).set_duration(HOOK_DUR)
-        q_clip    = ImageClip(frames["question"]).set_duration(q_dur + 1.0)
-        pause_clip = ImageClip(frames["pause"]).set_duration(PAUSE_DUR)
-        rev_clip  = ImageClip(frames["reveal"]).set_duration(a_dur + 1.5)
-        cta_clip  = ImageClip(frames["cta"]).set_duration(CTA_DUR)
+        if bg:
+            # ffmpeg path: save frames as PNG, overlay on animated background
+            pngs = {}
+            for k, arr in frames.items():
+                p = f"{tmp}/{k}.png"
+                Image.fromarray(arr).save(p)
+                pngs[k] = p
+            parts = [
+                (pngs["hook"],     HOOK_DUR,       None),
+                (pngs["question"], q_dur + 1.0,    q_mp3),
+                (pngs["pause"],    PAUSE_DUR,       None),
+                (pngs["reveal"],   a_dur + 1.5,     a_mp3),
+                (pngs["cta"],      CTA_DUR,         None),
+            ]
+            total = HOOK_DUR + q_dur + 1.0 + PAUSE_DUR + a_dur + 1.5 + CTA_DUR
+            print(f"  → Encoding with background ({total:.1f}s)…")
+            _encode_short(parts, out_path, bg=bg)
+        else:
+            # moviepy path (no background — unchanged behaviour)
+            from moviepy.editor import (
+                ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips,
+            )
+            hook_clip  = ImageClip(frames["hook"]).set_duration(HOOK_DUR)
+            q_clip     = ImageClip(frames["question"]).set_duration(q_dur + 1.0)
+            pause_clip = ImageClip(frames["pause"]).set_duration(PAUSE_DUR)
+            rev_clip   = ImageClip(frames["reveal"]).set_duration(a_dur + 1.5)
+            cta_clip   = ImageClip(frames["cta"]).set_duration(CTA_DUR)
+            q_audio    = AudioFileClip(q_mp3).set_start(HOOK_DUR)
+            a_audio    = AudioFileClip(a_mp3).set_start(HOOK_DUR + q_dur + 1.0 + PAUSE_DUR)
+            final = concatenate_videoclips(
+                [hook_clip, q_clip, pause_clip, rev_clip, cta_clip], method="compose"
+            ).set_audio(CompositeAudioClip([q_audio, a_audio]))
+            print(f"  → Writing MP4 ({final.duration:.1f}s)…")
+            final.write_videofile(out_path, fps=FPS, codec="libx264",
+                                  audio_codec="aac", preset="fast", logger=None)
+            final.close(); q_audio.close(); a_audio.close()
 
-        q_audio = AudioFileClip(q_mp3)
-        a_audio = AudioFileClip(a_mp3)
-
-        q_start   = HOOK_DUR
-        a_start   = HOOK_DUR + q_dur + 1.0 + PAUSE_DUR
-
-        q_audio   = q_audio.set_start(q_start)
-        a_audio   = a_audio.set_start(a_start)
-
-        audio_mix = CompositeAudioClip([q_audio, a_audio])
-
-        final = concatenate_videoclips(
-            [hook_clip, q_clip, pause_clip, rev_clip, cta_clip], method="compose"
-        ).set_audio(audio_mix)
-
-        print(f"  → Writing MP4 ({final.duration:.1f}s)…")
-        final.write_videofile(
-            out_path,
-            fps=FPS,
-            codec="libx264",
-            audio_codec="aac",
-            preset="fast",
-            logger=None,
-        )
-        final.close()
-        q_audio.close()
-        a_audio.close()
-
+    CANVAS_TRANSPARENT = False
     return out_path
 
 
