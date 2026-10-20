@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import datetime
 import json
 import os
 import sys
@@ -71,18 +72,93 @@ SECRET_FILE   = Path(os.environ.get("YT_CLIENT_SECRET", "/opt/medmind/client_sec
 TRACKING_FILE = Path(os.environ.get("YT_GULF_AR_TRACKING",
                                     "/opt/medmind/youtube_shorts_gulf_ar_uploaded.json"))
 
-# slug → (English name, Arabic name, hashtags)
+# slug → (display name EN, Arabic long name, description hashtags)
 EXAMS = {
-    "snle":   ("Saudi SNLE",     "الهيئة السعودية SNLE", "#SNLE #هيئة_التخصصات_الصحية #تمريض_السعودية"),
-    "dha":    ("DHA Dubai",      "هيئة الصحة بدبي DHA",  "#DHA #تمريض_دبي"),
-    "haad":   ("DOH Abu Dhabi",  "دائرة الصحة أبوظبي DOH", "#DOH #HAAD #تمريض_أبوظبي"),
-    "mohuae": ("MOH UAE",        "وزارة الصحة الإماراتية MOH", "#MOH #تمريض_الإمارات"),
-    "qchp":   ("QCHP Qatar",     "قطر QCHP",             "#QCHP #تمريض_قطر"),
-    "omsb":   ("OMSB Oman",      "عُمان OMSB",           "#OMSB #تمريض_عمان"),
-    "nhra":   ("NHRA Bahrain",   "البحرين NHRA",         "#NHRA #تمريض_البحرين"),
-    "moh_kw": ("Kuwait MOH",     "الكويت MOH",           "#تمريض_الكويت"),
+    "snle":   ("Saudi SNLE",    "هيئة التخصصات الصحية SNLE",
+               "#SNLE #SCFHS #هيئة_التخصصات_الصحية #تمريض_السعودية #برومترك_السعودية #اسئلة_SNLE"),
+    "dha":    ("DHA Dubai",     "هيئة الصحة دبي DHA",
+               "#DHA #DHAExam #تمريض_دبي #برومترك_دبي #اسئلة_DHA #تمريض_الإمارات"),
+    "haad":   ("DOH Abu Dhabi", "دائرة الصحة أبوظبي DOH",
+               "#DOH #HAAD #HAADExam #تمريض_أبوظبي #برومترك_أبوظبي #اسئلة_HAAD"),
+    "mohuae": ("MOH UAE",       "وزارة الصحة الإماراتية MOH",
+               "#MOH #MOHUAE #تمريض_الإمارات #برومترك_الإمارات #اسئلة_MOH"),
+    "qchp":   ("QCHP Qatar",    "قطر QCHP",
+               "#QCHP #QCHPExam #تمريض_قطر #برومترك_قطر #اسئلة_QCHP"),
+    "omsb":   ("OMSB Oman",     "سلطنة عُمان OMSB",
+               "#OMSB #OMSBExam #تمريض_عمان #برومترك_عمان #اسئلة_OMSB"),
+    "nhra":   ("NHRA Bahrain",  "البحرين NHRA",
+               "#NHRA #NHRAExam #تمريض_البحرين #برومترك_البحرين #اسئلة_NHRA"),
+    "moh_kw": ("Kuwait MOH",    "الكويت MOH",
+               "#تمريض_الكويت #برومترك_الكويت #اسئلة_التمريض"),
 }
-BASE_TAGS_AR = "#برومترك #امتحان_التمريض #تمريض #ممرضة #MedMindAI #Shorts"
+
+# Short acronym for title — what nurses actually type in search
+_EXAM_SHORT = {
+    "snle": "SNLE", "dha": "DHA", "haad": "DOH/HAAD", "mohuae": "MOH UAE",
+    "qchp": "QCHP", "omsb": "OMSB", "nhra": "NHRA", "moh_kw": "MOH",
+}
+
+# Per-exam YouTube API tags (prepended before base tags)
+_EXAM_YT_TAGS: dict[str, list[str]] = {
+    "snle":   ["snle exam", "scfhs nursing", "saudi nursing exam", "تمريض السعودية", "اسئلة SNLE"],
+    "dha":    ["dha exam", "dha nursing exam", "dubai nursing", "تمريض دبي", "اسئلة DHA"],
+    "haad":   ["haad exam", "doh nursing", "abu dhabi nursing", "تمريض أبوظبي", "اسئلة HAAD"],
+    "mohuae": ["moh uae nursing", "uae nursing exam", "تمريض الإمارات", "اسئلة MOH"],
+    "qchp":   ["qchp exam", "qatar nursing exam", "تمريض قطر", "اسئلة QCHP"],
+    "omsb":   ["omsb exam", "oman nursing exam", "تمريض عمان", "اسئلة OMSB"],
+    "nhra":   ["nhra exam", "bahrain nursing exam", "تمريض البحرين", "اسئلة NHRA"],
+    "moh_kw": ["kuwait nursing exam", "تمريض الكويت", "اسئلة التمريض الكويت"],
+}
+_BASE_YT_TAGS = [
+    "prometric nursing", "برومترك تمريض", "اسئلة تمريض",
+    "شرح بالعربي", "gulf nursing exam", "تمريض الخليج", "medmind",
+]
+
+BASE_TAGS_AR = (
+    "#برومترك #امتحان_التمريض #تمريض #ممرضة "
+    "#شرح_بالعربي #اسئلة_تمريض #تمريض_الخليج #MedMindAI #Shorts"
+)
+
+# Arabic module name lookup — partial, case-insensitive
+_AR_MODULE: dict[str, str] = {
+    "pharmacology":    "الدوائيات",
+    "cardiovascular":  "القلب والأوعية",
+    "cardiac":         "أمراض القلب",
+    "respiratory":     "الجهاز التنفسي",
+    "endocrine":       "الغدد الصماء",
+    "diabetes":        "السكري",
+    "neurology":       "الجهاز العصبي",
+    "renal":           "أمراض الكلى",
+    "kidney":          "أمراض الكلى",
+    "gastrointestinal":"الجهاز الهضمي",
+    "pediatric":       "طب الأطفال",
+    "obstetric":       "التوليد",
+    "gynecol":         "أمراض النساء",
+    "psychiatric":     "الطب النفسي",
+    "mental":          "الصحة النفسية",
+    "orthopedic":      "جراحة العظام",
+    "hematology":      "أمراض الدم",
+    "oncology":        "الأورام",
+    "infection":       "الأمراض المعدية",
+    "sepsis":          "الإنتان",
+    "nutrition":       "التغذية",
+    "fundamentals":    "أساسيات التمريض",
+    "critical":        "العناية المركزة",
+    "emergency":       "الطوارئ",
+    "surgical":        "الجراحة",
+    "dermatology":     "الجلدية",
+}
+
+
+def _module_ar(title: str) -> str:
+    """Return Arabic module name if known; keep English if not (nurses search both)."""
+    if not title:
+        return "تمريض"
+    tl = title.lower()
+    for key, ar in _AR_MODULE.items():
+        if key in tl:
+            return ar
+    return title
 
 DEMO = [{
     "id": "demo-ar-1", "module_title": "Pharmacology", "correct": "B",
@@ -315,36 +391,51 @@ def fetch(exam: str, limit: int) -> list[dict]:
 # ── Metadata ──────────────────────────────────────────────────────────────────
 
 def meta(q: dict, exam: str) -> dict:
-    en, ar, tags = EXAMS[exam]
-    topic = (q.get("module_title") or "Nursing")[:30]
-    o = q["options"]
-    opts = "\n".join(f"{L}) {o[L]}" for L in "ABCD" if o.get(L))
-    title_ar = f"🩺 سؤال امتحان {en} للتمريض | {topic} | شرح بالعربي #Shorts"[:100]
-    title_en = f"🩺 {en} Nursing Exam Question: {topic} (Arabic explanation) #Shorts"[:100]
+    en, ar_name, hashtags = EXAMS[exam]
+    short       = _EXAM_SHORT[exam]
+    topic_en    = (q.get("module_title") or "Nursing")[:30]
+    topic_ar    = _module_ar(topic_en)
+    year        = datetime.date.today().year
+    o           = q["options"]
+    opts        = "\n".join(f"{L}) {o[L]}" for L in "ABCD" if o.get(L))
+    correct_txt = o.get(q["correct"], "")
+
+    # Title: exam acronym + year + Arabic module name — matches actual search queries
+    title_ar = f"🩺 امتحان {short} تمريض {year} | {topic_ar} | برومترك شرح #Shorts"[:100]
+    title_en = f"🩺 {en} Nursing Exam {year} | {topic_en} | Prometric Practice #Shorts"[:100]
+
     desc_ar = (
-        f"سؤال تدريبي لامتحان {ar} للتمريض — السؤال بالإنجليزية كما في الامتحان الحقيقي، "
-        f"والشرح بالعربية.\n"
-        f"اكتب إجابتك في التعليقات قبل مشاهدة الحل! 👇\n\n"
+        f"سؤال برومترك تمريض {ar_name} {year} — السؤال بالإنجليزية كما في الامتحان، والشرح بالعربية.\n"
+        f"✍️ اكتب إجابتك في التعليقات! هل أجبت صح؟ 👇\n\n"
+        f"📚 الموضوع: {topic_ar}\n\n"
         f"❓ {q['question']}\n{opts}\n\n"
-        f"✅ الإجابة الصحيحة: {q['correct']}\n"
-        f"💡 {q['explanation_ar']}\n\n"
-        f"📝 تدرّب مجاناً على أسئلة امتحانات التمريض الخليجية:\n🔗 https://medmind.pro/ar/gulf\n"
-        f"🔗 English: https://medmind.pro/exams/{exam}\n\n"
-        f"سؤال تدريبي أصلي مبني على مخطط الامتحان الرسمي، وليس من أسئلة الامتحان الفعلية. "
-        f"للتعليم والتحضير فقط وليس نصيحة طبية. الصوت مُولّد بالذكاء الاصطناعي.\n\n"
-        f"{tags} {BASE_TAGS_AR}"
+        f"✅ الإجابة الصحيحة: {q['correct']}) {correct_txt}\n"
+        f"💡 الشرح: {q['explanation_ar']}\n\n"
+        f"📝 تدرّب مجاناً على أسئلة {ar_name}:\n🔗 https://medmind.pro/ar/gulf\n"
+        f"🌐 English: https://medmind.pro/exams/{exam}\n\n"
+        f"سؤال تدريبي مبني على مخطط الامتحان الرسمي — ليس من الأسئلة الفعلية للامتحان. "
+        f"للتعليم والتحضير فقط، وليس نصيحة طبية. الصوت: ذكاء اصطناعي.\n\n"
+        f"{hashtags} {BASE_TAGS_AR}"
     )
     desc_en = (
-        f"{en} nursing exam practice question in English with an Arabic explanation.\n\n"
-        f"❓ {q['question']}\n{opts}\n\n✅ Answer: {q['correct']}\n\n"
-        f"📝 Free practice: https://medmind.pro/exams/{exam}\n\n"
+        f"{en} nursing exam practice (Prometric format, {year}). "
+        f"Question in English as in the real exam — explanation in Arabic.\n\n"
+        f"📚 Topic: {topic_en}\n\n"
+        f"❓ {q['question']}\n{opts}\n\n"
+        f"✅ Answer: {q['correct']}) {correct_txt}\n\n"
+        f"📝 Free {en} practice: https://medmind.pro/exams/{exam}\n\n"
         f"Original practice question based on the official blueprint — not an actual exam item. "
         f"Education only, not medical advice. AI-generated voice."
     )
-    return {"title": title_ar, "description": desc_ar,
-            "localizations": {"en": {"title": title_en, "description": desc_en}},
-            "tags": ["prometric", "nursing exam", en.lower(), "امتحان التمريض", "برومترك",
-                     "تمريض", "ممرضة", topic.lower(), "medmind", "shorts"]}
+
+    tags = (_EXAM_YT_TAGS.get(exam, []) + _BASE_YT_TAGS + [topic_en.lower()])[:20]
+
+    return {
+        "title":         title_ar,
+        "description":   desc_ar,
+        "localizations": {"en": {"title": title_en, "description": desc_en}},
+        "tags":          tags,
+    }
 
 
 def upload(mp4: str, m: dict) -> str | None:
