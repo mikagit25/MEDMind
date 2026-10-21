@@ -1,10 +1,26 @@
 {
   "uploaded": [
-    "59913cf6-643d-4535-8f36-eef7e48cdaa5"
+    "59913cf6-643d-4535-8f36-eef7e48cdaa5",
+    "5c206df0-f30d-4138-8de8-943d0a1de9b0",
+    "1c5a95f4-9e32-474e-92ff-54cc3e232e17",
+    "15cc975d-0aca-4dd6-8b82-d587f9a8ea5b",
+    "a7f053a0-3a19-48d2-9953-b51730d8f2a5"
   ],
   "details": {
     "59913cf6-643d-4535-8f36-eef7e48cdaa5": {
       "yt_id": "GuTeQvCsjiE"
+    },
+    "5c206df0-f30d-4138-8de8-943d0a1de9b0": {
+      "yt_id": "JpOnP9zzYrc"
+    },
+    "1c5a95f4-9e32-474e-92ff-54cc3e232e17": {
+      "yt_id": "vuFz3ms2xoY"
+    },
+    "15cc975d-0aca-4dd6-8b82-d587f9a8ea5b": {
+      "yt_id": "bqtjjeFf9qs"
+    },
+    "a7f053a0-3a19-48d2-9953-b51730d8f2a5": {
+      "yt_id": "rP1PYjhT_w8"
     }
   }
 }

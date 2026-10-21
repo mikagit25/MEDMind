@@ -1,10 +1,18 @@
 {
   "uploaded": [
-    "3a75c7e4-4328-43b1-a058-10a1d1d46699"
+    "3a75c7e4-4328-43b1-a058-10a1d1d46699",
+    "4bf8b519-6e1d-4f4a-96c7-d539f69e4b17",
+    "113ede1d-70f0-4b98-8170-43cf11c9d78b"
   ],
   "details": {
     "3a75c7e4-4328-43b1-a058-10a1d1d46699": {
       "yt_id": "NRv-7xEbikw"
+    },
+    "4bf8b519-6e1d-4f4a-96c7-d539f69e4b17": {
+      "yt_id": "8-BKzAXRF40"
+    },
+    "113ede1d-70f0-4b98-8170-43cf11c9d78b": {
+      "yt_id": "mNMDEVtVMCs"
     }
   }
 }
