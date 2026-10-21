@@ -68,6 +68,16 @@ Thumbs.db
 # Logs / temp
 nohup.out
 *.out
+*TEMP_MPY_*.mp4
+bg_cache/
+*.db
+
+# Playwright
+frontend/playwright-report/
+frontend/test-results/
+
+# QA / ad-hoc docs
+docs/QA_*.md
 
 # Root package-lock (not a node project at root)
 /package-lock.json
