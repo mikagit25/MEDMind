@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Generate cover images for MedMind articles that lack them.
+Fetch cover images for MedMind articles that lack them.
 
-Uses Together.ai FLUX.1-schnell to create professional medical illustrations.
+Uses Pexels API (free, no cost) to find professional medical stock photos.
 Each image is saved with full EXIF + XMP metadata (title, description,
 copyright, source URL) so Google Images can verify and attribute the image
 to medmind.pro — helping the site appear in image search results.
@@ -13,17 +13,13 @@ Image metadata embedded:
         xmpRights:WebStatement (site URL)
 
 Usage:
-  # Run from /opt/medmind on the host (not inside Docker)
-  TOGETHER_API_KEY=$(cat /opt/kids_channel/credentials/together_api_key.txt) \\
-    python3 backend/scripts/generate_article_images.py --limit 50
-
+  python3 backend/scripts/generate_article_images.py --limit 50
   python3 ... --category oncology --limit 100   # specific category
-  python3 ... --dry-run --limit 20              # preview prompts only
+  python3 ... --dry-run --limit 20              # preview queries only
   python3 ... --slug some-article-slug          # single article
-  python3 ... --overwrite                       # regenerate existing
+  python3 ... --overwrite                       # re-fetch existing
 
-API key:  /opt/kids_channel/credentials/together_api_key.txt
-Model:    black-forest-labs/FLUX.1-schnell  (~$0.0003/image)
+API key:  PEXELS_API_KEY env var (or from backend/.env)
 Output:   Docker volume → served at https://medmind.pro/media/articles/{slug}.jpg
 """
 
@@ -43,14 +39,12 @@ from sqlalchemy.orm import Session
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-SITE_URL          = "https://medmind.pro"
-TOGETHER_KEY_FILE = Path("/opt/kids_channel/credentials/together_api_key.txt")
-TOGETHER_URL      = "https://api.together.xyz/v1/images/generations"
-TOGETHER_MODEL    = "black-forest-labs/FLUX.1-schnell"
+SITE_URL         = "https://medmind.pro"
+PEXELS_URL       = "https://api.pexels.com/v1/search"
 
-DOCKER_VOL_DIR    = Path("/var/lib/docker/volumes/medmind_media_data/_data/articles")
-MEDIA_DIR         = Path("/app/data/media/articles")   # inside Docker container
-MEDIA_URL_PREFIX  = "/media/articles"
+DOCKER_VOL_DIR   = Path("/var/lib/docker/volumes/medmind_media_data/_data/articles")
+MEDIA_DIR        = Path("/app/data/media/articles")   # inside Docker container
+MEDIA_URL_PREFIX = "/media/articles"
 
 _raw_db_url = os.environ.get(
     "DATABASE_URL",
@@ -67,80 +61,104 @@ STYLE = (
     "modern healthcare aesthetics, 16:9 format"
 )
 
-CATEGORY_CONTEXT: dict[str, str] = {
-    "cardiology":                 "human heart anatomy, cardiovascular system",
-    "cardiology-advanced":        "advanced cardiac imaging echocardiogram heart monitor",
-    "neurology":                  "human brain neuroscience illustration",
-    "neurology-advanced":         "advanced brain MRI neural network microscopy",
-    "pharmacology":               "pharmaceutical pills and molecular structures",
-    "drug-reference":             "medication bottles laboratory glassware",
-    "drugs":                      "medication tablets capsules pharmaceutical",
-    "oncology":                   "cancer cell immunotherapy research laboratory",
-    "infectious-diseases":        "virus bacteria microscopy pathology",
-    "infectious-specific":        "virus bacteria microscopy pathology",
-    "surgery-procedures":         "surgical instruments operating room",
-    "surgery":                    "surgical team operating room sterile instruments",
-    "diagnostics":                "medical diagnostic equipment laboratory",
-    "diagnostics-interpretation": "ECG MRI scan radiology reading",
-    "procedures":                 "medical procedure clinical equipment",
-    "ob-gyn":                     "maternal fetal medicine clinical ultrasound monitor hospital equipment",
-    "pediatrics":                 "pediatric medicine children healthcare",
-    "pediatrics-specific":        "pediatric specialist children clinical examination",
-    "endocrinology":              "endocrine glands hormone system anatomy",
-    "symptoms":                   "human body clinical symptoms anatomy",
-    "psychiatry":                 "mental health brain psychology illustration",
-    "mental-health":              "mental health mindfulness calm brain illustration",
-    "pulmonology":                "lungs respiratory system anatomy",
-    "gastroenterology":           "gastrointestinal tract digestive system anatomy",
-    "nephrology":                 "kidney renal anatomy urinary system",
-    "rheumatology":               "joints arthritis musculoskeletal system",
-    "hematology":                 "blood cells hematology microscopy",
-    "dermatology":                "skin dermatology cross-section anatomy",
-    "ophthalmology":              "eye anatomy ophthalmology retina",
-    "orthopedics":                "bone joint orthopedic anatomy",
-    "emergency":                  "emergency medicine critical care resuscitation",
-    "veterinary":                 "veterinary medicine animal anatomy",
-    "immunology":                 "immune system cells antibody illustration",
-    "allergy-immunology":         "immune system allergy cells antibody illustration",
-    "genetics":                   "DNA helix genetics chromosome",
-    "pathology":                  "pathology tissue microscopy slide",
-    "internal-medicine":          "clinical medicine anatomy illustration",
-    "geriatrics":                 "elderly care gerontology clinical medicine",
-    "radiology":                  "radiology MRI CT scan imaging equipment",
-    "diseases":                   "medical disease clinical anatomy illustration",
-    "sports-medicine":            "sports medicine athlete injury rehabilitation",
-    "rehabilitation":             "physical therapy rehabilitation exercise clinical",
-    "palliative-care":            "compassionate palliative care hospital serene",
-    "toxicology":                 "toxicology chemical molecular poison antidote laboratory",
-    "public-health":              "public health epidemiology population medicine",
-    "critical-care":              "intensive care unit ICU ventilator monitors",
-    "anesthesiology":             "anesthesia equipment operating room monitors",
-    "biochemistry":               "biochemistry molecular biology laboratory",
-    "clinical-nutrition":         "clinical nutrition food vitamins supplements",
-    "clinical-syndromes":         "clinical syndrome medical anatomy illustration",
-    "addiction-medicine":         "addiction medicine neuroscience brain pathways",
-    "lab-medicine":               "laboratory medicine blood test tubes centrifuge",
-    "mens-health":                "men healthcare clinical anatomy illustration",
-    "microbiology":               "microbiology bacteria culture laboratory microscope",
-    "nutrition":                  "nutrition healthy food vitamins minerals",
-    "occupational-medicine":      "occupational medicine workplace safety equipment",
-    "pain-management":            "pain management neurology anatomy spine",
-    "physiology":                 "human physiology anatomy organ systems",
-    "preventive-medicine":        "preventive medicine vaccination health screening",
-    "sexual-health":              "sexual health clinical anatomy medical illustration",
-    "sleep-medicine":             "sleep medicine polysomnography brain waves monitor",
-    "travel-medicine":            "travel medicine vaccination globe health",
-    "urology":                    "urology kidney bladder anatomy clinical",
-    "womens-health":              "women healthcare clinical anatomy illustration",
-    "immunology":                 "immune system cells antibody T-cell B-cell",
+CATEGORY_QUERIES: dict[str, list[str]] = {
+    "cardiology":                 ["cardiology heart doctor", "cardiac surgery hospital", "heart stethoscope medical"],
+    "cardiology-advanced":        ["echocardiogram heart monitor", "cardiac catheterization", "cardiologist hospital"],
+    "neurology":                  ["neurology brain scan", "neurologist hospital", "brain MRI doctor"],
+    "neurology-advanced":         ["brain MRI scan", "neurosurgery hospital", "neurological examination"],
+    "pharmacology":               ["pharmacy medicine pills", "pharmacist medication", "pills capsules medical"],
+    "drug-reference":             ["medication pharmacy", "pills medicine bottles", "pharmacist laboratory"],
+    "drugs":                      ["medicine tablets pills", "pharmacy medication", "drug capsules"],
+    "oncology":                   ["oncology cancer treatment", "chemotherapy hospital", "cancer research laboratory"],
+    "infectious-diseases":        ["infectious disease hospital", "microbiology laboratory", "bacteria microscope"],
+    "infectious-specific":        ["infection control hospital", "microbiology lab test", "virus research"],
+    "surgery-procedures":         ["surgery operating room", "surgeon hospital", "surgical instruments"],
+    "surgery":                    ["surgeon operating room", "surgical team hospital", "laparoscopy surgery"],
+    "diagnostics":                ["medical diagnostics laboratory", "blood test tubes", "diagnostic equipment hospital"],
+    "diagnostics-interpretation": ["radiology doctor reading scan", "MRI scan medical", "ECG monitor hospital"],
+    "procedures":                 ["medical procedure hospital", "doctor patient clinical", "medical equipment"],
+    "ob-gyn":                     ["gynecology ultrasound pregnancy", "obstetrics hospital delivery", "prenatal care doctor"],
+    "pediatrics":                 ["pediatrics children hospital", "pediatrician child doctor", "children healthcare"],
+    "pediatrics-specific":        ["pediatric specialist child", "children hospital doctor", "pediatric care"],
+    "endocrinology":              ["endocrinology doctor", "diabetes blood glucose", "thyroid ultrasound"],
+    "symptoms":                   ["patient doctor hospital examination", "clinical examination", "doctor diagnosis"],
+    "psychiatry":                 ["psychiatry mental health doctor", "therapy session counseling", "mental health clinic"],
+    "mental-health":              ["mental health therapy", "counseling psychologist", "mindfulness meditation"],
+    "pulmonology":                ["lungs pulmonology doctor", "chest X-ray respiratory", "asthma inhaler lungs"],
+    "gastroenterology":           ["gastroenterology endoscopy", "digestive medicine hospital", "gastroscopy procedure"],
+    "nephrology":                 ["nephrology kidney doctor", "dialysis kidney treatment", "kidney ultrasound"],
+    "rheumatology":               ["rheumatology arthritis joints", "joint pain hands doctor", "physiotherapy joints"],
+    "hematology":                 ["hematology blood laboratory", "blood smear microscope", "blood test doctor"],
+    "dermatology":                ["dermatology skin doctor", "dermatologist examination", "skin care medical"],
+    "ophthalmology":              ["ophthalmology eye doctor", "eye examination slit lamp", "retinal examination"],
+    "orthopedics":                ["orthopedics bone surgery", "X-ray bone fracture", "orthopedic surgeon"],
+    "emergency":                  ["emergency room hospital", "emergency medicine doctor", "ambulance emergency"],
+    "veterinary":                 ["veterinarian animal clinic", "vet doctor animal", "veterinary examination"],
+    "immunology":                 ["immunology laboratory research", "vaccine injection doctor", "immune system research"],
+    "allergy-immunology":         ["allergy test doctor", "allergy clinic treatment", "immunology hospital"],
+    "genetics":                   ["genetics DNA laboratory", "genetic research scientist", "DNA sequencing lab"],
+    "pathology":                  ["pathology laboratory microscope", "tissue biopsy laboratory", "pathologist microscope"],
+    "internal-medicine":          ["internal medicine doctor examination", "physician hospital rounds", "clinical medicine"],
+    "geriatrics":                 ["elderly care doctor hospital", "geriatric patient care", "senior healthcare"],
+    "radiology":                  ["radiology MRI machine hospital", "radiologist reading scan", "CT scan machine"],
+    "diseases":                   ["disease treatment hospital doctor", "medical diagnosis clinic", "clinical examination"],
+    "sports-medicine":            ["sports medicine physiotherapy", "athlete injury rehabilitation", "sports physical therapy"],
+    "rehabilitation":             ["rehabilitation physical therapy", "physiotherapy exercise", "recovery hospital"],
+    "palliative-care":            ["palliative care patient hospital", "hospice compassionate care", "nurse patient comfort"],
+    "toxicology":                 ["toxicology laboratory research", "poison control laboratory", "chemical laboratory safety"],
+    "public-health":              ["public health vaccination", "epidemiology research", "health screening community"],
+    "critical-care":              ["intensive care unit ICU", "critical care ventilator hospital", "ICU nurse monitors"],
+    "anesthesiology":             ["anesthesia operating room", "anesthesiologist surgery", "surgery monitors anesthesia"],
+    "biochemistry":               ["biochemistry laboratory research", "molecular biology scientist", "lab chemistry"],
+    "clinical-nutrition":         ["clinical nutrition dietitian", "healthy food nutrition", "diet consultation doctor"],
+    "clinical-syndromes":         ["clinical examination doctor", "medical syndrome hospital", "physician diagnosis"],
+    "addiction-medicine":         ["addiction recovery therapy", "rehabilitation addiction treatment", "counseling recovery"],
+    "lab-medicine":               ["medical laboratory blood test", "lab technician test tubes", "clinical laboratory"],
+    "mens-health":                ["men health doctor checkup", "male health clinic", "men healthcare examination"],
+    "microbiology":               ["microbiology laboratory culture", "microscope bacteria scientist", "lab microbiology"],
+    "nutrition":                  ["healthy nutrition food", "dietitian consultation", "vitamins supplements health"],
+    "occupational-medicine":      ["occupational health workplace safety", "worker health examination", "occupational therapy"],
+    "pain-management":            ["pain management doctor", "physical therapy pain", "spine doctor back pain"],
+    "physiology":                 ["human anatomy physiology", "medical physiology doctor", "organ anatomy clinical"],
+    "preventive-medicine":        ["preventive medicine vaccination", "health screening doctor", "medical checkup prevention"],
+    "sexual-health":              ["sexual health clinic doctor", "reproductive health medical", "health consultation"],
+    "sleep-medicine":             ["sleep study polysomnography", "sleep clinic patient", "sleep disorder doctor"],
+    "travel-medicine":            ["travel vaccination clinic", "travel medicine doctor", "vaccine travel health"],
+    "urology":                    ["urology doctor hospital", "urologist examination", "kidney bladder doctor"],
+    "womens-health":              ["women health doctor gynecology", "womens healthcare clinic", "gynecologist examination"],
 }
 
+FALLBACK_QUERIES = ["doctor hospital medical", "healthcare clinic", "medical professional hospital"]
 
-def build_prompt(title: str, category: str) -> str:
-    cat_context = CATEGORY_CONTEXT.get(category, "medical healthcare clinical anatomy")
-    words = title.split()[:8]
-    short_title = " ".join(words)
-    return f"{short_title}, {cat_context}, {STYLE}"
+
+def get_pexels_image(category: str, key: str) -> bytes | None:
+    """Search Pexels for a landscape medical photo matching the category."""
+    queries = CATEGORY_QUERIES.get(category, FALLBACK_QUERIES)
+    for query in queries:
+        try:
+            resp = httpx.get(
+                PEXELS_URL,
+                headers={"Authorization": key},
+                params={"query": query, "per_page": 5, "orientation": "landscape"},
+                timeout=15,
+            )
+            if resp.status_code != 200:
+                continue
+            photos = resp.json().get("photos", [])
+            if not photos:
+                continue
+            photo_url = photos[0]["src"].get("large2x") or photos[0]["src"].get("original")
+            img_resp = httpx.get(photo_url, timeout=30, follow_redirects=True)
+            if img_resp.status_code == 200:
+                # Convert to JPEG
+                img = Image.open(io.BytesIO(img_resp.content)).convert("RGB")
+                buf = io.BytesIO()
+                img.save(buf, format="JPEG", quality=92)
+                return buf.getvalue()
+        except Exception as e:
+            print(f"    ✗ Pexels error for '{query}': {e}")
+            continue
+    return None
 
 
 # ── Metadata embedding ────────────────────────────────────────────────────────
@@ -251,58 +269,19 @@ def embed_metadata(
     return final
 
 
-# ── Together.ai ───────────────────────────────────────────────────────────────
-
-def load_key() -> str:
-    if TOGETHER_KEY_FILE.exists():
-        return TOGETHER_KEY_FILE.read_text().strip()
-    key = os.environ.get("TOGETHER_API_KEY", "")
-    if key:
-        return key
-    sys.exit(
-        f"Together.ai key not found at {TOGETHER_KEY_FILE}\n"
-        "Set TOGETHER_API_KEY env var or place key in that file."
-    )
-
-
-def generate_image(prompt: str, key: str) -> bytes | None:
-    """Call Together.ai FLUX.1-schnell and return raw JPEG bytes."""
-    try:
-        r = httpx.post(
-            TOGETHER_URL,
-            headers={"Authorization": f"Bearer {key}"},
-            json={
-                "model":  TOGETHER_MODEL,
-                "prompt": prompt,
-                "width":  1280,
-                "height": 720,
-                "steps":  4,
-                "n":      1,
-            },
-            timeout=90,
-        )
-        if r.status_code != 200:
-            try:
-                msg = r.json().get("error", {}).get("message", r.text[:120])
-            except Exception:
-                msg = r.text[:120]
-            print(f"    ✗ Together error {r.status_code}: {msg}")
-            return None
-
-        item = r.json()["data"][0]
-        import base64
-        b64 = item.get("b64_json")
-        if b64:
-            return base64.b64decode(b64)
-        url = item.get("url")
-        if url:
-            img_r = httpx.get(url, timeout=30)
-            if img_r.status_code == 200:
-                return img_r.content
-
-    except Exception as e:
-        print(f"    ✗ Request failed: {e}")
-    return None
+def load_pexels_key() -> str:
+    key = os.environ.get("PEXELS_API_KEY", "")
+    if not key:
+        # Try loading from backend .env
+        env_file = Path(__file__).parent.parent / ".env"
+        if env_file.exists():
+            for line in env_file.read_text().splitlines():
+                if line.startswith("PEXELS_API_KEY="):
+                    key = line.split("=", 1)[1].strip()
+                    break
+    if not key:
+        sys.exit("PEXELS_API_KEY not set. Add it to backend/.env or export as env var.")
+    return key
 
 
 # ── DB ────────────────────────────────────────────────────────────────────────
@@ -363,7 +342,7 @@ def resolve_media_dir() -> Path:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Generate cover images for MedMind articles via Together.ai FLUX"
+        description="Fetch cover images for MedMind articles via Pexels (free stock photos)"
     )
     parser.add_argument("--limit",     type=int,   default=20,   help="Max articles per run (default 20)")
     parser.add_argument("--category",  type=str,   default=None, help="Filter by category slug")
@@ -373,7 +352,7 @@ def main() -> None:
     parser.add_argument("--delay",     type=float, default=1.5,  help="Seconds between API calls (default 1.5)")
     args = parser.parse_args()
 
-    key       = load_key()
+    key       = load_pexels_key()
     media_dir = resolve_media_dir()
     engine    = create_engine(DATABASE_URL)
 
@@ -397,13 +376,12 @@ def main() -> None:
             category = art["category"]
             excerpt  = (art["excerpt"] or "")[:300]
 
-            prompt      = build_prompt(title, category)
+            queries     = CATEGORY_QUERIES.get(category, FALLBACK_QUERIES)
             article_url = f"{SITE_URL}/articles/{slug}"
 
             print(f"[{i}/{len(articles)}] {title[:70]}")
             print(f"  category: {category}")
-            print(f"  url:      {article_url}")
-            print(f"  prompt:   {prompt[:100]}…")
+            print(f"  query:    {queries[0]}")
 
             if args.dry_run:
                 print("  [dry-run]\n")
@@ -419,12 +397,11 @@ def main() -> None:
                 success += 1
                 continue
 
-            raw = generate_image(prompt, key)
+            raw = get_pexels_image(category, key)
             if raw is None:
-                print("  ✗ Generation failed\n")
+                print("  ✗ Pexels fetch failed\n")
                 failed += 1
             else:
-                # Embed metadata before saving
                 final = embed_metadata(raw, title, excerpt or title, article_url)
                 out_file.write_bytes(final)
                 save_cover_image(session, art["id"], image_url)

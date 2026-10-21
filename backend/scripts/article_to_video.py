@@ -63,6 +63,27 @@ from PIL import Image, ImageDraw, ImageFont
 API_BASE     = os.getenv("API_BASE", "https://medmind.pro/api/v1")
 OUTPUT_DIR   = Path(os.getenv("VIDEO_OUTPUT", "output/videos"))
 
+# Pexels Videos API (free tier, same key as photos)
+PEXELS_VIDEOS_URL = "https://api.pexels.com/videos/search"
+
+CATEGORY_VIDEO_QUERIES: dict[str, str] = {
+    "diseases":             "medical hospital patient doctor",
+    "drugs":                "pharmacy medicine laboratory",
+    "cardiology":           "heartbeat cardiology medical",
+    "neurology":            "brain neurology medical",
+    "emergency":            "emergency room hospital ambulance",
+    "procedures":           "surgery operating room medical",
+    "oncology":             "cancer treatment medical hospital",
+    "psychiatry":           "mental health therapy wellness",
+    "endocrinology":        "diabetes healthcare medical",
+    "infectious-diseases":  "laboratory virus bacteria medical",
+    "pediatrics":           "children healthcare pediatric",
+    "surgery":              "surgical medical operation",
+    "nutrition":            "healthy food nutrition diet",
+    "diagnostics":          "medical testing laboratory",
+    "symptoms":             "doctor patient consultation healthcare",
+}
+
 # ── Language → default Edge TTS voice ─────────────────────────────────────────
 LANG_VOICE: dict[str, str] = {
     "en": "en-US-AriaNeural",
@@ -188,6 +209,51 @@ FONT_BOLD_PATHS = [
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
 ]
+
+
+def _load_pexels_key() -> str:
+    key = os.getenv("PEXELS_API_KEY", "")
+    if not key:
+        env_file = Path(__file__).parent.parent / ".env"
+        if env_file.exists():
+            for line in env_file.read_text().splitlines():
+                if line.startswith("PEXELS_API_KEY="):
+                    key = line.split("=", 1)[1].strip()
+                    break
+    return key
+
+
+def fetch_pexels_video(category: str, pexels_key: str, tmp_dir: Path) -> str | None:
+    """Download a Pexels video clip matching the article category. Returns local mp4 path or None."""
+    if not pexels_key:
+        return None
+    query = CATEGORY_VIDEO_QUERIES.get(category, "medical healthcare professional")
+    try:
+        r = httpx.get(
+            PEXELS_VIDEOS_URL,
+            params={"query": query, "orientation": "landscape", "size": "large", "per_page": 15},
+            headers={"Authorization": pexels_key},
+            timeout=15,
+        )
+        if r.status_code != 200:
+            print(f"  [pexels] API returned {r.status_code}")
+            return None
+        videos = r.json().get("videos", [])
+        for video in videos:
+            dur = video.get("duration", 0)
+            if 10 <= dur <= 90:
+                files = sorted(video.get("video_files", []), key=lambda f: -(f.get("width", 0)))
+                for vf in files:
+                    if vf.get("width", 0) >= 1280:
+                        dest = str(tmp_dir / "pexels_bg.mp4")
+                        with httpx.stream("GET", vf["link"], timeout=120, follow_redirects=True) as resp:
+                            with open(dest, "wb") as fh:
+                                for chunk in resp.iter_bytes(chunk_size=65536):
+                                    fh.write(chunk)
+                        return dest
+    except Exception as e:
+        print(f"  [pexels] {e}")
+    return None
 
 
 def _find_font(paths: list[str], size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
@@ -331,10 +397,10 @@ async def synthesize(text: str, path: str, voice: str, rate: str = "+0%") -> flo
 
 # ── Slide rendering ───────────────────────────────────────────────────────────
 
-def _bg(draw: ImageDraw.ImageDraw) -> None:
-    """Fill background and add subtle gradient strip at top."""
-    draw.rectangle([0, 0, W, H], fill=BG_COLOR)
-    # Top accent bar
+def _bg(draw: ImageDraw.ImageDraw, transparent: bool = False) -> None:
+    """Fill background and add accent bar at top. Skips fill when transparent (video bg mode)."""
+    if not transparent:
+        draw.rectangle([0, 0, W, H], fill=BG_COLOR)
     draw.rectangle([0, 0, W, 4], fill=ACCENT)
 
 
@@ -367,10 +433,12 @@ def _category_badge(draw: ImageDraw.ImageDraw, category: str) -> None:
     draw.text((x + 16, y + 7), label, font=f, fill=color)
 
 
-def render_title_slide(article: dict, lang: str = "en") -> np.ndarray:
-    img = Image.new("RGB", (W, H), BG_COLOR)
+def render_title_slide(article: dict, lang: str = "en",
+                       transparent: bool = False) -> np.ndarray:
+    mode = "RGBA" if transparent else "RGB"
+    img = Image.new(mode, (W, H), (0, 0, 0, 0) if transparent else BG_COLOR)
     draw = ImageDraw.Draw(img)
-    _bg(draw)
+    _bg(draw, transparent)
     _logo(draw)
     _category_badge(draw, article.get("category", ""))
     _footer(draw)
@@ -412,10 +480,12 @@ def render_title_slide(article: dict, lang: str = "en") -> np.ndarray:
 
 
 def render_section_slide(section: dict, index: int, total: int,
-                          category: str, lang: str = "en") -> np.ndarray:
-    img = Image.new("RGB", (W, H), BG_COLOR)
+                          category: str, lang: str = "en",
+                          transparent: bool = False) -> np.ndarray:
+    mode = "RGBA" if transparent else "RGB"
+    img = Image.new(mode, (W, H), (0, 0, 0, 0) if transparent else BG_COLOR)
     draw = ImageDraw.Draw(img)
-    _bg(draw)
+    _bg(draw, transparent)
     _logo(draw, small=True)
     _footer(draw)
 
@@ -474,10 +544,12 @@ def render_section_slide(section: dict, index: int, total: int,
     return np.array(img)
 
 
-def render_outro_slide(article: dict, lang: str = "en") -> np.ndarray:
-    img = Image.new("RGB", (W, H), BG_COLOR)
+def render_outro_slide(article: dict, lang: str = "en",
+                       transparent: bool = False) -> np.ndarray:
+    mode = "RGBA" if transparent else "RGB"
+    img = Image.new(mode, (W, H), (0, 0, 0, 0) if transparent else BG_COLOR)
     draw = ImageDraw.Draw(img)
-    _bg(draw)
+    _bg(draw, transparent)
     _footer(draw)
 
     cx = W // 2
@@ -516,6 +588,7 @@ async def build_video(
     voice: str,
     output_path: Path,
     lang: str = "en",
+    pexels_key: str = "",
 ) -> None:
     try:
         from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
@@ -532,17 +605,48 @@ async def build_video(
         tmp = Path(tmp)
         clip_index = 0
 
+        # ── Pexels video background (optional) ───────────────────────────────
+        bg_video = None
+        if pexels_key:
+            print("  Fetching Pexels video background…", end=" ", flush=True)
+            pexels_mp4 = fetch_pexels_video(category, pexels_key, tmp)
+            if pexels_mp4:
+                try:
+                    from moviepy.editor import VideoFileClip as _VFC
+                    bg_video = _VFC(pexels_mp4, audio=False)
+                    if bg_video.w != W or bg_video.h != H:
+                        bg_video = bg_video.resize((W, H))
+                    bg_video = bg_video.loop()
+                    print(f"✓ ({category})")
+                except Exception as e:
+                    print(f"load failed: {e}")
+                    bg_video = None
+            else:
+                print("not available")
+
+        use_bg = bg_video is not None
+
+        def _make_clip(img_arr: np.ndarray, audio_clip: Any, extra: float) -> Any:
+            """Layer Pexels bg + dark overlay + text, or fall back to static slide."""
+            dur = audio_clip.duration + extra
+            if use_bg:
+                from moviepy.editor import CompositeVideoClip, ColorClip
+                bg_sub = bg_video.subclip(0, dur)
+                dark   = ColorClip((W, H), color=(0, 0, 0)).set_opacity(0.72).set_duration(dur)
+                text   = ImageClip(img_arr).set_duration(dur)
+                return CompositeVideoClip([bg_sub, dark, text]).set_audio(audio_clip)
+            return ImageClip(img_arr).set_duration(dur).set_audio(audio_clip)
+
         # ── 1. Title slide ────────────────────────────────────────────────────
         print("  Rendering title slide…", end=" ", flush=True)
-        title_img = render_title_slide(article, lang)
+        title_img = render_title_slide(article, lang, transparent=use_bg)
         title_text = f"{article.get('title', '')}. {article.get('excerpt', '')}"
         title_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(title_text, title_audio, voice, rate=tts_rate)
         print(f"{duration:.1f}s")
         aclip = AudioFileClip(title_audio)
         audio_clips.append(aclip)
-        clip = ImageClip(title_img).set_duration(duration + 0.3).set_audio(aclip)
-        clips.append(clip)
+        clips.append(_make_clip(title_img, aclip, 0.3))
         clip_index += 1
 
         # ── 2. Section slides ─────────────────────────────────────────────────
@@ -550,28 +654,26 @@ async def build_video(
         for i, section in enumerate(sections, 1):
             heading = section.get("heading") or f"Part {i}"
             print(f"  [{i}/{total}] {heading[:50]}…", end=" ", flush=True)
-            slide_img = render_section_slide(section, i, total, category, lang)
+            slide_img = render_section_slide(section, i, total, category, lang, transparent=use_bg)
             text = section_tts_text(section)
             audio_path = str(tmp / f"audio_{clip_index:03}.mp3")
             duration = await synthesize(text, audio_path, voice, rate=tts_rate)
             print(f"{duration:.1f}s")
             aclip = AudioFileClip(audio_path)
             audio_clips.append(aclip)
-            clip = ImageClip(slide_img).set_duration(duration + 0.5).set_audio(aclip)
-            clips.append(clip)
+            clips.append(_make_clip(slide_img, aclip, 0.5))
             clip_index += 1
 
         # ── 3. Outro slide ────────────────────────────────────────────────────
         print("  Rendering outro slide…", end=" ", flush=True)
-        outro_img = render_outro_slide(article, lang)
+        outro_img = render_outro_slide(article, lang, transparent=use_bg)
         outro_text = OUTRO_TEXT.get(lang, OUTRO_TEXT["en"])
         outro_audio = str(tmp / f"audio_{clip_index:03}.mp3")
         duration = await synthesize(outro_text, outro_audio, voice, rate=tts_rate)
         print(f"{duration:.1f}s")
         aclip = AudioFileClip(outro_audio)
         audio_clips.append(aclip)
-        outro_clip = ImageClip(outro_img).set_duration(duration + 1.0).set_audio(aclip)
-        clips.append(outro_clip)
+        clips.append(_make_clip(outro_img, aclip, 1.0))
 
         # ── 4. Concatenate & export ───────────────────────────────────────────
         print(f"\n  Assembling {len(clips)} clips → {output_path.name}")
@@ -591,6 +693,8 @@ async def build_video(
             c.close()
         for a in audio_clips:
             a.close()
+        if bg_video is not None:
+            bg_video.close()
 
 
 # ── API helpers ───────────────────────────────────────────────────────────────
@@ -622,6 +726,7 @@ async def fetch_available_locales(slug: str, client: httpx.AsyncClient) -> list[
 async def make_video_for_lang(
     slug: str, lang: str, voice: str,
     output_dir: Path, token: str, client: httpx.AsyncClient,
+    no_pexels: bool = False,
 ) -> None:
     """Generate one video for a given slug + language."""
     print(f"\n── Language: {lang.upper()} ─────────────────────────")
@@ -644,7 +749,8 @@ async def make_video_for_lang(
     output_path = output_dir / f"{safe_slug}{suffix}.mp4"
 
     print("\nGenerating audio and rendering slides…")
-    await build_video(article, sections, voice, output_path, lang)
+    pexels_key = "" if no_pexels else _load_pexels_key()
+    await build_video(article, sections, voice, output_path, lang, pexels_key=pexels_key)
 
     size_mb = output_path.stat().st_size / 1_048_576
     print(f"\nSaved: {output_path.name} ({size_mb:.1f} MB)")
@@ -667,6 +773,8 @@ async def main() -> None:
                         help="Override Edge TTS voice (default: auto per language)")
     parser.add_argument("--male",      action="store_true",
                         help="Use male voice instead of default female")
+    parser.add_argument("--no-pexels", action="store_true",
+                        help="Disable Pexels video backgrounds (faster, static slides)")
     parser.add_argument("--output",    default=str(OUTPUT_DIR),
                         help="Output directory (default: output/videos)")
     args = parser.parse_args()
@@ -698,7 +806,8 @@ async def main() -> None:
             else:
                 voice = LANG_VOICE.get(lang, LANG_VOICE["en"])
 
-            await make_video_for_lang(args.slug, lang, voice, output_dir, token, client)
+            await make_video_for_lang(args.slug, lang, voice, output_dir, token, client,
+                                       no_pexels=args.no_pexels)
 
     print(f"\nAll done! Videos saved to: {output_dir}")
 
