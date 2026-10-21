@@ -6,15 +6,17 @@
 
 set -euo pipefail
 
-FRONTEND="http://localhost:3000"
+FRONTEND="http://medmind_frontend:3000"
 LOG="/opt/medmind/logs/sitemap_refresh.log"
 LOCALES=(en ru ar de fr es tr)
+
+# curl runs inside the nginx container which shares the Docker network with frontend
+_curl() { docker exec medmind_nginx curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$1" 2>/dev/null || echo "ERR"; }
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') — sitemap refresh start" >> "$LOG"
 
 for locale in "${LOCALES[@]}"; do
-    url="${FRONTEND}/sitemap-${locale}.xml"
-    status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" 2>/dev/null || echo "ERR")
+    status=$(_curl "${FRONTEND}/sitemap-${locale}.xml")
     echo "  ${locale}: pass1 → ${status}" >> "$LOG"
 done
 
@@ -22,12 +24,12 @@ echo "  waiting 15s for ISR background regen..." >> "$LOG"
 sleep 15
 
 for locale in "${LOCALES[@]}"; do
-    url="${FRONTEND}/sitemap-${locale}.xml"
-    status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" 2>/dev/null || echo "ERR")
+    status=$(_curl "${FRONTEND}/sitemap-${locale}.xml")
     echo "  ${locale}: pass2 → ${status}" >> "$LOG"
 done
 
 # Also refresh the sitemap index
-curl -s -o /dev/null -w "  index: %{http_code}\n" --max-time 30 "${FRONTEND}/sitemap.xml" >> "$LOG" 2>/dev/null || true
+status=$(_curl "${FRONTEND}/sitemap.xml")
+echo "  index: ${status}" >> "$LOG"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') — sitemap refresh done" >> "$LOG"

@@ -133,6 +133,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/medmind.conf:ro
+      - /opt/neurogrid/nginx.conf:/etc/nginx/conf.d/neurogrid.conf:ro
+      - /opt/mikheyeva-art/nginx.conf:/etc/nginx/conf.d/mikheyeva.conf:ro
       - letsencrypt_data:/etc/letsencrypt:ro
       - certbot_webroot:/var/www/certbot:ro
       - media_data:/app/data/media:ro
