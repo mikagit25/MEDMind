@@ -45,6 +45,20 @@ OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct"
 
+# Groq fallback — final tier
+GROQ_KEYS = _dedup([
+    os.getenv("GROQ_KEY_MODULE", ""),
+    os.getenv("GROQ_KEY_MODULE_2", ""),
+    os.getenv("GROQ_API_KEY_3", ""),
+    os.getenv("GROQ_API_KEY_4", ""),
+    os.getenv("GROQ_API_KEY_5", ""),
+    os.getenv("GROQ_API_KEY_6", ""),
+    os.getenv("GROQ_KEY_VET_ARTICLES", ""),
+    os.getenv("GROQ_KEY_VET_MODULES", ""),
+])
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "qwen/qwen3.8-27b"
+
 BATCH_SIZE = 5
 
 ES_GLOSSARY = {
@@ -125,12 +139,9 @@ class CerebrasClient:
                               "messages": [{"role": "user", "content": prompt}],
                               "max_tokens": 4096},
                     )
-                if resp.status_code == 402:
-                    # Billing issue — fall through to OpenRouter fallback
-                    print(f"  Cerebras 402 (billing) — using OpenRouter fallback")
-                    if OPENROUTER_KEY:
-                        return await self._call_openrouter(prompt)
-                    return None
+                if resp.status_code in (402, 404):
+                    print(f"  Cerebras {resp.status_code} — switching to Groq")
+                    return await self._call_groq(prompt)
                 if resp.status_code == 429:
                     retry_after = float(resp.headers.get("retry-after", "60"))
                     idx = CEREBRAS_KEYS.index(key) + 1
@@ -153,16 +164,48 @@ class CerebrasClient:
                           "messages": [{"role": "user", "content": prompt}],
                           "max_tokens": 4096},
                 )
+            if resp.status_code == 402:
+                print(f"  OpenRouter 402 (billing) — switching to Groq")
+                return await self._call_groq(prompt)
             resp.raise_for_status()
             return resp.json()["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"  OpenRouter error: {e}")
-            return None
+            return await self._call_groq(prompt)
+
+    async def _call_groq(self, prompt: str) -> str | None:
+        reset_at: dict[str, float] = {}
+        for key in GROQ_KEYS:
+            wait = reset_at.get(key, 0) - time.time()
+            if wait > 0:
+                await asyncio.sleep(wait + 1)
+            try:
+                async with httpx.AsyncClient(timeout=90) as client:
+                    resp = await client.post(
+                        GROQ_URL,
+                        headers={"Authorization": f"Bearer {key}", "content-type": "application/json"},
+                        json={"model": GROQ_MODEL,
+                              "messages": [{"role": "user", "content": prompt}],
+                              "max_tokens": 4096},
+                    )
+                if resp.status_code == 429:
+                    retry_after = float(resp.headers.get("retry-after", "60"))
+                    idx = GROQ_KEYS.index(key) + 1
+                    print(f"  Groq key {idx}/{len(GROQ_KEYS)} TPM {retry_after:.0f}s — rotating")
+                    reset_at[key] = time.time() + retry_after
+                    continue
+                resp.raise_for_status()
+                return resp.json()["choices"][0]["message"]["content"]
+            except Exception as e:
+                print(f"  Groq error: {e}")
+                continue
+        print(f"  All keys exhausted — stopping.")
+        return None
 
 
 async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
-    if not CEREBRAS_KEYS and not OPENROUTER_KEY:
-        print("ERROR: No Cerebras or OpenRouter keys configured")
+    if not CEREBRAS_KEYS and not OPENROUTER_KEY and not GROQ_KEYS:
+        print("ERROR: No API keys configured (Cerebras / OpenRouter / Groq)")
         sys.exit(1)
 
     client = CerebrasClient()

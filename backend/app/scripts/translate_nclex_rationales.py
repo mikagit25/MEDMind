@@ -55,7 +55,7 @@ GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_VET_MODULES", ""),
 ])
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "qwen/qwen3.6-27b"
+GROQ_MODEL = "qwen/qwen3.8-27b"
 
 BATCH_SIZE = 5
 
@@ -228,7 +228,7 @@ class TranslationClient:
 CerebrasClient = TranslationClient
 
 
-async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
+async def run(max_questions: int | None = None, dry_run: bool = False, qtype: str = "nclex") -> None:
     if not CEREBRAS_KEYS and not OPENROUTER_KEY and not GROQ_KEYS:
         print("ERROR: No API keys configured (Cerebras / OpenRouter / Groq)")
         sys.exit(1)
@@ -236,30 +236,40 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
     client = TranslationClient()
 
     async with AsyncSessionLocal() as db:
-        # Fetch NCLEX questions (not vet) that need Spanish translation.
-        # Includes ordered/calculation questions that have key_takeaway but NULL rationales.
-        q = select(MCQQuestion).where(
-            MCQQuestion.nclex_client_needs.isnot(None),
-            or_(
-                MCQQuestion.rationales.isnot(None),   # MCQ/SATA with per-option rationales
-                MCQQuestion.key_takeaway.isnot(None),  # ordered/calculation with only key_takeaway
-            ),
-            MCQQuestion.key_takeaway_es.is_(None),
-        )
+        if qtype == "gulf":
+            from sqlalchemy import func as _func
+            base_filter = [
+                MCQQuestion.exam_slugs.isnot(None),
+                MCQQuestion.explanation.isnot(None),
+                MCQQuestion.explanation_es.is_(None),
+            ]
+            label = "Gulf"
+        else:
+            base_filter = [
+                MCQQuestion.nclex_client_needs.isnot(None),
+                or_(
+                    MCQQuestion.rationales.isnot(None),
+                    MCQQuestion.key_takeaway.isnot(None),
+                ),
+                MCQQuestion.key_takeaway_es.is_(None),
+            ]
+            label = "NCLEX"
+
+        q = select(MCQQuestion).where(*base_filter)
         if max_questions:
             q = q.limit(max_questions * 2)  # fetch extra to account for skips
 
         result = await db.execute(q)
         questions = result.scalars().all()
 
-        untranslated = [
-            q for q in questions
-            if q.key_takeaway_es is None
-        ]
+        if qtype == "gulf":
+            untranslated = [q for q in questions if q.explanation_es is None]
+        else:
+            untranslated = [q for q in questions if q.key_takeaway_es is None]
         if max_questions:
             untranslated = untranslated[:max_questions]
 
-        print(f"Found {len(untranslated)} questions to translate to Spanish (using Cerebras {CEREBRAS_MODEL})")
+        print(f"Found {len(untranslated)} {label} questions to translate to Spanish (using Cerebras {CEREBRAS_MODEL})")
         if dry_run:
             print("[DRY RUN] No writes will be made.")
             for q in untranslated[:5]:
@@ -313,11 +323,12 @@ async def run(max_questions: int | None = None, dry_run: bool = False) -> None:
 def main() -> None:
     max_q = None
     dry_run = "--dry-run" in sys.argv
+    qtype = "gulf" if "--type" in sys.argv and sys.argv[sys.argv.index("--type") + 1] == "gulf" else "nclex"
     if "--max" in sys.argv:
         idx = sys.argv.index("--max")
         if idx + 1 < len(sys.argv):
             max_q = int(sys.argv[idx + 1])
-    asyncio.run(run(max_questions=max_q, dry_run=dry_run))
+    asyncio.run(run(max_questions=max_q, dry_run=dry_run, qtype=qtype))
 
 
 if __name__ == "__main__":

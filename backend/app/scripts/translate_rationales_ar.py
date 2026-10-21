@@ -65,7 +65,7 @@ GROQ_KEYS = _dedup([
     os.getenv("GROQ_KEY_VET_MODULES", ""),
 ])
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "qwen/qwen3.6-27b"
+GROQ_MODEL = "qwen/qwen3.8-27b"
 
 BATCH_SIZE = 5
 
