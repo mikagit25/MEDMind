@@ -51,7 +51,7 @@ def _make_og_image(article: dict, detail: dict | None) -> str:
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 BOT_TOKEN      = os.environ.get("TG_BOT_TOKEN",
-                 "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk")
+                 "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk")
 CHANNEL_ID     = os.environ.get("TG_CHANNEL_ID", "")   # set via env or --channel arg
 API_URL        = "https://medmind.pro/api/v1"
 TRACKING_FILE  = Path("/opt/medmind/telegram_published.json")

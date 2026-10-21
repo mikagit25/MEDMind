@@ -56,7 +56,7 @@ from youtube_shorts_gulf_ar_daily import say                 # noqa: E402  bilin
 from youtube_shorts_nclex_es_bilingual import TOPIC_ES, topic_es  # noqa: E402
 
 DAILY_COUNT  = 15
-EN_VOICE     = os.environ.get("TTS_VOICE_EN", "en-US-EmmaNeural")
+EN_VOICE     = os.environ.get("TTS_VOICE_EN", "en-US-EmmaMultilingualNeural")
 ES_VOICE     = os.environ.get("TTS_VOICE_ES", "es-MX-DaliaNeural")
 EN_RATE, ES_RATE = "-5%", "-5%"
 
@@ -325,7 +325,8 @@ def make_meta_es(questions: list[dict], topic: str | None,
         f"🔗 https://medmind.pro/es/nclex\n\n"
         f"⏱ Capítulos:\n{chap_es}\n\n"
         f"Preguntas originales basadas en el plan oficial del NCLEX-RN; no son preguntas reales "
-        f"del examen. Solo con fines educativos, no son consejo médico. Voz generada por IA.\n\n"
+        f"del examen. Solo con fines educativos, no son consejo médico. Voz generada por IA.\n"
+        f"⚠️ ¿Eres profesional de la salud y encontraste un error? Coméntalo abajo o repórtalo en medmind.pro — la precisión es nuestra prioridad.\n\n"
         f"{_HASHTAGS_SESSION_ES}"
     )
     desc_en = (
@@ -335,7 +336,8 @@ def make_meta_es(questions: list[dict], topic: str | None,
         f"🔗 En español: https://medmind.pro/es/nclex\n\n"
         f"Chapters:\n{chap_en}\n\n"
         f"Original practice questions based on the NCLEX test plan — not actual exam items. "
-        f"Education only, not medical advice. AI-generated voice."
+        f"Education only, not medical advice. AI-generated voice.\n"
+        f"⚠️ Healthcare professional? Found an error? Please comment below or report at medmind.pro — accuracy is our priority."
     )
     tags = (_BASE_TAGS_SESSION_ES + [f"nclex {year}", t_es.lower()])[:20]
     return title_es, desc_es, tags, {"en": {"title": title_en, "description": desc_en}}

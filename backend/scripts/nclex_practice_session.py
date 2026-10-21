@@ -50,7 +50,7 @@ W, H        = 1920, 1080
 FPS         = 24
 # EmmaNeural = Microsoft Copilot-grade voice (2024), much more natural than Jenny/Aria.
 # Override with --voice or TTS_VOICE env var.
-VOICE       = os.environ.get("TTS_VOICE", "en-US-EmmaNeural")
+VOICE       = os.environ.get("TTS_VOICE", "en-US-EmmaMultilingualNeural")
 RATE        = "-5%"
 THINK_SECS  = 8          # countdown length per question
 INTRO_SECS  = 7

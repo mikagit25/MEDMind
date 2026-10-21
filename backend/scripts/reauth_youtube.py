@@ -24,7 +24,7 @@ import urllib.request
 from pathlib import Path
 
 MEDMIND_DIR  = Path("/opt/medmind")
-BOT_TOKEN    = "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk"
+BOT_TOKEN    = "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk"
 CHAT_ID      = "209381269"
 CALLBACK_URL = "https://medmind.pro/api/v1/auth/youtube/callback"
 

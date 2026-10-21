@@ -160,6 +160,13 @@ def _make_description(q: dict, correct: str, exam: str | None = None) -> str:
     takeaway = q.get("key_takeaway", "")[:300]
     module   = (q.get("module_title") or "NCLEX Prep")
 
+    _FOOTER = (
+        "⚕️ Educational content only — not medical advice. "
+        "Practice question based on the official exam blueprint; not an actual exam item. "
+        "AI-generated voice.\n"
+        "⚠️ Healthcare professional? Found an error? Please comment below or report at medmind.pro — accuracy is our priority."
+    )
+
     if exam and exam in GULF_EXAMS:
         name, tags = GULF_EXAMS[exam]
         desc = (
@@ -175,8 +182,7 @@ def _make_description(q: dict, correct: str, exam: str | None = None) -> str:
             f"Free {name} practice test:\n"
             f"🔗 https://medmind.pro/exams/{exam}\n\n"
             f"{tags} #NursingExam #GulfNurse #MedMindAI #Shorts\n\n"
-            f"Practice question written to the official exam blueprint. "
-            f"Not an actual exam item. Voice: AI-generated."
+            f"{_FOOTER}"
         )
         return desc
 
@@ -192,7 +198,8 @@ def _make_description(q: dict, correct: str, exam: str | None = None) -> str:
         f"💡 Key Takeaway: {takeaway}\n\n"
         f"Practice 1,000+ NCLEX questions for FREE at:\n"
         f"🔗 https://medmind.pro/nclex\n\n"
-        f"{HASHTAGS}"
+        f"{HASHTAGS}\n\n"
+        f"{_FOOTER}"
     )
 
 

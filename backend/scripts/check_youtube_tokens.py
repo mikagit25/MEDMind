@@ -10,7 +10,7 @@ import json, os, subprocess, time
 from datetime import datetime, timezone
 from pathlib import Path
 
-BOT_TOKEN     = "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk"
+BOT_TOKEN     = "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk"
 ADMIN_CHAT_ID = os.environ.get("TG_ADMIN_CHAT_ID", "209381269")
 WARN_DAYS     = 3   # alert when refresh_token expires in ≤ N days
 CALLBACK_URL  = "https://medmind.pro/api/v1/auth/youtube/callback"
@@ -26,22 +26,22 @@ ACCOUNTS = [
     {
         "label":   "🐻 HappyBear EN (@HappyBearKids1)",
         "token":   "/opt/kids_channel/credentials/youtube_token.json",
-        "secret":  None,   # client_id/secret embedded in token
-        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py",
+        "secret":  "/opt/kids_channel/credentials/client_secret_kids_web.json",
+        "state":   "kids",
         "account": "lapidainvest@gmail.com",
     },
     {
         "label":   "🐻🇸🇦 HappyBear AR (@happybearkidsar)",
         "token":   "/opt/kids_channel/credentials/youtube_token_ar.json",
-        "secret":  None,
-        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py --channel ar",
+        "secret":  "/opt/kids_channel/credentials/client_secret_kids_web.json",
+        "state":   "kids_ar",
         "account": "kidsar6945071@gmail.com",
     },
     {
         "label":   "🎵 Calm Classics (@happybearkidsin)",
         "token":   "/opt/kids_channel/credentials/youtube_token_id.json",
-        "secret":  None,
-        "reauth":  "python3 /opt/kids_channel/scripts/reauth_youtube.py --channel id",
+        "secret":  "/opt/kids_channel/credentials/client_secret_kids_web.json",
+        "state":   "kids_id",
         "account": "kidain6945071@gmail.com",
     },
     # ── MedMind ──────────────────────────────────────────────────────────────
@@ -169,7 +169,6 @@ def try_refresh_access_token(acc: dict) -> bool:
     if "access_token" not in resp:
         return False
 
-    # Save updated token
     token["access_token"] = resp["access_token"]
     token["expires_at"]   = time.time() + resp.get("expires_in", 3600)
     if "refresh_token" in resp:
@@ -178,6 +177,8 @@ def try_refresh_access_token(acc: dict) -> bool:
         token["refresh_token_expires_in"] = resp["refresh_token_expires_in"]
         token["refresh_token_absolute_expiry"] = time.time() + resp["refresh_token_expires_in"]
 
+    # Write in-place (truncate+overwrite) to preserve the inode —
+    # os.replace() would create a new inode and break Docker bind mounts.
     with open(token_path, "w") as f:
         json.dump(token, f, indent=2)
 
@@ -244,8 +245,7 @@ def main():
         s = check_account(acc)
         if s["status"] in ("dead", "expiring"):
             icon = "🔴" if s["status"] == "dead" else "🟡"
-            # Kids channel: show reauth command; MedMind: show OAuth URL
-            if acc.get("reauth"):
+            if acc.get("reauth"):  # legacy fallback (no longer used)
                 link_line = (
                     f'   🖥 Команда: <code>{acc["reauth"]}</code>\n'
                     f'   Войди как: <b>{acc["account"]}</b>'

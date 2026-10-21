@@ -20,6 +20,7 @@ import argparse
 import asyncio
 import json
 import os
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -32,7 +33,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H   = 1080, 1920   # 9:16 vertical
 FPS    = 24
-VOICE  = os.environ.get("TTS_VOICE", "en-US-EmmaNeural")  # Copilot-grade 2024 voice
+VOICE  = os.environ.get("TTS_VOICE", "en-US-EmmaMultilingualNeural")  # Copilot-grade 2024 voice
 RATE   = "-5%"                  # slightly slower for comprehension
 
 # Brand palette

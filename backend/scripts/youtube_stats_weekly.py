@@ -5,7 +5,7 @@ Cron: 0 9 * * 1  (Monday 09:00 UTC)
 import json, os, time, subprocess
 from datetime import datetime, timedelta, timezone
 
-BOT_TOKEN     = "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk"
+BOT_TOKEN     = "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk"
 ADMIN_CHAT_ID = os.environ.get("TG_ADMIN_CHAT_ID", "209381269")
 
 ACCOUNTS = [

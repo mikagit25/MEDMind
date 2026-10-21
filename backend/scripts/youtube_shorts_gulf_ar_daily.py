@@ -63,7 +63,7 @@ from nclex_practice_session import _encode, _ffprobe_dur  # noqa: E402  ffmpeg p
 
 DAILY_LIMIT  = 2
 WAIT_BETWEEN = 45
-EN_VOICE     = os.environ.get("TTS_VOICE_EN", "en-US-EmmaNeural")
+EN_VOICE     = os.environ.get("TTS_VOICE_EN", "en-US-EmmaMultilingualNeural")
 AR_VOICE     = os.environ.get("TTS_VOICE_AR", "ar-SA-ZariyahNeural")  # Saudi Arabic: best for Gulf audience
 EN_RATE      = "-5%"
 AR_RATE      = "-15%"   # Arabic needs more breathing room: longer words, medical terms
@@ -420,7 +420,8 @@ def meta(q: dict, exam: str) -> dict:
         f"📝 تدرّب مجاناً على أسئلة {ar_name}:\n🔗 https://medmind.pro/ar/gulf\n"
         f"🌐 English: https://medmind.pro/exams/{exam}\n\n"
         f"سؤال تدريبي مبني على مخطط الامتحان الرسمي — ليس من الأسئلة الفعلية للامتحان. "
-        f"للتعليم والتحضير فقط، وليس نصيحة طبية. الصوت: ذكاء اصطناعي.\n\n"
+        f"للتعليم والتحضير فقط، وليس نصيحة طبية. الصوت: ذكاء اصطناعي.\n"
+        f"⚠️ هل أنت متخصص صحي ووجدت خطأً؟ أخبرنا في التعليقات أو على medmind.pro — الدقة أولويتنا.\n\n"
         f"{hashtags} {BASE_TAGS_AR}"
     )
     desc_en = (
@@ -431,7 +432,8 @@ def meta(q: dict, exam: str) -> dict:
         f"✅ Answer: {q['correct']}) {correct_txt}\n\n"
         f"📝 Free {en} practice: https://medmind.pro/exams/{exam}\n\n"
         f"Original practice question based on the official blueprint — not an actual exam item. "
-        f"Education only, not medical advice. AI-generated voice."
+        f"Education only, not medical advice. AI-generated voice.\n"
+        f"⚠️ Healthcare professional? Found an error? Please comment below or report at medmind.pro — accuracy is our priority."
     )
 
     tags = (_EXAM_YT_TAGS.get(exam, []) + _BASE_YT_TAGS + [topic_en.lower()])[:20]
