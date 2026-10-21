@@ -28,6 +28,7 @@ from typing import Any
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from pilmoji import Pilmoji
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -113,6 +114,12 @@ def wrap(draw, text, font, max_w):
     if cur:
         lines.append(cur)
     return lines
+
+
+def _emt(img: Image.Image, xy: tuple, text: str, font, fill) -> None:
+    """Draw text containing emoji onto img using pilmoji (NotoColorEmoji compositing)."""
+    with Pilmoji(img) as p:
+        p.text(xy, text, font=font, fill=fill)
 
 
 # ── DB helpers ────────────────────────────────────────────────────────────────
@@ -340,12 +347,12 @@ def render_pause() -> np.ndarray:
     # Thinking dots
     dot_text = "💭 Think carefully..."
     dw = tw(draw, dot_text, fb(38))
-    draw.text(((W - dw) // 2, cy + 140), dot_text, font=fb(38), fill=TEXT_M)
+    _emt(img, ((W - dw) // 2, cy + 140), dot_text, fb(38), TEXT_M)
 
     # Comment CTA
     cta = "⬇ Comment your answer!"
     cw = tw(draw, cta, fb(34))
-    draw.text(((W - cw) // 2, cy + 220), cta, font=fb(34), fill=PINK)
+    _emt(img, ((W - cw) // 2, cy + 220), cta, fb(34), PINK)
 
     return np.array(img)
 
@@ -399,7 +406,7 @@ def render_reveal(options: dict, correct: str, key_takeaway: str) -> np.ndarray:
     KT_H = 40 + len(kt_lines[:4]) * 40 + 20
     draw.rounded_rectangle([30, KT_Y, W - 30, KT_Y + KT_H], radius=16,
                            fill=(40, 32, 10), outline=AMBER, width=2)
-    draw.text((60, KT_Y + 14), "💡 Key Takeaway", font=fb(28), fill=AMBER)
+    _emt(img, (60, KT_Y + 14), "💡 Key Takeaway", fb(28), AMBER)
     ty = KT_Y + 52
     for line in kt_lines[:4]:
         draw.text((60, ty), line, font=fr(28), fill=(251, 229, 163))
@@ -413,8 +420,7 @@ def render_cta(exam: str | None = None) -> np.ndarray:
     img, draw = _base_canvas()
 
     cy = H // 2 - 100
-    draw.text(((W - tw(draw, "🎓", fb(120))) // 2, cy - 60), "🎓",
-              font=fb(120), fill=PINK)
+    _emt(img, ((W - 120) // 2, cy - 60), "🎓", fb(120), PINK)
 
     if exam:
         lines = ["Free practice test", "at MedMind:", f"medmind.pro/exams"]

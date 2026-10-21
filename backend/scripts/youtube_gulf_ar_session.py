@@ -53,7 +53,7 @@ from nclex_practice_session import (
     _encode, _ffprobe_dur, _fmt_ts,
     _canvas, _centered, _options, frame_countdown,
 )
-from nclex_to_shorts import fb, fr, tw, wrap, _db_conn
+from nclex_to_shorts import fb, fr, tw, wrap, _db_conn, _emt
 from youtube_shorts_gulf_ar_daily import (
     EXAMS, _EXAM_SHORT, _EXAM_YT_TAGS, _BASE_YT_TAGS, BASE_TAGS_AR,
     _module_ar, _ar_line, ar_lines, draw_rtl, say,
@@ -121,7 +121,8 @@ def frame_intro_ar(exam: str, n: int) -> Image.Image:
     _centered(d, 440, f"{en} Nursing Exam Practice", fr(46), TEXT_M)
     ar_center_16(d, 548, "السؤال بالإنجليزية كما في الامتحان • الشرح بالعربية", fr(40), TEXT_M)
     ar_center_16(d, 626, f"لديك {THINK_SECS} ثوان للتفكير في كل سؤال", fr(38), AMBER)
-    ar_center_16(d, 720, "اكتب كم أجبت صح في التعليقات 👇", fb(44), PINK)
+    _cta_ar = _ar_line("اكتب كم أجبت صح في التعليقات 👇")
+    _emt(img, ((W - tw(d, _cta_ar, fb(44))) // 2, 720), _cta_ar, fb(44), PINK)
     return img
 
 

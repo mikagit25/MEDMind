@@ -51,7 +51,7 @@ from nclex_practice_session import (                        # noqa: E402
     _encode, _ffprobe_dur, _fmt_ts,
     _canvas, _centered, _options, frame_countdown,
 )
-from nclex_to_shorts import fb, fr, tw, wrap, _db_conn      # noqa: E402
+from nclex_to_shorts import fb, fr, tw, wrap, _db_conn, _emt  # noqa: E402
 from youtube_shorts_gulf_ar_daily import say                 # noqa: E402  bilingual TTS
 from youtube_shorts_nclex_es_bilingual import TOPIC_ES, topic_es  # noqa: E402
 
@@ -106,7 +106,8 @@ def frame_intro_es(topic: str | None, n: int) -> Image.Image:
         _centered(d, 500, topic, fr(48), TEXT_M)
     _centered(d, 628, f"Lee cada pregunta  •  {THINK_SECS} s para responder  •  Explicación después",
               fr(38), TEXT_M)
-    _centered(d, 712, "¡Comenta cuántas acertaste! 👇", fb(40), PINK)
+    _cta_es = "¡Comenta cuántas acertaste! 👇"
+    _emt(img, ((W - tw(d, _cta_es, fb(40))) // 2, 712), _cta_es, fb(40), PINK)
     return img
 
 
