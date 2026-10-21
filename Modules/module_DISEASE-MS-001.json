@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-MS-001",
+  "title": "Multiple Sclerosis: Autoimmune Demyelination, MRI Revolution and High-Efficacy DMTs",
+  "specialty": "Neurology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Multiple sclerosis (MS) has a rich and fascinating history that spans over two centuries. The first recorded description of MS dates back to 1838 by Jean-Martin Charcot, a French neurologist. Charcot's work laid the foundation for the understanding of MS as a distinct clinical entity. In the late 19th century, scientists such as Eugen Pollak and Otto Marburg made significant contributions to the understanding of MS pathology. The 20th century saw major breakthroughs in MS research, including the discovery of the role of the immune system in the disease process. In 1965, Mary Shaw published a landmark paper on the epidemiology of MS, which shed light on the geographic distribution of the disease. The 1980s saw the introduction of magnetic resonance imaging (MRI), which revolutionized the diagnosis and monitoring of MS. In 1993, the first disease-modifying therapy (DMT) for MS, interferon beta-1b, was approved by the FDA. Since then, numerous DMTs have been developed, transforming the treatment landscape of MS.",
+        "sections": [],
+        "key_points": [
+          "Jean-Martin Charcot first described MS in 1838",
+          "Eugen Pollak and Otto Marburg contributed to MS pathology in the late 19th century",
+          "Mary Shaw published a landmark paper on MS epidemiology in 1965",
+          "MRI was introduced in the 1980s, revolutionizing MS diagnosis and monitoring",
+          "The first DMT, interferon beta-1b, was approved in 1993",
+          "MS is a complex disease with a history spanning over two centuries",
+          "Understanding of MS has evolved significantly over the years",
+          "Historical patients, such as Augustus d'Esté, have played a crucial role in shaping our understanding of MS"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "MS is a chronic autoimmune disease characterized by demyelination, inflammation, and axonal damage in the central nervous system (CNS). The exact aetiology of MS is still not fully understood, but it is believed to involve a complex interplay between genetic and environmental factors. Molecular mechanisms, such as the activation of autoreactive T cells and the production of pro-inflammatory cytokines, play a crucial role in the disease process. Genetic factors, including variants of the HLA-DRB1 gene, also contribute to the risk of developing MS. There are several subtypes of MS, including relapsing-remitting MS (RRMS), secondary progressive MS (SPMS), and primary progressive MS (PPMS). Each subtype has distinct clinical and pathological features, and understanding these differences is essential for developing effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "MS is a chronic autoimmune disease characterized by demyelination and inflammation",
+          "The exact aetiology of MS is still not fully understood",
+          "Molecular mechanisms, such as autoreactive T cells and pro-inflammatory cytokines, play a crucial role in MS",
+          "Genetic factors, including HLA-DRB1 variants, contribute to MS risk",
+          "There are several subtypes of MS, including RRMS, SPMS, and PPMS",
+          "Each subtype has distinct clinical and pathological features",
+          "Understanding the differences between subtypes is essential for developing effective treatment strategies",
+          "Environmental factors, such as vitamin D levels and smoking, may also contribute to MS risk"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "MS can present with a wide range of symptoms, including visual disturbances, motor weakness, sensory deficits, and cognitive impairment. The cardinal symptoms of MS include optic neuritis, transverse myelitis, and brainstem syndromes. The disease can also present with atypical symptoms, such as seizures, headaches, and fatigue. MS can be divided into several stages, including clinically isolated syndrome (CIS), relapsing-remitting MS (RRMS), secondary progressive MS (SPMS), and primary progressive MS (PPMS). Each stage has distinct clinical features, and understanding these differences is essential for developing effective treatment strategies. The clinical presentation of MS can also vary depending on the location and extent of CNS damage.",
+        "sections": [],
+        "key_points": [
+          "MS can present with a wide range of symptoms, including visual disturbances and motor weakness",
+          "The cardinal symptoms of MS include optic neuritis, transverse myelitis, and brainstem syndromes",
+          "Atypical symptoms, such as seizures and headaches, can also occur in MS",
+          "MS can be divided into several stages, including CIS, RRMS, SPMS, and PPMS",
+          "Each stage has distinct clinical features",
+          "Understanding the differences between stages is essential for developing effective treatment strategies",
+          "The clinical presentation of MS can vary depending on the location and extent of CNS damage",
+          "A thorough clinical evaluation is essential for diagnosing and managing MS"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of MS requires a combination of clinical evaluation, laboratory tests, and imaging studies. The McDonald criteria, introduced in 2001 and revised in 2010, provide a framework for diagnosing MS. These criteria require evidence of dissemination in space and time, which can be demonstrated through MRI or clinical evaluation. MRI is a critical tool in the diagnosis of MS, allowing for the visualization of lesions in the central nervous system. Cerebrospinal fluid analysis can also be used to support the diagnosis of MS, with the presence of oligoclonal bands being a key marker. Evoked potentials, such as visual evoked potentials, can be used to assess the functional integrity of the nervous system. The Multiple Sclerosis Severity Score (MSSS) and the Expanded Disability Status Scale (EDSS) are tools used to quantify the severity of MS and assess disability in MS patients. Differential diagnosis is critical in MS, with conditions such as neuromyelitis optica and acute disseminated encephalomyelitis needing to be ruled out. A comprehensive diagnostic workup for MS should include a thorough medical history, physical examination, and laboratory tests to rule out other conditions.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of multiple sclerosis (MS) is based on the McDonald criteria, which require evidence of dissemination in space and time.",
+          "Magnetic resonance imaging (MRI) is a crucial tool in the diagnosis of MS, allowing for the visualization of lesions in the central nervous system.",
+          "Cerebrospinal fluid analysis can also be used to support the diagnosis of MS, with the presence of oligoclonal bands being a key marker.",
+          "Evoked potentials, such as visual evoked potentials, can be used to assess the functional integrity of the nervous system.",
+          "The Multiple Sclerosis Severity Score (MSSS) is a tool used to quantify the severity of MS.",
+          "The Expanded Disability Status Scale (EDSS) is another widely used scale to assess disability in MS patients.",
+          "Differential diagnosis is critical in MS, with conditions such as neuromyelitis optica and acute disseminated encephalomyelitis needing to be ruled out.",
+          "A comprehensive diagnostic workup for MS should include a thorough medical history, physical examination, and laboratory tests to rule out other conditions."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of MS has evolved significantly over the past few decades, with the introduction of disease-modifying therapies (DMTs). DMTs are the mainstay of treatment for MS, with over 15 approved therapies available. First-line DMTs include interferon beta-1a, interferon beta-1b, and glatiramer acetate, which are used to reduce the frequency of relapses and slow disease progression. Second-line DMTs include natalizumab, fingolimod, and teriflunomide, which are used in patients who have failed first-line therapy or have aggressive disease. Non-pharmacological interventions, such as physical therapy and occupational therapy, play a critical role in managing MS symptoms and improving quality of life. Cognitive rehabilitation and behavioral therapy can also be beneficial in managing cognitive and emotional symptoms. Symptomatic treatments, such as medications for spasticity and bladder dysfunction, are used to manage specific symptoms. Vitamin D supplementation is recommended for all MS patients, as vitamin D deficiency is common in this population. Treatment of MS should be individualized, taking into account the patient's disease course, symptoms, and comorbidities.",
+        "sections": [],
+        "key_points": [
+          "Disease-modifying therapies (DMTs) are the mainstay of treatment for MS, with over 15 approved therapies available.",
+          "First-line DMTs include interferon beta-1a, interferon beta-1b, and glatiramer acetate.",
+          "Second-line DMTs include natalizumab, fingolimod, and teriflunomide, which are used in patients who have failed first-line therapy or have aggressive disease.",
+          "Non-pharmacological interventions, such as physical therapy and occupational therapy, play a critical role in managing MS symptoms and improving quality of life.",
+          "Cognitive rehabilitation and behavioral therapy can also be beneficial in managing cognitive and emotional symptoms.",
+          "Symptomatic treatments, such as medications for spasticity and bladder dysfunction, are used to manage specific symptoms.",
+          "Vitamin D supplementation is recommended for all MS patients, as vitamin D deficiency is common in this population.",
+          "Treatment of MS should be individualized, taking into account the patient's disease course, symptoms, and comorbidities."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "MS is a chronic and often disabling disease, with a significant impact on quality of life. The prognosis of MS is highly variable, with some patients experiencing a benign course and others a more aggressive disease. The Multiple Sclerosis Severity Score (MSSS) is a tool used to predict the prognosis of MS patients, taking into account the patient's disease course, symptoms, and disability. The Expanded Disability Status Scale (EDSS) is another widely used scale to assess disability in MS patients. Cognitive impairment is a common complication of MS, affecting up to 65% of patients. Depression and anxiety are also common comorbidities in MS patients, affecting up to 50% of patients. Seizures and epilepsy can occur in MS patients, particularly those with more aggressive disease. Urgent medical attention is required for MS patients who experience a severe relapse or significant worsening of symptoms. Early recognition and treatment of complications can significantly improve outcomes and quality of life for MS patients.",
+        "sections": [],
+        "key_points": [
+          "MS is a chronic and often disabling disease, with a significant impact on quality of life.",
+          "The prognosis of MS is highly variable, with some patients experiencing a benign course and others a more aggressive disease.",
+          "The Multiple Sclerosis Severity Score (MSSS) is a tool used to predict the prognosis of MS patients.",
+          "The Expanded Disability Status Scale (EDSS) is another widely used scale to assess disability in MS patients.",
+          "Cognitive impairment is a common complication of MS, affecting up to 65% of patients.",
+          "Depression and anxiety are also common comorbidities in MS patients, affecting up to 50% of patients.",
+          "Seizures and epilepsy can occur in MS patients, particularly those with more aggressive disease.",
+          "Urgent medical attention is required for MS patients who experience a severe relapse or significant worsening of symptoms."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Pediatric MS is a growing area of research, with a increasing recognition of the need for early diagnosis and treatment. Pregnancy in MS patients requires careful planning and management, with a multidisciplinary approach to minimize risks. Elderly MS patients often have unique challenges, including comorbidities and polypharmacy, which require careful consideration. Emerging therapies, such as stem cell transplantation and gene therapy, are being explored for the treatment of MS. Pipeline drugs, such as ozanimod and siponimod, are being developed to provide new treatment options for MS patients. Personalized medicine is becoming increasingly important in MS, with the use of biomarkers and genetic testing to tailor treatment to individual patients. Non-invasive brain stimulation techniques, such as transcranial magnetic stimulation, are being explored for the treatment of MS symptoms. Lifestyle modifications, such as diet and exercise, can play a critical role in managing MS symptoms and improving quality of life. As research continues to evolve, it is likely that new and innovative treatments will become available for MS patients, offering hope for improved outcomes and quality of life.",
+        "sections": [],
+        "key_points": [
+          "Pediatric MS is a growing area of research, with a increasing recognition of the need for early diagnosis and treatment.",
+          "Pregnancy in MS patients requires careful planning and management, with a multidisciplinary approach to minimize risks.",
+          "Elderly MS patients often have unique challenges, including comorbidities and polypharmacy, which require careful consideration.",
+          "Emerging therapies, such as stem cell transplantation and gene therapy, are being explored for the treatment of MS.",
+          "Pipeline drugs, such as ozanimod and siponimod, are being developed to provide new treatment options for MS patients.",
+          "Personalized medicine is becoming increasingly important in MS, with the use of biomarkers and genetic testing to tailor treatment to individual patients.",
+          "Non-invasive brain stimulation techniques, such as transcranial magnetic stimulation, are being explored for the treatment of MS symptoms.",
+          "Lifestyle modifications, such as diet and exercise, can play a critical role in managing MS symptoms and improving quality of life."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-MS-001",
+    "type": "disease_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Multiple Sclerosis: Autoimmune Demyelination, MRI Revolution and High-Efficacy DMTs",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

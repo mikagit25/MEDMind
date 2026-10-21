@@ -1,0 +1,293 @@
+{
+  "meta": {
+    "id": "PG-CV-001",
+    "type": "patient_guide",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Coronary Heart Disease and Angina — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Coronary Heart Disease?",
+      "content": {
+        "intro": "Coronary heart disease, also known as coronary artery disease, is a condition where the coronary arteries, which supply blood to the heart muscle, become narrowed or blocked due to a build-up of cholesterol and other substances. This can lead to angina, heart attacks, and other complications. Coronary heart disease is a major cause of illness and death worldwide, affecting millions of people. It's essential to understand the disease, its causes, symptoms, and treatment options to manage it effectively. Imagine the coronary arteries as pipes that supply water to a house. If the pipes become clogged, the house won't receive the water it needs, and the same happens with the heart when the coronary arteries are blocked. The good news is that with the right treatment and lifestyle changes, you can manage the disease and reduce the risk of complications.",
+        "sections": [
+          {
+            "heading": "What is Coronary Heart Disease?",
+            "text": "Coronary heart disease occurs when the coronary arteries become damaged or diseased, usually due to atherosclerosis, which is the build-up of plaque in the arteries. This plaque is made up of cholesterol, fatty substances, cellular waste products, calcium, and fibrin. Over time, the plaque can harden and narrow the arteries, reducing blood flow to the heart. As a result, the heart muscle may not receive the oxygen and nutrients it needs, leading to chest pain, shortness of breath, and other symptoms. It's crucial to understand that coronary heart disease is a progressive condition, meaning it can worsen over time if left untreated. The key is to catch it early and manage it effectively to prevent complications."
+          },
+          {
+            "heading": "How Common is Coronary Heart Disease?",
+            "text": "Coronary heart disease is one of the most common types of heart disease, affecting millions of people worldwide. According to the World Health Organization (WHO), coronary heart disease is responsible for over 7 million deaths globally each year. In the United States alone, it's estimated that over 18 million adults have coronary heart disease, with the majority being over the age of 65. The disease affects both men and women, although men are more likely to develop it at a younger age. Family history, lifestyle, and other factors can increase the risk of developing coronary heart disease."
+          },
+          {
+            "heading": "Why Does it Matter?",
+            "text": "Coronary heart disease matters because it can significantly impact your quality of life and increase the risk of complications, such as heart attacks, strokes, and kidney disease. If left untreated, the disease can lead to heart failure, which means the heart is unable to pump enough blood to meet the body's needs. This can cause fatigue, swelling, and shortness of breath, making everyday activities challenging. By understanding the disease and taking steps to manage it, you can reduce the risk of complications and improve your overall health. It's essential to work closely with your healthcare provider to develop a personalized treatment plan that suits your needs."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that coronary heart disease can often be managed with lifestyle changes, such as a healthy diet, regular exercise, and stress reduction, in addition to medical treatment. By making these changes, you can reduce your risk of complications and improve your overall health.",
+        "key_points": [
+          "Coronary heart disease is a condition where the coronary arteries become narrowed or blocked",
+          "The disease can lead to angina, heart attacks, and other complications",
+          "Lifestyle changes, such as a healthy diet and regular exercise, can help manage the disease",
+          "Family history and lifestyle can increase the risk of developing coronary heart disease",
+          "The disease can significantly impact your quality of life and increase the risk of complications",
+          "Early detection and treatment can help prevent complications and improve overall health"
+        ],
+        "questions_for_doctor": [
+          "What are the main symptoms of coronary heart disease, and how can I recognize them?",
+          "How can I reduce my risk of developing coronary heart disease, and what lifestyle changes can I make?",
+          "What treatment options are available for coronary heart disease, and which one is right for me?"
+        ],
+        "references": [
+          {
+            "title": "Coronary Heart Disease",
+            "authors": "American Heart Association",
+            "journal_or_source": "Heart.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Heart Association provides comprehensive guidelines for the diagnosis and treatment of coronary heart disease."
+          },
+          {
+            "title": "Coronary Artery Disease",
+            "authors": "National Institute of Health",
+            "journal_or_source": "NIH.gov",
+            "year": 2024,
+            "type": "report",
+            "note": "The National Institute of Health provides detailed information on coronary artery disease, including its causes, symptoms, and treatment options."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing coronary heart disease and angina involves a combination of medical history, physical exams, and various tests. Your doctor will start by asking you about your symptoms, medical history, and lifestyle. They will also perform a physical exam to check your blood pressure, heart rate, and look for any signs of heart disease. In this lesson, we will explore the different tests used to diagnose coronary heart disease and angina, what the results mean, and what to expect during the diagnosis process.",
+        "sections": [
+          {
+            "heading": "Tests for Diagnosing Coronary Heart Disease and Angina",
+            "text": "There are several tests that can help diagnose coronary heart disease and angina. These include electrocardiogram (ECG or EKG), echocardiogram, stress test, coronary angiogram, and blood tests. An electrocardiogram (ECG or EKG) measures the electrical activity of your heart. An echocardiogram uses sound waves to create images of your heart. A stress test measures how your heart functions when it's working hard. A coronary angiogram uses dye and X-rays to visualize the blood vessels in your heart. Blood tests can check for signs of heart damage or inflammation."
+          },
+          {
+            "heading": "Understanding Test Results",
+            "text": "Once the tests are completed, your doctor will review the results to determine if you have coronary heart disease or angina. If the results show that you have coronary heart disease or angina, your doctor will discuss treatment options with you. It's essential to ask questions and understand what the results mean. For example, you can ask your doctor to explain any abnormalities found on the tests or what the next steps are in your treatment plan."
+          },
+          {
+            "heading": "What to Expect During the Diagnosis Process",
+            "text": "The diagnosis process for coronary heart disease and angina can take several days or weeks. Your doctor may need to run multiple tests or consult with other specialists. It's essential to be patient and follow your doctor's instructions. During this time, you can also start making lifestyle changes to reduce your risk of complications, such as quitting smoking, exercising regularly, and eating a healthy diet."
+          }
+        ],
+        "clinical_pearl": "Remember, early diagnosis and treatment can significantly improve outcomes for people with coronary heart disease and angina.",
+        "key_points": [
+          "Coronary heart disease and angina are diagnosed using a combination of medical history, physical exams, and various tests.",
+          "Tests such as ECG, echocardiogram, stress test, coronary angiogram, and blood tests can help diagnose coronary heart disease and angina.",
+          "Understanding test results is crucial in determining the best course of treatment.",
+          "Lifestyle changes can start during the diagnosis process to reduce the risk of complications.",
+          "Quitting smoking, exercising regularly, and eating a healthy diet can help manage coronary heart disease and angina.",
+          "Early diagnosis and treatment can significantly improve outcomes for people with coronary heart disease and angina."
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose coronary heart disease and angina?",
+          "How long will the diagnosis process take?",
+          "What are the next steps in my treatment plan if I'm diagnosed with coronary heart disease or angina?"
+        ],
+        "references": [
+          {
+            "title": "Coronary Heart Disease and Angina Diagnosis",
+            "authors": "American Heart Association",
+            "journal_or_source": "Heart.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for diagnosing coronary heart disease and angina"
+          },
+          {
+            "title": "Diagnostic Tests for Coronary Heart Disease and Angina",
+            "authors": "National Institutes of Health",
+            "journal_or_source": "NIH.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Overview of diagnostic tests for coronary heart disease and angina"
+          }
+        ]
+      },
+      "key_takeaway": "Early diagnosis and treatment can significantly improve outcomes for people with coronary heart disease and angina."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for coronary heart disease and angina usually involves a combination of lifestyle changes, medications, and medical procedures. The goal of treatment is to reduce symptoms, slow disease progression, and prevent complications. In this lesson, we will explore the different treatment options available for coronary heart disease and angina, including medications, procedures, and surgery.",
+        "sections": [
+          {
+            "heading": "Medications for Coronary Heart Disease and Angina",
+            "text": "Medications can help manage symptoms, slow disease progression, and prevent complications. Common medications used to treat coronary heart disease and angina include nitrates, beta blockers, calcium channel blockers, and statins. Nitrates can help relieve chest pain by widening blood vessels. Beta blockers can help slow heart rate and reduce blood pressure. Calcium channel blockers can help relax blood vessels and reduce blood pressure. Statins can help lower cholesterol levels and reduce inflammation."
+          },
+          {
+            "heading": "Procedures and Surgery for Coronary Heart Disease and Angina",
+            "text": "In some cases, medical procedures or surgery may be necessary to treat coronary heart disease and angina. Procedures such as angioplasty and stenting can help open blocked blood vessels. Coronary artery bypass grafting (CABG) is a type of surgery that involves bypassing blocked blood vessels. These procedures can help improve blood flow to the heart and reduce symptoms."
+          },
+          {
+            "heading": "Lifestyle Changes for Coronary Heart Disease and Angina",
+            "text": "Lifestyle changes are an essential part of treating coronary heart disease and angina. Quitting smoking, exercising regularly, and eating a healthy diet can help manage symptoms and slow disease progression. It's also essential to manage stress, get enough sleep, and stay connected with friends and family."
+          }
+        ],
+        "clinical_pearl": "Remember, treatment for coronary heart disease and angina is individualized and may involve a combination of lifestyle changes, medications, and medical procedures.",
+        "key_points": [
+          "Treatment for coronary heart disease and angina usually involves a combination of lifestyle changes, medications, and medical procedures.",
+          "Medications such as nitrates, beta blockers, calcium channel blockers, and statins can help manage symptoms and slow disease progression.",
+          "Procedures such as angioplasty and stenting, and surgery such as CABG, can help open blocked blood vessels and improve blood flow to the heart.",
+          "Lifestyle changes such as quitting smoking, exercising regularly, and eating a healthy diet are essential in managing coronary heart disease and angina.",
+          "Managing stress, getting enough sleep, and staying connected with friends and family can also help manage symptoms.",
+          "Treatment plans should be individualized and regularly reviewed to ensure the best possible outcomes."
+        ],
+        "questions_for_doctor": [
+          "What medications are available to treat coronary heart disease and angina?",
+          "What procedures or surgery may be necessary to treat my condition?",
+          "What lifestyle changes can I make to manage my symptoms and slow disease progression?"
+        ],
+        "references": [
+          {
+            "title": "Treatment Options for Coronary Heart Disease and Angina",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "ACC.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for treating coronary heart disease and angina"
+          },
+          {
+            "title": "Medications for Coronary Heart Disease and Angina",
+            "authors": "National Institutes of Health",
+            "journal_or_source": "NIH.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Overview of medications used to treat coronary heart disease and angina"
+          }
+        ]
+      },
+      "key_takeaway": "Treatment for coronary heart disease and angina is individualized and may involve a combination of lifestyle changes, medications, and medical procedures."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Prevention",
+      "content": {
+        "intro": "Preventing coronary heart disease and angina involves making lifestyle changes to reduce risk factors. This can include quitting smoking, exercising regularly, eating a healthy diet, and managing stress. In this lesson, we will explore the different ways to prevent coronary heart disease and angina, including primary and secondary prevention strategies.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves making lifestyle changes to reduce the risk of developing coronary heart disease and angina. This can include quitting smoking, exercising regularly, eating a healthy diet, and managing stress. It's also essential to get regular health check-ups and screenings to monitor blood pressure, cholesterol levels, and blood sugar levels."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves making lifestyle changes and using medications to prevent complications and slow disease progression. This can include taking medications to lower blood pressure, cholesterol levels, and blood sugar levels. It's also essential to monitor symptoms and report any changes to your doctor."
+          },
+          {
+            "heading": "Self-Management",
+            "text": "Self-management involves taking an active role in managing your condition. This can include tracking symptoms, monitoring blood pressure and cholesterol levels, and making lifestyle changes. It's also essential to stay connected with friends and family and to seek support when needed."
+          }
+        ],
+        "clinical_pearl": "Remember, preventing coronary heart disease and angina requires a long-term commitment to making lifestyle changes and using medications as prescribed.",
+        "key_points": [
+          "Preventing coronary heart disease and angina involves making lifestyle changes to reduce risk factors.",
+          "Primary prevention strategies include quitting smoking, exercising regularly, eating a healthy diet, and managing stress.",
+          "Secondary prevention strategies involve making lifestyle changes and using medications to prevent complications and slow disease progression.",
+          "Self-management involves taking an active role in managing your condition.",
+          "Tracking symptoms, monitoring blood pressure and cholesterol levels, and making lifestyle changes can help manage coronary heart disease and angina.",
+          "Staying connected with friends and family and seeking support when needed can also help manage symptoms."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to reduce my risk of developing coronary heart disease and angina?",
+          "What medications can I take to prevent complications and slow disease progression?",
+          "How can I self-manage my condition and stay connected with friends and family?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Coronary Heart Disease and Angina",
+            "authors": "American Heart Association",
+            "journal_or_source": "Heart.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for preventing coronary heart disease and angina"
+          },
+          {
+            "title": "Self-Management of Coronary Heart Disease and Angina",
+            "authors": "National Institutes of Health",
+            "journal_or_source": "NIH.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Overview of self-management strategies for coronary heart disease and angina"
+          }
+        ]
+      },
+      "key_takeaway": "Preventing coronary heart disease and angina requires a long-term commitment to making lifestyle changes and using medications as prescribed."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Living Well with This Condition",
+      "content": {
+        "intro": "Living well with coronary heart disease and angina requires making lifestyle changes and using medications as prescribed. It's also essential to stay connected with friends and family, seek support when needed, and monitor symptoms. In this lesson, we will explore the different ways to live well with coronary heart disease and angina, including daily life adjustments, diet and exercise guidance, and what to monitor at home.",
+        "sections": [
+          {
+            "heading": "Daily Life Adjustments",
+            "text": "Making daily life adjustments can help manage symptoms and slow disease progression. This can include taking regular breaks, avoiding heavy lifting, and managing stress. It's also essential to prioritize self-care and get enough sleep."
+          },
+          {
+            "heading": "Diet and Exercise Guidance",
+            "text": "Eating a healthy diet and exercising regularly can help manage symptoms and slow disease progression. This can include eating a low-sodium diet, avoiding saturated and trans fats, and exercising for at least 30 minutes a day. It's also essential to stay hydrated and limit alcohol intake."
+          },
+          {
+            "heading": "What to Monitor at Home",
+            "text": "Monitoring symptoms and reporting any changes to your doctor is essential in managing coronary heart disease and angina. This can include tracking blood pressure, cholesterol levels, and blood sugar levels. It's also essential to monitor for signs of complications, such as chest pain or shortness of breath."
+          }
+        ],
+        "clinical_pearl": "Remember, living well with coronary heart disease and angina requires a long-term commitment to making lifestyle changes and using medications as prescribed.",
+        "key_points": [
+          "Living well with coronary heart disease and angina requires making lifestyle changes and using medications as prescribed.",
+          "Making daily life adjustments, such as taking regular breaks and managing stress, can help manage symptoms.",
+          "Eating a healthy diet and exercising regularly can help manage symptoms and slow disease progression.",
+          "Monitoring symptoms and reporting any changes to your doctor is essential in managing coronary heart disease and angina.",
+          "Tracking blood pressure, cholesterol levels, and blood sugar levels can help monitor disease progression.",
+          "Staying connected with friends and family and seeking support when needed can also help manage symptoms."
+        ],
+        "questions_for_doctor": [
+          "What daily life adjustments can I make to manage my symptoms?",
+          "What diet and exercise guidance can I follow to manage my symptoms?",
+          "What should I monitor at home to manage my condition?"
+        ],
+        "references": [
+          {
+            "title": "Living Well with Coronary Heart Disease and Angina",
+            "authors": "American College of Cardiology",
+            "journal_or_source": "ACC.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for living well with coronary heart disease and angina"
+          },
+          {
+            "title": "Self-Management of Coronary Heart Disease and Angina",
+            "authors": "National Institutes of Health",
+            "journal_or_source": "NIH.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Overview of self-management strategies for coronary heart disease and angina"
+          }
+        ]
+      },
+      "key_takeaway": "Living well with coronary heart disease and angina requires a long-term commitment to making lifestyle changes and using medications as prescribed."
+    }
+  ],
+  "id": "PG-CV-001",
+  "key_takeaway": "Coronary heart disease is a condition where the coronary arteries become narrowed or blocked, leading to angina, heart attacks, and other complications. By understanding the disease, its causes, symptoms, and treatment options, you can manage it effectively and reduce the risk of complications."
+}

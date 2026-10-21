@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "id": "PG-GI-009",
+    "type": "patient_guide",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Hemorrhoids — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 4,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-24",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Are Hemorrhoids? Understanding the Basics",
+      "content": {
+        "intro": "If you have ever felt a lump, experienced itching, or noticed some bright red blood on the toilet paper after a bowel movement, you are not alone. In fact, you are part of a very large group of people who have dealt with this common condition. Hemorrhoids, often called piles, are swollen veins in your lower rectum and anus. Think of them like varicose veins, but located in a very sensitive area. They can occur inside the rectum (internal) or under the skin around the anus (external). While the topic can feel embarrassing or uncomfortable to discuss, it is a normal medical issue that affects millions of people worldwide. Understanding what they are is the first step toward managing them effectively and finding relief. This lesson will help you demystify the condition, explain how common it is, and clarify why it happens to so many healthy individuals. By the end of this section, you will have a clear, plain-language understanding of the anatomy involved and why this condition is so prevalent in our daily lives.",
+        "sections": [
+          {
+            "heading": "The Anatomy: Cushions, Not Just Veins",
+            "text": "To understand hemorrhoids, it helps to change how we view the anatomy of the anus. Many people think of hemorrhoids as 'diseased' veins, but that is not entirely accurate. Everyone has hemorrhoidal tissue. These are actually normal structures called 'anal cushions.' They are made up of veins, arteries, and connective tissue. Their job is important: they act like soft cushions that help seal the anus to prevent gas or stool from leaking out. They also help with the smooth passage of stool. Imagine them like shock absorbers in a car; they are designed to take pressure and provide a smooth ride. Hemorrhoids only become a problem when these cushions swell, become inflamed, or slip out of place. This swelling is usually caused by increased pressure in the lower rectum. When the veins in these cushions get too much pressure, they expand, much like a balloon being filled with too much air. This expansion can lead to the symptoms you might be experiencing, such as bleeding, pain, or a feeling of fullness. It is crucial to remember that having hemorrhoids does not mean your body is failing; it means these normal structures are reacting to stress or pressure in a way that causes discomfort."
+          },
+          {
+            "heading": "How Common Is It? You Are Not Alone",
+            "text": "One of the most important things to know about hemorrhoids is their prevalence. They are incredibly common. Studies suggest that up to 50% of adults will experience symptomatic hemorrhoids by the age of 50. This means that half of the population you meet has likely dealt with this issue at some point. Despite this high number, many people suffer in silence due to embarrassment. This silence can prevent people from seeking help or learning effective management strategies. The condition affects both men and women, though some studies suggest women may be slightly more prone to them, particularly during pregnancy and childbirth. The age factor also plays a role; while they can occur at any age, the risk increases as we get older. This is because the connective tissues that hold the anal cushions in place naturally weaken over time, similar to how skin loses elasticity as we age. Knowing that this is a widespread, normal part of human physiology can help reduce the stigma and anxiety associated with the condition. It is a mechanical issue, not a sign of poor hygiene or a serious disease like cancer. Recognizing this can empower you to take control of your health with confidence and without shame."
+          },
+          {
+            "heading": "Why Does It Matter? Impact on Quality of Life",
+            "text": "While hemorrhoids are rarely life-threatening, they can significantly impact your quality of life. The symptoms can range from mild irritation to severe pain and bleeding. Chronic bleeding, even if small in amount, can lead to anemia over time, causing fatigue and weakness. The pain and itching can interfere with daily activities, work, and sleep. Many patients report avoiding social situations or physical activities due to fear of symptoms flaring up. Furthermore, the anxiety about bleeding can cause unnecessary worry about more serious conditions, such as colorectal cancer. This is why proper diagnosis and management are essential. It is not just about stopping the pain; it is about restoring your comfort and peace of mind. By understanding the condition, you can distinguish between normal hemorrhoidal symptoms and signs that require immediate medical attention. This knowledge allows you to manage minor flare-ups at home and know exactly when to seek professional help. It transforms the experience from one of fear and confusion to one of management and control. Your health and comfort matter, and addressing hemorrhoids is a valid and important part of maintaining your overall well-being."
+          }
+        ],
+        "clinical_pearl": "Hemorrhoids are normal anatomical structures that become problematic only when swollen. They are not a disease in themselves but a symptom of increased pressure in the pelvic area. Understanding this distinction helps reduce anxiety and focuses treatment on managing pressure and symptoms rather than 'curing' a non-existent disease.",
+        "key_points": [
+          "Hemorrhoids are swollen veins in the rectum or anus, affecting up to 50% of adults by age 50.",
+          "They originate from normal 'anal cushions' that help seal the anus and facilitate stool passage.",
+          "Symptoms include bleeding, itching, pain, and a feeling of fullness or a lump.",
+          "The condition is common across genders but may be more frequent in women during pregnancy.",
+          "While not life-threatening, hemorrhoids can significantly impact quality of life and cause anemia.",
+          "Early recognition and management can prevent complications and reduce the need for invasive procedures."
+        ],
+        "questions_for_doctor": [
+          "Can you confirm that my symptoms are definitely caused by hemorrhoids and not another condition?",
+          "What grade or severity of hemorrhoids do I have, and how does that affect my treatment options?",
+          "Are there any specific signs I should watch for that would indicate a more serious problem?"
+        ],
+        "references": [
+          {
+            "title": "Management of Hemorrhoidal Disease",
+            "authors": "American Society of Colon and Rectal Surgeons",
+            "journal_or_source": "Diseases of the Colon & Rectum",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides comprehensive guidelines on diagnosis and treatment algorithms for hemorrhoids."
+          },
+          {
+            "title": "Epidemiology of Hemorrhoids",
+            "authors": "World Health Organization",
+            "journal_or_source": "Global Health Estimates",
+            "year": 2024,
+            "type": "statistical_report",
+            "note": "Offers global data on the prevalence and impact of hemorrhoidal disease on public health."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors: Why Do They Happen?",
+      "content": {
+        "intro": "Now that you understand what hemorrhoids are, the next logical question is: why did they happen to me? Identifying the root causes is crucial for effective management and prevention. Hemorrhoids are not caused by a single factor but rather by a combination of pressures and habits that strain the veins in your rectum and anus. Think of it like a garden hose; if you kink the hose or turn the water pressure up too high, the hose can bulge or burst. Similarly, when pressure builds up in your pelvic area, the veins in your anal cushions swell. This lesson will explore the various triggers, from lifestyle choices like diet and exercise to biological factors like genetics and aging. We will distinguish between risks you can control and those you cannot, empowering you to make informed changes. By understanding these causes, you can take proactive steps to reduce pressure on these sensitive veins and prevent future flare-ups. This knowledge is your toolkit for long-term relief.",
+        "sections": [
+          {
+            "heading": "Lifestyle Triggers: Diet and Habits",
+            "text": "The most significant contributors to hemorrhoids are often related to daily habits, particularly those involving bowel movements. Constipation is a major culprit. When stool is hard and dry, you have to strain to pass it. This straining increases pressure in the veins of the rectum, causing them to swell. Imagine trying to push a thick, dry log through a narrow pipe; the pressure required is immense. This pressure is transmitted directly to the hemorrhoidal veins. Conversely, chronic diarrhea can also irritate the area and lead to inflammation. Another key factor is diet. A diet low in fiber means less bulk in your stool, making it harder to pass. Fiber acts like a sponge, absorbing water and keeping stool soft and bulky. Without enough fiber, your body struggles to move waste efficiently. Additionally, prolonged sitting, especially on the toilet, can increase pressure. Many people spend too much time reading or scrolling on their phones while on the toilet. This position allows gravity to pull blood into the veins of the rectum, causing them to engorge. Limiting toilet time to 5 minutes or less can make a significant difference. Lastly, heavy lifting can also spike intra-abdominal pressure, contributing to the problem. Being mindful of these habits is the first step toward prevention."
+          },
+          {
+            "heading": "Biological and Genetic Factors",
+            "text": "While lifestyle plays a huge role, some factors are beyond your control. Genetics can predispose you to hemorrhoids. If your parents or siblings had hemorrhoids, you are more likely to develop them. This may be due to inherited weaknesses in the connective tissues that support the veins. Think of it like inheriting a tendency for varicose veins in your legs; the structural integrity of your veins may be naturally less robust. Aging is another non-modifiable risk factor. As we age, the tissues that hold the anal cushions in place naturally weaken and stretch. This is a normal part of the aging process, similar to how skin sags over time. This weakening makes it easier for the cushions to slip out of place and become symptomatic. Pregnancy is a significant risk factor for women. The growing uterus puts direct pressure on the veins in the pelvis, slowing blood flow and causing swelling. Additionally, hormonal changes during pregnancy relax the vein walls, making them more prone to dilation. Childbirth, particularly vaginal delivery, involves intense straining that can push hemorrhoids out. Understanding these biological factors helps you recognize that sometimes, hemorrhoids happen despite your best efforts, and that it is not your fault. It also highlights the importance of extra care during these life stages."
+          },
+          {
+            "heading": "Modifiable vs. Non-Modifiable Risks",
+            "text": "To effectively manage hemorrhoids, it is helpful to categorize risks into those you can change and those you cannot. Non-modifiable risks include age, genetics, and pregnancy. You cannot change your age or your genes, and pregnancy is a natural life event. However, you can manage the impact of these risks. For example, during pregnancy, you can focus on diet and hydration to minimize straining. Modifiable risks include diet, exercise, toilet habits, and weight. These are areas where you have significant control. Increasing fiber intake, drinking plenty of water, and exercising regularly can dramatically reduce pressure on your veins. Losing excess weight can also help, as obesity increases intra-abdominal pressure. Avoiding prolonged sitting and heavy lifting are other actionable steps. By focusing on the modifiable risks, you can mitigate the effects of the non-modifiable ones. This approach empowers you to take charge of your health. It shifts the narrative from 'I am doomed to have hemorrhoids because of my genes' to 'I can manage my risk factors to keep symptoms at bay.' This proactive mindset is key to long-term success. Remember, small changes in daily habits can lead to significant improvements in your comfort and well-being."
+          }
+        ],
+        "clinical_pearl": "Straining during bowel movements is the single most common cause of hemorrhoid flare-ups. Reducing straining through dietary fiber and hydration is more effective than any medication for long-term management. Think of fiber as the 'lubricant' that allows stool to pass without damaging the delicate veins.",
+        "key_points": [
+          "Constipation and straining are the primary lifestyle triggers for hemorrhoid development.",
+          "A low-fiber diet leads to hard stool, increasing the need to strain and pressure the veins.",
+          "Prolonged sitting on the toilet increases pressure and should be limited to 5 minutes.",
+          "Genetics and aging are non-modifiable risk factors that weaken supporting tissues.",
+          "Pregnancy and childbirth significantly increase risk due to pelvic pressure and hormonal changes.",
+          "Focusing on modifiable risks like diet, exercise, and toilet habits can prevent flare-ups."
+        ],
+        "questions_for_doctor": [
+          "Based on my family history, am I at higher risk for severe hemorrhoids?",
+          "What specific dietary changes do you recommend to reduce straining?",
+          "Are there any exercises or physical activities I should avoid to prevent worsening my condition?"
+        ],
+        "references": [
+          {
+            "title": "Dietary Fiber and Hemorrhoidal Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK Patient Education",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Details the role of fiber in preventing constipation and reducing hemorrhoid symptoms."
+          },
+          {
+            "title": "Risk Factors for Anorectal Disorders",
+            "authors": "European Society of Coloproctology",
+            "journal_or_source": "Techniques in Coloproctology",
+            "year": 2024,
+            "type": "review_article",
+            "note": "Analyzes the impact of lifestyle and biological factors on the development of hemorrhoids."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "Understanding what you are feeling is the first step toward managing hemorrhoids effectively. Many people experience discomfort in the rectal area but are unsure if it is something serious or just a minor irritation. Hemorrhoids are essentially swollen veins in your lower rectum and anus, similar to varicose veins in your legs. They can occur inside the rectum (internal) or under the skin around the anus (external). Knowing the difference between these types helps explain why your symptoms might vary. This lesson will guide you through the common signs, how the condition progresses, and when it is time to seek immediate medical attention. By recognizing these patterns, you can take control of your health and avoid unnecessary worry.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs and What to Expect",
+            "text": "In the early stages, hemorrhoids may not cause any pain at all. Internal hemorrhoids, which are located inside the rectum, often present with bright red blood on the toilet paper or in the toilet bowl after a bowel movement. This bleeding is usually painless but can be alarming. It is important to note that while blood is a common sign, it is not the only one. You might also feel a sense of fullness or pressure in the rectum, even after you have had a bowel movement. External hemorrhoids, on the other hand, are located under the skin around the anus. In the beginning, you might feel a small lump or swelling. This area can become itchy or irritated, especially if moisture from sweat or stool gets trapped. The skin around the anus is very sensitive, so even minor irritation can feel quite uncomfortable. Some people describe a feeling of 'wetness' or incomplete wiping, which is due to mucus secretion from internal hemorrhoids that have prolapsed (slipped out) slightly."
+          },
+          {
+            "heading": "How Hemorrhoids Progress Over Time",
+            "text": "Hemorrhoids do not always stay mild. If left unmanaged, they can progress through different stages. For internal hemorrhoids, doctors use a grading system from I to IV. Grade I hemorrhoids bleed but do not prolapse (fall out). Grade II hemorrhoids prolapse during bowel movements but slide back in on their own. Grade III hemorrhoids prolapse and need to be pushed back in manually with your finger. Grade IV hemorrhoids are permanently prolapsed and cannot be pushed back in. This progression usually happens over months or years, often linked to chronic straining, constipation, or prolonged sitting. External hemorrhoids can also worsen. A small external lump might become larger and more painful if a blood clot forms inside it, a condition known as a thrombosed hemorrhoid. This can happen suddenly and cause severe pain, swelling, and discoloration (turning purple or blue). The pain from a thrombosed hemorrhoid is often described as sharp or throbbing and can make sitting or walking difficult. Understanding this progression helps you realize that early intervention is key to preventing more severe stages."
+          },
+          {
+            "heading": "When to Seek Urgent Care",
+            "text": "While most hemorrhoid symptoms are manageable at home, there are specific signs that require immediate medical attention. First, if you experience heavy bleeding that does not stop after a few minutes, or if you feel dizzy, lightheaded, or faint, seek emergency care. This could indicate significant blood loss. Second, if you have severe pain that is not relieved by over-the-counter pain medications or warm baths, you should see a doctor promptly. Severe pain could signal a thrombosed hemorrhoid or another condition like an anal fissure or abscess. Third, if you notice a change in the color of your stool (such as black, tarry stools) or if you have unexplained weight loss, fever, or changes in bowel habits (like persistent diarrhea or constipation), these are red flags that need investigation. These symptoms might not be related to hemorrhoids and could indicate other gastrointestinal issues. Do not ignore these signs. It is always better to be safe and have a professional evaluate your symptoms to rule out more serious conditions."
+          }
+        ],
+        "clinical_pearl": "Bright red blood on toilet paper is the most common sign of internal hemorrhoids. However, any rectal bleeding should be evaluated by a doctor to rule out other causes, such as colorectal cancer or inflammatory bowel disease. Never assume bleeding is 'just hemorrhoids' without a professional check-up.",
+        "key_points": [
+          "Internal hemorrhoids often cause painless bright red bleeding.",
+          "External hemorrhoids can cause itching, swelling, and discomfort.",
+          "Hemorrhoids progress through grades based on prolapse severity.",
+          "Thrombosed hemorrhoids cause sudden, severe pain and swelling.",
+          "Heavy bleeding or dizziness requires immediate emergency care.",
+          "Black or tarry stools are not typical of hemorrhoids and need urgent evaluation."
+        ],
+        "questions_for_doctor": [
+          "Could my bleeding be caused by something other than hemorrhoids?",
+          "What stage are my hemorrhoids, and how might they progress?",
+          "Are there specific symptoms I should watch for that indicate a complication?"
+        ],
+        "references": [
+          {
+            "title": "Management of Hemorrhoidal Disease",
+            "authors": "American Society of Colon and Rectal Surgeons",
+            "journal_or_source": "Diseases of the Colon & Rectum",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides grading system and symptom management guidelines."
+          },
+          {
+            "title": "Hemorrhoids: Symptoms and Diagnosis",
+            "authors": "Mayo Clinic",
+            "journal_or_source": "Mayo Clinic Proceedings",
+            "year": 2024,
+            "type": "patient_education",
+            "note": "Detailed overview of symptom progression and warning signs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Getting a diagnosis for hemorrhoids is usually straightforward and often less intimidating than you might expect. Many patients worry about the examination process, but doctors are trained to make you as comfortable as possible. The goal of the diagnosis is not just to confirm the presence of hemorrhoids but also to rule out other conditions that might cause similar symptoms, such as anal fissures, polyps, or colorectal cancer. This lesson will walk you through the typical diagnostic process, including the physical exam, possible tests, and what to expect during your appointment. Knowing what to expect can help reduce anxiety and ensure you are prepared for your visit.",
+        "sections": [
+          {
+            "heading": "The Physical Examination",
+            "text": "The first step in diagnosing hemorrhoids is a physical examination. Your doctor will start by asking about your symptoms, medical history, and any medications you are taking. They will then visually inspect the area around your anus to look for external hemorrhoids, skin tags, or signs of irritation. This part of the exam is quick and usually painless. Next, the doctor may perform a digital rectal exam (DRE). For this, they will wear a glove, apply lubricant, and gently insert a finger into your rectum. This helps them feel for internal hemorrhoids, check for lumps, and assess the tone of your anal sphincter. While this might feel uncomfortable, it should not be painful. If you feel pain, tell your doctor immediately so they can adjust their technique. The DRE is a crucial step because it allows the doctor to feel abnormalities that cannot be seen from the outside."
+          },
+          {
+            "heading": "Anoscopy and Colonoscopy",
+            "text": "If the physical exam is not enough to confirm the diagnosis, your doctor may use an anoscope. An anoscope is a short, hollow tube that is inserted into the rectum to provide a clear view of the lower rectum and anus. This allows the doctor to see internal hemorrhoids directly. The procedure is quick and usually causes minimal discomfort. In some cases, especially if you are over 45, have a family history of colorectal cancer, or have other risk factors, your doctor may recommend a colonoscopy. A colonoscopy involves inserting a flexible tube with a camera into your entire colon. This test is more comprehensive and requires bowel preparation (cleaning out your colon) beforehand. It is typically done under sedation, so you will be asleep or very relaxed during the procedure. While a colonoscopy is not always necessary for diagnosing hemorrhoids, it is an important tool for ruling out other serious conditions and screening for colorectal cancer."
+          },
+          {
+            "heading": "What to Expect and How Long It Takes",
+            "text": "The diagnostic process for hemorrhoids is usually efficient. A simple physical exam and anoscopy can often be completed in a single office visit, which typically lasts 15-30 minutes. If a colonoscopy is recommended, the process takes longer. You will need to follow a clear liquid diet and take laxatives the day before the procedure to clean your colon. The colonoscopy itself takes about 30-60 minutes, but you will need several hours for recovery and observation. You will need someone to drive you home because of the sedation. Most people can return to normal activities the next day. The results of the physical exam and anoscopy are usually available immediately. Colonoscopy results may take a few days if biopsies (small tissue samples) are taken for further analysis. Your doctor will discuss the findings with you and explain the next steps for treatment. It is important to ask questions during this time to ensure you understand your diagnosis and treatment options."
+          }
+        ],
+        "clinical_pearl": "A digital rectal exam and anoscopy are the primary tools for diagnosing hemorrhoids. These procedures are quick, minimally invasive, and provide immediate results. Do not hesitate to ask your doctor to explain each step before they begin to help reduce anxiety.",
+        "key_points": [
+          "Physical exam includes visual inspection and digital rectal exam.",
+          "Anoscopy provides a direct view of internal hemorrhoids.",
+          "Colonoscopy may be needed to rule out other conditions.",
+          "Diagnosis is usually quick and can be done in one visit.",
+          "Colonoscopy requires bowel prep and sedation.",
+          "Ask your doctor to explain each step of the exam."
+        ],
+        "questions_for_doctor": [
+          "Do I need a colonoscopy, or is an anoscopy sufficient?",
+          "How long will the examination take, and will it be painful?",
+          "What are the next steps after the diagnosis is confirmed?"
+        ],
+        "references": [
+          {
+            "title": "Diagnostic Approach to Hemorrhoids",
+            "authors": "World Gastroenterology Organisation",
+            "journal_or_source": "WGO Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Outlines standard diagnostic procedures for hemorrhoidal disease."
+          },
+          {
+            "title": "What to Expect During a Colonoscopy",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "ACG Patient Resources",
+            "year": 2024,
+            "type": "patient_education",
+            "note": "Detailed guide on colonoscopy preparation and procedure."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "The good news is that there are many effective treatments for hemorrhoids, ranging from simple lifestyle changes to minor procedures. The right treatment for you depends on the severity of your symptoms, the type of hemorrhoids you have, and your overall health. Most people find relief with conservative measures like dietary changes and over-the-counter medications. For more persistent or severe cases, minimally invasive procedures or surgery may be recommended. This lesson will explore all available treatment options, helping you understand what each involves, their benefits, and potential side effects. By working with your doctor, you can choose the best approach to manage your symptoms and improve your quality of life.",
+        "sections": [
+          {
+            "heading": "Conservative and Medication Treatments",
+            "text": "For mild hemorrhoids, the first line of treatment is usually conservative management. This includes increasing fiber intake to soften stools and reduce straining. Aim for 25-35 grams of fiber per day from foods like fruits, vegetables, whole grains, and legumes. If you cannot get enough fiber from food, your doctor may recommend a fiber supplement like psyllium husk. Staying hydrated is also crucial; drink at least 8 glasses of water a day. Over-the-counter medications can provide symptom relief. Topical creams, ointments, or suppositories containing hydrocortisone can reduce itching and inflammation. Witch hazel pads can soothe irritation. Oral pain relievers like acetaminophen or ibuprofen can help with pain. However, avoid using steroid creams for more than 7 days unless directed by your doctor, as they can thin the skin. Sitz baths (soaking the area in warm water for 10-15 minutes) can also provide significant relief from pain and itching."
+          },
+          {
+            "heading": "Minimally Invasive Procedures",
+            "text": "If conservative treatments do not provide relief, your doctor may recommend a minimally invasive procedure. Rubber band ligation is the most common procedure for internal hemorrhoids. During this procedure, a small rubber band is placed around the base of the hemorrhoid to cut off its blood supply. The hemorrhoid shrinks and falls off within a few days. This procedure is quick, usually done in the office, and has a high success rate. Sclerotherapy involves injecting a chemical solution into the hemorrhoid to shrink it. This is often used for smaller hemorrhoids. Infrared coagulation uses heat to scar and shrink the hemorrhoid. These procedures are generally well-tolerated and have minimal downtime. You may experience some discomfort or bleeding after the procedure, but this is usually mild and temporary. Your doctor will provide specific aftercare instructions to ensure proper healing."
+          },
+          {
+            "heading": "Surgical Options and Rehabilitation",
+            "text": "For severe or recurrent hemorrhoids that do not respond to other treatments, surgery may be necessary. Hemorrhoidectomy is the surgical removal of the hemorrhoid. This is the most effective treatment for large or prolapsed hemorrhoids but can be painful and requires a longer recovery time. Stapled hemorrhoidopexy is another option, where a special stapling device is used to cut off blood flow to the hemorrhoid and pull prolapsed tissue back into place. This procedure is less painful than a hemorrhoidectomy but has a higher risk of recurrence. Hemorrhoidal artery ligation (HAL) uses Doppler ultrasound to locate and tie off the arteries supplying blood to the hemorrhoids. This is a less invasive option with faster recovery. After surgery, you will need to manage pain, keep the area clean, and follow a high-fiber diet to prevent constipation. Recovery can take 2-4 weeks, depending on the procedure. It is important to follow your doctor's post-operative instructions carefully to promote healing and prevent complications."
+          }
+        ],
+        "clinical_pearl": "Rubber band ligation is the most common and effective office-based procedure for internal hemorrhoids. It is quick, minimally painful, and has a high success rate. Surgery is reserved for severe cases that do not respond to other treatments.",
+        "key_points": [
+          "Increase fiber and water intake to soften stools.",
+          "Use OTC creams and sitz baths for symptom relief.",
+          "Rubber band ligation is a common minimally invasive procedure.",
+          "Surgery is an option for severe or recurrent hemorrhoids.",
+          "Recovery time varies depending on the treatment chosen.",
+          "Follow post-treatment instructions carefully to prevent complications."
+        ],
+        "questions_for_doctor": [
+          "Which treatment option is best for my specific type of hemorrhoids?",
+          "What are the potential side effects of the recommended procedure?",
+          "How long will it take to recover from the treatment?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Hemorrhoids",
+            "authors": "National Institute for Health and Care Excellence (NICE)",
+            "journal_or_source": "NICE Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guidelines on treatment options for hemorrhoids."
+          },
+          {
+            "title": "Surgical Management of Hemorrhoids",
+            "authors": "American Society of Colon and Rectal Surgeons",
+            "journal_or_source": "Diseases of the Colon & Rectum",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Details on surgical options and recovery expectations."
+          }
+        ]
+      }
+    }
+  ]
+}

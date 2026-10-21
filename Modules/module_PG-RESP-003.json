@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "id": "PG-RESP-003",
+    "type": "patient_guide",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Obstructive Sleep Apnoea — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Obstructive Sleep Apnoea?",
+      "content": {
+        "intro": "Obstructive sleep apnoea (OSA) is a common sleep disorder that affects millions of people worldwide. It occurs when the airway is partially or completely blocked during sleep, causing breathing to stop and start repeatedly. Imagine trying to breathe through a straw that is pinched shut - that's what it's like for people with OSA. In this lesson, we'll explore what OSA is, how common it is, and why it matters. OSA is a serious condition that can increase the risk of heart disease, stroke, and diabetes if left untreated.",
+        "sections": [
+          {
+            "heading": "What is Obstructive Sleep Apnoea?",
+            "text": "Obstructive sleep apnoea is a condition where the airway is partially or completely blocked during sleep, causing breathing to stop and start repeatedly. This can happen when the muscles in the throat relax, causing the airway to narrow or collapse. As a result, people with OSA may experience loud snoring, gasping, or choking during sleep. OSA can also cause daytime fatigue, headaches, and difficulty concentrating. It's essential to understand that OSA is not just a matter of poor sleep quality - it's a serious medical condition that requires attention and treatment."
+          },
+          {
+            "heading": "How Common is Obstructive Sleep Apnoea?",
+            "text": "OSA is a relatively common condition, affecting approximately 1 in 5 adults. However, it's estimated that up to 90% of people with OSA remain undiagnosed. This is because the symptoms of OSA can be subtle, and many people may not even realize they have the condition. OSA can affect anyone, regardless of age, sex, or weight. However, certain factors can increase the risk of developing OSA, such as obesity, smoking, and a family history of the condition."
+          },
+          {
+            "heading": "Why Does Obstructive Sleep Apnoea Matter?",
+            "text": "OSA matters because it can have serious consequences for overall health and wellbeing. Untreated OSA can increase the risk of heart disease, stroke, and diabetes. It can also affect cognitive function, mood, and quality of life. Furthermore, OSA can have a significant impact on relationships, work, and daily activities. By understanding what OSA is and how it affects the body, people can take steps to manage the condition and reduce the risk of complications."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that OSA is a treatable condition, and seeking medical attention is the first step towards managing the condition and improving overall health.",
+        "key_points": [
+          "OSA is a common sleep disorder that affects millions of people worldwide",
+          "OSA can increase the risk of heart disease, stroke, and diabetes if left untreated",
+          "OSA can affect anyone, regardless of age, sex, or weight",
+          "Certain factors can increase the risk of developing OSA, such as obesity and smoking",
+          "Untreated OSA can have serious consequences for overall health and wellbeing",
+          "Seeking medical attention is the first step towards managing OSA and improving overall health"
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of OSA, and how can I recognize them?",
+          "How can I determine if I'm at risk of developing OSA?",
+          "What are the treatment options for OSA, and which one is right for me?"
+        ],
+        "references": [
+          {
+            "title": "Obstructive Sleep Apnoea: A Review of the Literature",
+            "authors": "American Academy of Sleep Medicine",
+            "journal_or_source": "Journal of Clinical Sleep Medicine",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of the diagnosis and treatment of OSA"
+          },
+          {
+            "title": "The Epidemiology of Obstructive Sleep Apnoea",
+            "authors": "National Sleep Foundation",
+            "journal_or_source": "Sleep Health",
+            "year": 2024,
+            "type": "review",
+            "note": "This review provides an overview of the prevalence and risk factors of OSA"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Obstructive Sleep Apnoea",
+      "content": {
+        "intro": "While the exact causes of OSA are not fully understood, research has identified several risk factors that can increase the likelihood of developing the condition. In this lesson, we'll explore the genetic and lifestyle factors that contribute to OSA, as well as the modifiable and non-modifiable risks. By understanding the causes and risk factors of OSA, people can take steps to reduce their risk and manage the condition.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Research suggests that genetic factors may play a role in the development of OSA. For example, people with a family history of OSA are more likely to develop the condition. Additionally, certain genetic disorders, such as Down syndrome, can increase the risk of OSA. However, it's essential to note that genetic factors are just one piece of the puzzle, and lifestyle factors also play a significant role in the development of OSA."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as obesity, smoking, and lack of physical activity, can increase the risk of developing OSA. For example, excess weight can cause fat to accumulate in the throat, narrowing the airway and increasing the risk of obstruction. Smoking can also cause inflammation and damage to the airway, making it more susceptible to obstruction. Furthermore, a sedentary lifestyle can contribute to weight gain and increase the risk of OSA."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "While some risk factors, such as age and sex, are non-modifiable, others, such as obesity and smoking, are modifiable. By making lifestyle changes, such as losing weight, quitting smoking, and increasing physical activity, people can reduce their risk of developing OSA. Additionally, avoiding alcohol and sedatives, which can relax the muscles in the throat and increase the risk of obstruction, can also help manage the condition."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that losing weight can significantly reduce the risk of OSA, and even a 10% weight loss can improve symptoms.",
+        "key_points": [
+          "Genetic factors may play a role in the development of OSA",
+          "Lifestyle factors, such as obesity and smoking, can increase the risk of OSA",
+          "Modifiable risk factors, such as obesity and smoking, can be addressed through lifestyle changes",
+          "Non-modifiable risk factors, such as age and sex, cannot be changed",
+          "Avoiding alcohol and sedatives can help manage OSA",
+          "Losing weight can significantly reduce the risk of OSA"
+        ],
+        "questions_for_doctor": [
+          "What are the most significant risk factors for developing OSA?",
+          "How can I reduce my risk of developing OSA through lifestyle changes?",
+          "What are the benefits of losing weight in reducing the risk of OSA?"
+        ],
+        "references": [
+          {
+            "title": "The Genetics of Obstructive Sleep Apnoea",
+            "authors": "European Respiratory Journal",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2024,
+            "type": "review",
+            "note": "This review provides an overview of the genetic factors that contribute to OSA"
+          },
+          {
+            "title": "Lifestyle Factors and Obstructive Sleep Apnoea",
+            "authors": "National Sleep Foundation",
+            "journal_or_source": "Sleep Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for lifestyle changes to reduce the risk of OSA"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How Obstructive Sleep Apnoea Develops",
+      "content": {
+        "intro": "OSA can cause a range of symptoms, from mild to severe. In this lesson, we'll explore the early warning signs of OSA, how the condition progresses over time, and what patients can expect to experience. By understanding the symptoms of OSA, people can seek medical attention early and manage the condition effectively.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of OSA can be subtle, but they often include loud snoring, gasping, or choking during sleep. People with OSA may also experience daytime fatigue, headaches, and difficulty concentrating. Additionally, OSA can cause mood changes, such as irritability and depression, and can affect relationships and daily activities."
+          },
+          {
+            "heading": "How OSA Develops",
+            "text": "OSA can develop over time, often as a result of a combination of genetic and lifestyle factors. As the airway becomes narrower, the risk of obstruction increases, and the condition can progress from mild to severe. If left untreated, OSA can lead to serious complications, such as heart disease, stroke, and diabetes. However, with proper treatment and management, people with OSA can reduce their risk of complications and improve their overall health and wellbeing."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "People with OSA often report feeling tired, groggy, and irritable during the day, despite getting a full night's sleep. They may also experience difficulty concentrating, memory problems, and mood changes. Additionally, OSA can cause morning headaches, dry mouth, and sore throat. By understanding what patients actually feel, healthcare providers can better diagnose and manage the condition."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that OSA can cause significant daytime fatigue, even if patients are getting a full night's sleep.",
+        "key_points": [
+          "The early warning signs of OSA include loud snoring, gasping, or choking during sleep",
+          "OSA can cause daytime fatigue, headaches, and difficulty concentrating",
+          "OSA can develop over time as a result of genetic and lifestyle factors",
+          "If left untreated, OSA can lead to serious complications, such as heart disease and stroke",
+          "Proper treatment and management can reduce the risk of complications and improve overall health",
+          "People with OSA often report feeling tired, groggy, and irritable during the day"
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of OSA, and how can I recognize them?",
+          "How can I determine if my symptoms are related to OSA or another condition?",
+          "What are the benefits of seeking medical attention early for OSA?"
+        ],
+        "references": [
+          {
+            "title": "The Symptoms of Obstructive Sleep Apnoea",
+            "authors": "American Academy of Sleep Medicine",
+            "journal_or_source": "Journal of Clinical Sleep Medicine",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of the symptoms of OSA"
+          },
+          {
+            "title": "The Progression of Obstructive Sleep Apnoea",
+            "authors": "European Respiratory Journal",
+            "journal_or_source": "European Respiratory Journal",
+            "year": 2024,
+            "type": "review",
+            "note": "This review provides an overview of the progression of OSA over time"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing obstructive sleep apnea (OSA) involves several steps. Your doctor will start by asking you questions about your sleep patterns, medical history, and lifestyle. They may also perform a physical exam to check for any signs of OSA, such as a large neck size or a narrow airway. Think of diagnosis like solving a puzzle - your doctor needs to gather all the right pieces to get a clear picture of what's going on.",
+        "sections": [
+          {
+            "heading": "Sleep Study",
+            "text": "A sleep study, also known as a polysomnogram (PSG), is a test that measures your sleep patterns. It can be done at a sleep center or at home with a portable device. During the study, sensors will be placed on your body to track your brain waves, heart rate, and breathing. This will help your doctor see if you have any pauses in breathing or shallow breathing during sleep. Aim to get at least 7-8 hours of sleep during the study to get accurate results."
+          },
+          {
+            "heading": "Home Sleep Apnea Testing",
+            "text": "Home sleep apnea testing (HSAT) is a simpler and more convenient alternative to a PSG. It involves wearing a small device on your body while you sleep, which tracks your breathing, heart rate, and oxygen levels. HSAT is often used for people who have a high risk of OSA and can't get to a sleep center. Remember to follow the instructions carefully and wear the device for the full recommended time to get accurate results."
+          },
+          {
+            "heading": "Interpreting Results",
+            "text": "After the sleep study or HSAT, your doctor will review the results to see if you have OSA. They'll look at the number of times you stopped breathing or had shallow breathing during sleep, as well as the level of oxygen in your blood. If you have OSA, your doctor will talk to you about the next steps, which may include treatment options like CPAP therapy or lifestyle changes. Don't hesitate to ask questions if you're unsure about your results or what they mean."
+          }
+        ],
+        "clinical_pearl": "Did you know that OSA can be treated with a device that helps keep your airway open during sleep? It's called a continuous positive airway pressure (CPAP) machine, and it can greatly improve your sleep quality and overall health.",
+        "key_points": [
+          "A sleep study or home sleep apnea testing can diagnose OSA",
+          "The test measures your sleep patterns, brain waves, and breathing",
+          "Results can show if you have pauses in breathing or shallow breathing during sleep",
+          "Treatment options may include CPAP therapy or lifestyle changes",
+          "It's essential to follow your doctor's recommendations to manage OSA",
+          "Regular follow-up appointments can help monitor your condition and adjust treatment as needed"
+        ],
+        "questions_for_doctor": [
+          "What type of sleep study or test is best for me?",
+          "How long will it take to get the results of my sleep study?",
+          "What are the next steps if I'm diagnosed with OSA?"
+        ],
+        "references": [
+          {
+            "title": "Obstructive Sleep Apnea",
+            "authors": "American Academy of Sleep Medicine",
+            "journal_or_source": "Sleep",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of OSA"
+          },
+          {
+            "title": "Sleep Apnea",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of sleep apnea, including symptoms, diagnosis, and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "Diagnosing OSA involves a sleep study or home sleep apnea testing, which can help your doctor determine the best course of treatment. Don't hesitate to ask questions or seek a second opinion if you're unsure about your diagnosis or treatment options."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "There are several treatment options available for obstructive sleep apnea (OSA). The goal of treatment is to improve your sleep quality, reduce symptoms, and prevent complications. Think of treatment like a toolbox - your doctor will help you find the right tools to manage your OSA. Treatment options may include lifestyle changes, devices, or surgery.",
+        "sections": [
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Making lifestyle changes can help improve your sleep quality and reduce OSA symptoms. This may include losing weight, exercising regularly, and avoiding alcohol and sedatives before bedtime. Aim to walk for at least 30 minutes, 5 days a week, and try to lose 10-15% of your body weight to improve your sleep. Remember to also elevate the head of your bed by 4-6 inches to help keep your airway open during sleep."
+          },
+          {
+            "heading": "Devices",
+            "text": "Devices like continuous positive airway pressure (CPAP) machines or oral appliances can help keep your airway open during sleep. CPAP therapy involves wearing a mask over your nose and mouth while you sleep, which delivers a steady stream of air to keep your airway open. Oral appliances are custom-made devices that advance your lower jaw to keep your airway open. Be sure to follow the instructions carefully and wear the device for the full recommended time to get the best results."
+          },
+          {
+            "heading": "Surgery",
+            "text": "Surgery may be an option for people with severe OSA who haven't responded to other treatments. Surgical options may include removing excess tissue in the throat or repositioning the jaw to improve airflow. Your doctor will discuss the risks and benefits of surgery with you to determine if it's the right option. Don't hesitate to ask questions or seek a second opinion if you're unsure about surgery."
+          }
+        ],
+        "clinical_pearl": "Did you know that treating OSA can also improve other health conditions, such as high blood pressure and diabetes? By managing your OSA, you can reduce your risk of developing these conditions or improve your overall health if you already have them.",
+        "key_points": [
+          "Lifestyle changes, devices, and surgery are treatment options for OSA",
+          "Losing weight and exercising regularly can improve sleep quality",
+          "CPAP therapy or oral appliances can help keep your airway open during sleep",
+          "Surgery may be an option for severe OSA that hasn't responded to other treatments",
+          "Treating OSA can also improve other health conditions, such as high blood pressure and diabetes",
+          "Regular follow-up appointments can help monitor your condition and adjust treatment as needed"
+        ],
+        "questions_for_doctor": [
+          "What treatment options are available for my OSA?",
+          "How do I know which treatment is best for me?",
+          "What are the potential side effects of treatment?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Obstructive Sleep Apnea",
+            "authors": "American Academy of Sleep Medicine",
+            "journal_or_source": "Sleep",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of OSA"
+          },
+          {
+            "title": "Sleep Apnea Treatment",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of sleep apnea treatment options, including lifestyle changes, devices, and surgery"
+          }
+        ]
+      },
+      "key_takeaway": "Treatment options for OSA include lifestyle changes, devices, and surgery. Work with your doctor to find the best treatment plan for you, and don't hesitate to ask questions or seek a second opinion if you're unsure about your treatment options."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with OSA",
+      "content": {
+        "intro": "While there's no sure way to prevent obstructive sleep apnea (OSA), there are steps you can take to reduce your risk and manage the condition. Think of prevention like a shield - it can help protect you from developing OSA or reduce the severity of symptoms if you already have it. By making lifestyle changes and following your treatment plan, you can improve your sleep quality, reduce symptoms, and prevent complications.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves taking steps to reduce your risk of developing OSA. This may include maintaining a healthy weight, exercising regularly, and avoiding alcohol and sedatives before bedtime. Aim to walk for at least 30 minutes, 5 days a week, and try to lose 10-15% of your body weight to reduce your risk. Remember to also elevate the head of your bed by 4-6 inches to help keep your airway open during sleep."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications and slow the progression of OSA if you already have it. This may include following your treatment plan, attending regular follow-up appointments, and monitoring your condition at home. Be sure to track your sleep patterns, symptoms, and treatment side effects to share with your doctor. Don't hesitate to ask questions or seek help if you're unsure about your treatment plan or experience any issues."
+          },
+          {
+            "heading": "Living Well with OSA",
+            "text": "Living well with OSA involves making lifestyle changes and following your treatment plan to improve your sleep quality, reduce symptoms, and prevent complications. This may include getting regular exercise, eating a healthy diet, and managing stress. Aim to get at least 7-8 hours of sleep each night and try to establish a consistent sleep schedule to improve your overall health. Remember to also stay hydrated by drinking plenty of water throughout the day."
+          }
+        ],
+        "clinical_pearl": "Did you know that managing OSA can also improve your overall quality of life? By reducing symptoms and preventing complications, you can improve your energy levels, mood, and ability to perform daily activities.",
+        "key_points": [
+          "Primary prevention involves reducing your risk of developing OSA",
+          "Secondary prevention involves preventing complications and slowing the progression of OSA",
+          "Lifestyle changes, such as maintaining a healthy weight and exercising regularly, can improve sleep quality",
+          "Following your treatment plan and attending regular follow-up appointments can help manage OSA",
+          "Monitoring your condition at home and tracking your sleep patterns, symptoms, and treatment side effects can help you stay on top of your condition",
+          "Managing OSA can improve your overall quality of life, including energy levels, mood, and ability to perform daily activities"
+        ],
+        "questions_for_doctor": [
+          "What steps can I take to reduce my risk of developing OSA?",
+          "How can I prevent complications and slow the progression of OSA if I already have it?",
+          "What lifestyle changes can I make to improve my sleep quality and manage my OSA?"
+        ],
+        "references": [
+          {
+            "title": "Prevention and Treatment of Obstructive Sleep Apnea",
+            "authors": "American Academy of Sleep Medicine",
+            "journal_or_source": "Sleep",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and treatment of OSA"
+          },
+          {
+            "title": "Sleep Apnea Prevention and Treatment",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of sleep apnea prevention and treatment options, including lifestyle changes and treatment plans"
+          }
+        ]
+      },
+      "key_takeaway": "Preventing and managing OSA involves making lifestyle changes, following your treatment plan, and monitoring your condition at home. By taking these steps, you can improve your sleep quality, reduce symptoms, and prevent complications to live well with OSA."
+    }
+  ]
+}

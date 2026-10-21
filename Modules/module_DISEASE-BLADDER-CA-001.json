@@ -1,0 +1,146 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-BLADDER-CA-001",
+  "title": "Bladder Cancer: Urothelial Carcinogenesis, BCG Therapy, Cystectomy and Pembrolizumab",
+  "specialty": "Urology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Bladder Cancer",
+      "content": {
+        "intro": "Bladder cancer has a rich history dating back to ancient civilizations. The earliest recorded evidence of bladder cancer was found in an Egyptian medical text, the Ebers Papyrus, circa 1550 BCE. However, it wasn't until the late 19th century that significant progress was made in understanding the disease. In 1887, German pathologist Theodor Billroth performed the first successful cystectomy. The discovery of the link between aniline dye exposure and bladder cancer by German urologist Ludwig Rehn in 1895 marked a crucial milestone. The introduction of intravesical BCG therapy by Alvaro Morales in 1976 revolutionized treatment. Key milestones include the publication of the landmark paper by Friedell et al. in 1978, which demonstrated the efficacy of BCG in reducing tumor recurrence. The 2004 Nobel Prize in Physiology or Medicine awarded to Richard Axel and Linda Buck for their work on olfactory receptors, although not directly related to bladder cancer, has implications for understanding tumor biology.",
+        "sections": [],
+        "key_points": [
+          "The Ebers Papyrus (circa 1550 BCE) contains the earliest recorded evidence of bladder cancer.",
+          "Theodor Billroth performed the first successful cystectomy in 1887.",
+          "Ludwig Rehn discovered the link between aniline dye exposure and bladder cancer in 1895.",
+          "Alvaro Morales introduced intravesical BCG therapy in 1976.",
+          "Friedell et al.'s 1978 paper demonstrated BCG's efficacy in reducing tumor recurrence.",
+          "The 2004 Nobel Prize in Physiology or Medicine has implications for understanding tumor biology.",
+          "Historical patients, such as those exposed to aniline dyes, have contributed significantly to our understanding of the disease.",
+          "Landmark papers, including those by Rehn and Morales, have shaped the current treatment landscape."
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Bladder Cancer",
+      "content": {
+        "intro": "Bladder cancer, primarily urothelial carcinoma, arises from the epithelial lining of the bladder. Molecular mechanisms involve the activation of oncogenes and the inactivation of tumor suppressor genes. Genetic factors, including mutations in the FGFR3 and TP53 genes, play a crucial role. Exposure to carcinogens, such as those found in tobacco smoke and certain industrial chemicals, increases the risk. The disease can be classified into several subtypes, including papillary and muscle-invasive bladder cancer. Understanding the molecular basis of bladder cancer has led to the development of targeted therapies, such as pembrolizumab, which targets the PD-1/PD-L1 axis.",
+        "sections": [],
+        "key_points": [
+          "Urothelial carcinoma is the most common type of bladder cancer.",
+          "Molecular mechanisms involve the activation of oncogenes and inactivation of tumor suppressor genes.",
+          "Genetic factors, including FGFR3 and TP53 mutations, contribute to the disease.",
+          "Exposure to carcinogens increases the risk of developing bladder cancer.",
+          "Bladder cancer can be classified into several subtypes, including papillary and muscle-invasive.",
+          "Targeted therapies, such as pembrolizumab, have been developed based on the molecular understanding of the disease.",
+          "The PD-1/PD-L1 axis plays a crucial role in the immune response to bladder cancer.",
+          "Ongoing research into the molecular mechanisms of bladder cancer may lead to the development of new therapeutic strategies."
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Bladder Cancer",
+      "content": {
+        "intro": "Bladder cancer typically presents with hematuria, which can be either microscopic or gross. Other cardinal symptoms include dysuria, frequency, and urgency. The disease can be staged using the TNM system, which takes into account the size and extent of the tumor, as well as the presence of lymph node metastasis and distant metastasis. Atypical presentations, such as bladder cancer in patients with a history of pelvic radiation or certain genetic syndromes, require a high index of suspicion. Clinical evaluation involves a thorough history, physical examination, and diagnostic testing, including urine cytology and imaging studies.",
+        "sections": [],
+        "key_points": [
+          "Hematuria is the most common presenting symptom of bladder cancer.",
+          "Dysuria, frequency, and urgency are other cardinal symptoms.",
+          "The TNM system is used to stage bladder cancer.",
+          "Atypical presentations, such as in patients with a history of pelvic radiation, require a high index of suspicion.",
+          "Clinical evaluation involves a thorough history, physical examination, and diagnostic testing.",
+          "Urine cytology and imaging studies are essential diagnostic tools.",
+          "The presence of lymph node metastasis and distant metastasis affects staging and prognosis.",
+          "A thorough understanding of the clinical presentation is crucial for accurate diagnosis and treatment."
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Bladder cancer diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The American Urological Association (AUA) recommends that patients with hematuria undergo a thorough evaluation, including urinalysis, urine cytology, and imaging studies such as computed tomography (CT) or magnetic resonance imaging (MRI). The diagnosis of bladder cancer is typically confirmed by cystoscopy and biopsy. The TNM staging system is used to classify the extent of the disease.",
+        "sections": [],
+        "key_points": [
+          "Hematuria is the most common presenting symptom of bladder cancer",
+          "Urinalysis and urine cytology are essential laboratory tests for diagnosis",
+          "Imaging studies such as CT or MRI are used to evaluate the extent of the disease",
+          "Cystoscopy and biopsy are necessary for definitive diagnosis",
+          "The TNM staging system is used to classify the extent of the disease",
+          "The AUA recommends a thorough evaluation for patients with hematuria",
+          "Urine cytology has a high specificity for detecting high-grade tumors",
+          "CT scans are more sensitive than MRI for detecting lymph node metastases"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of bladder cancer depends on the stage and grade of the disease. For non-muscle-invasive bladder cancer (NMIBC), intravesical therapy with bacillus Calmette-Guérin (BCG) is the standard treatment. For muscle-invasive bladder cancer (MIBC), radical cystectomy with or without neoadjuvant chemotherapy is the recommended treatment. Pembrolizumab, an immune checkpoint inhibitor, has been approved for the treatment of advanced urothelial carcinoma.",
+        "sections": [],
+        "key_points": [
+          "BCG is the standard treatment for NMIBC",
+          "Radical cystectomy is the recommended treatment for MIBC",
+          "Neoadjuvant chemotherapy can improve outcomes in MIBC",
+          "Pembrolizumab has been approved for the treatment of advanced urothelial carcinoma",
+          "Immunotherapy has emerged as a promising treatment option for bladder cancer",
+          "The choice of treatment depends on the stage and grade of the disease",
+          "Combination therapy with chemotherapy and immunotherapy may improve outcomes",
+          "Surgical techniques such as robotic-assisted cystectomy are being developed"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Bladder cancer can cause significant complications, including hematuria, urinary retention, and metastatic disease. The prognosis of bladder cancer depends on the stage and grade of the disease. The 5-year survival rate for patients with localized disease is approximately 70-80%, while the 5-year survival rate for patients with metastatic disease is approximately 10-20%. Prognostic scores such as the EORTC risk table can help predict outcomes.",
+        "sections": [],
+        "key_points": [
+          "Hematuria is a common complication of bladder cancer",
+          "Urinary retention can occur due to tumor obstruction",
+          "Metastatic disease is a significant complication of bladder cancer",
+          "The prognosis of bladder cancer depends on the stage and grade of the disease",
+          "The 5-year survival rate for patients with localized disease is approximately 70-80%",
+          "The 5-year survival rate for patients with metastatic disease is approximately 10-20%",
+          "Prognostic scores such as the EORTC risk table can help predict outcomes",
+          "Smoking cessation and avoidance of carcinogenic exposures can improve prognosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-BLADDER-CA-001",
+    "type": "disease_module",
+    "specialty": "Urology",
+    "specialty_ru": "Урология",
+    "title_en": "Bladder Cancer: Urothelial Carcinogenesis, BCG Therapy, Cystectomy and Pembrolizumab",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

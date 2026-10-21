@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "id": "PG-RENAL-002",
+    "type": "patient_guide",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Kidney Stones (Nephrolithiasis) — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Kidney Stones (Nephrolithiasis)?",
+      "content": {
+        "intro": "Kidney stones, also known as nephrolithiasis, are small, hard mineral deposits that form inside your kidneys. They can be painful and may cause nausea, vomiting, and blood in your urine. Kidney stones are common, affecting about 1 in 10 people at some point in their lives. In this lesson, we will explore what kidney stones are, how common they are, who gets them, and why they matter. Think of kidney stones like a traffic jam in your urinary tract - they can cause a blockage that leads to pain and discomfort.",
+        "sections": [
+          {
+            "heading": "What are Kidney Stones?",
+            "text": "Kidney stones are small, hard mineral deposits that form inside your kidneys when there is an imbalance of water, salts, and other substances in your urine. They can be made of different materials, such as calcium, uric acid, or cystine. Kidney stones can be as small as a grain of sand or as large as a pea. They can cause severe pain, nausea, and vomiting, and may lead to more serious complications if left untreated. For example, if you have a family history of kidney stones, you are more likely to develop them. Aim to drink at least 8-10 glasses of water per day to help prevent kidney stones."
+          },
+          {
+            "heading": "How Common are Kidney Stones?",
+            "text": "Kidney stones are a common health problem, affecting about 1 in 10 people at some point in their lives. They are more common in men than women, and tend to occur more often in people who are overweight or obese, have a family history of kidney stones, or have certain medical conditions, such as gout or inflammatory bowel disease. In the United States, about 600,000 people go to the emergency room each year with kidney stones. To reduce your risk, try to maintain a healthy weight and eat a balanced diet."
+          },
+          {
+            "heading": "Why do Kidney Stones Matter?",
+            "text": "Kidney stones matter because they can cause severe pain, nausea, and vomiting, and may lead to more serious complications if left untreated. They can also increase your risk of developing other health problems, such as kidney damage or infection. If you have a history of kidney stones, it is essential to work with your doctor to prevent future episodes and manage any underlying medical conditions. For instance, if you have had kidney stones before, your doctor may recommend that you take medication to help prevent future episodes."
+          }
+        ],
+        "clinical_pearl": "Drinking enough water is essential to help prevent kidney stones. Aim to drink at least 8-10 glasses of water per day.",
+        "key_points": [
+          "Kidney stones are small, hard mineral deposits that form inside your kidneys.",
+          "They can cause severe pain, nausea, and vomiting.",
+          "Drinking enough water is essential to help prevent kidney stones.",
+          "Maintaining a healthy weight and eating a balanced diet can help reduce your risk.",
+          "If you have a family history of kidney stones, you are more likely to develop them.",
+          "Working with your doctor to prevent future episodes and manage underlying medical conditions is crucial."
+        ],
+        "questions_for_doctor": [
+          "What are the most common types of kidney stones?",
+          "How can I prevent kidney stones from forming in the future?",
+          "What are the treatment options for kidney stones?"
+        ],
+        "references": [
+          {
+            "title": "Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the prevention and treatment of kidney stones."
+          },
+          {
+            "title": "Nephrolithiasis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Information on the causes, symptoms, and treatment of kidney stones."
+          }
+        ]
+      },
+      "key_takeaway": "Kidney stones are a common health problem that can cause severe pain and discomfort. Drinking enough water, maintaining a healthy weight, and eating a balanced diet can help reduce your risk. Working with your doctor to prevent future episodes and manage underlying medical conditions is crucial."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Kidney Stones",
+      "content": {
+        "intro": "Kidney stones are caused by a combination of genetic, environmental, and lifestyle factors. In this lesson, we will explore the causes and risk factors of kidney stones, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks. Think of kidney stones like a puzzle - many pieces must come together for them to form.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors can play a role in the development of kidney stones. If you have a family history of kidney stones, you are more likely to develop them. Certain genetic disorders, such as cystinuria, can also increase your risk. For example, if you have a family history of kidney stones, your doctor may recommend that you take medication to help prevent future episodes. Aim to limit your intake of animal protein to reduce your risk."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle triggers, such as a low fluid intake, high sodium diet, and lack of physical activity, can increase your risk of developing kidney stones. A diet high in animal protein, sodium, and sugar can also contribute to the formation of kidney stones. To reduce your risk, try to drink at least 8-10 glasses of water per day and limit your intake of animal protein and sodium. For instance, you can try to eat more plant-based meals and reduce your intake of processed foods."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors for kidney stones are modifiable, meaning you can change them, while others are non-modifiable, meaning you cannot change them. Modifiable risk factors include lifestyle factors, such as diet and physical activity, while non-modifiable risk factors include genetic factors and age. For example, if you are overweight or obese, losing weight can help reduce your risk of developing kidney stones. Aim to walk for at least 30 minutes, 5 days per week, to help reduce your risk."
+          }
+        ],
+        "clinical_pearl": "A low fluid intake is a major risk factor for kidney stones. Drinking enough water can help prevent kidney stones.",
+        "key_points": [
+          "Genetic factors can play a role in the development of kidney stones.",
+          "Lifestyle triggers, such as a low fluid intake and high sodium diet, can increase your risk.",
+          "A diet high in animal protein, sodium, and sugar can contribute to the formation of kidney stones.",
+          "Modifiable risk factors include lifestyle factors, such as diet and physical activity.",
+          "Non-modifiable risk factors include genetic factors and age.",
+          "Losing weight and increasing physical activity can help reduce your risk."
+        ],
+        "questions_for_doctor": [
+          "What are the most common genetic factors that contribute to kidney stones?",
+          "How can I reduce my risk of developing kidney stones through lifestyle changes?",
+          "What are the most effective ways to manage underlying medical conditions that increase my risk?"
+        ],
+        "references": [
+          {
+            "title": "Kidney Stones and Genetics",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Information on the genetic factors that contribute to kidney stones."
+          },
+          {
+            "title": "Lifestyle Factors and Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for lifestyle changes to reduce the risk of kidney stones."
+          }
+        ]
+      },
+      "key_takeaway": "Kidney stones are caused by a combination of genetic, environmental, and lifestyle factors. Making lifestyle changes, such as drinking enough water, limiting animal protein and sodium, and increasing physical activity, can help reduce your risk."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How Kidney Stones Develop",
+      "content": {
+        "intro": "Kidney stones can cause a range of symptoms, from mild to severe. In this lesson, we will explore the symptoms of kidney stones, how they develop, and what you can expect if you have a kidney stone. Think of kidney stones like a storm - they can develop suddenly and cause a lot of discomfort.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of kidney stones can be mild and may include a feeling of discomfort or pain in the side or back, nausea and vomiting, and frequent or painful urination. If you experience any of these symptoms, it is essential to seek medical attention. For example, if you have a kidney stone, you may feel a sharp pain in your side or back that radiates to your groin. Aim to drink plenty of water to help flush out the stone."
+          },
+          {
+            "heading": "How Kidney Stones Develop",
+            "text": "Kidney stones develop when there is an imbalance of water, salts, and other substances in your urine. They can form suddenly or over time and may cause severe pain and discomfort. If you have a kidney stone, it is essential to work with your doctor to manage your symptoms and prevent future episodes. For instance, your doctor may recommend that you take medication to help pass the stone or undergo surgery to remove it. Try to avoid foods that are high in oxalate, such as spinach and beets, to reduce your risk."
+          },
+          {
+            "heading": "What to Expect",
+            "text": "If you have a kidney stone, you can expect to experience severe pain and discomfort. Your doctor may recommend medication to help manage your symptoms, and in some cases, surgery may be necessary to remove the stone. It is essential to follow your doctor's instructions and attend all scheduled appointments to ensure the best possible outcome. For example, if you have a large kidney stone, your doctor may recommend that you undergo surgery to remove it. Aim to take all medication as directed and attend all follow-up appointments."
+          }
+        ],
+        "clinical_pearl": "If you have a kidney stone, it is essential to seek medical attention immediately. Delaying treatment can lead to more severe complications.",
+        "key_points": [
+          "The early warning signs of kidney stones can be mild and may include discomfort or pain in the side or back.",
+          "Kidney stones develop when there is an imbalance of water, salts, and other substances in your urine.",
+          "If you have a kidney stone, it is essential to work with your doctor to manage your symptoms and prevent future episodes.",
+          "Medication and surgery are treatment options for kidney stones.",
+          "It is essential to follow your doctor's instructions and attend all scheduled appointments.",
+          "Delaying treatment can lead to more severe complications."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of kidney stones?",
+          "How can I manage my symptoms if I have a kidney stone?",
+          "What are the treatment options for kidney stones?"
+        ],
+        "references": [
+          {
+            "title": "Kidney Stones",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Information on the symptoms and treatment of kidney stones."
+          },
+          {
+            "title": "Symptoms and Diagnosis of Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of kidney stones."
+          }
+        ]
+      },
+      "key_takeaway": "Kidney stones can cause a range of symptoms, from mild to severe. If you have a kidney stone, it is essential to seek medical attention immediately and work with your doctor to manage your symptoms and prevent future episodes."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing kidney stones involves a combination of physical examinations, medical history, and diagnostic tests. Your doctor will start by asking you about your symptoms, medical history, and performing a physical examination. They may also order some diagnostic tests to confirm the presence of kidney stones. These tests can help identify the type of stone, its size, and location.",
+        "sections": [
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests such as X-rays, CT scans, or ultrasound can help your doctor visualize the kidney stones. These tests can show the size, shape, and location of the stones. For example, a CT scan can help identify the type of stone, such as calcium or uric acid stones. Your doctor may also use imaging tests to monitor the progress of the stones and check for any blockages in the urinary tract."
+          },
+          {
+            "heading": "Blood and Urine Tests",
+            "text": "Blood and urine tests can help your doctor check for any underlying conditions that may be contributing to the formation of kidney stones. For example, a blood test can check for high levels of calcium or uric acid in the blood, which can increase the risk of developing kidney stones. A urine test can check for the presence of blood, protein, or other abnormalities in the urine."
+          },
+          {
+            "heading": "What to Expect During Diagnosis",
+            "text": "During the diagnosis process, your doctor may ask you to provide a urine sample or undergo a physical examination. They may also order additional tests, such as a kidney function test or a stone analysis. It's essential to follow your doctor's instructions and provide any necessary information to ensure an accurate diagnosis. The diagnosis process can take several days to several weeks, depending on the complexity of the case and the availability of test results."
+          }
+        ],
+        "clinical_pearl": "Kidney stones can be diagnosed using a combination of physical examinations, medical history, and diagnostic tests. It's essential to work closely with your doctor to determine the best course of treatment.",
+        "key_points": [
+          "Diagnosing kidney stones involves a combination of physical examinations, medical history, and diagnostic tests.",
+          "Imaging tests such as X-rays, CT scans, or ultrasound can help visualize the kidney stones.",
+          "Blood and urine tests can help check for underlying conditions that may be contributing to the formation of kidney stones.",
+          "The diagnosis process can take several days to several weeks, depending on the complexity of the case and the availability of test results.",
+          "It's essential to follow your doctor's instructions and provide any necessary information to ensure an accurate diagnosis.",
+          "A timely diagnosis can help prevent complications and improve treatment outcomes."
+        ],
+        "questions_for_doctor": [
+          "What diagnostic tests will I need to undergo to confirm the presence of kidney stones?",
+          "How long will the diagnosis process take, and what can I expect during this time?",
+          "What are the potential risks and complications associated with diagnostic tests for kidney stones?"
+        ],
+        "references": [
+          {
+            "title": "Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of kidney stones"
+          },
+          {
+            "title": "Diagnosis and Treatment of Kidney Stones",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIH Publication",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Information on the diagnosis and treatment of kidney stones, including lifestyle changes and medical treatment"
+          }
+        ],
+        "key_takeaway": "A timely and accurate diagnosis is crucial for effective treatment and prevention of complications. Work closely with your doctor to determine the best course of treatment and follow their instructions to ensure a smooth diagnosis process."
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for kidney stones depends on the size, location, and type of stone. Small stones may pass on their own with plenty of water and pain relief medication. Larger stones may require medical treatment, such as shock wave lithotripsy or surgery. Your doctor will work with you to determine the best course of treatment based on your individual needs.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Medications such as pain relievers and medications to help pass the stone can be used to treat kidney stones. For example, alpha-blockers can help relax the muscles in the urinary tract, making it easier for the stone to pass. Your doctor may also prescribe medications to help manage symptoms such as nausea and vomiting."
+          },
+          {
+            "heading": "Procedures and Surgery",
+            "text": "Procedures such as shock wave lithotripsy or ureteroscopy can be used to break up or remove the stone. Surgery may be necessary for larger stones or stones that are causing a blockage in the urinary tract. Your doctor will discuss the risks and benefits of each procedure with you and help you determine the best course of treatment."
+          },
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Lifestyle changes such as increasing fluid intake and making dietary changes can help prevent future kidney stones. For example, drinking plenty of water can help flush out the urinary tract and reduce the risk of stone formation. Your doctor may also recommend avoiding certain foods or drinks that can increase the risk of stone formation."
+          }
+        ],
+        "clinical_pearl": "Treatment for kidney stones depends on the size, location, and type of stone. Work closely with your doctor to determine the best course of treatment and follow their instructions to ensure a smooth recovery.",
+        "key_points": [
+          "Treatment for kidney stones depends on the size, location, and type of stone.",
+          "Small stones may pass on their own with plenty of water and pain relief medication.",
+          "Larger stones may require medical treatment, such as shock wave lithotripsy or surgery.",
+          "Medications such as pain relievers and medications to help pass the stone can be used to treat kidney stones.",
+          "Lifestyle changes such as increasing fluid intake and making dietary changes can help prevent future kidney stones.",
+          "It's essential to work closely with your doctor to determine the best course of treatment and follow their instructions to ensure a smooth recovery."
+        ],
+        "questions_for_doctor": [
+          "What are the potential risks and complications associated with treatment for kidney stones?",
+          "How long will it take to recover from treatment, and what can I expect during this time?",
+          "What lifestyle changes can I make to prevent future kidney stones and reduce the risk of recurrence?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of kidney stones, including medical and surgical options"
+          },
+          {
+            "title": "Kidney Stones: Treatment and Prevention",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIH Publication",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Information on the treatment and prevention of kidney stones, including lifestyle changes and medical treatment"
+          }
+        ],
+        "key_takeaway": "Treatment for kidney stones depends on the size, location, and type of stone. Work closely with your doctor to determine the best course of treatment and follow their instructions to ensure a smooth recovery and prevent future kidney stones."
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with Kidney Stones",
+      "content": {
+        "intro": "Preventing kidney stones and living well with the condition requires a combination of lifestyle changes and medical treatment. Drinking plenty of water, making dietary changes, and managing underlying medical conditions can help reduce the risk of recurrence. Your doctor will work with you to develop a personalized plan to prevent future kidney stones and improve your overall health.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves making lifestyle changes to reduce the risk of developing kidney stones. This can include drinking plenty of water, making dietary changes, and managing underlying medical conditions. For example, drinking at least 8-10 glasses of water per day can help flush out the urinary tract and reduce the risk of stone formation."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications and slow the progression of the disease after diagnosis. This can include monitoring kidney function, managing symptoms, and making lifestyle changes to reduce the risk of recurrence. Your doctor may also recommend regular follow-up appointments to monitor your condition and adjust your treatment plan as needed."
+          },
+          {
+            "heading": "Living Well with Kidney Stones",
+            "text": "Living well with kidney stones requires a combination of lifestyle changes and medical treatment. This can include making dietary changes, managing stress, and staying hydrated. Your doctor may also recommend regular exercise, such as walking or swimming, to help improve overall health and reduce the risk of recurrence."
+          }
+        ],
+        "clinical_pearl": "Preventing kidney stones and living well with the condition requires a combination of lifestyle changes and medical treatment. Work closely with your doctor to develop a personalized plan to reduce the risk of recurrence and improve your overall health.",
+        "key_points": [
+          "Preventing kidney stones requires a combination of lifestyle changes and medical treatment.",
+          "Drinking plenty of water and making dietary changes can help reduce the risk of recurrence.",
+          "Managing underlying medical conditions and monitoring kidney function can help prevent complications and slow the progression of the disease.",
+          "Regular follow-up appointments with your doctor can help monitor your condition and adjust your treatment plan as needed.",
+          "Making lifestyle changes such as managing stress and staying hydrated can help improve overall health and reduce the risk of recurrence.",
+          "It's essential to work closely with your doctor to develop a personalized plan to prevent future kidney stones and improve your overall health."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to reduce the risk of recurrence and improve my overall health?",
+          "How often should I follow up with my doctor to monitor my condition and adjust my treatment plan as needed?",
+          "What are the potential risks and complications associated with kidney stones, and how can I prevent them?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Kidney Stones",
+            "authors": "American Urological Association",
+            "journal_or_source": "Journal of Urology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the prevention of kidney stones, including lifestyle changes and medical treatment"
+          },
+          {
+            "title": "Kidney Stones: Prevention and Treatment",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIH Publication",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Information on the prevention and treatment of kidney stones, including lifestyle changes and medical treatment"
+          }
+        ],
+        "key_takeaway": "Preventing kidney stones and living well with the condition requires a combination of lifestyle changes and medical treatment. Work closely with your doctor to develop a personalized plan to reduce the risk of recurrence and improve your overall health."
+      }
+    }
+  ]
+}

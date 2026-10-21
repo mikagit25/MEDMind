@@ -1,0 +1,292 @@
+{
+  "meta": {
+    "id": "PG-RESP-001",
+    "type": "patient_guide",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Bronchial Asthma — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is This Disease?",
+      "content": {
+        "intro": "Bronchial asthma is a common condition that affects the airways in your lungs. It's like having a super sensitive alarm system in your lungs that can get triggered by various things, making it hard to breathe. Asthma is not just a childhood condition; it can affect anyone at any age. In fact, about 1 in 12 adults in the US have asthma. It's essential to understand what asthma is, how common it is, and why it matters to take control of your health. Asthma can be managed with the right treatment and lifestyle changes, allowing you to live a full and active life. Imagine your airways as a straw; when you have asthma, the straw gets narrower, making it harder for air to pass through. This can cause symptoms like wheezing, coughing, and shortness of breath. By understanding asthma, you can take the first step towards managing it and improving your quality of life.",
+        "sections": [
+          {
+            "heading": "What is Asthma?",
+            "text": "Asthma is a chronic inflammatory disease of the airways that causes recurring episodes of wheezing, breathlessness, chest tightness, and coughing. It's like having a persistent cold that never goes away. The airways in your lungs are sensitive and can get inflamed, causing them to narrow and making it hard to breathe. This inflammation can be triggered by various factors, such as allergies, respiratory infections, or even exercise. For example, if you have a pet allergy, being around pets can trigger an asthma attack. Asthma can be mild, moderate, or severe, and its symptoms can vary from person to person. Some people may experience symptoms only at night, while others may have symptoms throughout the day. The good news is that asthma can be managed with the right treatment and lifestyle changes."
+          },
+          {
+            "heading": "How Common is Asthma?",
+            "text": "Asthma is a common condition that affects millions of people worldwide. According to the Asthma and Allergy Foundation of America, about 25 million people in the US have asthma. It's more common in children, but it can affect anyone at any age. In fact, about 1 in 12 adults in the US have asthma. Asthma is more prevalent in people who have a family history of the condition, have allergies, or have a history of respiratory infections. For instance, if you have a family history of asthma, you're more likely to develop it. Asthma can also be triggered by environmental factors, such as air pollution, tobacco smoke, or strong odors. By understanding what triggers your asthma, you can take steps to avoid them and manage your condition."
+          },
+          {
+            "heading": "Why Does Asthma Matter?",
+            "text": "Asthma matters because it can significantly impact your quality of life. Untreated asthma can lead to recurring episodes of symptoms, which can disrupt your daily activities, sleep, and overall well-being. Asthma can also increase your risk of developing other health conditions, such as chronic obstructive pulmonary disease (COPD) or heart disease. Furthermore, asthma can be life-threatening if not managed properly. According to the Centers for Disease Control and Prevention (CDC), asthma is responsible for over 3,500 deaths in the US each year. However, with the right treatment and lifestyle changes, you can manage your asthma and live a full and active life. For example, by avoiding triggers, taking your medication as prescribed, and monitoring your symptoms, you can reduce your risk of asthma attacks and improve your overall health."
+          }
+        ],
+        "clinical_pearl": "Asthma is a manageable condition, and with the right treatment and lifestyle changes, you can control your symptoms and improve your quality of life. It's essential to work with your healthcare provider to develop a personalized treatment plan that suits your needs.",
+        "key_points": [
+          "Asthma is a chronic inflammatory disease of the airways",
+          "Asthma can be triggered by various factors, such as allergies or respiratory infections",
+          "Asthma can be mild, moderate, or severe, and its symptoms can vary from person to person",
+          "Asthma is more common in people who have a family history of the condition or have allergies",
+          "Asthma can be managed with the right treatment and lifestyle changes",
+          "Asthma can significantly impact your quality of life if left untreated"
+        ],
+        "questions_for_doctor": [
+          "What are the common triggers of asthma?",
+          "How can I manage my asthma symptoms?",
+          "What are the potential complications of untreated asthma?"
+        ],
+        "references": [
+          {
+            "title": "Asthma Facts and Statistics",
+            "authors": "Asthma and Allergy Foundation of America",
+            "journal_or_source": "Asthma and Allergy Foundation of America",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This report provides an overview of asthma prevalence, symptoms, and management."
+          },
+          {
+            "title": "Asthma Management and Prevention",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides recommendations for asthma management and prevention."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing bronchial asthma involves a combination of medical history, physical exams, and diagnostic tests. Your doctor will ask you about your symptoms, such as wheezing, coughing, and shortness of breath, and when they occur. They will also perform a physical exam to listen to your lungs and look for signs of asthma. Imagine your airways are like a straw - when you have asthma, the straw gets narrower and it's harder for air to pass through. Diagnostic tests can help determine how narrow your airways are and how well you're breathing.",
+        "sections": [
+          {
+            "heading": "Spirometry Test",
+            "text": "A spirometry test measures how much air you can breathe out and how quickly. It's a simple, non-invasive test that can be done in your doctor's office. You'll be asked to breathe into a tube, and the machine will measure your lung function. Aim to have a forced expiratory volume (FEV1) of at least 80% of the predicted value. This test can help diagnose asthma and monitor its severity. For example, if you have asthma, your FEV1 might be lower when you're having symptoms, and higher when you're feeling well."
+          },
+          {
+            "heading": "Other Diagnostic Tests",
+            "text": "Your doctor may also order other tests, such as a methacholine challenge test or a peak flow test. These tests can help confirm the diagnosis of asthma and rule out other conditions. A methacholine challenge test involves breathing in increasing amounts of a substance called methacholine, which can trigger asthma symptoms. A peak flow test measures how fast you can breathe out air. Think of it like a report card for your lungs - it helps your doctor understand how well you're breathing and whether your treatment is working."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will discuss your test results and create a treatment plan with you. They may also ask you to keep a symptom journal to track your symptoms and identify triggers. Be sure to ask questions and share your concerns - your doctor is there to help you manage your asthma. For instance, you might ask about what medications are right for you, or how to avoid triggers like pollen or pet dander."
+          }
+        ],
+        "clinical_pearl": "Did you know that asthma diagnosis can take time and may involve multiple tests? It's essential to work closely with your doctor to determine the best course of treatment for your specific condition.",
+        "key_points": [
+          "Asthma diagnosis involves a combination of medical history, physical exams, and diagnostic tests",
+          "Spirometry test measures lung function and can help diagnose asthma",
+          "Other diagnostic tests, such as methacholine challenge test or peak flow test, can help confirm the diagnosis",
+          "Keeping a symptom journal can help identify triggers and track symptoms",
+          "Working closely with your doctor is essential to determine the best course of treatment",
+          "Aim to have a forced expiratory volume (FEV1) of at least 80% of the predicted value"
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose my asthma?",
+          "How long will it take to get the test results?",
+          "What are the next steps after diagnosis?"
+        ],
+        "references": [
+          {
+            "title": "Asthma Diagnosis and Treatment",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide for asthma diagnosis and treatment"
+          },
+          {
+            "title": "Spirometry Test",
+            "authors": "American Lung Association",
+            "journal_or_source": "American Lung Association",
+            "year": 2024,
+            "type": "informational",
+            "note": "Detailed information about spirometry test and its importance in asthma diagnosis"
+          }
+        ]
+      },
+      "key_takeaway": "Asthma diagnosis involves a combination of medical history, physical exams, and diagnostic tests. Working closely with your doctor is essential to determine the best course of treatment."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "There are several treatment options available for bronchial asthma, including medications, procedures, and lifestyle changes. Your doctor will work with you to create a personalized treatment plan that suits your needs. Imagine your treatment plan is like a recipe - it's a combination of ingredients (medications, lifestyle changes) that work together to help you manage your symptoms. The goal of treatment is to control symptoms, prevent exacerbations, and improve quality of life.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "There are two main types of asthma medications: quick-relief medications and long-term control medications. Quick-relief medications, such as inhalers, can help relieve symptoms quickly. Long-term control medications, such as inhaled corticosteroids, can help control symptoms over time. For example, if you have a rescue inhaler, you might use it when you're having symptoms, and then switch to a controller inhaler to help prevent symptoms from coming back."
+          },
+          {
+            "heading": "Procedures and Surgery",
+            "text": "In some cases, procedures or surgery may be necessary to treat asthma. For example, bronchial thermoplasty is a procedure that can help reduce airway constriction. Think of it like a tune-up for your airways - it can help improve your breathing and reduce symptoms."
+          },
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Lifestyle changes, such as quitting smoking, exercising regularly, and avoiding triggers, can also help manage asthma symptoms. Aim to walk 30 minutes, 5 days a week, and try to avoid triggers like pollen or pet dander. Remember, every small change can add up to make a big difference in your symptoms."
+          }
+        ],
+        "clinical_pearl": "Did you know that asthma treatment plans should be individualized and regularly reviewed to ensure they are working effectively?",
+        "key_points": [
+          "Asthma treatment plans should be personalized and regularly reviewed",
+          "Medications, procedures, and lifestyle changes can help manage asthma symptoms",
+          "Quick-relief medications can help relieve symptoms quickly",
+          "Long-term control medications can help control symptoms over time",
+          "Lifestyle changes, such as quitting smoking and exercising regularly, can help manage asthma symptoms",
+          "Aim to walk 30 minutes, 5 days a week, and try to avoid triggers"
+        ],
+        "questions_for_doctor": [
+          "What are the different types of asthma medications?",
+          "How often should I use my inhaler?",
+          "What lifestyle changes can I make to help manage my asthma symptoms?"
+        ],
+        "references": [
+          {
+            "title": "Asthma Treatment Options",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide for asthma treatment options"
+          },
+          {
+            "title": "Asthma Medications",
+            "authors": "American Lung Association",
+            "journal_or_source": "American Lung Association",
+            "year": 2024,
+            "type": "informational",
+            "note": "Detailed information about asthma medications and their uses"
+          }
+        ]
+      },
+      "key_takeaway": "Asthma treatment plans should be personalized and regularly reviewed to ensure they are working effectively. Lifestyle changes, such as quitting smoking and exercising regularly, can also help manage asthma symptoms."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "Prevention and Living Well with Asthma",
+      "content": {
+        "intro": "Preventing asthma symptoms and living well with the condition requires a combination of lifestyle changes, monitoring, and self-management. Your doctor can help you create a personalized plan to prevent complications and slow disease progression. Imagine your prevention plan is like a roadmap - it helps you navigate your daily life and avoid triggers that can make your symptoms worse.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves avoiding triggers and making lifestyle changes to reduce the risk of developing asthma. This can include quitting smoking, exercising regularly, and avoiding exposure to pollutants. For example, if you live in an area with high air pollution, you might consider wearing a mask when you're outside, or using an air purifier in your home."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves monitoring and self-management to prevent complications and slow disease progression. This can include tracking symptoms, using a peak flow meter, and adjusting treatment plans as needed. Think of it like a checklist - you're regularly checking in with your body and your doctor to make sure you're on the right track."
+          },
+          {
+            "heading": "Living Well with Asthma",
+            "text": "Living well with asthma requires a holistic approach that includes diet, exercise, stress management, and social support. Aim to eat a balanced diet, exercise regularly, and get enough sleep. Remember, taking care of your whole self is key to managing your asthma symptoms."
+          }
+        ],
+        "clinical_pearl": "Did you know that asthma self-management plans should be individualized and regularly reviewed to ensure they are working effectively?",
+        "key_points": [
+          "Asthma prevention and self-management plans should be personalized and regularly reviewed",
+          "Primary prevention involves avoiding triggers and making lifestyle changes",
+          "Secondary prevention involves monitoring and self-management to prevent complications",
+          "Living well with asthma requires a holistic approach that includes diet, exercise, stress management, and social support",
+          "Aim to eat a balanced diet, exercise regularly, and get enough sleep",
+          "Track your symptoms and adjust your treatment plan as needed"
+        ],
+        "questions_for_doctor": [
+          "What are the most common triggers for asthma symptoms?",
+          "How can I monitor my symptoms and adjust my treatment plan?",
+          "What lifestyle changes can I make to help manage my asthma symptoms?"
+        ],
+        "references": [
+          {
+            "title": "Asthma Prevention and Self-Management",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide for asthma prevention and self-management"
+          },
+          {
+            "title": "Asthma Self-Management Plans",
+            "authors": "American Lung Association",
+            "journal_or_source": "American Lung Association",
+            "year": 2024,
+            "type": "informational",
+            "note": "Detailed information about asthma self-management plans and their importance"
+          }
+        ]
+      },
+      "key_takeaway": "Asthma prevention and self-management plans should be personalized and regularly reviewed to ensure they are working effectively. Living well with asthma requires a holistic approach that includes diet, exercise, stress management, and social support."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Additional Resources and Support",
+      "content": {
+        "intro": "Living with bronchial asthma can be challenging, but there are many resources and support systems available to help. Your doctor can provide you with information and guidance on managing your symptoms and improving your quality of life. Imagine you're not alone - there are many people and organizations that can help you navigate your journey with asthma.",
+        "sections": [
+          {
+            "heading": "Support Groups",
+            "text": "Support groups can provide a sense of community and connection with others who are living with asthma. You can share your experiences, ask questions, and learn from others who understand what you're going through. For example, you might join an online forum or attend a local support group meeting."
+          },
+          {
+            "heading": "Online Resources",
+            "text": "There are many online resources available that can provide information, guidance, and support for people living with asthma. You can find websites, blogs, and social media groups that offer tips, advice, and encouragement. Think of it like having a library at your fingertips - you can access information and support whenever you need it."
+          },
+          {
+            "heading": "Mental Health Support",
+            "text": "Living with asthma can be stressful and emotionally challenging. It's essential to prioritize your mental health and seek support when needed. You can talk to your doctor, a therapist, or a counselor about your feelings and concerns. Remember, taking care of your mental health is just as important as taking care of your physical health."
+          }
+        ],
+        "clinical_pearl": "Did you know that people living with asthma are at a higher risk for mental health issues, such as anxiety and depression?",
+        "key_points": [
+          "There are many resources and support systems available for people living with asthma",
+          "Support groups can provide a sense of community and connection with others",
+          "Online resources can provide information, guidance, and support",
+          "Mental health support is essential for people living with asthma",
+          "Prioritize your mental health and seek support when needed",
+          "Talk to your doctor, a therapist, or a counselor about your feelings and concerns"
+        ],
+        "questions_for_doctor": [
+          "What resources are available to help me manage my asthma symptoms?",
+          "How can I connect with others who are living with asthma?",
+          "What mental health support options are available to me?"
+        ],
+        "references": [
+          {
+            "title": "Asthma Support and Resources",
+            "authors": "National Heart, Lung, and Blood Institute",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide for asthma support and resources"
+          },
+          {
+            "title": "Asthma Mental Health Support",
+            "authors": "American Lung Association",
+            "journal_or_source": "American Lung Association",
+            "year": 2024,
+            "type": "informational",
+            "note": "Detailed information about asthma mental health support and resources"
+          }
+        ]
+      },
+      "key_takeaway": "There are many resources and support systems available to help people living with bronchial asthma. Prioritize your mental health and seek support when needed to improve your overall quality of life."
+    }
+  ],
+  "key_takeaway": "Asthma is a manageable condition that can be controlled with the right treatment and lifestyle changes. By understanding what asthma is, how common it is, and why it matters, you can take the first step towards managing your condition and improving your quality of life."
+}

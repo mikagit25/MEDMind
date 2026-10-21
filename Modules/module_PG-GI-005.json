@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "id": "PG-GI-005",
+    "type": "patient_guide",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Ulcerative Colitis — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Ulcerative Colitis?",
+      "content": {
+        "intro": "Ulcerative colitis is a type of inflammatory bowel disease (IBD) that affects the large intestine, also known as the colon. It causes inflammation and ulcers in the colon, leading to symptoms such as diarrhea, abdominal pain, and weight loss. Ulcerative colitis is a chronic condition, meaning it is ongoing and can be managed with treatment, but not cured. In this lesson, we will explore what ulcerative colitis is, how common it is, who gets it, and why it matters. Think of your colon like a long, hollow tube. When it's healthy, it helps absorb water and nutrients from the food you eat. But when you have ulcerative colitis, the lining of the tube gets inflamed and develops tiny sores, or ulcers. This can cause a range of symptoms, from mild to severe.",
+        "sections": [
+          {
+            "heading": "What is Ulcerative Colitis?",
+            "text": "Ulcerative colitis is a type of autoimmune disease, where the immune system mistakenly attacks the healthy tissue in the colon. This causes inflammation and ulcers, which can lead to symptoms such as diarrhea, abdominal pain, and weight loss. The exact cause of ulcerative colitis is not known, but it is thought to be a combination of genetic and environmental factors. For example, if you have a family history of ulcerative colitis, you may be more likely to develop the condition. Additionally, certain lifestyle factors, such as a diet high in processed foods and low in fiber, may also play a role. Aim to eat at least 25 grams of fiber per day from sources like fruits, vegetables, and whole grains."
+          },
+          {
+            "heading": "How Common is Ulcerative Colitis?",
+            "text": "Ulcerative colitis is a relatively rare condition, affecting about 907,000 people in the United States. It can affect anyone, regardless of age, sex, or ethnicity. However, it is more common in people under the age of 30, and in those with a family history of the condition. According to the Crohn's & Colitis Foundation, the prevalence of ulcerative colitis is highest in North America and Europe. Key statistics include: 1 in 200 people will develop ulcerative colitis in their lifetime, and the condition is more common in women than men."
+          },
+          {
+            "heading": "Why Does Ulcerative Colitis Matter?",
+            "text": "Ulcerative colitis matters because it can have a significant impact on a person's quality of life. The symptoms of ulcerative colitis can be debilitating, making it difficult to work, attend school, or participate in social activities. Additionally, if left untreated, ulcerative colitis can lead to complications such as colon cancer, osteoporosis, and anemia. However, with proper treatment and management, many people with ulcerative colitis are able to lead active and fulfilling lives. It's essential to work closely with your healthcare team to develop a personalized treatment plan that addresses your unique needs and goals."
+          }
+        ],
+        "clinical_pearl": "One key fact to know about ulcerative colitis is that it is a chronic condition, meaning it is ongoing and can be managed with treatment, but not cured. However, with the right treatment and lifestyle changes, many people with ulcerative colitis are able to manage their symptoms and lead active lives.",
+        "key_points": [
+          "Ulcerative colitis is a type of inflammatory bowel disease (IBD) that affects the large intestine.",
+          "The condition causes inflammation and ulcers in the colon, leading to symptoms such as diarrhea, abdominal pain, and weight loss.",
+          "Ulcerative colitis is a chronic condition, meaning it is ongoing and can be managed with treatment, but not cured.",
+          "The exact cause of ulcerative colitis is not known, but it is thought to be a combination of genetic and environmental factors.",
+          "Aim to eat at least 25 grams of fiber per day from sources like fruits, vegetables, and whole grains.",
+          "Work closely with your healthcare team to develop a personalized treatment plan that addresses your unique needs and goals."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of ulcerative colitis, and how can I manage them?",
+          "How can I reduce my risk of developing complications from ulcerative colitis?",
+          "What lifestyle changes can I make to help manage my ulcerative colitis symptoms?"
+        ],
+        "references": [
+          {
+            "title": "Ulcerative Colitis",
+            "authors": "Crohn's & Colitis Foundation",
+            "journal_or_source": "Crohn's & Colitis Foundation Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for diagnosis and treatment"
+          },
+          {
+            "title": "Inflammatory Bowel Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key information on causes, symptoms, and treatment options"
+          }
+        ]
+      },
+      "key_takeaway": "Ulcerative colitis is a chronic condition that can be managed with treatment, but not cured. By understanding the condition, its symptoms, and its treatment options, you can take control of your health and lead an active and fulfilling life."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors",
+      "content": {
+        "intro": "While the exact cause of ulcerative colitis is not known, research suggests that it is a combination of genetic and environmental factors. In this lesson, we will explore the genetic and lifestyle factors that may contribute to the development of ulcerative colitis, as well as the modifiable and non-modifiable risk factors. Think of your immune system like a shield that protects your body from harm. But when you have ulcerative colitis, the shield gets confused and starts attacking the healthy tissue in your colon.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Research suggests that genetic factors may play a role in the development of ulcerative colitis. People with a family history of the condition are more likely to develop it themselves. Additionally, certain genetic mutations have been identified as increasing the risk of developing ulcerative colitis. For example, mutations in the NOD2 gene have been linked to an increased risk of developing the condition. Aim to learn more about your family medical history and discuss it with your healthcare provider."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as diet and stress, may also contribute to the development of ulcerative colitis. A diet high in processed foods and low in fiber may increase the risk of developing the condition. Additionally, stress can exacerbate symptoms of ulcerative colitis. Practicing stress-reducing techniques, such as meditation or yoga, may help manage symptoms. Aim to walk for at least 30 minutes, 5 days a week, to help reduce stress and improve overall health."
+          },
+          {
+            "heading": "Modifiable and Non-Modifiable Risk Factors",
+            "text": "There are both modifiable and non-modifiable risk factors for ulcerative colitis. Modifiable risk factors, such as diet and stress, can be changed to reduce the risk of developing the condition. Non-modifiable risk factors, such as age and family history, cannot be changed. Understanding the risk factors for ulcerative colitis can help you take steps to reduce your risk and manage your symptoms. For example, quitting smoking can help reduce the risk of developing complications from ulcerative colitis."
+          }
+        ],
+        "clinical_pearl": "One key fact to know about ulcerative colitis is that it is a complex condition that is influenced by multiple genetic and environmental factors. While there is no single cause of the condition, understanding the risk factors and making lifestyle changes can help reduce the risk of developing ulcerative colitis and manage its symptoms.",
+        "key_points": [
+          "Genetic factors may play a role in the development of ulcerative colitis.",
+          "Lifestyle factors, such as diet and stress, may contribute to the development of ulcerative colitis.",
+          "Modifiable risk factors, such as diet and stress, can be changed to reduce the risk of developing ulcerative colitis.",
+          "Non-modifiable risk factors, such as age and family history, cannot be changed.",
+          "Aim to walk for at least 30 minutes, 5 days a week, to help reduce stress and improve overall health.",
+          "Quitting smoking can help reduce the risk of developing complications from ulcerative colitis."
+        ],
+        "questions_for_doctor": [
+          "What are the most common genetic factors that contribute to the development of ulcerative colitis?",
+          "How can I reduce my risk of developing ulcerative colitis through lifestyle changes?",
+          "What are the most common modifiable and non-modifiable risk factors for ulcerative colitis?"
+        ],
+        "references": [
+          {
+            "title": "Genetic Factors in Ulcerative Colitis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key information on genetic factors"
+          },
+          {
+            "title": "Lifestyle Factors in Ulcerative Colitis",
+            "authors": "Crohn's & Colitis Foundation",
+            "journal_or_source": "Crohn's & Colitis Foundation Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key information on lifestyle factors"
+          }
+        ]
+      },
+      "key_takeaway": "Ulcerative colitis is a complex condition that is influenced by multiple genetic and environmental factors. By understanding the risk factors and making lifestyle changes, you can reduce your risk of developing ulcerative colitis and manage its symptoms."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "The symptoms of ulcerative colitis can vary from person to person, but they often include diarrhea, abdominal pain, and weight loss. In this lesson, we will explore the early warning signs of ulcerative colitis, how the disease progresses over time, and what patients can expect to feel. Think of your colon like a pipeline that helps remove waste from your body. When you have ulcerative colitis, the pipeline gets clogged and inflamed, leading to symptoms like diarrhea and abdominal pain.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of ulcerative colitis may include diarrhea, abdominal pain, and weight loss. These symptoms can be mild or severe and may come and go over time. In some cases, people with ulcerative colitis may experience rectal bleeding or pus in their stool. If you experience any of these symptoms, it's essential to seek medical attention. Aim to keep a symptom journal to track your symptoms and identify patterns."
+          },
+          {
+            "heading": "How the Disease Progresses",
+            "text": "Ulcerative colitis is a chronic condition, meaning it is ongoing and can be managed with treatment, but not cured. Over time, the disease can progress and lead to complications such as colon cancer, osteoporosis, and anemia. However, with proper treatment and management, many people with ulcerative colitis are able to lead active and fulfilling lives. For example, taking your medications as prescribed and attending regular follow-up appointments with your healthcare provider can help manage symptoms and prevent complications."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "People with ulcerative colitis often experience a range of emotions, from anxiety and depression to frustration and anger. The symptoms of ulcerative colitis can be debilitating, making it difficult to work, attend school, or participate in social activities. However, with the right treatment and support, many people with ulcerative colitis are able to manage their symptoms and lead active lives. Aim to connect with others who have ulcerative colitis through support groups or online forums to share experiences and advice."
+          }
+        ],
+        "clinical_pearl": "One key fact to know about ulcerative colitis is that it is a chronic condition that requires ongoing management and treatment. By understanding the symptoms and how the disease progresses, patients can take control of their health and lead active and fulfilling lives.",
+        "key_points": [
+          "The symptoms of ulcerative colitis can vary from person to person, but they often include diarrhea, abdominal pain, and weight loss.",
+          "The disease can progress over time and lead to complications such as colon cancer, osteoporosis, and anemia.",
+          "People with ulcerative colitis often experience a range of emotions, from anxiety and depression to frustration and anger.",
+          "With the right treatment and support, many people with ulcerative colitis are able to manage their symptoms and lead active lives.",
+          "Aim to keep a symptom journal to track your symptoms and identify patterns.",
+          "Taking your medications as prescribed and attending regular follow-up appointments with your healthcare provider can help manage symptoms and prevent complications."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of ulcerative colitis, and how can I manage them?",
+          "How can I reduce my risk of developing complications from ulcerative colitis?",
+          "What are the best ways to manage stress and anxiety related to ulcerative colitis?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Ulcerative Colitis",
+            "authors": "Crohn's & Colitis Foundation",
+            "journal_or_source": "Crohn's & Colitis Foundation Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key information on symptoms"
+          },
+          {
+            "title": "Managing Ulcerative Colitis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases Website",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key information on management"
+          }
+        ]
+      },
+      "key_takeaway": "Ulcerative colitis is a chronic condition that requires ongoing management and treatment. By understanding the symptoms and how the disease progresses, patients can take control of their health and lead active and fulfilling lives."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing ulcerative colitis can be a complex process, but it's essential to get an accurate diagnosis to start the right treatment. Imagine your body is like a car, and the doctor is a skilled mechanic trying to find the problem. They will use various tools and tests to determine what's going on inside your body. In this lesson, we'll explore the different tests and procedures used to diagnose ulcerative colitis. You'll learn what to expect during appointments and how long the diagnosis process typically takes. By the end of this lesson, you'll have a better understanding of the diagnostic process and be able to ask your doctor the right questions.",
+        "sections": [
+          {
+            "heading": "Tests and Procedures",
+            "text": "To diagnose ulcerative colitis, your doctor may perform several tests, including blood tests, stool tests, endoscopy, and imaging tests like X-rays or CT scans. Blood tests can help identify inflammation and anemia, while stool tests can detect blood or pus in your stool. An endoscopy involves inserting a flexible tube with a camera into your colon to visually examine the inside of your colon and rectum. Your doctor may also take a biopsy, which involves removing a small tissue sample for further examination. Imaging tests can help your doctor see the extent of the inflammation and check for any complications."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will ask you questions about your symptoms, medical history, and lifestyle. They may also perform a physical exam to check for any signs of inflammation or other complications. Be sure to ask your doctor any questions you have, and don't hesitate to share your concerns. It's essential to be open and honest with your doctor to ensure you receive the best possible care. Aim to ask at least three questions during each appointment, such as 'What are the next steps in my diagnosis?' or 'What are the potential risks and benefits of each test?'."
+          },
+          {
+            "heading": "Understanding Test Results",
+            "text": "Once your test results are available, your doctor will discuss them with you. They will explain what the results mean and how they will affect your treatment plan. It's essential to understand your test results, so don't be afraid to ask questions. You can ask your doctor to explain the results in simpler terms or provide examples to help you understand. For example, you can ask, 'What does it mean if my blood test shows elevated inflammation?' or 'How will my test results impact my treatment options?'."
+          }
+        ],
+        "clinical_pearl": "A key fact to remember is that diagnosing ulcerative colitis can take time, and it's essential to be patient and work closely with your doctor. By being proactive and asking questions, you can ensure you receive the best possible care.",
+        "key_points": [
+          "Ulcerative colitis diagnosis can be complex and requires multiple tests and procedures",
+          "Blood tests, stool tests, endoscopy, and imaging tests are commonly used to diagnose ulcerative colitis",
+          "It's essential to be open and honest with your doctor to ensure you receive the best possible care",
+          "Aim to ask at least three questions during each appointment",
+          "Understanding your test results is crucial to developing an effective treatment plan",
+          "Don't hesitate to ask your doctor to explain test results in simpler terms"
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose ulcerative colitis?",
+          "How long will the diagnosis process take, and what can I expect during appointments?",
+          "What are the potential risks and benefits of each test, and how will they impact my treatment plan?"
+        ],
+        "references": [
+          {
+            "title": "Ulcerative Colitis Diagnosis and Treatment",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Gastroenterological Association provides guidelines for the diagnosis and treatment of ulcerative colitis, including recommendations for testing and treatment."
+          },
+          {
+            "title": "Ulcerative Colitis: Diagnosis and Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The National Institute of Diabetes and Digestive and Kidney Diseases provides information on the diagnosis and management of ulcerative colitis, including lifestyle changes and treatment options."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-PSORIASIS-001",
+  "title": "Psoriasis: IL-17/23 Axis, Psoriatic Arthritis, Biologics and Quality of Life",
+  "specialty": "Dermatology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Psoriasis",
+      "content": {
+        "intro": "Psoriasis has been described in ancient texts, with the first recorded mention in the Ebers Papyrus around 1550 BCE. The Greek physician Hippocrates (460-370 BCE) is credited with the first detailed description of the disease. In 1841, the French dermatologist Ferdinand Ritter von Hebra coined the term 'psoriasis' and recognized it as a distinct entity. The early 20th century saw significant advancements, with the discovery of the Koebner phenomenon in 1876 by Heinrich Koebner, which described the appearance of psoriatic lesions at sites of skin injury. In 1986, the first landmark paper on the immunopathogenesis of psoriasis was published by Dr. Bruce Beutler, highlighting the role of immune cells in the disease. The understanding of psoriasis has evolved significantly over the years, with key milestones including the discovery of the IL-17/23 axis and the development of biologic therapies.",
+        "sections": [],
+        "key_points": [
+          "Psoriasis was first described in the Ebers Papyrus around 1550 BCE",
+          "Hippocrates provided the first detailed description of the disease",
+          "Ferdinand Ritter von Hebra coined the term 'psoriasis' in 1841",
+          "The Koebner phenomenon was discovered in 1876 by Heinrich Koebner",
+          "The first landmark paper on immunopathogenesis was published by Dr. Bruce Beutler in 1986",
+          "The IL-17/23 axis has been identified as a key player in the disease",
+          "Biologic therapies have revolutionized the treatment of psoriasis",
+          "Understanding of psoriasis has evolved significantly over the years"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Psoriasis",
+      "content": {
+        "intro": "Psoriasis is a chronic inflammatory skin disease characterized by an abnormal immune response, keratinocyte proliferation, and angiogenesis. The IL-17/23 axis plays a crucial role in the pathogenesis of psoriasis, with IL-17 and IL-23 promoting inflammation and keratinocyte proliferation. Genetic factors also contribute to the development of psoriasis, with multiple susceptibility loci identified. The disease is classified into several subtypes, including plaque psoriasis, guttate psoriasis, and pustular psoriasis. The molecular mechanisms underlying psoriasis involve the activation of immune cells, including T cells and dendritic cells, which produce pro-inflammatory cytokines and chemokines.",
+        "sections": [],
+        "key_points": [
+          "Psoriasis is a chronic inflammatory skin disease",
+          "The IL-17/23 axis plays a crucial role in the pathogenesis of psoriasis",
+          "Genetic factors contribute to the development of psoriasis",
+          "Multiple susceptibility loci have been identified",
+          "The disease is classified into several subtypes",
+          "Molecular mechanisms involve the activation of immune cells",
+          "T cells and dendritic cells produce pro-inflammatory cytokines and chemokines",
+          "Keratinocyte proliferation and angiogenesis are key features of the disease"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Psoriasis",
+      "content": {
+        "intro": "Psoriasis typically presents with well-demarcated, erythematous plaques with silvery scales, often on the elbows, knees, scalp, and lower back. The cardinal symptoms include itching, burning, and pain. The disease can progress through several stages, including the prodromal stage, the eruptive stage, and the chronic stage. Atypical presentations include guttate psoriasis, pustular psoriasis, and erythrodermic psoriasis. Psoriatic arthritis is a common comorbidity, affecting up to 30% of patients with psoriasis. The clinical presentation can vary depending on the subtype, with plaque psoriasis being the most common.",
+        "sections": [],
+        "key_points": [
+          "Psoriasis typically presents with well-demarcated, erythematous plaques",
+          "The cardinal symptoms include itching, burning, and pain",
+          "The disease can progress through several stages",
+          "Atypical presentations include guttate psoriasis and pustular psoriasis",
+          "Psoriatic arthritis is a common comorbidity",
+          "The clinical presentation can vary depending on the subtype",
+          "Plaque psoriasis is the most common subtype",
+          "The disease can have a significant impact on quality of life"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing psoriasis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is primarily based on the physical examination of the skin, with characteristic findings including well-demarcated, erythematous plaques with silvery scales. The Psoriasis Area and Severity Index (PASI) is a widely used scoring system to assess the severity of psoriasis. Laboratory tests, such as complete blood counts and liver function tests, may be ordered to monitor for potential side effects of treatments. Imaging studies, including X-rays and ultrasound, may be used to evaluate for psoriatic arthritis. Differential diagnoses include other inflammatory skin conditions, such as eczema and seborrheic dermatitis.",
+        "sections": [],
+        "key_points": [
+          "Clinical evaluation is the primary method of diagnosis",
+          "PASI score is used to assess severity",
+          "Laboratory tests are used to monitor for side effects",
+          "Imaging studies are used to evaluate for psoriatic arthritis",
+          "Differential diagnoses include eczema and seborrheic dermatitis",
+          "Skin biopsy may be performed in uncertain cases",
+          "The Koebner phenomenon is a characteristic feature of psoriasis",
+          "Diagnostic criteria include the presence of characteristic skin lesions"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of psoriasis involves a range of pharmacological and non-pharmacological options. Topical corticosteroids and vitamin D analogues are commonly used first-line treatments for mild to moderate psoriasis. For more severe cases, systemic treatments such as methotrexate, cyclosporine, and biologic agents (e.g. TNF-alpha inhibitors, IL-17 inhibitors) may be used. Non-pharmacological treatments include phototherapy, such as narrowband UVB and psoralen plus UVA (PUVA), and lifestyle modifications, such as maintaining a healthy weight and avoiding triggers. The choice of treatment depends on the severity of the disease, the presence of psoriatic arthritis, and the patient's medical history and preferences.",
+        "sections": [],
+        "key_points": [
+          "Topical corticosteroids are commonly used first-line treatments",
+          "Vitamin D analogues are used for mild to moderate psoriasis",
+          "Systemic treatments are used for more severe cases",
+          "Biologic agents are used for severe cases or those with psoriatic arthritis",
+          "Phototherapy is a non-pharmacological treatment option",
+          "Lifestyle modifications are important for managing psoriasis",
+          "Treatment should be individualized based on patient factors",
+          "Regular monitoring is necessary to adjust treatment as needed"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Psoriasis is associated with several complications, including psoriatic arthritis, which affects up to 30% of patients. Other complications include cardiovascular disease, metabolic syndrome, and depression. The prognosis for psoriasis varies depending on the severity of the disease and the presence of complications. Patients with mild psoriasis may experience periods of remission, while those with more severe disease may require ongoing treatment to manage symptoms. Prognostic scores, such as the Psoriasis Severity Index, can be used to predict the likelihood of developing complications. Incidence data suggest that psoriasis affects approximately 2-3% of the population, with a higher prevalence in certain ethnic groups.",
+        "sections": [],
+        "key_points": [
+          "Psoriatic arthritis is a common complication of psoriasis",
+          "Cardiovascular disease and metabolic syndrome are associated with psoriasis",
+          "Depression is a common comorbidity with psoriasis",
+          "Prognosis varies depending on disease severity and complications",
+          "Prognostic scores can be used to predict complications",
+          "Incidence data suggest a prevalence of 2-3% in the general population",
+          "Certain ethnic groups are at higher risk of developing psoriasis",
+          "Early treatment can improve prognosis and reduce the risk of complications"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-PSORIASIS-001",
+    "type": "disease_module",
+    "specialty": "Dermatology",
+    "specialty_ru": "Дерматология",
+    "title_en": "Psoriasis: IL-17/23 Axis, Psoriatic Arthritis, Biologics and Quality of Life",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

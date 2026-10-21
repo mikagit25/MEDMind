@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-HF-001",
+  "title": "Heart Failure: Pathophysiology, Phenotypes (HFrEF/HFpEF) and Quadruple Therapy",
+  "specialty": "Cardiology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Heart Failure",
+      "content": {
+        "intro": "Heart failure has been described in medical literature for thousands of years, with the earliest recorded descriptions dating back to ancient Egypt and Greece. The Greek physician Hippocrates (460-370 BCE) is credited with being one of the first to describe the condition. However, it was not until the 17th century that the English physician William Harvey (1578-1657) published his landmark paper 'De Motu Cordis' in 1628, describing the circulatory system and laying the foundation for modern understanding of heart failure. In the 19th century, the French physician René Laënnec (1781-1826) invented the stethoscope, which allowed for the diagnosis of heart failure through the detection of abnormal heart sounds. The 20th century saw significant advancements in the understanding and treatment of heart failure, with the introduction of ACE inhibitors in the 1980s and beta-blockers in the 1990s. The concept of heart failure with preserved ejection fraction (HFpEF) was first described in the 1980s by researchers such as Dr. Eugene Braunwald. A notable case is that of former US President Dwight D. Eisenhower, who suffered from heart failure and died in 1969 due to complications related to the condition.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates described heart failure in ancient Greece",
+          "William Harvey published 'De Motu Cordis' in 1628",
+          "René Laënnec invented the stethoscope in the 19th century",
+          "ACE inhibitors were introduced in the 1980s",
+          "Beta-blockers were introduced in the 1990s",
+          "HFpEF was first described in the 1980s",
+          "Dwight D. Eisenhower died due to heart failure complications in 1969",
+          "The understanding of heart failure has evolved significantly over the past century"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Heart Failure",
+      "content": {
+        "intro": "Heart failure is a complex clinical syndrome characterized by the inability of the heart to pump blood effectively, resulting in inadequate perfusion of organs and tissues. The pathophysiology of heart failure involves a combination of molecular mechanisms, genetic factors, and environmental influences. At the molecular level, heart failure is characterized by abnormalities in cardiac myocyte function, including impaired contraction and relaxation. Genetic factors, such as mutations in the MYH7 gene, can also contribute to the development of heart failure. The aetiology of heart failure can be divided into two main categories: heart failure with reduced ejection fraction (HFrEF) and heart failure with preserved ejection fraction (HFpEF). HFrEF is characterized by a reduced ejection fraction, typically less than 40%, and is often caused by conditions such as coronary artery disease, hypertension, and cardiomyopathy. HFpEF, on the other hand, is characterized by a preserved ejection fraction, typically greater than 50%, and is often caused by conditions such as hypertension, diabetes, and obesity.",
+        "sections": [],
+        "key_points": [
+          "Heart failure is a complex clinical syndrome",
+          "The pathophysiology of heart failure involves molecular mechanisms and genetic factors",
+          "HFrEF is characterized by a reduced ejection fraction",
+          "HFpEF is characterized by a preserved ejection fraction",
+          "Coronary artery disease is a common cause of HFrEF",
+          "Hypertension is a common cause of HFpEF",
+          "Diabetes and obesity are also common causes of HFpEF",
+          "Genetic mutations can contribute to the development of heart failure"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Heart Failure",
+      "content": {
+        "intro": "The clinical presentation of heart failure can vary depending on the underlying cause and the severity of the condition. Common symptoms of heart failure include shortness of breath, fatigue, swelling in the legs and feet, and chest pain. Patients with HFrEF often present with symptoms of volume overload, such as pulmonary congestion and peripheral edema. Patients with HFpEF, on the other hand, often present with symptoms of exercise intolerance and dyspnea on exertion. The New York Heart Association (NYHA) classification system is commonly used to classify the severity of heart failure, ranging from Class I (no symptoms) to Class IV (severe symptoms). Atypical presentations of heart failure can include conditions such as cardiac cachexia, in which patients experience significant weight loss and muscle wasting. The diagnosis of heart failure is often made based on a combination of clinical evaluation, laboratory tests, and imaging studies.",
+        "sections": [],
+        "key_points": [
+          "Shortness of breath is a common symptom of heart failure",
+          "Fatigue is a common symptom of heart failure",
+          "Swelling in the legs and feet is a common symptom of heart failure",
+          "Chest pain is a common symptom of heart failure",
+          "HFrEF often presents with symptoms of volume overload",
+          "HFpEF often presents with symptoms of exercise intolerance",
+          "The NYHA classification system is used to classify the severity of heart failure",
+          "Atypical presentations of heart failure can include cardiac cachexia"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing heart failure involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is based on the presence of typical symptoms and signs, such as shortness of breath, fatigue, and swelling, in combination with evidence of cardiac dysfunction. The New York Heart Association (NYHA) functional classification system is commonly used to classify the severity of heart failure. Laboratory tests, including complete blood count, serum electrolytes, and renal function tests, are essential to identify potential underlying causes and comorbidities. Echocardiography is the most commonly used imaging modality to assess left ventricular function and structure. Other imaging modalities, such as cardiac magnetic resonance imaging and cardiac computed tomography, may be used in specific situations. The diagnosis of heart failure with reduced ejection fraction (HFrEF) or heart failure with preserved ejection fraction (HFpEF) is based on the measurement of left ventricular ejection fraction (LVEF).",
+        "sections": [],
+        "key_points": [
+          "Clinical evaluation is essential for diagnosing heart failure",
+          "Laboratory tests help identify underlying causes and comorbidities",
+          "Imaging studies, such as echocardiography, are crucial for assessing cardiac function",
+          "NYHA functional classification system is used to classify the severity of heart failure",
+          "LVEF measurement is used to diagnose HFrEF or HFpEF",
+          "Echocardiography is the most commonly used imaging modality",
+          "Cardiac magnetic resonance imaging and cardiac computed tomography may be used in specific situations",
+          "Diagnosis of heart failure requires a combination of clinical evaluation, laboratory tests, and imaging studies"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of heart failure involves a combination of pharmacological and non-pharmacological interventions. Angiotensin-converting enzyme inhibitors (ACE inhibitors) or angiotensin receptor-neprilysin inhibitors (ARNI) are recommended as first-line therapy for patients with HFrEF. Beta-blockers are also recommended as first-line therapy, as they have been shown to reduce morbidity and mortality. Diuretics, such as furosemide, are used to manage symptoms of volume overload. Non-pharmacological interventions, such as lifestyle modifications and device therapy, are also essential. Lifestyle modifications include dietary changes, such as a low-sodium diet, and increased physical activity. Device therapy, such as cardiac resynchronization therapy (CRT) and implantable cardioverter-defibrillators (ICD), may be recommended for patients with severe left ventricular dysfunction.",
+        "sections": [],
+        "key_points": [
+          "ACE inhibitors or ARNI are recommended as first-line therapy for HFrEF",
+          "Beta-blockers are recommended as first-line therapy for HFrEF",
+          "Diuretics are used to manage symptoms of volume overload",
+          "Lifestyle modifications, such as dietary changes and increased physical activity, are essential",
+          "Device therapy, such as CRT and ICD, may be recommended for patients with severe left ventricular dysfunction",
+          "Non-pharmacological interventions are essential for managing heart failure",
+          "Pharmacological interventions, such as ACE inhibitors and beta-blockers, are essential for managing HFrEF",
+          "Treatment of heart failure requires a combination of pharmacological and non-pharmacological interventions"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Heart failure is associated with significant morbidity and mortality. The prognosis of heart failure depends on various factors, including the severity of left ventricular dysfunction, the presence of comorbidities, and the response to treatment. The Seattle Heart Failure Model (SHFM) and the Meta-Analysis Global Group in Chronic Heart Failure (MAGGIC) risk score are commonly used to predict the prognosis of patients with heart failure. Complications of heart failure include arrhythmias, such as atrial fibrillation, and thromboembolic events, such as stroke. Other complications include renal dysfunction, anemia, and cognitive impairment. The incidence of heart failure is increasing, and it is estimated that over 6 million people in the United States have heart failure.",
+        "sections": [],
+        "key_points": [
+          "The prognosis of heart failure depends on various factors, including the severity of left ventricular dysfunction",
+          "The SHFM and MAGGIC risk score are commonly used to predict the prognosis of patients with heart failure",
+          "Complications of heart failure include arrhythmias and thromboembolic events",
+          "Renal dysfunction, anemia, and cognitive impairment are common complications of heart failure",
+          "The incidence of heart failure is increasing",
+          "Heart failure is associated with significant morbidity and mortality",
+          "The presence of comorbidities affects the prognosis of heart failure",
+          "The response to treatment affects the prognosis of heart failure"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Heart failure affects various populations, including the elderly, pediatric patients, and pregnant women. The management of heart failure in these populations requires special consideration. In elderly patients, comorbidities and polypharmacy are common, and treatment should be tailored to the individual patient. In pediatric patients, heart failure is often caused by congenital heart disease, and treatment should be focused on managing the underlying condition. In pregnant women, heart failure is often caused by peripartum cardiomyopathy, and treatment should be focused on managing the underlying condition. Emerging therapies for heart failure include sacubitril-valsartan, a novel ARNI, and omecamtiv mecarbil, a novel cardiac myosin activator.",
+        "sections": [],
+        "key_points": [
+          "Heart failure affects various populations, including the elderly, pediatric patients, and pregnant women",
+          "The management of heart failure in these populations requires special consideration",
+          "Comorbidities and polypharmacy are common in elderly patients with heart failure",
+          "Pediatric heart failure is often caused by congenital heart disease",
+          "Pregnant women with heart failure often have peripartum cardiomyopathy",
+          "Emerging therapies for heart failure include sacubitril-valsartan and omecamtiv mecarbil",
+          "Treatment of heart failure in special populations should be tailored to the individual patient",
+          "Heart failure in special populations requires a multidisciplinary approach"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-HF-001",
+    "type": "disease_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Heart Failure: Pathophysiology, Phenotypes (HFrEF/HFpEF) and Quadruple Therapy",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

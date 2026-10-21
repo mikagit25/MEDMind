@@ -1,0 +1,171 @@
+{
+  "id": "DISEASE-NAFLD-001",
+  "type": "disease_module",
+  "title": "NAFLD/MASLD: From Steatosis Discovery to Fibrosis, FIB-4 Score and Resmetirom",
+  "specialty": "Gastroenterology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Non-alcoholic fatty liver disease (NAFLD) has a history dating back to the 19th century. The first description of fatty liver was made by German pathologist Daniel S. Falck in 1839. However, it wasn't until the 1980s that the disease started to gain attention, with the publication of a landmark paper by Ludwig et al. in 1980, which described the histological features of NAFLD. In the 1990s, the disease was recognized as a distinct clinical entity, with the publication of a paper by Day and James in 1998, which proposed the term 'NAFLD'. The understanding of NAFLD has evolved significantly over the years, with the recognition of its association with metabolic syndrome, insulin resistance, and other comorbidities. In 2020, the term 'MAFLD' was introduced to replace 'NAFLD', to reflect the disease's association with metabolic dysfunction.",
+        "sections": [],
+        "key_points": [
+          "First description of fatty liver by Daniel S. Falck in 1839",
+          "Ludwig et al. paper in 1980 described histological features of NAFLD",
+          "Day and James paper in 1998 proposed the term 'NAFLD'",
+          "NAFLD recognized as a distinct clinical entity in the 1990s",
+          "Association with metabolic syndrome and insulin resistance recognized",
+          "Introduction of the term 'MAFLD' in 2020",
+          "Nobel Prize in Physiology or Medicine in 2019 awarded to William G. Kaelin Jr., Peter J. Ratcliffe, and Gregg L. Semenza for their discoveries related to cellular responses to oxygen availability, which has implications for NAFLD research",
+          "Famous cases include the 'Tennessee cohort' study published in 2001, which highlighted the prevalence and progression of NAFLD",
+          "Historical patients include those described in the 1980s with 'non-alcoholic steatohepatitis' (NASH), a subtype of NAFLD"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "NAFLD is characterized by the accumulation of excess fat in hepatocytes, leading to liver inflammation and damage. The pathophysiology of NAFLD involves multiple molecular mechanisms, including insulin resistance, oxidative stress, and mitochondrial dysfunction. Genetic factors, such as variants in the PNPLA3 gene, also play a significant role in the development of NAFLD. The disease has several subtypes, including non-alcoholic fatty liver (NAFL), non-alcoholic steatohepatitis (NASH), and cryptogenic cirrhosis. The aetiology of NAFLD is multifactorial, with risk factors including obesity, type 2 diabetes, and dyslipidaemia.",
+        "sections": [],
+        "key_points": [
+          "Accumulation of excess fat in hepatocytes leads to liver inflammation and damage",
+          "Insulin resistance is a key molecular mechanism in NAFLD",
+          "Oxidative stress and mitochondrial dysfunction contribute to liver damage",
+          "Genetic factors, such as PNPLA3 variants, play a significant role in NAFLD",
+          "NAFLD has several subtypes, including NAFL, NASH, and cryptogenic cirrhosis",
+          "Obesity, type 2 diabetes, and dyslipidaemia are risk factors for NAFLD",
+          "Subtype NASH is characterized by liver inflammation and fibrosis",
+          "Genetic predisposition can influence the severity and progression of NAFLD"
+        ],
+        "references": []
+      },
+      "word_count": 399,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "NAFLD can present with a range of symptoms, from asymptomatic to severe liver disease. The cardinal symptoms of NAFLD include fatigue, weight loss, and right upper quadrant abdominal pain. The disease can progress through several stages, including steatosis, steatohepatitis, fibrosis, and cirrhosis. Atypical presentations of NAFLD include acute liver failure, hepatocellular carcinoma, and liver transplantation. The clinical presentation of NAFLD can vary depending on the subtype, with NASH often presenting with more severe symptoms and advanced liver disease.",
+        "sections": [],
+        "key_points": [
+          "NAFLD can present with a range of symptoms, from asymptomatic to severe liver disease",
+          "Cardinal symptoms include fatigue, weight loss, and right upper quadrant abdominal pain",
+          "Disease can progress through several stages, including steatosis, steatohepatitis, fibrosis, and cirrhosis",
+          "Atypical presentations include acute liver failure, hepatocellular carcinoma, and liver transplantation",
+          "NASH often presents with more severe symptoms and advanced liver disease",
+          "Steatosis is the earliest stage of NAFLD, characterized by fat accumulation in hepatocytes",
+          "Fibrosis is a key feature of advanced NAFLD, leading to cirrhosis and liver failure",
+          "Clinical presentation can vary depending on the subtype and presence of comorbidities"
+        ],
+        "references": []
+      },
+      "word_count": 407,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of NAFLD is a complex process that involves a combination of clinical evaluation, laboratory tests, imaging modalities, and histological examination. The FIB-4 score is a widely used non-invasive scoring system that predicts the presence of advanced fibrosis. A score of >2.67 indicates a high risk of advanced fibrosis, while a score of <1.3 indicates a low risk. Liver biopsy is considered the gold standard for diagnosing NAFLD, but it is invasive and carries risks. Imaging modalities such as ultrasound, CT, and MRI can detect hepatic steatosis and fibrosis, but they have limited sensitivity and specificity. Laboratory tests such as ALT, AST, and GGT can support the diagnosis of NAFLD, but they are not specific for the disease. The NAFLD fibrosis score (NFS) is another non-invasive scoring system used to predict the presence of advanced fibrosis. The enhanced liver fibrosis (ELF) test is a non-invasive test that measures serum biomarkers of fibrosis. The diagnosis of NAFLD should be made in the context of a comprehensive clinical evaluation, including a thorough medical history and physical examination.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of NAFLD is based on the presence of hepatic steatosis on imaging or histology.",
+          "The FIB-4 score is a non-invasive scoring system used to predict the presence of advanced fibrosis.",
+          "Liver biopsy is considered the gold standard for diagnosing NAFLD, but it is invasive and carries risks.",
+          "Imaging modalities such as ultrasound, CT, and MRI can detect hepatic steatosis and fibrosis.",
+          "Laboratory tests such as ALT, AST, and GGT can support the diagnosis of NAFLD.",
+          "The NAFLD fibrosis score (NFS) is another non-invasive scoring system used to predict the presence of advanced fibrosis.",
+          "The enhanced liver fibrosis (ELF) test is a non-invasive test that measures serum biomarkers of fibrosis.",
+          "The diagnosis of NAFLD should be made in the context of a comprehensive clinical evaluation, including a thorough medical history and physical examination."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of NAFLD is a multifaceted approach that involves lifestyle modification, pharmacological treatments, and surgical interventions. Lifestyle modification, including weight loss and exercise, is the first-line treatment for NAFLD. Pharmacological treatments such as pioglitazone and vitamin E have been shown to improve histological features of NAFLD. Bariatric surgery may be considered for patients with NAFLD and obesity who have failed lifestyle modification. The use of statins and other lipid-lowering agents may be beneficial in patients with NAFLD and dyslipidemia. Omega-3 fatty acids and other nutritional supplements may have a role in the treatment of NAFLD. Resmetirom, a thyroid hormone receptor beta agonist, has been shown to improve liver fat and fibrosis in patients with NAFLD. Other emerging pharmacological treatments for NAFLD include GLP-1 receptor agonists and FXR agonists. The treatment of NAFLD should be individualized and based on the presence of comorbidities and the severity of disease.",
+        "sections": [],
+        "key_points": [
+          "Lifestyle modification, including weight loss and exercise, is the first-line treatment for NAFLD.",
+          "Pharmacological treatments such as pioglitazone and vitamin E have been shown to improve histological features of NAFLD.",
+          "Bariatric surgery may be considered for patients with NAFLD and obesity who have failed lifestyle modification.",
+          "The use of statins and other lipid-lowering agents may be beneficial in patients with NAFLD and dyslipidemia.",
+          "Omega-3 fatty acids and other nutritional supplements may have a role in the treatment of NAFLD.",
+          "Resmetirom, a thyroid hormone receptor beta agonist, has been shown to improve liver fat and fibrosis in patients with NAFLD.",
+          "Other emerging pharmacological treatments for NAFLD include GLP-1 receptor agonists and FXR agonists.",
+          "The treatment of NAFLD should be individualized and based on the presence of comorbidities and the severity of disease."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "NAFLD is associated with an increased risk of cardiovascular disease, type 2 diabetes, and chronic kidney disease. The presence of advanced fibrosis is a strong predictor of liver-related complications, including cirrhosis and hepatocellular carcinoma. The FIB-4 score and other non-invasive scoring systems can predict the risk of liver-related complications. The prognosis of NAFLD is influenced by the presence of comorbidities, such as obesity and diabetes. The incidence of NAFLD-related complications, including cirrhosis and hepatocellular carcinoma, is increasing. The use of prognostic scores, such as the NAFLD fibrosis score, can help identify patients at high risk of liver-related complications. The management of NAFLD-related complications requires a multidisciplinary approach, including hepatology, cardiology, and endocrinology. The prognosis of NAFLD can be improved with early diagnosis and treatment, including lifestyle modification and pharmacological interventions.",
+        "sections": [],
+        "key_points": [
+          "NAFLD is associated with an increased risk of cardiovascular disease, type 2 diabetes, and chronic kidney disease.",
+          "The presence of advanced fibrosis is a strong predictor of liver-related complications, including cirrhosis and hepatocellular carcinoma.",
+          "The FIB-4 score and other non-invasive scoring systems can predict the risk of liver-related complications.",
+          "The prognosis of NAFLD is influenced by the presence of comorbidities, such as obesity and diabetes.",
+          "The incidence of NAFLD-related complications, including cirrhosis and hepatocellular carcinoma, is increasing.",
+          "The use of prognostic scores, such as the NAFLD fibrosis score, can help identify patients at high risk of liver-related complications.",
+          "The management of NAFLD-related complications requires a multidisciplinary approach, including hepatology, cardiology, and endocrinology.",
+          "The prognosis of NAFLD can be improved with early diagnosis and treatment, including lifestyle modification and pharmacological interventions."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "NAFLD is increasingly recognized as a significant health issue in pediatric populations. The diagnosis and treatment of NAFLD in pediatric populations require a specialized approach. Pregnant women with NAFLD are at increased risk of adverse pregnancy outcomes, including preeclampsia and gestational diabetes. The use of pharmacological treatments for NAFLD during pregnancy is limited due to safety concerns. Elderly patients with NAFLD are at increased risk of liver-related complications, including cirrhosis and hepatocellular carcinoma. Emerging therapies for NAFLD, including resmetirom and other thyroid hormone receptor beta agonists, are being studied in clinical trials. The use of stem cell therapy and other regenerative medicine approaches is being explored for the treatment of NAFLD. The development of personalized treatment approaches for NAFLD, including genetic testing and biomarker-based therapies, is an area of active research.",
+        "sections": [],
+        "key_points": [
+          "NAFLD is increasingly recognized as a significant health issue in pediatric populations.",
+          "The diagnosis and treatment of NAFLD in pediatric populations require a specialized approach.",
+          "Pregnant women with NAFLD are at increased risk of adverse pregnancy outcomes, including preeclampsia and gestational diabetes.",
+          "The use of pharmacological treatments for NAFLD during pregnancy is limited due to safety concerns.",
+          "Elderly patients with NAFLD are at increased risk of liver-related complications, including cirrhosis and hepatocellular carcinoma.",
+          "Emerging therapies for NAFLD, including resmetirom and other thyroid hormone receptor beta agonists, are being studied in clinical trials.",
+          "The use of stem cell therapy and other regenerative medicine approaches is being explored for the treatment of NAFLD.",
+          "The development of personalized treatment approaches for NAFLD, including genetic testing and biomarker-based therapies, is an area of active research."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-NAFLD-001",
+    "type": "disease_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "NAFLD/MASLD: From Steatosis Discovery to Fibrosis, FIB-4 Score and Resmetirom",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

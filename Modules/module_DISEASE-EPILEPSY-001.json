@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-EPILEPSY-001",
+  "title": "Epilepsy: Ancient Descriptions to Precision AED Therapy and Surgical Cure",
+  "specialty": "Neurology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Epilepsy",
+      "content": {
+        "intro": "Epilepsy has been described since ancient times, with the earliest recorded descriptions dating back to 2000 BCE in the Akkadian tablet, the 'Treatise on Epilepsy'. The Greek physician Hippocrates (460-370 BCE) is often credited with being the first to describe epilepsy as a brain disorder. In 1873, John Hughlings Jackson published a landmark paper, 'A Study of Convulsions', which laid the foundation for modern understanding of epilepsy. The discovery of the electroencephalogram (EEG) by Hans Berger in 1924 revolutionized the diagnosis and study of epilepsy. The introduction of phenytoin in 1938 marked the beginning of modern antiepileptic drug therapy. Famous cases include the 'falling sickness' described by Galen (129-216 CE) and the 'miraculous cure' of Prince Myshkin in Fyodor Dostoevsky's novel, 'The Idiot'. The understanding of epilepsy has evolved significantly over the centuries, from being considered a divine punishment to a complex neurological disorder.",
+        "sections": [],
+        "key_points": [
+          "Epilepsy has been described since ancient times, with the earliest recorded descriptions dating back to 2000 BCE.",
+          "Hippocrates is often credited with being the first to describe epilepsy as a brain disorder.",
+          "John Hughlings Jackson's 1873 paper, 'A Study of Convulsions', laid the foundation for modern understanding of epilepsy.",
+          "The discovery of the EEG by Hans Berger in 1924 revolutionized the diagnosis and study of epilepsy.",
+          "The introduction of phenytoin in 1938 marked the beginning of modern antiepileptic drug therapy.",
+          "The 'falling sickness' was described by Galen in the 2nd century CE.",
+          "Fyodor Dostoevsky's novel, 'The Idiot', features a character with epilepsy, Prince Myshkin.",
+          "The understanding of epilepsy has evolved significantly over the centuries, from being considered a divine punishment to a complex neurological disorder."
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Epilepsy",
+      "content": {
+        "intro": "Epilepsy is a complex neurological disorder characterized by recurrent seizures, which are caused by abnormal electrical activity in the brain. The pathophysiology of epilepsy involves a combination of genetic, molecular, and environmental factors. Genetic factors, such as mutations in the SCN1A gene, can increase the risk of developing epilepsy. Molecular mechanisms, such as altered neurotransmitter release and synaptic plasticity, also play a crucial role. Subtypes of epilepsy, such as temporal lobe epilepsy and frontal lobe epilepsy, have distinct pathophysiological mechanisms. The aetiology of epilepsy can be classified into several categories, including genetic, structural, metabolic, and infectious causes. Understanding the pathophysiology and aetiology of epilepsy is essential for developing effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "Epilepsy is a complex neurological disorder characterized by recurrent seizures.",
+          "The pathophysiology of epilepsy involves a combination of genetic, molecular, and environmental factors.",
+          "Genetic factors, such as mutations in the SCN1A gene, can increase the risk of developing epilepsy.",
+          "Molecular mechanisms, such as altered neurotransmitter release and synaptic plasticity, also play a crucial role.",
+          "Subtypes of epilepsy, such as temporal lobe epilepsy and frontal lobe epilepsy, have distinct pathophysiological mechanisms.",
+          "The aetiology of epilepsy can be classified into several categories, including genetic, structural, metabolic, and infectious causes.",
+          "Understanding the pathophysiology and aetiology of epilepsy is essential for developing effective treatment strategies.",
+          "Epilepsy can be caused by a variety of factors, including head trauma, stroke, and brain infections."
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Epilepsy",
+      "content": {
+        "intro": "The clinical presentation of epilepsy can vary widely, depending on the subtype and severity of the disorder. Cardinal symptoms of epilepsy include seizures, which can be classified into several types, including tonic-clonic, absence, and complex partial seizures. Seizures can be preceded by an aura, which is a sensation or feeling that a seizure is about to occur. Atypical presentations of epilepsy include status epilepticus, which is a life-threatening condition characterized by prolonged or recurrent seizures. Other atypical presentations include epileptic encephalopathy and Landau-Kleffner syndrome. The clinical presentation of epilepsy can also vary depending on the age of the patient, with infants and young children often presenting with different symptoms than adults.",
+        "sections": [],
+        "key_points": [
+          "The clinical presentation of epilepsy can vary widely, depending on the subtype and severity of the disorder.",
+          "Cardinal symptoms of epilepsy include seizures, which can be classified into several types.",
+          "Seizures can be preceded by an aura, which is a sensation or feeling that a seizure is about to occur.",
+          "Atypical presentations of epilepsy include status epilepticus, which is a life-threatening condition.",
+          "Other atypical presentations include epileptic encephalopathy and Landau-Kleffner syndrome.",
+          "The clinical presentation of epilepsy can also vary depending on the age of the patient.",
+          "Infants and young children often present with different symptoms than adults, such as infantile spasms and febrile seizures.",
+          "A thorough understanding of the clinical presentation of epilepsy is essential for accurate diagnosis and effective treatment."
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing epilepsy involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnostic criteria for epilepsy include a history of two or more unprovoked seizures, with the first seizure occurring at least 24 hours before the second. Scoring systems, such as the Epilepsy Severity Scale, can help assess the severity of the disease. Laboratory tests, including complete blood counts, blood chemistry tests, and lumbar punctures, can help identify underlying causes of seizures. Imaging studies, such as computed tomography (CT) scans, magnetic resonance imaging (MRI) scans, and positron emission tomography (PET) scans, can help identify structural abnormalities in the brain that may be causing seizures. Differential diagnosis is also crucial, as other conditions, such as syncope, migraine, and psychogenic non-epileptic seizures, can mimic epilepsy.",
+        "sections": [],
+        "key_points": [
+          "Diagnostic criteria for epilepsy include a history of two or more unprovoked seizures",
+          "Scoring systems, such as the Epilepsy Severity Scale, can help assess disease severity",
+          "Laboratory tests can help identify underlying causes of seizures",
+          "Imaging studies can help identify structural abnormalities in the brain",
+          "Differential diagnosis is crucial to rule out other conditions that may mimic epilepsy",
+          "Electroencephalography (EEG) is a crucial diagnostic tool for epilepsy",
+          "Video-EEG monitoring can help diagnose and classify seizure types",
+          "Genetic testing can help identify genetic causes of epilepsy"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of epilepsy involves a combination of pharmacological and non-pharmacological approaches. First-line antiepileptic drugs (AEDs) include carbamazepine, lamotrigine, and levetiracetam, which can be used as monotherapy or in combination. Second-line AEDs, such as topiramate and zonisamide, can be used in patients who do not respond to first-line treatment. Non-pharmacological treatments, such as vagus nerve stimulation and ketogenic diet, can be effective in patients who do not respond to AEDs. Evidence-based guidelines, such as those from the American Academy of Neurology, can help guide treatment decisions.",
+        "sections": [],
+        "key_points": [
+          "First-line AEDs include carbamazepine, lamotrigine, and levetiracetam",
+          "Second-line AEDs include topiramate and zonisamide",
+          "Non-pharmacological treatments, such as vagus nerve stimulation, can be effective",
+          "Ketogenic diet can be effective in patients who do not respond to AEDs",
+          "Evidence-based guidelines can help guide treatment decisions",
+          "AEDs can have significant side effects, such as teratogenicity and hepatotoxicity",
+          "Monitoring of AED levels and side effects is crucial",
+          "Surgical treatment, such as resective surgery, can be effective in patients with refractory epilepsy"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Epilepsy can have significant complications, including status epilepticus, sudden unexpected death in epilepsy (SUDEP), and cognitive impairment. The incidence of these complications can be reduced with effective treatment and lifestyle modifications. Prognostic scores, such as the Epilepsy Prognosis Scale, can help predict the likelihood of seizure recurrence and treatment response. Incidence data from large cohort studies can help identify risk factors for complications and inform treatment decisions.",
+        "sections": [],
+        "key_points": [
+          "Status epilepticus is a life-threatening complication of epilepsy",
+          "SUDEP is a significant cause of mortality in patients with epilepsy",
+          "Cognitive impairment is a common complication of epilepsy",
+          "Effective treatment can reduce the incidence of complications",
+          "Lifestyle modifications, such as stress reduction and sleep hygiene, can improve seizure control",
+          "Prognostic scores can help predict treatment response and seizure recurrence",
+          "Incidence data can help identify risk factors for complications",
+          "Early recognition and treatment of complications can improve outcomes"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Epilepsy can affect special populations, including pediatric, elderly, and pregnant patients, who require unique consideration and treatment approaches. Emerging therapies, such as gene therapy and stem cell therapy, are being developed to treat epilepsy. Pipeline drugs, such as cannabidiol and fenfluramine, are being investigated for their potential to treat epilepsy. Paediatric patients require careful consideration of AEDs and their potential effects on brain development. Elderly patients require consideration of comorbidities and polypharmacy. Pregnant patients require careful consideration of AEDs and their potential teratogenic effects.",
+        "sections": [],
+        "key_points": [
+          "Pediatric patients require careful consideration of AEDs and their potential effects on brain development",
+          "Elderly patients require consideration of comorbidities and polypharmacy",
+          "Pregnant patients require careful consideration of AEDs and their potential teratogenic effects",
+          "Emerging therapies, such as gene therapy and stem cell therapy, are being developed",
+          "Pipeline drugs, such as cannabidiol and fenfluramine, are being investigated",
+          "Special populations require unique consideration and treatment approaches",
+          "AEDs can have significant effects on fetal development and pregnancy outcomes",
+          "Multidisciplinary care teams can help manage epilepsy in special populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-EPILEPSY-001",
+    "type": "disease_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Epilepsy: Ancient Descriptions to Precision AED Therapy and Surgical Cure",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

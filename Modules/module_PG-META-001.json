@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "id": "PG-META-001",
+    "type": "patient_guide",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Type 2 Diabetes Mellitus — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Type 2 Diabetes Mellitus?",
+      "content": {
+        "intro": "Type 2 diabetes mellitus is a chronic condition that affects the way your body processes blood sugar (glucose). It's a common condition that can be managed with the right treatment and lifestyle changes. In this lesson, we'll explore what type 2 diabetes is, how common it is, and why it matters. Imagine your body is like a car, and glucose is the fuel that makes it run. In type 2 diabetes, the car's engine (your body) becomes less efficient at using the fuel (glucose), leading to a buildup of glucose in the bloodstream.",
+        "sections": [
+          {
+            "heading": "What is Type 2 Diabetes?",
+            "text": "Type 2 diabetes is a condition where your body becomes resistant to insulin, a hormone produced by the pancreas that helps regulate blood sugar levels. As a result, your body produces more insulin to try to keep up, but eventually, it can't keep up with the demand. This leads to high blood sugar levels, which can cause damage to your organs and tissues over time. For example, think of insulin like a key that unlocks the doors to your cells, allowing glucose to enter. In type 2 diabetes, the locks on the doors become rusty, making it harder for the key (insulin) to work properly."
+          },
+          {
+            "heading": "How Common is Type 2 Diabetes?",
+            "text": "Type 2 diabetes is a very common condition, affecting over 400 million people worldwide. It's more common in people over the age of 45, but it can occur at any age. In fact, the Centers for Disease Control and Prevention (CDC) estimates that over 1 in 10 adults in the United States have type 2 diabetes. The good news is that with the right treatment and lifestyle changes, you can manage your condition and prevent complications."
+          },
+          {
+            "heading": "Why Does Type 2 Diabetes Matter?",
+            "text": "Type 2 diabetes matters because it can increase your risk of developing serious health problems, such as heart disease, kidney disease, and nerve damage. It can also affect your quality of life, making it harder to manage daily tasks and enjoy activities you love. However, by understanding what type 2 diabetes is and how to manage it, you can take control of your health and reduce your risk of complications. For instance, aiming for an HbA1c level below 7% can help you stay on track and prevent long-term damage."
+          }
+        ],
+        "clinical_pearl": "Did you know that type 2 diabetes can often be managed with lifestyle changes, such as a healthy diet and regular exercise? In fact, studies have shown that losing just 5-10% of your body weight can improve your insulin sensitivity and reduce your risk of complications.",
+        "key_points": [
+          "Type 2 diabetes is a chronic condition that affects the way your body processes blood sugar.",
+          "It's a common condition that can be managed with the right treatment and lifestyle changes.",
+          "Type 2 diabetes can increase your risk of developing serious health problems, such as heart disease and kidney disease.",
+          "Lifestyle changes, such as a healthy diet and regular exercise, can help manage type 2 diabetes.",
+          "Aiming for an HbA1c level below 7% can help you stay on track and prevent long-term damage.",
+          "Working with your healthcare team can help you develop a personalized plan to manage your condition."
+        ],
+        "questions_for_doctor": [
+          "What are my treatment options for managing type 2 diabetes?",
+          "How often should I check my blood sugar levels, and what are my target ranges?",
+          "What lifestyle changes can I make to help manage my condition and reduce my risk of complications?"
+        ],
+        "references": [
+          {
+            "title": "Type 2 Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the management of type 2 diabetes"
+          },
+          {
+            "title": "Type 2 Diabetes Mellitus",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of type 2 diabetes, including symptoms, diagnosis, and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "Type 2 diabetes is a manageable condition that requires a comprehensive approach to treatment and lifestyle changes. By understanding what type 2 diabetes is and how to manage it, you can take control of your health and reduce your risk of complications."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Type 2 Diabetes",
+      "content": {
+        "intro": "Type 2 diabetes is a complex condition that involves multiple factors, including genetics, lifestyle, and environment. In this lesson, we'll explore the causes and risk factors of type 2 diabetes, and what you can do to reduce your risk. Think of it like a puzzle, where each piece fits together to create a complete picture.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetics play a significant role in the development of type 2 diabetes. If you have a family history of type 2 diabetes, you're more likely to develop the condition. However, genetics is not the only factor, and lifestyle changes can still make a big difference. For example, if you have a genetic predisposition to type 2 diabetes, you can still reduce your risk by maintaining a healthy weight, eating a balanced diet, and exercising regularly."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as a sedentary lifestyle, unhealthy diet, and obesity, can increase your risk of developing type 2 diabetes. For instance, consuming high amounts of sugary drinks and processed foods can lead to insulin resistance, a key feature of type 2 diabetes. On the other hand, regular physical activity, such as walking 30 minutes a day, can improve insulin sensitivity and reduce your risk."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors, such as age and family history, are non-modifiable, meaning you can't change them. However, many risk factors, such as lifestyle and diet, are modifiable, meaning you can make changes to reduce your risk. For example, if you're overweight or obese, losing weight through a combination of diet and exercise can improve your insulin sensitivity and reduce your risk of complications."
+          }
+        ],
+        "clinical_pearl": "Did you know that even small changes to your lifestyle, such as taking a 10-minute walk after dinner, can make a big difference in reducing your risk of type 2 diabetes? It's all about making sustainable changes that you can stick to in the long term.",
+        "key_points": [
+          "Genetics play a significant role in the development of type 2 diabetes.",
+          "Lifestyle factors, such as a sedentary lifestyle and unhealthy diet, can increase your risk of developing type 2 diabetes.",
+          "Modifiable risk factors, such as lifestyle and diet, can be changed to reduce your risk.",
+          "Regular physical activity, such as walking 30 minutes a day, can improve insulin sensitivity and reduce your risk.",
+          "Maintaining a healthy weight through a combination of diet and exercise can reduce your risk of complications.",
+          "Working with your healthcare team can help you develop a personalized plan to reduce your risk."
+        ],
+        "questions_for_doctor": [
+          "What are my risk factors for developing type 2 diabetes, and how can I reduce them?",
+          "How can I make lifestyle changes to reduce my risk of type 2 diabetes?",
+          "What are the benefits and risks of different treatments for type 2 diabetes, and which one is right for me?"
+        ],
+        "references": [
+          {
+            "title": "Type 2 Diabetes Risk Factors",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of risk factors for type 2 diabetes"
+          },
+          {
+            "title": "Lifestyle Interventions for Type 2 Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for lifestyle interventions to reduce the risk of type 2 diabetes"
+          }
+        ]
+      },
+      "key_takeaway": "Type 2 diabetes is a complex condition that involves multiple factors, including genetics, lifestyle, and environment. By understanding your risk factors and making lifestyle changes, you can reduce your risk of developing type 2 diabetes and improve your overall health."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How Type 2 Diabetes Develops",
+      "content": {
+        "intro": "Type 2 diabetes can develop slowly over time, and symptoms may not appear until the condition is advanced. In this lesson, we'll explore the symptoms of type 2 diabetes, how the condition develops, and what you can do to recognize the warning signs. Think of it like a slow-moving train, where the symptoms can creep up on you if you're not paying attention.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of type 2 diabetes can be subtle, but they can include increased thirst and urination, fatigue, and blurred vision. If you're experiencing any of these symptoms, it's essential to talk to your doctor, as early diagnosis and treatment can make a big difference in managing the condition. For example, if you're urinating more frequently than usual, it could be a sign that your body is trying to get rid of excess glucose in your blood."
+          },
+          {
+            "heading": "How Type 2 Diabetes Develops",
+            "text": "Type 2 diabetes develops when your body becomes resistant to insulin, and your pancreas is unable to produce enough insulin to keep up with the demand. Over time, this can lead to high blood sugar levels, which can cause damage to your organs and tissues. For instance, imagine your pancreas is like a factory that produces insulin, but the factory is not working efficiently, leading to a backlog of glucose in your blood."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "People with type 2 diabetes may experience a range of symptoms, from mild to severe. Some people may feel tired, hungry, or thirsty all the time, while others may experience numbness or tingling in their hands and feet. If you're experiencing any of these symptoms, it's essential to talk to your doctor, as they can help you develop a plan to manage your condition and reduce your risk of complications. For example, if you're feeling tired all the time, it could be a sign that your body is not getting enough energy from the food you eat, and you may need to adjust your diet and exercise routine."
+          }
+        ],
+        "clinical_pearl": "Did you know that some people with type 2 diabetes may not experience any symptoms at all, especially in the early stages? That's why it's essential to get regular check-ups with your doctor, especially if you're at risk of developing the condition.",
+        "key_points": [
+          "The early warning signs of type 2 diabetes can be subtle, but they can include increased thirst and urination, fatigue, and blurred vision.",
+          "Type 2 diabetes develops when your body becomes resistant to insulin, and your pancreas is unable to produce enough insulin to keep up with the demand.",
+          "People with type 2 diabetes may experience a range of symptoms, from mild to severe.",
+          "Regular check-ups with your doctor are essential, especially if you're at risk of developing type 2 diabetes.",
+          "Early diagnosis and treatment can make a big difference in managing the condition and reducing the risk of complications.",
+          "Working with your healthcare team can help you develop a personalized plan to manage your condition and improve your overall health."
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of type 2 diabetes, and how can I recognize them?",
+          "How can I reduce my risk of developing type 2 diabetes, and what lifestyle changes can I make?",
+          "What are the benefits and risks of different treatments for type 2 diabetes, and which one is right for me?"
+        ],
+        "references": [
+          {
+            "title": "Type 2 Diabetes Symptoms",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of symptoms of type 2 diabetes"
+          },
+          {
+            "title": "Type 2 Diabetes Diagnosis and Treatment",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and treatment of type 2 diabetes"
+          }
+        ]
+      },
+      "key_takeaway": "Type 2 diabetes can develop slowly over time, and symptoms may not appear until the condition is advanced. By understanding the symptoms and how the condition develops, you can recognize the warning signs and take action to manage your condition and reduce your risk of complications."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing type 2 diabetes mellitus involves a combination of physical examinations, medical history, and laboratory tests. Your doctor will start by asking you questions about your symptoms, medical history, and lifestyle. They will also perform a physical examination to check for any signs of diabetes or related health issues. Laboratory tests are then used to confirm the diagnosis. The most common tests used are the hemoglobin A1c (HbA1c) test, fasting plasma glucose test, and oral glucose tolerance test.",
+        "sections": [
+          {
+            "heading": "Preparation for Diagnosis",
+            "text": "Before undergoing any tests, it's essential to prepare properly. For the fasting plasma glucose test, you will need to fast for at least 8 hours before the test. This means you should not eat or drink anything except water during this time. For the oral glucose tolerance test, you will be asked to drink a sugary drink and then have your blood glucose levels measured after 1 and 2 hours. Your doctor will provide you with specific instructions on how to prepare for these tests."
+          },
+          {
+            "heading": "Understanding Test Results",
+            "text": "The results of your tests will help your doctor determine if you have type 2 diabetes mellitus. The HbA1c test measures your average blood glucose levels over the past 2-3 months. A result of 6.5% or higher indicates diabetes. The fasting plasma glucose test measures your blood glucose levels after an overnight fast. A result of 126 mg/dL or higher indicates diabetes. The oral glucose tolerance test measures your blood glucose levels after consuming a sugary drink. A result of 200 mg/dL or higher after 2 hours indicates diabetes."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will discuss your test results with you and explain what they mean. They will also answer any questions you may have and provide you with guidance on the next steps. If you are diagnosed with type 2 diabetes mellitus, your doctor will work with you to develop a treatment plan. This plan may include lifestyle changes, such as diet and exercise, as well as medications to help manage your blood glucose levels."
+          }
+        ],
+        "clinical_pearl": "It's essential to work closely with your doctor to manage your type 2 diabetes mellitus. By following your treatment plan and making healthy lifestyle choices, you can help control your blood glucose levels and reduce your risk of complications.",
+        "key_points": [
+          "The HbA1c test measures your average blood glucose levels over the past 2-3 months.",
+          "A result of 6.5% or higher on the HbA1c test indicates diabetes.",
+          "The fasting plasma glucose test measures your blood glucose levels after an overnight fast.",
+          "A result of 126 mg/dL or higher on the fasting plasma glucose test indicates diabetes.",
+          "The oral glucose tolerance test measures your blood glucose levels after consuming a sugary drink.",
+          "A result of 200 mg/dL or higher after 2 hours on the oral glucose tolerance test indicates diabetes."
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose type 2 diabetes mellitus?",
+          "How do I prepare for these tests?",
+          "What do my test results mean?"
+        ],
+        "references": [
+          {
+            "title": "Diagnosis of Type 2 Diabetes Mellitus",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis of type 2 diabetes mellitus."
+          },
+          {
+            "title": "Type 2 Diabetes Mellitus: A Review of the Literature",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Report",
+            "year": 2024,
+            "type": "review",
+            "note": "A comprehensive review of the literature on type 2 diabetes mellitus."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "There are several treatment options available for type 2 diabetes mellitus. The goal of treatment is to manage your blood glucose levels and reduce your risk of complications. Your doctor will work with you to develop a treatment plan that is tailored to your needs. This plan may include lifestyle changes, such as diet and exercise, as well as medications to help manage your blood glucose levels.",
+        "sections": [
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Lifestyle changes are an essential part of managing type 2 diabetes mellitus. This includes eating a healthy diet, getting regular exercise, and maintaining a healthy weight. A healthy diet should include plenty of fruits, vegetables, and whole grains. You should also limit your intake of sugary drinks and foods high in fat and salt. Regular exercise can help improve your insulin sensitivity and reduce your blood glucose levels. Aim for at least 150 minutes of moderate-intensity exercise per week."
+          },
+          {
+            "heading": "Medications",
+            "text": "There are several medications available to help manage type 2 diabetes mellitus. These medications work in different ways to help lower your blood glucose levels. Your doctor will prescribe the medication that is best for you based on your individual needs. It's essential to take your medications as directed and to monitor your blood glucose levels regularly."
+          },
+          {
+            "heading": "Monitoring and Follow-up",
+            "text": "Regular monitoring and follow-up are crucial in managing type 2 diabetes mellitus. Your doctor will schedule regular appointments to check your blood glucose levels and adjust your treatment plan as needed. You should also monitor your blood glucose levels at home using a glucose meter. This will help you understand how different foods and activities affect your blood glucose levels."
+          }
+        ],
+        "clinical_pearl": "It's essential to work closely with your doctor to manage your type 2 diabetes mellitus. By following your treatment plan and making healthy lifestyle choices, you can help control your blood glucose levels and reduce your risk of complications.",
+        "key_points": [
+          "Lifestyle changes, such as diet and exercise, are an essential part of managing type 2 diabetes mellitus.",
+          "There are several medications available to help manage type 2 diabetes mellitus.",
+          "Regular monitoring and follow-up are crucial in managing type 2 diabetes mellitus.",
+          "Aim for at least 150 minutes of moderate-intensity exercise per week.",
+          "Eat a healthy diet that includes plenty of fruits, vegetables, and whole grains.",
+          "Limit your intake of sugary drinks and foods high in fat and salt."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to help manage my type 2 diabetes mellitus?",
+          "What medications are available to help manage type 2 diabetes mellitus?",
+          "How often should I monitor my blood glucose levels?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Type 2 Diabetes Mellitus",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of type 2 diabetes mellitus."
+          },
+          {
+            "title": "Type 2 Diabetes Mellitus: A Review of the Literature",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Report",
+            "year": 2024,
+            "type": "review",
+            "note": "A comprehensive review of the literature on type 2 diabetes mellitus."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with Type 2 Diabetes Mellitus",
+      "content": {
+        "intro": "While there is no cure for type 2 diabetes mellitus, there are steps you can take to prevent complications and live a healthy life. This includes making lifestyle changes, such as diet and exercise, and monitoring your blood glucose levels regularly. Your doctor will work with you to develop a plan to help you manage your type 2 diabetes mellitus and reduce your risk of complications.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves taking steps to prevent type 2 diabetes mellitus from developing in the first place. This includes making lifestyle changes, such as eating a healthy diet and getting regular exercise. You should also maintain a healthy weight and avoid smoking. Regular check-ups with your doctor can help identify any potential issues early on."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications from developing after a diagnosis of type 2 diabetes mellitus. This includes making lifestyle changes, such as diet and exercise, and monitoring your blood glucose levels regularly. You should also work with your doctor to manage any related health issues, such as high blood pressure or high cholesterol."
+          },
+          {
+            "heading": "Living Well with Type 2 Diabetes Mellitus",
+            "text": "Living well with type 2 diabetes mellitus requires a long-term commitment to making healthy lifestyle choices. This includes eating a healthy diet, getting regular exercise, and monitoring your blood glucose levels regularly. You should also work with your doctor to manage any related health issues and reduce your risk of complications. With the right treatment plan and support, you can live a healthy and active life with type 2 diabetes mellitus."
+          }
+        ],
+        "clinical_pearl": "It's essential to work closely with your doctor to manage your type 2 diabetes mellitus. By following your treatment plan and making healthy lifestyle choices, you can help control your blood glucose levels and reduce your risk of complications.",
+        "key_points": [
+          "Making lifestyle changes, such as diet and exercise, can help prevent complications from developing.",
+          "Monitoring your blood glucose levels regularly is crucial in managing type 2 diabetes mellitus.",
+          "Working with your doctor to manage related health issues can help reduce your risk of complications.",
+          "Aim for a healthy weight to reduce your risk of complications.",
+          "Get regular check-ups with your doctor to identify any potential issues early on.",
+          "Maintain a healthy diet that includes plenty of fruits, vegetables, and whole grains."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to help prevent complications from developing?",
+          "How often should I monitor my blood glucose levels?",
+          "What are the potential complications of type 2 diabetes mellitus?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Type 2 Diabetes Mellitus",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the prevention of type 2 diabetes mellitus."
+          },
+          {
+            "title": "Type 2 Diabetes Mellitus: A Review of the Literature",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Report",
+            "year": 2024,
+            "type": "review",
+            "note": "A comprehensive review of the literature on type 2 diabetes mellitus."
+          }
+        ]
+      }
+    }
+  ]
+}

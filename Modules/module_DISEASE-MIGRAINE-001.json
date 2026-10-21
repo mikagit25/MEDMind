@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-MIGRAINE-001",
+  "title": "Migraine: CGRP Biology, Triptans, Gepants and Preventive Monoclonal Antibodies",
+  "specialty": "Nelogy",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Migraine",
+      "content": {
+        "intro": "Migraine has been described since ancient times, with evidence of its existence found in the writings of Hippocrates (460-370 BCE) and Galen (129-216 CE). The term 'migraine' was first used by Galen, derived from the Greek word 'hemicrania', meaning 'half-headed'. In 1873, the British physician Edward Liveing published a seminal paper on migraine, 'On Megrim, Sick-Headache, and Some Allied Disorders', which laid the foundation for modern understanding of the disease. The 20th century saw significant advancements in migraine research, including the discovery of serotonin's role in migraine pathophysiology by Harold Wolff in 1960 and the introduction of triptans as a treatment option in the 1990s. The 2010s saw the emergence of CGRP monoclonal antibodies as a preventive treatment, with the approval of erenumab in 2018.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates described migraine-like symptoms in ancient Greece",
+          "Galen coined the term 'migraine' and described its symptoms",
+          "Edward Liveing published a seminal paper on migraine in 1873",
+          "Harold Wolff discovered serotonin's role in migraine pathophysiology in 1960",
+          "Triptans were introduced as a treatment option in the 1990s",
+          "CGRP monoclonal antibodies emerged as a preventive treatment in the 2010s",
+          "Erenumab was approved as a preventive treatment for migraine in 2018",
+          "Migraine research has evolved significantly over the centuries, with ongoing discoveries"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Migraine",
+      "content": {
+        "intro": "Migraine is a complex disorder involving multiple molecular mechanisms and genetic factors. The pathophysiology of migraine is thought to involve the activation of trigeminal nerve terminals, leading to the release of vasoactive neuropeptides, including calcitonin gene-related peptide (CGRP). CGRP plays a key role in migraine, causing vasodilation and inflammation. Genetic factors also contribute to migraine susceptibility, with several genes identified as risk factors, including those involved in the regulation of CGRP and serotonin. Subtypes of migraine, including migraine with aura and migraine without aura, have distinct pathophysiological mechanisms.",
+        "sections": [],
+        "key_points": [
+          "Migraine involves the activation of trigeminal nerve terminals",
+          "CGRP plays a key role in migraine pathophysiology",
+          "Genetic factors contribute to migraine susceptibility",
+          "Several genes are identified as risk factors for migraine",
+          "CGRP and serotonin regulation are key to migraine pathophysiology",
+          "Migraine with aura and without aura have distinct pathophysiological mechanisms",
+          "Vasodilation and inflammation are key components of migraine pathophysiology",
+          "Molecular mechanisms of migraine are complex and multifactorial"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Migraine",
+      "content": {
+        "intro": "Migraine is characterized by recurrent episodes of headache, often accompanied by other symptoms such as nausea, vomiting, and sensitivity to light and sound. The cardinal symptoms of migraine include unilateral headache, pulsating quality, moderate to severe intensity, and aggravation by routine physical activity. Migraine can be divided into stages, including the prodrome, aura, headache, and postdrome. Atypical presentations of migraine can occur, including migraine with brainstem aura and hemiplegic migraine. Clinical presentation can vary widely between individuals, and diagnosis is often based on a combination of clinical features and exclusion of other headache disorders.",
+        "sections": [],
+        "key_points": [
+          "Migraine is characterized by recurrent episodes of headache",
+          "Cardinal symptoms of migraine include unilateral headache and pulsating quality",
+          "Migraine can be divided into stages, including prodrome, aura, headache, and postdrome",
+          "Atypical presentations of migraine can occur, including migraine with brainstem aura",
+          "Hemiplegic migraine is a rare and severe subtype of migraine",
+          "Clinical presentation can vary widely between individuals",
+          "Diagnosis is often based on a combination of clinical features and exclusion of other headache disorders",
+          "Migraine can be accompanied by other symptoms, including nausea and vomiting"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Migraine diagnosis is primarily based on clinical criteria, as there are no specific biomarkers or imaging tests that can definitively diagnose the condition. The International Headache Society (IHS) has established diagnostic criteria for migraine, which include at least five episodes of headache lasting 4-72 hours, with at least two of the following characteristics: unilateral location, pulsating quality, moderate or severe intensity, aggravation by routine physical activity, and association with nausea and/or vomiting, photophobia, and phonophobia. Scoring systems, such as the ID Migraine questionnaire, can also be used to aid in diagnosis. Laboratory tests and imaging studies, such as MRI or CT scans, are typically used to rule out other potential causes of headache, rather than to diagnose migraine itself. Differential diagnosis is also crucial, as migraine can be confused with other conditions, such as tension-type headache, cluster headache, or sinusitis.",
+        "sections": [],
+        "key_points": [
+          "Migraine diagnosis is based on clinical criteria",
+          "IHS diagnostic criteria include headache duration, location, quality, intensity, and associated symptoms",
+          "Scoring systems, such as the ID Migraine questionnaire, can aid in diagnosis",
+          "Laboratory tests and imaging studies are used to rule out other potential causes of headache",
+          "Differential diagnosis is crucial to distinguish migraine from other conditions",
+          "Migraine can be confused with tension-type headache, cluster headache, or sinusitis",
+          "A thorough medical history and physical examination are essential for accurate diagnosis",
+          "Red flags, such as sudden onset or worsening of headache, require prompt evaluation"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of migraine involves a combination of pharmacological and non-pharmacological approaches. Acute treatment options include triptans, such as sumatriptan, and non-steroidal anti-inflammatory drugs (NSAIDs), such as ibuprofen. Preventive treatments, such as beta blockers, anticonvulsants, and monoclonal antibodies targeting calcitonin gene-related peptide (CGRP), can be used to reduce the frequency and severity of migraine attacks. Non-pharmacological approaches, such as lifestyle modifications, stress management, and cognitive-behavioral therapy, can also be effective in managing migraine. First-line treatments for acute migraine include triptans and NSAIDs, while second-line treatments include ergots and antiemetics. Evidence-based guidelines recommend a stepped-care approach, starting with the most effective and safest treatments.",
+        "sections": [],
+        "key_points": [
+          "Treatment of migraine involves pharmacological and non-pharmacological approaches",
+          "Acute treatment options include triptans and NSAIDs",
+          "Preventive treatments, such as beta blockers and CGRP monoclonal antibodies, can reduce migraine frequency and severity",
+          "Non-pharmacological approaches, such as lifestyle modifications and stress management, can be effective",
+          "First-line treatments for acute migraine include triptans and NSAIDs",
+          "Second-line treatments include ergots and antiemetics",
+          "A stepped-care approach is recommended, starting with the most effective and safest treatments",
+          "Patient education and self-management are crucial for optimal treatment outcomes"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Migraine can be associated with several complications, including chronic migraine, medication overuse headache, and migraine-related neurological disorders, such as stroke and epilepsy. The incidence of these complications varies, but chronic migraine affects approximately 2% of the general population. Prognostic scores, such as the Migraine Disability Assessment (MIDAS) questionnaire, can be used to predict the likelihood of developing chronic migraine. Incidence data suggest that migraine is a significant burden on individuals and society, with estimated annual costs exceeding $20 billion in the United States alone. Understanding the potential complications and prognosis of migraine is essential for developing effective treatment plans and improving patient outcomes.",
+        "sections": [],
+        "key_points": [
+          "Migraine can be associated with several complications, including chronic migraine and medication overuse headache",
+          "Migraine-related neurological disorders, such as stroke and epilepsy, can occur",
+          "The incidence of complications varies, but chronic migraine affects approximately 2% of the general population",
+          "Prognostic scores, such as the MIDAS questionnaire, can predict the likelihood of developing chronic migraine",
+          "Incidence data suggest that migraine is a significant burden on individuals and society",
+          "Estimated annual costs of migraine exceed $20 billion in the United States",
+          "Understanding potential complications and prognosis is essential for developing effective treatment plans",
+          "Early intervention and prevention can improve patient outcomes and reduce the risk of complications"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Migraine can affect special populations, including pediatric and elderly patients, as well as pregnant and breastfeeding women. In these populations, treatment options may be limited, and careful consideration of the risks and benefits of treatment is necessary. Emerging therapies, such as gepants and lasmiditan, offer new treatment options for acute migraine. Pipeline drugs, including CGRP receptor antagonists and 5-HT1F receptor agonists, are being developed for the prevention and treatment of migraine. Paediatric patients with migraine may require specialized treatment approaches, including behavioural therapy and lifestyle modifications. Elderly patients with migraine may be at increased risk of complications, such as stroke and cognitive decline, and require careful monitoring and management.",
+        "sections": [],
+        "key_points": [
+          "Migraine can affect special populations, including pediatric and elderly patients",
+          "Treatment options may be limited in special populations, and careful consideration of risks and benefits is necessary",
+          "Emerging therapies, such as gepants and lasmiditan, offer new treatment options for acute migraine",
+          "Pipeline drugs, including CGRP receptor antagonists and 5-HT1F receptor agonists, are being developed",
+          "Paediatric patients with migraine may require specialized treatment approaches",
+          "Elderly patients with migraine may be at increased risk of complications, such as stroke and cognitive decline",
+          "Pregnant and breastfeeding women with migraine require careful consideration of treatment options",
+          "Emerging therapies and pipeline drugs offer hope for improved treatment outcomes in special populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-MIGRAINE-001",
+    "type": "disease_module",
+    "specialty": "Nelogy",
+    "specialty_ru": "Неврология",
+    "title_en": "Migraine: CGRP Biology, Triptans, Gepants and Preventive Monoclonal Antibodies",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

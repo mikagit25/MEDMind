@@ -1,0 +1,146 @@
+{
+  "id": "DISEASE-HTN-001",
+  "type": "disease_module",
+  "title": "Arterial Hypertension: History, Mechanisms, Target Organ Damage and Treatment",
+  "specialty": "Internal Medicine",
+  "level": "intermediate",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Arterial Hypertension",
+      "content": {
+        "intro": "Arterial hypertension, commonly known as high blood pressure, has a rich and evolving history that spans centuries. The earliest recorded mention of hypertension dates back to ancient China around 2000 BC. However, it wasn't until the late 19th and early 20th centuries that significant milestones were achieved in understanding the disease. In 1896, Scipione Riva-Rocci invented the first practical blood pressure meter, paving the way for clinical measurements. The 1920s saw the introduction of the stethoscope for auscultatory measurement by Nikolai Korotkov, further refining blood pressure assessment. Landmark papers, such as those by Irvine Page in 1949 on the renin-angiotensin system, significantly advanced the understanding of hypertension's pathophysiology. The first successful antihypertensive drugs were introduced in the 1950s, with the discovery of the first diuretic, chlorothiazide, by Frederick C. Bartter and colleagues in 1958. The Nobel Prize in Physiology or Medicine in 1982 was awarded to Sune Bergström, Bengt Samuelsson, and John Vane for their discoveries concerning prostaglandins and related biologically active substances, which have implications for hypertension treatment. Famous cases, such as that of U.S. President Franklin D. Roosevelt, who suffered from severe hypertension, highlight the disease's impact on historical figures. Understanding of hypertension has evolved from recognizing it as a simple elevation of blood pressure to a complex condition involving vascular, renal, and cardiac pathologies.",
+        "sections": [],
+        "key_points": [
+          "Ancient China recorded the first mentions of hypertension around 2000 BC.",
+          "Scipione Riva-Rocci invented the first practical blood pressure meter in 1896.",
+          "Nikolai Korotkov introduced the stethoscope for auscultatory measurement in the 1920s.",
+          "Irvine Page's work on the renin-angiotensin system in 1949 was pivotal.",
+          "The first antihypertensive drugs were introduced in the 1950s.",
+          "Frederick C. Bartter and colleagues discovered chlorothiazide in 1958.",
+          "The Nobel Prize in 1982 recognized discoveries concerning prostaglandins.",
+          "Understanding hypertension has evolved to include its complex pathologies."
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Arterial Hypertension",
+      "content": {
+        "intro": "The pathophysiology of arterial hypertension involves complex molecular mechanisms and genetic factors. At its core, hypertension is characterized by an increase in peripheral resistance, often due to alterations in vascular structure and function. The renin-angiotensin-aldosterone system (RAAS) plays a crucial role, with angiotensin II causing vasoconstriction and stimulating aldosterone release, leading to sodium retention and increased blood volume. Genetic factors contribute significantly, with multiple genes influencing blood pressure regulation. Subtypes of hypertension, such as primary (essential) hypertension, which accounts for about 90% of cases, and secondary hypertension, due to identifiable causes like renal disease or pheochromocytoma, are recognized. Molecular mechanisms involve endothelial dysfunction, with reduced nitric oxide production and increased endothelin-1 levels, contributing to vasoconstriction. The role of the kidney in hypertension is also critical, with renal vascular resistance and sodium handling abnormalities playing key roles. Understanding these mechanisms is essential for developing effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "Hypertension involves an increase in peripheral resistance.",
+          "The renin-angiotensin-aldosterone system is central to its pathophysiology.",
+          "Genetic factors significantly contribute to blood pressure regulation.",
+          "Primary hypertension accounts for about 90% of cases.",
+          "Secondary hypertension is due to identifiable causes.",
+          "Endothelial dysfunction contributes to vasoconstriction.",
+          "The kidney plays a critical role in hypertension pathophysiology.",
+          "Understanding molecular mechanisms informs treatment strategies."
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Arterial Hypertension",
+      "content": {
+        "intro": "The clinical presentation of arterial hypertension can vary widely among individuals. Cardinal symptoms are often absent in the early stages, making regular blood pressure monitoring crucial for diagnosis. When symptoms do occur, they can include headache, dizziness, and nosebleeds, which are generally nonspecific. The disease progresses through several stages, from prehypertension to stage 1 and stage 2 hypertension, based on blood pressure levels. Atypical presentations can occur, especially in certain populations like the elderly, where orthostatic hypotension may coexist with hypertension. Target organ damage, such as left ventricular hypertrophy, renal impairment, and retinal changes, can be present even in asymptomatic patients. Recognizing these presentations is vital for timely intervention to prevent long-term cardiovascular complications. Clinical evaluation should include a thorough medical history, physical examination, and laboratory tests to assess target organ damage and guide management.",
+        "sections": [],
+        "key_points": [
+          "Early stages of hypertension are often asymptomatic.",
+          "Regular blood pressure monitoring is crucial for diagnosis.",
+          "Symptoms, when present, can include headache, dizziness, and nosebleeds.",
+          "The disease progresses through stages based on blood pressure levels.",
+          "Atypical presentations can occur, especially in certain populations.",
+          "Target organ damage can be present even in asymptomatic patients.",
+          "Recognizing clinical presentations is vital for timely intervention.",
+          "Clinical evaluation should include history, physical examination, and laboratory tests."
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing arterial hypertension involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is typically based on the average of two or more readings taken at least 1 minute apart at two or more visits to the healthcare provider. The American Heart Association recommends the following criteria for diagnosing hypertension: systolic blood pressure ≥130 mmHg or diastolic blood pressure ≥80 mmHg. Laboratory tests such as complete blood count, serum electrolytes, blood urea nitrogen, and creatinine are used to assess for target organ damage. Imaging studies such as chest X-ray, electrocardiogram, and echocardiogram are used to evaluate for cardiac involvement.",
+        "sections": [],
+        "key_points": [
+          "Average of two or more readings taken at least 1 minute apart at two or more visits",
+          "Systolic blood pressure ≥130 mmHg or diastolic blood pressure ≥80 mmHg",
+          "Laboratory tests: complete blood count, serum electrolytes, blood urea nitrogen, and creatinine",
+          "Imaging studies: chest X-ray, electrocardiogram, and echocardiogram",
+          "Assessment for target organ damage",
+          "Evaluation for cardiac involvement",
+          "Use of scoring systems such as the Framingham Risk Score",
+          "Differential diagnosis: white coat hypertension, masked hypertension"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of arterial hypertension involves a combination of lifestyle modifications and pharmacological interventions. Lifestyle modifications include weight loss, increased physical activity, sodium restriction, and potassium supplementation. The initial pharmacological treatment typically involves the use of thiazide diuretics, angiotensin-converting enzyme inhibitors, or calcium channel blockers. The choice of initial therapy depends on the presence of comorbidities such as diabetes, chronic kidney disease, or heart failure. The goal of treatment is to achieve a blood pressure <130/80 mmHg.",
+        "sections": [],
+        "key_points": [
+          "Lifestyle modifications: weight loss, increased physical activity, sodium restriction, and potassium supplementation",
+          "Initial pharmacological treatment: thiazide diuretics, angiotensin-converting enzyme inhibitors, or calcium channel blockers",
+          "Choice of initial therapy depends on comorbidities",
+          "Goal of treatment: blood pressure <130/80 mmHg",
+          "Use of combination therapy for patients with stage 2 hypertension",
+          "Monitoring for adverse effects of antihypertensive medications",
+          "Importance of patient education and adherence to treatment",
+          "Role of non-pharmacological interventions such as device-based therapies"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Arterial hypertension is a major risk factor for cardiovascular disease, kidney disease, and stroke. The prognosis of hypertension depends on the presence of target organ damage and the effectiveness of treatment. The incidence of complications such as heart failure, coronary artery disease, and chronic kidney disease can be reduced with effective blood pressure control. Prognostic scores such as the Framingham Risk Score can be used to estimate the 10-year cardiovascular risk.",
+        "sections": [],
+        "key_points": [
+          "Arterial hypertension is a major risk factor for cardiovascular disease, kidney disease, and stroke",
+          "Prognosis depends on presence of target organ damage and effectiveness of treatment",
+          "Incidence of complications can be reduced with effective blood pressure control",
+          "Use of prognostic scores such as the Framingham Risk Score",
+          "Importance of regular monitoring for target organ damage",
+          "Role of lifestyle modifications in reducing cardiovascular risk",
+          "Impact of hypertension on quality of life and life expectancy",
+          "Need for ongoing patient education and support"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-HTN-001",
+    "type": "disease_module",
+    "specialty": "Internal Medicine",
+    "specialty_ru": "Терапия",
+    "title_en": "Arterial Hypertension: History, Mechanisms, Target Organ Damage and Treatment",
+    "level": "intermediate",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

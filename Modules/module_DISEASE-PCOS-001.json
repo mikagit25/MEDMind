@@ -1,0 +1,167 @@
+{
+  "id": "DISEASE-PCOS-001",
+  "type": "disease_module",
+  "title": "Polycystic Ovary Syndrome: Pathogenesis, Fertility, Metabolic Consequences and GLP-1",
+  "specialty": "Obstetrics",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "Polycystic Ovary Syndrome (PCOS) has a rich and evolving history. The first description of the condition dates back to 1721 by Italian scientist Giuseppe Mascagni. However, it wasn't until 1935 that American gynecologist Irving Stein and his colleague Michael Leventhal published a landmark paper describing seven cases of women with polycystic ovaries, hirsutism, and amenorrhea. This publication is often credited with the modern recognition of PCOS. In the 1950s and 1960s, further research by scientists like Gregory Pincus and John Rock contributed to the understanding of the hormonal aspects of the syndrome. The 1980 National Institutes of Health (NIH) conference played a pivotal role in establishing a standardized definition of PCOS. The Rotterdam criteria, introduced in 2003, expanded the definition to include at least two of the three key features: ovulatory dysfunction, clinical or biochemical signs of hyperandrogenism, and polycystic ovarian morphology on ultrasound. The understanding of PCOS has continued to evolve, with ongoing research into its genetic, metabolic, and hormonal aspects.",
+        "sections": [],
+        "key_points": [
+          "First described by Giuseppe Mascagni in 1721",
+          "Landmark paper by Irving Stein and Michael Leventhal in 1935",
+          "Gregory Pincus and John Rock's contributions in the 1950s and 1960s",
+          "1980 NIH conference established a standardized definition",
+          "2003 Rotterdam criteria expanded the definition",
+          "PCOS affects 5-10% of women of childbearing age",
+          "The exact cause of PCOS remains unknown",
+          "Family history is a significant risk factor"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "The pathophysiology of PCOS is complex and multifactorial, involving genetic, hormonal, and environmental factors. At the molecular level, PCOS is characterized by insulin resistance, which contributes to hyperandrogenism and ovulatory dysfunction. Genetic studies have identified several susceptibility loci, including variants in the DENND1A gene. The syndrome is also associated with an increased risk of metabolic disorders, such as type 2 diabetes and cardiovascular disease. The exact aetiology of PCOS remains unclear, but it is thought to involve a combination of genetic predisposition and environmental triggers, such as obesity and prenatal androgen exposure. Subtypes of PCOS have been proposed, including a lean PCOS phenotype and an obese PCOS phenotype, each with distinct metabolic and hormonal profiles.",
+        "sections": [],
+        "key_points": [
+          "Insulin resistance is a key feature of PCOS",
+          "Hyperandrogenism contributes to ovulatory dysfunction",
+          "Genetic variants, such as DENND1A, increase susceptibility",
+          "PCOS is associated with an increased risk of metabolic disorders",
+          "Obesity is a significant environmental trigger",
+          "Prenatal androgen exposure may contribute to PCOS development",
+          "Subtypes of PCOS have distinct metabolic and hormonal profiles",
+          "The exact aetiology of PCOS remains unclear"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Polycystic Ovary Syndrome",
+      "content": {
+        "intro": "The clinical presentation of PCOS can vary widely, but common features include ovulatory dysfunction, hirsutism, and polycystic ovarian morphology on ultrasound. Women with PCOS may experience irregular menstrual cycles, weight gain, and acne. The syndrome can also be associated with metabolic complications, such as insulin resistance and dyslipidemia. Atypical presentations of PCOS include lean PCOS, where women have a normal body mass index (BMI) but still experience hyperandrogenism and ovulatory dysfunction. The cardinal symptoms of PCOS can be categorized into reproductive, metabolic, and psychological features. Early diagnosis and treatment are essential to prevent long-term complications, such as infertility, type 2 diabetes, and cardiovascular disease.",
+        "sections": [],
+        "key_points": [
+          "Ovulatory dysfunction is a common feature of PCOS",
+          "Hirsutism and acne are frequent symptoms",
+          "Polycystic ovarian morphology is a key diagnostic criterion",
+          "Metabolic complications, such as insulin resistance, are common",
+          "Atypical presentations, such as lean PCOS, can occur",
+          "Reproductive, metabolic, and psychological features are cardinal symptoms",
+          "Early diagnosis and treatment are essential to prevent complications",
+          "PCOS can have a significant impact on quality of life"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing Polycystic Ovary Syndrome (PCOS) involves a combination of clinical, laboratory, and imaging assessments. The Rotterdam criteria, established in 2003, are widely used and require at least two of the following: oligo-ovulation or anovulation, clinical and/or biochemical signs of hyperandrogenism, and polycystic ovaries on ultrasound. Other diagnostic criteria include the National Institutes of Health (NIH) criteria from 1990 and the Androgen Excess and PCOS Society (AE-PCOS) criteria from 2006. Laboratory tests may include follicle-stimulating hormone (FSH), luteinizing hormone (LH), testosterone, and anti-Müllerian hormone (AMH) levels. Imaging studies, such as transvaginal ultrasound, can help identify polycystic ovaries. Differential diagnoses include congenital adrenal hyperplasia, androgen-secreting tumors, and Cushing's syndrome.",
+        "sections": [],
+        "key_points": [
+          "The Rotterdam criteria are the most commonly used for diagnosing PCOS.",
+          "At least two of the three criteria must be present: oligo-ovulation or anovulation, clinical and/or biochemical signs of hyperandrogenism, and polycystic ovaries on ultrasound.",
+          "Laboratory tests are crucial for diagnosing PCOS and ruling out other conditions.",
+          "Imaging studies, such as transvaginal ultrasound, are used to identify polycystic ovaries.",
+          "Differential diagnoses must be considered to ensure accurate diagnosis.",
+          "The NIH and AE-PCOS criteria are also used, although less commonly than the Rotterdam criteria.",
+          "FSH, LH, testosterone, and AMH levels are important laboratory tests for diagnosing PCOS.",
+          "A thorough medical history and physical examination are essential for diagnosing PCOS."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment for Polycystic Ovary Syndrome (PCOS) depends on the individual's symptoms, fertility goals, and overall health. Pharmacological treatments include birth control pills to regulate menstrual cycles and reduce androgen levels, anti-androgen medications to reduce excess hair growth and acne, and fertility medications such as clomiphene citrate or letrozole to induce ovulation. Non-pharmacological treatments include lifestyle modifications, such as weight loss and exercise, to improve insulin sensitivity and reduce androgen levels. Other treatments include in vitro fertilization (IVF) for infertility and surgical options, such as ovarian drilling, for women who do not respond to fertility medications. GLP-1 receptor agonists have also been studied as a potential treatment for PCOS, particularly for their effects on weight loss and improving insulin sensitivity.",
+        "sections": [],
+        "key_points": [
+          "Treatment for PCOS is individualized based on symptoms, fertility goals, and overall health.",
+          "Birth control pills are commonly used to regulate menstrual cycles and reduce androgen levels.",
+          "Anti-androgen medications can help reduce excess hair growth and acne.",
+          "Fertility medications, such as clomiphene citrate or letrozole, can induce ovulation.",
+          "Lifestyle modifications, including weight loss and exercise, can improve insulin sensitivity and reduce androgen levels.",
+          "IVF is an option for women with PCOS who are struggling with infertility.",
+          "Surgical options, such as ovarian drilling, may be considered for women who do not respond to fertility medications.",
+          "GLP-1 receptor agonists may be a potential treatment for PCOS, particularly for their effects on weight loss and improving insulin sensitivity."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Polycystic Ovary Syndrome (PCOS) is associated with several complications, including infertility, metabolic syndrome, type 2 diabetes, and cardiovascular disease. Women with PCOS are also at increased risk for endometrial cancer, sleep apnea, and mood disorders. The prognosis for women with PCOS varies depending on the individual's symptoms, fertility goals, and overall health. Early diagnosis and treatment can improve outcomes and reduce the risk of complications. The use of GLP-1 receptor agonists has been shown to improve metabolic parameters and reduce the risk of cardiovascular disease in women with PCOS.",
+        "sections": [],
+        "key_points": [
+          "PCOS is associated with several complications, including infertility, metabolic syndrome, and cardiovascular disease.",
+          "Women with PCOS are at increased risk for endometrial cancer, sleep apnea, and mood disorders.",
+          "Early diagnosis and treatment can improve outcomes and reduce the risk of complications.",
+          "The prognosis for women with PCOS varies depending on individual factors, such as symptoms and fertility goals.",
+          "GLP-1 receptor agonists may improve metabolic parameters and reduce the risk of cardiovascular disease in women with PCOS.",
+          "Lifestyle modifications, such as weight loss and exercise, can also improve outcomes and reduce the risk of complications.",
+          "Regular monitoring and follow-up care are essential for managing PCOS and reducing the risk of complications.",
+          "Women with PCOS should be screened for cardiovascular risk factors and managed accordingly."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Polycystic Ovary Syndrome (PCOS) affects women of all ages, including adolescents and older women. In adolescents, PCOS can be challenging to diagnose, and treatment should focus on lifestyle modifications and hormonal therapies. In older women, PCOS can increase the risk of cardiovascular disease and type 2 diabetes. Emerging therapies for PCOS include GLP-1 receptor agonists, which have been shown to improve metabolic parameters and reduce androgen levels. Other emerging therapies include SIRT1 activators and omega-3 fatty acids, which may have anti-inflammatory effects and improve insulin sensitivity. Pipeline drugs, such as anti-Müllerian hormone (AMH) inhibitors, are also being studied as potential treatments for PCOS.",
+        "sections": [],
+        "key_points": [
+          "PCOS affects women of all ages, including adolescents and older women.",
+          "In adolescents, PCOS can be challenging to diagnose, and treatment should focus on lifestyle modifications and hormonal therapies.",
+          "In older women, PCOS can increase the risk of cardiovascular disease and type 2 diabetes.",
+          "GLP-1 receptor agonists are emerging as a potential treatment for PCOS, particularly for their effects on weight loss and improving insulin sensitivity.",
+          "SIRT1 activators and omega-3 fatty acids may have anti-inflammatory effects and improve insulin sensitivity in women with PCOS.",
+          "Pipeline drugs, such as AMH inhibitors, are being studied as potential treatments for PCOS.",
+          "Emerging therapies for PCOS should be individualized based on symptoms, fertility goals, and overall health.",
+          "Further research is needed to fully understand the effects of emerging therapies on PCOS and to develop new treatments for this complex disorder."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-PCOS-001",
+    "type": "disease_module",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Polycystic Ovary Syndrome: Pathogenesis, Fertility, Metabolic Consequences and GLP-1",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-AFIB-001",
+  "title": "Atrial Fibrillation: From Discovery of AF Mechanisms to DOACs and Catheter Ablation",
+  "specialty": "Cardiology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Atrial Fibrillation",
+      "content": {
+        "intro": "Atrial fibrillation (AF) has a rich history dating back to the 18th century. The first description of AF is attributed to Jean-Baptiste de Sénac in 1749. However, it was not until the early 20th century that the condition gained significant attention. In 1906, Sir James Mackenzie described a case of 'auricular fibrillation' in the British Medical Journal. The introduction of electrocardiography (ECG) in the 1900s revolutionized the diagnosis of AF. In 1909, Willem Einthoven, a Dutch physiologist, published the first ECG recording of AF, earning him the Nobel Prize in Physiology or Medicine in 1924. The 1960s and 1970s saw significant advancements in the understanding of AF mechanisms, with landmark papers by researchers such as Maurice Sokolow and Albert L. Waldo. The development of catheter ablation in the 1990s marked a new era in AF treatment.",
+        "sections": [],
+        "key_points": [
+          "Atrial fibrillation was first described by Jean-Baptiste de Sénac in 1749",
+          "Sir James Mackenzie described a case of 'auricular fibrillation' in 1906",
+          "Willem Einthoven published the first ECG recording of AF in 1909",
+          "Einthoven was awarded the Nobel Prize in Physiology or Medicine in 1924",
+          "Maurice Sokolow and Albert L. Waldo published landmark papers on AF mechanisms in the 1960s and 1970s",
+          "Catheter ablation was developed in the 1990s as a treatment for AF",
+          "The introduction of ECG in the 1900s improved diagnosis of AF",
+          "Historical patients, such as those described by Mackenzie, contributed to the understanding of AF"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Atrial Fibrillation",
+      "content": {
+        "intro": "Atrial fibrillation is characterized by rapid and irregular atrial contractions, resulting in a loss of atrial contraction and an irregular ventricular response. The pathophysiology of AF involves complex molecular mechanisms, including alterations in ion channels, calcium handling, and fibrosis. Genetic factors, such as mutations in the KCNQ1 and SCN5A genes, can also contribute to the development of AF. There are several subtypes of AF, including paroxysmal, persistent, and permanent AF, each with distinct characteristics and treatment approaches. The aetiology of AF is multifactorial, involving factors such as age, hypertension, heart disease, and lifestyle.",
+        "sections": [],
+        "key_points": [
+          "Atrial fibrillation is characterized by rapid and irregular atrial contractions",
+          "The pathophysiology of AF involves complex molecular mechanisms",
+          "Genetic factors, such as mutations in the KCNQ1 and SCN5A genes, can contribute to AF",
+          "There are several subtypes of AF, including paroxysmal, persistent, and permanent AF",
+          "The aetiology of AF is multifactorial, involving factors such as age and hypertension",
+          "Ion channel alterations and calcium handling abnormalities are key mechanisms in AF",
+          "Fibrosis is a significant contributor to the development of AF",
+          "Lifestyle factors, such as smoking and obesity, can increase the risk of AF"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Atrial Fibrillation",
+      "content": {
+        "intro": "Atrial fibrillation can present with a range of symptoms, including palpitations, shortness of breath, fatigue, and chest pain. The cardinal symptoms of AF are palpitations and shortness of breath, which occur in approximately 70% of patients. The clinical presentation of AF can vary depending on the subtype, with paroxysmal AF often presenting with sudden onset of symptoms and persistent AF presenting with more gradual onset. Atypical presentations of AF can include asymptomatic AF, which is estimated to occur in up to 30% of patients. The stages of AF include new-onset, paroxysmal, persistent, and permanent AF, each with distinct treatment approaches.",
+        "sections": [],
+        "key_points": [
+          "The cardinal symptoms of AF are palpitations and shortness of breath",
+          "The clinical presentation of AF can vary depending on the subtype",
+          "Paroxysmal AF often presents with sudden onset of symptoms",
+          "Persistent AF presents with more gradual onset of symptoms",
+          "Atypical presentations of AF include asymptomatic AF",
+          "Asymptomatic AF is estimated to occur in up to 30% of patients",
+          "The stages of AF include new-onset, paroxysmal, persistent, and permanent AF",
+          "Each stage of AF has distinct treatment approaches"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Atrial fibrillation (AF) diagnosis involves a combination of clinical evaluation, electrocardiography (ECG), and imaging studies. The diagnosis is typically made using a 12-lead ECG, which shows irregular fibrillatory waves and an irregularly irregular ventricular rhythm. The CHA2DS2-VASc score is used to assess the risk of stroke in patients with AF. Laboratory tests, such as thyroid function tests and electrolyte panels, may be ordered to rule out underlying conditions that may be contributing to AF. Echocardiography is also commonly used to evaluate left ventricular function and to identify any underlying structural heart disease.",
+        "sections": [],
+        "key_points": [
+          "12-lead ECG is the primary diagnostic tool for AF",
+          "CHA2DS2-VASc score is used to assess stroke risk",
+          "Laboratory tests may be ordered to rule out underlying conditions",
+          "Echocardiography is used to evaluate left ventricular function",
+          "Imaging studies, such as cardiac MRI, may be used in certain cases",
+          "AF can be paroxysmal, persistent, or permanent",
+          "Diagnosis may involve ambulatory ECG monitoring",
+          "AF diagnosis requires a comprehensive clinical evaluation"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of atrial fibrillation (AF) involves a combination of pharmacological and non-pharmacological strategies. Pharmacological treatment options include anti-arrhythmic medications, such as flecainide and propafenone, and anticoagulants, such as warfarin and direct oral anticoagulants (DOACs). Non-pharmacological treatment options include catheter ablation, which involves the use of radiofrequency energy to destroy the abnormal electrical pathways in the heart that are causing AF. Other non-pharmacological treatment options include pacemaker implantation and cardioversion.",
+        "sections": [],
+        "key_points": [
+          "Pharmacological treatment options include anti-arrhythmic medications and anticoagulants",
+          "Non-pharmacological treatment options include catheter ablation and pacemaker implantation",
+          "DOACs are preferred over warfarin in many cases due to their improved safety profile",
+          "Catheter ablation is a effective treatment option for paroxysmal AF",
+          "Pharmacological treatment may be used to control ventricular rate",
+          "Non-pharmacological treatment options may be used to restore sinus rhythm",
+          "Treatment should be individualized based on patient-specific factors",
+          "AF treatment requires a comprehensive and multidisciplinary approach"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Atrial fibrillation (AF) is associated with an increased risk of complications, including stroke, heart failure, and mortality. The risk of stroke in AF patients can be estimated using the CHA2DS2-VASc score, and anticoagulation therapy is recommended for patients with a high risk of stroke. Heart failure is also a common complication of AF, and treatment should be aimed at controlling ventricular rate and improving cardiac function. The prognosis of AF patients is generally poor, with a significant increase in mortality and morbidity.",
+        "sections": [],
+        "key_points": [
+          "AF is associated with an increased risk of stroke, heart failure, and mortality",
+          "CHA2DS2-VASc score is used to estimate stroke risk",
+          "Anticoagulation therapy is recommended for patients with a high risk of stroke",
+          "Heart failure is a common complication of AF",
+          "Treatment should be aimed at controlling ventricular rate and improving cardiac function",
+          "AF prognosis is generally poor, with a significant increase in mortality and morbidity",
+          "Complications can be reduced with prompt and effective treatment",
+          "Regular follow-up and monitoring are essential to prevent complications"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Atrial fibrillation (AF) can occur in special populations, including pediatric and elderly patients, and pregnant women. In these populations, treatment should be individualized based on patient-specific factors. Emerging therapies for AF include new anti-arrhythmic medications and catheter ablation techniques. Pipeline drugs, such as vernakalant and ranolazine, are being developed for the treatment of AF. Additionally, advances in catheter ablation technology, such as robotic navigation and contact force sensing, are improving the efficacy and safety of the procedure.",
+        "sections": [],
+        "key_points": [
+          "AF can occur in special populations, including pediatric and elderly patients, and pregnant women",
+          "Treatment should be individualized based on patient-specific factors",
+          "Emerging therapies for AF include new anti-arrhythmic medications and catheter ablation techniques",
+          "Pipeline drugs, such as vernakalant and ranolazine, are being developed for AF treatment",
+          "Advances in catheter ablation technology are improving efficacy and safety",
+          "Robotic navigation and contact force sensing are improving catheter ablation outcomes",
+          "Special populations require careful consideration and individualized treatment",
+          "Emerging therapies offer new hope for AF patients, but require further study and evaluation"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-AFIB-001",
+    "type": "disease_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Atrial Fibrillation: From Discovery of AF Mechanisms to DOACs and Catheter Ablation",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

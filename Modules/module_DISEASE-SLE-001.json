@@ -1,0 +1,170 @@
+{
+  "id": "DISEASE-SLE-001",
+  "type": "disease_module",
+  "title": "Systemic Lupus Erythematosus: Autoimmunity, Organ Manifestations and Belimumab",
+  "specialty": "Rheumatology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Systemic Lupus Erythematosus (SLE) has a rich and fascinating history that spans over two centuries. The disease was first described by Hippocrates in 400 BCE, but it wasn't until 1828 that the French physician Pierre Cazenave coined the term 'lupus erythematosus'. In 1872, the Austrian dermatologist Moritz Kaposi described the characteristic butterfly-shaped rash on the face, which is now a hallmark of the disease. The 20th century saw significant advancements in the understanding of SLE, with the discovery of the lupus erythematosus cell in 1948 by Malcolm Hargraves and the introduction of corticosteroids as a treatment in the 1950s. The 1980s saw the development of the American College of Rheumatology (ACR) criteria for the classification of SLE, which has undergone several revisions since then. In 2011, the US FDA approved belimumab, a monoclonal antibody that targets the BLyS protein, for the treatment of SLE. Famous cases of SLE include the actress Selena Gomez, who has been open about her struggles with the disease.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates first described SLE in 400 BCE",
+          "Pierre Cazenave coined the term 'lupus erythematosus' in 1828",
+          "Moritz Kaposi described the characteristic butterfly-shaped rash in 1872",
+          "The lupus erythematosus cell was discovered in 1948 by Malcolm Hargraves",
+          "Corticosteroids were introduced as a treatment in the 1950s",
+          "The ACR criteria for the classification of SLE were developed in the 1980s",
+          "Belimumab was approved by the US FDA in 2011",
+          "Selena Gomez is a famous case of SLE"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "order": 1
+    },
+    {
+      "id": "L002",
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "SLE is a complex autoimmune disease characterized by the production of autoantibodies against various nuclear and cytoplasmic components. The exact aetiology of SLE is still not fully understood, but it is believed to involve a combination of genetic, environmental, and hormonal factors. Molecular mechanisms involved in the pathogenesis of SLE include the activation of immune cells, the production of pro-inflammatory cytokines, and the deposition of immune complexes in tissues. Genetic factors, such as mutations in the IRF5 and STAT4 genes, have been identified as risk factors for SLE. Subtypes of SLE include cutaneous lupus, systemic lupus, and lupus nephritis. The role of epigenetics and the gut microbiome in the development of SLE is an area of active research.",
+        "sections": [],
+        "key_points": [
+          "SLE is characterized by the production of autoantibodies",
+          "The aetiology of SLE involves genetic, environmental, and hormonal factors",
+          "Molecular mechanisms include immune cell activation and cytokine production",
+          "Genetic factors, such as IRF5 and STAT4 mutations, are risk factors for SLE",
+          "Subtypes of SLE include cutaneous lupus, systemic lupus, and lupus nephritis",
+          "Epigenetics and the gut microbiome play a role in SLE development",
+          "Immune complexes deposit in tissues, leading to inflammation",
+          "Cytokines, such as TNF-alpha and IL-6, are involved in SLE pathogenesis"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "order": 2
+    },
+    {
+      "id": "L003",
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of SLE can vary widely, but common symptoms include fever, fatigue, joint pain, and skin rashes. The characteristic butterfly-shaped rash on the face is present in approximately 50% of patients. Other symptoms may include hair loss, mouth ulcers, and photosensitivity. SLE can affect various organs, including the kidneys, lungs, heart, and brain. Cardinal symptoms of SLE include the presence of autoantibodies, such as anti-nuclear antibodies (ANA), and the presence of at least four of the ACR criteria. Atypical presentations of SLE may include isolated organ involvement, such as lupus nephritis or neuropsychiatric SLE. The disease can be divided into stages, including a preclinical stage, an active stage, and a quiescent stage.",
+        "sections": [],
+        "key_points": [
+          "Common symptoms of SLE include fever, fatigue, and joint pain",
+          "The butterfly-shaped rash is present in approximately 50% of patients",
+          "SLE can affect various organs, including the kidneys and lungs",
+          "Cardinal symptoms include the presence of autoantibodies and ACR criteria",
+          "Atypical presentations may include isolated organ involvement",
+          "The disease can be divided into preclinical, active, and quiescent stages",
+          "ANA is a common autoantibody found in SLE patients",
+          "Photosensitivity is a common symptom of SLE"
+        ],
+        "references": []
+      },
+      "word_count": 399,
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of SLE is a complex process that requires a combination of clinical, laboratory, and imaging findings. The ACR and SLICC criteria provide a framework for diagnosis, but it is essential to consider the individual patient's presentation and medical history. Laboratory tests, such as ANA and anti-dsDNA antibody assays, are crucial for diagnosis, while imaging studies may be used to evaluate organ involvement. Differential diagnosis is also essential to rule out other autoimmune diseases. The development of new biomarkers and diagnostic tests is ongoing, and these advances are expected to improve the diagnosis and monitoring of SLE.",
+        "sections": [],
+        "key_points": [
+          "The American College of Rheumatology (ACR) established criteria for the diagnosis of SLE in 1982, which includes a combination of clinical and immunological findings.",
+          "The Systemic Lupus International Collaborating Clinics (SLICC) classification criteria, introduced in 2012, provide an alternative framework for diagnosis.",
+          "Laboratory tests, such as antinuclear antibody (ANA) and anti-double-stranded DNA (anti-dsDNA) antibody assays, are essential for diagnosis.",
+          "Imaging studies, including chest X-rays and renal ultrasound, may be used to evaluate organ involvement.",
+          "Differential diagnosis includes other autoimmune diseases, such as rheumatoid arthritis and scleroderma.",
+          "The diagnosis of SLE requires a comprehensive evaluation of clinical, laboratory, and imaging findings.",
+          "The ACR and SLICC criteria have improved the accuracy of SLE diagnosis, but challenges remain in diagnosing early or atypical cases.",
+          "New biomarkers and diagnostic tests are being developed to improve the diagnosis and monitoring of SLE."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of SLE is tailored to the individual patient's needs, depending on the severity and organ involvement. Non-pharmacological interventions, such as lifestyle modifications and patient education, are essential for managing SLE. Pharmacological treatments, including NSAIDs, antimalarials, and corticosteroids, are used to control symptoms and prevent organ damage. Immunosuppressive agents and biologic agents, such as belimumab, may be used to treat severe or refractory SLE. A multidisciplinary approach is necessary to optimize outcomes in SLE patients, and regular monitoring and adjustments to treatment are crucial to achieve the best possible results.",
+        "sections": [],
+        "key_points": [
+          "The treatment of SLE depends on the severity and organ involvement, and may include non-pharmacological and pharmacological interventions.",
+          "Non-pharmacological treatments, such as lifestyle modifications and patient education, are essential for managing SLE.",
+          "Pharmacological treatments, including non-steroidal anti-inflammatory drugs (NSAIDs), antimalarials, and corticosteroids, are used to control symptoms and prevent organ damage.",
+          "Immunosuppressive agents, such as azathioprine and mycophenolate mofetil, may be used to treat severe or refractory SLE.",
+          "Belimumab, a monoclonal antibody, is a newer treatment option for SLE, which targets the BLyS protein.",
+          "The treatment of SLE requires a multidisciplinary approach, involving rheumatologists, nephrologists, and other specialists.",
+          "The goal of treatment is to control symptoms, prevent organ damage, and improve quality of life.",
+          "Regular monitoring and adjustments to treatment are necessary to optimize outcomes in SLE patients."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "SLE is associated with a range of complications, which can significantly impact the quality of life and prognosis of patients. The incidence of complications varies depending on the population and disease severity, and prognostic scores can be used to predict outcomes. While the prognosis of SLE has improved significantly over the past few decades, the disease remains a significant cause of morbidity and mortality. Early recognition and treatment of complications are essential to improve outcomes, and ongoing research is focused on developing new treatments and improving our understanding of the underlying mechanisms of SLE complications.",
+        "sections": [],
+        "key_points": [
+          "SLE is associated with a range of complications, including nephritis, neuropsychiatric manifestations, and cardiovascular disease.",
+          "The incidence of complications varies depending on the population and disease severity.",
+          "Prognostic scores, such as the Systemic Lupus Erythematosus Disease Activity Index (SLEDAI), can be used to predict outcomes.",
+          "The prognosis of SLE has improved significantly over the past few decades, thanks to advances in treatment and management.",
+          "However, SLE remains a significant cause of morbidity and mortality, particularly in patients with severe or refractory disease.",
+          "Early recognition and treatment of complications are essential to improve outcomes in SLE patients.",
+          "The risk of complications can be reduced through tight control of disease activity, lifestyle modifications, and preventive measures.",
+          "Ongoing research is focused on developing new treatments and improving our understanding of the underlying mechanisms of SLE complications."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "SLE is a complex disease that requires special consideration in different populations, including children, the elderly, and pregnant women. Emerging therapies, including biologic agents and small molecule inhibitors, offer promising opportunities for improving outcomes in SLE patients. However, further research is needed to fully understand the safety and efficacy of these new therapies. The development of personalized treatment approaches, tailored to the individual patient's needs, is an area of ongoing research. Special consideration is needed for SLE patients with comorbidities, and international collaboration and knowledge sharing are essential to advance our understanding of SLE and improve outcomes for patients worldwide.",
+        "sections": [],
+        "key_points": [
+          "SLE can affect individuals of all ages, including children and the elderly, and requires special consideration in these populations.",
+          "Pregnancy is a high-risk state for SLE patients, and requires careful monitoring and management.",
+          "Emerging therapies, including biologic agents and small molecule inhibitors, are being developed to treat SLE.",
+          "These new therapies offer promising opportunities for improving outcomes in SLE patients, particularly those with severe or refractory disease.",
+          "However, further research is needed to fully understand the safety and efficacy of these emerging therapies.",
+          "The development of personalized treatment approaches, tailored to the individual patient's needs, is an area of ongoing research.",
+          "Special consideration is needed for SLE patients with comorbidities, such as cardiovascular disease or diabetes.",
+          "International collaboration and knowledge sharing are essential to advance our understanding of SLE and improve outcomes for patients worldwide."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-SLE-001",
+    "type": "disease_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Systemic Lupus Erythematosus: Autoimmunity, Organ Manifestations and Belimumab",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

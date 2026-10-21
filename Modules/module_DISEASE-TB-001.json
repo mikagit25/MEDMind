@@ -1,0 +1,170 @@
+{
+  "id": "DISEASE-TB-001",
+  "title": "Tuberculosis: Koch's Discovery, Pathogenesis, Drug Resistance and Global Control",
+  "specialty": "Infectious Diseases",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "type": "disease_module",
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Tuberculosis (TB) has been a major public health concern for centuries. The disease was first described by Hippocrates in 460 BCE. However, it was Robert Koch who discovered the bacterium Mycobacterium tuberculosis in 1882, a discovery that earned him the Nobel Prize in Physiology or Medicine in 1905. Koch's postulates, published in 1884, are still used today to establish a causal relationship between a microorganism and a disease. The most famous case of TB is probably that of Franz Kafka, who suffered from the disease throughout his life. The understanding of TB has evolved significantly over the years, with the development of antibiotics in the mid-20th century and the introduction of the Bacillus Calmette-Guérin (BCG) vaccine in 1921.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates first described TB in 460 BCE",
+          "Robert Koch discovered Mycobacterium tuberculosis in 1882",
+          "Koch's postulates were published in 1884",
+          "Koch was awarded the Nobel Prize in Physiology or Medicine in 1905",
+          "Franz Kafka suffered from TB throughout his life",
+          "The BCG vaccine was introduced in 1921",
+          "The development of antibiotics in the mid-20th century revolutionized TB treatment",
+          "TB remains a major public health concern today"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "TB is caused by the bacterium Mycobacterium tuberculosis, which is spread through the air when an infected person coughs, sneezes, or talks. The bacterium infects the lungs, where it multiplies and causes inflammation. The immune system responds to the infection by forming granulomas, which are clusters of immune cells that attempt to wall off the bacterium. However, in some cases, the bacterium can escape the granuloma and spread to other parts of the body. There are several subtypes of TB, including pulmonary TB, extrapulmonary TB, and latent TB infection. Genetic factors, such as mutations in the NRAMP1 gene, can increase an individual's susceptibility to TB.",
+        "sections": [],
+        "key_points": [
+          "TB is caused by the bacterium Mycobacterium tuberculosis",
+          "The bacterium is spread through the air",
+          "The immune system responds to the infection by forming granulomas",
+          "The bacterium can escape the granuloma and spread to other parts of the body",
+          "There are several subtypes of TB, including pulmonary TB and extrapulmonary TB",
+          "Genetic factors can increase an individual's susceptibility to TB",
+          "Mutations in the NRAMP1 gene are associated with increased susceptibility to TB",
+          "TB can affect any part of the body, but the lungs are the most common site of infection"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of TB can vary depending on the site of infection and the individual's immune status. The cardinal symptoms of pulmonary TB include cough, fever, night sweats, and weight loss. In some cases, individuals may experience chest pain, coughing up blood, or difficulty breathing. Extrapulmonary TB can affect any part of the body, including the lymph nodes, bones, and central nervous system. Atypical presentations of TB include TB meningitis, TB pericarditis, and TB osteomyelitis. Individuals with latent TB infection may not exhibit any symptoms, but can still transmit the disease to others.",
+        "sections": [],
+        "key_points": [
+          "The clinical presentation of TB can vary depending on the site of infection",
+          "The cardinal symptoms of pulmonary TB include cough, fever, night sweats, and weight loss",
+          "Extrapulmonary TB can affect any part of the body",
+          "Atypical presentations of TB include TB meningitis and TB pericarditis",
+          "Individuals with latent TB infection may not exhibit any symptoms",
+          "Latent TB infection can still be transmitted to others",
+          "TB can affect individuals of any age, but is most common in young adults",
+          "TB is often diagnosed in individuals with compromised immune systems, such as those with HIV/AIDS"
+        ],
+        "references": []
+      },
+      "word_count": 397,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing tuberculosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is often suspected based on symptoms such as chronic cough, weight loss, and night sweats. Laboratory tests include sputum smear microscopy, culture, and molecular tests like the Xpert MTB/RIF assay. Imaging studies such as chest X-rays and CT scans can also help in diagnosing tuberculosis. The diagnosis is confirmed by the presence of Mycobacterium tuberculosis in a clinical specimen. Scoring systems like the Tuberculosis Severity Score can help in assessing the severity of the disease.",
+        "sections": [],
+        "key_points": [
+          "Clinical evaluation is crucial in diagnosing tuberculosis",
+          "Sputum smear microscopy is a rapid diagnostic test",
+          "Culture is the gold standard for diagnosing tuberculosis",
+          "Molecular tests like Xpert MTB/RIF assay can detect resistance to rifampicin",
+          "Imaging studies like chest X-rays and CT scans can help in diagnosing tuberculosis",
+          "The diagnosis is confirmed by the presence of Mycobacterium tuberculosis",
+          "Scoring systems like the Tuberculosis Severity Score can help in assessing severity",
+          "Diagnosis is often suspected based on symptoms like chronic cough and weight loss"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of tuberculosis involves a combination of pharmacological and non-pharmacological interventions. First-line drugs include isoniazid, rifampicin, pyrazinamide, and ethambutol. Second-line drugs are used in cases of drug-resistant tuberculosis. Non-pharmacological interventions include infection control measures, nutritional support, and counseling. The treatment regimen is typically for 6 months, but it can be longer in cases of drug-resistant tuberculosis. The treatment outcome is monitored by regular sputum smear microscopy and culture.",
+        "sections": [],
+        "key_points": [
+          "First-line drugs include isoniazid, rifampicin, pyrazinamide, and ethambutol",
+          "Second-line drugs are used in cases of drug-resistant tuberculosis",
+          "Non-pharmacological interventions include infection control measures",
+          "Nutritional support is crucial in the treatment of tuberculosis",
+          "Counseling is an essential part of tuberculosis treatment",
+          "The treatment regimen is typically for 6 months",
+          "Treatment outcome is monitored by regular sputum smear microscopy",
+          "Drug-resistant tuberculosis requires longer treatment regimens"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Tuberculosis can lead to several complications, including pulmonary cavitation, hemoptysis, and miliary tuberculosis. The prognosis of tuberculosis depends on several factors, including the severity of the disease, the presence of comorbidities, and the response to treatment. Prognostic scores like the Tuberculosis Prognostic Score can help in predicting the outcome. Incidence data shows that tuberculosis is a major public health problem, especially in low- and middle-income countries.",
+        "sections": [],
+        "key_points": [
+          "Pulmonary cavitation is a common complication of tuberculosis",
+          "Hemoptysis is a life-threatening complication of tuberculosis",
+          "Miliary tuberculosis is a disseminated form of tuberculosis",
+          "Prognosis depends on the severity of the disease and comorbidities",
+          "Prognostic scores like the Tuberculosis Prognostic Score can help in predicting outcome",
+          "Incidence data shows that tuberculosis is a major public health problem",
+          "Tuberculosis is a leading cause of mortality in low- and middle-income countries",
+          "Early diagnosis and treatment can improve the prognosis of tuberculosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Tuberculosis affects special populations, including pediatric, elderly, and pregnant patients. Pediatric tuberculosis requires special consideration, including the use of pediatric-friendly drugs. Elderly patients with tuberculosis are at increased risk of complications and mortality. Pregnant patients with tuberculosis require careful management to prevent mother-to-child transmission. Emerging therapies, including pipeline drugs and vaccines, are being developed to improve the treatment of tuberculosis.",
+        "sections": [],
+        "key_points": [
+          "Pediatric tuberculosis requires special consideration",
+          "Elderly patients with tuberculosis are at increased risk of complications",
+          "Pregnant patients with tuberculosis require careful management",
+          "Mother-to-child transmission of tuberculosis is a significant concern",
+          "Emerging therapies, including pipeline drugs, are being developed",
+          "Vaccines are being developed to prevent tuberculosis",
+          "Special populations require tailored treatment approaches",
+          "Research is ongoing to improve the treatment of tuberculosis in special populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-TB-001",
+    "type": "disease_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Tuberculosis: Koch's Discovery, Pathogenesis, Drug Resistance and Global Control",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-OSA-001",
+  "title": "Obstructive Sleep Apnoea: Discovery, Polysomnography, CPAP and Cardiovascular Risk",
+  "specialty": "Pulmonology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Obstructive Sleep Apnoea",
+      "content": {
+        "intro": "Obstructive Sleep Apnoea (OSA) has a rich history dating back to the 19th century. The first reported case of OSA was by William J. Robertson in 1836, who described a patient with excessive daytime sleepiness and nocturnal respiratory pauses. However, it wasn't until the 1960s that the condition gained significant attention. In 1965, Gastaut and colleagues published a landmark paper describing the polysomnographic features of OSA. The term 'sleep apnoea' was first coined by Guillermanault and colleagues in 1973. The discovery of continuous positive airway pressure (CPAP) by Colin Sullivan in 1981 revolutionized the treatment of OSA. Key milestones include the establishment of the first sleep disorders center in 1970 and the publication of the first clinical practice guidelines in 1994. Famous cases include the 'Pickwickian syndrome' described by Charles Dickens in 1836, which is now recognized as a form of OSA.",
+        "sections": [],
+        "key_points": [
+          "First reported case of OSA by William J. Robertson in 1836",
+          "Landmark paper by Gastaut and colleagues in 1965",
+          "Term 'sleep apnoea' coined by Guillermanault and colleagues in 1973",
+          "Discovery of CPAP by Colin Sullivan in 1981",
+          "Establishment of the first sleep disorders center in 1970",
+          "Publication of the first clinical practice guidelines in 1994",
+          "Pickwickian syndrome described by Charles Dickens in 1836",
+          "OSA recognized as a major public health concern in the 1990s"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Obstructive Sleep Apnoea",
+      "content": {
+        "intro": "OSA is characterized by recurrent episodes of upper airway obstruction during sleep, resulting in reduced or complete cessation of airflow. The pathophysiology of OSA involves a complex interplay between anatomical, physiological, and neurological factors. Anatomical factors include a narrow upper airway, enlarged tonsils, and a low-hanging soft palate. Physiological factors include reduced upper airway muscle tone, increased nasal resistance, and decreased lung volume. Neurological factors include impaired upper airway reflexes and reduced arousal responses. Genetic factors, such as familial predisposition, also play a role in the development of OSA. Subtypes of OSA include obstructive sleep apnoea with obesity, obstructive sleep apnoea without obesity, and sleep-related hypoventilation.",
+        "sections": [],
+        "key_points": [
+          "Recurrent episodes of upper airway obstruction during sleep",
+          "Anatomical factors: narrow upper airway, enlarged tonsils, low-hanging soft palate",
+          "Physiological factors: reduced upper airway muscle tone, increased nasal resistance, decreased lung volume",
+          "Neurological factors: impaired upper airway reflexes, reduced arousal responses",
+          "Genetic factors: familial predisposition",
+          "Subtypes of OSA: obstructive sleep apnoea with obesity, obstructive sleep apnoea without obesity, sleep-related hypoventilation",
+          "Molecular mechanisms: inflammation, oxidative stress, endothelial dysfunction",
+          "Environmental factors: smoking, alcohol consumption, sedentary lifestyle"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Obstructive Sleep Apnoea",
+      "content": {
+        "intro": "The clinical presentation of OSA varies widely, but cardinal symptoms include excessive daytime sleepiness, loud snoring, and witnessed apnoeas. Stages of OSA include mild, moderate, and severe, based on the apnoea-hypopnoea index (AHI). Atypical presentations include insomnia, restless leg syndrome, and morning headaches. Patients with OSA may also experience cognitive impairment, mood disturbances, and decreased quality of life. Physical examination may reveal a crowded oropharynx, enlarged tonsils, and a high Mallampati score. The Epworth Sleepiness Scale (ESS) is a commonly used tool to assess daytime sleepiness.",
+        "sections": [],
+        "key_points": [
+          "Cardinal symptoms: excessive daytime sleepiness, loud snoring, witnessed apnoeas",
+          "Stages of OSA: mild, moderate, severe, based on AHI",
+          "Atypical presentations: insomnia, restless leg syndrome, morning headaches",
+          "Cognitive impairment, mood disturbances, and decreased quality of life",
+          "Physical examination: crowded oropharynx, enlarged tonsils, high Mallampati score",
+          "Epworth Sleepiness Scale (ESS) to assess daytime sleepiness",
+          "Berlin Questionnaire to assess risk of OSA",
+          "Nocturnal polysomnography (NPSG) to diagnose OSA"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing Obstructive Sleep Apnoea (OSA) involves a combination of clinical evaluation, sleep questionnaires, and polysomnography (PSG). The American Academy of Sleep Medicine (AASM) criteria are widely used for diagnosis. Key diagnostic tools include the Epworth Sleepiness Scale (ESS), the Berlin Questionnaire, and the STOP-BANG questionnaire. PSG is the gold standard for diagnosing OSA, measuring parameters such as apnoea-hypopnoea index (AHI), oxygen desaturation, and sleep stages. Home sleep apnoea testing (HSAT) is also used for diagnosis in certain cases. Differential diagnosis includes other sleep disorders like insomnia, restless legs syndrome, and periodic limb movement disorder. Laboratory tests such as thyroid function tests and fasting glucose may be ordered to rule out underlying conditions contributing to OSA.",
+        "sections": [],
+        "key_points": [
+          "AASM criteria are used for diagnosing OSA",
+          "PSG is the gold standard for diagnosing OSA",
+          "ESS, Berlin Questionnaire, and STOP-BANG questionnaire are used for screening",
+          "AHI is a key parameter measured in PSG",
+          "HSAT is used for diagnosis in certain cases",
+          "Differential diagnosis includes other sleep disorders",
+          "Laboratory tests may be ordered to rule out underlying conditions",
+          "Diagnosis of OSA requires a comprehensive approach"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of Obstructive Sleep Apnoea (OSA) involves a combination of lifestyle modifications, pharmacological interventions, and non-pharmacological therapies. First-line treatment includes continuous positive airway pressure (CPAP) therapy, which is effective in reducing AHI and improving oxygen saturation. Oral appliances and mandibular advancement devices are also used for mild to moderate OSA. Pharmacological treatments such as modafinil may be used to improve daytime sleepiness. Non-pharmacological interventions include weight loss, sleep position modification, and avoidance of sedatives and alcohol. Emerging therapies include hypoglossal nerve stimulation and transoral robotic surgery. Evidence-based guidelines recommend a stepped approach to treatment, starting with CPAP therapy and progressing to other treatments as needed.",
+        "sections": [],
+        "key_points": [
+          "CPAP therapy is the first-line treatment for OSA",
+          "Oral appliances and mandibular advancement devices are used for mild to moderate OSA",
+          "Modafinil may be used to improve daytime sleepiness",
+          "Weight loss and sleep position modification are non-pharmacological interventions",
+          "Avoidance of sedatives and alcohol is recommended",
+          "Hypoglossal nerve stimulation and transoral robotic surgery are emerging therapies",
+          "A stepped approach to treatment is recommended",
+          "Treatment of OSA requires a comprehensive and individualized approach"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Obstructive Sleep Apnoea (OSA) is associated with several complications, including cardiovascular disease, stroke, and cognitive impairment. The incidence of cardiovascular disease is increased in patients with untreated OSA, with a relative risk of 1.5-2.0. Prognostic scores such as the OSA Severity Index and the Apnoea-Hypopnoea Index (AHI) are used to predict outcomes. Treatment of OSA with CPAP therapy has been shown to reduce the risk of cardiovascular disease and improve cognitive function. Emerging evidence suggests that OSA may also be associated with an increased risk of cancer and mortality. Incidence data from large cohort studies suggest that OSA affects approximately 10-15% of the general population, with a higher prevalence in men and older adults.",
+        "sections": [],
+        "key_points": [
+          "OSA is associated with an increased risk of cardiovascular disease",
+          "Stroke and cognitive impairment are also complications of OSA",
+          "Prognostic scores such as OSA Severity Index and AHI are used to predict outcomes",
+          "CPAP therapy reduces the risk of cardiovascular disease and improves cognitive function",
+          "Emerging evidence suggests an association between OSA and cancer",
+          "Incidence data suggest that OSA affects approximately 10-15% of the general population",
+          "Men and older adults are at higher risk of developing OSA",
+          "Untreated OSA is associated with a poor prognosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-OSA-001",
+    "type": "disease_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Obstructive Sleep Apnoea: Discovery, Polysomnography, CPAP and Cardiovascular Risk",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

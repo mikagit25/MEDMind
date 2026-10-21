@@ -1,0 +1,149 @@
+{
+  "id": "DISEASE-ANEMIA-001",
+  "title": "Iron Deficiency and Anaemia: Discovery of Iron Metabolism, Hepcidin and IV Iron",
+  "specialty": "Hematology",
+  "level": "intermediate",
+  "type": "disease_module",
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Iron deficiency and anaemia have been recognized for centuries, with early descriptions dating back to ancient civilizations. The Greek physician Hippocrates (460-370 BCE) described a condition characterized by pallor, weakness, and shortness of breath, which is now believed to be anaemia. In 1681, English physician Thomas Sydenham wrote about a disease he called 'chlorosis', which was likely iron deficiency anaemia. The discovery of iron's role in anaemia is attributed to French physician Armand Trousseau, who in 1871 demonstrated that iron supplements could cure the condition. The 20th century saw significant advancements in understanding iron metabolism, with the discovery of hepcidin in 2000 by Tomas Ganz and colleagues. Hepcidin is a hormone that regulates iron levels, and its discovery has led to a greater understanding of iron deficiency anaemia. The development of intravenous iron therapy has also revolutionized the treatment of iron deficiency anaemia.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates described a condition characterized by pallor, weakness, and shortness of breath in 460-370 BCE",
+          "Thomas Sydenham wrote about 'chlorosis' in 1681, likely iron deficiency anaemia",
+          "Armand Trousseau demonstrated that iron supplements could cure anaemia in 1871",
+          "Hepcidin was discovered in 2000 by Tomas Ganz and colleagues",
+          "The discovery of hepcidin has led to a greater understanding of iron metabolism",
+          "Intravenous iron therapy has revolutionized the treatment of iron deficiency anaemia",
+          "Iron deficiency anaemia has been recognized for centuries, with early descriptions dating back to ancient civilizations",
+          "The understanding of iron deficiency anaemia has evolved significantly over the centuries, with major milestones in the 19th and 20th centuries"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "Iron deficiency anaemia is characterized by a decrease in the amount of iron in the body, leading to a reduction in the production of haemoglobin. Haemoglobin is a protein in red blood cells that carries oxygen to the body's tissues. The pathophysiology of iron deficiency anaemia involves a complex interplay between iron metabolism, erythropoiesis, and the regulation of hepcidin. Iron is absorbed from the gut and transported to the liver, where it is stored or released into the circulation. Hepcidin regulates iron levels by controlling the release of iron from stores and the absorption of iron from the gut. Genetic factors, such as mutations in the HFE gene, can also contribute to iron deficiency anaemia. Subtypes of iron deficiency anaemia include iron deficiency anaemia due to chronic disease, iron deficiency anaemia due to pregnancy, and iron deficiency anaemia due to gastrointestinal blood loss.",
+        "sections": [],
+        "key_points": [
+          "Iron deficiency anaemia is characterized by a decrease in the amount of iron in the body",
+          "Haemoglobin is a protein in red blood cells that carries oxygen to the body's tissues",
+          "The pathophysiology of iron deficiency anaemia involves a complex interplay between iron metabolism, erythropoiesis, and the regulation of hepcidin",
+          "Iron is absorbed from the gut and transported to the liver, where it is stored or released into the circulation",
+          "Hepcidin regulates iron levels by controlling the release of iron from stores and the absorption of iron from the gut",
+          "Genetic factors, such as mutations in the HFE gene, can contribute to iron deficiency anaemia",
+          "Subtypes of iron deficiency anaemia include iron deficiency anaemia due to chronic disease, iron deficiency anaemia due to pregnancy, and iron deficiency anaemia due to gastrointestinal blood loss",
+          "Iron deficiency anaemia can be caused by a variety of factors, including dietary deficiency, increased requirement, and blood loss"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of iron deficiency anaemia can vary depending on the severity and duration of the condition. Cardinal symptoms include fatigue, weakness, pallor, and shortness of breath. Patients may also experience headaches, dizziness, and cold hands and feet. In severe cases, iron deficiency anaemia can lead to heart failure, arrhythmias, and poor wound healing. Atypical presentations include restless leg syndrome, hair loss, and impaired cognitive function. The stages of iron deficiency anaemia include iron depletion, iron deficiency erythropoiesis, and iron deficiency anaemia. Iron depletion is characterized by a decrease in iron stores, while iron deficiency erythropoiesis is characterized by a decrease in the production of haemoglobin. Iron deficiency anaemia is characterized by a decrease in the amount of haemoglobin in the blood.",
+        "sections": [],
+        "key_points": [
+          "The clinical presentation of iron deficiency anaemia can vary depending on the severity and duration of the condition",
+          "Cardinal symptoms include fatigue, weakness, pallor, and shortness of breath",
+          "Patients may also experience headaches, dizziness, and cold hands and feet",
+          "In severe cases, iron deficiency anaemia can lead to heart failure, arrhythmias, and poor wound healing",
+          "Atypical presentations include restless leg syndrome, hair loss, and impaired cognitive function",
+          "The stages of iron deficiency anaemia include iron depletion, iron deficiency erythropoiesis, and iron deficiency anaemia",
+          "Iron depletion is characterized by a decrease in iron stores",
+          "Iron deficiency anaemia is characterized by a decrease in the amount of haemoglobin in the blood"
+        ],
+        "references": []
+      },
+      "word_count": 397,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing iron deficiency and anaemia involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is typically made based on a combination of low serum iron levels, low ferritin levels, and elevated total iron-binding capacity (TIBC). The serum transferrin receptor level can also be measured to help distinguish between iron deficiency anaemia and anaemia of chronic disease. Imaging studies such as MRI can be used to assess for iron deficiency in certain cases.",
+        "sections": [],
+        "key_points": [
+          "Low serum iron levels are a key diagnostic criterion for iron deficiency anaemia",
+          "Ferritin levels are a sensitive indicator of iron stores",
+          "TIBC is elevated in iron deficiency anaemia",
+          "Serum transferrin receptor level can help distinguish between iron deficiency anaemia and anaemia of chronic disease",
+          "Imaging studies such as MRI can be used to assess for iron deficiency",
+          "Diagnosis is typically made based on a combination of clinical evaluation and laboratory tests",
+          "Iron deficiency anaemia can be diagnosed in patients with a history of chronic blood loss or poor dietary iron intake",
+          "A diagnostic algorithm should be used to guide the evaluation and diagnosis of iron deficiency anaemia"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of iron deficiency and anaemia typically involves iron supplementation, either orally or intravenously. Oral iron supplements are commonly used and are effective in most cases. Intravenous iron is used in cases where oral iron is not tolerated or is ineffective. Non-pharmacological treatments such as dietary changes and addressing underlying causes of iron deficiency can also be effective. Erythropoiesis-stimulating agents (ESAs) may be used in certain cases, such as in patients with chronic kidney disease.",
+        "sections": [],
+        "key_points": [
+          "Oral iron supplements are commonly used to treat iron deficiency anaemia",
+          "Intravenous iron is used in cases where oral iron is not tolerated or is ineffective",
+          "Non-pharmacological treatments such as dietary changes can be effective in treating iron deficiency anaemia",
+          "ESAs may be used in certain cases, such as in patients with chronic kidney disease",
+          "Iron supplementation should be tailored to the individual patient's needs",
+          "Treatment should be guided by a diagnostic algorithm",
+          "Monitoring of iron levels and haemoglobin is essential during treatment",
+          "Treatment of underlying causes of iron deficiency is essential to prevent recurrence"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Complications of iron deficiency and anaemia can include cardiovascular disease, poor pregnancy outcomes, and impaired cognitive function. The prognosis for patients with iron deficiency anaemia is generally good if treated promptly and effectively. However, if left untreated, iron deficiency anaemia can lead to significant morbidity and mortality. Prognostic scores such as the Framingham Heart Study can be used to predict the risk of cardiovascular disease in patients with iron deficiency anaemia.",
+        "sections": [],
+        "key_points": [
+          "Cardiovascular disease is a common complication of iron deficiency anaemia",
+          "Poor pregnancy outcomes can occur in patients with iron deficiency anaemia",
+          "Impaired cognitive function can occur in patients with iron deficiency anaemia",
+          "Prognosis is generally good if treated promptly and effectively",
+          "Untreated iron deficiency anaemia can lead to significant morbidity and mortality",
+          "Prognostic scores such as the Framingham Heart Study can be used to predict the risk of cardiovascular disease",
+          "Monitoring of iron levels and haemoglobin is essential to prevent complications",
+          "Treatment of underlying causes of iron deficiency is essential to prevent recurrence and improve prognosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "duration": 6,
+  "lesson_count": 3,
+  "meta": {
+    "id": "DISEASE-ANEMIA-001",
+    "type": "disease_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Iron Deficiency and Anaemia: Discovery of Iron Metabolism, Hepcidin and IV Iron",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

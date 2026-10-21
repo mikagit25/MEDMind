@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-SEPSIS-001",
+  "title": "Sepsis: Historical Definitions, Pathophysiology, Biomarkers and Surviving Sepsis 2024",
+  "specialty": "Critical Care",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Sepsis",
+      "content": {
+        "intro": "Sepsis has been a major cause of morbidity and mortality for centuries. The term 'sepsis' was first used by Hippocrates in the 5th century BC to describe a condition of decay or putrefaction. However, it wasn't until the work of Louis Pasteur in the 19th century that the germ theory of disease was established, and the concept of sepsis as a systemic response to infection began to take shape. In 1914, William Osler described sepsis as a 'blood poisoning' in his textbook 'The Principles and Practice of Medicine'. The 1960s and 1970s saw significant advances in the understanding of sepsis, with the publication of landmark papers by Ashbaugh and Petty in 1967, and by Burke and colleagues in 1977. These papers described the clinical and pathological features of acute respiratory distress syndrome (ARDS) and septic shock, respectively. In 1992, the Society of Critical Care Medicine (SCCM) and the American College of Chest Physicians (ACCP) published a consensus statement defining sepsis as a 'systemic inflammatory response syndrome (SIRS) caused by infection'. This definition was later revised in 2016 by the Sepsis-3 task force, which defined sepsis as a 'life-threatening organ dysfunction caused by a dysregulated host response to infection'. Famous cases of sepsis include the death of Alexander the Great in 323 BC, which was likely due to sepsis caused by a bacterial infection. Historical outbreaks of sepsis have also been documented, including the 1918 Spanish flu pandemic, which was complicated by sepsis in many cases.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates first used the term 'sepsis' in the 5th century BC",
+          "Louis Pasteur established the germ theory of disease in the 19th century",
+          "William Osler described sepsis as 'blood poisoning' in 1914",
+          "Ashbaugh and Petty published a landmark paper on ARDS in 1967",
+          "Burke and colleagues published a landmark paper on septic shock in 1977",
+          "The SCCM and ACCP published a consensus statement defining sepsis in 1992",
+          "The Sepsis-3 task force revised the definition of sepsis in 2016",
+          "Alexander the Great's death in 323 BC was likely due to sepsis"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Sepsis",
+      "content": {
+        "intro": "Sepsis is a complex and multifactorial disease process that involves the interplay of pro-inflammatory and anti-inflammatory responses. The pathophysiology of sepsis can be divided into three stages: the initial inflammatory response, the compensatory anti-inflammatory response, and the late organ dysfunction stage. The initial inflammatory response is mediated by the release of pro-inflammatory cytokines such as TNF-alpha and IL-1 beta, which activate immune cells and initiate the inflammatory cascade. The compensatory anti-inflammatory response is mediated by the release of anti-inflammatory cytokines such as IL-10 and TGF-beta, which attempt to downregulate the inflammatory response. However, in sepsis, the balance between pro-inflammatory and anti-inflammatory responses is disrupted, leading to a dysregulated host response and organ dysfunction. Genetic factors, such as polymorphisms in the TNF-alpha gene, can also contribute to the development of sepsis. Subtypes of sepsis include septic shock, severe sepsis, and sepsis without organ dysfunction. Molecular mechanisms underlying sepsis include the activation of immune cells, the release of cytokines, and the disruption of the endothelial barrier function.",
+        "sections": [],
+        "key_points": [
+          "Sepsis is a complex and multifactorial disease process",
+          "The pathophysiology of sepsis involves the interplay of pro-inflammatory and anti-inflammatory responses",
+          "The initial inflammatory response is mediated by pro-inflammatory cytokines",
+          "The compensatory anti-inflammatory response is mediated by anti-inflammatory cytokines",
+          "Genetic factors can contribute to the development of sepsis",
+          "Subtypes of sepsis include septic shock, severe sepsis, and sepsis without organ dysfunction",
+          "Molecular mechanisms underlying sepsis include the activation of immune cells and the release of cytokines",
+          "The endothelial barrier function is disrupted in sepsis"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Sepsis",
+      "content": {
+        "intro": "The clinical presentation of sepsis can vary widely, depending on the underlying cause, the severity of the disease, and the organ systems involved. Cardinal symptoms of sepsis include fever, tachycardia, tachypnea, and hypotension. However, these symptoms can be absent in some cases, particularly in the early stages of the disease. Other symptoms of sepsis can include confusion, disorientation, and decreased urine output. The stages of sepsis include sepsis, severe sepsis, and septic shock. Sepsis is defined as a systemic inflammatory response syndrome (SIRS) caused by infection, without organ dysfunction. Severe sepsis is defined as sepsis with organ dysfunction, and septic shock is defined as severe sepsis with hypotension that is not responsive to fluid resuscitation. Atypical presentations of sepsis can occur, particularly in immunocompromised patients or in patients with underlying medical conditions. These can include symptoms such as abdominal pain, diarrhea, or rash.",
+        "sections": [],
+        "key_points": [
+          "The clinical presentation of sepsis can vary widely",
+          "Cardinal symptoms of sepsis include fever, tachycardia, tachypnea, and hypotension",
+          "Symptoms of sepsis can be absent in some cases, particularly in the early stages",
+          "Other symptoms of sepsis can include confusion, disorientation, and decreased urine output",
+          "The stages of sepsis include sepsis, severe sepsis, and septic shock",
+          "Sepsis is defined as a SIRS caused by infection, without organ dysfunction",
+          "Severe sepsis is defined as sepsis with organ dysfunction",
+          "Atypical presentations of sepsis can occur, particularly in immunocompromised patients"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Sepsis diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The Quick Sepsis-related Organ Failure Assessment (qSOFA) score is a commonly used tool to identify patients with sepsis. A qSOFA score of 2 or more indicates poor outcomes. Laboratory tests, such as complete blood counts, blood cultures, and lactate levels, are essential for diagnosing sepsis. Imaging studies, like chest X-rays and computed tomography scans, can help identify the source of infection.",
+        "sections": [],
+        "key_points": [
+          "The qSOFA score is used to identify patients with sepsis",
+          "A qSOFA score of 2 or more indicates poor outcomes",
+          "Laboratory tests, such as complete blood counts and blood cultures, are essential for diagnosing sepsis",
+          "Lactate levels are a key indicator of sepsis severity",
+          "Imaging studies, like chest X-rays and computed tomography scans, can help identify the source of infection",
+          "The Surviving Sepsis Campaign recommends using the qSOFA score and lactate levels to diagnose sepsis",
+          "Sepsis diagnosis requires a combination of clinical evaluation and laboratory tests",
+          "Early diagnosis and treatment are critical for improving sepsis outcomes"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Sepsis treatment involves a combination of pharmacological and non-pharmacological interventions. First-line treatment includes broad-spectrum antibiotics, such as meropenem or piperacillin-tazobactam, and fluid resuscitation with crystalloids or colloids. Vasopressors, like norepinephrine, may be used to support blood pressure. Non-pharmacological interventions, such as source control and supportive care, are also essential. The Surviving Sepsis Campaign recommends a bundled approach to sepsis treatment, including early recognition, fluid resuscitation, and broad-spectrum antibiotics.",
+        "sections": [],
+        "key_points": [
+          "Broad-spectrum antibiotics, such as meropenem or piperacillin-tazobactam, are used as first-line treatment",
+          "Fluid resuscitation with crystalloids or colloids is essential for sepsis treatment",
+          "Vasopressors, like norepinephrine, may be used to support blood pressure",
+          "Source control and supportive care are critical non-pharmacological interventions",
+          "The Surviving Sepsis Campaign recommends a bundled approach to sepsis treatment",
+          "Early recognition and treatment are critical for improving sepsis outcomes",
+          "Sepsis treatment requires a multidisciplinary approach, including critical care specialists and infectious disease experts",
+          "Antibiotic stewardship is essential to prevent antibiotic resistance and improve sepsis outcomes"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Sepsis complications can be severe and life-threatening. Acute respiratory distress syndrome (ARDS), acute kidney injury (AKI), and septic shock are common complications. The Sequential Organ Failure Assessment (SOFA) score is used to predict sepsis mortality. A high SOFA score is associated with increased mortality. Prognostic scores, such as the Acute Physiology and Chronic Health Evaluation (APACHE) II score, can also be used to predict sepsis outcomes. Early recognition and treatment of sepsis complications are critical for improving outcomes.",
+        "sections": [],
+        "key_points": [
+          "ARDS, AKI, and septic shock are common sepsis complications",
+          "The SOFA score is used to predict sepsis mortality",
+          "A high SOFA score is associated with increased mortality",
+          "Prognostic scores, such as the APACHE II score, can be used to predict sepsis outcomes",
+          "Early recognition and treatment of sepsis complications are critical for improving outcomes",
+          "Sepsis complications can be prevented or mitigated with early intervention",
+          "The Surviving Sepsis Campaign recommends using prognostic scores to guide sepsis treatment",
+          "Sepsis outcomes can be improved with a multidisciplinary approach to care"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Sepsis affects various populations, including pediatric, elderly, and pregnant patients. Pediatric sepsis requires early recognition and treatment, as it can progress rapidly. Elderly patients with sepsis are at increased risk of mortality and morbidity. Pregnant patients with sepsis require careful management to prevent maternal and fetal complications. Emerging therapies, such as immunomodulatory agents and gene therapies, are being investigated for sepsis treatment. The Surviving Sepsis Campaign recommends considering special populations when developing sepsis treatment plans.",
+        "sections": [],
+        "key_points": [
+          "Pediatric sepsis requires early recognition and treatment",
+          "Elderly patients with sepsis are at increased risk of mortality and morbidity",
+          "Pregnant patients with sepsis require careful management to prevent maternal and fetal complications",
+          "Emerging therapies, such as immunomodulatory agents and gene therapies, are being investigated for sepsis treatment",
+          "The Surviving Sepsis Campaign recommends considering special populations when developing sepsis treatment plans",
+          "Sepsis treatment plans should be tailored to individual patient needs",
+          "Special populations require a multidisciplinary approach to care",
+          "Emerging therapies may improve sepsis outcomes in special populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-SEPSIS-001",
+    "type": "disease_module",
+    "specialty": "Critical Care",
+    "specialty_ru": "Реаниматология и ИТ",
+    "title_en": "Sepsis: Historical Definitions, Pathophysiology, Biomarkers and Surviving Sepsis 2024",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

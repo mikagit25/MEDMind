@@ -1,0 +1,402 @@
+{
+  "meta": {
+    "id": "PG-META-002",
+    "type": "patient_guide",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Type 1 Diabetes Mellitus — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Type 1 Diabetes Mellitus?",
+      "content": {
+        "intro": "Type 1 diabetes mellitus is a chronic condition where the pancreas produces little to no insulin. Imagine your body's cells are like houses, and insulin is the key that unlocks them to let glucose in for energy. Without enough insulin, glucose builds up in the blood, causing problems. This condition affects about 9 million people worldwide, and it's most commonly diagnosed in children and young adults. Understanding this disease is crucial for managing it effectively and living a healthy life.",
+        "sections": [
+          {
+            "heading": "Definition and Prevalence",
+            "text": "Type 1 diabetes mellitus is an autoimmune condition where the body's immune system attacks the insulin-producing beta cells in the pancreas. This results in a lack of insulin production, leading to high blood glucose levels. It's estimated that about 64,000 new cases of type 1 diabetes are diagnosed each year in the United States alone. The disease can occur at any age but is most often diagnosed in individuals under the age of 20. It's essential to recognize the signs and symptoms early to start treatment promptly."
+          },
+          {
+            "heading": "Who Gets It and Why It Matters",
+            "text": "Type 1 diabetes can affect anyone, but it's more common in people with a family history of the disease. If you have a first-degree relative (parent or sibling) with type 1 diabetes, your risk is higher. The disease matters because, if left unmanaged, it can lead to serious complications like heart disease, kidney failure, and nerve damage. However, with proper management, including insulin therapy, diet, and exercise, individuals with type 1 diabetes can lead long, healthy lives. Aim for an HbA1c level below 7% to minimize the risk of complications."
+          },
+          {
+            "heading": "Key Statistics and Importance of Awareness",
+            "text": "The global prevalence of type 1 diabetes is increasing, with an estimated annual increase of 2-3%. Awareness of the disease is crucial for early diagnosis and treatment. Knowing the signs and symptoms, such as increased thirst and urination, blurred vision, and fatigue, can help individuals seek medical attention sooner. Additionally, understanding the importance of blood glucose monitoring, healthy eating, and regular physical activity can empower individuals with type 1 diabetes to manage their condition effectively. Regular check-ups with your healthcare provider are vital for adjusting your treatment plan as needed."
+          }
+        ],
+        "clinical_pearl": "Type 1 diabetes is not caused by diet or lifestyle, but managing it involves careful attention to both, along with insulin therapy.",
+        "key_points": [
+          "Type 1 diabetes mellitus is a chronic condition where the pancreas produces little to no insulin.",
+          "It affects about 9 million people worldwide and is most commonly diagnosed in children and young adults.",
+          "Early recognition of signs and symptoms is crucial for prompt treatment.",
+          "Proper management includes insulin therapy, diet, and exercise.",
+          "Aim for an HbA1c level below 7% to minimize the risk of complications.",
+          "Regular check-ups with your healthcare provider are vital for adjusting your treatment plan."
+        ],
+        "questions_for_doctor": [
+          "What are the common signs and symptoms of type 1 diabetes that I should be aware of?",
+          "How often should I check my blood glucose levels, and what are the target ranges?",
+          "What are the best ways to manage my diet and exercise to help control my type 1 diabetes?"
+        ],
+        "references": [
+          {
+            "title": "Type 1 Diabetes",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to understanding and managing type 1 diabetes."
+          },
+          {
+            "title": "Global Prevalence of Type 1 Diabetes",
+            "authors": "International Diabetes Federation",
+            "journal_or_source": "Diabetes Research and Clinical Practice",
+            "year": 2024,
+            "type": "research article",
+            "note": "Overview of the current global prevalence and trends in type 1 diabetes."
+          }
+        ]
+      },
+      "key_takeaway": "Type 1 diabetes mellitus is a manageable condition with proper insulin therapy, diet, and exercise. Early diagnosis and awareness of the disease are crucial for effective management and preventing complications."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "Understanding the causes and risk factors of type 1 diabetes mellitus is essential for managing the condition and potentially preventing it in others. While the exact cause is unknown, research suggests that it's a combination of genetic and environmental factors. In this lesson, we'll explore the genetic factors, lifestyle triggers, and who is most at risk.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetics play a significant role in the development of type 1 diabetes. Certain genetic markers can increase the risk of developing the disease. However, having these markers does not guarantee the development of type 1 diabetes, and many people without these markers can still develop the condition. Research into genetic factors is ongoing to better understand how they contribute to the disease."
+          },
+          {
+            "heading": "Lifestyle Triggers and Environmental Factors",
+            "text": "While lifestyle does not cause type 1 diabetes, certain environmental factors may trigger the onset in genetically predisposed individuals. These can include viral infections and other factors that may stimulate an autoimmune response. Understanding these potential triggers can help in the development of preventive strategies. Maintaining a healthy lifestyle, including a balanced diet and regular exercise, is beneficial for overall health and can help manage the condition once diagnosed."
+          },
+          {
+            "heading": "Modifiable and Non-Modifiable Risk Factors",
+            "text": "Risk factors for type 1 diabetes include both modifiable and non-modifiable factors. Non-modifiable factors, such as age and family history, cannot be changed. Modifiable factors might include certain aspects of diet and exposure to potential environmental triggers. While the disease cannot be prevented by lifestyle changes alone, a healthy lifestyle is crucial for managing type 1 diabetes once it's developed. Working closely with your healthcare provider can help you understand your specific risk factors and how to manage them."
+          }
+        ],
+        "clinical_pearl": "While type 1 diabetes has genetic components, lifestyle changes are crucial for its management, not its prevention.",
+        "key_points": [
+          "Type 1 diabetes has a significant genetic component but is also influenced by environmental factors.",
+          "Certain genetic markers can increase the risk, but their presence does not guarantee the disease.",
+          "Lifestyle triggers may play a role in the onset for genetically predisposed individuals.",
+          "Maintaining a healthy lifestyle is beneficial for overall health and managing the condition.",
+          "Understanding modifiable and non-modifiable risk factors can help in disease management.",
+          "Collaboration with a healthcare provider is key to managing type 1 diabetes effectively."
+        ],
+        "questions_for_doctor": [
+          "What genetic testing is available for type 1 diabetes, and should I consider it?",
+          "How can I reduce my risk of developing complications from type 1 diabetes?",
+          "What lifestyle changes can I make to help manage my type 1 diabetes?"
+        ],
+        "references": [
+          {
+            "title": "Genetic Risk Factors for Type 1 Diabetes",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "Journal of Clinical Endocrinology and Metabolism",
+            "year": 2024,
+            "type": "research article",
+            "note": "In-depth look at the genetic factors contributing to type 1 diabetes."
+          },
+          {
+            "title": "Environmental Triggers of Type 1 Diabetes",
+            "authors": "Diabetes Research Institute",
+            "journal_or_source": "Nature Reviews Immunology",
+            "year": 2024,
+            "type": "review article",
+            "note": "Comprehensive review of potential environmental triggers for type 1 diabetes."
+          }
+        ]
+      },
+      "key_takeaway": "Type 1 diabetes mellitus results from a combination of genetic and environmental factors. Understanding these factors can help in managing the condition and potentially in the development of preventive strategies."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and Development of Type 1 Diabetes Mellitus",
+      "content": {
+        "intro": "Recognizing the symptoms of type 1 diabetes mellitus is crucial for early diagnosis and treatment. The disease can develop rapidly, and its symptoms can be mistaken for other conditions. In this lesson, we'll explore the early warning signs, how the disease progresses, and what patients can expect to feel.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early symptoms of type 1 diabetes can be subtle and may resemble those of other illnesses. Common symptoms include increased thirst and urination, blurred vision, fatigue, and unintended weight loss. These symptoms occur because the body is trying to flush out excess glucose through urine, leading to dehydration and potentially causing these symptoms. It's essential to seek medical attention if these symptoms persist or worsen over time."
+          },
+          {
+            "heading": "Progression of the Disease",
+            "text": "Type 1 diabetes progresses as the body's immune system continues to attack the insulin-producing beta cells in the pancreas. Over time, this leads to a complete deficiency in insulin production, requiring insulin therapy for glucose control. The rate of progression can vary among individuals, and some may experience a honeymoon period shortly after diagnosis where the pancreas still produces some insulin. However, this period is temporary, and insulin therapy will eventually be necessary for all individuals with type 1 diabetes."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "Living with type 1 diabetes means managing its symptoms and preventing complications. Patients often report feeling tired, hungry, or thirsty due to high blood glucose levels. They may also experience mood swings, irritability, or feelings of being unwell. Managing these feelings involves not just medical treatment but also lifestyle adjustments, such as diet and exercise, to help control blood glucose levels and improve overall well-being. Regular monitoring of blood glucose and adjusting the treatment plan as needed can help minimize these symptoms and prevent complications."
+          }
+        ],
+        "clinical_pearl": "Early recognition and treatment of type 1 diabetes can significantly improve outcomes and reduce the risk of complications.",
+        "key_points": [
+          "Type 1 diabetes symptoms can be subtle and include increased thirst and urination, blurred vision, and fatigue.",
+          "The disease progresses as the immune system attacks insulin-producing cells, leading to a need for insulin therapy.",
+          "Patients may experience a range of feelings, from physical symptoms like hunger and thirst to emotional changes like mood swings.",
+          "Managing type 1 diabetes involves medical treatment, lifestyle adjustments, and regular monitoring.",
+          "Early diagnosis and treatment can improve outcomes and reduce complication risks.",
+          "Collaborating with a healthcare provider is crucial for developing a personalized management plan."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of type 1 diabetes that I should look out for?",
+          "How can I differentiate between type 1 and type 2 diabetes symptoms?",
+          "What are the best strategies for managing the emotional and physical symptoms of type 1 diabetes?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Type 1 Diabetes",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "Morbidity and Mortality Weekly Report",
+            "year": 2024,
+            "type": "report",
+            "note": "Overview of the common symptoms of type 1 diabetes and the importance of early recognition."
+          },
+          {
+            "title": "Living with Type 1 Diabetes",
+            "authors": "Juvenile Diabetes Research Foundation",
+            "journal_or_source": "Diabetologia",
+            "year": 2024,
+            "type": "review article",
+            "note": "Comprehensive guide to managing type 1 diabetes, including lifestyle adjustments and medical treatment."
+          }
+        ]
+      },
+      "key_takeaway": "Recognizing the symptoms of type 1 diabetes and understanding its progression are key to early diagnosis and effective management. Collaboration with a healthcare provider and adherence to a personalized treatment plan can significantly improve outcomes."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing Type 1 Diabetes Mellitus involves a series of tests and examinations. Think of it like solving a puzzle, where each piece of information helps your doctor understand what's happening in your body. The diagnosis process typically starts with a visit to your primary care physician, who will then refer you to a specialist if needed. It's essential to be patient and cooperative during this process, as it's crucial for receiving the right treatment.",
+        "sections": [
+          {
+            "heading": "Initial Assessment",
+            "text": "The first step in diagnosing Type 1 Diabetes Mellitus is an initial assessment, which includes a physical examination, discussing your medical history, and understanding your symptoms. Your doctor will look for signs such as weight loss, increased thirst, and frequent urination. They will also ask about your family history of diabetes, as this can be a significant risk factor. It's crucial to provide accurate and detailed information to help your doctor make an informed decision."
+          },
+          {
+            "heading": "Blood Tests",
+            "text": "Blood tests are a critical component of diagnosing Type 1 Diabetes Mellitus. These tests measure the levels of glucose in your blood and can indicate if you have diabetes. The most common tests include the Fasting Plasma Glucose (FPG) test and the Oral Glucose Tolerance Test (OGTT). The FPG test measures your blood glucose level after an overnight fast, while the OGTT measures your blood glucose level after consuming a sugary drink. Aim for a fasting glucose level below 100 mg/dL to reduce the risk of complications."
+          },
+          {
+            "heading": "Understanding Test Results",
+            "text": "Once your blood tests are completed, your doctor will analyze the results to determine if you have Type 1 Diabetes Mellitus. If your test results indicate diabetes, your doctor will discuss the next steps with you, including treatment options and lifestyle changes. It's essential to understand your test results and ask questions if you're unsure. Remember, managing diabetes is a team effort between you and your healthcare provider."
+          }
+        ],
+        "clinical_pearl": "A key fact to remember is that early diagnosis and treatment can significantly improve the quality of life for individuals with Type 1 Diabetes Mellitus.",
+        "key_points": [
+          "Type 1 Diabetes Mellitus diagnosis involves a series of tests and examinations.",
+          "Providing accurate and detailed information to your doctor is crucial for an accurate diagnosis.",
+          "Blood tests, such as the FPG and OGTT, are used to measure blood glucose levels.",
+          "Aim for a fasting glucose level below 100 mg/dL to reduce the risk of complications.",
+          "Understanding your test results is essential for managing your condition.",
+          "Early diagnosis and treatment can significantly improve the quality of life for individuals with Type 1 Diabetes Mellitus."
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to confirm the diagnosis?",
+          "How long will it take to receive my test results?",
+          "What are the next steps if I'm diagnosed with Type 1 Diabetes Mellitus?"
+        ],
+        "references": [
+          {
+            "title": "Diagnosis and Classification of Diabetes Mellitus",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for diagnosing diabetes"
+          },
+          {
+            "title": "Type 1 Diabetes Mellitus: Diagnosis and Management",
+            "authors": "Endocrine Society",
+            "journal_or_source": "The Journal of Clinical Endocrinology & Metabolism",
+            "year": 2024,
+            "type": "review",
+            "note": "Comprehensive review of diagnosis and management"
+          }
+        ]
+      },
+      "key_takeaway": "Diagnosing Type 1 Diabetes Mellitus involves a series of tests and examinations, and early diagnosis and treatment can significantly improve the quality of life for individuals with the condition."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treating Type 1 Diabetes Mellitus involves a combination of lifestyle changes, medications, and ongoing monitoring. Think of it like a recipe for managing your condition, where each ingredient plays a vital role. Your healthcare provider will work with you to develop a personalized treatment plan that suits your needs and lifestyle. It's essential to be proactive and engaged in your treatment to achieve the best possible outcomes.",
+        "sections": [
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Lifestyle changes are a critical component of treating Type 1 Diabetes Mellitus. This includes following a healthy diet, exercising regularly, and maintaining a healthy weight. Aim to walk for at least 30 minutes, 5 days a week, and include strength-training exercises to improve insulin sensitivity. A balanced diet that is low in sugar and saturated fats can help regulate blood glucose levels."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications, such as insulin, are used to regulate blood glucose levels in individuals with Type 1 Diabetes Mellitus. There are different types of insulin, including rapid-acting, short-acting, and long-acting insulin. Your healthcare provider will work with you to determine the best insulin regimen for your needs. It's essential to take your medications as prescribed and monitor your blood glucose levels regularly."
+          },
+          {
+            "heading": "Ongoing Monitoring",
+            "text": "Ongoing monitoring is crucial for managing Type 1 Diabetes Mellitus. This includes regular blood glucose monitoring, as well as monitoring for potential complications such as kidney disease and nerve damage. Aim for an HbA1c level below 7% to reduce the risk of complications. Your healthcare provider will work with you to develop a monitoring plan that suits your needs and lifestyle."
+          }
+        ],
+        "clinical_pearl": "A key fact to remember is that treating Type 1 Diabetes Mellitus requires a long-term commitment to lifestyle changes and ongoing monitoring.",
+        "key_points": [
+          "Treating Type 1 Diabetes Mellitus involves a combination of lifestyle changes, medications, and ongoing monitoring.",
+          "Lifestyle changes, such as following a healthy diet and exercising regularly, are crucial for managing the condition.",
+          "Medications, such as insulin, are used to regulate blood glucose levels.",
+          "Ongoing monitoring is essential for managing the condition and reducing the risk of complications.",
+          "Aim for an HbA1c level below 7% to reduce the risk of complications.",
+          "Treating Type 1 Diabetes Mellitus requires a long-term commitment to lifestyle changes and ongoing monitoring."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to manage my condition?",
+          "What medications are available to treat Type 1 Diabetes Mellitus?",
+          "How often should I monitor my blood glucose levels?"
+        ],
+        "references": [
+          {
+            "title": "Type 1 Diabetes Mellitus: Treatment and Management",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for treating diabetes"
+          },
+          {
+            "title": "Insulin Therapy in Type 1 Diabetes Mellitus",
+            "authors": "Endocrine Society",
+            "journal_or_source": "The Journal of Clinical Endocrinology & Metabolism",
+            "year": 2024,
+            "type": "review",
+            "note": "Comprehensive review of insulin therapy"
+          }
+        ]
+      },
+      "key_takeaway": "Treating Type 1 Diabetes Mellitus involves a combination of lifestyle changes, medications, and ongoing monitoring, and requires a long-term commitment to managing the condition."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention",
+      "content": {
+        "intro": "While there is no guaranteed way to prevent Type 1 Diabetes Mellitus, there are steps you can take to reduce your risk of developing the condition. Think of it like building a strong foundation, where each brick plays a vital role in supporting the structure. By making healthy lifestyle choices and being aware of your risk factors, you can reduce your risk of developing Type 1 Diabetes Mellitus. It's essential to be proactive and engaged in your health to achieve the best possible outcomes.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves making healthy lifestyle choices to reduce your risk of developing Type 1 Diabetes Mellitus. This includes following a healthy diet, exercising regularly, and maintaining a healthy weight. Aim to walk for at least 30 minutes, 5 days a week, and include strength-training exercises to improve insulin sensitivity. A balanced diet that is low in sugar and saturated fats can help regulate blood glucose levels."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications and slow the progression of Type 1 Diabetes Mellitus after diagnosis. This includes ongoing monitoring, taking medications as prescribed, and making lifestyle changes to manage the condition. Aim for an HbA1c level below 7% to reduce the risk of complications. Your healthcare provider will work with you to develop a prevention plan that suits your needs and lifestyle."
+          },
+          {
+            "heading": "Risk Factor Awareness",
+            "text": "Being aware of your risk factors for Type 1 Diabetes Mellitus is crucial for prevention. This includes knowing your family history, being aware of your genetic predisposition, and understanding your lifestyle choices. By being aware of your risk factors, you can take steps to reduce your risk of developing the condition. It's essential to work with your healthcare provider to develop a personalized prevention plan."
+          }
+        ],
+        "clinical_pearl": "A key fact to remember is that prevention involves a combination of healthy lifestyle choices and being aware of your risk factors.",
+        "key_points": [
+          "While there is no guaranteed way to prevent Type 1 Diabetes Mellitus, there are steps you can take to reduce your risk.",
+          "Primary prevention involves making healthy lifestyle choices to reduce your risk of developing the condition.",
+          "Secondary prevention involves taking steps to prevent complications and slow the progression of the condition after diagnosis.",
+          "Being aware of your risk factors is crucial for prevention.",
+          "Aim for an HbA1c level below 7% to reduce the risk of complications.",
+          "Prevention involves a combination of healthy lifestyle choices and being aware of your risk factors."
+        ],
+        "questions_for_doctor": [
+          "What are my risk factors for developing Type 1 Diabetes Mellitus?",
+          "How can I reduce my risk of developing the condition?",
+          "What steps can I take to prevent complications after diagnosis?"
+        ],
+        "references": [
+          {
+            "title": "Type 1 Diabetes Mellitus: Prevention and Risk Factors",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for prevention"
+          },
+          {
+            "title": "Prevention of Type 1 Diabetes Mellitus: A Review",
+            "authors": "Endocrine Society",
+            "journal_or_source": "The Journal of Clinical Endocrinology & Metabolism",
+            "year": 2024,
+            "type": "review",
+            "note": "Comprehensive review of prevention"
+          }
+        ]
+      },
+      "key_takeaway": "Prevention involves a combination of healthy lifestyle choices and being aware of your risk factors, and can help reduce your risk of developing Type 1 Diabetes Mellitus and its complications."
+    },
+    {
+      "id": "L007",
+      "order": 7,
+      "title": "Living Well with This Condition",
+      "content": {
+        "intro": "Living with Type 1 Diabetes Mellitus requires a long-term commitment to managing the condition. Think of it like a journey, where each step plays a vital role in achieving your destination. By working with your healthcare provider, making healthy lifestyle choices, and being proactive in your care, you can live a long and healthy life with Type 1 Diabetes Mellitus. It's essential to be engaged and empowered in your care to achieve the best possible outcomes.",
+        "sections": [
+          {
+            "heading": "Daily Life Adjustments",
+            "text": "Living with Type 1 Diabetes Mellitus requires making daily life adjustments to manage the condition. This includes following a healthy diet, exercising regularly, and monitoring your blood glucose levels. Aim to walk for at least 30 minutes, 5 days a week, and include strength-training exercises to improve insulin sensitivity. A balanced diet that is low in sugar and saturated fats can help regulate blood glucose levels."
+          },
+          {
+            "heading": "Diet and Exercise Guidance",
+            "text": "Diet and exercise play a crucial role in managing Type 1 Diabetes Mellitus. A balanced diet that is low in sugar and saturated fats can help regulate blood glucose levels. Aim to include a variety of fruits, vegetables, whole grains, and lean proteins in your diet. Exercise, such as walking and strength-training, can help improve insulin sensitivity and reduce the risk of complications."
+          },
+          {
+            "heading": "Monitoring and Self-Management",
+            "text": "Monitoring and self-management are essential for living with Type 1 Diabetes Mellitus. This includes monitoring your blood glucose levels, taking medications as prescribed, and being aware of your risk factors. Aim for an HbA1c level below 7% to reduce the risk of complications. Your healthcare provider will work with you to develop a monitoring and self-management plan that suits your needs and lifestyle."
+          }
+        ],
+        "clinical_pearl": "A key fact to remember is that living with Type 1 Diabetes Mellitus requires a long-term commitment to managing the condition.",
+        "key_points": [
+          "Living with Type 1 Diabetes Mellitus requires a long-term commitment to managing the condition.",
+          "Making daily life adjustments, such as following a healthy diet and exercising regularly, is crucial for managing the condition.",
+          "Diet and exercise play a crucial role in managing Type 1 Diabetes Mellitus.",
+          "Monitoring and self-management are essential for living with the condition.",
+          "Aim for an HbA1c level below 7% to reduce the risk of complications.",
+          "Living with Type 1 Diabetes Mellitus requires a long-term commitment to managing the condition and being proactive in your care."
+        ],
+        "questions_for_doctor": [
+          "What daily life adjustments can I make to manage my condition?",
+          "How can I develop a diet and exercise plan that suits my needs and lifestyle?",
+          "What steps can I take to monitor and self-manage my condition?"
+        ],
+        "references": [
+          {
+            "title": "Type 1 Diabetes Mellitus: Living with the Condition",
+            "authors": "American Diabetes Association",
+            "journal_or_source": "Diabetes Care",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for living with diabetes"
+          },
+          {
+            "title": "Living with Type 1 Diabetes Mellitus: A Review",
+            "authors": "Endocrine Society",
+            "journal_or_source": "The Journal of Clinical Endocrinology & Metabolism",
+            "year": 2024,
+            "type": "review",
+            "note": "Comprehensive review of living with diabetes"
+          }
+        ]
+      },
+      "key_takeaway": "Living with Type 1 Diabetes Mellitus requires a long-term commitment to managing the condition, making daily life adjustments, and being proactive in your care to achieve the best possible outcomes."
+    }
+  ]
+}

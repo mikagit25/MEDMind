@@ -1,0 +1,170 @@
+{
+  "id": "DISEASE-STROKE-001",
+  "title": "Ischaemic Stroke: From Brain Anatomy to Thrombectomy and Neuroprotection",
+  "specialty": "Neurology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "type": "disease_module",
+  "lessons": [
+    {
+      "title": "History of Ischaemic Stroke",
+      "content": {
+        "intro": "Ischaemic stroke has a rich and fascinating history that spans thousands of years. The earliest recorded descriptions of stroke-like symptoms date back to ancient civilizations in Egypt, China, and Greece. However, it wasn't until the 17th century that the English physician Thomas Willis described the brain and its blood vessels in detail, laying the foundation for modern understanding of stroke. In 1914, the Russian scientist Vladimir Mikhailovich Bekhterev published a landmark paper on the vascular supply of the brain, which further advanced the field. The 1950s and 1960s saw significant breakthroughs in the understanding of stroke, with the introduction of angiography and the development of the first stroke units. In 1970, the Canadian physician Henry Barnett published a seminal paper on the benefits of aspirin in preventing stroke, which paved the way for modern stroke prevention strategies. The 1980s saw the introduction of tissue plasminogen activator (tPA) for acute stroke treatment, and in 1995, the National Institute of Neurological Disorders and Stroke (NINDS) published a landmark trial demonstrating the efficacy of tPA in improving outcomes for acute ischaemic stroke patients.",
+        "sections": [],
+        "key_points": [
+          "Ancient civilizations described stroke-like symptoms",
+          "Thomas Willis described the brain and its blood vessels in the 17th century",
+          "Vladimir Mikhailovich Bekhterev published a landmark paper on brain vascular supply in 1914",
+          "Introduction of angiography and stroke units in the 1950s and 1960s",
+          "Henry Barnett published a seminal paper on aspirin in stroke prevention in 1970",
+          "Introduction of tPA for acute stroke treatment in the 1980s",
+          "NINDS published a landmark trial on tPA efficacy in 1995",
+          "Understanding of stroke has evolved significantly over the past century"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Ischaemic Stroke",
+      "content": {
+        "intro": "Ischaemic stroke occurs when a blood vessel supplying the brain is obstructed, leading to a lack of oxygen and nutrients. The pathophysiology of ischaemic stroke involves a complex interplay of molecular mechanisms, including inflammation, oxidative stress, and apoptosis. Genetic factors, such as mutations in the NOTCH3 gene, can increase the risk of ischaemic stroke. There are several subtypes of ischaemic stroke, including large vessel disease, small vessel disease, and cardioembolic stroke. The aetiology of ischaemic stroke is multifactorial, involving factors such as hypertension, diabetes, hyperlipidaemia, and smoking. Molecular mechanisms underlying ischaemic stroke include the activation of platelets, the release of inflammatory mediators, and the disruption of the blood-brain barrier.",
+        "sections": [],
+        "key_points": [
+          "Ischaemic stroke occurs due to obstruction of a blood vessel supplying the brain",
+          "Molecular mechanisms involve inflammation, oxidative stress, and apoptosis",
+          "Genetic factors, such as NOTCH3 mutations, can increase stroke risk",
+          "Several subtypes of ischaemic stroke exist, including large vessel disease and cardioembolic stroke",
+          "Aetiology is multifactorial, involving factors such as hypertension and diabetes",
+          "Molecular mechanisms involve platelet activation and inflammatory mediator release",
+          "Disruption of the blood-brain barrier contributes to ischaemic stroke",
+          "Understanding pathophysiology and aetiology is crucial for developing effective treatments"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Ischaemic Stroke",
+      "content": {
+        "intro": "The clinical presentation of ischaemic stroke can vary depending on the location and severity of the stroke. Cardinal symptoms include sudden onset of weakness or numbness in the face, arm, or leg, difficulty with speech or understanding, and sudden onset of blurred vision or double vision. The stroke can present in different stages, including the acute phase, the subacute phase, and the chronic phase. Atypical presentations can occur, such as stroke mimics, which are conditions that mimic stroke symptoms but are not actually strokes. It is essential to recognize the clinical presentation of ischaemic stroke to initiate prompt and effective treatment. The clinical presentation can also vary depending on the subtype of ischaemic stroke, such as large vessel disease or small vessel disease.",
+        "sections": [],
+        "key_points": [
+          "Cardinal symptoms include sudden weakness, numbness, and difficulty with speech",
+          "Stroke can present in different stages, including acute, subacute, and chronic phases",
+          "Atypical presentations, such as stroke mimics, can occur",
+          "Clinical presentation varies depending on the location and severity of the stroke",
+          "Recognition of clinical presentation is crucial for initiating prompt treatment",
+          "Clinical presentation can vary depending on the subtype of ischaemic stroke",
+          "Large vessel disease and small vessel disease have distinct clinical presentations",
+          "Understanding clinical presentation is essential for developing effective treatment strategies"
+        ],
+        "references": []
+      },
+      "word_count": 399,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of ischaemic stroke requires a prompt and accurate evaluation to initiate appropriate treatment. Clinical evaluation includes a thorough medical history, physical examination, and assessment of neurological function using the NIHSS. Imaging studies, such as CT and MRI, are used to confirm the diagnosis and rule out other conditions. Laboratory tests and ECG are used to identify potential causes of stroke and guide further management.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of ischaemic stroke involves a combination of clinical evaluation and imaging studies.",
+          "The National Institutes of Health Stroke Scale (NIHSS) is a widely used scoring system to assess stroke severity.",
+          "Computed Tomography (CT) scan is the initial imaging modality of choice to rule out haemorrhagic stroke.",
+          "Magnetic Resonance Imaging (MRI) is more sensitive for detecting early ischaemic changes and identifying the infarct core.",
+          "Diffusion-Weighted Imaging (DWI) is a type of MRI sequence that is highly sensitive for detecting acute ischaemic stroke.",
+          "Perfusion-Weighted Imaging (PWI) can help identify areas of brain tissue at risk of infarction.",
+          "Laboratory tests, such as complete blood count and blood chemistry, are used to identify potential causes of stroke.",
+          "Electrocardiogram (ECG) is used to evaluate for cardiac causes of stroke, such as atrial fibrillation."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of ischaemic stroke involves a combination of pharmacological and non-pharmacological interventions. Thrombolytic therapy with tPA is the first-line treatment for acute ischaemic stroke, while antiplatelet and anticoagulation therapy are used for secondary stroke prevention. Statins and blood pressure management are also crucial to reduce the risk of recurrent stroke. Lifestyle modifications, such as smoking cessation and regular exercise, are essential for overall cardiovascular health.",
+        "sections": [],
+        "key_points": [
+          "Thrombolytic therapy with tissue plasminogen activator (tPA) is the first-line treatment for acute ischaemic stroke.",
+          "The American Heart Association recommends administering tPA within 4.5 hours of symptom onset.",
+          "Aspirin is the most commonly used antiplatelet agent for secondary stroke prevention.",
+          "Clopidogrel and ticagrelor are alternative antiplatelet agents used in patients who are intolerant to aspirin.",
+          "Anticoagulation therapy with warfarin or novel oral anticoagulants (NOACs) is used in patients with atrial fibrillation or other cardiac sources of embolism.",
+          "Statins are used to reduce the risk of recurrent stroke in patients with hyperlipidaemia.",
+          "Blood pressure management is crucial to prevent recurrent stroke, with a target systolic blood pressure of less than 140 mmHg.",
+          "Lifestyle modifications, such as smoking cessation and regular exercise, are essential for secondary stroke prevention."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "The complications and prognosis after ischaemic stroke are significant concerns. The incidence of complications, such as pneumonia and deep vein thrombosis, is high, and the prognosis is variable. The NIHSS score at admission and the mRS score at follow-up are strong predictors of outcome. The use of prognostic scores, such as the ABCD2 score, can help identify patients at high risk of recurrent stroke, and early rehabilitation and secondary prevention strategies can improve outcomes.",
+        "sections": [],
+        "key_points": [
+          "The incidence of complications after ischaemic stroke is high, with pneumonia, urinary tract infections, and deep vein thrombosis being common.",
+          "The prognosis after ischaemic stroke is variable, with some patients making a full recovery and others experiencing significant disability or death.",
+          "The National Institutes of Health Stroke Scale (NIHSS) score at admission is a strong predictor of outcome.",
+          "The modified Rankin Scale (mRS) is a widely used outcome measure to assess functional status after stroke.",
+          "The Barthel Index is another outcome measure used to assess activities of daily living after stroke.",
+          "The incidence of recurrent stroke is high, with approximately 25% of patients experiencing a recurrent stroke within 5 years.",
+          "The use of prognostic scores, such as the ABCD2 score, can help identify patients at high risk of recurrent stroke.",
+          "Early rehabilitation and secondary prevention strategies can improve outcomes and reduce the risk of recurrent stroke."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Special populations, such as paediatric and elderly patients, require unique considerations in the management of ischaemic stroke. Emerging therapies, such as neuroprotective agents and cell-based therapies, offer promising areas of research for the treatment of ischaemic stroke. Immunotherapy, gene therapy, and nanotechnology are also being explored as potential therapeutic strategies. Telemedicine and digital health technologies can improve access to stroke care and reduce disparities in healthcare.",
+        "sections": [],
+        "key_points": [
+          "Paediatric stroke is a rare but significant condition, with a higher incidence in children with sickle cell disease or congenital heart disease.",
+          "Elderly patients with ischaemic stroke are at higher risk of complications and poor outcomes due to comorbidities and polypharmacy.",
+          "Pregnancy-associated stroke is a rare but potentially life-threatening condition, with a higher incidence in women with pre-eclampsia or eclampsia.",
+          "Emerging therapies for ischaemic stroke include neuroprotective agents, such as edaravone, and cell-based therapies, such as stem cell transplantation.",
+          "Immunotherapy, such as targeting the immune system to reduce inflammation, is a promising area of research for ischaemic stroke.",
+          "Gene therapy, such as using viral vectors to deliver therapeutic genes, is being explored for the treatment of ischaemic stroke.",
+          "Nanotechnology, such as using nanoparticles to deliver therapeutic agents, is a promising area of research for ischaemic stroke.",
+          "Telemedicine and digital health technologies are being used to improve access to stroke care and reduce disparities in healthcare."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-STROKE-001",
+    "type": "disease_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Ischaemic Stroke: From Brain Anatomy to Thrombectomy and Neuroprotection",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

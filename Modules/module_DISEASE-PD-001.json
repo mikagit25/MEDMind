@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-PD-001",
+  "title": "Parkinson's Disease: Lewy Bodies, Dopamine Pathways, L-DOPA and Deep Brain Stimulation",
+  "specialty": "Neurology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Parkinson's disease has a rich history dating back to 1817 when James Parkinson first described the condition in his seminal paper 'An Essay on the Shaking Palsy'. This landmark paper presented six cases of patients with symptoms that would later become synonymous with the disease. Over the years, understanding of the disease has evolved significantly, with key milestones including the discovery of dopamine in the 1950s by Arvid Carlsson, for which he was awarded the Nobel Prize in Physiology or Medicine in 2000. Another crucial discovery was the identification of Lewy bodies by Frederic Lewy in 1912, which are now recognized as a hallmark of the disease. Famous cases, such as that of Maurice Smith, who was diagnosed with Parkinson's disease in 1888 and underwent a series of innovative treatments, have also contributed to the evolving understanding of the disease.",
+        "sections": [],
+        "key_points": [
+          "James Parkinson first described Parkinson's disease in 1817",
+          "Arvid Carlsson discovered dopamine in the 1950s",
+          "Frederic Lewy identified Lewy bodies in 1912",
+          "The Nobel Prize in Physiology or Medicine was awarded to Arvid Carlsson in 2000",
+          "Maurice Smith's case in 1888 contributed to the understanding of the disease",
+          "The disease was initially known as 'shaking palsy'",
+          "Landmark papers have shaped the current understanding of Parkinson's disease",
+          "Historical patients and outbreaks have played a crucial role in advancing knowledge"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "Parkinson's disease is characterized by the degeneration of dopamine-producing neurons in the substantia nigra, a region of the brain that plays a crucial role in movement control. The molecular mechanisms underlying this degeneration are complex and involve the interplay of genetic and environmental factors. Subtypes of Parkinson's disease, such as familial Parkinson's disease, have been identified, and genetic factors, including mutations in the SNCA and PARK2 genes, have been implicated. The aetiology of Parkinson's disease is multifactorial, with risk factors including age, family history, and exposure to pesticides.",
+        "sections": [],
+        "key_points": [
+          "Dopamine-producing neurons in the substantia nigra degenerate in Parkinson's disease",
+          "Genetic and environmental factors contribute to the development of the disease",
+          "Subtypes of Parkinson's disease, including familial Parkinson's disease, have been identified",
+          "Mutations in the SNCA and PARK2 genes are associated with Parkinson's disease",
+          "Age is a significant risk factor for developing Parkinson's disease",
+          "Family history plays a crucial role in the development of the disease",
+          "Exposure to pesticides is a potential risk factor",
+          "The molecular mechanisms underlying Parkinson's disease are complex and multifactorial"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of Parkinson's disease is characterized by four cardinal symptoms: tremor, bradykinesia, rigidity, and postural instability. The disease progresses through several stages, including the premotor stage, characterized by non-motor symptoms such as constipation and depression, and the motor stage, characterized by the onset of motor symptoms. Atypical presentations, such as Parkinson's disease dementia and Parkinson's disease psychosis, can also occur. The diagnosis of Parkinson's disease is often delayed, with patients experiencing symptoms for several years before seeking medical attention.",
+        "sections": [],
+        "key_points": [
+          "The four cardinal symptoms of Parkinson's disease are tremor, bradykinesia, rigidity, and postural instability",
+          "The disease progresses through several stages, including the premotor and motor stages",
+          "Non-motor symptoms, such as constipation and depression, can occur in the premotor stage",
+          "Motor symptoms, such as tremor and bradykinesia, characterize the motor stage",
+          "Atypical presentations, such as Parkinson's disease dementia and psychosis, can occur",
+          "The diagnosis of Parkinson's disease is often delayed",
+          "Patients may experience symptoms for several years before seeking medical attention",
+          "The clinical presentation of Parkinson's disease can vary significantly between patients"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing Parkinson's disease (PD) can be challenging due to its complex and variable presentation. The diagnosis is primarily clinical, based on a combination of medical history, physical examination, and response to treatment. The UK Parkinson's Disease Society Brain Bank clinical diagnostic criteria are widely used, which require the presence of bradykinesia (slowness of movement) and at least one of the following: rigidity, resting tremor, or postural instability. Scoring systems such as the Unified Parkinson's Disease Rating Scale (UPDRS) are used to assess the severity of symptoms and monitor disease progression. Laboratory tests and imaging studies, such as MRI or CT scans, are used to rule out other conditions that may mimic PD. Differential diagnosis includes other parkinsonian syndromes, such as multiple system atrophy and progressive supranuclear palsy.",
+        "sections": [],
+        "key_points": [
+          "Clinical diagnosis based on medical history and physical examination",
+          "UK Parkinson's Disease Society Brain Bank clinical diagnostic criteria",
+          "UPDRS scoring system",
+          "Laboratory tests to rule out other conditions",
+          "Imaging studies to rule out other conditions",
+          "Differential diagnosis includes other parkinsonian syndromes",
+          "Multiple system atrophy and progressive supranuclear palsy are key differential diagnoses",
+          "Response to treatment is a key diagnostic criterion"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of Parkinson's disease aims to alleviate symptoms, improve quality of life, and slow disease progression. Pharmacological treatment includes levodopa (L-DOPA), dopamine agonists, monoamine oxidase B inhibitors, and catechol-O-methyltransferase inhibitors. L-DOPA is the most effective treatment for PD, but its long-term use is associated with motor complications, such as dyskinesias and fluctuations. Non-pharmacological treatments include deep brain stimulation (DBS), physical therapy, occupational therapy, and speech therapy. DBS involves implanting an electrode in the brain to stimulate specific areas and improve motor function. First-line treatment typically involves L-DOPA or dopamine agonists, while second-line treatment includes DBS and other non-pharmacological interventions.",
+        "sections": [],
+        "key_points": [
+          "Treatment aims to alleviate symptoms and improve quality of life",
+          "Pharmacological treatment includes L-DOPA and dopamine agonists",
+          "Non-pharmacological treatments include DBS and physical therapy",
+          "L-DOPA is the most effective treatment but has motor complications",
+          "DBS is a second-line treatment for advanced PD",
+          "First-line treatment typically involves L-DOPA or dopamine agonists",
+          "Second-line treatment includes DBS and other non-pharmacological interventions",
+          "Treatment should be individualized based on patient needs and response"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Parkinson's disease is associated with several complications, including motor fluctuations, dyskinesias, and non-motor symptoms, such as cognitive impairment, depression, and anxiety. The incidence of these complications increases with disease duration and severity. Prognostic scores, such as the Hoehn and Yahr staging scale, can predict disease progression and mortality. The prognosis for PD patients has improved significantly with advances in treatment, but the disease remains incurable. Incidence data show that PD affects approximately 1% of the population over 60 years old, with a significant increase in prevalence with age.",
+        "sections": [],
+        "key_points": [
+          "PD is associated with several complications, including motor fluctuations and non-motor symptoms",
+          "Incidence of complications increases with disease duration and severity",
+          "Prognostic scores can predict disease progression and mortality",
+          "Hoehn and Yahr staging scale is a commonly used prognostic score",
+          "PD affects approximately 1% of the population over 60 years old",
+          "Prevalence of PD increases significantly with age",
+          "Treatment has improved prognosis, but PD remains incurable",
+          "Early diagnosis and treatment can improve quality of life and slow disease progression"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Parkinson's disease affects various populations, including pediatric, elderly, and pregnant patients. Pediatric PD is rare and often associated with genetic mutations. Elderly patients with PD are at increased risk of cognitive impairment, falls, and other age-related complications. Pregnant patients with PD require careful management to minimize risks to the fetus. Emerging therapies for PD include gene therapy, stem cell therapy, and immunotherapy. Pipeline drugs, such as those targeting alpha-synuclein and LRRK2, are being developed to slow disease progression and improve symptoms. These emerging therapies offer hope for improved treatment options and potential disease modification.",
+        "sections": [],
+        "key_points": [
+          "PD affects various populations, including pediatric, elderly, and pregnant patients",
+          "Pediatric PD is rare and often associated with genetic mutations",
+          "Elderly patients with PD are at increased risk of cognitive impairment and falls",
+          "Pregnant patients with PD require careful management",
+          "Emerging therapies include gene therapy, stem cell therapy, and immunotherapy",
+          "Pipeline drugs target alpha-synuclein and LRRK2",
+          "Emerging therapies offer hope for improved treatment options and potential disease modification",
+          "Personalized medicine approaches may improve treatment outcomes in special populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-PD-001",
+    "type": "disease_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Parkinson's Disease: Lewy Bodies, Dopamine Pathways, L-DOPA and Deep Brain Stimulation",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

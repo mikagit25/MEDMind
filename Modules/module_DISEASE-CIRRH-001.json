@@ -1,0 +1,187 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-CIRRH-001",
+  "title": "Liver Cirrhosis: Fibrogenesis, Portal Hypertension, Complications and Transplantation",
+  "specialty": "Gastroenterology",
+  "level": "advanced",
+  "lesson_count": 4,
+  "duration": 9,
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "History of Liver Cirrhosis",
+      "content": {
+        "intro": "Liver cirrhosis has a long and evolving history, with significant milestones in understanding its pathophysiology and management. The term 'cirrhosis' was first coined by Rene Laennec in 1819, derived from the Greek word 'kirrhos,' meaning orange, to describe the liver's orange-like appearance due to scarring. In 1833, Richard Bright described the correlation between liver disease and ascites. The 20th century saw major advancements, with the discovery of the hepatitis B virus in 1965 by Baruch Blumberg, leading to a better understanding of viral hepatitis as a cause of cirrhosis. The development of liver transplantation by Thomas Starzl in 1963 marked a significant turning point in the treatment of end-stage liver disease. Key historical patients include those described by Samuel Gee in 1872, highlighting the clinical presentation of cirrhosis. The evolution of understanding cirrhosis has been marked by numerous landmark papers, including the description of the fibrogenesis process by Rojkind and colleagues in 1979.",
+        "sections": [],
+        "key_points": [
+          "Rene Laennec coined the term 'cirrhosis' in 1819.",
+          "Richard Bright correlated liver disease with ascites in 1833.",
+          "The hepatitis B virus was discovered in 1965 by Baruch Blumberg.",
+          "Thomas Starzl performed the first liver transplantation in 1963.",
+          "Samuel Gee described clinical presentations of cirrhosis in 1872.",
+          "Rojkind and colleagues described the fibrogenesis process in 1979.",
+          "Understanding of cirrhosis has evolved significantly over the centuries.",
+          "Historical milestones have shaped current management strategies."
+        ],
+        "references": []
+      },
+      "order": 1
+    },
+    {
+      "id": "L002",
+      "title": "Pathophysiology & Aetiology of Liver Cirrhosis",
+      "content": {
+        "intro": "Liver cirrhosis is characterized by the formation of regenerative nodules in response to chronic liver injury, leading to fibrosis and scarring. The pathophysiology involves complex molecular mechanisms, including the activation of hepatic stellate cells, which play a central role in fibrogenesis. Genetic factors, such as mutations in the HFE gene, can predispose individuals to hereditary hemochromatosis, a condition that can lead to cirrhosis. Subtypes of cirrhosis include alcoholic, viral, and non-alcoholic fatty liver disease (NAFLD)-related cirrhosis, each with distinct underlying mechanisms. The role of cytokines, growth factors, and other signaling pathways in the development of cirrhosis is an area of active research. Understanding the aetiology and pathophysiology of cirrhosis is crucial for the development of effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "Liver cirrhosis involves the formation of regenerative nodules and fibrosis.",
+          "Hepatic stellate cells play a central role in fibrogenesis.",
+          "Genetic factors can predispose individuals to cirrhosis.",
+          "Subtypes of cirrhosis include alcoholic, viral, and NAFLD-related cirrhosis.",
+          "Cytokines and growth factors contribute to the development of cirrhosis.",
+          "Understanding pathophysiology is crucial for effective treatment strategies.",
+          "Molecular mechanisms involve complex interactions between liver cells.",
+          "Fibrogenesis is a key process in the development of cirrhosis."
+        ],
+        "references": []
+      },
+      "order": 2
+    },
+    {
+      "id": "L003",
+      "title": "Clinical Presentation of Liver Cirrhosis",
+      "content": {
+        "intro": "The clinical presentation of liver cirrhosis can vary widely, depending on the underlying cause and stage of disease. Cardinal symptoms include jaundice, ascites, and edema, which are often accompanied by fatigue, weight loss, and abdominal pain. In the early stages, patients may be asymptomatic or present with non-specific symptoms. As the disease progresses, complications such as variceal bleeding, hepatic encephalopathy, and hepatorenal syndrome may occur. Atypical presentations, such as liver cancer or porphyria cutanea tarda, can also be seen. The clinical presentation of cirrhosis is influenced by the degree of liver dysfunction, the presence of portal hypertension, and the development of complications. Accurate diagnosis and staging are essential for guiding management and predicting outcomes.",
+        "sections": [],
+        "key_points": [
+          "Jaundice, ascites, and edema are cardinal symptoms of liver cirrhosis.",
+          "Fatigue, weight loss, and abdominal pain are common accompanying symptoms.",
+          "Early stages may be asymptomatic or present with non-specific symptoms.",
+          "Complications such as variceal bleeding and hepatic encephalopathy can occur.",
+          "Atypical presentations, such as liver cancer, can be seen.",
+          "Clinical presentation is influenced by liver dysfunction and portal hypertension.",
+          "Accurate diagnosis and staging are essential for guiding management.",
+          "The degree of liver dysfunction affects the clinical presentation."
+        ],
+        "references": []
+      },
+      "order": 3
+    },
+    {
+      "id": "L004",
+      "title": "Diagnosis of Liver Cirrhosis",
+      "content": {
+        "intro": "The diagnosis of liver cirrhosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. Diagnostic criteria include the presence of liver dysfunction, evidence of fibrosis, and characteristic clinical features. Scoring systems, such as the Child-Pugh score, are used to assess the severity of cirrhosis and predict outcomes. Laboratory tests, including liver function tests and markers of fibrosis, can support the diagnosis. Imaging studies, such as ultrasound, CT, and MRI, can demonstrate liver morphology and detect complications. Liver biopsy remains the gold standard for diagnosing cirrhosis, but non-invasive tests, such as transient elastography, are increasingly used. Differential diagnosis is crucial, as other conditions, such as liver cancer or congenital liver disease, can mimic cirrhosis.",
+        "sections": [],
+        "key_points": [
+          "Diagnosis involves clinical evaluation, laboratory tests, and imaging studies.",
+          "Diagnostic criteria include liver dysfunction, fibrosis, and characteristic features.",
+          "Scoring systems, such as Child-Pugh, assess severity and predict outcomes.",
+          "Laboratory tests support the diagnosis and detect complications.",
+          "Imaging studies demonstrate liver morphology and detect complications.",
+          "Liver biopsy is the gold standard, but non-invasive tests are increasingly used.",
+          "Differential diagnosis is crucial to exclude other conditions.",
+          "Transient elastography is a non-invasive test for assessing liver stiffness."
+        ],
+        "references": []
+      },
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Liver cirrhosis treatment aims to manage complications, slow disease progression, and improve quality of life. Pharmacological treatments include beta-blockers to reduce portal pressure, diuretics to manage ascites, and lactulose to prevent hepatic encephalopathy. Non-pharmacological approaches involve dietary modifications, such as a low-sodium diet, and lifestyle changes like abstaining from alcohol. First-line treatments often combine these strategies, with evidence supporting their efficacy in reducing morbidity and mortality. For instance, a landmark study published in the New England Journal of Medicine in 1992 demonstrated the benefits of beta-blockers in preventing variceal bleeding. The choice of treatment depends on the stage of cirrhosis, presence of complications, and patient comorbidities.",
+        "sections": [],
+        "key_points": [
+          "Beta-blockers reduce portal pressure and prevent variceal bleeding",
+          "Diuretics manage ascites and edema",
+          "Lactulose prevents hepatic encephalopathy",
+          "Dietary modifications, such as a low-sodium diet, are essential",
+          "Lifestyle changes, including alcohol abstinence, are crucial",
+          "First-line treatments often combine pharmacological and non-pharmacological approaches",
+          "Treatment choice depends on cirrhosis stage, complications, and patient comorbidities",
+          "Evidence-based treatments improve quality of life and reduce morbidity and mortality"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Liver cirrhosis is associated with various complications, including ascites, spontaneous bacterial peritonitis, hepatic encephalopathy, and variceal bleeding. The incidence of these complications increases with disease progression. Prognostic scores, such as the Child-Pugh score and MELD score, help predict mortality and guide treatment decisions. A study published in the Journal of Hepatology in 2014 demonstrated that the MELD score accurately predicts 3-month mortality in patients with cirrhosis. Understanding the natural history of cirrhosis and its complications is essential for providing optimal care and improving patient outcomes.",
+        "sections": [],
+        "key_points": [
+          "Ascites, spontaneous bacterial peritonitis, and hepatic encephalopathy are common complications",
+          "Variceal bleeding is a life-threatening complication",
+          "Prognostic scores, such as Child-Pugh and MELD, predict mortality",
+          "Incidence of complications increases with disease progression",
+          "Understanding natural history and complications is essential for optimal care",
+          "MELD score accurately predicts 3-month mortality",
+          "Child-Pugh score helps guide treatment decisions",
+          "Complications significantly impact quality of life and mortality"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Liver cirrhosis affects various populations, including pediatric and elderly patients, as well as those with comorbidities like pregnancy. Emerging therapies, such as antifibrotic agents and gene therapies, offer promising new approaches for treating cirrhosis. A study published in the Journal of Pediatric Gastroenterology and Nutrition in 2018 highlighted the challenges of managing cirrhosis in children. Pipeline drugs, including obeticholic acid and selonsertib, have shown efficacy in reducing fibrosis and improving liver function. Special considerations are necessary when treating cirrhosis in these populations, and emerging therapies may provide new hope for improving outcomes.",
+        "sections": [],
+        "key_points": [
+          "Pediatric patients with cirrhosis require special consideration",
+          "Elderly patients with cirrhosis are at increased risk of complications",
+          "Pregnancy complicates cirrhosis management and requires careful monitoring",
+          "Emerging therapies, such as antifibrotic agents, offer new treatment options",
+          "Gene therapies are being explored for treating cirrhosis",
+          "Pipeline drugs, including obeticholic acid and selonsertib, show promise",
+          "Special populations require tailored treatment approaches",
+          "Emerging therapies may improve outcomes in these populations"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    },
+    {
+      "lesson_id": "L008",
+      "title": "Clinical Case & Applied Knowledge",
+      "content": {
+        "intro": "A 55-year-old man with a history of alcohol abuse presents with ascites, jaundice, and hepatic encephalopathy. Laboratory tests reveal elevated liver enzymes, low platelet count, and coagulopathy. Imaging studies show liver fibrosis and portal hypertension. The patient is diagnosed with decompensated cirrhosis and requires immediate hospitalization. Treatment involves a combination of pharmacological and non-pharmacological approaches, including beta-blockers, diuretics, and lactulose. The patient's prognosis is guarded, and he requires close monitoring and follow-up. This case illustrates the importance of applying knowledge of cirrhosis pathophysiology, diagnosis, and treatment to real-world clinical scenarios.",
+        "sections": [],
+        "key_points": [
+          "Decompensated cirrhosis requires immediate hospitalization",
+          "Treatment involves a combination of pharmacological and non-pharmacological approaches",
+          "Beta-blockers, diuretics, and lactulose are essential components of treatment",
+          "Close monitoring and follow-up are crucial for patient management",
+          "Prognosis is guarded, and patient outcomes depend on treatment response",
+          "Applying knowledge of cirrhosis pathophysiology is essential for diagnosis and treatment",
+          "Clinical cases illustrate the importance of evidence-based medicine",
+          "Real-world scenarios require tailored treatment approaches and close patient monitoring"
+        ],
+        "references": []
+      },
+      "id": "L008",
+      "order": 8
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-CIRRH-001",
+    "type": "disease_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Liver Cirrhosis: Fibrogenesis, Portal Hypertension, Complications and Transplantation",
+    "level": "advanced",
+    "duration_hours": 9,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

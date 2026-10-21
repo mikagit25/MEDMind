@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "id": "PG-RENAL-003",
+    "type": "patient_guide",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Urinary Tract Infections (UTI) — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is a Urinary Tract Infection (UTI)?",
+      "content": {
+        "intro": "A urinary tract infection, or UTI, is an infection that occurs in any part of your urinary system — your kidneys, ureters, bladder, and urethra. Most UTIs are caused by bacteria and are more common in women than men. UTIs can be painful and uncomfortable, but they can usually be treated with antibiotics. In this lesson, we'll explore what a UTI is, how common it is, who gets it, and why it matters. Think of your urinary system like a plumbing system in your house. Just as pipes can get clogged, your urinary system can get infected, causing problems.",
+        "sections": [
+          {
+            "heading": "What is a UTI?",
+            "text": "A UTI occurs when bacteria enter your urinary system and cause an infection. This can happen through the urethra, which is the tube that carries urine out of your body. Bacteria can also travel from your rectum to your urethra, causing an infection. UTIs can be acute or chronic. Acute UTIs are sudden and severe, while chronic UTIs are ongoing and can be mild or severe. UTIs are more common in women because their urethras are shorter, making it easier for bacteria to reach the bladder. According to the American Urological Association, UTIs affect approximately 40% to 60% of women at some point in their lives."
+          },
+          {
+            "heading": "How common are UTIs?",
+            "text": "UTIs are very common. They are one of the most common types of infections, and they can affect anyone, regardless of age or sex. However, women are more likely to get UTIs than men. This is because women have a shorter urethra, which makes it easier for bacteria to enter the bladder. UTIs are also more common in people who have certain medical conditions, such as diabetes or kidney stones. In the United States, it's estimated that over 8 million people visit their doctor each year because of a UTI."
+          },
+          {
+            "heading": "Why do UTIs matter?",
+            "text": "UTIs matter because they can cause significant discomfort and pain. If left untreated, UTIs can also lead to more serious problems, such as kidney damage or sepsis. Sepsis is a life-threatening condition that occurs when the body's response to an infection becomes uncontrolled and causes widespread inflammation. UTIs can also increase the risk of developing other health problems, such as high blood pressure or kidney disease. Therefore, it's essential to seek medical attention if you suspect you have a UTI."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that UTIs can be prevented by drinking plenty of water, urinating when you need to, and wiping from front to back after using the bathroom.",
+        "key_points": [
+          "UTIs are infections that occur in the urinary system.",
+          "UTIs are more common in women than men.",
+          "UTIs can be acute or chronic.",
+          "Drinking plenty of water can help prevent UTIs.",
+          "Urinating when you need to can help prevent UTIs.",
+          "Wiping from front to back after using the bathroom can help prevent UTIs."
+        ],
+        "questions_for_doctor": [
+          "What are the symptoms of a UTI?",
+          "How can I prevent UTIs?",
+          "What are the treatment options for UTIs?"
+        ],
+        "references": [
+          {
+            "title": "Urinary Tract Infections",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUAnet.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for UTI diagnosis and treatment"
+          },
+          {
+            "title": "Urinary Tract Infections (UTIs)",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK.nih.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of UTIs, including symptoms, diagnosis, and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "UTIs are common infections that can cause significant discomfort and pain, but they can be treated with antibiotics and prevented by practicing good hygiene and drinking plenty of water."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Urinary Tract Infections (UTIs)",
+      "content": {
+        "intro": "UTIs are caused by bacteria that enter the urinary system. The most common type of bacteria that causes UTIs is Escherichia coli (E. coli). Other bacteria, such as Klebsiella pneumoniae and Pseudomonas aeruginosa, can also cause UTIs. In this lesson, we'll explore the causes and risk factors of UTIs, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks.",
+        "sections": [
+          {
+            "heading": "Genetic factors",
+            "text": "Some people may be more prone to UTIs due to their genetic makeup. For example, people with a family history of UTIs may be more likely to develop UTIs themselves. Additionally, people with certain genetic conditions, such as cystic fibrosis, may be more susceptible to UTIs."
+          },
+          {
+            "heading": "Lifestyle triggers",
+            "text": "Certain lifestyle factors can increase the risk of developing UTIs. For example, people who use catheters or have a history of kidney stones may be more likely to develop UTIs. Additionally, people who do not drink enough water or who have a diet high in sugar and salt may be more prone to UTIs."
+          },
+          {
+            "heading": "Modifiable vs non-modifiable risks",
+            "text": "Some risk factors for UTIs are modifiable, meaning they can be changed or controlled. For example, people can reduce their risk of UTIs by drinking plenty of water, urinating when they need to, and wiping from front to back after using the bathroom. Other risk factors, such as age and sex, are non-modifiable, meaning they cannot be changed."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that people with certain medical conditions, such as diabetes or kidney disease, may be more prone to UTIs.",
+        "key_points": [
+          "UTIs are caused by bacteria that enter the urinary system.",
+          "The most common type of bacteria that causes UTIs is E. coli.",
+          "Genetic factors can increase the risk of UTIs.",
+          "Lifestyle triggers, such as catheter use or a diet high in sugar and salt, can increase the risk of UTIs.",
+          "Modifiable risk factors, such as drinking plenty of water, can help reduce the risk of UTIs.",
+          "Non-modifiable risk factors, such as age and sex, cannot be changed."
+        ],
+        "questions_for_doctor": [
+          "What are the most common causes of UTIs?",
+          "How can I reduce my risk of UTIs?",
+          "What are the treatment options for UTIs caused by different types of bacteria?"
+        ],
+        "references": [
+          {
+            "title": "Urinary Tract Infections",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUAnet.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for UTI diagnosis and treatment"
+          },
+          {
+            "title": "Urinary Tract Infections (UTIs)",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK.nih.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of UTIs, including symptoms, diagnosis, and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "UTIs are caused by bacteria that enter the urinary system, and certain genetic and lifestyle factors can increase the risk of developing UTIs."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How UTIs Develop",
+      "content": {
+        "intro": "UTIs can cause a range of symptoms, from mild to severe. The symptoms of a UTI can vary depending on the location of the infection and the individual's overall health. In this lesson, we'll explore the symptoms of UTIs and how they develop over time.",
+        "sections": [
+          {
+            "heading": "Early warning signs",
+            "text": "The early warning signs of a UTI can include a burning sensation while urinating, frequent urination, and cloudy or strong-smelling urine. People may also experience pain or discomfort in the lower abdomen or back."
+          },
+          {
+            "heading": "How UTIs progress over time",
+            "text": "If left untreated, UTIs can progress and cause more severe symptoms. For example, people may experience fever, chills, and nausea. In severe cases, UTIs can lead to kidney damage or sepsis, a life-threatening condition that occurs when the body's response to an infection becomes uncontrolled and causes widespread inflammation."
+          },
+          {
+            "heading": "What patients actually feel",
+            "text": "People with UTIs often describe the symptoms as feeling like they have to urinate all the time, but when they try to urinate, only a small amount of urine comes out. They may also feel a strong urge to urinate, but when they try to urinate, they may feel like they are unable to empty their bladder completely. Additionally, people with UTIs may experience pain or discomfort in the lower abdomen or back, which can range from mild to severe."
+          }
+        ],
+        "clinical_pearl": "One key fact to remember is that UTIs can be treated with antibiotics, and it's essential to seek medical attention if symptoms persist or worsen over time.",
+        "key_points": [
+          "UTIs can cause a range of symptoms, from mild to severe.",
+          "The symptoms of a UTI can vary depending on the location of the infection and the individual's overall health.",
+          "Early warning signs of a UTI can include a burning sensation while urinating and frequent urination.",
+          "If left untreated, UTIs can progress and cause more severe symptoms.",
+          "UTIs can lead to kidney damage or sepsis if left untreated.",
+          "It's essential to seek medical attention if symptoms persist or worsen over time."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of a UTI?",
+          "How can I tell if my UTI is getting worse?",
+          "What are the treatment options for UTIs, and how long do they take to work?"
+        ],
+        "references": [
+          {
+            "title": "Urinary Tract Infections",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUAnet.org",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation for UTI diagnosis and treatment"
+          },
+          {
+            "title": "Urinary Tract Infections (UTIs)",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK.nih.gov",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of UTIs, including symptoms, diagnosis, and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "UTIs can cause a range of symptoms, from mild to severe, and it's essential to seek medical attention if symptoms persist or worsen over time."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing a urinary tract infection (UTI) involves a combination of physical examination, medical history, and laboratory tests. Your doctor will start by asking you questions about your symptoms, such as when they started, how severe they are, and if you've had any previous UTIs. They will also perform a physical examination to check for any signs of infection, such as fever or tenderness in the abdomen. Think of this process like solving a puzzle, where each piece of information helps your doctor get a clearer picture of what's going on.",
+        "sections": [
+          {
+            "heading": "Urinalysis",
+            "text": "One of the key tests for diagnosing a UTI is a urinalysis, which involves analyzing a sample of your urine. This test can show if there's an infection by detecting the presence of white blood cells, red blood cells, or bacteria in your urine. It's a bit like checking the water quality in a pool - if the test finds certain 'contaminants' like bacteria, it indicates an infection. Your doctor might also use a dipstick test to quickly check for signs of infection, such as blood, protein, or nitrites in your urine. Aim to drink plenty of water before the test to ensure a good sample."
+          },
+          {
+            "heading": "Urine Culture",
+            "text": "A urine culture is another important test that helps identify the type of bacteria causing the UTI. This test involves sending a sample of your urine to a laboratory where it's placed in a special medium that encourages any bacteria present to grow. It's similar to planting a seed in soil and waiting for it to grow into a plant. Once the bacteria are identified, your doctor can choose the most effective antibiotic to treat the infection. This process usually takes a couple of days, so be patient and follow your doctor's advice in the meantime."
+          },
+          {
+            "heading": "Imaging Tests",
+            "text": "In some cases, your doctor might recommend imaging tests, such as an ultrasound or CT scan, to check for any complications or underlying conditions that could be contributing to the UTI. These tests can provide detailed images of your urinary tract and help identify issues like kidney stones or structural abnormalities. Think of these tests like taking a detailed photograph of the inside of your body, helping your doctor see exactly what's going on and make a more accurate diagnosis. Always ask your doctor why a particular test is recommended and what you can expect during the process."
+          }
+        ],
+        "clinical_pearl": "Remember, a prompt diagnosis is key to treating a UTI effectively. Don't hesitate to seek medical attention if you suspect you have a UTI, as early treatment can prevent complications and reduce the risk of the infection spreading to your kidneys.",
+        "key_points": [
+          "A urinalysis is a crucial test for diagnosing UTIs, as it can detect the presence of bacteria, white blood cells, or red blood cells in your urine.",
+          "Drinking plenty of water before a urinalysis can help ensure a good urine sample.",
+          "A urine culture helps identify the type of bacteria causing the UTI, allowing your doctor to choose the most effective treatment.",
+          "Imaging tests like ultrasounds or CT scans can be used to check for complications or underlying conditions contributing to the UTI.",
+          "Prompt diagnosis and treatment are essential for preventing complications and reducing the risk of the infection spreading.",
+          "Always follow your doctor's advice and attend any recommended follow-up appointments to ensure the infection is fully cleared."
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose my UTI, and how do I prepare for them?",
+          "How long will it take to get the results of my urine culture, and what does it mean if the results show a specific type of bacteria?",
+          "Are there any potential risks or complications associated with the diagnostic tests, and how can I minimize them?"
+        ],
+        "references": [
+          {
+            "title": "Urinary Tract Infections",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUA Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the diagnosis and treatment of UTIs in adults."
+          },
+          {
+            "title": "Diagnosis and Treatment of Urinary Tract Infections",
+            "authors": "Infectious Diseases Society of America",
+            "journal_or_source": "IDSA Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Guidelines for the diagnosis, treatment, and prevention of UTIs, including recommendations for antibiotic use."
+          }
+        ]
+      },
+      "key_takeaway": "Diagnosing a UTI involves a combination of physical examination, medical history, and laboratory tests. Understanding the process and what to expect can help you feel more in control and ensure you receive the right treatment."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for a urinary tract infection (UTI) usually involves antibiotics, which are medications that kill bacteria. The type and duration of antibiotic treatment depend on the severity of the UTI, the type of bacteria causing the infection, and your overall health. It's essential to follow your doctor's advice and complete the full course of antibiotics, even if your symptoms improve before finishing the treatment. Think of antibiotics like a special kind of cleaning solution that targets and eliminates the bacteria causing the infection.",
+        "sections": [
+          {
+            "heading": "Antibiotics",
+            "text": "Antibiotics are the primary treatment for UTIs. Your doctor will prescribe an antibiotic based on the type of bacteria causing the infection and your medical history. It's crucial to take the antibiotics exactly as prescribed and to finish the full course, even if you start feeling better before completing the treatment. This ensures that all the bacteria are eliminated, reducing the risk of the infection coming back. Aim to take your antibiotics at the same time every day to establish a routine."
+          },
+          {
+            "heading": "Pain Relief",
+            "text": "In addition to antibiotics, your doctor might recommend pain relief medications to help manage symptoms like discomfort, burning during urination, or abdominal pain. These medications can include over-the-counter pain relievers like ibuprofen or acetaminophen. Always follow the recommended dosage and talk to your doctor if you have any questions or concerns about side effects. Remember, pain relief medications are meant to help you feel more comfortable while the antibiotics work to clear the infection."
+          },
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Making certain lifestyle changes can help your body recover from a UTI and prevent future infections. Drinking plenty of water to stay hydrated is essential, as it helps flush out bacteria from your urinary tract. Avoiding caffeine and alcohol, which can irritate the bladder, and urinating when you feel the need, rather than holding it in, can also help. Think of these changes like giving your body the tools it needs to fight off the infection and stay healthy in the long run. Aim to drink at least 8 cups (64 ounces) of water per day."
+          }
+        ],
+        "clinical_pearl": "Completing the full course of antibiotics as prescribed by your doctor is crucial for ensuring that the UTI is fully treated and reducing the risk of antibiotic resistance.",
+        "key_points": [
+          "Antibiotics are the primary treatment for UTIs, and the type and duration of treatment depend on the severity of the infection and the type of bacteria.",
+          "It's essential to complete the full course of antibiotics, even if symptoms improve before finishing the treatment.",
+          "Pain relief medications can help manage symptoms like discomfort or abdominal pain, but always follow the recommended dosage.",
+          "Drinking plenty of water and avoiding irritants like caffeine and alcohol can help your body recover from a UTI and prevent future infections.",
+          "Making lifestyle changes, such as urinating when you feel the need and avoiding holding it in, can help prevent UTIs.",
+          "Always follow your doctor's advice and attend any recommended follow-up appointments to ensure the infection is fully cleared and to discuss prevention strategies."
+        ],
+        "questions_for_doctor": [
+          "What type of antibiotic will I be prescribed, and how long will I need to take it?",
+          "Are there any potential side effects of the antibiotic, and how can I manage them?",
+          "What lifestyle changes can I make to help my body recover from the UTI and prevent future infections?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Urinary Tract Infections",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the treatment of UTIs, including antibiotic use and prevention strategies."
+          },
+          {
+            "title": "Urinary Tract Infections: Treatment and Prevention",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Guidelines for the treatment and prevention of UTIs, including information on antibiotics, pain relief, and lifestyle changes."
+          }
+        ]
+      },
+      "key_takeaway": "Treatment for a UTI usually involves antibiotics, and it's essential to follow your doctor's advice and complete the full course of treatment. Making lifestyle changes, such as drinking plenty of water and avoiding irritants, can also help your body recover and prevent future infections."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with UTIs",
+      "content": {
+        "intro": "Preventing urinary tract infections (UTIs) and managing their impact on your daily life involves a combination of lifestyle changes, self-care practices, and medical interventions. By understanding how to prevent UTIs and what steps to take if you do get an infection, you can reduce the risk of complications and improve your overall quality of life. Think of prevention like building a strong defense system for your body, where every healthy choice you make helps protect you against infections.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention focuses on avoiding getting a UTI in the first place. This can be achieved through lifestyle changes such as drinking plenty of water to stay hydrated, urinating when you feel the need, and avoiding holding it in. Wiping from front to back after using the bathroom can also help prevent bacteria from entering the urinary tract. Aim to drink at least 8 cups (64 ounces) of water per day and urinate at least 6-8 times per day."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications and slow the progression of the disease after you've been diagnosed with a UTI. This can include attending follow-up appointments with your doctor, taking antibiotics as prescribed, and making lifestyle changes to reduce the risk of future infections. Monitoring your symptoms and seeking medical attention if they worsen or recur is also crucial. Think of secondary prevention like being proactive about your health, where you take control of managing your condition to prevent it from getting worse."
+          },
+          {
+            "heading": "Living Well with UTIs",
+            "text": "Living well with UTIs involves making daily life adjustments to manage your condition and prevent future infections. This can include dietary changes, such as avoiding spicy or acidic foods that can irritate the bladder, and exercise routines that promote good urinary tract health. Practicing good hygiene, such as washing your hands before and after using the bathroom, and avoiding the use of scented soaps or bubble baths that can irritate the genital area, can also help. Aim to walk for at least 30 minutes, 5 days a week, and include bladder-friendly foods like cranberries in your diet."
+          }
+        ],
+        "clinical_pearl": "Drinking plenty of water and urinating when you feel the need are simple yet effective strategies for preventing UTIs and managing their impact on your daily life.",
+        "key_points": [
+          "Drinking plenty of water and urinating when you feel the need can help prevent UTIs.",
+          "Wiping from front to back after using the bathroom and avoiding holding it in can reduce the risk of UTIs.",
+          "Attending follow-up appointments with your doctor and taking antibiotics as prescribed are crucial for preventing complications and managing UTIs.",
+          "Making lifestyle changes, such as avoiding spicy or acidic foods and practicing good hygiene, can help manage UTIs and prevent future infections.",
+          "Monitoring your symptoms and seeking medical attention if they worsen or recur is essential for preventing complications.",
+          "Including bladder-friendly foods like cranberries in your diet and exercising regularly can help promote good urinary tract health."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to reduce my risk of getting UTIs?",
+          "How can I manage my symptoms and prevent complications if I do get a UTI?",
+          "What follow-up care do I need after being diagnosed with a UTI, and how often should I schedule appointments with my doctor?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Urinary Tract Infections",
+            "authors": "American Urological Association",
+            "journal_or_source": "AUA Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for the prevention of UTIs, including lifestyle changes and self-care practices."
+          },
+          {
+            "title": "Living Well with Urinary Tract Infections",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "NIDDK Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Guidelines for living well with UTIs, including information on dietary changes, exercise routines, and good hygiene practices."
+          }
+        ]
+      },
+      "key_takeaway": "Preventing UTIs and managing their impact on your daily life involves a combination of lifestyle changes, self-care practices, and medical interventions. By understanding how to prevent UTIs and what steps to take if you do get an infection, you can reduce the risk of complications and improve your overall quality of life."
+    }
+  ]
+}

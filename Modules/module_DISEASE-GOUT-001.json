@@ -1,0 +1,146 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-GOUT-001",
+  "title": "Gout: Urate Crystal Biology, Hyperuricaemia, Allopurinol and Treat-to-Target Era",
+  "specialty": "Rheumatology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Gout",
+      "content": {
+        "intro": "Gout, a disease characterized by the deposition of monosodium urate crystals in joints, has a rich and fascinating history. The earliest recorded description of gout dates back to the Ebers Papyrus in 1550 BC. However, it was not until the 17th and 18th centuries that the disease began to be studied in more detail. Thomas Sydenham, an English physician, is often credited with the first comprehensive description of gout in 1683. He noted the association between gout and kidney stones, as well as the disease's tendency to affect the joints of the feet. In the 19th century, the discovery of uric acid crystals in the joints of gout patients by Alfred Baring Garrod in 1848 marked a significant milestone in the understanding of the disease. The development of effective treatments, such as colchicine and allopurinol, followed in the 20th century. The work of scientists like William Harvey, who first described the circulation of blood, and Alexander Fleming, who discovered penicillin, also contributed to the understanding of gout. Famous cases of gout include those of King Henry VIII and Benjamin Franklin, who both suffered from the disease.",
+        "sections": [],
+        "key_points": [
+          "The earliest recorded description of gout dates back to the Ebers Papyrus in 1550 BC.",
+          "Thomas Sydenham provided the first comprehensive description of gout in 1683.",
+          "Alfred Baring Garrod discovered uric acid crystals in the joints of gout patients in 1848.",
+          "The development of colchicine and allopurinol marked significant milestones in the treatment of gout.",
+          "William Harvey's description of blood circulation contributed to the understanding of gout.",
+          "Alexander Fleming's discovery of penicillin had an indirect impact on the treatment of gout.",
+          "King Henry VIII and Benjamin Franklin were famous cases of gout.",
+          "The understanding of gout has evolved significantly over the centuries, from its initial description to the development of effective treatments."
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Gout",
+      "content": {
+        "intro": "Gout is a complex disease characterized by the deposition of monosodium urate crystals in joints, leading to inflammation and tissue damage. The pathophysiology of gout involves the interplay of multiple factors, including genetic predisposition, diet, and environmental factors. Hyperuricaemia, or elevated levels of uric acid in the blood, is a key factor in the development of gout. Uric acid is produced through the breakdown of purines, which are found in many foods. The kidneys play a crucial role in regulating uric acid levels, and impaired renal function can contribute to hyperuricaemia. Genetic factors, such as mutations in the SLC22A12 gene, can also increase the risk of developing gout. The disease can be divided into several subtypes, including primary gout, secondary gout, and diet-induced gout. Molecular mechanisms, such as the activation of the NLRP3 inflammasome, also play a critical role in the development of gout.",
+        "sections": [],
+        "key_points": [
+          "Gout is characterized by the deposition of monosodium urate crystals in joints.",
+          "Hyperuricaemia is a key factor in the development of gout.",
+          "Genetic predisposition, diet, and environmental factors contribute to the pathophysiology of gout.",
+          "The kidneys play a crucial role in regulating uric acid levels.",
+          "Impaired renal function can contribute to hyperuricaemia.",
+          "Genetic mutations, such as those in the SLC22A12 gene, can increase the risk of developing gout.",
+          "Gout can be divided into several subtypes, including primary, secondary, and diet-induced gout.",
+          "Molecular mechanisms, such as the activation of the NLRP3 inflammasome, play a critical role in the development of gout."
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Gout",
+      "content": {
+        "intro": "Gout typically presents with sudden, severe pain and swelling in one or more joints, often accompanied by redness and warmth. The most commonly affected joint is the base of the big toe, but other joints, such as the knees, ankles, and wrists, can also be involved. The pain is often described as excruciating and can be worse at night. The disease can progress through several stages, including acute gouty arthritis, intercritical gout, and chronic tophaceous gout. Atypical presentations of gout can include pseudogout, which is characterized by the deposition of calcium pyrophosphate dihydrate crystals in the joints. Cardinal symptoms of gout include intense pain, swelling, and redness in the affected joints, as well as the presence of urate crystals in the joint fluid. The disease can also be associated with other conditions, such as kidney stones, hypertension, and diabetes.",
+        "sections": [],
+        "key_points": [
+          "Gout typically presents with sudden, severe pain and swelling in one or more joints.",
+          "The most commonly affected joint is the base of the big toe.",
+          "Other joints, such as the knees, ankles, and wrists, can also be involved.",
+          "The pain is often described as excruciating and can be worse at night.",
+          "Gout can progress through several stages, including acute gouty arthritis, intercritical gout, and chronic tophaceous gout.",
+          "Atypical presentations of gout can include pseudogout.",
+          "Cardinal symptoms of gout include intense pain, swelling, and redness in the affected joints.",
+          "The presence of urate crystals in the joint fluid is a key diagnostic feature of gout."
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Gout diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The American College of Rheumatology (ACR) has established criteria for the diagnosis of gout, which include the presence of monosodium urate crystals in the joint fluid, elevated serum urate levels, and characteristic clinical features such as sudden onset of intense pain, redness, and swelling in a single joint. Scoring systems, such as the ACR score, can help guide diagnosis. Laboratory tests, including complete blood count, blood chemistry, and urinalysis, can help rule out other conditions. Imaging studies, such as X-rays, ultrasound, and dual-energy computed tomography (DECT), can help confirm the presence of urate crystals and joint damage.",
+        "sections": [],
+        "key_points": [
+          "ACR criteria for gout diagnosis",
+          "Monosodium urate crystals in joint fluid",
+          "Elevated serum urate levels",
+          "Characteristic clinical features",
+          "ACR score",
+          " Laboratory tests to rule out other conditions",
+          "Imaging studies to confirm urate crystals and joint damage",
+          "DECT for detecting urate crystals"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of gout involves a combination of pharmacological and non-pharmacological approaches. First-line treatments include nonsteroidal anti-inflammatory drugs (NSAIDs), colchicine, and corticosteroids. Second-line treatments include urate-lowering therapies (ULT) such as allopurinol, febuxostat, and probenecid. Non-pharmacological approaches include lifestyle modifications, such as dietary changes, weight loss, and increased physical activity. Evidence-based guidelines recommend a treat-to-target approach, aiming to reduce serum urate levels to <6 mg/dL. Doses and treatment duration vary depending on the severity of the disease and patient factors.",
+        "sections": [],
+        "key_points": [
+          "First-line treatments for gout",
+          "NSAIDs, colchicine, and corticosteroids",
+          "Second-line treatments for gout",
+          "ULT, including allopurinol, febuxostat, and probenecid",
+          "Non-pharmacological approaches, including lifestyle modifications",
+          "Treat-to-target approach",
+          " Serum urate target level <6 mg/dL",
+          "Individualized treatment plans based on disease severity and patient factors"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Gout can lead to several complications, including chronic kidney disease, kidney stones, and joint damage. The incidence of these complications varies depending on the severity and duration of the disease. Prognostic scores, such as the Gout Impact Scale, can help predict the risk of complications and guide treatment decisions. Early diagnosis and treatment can help prevent or delay the onset of complications. Incidence data and prognostic scores can inform treatment plans and improve patient outcomes.",
+        "sections": [],
+        "key_points": [
+          "Chronic kidney disease as a complication of gout",
+          "Kidney stones as a complication of gout",
+          "Joint damage as a complication of gout",
+          "Incidence of complications varies by disease severity and duration",
+          "Prognostic scores, such as the Gout Impact Scale",
+          "Early diagnosis and treatment to prevent or delay complications",
+          "Importance of individualized treatment plans",
+          "Role of incidence data and prognostic scores in guiding treatment decisions"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-GOUT-001",
+    "type": "disease_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Gout: Urate Crystal Biology, Hyperuricaemia, Allopurinol and Treat-to-Target Era",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

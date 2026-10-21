@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "id": "PG-CV-005",
+    "type": "patient_guide",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Stroke and TIA — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Stroke and TIA?",
+      "content": {
+        "intro": "Stroke and Transient Ischemic Attack (TIA), also known as a 'mini-stroke', are serious medical conditions that affect the blood supply to the brain. Think of your brain as a city with roads (blood vessels) that supply all the necessary goods (oxygen and nutrients) to the houses (brain cells). When these roads are blocked or damaged, the houses don't get what they need, and that's when problems start. Stroke and TIA are like traffic jams or road closures in the brain, but instead of being annoyed, your brain cells can get damaged or even die. It's crucial to understand what stroke and TIA are, how common they are, who gets them, and why they matter.",
+        "sections": [
+          {
+            "heading": "What is Stroke?",
+            "text": "A stroke occurs when the blood supply to part of your brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients. Brain cells begin to die in minutes. There are three main types of stroke: ischemic (the most common type, caused by a blockage), hemorrhagic (caused by a rupture of blood vessels), and transient ischemic attack (TIA or 'mini-stroke', a temporary period of symptoms similar to those of a stroke). A TIA doesn't cause permanent damage, but it's a warning sign of a future stroke, and it's just as important to take immediate action. For example, if you're driving and the road is blocked, you need to find an alternative route quickly to avoid being late. Similarly, during a TIA, the brain finds alternative routes for blood flow, but it's a sign that there's a problem that needs fixing."
+          },
+          {
+            "heading": "How Common is Stroke and TIA?",
+            "text": "Stroke is a leading cause of death and disability worldwide. According to the World Health Organization (WHO), approximately 15 million people suffer a stroke each year, and about a third of these cases are fatal. TIA, while less common, is also a significant concern because it can be a precursor to a full-blown stroke. The good news is that with proper medical care and lifestyle changes, many strokes and TIAs can be prevented or their impact minimized. For instance, managing high blood pressure, not smoking, and exercising regularly can significantly reduce your risk of having a stroke or TIA."
+          },
+          {
+            "heading": "Why Does It Matter?",
+            "text": "Understanding stroke and TIA matters because prompt treatment can significantly improve outcomes. The faster you receive medical attention, the better your chances of minimizing damage and recovering. Knowing the signs of stroke and TIA, such as sudden weakness in the face, arm, or leg, sudden confusion, trouble speaking or understanding speech, sudden trouble seeing in one or both eyes, sudden severe headache with no known cause, and sudden trouble walking, dizziness, loss of balance, or lack of coordination, can save lives. It's also crucial to understand that while some risk factors like age and family history can't be changed, many can be managed through lifestyle adjustments and medical treatment. For example, aiming for a blood pressure below 120/80 mmHg can reduce your stroke risk."
+          }
+        ],
+        "clinical_pearl": "Acting F.A.S.T. can save lives. F.A.S.T. stands for Face (ask the person to smile, does one side of their face droop?), Arm (ask the person to raise both arms, does one arm drift downward?), Speech (ask the person to repeat a simple sentence, is their speech slurred or difficult to understand?), and Time (time is of the essence, if the person shows any of these symptoms, call for emergency medical services immediately).",
+        "key_points": [
+          "Stroke and TIA are medical emergencies that need immediate attention.",
+          "Understanding the types of stroke and TIA can help in seeking the right treatment.",
+          "Knowing the signs and symptoms can save lives.",
+          "Lifestyle changes and medical management can prevent or minimize the risk of stroke and TIA.",
+          "Family history and age are non-modifiable risk factors, but many risk factors can be managed.",
+          "Prompt action during a TIA can prevent a future stroke."
+        ],
+        "questions_for_doctor": [
+          "What are the most common signs of stroke and TIA that I should look out for?",
+          "How can I reduce my risk of having a stroke or TIA?",
+          "What are the latest treatment options available for stroke and TIA?"
+        ],
+        "references": [
+          {
+            "title": "Stroke and TIA Guidelines",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA Journal",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Emphasizes the importance of immediate medical attention for stroke and TIA."
+          },
+          {
+            "title": "Prevention of Stroke",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Reports",
+            "year": 2024,
+            "type": "report",
+            "note": "Highlights lifestyle changes and medical interventions for preventing stroke."
+          }
+        ]
+      },
+      "key_takeaway": "Stroke and TIA are serious conditions, but with prompt recognition and treatment, outcomes can be significantly improved. Understanding the signs, symptoms, and risk factors is key to saving lives and reducing disability."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Stroke and TIA",
+      "content": {
+        "intro": "While stroke and TIA can affect anyone, certain factors increase the risk. These can be divided into modifiable and non-modifiable risk factors. Understanding these factors can help in taking preventive measures. Think of risk factors like the ingredients in a recipe - if you know what you're mixing together, you can adjust the recipe to make it healthier.",
+        "sections": [
+          {
+            "heading": "Modifiable Risk Factors",
+            "text": "Modifiable risk factors are those that can be changed through lifestyle adjustments or medical treatment. High blood pressure is the most significant risk factor for stroke, as it can cause blood vessels in the brain to burst or become blocked. Other modifiable risk factors include diabetes, high cholesterol, smoking, obesity, lack of physical activity, and an unhealthy diet. For example, reducing salt intake can help lower blood pressure, and exercising regularly can improve overall cardiovascular health."
+          },
+          {
+            "heading": "Non-Modifiable Risk Factors",
+            "text": "Non-modifiable risk factors are those that cannot be changed, such as age, family history, and ethnicity. The risk of stroke and TIA increases with age, and individuals with a family history of stroke are at higher risk. Certain ethnic groups are also at higher risk due to genetic predispositions and socioeconomic factors. Understanding these factors can help in being more vigilant about health and in making informed decisions about preventive care."
+          },
+          {
+            "heading": "Genetic Factors and Lifestyle Triggers",
+            "text": "Genetic factors can play a role in the development of conditions that increase the risk of stroke and TIA, such as high blood pressure or diabetes. Lifestyle triggers, including stress, alcohol consumption, and drug use, can also contribute to the risk. It's essential to manage these factors through a combination of lifestyle changes and, when necessary, medical intervention. For instance, managing stress through meditation or yoga can help reduce blood pressure."
+          }
+        ],
+        "clinical_pearl": "High blood pressure is the single most important risk factor for stroke, and managing it can significantly reduce the risk of stroke and TIA.",
+        "key_points": [
+          "Modifiable risk factors can be managed through lifestyle changes and medical treatment.",
+          "Non-modifiable risk factors require increased vigilance and preventive care.",
+          "Genetic factors and lifestyle triggers can contribute to the risk of stroke and TIA.",
+          "Managing high blood pressure is crucial in reducing stroke risk.",
+          "A healthy diet and regular physical activity can help manage several risk factors.",
+          "Quitting smoking can significantly reduce the risk of stroke and TIA."
+        ],
+        "questions_for_doctor": [
+          "How can I manage my modifiable risk factors to reduce my stroke risk?",
+          "What genetic testing might be recommended based on my family history?",
+          "How often should I have my blood pressure checked?"
+        ],
+        "references": [
+          {
+            "title": "Risk Factors for Stroke",
+            "authors": "National Institute of Neurological Disorders and Stroke",
+            "journal_or_source": "NINDS Reports",
+            "year": 2024,
+            "type": "report",
+            "note": "Provides an overview of modifiable and non-modifiable risk factors for stroke."
+          },
+          {
+            "title": "Prevention of Stroke through Lifestyle Changes",
+            "authors": "American Heart Association",
+            "journal_or_source": "AHA Journal",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Emphasizes the role of diet, exercise, and stress management in preventing stroke."
+          }
+        ]
+      },
+      "key_takeaway": "Understanding and managing risk factors is key to preventing stroke and TIA. While some factors cannot be changed, many can be managed through lifestyle adjustments and medical treatment."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and Development of Stroke and TIA",
+      "content": {
+        "intro": "Recognizing the symptoms of stroke and TIA is crucial for prompt medical intervention. The symptoms can vary but often come on suddenly. It's essential to act quickly if you or someone else is experiencing these symptoms. Think of it like a fire alarm - when it goes off, you need to take action immediately to prevent damage.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of stroke and TIA can be remembered using the acronym F.A.S.T. - Face (ask the person to smile, does one side of their face droop?), Arm (ask the person to raise both arms, does one arm drift downward?), Speech (ask the person to repeat a simple sentence, is their speech slurred or difficult to understand?), and Time (time is of the essence, if the person shows any of these symptoms, call for emergency medical services immediately). Other symptoms may include sudden severe headache with no known cause, sudden trouble walking, dizziness, loss of balance, or lack of coordination."
+          },
+          {
+            "heading": "How the Disease Develops",
+            "text": "Stroke and TIA develop when the blood supply to part of the brain is interrupted or reduced. This can happen due to a blockage (ischemic stroke), a rupture of blood vessels (hemorrhagic stroke), or a temporary disruption (TIA). The development of stroke and TIA can be rapid, with symptoms appearing within minutes. It's crucial to understand that prompt medical attention can significantly improve outcomes. For example, if you're driving and get a flat tire, you need to stop the car and fix the tire to avoid further damage. Similarly, during a stroke or TIA, medical intervention is necessary to prevent further brain damage."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "Patients experiencing stroke or TIA may feel a range of symptoms, from mild to severe. These can include sudden weakness or numbness in the face, arm, or leg, sudden confusion, trouble speaking or understanding speech, sudden trouble seeing in one or both eyes, or sudden severe headache with no known cause. It's essential for patients and their families to be aware of these symptoms and to seek medical help immediately if they occur. For instance, if you're with someone who's experiencing these symptoms, stay calm and call for emergency services right away."
+          }
+        ],
+        "clinical_pearl": "The sooner medical treatment is administered for stroke, the better the chances of recovery. Every minute counts in reducing brain damage.",
+        "key_points": [
+          "Recognizing the symptoms of stroke and TIA is crucial for prompt medical intervention.",
+          "The F.A.S.T. acronym can help remember the key symptoms.",
+          "Stroke and TIA can develop rapidly, with symptoms appearing within minutes.",
+          "Prompt medical attention can significantly improve outcomes.",
+          "Patients may experience a range of symptoms, from mild to severe.",
+          "Seeking medical help immediately is essential if symptoms occur."
+        ],
+        "questions_for_doctor": [
+          "What should I do if I or someone else is experiencing symptoms of stroke or TIA?",
+          "How can I differentiate between stroke, TIA, and other conditions with similar symptoms?",
+          "What are the most critical factors in determining the outcome of a stroke or TIA?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Stroke and TIA",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC Reports",
+            "year": 2024,
+            "type": "report",
+            "note": "Provides an overview of the symptoms of stroke and TIA and the importance of prompt medical attention."
+          },
+          {
+            "title": "Emergency Response to Stroke",
+            "authors": "American Stroke Association",
+            "journal_or_source": "ASA Journal",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Emphasizes the critical role of emergency medical services in stroke care."
+          }
+        ]
+      },
+      "key_takeaway": "Prompt recognition and response to the symptoms of stroke and TIA are critical for improving outcomes. Understanding what to look for and what to do can save lives and reduce disability."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing a stroke or TIA involves a combination of medical history, physical examination, and diagnostic tests. Your doctor will ask you about your symptoms, medical history, and perform a physical examination to check for signs of a stroke. Diagnostic tests such as computed tomography (CT) scans, magnetic resonance imaging (MRI), and blood tests may be ordered to confirm the diagnosis and determine the cause of the stroke.",
+        "sections": [
+          {
+            "heading": "Diagnostic Tests",
+            "text": "A CT scan or MRI of the brain is typically performed to determine the cause and extent of the stroke. These tests can show if there is any damage to the brain tissue and if the stroke is caused by a blockage or bleeding. Blood tests may also be ordered to check for conditions such as high blood pressure, diabetes, and high cholesterol, which can increase the risk of stroke."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointment, your doctor will ask you about your symptoms, medical history, and perform a physical examination. They will also review the results of your diagnostic tests and discuss the diagnosis and treatment options with you. It's essential to ask questions and seek clarification if you don't understand anything."
+          },
+          {
+            "heading": "How Long Diagnosis Takes",
+            "text": "The diagnosis of a stroke or TIA can be made quickly, usually within a few hours of arrival at the hospital. However, the entire diagnostic process, including tests and consultations with specialists, may take several days or even weeks to complete. It's essential to be patient and follow your doctor's instructions during this time."
+          }
+        ],
+        "clinical_pearl": "A prompt diagnosis is crucial in treating a stroke or TIA. The faster you receive treatment, the better your chances of recovery.",
+        "key_points": [
+          "A combination of medical history, physical examination, and diagnostic tests is used to diagnose a stroke or TIA.",
+          "CT scans and MRI are commonly used to determine the cause and extent of the stroke.",
+          "Blood tests may be ordered to check for conditions that increase the risk of stroke.",
+          "The diagnosis of a stroke or TIA can be made quickly, usually within a few hours.",
+          "The entire diagnostic process may take several days or weeks to complete.",
+          "Prompt diagnosis is crucial in treating a stroke or TIA."
+        ],
+        "questions_for_doctor": [
+          "What diagnostic tests will I need to undergo to confirm the diagnosis?",
+          "How long will the diagnostic process take, and what can I expect during this time?",
+          "What are the next steps in my treatment and care after diagnosis?"
+        ],
+        "references": [
+          {
+            "title": "Stroke Diagnosis and Treatment",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Emphasizes the importance of prompt diagnosis and treatment in stroke care."
+          },
+          {
+            "title": "Diagnostic Tests for Stroke",
+            "authors": "National Institute of Neurological Disorders and Stroke",
+            "journal_or_source": "NINDS",
+            "year": 2020,
+            "type": "informational",
+            "note": "Provides an overview of the diagnostic tests used to diagnose stroke."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "The treatment of a stroke or TIA depends on the cause and severity of the condition. Medications, procedures, and lifestyle modifications may be recommended to manage symptoms, prevent further strokes, and improve overall health.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Medications such as anticoagulants, antiplatelets, and thrombolytics may be prescribed to prevent blood clots and improve blood flow to the brain. It's essential to take these medications as directed and follow up with your doctor regularly to monitor their effectiveness and potential side effects."
+          },
+          {
+            "heading": "Procedures and Surgery",
+            "text": "In some cases, procedures such as carotid endarterectomy or angioplasty may be necessary to remove blockages or widen narrowed blood vessels. Surgery may also be required to repair damaged blood vessels or remove blood clots."
+          },
+          {
+            "heading": "Rehabilitation and Lifestyle Modifications",
+            "text": "Rehabilitation therapies such as physical, occupational, and speech therapy can help you regain lost functions and adapt to any permanent changes. Lifestyle modifications such as a healthy diet, regular exercise, and stress management can also help reduce the risk of further strokes and improve overall health."
+          }
+        ],
+        "clinical_pearl": "A comprehensive treatment plan that includes medications, procedures, and lifestyle modifications can help manage symptoms and prevent further strokes.",
+        "key_points": [
+          "The treatment of a stroke or TIA depends on the cause and severity of the condition.",
+          "Medications such as anticoagulants and antiplatelets may be prescribed to prevent blood clots.",
+          "Procedures such as carotid endarterectomy or angioplasty may be necessary to remove blockages or widen narrowed blood vessels.",
+          "Rehabilitation therapies can help you regain lost functions and adapt to any permanent changes.",
+          "Lifestyle modifications such as a healthy diet and regular exercise can help reduce the risk of further strokes.",
+          "A comprehensive treatment plan can help manage symptoms and prevent further strokes."
+        ],
+        "questions_for_doctor": [
+          "What treatment options are available for my specific condition?",
+          "What are the potential side effects of the recommended medications and procedures?",
+          "How can I modify my lifestyle to reduce the risk of further strokes and improve my overall health?"
+        ],
+        "references": [
+          {
+            "title": "Stroke Treatment and Management",
+            "authors": "American Stroke Association",
+            "journal_or_source": "Stroke",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides an overview of the treatment options for stroke."
+          },
+          {
+            "title": "Rehabilitation After Stroke",
+            "authors": "National Institute of Neurological Disorders and Stroke",
+            "journal_or_source": "NINDS",
+            "year": 2020,
+            "type": "informational",
+            "note": "Discusses the importance of rehabilitation in stroke recovery."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with This Condition",
+      "content": {
+        "intro": "Preventing further strokes and living well with the condition requires a comprehensive approach that includes lifestyle modifications, monitoring, and self-management. By making healthy choices and working closely with your healthcare team, you can reduce the risk of further strokes and improve your overall health.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves making lifestyle modifications to reduce the risk of stroke. This includes eating a healthy diet, exercising regularly, managing stress, and avoiding tobacco and excessive alcohol consumption. Regular health check-ups and screenings can also help identify and manage conditions that increase the risk of stroke."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves managing the condition and preventing further strokes. This includes taking medications as directed, attending follow-up appointments, and monitoring for signs of further strokes. Self-management techniques such as tracking blood pressure and blood glucose levels can also help you stay on top of your condition."
+          },
+          {
+            "heading": "Daily Life Adjustments",
+            "text": "Living with a stroke or TIA may require some daily life adjustments. This includes adapting to any permanent changes, managing fatigue, and seeking support from family and friends. It's essential to prioritize self-care and make time for activities that bring you joy and fulfillment."
+          }
+        ],
+        "clinical_pearl": "A comprehensive approach to prevention and self-management can help you live well with a stroke or TIA and reduce the risk of further strokes.",
+        "key_points": [
+          "Primary prevention involves making lifestyle modifications to reduce the risk of stroke.",
+          "Secondary prevention involves managing the condition and preventing further strokes.",
+          "Regular health check-ups and screenings can help identify and manage conditions that increase the risk of stroke.",
+          "Self-management techniques such as tracking blood pressure and blood glucose levels can help you stay on top of your condition.",
+          "Daily life adjustments may be necessary to adapt to any permanent changes.",
+          "Prioritizing self-care and seeking support from family and friends is essential for living well with a stroke or TIA."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle modifications can I make to reduce the risk of further strokes?",
+          "How can I manage my condition and prevent further strokes?",
+          "What daily life adjustments can I make to adapt to any permanent changes and improve my overall health?"
+        ],
+        "references": [
+          {
+            "title": "Stroke Prevention and Management",
+            "authors": "American Heart Association",
+            "journal_or_source": "Stroke",
+            "year": 2022,
+            "type": "guideline",
+            "note": "Provides an overview of the prevention and management of stroke."
+          },
+          {
+            "title": "Living with Stroke",
+            "authors": "National Institute of Neurological Disorders and Stroke",
+            "journal_or_source": "NINDS",
+            "year": 2020,
+            "type": "informational",
+            "note": "Discusses the daily life adjustments and self-management techniques for living with a stroke."
+          }
+        ]
+      }
+    }
+  ]
+}

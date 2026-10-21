@@ -1,0 +1,402 @@
+{
+  "meta": {
+    "id": "PG-RENAL-001",
+    "type": "patient_guide",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Chronic Kidney Disease — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Chronic Kidney Disease?",
+      "content": {
+        "intro": "Chronic Kidney Disease (CKD) is a condition where your kidneys gradually lose their ability to filter waste and excess fluids from your blood. Imagine your kidneys as filters that clean your blood, and over time, these filters become clogged and less efficient. CKD is a common condition that affects millions of people worldwide. It's essential to understand what CKD is, how common it is, and why it matters to your health. In this lesson, we'll explore the basics of CKD and what you need to know to take control of your health.",
+        "sections": [
+          {
+            "heading": "What is CKD?",
+            "text": "CKD is a long-term condition where your kidneys become damaged and can't filter waste and excess fluids from your blood as well as they should. This can lead to a buildup of toxins in your body, which can cause a range of symptoms and health problems. CKD can be caused by a variety of factors, including diabetes, high blood pressure, and family history. According to the National Kidney Foundation, approximately 37 million adults in the United States have CKD, and many more are at risk of developing the condition."
+          },
+          {
+            "heading": "How common is CKD?",
+            "text": "CKD is a common condition that affects people of all ages and backgrounds. According to the Centers for Disease Control and Prevention (CDC), CKD affects approximately 15% of adults in the United States. CKD is more common in people with diabetes, high blood pressure, and those who are overweight or obese. It's essential to know your risk factors and take steps to prevent or manage CKD."
+          },
+          {
+            "heading": "Why does CKD matter?",
+            "text": "CKD matters because it can lead to serious health problems if left untreated or poorly managed. CKD can increase your risk of heart disease, stroke, and kidney failure, which can require dialysis or a kidney transplant. Additionally, CKD can affect your quality of life, causing symptoms such as fatigue, swelling, and pain. By understanding CKD and taking steps to manage it, you can reduce your risk of complications and improve your overall health."
+          }
+        ],
+        "clinical_pearl": "CKD can be silent, meaning you may not experience symptoms until the condition is advanced. Regular check-ups with your doctor and simple tests can help detect CKD early, when it's easier to manage.",
+        "key_points": [
+          "CKD is a long-term condition that affects the kidneys' ability to filter waste and excess fluids from the blood.",
+          "CKD is common, affecting approximately 37 million adults in the United States.",
+          "CKD can be caused by a variety of factors, including diabetes, high blood pressure, and family history.",
+          "CKD can increase your risk of heart disease, stroke, and kidney failure.",
+          "Regular check-ups with your doctor and simple tests can help detect CKD early.",
+          "CKD can affect your quality of life, causing symptoms such as fatigue, swelling, and pain."
+        ],
+        "questions_for_doctor": [
+          "What are my risk factors for CKD?",
+          "How can I prevent or manage CKD?",
+          "What tests can help detect CKD early?"
+        ],
+        "references": [
+          {
+            "title": "Chronic Kidney Disease (CKD) Overview",
+            "authors": "National Kidney Foundation",
+            "journal_or_source": "National Kidney Foundation",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation: Regular check-ups with your doctor and simple tests can help detect CKD early."
+          },
+          {
+            "title": "Chronic Kidney Disease in the United States, 2024",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "Centers for Disease Control and Prevention",
+            "year": 2024,
+            "type": "report",
+            "note": "Key statistic: Approximately 37 million adults in the United States have CKD."
+          }
+        ]
+      },
+      "key_takeaway": "CKD is a common condition that can be managed with regular check-ups, simple tests, and lifestyle changes. By understanding your risk factors and taking steps to prevent or manage CKD, you can reduce your risk of complications and improve your overall health."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Chronic Kidney Disease",
+      "content": {
+        "intro": "CKD is a complex condition that can be caused by a variety of factors. Understanding the causes and risk factors of CKD can help you take steps to prevent or manage the condition. In this lesson, we'll explore the genetic and lifestyle factors that contribute to CKD, as well as the modifiable and non-modifiable risks.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "CKD can be caused by genetic factors, such as polycystic kidney disease (PKD). PKD is a genetic disorder that causes cysts to form on the kidneys, which can lead to kidney damage and CKD. Other genetic disorders, such as Alport syndrome, can also increase your risk of CKD."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as diet and exercise, can also contribute to CKD. A diet high in salt, sugar, and unhealthy fats can increase your risk of CKD, while regular exercise and a healthy diet can help reduce your risk. Additionally, smoking and excessive alcohol consumption can also increase your risk of CKD."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors for CKD are modifiable, meaning you can change them through lifestyle changes or medical treatment. For example, high blood pressure and diabetes are modifiable risk factors that can be managed through medication, diet, and exercise. Other risk factors, such as age and family history, are non-modifiable, meaning you can't change them. However, by understanding your risk factors and taking steps to manage them, you can reduce your risk of CKD."
+          }
+        ],
+        "clinical_pearl": "CKD can be caused by a combination of genetic and lifestyle factors. By understanding your risk factors and taking steps to manage them, you can reduce your risk of CKD.",
+        "key_points": [
+          "CKD can be caused by genetic factors, such as PKD.",
+          "Lifestyle factors, such as diet and exercise, can contribute to CKD.",
+          "Modifiable risk factors, such as high blood pressure and diabetes, can be managed through medication, diet, and exercise.",
+          "Non-modifiable risk factors, such as age and family history, can't be changed.",
+          "CKD can be caused by a combination of genetic and lifestyle factors.",
+          "Understanding your risk factors and taking steps to manage them can help reduce your risk of CKD."
+        ],
+        "questions_for_doctor": [
+          "What are my genetic risk factors for CKD?",
+          "How can I manage my lifestyle risk factors for CKD?",
+          "What are my modifiable and non-modifiable risk factors for CKD?"
+        ],
+        "references": [
+          {
+            "title": "Genetic Factors in Chronic Kidney Disease",
+            "authors": "National Kidney Foundation",
+            "journal_or_source": "National Kidney Foundation",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation: Genetic testing can help identify genetic risk factors for CKD."
+          },
+          {
+            "title": "Lifestyle Factors and Chronic Kidney Disease",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "Centers for Disease Control and Prevention",
+            "year": 2024,
+            "type": "report",
+            "note": "Key statistic: A healthy diet and regular exercise can help reduce your risk of CKD."
+          }
+        ]
+      },
+      "key_takeaway": "CKD can be caused by a combination of genetic and lifestyle factors. By understanding your risk factors and taking steps to manage them, you can reduce your risk of CKD."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How Chronic Kidney Disease Develops",
+      "content": {
+        "intro": "CKD can be a silent condition, meaning you may not experience symptoms until the condition is advanced. However, there are some early warning signs and symptoms that can indicate CKD. In this lesson, we'll explore the symptoms and how CKD develops over time.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "CKD can cause a range of symptoms, including fatigue, swelling, and pain. You may also experience changes in your urine, such as blood or protein in your urine. Additionally, CKD can cause anemia, which can lead to fatigue and weakness."
+          },
+          {
+            "heading": "How CKD Develops",
+            "text": "CKD develops over time, often as a result of chronic damage to the kidneys. This damage can be caused by a variety of factors, including diabetes, high blood pressure, and kidney disease. As the kidneys become damaged, they become less efficient at filtering waste and excess fluids from the blood, which can lead to a buildup of toxins in the body."
+          },
+          {
+            "heading": "Stages of CKD",
+            "text": "CKD is divided into five stages, ranging from mild to severe. Each stage is characterized by a decrease in kidney function, which can be measured through blood and urine tests. By understanding the stages of CKD, you can take steps to manage the condition and slow its progression."
+          }
+        ],
+        "clinical_pearl": "CKD can be a silent condition, meaning you may not experience symptoms until the condition is advanced. Regular check-ups with your doctor and simple tests can help detect CKD early.",
+        "key_points": [
+          "CKD can cause a range of symptoms, including fatigue, swelling, and pain.",
+          "CKD can cause changes in your urine, such as blood or protein in your urine.",
+          "CKD can cause anemia, which can lead to fatigue and weakness.",
+          "CKD develops over time, often as a result of chronic damage to the kidneys.",
+          "CKD is divided into five stages, ranging from mild to severe.",
+          "Regular check-ups with your doctor and simple tests can help detect CKD early."
+        ],
+        "questions_for_doctor": [
+          "What are the early warning signs of CKD?",
+          "How can I manage my symptoms and slow the progression of CKD?",
+          "What are the stages of CKD, and how can I determine which stage I'm in?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Chronic Kidney Disease",
+            "authors": "National Kidney Foundation",
+            "journal_or_source": "National Kidney Foundation",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Key recommendation: Regular check-ups with your doctor and simple tests can help detect CKD early."
+          },
+          {
+            "title": "Stages of Chronic Kidney Disease",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "Centers for Disease Control and Prevention",
+            "year": 2024,
+            "type": "report",
+            "note": "Key statistic: CKD is divided into five stages, ranging from mild to severe."
+          }
+        ]
+      },
+      "key_takeaway": "CKD can be a silent condition, meaning you may not experience symptoms until the condition is advanced. By understanding the symptoms and how CKD develops over time, you can take steps to manage the condition and slow its progression."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing chronic kidney disease (CKD) involves a combination of physical examinations, medical history, and laboratory tests. Your doctor will start by asking you about your symptoms, medical history, and lifestyle. Then, they will perform a physical examination to look for signs of CKD, such as high blood pressure or swelling in your legs. Laboratory tests, including blood and urine tests, will also be conducted to assess your kidney function and detect any potential complications.",
+        "sections": [
+          {
+            "heading": "Blood Tests",
+            "text": "Blood tests are used to measure the levels of waste products, such as creatinine and urea, in your blood. These tests can help your doctor determine how well your kidneys are filtering waste and excess fluids from your blood. For example, a creatinine level of 1.2 milligrams per deciliter (mg/dL) or higher may indicate impaired kidney function. Additionally, blood tests can help identify other potential causes of your symptoms, such as anemia or electrolyte imbalances."
+          },
+          {
+            "heading": "Urine Tests",
+            "text": "Urine tests are used to detect protein or blood in your urine, which can be a sign of kidney damage. Your doctor may also use a urine test to measure the level of albumin, a type of protein, in your urine. This test can help diagnose and monitor kidney disease. For instance, a urine albumin-to-creatinine ratio (UACR) of 30 milligrams per gram (mg/g) or higher may indicate kidney damage."
+          },
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests, such as ultrasound or CT scans, may be used to visualize your kidneys and detect any potential problems, such as kidney stones or tumors. These tests can help your doctor determine the cause of your symptoms and develop an effective treatment plan. For example, an ultrasound may reveal a kidney stone that is blocking the flow of urine and causing your symptoms."
+          }
+        ],
+        "clinical_pearl": "Early detection and treatment of CKD can help slow disease progression and reduce the risk of complications, such as heart disease and stroke.",
+        "key_points": [
+          "CKD diagnosis involves physical examinations, medical history, and laboratory tests",
+          "Blood tests measure waste products, such as creatinine and urea, in your blood",
+          "Urine tests detect protein or blood in your urine, which can indicate kidney damage",
+          "Imaging tests visualize your kidneys and detect potential problems, such as kidney stones or tumors",
+          "Early detection and treatment can help slow disease progression and reduce complications",
+          "Regular monitoring and follow-up appointments are crucial for managing CKD"
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose CKD?",
+          "How often will I need to have my kidney function tested?",
+          "What are the potential risks and complications associated with CKD diagnosis and treatment?"
+        ],
+        "references": [
+          {
+            "title": "Chronic Kidney Disease: Diagnosis and Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to CKD diagnosis and management"
+          },
+          {
+            "title": "Kidney Disease: Improving Global Outcomes",
+            "authors": "Kidney Disease: Improving Global Outcomes (KDIGO) Foundation",
+            "journal_or_source": "KDIGO",
+            "year": 2024,
+            "type": "guideline",
+            "note": "International guideline for CKD diagnosis and treatment"
+          }
+        ]
+      },
+      "key_takeaway": "Early detection and treatment of CKD can help slow disease progression and reduce the risk of complications."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for CKD depends on the underlying cause and severity of the disease. The primary goal of treatment is to slow disease progression, manage symptoms, and prevent complications. Your doctor may recommend lifestyle modifications, medications, or other interventions to help manage your condition.",
+        "sections": [
+          {
+            "heading": "Lifestyle Modifications",
+            "text": "Lifestyle modifications, such as a healthy diet, regular exercise, and stress management, can help slow disease progression and improve overall health. For example, a diet low in sodium, protein, and phosphorus can help reduce the strain on your kidneys. Additionally, regular exercise, such as walking for 30 minutes, 5 days a week, can help improve blood flow and reduce blood pressure."
+          },
+          {
+            "heading": "Medications",
+            "text": "Medications, such as angiotensin-converting enzyme (ACE) inhibitors or angiotensin receptor blockers (ARBs), can help manage high blood pressure and reduce proteinuria. Your doctor may also prescribe medications to manage other conditions, such as anemia or electrolyte imbalances, that can occur with CKD."
+          },
+          {
+            "heading": "Other Interventions",
+            "text": "Other interventions, such as dialysis or kidney transplantation, may be necessary for advanced CKD. Dialysis involves using a machine to filter waste products from your blood, while kidney transplantation involves surgically replacing your damaged kidney with a healthy one from a donor."
+          }
+        ],
+        "clinical_pearl": "A comprehensive treatment plan that includes lifestyle modifications, medications, and regular monitoring can help manage CKD and improve overall health.",
+        "key_points": [
+          "Treatment for CKD depends on the underlying cause and severity of the disease",
+          "Lifestyle modifications, such as a healthy diet and regular exercise, can help slow disease progression",
+          "Medications, such as ACE inhibitors or ARBs, can help manage high blood pressure and reduce proteinuria",
+          "Other interventions, such as dialysis or kidney transplantation, may be necessary for advanced CKD",
+          "Regular monitoring and follow-up appointments are crucial for managing CKD",
+          "A comprehensive treatment plan can help improve overall health and reduce the risk of complications"
+        ],
+        "questions_for_doctor": [
+          "What lifestyle modifications can I make to help manage my CKD?",
+          "What medications are available to treat CKD, and what are their potential side effects?",
+          "What are the potential risks and benefits associated with dialysis or kidney transplantation?"
+        ],
+        "references": [
+          {
+            "title": "Chronic Kidney Disease: Treatment and Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to CKD treatment and management"
+          },
+          {
+            "title": "Kidney Disease: Improving Global Outcomes",
+            "authors": "Kidney Disease: Improving Global Outcomes (KDIGO) Foundation",
+            "journal_or_source": "KDIGO",
+            "year": 2024,
+            "type": "guideline",
+            "note": "International guideline for CKD treatment and management"
+          }
+        ]
+      },
+      "key_takeaway": "A comprehensive treatment plan that includes lifestyle modifications, medications, and regular monitoring can help manage CKD and improve overall health."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with CKD",
+      "content": {
+        "intro": "While there is no cure for CKD, there are steps you can take to prevent the disease from progressing and improve your overall health. By making healthy lifestyle choices, managing related conditions, and working closely with your healthcare team, you can reduce the risk of complications and improve your quality of life.",
+        "sections": [
+          {
+            "heading": "Healthy Lifestyle Choices",
+            "text": "Healthy lifestyle choices, such as a balanced diet, regular exercise, and stress management, can help slow disease progression and improve overall health. For example, a diet low in sodium, protein, and phosphorus can help reduce the strain on your kidneys. Additionally, regular exercise, such as walking for 30 minutes, 5 days a week, can help improve blood flow and reduce blood pressure."
+          },
+          {
+            "heading": "Managing Related Conditions",
+            "text": "Managing related conditions, such as high blood pressure, diabetes, and heart disease, can help reduce the risk of complications and improve overall health. Your doctor may recommend medications or lifestyle modifications to help manage these conditions."
+          },
+          {
+            "heading": "Working with Your Healthcare Team",
+            "text": "Working closely with your healthcare team, including your doctor, nurse, and dietitian, can help you develop a comprehensive treatment plan and improve your overall health. Regular monitoring and follow-up appointments are crucial for managing CKD and reducing the risk of complications."
+          }
+        ],
+        "clinical_pearl": "By making healthy lifestyle choices, managing related conditions, and working closely with your healthcare team, you can reduce the risk of complications and improve your quality of life.",
+        "key_points": [
+          "Healthy lifestyle choices, such as a balanced diet and regular exercise, can help slow disease progression",
+          "Managing related conditions, such as high blood pressure and diabetes, can help reduce the risk of complications",
+          "Working closely with your healthcare team can help you develop a comprehensive treatment plan",
+          "Regular monitoring and follow-up appointments are crucial for managing CKD",
+          "A comprehensive treatment plan can help improve overall health and reduce the risk of complications",
+          "By taking an active role in your care, you can improve your quality of life and reduce the risk of complications"
+        ],
+        "questions_for_doctor": [
+          "What healthy lifestyle choices can I make to help manage my CKD?",
+          "How can I work with my healthcare team to develop a comprehensive treatment plan?",
+          "What are the potential risks and benefits associated with different treatment options?"
+        ],
+        "references": [
+          {
+            "title": "Chronic Kidney Disease: Prevention and Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to CKD prevention and management"
+          },
+          {
+            "title": "Kidney Disease: Improving Global Outcomes",
+            "authors": "Kidney Disease: Improving Global Outcomes (KDIGO) Foundation",
+            "journal_or_source": "KDIGO",
+            "year": 2024,
+            "type": "guideline",
+            "note": "International guideline for CKD prevention and management"
+          }
+        ]
+      },
+      "key_takeaway": "By making healthy lifestyle choices, managing related conditions, and working closely with your healthcare team, you can reduce the risk of complications and improve your quality of life."
+    },
+    {
+      "id": "L007",
+      "order": 7,
+      "title": "Living Well with CKD",
+      "content": {
+        "intro": "Living with CKD requires ongoing management and monitoring to reduce the risk of complications and improve overall health. By working closely with your healthcare team, making healthy lifestyle choices, and staying informed about your condition, you can improve your quality of life and reduce the risk of complications.",
+        "sections": [
+          {
+            "heading": "Staying Informed",
+            "text": "Staying informed about your condition, including understanding your treatment plan, medications, and potential side effects, can help you take an active role in your care. Your doctor and healthcare team can provide you with educational resources and support to help you manage your CKD."
+          },
+          {
+            "heading": "Managing Emotions",
+            "text": "Managing emotions, such as anxiety, depression, and stress, can help improve your overall health and well-being. Your doctor may recommend counseling or support groups to help you cope with the emotional aspects of living with CKD."
+          },
+          {
+            "heading": "Building a Support Network",
+            "text": "Building a support network, including family, friends, and support groups, can help you stay connected and motivated. Your healthcare team can provide you with resources and referrals to help you build a support network."
+          }
+        ],
+        "clinical_pearl": "By staying informed, managing emotions, and building a support network, you can improve your quality of life and reduce the risk of complications.",
+        "key_points": [
+          "Staying informed about your condition can help you take an active role in your care",
+          "Managing emotions, such as anxiety and depression, can help improve overall health and well-being",
+          "Building a support network can help you stay connected and motivated",
+          "Regular monitoring and follow-up appointments are crucial for managing CKD",
+          "A comprehensive treatment plan can help improve overall health and reduce the risk of complications",
+          "By taking an active role in your care, you can improve your quality of life and reduce the risk of complications"
+        ],
+        "questions_for_doctor": [
+          "What resources are available to help me stay informed about my condition?",
+          "How can I manage emotions, such as anxiety and depression, associated with CKD?",
+          "What support groups or counseling services are available to help me cope with CKD?"
+        ],
+        "references": [
+          {
+            "title": "Chronic Kidney Disease: Living Well with CKD",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to living well with CKD"
+          },
+          {
+            "title": "Kidney Disease: Improving Global Outcomes",
+            "authors": "Kidney Disease: Improving Global Outcomes (KDIGO) Foundation",
+            "journal_or_source": "KDIGO",
+            "year": 2024,
+            "type": "guideline",
+            "note": "International guideline for living well with CKD"
+          }
+        ]
+      },
+      "key_takeaway": "By staying informed, managing emotions, and building a support network, you can improve your quality of life and reduce the risk of complications."
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-AD-001",
+  "title": "Alzheimer's Disease: Amyloid Hypothesis, Biomarkers, Lecanemab and Future Directions",
+  "specialty": "Neurology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Alzheimer's Disease",
+      "content": {
+        "intro": "Alzheimer's disease was first described by Alois Alzheimer in 1906. Alzheimer presented a case study of a 51-year-old woman named Auguste Deter, who exhibited symptoms of memory loss, language difficulties, and unpredictable behavior. The disease was initially thought to be a rare condition affecting only younger adults. However, as research progressed, it became clear that Alzheimer's disease was a distinct clinical entity that affected a significant portion of the elderly population. In 1984, the amyloid hypothesis was proposed by George Glenner and Caine Wong, suggesting that the accumulation of amyloid-beta peptides in the brain was a key factor in the development of Alzheimer's disease. This hypothesis has since been widely accepted and has guided much of the research into the disease. The discovery of the APP gene in 1987 and the presenilin genes in 1995 further solidified the genetic basis of Alzheimer's disease. In 2002, the first immunotherapy trial for Alzheimer's disease was conducted, marking a significant shift in the approach to treating the disease.",
+        "sections": [],
+        "key_points": [
+          "Alois Alzheimer first described the disease in 1906",
+          "The amyloid hypothesis was proposed in 1984",
+          "The APP gene was discovered in 1987",
+          "The presenilin genes were discovered in 1995",
+          "The first immunotherapy trial was conducted in 2002",
+          "Auguste Deter was the first documented case of Alzheimer's disease",
+          "Alzheimer's disease was initially thought to be a rare condition",
+          "The disease is now recognized as a major public health concern"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Alzheimer's Disease",
+      "content": {
+        "intro": "Alzheimer's disease is characterized by the accumulation of amyloid-beta peptides and tau protein in the brain, leading to neuronal damage and death. The molecular mechanisms underlying the disease are complex and involve multiple pathways, including the amyloid cascade hypothesis, the tau hypothesis, and the inflammation hypothesis. Genetic factors, such as mutations in the APP, PSEN1, and PSEN2 genes, play a significant role in the development of early-onset Alzheimer's disease. Late-onset Alzheimer's disease, on the other hand, is thought to be caused by a combination of genetic and environmental factors. The disease can be divided into several subtypes, including early-onset, late-onset, and familial Alzheimer's disease. Recent research has also highlighted the importance of lifestyle factors, such as diet, exercise, and social engagement, in reducing the risk of developing Alzheimer's disease.",
+        "sections": [],
+        "key_points": [
+          "Amyloid-beta peptides and tau protein accumulate in the brain",
+          "Neuronal damage and death occur due to the accumulation of these proteins",
+          "The amyloid cascade hypothesis is a key theory underlying the disease",
+          "Genetic factors play a significant role in early-onset Alzheimer's disease",
+          "Late-onset Alzheimer's disease is caused by a combination of genetic and environmental factors",
+          "Lifestyle factors can reduce the risk of developing Alzheimer's disease",
+          "The disease can be divided into several subtypes",
+          "Inflammation is a key component of the disease pathology"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Alzheimer's Disease",
+      "content": {
+        "intro": "Alzheimer's disease is characterized by a gradual decline in cognitive and functional abilities. The cardinal symptoms of the disease include memory loss, language difficulties, and visuospatial deficits. The disease can be divided into several stages, including preclinical, early, moderate, and severe. Atypical presentations of the disease, such as posterior cortical atrophy and primary progressive aphasia, can also occur. The clinical presentation of Alzheimer's disease can vary significantly from person to person, and diagnosis can be challenging, particularly in the early stages of the disease. A comprehensive diagnostic evaluation, including medical history, physical examination, laboratory tests, and imaging studies, is essential for accurate diagnosis and treatment planning.",
+        "sections": [],
+        "key_points": [
+          "Memory loss is a cardinal symptom of Alzheimer's disease",
+          "Language difficulties and visuospatial deficits are also common symptoms",
+          "The disease can be divided into several stages",
+          "Atypical presentations of the disease can occur",
+          "Diagnosis can be challenging, particularly in the early stages",
+          "A comprehensive diagnostic evaluation is essential for accurate diagnosis",
+          "The clinical presentation of Alzheimer's disease can vary significantly from person to person",
+          "Early diagnosis and treatment can improve outcomes and quality of life"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing Alzheimer's disease involves a combination of clinical evaluation, laboratory tests, and imaging studies. The National Institute of Neurological and Communicative Disorders and Stroke (NINCDS) and the Alzheimer's Disease and Related Disorders Association (ADRDA) established diagnostic criteria in 1984. These criteria include the presence of dementia, deficits in two or more areas of cognition, and the absence of other conditions that could cause dementia. The Mini-Mental State Examination (MMSE) is a widely used screening tool to assess cognitive function. Laboratory tests, such as complete blood counts and chemistry panels, can help rule out other conditions. Imaging studies, including computed tomography (CT) and magnetic resonance imaging (MRI), can help identify structural changes in the brain. Biomarkers, such as amyloid-beta and tau proteins, are being researched as potential diagnostic tools.",
+        "sections": [],
+        "key_points": [
+          "The NINCDS-ADRDA criteria are used to diagnose Alzheimer's disease",
+          "The MMSE is a widely used screening tool to assess cognitive function",
+          "Laboratory tests can help rule out other conditions",
+          "Imaging studies can help identify structural changes in the brain",
+          "Biomarkers are being researched as potential diagnostic tools",
+          "The diagnosis of Alzheimer's disease is based on a combination of clinical evaluation and diagnostic tests",
+          "The diagnostic criteria include the presence of dementia and deficits in two or more areas of cognition",
+          "Other conditions that could cause dementia must be ruled out"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment for Alzheimer's disease focuses on managing symptoms and slowing disease progression. Pharmacological treatments include cholinesterase inhibitors, such as donepezil and rivastigmine, which can help improve cognitive function and slow disease progression. Memantine, an N-methyl-D-aspartate (NMDA) receptor antagonist, can also help slow disease progression. Non-pharmacological treatments, such as cognitive training and behavioral therapy, can help manage symptoms and improve quality of life. Lifestyle modifications, such as regular exercise and a healthy diet, can also help reduce the risk of Alzheimer's disease. Lecanemab, a monoclonal antibody that targets amyloid-beta, has shown promise in clinical trials as a potential treatment for early-stage Alzheimer's disease.",
+        "sections": [],
+        "key_points": [
+          "Pharmacological treatments can help improve cognitive function and slow disease progression",
+          "Cholinesterase inhibitors, such as donepezil and rivastigmine, are commonly used to treat Alzheimer's disease",
+          "Memantine can help slow disease progression",
+          "Non-pharmacological treatments, such as cognitive training and behavioral therapy, can help manage symptoms",
+          "Lifestyle modifications, such as regular exercise and a healthy diet, can help reduce the risk of Alzheimer's disease",
+          "Lecanemab has shown promise in clinical trials as a potential treatment for early-stage Alzheimer's disease",
+          "Treatment for Alzheimer's disease is focused on managing symptoms and slowing disease progression",
+          "A combination of pharmacological and non-pharmacological treatments can be used to manage Alzheimer's disease"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Alzheimer's disease can lead to several complications, including cognitive decline, functional decline, and behavioral disturbances. The incidence of Alzheimer's disease increases with age, and the prognosis is generally poor. The median survival time after diagnosis is approximately 8-10 years. Prognostic scores, such as the Mini-Mental State Examination (MMSE) and the Clinical Dementia Rating (CDR), can help predict disease progression and mortality. Complications, such as pneumonia, dehydration, and malnutrition, are common in advanced Alzheimer's disease. Behavioral disturbances, such as agitation and aggression, can also occur.",
+        "sections": [],
+        "key_points": [
+          "Alzheimer's disease can lead to cognitive decline, functional decline, and behavioral disturbances",
+          "The incidence of Alzheimer's disease increases with age",
+          "The prognosis is generally poor, with a median survival time of approximately 8-10 years",
+          "Prognostic scores, such as the MMSE and CDR, can help predict disease progression and mortality",
+          "Complications, such as pneumonia and dehydration, are common in advanced Alzheimer's disease",
+          "Behavioral disturbances, such as agitation and aggression, can occur",
+          "The risk of complications and mortality increases with disease progression",
+          "Early diagnosis and treatment can help slow disease progression and improve prognosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Alzheimer's disease can affect special populations, such as pediatric and elderly individuals, differently. Pediatric Alzheimer's disease is rare and often associated with genetic mutations. Elderly individuals with Alzheimer's disease may experience age-related complications, such as frailty and comorbidities. Emerging therapies, such as immunotherapies and gene therapies, are being researched as potential treatments for Alzheimer's disease. Lecanemab, a monoclonal antibody that targets amyloid-beta, has shown promise in clinical trials. Other emerging therapies, such as aducanumab and gantenerumab, are also being researched.",
+        "sections": [],
+        "key_points": [
+          "Alzheimer's disease can affect special populations, such as pediatric and elderly individuals, differently",
+          "Pediatric Alzheimer's disease is rare and often associated with genetic mutations",
+          "Elderly individuals with Alzheimer's disease may experience age-related complications",
+          "Emerging therapies, such as immunotherapies and gene therapies, are being researched as potential treatments",
+          "Lecanemab has shown promise in clinical trials as a potential treatment for early-stage Alzheimer's disease",
+          "Other emerging therapies, such as aducanumab and gantenerumab, are also being researched",
+          "Special populations, such as those with Down syndrome, may be at increased risk of Alzheimer's disease",
+          "Emerging therapies may offer new hope for the treatment and prevention of Alzheimer's disease"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-AD-001",
+    "type": "disease_module",
+    "specialty": "Neurology",
+    "specialty_ru": "Неврология",
+    "title_en": "Alzheimer's Disease: Amyloid Hypothesis, Biomarkers, Lecanemab and Future Directions",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

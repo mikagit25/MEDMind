@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "id": "PG-META-004",
+    "type": "patient_guide",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Hypothyroidism — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Hypothyroidism?",
+      "content": {
+        "intro": "Hypothyroidism is a common condition where the thyroid gland doesn't produce enough thyroid hormones. These hormones are essential for various bodily functions, such as growth, development, and metabolism. Imagine your thyroid gland as a thermostat, regulating your body's temperature and energy levels. When it's not working properly, you might feel cold, tired, and sluggish. Hypothyroidism affects millions of people worldwide, and it's more common in women than men. The good news is that with proper treatment, you can manage your symptoms and live a healthy life. In this lesson, we'll explore what hypothyroidism is, how common it is, who gets it, and why it matters.",
+        "sections": [
+          {
+            "heading": "What is Hypothyroidism?",
+            "text": "Hypothyroidism is a condition where the thyroid gland doesn't produce enough thyroid hormones, specifically triiodothyronine (T3) and thyroxine (T4). These hormones play a crucial role in regulating your body's metabolism, growth, and development. Think of thyroid hormones as the fuel for your body's engine. When you don't have enough fuel, your engine can't run properly, leading to symptoms like fatigue, weight gain, and dry skin. Hypothyroidism can be caused by various factors, including an autoimmune disorder called Hashimoto's thyroiditis, thyroid surgery, or radiation therapy."
+          },
+          {
+            "heading": "How Common is Hypothyroidism?",
+            "text": "Hypothyroidism is a relatively common condition, affecting approximately 4.6% of the US population. It's more common in women than men, especially during pregnancy and after menopause. According to the American Thyroid Association, about 1 in 8 women will develop hypothyroidism during their lifetime. The risk of developing hypothyroidism increases with age, and it's more common in people with a family history of thyroid disease."
+          },
+          {
+            "heading": "Why Does Hypothyroidism Matter?",
+            "text": "Hypothyroidism matters because it can significantly impact your quality of life. If left untreated, hypothyroidism can lead to complications like high cholesterol, heart disease, and infertility. Additionally, hypothyroidism can increase your risk of developing other conditions, such as osteoporosis, depression, and anxiety. The good news is that with proper treatment, you can manage your symptoms and reduce your risk of developing these complications. It's essential to work with your healthcare provider to develop a personalized treatment plan that suits your needs."
+          }
+        ],
+        "clinical_pearl": "It's essential to get your thyroid hormone levels checked regularly, especially if you have a family history of thyroid disease or are experiencing symptoms like fatigue, weight gain, or dry skin.",
+        "key_points": [
+          "Hypothyroidism is a common condition that affects millions of people worldwide",
+          "The thyroid gland produces thyroid hormones, which regulate metabolism, growth, and development",
+          "Hypothyroidism can be caused by various factors, including autoimmune disorders, thyroid surgery, or radiation therapy",
+          "The risk of developing hypothyroidism increases with age and is more common in women than men",
+          "Untreated hypothyroidism can lead to complications like high cholesterol, heart disease, and infertility",
+          "Proper treatment can help manage symptoms and reduce the risk of developing complications"
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of hypothyroidism?",
+          "How is hypothyroidism diagnosed?",
+          "What are the treatment options for hypothyroidism?"
+        ],
+        "references": [
+          {
+            "title": "Hypothyroidism",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association recommends that adults with hypothyroidism take levothyroxine (T4) as the preferred treatment."
+          },
+          {
+            "title": "Thyroid Hormone Replacement Therapy",
+            "authors": "Endocrine Society",
+            "journal_or_source": "Endocrine Society",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The Endocrine Society recommends that patients with hypothyroidism aim for a TSH level between 0.5 and 2.5 mU/L."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors",
+      "content": {
+        "intro": "Hypothyroidism can be caused by various factors, including autoimmune disorders, thyroid surgery, or radiation therapy. In this lesson, we'll explore the causes and risk factors of hypothyroidism, and what you can do to reduce your risk. Imagine your thyroid gland as a delicate balance of hormones and immune cells. When this balance is disrupted, it can lead to hypothyroidism. Let's dive into the world of hypothyroidism and explore its causes and risk factors.",
+        "sections": [
+          {
+            "heading": "Autoimmune Disorders",
+            "text": "Autoimmune disorders, such as Hashimoto's thyroiditis, are the most common cause of hypothyroidism. In Hashimoto's thyroiditis, the immune system mistakenly attacks the thyroid gland, leading to inflammation and damage. This can cause the thyroid gland to produce fewer thyroid hormones, leading to hypothyroidism. Other autoimmune disorders, such as rheumatoid arthritis and lupus, can also increase your risk of developing hypothyroidism."
+          },
+          {
+            "heading": "Thyroid Surgery and Radiation Therapy",
+            "text": "Thyroid surgery and radiation therapy can also cause hypothyroidism. During thyroid surgery, part or all of the thyroid gland may be removed, leading to a decrease in thyroid hormone production. Radiation therapy, especially to the head and neck area, can also damage the thyroid gland and lead to hypothyroidism. Additionally, some medications, such as lithium and amiodarone, can interfere with thyroid function and increase your risk of developing hypothyroidism."
+          },
+          {
+            "heading": "Genetic and Environmental Factors",
+            "text": "Genetic and environmental factors can also play a role in the development of hypothyroidism. If you have a family history of thyroid disease, you may be more likely to develop hypothyroidism. Additionally, exposure to certain environmental toxins, such as perchlorates and polychlorinated biphenyls (PCBs), can increase your risk of developing hypothyroidism. A healthy diet and lifestyle can help reduce your risk of developing hypothyroidism, but it's essential to work with your healthcare provider to develop a personalized plan."
+          }
+        ],
+        "clinical_pearl": "If you have a family history of thyroid disease, it's essential to get your thyroid hormone levels checked regularly to reduce your risk of developing hypothyroidism.",
+        "key_points": [
+          "Autoimmune disorders, such as Hashimoto's thyroiditis, are the most common cause of hypothyroidism",
+          "Thyroid surgery and radiation therapy can cause hypothyroidism",
+          "Genetic and environmental factors can play a role in the development of hypothyroidism",
+          "A healthy diet and lifestyle can help reduce your risk of developing hypothyroidism",
+          "Certain medications, such as lithium and amiodarone, can interfere with thyroid function and increase your risk of developing hypothyroidism",
+          "Working with your healthcare provider can help you develop a personalized plan to reduce your risk of developing hypothyroidism"
+        ],
+        "questions_for_doctor": [
+          "What are the most common causes of hypothyroidism?",
+          "How can I reduce my risk of developing hypothyroidism?",
+          "What are the treatment options for hypothyroidism caused by autoimmune disorders?"
+        ],
+        "references": [
+          {
+            "title": "Hashimoto's Thyroiditis",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association recommends that patients with Hashimoto's thyroiditis take levothyroxine (T4) as the preferred treatment."
+          },
+          {
+            "title": "Thyroid Surgery and Radiation Therapy",
+            "authors": "Endocrine Society",
+            "journal_or_source": "Endocrine Society",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The Endocrine Society recommends that patients who have undergone thyroid surgery or radiation therapy be monitored regularly for hypothyroidism."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "Hypothyroidism can cause a range of symptoms, from mild to severe. In this lesson, we'll explore the symptoms of hypothyroidism, how the disease develops over time, and what you can do to manage your symptoms. Imagine your thyroid gland as a engine that's running low on fuel. As the fuel level decreases, the engine starts to slow down, leading to symptoms like fatigue, weight gain, and dry skin. Let's dive into the world of hypothyroidism and explore its symptoms and progression.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of hypothyroidism can be subtle, but they can include fatigue, weight gain, and dry skin. As the disease progresses, you may experience more severe symptoms like cold intolerance, hair loss, and depression. It's essential to pay attention to these symptoms and seek medical attention if you're experiencing any of them. Your healthcare provider can help you develop a personalized plan to manage your symptoms and slow the progression of the disease."
+          },
+          {
+            "heading": "How the Disease Develops",
+            "text": "Hypothyroidism can develop slowly over time, and it's often diagnosed during routine blood tests. As the thyroid gland produces fewer thyroid hormones, your body's metabolism slows down, leading to weight gain, fatigue, and other symptoms. If left untreated, hypothyroidism can lead to complications like high cholesterol, heart disease, and infertility. However, with proper treatment, you can manage your symptoms and reduce your risk of developing these complications."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "Patients with hypothyroidism often report feeling tired, sluggish, and cold. They may also experience weight gain, dry skin, and hair loss. Additionally, some patients may experience depression, anxiety, and memory problems. It's essential to remember that everyone's experience with hypothyroidism is different, and it's crucial to work with your healthcare provider to develop a personalized plan that addresses your unique needs and symptoms."
+          }
+        ],
+        "clinical_pearl": "If you're experiencing symptoms like fatigue, weight gain, or dry skin, it's essential to get your thyroid hormone levels checked to rule out hypothyroidism.",
+        "key_points": [
+          "The early warning signs of hypothyroidism can be subtle, but they can include fatigue, weight gain, and dry skin",
+          "Hypothyroidism can develop slowly over time, and it's often diagnosed during routine blood tests",
+          "Patients with hypothyroidism often report feeling tired, sluggish, and cold",
+          "Untreated hypothyroidism can lead to complications like high cholesterol, heart disease, and infertility",
+          "Proper treatment can help manage symptoms and reduce the risk of developing complications",
+          "It's essential to work with your healthcare provider to develop a personalized plan that addresses your unique needs and symptoms"
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of hypothyroidism?",
+          "How can I manage my symptoms and slow the progression of the disease?",
+          "What are the treatment options for hypothyroidism, and how can I choose the best one for me?"
+        ],
+        "references": [
+          {
+            "title": "Hypothyroidism Symptoms",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association recommends that patients with hypothyroidism be monitored regularly for symptoms and adjusted their treatment plan accordingly."
+          },
+          {
+            "title": "Thyroid Hormone Replacement Therapy",
+            "authors": "Endocrine Society",
+            "journal_or_source": "Endocrine Society",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The Endocrine Society recommends that patients with hypothyroidism take levothyroxine (T4) as the preferred treatment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing hypothyroidism involves a combination of physical examination, medical history, and laboratory tests. Your doctor will start by asking you about your symptoms and medical history. They will also perform a physical examination to look for signs of hypothyroidism, such as dry skin, hair loss, and swelling of the face and hands. Laboratory tests, including thyroid function tests, will be ordered to confirm the diagnosis.",
+        "sections": [
+          {
+            "heading": "Thyroid Function Tests",
+            "text": "Thyroid function tests measure the levels of thyroid hormones in your blood. The most common tests are the thyroid-stimulating hormone (TSH) test and the free thyroxine (FT4) test. The TSH test measures the level of TSH in your blood, which helps your doctor determine if your thyroid gland is producing enough thyroid hormones. The FT4 test measures the level of FT4 in your blood, which helps your doctor determine if your thyroid gland is producing enough thyroxine."
+          },
+          {
+            "heading": "Other Diagnostic Tests",
+            "text": "Other diagnostic tests, such as a complete blood count (CBC) and a blood chemistry test, may be ordered to rule out other conditions that may be causing your symptoms. Your doctor may also order an imaging test, such as a thyroid ultrasound, to evaluate the size and structure of your thyroid gland."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will discuss your test results with you and explain what they mean. They will also answer any questions you may have and provide you with guidance on how to manage your condition. It's essential to ask questions and seek clarification if you don't understand something. Remember, your doctor is there to help you, and it's crucial to work together to manage your hypothyroidism."
+          }
+        ],
+        "clinical_pearl": "It's essential to work with your doctor to determine the best course of treatment for your hypothyroidism. With the right treatment, you can manage your symptoms and improve your quality of life.",
+        "key_points": [
+          "Thyroid function tests are used to diagnose hypothyroidism.",
+          "The TSH test measures the level of TSH in your blood.",
+          "The FT4 test measures the level of FT4 in your blood.",
+          "Other diagnostic tests may be ordered to rule out other conditions.",
+          "Imaging tests, such as a thyroid ultrasound, may be ordered to evaluate the size and structure of your thyroid gland.",
+          "It's essential to work with your doctor to determine the best course of treatment for your hypothyroidism."
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose my hypothyroidism?",
+          "What do my test results mean?",
+          "How often will I need to see my doctor to manage my hypothyroidism?"
+        ],
+        "references": [
+          {
+            "title": "Hypothyroidism",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association provides guidelines for the diagnosis and treatment of hypothyroidism."
+          },
+          {
+            "title": "Thyroid Function Tests",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "The National Institute of Diabetes and Digestive and Kidney Diseases provides information on thyroid function tests."
+          }
+        ],
+        "key_takeaway": "Diagnosing hypothyroidism involves a combination of physical examination, medical history, and laboratory tests. It's essential to work with your doctor to determine the best course of treatment for your hypothyroidism."
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for hypothyroidism usually involves taking thyroid hormone replacement medication. The goal of treatment is to replace the missing thyroid hormones and restore normal thyroid function. There are several types of thyroid hormone replacement medication available, including levothyroxine (T4) and liothyronine (T3).",
+        "sections": [
+          {
+            "heading": "Levothyroxine (T4)",
+            "text": "Levothyroxine (T4) is the most commonly prescribed thyroid hormone replacement medication. It's a synthetic form of the thyroid hormone thyroxine, which is converted to triiodothyronine (T3) in the body. T4 is usually taken once a day, and it's essential to take it at the same time every day to maintain a consistent level of thyroid hormones in your blood."
+          },
+          {
+            "heading": "Liothyronine (T3)",
+            "text": "Liothyronine (T3) is another type of thyroid hormone replacement medication. It's a synthetic form of the thyroid hormone triiodothyronine, which is the active form of thyroid hormone. T3 is usually prescribed for people who have trouble converting T4 to T3 in their body."
+          },
+          {
+            "heading": "Choosing the Right Treatment",
+            "text": "Your doctor will work with you to determine the best treatment option for your hypothyroidism. They will consider factors such as your age, medical history, and the severity of your symptoms. It's essential to follow your doctor's instructions and take your medication as prescribed to ensure that you get the best possible results from your treatment."
+          }
+        ],
+        "clinical_pearl": "It's essential to work with your doctor to determine the best treatment option for your hypothyroidism. With the right treatment, you can manage your symptoms and improve your quality of life.",
+        "key_points": [
+          "Thyroid hormone replacement medication is usually taken once a day.",
+          "Levothyroxine (T4) is the most commonly prescribed thyroid hormone replacement medication.",
+          "Liothyronine (T3) is another type of thyroid hormone replacement medication.",
+          "Your doctor will work with you to determine the best treatment option for your hypothyroidism.",
+          "It's essential to follow your doctor's instructions and take your medication as prescribed.",
+          "Regular follow-up appointments with your doctor are crucial to monitor your treatment and make any necessary adjustments."
+        ],
+        "questions_for_doctor": [
+          "What type of thyroid hormone replacement medication is best for me?",
+          "How long will it take to notice an improvement in my symptoms?",
+          "What are the potential side effects of thyroid hormone replacement medication?"
+        ],
+        "references": [
+          {
+            "title": "Hypothyroidism Treatment",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association provides guidelines for the treatment of hypothyroidism."
+          },
+          {
+            "title": "Thyroid Hormone Replacement Medication",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "The National Institute of Diabetes and Digestive and Kidney Diseases provides information on thyroid hormone replacement medication."
+          }
+        ],
+        "key_takeaway": "Treatment for hypothyroidism usually involves taking thyroid hormone replacement medication. It's essential to work with your doctor to determine the best treatment option for your hypothyroidism."
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Living Well with Hypothyroidism",
+      "content": {
+        "intro": "Living well with hypothyroidism requires a combination of medication, lifestyle changes, and regular follow-up appointments with your doctor. It's essential to take your medication as prescribed and make healthy lifestyle choices, such as eating a balanced diet and getting regular exercise.",
+        "sections": [
+          {
+            "heading": "Diet and Nutrition",
+            "text": "Eating a balanced diet is crucial for managing hypothyroidism. Focus on whole, unprocessed foods, such as fruits, vegetables, whole grains, lean proteins, and healthy fats. Avoid foods that can interfere with your medication, such as soy and high-fiber foods. It's also essential to stay hydrated by drinking plenty of water throughout the day."
+          },
+          {
+            "heading": "Exercise and Physical Activity",
+            "text": "Regular exercise is essential for managing hypothyroidism. Aim for at least 30 minutes of moderate-intensity exercise per day, such as brisk walking, cycling, or swimming. Exercise can help improve your mood, increase your energy levels, and enhance your overall health and well-being."
+          },
+          {
+            "heading": "Stress Management",
+            "text": "Stress can exacerbate hypothyroidism symptoms. Practice stress-reducing techniques, such as meditation, yoga, or deep breathing exercises. It's also essential to get enough sleep, aim for 7-8 hours per night, and establish a consistent sleep schedule."
+          }
+        ],
+        "clinical_pearl": "It's essential to work with your doctor to manage your hypothyroidism. With the right treatment and lifestyle changes, you can manage your symptoms and improve your quality of life.",
+        "key_points": [
+          "Take your medication as prescribed to manage your hypothyroidism.",
+          "Eat a balanced diet that includes whole, unprocessed foods.",
+          "Avoid foods that can interfere with your medication.",
+          "Stay hydrated by drinking plenty of water throughout the day.",
+          "Aim for at least 30 minutes of moderate-intensity exercise per day.",
+          "Practice stress-reducing techniques, such as meditation or deep breathing exercises."
+        ],
+        "questions_for_doctor": [
+          "What lifestyle changes can I make to manage my hypothyroidism?",
+          "How often should I follow up with my doctor to monitor my condition?",
+          "What are the potential complications of unmanaged hypothyroidism?"
+        ],
+        "references": [
+          {
+            "title": "Hypothyroidism Management",
+            "authors": "American Thyroid Association",
+            "journal_or_source": "American Thyroid Association",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The American Thyroid Association provides guidelines for the management of hypothyroidism."
+          },
+          {
+            "title": "Living Well with Hypothyroidism",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "The National Institute of Diabetes and Digestive and Kidney Diseases provides information on living well with hypothyroidism."
+          }
+        ],
+        "key_takeaway": "Living well with hypothyroidism requires a combination of medication, lifestyle changes, and regular follow-up appointments with your doctor. It's essential to take your medication as prescribed and make healthy lifestyle choices."
+      }
+    }
+  ]
+}

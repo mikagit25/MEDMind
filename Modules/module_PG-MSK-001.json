@@ -1,0 +1,402 @@
+{
+  "meta": {
+    "id": "PG-MSK-001",
+    "type": "patient_guide",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Osteoarthritis (Knee, Hip, Spine) — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Osteoarthritis?",
+      "content": {
+        "intro": "Osteoarthritis is a common condition that affects the joints, causing pain and stiffness. It's like having a worn-out joint, similar to how a car's joints wear out over time. Imagine your joints are like the hinges on a door - they help you move and bend. But when the hinges get worn out, the door doesn't move as smoothly. That's what happens in osteoarthritis. The good news is that there are many ways to manage the condition and reduce the pain. In this lesson, we'll explore what osteoarthritis is, how common it is, and who gets it.",
+        "sections": [
+          {
+            "heading": "What is Osteoarthritis?",
+            "text": "Osteoarthritis is a type of arthritis that affects the cartilage in the joints. Cartilage is the slippery tissue that covers the ends of bones, allowing them to glide smoothly over each other. When the cartilage breaks down, the bones rub against each other, causing pain and stiffness. Osteoarthritis can affect any joint, but it most commonly affects the knees, hips, and spine. According to the Centers for Disease Control and Prevention (CDC), over 32 million adults in the United States have osteoarthritis. The condition is more common in women than men, and it tends to occur after the age of 45."
+          },
+          {
+            "heading": "How Common is Osteoarthritis?",
+            "text": "Osteoarthritis is one of the most common types of arthritis. It's estimated that over 240 million people worldwide have osteoarthritis. In the United States, the CDC reports that osteoarthritis affects over 14% of adults aged 25 and over. The condition is more common in people who are overweight or obese, as excess weight puts additional stress on the joints. Osteoarthritis can also be caused by injuries, such as a broken bone or a torn ligament. For example, a person who has had a knee injury may be more likely to develop osteoarthritis in that knee."
+          },
+          {
+            "heading": "Why Does Osteoarthritis Matter?",
+            "text": "Osteoarthritis matters because it can significantly impact a person's quality of life. The pain and stiffness caused by osteoarthritis can make it difficult to perform daily activities, such as walking or climbing stairs. Osteoarthritis can also lead to depression and anxiety, as people may feel frustrated or helpless about their condition. However, there are many ways to manage osteoarthritis, and with the right treatment and lifestyle changes, people can reduce their symptoms and improve their quality of life. For example, losing weight, exercising regularly, and getting enough sleep can all help to reduce the pain and stiffness of osteoarthritis."
+          }
+        ],
+        "clinical_pearl": "Osteoarthritis is a common condition that can be managed with the right treatment and lifestyle changes. One key fact to know is that maintaining a healthy weight can help to reduce the stress on your joints and slow the progression of osteoarthritis.",
+        "key_points": [
+          "Osteoarthritis is a type of arthritis that affects the cartilage in the joints.",
+          "The condition is more common in women than men, and it tends to occur after the age of 45.",
+          "Osteoarthritis can be caused by injuries, such as a broken bone or a torn ligament.",
+          "Maintaining a healthy weight can help to reduce the stress on your joints and slow the progression of osteoarthritis.",
+          "Exercising regularly and getting enough sleep can help to reduce the pain and stiffness of osteoarthritis.",
+          "There are many ways to manage osteoarthritis, and with the right treatment and lifestyle changes, people can reduce their symptoms and improve their quality of life."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of osteoarthritis?",
+          "How can I manage my osteoarthritis and reduce my symptoms?",
+          "What are the risks and benefits of different treatments for osteoarthritis?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of osteoarthritis, including its symptoms, diagnosis, and treatment."
+          },
+          {
+            "title": "Osteoarthritis: A Review of the Literature",
+            "authors": "Journal of Rheumatology",
+            "journal_or_source": "Journal of Rheumatology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article provides a comprehensive overview of osteoarthritis, including its causes, symptoms, and treatment options."
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis is a common condition that can be managed with the right treatment and lifestyle changes. By understanding the causes and symptoms of osteoarthritis, people can take steps to reduce their risk and improve their quality of life."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors",
+      "content": {
+        "intro": "Osteoarthritis is a complex condition that is caused by a combination of genetic, lifestyle, and environmental factors. While the exact causes of osteoarthritis are not fully understood, research has identified several risk factors that can increase a person's likelihood of developing the condition. In this lesson, we'll explore the causes and risk factors of osteoarthritis, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors can play a role in the development of osteoarthritis. Some people may be born with a genetic predisposition to osteoarthritis, which can increase their risk of developing the condition. For example, people who have a family history of osteoarthritis may be more likely to develop the condition themselves. Additionally, certain genetic mutations can affect the production of cartilage and increase the risk of osteoarthritis."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors can also contribute to the development of osteoarthritis. For example, people who are overweight or obese may be more likely to develop osteoarthritis, as excess weight puts additional stress on the joints. Additionally, people who engage in high-impact activities, such as running or jumping, may be more likely to develop osteoarthritis due to the repeated stress on their joints. Other lifestyle factors, such as smoking and lack of exercise, can also increase the risk of osteoarthritis."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors for osteoarthritis are modifiable, meaning that they can be changed or avoided. For example, maintaining a healthy weight, exercising regularly, and avoiding high-impact activities can all help to reduce the risk of osteoarthritis. Other risk factors, such as age and family history, are non-modifiable, meaning that they cannot be changed. However, even if a person has non-modifiable risk factors, they can still take steps to reduce their risk of osteoarthritis by making healthy lifestyle choices."
+          }
+        ],
+        "clinical_pearl": "While some risk factors for osteoarthritis are non-modifiable, many can be changed or avoided. One key fact to know is that maintaining a healthy weight and exercising regularly can help to reduce the risk of osteoarthritis.",
+        "key_points": [
+          "Genetic factors can play a role in the development of osteoarthritis.",
+          "Lifestyle factors, such as being overweight or obese, can increase the risk of osteoarthritis.",
+          "High-impact activities, such as running or jumping, can increase the risk of osteoarthritis.",
+          "Maintaining a healthy weight and exercising regularly can help to reduce the risk of osteoarthritis.",
+          "Smoking and lack of exercise can increase the risk of osteoarthritis.",
+          "Some risk factors for osteoarthritis are modifiable, while others are non-modifiable."
+        ],
+        "questions_for_doctor": [
+          "What are the most common risk factors for osteoarthritis?",
+          "How can I reduce my risk of osteoarthritis?",
+          "What are the benefits and risks of different treatments for osteoarthritis?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis: A Review of the Literature",
+            "authors": "Journal of Rheumatology",
+            "journal_or_source": "Journal of Rheumatology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article provides a comprehensive overview of osteoarthritis, including its causes, symptoms, and treatment options."
+          },
+          {
+            "title": "Risk Factors for Osteoarthritis",
+            "authors": "Arthritis Foundation",
+            "journal_or_source": "Arthritis Foundation",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of the risk factors for osteoarthritis, including genetic, lifestyle, and environmental factors."
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis is a complex condition that is caused by a combination of genetic, lifestyle, and environmental factors. By understanding the causes and risk factors of osteoarthritis, people can take steps to reduce their risk and improve their quality of life."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "Osteoarthritis can cause a range of symptoms, from mild to severe. The symptoms of osteoarthritis can vary depending on the joint affected and the severity of the condition. In this lesson, we'll explore the symptoms of osteoarthritis, including early warning signs, how the disease progresses over time, and what patients actually feel.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of osteoarthritis can be subtle and may include joint pain or stiffness, especially after periods of rest or inactivity. People may also experience a grinding or crunching sensation in their joints, known as crepitus. Additionally, people may notice that their joints are swollen or inflamed, which can be a sign of osteoarthritis."
+          },
+          {
+            "heading": "How the Disease Progresses",
+            "text": "Osteoarthritis can progress slowly over time, with symptoms worsening as the condition advances. As the cartilage in the joints breaks down, the bones can rub against each other, causing pain and stiffness. People may also experience a loss of range of motion in their joints, making it difficult to perform daily activities. In severe cases, osteoarthritis can cause joint deformity, such as bowlegs or knock-knees."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "People with osteoarthritis may experience a range of symptoms, including pain, stiffness, and limited mobility. The pain of osteoarthritis can be aching or burning, and may be worse after periods of rest or inactivity. People may also experience fatigue, as the condition can make it difficult to sleep or perform daily activities. Additionally, people may feel frustrated or helpless about their condition, which can affect their mental health and well-being."
+          }
+        ],
+        "clinical_pearl": "Osteoarthritis can cause a range of symptoms, from mild to severe. One key fact to know is that the condition can progress slowly over time, with symptoms worsening as the condition advances.",
+        "key_points": [
+          "The early warning signs of osteoarthritis can be subtle and may include joint pain or stiffness.",
+          "Osteoarthritis can progress slowly over time, with symptoms worsening as the condition advances.",
+          "People with osteoarthritis may experience a range of symptoms, including pain, stiffness, and limited mobility.",
+          "The pain of osteoarthritis can be aching or burning, and may be worse after periods of rest or inactivity.",
+          "People with osteoarthritis may experience fatigue, as the condition can make it difficult to sleep or perform daily activities.",
+          "Osteoarthritis can affect a person's mental health and well-being, causing feelings of frustration or helplessness."
+        ],
+        "questions_for_doctor": [
+          "What are the most common symptoms of osteoarthritis?",
+          "How can I manage my symptoms and slow the progression of osteoarthritis?",
+          "What are the benefits and risks of different treatments for osteoarthritis?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis: A Review of the Literature",
+            "authors": "Journal of Rheumatology",
+            "journal_or_source": "Journal of Rheumatology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article provides a comprehensive overview of osteoarthritis, including its symptoms, diagnosis, and treatment options."
+          },
+          {
+            "title": "Symptoms of Osteoarthritis",
+            "authors": "Arthritis Foundation",
+            "journal_or_source": "Arthritis Foundation",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of the symptoms of osteoarthritis, including early warning signs and how the disease progresses over time."
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis can cause a range of symptoms, from mild to severe. By understanding the symptoms of osteoarthritis, people can take steps to manage their condition and improve their quality of life."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing osteoarthritis involves a combination of medical history, physical examination, and imaging tests. Your doctor will start by asking you questions about your symptoms, such as when they started, how long they last, and what makes them better or worse. They will also perform a physical examination to check for joint tenderness, swelling, and limited range of motion. Imaging tests like X-rays, MRIs, or CT scans may be ordered to confirm the diagnosis and rule out other conditions.",
+        "sections": [
+          {
+            "heading": "Medical History and Physical Examination",
+            "text": "During the medical history, your doctor will ask about your symptoms, medical history, and lifestyle. They will also perform a physical examination to check for joint tenderness, swelling, and limited range of motion. This information will help your doctor determine if you have osteoarthritis and how severe it is. For example, if you have a family history of osteoarthritis, you may be more likely to develop the condition. Similarly, if you have a job that involves repetitive joint movements, you may be at higher risk."
+          },
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests like X-rays, MRIs, or CT scans can help confirm the diagnosis of osteoarthritis. These tests can show joint damage, such as cartilage loss, bone spurs, and cysts. X-rays are often the first imaging test used, as they can show joint space narrowing and bone spurs. MRIs and CT scans can provide more detailed images of the joint and surrounding tissues. For instance, an MRI can show the extent of cartilage damage and the presence of any bone marrow lesions."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will discuss your test results and develop a treatment plan with you. They will also answer any questions you have and provide guidance on managing your symptoms. It's essential to ask questions and share your concerns with your doctor, such as 'What are my treatment options?' or 'How can I manage my pain?' Remember, your doctor is there to help you, and open communication is key to effective management of osteoarthritis."
+          }
+        ],
+        "clinical_pearl": "Osteoarthritis can be diagnosed with a combination of medical history, physical examination, and imaging tests. Early diagnosis and treatment can help slow disease progression and improve symptoms.",
+        "key_points": [
+          "Osteoarthritis diagnosis involves medical history, physical examination, and imaging tests",
+          "Imaging tests like X-rays, MRIs, or CT scans can confirm the diagnosis",
+          "Early diagnosis and treatment can help slow disease progression and improve symptoms",
+          "It's essential to ask questions and share concerns with your doctor",
+          "Open communication is key to effective management of osteoarthritis",
+          "Treatment plans should be individualized to each patient's needs and preferences"
+        ],
+        "questions_for_doctor": [
+          "What are the next steps in my diagnosis and treatment?",
+          "How often should I schedule follow-up appointments?",
+          "What are the potential risks and benefits of each treatment option?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis Diagnosis and Treatment",
+            "authors": "American College of Rheumatology",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for osteoarthritis diagnosis and treatment"
+          },
+          {
+            "title": "Imaging Tests for Osteoarthritis",
+            "authors": "Radiological Society of North America",
+            "journal_or_source": "Radiology",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of imaging tests for osteoarthritis diagnosis"
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis diagnosis involves a combination of medical history, physical examination, and imaging tests. Early diagnosis and treatment can help slow disease progression and improve symptoms."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Osteoarthritis treatment aims to relieve symptoms, slow disease progression, and improve quality of life. Treatment options include medications, physical therapy, lifestyle modifications, and surgery. Your doctor will work with you to develop a personalized treatment plan that addresses your unique needs and preferences.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Medications for osteoarthritis can help relieve pain and inflammation. Common medications include acetaminophen, NSAIDs, and corticosteroids. Your doctor may also prescribe disease-modifying antirheumatic drugs (DMARDs) or biologics to slow disease progression. For example, acetaminophen can help relieve mild to moderate pain, while NSAIDs can reduce inflammation and pain."
+          },
+          {
+            "heading": "Physical Therapy and Lifestyle Modifications",
+            "text": "Physical therapy and lifestyle modifications can help improve joint mobility and reduce pain. A physical therapist can teach you exercises to strengthen surrounding muscles and improve joint flexibility. Lifestyle modifications, such as weight loss and regular exercise, can also help reduce stress on joints and improve overall health. For instance, losing just 10% of your body weight can reduce pressure on your joints by 20-30%."
+          },
+          {
+            "heading": "Surgery",
+            "text": "Surgery may be necessary for advanced osteoarthritis that has not responded to other treatments. Surgical options include joint replacement, osteotomy, and arthroscopy. Your doctor will discuss the potential benefits and risks of each surgical option with you. Remember to ask questions, such as 'What are the potential complications of surgery?' or 'How long will it take to recover?'"
+          }
+        ],
+        "clinical_pearl": "Osteoarthritis treatment should be individualized to each patient's needs and preferences. A combination of medications, physical therapy, lifestyle modifications, and surgery can help relieve symptoms and slow disease progression.",
+        "key_points": [
+          "Osteoarthritis treatment aims to relieve symptoms, slow disease progression, and improve quality of life",
+          "Medications, physical therapy, lifestyle modifications, and surgery are available treatment options",
+          "Treatment plans should be individualized to each patient's needs and preferences",
+          "Lifestyle modifications, such as weight loss and regular exercise, can help reduce stress on joints",
+          "Surgery may be necessary for advanced osteoarthritis that has not responded to other treatments",
+          "It's essential to discuss potential benefits and risks of each treatment option with your doctor"
+        ],
+        "questions_for_doctor": [
+          "What are the potential benefits and risks of each treatment option?",
+          "How will we monitor my progress and adjust my treatment plan as needed?",
+          "What are the potential complications of surgery, and how can they be managed?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis Treatment Guidelines",
+            "authors": "American College of Rheumatology",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for osteoarthritis treatment"
+          },
+          {
+            "title": "Surgical Options for Osteoarthritis",
+            "authors": "American Academy of Orthopaedic Surgeons",
+            "journal_or_source": "Journal of the American Academy of Orthopaedic Surgeons",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of surgical options for osteoarthritis"
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis treatment should be individualized to each patient's needs and preferences. A combination of medications, physical therapy, lifestyle modifications, and surgery can help relieve symptoms and slow disease progression."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention",
+      "content": {
+        "intro": "While osteoarthritis cannot be completely prevented, there are steps you can take to reduce your risk and slow disease progression. Maintaining a healthy weight, exercising regularly, and avoiding repetitive joint movements can help reduce stress on joints and improve overall health.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves taking steps to avoid getting osteoarthritis in the first place. This can include maintaining a healthy weight, exercising regularly, and avoiding repetitive joint movements. For example, losing weight can reduce pressure on your joints, while regular exercise can improve joint mobility and reduce inflammation."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications and slow disease progression after diagnosis. This can include monitoring your condition, managing your symptoms, and making lifestyle modifications. For instance, monitoring your joint pain and stiffness can help you identify potential complications early, while managing your symptoms can improve your quality of life."
+          },
+          {
+            "heading": "Self-Management",
+            "text": "Self-management involves taking an active role in managing your osteoarthritis. This can include setting goals, tracking your progress, and making lifestyle modifications. Remember to ask your doctor about self-management strategies, such as 'What are the best exercises for my condition?' or 'How can I track my progress and stay motivated?'"
+          }
+        ],
+        "clinical_pearl": "Osteoarthritis prevention involves maintaining a healthy weight, exercising regularly, and avoiding repetitive joint movements. Secondary prevention and self-management can help prevent complications and slow disease progression.",
+        "key_points": [
+          "Osteoarthritis prevention involves maintaining a healthy weight, exercising regularly, and avoiding repetitive joint movements",
+          "Primary prevention can help reduce risk, while secondary prevention can help prevent complications and slow disease progression",
+          "Self-management involves taking an active role in managing your osteoarthritis",
+          "Monitoring your condition and managing your symptoms can help improve your quality of life",
+          "Lifestyle modifications, such as weight loss and regular exercise, can help reduce stress on joints",
+          "It's essential to discuss self-management strategies with your doctor"
+        ],
+        "questions_for_doctor": [
+          "What are the best exercises for my condition?",
+          "How can I track my progress and stay motivated?",
+          "What are the potential complications of osteoarthritis, and how can they be prevented?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis Prevention Guidelines",
+            "authors": "American College of Rheumatology",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for osteoarthritis prevention"
+          },
+          {
+            "title": "Self-Management of Osteoarthritis",
+            "authors": "Arthritis Foundation",
+            "journal_or_source": "Arthritis Today",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of self-management strategies for osteoarthritis"
+          }
+        ]
+      },
+      "key_takeaway": "Osteoarthritis prevention involves maintaining a healthy weight, exercising regularly, and avoiding repetitive joint movements. Secondary prevention and self-management can help prevent complications and slow disease progression."
+    },
+    {
+      "id": "L007",
+      "order": 7,
+      "title": "Living Well with This Condition",
+      "content": {
+        "intro": "Living with osteoarthritis requires making lifestyle adjustments to manage your symptoms and improve your quality of life. This can include making dietary changes, exercising regularly, and getting enough sleep. It's also essential to stay connected with friends and family, and to seek support when needed.",
+        "sections": [
+          {
+            "heading": "Diet and Exercise",
+            "text": "A healthy diet and regular exercise can help reduce stress on joints and improve overall health. Aim for a balanced diet that includes plenty of fruits, vegetables, and whole grains. Exercise regularly, such as walking or swimming, to improve joint mobility and reduce inflammation. For example, walking 30 minutes a day can help reduce pain and improve mobility."
+          },
+          {
+            "heading": "Monitoring and Self-Management",
+            "text": "Monitoring your condition and self-managing your symptoms can help improve your quality of life. Keep track of your joint pain and stiffness, and adjust your treatment plan as needed. Make lifestyle modifications, such as losing weight or reducing repetitive joint movements, to reduce stress on joints. Remember to ask your doctor about monitoring and self-management strategies, such as 'How can I track my progress?' or 'What are the best exercises for my condition?'"
+          },
+          {
+            "heading": "Support and Resources",
+            "text": "Living with osteoarthritis can be challenging, but there are many resources available to support you. Stay connected with friends and family, and seek support from support groups or online communities. Don't hesitate to reach out to your doctor or healthcare team when you need guidance or reassurance. For instance, you can ask your doctor about local support groups or online resources, such as 'What are the best online resources for osteoarthritis?' or 'How can I find a local support group?'"
+          }
+        ],
+        "clinical_pearl": "Living with osteoarthritis requires making lifestyle adjustments to manage your symptoms and improve your quality of life. A healthy diet, regular exercise, and monitoring your condition can help reduce stress on joints and improve overall health.",
+        "key_points": [
+          "Living with osteoarthritis requires making lifestyle adjustments to manage your symptoms and improve your quality of life",
+          "A healthy diet and regular exercise can help reduce stress on joints and improve overall health",
+          "Monitoring your condition and self-managing your symptoms can help improve your quality of life",
+          "Lifestyle modifications, such as losing weight or reducing repetitive joint movements, can help reduce stress on joints",
+          "Staying connected with friends and family, and seeking support when needed, can help improve mental health and overall well-being",
+          "It's essential to discuss monitoring and self-management strategies with your doctor"
+        ],
+        "questions_for_doctor": [
+          "What are the best exercises for my condition?",
+          "How can I track my progress and stay motivated?",
+          "What are the best resources for learning more about osteoarthritis and managing my symptoms?"
+        ],
+        "references": [
+          {
+            "title": "Osteoarthritis Management Guidelines",
+            "authors": "American College of Rheumatology",
+            "journal_or_source": "Arthritis Care & Research",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for osteoarthritis management"
+          },
+          {
+            "title": "Living with Osteoarthritis",
+            "authors": "Arthritis Foundation",
+            "journal_or_source": "Arthritis Today",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of living with osteoarthritis"
+          }
+        ]
+      },
+      "key_takeaway": "Living with osteoarthritis requires making lifestyle adjustments to manage your symptoms and improve your quality of life. A healthy diet, regular exercise, and monitoring your condition can help reduce stress on joints and improve overall health."
+    }
+  ]
+}

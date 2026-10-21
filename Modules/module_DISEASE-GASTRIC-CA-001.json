@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-GASTRIC-CA-001",
+  "title": "Gastric Cancer: H. pylori Oncogenesis, HER2 Amplification, Surgery and Immunotherapy",
+  "specialty": "Gastroenterology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Gastric Cancer",
+      "content": {
+        "intro": "Gastric cancer, also known as stomach cancer, has a long and evolving history. The earliest recorded evidence of gastric cancer dates back to ancient Egypt around 3000 BC. However, it wasn't until the 16th century that the first detailed description of gastric cancer was made by the Italian physician Bernardino Ramazzini in 1713. In the 19th century, the German pathologist Rudolf Virchow made significant contributions to the understanding of gastric cancer, including the discovery of the role of chronic inflammation in the development of cancer. The 20th century saw major breakthroughs in the understanding of gastric cancer, including the discovery of Helicobacter pylori (H. pylori) as a major cause of gastric cancer by Barry Marshall and Robin Warren in 1982, for which they were awarded the Nobel Prize in Physiology or Medicine in 2005. Other notable scientists who have contributed to the understanding of gastric cancer include Harald zur Hausen, who discovered the role of Epstein-Barr virus in gastric cancer, and Yasuhiko Kanai, who identified the role of HER2 amplification in gastric cancer.",
+        "sections": [],
+        "key_points": [
+          "Gastric cancer has a history dating back to ancient Egypt around 3000 BC",
+          "The first detailed description of gastric cancer was made by Bernardino Ramazzini in 1713",
+          "Rudolf Virchow discovered the role of chronic inflammation in the development of gastric cancer in the 19th century",
+          "Helicobacter pylori (H. pylori) was discovered as a major cause of gastric cancer by Barry Marshall and Robin Warren in 1982",
+          "Barry Marshall and Robin Warren were awarded the Nobel Prize in Physiology or Medicine in 2005 for their discovery",
+          "Harald zur Hausen discovered the role of Epstein-Barr virus in gastric cancer",
+          "Yasuhiko Kanai identified the role of HER2 amplification in gastric cancer",
+          "The understanding of gastric cancer has evolved significantly over the centuries, with major breakthroughs in the 20th century"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Gastric Cancer",
+      "content": {
+        "intro": "Gastric cancer is a complex and multifactorial disease, involving the interplay of genetic, environmental, and infectious factors. The pathophysiology of gastric cancer involves the progression from chronic inflammation to metaplasia, dysplasia, and eventually invasive cancer. H. pylori infection is a major cause of gastric cancer, and the bacterium's virulence factors, such as CagA and VacA, play a crucial role in the development of cancer. Other risk factors for gastric cancer include genetic mutations, such as those in the CDH1 and TP53 genes, as well as environmental factors, such as diet and smoking. The molecular mechanisms underlying gastric cancer involve the activation of oncogenic pathways, such as the PI3K/AKT and MAPK/ERK pathways, and the inactivation of tumor suppressor genes, such as TP53 and PTEN.",
+        "sections": [],
+        "key_points": [
+          "Gastric cancer is a complex and multifactorial disease",
+          "The pathophysiology of gastric cancer involves the progression from chronic inflammation to metaplasia, dysplasia, and eventually invasive cancer",
+          "H. pylori infection is a major cause of gastric cancer",
+          "The bacterium's virulence factors, such as CagA and VacA, play a crucial role in the development of cancer",
+          "Genetic mutations, such as those in the CDH1 and TP53 genes, are risk factors for gastric cancer",
+          "Environmental factors, such as diet and smoking, are also risk factors for gastric cancer",
+          "The molecular mechanisms underlying gastric cancer involve the activation of oncogenic pathways",
+          "The inactivation of tumor suppressor genes, such as TP53 and PTEN, is also involved in the development of gastric cancer"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Gastric Cancer",
+      "content": {
+        "intro": "Gastric cancer can present with a range of symptoms, including abdominal pain, weight loss, and difficulty swallowing. The cardinal symptoms of gastric cancer are abdominal pain, which is often epigastric and radiates to the back, and weight loss, which can be significant and rapid. Other symptoms of gastric cancer include nausea and vomiting, bloating and discomfort, and difficulty swallowing, which can be due to obstruction of the gastric outlet or esophagus. The stages of gastric cancer are classified according to the TNM system, which takes into account the size and extent of the primary tumor, the presence of lymph node metastases, and the presence of distant metastases. Atypical presentations of gastric cancer can include symptoms such as dysphagia, odynophagia, and gastrointestinal bleeding.",
+        "sections": [],
+        "key_points": [
+          "Gastric cancer can present with a range of symptoms, including abdominal pain, weight loss, and difficulty swallowing",
+          "The cardinal symptoms of gastric cancer are abdominal pain and weight loss",
+          "Other symptoms of gastric cancer include nausea and vomiting, bloating and discomfort, and difficulty swallowing",
+          "The stages of gastric cancer are classified according to the TNM system",
+          "Atypical presentations of gastric cancer can include symptoms such as dysphagia, odynophagia, and gastrointestinal bleeding",
+          "Gastric cancer can be asymptomatic in its early stages",
+          "The clinical presentation of gastric cancer can vary depending on the location and extent of the tumor",
+          "A high index of suspicion is necessary to diagnose gastric cancer, especially in high-risk populations"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Gastric cancer diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is typically made by upper endoscopy with biopsy, which allows for the visualization of the tumor and the collection of tissue samples for histopathological examination. Laboratory tests, such as complete blood count and liver function tests, may also be performed to assess the overall health of the patient and to detect any potential metastases. Imaging studies, including computed tomography (CT) scans and positron emission tomography (PET) scans, are used to stage the disease and to assess the extent of tumor spread.",
+        "sections": [],
+        "key_points": [
+          "Upper endoscopy with biopsy is the gold standard for diagnosing gastric cancer",
+          "Laboratory tests, such as complete blood count and liver function tests, are performed to assess overall health and detect potential metastases",
+          "Imaging studies, including CT scans and PET scans, are used to stage the disease and assess tumor spread",
+          "The diagnosis of gastric cancer is typically made by a multidisciplinary team of healthcare professionals",
+          "The diagnostic criteria for gastric cancer include the presence of malignant cells in biopsy samples",
+          "The scoring systems used to diagnose gastric cancer include the TNM staging system",
+          "Differential diagnosis is crucial to rule out other conditions that may mimic gastric cancer",
+          "The diagnosis of gastric cancer has a significant impact on patient outcomes and treatment planning"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of gastric cancer depends on the stage and location of the tumor, as well as the overall health of the patient. Surgery is the primary treatment for early-stage gastric cancer, and may involve the removal of part or all of the stomach. Chemotherapy and radiation therapy may also be used to treat gastric cancer, either alone or in combination with surgery. Targeted therapies, such as trastuzumab, may be used to treat patients with HER2-positive gastric cancer. Immunotherapy, such as pembrolizumab, may also be used to treat patients with advanced gastric cancer.",
+        "sections": [],
+        "key_points": [
+          "Surgery is the primary treatment for early-stage gastric cancer",
+          "Chemotherapy and radiation therapy may be used to treat gastric cancer, either alone or in combination with surgery",
+          "Targeted therapies, such as trastuzumab, may be used to treat patients with HER2-positive gastric cancer",
+          "Immunotherapy, such as pembrolizumab, may be used to treat patients with advanced gastric cancer",
+          "The treatment of gastric cancer is typically individualized and based on patient-specific factors",
+          "The first-line treatment for gastric cancer typically involves a combination of chemotherapy and surgery",
+          "Second-line treatment options for gastric cancer may include targeted therapies and immunotherapy",
+          "The treatment of gastric cancer has a significant impact on patient outcomes and quality of life"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Gastric cancer can cause a range of complications, including bleeding, obstruction, and perforation. The prognosis for gastric cancer depends on the stage and location of the tumor, as well as the overall health of the patient. The 5-year survival rate for gastric cancer is approximately 30%, although this varies depending on the stage and other factors. Prognostic scores, such as the AJCC staging system, can be used to estimate patient outcomes and guide treatment planning.",
+        "sections": [],
+        "key_points": [
+          "Gastric cancer can cause a range of complications, including bleeding, obstruction, and perforation",
+          "The prognosis for gastric cancer depends on the stage and location of the tumor, as well as the overall health of the patient",
+          "The 5-year survival rate for gastric cancer is approximately 30%",
+          "Prognostic scores, such as the AJCC staging system, can be used to estimate patient outcomes and guide treatment planning",
+          "The incidence of gastric cancer varies worldwide, with higher rates in certain regions and populations",
+          "The prognosis for gastric cancer has improved in recent years due to advances in treatment and early detection",
+          "The management of complications is crucial to improving patient outcomes and quality of life",
+          "The prognosis for gastric cancer is influenced by a range of factors, including tumor stage, location, and patient health"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Gastric cancer can affect special populations, including pediatric and elderly patients, as well as pregnant women. Emerging therapies, such as checkpoint inhibitors and CAR-T cell therapy, may be used to treat patients with advanced gastric cancer. Pipeline drugs, such as anti-angiogenic agents and immunomodulators, are also being developed to treat gastric cancer. The treatment of gastric cancer in special populations requires careful consideration of patient-specific factors and individualized treatment planning.",
+        "sections": [],
+        "key_points": [
+          "Gastric cancer can affect special populations, including pediatric and elderly patients, as well as pregnant women",
+          "Emerging therapies, such as checkpoint inhibitors and CAR-T cell therapy, may be used to treat patients with advanced gastric cancer",
+          "Pipeline drugs, such as anti-angiogenic agents and immunomodulators, are being developed to treat gastric cancer",
+          "The treatment of gastric cancer in special populations requires careful consideration of patient-specific factors",
+          "Individualized treatment planning is crucial to improving patient outcomes and quality of life",
+          "The management of gastric cancer in special populations requires a multidisciplinary approach",
+          "Emerging therapies may offer new hope for patients with advanced gastric cancer",
+          "Further research is needed to fully understand the benefits and risks of emerging therapies for gastric cancer"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-GASTRIC-CA-001",
+    "type": "disease_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Gastric Cancer: H. pylori Oncogenesis, HER2 Amplification, Surgery and Immunotherapy",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

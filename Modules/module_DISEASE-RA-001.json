@@ -1,0 +1,149 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-RA-001",
+  "title": "Rheumatoid Arthritis: Autoimmunity Discovery, ACR Criteria, JAK Inhibitors",
+  "specialty": "Rheumatology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Rheumatoid arthritis (RA) has a rich and evolving history. The earliest descriptions of a condition resembling RA date back to 1800, when French physician Augustin Jacob Landré-Beauvais described a condition characterized by symmetrical joint pain and swelling. In 1859, British physician William Heberden Jr. further described the condition, noting its association with fever, fatigue, and weight loss. The term 'rheumatoid arthritis' was first coined in 1876 by British physician Alfred Baring Garrod. In the early 20th century, scientists such as Cecil Kent and Ernest Fletcher made significant contributions to the understanding of RA, including the discovery of rheumatoid factor in 1940 by Harry Rose and colleagues. The development of disease-modifying antirheumatic drugs (DMARDs) in the 1980s revolutionized the treatment of RA. Landmark papers, such as the 1987 publication by James Fries and colleagues on the 'therapeutic pyramid' approach to RA treatment, have shaped the current understanding and management of the disease.",
+        "sections": [],
+        "key_points": [
+          "Augustin Jacob Landré-Beauvais described a condition resembling RA in 1800",
+          "William Heberden Jr. noted the association of RA with fever, fatigue, and weight loss in 1859",
+          "Alfred Baring Garrod coined the term 'rheumatoid arthritis' in 1876",
+          "Rheumatoid factor was discovered in 1940 by Harry Rose and colleagues",
+          "Cecil Kent and Ernest Fletcher made significant contributions to the understanding of RA in the early 20th century",
+          "The development of DMARDs in the 1980s revolutionized RA treatment",
+          "The 'therapeutic pyramid' approach to RA treatment was introduced by James Fries and colleagues in 1987",
+          "Understanding of RA has evolved significantly over the past two centuries, with ongoing research and discoveries"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "Rheumatoid arthritis is a complex autoimmune disease characterized by the interplay of genetic, environmental, and hormonal factors. The pathophysiology of RA involves the activation of immune cells, such as T cells and macrophages, which produce pro-inflammatory cytokines, including tumor necrosis factor-alpha (TNF-α) and interleukin-1 beta (IL-1β). These cytokines stimulate the production of rheumatoid factor and other autoantibodies, leading to the formation of immune complexes that deposit in the joints, causing inflammation and tissue damage. Genetic factors, such as HLA-DRB1 and PTPN22, contribute to the susceptibility to RA, while environmental factors, such as smoking and infection, may trigger the onset of the disease. Subtypes of RA, including seropositive and seronegative RA, have distinct pathophysiological features and respond differently to treatment.",
+        "sections": [],
+        "key_points": [
+          "RA is a complex autoimmune disease involving genetic, environmental, and hormonal factors",
+          "Immune cells, such as T cells and macrophages, play a key role in the pathophysiology of RA",
+          "Pro-inflammatory cytokines, including TNF-α and IL-1β, are involved in the disease process",
+          "Rheumatoid factor and other autoantibodies contribute to the formation of immune complexes",
+          "Genetic factors, such as HLA-DRB1 and PTPN22, contribute to the susceptibility to RA",
+          "Environmental factors, such as smoking and infection, may trigger the onset of RA",
+          "Subtypes of RA, including seropositive and seronegative RA, have distinct pathophysiological features",
+          "Understanding the pathophysiology of RA is crucial for the development of effective treatment strategies"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "Rheumatoid arthritis typically presents with symmetrical joint pain and swelling, often affecting the hands, feet, wrists, and knees. The cardinal symptoms of RA include morning stiffness, lasting more than an hour, and joint pain that worsens with activity. The disease can progress through several stages, including the initial inflammatory stage, the destructive stage, and the late stage, characterized by joint deformity and disability. Atypical presentations of RA can occur, including palindromic rheumatism, which is characterized by intermittent joint pain and swelling, and rheumatoid nodules, which can occur in up to 20% of patients. The clinical presentation of RA can vary significantly between patients, and a thorough medical history and physical examination are essential for accurate diagnosis.",
+        "sections": [],
+        "key_points": [
+          "RA typically presents with symmetrical joint pain and swelling",
+          "Morning stiffness, lasting more than an hour, is a cardinal symptom of RA",
+          "Joint pain that worsens with activity is a common feature of RA",
+          "The disease can progress through several stages, including the initial inflammatory stage and the late stage",
+          "Atypical presentations of RA, such as palindromic rheumatism, can occur",
+          "Rheumatoid nodules can occur in up to 20% of patients",
+          "The clinical presentation of RA can vary significantly between patients",
+          "A thorough medical history and physical examination are essential for accurate diagnosis"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Rheumatoid arthritis (RA) diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The 2010 American College of Rheumatology (ACR) and European League Against Rheumatism (EULAR) criteria are widely used for diagnosis. These criteria include symptoms, serological tests, and imaging findings. Key laboratory tests include rheumatoid factor (RF) and anti-citrullinated protein antibody (anti-CCP) tests. Imaging studies such as ultrasound and magnetic resonance imaging (MRI) can help assess joint damage and inflammation. The diagnosis of RA should be made in conjunction with a thorough medical history and physical examination.",
+        "sections": [],
+        "key_points": [
+          "2010 ACR and EULAR criteria",
+          "Clinical evaluation",
+          "Laboratory tests",
+          "Imaging studies",
+          "Rheumatoid factor (RF)",
+          "Anti-citrullinated protein antibody (anti-CCP)",
+          "Ultrasound",
+          "Magnetic resonance imaging (MRI)"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of rheumatoid arthritis (RA) involves a combination of pharmacological and non-pharmacological interventions. First-line treatments include disease-modifying antirheumatic drugs (DMARDs) such as methotrexate, sulfasalazine, and hydroxychloroquine. Biologic agents such as tumor necrosis factor-alpha (TNF-alpha) inhibitors and Janus kinase (JAK) inhibitors are used as second-line treatments. Non-pharmacological interventions include physical therapy, occupational therapy, and lifestyle modifications. The goal of treatment is to achieve remission or low disease activity, and to prevent joint damage and disability. Treatment should be individualized based on disease severity, patient preferences, and comorbidities.",
+        "sections": [],
+        "key_points": [
+          "Disease-modifying antirheumatic drugs (DMARDs)",
+          "Biologic agents",
+          "Janus kinase (JAK) inhibitors",
+          "Tumor necrosis factor-alpha (TNF-alpha) inhibitors",
+          "Physical therapy",
+          "Occupational therapy",
+          "Lifestyle modifications",
+          "Remission"
+        ],
+        "references": []
+      },
+      "word_count": 399,
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Rheumatoid arthritis (RA) is associated with several complications, including joint damage, disability, and increased risk of cardiovascular disease, osteoporosis, and infections. The prognosis of RA varies depending on disease severity, treatment response, and presence of comorbidities. Prognostic scores such as the Disease Activity Score (DAS) and the Clinical Disease Activity Index (CDAI) can help predict disease outcomes. Early diagnosis and treatment can improve prognosis and prevent long-term damage. Patients with RA should be monitored regularly for complications and comorbidities, and treatment should be adjusted accordingly.",
+        "sections": [],
+        "key_points": [
+          "Joint damage",
+          "Disability",
+          "Cardiovascular disease",
+          "Osteoporosis",
+          "Infections",
+          "Disease Activity Score (DAS)",
+          "Clinical Disease Activity Index (CDAI)",
+          "Early diagnosis"
+        ],
+        "references": []
+      },
+      "word_count": 397,
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-RA-001",
+    "type": "disease_module",
+    "specialty": "Rheumatology",
+    "specialty_ru": "Ревматология",
+    "title_en": "Rheumatoid Arthritis: Autoimmunity Discovery, ACR Criteria, JAK Inhibitors",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "id": "DISEASE-CAD-001",
+  "type": "disease_module",
+  "title": "Coronary Artery Disease: Complete Guide from Discovery to Modern Intervention",
+  "specialty": "Cardiology",
+  "level": "advanced",
+  "lesson_count": 4,
+  "duration": 10,
+  "lessons": [
+    {
+      "title": "History of Coronary Artery Disease",
+      "content": {
+        "intro": "Coronary artery disease (CAD) has a rich history dating back to the 18th century. The first recorded description of angina pectoris was by William Heberden in 1768. Over the years, understanding of CAD evolved significantly. In 1912, James Herrick described the relationship between coronary thrombosis and myocardial infarction. The first successful coronary angiography was performed by Mason Sones in 1958, marking a significant milestone in the diagnosis of CAD. The development of coronary care units in the 1960s further improved patient outcomes. The introduction of percutaneous transluminal coronary angioplasty (PTCA) by Andreas Gruentzig in 1977 revolutionized the treatment of CAD. Key scientists such as Michael Brown and Joseph Goldstein, who were awarded the Nobel Prize in Physiology or Medicine in 1985 for their work on cholesterol metabolism, have contributed to our understanding of CAD.",
+        "sections": [],
+        "key_points": [
+          "William Heberden described angina pectoris in 1768",
+          "James Herrick linked coronary thrombosis to myocardial infarction in 1912",
+          "Mason Sones performed the first coronary angiography in 1958",
+          "Andreas Gruentzig introduced PTCA in 1977",
+          "Michael Brown and Joseph Goldstein were awarded the Nobel Prize in 1985",
+          "The first coronary care units were established in the 1960s",
+          "Landmark papers include Herrick's 1912 paper on coronary thrombosis",
+          "Historical patients include those treated by Heberden and Herrick",
+          "The understanding of CAD has evolved significantly over the past century"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Coronary Artery Disease",
+      "content": {
+        "intro": "CAD is characterized by the accumulation of atherosclerotic plaques in the coronary arteries, leading to luminal narrowing and reduced blood flow to the myocardium. The pathophysiology of CAD involves a complex interplay of molecular mechanisms, including inflammation, endothelial dysfunction, and lipid metabolism. Genetic factors, such as familial hypercholesterolemia, also play a significant role in the development of CAD. Subtypes of CAD, including stable angina, unstable angina, and non-ST-elevation myocardial infarction (NSTEMI), have distinct pathophysiological features.",
+        "sections": [],
+        "key_points": [
+          "Atherosclerotic plaques accumulate in the coronary arteries",
+          "Inflammation and endothelial dysfunction contribute to CAD",
+          "Lipid metabolism plays a crucial role in the development of CAD",
+          "Genetic factors, such as familial hypercholesterolemia, increase CAD risk",
+          "Subtypes of CAD have distinct pathophysiological features",
+          "Stable angina is characterized by predictable chest pain",
+          "Unstable angina is marked by unpredictable chest pain",
+          "NSTEMI is a subtype of acute coronary syndrome"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Coronary Artery Disease",
+      "content": {
+        "intro": "The clinical presentation of CAD can vary widely, ranging from asymptomatic to severe chest pain. Cardinal symptoms of CAD include chest pain or discomfort, shortness of breath, and fatigue. Stages of CAD, including stable angina, unstable angina, and acute coronary syndrome, have distinct clinical features. Atypical presentations, such as chest pain radiating to the arm or jaw, can also occur. The clinical presentation of CAD can be influenced by various factors, including age, sex, and comorbidities.",
+        "sections": [],
+        "key_points": [
+          "Chest pain or discomfort is a cardinal symptom of CAD",
+          "Shortness of breath and fatigue are common symptoms of CAD",
+          "Stable angina is characterized by predictable chest pain",
+          "Unstable angina is marked by unpredictable chest pain",
+          "Acute coronary syndrome is a medical emergency",
+          "Atypical presentations can occur, such as chest pain radiating to the arm or jaw",
+          "Age, sex, and comorbidities can influence the clinical presentation of CAD",
+          "A thorough medical history and physical examination are essential for diagnosis"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "title": "Diagnosis of Coronary Artery Disease",
+      "content": {
+        "intro": "The diagnosis of CAD involves a combination of clinical evaluation, laboratory tests, and imaging studies. Clinical criteria, such as the presence of chest pain or shortness of breath, are used to suspect CAD. Scoring systems, such as the TIMI risk score, can help stratify patients according to their risk of adverse outcomes. Laboratory tests, including troponin and creatine kinase, can diagnose acute coronary syndrome. Imaging studies, such as coronary angiography and cardiac computed tomography, can visualize the coronary arteries and detect luminal narrowing.",
+        "sections": [],
+        "key_points": [
+          "Clinical evaluation is essential for diagnosing CAD",
+          "Laboratory tests, such as troponin and creatine kinase, can diagnose acute coronary syndrome",
+          "Imaging studies, such as coronary angiography and cardiac CT, can visualize the coronary arteries",
+          "Scoring systems, such as the TIMI risk score, can stratify patients according to risk",
+          "The diagnosis of CAD requires a combination of clinical, laboratory, and imaging findings",
+          "Differential diagnoses, such as pulmonary embolism and pericarditis, must be considered",
+          "The diagnostic approach to CAD can vary depending on the clinical presentation",
+          "A comprehensive diagnostic evaluation is essential for guiding treatment decisions"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Coronary artery disease (CAD) treatment involves a combination of pharmacological and non-pharmacological interventions. The primary goal is to reduce symptoms, slow disease progression, and prevent complications. First-line pharmacological treatments include aspirin, beta-blockers, and statins. Aspirin is used for its antiplatelet effects, while beta-blockers reduce myocardial oxygen demand. Statins, such as atorvastatin and simvastatin, are used to lower cholesterol levels. Non-pharmacological interventions include lifestyle modifications, such as a healthy diet, regular exercise, and smoking cessation.",
+        "sections": [],
+        "key_points": [
+          "Aspirin is used as an antiplatelet agent to reduce the risk of myocardial infarction",
+          "Beta-blockers are used to reduce myocardial oxygen demand and decrease the risk of arrhythmias",
+          "Statins are used to lower cholesterol levels and reduce the risk of cardiovascular events",
+          "Lifestyle modifications, such as a healthy diet and regular exercise, are essential for managing CAD",
+          "Smoking cessation is crucial for reducing the risk of cardiovascular complications",
+          "First-line treatments are often combined to achieve optimal results",
+          "Second-line treatments, such as nitrates and calcium channel blockers, may be used in specific cases",
+          "Treatment plans should be individualized based on patient needs and medical history"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Coronary artery disease can lead to several complications, including myocardial infarction, heart failure, and arrhythmias. The prognosis for CAD patients depends on various factors, such as the severity of disease, presence of comorbidities, and response to treatment. Prognostic scores, such as the Framingham Risk Score, can be used to estimate the risk of cardiovascular events. Incidence data show that CAD is a leading cause of morbidity and mortality worldwide.",
+        "sections": [],
+        "key_points": [
+          "Myocardial infarction is a common complication of CAD, resulting from a blockage of a coronary artery",
+          "Heart failure can occur as a result of repeated myocardial infarctions or chronic ischemia",
+          "Arrhythmias, such as atrial fibrillation, can increase the risk of thromboembolic events",
+          "Prognostic scores, such as the Framingham Risk Score, can help estimate the risk of cardiovascular events",
+          "Incidence data show that CAD is a leading cause of morbidity and mortality worldwide",
+          "The presence of comorbidities, such as diabetes and hypertension, can worsen the prognosis",
+          "Response to treatment is a critical factor in determining the prognosis",
+          "Regular follow-up and monitoring are essential for managing CAD and preventing complications"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Certain populations, such as pediatric and elderly patients, require special consideration when managing CAD. Pediatric patients with CAD often have underlying genetic conditions, such as familial hypercholesterolemia. Elderly patients may have comorbidities, such as hypertension and diabetes, that can worsen the prognosis. Emerging therapies, such as gene therapy and stem cell therapy, are being investigated for the treatment of CAD.",
+        "sections": [],
+        "key_points": [
+          "Pediatric patients with CAD often have underlying genetic conditions, such as familial hypercholesterolemia",
+          "Elderly patients with CAD may have comorbidities, such as hypertension and diabetes, that can worsen the prognosis",
+          "Pregnant women with CAD require special consideration, as the risk of cardiovascular events is increased during pregnancy",
+          "Emerging therapies, such as gene therapy and stem cell therapy, are being investigated for the treatment of CAD",
+          "Pipeline drugs, such as PCSK9 inhibitors, are being developed to lower cholesterol levels and reduce the risk of cardiovascular events",
+          "Special populations, such as patients with chronic kidney disease, require individualized treatment plans",
+          "The use of emerging therapies and pipeline drugs requires careful consideration of the risks and benefits",
+          "Further research is needed to fully understand the potential of emerging therapies and pipeline drugs in the treatment of CAD"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    },
+    {
+      "lesson_id": "L008",
+      "title": "Clinical Case & Applied Knowledge",
+      "content": {
+        "intro": "A 55-year-old male patient presents with chest pain and shortness of breath. The patient has a history of hypertension and hyperlipidemia. An electrocardiogram (ECG) shows signs of ischemia, and a coronary angiogram reveals a blockage of the left anterior descending artery. The patient is diagnosed with CAD and undergoes percutaneous coronary intervention (PCI) with stenting. The patient is discharged on aspirin, beta-blockers, and statins, and is advised to make lifestyle modifications, such as a healthy diet and regular exercise.",
+        "sections": [],
+        "key_points": [
+          "The patient's symptoms, such as chest pain and shortness of breath, are consistent with CAD",
+          "The patient's history of hypertension and hyperlipidemia increases the risk of CAD",
+          "The ECG and coronary angiogram are essential diagnostic tools for CAD",
+          "PCI with stenting is a common treatment for CAD, especially in cases of acute myocardial infarction",
+          "The use of aspirin, beta-blockers, and statins is essential for managing CAD and preventing complications",
+          "Lifestyle modifications, such as a healthy diet and regular exercise, are crucial for managing CAD",
+          "The patient's prognosis depends on various factors, including the severity of disease and response to treatment",
+          "Regular follow-up and monitoring are essential for managing CAD and preventing complications"
+        ],
+        "references": []
+      },
+      "id": "L008",
+      "order": 8
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-CAD-001",
+    "type": "disease_module",
+    "specialty": "Cardiology",
+    "specialty_ru": "Кардиология",
+    "title_en": "Coronary Artery Disease: Complete Guide from Discovery to Modern Intervention",
+    "level": "advanced",
+    "duration_hours": 10,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

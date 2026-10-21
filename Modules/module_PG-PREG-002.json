@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "id": "PG-PREG-002",
+    "type": "patient_guide",
+    "specialty": "Obstetrics",
+    "specialty_ru": "Акушерство и гинекология",
+    "title_en": "Preeclampsia and High-Risk Pregnancy — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-24",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Preeclampsia? Understanding the Basics",
+      "content": {
+        "intro": "Congratulations on your pregnancy! As you journey through these months, your body is performing incredible feats to support your growing baby. However, sometimes the body’s systems can become overwhelmed, leading to conditions that need careful attention. One such condition is preeclampsia. It sounds like a complex medical term, but at its heart, it is a condition involving high blood pressure and signs of damage to another organ system, most often the liver and kidneys. It usually begins after 20 weeks of pregnancy in women whose blood pressure had been normal. \n\nThink of your blood vessels as the roads that deliver oxygen and nutrients to your baby and your own organs. In preeclampsia, these roads become narrow and stiff, making it harder for blood to flow smoothly. This increased pressure can cause stress on your body. While it can be serious, the good news is that it is well-understood by medical professionals. With regular monitoring and proper care, most women with preeclampsia have healthy babies and recover fully after delivery. This lesson will help you understand what it is, how common it is, and why it matters, so you can feel empowered and informed.",
+        "sections": [
+          {
+            "heading": "Defining Preeclampsia in Plain Language",
+            "text": "Preeclampsia is a pregnancy complication characterized by high blood pressure and signs of damage to another body system, most commonly the liver and kidneys. It typically develops after the 20th week of pregnancy. Before this point, high blood pressure is usually classified as chronic hypertension, which is a different condition. \n\nTo understand preeclampsia, imagine your body as a house with a plumbing system. Normally, the pipes (blood vessels) are flexible and allow water (blood) to flow easily. In preeclampsia, the pipes become stiff and narrow. This causes the water pressure to rise. If the pressure gets too high, it can strain the walls of the pipes and the appliances they connect to (your organs). \n\nThe 'pre-' in preeclampsia refers to the fact that it can precede eclampsia, a severe form of the condition involving seizures. However, not all women with preeclampsia develop eclampsia. The condition is defined by two main criteria: high blood pressure (systolic pressure of 140 mm Hg or higher, or diastolic pressure of 90 mm Hg or higher) on two occasions at least four hours apart, AND protein in the urine (proteinuria) or other signs of organ damage. These signs can include low platelet count, impaired liver function, severe kidney insufficiency, pulmonary edema, or new-onset headache unresponsive to medication and not accounted for by alternative diagnoses."
+          },
+          {
+            "heading": "How Common Is It? Key Statistics",
+            "text": "Preeclampsia is a relatively common condition, affecting approximately 2% to 8% of pregnancies worldwide. In the United States, it affects about 1 in 25 pregnancies. While these numbers might seem large, it is important to remember that the vast majority of pregnancies do not develop this condition. \n\nThe risk varies depending on several factors. For example, first-time mothers are at a slightly higher risk than those who have had previous pregnancies. Women who are carrying multiples (twins, triplets) are also at increased risk. The condition can occur at any time after 20 weeks, but it is most common in the third trimester. In some cases, it can develop postpartum, within the first 48 hours to six weeks after delivery. \n\nUnderstanding these statistics helps put the risk into perspective. While it is not rare, it is also not inevitable. Most women who are diagnosed with preeclampsia have mild cases that can be managed with close monitoring. Severe cases are less common but require more intensive medical intervention. The key is early detection and management, which is why regular prenatal care is so important."
+          },
+          {
+            "heading": "Who Gets It? Risk Factors and Demographics",
+            "text": "Preeclampsia can affect any pregnant woman, but certain groups are at higher risk. These risk factors can be divided into those you can change (modifiable) and those you cannot (non-modifiable). \n\nNon-modifiable risk factors include having a history of preeclampsia in a previous pregnancy, having a family history of the condition, being over the age of 35 or under the age of 20, being pregnant with multiples, and having chronic high blood pressure or kidney disease before pregnancy. \n\nModifiable risk factors include obesity, diabetes, high blood pressure, and smoking. These are areas where lifestyle changes can make a significant difference. For example, maintaining a healthy weight before and during pregnancy can reduce the risk. Quitting smoking is another crucial step. \n\nIt is important to note that having one or more risk factors does not mean you will definitely develop preeclampsia. Many women with risk factors have healthy pregnancies. Conversely, some women with no known risk factors can still develop the condition. This is why regular prenatal care and monitoring are essential for all pregnant women, regardless of their risk profile."
+          }
+        ],
+        "clinical_pearl": "Preeclampsia is not caused by stress or diet alone, but by a complex interaction of genetic and environmental factors. It typically resolves after delivery, but requires careful monitoring during pregnancy to prevent complications for both mother and baby.",
+        "key_points": [
+          "Preeclampsia is defined by high blood pressure and signs of organ damage after 20 weeks of pregnancy.",
+          "It affects approximately 2-8% of pregnancies, making it a common but manageable condition.",
+          "Risk factors include first pregnancy, multiples, age extremes, and chronic conditions like diabetes.",
+          "Early detection through regular prenatal care is crucial for successful management.",
+          "The condition can resolve after delivery, but requires careful monitoring during pregnancy.",
+          "Not all women with risk factors develop preeclampsia, and some without risk factors do."
+        ],
+        "questions_for_doctor": [
+          "Based on my medical history, what is my personal risk level for developing preeclampsia?",
+          "What specific symptoms should I watch for that might indicate preeclampsia?",
+          "How often should I have my blood pressure checked during my pregnancy?"
+        ],
+        "references": [
+          {
+            "title": "ACOG Practice Bulletin No. 222: Gestational Hypertension and Preeclampsia",
+            "authors": "American College of Obstetricians and Gynecologists",
+            "journal_or_source": "Obstetrics & Gynecology",
+            "year": 2020,
+            "type": "guideline",
+            "note": "Comprehensive guidelines on diagnosis and management of preeclampsia."
+          },
+          {
+            "title": "Preeclampsia: A Comprehensive Overview",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Maternal Health Series",
+            "year": 2023,
+            "type": "report",
+            "note": "Global statistics and risk factor analysis for preeclampsia."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors: Why Does It Happen?",
+      "content": {
+        "intro": "Now that you understand what preeclampsia is, you might be wondering why it happens. The exact cause of preeclampsia is not fully understood, but researchers believe it involves a combination of genetic, environmental, and lifestyle factors. Think of it like a puzzle where many pieces come together to create the picture. Some pieces are fixed, like your genes, while others can be influenced by your lifestyle and environment. \n\nThis lesson will explore the various factors that contribute to preeclampsia, including genetic predispositions, lifestyle triggers, and the difference between modifiable and non-modifiable risks. By understanding these factors, you can take proactive steps to reduce your risk and work closely with your healthcare provider to manage any potential issues. Remember, knowledge is power, and understanding the 'why' can help you feel more in control of your health journey.",
+        "sections": [
+          {
+            "heading": "Genetic Factors: The Role of Heredity",
+            "text": "Genetics play a significant role in the development of preeclampsia. If your mother or sister had preeclampsia, your risk is higher. This suggests that there may be genetic factors that predispose certain women to the condition. Research has identified several genes that may be involved in the development of preeclampsia, particularly those related to blood vessel function and immune response. \n\nImagine your genes as the blueprint for your body. Some blueprints may have slight variations that make the blood vessels more prone to narrowing or inflammation. These variations are not 'bad' genes, but they can make you more susceptible to preeclampsia under certain conditions. \n\nAdditionally, the baby's genes also play a role. Some studies suggest that certain genetic factors from the father or the baby itself may contribute to the development of preeclampsia. This is because the placenta, which is partly derived from the baby's genetic material, is central to the development of the condition. The placenta is like a bridge between the mother and the baby, and if there are issues with how it forms or functions, it can lead to preeclampsia."
+          },
+          {
+            "heading": "Lifestyle Triggers: What You Can Control",
+            "text": "While genetics are important, lifestyle factors also play a crucial role in the development of preeclampsia. These are factors that you can often control or modify. \n\nObesity is a significant risk factor. Excess weight can put additional strain on your body's systems, including your cardiovascular system. Maintaining a healthy weight before and during pregnancy can help reduce this risk. Aim for a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. Limit processed foods, sugary drinks, and excessive salt intake. \n\nSmoking is another major risk factor. Smoking damages blood vessels and reduces blood flow to the placenta. Quitting smoking before or during pregnancy can significantly reduce the risk of preeclampsia and other pregnancy complications. \n\nPhysical activity is also important. Regular exercise can help maintain a healthy weight and improve cardiovascular health. Aim for at least 150 minutes of moderate-intensity exercise per week, such as brisk walking, swimming, or prenatal yoga. Always consult your healthcare provider before starting a new exercise routine."
+          },
+          {
+            "heading": "Modifiable vs. Non-Modifiable Risks: Who Is Most at Risk?",
+            "text": "Understanding the difference between modifiable and non-modifiable risks can help you focus on what you can control. \n\nNon-modifiable risks include age (being over 35 or under 20), family history, previous history of preeclampsia, and carrying multiples. These factors are fixed and cannot be changed. However, knowing you have these risks can help your healthcare provider tailor your care plan. For example, if you have a family history of preeclampsia, your provider may recommend more frequent monitoring or preventive medications like low-dose aspirin. \n\nModifiable risks include obesity, diabetes, high blood pressure, and smoking. These are areas where lifestyle changes can make a significant difference. For example, if you have high blood pressure, working with your healthcare provider to manage it through diet, exercise, and medication can reduce the risk of preeclampsia. \n\nWomen who are most at risk are those with a combination of these factors. For example, a woman who is over 35, has a family history of preeclampsia, and is overweight is at higher risk than a woman with none of these factors. However, even women with multiple risk factors can have healthy pregnancies with proper care and management."
+          }
+        ],
+        "clinical_pearl": "Low-dose aspirin (81 mg daily) starting between 12 and 28 weeks of pregnancy can significantly reduce the risk of preeclampsia in high-risk women. Discuss this option with your healthcare provider if you have risk factors.",
+        "key_points": [
+          "Genetics play a role, with family history increasing risk.",
+          "Lifestyle factors like obesity, smoking, and inactivity are modifiable risks.",
+          "Maintaining a healthy weight and quitting smoking can reduce risk.",
+          "Regular exercise improves cardiovascular health and reduces risk.",
+          "Non-modifiable risks include age, family history, and multiples.",
+          "High-risk women may benefit from preventive measures like low-dose aspirin."
+        ],
+        "questions_for_doctor": [
+          "Given my family history, should I consider taking low-dose aspirin to prevent preeclampsia?",
+          "What specific lifestyle changes can I make to reduce my risk of preeclampsia?",
+          "How does my current weight and health status affect my risk profile?"
+        ],
+        "references": [
+          {
+            "title": "Aspirin for Prevention of Preeclampsia: A Systematic Review",
+            "authors": "Cochrane Pregnancy and Childbirth Group",
+            "journal_or_source": "Cochrane Database of Systematic Reviews",
+            "year": 2023,
+            "type": "review",
+            "note": "Evidence supporting the use of low-dose aspirin for prevention in high-risk women."
+          },
+          {
+            "title": "Lifestyle Factors and Preeclampsia Risk",
+            "authors": "National Institutes of Health",
+            "journal_or_source": "NIH Office of Research on Women's Health",
+            "year": 2024,
+            "type": "report",
+            "note": "Analysis of lifestyle factors and their impact on preeclampsia risk."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "Recognizing the symptoms of preeclampsia is crucial for early detection and management. Preeclampsia can develop gradually or suddenly, and its symptoms can vary from mild to severe. Some women may not have any noticeable symptoms, which is why regular prenatal care and blood pressure monitoring are so important. \n\nThis lesson will guide you through the early warning signs, how the disease progresses over time, what patients actually feel, and when to seek urgent care. By understanding these symptoms, you can be an active partner in your care and ensure that any issues are addressed promptly. Remember, it is always better to err on the side of caution and contact your healthcare provider if you have any concerns.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs: What to Look For",
+            "text": "Preeclampsia often develops without obvious symptoms, which is why regular check-ups are vital. However, there are some early warning signs that you should be aware of. \n\nOne of the most common early signs is high blood pressure. This is usually detected during routine prenatal visits. If your blood pressure is consistently high, your healthcare provider will monitor you more closely. \n\nAnother early sign is protein in the urine (proteinuria). This is also detected through urine tests during prenatal visits. Protein in the urine can indicate that your kidneys are not functioning properly. \n\nOther early signs may include swelling (edema) in the hands, face, or feet. While some swelling is normal during pregnancy, sudden or severe swelling can be a sign of preeclampsia. Pay attention to any rapid weight gain, which can also indicate fluid retention. \n\nHeadaches are another common symptom. These headaches may be persistent and not relieved by over-the-counter pain medications. If you experience a severe headache that does not go away, contact your healthcare provider immediately."
+          },
+          {
+            "heading": "How the Disease Progresses Over Time",
+            "text": "Preeclampsia can progress from mild to severe over time. In mild cases, symptoms may be subtle and develop gradually. As the condition progresses, symptoms can become more severe and affect multiple organ systems. \n\nIn the early stages, you may experience mild high blood pressure and slight proteinuria. As the condition worsens, blood pressure can rise significantly, and proteinuria can increase. This can lead to damage to the kidneys, liver, and other organs. \n\nSevere preeclampsia can cause symptoms such as severe headaches, vision changes (blurred vision, spots, or sensitivity to light), upper abdominal pain (usually under the ribs on the right side), nausea or vomiting, shortness of breath, and decreased urine output. These symptoms indicate that the condition is affecting your organs and require immediate medical attention. \n\nThe progression of preeclampsia can be unpredictable. Some women may have mild symptoms that resolve with rest and monitoring, while others may experience rapid deterioration. This is why close monitoring and prompt medical intervention are crucial."
+          },
+          {
+            "heading": "What Patients Actually Feel: The Patient Experience",
+            "text": "Understanding what other patients have experienced can help you recognize symptoms in yourself. Many women describe feeling 'off' or unwell, even if they cannot pinpoint a specific symptom. \n\nSome women report feeling unusually tired or fatigued, beyond the normal tiredness of pregnancy. Others may experience a sense of anxiety or unease. \n\nHeadaches are often described as severe and persistent, unlike typical pregnancy headaches. Vision changes can be alarming, with women reporting seeing spots, flashing lights, or having blurred vision. \n\nSwelling can be uncomfortable and may make it difficult to wear shoes or rings. Abdominal pain can be sharp or dull and may be located under the ribs on the right side. \n\nIt is important to trust your instincts. If you feel something is wrong, even if you cannot identify a specific symptom, contact your healthcare provider. They would rather evaluate you and find nothing serious than miss a potential problem. Your health and your baby's health are the top priority."
+          }
+        ],
+        "clinical_pearl": "Sudden onset of severe headache, vision changes, or upper abdominal pain are red flags that require immediate medical attention. Do not wait for your next appointment if you experience these symptoms.",
+        "key_points": [
+          "Early signs include high blood pressure, protein in urine, and swelling.",
+          "Symptoms can progress from mild to severe, affecting multiple organs.",
+          "Severe symptoms include headaches, vision changes, and abdominal pain.",
+          "Trust your instincts and contact your provider if you feel unwell.",
+          "Regular monitoring is crucial as symptoms can be subtle or absent.",
+          "Immediate medical attention is needed for severe symptoms."
+        ],
+        "questions_for_doctor": [
+          "What specific symptoms should I report to you immediately?",
+          "How can I distinguish between normal pregnancy discomfort and signs of preeclampsia?",
+          "What is the plan if I experience symptoms of preeclampsia?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms and Diagnosis of Preeclampsia",
+            "authors": "Mayo Clinic",
+            "journal_or_source": "Mayo Clinic Proceedings",
+            "year": 2024,
+            "type": "article",
+            "note": "Detailed overview of symptoms and diagnostic criteria for preeclampsia."
+          },
+          {
+            "title": "Patient Experiences with Preeclampsia",
+            "authors": "Preeclampsia Foundation",
+            "journal_or_source": "Preeclampsia Foundation Reports",
+            "year": 2023,
+            "type": "report",
+            "note": "Insights into the patient experience and symptom recognition."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing preeclampsia is like putting together a puzzle. Your healthcare provider looks for specific pieces of evidence—high blood pressure, protein in your urine, and changes in your blood or liver function—to see if the picture matches preeclampsia. It is not always obvious from how you feel, which is why regular check-ups are so important. Many women with preeclampsia feel perfectly fine until their blood pressure is checked. This lesson will walk you through the tests you might undergo, what the numbers mean, and what to expect during your appointments. Understanding the diagnostic process helps reduce anxiety and empowers you to participate actively in your care. We will explain why certain tests are repeated, how long the process takes, and what 'borderline' results might mean for your pregnancy journey.",
+        "sections": [
+          {
+            "heading": "The Blood Pressure Check: The First Clue",
+            "text": "The most common way preeclampsia is first suspected is through a routine blood pressure check. Blood pressure is the force of blood pushing against the walls of your arteries. Think of your arteries like garden hoses; if the water pressure is too high, it can damage the hose over time. In pregnancy, we look for a specific threshold. A diagnosis of preeclampsia typically requires a blood pressure reading of 140/90 mmHg or higher on two separate occasions, at least four hours apart. However, if your blood pressure is very high (160/110 mmHg or higher) or if you have severe symptoms, your doctor may act immediately without waiting for a second reading. It is important to know that blood pressure can fluctuate. Stress, pain, or even talking during the measurement can raise it. This is why nurses often ask you to sit quietly for five minutes before taking the reading. They may also check both arms to ensure accuracy. If your reading is high, do not panic. It might be 'white coat syndrome,' where anxiety raises your pressure. Your provider will likely ask you to come back later or monitor it at home to confirm the trend."
+          },
+          {
+            "heading": "Urine Tests: Looking for Protein",
+            "text": "Another key piece of the puzzle is checking your urine for protein. Healthy kidneys act like fine filters, keeping important proteins in your blood while letting waste pass into your urine. When preeclampsia affects the kidneys, these filters become 'leaky,' allowing protein to spill into your urine. This is called proteinuria. Your provider will usually start with a simple dipstick test during your prenatal visit. A strip is dipped into your urine sample, and it changes color based on the amount of protein present. While convenient, dipsticks can sometimes give false positives or miss low levels of protein. If the dipstick is positive, or if your blood pressure is high but the dipstick is negative, your doctor may order a 24-hour urine collection. This involves collecting all your urine for a full day in a special container kept in the fridge. This test is more accurate and gives a precise measurement of how much protein you are losing. It helps distinguish between mild and severe cases. In some cases, if a 24-hour collection is not possible, a blood test called the protein-to-creatinine ratio can provide a quick estimate of protein levels."
+          },
+          {
+            "heading": "Blood Tests and Monitoring for Organ Function",
+            "text": "Because preeclampsia can affect multiple organs, your doctor will order blood tests to check how well your liver, kidneys, and blood clotting system are working. These tests help determine the severity of the condition. Common tests include a Complete Blood Count (CBC) to check for low platelets (cells that help blood clot), liver function tests to see if your liver is inflamed, and kidney function tests. Low platelets, known as thrombocytopenia, can be a sign of HELLP syndrome, a severe variant of preeclampsia. Your provider may also check uric acid levels, which can rise in preeclampsia, though this is not used alone for diagnosis. If you are diagnosed, monitoring becomes frequent. You might need blood tests every few days or even daily if you are hospitalized. This frequent monitoring is not because your doctor is worried you are failing; it is because preeclampsia can change quickly. Catching small changes early allows your team to adjust your care plan, perhaps by moving you to the hospital or preparing for delivery. It is a safety net designed to keep you and your baby healthy."
+          }
+        ],
+        "clinical_pearl": "Preeclampsia is a diagnosis of exclusion and confirmation. High blood pressure alone is not enough; it must be paired with protein in the urine or signs of organ damage. Regular monitoring is crucial because the condition can progress rapidly, often without obvious symptoms until it becomes severe.",
+        "key_points": [
+          "Blood pressure of 140/90 mmHg or higher on two occasions is a primary diagnostic criterion.",
+          "Protein in the urine (proteinuria) indicates kidney stress and is a key sign of preeclampsia.",
+          "Blood tests check for low platelets, liver inflammation, and kidney function to assess severity.",
+          "A 24-hour urine collection is the gold standard for measuring protein if dipstick tests are unclear.",
+          "Frequent monitoring is necessary because preeclampsia can change quickly and unpredictably.",
+          "Home blood pressure monitoring can help confirm trends and reduce 'white coat' anxiety."
+        ],
+        "questions_for_doctor": [
+          "What specific blood pressure numbers should I watch for at home, and when should I call you?",
+          "If my urine test shows protein, does that definitely mean I have preeclampsia, or could it be something else?",
+          "How often will I need to come in for blood tests and monitoring once a diagnosis is suspected?"
+        ],
+        "references": [
+          {
+            "title": "Hypertension in Pregnancy",
+            "authors": "American College of Obstetricians and Gynecologists (ACOG)",
+            "journal_or_source": "ACOG Practice Bulletin",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Defines diagnostic criteria for preeclampsia and hypertension disorders in pregnancy."
+          },
+          {
+            "title": "Diagnosis and Management of Preeclampsia",
+            "authors": "Royal College of Obstetricians and Gynaecologists (RCOG)",
+            "journal_or_source": "Green-top Guideline",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides detailed protocols for testing and monitoring high-risk pregnancies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "When preeclampsia is diagnosed, the treatment plan is tailored to how far along you are in your pregnancy and how severe the condition is. The only true cure for preeclampsia is the delivery of the baby and the placenta. However, if your baby is not yet ready to be born, the goal is to keep you and the baby safe for as long as possible while managing the risks. This involves a combination of medications, close monitoring, and sometimes hospitalization. It is important to understand that treatment is not just about lowering blood pressure; it is about preventing serious complications like seizures (eclampsia) and stroke. Your medical team will work with you to balance the risks of continuing the pregnancy against the risks of early delivery. This lesson explains the medications you might take, what hospital care looks like, and how your care team decides when it is time to deliver.",
+        "sections": [
+          {
+            "heading": "Medications to Manage Blood Pressure and Seizures",
+            "text": "If your blood pressure is dangerously high, your doctor will prescribe medication to lower it. This is not just for your comfort; it is to prevent stroke and other organ damage. Common medications include labetalol, nifedipine, and methyldopa. These drugs work by relaxing the blood vessels, allowing blood to flow more easily. You might take them as pills at home or receive them through an IV in the hospital. It is important to take these exactly as prescribed, even if you feel fine. Another critical medication is magnesium sulfate. This is not a blood pressure medicine; it is used to prevent seizures, a condition called eclampsia. Magnesium sulfate is usually given through an IV in the hospital. It can cause side effects like feeling warm, flushed, or having a metallic taste in your mouth. It can also make you feel tired or have trouble breathing if the dose is too high, which is why your nurses will monitor your reflexes and breathing closely. Do not stop these medications without talking to your doctor, as sudden changes can be dangerous."
+          },
+          {
+            "heading": "Hospitalization and Close Monitoring",
+            "text": "Depending on the severity of your preeclampsia, your doctor may recommend that you stay in the hospital. This allows for continuous monitoring of your blood pressure, urine output, and the baby's heart rate. In the hospital, you will likely have a nurse check your blood pressure every few hours. You may also have a fetal monitor attached to your belly to track the baby's movements and heart rate. This constant surveillance helps catch any changes early. If you are stable, you might be able to go home with strict instructions to monitor your blood pressure daily and rest. However, if your condition worsens or if you are close to term, staying in the hospital ensures that any emergency can be handled immediately. Hospitalization can be stressful and isolating, but it is a protective measure. Your care team will provide support, including social workers or patient advocates, to help you cope with the emotional aspects of being hospitalized during pregnancy. Rest is a key part of treatment, so use this time to sleep and relax as much as possible."
+          },
+          {
+            "heading": "The Decision to Deliver: Timing and Methods",
+            "text": "The ultimate treatment for preeclampsia is delivery. The timing depends on how far along you are and how sick you or the baby are. If you are 37 weeks or further, your doctor will likely recommend delivery, as the baby is considered full-term. If you are before 37 weeks, the team will weigh the risks of prematurity against the risks of continuing the pregnancy. They may give you steroids to help the baby's lungs mature if delivery is expected soon. The method of delivery—vaginal birth or Cesarean section (C-section)—depends on your health and the baby's condition. Preeclampsia itself is not a reason for a C-section unless there are other complications, such as the baby being in distress or your blood pressure being uncontrolled. Vaginal birth is often preferred if possible, as it involves less recovery time. However, if your condition is severe and unstable, a C-section might be safer for both of you. Your doctor will discuss the risks and benefits of each option with you, ensuring you are part of the decision-making process. Remember, the goal is a safe outcome for both you and your baby."
+          }
+        ],
+        "clinical_pearl": "Magnesium sulfate is the standard of care for preventing seizures in severe preeclampsia. It is not a blood pressure medication but a neuroprotective agent. Delivery is the only cure, so timing is critical and based on gestational age and severity of symptoms.",
+        "key_points": [
+          "Medications like labetalol and nifedipine are used to safely lower high blood pressure.",
+          "Magnesium sulfate is given to prevent seizures (eclampsia) and requires close monitoring.",
+          "Hospitalization allows for continuous monitoring of mother and baby for early detection of changes.",
+          "Delivery is the only cure for preeclampsia, with timing based on gestational age and severity.",
+          "Vaginal birth is often possible and preferred if the mother and baby are stable.",
+          "Steroids may be given to help the baby's lungs mature if early delivery is needed."
+        ],
+        "questions_for_doctor": [
+          "What are the specific side effects of the blood pressure medication I am prescribed?",
+          "Under what conditions would you recommend a Cesarean section over a vaginal birth?",
+          "How will we decide when it is safe to deliver the baby if I am not yet full-term?"
+        ],
+        "references": [
+          {
+            "title": "Management of Hypertensive Disorders of Pregnancy",
+            "authors": "Society for Maternal-Fetal Medicine (SMFM)",
+            "journal_or_source": "SMFM Consult Series",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Details pharmacological management and timing of delivery in preeclampsia."
+          },
+          {
+            "title": "Magnesium Sulfate for Eclampsia and Preeclampsia",
+            "authors": "World Health Organization (WHO)",
+            "journal_or_source": "WHO Recommendations",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Guidelines on the use of magnesium sulfate for seizure prevention."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well",
+      "content": {
+        "intro": "While preeclampsia cannot always be prevented, there are steps you can take to reduce your risk and manage the condition effectively if it develops. Prevention focuses on two areas: primary prevention (avoiding the disease) and secondary prevention (preventing complications after diagnosis). For women at high risk, low-dose aspirin is a proven strategy to reduce the likelihood of developing preeclampsia. Once diagnosed, the focus shifts to monitoring, lifestyle adjustments, and knowing when to seek help. Living with a high-risk pregnancy can be emotionally challenging, but with the right support and information, you can navigate this journey with confidence. This lesson covers practical prevention strategies, daily life adjustments, and how to monitor your health at home. It also addresses the mental health aspects of high-risk pregnancy and provides resources for support.",
+        "sections": [
+          {
+            "heading": "Primary Prevention: Reducing Your Risk",
+            "text": "If you have risk factors for preeclampsia, such as a history of high blood pressure, diabetes, or a previous pregnancy with preeclampsia, your doctor may recommend starting low-dose aspirin (81 mg) daily. This should be started between 12 and 28 weeks of pregnancy, ideally before 16 weeks. Aspirin works by improving blood flow to the placenta, reducing the risk of the condition developing. It is safe for both you and the baby when taken as prescribed. In addition to aspirin, maintaining a healthy lifestyle is crucial. This includes eating a balanced diet rich in fruits, vegetables, and whole grains, and limiting salt intake. While salt does not directly cause preeclampsia, excessive salt can raise blood pressure. Regular, moderate exercise, such as walking or swimming, can also help maintain healthy blood pressure levels. Avoid smoking and alcohol, as these can worsen blood pressure and placental health. If you have chronic high blood pressure, work with your doctor to keep it under control before and during pregnancy. Regular prenatal care is essential for early detection and management."
+          },
+          {
+            "heading": "Secondary Prevention: Managing the Condition",
+            "text": "If you are diagnosed with preeclampsia, the goal is to prevent complications and slow progression. This involves strict adherence to your treatment plan, including taking medications as prescribed and attending all monitoring appointments. Rest is a key component of management. While bed rest is no longer routinely recommended for all cases, reducing physical activity and avoiding strenuous exercise can help lower blood pressure. Listen to your body; if you feel tired, rest. Monitor your blood pressure at home if your doctor recommends it. Keep a log of your readings to share with your healthcare provider. This helps them see trends and adjust your care plan. Watch for warning signs such as severe headaches, vision changes, or upper abdominal pain, and seek immediate care if they occur. Eating a diet low in processed foods and high in potassium can help manage blood pressure. Stay hydrated, but follow your doctor's advice on fluid intake if you have swelling. Regular fetal movement counts can also help you monitor the baby's well-being. If you notice a decrease in movement, contact your provider immediately."
+          },
+          {
+            "heading": "Living Well: Mental Health and Support",
+            "text": "A high-risk pregnancy can be emotionally taxing. It is normal to feel anxious, scared, or overwhelmed. Acknowledge these feelings and seek support. Talk to your partner, family, or friends about your concerns. Consider joining a support group for women with high-risk pregnancies, where you can share experiences and tips with others who understand what you are going through. Mental health is just as important as physical health. If you feel persistent sadness, anxiety, or hopelessness, talk to your doctor about counseling or therapy. Stress management techniques such as deep breathing, meditation, or gentle yoga can help reduce anxiety. Ensure you have a strong support system in place for after the baby is born, as recovery from preeclampsia can take time. Your blood pressure may remain elevated for a few weeks after delivery, so continue to monitor it and attend postpartum check-ups. Remember, you are not alone. Your healthcare team is there to support you every step of the way. Prioritize self-care, rest, and emotional well-being as part of your overall treatment plan."
+          }
+        ],
+        "clinical_pearl": "Low-dose aspirin (81 mg daily) starting before 16 weeks of pregnancy significantly reduces the risk of preeclampsia in high-risk women. After diagnosis, close monitoring and rest are key to preventing complications and ensuring a safe delivery.",
+        "key_points": [
+          "Low-dose aspirin is recommended for high-risk women to prevent preeclampsia.",
+          "Maintain a healthy diet, limit salt, and avoid smoking and alcohol to reduce risk.",
+          "Rest and reduce physical activity if diagnosed to help manage blood pressure.",
+          "Monitor blood pressure at home and keep a log to share with your provider.",
+          "Watch for warning signs like severe headaches and vision changes, and seek urgent care.",
+          "Prioritize mental health and seek support from family, friends, or professionals."
+        ],
+        "questions_for_doctor": [
+          "Am I a candidate for low-dose aspirin to prevent preeclampsia?",
+          "What specific lifestyle changes should I make to help manage my blood pressure?",
+          "How can I best support my mental health during this high-risk pregnancy?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Preeclampsia with Aspirin",
+            "authors": "American College of Obstetricians and Gynecologists (ACOG)",
+            "journal_or_source": "ACOG Committee Opinion",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommends aspirin for women at high risk of preeclampsia."
+          },
+          {
+            "title": "Lifestyle Management in Hypertensive Disorders of Pregnancy",
+            "authors": "International Society for the Study of Hypertension in Pregnancy (ISSHP)",
+            "journal_or_source": "ISSHP Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides advice on diet, exercise, and lifestyle modifications for prevention and management."
+          }
+        ]
+      }
+    }
+  ]
+}

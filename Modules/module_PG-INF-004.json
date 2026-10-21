@@ -1,0 +1,397 @@
+{
+  "meta": {
+    "id": "PG-INF-004",
+    "type": "patient_guide",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "Tuberculosis — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 6,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-24",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Tuberculosis?",
+      "content": {
+        "intro": "Tuberculosis, often called TB, is a disease caused by tiny bacteria that usually attack your lungs. It has been around for thousands of years, but today, we have powerful medicines to cure it. Understanding what TB is, how it spreads, and who is most at risk is the first step in protecting yourself and your loved ones. This lesson will help you demystify the disease, separating fact from fear, and explain why TB remains a significant global health concern even in developed countries. We will look at the difference between simply carrying the bacteria and actually being sick with the disease, a distinction that is crucial for your peace of mind and proper treatment.",
+        "sections": [
+          {
+            "heading": "Understanding the TB Bacteria",
+            "text": "Tuberculosis is caused by a germ called Mycobacterium tuberculosis. Think of these bacteria like tiny, slow-growing seeds. Unlike many other germs that make you sick quickly, TB bacteria are very tough and can survive in your body for a long time without causing immediate symptoms. They primarily target the lungs, which are your body's air exchange centers, but they can sometimes travel through the bloodstream to other parts of the body, such as the kidneys, spine, or brain. This is why TB is considered a serious but treatable infection. The bacteria are spread through the air when a person with active TB disease in their lungs coughs, sneezes, speaks, or sings. You cannot get TB from shaking hands, sharing food, or touching bed linens. It is an airborne disease, meaning you breathe in the tiny droplets containing the bacteria. Once inhaled, the bacteria can settle in your lungs and begin to multiply, but your immune system often steps in to fight them off immediately."
+          },
+          {
+            "heading": "Latent TB vs. Active TB Disease",
+            "text": "This is the most important concept to understand about TB. There are two stages: Latent TB Infection and Active TB Disease. In Latent TB, the bacteria are alive in your body but are inactive. Your immune system has built a wall around them, keeping them in check. People with latent TB do not feel sick, do not have symptoms, and cannot spread TB to others. It is like having a dormant volcano; it is there, but it is not erupting. However, if your immune system weakens later in life, the bacteria can wake up and become active. Active TB Disease means the bacteria are multiplying rapidly and damaging your body. You will feel sick, have symptoms like a persistent cough or fever, and can spread the bacteria to others. Only people with active TB disease in their lungs or throat are contagious. It is crucial to know which stage you are in, as the treatment and precautions are very different. Most people who get infected with TB bacteria never develop active TB disease, but the risk remains if the bacteria are not monitored or treated appropriately."
+          },
+          {
+            "heading": "Who Gets TB and Why It Matters",
+            "text": "TB affects people all over the world, but it is more common in certain groups. According to the World Health Organization, about one-quarter of the world's population has latent TB infection. However, only about 5% to 10% of those infected will ever develop active TB disease in their lifetime. The risk is higher for people with weakened immune systems, such as those living with HIV, people with diabetes, or those taking certain medications that suppress the immune system. It is also more common in people who have recently been in close contact with someone who has active TB, or those who have traveled to or lived in countries where TB is common. In the United States and other developed nations, TB cases have decreased significantly, but they still occur, often in urban areas or among specific high-risk populations. Understanding who is at risk helps healthcare providers target screening and prevention efforts. It matters because early detection prevents the spread of the disease and ensures that those who are sick get the right treatment quickly. TB is curable, but it requires a long course of antibiotics, so knowing the basics helps you stay committed to your health journey."
+          }
+        ],
+        "clinical_pearl": "Remember: Latent TB is not contagious. You can live a normal life with latent TB, but you need to know your status because the bacteria can become active later if your immune system weakens. Active TB is contagious and requires immediate treatment to protect you and others.",
+        "key_points": [
+          "TB is caused by bacteria that spread through the air when an infected person coughs or speaks.",
+          "There are two forms: Latent TB (inactive, not contagious) and Active TB (sick, contagious).",
+          "Most people with latent TB never develop active disease, but the risk exists.",
+          "TB primarily affects the lungs but can spread to other organs.",
+          "You cannot get TB from touching surfaces, sharing food, or shaking hands.",
+          "Early detection and treatment are key to curing TB and preventing spread."
+        ],
+        "questions_for_doctor": [
+          "How can I tell if I have latent TB or active TB disease?",
+          "What are the specific risk factors for me personally?",
+          "If I have latent TB, what are my options for treatment to prevent it from becoming active?"
+        ],
+        "references": [
+          {
+            "title": "Tuberculosis Fact Sheet",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO Global TB Report",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides global statistics and definitions of latent vs. active TB."
+          },
+          {
+            "title": "Core Curriculum on Tuberculosis",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Detailed explanation of TB transmission and risk factors."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors",
+      "content": {
+        "intro": "Now that you understand what TB is, let’s look at why some people get it and others don’t. Getting TB is not just about bad luck; it involves a combination of exposure to the bacteria and your body’s ability to fight it. This lesson breaks down the causes of TB and the various risk factors that can increase your chances of developing the disease. We will distinguish between things you can change (modifiable risks) and things you cannot (non-modifiable risks). By understanding these factors, you can take proactive steps to protect your health and reduce your risk of infection or progression to active disease.",
+        "sections": [
+          {
+            "heading": "How Exposure Happens",
+            "text": "The primary cause of TB is exposure to the TB bacteria. This usually happens when you spend a lot of time in close quarters with someone who has active TB disease in their lungs. Think of it like being in a small, poorly ventilated room with someone who is coughing; the air becomes filled with tiny droplets containing the bacteria. You don’t need to be in direct physical contact, but you do need to breathe in the air they exhale. This is why TB is more common in places like homeless shelters, prisons, nursing homes, and healthcare settings where people live or work in close proximity. Traveling to or living in countries with high rates of TB also increases your risk of exposure. Once exposed, your body’s immune system reacts. In most healthy people, the immune system walls off the bacteria, resulting in latent TB. However, if the exposure is heavy or your immune system is compromised, the bacteria may not be contained, leading to active disease. Understanding your exposure history is crucial for your doctor to assess your risk accurately."
+          },
+          {
+            "heading": "Modifiable Risk Factors: What You Can Change",
+            "text": "Modifiable risk factors are those you can influence through lifestyle choices or medical management. One of the biggest modifiable risks is a weakened immune system. Conditions like HIV/AIDS, diabetes, and chronic kidney disease can make it harder for your body to keep TB bacteria in check. If you have HIV, your risk of developing active TB is much higher, so regular screening is essential. Smoking is another major modifiable risk factor. Smoking damages the lungs and impairs the immune system’s ability to fight off infections, including TB. Quitting smoking can significantly reduce your risk of developing active TB if you have latent infection. Alcohol abuse and drug use also weaken the immune system and can lead to poor adherence to TB treatment if you are diagnosed. Malnutrition is another factor; a diet lacking in essential nutrients can compromise your immune response. By managing chronic conditions, quitting smoking, limiting alcohol, and eating a balanced diet, you can strengthen your body’s defenses against TB. These are powerful steps you can take to protect yourself."
+          },
+          {
+            "heading": "Non-Modifiable Risk Factors: What You Cannot Change",
+            "text": "Non-modifiable risk factors are those you cannot change, such as age, genetics, and past medical history. Infants and young children have immature immune systems, making them more susceptible to severe forms of TB if exposed. Older adults, particularly those over 65, may have a weaker immune response due to aging, increasing their risk of reactivating latent TB. Genetics can also play a role; some people may have a genetic predisposition to developing active TB after exposure, though this is less well understood. Past exposure to TB is a significant non-modifiable risk. If you were infected with TB bacteria years ago, you carry the risk of reactivation for the rest of your life, especially if your health changes. Certain medications, such as those used for rheumatoid arthritis or organ transplants, suppress the immune system and increase TB risk. While you cannot change your age or genetics, you can be aware of these factors and work with your doctor to monitor your health more closely. Knowing your risk profile helps tailor your prevention and screening strategy."
+          }
+        ],
+        "clinical_pearl": "Your immune system is your best defense against TB. Conditions like HIV, diabetes, and smoking weaken this defense, turning a dormant infection into an active disease. Managing these conditions is as important as avoiding exposure.",
+        "key_points": [
+          "Close, prolonged contact with someone with active TB is the main cause of infection.",
+          "HIV, diabetes, and smoking significantly increase the risk of developing active TB.",
+          "Malnutrition and alcohol abuse weaken the immune system and raise TB risk.",
+          "Infants, young children, and older adults are at higher risk due to immune system status.",
+          "Past exposure to TB means you carry a lifelong risk of reactivation.",
+          "Medications that suppress the immune system can trigger active TB from latent infection."
+        ],
+        "questions_for_doctor": [
+          "Given my medical history, what is my personal risk level for developing active TB?",
+          "How can I best manage my chronic conditions to lower my TB risk?",
+          "Should I be screened for TB if I travel to high-risk countries?"
+        ],
+        "references": [
+          {
+            "title": "Risk Factors for Tuberculosis",
+            "authors": "American Thoracic Society",
+            "journal_or_source": "ATS Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Detailed analysis of modifiable and non-modifiable risk factors."
+          },
+          {
+            "title": "Tuberculosis and HIV",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Explains the strong link between HIV and TB progression."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and Disease Progression",
+      "content": {
+        "intro": "Recognizing the symptoms of TB is crucial for early diagnosis and treatment. TB can be tricky because its symptoms often mimic other common illnesses, like the flu or a bad cold. This lesson will guide you through the early warning signs, how the disease progresses over time, and what you might actually feel if you have active TB. We will also highlight the red flags that require urgent medical attention. By understanding these symptoms, you can be your own best advocate and seek help when needed, preventing the disease from worsening and spreading to others.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs of Active TB",
+            "text": "Active TB disease usually develops slowly, over weeks or months. The most common early symptom is a persistent cough that lasts for three weeks or longer. This cough may produce mucus or even blood. You might also experience chest pain, especially when breathing deeply or coughing. Other early signs include night sweats, which are so drenching that you may need to change your clothes or bedding. Fever and chills are also common, often occurring in the evening or at night. Unexplained weight loss and loss of appetite are frequent complaints, as the body fights the infection and burns more energy. Fatigue and weakness are pervasive, making daily activities feel exhausting. It is important to note that these symptoms are not unique to TB; they can be caused by many other conditions. However, if you have a cough that won’t go away, along with night sweats and weight loss, TB should be considered. Do not ignore these signs, especially if you have risk factors for TB. Early detection makes treatment easier and more effective."
+          },
+          {
+            "heading": "How the Disease Progresses Over Time",
+            "text": "If left untreated, active TB can progress and become more severe. The bacteria multiply in the lungs, causing damage to lung tissue. This can lead to cavities, or holes, in the lungs, which can become infected and cause further complications. The disease can spread from the lungs to other parts of the body through the bloodstream, a condition known as extrapulmonary TB. This can affect the lymph nodes, causing swelling; the kidneys, causing blood in the urine; the spine, causing back pain and potential nerve damage; or the brain, causing meningitis, which is a serious inflammation of the membranes surrounding the brain. As the disease progresses, symptoms worsen. Coughing may become more frequent and produce more blood. Breathing may become difficult, leading to shortness of breath. Weight loss can become severe, leading to malnutrition. Fatigue can be debilitating. Without treatment, TB can be fatal. However, with proper medical care, the progression can be halted, and the disease can be cured. The key is to seek treatment as soon as symptoms appear. Delaying treatment allows the bacteria to spread and causes more damage to your body."
+          },
+          {
+            "heading": "When to Seek Urgent Care",
+            "text": "Knowing when to seek urgent medical attention is vital. If you have been diagnosed with latent TB and develop any of the symptoms of active TB, such as a persistent cough, fever, or night sweats, contact your doctor immediately. If you have active TB and are undergoing treatment, but your symptoms worsen or do not improve, seek medical help. Coughing up significant amounts of blood is a medical emergency and requires immediate attention. Severe shortness of breath, chest pain, or confusion are also red flags that need urgent evaluation. If you have been in close contact with someone who has active TB and develop symptoms, get tested right away. Do not wait for symptoms to go away on their own. TB is a serious disease, but it is treatable. The sooner you start treatment, the better your outcome. If you are unsure whether your symptoms are related to TB, it is always better to err on the side of caution and consult your healthcare provider. They can perform tests to determine if TB is the cause and start appropriate treatment if needed."
+          }
+        ],
+        "clinical_pearl": "A cough lasting more than three weeks is a major red flag. If you have a persistent cough, especially with night sweats or weight loss, do not ignore it. Seek medical evaluation to rule out TB and other serious conditions.",
+        "key_points": [
+          "A cough lasting more than three weeks is a primary symptom of active TB.",
+          "Night sweats, fever, and unexplained weight loss are common early signs.",
+          "TB can spread to other organs, causing symptoms like back pain or blood in urine.",
+          "Untreated TB can cause severe lung damage and be fatal.",
+          "Coughing up blood or severe shortness of breath requires immediate emergency care.",
+          "Early diagnosis and treatment lead to better outcomes and prevent spread."
+        ],
+        "questions_for_doctor": [
+          "My cough has lasted for three weeks; should I be tested for TB?",
+          "What are the signs that TB has spread to other parts of my body?",
+          "When should I go to the emergency room versus calling my doctor?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Tuberculosis",
+            "authors": "World Health Organization",
+            "journal_or_source": "WHO",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive list of TB symptoms and progression."
+          },
+          {
+            "title": "Clinical Presentation of TB",
+            "authors": "Centers for Disease Control and Prevention",
+            "journal_or_source": "CDC",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Guidance on recognizing and responding to TB symptoms."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Getting a diagnosis for tuberculosis (TB) can feel like a long and confusing process, but it is a crucial step toward getting better. Think of the diagnostic process like a detective story. Your healthcare team needs to gather clues to confirm if the bacteria causing TB are present in your body, where they are located, and whether they are active and making you sick, or just sleeping (latent). This lesson will walk you through the common tests you might encounter, what to expect during appointments, and how long it typically takes to get answers. Understanding these steps can help reduce anxiety and prepare you for what lies ahead.",
+        "sections": [
+          {
+            "heading": "The Initial Clues: Physical Exam and Medical History",
+            "text": "Before any lab tests are ordered, your doctor will start with a thorough conversation and physical examination. This is the foundation of the diagnostic process. Your doctor will ask detailed questions about your symptoms, such as how long you have had a cough, if you have experienced night sweats, unexplained weight loss, or fever. They will also ask about your travel history, whether you have been in close contact with anyone who has had TB, and if you have any conditions that might weaken your immune system, such as diabetes or HIV. This history helps determine your 'risk level.'\n\nDuring the physical exam, your doctor will listen to your lungs with a stethoscope to check for unusual sounds that might suggest fluid or inflammation. They may also check your lymph nodes, particularly in the neck, for swelling. While these steps cannot confirm TB on their own, they help your doctor decide which tests are most appropriate. For example, if you have a chronic cough and a history of exposure, your doctor will likely move quickly to imaging and lab tests. If your symptoms are mild and your risk is low, they might start with simpler screening tests. It is important to be honest and detailed during this stage, as even small details can guide the diagnostic path."
+          },
+          {
+            "heading": "Imaging and Lab Tests: Seeing and Finding the Bacteria",
+            "text": "Once your doctor suspects TB, they will order specific tests to look for the bacteria. The most common first step is a chest X-ray. This painless test uses a small amount of radiation to create a picture of your lungs. In active TB, the X-ray may show white patches or cavities, which indicate areas of infection or damage. However, a normal X-ray does not completely rule out TB, especially in the early stages or if the infection is outside the lungs (extrapulmonary TB).\n\nIf the X-ray is abnormal or if symptoms persist, your doctor will request sputum tests. Sputum is the mucus you cough up from deep in your lungs. You will be asked to provide samples, usually on three separate occasions, often including one early morning sample. These samples are sent to a laboratory for two main types of analysis: a smear microscopy and a culture. Smear microscopy is a quick test where a technician looks at the sputum under a microscope to see if TB bacteria are present. It provides results within hours but cannot tell if the bacteria are alive or dead, nor can it identify drug resistance. The culture test, on the other hand, involves growing the bacteria in a lab. This is the 'gold standard' for diagnosis because it confirms active infection and allows for drug susceptibility testing. However, it takes longer, often 2 to 8 weeks, because TB bacteria grow very slowly. In recent years, molecular tests like the GeneXpert have become widely available. These tests can detect TB DNA and check for resistance to rifampin, a key TB drug, within hours. This rapid result helps doctors start the right treatment sooner."
+          },
+          {
+            "heading": "Skin and Blood Tests: Detecting Latent TB",
+            "text": "If you do not have symptoms of active TB but have been exposed to someone with the disease, or if you are at high risk, your doctor may test for latent TB infection (LTBI). LTBI means the bacteria are in your body but are inactive and not causing illness. You cannot spread LTBI to others, but it can become active later if your immune system weakens. There are two main tests for LTBI: the Tuberculin Skin Test (TST) and the Interferon-Gamma Release Assay (IGRA) blood test.\n\nThe TST, also known as the Mantoux test, involves injecting a small amount of fluid under the skin of your forearm. You must return to the clinic 48 to 72 hours later to have a healthcare worker measure the reaction. A raised, hard bump indicates a positive result, suggesting your immune system has reacted to TB bacteria. The IGRA blood test, such as QuantiFERON-TB Gold, measures your immune system's response to TB bacteria in a lab sample. It requires only one visit and is not affected by prior BCG vaccination, which can cause false positives in the skin test. Your doctor will choose the test based on your medical history, vaccination status, and ability to return for the skin test reading. A positive result for latent TB does not mean you are sick, but it does mean you may need preventive treatment to stop the bacteria from waking up."
+          }
+        ],
+        "clinical_pearl": "A negative test does not always mean you are free of TB. In some cases, especially with weakened immune systems, tests may not detect the bacteria. If symptoms persist despite negative results, your doctor may repeat tests or look for TB in other parts of the body. Always follow up with your healthcare provider if you feel worse, even after a 'clear' diagnosis.",
+        "key_points": [
+          "Diagnosis involves a combination of medical history, physical exam, imaging, and lab tests.",
+          "Chest X-rays can show signs of lung damage but cannot confirm active TB on their own.",
+          "Sputum cultures are the gold standard for diagnosis but can take several weeks for results.",
+          "Molecular tests like GeneXpert provide rapid results and check for drug resistance.",
+          "Skin and blood tests are used to detect latent TB infection in people without symptoms.",
+          "Multiple sputum samples are often required to ensure accurate detection of the bacteria."
+        ],
+        "questions_for_doctor": [
+          "What specific tests do you recommend for my situation, and why?",
+          "How long will it take to get the results of my sputum culture?",
+          "If my initial tests are negative but I still have symptoms, what are the next steps?"
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Investigation of Contacts of Persons with Tuberculosis",
+            "authors": "Centers for Disease Control and Prevention (CDC)",
+            "journal_or_source": "MMWR Recommendations and Reports",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Provides detailed protocols for testing and managing contacts of TB patients."
+          },
+          {
+            "title": "WHO Guidelines for Tuberculosis Diagnosis",
+            "authors": "World Health Organization (WHO)",
+            "journal_or_source": "WHO Technical Report Series",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Global standards for TB diagnostic algorithms and test selection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Starting treatment for tuberculosis is a significant commitment, but it is highly effective. The goal of TB treatment is to kill the bacteria, cure the disease, and prevent you from spreading it to others. Treatment usually involves taking a combination of antibiotics for several months. It is important to understand that TB treatment is not like taking a short course of antibiotics for a sore throat. The bacteria are slow-growing and can hide in your body, so the treatment must be long and consistent to ensure they are completely eradicated. This lesson will explain the medications you may take, how to manage side effects, and the importance of adherence to your treatment plan.",
+        "sections": [
+          {
+            "heading": "The Standard Treatment Regimen: First-Line Medications",
+            "text": "For most people with drug-susceptible TB, the standard treatment involves four main antibiotics: isoniazid, rifampin, ethambutol, and pyrazinamide. This combination is often referred to as 'RIPE' therapy. The treatment is divided into two phases: the intensive phase and the continuation phase. During the intensive phase, which lasts for the first two months, you will take all four medications daily. This phase aims to rapidly reduce the number of bacteria in your body. After two months, if your sputum tests are negative and you are improving, you will move to the continuation phase. In this phase, you will typically take only isoniazid and rifampin for another four months. The total treatment duration is usually six months for pulmonary TB. It is crucial to take all medications exactly as prescribed, even if you start feeling better after a few weeks. Stopping early can allow the strongest bacteria to survive, leading to drug-resistant TB, which is much harder to treat."
+          },
+          {
+            "heading": "Managing Side Effects and Monitoring",
+            "text": "Like all medications, TB drugs can cause side effects. Most side effects are mild and manageable, but some require immediate medical attention. Common side effects include nausea, loss of appetite, and a reddish-orange discoloration of urine, sweat, and tears, which is caused by rifampin. This discoloration is harmless but can stain contact lenses and clothing. Isoniazid can sometimes cause nerve damage, leading to tingling or numbness in the hands and feet. To prevent this, your doctor will likely prescribe vitamin B6 (pyridoxine) supplements. Ethambutol can affect your vision, so you may need regular eye exams to check for changes in color vision or sharpness. Rifampin and isoniazid can also affect liver function, so your doctor will monitor your liver enzymes with blood tests. If you experience severe side effects like yellowing of the skin or eyes (jaundice), persistent vomiting, or vision changes, contact your healthcare provider immediately. Do not stop taking your medications without consulting your doctor, as this can lead to treatment failure."
+          },
+          {
+            "heading": "Drug-Resistant TB and Alternative Treatments",
+            "text": "In some cases, the TB bacteria may be resistant to the first-line medications. This is known as multidrug-resistant TB (MDR-TB) or extensively drug-resistant TB (XDR-TB). Drug resistance occurs when TB is not treated correctly, such as when medications are not taken consistently or when the wrong drugs are used. Treating drug-resistant TB is more complex and requires a different set of medications, often including second-line drugs like fluoroquinolones, aminoglycosides, and newer agents like bedaquiline and delamanid. Treatment for drug-resistant TB can last up to 18 to 24 months and may involve injectable medications. It is essential to undergo drug susceptibility testing to determine which antibiotics will work for your specific strain of TB. Your healthcare team will work closely with you to manage the more complex regimen and monitor for side effects. Support services, such as directly observed therapy (DOT), where a healthcare worker watches you take your medication, are often used to ensure adherence and improve outcomes."
+          }
+        ],
+        "clinical_pearl": "Adherence is the most critical factor in successful TB treatment. Missing doses can lead to drug resistance, making the disease much harder to cure. Use pillboxes, alarms, and support from family or friends to help you stay on track. If you miss a dose, take it as soon as you remember, but do not double up on doses.",
+        "key_points": [
+          "Standard TB treatment involves four antibiotics for two months, followed by two antibiotics for four months.",
+          "Rifampin can cause harmless reddish-orange discoloration of body fluids.",
+          "Vitamin B6 is often prescribed to prevent nerve damage from isoniazid.",
+          "Regular liver function tests and eye exams are important during treatment.",
+          "Drug-resistant TB requires longer treatment with different, often more complex, medications.",
+          "Never stop taking TB medications early, even if you feel better, to prevent resistance."
+        ],
+        "questions_for_doctor": [
+          "What are the most common side effects of my specific medication regimen?",
+          "How often will I need blood tests to monitor my liver function?",
+          "What should I do if I miss a dose of my medication?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Drug-Susceptible Tuberculosis",
+            "authors": "American Thoracic Society (ATS)",
+            "journal_or_source": "Clinical Infectious Diseases",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Detailed recommendations for standard TB treatment regimens and monitoring."
+          },
+          {
+            "title": "WHO Guidelines for the Programmatic Management of Drug-Resistant Tuberculosis",
+            "authors": "World Health Organization (WHO)",
+            "journal_or_source": "WHO Guidelines",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Protocols for managing MDR-TB and XDR-TB, including new drug regimens."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention",
+      "content": {
+        "intro": "Preventing tuberculosis involves two main strategies: primary prevention, which aims to stop people from getting infected in the first place, and secondary prevention, which focuses on stopping latent TB from becoming active disease. TB is an airborne disease, meaning it spreads through the air when a person with active TB coughs, sneezes, or speaks. Understanding how TB spreads and taking steps to reduce your risk can protect you and your community. This lesson will cover lifestyle changes, screening recommendations, vaccination, and how to manage latent TB infection to prevent future illness.",
+        "sections": [
+          {
+            "heading": "Primary Prevention: Reducing Exposure and Strengthening Immunity",
+            "text": "The most effective way to prevent TB is to avoid exposure to the bacteria. If you live with or work with someone who has active TB, it is important to ensure they are receiving treatment and are no longer contagious. Once a person with active TB has been on effective treatment for a few weeks, they are usually no longer able to spread the disease. In the meantime, good ventilation is crucial. Open windows and use fans to circulate air, as TB bacteria can survive in stagnant air for hours. Wearing a mask can also reduce the risk of inhaling infectious droplets. Additionally, maintaining a strong immune system is key. This includes eating a balanced diet rich in fruits, vegetables, and whole grains, getting enough sleep, managing stress, and avoiding smoking and excessive alcohol consumption. Smoking damages the lungs and makes it easier for TB bacteria to take hold. If you smoke, seek support to quit, as this significantly reduces your risk of developing active TB if you are infected."
+          },
+          {
+            "heading": "Screening and Vaccination: Early Detection and Protection",
+            "text": "Regular screening is recommended for people at high risk of TB, such as those with weakened immune systems, healthcare workers, and individuals who have traveled to or lived in countries with high TB rates. Screening typically involves a skin test or blood test to check for latent TB infection. If you test positive for latent TB, your doctor may recommend preventive treatment to kill the bacteria before they become active. This treatment is shorter and simpler than treating active TB and is highly effective in preventing future illness. The BCG (Bacille Calmette-Guérin) vaccine is used in many countries to prevent TB, particularly in children. However, it is not widely used in the United States and some other countries because it is not very effective in adults and can interfere with TB skin tests. If you have received the BCG vaccine, inform your healthcare provider, as it may affect the interpretation of your TB test results. In some cases, a blood test may be preferred over a skin test for people who have had the BCG vaccine."
+          },
+          {
+            "heading": "Secondary Prevention: Managing Latent TB and Preventing Complications",
+            "text": "If you have latent TB infection, you do not feel sick and cannot spread the bacteria, but you are at risk of developing active TB later in life. This risk is highest in the first two years after infection but can occur at any time, especially if your immune system weakens. Preventive treatment for latent TB typically involves taking isoniazid for 6 to 9 months, or a shorter regimen of rifampin and isoniazid for 3 to 4 months. Newer regimens, such as once-weekly rifapentine and isoniazid for 3 months, are also available and may be easier to adhere to. It is important to complete the full course of preventive treatment to ensure the bacteria are eliminated. During this time, your doctor will monitor you for side effects, particularly liver problems. If you develop symptoms of active TB, such as a persistent cough, fever, or night sweats, seek medical attention immediately. Secondary prevention also involves managing underlying health conditions, such as diabetes or HIV, which can increase the risk of TB reactivation. Regular health check-ups and adherence to treatment for other conditions are essential components of TB prevention."
+          }
+        ],
+        "clinical_pearl": "Latent TB infection is not contagious, but it can become active if left untreated. Preventive treatment is highly effective in stopping this progression. If you have been exposed to TB or have risk factors, ask your doctor about screening and preventive options.",
+        "key_points": [
+          "Good ventilation and masks can reduce the risk of inhaling TB bacteria.",
+          "Smoking cessation is a critical step in reducing TB risk.",
+          "Screening is recommended for high-risk individuals to detect latent TB.",
+          "Preventive treatment for latent TB is shorter and simpler than active TB treatment.",
+          "The BCG vaccine is not widely used in some countries and can affect skin test results.",
+          "Managing underlying health conditions helps prevent TB reactivation."
+        ],
+        "questions_for_doctor": [
+          "Am I at high risk for TB, and do I need screening?",
+          "What are the options for preventive treatment if I have latent TB?",
+          "How can I reduce my risk of exposure to TB in my daily life?"
+        ],
+        "references": [
+          {
+            "title": "Prevention and Control of Tuberculosis in the United States",
+            "authors": "Centers for Disease Control and Prevention (CDC)",
+            "journal_or_source": "MMWR Recommendations and Reports",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guidelines for TB prevention, screening, and control in the US."
+          },
+          {
+            "title": "WHO Global Tuberculosis Report",
+            "authors": "World Health Organization (WHO)",
+            "journal_or_source": "WHO Publications",
+            "year": 2024,
+            "type": "report",
+            "note": "Global data and recommendations on TB prevention and control strategies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "L007",
+      "order": 7,
+      "title": "Living Well with This Condition",
+      "content": {
+        "intro": "Living with tuberculosis, whether you are undergoing treatment for active disease or managing latent infection, requires adjustments to your daily life. However, with proper care and support, you can maintain a good quality of life and return to your normal activities. This lesson will provide practical advice on daily routines, diet, exercise, mental health, and how to communicate with your healthcare team. It will also highlight red flags that require urgent attention and offer resources for support. Remember, you are not alone in this journey, and there are many people and organizations ready to help you.",
+        "sections": [
+          {
+            "heading": "Daily Life Adjustments and Self-Care",
+            "text": "During the initial phase of treatment, you may feel tired and weak, which is normal as your body fights the infection and adjusts to the medications. Listen to your body and rest when you need to. Gradually increase your activity level as you feel stronger. Good hygiene practices are essential to prevent spreading TB to others. Cover your mouth and nose with a tissue when you cough or sneeze, and dispose of tissues properly. Wash your hands frequently with soap and water. If you are still contagious, avoid close contact with others, especially children, elderly people, and those with weakened immune systems. Stay home from work or school until your doctor confirms you are no longer infectious. Create a comfortable and supportive environment at home. Inform your family and close friends about your condition so they can support you and take precautions if necessary. Open windows to ensure good air circulation, which helps reduce the concentration of TB bacteria in the air."
+          },
+          {
+            "heading": "Diet, Exercise, and Mental Health",
+            "text": "A balanced diet is crucial for recovery. TB can cause weight loss and loss of appetite, so aim to eat nutrient-rich foods that support your immune system. Include plenty of fruits, vegetables, whole grains, lean proteins, and healthy fats. Stay hydrated by drinking plenty of water. If you are losing weight, consider small, frequent meals or nutrient-dense snacks. Exercise can help improve your energy levels and mood, but start slowly. Gentle activities like walking or stretching are good options. Avoid strenuous exercise until your doctor approves it. Mental health is an important aspect of TB care. Dealing with a chronic illness can be stressful and may lead to anxiety or depression. Talk to your doctor or a counselor if you are feeling overwhelmed. Joining a support group can also be helpful, as it allows you to connect with others who are going through similar experiences. Practice stress-reduction techniques such as deep breathing, meditation, or yoga."
+          },
+          "heading",
+          ":",
+          "Monitoring, Red Flags, and Support Resources",
+          "text",
+          ":",
+          "Regular follow-up appointments are essential to monitor your progress and adjust your treatment if needed. Your doctor will likely order periodic chest X-rays and sputum tests to ensure the bacteria are being eliminated. Keep a record of your symptoms and any side effects from medications. Report any new or worsening symptoms to your doctor promptly. Red flags that require urgent attention include severe shortness of breath, coughing up blood, high fever, confusion, or severe abdominal pain. Do not ignore these signs, as they may indicate complications or severe side effects. There are many resources available to support you during your TB treatment. Your healthcare provider can connect you with social workers, nutritionists, and mental health professionals. Local health departments often offer TB control programs that provide medication management, counseling, and financial assistance. Online resources and support groups can also provide valuable information and emotional support. Remember, your healthcare team is there to help you every step of the way."
+        ],
+        "clinical_pearl": "Your outlook for recovery is excellent if you adhere to your treatment plan. Most people with drug-susceptible TB are cured within six months. Stay positive, stay connected with your support network, and trust the process.",
+        "key_points": [
+          "Rest and gradually increase activity as you feel stronger.",
+          "Practice good hygiene to prevent spreading TB to others.",
+          "Eat a balanced diet to support your immune system and recovery.",
+          "Monitor your mental health and seek support if needed.",
+          "Attend all follow-up appointments and report any red flags immediately.",
+          "Utilize available resources and support groups for assistance."
+        ],
+        "questions_for_doctor": [
+          "When can I return to work or school?",
+          "What are the signs that I am no longer contagious?",
+          "Can you recommend any support groups or resources for TB patients?"
+        ],
+        "references": [
+          {
+            "title": "Patient Education: Tuberculosis (Beyond the Basics)",
+            "authors": "American Academy of Family Physicians (AAFP)",
+            "journal_or_source": "Family Practice Guidelines",
+            "year": 2024,
+            "type": "patient_education",
+            "note": "Comprehensive guide for patients on living with and managing TB."
+          },
+          {
+            "title": "Living with Tuberculosis: A Guide for Patients",
+            "authors": "The Stop TB Partnership",
+            "journal_or_source": "WHO Collaborating Centre",
+            "year": 2024,
+            "type": "guide",
+            "note": "Practical advice and resources for patients undergoing TB treatment."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-COPD-001",
+  "title": "COPD: From Emphysema History to Personalized Triple Therapy",
+  "specialty": "Pulmonology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Chronic Obstructive Pulmonary Disease (COPD) has a rich and evolving history that spans centuries. The earliest descriptions of emphysema, a key component of COPD, date back to 1679 when Italian anatomist Giovanni Battista Morgagni first described the condition. However, it wasn't until the 19th century that the disease began to be understood in more detail. In 1831, René Laennec, a French physician, coined the term 'emphysema' and provided detailed descriptions of the disease's pathology. The 20th century saw significant advancements in understanding COPD, with the 1960s being particularly pivotal. A landmark paper by Oswald and Medwei in 1963 discussed the role of air pollution in the development of COPD, while the work of Fletcher and colleagues in 1959 introduced the concept of irreversible airflow limitation. The discovery of alpha-1 antitrypsin deficiency by Laurell and Eriksson in 1963 as a cause of emphysema further expanded the understanding of the disease's genetic components. Historical patients, such as those described in the classic paper by Hodgkin in 1840, have also played a crucial role in shaping our knowledge of COPD. The disease's understanding has evolved significantly over the years, from being considered a single entity to being recognized as a complex, heterogeneous condition with multiple subtypes and risk factors.",
+        "sections": [],
+        "key_points": [
+          "1679: Giovanni Battista Morgagni describes emphysema",
+          "1831: René Laennec coins the term 'emphysema'",
+          "1959: Fletcher and colleagues introduce the concept of irreversible airflow limitation",
+          "1963: Oswald and Medwei discuss the role of air pollution in COPD development",
+          "1963: Laurell and Eriksson discover alpha-1 antitrypsin deficiency as a cause of emphysema",
+          "1840: Hodgkin describes classic cases of COPD",
+          "COPD understanding has evolved from a single entity to a complex, heterogeneous condition",
+          "The disease's history spans centuries, with significant advancements in the 19th and 20th centuries"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "COPD is characterized by persistent airflow limitation that is usually progressive and associated with an enhanced chronic inflammatory response in the airways and the lungs to noxious particles or gases. The pathophysiology of COPD involves multiple molecular mechanisms, including oxidative stress, inflammation, and protease-antiprotease imbalance. Genetic factors, such as alpha-1 antitrypsin deficiency, also play a significant role in the development of COPD. The disease is heterogeneous, with several subtypes, including emphysema, chronic bronchitis, and small airway disease. Emphysema is characterized by the destruction of alveolar walls, resulting in enlarged air spaces and reduced gas exchange. Chronic bronchitis is defined by the presence of a chronic cough and sputum production, while small airway disease involves inflammation and narrowing of the small airways. Understanding the pathophysiology and aetiology of COPD is crucial for the development of effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "COPD is characterized by persistent airflow limitation and chronic inflammation",
+          "Oxidative stress, inflammation, and protease-antiprotease imbalance are key molecular mechanisms",
+          "Genetic factors, such as alpha-1 antitrypsin deficiency, contribute to COPD development",
+          "COPD is heterogeneous, with subtypes including emphysema, chronic bronchitis, and small airway disease",
+          "Emphysema involves destruction of alveolar walls and reduced gas exchange",
+          "Chronic bronchitis is defined by chronic cough and sputum production",
+          "Small airway disease involves inflammation and narrowing of the small airways",
+          "Understanding COPD pathophysiology and aetiology is crucial for effective treatment strategies"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "COPD can present with a variety of symptoms, including shortness of breath, wheezing, cough, and sputum production. The cardinal symptoms of COPD are dyspnea, cough, and sputum production, which can vary in severity and impact daily life. The disease can be divided into several stages, including mild, moderate, severe, and very severe, based on the severity of symptoms and lung function. Atypical presentations of COPD can include acute exacerbations, which are characterized by a sudden worsening of symptoms, and comorbidities, such as cardiovascular disease and diabetes. Clinical evaluation of COPD involves a comprehensive history, physical examination, and diagnostic tests, including spirometry and imaging studies. Accurate diagnosis and staging of COPD are essential for guiding treatment and improving patient outcomes.",
+        "sections": [],
+        "key_points": [
+          "COPD symptoms include shortness of breath, wheezing, cough, and sputum production",
+          "Dyspnea, cough, and sputum production are the cardinal symptoms of COPD",
+          "COPD can be divided into mild, moderate, severe, and very severe stages",
+          "Acute exacerbations are characterized by a sudden worsening of symptoms",
+          "Comorbidities, such as cardiovascular disease and diabetes, can occur with COPD",
+          "Clinical evaluation of COPD involves comprehensive history, physical examination, and diagnostic tests",
+          "Spirometry and imaging studies are essential diagnostic tests for COPD",
+          "Accurate diagnosis and staging of COPD guide treatment and improve patient outcomes"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing COPD involves a combination of clinical evaluation, pulmonary function tests, and imaging studies. The Global Initiative for Chronic Obstructive Lung Disease (GOLD) criteria are widely used for diagnosis and staging. Spirometry is the most commonly used pulmonary function test, measuring forced expiratory volume in one second (FEV1) and forced vital capacity (FVC). A ratio of FEV1/FVC less than 0.7 confirms airflow limitation. Imaging studies such as chest X-rays and computed tomography (CT) scans can help identify emphysema and rule out other conditions. Blood tests may be used to assess for alpha-1 antitrypsin deficiency, a rare genetic cause of COPD.",
+        "sections": [],
+        "key_points": [
+          "GOLD criteria are used for diagnosis and staging of COPD",
+          "Spirometry measures FEV1 and FVC to assess airflow limitation",
+          "FEV1/FVC ratio less than 0.7 confirms COPD diagnosis",
+          "Imaging studies help identify emphysema and rule out other conditions",
+          "Blood tests assess for alpha-1 antitrypsin deficiency",
+          "Diagnosis is based on a combination of clinical evaluation and test results",
+          "Pulmonary function tests are essential for diagnosing COPD",
+          "Early diagnosis is crucial for effective management and treatment"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Treatment of COPD involves a combination of pharmacological and non-pharmacological interventions. Bronchodilators, such as beta-2 agonists and anticholinergics, are the mainstay of pharmacological treatment. Inhaled corticosteroids may be added for patients with a history of exacerbations. Non-pharmacological interventions include pulmonary rehabilitation, smoking cessation, and oxygen therapy. Pulmonary rehabilitation programs combine exercise training, education, and behavioral modification to improve symptoms and quality of life. Smoking cessation is critical for slowing disease progression, and oxygen therapy is used for patients with severe resting room air hypoxemia.",
+        "sections": [],
+        "key_points": [
+          "Bronchodilators are the mainstay of pharmacological treatment for COPD",
+          "Inhaled corticosteroids may be added for patients with a history of exacerbations",
+          "Pulmonary rehabilitation improves symptoms and quality of life",
+          "Smoking cessation is critical for slowing disease progression",
+          "Oxygen therapy is used for patients with severe resting room air hypoxemia",
+          "Non-pharmacological interventions are essential for comprehensive management",
+          "Pharmacological treatment should be individualized based on disease severity and patient response",
+          "Treatment goals include improving symptoms, reducing exacerbations, and improving quality of life"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "COPD is associated with several complications, including exacerbations, pneumonia, and pulmonary hypertension. Exacerbations are a significant cause of morbidity and mortality, and can be triggered by respiratory infections or air pollution. Pneumonia is a common complication, particularly in patients with severe COPD. Pulmonary hypertension can develop in advanced COPD, leading to right heart failure. Prognostic scores, such as the BODE index, can predict mortality and guide treatment decisions. The BODE index combines measures of body mass index, airflow obstruction, dyspnea, and exercise capacity to predict mortality.",
+        "sections": [],
+        "key_points": [
+          "Exacerbations are a significant cause of morbidity and mortality in COPD",
+          "Pneumonia is a common complication, particularly in patients with severe COPD",
+          "Pulmonary hypertension can develop in advanced COPD, leading to right heart failure",
+          "Prognostic scores, such as the BODE index, can predict mortality",
+          "The BODE index combines measures of body mass index, airflow obstruction, dyspnea, and exercise capacity",
+          "COPD is associated with significant morbidity and mortality",
+          "Complications can be prevented or managed with comprehensive treatment",
+          "Prognostic scores can guide treatment decisions and improve outcomes"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "COPD affects various populations, including the elderly, pregnant women, and pediatric patients. In the elderly, COPD is often underdiagnosed and undertreated, and can be complicated by comorbidities such as cardiovascular disease. In pregnant women, COPD can increase the risk of adverse pregnancy outcomes, and management should be individualized. Pediatric COPD is rare, but can occur in children with cystic fibrosis or other underlying conditions. Emerging therapies for COPD include triple therapy with inhaled corticosteroids, long-acting beta-2 agonists, and long-acting muscarinic antagonists. Pipeline drugs, such as rho-kinase inhibitors and phosphodiesterase-4 inhibitors, are being developed to target specific molecular mechanisms.",
+        "sections": [],
+        "key_points": [
+          "COPD affects various populations, including the elderly, pregnant women, and pediatric patients",
+          "Elderly patients with COPD are often underdiagnosed and undertreated",
+          "Pregnant women with COPD require individualized management",
+          "Pediatric COPD is rare, but can occur in children with underlying conditions",
+          "Emerging therapies include triple therapy with inhaled corticosteroids, long-acting beta-2 agonists, and long-acting muscarinic antagonists",
+          "Pipeline drugs target specific molecular mechanisms, such as rho-kinase and phosphodiesterase-4",
+          "Special populations require tailored management and treatment",
+          "Emerging therapies offer promise for improving outcomes in COPD patients"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-COPD-001",
+    "type": "disease_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "COPD: From Emphysema History to Personalized Triple Therapy",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

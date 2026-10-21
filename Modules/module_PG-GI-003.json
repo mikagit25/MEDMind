@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "id": "PG-GI-003",
+    "type": "patient_guide",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Irritable Bowel Syndrome (IBS) — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Irritable Bowel Syndrome (IBS)?",
+      "content": {
+        "intro": "Irritable Bowel Syndrome, or IBS, is a common disorder that affects the large intestine, causing a variety of symptoms including abdominal pain, changes in bowel movements, and bloating. It's estimated that IBS affects around 10-15% of adults worldwide, making it one of the most common gastrointestinal disorders. Despite its prevalence, IBS is often misunderstood, and many people suffer in silence. In this lesson, we'll explore what IBS is, how common it is, who gets it, and why it matters. Think of your intestines like a highway system - when everything is working smoothly, traffic flows, and you feel fine. But when there's a jam, you get symptoms. IBS is like a persistent traffic jam in your intestines.",
+        "sections": [
+          {
+            "heading": "Definition and Prevalence",
+            "text": "IBS is characterized by recurring abdominal pain associated with changes in bowel movements, such as diarrhea, constipation, or a mix of both. It's not just about having a sensitive stomach; it's a genuine medical condition that can significantly impact daily life. IBS is common, affecting up to 1 in 5 adults at some point in their lives. It's more prevalent in women than men and can occur at any age, though it often begins in the teenage years or early adulthood. The exact cause of IBS is unknown, but it's believed to result from a combination of factors including changes in gut bacteria, nervous system abnormalities, and environmental factors."
+          },
+          {
+            "heading": "Who Gets IBS and Why It Matters",
+            "text": "Anyone can develop IBS, but it's more common in people under 45 years old. Family history plays a role, with individuals having a first-degree relative (parent or sibling) with IBS being more likely to develop it themselves. Stress, certain foods, and hormonal changes can trigger or worsen symptoms. IBS matters because it affects not just the physical health but also the mental and social well-being of those who have it. It can lead to anxiety, depression, and social isolation due to the unpredictable nature of its symptoms. Understanding IBS is the first step towards managing it and improving quality of life."
+          },
+          {
+            "heading": "Key Statistics and Impact",
+            "text": "Key statistics show that IBS accounts for a significant number of doctor visits and is a leading cause of absenteeism from work or school. Despite its impact, many people with IBS do not seek medical care, possibly due to embarrassment or the belief that their symptoms are not serious. It's crucial to recognize that IBS is a legitimate health condition that deserves attention and treatment. By acknowledging its existence and seeking help, individuals can find relief from symptoms and learn to manage their condition effectively. Remember, you're not alone, and there are ways to manage IBS and lead a fulfilling life."
+          }
+        ],
+        "clinical_pearl": "IBS is not just about bowel habits; it's a condition that affects the quality of life. Recognizing its impact is the first step towards seeking help and finding relief.",
+        "key_points": [
+          "IBS affects the large intestine, causing abdominal pain, changes in bowel movements, and bloating.",
+          "It's estimated that IBS affects around 10-15% of adults worldwide.",
+          "IBS can occur at any age but often begins in the teenage years or early adulthood.",
+          "Family history, stress, and certain foods can trigger or worsen IBS symptoms.",
+          "IBS affects not just physical health but also mental and social well-being.",
+          "Seeking medical care is crucial for managing IBS and improving quality of life."
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of IBS, and how can I identify them?",
+          "Can stress really trigger IBS symptoms, and if so, how can I manage stress?",
+          "Are there any specific dietary changes that can help alleviate IBS symptoms?"
+        ],
+        "references": [
+          {
+            "title": "Irritable Bowel Syndrome",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive review of IBS diagnosis and management"
+          },
+          {
+            "title": "IBS Global Perspective",
+            "authors": "World Gastroenterology Organisation",
+            "journal_or_source": "Journal of Clinical Gastroenterology",
+            "year": 2024,
+            "type": "review",
+            "note": "Global prevalence and impact of IBS on quality of life"
+          }
+        ]
+      },
+      "key_takeaway": "IBS is a common and legitimate health condition that affects the large intestine, causing a variety of symptoms. It's crucial to understand its prevalence, who gets it, and why it matters to seek appropriate medical care and improve quality of life."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of IBS",
+      "content": {
+        "intro": "While the exact cause of IBS is unknown, research has identified several factors that contribute to its development. These include genetic predisposition, changes in gut bacteria, nervous system abnormalities, and environmental factors such as diet and stress. Understanding these causes and risk factors can help in managing IBS and potentially preventing its onset. Think of IBS causes like a puzzle - each piece (factor) contributes to the complete picture (condition).",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetics play a significant role in IBS, with individuals having a family history of the condition being more likely to develop it. This suggests that there may be a genetic component to the susceptibility of developing IBS. However, having a genetic predisposition does not mean you will definitely develop IBS; it merely increases your risk. Other factors, such as environmental influences, also play a crucial role."
+          },
+          {
+            "heading": "Lifestyle Triggers and Modifiable Risks",
+            "text": "Certain lifestyle factors can trigger or worsen IBS symptoms. These include a diet high in processed foods and low in fiber, lack of physical activity, smoking, and high levels of stress. Modifying these risks through dietary changes, increasing physical activity, quitting smoking, and stress management techniques can help alleviate symptoms. For example, incorporating more fruits, vegetables, and whole grains into your diet can help regulate bowel movements and reduce symptom severity."
+          },
+          {
+            "heading": "Non-Modifiable Risks and Who Is Most at Risk",
+            "text": "Non-modifiable risks include age, gender, and family history. Women are more likely than men to develop IBS, and the condition often begins before the age of 45. While these factors cannot be changed, understanding them can help in early recognition and management of IBS. It's also important to recognize that IBS can occur in anyone, regardless of these factors, and seeking medical care if symptoms persist is essential."
+          }
+        ],
+        "clinical_pearl": "IBS is multifactorial, involving genetic, environmental, and lifestyle factors. Understanding these can help in tailored management approaches.",
+        "key_points": [
+          "Genetics can increase the susceptibility to IBS, especially in individuals with a family history.",
+          "Lifestyle factors such as diet, physical activity, smoking, and stress can trigger or worsen IBS symptoms.",
+          "Modifying lifestyle risks can help alleviate IBS symptoms.",
+          "Women and younger individuals are at a higher risk of developing IBS.",
+          "Non-modifiable risks include age, gender, and family history.",
+          "Early recognition and management can significantly improve quality of life for those with IBS."
+        ],
+        "questions_for_doctor": [
+          "How does my family history impact my risk of developing IBS?",
+          "What dietary changes can I make to help manage my IBS symptoms?",
+          "Are there any stress management techniques that you recommend for IBS?"
+        ],
+        "references": [
+          {
+            "title": "Genetic Factors in IBS",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "Nature Reviews Gastroenterology & Hepatology",
+            "year": 2024,
+            "type": "review",
+            "note": "In-depth look at the genetic components of IBS"
+          },
+          {
+            "title": "Lifestyle Modifications for IBS Management",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "The American Journal of Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Practical advice on dietary and lifestyle changes for IBS management"
+          }
+        ]
+      },
+      "key_takeaway": "IBS is influenced by a combination of genetic, environmental, and lifestyle factors. Understanding these causes and risk factors can aid in the management and potential prevention of IBS."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and Development of IBS",
+      "content": {
+        "intro": "The symptoms of IBS can vary widely from person to person, making it sometimes challenging to diagnose. Common symptoms include abdominal pain or cramping, bloating, gas, diarrhea, and constipation. Understanding these symptoms and how IBS develops over time is crucial for effective management and improving quality of life. Think of IBS symptoms like a rollercoaster - they can come and go, but learning to navigate them can make a big difference.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "Early warning signs of IBS can include mild abdominal discomfort, occasional changes in bowel movements, and bloating after eating certain foods. These symptoms can be subtle and may come and go, making it essential to keep a symptom diary to track patterns and changes over time. Recognizing these early signs can help in early intervention and prevention of symptom escalation."
+          },
+          {
+            "heading": "Progression of Symptoms",
+            "text": "Over time, IBS symptoms can progress, leading to more severe abdominal pain, persistent changes in bowel habits, and increased bloating and gas. The progression can be influenced by various factors, including diet, stress levels, and hormonal changes. Managing these factors through lifestyle modifications and medical interventions can help slow the progression of symptoms and improve quality of life."
+          },
+          {
+            "heading": "What Patients Actually Feel and When to Seek Urgent Care",
+            "text": "Living with IBS can be challenging, with symptoms affecting not just the physical but also the emotional and social aspects of life. It's essential to understand that while IBS symptoms can be managed, there are times when urgent medical care is necessary. This includes severe abdominal pain, vomiting, fever, blood in the stool, or significant changes in bowel habits. Knowing when to seek help can prevent complications and ensure timely intervention."
+          }
+        ],
+        "clinical_pearl": "IBS symptoms can vary and may change over time. Keeping a symptom diary and understanding the progression of symptoms can aid in effective management.",
+        "key_points": [
+          "Common IBS symptoms include abdominal pain, bloating, gas, diarrhea, and constipation.",
+          "Early warning signs can be mild and include abdominal discomfort and changes in bowel movements.",
+          "Symptoms can progress over time, influenced by diet, stress, and hormonal changes.",
+          "Managing factors through lifestyle modifications and medical interventions can improve quality of life.",
+          "It's essential to recognize when symptoms require urgent medical care.",
+          "Keeping a symptom diary can help track patterns and changes, aiding in early intervention."
+        ],
+        "questions_for_doctor": [
+          "How can I differentiate between normal digestive issues and potential IBS symptoms?",
+          "What are the most effective ways to manage bloating and gas associated with IBS?",
+          "When should I seek urgent care for my IBS symptoms?"
+        ],
+        "references": [
+          {
+            "title": "IBS Symptoms and Diagnosis",
+            "authors": "International Foundation for Gastrointestinal Disorders",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive guide to understanding IBS symptoms and diagnosis"
+          },
+          {
+            "title": "Managing IBS Symptoms",
+            "authors": "European Society of Neurogastroenterology and Motility",
+            "journal_or_source": "Neurogastroenterology and Motility",
+            "year": 2024,
+            "type": "review",
+            "note": "Practical advice on managing IBS symptoms through lifestyle and medical interventions"
+          }
+        ]
+      },
+      "key_takeaway": "IBS symptoms can vary and may change over time. Understanding these symptoms, recognizing early warning signs, and knowing when to seek urgent care are crucial for effective management and improving quality of life."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing Irritable Bowel Syndrome (IBS) can be a bit like solving a puzzle. Your doctor will gather clues from your symptoms, medical history, and test results to determine if you have IBS. In this lesson, we'll walk you through the diagnostic process, so you know what to expect. The diagnosis of IBS usually involves a combination of physical exams, medical history, and tests to rule out other conditions. Your doctor may start by asking you questions about your symptoms, such as when they started, how long they last, and any factors that make them better or worse.",
+        "sections": [
+          {
+            "heading": "Physical Exam and Medical History",
+            "text": "During the physical exam, your doctor will check your abdomen for tenderness and listen to your bowel sounds. They'll also ask you about your medical history, including any previous illnesses, surgeries, or allergies. Be sure to share any family history of IBS or other gastrointestinal conditions. Your doctor may also ask about your diet, stress levels, and sleep habits, as these can all impact your symptoms. For example, some people with IBS may find that their symptoms worsen after eating certain foods, such as gluten or dairy products."
+          },
+          {
+            "heading": "Tests and Procedures",
+            "text": "Your doctor may order several tests to rule out other conditions that can cause similar symptoms. These tests may include blood tests to check for anemia or infection, stool tests to check for blood or infection, and imaging tests such as X-rays or CT scans to check for any blockages or abnormalities in the bowel. In some cases, your doctor may also recommend a colonoscopy or upper endoscopy to rule out conditions such as inflammatory bowel disease or celiac disease. It's essential to follow your doctor's instructions carefully and ask any questions you have about the tests or procedures."
+          },
+          {
+            "heading": "What to Expect at Appointments",
+            "text": "During your appointments, your doctor will discuss your test results and symptoms with you. They may also ask you to keep a food and symptom diary to track any patterns or triggers. Be sure to ask questions and share any concerns you have. Your doctor is there to help you, and open communication is key to getting an accurate diagnosis and developing an effective treatment plan. For instance, you may want to ask about the potential causes of your symptoms, the likelihood of complications, and the various treatment options available."
+          }
+        ],
+        "clinical_pearl": "IBS is a diagnosis of exclusion, meaning that your doctor will rule out other conditions before diagnosing IBS. This process can take some time, but it's essential to ensure you receive the correct diagnosis and treatment.",
+        "key_points": [
+          "Keep a food and symptom diary to track patterns and triggers",
+          "Be open with your doctor about your symptoms and medical history",
+          "Follow your doctor's instructions carefully for tests and procedures",
+          "Ask questions and share concerns during appointments",
+          "IBS is a diagnosis of exclusion, so be patient during the diagnostic process",
+          "A diagnosis of IBS can take some time, but it's essential for effective treatment"
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose IBS?",
+          "How long will the diagnostic process take?",
+          "What are the next steps after receiving a diagnosis of IBS?"
+        ],
+        "references": [
+          {
+            "title": "Irritable Bowel Syndrome",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive review of IBS diagnosis and treatment"
+          },
+          {
+            "title": "Diagnosis of Irritable Bowel Syndrome",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of IBS diagnosis and treatment options"
+          }
+        ]
+      },
+      "key_takeaway": "Diagnosing IBS involves a combination of physical exams, medical history, and tests to rule out other conditions. Be patient, open, and honest with your doctor to ensure an accurate diagnosis and effective treatment plan."
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "While there is no cure for IBS, there are many effective treatment options available to manage symptoms and improve quality of life. In this lesson, we'll explore the various treatment options, including medications, lifestyle changes, and alternative therapies. We'll also discuss how to choose the best treatment plan for your individual needs.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Several medications are available to treat IBS symptoms, including antispasmodics, antidiarrheals, and laxatives. Your doctor may prescribe a medication to help manage your symptoms, such as alosetron or lubiprostone. It's essential to follow your doctor's instructions carefully and report any side effects. For example, some medications may cause dizziness or drowsiness, so be sure to ask about potential side effects and how to manage them."
+          },
+          {
+            "heading": "Lifestyle Changes",
+            "text": "Making lifestyle changes can also help manage IBS symptoms. This may include increasing fiber intake, avoiding trigger foods, and practicing stress-reducing techniques such as meditation or yoga. Aim to exercise regularly, such as walking for 30 minutes, 5 days a week, and get enough sleep each night. A food diary can help you track patterns and identify trigger foods, so be sure to keep a record of your eating habits and symptoms."
+          },
+          {
+            "heading": "Alternative Therapies",
+            "text": "Some people with IBS find relief with alternative therapies such as acupuncture, hypnotherapy, or cognitive-behavioral therapy. These therapies can help manage stress and symptoms, but be sure to discuss them with your doctor before starting. It's essential to find a qualified practitioner and follow their guidance carefully. For instance, you may want to ask about the potential benefits and risks of each therapy and how they may interact with your medications."
+          }
+        ],
+        "clinical_pearl": "Everyone's experience with IBS is unique, so it's essential to work with your doctor to find the best treatment plan for your individual needs.",
+        "key_points": [
+          "Follow your doctor's instructions carefully for medications and lifestyle changes",
+          "Keep a food diary to track patterns and identify trigger foods",
+          "Exercise regularly, such as walking for 30 minutes, 5 days a week",
+          "Practice stress-reducing techniques, such as meditation or yoga",
+          "Consider alternative therapies, such as acupuncture or hypnotherapy",
+          "Discuss all treatment options with your doctor to find the best plan for your needs"
+        ],
+        "questions_for_doctor": [
+          "What medications are available to treat IBS symptoms?",
+          "How can I make lifestyle changes to manage my symptoms?",
+          "Are alternative therapies, such as acupuncture, effective for IBS?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Irritable Bowel Syndrome",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive review of IBS treatment options"
+          },
+          {
+            "title": "Irritable Bowel Syndrome Treatment",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of IBS treatment options and lifestyle changes"
+          }
+        ]
+      },
+      "key_takeaway": "There are many effective treatment options available to manage IBS symptoms, including medications, lifestyle changes, and alternative therapies. Work with your doctor to find the best treatment plan for your individual needs."
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Living Well with IBS and Prevention",
+      "content": {
+        "intro": "Living with IBS requires some adjustments, but there are many things you can do to manage your symptoms and improve your quality of life. In this lesson, we'll discuss daily life adjustments, diet and exercise guidance, and how to monitor your symptoms at home. We'll also cover how to prevent complications and slow disease progression.",
+        "sections": [
+          {
+            "heading": "Daily Life Adjustments",
+            "text": "Making daily life adjustments can help you manage your IBS symptoms. This may include avoiding trigger foods, increasing fiber intake, and practicing stress-reducing techniques. Aim to exercise regularly, such as walking for 30 minutes, 5 days a week, and get enough sleep each night. A food diary can help you track patterns and identify trigger foods, so be sure to keep a record of your eating habits and symptoms. For example, you may want to avoid eating spicy or fatty foods, which can trigger symptoms in some people."
+          },
+          {
+            "heading": "Diet and Exercise Guidance",
+            "text": "A healthy diet and regular exercise can help manage IBS symptoms. Aim to eat a balanced diet that includes plenty of fruits, vegetables, and whole grains. Avoid trigger foods and drinks, such as gluten or dairy products, and stay hydrated by drinking plenty of water. Exercise regularly, such as walking or swimming, to help reduce stress and improve digestion. You may also want to consider keeping a food diary to track your eating habits and symptoms, which can help you identify patterns and triggers."
+          },
+          {
+            "heading": "Monitoring Symptoms and Preventing Complications",
+            "text": "Monitoring your symptoms at home can help you identify any changes or patterns. Keep a symptom diary to track your symptoms, and be sure to report any changes to your doctor. To prevent complications, follow your doctor's instructions carefully, and take your medications as prescribed. You may also want to consider getting regular check-ups with your doctor to monitor your condition and adjust your treatment plan as needed. For instance, you may want to ask about the potential risks and benefits of different treatments and how to manage any side effects."
+          }
+        ],
+        "clinical_pearl": "By making daily life adjustments, following diet and exercise guidance, and monitoring your symptoms, you can manage your IBS symptoms and improve your quality of life.",
+        "key_points": [
+          "Keep a food diary to track patterns and identify trigger foods",
+          "Exercise regularly, such as walking for 30 minutes, 5 days a week",
+          "Practice stress-reducing techniques, such as meditation or yoga",
+          "Eat a balanced diet that includes plenty of fruits, vegetables, and whole grains",
+          "Stay hydrated by drinking plenty of water",
+          "Monitor your symptoms at home and report any changes to your doctor"
+        ],
+        "questions_for_doctor": [
+          "What daily life adjustments can I make to manage my IBS symptoms?",
+          "How can I prevent complications and slow disease progression?",
+          "What are the best ways to monitor my symptoms at home?"
+        ],
+        "references": [
+          {
+            "title": "Living with Irritable Bowel Syndrome",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive review of IBS management and prevention"
+          },
+          {
+            "title": "Irritable Bowel Syndrome Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "fact sheet",
+            "note": "Overview of IBS management and prevention strategies"
+          }
+        ]
+      },
+      "key_takeaway": "By making daily life adjustments, following diet and exercise guidance, and monitoring your symptoms, you can manage your IBS symptoms and improve your quality of life. Work with your doctor to develop a personalized plan to prevent complications and slow disease progression."
+    }
+  ]
+}

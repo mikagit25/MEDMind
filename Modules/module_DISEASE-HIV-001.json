@@ -1,0 +1,191 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-HIV-001",
+  "title": "HIV/AIDS: Discovery, Retrovirology, ART Revolution and Long-Term Management",
+  "specialty": "Infectious Diseases",
+  "level": "advanced",
+  "lesson_count": 4,
+  "duration": 9,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "The history of HIV/AIDS is a complex and fascinating story that spans several decades. The disease was first identified in 1981 by Dr. Michael Gottlieb, who described a cluster of cases of Pneumocystis carinii pneumonia (PCP) among gay men in Los Angeles. However, it was not until 1983 that the virus was isolated by Dr. Luc Montagnier and his team at the Pasteur Institute in Paris. The following year, Dr. Robert Gallo and his team at the National Institutes of Health (NIH) independently isolated the virus and developed a test for it. The discovery of HIV was a major milestone in the history of medicine, and it led to a rapid increase in research into the disease. In 1984, the first commercial HIV test was approved, and in 1987, the first antiretroviral drug, zidovudine (AZT), was approved. The introduction of highly active antiretroviral therapy (HAART) in 1996 revolutionized the treatment of HIV/AIDS, and it has since become a manageable chronic condition for many people. Key milestones in the history of HIV/AIDS include the discovery of the virus, the development of effective treatments, and the implementation of prevention strategies such as condom use and needle exchange programs. Famous cases, such as that of Ryan White, a teenager who contracted HIV through a blood transfusion, have also played an important role in raising awareness about the disease. The understanding of HIV/AIDS has evolved significantly over the years, from a mysterious and deadly disease to a manageable chronic condition.",
+        "sections": [],
+        "key_points": [
+          "HIV/AIDS was first identified in 1981 by Dr. Michael Gottlieb",
+          "The virus was isolated in 1983 by Dr. Luc Montagnier and his team",
+          "The first commercial HIV test was approved in 1984",
+          "The first antiretroviral drug, zidovudine (AZT), was approved in 1987",
+          "HAART was introduced in 1996 and revolutionized the treatment of HIV/AIDS",
+          "The discovery of HIV was a major milestone in the history of medicine",
+          "Ryan White's case raised awareness about the disease",
+          "The understanding of HIV/AIDS has evolved significantly over the years"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "HIV is a retrovirus that attacks the body's immune system, specifically the CD4 cells (T cells). The virus is transmitted through bodily fluids, such as blood, semen, and breast milk. The molecular mechanisms of HIV infection involve the binding of the virus to the CD4 receptor on the surface of T cells, followed by the fusion of the viral envelope with the cell membrane. The virus then releases its genetic material, which is reverse-transcribed into DNA and integrated into the host cell genome. The genetic factors that influence HIV infection include the presence of certain genetic mutations, such as the CCR5 delta 32 mutation, which can provide some protection against infection. There are several subtypes of HIV, including HIV-1 and HIV-2, which differ in their genetic composition and geographic distribution. Understanding the pathophysiology and aetiology of HIV is crucial for the development of effective treatments and prevention strategies.",
+        "sections": [],
+        "key_points": [
+          "HIV is a retrovirus that attacks the body's immune system",
+          "The virus is transmitted through bodily fluids, such as blood and semen",
+          "The molecular mechanisms of HIV infection involve the binding of the virus to the CD4 receptor",
+          "The virus releases its genetic material, which is reverse-transcribed into DNA",
+          "Genetic factors, such as the CCR5 delta 32 mutation, can influence HIV infection",
+          "There are several subtypes of HIV, including HIV-1 and HIV-2",
+          "Understanding the pathophysiology and aetiology of HIV is crucial for treatment and prevention",
+          "The integration of viral DNA into the host cell genome is a key step in the infection process"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of HIV/AIDS can vary widely, depending on the stage of the disease. In the early stages, many people may not experience any symptoms at all, while others may develop a flu-like illness with symptoms such as fever, fatigue, and rash. As the disease progresses, people may experience a range of symptoms, including weight loss, diarrhea, and opportunistic infections such as PCP and toxoplasmosis. The cardinal symptoms of HIV/AIDS include persistent fever, weight loss, and diarrhea, as well as the presence of opportunistic infections. The disease can be divided into several stages, including acute HIV infection, clinical latency, and AIDS. Atypical presentations of HIV/AIDS can occur, particularly in people who are co-infected with other diseases, such as tuberculosis or hepatitis C.",
+        "sections": [],
+        "key_points": [
+          "The clinical presentation of HIV/AIDS can vary widely",
+          "Many people may not experience any symptoms in the early stages",
+          "A flu-like illness with symptoms such as fever and fatigue can occur",
+          "The disease can progress to a range of symptoms, including weight loss and diarrhea",
+          "The cardinal symptoms of HIV/AIDS include persistent fever and weight loss",
+          "Opportunistic infections, such as PCP and toxoplasmosis, can occur",
+          "The disease can be divided into several stages, including acute HIV infection and AIDS",
+          "Atypical presentations can occur, particularly in people who are co-infected with other diseases"
+        ],
+        "references": []
+      },
+      "word_count": 399,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of HIV/AIDS typically involves a combination of clinical evaluation, laboratory tests, and imaging studies. The clinical evaluation includes a medical history, physical examination, and assessment of symptoms. Laboratory tests, such as the enzyme-linked immunosorbent assay (ELISA) and the Western blot, can detect the presence of HIV antibodies in the blood. The CD4 cell count and viral load tests can also be used to monitor the progression of the disease. Imaging studies, such as chest X-rays and computed tomography (CT) scans, can help to diagnose opportunistic infections and other complications. The diagnosis of HIV/AIDS can be challenging, particularly in the early stages of the disease, and it requires a high index of suspicion and careful evaluation of clinical and laboratory findings. Differential diagnosis is also important, as other diseases can present with similar symptoms.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of HIV/AIDS typically involves a combination of clinical evaluation and laboratory tests",
+          "The clinical evaluation includes a medical history, physical examination, and assessment of symptoms",
+          "Laboratory tests, such as ELISA and Western blot, can detect the presence of HIV antibodies",
+          "The CD4 cell count and viral load tests can monitor the progression of the disease",
+          "Imaging studies, such as chest X-rays and CT scans, can help to diagnose opportunistic infections",
+          "The diagnosis of HIV/AIDS can be challenging, particularly in the early stages",
+          "A high index of suspicion and careful evaluation of clinical and laboratory findings are required",
+          "Differential diagnosis is important, as other diseases can present with similar symptoms"
+        ],
+        "references": []
+      },
+      "word_count": 412,
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of HIV/AIDS has undergone significant transformations since the introduction of antiretroviral therapy (ART) in 1996. ART has been shown to suppress viral replication, restore immune function, and improve quality of life. First-line ART regimens typically consist of a combination of two nucleoside reverse transcriptase inhibitors (NRTIs) and a third agent, such as a protease inhibitor, non-nucleoside reverse transcriptase inhibitor (NNRTI), or integrase strand transfer inhibitor (INSTI). Second-line regimens are used in cases of treatment failure or resistance, and may include alternative NRTIs, protease inhibitors, or other agents. Non-pharmacological interventions, such as lifestyle modifications and counseling, also play a crucial role in HIV management. The choice of ART regimen depends on factors such as viral load, CD4 count, and resistance testing. Adherence to ART is critical to achieve viral suppression and prevent resistance. Pharmacokinetic interactions between ART agents and other medications must be carefully managed, and regular monitoring of viral load, CD4 count, and liver and kidney function is essential during ART.",
+        "sections": [],
+        "key_points": [
+          "The introduction of antiretroviral therapy (ART) in 1996 revolutionized HIV treatment",
+          "First-line ART regimens typically include a combination of two NRTIs and a third agent",
+          "Second-line regimens are used in cases of treatment failure or resistance",
+          "Non-pharmacological interventions, such as lifestyle modifications and counseling, play a crucial role in HIV management",
+          "The choice of ART regimen depends on factors such as viral load, CD4 count, and resistance testing",
+          "Adherence to ART is critical to achieve viral suppression and prevent resistance",
+          "Pharmacokinetic interactions between ART agents and other medications must be carefully managed",
+          "Regular monitoring of viral load, CD4 count, and liver and kidney function is essential during ART"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "HIV-infected individuals are at increased risk of developing opportunistic infections, such as Pneumocystis jirovecii pneumonia and Toxoplasma gondii encephalitis, as well as AIDS-defining illnesses, such as Kaposi's sarcoma and non-Hodgkin lymphoma. These complications are associated with significant morbidity and mortality. The risk of cardiovascular disease, liver disease, and renal disease is also increased in HIV-infected individuals. Prognostic scores, such as the CDC classification system, can help predict disease progression and mortality. Incidence data suggest that the risk of complications and mortality has decreased significantly since the introduction of ART. Regular monitoring of CD4 count, viral load, and other biomarkers is essential to predict and prevent complications. The management of complications requires a multidisciplinary approach, involving infectious disease specialists, cardiologists, hepatologists, and other healthcare professionals. Research is ongoing to develop new strategies for preventing and managing complications in HIV-infected individuals.",
+        "sections": [],
+        "key_points": [
+          "HIV-infected individuals are at increased risk of developing opportunistic infections, such as Pneumocystis jirovecii pneumonia and Toxoplasma gondii encephalitis",
+          "AIDS-defining illnesses, such as Kaposi's sarcoma and non-Hodgkin lymphoma, are associated with significant morbidity and mortality",
+          "The risk of cardiovascular disease, liver disease, and renal disease is increased in HIV-infected individuals",
+          "Prognostic scores, such as the CDC classification system, can help predict disease progression and mortality",
+          "Incidence data suggest that the risk of complications and mortality has decreased significantly since the introduction of ART",
+          "Regular monitoring of CD4 count, viral load, and other biomarkers is essential to predict and prevent complications",
+          "The management of complications requires a multidisciplinary approach, involving infectious disease specialists, cardiologists, hepatologists, and other healthcare professionals",
+          "Research is ongoing to develop new strategies for preventing and managing complications in HIV-infected individuals"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "HIV-infected children and adolescents require specialized care, including ART regimens tailored to their age and developmental stage. Pregnant women with HIV require careful management to prevent mother-to-child transmission. Elderly individuals with HIV may experience unique challenges, such as polypharmacy and age-related comorbidities. Emerging therapies, such as gene therapy and immunotherapy, are being investigated for the treatment of HIV. Pipeline drugs, such as fostemsavir and lenacapavir, offer new options for the treatment of HIV. Research is ongoing to develop vaccines and other preventive strategies for HIV. Special populations, such as men who have sex with men and injection drug users, require targeted interventions to prevent HIV transmission. Collaboration between healthcare providers, community organizations, and government agencies is essential to address the needs of special populations and promote emerging therapies.",
+        "sections": [],
+        "key_points": [
+          "HIV-infected children and adolescents require specialized care, including ART regimens tailored to their age and developmental stage",
+          "Pregnant women with HIV require careful management to prevent mother-to-child transmission",
+          "Elderly individuals with HIV may experience unique challenges, such as polypharmacy and age-related comorbidities",
+          "Emerging therapies, such as gene therapy and immunotherapy, are being investigated for the treatment of HIV",
+          "Pipeline drugs, such as fostemsavir and lenacapavir, offer new options for the treatment of HIV",
+          "Research is ongoing to develop vaccines and other preventive strategies for HIV",
+          "Special populations, such as men who have sex with men and injection drug users, require targeted interventions to prevent HIV transmission",
+          "Collaboration between healthcare providers, community organizations, and government agencies is essential to address the needs of special populations and promote emerging therapies"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    },
+    {
+      "lesson_id": "L008",
+      "title": "Clinical Case & Applied Knowledge",
+      "content": {
+        "intro": "A 35-year-old man presents with symptoms of acute HIV infection, including fever, rash, and lymphadenopathy. The patient's CD4 count is 200 cells/μL, and his viral load is 100,000 copies/mL. The patient is started on ART, and his viral load decreases to undetectable levels within 6 months. The patient experiences adverse effects from his ART regimen, including nausea and diarrhea. The patient's regimen is modified to include a different NRTI, and his adverse effects resolve. The patient's CD4 count increases to 500 cells/μL, and he remains asymptomatic. The patient requires regular monitoring of his CD4 count, viral load, and other biomarkers to ensure optimal management of his HIV infection. The patient's case illustrates the importance of early diagnosis, prompt initiation of ART, and ongoing monitoring and management of HIV infection.",
+        "sections": [],
+        "key_points": [
+          "A 35-year-old man presents with symptoms of acute HIV infection, including fever, rash, and lymphadenopathy",
+          "The patient's CD4 count is 200 cells/μL, and his viral load is 100,000 copies/mL",
+          "The patient is started on ART, and his viral load decreases to undetectable levels within 6 months",
+          "The patient experiences adverse effects from his ART regimen, including nausea and diarrhea",
+          "The patient's regimen is modified to include a different NRTI, and his adverse effects resolve",
+          "The patient's CD4 count increases to 500 cells/μL, and he remains asymptomatic",
+          "The patient requires regular monitoring of his CD4 count, viral load, and other biomarkers to ensure optimal management of his HIV infection",
+          "The patient's case illustrates the importance of early diagnosis, prompt initiation of ART, and ongoing monitoring and management of HIV infection"
+        ],
+        "references": []
+      },
+      "id": "L008",
+      "order": 8
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-HIV-001",
+    "type": "disease_module",
+    "specialty": "Infectious Diseases",
+    "specialty_ru": "Инфекционные болезни",
+    "title_en": "HIV/AIDS: Discovery, Retrovirology, ART Revolution and Long-Term Management",
+    "level": "advanced",
+    "duration_hours": 9,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

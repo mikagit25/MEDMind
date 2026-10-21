@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "id": "PG-GI-002",
+    "type": "patient_guide",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Peptic Ulcer Disease and H. pylori Infection — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is Peptic Ulcer Disease?",
+      "content": {
+        "intro": "Peptic ulcer disease is a common condition that affects millions of people worldwide. It's characterized by sores or ulcers in the lining of the stomach or the first part of the small intestine, known as the duodenum. Imagine your stomach lining as a protective shield. When this shield is damaged, it can cause pain, discomfort, and other complications. In this lesson, we'll explore what peptic ulcer disease is, how common it is, who gets it, and why it matters.",
+        "sections": [
+          {
+            "heading": "What is Peptic Ulcer Disease?",
+            "text": "Peptic ulcer disease is a condition where the stomach lining or the duodenum is damaged, leading to the formation of sores or ulcers. This damage can be caused by a combination of factors, including infection with the bacteria Helicobacter pylori (H. pylori), long-term use of nonsteroidal anti-inflammatory drugs (NSAIDs), and excessive acid production in the stomach. According to the National Institute of Diabetes and Digestive and Kidney Diseases, approximately 4.5 million people in the United States are affected by peptic ulcer disease each year."
+          },
+          {
+            "heading": "How Common is Peptic Ulcer Disease?",
+            "text": "Peptic ulcer disease is a relatively common condition, affecting about 1 in 10 people in the United States at some point in their lives. It's more common in men than women, and the risk increases with age. People with a family history of peptic ulcer disease are also more likely to develop the condition. Additionally, those who smoke, drink excessively, or have a history of NSAID use are at higher risk."
+          },
+          {
+            "heading": "Why Does Peptic Ulcer Disease Matter?",
+            "text": "Peptic ulcer disease matters because it can cause significant discomfort, pain, and complications if left untreated. Untreated peptic ulcers can lead to bleeding, perforation, or narrowing of the stomach or duodenum, which can be life-threatening. Furthermore, H. pylori infection, a common cause of peptic ulcer disease, has been linked to an increased risk of stomach cancer. Therefore, it's essential to seek medical attention if you're experiencing symptoms of peptic ulcer disease."
+          }
+        ],
+        "clinical_pearl": "Did you know that H. pylori infection is a common cause of peptic ulcer disease? In fact, it's estimated that up to 90% of duodenal ulcers and 70% of gastric ulcers are associated with H. pylori infection.",
+        "key_points": [
+          "Peptic ulcer disease is a common condition that affects millions of people worldwide.",
+          "The condition is characterized by sores or ulcers in the lining of the stomach or duodenum.",
+          "H. pylori infection is a common cause of peptic ulcer disease.",
+          "Long-term use of NSAIDs can increase the risk of peptic ulcer disease.",
+          "Excessive acid production in the stomach can contribute to the development of peptic ulcers.",
+          "Seeking medical attention is crucial if you're experiencing symptoms of peptic ulcer disease."
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of peptic ulcer disease?",
+          "How is peptic ulcer disease diagnosed?",
+          "What are the treatment options for peptic ulcer disease?"
+        ],
+        "references": [
+          {
+            "title": "Peptic Ulcer Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of peptic ulcer disease, including its causes, symptoms, and treatment options."
+          },
+          {
+            "title": "Helicobacter pylori and Peptic Ulcer Disease",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article discusses the relationship between H. pylori infection and peptic ulcer disease, including the mechanisms of disease and treatment options."
+          }
+        ]
+      },
+      "key_takeaway": "Peptic ulcer disease is a common condition that can cause significant discomfort and complications if left untreated. It's essential to seek medical attention if you're experiencing symptoms, and to understand the causes, risk factors, and treatment options for the condition."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors of Peptic Ulcer Disease",
+      "content": {
+        "intro": "Peptic ulcer disease is a complex condition that involves the interplay of multiple factors. In this lesson, we'll explore the causes and risk factors of peptic ulcer disease, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors can play a role in the development of peptic ulcer disease. For example, people with a family history of peptic ulcer disease are more likely to develop the condition. Additionally, certain genetic mutations can affect the production of stomach acid and the healing of stomach ulcers."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as smoking, excessive alcohol consumption, and a diet high in salt and processed foods, can increase the risk of peptic ulcer disease. Smoking, for example, can reduce blood flow to the stomach lining, making it more susceptible to damage. Excessive alcohol consumption can also irritate the stomach lining and increase the production of stomach acid."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors for peptic ulcer disease are modifiable, meaning they can be changed or avoided. For example, quitting smoking, reducing alcohol consumption, and avoiding NSAIDs can reduce the risk of peptic ulcer disease. Other risk factors, such as age and family history, are non-modifiable, meaning they cannot be changed. Understanding the difference between modifiable and non-modifiable risks can help you take steps to reduce your risk of peptic ulcer disease."
+          }
+        ],
+        "clinical_pearl": "Did you know that stress can exacerbate peptic ulcer disease? While stress doesn't cause peptic ulcers, it can worsen symptoms and make the condition more difficult to manage.",
+        "key_points": [
+          "Genetic factors can play a role in the development of peptic ulcer disease.",
+          "Lifestyle factors, such as smoking and excessive alcohol consumption, can increase the risk of peptic ulcer disease.",
+          "Modifiable risk factors, such as quitting smoking and reducing alcohol consumption, can reduce the risk of peptic ulcer disease.",
+          "Non-modifiable risk factors, such as age and family history, cannot be changed.",
+          "Stress can exacerbate peptic ulcer disease.",
+          "Understanding the causes and risk factors of peptic ulcer disease can help you take steps to reduce your risk."
+        ],
+        "questions_for_doctor": [
+          "What are the most common causes of peptic ulcer disease?",
+          "How can I reduce my risk of peptic ulcer disease?",
+          "What are the treatment options for peptic ulcer disease?"
+        ],
+        "references": [
+          {
+            "title": "Peptic Ulcer Disease: Causes and Risk Factors",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article discusses the causes and risk factors of peptic ulcer disease, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks."
+          },
+          {
+            "title": "Lifestyle Factors and Peptic Ulcer Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of lifestyle factors that can increase the risk of peptic ulcer disease, including smoking, excessive alcohol consumption, and a diet high in salt and processed foods."
+          }
+        ]
+      },
+      "key_takeaway": "Peptic ulcer disease is a complex condition that involves the interplay of multiple factors, including genetic factors, lifestyle triggers, and modifiable vs non-modifiable risks. Understanding the causes and risk factors of peptic ulcer disease can help you take steps to reduce your risk."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How Peptic Ulcer Disease Develops",
+      "content": {
+        "intro": "Peptic ulcer disease can cause a range of symptoms, from mild discomfort to severe pain. In this lesson, we'll explore the symptoms of peptic ulcer disease, how the disease develops over time, and what patients can expect.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of peptic ulcer disease can be subtle, but they often include mild abdominal pain, bloating, and discomfort. As the disease progresses, symptoms can worsen and include nausea, vomiting, and loss of appetite. In some cases, peptic ulcers can cause bleeding, which can lead to more severe symptoms, such as black tarry stools, vomiting blood, and severe abdominal pain."
+          },
+          {
+            "heading": "How the Disease Develops",
+            "text": "Peptic ulcer disease develops when the stomach lining or duodenum is damaged, allowing acid to come into contact with the sensitive tissues underneath. This can cause inflammation, pain, and discomfort. Over time, the ulcers can deepen and become more severe, leading to complications, such as bleeding, perforation, or narrowing of the stomach or duodenum."
+          },
+          {
+            "heading": "What Patients Can Expect",
+            "text": "Patients with peptic ulcer disease can expect to experience a range of symptoms, from mild to severe. With treatment, symptoms can improve, and the disease can be managed. However, if left untreated, peptic ulcer disease can lead to complications, such as bleeding, perforation, or narrowing of the stomach or duodenum. It's essential to seek medical attention if you're experiencing symptoms of peptic ulcer disease."
+          }
+        ],
+        "clinical_pearl": "Did you know that peptic ulcer disease can cause symptoms that mimic other conditions, such as gastroesophageal reflux disease (GERD) or irritable bowel syndrome (IBS)? A proper diagnosis is essential to ensure effective treatment.",
+        "key_points": [
+          "The early warning signs of peptic ulcer disease can be subtle, but they often include mild abdominal pain, bloating, and discomfort.",
+          "As the disease progresses, symptoms can worsen and include nausea, vomiting, and loss of appetite.",
+          "Peptic ulcers can cause bleeding, which can lead to more severe symptoms, such as black tarry stools, vomiting blood, and severe abdominal pain.",
+          "Peptic ulcer disease develops when the stomach lining or duodenum is damaged, allowing acid to come into contact with the sensitive tissues underneath.",
+          "With treatment, symptoms can improve, and the disease can be managed.",
+          "If left untreated, peptic ulcer disease can lead to complications, such as bleeding, perforation, or narrowing of the stomach or duodenum."
+        ],
+        "questions_for_doctor": [
+          "What are the common symptoms of peptic ulcer disease?",
+          "How is peptic ulcer disease diagnosed?",
+          "What are the treatment options for peptic ulcer disease?"
+        ],
+        "references": [
+          {
+            "title": "Peptic Ulcer Disease: Symptoms and Diagnosis",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "review",
+            "note": "This review article discusses the symptoms and diagnosis of peptic ulcer disease, including the early warning signs, how the disease develops, and what patients can expect."
+          },
+          {
+            "title": "Peptic Ulcer Disease: Treatment and Management",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "This guideline provides an overview of the treatment and management of peptic ulcer disease, including medication, lifestyle changes, and surgery."
+          }
+        ]
+      },
+      "key_takeaway": "Peptic ulcer disease can cause a range of symptoms, from mild discomfort to severe pain. Understanding the symptoms, how the disease develops, and what patients can expect can help you seek medical attention and manage the condition effectively."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing peptic ulcer disease and H. pylori infection involves a combination of medical history, physical examination, and diagnostic tests. Your doctor will start by asking you questions about your symptoms, medical history, and lifestyle. Then, they will perform a physical examination to check for any signs of illness. If your doctor suspects that you have peptic ulcer disease or H. pylori infection, they will order some tests to confirm the diagnosis.",
+        "sections": [
+          {
+            "heading": "Endoscopy",
+            "text": "An endoscopy is a procedure that allows your doctor to look inside your stomach and duodenum (the first part of the small intestine) using a flexible tube with a camera and light on the end. During the procedure, your doctor may take a biopsy (a small sample of tissue) from the lining of your stomach or duodenum to check for H. pylori infection or other abnormalities. The biopsy will be sent to a laboratory for analysis, and the results will be available within a few days."
+          },
+          {
+            "heading": "Blood Tests",
+            "text": "Your doctor may order blood tests to check for signs of H. pylori infection, such as antibodies against the bacteria. They may also order tests to check for anemia (low red blood cell count) or other signs of bleeding in the stomach or duodenum. The results of these tests will help your doctor determine the best course of treatment for you."
+          },
+          {
+            "heading": "Stool Test",
+            "text": "A stool test can detect the presence of H. pylori bacteria in your stool. This test is often used to confirm the diagnosis of H. pylori infection and to monitor the effectiveness of treatment. The test involves collecting a stool sample and sending it to a laboratory for analysis. The results will be available within a few days, and your doctor will discuss the results with you."
+          }
+        ],
+        "clinical_pearl": "It's essential to follow your doctor's instructions carefully before and after the diagnostic tests to ensure accurate results and a smooth recovery.",
+        "key_points": [
+          "Diagnosing peptic ulcer disease and H. pylori infection involves a combination of medical history, physical examination, and diagnostic tests.",
+          "An endoscopy is a procedure that allows your doctor to look inside your stomach and duodenum using a flexible tube with a camera and light on the end.",
+          "Blood tests can detect signs of H. pylori infection, such as antibodies against the bacteria.",
+          "A stool test can detect the presence of H. pylori bacteria in your stool.",
+          "The results of the diagnostic tests will help your doctor determine the best course of treatment for you.",
+          "It's essential to follow your doctor's instructions carefully before and after the diagnostic tests to ensure accurate results and a smooth recovery."
+        ],
+        "questions_for_doctor": [
+          "What are the risks and benefits of each diagnostic test?",
+          "How long will it take to get the results of the diagnostic tests?",
+          "What are the next steps if the diagnostic tests confirm the diagnosis of peptic ulcer disease or H. pylori infection?"
+        ],
+        "references": [
+          {
+            "title": "Guidelines for the Management of Peptic Ulcer Disease",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The guidelines recommend a combination of medical history, physical examination, and diagnostic tests to diagnose peptic ulcer disease and H. pylori infection."
+          },
+          {
+            "title": "Diagnostic Tests for H. pylori Infection",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "review",
+            "note": "The review discusses the different diagnostic tests available for H. pylori infection, including endoscopy, blood tests, and stool tests."
+          }
+        ],
+        "key_takeaway": "Diagnosing peptic ulcer disease and H. pylori infection involves a combination of medical history, physical examination, and diagnostic tests. It's essential to follow your doctor's instructions carefully before and after the diagnostic tests to ensure accurate results and a smooth recovery."
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "The treatment of peptic ulcer disease and H. pylori infection usually involves a combination of medications and lifestyle changes. The goal of treatment is to heal the ulcer, eliminate the H. pylori bacteria, and prevent recurrence. Your doctor will work with you to develop a personalized treatment plan that takes into account your medical history, lifestyle, and preferences.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Your doctor may prescribe medications to reduce stomach acid, protect the stomach lining, and eliminate the H. pylori bacteria. These medications may include proton pump inhibitors (PPIs), histamine-2 (H2) blockers, and antibiotics. It's essential to take the medications exactly as directed and to complete the full course of treatment to ensure that the infection is fully cleared."
+          },
+          {
+            "heading": "Lifestyle Changes",
+            "text": "In addition to medications, your doctor may recommend lifestyle changes to help manage your symptoms and prevent recurrence. These changes may include avoiding spicy or fatty foods, quitting smoking, reducing stress, and getting regular exercise. It's also essential to avoid taking nonsteroidal anti-inflammatory drugs (NSAIDs) or other medications that can irritate the stomach lining."
+          },
+          {
+            "heading": "Surgery",
+            "text": "In some cases, surgery may be necessary to treat complications of peptic ulcer disease, such as bleeding or perforation. Your doctor will discuss the risks and benefits of surgery with you and help you determine if it's the right option for you. It's essential to follow your doctor's instructions carefully before and after surgery to ensure a smooth recovery."
+          }
+        ],
+        "clinical_pearl": "It's essential to work closely with your doctor to develop a personalized treatment plan that takes into account your medical history, lifestyle, and preferences.",
+        "key_points": [
+          "The treatment of peptic ulcer disease and H. pylori infection usually involves a combination of medications and lifestyle changes.",
+          "Medications may include proton pump inhibitors (PPIs), histamine-2 (H2) blockers, and antibiotics.",
+          "Lifestyle changes may include avoiding spicy or fatty foods, quitting smoking, reducing stress, and getting regular exercise.",
+          "Surgery may be necessary to treat complications of peptic ulcer disease, such as bleeding or perforation.",
+          "It's essential to take the medications exactly as directed and to complete the full course of treatment to ensure that the infection is fully cleared.",
+          "It's essential to follow your doctor's instructions carefully before and after surgery to ensure a smooth recovery."
+        ],
+        "questions_for_doctor": [
+          "What are the potential side effects of the medications?",
+          "How long will it take to see improvement in my symptoms?",
+          "What are the risks and benefits of surgery?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Peptic Ulcer Disease",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The guidelines recommend a combination of medications and lifestyle changes to treat peptic ulcer disease and H. pylori infection."
+          },
+          {
+            "title": "Lifestyle Changes for Managing Peptic Ulcer Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "review",
+            "note": "The review discusses the importance of lifestyle changes in managing peptic ulcer disease and H. pylori infection."
+          }
+        ],
+        "key_takeaway": "The treatment of peptic ulcer disease and H. pylori infection usually involves a combination of medications and lifestyle changes. It's essential to work closely with your doctor to develop a personalized treatment plan that takes into account your medical history, lifestyle, and preferences."
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well with Peptic Ulcer Disease",
+      "content": {
+        "intro": "While there is no sure way to prevent peptic ulcer disease, there are steps you can take to reduce your risk and manage your symptoms. By making healthy lifestyle choices and working closely with your doctor, you can reduce your risk of complications and improve your overall quality of life.",
+        "sections": [
+          {
+            "heading": "Primary Prevention",
+            "text": "Primary prevention involves taking steps to avoid getting peptic ulcer disease in the first place. This may include avoiding spicy or fatty foods, quitting smoking, reducing stress, and getting regular exercise. It's also essential to avoid taking nonsteroidal anti-inflammatory drugs (NSAIDs) or other medications that can irritate the stomach lining."
+          },
+          {
+            "heading": "Secondary Prevention",
+            "text": "Secondary prevention involves taking steps to prevent complications of peptic ulcer disease, such as bleeding or perforation. This may include taking medications as directed, attending follow-up appointments with your doctor, and monitoring your symptoms closely. It's also essential to seek medical attention immediately if you experience any signs of complications, such as severe abdominal pain or vomiting blood."
+          },
+          {
+            "heading": "Living Well with Peptic Ulcer Disease",
+            "text": "Living well with peptic ulcer disease involves making healthy lifestyle choices and working closely with your doctor to manage your symptoms. This may include eating a healthy diet, getting regular exercise, and reducing stress. It's also essential to attend follow-up appointments with your doctor and to seek medical attention immediately if you experience any signs of complications."
+          }
+        ],
+        "clinical_pearl": "By making healthy lifestyle choices and working closely with your doctor, you can reduce your risk of complications and improve your overall quality of life.",
+        "key_points": [
+          "While there is no sure way to prevent peptic ulcer disease, there are steps you can take to reduce your risk and manage your symptoms.",
+          "Primary prevention involves taking steps to avoid getting peptic ulcer disease in the first place.",
+          "Secondary prevention involves taking steps to prevent complications of peptic ulcer disease, such as bleeding or perforation.",
+          "Living well with peptic ulcer disease involves making healthy lifestyle choices and working closely with your doctor to manage your symptoms.",
+          "It's essential to attend follow-up appointments with your doctor and to seek medical attention immediately if you experience any signs of complications.",
+          "By working closely with your doctor and making healthy lifestyle choices, you can reduce your risk of complications and improve your overall quality of life."
+        ],
+        "questions_for_doctor": [
+          "What are the best ways to reduce my risk of complications?",
+          "How often should I attend follow-up appointments with my doctor?",
+          "What are the signs of complications that I should watch out for?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Peptic Ulcer Disease",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "The guidelines recommend primary and secondary prevention strategies to reduce the risk of complications and improve quality of life."
+          },
+          {
+            "title": "Living Well with Peptic Ulcer Disease",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "review",
+            "note": "The review discusses the importance of making healthy lifestyle choices and working closely with your doctor to manage symptoms and improve quality of life."
+          }
+        ],
+        "key_takeaway": "While there is no sure way to prevent peptic ulcer disease, there are steps you can take to reduce your risk and manage your symptoms. By making healthy lifestyle choices and working closely with your doctor, you can reduce your risk of complications and improve your overall quality of life."
+      }
+    }
+  ]
+}

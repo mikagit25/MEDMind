@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-IBD-001",
+  "title": "Inflammatory Bowel Disease: Discovery, Microbiome, Biologics and Surgical Options",
+  "specialty": "Gastroenterology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Inflammatory Bowel Disease",
+      "content": {
+        "intro": "Inflammatory bowel disease (IBD) has a rich and fascinating history that spans over a century. The earliest recorded description of a condition resembling IBD dates back to 1761 by the English physician Thomas Sydenham. However, it wasn't until the early 20th century that the disease began to take shape as a distinct clinical entity. In 1909, the American physician Elliott G. Joslin described a series of patients with chronic diarrhea and abdominal pain, which he termed 'ulcerative colitis.' The term 'Crohn's disease' was coined in 1932 by Burrill B. Crohn, who described a series of patients with terminal ileitis. The discovery of the genetic basis of IBD began to unfold in the 1990s, with the identification of the NOD2 gene by a team of researchers led by Dr. Jean-Pierre Hugot in 2001. This landmark discovery paved the way for a deeper understanding of the molecular mechanisms underlying IBD. The development of biologic therapies, such as infliximab, has revolutionized the treatment of IBD, with the first FDA approval in 1998.",
+        "sections": [],
+        "key_points": [
+          "Thomas Sydenham described a condition resembling IBD in 1761",
+          "Elliott G. Joslin coined the term 'ulcerative colitis' in 1909",
+          "Burrill B. Crohn described 'Crohn's disease' in 1932",
+          "The NOD2 gene was identified as a susceptibility gene for IBD in 2001",
+          "Dr. Jean-Pierre Hugot led the team that discovered the NOD2 gene",
+          "The first biologic therapy, infliximab, was FDA-approved in 1998",
+          "The understanding of IBD has evolved significantly over the past century",
+          "Landmark papers, such as Crohn's 1932 paper, have shaped our understanding of IBD"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Inflammatory Bowel Disease",
+      "content": {
+        "intro": "Inflammatory bowel disease (IBD) is a complex and multifactorial disease characterized by chronic inflammation of the gastrointestinal tract. The exact aetiology of IBD remains unclear, but it is believed to result from a combination of genetic, environmental, and immune system factors. The gut microbiome plays a crucial role in the development and maintenance of IBD, with alterations in the balance of commensal and pathogenic microorganisms contributing to the inflammatory response. Molecular mechanisms underlying IBD involve the activation of immune cells, such as T cells and macrophages, which produce pro-inflammatory cytokines, including TNF-α and IL-1β. Genetic factors, such as mutations in the NOD2 gene, also contribute to the susceptibility to IBD. Subtypes of IBD, including Crohn's disease and ulcerative colitis, have distinct pathophysiological features, with Crohn's disease characterized by transmural inflammation and ulcerative colitis characterized by mucosal inflammation.",
+        "sections": [],
+        "key_points": [
+          "IBD is a complex and multifactorial disease",
+          "The gut microbiome plays a crucial role in the development of IBD",
+          "Molecular mechanisms involve the activation of immune cells and production of pro-inflammatory cytokines",
+          "Genetic factors, such as NOD2 mutations, contribute to IBD susceptibility",
+          "Crohn's disease and ulcerative colitis have distinct pathophysiological features",
+          "The immune system plays a central role in the development of IBD",
+          "Environmental factors, such as diet and stress, may contribute to IBD",
+          "The exact aetiology of IBD remains unclear, but research continues to uncover new insights"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Inflammatory Bowel Disease",
+      "content": {
+        "intro": "Inflammatory bowel disease (IBD) can present with a wide range of symptoms, depending on the location and extent of disease. The cardinal symptoms of IBD include chronic diarrhea, abdominal pain, weight loss, and fatigue. Patients with Crohn's disease may also experience symptoms such as nausea, vomiting, and fever, while those with ulcerative colitis may experience rectal bleeding and urgency. The disease can be divided into different stages, including remission, mild, moderate, and severe. Atypical presentations of IBD can occur, such as extraintestinal manifestations, including joint pain, skin rashes, and eye inflammation. The clinical presentation of IBD can vary significantly between individuals, and a thorough medical history and physical examination are essential for accurate diagnosis. A stool diary and food diary can also be helpful in assessing symptoms and identifying potential triggers.",
+        "sections": [],
+        "key_points": [
+          "The cardinal symptoms of IBD include chronic diarrhea, abdominal pain, weight loss, and fatigue",
+          "Crohn's disease and ulcerative colitis have distinct clinical presentations",
+          "The disease can be divided into different stages, including remission, mild, moderate, and severe",
+          "Atypical presentations of IBD can occur, including extraintestinal manifestations",
+          "A thorough medical history and physical examination are essential for accurate diagnosis",
+          "A stool diary and food diary can be helpful in assessing symptoms and identifying potential triggers",
+          "The clinical presentation of IBD can vary significantly between individuals",
+          "Symptoms can be non-specific, making diagnosis challenging"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of IBD is a complex process that requires a comprehensive approach. A thorough medical history, physical examination, and laboratory tests are essential in establishing a diagnosis. Endoscopy with biopsy is the gold standard for diagnosing IBD, allowing for direct visualization of the mucosa and histological examination. Imaging studies, such as computed tomography and magnetic resonance enterography, can help assess the extent of disease and complications. The diagnostic criteria for IBD have evolved over time, with the most recent guidelines emphasizing the importance of a multidisciplinary approach.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of IBD is based on a combination of clinical, endoscopic, histological, and radiological findings.",
+          "The Crohn's Disease Activity Index (CDAI) and the Ulcerative Colitis Endoscopic Index of Severity (UCEIS) are commonly used scoring systems.",
+          "Laboratory tests, such as complete blood count, erythrocyte sedimentation rate, and C-reactive protein, can help assess disease activity.",
+          "Endoscopy with biopsy is the gold standard for diagnosing IBD, allowing for direct visualization of the mucosa and histological examination.",
+          "Imaging studies, including computed tomography and magnetic resonance enterography, can help assess the extent of disease and complications.",
+          "Differential diagnosis includes irritable bowel syndrome, infectious colitis, and other inflammatory conditions.",
+          "The diagnostic criteria for IBD have evolved over time, with the most recent guidelines emphasizing the importance of a multidisciplinary approach.",
+          "Newer diagnostic modalities, such as capsule endoscopy and balloon-assisted enteroscopy, have expanded the ability to diagnose and monitor IBD."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of IBD is a complex and multifaceted process. Aminosalicylates, corticosteroids, immunomodulators, and biologic agents are all used to manage the disease, with the choice of therapy depending on the severity of disease, extent of involvement, and presence of complications. Non-pharmacological interventions, such as dietary modifications and stress management, can also play an important role in the management of IBD. Surgery is reserved for patients with complications or for those who have failed medical therapy.",
+        "sections": [],
+        "key_points": [
+          "The treatment of IBD is tailored to the individual patient, taking into account the severity of disease, extent of involvement, and presence of complications.",
+          "Aminosalicylates, such as sulfasalazine and mesalamine, are commonly used as first-line therapy for mild to moderate disease.",
+          "Corticosteroids, such as prednisone, are used to induce remission in patients with moderate to severe disease.",
+          "Immunomodulators, such as azathioprine and mercaptopurine, are used as second-line therapy for patients who do not respond to aminosalicylates or corticosteroids.",
+          "Biologic agents, such as infliximab and adalimumab, have revolutionized the treatment of IBD, offering a new paradigm for the management of refractory disease.",
+          "Non-pharmacological interventions, such as dietary modifications and stress management, can also play an important role in the management of IBD.",
+          "Surgery is reserved for patients with complications, such as bowel obstruction, perforation, or toxic megacolon, or for those who have failed medical therapy.",
+          "The treatment of IBD is a dynamic process, with ongoing monitoring and adjustments to therapy as needed to achieve and maintain remission."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "The complications of IBD can be significant, and the prognosis for patients with the disease is influenced by a variety of factors. The risk of colorectal cancer is increased in patients with long-standing IBD, particularly those with extensive colonic involvement. The incidence of complications can be reduced with timely and effective treatment, as well as with regular monitoring and surveillance. The management of complications requires a multidisciplinary approach, with input from gastroenterologists, surgeons, and other healthcare professionals.",
+        "sections": [],
+        "key_points": [
+          "The complications of IBD can be significant, including bowel obstruction, perforation, toxic megacolon, and colorectal cancer.",
+          "The risk of colorectal cancer is increased in patients with long-standing IBD, particularly those with extensive colonic involvement.",
+          "The prognosis for patients with IBD has improved significantly over the past few decades, with advances in medical and surgical therapy.",
+          "The incidence of complications can be reduced with timely and effective treatment, as well as with regular monitoring and surveillance.",
+          "The prognosis for patients with IBD is influenced by a variety of factors, including the severity of disease, extent of involvement, and presence of complications.",
+          "The use of biologic agents has been shown to improve the prognosis for patients with refractory disease, offering a new paradigm for the management of IBD.",
+          "The management of complications requires a multidisciplinary approach, with input from gastroenterologists, surgeons, and other healthcare professionals.",
+          "The prognosis for patients with IBD is generally good, with most patients able to achieve and maintain remission with appropriate therapy."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "The management of IBD in special populations requires a tailored approach, taking into account the unique needs and circumstances of each patient. Pregnant women with IBD require careful monitoring and management to minimize the risk of complications and ensure a healthy pregnancy. Emerging therapies, such as stem cell therapy and gene therapy, offer new hope for the treatment of IBD, and the pipeline for new therapies is robust. The future of IBD therapy is likely to involve a personalized approach, with treatment tailored to the individual patient's needs and circumstances.",
+        "sections": [],
+        "key_points": [
+          "The management of IBD in special populations, such as pediatric and elderly patients, requires a tailored approach.",
+          "Pregnant women with IBD require careful monitoring and management to minimize the risk of complications and ensure a healthy pregnancy.",
+          "The use of biologic agents in pregnancy is generally considered safe, but the decision to use these agents should be made on a case-by-case basis.",
+          "Emerging therapies, such as stem cell therapy and gene therapy, offer new hope for the treatment of IBD.",
+          "The pipeline for new therapies in IBD is robust, with a variety of agents in development, including small molecules and biologic agents.",
+          "The management of IBD in special populations requires a multidisciplinary approach, with input from gastroenterologists, surgeons, and other healthcare professionals.",
+          "The use of emerging therapies in IBD is likely to become more widespread in the coming years, offering new options for patients with refractory disease.",
+          "The future of IBD therapy is likely to involve a personalized approach, with treatment tailored to the individual patient's needs and circumstances."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-IBD-001",
+    "type": "disease_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Inflammatory Bowel Disease: Discovery, Microbiome, Biologics and Surgical Options",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-ASTHMA-001",
+  "title": "Bronchial Asthma: From Hippocrates to ICS, Biologics and SMART Therapy",
+  "specialty": "Pulmonology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Asthma has been recognized as a distinct medical condition for thousands of years, with descriptions of the disease found in the writings of Hippocrates (460-370 BCE) and Galen (129-216 CE). The term 'asthma' was first used by Hippocrates to describe a condition characterized by shortness of breath and wheezing. In the 19th century, the British physician John Hutchinson (1811-1861) conducted extensive research on asthma, including the first detailed descriptions of the disease's pathology. The discovery of adrenaline by Jokichi Takamine (1854-1922) in 1901 led to the development of the first effective treatments for asthma. Landmark papers, such as the 1969 publication by Reid and colleagues on the pathology of asthma, have significantly advanced our understanding of the disease. Historical patients, such as the case of 'status asthmaticus' described by Osler in 1901, have also contributed to our knowledge of asthma's clinical presentation and treatment.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates first described asthma in his writings around 400 BCE",
+          "Galen described asthma as a condition characterized by shortness of breath and wheezing",
+          "John Hutchinson conducted extensive research on asthma in the 19th century",
+          "The discovery of adrenaline by Jokichi Takamine led to the development of the first effective treatments for asthma",
+          "The 1969 publication by Reid and colleagues significantly advanced our understanding of asthma's pathology",
+          "The case of 'status asthmaticus' described by Osler in 1901 contributed to our knowledge of asthma's clinical presentation and treatment",
+          "Asthma was first recognized as a distinct medical condition in ancient Greece",
+          "The term 'asthma' has been used to describe the disease since the time of Hippocrates"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "Asthma is a complex disease characterized by inflammation, airway hyperresponsiveness, and variable airflow obstruction. The pathophysiology of asthma involves the interplay of multiple cell types, including eosinophils, neutrophils, and T lymphocytes, which contribute to the development of airway inflammation and hyperresponsiveness. Genetic factors, such as polymorphisms in the IL-4 and IL-13 genes, also play a significant role in the development of asthma. Subtypes of asthma, including allergic, non-allergic, and exercise-induced asthma, have distinct pathophysiological mechanisms. Molecular mechanisms, such as the activation of the NF-κB pathway, also contribute to the development of airway inflammation and hyperresponsiveness.",
+        "sections": [],
+        "key_points": [
+          "Asthma is characterized by inflammation, airway hyperresponsiveness, and variable airflow obstruction",
+          "The pathophysiology of asthma involves the interplay of multiple cell types",
+          "Genetic factors, such as polymorphisms in the IL-4 and IL-13 genes, contribute to the development of asthma",
+          "Subtypes of asthma have distinct pathophysiological mechanisms",
+          "Molecular mechanisms, such as the activation of the NF-κB pathway, contribute to airway inflammation and hyperresponsiveness",
+          "Airway smooth muscle plays a key role in the development of airway hyperresponsiveness",
+          "The epithelial-mesenchymal trophic unit (EMTU) is a key structure involved in the pathophysiology of asthma",
+          "Cytokines, such as IL-4 and IL-13, play a significant role in the development of airway inflammation"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "Asthma is characterized by a range of clinical symptoms, including wheezing, coughing, shortness of breath, and chest tightness. The cardinal symptoms of asthma are wheezing and coughing, which can vary in severity and frequency. Asthma can also present with atypical symptoms, such as chest pain and palpitations. The stages of asthma, including intermittent, mild persistent, moderate persistent, and severe persistent, are defined by the frequency and severity of symptoms. Atypical presentations of asthma, such as cough variant asthma and exercise-induced asthma, can make diagnosis challenging.",
+        "sections": [],
+        "key_points": [
+          "Asthma is characterized by a range of clinical symptoms, including wheezing and coughing",
+          "The cardinal symptoms of asthma are wheezing and coughing",
+          "Asthma can present with atypical symptoms, such as chest pain and palpitations",
+          "The stages of asthma are defined by the frequency and severity of symptoms",
+          "Atypical presentations of asthma can make diagnosis challenging",
+          "Cough variant asthma is a subtype of asthma characterized by a chronic cough",
+          "Exercise-induced asthma is a subtype of asthma triggered by physical activity",
+          "Nocturnal asthma is a subtype of asthma characterized by symptoms that worsen at night"
+        ],
+        "references": []
+      },
+      "word_count": 398,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Asthma diagnosis involves a combination of clinical evaluation, laboratory tests, and imaging studies. The Global Initiative for Asthma (GINA) criteria are widely used for diagnosis. Scoring systems such as the Asthma Control Test (ACT) and the Asthma Control Questionnaire (ACQ) help assess symptom control. Laboratory tests include spirometry, bronchoprovocation, and exhaled nitric oxide measurement. Imaging studies such as chest X-rays and computed tomography (CT) scans may be used to rule out other conditions. Differential diagnosis includes chronic obstructive pulmonary disease (COPD), bronchiectasis, and pulmonary embolism.",
+        "sections": [],
+        "key_points": [
+          "GINA criteria for asthma diagnosis",
+          "Asthma Control Test (ACT) and Asthma Control Questionnaire (ACQ) for symptom control",
+          "Spirometry and bronchoprovocation for lung function assessment",
+          "Exhaled nitric oxide measurement for airway inflammation",
+          "Chest X-rays and CT scans for differential diagnosis",
+          "Differential diagnosis includes COPD, bronchiectasis, and pulmonary embolism",
+          "Asthma diagnosis requires a combination of clinical and laboratory evaluation",
+          "Scoring systems help assess symptom control and guide treatment"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "Asthma treatment involves a stepwise approach, starting with mild intermittent asthma and progressing to severe persistent asthma. First-line treatment includes inhaled corticosteroids (ICS) and short-acting beta-agonists (SABAs). Second-line treatment includes long-acting beta-agonists (LABAs), leukotriene modifiers, and theophylline. Non-pharmacological treatment includes avoidance of triggers, immunotherapy, and pulmonary rehabilitation. Biologics such as omalizumab and mepolizumab are used for severe asthma. SMART therapy involves a combination of ICS and LABAs.",
+        "sections": [],
+        "key_points": [
+          "Stepwise approach for asthma treatment",
+          "First-line treatment includes ICS and SABAs",
+          "Second-line treatment includes LABAs, leukotriene modifiers, and theophylline",
+          "Non-pharmacological treatment includes trigger avoidance and immunotherapy",
+          "Biologics such as omalizumab and mepolizumab for severe asthma",
+          "SMART therapy combines ICS and LABAs",
+          "Treatment goals include symptom control and prevention of exacerbations",
+          "Asthma treatment requires regular monitoring and adjustment"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Asthma complications include exacerbations, status asthmaticus, and chronic obstructive pulmonary disease (COPD). Prognostic scores such as the Asthma Severity Score and the Asthma Control Score help predict outcomes. Incidence data show that asthma exacerbations are a significant burden on healthcare systems. Prognostic factors include severity of asthma, comorbidities, and adherence to treatment. Complications can be prevented with proper treatment and management.",
+        "sections": [],
+        "key_points": [
+          "Asthma complications include exacerbations and status asthmaticus",
+          "Prognostic scores predict outcomes and guide treatment",
+          "Incidence data show a significant burden of asthma exacerbations",
+          "Prognostic factors include asthma severity and comorbidities",
+          "Adherence to treatment is crucial for preventing complications",
+          "Asthma complications can be prevented with proper management",
+          "Status asthmaticus is a life-threatening complication",
+          "Asthma prognosis is influenced by treatment and management"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Asthma management in special populations such as pediatric, elderly, and pregnant patients requires careful consideration. Pediatric asthma management involves a stepwise approach, while elderly asthma management requires consideration of comorbidities. Pregnancy asthma management involves careful monitoring and adjustment of treatment. Emerging therapies include biologics such as benralizumab and dupilumab, as well as small molecule therapies. Pipeline drugs include novel biologics and small molecules.",
+        "sections": [],
+        "key_points": [
+          "Pediatric asthma management involves a stepwise approach",
+          "Elderly asthma management requires consideration of comorbidities",
+          "Pregnancy asthma management involves careful monitoring and adjustment",
+          "Emerging therapies include biologics such as benralizumab and dupilumab",
+          "Small molecule therapies are being developed for asthma treatment",
+          "Pipeline drugs include novel biologics and small molecules",
+          "Special populations require careful consideration in asthma management",
+          "Emerging therapies offer new treatment options for asthma patients"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-ASTHMA-001",
+    "type": "disease_module",
+    "specialty": "Pulmonology",
+    "specialty_ru": "Пульмонология",
+    "title_en": "Bronchial Asthma: From Hippocrates to ICS, Biologics and SMART Therapy",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

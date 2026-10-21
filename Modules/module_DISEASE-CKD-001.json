@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-CKD-001",
+  "title": "Chronic Kidney Disease: From Glomerular Discovery to SGLT2i and ESRD Prevention",
+  "specialty": "Nephrology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Chronic Kidney Disease",
+      "content": {
+        "intro": "Chronic Kidney Disease (CKD) has a rich and evolving history that spans centuries. The earliest recorded descriptions of kidney disease date back to ancient Egypt around 1500 BCE. However, it wasn't until the 19th century that significant milestones in understanding CKD were achieved. In 1844, Richard Bright, an English physician, described a condition characterized by the coexistence of dropsy (edema), albuminuria, and kidney disease, which would later become known as Bright's disease. This discovery marked the beginning of a deeper understanding of kidney function and disease. The term 'chronic kidney disease' was first introduced in the 1980s, reflecting a broader understanding of the disease's progression and stages. Key scientists such as Thomas Addis, who in 1948 published a seminal paper on the importance of proteinuria in kidney disease, and Barry Brenner, who in 1982 proposed the concept of adaptive hyperfiltration in CKD, have significantly contributed to our current understanding. The development of dialysis by Willem Kolff in 1943 and the first successful kidney transplant by Joseph Murray in 1954 were also crucial milestones. Historical patients, such as those described in Bright's original case series, have provided invaluable insights into the disease's natural history.",
+        "sections": [],
+        "key_points": [
+          "The earliest descriptions of kidney disease date back to ancient Egypt around 1500 BCE.",
+          "Richard Bright described Bright's disease in 1844, characterized by dropsy, albuminuria, and kidney disease.",
+          "The term 'chronic kidney disease' was introduced in the 1980s to reflect a broader understanding of the disease's progression.",
+          "Thomas Addis published a seminal paper on proteinuria in 1948.",
+          "Barry Brenner proposed the concept of adaptive hyperfiltration in CKD in 1982.",
+          "Willem Kolff developed dialysis in 1943.",
+          "Joseph Murray performed the first successful kidney transplant in 1954.",
+          "Historical patients have provided insights into the disease's natural history."
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Chronic Kidney Disease",
+      "content": {
+        "intro": "Chronic Kidney Disease (CKD) is characterized by a gradual loss of kidney function over time, leading to the accumulation of waste products and disturbances in electrolyte and fluid balance. The pathophysiology of CKD involves complex molecular mechanisms, including inflammation, oxidative stress, and fibrosis. Genetic factors, such as mutations in the APOL1 gene, can also contribute to the development of CKD. The disease can be classified into several subtypes, including diabetic nephropathy, hypertensive nephrosclerosis, and polycystic kidney disease. Understanding the aetiology of CKD is crucial for developing effective prevention and treatment strategies. Key molecular mechanisms include the activation of the renin-angiotensin-aldosterone system (RAAS) and the role of transforming growth factor-beta (TGF-β) in promoting fibrosis. Additionally, lifestyle factors such as diet and physical activity can influence CKD risk and progression.",
+        "sections": [],
+        "key_points": [
+          "CKD is characterized by a gradual loss of kidney function over time.",
+          "The pathophysiology of CKD involves inflammation, oxidative stress, and fibrosis.",
+          "Genetic factors, such as APOL1 mutations, can contribute to CKD development.",
+          "CKD can be classified into subtypes, including diabetic nephropathy and hypertensive nephrosclerosis.",
+          "The RAAS plays a key role in CKD pathophysiology.",
+          "TGF-β promotes fibrosis in CKD.",
+          "Lifestyle factors, such as diet and physical activity, influence CKD risk and progression.",
+          "Understanding CKD aetiology is crucial for developing effective prevention and treatment strategies."
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Chronic Kidney Disease",
+      "content": {
+        "intro": "Chronic Kidney Disease (CKD) can present with a range of symptoms, from mild and nonspecific to severe and life-threatening. Cardinal symptoms include fatigue, edema, and hematuria. The disease can be divided into five stages, based on the level of kidney function, as measured by the glomerular filtration rate (GFR). Stage 1 CKD is characterized by normal kidney function but with evidence of kidney damage, such as proteinuria. Stage 5 CKD, also known as end-stage renal disease (ESRD), is characterized by a GFR of less than 15 mL/min/1.73m^2 and requires renal replacement therapy, such as dialysis or transplantation. Atypical presentations of CKD can include cardiovascular disease, anemia, and bone mineral disorders. Early detection and treatment of CKD are critical to preventing progression to ESRD and reducing the risk of cardiovascular complications.",
+        "sections": [],
+        "key_points": [
+          "CKD can present with a range of symptoms, from mild and nonspecific to severe and life-threatening.",
+          "Cardinal symptoms of CKD include fatigue, edema, and hematuria.",
+          "CKD can be divided into five stages, based on the level of kidney function.",
+          "Stage 1 CKD is characterized by normal kidney function but with evidence of kidney damage.",
+          "Stage 5 CKD is characterized by a GFR of less than 15 mL/min/1.73m^2 and requires renal replacement therapy.",
+          "Atypical presentations of CKD can include cardiovascular disease, anemia, and bone mineral disorders.",
+          "Early detection and treatment of CKD are critical to preventing progression to ESRD.",
+          "Reducing the risk of cardiovascular complications is a key goal of CKD management."
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of CKD requires a comprehensive approach, incorporating both laboratory and imaging studies. The eGFR and ACR are critical components of CKD diagnosis, providing information on kidney function and damage. The KDIGO guidelines provide a framework for the diagnosis and management of CKD, emphasizing the importance of early detection and intervention. Laboratory tests and imaging studies may be used to evaluate the severity of CKD and detect potential complications. The CKD-EPI equation is a useful tool for estimating eGFR, while differential diagnosis is necessary to rule out other conditions that may cause kidney damage or decreased kidney function.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of Chronic Kidney Disease (CKD) is based on the presence of kidney damage or decreased kidney function for three months or more.",
+          "The Kidney Disease: Improving Global Outcomes (KDIGO) clinical practice guidelines provide a framework for the diagnosis and management of CKD.",
+          "The estimated glomerular filtration rate (eGFR) is a critical component of CKD diagnosis, with values below 60 mL/min/1.73m^2 indicating decreased kidney function.",
+          "Urine albumin-to-creatinine ratio (ACR) is used to assess kidney damage, with values above 30 mg/g indicating albuminuria.",
+          "Imaging studies, such as ultrasound, may be used to assess kidney structure and detect potential causes of CKD.",
+          "Laboratory tests, including serum electrolytes and complete blood count, may be used to evaluate the severity of CKD and detect potential complications.",
+          "The CKD-EPI equation is a commonly used formula to estimate eGFR, taking into account serum creatinine, age, sex, and race.",
+          "Differential diagnosis of CKD includes other conditions that may cause kidney damage or decreased kidney function, such as acute kidney injury or kidney transplantation."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of CKD requires a multifaceted approach, incorporating both pharmacological and non-pharmacological interventions. Lifestyle modifications, such as dietary changes and increased physical activity, are essential components of CKD management. ACEi and ARB are first-line pharmacological treatments, reducing proteinuria and slowing disease progression. SGLT2i have been shown to reduce the risk of CKD progression and cardiovascular events. Non-pharmacological interventions, such as weight loss and smoking cessation, may also be beneficial. Regular monitoring of kidney function and adjustment of treatment as needed are critical components of CKD management.",
+        "sections": [],
+        "key_points": [
+          "The primary goal of CKD treatment is to slow disease progression and prevent complications, such as cardiovascular disease and end-stage renal disease (ESRD).",
+          "Lifestyle modifications, including dietary changes and increased physical activity, are essential components of CKD management.",
+          "Angiotensin-converting enzyme inhibitors (ACEi) and angiotensin receptor blockers (ARB) are first-line pharmacological treatments for CKD, reducing proteinuria and slowing disease progression.",
+          "Sodium-glucose cotransporter 2 inhibitors (SGLT2i) have been shown to reduce the risk of CKD progression and cardiovascular events in patients with CKD.",
+          "Non-pharmacological interventions, such as weight loss and smoking cessation, may also be beneficial in CKD management.",
+          "The use of statins and beta-blockers may be indicated in patients with CKD to reduce the risk of cardiovascular events.",
+          "Pharmacological treatment of CKD should be individualized, taking into account the patient's underlying medical conditions and potential drug interactions.",
+          "Regular monitoring of kidney function and adjustment of treatment as needed are critical components of CKD management."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "CKD is associated with an increased risk of cardiovascular disease, as well as other complications, such as anemia, bone disease, and electrolyte disorders. The prognosis of CKD patients is influenced by the underlying cause of kidney disease, as well as the presence of comorbid conditions. The use of prognostic scores may help identify patients at high risk of CKD progression and cardiovascular events. Regular monitoring of kidney function and adjustment of treatment as needed are critical components of CKD management, reducing the risk of complications and improving prognosis. Early detection and intervention in CKD patients may help reduce the risk of complications and improve prognosis.",
+        "sections": [],
+        "key_points": [
+          "CKD is associated with an increased risk of cardiovascular disease, including myocardial infarction, stroke, and peripheral artery disease.",
+          "The risk of cardiovascular disease in CKD patients is higher than in the general population, with a graded increase in risk according to CKD stage.",
+          "Anemia, bone disease, and electrolyte disorders are common complications of CKD, particularly in patients with advanced disease.",
+          "The prognosis of CKD patients is influenced by the underlying cause of kidney disease, as well as the presence of comorbid conditions.",
+          "The use of prognostic scores, such as the Kidney Disease Quality Initiative (KDQI) score, may help identify patients at high risk of CKD progression and cardiovascular events.",
+          "Regular monitoring of kidney function and adjustment of treatment as needed are critical components of CKD management, reducing the risk of complications and improving prognosis.",
+          "The incidence of ESRD is increasing globally, with CKD being a major risk factor for the development of ESRD.",
+          "Early detection and intervention in CKD patients may help reduce the risk of complications and improve prognosis."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "CKD in special populations, such as pediatric and elderly patients, requires special consideration, with a focus on growth and development, as well as the potential for kidney disease progression. Pregnancy in CKD patients is associated with an increased risk of adverse outcomes. Emerging therapies for CKD include novel pharmacological agents, as well as cell-based therapies. The use of kidney transplantation in CKD patients may be indicated in patients with ESRD. Ongoing research in CKD is focused on developing novel therapies and improving patient outcomes, with a focus on personalized medicine and precision health.",
+        "sections": [],
+        "key_points": [
+          "CKD in pediatric patients requires special consideration, with a focus on growth and development, as well as the potential for kidney disease progression.",
+          "Pregnancy in CKD patients is associated with an increased risk of adverse outcomes, including preeclampsia and preterm birth.",
+          "The elderly population is at increased risk of CKD, with age-related decline in kidney function contributing to disease progression.",
+          "Emerging therapies for CKD include novel pharmacological agents, such as anti-inflammatory and anti-fibrotic agents, as well as cell-based therapies.",
+          "The use of kidney transplantation in CKD patients may be indicated in patients with ESRD, offering a potential cure for kidney disease.",
+          "The role of genetics in CKD is an area of ongoing research, with potential implications for disease diagnosis and treatment.",
+          "The use of biomarkers, such as cystatin C, may help identify patients at high risk of CKD progression and cardiovascular events.",
+          "Ongoing research in CKD is focused on developing novel therapies and improving patient outcomes, with a focus on personalized medicine and precision health."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-CKD-001",
+    "type": "disease_module",
+    "specialty": "Nephrology",
+    "specialty_ru": "Нефрология",
+    "title_en": "Chronic Kidney Disease: From Glomerular Discovery to SGLT2i and ESRD Prevention",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

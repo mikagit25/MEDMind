@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "id": "PG-GI-007",
+    "type": "patient_guide",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Gallstones and Cholecystitis — Complete Patient Guide",
+    "level": "intermediate",
+    "duration_hours": 5,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22",
+    "audience": "patient"
+  },
+  "lessons": [
+    {
+      "id": "L001",
+      "order": 1,
+      "title": "What Is This Disease?",
+      "content": {
+        "intro": "Gallstones and cholecystitis are common conditions that affect the gallbladder, a small organ located under the liver. The gallbladder stores bile, a fluid that helps digest fats. When the bile becomes imbalanced, it can form hard, stone-like particles called gallstones. Cholecystitis is inflammation of the gallbladder, often caused by gallstones. These conditions can cause severe abdominal pain, nausea, and vomiting. It's essential to understand what gallstones and cholecystitis are, how common they are, and who gets them.",
+        "sections": [
+          {
+            "heading": "Definition and Prevalence",
+            "text": "Gallstones affect about 10% to 15% of adults in the United States. They are more common in women, especially those who are overweight, have a family history of gallstones, or have had multiple pregnancies. Cholecystitis is less common but can be a serious complication of gallstones. Imagine the gallbladder as a small bag that stores bile. When gallstones form, they can block the flow of bile, causing the gallbladder to become inflamed."
+          },
+          {
+            "heading": "Who Gets Gallstones and Cholecystitis?",
+            "text": "Gallstones and cholecystitis can affect anyone, but some people are more likely to get them. These include women, especially those over 40, people who are overweight or obese, individuals with a family history of gallstones, and those who have had multiple pregnancies. Native Americans and Mexican-Americans are also more likely to develop gallstones. Understanding your risk factors can help you take steps to prevent these conditions."
+          },
+          {
+            "heading": "Why It Matters",
+            "text": "Gallstones and cholecystitis can cause significant discomfort and disrupt daily life. If left untreated, they can lead to serious complications, such as infection, jaundice, and even gallbladder rupture. It's crucial to seek medical attention if you experience symptoms like severe abdominal pain, fever, or vomiting. Early treatment can help prevent complications and improve quality of life. Aim to learn more about your condition and work closely with your healthcare provider to manage it effectively."
+          }
+        ],
+        "clinical_pearl": "Gallstones and cholecystitis can be prevented or managed by maintaining a healthy weight, eating a balanced diet, and avoiding excessive fat intake.",
+        "key_points": [
+          "Gallstones affect about 10% to 15% of adults in the United States.",
+          "Women, especially those over 40, are more likely to develop gallstones.",
+          "Maintaining a healthy weight can help prevent gallstones.",
+          "A balanced diet that is low in fat can help reduce the risk of gallstones.",
+          "Gallstones can cause severe abdominal pain, nausea, and vomiting.",
+          "Early treatment can help prevent complications and improve quality of life."
+        ],
+        "questions_for_doctor": [
+          "What are the symptoms of gallstones and cholecystitis?",
+          "How can I prevent gallstones and cholecystitis?",
+          "What are the treatment options for gallstones and cholecystitis?"
+        ],
+        "references": [
+          {
+            "title": "Gallstones",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of gallstones, including symptoms, causes, and treatment options."
+          },
+          {
+            "title": "Cholecystitis",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "American College of Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Clinical guideline for the diagnosis and treatment of cholecystitis."
+          }
+        ]
+      },
+      "key_takeaway": "Gallstones and cholecystitis are common conditions that can cause significant discomfort and disrupt daily life. Understanding your risk factors and taking steps to prevent these conditions can help improve your quality of life."
+    },
+    {
+      "id": "L002",
+      "order": 2,
+      "title": "Causes and Risk Factors",
+      "content": {
+        "intro": "Gallstones and cholecystitis are complex conditions that involve multiple factors. Understanding the causes and risk factors can help you take steps to prevent these conditions. Gallstones are formed when the bile becomes imbalanced, and cholesterol or bilirubin particles precipitate out of the solution. Cholecystitis is often caused by gallstones, but it can also be caused by other factors, such as bacterial infection or trauma to the gallbladder.",
+        "sections": [
+          {
+            "heading": "Genetic Factors",
+            "text": "Genetic factors can play a significant role in the development of gallstones and cholecystitis. Some people may be more likely to develop gallstones due to their genetic makeup. For example, a family history of gallstones can increase your risk. Imagine your genetic makeup as a blueprint for your body. If your blueprint includes a tendency to form gallstones, you may be more likely to develop them."
+          },
+          {
+            "heading": "Lifestyle Triggers",
+            "text": "Lifestyle factors, such as diet and weight, can also contribute to the development of gallstones and cholecystitis. A diet high in fat and cholesterol can increase your risk of developing gallstones. Being overweight or obese can also increase your risk. Aim to maintain a healthy weight and eat a balanced diet to reduce your risk."
+          },
+          {
+            "heading": "Modifiable vs Non-Modifiable Risks",
+            "text": "Some risk factors for gallstones and cholecystitis are modifiable, meaning you can change them. For example, you can maintain a healthy weight, eat a balanced diet, and avoid excessive fat intake. Other risk factors, such as genetic factors, are non-modifiable. Understanding which risk factors you can change can help you take steps to prevent these conditions."
+          }
+        ],
+        "clinical_pearl": "Maintaining a healthy weight and eating a balanced diet can help reduce your risk of developing gallstones and cholecystitis.",
+        "key_points": [
+          "Genetic factors can play a significant role in the development of gallstones and cholecystitis.",
+          "Lifestyle factors, such as diet and weight, can contribute to the development of gallstones and cholecystitis.",
+          "Maintaining a healthy weight can help reduce your risk of developing gallstones.",
+          "A balanced diet that is low in fat can help reduce your risk of gallstones.",
+          "Some risk factors for gallstones and cholecystitis are modifiable, meaning you can change them.",
+          "Understanding which risk factors you can change can help you take steps to prevent these conditions."
+        ],
+        "questions_for_doctor": [
+          "What are the genetic risk factors for gallstones and cholecystitis?",
+          "How can I reduce my risk of developing gallstones and cholecystitis through lifestyle changes?",
+          "What are the most common causes of cholecystitis?"
+        ],
+        "references": [
+          {
+            "title": "Gallstones and Cholecystitis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of gallstones and cholecystitis, including causes, risk factors, and treatment options."
+          },
+          {
+            "title": "Risk Factors for Gallstones and Cholecystitis",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "American College of Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Clinical guideline for the diagnosis and treatment of gallstones and cholecystitis."
+          }
+        ]
+      },
+      "key_takeaway": "Gallstones and cholecystitis are complex conditions that involve multiple factors. Understanding the causes and risk factors can help you take steps to prevent these conditions."
+    },
+    {
+      "id": "L003",
+      "order": 3,
+      "title": "Symptoms and How the Disease Develops",
+      "content": {
+        "intro": "Gallstones and cholecystitis can cause a range of symptoms, from mild to severe. Understanding the symptoms and how the disease develops can help you seek medical attention early and prevent complications. Gallstones may not always cause symptoms, but when they do, they can cause severe abdominal pain, nausea, and vomiting. Cholecystitis can cause similar symptoms, as well as fever and jaundice.",
+        "sections": [
+          {
+            "heading": "Early Warning Signs",
+            "text": "The early warning signs of gallstones and cholecystitis can be subtle. You may experience mild abdominal pain, nausea, or vomiting after eating fatty foods. As the condition progresses, the symptoms can become more severe. Imagine your gallbladder as a small bag that stores bile. When gallstones form, they can block the flow of bile, causing the gallbladder to become inflamed."
+          },
+          {
+            "heading": "How the Disease Progresses",
+            "text": "Gallstones and cholecystitis can progress quickly or slowly, depending on the individual. If left untreated, gallstones can cause chronic inflammation and scarring of the gallbladder. Cholecystitis can lead to serious complications, such as infection, jaundice, and even gallbladder rupture. Understanding how the disease progresses can help you seek medical attention early and prevent complications."
+          },
+          {
+            "heading": "What Patients Actually Feel",
+            "text": "Patients with gallstones and cholecystitis often describe their symptoms as severe abdominal pain, nausea, and vomiting. The pain can be constant or come and go, and it can radiate to the back or right shoulder. Some patients may also experience fever, jaundice, or dark urine. Understanding what patients actually feel can help you recognize the symptoms and seek medical attention early."
+          }
+        ],
+        "clinical_pearl": "Gallstones and cholecystitis can cause severe abdominal pain, nausea, and vomiting. Seeking medical attention early can help prevent complications.",
+        "key_points": [
+          "Gallstones may not always cause symptoms, but when they do, they can cause severe abdominal pain, nausea, and vomiting.",
+          "Cholecystitis can cause similar symptoms, as well as fever and jaundice.",
+          "The early warning signs of gallstones and cholecystitis can be subtle.",
+          "Gallstones and cholecystitis can progress quickly or slowly, depending on the individual.",
+          "If left untreated, gallstones can cause chronic inflammation and scarring of the gallbladder.",
+          "Cholecystitis can lead to serious complications, such as infection, jaundice, and even gallbladder rupture."
+        ],
+        "questions_for_doctor": [
+          "What are the symptoms of gallstones and cholecystitis?",
+          "How can I recognize the early warning signs of gallstones and cholecystitis?",
+          "What are the complications of untreated gallstones and cholecystitis?"
+        ],
+        "references": [
+          {
+            "title": "Symptoms of Gallstones and Cholecystitis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Comprehensive overview of the symptoms of gallstones and cholecystitis."
+          },
+          {
+            "title": "Complications of Untreated Gallstones and Cholecystitis",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "American College of Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Clinical guideline for the diagnosis and treatment of gallstones and cholecystitis."
+          }
+        ]
+      },
+      "key_takeaway": "Gallstones and cholecystitis can cause a range of symptoms, from mild to severe. Understanding the symptoms and how the disease develops can help you seek medical attention early and prevent complications."
+    },
+    {
+      "id": "L004",
+      "order": 4,
+      "title": "How Is It Diagnosed?",
+      "content": {
+        "intro": "Diagnosing gallstones and cholecystitis involves a combination of physical exams, medical history, and diagnostic tests. Your doctor will start by asking you questions about your symptoms, medical history, and lifestyle. They will also perform a physical exam to check for tenderness in your abdomen. Imagine your gallbladder as a small bag that stores bile, and when it gets blocked, it can cause pain and discomfort. The goal of diagnosis is to confirm whether you have gallstones or cholecystitis and to rule out other possible causes of your symptoms.",
+        "sections": [
+          {
+            "heading": "Imaging Tests",
+            "text": "Imaging tests such as ultrasound, CT scans, and MRI scans can help your doctor visualize your gallbladder and bile ducts. These tests can show whether you have gallstones, inflammation, or other problems. For example, an ultrasound uses sound waves to create images of your gallbladder, and it's often the first test used to diagnose gallstones. A CT scan uses X-rays and computer technology to create detailed images of your abdomen, and it can help your doctor see whether you have any blockages or inflammation in your bile ducts."
+          },
+          {
+            "heading": "Blood Tests",
+            "text": "Blood tests can help your doctor check for signs of infection, inflammation, or liver damage. These tests can also help your doctor rule out other possible causes of your symptoms, such as pancreatitis or liver disease. Think of blood tests like a report card for your body, they help your doctor understand what's going on inside you. For instance, a liver function test can show whether your liver is working properly, and a complete blood count can help your doctor check for signs of infection."
+          },
+          {
+            "heading": "Other Tests",
+            "text": "Other tests such as endoscopic retrograde cholangiopancreatography (ERCP) or endoscopic ultrasound (EUS) may be used to diagnose and treat problems in your bile ducts. ERCP uses a flexible tube with a camera and light on the end to visualize your bile ducts, and it can help your doctor remove gallstones or blockages. EUS uses a flexible tube with a camera and ultrasound probe to create detailed images of your bile ducts and surrounding tissues. These tests can help your doctor diagnose and treat problems in your bile ducts, and they can also help your doctor check for signs of cancer."
+          }
+        ],
+        "clinical_pearl": "It's essential to get a prompt diagnosis and treatment to prevent complications and improve outcomes. Don't delay seeking medical attention if you're experiencing symptoms of gallstones or cholecystitis.",
+        "key_points": [
+          "Diagnosis involves a combination of physical exams, medical history, and diagnostic tests",
+          "Imaging tests such as ultrasound, CT scans, and MRI scans can help visualize your gallbladder and bile ducts",
+          "Blood tests can help check for signs of infection, inflammation, or liver damage",
+          "Other tests such as ERCP or EUS may be used to diagnose and treat problems in your bile ducts",
+          "Prompt diagnosis and treatment can help prevent complications and improve outcomes",
+          "It's crucial to follow your doctor's advice and attend all scheduled appointments"
+        ],
+        "questions_for_doctor": [
+          "What tests will I need to undergo to diagnose my condition?",
+          "How long will it take to get the results of my tests?",
+          "What are the possible risks and complications of diagnostic tests?"
+        ],
+        "references": [
+          {
+            "title": "Gallstones and Cholecystitis",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for diagnosis and treatment"
+          },
+          {
+            "title": "Imaging Tests for Gallstones and Cholecystitis",
+            "authors": "Radiological Society of North America",
+            "journal_or_source": "Radiology",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of imaging tests and their uses"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L005",
+      "order": 5,
+      "title": "Treatment Options",
+      "content": {
+        "intro": "Treatment for gallstones and cholecystitis depends on the severity of your symptoms and the underlying cause of your condition. Your doctor may recommend medications, procedures, or surgery to treat your condition. Think of treatment like a roadmap, it helps you get from where you are to where you want to be. The goal of treatment is to relieve your symptoms, prevent complications, and improve your quality of life.",
+        "sections": [
+          {
+            "heading": "Medications",
+            "text": "Medications such as pain relievers, antibiotics, and bile acids can help manage your symptoms and treat underlying infections. For example, pain relievers such as acetaminophen or ibuprofen can help relieve abdominal pain and discomfort. Antibiotics can help treat bacterial infections, and bile acids can help dissolve gallstones. It's essential to take your medications as directed by your doctor and to attend all scheduled follow-up appointments."
+          },
+          {
+            "heading": "Procedures",
+            "text": "Procedures such as endoscopic retrograde cholangiopancreatography (ERCP) or percutaneous transhepatic cholangiography (PTC) can help remove gallstones or blockages in your bile ducts. ERCP uses a flexible tube with a camera and light on the end to visualize your bile ducts, and it can help your doctor remove gallstones or blockages. PTC uses a needle and catheter to inject dye into your bile ducts, and it can help your doctor visualize any blockages or narrowing."
+          },
+          {
+            "heading": "Surgery",
+            "text": "Surgery such as cholecystectomy (gallbladder removal) may be necessary to treat severe cases of gallstones or cholecystitis. Cholecystectomy can be performed laparoscopically or open, and it involves removing your gallbladder and any affected bile ducts. It's essential to follow your doctor's advice and attend all scheduled follow-up appointments after surgery."
+          }
+        ],
+        "clinical_pearl": "It's crucial to work with your doctor to develop a personalized treatment plan that meets your unique needs and health goals.",
+        "key_points": [
+          "Treatment depends on the severity of symptoms and underlying cause",
+          "Medications can help manage symptoms and treat underlying infections",
+          "Procedures such as ERCP or PTC can help remove gallstones or blockages",
+          "Surgery such as cholecystectomy may be necessary for severe cases",
+          "It's essential to follow your doctor's advice and attend all scheduled follow-up appointments",
+          "A personalized treatment plan can help you achieve your health goals"
+        ],
+        "questions_for_doctor": [
+          "What are the potential risks and benefits of each treatment option?",
+          "How long will it take to recover from treatment?",
+          "What are the chances of recurrence after treatment?"
+        ],
+        "references": [
+          {
+            "title": "Treatment of Gallstones and Cholecystitis",
+            "authors": "American College of Gastroenterology",
+            "journal_or_source": "American Journal of Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for treatment"
+          },
+          {
+            "title": "Surgical Treatment of Gallstones and Cholecystitis",
+            "authors": "Society of American Gastrointestinal and Endoscopic Surgeons",
+            "journal_or_source": "Surgical Endoscopy",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of surgical treatment options"
+          }
+        ]
+      }
+    },
+    {
+      "id": "L006",
+      "order": 6,
+      "title": "Prevention and Living Well",
+      "content": {
+        "intro": "Preventing gallstones and cholecystitis involves maintaining a healthy lifestyle, managing risk factors, and attending regular check-ups with your doctor. Think of prevention like a shield, it helps protect you from getting sick. The goal of prevention is to reduce your risk of developing gallstones or cholecystitis and to improve your overall health and well-being.",
+        "sections": [
+          {
+            "heading": "Diet and Nutrition",
+            "text": "Eating a healthy diet that is low in fat and high in fiber can help reduce your risk of developing gallstones. A healthy diet can also help you manage your weight, which is a significant risk factor for gallstones. Aim to eat at least 5 servings of fruits and vegetables per day, and choose whole grains over refined or processed foods. It's also essential to stay hydrated by drinking plenty of water."
+          },
+          {
+            "heading": "Exercise and Physical Activity",
+            "text": "Regular exercise and physical activity can help reduce your risk of developing gallstones and improve your overall health. Aim to exercise for at least 30 minutes per day, and choose activities that you enjoy such as walking, jogging, or cycling. Exercise can help you manage your weight, improve your digestion, and reduce your stress levels."
+          },
+          {
+            "heading": "Stress Management",
+            "text": "Stress can exacerbate symptoms of gallstones and cholecystitis, so it's essential to find healthy ways to manage stress. Try techniques such as deep breathing, meditation, or yoga to help you relax and reduce your stress levels. It's also essential to get enough sleep and to take regular breaks throughout the day."
+          }
+        ],
+        "clinical_pearl": "By maintaining a healthy lifestyle, managing risk factors, and attending regular check-ups with your doctor, you can reduce your risk of developing gallstones or cholecystitis and improve your overall health and well-being.",
+        "key_points": [
+          "Prevention involves maintaining a healthy lifestyle and managing risk factors",
+          "A healthy diet that is low in fat and high in fiber can help reduce risk",
+          "Regular exercise and physical activity can help reduce risk and improve overall health",
+          "Stress management techniques such as deep breathing or meditation can help reduce stress",
+          "Getting enough sleep and taking regular breaks can help improve overall health",
+          "Attending regular check-ups with your doctor can help you stay on track and address any concerns"
+        ],
+        "questions_for_doctor": [
+          "What are the most effective ways to prevent gallstones and cholecystitis?",
+          "How can I manage my risk factors and reduce my risk?",
+          "What are the best ways to stay healthy and prevent complications after diagnosis?"
+        ],
+        "references": [
+          {
+            "title": "Prevention of Gallstones and Cholecystitis",
+            "authors": "American Gastroenterological Association",
+            "journal_or_source": "Gastroenterology",
+            "year": 2024,
+            "type": "guideline",
+            "note": "Recommendations for prevention"
+          },
+          {
+            "title": "Lifestyle Modifications for Gallstones and Cholecystitis",
+            "authors": "National Institute of Diabetes and Digestive and Kidney Diseases",
+            "journal_or_source": "National Institutes of Health",
+            "year": 2024,
+            "type": "review article",
+            "note": "Overview of lifestyle modifications"
+          }
+        ]
+      }
+    }
+  ]
+}

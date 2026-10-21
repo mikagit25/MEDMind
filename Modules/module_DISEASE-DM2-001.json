@@ -1,0 +1,167 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-DM2-001",
+  "title": "Type 2 Diabetes: Epidemic, Pathophysiology, Pharmacotherapy and Prevention",
+  "specialty": "Endocrinology",
+  "level": "intermediate",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of the Disease",
+      "content": {
+        "intro": "Type 2 diabetes has a rich and evolving history that spans thousands of years. The earliest recorded mention of a disease resembling diabetes was found in the Ebers Papyrus, an ancient Egyptian medical text from around 1550 BCE. However, it wasn't until the late 19th and early 20th centuries that significant milestones in understanding the disease were achieved. In 1889, Oskar Minkowski and Joseph von Mering demonstrated the role of the pancreas in diabetes through their experiments involving pancreas removal in dogs. The discovery of insulin by Frederick Banting and Charles Best in 1921 revolutionized the treatment of diabetes. The distinction between type 1 and type 2 diabetes began to take shape in the mid-20th century, with the 1970s and 1980s seeing significant advancements in understanding the pathophysiology and genetics of type 2 diabetes. The UK Prospective Diabetes Study (UKPDS), published in 1998, was a landmark paper that provided evidence for the importance of tight blood glucose control in managing type 2 diabetes. Key historical patients include Ellen, a 14-year-old girl who was one of the first patients to receive insulin in 1922, and the numerous participants in clinical trials who have contributed to our understanding of the disease.",
+        "sections": [],
+        "key_points": [
+          "Earliest recorded mention of diabetes-like disease in the Ebers Papyrus (1550 BCE)",
+          "Oskar Minkowski and Joseph von Mering's experiments (1889) showed the pancreas' role in diabetes",
+          "Discovery of insulin by Frederick Banting and Charles Best (1921)",
+          "Distinction between type 1 and type 2 diabetes emerged in the mid-20th century",
+          "UK Prospective Diabetes Study (UKPDS) published in 1998",
+          "Importance of tight blood glucose control in managing type 2 diabetes",
+          "Contributions of historical patients like Ellen, who received insulin in 1922",
+          "Advancements in genetics and pathophysiology understanding in the 1970s and 1980s"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology & Aetiology",
+      "content": {
+        "intro": "Type 2 diabetes is characterized by insulin resistance and impaired insulin secretion. The molecular mechanisms underlying these processes involve complex interactions between genetic and environmental factors. Genetic factors, such as variants in the TCF7L2 gene, can predispose individuals to insulin resistance. Subtypes of type 2 diabetes, including latent autoimmune diabetes in adults (LADA) and maturity-onset diabetes of the young (MODY), have distinct pathophysiological features. The role of adipokines, such as adiponectin and leptin, in regulating glucose metabolism is also crucial. Environmental factors, including diet and physical activity, play a significant role in the development of insulin resistance. The concept of beta-cell exhaustion, where the pancreatic beta cells are unable to keep up with the demand for insulin, is central to understanding the progression of type 2 diabetes.",
+        "sections": [],
+        "key_points": [
+          "Insulin resistance and impaired insulin secretion are hallmarks of type 2 diabetes",
+          "Genetic factors, such as TCF7L2 variants, contribute to insulin resistance",
+          "Subtypes of type 2 diabetes, like LADA and MODY, have distinct pathophysiological features",
+          "Adipokines, such as adiponectin and leptin, regulate glucose metabolism",
+          "Environmental factors, including diet and physical activity, influence insulin resistance",
+          "Beta-cell exhaustion is a key concept in understanding type 2 diabetes progression",
+          "Complex interactions between genetic and environmental factors underlie type 2 diabetes",
+          "Impaired insulin secretion is a gradual process that occurs over time"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation",
+      "content": {
+        "intro": "The clinical presentation of type 2 diabetes can vary widely, from asymptomatic to severe symptoms. Cardinal symptoms include polyuria, polydipsia, and polyphagia, which result from hyperglycemia-induced osmotic diuresis. Many patients are diagnosed with type 2 diabetes during routine health check-ups or when they present with complications such as foot ulcers or vision problems. Atypical presentations, such as diabetic ketoacidosis, can occur, especially in patients with undiagnosed or untreated type 2 diabetes. The disease can be divided into stages, including prediabetes, newly diagnosed diabetes, and established diabetes, each with distinct clinical features and management strategies. Early recognition and treatment of type 2 diabetes are crucial to prevent long-term complications.",
+        "sections": [],
+        "key_points": [
+          "Cardinal symptoms of type 2 diabetes include polyuria, polydipsia, and polyphagia",
+          "Many patients are asymptomatic or diagnosed during routine health check-ups",
+          "Complications like foot ulcers or vision problems can be presenting features",
+          "Atypical presentations, such as diabetic ketoacidosis, can occur in type 2 diabetes",
+          "Type 2 diabetes can be divided into stages, including prediabetes and established diabetes",
+          "Early recognition and treatment are crucial to prevent long-term complications",
+          "Hyperglycemia-induced osmotic diuresis underlies the cardinal symptoms",
+          "Newly diagnosed diabetes requires prompt management to prevent progression"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing type 2 diabetes involves a combination of clinical evaluation, laboratory tests, and sometimes imaging studies. The American Diabetes Association (ADA) criteria for diagnosing diabetes include a fasting plasma glucose level of 126 mg/dL or higher, a 2-hour plasma glucose level of 200 mg/dL or higher during an oral glucose tolerance test, or a hemoglobin A1c (HbA1c) level of 6.5% or higher. Scoring systems like the Finnish Diabetes Risk Score and the Diabetes Risk Test can help identify individuals at high risk of developing type 2 diabetes. Laboratory tests such as fasting glucose, postprandial glucose, and HbA1c are essential for diagnosis and monitoring. Imaging studies like ultrasound and CT scans may be used to evaluate complications such as nephropathy and neuropathy. Differential diagnosis is crucial to distinguish type 2 diabetes from other forms of diabetes, such as type 1 diabetes and latent autoimmune diabetes in adults (LADA).",
+        "sections": [],
+        "key_points": [
+          "The ADA criteria for diagnosing diabetes include a fasting plasma glucose level of 126 mg/dL or higher",
+          "A 2-hour plasma glucose level of 200 mg/dL or higher during an oral glucose tolerance test is diagnostic of diabetes",
+          "An HbA1c level of 6.5% or higher is indicative of diabetes",
+          "Scoring systems like the Finnish Diabetes Risk Score can help identify individuals at high risk of developing type 2 diabetes",
+          "Laboratory tests such as fasting glucose, postprandial glucose, and HbA1c are essential for diagnosis and monitoring",
+          "Imaging studies like ultrasound and CT scans may be used to evaluate complications such as nephropathy and neuropathy",
+          "Differential diagnosis is crucial to distinguish type 2 diabetes from other forms of diabetes",
+          "The presence of symptoms such as polyuria, polydipsia, and weight loss can support a diagnosis of diabetes"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of type 2 diabetes involves a combination of lifestyle modifications and pharmacological interventions. First-line treatment typically includes metformin, which has been shown to reduce the risk of cardiovascular events and mortality. Second-line treatments may include sulfonylureas, thiazolidinediones, and dipeptidyl peptidase-4 (DPP-4) inhibitors. Non-pharmacological interventions such as diet and exercise are essential for managing type 2 diabetes. The American Heart Association (AHA) recommends at least 150 minutes of moderate-intensity aerobic exercise per week. The Academy of Nutrition and Dietetics recommends a balanced diet that includes plenty of fruits, vegetables, whole grains, and lean protein sources. Evidence-based guidelines such as those from the ADA and the European Association for the Study of Diabetes (EASD) provide recommendations for the treatment of type 2 diabetes.",
+        "sections": [],
+        "key_points": [
+          "Metformin is the first-line treatment for type 2 diabetes",
+          "Sulfonylureas, thiazolidinediones, and DPP-4 inhibitors are second-line treatments for type 2 diabetes",
+          "Lifestyle modifications such as diet and exercise are essential for managing type 2 diabetes",
+          "The AHA recommends at least 150 minutes of moderate-intensity aerobic exercise per week",
+          "The Academy of Nutrition and Dietetics recommends a balanced diet that includes plenty of fruits, vegetables, whole grains, and lean protein sources",
+          "Evidence-based guidelines such as those from the ADA and EASD provide recommendations for the treatment of type 2 diabetes",
+          "The treatment of type 2 diabetes should be individualized based on the patient's specific needs and circumstances",
+          "Regular monitoring of blood glucose levels and HbA1c is essential for adjusting treatment and preventing complications"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Type 2 diabetes is associated with a range of complications, including microvascular complications such as nephropathy, retinopathy, and neuropathy, as well as macrovascular complications such as coronary artery disease, stroke, and peripheral artery disease. The incidence of these complications can be reduced with tight blood glucose control and management of other risk factors such as hypertension and hyperlipidemia. Prognostic scores such as the UK Prospective Diabetes Study (UKPDS) risk engine can help predict the risk of complications and inform treatment decisions. The prognosis for individuals with type 2 diabetes has improved significantly in recent years, with advances in treatment and management. However, type 2 diabetes remains a major cause of morbidity and mortality worldwide.",
+        "sections": [],
+        "key_points": [
+          "Type 2 diabetes is associated with a range of microvascular and macrovascular complications",
+          "Tight blood glucose control and management of other risk factors can reduce the incidence of complications",
+          "Prognostic scores such as the UKPDS risk engine can help predict the risk of complications and inform treatment decisions",
+          "The prognosis for individuals with type 2 diabetes has improved significantly in recent years",
+          "Type 2 diabetes remains a major cause of morbidity and mortality worldwide",
+          "Regular monitoring of blood glucose levels and HbA1c is essential for preventing complications",
+          "The management of type 2 diabetes should be individualized based on the patient's specific needs and circumstances",
+          "Lifestyle modifications such as diet and exercise can help reduce the risk of complications and improve prognosis"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Type 2 diabetes affects a range of special populations, including pediatric and elderly patients, as well as pregnant women. The management of type 2 diabetes in these populations requires careful consideration of their unique needs and circumstances. Emerging therapies such as sodium-glucose cotransporter 2 (SGLT2) inhibitors and glucagon-like peptide-1 (GLP-1) receptor agonists have shown promise in improving glycemic control and reducing the risk of complications. Pipeline drugs such as dual GIP and GLP-1 receptor agonists are also being developed. The use of these emerging therapies in special populations will require careful evaluation and monitoring to ensure their safety and efficacy.",
+        "sections": [],
+        "key_points": [
+          "Type 2 diabetes affects a range of special populations, including pediatric and elderly patients, as well as pregnant women",
+          "The management of type 2 diabetes in these populations requires careful consideration of their unique needs and circumstances",
+          "Emerging therapies such as SGLT2 inhibitors and GLP-1 receptor agonists have shown promise in improving glycemic control and reducing the risk of complications",
+          "Pipeline drugs such as dual GIP and GLP-1 receptor agonists are being developed",
+          "The use of emerging therapies in special populations will require careful evaluation and monitoring to ensure their safety and efficacy",
+          "The management of type 2 diabetes in pediatric patients requires careful consideration of their unique needs and circumstances",
+          "The management of type 2 diabetes in elderly patients requires careful consideration of their comorbidities and polypharmacy",
+          "The management of type 2 diabetes in pregnant women requires careful consideration of their unique needs and circumstances, including the risk of gestational diabetes"
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-DM2-001",
+    "type": "disease_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Type 2 Diabetes: Epidemic, Pathophysiology, Pharmacotherapy and Prevention",
+    "level": "intermediate",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

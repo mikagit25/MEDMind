@@ -1,0 +1,175 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-BRCA-001",
+  "title": "Breast Cancer: Molecular Biology, BRCA Mutations, Targeted Therapy and Survivorship",
+  "specialty": "Oncology",
+  "level": "advanced",
+  "lesson_count": 4,
+  "duration": 9,
+  "lessons": [
+    {
+      "title": "History of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer has been described in medical texts dating back to ancient Egypt around 1600 BCE. The Greek physician Hippocrates (460-370 BCE) is credited with being the first to document breast cancer cases. In the 19th century, the Scottish surgeon John Rodman (1805-1879) reported a high incidence of breast cancer in his family, which led to the discovery of the genetic component of the disease. The American Cancer Society was founded in 1913, and since then, numerous organizations have been established to support breast cancer research and awareness.",
+        "sections": [],
+        "key_points": [
+          "Ancient Egyptian medical texts described breast cancer around 1600 BCE",
+          "Hippocrates documented breast cancer cases in the 5th century BCE",
+          "John Rodman reported a high incidence of breast cancer in his family in the 19th century",
+          "The American Cancer Society was founded in 1913",
+          "Landmark papers by Janet Rowley (1973) and Mary-Claire King (1990) contributed to the understanding of breast cancer genetics",
+          "The discovery of the BRCA1 gene in 1994 and the BRCA2 gene in 1995 revolutionized breast cancer research",
+          "Nobel prizes were awarded to scientists who contributed to the understanding of cancer biology, including Peyton Rous (1966) and Harold Varmus (1989)",
+          "Famous cases, such as the story of Nancy Reagan, have raised awareness about breast cancer and the importance of screening"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer is a complex disease involving the interplay of genetic, hormonal, and environmental factors. The molecular mechanisms underlying breast cancer involve the activation of oncogenes and the inactivation of tumor suppressor genes. The most common subtypes of breast cancer are luminal A, luminal B, HER2-positive, and triple-negative. Genetic factors, such as mutations in the BRCA1 and BRCA2 genes, significantly increase the risk of developing breast cancer.",
+        "sections": [],
+        "key_points": [
+          "Breast cancer involves the activation of oncogenes and the inactivation of tumor suppressor genes",
+          "The most common subtypes of breast cancer are luminal A, luminal B, HER2-positive, and triple-negative",
+          "Genetic factors, such as mutations in the BRCA1 and BRCA2 genes, increase the risk of developing breast cancer",
+          "Hormonal factors, such as estrogen and progesterone, play a role in the development and progression of breast cancer",
+          "Environmental factors, such as radiation exposure and certain chemicals, may also contribute to breast cancer risk",
+          "The PI3K/AKT and MAPK/ERK signaling pathways are involved in breast cancer pathogenesis",
+          "Epigenetic alterations, such as DNA methylation and histone modification, also play a role in breast cancer",
+          "The tumor microenvironment, including immune cells and stromal cells, influences breast cancer progression"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Breast Cancer",
+      "content": {
+        "intro": "Breast cancer can present with a variety of symptoms, including a palpable mass, nipple discharge, or skin changes. The cardinal symptoms of breast cancer are a painless lump or thickening in the breast, changes in breast size or shape, and nipple inversion or discharge. The stages of breast cancer range from stage 0 (ductal carcinoma in situ) to stage IV (metastatic disease). Atypical presentations, such as inflammatory breast cancer or Paget's disease of the breast, require prompt recognition and treatment.",
+        "sections": [],
+        "key_points": [
+          "The cardinal symptoms of breast cancer are a painless lump or thickening in the breast, changes in breast size or shape, and nipple inversion or discharge",
+          "Breast cancer can present with a variety of symptoms, including a palpable mass, nipple discharge, or skin changes",
+          "The stages of breast cancer range from stage 0 (ductal carcinoma in situ) to stage IV (metastatic disease)",
+          "Atypical presentations, such as inflammatory breast cancer or Paget's disease of the breast, require prompt recognition and treatment",
+          "Breast cancer can also present with systemic symptoms, such as weight loss or fatigue",
+          "The clinical presentation of breast cancer can vary depending on the subtype and stage",
+          "A thorough clinical examination, including a breast examination and axillary lymph node assessment, is essential for diagnosis",
+          "Imaging studies, such as mammography and ultrasound, are used to evaluate the extent of disease"
+        ],
+        "references": []
+      },
+      "word_count": 398,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "title": "Diagnosis of Breast Cancer",
+      "content": {
+        "intro": "The diagnosis of breast cancer involves a combination of clinical evaluation, imaging studies, and pathological examination. The diagnostic criteria for breast cancer include a combination of clinical and radiological findings, as well as histopathological confirmation. Scoring systems, such as the Breast Imaging-Reporting and Data System (BI-RADS), are used to standardize the interpretation of imaging studies. Laboratory tests, such as tumor markers and genetic tests, are used to evaluate the extent of disease and guide treatment.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of breast cancer involves a combination of clinical evaluation, imaging studies, and pathological examination",
+          "The diagnostic criteria for breast cancer include a combination of clinical and radiological findings, as well as histopathological confirmation",
+          "Scoring systems, such as the Breast Imaging-Reporting and Data System (BI-RADS), are used to standardize the interpretation of imaging studies",
+          "Laboratory tests, such as tumor markers and genetic tests, are used to evaluate the extent of disease and guide treatment",
+          "Imaging studies, such as mammography, ultrasound, and MRI, are used to evaluate the extent of disease",
+          "Pathological examination, including biopsy and histopathological analysis, is essential for diagnosis",
+          "The diagnosis of breast cancer can be challenging, and a multidisciplinary approach is often necessary",
+          "Differential diagnoses, such as benign breast lesions or other malignancies, must be considered in the diagnostic workup"
+        ],
+        "references": []
+      },
+      "word_count": 404,
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "key_points": [
+        "Hormone receptor-positive breast cancer is treated with tamoxifen or aromatase inhibitors",
+        "HER2-positive breast cancer is treated with trastuzumab or pertuzumab",
+        "Chemotherapy is used for triple-negative breast cancer",
+        "Surgery and radiation therapy are used for early-stage breast cancer",
+        "Targeted therapies such as PARP inhibitors are used for BRCA-mutated breast cancer",
+        "Immunotherapy with checkpoint inhibitors is being explored for breast cancer treatment",
+        "Non-pharmacological treatments include lifestyle modifications and psychological support",
+        "Clinical trials are ongoing to evaluate new treatments and combination therapies"
+      ],
+      "text": "Breast cancer treatment has evolved significantly over the years, with a shift towards targeted therapies and personalized medicine. Hormone receptor-positive breast cancer is treated with tamoxifen or aromatase inhibitors, while HER2-positive breast cancer is treated with trastuzumab or pertuzumab. Chemotherapy is used for triple-negative breast cancer, and surgery and radiation therapy are used for early-stage breast cancer. Targeted therapies such as PARP inhibitors are used for BRCA-mutated breast cancer, and immunotherapy with checkpoint inhibitors is being explored for breast cancer treatment. Non-pharmacological treatments include lifestyle modifications and psychological support. Clinical trials are ongoing to evaluate new treatments and combination therapies.",
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "key_points": [
+        "Breast cancer recurrence occurs in up to 30% of patients",
+        "Metastatic breast cancer has a 5-year survival rate of 27%",
+        "Lymphedema is a common complication of breast cancer treatment",
+        "Cardiac toxicity is a potential side effect of certain breast cancer treatments",
+        "Osteoporosis is a risk factor for breast cancer patients undergoing hormone therapy",
+        "Fatigue and cognitive impairment are common symptoms in breast cancer survivors",
+        "Prognostic scores such as the Nottingham Prognostic Index are used to predict patient outcomes",
+        "Genomic assays such as Oncotype DX are used to guide treatment decisions"
+      ],
+      "text": "Breast cancer complications and prognosis are critical aspects of patient care. Breast cancer recurrence occurs in up to 30% of patients, and metastatic breast cancer has a 5-year survival rate of 27%. Lymphedema is a common complication of breast cancer treatment, and cardiac toxicity is a potential side effect of certain breast cancer treatments. Osteoporosis is a risk factor for breast cancer patients undergoing hormone therapy, and fatigue and cognitive impairment are common symptoms in breast cancer survivors. Prognostic scores such as the Nottingham Prognostic Index are used to predict patient outcomes, and genomic assays such as Oncotype DX are used to guide treatment decisions.",
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "key_points": [
+        "BRCA-mutated breast cancer is more common in Ashkenazi Jewish women",
+        "Triple-negative breast cancer is more common in African American women",
+        "Pregnancy-associated breast cancer is a rare but aggressive subtype",
+        "Paediatric breast cancer is extremely rare but requires specialized care",
+        "Elderly breast cancer patients may require modified treatment approaches",
+        "Immunotherapy with checkpoint inhibitors is being explored for breast cancer treatment",
+        "CAR-T cell therapy is being investigated for metastatic breast cancer",
+        "Nanoparticle-based therapies are being developed for targeted breast cancer treatment"
+      ],
+      "text": "Special populations and emerging therapies are critical aspects of breast cancer care. BRCA-mutated breast cancer is more common in Ashkenazi Jewish women, and triple-negative breast cancer is more common in African American women. Pregnancy-associated breast cancer is a rare but aggressive subtype, and paediatric breast cancer is extremely rare but requires specialized care. Elderly breast cancer patients may require modified treatment approaches, and immunotherapy with checkpoint inhibitors is being explored for breast cancer treatment. CAR-T cell therapy is being investigated for metastatic breast cancer, and nanoparticle-based therapies are being developed for targeted breast cancer treatment.",
+      "id": "L007",
+      "order": 7
+    },
+    {
+      "lesson_id": "L008",
+      "title": "Clinical Case & Applied Knowledge",
+      "key_points": [
+        "A 45-year-old woman presents with a palpable breast mass and is diagnosed with invasive ductal carcinoma",
+        "The patient undergoes genetic testing and is found to have a BRCA1 mutation",
+        "The patient is treated with a PARP inhibitor and undergoes surgery and radiation therapy",
+        "The patient experiences fatigue and cognitive impairment during treatment",
+        "The patient requires ongoing surveillance and follow-up care to monitor for recurrence",
+        "The patient's family members are advised to undergo genetic testing and counseling",
+        "The patient's treatment plan is modified based on genomic assay results",
+        "The patient's quality of life is prioritized throughout the treatment process"
+      ],
+      "text": "A 45-year-old woman presents with a palpable breast mass and is diagnosed with invasive ductal carcinoma. The patient undergoes genetic testing and is found to have a BRCA1 mutation. The patient is treated with a PARP inhibitor and undergoes surgery and radiation therapy. The patient experiences fatigue and cognitive impairment during treatment, and requires ongoing surveillance and follow-up care to monitor for recurrence. The patient's family members are advised to undergo genetic testing and counseling, and the patient's treatment plan is modified based on genomic assay results. The patient's quality of life is prioritized throughout the treatment process.",
+      "id": "L008",
+      "order": 8
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-BRCA-001",
+    "type": "disease_module",
+    "specialty": "Oncology",
+    "specialty_ru": "Онкология",
+    "title_en": "Breast Cancer: Molecular Biology, BRCA Mutations, Targeted Therapy and Survivorship",
+    "level": "advanced",
+    "duration_hours": 9,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

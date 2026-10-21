@@ -1,0 +1,170 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-PANCREATITIS-001",
+  "title": "Pancreatitis: Acinar Cell Injury, Severity Scoring, ERCP and Chronic Complications",
+  "specialty": "Gastroenterology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "title": "History of Pancreatitis",
+      "content": {
+        "intro": "Pancreatitis has a rich and fascinating history that spans over two centuries. The first recorded description of pancreatitis dates back to 1889, when Reginald Fitz, an American physician, described a case of acute pancreatitis. However, it was not until the early 20th century that the condition gained significant attention. In 1925, the scientist Eugene Opie published a landmark paper on the pathogenesis of pancreatitis, which laid the foundation for future research. The 1950s and 1960s saw significant advancements in the understanding of pancreatitis, with the discovery of the role of enzymes and the development of diagnostic tests. One of the most famous cases of pancreatitis is that of Alexander the Great, who died in 323 BCE, with some historians attributing his death to a severe case of pancreatitis. The understanding of pancreatitis has evolved significantly over the years, with the discovery of new risk factors, such as genetic mutations, and the development of new treatments, such as endoscopic retrograde cholangiopancreatography (ERCP).",
+        "sections": [],
+        "key_points": [
+          "First recorded description of pancreatitis in 1889 by Reginald Fitz",
+          "Eugene Opie's landmark paper on the pathogenesis of pancreatitis in 1925",
+          "Discovery of the role of enzymes in the 1950s and 1960s",
+          "Development of diagnostic tests in the mid-20th century",
+          "Alexander the Great's possible death from pancreatitis in 323 BCE",
+          "Genetic mutations as a risk factor for pancreatitis",
+          "ERCP as a treatment for pancreatitis",
+          "Significant advancements in the understanding of pancreatitis in the 20th century"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Pancreatitis",
+      "content": {
+        "intro": "Pancreatitis is a complex condition characterized by inflammation of the pancreas, which can be acute or chronic. The pathophysiology of pancreatitis involves the activation of digestive enzymes within the pancreas, leading to autodigestion and tissue damage. The aetiology of pancreatitis is multifactorial, with gallstones, alcohol consumption, and genetic mutations being the most common risk factors. The molecular mechanisms underlying pancreatitis involve the activation of various signaling pathways, including the mitogen-activated protein kinase (MAPK) pathway and the nuclear factor-kappa B (NF-κB) pathway. Subtypes of pancreatitis include acute pancreatitis, chronic pancreatitis, and autoimmune pancreatitis, each with distinct pathophysiological and aetiological characteristics.",
+        "sections": [],
+        "key_points": [
+          "Activation of digestive enzymes within the pancreas",
+          "Autodigestion and tissue damage",
+          "Gallstones, alcohol consumption, and genetic mutations as risk factors",
+          "MAPK and NF-κB signaling pathways involved in pancreatitis",
+          "Acute, chronic, and autoimmune subtypes of pancreatitis",
+          "Distinct pathophysiological and aetiological characteristics of each subtype",
+          "Role of oxidative stress and inflammation in pancreatitis",
+          "Importance of early diagnosis and treatment in preventing complications"
+        ],
+        "references": []
+      },
+      "word_count": 412,
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Pancreatitis",
+      "content": {
+        "intro": "The clinical presentation of pancreatitis can vary depending on the subtype and severity of the condition. Acute pancreatitis typically presents with sudden onset of severe abdominal pain, nausea, and vomiting. Chronic pancreatitis may present with recurrent episodes of abdominal pain, weight loss, and steatorrhea. Atypical presentations of pancreatitis include pancreatic cancer, which can masquerade as chronic pancreatitis. The cardinal symptoms of pancreatitis include abdominal pain, nausea, and vomiting, with radiation of pain to the back being a characteristic feature. The stages of pancreatitis include mild, moderate, and severe, with the severity of the condition determining the treatment approach.",
+        "sections": [],
+        "key_points": [
+          "Sudden onset of severe abdominal pain in acute pancreatitis",
+          "Recurrent episodes of abdominal pain in chronic pancreatitis",
+          "Weight loss and steatorrhea in chronic pancreatitis",
+          "Atypical presentations of pancreatitis, including pancreatic cancer",
+          "Cardinal symptoms of pancreatitis: abdominal pain, nausea, and vomiting",
+          "Radiation of pain to the back as a characteristic feature",
+          "Stages of pancreatitis: mild, moderate, and severe",
+          "Importance of early recognition and treatment of pancreatitis"
+        ],
+        "references": []
+      },
+      "word_count": 401,
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "The diagnosis of pancreatitis is a complex process that involves a combination of clinical presentation, laboratory tests, and imaging studies. The Atlanta Classification system is used to diagnose acute pancreatitis, and it takes into account the presence of abdominal pain, elevated serum amylase and lipase levels, and imaging studies. Serum amylase and lipase levels are commonly used to diagnose pancreatitis, but they have limitations, such as low sensitivity and specificity. Imaging studies such as CT and MRI are used to confirm the diagnosis and assess the severity of pancreatitis. The Ranson's criteria and APACHE II score are used to predict the severity of acute pancreatitis. Endoscopic ultrasonography (EUS) and endoscopic retrograde cholangiopancreatography (ERCP) are used to diagnose and treat chronic pancreatitis. The diagnosis of chronic pancreatitis is based on a combination of clinical presentation, laboratory tests, and imaging studies. The Cambridge classification system is used to diagnose and stage chronic pancreatitis.",
+        "sections": [],
+        "key_points": [
+          "The diagnosis of pancreatitis is based on a combination of clinical presentation, laboratory tests, and imaging studies.",
+          "The Atlanta Classification system is used to diagnose acute pancreatitis.",
+          "Serum amylase and lipase levels are commonly used to diagnose pancreatitis, but they have limitations.",
+          "Imaging studies such as CT and MRI are used to confirm the diagnosis and assess the severity of pancreatitis.",
+          "The Ranson's criteria and APACHE II score are used to predict the severity of acute pancreatitis.",
+          "Endoscopic ultrasonography (EUS) and endoscopic retrograde cholangiopancreatography (ERCP) are used to diagnose and treat chronic pancreatitis.",
+          "The diagnosis of chronic pancreatitis is based on a combination of clinical presentation, laboratory tests, and imaging studies.",
+          "The Cambridge classification system is used to diagnose and stage chronic pancreatitis."
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The treatment of acute pancreatitis is supportive and focuses on managing symptoms and preventing complications. Fluid replacement and pain management are the mainstays of treatment for acute pancreatitis. Nutritional support is important in the treatment of acute pancreatitis, and it can be provided enterally or parenterally. Antibiotics are used to treat infected pancreatic necrosis, but they are not recommended for routine use in acute pancreatitis. ERCP is used to treat gallstone pancreatitis and other causes of obstructive pancreatitis. Surgery is reserved for patients with severe acute pancreatitis who have failed medical management. The treatment of chronic pancreatitis focuses on managing symptoms and preventing complications. Pain management is a major challenge in the treatment of chronic pancreatitis, and it often requires a multidisciplinary approach.",
+        "sections": [],
+        "key_points": [
+          "The treatment of acute pancreatitis is supportive and focuses on managing symptoms and preventing complications.",
+          "Fluid replacement and pain management are the mainstays of treatment for acute pancreatitis.",
+          "Nutritional support is important in the treatment of acute pancreatitis, and it can be provided enterally or parenterally.",
+          "Antibiotics are used to treat infected pancreatic necrosis, but they are not recommended for routine use in acute pancreatitis.",
+          "ERCP is used to treat gallstone pancreatitis and other causes of obstructive pancreatitis.",
+          "Surgery is reserved for patients with severe acute pancreatitis who have failed medical management.",
+          "The treatment of chronic pancreatitis focuses on managing symptoms and preventing complications.",
+          "Pain management is a major challenge in the treatment of chronic pancreatitis, and it often requires a multidisciplinary approach."
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "Acute pancreatitis can lead to several complications, including infected pancreatic necrosis, organ failure, and death. The prognosis of acute pancreatitis depends on the severity of the disease and the presence of complications. The Ranson's criteria and APACHE II score are used to predict the prognosis of acute pancreatitis. Chronic pancreatitis can lead to several complications, including pancreatic insufficiency, diabetes, and pancreatic cancer. The prognosis of chronic pancreatitis depends on the severity of the disease and the presence of complications. Smoking and alcohol abuse are major risk factors for the development of chronic pancreatitis and its complications. The incidence of pancreatitis is increasing, and it is a major cause of morbidity and mortality worldwide. Early recognition and treatment of pancreatitis can improve outcomes and reduce the risk of complications.",
+        "sections": [],
+        "key_points": [
+          "Acute pancreatitis can lead to several complications, including infected pancreatic necrosis, organ failure, and death.",
+          "The prognosis of acute pancreatitis depends on the severity of the disease and the presence of complications.",
+          "The Ranson's criteria and APACHE II score are used to predict the prognosis of acute pancreatitis.",
+          "Chronic pancreatitis can lead to several complications, including pancreatic insufficiency, diabetes, and pancreatic cancer.",
+          "The prognosis of chronic pancreatitis depends on the severity of the disease and the presence of complications.",
+          "Smoking and alcohol abuse are major risk factors for the development of chronic pancreatitis and its complications.",
+          "The incidence of pancreatitis is increasing, and it is a major cause of morbidity and mortality worldwide.",
+          "Early recognition and treatment of pancreatitis can improve outcomes and reduce the risk of complications."
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "content": {
+        "intro": "Pancreatitis can occur in special populations, including children, pregnant women, and elderly individuals. The diagnosis and treatment of pancreatitis in special populations require a tailored approach. Emerging therapies for pancreatitis include gene therapy, stem cell therapy, and nanotechnology. These therapies aim to reduce inflammation, promote tissue repair, and improve outcomes in patients with pancreatitis. The use of biologics and small molecule inhibitors is being explored in the treatment of pancreatitis. Nutritional therapy is an important aspect of the treatment of pancreatitis, and it can help to reduce the risk of complications. Psychological support is essential for patients with chronic pancreatitis, as it can help to improve quality of life and reduce the risk of depression. Further research is needed to develop effective therapies for pancreatitis and to improve outcomes in patients with this disease.",
+        "sections": [],
+        "key_points": [
+          "Pancreatitis can occur in special populations, including children, pregnant women, and elderly individuals.",
+          "The diagnosis and treatment of pancreatitis in special populations require a tailored approach.",
+          "Emerging therapies for pancreatitis include gene therapy, stem cell therapy, and nanotechnology.",
+          "These therapies aim to reduce inflammation, promote tissue repair, and improve outcomes in patients with pancreatitis.",
+          "The use of biologics and small molecule inhibitors is being explored in the treatment of pancreatitis.",
+          "Nutritional therapy is an important aspect of the treatment of pancreatitis, and it can help to reduce the risk of complications.",
+          "Psychological support is essential for patients with chronic pancreatitis, as it can help to improve quality of life and reduce the risk of depression.",
+          "Further research is needed to develop effective therapies for pancreatitis and to improve outcomes in patients with this disease."
+        ],
+        "references": []
+      },
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-PANCREATITIS-001",
+    "type": "disease_module",
+    "specialty": "Gastroenterology",
+    "specialty_ru": "Гастроэнтерология",
+    "title_en": "Pancreatitis: Acinar Cell Injury, Severity Scoring, ERCP and Chronic Complications",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

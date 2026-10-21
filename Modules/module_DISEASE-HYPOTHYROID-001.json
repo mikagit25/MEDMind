@@ -1,0 +1,147 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-HYPOTHYROID-001",
+  "title": "Hypothyroidism: Autoimmune Thyroiditis, Levothyroxine Dosing and TSH Targets",
+  "specialty": "Endocrinology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 7,
+  "lessons": [
+    {
+      "title": "History of Hypothyroidism",
+      "content": {
+        "intro": "Hypothyroidism has a rich history dating back to the 19th century. In 1873, Sir William Withey Gull described a condition known as 'cretinism' in adults, which is now recognized as hypothyroidism. The term 'hypothyroidism' was first used by George Murray in 1891. In the early 20th century, the discovery of thyroid hormones by Edward Calvin Kendall in 1914 and the isolation of thyroxine (T4) by Harington and Barger in 1927 were significant milestones. The introduction of levothyroxine (T4) replacement therapy by Elmer McCollum in 1940 revolutionized the treatment of hypothyroidism. The discovery of autoimmune thyroiditis by Noel Rose and Ernest Witebsky in 1956 marked a major shift in understanding the pathogenesis of hypothyroidism. Famous cases include that of Mary Hutton, a patient of Sir William Gull, who was one of the first documented cases of hypothyroidism. The understanding of hypothyroidism has evolved significantly over the years, with major contributions from scientists such as Rosalind Pitt-Rivers, who discovered the role of thyroid-stimulating hormone (TSH) in regulating thyroid function.",
+        "sections": [],
+        "key_points": [
+          "Hypothyroidism was first described by Sir William Withey Gull in 1873",
+          "The term 'hypothyroidism' was first used by George Murray in 1891",
+          "Thyroid hormones were discovered by Edward Calvin Kendall in 1914",
+          "Thyroxine (T4) was isolated by Harington and Barger in 1927",
+          "Levothyroxine (T4) replacement therapy was introduced by Elmer McCollum in 1940",
+          "Autoimmune thyroiditis was discovered by Noel Rose and Ernest Witebsky in 1956",
+          "Rosalind Pitt-Rivers discovered the role of TSH in regulating thyroid function",
+          "The understanding of hypothyroidism has evolved significantly over the years"
+        ],
+        "references": []
+      },
+      "id": "L001",
+      "order": 1
+    },
+    {
+      "title": "Pathophysiology and Aetiology of Hypothyroidism",
+      "content": {
+        "intro": "Hypothyroidism is a complex condition characterized by the inadequate production of thyroid hormones. The pathophysiology of hypothyroidism involves the disruption of the hypothalamic-pituitary-thyroid axis, leading to decreased production of T4 and triiodothyronine (T3). Autoimmune thyroiditis, such as Hashimoto's thyroiditis, is the most common cause of hypothyroidism, accounting for approximately 90% of cases. Other causes include iodine deficiency, radiation therapy, and thyroid surgery. Genetic factors, such as mutations in the TSH receptor gene, can also contribute to the development of hypothyroidism. The molecular mechanisms underlying hypothyroidism involve the activation of immune cells, such as T cells and B cells, which produce antibodies against thyroid antigens, leading to thyroid gland destruction. Subtypes of hypothyroidism include primary hypothyroidism, secondary hypothyroidism, and tertiary hypothyroidism, each with distinct pathophysiological mechanisms.",
+        "sections": [],
+        "key_points": [
+          "Hypothyroidism is characterized by inadequate production of thyroid hormones",
+          "Autoimmune thyroiditis is the most common cause of hypothyroidism",
+          "Iodine deficiency, radiation therapy, and thyroid surgery can also cause hypothyroidism",
+          "Genetic factors, such as TSH receptor gene mutations, can contribute to hypothyroidism",
+          "The molecular mechanisms involve immune cell activation and antibody production",
+          "Primary, secondary, and tertiary hypothyroidism have distinct pathophysiological mechanisms",
+          "Hashimoto's thyroiditis is the most common form of autoimmune thyroiditis",
+          "Thyroid hormone production is regulated by the hypothalamic-pituitary-thyroid axis"
+        ],
+        "references": []
+      },
+      "id": "L002",
+      "order": 2
+    },
+    {
+      "title": "Clinical Presentation of Hypothyroidism",
+      "content": {
+        "intro": "The clinical presentation of hypothyroidism can vary widely, ranging from asymptomatic to severe and life-threatening. Cardinal symptoms include fatigue, weight gain, cold intolerance, and dry skin. Other common symptoms include hair loss, constipation, and depression. The stages of hypothyroidism include mild, moderate, and severe, each with distinct clinical features. Atypical presentations, such as apathetic thyrotoxicosis, can occur in elderly patients. The clinical presentation can also vary depending on the underlying cause, such as autoimmune thyroiditis or iodine deficiency. A high index of suspicion is required to diagnose hypothyroidism, as the symptoms can be non-specific and similar to those of other conditions. A thorough medical history, physical examination, and laboratory tests, such as TSH and free T4, are essential for diagnosing hypothyroidism.",
+        "sections": [],
+        "key_points": [
+          "Hypothyroidism can present with a wide range of symptoms, from asymptomatic to severe",
+          "Cardinal symptoms include fatigue, weight gain, cold intolerance, and dry skin",
+          "Other common symptoms include hair loss, constipation, and depression",
+          "The stages of hypothyroidism include mild, moderate, and severe",
+          "Atypical presentations, such as apathetic thyrotoxicosis, can occur in elderly patients",
+          "The clinical presentation can vary depending on the underlying cause",
+          "A high index of suspicion is required to diagnose hypothyroidism",
+          "Symptoms can be non-specific and similar to those of other conditions",
+          "A thorough medical history, physical examination, and laboratory tests are essential for diagnosis"
+        ],
+        "references": []
+      },
+      "id": "L003",
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "content": {
+        "intro": "Diagnosing hypothyroidism involves a combination of clinical evaluation, laboratory tests, and imaging studies. The diagnosis is typically made based on a combination of symptoms, physical examination findings, and laboratory results. The American Thyroid Association recommends that adults be screened for hypothyroidism if they have symptoms or risk factors, such as a family history of thyroid disease or radiation exposure to the head or neck.",
+        "sections": [],
+        "key_points": [
+          "Clinical evaluation is crucial in diagnosing hypothyroidism",
+          "Laboratory tests, such as TSH and free T4, are used to confirm the diagnosis",
+          "Imaging studies, such as ultrasound, may be used to evaluate the thyroid gland",
+          "The American Thyroid Association recommends screening adults with symptoms or risk factors",
+          "The diagnosis is typically made based on a combination of symptoms, physical examination findings, and laboratory results",
+          "TSH levels are used to diagnose and monitor hypothyroidism",
+          "Free T4 levels are used to evaluate the severity of hypothyroidism",
+          "Antithyroid peroxidase antibodies may be present in patients with autoimmune thyroiditis"
+        ],
+        "references": []
+      },
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "content": {
+        "intro": "The primary treatment for hypothyroidism is levothyroxine, a synthetic form of thyroxine. The goal of treatment is to restore normal thyroid hormone levels and alleviate symptoms. The initial dose of levothyroxine is typically based on the patient's weight, and adjustments are made based on laboratory results and clinical response. Non-pharmacological treatments, such as lifestyle modifications and dietary changes, may also be recommended to help manage symptoms and improve overall health.",
+        "sections": [],
+        "key_points": [
+          "Levothyroxine is the primary treatment for hypothyroidism",
+          "The goal of treatment is to restore normal thyroid hormone levels and alleviate symptoms",
+          "The initial dose of levothyroxine is typically based on the patient's weight",
+          "Adjustments to the dose are made based on laboratory results and clinical response",
+          "Non-pharmacological treatments, such as lifestyle modifications and dietary changes, may be recommended",
+          "Treatment should be individualized based on the patient's specific needs and circumstances",
+          "Regular monitoring of TSH and free T4 levels is necessary to adjust the dose and ensure adequate treatment",
+          "Patient education and support are essential to improve adherence and outcomes"
+        ],
+        "references": []
+      },
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "content": {
+        "intro": "If left untreated or undertreated, hypothyroidism can lead to several complications, including cardiovascular disease, osteoporosis, and cognitive impairment. The prognosis for patients with hypothyroidism is generally good, with most patients experiencing significant improvement in symptoms and quality of life with appropriate treatment. However, some patients may experience persistent symptoms or complications, and regular monitoring and adjustments to treatment are necessary to optimize outcomes.",
+        "sections": [],
+        "key_points": [
+          "Untreated or undertreated hypothyroidism can lead to several complications",
+          "Cardiovascular disease is a potential complication of hypothyroidism",
+          "Osteoporosis is a potential complication of hypothyroidism",
+          "Cognitive impairment is a potential complication of hypothyroidism",
+          "The prognosis for patients with hypothyroidism is generally good with appropriate treatment",
+          "Regular monitoring and adjustments to treatment are necessary to optimize outcomes",
+          "Some patients may experience persistent symptoms or complications despite treatment",
+          "Patient education and support are essential to improve adherence and outcomes"
+        ],
+        "references": []
+      },
+      "id": "L006",
+      "order": 6
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-HYPOTHYROID-001",
+    "type": "disease_module",
+    "specialty": "Endocrinology",
+    "specialty_ru": "Эндокринология",
+    "title_en": "Hypothyroidism: Autoimmune Thyroiditis, Levothyroxine Dosing and TSH Targets",
+    "level": "advanced",
+    "duration_hours": 7,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}

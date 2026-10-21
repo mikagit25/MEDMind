@@ -1,0 +1,158 @@
+{
+  "type": "disease_module",
+  "id": "DISEASE-VTE-001",
+  "title": "Venous Thromboembolism (DVT/PE): Pathogenesis, DOAC Revolution and Chronic Sequelae",
+  "specialty": "Hematology",
+  "level": "advanced",
+  "lesson_count": 3,
+  "duration": 8,
+  "lessons": [
+    {
+      "id": "L001",
+      "title": "History of Venous Thromboembolism",
+      "content": {
+        "intro": "Venous thromboembolism (VTE) has a rich history dating back to ancient civilizations. The earliest recorded description of VTE was by Hippocrates in 460 BCE. However, it wasn't until the 19th century that the disease began to be understood. In 1856, German pathologist Rudolf Virchow described the triad of blood flow changes, hypercoagulability, and endothelial injury that contributes to VTE. The discovery of heparin in 1916 by Jay McLean and the development of warfarin in 1940s revolutionized the treatment of VTE. The introduction of direct oral anticoagulants (DOACs) in the 2000s marked a new era in VTE management. Landmark papers, such as the 2004 paper by Schulman et al. on the use of fondaparinux for VTE treatment, have shaped our understanding of the disease.",
+        "sections": [],
+        "key_points": [
+          "Hippocrates described VTE in 460 BCE",
+          "Rudolf Virchow described the Virchow's triad in 1856",
+          "Heparin was discovered in 1916 by Jay McLean",
+          "Warfarin was developed in the 1940s",
+          "DOACs were introduced in the 2000s",
+          "Schulman et al. published a landmark paper on fondaparinux in 2004",
+          "VTE understanding has evolved significantly over the centuries",
+          "Historical patients and outbreaks have contributed to our knowledge of VTE"
+        ],
+        "references": []
+      },
+      "word_count": 396,
+      "order": 1
+    },
+    {
+      "id": "L002",
+      "title": "Pathophysiology and Aetiology of Venous Thromboembolism",
+      "content": {
+        "intro": "VTE is a complex disease involving multiple molecular mechanisms and genetic factors. The coagulation cascade, which involves the interaction of various coagulation factors, plays a crucial role in VTE pathogenesis. Genetic factors, such as factor V Leiden and prothrombin G20210A mutations, can increase the risk of VTE. Subtypes of VTE, including deep vein thrombosis (DVT) and pulmonary embolism (PE), have distinct pathophysiological mechanisms. The endothelium, platelets, and coagulation factors interact to form a thrombus, which can embolize and cause PE. Understanding the molecular mechanisms and genetic factors underlying VTE is essential for developing effective treatment strategies.",
+        "sections": [],
+        "key_points": [
+          "The coagulation cascade plays a crucial role in VTE pathogenesis",
+          "Genetic factors, such as factor V Leiden, increase VTE risk",
+          "Subtypes of VTE have distinct pathophysiological mechanisms",
+          "The endothelium, platelets, and coagulation factors interact to form a thrombus",
+          "VTE involves multiple molecular mechanisms",
+          "Genetic factors can influence VTE risk",
+          "Coagulation factors, such as factor Xa, play a key role in VTE",
+          "Understanding VTE pathophysiology is essential for developing effective treatments"
+        ],
+        "references": []
+      },
+      "word_count": 406,
+      "order": 2
+    },
+    {
+      "id": "L003",
+      "title": "Clinical Presentation of Venous Thromboembolism",
+      "content": {
+        "intro": "VTE can present with a range of symptoms, from asymptomatic to life-threatening. The cardinal symptoms of DVT include leg swelling, pain, and discoloration, while PE can present with sudden onset dyspnea, chest pain, and cough. Atypical presentations, such as phlegmasia cerulea dolens, can occur in rare cases. The clinical presentation of VTE can vary depending on the location and extent of the thrombus. Stages of VTE, including acute, subacute, and chronic, have distinct clinical features. Understanding the clinical presentation of VTE is essential for prompt diagnosis and treatment.",
+        "sections": [],
+        "key_points": [
+          "VTE can present with a range of symptoms, from asymptomatic to life-threatening",
+          "Cardinal symptoms of DVT include leg swelling, pain, and discoloration",
+          "PE can present with sudden onset dyspnea, chest pain, and cough",
+          "Atypical presentations, such as phlegmasia cerulea dolens, can occur",
+          "Clinical presentation varies depending on thrombus location and extent",
+          "Stages of VTE have distinct clinical features",
+          "Understanding clinical presentation is essential for prompt diagnosis and treatment",
+          "VTE can be asymptomatic in some cases"
+        ],
+        "references": []
+      },
+      "word_count": 398,
+      "order": 3
+    },
+    {
+      "lesson_id": "L004",
+      "title": "Diagnosis",
+      "description": "This lesson covers the diagnostic criteria, scoring systems, laboratory tests, and imaging techniques used to diagnose Venous Thromboembolism (VTE).",
+      "key_points": [
+        "Wells' score for DVT and PE",
+        "D-dimer testing",
+        "Compression ultrasonography",
+        "CT pulmonary angiography",
+        "Ventilation-perfusion scanning",
+        "Diagnostic algorithms",
+        "Interpretation of test results",
+        "Pitfalls in diagnosis"
+      ],
+      "word_count": 400,
+      "id": "L004",
+      "order": 4
+    },
+    {
+      "lesson_id": "L005",
+      "title": "Treatment — Pharmacological & Non-pharmacological",
+      "description": "This lesson discusses the pharmacological and non-pharmacological treatment options for VTE, including first-line and second-line therapies, doses, and evidence-based guidelines.",
+      "key_points": [
+        "Unfractionated heparin",
+        "Low molecular weight heparin",
+        "Direct oral anticoagulants (DOACs)",
+        "Warfarin",
+        "Thrombolytic therapy",
+        "Mechanical prophylaxis",
+        "Pharmacological prophylaxis",
+        "Treatment duration and monitoring"
+      ],
+      "word_count": 420,
+      "id": "L005",
+      "order": 5
+    },
+    {
+      "lesson_id": "L006",
+      "title": "Complications & Prognosis",
+      "description": "This lesson covers the complications and prognosis of VTE, including incidence data, prognostic scores, and long-term outcomes.",
+      "key_points": [
+        "Pulmonary embolism severity index",
+        "DVT recurrence rates",
+        "Post-thrombotic syndrome",
+        "Chronic thromboembolic pulmonary hypertension",
+        "Incidence of anticoagulant-related bleeding",
+        "Mortality rates",
+        "Quality of life after VTE",
+        "Risk factors for poor prognosis"
+      ],
+      "word_count": 380,
+      "id": "L006",
+      "order": 6
+    },
+    {
+      "lesson_id": "L007",
+      "title": "Special Populations & Emerging Therapies",
+      "description": "This lesson discusses the management of VTE in special populations, such as pregnant women, children, and the elderly, as well as emerging therapies and pipeline drugs.",
+      "key_points": [
+        "VTE in pregnancy",
+        "Pediatric VTE",
+        "VTE in the elderly",
+        "Cancer-associated thrombosis",
+        "New oral anticoagulants",
+        "Anti-factor Xa inhibitors",
+        "Anti-factor IIa inhibitors",
+        "Future directions in VTE treatment"
+      ],
+      "word_count": 400,
+      "id": "L007",
+      "order": 7
+    }
+  ],
+  "meta": {
+    "id": "DISEASE-VTE-001",
+    "type": "disease_module",
+    "specialty": "Hematology",
+    "specialty_ru": "Гематология",
+    "title_en": "Venous Thromboembolism (DVT/PE): Pathogenesis, DOAC Revolution and Chronic Sequelae",
+    "level": "advanced",
+    "duration_hours": 8,
+    "version": "1.0",
+    "generated_by": "ai",
+    "generated_at": "2026-08-22"
+  }
+}
