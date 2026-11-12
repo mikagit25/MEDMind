@@ -278,58 +278,113 @@ def render_hook(module_title: str, difficulty: str) -> np.ndarray:
     return np.array(img)
 
 
+LETTER_COLORS = {
+    "A": (99,  179, 237),
+    "B": (167, 139, 250),
+    "C": (52,  211, 153),
+    "D": (251, 191, 36),
+}
+
+
 def render_question(question: str, options: dict) -> np.ndarray:
+    """Full question + all options (used for reveal slide reference only)."""
+    return render_options_step(question, options, ["A", "B", "C", "D"])
+
+
+def render_question_only(question: str) -> np.ndarray:
+    """Question text only — no options. Used during TTS narration."""
     img, draw = _base_canvas("NCLEX")
 
-    # Question box
+    PAD = 40
+    # Large centred card
+    BOX_Y = 200
+    BOX_H = 900
+    draw.rounded_rectangle([PAD, BOX_Y, W - PAD, BOX_Y + BOX_H], radius=24, fill=BG_CARD)
+
+    # "Question" label
+    label = "📋 Question"
+    lw = tw(draw, label, fb(28))
+    draw.text(((W - lw) // 2, BOX_Y + 28), label, font=fb(28), fill=ACCENT)
+
+    # Divider
+    draw.line([(PAD + 30, BOX_Y + 72), (W - PAD - 30, BOX_Y + 72)], fill=(40, 55, 75), width=2)
+
+    f_q = fb(38)
+    max_w = W - PAD * 2 - 48
+    lines = wrap(draw, question, f_q, max_w)
+    total_h = len(lines[:10]) * 54
+    y = BOX_Y + 90 + (BOX_H - 90 - total_h) // 2
+    for line in lines[:10]:
+        draw.text((PAD + 24, y), line, font=f_q, fill=TEXT_W)
+        y += 54
+
+    # Swipe / think hint
+    hint = "💭 Think before the options appear…"
+    hw = tw(draw, hint, fr(28))
+    _emt(img, ((W - hw) // 2, H - 100), hint, fr(28), TEXT_M)
+
+    return np.array(img)
+
+
+def render_options_step(question: str, options: dict,
+                        visible: list[str]) -> np.ndarray:
+    """Render question + options A…D with only `visible` letters shown.
+    Letters not yet shown appear as a dimmed placeholder bar.
+    """
+    img, draw = _base_canvas("NCLEX")
+
     PAD = 40
     BOX_Y = 80
-    BOX_H = 560
-    draw.rounded_rectangle([PAD, BOX_Y, W - PAD, BOX_Y + BOX_H], radius=20, fill=BG_CARD)
+    BOX_H = 460
 
-    # Question text
-    f_q = fb(34)
+    # Question card (compact)
+    draw.rounded_rectangle([PAD, BOX_Y, W - PAD, BOX_Y + BOX_H], radius=20, fill=BG_CARD)
+    f_q = fb(32)
     max_w = W - PAD * 2 - 40
-    lines = wrap(draw, question, f_q, max_w)
-    y = BOX_Y + 30
-    for line in lines[:8]:
+    q_lines = wrap(draw, question, f_q, max_w)
+    y = BOX_Y + 24
+    for line in q_lines[:7]:
         draw.text((PAD + 20, y), line, font=f_q, fill=TEXT_W)
         y += 46
 
     # Options
-    OPT_Y = BOX_Y + BOX_H + 30
-    f_letter = fb(36)
-    f_opt = fr(30)
-    LETTER_COLORS = {
-        "A": (99, 179, 237),
-        "B": (167, 139, 250),
-        "C": (52, 211, 153),
-        "D": (251, 191, 36),
-    }
+    OPT_Y = BOX_Y + BOX_H + 28
+    f_letter = fb(34)
+    f_opt    = fr(28)
+    OPT_H    = 170
 
     for i, letter in enumerate(["A", "B", "C", "D"]):
         text = options.get(letter, "")
         if not text:
             continue
 
-        oy = OPT_Y + i * 190
+        oy  = OPT_Y + i * (OPT_H + 10)
         col = LETTER_COLORS.get(letter, ACCENT)
+        # Normalise option value: may be str or nested dict
+        if isinstance(text, dict):
+            text = text.get("text", text.get("content", str(text)))
+        text = str(text)
 
-        # Option card
-        draw.rounded_rectangle([PAD, oy, W - PAD, oy + 170], radius=16, fill=BG_CARD)
+        shown = letter in visible
 
-        # Letter circle
-        cx, cy = PAD + 46, oy + 85
-        draw.ellipse([cx - 34, cy - 34, cx + 34, cy + 34], fill=col)
-        lw = tw(draw, letter, f_letter)
-        draw.text((cx - lw // 2, cy - 22), letter, font=f_letter, fill=BG_DARK)
-
-        # Option text
-        opt_lines = wrap(draw, text, f_opt, W - PAD * 2 - 110)
-        ty = oy + (170 - len(opt_lines[:3]) * 38) // 2
-        for ol in opt_lines[:3]:
-            draw.text((PAD + 96, ty), ol, font=f_opt, fill=TEXT_W)
-            ty += 38
+        if shown:
+            draw.rounded_rectangle([PAD, oy, W - PAD, oy + OPT_H], radius=16, fill=BG_CARD)
+            # Letter circle
+            cx, cy2 = PAD + 46, oy + OPT_H // 2
+            draw.ellipse([cx - 32, cy2 - 32, cx + 32, cy2 + 32], fill=col)
+            lw2 = tw(draw, letter, f_letter)
+            draw.text((cx - lw2 // 2, cy2 - 20), letter, font=f_letter, fill=BG_DARK)
+            # Text
+            opt_lines = wrap(draw, text, f_opt, W - PAD * 2 - 108)
+            ty = oy + (OPT_H - len(opt_lines[:3]) * 36) // 2
+            for ol in opt_lines[:3]:
+                draw.text((PAD + 94, ty), ol, font=f_opt, fill=TEXT_W)
+                ty += 36
+        else:
+            # Ghost placeholder
+            draw.rounded_rectangle([PAD, oy + OPT_H // 3,
+                                     W - PAD, oy + OPT_H * 2 // 3],
+                                    radius=10, fill=(22, 30, 44))
 
     return np.array(img)
 
@@ -443,6 +498,71 @@ def render_cta(exam: str | None = None) -> np.ndarray:
     return np.array(img)
 
 
+# ── Ambient music generator ───────────────────────────────────────────────────
+
+def generate_ambient(duration_sec: float, path: str, freq: float = 174.0) -> None:
+    """
+    Generate a Sacred Drift–style ambient drone track.
+    Uses layered sine waves at solfeggio-based frequencies with slow LFO modulation.
+    Output: MP3 at `path`.
+    """
+    sr = 44100
+    n  = int(sr * duration_sec)
+    t  = np.linspace(0, duration_sec, n, endpoint=False)
+
+    # Slow LFO (0.07 Hz — one cycle ~14s)
+    lfo_depth = 0.012
+    lfo = lfo_depth * np.sin(2 * np.pi * 0.07 * t)
+
+    # Layered harmonics: root + perfect fifth + octave + minor seventh
+    layers = [
+        (freq,          0.38),   # fundamental
+        (freq * 1.498,  0.18),   # perfect fifth
+        (freq * 2.0,    0.14),   # octave
+        (freq * 2.996,  0.09),   # 5th × 2
+        (freq * 0.749,  0.12),   # sub-octave
+        (freq * 1.782,  0.07),   # minor 7th
+    ]
+    signal = np.zeros(n, dtype=np.float64)
+    for f, amp in layers:
+        signal += amp * np.sin(2 * np.pi * (f + f * lfo) * t)
+
+    # Gentle slow tremolo (0.13 Hz)
+    signal *= 0.88 + 0.12 * np.sin(2 * np.pi * 0.13 * t)
+
+    # Normalise to 55% peak
+    signal /= np.max(np.abs(signal))
+    signal *= 0.55
+
+    # Smooth fade-in (2s) and fade-out (3s)
+    fi = int(sr * 2); fo = int(sr * 3)
+    signal[:fi] *= np.linspace(0.0, 1.0, fi)
+    signal[-fo:] *= np.linspace(1.0, 0.0, fo)
+
+    # Stereo with slight L/R detune for depth
+    detune = 0.003
+    t_r = np.linspace(0, duration_sec, n, endpoint=False)
+    right = np.zeros(n, dtype=np.float64)
+    for f, amp in layers:
+        fd = f * (1 + detune)
+        right += amp * np.sin(2 * np.pi * (fd + fd * lfo) * t_r)
+    right /= np.max(np.abs(right)); right *= 0.55
+    right[-fo:] *= np.linspace(1.0, 0.0, fo)
+    right[:fi]  *= np.linspace(0.0, 1.0, fi)
+
+    stereo = np.stack([signal, right], axis=1)
+    stereo_16 = np.clip(stereo * 32767, -32768, 32767).astype(np.int16)
+
+    wav = path.replace(".mp3", "_amb.wav")
+    import scipy.io.wavfile as wavfile
+    wavfile.write(wav, sr, stereo_16)
+    subprocess.run(
+        ["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-q:a", "3", path],
+        check=True,
+    )
+    os.remove(wav)
+
+
 # ── TTS ───────────────────────────────────────────────────────────────────────
 
 async def tts(text: str, path: str, voice: str | None = None) -> float:
@@ -464,31 +584,71 @@ async def tts(text: str, path: str, voice: str | None = None) -> float:
 # ── Video assembly ────────────────────────────────────────────────────────────
 
 def _encode_short(parts: list[tuple[str, float, str | None]], out: str,
-                  bg: str | None = None) -> None:
-    """Encode a Short from PNG paths. With bg (path to looping MP4) frames must be RGBA."""
+                  bg: str | None = None,
+                  ambient: str | None = None,
+                  ambient_vol: float = 0.18) -> None:
+    """
+    Encode a Short from PNG paths.
+    ambient : path to full-length ambient MP3 (mixed at ambient_vol under TTS)
+    bg      : looping background MP4 (frames must be RGBA)
+    """
     cmd = ["ffmpeg", "-y", "-loglevel", "error"]
     n = len(parts)
     for png, secs, _ in parts:
         cmd += ["-loop", "1", "-framerate", str(FPS), "-t", f"{secs:.3f}", "-i", png]
+
+    # TTS audio per segment (or null source)
     for _, _, audio in parts:
         cmd += (["-i", audio] if audio
                 else ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"])
-    filt = [f"[{n+k}:a]aresample=44100,apad,atrim=0:{secs:.3f}[a{k}]"
-            for k, (_, secs, _) in enumerate(parts)]
+
+    # Optional looping background video
     if bg:
         cmd += ["-stream_loop", "-1", "-i", bg]
+
+    # Optional ambient track
+    if ambient:
+        cmd += ["-i", ambient]
+
+    total_dur = sum(s for _, s, _ in parts)
+    filt: list[str] = []
+
+    # Per-segment audio pads
+    for k, (_, secs, _) in enumerate(parts):
+        filt.append(f"[{n+k}:a]aresample=44100,apad,atrim=0:{secs:.3f}[a{k}]")
+
+    # Concatenate TTS streams
+    acat = "".join(f"[a{k}]" for k in range(n)) + f"concat=n={n}:v=0:a=1[tts_all]"
+    filt.append(acat)
+
+    # Video concat
+    if bg:
+        bg_idx = 2 * n
         vcat = ("".join(f"[{k}:v]" for k in range(n)) +
                 f"concat=n={n}:v=1:a=0,format=rgba[fg];"
-                f"[{2*n}:v]scale={W}:{H}:force_original_aspect_ratio=increase,"
+                f"[{bg_idx}:v]scale={W}:{H}:force_original_aspect_ratio=increase,"
                 f"crop={W}:{H},setsar=1,fps={FPS}[bgv];"
                 f"[bgv][fg]overlay=0:0:shortest=1:format=auto,format=yuv420p[v]")
+        amb_idx = bg_idx + 1 if ambient else None
     else:
         vcat = ("".join(f"[{k}:v]" for k in range(n)) +
                 f"concat=n={n}:v=1:a=0,format=yuv420p[v]")
-    acat = "".join(f"[a{k}]" for k in range(n)) + f"concat=n={n}:v=0:a=1[a]"
-    filt += [vcat, acat]
+        amb_idx = 2 * n if ambient else None
+    filt.append(vcat)
+
+    # Mix ambient underneath TTS
+    if ambient and amb_idx is not None:
+        filt.append(
+            f"[{amb_idx}:a]aresample=44100,atrim=0:{total_dur:.3f},"
+            f"volume={ambient_vol}[amb];"
+            f"[tts_all][amb]amix=inputs=2:duration=first:dropout_transition=2[a]"
+        )
+    else:
+        filt.append("[tts_all]acopy[a]")
+
     tune = [] if bg else ["-tune", "stillimage"]
-    cmd += ["-filter_complex", ";".join(filt), "-map", "[v]", "-map", "[a]",
+    cmd += ["-filter_complex", ";".join(filt),
+            "-map", "[v]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "veryfast", *tune, "-r", str(FPS),
             "-c:a", "aac", "-b:a", "192k", "-ar", "44100", "-ac", "2", out]
     subprocess.run(cmd, check=True)
@@ -515,35 +675,46 @@ async def build_video(
     prep      = _ar_prep if lang == "ar" else (lambda x: x)
     question  = prep(q["question"])
     options_raw = q["options"] if isinstance(q["options"], dict) else json.loads(q["options"])
+    # Normalise option values: may be str or nested dict {"text": "...", ...}
+    def _opt_str(v) -> str:
+        if isinstance(v, dict):
+            return str(v.get("text", v.get("content", next(iter(v.values()), ""))))
+        return str(v)
+    options_raw = {k: _opt_str(v) for k, v in options_raw.items()}
     options   = {k: prep(v) for k, v in options_raw.items()}
     correct   = q["correct"]
     takeaway  = prep(q["key_takeaway"])
     module    = prep((q.get("module_title") or "NCLEX Prep")[:48])
     diff      = q.get("difficulty", "medium")
 
-    # TTS uses original (un-prepped) text — edge-tts handles Unicode natively
+    # ── Spoken text ───────────────────────────────────────────────────────────
+    # NEW FORMAT: TTS reads ONLY the question (not A/B/C/D options)
+    # Options appear visually, step-by-step, to ambient music
+    orig_q  = q["question"]
+    orig_kt = q["key_takeaway"]
     orig_options = options_raw
-    orig_q    = q["question"]
-    orig_kt   = q["key_takeaway"]
-    spoken_q = (
-        f"{orig_q} "
-        f"A: {orig_options.get('A', '')}. "
-        f"B: {orig_options.get('B', '')}. "
-        f"C: {orig_options.get('C', '')}. "
-        f"D: {orig_options.get('D', '')}."
-    )
+
+    spoken_q = orig_q  # question only — no "A: ... B: ..." recitation
     spoken_a = (
+        f"The correct answer is {correct}. "
         f"{orig_options.get(correct, '')}. "
         f"{orig_kt}"
     )
 
     print(f"  → Rendering frames…")
+    # Option step frames: A → A+B → A+B+C → A+B+C+D
+    opt_letters = [l for l in ["A", "B", "C", "D"] if options.get(l)]
+    opt_frames = []
+    for i in range(len(opt_letters)):
+        visible = opt_letters[: i + 1]
+        opt_frames.append(render_options_step(question, options, visible))
+
     frames = {
-        "hook":     render_hook(module, diff),
-        "question": render_question(question, options),
-        "pause":    render_pause(),
-        "reveal":   render_reveal(options, correct, takeaway),
-        "cta":      render_cta(exam=exam),
+        "hook":    render_hook(module, diff),
+        "q_only":  render_question_only(question),
+        "pause":   render_pause(),
+        "reveal":  render_reveal(options, correct, takeaway),
+        "cta":     render_cta(exam=exam),
     }
 
     if dry_run:
@@ -552,54 +723,61 @@ async def build_video(
         return out_path
 
     with tempfile.TemporaryDirectory() as tmp:
-        q_mp3 = f"{tmp}/question.mp3"
-        a_mp3 = f"{tmp}/answer.mp3"
+        q_mp3   = f"{tmp}/question.mp3"
+        a_mp3   = f"{tmp}/answer.mp3"
+        amb_mp3 = f"{tmp}/ambient.mp3"
 
-        print(f"  → TTS question…")
+        print(f"  → TTS question (question only)…")
         q_dur = await tts(spoken_q, q_mp3, voice=tts_voice)
         print(f"  → TTS answer…")
         a_dur = await tts(spoken_a, a_mp3, voice=tts_voice)
 
-        HOOK_DUR  = 3.0
-        PAUSE_DUR = 4.0
-        CTA_DUR   = 5.0
+        HOOK_DUR      = 3.0
+        OPT_STEP_DUR  = 1.5   # each option card appears for 1.5s
+        PAUSE_DUR     = 4.0
+        CTA_DUR       = 5.0
 
-        if bg:
-            # ffmpeg path: save frames as PNG, overlay on animated background
-            pngs = {}
-            for k, arr in frames.items():
-                p = f"{tmp}/{k}.png"
-                Image.fromarray(arr).save(p)
-                pngs[k] = p
-            parts = [
-                (pngs["hook"],     HOOK_DUR,       None),
-                (pngs["question"], q_dur + 1.0,    q_mp3),
-                (pngs["pause"],    PAUSE_DUR,       None),
-                (pngs["reveal"],   a_dur + 1.5,     a_mp3),
-                (pngs["cta"],      CTA_DUR,         None),
-            ]
-            total = HOOK_DUR + q_dur + 1.0 + PAUSE_DUR + a_dur + 1.5 + CTA_DUR
-            print(f"  → Encoding with background ({total:.1f}s)…")
-            _encode_short(parts, out_path, bg=bg)
-        else:
-            # moviepy path (no background — unchanged behaviour)
-            from moviepy.editor import (
-                ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips,
-            )
-            hook_clip  = ImageClip(frames["hook"]).set_duration(HOOK_DUR)
-            q_clip     = ImageClip(frames["question"]).set_duration(q_dur + 1.0)
-            pause_clip = ImageClip(frames["pause"]).set_duration(PAUSE_DUR)
-            rev_clip   = ImageClip(frames["reveal"]).set_duration(a_dur + 1.5)
-            cta_clip   = ImageClip(frames["cta"]).set_duration(CTA_DUR)
-            q_audio    = AudioFileClip(q_mp3).set_start(HOOK_DUR)
-            a_audio    = AudioFileClip(a_mp3).set_start(HOOK_DUR + q_dur + 1.0 + PAUSE_DUR)
-            final = concatenate_videoclips(
-                [hook_clip, q_clip, pause_clip, rev_clip, cta_clip], method="compose"
-            ).set_audio(CompositeAudioClip([q_audio, a_audio]))
-            print(f"  → Writing MP4 ({final.duration:.1f}s)…")
-            final.write_videofile(out_path, fps=FPS, codec="libx264",
-                                  audio_codec="aac", preset="fast", logger=None)
-            final.close(); q_audio.close(); a_audio.close()
+        # Save all frames as PNG
+        pngs: dict[str, str] = {}
+        for k, arr in frames.items():
+            p = f"{tmp}/{k}.png"
+            Image.fromarray(arr).save(p)
+            pngs[k] = p
+        opt_pngs = []
+        for i, arr in enumerate(opt_frames):
+            p = f"{tmp}/opt_{i}.png"
+            Image.fromarray(arr).save(p)
+            opt_pngs.append(p)
+
+        # Build segment list
+        # [hook] → [question only + TTS] → [opt A] → [opt A+B] → ... → [pause] → [reveal + TTS] → [CTA]
+        parts: list[tuple[str, float, str | None]] = [
+            (pngs["q_only"], q_dur + 0.5,     q_mp3),
+            (pngs["hook"],   HOOK_DUR,         None),
+        ]
+        # Reorder: hook first, then question
+        parts = [
+            (pngs["hook"],  HOOK_DUR, None),
+            (pngs["q_only"], q_dur + 0.5, q_mp3),
+        ]
+        # Option reveal steps (no TTS)
+        for p in opt_pngs:
+            parts.append((p, OPT_STEP_DUR, None))
+
+        parts += [
+            (pngs["pause"],  PAUSE_DUR,     None),
+            (pngs["reveal"], a_dur + 1.5,   a_mp3),
+            (pngs["cta"],    CTA_DUR,       None),
+        ]
+
+        total = sum(s for _, s, _ in parts)
+
+        # Generate ambient music for the full video duration
+        print(f"  → Generating ambient music ({total:.1f}s)…")
+        generate_ambient(total + 1.0, amb_mp3)
+
+        print(f"  → Encoding ({total:.1f}s)…")
+        _encode_short(parts, out_path, bg=bg, ambient=amb_mp3, ambient_vol=0.20)
 
     CANVAS_TRANSPARENT = False
     return out_path
