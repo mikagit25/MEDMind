@@ -36,6 +36,8 @@ const PUBLIC_PREFIXES = [
   "/enterprise",
   "/editorial-policy",
   "/medical-disclaimer",
+  "/privacy",
+  "/terms",
   "/sitemap",
   "/robots",
   "/opengraph",

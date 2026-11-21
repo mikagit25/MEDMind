@@ -33,6 +33,8 @@ export function PublicFooter({ locale = "en" }: Props) {
             <Link href="/editorial-policy"   className="text-ink-2 hover:text-ink transition-colors">{t.footer_editorial}</Link>
             <Link href="/medical-disclaimer" className="text-ink-2 hover:text-ink transition-colors">{t.footer_disclaimer}</Link>
             <Link href="/contact"       className="text-ink-2 hover:text-ink transition-colors">{t.footer_contact}</Link>
+            <Link href="/privacy"       className="text-ink-2 hover:text-ink transition-colors">Privacy</Link>
+            <Link href="/terms"         className="text-ink-2 hover:text-ink transition-colors">Terms</Link>
           </nav>
         </div>
 

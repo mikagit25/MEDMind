@@ -853,6 +853,8 @@ export default function LandingPage({
               { href: "/editorial-policy",   label: t("landing.footer_editorial") },
               { href: "/medical-disclaimer", label: t("landing.footer_disclaimer") },
               { href: "/contact",            label: t("landing.footer_contact") },
+              { href: "/privacy",            label: "Privacy Policy" },
+              { href: "/terms",              label: "Terms of Service" },
             ].map(item => (
               <Link key={item.href} href={item.href} className="text-ink-3 text-xs hover:text-ink transition-colors font-syne underline">
                 {item.label}
