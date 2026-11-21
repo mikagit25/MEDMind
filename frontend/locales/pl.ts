@@ -2509,14 +2509,5 @@ type Widened<T> = T extends string
   ? string
   : { [K in keyof T]: Widened<T[K]> };
 
-export type Translations = Widened<typeof en>;
-export default en;
-} as const;
-
-// Recursive helper that widens all leaf types to string
-type Widened<T> = T extends string
-  ? string
-  : { [K in keyof T]: Widened<T[K]> };
-
 export type Translations = Widened<typeof pl>;
 export default pl;

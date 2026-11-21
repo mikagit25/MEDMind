@@ -206,7 +206,9 @@ def assemble_file(lang: str, translated_sections: dict, section_names: list[str]
         body = translated_sections.get(name, "")
         # Strip any outer const wrapper if model re-added it
         body = re.sub(r"^\s*const \w+ = \{", "", body.strip())
-        body = re.sub(r"\}\s*as const;?\s*$", "", body.strip())
+        # Drop "} as const;" and anything after it (the Widened/export trailer
+        # from en.ts leaks into the last chunk and was duplicated in pl/nl)
+        body = re.sub(r"\}\s*as const;?[\s\S]*$", "", body.strip())
 
         if is_sub:
             # Only add blank line separator before first sub-chunk
