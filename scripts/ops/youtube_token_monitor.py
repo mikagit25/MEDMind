@@ -17,7 +17,21 @@ import httpx
 # ── Config ────────────────────────────────────────────────────────────────────
 CALLBACK_BASE = "https://medmind.pro/api/v1/auth/youtube/callback"
 ALERT_HOURS   = 48          # send alert when token expires in < 48h
-BOT_TOKEN     = "8657721269:AAEkhJ92vHR4K1CkA14nFcy0_bA95c38QZk"
+def _load_tg_token() -> str:
+    """TG_BOT_TOKEN from environment, else from /opt/medmind/.env (gitignored)."""
+    tok = os.environ.get("TG_BOT_TOKEN", "")
+    if not tok:
+        try:
+            for line in open("/opt/medmind/.env", encoding="utf-8"):
+                if line.startswith("TG_BOT_TOKEN="):
+                    tok = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
+        except OSError:
+            pass
+    return tok
+
+
+BOT_TOKEN     = _load_tg_token()
 ADMIN_CHAT_ID = os.environ.get("TG_ADMIN_CHAT_ID", "")  # set in crontab
 
 ACCOUNTS = {

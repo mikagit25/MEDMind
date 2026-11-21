@@ -5,7 +5,21 @@ Cron: 0 9 * * 1  (Monday 09:00 UTC)
 import json, os, time, subprocess
 from datetime import datetime, timedelta, timezone
 
-BOT_TOKEN     = "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk"
+def _load_tg_token() -> str:
+    """TG_BOT_TOKEN from environment, else from /opt/medmind/.env (gitignored)."""
+    tok = os.environ.get("TG_BOT_TOKEN", "")
+    if not tok:
+        try:
+            for line in open("/opt/medmind/.env", encoding="utf-8"):
+                if line.startswith("TG_BOT_TOKEN="):
+                    tok = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
+        except OSError:
+            pass
+    return tok
+
+
+BOT_TOKEN     = _load_tg_token()
 ADMIN_CHAT_ID = os.environ.get("TG_ADMIN_CHAT_ID", "209381269")
 
 ACCOUNTS = [

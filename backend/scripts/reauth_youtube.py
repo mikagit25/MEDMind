@@ -17,6 +17,7 @@ Usage:
 """
 from __future__ import annotations
 
+import os
 import argparse
 import json
 import urllib.parse
@@ -24,7 +25,21 @@ import urllib.request
 from pathlib import Path
 
 MEDMIND_DIR  = Path("/opt/medmind")
-BOT_TOKEN    = "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk"
+def _load_tg_token() -> str:
+    """TG_BOT_TOKEN from environment, else from /opt/medmind/.env (gitignored)."""
+    tok = os.environ.get("TG_BOT_TOKEN", "")
+    if not tok:
+        try:
+            for line in open("/opt/medmind/.env", encoding="utf-8"):
+                if line.startswith("TG_BOT_TOKEN="):
+                    tok = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
+        except OSError:
+            pass
+    return tok
+
+
+BOT_TOKEN    = _load_tg_token()
 CHAT_ID      = "209381269"
 CALLBACK_URL = "https://medmind.pro/api/v1/auth/youtube/callback"
 

@@ -50,8 +50,21 @@ def _make_og_image(article: dict, detail: dict | None) -> str:
 
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-BOT_TOKEN      = os.environ.get("TG_BOT_TOKEN",
-                 "8657721269:AAGT0ZuVCjTWNSM5Anv1KsrBCDktITsAYJk")
+def _load_tg_token() -> str:
+    """TG_BOT_TOKEN from environment, else from /opt/medmind/.env (gitignored)."""
+    tok = os.environ.get("TG_BOT_TOKEN", "")
+    if not tok:
+        try:
+            for line in open("/opt/medmind/.env", encoding="utf-8"):
+                if line.startswith("TG_BOT_TOKEN="):
+                    tok = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
+        except OSError:
+            pass
+    return tok
+
+
+BOT_TOKEN      = _load_tg_token()
 CHANNEL_ID     = os.environ.get("TG_CHANNEL_ID", "")   # set via env or --channel arg
 API_URL        = "https://medmind.pro/api/v1"
 TRACKING_FILE  = Path("/opt/medmind/telegram_published.json")
