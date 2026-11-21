@@ -161,6 +161,40 @@ CATEGORY_AR = {
 }
 
 
+CATEGORY_RU.setdefault("womens-health", "Женское здоровье")
+CATEGORY_EMOJI.setdefault("womens-health", "🤰")
+CATEGORY_AR.setdefault("womens-health", "صحة المرأة")
+
+
+def base_category(category: str) -> str:
+    """'cardiology-advanced' -> 'cardiology'; unknown categories returned as-is."""
+    cat = (category or "").lower()
+    if cat in CATEGORY_EMOJI:
+        return cat
+    for suffix in ("-advanced", "-basic", "-basics", "-intermediate", "-clinical"):
+        if cat.endswith(suffix) and cat[: -len(suffix)] in CATEGORY_EMOJI:
+            return cat[: -len(suffix)]
+    return cat
+
+
+def make_hashtag(label: str) -> str:
+    """Telegram hashtags stop at '-', spaces, etc. Keep letters/digits/underscore only."""
+    import re
+    tag = re.sub(r"[^\w]", "", label or "", flags=re.UNICODE)
+    return f"#{tag}" if tag else ""
+
+
+# Section headings that are not useful as "key points"
+SKIP_HEADINGS = {
+    "key points", "key takeaways", "summary", "references", "sources", "faq",
+    "frequently asked questions", "conclusion", "introduction",
+    "ключевые моменты", "ключевые положения", "основные моменты", "резюме",
+    "литература", "источники", "список литературы", "заключение", "введение",
+    "часто задаваемые вопросы",
+    "النقاط الرئيسية", "المراجع", "المصادر", "الخلاصة", "الأسئلة الشائعة",
+}
+
+
 # ── Tracking ───────────────────────────────────────────────────────────────────
 
 def load_published() -> dict:
@@ -221,6 +255,8 @@ def extract_key_points(body: list, max_points: int = 4) -> list[str]:
     for block in body:
         if block.get("type") == "h2":
             content = block.get("content", "").strip()
+            if content.lower().strip(" :.") in SKIP_HEADINGS:
+                continue
             if content and len(content) > 5:
                 points.append(content)
         if len(points) >= max_points:
@@ -255,15 +291,17 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
     slug     = article.get("slug", "")
     title    = article.get("title", "")
     excerpt  = article.get("excerpt", "")
-    category = article.get("category", "")
-    minutes  = article.get("reading_time_minutes", 0)
+    category = article.get("category") or (detail or {}).get("category", "")
+    minutes  = (article.get("reading_time_minutes")
+                or (detail or {}).get("reading_time_minutes") or 5)
+    category = base_category(category)
 
     emoji    = CATEGORY_EMOJI.get(category, "🩺")
 
     # Use translation if available
     if detail:
-        title   = detail.get("title",   title)
-        excerpt = detail.get("excerpt", excerpt)
+        title   = detail.get("title")   or title
+        excerpt = detail.get("excerpt") or excerpt
 
     # Key points from body sections
     # detail is already fetched with ?locale=lang, so headings are in target language
@@ -278,20 +316,23 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
         read_label = f"⏱ {minutes} min read"
         read_more  = "📖 Full article + sources:"
         subscribe  = "📚 Free medical platform: medmind.pro"
+        disclaimer = "ℹ️ Educational content, not a substitute for professional medical advice."
     elif lang == "ar":
-        url        = f"https://medmind.pro/articles/{slug}?lang=ar"
+        url        = f"https://medmind.pro/ar/articles/{slug}"
         hashtags   = HASHTAGS_AR
         cat_label  = CATEGORY_AR.get(category, category)
         read_label = f"⏱ {minutes} دقائق للقراءة"
         read_more  = "📖 المقال الكامل مع المصادر:"
         subscribe  = "📚 منصة طبية مجانية: medmind.pro"
+        disclaimer = "ℹ️ محتوى تعليمي ولا يغني عن استشارة الطبيب."
     else:
-        url        = f"https://medmind.pro/articles/{slug}?lang={lang}"
+        url        = f"https://medmind.pro/{lang}/articles/{slug}"
         hashtags   = HASHTAGS_RU
         cat_label  = CATEGORY_RU.get(category, category)
         read_label = f"⏱ {minutes} мин чтения"
         read_more  = "📖 Полная статья + источники:"
         subscribe  = "📚 Бесплатная медплатформа: medmind.pro"
+        disclaimer = "ℹ️ Образовательный материал, не заменяет консультацию врача."
 
     # Truncate excerpt, then escape HTML special chars in user content
     if len(excerpt) > 300:
@@ -319,9 +360,10 @@ def format_post(article: dict, detail: dict | None, lang: str = "en") -> str:
         f"🔗 {url}",
         "",
         subscribe,
+        disclaimer,
         "",
         hashtags,
-        f"#{cat_label.replace(' ', '')}",
+        make_hashtag(cat_label),
     ]
 
     return "\n".join(lines)
@@ -419,15 +461,22 @@ def main():
                 "dermatology","anatomy","veterinary"]
 
     def cat_priority(a: dict) -> int:
-        cat = a.get("category", "")
+        cat = base_category(a.get("category", ""))
         try:
             return PRIORITY.index(cat)
         except ValueError:
             return 50
 
+    # Slugs already posted to this channel in ANY language — avoid EN+RU
+    # duplicates of the same article in one channel.
+    channel_slugs = {
+        k.rsplit(":", 1)[-1] for k, v in published.items()
+        if k.startswith(f"{channel}:") or v.get("channel") == channel
+    }
+
     unpublished = [
         a for a in articles
-        if args.force or f"{key_prefix}:{a['slug']}" not in published
+        if args.force or a["slug"] not in channel_slugs
     ]
     unpublished.sort(key=cat_priority)
     queue = unpublished[:args.limit]
