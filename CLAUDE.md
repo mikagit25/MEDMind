@@ -7,8 +7,11 @@
 
 ## Быстрый старт
 
+> ⚠️ На сервере `/opt/medmind` работает **production**. Команды этого раздела — только для
+> локальной разработки. На сервере используй раздел «Production» ниже.
+
 ```bash
-# Поднять инфраструктуру (PostgreSQL 15 + pgvector + Redis)
+# Поднять инфраструктуру (PostgreSQL 15 + pgvector + Redis) — ТОЛЬКО локально
 docker compose up -d
 
 # Backend (FastAPI, порт 8000)
@@ -24,11 +27,29 @@ make dev         # backend + frontend параллельно
 
 ## Production
 
+> ⚠️ **Всегда с `-f docker-compose.prod.yml`.** Голый `docker compose` берёт dev-файл
+> `docker-compose.yml`: он пересоздаёт backend/frontend/postgres/redis в сети `medmind_default`,
+> nginx перестаёт их видеть → весь сайт 502 (инцидент 21.11.2026). Плюс dev build args
+> (нет `NEXT_PUBLIC_GA_ID`, другой `NEXT_PUBLIC_API_URL`).
+
 ```bash
-docker compose build frontend && docker compose up -d frontend   # пересобрать фронт
-docker compose up -d                                              # всё сразу
-docker compose logs -f frontend                                   # логи
+P="docker compose -f /opt/medmind/docker-compose.prod.yml"
+
+# Фронтенд (сборка ~20+ мин — запускать в фоне)
+$P build frontend && $P up -d --no-deps frontend && docker exec medmind_nginx nginx -s reload
+
+# Backend (код запечён в образ — restart НЕ подхватывает изменения)
+$P build backend && $P up -d --no-deps backend && docker exec medmind_nginx nginx -s reload
+
+# После любого пересоздания контейнеров — обязательно перезагрузить nginx (кэширует IP)
+docker exec medmind_nginx nginx -s reload
+
+$P logs -f frontend                                               # логи
+$P ps                                                             # статус
 ```
+
+Проверка после выкладки: `curl -s -o /dev/null -w '%{http_code}' https://medmind.pro/` → 200,
+и `docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}' medmind_frontend` → `medmind_internal`.
 
 ## Тесты
 
