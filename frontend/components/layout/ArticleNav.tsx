@@ -8,7 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { isTokenExpired, isTokenFresh } from "@/lib/auth";
 import { refreshApi } from "@/lib/api";
 
-const NON_EN_LOCALES = ["ru", "ar", "de", "fr", "es", "tr", "pl"];
+const NON_EN_LOCALES = ["ru", "ar", "de", "fr", "es", "tr", "pl", "nl"];
 
 type Locale = "en" | "ru" | "ar" | "de" | "fr" | "es" | "tr";
 

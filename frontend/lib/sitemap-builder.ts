@@ -10,10 +10,10 @@ const BACKEND_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/^\//, `${SITE_URL}/`) ??
   "http://localhost:8000/api/v1";
 
-export const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"] as const;
+export const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"] as const;
 export type Locale = (typeof LOCALES)[number];
 /** Locales that have translated dynamic content (news, learn, categories). UI-only locales are excluded. */
-export const CONTENT_LOCALES: Locale[] = LOCALES.filter((l) => l !== "pl");
+export const CONTENT_LOCALES: Locale[] = LOCALES.filter((l) => l !== "pl" && l !== "nl");
 
 export type ArticleSitemapEntry = {
   slug: string;
@@ -561,7 +561,7 @@ export async function buildLanguageSitemap(locale: Locale): Promise<string> {
         hreflang: [
           `      <xhtml:link rel="alternate" hreflang="x-default" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
           `      <xhtml:link rel="alternate" hreflang="en" href="${esc(`${SITE_URL}/exams/gulf`)}"/>`,
-          ...["ru", "ar", "tr", "de", "fr", "es", "pl"].map(
+          ...["ru", "ar", "tr", "de", "fr", "es", "pl", "nl"].map(
             (l) => `      <xhtml:link rel="alternate" hreflang="${l}" href="${esc(`${SITE_URL}/${l}/gulf`)}"/>`
           ),
         ].join("\n"),

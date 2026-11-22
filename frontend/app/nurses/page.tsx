@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { ArticleNav } from "@/components/layout/ArticleNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 
-const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
 
 export async function generateMetadata(): Promise<Metadata> {

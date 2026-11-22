@@ -13,10 +13,11 @@ const GLOSSARY_TITLES: Record<string, string> = {
   tr: "Tıbbi Sözlük — Basit Tanımlar",
   ar: "المسرد الطبي — تعريفات بسيطة",
   pl: "Słownik medyczny — definicje prostym językiem",
+  nl: "Medische woordenlijst — definities in begrijpelijke taal",
 };
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 const API_URL = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
 
 export const dynamic = "force-dynamic";

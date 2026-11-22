@@ -4,7 +4,7 @@
  * Used by server components that cannot access useI18n() hooks.
  */
 
-export type TrustLocale = "en" | "ru" | "ar" | "tr" | "de" | "fr" | "es" | "pl";
+export type TrustLocale = "en" | "ru" | "ar" | "tr" | "de" | "fr" | "es" | "pl" | "nl";
 
 export interface TrustT {
   dir: "ltr" | "rtl";
@@ -131,6 +131,17 @@ const SHARED: Record<TrustLocale, TrustT> = {
     footer_contact: "Kontakt",
     disclaimer_short: "Wyłącznie w celach edukacyjnych. Nie zastępuje profesjonalnej porady medycznej.",
   },
+  nl: {
+    dir: "ltr",
+    footer_tagline: "Geneeskunde, begrijpelijk voor iedereen",
+    footer_how_it_works: "Hoe het werkt",
+    footer_pricing: "Prijzen",
+    footer_editorial: "Redactioneel beleid",
+    footer_about: "Over ons",
+    footer_disclaimer: "Medische disclaimer",
+    footer_contact: "Contact",
+    disclaimer_short: "Uitsluitend voor educatieve doeleinden. Geen vervanging voor professioneel medisch advies.",
+  },
   ru: {
     dir: "ltr",
     footer_tagline: "Медицина, понятная каждому",
@@ -251,6 +262,32 @@ const ABOUT: Record<TrustLocale, Omit<AboutT, keyof TrustT>> = {
     team_body: "MedMind AI zostało założone w 2025 roku przez zespół lekarzy, inżynierów oprogramowania i badaczy AI. Budujemy infrastrukturę dla wiarygodnej edukacji medycznej wspieranej przez sztuczną inteligencję.",
     cta_title: "Zacznij naukę za darmo",
     cta_btn: "Załóż darmowe konto",
+  },
+  nl: {
+    meta_title: "Over MedMind AI — platform voor medisch onderwijs",
+    meta_desc: "Maak kennis met MedMind AI: onze missie om evidence-based geneeskunde voor iedereen toegankelijk te maken, ons team en onze technologie.",
+    hero_title: "Geneeskunde, begrijpelijk voor iedereen, in de eigen taal",
+    hero_sub: "MedMind AI is een evidence-based platform voor medisch onderwijs, aangedreven door AI — voor artsen, studenten, patiënten en dierenartsen.",
+    mission_title: "Onze missie",
+    mission_body: "Wij vinden dat toegang tot betrouwbare medische kennis niet mag afhangen van taal, woonplaats of beroepskwalificaties. MedMind AI combineert de grondigheid van evidence-based geneeskunde met de toegankelijkheid van AI — met geverifieerde medische inhoud in meerdere talen, interactieve leermiddelen voor zorgprofessionals en begrijpelijke uitleg voor patiënten.",
+    for_whom_title: "Voor wie wij er zijn",
+    for_whom_doctors: "Artsen en arts-assistenten — klinische modules, geneesmiddelinteracties, inhoud voor nascholing",
+    for_whom_students: "Studenten geneeskunde en verpleegkunde — gestructureerd curriculum, flashcards met gespreide herhaling, meerkeuzevragen",
+    for_whom_patients: "Patiënten en mantelzorgers — artikelen in begrijpelijke taal, symptoomgidsen, zonder medisch jargon",
+    for_whom_vet: "Dierenartsen — diersoortspecifieke dosering van geneesmiddelen, klinische casussen uit de diergeneeskunde",
+    how_title: "Hoe onze inhoud tot stand komt",
+    how_1_title: "1. Evidence-based bronnen",
+    how_1_body: "Elk artikel begint bij peer-reviewed bronnen: klinische richtlijnen (WHO, NICE, AHA, ESC), systematische reviews en in PubMed geïndexeerd onderzoek.",
+    how_2_title: "2. Generatie door AI",
+    how_2_body: "Inhoud wordt opgesteld door Claude AI, met expliciete bronvermeldingen en een gestructureerde medische opmaak.",
+    how_3_title: "3. Automatische verificatie",
+    how_3_body: "Ons verificatiesysteem haalt elke feitelijke bewering uit de tekst en controleert die tegen de geciteerde bronnen — automatisch, vóór publicatie.",
+    how_4_title: "4. Beoordeling door experts",
+    how_4_body: "Geselecteerde artikelen worden beoordeeld en goedgekeurd door bevoegde zorgprofessionals en krijgen een verificatiebadge.",
+    team_title: "Het team",
+    team_body: "MedMind AI is in 2025 opgericht door een team van artsen, software-engineers en AI-onderzoekers. Wij bouwen de infrastructuur voor betrouwbaar, door AI ondersteund medisch onderwijs.",
+    cta_title: "Begin gratis met leren",
+    cta_btn: "Maak een gratis account",
   },
   ru: {
     meta_title: "О проекте MedMind AI — платформа медицинского образования",
@@ -465,6 +502,33 @@ const EDITORIAL: Record<TrustLocale, Omit<EditorialT, keyof TrustT>> = {
     feedback_title: "Zgłaszanie błędów",
     feedback_body: "Każdy publiczny artykuł ma przycisk „Zgłoś błąd”. Zgłoszenia są rozpatrywane przez nasz zespół redakcyjny w ciągu 5 dni roboczych. Jeśli błąd się potwierdzi, artykuł zostaje ukryty do czasu poprawienia i ponownej weryfikacji.",
   },
+  nl: {
+    meta_title: "Redactioneel beleid — MedMind AI",
+    meta_desc: "Hoe MedMind AI medische inhoud maakt, verifieert en bijwerkt: bronnenhiërarchie, generatie door AI, automatische verificatie en beoordeling door experts.",
+    hero_title: "Redactioneel beleid",
+    hero_sub: "Hoe wij elke medische tekst op MedMind AI maken, verifiëren en actueel houden.",
+    sources_title: "Bronnenhiërarchie",
+    sources_body: "Alle inhoud op MedMind AI is gebaseerd op een strikte hiërarchie van bewijs:",
+    sources_tier1: "Niveau 1 — Klinische richtlijnen en officiële aanbevelingen (WHO, NICE, AHA, ACC, ESC, CDC, EMA, nationale gezondheidsinstanties). Dit is de primaire bron voor klinische aanbevelingen.",
+    sources_tier2: "Niveau 2 — Systematische reviews en meta-analyses uit peer-reviewed tijdschriften (NEJM, The Lancet, BMJ, JAMA, Cochrane). Gebruikt om statistische beweringen te onderbouwen.",
+    sources_tier3: "Niveau 3 — Afzonderlijke gerandomiseerde gecontroleerde studies en observationele studies. Alleen aangehaald als bronnen van niveau 1–2 ontbreken, en dan expliciet als zodanig vermeld. Wij presenteren nooit één enkele studie als vastgestelde consensus.",
+    generation_title: "Door AI ondersteunde generatie",
+    generation_body: "Artikelen worden opgesteld door Claude AI (Anthropic) met strikte instructies die voor elke feitelijke bewering een bronvermelding vereisen. De AI gebruikt voorzichtige formuleringen bij resultaten van één studie („een studie toonde aan…”, niet „het is bewezen dat…”), vermeldt doseringen alleen op basis van officiële productinformatie en markeert onderwerpen waarover klinisch nog discussie bestaat.",
+    verification_title: "Automatische verificatie (V4-systeem)",
+    verification_body: "Vóór publicatie doorloopt elk artikel ons automatische systeem voor het controleren van beweringen:",
+    verification_steps: [
+      "Beweringen extraheren: Claude Haiku haalt alle controleerbare feitelijke beweringen uit de tekst (statistieken, doseringen, causale verbanden, klinische aanbevelingen)",
+      "Vergelijken met bronnen: elke bewering wordt gecontroleerd tegen de bronnen die in het artikel zijn opgegeven — het systeem haalt de bron op en vraagt Haiku: „ondersteunt deze bron de bewering?”",
+      "Oordeel: „ja/gedeeltelijk” voor alle beweringen → status = passed; een enkel „nee” → status = failed en het artikel wordt publiek verborgen",
+      "Alleen artikelen met de status „passed” of „human_reviewed” worden op publieke pagina’s en in sitemaps getoond",
+    ],
+    human_review_title: "Beoordeling door experts",
+    human_review_body: "Artikelen over veelgelezen onderwerpen of complexe klinische beslissingen worden beoordeeld door bevoegde zorgprofessionals. Een beoordeeld artikel krijgt de verificatiestatus „human_reviewed” en toont de kwalificaties van de beoordelaar op de artikelpagina. Profielen van beoordelaars staan op /reviewers/[slug].",
+    updates_title: "Bijwerken van inhoud",
+    updates_body: "Medische kennis verandert. Artikelen worden opnieuw beoordeeld wanneer: (1) ons nieuwssysteem een gewijzigde richtlijn detecteert, (2) gebruikers een fout melden via de feedbackknop, (3) een geplande herverificatie mislukt. Bijgewerkte inhoud doorloopt opnieuw de volledige verificatie vóór herpublicatie.",
+    feedback_title: "Fouten melden",
+    feedback_body: "Elk publiek artikel heeft een knop „Fout melden”. Meldingen worden binnen 5 werkdagen door onze redactie beoordeeld. Als een fout wordt bevestigd, wordt het artikel verborgen tot het is gecorrigeerd en opnieuw geverifieerd.",
+  },
   ru: {
     meta_title: "Редакционная политика — MedMind AI",
     meta_desc: "Как MedMind AI создаёт, проверяет и обновляет медицинский контент: иерархия источников, генерация ИИ, автоматическая верификация и человеческая рецензия.",
@@ -668,6 +732,25 @@ const DISCLAIMER_DATA: Record<TrustLocale, Omit<DisclaimerT, keyof TrustT>> = {
     liability_body: "MedMind AI oraz jego operatorzy, autorzy i współtwórcy nie ponoszą odpowiedzialności za jakiekolwiek szkody lub straty wynikające z polegania na informacjach udostępnionych na tej platformie. Korzystasz z platformy wyłącznie na własne ryzyko.",
     contact_note: "Pytania dotyczące tych zastrzeżeń? Napisz do nas: legal@medmind.pro",
   },
+  nl: {
+    meta_title: "Medische disclaimer — MedMind AI",
+    meta_desc: "MedMind AI is een educatief platform. Lees onze volledige medische disclaimer over het gebruik van de inhoud op deze website.",
+    hero_title: "Medische disclaimer",
+    hero_sub: "Lees deze disclaimer zorgvuldig voordat u medische informatie op MedMind AI gebruikt.",
+    not_advice_title: "Geen medisch advies",
+    not_advice_body: "Alle inhoud op MedMind AI — waaronder artikelen, geneesmiddeleninformatie, klinische casussen, educatieve modules en door AI gegenereerde antwoorden — is uitsluitend bedoeld voor educatieve en informatieve doeleinden. Het is geen medisch advies, diagnose of behandelplan en vervangt geen consult bij een gekwalificeerde, bevoegde zorgprofessional.",
+    emergency_title: "Medische noodgevallen",
+    emergency_body: "Bel bij een medisch noodgeval onmiddellijk het alarmnummer (112 in Nederland, België en de rest van de EU, of het lokale equivalent). Vertrouw in noodsituaties niet op dit platform.",
+    accuracy_title: "Juistheid en actualiteit",
+    accuracy_body: "Wij streven naar juiste, evidence-based informatie, maar medische kennis ontwikkelt zich voortdurend. De inhoud weerspiegelt mogelijk niet de nieuwste richtlijnen, registraties van geneesmiddelen of onderzoeksresultaten. Controleer klinische informatie altijd aan de hand van actuele officiële richtlijnen en productinformatie.",
+    professional_title: "Voor zorgprofessionals",
+    professional_body: "De inhoud van MedMind AI is primair bedoeld voor educatief gebruik door zorgprofessionals. Ook voor gekwalificeerde clinici vervangt de getoonde informatie geen klinisch oordeel, patiëntspecifieke beoordeling of overleg met specialisten.",
+    dosing_title: "Doseringen en protocollen",
+    dosing_body: "Doseringen, contra-indicaties, interacties en klinische protocollen op dit platform dienen uitsluitend als educatief naslagwerk. Controleer doseringen en protocollen altijd aan de hand van actuele productinformatie, lokale formularia en instellingsrichtlijnen voordat u een klinische beslissing neemt.",
+    liability_title: "Beperking van aansprakelijkheid",
+    liability_body: "MedMind AI en zijn exploitanten, auteurs en medewerkers aanvaarden geen aansprakelijkheid voor schade of verlies als gevolg van het vertrouwen op informatie van dit platform. Gebruik van dit platform is volledig voor eigen risico.",
+    contact_note: "Vragen over deze disclaimer? Neem contact op via legal@medmind.pro",
+  },
   ru: {
     meta_title: "Медицинский дисклеймер — MedMind AI",
     meta_desc: "MedMind AI — образовательная платформа. Прочитайте наш полный медицинский дисклеймер.",
@@ -815,6 +898,21 @@ const CONTACT_DATA: Record<TrustLocale, Omit<ContactT, keyof TrustT>> = {
     phone_label: "Telefon",
     email_label: "E-mail",
   },
+  nl: {
+    meta_title: "Contact met MedMind AI",
+    meta_desc: "Neem contact op met de oprichter of het bedrijf achter MedMind AI voor samenwerkingen, vragen of feedback op de inhoud.",
+    hero_title: "Contact",
+    hero_sub: "Wij zijn een klein, gericht team. Wij lezen elk bericht.",
+    founder_title: "Oprichter",
+    company_title: "Bedrijf",
+    partnership_title: "Samenwerkingen en integraties",
+    partnership_email: "partners@medmind.pro",
+    feedback_title: "Feedback op inhoud",
+    feedback_body: "Een fout gevonden in een medisch artikel? Gebruik de knop „Fout melden” op de artikelpagina voor de snelste reactie.",
+    response_note: "Wij streven ernaar binnen 2–3 werkdagen te antwoorden.",
+    phone_label: "Telefoon",
+    email_label: "E-mail",
+  },
   ru: {
     meta_title: "Контакты MedMind AI",
     meta_desc: "Свяжитесь с основателем или компанией MedMind AI по вопросам партнёрства или обратной связи.",
@@ -910,7 +1008,7 @@ const CONTACT_DATA: Record<TrustLocale, Omit<ContactT, keyof TrustT>> = {
 // ── Public accessors ──────────────────────────────────────────────────────────
 
 function locale(raw: string | undefined): TrustLocale {
-  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+  const SUPPORTED: TrustLocale[] = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
   return (SUPPORTED.includes(raw as TrustLocale) ? raw : "en") as TrustLocale;
 }
 

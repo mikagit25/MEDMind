@@ -5,7 +5,7 @@ import type { MiniQuizQuestion } from "@/components/ui/MiniQuiz";
 export const dynamic = "force-dynamic";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 
 // Hreflang is shared across / and all /{locale} (middleware rewrites /ar → /?lang=ar
 // so this page handles both the English homepage and every locale landing page).

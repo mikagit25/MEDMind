@@ -110,7 +110,7 @@ export async function generateMetadata({
   };
 }
 
-const SUPPORTED_LANGS = ["en", "ru", "ar", "de", "fr", "es", "tr", "pl"];
+const SUPPORTED_LANGS = ["en", "ru", "ar", "de", "fr", "es", "tr", "pl", "nl"];
 
 export default async function DrugDetailPage({
   params,

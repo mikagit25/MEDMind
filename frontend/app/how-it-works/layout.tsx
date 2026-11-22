@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SITE_URL}/how-it-works`,
     languages: Object.fromEntries(
-      ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"].map((l) => [l, `${SITE_URL}/${l}/how-it-works`])
+      ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"].map((l) => [l, `${SITE_URL}/${l}/how-it-works`])
     ),
   },
   openGraph: {

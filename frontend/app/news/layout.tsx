@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 
 export const metadata: Metadata = {
   title: { absolute: "Medical News — MedMind AI" },

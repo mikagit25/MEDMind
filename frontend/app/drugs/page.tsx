@@ -13,7 +13,7 @@ const API_URL =
 
 export const dynamic = "force-dynamic";
 
-const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 
 const DRUGS_TITLES: Record<string, string> = {
   en: "Drug Reference Database — MedMind AI",
@@ -24,6 +24,7 @@ const DRUGS_TITLES: Record<string, string> = {
   tr: "İlaç Veritabanı — MedMind AI",
   ar: "قاعدة بيانات الأدوية — MedMind AI",
   pl: "Baza leków — MedMind AI",
+  nl: "Geneesmiddelendatabase — MedMind AI",
 };
 
 export async function generateMetadata(): Promise<Metadata> {

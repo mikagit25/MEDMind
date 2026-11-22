@@ -11,10 +11,11 @@ const LEARN_TITLES: Record<string, string> = {
   tr: "Tıp Öğren — Herkes İçin Sağlık Rehberleri",
   ar: "تعلم الطب — أدلة صحية للجميع",
   pl: "Ucz się medycyny — przewodniki zdrowotne prostym językiem dla każdego",
+  nl: "Geneeskunde leren — gezondheidsgidsen in begrijpelijke taal voor iedereen",
 };
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://medmind.pro";
-const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+const SUPPORTED_LOCALES = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
 const API_URL =
   process.env.INTERNAL_API_URL ??
   process.env.NEXT_PUBLIC_API_URL ??

@@ -186,6 +186,7 @@ export default function robots(): MetadataRoute.Robots {
       `${SITE_URL}/sitemap-fr.xml`,
       `${SITE_URL}/sitemap-es.xml`,
       `${SITE_URL}/sitemap-pl.xml`,
+      `${SITE_URL}/sitemap-nl.xml`,
     ],
     host: SITE_URL,
   };

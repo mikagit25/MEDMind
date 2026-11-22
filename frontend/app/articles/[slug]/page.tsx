@@ -30,6 +30,7 @@ const LOCALE_LABELS: Record<string, string> = {
   fr: "Français",
   es: "Español",
   pl: "Polski",
+  nl: "Nederlands",
 };
 
 
@@ -198,7 +199,7 @@ export async function generateMetadata({
   params: { slug: string };
   searchParams?: { lang?: string; locale?: string };
 }): Promise<Metadata> {
-  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
   const rawLocale = searchParams?.lang || searchParams?.locale;
   const locale = rawLocale && SUPPORTED.includes(rawLocale) ? rawLocale : "en";
   const article = await fetchArticle(params.slug, locale);
@@ -525,6 +526,7 @@ const SERVER_LABELS: Record<string, Record<string, string>> = {
   tr: { articles: "Makaleler", more_articles: "Daha Fazla Makale", all_articles: "← Tüm makaleler", faq: "Sık Sorulan Sorular", refs: "Kaynaklar", disclaimer: "Tıbbi Sorumluluk Reddi", related: "İlgili Makaleler", read_in: "Oku:", module: "Bu konuyu derinlemesine incele", open_module: "Modülü aç →", related_news: "Bu Konuyla İlgili Son Haberler" },
   es: { articles: "Artículos", more_articles: "Más artículos", all_articles: "← Todos los artículos", faq: "Preguntas frecuentes", refs: "Referencias", disclaimer: "Aviso médico", related: "Artículos relacionados", read_in: "Leer en", module: "Estudiar este tema en profundidad", open_module: "Abrir módulo →", related_news: "Últimas noticias sobre este tema" },
   pl: { articles: "Artykuły", more_articles: "Więcej artykułów", all_articles: "← Wszystkie artykuły", faq: "Najczęściej zadawane pytania", refs: "Źródła", disclaimer: "Zastrzeżenia medyczne", related: "Powiązane artykuły", read_in: "Czytaj w języku", module: "Zgłęb ten temat", open_module: "Otwórz moduł →", related_news: "Najnowsze wiadomości na ten temat" },
+  nl: { articles: "Artikelen", more_articles: "Meer artikelen", all_articles: "← Alle artikelen", faq: "Veelgestelde vragen", refs: "Bronnen", disclaimer: "Medische disclaimer", related: "Gerelateerde artikelen", read_in: "Lezen in", module: "Verdiep je in dit onderwerp", open_module: "Module openen →", related_news: "Laatste nieuws over dit onderwerp" },
 };
 
 export default async function ArticlePage({
@@ -536,7 +538,7 @@ export default async function ArticlePage({
 }) {
   // Priority: explicit ?lang= param > cookie > default English
   // When ?lang=en is explicit, English is forced regardless of cookie
-  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl"];
+  const SUPPORTED = ["en", "ru", "ar", "tr", "de", "fr", "es", "pl", "nl"];
   const explicitLang = searchParams?.lang || searchParams?.locale;
   const cookieLocale = explicitLang ? undefined : cookies().get("medmind_locale")?.value;
   const rawLocale = explicitLang || cookieLocale;

@@ -40,7 +40,7 @@ const LANGS = [
   { value: "en", flag: "🇬🇧" }, { value: "ru", flag: "🇷🇺" },
   { value: "de", flag: "🇩🇪" }, { value: "fr", flag: "🇫🇷" },
   { value: "ar", flag: "🇸🇦" }, { value: "tr", flag: "🇹🇷" },
-  { value: "es", flag: "🇪🇸" }, { value: "pl", flag: "🇵🇱" },
+  { value: "es", flag: "🇪🇸" }, { value: "pl", flag: "🇵🇱" }, { value: "nl", flag: "🇳🇱" },
 ] as const;
 
 type PlatformStats = { articles: number; modules: number; drugs: number; flashcards: number; languages: number };

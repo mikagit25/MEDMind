@@ -74,6 +74,7 @@ export default function RegisterPage() {
     { value: "tr", label: "🇹🇷 Türkçe" },
     { value: "es", label: "🇪🇸 Español" },
     { value: "pl", label: "🇵🇱 Polski" },
+    { value: "nl", label: "🇳🇱 Nederlands" },
   ] as const;
 
   return (
